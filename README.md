@@ -1,6 +1,6 @@
 # Hearthstone++
 
-<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Logo.png" align="center" width=512 height=512 />
+<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Logo.png" align="center" width=256 height=256 />
 
 Hearthstone++ is hearthstone simulator using C++ with some reinforcement learning.
 
