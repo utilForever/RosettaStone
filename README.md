@@ -8,6 +8,11 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 
 ## Key Features
 
+- Use JSON-based hearthstone card data
+- Support console/GUI hearthstone simulator
+- Apply to reinforcement learning with "The Innkeeper"
+- Reflect the latest meta (the trends of deck and class)
+
 ## Cards Implementation
 
 - [ ] Aura, Enchantment & Trigger
@@ -52,9 +57,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 
 - 0% Hall of Fame (10 Cards)
 
-### To-do list
-
-### Requirements
+## Requirements
 
 - Visual Studio 2017
 
