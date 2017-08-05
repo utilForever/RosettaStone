@@ -6,6 +6,58 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 
 [![License](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://github.com/utilForever/Hearthstonepp/blob/master/LICENSE)
 
+## Key Features
+
+## Cards Implementation
+
+- [ ] Aura, Enchantment & Trigger
+- [ ] Hero, Hero Power & Weapon
+- [ ] Battlecry & Deathrattle
+- [ ] Choose One & Combo
+- [ ] Spell Power
+- [ ] Inspire, Joust & Discover
+- [ ] Jade Golems (Jade Lotus)
+- [ ] Buffing Hand (Grimy Goons)
+- [ ] Excess Mana
+- [ ] Freeze, Stealth & Poisonous
+- [ ] Potions (Kabal) ex. Kazakus
+- [ ] Adapt
+- [ ] Quest
+- [ ] Spell Bender Phase
+- [ ] Spell Text Phase
+- [ ] Lifesteal
+
+### Basic & Classic
+
+- 0% Basic (133 Cards)
+- 0% Classic (239 Cards)
+
+### Adventures
+
+- 0% Curse of Naxxramas (30 Cards)
+- 0% Blackrock Mountain (31 Cards)
+- 0% The League of Explorers (45 Cards)
+- 0% One Night in Karazhan (45 Cards)
+
+### Expensions
+
+- 0% Goblins vs Gnomes (123 Cards)
+- 0% The Grand Tournament (132 Cards)
+- 0% Whispers of the Old Gods (134 Cards)
+- 0% Mean Streets of Gadgetzan (132 Cards)
+- 0% Journey to Un'Goro (135 Cards)
+- 0% Knights of the Frozen Throne (135 Cards)
+
+### Etc
+
+- 0% Hall of Fame (10 Cards)
+
+### To-do list
+
+### Requirements
+
+- Visual Studio 2017
+
 ## How To Contribute
 
 Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please contact me.
