@@ -1,4 +1,4 @@
-CubbyFlow uses json for JSON parsing.
+Hearthstone++ uses json for JSON parsing.
 
 Copyright (c) 2013-2017 Niels Lohmann
 
