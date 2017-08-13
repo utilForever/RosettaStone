@@ -1,5 +1,5 @@
 /*************************************************************************
-> File Name: Enums.h
+> File Name: CardLoader.h
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
 > Purpose: Card loader that loads data from cards.json.
