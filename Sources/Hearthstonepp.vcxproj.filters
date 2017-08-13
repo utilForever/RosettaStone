@@ -4,6 +4,9 @@
     <Filter Include="Enums">
       <UniqueIdentifier>{dccd2338-2eda-4b47-9ae3-6c2b808927c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Loaders">
+      <UniqueIdentifier>{6afc18c9-bb45-4a2b-bbb4-8afacbf68b58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -11,6 +14,9 @@
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
       <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CardLoader.h">
+      <Filter>Loaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
