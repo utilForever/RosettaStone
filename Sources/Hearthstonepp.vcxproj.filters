@@ -7,6 +7,12 @@
     <Filter Include="Loaders">
       <UniqueIdentifier>{6afc18c9-bb45-4a2b-bbb4-8afacbf68b58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{8798e877-a0d7-4cba-8d28-a792d59c9be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enchants">
+      <UniqueIdentifier>{f3f6e453-0524-4dda-b84c-80971ff51259}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -20,6 +26,12 @@
     </ClInclude>
     <ClInclude Include="Loaders\CardLoader.h">
       <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Card.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Enchants\Enchantment.h">
+      <Filter>Enchants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
