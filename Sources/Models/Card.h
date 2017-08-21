@@ -48,6 +48,9 @@ namespace Hearthstonepp
 		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets;
 		int m_maxAllowedInDeck;
 		bool m_isImplemented;
+		std::vector<Enchantment> m_enchantments;
+		bool m_isAffectedBySpellDamage;
+		int m_multiClassGroup;
 	};
 }
 
