@@ -25,31 +25,31 @@ namespace Hearthstonepp
 		int m_id;
 		std::string m_name;
 		std::string m_text;
-		std::vector<std::string> m_entourage;
-		std::map<GameTag, int> m_tags;
+		std::vector<std::string> m_entourage; // 주변 하수인
+		std::map<GameTag, int> m_tags; // 게임정보
 		std::map<GameTag, int> m_refTags;
-		std::map<PlayReq, int> m_playRequirements;
-		bool m_isCollectible;
-		Race m_race;
-		Faction m_faction;
-		bool m_hasCombo;
-		bool m_rarity;
-		CardType m_type;
-		CardSet m_set;
-		int m_cost;
-		bool m_hasOverload;
-		int m_overload;
+		std::map<PlayReq, int> m_playRequirements; // 플레이 요구 사항
+		bool m_isCollectible; // 회수 가능 여부
+		Race m_race; //종족
+		Faction m_faction; // 호드 or 얼라
+		bool m_hasCombo; // 연계
+		bool m_rarity; // 희귀도
+		CardType m_type; // 카드 종류
+		CardSet m_set; // 
+		int m_cost; // 코스트
+		bool m_hasOverload; // 과부화
+		int m_overload; // 과부화 코스트
 		bool m_requiresTarget;
 		bool m_requiresTargetForCombo;
 		bool m_requiresTargetIfAvailable;
-		bool m_requiresTargetIfAvailableAndDragonInHand;
+		bool m_requiresTargetIfAvailableAndDragonInHand; // 핸드에 용족이 있을 떄
 		bool m_requiresTargetIfAvailableAndElementalPlayedLastTurn;
 		bool m_requiresTargetIfAvailableAndMinimumFriendlyMinions;
 		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets;
-		int m_maxAllowedInDeck;
-		bool m_isImplemented;
-		std::vector<Enchantment> m_enchantments;
-		bool m_isAffectedBySpellDamage;
+		int m_maxAllowedInDeck; // 덱에 최대로 넣을 수 있는 카드 수
+		bool m_isImplemented; // 구현되어있는 클래스인지
+		std::vector<Enchantment> m_enchantments; // 카드에 부여된 효과 목록
+		bool m_isAffectedBySpellDamage; // 주문 카드로 피해를 입었는지
 		int m_multiClassGroup;
 	};
 }
