@@ -128,9 +128,9 @@
   <ItemGroup>
     <ClInclude Include="Enchants\Enchantment.h" />
     <ClInclude Include="Enums\Enums.h" />
-    <ClInclude Include="Hero.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
     <ClInclude Include="Models\Card.h" />
+    <ClInclude Include="Models\Hero.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

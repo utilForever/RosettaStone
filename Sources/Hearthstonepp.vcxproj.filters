@@ -33,7 +33,7 @@
     <ClInclude Include="Enchants\Enchantment.h">
       <Filter>Enchants</Filter>
     </ClInclude>
-    <ClInclude Include="Hero.h">
+    <ClInclude Include="Models\Hero.h">
       <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
