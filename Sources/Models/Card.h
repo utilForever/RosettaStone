@@ -43,9 +43,9 @@ namespace Hearthstonepp
 		bool m_requiresTargetForCombo;
 		bool m_requiresTargetIfAvailable;
 		bool m_requiresTargetIfAvailableAndDragonInHand; // 핸드에 용족이 있을 떄
-		bool m_requiresTargetIfAvailableAndElementalPlayedLastTurn;
-		bool m_requiresTargetIfAvailableAndMinimumFriendlyMinions;
-		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets;
+		bool m_requiresTargetIfAvailableAndElementalPlayedLastTurn; // 이전 턴에 정령을 냈을 때
+		bool m_requiresTargetIfAvailableAndMinimumFriendlyMinions; // 필드 개체가 n 마리 이상일 때
+		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets; // 비밀이 걸려 있는가
 		int m_maxAllowedInDeck; // 덱에 최대로 넣을 수 있는 카드 수
 		bool m_isImplemented; // 구현되어있는 클래스인지
 		std::vector<Enchantment> m_enchantments; // 카드에 부여된 효과 목록
