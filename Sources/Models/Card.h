@@ -13,7 +13,6 @@
 #include <Enums/Enums.h>
 
 #include <map>
-#include <string>
 #include <vector>
 
 namespace Hearthstonepp
@@ -101,6 +100,36 @@ namespace Hearthstonepp
 			m_playRequirements = playRequirements;
 		}
 
+		bool GetImplemented() const
+		{
+			return m_implemented;
+		}
+
+		void SetImplemented(bool implemented)
+		{
+			m_implemented = implemented;
+		}
+
+		const std::vector<Enchantment>& GetEnchantments() const
+		{
+			return m_enchantments;
+		}
+
+		void SetEnchantments(std::vector<Enchantment> enchantments)
+		{
+			m_enchantments = enchantments;
+		}
+
+		bool GetIsAffectedBySpellDamage() const
+		{
+			return m_isAffectedBySpellDamage;
+		}
+
+		void SetIsAffectedBySpellDamage(bool isAffectedBySpellDamage)
+		{
+			m_isAffectedBySpellDamage = isAffectedBySpellDamage;
+		}
+
 	private:
 		int m_assetID;
 		std::string m_id;
@@ -128,7 +157,7 @@ namespace Hearthstonepp
 		bool m_requiresTargetIfAvailableAndMinimumFriendlyMinions;
 		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets;
 		int m_maxAllowedInDeck;
-		bool m_isImplemented;
+		bool m_implemented;
 		std::vector<Enchantment> m_enchantments;
 		bool m_isAffectedBySpellDamage;
 		int m_multiClassGroup;
