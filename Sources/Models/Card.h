@@ -130,6 +130,12 @@ namespace Hearthstonepp
 			m_isAffectedBySpellDamage = isAffectedBySpellDamage;
 		}
 
+		std::string ToString() const;
+
+		std::string AbbreviatedName(int size) const;
+
+		std::string FullPrint(bool gameTag = false, bool playReq = false);
+
 	private:
 		int m_assetID;
 		std::string m_id;
