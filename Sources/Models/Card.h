@@ -20,9 +20,90 @@ namespace Hearthstonepp
 {
 	class Card
 	{
+	public:
+		int GetAssetID() const
+		{
+			return m_assetID;
+		}
+
+		void SetAssetID(int assetID)
+		{
+			m_assetID = assetID;
+		}
+
+		std::string GetID() const
+		{
+			return m_id;
+		}
+
+		void SetID(std::string id)
+		{
+			m_id = id;
+		}
+
+		std::string GetName() const
+		{
+			return m_name;
+		}
+
+		void SetName(std::string name)
+		{
+			m_name = name;
+		}
+
+		std::string GetText() const
+		{
+			return m_text;
+		}
+
+		void SetText(std::string text)
+		{
+			m_text = text;
+		}
+
+		const std::vector<std::string>& GetEntourage() const
+		{
+			return m_entourage;
+		}
+
+		void SetEntourage(std::vector<std::string> entourage)
+		{
+			m_entourage = entourage;
+		}
+
+		const std::map<GameTag, int>& GetTags() const
+		{
+			return m_tags;
+		}
+
+		void SetTags(std::map<GameTag, int> tags)
+		{
+			m_tags = tags;
+		}
+
+		const std::map<GameTag, int>& GetRefTags() const
+		{
+			return m_refTags;
+		}
+
+		void SetRefTags(std::map<GameTag, int> refTags)
+		{
+			m_refTags = refTags;
+		}
+
+		const std::map<PlayReq, int>& GetPlayRequirements() const
+		{
+			return m_playRequirements;
+		}
+
+		void SetPlayRequirements(std::map<PlayReq, int> playRequirements)
+		{
+			m_playRequirements = playRequirements;
+		}
+
 	private:
 		int m_assetID;
-		int m_id;
+		std::string m_id;
 		std::string m_name;
 		std::string m_text;
 		std::vector<std::string> m_entourage;
