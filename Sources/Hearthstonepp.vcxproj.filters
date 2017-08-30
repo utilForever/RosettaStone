@@ -19,6 +19,9 @@
     <ClCompile Include="Loaders\CardLoader.cpp">
       <Filter>Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="Models\Card.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
