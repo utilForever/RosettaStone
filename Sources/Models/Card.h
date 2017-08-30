@@ -13,16 +13,126 @@
 #include <Enums/Enums.h>
 
 #include <map>
-#include <string>
 #include <vector>
 
 namespace Hearthstonepp
 {
 	class Card
 	{
+	public:
+		int GetAssetID() const
+		{
+			return m_assetID;
+		}
+
+		void SetAssetID(int assetID)
+		{
+			m_assetID = assetID;
+		}
+
+		std::string GetID() const
+		{
+			return m_id;
+		}
+
+		void SetID(std::string id)
+		{
+			m_id = id;
+		}
+
+		std::string GetName() const
+		{
+			return m_name;
+		}
+
+		void SetName(std::string name)
+		{
+			m_name = name;
+		}
+
+		std::string GetText() const
+		{
+			return m_text;
+		}
+
+		void SetText(std::string text)
+		{
+			m_text = text;
+		}
+
+		const std::vector<std::string>& GetEntourage() const
+		{
+			return m_entourage;
+		}
+
+		void SetEntourage(std::vector<std::string> entourage)
+		{
+			m_entourage = entourage;
+		}
+
+		const std::map<GameTag, int>& GetTags() const
+		{
+			return m_tags;
+		}
+
+		void SetTags(std::map<GameTag, int> tags)
+		{
+			m_tags = tags;
+		}
+
+		const std::map<GameTag, int>& GetRefTags() const
+		{
+			return m_refTags;
+		}
+
+		void SetRefTags(std::map<GameTag, int> refTags)
+		{
+			m_refTags = refTags;
+		}
+
+		const std::map<PlayReq, int>& GetPlayRequirements() const
+		{
+			return m_playRequirements;
+		}
+
+		void SetPlayRequirements(std::map<PlayReq, int> playRequirements)
+		{
+			m_playRequirements = playRequirements;
+		}
+
+		bool GetImplemented() const
+		{
+			return m_implemented;
+		}
+
+		void SetImplemented(bool implemented)
+		{
+			m_implemented = implemented;
+		}
+
+		const std::vector<Enchantment>& GetEnchantments() const
+		{
+			return m_enchantments;
+		}
+
+		void SetEnchantments(std::vector<Enchantment> enchantments)
+		{
+			m_enchantments = enchantments;
+		}
+
+		bool GetIsAffectedBySpellDamage() const
+		{
+			return m_isAffectedBySpellDamage;
+		}
+
+		void SetIsAffectedBySpellDamage(bool isAffectedBySpellDamage)
+		{
+			m_isAffectedBySpellDamage = isAffectedBySpellDamage;
+		}
+
 	private:
 		int m_assetID;
-		int m_id;
+		std::string m_id;
 		std::string m_name;
 		std::string m_text;
 		std::vector<std::string> m_entourage;
@@ -47,7 +157,7 @@ namespace Hearthstonepp
 		bool m_requiresTargetIfAvailableAndMinimumFriendlyMinions;
 		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets;
 		int m_maxAllowedInDeck;
-		bool m_isImplemented;
+		bool m_implemented;
 		std::vector<Enchantment> m_enchantments;
 		bool m_isAffectedBySpellDamage;
 		int m_multiClassGroup;

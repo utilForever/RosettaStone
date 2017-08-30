@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="Loaders\CardLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Models\Card.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enchants\Enchantment.h" />
