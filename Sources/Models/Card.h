@@ -130,10 +130,6 @@ namespace Hearthstonepp
 			m_isAffectedBySpellDamage = isAffectedBySpellDamage;
 		}
 
-		std::string AbbreviatedName(int size) const;
-
-		std::string FullPrint(bool gameTag = false, bool playReq = false);
-
 	private:
 		int m_assetID;
 		std::string m_id;
@@ -161,7 +157,7 @@ namespace Hearthstonepp
 		bool m_requiresTargetIfAvailableAndMinimumFriendlyMinions;
 		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets;
 		int m_maxAllowedInDeck;
-		bool m_isImplemented;
+		bool m_implemented;
 		std::vector<Enchantment> m_enchantments;
 		bool m_isAffectedBySpellDamage;
 		int m_multiClassGroup;
