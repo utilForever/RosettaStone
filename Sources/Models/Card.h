@@ -142,7 +142,7 @@ namespace Hearthstonepp
 		bool m_isCollectible;
 		Race m_race;
 		Faction m_faction;
-		bool m_hasCombo;
+		bool m_hasCombo; 
 		bool m_rarity;
 		CardType m_type;
 		CardSet m_set;
