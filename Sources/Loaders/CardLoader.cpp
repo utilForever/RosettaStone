@@ -7,15 +7,12 @@
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Loaders/CardLoader.h>
-
-#include <json/json.hpp>
+#include <Models/Card.h>
 
 #include <fstream>
 
 namespace Hearthstonepp
 {
-	using json = nlohmann::json;
-
 	void CardLoader::Load()
 	{
 		// Read card data from JSON file
@@ -29,6 +26,14 @@ namespace Hearthstonepp
 
 		cardFile >> j;
 
+		Parse(j);
+
 		cardFile.close();
+	}
+
+	void CardLoader::Parse(json& j)
+	{
+		std::vector<Card> cards;
+		cards.reserve(j.size());
 	}
 }
