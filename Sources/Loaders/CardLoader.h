@@ -17,6 +17,7 @@ namespace Hearthstonepp
 
 	class CardLoader
 	{
+	public:
 		void Load();
 		void Parse(json& j);
 	};
