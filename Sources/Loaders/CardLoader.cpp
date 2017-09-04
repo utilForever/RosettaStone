@@ -33,7 +33,46 @@ namespace Hearthstonepp
 
 	void CardLoader::Parse(json& j)
 	{
-		std::vector<Card> cards;
+		std::vector<Card*> cards;
 		cards.reserve(j.size());
+
+		// For test
+		int nHeroCard = 0, nMinionCard = 0, nSpellCard = 0, nEnchantmentCard = 0, nWeaponCard = 0, nHeroPowerCard = 0;
+
+		for (auto& card : j)
+		{
+			if (card["type"] == "HERO")
+			{
+				nHeroCard++;
+			}
+			else if (card["type"] == "MINION")
+			{
+				nMinionCard++;
+			}
+			else if (card["type"] == "SPELL")
+			{
+				nSpellCard++;
+			}
+			else if (card["type"] == "ENCHANTMENT")
+			{
+				nEnchantmentCard++;
+			}
+			else if (card["type"] == "WEAPON")
+			{
+				nWeaponCard++;
+			}
+			else if (card["type"] == "HERO_POWER")
+			{
+				nHeroPowerCard++;
+			}
+		}
+
+		std::cout << "nHeroCard = " << nHeroCard << std::endl;
+		std::cout << "nMinionCard = " << nMinionCard << std::endl;
+		std::cout << "nSpellCard = " << nSpellCard << std::endl;
+		std::cout << "nEnchantmentCard = " << nEnchantmentCard << std::endl;
+		std::cout << "nWeaponCard = " << nWeaponCard << std::endl;
+		std::cout << "nHeroPowerCard = " << nHeroPowerCard << std::endl;
+		std::cout << "Total = " << nHeroCard + nMinionCard + nSpellCard + nEnchantmentCard + nWeaponCard + nHeroPowerCard << std::endl;
 	}
 }
