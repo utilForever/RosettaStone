@@ -9,11 +9,17 @@
 #ifndef HEARTHSTONEPP_CARD_LOADER_H
 #define HEARTHSTONEPP_CARD_LOADER_H
 
+#include <json/json.hpp>
+
 namespace Hearthstonepp
 {
+	using json = nlohmann::json;
+
 	class CardLoader
 	{
+	public:
 		void Load();
+		void Parse(json& j);
 	};
 }
 
