@@ -39,8 +39,8 @@
     <ClInclude Include="Enchants\Enchantment.h">
       <Filter>Enchants</Filter>
     </ClInclude>
-    <ClInclude Include="Models\Hero.h">
-      <Filter>Models</Filter>
+    <ClInclude Include="Models\Entities\Hero.h">
+      <Filter>Models\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
