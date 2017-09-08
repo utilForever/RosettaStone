@@ -13,6 +13,9 @@
     <Filter Include="Enchants">
       <UniqueIdentifier>{f3f6e453-0524-4dda-b84c-80971ff51259}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models\Entities">
+      <UniqueIdentifier>{7f125347-e5fd-40f8-aaa3-ab99f36213a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
