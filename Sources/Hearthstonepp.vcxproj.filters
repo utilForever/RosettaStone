@@ -36,10 +36,10 @@
     <ClInclude Include="Models\Card.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="Enchants\Enchantment.h">
-      <Filter>Enchants</Filter>
-    </ClInclude>
     <ClInclude Include="Models\Entities\Hero.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Entities\Minion.h">
       <Filter>Models\Entities</Filter>
     </ClInclude>
   </ItemGroup>
