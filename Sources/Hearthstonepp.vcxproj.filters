@@ -48,5 +48,8 @@
     <ClInclude Include="Models\Entities\HeroPower.h">
       <Filter>Models\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Models\Entities\Enchantment.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
