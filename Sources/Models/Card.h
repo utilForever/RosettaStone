@@ -9,7 +9,6 @@
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
-#include <Enchants/Enchantment.h>
 #include <Enums/Enums.h>
 
 #include <map>
@@ -17,150 +16,28 @@
 
 namespace Hearthstonepp
 {
-	class Card
+	struct Card
 	{
-	public:
-		int GetAssetID() const
-		{
-			return m_assetID;
-		}
+		std::string ID;
+		Rarity rarity;
+		Faction faction;
+		CardSet cardSet;
+		CardClass cardClass;
+		CardType cardType;
+		Race race;
 
-		void SetAssetID(int assetID)
-		{
-			m_assetID = assetID;
-		}
+		std::string name;
+		std::string text;
 
-		std::string GetID() const
-		{
-			return m_id;
-		}
+		bool collectible;
+		int cost;
+		int attack;
+		int health;
+		int durability;
 
-		void SetID(std::string id)
-		{
-			m_id = id;
-		}
-
-		std::string GetName() const
-		{
-			return m_name;
-		}
-
-		void SetName(std::string name)
-		{
-			m_name = name;
-		}
-
-		std::string GetText() const
-		{
-			return m_text;
-		}
-
-		void SetText(std::string text)
-		{
-			m_text = text;
-		}
-
-		const std::vector<std::string>& GetEntourage() const
-		{
-			return m_entourage;
-		}
-
-		void SetEntourage(std::vector<std::string> entourage)
-		{
-			m_entourage = entourage;
-		}
-
-		const std::map<GameTag, int>& GetTags() const
-		{
-			return m_tags;
-		}
-
-		void SetTags(std::map<GameTag, int> tags)
-		{
-			m_tags = tags;
-		}
-
-		const std::map<GameTag, int>& GetRefTags() const
-		{
-			return m_refTags;
-		}
-
-		void SetRefTags(std::map<GameTag, int> refTags)
-		{
-			m_refTags = refTags;
-		}
-
-		const std::map<PlayReq, int>& GetPlayRequirements() const
-		{
-			return m_playRequirements;
-		}
-
-		void SetPlayRequirements(std::map<PlayReq, int> playRequirements)
-		{
-			m_playRequirements = playRequirements;
-		}
-
-		bool GetImplemented() const
-		{
-			return m_implemented;
-		}
-
-		void SetImplemented(bool implemented)
-		{
-			m_implemented = implemented;
-		}
-
-		const std::vector<Enchantment>& GetEnchantments() const
-		{
-			return m_enchantments;
-		}
-
-		void SetEnchantments(std::vector<Enchantment> enchantments)
-		{
-			m_enchantments = enchantments;
-		}
-
-		bool GetIsAffectedBySpellDamage() const
-		{
-			return m_isAffectedBySpellDamage;
-		}
-
-		void SetIsAffectedBySpellDamage(bool isAffectedBySpellDamage)
-		{
-			m_isAffectedBySpellDamage = isAffectedBySpellDamage;
-		}
-
-	private:
-		int m_assetID;
-		std::string m_id;
-		std::string m_name;
-		std::string m_text;
-		std::vector<std::string> m_entourage;
-		std::map<GameTag, int> m_tags;
-		std::map<GameTag, int> m_refTags;
-		std::map<PlayReq, int> m_playRequirements;
-		bool m_isCollectible;
-		Race m_race;
-		Faction m_faction;
-		bool m_hasCombo; 
-		bool m_rarity;
-		CardType m_type;
-		CardSet m_set;
-		int m_cost;
-		bool m_hasOverload;
-		int m_overload;
-		bool m_requiresTarget;
-		bool m_requiresTargetForCombo;
-		bool m_requiresTargetIfAvailable;
-		bool m_requiresTargetIfAvailableAndDragonInHand;
-		bool m_requiresTargetIfAvailableAndElementalPlayedLastTurn;
-		bool m_requiresTargetIfAvailableAndMinimumFriendlyMinions;
-		bool m_requiresTargetIfAvailableAndMinimumFriendlySecrets;
-		int m_maxAllowedInDeck;
-		bool m_implemented;
-		std::vector<Enchantment> m_enchantments;
-		bool m_isAffectedBySpellDamage;
-		int m_multiClassGroup;
+		std::vector<GameTag> mechanics;
+		std::map<PlayReq, int> playRequirements;
+		std::vector<std::string> entourage;
 	};
 }
 
