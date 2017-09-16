@@ -1,13 +1,13 @@
 /*************************************************************************
-> File Name: Hero.h
+> File Name: Enchantment.h
 > Project Name: Hearthstone++
-> Author: Young-Joong Kim
-> Purpose: Hero class inherits from Card class.
-> Created Time: 2017/08/21
-> Copyright (c) 2017, Young-Joong Kim
+> Author: Chan-Ho Chris Ohk
+> Purpose: Enchantment class inherits from Card class.
+> Created Time: 2017/09/16
+> Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#ifndef HEARTHSTONEPP_HERO_H
-#define HEARTHSTONEPP_HERO_H
+#ifndef HEARTHSTONEPP_ENCHANTMENT_H
+#define HEARTHSTONEPP_ENCHANTMENT_H
 
 #include <Enums/Enums.h>
 #include <Models/Card.h>
@@ -16,11 +16,11 @@
 #include <string>
 #include <vector>
 
-namespace Hearthstonepp 
+namespace Hearthstonepp
 {
-	struct Hero : Card
+	struct Enchantment : Card
 	{
-		
+
 	};
 }
 
