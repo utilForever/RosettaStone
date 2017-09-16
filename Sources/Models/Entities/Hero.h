@@ -1,8 +1,8 @@
 /*************************************************************************
-> File Name: Hearo.h
+> File Name: Hero.h
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
-> Purpose: Hero class that stores hero information.
+> Purpose: Hero class inherits from Card class.
 > Created Time: 2017/08/21
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
@@ -18,7 +18,10 @@
 
 namespace Hearthstonepp 
 {
-
+	struct Hero : Card
+	{
+		
+	};
 }
 
 #endif
