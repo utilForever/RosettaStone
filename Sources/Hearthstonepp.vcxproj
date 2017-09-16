@@ -140,6 +140,7 @@
     <ClInclude Include="Models\Card.h" />
     <ClInclude Include="Models\Entities\Hero.h" />
     <ClInclude Include="Models\Entities\Minion.h" />
+    <ClInclude Include="Models\Entities\Spell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

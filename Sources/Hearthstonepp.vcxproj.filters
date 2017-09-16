@@ -42,5 +42,8 @@
     <ClInclude Include="Models\Entities\Minion.h">
       <Filter>Models\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Models\Entities\Spell.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
