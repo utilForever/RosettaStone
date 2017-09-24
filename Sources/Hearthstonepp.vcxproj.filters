@@ -54,5 +54,8 @@
     <ClInclude Include="Models\Entities\Weapon.h">
       <Filter>Models\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\StringToEnums.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

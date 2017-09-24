@@ -135,6 +135,7 @@
     <ClCompile Include="Models\Card.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enums\StringToEnums.h" />
     <ClInclude Include="Enums\Enums.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
     <ClInclude Include="Models\Card.h" />
