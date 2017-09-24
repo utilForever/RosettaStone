@@ -37,7 +37,7 @@ namespace Hearthstonepp
 
 		std::vector<GameTag> mechanics;
 		std::map<PlayReq, int> playRequirements;
-		std::vector<std::string> entourage;
+		std::vector<std::string> entourages;
 	};
 }
 
