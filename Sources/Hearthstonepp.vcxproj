@@ -135,6 +135,7 @@
     <ClCompile Include="Models\Card.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enums\StringToEnums.h" />
     <ClInclude Include="Enums\Enums.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
     <ClInclude Include="Models\Card.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Models\Entities\HeroPower.h" />
     <ClInclude Include="Models\Entities\Minion.h" />
     <ClInclude Include="Models\Entities\Spell.h" />
+    <ClInclude Include="Models\Entities\Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
