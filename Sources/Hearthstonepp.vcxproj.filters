@@ -16,6 +16,9 @@
     <Filter Include="Models\Entities">
       <UniqueIdentifier>{7f125347-e5fd-40f8-aaa3-ab99f36213a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Agents">
+      <UniqueIdentifier>{8397b0de-2eba-4439-9572-4d382dd7a350}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -24,6 +27,9 @@
     </ClCompile>
     <ClCompile Include="Models\Card.cpp">
       <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Agents\GameAgent.cpp">
+      <Filter>Agents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="Enums\StringToEnums.h">
       <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Agents\GameAgent.h">
+      <Filter>Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
