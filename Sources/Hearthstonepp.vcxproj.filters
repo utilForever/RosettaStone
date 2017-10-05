@@ -31,6 +31,9 @@
     <ClCompile Include="Agents\GameAgent.cpp">
       <Filter>Agents</Filter>
     </ClCompile>
+    <ClCompile Include="Agents\Utility.cpp">
+      <Filter>Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
@@ -64,6 +67,9 @@
       <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="Agents\GameAgent.h">
+      <Filter>Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Agents\Utility.h">
       <Filter>Agents</Filter>
     </ClInclude>
   </ItemGroup>

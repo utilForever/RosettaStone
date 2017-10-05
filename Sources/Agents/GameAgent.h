@@ -9,44 +9,65 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_H
 #define HEARTHSTONEPP_GAME_AGENT_H
 
+#include <Agents/Utility.h>
 #include <Models/Card.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
 #include <Models/Entities/Weapon.h>
 
+#include <algorithm>
 #include <vector>
 
 namespace Hearthstonepp 
 {
-	struct System
-	{
-		Hero hero;
-		HeroPower heroPower;
-		Weapon weapon;
+	using Deck = std::vector<Card*>;
 
-		std::vector<Card*> deck;
+	class System
+	{
+	public:
+		System(Hero *hero, HeroPower *power, Deck& deck);
+
+		Hero *hero;
+		HeroPower *power;
+		Weapon *weapon;
+
+		Deck deck;
+		std::vector<Card*> field;
+		std::vector<Card*> hand;
 		std::vector<Card*> usedSpell;
 		std::vector<Card*> usedMinion;
+	};
+
+	struct GameResult
+	{
+
 	};
 
 	class GameAgent
 	{
 	public:
-		void InitSystems();
+		GameAgent(System *system1, System *system2);
+		GameResult StartAgent();
+
 		void BeginPhase();
 		void MainPhase();
-		void FinalPhase();
+		GameResult FinalPhase();
 
-		Card* Draw(System *system);
+		int ReadBuffer(BYTE* arr, int maxSize);
+		int WriteBuffer(BYTE* arr, int size);
 
-		void LoadDeck(std::vector<Card*>& deck1, std::vector<Card*>& deck2);
+	private:
+		InteractBuffer buffer;
+
+		System *systemCurrent;
+		System *systemOpponent;
+		
+		bool IsGameEnd();
+		Card* Draw(System *system, int num);
+		
 		void DecideDeckOrder();
 		void ShuffleDeck(System *system);
 		void Mulligan(System *system);
-
-	private:
-		System *systemCurrent;
-		System *systemOpponent;
 	};
 }
 
