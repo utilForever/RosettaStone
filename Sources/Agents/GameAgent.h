@@ -16,11 +16,13 @@
 #include <Models/Entities/Weapon.h>
 
 #include <algorithm>
+#include <thread>
 #include <vector>
 
 namespace Hearthstonepp 
 {
 	using Deck = std::vector<Card*>;
+	using BYTE = unsigned char;
 
 	class System
 	{
@@ -47,23 +49,27 @@ namespace Hearthstonepp
 	{
 	public:
 		GameAgent(System *system1, System *system2);
-		GameResult StartAgent();
+		std::thread* StartAgent(GameResult* result);
 
 		void BeginPhase();
 		void MainPhase();
-		GameResult FinalPhase();
+		void FinalPhase(GameResult* result);
 
 		int ReadBuffer(BYTE* arr, int maxSize);
 		int WriteBuffer(BYTE* arr, int size);
 
 	private:
-		InteractBuffer buffer;
-
 		System *systemCurrent;
 		System *systemOpponent;
+
+		InteractBuffer inBuffer;
+		InteractBuffer outBuffer;
 		
+		int ReadInputBuffer(BYTE* arr, int maxSize);
+		int WriteOutputBuffer(BYTE* arr, int size);
+
 		bool IsGameEnd();
-		Card* Draw(System *system, int num);
+		void Draw(System *system, int num);
 		
 		void DecideDeckOrder();
 		void ShuffleDeck(System *system);
