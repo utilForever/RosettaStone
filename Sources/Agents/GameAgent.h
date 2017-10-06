@@ -25,10 +25,10 @@ namespace Hearthstonepp
 	using Deck = std::vector<Card*>;
 	using BYTE = unsigned char;
 
-	class System
+	class User
 	{
 	public:
-		System(int id, Hero *hero, HeroPower *power, Deck& deck);
+		User(int id, Hero *hero, HeroPower *power, Deck& deck);
 
 		int id;
 		Hero *hero;
@@ -50,35 +50,35 @@ namespace Hearthstonepp
 	class GameAgent
 	{
 	public:
-		GameAgent(System *system1, System *system2, int maxBufferSize=2048);
+		GameAgent(User *user1, User *user2, int maxBufferSize=2048);
 		std::thread* StartAgent(GameResult& result);
 
-		int ReadBuffer(BYTE* arr, int maxSize);
-		int WriteBuffer(BYTE* arr, int size);
+		int ReadBuffer(BYTE* arr, int maxSize); // Read data written by Agent
+		int WriteBuffer(BYTE* arr, int size); // Write data to Agent
 
 	private:
-		System *systemCurrent;
-		System *systemOpponent;
+		User *userCurrent;
+		User *userOpponent;
 
-		InteractBuffer inBuffer;
-		InteractBuffer outBuffer;
+		InteractBuffer inBuffer; // Pipe IO : User -> Agent 
+		InteractBuffer outBuffer; // Pipe IO : Agent -> User
 
 		std::random_device rd;
-		std::default_random_engine generator;
+		std::default_random_engine generator; // random generator
 		
-		int ReadInputBuffer(BYTE* arr, int maxSize);
-		int WriteOutputBuffer(BYTE* arr, int size);
+		int ReadInputBuffer(BYTE* arr, int maxSize); // Read data written by User
+		int WriteOutputBuffer(BYTE* arr, int size); // Write data to User
 
 		bool IsGameEnd();
-		void Draw(System *system, int num);
+		void Draw(User *user, int num);
 
 		void BeginPhase();
 		void MainPhase();
 		void FinalPhase(GameResult& result);
 		
 		void DecideDeckOrder();
-		void ShuffleDeck(System *system);
-		void Mulligan(System *system);
+		void ShuffleDeck(User *user);
+		void Mulligan(User *user);
 	};
 }
 

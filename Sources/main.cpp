@@ -21,19 +21,19 @@ int main()
 
 	loader.Load(cards);
 
-	Deck deck1;
+	Deck deck1; // temporal deck
 	Deck deck2;
 
 	deck1.reserve(30);
 	deck2.reserve(30);
 
-	deck1.assign(cards.begin(), cards.begin() + 30);
+	deck1.assign(cards.begin(), cards.begin() + 30); 
 	deck2.assign(cards.begin() + 30, cards.begin() + 60);
 
-	System sys1(0, new Hero(), new HeroPower(), deck1);
-	System sys2(1, new Hero(), new HeroPower(), deck2);
+	User user1(0, new Hero(), new HeroPower(), deck1); // define new user
+	User user2(1, new Hero(), new HeroPower(), deck2);
 
-	GameAgent agent(&sys1, &sys2);
+	GameAgent agent(&user1, &user2);
 	GameResult result;
 
 	std::thread *at = agent.StartAgent(result);
@@ -41,7 +41,7 @@ int main()
 	for (int i = 0; i < 2; ++i)
 	{
 		Card *list[4] = { 0, };
-		int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 4);
+		int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 4); // get card data
 
 		for (auto card : list)
 		{
@@ -49,10 +49,10 @@ int main()
 		}
 		std::cout << std::endl;
 
-		BYTE mulligan[] = { 0, 2, 3 };
-		result = agent.WriteBuffer(mulligan, 3);
+		BYTE mulligan[] = { 0, 2, 3 }; // index of the card to be mulligan
+		result = agent.WriteBuffer(mulligan, 3); // send index to agent
 
-		result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 4);
+		result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 4); // get new card data
 
 		for (auto card : list)
 		{
@@ -61,7 +61,7 @@ int main()
 		std::cout << std::endl;
 	}
 
-	at->join();
+	at->join(); // join agent thread
 
 	return 0;
 }
