@@ -6,22 +6,10 @@
 > Created Time: 2017/10/04
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Agents/Utility.h>
+#include <Agents/Interface.h>
 
 namespace Hearthstonepp
 {
-	RandomInt::RandomInt(int num)
-	{
-		std::random_device rd;
-		this->gen = std::default_random_engine(rd());
-		this->dist = std::uniform_int_distribution<int>(0, num - 1);
-	}
-
-	int RandomInt::get()
-	{
-		return dist(gen);
-	}
-
 	InteractBuffer::InteractBuffer(int capacity)
 	{
 		this->capacity = capacity;

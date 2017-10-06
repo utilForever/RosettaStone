@@ -9,24 +9,12 @@
 #ifndef HEARTHSTONEPP_UTILITY_H
 #define HEARTHSTONEPP_UTILITY_H
 
-#include <Windows.h>
-
 #include <condition_variable>
 #include <mutex>
-#include <random>
 
 namespace Hearthstonepp
 {
-	class RandomInt
-	{
-	public:
-		RandomInt(int num);
-		int get();
-
-	private:
-		std::default_random_engine gen;
-		std::uniform_int_distribution<int> dist;
-	};
+	using BYTE = unsigned char;
 
 	class InteractBuffer
 	{
