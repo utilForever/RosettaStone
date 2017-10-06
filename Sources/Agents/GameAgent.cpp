@@ -53,8 +53,8 @@ namespace Hearthstonepp
 		ShuffleDeck(userCurrent);
 		ShuffleDeck(userOpponent);
 
-		Draw(userCurrent, 4);
-		Draw(userOpponent, 4);
+		Draw(userCurrent, 3);
+		Draw(userOpponent, 3);
 
 		Mulligan(userCurrent);
 		Mulligan(userOpponent);
@@ -90,11 +90,11 @@ namespace Hearthstonepp
 
 	void GameAgent::Mulligan(User* user)
 	{
-		BYTE index[4] = { 0, };
+		BYTE index[3] = { 0, };
 		std::vector<Card*>& hand = user->hand;
 
-		WriteOutputBuffer((BYTE*)hand.data(), sizeof(Card*) * 4); // send card data to user
-		int read = ReadInputBuffer(index, 4); // read index of the card to be mulligan
+		WriteOutputBuffer((BYTE*)hand.data(), sizeof(Card*) * 3); // send card data to user
+		int read = ReadInputBuffer(index, 3); // read index of the card to be mulligan
 
 		std::sort(index, index + read);
 		for (int i = 0; i < read; ++i)
@@ -104,7 +104,7 @@ namespace Hearthstonepp
 
 		Draw(user, read);
 
-		WriteOutputBuffer((BYTE*)hand.data(), sizeof(Card*) * 4); // send new card data
+		WriteOutputBuffer((BYTE*)hand.data(), sizeof(Card*) * 3); // send new card data
 	}
 
 	bool GameAgent::IsGameEnd()

@@ -40,8 +40,8 @@ int main()
 
 	for (int i = 0; i < 2; ++i)
 	{
-		Card *list[4] = { 0, };
-		int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 4); // get card data
+		Card *list[3] = { 0, };
+		int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
 
 		for (auto card : list)
 		{
@@ -49,10 +49,10 @@ int main()
 		}
 		std::cout << std::endl;
 
-		BYTE mulligan[] = { 0, 2, 3 }; // index of the card to be mulligan
-		result = agent.WriteBuffer(mulligan, 3); // send index to agent
+		BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
+		result = agent.WriteBuffer(mulligan, 2); // send index to agent
 
-		result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 4); // get new card data
+		result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
 
 		for (auto card : list)
 		{
