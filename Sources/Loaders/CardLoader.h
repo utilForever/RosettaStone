@@ -10,6 +10,9 @@
 #define HEARTHSTONEPP_CARD_LOADER_H
 
 #include <json/json.hpp>
+#include <Models/Card.h>
+
+#include <vector>
 
 namespace Hearthstonepp
 {
@@ -18,8 +21,8 @@ namespace Hearthstonepp
 	class CardLoader
 	{
 	public:
-		void Load();
-		void Parse(json& j);
+		void Load(std::vector<Card*>& cards);
+		void Parse(json& j, std::vector<Card*>& cards);
 	};
 }
 
