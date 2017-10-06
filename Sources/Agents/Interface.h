@@ -1,8 +1,8 @@
 /*************************************************************************
-> File Name: Utility.h
+> File Name: Interface.h
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
-> Purpose: Utility for Hearthstone Game Agent
+> Purpose: Interface for Hearthstone Game Agent
 > Created Time: 2017/10/04
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
