@@ -11,6 +11,7 @@
 
 #include <Windows.h>
 
+#include <condition_variable>
 #include <mutex>
 #include <random>
 
@@ -30,13 +31,21 @@ namespace Hearthstonepp
 	class InteractBuffer
 	{
 	public:
-		InteractBuffer();
+		InteractBuffer(int capacity);
 
-		int ReadBuffer(BYTE *arr, int maxLength);
-		int WriteBuffer(BYTE *arr, int size);
+		int ReadBuffer(BYTE *data, int maxSize);
+		int WriteBuffer(BYTE *data, int size);
 
 	private:
-		HANDLE hRead, hWrite;
+		std::mutex mtx;
+		std::condition_variable cv;
+
+		int capacity;
+		bool readable;
+
+		BYTE *buffer;
+		int usage;
+		int head, tail;
 	};
 }
 

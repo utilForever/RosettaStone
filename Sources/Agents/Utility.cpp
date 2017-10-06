@@ -22,22 +22,54 @@ namespace Hearthstonepp
 		return dist(gen);
 	}
 
-	InteractBuffer::InteractBuffer()
+	InteractBuffer::InteractBuffer(int capacity)
 	{
-		CreatePipe(&hRead, &hWrite, NULL, 1024);
+		this->capacity = capacity;
+		this->head = 0;
+		this->tail = 0;
+		this->usage = 0;
+		this->readable = false;
+		this->buffer = new BYTE[capacity];
 	}
 
-	int InteractBuffer::ReadBuffer(BYTE *arr, int maxLength)
+	int InteractBuffer::ReadBuffer(BYTE *data, int maxSize)
 	{
-		DWORD written = 0;
-		ReadFile(&hRead, arr, maxLength, &written, NULL);
-		return written;
+		std::unique_lock<std::mutex> lock(mtx);
+		cv.wait(lock, [this]() { return readable; });
+
+		for (int i = 0; (i < usage) && maxSize; ++i)
+		{
+			data[i] = buffer[head];
+
+			head = (head + 1) % capacity;
+			maxSize -= 1;
+		}
+
+		int read = usage;
+		usage = 0;
+
+		readable = false;
+		cv.notify_one();
+
+		return read;
 	}
 
-	int InteractBuffer::WriteBuffer(BYTE *arr, int size)
+	int InteractBuffer::WriteBuffer(BYTE *data, int size)
 	{
-		DWORD written = 0;
-		WriteFile(&hWrite, arr, size, &written, NULL);
-		return written;
+		std::unique_lock<std::mutex> lock(mtx);
+		cv.wait(lock, [this]() { return !readable; });
+
+		for (int i = 0; (i < size) && (usage < capacity); ++i)
+		{
+			buffer[tail] = data[i];
+
+			tail = (tail + 1) % capacity;
+			usage += 1;
+		}
+
+		readable = true;
+		cv.notify_one();
+
+		return usage;
 	}
 }
