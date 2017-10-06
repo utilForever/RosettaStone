@@ -31,7 +31,7 @@
     <ClCompile Include="Agents\GameAgent.cpp">
       <Filter>Agents</Filter>
     </ClCompile>
-    <ClCompile Include="Agents\Utility.cpp">
+    <ClCompile Include="Agents\Interface.cpp">
       <Filter>Agents</Filter>
     </ClCompile>
   </ItemGroup>
@@ -69,7 +69,7 @@
     <ClInclude Include="Agents\GameAgent.h">
       <Filter>Agents</Filter>
     </ClInclude>
-    <ClInclude Include="Agents\Utility.h">
+    <ClInclude Include="Agents\Interface.h">
       <Filter>Agents</Filter>
     </ClInclude>
   </ItemGroup>

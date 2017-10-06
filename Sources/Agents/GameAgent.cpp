@@ -10,32 +10,36 @@
 
 namespace Hearthstonepp
 {
-	System::System(Hero *hero, HeroPower *power, Deck& deck)
+	System::System(int id, Hero *hero, HeroPower *power, Deck& deck)
 	{
+		this->id = id;
 		this->hero = hero;
 		this->power = power;
 		this->weapon = nullptr;
 		this->deck = deck;
 	}
 
-	GameAgent::GameAgent(System *system1, System *system2)
+	GameAgent::GameAgent(System *system1, System *system2, int maxBufferSize)
+		: inBuffer(maxBufferSize)
+		, outBuffer(maxBufferSize)
+		, generator(rd())
 	{
 		this->systemCurrent = system1;
 		this->systemOpponent = system2;
 	}
 
-	std::thread* GameAgent::StartAgent(GameResult* result)
+	std::thread* GameAgent::StartAgent(GameResult& result)
 	{
-		std::thread *agent = new std::thread([&](GameResult* result) {
+		std::thread *agent = new std::thread([this](GameResult& result) {
 			BeginPhase();
 
-			while (IsGameEnd())
+			while (!IsGameEnd())
 			{
 				MainPhase();
 			}
-
+			
 			FinalPhase(result);
-		}, result);
+		}, std::ref(result));
 
 		return agent;
 	}
@@ -61,15 +65,15 @@ namespace Hearthstonepp
 
 	}
 
-	void GameAgent::FinalPhase(GameResult* result)
+	void GameAgent::FinalPhase(GameResult& result)
 	{
 
 	}
 
 	void GameAgent::DecideDeckOrder()
 	{
-		RandomInt bin(2);
-		if (bin.get() == 1)
+		std::uniform_int_distribution<int> bin(0, 1);
+		if (bin(generator) == 1)
 		{
 			std::swap(systemCurrent, systemOpponent);
 		}
@@ -78,7 +82,7 @@ namespace Hearthstonepp
 	void GameAgent::ShuffleDeck(System* system)
 	{
 		Deck& deck = system->deck;
-		std::random_shuffle(deck.begin(), deck.end());
+		std::shuffle(deck.begin(), deck.end(), generator);
 	}
 
 	void GameAgent::Mulligan(System* system)
@@ -102,6 +106,8 @@ namespace Hearthstonepp
 
 	bool GameAgent::IsGameEnd()
 	{
+		return true;
+		/*
 		int healthCurrent = systemCurrent->hero->health;
 		int healthOpponent = systemOpponent->hero->health;
 
@@ -113,6 +119,7 @@ namespace Hearthstonepp
 		{
 			return false;
 		}
+		*/
 	}
 
 	void GameAgent::Draw(System *system, int num)

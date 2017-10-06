@@ -131,14 +131,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agents\GameAgent.cpp" />
-    <ClCompile Include="Agents\Utility.cpp" />
+    <ClCompile Include="Agents\Interface.cpp" />
     <ClCompile Include="Loaders\CardLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Models\Card.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agents\GameAgent.h" />
-    <ClInclude Include="Agents\Utility.h" />
+    <ClInclude Include="Agents\Interface.h" />
     <ClInclude Include="Enums\StringToEnums.h" />
     <ClInclude Include="Enums\Enums.h" />
     <ClInclude Include="Loaders\CardLoader.h" />

@@ -9,13 +9,14 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_H
 #define HEARTHSTONEPP_GAME_AGENT_H
 
-#include <Agents/Utility.h>
+#include <Agents/Interface.h>
 #include <Models/Card.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
 #include <Models/Entities/Weapon.h>
 
 #include <algorithm>
+#include <random>
 #include <thread>
 #include <vector>
 
@@ -27,8 +28,9 @@ namespace Hearthstonepp
 	class System
 	{
 	public:
-		System(Hero *hero, HeroPower *power, Deck& deck);
+		System(int id, Hero *hero, HeroPower *power, Deck& deck);
 
+		int id;
 		Hero *hero;
 		HeroPower *power;
 		Weapon *weapon;
@@ -48,12 +50,8 @@ namespace Hearthstonepp
 	class GameAgent
 	{
 	public:
-		GameAgent(System *system1, System *system2);
-		std::thread* StartAgent(GameResult* result);
-
-		void BeginPhase();
-		void MainPhase();
-		void FinalPhase(GameResult* result);
+		GameAgent(System *system1, System *system2, int maxBufferSize=2048);
+		std::thread* StartAgent(GameResult& result);
 
 		int ReadBuffer(BYTE* arr, int maxSize);
 		int WriteBuffer(BYTE* arr, int size);
@@ -64,12 +62,19 @@ namespace Hearthstonepp
 
 		InteractBuffer inBuffer;
 		InteractBuffer outBuffer;
+
+		std::random_device rd;
+		std::default_random_engine generator;
 		
 		int ReadInputBuffer(BYTE* arr, int maxSize);
 		int WriteOutputBuffer(BYTE* arr, int size);
 
 		bool IsGameEnd();
 		void Draw(System *system, int num);
+
+		void BeginPhase();
+		void MainPhase();
+		void FinalPhase(GameResult& result);
 		
 		void DecideDeckOrder();
 		void ShuffleDeck(System *system);
