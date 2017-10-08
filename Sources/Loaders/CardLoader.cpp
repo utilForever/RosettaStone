@@ -8,7 +8,6 @@
 *************************************************************************/
 #include <Enums/StringToEnums.h>
 #include <Loaders/CardLoader.h>
-#include <Models/Card.h>
 #include <Models/Entities/Enchantment.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
@@ -20,7 +19,7 @@
 
 namespace Hearthstonepp
 {
-	void CardLoader::Load()
+	void CardLoader::Load(std::vector<Card*>& cards)
 	{
 		// Read card data from JSON file
 		std::ifstream cardFile("cards.json");
@@ -33,14 +32,13 @@ namespace Hearthstonepp
 
 		cardFile >> j;
 
-		Parse(j);
+		Parse(j, cards);
 
 		cardFile.close();
 	}
 
-	void CardLoader::Parse(json& j)
+	void CardLoader::Parse(json& j, std::vector<Card*>& cards)
 	{
-		std::vector<Card*> cards;
 		cards.reserve(j.size());
 
 		Card* c = nullptr;
