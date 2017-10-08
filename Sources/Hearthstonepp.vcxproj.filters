@@ -10,14 +10,17 @@
     <Filter Include="Models">
       <UniqueIdentifier>{8798e877-a0d7-4cba-8d28-a792d59c9be3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Enchants">
-      <UniqueIdentifier>{f3f6e453-0524-4dda-b84c-80971ff51259}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Models\Entities">
       <UniqueIdentifier>{7f125347-e5fd-40f8-aaa3-ab99f36213a8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Agents">
       <UniqueIdentifier>{8397b0de-2eba-4439-9572-4d382dd7a350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programs">
+      <UniqueIdentifier>{57cbb170-5060-41ae-9ba1-701faa2e2b15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Commons">
+      <UniqueIdentifier>{f3f6e453-0524-4dda-b84c-80971ff51259}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +36,9 @@
     </ClCompile>
     <ClCompile Include="Agents\Interface.cpp">
       <Filter>Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="Programs\Console.cpp">
+      <Filter>Programs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="Agents\Interface.h">
       <Filter>Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Programs\Console.h">
+      <Filter>Programs</Filter>
+    </ClInclude>
+    <ClInclude Include="Commons\Constants.h">
+      <Filter>Commons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
