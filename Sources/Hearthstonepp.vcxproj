@@ -135,10 +135,12 @@
     <ClCompile Include="Loaders\CardLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Models\Card.cpp" />
+    <ClCompile Include="Programs\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agents\GameAgent.h" />
     <ClInclude Include="Agents\Interface.h" />
+    <ClInclude Include="Commons\Constants.h" />
     <ClInclude Include="Enums\StringToEnums.h" />
     <ClInclude Include="Enums\Enums.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
@@ -149,6 +151,7 @@
     <ClInclude Include="Models\Entities\Minion.h" />
     <ClInclude Include="Models\Entities\Spell.h" />
     <ClInclude Include="Models\Entities\Weapon.h" />
+    <ClInclude Include="Programs\Console.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
