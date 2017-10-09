@@ -47,7 +47,30 @@ namespace Hearthstonepp
 
 	void Console::MakeDeck()
 	{
+		Deck deck;
 
+		std::cout << "========================================\n";
+		std::cout << "               Make Deck!               \n";
+		std::cout << "========================================\n";
+		std::cout << "Name: ";
+		std::cin >> deck.name;
+
+		std::cout << "Input Card ID to add or delete to your deck.\n";
+		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
+
+		std::string selectedCardID;
+
+		while (true)
+		{
+			std::cout << "The number of cards in the current deck = " << deck.numOfCards << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
+			std::cout << "Card ID: ";
+			std::cin >> selectedCardID;
+
+			if (selectedCardID == "STOP")
+			{
+				break;
+			}
+		} 
 	}
 
 	void Console::LoadDeck()
@@ -62,52 +85,52 @@ namespace Hearthstonepp
 
 	void Console::SimulateGame()
 	{
-		CardLoader loader;
-		std::vector<Card*> cards;
+		//CardLoader loader;
+		//std::vector<Card*> cards;
 
-		loader.Load(cards);
+		//loader.Load(cards);
 
-		Deck deck1; // temporal deck
-		Deck deck2;
+		//Deck deck1; // temporal deck
+		//Deck deck2;
 
-		deck1.reserve(30);
-		deck2.reserve(30);
+		//deck1.reserve(30);
+		//deck2.reserve(30);
 
-		deck1.assign(cards.begin(), cards.begin() + 30); 
-		deck2.assign(cards.begin() + 30, cards.begin() + 60);
+		//deck1.assign(cards.begin(), cards.begin() + 30); 
+		//deck2.assign(cards.begin() + 30, cards.begin() + 60);
 
-		User user1(0, new Hero(), new HeroPower(), deck1); // define new user
-		User user2(1, new Hero(), new HeroPower(), deck2);
+		//User user1(0, new Hero(), new HeroPower(), deck1); // define new user
+		//User user2(1, new Hero(), new HeroPower(), deck2);
 
-		GameAgent agent(&user1, &user2);
-		GameResult result;
+		//GameAgent agent(&user1, &user2);
+		//GameResult result;
 
-		std::thread *at = agent.StartAgent(result);
+		//std::thread *at = agent.StartAgent(result);
 
-		for (int i = 0; i < 2; ++i)
-		{
-			Card *list[3] = { 0, };
-			int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
+		//for (int i = 0; i < 2; ++i)
+		//{
+		//	Card *list[3] = { 0, };
+		//	int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
 
-			for (auto card : list)
-			{
-				std::cout << "[" << card->name << "] ";
-			}
-			std::cout << std::endl;
+		//	for (auto card : list)
+		//	{
+		//		std::cout << "[" << card->name << "] ";
+		//	}
+		//	std::cout << std::endl;
 
-			BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
-			result = agent.WriteBuffer(mulligan, 2); // send index to agent
+		//	BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
+		//	result = agent.WriteBuffer(mulligan, 2); // send index to agent
 
-			result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
+		//	result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
 
-			for (auto card : list)
-			{
-				std::cout << "[" << card->name << "] ";
-			}
-			std::cout << std::endl;
-		}
+		//	for (auto card : list)
+		//	{
+		//		std::cout << "[" << card->name << "] ";
+		//	}
+		//	std::cout << std::endl;
+		//}
 
-		at->join(); // join agent thread
+		//at->join(); // join agent thread
 	}
 
 	int Console::Play()

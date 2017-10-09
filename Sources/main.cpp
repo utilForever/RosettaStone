@@ -14,6 +14,4 @@ int main()
 {
 	Console c;
 	return c.Play();
-
-	//return 0;
 }
