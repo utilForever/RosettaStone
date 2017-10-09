@@ -85,7 +85,7 @@ namespace Hearthstonepp
 	void GameAgent::ShuffleDeck(User* user)
 	{
 		Deck& deck = user->deck;
-		std::shuffle(deck.begin(), deck.end(), generator); // shuffle with random generator
+		//std::shuffle(deck.begin(), deck.end(), generator); // shuffle with random generator
 	}
 
 	void GameAgent::Mulligan(User* user)
@@ -132,8 +132,8 @@ namespace Hearthstonepp
 
 		for (int i = 0; i < num; ++i)
 		{
-			hand.push_back(deck.back());
-			deck.pop_back();
+			//hand.push_back(deck.back());
+			//deck.pop_back();
 		}
 	}
 
