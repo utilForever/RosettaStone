@@ -145,6 +145,7 @@
     <ClInclude Include="Enums\Enums.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
     <ClInclude Include="Models\Card.h" />
+    <ClInclude Include="Models\Deck.h" />
     <ClInclude Include="Models\Entities\Enchantment.h" />
     <ClInclude Include="Models\Entities\Hero.h" />
     <ClInclude Include="Models\Entities\HeroPower.h" />

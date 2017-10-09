@@ -84,5 +84,8 @@
     <ClInclude Include="Commons\Constants.h">
       <Filter>Commons</Filter>
     </ClInclude>
+    <ClInclude Include="Models\Deck.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
