@@ -6,6 +6,7 @@
 > Created Time: 2017/10/10
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Loaders/CardLoader.h>
 #include <Models/Cards.h>
 
 namespace Hearthstonepp
@@ -14,7 +15,8 @@ namespace Hearthstonepp
 
     Cards::Cards()
     {
-
+        CardLoader loader;
+        m_cards = loader.Load();
     }
 
     Cards::~Cards()

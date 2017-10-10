@@ -9,6 +9,10 @@
 #ifndef HEARTHSTONEPP_CARDS_H
 #define HEARTHSTONEPP_CARDS_H
 
+#include <Models/Card.h>
+
+#include <vector>
+
 namespace Hearthstonepp
 {
     class Cards
@@ -25,6 +29,8 @@ namespace Hearthstonepp
         Cards& operator=(Cards&&) = delete;
 
         static Cards* m_instance;
+
+        std::vector<Card*> m_cards;
     };
 }
 
