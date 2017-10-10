@@ -40,6 +40,9 @@
     <ClCompile Include="Programs\Console.cpp">
       <Filter>Programs</Filter>
     </ClCompile>
+    <ClCompile Include="Models\Cards.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
@@ -85,6 +88,9 @@
       <Filter>Commons</Filter>
     </ClInclude>
     <ClInclude Include="Models\Deck.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Cards.h">
       <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>

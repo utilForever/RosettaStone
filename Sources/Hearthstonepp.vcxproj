@@ -135,6 +135,7 @@
     <ClCompile Include="Loaders\CardLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Models\Card.cpp" />
+    <ClCompile Include="Models\Cards.cpp" />
     <ClCompile Include="Programs\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="Enums\Enums.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
     <ClInclude Include="Models\Card.h" />
+    <ClInclude Include="Models\Cards.h" />
     <ClInclude Include="Models\Deck.h" />
     <ClInclude Include="Models\Entities\Enchantment.h" />
     <ClInclude Include="Models\Entities\Hero.h" />
