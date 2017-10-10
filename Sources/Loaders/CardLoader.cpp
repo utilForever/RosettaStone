@@ -19,7 +19,7 @@
 
 namespace Hearthstonepp
 {
-	std::vector<Card*> CardLoader::Load()
+	std::vector<Card*> CardLoader::Load() const
 	{
 		// Read card data from JSON file
 		std::ifstream cardFile("cards.json");
@@ -35,75 +35,100 @@ namespace Hearthstonepp
         std::vector<Card*> cards;
         cards.reserve(j.size());
 
-        Card* c = nullptr;
-
         for (auto& card : j)
         {
-            c = nullptr;
+            const std::string id = std::move(card["id"].get<std::string>());
+			const Rarity rarity = card["rarity"].is_null() ? Rarity::FREE : std::move(ConverterFromStringToRarity.at(card["rarity"].get<std::string>()));
+			const Faction faction = card["faction"].is_null() ? Faction::NEUTRAL : std::move(ConverterFromStringToFaction.at(card["faction"].get<std::string>()));
+			const CardSet cardSet = card["set"].is_null() ? CardSet::NONE : std::move(ConverterFromStringToCardSet.at(card["set"].get<std::string>()));
+			const CardClass cardClass = card["cardClass"].is_null() ? CardClass::NEUTRAL : std::move(ConvertFromStringToCardClass.at(card["cardClass"].get<std::string>()));
+			const CardType cardType = card["type"].is_null() ? CardType::INVALID : std::move(ConverterFromStringToCardType.at(card["type"].get<std::string>()));
+			const Race race = card["race"].is_null() ? Race::INVALID : std::move(ConverterFromStringToRace.at(card["race"].get<std::string>()));
 
-            if (card["type"] == "HERO")
-            {
-                c = new Hero();
-            }
-            else if (card["type"] == "MINION")
-            {
-                c = new Minion();
-            }
-            else if (card["type"] == "SPELL")
-            {
-                c = new Spell();
-            }
-            else if (card["type"] == "ENCHANTMENT")
-            {
-                c = new Enchantment();
-            }
-            else if (card["type"] == "WEAPON")
-            {
-                c = new Weapon();
-            }
-            else if (card["type"] == "HERO_POWER")
-            {
-                c = new HeroPower();
-            }
-            else
-            {
-                std::cout << "Invalid card type: " << card["type"] << std::endl;
-                continue;
-            }
+			const std::string name = card["name"].is_null() ? "" : std::move(card["name"]["enUS"].get<std::string>());
+			const std::string text = card["text"].is_null() ? "" : std::move(card["text"]["enUS"].get<std::string>());
 
-            c->ID = std::move(card["id"].get<std::string>());
-            c->rarity = card["rarity"].is_null() ? Rarity::FREE : std::move(ConverterFromStringToRarity.at(card["rarity"].get<std::string>()));
-            c->faction = card["faction"].is_null() ? Faction::NEUTRAL : std::move(ConverterFromStringToFaction.at(card["faction"].get<std::string>()));
-            c->cardSet = card["set"].is_null() ? CardSet::NONE : std::move(ConverterFromStringToCardSet.at(card["set"].get<std::string>()));
-            c->cardClass = card["cardClass"].is_null() ? CardClass::NEUTRAL : std::move(ConvertFromStringToCardClass.at(card["cardClass"].get<std::string>()));
-            c->cardType = card["type"].is_null() ? CardType::INVALID : std::move(ConverterFromStringToCardType.at(card["type"].get<std::string>()));
-            c->race = card["race"].is_null() ? Race::INVALID : std::move(ConverterFromStringToRace.at(card["race"].get<std::string>()));
+			const bool collectible = card["collectible"].is_null() ? false : card["collectible"].get<bool>();
+			const int cost = card["cost"].is_null() ? -1 : card["cost"].get<int>();
+			const int attack = card["attack"].is_null() ? -1 : card["attack"].get<int>();
+			const int health = card["health"].is_null() ? -1 : card["health"].get<int>();
+			const int durability = card["durability"].is_null() ? -1 : card["durability"].get<int>();
 
-            c->name = card["name"].is_null() ? "" : std::move(card["name"]["enUS"].get<std::string>());
-            c->text = card["text"].is_null() ? "" : std::move(card["text"]["enUS"].get<std::string>());
-
-            c->collectible = card["collectible"].is_null() ? false : card["collectible"].get<bool>();
-            c->cost = card["cost"].is_null() ? -1 : card["cost"].get<int>();
-            c->attack = card["attack"].is_null() ? -1 : card["attack"].get<int>();
-            c->health = card["health"].is_null() ? -1 : card["health"].get<int>();
-            c->durability = card["durability"].is_null() ? -1 : card["durability"].get<int>();
-
+			std::vector<GameTag> mechanics;
             for (auto& mechanic : card["mechanics"])
             {
-                c->mechanics.emplace_back(std::move(ConverterFromStringToGameTag.at(mechanic.get<std::string>())));
+                mechanics.emplace_back(std::move(ConverterFromStringToGameTag.at(mechanic.get<std::string>())));
             }
 
+			std::map<PlayReq, int> playRequirements;
             for (auto iter = card["playRequirements"].begin(); iter != card["playRequirements"].end(); ++iter)
             {
-                c->playRequirements.try_emplace(std::move(ConverterFromStringToPlayReq.at(iter.key())), iter.value().get<int>());
+                playRequirements.try_emplace(std::move(ConverterFromStringToPlayReq.at(iter.key())), iter.value().get<int>());
             }
 
+			std::vector<std::string> entourages;
             for (auto& entourage : card["entourage"])
             {
-                c->entourages.emplace_back(std::move(entourage.get<std::string>()));
+                entourages.emplace_back(std::move(entourage.get<std::string>()));
             }
 
-            cards.push_back(c);
+			Card* c = new Card(
+				id, rarity, faction, cardSet, cardClass, cardType, race,
+				name, text, collectible, cost, attack, health, durability,
+				mechanics, playRequirements, entourages);
+
+			if (cardType == CardType::HERO)
+			{
+				Hero* hero = dynamic_cast<Hero*>(c);
+				if (hero != nullptr)
+				{
+					cards.emplace_back(hero);
+				}
+			}
+			else if (cardType == CardType::MINION)
+			{
+				Minion* minion = dynamic_cast<Minion*>(c);
+				if (minion != nullptr)
+				{
+					cards.emplace_back(minion);
+				}
+			}
+			else if (cardType == CardType::SPELL)
+			{
+				Spell* spell = dynamic_cast<Spell*>(c);
+				if (spell != nullptr)
+				{
+					cards.emplace_back(spell);
+				}
+			}
+			else if (cardType == CardType::ENCHANTMENT)
+			{
+				Enchantment* enchantment = dynamic_cast<Enchantment*>(c);
+				if (enchantment != nullptr)
+				{
+					cards.emplace_back(enchantment);
+				}
+			}
+			else if (cardType == CardType::WEAPON)
+			{
+				Weapon* weapon = dynamic_cast<Weapon*>(c);
+				if (weapon != nullptr)
+				{
+					cards.emplace_back(weapon);
+				}
+			}
+			else if (cardType == CardType::HERO_POWER)
+			{
+				HeroPower* heroPower = dynamic_cast<HeroPower*>(c);
+				if (heroPower != nullptr)
+				{
+					cards.emplace_back(heroPower);
+				}
+			}
+			else
+			{
+				std::cout << "Invalid card type: " << card["type"] << std::endl;
+			}
         }
 
 		cardFile.close();

@@ -21,7 +21,7 @@ namespace Hearthstonepp
 	class CardLoader
 	{
 	public:
-	    std::vector<Card*> Load();
+	    std::vector<Card*> Load() const;
 	};
 }
 
