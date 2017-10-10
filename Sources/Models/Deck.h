@@ -11,10 +11,13 @@
 
 #include <string>
 
-struct Deck
+namespace Hearthstonepp
 {
-	std::string name;
-	unsigned int numOfCards = 0;
-};
+    struct Deck
+    {
+        std::string name;
+        unsigned int numOfCards = 0;
+    };
+}
 
 #endif
