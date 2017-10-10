@@ -20,6 +20,8 @@ namespace Hearthstonepp
     public:
         static Cards* GetInstance();
 
+		const Card* FindCardByID(const std::string id);
+
     private:
         Cards();
         ~Cards();

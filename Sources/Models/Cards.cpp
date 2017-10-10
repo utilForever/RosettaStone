@@ -21,7 +21,15 @@ namespace Hearthstonepp
 
     Cards::~Cards()
     {
-        
+        for (auto card : m_cards)
+        {
+	        if (card != nullptr)
+	        {
+				delete card;
+	        }
+        }
+
+		m_cards.clear();
     }
 
     Cards* Cards::GetInstance()
@@ -32,5 +40,10 @@ namespace Hearthstonepp
         }
 
         return m_instance;
+    }
+
+	const Card* Cards::FindCardByID(const std::string id)
+    {
+		return nullptr;
     }
 }
