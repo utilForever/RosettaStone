@@ -10,6 +10,7 @@
 #include <Commons/Constants.h>
 #include <Loaders/CardLoader.h>
 #include <Models/Card.h>
+#include <Models/Cards.h>
 #include <Programs/Console.h>
 
 #include <iostream>
@@ -40,11 +41,6 @@ namespace Hearthstonepp
 
 	}
 
-	void Console::ShowCardInfo()
-	{
-
-	}
-
 	void Console::MakeDeck()
 	{
 		Deck deck;
@@ -69,6 +65,13 @@ namespace Hearthstonepp
 			if (selectedCardID == "STOP")
 			{
 				break;
+			}
+
+			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
+			if (card == nullptr)
+			{
+				std::cout << selectedCardID << "doesn't exist.\n";
+				continue;
 			}
 		} 
 	}

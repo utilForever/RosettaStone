@@ -24,7 +24,6 @@ namespace Hearthstonepp
 		int Play();
 
 		void SearchCard();
-		void ShowCardInfo();
 		void MakeDeck();
 		void LoadDeck();
 		void StoreDeck();
@@ -34,17 +33,15 @@ namespace Hearthstonepp
 		std::array<std::string, MENU_SIZE> m_menuStr =
 		{
 			"1. Search Card",
-			"2. Show Card Information",
-			"3. Make Deck",
-			"4. Load Deck",
-			"5. Store Deck",
-			"6. Simulate Game",
-			"7. Exit"
+			"2. Make Deck",
+			"3. Load Deck",
+			"4. Store Deck",
+			"5. Simulate Game",
+			"6. Exit"
 		};
 		std::array<std::function<void(Console&)>, MENU_SIZE - 1> m_menuFuncs =
 		{
 			&Console::SearchCard,
-			&Console::ShowCardInfo,
 			&Console::MakeDeck,
 			&Console::LoadDeck,
 			&Console::StoreDeck,
