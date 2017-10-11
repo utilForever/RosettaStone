@@ -28,6 +28,7 @@ namespace Hearthstonepp
 			std::vector<GameTag> mechnics,
 			std::map<PlayReq, int> playRequirements,
 			std::vector<std::string> entourages);
+		virtual ~Card() = default;
 
 		std::string GetID() const;
 
