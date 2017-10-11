@@ -72,63 +72,51 @@ namespace Hearthstonepp
                 entourages.emplace_back(std::move(entourage.get<std::string>()));
             }
 
-			Card* c = new Card(
-				id, rarity, faction, cardSet, cardClass, cardType, race,
-				name, text, collectible, cost, attack, health, durability,
-				mechanics, playRequirements, entourages);
-
-			if (cardType == CardType::HERO)
+			Card* c;
+        	switch (cardType)
 			{
-				Hero* hero = dynamic_cast<Hero*>(c);
-				if (hero != nullptr)
-				{
-					cards.emplace_back(hero);
-				}
-			}
-			else if (cardType == CardType::MINION)
-			{
-				Minion* minion = dynamic_cast<Minion*>(c);
-				if (minion != nullptr)
-				{
-					cards.emplace_back(minion);
-				}
-			}
-			else if (cardType == CardType::SPELL)
-			{
-				Spell* spell = dynamic_cast<Spell*>(c);
-				if (spell != nullptr)
-				{
-					cards.emplace_back(spell);
-				}
-			}
-			else if (cardType == CardType::ENCHANTMENT)
-			{
-				Enchantment* enchantment = dynamic_cast<Enchantment*>(c);
-				if (enchantment != nullptr)
-				{
-					cards.emplace_back(enchantment);
-				}
-			}
-			else if (cardType == CardType::WEAPON)
-			{
-				Weapon* weapon = dynamic_cast<Weapon*>(c);
-				if (weapon != nullptr)
-				{
-					cards.emplace_back(weapon);
-				}
-			}
-			else if (cardType == CardType::HERO_POWER)
-			{
-				HeroPower* heroPower = dynamic_cast<HeroPower*>(c);
-				if (heroPower != nullptr)
-				{
-					cards.emplace_back(heroPower);
-				}
-			}
-			else
-			{
+			case CardType::HERO:
+				c = new Hero(
+					id, rarity, faction, cardSet, cardClass, cardType, race,
+					name, text, collectible, cost, attack, health, durability,
+					mechanics, playRequirements, entourages);
+				break;
+			case CardType::MINION:
+				c = new Minion(
+					id, rarity, faction, cardSet, cardClass, cardType, race,
+					name, text, collectible, cost, attack, health, durability,
+					mechanics, playRequirements, entourages);
+				break;
+			case CardType::SPELL:
+				c = new Spell(
+					id, rarity, faction, cardSet, cardClass, cardType, race,
+					name, text, collectible, cost, attack, health, durability,
+					mechanics, playRequirements, entourages);
+				break;
+			case CardType::ENCHANTMENT:
+				c = new Enchantment(
+					id, rarity, faction, cardSet, cardClass, cardType, race,
+					name, text, collectible, cost, attack, health, durability,
+					mechanics, playRequirements, entourages);
+				break;
+			case CardType::WEAPON:
+				c = new Weapon(
+					id, rarity, faction, cardSet, cardClass, cardType, race,
+					name, text, collectible, cost, attack, health, durability,
+					mechanics, playRequirements, entourages);
+				break;
+			case CardType::HERO_POWER:
+				c = new HeroPower(
+					id, rarity, faction, cardSet, cardClass, cardType, race,
+					name, text, collectible, cost, attack, health, durability,
+					mechanics, playRequirements, entourages);
+				break;
+			default:
 				// TODO: Log invalid card type
+				break;
 			}
+
+			cards.emplace_back(c);
         }
 
 		cardFile.close();
