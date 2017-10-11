@@ -29,7 +29,12 @@ namespace Hearthstonepp
 
 	}
 
-	void Card::ShowInfo()
+    std::string Card::GetID() const
+	{
+        return m_id;
+	}
+
+	void Card::ShowInfo() const
 	{
 		
 	}

@@ -29,7 +29,9 @@ namespace Hearthstonepp
 			std::map<PlayReq, int> playRequirements,
 			std::vector<std::string> entourages);
 
-		virtual void ShowInfo();
+		std::string GetID() const;
+
+		virtual void ShowInfo() const;
 
 	private:
 		std::string m_id;
