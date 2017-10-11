@@ -22,7 +22,7 @@ namespace Hearthstonepp
 	std::vector<Card*> CardLoader::Load() const
 	{
 		// Read card data from JSON file
-		std::ifstream cardFile("cards.json");
+		std::ifstream cardFile("Datas/cards.json");
 		json j;
 
 		if (!cardFile.is_open())
@@ -127,7 +127,7 @@ namespace Hearthstonepp
 			}
 			else
 			{
-				std::cout << "Invalid card type: " << card["type"] << std::endl;
+				// TODO: Log invalid card type
 			}
         }
 
