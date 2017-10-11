@@ -136,6 +136,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Models\Card.cpp" />
     <ClCompile Include="Models\Cards.cpp" />
+    <ClCompile Include="Models\Entities\Enchantment.cpp" />
+    <ClCompile Include="Models\Entities\Hero.cpp" />
+    <ClCompile Include="Models\Entities\HeroPower.cpp" />
+    <ClCompile Include="Models\Entities\Minion.cpp" />
+    <ClCompile Include="Models\Entities\Spell.cpp" />
+    <ClCompile Include="Models\Entities\Weapon.cpp" />
     <ClCompile Include="Programs\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
