@@ -1,5 +1,5 @@
 /*************************************************************************
-> File Name: Enums.h
+> File Name: StringToEnums.h
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
 > Purpose: Converter from std::string to enumerations.
@@ -74,7 +74,7 @@ namespace Hearthstonepp
 		{ "ICECROWN",		CardSet::ICECROWN }
 	};
 
-	const std::map<std::string, CardClass> ConvertFromStringToCardClass =
+	const std::map<std::string, CardClass> ConverterFromStringToCardClass =
 	{
 		{ "INVALID",		CardClass::INVALID },
 		{ "DEATHKNIGHT",	CardClass::DEATHKNIGHT },

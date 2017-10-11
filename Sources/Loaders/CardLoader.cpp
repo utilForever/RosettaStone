@@ -41,7 +41,7 @@ namespace Hearthstonepp
 			const Rarity rarity = card["rarity"].is_null() ? Rarity::FREE : std::move(ConverterFromStringToRarity.at(card["rarity"].get<std::string>()));
 			const Faction faction = card["faction"].is_null() ? Faction::NEUTRAL : std::move(ConverterFromStringToFaction.at(card["faction"].get<std::string>()));
 			const CardSet cardSet = card["set"].is_null() ? CardSet::NONE : std::move(ConverterFromStringToCardSet.at(card["set"].get<std::string>()));
-			const CardClass cardClass = card["cardClass"].is_null() ? CardClass::NEUTRAL : std::move(ConvertFromStringToCardClass.at(card["cardClass"].get<std::string>()));
+			const CardClass cardClass = card["cardClass"].is_null() ? CardClass::NEUTRAL : std::move(ConverterFromStringToCardClass.at(card["cardClass"].get<std::string>()));
 			const CardType cardType = card["type"].is_null() ? CardType::INVALID : std::move(ConverterFromStringToCardType.at(card["type"].get<std::string>()));
 			const Race race = card["race"].is_null() ? Race::INVALID : std::move(ConverterFromStringToRace.at(card["race"].get<std::string>()));
 
