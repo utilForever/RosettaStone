@@ -6,7 +6,10 @@
 > Created Time: 2017/08/30
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Enums/EnumsToString.h>
 #include <Models/Card.h>
+
+#include <iostream>
 
 namespace Hearthstonepp
 {
@@ -26,7 +29,7 @@ namespace Hearthstonepp
 		m_playRequirements(std::move(playRequirements)),
 		m_entourages(std::move(entourages))
 	{
-
+		
 	}
 
     std::string Card::GetID() const
@@ -36,6 +39,17 @@ namespace Hearthstonepp
 
 	void Card::ShowInfo() const
 	{
-		
+		std::cout << "========================================\n";
+		std::cout << "               Card Info!               \n";
+		std::cout << "========================================\n";
+		std::cout << "ID: " << m_id.c_str() << '\n';
+		std::cout << "Name: " << m_name.c_str() << '\n';
+		std::cout << "Text: " << m_text.c_str() << '\n';
+		std::cout << "Rarity: " << ConverterFromRarityToString.at(m_rarity).c_str() << '\n';
+		std::cout << "Faction: " << ConverterFromFactionToString.at(m_faction).c_str() << '\n';
+		std::cout << "CardSet: " << ConverterFromCardSetToString.at(m_cardSet).c_str() << '\n';
+		std::cout << "CardClass: " << ConverterFromCardClassToString.at(m_cardClass).c_str() << '\n';
+		std::cout << "CardType: " << ConverterFromCardTypeToString.at(m_cardType).c_str() << '\n';
+		std::cout << "Race: " << ConverterFromRaceToString.at(m_race).c_str() << '\n';
 	}
 }

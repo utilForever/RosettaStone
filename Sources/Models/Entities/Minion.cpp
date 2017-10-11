@@ -28,6 +28,6 @@ namespace Hearthstonepp
 
 	void Minion::ShowInfo() const
 	{
-
+		Card::ShowInfo();
 	}
 }
