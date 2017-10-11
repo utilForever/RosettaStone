@@ -111,5 +111,8 @@
     <ClInclude Include="Models\Cards.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\EnumsToString.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

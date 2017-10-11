@@ -148,6 +148,7 @@
     <ClInclude Include="Agents\GameAgent.h" />
     <ClInclude Include="Agents\Interface.h" />
     <ClInclude Include="Commons\Constants.h" />
+    <ClInclude Include="Enums\EnumsToString.h" />
     <ClInclude Include="Enums\StringToEnums.h" />
     <ClInclude Include="Enums\Enums.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
