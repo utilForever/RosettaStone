@@ -44,6 +44,14 @@ namespace Hearthstonepp
 
 	const Card* Cards::FindCardByID(const std::string id)
     {
+		for (auto card : m_cards)
+		{
+		    if (card->GetID() == id)
+		    {
+				return card;
+		    }
+		}
+
 		return nullptr;
     }
 }
