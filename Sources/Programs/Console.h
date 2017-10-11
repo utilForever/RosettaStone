@@ -21,6 +21,7 @@ namespace Hearthstonepp
 	public:
 		void ShowMenu();
 		size_t InputMenuNum();
+		bool InputYesNo(std::string sentence) const;
 		int Play();
 
 		void SearchCard();

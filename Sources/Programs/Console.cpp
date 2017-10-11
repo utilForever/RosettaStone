@@ -36,6 +36,19 @@ namespace Hearthstonepp
 		return num;
 	}
 
+	bool Console::InputYesNo(std::string sentence) const
+	{
+		std::cout << sentence;
+		std::cout << "(Please input \"y/yes\" or \"n/no\" (insensitive))\n";
+		std::cout << "Input: ";
+
+		std::string str;
+		std::cin >> str;
+		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+
+		return (str == "y" || str == "yes") ? true : (str == "n" || str == "no") ? false : InputYesNo(sentence);
+	}
+
 	void Console::SearchCard()
 	{
 
@@ -70,9 +83,12 @@ namespace Hearthstonepp
 			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
 			if (card == nullptr)
 			{
-				std::cout << selectedCardID << "doesn't exist.\n";
+				std::cout << selectedCardID << " doesn't exist. Try again.\n\n";
 				continue;
 			}
+
+			card->ShowInfo();
+			bool yesNo = InputYesNo("Is it correct? ");
 		} 
 	}
 
