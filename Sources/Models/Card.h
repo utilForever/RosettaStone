@@ -31,6 +31,7 @@ namespace Hearthstonepp
 		virtual ~Card() = default;
 
 		std::string GetID() const;
+		unsigned int GetMaxAllowedInDeck() const;
 
 		virtual void ShowInfo() const;
 
@@ -55,6 +56,8 @@ namespace Hearthstonepp
 		std::vector<GameTag> m_mechanics;
 		std::map<PlayReq, int> m_playRequirements;
 		std::vector<std::string> m_entourages;
+
+		unsigned int m_maxAllowedInDeck;
 	};
 }
 

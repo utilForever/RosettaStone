@@ -29,12 +29,17 @@ namespace Hearthstonepp
 		m_playRequirements(std::move(playRequirements)),
 		m_entourages(std::move(entourages))
 	{
-		
+		m_maxAllowedInDeck = (rarity == Rarity::LEGENDARY) ? 1 : 2;
 	}
 
     std::string Card::GetID() const
 	{
         return m_id;
+	}
+
+	unsigned int Card::GetMaxAllowedInDeck() const
+	{
+		return m_maxAllowedInDeck;
 	}
 
 	void Card::ShowInfo() const
