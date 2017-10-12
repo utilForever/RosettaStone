@@ -61,15 +61,17 @@ namespace Hearthstonepp
 		std::cout << "========================================\n";
 		std::cout << "               Make Deck!               \n";
 		std::cout << "========================================\n";
+		
 		std::cout << "Name: ";
-		std::cin >> deck.name;
+		std::string name;
+		std::cin >> name;
 
 		std::cout << "Input Card ID to add or delete to your deck.\n";
 		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
 
 		while (true)
 		{
-			std::cout << "The number of cards in the current deck = " << deck.numOfCards << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
+			//std::cout << "The number of cards in the current deck = " << deck.numOfCards << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
 			std::cout << "Card ID: ";
 			std::string selectedCardID;
 			std::cin >> selectedCardID;
