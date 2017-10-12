@@ -846,6 +846,20 @@ namespace Hearthstonepp
 		SETASIDE = 6,
 		SECRET = 7,
 	};
+
+	enum class PlayerClass
+	{
+		INVALID = 0,
+		DRUID = 1,
+		HUNTER = 2,
+		MAGE = 3,
+		PALADIN = 4,
+		PRIEST = 5,
+		ROGUE = 6,
+		SHAMAN = 7,
+		WARLOCK = 8,
+		WARRIOR = 9,
+	};
 }
 
 #endif
