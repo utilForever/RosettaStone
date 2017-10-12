@@ -67,12 +67,11 @@ namespace Hearthstonepp
 		std::cout << "Input Card ID to add or delete to your deck.\n";
 		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
 
-		std::string selectedCardID;
-
 		while (true)
 		{
 			std::cout << "The number of cards in the current deck = " << deck.numOfCards << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
 			std::cout << "Card ID: ";
+			std::string selectedCardID;
 			std::cin >> selectedCardID;
 
 			if (selectedCardID == "STOP")
@@ -88,7 +87,27 @@ namespace Hearthstonepp
 			}
 
 			card->ShowInfo();
-			bool yesNo = InputYesNo("Is it correct? ");
+
+			bool isYes = InputYesNo("Is it correct? ");
+			if (isYes == true)
+			{
+				while (true)
+				{
+					std::cout << "How many cards to add (0 - " << card->GetMaxAllowedInDeck() << ") ? ";
+					unsigned int numCardToAdd;
+					std::cin >> numCardToAdd;
+
+					if (numCardToAdd < 0 || numCardToAdd > card->GetMaxAllowedInDeck())
+					{
+						std::cout << "\nInvalid number! Try again.\n";
+					}
+					else
+					{
+						// TODO: Add card(s) to deck
+						break;
+					}
+				}
+			}
 		} 
 	}
 
