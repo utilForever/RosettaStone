@@ -26,14 +26,35 @@ namespace Hearthstonepp
 			std::cout << menu.c_str() << '\n';
 		}
 		std::cout << "========================================\n";
-		std::cout << "Select: ";
 	}
 
-	size_t Console::InputMenuNum()
+	void Console::ShowPlayerClass()
 	{
-		size_t num;
-		std::cin >> num;
-		return num;
+		std::cout << "========================================\n";
+		for (auto& playerClass : m_playerClassStr)
+		{
+			std::cout << playerClass.c_str() << '\n';
+		}
+		std::cout << "========================================\n";
+	}
+
+	size_t Console::InputMenuNum(std::string questionStr, const int menuSize)
+	{
+		while (true)
+		{
+			std::cout << questionStr;
+			size_t num;
+			std::cin >> num;
+
+			if (num < 0 || num > menuSize)
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				return num;
+			}
+		}
 	}
 
 	bool Console::InputYesNo(std::string sentence) const
@@ -61,10 +82,16 @@ namespace Hearthstonepp
 		std::cout << "========================================\n";
 		std::cout << "               Make Deck!               \n";
 		std::cout << "========================================\n";
-		
-		std::cout << "Name: ";
+
+		ShowPlayerClass();
+		const size_t selectedNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
+		PlayerClass playerClass = static_cast<PlayerClass>(selectedNum);
+
+		std::cout << "What's your deck name? ";
 		std::string name;
 		std::cin >> name;
+
+		// TODO: Define Deck object
 
 		std::cout << "Input Card ID to add or delete to your deck.\n";
 		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
@@ -177,14 +204,10 @@ namespace Hearthstonepp
 	{
 		ShowMenu();
 
-		const size_t selectedNum = InputMenuNum();
+		const size_t selectedNum = InputMenuNum("Select: ", MENU_SIZE);
 		bool isFinish = false;
 
-		if (selectedNum < 0 || selectedNum > MENU_SIZE)
-		{
-			std::cout << "\nInvalid number! Try again.\n\n";
-		}
-		else if (selectedNum != MENU_SIZE)
+		if (selectedNum != MENU_SIZE)
 		{
 			m_menuFuncs[selectedNum - 1](*this);
 		}

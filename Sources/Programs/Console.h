@@ -20,7 +20,8 @@ namespace Hearthstonepp
 	{
 	public:
 		void ShowMenu();
-		size_t InputMenuNum();
+		void ShowPlayerClass();
+		size_t InputMenuNum(std::string questionStr, const int menuSize);
 		bool InputYesNo(std::string sentence) const;
 		int Play();
 
@@ -47,6 +48,18 @@ namespace Hearthstonepp
 			&Console::LoadDeck,
 			&Console::StoreDeck,
 			&Console::SimulateGame
+		};
+		std::array<std::string, PLAYER_CLASS_SIZE> m_playerClassStr =
+		{
+			"1. Druid",
+			"2. Hunter",
+			"3. Mage",
+			"4. Paladin",
+			"5. Priest",
+			"6. Rogue",
+			"7. Shaman",
+			"8. Warlock",
+			"9. Warrior"
 		};
 	};
 }
