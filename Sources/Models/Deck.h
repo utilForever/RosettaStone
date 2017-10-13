@@ -20,7 +20,7 @@ namespace Hearthstonepp
     {
 	public:
 		Deck();
-		Deck(const PlayerClass playerClass, std::string name);
+		Deck(const CardClass playerClass, std::string name);
 
 		unsigned int GetNumOfCards() const;
 		unsigned int GetNumCardInDeck(std::string cardID);
@@ -29,7 +29,7 @@ namespace Hearthstonepp
 		void DeleteCard(const Card* card, const int numCardToDelete);
 
     private:
-    	PlayerClass m_class;
+    	CardClass m_class;
     	std::string m_name;
     	unsigned int m_numOfCards;
     	std::vector<std::pair<const Card*, int>> m_cards;

@@ -13,12 +13,12 @@
 namespace Hearthstonepp
 {
 	Deck::Deck() :
-		m_class(PlayerClass::INVALID), m_name("Empty"), m_numOfCards(0)
+		m_class(CardClass::INVALID), m_name("Empty"), m_numOfCards(0)
 	{
 		
 	}
 
-	Deck::Deck(const PlayerClass playerClass, std::string name) :
+	Deck::Deck(const CardClass playerClass, std::string name) :
 		m_class(playerClass), m_name(std::move(name)), m_numOfCards(0)
 	{
 		
