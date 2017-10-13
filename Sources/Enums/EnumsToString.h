@@ -16,7 +16,7 @@
 
 namespace Hearthstonepp
 {
-	const std::map<Rarity, std::string> ConverterFromRarityToString =
+	const std::map<const Rarity, const std::string> ConverterFromRarityToString =
 	{
 		{ Rarity::INVALID,		"INVALID" },
 		{ Rarity::COMMON,		"COMMON" },
@@ -27,7 +27,7 @@ namespace Hearthstonepp
 		{ Rarity::UNKNOWN_6,	"UNKNOWN_6" }
 	};
 
-	const std::map<Faction, std::string> ConverterFromFactionToString =
+	const std::map<const Faction, const std::string> ConverterFromFactionToString =
 	{
 		{ Faction::INVALID,		"INVALID" },
 		{ Faction::HORDE,		"HORDE" },
@@ -35,7 +35,7 @@ namespace Hearthstonepp
 		{ Faction::NEUTRAL,		"NEUTRAL" }
 	};
 
-	const std::map<CardSet, std::string> ConverterFromCardSetToString =
+	const std::map<const CardSet, const std::string> ConverterFromCardSetToString =
 	{
 		{ CardSet::INVALID,			"INVALID" },
 		{ CardSet::TEST_TEMPORARY,	"TEST_TEMPORARY" },
@@ -74,7 +74,7 @@ namespace Hearthstonepp
 		{ CardSet::ICECROWN,		"ICECROWN" }
 	};
 
-	const std::map<CardClass, std::string> ConverterFromCardClassToString =
+	const std::map<const CardClass, const std::string> ConverterFromCardClassToString =
 	{
 		{ CardClass::INVALID,		"INVALID" },
 		{ CardClass::DEATHKNIGHT,	"DEATHKNIGHT" },
@@ -91,7 +91,7 @@ namespace Hearthstonepp
 		{ CardClass::NEUTRAL,		"NEUTRAL" }
 	};
 
-	const std::map<CardType, std::string> ConverterFromCardTypeToString =
+	const std::map<const CardType, const std::string> ConverterFromCardTypeToString =
 	{
 		{ CardType::INVALID,		"INVALID" },
 		{ CardType::GAME,			"GAME" },
@@ -107,7 +107,7 @@ namespace Hearthstonepp
 		{ CardType::HERO_POWER,		"HERO_POWER" }
 	};
 
-	const std::map<Race, std::string> ConverterFromRaceToString =
+	const std::map<const Race, const std::string> ConverterFromRaceToString =
 	{
 		{ Race::INVALID,		"INVALID" },
 		{ Race::BLOODELF,		"BLOODELF" },
@@ -137,7 +137,7 @@ namespace Hearthstonepp
 		{ Race::DRAGON,			"DRAGON" }
 	};
 
-	const std::map<GameTag, std::string> ConverterFromGameTagToString =
+	const std::map<const GameTag, const std::string> ConverterFromGameTagToString =
 	{
 		{ GameTag::IGNORE_DAMAGE,									"IGNORE_DAMAGE" },
 		{ GameTag::TAG_SCRIPT_DATA_NUM_1,							"TAG_SCRIPT_DATA_NUM_1" },
@@ -471,7 +471,7 @@ namespace Hearthstonepp
 		{ GameTag::ZOMBEAST,										"ZOMBEAST" },
 	};
 
-	const std::map<PlayReq, std::string> ConverterFromPlayReqToString =
+	const std::map<const PlayReq, const std::string> ConverterFromPlayReqToString =
 	{
 		{ PlayReq::INVALID,													"INVALID" },
 		{ PlayReq::REQ_MINION_TARGET,										"REQ_MINION_TARGET" },
