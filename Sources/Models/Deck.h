@@ -10,6 +10,7 @@
 #define HEARTHSTONEPP_DECK_H
 
 #include <Enums/Enums.h>
+#include <Models/Card.h>
 
 #include <string>
 
@@ -18,16 +19,19 @@ namespace Hearthstonepp
     class Deck
     {
 	public:
-		//Deck();
-		//Deck(std::string name);
+		Deck();
+		Deck(PlayerClass playerClass, std::string name);
 
-		//void AddCard(Card* card, int num);
+		unsigned int GetNumOfCards() const;
+		unsigned int GetNumCardInDeck(std::string cardID);
+
+		void AddCard(const Card* card, int numCardToAdd);
 
     private:
     	PlayerClass m_class;
     	std::string m_name;
-    	unsigned int m_numOfCards = 0;
-    	std::vector<std::pair<Card*, int>> m_cards;
+    	unsigned int m_numOfCards;
+    	std::vector<std::pair<const Card*, int>> m_cards;
     };
 }
 

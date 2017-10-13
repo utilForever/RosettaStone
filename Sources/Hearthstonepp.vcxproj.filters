@@ -61,6 +61,9 @@
     <ClCompile Include="Models\Entities\HeroPower.cpp">
       <Filter>Models\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Models\Deck.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">

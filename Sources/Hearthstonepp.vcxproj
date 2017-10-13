@@ -136,6 +136,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Models\Card.cpp" />
     <ClCompile Include="Models\Cards.cpp" />
+    <ClCompile Include="Models\Deck.cpp" />
     <ClCompile Include="Models\Entities\Enchantment.cpp" />
     <ClCompile Include="Models\Entities\Hero.cpp" />
     <ClCompile Include="Models\Entities\HeroPower.cpp" />
