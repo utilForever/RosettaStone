@@ -46,7 +46,7 @@ namespace Hearthstonepp
 			size_t num;
 			std::cin >> num;
 
-			if (num < 0 || num > menuSize)
+			if (num < 1 || num > menuSize)
 			{
 				std::cout << "Invalid number! Try again.\n";
 			}
@@ -77,8 +77,6 @@ namespace Hearthstonepp
 
 	void Console::MakeDeck()
 	{
-		Deck deck;
-
 		std::cout << "========================================\n";
 		std::cout << "               Make Deck!               \n";
 		std::cout << "========================================\n";
@@ -91,14 +89,14 @@ namespace Hearthstonepp
 		std::string name;
 		std::cin >> name;
 
-		// TODO: Define Deck object
+		Deck deck(playerClass, name);
 
 		std::cout << "Input Card ID to add or delete to your deck.\n";
 		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
 
 		while (true)
 		{
-			//std::cout << "The number of cards in the current deck = " << deck.numOfCards << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
+			std::cout << "The number of cards in the current deck = " << deck.GetNumOfCards() << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
 			std::cout << "Card ID: ";
 			std::string selectedCardID;
 			std::cin >> selectedCardID;
@@ -117,22 +115,22 @@ namespace Hearthstonepp
 
 			card->ShowInfo();
 
-			bool isYes = InputYesNo("Is it correct? ");
+			const bool isYes = InputYesNo("Is it correct? ");
 			if (isYes == true)
 			{
 				while (true)
 				{
-					std::cout << "How many cards to add (0 - " << card->GetMaxAllowedInDeck() << ") ? ";
+					std::cout << "How many cards to add (0 - " << card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID) << ") ? ";
 					unsigned int numCardToAdd;
 					std::cin >> numCardToAdd;
 
-					if (numCardToAdd < 0 || numCardToAdd > card->GetMaxAllowedInDeck())
+					if (numCardToAdd < 0 || numCardToAdd > card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID))
 					{
-						std::cout << "\nInvalid number! Try again.\n";
+						std::cout << "Invalid number! Try again.\n";
 					}
 					else
 					{
-						// TODO: Add card(s) to deck
+						deck.AddCard(card, numCardToAdd);
 						break;
 					}
 				}
