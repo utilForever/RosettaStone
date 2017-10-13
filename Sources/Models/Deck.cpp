@@ -18,8 +18,8 @@ namespace Hearthstonepp
 		
 	}
 
-	Deck::Deck(PlayerClass playerClass, std::string name) :
-		m_class(playerClass), m_name(std::move(name))
+	Deck::Deck(const PlayerClass playerClass, std::string name) :
+		m_class(playerClass), m_name(std::move(name)), m_numOfCards(0)
 	{
 		
 	}
@@ -57,5 +57,23 @@ namespace Hearthstonepp
 		}
 
 		m_numOfCards += numCardToAdd;
+	}
+
+	void Deck::DeleteCard(const Card* card, const int numCardToDelete)
+	{
+		auto isCardExistInDeck = std::find_if(m_cards.begin(), m_cards.end(),
+			[&card](const std::pair<const Card*, int>& elem) { return elem.first->GetID() == card->GetID(); });
+
+		if (isCardExistInDeck != m_cards.end())
+		{
+			(*isCardExistInDeck).second -= numCardToDelete;
+
+			if ((*isCardExistInDeck).second == 0)
+			{
+				m_cards.erase(isCardExistInDeck);
+			}
+
+			m_numOfCards -= numCardToDelete;
+		}
 	}
 }

@@ -20,12 +20,13 @@ namespace Hearthstonepp
     {
 	public:
 		Deck();
-		Deck(PlayerClass playerClass, std::string name);
+		Deck(const PlayerClass playerClass, std::string name);
 
 		unsigned int GetNumOfCards() const;
 		unsigned int GetNumCardInDeck(std::string cardID);
 
 		void AddCard(const Card* card, int numCardToAdd);
+		void DeleteCard(const Card* card, const int numCardToDelete);
 
     private:
     	PlayerClass m_class;
