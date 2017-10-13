@@ -17,23 +17,13 @@
 
 namespace Hearthstonepp
 {
-	void Console::ShowMenu()
+	template<std::size_t SIZE>
+	void Console::ShowMenu(std::array<std::string, SIZE>& menus)
 	{
-		std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
 		std::cout << "========================================\n";
-		for (auto& menu : m_menuStr)
+		for (auto& menu : menus)
 		{
 			std::cout << menu.c_str() << '\n';
-		}
-		std::cout << "========================================\n";
-	}
-
-	void Console::ShowPlayerClass()
-	{
-		std::cout << "========================================\n";
-		for (auto& playerClass : m_playerClassStr)
-		{
-			std::cout << playerClass.c_str() << '\n';
 		}
 		std::cout << "========================================\n";
 	}
@@ -81,9 +71,9 @@ namespace Hearthstonepp
 		std::cout << "               Make Deck!               \n";
 		std::cout << "========================================\n";
 
-		ShowPlayerClass();
-		const size_t selectedNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
-		PlayerClass playerClass = static_cast<PlayerClass>(selectedNum);
+		ShowMenu(m_playerClassStr);
+		const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
+		const PlayerClass playerClass = static_cast<PlayerClass>(selectedClassNum);
 
 		std::cout << "What's your deck name? ";
 		std::string name;
@@ -109,33 +99,68 @@ namespace Hearthstonepp
 			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
 			if (card == nullptr)
 			{
-				std::cout << selectedCardID << " doesn't exist. Try again.\n\n";
+				std::cout << selectedCardID << " doesn't exist. Try again.\n";
 				continue;
 			}
 
 			card->ShowInfo();
 
 			const bool isYes = InputYesNo("Is it correct? ");
-			if (isYes == true)
+			if (isYes == false)
 			{
-				while (true)
-				{
-					std::cout << "How many cards to add (0 - " << card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID) << ") ? ";
-					unsigned int numCardToAdd;
-					std::cin >> numCardToAdd;
-
-					if (numCardToAdd < 0 || numCardToAdd > card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID))
-					{
-						std::cout << "Invalid number! Try again.\n";
-					}
-					else
-					{
-						deck.AddCard(card, numCardToAdd);
-						break;
-					}
-				}
+				continue;
 			}
+
+			ShowMenu(m_makeDeckOperationStr);
+			const size_t selectedOperation = InputMenuNum("What do you want to do? ", 2);
+			m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, card, selectedCardID);
 		} 
+	}
+
+	void Console::AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	{
+		while (true)
+		{
+			std::cout << "How many cards to add (0 - " << card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID) << ") ? ";
+			unsigned int numCardToAdd;
+			std::cin >> numCardToAdd;
+
+			if (numCardToAdd < 0 || numCardToAdd > card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID))
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				deck.AddCard(card, numCardToAdd);
+				break;
+			}
+		}
+	}
+
+	void Console::DeleteCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	{
+		if (deck.GetNumCardInDeck(selectedCardID) == 0)
+		{
+			std::cout << selectedCardID << " doesn't exist.\n";
+			return;
+		}
+
+		while (true)
+		{
+			std::cout << "How many cards to delete (0 - " << deck.GetNumCardInDeck(selectedCardID) << ") ? ";
+			unsigned int numCardToDelete;
+			std::cin >> numCardToDelete;
+
+			if (numCardToDelete < 0 || numCardToDelete > deck.GetNumCardInDeck(selectedCardID))
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				deck.DeleteCard(card, numCardToDelete);
+				break;
+			}
+		}
 	}
 
 	void Console::LoadDeck()
@@ -200,8 +225,9 @@ namespace Hearthstonepp
 
 	int Console::Play()
 	{
-		ShowMenu();
+		std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
 
+		ShowMenu(m_menuStr);
 		const size_t selectedNum = InputMenuNum("Select: ", MENU_SIZE);
 		bool isFinish = false;
 

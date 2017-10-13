@@ -10,6 +10,7 @@
 #define HEARTHSTONEPP_CONSOLE_H
 
 #include <Commons/Constants.h>
+#include <Models/Deck.h>
 
 #include <array>
 #include <functional>
@@ -19,14 +20,16 @@ namespace Hearthstonepp
 	class Console
 	{
 	public:
-		void ShowMenu();
-		void ShowPlayerClass();
+		template<std::size_t SIZE>
+		void ShowMenu(std::array<std::string, SIZE>& menus);
 		size_t InputMenuNum(std::string questionStr, const int menuSize);
 		bool InputYesNo(std::string sentence) const;
 		int Play();
 
 		void SearchCard();
 		void MakeDeck();
+		void AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID);
+		void DeleteCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID);
 		void LoadDeck();
 		void StoreDeck();
 		void SimulateGame();
@@ -60,6 +63,16 @@ namespace Hearthstonepp
 			"7. Shaman",
 			"8. Warlock",
 			"9. Warrior"
+		};
+		std::array<std::string, 2> m_makeDeckOperationStr =
+		{
+			"1. Add Card(s)",
+			"2. Delete Card(s)"
+		};
+		std::array<std::function<void(Console&, Deck&, const Card*, std::string&)>, 2> m_makeDeckOperationFuncs =
+		{
+			&Console::AddCardInDeck,
+			&Console::DeleteCardInDeck
 		};
 	};
 }
