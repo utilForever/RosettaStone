@@ -126,13 +126,25 @@ namespace Hearthstonepp
 
 	void Console::AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
 	{
+		if (deck.GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
+		{
+			std::cout << "The deck " << deck.GetName() << " is full of cards.\n";
+			return;
+		}
+
 		while (true)
 		{
-			std::cout << "How many cards to add (0 - " << card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID) << ") ? ";
+			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID);
+			if (deck.GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
+			{
+				numCardToAddAvailable = deck.GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
+			}
+
+			std::cout << "How many cards to add (0 - " << numCardToAddAvailable << ") ? ";
 			unsigned int numCardToAdd;
 			std::cin >> numCardToAdd;
 
-			if (numCardToAdd < 0 || numCardToAdd > card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID))
+			if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
 			{
 				std::cout << "Invalid number! Try again.\n";
 			}
