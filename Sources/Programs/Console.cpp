@@ -8,6 +8,7 @@
 *************************************************************************/
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
+#include <Enums/EnumsToString.h>
 #include <Loaders/CardLoader.h>
 #include <Models/Card.h>
 #include <Models/Cards.h>
@@ -73,7 +74,7 @@ namespace Hearthstonepp
 
 		ShowMenu(m_playerClassStr);
 		const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
-		const PlayerClass playerClass = static_cast<PlayerClass>(selectedClassNum);
+		const CardClass playerClass = static_cast<CardClass>(selectedClassNum + 1);
 
 		std::cout << "What's your deck name? ";
 		std::string name;
@@ -100,6 +101,12 @@ namespace Hearthstonepp
 			if (card == nullptr)
 			{
 				std::cout << selectedCardID << " doesn't exist. Try again.\n";
+				continue;
+			}
+			if (card->GetCardClass() != CardClass::NEUTRAL && card->GetCardClass() != playerClass)
+			{
+				std::cout << "The class of " << selectedCardID << " is " << ConverterFromCardClassToString.at(card->GetCardClass()).c_str() << '\n';
+				std::cout << "It is neither a NETURAL nor a " << ConverterFromCardClassToString.at(playerClass).c_str() << '\n';
 				continue;
 			}
 
