@@ -24,6 +24,11 @@ namespace Hearthstonepp
 		
 	}
 
+	std::string Deck::GetName() const
+	{
+		return m_name;
+	}
+
 	unsigned int Deck::GetNumOfCards() const
 	{
 		return m_numOfCards;

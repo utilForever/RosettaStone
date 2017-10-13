@@ -22,6 +22,7 @@ namespace Hearthstonepp
 		Deck();
 		Deck(const CardClass playerClass, std::string name);
 
+		std::string GetName() const;
 		unsigned int GetNumOfCards() const;
 		unsigned int GetNumCardInDeck(std::string cardID);
 
