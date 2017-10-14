@@ -1,5 +1,5 @@
 /*************************************************************************
-> File Name: Enums.h
+> File Name: StringToEnums.h
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
 > Purpose: Converter from std::string to enumerations.
@@ -16,7 +16,7 @@
 
 namespace Hearthstonepp
 {
-	const std::map<std::string, Rarity> ConverterFromStringToRarity =
+	const std::map<const std::string, const Rarity> ConverterFromStringToRarity =
 	{
 		{ "INVALID",	Rarity::INVALID },
 		{ "COMMON",		Rarity::COMMON },
@@ -27,7 +27,7 @@ namespace Hearthstonepp
 		{ "UNKNOWN_6",	Rarity::UNKNOWN_6 }
 	};
 
-	const std::map<std::string, Faction> ConverterFromStringToFaction =
+	const std::map<const std::string, const Faction> ConverterFromStringToFaction =
 	{
 		{ "INVALID",	Faction::INVALID },
 		{ "HORDE",		Faction::HORDE },
@@ -35,7 +35,7 @@ namespace Hearthstonepp
 		{ "NEUTRAL",	Faction::NEUTRAL }
 	};
 
-	const std::map<std::string, CardSet> ConverterFromStringToCardSet =
+	const std::map<const std::string, const CardSet> ConverterFromStringToCardSet =
 	{
 		{ "INVALID",		CardSet::INVALID },
 		{ "TEST_TEMPORARY",	CardSet::TEST_TEMPORARY },
@@ -74,7 +74,7 @@ namespace Hearthstonepp
 		{ "ICECROWN",		CardSet::ICECROWN }
 	};
 
-	const std::map<std::string, CardClass> ConvertFromStringToCardClass =
+	const std::map<const std::string, const CardClass> ConverterFromStringToCardClass =
 	{
 		{ "INVALID",		CardClass::INVALID },
 		{ "DEATHKNIGHT",	CardClass::DEATHKNIGHT },
@@ -91,7 +91,7 @@ namespace Hearthstonepp
 		{ "NEUTRAL",		CardClass::NEUTRAL }
 	};
 
-	const std::map<std::string, CardType> ConverterFromStringToCardType =
+	const std::map<const std::string, const CardType> ConverterFromStringToCardType =
 	{
 		{ "INVALID",		CardType::INVALID },
 		{ "GAME",			CardType::GAME },
@@ -107,7 +107,7 @@ namespace Hearthstonepp
 		{ "HERO_POWER",		CardType::HERO_POWER }
 	};
 
-	const std::map<std::string, Race> ConverterFromStringToRace =
+	const std::map<const std::string, const Race> ConverterFromStringToRace =
 	{
 		{ "INVALID",		Race::INVALID },
 		{ "BLOODELF",		Race::BLOODELF },
@@ -137,7 +137,7 @@ namespace Hearthstonepp
 		{ "DRAGON",			Race::DRAGON }
 	};
 
-	const std::map<std::string, GameTag> ConverterFromStringToGameTag =
+	const std::map<const std::string, const GameTag> ConverterFromStringToGameTag =
 	{
 		{ "IGNORE_DAMAGE",									GameTag::IGNORE_DAMAGE },
 		{ "TAG_SCRIPT_DATA_NUM_1",							GameTag::TAG_SCRIPT_DATA_NUM_1 },
@@ -471,7 +471,7 @@ namespace Hearthstonepp
 		{ "ZOMBEAST",										GameTag::ZOMBEAST },
 	};
 
-	const std::map<std::string, PlayReq> ConverterFromStringToPlayReq =
+	const std::map<const std::string, const PlayReq> ConverterFromStringToPlayReq =
 	{
 		{ "INVALID",												PlayReq::INVALID },
 		{ "REQ_MINION_TARGET",										PlayReq::REQ_MINION_TARGET },

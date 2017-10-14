@@ -8,31 +8,57 @@
 *************************************************************************/
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
+#include <Enums/EnumsToString.h>
 #include <Loaders/CardLoader.h>
 #include <Models/Card.h>
+#include <Models/Cards.h>
 #include <Programs/Console.h>
 
 #include <iostream>
 
 namespace Hearthstonepp
 {
-	void Console::ShowMenu()
+	template<std::size_t SIZE>
+	void Console::ShowMenu(std::array<std::string, SIZE>& menus)
 	{
-		std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
 		std::cout << "========================================\n";
-		for (auto& menu : m_menuStr)
+		for (auto& menu : menus)
 		{
 			std::cout << menu.c_str() << '\n';
 		}
 		std::cout << "========================================\n";
-		std::cout << "Select: ";
 	}
 
-	size_t Console::InputMenuNum()
+	size_t Console::InputMenuNum(std::string questionStr, const int menuSize)
 	{
-		size_t num;
-		std::cin >> num;
-		return num;
+		while (true)
+		{
+			std::cout << questionStr;
+			size_t num;
+			std::cin >> num;
+
+			if (num < 1 || num > menuSize)
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				return num;
+			}
+		}
+	}
+
+	bool Console::InputYesNo(std::string sentence) const
+	{
+		std::cout << sentence;
+		std::cout << "(Please input \"y/yes\" or \"n/no\" (insensitive))\n";
+		std::cout << "Input: ";
+
+		std::string str;
+		std::cin >> str;
+		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+
+		return (str == "y" || str == "yes") ? true : (str == "n" || str == "no") ? false : InputYesNo(sentence);
 	}
 
 	void Console::SearchCard()
@@ -40,14 +66,120 @@ namespace Hearthstonepp
 
 	}
 
-	void Console::ShowCardInfo()
-	{
-
-	}
-
 	void Console::MakeDeck()
 	{
+		std::cout << "========================================\n";
+		std::cout << "               Make Deck!               \n";
+		std::cout << "========================================\n";
 
+		ShowMenu(m_playerClassStr);
+		const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
+		const CardClass playerClass = static_cast<CardClass>(selectedClassNum + 1);
+
+		std::cout << "What's your deck name? ";
+		std::string name;
+		std::cin >> name;
+
+		Deck deck(playerClass, name);
+
+		std::cout << "Input Card ID to add or delete to your deck.\n";
+		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
+
+		while (true)
+		{
+			std::cout << "The number of cards in the current deck = " << deck.GetNumOfCards() << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
+			std::cout << "Card ID: ";
+			std::string selectedCardID;
+			std::cin >> selectedCardID;
+
+			if (selectedCardID == "STOP")
+			{
+				break;
+			}
+
+			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
+			if (card == nullptr)
+			{
+				std::cout << selectedCardID << " doesn't exist. Try again.\n";
+				continue;
+			}
+			if (card->GetCardClass() != CardClass::NEUTRAL && card->GetCardClass() != playerClass)
+			{
+				std::cout << "The class of " << selectedCardID << " is " << ConverterFromCardClassToString.at(card->GetCardClass()).c_str() << '\n';
+				std::cout << "It is neither a NETURAL nor a " << ConverterFromCardClassToString.at(playerClass).c_str() << '\n';
+				continue;
+			}
+
+			card->ShowInfo();
+
+			const bool isYes = InputYesNo("Is it correct? ");
+			if (isYes == false)
+			{
+				continue;
+			}
+
+			ShowMenu(m_makeDeckOperationStr);
+			const size_t selectedOperation = InputMenuNum("What do you want to do? ", 2);
+			m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, card, selectedCardID);
+		} 
+	}
+
+	void Console::AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	{
+		if (deck.GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
+		{
+			std::cout << "The deck " << deck.GetName() << " is full of cards.\n";
+			return;
+		}
+
+		while (true)
+		{
+			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID);
+			if (deck.GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
+			{
+				numCardToAddAvailable = deck.GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
+			}
+
+			std::cout << "How many cards to add (0 - " << numCardToAddAvailable << ") ? ";
+			unsigned int numCardToAdd;
+			std::cin >> numCardToAdd;
+
+			if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				deck.AddCard(card, numCardToAdd);
+				break;
+			}
+		}
+	}
+
+	void Console::DeleteCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	{
+		if (deck.GetNumCardInDeck(selectedCardID) == 0)
+		{
+			std::cout << selectedCardID << " doesn't exist.\n";
+			return;
+		}
+
+		while (true)
+		{
+			std::cout << "How many cards to delete (0 - " << deck.GetNumCardInDeck(selectedCardID) << ") ? ";
+			unsigned int numCardToDelete;
+			std::cin >> numCardToDelete;
+
+			if (numCardToDelete < 0 || numCardToDelete > deck.GetNumCardInDeck(selectedCardID))
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				deck.DeleteCard(card, numCardToDelete);
+				break;
+			}
+		}
 	}
 
 	void Console::LoadDeck()
@@ -62,66 +194,63 @@ namespace Hearthstonepp
 
 	void Console::SimulateGame()
 	{
-		CardLoader loader;
-		std::vector<Card*> cards;
+		//CardLoader loader;
+		//std::vector<Card*> cards;
 
-		loader.Load(cards);
+		//loader.Load(cards);
 
-		Deck deck1; // temporal deck
-		Deck deck2;
+		//Deck deck1; // temporal deck
+		//Deck deck2;
 
-		deck1.reserve(30);
-		deck2.reserve(30);
+		//deck1.reserve(30);
+		//deck2.reserve(30);
 
-		deck1.assign(cards.begin(), cards.begin() + 30); 
-		deck2.assign(cards.begin() + 30, cards.begin() + 60);
+		//deck1.assign(cards.begin(), cards.begin() + 30); 
+		//deck2.assign(cards.begin() + 30, cards.begin() + 60);
 
-		User user1(0, new Hero(), new HeroPower(), deck1); // define new user
-		User user2(1, new Hero(), new HeroPower(), deck2);
+		//User user1(0, new Hero(), new HeroPower(), deck1); // define new user
+		//User user2(1, new Hero(), new HeroPower(), deck2);
 
-		GameAgent agent(&user1, &user2);
-		GameResult result;
+		//GameAgent agent(&user1, &user2);
+		//GameResult result;
 
-		std::thread *at = agent.StartAgent(result);
+		//std::thread *at = agent.StartAgent(result);
 
-		for (int i = 0; i < 2; ++i)
-		{
-			Card *list[3] = { 0, };
-			int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
+		//for (int i = 0; i < 2; ++i)
+		//{
+		//	Card *list[3] = { 0, };
+		//	int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
 
-			for (auto card : list)
-			{
-				std::cout << "[" << card->name << "] ";
-			}
-			std::cout << std::endl;
+		//	for (auto card : list)
+		//	{
+		//		std::cout << "[" << card->name << "] ";
+		//	}
+		//	std::cout << std::endl;
 
-			BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
-			result = agent.WriteBuffer(mulligan, 2); // send index to agent
+		//	BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
+		//	result = agent.WriteBuffer(mulligan, 2); // send index to agent
 
-			result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
+		//	result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
 
-			for (auto card : list)
-			{
-				std::cout << "[" << card->name << "] ";
-			}
-			std::cout << std::endl;
-		}
+		//	for (auto card : list)
+		//	{
+		//		std::cout << "[" << card->name << "] ";
+		//	}
+		//	std::cout << std::endl;
+		//}
 
-		at->join(); // join agent thread
+		//at->join(); // join agent thread
 	}
 
 	int Console::Play()
 	{
-		ShowMenu();
+		std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
 
-		const size_t selectedNum = InputMenuNum();
+		ShowMenu(m_menuStr);
+		const size_t selectedNum = InputMenuNum("Select: ", MENU_SIZE);
 		bool isFinish = false;
 
-		if (selectedNum < 0 || selectedNum > MENU_SIZE)
-		{
-			std::cout << "\nInvalid number! Try again.\n\n";
-		}
-		else if (selectedNum != MENU_SIZE)
+		if (selectedNum != MENU_SIZE)
 		{
 			m_menuFuncs[selectedNum - 1](*this);
 		}

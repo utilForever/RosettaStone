@@ -11,6 +11,7 @@
 
 #include <Agents/Interface.h>
 #include <Models/Card.h>
+#include <Models/Deck.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
 #include <Models/Entities/Weapon.h>
@@ -22,7 +23,6 @@
 
 namespace Hearthstonepp 
 {
-	using Deck = std::vector<Card*>;
 	using BYTE = unsigned char;
 
 	class User

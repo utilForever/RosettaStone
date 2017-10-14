@@ -40,6 +40,30 @@
     <ClCompile Include="Programs\Console.cpp">
       <Filter>Programs</Filter>
     </ClCompile>
+    <ClCompile Include="Models\Cards.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Entities\Hero.cpp">
+      <Filter>Models\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Entities\Minion.cpp">
+      <Filter>Models\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Entities\Spell.cpp">
+      <Filter>Models\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Entities\Weapon.cpp">
+      <Filter>Models\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Entities\Enchantment.cpp">
+      <Filter>Models\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Entities\HeroPower.cpp">
+      <Filter>Models\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Deck.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
@@ -83,6 +107,15 @@
     </ClInclude>
     <ClInclude Include="Commons\Constants.h">
       <Filter>Commons</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Deck.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Cards.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\EnumsToString.h">
+      <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
