@@ -22,7 +22,7 @@ namespace Hearthstonepp
 	std::vector<Card*> CardLoader::Load() const
 	{
 		// Read card data from JSON file
-		std::ifstream cardFile("Datas/cards.json");
+		std::ifstream cardFile("Resources/cards.json");
 		json j;
 
 		if (!cardFile.is_open())
