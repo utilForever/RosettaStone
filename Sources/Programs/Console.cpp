@@ -61,6 +61,21 @@ namespace Hearthstonepp
 		return (str == "y" || str == "yes") ? true : (str == "n" || str == "no") ? false : InputYesNo(sentence);
 	}
 
+	void Console::SignIn()
+	{
+		
+	}
+
+	void Console::SignUp()
+	{
+		
+	}
+
+	void Console::Leave()
+	{
+		
+	}
+
 	void Console::SearchCard()
 	{
 
@@ -124,64 +139,6 @@ namespace Hearthstonepp
 		} 
 	}
 
-	void Console::AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
-	{
-		if (deck.GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
-		{
-			std::cout << "The deck " << deck.GetName() << " is full of cards.\n";
-			return;
-		}
-
-		while (true)
-		{
-			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID);
-			if (deck.GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
-			{
-				numCardToAddAvailable = deck.GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
-			}
-
-			std::cout << "How many cards to add (0 - " << numCardToAddAvailable << ") ? ";
-			unsigned int numCardToAdd;
-			std::cin >> numCardToAdd;
-
-			if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
-			{
-				std::cout << "Invalid number! Try again.\n";
-			}
-			else
-			{
-				deck.AddCard(card, numCardToAdd);
-				break;
-			}
-		}
-	}
-
-	void Console::DeleteCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
-	{
-		if (deck.GetNumCardInDeck(selectedCardID) == 0)
-		{
-			std::cout << selectedCardID << " doesn't exist.\n";
-			return;
-		}
-
-		while (true)
-		{
-			std::cout << "How many cards to delete (0 - " << deck.GetNumCardInDeck(selectedCardID) << ") ? ";
-			unsigned int numCardToDelete;
-			std::cin >> numCardToDelete;
-
-			if (numCardToDelete < 0 || numCardToDelete > deck.GetNumCardInDeck(selectedCardID))
-			{
-				std::cout << "Invalid number! Try again.\n";
-			}
-			else
-			{
-				deck.DeleteCard(card, numCardToDelete);
-				break;
-			}
-		}
-	}
-
 	void Console::LoadDeck()
 	{
 
@@ -242,17 +199,80 @@ namespace Hearthstonepp
 		//at->join(); // join agent thread
 	}
 
+	void Console::AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	{
+		if (deck.GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
+		{
+			std::cout << "The deck " << deck.GetName() << " is full of cards.\n";
+			return;
+		}
+
+		while (true)
+		{
+			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID);
+			if (deck.GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
+			{
+				numCardToAddAvailable = deck.GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
+			}
+
+			std::cout << "How many cards to add (0 - " << numCardToAddAvailable << ") ? ";
+			unsigned int numCardToAdd;
+			std::cin >> numCardToAdd;
+
+			if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				deck.AddCard(card, numCardToAdd);
+				break;
+			}
+		}
+	}
+
+	void Console::DeleteCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	{
+		if (deck.GetNumCardInDeck(selectedCardID) == 0)
+		{
+			std::cout << selectedCardID << " doesn't exist.\n";
+			return;
+		}
+
+		while (true)
+		{
+			std::cout << "How many cards to delete (0 - " << deck.GetNumCardInDeck(selectedCardID) << ") ? ";
+			unsigned int numCardToDelete;
+			std::cin >> numCardToDelete;
+
+			if (numCardToDelete < 0 || numCardToDelete > deck.GetNumCardInDeck(selectedCardID))
+			{
+				std::cout << "Invalid number! Try again.\n";
+			}
+			else
+			{
+				deck.DeleteCard(card, numCardToDelete);
+				break;
+			}
+		}
+	}
+
+	int Console::Login()
+	{
+		return 0;
+	}
+
 	int Console::Play()
 	{
 		std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
 
-		ShowMenu(m_menuStr);
-		const size_t selectedNum = InputMenuNum("Select: ", MENU_SIZE);
+		ShowMenu(m_mainMenuStr);
+		const size_t selectedNum = InputMenuNum("Select: ", MAIN_MENU_SIZE);
 		bool isFinish = false;
 
-		if (selectedNum != MENU_SIZE)
+		if (selectedNum != MAIN_MENU_SIZE)
 		{
-			m_menuFuncs[selectedNum - 1](*this);
+			m_mainMenuFuncs[selectedNum - 1](*this);
 		}
 		else
 		{

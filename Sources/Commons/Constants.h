@@ -12,7 +12,8 @@
 namespace Hearthstonepp
 {
     constexpr float VERSION = 0.1f;
-	constexpr size_t MENU_SIZE = 6;
+	constexpr size_t LOGIN_MENU_SIZE = 4;
+	constexpr size_t MAIN_MENU_SIZE = 6;
 	constexpr size_t PLAYER_CLASS_SIZE = 9;
 	constexpr unsigned int MAXIMUM_NUM_CARDS_IN_DECK = 30;
 }
