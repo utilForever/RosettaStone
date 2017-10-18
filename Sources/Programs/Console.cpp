@@ -63,17 +63,17 @@ namespace Hearthstonepp
 
 	void Console::SignIn()
 	{
-		
+		Play();
 	}
 
 	void Console::SignUp()
 	{
-		
+		Play();
 	}
 
 	void Console::Leave()
 	{
-		
+		Play();
 	}
 
 	void Console::SearchCard()
@@ -134,8 +134,16 @@ namespace Hearthstonepp
 			}
 
 			ShowMenu(m_makeDeckOperationStr);
-			const size_t selectedOperation = InputMenuNum("What do you want to do? ", 2);
-			m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, card, selectedCardID);
+			const size_t selectedOperation = InputMenuNum("What do you want to do? ", MAKE_DECK_OPERATION_SIZE);
+	
+			if (selectedOperation != MAKE_DECK_OPERATION_SIZE)
+			{
+				m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, card, selectedCardID);
+			}
+			else
+			{
+				break;
+			}
 		} 
 	}
 
@@ -259,13 +267,26 @@ namespace Hearthstonepp
 
 	int Console::Login()
 	{
-		return 0;
+		std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
+
+		ShowMenu(m_loginMenuStr);
+		const size_t selectedNum = InputMenuNum("Select: ", LOGIN_MENU_SIZE);
+		bool isFinish = false;
+
+		if (selectedNum != LOGIN_MENU_SIZE)
+		{
+			m_loginMenuFuncs[selectedNum - 1](*this);
+		}
+		else
+		{
+			isFinish = true;
+		}
+
+		return isFinish ? 0 : Login();
 	}
 
 	int Console::Play()
 	{
-		std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
-
 		ShowMenu(m_mainMenuStr);
 		const size_t selectedNum = InputMenuNum("Select: ", MAIN_MENU_SIZE);
 		bool isFinish = false;

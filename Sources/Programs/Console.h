@@ -63,7 +63,7 @@ namespace Hearthstonepp
 			"3. Load Deck",
 			"4. Store Deck",
 			"5. Simulate Game",
-			"6. Exit"
+			"6. Back"
 		};
 		std::array<std::function<void(Console&)>, MAIN_MENU_SIZE - 1> m_mainMenuFuncs =
 		{
@@ -85,12 +85,13 @@ namespace Hearthstonepp
 			"8. Warlock",
 			"9. Warrior"
 		};
-		std::array<std::string, 2> m_makeDeckOperationStr =
+		std::array<std::string, MAKE_DECK_OPERATION_SIZE> m_makeDeckOperationStr =
 		{
 			"1. Add Card(s)",
-			"2. Delete Card(s)"
+			"2. Delete Card(s)",
+			"3. Back"
 		};
-		std::array<std::function<void(Console&, Deck&, const Card*, std::string&)>, 2> m_makeDeckOperationFuncs =
+		std::array<std::function<void(Console&, Deck&, const Card*, std::string&)>, MAKE_DECK_OPERATION_SIZE - 1> m_makeDeckOperationFuncs =
 		{
 			&Console::AddCardInDeck,
 			&Console::DeleteCardInDeck
