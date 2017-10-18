@@ -67,6 +67,9 @@
     <ClCompile Include="Models\Player.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="Loaders\PlayerLoader.cpp">
+      <Filter>Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="Models\Player.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\PlayerLoader.h">
+      <Filter>Loaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
