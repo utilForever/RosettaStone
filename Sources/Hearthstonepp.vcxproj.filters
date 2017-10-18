@@ -64,6 +64,9 @@
     <ClCompile Include="Models\Deck.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="Models\Player.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
@@ -116,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="Enums\EnumsToString.h">
       <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Player.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
