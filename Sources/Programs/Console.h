@@ -36,8 +36,8 @@ namespace Hearthstonepp
 		void StoreDeck();
 		void SimulateGame();
 
-		void AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID);
-		void DeleteCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID);
+		void AddCardInDeck(Deck& deck, std::string& selectedCardID);
+		void DeleteCardInDeck(Deck& deck, std::string& selectedCardID);
 
 		int Login();
 		int Play();
@@ -91,7 +91,7 @@ namespace Hearthstonepp
 			"2. Delete Card(s)",
 			"3. Back"
 		};
-		std::array<std::function<void(Console&, Deck&, const Card*, std::string&)>, MAKE_DECK_OPERATION_SIZE - 1> m_makeDeckOperationFuncs =
+		std::array<std::function<void(Console&, Deck&, std::string&)>, MAKE_DECK_OPERATION_SIZE - 1> m_makeDeckOperationFuncs =
 		{
 			&Console::AddCardInDeck,
 			&Console::DeleteCardInDeck

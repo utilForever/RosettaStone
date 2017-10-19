@@ -138,7 +138,7 @@ namespace Hearthstonepp
 	
 			if (selectedOperation != MAKE_DECK_OPERATION_SIZE)
 			{
-				m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, card, selectedCardID);
+				m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, selectedCardID);
 			}
 			else
 			{
@@ -207,7 +207,7 @@ namespace Hearthstonepp
 		//at->join(); // join agent thread
 	}
 
-	void Console::AddCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	void Console::AddCardInDeck(Deck& deck, std::string& selectedCardID)
 	{
 		if (deck.GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
 		{
@@ -217,7 +217,7 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID);
+			unsigned int numCardToAddAvailable = Cards::GetInstance()->FindCardByID(selectedCardID)->GetMaxAllowedInDeck() - deck.GetNumCardInDeck(selectedCardID);
 			if (deck.GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
 			{
 				numCardToAddAvailable = deck.GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
@@ -233,13 +233,13 @@ namespace Hearthstonepp
 			}
 			else
 			{
-				deck.AddCard(card, numCardToAdd);
+				deck.AddCard(selectedCardID, numCardToAdd);
 				break;
 			}
 		}
 	}
 
-	void Console::DeleteCardInDeck(Deck& deck, const Card* card, std::string& selectedCardID)
+	void Console::DeleteCardInDeck(Deck& deck, std::string& selectedCardID)
 	{
 		if (deck.GetNumCardInDeck(selectedCardID) == 0)
 		{
@@ -259,7 +259,7 @@ namespace Hearthstonepp
 			}
 			else
 			{
-				deck.DeleteCard(card, numCardToDelete);
+				deck.DeleteCard(selectedCardID, numCardToDelete);
 				break;
 			}
 		}
