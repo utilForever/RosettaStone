@@ -26,14 +26,14 @@ namespace Hearthstonepp
 		unsigned int GetNumOfCards() const;
 		unsigned int GetNumCardInDeck(std::string cardID);
 
-		void AddCard(const Card* card, int numCardToAdd);
-		void DeleteCard(const Card* card, const int numCardToDelete);
+		void AddCard(std::string cardID, int numCardToAdd);
+		void DeleteCard(std::string cardID, const int numCardToDelete);
 
     private:
     	CardClass m_class;
     	std::string m_name;
     	unsigned int m_numOfCards;
-    	std::vector<std::pair<const Card*, int>> m_cards;
+    	std::vector<std::pair<std::string, int>> m_cards;
     };
 }
 
