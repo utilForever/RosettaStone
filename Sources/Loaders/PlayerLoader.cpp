@@ -24,5 +24,21 @@ namespace Hearthstonepp
 		}
 
 		playerFile >> j;
+
+		Player* p = nullptr;
+
+		const std::string name = std::move(j["name"].get<std::string>());
+		
+		std::vector<Deck*> decks;
+		if (!j["decks"].is_null())
+		{
+			for (auto& deck : j["decks"])
+			{
+				std::string playerClass = std::move(deck["class"].get<std::string>());
+				std::string deckName = std::move(deck["name"].get<std::string>());
+
+				// TODO: Parse cards				
+			}
+		}
 	}
 }
