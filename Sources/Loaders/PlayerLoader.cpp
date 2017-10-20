@@ -9,6 +9,7 @@
 #include <Loaders/PlayerLoader.h>
 
 #include <fstream>
+#include "Enums/StringToEnums.h"
 
 namespace Hearthstonepp
 {
@@ -25,20 +26,31 @@ namespace Hearthstonepp
 
 		playerFile >> j;
 
-		Player* p = nullptr;
-
-		const std::string name = std::move(j["name"].get<std::string>());
+		std::string name = std::move(j["name"].get<std::string>());
 		
 		std::vector<Deck*> decks;
+		decks.reserve(j["decks"].size());
+
 		if (!j["decks"].is_null())
 		{
 			for (auto& deck : j["decks"])
 			{
-				std::string playerClass = std::move(deck["class"].get<std::string>());
-				std::string deckName = std::move(deck["name"].get<std::string>());
+				const CardClass playerClass = std::move(ConverterFromStringToCardClass.at(deck["class"].get<std::string>()));
+				const std::string deckName = std::move(deck["name"].get<std::string>());
 
-				// TODO: Parse cards				
+				Deck* d = new Deck(playerClass, deckName);
+				for (auto& card : deck["cards"])
+				{
+					const std::string cardID = std::move(card["id"].get<std::string>());
+					const int numOfCard = card["num"].get<int>();
+
+					d->AddCard(cardID, numOfCard);
+				}
+
+				decks.emplace_back(d);
 			}
 		}
+
+		Player* p = new Player(std::move(name));
 	}
 }
