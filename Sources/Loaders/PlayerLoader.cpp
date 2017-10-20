@@ -51,6 +51,10 @@ namespace Hearthstonepp
 			}
 		}
 
-		Player* p = new Player(std::move(name));
+		Player* p = new Player(std::move(name), decks);
+
+		playerFile.close();
+
+		return p;
 	}
 }
