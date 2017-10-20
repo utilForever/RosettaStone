@@ -11,6 +11,7 @@
 
 #include <Commons/Constants.h>
 #include <Models/Deck.h>
+#include <Models/Player.h>
 
 #include <array>
 #include <functional>
@@ -96,6 +97,8 @@ namespace Hearthstonepp
 			&Console::AddCardInDeck,
 			&Console::DeleteCardInDeck
 		};
+
+		Player* m_player;
 	};
 }
 

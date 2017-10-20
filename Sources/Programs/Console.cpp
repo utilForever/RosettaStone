@@ -10,11 +10,15 @@
 #include <Commons/Constants.h>
 #include <Enums/EnumsToString.h>
 #include <Loaders/CardLoader.h>
+#include <Loaders/PlayerLoader.h>
 #include <Models/Card.h>
 #include <Models/Cards.h>
 #include <Programs/Console.h>
 
+#include <filesystem>
 #include <iostream>
+
+namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
@@ -63,7 +67,37 @@ namespace Hearthstonepp
 
 	void Console::SignIn()
 	{
-		Play();
+		std::cout << "Input Player ID to load data.\n";
+		std::cout << "If you do not want to load, please input \"STOP\"\n";
+
+		while (true)
+		{
+			std::cout << "Player ID: ";
+			std::string playerID;
+			std::cin >> playerID;
+
+			if (playerID == "STOP")
+			{
+				break;
+			}
+			
+			if (!filesystem::exists("Datas/" + playerID + ".json"))
+			{
+				std::cout << playerID << ".json doesn't exist. Try again.\n";
+				continue;
+			}
+
+			PlayerLoader loader;
+			m_player = loader.Load(playerID);
+
+			if (m_player == nullptr)
+			{
+				std::cout << "An error occurred while loading player data.\n";
+				continue;
+			}
+			
+			Play();
+		}
 	}
 
 	void Console::SignUp()
