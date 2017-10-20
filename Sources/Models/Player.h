@@ -18,6 +18,7 @@ namespace Hearthstonepp
 	public:
 		Player();
 		Player(std::string&& name);
+		Player(std::string&& name, std::vector<Deck*> decks);
 
 	private:
 		std::string m_name;

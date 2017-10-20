@@ -19,4 +19,9 @@ namespace Hearthstonepp
 	{
 		// Do nothing
 	}
+
+	Player::Player(std::string&& name, std::vector<Deck*> decks) : m_name(std::move(name)), m_decks(decks)
+	{
+		// Do nothing
+	}
 }
