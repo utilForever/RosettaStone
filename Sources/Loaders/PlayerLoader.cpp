@@ -24,34 +24,45 @@ namespace Hearthstonepp
 			return nullptr;
 		}
 
-		playerFile >> j;
+		Player* p = nullptr;
 
-		std::string name = std::move(j["name"].get<std::string>());
-		
-		std::vector<Deck*> decks;
-		decks.reserve(j["decks"].size());
-
-		if (!j["decks"].is_null())
+		try
 		{
-			for (auto& deck : j["decks"])
+			playerFile >> j;
+
+			std::string name = std::move(j["name"].get<std::string>());
+
+			std::vector<Deck*> decks;
+			decks.reserve(j["decks"].size());
+
+			if (!j["decks"].is_null())
 			{
-				const CardClass playerClass = std::move(ConverterFromStringToCardClass.at(deck["class"].get<std::string>()));
-				const std::string deckName = std::move(deck["name"].get<std::string>());
-
-				Deck* d = new Deck(playerClass, deckName);
-				for (auto& card : deck["cards"])
+				for (auto& deck : j["decks"])
 				{
-					const std::string cardID = std::move(card["id"].get<std::string>());
-					const int numOfCard = card["num"].get<int>();
+					const CardClass playerClass = std::move(ConverterFromStringToCardClass.at(deck["class"].get<std::string>()));
+					const std::string deckName = std::move(deck["name"].get<std::string>());
 
-					d->AddCard(cardID, numOfCard);
+					Deck* d = new Deck(playerClass, deckName);
+					for (auto& card : deck["cards"])
+					{
+						const std::string cardID = std::move(card["id"].get<std::string>());
+						const int numOfCard = card["num"].get<int>();
+
+						d->AddCard(cardID, numOfCard);
+					}
+
+					decks.emplace_back(d);
 				}
-
-				decks.emplace_back(d);
 			}
-		}
 
-		Player* p = new Player(std::move(name), decks);
+			p = new Player(std::move(name), decks);
+		}
+		catch (...)
+		{
+			playerFile.close();
+
+			return nullptr;
+		}
 
 		playerFile.close();
 
