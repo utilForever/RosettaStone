@@ -8,6 +8,8 @@
 *************************************************************************/
 #include <Models/Player.h>
 
+#include <iostream>
+
 namespace Hearthstonepp
 {
 	Player::Player() : m_name("Anonymous")
@@ -23,5 +25,34 @@ namespace Hearthstonepp
 	Player::Player(std::string&& name, std::vector<Deck*> decks) : m_name(std::move(name)), m_decks(decks)
 	{
 		// Do nothing
+	}
+
+	size_t Player::GetNumOfDeck() const
+	{
+		return m_decks.size();
+	}
+
+	Deck* Player::GetDeck(size_t idx) const
+	{
+		return m_decks[idx];
+	}
+
+	void Player::ShowDeckList() const
+	{
+		size_t idx = 0;
+		for (auto& deck : m_decks)
+		{
+			std::cout << ++idx << ". " << deck->GetName() << " (" << deck->GetNumOfCards() << " cards)\n";
+		}
+	}
+
+	void Player::CreateDeck(std::string name, CardClass deckClass)
+	{
+		m_decks.emplace_back(new Deck(name, deckClass));
+	}
+
+	void Player::DeleteDeck(size_t selectedDeck)
+	{
+		m_decks.erase(m_decks.begin() + selectedDeck - 1);
 	}
 }

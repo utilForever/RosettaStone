@@ -20,6 +20,13 @@ namespace Hearthstonepp
 		Player(std::string&& name);
 		Player(std::string&& name, std::vector<Deck*> decks);
 
+		size_t GetNumOfDeck() const;
+		Deck* GetDeck(size_t idx) const;
+
+		void ShowDeckList() const;
+		void CreateDeck(std::string name, CardClass playerClass);
+		void DeleteDeck(size_t selectedDeck);
+
 	private:
 		std::string m_name;
 		std::vector<Deck*> m_decks;
