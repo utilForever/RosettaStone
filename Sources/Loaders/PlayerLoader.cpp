@@ -68,4 +68,16 @@ namespace Hearthstonepp
 
 		return p;
 	}
+
+	void PlayerLoader::Save(Player* p) const
+	{
+		// Store player data to JSON file
+		std::ofstream playerFile("Datas/" + p->GetName() + ".json");
+		json j;
+
+		if (!playerFile.is_open())
+		{
+			std::cout << "An error occurred while saving player data.\n";
+		}
+	}
 }

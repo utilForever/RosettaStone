@@ -20,6 +20,7 @@ namespace Hearthstonepp
 	{
 	public:
 		Player* Load(std::string playerName) const;
+		void Save(Player* p) const;
 	};
 }
 
