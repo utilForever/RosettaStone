@@ -155,80 +155,26 @@ namespace Hearthstonepp
 
 	}
 
-	void Console::MakeDeck()
+	int Console::ManageDeck()
 	{
 		std::cout << "========================================\n";
-		std::cout << "               Make Deck!               \n";
+		std::cout << "              Manage Deck!              \n";
 		std::cout << "========================================\n";
 
-		ShowMenu(m_playerClassStr);
-		const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
-		const CardClass playerClass = static_cast<CardClass>(selectedClassNum + 1);
+		ShowMenu(m_manageDeckStr);
+		const size_t selectedNum = InputMenuNum("Select: ", MANAGE_DECK_MENU_SIZE);
+		bool isFinish = false;
 
-		std::cout << "What's your deck name? ";
-		std::string name;
-		std::cin >> name;
-
-		Deck deck(playerClass, name);
-
-		std::cout << "Input Card ID to add or delete to your deck.\n";
-		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
-
-		while (true)
+		if (selectedNum != MANAGE_DECK_MENU_SIZE)
 		{
-			std::cout << "The number of cards in the current deck = " << deck.GetNumOfCards() << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
-			std::cout << "Card ID: ";
-			std::string selectedCardID;
-			std::cin >> selectedCardID;
-
-			if (selectedCardID == "STOP")
-			{
-				break;
-			}
-
-			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
-			if (card == nullptr)
-			{
-				std::cout << selectedCardID << " doesn't exist. Try again.\n";
-				continue;
-			}
-			if (card->GetCardClass() != CardClass::NEUTRAL && card->GetCardClass() != playerClass)
-			{
-				std::cout << "The class of " << selectedCardID << " is " << ConverterFromCardClassToString.at(card->GetCardClass()).c_str() << '\n';
-				std::cout << "It is neither a NETURAL nor a " << ConverterFromCardClassToString.at(playerClass).c_str() << '\n';
-				continue;
-			}
-
-			card->ShowInfo();
-
-			const bool isYes = InputYesNo("Is it correct? ");
-			if (isYes == false)
-			{
-				continue;
-			}
-
-			ShowMenu(m_makeDeckOperationStr);
-			const size_t selectedOperation = InputMenuNum("What do you want to do? ", MAKE_DECK_OPERATION_SIZE);
-
-			if (selectedOperation != MAKE_DECK_OPERATION_SIZE)
-			{
-				m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, selectedCardID);
-			}
-			else
-			{
-				break;
-			}
+			m_loginMenuFuncs[selectedNum - 1](*this);
 		}
-	}
+		else
+		{
+			isFinish = true;
+		}
 
-	void Console::LoadDeck()
-	{
-
-	}
-
-	void Console::StoreDeck()
-	{
-
+		return isFinish ? 0 : ManageDeck();
 	}
 
 	void Console::SimulateGame()
@@ -290,6 +236,82 @@ namespace Hearthstonepp
 		}
 
 		std::cout << "You have been successfully signed out. Have a nice day!\n";
+	}
+
+	void Console::CreateDeck()
+	{
+		std::cout << "========================================\n";
+		std::cout << "              Create Deck!              \n";
+		std::cout << "========================================\n";
+
+		ShowMenu(m_playerClassStr);
+		const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
+		const CardClass playerClass = static_cast<CardClass>(selectedClassNum + 1);
+
+		std::cout << "What's your deck name? ";
+		std::string name;
+		std::cin >> name;
+
+		Deck deck(playerClass, name);
+
+		std::cout << "Input Card ID to add or delete to your deck.\n";
+		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
+
+		while (true)
+		{
+			std::cout << "The number of cards in the current deck = " << deck.GetNumOfCards() << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
+			std::cout << "Card ID: ";
+			std::string selectedCardID;
+			std::cin >> selectedCardID;
+
+			if (selectedCardID == "STOP")
+			{
+				break;
+			}
+
+			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
+			if (card == nullptr)
+			{
+				std::cout << selectedCardID << " doesn't exist. Try again.\n";
+				continue;
+			}
+			if (card->GetCardClass() != CardClass::NEUTRAL && card->GetCardClass() != playerClass)
+			{
+				std::cout << "The class of " << selectedCardID << " is " << ConverterFromCardClassToString.at(card->GetCardClass()).c_str() << '\n';
+				std::cout << "It is neither a NETURAL nor a " << ConverterFromCardClassToString.at(playerClass).c_str() << '\n';
+				continue;
+			}
+
+			card->ShowInfo();
+
+			const bool isYes = InputYesNo("Is it correct? ");
+			if (isYes == false)
+			{
+				continue;
+			}
+
+			ShowMenu(m_createDeckOperationStr);
+			const size_t selectedOperation = InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
+
+			if (selectedOperation != CREATE_DECK_MENU_SIZE)
+			{
+				m_createDeckOperationFuncs[selectedOperation - 1](*this, deck, selectedCardID);
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+
+	void Console::ModifyDeck()
+	{
+		
+	}
+
+	void Console::DeleteDeck()
+	{
+		
 	}
 
 	void Console::AddCardInDeck(Deck& deck, std::string& selectedCardID)
