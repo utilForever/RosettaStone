@@ -16,6 +16,7 @@
 #include <Programs/Console.h>
 
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 
 namespace filesystem = std::experimental::filesystem;
@@ -95,6 +96,8 @@ namespace Hearthstonepp
 				std::cout << "An error occurred while loading player data.\n";
 				continue;
 			}
+
+			std::cout << "You are signed in. Hello, " << playerID << "!\n";
 			
 			Play();
 		}
@@ -102,7 +105,47 @@ namespace Hearthstonepp
 
 	void Console::SignUp()
 	{
-		Play();
+		std::cout << "Input Player ID to create data.\n";
+
+		while (true)
+		{
+			std::cout << "Player ID: ";
+			std::string playerID;
+			std::cin >> playerID;
+
+			if (filesystem::exists("Datas/" + playerID + ".json"))
+			{
+				std::cout << playerID << ".json already exists. Try again.\n";
+				continue;
+			}
+
+			std::cout << "Name: ";
+			std::string name;
+			std::cin >> name;
+
+			std::ofstream file;
+
+			json j;
+			j["name"] = name;
+
+			filesystem::create_directory("Datas");
+			file.open("Datas/" + playerID + ".json");
+
+			if (!file.is_open())
+			{
+				std::cout << "An error occurred while saving player data.\n";
+				continue;
+			}
+
+			file << std::setw(4) << j << "\n";
+
+			file.close();
+			
+			m_player = new Player(std::move(name));
+
+			std::cout << "Your account has been created. Please sign in.\n";
+			break;
+		}
 	}
 
 	void Console::Leave()
