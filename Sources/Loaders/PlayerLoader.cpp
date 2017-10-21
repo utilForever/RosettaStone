@@ -6,10 +6,14 @@
 > Created Time: 2017/10/19
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Enums/EnumsToString.h>
+#include <Enums/StringToEnums.h>
 #include <Loaders/PlayerLoader.h>
 
+#include <filesystem>
 #include <fstream>
-#include "Enums/StringToEnums.h"
+
+namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
@@ -24,7 +28,7 @@ namespace Hearthstonepp
 			return nullptr;
 		}
 
-		Player* p = nullptr;
+		Player* p;
 
 		try
 		{
@@ -72,12 +76,50 @@ namespace Hearthstonepp
 	void PlayerLoader::Save(Player* p) const
 	{
 		// Store player data to JSON file
-		std::ofstream playerFile("Datas/" + p->GetName() + ".json");
+		filesystem::create_directory("Datas");
+		std::ofstream playerFile("Datas/" + p->GetID() + ".json");
+
 		json j;
 
 		if (!playerFile.is_open())
 		{
 			std::cout << "An error occurred while saving player data.\n";
 		}
+
+		try
+		{
+			j["name"] = p->GetName();
+
+			j["decks"] = json::array();
+
+			for (size_t deckIdx = 0; deckIdx < p->GetNumOfDeck(); ++deckIdx)
+			{
+				j["decks"].emplace_back(json::object({
+					{ "class", ConverterFromCardClassToString.at(p->GetDeck(deckIdx)->GetClass()) },
+					{ "name", p->GetDeck(deckIdx)->GetName() },
+					{ "cards", json::array() }
+				}));
+
+				for (size_t cardIdx = 0; cardIdx < p->GetDeck(deckIdx)->GetNumOfCards(); ++cardIdx)
+				{
+					j["decks"].at(deckIdx)["cards"].emplace_back(json::object({
+						{ "id", p->GetDeck(deckIdx)->GetCard(cardIdx).first },
+						{ "num", p->GetDeck(deckIdx)->GetCard(cardIdx).second }
+					}));
+				}
+			}
+
+			playerFile << std::setw(4) << j << "\n";
+		}
+		catch (...)
+		{
+			std::cout << "An error occurred while saving player data.\n";
+
+			playerFile.close();
+
+			return;
+		}
+
+		playerFile.close();
 	}
 }
