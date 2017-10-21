@@ -13,13 +13,13 @@
 namespace Hearthstonepp
 {
 	Deck::Deck() :
-		m_class(CardClass::INVALID), m_name("Empty"), m_numOfCards(0)
+		m_name("Empty"), m_class(CardClass::INVALID), m_numOfCards(0)
 	{
 
 	}
 
-	Deck::Deck(const CardClass playerClass, std::string name) :
-		m_class(playerClass), m_name(std::move(name)), m_numOfCards(0)
+	Deck::Deck(std::string name, const CardClass playerClass) :
+		m_name(std::move(name)), m_class(playerClass), m_numOfCards(0)
 	{
 
 	}
@@ -27,6 +27,11 @@ namespace Hearthstonepp
 	std::string Deck::GetName() const
 	{
 		return m_name;
+	}
+
+	CardClass Deck::GetClass() const
+	{
+		return m_class;
 	}
 
 	unsigned int Deck::GetNumOfCards() const

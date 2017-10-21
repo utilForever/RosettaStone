@@ -39,10 +39,10 @@ namespace Hearthstonepp
 			{
 				for (auto& deck : j["decks"])
 				{
-					const CardClass playerClass = std::move(ConverterFromStringToCardClass.at(deck["class"].get<std::string>()));
+					const CardClass deckClass = std::move(ConverterFromStringToCardClass.at(deck["class"].get<std::string>()));
 					const std::string deckName = std::move(deck["name"].get<std::string>());
 
-					Deck* d = new Deck(playerClass, deckName);
+					Deck* d = new Deck(deckName, deckClass);
 					for (auto& card : deck["cards"])
 					{
 						const std::string cardID = std::move(card["id"].get<std::string>());
