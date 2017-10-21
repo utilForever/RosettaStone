@@ -25,7 +25,9 @@ namespace Hearthstonepp
 		std::string GetName() const;
 		CardClass GetClass() const;
 		unsigned int GetNumOfCards() const;
+		size_t GetUniqueNumOfCards() const;
 		unsigned int GetNumCardInDeck(std::string cardID);
+		std::pair<std::string, int> GetCard(size_t idx) const;
 
 		void AddCard(std::string cardID, int numCardToAdd);
 		void DeleteCard(std::string cardID, const int numCardToDelete);

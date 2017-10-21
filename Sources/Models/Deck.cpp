@@ -39,6 +39,11 @@ namespace Hearthstonepp
 		return m_numOfCards;
 	}
 
+	size_t Deck::GetUniqueNumOfCards() const
+	{
+		return m_cards.size();
+	}
+
 	unsigned int Deck::GetNumCardInDeck(std::string cardID)
 	{
 		auto isCardExistInDeck = std::find_if(m_cards.begin(), m_cards.end(),
@@ -50,6 +55,11 @@ namespace Hearthstonepp
 		}
 
 		return 0;
+	}
+
+	std::pair<std::string, int> Deck::GetCard(size_t idx) const
+	{
+		return m_cards.at(idx);
 	}
 
 	void Deck::AddCard(std::string cardID, int numCardToAdd)
