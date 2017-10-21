@@ -23,39 +23,37 @@ namespace Hearthstonepp
 	public:
 		template<std::size_t SIZE>
 		void ShowMenu(std::array<std::string, SIZE>& menus);
-		
+
 		size_t InputMenuNum(std::string questionStr, const int menuSize);
 		bool InputYesNo(std::string sentence) const;
 
 		void SignIn();
 		void SignUp();
-		void Leave();
 
 		void SearchCard();
 		void MakeDeck();
 		void LoadDeck();
 		void StoreDeck();
 		void SimulateGame();
+		void Leave();
 
 		void AddCardInDeck(Deck& deck, std::string& selectedCardID);
 		void DeleteCardInDeck(Deck& deck, std::string& selectedCardID);
 
 		int Login();
-		int Play();
+		int Main();
 
 	private:
-		std::array<std::string, LOGIN_MENU_SIZE> m_loginMenuStr = 
+		std::array<std::string, LOGIN_MENU_SIZE> m_loginMenuStr =
 		{
 			"1. Sign in",
 			"2. Sign up",
-			"3. Leave",
-			"4. Exit"
+			"3. Exit"
 		};
-		std::array<std::function<void(Console&)>, LOGIN_MENU_SIZE -1> m_loginMenuFuncs =
+		std::array<std::function<void(Console&)>, LOGIN_MENU_SIZE - 1> m_loginMenuFuncs =
 		{
 			&Console::SignIn,
-			&Console::SignUp,
-			&Console::Leave
+			&Console::SignUp
 		};
 		std::array<std::string, MAIN_MENU_SIZE> m_mainMenuStr =
 		{
@@ -64,15 +62,16 @@ namespace Hearthstonepp
 			"3. Load Deck",
 			"4. Store Deck",
 			"5. Simulate Game",
-			"6. Back"
+			"6. Leave"
 		};
-		std::array<std::function<void(Console&)>, MAIN_MENU_SIZE - 1> m_mainMenuFuncs =
+		std::array<std::function<void(Console&)>, MAIN_MENU_SIZE> m_mainMenuFuncs =
 		{
 			&Console::SearchCard,
 			&Console::MakeDeck,
 			&Console::LoadDeck,
 			&Console::StoreDeck,
-			&Console::SimulateGame
+			&Console::SimulateGame,
+			&Console::Leave
 		};
 		std::array<std::string, PLAYER_CLASS_SIZE> m_playerClassStr =
 		{

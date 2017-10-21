@@ -81,7 +81,7 @@ namespace Hearthstonepp
 			{
 				break;
 			}
-			
+
 			if (!filesystem::exists("Datas/" + playerID + ".json"))
 			{
 				std::cout << playerID << ".json doesn't exist. Try again.\n";
@@ -98,8 +98,10 @@ namespace Hearthstonepp
 			}
 
 			std::cout << "You are signed in. Hello, " << playerID << "!\n";
-			
-			Play();
+
+			Main();
+
+			break;
 		}
 	}
 
@@ -140,17 +142,12 @@ namespace Hearthstonepp
 			file << std::setw(4) << j << "\n";
 
 			file.close();
-			
+
 			m_player = new Player(std::move(name));
 
 			std::cout << "Your account has been created. Please sign in.\n";
 			break;
 		}
-	}
-
-	void Console::Leave()
-	{
-		Play();
 	}
 
 	void Console::SearchCard()
@@ -212,7 +209,7 @@ namespace Hearthstonepp
 
 			ShowMenu(m_makeDeckOperationStr);
 			const size_t selectedOperation = InputMenuNum("What do you want to do? ", MAKE_DECK_OPERATION_SIZE);
-	
+
 			if (selectedOperation != MAKE_DECK_OPERATION_SIZE)
 			{
 				m_makeDeckOperationFuncs[selectedOperation - 1](*this, deck, selectedCardID);
@@ -221,7 +218,7 @@ namespace Hearthstonepp
 			{
 				break;
 			}
-		} 
+		}
 	}
 
 	void Console::LoadDeck()
@@ -231,7 +228,7 @@ namespace Hearthstonepp
 
 	void Console::StoreDeck()
 	{
-		
+
 	}
 
 	void Console::SimulateGame()
@@ -282,6 +279,17 @@ namespace Hearthstonepp
 		//}
 
 		//at->join(); // join agent thread
+	}
+
+	void Console::Leave()
+	{
+		if (m_player != nullptr)
+		{
+			delete m_player;
+			m_player = nullptr;
+		}
+
+		std::cout << "You have been successfully signed out. Have a nice day!\n";
 	}
 
 	void Console::AddCardInDeck(Deck& deck, std::string& selectedCardID)
@@ -362,21 +370,19 @@ namespace Hearthstonepp
 		return isFinish ? 0 : Login();
 	}
 
-	int Console::Play()
+	int Console::Main()
 	{
 		ShowMenu(m_mainMenuStr);
 		const size_t selectedNum = InputMenuNum("Select: ", MAIN_MENU_SIZE);
 		bool isFinish = false;
 
-		if (selectedNum != MAIN_MENU_SIZE)
-		{
-			m_mainMenuFuncs[selectedNum - 1](*this);
-		}
-		else
+		m_mainMenuFuncs[selectedNum - 1](*this);
+
+		if (selectedNum == MAIN_MENU_SIZE)
 		{
 			isFinish = true;
 		}
 
-		return isFinish ? 0 : Play();
+		return isFinish ? 0 : Main();
 	}
 }
