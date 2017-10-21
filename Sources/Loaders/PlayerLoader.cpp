@@ -13,10 +13,10 @@
 
 namespace Hearthstonepp
 {
-	Player* PlayerLoader::Load(std::string playerName) const
+	Player* PlayerLoader::Load(std::string playerID) const
 	{
 		// Read player data from JSON file
-		std::ifstream playerFile("Datas/" + playerName + ".json");
+		std::ifstream playerFile("Datas/" + playerID + ".json");
 		json j;
 
 		if (!playerFile.is_open())
@@ -55,7 +55,7 @@ namespace Hearthstonepp
 				}
 			}
 
-			p = new Player(std::move(name), decks);
+			p = new Player(std::move(playerID), std::move(name), decks);
 		}
 		catch (...)
 		{

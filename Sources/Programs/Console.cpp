@@ -143,7 +143,7 @@ namespace Hearthstonepp
 
 			file.close();
 
-			m_player = new Player(std::move(name));
+			m_player = new Player(std::move(playerID), std::move(name));
 
 			std::cout << "Your account has been created. Please sign in.\n";
 			break;

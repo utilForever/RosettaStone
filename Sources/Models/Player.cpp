@@ -12,19 +12,29 @@
 
 namespace Hearthstonepp
 {
-	Player::Player() : m_name("Anonymous")
+	Player::Player() : m_id("Anonymous"), m_name("Anonymous")
 	{
 		// Do nothing
 	}
 
-	Player::Player(std::string&& name) : m_name(std::move(name))
+	Player::Player(std::string&& id, std::string&& name) : m_id(std::move(id)), m_name(std::move(name))
 	{
 		// Do nothing
 	}
 
-	Player::Player(std::string&& name, std::vector<Deck*> decks) : m_name(std::move(name)), m_decks(decks)
+	Player::Player(std::string&& id, std::string&& name, std::vector<Deck*> decks) : m_id(std::move(id)), m_name(std::move(name)), m_decks(decks)
 	{
 		// Do nothing
+	}
+
+	std::string Player::GetID() const
+	{
+		return m_id;
+	}
+
+	std::string Player::GetName() const
+	{
+		return m_name;
 	}
 
 	size_t Player::GetNumOfDeck() const

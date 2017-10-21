@@ -17,9 +17,11 @@ namespace Hearthstonepp
 	{
 	public:
 		Player();
-		Player(std::string&& name);
-		Player(std::string&& name, std::vector<Deck*> decks);
+		Player(std::string&& id, std::string&& name);
+		Player(std::string&& id, std::string&& name, std::vector<Deck*> decks);
 
+		std::string GetID() const;
+		std::string GetName() const;
 		size_t GetNumOfDeck() const;
 		Deck* GetDeck(size_t idx) const;
 
@@ -28,6 +30,7 @@ namespace Hearthstonepp
 		void DeleteDeck(size_t selectedDeck);
 
 	private:
+		std::string m_id;
 		std::string m_name;
 		std::vector<Deck*> m_decks;
 	};
