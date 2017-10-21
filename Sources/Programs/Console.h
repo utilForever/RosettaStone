@@ -24,7 +24,7 @@ namespace Hearthstonepp
 		template<std::size_t SIZE>
 		void ShowMenu(std::array<std::string, SIZE>& menus);
 
-		size_t InputMenuNum(std::string questionStr, const int menuSize);
+		size_t InputMenuNum(std::string questionStr, size_t menuSize);
 		bool InputYesNo(std::string sentence) const;
 
 		void SignIn();
@@ -39,8 +39,10 @@ namespace Hearthstonepp
 		void ModifyDeck();
 		void DeleteDeck();
 
-		void AddCardInDeck(Deck& deck, std::string& selectedCardID);
-		void DeleteCardInDeck(Deck& deck, std::string& selectedCardID);
+		void OperateDeck(size_t selectedDeck);
+
+		void AddCardInDeck(Deck* deck, std::string& selectedCardID);
+		void DeleteCardInDeck(Deck* deck, std::string& selectedCardID);
 
 		int Login();
 		int Main();
@@ -78,6 +80,12 @@ namespace Hearthstonepp
 			"3. Delete deck",
 			"4. Back"
 		};
+		std::array<std::function<void(Console&)>, MANAGE_DECK_MENU_SIZE - 1> m_manageDeckFuncs =
+		{
+			&Console::CreateDeck,
+			&Console::ModifyDeck,
+			&Console::DeleteDeck
+		};
 		std::array<std::string, PLAYER_CLASS_SIZE> m_playerClassStr =
 		{
 			"1. Druid",
@@ -90,13 +98,13 @@ namespace Hearthstonepp
 			"8. Warlock",
 			"9. Warrior"
 		};
-		std::array<std::string, CREATE_DECK_MENU_SIZE> m_createDeckOperationStr =
+		std::array<std::string, CREATE_DECK_MENU_SIZE> m_deckOperationStr =
 		{
 			"1. Add Card(s)",
 			"2. Delete Card(s)",
 			"3. Back"
 		};
-		std::array<std::function<void(Console&, Deck&, std::string&)>, CREATE_DECK_MENU_SIZE - 1> m_createDeckOperationFuncs =
+		std::array<std::function<void(Console&, Deck*, std::string&)>, CREATE_DECK_MENU_SIZE - 1> m_deckOperationFuncs =
 		{
 			&Console::AddCardInDeck,
 			&Console::DeleteCardInDeck
