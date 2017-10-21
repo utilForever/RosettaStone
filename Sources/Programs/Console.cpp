@@ -125,25 +125,10 @@ namespace Hearthstonepp
 			std::string name;
 			std::cin >> name;
 
-			std::ofstream file;
-
-			json j;
-			j["name"] = name;
-
-			filesystem::create_directory("Datas");
-			file.open("Datas/" + playerID + ".json");
-
-			if (!file.is_open())
-			{
-				std::cout << "An error occurred while saving player data.\n";
-				continue;
-			}
-
-			file << std::setw(4) << j << "\n";
-
-			file.close();
-
 			m_player = new Player(std::move(playerID), std::move(name));
+
+			PlayerLoader loader;
+			loader.Save(m_player);
 
 			std::cout << "Your account has been created. Please sign in.\n";
 			break;
@@ -229,6 +214,9 @@ namespace Hearthstonepp
 
 	void Console::Leave()
 	{
+		PlayerLoader loader;
+		loader.Save(m_player);
+
 		if (m_player != nullptr)
 		{
 			delete m_player;
