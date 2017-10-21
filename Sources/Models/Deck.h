@@ -16,8 +16,8 @@
 
 namespace Hearthstonepp
 {
-    class Deck
-    {
+	class Deck
+	{
 	public:
 		Deck();
 		Deck(const CardClass playerClass, std::string name);
@@ -29,12 +29,12 @@ namespace Hearthstonepp
 		void AddCard(std::string cardID, int numCardToAdd);
 		void DeleteCard(std::string cardID, const int numCardToDelete);
 
-    private:
-    	CardClass m_class;
-    	std::string m_name;
-    	unsigned int m_numOfCards;
-    	std::vector<std::pair<std::string, int>> m_cards;
-    };
+	private:
+		CardClass m_class;
+		std::string m_name;
+		unsigned int m_numOfCards;
+		std::vector<std::pair<std::string, int>> m_cards;
+	};
 }
 
 #endif

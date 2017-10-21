@@ -15,25 +15,25 @@
 
 namespace Hearthstonepp
 {
-    class Cards
-    {
-    public:
-        static Cards* GetInstance();
+	class Cards
+	{
+	public:
+		static Cards* GetInstance();
 
 		const Card* FindCardByID(const std::string id);
 
-    private:
-        Cards();
-        ~Cards();
-        Cards(const Cards&) = delete;
-        Cards(Cards&&) = delete;
-        Cards& operator=(const Cards&) = delete;
-        Cards& operator=(Cards&&) = delete;
+	private:
+		Cards();
+		~Cards();
+		Cards(const Cards&) = delete;
+		Cards(Cards&&) = delete;
+		Cards& operator=(const Cards&) = delete;
+		Cards& operator=(Cards&&) = delete;
 
-        static Cards* m_instance;
+		static Cards* m_instance;
 
-        std::vector<Card*> m_cards;
-    };
+		std::vector<Card*> m_cards;
+	};
 }
 
 #endif

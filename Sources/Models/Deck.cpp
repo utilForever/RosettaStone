@@ -15,13 +15,13 @@ namespace Hearthstonepp
 	Deck::Deck() :
 		m_class(CardClass::INVALID), m_name("Empty"), m_numOfCards(0)
 	{
-		
+
 	}
 
 	Deck::Deck(const CardClass playerClass, std::string name) :
 		m_class(playerClass), m_name(std::move(name)), m_numOfCards(0)
 	{
-		
+
 	}
 
 	std::string Deck::GetName() const
@@ -43,7 +43,7 @@ namespace Hearthstonepp
 		{
 			return (*isCardExistInDeck).second;
 		}
-		
+
 		return 0;
 	}
 
