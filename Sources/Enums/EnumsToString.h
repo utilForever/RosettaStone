@@ -91,6 +91,19 @@ namespace Hearthstonepp
 		{ CardClass::NEUTRAL,		"NEUTRAL" }
 	};
 
+	const std::map<const CardClass, const std::string> ConvertFromCardClassToHeroPowerID =
+	{
+		{ CardClass::DRUID, "CS2_017" },
+		{ CardClass::HUNTER, "DS1h_292" },
+		{ CardClass::MAGE, "CS2_034" },
+		{ CardClass::PALADIN, "CS2_101" },
+		{ CardClass::PRIEST, "CS1h_001" },
+		{ CardClass::ROGUE, "CS2_083b" },
+		{ CardClass::SHAMAN, "CS2_049" },
+		{ CardClass::WARLOCK, "CS2_056" },
+		{ CardClass::WARRIOR, "CS2_102" },
+	};
+
 	const std::map<const CardType, const std::string> ConverterFromCardTypeToString =
 	{
 		{ CardType::INVALID,		"INVALID" },
