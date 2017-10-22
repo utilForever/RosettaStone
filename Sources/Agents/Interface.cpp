@@ -11,13 +11,9 @@
 namespace Hearthstonepp
 {
 	InteractBuffer::InteractBuffer(int capacity)
+		: capacity(capacity), head(0), tail(0), usage(0), readable(false)
 	{
-		this->capacity = capacity; // size of the buffer
-		this->head = 0;
-		this->tail = 0;
-		this->usage = 0; // size of the data in the buffer
-		this->readable = false; // whether the buffer has data
-		this->buffer = new BYTE[capacity]; // buffer, circular queue
+		buffer = new BYTE[capacity]; // buffer, circular queue
 	}
 
 	int InteractBuffer::ReadBuffer(BYTE *data, int maxSize)
