@@ -29,11 +29,12 @@ namespace Hearthstonepp
 		std::condition_variable cv;
 
 		int capacity;
-		bool readable;
+		bool readable = false;
 
 		BYTE *buffer;
-		int usage;
-		int head, tail;
+		int head = 0;
+		int tail = 0;
+		int usage = 0;
 	};
 }
 
