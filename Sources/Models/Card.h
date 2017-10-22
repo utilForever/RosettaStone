@@ -31,6 +31,8 @@ namespace Hearthstonepp
 		virtual ~Card() = default;
 
 		std::string GetID() const;
+		std::string GetCardName() const;
+		CardType GetCardType() const;
 		CardClass GetCardClass() const;
 		unsigned int GetMaxAllowedInDeck() const;
 
