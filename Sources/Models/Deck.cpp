@@ -13,15 +13,15 @@
 namespace Hearthstonepp
 {
 	Deck::Deck() :
-		m_class(CardClass::INVALID), m_name("Empty"), m_numOfCards(0)
+		m_name("Empty"), m_class(CardClass::INVALID), m_numOfCards(0)
 	{
-		
+
 	}
 
-	Deck::Deck(const CardClass playerClass, std::string name) :
-		m_class(playerClass), m_name(std::move(name)), m_numOfCards(0)
+	Deck::Deck(std::string name, const CardClass playerClass) :
+		m_name(std::move(name)), m_class(playerClass), m_numOfCards(0)
 	{
-		
+
 	}
 
 	std::string Deck::GetName() const
@@ -29,28 +29,43 @@ namespace Hearthstonepp
 		return m_name;
 	}
 
+	CardClass Deck::GetClass() const
+	{
+		return m_class;
+	}
+
 	unsigned int Deck::GetNumOfCards() const
 	{
 		return m_numOfCards;
 	}
 
+	size_t Deck::GetUniqueNumOfCards() const
+	{
+		return m_cards.size();
+	}
+
 	unsigned int Deck::GetNumCardInDeck(std::string cardID)
 	{
 		auto isCardExistInDeck = std::find_if(m_cards.begin(), m_cards.end(),
-			[&cardID](const std::pair<const Card*, int>& elem) { return elem.first->GetID() == cardID; });
+			[&cardID](const std::pair<std::string, int>& elem) { return elem.first == cardID; });
 
 		if (isCardExistInDeck != m_cards.end())
 		{
 			return (*isCardExistInDeck).second;
 		}
-		
+
 		return 0;
 	}
 
-	void Deck::AddCard(const Card* card, int numCardToAdd)
+	std::pair<std::string, int> Deck::GetCard(size_t idx) const
+	{
+		return m_cards.at(idx);
+	}
+
+	void Deck::AddCard(std::string cardID, int numCardToAdd)
 	{
 		auto isCardExistInDeck = std::find_if(m_cards.begin(), m_cards.end(),
-			[&card](const std::pair<const Card*, int>& elem) { return elem.first->GetID() == card->GetID(); });
+			[&cardID](const std::pair<std::string, int>& elem) { return elem.first == cardID; });
 
 		if (isCardExistInDeck != m_cards.end())
 		{
@@ -58,16 +73,16 @@ namespace Hearthstonepp
 		}
 		else
 		{
-			m_cards.emplace_back(std::make_pair(card, numCardToAdd));
+			m_cards.emplace_back(std::make_pair(cardID, numCardToAdd));
 		}
 
 		m_numOfCards += numCardToAdd;
 	}
 
-	void Deck::DeleteCard(const Card* card, const int numCardToDelete)
+	void Deck::DeleteCard(std::string cardID, const int numCardToDelete)
 	{
 		auto isCardExistInDeck = std::find_if(m_cards.begin(), m_cards.end(),
-			[&card](const std::pair<const Card*, int>& elem) { return elem.first->GetID() == card->GetID(); });
+			[&cardID](const std::pair<std::string, int>& elem) { return elem.first == cardID; });
 
 		if (isCardExistInDeck != m_cards.end())
 		{

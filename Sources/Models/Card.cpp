@@ -32,9 +32,9 @@ namespace Hearthstonepp
 		m_maxAllowedInDeck = (rarity == Rarity::LEGENDARY) ? 1 : 2;
 	}
 
-    std::string Card::GetID() const
+	std::string Card::GetID() const
 	{
-        return m_id;
+		return m_id;
 	}
 
 	CardClass Card::GetCardClass() const

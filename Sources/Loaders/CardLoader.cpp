@@ -22,7 +22,7 @@ namespace Hearthstonepp
 	std::vector<Card*> CardLoader::Load() const
 	{
 		// Read card data from JSON file
-		std::ifstream cardFile("Datas/cards.json");
+		std::ifstream cardFile("Resources/cards.json");
 		json j;
 
 		if (!cardFile.is_open())
@@ -32,12 +32,12 @@ namespace Hearthstonepp
 
 		cardFile >> j;
 
-        std::vector<Card*> cards;
-        cards.reserve(j.size());
+		std::vector<Card*> cards;
+		cards.reserve(j.size());
 
-        for (auto& card : j)
-        {
-            const std::string id = std::move(card["id"].get<std::string>());
+		for (auto& card : j)
+		{
+			const std::string id = std::move(card["id"].get<std::string>());
 			const Rarity rarity = card["rarity"].is_null() ? Rarity::FREE : std::move(ConverterFromStringToRarity.at(card["rarity"].get<std::string>()));
 			const Faction faction = card["faction"].is_null() ? Faction::NEUTRAL : std::move(ConverterFromStringToFaction.at(card["faction"].get<std::string>()));
 			const CardSet cardSet = card["set"].is_null() ? CardSet::NONE : std::move(ConverterFromStringToCardSet.at(card["set"].get<std::string>()));
@@ -55,25 +55,25 @@ namespace Hearthstonepp
 			const int durability = card["durability"].is_null() ? -1 : card["durability"].get<int>();
 
 			std::vector<GameTag> mechanics;
-            for (auto& mechanic : card["mechanics"])
-            {
-                mechanics.emplace_back(std::move(ConverterFromStringToGameTag.at(mechanic.get<std::string>())));
-            }
+			for (auto& mechanic : card["mechanics"])
+			{
+				mechanics.emplace_back(std::move(ConverterFromStringToGameTag.at(mechanic.get<std::string>())));
+			}
 
 			std::map<PlayReq, int> playRequirements;
-            for (auto iter = card["playRequirements"].begin(); iter != card["playRequirements"].end(); ++iter)
-            {
-                playRequirements.try_emplace(std::move(ConverterFromStringToPlayReq.at(iter.key())), iter.value().get<int>());
-            }
+			for (auto iter = card["playRequirements"].begin(); iter != card["playRequirements"].end(); ++iter)
+			{
+				playRequirements.try_emplace(std::move(ConverterFromStringToPlayReq.at(iter.key())), iter.value().get<int>());
+			}
 
 			std::vector<std::string> entourages;
-            for (auto& entourage : card["entourage"])
-            {
-                entourages.emplace_back(std::move(entourage.get<std::string>()));
-            }
+			for (auto& entourage : card["entourage"])
+			{
+				entourages.emplace_back(std::move(entourage.get<std::string>()));
+			}
 
 			Card* c;
-        	switch (cardType)
+			switch (cardType)
 			{
 			case CardType::HERO:
 				c = new Hero(
@@ -117,10 +117,10 @@ namespace Hearthstonepp
 			}
 
 			cards.emplace_back(c);
-        }
+		}
 
 		cardFile.close();
 
-        return cards;
+		return cards;
 	}
 }

@@ -37,7 +37,7 @@ namespace Hearthstonepp
 			{
 				MainPhase();
 			}
-			
+
 			FinalPhase(result);
 		}, std::ref(result));
 

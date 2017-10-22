@@ -58,7 +58,7 @@ namespace Hearthstonepp
 
 		readable = true;
 		cv.notify_one(); // inform buffer is readable
-		 
+
 		return usage;
 	}
 }

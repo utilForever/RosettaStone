@@ -11,47 +11,47 @@
 
 namespace Hearthstonepp
 {
-    Cards* Cards::m_instance = nullptr;
+	Cards* Cards::m_instance = nullptr;
 
-    Cards::Cards()
-    {
-        CardLoader loader;
-        m_cards = loader.Load();
-    }
+	Cards::Cards()
+	{
+		CardLoader loader;
+		m_cards = loader.Load();
+	}
 
-    Cards::~Cards()
-    {
-        for (auto card : m_cards)
-        {
-	        if (card != nullptr)
-	        {
-				delete card;
-	        }
-        }
-
-		m_cards.clear();
-    }
-
-    Cards* Cards::GetInstance()
-    {
-        if (m_instance == nullptr)
-        {
-            m_instance = new Cards();
-        }
-
-        return m_instance;
-    }
-
-	const Card* Cards::FindCardByID(const std::string id)
-    {
+	Cards::~Cards()
+	{
 		for (auto card : m_cards)
 		{
-		    if (card->GetID() == id)
-		    {
+			if (card != nullptr)
+			{
+				delete card;
+			}
+		}
+
+		m_cards.clear();
+	}
+
+	Cards* Cards::GetInstance()
+	{
+		if (m_instance == nullptr)
+		{
+			m_instance = new Cards();
+		}
+
+		return m_instance;
+	}
+
+	const Card* Cards::FindCardByID(const std::string id)
+	{
+		for (auto card : m_cards)
+		{
+			if (card->GetID() == id)
+			{
 				return card;
-		    }
+			}
 		}
 
 		return nullptr;
-    }
+	}
 }

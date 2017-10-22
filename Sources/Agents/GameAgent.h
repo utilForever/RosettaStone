@@ -21,7 +21,7 @@
 #include <thread>
 #include <vector>
 
-namespace Hearthstonepp 
+namespace Hearthstonepp
 {
 	using BYTE = unsigned char;
 
@@ -50,7 +50,7 @@ namespace Hearthstonepp
 	class GameAgent
 	{
 	public:
-		GameAgent(User *user1, User *user2, int maxBufferSize=2048);
+		GameAgent(User *user1, User *user2, int maxBufferSize = 2048);
 		std::thread* StartAgent(GameResult& result);
 
 		int ReadBuffer(BYTE* arr, int maxSize); // Read data written by Agent
@@ -65,7 +65,7 @@ namespace Hearthstonepp
 
 		std::random_device rd;
 		std::default_random_engine generator; // random generator
-		
+
 		int ReadInputBuffer(BYTE* arr, int maxSize); // Read data written by User
 		int WriteOutputBuffer(BYTE* arr, int size); // Write data to User
 
@@ -75,7 +75,7 @@ namespace Hearthstonepp
 		void BeginPhase();
 		void MainPhase();
 		void FinalPhase(GameResult& result);
-		
+
 		void DecideDeckOrder();
 		void ShuffleDeck(User *user);
 		void Mulligan(User *user);

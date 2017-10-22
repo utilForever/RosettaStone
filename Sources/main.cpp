@@ -13,5 +13,5 @@ using namespace Hearthstonepp;
 int main()
 {
 	Console c;
-	return c.Play();
+	return c.Login();
 }
