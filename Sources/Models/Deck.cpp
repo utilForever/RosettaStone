@@ -57,6 +57,23 @@ namespace Hearthstonepp
 		return 0;
 	}
 
+	std::vector<Card*> Deck::GetPrimitiveDeck() const
+	{
+		Cards *cards = Cards::GetInstance();
+
+		std::vector<Card*> deck;
+		for (auto& pair : m_cards)
+		{
+			Card *card = const_cast<Card*>(cards->FindCardByID(pair.first));
+			for (int i = 0; i < pair.second; ++i)
+			{
+				deck.push_back(card);
+			}	
+		}
+
+		return deck;
+	}
+
 	std::pair<std::string, int> Deck::GetCard(size_t idx) const
 	{
 		return m_cards.at(idx);
