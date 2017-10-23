@@ -9,6 +9,7 @@
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
 #include <Enums/EnumsToString.h>
+#include <Interface/Interface.h>
 #include <Loaders/CardLoader.h>
 #include <Loaders/PlayerLoader.h>
 #include <Models/Card.h>
@@ -168,35 +169,10 @@ namespace Hearthstonepp
 		Player *p1 = loader.Load("temp1");
 		Player *p2 = loader.Load("temp2");
 
-		GameResult result;
 		GameAgent agent(User(p1, 0), User(p2, 0));
+		GameInterface game(agent);
 
-		std::thread *at = agent.StartAgent(result);
-
-		for (int i = 0; i < 2; ++i)
-		{
-			Card *list[3] = { 0, };
-			int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
-
-			for (auto card : list)
-			{
-				std::cout << "[" << card->GetCardName() << "] ";
-			}
-			std::cout << std::endl;
-
-			BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
-			result = agent.WriteBuffer(mulligan, 2); // send index to agent
-
-			result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
-
-			for (auto card : list)
-			{
-				std::cout << "[" << card->GetCardName() << "] ";
-			}
-			std::cout << std::endl;
-		}
-
-		at->join(); // join agent thread
+		GameResult result = game.StartGame();
 	}
 
 	void Console::Leave()
