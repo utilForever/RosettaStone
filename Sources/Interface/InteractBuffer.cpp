@@ -1,12 +1,12 @@
 /*************************************************************************
-> File Name: Interface.cpp
+> File Name: InteractBuffer.cpp
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
-> Purpose: Interface for Hearthstone Game Agent
+> Purpose: InteractBuffer for Hearthstone Game Agent
 > Created Time: 2017/10/04
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Agents/Interface.h>
+#include <Interface/InteractBuffer.h>
 
 namespace Hearthstonepp
 {

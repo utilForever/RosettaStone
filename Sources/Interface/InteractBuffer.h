@@ -1,13 +1,13 @@
 /*************************************************************************
-> File Name: Interface.h
+> File Name: InteractBuffer.h
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
-> Purpose: Interface for Hearthstone Game Agent
+> Purpose: InteractBuffer for Hearthstone Game Agent
 > Created Time: 2017/10/04
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#ifndef HEARTHSTONEPP_INTERFACE_H
-#define HEARTHSTONEPP_INTERFACE_H
+#ifndef HEARTHSTONEPP_INTERACTBUFFER_H
+#define HEARTHSTONEPP_INTERACTBUFFER_H
 
 #include <condition_variable>
 #include <mutex>

@@ -131,7 +131,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agents\GameAgent.cpp" />
-    <ClCompile Include="Agents\Interface.cpp" />
+    <ClCompile Include="Interface\InteractBuffer.cpp" />
+    <ClCompile Include="Interface\Interface.cpp" />
     <ClCompile Include="Loaders\CardLoader.cpp" />
     <ClCompile Include="Loaders\PlayerLoader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -149,11 +150,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agents\GameAgent.h" />
-    <ClInclude Include="Agents\Interface.h" />
     <ClInclude Include="Commons\Constants.h" />
     <ClInclude Include="Enums\EnumsToString.h" />
     <ClInclude Include="Enums\StringToEnums.h" />
     <ClInclude Include="Enums\Enums.h" />
+    <ClInclude Include="Interface\InteractBuffer.h" />
+    <ClInclude Include="Interface\Interface.h" />
     <ClInclude Include="Loaders\CardLoader.h" />
     <ClInclude Include="Loaders\PlayerLoader.h" />
     <ClInclude Include="Models\Card.h" />
