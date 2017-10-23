@@ -6,8 +6,8 @@
 > Created Time: 2017/10/04
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#ifndef HEARTHSTONEPP_UTILITY_H
-#define HEARTHSTONEPP_UTILITY_H
+#ifndef HEARTHSTONEPP_INTERFACE_H
+#define HEARTHSTONEPP_INTERFACE_H
 
 #include <condition_variable>
 #include <mutex>
@@ -38,4 +38,4 @@ namespace Hearthstonepp
 	};
 }
 
-#endif HEARTHSTONEPP_UTILITY_H
+#endif
