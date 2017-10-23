@@ -37,6 +37,16 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
+	GameAgent::GameAgent(User&& user1, User&& user2, int maxBufferSize)
+		: userCurrent(std::move(user1))
+		, userOpponent(std::move(user2))
+		, inBuffer(maxBufferSize) // initialize pipe buffer
+		, outBuffer(maxBufferSize)
+		, generator(rd()) // initialize random generator
+	{
+		// Do Nothing
+	}
+
 	std::thread* GameAgent::StartAgent(GameResult& result)
 	{
 		std::thread *agent = new std::thread([this](GameResult& result) {
@@ -120,8 +130,8 @@ namespace Hearthstonepp
 	{
 		return true;
 		/*
-		int healthCurrent = userCurrent->hero->health;
-		int healthOpponent = userOpponent->hero->health;
+		int healthCurrent = userCurrent.hero->health;
+		int healthOpponent = userOpponent.hero->health;
 
 		if (healthCurrent <= 0 || healthOpponent <= 0)
 		{

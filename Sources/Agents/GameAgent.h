@@ -32,7 +32,6 @@ namespace Hearthstonepp
 	{
 	public:
 		User(Player *player, int deckID);
-		User(User& user) = default;
 
 		Player *player;
 		Hero *hero;
@@ -55,14 +54,15 @@ namespace Hearthstonepp
 	{
 	public:
 		GameAgent(User& user1, User& user2, int maxBufferSize = 2048);
+		GameAgent(User&& user1, User&& user2, int maxBufferSize = 2048);
 		std::thread* StartAgent(GameResult& result);
 
 		int ReadBuffer(BYTE* arr, int maxSize); // Read data written by Agent
 		int WriteBuffer(BYTE* arr, int size); // Write data to Agent
 
 	private:
-		User& userCurrent;
-		User& userOpponent;
+		User userCurrent;
+		User userOpponent;
 
 		InteractBuffer inBuffer; // Pipe IO : User -> Agent 
 		InteractBuffer outBuffer; // Pipe IO : Agent -> User
