@@ -10,22 +10,31 @@
 
 namespace Hearthstonepp
 {
-	User::User(int id, Hero *hero, HeroPower *power, Deck& deck)
+	User::User(Player *player, int deckID)
 	{
-		this->id = id;
-		this->hero = hero;
-		this->power = power;
+		Cards *cards = Cards::GetInstance();
+
+		Deck *tmpDeck = player->GetDeck(deckID);
+		CardClass cardclass = tmpDeck->GetClass();
+
+		const Card *hero = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
+		const Card *power = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
+
+		this->player = player;
+		this->deck = tmpDeck->GetPrimitiveDeck();
+		this->hero = static_cast<Hero*>(const_cast<Card*>(hero));
+		this->power = static_cast<HeroPower*>(const_cast<Card*>(power));
 		this->weapon = nullptr;
-		this->deck = deck;
 	}
 
-	GameAgent::GameAgent(User *user1, User *user2, int maxBufferSize)
-		: inBuffer(maxBufferSize) // initialize pipe buffer
+	GameAgent::GameAgent(User& user1, User& user2, int maxBufferSize)
+		: userCurrent(user1)
+		, userOpponent(user2)
+		, inBuffer(maxBufferSize) // initialize pipe buffer
 		, outBuffer(maxBufferSize)
 		, generator(rd()) // initialize random generator
 	{
-		this->userCurrent = user1;
-		this->userOpponent = user2;
+		// Do Nothing
 	}
 
 	std::thread* GameAgent::StartAgent(GameResult& result)
@@ -59,7 +68,7 @@ namespace Hearthstonepp
 		Mulligan(userCurrent);
 		Mulligan(userOpponent);
 
-		userOpponent->hand.push_back(new Card()); // Coin for later user
+		userOpponent.hand.push_back(new Card()); // Coin for later user
 	}
 
 	void GameAgent::MainPhase()
@@ -82,24 +91,24 @@ namespace Hearthstonepp
 		}
 	}
 
-	void GameAgent::ShuffleDeck(User* user)
+	void GameAgent::ShuffleDeck(User& user)
 	{
-		Deck& deck = user->deck;
-		//std::shuffle(deck.begin(), deck.end(), generator); // shuffle with random generator
+		std::vector<Card*>& deck = user.deck;
+		std::shuffle(deck.begin(), deck.end(), generator); // shuffle with random generator
 	}
 
-	void GameAgent::Mulligan(User* user)
+	void GameAgent::Mulligan(User& user)
 	{
 		BYTE index[3] = { 0, };
-		std::vector<Card*>& hand = user->hand;
+		std::vector<Card*>& hand = user.hand;
 
 		WriteOutputBuffer((BYTE*)hand.data(), sizeof(Card*) * 3); // send card data to user
 		int read = ReadInputBuffer(index, 3); // read index of the card to be mulligan
 
-		std::sort(index, index + read);
+		std::sort(index, index + read, std::greater<int>());
 		for (int i = 0; i < read; ++i)
 		{
-			hand.erase(hand.begin() + index[i] - i); // erase card with given index
+			hand.erase(hand.begin() + index[i]); // erase card with given index
 		}
 
 		Draw(user, read);
@@ -125,15 +134,15 @@ namespace Hearthstonepp
 		*/
 	}
 
-	void GameAgent::Draw(User *user, int num)
+	void GameAgent::Draw(User& user, int num)
 	{
-		Deck& deck = user->deck;
-		std::vector<Card*>& hand = user->hand;
+		std::vector<Card*>& deck = user.deck;
+		std::vector<Card*>& hand = user.hand;
 
 		for (int i = 0; i < num; ++i)
 		{
-			//hand.push_back(deck.back());
-			//deck.pop_back();
+			hand.push_back(deck.back());
+			deck.pop_back();
 		}
 	}
 

@@ -10,11 +10,14 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Agents/Interface.h>
+#include <Enums/EnumsToString.h>
 #include <Models/Card.h>
+#include <Models/Cards.h>
 #include <Models/Deck.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
 #include <Models/Entities/Weapon.h>
+#include <Models/Player.h>
 
 #include <algorithm>
 #include <random>
@@ -28,14 +31,15 @@ namespace Hearthstonepp
 	class User
 	{
 	public:
-		User(int id, Hero *hero, HeroPower *power, Deck& deck);
+		User(Player *player, int deckID);
+		User(User& user) = default;
 
-		int id;
+		Player *player;
 		Hero *hero;
 		HeroPower *power;
 		Weapon *weapon;
 
-		Deck deck;
+		std::vector<Card*> deck;
 		std::vector<Card*> field;
 		std::vector<Card*> hand;
 		std::vector<Card*> usedSpell;
@@ -50,15 +54,15 @@ namespace Hearthstonepp
 	class GameAgent
 	{
 	public:
-		GameAgent(User *user1, User *user2, int maxBufferSize = 2048);
+		GameAgent(User& user1, User& user2, int maxBufferSize = 2048);
 		std::thread* StartAgent(GameResult& result);
 
 		int ReadBuffer(BYTE* arr, int maxSize); // Read data written by Agent
 		int WriteBuffer(BYTE* arr, int size); // Write data to Agent
 
 	private:
-		User *userCurrent;
-		User *userOpponent;
+		User& userCurrent;
+		User& userOpponent;
 
 		InteractBuffer inBuffer; // Pipe IO : User -> Agent 
 		InteractBuffer outBuffer; // Pipe IO : Agent -> User
@@ -70,15 +74,15 @@ namespace Hearthstonepp
 		int WriteOutputBuffer(BYTE* arr, int size); // Write data to User
 
 		bool IsGameEnd();
-		void Draw(User *user, int num);
+		void Draw(User& user, int num);
 
 		void BeginPhase();
 		void MainPhase();
 		void FinalPhase(GameResult& result);
 
 		void DecideDeckOrder();
-		void ShuffleDeck(User *user);
-		void Mulligan(User *user);
+		void ShuffleDeck(User& user);
+		void Mulligan(User& user);
 	};
 }
 
