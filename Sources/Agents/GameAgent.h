@@ -9,8 +9,8 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_H
 #define HEARTHSTONEPP_GAME_AGENT_H
 
-#include <Agents/Interface.h>
 #include <Enums/EnumsToString.h>
+#include <Interface/InteractBuffer.h>
 #include <Models/Card.h>
 #include <Models/Cards.h>
 #include <Models/Deck.h>
