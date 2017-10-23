@@ -61,14 +61,14 @@ namespace Hearthstonepp
 		int WriteBuffer(BYTE* arr, int size); // Write data to Agent
 
 	private:
-		User userCurrent;
-		User userOpponent;
+		User m_userCurrent;
+		User m_userOpponent;
 
-		InteractBuffer inBuffer; // Pipe IO : User -> Agent 
-		InteractBuffer outBuffer; // Pipe IO : Agent -> User
+		InteractBuffer m_inBuffer; // Pipe IO : User -> Agent 
+		InteractBuffer m_outBuffer; // Pipe IO : Agent -> User
 
-		std::random_device rd;
-		std::default_random_engine generator; // random generator
+		std::random_device m_rd;
+		std::default_random_engine m_generator; // random generator
 
 		int ReadInputBuffer(BYTE* arr, int maxSize); // Read data written by User
 		int WriteOutputBuffer(BYTE* arr, int size); // Write data to User

@@ -25,16 +25,16 @@ namespace Hearthstonepp
 		int WriteBuffer(BYTE *data, int size);
 
 	private:
-		std::mutex mtx;
-		std::condition_variable cv;
+		std::mutex m_mtx;
+		std::condition_variable m_cv;
 
-		int capacity;
-		bool readable = false;
+		int m_capacity;
+		bool m_readable = false;
 
-		BYTE *buffer;
-		int head = 0;
-		int tail = 0;
-		int usage = 0;
+		BYTE *m_buffer;
+		int m_head = 0;
+		int m_tail = 0;
+		int m_usage = 0;
 	};
 }
 

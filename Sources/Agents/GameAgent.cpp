@@ -28,21 +28,21 @@ namespace Hearthstonepp
 	}
 
 	GameAgent::GameAgent(User& user1, User& user2, int maxBufferSize)
-		: userCurrent(user1)
-		, userOpponent(user2)
-		, inBuffer(maxBufferSize) // initialize pipe buffer
-		, outBuffer(maxBufferSize)
-		, generator(rd()) // initialize random generator
+		: m_userCurrent(user1)
+		, m_userOpponent(user2)
+		, m_inBuffer(maxBufferSize) // initialize pipe buffer
+		, m_outBuffer(maxBufferSize)
+		, m_generator(m_rd()) // initialize random generator
 	{
 		// Do Nothing
 	}
 
 	GameAgent::GameAgent(User&& user1, User&& user2, int maxBufferSize)
-		: userCurrent(std::move(user1))
-		, userOpponent(std::move(user2))
-		, inBuffer(maxBufferSize) // initialize pipe buffer
-		, outBuffer(maxBufferSize)
-		, generator(rd()) // initialize random generator
+		: m_userCurrent(std::move(user1))
+		, m_userOpponent(std::move(user2))
+		, m_inBuffer(maxBufferSize) // initialize pipe buffer
+		, m_outBuffer(maxBufferSize)
+		, m_generator(m_rd()) // initialize random generator
 	{
 		// Do Nothing
 	}
@@ -69,16 +69,16 @@ namespace Hearthstonepp
 		// userOpponent : user who start later
 		DecideDeckOrder();
 
-		ShuffleDeck(userCurrent);
-		ShuffleDeck(userOpponent);
+		ShuffleDeck(m_userCurrent);
+		ShuffleDeck(m_userOpponent);
 
-		Draw(userCurrent, 3);
-		Draw(userOpponent, 3);
+		Draw(m_userCurrent, 3);
+		Draw(m_userOpponent, 3);
 
-		Mulligan(userCurrent);
-		Mulligan(userOpponent);
+		Mulligan(m_userCurrent);
+		Mulligan(m_userOpponent);
 
-		userOpponent.hand.push_back(new Card()); // Coin for later user
+		m_userOpponent.hand.push_back(new Card()); // Coin for later user
 	}
 
 	void GameAgent::MainPhase()
@@ -95,16 +95,16 @@ namespace Hearthstonepp
 	{
 		// get random number, zero or one.
 		std::uniform_int_distribution<int> bin(0, 1);
-		if (bin(generator) == 1) // swap user with 50% probability
+		if (bin(m_generator) == 1) // swap user with 50% probability
 		{
-			std::swap(userCurrent, userOpponent);
+			std::swap(m_userCurrent, m_userOpponent);
 		}
 	}
 
 	void GameAgent::ShuffleDeck(User& user)
 	{
 		std::vector<Card*>& deck = user.deck;
-		std::shuffle(deck.begin(), deck.end(), generator); // shuffle with random generator
+		std::shuffle(deck.begin(), deck.end(), m_generator); // shuffle with random generator
 	}
 
 	void GameAgent::Mulligan(User& user)
@@ -158,21 +158,21 @@ namespace Hearthstonepp
 
 	int GameAgent::ReadBuffer(BYTE *arr, int maxSize)
 	{
-		return outBuffer.ReadBuffer(arr, maxSize);
+		return m_outBuffer.ReadBuffer(arr, maxSize);
 	}
 
 	int GameAgent::WriteBuffer(BYTE *arr, int size)
 	{
-		return inBuffer.WriteBuffer(arr, size);
+		return m_inBuffer.WriteBuffer(arr, size);
 	}
 
 	int GameAgent::ReadInputBuffer(BYTE* arr, int maxSize)
 	{
-		return inBuffer.ReadBuffer(arr, maxSize);
+		return m_inBuffer.ReadBuffer(arr, maxSize);
 	}
 
 	int GameAgent::WriteOutputBuffer(BYTE* arr, int size)
 	{
-		return outBuffer.WriteBuffer(arr, size);
+		return m_outBuffer.WriteBuffer(arr, size);
 	}
 }

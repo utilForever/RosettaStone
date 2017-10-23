@@ -12,49 +12,49 @@ namespace Hearthstonepp
 {
 	InteractBuffer::InteractBuffer(int capacity)
 	{
-		this->capacity = capacity;
-		buffer = new BYTE[capacity]; // buffer, circular queue
+		m_capacity = capacity;
+		m_buffer = new BYTE[capacity]; // buffer, circular queue
 	}
 
 	int InteractBuffer::ReadBuffer(BYTE *data, int maxSize)
 	{
-		std::unique_lock<std::mutex> lock(mtx);
-		cv.wait(lock, [this]() { return readable; }); // wait until the buffer can be read
+		std::unique_lock<std::mutex> lock(m_mtx);
+		m_cv.wait(lock, [this]() { return m_readable; }); // wait until the buffer can be read
 
 		int read = 0;
-		for (int i = 0; (i < usage) && maxSize; ++i) // read data from buffer
+		for (int i = 0; (i < m_usage) && maxSize; ++i) // read data from buffer
 		{
-			data[i] = buffer[head];
+			data[i] = m_buffer[m_head];
 
-			head = (head + 1) % capacity;
+			m_head = (m_head + 1) % m_capacity;
 			maxSize -= 1;
 			read += 1;
 		}
 
-		usage -= read; // calculate remaining capacity to read
+		m_usage -= read; // calculate remaining capacity to read
 
-		readable = false;
-		cv.notify_one(); // inform buffer is writable
+		m_readable = false;
+		m_cv.notify_one(); // inform buffer is writable
 
 		return read;
 	}
 
 	int InteractBuffer::WriteBuffer(BYTE *data, int size)
 	{
-		std::unique_lock<std::mutex> lock(mtx);
-		cv.wait(lock, [this]() { return !readable; }); // wait until the buffer can be write
+		std::unique_lock<std::mutex> lock(m_mtx);
+		m_cv.wait(lock, [this]() { return !m_readable; }); // wait until the buffer can be write
 
-		for (int i = 0; (i < size) && (usage < capacity); ++i) // write data to buffer
+		for (int i = 0; (i < size) && (m_usage < m_capacity); ++i) // write data to buffer
 		{
-			buffer[tail] = data[i];
+			m_buffer[m_tail] = data[i];
 
-			tail = (tail + 1) % capacity;
-			usage += 1;
+			m_tail = (m_tail + 1) % m_capacity;
+			m_usage += 1;
 		}
 
-		readable = true;
-		cv.notify_one(); // inform buffer is readable
+		m_readable = true;
+		m_cv.notify_one(); // inform buffer is readable
 
-		return usage;
+		return m_usage;
 	}
 }
