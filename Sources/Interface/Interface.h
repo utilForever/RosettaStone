@@ -10,6 +10,7 @@
 #define HEARTHSTONEPP_INTERFACE_H
 
 #include <Agents/GameAgent.h>
+#include <Commons/Constants.h>
 
 #include <functional>
 #include <iostream>
@@ -35,8 +36,11 @@ namespace Hearthstonepp
 		GameAgent& m_agent;
 		std::string m_users[2];
 
-		BYTE *m_buffer;
+		BYTE* m_buffer;
 		int m_bufferCapacity;
+
+		const unsigned int HANDLE_CONTINUE = 0;
+		const unsigned int HANDLE_STOP = 1;
 
 		std::map<BYTE, std::function<void(GameInterface&)>> m_handler =
 		{
