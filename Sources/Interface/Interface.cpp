@@ -57,8 +57,9 @@ namespace Hearthstonepp
 	void GameInterface::BeginFirst()
 	{
 		BeginFirstStructure *data = (BeginFirstStructure*)m_buffer;
-		m_users[0] = *data->m_userFirst;
-		m_users[1] = *data->m_userLast;
+
+		m_users[0] = data->m_userFirst;
+		m_users[1] = data->m_userLast;
 
 		LogWriter(m_users[0], "Begin First");
 		LogWriter(m_users[1], "Begin Last");
