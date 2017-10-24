@@ -42,6 +42,11 @@ namespace Hearthstonepp
 		return m_cardClass;
 	}
 
+	std::string Card::GetName() const
+	{
+		return m_name;
+	}
+
 	unsigned int Card::GetMaxAllowedInDeck() const
 	{
 		return m_maxAllowedInDeck;
