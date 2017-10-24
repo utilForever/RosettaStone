@@ -31,6 +31,7 @@ namespace Hearthstonepp
 		virtual ~Card() = default;
 
 		std::string GetID() const;
+		Rarity GetRarity() const;
 		CardClass GetCardClass() const;
 		std::string GetName() const;
 		int GetCost() const;

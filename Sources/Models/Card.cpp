@@ -37,6 +37,11 @@ namespace Hearthstonepp
 		return m_id;
 	}
 
+	Rarity Card::GetRarity() const
+	{
+		return m_rarity;
+	}
+
 	CardClass Card::GetCardClass() const
 	{
 		return m_cardClass;
