@@ -69,4 +69,19 @@ namespace Hearthstonepp
 
 		return result;
 	}
+
+	std::vector<Card*> Cards::FindCardByAttack(int minVal, int maxVal)
+	{
+		std::vector<Card*> result;
+
+		for (auto card : m_cards)
+		{
+			if (card->GetAttack() >= minVal && card->GetAttack() <= maxVal)
+			{
+				result.emplace_back(card);
+			}
+		}
+
+		return result;
+	}
 }

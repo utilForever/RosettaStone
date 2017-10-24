@@ -22,6 +22,7 @@ namespace Hearthstonepp
 
 		const Card* FindCardByID(const std::string id);
 		std::vector<Card*> FindCardByName(const std::string name);
+		std::vector<Card*> FindCardByAttack(int minVal, int maxVal);
 
 	private:
 		Cards();
