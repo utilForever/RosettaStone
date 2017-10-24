@@ -76,6 +76,9 @@
     <ClCompile Include="Interface\Interface.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
+    <ClCompile Include="Agents\AgentStructures.cpp">
+      <Filter>Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\Enums.h">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="Interface\Interface.h">
       <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Agents\AgentStructures.h">
+      <Filter>Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

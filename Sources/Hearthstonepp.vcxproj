@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agents\AgentStructures.cpp" />
     <ClCompile Include="Agents\GameAgent.cpp" />
     <ClCompile Include="Interface\InteractBuffer.cpp" />
     <ClCompile Include="Interface\Interface.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Programs\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agents\AgentStructures.h" />
     <ClInclude Include="Agents\GameAgent.h" />
     <ClInclude Include="Commons\Constants.h" />
     <ClInclude Include="Enums\EnumsToString.h" />
