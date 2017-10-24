@@ -137,7 +137,11 @@ namespace Hearthstonepp
 
 	void Console::SearchCard()
 	{
+		std::cout << "========================================\n";
+		std::cout << "              Search Card!              \n";
+		std::cout << "========================================\n";
 
+		std::cout << "Usage: -c class -n name -mc cost -a attack -h health\n";
 	}
 
 	int Console::ManageDeck()
