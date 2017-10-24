@@ -10,48 +10,48 @@
 
 namespace Hearthstonepp
 {
-	User::User(Player *player, int deckID)
+	User::User(Player* player, int deckID)
+		: m_player(player)
+		, m_weapon(nullptr)
 	{
-		Cards *cards = Cards::GetInstance();
+		Cards* cards = Cards::GetInstance();
 
-		Deck *tmpDeck = player->GetDeck(deckID);
+		Deck* tmpDeck = player->GetDeck(deckID);
 		CardClass cardclass = tmpDeck->GetClass();
 
-		const Card *hero = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
-		const Card *power = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
+		const Card* hero = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
+		const Card* power = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
 
-		m_player = player;
 		m_deck = tmpDeck->GetPrimitiveDeck();
 		m_hero = static_cast<Hero*>(const_cast<Card*>(hero));
 		m_power = static_cast<HeroPower*>(const_cast<Card*>(power));
-		m_weapon = nullptr;
 	}
 
 	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, BYTE numHands, Card** cards)
-		: m_id(drawID)
-		, m_userID(userID)
-		, m_numDraw(numDraw)
-		, m_numHands(numHands)
-		, m_cards(cards)
+		: id(drawID)
+		, userID(userID)
+		, numDraw(numDraw)
+		, numHands(numHands)
+		, cards(cards)
 	{
 		// Do Nothing
 	}
 
 	BeginFirstStructure::BeginFirstStructure(std::string userFirst, std::string userLast)
-		: m_userFirst(userFirst)
-		, m_userLast(userLast)
+		: userFirst(userFirst)
+		, userLast(userLast)
 	{
 		// Do Nothing
 	}
 
 	BeginShuffleStructure::BeginShuffleStructure(int userID)
-		: m_userID(userID)
+		: userID(userID)
 	{
 		// Do Nothing
 	}
 
 	BeginMulliganStructure::BeginMulliganStructure(int userID)
-		: m_userID(userID)
+		: userID(userID)
 	{
 		// Do Nothing
 	}

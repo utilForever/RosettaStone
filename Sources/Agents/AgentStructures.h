@@ -25,13 +25,13 @@ namespace Hearthstonepp
 	class User
 	{
 	public:
-		User(Player *player, int deckID);
+		User(Player* player, int deckID);
 
 		int m_id;
-		Player *m_player;
-		Hero *m_hero;
-		HeroPower *m_power;
-		Weapon *m_weapon;
+		Player* m_player;
+		Hero* m_hero;
+		HeroPower* m_power;
+		Weapon* m_weapon;
 
 		std::vector<Card*> m_deck;
 		std::vector<Card*> m_field;
@@ -49,36 +49,36 @@ namespace Hearthstonepp
 	{
 		DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, BYTE numHands, Card** cards);
 
-		BYTE m_id;
-		BYTE m_userID;
-		BYTE m_numDraw;
-		BYTE m_numHands;
-		Card** m_cards;
+		BYTE id;
+		BYTE userID;
+		BYTE numDraw;
+		BYTE numHands;
+		Card** cards;
 	};
 
 	struct BeginFirstStructure
 	{
 		BeginFirstStructure(std::string userFirst, std::string userLast);
 
-		BYTE m_id = static_cast<BYTE>(Step::BEGIN_FIRST);
-		std::string m_userFirst;
-		std::string m_userLast;
+		BYTE id = static_cast<BYTE>(Step::BEGIN_FIRST);
+		std::string userFirst;
+		std::string userLast;
 	};
 
 	struct BeginShuffleStructure
 	{
 		BeginShuffleStructure(int userID);
 
-		BYTE m_id = static_cast<BYTE>(Step::BEGIN_SHUFFLE);
-		int m_userID;
+		BYTE id = static_cast<BYTE>(Step::BEGIN_SHUFFLE);
+		int userID;
 	};
 
 	struct BeginMulliganStructure
 	{
 		BeginMulliganStructure(int userID);
 
-		BYTE m_id = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
-		int m_userID;
+		BYTE id = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
+		int userID;
 	};
 }
 
