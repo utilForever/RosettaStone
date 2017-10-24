@@ -52,6 +52,11 @@ namespace Hearthstonepp
 		return m_attack;
 	}
 
+	int Card::GetHealth() const
+	{
+		return m_health;
+	}
+
 	unsigned int Card::GetMaxAllowedInDeck() const
 	{
 		return m_maxAllowedInDeck;
