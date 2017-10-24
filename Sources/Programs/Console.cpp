@@ -165,11 +165,20 @@ namespace Hearthstonepp
 
 	void Console::SimulateGame()
 	{
-		PlayerLoader loader;
-		Player *p1 = loader.Load("temp1");
-		Player *p2 = loader.Load("temp2");
+		int deck1, deck2;
+		std::string user1, user2;
 
-		GameAgent agent(User(p1, 0), User(p2, 0));
+		std::cout << "[*] input first id, deck index : ";
+		std::cin >> user1 >> deck1;
+
+		std::cout << "[*] input second id, deck index : ";
+		std::cin >> user2 >> deck2;
+
+		PlayerLoader loader;
+		Player *p1 = loader.Load(user1);
+		Player *p2 = loader.Load(user2);
+
+		GameAgent agent(User(p1, deck1), User(p2, deck2));
 		GameInterface game(agent);
 
 		GameResult result = game.StartGame();
