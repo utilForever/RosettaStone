@@ -9,15 +9,8 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_H
 #define HEARTHSTONEPP_GAME_AGENT_H
 
-#include <Enums/EnumsToString.h>
+#include <Agents/AgentStructures.h>
 #include <Interface/InteractBuffer.h>
-#include <Models/Card.h>
-#include <Models/Cards.h>
-#include <Models/Deck.h>
-#include <Models/Entities/Hero.h>
-#include <Models/Entities/HeroPower.h>
-#include <Models/Entities/Weapon.h>
-#include <Models/Player.h>
 
 #include <algorithm>
 #include <random>
@@ -26,30 +19,6 @@
 
 namespace Hearthstonepp
 {
-	using BYTE = unsigned char;
-
-	class User
-	{
-	public:
-		User(Player *player, int deckID);
-
-		Player *player;
-		Hero *hero;
-		HeroPower *power;
-		Weapon *weapon;
-
-		std::vector<Card*> deck;
-		std::vector<Card*> field;
-		std::vector<Card*> hand;
-		std::vector<Card*> usedSpell;
-		std::vector<Card*> usedMinion;
-	};
-
-	struct GameResult
-	{
-
-	};
-
 	class GameAgent
 	{
 	public:
@@ -57,6 +26,7 @@ namespace Hearthstonepp
 		GameAgent(User&& user1, User&& user2, int maxBufferSize = 2048);
 		std::thread* StartAgent(GameResult& result);
 
+		int GetBufferCapacity() const;
 		int ReadBuffer(BYTE* arr, int maxSize); // Read data written by Agent
 		int WriteBuffer(BYTE* arr, int size); // Write data to Agent
 
@@ -64,6 +34,7 @@ namespace Hearthstonepp
 		User m_userCurrent;
 		User m_userOpponent;
 
+		int m_bufferCapacity;
 		InteractBuffer m_inBuffer; // Pipe IO : User -> Agent 
 		InteractBuffer m_outBuffer; // Pipe IO : Agent -> User
 
@@ -82,6 +53,7 @@ namespace Hearthstonepp
 
 		void DecideDeckOrder();
 		void ShuffleDeck(User& user);
+		void BeginDraw(User& user);
 		void Mulligan(User& user);
 	};
 }
