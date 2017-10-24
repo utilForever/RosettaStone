@@ -105,11 +105,11 @@ namespace Hearthstonepp
 		{
 			while (true)
 			{
-				BYTE index = 0;
-				std::cout << "[*] Input card index " << i+1 << " : ";
+				int index = 0;
+				std::cout << "[*] Input card index " << i+1 << " (0 ~ 2) : ";
 				std::cin >> index;
 
-				if (index >= 0 && index <= 3)
+				if (index >= 0 && index <= 2)
 				{
 					mulligan[i] = index;
 					break;
