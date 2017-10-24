@@ -47,6 +47,11 @@ namespace Hearthstonepp
 		return m_name;
 	}
 
+	int Card::GetCost() const
+	{
+		return m_cost;
+	}
+
 	int Card::GetAttack() const
 	{
 		return m_attack;
