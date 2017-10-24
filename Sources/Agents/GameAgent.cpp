@@ -122,12 +122,17 @@ namespace Hearthstonepp
 		BYTE index[3] = { 0, };	
 		int read = ReadInputBuffer(index, 3); // read index of the card to be mulligan
 
+		std::vector<Card*>& deck = user.m_deck;
 		std::vector<Card*>& hand = user.m_hand;
+
 		std::sort(index, index + read, std::greater<int>());
 		for (int i = 0; i < read; ++i)
 		{
+			deck.emplace_back(hand[index[i]]);
 			hand.erase(hand.begin() + index[i]); // erase card with given index
 		}
+
+		std::shuffle(deck.begin(), deck.end(), m_generator);
 
 		Draw(user, read);
 		DrawStructure data2(static_cast<BYTE>(Step::BEGIN_MULLIGAN), user.m_id, read, 3, hand.data());
