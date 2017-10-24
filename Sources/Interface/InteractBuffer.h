@@ -21,6 +21,8 @@ namespace Hearthstonepp
 	public:
 		InteractBuffer(int capacity);
 
+		int GetCapacity() const;
+
 		int ReadBuffer(BYTE *data, int maxSize);
 		int WriteBuffer(BYTE *data, int size);
 

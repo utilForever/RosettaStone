@@ -16,6 +16,11 @@ namespace Hearthstonepp
 		m_buffer = new BYTE[capacity]; // buffer, circular queue
 	}
 
+	int InteractBuffer::GetCapacity() const
+	{
+		return m_capacity;
+	}
+
 	int InteractBuffer::ReadBuffer(BYTE *data, int maxSize)
 	{
 		std::unique_lock<std::mutex> lock(m_mtx);
