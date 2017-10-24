@@ -11,7 +11,9 @@
 
 #include <Agents/GameAgent.h>
 
+#include <functional>
 #include <iostream>
+#include <map>
 
 namespace Hearthstonepp
 {
@@ -22,9 +24,27 @@ namespace Hearthstonepp
 		GameResult StartGame();
 
 	private:
-		GameAgent& m_agent;
+		int HandleMessage();
+		void LogWriter(std::string& name, std::string meesage);
 
-		void Mulligan();
+		void BeginFirst();
+		void BeginShuffle();
+		void BeginDraw();
+		void BeginMulligan();
+
+		GameAgent& m_agent;
+		std::string m_users[2];
+
+		BYTE *m_buffer;
+		int m_bufferCapacity;
+
+		std::map<BYTE, std::function<void(GameInterface&)>> m_handler =
+		{
+			{ static_cast<BYTE>(Step::BEGIN_FIRST), &GameInterface::BeginFirst },
+			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE), &GameInterface::BeginShuffle },
+			{ static_cast<BYTE>(Step::BEGIN_DRAW), &GameInterface::BeginDraw },
+			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN), &GameInterface::BeginMulligan }
+		};
 	};
 }
 

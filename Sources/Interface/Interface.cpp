@@ -12,8 +12,9 @@ namespace Hearthstonepp
 {
 	GameInterface::GameInterface(GameAgent& agent)
 		: m_agent(agent)
+		, m_bufferCapacity(agent.GetBufferCapacity())
 	{
-		// Do Nothing
+		m_buffer = new BYTE[m_bufferCapacity];
 	}
 
 	GameResult GameInterface::StartGame()
@@ -21,35 +22,109 @@ namespace Hearthstonepp
 		GameResult result;
 		std::thread *at = m_agent.StartAgent(result);
 
-		for (int i = 0; i < 2; ++i)
+		while (true)
 		{
-			Mulligan();
+			int result = HandleMessage();
+			if (result) break;
 		}
 
 		at->join(); // join agent thread
+		delete at;
 
 		return result;
 	}
 
-	void GameInterface::Mulligan()
+	int GameInterface::HandleMessage()
 	{
-		Card *list[3] = { 0, };
-		int result = m_agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
-
-		for (auto card : list)
+		m_agent.ReadBuffer(m_buffer, m_bufferCapacity);
+		if (m_buffer[0] == static_cast<BYTE>(Step::FINAL_GAMEOVER))
 		{
-			std::cout << "[" << card->GetCardName() << "] ";
+			return 1;
+		}
+		else if (m_handler.find(m_buffer[0]) != m_handler.end())
+		{
+			m_handler[m_buffer[0]](*this);
+		}
+
+		return 0;
+	}
+
+	void GameInterface::LogWriter(std::string& name, std::string message)
+	{
+		std::cout << "[*] " << name << " : " << message << std::endl;
+	}
+
+	void GameInterface::BeginFirst()
+	{
+		BeginFirstStructure *data = (BeginFirstStructure*)m_buffer;
+		m_users[0] = *data->m_userFirst;
+		m_users[1] = *data->m_userLast;
+
+		LogWriter(m_users[0], "Begin First");
+		LogWriter(m_users[1], "Begin Last");
+	}
+
+	void GameInterface::BeginShuffle()
+	{
+		BeginShuffleStructure *data = (BeginShuffleStructure*)m_buffer;
+		LogWriter(m_users[data->m_userID], "Begin Shuffle");
+	}
+
+	void GameInterface::BeginDraw()
+	{
+		DrawStructure *data = (DrawStructure*)m_buffer;
+		LogWriter(m_users[data->m_userID], "Begin Draw");
+
+		for (int i = 0; i < 3; ++i)
+		{
+			std::cout << "[" << data->m_cards[i]->GetCardName() << "] ";
 		}
 		std::cout << std::endl;
+	}
 
-		BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
-		result = m_agent.WriteBuffer(mulligan, 2); // send index to agent
+	void GameInterface::BeginMulligan()
+	{
+		BeginMulliganStructure *data = (BeginMulliganStructure*)m_buffer;
+		LogWriter(m_users[data->m_userID], "Begin Mulligan");
 
-		result = m_agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
-
-		for (auto card : list)
+		int numMulligan;
+		while (true)
 		{
-			std::cout << "[" << card->GetCardName() << "] ";
+			std::cout << "[*] How many cards to mulligan ? (0 ~ 3) ";
+			std::cin >> numMulligan;
+
+			if (numMulligan >= 0 && numMulligan <= 3)
+			{
+				break;
+			}
+		}
+
+		BYTE mulligan[3] = { 0, };
+		for (int i = 0; i < numMulligan; ++i)
+		{
+			while (true)
+			{
+				BYTE index = 0;
+				std::cout << "[*] Input card index " << i+1 << " : ";
+				std::cin >> index;
+
+				if (index >= 0 && index <= 3)
+				{
+					mulligan[i] = index;
+					break;
+				}
+			}
+		}
+
+		m_agent.WriteBuffer(mulligan, numMulligan); // send index to agent
+		m_agent.ReadBuffer(m_buffer, sizeof(DrawStructure)); // get new card data
+		
+		LogWriter(m_users[data->m_userID], "Mulligan Result");
+
+		DrawStructure *draw = (DrawStructure*)m_buffer;
+		for (int i = 0; i < 3; ++i)
+		{
+			std::cout << "[" << draw->m_cards[i]->GetCardName() << "] ";
 		}
 		std::cout << std::endl;
 	}
