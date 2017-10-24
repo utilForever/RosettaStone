@@ -84,4 +84,19 @@ namespace Hearthstonepp
 
 		return result;
 	}
+
+	std::vector<Card*> Cards::FindCardByHealth(int minVal, int maxVal)
+	{
+		std::vector<Card*> result;
+
+		for (auto card : m_cards)
+		{
+			if (card->GetHealth() >= minVal && card->GetHealth() <= maxVal)
+			{
+				result.emplace_back(card);
+			}
+		}
+
+		return result;
+	}
 }
