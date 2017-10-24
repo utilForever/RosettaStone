@@ -37,7 +37,7 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
-	BeginFirstStructure::BeginFirstStructure(std::string* userFirst, std::string* userLast)
+	BeginFirstStructure::BeginFirstStructure(std::string userFirst, std::string userLast)
 		: m_userFirst(userFirst)
 		, m_userLast(userLast)
 	{

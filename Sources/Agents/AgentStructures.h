@@ -58,11 +58,11 @@ namespace Hearthstonepp
 
 	struct BeginFirstStructure
 	{
-		BeginFirstStructure(std::string* userFirst, std::string* userLast);
+		BeginFirstStructure(std::string userFirst, std::string userLast);
 
 		BYTE m_id = static_cast<BYTE>(Step::BEGIN_FIRST);
-		std::string* m_userFirst;
-		std::string* m_userLast;
+		std::string m_userFirst;
+		std::string m_userLast;
 	};
 
 	struct BeginShuffleStructure
