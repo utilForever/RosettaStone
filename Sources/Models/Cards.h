@@ -21,6 +21,7 @@ namespace Hearthstonepp
 		static Cards* GetInstance();
 
 		const Card* FindCardByID(const std::string id);
+		std::vector<Card*> FindCardByName(const std::string name);
 
 	private:
 		Cards();

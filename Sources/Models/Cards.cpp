@@ -54,4 +54,19 @@ namespace Hearthstonepp
 
 		return nullptr;
 	}
+
+	std::vector<Card*> Cards::FindCardByName(const std::string name)
+	{
+		std::vector<Card*> result;
+
+		for (auto card : m_cards)
+		{
+			if (card->GetName() == name)
+			{
+				result.emplace_back(card);
+			}
+		}
+
+		return result;
+	}
 }
