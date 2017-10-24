@@ -10,6 +10,7 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Agents/AgentStructures.h>
+#include <Commons/Constants.h>
 #include <Interface/InteractBuffer.h>
 
 #include <algorithm>
