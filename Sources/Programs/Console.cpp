@@ -175,8 +175,8 @@ namespace Hearthstonepp
 		std::cin >> user2 >> deck2;
 
 		PlayerLoader loader;
-		Player *p1 = loader.Load(user1);
-		Player *p2 = loader.Load(user2);
+		Player* p1 = loader.Load(user1);
+		Player* p2 = loader.Load(user2);
 
 		GameAgent agent(User(p1, deck1), User(p2, deck2));
 		GameInterface game(agent);
