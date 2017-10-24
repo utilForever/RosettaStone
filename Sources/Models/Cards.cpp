@@ -61,7 +61,7 @@ namespace Hearthstonepp
 
 		for (auto card : m_cards)
 		{
-			if (card->GetName() == name)
+			if (card->GetName().find(name) != std::string::npos)
 			{
 				result.emplace_back(card);
 			}
