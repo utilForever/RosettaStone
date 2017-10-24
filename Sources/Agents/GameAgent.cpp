@@ -89,8 +89,8 @@ namespace Hearthstonepp
 		m_userCurrent.m_id = 0;
 		m_userOpponent.m_id = 1;
 
-		std::string *userFirst = &m_userCurrent.m_player->GetID();
-		std::string *userLast = &m_userOpponent.m_player->GetID();
+		std::string& userFirst = m_userCurrent.m_player->GetID();
+		std::string& userLast = m_userOpponent.m_player->GetID();
 
 		BeginFirstStructure data(userFirst, userLast);
 		WriteOutputBuffer((BYTE*)&data, sizeof(BeginFirstStructure));
