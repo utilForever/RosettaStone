@@ -33,6 +33,7 @@ namespace Hearthstonepp
 		std::string GetID() const;
 		Rarity GetRarity() const;
 		CardClass GetCardClass() const;
+		CardType GetCardType() const;
 		std::string GetName() const;
 		int GetCost() const;
 		int GetAttack() const;
