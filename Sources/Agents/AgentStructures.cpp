@@ -11,8 +11,8 @@
 namespace Hearthstonepp
 {
 	User::User(Player* player, int deckID)
-		: m_player(player)
-		, m_weapon(nullptr)
+		: player(player)
+		, weapon(nullptr)
 	{
 		Cards* cards = Cards::GetInstance();
 
@@ -22,9 +22,9 @@ namespace Hearthstonepp
 		const Card* hero = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
 		const Card* power = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
 
-		m_deck = tmpDeck->GetPrimitiveDeck();
-		m_hero = static_cast<Hero*>(const_cast<Card*>(hero));
-		m_power = static_cast<HeroPower*>(const_cast<Card*>(power));
+		deck = tmpDeck->GetPrimitiveDeck();
+		hero = static_cast<Hero*>(const_cast<Card*>(hero));
+		power = static_cast<HeroPower*>(const_cast<Card*>(power));
 	}
 
 	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, BYTE numHands, Card** cards)

@@ -22,22 +22,21 @@ namespace Hearthstonepp
 {
 	using BYTE = unsigned char;
 
-	class User
+	struct User
 	{
-	public:
 		User(Player* player, int deckID);
 
-		int m_id;
-		Player* m_player;
-		Hero* m_hero;
-		HeroPower* m_power;
-		Weapon* m_weapon;
+		int id;
+		Player* player;
+		Hero* hero;
+		HeroPower* power;
+		Weapon* weapon;
 
-		std::vector<Card*> m_deck;
-		std::vector<Card*> m_field;
-		std::vector<Card*> m_hand;
-		std::vector<Card*> m_usedSpell;
-		std::vector<Card*> m_usedMinion;
+		std::vector<Card*> deck;
+		std::vector<Card*> field;
+		std::vector<Card*> hand;
+		std::vector<Card*> usedSpell;
+		std::vector<Card*> usedMinion;
 	};
 
 	struct GameResult
