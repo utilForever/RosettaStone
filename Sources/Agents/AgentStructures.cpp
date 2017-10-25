@@ -19,12 +19,12 @@ namespace Hearthstonepp
 		Deck* tmpDeck = player->GetDeck(deckID);
 		CardClass cardclass = tmpDeck->GetClass();
 
-		const Card* hero = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
-		const Card* power = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
+		const Card* heroCard = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
+		const Card* powerCard = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
 
 		deck = tmpDeck->GetPrimitiveDeck();
-		hero = static_cast<Hero*>(const_cast<Card*>(hero));
-		power = static_cast<HeroPower*>(const_cast<Card*>(power));
+		hero = static_cast<Hero*>(const_cast<Card*>(heroCard));
+		power = static_cast<HeroPower*>(const_cast<Card*>(powerCard));
 	}
 
 	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, BYTE numHands, Card** cards)
