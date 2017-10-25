@@ -63,7 +63,7 @@ namespace Hearthstonepp
 		Mulligan(m_userCurrent);
 		Mulligan(m_userOpponent);
 
-		m_userOpponent.m_hand.push_back(new Card()); // Coin for later user
+		m_userOpponent.hand.push_back(new Card()); // Coin for later user
 	}
 
 	void GameAgent::MainPhase()
@@ -86,11 +86,11 @@ namespace Hearthstonepp
 			std::swap(m_userCurrent, m_userOpponent);
 		}
 
-		m_userCurrent.m_id = 0;
-		m_userOpponent.m_id = 1;
+		m_userCurrent.id = 0;
+		m_userOpponent.id = 1;
 
-		std::string& userFirst = m_userCurrent.m_player->GetID();
-		std::string& userLast = m_userOpponent.m_player->GetID();
+		std::string& userFirst = m_userCurrent.player->GetID();
+		std::string& userLast = m_userOpponent.player->GetID();
 
 		BeginFirstStructure data(userFirst, userLast);
 		WriteOutputBuffer((BYTE*)&data, sizeof(BeginFirstStructure));
@@ -98,10 +98,10 @@ namespace Hearthstonepp
 
 	void GameAgent::ShuffleDeck(User& user)
 	{
-		std::vector<Card*>& deck = user.m_deck;
+		std::vector<Card*>& deck = user.deck;
 		std::shuffle(deck.begin(), deck.end(), m_generator); // shuffle with random generator
 
-		BeginShuffleStructure data(user.m_id);
+		BeginShuffleStructure data(user.id);
 		WriteOutputBuffer((BYTE*)&data, sizeof(BeginShuffleStructure));
 	}
 
@@ -109,21 +109,21 @@ namespace Hearthstonepp
 	{
 		Draw(user, NUM_BEGIN_DRAW);
 
-		Card** hand = user.m_hand.data();
-		DrawStructure data(static_cast<BYTE>(Step::BEGIN_DRAW), user.m_id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
+		Card** hand = user.hand.data();
+		DrawStructure data(static_cast<BYTE>(Step::BEGIN_DRAW), user.id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
 		WriteOutputBuffer((BYTE*)&data, sizeof(DrawStructure));
 	}
 
 	void GameAgent::Mulligan(User& user)
 	{
-		BeginMulliganStructure data(user.m_id);
+		BeginMulliganStructure data(user.id);
 		WriteOutputBuffer((BYTE*)&data, sizeof(BeginMulliganStructure));
 
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
 		int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
 
-		std::vector<Card*>& deck = user.m_deck;
-		std::vector<Card*>& hand = user.m_hand;
+		std::vector<Card*>& deck = user.deck;
+		std::vector<Card*>& hand = user.hand;
 
 		std::sort(index, index + read, std::greater<int>());
 		for (int i = 0; i < read; ++i)
@@ -135,7 +135,7 @@ namespace Hearthstonepp
 		std::shuffle(deck.begin(), deck.end(), m_generator);
 
 		Draw(user, read);
-		DrawStructure data2(static_cast<BYTE>(Step::BEGIN_MULLIGAN), user.m_id, read, NUM_BEGIN_DRAW, hand.data());
+		DrawStructure data2(static_cast<BYTE>(Step::BEGIN_MULLIGAN), user.id, read, NUM_BEGIN_DRAW, hand.data());
 		WriteOutputBuffer((BYTE*)&data2, sizeof(DrawStructure)); // send new card data
 	}
 
@@ -159,8 +159,8 @@ namespace Hearthstonepp
 
 	void GameAgent::Draw(User& user, int num)
 	{
-		std::vector<Card*>& deck = user.m_deck;
-		std::vector<Card*>& hand = user.m_hand;
+		std::vector<Card*>& deck = user.deck;
+		std::vector<Card*>& hand = user.hand;
 
 		for (int i = 0; i < num; ++i)
 		{
