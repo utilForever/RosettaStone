@@ -22,6 +22,9 @@
     <Filter Include="Commons">
       <UniqueIdentifier>{f3f6e453-0524-4dda-b84c-80971ff51259}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{3f6465ae-6d35-49d5-bac1-4d15b37ba0b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -32,9 +35,6 @@
       <Filter>Models</Filter>
     </ClCompile>
     <ClCompile Include="Agents\GameAgent.cpp">
-      <Filter>Agents</Filter>
-    </ClCompile>
-    <ClCompile Include="Agents\Interface.cpp">
       <Filter>Agents</Filter>
     </ClCompile>
     <ClCompile Include="Programs\Console.cpp">
@@ -69,6 +69,15 @@
     </ClCompile>
     <ClCompile Include="Loaders\PlayerLoader.cpp">
       <Filter>Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\InteractBuffer.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\Interface.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Agents\AgentStructures.cpp">
+      <Filter>Agents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +114,6 @@
     <ClInclude Include="Agents\GameAgent.h">
       <Filter>Agents</Filter>
     </ClInclude>
-    <ClInclude Include="Agents\Interface.h">
-      <Filter>Agents</Filter>
-    </ClInclude>
     <ClInclude Include="Programs\Console.h">
       <Filter>Programs</Filter>
     </ClInclude>
@@ -128,6 +134,15 @@
     </ClInclude>
     <ClInclude Include="Loaders\PlayerLoader.h">
       <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\InteractBuffer.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\Interface.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Agents\AgentStructures.h">
+      <Filter>Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

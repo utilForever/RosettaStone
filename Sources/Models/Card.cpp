@@ -37,6 +37,16 @@ namespace Hearthstonepp
 		return m_id;
 	}
 
+	std::string Card::GetCardName() const
+	{
+		return m_name;
+	}
+
+	CardType Card::GetCardType() const
+	{
+		return m_cardType;
+	}
+
 	CardClass Card::GetCardClass() const
 	{
 		return m_cardClass;

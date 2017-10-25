@@ -10,27 +10,31 @@
 
 namespace Hearthstonepp
 {
-	User::User(int id, Hero *hero, HeroPower *power, Deck& deck)
+	GameAgent::GameAgent(User& user1, User& user2, int maxBufferSize)
+		: m_userCurrent(user1)
+		, m_userOpponent(user2)
+		, m_bufferCapacity(maxBufferSize)
+		, m_inBuffer(maxBufferSize) // initialize pipe buffer
+		, m_outBuffer(maxBufferSize)
+		, m_generator(m_rd()) // initialize random generator
 	{
-		this->id = id;
-		this->hero = hero;
-		this->power = power;
-		this->weapon = nullptr;
-		this->deck = deck;
+		// Do Nothing
 	}
 
-	GameAgent::GameAgent(User *user1, User *user2, int maxBufferSize)
-		: inBuffer(maxBufferSize) // initialize pipe buffer
-		, outBuffer(maxBufferSize)
-		, generator(rd()) // initialize random generator
+	GameAgent::GameAgent(User&& user1, User&& user2, int maxBufferSize)
+		: m_userCurrent(std::move(user1))
+		, m_userOpponent(std::move(user2))
+		, m_bufferCapacity(maxBufferSize)
+		, m_inBuffer(maxBufferSize) // initialize pipe buffer
+		, m_outBuffer(maxBufferSize)
+		, m_generator(m_rd()) // initialize random generator
 	{
-		this->userCurrent = user1;
-		this->userOpponent = user2;
+		// Do Nothing
 	}
 
 	std::thread* GameAgent::StartAgent(GameResult& result)
 	{
-		std::thread *agent = new std::thread([this](GameResult& result) {
+		std::thread* agent = new std::thread([this](GameResult& result) {
 			BeginPhase();
 
 			while (!IsGameEnd())
@@ -50,16 +54,16 @@ namespace Hearthstonepp
 		// userOpponent : user who start later
 		DecideDeckOrder();
 
-		ShuffleDeck(userCurrent);
-		ShuffleDeck(userOpponent);
+		ShuffleDeck(m_userCurrent);
+		ShuffleDeck(m_userOpponent);
 
-		Draw(userCurrent, 3);
-		Draw(userOpponent, 3);
+		BeginDraw(m_userCurrent);
+		BeginDraw(m_userOpponent);
 
-		Mulligan(userCurrent);
-		Mulligan(userOpponent);
+		Mulligan(m_userCurrent);
+		Mulligan(m_userOpponent);
 
-		userOpponent->hand.push_back(new Card()); // Coin for later user
+		m_userOpponent.hand.push_back(new Card()); // Coin for later user
 	}
 
 	void GameAgent::MainPhase()
@@ -69,50 +73,78 @@ namespace Hearthstonepp
 
 	void GameAgent::FinalPhase(GameResult& result)
 	{
-
+		BYTE end = static_cast<BYTE>(Step::FINAL_GAMEOVER);
+		WriteOutputBuffer(&end, 1);
 	}
 
 	void GameAgent::DecideDeckOrder()
 	{
 		// get random number, zero or one.
 		std::uniform_int_distribution<int> bin(0, 1);
-		if (bin(generator) == 1) // swap user with 50% probability
+		if (bin(m_generator) == 1) // swap user with 50% probability
 		{
-			std::swap(userCurrent, userOpponent);
+			std::swap(m_userCurrent, m_userOpponent);
 		}
+
+		m_userCurrent.id = 0;
+		m_userOpponent.id = 1;
+
+		std::string& userFirst = m_userCurrent.player->GetID();
+		std::string& userLast = m_userOpponent.player->GetID();
+
+		BeginFirstStructure data(userFirst, userLast);
+		WriteOutputBuffer((BYTE*)&data, sizeof(BeginFirstStructure));
 	}
 
-	void GameAgent::ShuffleDeck(User* user)
+	void GameAgent::ShuffleDeck(User& user)
 	{
-		Deck& deck = user->deck;
-		//std::shuffle(deck.begin(), deck.end(), generator); // shuffle with random generator
+		std::vector<Card*>& deck = user.deck;
+		std::shuffle(deck.begin(), deck.end(), m_generator); // shuffle with random generator
+
+		BeginShuffleStructure data(user.id);
+		WriteOutputBuffer((BYTE*)&data, sizeof(BeginShuffleStructure));
 	}
 
-	void GameAgent::Mulligan(User* user)
+	void GameAgent::BeginDraw(User& user)
 	{
-		BYTE index[3] = { 0, };
-		std::vector<Card*>& hand = user->hand;
+		Draw(user, NUM_BEGIN_DRAW);
 
-		WriteOutputBuffer((BYTE*)hand.data(), sizeof(Card*) * 3); // send card data to user
-		int read = ReadInputBuffer(index, 3); // read index of the card to be mulligan
+		Card** hand = user.hand.data();
+		DrawStructure data(static_cast<BYTE>(Step::BEGIN_DRAW), user.id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
+		WriteOutputBuffer((BYTE*)&data, sizeof(DrawStructure));
+	}
 
-		std::sort(index, index + read);
+	void GameAgent::Mulligan(User& user)
+	{
+		BeginMulliganStructure data(user.id);
+		WriteOutputBuffer((BYTE*)&data, sizeof(BeginMulliganStructure));
+
+		BYTE index[NUM_BEGIN_DRAW] = { 0, };
+		int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
+
+		std::vector<Card*>& deck = user.deck;
+		std::vector<Card*>& hand = user.hand;
+
+		std::sort(index, index + read, std::greater<int>());
 		for (int i = 0; i < read; ++i)
 		{
-			hand.erase(hand.begin() + index[i] - i); // erase card with given index
+			deck.emplace_back(hand[index[i]]);
+			hand.erase(hand.begin() + index[i]); // erase card with given index
 		}
 
-		Draw(user, read);
+		std::shuffle(deck.begin(), deck.end(), m_generator);
 
-		WriteOutputBuffer((BYTE*)hand.data(), sizeof(Card*) * 3); // send new card data
+		Draw(user, read);
+		DrawStructure data2(static_cast<BYTE>(Step::BEGIN_MULLIGAN), user.id, read, NUM_BEGIN_DRAW, hand.data());
+		WriteOutputBuffer((BYTE*)&data2, sizeof(DrawStructure)); // send new card data
 	}
 
 	bool GameAgent::IsGameEnd()
 	{
 		return true;
 		/*
-		int healthCurrent = userCurrent->hero->health;
-		int healthOpponent = userOpponent->hero->health;
+		int healthCurrent = userCurrent.m_hero->health;
+		int healthOpponent = userOpponent.m_hero->health;
 
 		if (healthCurrent <= 0 || healthOpponent <= 0)
 		{
@@ -125,35 +157,40 @@ namespace Hearthstonepp
 		*/
 	}
 
-	void GameAgent::Draw(User *user, int num)
+	void GameAgent::Draw(User& user, int num)
 	{
-		Deck& deck = user->deck;
-		std::vector<Card*>& hand = user->hand;
+		std::vector<Card*>& deck = user.deck;
+		std::vector<Card*>& hand = user.hand;
 
 		for (int i = 0; i < num; ++i)
 		{
-			//hand.push_back(deck.back());
-			//deck.pop_back();
+			hand.push_back(deck.back());
+			deck.pop_back();
 		}
 	}
 
-	int GameAgent::ReadBuffer(BYTE *arr, int maxSize)
+	int GameAgent::GetBufferCapacity() const
 	{
-		return outBuffer.ReadBuffer(arr, maxSize);
+		return m_bufferCapacity;
 	}
 
-	int GameAgent::WriteBuffer(BYTE *arr, int size)
+	int GameAgent::ReadBuffer(BYTE* arr, int maxSize)
 	{
-		return inBuffer.WriteBuffer(arr, size);
+		return m_outBuffer.ReadBuffer(arr, maxSize);
+	}
+
+	int GameAgent::WriteBuffer(BYTE* arr, int size)
+	{
+		return m_inBuffer.WriteBuffer(arr, size);
 	}
 
 	int GameAgent::ReadInputBuffer(BYTE* arr, int maxSize)
 	{
-		return inBuffer.ReadBuffer(arr, maxSize);
+		return m_inBuffer.ReadBuffer(arr, maxSize);
 	}
 
 	int GameAgent::WriteOutputBuffer(BYTE* arr, int size)
 	{
-		return outBuffer.WriteBuffer(arr, size);
+		return m_outBuffer.WriteBuffer(arr, size);
 	}
 }
