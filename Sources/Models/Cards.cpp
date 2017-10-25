@@ -70,13 +70,28 @@ namespace Hearthstonepp
 		return result;
 	}
 
-	std::vector<Card*> Cards::FindCardByType(CardType type)
+	std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
 	{
 		std::vector<Card*> result;
 
 		for (auto card : m_cards)
 		{
-			if (card->GetCardType() == type)
+			if (card->GetCardClass() == cardClass)
+			{
+				result.emplace_back(card);
+			}
+		}
+
+		return result;
+	}
+
+	std::vector<Card*> Cards::FindCardByType(CardType cardType)
+	{
+		std::vector<Card*> result;
+
+		for (auto card : m_cards)
+		{
+			if (card->GetCardType() == cardType)
 			{
 				result.emplace_back(card);
 			}
