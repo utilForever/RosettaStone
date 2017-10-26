@@ -25,7 +25,7 @@ namespace Hearthstonepp
 			CardClass cardClass, CardType cardType, Race race,
 			std::string name, std::string text, bool collectible,
 			int cost, int attack, int health, int durability,
-			std::vector<GameTag> mechnics,
+			std::vector<GameTag> mechanics,
 			std::map<PlayReq, int> playRequirements,
 			std::vector<std::string> entourages);
 		virtual ~Card() = default;
