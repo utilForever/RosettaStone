@@ -9,8 +9,9 @@
 #ifndef HEARTHSTONEPP_PLAYER_LOADER_H
 #define HEARTHSTONEPP_PLAYER_LOADER_H
 
-#include <json/json.hpp>
 #include <Models/Player.h>
+
+#include <json/json.hpp>
 
 namespace Hearthstonepp
 {

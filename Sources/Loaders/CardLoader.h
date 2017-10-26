@@ -9,10 +9,11 @@
 #ifndef HEARTHSTONEPP_CARD_LOADER_H
 #define HEARTHSTONEPP_CARD_LOADER_H
 
-#include <json/json.hpp>
 #include <Models/Card.h>
 
 #include <vector>
+
+#include <json/json.hpp>
 
 namespace Hearthstonepp
 {
