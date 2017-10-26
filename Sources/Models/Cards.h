@@ -29,6 +29,7 @@ namespace Hearthstonepp
 		std::vector<Card*> FindCardByCost(int minVal, int maxVal);
 		std::vector<Card*> FindCardByAttack(int minVal, int maxVal);
 		std::vector<Card*> FindCardByHealth(int minVal, int maxVal);
+		std::vector<Card*> FindCardByMechanics(std::vector<GameTag> mechanics);
 
 	private:
 		Cards();

@@ -174,4 +174,24 @@ namespace Hearthstonepp
 
 		return result;
 	}
+
+	std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
+	{
+		std::vector<Card*> result;
+
+		for (auto card : m_cards)
+		{
+			auto mechanicsInCard = card->GetMechanics();
+
+			for (auto mechanic : mechanics)
+			{
+				if (std::find(mechanicsInCard.begin(), mechanicsInCard.end(), mechanic) != mechanicsInCard.end())
+				{
+					result.emplace_back(card);
+				}
+			}
+		}
+		
+		return result;
+	}
 }
