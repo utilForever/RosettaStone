@@ -77,6 +77,11 @@ namespace Hearthstonepp
 		return m_health;
 	}
 
+	std::vector<GameTag> Card::GetMechanics() const
+	{
+		return m_mechanics;
+	}
+
 	unsigned int Card::GetMaxAllowedInDeck() const
 	{
 		return m_maxAllowedInDeck;
