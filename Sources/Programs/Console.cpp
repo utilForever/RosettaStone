@@ -141,7 +141,8 @@ namespace Hearthstonepp
 		std::cout << "              Search Card!              \n";
 		std::cout << "========================================\n";
 
-		std::cout << "Usage: -c class -n name -mc cost -a attack -h health\n";
+		std::cout << "Usage: -rarity rarity -class class -type type -race race" <<
+			"-name name -cost cost -attack attack -health health -mechanics mechanics\n";
 	}
 
 	int Console::ManageDeck()
