@@ -143,6 +143,15 @@ namespace Hearthstonepp
 
 		std::cout << "Usage: -rarity rarity -class class -type type -race race" <<
 			"-name name -cost cost -attack attack -health health -mechanics mechanics\n";
+		std::cout << "-rarity: a rough measure of the quality and scarcity of a card\n";
+		std::cout << "-class: the primary determinant of a hero's powers and abilities\n";
+		std::cout << "-type: spell cards, weapon cards, minion cards and hero cards\n";
+		std::cout << "-race: does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects\n";
+		std::cout << "-name: the name of a card\n";
+		std::cout << "-cost: determines how much mana is required to play that card from the hand or to use that hero power\n";
+		std::cout << "-attack: what occurs when a player commands one character to attack another, causing them to simultaneously deal damage to each other\n";
+		std::cout << "-health: an attribute found on heroes and minions, reflecting the remaining survivability of the character\n";
+		std::cout << "-mechanics: describes the total effect of playing that card or special effects or powers additional to the basic functions of the card\n";
 	}
 
 	int Console::ManageDeck()
