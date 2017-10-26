@@ -34,6 +34,7 @@ namespace Hearthstonepp
 		Rarity GetRarity() const;
 		CardClass GetCardClass() const;
 		CardType GetCardType() const;
+		Race GetRace() const;
 		std::string GetName() const;
 		int GetCost() const;
 		int GetAttack() const;
