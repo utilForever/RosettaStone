@@ -31,6 +31,7 @@ namespace Hearthstonepp
 		void SignUp();
 
 		void SearchCard();
+		void ShowSearchCardUsage() const;
 		int ManageDeck();
 		void SimulateGame();
 		void Leave();

@@ -19,6 +19,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <winix/getopt.h>
+
 namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
@@ -141,17 +143,48 @@ namespace Hearthstonepp
 		std::cout << "              Search Card!              \n";
 		std::cout << "========================================\n";
 
-		std::cout << "Usage: -rarity rarity -class class -type type -race race" <<
-			"-name name -cost cost -attack attack -health health -mechanics mechanics\n";
-		std::cout << "-rarity: a rough measure of the quality and scarcity of a card\n";
-		std::cout << "-class: the primary determinant of a hero's powers and abilities\n";
-		std::cout << "-type: spell cards, weapon cards, minion cards and hero cards\n";
-		std::cout << "-race: does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects\n";
-		std::cout << "-name: the name of a card\n";
-		std::cout << "-cost: determines how much mana is required to play that card from the hand or to use that hero power\n";
-		std::cout << "-attack: what occurs when a player commands one character to attack another, causing them to simultaneously deal damage to each other\n";
-		std::cout << "-health: an attribute found on heroes and minions, reflecting the remaining survivability of the character\n";
-		std::cout << "-mechanics: describes the total effect of playing that card or special effects or powers additional to the basic functions of the card\n";
+		ShowSearchCardUsage();
+
+		// Parse options
+		static struct option longOptions[] =
+		{
+			{ "rarity",		optional_argument, nullptr, 'r' },
+			{ "class",		optional_argument, nullptr, 'c' },
+			{ "type",       optional_argument, nullptr, 't' },
+			{ "race",		optional_argument, nullptr, 'e' },
+			{ "name",		optional_argument, nullptr, 'n' },
+			{ "cost",		optional_argument, nullptr, 's' },
+			{ "attack",		optional_argument, nullptr, 'a' },
+			{ "health",		optional_argument, nullptr, 'h' },
+			{ "mechanics",	optional_argument, nullptr, 'm' },
+			{ "help",		optional_argument, nullptr, 'p' },
+			{ "exit",		optional_argument, nullptr, 'x' },
+			{ nullptr,		0,                 nullptr,  0 }
+		};
+
+		while (true)
+		{
+			//int opt, longIndex = 0;
+			//char searchInput[512];
+			//
+			//std::cin.getline(searchInput, 512);		
+		}
+	}
+
+	void Console::ShowSearchCardUsage() const
+	{
+		std::cout << "Usage: -r rarity -c class -t type -e race -n name -s cost -a attack -h health -m mechanics\n";
+		std::cout << "-r, --rarity: a rough measure of the quality and scarcity of a card\n";
+		std::cout << "-c, --class: the primary determinant of a hero's powers and abilities\n";
+		std::cout << "-t, --type: spell cards, weapon cards, minion cards and hero cards\n";
+		std::cout << "-e, --race: does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects\n";
+		std::cout << "-n, --name: the name of a card\n";
+		std::cout << "-s, --cost: determines how much mana is required to play that card from the hand or to use that hero power\n";
+		std::cout << "-a, --attack: what occurs when a player commands one character to attack another, causing them to simultaneously deal damage to each other\n";
+		std::cout << "-h, --health: an attribute found on heroes and minions, reflecting the remaining survivability of the character\n";
+		std::cout << "-m, --mechanics: describes the total effect of playing that card or special effects or powers additional to the basic functions of the card\n";
+		std::cout << "-p, --help: print this message\n";
+		std::cout << "-x, --exit: exit the menu\n";
 	}
 
 	int Console::ManageDeck()
