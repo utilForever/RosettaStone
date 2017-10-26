@@ -100,6 +100,21 @@ namespace Hearthstonepp
 		return result;
 	}
 
+	std::vector<Card*> Cards::FindCardByRace(Race race)
+	{
+		std::vector<Card*> result;
+
+		for (auto card : m_cards)
+		{
+			if (card->GetRace() == race)
+			{
+				result.emplace_back(card);
+			}
+		}
+
+		return result;
+	}
+
 	std::vector<Card*> Cards::FindCardByName(const std::string name)
 	{
 		std::vector<Card*> result;

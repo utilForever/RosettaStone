@@ -24,6 +24,7 @@ namespace Hearthstonepp
 		std::vector<Card*> FindCardByRarity(Rarity rarity);
 		std::vector<Card*> FindCardByClass(CardClass cardClass);
 		std::vector<Card*> FindCardByType(CardType cardType);
+		std::vector<Card*> FindCardByRace(Race race);
 		std::vector<Card*> FindCardByName(const std::string name);
 		std::vector<Card*> FindCardByCost(int minVal, int maxVal);
 		std::vector<Card*> FindCardByAttack(int minVal, int maxVal);
