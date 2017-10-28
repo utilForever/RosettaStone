@@ -519,4 +519,18 @@ namespace Hearthstonepp
 
 		return isFinish ? 0 : Main();
 	}
+
+	std::vector<std::string> Console::SplitString(std::string str, std::string delimiter) const
+	{
+		size_t pos;
+		std::vector<std::string> tokens;
+
+		while ((pos = str.find(delimiter)) != std::string::npos)
+		{
+			tokens.emplace_back(std::move(str.substr(0, pos)));
+			str.erase(0, pos + delimiter.length());
+		}
+
+		return tokens;
+	}
 }

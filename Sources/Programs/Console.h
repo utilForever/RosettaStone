@@ -50,6 +50,8 @@ namespace Hearthstonepp
 		int Main();
 
 	private:
+		std::vector<std::string> SplitString(std::string str, std::string delimiter) const;
+
 		std::array<std::string, LOGIN_MENU_SIZE> m_loginMenuStr =
 		{
 			"1. Sign in",
