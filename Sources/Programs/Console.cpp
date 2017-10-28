@@ -68,6 +68,33 @@ namespace Hearthstonepp
 		return (str == "y" || str == "yes") ? true : (str == "n" || str == "no") ? false : InputYesNo(sentence);
 	}
 
+	std::tuple<int, char**> Console::InputMenuWithManyOptions(std::string commandStr) const
+	{
+		std::cout << commandStr;
+
+		char searchInput[256];
+		std::cin.getline(searchInput, 256);
+
+		int argc = 0;
+		char* argv[32];
+		char* context = nullptr;
+
+		for (int i = 0; i < 32; ++i)
+		{
+			argv[i] = new char[16];
+		}
+
+		char* token = strtok_s(searchInput, " ", &context);
+		while (token != nullptr)
+		{
+			strcpy_s(argv[argc], strlen(token), token);
+			token = strtok_s(nullptr, " ", &context);
+			argc++;
+		}
+
+		return std::make_tuple(argc, argv);
+	}
+
 	void Console::SignIn()
 	{
 		std::cout << "Input Player ID to load data.\n";

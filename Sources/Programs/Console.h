@@ -26,6 +26,7 @@ namespace Hearthstonepp
 
 		size_t InputMenuNum(std::string questionStr, size_t menuSize);
 		bool InputYesNo(std::string sentence) const;
+		std::tuple<int, char**> InputMenuWithManyOptions(std::string commandStr) const;
 
 		void SignIn();
 		void SignUp();
