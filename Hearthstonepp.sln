@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hearthstonepp", "Sources\Hearthstonepp.vcxproj", "{0F739863-D623-4A62-A27B-9ADAE7768837}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{7645A773-76E4-4665-A8B6-F37F794CB90B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winix", "Libraries\winix\winix.vcxproj", "{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +25,22 @@ Global
 		{0F739863-D623-4A62-A27B-9ADAE7768837}.Release|x64.Build.0 = Release|x64
 		{0F739863-D623-4A62-A27B-9ADAE7768837}.Release|x86.ActiveCfg = Release|Win32
 		{0F739863-D623-4A62-A27B-9ADAE7768837}.Release|x86.Build.0 = Release|Win32
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Debug|x64.ActiveCfg = Debug|x64
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Debug|x64.Build.0 = Debug|x64
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Debug|x86.ActiveCfg = Debug|Win32
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Debug|x86.Build.0 = Debug|Win32
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Release|x64.ActiveCfg = Release|x64
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Release|x64.Build.0 = Release|x64
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Release|x86.ActiveCfg = Release|Win32
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A} = {7645A773-76E4-4665-A8B6-F37F794CB90B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4094F2BE-FA03-46D8-9E76-22063B684E7F}
 	EndGlobalSection
 EndGlobal
