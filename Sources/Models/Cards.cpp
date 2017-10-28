@@ -42,6 +42,11 @@ namespace Hearthstonepp
 		return m_instance;
 	}
 
+	std::vector<Card*> Cards::GetAllCards() const
+	{
+		return m_cards;
+	}
+
 	const Card* Cards::FindCardByID(const std::string id)
 	{
 		for (auto card : m_cards)

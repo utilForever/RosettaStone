@@ -20,6 +20,8 @@ namespace Hearthstonepp
 	public:
 		static Cards* GetInstance();
 
+		std::vector<Card*> GetAllCards() const;
+
 		const Card* FindCardByID(const std::string id);
 		std::vector<Card*> FindCardByRarity(Rarity rarity);
 		std::vector<Card*> FindCardByClass(CardClass cardClass);
