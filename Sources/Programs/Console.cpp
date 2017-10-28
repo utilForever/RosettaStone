@@ -202,14 +202,26 @@ namespace Hearthstonepp
 	{
 		std::cout << "Usage: -r rarity -c class -t type -e race -n name -s cost -a attack -h health -m mechanics\n";
 		std::cout << "-r, --rarity: a rough measure of the quality and scarcity of a card\n";
+		std::cout << "(1 = Common, 2 = Free, 3 = Rare, 4 = Epic, 5 = Legendary)\n";
 		std::cout << "-c, --class: the primary determinant of a hero's powers and abilities\n";
+		std::cout << "(1 = Deathknight, 2 = Druid, 3 = Hunter, 4 = Mage, 5 = Paladin)\n";
+		std::cout << "(6 = Priest, 7 = Rogue, 8 = Shaman, 9 = Warlock, 10 = Warrior)\n";
 		std::cout << "-t, --type: spell cards, weapon cards, minion cards and hero cards\n";
+		std::cout << "(3 = Hero, 4 = Minion, 5 = Spell, 7 = Weapon)\n";
 		std::cout << "-e, --race: does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects\n";
-		std::cout << "-n, --name: the name of a card\n";
+		std::cout << "(14 = Murloc, 15 = Demon, 17 = Mechanical, 18 = Elemental)\n";
+		std::cout << "(20 = Beast, 21 = Totem, 23 = Pirate, 24 = Dragon)\n";
+		std::cout << "-n, --name: the name of a card (must type \"_\" between words)\n";
 		std::cout << "-s, --cost: determines how much mana is required to play that card from the hand or to use that hero power\n";
 		std::cout << "-a, --attack: what occurs when a player commands one character to attack another, causing them to simultaneously deal damage to each other\n";
 		std::cout << "-h, --health: an attribute found on heroes and minions, reflecting the remaining survivability of the character\n";
+		std::cout << "(-s|-a|-h \"x\": exact value, -s|-a|-h \"x\" \"y\": range value)\n";
 		std::cout << "-m, --mechanics: describes the total effect of playing that card or special effects or powers additional to the basic functions of the card\n";
+		std::cout << "(546 = Adapt, 218 = Battlecry, 197 = Charge, 443 = Choose one, 220 = Combo)\n";
+		std::cout << "(340 = Counter, 217 = Deathrattle, 415 = Discover, 194 = Divine Shield, 212 = Enraged)\n";
+		std::cout << "(208 = Freeze, 240 = Immune, 403 = Inspire, 685 = Lifesteal, 215 = Overload)\n";
+		std::cout << "(363 = Poisonous, 462 = Quest, 219 = Secret, 339 = Silence, 191 = Stealth)\n";
+		std::cout << "(190 = Taunt, 189 = Windfury)\n";
 		std::cout << "-p, --help: print this message\n";
 		std::cout << "-x, --exit: exit the menu\n";
 	}
