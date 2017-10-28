@@ -21,18 +21,10 @@ namespace Hearthstonepp
 	class Console
 	{
 	public:
-		template<std::size_t SIZE>
-		void ShowMenu(std::array<std::string, SIZE>& menus);
-
-		size_t InputMenuNum(std::string questionStr, size_t menuSize);
-		bool InputYesNo(std::string sentence) const;
-		std::tuple<int, char**> InputMenuWithManyOptions(std::string commandStr) const;
-
 		void SignIn();
 		void SignUp();
 
 		void SearchCard();
-		void ShowSearchCardUsage() const;
 		int ManageDeck();
 		void SimulateGame();
 		void Leave();
@@ -50,6 +42,16 @@ namespace Hearthstonepp
 		int Main();
 
 	private:
+		template<std::size_t SIZE>
+		void ShowMenu(std::array<std::string, SIZE>& menus);
+		void ShowSearchCardUsage() const;
+
+		size_t InputMenuNum(std::string questionStr, size_t menuSize);
+		bool InputYesNo(std::string sentence) const;
+
+		std::tuple<Rarity, CardClass, CardType, Race, std::string, int, int, int, int, int, int, std::vector<GameTag>>
+		InputAndParseSearchCommand(std::string commandStr) const;
+
 		std::vector<std::string> SplitString(std::string str, std::string delimiter) const;
 
 		std::array<std::string, LOGIN_MENU_SIZE> m_loginMenuStr =
