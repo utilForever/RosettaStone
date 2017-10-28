@@ -191,10 +191,101 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			//int opt, longIndex = 0;
-			//char searchInput[512];
-			//
-			//std::cin.getline(searchInput, 512);		
+			auto[argc, argv] = InputMenuWithManyOptions("Command > ");
+			std::vector<std::string> tokens;
+			int opt, longIndex = 0;
+
+			Rarity rarity = Rarity::INVALID;
+			CardClass playerClass = CardClass::INVALID;
+			CardType cardType = CardType::INVALID;
+			Race race = Race::INVALID;
+			std::string name = "";
+			int costMin = 0, costMax = std::numeric_limits<int>::max();
+			int attackMin = 0, attackMax = std::numeric_limits<int>::max();
+			int healthMin = 0, healthMax = std::numeric_limits<int>::max();
+			std::vector<GameTag> mechanics;
+
+			while ((opt = getopt_long(argc, argv, "r:c:t:e:n:s:a:h:m:p:x", longOptions, &longIndex)) != -1)
+			{
+				switch (opt)
+				{
+				case 'r':
+					rarity = static_cast<Rarity>(atoi(optarg));
+					break;
+				case 'c':
+					playerClass = static_cast<CardClass>(atoi(optarg));
+					break;
+				case 't':
+					cardType = static_cast<CardType>(atoi(optarg));
+					break;
+				case 'e':
+					race = static_cast<Race>(atoi(optarg));
+					break;
+				case 'n':
+					name = optarg;
+					break;
+				case 's':
+					tokens.clear();
+					tokens = SplitString(optarg, ",");
+
+					if (tokens.size() == 1)
+					{
+						costMin = costMax = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
+					}
+					else if (tokens.size() == 2)
+					{
+						costMin = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
+						costMax = std::clamp(atoi(tokens[1].c_str()), 0, std::numeric_limits<int>::max());
+					}
+					break;
+				case 'a':
+					tokens.clear();
+					tokens = SplitString(optarg, ",");
+
+					if (tokens.size() == 1)
+					{
+						attackMin = attackMax = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
+					}
+					else if (tokens.size() == 2)
+					{
+						attackMin = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
+						attackMax = std::clamp(atoi(tokens[1].c_str()), 0, std::numeric_limits<int>::max());
+					}
+					break;
+				case 'h':
+					tokens.clear();
+					tokens = SplitString(optarg, ",");
+
+					if (tokens.size() == 1)
+					{
+						healthMin = healthMax = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
+					}
+					else if (tokens.size() == 2)
+					{
+						healthMin = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
+						healthMax = std::clamp(atoi(tokens[1].c_str()), 0, std::numeric_limits<int>::max());
+					}
+					break;
+				case 'm':
+					tokens.clear();
+					tokens = SplitString(optarg, ",");
+
+					mechanics.clear();
+					for (auto& token : tokens)
+					{
+						mechanics.emplace_back(std::move(static_cast<GameTag>(atoi(token.c_str()))));
+					}
+					break;
+				case 'p':
+					ShowSearchCardUsage();
+					break;
+				case 'x':
+					return;
+				default:
+					ShowSearchCardUsage();
+					break;
+				}
+			}
 		}
 	}
 
