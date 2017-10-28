@@ -75,8 +75,8 @@ namespace Hearthstonepp
 		char searchInput[256];
 		std::cin.getline(searchInput, 256);
 
-		int argc = 0;
-		char* argv[32];
+		int argc = 1;
+		char** argv = new char*[32];
 		char* context = nullptr;
 
 		for (int i = 0; i < 32; ++i)
@@ -87,7 +87,7 @@ namespace Hearthstonepp
 		char* token = strtok_s(searchInput, " ", &context);
 		while (token != nullptr)
 		{
-			strcpy_s(argv[argc], strlen(token), token);
+			strcpy_s(argv[argc], strlen(argv[argc]), token);
 			token = strtok_s(nullptr, " ", &context);
 			argc++;
 		}
@@ -200,9 +200,9 @@ namespace Hearthstonepp
 			CardType cardType = CardType::INVALID;
 			Race race = Race::INVALID;
 			std::string name = "";
-			int costMin = 0, costMax = std::numeric_limits<int>::max();
-			int attackMin = 0, attackMax = std::numeric_limits<int>::max();
-			int healthMin = 0, healthMax = std::numeric_limits<int>::max();
+			int costMin = -1, costMax = -1;
+			int attackMin = -1, attackMax = -1;
+			int healthMin = -1, healthMax = -1;
 			std::vector<GameTag> mechanics;
 
 			while ((opt = getopt_long(argc, argv, "r:c:t:e:n:s:a:h:m:p:x", longOptions, &longIndex)) != -1)
@@ -286,6 +286,43 @@ namespace Hearthstonepp
 					break;
 				}
 			}
+
+			Cards* instance = Cards::GetInstance();
+
+			std::vector<Card*> filteredCardsByRarity = (rarity == Rarity::INVALID) ? instance->GetAllCards() : instance->FindCardByRarity(rarity);
+			std::vector<Card*> filteredCardsByClass = (playerClass == CardClass::INVALID) ? instance->GetAllCards() : instance->FindCardByClass(playerClass);
+			std::vector<Card*> filteredCardsByType = (cardType == CardType::INVALID) ? instance->GetAllCards() : instance->FindCardByType(cardType);
+			std::vector<Card*> filteredCardsByRace = (race == Race::INVALID) ? instance->GetAllCards() : instance->FindCardByRace(race);
+			std::vector<Card*> filteredCardsByName = name.empty() ? instance->GetAllCards() : instance->FindCardByName(name);
+			std::vector<Card*> filteredCardsByCost = (costMin == -1 || costMax == -1) ? instance->GetAllCards() : instance->FindCardByCost(costMin, costMax);
+			std::vector<Card*> filteredCardsByAttack = (attackMin == -1 || attackMax == -1) ? instance->GetAllCards() : instance->FindCardByAttack(attackMin, attackMax);
+			std::vector<Card*> filteredCardsByHealth = (healthMin == -1 || healthMax == -1) ? instance->GetAllCards() : instance->FindCardByHealth(healthMin, healthMax);
+			std::vector<Card*> filteredCardsByMechanics = mechanics.empty() ? instance->GetAllCards() : instance->FindCardByMechanics(mechanics);
+
+			//std::sort(filteredCardsByRarity.begin(), filteredCardsByRarity.end(),
+			//	[](const Card* a, const Card* b)
+			//{
+			//	return a->GetID() < b->GetID();
+			//});
+
+			//std::sort(filteredCardsByName.begin(), filteredCardsByName.end(),
+			//	[](const Card* a, const Card* b)
+			//{
+			//	return a->GetID() < b->GetID();
+			//});
+
+			//std::vector<Card*> result;
+			//set_intersection(filteredCardsByRarity.begin(), filteredCardsByRarity.end(),
+			//	filteredCardsByName.begin(), filteredCardsByName.end(), std::back_inserter(result),
+			//	[](const Card* a, const Card* b)
+			//{
+			//	return a->GetID() < b->GetID();
+			//});
+
+			//for (auto& card : result)
+			//{
+			//	std::cout << card->GetName() << '\n';
+			//}
 		}
 	}
 
