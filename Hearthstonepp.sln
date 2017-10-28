@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hearthstonepp", "Sources\Hearthstonepp.vcxproj", "{0F739863-D623-4A62-A27B-9ADAE7768837}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A} = {18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{7645A773-76E4-4665-A8B6-F37F794CB90B}"
 EndProject
