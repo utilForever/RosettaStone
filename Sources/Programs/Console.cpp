@@ -705,6 +705,13 @@ namespace Hearthstonepp
 		size_t pos;
 		std::vector<std::string> tokens;
 
+		// If the number of tokens is 1
+		if ((pos = str.find(delimiter)) == std::string::npos)
+		{
+			tokens.emplace_back(str);
+		}
+
+		// If the number of tokens is greater than 1
 		while ((pos = str.find(delimiter)) != std::string::npos)
 		{
 			tokens.emplace_back(std::move(str.substr(0, pos)));
