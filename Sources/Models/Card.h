@@ -25,15 +25,24 @@ namespace Hearthstonepp
 			CardClass cardClass, CardType cardType, Race race,
 			std::string name, std::string text, bool collectible,
 			int cost, int attack, int health, int durability,
-			std::vector<GameTag> mechnics,
+			std::vector<GameTag> mechanics,
 			std::map<PlayReq, int> playRequirements,
 			std::vector<std::string> entourages);
 		virtual ~Card() = default;
 
 		std::string GetID() const;
-		std::string GetCardName() const;
-		CardType GetCardType() const;
+		Rarity GetRarity() const;
 		CardClass GetCardClass() const;
+		CardType GetCardType() const;
+		Race GetRace() const;
+		std::string GetName() const;
+		int GetCost() const;
+		int GetAttack() const;
+		int GetHealth() const;
+		std::vector<GameTag> GetMechanics() const;
+
+		bool HasMechanics(std::vector<GameTag> mechanics) const;
+
 		unsigned int GetMaxAllowedInDeck() const;
 
 		virtual void ShowInfo() const;

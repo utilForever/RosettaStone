@@ -37,9 +37,14 @@ namespace Hearthstonepp
 		return m_id;
 	}
 
-	std::string Card::GetCardName() const
+	Rarity Card::GetRarity() const
 	{
-		return m_name;
+		return m_rarity;
+	}
+
+	CardClass Card::GetCardClass() const
+	{
+		return m_cardClass;
 	}
 
 	CardType Card::GetCardType() const
@@ -47,9 +52,49 @@ namespace Hearthstonepp
 		return m_cardType;
 	}
 
-	CardClass Card::GetCardClass() const
+	Race Card::GetRace() const
 	{
-		return m_cardClass;
+		return m_race;
+	}
+
+	std::string Card::GetName() const
+	{
+		return m_name;
+	}
+
+	int Card::GetCost() const
+	{
+		return m_cost;
+	}
+
+	int Card::GetAttack() const
+	{
+		return m_attack;
+	}
+
+	int Card::GetHealth() const
+	{
+		return m_health;
+	}
+
+	std::vector<GameTag> Card::GetMechanics() const
+	{
+		return m_mechanics;
+	}
+
+	bool Card::HasMechanics(std::vector<GameTag> mechanics) const
+	{
+		bool result = true;
+
+		for (auto& mechanic : mechanics)
+		{
+			if (std::find(m_mechanics.begin(), m_mechanics.end(), mechanic) == m_mechanics.end())
+			{
+				result = false;
+			}
+		}
+
+		return result;
 	}
 
 	unsigned int Card::GetMaxAllowedInDeck() const

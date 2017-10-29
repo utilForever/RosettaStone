@@ -10,6 +10,7 @@
 #define HEARTHSTONEPP_CONSOLE_H
 
 #include <Commons/Constants.h>
+#include <Models/Cards.h>
 #include <Models/Deck.h>
 #include <Models/Player.h>
 
@@ -21,12 +22,6 @@ namespace Hearthstonepp
 	class Console
 	{
 	public:
-		template<std::size_t SIZE>
-		void ShowMenu(std::array<std::string, SIZE>& menus);
-
-		size_t InputMenuNum(std::string questionStr, size_t menuSize);
-		bool InputYesNo(std::string sentence) const;
-
 		void SignIn();
 		void SignUp();
 
@@ -48,6 +43,18 @@ namespace Hearthstonepp
 		int Main();
 
 	private:
+		template<std::size_t SIZE>
+		void ShowMenu(std::array<std::string, SIZE>& menus);
+		void ShowSearchCardUsage() const;
+
+		size_t InputMenuNum(std::string questionStr, size_t menuSize);
+		bool InputYesNo(std::string sentence) const;
+
+		std::tuple<SearchFilter, bool, bool> InputAndParseSearchCommand(std::string commandStr) const;
+		std::vector<Card*> ProcessSearchCommand(SearchFilter filter);
+
+		std::vector<std::string> SplitString(std::string str, std::string delimiter) const;
+
 		std::array<std::string, LOGIN_MENU_SIZE> m_loginMenuStr =
 		{
 			"1. Sign in",
