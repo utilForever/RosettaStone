@@ -41,6 +41,8 @@ namespace Hearthstonepp
 		int GetHealth() const;
 		std::vector<GameTag> GetMechanics() const;
 
+		bool HasMechanics(std::vector<GameTag> mechanics) const;
+
 		unsigned int GetMaxAllowedInDeck() const;
 
 		virtual void ShowInfo() const;
