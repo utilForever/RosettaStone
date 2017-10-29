@@ -20,6 +20,8 @@ namespace Hearthstonepp
 
 	constexpr size_t PLAYER_CLASS_SIZE = 9;
 	constexpr unsigned int MAXIMUM_NUM_CARDS_IN_DECK = 30;
+
+	constexpr unsigned int NUM_BEGIN_DRAW = 3;
 }
 
 #endif

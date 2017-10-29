@@ -11,6 +11,7 @@
 
 #include <Enums/Enums.h>
 #include <Models/Card.h>
+#include <Models/Cards.h>
 
 #include <string>
 
@@ -27,6 +28,7 @@ namespace Hearthstonepp
 		unsigned int GetNumOfCards() const;
 		size_t GetUniqueNumOfCards() const;
 		unsigned int GetNumCardInDeck(std::string cardID);
+		std::vector<Card*> GetPrimitiveDeck() const;
 		std::pair<std::string, int> GetCard(size_t idx) const;
 
 		void AddCard(std::string cardID, int numCardToAdd);

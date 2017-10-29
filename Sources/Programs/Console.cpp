@@ -10,6 +10,7 @@
 #include <Commons/Constants.h>
 #include <Commons/Utils.h>
 #include <Enums/EnumsToString.h>
+#include <Interface/Interface.h>
 #include <Loaders/CardLoader.h>
 #include <Loaders/PlayerLoader.h>
 #include <Models/Card.h>
@@ -153,52 +154,23 @@ namespace Hearthstonepp
 
 	void Console::SimulateGame()
 	{
-		//CardLoader loader;
-		//std::vector<Card*> cards;
+		int deck1, deck2;
+		std::string user1, user2;
 
-		//loader.Load(cards);
+		std::cout << "[*] input first id, deck index : ";
+		std::cin >> user1 >> deck1;
 
-		//Deck deck1; // temporal deck
-		//Deck deck2;
+		std::cout << "[*] input second id, deck index : ";
+		std::cin >> user2 >> deck2;
 
-		//deck1.reserve(30);
-		//deck2.reserve(30);
+		PlayerLoader loader;
+		Player* p1 = loader.Load(user1);
+		Player* p2 = loader.Load(user2);
 
-		//deck1.assign(cards.begin(), cards.begin() + 30); 
-		//deck2.assign(cards.begin() + 30, cards.begin() + 60);
+		GameAgent agent(User(p1, deck1), User(p2, deck2));
+		GameInterface game(agent);
 
-		//User user1(0, new Hero(), new HeroPower(), deck1); // define new user
-		//User user2(1, new Hero(), new HeroPower(), deck2);
-
-		//GameAgent agent(&user1, &user2);
-		//GameResult result;
-
-		//std::thread *at = agent.StartAgent(result);
-
-		//for (int i = 0; i < 2; ++i)
-		//{
-		//	Card *list[3] = { 0, };
-		//	int result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get card data
-
-		//	for (auto card : list)
-		//	{
-		//		std::cout << "[" << card->name << "] ";
-		//	}
-		//	std::cout << std::endl;
-
-		//	BYTE mulligan[] = { 0, 2 }; // index of the card to be mulligan
-		//	result = agent.WriteBuffer(mulligan, 2); // send index to agent
-
-		//	result = agent.ReadBuffer((BYTE*)list, sizeof(Card*) * 3); // get new card data
-
-		//	for (auto card : list)
-		//	{
-		//		std::cout << "[" << card->name << "] ";
-		//	}
-		//	std::cout << std::endl;
-		//}
-
-		//at->join(); // join agent thread
+		GameResult result = game.StartGame();
 	}
 
 	void Console::Leave()
