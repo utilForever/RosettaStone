@@ -129,5 +129,8 @@
     <ClInclude Include="Loaders\PlayerLoader.h">
       <Filter>Loaders</Filter>
     </ClInclude>
+    <ClInclude Include="Commons\Utils.h">
+      <Filter>Commons</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
