@@ -547,6 +547,9 @@ namespace Hearthstonepp
 			{ nullptr,		0,                 nullptr,  0 }
 		};
 
+		// Initialize opt index
+		optind = 1;
+
 		while ((opt = getopt_long(argc, argv, "r:c:t:e:n:s:a:h:m:p:x", longOptions, &longIndex)) != -1)
 		{
 			switch (opt)
