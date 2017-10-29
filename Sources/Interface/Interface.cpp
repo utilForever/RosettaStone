@@ -78,7 +78,7 @@ namespace Hearthstonepp
 
 		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
 		{
-			std::cout << "[" << data->cards[i]->GetCardName() << "] ";
+			std::cout << "[" << data->cards[i]->GetName() << "] ";
 		}
 		std::cout << std::endl;
 	}
@@ -125,7 +125,7 @@ namespace Hearthstonepp
 		DrawStructure* draw = (DrawStructure*)m_buffer;
 		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
 		{
-			std::cout << "[" << draw->cards[i]->GetCardName() << "] ";
+			std::cout << "[" << draw->cards[i]->GetName() << "] ";
 		}
 		std::cout << std::endl;
 	}
