@@ -49,10 +49,8 @@ namespace Hearthstonepp
 		size_t InputMenuNum(std::string questionStr, size_t menuSize);
 		bool InputYesNo(std::string sentence) const;
 
-		std::tuple<Rarity, CardClass, CardType, Race, std::string, int, int, int, int, int, int, std::vector<GameTag>>
-		InputAndParseSearchCommand(std::string commandStr) const;
-		std::vector<Card*> ProcessSearchCommand(Rarity rarity, CardClass playerClass, CardType cardType, Race race, std::string name,
-			int costMin, int costMax, int attackMin, int attackMax, int healthMin, int healthMax, std::vector<GameTag> mechanics);
+		std::tuple<SearchFilter, bool> InputAndParseSearchCommand(std::string commandStr) const;
+		std::vector<Card*> ProcessSearchCommand(SearchFilter filter);
 
 		std::vector<std::string> SplitString(std::string str, std::string delimiter) const;
 

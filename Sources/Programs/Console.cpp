@@ -105,8 +105,14 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			auto[rarity, playerClass, cardType, race, name, costMin, costMax, attackMin, attackMax, healthMin, healthMax, mechanics] = InputAndParseSearchCommand("Command > ");
-			std::vector<Card*> result = ProcessSearchCommand(rarity, playerClass, cardType, race, name, costMin, costMax, attackMin, attackMax, healthMin, healthMax, mechanics);
+			auto[filter, isFinish] = InputAndParseSearchCommand("Command > ");
+			
+			if (isFinish)
+			{
+				break;
+			}
+
+			std::vector<Card*> result = ProcessSearchCommand(filter);
 		}
 	}
 
@@ -485,8 +491,7 @@ namespace Hearthstonepp
 	int healthMin = -1, healthMax = -1;
 	std::vector<GameTag> mechanics;
 
-	std::tuple<Rarity, CardClass, CardType, Race, std::string, int, int, int, int, int, int, std::vector<GameTag>>
-	Console::InputAndParseSearchCommand(std::string commandStr) const
+	std::tuple<SearchFilter, bool> Console::InputAndParseSearchCommand(std::string commandStr) const
 	{
 		// Input commands
 		std::cout << commandStr;
@@ -525,6 +530,7 @@ namespace Hearthstonepp
 		int attackMin = -1, attackMax = -1;
 		int healthMin = -1, healthMax = -1;
 		std::vector<GameTag> mechanics;
+		bool isFinish = false;
 
 		// Parse options
 		static struct option longOptions[] =
@@ -621,6 +627,7 @@ namespace Hearthstonepp
 				ShowSearchCardUsage();
 				break;
 			case 'x':
+				isFinish = true;
 				break;
 			default:
 				ShowSearchCardUsage();
@@ -634,25 +641,38 @@ namespace Hearthstonepp
 		}
 		delete[] argv;
 
-		return std::make_tuple(rarity, playerClass, cardType, race, name, costMin, costMax, attackMin, attackMax, healthMin, healthMax, mechanics);
+		SearchFilter filter;
+		filter.rarity = rarity;
+		filter.playerClass = playerClass;
+		filter.cardType = cardType;
+		filter.race = race;
+		filter.name = name;
+		filter.costMin = costMin;
+		filter.costMax = costMax;
+		filter.attackMin = attackMin;
+		filter.attackMax = attackMax;
+		filter.healthMin = healthMin;
+		filter.healthMax = healthMax;
+		filter.mechanics = mechanics;
+
+		return std::make_tuple(filter, isFinish);
 	}
 
-	std::vector<Card*> Console::ProcessSearchCommand(Rarity rarity, CardClass playerClass, CardType cardType, Race race, std::string name,
-		int costMin, int costMax, int attackMin, int attackMax, int healthMin, int healthMax, std::vector<GameTag> mechanics)
+	std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter)
 	{
 		std::vector<Card*> result;
 
 		for (auto& card : Cards::GetInstance()->GetAllCards())
 		{
-			bool rarityCondition = (rarity == Rarity::INVALID || rarity == card->GetRarity());
-			bool classCondition = (playerClass == CardClass::INVALID || playerClass == card->GetCardClass());
-			bool typeCondition = (cardType == CardType::INVALID || cardType == card->GetCardType());
-			bool raceCondition = (race == Race::INVALID || race == card->GetRace());
-			bool nameCondition = (name.empty() || card->GetName().find(name) != std::string::npos);
-			bool costCondition = ((costMin == -1 || costMax == -1) || (costMin <= card->GetCost() && costMax >= card->GetCost()));
-			bool attackCondition = ((attackMin == -1 || attackMax == -1) || (attackMin <= card->GetAttack() && attackMax >= card->GetAttack()));
-			bool healthCondition = ((healthMin == -1 || healthMax == -1) || (healthMin <= card->GetHealth() && healthMax >= card->GetHealth()));
-			bool mechanicsCondition = (mechanics.size() == 0 || Cards::GetInstance()->FindCardByMechanics(mechanics).size() > 0);
+			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
+			bool classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
+			bool typeCondition = (filter.cardType == CardType::INVALID || filter.cardType == card->GetCardType());
+			bool raceCondition = (filter.race == Race::INVALID || filter.race == card->GetRace());
+			bool nameCondition = (filter.name.empty() || card->GetName().find(filter.name) != std::string::npos);
+			bool costCondition = ((filter.costMin == -1 || filter.costMax == -1) || (filter.costMin <= card->GetCost() && filter.costMax >= card->GetCost()));
+			bool attackCondition = ((filter.attackMin == -1 || filter.attackMax == -1) || (filter.attackMin <= card->GetAttack() && filter.attackMax >= card->GetAttack()));
+			bool healthCondition = ((filter.healthMin == -1 || filter.healthMax == -1) || (filter.healthMin <= card->GetHealth() && filter.healthMax >= card->GetHealth()));
+			bool mechanicsCondition = (filter.mechanics.size() == 0 || Cards::GetInstance()->FindCardByMechanics(filter.mechanics).size() > 0);
 			const bool isMatched = AllCondIsTrue(rarityCondition, classCondition, typeCondition, raceCondition, nameCondition, costCondition, attackCondition, healthCondition, mechanicsCondition);
 
 			if (isMatched)
