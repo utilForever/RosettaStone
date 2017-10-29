@@ -105,7 +105,12 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			auto[filter, isFinish] = InputAndParseSearchCommand("Command > ");
+			auto[filter, isValid, isFinish] = InputAndParseSearchCommand("Command > ");
+
+			if (!isValid)
+			{
+				continue;
+			}
 			
 			if (isFinish)
 			{
@@ -113,6 +118,11 @@ namespace Hearthstonepp
 			}
 
 			std::vector<Card*> result = ProcessSearchCommand(filter);
+
+			for (auto& card : result)
+			{
+				std::cout << card->GetName() << std::endl;
+			}
 		}
 	}
 
@@ -491,7 +501,7 @@ namespace Hearthstonepp
 	int healthMin = -1, healthMax = -1;
 	std::vector<GameTag> mechanics;
 
-	std::tuple<SearchFilter, bool> Console::InputAndParseSearchCommand(std::string commandStr) const
+	std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::string commandStr) const
 	{
 		// Input commands
 		std::cout << commandStr;
@@ -508,6 +518,8 @@ namespace Hearthstonepp
 		{
 			argv[i] = new char[16];
 		}
+
+		argv[0] = _strdup("Hearthstone++");
 
 		char* nextToken = strtok_s(searchInput, delimiter, &context);
 		while (nextToken != nullptr)
@@ -530,22 +542,22 @@ namespace Hearthstonepp
 		int attackMin = -1, attackMax = -1;
 		int healthMin = -1, healthMax = -1;
 		std::vector<GameTag> mechanics;
-		bool isFinish = false;
+		bool isValid = false, isFinish = false;
 
 		// Parse options
 		static struct option longOptions[] =
 		{
-			{ "rarity",		optional_argument, nullptr, 'r' },
-			{ "class",		optional_argument, nullptr, 'c' },
-			{ "type",       optional_argument, nullptr, 't' },
-			{ "race",		optional_argument, nullptr, 'e' },
-			{ "name",		optional_argument, nullptr, 'n' },
-			{ "cost",		optional_argument, nullptr, 's' },
-			{ "attack",		optional_argument, nullptr, 'a' },
-			{ "health",		optional_argument, nullptr, 'h' },
-			{ "mechanics",	optional_argument, nullptr, 'm' },
-			{ "help",		optional_argument, nullptr, 'p' },
-			{ "exit",		optional_argument, nullptr, 'x' },
+			{ "rarity",		required_argument, nullptr, 'r' },
+			{ "class",		required_argument, nullptr, 'c' },
+			{ "type",       required_argument, nullptr, 't' },
+			{ "race",		required_argument, nullptr, 'e' },
+			{ "name",		required_argument, nullptr, 'n' },
+			{ "cost",		required_argument, nullptr, 's' },
+			{ "attack",		required_argument, nullptr, 'a' },
+			{ "health",		required_argument, nullptr, 'h' },
+			{ "mechanics",	required_argument, nullptr, 'm' },
+			{ "help",		no_argument,	   nullptr, 'p' },
+			{ "exit",		no_argument,	   nullptr, 'x' },
 			{ nullptr,		0,                 nullptr,  0 }
 		};
 
@@ -554,6 +566,8 @@ namespace Hearthstonepp
 
 		while ((opt = getopt_long(argc, argv, "r:c:t:e:n:s:a:h:m:p:x", longOptions, &longIndex)) != -1)
 		{
+			isValid = true;
+
 			switch (opt)
 			{
 			case 'r':
@@ -624,12 +638,14 @@ namespace Hearthstonepp
 				}
 				break;
 			case 'p':
+				isValid = false;
 				ShowSearchCardUsage();
 				break;
 			case 'x':
 				isFinish = true;
 				break;
 			default:
+				isValid = false;
 				ShowSearchCardUsage();
 				break;
 			}
@@ -655,7 +671,7 @@ namespace Hearthstonepp
 		filter.healthMax = healthMax;
 		filter.mechanics = mechanics;
 
-		return std::make_tuple(filter, isFinish);
+		return std::make_tuple(filter, isValid, isFinish);
 	}
 
 	std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter)
