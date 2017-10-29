@@ -466,16 +466,6 @@ namespace Hearthstonepp
 		return (str == "y" || str == "yes") ? true : (str == "n" || str == "no") ? false : InputYesNo(sentence);
 	}
 
-	Rarity rarity = Rarity::INVALID;
-	CardClass playerClass = CardClass::INVALID;
-	CardType cardType = CardType::INVALID;
-	Race race = Race::INVALID;
-	std::string name = "";
-	int costMin = -1, costMax = -1;
-	int attackMin = -1, attackMax = -1;
-	int healthMin = -1, healthMax = -1;
-	std::vector<GameTag> mechanics;
-
 	std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::string commandStr) const
 	{
 		// Input commands
