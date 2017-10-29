@@ -101,7 +101,10 @@ namespace Hearthstonepp
 		std::cout << "              Search Card!              \n";
 		std::cout << "========================================\n";
 
-		ShowSearchCardUsage();
+		// Extracts and discards characters from the input stream.
+		std::cin.ignore();
+
+		std::cout << "If you want to get help, type -h or --help.\n";
 
 		while (true)
 		{
@@ -121,7 +124,7 @@ namespace Hearthstonepp
 
 			for (auto& card : result)
 			{
-				std::cout << card->GetName() << std::endl;
+				std::cout << card->GetName() << '\n';
 			}
 		}
 	}
@@ -709,6 +712,7 @@ namespace Hearthstonepp
 		if ((pos = str.find(delimiter)) == std::string::npos)
 		{
 			tokens.emplace_back(str);
+			return tokens;
 		}
 
 		// If the number of tokens is greater than 1
