@@ -691,7 +691,7 @@ namespace Hearthstonepp
 			bool costCondition = ((filter.costMin == -1 || filter.costMax == -1) || (filter.costMin <= card->GetCost() && filter.costMax >= card->GetCost()));
 			bool attackCondition = ((filter.attackMin == -1 || filter.attackMax == -1) || (filter.attackMin <= card->GetAttack() && filter.attackMax >= card->GetAttack()));
 			bool healthCondition = ((filter.healthMin == -1 || filter.healthMax == -1) || (filter.healthMin <= card->GetHealth() && filter.healthMax >= card->GetHealth()));
-			bool mechanicsCondition = (filter.mechanics.size() == 0 || Cards::GetInstance()->FindCardByMechanics(filter.mechanics).size() > 0);
+			bool mechanicsCondition = (filter.mechanics.size() == 0 || card->HasMechanics(filter.mechanics));
 			const bool isMatched = AllCondIsTrue(rarityCondition, classCondition, typeCondition, raceCondition, nameCondition, costCondition, attackCondition, healthCondition, mechanicsCondition);
 
 			if (isMatched)
