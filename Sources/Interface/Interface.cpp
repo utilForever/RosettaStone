@@ -6,13 +6,15 @@
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
+#include <Commons/Constants.h>
 #include <Interface/Interface.h>
+
+#include <iostream>
 
 namespace Hearthstonepp
 {
-	GameInterface::GameInterface(GameAgent& agent)
-		: m_agent(agent)
-		, m_bufferCapacity(agent.GetBufferCapacity())
+	GameInterface::GameInterface(GameAgent& agent) :
+		m_agent(agent), m_bufferCapacity(agent.GetBufferCapacity())
 	{
 		m_buffer = new BYTE[m_bufferCapacity];
 	}
@@ -24,11 +26,15 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			int result = HandleMessage();
-			if (result == HANDLE_STOP) break;
+			const int msg = HandleMessage();
+			if (msg == HANDLE_STOP)
+			{
+				break;
+			}
 		}
 
-		at->join(); // join agent thread
+		// join agent thread
+		at->join();
 		delete at;
 
 		return result;
@@ -37,11 +43,13 @@ namespace Hearthstonepp
 	int GameInterface::HandleMessage()
 	{
 		m_agent.ReadBuffer(m_buffer, m_bufferCapacity);
+
 		if (m_buffer[0] == static_cast<BYTE>(Step::FINAL_GAMEOVER))
 		{
 			return HANDLE_STOP;
 		}
-		else if (m_handler.find(m_buffer[0]) != m_handler.end())
+		
+		if (m_handler.find(m_buffer[0]) != m_handler.end())
 		{
 			m_handler[m_buffer[0]](*this);
 		}
@@ -56,7 +64,7 @@ namespace Hearthstonepp
 
 	void GameInterface::BeginFirst()
 	{
-		BeginFirstStructure* data = (BeginFirstStructure*)m_buffer;
+		BeginFirstStructure* data = reinterpret_cast<BeginFirstStructure*>(m_buffer);
 
 		m_users[0] = data->userFirst;
 		m_users[1] = data->userLast;
@@ -67,25 +75,29 @@ namespace Hearthstonepp
 
 	void GameInterface::BeginShuffle()
 	{
-		BeginShuffleStructure* data = (BeginShuffleStructure*)m_buffer;
+		BeginShuffleStructure* data = reinterpret_cast<BeginShuffleStructure*>(m_buffer);
+
 		LogWriter(m_users[data->userID], "Begin Shuffle");
 	}
 
 	void GameInterface::BeginDraw()
 	{
-		DrawStructure* data = (DrawStructure*)m_buffer;
+		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
+
 		LogWriter(m_users[data->userID], "Begin Draw");
 
 		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
 		{
 			std::cout << "[" << data->cards[i]->GetName() << "] ";
 		}
+
 		std::cout << std::endl;
 	}
 
 	void GameInterface::BeginMulligan()
 	{
-		BeginMulliganStructure* data = (BeginMulliganStructure*)m_buffer;
+		BeginMulliganStructure* data = reinterpret_cast<BeginMulliganStructure*>(m_buffer);
+
 		LogWriter(m_users[data->userID], "Begin Mulligan");
 
 		int numMulligan;
@@ -117,16 +129,20 @@ namespace Hearthstonepp
 			}
 		}
 
-		m_agent.WriteBuffer(mulligan, numMulligan); // send index to agent
-		m_agent.ReadBuffer(m_buffer, sizeof(DrawStructure)); // get new card data
+		// send index to agent
+		m_agent.WriteBuffer(mulligan, numMulligan);
+		// get new card data
+		m_agent.ReadBuffer(m_buffer, sizeof(DrawStructure));
 		
 		LogWriter(m_users[data->userID], "Mulligan Result");
 
-		DrawStructure* draw = (DrawStructure*)m_buffer;
+		DrawStructure* draw = reinterpret_cast<DrawStructure*>(m_buffer);
+
 		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
 		{
 			std::cout << "[" << draw->cards[i]->GetName() << "] ";
 		}
+
 		std::cout << std::endl;
 	}
 }

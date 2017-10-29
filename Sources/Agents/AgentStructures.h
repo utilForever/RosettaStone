@@ -9,10 +9,8 @@
 #ifndef HEARTHSTONEPP_AGENT_STRUCTURES_H
 #define HEARTHSTONEPP_AGENT_STRUCTURES_H
 
-#include <Enums/EnumsToString.h>
 #include <Models/Card.h>
 #include <Models/Cards.h>
-#include <Models/Deck.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
 #include <Models/Entities/Weapon.h>
@@ -57,7 +55,7 @@ namespace Hearthstonepp
 
 	struct BeginFirstStructure
 	{
-		BeginFirstStructure(std::string userFirst, std::string userLast);
+		BeginFirstStructure(std::string&& userFirst, std::string&& userLast);
 
 		BYTE id = static_cast<BYTE>(Step::BEGIN_FIRST);
 		std::string userFirst;

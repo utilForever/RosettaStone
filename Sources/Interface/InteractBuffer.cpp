@@ -24,10 +24,12 @@ namespace Hearthstonepp
 	int InteractBuffer::ReadBuffer(BYTE* data, int maxSize)
 	{
 		std::unique_lock<std::mutex> lock(m_mtx);
-		m_cv.wait(lock, [this]() { return m_readable; }); // wait until the buffer can be read
+		// wait until the buffer can be read
+		m_cv.wait(lock, [this]() { return m_readable; });
 
 		int read = 0;
-		for (int i = 0; (i < m_usage) && maxSize; ++i) // read data from buffer
+		// read data from buffer
+		for (int i = 0; (i < m_usage) && maxSize; ++i)
 		{
 			data[i] = m_buffer[m_head];
 
@@ -36,10 +38,12 @@ namespace Hearthstonepp
 			read += 1;
 		}
 
-		m_usage -= read; // calculate remaining capacity to read
+		// calculate remaining capacity to read
+		m_usage -= read;
 
 		m_readable = false;
-		m_cv.notify_one(); // inform buffer is writable
+		// inform buffer is writable
+		m_cv.notify_one();
 
 		return read;
 	}
@@ -47,9 +51,11 @@ namespace Hearthstonepp
 	int InteractBuffer::WriteBuffer(BYTE* data, int size)
 	{
 		std::unique_lock<std::mutex> lock(m_mtx);
-		m_cv.wait(lock, [this]() { return !m_readable; }); // wait until the buffer can be write
+		// wait until the buffer can be write
+		m_cv.wait(lock, [this]() { return !m_readable; });
 
-		for (size_t i = 0; (i < size) && (m_usage < m_capacity); ++i) // write data to buffer
+		// write data to buffer
+		for (size_t i = 0; (i < size) && (m_usage < m_capacity); ++i)
 		{
 			m_buffer[m_tail] = data[i];
 
@@ -58,7 +64,8 @@ namespace Hearthstonepp
 		}
 
 		m_readable = true;
-		m_cv.notify_one(); // inform buffer is readable
+		// inform buffer is readable
+		m_cv.notify_one();
 
 		return m_usage;
 	}
