@@ -15,6 +15,19 @@
 
 namespace Hearthstonepp
 {
+	struct SearchFilter
+	{
+		Rarity rarity;
+		CardClass playerClass;
+		CardType cardType;
+		Race race;
+		std::string name;
+		int costMin, costMax;
+		int attackMin, attackMax;
+		int healthMin, healthMax;
+		std::vector<GameTag> mechanics;
+	};
+
 	class Cards
 	{
 	public:
