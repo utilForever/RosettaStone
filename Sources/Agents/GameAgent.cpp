@@ -7,34 +7,28 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Agents/GameAgent.h>
+#include <Commons/Constants.h>
 
 namespace Hearthstonepp
 {
-	GameAgent::GameAgent(User& user1, User& user2, int maxBufferSize)
-		: m_userCurrent(user1)
-		, m_userOpponent(user2)
-		, m_bufferCapacity(maxBufferSize)
-		, m_inBuffer(maxBufferSize) // initialize pipe buffer
-		, m_outBuffer(maxBufferSize)
-		, m_generator(m_rd()) // initialize random generator
+	GameAgent::GameAgent(User& user1, User& user2, int maxBufferSize) :
+		m_userCurrent(user1), m_userOpponent(user2), m_bufferCapacity(maxBufferSize)
+		, m_inBuffer(maxBufferSize), m_outBuffer(maxBufferSize), m_generator(m_rd())
 	{
 		// Do Nothing
 	}
 
-	GameAgent::GameAgent(User&& user1, User&& user2, int maxBufferSize)
-		: m_userCurrent(std::move(user1))
-		, m_userOpponent(std::move(user2))
-		, m_bufferCapacity(maxBufferSize)
-		, m_inBuffer(maxBufferSize) // initialize pipe buffer
-		, m_outBuffer(maxBufferSize)
-		, m_generator(m_rd()) // initialize random generator
+	GameAgent::GameAgent(User&& user1, User&& user2, int maxBufferSize) :
+		m_userCurrent(std::move(user1)), m_userOpponent(std::move(user2)), m_bufferCapacity(maxBufferSize),
+		m_inBuffer(maxBufferSize), m_outBuffer(maxBufferSize), m_generator(m_rd())
 	{
 		// Do Nothing
 	}
 
 	std::thread* GameAgent::StartAgent(GameResult& result)
 	{
-		std::thread* agent = new std::thread([this](GameResult& result) {
+		std::thread* agent = new std::thread([this](GameResult& result)
+		{
 			BeginPhase();
 
 			while (!IsGameEnd())
@@ -45,7 +39,8 @@ namespace Hearthstonepp
 			FinalPhase(result);
 		}, std::ref(result));
 
-		return agent; // return new GameAgent thread
+		// return new GameAgent thread
+		return agent;
 	}
 
 	void GameAgent::BeginPhase()
@@ -63,7 +58,8 @@ namespace Hearthstonepp
 		Mulligan(m_userCurrent);
 		Mulligan(m_userOpponent);
 
-		m_userOpponent.hand.push_back(new Card()); // Coin for later user
+		// TODO: Coin for later user
+		m_userOpponent.hand.push_back(new Card());
 	}
 
 	void GameAgent::MainPhase()
@@ -74,13 +70,14 @@ namespace Hearthstonepp
 	void GameAgent::FinalPhase(GameResult& result)
 	{
 		BYTE end = static_cast<BYTE>(Step::FINAL_GAMEOVER);
+
 		WriteOutputBuffer(&end, 1);
 	}
 
 	void GameAgent::DecideDeckOrder()
 	{
 		// get random number, zero or one.
-		std::uniform_int_distribution<int> bin(0, 1);
+		const std::uniform_int_distribution<int> bin(0, 1);
 		if (bin(m_generator) == 1) // swap user with 50% probability
 		{
 			std::swap(m_userCurrent, m_userOpponent);
@@ -89,11 +86,11 @@ namespace Hearthstonepp
 		m_userCurrent.id = 0;
 		m_userOpponent.id = 1;
 
-		std::string& userFirst = m_userCurrent.player->GetID();
-		std::string& userLast = m_userOpponent.player->GetID();
+		std::string&& userFirst = m_userCurrent.player->GetID();
+		std::string&& userLast = m_userOpponent.player->GetID();
 
-		BeginFirstStructure data(userFirst, userLast);
-		WriteOutputBuffer((BYTE*)&data, sizeof(BeginFirstStructure));
+		BeginFirstStructure data(std::move(userFirst), std::move(userLast));
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginFirstStructure));
 	}
 
 	void GameAgent::ShuffleDeck(User& user)
@@ -102,7 +99,7 @@ namespace Hearthstonepp
 		std::shuffle(deck.begin(), deck.end(), m_generator); // shuffle with random generator
 
 		BeginShuffleStructure data(user.id);
-		WriteOutputBuffer((BYTE*)&data, sizeof(BeginShuffleStructure));
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginShuffleStructure));
 	}
 
 	void GameAgent::BeginDraw(User& user)
@@ -111,16 +108,16 @@ namespace Hearthstonepp
 
 		Card** hand = user.hand.data();
 		DrawStructure data(static_cast<BYTE>(Step::BEGIN_DRAW), user.id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
-		WriteOutputBuffer((BYTE*)&data, sizeof(DrawStructure));
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
 	}
 
 	void GameAgent::Mulligan(User& user)
 	{
 		BeginMulliganStructure data(user.id);
-		WriteOutputBuffer((BYTE*)&data, sizeof(BeginMulliganStructure));
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginMulliganStructure));
 
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
-		int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
+		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
 
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
@@ -136,7 +133,7 @@ namespace Hearthstonepp
 
 		Draw(user, read);
 		DrawStructure data2(static_cast<BYTE>(Step::BEGIN_MULLIGAN), user.id, read, NUM_BEGIN_DRAW, hand.data());
-		WriteOutputBuffer((BYTE*)&data2, sizeof(DrawStructure)); // send new card data
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
 	}
 
 	bool GameAgent::IsGameEnd()

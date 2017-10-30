@@ -143,6 +143,7 @@
     </ClInclude>
     <ClInclude Include="Agents\AgentStructures.h">
       <Filter>Agents</Filter>
+    </ClInclude>
     <ClInclude Include="Commons\Utils.h">
       <Filter>Commons</Filter>
     </ClInclude>

@@ -10,13 +10,10 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Agents/AgentStructures.h>
-#include <Commons/Constants.h>
 #include <Interface/InteractBuffer.h>
 
-#include <algorithm>
 #include <random>
 #include <thread>
-#include <vector>
 
 namespace Hearthstonepp
 {
@@ -25,25 +22,33 @@ namespace Hearthstonepp
 	public:
 		GameAgent(User& user1, User& user2, int maxBufferSize = 2048);
 		GameAgent(User&& user1, User&& user2, int maxBufferSize = 2048);
+
 		std::thread* StartAgent(GameResult& result);
 
 		int GetBufferCapacity() const;
-		int ReadBuffer(BYTE* arr, int maxSize); // Read data written by Agent
-		int WriteBuffer(BYTE* arr, int size); // Write data to Agent
+		// read data written by Agent
+		int ReadBuffer(BYTE* arr, int maxSize);
+		// write data to Agent
+		int WriteBuffer(BYTE* arr, int size);
 
 	private:
 		User m_userCurrent;
 		User m_userOpponent;
 
 		int m_bufferCapacity;
-		InteractBuffer m_inBuffer; // Pipe IO : User -> Agent 
-		InteractBuffer m_outBuffer; // Pipe IO : Agent -> User
+		// Pipe IO : User -> Agent 
+		InteractBuffer m_inBuffer; 
+		// Pipe IO : Agent -> User
+		InteractBuffer m_outBuffer;
 
 		std::random_device m_rd;
-		std::default_random_engine m_generator; // random generator
+		// random generator
+		std::default_random_engine m_generator;
 
-		int ReadInputBuffer(BYTE* arr, int maxSize); // Read data written by User
-		int WriteOutputBuffer(BYTE* arr, int size); // Write data to User
+		// read data written by User
+		int ReadInputBuffer(BYTE* arr, int maxSize);
+		// write data to User
+		int WriteOutputBuffer(BYTE* arr, int size);
 
 		bool IsGameEnd();
 		void Draw(User& user, int num);

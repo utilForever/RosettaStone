@@ -423,7 +423,7 @@ namespace Hearthstonepp
 		std::cout << "-s, --cost: determines how much mana is required to play that card from the hand or to use that hero power\n";
 		std::cout << "-a, --attack: what occurs when a player commands one character to attack another, causing them to simultaneously deal damage to each other\n";
 		std::cout << "-h, --health: an attribute found on heroes and minions, reflecting the remaining survivability of the character\n";
-		std::cout << "(-s|-a|-h \"x\": exact value, -s|-a|-h \"x\" \"y\": range value)\n";
+		std::cout << "(-s|-a|-h \"x\": exact value, -s|-a|-h \"x\",\"y\": range value)\n";
 		std::cout << "-m, --mechanics: describes the total effect of playing that card or special effects or powers additional to the basic functions of the card\n";
 		std::cout << "(546 = Adapt, 218 = Battlecry, 197 = Charge, 443 = Choose one, 220 = Combo)\n";
 		std::cout << "(340 = Counter, 217 = Deathrattle, 415 = Discover, 194 = Divine Shield, 212 = Enraged)\n";
@@ -465,16 +465,6 @@ namespace Hearthstonepp
 
 		return (str == "y" || str == "yes") ? true : (str == "n" || str == "no") ? false : InputYesNo(sentence);
 	}
-
-	Rarity rarity = Rarity::INVALID;
-	CardClass playerClass = CardClass::INVALID;
-	CardType cardType = CardType::INVALID;
-	Race race = Race::INVALID;
-	std::string name = "";
-	int costMin = -1, costMax = -1;
-	int attackMin = -1, attackMax = -1;
-	int healthMin = -1, healthMax = -1;
-	std::vector<GameTag> mechanics;
 
 	std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::string commandStr) const
 	{
