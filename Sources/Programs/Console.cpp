@@ -121,11 +121,23 @@ namespace Hearthstonepp
 				break;
 			}
 
+			std::cout << "========================================\n";
+			std::cout << "             Search Result!             \n";
+			std::cout << "========================================\n";
+			size_t idx = 1;
 			std::vector<Card*> result = ProcessSearchCommand(filter);
-
-			for (auto& card : result)
+			if (result.empty())
 			{
-				std::cout << card->GetName() << '\n';
+				std::cout << "There are no cards matching your search condition.\n";
+			}
+			else
+			{
+				for (auto& card : result)
+				{
+					std::cout << idx << ". ";
+					card->ShowBriefInfo();
+					idx++;
+				}
 			}
 		}
 	}
@@ -639,7 +651,7 @@ namespace Hearthstonepp
 		return std::make_tuple(filter, isValid, isFinish);
 	}
 
-	std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter)
+	std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
 	{
 		std::vector<Card*> result;
 

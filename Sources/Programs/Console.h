@@ -51,7 +51,7 @@ namespace Hearthstonepp
 		bool InputYesNo(std::string sentence) const;
 
 		std::tuple<SearchFilter, bool, bool> InputAndParseSearchCommand(std::string commandStr) const;
-		std::vector<Card*> ProcessSearchCommand(SearchFilter filter);
+		std::vector<Card*> ProcessSearchCommand(SearchFilter filter) const;
 
 		std::vector<std::string> SplitString(std::string str, std::string delimiter) const;
 
