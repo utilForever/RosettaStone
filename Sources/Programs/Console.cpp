@@ -96,7 +96,7 @@ namespace Hearthstonepp
 		}
 	}
 
-	void Console::SearchCard()
+	std::optional<Card*> Console::SearchCard()
 	{
 		std::cout << "========================================\n";
 		std::cout << "              Search Card!              \n";
@@ -140,6 +140,8 @@ namespace Hearthstonepp
 				}
 			}
 		}
+
+		return {};
 	}
 
 	int Console::ManageDeck()

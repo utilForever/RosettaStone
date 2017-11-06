@@ -16,6 +16,7 @@
 
 #include <array>
 #include <functional>
+#include <optional>
 
 namespace Hearthstonepp
 {
@@ -25,7 +26,7 @@ namespace Hearthstonepp
 		void SignIn();
 		void SignUp();
 
-		void SearchCard();
+		std::optional<Card*> SearchCard();
 		int ManageDeck();
 		void SimulateGame();
 		void Leave();
