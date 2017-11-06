@@ -109,9 +109,6 @@ namespace Hearthstonepp
 
 	void Card::ShowInfo() const
 	{
-		std::cout << "========================================\n";
-		std::cout << "               Card Info!               \n";
-		std::cout << "========================================\n";
 		std::cout << "ID: " << m_id.c_str() << '\n';
 		std::cout << "Name: " << m_name.c_str() << '\n';
 		std::cout << "Text: " << m_text.c_str() << '\n';
