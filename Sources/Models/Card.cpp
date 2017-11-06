@@ -102,6 +102,11 @@ namespace Hearthstonepp
 		return m_maxAllowedInDeck;
 	}
 
+	void Card::ShowBriefInfo() const
+	{
+		std::cout << m_name.c_str() << " (" << m_id.c_str() << ")\n";
+	}
+
 	void Card::ShowInfo() const
 	{
 		std::cout << "========================================\n";

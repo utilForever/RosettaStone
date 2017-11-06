@@ -45,6 +45,7 @@ namespace Hearthstonepp
 
 		unsigned int GetMaxAllowedInDeck() const;
 
+		virtual void ShowBriefInfo() const;
 		virtual void ShowInfo() const;
 
 	private:
