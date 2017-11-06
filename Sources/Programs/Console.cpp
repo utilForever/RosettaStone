@@ -657,6 +657,11 @@ namespace Hearthstonepp
 
 		for (auto& card : Cards::GetInstance()->GetAllCards())
 		{
+			if (card->GetCollectible() == false)
+			{
+				continue;
+			}
+
 			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
 			bool classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
 			bool typeCondition = (filter.cardType == CardType::INVALID || filter.cardType == card->GetCardType());
