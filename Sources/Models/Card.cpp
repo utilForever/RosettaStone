@@ -62,6 +62,11 @@ namespace Hearthstonepp
 		return m_name;
 	}
 
+	bool Card::GetCollectible() const
+	{
+		return m_collectible;
+	}
+
 	int Card::GetCost() const
 	{
 		return m_cost;

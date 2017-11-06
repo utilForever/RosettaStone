@@ -36,6 +36,7 @@ namespace Hearthstonepp
 		CardType GetCardType() const;
 		Race GetRace() const;
 		std::string GetName() const;
+		bool GetCollectible() const;
 		int GetCost() const;
 		int GetAttack() const;
 		int GetHealth() const;
