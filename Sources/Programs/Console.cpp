@@ -512,18 +512,18 @@ namespace Hearthstonepp
 		// Parse options
 		static struct option longOptions[] =
 		{
-			{ "rarity",		required_argument, nullptr, 'r' },
-			{ "class",		required_argument, nullptr, 'c' },
-			{ "type",       required_argument, nullptr, 't' },
-			{ "race",		required_argument, nullptr, 'e' },
-			{ "name",		required_argument, nullptr, 'n' },
-			{ "cost",		required_argument, nullptr, 's' },
-			{ "attack",		required_argument, nullptr, 'a' },
-			{ "health",		required_argument, nullptr, 'h' },
-			{ "mechanics",	required_argument, nullptr, 'm' },
-			{ "help",		no_argument,	   nullptr, 'p' },
-			{ "exit",		no_argument,	   nullptr, 'x' },
-			{ nullptr,		0,                 nullptr,  0 }
+			{ "rarity",		required_argument,	nullptr, 'r' },
+			{ "class",		required_argument,	nullptr, 'c' },
+			{ "type",		required_argument,	nullptr, 't' },
+			{ "race",		required_argument,	nullptr, 'e' },
+			{ "name",		required_argument,	nullptr, 'n' },
+			{ "cost",		required_argument,	nullptr, 's' },
+			{ "attack",		required_argument,	nullptr, 'a' },
+			{ "health",		required_argument,	nullptr, 'h' },
+			{ "mechanics",	required_argument,	nullptr, 'm' },
+			{ "help",		no_argument,		nullptr, 'p' },
+			{ "exit",		no_argument,		nullptr, 'x' },
+			{ nullptr,		0,					nullptr,  0 }
 		};
 
 		// Initialize opt index
