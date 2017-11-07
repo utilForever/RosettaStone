@@ -35,10 +35,10 @@ namespace Hearthstonepp
 		void ModifyDeck();
 		void DeleteDeck();
 
-		void OperateDeck(size_t selectedDeck);
+		int OperateDeck(size_t deckIndex);
 
-		void AddCardInDeck(Deck* deck, std::string& selectedCardID);
-		void DeleteCardInDeck(Deck* deck, std::string& selectedCardID);
+		void AddCardInDeck(size_t deckIndex);
+		void DeleteCardInDeck(size_t deckIndex);
 
 		int Login();
 		int Main();
@@ -118,7 +118,7 @@ namespace Hearthstonepp
 			"2. Delete Card(s)",
 			"3. Back"
 		};
-		std::array<std::function<void(Console&, Deck*, std::string&)>, CREATE_DECK_MENU_SIZE - 1> m_deckOperationFuncs =
+		std::array<std::function<void(Console&, size_t)>, CREATE_DECK_MENU_SIZE - 1> m_deckOperationFuncs =
 		{
 			&Console::AddCardInDeck,
 			&Console::DeleteCardInDeck

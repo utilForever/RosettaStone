@@ -260,35 +260,48 @@ namespace Hearthstonepp
 		m_player->DeleteDeck(selectedDeck);
 	}
 
-	void Console::OperateDeck(size_t selectedDeck)
+	int Console::OperateDeck(size_t deckIndex)
 	{
-		// Set flag that the card should be returned.
-		m_searchMode = SearchMode::AddCardInDeck;
+		ShowMenu(m_deckOperationStr);
+		const size_t selectedOperation = InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
+		bool isFinish = false;
 
-		Deck* deck = m_player->GetDeck(selectedDeck - 1);
-		const CardClass deckClass = deck->GetClass();
-
-		while (true)
+		if (selectedOperation != CREATE_DECK_MENU_SIZE)
 		{
-			const Card* card = SearchCard().value_or(nullptr);
-			if (card == nullptr)
-			{
-				std::cout << " doesn't exist. Try again.\n";
-			}
+			m_deckOperationFuncs[selectedOperation - 1](*this, deckIndex);
 		}
+		else
+		{
+			isFinish = true;
+		}
+
+		return isFinish ? 0 : OperateDeck(deckIndex);
 	}
 
-	void Console::AddCardInDeck(Deck* deck, std::string& selectedCardID)
+	void Console::AddCardInDeck(size_t deckIndex)
 	{
+		Deck* deck = m_player->GetDeck(deckIndex - 1);
+		const CardClass deckClass = deck->GetClass();
+
 		if (deck->GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
 		{
 			std::cout << "The deck " << deck->GetName() << " is full of cards.\n";
 			return;
 		}
 
+		// Set flag that the card should be returned.
+		m_searchMode = SearchMode::AddCardInDeck;
+
+		const Card* card = SearchCard().value_or(nullptr);
+		if (card == nullptr)
+		{
+			std::cout << " doesn't exist. Try again.\n";
+			return;
+		}
+
 		while (true)
 		{
-			unsigned int numCardToAddAvailable = Cards::GetInstance()->FindCardByID(selectedCardID)->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(selectedCardID);
+			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
 			if (deck->GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
 			{
 				numCardToAddAvailable = deck->GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
@@ -304,15 +317,15 @@ namespace Hearthstonepp
 			}
 			else
 			{
-				deck->AddCard(selectedCardID, numCardToAdd);
+				deck->AddCard(card->GetID(), numCardToAdd);
 				break;
 			}
 		}
 	}
 
-	void Console::DeleteCardInDeck(Deck* deck, std::string& selectedCardID)
+	void Console::DeleteCardInDeck(size_t deckIndex)
 	{
-		if (deck->GetNumCardInDeck(selectedCardID) == 0)
+		/*if (deck->GetNumCardInDeck(selectedCardID) == 0)
 		{
 			std::cout << selectedCardID << " doesn't exist.\n";
 			return;
@@ -333,7 +346,7 @@ namespace Hearthstonepp
 				deck->DeleteCard(selectedCardID, numCardToDelete);
 				break;
 			}
-		}
+		}*/
 	}
 
 	int Console::Login()
