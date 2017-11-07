@@ -44,6 +44,12 @@ namespace Hearthstonepp
 		int Main();
 
 	private:
+		enum class SearchMode
+		{
+			JustSearch,
+			AddCardInDeck,
+		};
+
 		template<std::size_t SIZE>
 		void ShowMenu(std::array<std::string, SIZE>& menus);
 		void ShowSearchCardUsage() const;
@@ -118,7 +124,9 @@ namespace Hearthstonepp
 			&Console::DeleteCardInDeck
 		};
 
-		Player* m_player;
+		SearchMode m_searchMode = SearchMode::JustSearch;
+
+		Player* m_player = nullptr;
 	};
 }
 

@@ -262,55 +262,18 @@ namespace Hearthstonepp
 
 	void Console::OperateDeck(size_t selectedDeck)
 	{
+		// Set flag that the card should be returned.
+		m_searchMode = SearchMode::AddCardInDeck;
+
 		Deck* deck = m_player->GetDeck(selectedDeck - 1);
 		const CardClass deckClass = deck->GetClass();
 
-		std::cout << "Input Card ID to add or delete to your deck.\n";
-		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
-
 		while (true)
 		{
-			std::cout << "The number of cards in the current deck = " << deck->GetNumOfCards() << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
-			std::cout << "Card ID: ";
-			std::string selectedCardID;
-			std::cin >> selectedCardID;
-
-			if (selectedCardID == "STOP")
-			{
-				break;
-			}
-
-			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
+			const Card* card = SearchCard().value_or(nullptr);
 			if (card == nullptr)
 			{
-				std::cout << selectedCardID << " doesn't exist. Try again.\n";
-				continue;
-			}
-			if (card->GetCardClass() != CardClass::NEUTRAL && card->GetCardClass() != deckClass)
-			{
-				std::cout << "The class of " << selectedCardID << " is " << ConverterFromCardClassToString.at(card->GetCardClass()).c_str() << '\n';
-				std::cout << "It is neither a NETURAL nor a " << ConverterFromCardClassToString.at(deckClass).c_str() << '\n';
-				continue;
-			}
-
-			card->ShowInfo();
-
-			const bool isYes = InputYesNo("Is it correct? ");
-			if (isYes == false)
-			{
-				continue;
-			}
-
-			ShowMenu(m_deckOperationStr);
-			const size_t selectedOperation = InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
-
-			if (selectedOperation != CREATE_DECK_MENU_SIZE)
-			{
-				m_deckOperationFuncs[selectedOperation - 1](*this, deck, selectedCardID);
-			}
-			else
-			{
-				break;
+				std::cout << " doesn't exist. Try again.\n";
 			}
 		}
 	}
@@ -398,6 +361,9 @@ namespace Hearthstonepp
 		ShowMenu(m_mainMenuStr);
 		const size_t selectedNum = InputMenuNum("Select: ", MAIN_MENU_SIZE);
 		bool isFinish = false;
+
+		// Set flag that you do not need to return the card.
+		m_searchMode = SearchMode::JustSearch;
 
 		m_mainMenuFuncs[selectedNum - 1](*this);
 
