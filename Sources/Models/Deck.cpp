@@ -9,6 +9,7 @@
 #include <Models/Deck.h>
 
 #include <algorithm>
+#include <iostream>
 
 namespace Hearthstonepp
 {
@@ -77,6 +78,27 @@ namespace Hearthstonepp
 	std::pair<std::string, int> Deck::GetCard(size_t idx) const
 	{
 		return m_cards.at(idx);
+	}
+
+	void Deck::ShowCardList() const
+	{
+		int idx = 1;
+
+		for (auto& cardInfo : m_cards)
+		{
+			const Card* card = Cards::GetInstance()->FindCardByID(cardInfo.first);
+			if (card == nullptr)
+			{
+				continue;
+			}
+
+			std::cout << idx << ". ";
+			card->ShowBriefInfo();
+			std::cout << "(" << cardInfo.second << " card(s))\n";
+			
+			idx++;
+		}
+
 	}
 
 	void Deck::AddCard(std::string cardID, int numCardToAdd)
