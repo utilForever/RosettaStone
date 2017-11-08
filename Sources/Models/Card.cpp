@@ -109,7 +109,7 @@ namespace Hearthstonepp
 
 	void Card::ShowBriefInfo() const
 	{
-		std::cout << m_name.c_str() << " (" << m_id.c_str() << ")\n";
+		std::cout << m_name.c_str() << " (" << m_id.c_str() << ") ";
 	}
 
 	void Card::ShowInfo() const
