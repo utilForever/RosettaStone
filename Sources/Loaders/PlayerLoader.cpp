@@ -100,7 +100,7 @@ namespace Hearthstonepp
 					{ "cards", json::array() }
 				}));
 
-				for (size_t cardIdx = 0; cardIdx < p->GetDeck(deckIdx)->GetNumOfCards(); ++cardIdx)
+				for (size_t cardIdx = 0; cardIdx < p->GetDeck(deckIdx)->GetUniqueNumOfCards(); ++cardIdx)
 				{
 					j["decks"].at(deckIdx)["cards"].emplace_back(json::object({
 						{ "id", p->GetDeck(deckIdx)->GetCard(cardIdx).first },
