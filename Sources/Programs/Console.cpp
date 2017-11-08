@@ -342,7 +342,7 @@ namespace Hearthstonepp
 
 		deck->ShowCardList();
 		const size_t selectedCardIndex = InputMenuNum("Select: ", deck->GetUniqueNumOfCards());
-		const std::string selectedCardID = deck->GetCard(selectedCardIndex).first;
+		const std::string selectedCardID = deck->GetCard(selectedCardIndex - 1).first;
 
 		while (true)
 		{
