@@ -136,7 +136,15 @@ namespace Hearthstonepp
 				{
 					std::cout << idx << ". ";
 					card->ShowBriefInfo();
+					std::cout << '\n';
+
 					idx++;
+				}
+
+				if (m_searchMode == SearchMode::AddCardInDeck)
+				{
+					const size_t selectedCardIndex = InputMenuNum("Select: ", idx);
+					return result.at(selectedCardIndex);
 				}
 			}
 		}
