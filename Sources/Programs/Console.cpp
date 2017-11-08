@@ -298,6 +298,7 @@ namespace Hearthstonepp
 
 		// Set flag that the card should be returned.
 		m_searchMode = SearchMode::AddCardInDeck;
+		m_deckClass = deck->GetClass();
 
 		const Card* card = SearchCard().value_or(nullptr);
 		if (card == nullptr)
@@ -390,6 +391,7 @@ namespace Hearthstonepp
 
 		// Set flag that you do not need to return the card.
 		m_searchMode = SearchMode::JustSearch;
+		m_deckClass = CardClass::INVALID;
 
 		m_mainMenuFuncs[selectedNum - 1](*this);
 
@@ -657,7 +659,16 @@ namespace Hearthstonepp
 			}
 
 			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
-			bool classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
+			bool classCondition;
+			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
+			if (m_searchMode == SearchMode::AddCardInDeck)
+			{
+				classCondition = (card->GetCardClass() == CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
+			}
+			else if (m_searchMode == SearchMode::JustSearch)
+			{
+				classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
+			}
 			bool typeCondition = (filter.cardType == CardType::INVALID || filter.cardType == card->GetCardType());
 			bool raceCondition = (filter.race == Race::INVALID || filter.race == card->GetRace());
 			bool nameCondition = (filter.name.empty() || card->GetName().find(filter.name) != std::string::npos);

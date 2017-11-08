@@ -125,6 +125,7 @@ namespace Hearthstonepp
 		};
 
 		SearchMode m_searchMode = SearchMode::JustSearch;
+		CardClass m_deckClass = CardClass::INVALID;
 
 		Player* m_player = nullptr;
 	};
