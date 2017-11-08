@@ -663,7 +663,14 @@ namespace Hearthstonepp
 			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
 			if (m_searchMode == SearchMode::AddCardInDeck)
 			{
-				classCondition = (card->GetCardClass() == CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
+				if (filter.playerClass == CardClass::NEUTRAL || filter.playerClass == m_deckClass)
+				{
+					classCondition = filter.playerClass == card->GetCardClass();
+				}
+				else
+				{
+					classCondition = (card->GetCardClass() == CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
+				}
 			}
 			else if (m_searchMode == SearchMode::JustSearch)
 			{
