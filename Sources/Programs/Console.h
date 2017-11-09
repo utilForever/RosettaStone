@@ -16,6 +16,7 @@
 
 #include <array>
 #include <functional>
+#include <optional>
 
 namespace Hearthstonepp
 {
@@ -25,7 +26,7 @@ namespace Hearthstonepp
 		void SignIn();
 		void SignUp();
 
-		void SearchCard();
+		std::optional<Card*> SearchCard();
 		int ManageDeck();
 		void SimulateGame();
 		void Leave();
@@ -34,15 +35,21 @@ namespace Hearthstonepp
 		void ModifyDeck();
 		void DeleteDeck();
 
-		void OperateDeck(size_t selectedDeck);
+		int OperateDeck(size_t deckIndex);
 
-		void AddCardInDeck(Deck* deck, std::string& selectedCardID);
-		void DeleteCardInDeck(Deck* deck, std::string& selectedCardID);
+		void AddCardInDeck(size_t deckIndex);
+		void DeleteCardInDeck(size_t deckIndex);
 
 		int Login();
 		int Main();
 
 	private:
+		enum class SearchMode
+		{
+			JustSearch,
+			AddCardInDeck,
+		};
+
 		template<std::size_t SIZE>
 		void ShowMenu(std::array<std::string, SIZE>& menus);
 		void ShowSearchCardUsage() const;
@@ -51,7 +58,7 @@ namespace Hearthstonepp
 		bool InputYesNo(std::string sentence) const;
 
 		std::tuple<SearchFilter, bool, bool> InputAndParseSearchCommand(std::string commandStr) const;
-		std::vector<Card*> ProcessSearchCommand(SearchFilter filter);
+		std::vector<Card*> ProcessSearchCommand(SearchFilter filter) const;
 
 		std::vector<std::string> SplitString(std::string str, std::string delimiter) const;
 
@@ -111,13 +118,16 @@ namespace Hearthstonepp
 			"2. Delete Card(s)",
 			"3. Back"
 		};
-		std::array<std::function<void(Console&, Deck*, std::string&)>, CREATE_DECK_MENU_SIZE - 1> m_deckOperationFuncs =
+		std::array<std::function<void(Console&, size_t)>, CREATE_DECK_MENU_SIZE - 1> m_deckOperationFuncs =
 		{
 			&Console::AddCardInDeck,
 			&Console::DeleteCardInDeck
 		};
 
-		Player* m_player;
+		SearchMode m_searchMode = SearchMode::JustSearch;
+		CardClass m_deckClass = CardClass::INVALID;
+
+		Player* m_player = nullptr;
 	};
 }
 

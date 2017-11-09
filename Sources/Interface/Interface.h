@@ -43,10 +43,10 @@ namespace Hearthstonepp
 
 		std::map<BYTE, std::function<void(GameInterface&)>> m_handler =
 		{
-			{ static_cast<BYTE>(Step::BEGIN_FIRST), &GameInterface::BeginFirst },
-			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE), &GameInterface::BeginShuffle },
-			{ static_cast<BYTE>(Step::BEGIN_DRAW), &GameInterface::BeginDraw },
-			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN), &GameInterface::BeginMulligan }
+			{ static_cast<BYTE>(Step::BEGIN_FIRST),		&GameInterface::BeginFirst },
+			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE),	&GameInterface::BeginShuffle },
+			{ static_cast<BYTE>(Step::BEGIN_DRAW),		&GameInterface::BeginDraw },
+			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),	&GameInterface::BeginMulligan }
 		};
 	};
 }

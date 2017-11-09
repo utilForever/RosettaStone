@@ -31,6 +31,8 @@ namespace Hearthstonepp
 		std::vector<Card*> GetPrimitiveDeck() const;
 		std::pair<std::string, int> GetCard(size_t idx) const;
 
+		void ShowCardList() const;
+
 		void AddCard(std::string cardID, int numCardToAdd);
 		void DeleteCard(std::string cardID, const int numCardToDelete);
 

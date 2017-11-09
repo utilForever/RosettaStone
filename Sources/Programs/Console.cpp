@@ -96,7 +96,7 @@ namespace Hearthstonepp
 		}
 	}
 
-	void Console::SearchCard()
+	std::optional<Card*> Console::SearchCard()
 	{
 		std::cout << "========================================\n";
 		std::cout << "              Search Card!              \n";
@@ -121,13 +121,35 @@ namespace Hearthstonepp
 				break;
 			}
 
+			std::cout << "========================================\n";
+			std::cout << "             Search Result!             \n";
+			std::cout << "========================================\n";
+			size_t idx = 1;
 			std::vector<Card*> result = ProcessSearchCommand(filter);
-
-			for (auto& card : result)
+			if (result.empty())
 			{
-				std::cout << card->GetName() << '\n';
+				std::cout << "There are no cards matching your search condition.\n";
+			}
+			else
+			{
+				for (auto& card : result)
+				{
+					std::cout << idx << ". ";
+					card->ShowBriefInfo();
+					std::cout << '\n';
+
+					idx++;
+				}
+
+				if (m_searchMode == SearchMode::AddCardInDeck)
+				{
+					const size_t selectedCardIndex = InputMenuNum("Select: ", idx);
+					return result.at(selectedCardIndex);
+				}
 			}
 		}
+
+		return {};
 	}
 
 	int Console::ManageDeck()
@@ -246,72 +268,48 @@ namespace Hearthstonepp
 		m_player->DeleteDeck(selectedDeck);
 	}
 
-	void Console::OperateDeck(size_t selectedDeck)
+	int Console::OperateDeck(size_t deckIndex)
 	{
-		Deck* deck = m_player->GetDeck(selectedDeck - 1);
-		const CardClass deckClass = deck->GetClass();
+		ShowMenu(m_deckOperationStr);
+		const size_t selectedOperation = InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
+		bool isFinish = false;
 
-		std::cout << "Input Card ID to add or delete to your deck.\n";
-		std::cout << "If you do not want to add or delete more, please input \"STOP\"\n";
-
-		while (true)
+		if (selectedOperation != CREATE_DECK_MENU_SIZE)
 		{
-			std::cout << "The number of cards in the current deck = " << deck->GetNumOfCards() << " / " << MAXIMUM_NUM_CARDS_IN_DECK << "\n";
-			std::cout << "Card ID: ";
-			std::string selectedCardID;
-			std::cin >> selectedCardID;
-
-			if (selectedCardID == "STOP")
-			{
-				break;
-			}
-
-			const Card* card = Cards::GetInstance()->FindCardByID(selectedCardID);
-			if (card == nullptr)
-			{
-				std::cout << selectedCardID << " doesn't exist. Try again.\n";
-				continue;
-			}
-			if (card->GetCardClass() != CardClass::NEUTRAL && card->GetCardClass() != deckClass)
-			{
-				std::cout << "The class of " << selectedCardID << " is " << ConverterFromCardClassToString.at(card->GetCardClass()).c_str() << '\n';
-				std::cout << "It is neither a NETURAL nor a " << ConverterFromCardClassToString.at(deckClass).c_str() << '\n';
-				continue;
-			}
-
-			card->ShowInfo();
-
-			const bool isYes = InputYesNo("Is it correct? ");
-			if (isYes == false)
-			{
-				continue;
-			}
-
-			ShowMenu(m_deckOperationStr);
-			const size_t selectedOperation = InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
-
-			if (selectedOperation != CREATE_DECK_MENU_SIZE)
-			{
-				m_deckOperationFuncs[selectedOperation - 1](*this, deck, selectedCardID);
-			}
-			else
-			{
-				break;
-			}
+			m_deckOperationFuncs[selectedOperation - 1](*this, deckIndex);
 		}
+		else
+		{
+			isFinish = true;
+		}
+
+		return isFinish ? 0 : OperateDeck(deckIndex);
 	}
 
-	void Console::AddCardInDeck(Deck* deck, std::string& selectedCardID)
+	void Console::AddCardInDeck(size_t deckIndex)
 	{
+		Deck* deck = m_player->GetDeck(deckIndex - 1);
+
 		if (deck->GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
 		{
 			std::cout << "The deck " << deck->GetName() << " is full of cards.\n";
 			return;
 		}
 
+		// Set flag that the card should be returned.
+		m_searchMode = SearchMode::AddCardInDeck;
+		m_deckClass = deck->GetClass();
+
+		const Card* card = SearchCard().value_or(nullptr);
+		if (card == nullptr)
+		{
+			std::cout << " doesn't exist. Try again.\n";
+			return;
+		}
+
 		while (true)
 		{
-			unsigned int numCardToAddAvailable = Cards::GetInstance()->FindCardByID(selectedCardID)->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(selectedCardID);
+			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
 			if (deck->GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
 			{
 				numCardToAddAvailable = deck->GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
@@ -327,19 +325,25 @@ namespace Hearthstonepp
 			}
 			else
 			{
-				deck->AddCard(selectedCardID, numCardToAdd);
+				deck->AddCard(card->GetID(), numCardToAdd);
 				break;
 			}
 		}
 	}
 
-	void Console::DeleteCardInDeck(Deck* deck, std::string& selectedCardID)
+	void Console::DeleteCardInDeck(size_t deckIndex)
 	{
-		if (deck->GetNumCardInDeck(selectedCardID) == 0)
+		Deck* deck = m_player->GetDeck(deckIndex - 1);
+
+		if (deck->GetNumOfCards() == 0)
 		{
-			std::cout << selectedCardID << " doesn't exist.\n";
+			std::cout << "The deck " << deck->GetName() << " is empty.\n";
 			return;
 		}
+
+		deck->ShowCardList();
+		const size_t selectedCardIndex = InputMenuNum("Select: ", deck->GetUniqueNumOfCards());
+		const std::string selectedCardID = deck->GetCard(selectedCardIndex - 1).first;
 
 		while (true)
 		{
@@ -384,6 +388,10 @@ namespace Hearthstonepp
 		ShowMenu(m_mainMenuStr);
 		const size_t selectedNum = InputMenuNum("Select: ", MAIN_MENU_SIZE);
 		bool isFinish = false;
+
+		// Set flag that you do not need to return the card.
+		m_searchMode = SearchMode::JustSearch;
+		m_deckClass = CardClass::INVALID;
 
 		m_mainMenuFuncs[selectedNum - 1](*this);
 
@@ -512,18 +520,18 @@ namespace Hearthstonepp
 		// Parse options
 		static struct option longOptions[] =
 		{
-			{ "rarity",		required_argument, nullptr, 'r' },
-			{ "class",		required_argument, nullptr, 'c' },
-			{ "type",       required_argument, nullptr, 't' },
-			{ "race",		required_argument, nullptr, 'e' },
-			{ "name",		required_argument, nullptr, 'n' },
-			{ "cost",		required_argument, nullptr, 's' },
-			{ "attack",		required_argument, nullptr, 'a' },
-			{ "health",		required_argument, nullptr, 'h' },
-			{ "mechanics",	required_argument, nullptr, 'm' },
-			{ "help",		no_argument,	   nullptr, 'p' },
-			{ "exit",		no_argument,	   nullptr, 'x' },
-			{ nullptr,		0,                 nullptr,  0 }
+			{ "rarity",		required_argument,	nullptr, 'r' },
+			{ "class",		required_argument,	nullptr, 'c' },
+			{ "type",		required_argument,	nullptr, 't' },
+			{ "race",		required_argument,	nullptr, 'e' },
+			{ "name",		required_argument,	nullptr, 'n' },
+			{ "cost",		required_argument,	nullptr, 's' },
+			{ "attack",		required_argument,	nullptr, 'a' },
+			{ "health",		required_argument,	nullptr, 'h' },
+			{ "mechanics",	required_argument,	nullptr, 'm' },
+			{ "help",		no_argument,		nullptr, 'p' },
+			{ "exit",		no_argument,		nullptr, 'x' },
+			{ nullptr,		0,					nullptr,  0 }
 		};
 
 		// Initialize opt index
@@ -639,14 +647,35 @@ namespace Hearthstonepp
 		return std::make_tuple(filter, isValid, isFinish);
 	}
 
-	std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter)
+	std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
 	{
 		std::vector<Card*> result;
 
 		for (auto& card : Cards::GetInstance()->GetAllCards())
 		{
+			if (card->GetCollectible() == false)
+			{
+				continue;
+			}
+
 			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
-			bool classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
+			bool classCondition;
+			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
+			if (m_searchMode == SearchMode::AddCardInDeck)
+			{
+				if (filter.playerClass == CardClass::NEUTRAL || filter.playerClass == m_deckClass)
+				{
+					classCondition = filter.playerClass == card->GetCardClass();
+				}
+				else
+				{
+					classCondition = (card->GetCardClass() == CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
+				}
+			}
+			else if (m_searchMode == SearchMode::JustSearch)
+			{
+				classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
+			}
 			bool typeCondition = (filter.cardType == CardType::INVALID || filter.cardType == card->GetCardType());
 			bool raceCondition = (filter.race == Race::INVALID || filter.race == card->GetRace());
 			bool nameCondition = (filter.name.empty() || card->GetName().find(filter.name) != std::string::npos);

@@ -62,6 +62,11 @@ namespace Hearthstonepp
 		return m_name;
 	}
 
+	bool Card::GetCollectible() const
+	{
+		return m_collectible;
+	}
+
 	int Card::GetCost() const
 	{
 		return m_cost;
@@ -102,11 +107,13 @@ namespace Hearthstonepp
 		return m_maxAllowedInDeck;
 	}
 
+	void Card::ShowBriefInfo() const
+	{
+		std::cout << m_name.c_str() << " (" << m_id.c_str() << ") ";
+	}
+
 	void Card::ShowInfo() const
 	{
-		std::cout << "========================================\n";
-		std::cout << "               Card Info!               \n";
-		std::cout << "========================================\n";
 		std::cout << "ID: " << m_id.c_str() << '\n';
 		std::cout << "Name: " << m_name.c_str() << '\n';
 		std::cout << "Text: " << m_text.c_str() << '\n';

@@ -36,6 +36,7 @@ namespace Hearthstonepp
 		CardType GetCardType() const;
 		Race GetRace() const;
 		std::string GetName() const;
+		bool GetCollectible() const;
 		int GetCost() const;
 		int GetAttack() const;
 		int GetHealth() const;
@@ -45,6 +46,7 @@ namespace Hearthstonepp
 
 		unsigned int GetMaxAllowedInDeck() const;
 
+		virtual void ShowBriefInfo() const;
 		virtual void ShowInfo() const;
 
 	private:
