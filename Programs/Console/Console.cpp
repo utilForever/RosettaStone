@@ -6,6 +6,8 @@
 > Created Time: 2017/10/08
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include "Console.h"
+
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
 #include <Commons/Utils.h>
@@ -15,7 +17,6 @@
 #include <Loaders/PlayerLoader.h>
 #include <Models/Card.h>
 #include <Models/Cards.h>
-#include <Programs/Console.h>
 
 #include <filesystem>
 #include <fstream>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hearthstonepp", "Sources\Hearthstonepp.vcxproj", "{0F739863-D623-4A62-A27B-9ADAE7768837}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,6 +11,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{7645A773-76E4-4665-A8B6-F37F794CB90B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winix", "Libraries\winix\winix.vcxproj", "{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programs", "Programs", "{C86CC936-6168-4C13-B00A-37A869EF25B7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Programs\Console\Console.vcxproj", "{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0F739863-D623-4A62-A27B-9ADAE7768837} = {0F739863-D623-4A62-A27B-9ADAE7768837}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,12 +43,21 @@ Global
 		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Release|x64.Build.0 = Release|x64
 		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Release|x86.ActiveCfg = Release|Win32
 		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A}.Release|x86.Build.0 = Release|Win32
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Debug|x64.ActiveCfg = Debug|x64
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Debug|x64.Build.0 = Debug|x64
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Debug|x86.ActiveCfg = Debug|Win32
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Debug|x86.Build.0 = Debug|Win32
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Release|x64.ActiveCfg = Release|x64
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Release|x64.Build.0 = Release|x64
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Release|x86.ActiveCfg = Release|Win32
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{18ECE3D3-8250-4073-9F0B-2CAA62F80E2A} = {7645A773-76E4-4665-A8B6-F37F794CB90B}
+		{436E992A-EAE7-4B38-B7AB-30F5EC9C632B} = {C86CC936-6168-4C13-B00A-37A869EF25B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4094F2BE-FA03-46D8-9E76-22063B684E7F}

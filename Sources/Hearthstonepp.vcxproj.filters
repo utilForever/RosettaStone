@@ -16,9 +16,6 @@
     <Filter Include="Agents">
       <UniqueIdentifier>{8397b0de-2eba-4439-9572-4d382dd7a350}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Programs">
-      <UniqueIdentifier>{57cbb170-5060-41ae-9ba1-701faa2e2b15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Commons">
       <UniqueIdentifier>{f3f6e453-0524-4dda-b84c-80971ff51259}</UniqueIdentifier>
     </Filter>
@@ -27,7 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Loaders\CardLoader.cpp">
       <Filter>Loaders</Filter>
     </ClCompile>
@@ -36,9 +32,6 @@
     </ClCompile>
     <ClCompile Include="Agents\GameAgent.cpp">
       <Filter>Agents</Filter>
-    </ClCompile>
-    <ClCompile Include="Programs\Console.cpp">
-      <Filter>Programs</Filter>
     </ClCompile>
     <ClCompile Include="Models\Cards.cpp">
       <Filter>Models</Filter>
@@ -81,71 +74,68 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enums\Enums.h">
-      <Filter>Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CardLoader.h">
-      <Filter>Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Card.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Entities\Hero.h">
-      <Filter>Models\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Entities\Minion.h">
-      <Filter>Models\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Entities\Spell.h">
-      <Filter>Models\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Entities\HeroPower.h">
-      <Filter>Models\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Entities\Enchantment.h">
-      <Filter>Models\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Entities\Weapon.h">
-      <Filter>Models\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\StringToEnums.h">
-      <Filter>Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Agents\GameAgent.h">
+    <ClInclude Include="..\Includes\Agents\AgentStructures.h">
       <Filter>Agents</Filter>
     </ClInclude>
-    <ClInclude Include="Programs\Console.h">
-      <Filter>Programs</Filter>
-    </ClInclude>
-    <ClInclude Include="Commons\Constants.h">
-      <Filter>Commons</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Deck.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Cards.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\EnumsToString.h">
-      <Filter>Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\Player.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\PlayerLoader.h">
-      <Filter>Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface\InteractBuffer.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface\Interface.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Agents\AgentStructures.h">
+    <ClInclude Include="..\Includes\Agents\GameAgent.h">
       <Filter>Agents</Filter>
     </ClInclude>
-    <ClInclude Include="Commons\Utils.h">
+    <ClInclude Include="..\Includes\Commons\Constants.h">
       <Filter>Commons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Commons\Utils.h">
+      <Filter>Commons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Enums\Enums.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Enums\EnumsToString.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Enums\StringToEnums.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Interface\InteractBuffer.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Interface\Interface.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Loaders\CardLoader.h">
+      <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Loaders\PlayerLoader.h">
+      <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Entities\Enchantment.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Entities\Hero.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Entities\HeroPower.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Entities\Minion.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Entities\Spell.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Entities\Weapon.h">
+      <Filter>Models\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Card.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Cards.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Deck.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Includes\Models\Player.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
