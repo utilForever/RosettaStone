@@ -16,9 +16,6 @@
     <Filter Include="Agents">
       <UniqueIdentifier>{8397b0de-2eba-4439-9572-4d382dd7a350}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Programs">
-      <UniqueIdentifier>{57cbb170-5060-41ae-9ba1-701faa2e2b15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Commons">
       <UniqueIdentifier>{f3f6e453-0524-4dda-b84c-80971ff51259}</UniqueIdentifier>
     </Filter>
@@ -27,7 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Loaders\CardLoader.cpp">
       <Filter>Loaders</Filter>
     </ClCompile>
@@ -36,9 +32,6 @@
     </ClCompile>
     <ClCompile Include="Agents\GameAgent.cpp">
       <Filter>Agents</Filter>
-    </ClCompile>
-    <ClCompile Include="Programs\Console.cpp">
-      <Filter>Programs</Filter>
     </ClCompile>
     <ClCompile Include="Models\Cards.cpp">
       <Filter>Models</Filter>
@@ -113,9 +106,6 @@
     </ClInclude>
     <ClInclude Include="Agents\GameAgent.h">
       <Filter>Agents</Filter>
-    </ClInclude>
-    <ClInclude Include="Programs\Console.h">
-      <Filter>Programs</Filter>
     </ClInclude>
     <ClInclude Include="Commons\Constants.h">
       <Filter>Commons</Filter>

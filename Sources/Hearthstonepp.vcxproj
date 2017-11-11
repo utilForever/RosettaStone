@@ -160,7 +160,6 @@
     <ClCompile Include="Interface\Interface.cpp" />
     <ClCompile Include="Loaders\CardLoader.cpp" />
     <ClCompile Include="Loaders\PlayerLoader.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Models\Card.cpp" />
     <ClCompile Include="Models\Cards.cpp" />
     <ClCompile Include="Models\Deck.cpp" />
@@ -171,7 +170,6 @@
     <ClCompile Include="Models\Entities\Spell.cpp" />
     <ClCompile Include="Models\Entities\Weapon.cpp" />
     <ClCompile Include="Models\Player.cpp" />
-    <ClCompile Include="Programs\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agents\AgentStructures.h" />
@@ -195,7 +193,6 @@
     <ClInclude Include="Models\Entities\Spell.h" />
     <ClInclude Include="Models\Entities\Weapon.h" />
     <ClInclude Include="Models\Player.h" />
-    <ClInclude Include="Programs\Console.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
