@@ -70,25 +70,25 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>../Libraries/;../Sources;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>../Libraries/;../Includes;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)obj/$(Platform)/$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>../Libraries/;../Sources;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>../Libraries/;../Includes;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)obj/$(Platform)/$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>../Libraries/;../Sources;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>../Libraries/;../Includes;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)obj/$(Platform)/$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>../Libraries/;../Sources;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>../Libraries/;../Includes;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)obj/$(Platform)/$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
@@ -172,27 +172,27 @@
     <ClCompile Include="Models\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Agents\AgentStructures.h" />
-    <ClInclude Include="Agents\GameAgent.h" />
-    <ClInclude Include="Commons\Constants.h" />
-    <ClInclude Include="Commons\Utils.h" />
-    <ClInclude Include="Enums\EnumsToString.h" />
-    <ClInclude Include="Enums\StringToEnums.h" />
-    <ClInclude Include="Enums\Enums.h" />
-    <ClInclude Include="Interface\InteractBuffer.h" />
-    <ClInclude Include="Interface\Interface.h" />
-    <ClInclude Include="Loaders\CardLoader.h" />
-    <ClInclude Include="Loaders\PlayerLoader.h" />
-    <ClInclude Include="Models\Card.h" />
-    <ClInclude Include="Models\Cards.h" />
-    <ClInclude Include="Models\Deck.h" />
-    <ClInclude Include="Models\Entities\Enchantment.h" />
-    <ClInclude Include="Models\Entities\Hero.h" />
-    <ClInclude Include="Models\Entities\HeroPower.h" />
-    <ClInclude Include="Models\Entities\Minion.h" />
-    <ClInclude Include="Models\Entities\Spell.h" />
-    <ClInclude Include="Models\Entities\Weapon.h" />
-    <ClInclude Include="Models\Player.h" />
+    <ClInclude Include="..\Includes\Agents\AgentStructures.h" />
+    <ClInclude Include="..\Includes\Agents\GameAgent.h" />
+    <ClInclude Include="..\Includes\Commons\Constants.h" />
+    <ClInclude Include="..\Includes\Commons\Utils.h" />
+    <ClInclude Include="..\Includes\Enums\Enums.h" />
+    <ClInclude Include="..\Includes\Enums\EnumsToString.h" />
+    <ClInclude Include="..\Includes\Enums\StringToEnums.h" />
+    <ClInclude Include="..\Includes\Interface\InteractBuffer.h" />
+    <ClInclude Include="..\Includes\Interface\Interface.h" />
+    <ClInclude Include="..\Includes\Loaders\CardLoader.h" />
+    <ClInclude Include="..\Includes\Loaders\PlayerLoader.h" />
+    <ClInclude Include="..\Includes\Models\Card.h" />
+    <ClInclude Include="..\Includes\Models\Cards.h" />
+    <ClInclude Include="..\Includes\Models\Deck.h" />
+    <ClInclude Include="..\Includes\Models\Entities\Enchantment.h" />
+    <ClInclude Include="..\Includes\Models\Entities\Hero.h" />
+    <ClInclude Include="..\Includes\Models\Entities\HeroPower.h" />
+    <ClInclude Include="..\Includes\Models\Entities\Minion.h" />
+    <ClInclude Include="..\Includes\Models\Entities\Spell.h" />
+    <ClInclude Include="..\Includes\Models\Entities\Weapon.h" />
+    <ClInclude Include="..\Includes\Models\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
