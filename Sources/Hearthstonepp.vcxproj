@@ -105,6 +105,12 @@
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>winix.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -118,6 +124,12 @@
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>winix.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -135,6 +147,12 @@
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>winix.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -152,6 +170,12 @@
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>winix.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
+xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agents\AgentStructures.cpp" />
