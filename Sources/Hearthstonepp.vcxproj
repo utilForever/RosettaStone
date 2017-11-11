@@ -109,7 +109,9 @@
       <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
-xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+xcopy /s /y "$(SolutionDir)Includes\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Resources\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)obj\$(Platform)\$(Configuration)\Resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,7 +130,9 @@ xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configura
       <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
-xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+xcopy /s /y "$(SolutionDir)Includes\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Resources\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)obj\$(Platform)\$(Configuration)\Resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -151,7 +155,9 @@ xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configura
       <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
-xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+xcopy /s /y "$(SolutionDir)Includes\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Resources\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)obj\$(Platform)\$(Configuration)\Resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,7 +180,9 @@ xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configura
       <Command>mkdir "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.lib" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
 xcopy /y "$(SolutionDir)obj\$(Platform)\$(Configuration)\Hearthstonepp.pdb" "$(SolutionDir)Results\$(Platform)\$(Configuration)\"
-xcopy /y "$(SolutionDir)Includes" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes"</Command>
+xcopy /s /y "$(SolutionDir)Includes\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Includes\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)Results\$(Platform)\$(Configuration)\Resources\"
+xcopy /y "$(SolutionDir)Resources\*.*" "$(SolutionDir)obj\$(Platform)\$(Configuration)\Resources\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
