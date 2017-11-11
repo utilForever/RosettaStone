@@ -15,6 +15,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programs", "Programs", "{C86CC936-6168-4C13-B00A-37A869EF25B7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Programs\Console\Console.vcxproj", "{436E992A-EAE7-4B38-B7AB-30F5EC9C632B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0F739863-D623-4A62-A27B-9ADAE7768837} = {0F739863-D623-4A62-A27B-9ADAE7768837}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
