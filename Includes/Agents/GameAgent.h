@@ -23,7 +23,7 @@ namespace Hearthstonepp
 		GameAgent(User& user1, User& user2, int maxBufferSize = 2048);
 		GameAgent(User&& user1, User&& user2, int maxBufferSize = 2048);
 
-		std::thread* StartAgent(GameResult& result);
+		std::thread StartAgent(GameResult& result);
 
 		int GetBufferCapacity() const;
 		// read data written by Agent

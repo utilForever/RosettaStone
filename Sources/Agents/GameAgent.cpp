@@ -25,9 +25,9 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
-	std::thread* GameAgent::StartAgent(GameResult& result)
+	std::thread GameAgent::StartAgent(GameResult& result)
 	{
-		std::thread* agent = new std::thread([this](GameResult& result)
+		return std::thread([this](GameResult& result)
 		{
 			BeginPhase();
 
@@ -38,9 +38,6 @@ namespace Hearthstonepp
 
 			FinalPhase(result);
 		}, std::ref(result));
-
-		// return new GameAgent thread
-		return agent;
 	}
 
 	void GameAgent::BeginPhase()
