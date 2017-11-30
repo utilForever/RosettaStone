@@ -22,7 +22,7 @@ namespace Hearthstonepp
 	GameResult GameInterface::StartGame()
 	{
 		GameResult result;
-		std::thread* at = m_agent.StartAgent(result);
+		std::thread at = m_agent.StartAgent(result);
 
 		while (true)
 		{
@@ -34,13 +34,12 @@ namespace Hearthstonepp
 		}
 
 		// join agent thread
-		at->join();
-		delete at;
+		at.join();
 
 		return result;
 	}
 
-	int GameInterface::HandleMessage()
+	const int GameInterface::HandleMessage()
 	{
 		m_agent.ReadBuffer(m_buffer, m_bufferCapacity);
 

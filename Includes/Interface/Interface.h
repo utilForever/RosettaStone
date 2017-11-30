@@ -27,7 +27,7 @@ namespace Hearthstonepp
 		GameResult StartGame();
 
 	private:
-		int HandleMessage();
+		const int HandleMessage();
 		void LogWriter(std::string& name, std::string meesage);
 
 		void BeginFirst();
