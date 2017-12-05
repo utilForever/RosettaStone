@@ -28,7 +28,7 @@ namespace Hearthstonepp
 		unsigned int GetNumOfCards() const;
 		size_t GetUniqueNumOfCards() const;
 		unsigned int GetNumCardInDeck(std::string cardID);
-		std::vector<Card*> GetPrimitiveDeck() const;
+		std::vector<const Card*> GetPrimitiveDeck() const;
 		std::pair<std::string, int> GetCard(size_t idx) const;
 
 		void ShowCardList() const;
