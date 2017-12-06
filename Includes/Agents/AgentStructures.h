@@ -25,6 +25,7 @@ namespace Hearthstonepp
 		User(Player* player, int deckID);
 
 		int id;
+		int mana;
 
 		std::string userID;
 		Hero* hero;
@@ -56,6 +57,15 @@ namespace Hearthstonepp
 		Card** cards;
 	};
 
+	struct ModifyManaStructure
+	{
+		ModifyManaStructure(BYTE userID, BYTE mana);
+
+		BYTE id = static_cast<BYTE>(CustomStep::MANA_MODIFICATION);
+		BYTE userID;
+		BYTE mana;
+	};
+
 	struct BeginFirstStructure
 	{
 		BeginFirstStructure(std::string& userFirst, std::string& userLast);
@@ -67,18 +77,18 @@ namespace Hearthstonepp
 
 	struct BeginShuffleStructure
 	{
-		BeginShuffleStructure(int userID);
+		BeginShuffleStructure(BYTE userID);
 
 		BYTE id = static_cast<BYTE>(Step::BEGIN_SHUFFLE);
-		int userID;
+		BYTE userID;
 	};
 
 	struct BeginMulliganStructure
 	{
-		BeginMulliganStructure(int userID);
+		BeginMulliganStructure(BYTE userID);
 
 		BYTE id = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
-		int userID;
+		BYTE userID;
 	};
 }
 

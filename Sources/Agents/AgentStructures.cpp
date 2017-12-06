@@ -13,7 +13,7 @@
 namespace Hearthstonepp
 {
 	User::User(Player* player, int deckID) :
-		userID(player->GetID()) , weapon(nullptr)
+		mana(0), userID(player->GetID()) , weapon(nullptr)
 	{
 		Cards* cards = Cards::GetInstance();
 
@@ -43,18 +43,24 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
+	ModifyManaStructure::ModifyManaStructure(BYTE userID, BYTE mana) :
+		userID(userID), mana(mana)
+	{
+		// Do Nothing
+	}
+
 	BeginFirstStructure::BeginFirstStructure(std::string& userFirst, std::string& userLast) :
 		userFirst(userFirst), userLast(userLast)
 	{
 		// Do Nothing
 	}
 
-	BeginShuffleStructure::BeginShuffleStructure(int userID) : userID(userID)
+	BeginShuffleStructure::BeginShuffleStructure(BYTE userID) : userID(userID)
 	{
 		// Do Nothing
 	}
 
-	BeginMulliganStructure::BeginMulliganStructure(int userID) : userID(userID)
+	BeginMulliganStructure::BeginMulliganStructure(BYTE userID) : userID(userID)
 	{
 		// Do Nothing
 	}
