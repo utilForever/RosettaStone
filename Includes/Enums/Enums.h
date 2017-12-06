@@ -846,6 +846,18 @@ namespace Hearthstonepp
 		SETASIDE = 6,
 		SECRET = 7,
 	};
+
+	enum class ManaModification
+	{
+		ADD = 0,
+		SUB = 1,
+		SYNC = 2
+	};
+
+	enum class CustomStep
+	{
+		MANA_MODIFICATION = 0
+	};
 }
 
 #endif
