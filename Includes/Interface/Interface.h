@@ -28,12 +28,16 @@ namespace Hearthstonepp
 
 	private:
 		const int HandleMessage();
-		void LogWriter(std::string& name, std::string meesage);
+		std::ostream& LogWriter(std::string& name);
+
+		void ModifiedMana();
 
 		void BeginFirst();
 		void BeginShuffle();
 		void BeginDraw();
 		void BeginMulligan();
+
+		void MainDraw();
 
 		GameAgent& m_agent;
 		std::string m_users[2];
@@ -46,7 +50,9 @@ namespace Hearthstonepp
 			{ static_cast<BYTE>(Step::BEGIN_FIRST),		&GameInterface::BeginFirst },
 			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE),	&GameInterface::BeginShuffle },
 			{ static_cast<BYTE>(Step::BEGIN_DRAW),		&GameInterface::BeginDraw },
-			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),	&GameInterface::BeginMulligan }
+			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),	&GameInterface::BeginMulligan },
+			{ static_cast<BYTE>(Step::MAIN_DRAW),		&GameInterface::MainDraw },
+			{ static_cast<BYTE>(CustomStep::MANA_MODIFICATION), &GameInterface::ModifiedMana },
 		};
 	};
 }

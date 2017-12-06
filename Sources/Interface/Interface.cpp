@@ -56,9 +56,17 @@ namespace Hearthstonepp
 		return HANDLE_CONTINUE;
 	}
 
-	void GameInterface::LogWriter(std::string& name, std::string message)
+	std::ostream& GameInterface::LogWriter(std::string& name)
 	{
-		std::cout << "[*] " << name << " : " << message << std::endl;
+		std::cout << "[*] " << name << " : ";
+		return std::cout;
+	}
+
+	void GameInterface::ModifiedMana()
+	{
+		ModifyManaStructure *data = reinterpret_cast<ModifyManaStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Mana is modified to " << static_cast<int>(data->mana) << std::endl;
 	}
 
 	void GameInterface::BeginFirst()
@@ -68,22 +76,22 @@ namespace Hearthstonepp
 		m_users[0] = data->userFirst;
 		m_users[1] = data->userLast;
 
-		LogWriter(m_users[0], "Begin First");
-		LogWriter(m_users[1], "Begin Last");
+		LogWriter(m_users[0]) << "Begin First" << std::endl;
+		LogWriter(m_users[1]) << "Begin Last" << std::endl;
 	}
 
 	void GameInterface::BeginShuffle()
 	{
 		BeginShuffleStructure* data = reinterpret_cast<BeginShuffleStructure*>(m_buffer);
 
-		LogWriter(m_users[data->userID], "Begin Shuffle");
+		LogWriter(m_users[data->userID]) << "Begin Shuffle" << std::endl;
 	}
 
 	void GameInterface::BeginDraw()
 	{
 		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
 
-		LogWriter(m_users[data->userID], "Begin Draw");
+		LogWriter(m_users[data->userID]) << "Begin Draw" << std::endl;
 
 		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
 		{
@@ -97,7 +105,7 @@ namespace Hearthstonepp
 	{
 		BeginMulliganStructure* data = reinterpret_cast<BeginMulliganStructure*>(m_buffer);
 
-		LogWriter(m_users[data->userID], "Begin Mulligan");
+		LogWriter(m_users[data->userID]) << "Begin Mulligan" << std::endl;
 
 		int numMulligan;
 		while (true)
@@ -133,13 +141,27 @@ namespace Hearthstonepp
 		// get new card data
 		m_agent.ReadBuffer(m_buffer, sizeof(DrawStructure));
 		
-		LogWriter(m_users[data->userID], "Mulligan Result");
+		LogWriter(m_users[data->userID]) << "Mulligan Result" << std::endl;
 
 		DrawStructure* draw = reinterpret_cast<DrawStructure*>(m_buffer);
 
 		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
 		{
 			std::cout << "[" << draw->cards[i]->GetName() << "] ";
+		}
+
+		std::cout << std::endl;
+	}
+
+	void GameInterface::MainDraw()
+	{
+		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Main Draw" << std::endl;
+
+		for (int i = 0; i < data->numHands; ++i)
+		{
+			std::cout << "[" << data->cards[i]->GetName() << "] ";
 		}
 
 		std::cout << std::endl;
