@@ -7,12 +7,13 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Agents/AgentStructures.h>
+#include <Commons/Constants.h>
 #include <Enums/EnumsToString.h>
 
 namespace Hearthstonepp
 {
 	User::User(Player* player, int deckID) :
-		player(player) , weapon(nullptr)
+		userID(player->GetID()) , weapon(nullptr)
 	{
 		Cards* cards = Cards::GetInstance();
 
@@ -22,9 +23,18 @@ namespace Hearthstonepp
 		const Card* heroCard = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
 		const Card* powerCard = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
 
-		deck = tmpDeck->GetPrimitiveDeck();
-		hero = static_cast<Hero*>(const_cast<Card*>(heroCard));
-		power = static_cast<HeroPower*>(const_cast<Card*>(powerCard));
+		cardDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
+		for (auto& ptrCard : tmpDeck->GetPrimitiveDeck())
+		{
+			cardDeck.emplace_back(Card(*ptrCard));
+			deck.emplace_back(&cardDeck.back());
+		}
+
+		cardDeck.emplace_back(Card(*heroCard));
+		hero = reinterpret_cast<Hero*>(&cardDeck.back());
+
+		cardDeck.emplace_back(Card(*powerCard));
+		power = reinterpret_cast<HeroPower*>(&cardDeck.back());
 	}
 
 	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, BYTE numHands, Card** cards) :
@@ -33,8 +43,8 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
-	BeginFirstStructure::BeginFirstStructure(std::string&& userFirst, std::string&& userLast) :
-		userFirst(std::move(userFirst)), userLast(std::move(userLast))
+	BeginFirstStructure::BeginFirstStructure(std::string& userFirst, std::string& userLast) :
+		userFirst(userFirst), userLast(userLast)
 	{
 		// Do Nothing
 	}

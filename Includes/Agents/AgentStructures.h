@@ -25,10 +25,13 @@ namespace Hearthstonepp
 		User(Player* player, int deckID);
 
 		int id;
-		Player* player;
+
+		std::string userID;
 		Hero* hero;
 		HeroPower* power;
 		Weapon* weapon;
+
+		std::vector<Card> cardDeck;
 
 		std::vector<Card*> deck;
 		std::vector<Card*> field;
@@ -55,11 +58,11 @@ namespace Hearthstonepp
 
 	struct BeginFirstStructure
 	{
-		BeginFirstStructure(std::string&& userFirst, std::string&& userLast);
+		BeginFirstStructure(std::string& userFirst, std::string& userLast);
 
 		BYTE id = static_cast<BYTE>(Step::BEGIN_FIRST);
-		std::string userFirst;
-		std::string userLast;
+		std::string& userFirst;
+		std::string& userLast;
 	};
 
 	struct BeginShuffleStructure
