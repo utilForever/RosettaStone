@@ -52,6 +52,7 @@ namespace Hearthstonepp
 
 		bool IsGameEnd();
 		void Draw(User& user, int num);
+		void ModifyMana(User& user, ManaModification mod, int num);
 
 		void BeginPhase();
 		void MainPhase();
@@ -61,6 +62,8 @@ namespace Hearthstonepp
 		void ShuffleDeck(User& user);
 		void BeginDraw(User& user);
 		void Mulligan(User& user);
+
+		void MainDraw(User& user);
 	};
 }
 

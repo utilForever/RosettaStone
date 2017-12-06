@@ -61,13 +61,18 @@ namespace Hearthstonepp
 
 	void GameAgent::MainPhase()
 	{
+		MainDraw(m_userCurrent);
+		ModifyMana(m_userCurrent, ManaModification::ADD, 1);
+		
+		BYTE i;
+		scanf("%c\n", &i);
 
+		std::swap(m_userCurrent, m_userOpponent);
 	}
 
 	void GameAgent::FinalPhase(GameResult& result)
 	{
 		BYTE end = static_cast<BYTE>(Step::FINAL_GAMEOVER);
-
 		WriteOutputBuffer(&end, 1);
 	}
 
@@ -101,7 +106,8 @@ namespace Hearthstonepp
 		Draw(user, NUM_BEGIN_DRAW);
 
 		Card** hand = user.hand.data();
-		DrawStructure data(static_cast<BYTE>(Step::BEGIN_DRAW), user.id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
+		BYTE drawType = static_cast<BYTE>(Step::BEGIN_DRAW);
+		DrawStructure data(drawType, user.id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
 	}
 
@@ -124,20 +130,30 @@ namespace Hearthstonepp
 		}
 
 		std::shuffle(deck.begin(), deck.end(), m_generator);
-
 		Draw(user, read);
-		DrawStructure data2(static_cast<BYTE>(Step::BEGIN_MULLIGAN), user.id, read, NUM_BEGIN_DRAW, hand.data());
+
+		BYTE drawType = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
+		DrawStructure data2(drawType, user.id, read, NUM_BEGIN_DRAW, hand.data());
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
+	}
+
+	void GameAgent::MainDraw(User& user)
+	{
+		Draw(user, 1);
+
+		Card** hand = user.hand.data();
+		BYTE drawType = static_cast<BYTE>(Step::MAIN_DRAW);
+		DrawStructure data(drawType, user.id, 1, user.hand.size(), hand);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
 	}
 
 	bool GameAgent::IsGameEnd()
 	{
-		return true;
-		/*
-		int healthCurrent = userCurrent.m_hero->health;
-		int healthOpponent = userOpponent.m_hero->health;
+		
+		int healthCurrent = m_userCurrent.hero->GetHealth();
+		int healthOpponent = m_userOpponent.hero->GetHealth();
 
-		if (healthCurrent <= 0 || healthOpponent <= 0)
+		if (healthCurrent < 1 || healthOpponent < 1)
 		{
 			return true;
 		}
@@ -145,7 +161,7 @@ namespace Hearthstonepp
 		{
 			return false;
 		}
-		*/
+		
 	}
 
 	void GameAgent::Draw(User& user, int num)
@@ -158,6 +174,34 @@ namespace Hearthstonepp
 			hand.push_back(deck.back());
 			deck.pop_back();
 		}
+	}
+
+	void GameAgent::ModifyMana(User& user, ManaModification mod, int num)
+	{
+		if (mod == ManaModification::ADD)
+		{
+			user.mana += num;
+		}
+		else if (mod == ManaModification::SUB)
+		{
+			user.mana -= num;
+		}
+		else if (mod == ManaModification::SYNC)
+		{
+			user.mana = num;
+		}
+
+		if (user.mana > 10)
+		{
+			user.mana = 10;
+		}
+		else if (user.mana < 0)
+		{
+			user.mana = 0;
+		}
+
+		ModifyManaStructure modified(user.id, user.mana);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyManaStructure));
 	}
 
 	int GameAgent::GetBufferCapacity() const
