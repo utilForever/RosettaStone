@@ -854,9 +854,9 @@ namespace Hearthstonepp
 		SYNC = 2
 	};
 
-	enum class CustomStep
+	enum class Action
 	{
-		MANA_MODIFICATION = 0
+		MANA_MODIFICATION = 100
 	};
 }
 
