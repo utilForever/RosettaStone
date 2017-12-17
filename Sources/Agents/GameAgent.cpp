@@ -146,7 +146,21 @@ namespace Hearthstonepp
 
 	void GameAgent::MainMenu(User& user)
 	{
-		
+		MainMenuStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainMenuStructure));
+
+		BYTE menu;
+		ReadInputBuffer(&menu, 1);
+
+		if (menu < GAME_MAIN_MENU_SIZE - 1)
+		{
+			m_mainMenuFuncs[menu](*this, user);
+			MainMenu(user);
+		}
+		else
+		{
+			MainEnd(user);
+		}
 	}
 
 	void GameAgent::MainUseCard(User& user)

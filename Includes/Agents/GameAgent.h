@@ -10,6 +10,7 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Agents/AgentStructures.h>
+#include <Commons/Constants.h>
 #include <Interface/InteractBuffer.h>
 
 #include <array>
@@ -71,11 +72,10 @@ namespace Hearthstonepp
 		void MainCombat(User& user);
 		void MainEnd(User& user);
 
-		std::array<std::function<void(GameAgent&, User&)>, 3> m_mainMenuFuncs =
+		std::array<std::function<void(GameAgent&, User&)>, GAME_MAIN_MENU_SIZE - 1> m_mainMenuFuncs =
 		{
 			&GameAgent::MainUseCard,
 			&GameAgent::MainCombat,
-			&GameAgent::MainEnd
 		};
 	};
 }
