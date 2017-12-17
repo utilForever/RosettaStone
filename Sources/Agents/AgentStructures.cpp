@@ -30,15 +30,15 @@ namespace Hearthstonepp
 			deck.emplace_back(&cardDeck.back());
 		}
 
-		cardDeck.emplace_back(Card(*heroCard));
+		cardDeck.emplace_back(Hero(*reinterpret_cast<const Hero*>(heroCard)));
 		hero = reinterpret_cast<Hero*>(&cardDeck.back());
 
-		cardDeck.emplace_back(Card(*powerCard));
+		cardDeck.emplace_back(HeroPower(*reinterpret_cast<const HeroPower*>(powerCard)));
 		power = reinterpret_cast<HeroPower*>(&cardDeck.back());
 	}
 
-	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, BYTE numHands, Card** cards) :
-		id(drawID), userID(userID), numDraw(numDraw), numHands(numHands), cards(cards)
+	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, Card** cards) :
+		id(drawID), userID(userID), numDraw(numDraw), cards(cards)
 	{
 		// Do Nothing
 	}
@@ -61,6 +61,26 @@ namespace Hearthstonepp
 	}
 
 	BeginMulliganStructure::BeginMulliganStructure(BYTE userID) : userID(userID)
+	{
+		// Do Nothing
+	}
+
+	MainMenuStructure::MainMenuStructure(BYTE userID) : userID(userID)
+	{
+		// Do Nothing
+	}
+
+	MainUseCardStructure::MainUseCardStructure(BYTE userID) : userID(userID)
+	{
+		// Do Nothing
+	}
+
+	MainCombatStructure::MainCombatStructure(BYTE userID) : userID(userID)
+	{
+		// Do Nothing
+	}
+
+	MainEndStructure::MainEndStructure(BYTE userID) : userID(userID)
 	{
 		// Do Nothing
 	}

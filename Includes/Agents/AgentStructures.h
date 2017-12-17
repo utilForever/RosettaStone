@@ -48,12 +48,11 @@ namespace Hearthstonepp
 
 	struct DrawStructure
 	{
-		DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, BYTE numHands, Card** cards);
+		DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, Card** cards);
 
 		BYTE id;
 		BYTE userID;
 		BYTE numDraw;
-		BYTE numHands;
 		Card** cards;
 	};
 
@@ -61,7 +60,7 @@ namespace Hearthstonepp
 	{
 		ModifyManaStructure(BYTE userID, BYTE mana);
 
-		BYTE id = static_cast<BYTE>(CustomStep::MANA_MODIFICATION);
+		BYTE id = static_cast<BYTE>(Action::MANA_MODIFICATION);
 		BYTE userID;
 		BYTE mana;
 	};
@@ -88,6 +87,38 @@ namespace Hearthstonepp
 		BeginMulliganStructure(BYTE userID);
 
 		BYTE id = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
+		BYTE userID;
+	};
+
+	struct MainMenuStructure
+	{
+		MainMenuStructure(BYTE userID);
+
+		BYTE id = static_cast<BYTE>(Step::MAIN_START);
+		BYTE userID;
+	};
+
+	struct MainUseCardStructure
+	{
+		MainUseCardStructure(BYTE userID);
+
+		BYTE id = static_cast<BYTE>(Step::MAIN_ACTION);
+		BYTE userID;
+	};
+
+	struct MainCombatStructure
+	{
+		MainCombatStructure(BYTE userID);
+
+		BYTE id = static_cast<BYTE>(Step::MAIN_COMBAT);
+		BYTE userID;
+	};
+
+	struct MainEndStructure
+	{
+		MainEndStructure(BYTE userID);
+
+		BYTE id = static_cast<BYTE>(Step::MAIN_END);
 		BYTE userID;
 	};
 }
