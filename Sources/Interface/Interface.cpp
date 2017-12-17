@@ -79,6 +79,15 @@ namespace Hearthstonepp
 		}
 	}
 
+	template <std::size_t SIZE>
+	void GameInterface::ShowMenus(std::array<std::string, SIZE> menus)
+	{
+		for (auto& menu : menus)
+		{
+			std::cout << menu << std::endl;
+		}
+	}
+
 	void GameInterface::BeginFirst()
 	{
 		BeginFirstStructure* data = reinterpret_cast<BeginFirstStructure*>(m_buffer);
@@ -160,7 +169,26 @@ namespace Hearthstonepp
 
 	void GameInterface::MainMenu()
 	{
+		MainMenuStructure* data = reinterpret_cast<MainMenuStructure*>(m_buffer);
 
+		LogWriter(m_users[data->userID]) << "Main Menu" << std::endl;
+		ShowMenus(m_mainMenuStr);
+
+		size_t input;
+		while (true)
+		{
+			std::cout << "[*] Input menu : ";
+			std::cin >> input;
+			
+			if (input > 0 && input <= GAME_MAIN_MENU_SIZE)
+			{
+				input -= 1;
+				break;
+			}
+		}
+
+		BYTE menu = static_cast<BYTE>(input);
+		m_agent.WriteBuffer(&menu, 1);
 	}
 
 	void GameInterface::MainUseCard()

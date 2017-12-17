@@ -11,6 +11,7 @@
 
 #include <Agents/GameAgent.h>
 
+#include <array>
 #include <functional>
 #include <map>
 
@@ -32,6 +33,9 @@ namespace Hearthstonepp
 
 		void ModifiedMana();
 		void ShowCards(Card** cards, int size);
+
+		template <std::size_t SIZE>
+		void ShowMenus(std::array<std::string, SIZE> menus);
 
 		void BeginFirst();
 		void BeginShuffle();
@@ -64,7 +68,7 @@ namespace Hearthstonepp
 			{ static_cast<BYTE>(Action::MANA_MODIFICATION), &GameInterface::ModifiedMana },
 		};
 
-		std::array<std::string, 3> m_mainMenuStr =
+		std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr =
 		{
 			"1. Use Card",
 			"2. Combat",
