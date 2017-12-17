@@ -12,6 +12,8 @@
 #include <Agents/AgentStructures.h>
 #include <Interface/InteractBuffer.h>
 
+#include <array>
+#include <functional>
 #include <random>
 #include <thread>
 
@@ -58,12 +60,23 @@ namespace Hearthstonepp
 		void MainPhase();
 		void FinalPhase(GameResult& result);
 
-		void DecideDeckOrder();
-		void ShuffleDeck(User& user);
+		void BeginFirst();
+		void BeginShuffle(User& user);
 		void BeginDraw(User& user);
-		void Mulligan(User& user);
+		void BeginMulligan(User& user);
 
 		void MainDraw(User& user);
+		void MainMenu(User& user);
+		void MainUseCard(User& user);
+		void MainCombat(User& user);
+		void MainEnd(User& user);
+
+		std::array<std::function<void(GameAgent&, User&)>, 3> m_mainMenuFuncs =
+		{
+			&GameAgent::MainUseCard,
+			&GameAgent::MainCombat,
+			&GameAgent::MainEnd
+		};
 	};
 }
 

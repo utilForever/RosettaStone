@@ -44,16 +44,16 @@ namespace Hearthstonepp
 	{
 		// userCurrent : user who start first
 		// userOpponent : user who start later
-		DecideDeckOrder();
+		BeginFirst();
 
-		ShuffleDeck(m_userCurrent);
-		ShuffleDeck(m_userOpponent);
+		BeginShuffle(m_userCurrent);
+		BeginShuffle(m_userOpponent);
 
 		BeginDraw(m_userCurrent);
 		BeginDraw(m_userOpponent);
 
-		Mulligan(m_userCurrent);
-		Mulligan(m_userOpponent);
+		BeginMulligan(m_userCurrent);
+		BeginMulligan(m_userOpponent);
 
 		// TODO: Coin for later user
 		m_userOpponent.hand.push_back(new Card());
@@ -63,9 +63,8 @@ namespace Hearthstonepp
 	{
 		MainDraw(m_userCurrent);
 		ModifyMana(m_userCurrent, ManaModification::ADD, 1);
-		
-		BYTE i;
-		scanf("%c\n", &i);
+
+		MainMenu(m_userCurrent);
 
 		std::swap(m_userCurrent, m_userOpponent);
 	}
@@ -76,7 +75,7 @@ namespace Hearthstonepp
 		WriteOutputBuffer(&end, 1);
 	}
 
-	void GameAgent::DecideDeckOrder()
+	void GameAgent::BeginFirst()
 	{
 		// get random number, zero or one.
 		const std::uniform_int_distribution<int> bin(0, 1);
@@ -92,7 +91,7 @@ namespace Hearthstonepp
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginFirstStructure));
 	}
 
-	void GameAgent::ShuffleDeck(User& user)
+	void GameAgent::BeginShuffle(User& user)
 	{
 		std::vector<Card*>& deck = user.deck;
 		std::shuffle(deck.begin(), deck.end(), m_generator); // shuffle with random generator
@@ -105,13 +104,12 @@ namespace Hearthstonepp
 	{
 		Draw(user, NUM_BEGIN_DRAW);
 
-		Card** hand = user.hand.data();
 		BYTE drawType = static_cast<BYTE>(Step::BEGIN_DRAW);
-		DrawStructure data(drawType, user.id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
+		DrawStructure data(drawType, user.id, NUM_BEGIN_DRAW, user.hand.data());
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
 	}
 
-	void GameAgent::Mulligan(User& user)
+	void GameAgent::BeginMulligan(User& user)
 	{
 		BeginMulliganStructure data(user.id);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginMulliganStructure));
@@ -133,7 +131,7 @@ namespace Hearthstonepp
 		Draw(user, read);
 
 		BYTE drawType = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
-		DrawStructure data2(drawType, user.id, read, NUM_BEGIN_DRAW, hand.data());
+		DrawStructure data2(drawType, user.id, read, hand.end()._Ptr - read);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
 	}
 
@@ -141,27 +139,42 @@ namespace Hearthstonepp
 	{
 		Draw(user, 1);
 
-		Card** hand = user.hand.data();
 		BYTE drawType = static_cast<BYTE>(Step::MAIN_DRAW);
-		DrawStructure data(drawType, user.id, 1, user.hand.size(), hand);
+		DrawStructure data(drawType, user.id, 1, user.hand.end()._Ptr - 1);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
+	}
+
+	void GameAgent::MainMenu(User& user)
+	{
+		
+	}
+
+	void GameAgent::MainUseCard(User& user)
+	{
+
+	}
+
+	void GameAgent::MainCombat(User& user)
+	{
+
+	}
+
+	void GameAgent::MainEnd(User& user)
+	{
+
 	}
 
 	bool GameAgent::IsGameEnd()
 	{
-		
 		int healthCurrent = m_userCurrent.hero->GetHealth();
 		int healthOpponent = m_userOpponent.hero->GetHealth();
 
-		if (healthCurrent < 1 || healthOpponent < 1)
-		{
+		if (healthCurrent < 1 || healthOpponent < 1) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
-		
 	}
 
 	void GameAgent::Draw(User& user, int num)
@@ -178,25 +191,20 @@ namespace Hearthstonepp
 
 	void GameAgent::ModifyMana(User& user, ManaModification mod, int num)
 	{
-		if (mod == ManaModification::ADD)
-		{
+		if (mod == ManaModification::ADD) {
 			user.mana += num;
 		}
-		else if (mod == ManaModification::SUB)
-		{
+		else if (mod == ManaModification::SUB) {
 			user.mana -= num;
 		}
-		else if (mod == ManaModification::SYNC)
-		{
+		else if (mod == ManaModification::SYNC) {
 			user.mana = num;
 		}
 
-		if (user.mana > 10)
-		{
+		if (user.mana > 10) {
 			user.mana = 10;
 		}
-		else if (user.mana < 0)
-		{
+		else if (user.mana < 0) {
 			user.mana = 0;
 		}
 
