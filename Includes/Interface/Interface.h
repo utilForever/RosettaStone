@@ -31,6 +31,7 @@ namespace Hearthstonepp
 		std::ostream& LogWriter(std::string& name);
 
 		void ModifiedMana();
+		void ShowCards(Card** cards, int size);
 
 		void BeginFirst();
 		void BeginShuffle();
@@ -38,6 +39,10 @@ namespace Hearthstonepp
 		void BeginMulligan();
 
 		void MainDraw();
+		void MainMenu();
+		void MainUseCard();
+		void MainCombat();
+		void MainEnd();
 
 		GameAgent& m_agent;
 		std::string m_users[2];
@@ -52,7 +57,18 @@ namespace Hearthstonepp
 			{ static_cast<BYTE>(Step::BEGIN_DRAW),		&GameInterface::BeginDraw },
 			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),	&GameInterface::BeginMulligan },
 			{ static_cast<BYTE>(Step::MAIN_DRAW),		&GameInterface::MainDraw },
-			{ static_cast<BYTE>(CustomStep::MANA_MODIFICATION), &GameInterface::ModifiedMana },
+			{ static_cast<BYTE>(Step::MAIN_START),		&GameInterface::MainMenu },
+			{ static_cast<BYTE>(Step::MAIN_ACTION),		&GameInterface::MainUseCard },
+			{ static_cast<BYTE>(Step::MAIN_COMBAT),		&GameInterface::MainCombat },
+			{ static_cast<BYTE>(Step::MAIN_END),		&GameInterface::MainEnd },
+			{ static_cast<BYTE>(Action::MANA_MODIFICATION), &GameInterface::ModifiedMana },
+		};
+
+		std::array<std::string, 3> m_mainMenuStr =
+		{
+			"1. Use Card",
+			"2. Combat",
+			"3. Stop"
 		};
 	};
 }

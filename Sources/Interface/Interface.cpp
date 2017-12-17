@@ -7,6 +7,7 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Commons/Constants.h>
+#include <Enums/EnumsToString.h>
 #include <Interface/Interface.h>
 
 #include <iostream>
@@ -69,6 +70,15 @@ namespace Hearthstonepp
 		LogWriter(m_users[data->userID]) << "Mana is modified to " << static_cast<int>(data->mana) << std::endl;
 	}
 
+	void GameInterface::ShowCards(Card** cards, int size)
+	{
+		for (int i = 0; i < size; ++i)
+		{
+			std::string type = ConverterFromCardTypeToString.at(cards[i]->GetCardType());
+			std::cout << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")]\n";
+		}
+	}
+
 	void GameInterface::BeginFirst()
 	{
 		BeginFirstStructure* data = reinterpret_cast<BeginFirstStructure*>(m_buffer);
@@ -83,7 +93,6 @@ namespace Hearthstonepp
 	void GameInterface::BeginShuffle()
 	{
 		BeginShuffleStructure* data = reinterpret_cast<BeginShuffleStructure*>(m_buffer);
-
 		LogWriter(m_users[data->userID]) << "Begin Shuffle" << std::endl;
 	}
 
@@ -92,13 +101,7 @@ namespace Hearthstonepp
 		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
 
 		LogWriter(m_users[data->userID]) << "Begin Draw" << std::endl;
-
-		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
-		{
-			std::cout << "[" << data->cards[i]->GetName() << "] ";
-		}
-
-		std::cout << std::endl;
+		ShowCards(data->cards, data->numDraw);
 	}
 
 	void GameInterface::BeginMulligan()
@@ -144,13 +147,7 @@ namespace Hearthstonepp
 		LogWriter(m_users[data->userID]) << "Mulligan Result" << std::endl;
 
 		DrawStructure* draw = reinterpret_cast<DrawStructure*>(m_buffer);
-
-		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
-		{
-			std::cout << "[" << draw->cards[i]->GetName() << "] ";
-		}
-
-		std::cout << std::endl;
+		ShowCards(draw->cards, draw->numDraw);
 	}
 
 	void GameInterface::MainDraw()
@@ -158,12 +155,26 @@ namespace Hearthstonepp
 		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
 
 		LogWriter(m_users[data->userID]) << "Main Draw" << std::endl;
+		ShowCards(data->cards, data->numDraw);
+	}
 
-		for (int i = 0; i < data->numHands; ++i)
-		{
-			std::cout << "[" << data->cards[i]->GetName() << "] ";
-		}
+	void GameInterface::MainMenu()
+	{
 
-		std::cout << std::endl;
+	}
+
+	void GameInterface::MainUseCard()
+	{
+
+	}
+
+	void GameInterface::MainCombat()
+	{
+
+	}
+
+	void GameInterface::MainEnd()
+	{
+
 	}
 }
