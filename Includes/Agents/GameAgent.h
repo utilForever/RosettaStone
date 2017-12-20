@@ -35,10 +35,15 @@ namespace Hearthstonepp
 		int WriteBuffer(BYTE* arr, int size);
 
 	private:
+		const unsigned int GAME_END = 0;
+		const unsigned int GAME_CONTINUE = 1;
+
 		User m_userCurrent;
 		User m_userOpponent;
 
 		int m_bufferCapacity;
+		// Temporal Buffer
+		BYTE* m_buffer;
 		// Pipe IO : User -> Agent 
 		InteractBuffer m_inBuffer; 
 		// Pipe IO : Agent -> User
@@ -58,7 +63,7 @@ namespace Hearthstonepp
 		void ModifyMana(User& user, ManaModification mod, int num);
 
 		void BeginPhase();
-		void MainPhase();
+		const int MainPhase();
 		void FinalPhase(GameResult& result);
 
 		void BeginFirst();
@@ -67,7 +72,7 @@ namespace Hearthstonepp
 		void BeginMulligan(User& user);
 
 		void MainDraw(User& user);
-		void MainMenu(User& user);
+		const int MainMenu(User& user, User& enemy);
 		void MainUseCard(User& user);
 		void MainCombat(User& user);
 		void MainEnd(User& user);

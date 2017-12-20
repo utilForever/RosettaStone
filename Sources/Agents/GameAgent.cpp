@@ -15,14 +15,14 @@ namespace Hearthstonepp
 		m_userCurrent(user1), m_userOpponent(user2), m_bufferCapacity(maxBufferSize)
 		, m_inBuffer(maxBufferSize), m_outBuffer(maxBufferSize), m_generator(m_rd())
 	{
-		// Do Nothing
+		m_buffer = new BYTE[maxBufferSize];
 	}
 
 	GameAgent::GameAgent(User&& user1, User&& user2, int maxBufferSize) :
 		m_userCurrent(std::move(user1)), m_userOpponent(std::move(user2)), m_bufferCapacity(maxBufferSize),
 		m_inBuffer(maxBufferSize), m_outBuffer(maxBufferSize), m_generator(m_rd())
 	{
-		// Do Nothing
+		m_buffer = new BYTE[maxBufferSize];
 	}
 
 	std::thread GameAgent::StartAgent(GameResult& result)
@@ -31,9 +31,13 @@ namespace Hearthstonepp
 		{
 			BeginPhase();
 
-			while (!IsGameEnd())
+			while (true)
 			{
-				MainPhase();
+				const int result = MainPhase();
+				if (result == GAME_END)
+				{
+					break;
+				}
 			}
 
 			FinalPhase(result);
@@ -59,14 +63,19 @@ namespace Hearthstonepp
 		m_userOpponent.hand.push_back(new Card());
 	}
 
-	void GameAgent::MainPhase()
+	const int GameAgent::MainPhase()
 	{
 		MainDraw(m_userCurrent);
 		ModifyMana(m_userCurrent, ManaModification::ADD, 1);
 
-		MainMenu(m_userCurrent);
+		const int result = MainMenu(m_userCurrent, m_userOpponent);
 
-		std::swap(m_userCurrent, m_userOpponent);
+		if (result == GAME_CONTINUE)
+		{
+			std::swap(m_userCurrent, m_userOpponent);
+		}
+
+		return result;
 	}
 
 	void GameAgent::FinalPhase(GameResult& result)
@@ -117,10 +126,28 @@ namespace Hearthstonepp
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
 		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
 
+		if (read == 0)
+		{
+			return;
+		}
+
+		std::sort(index, index + read, std::greater<int>());
+		if (index[0] >= NUM_BEGIN_DRAW)
+		{
+			throw std::runtime_error("Mulligan index should be under NUM_BEGIN_DRAW.");
+		}
+
+		for (int i = 1; i < read; ++i)
+		{
+			if (index[i] == index[i - 1])
+			{
+				throw std::runtime_error("Mulligan index should all be different.");
+			}
+		}
+
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
 
-		std::sort(index, index + read, std::greater<int>());
 		for (int i = 0; i < read; ++i)
 		{
 			deck.emplace_back(hand[index[i]]);
@@ -144,28 +171,68 @@ namespace Hearthstonepp
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
 	}
 
-	void GameAgent::MainMenu(User& user)
+	const int GameAgent::MainMenu(User& user, User& enemy)
 	{
+		GameBrief brief(
+			user.id, enemy.id, user.mana, enemy.mana, 
+			user.hand.size(), enemy.hand.size(), user.field.size(), enemy.field.size(),
+			user.field.data(), user.hand.data(), enemy.field.data());
+
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&brief), sizeof(GameBrief));
+
 		MainMenuStructure data(user.id);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainMenuStructure));
 
 		BYTE menu;
 		ReadInputBuffer(&menu, 1);
 
-		if (menu < GAME_MAIN_MENU_SIZE - 1)
+		if (menu >= 0 && menu < GAME_MAIN_MENU_SIZE - 1)
 		{
 			m_mainMenuFuncs[menu](*this, user);
-			MainMenu(user);
+			if (IsGameEnd())
+			{
+				return GAME_END;
+			}
+			else
+			{
+				return MainMenu(user, enemy);
+			}
 		}
-		else
+		else if (menu == GAME_MAIN_MENU_SIZE - 1)
 		{
 			MainEnd(user);
 		}
+		else
+		{
+			throw std::runtime_error("Main menu should be in range [0, GAME_MAIN_MENU_SIZE).");
+		}
+
+		return GAME_CONTINUE;
 	}
 
 	void GameAgent::MainUseCard(User& user)
 	{
+		MainUseCardStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainUseCardStructure));
 
+		ReadInputBuffer(m_buffer, m_bufferCapacity);
+
+		if (m_buffer[0] == static_cast<BYTE>(CardType::MINION))
+		{
+			MainUseMinionStructure* minion = reinterpret_cast<MainUseMinionStructure*>(m_buffer);
+			if (minion->position < 0 || minion->position > user.field.size())
+			{
+				throw std::runtime_error("Minion position should be in range [0, user.field.size].");
+			}
+
+			if (minion->cardIndex < 0 || minion->cardIndex >= user.hand.size())
+			{
+				throw std::runtime_error("Card index should be in range [0, user.hand.size).");
+			}
+
+			user.field.insert(user.field.begin() + minion->position, user.hand[minion->cardIndex]);
+			user.hand.erase(user.hand.begin() + minion->cardIndex);
+		}
 	}
 
 	void GameAgent::MainCombat(User& user)
@@ -195,6 +262,31 @@ namespace Hearthstonepp
 	{
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
+
+		if (deck.size() < num)
+		{
+			ExhaustDeckStructure data(user.id, num - deck.size());
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(ExhaustDeckStructure));
+
+			num = deck.size();
+		}
+
+		if (hand.size() + num > 10)
+		{
+			int over = hand.size() + num - 10;
+			Card** burnt = new Card*[over];
+
+			for (int i = 0; i < over; ++i)
+			{
+				burnt[i] = deck.back();
+				deck.pop_back();
+			}
+
+			OverDrawStructure data(user.id, over, burnt);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(OverDrawStructure));
+
+			num = 10 - hand.size();
+		}
 
 		for (int i = 0; i < num; ++i)
 		{
