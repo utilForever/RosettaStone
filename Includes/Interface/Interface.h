@@ -20,22 +20,26 @@ namespace Hearthstonepp
 	class GameInterface
 	{
 	public:
-		const unsigned int HANDLE_CONTINUE = 0;
-		const unsigned int HANDLE_STOP = 1;
-
 		GameInterface(GameAgent& agent);
 
 		GameResult StartGame();
 
 	private:
+		const unsigned int HANDLE_CONTINUE = 0;
+		const unsigned int HANDLE_STOP = 1;
+
 		const int HandleMessage();
 		std::ostream& LogWriter(std::string& name);
 
-		void ModifiedMana();
-		void ShowCards(Card** cards, int size);
-
 		template <std::size_t SIZE>
 		void ShowMenus(std::array<std::string, SIZE> menus);
+		void ShowCards(Card** cards, int size);
+
+		void BriefGame();
+
+		void OverDraw();
+		void ExhaustDeck();
+		void ModifiedMana();
 
 		void BeginFirst();
 		void BeginShuffle();
@@ -56,15 +60,18 @@ namespace Hearthstonepp
 
 		std::map<BYTE, std::function<void(GameInterface&)>> m_handler =
 		{
-			{ static_cast<BYTE>(Step::BEGIN_FIRST),		&GameInterface::BeginFirst },
-			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE),	&GameInterface::BeginShuffle },
-			{ static_cast<BYTE>(Step::BEGIN_DRAW),		&GameInterface::BeginDraw },
-			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),	&GameInterface::BeginMulligan },
-			{ static_cast<BYTE>(Step::MAIN_DRAW),		&GameInterface::MainDraw },
-			{ static_cast<BYTE>(Step::MAIN_START),		&GameInterface::MainMenu },
-			{ static_cast<BYTE>(Step::MAIN_ACTION),		&GameInterface::MainUseCard },
-			{ static_cast<BYTE>(Step::MAIN_COMBAT),		&GameInterface::MainCombat },
-			{ static_cast<BYTE>(Step::MAIN_END),		&GameInterface::MainEnd },
+			{ static_cast<BYTE>(Step::BEGIN_FIRST),			&GameInterface::BeginFirst },
+			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE),		&GameInterface::BeginShuffle },
+			{ static_cast<BYTE>(Step::BEGIN_DRAW),			&GameInterface::BeginDraw },
+			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),		&GameInterface::BeginMulligan },
+			{ static_cast<BYTE>(Step::MAIN_DRAW),			&GameInterface::MainDraw },
+			{ static_cast<BYTE>(Step::MAIN_START),			&GameInterface::MainMenu },
+			{ static_cast<BYTE>(Step::MAIN_ACTION),			&GameInterface::MainUseCard },
+			{ static_cast<BYTE>(Step::MAIN_COMBAT),			&GameInterface::MainCombat },
+			{ static_cast<BYTE>(Step::MAIN_END),			&GameInterface::MainEnd },
+			{ static_cast<BYTE>(Action::BRIEF),				&GameInterface::BriefGame },
+			{ static_cast<BYTE>(Action::OVER_DRAW),			&GameInterface::OverDraw },
+			{ static_cast<BYTE>(Action::EXHAUST_DECK),		&GameInterface::ExhaustDeck },
 			{ static_cast<BYTE>(Action::MANA_MODIFICATION), &GameInterface::ModifiedMana },
 		};
 

@@ -63,11 +63,13 @@ namespace Hearthstonepp
 		return std::cout;
 	}
 
-	void GameInterface::ModifiedMana()
+	template <std::size_t SIZE>
+	void GameInterface::ShowMenus(std::array<std::string, SIZE> menus)
 	{
-		ModifyManaStructure *data = reinterpret_cast<ModifyManaStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Mana is modified to " << static_cast<int>(data->mana) << std::endl;
+		for (auto& menu : menus)
+		{
+			std::cout << menu << std::endl;
+		}
 	}
 
 	void GameInterface::ShowCards(Card** cards, int size)
@@ -79,13 +81,52 @@ namespace Hearthstonepp
 		}
 	}
 
-	template <std::size_t SIZE>
-	void GameInterface::ShowMenus(std::array<std::string, SIZE> menus)
+	void GameInterface::BriefGame()
 	{
-		for (auto& menu : menus)
-		{
-			std::cout << menu << std::endl;
-		}
+		GameBrief* data = reinterpret_cast<GameBrief*>(m_buffer);
+
+		LogWriter(m_users[data->currentUser]) << "Game Briefing" << std::endl;
+
+		std::cout << m_users[data->oppositeUser] 
+			<< " : Mana - " << static_cast<int>(data->oppositeMana)
+			<< " / Hand - " << static_cast<int>(data->numOppositeHand) 
+			<< std::endl;
+
+		std::cout << m_users[data->oppositeUser] << " Field" << std::endl;
+		ShowCards(data->oppositeField, data->numOppositeField);
+
+		std::cout << m_users[data->currentUser]
+			<< " : Mana - " << static_cast<int>(data->currentMana)
+			<< " / Hand - " << static_cast<int>(data->numCurrentHand)
+			<< std::endl;
+
+		std::cout << m_users[data->currentUser] << " Field" << std::endl;
+		ShowCards(data->currentField, data->numCurrentField);
+
+		std::cout << m_users[data->currentUser] << " Hand" << std::endl;
+		ShowCards(data->currentHand, data->numCurrentHand);
+	}
+
+	void GameInterface::OverDraw()
+	{
+		OverDrawStructure* data = reinterpret_cast<OverDrawStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Over draw " << static_cast<int>(data->numOver) << " cards" << std::endl;
+		ShowCards(data->cards, data->numOver);
+	}
+
+	void GameInterface::ExhaustDeck()
+	{
+		ExhaustDeckStructure* data = reinterpret_cast<ExhaustDeckStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Deck exhausted over " << static_cast<int>(data->numOver) << std::endl;
+	}
+
+	void GameInterface::ModifiedMana()
+	{
+		ModifyManaStructure* data = reinterpret_cast<ModifyManaStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Mana is modified to " << static_cast<int>(data->mana) << std::endl;
 	}
 
 	void GameInterface::BeginFirst()
