@@ -856,7 +856,10 @@ namespace Hearthstonepp
 
 	enum class Action
 	{
-		MANA_MODIFICATION = 100
+		BRIEF = 100,
+		OVER_DRAW = 101,
+		EXHAUST_DECK = 102,
+		MANA_MODIFICATION = 103
 	};
 }
 
