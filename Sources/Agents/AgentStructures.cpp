@@ -13,7 +13,7 @@
 namespace Hearthstonepp
 {
 	User::User(Player* player, int deckID) :
-		mana(0), userID(player->GetID()) , weapon(nullptr)
+		mana(0), exhausted(0), userID(player->GetID()) , weapon(nullptr)
 	{
 		Cards* cards = Cards::GetInstance();
 
@@ -37,8 +37,34 @@ namespace Hearthstonepp
 		power = reinterpret_cast<HeroPower*>(&cardDeck.back());
 	}
 
+	GameBrief::GameBrief(
+		BYTE currentUser, BYTE oppositeUser, BYTE currentMana, BYTE oppositeMana,
+		BYTE numCurrentHand, BYTE numOppositeHand, BYTE numCurrentField, BYTE numOppositeField,
+		Card** currentField, Card** currentHand, Card** oppositeField) :
+		currentUser(currentUser), oppositeUser(oppositeUser), 
+		currentMana(currentMana), oppositeMana(oppositeMana), 
+		numCurrentHand(numCurrentHand), numOppositeHand(numOppositeHand),
+		numCurrentField(numCurrentField), numOppositeField(numOppositeField),
+		currentField(currentField), currentHand(currentHand), oppositeField(oppositeField)
+	{
+		// Do Nothing
+	}
+
+
 	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, Card** cards) :
 		id(drawID), userID(userID), numDraw(numDraw), cards(cards)
+	{
+		// Do Nothing
+	}
+
+	OverDrawStructure::OverDrawStructure(BYTE userID, BYTE numOver, Card** cards) :
+		userID(userID), numOver(numOver), cards(cards)
+	{
+		// Do Nothing
+	}
+
+	ExhaustDeckStructure::ExhaustDeckStructure(BYTE userID, BYTE numOver) :
+		userID(userID), numOver(numOver)
 	{
 		// Do Nothing
 	}
@@ -71,6 +97,12 @@ namespace Hearthstonepp
 	}
 
 	MainUseCardStructure::MainUseCardStructure(BYTE userID) : userID(userID)
+	{
+		// Do Nothing
+	}
+
+	MainUseMinionStructure::MainUseMinionStructure(BYTE cardIndex, BYTE position) :
+		cardIndex(cardIndex), position(position)
 	{
 		// Do Nothing
 	}

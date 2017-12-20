@@ -26,6 +26,7 @@ namespace Hearthstonepp
 
 		int id;
 		int mana;
+		int exhausted;
 
 		std::string userID;
 		Hero* hero;
@@ -46,6 +47,28 @@ namespace Hearthstonepp
 
 	};
 
+	struct GameBrief
+	{
+		GameBrief(
+			BYTE currentUser, BYTE oppositeUser, BYTE currentMana, BYTE oppositeMana, 
+			BYTE numCurrentHand, BYTE numOppositeHand, BYTE numCurrentField, BYTE numOppositeField,
+			Card** currentField, Card** currentHand, Card** oppositeField);
+	
+		BYTE currentUser;
+		BYTE oppositeUser;
+		BYTE currentMana;
+		BYTE oppositeMana;
+
+		BYTE numCurrentHand;
+		BYTE numOppositeHand;
+		BYTE numCurrentField;
+		BYTE numOppositeField;
+
+		Card** currentField;
+		Card** currentHand;
+		Card** oppositeField;
+	};
+
 	struct DrawStructure
 	{
 		DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, Card** cards);
@@ -54,6 +77,25 @@ namespace Hearthstonepp
 		BYTE userID;
 		BYTE numDraw;
 		Card** cards;
+	};
+
+	struct OverDrawStructure
+	{
+		OverDrawStructure(BYTE userID, BYTE numOver, Card** cards);
+
+		BYTE id = static_cast<BYTE>(Action::OVER_DRAW);
+		BYTE userID;
+		BYTE numOver;
+		Card** cards;
+	};
+
+	struct ExhaustDeckStructure
+	{
+		ExhaustDeckStructure(BYTE userID, BYTE numOver);
+
+		BYTE id = static_cast<BYTE>(Action::EXHAUST_DECK);
+		BYTE userID;
+		BYTE numOver;
 	};
 
 	struct ModifyManaStructure
@@ -104,6 +146,15 @@ namespace Hearthstonepp
 
 		BYTE id = static_cast<BYTE>(Step::MAIN_ACTION);
 		BYTE userID;
+	};
+
+	struct MainUseMinionStructure
+	{
+		MainUseMinionStructure(BYTE cardIndex, BYTE position);
+
+		BYTE id = static_cast<BYTE>(CardType::MINION);
+		BYTE cardIndex;
+		BYTE position;
 	};
 
 	struct MainCombatStructure
