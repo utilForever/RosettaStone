@@ -54,6 +54,8 @@ namespace Hearthstonepp
 			BYTE numCurrentHand, BYTE numOppositeHand, BYTE numCurrentField, BYTE numOppositeField,
 			Card** currentField, Card** currentHand, Card** oppositeField);
 	
+		BYTE id = static_cast<BYTE>(Action::BRIEF);
+
 		BYTE currentUser;
 		BYTE oppositeUser;
 		BYTE currentMana;
