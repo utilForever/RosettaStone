@@ -12,6 +12,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 
 namespace filesystem = std::experimental::filesystem;
 
