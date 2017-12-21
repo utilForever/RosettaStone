@@ -126,11 +126,6 @@ namespace Hearthstonepp
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
 		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
 
-		if (read == 0)
-		{
-			return;
-		}
-
 		std::sort(index, index + read, std::greater<int>());
 		if (index[0] >= NUM_BEGIN_DRAW)
 		{
