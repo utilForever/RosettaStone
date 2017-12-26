@@ -10,6 +10,7 @@
 
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
+#include <Commons/Macros.h>
 #include <Commons/Utils.h>
 #include <Enums/EnumsToString.h>
 #include <Interface/Interface.h>
@@ -18,7 +19,11 @@
 #include <Models/Card.h>
 #include <Models/Cards.h>
 
+#ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
+#else
+#include <experimental/filesystem>
+#endif
 #include <fstream>
 #include <iostream>
 
@@ -493,13 +498,26 @@ namespace Hearthstonepp
 			argv[i] = new char[16];
 		}
 
+#ifdef HEARTHSTONEPP_WINDOWS
 		argv[0] = _strdup("Hearthstone++");
+#else
+		argv[0] = strdup("Hearthstone++");
+#endif
 
+#ifdef HEARTHSTONEPP_WINDOWS
 		char* nextToken = strtok_s(searchInput, delimiter, &context);
+#else
+		char* nextToken = strtok_r(searchInput, delimiter, &context);
+#endif
 		while (nextToken != nullptr)
 		{
+#ifdef HEARTHSTONEPP_WINDOWS
 			argv[argc] = _strdup(nextToken);
 			nextToken = strtok_s(context, delimiter, &context);
+#else
+			argv[argc] = strdup(nextToken);
+			nextToken = strtok_r(context, delimiter, &context);
+#endif
 			argc++;
 		}
 
