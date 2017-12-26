@@ -60,7 +60,7 @@ namespace Hearthstonepp
 
 		bool IsGameEnd();
 		void Draw(User& user, int num);
-		void ModifyMana(User& user, ManaModification mod, int num);
+		void ModifyMana(User& user, NumericModification mod, ManaType type, int num);
 
 		void BeginPhase();
 		const int MainPhase();

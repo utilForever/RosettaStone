@@ -66,7 +66,8 @@ namespace Hearthstonepp
 	const int GameAgent::MainPhase()
 	{
 		MainDraw(m_userCurrent);
-		ModifyMana(m_userCurrent, ManaModification::ADD, 1);
+		ModifyMana(m_userCurrent, NumericModification::ADD, ManaType::TOTAL, 1);
+		ModifyMana(m_userCurrent, NumericModification::SYNC, ManaType::EXIST, m_userCurrent.totalMana);
 
 		const int result = MainMenu(m_userCurrent, m_userOpponent);
 
@@ -169,7 +170,7 @@ namespace Hearthstonepp
 	const int GameAgent::MainMenu(User& user, User& enemy)
 	{
 		GameBrief brief(
-			user.id, enemy.id, user.mana, enemy.mana, 
+			user.id, enemy.id, user.totalMana, enemy.totalMana, 
 			user.hand.size(), enemy.hand.size(), user.field.size(), enemy.field.size(),
 			user.field.data(), user.hand.data(), enemy.field.data());
 
@@ -207,7 +208,7 @@ namespace Hearthstonepp
 
 	void GameAgent::MainUseCard(User& user)
 	{
-		MainUseCardStructure data(user.id);
+		MainUseCardStructure data(user.id, user.existMana, user.field.size(), user.hand.size(), user.hand.data());
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainUseCardStructure));
 
 		ReadInputBuffer(m_buffer, m_bufferCapacity);
@@ -215,6 +216,11 @@ namespace Hearthstonepp
 		if (m_buffer[0] == static_cast<BYTE>(CardType::MINION))
 		{
 			MainUseMinionStructure* minion = reinterpret_cast<MainUseMinionStructure*>(m_buffer);
+			if (user.hand[minion->cardIndex]->GetCost() > user.existMana)
+			{
+				throw std::runtime_error("Cost of the card must be under or equal with user.existMana.");
+			}
+
 			if (minion->position < 0 || minion->position > user.field.size())
 			{
 				throw std::runtime_error("Minion position should be in range [0, user.field.size].");
@@ -225,6 +231,7 @@ namespace Hearthstonepp
 				throw std::runtime_error("Card index should be in range [0, user.hand.size).");
 			}
 
+			ModifyMana(user, NumericModification::SUB, ManaType::EXIST, user.hand[minion->cardIndex]->GetCost());
 			user.field.insert(user.field.begin() + minion->position, user.hand[minion->cardIndex]);
 			user.hand.erase(user.hand.begin() + minion->cardIndex);
 		}
@@ -232,7 +239,8 @@ namespace Hearthstonepp
 
 	void GameAgent::MainCombat(User& user)
 	{
-
+		MainCombatStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainCombatStructure));
 	}
 
 	void GameAgent::MainEnd(User& user)
@@ -290,26 +298,40 @@ namespace Hearthstonepp
 		}
 	}
 
-	void GameAgent::ModifyMana(User& user, ManaModification mod, int num)
+	void GameAgent::ModifyMana(User& user, NumericModification mod, ManaType type, int num)
 	{
-		if (mod == ManaModification::ADD) {
-			user.mana += num;
-		}
-		else if (mod == ManaModification::SUB) {
-			user.mana -= num;
-		}
-		else if (mod == ManaModification::SYNC) {
-			user.mana = num;
+		auto getMana = [](User& user, ManaType type) -> int& {
+			switch(type)
+			{
+				case ManaType::TOTAL:
+					return user.totalMana;
+				case ManaType::EXIST:
+					return user.existMana;
+			}
+		};
+
+		int& mana = getMana(user, type);
+		switch(mod)
+		{
+			case NumericModification::ADD:
+				mana += num;
+				break;
+			case NumericModification::SUB:
+				mana -= num;
+				break;
+			case NumericModification::SYNC:
+				mana = num;
+				break;
 		}
 
-		if (user.mana > 10) {
-			user.mana = 10;
+		if (mana > 10) {
+			mana = 10;
 		}
-		else if (user.mana < 0) {
-			user.mana = 0;
+		else if (mana < 0) {
+			mana = 0;
 		}
 
-		ModifyManaStructure modified(user.id, user.mana);
+		ModifyManaStructure modified(user.id, mana);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyManaStructure));
 	}
 
