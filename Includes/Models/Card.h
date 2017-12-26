@@ -12,6 +12,7 @@
 #include <Enums/Enums.h>
 
 #include <map>
+#include <string>
 #include <vector>
 
 namespace Hearthstonepp

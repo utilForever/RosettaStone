@@ -9,6 +9,7 @@
 #include <Enums/EnumsToString.h>
 #include <Models/Card.h>
 
+#include <algorithm>
 #include <iostream>
 
 namespace Hearthstonepp

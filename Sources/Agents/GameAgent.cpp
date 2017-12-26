@@ -9,6 +9,8 @@
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
 
+#include <algorithm>
+
 namespace Hearthstonepp
 {
 	GameAgent::GameAgent(User& user1, User& user2, int maxBufferSize) :

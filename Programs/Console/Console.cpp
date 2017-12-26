@@ -10,6 +10,7 @@
 
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
+#include <Commons/Macros.h>
 #include <Commons/Utils.h>
 #include <Enums/EnumsToString.h>
 #include <Interface/Interface.h>
@@ -18,13 +19,24 @@
 #include <Models/Card.h>
 #include <Models/Cards.h>
 
+#ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
+#endif
+#ifdef HEARTHSTONEPP_LINUX
+#include <experimental/filesystem>
+#endif
+#ifdef HEARTHSTONEPP_MACOSX
+#include <sys/stat.h>
+#endif
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 #include <winix/getopt.h>
 
+#ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
+#endif
 
 namespace Hearthstonepp
 {
@@ -44,7 +56,13 @@ namespace Hearthstonepp
 				break;
 			}
 
+#ifndef HEARTHSTONEPP_MACOSX
 			if (!filesystem::exists("Datas/" + playerID + ".json"))
+#else
+			struct stat buf;
+			std::string path = "Datas/" + playerID + ".json";
+			if (stat(path.c_str(), &buf) == -1)
+#endif
 			{
 				std::cout << playerID << ".json doesn't exist. Try again.\n";
 				continue;
@@ -77,7 +95,13 @@ namespace Hearthstonepp
 			std::string playerID;
 			std::cin >> playerID;
 
+#ifndef HEARTHSTONEPP_MACOSX
 			if (filesystem::exists("Datas/" + playerID + ".json"))
+#else
+			struct stat buf;
+			std::string path = "Datas/" + playerID + ".json";
+			if (stat(path.c_str(), &buf) == 0)
+#endif
 			{
 				std::cout << playerID << ".json already exists. Try again.\n";
 				continue;
@@ -96,8 +120,11 @@ namespace Hearthstonepp
 			break;
 		}
 	}
-
+#ifndef HEARTHSTONEPP_MACOSX
 	std::optional<Card*> Console::SearchCard()
+#else
+	std::experimental::optional<Card*> Console::SearchCard()
+#endif
 	{
 		std::cout << "========================================\n";
 		std::cout << "              Search Card!              \n";
@@ -493,13 +520,26 @@ namespace Hearthstonepp
 			argv[i] = new char[16];
 		}
 
+#ifdef HEARTHSTONEPP_WINDOWS
 		argv[0] = _strdup("Hearthstone++");
+#else
+		argv[0] = strdup("Hearthstone++");
+#endif
 
+#ifdef HEARTHSTONEPP_WINDOWS
 		char* nextToken = strtok_s(searchInput, delimiter, &context);
+#else
+		char* nextToken = strtok_r(searchInput, delimiter, &context);
+#endif
 		while (nextToken != nullptr)
 		{
+#ifdef HEARTHSTONEPP_WINDOWS
 			argv[argc] = _strdup(nextToken);
 			nextToken = strtok_s(context, delimiter, &context);
+#else
+			argv[argc] = strdup(nextToken);
+			nextToken = strtok_r(context, delimiter, &context);
+#endif
 			argc++;
 		}
 
