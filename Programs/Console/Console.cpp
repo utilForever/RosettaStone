@@ -30,7 +30,6 @@
 #endif
 #include <fstream>
 #include <iostream>
-#include <string.h>
 
 #include <winix/getopt.h>
 
