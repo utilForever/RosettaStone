@@ -13,7 +13,7 @@
 namespace Hearthstonepp
 {
 	User::User(Player* player, int deckID) :
-		mana(0), exhausted(0), userID(player->GetID()) , weapon(nullptr)
+		totalMana(0), existMana(0), exhausted(0), userID(player->GetID()) , weapon(nullptr)
 	{
 		Cards* cards = Cards::GetInstance();
 
@@ -96,7 +96,9 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
-	MainUseCardStructure::MainUseCardStructure(BYTE userID) : userID(userID)
+	MainUseCardStructure::MainUseCardStructure(
+		BYTE userID, BYTE existMana, BYTE numFields, BYTE numHands, Card** hands) : 
+		userID(userID), existMana(existMana), numFields(numFields), numHands(numHands), hands(hands)
 	{
 		// Do Nothing
 	}

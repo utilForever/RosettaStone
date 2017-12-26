@@ -25,7 +25,8 @@ namespace Hearthstonepp
 		User(Player* player, int deckID);
 
 		int id;
-		int mana;
+		int totalMana;
+		int existMana;
 		int exhausted;
 
 		std::string userID;
@@ -109,6 +110,15 @@ namespace Hearthstonepp
 		BYTE mana;
 	};
 
+	struct HealthModificationStructure
+	{
+		HealthModificationStructure(BYTE userID, Card* card);
+
+		BYTE id = static_cast<BYTE>(Action::HEALTH_MODIFICATION);
+		BYTE userID;
+		Card* card;
+	};
+
 	struct BeginFirstStructure
 	{
 		BeginFirstStructure(std::string& userFirst, std::string& userLast);
@@ -144,10 +154,14 @@ namespace Hearthstonepp
 
 	struct MainUseCardStructure
 	{
-		MainUseCardStructure(BYTE userID);
+		MainUseCardStructure(BYTE userID, BYTE existMana, BYTE numFields, BYTE numHands, Card** hands);
 
 		BYTE id = static_cast<BYTE>(Step::MAIN_ACTION);
 		BYTE userID;
+		BYTE existMana;
+		BYTE numFields;
+		BYTE numHands;
+		Card** hands;
 	};
 
 	struct MainUseMinionStructure
