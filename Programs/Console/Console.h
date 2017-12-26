@@ -10,13 +10,18 @@
 #define HEARTHSTONEPP_CONSOLE_H
 
 #include <Commons/Constants.h>
+#include <Commons/Macros.h>
 #include <Models/Cards.h>
 #include <Models/Deck.h>
 #include <Models/Player.h>
 
 #include <array>
 #include <functional>
+#ifndef HEARTHSTONEPP_MACOSX
 #include <optional>
+#else
+#include <experimental/optional>
+#endif
 
 namespace Hearthstonepp
 {
@@ -25,8 +30,11 @@ namespace Hearthstonepp
 	public:
 		void SignIn();
 		void SignUp();
-
+#ifndef HEARTHSTONEPP_MACOSX
 		std::optional<Card*> SearchCard();
+#else
+		std::experimental::optional<Card*> SearchCard();
+#endif
 		int ManageDeck();
 		void SimulateGame();
 		void Leave();
