@@ -234,7 +234,40 @@ namespace Hearthstonepp
 
 	void GameInterface::MainUseCard()
 	{
+		MainUseCardStructure* data = reinterpret_cast<MainUseCardStructure*>(m_buffer);
 
+		LogWriter(m_users[data->userID]) << "Main Use Card" << std::endl;
+		ShowCards(data->hands, data->numHands);
+
+		int in;
+		while (true)
+		{
+			std::cout << "Select card index (0 ~ " << static_cast<int>(data->numHands) - 1 << ") : ";
+
+			std::cin >> in;
+			if (in >= 0 && in < data->numHands && data->hands[in]->GetCost() <= data->existMana)
+			{
+				break;
+			}
+		}
+
+		if (data->hands[in]->GetCardType() == CardType::MINION)
+		{
+			int pos;
+			while (true)
+			{
+				std::cout << "Select Position (0 ~ " << static_cast<int>(data->numFields) << ") : ";
+
+				std::cin >> pos;
+				if (pos >= 0 && pos <= data->numFields)
+				{
+					break;
+				}
+			}
+			
+			MainUseMinionStructure minion(in, pos);
+			m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&minion), sizeof(MainUseMinionStructure));
+		}
 	}
 
 	void GameInterface::MainCombat()
