@@ -13,13 +13,19 @@
 
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
-#else
+#endif
+#ifdef HEARTHSTONEPP_LINUX
 #include <experimental/filesystem>
+#endif
+#ifdef HEARTHSTONEPP_MACOSX
+#include <stdlib.h>
 #endif
 #include <fstream>
 #include <iostream>
 
+#ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
+#endif
 
 namespace Hearthstonepp
 {
@@ -82,7 +88,11 @@ namespace Hearthstonepp
 	void PlayerLoader::Save(Player* p) const
 	{
 		// Store player data to JSON file
+#ifndef HEARTHSTONEPP_MACOSX
 		filesystem::create_directory("Datas");
+#else
+		system("mkdir Datas");
+#endif
 		std::ofstream playerFile("Datas/" + p->GetID() + ".json");
 
 		json j;
