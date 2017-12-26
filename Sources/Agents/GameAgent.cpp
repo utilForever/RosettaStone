@@ -87,7 +87,7 @@ namespace Hearthstonepp
 	void GameAgent::BeginFirst()
 	{
 		// get random number, zero or one.
-		const std::uniform_int_distribution<int> bin(0, 1);
+		std::uniform_int_distribution<int> bin(0, 1);
 		if (bin(m_generator) == 1) // swap user with 50% probability
 		{
 			std::swap(m_userCurrent, m_userOpponent);
@@ -153,7 +153,7 @@ namespace Hearthstonepp
 		Draw(user, read);
 
 		BYTE drawType = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
-		DrawStructure data2(drawType, user.id, read, hand.end()._Ptr - read);
+		DrawStructure data2(drawType, user.id, read, &*hand.end() - read);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
 	}
 
@@ -162,7 +162,7 @@ namespace Hearthstonepp
 		Draw(user, 1);
 
 		BYTE drawType = static_cast<BYTE>(Step::MAIN_DRAW);
-		DrawStructure data(drawType, user.id, 1, user.hand.end()._Ptr - 1);
+		DrawStructure data(drawType, user.id, 1, &*user.hand.end() - 1);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
 	}
 
