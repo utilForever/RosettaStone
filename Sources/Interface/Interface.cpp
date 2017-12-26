@@ -7,6 +7,7 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Commons/Constants.h>
+#include <Enums/EnumsToString.h>
 #include <Interface/Interface.h>
 
 #include <iostream>
@@ -22,7 +23,7 @@ namespace Hearthstonepp
 	GameResult GameInterface::StartGame()
 	{
 		GameResult result;
-		std::thread* at = m_agent.StartAgent(result);
+		std::thread at = m_agent.StartAgent(result);
 
 		while (true)
 		{
@@ -34,13 +35,12 @@ namespace Hearthstonepp
 		}
 
 		// join agent thread
-		at->join();
-		delete at;
+		at.join();
 
 		return result;
 	}
 
-	int GameInterface::HandleMessage()
+	const int GameInterface::HandleMessage()
 	{
 		m_agent.ReadBuffer(m_buffer, m_bufferCapacity);
 
@@ -57,9 +57,76 @@ namespace Hearthstonepp
 		return HANDLE_CONTINUE;
 	}
 
-	void GameInterface::LogWriter(std::string& name, std::string message)
+	std::ostream& GameInterface::LogWriter(std::string& name)
 	{
-		std::cout << "[*] " << name << " : " << message << std::endl;
+		std::cout << "[*] " << name << " : ";
+		return std::cout;
+	}
+
+	template <std::size_t SIZE>
+	void GameInterface::ShowMenus(std::array<std::string, SIZE> menus)
+	{
+		for (auto& menu : menus)
+		{
+			std::cout << menu << std::endl;
+		}
+	}
+
+	void GameInterface::ShowCards(Card** cards, int size)
+	{
+		for (int i = 0; i < size; ++i)
+		{
+			std::string type = ConverterFromCardTypeToString.at(cards[i]->GetCardType());
+			std::cout << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")]\n";
+		}
+	}
+
+	void GameInterface::BriefGame()
+	{
+		GameBrief* data = reinterpret_cast<GameBrief*>(m_buffer);
+
+		LogWriter(m_users[data->currentUser]) << "Game Briefing" << std::endl;
+
+		std::cout << m_users[data->oppositeUser] 
+			<< " : Mana - " << static_cast<int>(data->oppositeMana)
+			<< " / Hand - " << static_cast<int>(data->numOppositeHand) 
+			<< std::endl;
+
+		std::cout << m_users[data->oppositeUser] << " Field" << std::endl;
+		ShowCards(data->oppositeField, data->numOppositeField);
+
+		std::cout << m_users[data->currentUser]
+			<< " : Mana - " << static_cast<int>(data->currentMana)
+			<< " / Hand - " << static_cast<int>(data->numCurrentHand)
+			<< std::endl;
+
+		std::cout << m_users[data->currentUser] << " Field" << std::endl;
+		ShowCards(data->currentField, data->numCurrentField);
+
+		std::cout << m_users[data->currentUser] << " Hand" << std::endl;
+		ShowCards(data->currentHand, data->numCurrentHand);
+	}
+
+	void GameInterface::OverDraw()
+	{
+		OverDrawStructure* data = reinterpret_cast<OverDrawStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Over draw " << static_cast<int>(data->numOver) << " cards" << std::endl;
+		ShowCards(data->cards, data->numOver);
+	}
+
+	void GameInterface::ExhaustDeck()
+	{
+		ExhaustDeckStructure* data = reinterpret_cast<ExhaustDeckStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Deck exhausted over " << static_cast<int>(data->numOver) << std::endl;
+	}
+
+	void GameInterface::ModifiedMana()
+	{
+		ModifyManaStructure* data = reinterpret_cast<ModifyManaStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Mana is modified to " << static_cast<int>(data->mana) << std::endl;
 	}
 
 	void GameInterface::BeginFirst()
@@ -69,36 +136,29 @@ namespace Hearthstonepp
 		m_users[0] = data->userFirst;
 		m_users[1] = data->userLast;
 
-		LogWriter(m_users[0], "Begin First");
-		LogWriter(m_users[1], "Begin Last");
+		LogWriter(m_users[0]) << "Begin First" << std::endl;
+		LogWriter(m_users[1]) << "Begin Last" << std::endl;
 	}
 
 	void GameInterface::BeginShuffle()
 	{
 		BeginShuffleStructure* data = reinterpret_cast<BeginShuffleStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID], "Begin Shuffle");
+		LogWriter(m_users[data->userID]) << "Begin Shuffle" << std::endl;
 	}
 
 	void GameInterface::BeginDraw()
 	{
 		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
 
-		LogWriter(m_users[data->userID], "Begin Draw");
-
-		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
-		{
-			std::cout << "[" << data->cards[i]->GetName() << "] ";
-		}
-
-		std::cout << std::endl;
+		LogWriter(m_users[data->userID]) << "Begin Draw" << std::endl;
+		ShowCards(data->cards, data->numDraw);
 	}
 
 	void GameInterface::BeginMulligan()
 	{
 		BeginMulliganStructure* data = reinterpret_cast<BeginMulliganStructure*>(m_buffer);
 
-		LogWriter(m_users[data->userID], "Begin Mulligan");
+		LogWriter(m_users[data->userID]) << "Begin Mulligan" << std::endl;
 
 		int numMulligan;
 		while (true)
@@ -134,15 +194,89 @@ namespace Hearthstonepp
 		// get new card data
 		m_agent.ReadBuffer(m_buffer, sizeof(DrawStructure));
 		
-		LogWriter(m_users[data->userID], "Mulligan Result");
+		LogWriter(m_users[data->userID]) << "Mulligan Result" << std::endl;
 
 		DrawStructure* draw = reinterpret_cast<DrawStructure*>(m_buffer);
+		ShowCards(draw->cards, draw->numDraw);
+	}
 
-		for (int i = 0; i < NUM_BEGIN_DRAW; ++i)
+	void GameInterface::MainDraw()
+	{
+		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Main Draw" << std::endl;
+		ShowCards(data->cards, data->numDraw);
+	}
+
+	void GameInterface::MainMenu()
+	{
+		MainMenuStructure* data = reinterpret_cast<MainMenuStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Main Menu" << std::endl;
+		ShowMenus(m_mainMenuStr);
+
+		size_t input;
+		while (true)
 		{
-			std::cout << "[" << draw->cards[i]->GetName() << "] ";
+			std::cout << "[*] Input menu : ";
+			std::cin >> input;
+			
+			if (input > 0 && input <= GAME_MAIN_MENU_SIZE)
+			{
+				input -= 1;
+				break;
+			}
 		}
 
-		std::cout << std::endl;
+		BYTE menu = static_cast<BYTE>(input);
+		m_agent.WriteBuffer(&menu, 1);
+	}
+
+	void GameInterface::MainUseCard()
+	{
+		MainUseCardStructure* data = reinterpret_cast<MainUseCardStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) << "Main Use Card" << std::endl;
+		ShowCards(data->hands, data->numHands);
+
+		int in;
+		while (true)
+		{
+			std::cout << "Select card index (0 ~ " << static_cast<int>(data->numHands) - 1 << ") : ";
+
+			std::cin >> in;
+			if (in >= 0 && in < data->numHands && data->hands[in]->GetCost() <= data->existMana)
+			{
+				break;
+			}
+		}
+
+		if (data->hands[in]->GetCardType() == CardType::MINION)
+		{
+			int pos;
+			while (true)
+			{
+				std::cout << "Select Position (0 ~ " << static_cast<int>(data->numFields) << ") : ";
+
+				std::cin >> pos;
+				if (pos >= 0 && pos <= data->numFields)
+				{
+					break;
+				}
+			}
+			
+			MainUseMinionStructure minion(in, pos);
+			m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&minion), sizeof(MainUseMinionStructure));
+		}
+	}
+
+	void GameInterface::MainCombat()
+	{
+
+	}
+
+	void GameInterface::MainEnd()
+	{
+
 	}
 }

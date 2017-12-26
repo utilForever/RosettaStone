@@ -10,8 +10,11 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Agents/AgentStructures.h>
+#include <Commons/Constants.h>
 #include <Interface/InteractBuffer.h>
 
+#include <array>
+#include <functional>
 #include <random>
 #include <thread>
 
@@ -23,7 +26,7 @@ namespace Hearthstonepp
 		GameAgent(User& user1, User& user2, int maxBufferSize = 2048);
 		GameAgent(User&& user1, User&& user2, int maxBufferSize = 2048);
 
-		std::thread* StartAgent(GameResult& result);
+		std::thread StartAgent(GameResult& result);
 
 		int GetBufferCapacity() const;
 		// read data written by Agent
@@ -32,10 +35,15 @@ namespace Hearthstonepp
 		int WriteBuffer(BYTE* arr, int size);
 
 	private:
+		const unsigned int GAME_END = 0;
+		const unsigned int GAME_CONTINUE = 1;
+
 		User m_userCurrent;
 		User m_userOpponent;
 
 		int m_bufferCapacity;
+		// Temporal Buffer
+		BYTE* m_buffer;
 		// Pipe IO : User -> Agent 
 		InteractBuffer m_inBuffer; 
 		// Pipe IO : Agent -> User
@@ -52,15 +60,28 @@ namespace Hearthstonepp
 
 		bool IsGameEnd();
 		void Draw(User& user, int num);
+		void ModifyMana(User& user, NumericModification mod, ManaType type, int num);
 
 		void BeginPhase();
-		void MainPhase();
+		const int MainPhase();
 		void FinalPhase(GameResult& result);
 
-		void DecideDeckOrder();
-		void ShuffleDeck(User& user);
+		void BeginFirst();
+		void BeginShuffle(User& user);
 		void BeginDraw(User& user);
-		void Mulligan(User& user);
+		void BeginMulligan(User& user);
+
+		void MainDraw(User& user);
+		const int MainMenu(User& user, User& enemy);
+		void MainUseCard(User& user);
+		void MainCombat(User& user);
+		void MainEnd(User& user);
+
+		std::array<std::function<void(GameAgent&, User&)>, GAME_MAIN_MENU_SIZE - 1> m_mainMenuFuncs =
+		{
+			&GameAgent::MainUseCard,
+			&GameAgent::MainCombat,
+		};
 	};
 }
 

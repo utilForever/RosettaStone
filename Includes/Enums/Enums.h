@@ -846,6 +846,28 @@ namespace Hearthstonepp
 		SETASIDE = 6,
 		SECRET = 7,
 	};
+
+	enum class NumericModification
+	{
+		ADD = 0,
+		SUB = 1,
+		SYNC = 2
+	};
+
+	enum class ManaType
+	{
+		TOTAL = 0,
+		EXIST = 1
+	};
+
+	enum class Action
+	{
+		BRIEF = 100,
+		OVER_DRAW = 101,
+		EXHAUST_DECK = 102,
+		MANA_MODIFICATION = 103,
+		HEALTH_MODIFICATION = 104
+	};
 }
 
 #endif
