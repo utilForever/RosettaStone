@@ -21,15 +21,21 @@
 
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
-#else
+#endif
+#ifdef HEARTHSTONEPP_LINUX
 #include <experimental/filesystem>
+#endif
+#ifdef HEARTHSTONEPP_MACOSX
+#include <sys/stat.h>
 #endif
 #include <fstream>
 #include <iostream>
 
 #include <winix/getopt.h>
 
+#ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
+#endif
 
 namespace Hearthstonepp
 {
@@ -49,7 +55,13 @@ namespace Hearthstonepp
 				break;
 			}
 
+#ifndef HEARTHSTONEPP_MACOSX
 			if (!filesystem::exists("Datas/" + playerID + ".json"))
+#else
+			struct stat buf;
+			std::string path = "Datas/" + playerID + ".json";
+			if (stat(path.c_str(), &buf) == -1)
+#endif
 			{
 				std::cout << playerID << ".json doesn't exist. Try again.\n";
 				continue;
@@ -82,7 +94,13 @@ namespace Hearthstonepp
 			std::string playerID;
 			std::cin >> playerID;
 
+#ifndef HEARTHSTONEPP_MACOSX
 			if (filesystem::exists("Datas/" + playerID + ".json"))
+#else
+			struct stat buf;
+			std::string path = "Datas/" + playerID + ".json";
+			if (stat(path.c_str(), &buf) == 0)
+#endif
 			{
 				std::cout << playerID << ".json already exists. Try again.\n";
 				continue;
@@ -101,8 +119,11 @@ namespace Hearthstonepp
 			break;
 		}
 	}
-
+#ifndef HEARTHSTONEPP_MACOSX
 	std::optional<Card*> Console::SearchCard()
+#else
+	std::experimental::optional<Card*> Console::SearchCard()
+#endif
 	{
 		std::cout << "========================================\n";
 		std::cout << "              Search Card!              \n";
