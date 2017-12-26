@@ -6,11 +6,16 @@
 > Created Time: 2017/10/19
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Commons/Macros.h>
 #include <Enums/EnumsToString.h>
 #include <Enums/StringToEnums.h>
 #include <Loaders/PlayerLoader.h>
 
+#ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
+#else
+#include <experimental/filesystem>
+#endif
 #include <fstream>
 #include <iostream>
 
