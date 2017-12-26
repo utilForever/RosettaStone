@@ -9,6 +9,8 @@
 #include <Agents/GameAgent.h>
 #include <Commons/Constants.h>
 
+#include <algorithm>
+
 namespace Hearthstonepp
 {
 	GameAgent::GameAgent(User& user1, User& user2, int maxBufferSize) :
@@ -77,7 +79,7 @@ namespace Hearthstonepp
 	void GameAgent::DecideDeckOrder()
 	{
 		// get random number, zero or one.
-		const std::uniform_int_distribution<int> bin(0, 1);
+		std::uniform_int_distribution<int> bin(0, 1);
 		if (bin(m_generator) == 1) // swap user with 50% probability
 		{
 			std::swap(m_userCurrent, m_userOpponent);
