@@ -277,6 +277,7 @@ namespace Hearthstonepp
 
 	void GameInterface::MainEnd()
 	{
-
+		MainEndStructure* data = reinterpret_cast<MainEndStructure*>(m_buffer);
+		LogWriter(m_users[data->userID]) << "Main End" << std::endl;
 	}
 }
