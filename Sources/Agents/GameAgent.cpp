@@ -243,11 +243,14 @@ namespace Hearthstonepp
 	{
 		MainCombatStructure data(user.id);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainCombatStructure));
+
+
 	}
 
 	void GameAgent::MainEnd(User& user)
 	{
-
+		MainEndStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainEndStructure));
 	}
 
 	bool GameAgent::IsGameEnd()
