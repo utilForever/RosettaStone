@@ -24,7 +24,7 @@ namespace Hearthstonepp
 	constexpr unsigned int MAXIMUM_NUM_CARDS_IN_DECK = 30;
 
 	constexpr unsigned int NUM_BEGIN_DRAW = 3;
-	
+
 	constexpr size_t GAME_MAIN_MENU_SIZE = 3;
 }
 
