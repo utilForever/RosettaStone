@@ -40,16 +40,23 @@ namespace Hearthstonepp
 	GameBrief::GameBrief(
 		BYTE currentUser, BYTE oppositeUser, BYTE currentMana, BYTE oppositeMana,
 		BYTE numCurrentHand, BYTE numOppositeHand, BYTE numCurrentField, BYTE numOppositeField,
+		Card* currentHero, Card* oppositeHero,
 		Card** currentField, Card** currentHand, Card** oppositeField) :
 		currentUser(currentUser), oppositeUser(oppositeUser), 
 		currentMana(currentMana), oppositeMana(oppositeMana), 
 		numCurrentHand(numCurrentHand), numOppositeHand(numOppositeHand),
 		numCurrentField(numCurrentField), numOppositeField(numOppositeField),
+		currentHero(currentHero), oppositeHero(oppositeHero),
 		currentField(currentField), currentHand(currentHand), oppositeField(oppositeField)
 	{
 		// Do Nothing
 	}
 
+	TargetingStructure::TargetingStructure(BYTE src, BYTE dst)
+		: src(src), dst(dst)
+	{
+		// Do Nothing
+	}
 
 	DrawStructure::DrawStructure(BYTE drawID, BYTE userID, BYTE numDraw, Card** cards) :
 		id(drawID), userID(userID), numDraw(numDraw), cards(cards)
@@ -75,6 +82,18 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
+	ModifyHealthStructure::ModifyHealthStructure(BYTE userID, Card* card) :
+		userID(userID), card(card)
+	{
+		// Do Nothing
+	}
+
+	ExhaustMinionStructure::ExhaustMinionStructure(BYTE userID, Card* card) :
+		userID(userID), card(card)
+	{
+		// Do Nothing
+	}
+
 	BeginFirstStructure::BeginFirstStructure(std::string& userFirst, std::string& userLast) :
 		userFirst(userFirst), userLast(userLast)
 	{
@@ -87,6 +106,11 @@ namespace Hearthstonepp
 	}
 
 	BeginMulliganStructure::BeginMulliganStructure(BYTE userID) : userID(userID)
+	{
+		// Do Nothing
+	}
+
+	MainReadyStructure::MainReadyStructure(BYTE userID) : userID(userID)
 	{
 		// Do Nothing
 	}
@@ -109,12 +133,21 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
-	MainCombatStructure::MainCombatStructure(BYTE userID) : userID(userID)
+	MainCombatStructure::MainCombatStructure(
+		BYTE userID, BYTE numCurrentField, BYTE numOppositeField, 
+		Card** currentField, Card** oppositeField) : 
+		userID(userID), numCurrentField(numCurrentField), numOppositeField(numOppositeField),
+		currentField(currentField), oppositeField(oppositeField)
 	{
 		// Do Nothing
 	}
 
 	MainEndStructure::MainEndStructure(BYTE userID) : userID(userID)
+	{
+		// Do Nothing
+	}
+
+	FinalGameOverStructure::FinalGameOverStructure(BYTE winnerID) : winnerID(winnerID)
 	{
 		// Do Nothing
 	}

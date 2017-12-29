@@ -41,11 +41,13 @@ namespace Hearthstonepp
 		std::vector<Card*> hand;
 		std::vector<Card*> usedSpell;
 		std::vector<Card*> usedMinion;
+
+		std::vector<Card*> attacked;
 	};
 
 	struct GameResult
 	{
-
+		std::string winner;
 	};
 
 	struct GameBrief
@@ -53,6 +55,7 @@ namespace Hearthstonepp
 		GameBrief(
 			BYTE currentUser, BYTE oppositeUser, BYTE currentMana, BYTE oppositeMana, 
 			BYTE numCurrentHand, BYTE numOppositeHand, BYTE numCurrentField, BYTE numOppositeField,
+			Card* currentHero, Card* oppositeHero,
 			Card** currentField, Card** currentHand, Card** oppositeField);
 	
 		BYTE id = static_cast<BYTE>(Action::BRIEF);
@@ -67,9 +70,20 @@ namespace Hearthstonepp
 		BYTE numCurrentField;
 		BYTE numOppositeField;
 
+		Card* currentHero;
+		Card* oppositeHero;
+
 		Card** currentField;
 		Card** currentHand;
 		Card** oppositeField;
+	};
+
+	struct TargetingStructure
+	{
+		TargetingStructure(BYTE src, BYTE dst);
+
+		BYTE src;
+		BYTE dst;
 	};
 
 	struct DrawStructure
@@ -110,11 +124,20 @@ namespace Hearthstonepp
 		BYTE mana;
 	};
 
-	struct HealthModificationStructure
+	struct ModifyHealthStructure
 	{
-		HealthModificationStructure(BYTE userID, Card* card);
+		ModifyHealthStructure(BYTE userID, Card* card);
 
 		BYTE id = static_cast<BYTE>(Action::HEALTH_MODIFICATION);
+		BYTE userID;
+		Card* card;
+	};
+
+	struct ExhaustMinionStructure
+	{
+		ExhaustMinionStructure(BYTE userID, Card* card);
+
+		BYTE id = static_cast<BYTE>(Action::EXHAUST_MINION);
 		BYTE userID;
 		Card* card;
 	};
@@ -141,6 +164,14 @@ namespace Hearthstonepp
 		BeginMulliganStructure(BYTE userID);
 
 		BYTE id = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
+		BYTE userID;
+	};
+
+	struct MainReadyStructure
+	{
+		MainReadyStructure(BYTE userID);
+
+		BYTE id = static_cast<BYTE>(Step::MAIN_READY);
 		BYTE userID;
 	};
 
@@ -175,10 +206,17 @@ namespace Hearthstonepp
 
 	struct MainCombatStructure
 	{
-		MainCombatStructure(BYTE userID);
+		MainCombatStructure(
+			BYTE userID, BYTE numCurrentField, BYTE numOppositeField, 
+			Card** currentField, Card** oppositeField);
 
 		BYTE id = static_cast<BYTE>(Step::MAIN_COMBAT);
 		BYTE userID;
+		BYTE numCurrentField;
+		BYTE numOppositeField;
+
+		Card** currentField;
+		Card** oppositeField;
 	};
 
 	struct MainEndStructure
@@ -187,6 +225,14 @@ namespace Hearthstonepp
 
 		BYTE id = static_cast<BYTE>(Step::MAIN_END);
 		BYTE userID;
+	};
+
+	struct FinalGameOverStructure
+	{
+		FinalGameOverStructure(BYTE winnerID);
+
+		BYTE id = static_cast<BYTE>(Step::FINAL_GAMEOVER);
+		BYTE winnerID;
 	};
 }
 
