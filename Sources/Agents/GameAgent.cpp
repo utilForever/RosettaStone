@@ -176,6 +176,9 @@ namespace Hearthstonepp
 
 	void GameAgent::MainReady(User& user)
 	{
+		MainReadyStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainReadyStructure));
+
 		MainDraw(user);
 		ModifyMana(user, NumericModification::ADD, MANA_TOTAL, 1);
 		ModifyMana(user, NumericModification::SYNC, MANA_EXIST, user.totalMana);
@@ -298,6 +301,7 @@ namespace Hearthstonepp
 			throw std::runtime_error("Combat target index must be in range [0, opponent.field.size].");
 		}
 
+		Card* source = user.field[src];
 		Card* target = nullptr;
 		if (dst == 0)
 		{
@@ -308,20 +312,41 @@ namespace Hearthstonepp
 			target = opponent.field[dst - 1];
 		}
 
-		int hurted = target->GetHealth() - user.field[src]->GetAttack();
-		target->SetHealth(hurted);
+		int targetHurted = target->GetHealth() - source->GetAttack();
+		target->SetHealth(targetHurted);
 
-		if (hurted > 0)
+		if (targetHurted > 0)
 		{
 			ModifyHealthStructure modified(user.id, target);
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
 		}
 		else if (dst != 0)
 		{
+			opponent.usedMinion.emplace_back(target);
+
 			std::vector<Card*>& field = opponent.field;
 			field.erase(field.begin() + dst - 1);
 
 			ExhaustMinionStructure exhausted(user.id, target);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+		}
+
+		int sourceHurted = source->GetHealth() - target->GetAttack();
+		source->SetHealth(sourceHurted);
+
+		if (sourceHurted > 0)
+		{
+			ModifyHealthStructure modified(user.id, source);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
+		}
+		else
+		{
+			user.usedMinion.emplace_back(source);
+
+			std::vector<Card*>& field = user.field;
+			field.erase(field.begin() + src);
+
+			ExhaustMinionStructure exhausted(user.id, source);
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
 		}
 	}
