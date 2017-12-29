@@ -38,6 +38,12 @@ namespace Hearthstonepp
 		const unsigned int GAME_END = 0;
 		const unsigned int GAME_CONTINUE = 1;
 
+		const unsigned int MANA_EXIST = 0;
+		const unsigned int MANA_TOTAL = 1;
+
+		const unsigned int DRAW_SUCCESS = 0;
+		const unsigned int DRAW_FAIL = 1;
+
 		User m_userCurrent;
 		User m_userOpponent;
 
@@ -58,9 +64,11 @@ namespace Hearthstonepp
 		// write data to User
 		int WriteOutputBuffer(BYTE* arr, int size);
 
+		User& GetOpponentOf(User& user);
+
 		bool IsGameEnd();
-		void Draw(User& user, int num);
-		void ModifyMana(User& user, NumericModification mod, ManaType type, int num);
+		int Draw(User& user, int num);
+		void ModifyMana(User& user, NumericModification mod, int type, int num);
 
 		void BeginPhase();
 		const int MainPhase();
@@ -71,6 +79,7 @@ namespace Hearthstonepp
 		void BeginDraw(User& user);
 		void BeginMulligan(User& user);
 
+		void MainReady(User& user);
 		void MainDraw(User& user);
 		const int MainMenu(User& user, User& enemy);
 		void MainUseCard(User& user);

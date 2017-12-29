@@ -67,9 +67,7 @@ namespace Hearthstonepp
 
 	const int GameAgent::MainPhase()
 	{
-		MainDraw(m_userCurrent);
-		ModifyMana(m_userCurrent, NumericModification::ADD, ManaType::TOTAL, 1);
-		ModifyMana(m_userCurrent, NumericModification::SYNC, ManaType::EXIST, m_userCurrent.totalMana);
+		MainReady(m_userCurrent);
 
 		const int result = MainMenu(m_userCurrent, m_userOpponent);
 
@@ -83,8 +81,24 @@ namespace Hearthstonepp
 
 	void GameAgent::FinalPhase(GameResult& result)
 	{
-		BYTE end = static_cast<BYTE>(Step::FINAL_GAMEOVER);
-		WriteOutputBuffer(&end, 1);
+		int winnerID = -1;
+		std::string winner;
+
+		if (m_userCurrent.hero->GetHealth() <= 0)
+		{
+			winner = m_userOpponent.userID;
+			winnerID = m_userOpponent.id;
+		}
+		else
+		{
+			winner = m_userCurrent.userID;
+			winnerID = m_userCurrent.id;
+		}
+
+		result.winner = winner;
+
+		FinalGameOverStructure data(winnerID);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(FinalGameOverStructure));
 	}
 
 	void GameAgent::BeginFirst()
@@ -160,20 +174,37 @@ namespace Hearthstonepp
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
 	}
 
+	void GameAgent::MainReady(User& user)
+	{
+		MainDraw(user);
+		ModifyMana(user, NumericModification::ADD, MANA_TOTAL, 1);
+		ModifyMana(user, NumericModification::SYNC, MANA_EXIST, user.totalMana);
+
+		user.attacked.clear();
+	}
+
 	void GameAgent::MainDraw(User& user)
 	{
-		Draw(user, 1);
-
-		BYTE drawType = static_cast<BYTE>(Step::MAIN_DRAW);
-		DrawStructure data(drawType, user.id, 1, &*user.hand.end() - 1);
-		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
+		int result = Draw(user, 1);
+		if (result == DRAW_SUCCESS)
+		{
+			BYTE drawType = static_cast<BYTE>(Step::MAIN_DRAW);
+			DrawStructure data(drawType, user.id, 1, &*user.hand.end() - 1);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
+		}	
 	}
 
 	const int GameAgent::MainMenu(User& user, User& enemy)
 	{
+		if (IsGameEnd())
+		{
+			return GAME_END;
+		}
+
 		GameBrief brief(
-			user.id, enemy.id, user.totalMana, enemy.totalMana, 
+			user.id, enemy.id, user.existMana, enemy.existMana, 
 			user.hand.size(), enemy.hand.size(), user.field.size(), enemy.field.size(),
+			user.hero, enemy.hero,
 			user.field.data(), user.hand.data(), enemy.field.data());
 
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&brief), sizeof(GameBrief));
@@ -187,14 +218,7 @@ namespace Hearthstonepp
 		if (menu >= 0 && menu < GAME_MAIN_MENU_SIZE - 1)
 		{
 			m_mainMenuFuncs[menu](*this, user);
-			if (IsGameEnd())
-			{
-				return GAME_END;
-			}
-			else
-			{
-				return MainMenu(user, enemy);
-			}
+			return MainMenu(user, enemy);
 		}
 		else if (menu == GAME_MAIN_MENU_SIZE - 1)
 		{
@@ -233,7 +257,9 @@ namespace Hearthstonepp
 				throw std::runtime_error("Card index should be in range [0, user.hand.size).");
 			}
 
-			ModifyMana(user, NumericModification::SUB, ManaType::EXIST, user.hand[minion->cardIndex]->GetCost());
+			user.attacked.emplace_back(user.hand[minion->cardIndex]);
+			ModifyMana(user, NumericModification::SUB, MANA_EXIST, user.hand[minion->cardIndex]->GetCost());
+
 			user.field.insert(user.field.begin() + minion->position, user.hand[minion->cardIndex]);
 			user.hand.erase(user.hand.begin() + minion->cardIndex);
 		}
@@ -241,16 +267,81 @@ namespace Hearthstonepp
 
 	void GameAgent::MainCombat(User& user)
 	{
-		MainCombatStructure data(user.id);
+		User& opponent = GetOpponentOf(user);
+		MainCombatStructure data(
+			user.id, user.field.size(), opponent.field.size(), 
+			user.field.data(), opponent.field.data());
+
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainCombatStructure));
 
+		ReadInputBuffer(m_buffer, sizeof(TargetingStructure));
+		TargetingStructure* targeting = reinterpret_cast<TargetingStructure*>(m_buffer);
 
+		int src = static_cast<int>(targeting->src);
+		int dst = static_cast<int>(targeting->dst);
+
+		if (src < 0 || src >= user.field.size())
+		{
+			throw std::runtime_error("Combat source index must be in range [0, user.field.size).");
+		}
+
+		std::vector<Card*>& attacked = user.attacked;
+		if (std::find(attacked.begin(), attacked.end(), user.field[src]) != attacked.end())
+		{
+			throw std::runtime_error("Combat source minion couldn't attack dst.");
+		}
+
+		attacked.emplace_back(user.field[src]);
+
+		if (dst < 0 || dst > opponent.field.size())
+		{
+			throw std::runtime_error("Combat target index must be in range [0, opponent.field.size].");
+		}
+
+		Card* target = nullptr;
+		if (dst == 0)
+		{
+			target = opponent.hero;
+		}
+		else
+		{
+			target = opponent.field[dst - 1];
+		}
+
+		int hurted = target->GetHealth() - user.field[src]->GetAttack();
+		target->SetHealth(hurted);
+
+		if (hurted > 0)
+		{
+			ModifyHealthStructure modified(user.id, target);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
+		}
+		else if (dst != 0)
+		{
+			std::vector<Card*>& field = opponent.field;
+			field.erase(field.begin() + dst - 1);
+
+			ExhaustMinionStructure exhausted(user.id, target);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+		}
 	}
 
 	void GameAgent::MainEnd(User& user)
 	{
 		MainEndStructure data(user.id);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainEndStructure));
+	}
+
+	User& GameAgent::GetOpponentOf(User& user)
+	{
+		if (user.id == m_userCurrent.id)
+		{
+			return m_userOpponent;
+		}
+		else
+		{
+			return m_userCurrent;
+		}
 	}
 
 	bool GameAgent::IsGameEnd()
@@ -266,8 +357,9 @@ namespace Hearthstonepp
 		}
 	}
 
-	void GameAgent::Draw(User& user, int num)
+	int GameAgent::Draw(User& user, int num)
 	{
+		int result = DRAW_SUCCESS;
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
 
@@ -276,7 +368,19 @@ namespace Hearthstonepp
 			ExhaustDeckStructure data(user.id, num - deck.size());
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(ExhaustDeckStructure));
 
+			for (int i = 1; i <= num - deck.size(); ++i)
+			{
+				int hurted = user.hero->GetHealth() - (user.exhausted + i);
+				user.hero->SetHealth(hurted);
+
+				ModifyHealthStructure data(user.id, user.hero);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&data),  sizeof(ModifyHealthStructure));
+			}
+
+			user.exhausted += num - deck.size();
 			num = deck.size();
+
+			result = DRAW_FAIL;
 		}
 
 		if (hand.size() + num > 10)
@@ -294,6 +398,7 @@ namespace Hearthstonepp
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(OverDrawStructure));
 
 			num = 10 - hand.size();
+			result = DRAW_FAIL;
 		}
 
 		for (int i = 0; i < num; ++i)
@@ -301,18 +406,17 @@ namespace Hearthstonepp
 			hand.push_back(deck.back());
 			deck.pop_back();
 		}
+
+		return result;
 	}
 
-	void GameAgent::ModifyMana(User& user, NumericModification mod, ManaType type, int num)
+	void GameAgent::ModifyMana(User& user, NumericModification mod, int type, int num)
 	{
-		auto getMana = [](User& user, ManaType type) -> int& {
-			switch(type)
-			{
-				case ManaType::TOTAL:
-					return user.totalMana;
-				case ManaType::EXIST:
-					return user.existMana;
-			}
+		auto getMana = [this](User& user, int type) -> int& {
+			if (type == MANA_TOTAL)
+				return user.totalMana;
+			else
+				return user.existMana;
 		};
 
 		int& mana = getMana(user, type);
