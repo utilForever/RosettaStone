@@ -40,17 +40,22 @@ namespace Hearthstonepp
 		void OverDraw();
 		void ExhaustDeck();
 		void ModifiedMana();
+		void ModifiedHealth();
+		void ExhaustMinion();
 
 		void BeginFirst();
 		void BeginShuffle();
 		void BeginDraw();
 		void BeginMulligan();
 
+		void MainReady();
 		void MainDraw();
 		void MainMenu();
 		void MainUseCard();
 		void MainCombat();
 		void MainEnd();
+
+		void FinalGameOver();
 
 		GameAgent& m_agent;
 		std::string m_users[2];
@@ -64,15 +69,19 @@ namespace Hearthstonepp
 			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE),		&GameInterface::BeginShuffle },
 			{ static_cast<BYTE>(Step::BEGIN_DRAW),			&GameInterface::BeginDraw },
 			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),		&GameInterface::BeginMulligan },
+			{ static_cast<BYTE>(Step::MAIN_READY), 			&GameInterface::MainReady },
 			{ static_cast<BYTE>(Step::MAIN_DRAW),			&GameInterface::MainDraw },
 			{ static_cast<BYTE>(Step::MAIN_START),			&GameInterface::MainMenu },
 			{ static_cast<BYTE>(Step::MAIN_ACTION),			&GameInterface::MainUseCard },
 			{ static_cast<BYTE>(Step::MAIN_COMBAT),			&GameInterface::MainCombat },
 			{ static_cast<BYTE>(Step::MAIN_END),			&GameInterface::MainEnd },
+			{ static_cast<BYTE>(Step::FINAL_GAMEOVER), 		&GameInterface::FinalGameOver },
 			{ static_cast<BYTE>(Action::BRIEF),				&GameInterface::BriefGame },
 			{ static_cast<BYTE>(Action::OVER_DRAW),			&GameInterface::OverDraw },
 			{ static_cast<BYTE>(Action::EXHAUST_DECK),		&GameInterface::ExhaustDeck },
 			{ static_cast<BYTE>(Action::MANA_MODIFICATION), &GameInterface::ModifiedMana },
+			{ static_cast<BYTE>(Action::HEALTH_MODIFICATION), &GameInterface::ModifiedHealth },
+			{ static_cast<BYTE>(Action::EXHAUST_MINION), 	&GameInterface::ExhaustMinion }
 		};
 
 		std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr =

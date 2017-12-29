@@ -43,15 +43,15 @@ namespace Hearthstonepp
 	const int GameInterface::HandleMessage()
 	{
 		m_agent.ReadBuffer(m_buffer, m_bufferCapacity);
-
-		if (m_buffer[0] == static_cast<BYTE>(Step::FINAL_GAMEOVER))
-		{
-			return HANDLE_STOP;
-		}
 		
 		if (m_handler.find(m_buffer[0]) != m_handler.end())
 		{
 			m_handler[m_buffer[0]](*this);
+		}
+
+		if (m_buffer[0] == static_cast<BYTE>(Step::FINAL_GAMEOVER))
+		{
+			return HANDLE_STOP;
 		}
 
 		return HANDLE_CONTINUE;
@@ -77,7 +77,12 @@ namespace Hearthstonepp
 		for (int i = 0; i < size; ++i)
 		{
 			std::string type = ConverterFromCardTypeToString.at(cards[i]->GetCardType());
-			std::cout << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")]\n";
+			std::cout << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")] ";
+			if (cards[i]->GetCardType() == CardType::MINION)
+			{
+				std::cout << "(" << cards[i]->GetHealth() << "/" << cards[i]->GetAttack() << ")";
+			}
+			std::cout << std::endl;
 		}
 	}
 
@@ -88,16 +93,20 @@ namespace Hearthstonepp
 		LogWriter(m_users[data->currentUser]) << "Game Briefing" << std::endl;
 
 		std::cout << m_users[data->oppositeUser] 
-			<< " : Mana - " << static_cast<int>(data->oppositeMana)
-			<< " / Hand - " << static_cast<int>(data->numOppositeHand) 
+			<< " - Hero " << data->oppositeHero->GetName()
+			<< ", Health " << data->oppositeHero->GetHealth()
+			<< ", Mana " << static_cast<int>(data->oppositeMana)
+			<< ", Hand " << static_cast<int>(data->numOppositeHand) 
 			<< std::endl;
 
 		std::cout << m_users[data->oppositeUser] << " Field" << std::endl;
 		ShowCards(data->oppositeField, data->numOppositeField);
 
 		std::cout << m_users[data->currentUser]
-			<< " : Mana - " << static_cast<int>(data->currentMana)
-			<< " / Hand - " << static_cast<int>(data->numCurrentHand)
+			<< " - Hero " << data->currentHero->GetName()
+			<< ", Health " << data->currentHero->GetHealth()
+			<< ", Mana " << static_cast<int>(data->currentMana)
+			<< ", Hand " << static_cast<int>(data->numCurrentHand)
 			<< std::endl;
 
 		std::cout << m_users[data->currentUser] << " Field" << std::endl;
@@ -127,6 +136,24 @@ namespace Hearthstonepp
 		ModifyManaStructure* data = reinterpret_cast<ModifyManaStructure*>(m_buffer);
 
 		LogWriter(m_users[data->userID]) << "Mana is modified to " << static_cast<int>(data->mana) << std::endl;
+	}
+
+	void GameInterface::ModifiedHealth()
+	{
+		ModifyHealthStructure* data = reinterpret_cast<ModifyHealthStructure*>(m_buffer);
+
+		LogWriter(m_users[data->userID]) 
+			<< "Health of "
+			<< (data->card->GetCardType() == CardType::MINION ? "Minion " : "Hero ")
+			<< data->card->GetName()
+			<< " is modified to " << static_cast<int>(data->card->GetHealth())
+			<< std::endl;
+	}
+
+	void GameInterface::ExhaustMinion()
+	{
+		ExhaustMinionStructure* data = reinterpret_cast<ExhaustMinionStructure*>(m_buffer);
+		LogWriter(m_users[data->userID]) << "Minion " << data->card->GetName() << " is exhausted.\n";
 	}
 
 	void GameInterface::BeginFirst()
@@ -200,6 +227,12 @@ namespace Hearthstonepp
 		ShowCards(draw->cards, draw->numDraw);
 	}
 
+	void GameInterface::MainReady()
+	{
+		MainReadyStructure* data = reinterpret_cast<MainReadyStructure*>(m_buffer);
+		LogWriter(m_users[data->userID]) << "Main Ready" << std::endl;
+	}
+
 	void GameInterface::MainDraw()
 	{
 		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
@@ -215,7 +248,7 @@ namespace Hearthstonepp
 		LogWriter(m_users[data->userID]) << "Main Menu" << std::endl;
 		ShowMenus(m_mainMenuStr);
 
-		size_t input;
+		int input;
 		while (true)
 		{
 			std::cout << "[*] Input menu : ";
@@ -272,12 +305,55 @@ namespace Hearthstonepp
 
 	void GameInterface::MainCombat()
 	{
+		MainCombatStructure* data = reinterpret_cast<MainCombatStructure*>(m_buffer);
+		LogWriter(m_users[data->userID]) << "Main Combat" << std::endl;
 
+		std::cout << "User field : " << std::endl;
+		ShowCards(data->currentField, data->numCurrentField);
+
+		std::cout << "Opponent field : " << std::endl;
+		ShowCards(data->oppositeField, data->numOppositeField);
+
+		int src;
+		while (true)
+		{
+			std::cout << "Select source minion (0 ~ " << static_cast<int>(data->numCurrentField) - 1 << ") : ";
+
+			std::cin >> src;
+			if (src >= 0 && src < data->numCurrentField)
+			{
+				break;
+			}
+		}
+
+		int dst;
+		while (true)
+		{
+			std::cout 
+				<< "Select destination (0 for hero, 1 ~ " 
+				<< static_cast<int>(data->numOppositeField) << " for minion) : ";
+
+			std::cin >> dst;
+			if (dst >= 0 && dst <= data->numOppositeField)
+			{
+				break;
+			}
+		}
+
+		TargetingStructure targeting(src, dst);
+		m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&targeting), sizeof(TargetingStructure));
 	}
 
 	void GameInterface::MainEnd()
 	{
 		MainEndStructure* data = reinterpret_cast<MainEndStructure*>(m_buffer);
 		LogWriter(m_users[data->userID]) << "Main End" << std::endl;
+	}
+
+	void GameInterface::FinalGameOver()
+	{
+		FinalGameOverStructure* data = reinterpret_cast<FinalGameOverStructure*>(m_buffer);
+		LogWriter(m_users[data->winnerID]) << "Win" << std::endl;
+		LogWriter(m_users[1 - data->winnerID]) << "Lose" << std::endl;
 	}
 }
