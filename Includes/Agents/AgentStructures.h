@@ -34,14 +34,17 @@ namespace Hearthstonepp
 		HeroPower* power;
 		Weapon* weapon;
 
+		// Card storage, not for processing
 		std::vector<Card> cardDeck;
 
+		// Card objects for procesisng, based on pointer
 		std::vector<Card*> deck;
 		std::vector<Card*> field;
 		std::vector<Card*> hand;
 		std::vector<Card*> usedSpell;
 		std::vector<Card*> usedMinion;
 
+		// Card objects for already attacked minion
 		std::vector<Card*> attacked;
 	};
 
@@ -50,6 +53,7 @@ namespace Hearthstonepp
 		std::string winnerUserID;
 	};
 
+	// Briefing games, mana, hands, fields, and hero info
 	struct GameBrief
 	{
 		GameBrief(
@@ -60,7 +64,9 @@ namespace Hearthstonepp
 	
 		BYTE id = static_cast<BYTE>(Action::BRIEF);
 
+		// current user id
 		BYTE currentUser;
+		// opposite user id
 		BYTE oppositeUser;
 		BYTE currentMana;
 		BYTE oppositeMana;
@@ -78,6 +84,7 @@ namespace Hearthstonepp
 		Card** oppositeField;
 	};
 
+	// Structure for targeting, eg. combat, spell, etc.
 	struct TargetingStructure
 	{
 		TargetingStructure(BYTE src, BYTE dst);
@@ -93,9 +100,11 @@ namespace Hearthstonepp
 		BYTE id;
 		BYTE userID;
 		BYTE numDraw;
+		// drawn cards
 		Card** cards;
 	};
 
+	// When number of hands over 10
 	struct OverDrawStructure
 	{
 		OverDrawStructure(BYTE userID, BYTE numOver, Card** cards);
@@ -103,18 +112,22 @@ namespace Hearthstonepp
 		BYTE id = static_cast<BYTE>(Action::OVER_DRAW);
 		BYTE userID;
 		BYTE numOver;
+		// over drawn cards, burnt
 		Card** cards;
 	};
 
+	// When deck size equals to zero
 	struct ExhaustDeckStructure
 	{
 		ExhaustDeckStructure(BYTE userID, BYTE numOver);
 
 		BYTE id = static_cast<BYTE>(Action::EXHAUST_DECK);
 		BYTE userID;
+		// 
 		BYTE numOver;
 	};
 
+	// Modify mana value of user
 	struct ModifyManaStructure
 	{
 		ModifyManaStructure(BYTE userID, BYTE mana);
@@ -124,6 +137,7 @@ namespace Hearthstonepp
 		BYTE mana;
 	};
 
+	// Modify health value of card
 	struct ModifyHealthStructure
 	{
 		ModifyHealthStructure(BYTE userID, Card* card);
@@ -133,6 +147,7 @@ namespace Hearthstonepp
 		Card* card;
 	};
 
+	// When health value of minion under zero
 	struct ExhaustMinionStructure
 	{
 		ExhaustMinionStructure(BYTE userID, Card* card);
@@ -167,6 +182,7 @@ namespace Hearthstonepp
 		BYTE userID;
 	};
 
+	// Ready for main phase, draw, add mana, clear attacked vector
 	struct MainReadyStructure
 	{
 		MainReadyStructure(BYTE userID);
@@ -175,6 +191,7 @@ namespace Hearthstonepp
 		BYTE userID;
 	};
 
+	// Select main menu and call action methods
 	struct MainMenuStructure
 	{
 		MainMenuStructure(BYTE userID);
@@ -183,6 +200,7 @@ namespace Hearthstonepp
 		BYTE userID;
 	};
 
+	// Use cards, eg. summon minion, use spell, etc.
 	struct MainUseCardStructure
 	{
 		MainUseCardStructure(BYTE userID, BYTE existMana, BYTE numFields, BYTE numHands, Card** hands);
@@ -195,6 +213,7 @@ namespace Hearthstonepp
 		Card** hands;
 	};
 
+	// Response of MainUseCardStructure, summon minion
 	struct MainUseMinionStructure
 	{
 		MainUseMinionStructure(BYTE cardIndex, BYTE position);
@@ -204,6 +223,7 @@ namespace Hearthstonepp
 		BYTE position;
 	};
 
+	// Combat with other minion or hero
 	struct MainCombatStructure
 	{
 		MainCombatStructure(

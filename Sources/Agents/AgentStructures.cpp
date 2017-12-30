@@ -24,9 +24,12 @@ namespace Hearthstonepp
 		const Card* powerCard = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
 
 		cardDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
+		// Primitive deck has card pointer in library, should copy to use.
 		for (auto& ptrCard : tmpDeck->GetPrimitiveDeck())
 		{
+			// Copy card data to cardDeck vector
 			cardDeck.emplace_back(Card(*ptrCard));
+			// push card pointer to deck vector
 			deck.emplace_back(&cardDeck.back());
 		}
 
