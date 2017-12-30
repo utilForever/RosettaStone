@@ -47,7 +47,7 @@ namespace Hearthstonepp
 
 	struct GameResult
 	{
-		std::string winner;
+		std::string winnerUserID;
 	};
 
 	struct GameBrief
@@ -144,11 +144,11 @@ namespace Hearthstonepp
 
 	struct BeginFirstStructure
 	{
-		BeginFirstStructure(std::string& userFirst, std::string& userLast);
+		BeginFirstStructure(std::string& firstUserID, std::string& lastuserID);
 
 		BYTE id = static_cast<BYTE>(Step::BEGIN_FIRST);
-		std::string& userFirst;
-		std::string& userLast;
+		std::string& firstUserID;
+		std::string& lastUserID;
 	};
 
 	struct BeginShuffleStructure
@@ -229,10 +229,10 @@ namespace Hearthstonepp
 
 	struct FinalGameOverStructure
 	{
-		FinalGameOverStructure(BYTE winnerID);
+		FinalGameOverStructure(BYTE winnerUserID);
 
 		BYTE id = static_cast<BYTE>(Step::FINAL_GAMEOVER);
-		BYTE winnerID;
+		BYTE winnerUserID;
 	};
 }
 

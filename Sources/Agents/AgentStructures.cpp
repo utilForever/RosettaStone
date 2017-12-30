@@ -94,8 +94,8 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
-	BeginFirstStructure::BeginFirstStructure(std::string& userFirst, std::string& userLast) :
-		userFirst(userFirst), userLast(userLast)
+	BeginFirstStructure::BeginFirstStructure(std::string& firstUserID, std::string& lastUserID) :
+		firstUserID(firstUserID), lastUserID(lastUserID)
 	{
 		// Do Nothing
 	}
@@ -147,7 +147,7 @@ namespace Hearthstonepp
 		// Do Nothing
 	}
 
-	FinalGameOverStructure::FinalGameOverStructure(BYTE winnerID) : winnerID(winnerID)
+	FinalGameOverStructure::FinalGameOverStructure(BYTE winnerUserID) : winnerUserID(winnerUserID)
 	{
 		// Do Nothing
 	}
