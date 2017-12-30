@@ -81,23 +81,23 @@ namespace Hearthstonepp
 
 	void GameAgent::FinalPhase(GameResult& result)
 	{
-		int winnerID = -1;
+		int winnerUserID = -1;
 		std::string winner;
 
 		if (m_userCurrent.hero->GetHealth() <= 0)
 		{
 			winner = m_userOpponent.userID;
-			winnerID = m_userOpponent.id;
+			winnerUserID = m_userOpponent.id;
 		}
 		else
 		{
 			winner = m_userCurrent.userID;
-			winnerID = m_userCurrent.id;
+			winnerUserID = m_userCurrent.id;
 		}
 
-		result.winner = winner;
+		result.winnerUserID = winner;
 
-		FinalGameOverStructure data(winnerID);
+		FinalGameOverStructure data(winnerUserID);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(FinalGameOverStructure));
 	}
 
@@ -149,7 +149,7 @@ namespace Hearthstonepp
 			throw std::runtime_error("Mulligan index should be under NUM_BEGIN_DRAW.");
 		}
 
-		for (int i = 1; i < read; ++i)
+		for (size_t i = 1; i < read; ++i)
 		{
 			if (index[i] == index[i - 1])
 			{
@@ -160,7 +160,7 @@ namespace Hearthstonepp
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
 
-		for (int i = 0; i < read; ++i)
+		for (size_t i = 0; i < read; ++i)
 		{
 			deck.emplace_back(hand[index[i]]);
 			hand.erase(hand.begin() + index[i]); // erase card with given index
@@ -413,7 +413,7 @@ namespace Hearthstonepp
 			int over = hand.size() + num - 10;
 			Card** burnt = new Card*[over];
 
-			for (int i = 0; i < over; ++i)
+			for (size_t i = 0; i < over; ++i)
 			{
 				burnt[i] = deck.back();
 				deck.pop_back();
