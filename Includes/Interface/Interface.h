@@ -48,9 +48,12 @@ namespace Hearthstonepp
 		void BeginDraw();
 		void BeginMulligan();
 
+		// Ready for main phase
 		void MainReady();
 		void MainDraw();
+		// Select main menu and pass to agent
 		void MainMenu();
+		// Use card, combat, use spells, etc
 		void MainUseCard();
 		void MainCombat();
 		void MainEnd();
@@ -58,8 +61,10 @@ namespace Hearthstonepp
 		void FinalGameOver();
 
 		GameAgent& m_agent;
+		// user id 
 		std::string m_users[2];
 
+		// temporal buffer
 		BYTE* m_buffer;
 		int m_bufferCapacity;
 

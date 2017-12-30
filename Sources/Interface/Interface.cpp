@@ -23,6 +23,7 @@ namespace Hearthstonepp
 	GameResult GameInterface::StartGame()
 	{
 		GameResult result;
+		// pass as reference
 		std::thread at = m_agent.StartAgent(result);
 
 		while (true)
@@ -46,6 +47,7 @@ namespace Hearthstonepp
 		
 		if (m_handler.find(m_buffer[0]) != m_handler.end())
 		{
+			// find from handler table and call it
 			m_handler[m_buffer[0]](*this);
 		}
 
@@ -261,6 +263,7 @@ namespace Hearthstonepp
 			}
 		}
 
+		// pass menu index to agent
 		BYTE menu = static_cast<BYTE>(input);
 		m_agent.WriteBuffer(&menu, 1);
 	}
@@ -284,6 +287,7 @@ namespace Hearthstonepp
 			}
 		}
 
+		// if selected card type is minion
 		if (data->hands[in]->GetCardType() == CardType::MINION)
 		{
 			int pos;
