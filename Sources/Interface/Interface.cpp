@@ -160,8 +160,8 @@ namespace Hearthstonepp
 	{
 		BeginFirstStructure* data = reinterpret_cast<BeginFirstStructure*>(m_buffer);
 
-		m_users[0] = data->userFirst;
-		m_users[1] = data->userLast;
+		m_users[0] = data->firstUserID;
+		m_users[1] = data->lastUserID;
 
 		LogWriter(m_users[0]) << "Begin First" << std::endl;
 		LogWriter(m_users[1]) << "Begin Last" << std::endl;
@@ -353,7 +353,7 @@ namespace Hearthstonepp
 	void GameInterface::FinalGameOver()
 	{
 		FinalGameOverStructure* data = reinterpret_cast<FinalGameOverStructure*>(m_buffer);
-		LogWriter(m_users[data->winnerID]) << "Win" << std::endl;
-		LogWriter(m_users[1 - data->winnerID]) << "Lose" << std::endl;
+		LogWriter(m_users[data->winnerUserID]) << "Win" << std::endl;
+		LogWriter(m_users[1 - data->winnerUserID]) << "Lose" << std::endl;
 	}
 }
