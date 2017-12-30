@@ -42,6 +42,7 @@ namespace Hearthstonepp
 		const unsigned int MANA_TOTAL = 1;
 
 		const unsigned int DRAW_SUCCESS = 0;
+		// over draw or deck exhausted
 		const unsigned int DRAW_FAIL = 1;
 
 		User m_userCurrent;
@@ -64,6 +65,7 @@ namespace Hearthstonepp
 		// write data to User
 		int WriteOutputBuffer(BYTE* arr, int size);
 
+		// Get opponent user of parameter
 		User& GetOpponentOf(User& user);
 
 		bool IsGameEnd();
@@ -71,6 +73,7 @@ namespace Hearthstonepp
 		void ModifyMana(User& user, NumericModification mod, int type, int num);
 
 		void BeginPhase();
+		// Return game status, GAME_END or GAME_CONTINUE
 		const int MainPhase();
 		void FinalPhase(GameResult& result);
 
@@ -79,10 +82,14 @@ namespace Hearthstonepp
 		void BeginDraw(User& user);
 		void BeginMulligan(User& user);
 
+		// Ready for main phase, draw, mana, clear attacekd vector
 		void MainReady(User& user);
 		void MainDraw(User& user);
+		// Select main menu and call action method, return game status
 		const int MainMenu(User& user, User& enemy);
+		// Use card, summon minion, use spell etc.
 		void MainUseCard(User& user);
+		// Combat with other minion or hero.
 		void MainCombat(User& user);
 		void MainEnd(User& user);
 

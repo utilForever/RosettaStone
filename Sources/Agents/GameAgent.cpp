@@ -67,12 +67,15 @@ namespace Hearthstonepp
 
 	const int GameAgent::MainPhase()
 	{
+		// Ready for main phase
 		MainReady(m_userCurrent);
 
+		// Get game status from method MainMenu
 		const int result = MainMenu(m_userCurrent, m_userOpponent);
 
 		if (result == GAME_CONTINUE)
 		{
+			// swap user
 			std::swap(m_userCurrent, m_userOpponent);
 		}
 
@@ -95,8 +98,10 @@ namespace Hearthstonepp
 			winnerUserID = m_userCurrent.id;
 		}
 
+		// return GameResult structure
 		result.winnerUserID = winner;
 
+		// Output FinalGameOverStructure to interface
 		FinalGameOverStructure data(winnerUserID);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(FinalGameOverStructure));
 	}
@@ -105,7 +110,8 @@ namespace Hearthstonepp
 	{
 		// get random number, zero or one.
 		std::uniform_int_distribution<int> bin(0, 1);
-		if (bin(m_generator) == 1) // swap user with 50% probability
+		// swap user with 50% probability
+		if (bin(m_generator) == 1) 
 		{
 			std::swap(m_userCurrent, m_userOpponent);
 		}
@@ -120,7 +126,8 @@ namespace Hearthstonepp
 	void GameAgent::BeginShuffle(User& user)
 	{
 		std::vector<Card*>& deck = user.deck;
-		std::shuffle(deck.begin(), deck.end(), m_generator); // shuffle with random generator
+		// shuffle with random generator
+		std::shuffle(deck.begin(), deck.end(), m_generator);
 
 		BeginShuffleStructure data(user.id);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginShuffleStructure));
@@ -141,11 +148,13 @@ namespace Hearthstonepp
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginMulliganStructure));
 
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
-		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
+		// read index of the card to be mulligan
+		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); 
 
 		std::sort(index, index + read, std::greater<int>());
 		if (index[0] >= NUM_BEGIN_DRAW)
 		{
+			// Mulligan index must be in range 0 to hand size
 			throw std::runtime_error("Mulligan index should be under NUM_BEGIN_DRAW.");
 		}
 
@@ -153,6 +162,7 @@ namespace Hearthstonepp
 		{
 			if (index[i] == index[i - 1])
 			{
+				// avoid index overlaping
 				throw std::runtime_error("Mulligan index should all be different.");
 			}
 		}
@@ -162,14 +172,17 @@ namespace Hearthstonepp
 
 		for (size_t i = 0; i < read; ++i)
 		{
+			// back to deck
 			deck.emplace_back(hand[index[i]]);
-			hand.erase(hand.begin() + index[i]); // erase card with given index
+			// erase card with given index
+			hand.erase(hand.begin() + index[i]); 
 		}
 
 		std::shuffle(deck.begin(), deck.end(), m_generator);
 		Draw(user, read);
 
 		BYTE drawType = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
+		// pass only drawn cards, not existing card
 		DrawStructure data2(drawType, user.id, read, &*hand.end() - read);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
 	}
@@ -189,6 +202,7 @@ namespace Hearthstonepp
 	void GameAgent::MainDraw(User& user)
 	{
 		int result = Draw(user, 1);
+		// for over draw or exhausted deck
 		if (result == DRAW_SUCCESS)
 		{
 			BYTE drawType = static_cast<BYTE>(Step::MAIN_DRAW);
@@ -199,6 +213,7 @@ namespace Hearthstonepp
 
 	const int GameAgent::MainMenu(User& user, User& enemy)
 	{
+		// Check before starting main phase
 		if (IsGameEnd())
 		{
 			return GAME_END;
@@ -216,11 +231,14 @@ namespace Hearthstonepp
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainMenuStructure));
 
 		BYTE menu;
+		// Read index of the menu table, m_mainMenuFuncs
 		ReadInputBuffer(&menu, 1);
 
 		if (menu >= 0 && menu < GAME_MAIN_MENU_SIZE - 1)
 		{
+			// call action methods, like UseCard or Combat
 			m_mainMenuFuncs[menu](*this, user);
+			// call recursively for next action until user enter MainEnd menu
 			return MainMenu(user, enemy);
 		}
 		else if (menu == GAME_MAIN_MENU_SIZE - 1)
@@ -229,6 +247,7 @@ namespace Hearthstonepp
 		}
 		else
 		{
+			// menu index must be in range 0 to size of m_mainMenuFuncs
 			throw std::runtime_error("Main menu should be in range [0, GAME_MAIN_MENU_SIZE).");
 		}
 
@@ -240,6 +259,7 @@ namespace Hearthstonepp
 		MainUseCardStructure data(user.id, user.existMana, user.field.size(), user.hand.size(), user.hand.data());
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainUseCardStructure));
 
+		// Read what kinds of card user wants to use
 		ReadInputBuffer(m_buffer, m_bufferCapacity);
 
 		if (m_buffer[0] == static_cast<BYTE>(CardType::MINION))
@@ -247,23 +267,29 @@ namespace Hearthstonepp
 			MainUseMinionStructure* minion = reinterpret_cast<MainUseMinionStructure*>(m_buffer);
 			if (user.hand[minion->cardIndex]->GetCost() > user.existMana)
 			{
+				// requested mana of minion must be under or equal with user's exist mana
 				throw std::runtime_error("Cost of the card must be under or equal with user.existMana.");
 			}
 
 			if (minion->position < 0 || minion->position > user.field.size())
 			{
+				// position of the minion must be in range of field size of user
 				throw std::runtime_error("Minion position should be in range [0, user.field.size].");
 			}
 
 			if (minion->cardIndex < 0 || minion->cardIndex >= user.hand.size())
 			{
+				// minion card must be in user's hand
 				throw std::runtime_error("Card index should be in range [0, user.hand.size).");
 			}
 
+			// summoned minion must be rest at that turn
 			user.attacked.emplace_back(user.hand[minion->cardIndex]);
 			ModifyMana(user, NumericModification::SUB, MANA_EXIST, user.hand[minion->cardIndex]->GetCost());
 
+			// summon minion on the field
 			user.field.insert(user.field.begin() + minion->position, user.hand[minion->cardIndex]);
+			// erase from user's hand
 			user.hand.erase(user.hand.begin() + minion->cardIndex);
 		}
 	}
@@ -277,6 +303,7 @@ namespace Hearthstonepp
 
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainCombatStructure));
 
+		// read combating minion and target minion
 		ReadInputBuffer(m_buffer, sizeof(TargetingStructure));
 		TargetingStructure* targeting = reinterpret_cast<TargetingStructure*>(m_buffer);
 
@@ -285,19 +312,23 @@ namespace Hearthstonepp
 
 		if (src < 0 || src >= user.field.size())
 		{
+			// source minion must be in field
 			throw std::runtime_error("Combat source index must be in range [0, user.field.size).");
 		}
 
 		std::vector<Card*>& attacked = user.attacked;
 		if (std::find(attacked.begin(), attacked.end(), user.field[src]) != attacked.end())
 		{
+			// minion already attacked couldn't be a source of combat action
 			throw std::runtime_error("Combat source minion couldn't attack dst.");
 		}
 
 		attacked.emplace_back(user.field[src]);
 
+		// if dst == 0 then destination is hero else minion
 		if (dst < 0 || dst > opponent.field.size())
 		{
+			// destinted minion must be in field or hero
 			throw std::runtime_error("Combat target index must be in range [0, opponent.field.size].");
 		}
 
@@ -312,14 +343,18 @@ namespace Hearthstonepp
 			target = opponent.field[dst - 1];
 		}
 
+		// processing target hurted by source's attack
 		int targetHurted = target->GetHealth() - source->GetAttack();
 		target->SetHealth(targetHurted);
 
+		// if target is not exhausted
 		if (targetHurted > 0)
 		{
 			ModifyHealthStructure modified(user.id, target);
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
 		}
+		// if target is exhausted, but target is not hero
+		// if target is hero, processing is not necessary, because game is end
 		else if (dst != 0)
 		{
 			opponent.usedMinion.emplace_back(target);
@@ -331,6 +366,7 @@ namespace Hearthstonepp
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
 		}
 
+		// processing source hurted by target's attack
 		int sourceHurted = source->GetHealth() - target->GetAttack();
 		source->SetHealth(sourceHurted);
 
@@ -388,11 +424,13 @@ namespace Hearthstonepp
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
 
+		// when deck is exhausted
 		if (deck.size() < num)
 		{
 			ExhaustDeckStructure data(user.id, num - deck.size());
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(ExhaustDeckStructure));
 
+			// processing damage by exhausting
 			for (int i = 1; i <= num - deck.size(); ++i)
 			{
 				int hurted = user.hero->GetHealth() - (user.exhausted + i);
@@ -403,13 +441,17 @@ namespace Hearthstonepp
 			}
 
 			user.exhausted += num - deck.size();
+			// calculating rest deck size
 			num = deck.size();
 
+			// full draw is fail
 			result = DRAW_FAIL;
 		}
 
+		// when hand size over 10, over draw
 		if (hand.size() + num > 10)
-		{
+		{	
+			// number of over draw
 			int over = hand.size() + num - 10;
 			Card** burnt = new Card*[over];
 
@@ -419,10 +461,12 @@ namespace Hearthstonepp
 				deck.pop_back();
 			}
 
+			// passing over draw cards
 			OverDrawStructure data(user.id, over, burnt);
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(OverDrawStructure));
 
 			num = 10 - hand.size();
+			// draw is fail
 			result = DRAW_FAIL;
 		}
 
@@ -458,9 +502,11 @@ namespace Hearthstonepp
 				break;
 		}
 
+		// over mana
 		if (mana > 10) {
 			mana = 10;
 		}
+		// under mana
 		else if (mana < 0) {
 			mana = 0;
 		}
