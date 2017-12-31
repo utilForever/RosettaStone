@@ -344,46 +344,52 @@ namespace Hearthstonepp
 		}
 
 		// processing target hurted by source's attack
-		int targetHurted = target->GetHealth() - source->GetAttack();
-		target->SetHealth(targetHurted);
-
-		// if target is not exhausted
-		if (targetHurted > 0)
+		if (source->GetAttack() > 0)
 		{
-			ModifyHealthStructure modified(user.id, target);
-			WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
-		}
-		// if target is exhausted, but target is not hero
-		// if target is hero, processing is not necessary, because game is end
-		else if (dst != 0)
-		{
-			opponent.usedMinion.emplace_back(target);
+			int targetHurted = target->GetHealth() - source->GetAttack();
+			target->SetHealth(targetHurted);
 
-			std::vector<Card*>& field = opponent.field;
-			field.erase(field.begin() + dst - 1);
+			// if target is not exhausted
+			if (targetHurted > 0)
+			{
+				ModifyHealthStructure modified(user.id, target);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
+			}
+			// if target is exhausted, but target is not hero
+			// if target is hero, processing is not necessary, because game is end
+			else if (dst != 0)
+			{
+				opponent.usedMinion.emplace_back(target);
 
-			ExhaustMinionStructure exhausted(user.id, target);
-			WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+				std::vector<Card*>& field = opponent.field;
+				field.erase(field.begin() + dst - 1);
+
+				ExhaustMinionStructure exhausted(user.id, target);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+			}
 		}
 
 		// processing source hurted by target's attack
-		int sourceHurted = source->GetHealth() - target->GetAttack();
-		source->SetHealth(sourceHurted);
-
-		if (sourceHurted > 0)
+		if (target->GetAttack() > 0)
 		{
-			ModifyHealthStructure modified(user.id, source);
-			WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
-		}
-		else
-		{
-			user.usedMinion.emplace_back(source);
+			int sourceHurted = source->GetHealth() - target->GetAttack();
+			source->SetHealth(sourceHurted);
 
-			std::vector<Card*>& field = user.field;
-			field.erase(field.begin() + src);
+			if (sourceHurted > 0)
+			{
+				ModifyHealthStructure modified(user.id, source);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
+			}
+			else
+			{
+				user.usedMinion.emplace_back(source);
 
-			ExhaustMinionStructure exhausted(user.id, source);
-			WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+				std::vector<Card*>& field = user.field;
+				field.erase(field.begin() + src);
+
+				ExhaustMinionStructure exhausted(user.id, source);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+			}
 		}
 	}
 
