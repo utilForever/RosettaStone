@@ -298,8 +298,8 @@ namespace Hearthstonepp
 	{
 		User& opponent = GetOpponentOf(user);
 		MainCombatStructure data(
-			user.id, user.field.size(), opponent.field.size(), 
-			user.field.data(), opponent.field.data());
+			user.id, user.field.size(), opponent.field.size(), user.attacked.size(),
+			user.field.data(), opponent.field.data(), user.attacked.data());
 
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainCombatStructure));
 
