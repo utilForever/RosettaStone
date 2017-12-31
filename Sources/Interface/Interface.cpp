@@ -81,7 +81,7 @@ namespace Hearthstonepp
 			ostream << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")] ";
 			if (cards[i]->GetCardType() == CardType::MINION)
 			{
-				ostream << "(" << cards[i]->GetHealth() << "/" << cards[i]->GetAttack() << ")";
+				ostream << "(ATK " << cards[i]->GetAttack() << "/HP " << cards[i]->GetHealth() << ")";
 			}
 			ostream << std::endl;
 		}
