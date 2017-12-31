@@ -227,16 +227,18 @@ namespace Hearthstonepp
 	struct MainCombatStructure
 	{
 		MainCombatStructure(
-			BYTE userID, BYTE numCurrentField, BYTE numOppositeField, 
-			Card** currentField, Card** oppositeField);
+			BYTE userID, BYTE numCurrentField, BYTE numOppositeField, BYTE numAttacked,
+			Card** currentField, Card** oppositeField, Card** attacked);
 
 		BYTE id = static_cast<BYTE>(Step::MAIN_COMBAT);
 		BYTE userID;
 		BYTE numCurrentField;
 		BYTE numOppositeField;
+		BYTE numAttacked;
 
 		Card** currentField;
 		Card** oppositeField;
+		Card** attacked;
 	};
 
 	struct MainEndStructure

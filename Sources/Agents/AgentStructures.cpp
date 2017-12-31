@@ -137,10 +137,10 @@ namespace Hearthstonepp
 	}
 
 	MainCombatStructure::MainCombatStructure(
-		BYTE userID, BYTE numCurrentField, BYTE numOppositeField, 
-		Card** currentField, Card** oppositeField) : 
-		userID(userID), numCurrentField(numCurrentField), numOppositeField(numOppositeField),
-		currentField(currentField), oppositeField(oppositeField)
+		BYTE userID, BYTE numCurrentField, BYTE numOppositeField, BYTE numAttacked,
+		Card** currentField, Card** oppositeField, Card** attacked) : 
+		userID(userID), numCurrentField(numCurrentField), numOppositeField(numOppositeField), numAttacked(numAttacked),
+		currentField(currentField), oppositeField(oppositeField), attacked(attacked)
 	{
 		// Do Nothing
 	}
