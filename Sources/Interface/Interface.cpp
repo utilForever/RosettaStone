@@ -338,7 +338,16 @@ namespace Hearthstonepp
 			std::cin >> src;
 			if (src >= 0 && src < data->numCurrentField)
 			{
-				break;
+				Card** start = data->attacked;
+				Card** end = data->attacked + data->numAttacked;
+				if (std::find(start, end, data->currentField[src]) != end)
+				{
+					std::cout << "Already attacked minion." << std::endl;
+				}
+				else
+				{
+					break;
+				}	
 			}
 		}
 
