@@ -13,6 +13,7 @@
 
 #include <array>
 #include <functional>
+#include <iostream>
 #include <map>
 
 namespace Hearthstonepp
@@ -20,13 +21,19 @@ namespace Hearthstonepp
 	class GameInterface
 	{
 	public:
-		GameInterface(GameAgent& agent);
+		GameInterface(
+			GameAgent& agent, 
+			std::ostream& output = std::cout,
+			std::istream& input = std::cin);
 
 		GameResult StartGame();
 
 	private:
 		const unsigned int HANDLE_CONTINUE = 0;
 		const unsigned int HANDLE_STOP = 1;
+
+		std::ostream& ostream;
+		std::istream& istream;
 
 		const int HandleMessage();
 		std::ostream& LogWriter(std::string& name);
