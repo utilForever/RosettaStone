@@ -312,6 +312,11 @@ namespace Hearthstonepp
 			MainUseMinionStructure minion(in, pos);
 			m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&minion), sizeof(MainUseMinionStructure));
 		}
+		else
+		{
+			BYTE invalid = static_cast<int>(CardType::INVALID);
+			m_agent.WriteBuffer(&invalid, 1);
+		}
 	}
 
 	void GameInterface::MainCombat()
