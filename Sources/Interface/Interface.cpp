@@ -281,9 +281,16 @@ namespace Hearthstonepp
 			std::cout << "Select card index (0 ~ " << static_cast<int>(data->numHands) - 1 << ") : ";
 
 			std::cin >> in;
-			if (in >= 0 && in < data->numHands && data->hands[in]->GetCost() <= data->existMana)
+			if (in >= 0 && in < data->numHands)
 			{
-				break;
+				if(data->hands[in]->GetCost() > data->existMana)
+				{
+					std::cout << "Not enough mana" << std::endl;
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
 
