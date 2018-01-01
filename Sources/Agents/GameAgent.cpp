@@ -17,70 +17,101 @@ namespace Hearthstonepp
 		m_userCurrent(user1), m_userOpponent(user2), m_bufferCapacity(maxBufferSize)
 		, m_inBuffer(maxBufferSize), m_outBuffer(maxBufferSize), m_generator(m_rd())
 	{
-		// Do Nothing
+		m_buffer = new BYTE[maxBufferSize];
 	}
 
 	GameAgent::GameAgent(User&& user1, User&& user2, int maxBufferSize) :
 		m_userCurrent(std::move(user1)), m_userOpponent(std::move(user2)), m_bufferCapacity(maxBufferSize),
 		m_inBuffer(maxBufferSize), m_outBuffer(maxBufferSize), m_generator(m_rd())
 	{
-		// Do Nothing
+		m_buffer = new BYTE[maxBufferSize];
 	}
 
-	std::thread* GameAgent::StartAgent(GameResult& result)
+	std::thread GameAgent::StartAgent(GameResult& result)
 	{
-		std::thread* agent = new std::thread([this](GameResult& result)
+		return std::thread([this](GameResult& result)
 		{
 			BeginPhase();
 
-			while (!IsGameEnd())
+			while (true)
 			{
-				MainPhase();
+				const int result = MainPhase();
+				if (result == GAME_END)
+				{
+					break;
+				}
 			}
 
 			FinalPhase(result);
 		}, std::ref(result));
-
-		// return new GameAgent thread
-		return agent;
 	}
 
 	void GameAgent::BeginPhase()
 	{
 		// userCurrent : user who start first
 		// userOpponent : user who start later
-		DecideDeckOrder();
+		BeginFirst();
 
-		ShuffleDeck(m_userCurrent);
-		ShuffleDeck(m_userOpponent);
+		BeginShuffle(m_userCurrent);
+		BeginShuffle(m_userOpponent);
 
 		BeginDraw(m_userCurrent);
 		BeginDraw(m_userOpponent);
 
-		Mulligan(m_userCurrent);
-		Mulligan(m_userOpponent);
+		BeginMulligan(m_userCurrent);
+		BeginMulligan(m_userOpponent);
 
 		// TODO: Coin for later user
 		m_userOpponent.hand.push_back(new Card());
 	}
 
-	void GameAgent::MainPhase()
+	const int GameAgent::MainPhase()
 	{
+		// Ready for main phase
+		MainReady(m_userCurrent);
 
+		// Get game status from method MainMenu
+		const int result = MainMenu(m_userCurrent, m_userOpponent);
+
+		if (result == GAME_CONTINUE)
+		{
+			// swap user
+			std::swap(m_userCurrent, m_userOpponent);
+		}
+
+		return result;
 	}
 
 	void GameAgent::FinalPhase(GameResult& result)
 	{
-		BYTE end = static_cast<BYTE>(Step::FINAL_GAMEOVER);
+		int winnerUserID = -1;
+		std::string winner;
 
-		WriteOutputBuffer(&end, 1);
+		if (m_userCurrent.hero->GetHealth() <= 0)
+		{
+			winner = m_userOpponent.userID;
+			winnerUserID = m_userOpponent.id;
+		}
+		else
+		{
+			winner = m_userCurrent.userID;
+			winnerUserID = m_userCurrent.id;
+		}
+
+		// return GameResult structure
+		result.winnerUserID = winner;
+
+		// Output FinalGameOverStructure to interface
+		FinalGameOverStructure data(winnerUserID);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(FinalGameOverStructure));
 	}
 
-	void GameAgent::DecideDeckOrder()
+	void GameAgent::BeginFirst()
 	{
 		// get random number, zero or one.
 		std::uniform_int_distribution<int> bin(0, 1);
-		if (bin(m_generator) == 1) // swap user with 50% probability
+		// swap user with 50% probability
+		if (bin(m_generator) == 1) 
 		{
 			std::swap(m_userCurrent, m_userOpponent);
 		}
@@ -88,17 +119,15 @@ namespace Hearthstonepp
 		m_userCurrent.id = 0;
 		m_userOpponent.id = 1;
 
-		std::string&& userFirst = m_userCurrent.player->GetID();
-		std::string&& userLast = m_userOpponent.player->GetID();
-
-		BeginFirstStructure data(std::move(userFirst), std::move(userLast));
+		BeginFirstStructure data(m_userCurrent.userID, m_userOpponent.userID);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginFirstStructure));
 	}
 
-	void GameAgent::ShuffleDeck(User& user)
+	void GameAgent::BeginShuffle(User& user)
 	{
 		std::vector<Card*>& deck = user.deck;
-		std::shuffle(deck.begin(), deck.end(), m_generator); // shuffle with random generator
+		// shuffle with random generator
+		std::shuffle(deck.begin(), deck.end(), m_generator);
 
 		BeginShuffleStructure data(user.id);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginShuffleStructure));
@@ -108,64 +137,388 @@ namespace Hearthstonepp
 	{
 		Draw(user, NUM_BEGIN_DRAW);
 
-		Card** hand = user.hand.data();
-		DrawStructure data(static_cast<BYTE>(Step::BEGIN_DRAW), user.id, NUM_BEGIN_DRAW, NUM_BEGIN_DRAW, hand);
+		BYTE drawType = static_cast<BYTE>(Step::BEGIN_DRAW);
+		DrawStructure data(drawType, user.id, NUM_BEGIN_DRAW, user.hand.data());
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
 	}
 
-	void GameAgent::Mulligan(User& user)
+	void GameAgent::BeginMulligan(User& user)
 	{
 		BeginMulliganStructure data(user.id);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(BeginMulliganStructure));
 
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
-		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); // read index of the card to be mulligan
+		// read index of the card to be mulligan
+		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); 
+
+		std::sort(index, index + read, std::greater<int>());
+		if (index[0] >= NUM_BEGIN_DRAW)
+		{
+			// Mulligan index must be in range 0 to hand size
+			throw std::runtime_error("Mulligan index should be under NUM_BEGIN_DRAW.");
+		}
+
+		for (size_t i = 1; i < read; ++i)
+		{
+			if (index[i] == index[i - 1])
+			{
+				// avoid index overlaping
+				throw std::runtime_error("Mulligan index should all be different.");
+			}
+		}
 
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
 
-		std::sort(index, index + read, std::greater<int>());
-		for (int i = 0; i < read; ++i)
+		for (size_t i = 0; i < read; ++i)
 		{
+			// back to deck
 			deck.emplace_back(hand[index[i]]);
-			hand.erase(hand.begin() + index[i]); // erase card with given index
+			// erase card with given index
+			hand.erase(hand.begin() + index[i]); 
 		}
 
 		std::shuffle(deck.begin(), deck.end(), m_generator);
-
 		Draw(user, read);
-		DrawStructure data2(static_cast<BYTE>(Step::BEGIN_MULLIGAN), user.id, read, NUM_BEGIN_DRAW, hand.data());
+
+		BYTE drawType = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
+		// pass only drawn cards, not existing card
+		DrawStructure data2(drawType, user.id, read, &*hand.end() - read);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
+	}
+
+	void GameAgent::MainReady(User& user)
+	{
+		MainReadyStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainReadyStructure));
+
+		MainDraw(user);
+		ModifyMana(user, NumericModification::ADD, MANA_TOTAL, 1);
+		ModifyMana(user, NumericModification::SYNC, MANA_EXIST, user.totalMana);
+
+		user.attacked.clear();
+	}
+
+	void GameAgent::MainDraw(User& user)
+	{
+		int result = Draw(user, 1);
+		// for over draw or exhausted deck
+		if (result == DRAW_SUCCESS)
+		{
+			BYTE drawType = static_cast<BYTE>(Step::MAIN_DRAW);
+			DrawStructure data(drawType, user.id, 1, &*user.hand.end() - 1);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(DrawStructure));
+		}	
+	}
+
+	const int GameAgent::MainMenu(User& user, User& enemy)
+	{
+		// Check before starting main phase
+		if (IsGameEnd())
+		{
+			return GAME_END;
+		}
+
+		GameBrief brief(
+			user.id, enemy.id, user.existMana, enemy.existMana, 
+			user.hand.size(), enemy.hand.size(), user.field.size(), enemy.field.size(),
+			user.hero, enemy.hero,
+			user.field.data(), user.hand.data(), enemy.field.data());
+
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&brief), sizeof(GameBrief));
+
+		MainMenuStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainMenuStructure));
+
+		BYTE menu;
+		// Read index of the menu table, m_mainMenuFuncs
+		ReadInputBuffer(&menu, 1);
+
+		if (menu >= 0 && menu < GAME_MAIN_MENU_SIZE - 1)
+		{
+			// call action methods, like UseCard or Combat
+			m_mainMenuFuncs[menu](*this, user);
+			// call recursively for next action until user enter MainEnd menu
+			return MainMenu(user, enemy);
+		}
+		else if (menu == GAME_MAIN_MENU_SIZE - 1)
+		{
+			MainEnd(user);
+		}
+		else
+		{
+			// menu index must be in range 0 to size of m_mainMenuFuncs
+			throw std::runtime_error("Main menu should be in range [0, GAME_MAIN_MENU_SIZE).");
+		}
+
+		return GAME_CONTINUE;
+	}
+
+	void GameAgent::MainUseCard(User& user)
+	{
+		MainUseCardStructure data(user.id, user.existMana, user.field.size(), user.hand.size(), user.hand.data());
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainUseCardStructure));
+
+		// Read what kinds of card user wants to use
+		ReadInputBuffer(m_buffer, m_bufferCapacity);
+
+		if (m_buffer[0] == static_cast<BYTE>(CardType::MINION))
+		{
+			MainUseMinionStructure* minion = reinterpret_cast<MainUseMinionStructure*>(m_buffer);
+			if (user.hand[minion->cardIndex]->GetCost() > user.existMana)
+			{
+				// requested mana of minion must be under or equal with user's exist mana
+				throw std::runtime_error("Cost of the card must be under or equal with user.existMana.");
+			}
+
+			if (minion->position < 0 || minion->position > user.field.size())
+			{
+				// position of the minion must be in range of field size of user
+				throw std::runtime_error("Minion position should be in range [0, user.field.size].");
+			}
+
+			if (minion->cardIndex < 0 || minion->cardIndex >= user.hand.size())
+			{
+				// minion card must be in user's hand
+				throw std::runtime_error("Card index should be in range [0, user.hand.size).");
+			}
+
+			// summoned minion must be rest at that turn
+			user.attacked.emplace_back(user.hand[minion->cardIndex]);
+			ModifyMana(user, NumericModification::SUB, MANA_EXIST, user.hand[minion->cardIndex]->GetCost());
+
+			// summon minion on the field
+			user.field.insert(user.field.begin() + minion->position, user.hand[minion->cardIndex]);
+			// erase from user's hand
+			user.hand.erase(user.hand.begin() + minion->cardIndex);
+		}
+	}
+
+	void GameAgent::MainCombat(User& user)
+	{
+		User& opponent = GetOpponentOf(user);
+		MainCombatStructure data(
+			user.id, user.field.size(), opponent.field.size(), user.attacked.size(),
+			user.field.data(), opponent.field.data(), user.attacked.data());
+
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainCombatStructure));
+
+		// read combating minion and target minion
+		ReadInputBuffer(m_buffer, sizeof(TargetingStructure));
+		TargetingStructure* targeting = reinterpret_cast<TargetingStructure*>(m_buffer);
+
+		int src = static_cast<int>(targeting->src);
+		int dst = static_cast<int>(targeting->dst);
+
+		if (src < 0 || src >= user.field.size())
+		{
+			// source minion must be in field
+			throw std::runtime_error("Combat source index must be in range [0, user.field.size).");
+		}
+
+		std::vector<Card*>& attacked = user.attacked;
+		if (std::find(attacked.begin(), attacked.end(), user.field[src]) != attacked.end())
+		{
+			// minion already attacked couldn't be a source of combat action
+			throw std::runtime_error("Combat source minion couldn't attack dst.");
+		}
+
+		attacked.emplace_back(user.field[src]);
+
+		// if dst == 0 then destination is hero else minion
+		if (dst < 0 || dst > opponent.field.size())
+		{
+			// destinted minion must be in field or hero
+			throw std::runtime_error("Combat target index must be in range [0, opponent.field.size].");
+		}
+
+		Card* source = user.field[src];
+		Card* target = nullptr;
+		if (dst == 0)
+		{
+			target = opponent.hero;
+		}
+		else
+		{
+			target = opponent.field[dst - 1];
+		}
+
+		// processing target hurted by source's attack
+		if (source->GetAttack() > 0)
+		{
+			int targetHurted = target->GetHealth() - source->GetAttack();
+			target->SetHealth(targetHurted);
+
+			// if target is not exhausted
+			if (targetHurted > 0)
+			{
+				ModifyHealthStructure modified(user.id, target);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
+			}
+			// if target is exhausted, but target is not hero
+			// if target is hero, processing is not necessary, because game is end
+			else if (dst != 0)
+			{
+				opponent.usedMinion.emplace_back(target);
+
+				std::vector<Card*>& field = opponent.field;
+				field.erase(field.begin() + dst - 1);
+
+				ExhaustMinionStructure exhausted(user.id, target);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+			}
+		}
+
+		// processing source hurted by target's attack
+		if (target->GetAttack() > 0)
+		{
+			int sourceHurted = source->GetHealth() - target->GetAttack();
+			source->SetHealth(sourceHurted);
+
+			if (sourceHurted > 0)
+			{
+				ModifyHealthStructure modified(user.id, source);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyHealthStructure));
+			}
+			else
+			{
+				user.usedMinion.emplace_back(source);
+
+				std::vector<Card*>& field = user.field;
+				field.erase(field.begin() + src);
+
+				ExhaustMinionStructure exhausted(user.id, source);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&exhausted), sizeof(ExhaustMinionStructure));
+			}
+		}
+	}
+
+	void GameAgent::MainEnd(User& user)
+	{
+		MainEndStructure data(user.id);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainEndStructure));
+	}
+
+	User& GameAgent::GetOpponentOf(User& user)
+	{
+		if (user.id == m_userCurrent.id)
+		{
+			return m_userOpponent;
+		}
+		else
+		{
+			return m_userCurrent;
+		}
 	}
 
 	bool GameAgent::IsGameEnd()
 	{
-		return true;
-		/*
-		int healthCurrent = userCurrent.m_hero->health;
-		int healthOpponent = userOpponent.m_hero->health;
+		int healthCurrent = m_userCurrent.hero->GetHealth();
+		int healthOpponent = m_userOpponent.hero->GetHealth();
 
-		if (healthCurrent <= 0 || healthOpponent <= 0)
-		{
+		if (healthCurrent < 1 || healthOpponent < 1) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
-		*/
 	}
 
-	void GameAgent::Draw(User& user, int num)
+	int GameAgent::Draw(User& user, int num)
 	{
+		int result = DRAW_SUCCESS;
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
+
+		// when deck is exhausted
+		if (deck.size() < num)
+		{
+			ExhaustDeckStructure data(user.id, num - deck.size());
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(ExhaustDeckStructure));
+
+			// processing damage by exhausting
+			for (int i = 1; i <= num - deck.size(); ++i)
+			{
+				int hurted = user.hero->GetHealth() - (user.exhausted + i);
+				user.hero->SetHealth(hurted);
+
+				ModifyHealthStructure data(user.id, user.hero);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&data),  sizeof(ModifyHealthStructure));
+			}
+
+			user.exhausted += num - deck.size();
+			// calculating rest deck size
+			num = deck.size();
+
+			// full draw is fail
+			result = DRAW_FAIL;
+		}
+
+		// when hand size over 10, over draw
+		if (hand.size() + num > 10)
+		{	
+			// number of over draw
+			int over = hand.size() + num - 10;
+			Card** burnt = new Card*[over];
+
+			for (size_t i = 0; i < over; ++i)
+			{
+				burnt[i] = deck.back();
+				deck.pop_back();
+			}
+
+			// passing over draw cards
+			OverDrawStructure data(user.id, over, burnt);
+			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(OverDrawStructure));
+
+			num = 10 - hand.size();
+			// draw is fail
+			result = DRAW_FAIL;
+		}
 
 		for (int i = 0; i < num; ++i)
 		{
 			hand.push_back(deck.back());
 			deck.pop_back();
 		}
+
+		return result;
+	}
+
+	void GameAgent::ModifyMana(User& user, NumericModification mod, int type, int num)
+	{
+		auto getMana = [this](User& user, int type) -> int& {
+			if (type == MANA_TOTAL)
+				return user.totalMana;
+			else
+				return user.existMana;
+		};
+
+		int& mana = getMana(user, type);
+		switch(mod)
+		{
+			case NumericModification::ADD:
+				mana += num;
+				break;
+			case NumericModification::SUB:
+				mana -= num;
+				break;
+			case NumericModification::SYNC:
+				mana = num;
+				break;
+		}
+
+		// over mana
+		if (mana > 10) {
+			mana = 10;
+		}
+		// under mana
+		else if (mana < 0) {
+			mana = 0;
+		}
+
+		ModifyManaStructure modified(user.id, mana);
+		WriteOutputBuffer(reinterpret_cast<BYTE*>(&modified), sizeof(ModifyManaStructure));
 	}
 
 	int GameAgent::GetBufferCapacity() const

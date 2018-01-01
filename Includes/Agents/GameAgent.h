@@ -10,8 +10,11 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Agents/AgentStructures.h>
+#include <Commons/Constants.h>
 #include <Interface/InteractBuffer.h>
 
+#include <array>
+#include <functional>
 #include <random>
 #include <thread>
 
@@ -23,7 +26,7 @@ namespace Hearthstonepp
 		GameAgent(User& user1, User& user2, int maxBufferSize = 2048);
 		GameAgent(User&& user1, User&& user2, int maxBufferSize = 2048);
 
-		std::thread* StartAgent(GameResult& result);
+		std::thread StartAgent(GameResult& result);
 
 		int GetBufferCapacity() const;
 		// read data written by Agent
@@ -32,10 +35,22 @@ namespace Hearthstonepp
 		int WriteBuffer(BYTE* arr, int size);
 
 	private:
+		const unsigned int GAME_END = 0;
+		const unsigned int GAME_CONTINUE = 1;
+
+		const unsigned int MANA_EXIST = 0;
+		const unsigned int MANA_TOTAL = 1;
+
+		const unsigned int DRAW_SUCCESS = 0;
+		// over draw or deck exhausted
+		const unsigned int DRAW_FAIL = 1;
+
 		User m_userCurrent;
 		User m_userOpponent;
 
 		int m_bufferCapacity;
+		// Temporal Buffer
+		BYTE* m_buffer;
 		// Pipe IO : User -> Agent 
 		InteractBuffer m_inBuffer; 
 		// Pipe IO : Agent -> User
@@ -50,17 +65,39 @@ namespace Hearthstonepp
 		// write data to User
 		int WriteOutputBuffer(BYTE* arr, int size);
 
+		// Get opponent user of parameter
+		User& GetOpponentOf(User& user);
+
 		bool IsGameEnd();
-		void Draw(User& user, int num);
+		int Draw(User& user, int num);
+		void ModifyMana(User& user, NumericModification mod, int type, int num);
 
 		void BeginPhase();
-		void MainPhase();
+		// Return game status, GAME_END or GAME_CONTINUE
+		const int MainPhase();
 		void FinalPhase(GameResult& result);
 
-		void DecideDeckOrder();
-		void ShuffleDeck(User& user);
+		void BeginFirst();
+		void BeginShuffle(User& user);
 		void BeginDraw(User& user);
-		void Mulligan(User& user);
+		void BeginMulligan(User& user);
+
+		// Ready for main phase, draw, mana, clear attacekd vector
+		void MainReady(User& user);
+		void MainDraw(User& user);
+		// Select main menu and call action method, return game status
+		const int MainMenu(User& user, User& enemy);
+		// Use card, summon minion, use spell etc.
+		void MainUseCard(User& user);
+		// Combat with other minion or hero.
+		void MainCombat(User& user);
+		void MainEnd(User& user);
+
+		std::array<std::function<void(GameAgent&, User&)>, GAME_MAIN_MENU_SIZE - 1> m_mainMenuFuncs =
+		{
+			&GameAgent::MainUseCard,
+			&GameAgent::MainCombat,
+		};
 	};
 }
 
