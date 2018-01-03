@@ -44,7 +44,7 @@ namespace Hearthstonepp
 		// user id 
 		std::string m_users[2];
 
-		const int HandleMessage();
+		unsigned int HandleMessage();
 		std::ostream& LogWriter(std::string& name);
 
 		template <std::size_t SIZE>
