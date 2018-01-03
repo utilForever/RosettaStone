@@ -32,8 +32,17 @@ namespace Hearthstonepp
 		const unsigned int HANDLE_CONTINUE = 0;
 		const unsigned int HANDLE_STOP = 1;
 
-		std::ostream& ostream;
-		std::istream& istream;
+		GameAgent& m_agent;
+
+		std::ostream& m_ostream;
+		std::istream& m_istream;
+
+		// temporal buffer
+		BYTE* m_buffer;
+		int m_bufferCapacity;
+
+		// user id 
+		std::string m_users[2];
 
 		const int HandleMessage();
 		std::ostream& LogWriter(std::string& name);
@@ -66,14 +75,6 @@ namespace Hearthstonepp
 		void MainEnd();
 
 		void FinalGameOver();
-
-		GameAgent& m_agent;
-		// user id 
-		std::string m_users[2];
-
-		// temporal buffer
-		BYTE* m_buffer;
-		int m_bufferCapacity;
 
 		std::map<BYTE, std::function<void(GameInterface&)>> m_handler =
 		{
