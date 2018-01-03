@@ -13,8 +13,8 @@
 namespace Hearthstonepp
 {
 	GameInterface::GameInterface(GameAgent& agent, std::ostream& output, std::istream& input) :
-		m_agent(agent), m_bufferCapacity(agent.GetBufferCapacity()),
-		ostream(output), istream(input)
+		m_agent(agent), m_ostream(output), m_istream(input),
+		m_bufferCapacity(agent.GetBufferCapacity())
 	{
 		m_buffer = new BYTE[m_bufferCapacity];
 	}
@@ -60,8 +60,8 @@ namespace Hearthstonepp
 
 	std::ostream& GameInterface::LogWriter(std::string& name)
 	{
-		ostream << "[*] " << name << " : ";
-		return ostream;
+		m_ostream << "[*] " << name << " : ";
+		return m_ostream;
 	}
 
 	template <std::size_t SIZE>
@@ -69,7 +69,7 @@ namespace Hearthstonepp
 	{
 		for (auto& menu : menus)
 		{
-			ostream << menu << std::endl;
+			m_ostream << menu << std::endl;
 		}
 	}
 
@@ -78,12 +78,12 @@ namespace Hearthstonepp
 		for (int i = 0; i < size; ++i)
 		{
 			std::string type = ConverterFromCardTypeToString.at(cards[i]->GetCardType());
-			ostream << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")] ";
+			m_ostream << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")] ";
 			if (cards[i]->GetCardType() == CardType::MINION)
 			{
-				ostream << "(ATK " << cards[i]->GetAttack() << "/HP " << cards[i]->GetHealth() << ")";
+				m_ostream << "(ATK " << cards[i]->GetAttack() << "/HP " << cards[i]->GetHealth() << ")";
 			}
-			ostream << std::endl;
+			m_ostream << std::endl;
 		}
 	}
 
@@ -93,27 +93,27 @@ namespace Hearthstonepp
 
 		LogWriter(m_users[data->currentUser]) << "Game Briefing" << std::endl;
 
-		ostream << m_users[data->oppositeUser] 
+		m_ostream << m_users[data->oppositeUser] 
 			<< " - Hero " << data->oppositeHero->GetName()
 			<< ", Health " << data->oppositeHero->GetHealth()
 			<< ", Mana " << static_cast<int>(data->oppositeMana)
 			<< ", Hand " << static_cast<int>(data->numOppositeHand) 
 			<< std::endl;
 
-		ostream << m_users[data->oppositeUser] << " Field" << std::endl;
+		m_ostream << m_users[data->oppositeUser] << " Field" << std::endl;
 		ShowCards(data->oppositeField, data->numOppositeField);
 
-		ostream << m_users[data->currentUser]
+		m_ostream << m_users[data->currentUser]
 			<< " - Hero " << data->currentHero->GetName()
 			<< ", Health " << data->currentHero->GetHealth()
 			<< ", Mana " << static_cast<int>(data->currentMana)
 			<< ", Hand " << static_cast<int>(data->numCurrentHand)
 			<< std::endl;
 
-		ostream << m_users[data->currentUser] << " Field" << std::endl;
+		m_ostream << m_users[data->currentUser] << " Field" << std::endl;
 		ShowCards(data->currentField, data->numCurrentField);
 
-		ostream << m_users[data->currentUser] << " Hand" << std::endl;
+		m_ostream << m_users[data->currentUser] << " Hand" << std::endl;
 		ShowCards(data->currentHand, data->numCurrentHand);
 	}
 
@@ -191,8 +191,8 @@ namespace Hearthstonepp
 		int numMulligan;
 		while (true)
 		{
-			ostream << "[*] How many cards to mulligan ? (0 ~ 3) ";
-			istream >> numMulligan;
+			m_ostream << "[*] How many cards to mulligan ? (0 ~ 3) ";
+			m_istream >> numMulligan;
 
 			if (numMulligan >= 0 && numMulligan <= NUM_BEGIN_DRAW)
 			{
@@ -206,8 +206,8 @@ namespace Hearthstonepp
 			while (true)
 			{
 				int index = 0;
-				ostream << "[*] Input card index " << i+1 << " (0 ~ 2) : ";
-				istream >> index;
+				m_ostream << "[*] Input card index " << i+1 << " (0 ~ 2) : ";
+				m_istream >> index;
 
 				if (index >= 0 && index <= NUM_BEGIN_DRAW - 1)
 				{
@@ -252,8 +252,8 @@ namespace Hearthstonepp
 		int input;
 		while (true)
 		{
-			ostream << "[*] Input menu : ";
-			istream >> input;
+			m_ostream << "[*] Input menu : ";
+			m_istream >> input;
 			
 			if (input > 0 && input <= GAME_MAIN_MENU_SIZE)
 			{
@@ -277,14 +277,14 @@ namespace Hearthstonepp
 		int in;
 		while (true)
 		{
-			ostream << "Select card index (0 ~ " << static_cast<int>(data->numHands) - 1 << ") : ";
+			m_ostream << "Select card index (0 ~ " << static_cast<int>(data->numHands) - 1 << ") : ";
 
-			istream >> in;
+			m_istream >> in;
 			if (in >= 0 && in < data->numHands)
 			{
 				if(data->hands[in]->GetCost() > data->existMana)
 				{
-					ostream << "Not enough mana" << std::endl;
+					m_ostream << "Not enough mana" << std::endl;
 				}
 				else
 				{
@@ -299,9 +299,9 @@ namespace Hearthstonepp
 			int pos;
 			while (true)
 			{
-				ostream << "Select Position (0 ~ " << static_cast<int>(data->numFields) << ") : ";
+				m_ostream << "Select Position (0 ~ " << static_cast<int>(data->numFields) << ") : ";
 
-				istream >> pos;
+				m_istream >> pos;
 				if (pos >= 0 && pos <= data->numFields)
 				{
 					break;
@@ -323,25 +323,25 @@ namespace Hearthstonepp
 		MainCombatStructure* data = reinterpret_cast<MainCombatStructure*>(m_buffer);
 		LogWriter(m_users[data->userID]) << "Main Combat" << std::endl;
 
-		ostream << "User field : " << std::endl;
+		m_ostream << "User field : " << std::endl;
 		ShowCards(data->currentField, data->numCurrentField);
 
-		ostream << "Opponent field : " << std::endl;
+		m_ostream << "Opponent field : " << std::endl;
 		ShowCards(data->oppositeField, data->numOppositeField);
 
 		int src;
 		while (true)
 		{
-			ostream << "Select source minion (0 ~ " << static_cast<int>(data->numCurrentField) - 1 << ") : ";
+			m_ostream << "Select source minion (0 ~ " << static_cast<int>(data->numCurrentField) - 1 << ") : ";
 
-			istream >> src;
+			m_istream >> src;
 			if (src >= 0 && src < data->numCurrentField)
 			{
 				Card** start = data->attacked;
 				Card** end = data->attacked + data->numAttacked;
 				if (std::find(start, end, data->currentField[src]) != end)
 				{
-					ostream << "Already attacked minion." << std::endl;
+					m_ostream << "Already attacked minion." << std::endl;
 				}
 				else
 				{
@@ -353,11 +353,11 @@ namespace Hearthstonepp
 		int dst;
 		while (true)
 		{
-			ostream 
+			m_ostream 
 				<< "Select destination (0 for hero, 1 ~ " 
 				<< static_cast<int>(data->numOppositeField) << " for minion) : ";
 
-			istream >> dst;
+			m_istream >> dst;
 			if (dst >= 0 && dst <= data->numOppositeField)
 			{
 				break;
