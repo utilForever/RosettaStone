@@ -69,12 +69,12 @@ namespace Hearthstonepp
 		User& GetOpponentOf(User& user);
 
 		bool IsGameEnd();
-		const unsigned int Draw(User& user, int num);
+		unsigned int Draw(User& user, int num);
 		void ModifyMana(User& user, NumericModification mod, unsigned int type, BYTE num);
 
 		void BeginPhase();
 		// Return game status, GAME_END or GAME_CONTINUE
-		const unsigned int MainPhase();
+		unsigned int MainPhase();
 		void FinalPhase(GameResult& result);
 
 		void BeginFirst();
@@ -86,7 +86,7 @@ namespace Hearthstonepp
 		void MainReady(User& user);
 		void MainDraw(User& user);
 		// Select main menu and call action method, return game status
-		const unsigned int MainMenu(User& user, User& enemy);
+		unsigned int MainMenu(User& user, User& enemy);
 		// Use card, summon minion, use spell etc.
 		void MainUseCard(User& user);
 		// Combat with other minion or hero.
