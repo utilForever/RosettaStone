@@ -46,7 +46,7 @@ namespace Hearthstonepp
 		{
 			playerFile >> j;
 
-			std::string name = std::move(j["name"].get<std::string>());
+			std::string name = j["name"].get<std::string>();
 
 			std::vector<Deck*> decks;
 			decks.reserve(j["decks"].size());
@@ -56,12 +56,12 @@ namespace Hearthstonepp
 				for (auto& deck : j["decks"])
 				{
 					const CardClass deckClass = std::move(ConverterFromStringToCardClass.at(deck["class"].get<std::string>()));
-					const std::string deckName = std::move(deck["name"].get<std::string>());
+					const std::string deckName = deck["name"].get<std::string>();
 
 					Deck* d = new Deck(deckName, deckClass);
 					for (auto& card : deck["cards"])
 					{
-						const std::string cardID = std::move(card["id"].get<std::string>());
+						const std::string cardID = card["id"].get<std::string>();
 						const int numOfCard = card["num"].get<int>();
 
 						d->AddCard(cardID, numOfCard);
