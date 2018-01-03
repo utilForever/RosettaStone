@@ -27,7 +27,7 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			const int msg = HandleMessage();
+			const unsigned int msg = HandleMessage();
 			if (msg == HANDLE_STOP)
 			{
 				break;
@@ -40,7 +40,7 @@ namespace Hearthstonepp
 		return result;
 	}
 
-	const int GameInterface::HandleMessage()
+	unsigned int GameInterface::HandleMessage()
 	{
 		m_agent.ReadBuffer(m_buffer, m_bufferCapacity);
 		
@@ -211,7 +211,7 @@ namespace Hearthstonepp
 
 				if (index >= 0 && index <= NUM_BEGIN_DRAW - 1)
 				{
-					mulligan[i] = index;
+					mulligan[i] = static_cast<BYTE>(index);
 					break;
 				}
 			}
@@ -308,7 +308,7 @@ namespace Hearthstonepp
 				}
 			}
 			
-			MainUseMinionStructure minion(in, pos);
+			MainUseMinionStructure minion(static_cast<BYTE>(in), static_cast<BYTE>(pos));
 			m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&minion), sizeof(MainUseMinionStructure));
 		}
 		else
@@ -364,7 +364,7 @@ namespace Hearthstonepp
 			}
 		}
 
-		TargetingStructure targeting(src, dst);
+		TargetingStructure targeting(static_cast<BYTE>(src), static_cast<BYTE>(dst));
 		m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&targeting), sizeof(TargetingStructure));
 	}
 
