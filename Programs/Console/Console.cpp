@@ -336,7 +336,7 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
+			int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
 			if (deck->GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
 			{
 				numCardToAddAvailable = deck->GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
@@ -378,7 +378,8 @@ namespace Hearthstonepp
 			int numCardToDelete;
 			std::cin >> numCardToDelete;
 
-			if (numCardToDelete < 0 || numCardToDelete > deck->GetNumCardInDeck(selectedCardID))
+			int numCardinDeck = static_cast<int>(deck->GetNumCardInDeck(selectedCardID));
+			if (numCardToDelete < 0 || numCardToDelete > numCardinDeck)
 			{
 				std::cout << "Invalid number! Try again.\n";
 			}
