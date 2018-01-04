@@ -540,22 +540,22 @@ namespace Hearthstonepp
 		return m_bufferCapacity;
 	}
 
-	int GameAgent::ReadBuffer(BYTE* arr, int maxSize)
+	size_t GameAgent::ReadBuffer(BYTE* arr, size_t maxSize)
 	{
 		return m_outBuffer.ReadBuffer(arr, maxSize);
 	}
 
-	int GameAgent::WriteBuffer(BYTE* arr, int size)
+	size_t GameAgent::WriteBuffer(BYTE* arr, size_t size)
 	{
 		return m_inBuffer.WriteBuffer(arr, size);
 	}
 
-	size_t GameAgent::ReadInputBuffer(BYTE* arr, int maxSize)
+	size_t GameAgent::ReadInputBuffer(BYTE* arr, size_t maxSize)
 	{
 		return m_inBuffer.ReadBuffer(arr, maxSize);
 	}
 
-	int GameAgent::WriteOutputBuffer(BYTE* arr, int size)
+	size_t GameAgent::WriteOutputBuffer(BYTE* arr, size_t size)
 	{
 		return m_outBuffer.WriteBuffer(arr, size);
 	}

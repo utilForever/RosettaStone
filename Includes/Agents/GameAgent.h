@@ -30,9 +30,9 @@ namespace Hearthstonepp
 
 		int GetBufferCapacity() const;
 		// read data written by Agent
-		int ReadBuffer(BYTE* arr, int maxSize);
+		size_t ReadBuffer(BYTE* arr, size_t maxSize);
 		// write data to Agent
-		int WriteBuffer(BYTE* arr, int size);
+		size_t WriteBuffer(BYTE* arr, size_t size);
 
 	private:
 		const unsigned int GAME_END = 0;
@@ -61,9 +61,9 @@ namespace Hearthstonepp
 		std::default_random_engine m_generator;
 
 		// read data written by User
-		size_t ReadInputBuffer(BYTE* arr, int maxSize);
+		size_t ReadInputBuffer(BYTE* arr, size_t maxSize);
 		// write data to User
-		int WriteOutputBuffer(BYTE* arr, int size);
+		size_t WriteOutputBuffer(BYTE* arr, size_t size);
 
 		// Get opponent user of parameter
 		User& GetOpponentOf(User& user);
