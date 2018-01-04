@@ -23,7 +23,7 @@ namespace Hearthstonepp
 
 		int GetCapacity() const;
 
-		int ReadBuffer(BYTE* data, int maxSize);
+		size_t ReadBuffer(BYTE* data, int maxSize);
 		int WriteBuffer(BYTE* data, int size);
 
 	private:
