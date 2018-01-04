@@ -29,7 +29,7 @@ namespace Hearthstonepp
 
 		size_t read = 0;
 		// read data from buffer
-		for (int i = 0; (i < m_usage) && maxSize; ++i)
+		for (size_t i = 0; (i < m_usage) && maxSize; ++i)
 		{
 			data[i] = m_buffer[m_head];
 

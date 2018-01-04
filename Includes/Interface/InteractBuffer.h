@@ -30,7 +30,7 @@ namespace Hearthstonepp
 		std::mutex m_mtx;
 		std::condition_variable m_cv;
 
-		int m_capacity;
+		size_t m_capacity;
 		bool m_readable = false;
 
 		BYTE* m_buffer;
