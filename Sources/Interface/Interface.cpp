@@ -188,7 +188,7 @@ namespace Hearthstonepp
 
 		LogWriter(m_users[data->userID]) << "Begin Mulligan" << std::endl;
 
-		int numMulligan;
+		size_t numMulligan;
 		while (true)
 		{
 			m_ostream << "[*] How many cards to mulligan ? (0 ~ 3) ";
@@ -201,11 +201,11 @@ namespace Hearthstonepp
 		}
 
 		BYTE mulligan[NUM_BEGIN_DRAW] = { 0, };
-		for (int i = 0; i < numMulligan; ++i)
+		for (size_t i = 0; i < numMulligan; ++i)
 		{
 			while (true)
 			{
-				int index = 0;
+				size_t index = 0;
 				m_ostream << "[*] Input card index " << i+1 << " (0 ~ 2) : ";
 				m_istream >> index;
 
@@ -249,7 +249,7 @@ namespace Hearthstonepp
 		LogWriter(m_users[data->userID]) << "Main Menu" << std::endl;
 		ShowMenus(m_mainMenuStr);
 
-		int input;
+		size_t input;
 		while (true)
 		{
 			m_ostream << "[*] Input menu : ";
