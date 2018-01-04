@@ -37,7 +37,7 @@ namespace Hearthstonepp
 
 		for (auto& card : j)
 		{
-			const std::string id = std::move(card["id"].get<std::string>());
+			const std::string id = card["id"].get<std::string>();
 			const Rarity rarity = card["rarity"].is_null() ? Rarity::FREE : std::move(ConverterFromStringToRarity.at(card["rarity"].get<std::string>()));
 			const Faction faction = card["faction"].is_null() ? Faction::NEUTRAL : std::move(ConverterFromStringToFaction.at(card["faction"].get<std::string>()));
 			const CardSet cardSet = card["set"].is_null() ? CardSet::NONE : std::move(ConverterFromStringToCardSet.at(card["set"].get<std::string>()));
@@ -45,8 +45,8 @@ namespace Hearthstonepp
 			const CardType cardType = card["type"].is_null() ? CardType::INVALID : std::move(ConverterFromStringToCardType.at(card["type"].get<std::string>()));
 			const Race race = card["race"].is_null() ? Race::INVALID : std::move(ConverterFromStringToRace.at(card["race"].get<std::string>()));
 
-			const std::string name = card["name"].is_null() ? "" : std::move(card["name"]["enUS"].get<std::string>());
-			const std::string text = card["text"].is_null() ? "" : std::move(card["text"]["enUS"].get<std::string>());
+			const std::string name = card["name"].is_null() ? "" : card["name"]["enUS"].get<std::string>();
+			const std::string text = card["text"].is_null() ? "" : card["text"]["enUS"].get<std::string>();
 
 			const bool collectible = card["collectible"].is_null() ? false : card["collectible"].get<bool>();
 			const int cost = card["cost"].is_null() ? -1 : card["cost"].get<int>();
@@ -69,7 +69,7 @@ namespace Hearthstonepp
 			std::vector<std::string> entourages;
 			for (auto& entourage : card["entourage"])
 			{
-				entourages.emplace_back(std::move(entourage.get<std::string>()));
+				entourages.emplace_back(entourage.get<std::string>());
 			}
 
 			Card* c;

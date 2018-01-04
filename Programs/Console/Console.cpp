@@ -336,14 +336,14 @@ namespace Hearthstonepp
 
 		while (true)
 		{
-			unsigned int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
+			int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
 			if (deck->GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
 			{
 				numCardToAddAvailable = deck->GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
 			}
 
 			std::cout << "How many cards to add (0 - " << numCardToAddAvailable << ") ? ";
-			unsigned int numCardToAdd;
+			int numCardToAdd;
 			std::cin >> numCardToAdd;
 
 			if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
@@ -375,10 +375,11 @@ namespace Hearthstonepp
 		while (true)
 		{
 			std::cout << "How many cards to delete (0 - " << deck->GetNumCardInDeck(selectedCardID) << ") ? ";
-			unsigned int numCardToDelete;
+			int numCardToDelete;
 			std::cin >> numCardToDelete;
 
-			if (numCardToDelete < 0 || numCardToDelete > deck->GetNumCardInDeck(selectedCardID))
+			int numCardinDeck = static_cast<int>(deck->GetNumCardInDeck(selectedCardID));
+			if (numCardToDelete < 0 || numCardToDelete > numCardinDeck)
 			{
 				std::cout << "Invalid number! Try again.\n";
 			}
@@ -577,7 +578,8 @@ namespace Hearthstonepp
 		// Initialize opt index
 		optind = 1;
 
-		while ((opt = getopt_long(argc, argv, "r:c:t:e:n:s:a:h:m:p:x", longOptions, &longIndex)) != -1)
+		char options[] = "r:c:t:e:n:s:a:h:m:p:x";
+		while ((opt = getopt_long(argc, argv, options, longOptions, &longIndex)) != -1)
 		{
 			isValid = true;
 
@@ -699,7 +701,8 @@ namespace Hearthstonepp
 			}
 
 			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
-			bool classCondition;
+			bool classCondition = false;
+
 			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
 			if (m_searchMode == SearchMode::AddCardInDeck)
 			{
@@ -749,7 +752,7 @@ namespace Hearthstonepp
 		// If the number of tokens is greater than 1
 		while ((pos = str.find(delimiter)) != std::string::npos)
 		{
-			tokens.emplace_back(std::move(str.substr(0, pos)));
+			tokens.emplace_back(str.substr(0, pos));
 			str.erase(0, pos + delimiter.length());
 		}
 

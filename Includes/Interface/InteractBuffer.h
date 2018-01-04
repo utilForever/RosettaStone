@@ -23,20 +23,20 @@ namespace Hearthstonepp
 
 		int GetCapacity() const;
 
-		int ReadBuffer(BYTE* data, int maxSize);
-		int WriteBuffer(BYTE* data, int size);
+		size_t ReadBuffer(BYTE* data, size_t maxSize);
+		size_t WriteBuffer(BYTE* data, size_t size);
 
 	private:
 		std::mutex m_mtx;
 		std::condition_variable m_cv;
 
-		int m_capacity;
+		size_t m_capacity;
 		bool m_readable = false;
 
 		BYTE* m_buffer;
 		int m_head = 0;
 		int m_tail = 0;
-		int m_usage = 0;
+		size_t m_usage = 0;
 	};
 }
 

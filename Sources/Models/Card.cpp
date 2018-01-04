@@ -83,14 +83,19 @@ namespace Hearthstonepp
 		return m_health;
 	}
 
-	std::vector<GameTag> Card::GetMechanics() const
-	{
-		return m_mechanics;
-	}
-
 	void Card::SetHealth(int health)
 	{
 		m_health = health;
+	}
+
+	int Card::GetDurability() const
+	{
+		return m_durability;
+	}
+
+	std::vector<GameTag> Card::GetMechanics() const
+	{
+		return m_mechanics;
 	}
 
 	bool Card::HasMechanics(std::vector<GameTag> mechanics) const

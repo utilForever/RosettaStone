@@ -21,15 +21,15 @@ namespace Hearthstonepp
 		return m_capacity;
 	}
 
-	int InteractBuffer::ReadBuffer(BYTE* data, int maxSize)
+	size_t InteractBuffer::ReadBuffer(BYTE* data, size_t maxSize)
 	{
 		std::unique_lock<std::mutex> lock(m_mtx);
 		// wait until the buffer can be read
 		m_cv.wait(lock, [this]() { return m_readable; });
 
-		int read = 0;
+		size_t read = 0;
 		// read data from buffer
-		for (int i = 0; (i < m_usage) && maxSize; ++i)
+		for (size_t i = 0; (i < m_usage) && maxSize; ++i)
 		{
 			data[i] = m_buffer[m_head];
 
@@ -48,7 +48,7 @@ namespace Hearthstonepp
 		return read;
 	}
 
-	int InteractBuffer::WriteBuffer(BYTE* data, int size)
+	size_t InteractBuffer::WriteBuffer(BYTE* data, size_t size)
 	{
 		std::unique_lock<std::mutex> lock(m_mtx);
 		// wait until the buffer can be write

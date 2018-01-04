@@ -35,8 +35,8 @@ namespace Hearthstonepp
 
 			while (true)
 			{
-				const int result = MainPhase();
-				if (result == GAME_END)
+				const unsigned int continuity = MainPhase();
+				if (continuity == GAME_END)
 				{
 					break;
 				}
@@ -65,13 +65,13 @@ namespace Hearthstonepp
 		m_userOpponent.hand.push_back(new Card());
 	}
 
-	const int GameAgent::MainPhase()
+	unsigned int GameAgent::MainPhase()
 	{
 		// Ready for main phase
 		MainReady(m_userCurrent);
 
 		// Get game status from method MainMenu
-		const int result = MainMenu(m_userCurrent, m_userOpponent);
+		const unsigned int result = MainMenu(m_userCurrent, m_userOpponent);
 
 		if (result == GAME_CONTINUE)
 		{
@@ -84,7 +84,7 @@ namespace Hearthstonepp
 
 	void GameAgent::FinalPhase(GameResult& result)
 	{
-		int winnerUserID = -1;
+		BYTE winnerUserID = 255;
 		std::string winner;
 
 		if (m_userCurrent.hero->GetHealth() <= 0)
@@ -149,7 +149,7 @@ namespace Hearthstonepp
 
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
 		// read index of the card to be mulligan
-		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); 
+		const size_t read = ReadInputBuffer(index, NUM_BEGIN_DRAW); 
 
 		std::sort(index, index + read, std::greater<int>());
 		if (index[0] >= NUM_BEGIN_DRAW)
@@ -183,7 +183,7 @@ namespace Hearthstonepp
 
 		BYTE drawType = static_cast<BYTE>(Step::BEGIN_MULLIGAN);
 		// pass only drawn cards, not existing card
-		DrawStructure data2(drawType, user.id, read, &*hand.end() - read);
+		DrawStructure data2(drawType, user.id, static_cast<BYTE>(read), &*hand.end() - read);
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data2), sizeof(DrawStructure)); // send new card data
 	}
 
@@ -201,7 +201,7 @@ namespace Hearthstonepp
 
 	void GameAgent::MainDraw(User& user)
 	{
-		int result = Draw(user, 1);
+		const unsigned int result = Draw(user, 1);
 		// for over draw or exhausted deck
 		if (result == DRAW_SUCCESS)
 		{
@@ -211,7 +211,7 @@ namespace Hearthstonepp
 		}	
 	}
 
-	const int GameAgent::MainMenu(User& user, User& enemy)
+	unsigned int GameAgent::MainMenu(User& user, User& enemy)
 	{
 		// Check before starting main phase
 		if (IsGameEnd())
@@ -221,7 +221,10 @@ namespace Hearthstonepp
 
 		GameBrief brief(
 			user.id, enemy.id, user.existMana, enemy.existMana, 
-			user.hand.size(), enemy.hand.size(), user.field.size(), enemy.field.size(),
+			static_cast<BYTE>(user.hand.size()), 
+			static_cast<BYTE>(enemy.hand.size()), 
+			static_cast<BYTE>(user.field.size()), 
+			static_cast<BYTE>(enemy.field.size()),
 			user.hero, enemy.hero,
 			user.field.data(), user.hand.data(), enemy.field.data());
 
@@ -256,7 +259,11 @@ namespace Hearthstonepp
 
 	void GameAgent::MainUseCard(User& user)
 	{
-		MainUseCardStructure data(user.id, user.existMana, user.field.size(), user.hand.size(), user.hand.data());
+		MainUseCardStructure data(
+			user.id, user.existMana, 
+			static_cast<BYTE>(user.field.size()), 
+			static_cast<BYTE>(user.hand.size()), 
+			user.hand.data());
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainUseCardStructure));
 
 		// Read what kinds of card user wants to use
@@ -285,7 +292,8 @@ namespace Hearthstonepp
 
 			// summoned minion must be rest at that turn
 			user.attacked.emplace_back(user.hand[minion->cardIndex]);
-			ModifyMana(user, NumericModification::SUB, MANA_EXIST, user.hand[minion->cardIndex]->GetCost());
+			BYTE cost = static_cast<BYTE>(user.hand[minion->cardIndex]->GetCost());
+			ModifyMana(user, NumericModification::SUB, MANA_EXIST, cost);
 
 			// summon minion on the field
 			user.field.insert(user.field.begin() + minion->position, user.hand[minion->cardIndex]);
@@ -298,7 +306,10 @@ namespace Hearthstonepp
 	{
 		User& opponent = GetOpponentOf(user);
 		MainCombatStructure data(
-			user.id, user.field.size(), opponent.field.size(), user.attacked.size(),
+			user.id, 
+			static_cast<BYTE>(user.field.size()), 
+			static_cast<BYTE>(opponent.field.size()), 
+			static_cast<BYTE>(user.attacked.size()),
 			user.field.data(), opponent.field.data(), user.attacked.data());
 
 		WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(MainCombatStructure));
@@ -307,10 +318,10 @@ namespace Hearthstonepp
 		ReadInputBuffer(m_buffer, sizeof(TargetingStructure));
 		TargetingStructure* targeting = reinterpret_cast<TargetingStructure*>(m_buffer);
 
-		int src = static_cast<int>(targeting->src);
-		int dst = static_cast<int>(targeting->dst);
+		size_t src = static_cast<size_t>(targeting->src);
+		size_t dst = static_cast<size_t>(targeting->dst);
 
-		if (src < 0 || src >= user.field.size())
+		if (src >= user.field.size())
 		{
 			// source minion must be in field
 			throw std::runtime_error("Combat source index must be in range [0, user.field.size).");
@@ -326,7 +337,7 @@ namespace Hearthstonepp
 		attacked.emplace_back(user.field[src]);
 
 		// if dst == 0 then destination is hero else minion
-		if (dst < 0 || dst > opponent.field.size())
+		if (dst > opponent.field.size())
 		{
 			// destinted minion must be in field or hero
 			throw std::runtime_error("Combat target index must be in range [0, opponent.field.size].");
@@ -424,41 +435,44 @@ namespace Hearthstonepp
 		}
 	}
 
-	int GameAgent::Draw(User& user, int num)
+	unsigned int GameAgent::Draw(User& user, int num)
 	{
-		int result = DRAW_SUCCESS;
+		unsigned int result = DRAW_SUCCESS;
 		std::vector<Card*>& deck = user.deck;
 		std::vector<Card*>& hand = user.hand;
 
+		size_t size = num;
+
 		// when deck is exhausted
-		if (deck.size() < num)
+		if (deck.size() < size)
 		{
-			ExhaustDeckStructure data(user.id, num - deck.size());
+			size_t rest = size - deck.size();
+			ExhaustDeckStructure data(user.id, static_cast<BYTE>(rest));
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(ExhaustDeckStructure));
 
 			// processing damage by exhausting
-			for (int i = 1; i <= num - deck.size(); ++i)
+			for (size_t i = 1; i <= rest; ++i)
 			{
 				int hurted = user.hero->GetHealth() - (user.exhausted + i);
 				user.hero->SetHealth(hurted);
 
-				ModifyHealthStructure data(user.id, user.hero);
-				WriteOutputBuffer(reinterpret_cast<BYTE*>(&data),  sizeof(ModifyHealthStructure));
+				ModifyHealthStructure health(user.id, user.hero);
+				WriteOutputBuffer(reinterpret_cast<BYTE*>(&health),  sizeof(ModifyHealthStructure));
 			}
 
-			user.exhausted += num - deck.size();
+			user.exhausted += static_cast<BYTE>(rest);
 			// calculating rest deck size
-			num = deck.size();
+			size = deck.size();
 
 			// full draw is fail
 			result = DRAW_FAIL;
 		}
 
 		// when hand size over 10, over draw
-		if (hand.size() + num > 10)
+		if (hand.size() + size > 10)
 		{	
 			// number of over draw
-			int over = hand.size() + num - 10;
+			size_t over = hand.size() + size - 10;
 			Card** burnt = new Card*[over];
 
 			for (size_t i = 0; i < over; ++i)
@@ -468,15 +482,15 @@ namespace Hearthstonepp
 			}
 
 			// passing over draw cards
-			OverDrawStructure data(user.id, over, burnt);
+			OverDrawStructure data(user.id, static_cast<BYTE>(over), burnt);
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(OverDrawStructure));
 
-			num = 10 - hand.size();
+			size = 10 - hand.size();
 			// draw is fail
 			result = DRAW_FAIL;
 		}
 
-		for (int i = 0; i < num; ++i)
+		for (size_t i = 0; i < size; ++i)
 		{
 			hand.push_back(deck.back());
 			deck.pop_back();
@@ -485,16 +499,16 @@ namespace Hearthstonepp
 		return result;
 	}
 
-	void GameAgent::ModifyMana(User& user, NumericModification mod, int type, int num)
+	void GameAgent::ModifyMana(User& user, NumericModification mod, unsigned int type, BYTE num)
 	{
-		auto getMana = [this](User& user, int type) -> int& {
+		auto getMana = [this](User& user, unsigned int type) -> BYTE& {
 			if (type == MANA_TOTAL)
 				return user.totalMana;
 			else
 				return user.existMana;
 		};
 
-		int& mana = getMana(user, type);
+		BYTE& mana = getMana(user, type);
 		switch(mod)
 		{
 			case NumericModification::ADD:
@@ -526,22 +540,22 @@ namespace Hearthstonepp
 		return m_bufferCapacity;
 	}
 
-	int GameAgent::ReadBuffer(BYTE* arr, int maxSize)
+	size_t GameAgent::ReadBuffer(BYTE* arr, size_t maxSize)
 	{
 		return m_outBuffer.ReadBuffer(arr, maxSize);
 	}
 
-	int GameAgent::WriteBuffer(BYTE* arr, int size)
+	size_t GameAgent::WriteBuffer(BYTE* arr, size_t size)
 	{
 		return m_inBuffer.WriteBuffer(arr, size);
 	}
 
-	int GameAgent::ReadInputBuffer(BYTE* arr, int maxSize)
+	size_t GameAgent::ReadInputBuffer(BYTE* arr, size_t maxSize)
 	{
 		return m_inBuffer.ReadBuffer(arr, maxSize);
 	}
 
-	int GameAgent::WriteOutputBuffer(BYTE* arr, int size)
+	size_t GameAgent::WriteOutputBuffer(BYTE* arr, size_t size)
 	{
 		return m_outBuffer.WriteBuffer(arr, size);
 	}
