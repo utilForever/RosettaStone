@@ -61,7 +61,7 @@ namespace Hearthstonepp
 		std::default_random_engine m_generator;
 
 		// read data written by User
-		int ReadInputBuffer(BYTE* arr, int maxSize);
+		size_t ReadInputBuffer(BYTE* arr, int maxSize);
 		// write data to User
 		int WriteOutputBuffer(BYTE* arr, int size);
 

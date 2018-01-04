@@ -149,7 +149,7 @@ namespace Hearthstonepp
 
 		BYTE index[NUM_BEGIN_DRAW] = { 0, };
 		// read index of the card to be mulligan
-		const int read = ReadInputBuffer(index, NUM_BEGIN_DRAW); 
+		const size_t read = ReadInputBuffer(index, NUM_BEGIN_DRAW); 
 
 		std::sort(index, index + read, std::greater<int>());
 		if (index[0] >= NUM_BEGIN_DRAW)
@@ -318,10 +318,10 @@ namespace Hearthstonepp
 		ReadInputBuffer(m_buffer, sizeof(TargetingStructure));
 		TargetingStructure* targeting = reinterpret_cast<TargetingStructure*>(m_buffer);
 
-		int src = static_cast<int>(targeting->src);
-		int dst = static_cast<int>(targeting->dst);
+		size_t src = static_cast<size_t>(targeting->src);
+		size_t dst = static_cast<size_t>(targeting->dst);
 
-		if (src < 0 || src >= user.field.size())
+		if (src >= user.field.size())
 		{
 			// source minion must be in field
 			throw std::runtime_error("Combat source index must be in range [0, user.field.size).");
@@ -337,7 +337,7 @@ namespace Hearthstonepp
 		attacked.emplace_back(user.field[src]);
 
 		// if dst == 0 then destination is hero else minion
-		if (dst < 0 || dst > opponent.field.size())
+		if (dst > opponent.field.size())
 		{
 			// destinted minion must be in field or hero
 			throw std::runtime_error("Combat target index must be in range [0, opponent.field.size].");
@@ -451,7 +451,7 @@ namespace Hearthstonepp
 			WriteOutputBuffer(reinterpret_cast<BYTE*>(&data), sizeof(ExhaustDeckStructure));
 
 			// processing damage by exhausting
-			for (int i = 1; i <= rest; ++i)
+			for (size_t i = 1; i <= rest; ++i)
 			{
 				int hurted = user.hero->GetHealth() - (user.exhausted + i);
 				user.hero->SetHealth(hurted);
@@ -550,7 +550,7 @@ namespace Hearthstonepp
 		return m_inBuffer.WriteBuffer(arr, size);
 	}
 
-	int GameAgent::ReadInputBuffer(BYTE* arr, int maxSize)
+	size_t GameAgent::ReadInputBuffer(BYTE* arr, int maxSize)
 	{
 		return m_inBuffer.ReadBuffer(arr, maxSize);
 	}
