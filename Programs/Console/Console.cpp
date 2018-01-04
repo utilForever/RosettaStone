@@ -701,7 +701,8 @@ namespace Hearthstonepp
 			}
 
 			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
-			bool classCondition;
+			bool classCondition = false;
+
 			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
 			if (m_searchMode == SearchMode::AddCardInDeck)
 			{
