@@ -1,5 +1,5 @@
 # Target name
-set(target Console)
+set(target HSppConsole)
 
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
