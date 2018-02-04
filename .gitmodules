@@ -1,0 +1,6 @@
+[submodule "Libraries/imgui"]
+	path = Libraries/imgui
+	url = https://github.com/ocornut/imgui
+[submodule "Libraries/json"]
+	path = Libraries/json
+	url = https://github.com/nlohmann/json
