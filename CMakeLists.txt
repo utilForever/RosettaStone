@@ -16,6 +16,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 # Includes
 include_directories(Includes)
 include_directories(Libraries)
+include_directories(Libraries/glfw/include)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     include_directories(Libraries/winix)
 endif()
