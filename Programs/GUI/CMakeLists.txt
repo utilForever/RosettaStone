@@ -3,6 +3,12 @@ set(target HSppGUI)
 
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/glfw/include)
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/imgui)
+
+link_directories(${CMAKE_SOURCE_DIR}/Libraries/glfw/lib)
+link_libraries(glfw3)
+link_libraries(opengl32)
 
 # Sources
 file(GLOB sources
@@ -38,12 +44,12 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		PRIVATE
 		${DEFAULT_LINKER_OPTIONS}
 		Hearthstonepp
-		glfw
+		imgui
 		winix)
 else()
 	target_link_libraries(${target}
 		PRIVATE
 		${DEFAULT_LINKER_OPTIONS}
 		Hearthstonepp
-		glfw)
+		imgui)
 endif()
