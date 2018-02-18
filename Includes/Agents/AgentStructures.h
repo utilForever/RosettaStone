@@ -24,10 +24,10 @@ namespace Hearthstonepp
 	{
 		User(Player* player, int deckID);
 
-		int id;
-		int totalMana;
-		int existMana;
-		int exhausted;
+		BYTE id;
+		BYTE totalMana;
+		BYTE existMana;
+		BYTE exhausted;
 
 		std::string userID;
 		Hero* hero;

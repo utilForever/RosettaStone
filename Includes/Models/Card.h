@@ -41,6 +41,7 @@ namespace Hearthstonepp
 		int GetCost() const;
 		int GetAttack() const;
 		int GetHealth() const;
+		int GetDurability() const;
 		std::vector<GameTag> GetMechanics() const;
 
 		void SetHealth(int health);

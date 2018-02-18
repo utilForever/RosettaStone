@@ -30,9 +30,9 @@ namespace Hearthstonepp
 
 		int GetBufferCapacity() const;
 		// read data written by Agent
-		int ReadBuffer(BYTE* arr, int maxSize);
+		size_t ReadBuffer(BYTE* arr, size_t maxSize);
 		// write data to Agent
-		int WriteBuffer(BYTE* arr, int size);
+		size_t WriteBuffer(BYTE* arr, size_t size);
 
 	private:
 		const unsigned int GAME_END = 0;
@@ -61,20 +61,20 @@ namespace Hearthstonepp
 		std::default_random_engine m_generator;
 
 		// read data written by User
-		int ReadInputBuffer(BYTE* arr, int maxSize);
+		size_t ReadInputBuffer(BYTE* arr, size_t maxSize);
 		// write data to User
-		int WriteOutputBuffer(BYTE* arr, int size);
+		size_t WriteOutputBuffer(BYTE* arr, size_t size);
 
 		// Get opponent user of parameter
 		User& GetOpponentOf(User& user);
 
 		bool IsGameEnd();
-		int Draw(User& user, int num);
-		void ModifyMana(User& user, NumericModification mod, int type, int num);
+		unsigned int Draw(User& user, int num);
+		void ModifyMana(User& user, NumericModification mod, unsigned int type, BYTE num);
 
 		void BeginPhase();
 		// Return game status, GAME_END or GAME_CONTINUE
-		const int MainPhase();
+		unsigned int MainPhase();
 		void FinalPhase(GameResult& result);
 
 		void BeginFirst();
@@ -86,7 +86,7 @@ namespace Hearthstonepp
 		void MainReady(User& user);
 		void MainDraw(User& user);
 		// Select main menu and call action method, return game status
-		const int MainMenu(User& user, User& enemy);
+		unsigned int MainMenu(User& user, User& enemy);
 		// Use card, summon minion, use spell etc.
 		void MainUseCard(User& user);
 		// Combat with other minion or hero.
