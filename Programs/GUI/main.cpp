@@ -80,6 +80,7 @@ void Setup(GLFWwindow* window)
 	int width, height, displayWidth, displayHeight;
 	GLuint g_fontTexture;
 
+	ImGui::CreateContext();
 	ImGuiIO& io{ ImGui::GetIO() };
 
 	io.Fonts->GetTexDataAsAlpha8(&pixels, &width, &height);
