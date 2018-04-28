@@ -9,6 +9,8 @@
 #ifndef HEARTHSTONEPP_ENUMS_H
 #define HEARTHSTONEPP_ENUMS_H
 
+#include <array>
+
 namespace Hearthstonepp
 {
 	enum class BlockType
@@ -58,6 +60,18 @@ namespace Hearthstonepp
 
 		NEWBIE = CASUAL_STANDARD_NEWBIE,
 		CASUAL_STANDARD = CASUAL_STANDARD_NORMAL,
+	};
+
+	constexpr std::array<BattleNetGameType, 2> STANDARD_GAME_TYPES =
+	{
+		BattleNetGameType::CASUAL_STANDARD,
+		BattleNetGameType::RANKED_STANDARD
+	};
+
+	constexpr std::array<BattleNetGameType, 2> WILD_GAME_TYPES =
+	{
+		BattleNetGameType::CASUAL_WILD,
+		BattleNetGameType::RANKED_WILD
 	};
 
 	enum class BattleNetRegion
