@@ -42,8 +42,6 @@ namespace Hearthstonepp
 		TUTORIAL = 5,
 		ASYNC = 6,
 		CASUAL_STANDARD_NEWBIE = 9,
-		NEWBIE = 9,
-		CASUAL_STANDARD = 10,
 		CASUAL_STANDARD_NORMAL = 10,
 		TEST1 = 11,
 		TEST2 = 12,
@@ -57,6 +55,9 @@ namespace Hearthstonepp
 		FSG_BRAWL_PVP = 41,
 		FSG_BRAWL_1P_VERSUS_AI = 42,
 		FSG_BRAWL_2P_COOP = 43,
+
+		NEWBIE = CASUAL_STANDARD_NEWBIE,
+		CASUAL_STANDARD = CASUAL_STANDARD_NORMAL,
 	};
 
 	enum class BattleNetRegion
