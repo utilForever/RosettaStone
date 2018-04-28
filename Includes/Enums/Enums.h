@@ -14,16 +14,22 @@ namespace Hearthstonepp
 	enum class BlockType
 	{
 		ATTACK = 1,
-		CONTINUOUS = 2,
 		JOUST = 2,
 		POWER = 3,
-		SCRIPT = 4,
 		TRIGGER = 5,
 		DEATHS = 6,
 		PLAY = 7,
 		FATIGUE = 8,
 		RITUAL = 9,
+		REVEAL_CARD = 10,
+		GAME_RESET = 11,
+
+		// Removed
+		SCRIPT = 4,
 		ACTION = 99,
+
+		// Renamed
+		CONTINUOUS = 2,
 	};
 
 	enum class BattleNetGameType
