@@ -85,6 +85,8 @@ namespace Hearthstonepp
 		CN = 5,
 		LIVE_VERIFICATION = 40,
 		PTR_LOC = 41,
+
+		// Deleted
 		MSCHWEITZER_BN11 = 52,
 		MSCHWEITZER_BN12 = 53,
 		DEV = 60,
