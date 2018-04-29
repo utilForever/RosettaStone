@@ -9,29 +9,21 @@
 #ifndef HEARTHSTONEPP_ENUMS_H
 #define HEARTHSTONEPP_ENUMS_H
 
-#include <array>
-
 namespace Hearthstonepp
 {
 	enum class BlockType
 	{
 		ATTACK = 1,
+		CONTINUOUS = 2,
 		JOUST = 2,
 		POWER = 3,
+		SCRIPT = 4,
 		TRIGGER = 5,
 		DEATHS = 6,
 		PLAY = 7,
 		FATIGUE = 8,
 		RITUAL = 9,
-		REVEAL_CARD = 10,
-		GAME_RESET = 11,
-
-		// Removed
-		SCRIPT = 4,
 		ACTION = 99,
-
-		// Renamed
-		CONTINUOUS = 2,
 	};
 
 	enum class BattleNetGameType
@@ -44,6 +36,8 @@ namespace Hearthstonepp
 		TUTORIAL = 5,
 		ASYNC = 6,
 		CASUAL_STANDARD_NEWBIE = 9,
+		NEWBIE = 9,
+		CASUAL_STANDARD = 10,
 		CASUAL_STANDARD_NORMAL = 10,
 		TEST1 = 11,
 		TEST2 = 12,
@@ -57,21 +51,6 @@ namespace Hearthstonepp
 		FSG_BRAWL_PVP = 41,
 		FSG_BRAWL_1P_VERSUS_AI = 42,
 		FSG_BRAWL_2P_COOP = 43,
-
-		NEWBIE = CASUAL_STANDARD_NEWBIE,
-		CASUAL_STANDARD = CASUAL_STANDARD_NORMAL,
-	};
-
-	constexpr std::array<BattleNetGameType, 2> STANDARD_GAME_TYPES =
-	{
-		BattleNetGameType::CASUAL_STANDARD,
-		BattleNetGameType::RANKED_STANDARD,
-	};
-
-	constexpr std::array<BattleNetGameType, 2> WILD_GAME_TYPES =
-	{
-		BattleNetGameType::CASUAL_WILD,
-		BattleNetGameType::RANKED_WILD,
 	};
 
 	enum class BattleNetRegion
@@ -85,8 +64,6 @@ namespace Hearthstonepp
 		CN = 5,
 		LIVE_VERIFICATION = 40,
 		PTR_LOC = 41,
-
-		// Deleted
 		MSCHWEITZER_BN11 = 52,
 		MSCHWEITZER_BN12 = 53,
 		DEV = 60,
@@ -105,13 +82,6 @@ namespace Hearthstonepp
 		MEAN_STREETS = 19,
 		UNGORO = 20,
 		FROZEN_THRONE = 21,
-		GOLDEN_CLASSIC_PACK = 23,
-		KOBOLDS_AND_CATACOMBS = 30,
-		WITCHWOOD = 31,
-		MAMMOTH_BUNDLE = 41,
-
-		// Renamed
-		KOBOLDS_CATACOMBS = KOBOLDS_AND_CATACOMBS,
 	};
 
 	enum class BrawlType
@@ -146,6 +116,7 @@ namespace Hearthstonepp
 		CORE = 2,
 		EXPERT1 = 3,
 		HOF = 4,
+		REWARD = 4,
 		MISSIONS = 5,
 		DEMO = 6,
 		NONE = 7,
@@ -154,9 +125,14 @@ namespace Hearthstonepp
 		DEBUG_SP = 10,
 		PROMO = 11,
 		NAXX = 12,
+		FP1 = 12,
+		PE1 = 13,
 		GVG = 13,
+		FP2 = 14,
 		BRM = 14,
 		TGT = 15,
+		PE2 = 15,
+		TEMP1 = 15,
 		CREDITS = 16,
 		HERO_SKINS = 17,
 		TB = 18,
@@ -170,18 +146,6 @@ namespace Hearthstonepp
 		GANGS_RESERVE = 26,
 		UNGORO = 27,
 		ICECROWN = 1001,
-		LOOTAPALOOZA = 1004,
-		GILNEAS = 1125,
-
-		// Aliased from the original enums
-		FP1 = 12,
-		PE1 = 13,
-
-		// Renamed
-		FP2 = BRM,
-		PE2 = TGT,
-		TEMP1 = TGT,
-		REWARD = HOF,
 	};
 
 	enum class CardType
@@ -192,14 +156,12 @@ namespace Hearthstonepp
 		HERO = 3,
 		MINION = 4,
 		SPELL = 5,
+		ABILITY = 5,
 		ENCHANTMENT = 6,
 		WEAPON = 7,
 		ITEM = 8,
 		TOKEN = 9,
 		HERO_POWER = 10,
-
-		// Renamed
-		ABILITY = SPELL,
 	};
 
 	enum class ChoiceType
@@ -211,7 +173,6 @@ namespace Hearthstonepp
 
 	enum class DeckType
 	{
-		CLIENT_ONLY_DECK = -1,
 		UNKNOWN_DECK_TYPE = 0,
 		NORMAL_DECK = 1,
 		AI_DECK = 2,
