@@ -65,13 +65,13 @@ namespace Hearthstonepp
 	constexpr std::array<BattleNetGameType, 2> STANDARD_GAME_TYPES =
 	{
 		BattleNetGameType::CASUAL_STANDARD,
-		BattleNetGameType::RANKED_STANDARD
+		BattleNetGameType::RANKED_STANDARD,
 	};
 
 	constexpr std::array<BattleNetGameType, 2> WILD_GAME_TYPES =
 	{
 		BattleNetGameType::CASUAL_WILD,
-		BattleNetGameType::RANKED_WILD
+		BattleNetGameType::RANKED_WILD,
 	};
 
 	enum class BattleNetRegion
@@ -105,6 +105,13 @@ namespace Hearthstonepp
 		MEAN_STREETS = 19,
 		UNGORO = 20,
 		FROZEN_THRONE = 21,
+		GOLDEN_CLASSIC_PACK = 23,
+		KOBOLDS_AND_CATACOMBS = 30,
+		WITCHWOOD = 31,
+		MAMMOTH_BUNDLE = 41,
+
+		// Renamed
+		KOBOLDS_CATACOMBS = KOBOLDS_AND_CATACOMBS,
 	};
 
 	enum class BrawlType
