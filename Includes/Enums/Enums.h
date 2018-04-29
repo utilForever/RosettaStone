@@ -146,7 +146,6 @@ namespace Hearthstonepp
 		CORE = 2,
 		EXPERT1 = 3,
 		HOF = 4,
-		REWARD = 4,
 		MISSIONS = 5,
 		DEMO = 6,
 		NONE = 7,
@@ -155,14 +154,9 @@ namespace Hearthstonepp
 		DEBUG_SP = 10,
 		PROMO = 11,
 		NAXX = 12,
-		FP1 = 12,
-		PE1 = 13,
 		GVG = 13,
-		FP2 = 14,
 		BRM = 14,
 		TGT = 15,
-		PE2 = 15,
-		TEMP1 = 15,
 		CREDITS = 16,
 		HERO_SKINS = 17,
 		TB = 18,
@@ -176,6 +170,18 @@ namespace Hearthstonepp
 		GANGS_RESERVE = 26,
 		UNGORO = 27,
 		ICECROWN = 1001,
+		LOOTAPALOOZA = 1004,
+		GILNEAS = 1125,
+
+		// Aliased from the original enums
+		FP1 = 12,
+		PE1 = 13,
+
+		// Renamed
+		FP2 = BRM,
+		PE2 = TGT,
+		TEMP1 = TGT,
+		REWARD = HOF,
 	};
 
 	enum class CardType
