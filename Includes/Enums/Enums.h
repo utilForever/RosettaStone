@@ -211,6 +211,7 @@ namespace Hearthstonepp
 
 	enum class DeckType
 	{
+		CLIENT_ONLY_DECK = -1,
 		UNKNOWN_DECK_TYPE = 0,
 		NORMAL_DECK = 1,
 		AI_DECK = 2,
