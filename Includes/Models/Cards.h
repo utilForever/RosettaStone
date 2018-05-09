@@ -20,7 +20,7 @@ namespace Hearthstonepp
 		Rarity rarity;
 		CardClass playerClass;
 		CardType cardType;
-		Race race;
+		Race race = Race::INVALID;
 		std::string name;
 		int costMin, costMax;
 		int attackMin, attackMax;
