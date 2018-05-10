@@ -17,8 +17,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	link_libraries(OpenGL32)
 	link_libraries(glfw3)
 else()
-	link_libraries(OpenGL)
+	find_package(OpenGL REQUIRED)
 	link_libraries(glfw)
+	include_directories(${OPENGL_INCLUDE_DIRS})
 endif()
 
 # Sources
@@ -61,6 +62,7 @@ else()
 	target_link_libraries(${target}
 		PRIVATE
 		${DEFAULT_LINKER_OPTIONS}
+		${OPENGL_LIBRARIES}
 		Hearthstonepp
 		imgui)
 endif()
