@@ -1,14 +1,25 @@
 # Target name
 set(target HSppGUI)
 
+find_package(OpenGL REQUIRED)
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+else()
+	find_package(glfw3 REQUIRED)
+endif()
+
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/glfw/include)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/imgui)
 
 link_directories(${CMAKE_SOURCE_DIR}/Libraries/glfw/lib)
-link_libraries(glfw3)
-link_libraries(opengl32)
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+	link_libraries(OpenGL32)
+	link_libraries(glfw3)
+else()
+	link_libraries(OpenGL)
+	link_libraries(glfw)
+endif()
 
 # Sources
 file(GLOB sources
