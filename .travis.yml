@@ -1,0 +1,27 @@
+language: cpp
+
+matrix:
+  include:
+    # Test Ubuntu 14.04 + gcc 7
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      script:
+        - sh Scripts/travis_build.sh
+    # Test OS X 10.12 + Xcode 9 + clang
+    - os: osx
+      osx_image: xcode9
+      compiler: clang
+      script:
+        - sh Scripts/travis_build.sh
+before_install:
+  - eval "${MATRIX_EVAL}"
