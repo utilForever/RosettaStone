@@ -16,6 +16,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 # Includes
 include_directories(Includes)
 include_directories(Libraries)
+include_directories(Libraries/googletest/googletest/include)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     include_directories(Libraries/winix)
 endif()
@@ -38,6 +39,7 @@ set(RESOURCES_JSONS
     ${RESOURCES_DIR}/cards.json)
 
 # Project modules
+add_subdirectory(Libraries/googletest)
 add_subdirectory(Sources)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     add_subdirectory(Libraries/winix)
