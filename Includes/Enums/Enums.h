@@ -696,16 +696,8 @@ namespace Hearthstonepp
                 NERUBIAN = 22, PIRATE = 23, DRAGON = 24, BLANK = 25, ALL = 26,
                 EGG = 38)
 
-	enum class Rarity
-	{
-		INVALID = 0,
-		COMMON = 1,
-		FREE = 2,
-		RARE = 3,
-		EPIC = 4,
-		LEGENDARY = 5,
-		UNKNOWN_6 = 6,
-	};
+    BETTER_ENUM(Rarity, int, INVALID = 0, COMMON = 1, FREE = 2, RARE = 3,
+                EPIC = 4, LEGENDARY = 5, UNKNOWN_6 = 6)
 
 	enum class State
 	{

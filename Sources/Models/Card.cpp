@@ -30,7 +30,7 @@ namespace Hearthstonepp
 		m_playRequirements(std::move(playRequirements)),
 		m_entourages(std::move(entourages))
 	{
-		m_maxAllowedInDeck = (rarity == Rarity::LEGENDARY) ? 1 : 2;
+		m_maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
 	}
 
 	std::string Card::GetID() const

@@ -586,7 +586,7 @@ namespace Hearthstonepp
 			switch (opt)
 			{
 			case 'r':
-				rarity = static_cast<Rarity>(atoi(optarg));
+				rarity = Rarity::_from_integral(atoi(optarg));
 				break;
 			case 'c':
 				playerClass = CardClass::_from_integral(atoi(optarg));
@@ -700,7 +700,7 @@ namespace Hearthstonepp
 				continue;
 			}
 
-			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
+			bool rarityCondition = (filter.rarity == +Rarity::INVALID || filter.rarity == card->GetRarity());
 			bool classCondition = false;
 
 			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
