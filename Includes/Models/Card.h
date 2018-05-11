@@ -56,7 +56,7 @@ namespace Hearthstonepp
 	private:
 		std::string m_id;
 		Rarity m_rarity;
-		Faction m_faction;
+		Faction m_faction = Faction::INVALID;
 		CardSet m_cardSet = CardSet::INVALID;
 		CardClass m_cardClass = CardClass::INVALID;
 		CardType m_cardType = CardType::INVALID;

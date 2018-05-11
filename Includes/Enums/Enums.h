@@ -97,13 +97,8 @@ namespace Hearthstonepp
 		NEUTRAL = 3,
 	};
 
-	enum class Faction
-	{
-		INVALID = 0,
-		HORDE = 1,
-		ALLIANCE = 2,
-		NEUTRAL = 3,
-	};
+    BETTER_ENUM(Faction, int, INVALID = 0, HORDE = 1, ALLIANCE = 2,
+                NEUTRAL = 3)
 
 	enum class FormatType
 	{
