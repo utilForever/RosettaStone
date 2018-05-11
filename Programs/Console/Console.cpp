@@ -248,7 +248,7 @@ namespace Hearthstonepp
 
 		ShowMenu(m_playerClassStr);
 		const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
-		const CardClass deckClass = static_cast<CardClass>(selectedClassNum + 1);
+		const CardClass deckClass = CardClass::_from_integral(selectedClassNum + 1);
 
 		m_player->CreateDeck(name, deckClass);
 
@@ -589,7 +589,7 @@ namespace Hearthstonepp
 				rarity = static_cast<Rarity>(atoi(optarg));
 				break;
 			case 'c':
-				playerClass = static_cast<CardClass>(atoi(optarg));
+				playerClass = CardClass::_from_integral(atoi(optarg));
 				break;
 			case 't':
 				cardType = static_cast<CardType>(atoi(optarg));
@@ -706,18 +706,18 @@ namespace Hearthstonepp
 			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
 			if (m_searchMode == SearchMode::AddCardInDeck)
 			{
-				if (filter.playerClass == CardClass::NEUTRAL || filter.playerClass == m_deckClass)
+				if (filter.playerClass == +CardClass::NEUTRAL || filter.playerClass == m_deckClass)
 				{
 					classCondition = filter.playerClass == card->GetCardClass();
 				}
 				else
 				{
-					classCondition = (card->GetCardClass() == CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
+					classCondition = (card->GetCardClass() == +CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
 				}
 			}
 			else if (m_searchMode == SearchMode::JustSearch)
 			{
-				classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
+				classCondition = (filter.playerClass == +CardClass::INVALID || filter.playerClass == card->GetCardClass());
 			}
 			bool typeCondition = (filter.cardType == CardType::INVALID || filter.cardType == card->GetCardType());
 			bool raceCondition = (filter.race == +Race::INVALID || filter.race == card->GetRace());

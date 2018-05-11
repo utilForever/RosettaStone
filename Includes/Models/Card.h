@@ -58,7 +58,7 @@ namespace Hearthstonepp
 		Rarity m_rarity;
 		Faction m_faction;
 		CardSet m_cardSet;
-		CardClass m_cardClass;
+		CardClass m_cardClass = CardClass::INVALID;
 		CardType m_cardType;
 		Race m_race = Race::INVALID;
 

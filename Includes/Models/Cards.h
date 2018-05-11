@@ -18,7 +18,7 @@ namespace Hearthstonepp
 	struct SearchFilter
 	{
 		Rarity rarity;
-		CardClass playerClass;
+		CardClass playerClass = CardClass::INVALID;
 		CardType cardType;
 		Race race = Race::INVALID;
 		std::string name;
