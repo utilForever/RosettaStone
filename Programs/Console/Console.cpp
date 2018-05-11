@@ -649,7 +649,7 @@ namespace Hearthstonepp
 				mechanics.clear();
 				for (auto& token : tokens)
 				{
-					mechanics.emplace_back(std::move(static_cast<GameTag>(atoi(token.c_str()))));
+					mechanics.emplace_back(std::move(GameTag::_from_integral(atoi(token.c_str()))));
 				}
 				break;
 			case 'p':
