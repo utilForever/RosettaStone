@@ -59,7 +59,7 @@ namespace Hearthstonepp
 		Faction m_faction;
 		CardSet m_cardSet;
 		CardClass m_cardClass = CardClass::INVALID;
-		CardType m_cardType;
+		CardType m_cardType = CardType::INVALID;
 		Race m_race = Race::INVALID;
 
 		std::string m_name;

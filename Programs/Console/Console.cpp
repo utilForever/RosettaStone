@@ -592,7 +592,7 @@ namespace Hearthstonepp
 				playerClass = CardClass::_from_integral(atoi(optarg));
 				break;
 			case 't':
-				cardType = static_cast<CardType>(atoi(optarg));
+				cardType = CardType::_from_integral(atoi(optarg));
 				break;
 			case 'e':
 				race = Race::_from_integral(atoi(optarg));
@@ -719,7 +719,7 @@ namespace Hearthstonepp
 			{
 				classCondition = (filter.playerClass == +CardClass::INVALID || filter.playerClass == card->GetCardClass());
 			}
-			bool typeCondition = (filter.cardType == CardType::INVALID || filter.cardType == card->GetCardType());
+			bool typeCondition = (filter.cardType == +CardType::INVALID || filter.cardType == card->GetCardType());
 			bool raceCondition = (filter.race == +Race::INVALID || filter.race == card->GetRace());
 			bool nameCondition = (filter.name.empty() || card->GetName().find(filter.name) != std::string::npos);
 			bool costCondition = ((filter.costMin == -1 || filter.costMax == -1) || (filter.costMin <= card->GetCost() && filter.costMax >= card->GetCost()));

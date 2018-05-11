@@ -79,7 +79,7 @@ namespace Hearthstonepp
 		{
 			std::string type = ConverterFromCardTypeToString.at(cards[i]->GetCardType());
 			m_ostream << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")] ";
-			if (cards[i]->GetCardType() == CardType::MINION)
+			if (cards[i]->GetCardType() == +CardType::MINION)
 			{
 				m_ostream << "(ATK " << cards[i]->GetAttack() << "/HP " << cards[i]->GetHealth() << ")";
 			}
@@ -145,7 +145,7 @@ namespace Hearthstonepp
 
 		LogWriter(m_users[data->userID]) 
 			<< "Health of "
-			<< (data->card->GetCardType() == CardType::MINION ? "Minion " : "Hero ")
+			<< (data->card->GetCardType() == +CardType::MINION ? "Minion " : "Hero ")
 			<< data->card->GetName()
 			<< " is modified to " << static_cast<int>(data->card->GetHealth())
 			<< std::endl;
@@ -294,7 +294,7 @@ namespace Hearthstonepp
 		}
 
 		// if selected card type is minion
-		if (data->hands[in]->GetCardType() == CardType::MINION)
+		if (data->hands[in]->GetCardType() == +CardType::MINION)
 		{
 			int pos;
 			while (true)
