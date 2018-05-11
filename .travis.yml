@@ -36,4 +36,10 @@ before_install:
   - if [ $TRAVIS_OS_NAME == osx ]; then 
        brew update;
        brew install glfw3;
+       brew install lcov;
+       wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz;
+       tar xvf release-1.8.0.tar.gz;
+       cd googletest-release-1.8.0;
+       cmake .;
+       sudo make -j $CPU_NUM install && cd ..;
     fi
