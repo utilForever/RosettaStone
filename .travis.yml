@@ -44,3 +44,6 @@ before_install:
        cmake .;
        sudo make -j $CPU_NUM install && cd ..;
     fi
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
