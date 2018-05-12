@@ -11,3 +11,10 @@ CTestTestfile.cmake
 
 # Visual Studio files
 /.vs
+
+# Visual Studio Code files
+/.vscode
+*.code-workspace 
+
+# OSX files
+.DS_Store
