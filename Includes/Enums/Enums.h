@@ -43,13 +43,8 @@ namespace Hearthstonepp
                 FROZEN_THRONE = 21, GOLDEN_CLASSIC_PACK = 23,
                 KOBOLDS_AND_CATACOMBS = 30)
 
-    enum class BrawlType
-    {
-        UNKNOWN = 0,
-        TAVERN_BRAWL = 1,
-        FIRESIDE_GATHERING = 2,
-        COUNT = 3,
-    };
+    BETTER_ENUM(BrawlType, int, UNKNOWN = 0, TAVERN_BRAWL = 1,
+                FIRESIDE_GATHERING = 2, COUNT = 3)
 
     BETTER_ENUM(CardClass, int, INVALID = 0, DEATHKNIGHT = 1, DRUID = 2, HUNTER = 3,
                 MAGE = 4, PALADIN = 5, PRIEST = 6, ROGUE = 7, SHAMAN = 8,
@@ -67,49 +62,20 @@ namespace Hearthstonepp
                 MINION = 4, SPELL = 5, ENCHANTMENT = 6, WEAPON = 7, ITEM = 8,
                 TOKEN = 9, HERO_POWER = 10)
 
-    enum class ChoiceType
-    {
-        INVALID = 0,
-        MULLIGAN = 1,
-        GENERAL = 2,
-    };
+    BETTER_ENUM(ChoiceType, int, INVALID = 0, MULLIGAN = 1, GENERAL = 2)
 
-    enum class DeckType
-    {
-        CLIENT_ONLY_DECK = -1,
-        UNKNOWN_DECK_TYPE = 0,
-        NORMAL_DECK = 1,
-        AI_DECK = 2,
-        DRAFT_DECK = 4,
-        PRECON_DECK = 5,
-        TAVERN_BRAWL_DECK = 6,
-        FSG_BRAWL_DECK = 7,
-        HIDDEN_DECK = 1000,
-    };
+    BETTER_ENUM(DeckType, int, CLIENT_ONLY_DECK = -1, UNKNOWN_DECK_TYPE = 0,
+                NORMAL_DECK = 1, AI_DECK = 2, DRAFT_DECK = 4, PRECON_DECK = 5,
+                TAVERN_BRAWL_DECK = 6, FSG_BRAWL_DECK = 7, HIDDEN_DECK = 1000)
 
-    enum class DungeonRewardOption
-    {
-        INVALID = 0,
-        LOOT = 1,
-        TREASURE = 2,
-    };
+    BETTER_ENUM(DungeonRewardOption, int, INVALID = 0, LOOT = 1, TREASURE = 2)
 
-    enum class EnchantmentVisual
-    {
-        INVALID = 0,
-        POSITIVE = 1,
-        NEGATIVE = 2,
-        NEUTRAL = 3,
-    };
+    BETTER_ENUM(EnchantmentVisual, int, INVALID = 0, POSITIVE = 1, NEGATIVE = 2,
+                NEUTRAL = 3)
 
     BETTER_ENUM(Faction, int, INVALID = 0, HORDE = 1, ALLIANCE = 2, NEUTRAL = 3)
 
-    enum class FormatType
-    {
-        UNKNOWN = 0,
-        WILD = 1,
-        STANDARD = 2,
-    };
+    BETTER_ENUM(FormatType, int, UNKNOWN = 0, WILD = 1, STANDARD = 2)
 
 #ifndef HEARTHSTONEPP_EXPAND_LARGE_ENUMS
     BETTER_ENUM(GameTag, int, IGNORE_DAMAGE = 1, TAG_SCRIPT_DATA_NUM_1 = 2,
