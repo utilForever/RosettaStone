@@ -2758,96 +2758,35 @@ namespace Hearthstonepp
     }
 #endif
 
-    enum class GameType
-    {
-        UNKNOWN = 0,
-        VS_AI = 1,
-        VS_FRIEND = 2,
-        TUTORIAL = 4,
-        ARENA = 5,
-        TEST_AI_VS_AI = 6,
-        RANKED = 7,
-        CASUAL = 8,
-        TAVERNBRAWL = 16,
-        TB_1P_VS_AI = 17,
-        TB_2P_COOP = 18,
-        LAST = 19,
-    };
+    BETTER_ENUM(GameType, int, UNKNOWN = 0, VS_AI = 1, VS_FRIEND = 2,
+                TUTORIAL = 4, ARENA = 5, TEST_AI_VS_AI = 6, RANKED = 7,
+                CASUAL = 8, TAVERNBRAWL = 16, TB_1P_VS_AI = 17, TB_2P_COOP = 18,
+                LAST = 19)
 
-    enum class GoldRewardState
-    {
-        INVALID = 0,
-        ELIGIBLE = 1,
-        WRONG_GAME_TYPE = 2,
-        ALREADY_CAPPED = 3,
-        BAD_RATING = 4,
-        SHORT_GAME = 5,
-        SHORT_GAME_BY_TIME = 5,
-        OVER_CAIS = 6,
-    };
+    BETTER_ENUM(GoldRewardState, int, INVALID = 0, ELIGIBLE = 1,
+                WRONG_GAME_TYPE = 2, ALREADY_CAPPED = 3, BAD_RATING = 4,
+                SHORT_GAME = 5, SHORT_GAME_BY_TIME = 5, OVER_CAIS = 6)
 
-    enum class Locale
-    {
-        UNKNOWN = -1,
-        enUS = 0,
-        enGB = 1,
-        frFR = 2,
-        deDE = 3,
-        koKR = 4,
-        esES = 5,
-        esMX = 6,
-        ruRU = 7,
-        zhTW = 8,
-        zhCN = 9,
-        itIT = 10,
-        ptBR = 11,
-        plPL = 12,
-        ptPT = 13,
-        jaJP = 14,
-        thTH = 15,
-    };
+    BETTER_ENUM(Locale, int, UNKNOWN = -1, enUS = 0, enGB = 1, frFR = 2,
+                deDE = 3, koKR = 4, esES = 5, esMX = 6, ruRU = 7, zhTW = 8,
+                zhCN = 9, itIT = 10, ptBR = 11, plPL = 12, ptPT = 13, jaJP = 14,
+                thTH = 15)
 
-    enum class MetaDataType
-    {
-        TARGET = 0,
-        DAMAGE = 1,
-        HEALING = 2,
-        JOUST = 3,
-        CLIENT_HISTORY = 4,
-        SHOW_BIG_CARD = 5,
-        EFFECT_TIMING = 6,
-        HISTORY_TARGET = 7,
-        OVERRIDE_HISTORY = 8,
-        HISTORY_TARGET_DONT_DUPLICATE_UNTIL_END = 9,
-        BEGIN_ARTIFICIAL_HISTORY_TILE = 10,
-        BEGIN_ARTIFICIAL_HISTORY_TRIGGER_TILE = 11,
-        END_ARTIFICIAL_HISTORY_TILE = 12,
-        START_DRAW = 13,
-    };
+    BETTER_ENUM(MetaDataType, int, TARGET = 0, DAMAGE = 1, HEALING = 2,
+                JOUST = 3, CLIENT_HISTORY = 4, SHOW_BIG_CARD = 5,
+                EFFECT_TIMING = 6, HISTORY_TARGET = 7, OVERRIDE_HISTORY = 8,
+                HISTORY_TARGET_DONT_DUPLICATE_UNTIL_END = 9,
+                BEGIN_ARTIFICIAL_HISTORY_TILE = 10,
+                BEGIN_ARTIFICIAL_HISTORY_TRIGGER_TILE = 11,
+                END_ARTIFICIAL_HISTORY_TILE = 12, START_DRAW = 13)
 
-    enum class Mulligan
-    {
-        INVALID = 0,
-        INPUT = 1,
-        DEALING = 2,
-        WAITING = 3,
-        DONE = 4,
-    };
+    BETTER_ENUM(Mulligan, int, INVALID = 0, INPUT = 1, DEALING = 2, WAITING = 3,
+                DONE = 4)
 
-    enum class MultiClassGroup
-    {
-        INVALID = 0,
-        GRIMY_GOONS = 1,
-        JADE_LOTUS = 2,
-        KABAL = 3,
-    };
+    BETTER_ENUM(MultiClassGroup, int, INVALID = 0, GRIMY_GOONS = 1,
+                JADE_LOTUS = 2, KABAL = 3)
 
-    enum class OptionType
-    {
-        PASS = 1,
-        END_TURN = 2,
-        POWER = 3,
-    };
+    BETTER_ENUM(OptionType, int, PASS = 1, END_TURN = 2, POWER = 3)
 
 #ifndef HEARTHSTONEPP_EXPAND_LARGE_ENUMS
     BETTER_ENUM(PlayReq, int, REQ_MINION_TARGET = 1, REQ_FRIENDLY_TARGET = 2,
@@ -3612,34 +3551,15 @@ namespace Hearthstonepp
         return stream;
     }
 #endif
-        
-    enum class PlayState
-    {
-        INVALID = 0,
-        PLAYING = 1,
-        WINNING = 2,
-        LOSING = 3,
-        WON = 4,
-        LOST = 5,
-        TIED = 6,
-        DISCONNECTED = 7,
-        CONCEDED = 8,
-    };
 
-    enum class PowerType
-    {
-        FULL_ENTITY = 1,
-        SHOW_ENTITY = 2,
-        HIDE_ENTITY = 3,
-        TAG_CHANGE = 4,
-        BLOCK_START = 5,
-        ACTION_START = 5,
-        BLOCK_END = 6,
-        ACTION_END = 6,
-        CREATE_GAME = 7,
-        META_DATA = 8,
-        CHANGE_ENTITY = 9,
-    };
+    BETTER_ENUM(PlayState, int, INVALID = 0, PLAYING = 1, WINNING = 2,
+                LOSING = 3, WON = 4, LOST = 5, TIED = 6, DISCONNECTED = 7,
+                CONCEDED = 8)
+
+    BETTER_ENUM(PowerType, int, FULL_ENTITY = 1, SHOW_ENTITY = 2,
+                HIDE_ENTITY = 3, TAG_CHANGE = 4, BLOCK_START = 5,
+                ACTION_START = 5, BLOCK_END = 6, ACTION_END = 6,
+                CREATE_GAME = 7, META_DATA = 8, CHANGE_ENTITY = 9)
 
     BETTER_ENUM(Race, int, INVALID = 0, BLOODELF = 1, DRAENEI = 2, DWARF = 3,
                 GNOME = 4, GOBLIN = 5, HUMAN = 6, NIGHTELF = 7, ORC = 8, TAUREN = 9,
@@ -3651,86 +3571,32 @@ namespace Hearthstonepp
     BETTER_ENUM(Rarity, int, INVALID = 0, COMMON = 1, FREE = 2, RARE = 3, EPIC = 4,
                 LEGENDARY = 5, UNKNOWN_6 = 6)
 
-    enum class State
-    {
-        INVALID = 0,
-        LOADING = 1,
-        RUNNING = 2,
-        COMPLETE = 3,
-    };
+    BETTER_ENUM(State, int, INVALID = 0, LOADING = 1, RUNNING = 2,
+                COMPLETE = 3)
 
-    enum class Step
-    {
-        INVALID = 0,
-        BEGIN_FIRST = 1,
-        BEGIN_SHUFFLE = 2,
-        BEGIN_DRAW = 3,
-        BEGIN_MULLIGAN = 4,
-        MAIN_BEGIN = 5,
-        MAIN_READY = 6,
-        MAIN_RESOURCE = 7,
-        MAIN_DRAW = 8,
-        MAIN_START = 9,
-        MAIN_ACTION = 10,
-        MAIN_COMBAT = 11,
-        MAIN_END = 12,
-        MAIN_NEXT = 13,
-        FINAL_WRAPUP = 14,
-        FINAL_GAMEOVER = 15,
-        MAIN_CLEANUP = 16,
-        MAIN_START_TRIGGERS = 17,
-    };
+    BETTER_ENUM(Step, int, INVALID = 0, BEGIN_FIRST = 1, BEGIN_SHUFFLE = 2,
+                BEGIN_DRAW = 3, BEGIN_MULLIGAN = 4, MAIN_BEGIN = 5,
+                MAIN_READY = 6, MAIN_RESOURCE = 7, MAIN_DRAW = 8,
+                MAIN_START = 9, MAIN_ACTION = 10, MAIN_COMBAT = 11,
+                MAIN_END = 12, MAIN_NEXT = 13, FINAL_WRAPUP = 14,
+                FINAL_GAMEOVER = 15, MAIN_CLEANUP = 16,
+                MAIN_START_TRIGGERS = 17)
 
-    enum class Type
-    {
-        LOCSTRING = -2,
-        UNKNOWN = 0,
-        BOOL = 1,
-        NUMBER = 2,
-        COUNTER = 3,
-        ENTITY = 4,
-        PLAYER = 5,
-        TEAM = 6,
-        ENTITY_DEFINITION = 7,
-        STRING = 8,
-    };
+    BETTER_ENUM(Type, int, LOCSTRING = -2, UNKNOWN = 0, BOOL = 1, NUMBER = 2,
+                COUNTER = 3, ENTITY = 4, PLAYER = 5, TEAM = 6,
+                ENTITY_DEFINITION = 7, STRING = 8)
 
-    enum class ZodiacYear
-    {
-        INVALID = -1,
-        PRE_STANDARD = 0,
-        KRAKEN = 1,
-        MAMMOTH = 2,
-    };
+    BETTER_ENUM(ZodiacYear, int, INVALID = -1, PRE_STANDARD = 0, KRAKEN = 1,
+                MAMMOTH = 2)
 
-    enum class Zone
-    {
-        INVALID = 0,
-        PLAY = 1,
-        DECK = 2,
-        HAND = 3,
-        GRAVEYARD = 4,
-        REMOVEDFROMGAME = 5,
-        SETASIDE = 6,
-        SECRET = 7,
-    };
+    BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3,
+                GRAVEYARD = 4, REMOVEDFROMGAME = 5, SETASIDE = 6, SECRET = 7)
 
-    enum class NumericModification
-    {
-        ADD = 0,
-        SUB = 1,
-        SYNC = 2
-    };
+    BETTER_ENUM(NumericModification, int, ADD = 0, SUB = 1, SYNC = 2)
 
-    enum class Action
-    {
-        BRIEF = 100,
-        OVER_DRAW = 101,
-        EXHAUST_DECK = 102,
-        MANA_MODIFICATION = 103,
-        HEALTH_MODIFICATION = 104,
-        EXHAUST_MINION = 105
-    };
+    BETTER_ENUM(Action, int, BRIEF = 100, OVER_DRAW = 101, EXHAUST_DECK = 102,
+                MANA_MODIFICATION = 103, HEALTH_MODIFICATION = 104,
+                EXHAUST_MINION = 105)
 }
 
 #endif
