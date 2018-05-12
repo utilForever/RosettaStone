@@ -46,6 +46,9 @@ namespace Hearthstonepp
 		std::vector<Card*> FindCardByHealth(int minVal, int maxVal);
 		std::vector<Card*> FindCardByMechanics(std::vector<GameTag> mechanics);
 
+        const Card* GetHeroCard(CardClass cardClass);
+        const Card* GetDefaultHeroPower(CardClass cardClass);
+
 	private:
 		Cards();
 		~Cards();
