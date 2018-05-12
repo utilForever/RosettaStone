@@ -7,7 +7,6 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Commons/Constants.h>
-#include <Enums/EnumsToString.h>
 #include <Interface/Interface.h>
 
 namespace Hearthstonepp
@@ -77,7 +76,7 @@ namespace Hearthstonepp
 	{
 		for (int i = 0; i < size; ++i)
 		{
-			std::string type = ConverterFromCardTypeToString.at(cards[i]->GetCardType());
+			std::string type = cards[i]->GetCardType()._to_string();
 			m_ostream << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")] ";
 			if (cards[i]->GetCardType() == +CardType::MINION)
 			{

@@ -8,7 +8,6 @@
 *************************************************************************/
 #include <Agents/AgentStructures.h>
 #include <Commons/Constants.h>
-#include <Enums/EnumsToString.h>
 
 namespace Hearthstonepp
 {

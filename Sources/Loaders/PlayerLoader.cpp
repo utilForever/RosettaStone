@@ -7,8 +7,6 @@
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Commons/Macros.h>
-#include <Enums/EnumsToString.h>
-#include <Enums/StringToEnums.h>
 #include <Loaders/PlayerLoader.h>
 
 #ifdef HEARTHSTONEPP_WINDOWS
@@ -55,7 +53,7 @@ namespace Hearthstonepp
 			{
 				for (auto& deck : j["decks"])
 				{
-					const CardClass deckClass = std::move(ConverterFromStringToCardClass.at(deck["class"].get<std::string>()));
+					const CardClass deckClass = std::move(CardClass::_from_string(deck["class"].get<std::string>().c_str()));
 					const std::string deckName = deck["name"].get<std::string>();
 
 					Deck* d = new Deck(deckName, deckClass);
@@ -111,7 +109,7 @@ namespace Hearthstonepp
 			for (size_t deckIdx = 0; deckIdx < p->GetNumOfDeck(); ++deckIdx)
 			{
 				j["decks"].emplace_back(json::object({
-					{ "class", ConverterFromCardClassToString.at(p->GetDeck(deckIdx)->GetClass()) },
+					{ "class", p->GetDeck(deckIdx)->GetClass()._to_string() },
 					{ "name", p->GetDeck(deckIdx)->GetName() },
 					{ "cards", json::array() }
 				}));
