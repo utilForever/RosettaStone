@@ -112,8 +112,7 @@ namespace Hearthstonepp
     };
 
 #ifndef HEARTHSTONEPP_EXPAND_LARGE_ENUMS
-    BETTER_ENUM(
-        GameTag, int, IGNORE_DAMAGE = 1, TAG_SCRIPT_DATA_NUM_1 = 2,
+    BETTER_ENUM(GameTag, int, IGNORE_DAMAGE = 1, TAG_SCRIPT_DATA_NUM_1 = 2,
         TAG_SCRIPT_DATA_NUM_2 = 3, TAG_SCRIPT_DATA_ENT_1 = 4,
         TAG_SCRIPT_DATA_ENT_2 = 5, MISSION_EVENT = 6, TIMEOUT = 7, TURN_START = 8,
         TURN_TIMER_SLUSH = 9, PREMIUM = 12, GOLD_REWARD_STATE = 13, PLAYSTATE = 17,
@@ -2884,85 +2883,770 @@ namespace Hearthstonepp
         POWER = 3,
     };
 
-    enum class PlayReq
-    {
-        REQ_MINION_TARGET = 1,
-        REQ_FRIENDLY_TARGET = 2,
-        REQ_ENEMY_TARGET = 3,
-        REQ_DAMAGED_TARGET = 4,
-        REQ_MAX_SECRETS = 5,
-        REQ_FROZEN_TARGET = 6,
-        REQ_CHARGE_TARGET = 7,
-        REQ_TARGET_MAX_ATTACK = 8,
-        REQ_NONSELF_TARGET = 9,
-        REQ_TARGET_WITH_RACE = 10,
-        REQ_TARGET_TO_PLAY = 11,
-        REQ_NUM_MINION_SLOTS = 12,
-        REQ_WEAPON_EQUIPPED = 13,
-        REQ_ENOUGH_MANA = 14,
-        REQ_YOUR_TURN = 15,
-        REQ_NONSTEALTH_ENEMY_TARGET = 16,
-        REQ_HERO_TARGET = 17,
-        REQ_SECRET_ZONE_CAP = 18,
-        REQ_MINION_CAP_IF_TARGET_AVAILABLE = 19,
-        REQ_MINION_CAP = 20,
-        REQ_TARGET_ATTACKED_THIS_TURN = 21,
-        REQ_TARGET_IF_AVAILABLE = 22,
-        REQ_MINIMUM_ENEMY_MINIONS = 23,
-        REQ_TARGET_FOR_COMBO = 24,
-        REQ_NOT_EXHAUSTED_ACTIVATE = 25,
-        REQ_UNIQUE_SECRET_OR_QUEST = 26,
-        REQ_TARGET_TAUNTER = 27,
-        REQ_CAN_BE_ATTACKED = 28,
-        REQ_ACTION_PWR_IS_MASTER_PWR = 29,
-        REQ_TARGET_MAGNET = 30,
-        REQ_ATTACK_GREATER_THAN_0 = 31,
-        REQ_ATTACKER_NOT_FROZEN = 32,
-        REQ_HERO_OR_MINION_TARGET = 33,
-        REQ_CAN_BE_TARGETED_BY_SPELLS = 34,
-        REQ_SUBCARD_IS_PLAYABLE = 35,
-        REQ_TARGET_FOR_NO_COMBO = 36,
-        REQ_NOT_MINION_JUST_PLAYED = 37,
+#ifndef HEARTHSTONEPP_EXPAND_LARGE_ENUMS
+    BETTER_ENUM(PlayReq, int, REQ_MINION_TARGET = 1, REQ_FRIENDLY_TARGET = 2,
+        REQ_ENEMY_TARGET = 3, REQ_DAMAGED_TARGET = 4, REQ_MAX_SECRETS = 5,
+        REQ_FROZEN_TARGET = 6, REQ_CHARGE_TARGET = 7, REQ_TARGET_MAX_ATTACK = 8,
+        REQ_NONSELF_TARGET = 9, REQ_TARGET_WITH_RACE = 10,
+        REQ_TARGET_TO_PLAY = 11, REQ_NUM_MINION_SLOTS = 12,
+        REQ_WEAPON_EQUIPPED = 13, REQ_ENOUGH_MANA = 14, REQ_YOUR_TURN = 15,
+        REQ_NONSTEALTH_ENEMY_TARGET = 16, REQ_HERO_TARGET = 17,
+        REQ_SECRET_ZONE_CAP = 18, REQ_MINION_CAP_IF_TARGET_AVAILABLE = 19,
+        REQ_MINION_CAP = 20, REQ_TARGET_ATTACKED_THIS_TURN = 21,
+        REQ_TARGET_IF_AVAILABLE = 22, REQ_MINIMUM_ENEMY_MINIONS = 23,
+        REQ_TARGET_FOR_COMBO = 24, REQ_NOT_EXHAUSTED_ACTIVATE = 25,
+        REQ_UNIQUE_SECRET_OR_QUEST = 26, REQ_TARGET_TAUNTER = 27,
+        REQ_CAN_BE_ATTACKED = 28, REQ_ACTION_PWR_IS_MASTER_PWR = 29,
+        REQ_TARGET_MAGNET = 30, REQ_ATTACK_GREATER_THAN_0 = 31,
+        REQ_ATTACKER_NOT_FROZEN = 32, REQ_HERO_OR_MINION_TARGET = 33,
+        REQ_CAN_BE_TARGETED_BY_SPELLS = 34, REQ_SUBCARD_IS_PLAYABLE = 35,
+        REQ_TARGET_FOR_NO_COMBO = 36, REQ_NOT_MINION_JUST_PLAYED = 37,
         REQ_NOT_EXHAUSTED_HERO_POWER = 38,
-        REQ_CAN_BE_TARGETED_BY_OPPONENTS = 39,
-        REQ_ATTACKER_CAN_ATTACK = 40,
-        REQ_TARGET_MIN_ATTACK = 41,
-        REQ_CAN_BE_TARGETED_BY_HERO_POWERS = 42,
-        REQ_ENEMY_TARGET_NOT_IMMUNE = 43,
-        REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 44,
-        REQ_MINIMUM_TOTAL_MINIONS = 45,
-        REQ_MUST_TARGET_TAUNTER = 46,
-        REQ_UNDAMAGED_TARGET = 47,
-        REQ_CAN_BE_TARGETED_BY_BATTLECRIES = 48,
-        REQ_STEADY_SHOT = 49,
-        REQ_MINION_OR_ENEMY_HERO = 50,
+        REQ_CAN_BE_TARGETED_BY_OPPONENTS = 39, REQ_ATTACKER_CAN_ATTACK = 40,
+        REQ_TARGET_MIN_ATTACK = 41, REQ_CAN_BE_TARGETED_BY_HERO_POWERS = 42,
+        REQ_ENEMY_TARGET_NOT_IMMUNE = 43, REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 44,
+        REQ_MINIMUM_TOTAL_MINIONS = 45, REQ_MUST_TARGET_TAUNTER = 46,
+        REQ_UNDAMAGED_TARGET = 47, REQ_CAN_BE_TARGETED_BY_BATTLECRIES = 48,
+        REQ_STEADY_SHOT = 49, REQ_MINION_OR_ENEMY_HERO = 50,
         REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 51,
-        REQ_LEGENDARY_TARGET = 52,
-        REQ_FRIENDLY_MINION_DIED_THIS_TURN = 53,
-        REQ_FRIENDLY_MINION_DIED_THIS_GAME = 54,
-        REQ_ENEMY_WEAPON_EQUIPPED = 55,
+        REQ_LEGENDARY_TARGET = 52, REQ_FRIENDLY_MINION_DIED_THIS_TURN = 53,
+        REQ_FRIENDLY_MINION_DIED_THIS_GAME = 54, REQ_ENEMY_WEAPON_EQUIPPED = 55,
         REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 56,
-        REQ_TARGET_WITH_BATTLECRY = 57,
-        REQ_TARGET_WITH_DEATHRATTLE = 58,
+        REQ_TARGET_WITH_BATTLECRY = 57, REQ_TARGET_WITH_DEATHRATTLE = 58,
         REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 59,
-        REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 60,
-        REQ_TARGET_EXACT_COST = 61,
-        REQ_STEALTHED_TARGET = 62,
-        REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 63,
+        REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 60, REQ_TARGET_EXACT_COST = 61,
+        REQ_STEALTHED_TARGET = 62, REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 63,
         REQ_MAX_QUESTS = 64,
         REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN = 65,
         REQ_TARGET_NOT_VAMPIRE = 66,
         REQ_TARGET_NOT_DAMAGEABLE_ONLY_BY_WEAPONS = 67,
-        REQ_NOT_DISABLED_HERO_POWER = 68,
-        REQ_MUST_PLAY_OTHER_CARD_FIRST = 69,
+        REQ_NOT_DISABLED_HERO_POWER = 68, REQ_MUST_PLAY_OTHER_CARD_FIRST = 69,
         REQ_HAND_NOT_FULL = 70,
         REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK = 71,
-        REQ_CAN_BE_TARGETED_BY_COMBOS = 72,
-        REQ_CANNOT_PLAY_THIS = 73,
-        REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74,
-        REQ_DRAG_TO_PLAY = 75,
+        REQ_CAN_BE_TARGETED_BY_COMBOS = 72, REQ_CANNOT_PLAY_THIS = 73,
+        REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74, REQ_DRAG_TO_PLAY = 75)
+#else
+    namespace better_enums_data_PlayReq { }
+    class PlayReq
+    {
+     private:
+        typedef ::better_enums::optional<PlayReq> _optional;
+        typedef ::better_enums::optional<std::size_t> _optional_index;
+
+     public:
+        typedef int _integral;
+        enum _enumerated : int
+        {
+            REQ_MINION_TARGET = 1,
+            REQ_FRIENDLY_TARGET = 2,
+            REQ_ENEMY_TARGET = 3,
+            REQ_DAMAGED_TARGET = 4,
+            REQ_MAX_SECRETS = 5,
+            REQ_FROZEN_TARGET = 6,
+            REQ_CHARGE_TARGET = 7,
+            REQ_TARGET_MAX_ATTACK = 8,
+            REQ_NONSELF_TARGET = 9,
+            REQ_TARGET_WITH_RACE = 10,
+            REQ_TARGET_TO_PLAY = 11,
+            REQ_NUM_MINION_SLOTS = 12,
+            REQ_WEAPON_EQUIPPED = 13,
+            REQ_ENOUGH_MANA = 14,
+            REQ_YOUR_TURN = 15,
+            REQ_NONSTEALTH_ENEMY_TARGET = 16,
+            REQ_HERO_TARGET = 17,
+            REQ_SECRET_ZONE_CAP = 18,
+            REQ_MINION_CAP_IF_TARGET_AVAILABLE = 19,
+            REQ_MINION_CAP = 20,
+            REQ_TARGET_ATTACKED_THIS_TURN = 21,
+            REQ_TARGET_IF_AVAILABLE = 22,
+            REQ_MINIMUM_ENEMY_MINIONS = 23,
+            REQ_TARGET_FOR_COMBO = 24,
+            REQ_NOT_EXHAUSTED_ACTIVATE = 25,
+            REQ_UNIQUE_SECRET_OR_QUEST = 26,
+            REQ_TARGET_TAUNTER = 27,
+            REQ_CAN_BE_ATTACKED = 28,
+            REQ_ACTION_PWR_IS_MASTER_PWR = 29,
+            REQ_TARGET_MAGNET = 30,
+            REQ_ATTACK_GREATER_THAN_0 = 31,
+            REQ_ATTACKER_NOT_FROZEN = 32,
+            REQ_HERO_OR_MINION_TARGET = 33,
+            REQ_CAN_BE_TARGETED_BY_SPELLS = 34,
+            REQ_SUBCARD_IS_PLAYABLE = 35,
+            REQ_TARGET_FOR_NO_COMBO = 36,
+            REQ_NOT_MINION_JUST_PLAYED = 37,
+            REQ_NOT_EXHAUSTED_HERO_POWER = 38,
+            REQ_CAN_BE_TARGETED_BY_OPPONENTS = 39,
+            REQ_ATTACKER_CAN_ATTACK = 40,
+            REQ_TARGET_MIN_ATTACK = 41,
+            REQ_CAN_BE_TARGETED_BY_HERO_POWERS = 42,
+            REQ_ENEMY_TARGET_NOT_IMMUNE = 43,
+            REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 44,
+            REQ_MINIMUM_TOTAL_MINIONS = 45,
+            REQ_MUST_TARGET_TAUNTER = 46,
+            REQ_UNDAMAGED_TARGET = 47,
+            REQ_CAN_BE_TARGETED_BY_BATTLECRIES = 48,
+            REQ_STEADY_SHOT = 49,
+            REQ_MINION_OR_ENEMY_HERO = 50,
+            REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 51,
+            REQ_LEGENDARY_TARGET = 52,
+            REQ_FRIENDLY_MINION_DIED_THIS_TURN = 53,
+            REQ_FRIENDLY_MINION_DIED_THIS_GAME = 54,
+            REQ_ENEMY_WEAPON_EQUIPPED = 55,
+            REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 56,
+            REQ_TARGET_WITH_BATTLECRY = 57,
+            REQ_TARGET_WITH_DEATHRATTLE = 58,
+            REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 59,
+            REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 60,
+            REQ_TARGET_EXACT_COST = 61,
+            REQ_STEALTHED_TARGET = 62,
+            REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 63,
+            REQ_MAX_QUESTS = 64,
+            REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN = 65,
+            REQ_TARGET_NOT_VAMPIRE = 66,
+            REQ_TARGET_NOT_DAMAGEABLE_ONLY_BY_WEAPONS = 67,
+            REQ_NOT_DISABLED_HERO_POWER = 68,
+            REQ_MUST_PLAY_OTHER_CARD_FIRST = 69,
+            REQ_HAND_NOT_FULL = 70,
+            REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK = 71,
+            REQ_CAN_BE_TARGETED_BY_COMBOS = 72,
+            REQ_CANNOT_PLAY_THIS = 73,
+            REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74,
+            REQ_DRAG_TO_PLAY = 75,
+        };
+
+        constexpr PlayReq(_enumerated value) : _value(value)
+        {
+            // Do nothing
+        }
+        constexpr operator _enumerated() const
+        {
+            return _enumerated(_value);
+        }
+        constexpr _integral _to_integral() const;
+        constexpr static PlayReq _from_integral(_integral value);
+        constexpr static PlayReq _from_integral_unchecked(_integral value);
+        constexpr static _optional _from_integral_nothrow(_integral value);
+        const char* _to_string() const;
+        constexpr static PlayReq _from_string(const char* name);
+        constexpr static _optional _from_string_nothrow(const char* name);
+        constexpr static PlayReq _from_string_nocase(const char* name);
+        constexpr static _optional _from_string_nocase_nothrow(const char* name);
+        constexpr static bool _is_valid(_integral value);
+        constexpr static bool _is_valid(const char* name);
+        constexpr static bool _is_valid_nocase(const char* name);
+        typedef ::better_enums::_Iterable<PlayReq> _value_iterable;
+        typedef ::better_enums::_Iterable<const char*> _name_iterable;
+        typedef _value_iterable::iterator _value_iterator;
+        typedef _name_iterable::iterator _name_iterator;
+        constexpr static const std::size_t _size_constant = 192;
+        constexpr static std::size_t _size()
+        {
+            return _size_constant;
+        }
+        constexpr static const char* _name();
+        constexpr static _value_iterable _values();
+        static _name_iterable _names();
+        _integral _value;
+
+     private:
+        PlayReq() : _value(0)
+        {
+            // Do nothing
+        }
+
+     private:
+        explicit constexpr PlayReq(const _integral& value) : _value(value)
+        {
+            // Do nothing
+        }
+        static int initialize();
+        constexpr static _optional_index _from_value_loop(
+            _integral value, std::size_t index = 0);
+        constexpr static _optional_index _from_string_loop(
+            const char* name, std::size_t index = 0);
+        constexpr static _optional_index _from_string_nocase_loop(
+            const char* name, std::size_t index = 0);
+        friend struct ::better_enums::_initialize_at_program_start<PlayReq>;
     };
 
+    namespace better_enums_data_PlayReq
+    {
+        static ::better_enums::_initialize_at_program_start<PlayReq>
+            _force_initialization;
+        enum _PutNamesInThisScopeAlso
+        {
+            REQ_MINION_TARGET = 1,
+            REQ_FRIENDLY_TARGET = 2,
+            REQ_ENEMY_TARGET = 3,
+            REQ_DAMAGED_TARGET = 4,
+            REQ_MAX_SECRETS = 5,
+            REQ_FROZEN_TARGET = 6,
+            REQ_CHARGE_TARGET = 7,
+            REQ_TARGET_MAX_ATTACK = 8,
+            REQ_NONSELF_TARGET = 9,
+            REQ_TARGET_WITH_RACE = 10,
+            REQ_TARGET_TO_PLAY = 11,
+            REQ_NUM_MINION_SLOTS = 12,
+            REQ_WEAPON_EQUIPPED = 13,
+            REQ_ENOUGH_MANA = 14,
+            REQ_YOUR_TURN = 15,
+            REQ_NONSTEALTH_ENEMY_TARGET = 16,
+            REQ_HERO_TARGET = 17,
+            REQ_SECRET_ZONE_CAP = 18,
+            REQ_MINION_CAP_IF_TARGET_AVAILABLE = 19,
+            REQ_MINION_CAP = 20,
+            REQ_TARGET_ATTACKED_THIS_TURN = 21,
+            REQ_TARGET_IF_AVAILABLE = 22,
+            REQ_MINIMUM_ENEMY_MINIONS = 23,
+            REQ_TARGET_FOR_COMBO = 24,
+            REQ_NOT_EXHAUSTED_ACTIVATE = 25,
+            REQ_UNIQUE_SECRET_OR_QUEST = 26,
+            REQ_TARGET_TAUNTER = 27,
+            REQ_CAN_BE_ATTACKED = 28,
+            REQ_ACTION_PWR_IS_MASTER_PWR = 29,
+            REQ_TARGET_MAGNET = 30,
+            REQ_ATTACK_GREATER_THAN_0 = 31,
+            REQ_ATTACKER_NOT_FROZEN = 32,
+            REQ_HERO_OR_MINION_TARGET = 33,
+            REQ_CAN_BE_TARGETED_BY_SPELLS = 34,
+            REQ_SUBCARD_IS_PLAYABLE = 35,
+            REQ_TARGET_FOR_NO_COMBO = 36,
+            REQ_NOT_MINION_JUST_PLAYED = 37,
+            REQ_NOT_EXHAUSTED_HERO_POWER = 38,
+            REQ_CAN_BE_TARGETED_BY_OPPONENTS = 39,
+            REQ_ATTACKER_CAN_ATTACK = 40,
+            REQ_TARGET_MIN_ATTACK = 41,
+            REQ_CAN_BE_TARGETED_BY_HERO_POWERS = 42,
+            REQ_ENEMY_TARGET_NOT_IMMUNE = 43,
+            REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 44,
+            REQ_MINIMUM_TOTAL_MINIONS = 45,
+            REQ_MUST_TARGET_TAUNTER = 46,
+            REQ_UNDAMAGED_TARGET = 47,
+            REQ_CAN_BE_TARGETED_BY_BATTLECRIES = 48,
+            REQ_STEADY_SHOT = 49,
+            REQ_MINION_OR_ENEMY_HERO = 50,
+            REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 51,
+            REQ_LEGENDARY_TARGET = 52,
+            REQ_FRIENDLY_MINION_DIED_THIS_TURN = 53,
+            REQ_FRIENDLY_MINION_DIED_THIS_GAME = 54,
+            REQ_ENEMY_WEAPON_EQUIPPED = 55,
+            REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 56,
+            REQ_TARGET_WITH_BATTLECRY = 57,
+            REQ_TARGET_WITH_DEATHRATTLE = 58,
+            REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 59,
+            REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 60,
+            REQ_TARGET_EXACT_COST = 61,
+            REQ_STEALTHED_TARGET = 62,
+            REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 63,
+            REQ_MAX_QUESTS = 64,
+            REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN = 65,
+            REQ_TARGET_NOT_VAMPIRE = 66,
+            REQ_TARGET_NOT_DAMAGEABLE_ONLY_BY_WEAPONS = 67,
+            REQ_NOT_DISABLED_HERO_POWER = 68,
+            REQ_MUST_PLAY_OTHER_CARD_FIRST = 69,
+            REQ_HAND_NOT_FULL = 70,
+            REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK = 71,
+            REQ_CAN_BE_TARGETED_BY_COMBOS = 72,
+            REQ_CANNOT_PLAY_THIS = 73,
+            REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74,
+            REQ_DRAG_TO_PLAY = 75,
+        };
+        constexpr const PlayReq _value_array[] = {
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINION_TARGET = 1),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_FRIENDLY_TARGET = 2),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ENEMY_TARGET = 3),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_DAMAGED_TARGET = 4),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MAX_SECRETS = 5),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_FROZEN_TARGET = 6),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CHARGE_TARGET = 7),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_MAX_ATTACK = 8),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_NONSELF_TARGET = 9),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_WITH_RACE = 10),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_TO_PLAY = 11),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_NUM_MINION_SLOTS = 12),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_WEAPON_EQUIPPED = 13),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ENOUGH_MANA = 14),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_YOUR_TURN = 15),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_NONSTEALTH_ENEMY_TARGET = 16),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_HERO_TARGET = 17),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_SECRET_ZONE_CAP = 18),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINION_CAP_IF_TARGET_AVAILABLE = 19),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINION_CAP = 20),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_ATTACKED_THIS_TURN = 21),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_IF_AVAILABLE = 22),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINIMUM_ENEMY_MINIONS = 23),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_FOR_COMBO = 24),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_NOT_EXHAUSTED_ACTIVATE = 25),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_UNIQUE_SECRET_OR_QUEST = 26),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_TAUNTER = 27),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CAN_BE_ATTACKED = 28),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ACTION_PWR_IS_MASTER_PWR = 29),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_MAGNET = 30),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ATTACK_GREATER_THAN_0 = 31),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ATTACKER_NOT_FROZEN = 32),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_HERO_OR_MINION_TARGET = 33),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CAN_BE_TARGETED_BY_SPELLS = 34),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_SUBCARD_IS_PLAYABLE = 35),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_FOR_NO_COMBO = 36),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_NOT_MINION_JUST_PLAYED = 37),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_NOT_EXHAUSTED_HERO_POWER = 38),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CAN_BE_TARGETED_BY_OPPONENTS = 39),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ATTACKER_CAN_ATTACK = 40),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_MIN_ATTACK = 41),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CAN_BE_TARGETED_BY_HERO_POWERS = 42),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ENEMY_TARGET_NOT_IMMUNE = 43),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 44),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINIMUM_TOTAL_MINIONS = 45),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MUST_TARGET_TAUNTER = 46),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_UNDAMAGED_TARGET = 47),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CAN_BE_TARGETED_BY_BATTLECRIES = 48),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_STEADY_SHOT = 49),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINION_OR_ENEMY_HERO = 50),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 51),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_LEGENDARY_TARGET = 52),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_TURN = 53),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_GAME = 54),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ENEMY_WEAPON_EQUIPPED = 55),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 56),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_WITH_BATTLECRY = 57),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_WITH_DEATHRATTLE = 58),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 59),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 60),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_EXACT_COST = 61),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_STEALTHED_TARGET = 62),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 63),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MAX_QUESTS = 64),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN = 65),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_NOT_VAMPIRE = 66),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_NOT_DAMAGEABLE_ONLY_BY_WEAPONS = 67),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_NOT_DISABLED_HERO_POWER = 68),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MUST_PLAY_OTHER_CARD_FIRST = 69),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_HAND_NOT_FULL = 70),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK = 71),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CAN_BE_TARGETED_BY_COMBOS = 72),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_CANNOT_PLAY_THIS = 73),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74),
+            ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_DRAG_TO_PLAY = 75),
+        };
+        constexpr const char* _the_raw_names[] = {
+            "REQ_MINION_TARGET = 1",
+            "REQ_FRIENDLY_TARGET = 2",
+            "REQ_ENEMY_TARGET = 3",
+            "REQ_DAMAGED_TARGET = 4",
+            "REQ_MAX_SECRETS = 5",
+            "REQ_FROZEN_TARGET = 6",
+            "REQ_CHARGE_TARGET = 7",
+            "REQ_TARGET_MAX_ATTACK = 8",
+            "REQ_NONSELF_TARGET = 9",
+            "REQ_TARGET_WITH_RACE = 10",
+            "REQ_TARGET_TO_PLAY = 11",
+            "REQ_NUM_MINION_SLOTS = 12",
+            "REQ_WEAPON_EQUIPPED = 13",
+            "REQ_ENOUGH_MANA = 14",
+            "REQ_YOUR_TURN = 15",
+            "REQ_NONSTEALTH_ENEMY_TARGET = 16",
+            "REQ_HERO_TARGET = 17",
+            "REQ_SECRET_ZONE_CAP = 18",
+            "REQ_MINION_CAP_IF_TARGET_AVAILABLE = 19",
+            "REQ_MINION_CAP = 20",
+            "REQ_TARGET_ATTACKED_THIS_TURN = 21",
+            "REQ_TARGET_IF_AVAILABLE = 22",
+            "REQ_MINIMUM_ENEMY_MINIONS = 23",
+            "REQ_TARGET_FOR_COMBO = 24",
+            "REQ_NOT_EXHAUSTED_ACTIVATE = 25",
+            "REQ_UNIQUE_SECRET_OR_QUEST = 26",
+            "REQ_TARGET_TAUNTER = 27",
+            "REQ_CAN_BE_ATTACKED = 28",
+            "REQ_ACTION_PWR_IS_MASTER_PWR = 29",
+            "REQ_TARGET_MAGNET = 30",
+            "REQ_ATTACK_GREATER_THAN_0 = 31",
+            "REQ_ATTACKER_NOT_FROZEN = 32",
+            "REQ_HERO_OR_MINION_TARGET = 33",
+            "REQ_CAN_BE_TARGETED_BY_SPELLS = 34",
+            "REQ_SUBCARD_IS_PLAYABLE = 35",
+            "REQ_TARGET_FOR_NO_COMBO = 36",
+            "REQ_NOT_MINION_JUST_PLAYED = 37",
+            "REQ_NOT_EXHAUSTED_HERO_POWER = 38",
+            "REQ_CAN_BE_TARGETED_BY_OPPONENTS = 39",
+            "REQ_ATTACKER_CAN_ATTACK = 40",
+            "REQ_TARGET_MIN_ATTACK = 41",
+            "REQ_CAN_BE_TARGETED_BY_HERO_POWERS = 42",
+            "REQ_ENEMY_TARGET_NOT_IMMUNE = 43",
+            "REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 44",
+            "REQ_MINIMUM_TOTAL_MINIONS = 45",
+            "REQ_MUST_TARGET_TAUNTER = 46",
+            "REQ_UNDAMAGED_TARGET = 47",
+            "REQ_CAN_BE_TARGETED_BY_BATTLECRIES = 48",
+            "REQ_STEADY_SHOT = 49",
+            "REQ_MINION_OR_ENEMY_HERO = 50",
+            "REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 51",
+            "REQ_LEGENDARY_TARGET = 52",
+            "REQ_FRIENDLY_MINION_DIED_THIS_TURN = 53",
+            "REQ_FRIENDLY_MINION_DIED_THIS_GAME = 54",
+            "REQ_ENEMY_WEAPON_EQUIPPED = 55",
+            "REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 56",
+            "REQ_TARGET_WITH_BATTLECRY = 57",
+            "REQ_TARGET_WITH_DEATHRATTLE = 58",
+            "REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 59",
+            "REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 60",
+            "REQ_TARGET_EXACT_COST = 61",
+            "REQ_STEALTHED_TARGET = 62",
+            "REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 63",
+            "REQ_MAX_QUESTS = 64",
+            "REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN = 65",
+            "REQ_TARGET_NOT_VAMPIRE = 66",
+            "REQ_TARGET_NOT_DAMAGEABLE_ONLY_BY_WEAPONS = 67",
+            "REQ_NOT_DISABLED_HERO_POWER = 68",
+            "REQ_MUST_PLAY_OTHER_CARD_FIRST = 69",
+            "REQ_HAND_NOT_FULL = 70",
+            "REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK = 71",
+            "REQ_CAN_BE_TARGETED_BY_COMBOS = 72",
+            "REQ_CANNOT_PLAY_THIS = 73",
+            "REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74",
+            "REQ_DRAG_TO_PLAY = 75",
+        };
+        constexpr const char* const* _raw_names()
+        {
+            return _the_raw_names;
+        }
+        inline char* _name_storage()
+        {
+            static char storage[] =
+                "REQ_MINION_TARGET = 1"
+                ","
+                "REQ_FRIENDLY_TARGET = 2"
+                ","
+                "REQ_ENEMY_TARGET = 3"
+                ","
+                "REQ_DAMAGED_TARGET = 4"
+                ","
+                "REQ_MAX_SECRETS = 5"
+                ","
+                "REQ_FROZEN_TARGET = 6"
+                ","
+                "REQ_CHARGE_TARGET = 7"
+                ","
+                "REQ_TARGET_MAX_ATTACK = 8"
+                ","
+                "REQ_NONSELF_TARGET = 9"
+                ","
+                "REQ_TARGET_WITH_RACE = 10"
+                ","
+                "REQ_TARGET_TO_PLAY = 11"
+                ","
+                "REQ_NUM_MINION_SLOTS = 12"
+                ","
+                "REQ_WEAPON_EQUIPPED = 13"
+                ","
+                "REQ_ENOUGH_MANA = 14"
+                ","
+                "REQ_YOUR_TURN = 15"
+                ","
+                "REQ_NONSTEALTH_ENEMY_TARGET = 16"
+                ","
+                "REQ_HERO_TARGET = 17"
+                ","
+                "REQ_SECRET_ZONE_CAP = 18"
+                ","
+                "REQ_MINION_CAP_IF_TARGET_AVAILABLE = 19"
+                ","
+                "REQ_MINION_CAP = 20"
+                ","
+                "REQ_TARGET_ATTACKED_THIS_TURN = 21"
+                ","
+                "REQ_TARGET_IF_AVAILABLE = 22"
+                ","
+                "REQ_MINIMUM_ENEMY_MINIONS = 23"
+                ","
+                "REQ_TARGET_FOR_COMBO = 24"
+                ","
+                "REQ_NOT_EXHAUSTED_ACTIVATE = 25"
+                ","
+                "REQ_UNIQUE_SECRET_OR_QUEST = 26"
+                ","
+                "REQ_TARGET_TAUNTER = 27"
+                ","
+                "REQ_CAN_BE_ATTACKED = 28"
+                ","
+                "REQ_ACTION_PWR_IS_MASTER_PWR = 29"
+                ","
+                "REQ_TARGET_MAGNET = 30"
+                ","
+                "REQ_ATTACK_GREATER_THAN_0 = 31"
+                ","
+                "REQ_ATTACKER_NOT_FROZEN = 32"
+                ","
+                "REQ_HERO_OR_MINION_TARGET = 33"
+                ","
+                "REQ_CAN_BE_TARGETED_BY_SPELLS = 34"
+                ","
+                "REQ_SUBCARD_IS_PLAYABLE = 35"
+                ","
+                "REQ_TARGET_FOR_NO_COMBO = 36"
+                ","
+                "REQ_NOT_MINION_JUST_PLAYED = 37"
+                ","
+                "REQ_NOT_EXHAUSTED_HERO_POWER = 38"
+                ","
+                "REQ_CAN_BE_TARGETED_BY_OPPONENTS = 39"
+                ","
+                "REQ_ATTACKER_CAN_ATTACK = 40"
+                ","
+                "REQ_TARGET_MIN_ATTACK = 41"
+                ","
+                "REQ_CAN_BE_TARGETED_BY_HERO_POWERS = 42"
+                ","
+                "REQ_ENEMY_TARGET_NOT_IMMUNE = 43"
+                ","
+                "REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 44"
+                ","
+                "REQ_MINIMUM_TOTAL_MINIONS = 45"
+                ","
+                "REQ_MUST_TARGET_TAUNTER = 46"
+                ","
+                "REQ_UNDAMAGED_TARGET = 47"
+                ","
+                "REQ_CAN_BE_TARGETED_BY_BATTLECRIES = 48"
+                ","
+                "REQ_STEADY_SHOT = 49"
+                ","
+                "REQ_MINION_OR_ENEMY_HERO = 50"
+                ","
+                "REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 51"
+                ","
+                "REQ_LEGENDARY_TARGET = 52"
+                ","
+                "REQ_FRIENDLY_MINION_DIED_THIS_TURN = 53"
+                ","
+                "REQ_FRIENDLY_MINION_DIED_THIS_GAME = 54"
+                ","
+                "REQ_ENEMY_WEAPON_EQUIPPED = 55"
+                ","
+                "REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = 56"
+                ","
+                "REQ_TARGET_WITH_BATTLECRY = 57"
+                ","
+                "REQ_TARGET_WITH_DEATHRATTLE = 58"
+                ","
+                "REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = 59"
+                ","
+                "REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 60"
+                ","
+                "REQ_TARGET_EXACT_COST = 61"
+                ","
+                "REQ_STEALTHED_TARGET = 62"
+                ","
+                "REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT = 63"
+                ","
+                "REQ_MAX_QUESTS = 64"
+                ","
+                "REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN = 65"
+                ","
+                "REQ_TARGET_NOT_VAMPIRE = 66"
+                ","
+                "REQ_TARGET_NOT_DAMAGEABLE_ONLY_BY_WEAPONS = 67"
+                ","
+                "REQ_NOT_DISABLED_HERO_POWER = 68"
+                ","
+                "REQ_MUST_PLAY_OTHER_CARD_FIRST = 69"
+                ","
+                "REQ_HAND_NOT_FULL = 70"
+                ","
+                "REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK = 71"
+                ","
+                "REQ_CAN_BE_TARGETED_BY_COMBOS = 72"
+                ","
+                "REQ_CANNOT_PLAY_THIS = 73"
+                ","
+                "REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74"
+                ","
+                "REQ_DRAG_TO_PLAY = 75"
+                ",";
+            return storage;
+        }
+        inline const char** _name_array()
+        {
+            static const char* value[PlayReq::_size_constant];
+            return value;
+        }
+        inline bool& _initialized()
+        {
+            static bool value = false;
+            return value;
+        }
+    }
+
+    constexpr inline const PlayReq operator+(PlayReq::_enumerated enumerated)
+    {
+        return static_cast<PlayReq>(enumerated);
+    }
+    constexpr inline PlayReq::_optional_index PlayReq::_from_value_loop(
+        PlayReq::_integral value, std::size_t index)
+    {
+        return index == _size()
+                   ? _optional_index()
+                   : better_enums_data_PlayReq::_value_array[index]._value ==
+                             value
+                         ? _optional_index(index)
+                         : _from_value_loop(value, index + 1);
+    }
+    constexpr inline PlayReq::_optional_index PlayReq::_from_string_loop(
+        const char* name, std::size_t index)
+    {
+        return index == _size()
+                   ? _optional_index()
+                   : ::better_enums::_names_match(
+                         better_enums_data_PlayReq::_raw_names()[index], name)
+                         ? _optional_index(index)
+                         : _from_string_loop(name, index + 1);
+    }
+    constexpr inline PlayReq::_optional_index PlayReq::_from_string_nocase_loop(
+        const char* name, std::size_t index)
+    {
+        return index == _size()
+                   ? _optional_index()
+                   : ::better_enums::_names_match_nocase(
+                         better_enums_data_PlayReq::_raw_names()[index], name)
+                         ? _optional_index(index)
+                         : _from_string_nocase_loop(name, index + 1);
+    }
+    constexpr inline PlayReq::_integral PlayReq::_to_integral() const
+    {
+        return _integral(_value);
+    }
+    constexpr inline PlayReq PlayReq::_from_integral_unchecked(_integral value)
+    {
+        return static_cast<_enumerated>(value);
+    }
+    constexpr inline PlayReq::_optional PlayReq::_from_integral_nothrow(
+        _integral value)
+    {
+        return ::better_enums::_map_index<PlayReq>(
+            better_enums_data_PlayReq::_value_array, _from_value_loop(value));
+    }
+    constexpr inline PlayReq PlayReq::_from_integral(_integral value)
+    {
+        return ::better_enums::_or_throw(_from_integral_nothrow(value),
+                                         "PlayReq"
+                                         "::_from_integral: invalid argument");
+    }
+    inline const char* PlayReq::_to_string() const
+    {
+        return ::better_enums::_or_null(::better_enums::_map_index<const char*>(
+            better_enums_data_PlayReq::_name_array(),
+            _from_value_loop(
+                ::better_enums::continue_with(initialize(), _value))));
+    }
+    constexpr inline PlayReq::_optional PlayReq::_from_string_nothrow(
+        const char* name)
+    {
+        return ::better_enums::_map_index<PlayReq>(
+            better_enums_data_PlayReq::_value_array, _from_string_loop(name));
+    }
+    constexpr inline PlayReq PlayReq::_from_string(const char* name)
+    {
+        return ::better_enums::_or_throw(_from_string_nothrow(name),
+                                         "PlayReq"
+                                         "::_from_string: invalid argument");
+    }
+    constexpr inline PlayReq::_optional PlayReq::_from_string_nocase_nothrow(
+        const char* name)
+    {
+        return ::better_enums::_map_index<PlayReq>(
+            better_enums_data_PlayReq::_value_array,
+            _from_string_nocase_loop(name));
+    }
+    constexpr inline PlayReq PlayReq::_from_string_nocase(const char* name)
+    {
+        return ::better_enums::_or_throw(
+            _from_string_nocase_nothrow(name),
+            "PlayReq"
+            "::_from_string_nocase: invalid argument");
+    }
+    constexpr inline bool PlayReq::_is_valid(_integral value)
+    {
+        return _from_value_loop(value);
+    }
+    constexpr inline bool PlayReq::_is_valid(const char* name)
+    {
+        return _from_string_loop(name);
+    }
+    constexpr inline bool PlayReq::_is_valid_nocase(const char* name)
+    {
+        return _from_string_nocase_loop(name);
+    }
+    constexpr inline const char* PlayReq::_name()
+    {
+        return "PlayReq";
+    }
+    constexpr inline PlayReq::_value_iterable PlayReq::_values()
+    {
+        return _value_iterable(better_enums_data_PlayReq::_value_array,
+                               _size());
+    }
+    inline PlayReq::_name_iterable PlayReq::_names()
+    {
+        return _name_iterable(
+            better_enums_data_PlayReq::_name_array(),
+            ::better_enums::continue_with(initialize(), _size()));
+    }
+    inline int PlayReq::initialize()
+    {
+        if (better_enums_data_PlayReq::_initialized())
+            return 0;
+        ::better_enums::_trim_names(better_enums_data_PlayReq::_raw_names(),
+                                    better_enums_data_PlayReq::_name_array(),
+                                    better_enums_data_PlayReq::_name_storage(),
+                                    _size());
+        better_enums_data_PlayReq::_initialized() = true;
+        return 0;
+    }
+    constexpr inline bool operator==(const PlayReq& a, const PlayReq& b)
+    {
+        return a._to_integral() == b._to_integral();
+    }
+    constexpr inline bool operator!=(const PlayReq& a, const PlayReq& b)
+    {
+        return a._to_integral() != b._to_integral();
+    }
+    constexpr inline bool operator<(const PlayReq& a, const PlayReq& b)
+    {
+        return a._to_integral() < b._to_integral();
+    }
+    constexpr inline bool operator<=(const PlayReq& a, const PlayReq& b)
+    {
+        return a._to_integral() <= b._to_integral();
+    }
+    constexpr inline bool operator>(const PlayReq& a, const PlayReq& b)
+    {
+        return a._to_integral() > b._to_integral();
+    }
+    constexpr inline bool operator>=(const PlayReq& a, const PlayReq& b)
+    {
+        return a._to_integral() >= b._to_integral();
+    }
+    template <typename Char, typename Traits>
+    std::basic_ostream<Char, Traits>& operator<<(
+        std::basic_ostream<Char, Traits>& stream, const PlayReq& value)
+    {
+        return stream << value._to_string();
+    }
+    template <typename Char, typename Traits>
+    std::basic_istream<Char, Traits>& operator>>(
+        std::basic_istream<Char, Traits>& stream, PlayReq& value)
+    {
+        std::basic_string<Char, Traits> buffer;
+        stream >> buffer;
+        ::better_enums::optional<PlayReq> converted =
+            PlayReq::_from_string_nothrow(buffer.c_str());
+        if (converted)
+            value = *converted;
+        else
+            stream.setstate(std::basic_istream<Char, Traits>::failbit);
+        return stream;
+    }
+#endif
+        
     enum class PlayState
     {
         INVALID = 0,
