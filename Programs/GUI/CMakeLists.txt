@@ -62,6 +62,7 @@ else()
 	target_link_libraries(${target}
 		PRIVATE
 		${DEFAULT_LINKER_OPTIONS}
+		${OPENGL_LIBRARIES}
 		Hearthstonepp
 		imgui)
 endif()
