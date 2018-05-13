@@ -13,9 +13,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 
+# Set enable output of compile commands during generation
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Includes
 include_directories(Includes)
 include_directories(Libraries)
+include_directories(Libraries/googletest/googletest/include)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     include_directories(Libraries/winix)
 endif()
@@ -38,6 +42,13 @@ set(RESOURCES_JSONS
     ${RESOURCES_DIR}/cards.json)
 
 # Project modules
+set(BUILD_GTEST ON CACHE BOOL "" FORCE)
+set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+add_subdirectory(Libraries/googletest EXCLUDE_FROM_ALL)
+cmake_policy(SET CMP0063 NEW)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 add_subdirectory(Sources)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     add_subdirectory(Libraries/winix)
@@ -45,3 +56,9 @@ endif()
 add_subdirectory(Libraries/imgui)
 add_subdirectory(Programs/Console)
 add_subdirectory(Programs/GUI)
+add_subdirectory(Tests/UnitTests)
+
+if (NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    include(CodeCoverage)
+    setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
+endif()

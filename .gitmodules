@@ -1,3 +1,7 @@
 [submodule "Libraries/better-enums"]
 	path = Libraries/better-enums
 	url = https://github.com/aantron/better-enums
+ 
+[submodule "Libraries/googletest"]
+    path = Libraries/googletest
+    url = http://www.github.com/google/googletest
