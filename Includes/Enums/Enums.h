@@ -637,7 +637,7 @@ namespace Hearthstonepp
         typedef ::better_enums::_Iterable<const char*> _name_iterable;
         typedef _value_iterable::iterator _value_iterator;
         typedef _name_iterable::iterator _name_iterator;
-        constexpr static const std::size_t _size_constant = 192;
+        constexpr static const std::size_t _size_constant = 376;
         constexpr static std::size_t _size()
         {
             return _size_constant;
@@ -2943,7 +2943,7 @@ namespace Hearthstonepp
         typedef ::better_enums::_Iterable<const char*> _name_iterable;
         typedef _value_iterable::iterator _value_iterator;
         typedef _name_iterable::iterator _name_iterator;
-        constexpr static const std::size_t _size_constant = 192;
+        constexpr static const std::size_t _size_constant = 75;
         constexpr static std::size_t _size()
         {
             return _size_constant;
