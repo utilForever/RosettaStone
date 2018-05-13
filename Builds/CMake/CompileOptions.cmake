@@ -2,6 +2,16 @@
 # Platform and architecture setup
 #
 
+# Set warnings as errors flag
+option(CUBBYFLOW_WARNINGS_AS_ERRORS ON)
+if(CUBBYFLOW_WARNINGS_AS_ERRORS)
+	if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+		set(WARN_AS_ERROR_FLAGS	"/WX")
+	else()
+		set(WARN_AS_ERROR_FLAGS "-Werror")
+	endif()
+endif()
+
 # Get upper case system name
 string(TOUPPER ${CMAKE_SYSTEM_NAME} SYSTEM_NAME_UPPER)
 
@@ -66,7 +76,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		/MP           # -> build with multiple processes
 		/W4           # -> warning level 3
-		/WX           # -> treat warnings as errors
+		${WARN_AS_ERROR_FLAGS}
 
 		# /wd4251     # -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		# /wd4592     # -> disable warning: 'identifier': symbol will be dynamically initialized (implementation limitation)
@@ -93,8 +103,7 @@ endif ()
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wall
-		-Wno-missing-braces
-		-Werror
+		${WARN_AS_ERROR_FLAGS}
 		-std=c++1z
 	)
 endif ()

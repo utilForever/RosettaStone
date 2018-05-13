@@ -1,0 +1,39 @@
+language: cpp
+
+matrix:
+  include:
+    # Test Ubuntu 14.04 + gcc 7
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      script:
+        - sh Scripts/travis_build.sh
+    # Test OS X 10.12 + Xcode 9 + clang
+    - os: osx
+      osx_image: xcode9
+      compiler: clang
+      script:
+        - sh Scripts/travis_build.sh
+before_install:
+  - eval "${MATRIX_EVAL}"
+  - if [ $TRAVIS_OS_NAME == linux ]; then 
+       sudo apt-get update -qq;
+       sudo apt-get install -y --no-install-recommends libxrandr-dev libxi-dev libxxf86vm-dev libxinerama-dev libxcursor-dev;
+       wget https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip;
+       unzip glfw-3.2.1.zip && cd glfw-3.2.1; 
+       cmake -DBUILD_SHARED_LIBS=true -DGLFW_BUILD_EXAMPLES=false -DGLFW_BUILD_TESTS=false -DGLFW_BUILD_DOCS=false .;
+       sudo make -j $CPU_NUM install && cd ..;
+    fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then 
+       brew update;
+       brew install glfw3;
+    fi
