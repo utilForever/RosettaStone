@@ -27,6 +27,12 @@ target_compile_definitions(${target}
     RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../Resources/"
 )
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
+        /wd4996
+    )
+endif ()
+
 # Link libraries
 target_link_libraries(${target}
     PRIVATE

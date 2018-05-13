@@ -122,12 +122,14 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_SYSTEM_NAME MATCHES "Linux")
 	)
 endif()
 
-set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
-    -fprofile-arcs
-    -ftest-coverage
-)
+if (NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
+	    -fprofile-arcs
+	    -ftest-coverage
+	)
 
-set(DEFAULT_LINKER_OPTIONS ${DEFAULT_LINKER_OPTIONS}
-    -fprofile-arcs
-    -ftest-coverage
-)
+	set(DEFAULT_LINKER_OPTIONS ${DEFAULT_LINKER_OPTIONS}
+	    -fprofile-arcs
+	    -ftest-coverage
+	)
+endif()
