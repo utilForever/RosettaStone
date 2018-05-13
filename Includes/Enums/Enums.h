@@ -107,10 +107,10 @@ namespace Hearthstonepp
         CANT_BE_HEALED = 239, IMMUNE = 240, CANT_BE_SET_ASIDE = 241,
         CANT_BE_REMOVED_FROM_GAME = 242, CANT_BE_READIED = 243,
         CANT_BE_EXHAUSTED = 244, CANT_BE_ATTACKED = 245, CANT_BE_TARGETED = 246,
-        CANT_BE_DESTROYED = 247, ATTACK_VISUAL_TYPE = 251, CARD_TEXT_IN_PLAY = 252,
+        CANT_BE_DESTROYED = 247, AttackVisualType = 251, CardTextInPlay = 252,
         CANT_BE_SUMMONING_SICK = 253, FROZEN = 260, JUST_PLAYED = 261,
         LINKED_ENTITY = 262, ZONE_POSITION = 263, CANT_BE_FROZEN = 264,
-        COMBO_ACTIVE = 266, CARD_TARGET = 267, DEV_STATE = 268,
+        COMBO_ACTIVE = 266, CARD_TARGET = 267, DevState = 268,
         NUM_CARDS_PLAYED_THIS_TURN = 269, CANT_BE_TARGETED_BY_OPPONENTS = 270,
         NUM_TURNS_IN_PLAY = 271, NUM_TURNS_LEFT = 272, OUTGOING_DAMAGE_CAP = 273,
         OUTGOING_DAMAGE_ADJUSTMENT = 274, OUTGOING_DAMAGE_MULTIPLIER = 275,
@@ -133,14 +133,14 @@ namespace Hearthstonepp
         COLLECTIBLE = 321, TARGETING_ARROW_TEXT = 325, DATABASE_ID = 327,
         ENCHANTMENT_BIRTH_VISUAL = 330, ENCHANTMENT_IDLE_VISUAL = 331,
         CANT_BE_TARGETED_BY_HERO_POWERS = 332, WEAPON = 334,
-        INVISIBLE_DEATHRATTLE = 335, HEALTH_MINIMUM = 337,
+        InvisibleDeathrattle = 335, HEALTH_MINIMUM = 337,
         TAG_ONE_TURN_EFFECT = 338, SILENCE = 339, COUNTER = 340, ARTISTNAME = 342,
-        LOCALIZATION_NOTES = 344, ZONES_REVEALED = 348, IMMUNE_TO_SPELL_POWER = 349,
+        LocalizationNotes = 344, ZONES_REVEALED = 348, ImmuneToSpellpower = 349,
         ADJACENT_BUFF = 350, FLAVORTEXT = 351, FORCED_PLAY = 352,
-        LOW_HEALTH_THRESHOLD = 353, IGNORE_DAMAGE_OFF = 354, GRANT_CHARGE = 355,
+        LOW_HEALTH_THRESHOLD = 353, IGNORE_DAMAGE_OFF = 354, GrantCharge = 355,
         SPELLPOWER_DOUBLE = 356, HEALING_DOUBLE = 357,
         NUM_OPTIONS_PLAYED_THIS_TURN = 358, NUM_OPTIONS = 359,
-        TO_BE_DESTROYED = 360, HEAL_TARGET = 361, AURA = 362, POISONOUS = 363,
+        TO_BE_DESTROYED = 360, HealTarget = 361, AURA = 362, POISONOUS = 363,
         HOW_TO_EARN = 364, HOW_TO_EARN_GOLDEN = 365, HERO_POWER_DOUBLE = 366,
         AI_MUST_PLAY = 367, NUM_MINIONS_PLAYER_KILLED_THIS_TURN = 368,
         NUM_MINIONS_KILLED_THIS_TURN = 369, AFFECTED_BY_SPELL_POWER = 370,
@@ -336,8 +336,8 @@ namespace Hearthstonepp
             CANT_BE_ATTACKED = 245,
             CANT_BE_TARGETED = 246,
             CANT_BE_DESTROYED = 247,
-            ATTACK_VISUAL_TYPE = 251,
-            CARD_TEXT_IN_PLAY = 252,
+            AttackVisualType = 251,
+            CardTextInPlay = 252,
             CANT_BE_SUMMONING_SICK = 253,
             FROZEN = 260,
             JUST_PLAYED = 261,
@@ -346,7 +346,7 @@ namespace Hearthstonepp
             CANT_BE_FROZEN = 264,
             COMBO_ACTIVE = 266,
             CARD_TARGET = 267,
-            DEV_STATE = 268,
+            DevState = 268,
             NUM_CARDS_PLAYED_THIS_TURN = 269,
             CANT_BE_TARGETED_BY_OPPONENTS = 270,
             NUM_TURNS_IN_PLAY = 271,
@@ -397,27 +397,27 @@ namespace Hearthstonepp
             ENCHANTMENT_IDLE_VISUAL = 331,
             CANT_BE_TARGETED_BY_HERO_POWERS = 332,
             WEAPON = 334,
-            INVISIBLE_DEATHRATTLE = 335,
+            InvisibleDeathrattle = 335,
             HEALTH_MINIMUM = 337,
             TAG_ONE_TURN_EFFECT = 338,
             SILENCE = 339,
             COUNTER = 340,
             ARTISTNAME = 342,
-            LOCALIZATION_NOTES = 344,
+            LocalizationNotes = 344,
             ZONES_REVEALED = 348,
-            IMMUNE_TO_SPELL_POWER = 349,
+            ImmuneToSpellpower = 349,
             ADJACENT_BUFF = 350,
             FLAVORTEXT = 351,
             FORCED_PLAY = 352,
             LOW_HEALTH_THRESHOLD = 353,
             IGNORE_DAMAGE_OFF = 354,
-            GRANT_CHARGE = 355,
+            GrantCharge = 355,
             SPELLPOWER_DOUBLE = 356,
             HEALING_DOUBLE = 357,
             NUM_OPTIONS_PLAYED_THIS_TURN = 358,
             NUM_OPTIONS = 359,
             TO_BE_DESTROYED = 360,
-            HEAL_TARGET = 361,
+            HealTarget = 361,
             AURA = 362,
             POISONOUS = 363,
             HOW_TO_EARN = 364,
@@ -774,8 +774,8 @@ namespace Hearthstonepp
             CANT_BE_ATTACKED = 245,
             CANT_BE_TARGETED = 246,
             CANT_BE_DESTROYED = 247,
-            ATTACK_VISUAL_TYPE = 251,
-            CARD_TEXT_IN_PLAY = 252,
+            AttackVisualType = 251,
+            CardTextInPlay = 252,
             CANT_BE_SUMMONING_SICK = 253,
             FROZEN = 260,
             JUST_PLAYED = 261,
@@ -784,7 +784,7 @@ namespace Hearthstonepp
             CANT_BE_FROZEN = 264,
             COMBO_ACTIVE = 266,
             CARD_TARGET = 267,
-            DEV_STATE = 268,
+            DevState = 268,
             NUM_CARDS_PLAYED_THIS_TURN = 269,
             CANT_BE_TARGETED_BY_OPPONENTS = 270,
             NUM_TURNS_IN_PLAY = 271,
@@ -835,27 +835,27 @@ namespace Hearthstonepp
             ENCHANTMENT_IDLE_VISUAL = 331,
             CANT_BE_TARGETED_BY_HERO_POWERS = 332,
             WEAPON = 334,
-            INVISIBLE_DEATHRATTLE = 335,
+            InvisibleDeathrattle = 335,
             HEALTH_MINIMUM = 337,
             TAG_ONE_TURN_EFFECT = 338,
             SILENCE = 339,
             COUNTER = 340,
             ARTISTNAME = 342,
-            LOCALIZATION_NOTES = 344,
+            LocalizationNotes = 344,
             ZONES_REVEALED = 348,
-            IMMUNE_TO_SPELL_POWER = 349,
+            ImmuneToSpellpower = 349,
             ADJACENT_BUFF = 350,
             FLAVORTEXT = 351,
             FORCED_PLAY = 352,
             LOW_HEALTH_THRESHOLD = 353,
             IGNORE_DAMAGE_OFF = 354,
-            GRANT_CHARGE = 355,
+            GrantCharge = 355,
             SPELLPOWER_DOUBLE = 356,
             HEALING_DOUBLE = 357,
             NUM_OPTIONS_PLAYED_THIS_TURN = 358,
             NUM_OPTIONS = 359,
             TO_BE_DESTROYED = 360,
-            HEAL_TARGET = 361,
+            HealTarget = 361,
             AURA = 362,
             POISONOUS = 363,
             HOW_TO_EARN = 364,
@@ -1156,8 +1156,8 @@ namespace Hearthstonepp
             ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_ATTACKED = 245),
             ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_TARGETED = 246),
             ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_DESTROYED = 247),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::ATTACK_VISUAL_TYPE = 251),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::CARD_TEXT_IN_PLAY = 252),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::AttackVisualType = 251),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::CardTextInPlay = 252),
             ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_SUMMONING_SICK = 253),
             ((::better_enums::_eat_assign<GameTag>)GameTag::FROZEN = 260),
             ((::better_enums::_eat_assign<GameTag>)GameTag::JUST_PLAYED = 261),
@@ -1166,7 +1166,7 @@ namespace Hearthstonepp
             ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_FROZEN = 264),
             ((::better_enums::_eat_assign<GameTag>)GameTag::COMBO_ACTIVE = 266),
             ((::better_enums::_eat_assign<GameTag>)GameTag::CARD_TARGET = 267),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::DEV_STATE = 268),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::DevState = 268),
             ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_CARDS_PLAYED_THIS_TURN = 269),
             ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_TARGETED_BY_OPPONENTS = 270),
             ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_TURNS_IN_PLAY = 271),
@@ -1217,27 +1217,27 @@ namespace Hearthstonepp
             ((::better_enums::_eat_assign<GameTag>)GameTag::ENCHANTMENT_IDLE_VISUAL = 331),
             ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_TARGETED_BY_HERO_POWERS = 332),
             ((::better_enums::_eat_assign<GameTag>)GameTag::WEAPON = 334),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::INVISIBLE_DEATHRATTLE = 335),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::InvisibleDeathrattle = 335),
             ((::better_enums::_eat_assign<GameTag>)GameTag::HEALTH_MINIMUM = 337),
             ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_ONE_TURN_EFFECT = 338),
             ((::better_enums::_eat_assign<GameTag>)GameTag::SILENCE = 339),
             ((::better_enums::_eat_assign<GameTag>)GameTag::COUNTER = 340),
             ((::better_enums::_eat_assign<GameTag>)GameTag::ARTISTNAME = 342),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::LOCALIZATION_NOTES = 344),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::LocalizationNotes = 344),
             ((::better_enums::_eat_assign<GameTag>)GameTag::ZONES_REVEALED = 348),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::IMMUNE_TO_SPELL_POWER = 349),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::ImmuneToSpellpower = 349),
             ((::better_enums::_eat_assign<GameTag>)GameTag::ADJACENT_BUFF = 350),
             ((::better_enums::_eat_assign<GameTag>)GameTag::FLAVORTEXT = 351),
             ((::better_enums::_eat_assign<GameTag>)GameTag::FORCED_PLAY = 352),
             ((::better_enums::_eat_assign<GameTag>)GameTag::LOW_HEALTH_THRESHOLD = 353),
             ((::better_enums::_eat_assign<GameTag>)GameTag::IGNORE_DAMAGE_OFF = 354),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::GRANT_CHARGE = 355),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::GrantCharge = 355),
             ((::better_enums::_eat_assign<GameTag>)GameTag::SPELLPOWER_DOUBLE = 356),
             ((::better_enums::_eat_assign<GameTag>)GameTag::HEALING_DOUBLE = 357),
             ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_OPTIONS_PLAYED_THIS_TURN = 358),
             ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_OPTIONS = 359),
             ((::better_enums::_eat_assign<GameTag>)GameTag::TO_BE_DESTROYED = 360),
-            ((::better_enums::_eat_assign<GameTag>)GameTag::HEAL_TARGET = 361),
+            ((::better_enums::_eat_assign<GameTag>)GameTag::HealTarget = 361),
             ((::better_enums::_eat_assign<GameTag>)GameTag::AURA = 362),
             ((::better_enums::_eat_assign<GameTag>)GameTag::POISONOUS = 363),
             ((::better_enums::_eat_assign<GameTag>)GameTag::HOW_TO_EARN = 364),
@@ -1536,8 +1536,8 @@ namespace Hearthstonepp
             "CANT_BE_ATTACKED = 245",
             "CANT_BE_TARGETED = 246",
             "CANT_BE_DESTROYED = 247",
-            "ATTACK_VISUAL_TYPE = 251",
-            "CARD_TEXT_IN_PLAY = 252",
+            "AttackVisualType = 251",
+            "CardTextInPlay = 252",
             "CANT_BE_SUMMONING_SICK = 253",
             "FROZEN = 260",
             "JUST_PLAYED = 261",
@@ -1546,7 +1546,7 @@ namespace Hearthstonepp
             "CANT_BE_FROZEN = 264",
             "COMBO_ACTIVE = 266",
             "CARD_TARGET = 267",
-            "DEV_STATE = 268",
+            "DevState = 268",
             "NUM_CARDS_PLAYED_THIS_TURN = 269",
             "CANT_BE_TARGETED_BY_OPPONENTS = 270",
             "NUM_TURNS_IN_PLAY = 271",
@@ -1597,27 +1597,27 @@ namespace Hearthstonepp
             "ENCHANTMENT_IDLE_VISUAL = 331",
             "CANT_BE_TARGETED_BY_HERO_POWERS = 332",
             "WEAPON = 334",
-            "INVISIBLE_DEATHRATTLE = 335",
+            "InvisibleDeathrattle = 335",
             "HEALTH_MINIMUM = 337",
             "TAG_ONE_TURN_EFFECT = 338",
             "SILENCE = 339",
             "COUNTER = 340",
             "ARTISTNAME = 342",
-            "LOCALIZATION_NOTES = 344",
+            "LocalizationNotes = 344",
             "ZONES_REVEALED = 348",
-            "IMMUNE_TO_SPELL_POWER = 349",
+            "ImmuneToSpellpower = 349",
             "ADJACENT_BUFF = 350",
             "FLAVORTEXT = 351",
             "FORCED_PLAY = 352",
             "LOW_HEALTH_THRESHOLD = 353",
             "IGNORE_DAMAGE_OFF = 354",
-            "GRANT_CHARGE = 355",
+            "GrantCharge = 355",
             "SPELLPOWER_DOUBLE = 356",
             "HEALING_DOUBLE = 357",
             "NUM_OPTIONS_PLAYED_THIS_TURN = 358",
             "NUM_OPTIONS = 359",
             "TO_BE_DESTROYED = 360",
-            "HEAL_TARGET = 361",
+            "HealTarget = 361",
             "AURA = 362",
             "POISONOUS = 363",
             "HOW_TO_EARN = 364",
@@ -2025,9 +2025,9 @@ namespace Hearthstonepp
                 ","
                 "CANT_BE_DESTROYED = 247"
                 ","
-                "ATTACK_VISUAL_TYPE = 251"
+                "AttackVisualType = 251"
                 ","
-                "CARD_TEXT_IN_PLAY = 252"
+                "CardTextInPlay = 252"
                 ","
                 "CANT_BE_SUMMONING_SICK = 253"
                 ","
@@ -2045,7 +2045,7 @@ namespace Hearthstonepp
                 ","
                 "CARD_TARGET = 267"
                 ","
-                "DEV_STATE = 268"
+                "DevState = 268"
                 ","
                 "NUM_CARDS_PLAYED_THIS_TURN = 269"
                 ","
@@ -2147,7 +2147,7 @@ namespace Hearthstonepp
                 ","
                 "WEAPON = 334"
                 ","
-                "INVISIBLE_DEATHRATTLE = 335"
+                "InvisibleDeathrattle = 335"
                 ","
                 "HEALTH_MINIMUM = 337"
                 ","
@@ -2159,11 +2159,11 @@ namespace Hearthstonepp
                 ","
                 "ARTISTNAME = 342"
                 ","
-                "LOCALIZATION_NOTES = 344"
+                "LocalizationNotes = 344"
                 ","
                 "ZONES_REVEALED = 348"
                 ","
-                "IMMUNE_TO_SPELL_POWER = 349"
+                "ImmuneToSpellpower = 349"
                 ","
                 "ADJACENT_BUFF = 350"
                 ","
@@ -2175,7 +2175,7 @@ namespace Hearthstonepp
                 ","
                 "IGNORE_DAMAGE_OFF = 354"
                 ","
-                "GRANT_CHARGE = 355"
+                "GrantCharge = 355"
                 ","
                 "SPELLPOWER_DOUBLE = 356"
                 ","
@@ -2187,7 +2187,7 @@ namespace Hearthstonepp
                 ","
                 "TO_BE_DESTROYED = 360"
                 ","
-                "HEAL_TARGET = 361"
+                "HealTarget = 361"
                 ","
                 "AURA = 362"
                 ","
