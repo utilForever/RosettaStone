@@ -17,10 +17,10 @@ namespace Hearthstonepp
 {
 	struct SearchFilter
 	{
-		Rarity rarity;
-		CardClass playerClass;
-		CardType cardType;
-		Race race;
+		Rarity rarity = Rarity::INVALID;
+		CardClass playerClass = CardClass::INVALID;
+		CardType cardType = CardType::INVALID;
+		Race race = Race::INVALID;
 		std::string name;
 		int costMin, costMax;
 		int attackMin, attackMax;
@@ -45,6 +45,9 @@ namespace Hearthstonepp
 		std::vector<Card*> FindCardByAttack(int minVal, int maxVal);
 		std::vector<Card*> FindCardByHealth(int minVal, int maxVal);
 		std::vector<Card*> FindCardByMechanics(std::vector<GameTag> mechanics);
+
+        const Card* GetHeroCard(CardClass cardClass);
+        const Card* GetDefaultHeroPower(CardClass cardClass);
 
 	private:
 		Cards();

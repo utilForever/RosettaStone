@@ -6,7 +6,6 @@
 > Created Time: 2017/08/30
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Enums/EnumsToString.h>
 #include <Models/Card.h>
 
 #include <algorithm>
@@ -30,7 +29,7 @@ namespace Hearthstonepp
 		m_playRequirements(std::move(playRequirements)),
 		m_entourages(std::move(entourages))
 	{
-		m_maxAllowedInDeck = (rarity == Rarity::LEGENDARY) ? 1 : 2;
+		m_maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
 	}
 
 	std::string Card::GetID() const
@@ -128,11 +127,11 @@ namespace Hearthstonepp
 		std::cout << "ID: " << m_id.c_str() << '\n';
 		std::cout << "Name: " << m_name.c_str() << '\n';
 		std::cout << "Text: " << m_text.c_str() << '\n';
-		std::cout << "Rarity: " << ConverterFromRarityToString.at(m_rarity).c_str() << '\n';
-		std::cout << "Faction: " << ConverterFromFactionToString.at(m_faction).c_str() << '\n';
-		std::cout << "CardSet: " << ConverterFromCardSetToString.at(m_cardSet).c_str() << '\n';
-		std::cout << "CardClass: " << ConverterFromCardClassToString.at(m_cardClass).c_str() << '\n';
-		std::cout << "CardType: " << ConverterFromCardTypeToString.at(m_cardType).c_str() << '\n';
-		std::cout << "Race: " << ConverterFromRaceToString.at(m_race).c_str() << '\n';
+		std::cout << "Rarity: " << m_rarity._to_string() << '\n';
+		std::cout << "Faction: " << m_faction._to_string() << '\n';
+		std::cout << "CardSet: " << m_cardSet._to_string() << '\n';
+		std::cout << "CardClass: " << m_cardClass._to_string() << '\n';
+		std::cout << "CardType: " << m_cardType._to_string() << '\n';
+		std::cout << "Race: " << m_race._to_string() << '\n';
 	}
 }

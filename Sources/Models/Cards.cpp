@@ -199,4 +199,58 @@ namespace Hearthstonepp
 		
 		return result;
 	}
+
+    const Card* Cards::GetHeroCard(CardClass cardClass)
+	{
+	    switch (cardClass)
+	    {
+        case CardClass::DRUID:
+            return FindCardByID("HERO_06");
+        case CardClass::HUNTER:
+            return FindCardByID("HERO_05");
+        case CardClass::MAGE:
+            return FindCardByID("HERO_08");
+        case CardClass::PALADIN:
+            return FindCardByID("HERO_04");
+        case CardClass::PRIEST:
+            return FindCardByID("HERO_09");
+        case CardClass::ROGUE:
+            return FindCardByID("HERO_03");
+        case CardClass::SHAMAN:
+            return FindCardByID("HERO_02");
+        case CardClass::WARLOCK:
+            return FindCardByID("HERO_07");
+        case CardClass::WARRIOR:
+            return FindCardByID("HERO_01");
+        default:
+            return nullptr;
+	    }
+	}
+
+    const Card* Cards::GetDefaultHeroPower(CardClass cardClass)
+	{
+        switch (cardClass)
+        {
+        case CardClass::DRUID:
+            return FindCardByID("CS2_017");
+        case CardClass::HUNTER:
+            return FindCardByID("DS1h_292");
+        case CardClass::MAGE:
+            return FindCardByID("CS2_034");
+        case CardClass::PALADIN:
+            return FindCardByID("CS2_101");
+        case CardClass::PRIEST:
+            return FindCardByID("CS1h_001");
+        case CardClass::ROGUE:
+            return FindCardByID("CS2_083b");
+        case CardClass::SHAMAN:
+            return FindCardByID("CS2_049");
+        case CardClass::WARLOCK:
+            return FindCardByID("CS2_056");
+        case CardClass::WARRIOR:
+            return FindCardByID("CS2_102");
+        default:
+            return nullptr;
+        }
+	}
 }

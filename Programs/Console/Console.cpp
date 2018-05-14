@@ -12,7 +12,6 @@
 #include <Commons/Constants.h>
 #include <Commons/Macros.h>
 #include <Commons/Utils.h>
-#include <Enums/EnumsToString.h>
 #include <Interface/Interface.h>
 #include <Loaders/CardLoader.h>
 #include <Loaders/PlayerLoader.h>
@@ -248,7 +247,7 @@ namespace Hearthstonepp
 
 		ShowMenu(m_playerClassStr);
 		const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
-		const CardClass deckClass = static_cast<CardClass>(selectedClassNum + 1);
+		const CardClass deckClass = CardClass::_from_integral(selectedClassNum + 1);
 
 		m_player->CreateDeck(name, deckClass);
 
@@ -586,16 +585,16 @@ namespace Hearthstonepp
 			switch (opt)
 			{
 			case 'r':
-				rarity = static_cast<Rarity>(atoi(optarg));
+				rarity = Rarity::_from_integral(atoi(optarg));
 				break;
 			case 'c':
-				playerClass = static_cast<CardClass>(atoi(optarg));
+				playerClass = CardClass::_from_integral(atoi(optarg));
 				break;
 			case 't':
-				cardType = static_cast<CardType>(atoi(optarg));
+				cardType = CardType::_from_integral(atoi(optarg));
 				break;
 			case 'e':
-				race = static_cast<Race>(atoi(optarg));
+				race = Race::_from_integral(atoi(optarg));
 				break;
 			case 'n':
 				name = optarg;
@@ -649,7 +648,7 @@ namespace Hearthstonepp
 				mechanics.clear();
 				for (auto& token : tokens)
 				{
-					mechanics.emplace_back(std::move(static_cast<GameTag>(atoi(token.c_str()))));
+					mechanics.emplace_back(std::move(GameTag::_from_integral(atoi(token.c_str()))));
 				}
 				break;
 			case 'p':
@@ -700,27 +699,27 @@ namespace Hearthstonepp
 				continue;
 			}
 
-			bool rarityCondition = (filter.rarity == Rarity::INVALID || filter.rarity == card->GetRarity());
+			bool rarityCondition = (filter.rarity == +Rarity::INVALID || filter.rarity == card->GetRarity());
 			bool classCondition = false;
 
 			// When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
 			if (m_searchMode == SearchMode::AddCardInDeck)
 			{
-				if (filter.playerClass == CardClass::NEUTRAL || filter.playerClass == m_deckClass)
+				if (filter.playerClass == +CardClass::NEUTRAL || filter.playerClass == m_deckClass)
 				{
 					classCondition = filter.playerClass == card->GetCardClass();
 				}
 				else
 				{
-					classCondition = (card->GetCardClass() == CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
+					classCondition = (card->GetCardClass() == +CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
 				}
 			}
 			else if (m_searchMode == SearchMode::JustSearch)
 			{
-				classCondition = (filter.playerClass == CardClass::INVALID || filter.playerClass == card->GetCardClass());
+				classCondition = (filter.playerClass == +CardClass::INVALID || filter.playerClass == card->GetCardClass());
 			}
-			bool typeCondition = (filter.cardType == CardType::INVALID || filter.cardType == card->GetCardType());
-			bool raceCondition = (filter.race == Race::INVALID || filter.race == card->GetRace());
+			bool typeCondition = (filter.cardType == +CardType::INVALID || filter.cardType == card->GetCardType());
+			bool raceCondition = (filter.race == +Race::INVALID || filter.race == card->GetRace());
 			bool nameCondition = (filter.name.empty() || card->GetName().find(filter.name) != std::string::npos);
 			bool costCondition = ((filter.costMin == -1 || filter.costMax == -1) || (filter.costMin <= card->GetCost() && filter.costMax >= card->GetCost()));
 			bool attackCondition = ((filter.attackMin == -1 || filter.attackMax == -1) || (filter.attackMin <= card->GetAttack() && filter.attackMax >= card->GetAttack()));

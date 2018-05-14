@@ -8,7 +8,6 @@
 *************************************************************************/
 #include <Agents/AgentStructures.h>
 #include <Commons/Constants.h>
-#include <Enums/EnumsToString.h>
 
 namespace Hearthstonepp
 {
@@ -20,8 +19,8 @@ namespace Hearthstonepp
 		Deck* tmpDeck = player->GetDeck(deckID);
 		const CardClass cardclass = tmpDeck->GetClass();
 
-		const Card* heroCard = cards->FindCardByID(std::move(ConvertFromCardClassToHeroID.at(cardclass)));
-		const Card* powerCard = cards->FindCardByID(std::move(ConvertFromCardClassToHeroPowerID.at(cardclass)));
+		const Card* heroCard = cards->GetHeroCard(cardclass);
+		const Card* powerCard = cards->GetDefaultHeroPower(cardclass);
 
 		cardDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
 		// Primitive deck has card pointer in library, should copy to use.
