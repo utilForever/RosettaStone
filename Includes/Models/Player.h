@@ -26,8 +26,8 @@ namespace Hearthstonepp
 		Deck* GetDeck(size_t idx) const;
 
 		void ShowDeckList() const;
-		void CreateDeck(std::string name, CardClass playerClass);
-		void DeleteDeck(size_t selectedDeck);
+		int CreateDeck(std::string name, CardClass playerClass);
+		int DeleteDeck(size_t selectedDeck);
 
 	private:
 		std::string m_id;

@@ -28,15 +28,15 @@ TEST(TestPlayer, DeckControl)
     Player player;
 
     EXPECT_NO_THROW(player.ShowDeckList());
-    EXPECT_THROW(player.CreateDeck("deck1", CardClass::INVALID), std::runtime_error);
+    EXPECT_EQ(-1, player.CreateDeck("deck1", CardClass::INVALID));
 
     player.CreateDeck("deck2", CardClass::DREAM);
     player.CreateDeck("deck3", CardClass::DRUID);
     EXPECT_EQ(2, player.GetNumOfDeck());
     EXPECT_NO_THROW(player.ShowDeckList());
 
-    player.DeleteDeck(0);
-    EXPECT_EQ(1, player.GetNumOfDeck());
+    EXPECT_NO_THROW(player.DeleteDeck(0));
+	EXPECT_EQ(1, player.GetNumOfDeck());
     EXPECT_EQ("deck3", player.GetDeck(0)->GetName());
 
     EXPECT_EQ(1, player.GetNumOfDeck());
