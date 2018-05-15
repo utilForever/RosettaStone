@@ -33,8 +33,8 @@ namespace Hearthstonepp
 
 		void ShowCardList() const;
 
-		void AddCard(std::string cardID, int numCardToAdd);
-		void DeleteCard(std::string cardID, const int numCardToDelete);
+		int AddCard(std::string cardID, int numCardToAdd);
+		int DeleteCard(std::string cardID, const int numCardToDelete);
 
 	private:
 		std::string m_name;
