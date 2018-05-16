@@ -37,8 +37,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     target_link_libraries(${target}
         PRIVATE
         ${DEFAULT_LINKER_OPTIONS}
-        Hearthstonepp
-        winix)
+        Hearthstonepp)
 else()
     target_link_libraries(${target}
         PRIVATE
