@@ -60,7 +60,6 @@ namespace Hearthstonepp
 
 		template<std::size_t SIZE>
 		void ShowMenu(std::array<std::string, SIZE>& menus);
-		void ShowSearchCardUsage() const;
 
 		size_t InputMenuNum(std::string questionStr, size_t menuSize);
 		bool InputYesNo(std::string sentence) const;

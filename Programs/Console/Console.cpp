@@ -18,6 +18,8 @@
 #include <Models/Card.h>
 #include <Models/Cards.h>
 
+#include <clara.hpp>
+
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
 #endif
@@ -29,8 +31,6 @@
 #endif
 #include <fstream>
 #include <iostream>
-
-#include <winix/getopt.h>
 
 #ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
@@ -441,34 +441,6 @@ namespace Hearthstonepp
 		std::cout << "========================================\n";
 	}
 
-	void Console::ShowSearchCardUsage() const
-	{
-		std::cout << "Usage: -r rarity -c class -t type -e race -n name -s cost -a attack -h health -m mechanics\n";
-		std::cout << "-r, --rarity: a rough measure of the quality and scarcity of a card\n";
-		std::cout << "(1 = Common, 2 = Free, 3 = Rare, 4 = Epic, 5 = Legendary)\n";
-		std::cout << "-c, --class: the primary determinant of a hero's powers and abilities\n";
-		std::cout << "(1 = Deathknight, 2 = Druid, 3 = Hunter, 4 = Mage, 5 = Paladin)\n";
-		std::cout << "(6 = Priest, 7 = Rogue, 8 = Shaman, 9 = Warlock, 10 = Warrior)\n";
-		std::cout << "-t, --type: spell cards, weapon cards, minion cards and hero cards\n";
-		std::cout << "(3 = Hero, 4 = Minion, 5 = Spell, 7 = Weapon)\n";
-		std::cout << "-e, --race: does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects\n";
-		std::cout << "(14 = Murloc, 15 = Demon, 17 = Mechanical, 18 = Elemental)\n";
-		std::cout << "(20 = Beast, 21 = Totem, 23 = Pirate, 24 = Dragon)\n";
-		std::cout << "-n, --name: the name of a card (must type \"_\" between words)\n";
-		std::cout << "-s, --cost: determines how much mana is required to play that card from the hand or to use that hero power\n";
-		std::cout << "-a, --attack: what occurs when a player commands one character to attack another, causing them to simultaneously deal damage to each other\n";
-		std::cout << "-h, --health: an attribute found on heroes and minions, reflecting the remaining survivability of the character\n";
-		std::cout << "(-s|-a|-h \"x\": exact value, -s|-a|-h \"x\",\"y\": range value)\n";
-		std::cout << "-m, --mechanics: describes the total effect of playing that card or special effects or powers additional to the basic functions of the card\n";
-		std::cout << "(546 = Adapt, 218 = Battlecry, 197 = Charge, 443 = Choose one, 220 = Combo)\n";
-		std::cout << "(340 = Counter, 217 = Deathrattle, 415 = Discover, 194 = Divine Shield, 212 = Enraged)\n";
-		std::cout << "(208 = Freeze, 240 = Immune, 403 = Inspire, 685 = Lifesteal, 215 = Overload)\n";
-		std::cout << "(363 = Poisonous, 462 = Quest, 219 = Secret, 339 = Silence, 191 = Stealth)\n";
-		std::cout << "(190 = Taunt, 189 = Windfury)\n";
-		std::cout << "-p, --help: print this message\n";
-		std::cout << "-x, --exit: exit the menu\n";
-	}
-
 	size_t Console::InputMenuNum(std::string questionStr, size_t menuSize)
 	{
 		while (true)
@@ -503,173 +475,58 @@ namespace Hearthstonepp
 
 	std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::string commandStr) const
 	{
-		// Input commands
-		std::cout << commandStr;
-
-		char searchInput[256];
-		std::cin.getline(searchInput, 256);
-
-		int argc = 1;
-		char** argv = new char*[32];
-		char* context = nullptr;
-		const char* delimiter = " ";
-
-		for (int i = 0; i < 32; ++i)
-		{
-			argv[i] = new char[16];
-		}
-
-#ifdef HEARTHSTONEPP_WINDOWS
-		argv[0] = _strdup("Hearthstone++");
-#else
-		argv[0] = strdup("Hearthstone++");
-#endif
-
-#ifdef HEARTHSTONEPP_WINDOWS
-		char* nextToken = strtok_s(searchInput, delimiter, &context);
-#else
-		char* nextToken = strtok_r(searchInput, delimiter, &context);
-#endif
-		while (nextToken != nullptr)
-		{
-#ifdef HEARTHSTONEPP_WINDOWS
-			argv[argc] = _strdup(nextToken);
-			nextToken = strtok_s(context, delimiter, &context);
-#else
-			argv[argc] = strdup(nextToken);
-			nextToken = strtok_r(context, delimiter, &context);
-#endif
-			argc++;
-		}
+        // Input commands
+        std::cout << commandStr;
 
 		// Parse command
-		std::vector<std::string> tokens;
-		int opt, longIndex = 0;
+        bool showHelp = false;
+        bool isExit = false;
 
-		Rarity rarity = Rarity::INVALID;
+        Rarity rarity = Rarity::INVALID;
 		CardClass playerClass = CardClass::INVALID;
 		CardType cardType = CardType::INVALID;
 		Race race = Race::INVALID;
-		std::string name = "";
-		int costMin = -1, costMax = -1;
-		int attackMin = -1, attackMax = -1;
-		int healthMin = -1, healthMax = -1;
+		std::string name;
+        int cost = -1, attack = -1, health = -1;
 		std::vector<GameTag> mechanics;
 		bool isValid = false, isFinish = false;
 
-		// Parse options
-		static struct option longOptions[] =
-		{
-			{ "rarity",		required_argument,	nullptr, 'r' },
-			{ "class",		required_argument,	nullptr, 'c' },
-			{ "type",		required_argument,	nullptr, 't' },
-			{ "race",		required_argument,	nullptr, 'e' },
-			{ "name",		required_argument,	nullptr, 'n' },
-			{ "cost",		required_argument,	nullptr, 's' },
-			{ "attack",		required_argument,	nullptr, 'a' },
-			{ "health",		required_argument,	nullptr, 'h' },
-			{ "mechanics",	required_argument,	nullptr, 'm' },
-			{ "help",		no_argument,		nullptr, 'p' },
-			{ "exit",		no_argument,		nullptr, 'x' },
-			{ nullptr,		0,					nullptr,  0 }
-		};
+	    // Parsing
+        auto parser =
+            clara::Help(showHelp) |
+            clara::Opt(rarity, "rarity")["-r"]["--rarity"](
+                "a rough measure of the quality and scarcity of a card") |
+            clara::Opt(playerClass, "playerClass")["-c"]["--class"](
+                "the primary determinant of a hero's powers and abilities") |
+            clara::Opt(cardType, "cardType")["-t"]["--type"](
+                "spell cards, weapon cards, minion cards and hero cards") |
+            clara::Opt(race, "race")["-e"]["--race"](
+                "does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects") |
+            clara::Opt(name, "name")["-n"]["--name"](
+                "the name of a card") |
+            clara::Opt(cost, "cost")["-s"]["--cost"](
+                "determines how much mana is required to play that card from the hand or to use that hero power") |
+            clara::Opt(attack, "attack")["-a"]["--attack"](
+                "the primary determinant of a hero's powers and abilities") |
+            clara::Opt(health, "health")["-h"]["--health"](
+                "an attribute found on heroes and minions, reflecting the remaining survivability of the character") |
+            clara::Opt(mechanics, "mechanics")["-m"]["--mechanics"](
+                "describes the total effect of playing that card or special effects or powers additional to the basic functions of the card") |
+            clara::Opt(isExit, "isExit")["-x"]["--exit"](
+                "exit the menu");
 
-		// Initialize opt index
-		optind = 1;
+        auto result = parser.parse(clara::Args(argc, argv));
+        if (!result)
+        {
+            std::cerr << "Error in command line: " << result.errorMessage() << '\n';
+            exit(EXIT_FAILURE);
+        }
 
-		char options[] = "r:c:t:e:n:s:a:h:m:p:x";
-		while ((opt = getopt_long(argc, argv, options, longOptions, &longIndex)) != -1)
-		{
-			isValid = true;
-
-			switch (opt)
-			{
-			case 'r':
-				rarity = Rarity::_from_integral(atoi(optarg));
-				break;
-			case 'c':
-				playerClass = CardClass::_from_integral(atoi(optarg));
-				break;
-			case 't':
-				cardType = CardType::_from_integral(atoi(optarg));
-				break;
-			case 'e':
-				race = Race::_from_integral(atoi(optarg));
-				break;
-			case 'n':
-				name = optarg;
-				break;
-			case 's':
-				tokens.clear();
-				tokens = SplitString(optarg, ",");
-
-				if (tokens.size() == 1)
-				{
-					costMin = costMax = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
-				}
-				else if (tokens.size() == 2)
-				{
-					costMin = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
-					costMax = std::clamp(atoi(tokens[1].c_str()), 0, std::numeric_limits<int>::max());
-				}
-				break;
-			case 'a':
-				tokens.clear();
-				tokens = SplitString(optarg, ",");
-
-				if (tokens.size() == 1)
-				{
-					attackMin = attackMax = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
-				}
-				else if (tokens.size() == 2)
-				{
-					attackMin = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
-					attackMax = std::clamp(atoi(tokens[1].c_str()), 0, std::numeric_limits<int>::max());
-				}
-				break;
-			case 'h':
-				tokens.clear();
-				tokens = SplitString(optarg, ",");
-
-				if (tokens.size() == 1)
-				{
-					healthMin = healthMax = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
-				}
-				else if (tokens.size() == 2)
-				{
-					healthMin = std::clamp(atoi(tokens[0].c_str()), 0, std::numeric_limits<int>::max());
-					healthMax = std::clamp(atoi(tokens[1].c_str()), 0, std::numeric_limits<int>::max());
-				}
-				break;
-			case 'm':
-				tokens.clear();
-				tokens = SplitString(optarg, ",");
-
-				mechanics.clear();
-				for (auto& token : tokens)
-				{
-					mechanics.emplace_back(std::move(GameTag::_from_integral(atoi(token.c_str()))));
-				}
-				break;
-			case 'p':
-				isValid = false;
-				ShowSearchCardUsage();
-				break;
-			case 'x':
-				isFinish = true;
-				break;
-			default:
-				isValid = false;
-				ShowSearchCardUsage();
-				break;
-			}
-		}
-
-		for (int i = 0; i < 32; ++i)
-		{
-			delete[] argv[i];
-		}
-		delete[] argv;
+        if (showHelp)
+        {
+            std::cout << ToString(parser) << '\n';
+            exit(EXIT_SUCCESS);
+        }
 
 		SearchFilter filter;
 		filter.rarity = rarity;
