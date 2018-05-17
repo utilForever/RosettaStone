@@ -36,6 +36,20 @@
 namespace filesystem = std::experimental::filesystem;
 #endif
 
+inline std::string ToString(const clara::Opt& opt)
+{
+    std::ostringstream oss;
+    oss << (clara::Parser() | opt);
+    return oss.str();
+}
+
+inline std::string ToString(const clara::Parser& p)
+{
+    std::ostringstream oss;
+    oss << p;
+    return oss.str();
+}
+
 namespace Hearthstonepp
 {
 void Console::SignIn()
@@ -482,76 +496,72 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::st
     std::string cmd;
     std::getline(std::cin, cmd);
 
+    // Split commands by whitespace and quote
     std::istringstream iss(cmd);
-    std::vector<std::string> v;
-    std::string s;
-
-    while (iss >> std::quoted(s))
+    std::vector<std::string> cmdTokens;
+    std::string cmdToken;
+    while (iss >> std::quoted(cmdToken))
     {
-        v.push_back(s);
+        cmdTokens.push_back(cmdToken);
     }
 
-    std::vector<const char*> cstrings{};
-
-    for (const auto& str : v)
+    // Convert std::string to const char*
+    std::vector<const char*> convertedSplitCmds{};
+    for (const auto& token : cmdTokens)
     {
-        cstrings.push_back(str.c_str());
+        convertedSplitCmds.push_back(token.c_str());
     }
 
     // Parse command
     bool showHelp = false;
-    bool isExit = false;
-
-    std::string strRarity, strPlayerClass, strCardType, strRace;
-    std::vector<std::string> strMechanics;
-    Rarity rarity = Rarity::INVALID;
-    CardClass playerClass = CardClass::INVALID;
-    CardType cardType = CardType::INVALID;
-    Race race = Race::INVALID;
-    std::string name;
-    int cost = -1, attack = -1, health = -1;
-    std::vector<GameTag> mechanics;
+    std::string strName, strRarity, strPlayerClass, strCardType, strRace, strMechanics;
+    size_t cost, attack, health;
     bool isValid = false, isFinish = false;
 
     // Parsing
     auto parser =
-        clara::Help(showHelp) | clara::Opt(strRarity, "rarity")["-r"]["--rarity"]("a rough measure of the quality and scarcity of a card") |
+        clara::Help(showHelp) | clara::Opt(strName, "name")["-n"]["--name"]("the name of a card") |
+        clara::Opt(strRarity, "rarity")["-r"]["--rarity"]("a rough measure of the quality and scarcity of a card") |
         clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"]("the primary determinant of a hero's powers and abilities") |
         clara::Opt(strCardType, "cardType")["-t"]["--type"]("spell cards, weapon cards, minion cards and hero cards") |
         clara::Opt(strRace, "race")["-e"]["--race"]("does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects") |
-        clara::Opt(name, "name")["-n"]["--name"]("the name of a card") |
         clara::Opt(cost, "cost")["-s"]["--cost"]("determines how much mana is required to play that card from the hand or to use that hero power") |
         clara::Opt(attack, "attack")["-a"]["--attack"]("the primary determinant of a hero's powers and abilities") |
-        clara::Opt(health, "health")["-h"]["--health"]("an attribute found on heroes and minions, reflecting the remaining survivability of the character") |
+        clara::Opt(health, "health")["-l"]["--health"]("an attribute found on heroes and minions, reflecting the remaining survivability of the character") |
         clara::Opt(strMechanics, "mechanics")["-m"]["--mechanics"]("describes the total effect of playing that card or special effects or powers additional to the basic functions of the card") |
-        clara::Opt(isExit, "isExit")["-x"]["--exit"]("exit the menu");
+        clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
 
-    auto result = parser.parse(clara::Args(cstrings.size(), cstrings.data()));
+    auto result = parser.parse(clara::Args(convertedSplitCmds.size(), convertedSplitCmds.data()));
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << '\n';
-        exit(EXIT_FAILURE);
+        isValid = false;
     }
 
-    //if (showHelp)
-    //{
-    //    std::cout << ToString(parser) << '\n';
-    //    exit(EXIT_SUCCESS);
-    //}
+    if (showHelp)
+    {
+        std::cout << ToString(parser) << '\n';
+        exit(EXIT_SUCCESS);
+    }
+
+    Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str()) ? Rarity::_from_string(strRarity.c_str()) : Rarity::INVALID;
+    CardClass playerClass = CardClass::_from_string_nothrow(strPlayerClass.c_str()) ? CardClass::_from_string(strPlayerClass.c_str()) : CardClass::INVALID;
+    CardType cardType = CardType::_from_string_nothrow(strCardType.c_str()) ? CardType::_from_string(strCardType.c_str()) : CardType::INVALID;
+    Race race = Race::_from_string_nothrow(strRace.c_str()) ? Race::_from_string(strRace.c_str()) : Race::INVALID;
 
     SearchFilter filter;
-    //filter.rarity = rarity;
-    //filter.playerClass = playerClass;
-    //filter.cardType = cardType;
-    //filter.race = race;
-    //filter.name = name;
-    //filter.costMin = costMin;
-    //filter.costMax = costMax;
-    //filter.attackMin = attackMin;
-    //filter.attackMax = attackMax;
-    //filter.healthMin = healthMin;
-    //filter.healthMax = healthMax;
-    //filter.mechanics = mechanics;
+    filter.rarity = rarity;
+    filter.playerClass = playerClass;
+    filter.cardType = cardType;
+    filter.race = race;
+    filter.name = strName;
+    filter.costMin = cost;
+    filter.costMax = cost;
+    filter.attackMin = attack;
+    filter.attackMax = attack;
+    filter.healthMin = health;
+    filter.healthMax = health;
+    filter.mechanics = {};
 
     return std::make_tuple(filter, isValid, isFinish);
 }
