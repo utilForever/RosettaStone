@@ -56,8 +56,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		PRIVATE
 		${DEFAULT_LINKER_OPTIONS}
 		Hearthstonepp
-		imgui
-		winix)
+		imgui)
 else()
 	target_link_libraries(${target}
 		PRIVATE
