@@ -498,8 +498,9 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::st
 
     // Split commands by whitespace and quote
     std::istringstream iss(cmd);
-    std::vector<std::string> cmdTokens;
+    std::vector<std::string> cmdTokens{"Hearthstone++"};
     std::string cmdToken;
+
     while (iss >> std::quoted(cmdToken))
     {
         cmdTokens.push_back(cmdToken);
@@ -515,8 +516,8 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::st
     // Parse command
     bool showHelp = false;
     std::string strName, strRarity, strPlayerClass, strCardType, strRace, strMechanics;
-    size_t cost, attack, health;
-    bool isValid = false, isFinish = false;
+    int cost = -1, attack = -1, health = -1;
+    bool isValid = true, isFinish = false;
 
     // Parsing
     auto parser =
@@ -541,7 +542,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::st
     if (showHelp)
     {
         std::cout << ToString(parser) << '\n';
-        exit(EXIT_SUCCESS);
+        isValid = false;
     }
 
     Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str()) ? Rarity::_from_string(strRarity.c_str()) : Rarity::INVALID;
