@@ -31,6 +31,7 @@
 #endif
 #include <fstream>
 #include <iostream>
+#include <regex>
 
 #ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
@@ -590,18 +591,28 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
                     ? Race::_from_string(strRace.c_str())
                     : Race::INVALID;
 
+    std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
+    if (std::regex_match(strCost, reValueRange))
+    {
+        std::cout << "Matched!\n";
+    }
+    else
+    {
+        std::cout << "Not matched!\n";
+    }
+
     SearchFilter filter;
     filter.rarity = rarity;
     filter.playerClass = playerClass;
     filter.cardType = cardType;
     filter.race = race;
     filter.name = strName;
-    filter.costMin = cost;
-    filter.costMax = cost;
-    filter.attackMin = attack;
-    filter.attackMax = attack;
-    filter.healthMin = health;
-    filter.healthMax = health;
+    //filter.costMin = cost;
+    //filter.costMax = cost;
+    //filter.attackMin = attack;
+    //filter.attackMax = attack;
+    //filter.healthMin = health;
+    //filter.healthMax = health;
     filter.mechanics = {};
 
     return std::make_tuple(filter, isValid, isFinish);
