@@ -21,11 +21,12 @@ namespace Hearthstonepp
 		CardClass playerClass = CardClass::INVALID;
 		CardType cardType = CardType::INVALID;
 		Race race = Race::INVALID;
+        GameTag mechanic = GameTag::INVALID;
+
 		std::string name;
 		int costMin, costMax;
 		int attackMin, attackMax;
 		int healthMin, healthMax;
-		std::vector<GameTag> mechanics;
 	};
 
 	class Cards

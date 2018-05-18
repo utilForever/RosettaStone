@@ -524,7 +524,8 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     // Parsing
     auto parser =
         clara::Help(showHelp) |
-        clara::Opt(strName, "name")["-n"]["--name"]("the name of a card") |
+        clara::Opt(strName, "name")["-n"]["--name"](
+            "the name of a card") |
         clara::Opt(strRarity, "rarity")["-r"]["--rarity"](
             "a rough measure of the quality and scarcity of a card") |
         clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"](
@@ -542,7 +543,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         clara::Opt(strHealth, "health")["-l"]["--health"](
             "an attribute found on heroes and minions, reflecting the "
             "remaining survivability of the character") |
-        clara::Opt(strMechanics, "mechanics")["-m"]["--mechanics"](
+        clara::Opt(strMechanics, "mechanic")["-m"]["--mechanic"](
             "describes the total effect of playing that card or special "
             "effects or powers additional to the basic functions of the card") |
         clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
@@ -574,6 +575,9 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     Race race = Race::_from_string_nothrow(strRace.c_str())
                     ? Race::_from_string(strRace.c_str())
                     : Race::INVALID;
+    GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
+                            ? GameTag::_from_string(strMechanics.c_str())
+                            : GameTag::INVALID;
 
     auto[minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto[minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
@@ -591,7 +595,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     filter.attackMax = maxAttack;
     filter.healthMin = minHealth;
     filter.healthMax = maxHealth;
-    filter.mechanics = {};
+    filter.mechanic = mechanic;
 
     return std::make_tuple(filter, isValid, isFinish);
 }
@@ -649,8 +653,8 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
             ((filter.healthMin == -1 || filter.healthMax == -1) ||
              (filter.healthMin <= card->GetHealth() &&
               filter.healthMax >= card->GetHealth()));
-        bool mechanicsCondition = (filter.mechanics.size() == 0 ||
-                                   card->HasMechanics(filter.mechanics));
+        bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
+                                   card->HasMechanic(filter.mechanic));
         const bool isMatched =
             AllCondIsTrue(rarityCondition, classCondition, typeCondition,
                           raceCondition, nameCondition, costCondition,
