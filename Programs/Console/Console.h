@@ -61,6 +61,11 @@ inline std::tuple<size_t, size_t> ParseValueRangeFromString(std::string str,
             {
                 maxValue = minValue;
             }
+
+            if (minValue > maxValue)
+            {
+                std::swap(minValue, maxValue);
+            }
         }
         else
         {
