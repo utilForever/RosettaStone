@@ -627,16 +627,8 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
         // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            if (filter.playerClass == +CardClass::NEUTRAL ||
-                filter.playerClass == m_deckClass)
-            {
-                classCondition = filter.playerClass == card->GetCardClass();
-            }
-            else
-            {
-                classCondition = (card->GetCardClass() == +CardClass::NEUTRAL ||
-                                  card->GetCardClass() == m_deckClass);
-            }
+            classCondition = (card->GetCardClass() == m_deckClass ||
+                card->GetCardClass() == +CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
@@ -650,17 +642,14 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
         bool nameCondition =
             (filter.name.empty() ||
              card->GetName().find(filter.name) != std::string::npos);
-        bool costCondition = ((filter.costMin == -1 || filter.costMax == -1) ||
-                              (filter.costMin <= card->GetCost() &&
-                               filter.costMax >= card->GetCost()));
+        bool costCondition =  filter.costMin <= card->GetCost() &&
+            filter.costMax >= card->GetCost();
         bool attackCondition =
-            ((filter.attackMin == -1 || filter.attackMax == -1) ||
-             (filter.attackMin <= card->GetAttack() &&
-              filter.attackMax >= card->GetAttack()));
+            filter.attackMin <= card->GetAttack() &&
+            filter.attackMax >= card->GetAttack();
         bool healthCondition =
-            ((filter.healthMin == -1 || filter.healthMax == -1) ||
-             (filter.healthMin <= card->GetHealth() &&
-              filter.healthMax >= card->GetHealth()));
+            filter.healthMin <= card->GetHealth() &&
+            filter.healthMax >= card->GetHealth();
         bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
                                    card->HasMechanic(filter.mechanic));
         const bool isMatched =
