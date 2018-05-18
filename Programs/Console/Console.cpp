@@ -550,7 +550,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         clara::Opt(strRace, "race")["-e"]["--race"](
             "does not directly affect the behavior of the minion, but allows "
             "it to be affected by certain type-specific effects") |
-        clara::Opt(strName, "cost")["-s"]["--cost"](
+        clara::Opt(strCost, "cost")["-s"]["--cost"](
             "determines how much mana is required to play that card from the "
             "hand or to use that hero power") |
         clara::Opt(strAttack, "attack")["-a"]["--attack"](
