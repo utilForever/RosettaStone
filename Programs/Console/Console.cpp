@@ -525,7 +525,9 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     auto parser =
         clara::Help(showHelp) |
         clara::Opt(strName, "name")["-n"]["--name"](
-            "the name of a card") |
+            "the name of a card"
+            "(You can enclose the name with \"\", regardless of whether it "
+            "contains spaces.)") |
         clara::Opt(strRarity, "rarity")["-r"]["--rarity"](
             "a rough measure of the quality and scarcity of a card") |
         clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"](
@@ -537,12 +539,18 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
             "it to be affected by certain type-specific effects") |
         clara::Opt(strCost, "cost")["-s"]["--cost"](
             "determines how much mana is required to play that card from the "
-            "hand or to use that hero power") |
+            "hand or to use that hero power"
+            "(You can search for an exact value such as 3 or a range of values "
+            "like 3-4.)") |
         clara::Opt(strAttack, "attack")["-a"]["--attack"](
-            "the primary determinant of a hero's powers and abilities") |
+            "the primary determinant of a hero's powers and abilities"
+            "(You can search for an exact value such as 3 or a range of values "
+            "like 3-4.)") |
         clara::Opt(strHealth, "health")["-l"]["--health"](
             "an attribute found on heroes and minions, reflecting the "
-            "remaining survivability of the character") |
+            "remaining survivability of the character"
+            "(You can search for an exact value such as 3 or a range of values "
+            "like 3-4.)") |
         clara::Opt(strMechanics, "mechanic")["-m"]["--mechanic"](
             "describes the total effect of playing that card or special "
             "effects or powers additional to the basic functions of the card") |
