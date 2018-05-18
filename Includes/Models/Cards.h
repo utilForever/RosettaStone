@@ -24,9 +24,9 @@ namespace Hearthstonepp
         GameTag mechanic = GameTag::INVALID;
 
 		std::string name;
-		int costMin, costMax;
-		int attackMin, attackMax;
-		int healthMin, healthMax;
+		size_t costMin, costMax;
+        size_t attackMin, attackMax;
+        size_t healthMin, healthMax;
 	};
 
 	class Cards

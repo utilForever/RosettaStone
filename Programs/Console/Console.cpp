@@ -248,7 +248,7 @@ void Console::CreateDeck()
     ShowMenu(m_playerClassStr);
     const size_t selectedClassNum =
         InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
-    const CardClass deckClass = CardClass::_from_integral(selectedClassNum + 1);
+    const CardClass deckClass = CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
 
     m_player->CreateDeck(name, deckClass);
 
@@ -557,7 +557,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
 
     auto result = parser.parse(
-        clara::Args(convertedSplitCmds.size(), convertedSplitCmds.data()));
+        clara::Args(static_cast<int>(convertedSplitCmds.size()), convertedSplitCmds.data()));
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << '\n';
