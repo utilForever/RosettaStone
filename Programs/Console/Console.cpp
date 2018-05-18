@@ -592,9 +592,17 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
                     : Race::INVALID;
 
     std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
-    if (std::regex_match(strCost, reValueRange))
+    std::smatch values;
+
+    if (std::regex_match(strCost, values, reValueRange))
     {
         std::cout << "Matched!\n";
+
+        for (size_t i = 0; i < values.size(); ++i)
+        {
+            std::ssub_match subMatch = values[2];
+            std::cout << subMatch.str().substr(1) << '\n';
+        }
     }
     else
     {
