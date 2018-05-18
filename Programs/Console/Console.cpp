@@ -572,20 +572,20 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
 
     Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
                         ? Rarity::_from_string(strRarity.c_str())
-                        : Rarity::INVALID;
+                        : Rarity::_from_string("INVALID");
     CardClass playerClass =
         CardClass::_from_string_nothrow(strPlayerClass.c_str())
             ? CardClass::_from_string(strPlayerClass.c_str())
-            : CardClass::INVALID;
+            : CardClass::_from_string("INVALID");
     CardType cardType = CardType::_from_string_nothrow(strCardType.c_str())
                             ? CardType::_from_string(strCardType.c_str())
-                            : CardType::INVALID;
+                            : CardType::_from_string("INVALID");
     Race race = Race::_from_string_nothrow(strRace.c_str())
                     ? Race::_from_string(strRace.c_str())
-                    : Race::INVALID;
+                    : Race::_from_string("INVALID");
     GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
                             ? GameTag::_from_string(strMechanics.c_str())
-                            : GameTag::INVALID;
+                            : GameTag::_from_string("INVALID");
 
     auto[minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto[minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
