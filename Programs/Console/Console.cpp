@@ -149,7 +149,8 @@ std::experimental::optional<Card*> Console::SearchCard()
 
     while (true)
     {
-        auto[filter, isValid, isFinish] = InputAndParseSearchCommand("Command > ");
+        auto[filter, isValid, isFinish] =
+            InputAndParseSearchCommand("Command > ");
 
         if (!isValid)
         {
@@ -260,7 +261,8 @@ void Console::CreateDeck()
     std::cin >> name;
 
     ShowMenu(m_playerClassStr);
-    const size_t selectedClassNum = InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
+    const size_t selectedClassNum =
+        InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
     const CardClass deckClass = CardClass::_from_integral(selectedClassNum + 1);
 
     m_player->CreateDeck(name, deckClass);
@@ -283,7 +285,8 @@ void Console::ModifyDeck()
     std::cout << "Input the number to modify your deck.\n";
 
     m_player->ShowDeckList();
-    const size_t selectedDeck = InputMenuNum("Select: ", m_player->GetNumOfDeck());
+    const size_t selectedDeck =
+        InputMenuNum("Select: ", m_player->GetNumOfDeck());
 
     OperateDeck(selectedDeck);
 }
@@ -303,7 +306,8 @@ void Console::DeleteDeck()
     std::cout << "Input the number to delete your deck.\n";
 
     m_player->ShowDeckList();
-    const size_t selectedDeck = InputMenuNum("Select: ", m_player->GetNumOfDeck());
+    const size_t selectedDeck =
+        InputMenuNum("Select: ", m_player->GetNumOfDeck());
 
     m_player->DeleteDeck(selectedDeck);
 }
@@ -311,7 +315,8 @@ void Console::DeleteDeck()
 int Console::OperateDeck(size_t deckIndex)
 {
     ShowMenu(m_deckOperationStr);
-    const size_t selectedOperation = InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
+    const size_t selectedOperation =
+        InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
     bool isFinish = false;
 
     if (selectedOperation != CREATE_DECK_MENU_SIZE)
@@ -349,13 +354,18 @@ void Console::AddCardInDeck(size_t deckIndex)
 
     while (true)
     {
-        int numCardToAddAvailable = card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
-        if (deck->GetNumOfCards() + numCardToAddAvailable > MAXIMUM_NUM_CARDS_IN_DECK)
+        int numCardToAddAvailable =
+            card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
+        if (deck->GetNumOfCards() + numCardToAddAvailable >
+            MAXIMUM_NUM_CARDS_IN_DECK)
         {
-            numCardToAddAvailable = deck->GetNumOfCards() + numCardToAddAvailable - MAXIMUM_NUM_CARDS_IN_DECK;
+            numCardToAddAvailable = deck->GetNumOfCards() +
+                                    numCardToAddAvailable -
+                                    MAXIMUM_NUM_CARDS_IN_DECK;
         }
 
-        std::cout << "How many cards to add (0 - " << numCardToAddAvailable << ") ? ";
+        std::cout << "How many cards to add (0 - " << numCardToAddAvailable
+                  << ") ? ";
         int numCardToAdd;
         std::cin >> numCardToAdd;
 
@@ -382,16 +392,20 @@ void Console::DeleteCardInDeck(size_t deckIndex)
     }
 
     deck->ShowCardList();
-    const size_t selectedCardIndex = InputMenuNum("Select: ", deck->GetUniqueNumOfCards());
-    const std::string selectedCardID = deck->GetCard(selectedCardIndex - 1).first;
+    const size_t selectedCardIndex =
+        InputMenuNum("Select: ", deck->GetUniqueNumOfCards());
+    const std::string selectedCardID =
+        deck->GetCard(selectedCardIndex - 1).first;
 
     while (true)
     {
-        std::cout << "How many cards to delete (0 - " << deck->GetNumCardInDeck(selectedCardID) << ") ? ";
+        std::cout << "How many cards to delete (0 - "
+                  << deck->GetNumCardInDeck(selectedCardID) << ") ? ";
         int numCardToDelete;
         std::cin >> numCardToDelete;
 
-        int numCardinDeck = static_cast<int>(deck->GetNumCardInDeck(selectedCardID));
+        int numCardinDeck =
+            static_cast<int>(deck->GetNumCardInDeck(selectedCardID));
         if (numCardToDelete < 0 || numCardToDelete > numCardinDeck)
         {
             std::cout << "Invalid number! Try again.\n";
@@ -484,10 +498,13 @@ bool Console::InputYesNo(std::string sentence) const
     std::cin >> str;
     std::transform(str.begin(), str.end(), str.begin(), ::tolower);
 
-    return (str == "y" || str == "yes") ? true : (str == "n" || str == "no") ? false : InputYesNo(sentence);
+    return (str == "y" || str == "yes")
+               ? true
+               : (str == "n" || str == "no") ? false : InputYesNo(sentence);
 }
 
-std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::string commandStr) const
+std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
+    std::string commandStr) const
 {
     // Output command string
     std::cout << commandStr;
@@ -515,24 +532,38 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::st
 
     // Parse command
     bool showHelp = false;
-    std::string strName, strRarity, strPlayerClass, strCardType, strRace, strMechanics;
-    int cost = -1, attack = -1, health = -1;
+    std::string strName, strRarity, strPlayerClass, strCardType;
+    std::string strRace, strMechanics, strCost, strAttack, strHealth;
     bool isValid = true, isFinish = false;
 
     // Parsing
     auto parser =
-        clara::Help(showHelp) | clara::Opt(strName, "name")["-n"]["--name"]("the name of a card") |
-        clara::Opt(strRarity, "rarity")["-r"]["--rarity"]("a rough measure of the quality and scarcity of a card") |
-        clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"]("the primary determinant of a hero's powers and abilities") |
-        clara::Opt(strCardType, "cardType")["-t"]["--type"]("spell cards, weapon cards, minion cards and hero cards") |
-        clara::Opt(strRace, "race")["-e"]["--race"]("does not directly affect the behavior of the minion, but allows it to be affected by certain type-specific effects") |
-        clara::Opt(cost, "cost")["-s"]["--cost"]("determines how much mana is required to play that card from the hand or to use that hero power") |
-        clara::Opt(attack, "attack")["-a"]["--attack"]("the primary determinant of a hero's powers and abilities") |
-        clara::Opt(health, "health")["-l"]["--health"]("an attribute found on heroes and minions, reflecting the remaining survivability of the character") |
-        clara::Opt(strMechanics, "mechanics")["-m"]["--mechanics"]("describes the total effect of playing that card or special effects or powers additional to the basic functions of the card") |
+        clara::Help(showHelp) |
+        clara::Opt(strName, "name")["-n"]["--name"]("the name of a card") |
+        clara::Opt(strRarity, "rarity")["-r"]["--rarity"](
+            "a rough measure of the quality and scarcity of a card") |
+        clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"](
+            "the primary determinant of a hero's powers and abilities") |
+        clara::Opt(strCardType, "cardType")["-t"]["--type"](
+            "spell cards, weapon cards, minion cards and hero cards") |
+        clara::Opt(strRace, "race")["-e"]["--race"](
+            "does not directly affect the behavior of the minion, but allows "
+            "it to be affected by certain type-specific effects") |
+        clara::Opt(strName, "cost")["-s"]["--cost"](
+            "determines how much mana is required to play that card from the "
+            "hand or to use that hero power") |
+        clara::Opt(strAttack, "attack")["-a"]["--attack"](
+            "the primary determinant of a hero's powers and abilities") |
+        clara::Opt(strHealth, "health")["-l"]["--health"](
+            "an attribute found on heroes and minions, reflecting the "
+            "remaining survivability of the character") |
+        clara::Opt(strMechanics, "mechanics")["-m"]["--mechanics"](
+            "describes the total effect of playing that card or special "
+            "effects or powers additional to the basic functions of the card") |
         clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
 
-    auto result = parser.parse(clara::Args(convertedSplitCmds.size(), convertedSplitCmds.data()));
+    auto result = parser.parse(
+        clara::Args(convertedSplitCmds.size(), convertedSplitCmds.data()));
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << '\n';
@@ -545,10 +576,19 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(std::st
         isValid = false;
     }
 
-    Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str()) ? Rarity::_from_string(strRarity.c_str()) : Rarity::INVALID;
-    CardClass playerClass = CardClass::_from_string_nothrow(strPlayerClass.c_str()) ? CardClass::_from_string(strPlayerClass.c_str()) : CardClass::INVALID;
-    CardType cardType = CardType::_from_string_nothrow(strCardType.c_str()) ? CardType::_from_string(strCardType.c_str()) : CardType::INVALID;
-    Race race = Race::_from_string_nothrow(strRace.c_str()) ? Race::_from_string(strRace.c_str()) : Race::INVALID;
+    Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
+                        ? Rarity::_from_string(strRarity.c_str())
+                        : Rarity::INVALID;
+    CardClass playerClass =
+        CardClass::_from_string_nothrow(strPlayerClass.c_str())
+            ? CardClass::_from_string(strPlayerClass.c_str())
+            : CardClass::INVALID;
+    CardType cardType = CardType::_from_string_nothrow(strCardType.c_str())
+                            ? CardType::_from_string(strCardType.c_str())
+                            : CardType::INVALID;
+    Race race = Race::_from_string_nothrow(strRace.c_str())
+                    ? Race::_from_string(strRace.c_str())
+                    : Race::INVALID;
 
     SearchFilter filter;
     filter.rarity = rarity;
@@ -578,33 +618,54 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
             continue;
         }
 
-        bool rarityCondition = (filter.rarity == +Rarity::INVALID || filter.rarity == card->GetRarity());
+        bool rarityCondition = (filter.rarity == +Rarity::INVALID ||
+                                filter.rarity == card->GetRarity());
         bool classCondition = false;
 
-        // When search mode is adding a card to a deck, the class is fixed to the deck class and the neutral class.
+        // When search mode is adding a card to a deck, the class is fixed to
+        // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            if (filter.playerClass == +CardClass::NEUTRAL || filter.playerClass == m_deckClass)
+            if (filter.playerClass == +CardClass::NEUTRAL ||
+                filter.playerClass == m_deckClass)
             {
                 classCondition = filter.playerClass == card->GetCardClass();
             }
             else
             {
-                classCondition = (card->GetCardClass() == +CardClass::NEUTRAL || card->GetCardClass() == m_deckClass);
+                classCondition = (card->GetCardClass() == +CardClass::NEUTRAL ||
+                                  card->GetCardClass() == m_deckClass);
             }
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
-            classCondition = (filter.playerClass == +CardClass::INVALID || filter.playerClass == card->GetCardClass());
+            classCondition = (filter.playerClass == +CardClass::INVALID ||
+                              filter.playerClass == card->GetCardClass());
         }
-        bool typeCondition = (filter.cardType == +CardType::INVALID || filter.cardType == card->GetCardType());
-        bool raceCondition = (filter.race == +Race::INVALID || filter.race == card->GetRace());
-        bool nameCondition = (filter.name.empty() || card->GetName().find(filter.name) != std::string::npos);
-        bool costCondition = ((filter.costMin == -1 || filter.costMax == -1) || (filter.costMin <= card->GetCost() && filter.costMax >= card->GetCost()));
-        bool attackCondition = ((filter.attackMin == -1 || filter.attackMax == -1) || (filter.attackMin <= card->GetAttack() && filter.attackMax >= card->GetAttack()));
-        bool healthCondition = ((filter.healthMin == -1 || filter.healthMax == -1) || (filter.healthMin <= card->GetHealth() && filter.healthMax >= card->GetHealth()));
-        bool mechanicsCondition = (filter.mechanics.size() == 0 || card->HasMechanics(filter.mechanics));
-        const bool isMatched = AllCondIsTrue(rarityCondition, classCondition, typeCondition, raceCondition, nameCondition, costCondition, attackCondition, healthCondition, mechanicsCondition);
+        bool typeCondition = (filter.cardType == +CardType::INVALID ||
+                              filter.cardType == card->GetCardType());
+        bool raceCondition =
+            (filter.race == +Race::INVALID || filter.race == card->GetRace());
+        bool nameCondition =
+            (filter.name.empty() ||
+             card->GetName().find(filter.name) != std::string::npos);
+        bool costCondition = ((filter.costMin == -1 || filter.costMax == -1) ||
+                              (filter.costMin <= card->GetCost() &&
+                               filter.costMax >= card->GetCost()));
+        bool attackCondition =
+            ((filter.attackMin == -1 || filter.attackMax == -1) ||
+             (filter.attackMin <= card->GetAttack() &&
+              filter.attackMax >= card->GetAttack()));
+        bool healthCondition =
+            ((filter.healthMin == -1 || filter.healthMax == -1) ||
+             (filter.healthMin <= card->GetHealth() &&
+              filter.healthMax >= card->GetHealth()));
+        bool mechanicsCondition = (filter.mechanics.size() == 0 ||
+                                   card->HasMechanics(filter.mechanics));
+        const bool isMatched =
+            AllCondIsTrue(rarityCondition, classCondition, typeCondition,
+                          raceCondition, nameCondition, costCondition,
+                          attackCondition, healthCondition, mechanicsCondition);
 
         if (isMatched)
         {
@@ -615,7 +676,8 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
     return result;
 }
 
-std::vector<std::string> Console::SplitString(std::string str, std::string delimiter) const
+std::vector<std::string> Console::SplitString(std::string str,
+                                              std::string delimiter) const
 {
     size_t pos;
     std::vector<std::string> tokens;
