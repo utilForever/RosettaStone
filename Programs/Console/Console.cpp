@@ -18,8 +18,6 @@
 #include <Models/Card.h>
 #include <Models/Cards.h>
 
-#include <clara.hpp>
-
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
 #endif
@@ -36,20 +34,6 @@
 #ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
 #endif
-
-inline std::string ToString(const clara::Opt& opt)
-{
-    std::ostringstream oss;
-    oss << (clara::Parser() | opt);
-    return oss.str();
-}
-
-inline std::string ToString(const clara::Parser& p)
-{
-    std::ostringstream oss;
-    oss << p;
-    return oss.str();
-}
 
 namespace Hearthstonepp
 {
@@ -591,23 +575,9 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
                     ? Race::_from_string(strRace.c_str())
                     : Race::INVALID;
 
-    std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
-    std::smatch values;
-
-    if (std::regex_match(strCost, values, reValueRange))
-    {
-        std::cout << "Matched!\n";
-
-        for (size_t i = 0; i < values.size(); ++i)
-        {
-            std::ssub_match subMatch = values[2];
-            std::cout << subMatch.str().substr(1) << '\n';
-        }
-    }
-    else
-    {
-        std::cout << "Not matched!\n";
-    }
+    auto[minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
+    auto[minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
+    auto[minHealth, maxHealth] = ParseValueRangeFromString(strHealth, isValid);
 
     SearchFilter filter;
     filter.rarity = rarity;
@@ -615,12 +585,12 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     filter.cardType = cardType;
     filter.race = race;
     filter.name = strName;
-    //filter.costMin = cost;
-    //filter.costMax = cost;
-    //filter.attackMin = attack;
-    //filter.attackMax = attack;
-    //filter.healthMin = health;
-    //filter.healthMax = health;
+    filter.costMin = minCost;
+    filter.costMax = maxCost;
+    filter.attackMin = minAttack;
+    filter.attackMax = maxAttack;
+    filter.healthMin = minHealth;
+    filter.healthMax = maxHealth;
     filter.mechanics = {};
 
     return std::make_tuple(filter, isValid, isFinish);

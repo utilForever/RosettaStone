@@ -15,6 +15,8 @@
 #include <Models/Deck.h>
 #include <Models/Player.h>
 
+#include <clara.hpp>
+
 #include <array>
 #include <functional>
 #ifndef HEARTHSTONEPP_MACOSX
@@ -22,6 +24,52 @@
 #else
 #include <experimental/optional>
 #endif
+#include <regex>
+
+inline std::string ToString(const clara::Opt& opt)
+{
+    std::ostringstream oss;
+    oss << (clara::Parser() | opt);
+    return oss.str();
+}
+
+inline std::string ToString(const clara::Parser& p)
+{
+    std::ostringstream oss;
+    oss << p;
+    return oss.str();
+}
+
+inline std::tuple<size_t, size_t> ParseValueRangeFromString(std::string str,
+                                                            bool& isValid)
+{
+    std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
+    std::smatch values;
+
+    size_t minValue = 0, maxValue = std::numeric_limits<size_t>::max();
+    if (!str.empty())
+    {
+        if (std::regex_match(str, values, reValueRange))
+        {
+            minValue = static_cast<size_t>(std::atoi(values[1].str().c_str()));
+            if (values[2].matched)
+            {
+                std::string truncatedStr = values[2].str().substr(1);
+                maxValue = static_cast<size_t>(std::atoi(truncatedStr.c_str()));
+            }
+            else
+            {
+                maxValue = minValue;
+            }
+        }
+        else
+        {
+            isValid = false;
+        }
+    }
+
+    return std::make_tuple(minValue, maxValue);
+}
 
 namespace Hearthstonepp
 {
