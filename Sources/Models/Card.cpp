@@ -97,19 +97,14 @@ namespace Hearthstonepp
 		return m_mechanics;
 	}
 
-	bool Card::HasMechanics(std::vector<GameTag> mechanics) const
+	bool Card::HasMechanic(GameTag mechanic) const
 	{
-		bool result = true;
-
-		for (auto& mechanic : mechanics)
+		if (std::find(m_mechanics.begin(), m_mechanics.end(), mechanic) != m_mechanics.end())
 		{
-			if (std::find(m_mechanics.begin(), m_mechanics.end(), mechanic) == m_mechanics.end())
-			{
-				result = false;
-			}
+			return true;
 		}
 
-		return result;
+		return false;
 	}
 
 	unsigned int Card::GetMaxAllowedInDeck() const
