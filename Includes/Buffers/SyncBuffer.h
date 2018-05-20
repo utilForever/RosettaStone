@@ -19,13 +19,13 @@ namespace Hearthstonepp
     public:
         SyncBuffer();
 
-        SyncBuffer(SyncBuffer &&) = delete;
+        SyncBuffer(SyncBuffer&&) = delete;
 
-        SyncBuffer(const SyncBuffer &) = delete;
+        SyncBuffer(const SyncBuffer&) = delete;
 
-        SyncBuffer &operator=(SyncBuffer &&) = delete;
+        SyncBuffer& operator=(SyncBuffer&&) = delete;
 
-        SyncBuffer &operator=(const SyncBuffer &) = delete;
+        SyncBuffer& operator=(const SyncBuffer&) = delete;
 
         void WriteBuffer(BufferType &&buffer)
         {
