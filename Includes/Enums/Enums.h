@@ -3598,7 +3598,7 @@ namespace Hearthstonepp
                 MANA_MODIFICATION = 103, HEALTH_MODIFICATION = 104,
                 EXHAUST_MINION = 105)
 
-    BETTER_ENUM(TaskID, int, INVALID = 0)
+    BETTER_ENUM(TaskID, int, INVALID = 0, TASK_TUPLE = 1)
 }
 
 #endif
