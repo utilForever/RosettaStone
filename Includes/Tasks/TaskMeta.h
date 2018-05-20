@@ -53,6 +53,8 @@ namespace Hearthstonepp
         TaskMeta& operator=(TaskMeta&& meta);
         TaskMeta& operator=(const TaskMeta&) = delete;
 
+        static TaskMeta CopyFrom(const TaskMeta& meta);
+
         size_t GetBufferSize();
         std::unique_ptr<BYTE[]>&& GetBuffer();
 

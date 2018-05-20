@@ -70,4 +70,9 @@ namespace Hearthstonepp
         m_size = meta.GetBufferSize();
         m_buffer = std::move(meta.GetBuffer());
     }
+
+    static TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
+    {
+        return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer());
+    }
 }
