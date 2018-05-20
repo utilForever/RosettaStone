@@ -4,7 +4,8 @@
  
 [submodule "Libraries/googletest"]
     path = Libraries/googletest
-    url = http://www.github.com/google/googletest
+    url = https://www.github.com/google/googletest
+
 [submodule "Libraries/flatbuffers"]
 	path = Libraries/flatbuffers
 	url = https://github.com/google/flatbuffers
