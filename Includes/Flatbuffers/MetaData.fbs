@@ -1,7 +1,7 @@
 namespace Hearthstonepp.MetaData;
 
 struct TaskMetaTrait {
-    id:ubyte;
+    id:int;
     status:uint;
     userID:ubyte;
 }

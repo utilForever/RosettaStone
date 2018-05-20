@@ -45,28 +45,24 @@ struct GameEndTaskMeta;
 
 FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) TaskMetaTrait FLATBUFFERS_FINAL_CLASS {
  private:
-  uint8_t id_;
-  int8_t padding0__;  int16_t padding1__;
+  int32_t id_;
   uint32_t status_;
   uint8_t userID_;
-  int8_t padding2__;  int16_t padding3__;
+  int8_t padding0__;  int16_t padding1__;
 
  public:
   TaskMetaTrait() {
     memset(this, 0, sizeof(TaskMetaTrait));
   }
-  TaskMetaTrait(uint8_t _id, uint32_t _status, uint8_t _userID)
+  TaskMetaTrait(int32_t _id, uint32_t _status, uint8_t _userID)
       : id_(flatbuffers::EndianScalar(_id)),
-        padding0__(0),
-        padding1__(0),
         status_(flatbuffers::EndianScalar(_status)),
         userID_(flatbuffers::EndianScalar(_userID)),
-        padding2__(0),
-        padding3__(0) {
+        padding0__(0),
+        padding1__(0) {
     (void)padding0__;    (void)padding1__;
-    (void)padding2__;    (void)padding3__;
   }
-  uint8_t id() const {
+  int32_t id() const {
     return flatbuffers::EndianScalar(id_);
   }
   uint32_t status() const {
