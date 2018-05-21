@@ -35,12 +35,12 @@ namespace Hearthstonepp
         }
     }
 
-    void TaskAgent::Run(TaskMeta &meta, User &current, User &opponent)
+    void TaskAgent::Run(TaskMeta& meta, User& current, User &opponent)
     {
-        run(m_tasks, meta, current, opponent);
+        Run(m_tasks, meta, current, opponent);
     }
 
-    void TaskAgent::Run(const Task &task, TaskMeta &meta, User &current, User &opponent, bool notify)
+    void TaskAgent::Run(const Task& task, TaskMeta& meta, User& current, User& opponent, bool notify)
     {
         const Task::lambda_t& role = task.GetTaskRole();
         meta = std::move(role(current, opponent));
@@ -58,7 +58,7 @@ namespace Hearthstonepp
 
         for (const auto& task : tasks)
         {
-            Run(task, temporal, current, opponent);
+            Run(task, temporal, current, opponent, false);
             pool.emplace_back(std::move(temporal));
         }
 

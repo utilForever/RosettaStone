@@ -33,6 +33,8 @@ namespace Hearthstonepp
         void Run(const Task& task, TaskMeta& meta, User& current, User& opponent, bool notify = true);
         void Run(const std::vector<Task>& tasks, TaskMeta& meta, User& current, User& opponent);
 
+        void Clear();
+
         template <class T, typename = std::enable_if_t<is_task<T>>>
         void Add(T&& task)
         {
