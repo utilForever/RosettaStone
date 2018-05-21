@@ -42,7 +42,7 @@ table TaskMetaVector {
 }
 
 table RequireTaskMeta {
-    required:ubyte;
+    required:int;
 }
 
 table UserSettingTaskMeta {

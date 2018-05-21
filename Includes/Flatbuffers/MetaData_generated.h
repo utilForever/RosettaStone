@@ -512,12 +512,12 @@ struct RequireTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
     VT_REQUIRED = 4
   };
-  uint8_t required() const {
-    return GetField<uint8_t>(VT_REQUIRED, 0);
+  int32_t required() const {
+    return GetField<int32_t>(VT_REQUIRED, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_REQUIRED) &&
+           VerifyField<int32_t>(verifier, VT_REQUIRED) &&
            verifier.EndTable();
   }
 };
@@ -525,8 +525,8 @@ struct RequireTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct RequireTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_required(uint8_t required) {
-    fbb_.AddElement<uint8_t>(RequireTaskMeta::VT_REQUIRED, required, 0);
+  void add_required(int32_t required) {
+    fbb_.AddElement<int32_t>(RequireTaskMeta::VT_REQUIRED, required, 0);
   }
   explicit RequireTaskMetaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -542,7 +542,7 @@ struct RequireTaskMetaBuilder {
 
 inline flatbuffers::Offset<RequireTaskMeta> CreateRequireTaskMeta(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t required = 0) {
+    int32_t required = 0) {
   RequireTaskMetaBuilder builder_(_fbb);
   builder_.add_required(required);
   return builder_.Finish();
