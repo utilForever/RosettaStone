@@ -17,6 +17,13 @@ matrix:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       script:
         - sh Scripts/travis_build.sh
+    # Test Docker based on Ubuntu 18.04 LTS + gcc
+    - os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh Scripts/travis_build_docker.sh
     # Test OS X 10.12 + Xcode 9 + clang
     - os: osx
       osx_image: xcode9
