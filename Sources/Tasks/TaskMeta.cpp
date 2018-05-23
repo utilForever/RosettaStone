@@ -75,4 +75,23 @@ namespace Hearthstonepp
     {
         return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer());
     }
+
+    static TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta *meta)
+    {
+        auto trait = meta->trait();
+        auto taskID = TaskID::_from_integral(trait->id());
+        auto buffer = meta->buffer();
+
+        return TaskMeta(TaskMetaTrait(taskID, trait->status(), trait->userID()), buffer->size(), buffer->data());
+    }
+
+    size_t TaskMeta::GetBufferSize() const
+    {
+        return m_size;
+    }
+
+    std::unique_ptr<BYTE[]>&& TaskMeta::GetBuffer() const
+    {
+        return m_buffer;
+    }
 }

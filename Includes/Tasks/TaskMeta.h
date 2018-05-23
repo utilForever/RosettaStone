@@ -11,6 +11,7 @@
 #define HEARTHSTONEPP_TASKMETA_H
 
 #include <Enums/Enums.h>
+#include <Flatbuffers/MetaData_generated.h>
 
 #include <memory>
 
@@ -42,6 +43,8 @@ namespace Hearthstonepp
     class TaskMeta : public TaskMetaTrait
     {
     public:
+        using status_t = TaskMetaTrait::status_t;
+
         TaskMeta() = default;
 
         TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
@@ -54,9 +57,10 @@ namespace Hearthstonepp
         TaskMeta& operator=(const TaskMeta&) = delete;
 
         static TaskMeta CopyFrom(const TaskMeta& meta);
+        static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
 
-        size_t GetBufferSize();
-        std::unique_ptr<BYTE[]>&& GetBuffer();
+        size_t GetBufferSize() const;
+        std::unique_ptr<BYTE[]>&& GetBuffer() const;
 
     private:
         size_t m_size;
