@@ -6,27 +6,26 @@
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Commons/Constants.h>
 #include <Interface/Interface.h>
+#include <Tasks/BasicTask.h>
 
 namespace Hearthstonepp
 {
 	GameInterface::GameInterface(GameAgent& agent, std::ostream& output, std::istream& input) :
-		m_agent(agent), m_ostream(output), m_istream(input),
-		m_bufferCapacity(agent.GetBufferCapacity())
+			m_agent(agent), m_ostream(output), m_istream(input)
 	{
-		m_buffer = new BYTE[m_bufferCapacity];
+		// Do Nothing
 	}
 
 	GameResult GameInterface::StartGame()
 	{
-		GameResult result;
-		// pass as reference
-		std::thread at = m_agent.StartAgent(result);
+		std::thread at = m_agent.StartAgent();
 
 		while (true)
 		{
-			const unsigned int msg = HandleMessage();
+			m_agent.GetTaskMeta(m_buffer);
+
+			const size_t msg = HandleMessage(m_buffer);
 			if (msg == HANDLE_STOP)
 			{
 				break;
@@ -36,28 +35,33 @@ namespace Hearthstonepp
 		// join agent thread
 		at.join();
 
-		return result;
+//		using GameEndTaskMeta = FlatData::GameEndTaskMeta;
+//		GameEndTaskMeta meta = Serializer<GameEndTaskMeta>::Deserialize(m_buffer);
+//
+//		GameResult result;
+//		result.winnerID = meta.winnerID;
+//
+//		return result;
+		return GameResult();
 	}
 
-	unsigned int GameInterface::HandleMessage()
+	size_t GameInterface::HandleMessage(const TaskMeta& serialized)
 	{
-		m_agent.ReadBuffer(m_buffer, m_bufferCapacity);
-		
-		if (m_handler.find(m_buffer[0]) != m_handler.end())
+		if (m_handler.find(serialized.id) != m_handler.end())
 		{
 			// find from handler table and call it
-			m_handler[m_buffer[0]](*this);
+			m_handler[serialized.id](*this, serialized);
 		}
 
-		if (m_buffer[0] == static_cast<BYTE>(Step::FINAL_GAMEOVER))
-		{
-			return HANDLE_STOP;
-		}
+//		if (serialized.id == TaskID::GAME_END)
+//		{
+//			return HANDLE_STOP;
+//		}
 
 		return HANDLE_CONTINUE;
 	}
 
-	std::ostream& GameInterface::LogWriter(std::string& name)
+	std::ostream& GameInterface::LogWriter(const std::string& name)
 	{
 		m_ostream << "[*] " << name << " : ";
 		return m_ostream;
@@ -72,311 +76,413 @@ namespace Hearthstonepp
 		}
 	}
 
-	void GameInterface::ShowCards(Card** cards, int size)
+	void GameInterface::ShowCards(const CardVector& cards, int size)
 	{
 		for (int i = 0; i < size; ++i)
 		{
-			std::string type = cards[i]->GetCardType()._to_string();
-			m_ostream << '[' << cards[i]->GetName() << '(' << type << " / " << cards[i]->GetCost() << ")] ";
-			if (cards[i]->GetCardType() == +CardType::MINION)
+		    CardType cardType = CardType::_from_integral(cards[i]->cardType());
+			m_ostream << '[' << cards[i]->name()->c_str() << '(' << cardType._name() << " / " << cards[i]->cost() << ")] ";
+			if (cardType._to_integral() == (+CardType::MINION)._to_integral())
 			{
-				m_ostream << "(ATK " << cards[i]->GetAttack() << "/HP " << cards[i]->GetHealth() << ")";
+				m_ostream << "(ATK " << cards[i]->attack() << "/HP " << cards[i]->health() << ")";
 			}
 			m_ostream << std::endl;
 		}
 	}
 
-	void GameInterface::BriefGame()
+	void GameInterface::HandleInvalid(const TaskMeta&)
 	{
-		GameBrief* data = reinterpret_cast<GameBrief*>(m_buffer);
-
-		LogWriter(m_users[data->currentUser]) << "Game Briefing" << std::endl;
-
-		m_ostream << m_users[data->oppositeUser] 
-			<< " - Hero " << data->oppositeHero->GetName()
-			<< ", Health " << data->oppositeHero->GetHealth()
-			<< ", Mana " << static_cast<int>(data->oppositeMana)
-			<< ", Hand " << static_cast<int>(data->numOppositeHand) 
-			<< std::endl;
-
-		m_ostream << m_users[data->oppositeUser] << " Field" << std::endl;
-		ShowCards(data->oppositeField, data->numOppositeField);
-
-		m_ostream << m_users[data->currentUser]
-			<< " - Hero " << data->currentHero->GetName()
-			<< ", Health " << data->currentHero->GetHealth()
-			<< ", Mana " << static_cast<int>(data->currentMana)
-			<< ", Hand " << static_cast<int>(data->numCurrentHand)
-			<< std::endl;
-
-		m_ostream << m_users[data->currentUser] << " Field" << std::endl;
-		ShowCards(data->currentField, data->numCurrentField);
-
-		m_ostream << m_users[data->currentUser] << " Hand" << std::endl;
-		ShowCards(data->currentHand, data->numCurrentHand);
+		// Do Nothing
 	}
 
-	void GameInterface::OverDraw()
+	void GameInterface::HandleUserSetting(const TaskMeta& serialized)
 	{
-		OverDrawStructure* data = reinterpret_cast<OverDrawStructure*>(m_buffer);
+		using UserSettingTaskMeta = FlatData::UserSettingTaskMeta;
+		auto buffer = serialized.GetBuffer();
+		auto meta = flatbuffers::GetRoot<UserSettingTaskMeta>(buffer.get());
 
-		LogWriter(m_users[data->userID]) << "Over draw " << static_cast<int>(data->numOver) << " cards" << std::endl;
-		ShowCards(data->cards, data->numOver);
+		m_users[0] = meta->firstID()->c_str();
+		m_users[1] = meta->secondID()->c_str();
+
+		std::string name = "User Setting";
+		LogWriter(name)
+				<< "first : " << m_users[0] << " / "
+				<< "second : " << m_users[1] << std::endl;
 	}
 
-	void GameInterface::ExhaustDeck()
+	void GameInterface::HandleSwap(const TaskMeta&)
 	{
-		ExhaustDeckStructure* data = reinterpret_cast<ExhaustDeckStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Deck exhausted over " << static_cast<int>(data->numOver) << std::endl;
+		std::string name = "User";
+		LogWriter(name) << "Swap" << std::endl;
 	}
 
-	void GameInterface::ModifiedMana()
+	void GameInterface::HandleShuffle(const TaskMeta& serialized)
 	{
-		ModifyManaStructure* data = reinterpret_cast<ModifyManaStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Mana is modified to " << static_cast<int>(data->mana) << std::endl;
+		LogWriter(m_users[serialized.userID]) << "Shuffled" << std::endl;
 	}
 
-	void GameInterface::ModifiedHealth()
+	void GameInterface::HandleDraw(const TaskMeta& serialized)
 	{
-		ModifyHealthStructure* data = reinterpret_cast<ModifyHealthStructure*>(m_buffer);
+		using DrawTaskMeta = FlatData::DrawTaskMeta;
+		auto buffer = serialized.GetBuffer();
+		auto meta = flatbuffers::GetRoot<DrawTaskMeta>(buffer.get());
 
-		LogWriter(m_users[data->userID]) 
-			<< "Health of "
-			<< (data->card->GetCardType() == +CardType::MINION ? "Minion " : "Hero ")
-			<< data->card->GetName()
-			<< " is modified to " << static_cast<int>(data->card->GetHealth())
-			<< std::endl;
-	}
-
-	void GameInterface::ExhaustMinion()
-	{
-		ExhaustMinionStructure* data = reinterpret_cast<ExhaustMinionStructure*>(m_buffer);
-		LogWriter(m_users[data->userID]) << "Minion " << data->card->GetName() << " is exhausted.\n";
-	}
-
-	void GameInterface::BeginFirst()
-	{
-		BeginFirstStructure* data = reinterpret_cast<BeginFirstStructure*>(m_buffer);
-
-		m_users[0] = data->firstUserID;
-		m_users[1] = data->lastUserID;
-
-		LogWriter(m_users[0]) << "Begin First" << std::endl;
-		LogWriter(m_users[1]) << "Begin Last" << std::endl;
-	}
-
-	void GameInterface::BeginShuffle()
-	{
-		BeginShuffleStructure* data = reinterpret_cast<BeginShuffleStructure*>(m_buffer);
-		LogWriter(m_users[data->userID]) << "Begin Shuffle" << std::endl;
-	}
-
-	void GameInterface::BeginDraw()
-	{
-		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Begin Draw" << std::endl;
-		ShowCards(data->cards, data->numDraw);
-	}
-
-	void GameInterface::BeginMulligan()
-	{
-		BeginMulliganStructure* data = reinterpret_cast<BeginMulliganStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Begin Mulligan" << std::endl;
-
-		size_t numMulligan;
-		while (true)
+		std::ostream& stream = LogWriter(m_users[serialized.userID]);
+		if (serialized.status == MetaData::DRAW_SUCCESS)
 		{
-			m_ostream << "[*] How many cards to mulligan ? (0 ~ 3) ";
-			m_istream >> numMulligan;
-
-			if (numMulligan >= 0 && numMulligan <= NUM_BEGIN_DRAW)
-			{
-				break;
-			}
-		}
-
-		BYTE mulligan[NUM_BEGIN_DRAW] = { 0, };
-		for (size_t i = 0; i < numMulligan; ++i)
-		{
-			while (true)
-			{
-				size_t index = 0;
-				m_ostream << "[*] Input card index " << i+1 << " (0 ~ 2) : ";
-				m_istream >> index;
-
-				if (index >= 0 && index <= NUM_BEGIN_DRAW - 1)
-				{
-					mulligan[i] = static_cast<BYTE>(index);
-					break;
-				}
-			}
-		}
-
-		// send index to agent
-		m_agent.WriteBuffer(mulligan, numMulligan);
-		// get new card data
-		m_agent.ReadBuffer(m_buffer, sizeof(DrawStructure));
-		
-		LogWriter(m_users[data->userID]) << "Mulligan Result" << std::endl;
-
-		DrawStructure* draw = reinterpret_cast<DrawStructure*>(m_buffer);
-		ShowCards(draw->cards, draw->numDraw);
-	}
-
-	void GameInterface::MainReady()
-	{
-		MainReadyStructure* data = reinterpret_cast<MainReadyStructure*>(m_buffer);
-		LogWriter(m_users[data->userID]) << "Main Ready" << std::endl;
-	}
-
-	void GameInterface::MainDraw()
-	{
-		DrawStructure* data = reinterpret_cast<DrawStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Main Draw" << std::endl;
-		ShowCards(data->cards, data->numDraw);
-	}
-
-	void GameInterface::MainMenu()
-	{
-		MainMenuStructure* data = reinterpret_cast<MainMenuStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Main Menu" << std::endl;
-		ShowMenus(m_mainMenuStr);
-
-		size_t input;
-		while (true)
-		{
-			m_ostream << "[*] Input menu : ";
-			m_istream >> input;
-			
-			if (input > 0 && input <= GAME_MAIN_MENU_SIZE)
-			{
-				input -= 1;
-				break;
-			}
-		}
-
-		// pass menu index to agent
-		BYTE menu = static_cast<BYTE>(input);
-		m_agent.WriteBuffer(&menu, 1);
-	}
-
-	void GameInterface::MainUseCard()
-	{
-		MainUseCardStructure* data = reinterpret_cast<MainUseCardStructure*>(m_buffer);
-
-		LogWriter(m_users[data->userID]) << "Main Use Card" << std::endl;
-		ShowCards(data->hands, data->numHands);
-
-		int in;
-		while (true)
-		{
-			m_ostream << "Select card index (0 ~ " << static_cast<int>(data->numHands) - 1 << ") : ";
-
-			m_istream >> in;
-			if (in >= 0 && in < data->numHands)
-			{
-				if(data->hands[in]->GetCost() > data->existMana)
-				{
-					m_ostream << "Not enough mana" << std::endl;
-				}
-				else
-				{
-					break;
-				}
-			}
-		}
-
-		// if selected card type is minion
-		if (data->hands[in]->GetCardType() == +CardType::MINION)
-		{
-			int pos;
-			while (true)
-			{
-				m_ostream << "Select Position (0 ~ " << static_cast<int>(data->numFields) << ") : ";
-
-				m_istream >> pos;
-				if (pos >= 0 && pos <= data->numFields)
-				{
-					break;
-				}
-			}
-			
-			MainUseMinionStructure minion(static_cast<BYTE>(in), static_cast<BYTE>(pos));
-			m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&minion), sizeof(MainUseMinionStructure));
+			stream << "Draw Success" << std::endl;
 		}
 		else
 		{
-			BYTE invalid = static_cast<int>(CardType::INVALID);
-			m_agent.WriteBuffer(&invalid, 1);
-		}
-	}
-
-	void GameInterface::MainCombat()
-	{
-		MainCombatStructure* data = reinterpret_cast<MainCombatStructure*>(m_buffer);
-		LogWriter(m_users[data->userID]) << "Main Combat" << std::endl;
-
-		m_ostream << "User field : " << std::endl;
-		ShowCards(data->currentField, data->numCurrentField);
-
-		m_ostream << "Opponent field : " << std::endl;
-		ShowCards(data->oppositeField, data->numOppositeField);
-
-		int src;
-		while (true)
-		{
-			m_ostream << "Select source minion (0 ~ " << static_cast<int>(data->numCurrentField) - 1 << ") : ";
-
-			m_istream >> src;
-			if (src >= 0 && src < data->numCurrentField)
+			if (serialized.status == MetaData::DRAW_EXHAUST ||
+                serialized.status == MetaData::DRAW_EXHAUST_OVERDRAW)
 			{
-				Card** start = data->attacked;
-				Card** end = data->attacked + data->numAttacked;
-				if (std::find(start, end, data->currentField[src]) != end)
-				{
-					m_ostream << "Already attacked minion." << std::endl;
-				}
-				else
-				{
-					break;
-				}	
+				stream << "Draw Exhausted : "
+					   << meta->numExhausted() << " Cards, "
+					   << meta->numHearts() << " Hearts" << std::endl;
+			}
+
+			if (serialized.status == MetaData::DRAW_OVERDRAW ||
+                serialized.status == MetaData::DRAW_EXHAUST_OVERDRAW)
+			{
+				stream << "Draw OverDraw : " << meta->numOverdraw() << " Cards" << std::endl;
+				ShowCards(*meta->burnt(), meta->burnt()->size());
 			}
 		}
+	}
 
-		int dst;
-		while (true)
+//	void GameInterface::InputMulligan(const FlatData::RequireTaskMeta& meta)
+//	{
+//		using RequireMulliganTaskMeta = FlatData::RequireMulliganTaskMeta;
+//		RequireMulliganTaskMeta mulligan;
+//
+//		LogWriter(m_users[meta.userID]) << "Input Mulligan" << std::endl;
+//
+//		size_t numMulligan;
+//		while (true)
+//		{
+//			m_ostream << "[*] How many cards to mulligan ? (0 ~ 3) ";
+//			m_istream >> numMulligan;
+//
+//			if (numMulligan <= NUM_BEGIN_DRAW)
+//			{
+//				break;
+//			}
+//		}
+//
+//		for (size_t i = 0; i < numMulligan; ++i)
+//		{
+//			while (true)
+//			{
+//				size_t index = 0;
+//				m_ostream << "[*] Input card index " << i+1 << " (0 ~ 2) : ";
+//				m_istream >> index;
+//
+//				if (index <= NUM_BEGIN_DRAW - 1)
+//				{
+//					mulligan.mulligan[i] = static_cast<BYTE>(index);
+//					break;
+//				}
+//			}
+//		}
+//
+//		mulligan.size = static_cast<BYTE>(numMulligan);
+//		TaskMeta result = Serializer<FlatData::RequireMulliganTaskMeta>::Serialize(mulligan);
+//
+//		// send index to agent
+//		m_agent.WriteSyncBuffer(std::move(result));
+//	}
+//
+//	void GameInterface::HandleMulligan(const TaskMeta& serialized)
+//	{
+//		TaskMeta meta = Serializer<TaskMeta>::Deserialize(serialized);
+//		std::ostream& stream = LogWriter(m_users[meta.userID]);
+//
+//		switch (meta.status)
+//		{
+//			case MetaData::MULLIGAN_SUCCESS:
+//				stream << "Mulligan Success" << std::endl;
+//				break;
+//
+//			case MetaData::MULLIGAN_INDEX_OUT_OF_RANGE:
+//				stream << "Mulligan Index out of range exception" << std::endl;
+//				break;
+//
+//			case MetaData::MULLIGAN_DUPLICATED_INDEX:
+//				stream << "Mulligan Duplicated index exception" << std::endl;
+//				break;
+//		}
+//	}
+//
+//	void GameInterface::HandleManaModification(const TaskMeta& serialized)
+//	{
+//		using ModifyManaTaskMeta = FlatData::ModifyManaTaskMeta;
+//		ModifyManaTaskMeta meta = Serializer<ModifyManaTaskMeta>::Deserialize(serialized);
+//
+//		std::string manaMode = "";
+//		switch (meta.manaMode)
+//		{
+//			case BasicTask::MANA_EXIST:
+//				manaMode = "exist";
+//				break;
+//			case BasicTask::MANA_TOTAL:
+//				manaMode = "total";
+//				break;
+//		}
+//
+//		std::string numMode = "";
+//		switch (meta.numMode)
+//		{
+//			case BasicTask::NUM_ADD:
+//				numMode = "add";
+//				break;
+//			case BasicTask::NUM_SUB:
+//				numMode = "sub";
+//				break;
+//			case BasicTask::NUM_SYNC:
+//				numMode = "synchronize";
+//				break;
+//		}
+//
+//		LogWriter(m_users[meta.userID]) << "Modify Mana : "
+//										<< numMode << " "
+//										<< static_cast<int>(meta.object) << " to "
+//										<< manaMode << " mana,"
+//										<< " result " << static_cast<int>(meta.result) << std::endl;
+//	}
+//
+//	void GameInterface::HandleHealthModification(const TaskMeta& serialized)
+//	{
+//		using ModifyHealthTaskMeta = FlatData::ModifyHealthTaskMeta;
+//		ModifyHealthTaskMeta meta = Serializer<ModifyHealthTaskMeta>::Deserialize(serialized);
+//
+//		LogWriter(m_users[meta.userID]) << "Modify Health : "
+//										<< meta.card->GetName() << " get damage "
+//										<< meta.damage << ", result" << meta.hurted << std::endl;
+//	}
+//
+//	void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
+//	{
+//		using SummonMinionTaskMeta = FlatData::SummonMinionTaskMeta;
+//		SummonMinionTaskMeta meta = Serializer<SummonMinionTaskMeta>::Deserialize(serialized);
+//
+//		std::ostream& stream = LogWriter(m_users[meta.userID]) << "Summon Minion : ";
+//		switch (meta.status)
+//		{
+//			case MetaData::SUMMON_SUCCESS:
+//				stream << meta.card->GetName() << " at " << meta.index << std::endl;
+//				break;
+//
+//			case MetaData::SUMMON_CARD_IDX_OUT_OF_RANGE:
+//				stream << "Card index out of range of hand." << std::endl;
+//				break;
+//
+//			case MetaData::SUMMON_NOT_ENOUGH_MANA:
+//				stream << "Not enough mana" << std::endl;
+//				break;
+//
+//			case MetaData::SUMMON_POSITION_OUT_OF_RANGE:
+//				stream << "Position out of range of field" << std::endl;
+//				break;
+//		}
+//	}
+//
+//	void GameInterface::HandleCombat(const TaskMeta& serialized)
+//	{
+//		using CombatTaskMeta = FlatData::CombatTaskMeta;
+//		CombatTaskMeta meta = Serializer<CombatTaskMeta>::Deserialize(serialized);
+//
+//		LogWriter(m_users[meta.userID])
+//				<< "Combat : {src " << meta.srcCard->GetName() << "} "
+//				<< "vs {dst " << meta.dstCard->GetName() << "}" << std::endl;
+//	}
+
+	void GameInterface::HandleRequire(const TaskMeta& serialized)
+	{
+//		using RequireTaskMeta = FlatData::RequireTaskMeta;
+//		RequireTaskMeta meta = Serializer<RequireTaskMeta>::Deserialize(serialized);
+//
+//		if (m_inputHandler.find(meta.required) != m_inputHandler.end())
+//		{
+//			m_inputHandler[meta.required](*this, meta);
+//		}
+	}
+
+//	void GameInterface::HandleBrief(const TaskMeta& serialized)
+//	{
+//		using BriefTaskMeta = FlatData::BriefTaskMeta;
+//		BriefTaskMeta meta = Serializer<BriefTaskMeta>::Deserialize(serialized);
+//
+//		m_briefCache = meta;
+//
+//		std::ostream& stream = LogWriter(m_users[meta.currentUser]) << "Game Briefing" << std::endl;
+//
+//		stream << m_users[meta.opponentUser]
+//			   << " - Hero " << meta.opponentHero->GetName()
+//			   << ", Health " << meta.opponentHero->GetHealth()
+//			   << ", Mana " << static_cast<int>(meta.opponentMana)
+//			   << ", Hand " << static_cast<int>(meta.numOpponentHand)
+//			   << std::endl;
+//
+//		stream << m_users[meta.opponentUser] << " Field" << std::endl;
+//		ShowCards(meta.opponentField, meta.numOpponentField);
+//
+//		stream << m_users[meta.currentUser]
+//			   << " - Hero " << meta.currentHero->GetName()
+//			   << ", Health " << meta.currentHero->GetHealth()
+//			   << ", Mana " << static_cast<int>(meta.currentMana)
+//			   << ", Hand " << static_cast<int>(meta.numCurrentHand)
+//			   << std::endl;
+//
+//		stream << m_users[meta.currentUser] << " Field" << std::endl;
+//		ShowCards(meta.currentField, meta.numCurrentField);
+//
+//		stream << m_users[meta.currentUser] << " Hand" << std::endl;
+//		ShowCards(meta.currentHand, meta.numCurrentHand);
+//	}
+//
+//	void GameInterface::InputSelectMenu(const FlatData::RequireTaskMeta& meta)
+//	{
+//		LogWriter(m_users[meta.userID]) << "Main Menu" << std::endl;
+//		ShowMenus(m_mainMenuStr);
+//
+//		size_t input;
+//		while (true)
+//		{
+//			m_ostream << "[*] Input menu : ";
+//			m_istream >> input;
+//
+//			if (input > 0 && input <= GAME_MAIN_MENU_SIZE)
+//			{
+//				input -= 1;
+//				break;
+//			}
+//		}
+//
+//		TaskMeta result(TaskID::SELECT_MENU, static_cast<TaskMetaTrait::status_t>(input));
+//		m_agent.WriteSyncBuffer(Serializer<TaskMeta>::Serialize(result));
+//	}
+//
+//	void GameInterface::InputSelectCard(const FlatData::RequireTaskMeta& meta)
+//	{
+//		LogWriter(m_users[meta.userID]) << "Select Card" << std::endl;
+//
+//		int in;
+//		while (true)
+//		{
+//			m_ostream << "Select card index (0 ~ " << static_cast<int>(m_briefCache.numCurrentHand) - 1 << ") : ";
+//
+//			m_istream >> in;
+//			if (in >= 0 && in < m_briefCache.numCurrentHand)
+//			{
+//				if(m_briefCache.currentHand[in]->GetCost() > m_briefCache.currentMana)
+//				{
+//					m_ostream << "Not enough mana" << std::endl;
+//				}
+//				else
+//				{
+//					break;
+//				}
+//			}
+//		}
+//
+//		// if selected card type is minion
+//		if (m_briefCache.currentHand[in]->GetCardType() == CardType::MINION)
+//		{
+//			int pos;
+//			while (true)
+//			{
+//				m_ostream << "Select Position (0 ~ " << static_cast<int>(m_briefCache.numCurrentField) << ") : ";
+//
+//				m_istream >> pos;
+//				if (pos >= 0 && pos <= m_briefCache.numCurrentField)
+//				{
+//					break;
+//				}
+//			}
+//
+//			FlatData::RequireSummonMinionTaskMeta minion;
+//			minion.cardIndex = static_cast<BYTE>(in);
+//			minion.position = static_cast<BYTE>(pos);
+//
+//			TaskMeta serialized = Serializer<FlatData::RequireSummonMinionTaskMeta>::Serialize(minion);
+//			m_agent.WriteSyncBuffer(std::move(serialized));
+//		}
+//		else
+//		{
+//			// TODO : if not minion
+//			m_agent.WriteSyncBuffer(TaskMeta());
+//		}
+//	}
+//
+//	void GameInterface::InputTargeting(const FlatData::RequireTaskMeta& meta)
+//	{
+//		LogWriter(m_users[meta.userID]) << "Targeting" << std::endl;
+//
+//		m_ostream << "User field : " << std::endl;
+//		ShowCards(m_briefCache.currentField, m_briefCache.numCurrentField);
+//
+//		m_ostream << "Opponent field : " << std::endl;
+//		ShowCards(m_briefCache.opponentField, m_briefCache.numOpponentField);
+//
+//		int src;
+//		while (true)
+//		{
+//			m_ostream << "Select source minion (0 ~ " << static_cast<int>(m_briefCache.numCurrentField) - 1 << ") : ";
+//
+//			m_istream >> src;
+//			if (src >= 0 && src < m_briefCache.numCurrentField)
+//			{
+//				Card** start = m_briefCache.currentAttacked;
+//				Card** end = start + m_briefCache.numCurrentAttacked;
+//				if (std::find(start, end, m_briefCache.currentField[src]) != end)
+//				{
+//					m_ostream << "Already attacked minion." << std::endl;
+//				}
+//				else
+//				{
+//					break;
+//				}
+//			}
+//		}
+//
+//		int dst;
+//		while (true)
+//		{
+//			m_ostream
+//					<< "Select destination (0 for hero, 1 ~ "
+//					<< static_cast<int>(m_briefCache.numOpponentField) << " for minion) : ";
+//
+//			m_istream >> dst;
+//			if (dst >= 0 && dst <= m_briefCache.numOpponentField)
+//			{
+//				break;
+//			}
+//		}
+//
+//		FlatData::RequireTargetingTaskMeta targeting;
+//		targeting.src = static_cast<BYTE>(src);
+//		targeting.dst = static_cast<BYTE>(dst);
+//
+//		m_agent.WriteSyncBuffer(Serializer<FlatData::RequireTargetingTaskMeta>::Serialize(targeting));
+//	}
+
+	void GameInterface::HandleTaskTuple(const TaskMeta& serialized)
+	{
+		auto buffer = serialized.GetBuffer();
+		auto metaVector = flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
+
+		for (const auto& meta : *metaVector->vector())
 		{
-			m_ostream 
-				<< "Select destination (0 for hero, 1 ~ " 
-				<< static_cast<int>(data->numOppositeField) << " for minion) : ";
-
-			m_istream >> dst;
-			if (dst >= 0 && dst <= data->numOppositeField)
-			{
-				break;
-			}
+			HandleMessage(TaskMeta::ConvertFrom(meta));
 		}
-
-		TargetingStructure targeting(static_cast<BYTE>(src), static_cast<BYTE>(dst));
-		m_agent.WriteBuffer(reinterpret_cast<BYTE*>(&targeting), sizeof(TargetingStructure));
 	}
 
-	void GameInterface::MainEnd()
-	{
-		MainEndStructure* data = reinterpret_cast<MainEndStructure*>(m_buffer);
-		LogWriter(m_users[data->userID]) << "Main End" << std::endl;
-	}
-
-	void GameInterface::FinalGameOver()
-	{
-		FinalGameOverStructure* data = reinterpret_cast<FinalGameOverStructure*>(m_buffer);
-		LogWriter(m_users[data->winnerUserID]) << "Win" << std::endl;
-		LogWriter(m_users[1 - data->winnerUserID]) << "Lose" << std::endl;
-	}
+//	void GameInterface::HandleGameEnd(const TaskMeta& serialized)
+//	{
+//		using GameEndTaskMeta = FlatData::GameEndTaskMeta;
+//		GameEndTaskMeta meta = Serializer<GameEndTaskMeta>::Deserialize(serialized);
+//
+//		LogWriter(meta.winnerID) << "Win" << std::endl;
+//	}
 }
