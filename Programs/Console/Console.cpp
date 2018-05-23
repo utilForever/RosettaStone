@@ -18,6 +18,7 @@
 #include <Models/Card.h>
 #include <Models/Cards.h>
 
+#include <cctype>
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
 #endif
@@ -481,7 +482,7 @@ bool Console::InputYesNo(std::string sentence) const
 
     std::string str;
     std::cin >> str;
-    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+    std::transform(str.begin(), str.end(), str.begin(), [](char c){return static_cast<char>(std::toupper(c));});
 
     return (str == "y" || str == "yes")
                ? true
