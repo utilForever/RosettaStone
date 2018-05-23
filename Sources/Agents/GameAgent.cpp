@@ -435,7 +435,7 @@ namespace Hearthstonepp
 		}
 	}
 
-	unsigned int GameAgent::Draw(User& user, int num)
+	unsigned int GameAgent::Draw(User& user, size_t num)
 	{
 		unsigned int result = DRAW_SUCCESS;
 		std::vector<Card*>& deck = user.deck;
@@ -453,8 +453,8 @@ namespace Hearthstonepp
 			// processing damage by exhausting
 			for (size_t i = 1; i <= rest; ++i)
 			{
-				int hurted = user.hero->GetHealth() - (user.exhausted + i);
-				user.hero->SetHealth(hurted);
+				size_t hurted = user.hero->GetHealth() - (user.exhausted + i);
+				user.hero->SetHealth(static_cast<int>(hurted));
 
 				ModifyHealthStructure health(user.id, user.hero);
 				WriteOutputBuffer(reinterpret_cast<BYTE*>(&health),  sizeof(ModifyHealthStructure));

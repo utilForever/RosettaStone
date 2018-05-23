@@ -69,7 +69,7 @@ namespace Hearthstonepp
 		User& GetOpponentOf(User& user);
 
 		bool IsGameEnd();
-		unsigned int Draw(User& user, int num);
+		unsigned int Draw(User& user, size_t num);
 		void ModifyMana(User& user, NumericModification mod, unsigned int type, BYTE num);
 
 		void BeginPhase();
