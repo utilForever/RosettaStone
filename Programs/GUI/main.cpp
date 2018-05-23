@@ -32,7 +32,7 @@ int main()
 	glfwMakeContextCurrent(window);
 
 	// Close window on pressing ESC
-	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scanCode, int action, int mods)
+	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int, int action, int)
 	{
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		{
