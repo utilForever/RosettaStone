@@ -17,7 +17,10 @@ namespace Hearthstonepp
     template <typename BufferType>
     class SyncBuffer {
     public:
-        SyncBuffer();
+        SyncBuffer() : m_readable(false)
+        {
+            // Do Nothing
+        }
 
         SyncBuffer(SyncBuffer&&) = delete;
 
