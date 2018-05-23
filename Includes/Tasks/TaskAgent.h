@@ -9,6 +9,8 @@
 #ifndef HEARTHSTONEPP_TASKAGENT_H
 #define HEARTHSTONEPP_TASKAGENT_H
 
+#include <Buffers/SyncBuffer.h>
+#include <Tasks/Tasks.h>
 #include <Tasks/TaskMeta.h>
 
 #include <vector>
@@ -35,7 +37,7 @@ namespace Hearthstonepp
 
         void Clear();
 
-        template <class T, typename = std::enable_if_t<is_task<T>>>
+        template <class T, typename = std::enable_if_t<Task::is_task<T>>>
         void Add(T&& task)
         {
             m_tasks.emplace_back(std::forward<T>(task));
@@ -46,9 +48,6 @@ namespace Hearthstonepp
         SyncBuffer<TaskMeta> m_sideChannel;
 
         std::vector<Task> m_tasks;
-
-        template <typename T>
-        static constexpr inline bool is_task = std::is_same_v<std::decay_t<T>, Task>;
     };
 }
 
