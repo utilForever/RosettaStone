@@ -10,12 +10,25 @@
 #define HEARTHSTONEPP_TASKSERIALIZER_H
 
 #include <Flatbuffers/MetaData_generated.h>
+#include <Models/Card.h>
 
 namespace Hearthstonepp
 {
     namespace Serializer
     {
-        void CreateTaskMetaVector(TaskMeta& meta, const std::vector<TaskMeta>& vector);
+        struct DrawTaskMeta
+        {
+            BYTE numDraw;
+            BYTE numExhausted;
+            BYTE numHearts;
+            BYTE numOverdraw;
+            std::vector<const Card*> burnt;
+        };
+
+        TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector);
+        TaskMeta CreateRequireTaskMeta(TaskID request, BYTE userID);
+        TaskMeta CreateUserSettingTaskMeta(const std::string& firstUserID, const std::string& secondUserID);
+        TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& draw, TaskMeta::status_t status, BYTE userID);
     }
 }
 
