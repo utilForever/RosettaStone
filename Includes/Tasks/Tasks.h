@@ -20,6 +20,9 @@ namespace Hearthstonepp
     class Task
     {
     public:
+        template <typename T>
+        static constexpr inline bool is_task = std::is_same_v<std::decay_t<T>, Task>;
+
         using lambda_t = std::function<TaskMeta(User&, User&)>;
 
         Task();
