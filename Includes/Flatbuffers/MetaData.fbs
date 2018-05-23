@@ -1,4 +1,4 @@
-namespace Hearthstonepp.MetaData;
+namespace Hearthstonepp.FlatData;
 
 struct TaskMetaTrait {
     id:int;
@@ -7,7 +7,7 @@ struct TaskMetaTrait {
 }
 
 table PlayRequirements {
-    key:int (key);
+    key_:int (key);
     value:int;
 }
 
