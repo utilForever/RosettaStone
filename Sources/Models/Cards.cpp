@@ -11,199 +11,200 @@
 
 namespace Hearthstonepp
 {
-	Cards* Cards::m_instance = nullptr;
+Cards* Cards::m_instance = nullptr;
 
-	Cards::Cards()
-	{
-		CardLoader loader;
-		m_cards = loader.Load();
-	}
+Cards::Cards()
+{
+    CardLoader loader;
+    m_cards = loader.Load();
+}
 
-	Cards::~Cards()
-	{
-		for (auto card : m_cards)
-		{
-			if (card != nullptr)
-			{
-				delete card;
-			}
-		}
+Cards::~Cards()
+{
+    for (auto card : m_cards)
+    {
+        if (card != nullptr)
+        {
+            delete card;
+        }
+    }
 
-		m_cards.clear();
-	}
+    m_cards.clear();
+}
 
-	Cards* Cards::GetInstance()
-	{
-		if (m_instance == nullptr)
-		{
-			m_instance = new Cards();
-		}
+Cards* Cards::GetInstance()
+{
+    if (m_instance == nullptr)
+    {
+        m_instance = new Cards();
+    }
 
-		return m_instance;
-	}
+    return m_instance;
+}
 
-	std::vector<Card*> Cards::GetAllCards() const
-	{
-		return m_cards;
-	}
+std::vector<Card*> Cards::GetAllCards() const
+{
+    return m_cards;
+}
 
-	const Card* Cards::FindCardByID(const std::string id)
-	{
-		for (auto card : m_cards)
-		{
-			if (card->GetID() == id)
-			{
-				return card;
-			}
-		}
+const Card* Cards::FindCardByID(const std::string id)
+{
+    for (auto card : m_cards)
+    {
+        if (card->GetID() == id)
+        {
+            return card;
+        }
+    }
 
-		return nullptr;
-	}
+    return nullptr;
+}
 
-	std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetRarity() == rarity)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetRarity() == rarity)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetCardClass() == cardClass)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetCardClass() == cardClass)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByType(CardType cardType)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByType(CardType cardType)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetCardType() == cardType)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetCardType() == cardType)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByRace(Race race)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByRace(Race race)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetRace() == race)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetRace() == race)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByName(const std::string name)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByName(const std::string name)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetName().find(name) != std::string::npos)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetName().find(name) != std::string::npos)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByCost(int minVal, int maxVal)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByCost(size_t minVal, size_t maxVal)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetCost() >= minVal && card->GetCost() <= maxVal)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetCost() >= minVal && card->GetCost() <= maxVal)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByAttack(int minVal, int maxVal)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetAttack() >= minVal && card->GetAttack() <= maxVal)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetAttack() >= minVal && card->GetAttack() <= maxVal)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByHealth(int minVal, int maxVal)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			if (card->GetHealth() >= minVal && card->GetHealth() <= maxVal)
-			{
-				result.emplace_back(card);
-			}
-		}
+    for (auto card : m_cards)
+    {
+        if (card->GetHealth() >= minVal && card->GetHealth() <= maxVal)
+        {
+            result.emplace_back(card);
+        }
+    }
 
-		return result;
-	}
+    return result;
+}
 
-	std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
-	{
-		std::vector<Card*> result;
+std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
+{
+    std::vector<Card*> result;
 
-		for (auto card : m_cards)
-		{
-			auto mechanicsInCard = card->GetMechanics();
+    for (auto card : m_cards)
+    {
+        auto mechanicsInCard = card->GetMechanics();
 
-			for (auto mechanic : mechanics)
-			{
-				if (std::find(mechanicsInCard.begin(), mechanicsInCard.end(), mechanic) != mechanicsInCard.end())
-				{
-					result.emplace_back(card);
-				}
-			}
-		}
-		
-		return result;
-	}
+        for (auto mechanic : mechanics)
+        {
+            if (std::find(mechanicsInCard.begin(), mechanicsInCard.end(),
+                          mechanic) != mechanicsInCard.end())
+            {
+                result.emplace_back(card);
+            }
+        }
+    }
 
-    const Card* Cards::GetHeroCard(CardClass cardClass)
-	{
-	    switch (cardClass)
-	    {
+    return result;
+}
+
+const Card* Cards::GetHeroCard(CardClass cardClass)
+{
+    switch (cardClass)
+    {
         case CardClass::DRUID:
             return FindCardByID("HERO_06");
         case CardClass::HUNTER:
@@ -224,13 +225,13 @@ namespace Hearthstonepp
             return FindCardByID("HERO_01");
         default:
             return nullptr;
-	    }
-	}
+    }
+}
 
-    const Card* Cards::GetDefaultHeroPower(CardClass cardClass)
-	{
-        switch (cardClass)
-        {
+const Card* Cards::GetDefaultHeroPower(CardClass cardClass)
+{
+    switch (cardClass)
+    {
         case CardClass::DRUID:
             return FindCardByID("CS2_017");
         case CardClass::HUNTER:
@@ -251,6 +252,6 @@ namespace Hearthstonepp
             return FindCardByID("CS2_102");
         default:
             return nullptr;
-        }
-	}
+    }
+}
 }
