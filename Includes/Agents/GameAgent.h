@@ -12,6 +12,7 @@
 #include <Agents/AgentStructures.h>
 #include <Commons/Constants.h>
 #include <Tasks/TaskAgent.h>
+#include <Tasks/Tasks.h>
 
 #include <array>
 #include <functional>
@@ -22,8 +23,11 @@ namespace Hearthstonepp
 	class GameAgent
 	{
 	public:
-		GameAgent(User& user1, User& user2);
-		GameAgent(User&& user1, User&& user2);
+	    template <typename T>
+	    static constexpr inline bool isUser = std::is_same_v<std::decay_t<T>, User>;
+
+	    template <typename UserT, typename = std::enable_if_t<isUser<UserT>>>
+	    GameAgent(UserT&& user1, UserT&& user2);
 
 		std::thread StartAgent();
 

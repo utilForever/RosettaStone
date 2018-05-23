@@ -13,14 +13,9 @@
 
 namespace Hearthstonepp
 {
-	GameAgent::GameAgent(User& user1, User& user2) :
-			m_current(user1), m_opponent(user2)
-	{
-		// Do Nothing
-	}
-
-	GameAgent::GameAgent(User&& user1, User&& user2) :
-			m_current(std::move(user1)), m_opponent(std::move(user2))
+    template <typename UserT, typename = void>
+	GameAgent::GameAgent(UserT&& user1, UserT&& user2) :
+			m_current(std::forward<UserT>(user1)), m_opponent(std::forward<UserT>(user2))
 	{
 		// Do Nothing
 	}
@@ -29,16 +24,16 @@ namespace Hearthstonepp
 	{
 		auto flow = [this]() {
 			BeginPhase();
-			while (true)
-			{
-				bool isGameEnd = MainPhase();
-				if (isGameEnd)
-				{
-					break;
-				}
-			}
-
-			FinalPhase();
+//			while (true)
+//			{
+//				bool isGameEnd = MainPhase();
+//				if (isGameEnd)
+//				{
+//					break;
+//				}
+//			}
+//
+//			FinalPhase();
 		};
 
 		return std::thread(std::move(flow));
@@ -51,7 +46,7 @@ namespace Hearthstonepp
 
 	void GameAgent::WriteSyncBuffer(TaskMeta&& data, bool sideChannel)
 	{
-	    m_taskAgent.Notify(std::move(data));
+	    m_taskAgent.Notify(std::move(data), sideChannel);
 	}
 
 	void GameAgent::BeginPhase()
@@ -67,18 +62,18 @@ namespace Hearthstonepp
 			m_taskAgent.Add(BasicTask::SwapUserTask());
 		}
 
-		auto untilMulliganSuccess = [](const TaskSerialized& serialized) {
-			return serialized.status == MetaData::MULLIGAN_SUCCESS;
-		};
+//		auto untilMulliganSuccess = [](const TaskSerialized& serialized) {
+//			return serialized.status == MetaData::MULLIGAN_SUCCESS;
+//		};
 
 		m_taskAgent.Add(BasicTask::UserSettingTask());
 		m_taskAgent.Add(BasicTask::DoBothUser(BasicTask::ShuffleTask()));
 		m_taskAgent.Add(BasicTask::DoBothUser(BasicTask::DrawTask(NUM_BEGIN_DRAW)));
-		m_taskAgent.Add(BasicTask::BriefTask());
-		m_taskAgent.Add(BasicTask::DoUntil(BasicTask::MulliganTask(NUM_BEGIN_DRAW, m_taskAgent), untilMulliganSuccess));
+//		m_taskAgent.Add(BasicTask::BriefTask());
+//		m_taskAgent.Add(BasicTask::DoUntil(BasicTask::MulliganTask(NUM_BEGIN_DRAW, m_taskAgent), untilMulliganSuccess));
 		m_taskAgent.Add(BasicTask::SwapUserTask());
-		m_taskAgent.Add(BasicTask::BriefTask());
-		m_taskAgent.Add(BasicTask::DoUntil(BasicTask::MulliganTask(NUM_BEGIN_DRAW, m_taskAgent), untilMulliganSuccess));
+//		m_taskAgent.Add(BasicTask::BriefTask());
+//		m_taskAgent.Add(BasicTask::DoUntil(BasicTask::MulliganTask(NUM_BEGIN_DRAW, m_taskAgent), untilMulliganSuccess));
 		m_taskAgent.Add(BasicTask::SwapUserTask());
 
         TaskMeta meta;
@@ -100,14 +95,14 @@ namespace Hearthstonepp
 	void GameAgent::FinalPhase()
 	{
 	    TaskMeta meta;
-		m_taskAgent.Run(BasicTask::GameEndTask(), meta, m_current, m_opponent, false);
+//		m_taskAgent.Run(BasicTask::GameEndTask(), meta, m_current, m_opponent, false);
 	}
 
 	void GameAgent::MainReady()
 	{
 		m_taskAgent.Add(BasicTask::DrawTask(1));
-		m_taskAgent.Add(BasicTask::ModifyManaTask(BasicTask::NUM_ADD, BasicTask::MANA_TOTAL, 1));
-		m_taskAgent.Add(BasicTask::ModifyManaByRef(BasicTask::NUM_SYNC, BasicTask::MANA_EXIST, m_current.totalMana));
+//		m_taskAgent.Add(BasicTask::ModifyManaTask(BasicTask::NUM_ADD, BasicTask::MANA_TOTAL, 1));
+//		m_taskAgent.Add(BasicTask::ModifyManaByRef(BasicTask::NUM_SYNC, BasicTask::MANA_EXIST, m_current.totalMana));
 
 		TaskMeta meta;
 		m_taskAgent.Run(meta, m_current, m_opponent);
@@ -125,8 +120,8 @@ namespace Hearthstonepp
 		}
 
 		TaskMeta meta;
-		m_taskAgent.Run(BasicTask::BriefTask(), meta, m_current, m_opponent, false);
-		m_taskAgent.Run(BasicTask::SelectMenuTask(m_taskAgent), meta, m_current, m_opponent);
+//		m_taskAgent.Run(BasicTask::BriefTask(), meta, m_current, m_opponent, false);
+//		m_taskAgent.Run(BasicTask::SelectMenuTask(m_taskAgent), meta, m_current, m_opponent);
 
 		TaskMeta::status_t menu = meta.status;
 
@@ -151,26 +146,26 @@ namespace Hearthstonepp
 	void GameAgent::MainUseCard()
 	{
 		// Read what kinds of card user wants to use
-        TaskMeta meta;
-        m_taskAgent.Run(BasicTask::SelectCardTask(m_taskAgent), meta, m_current, m_opponent);
-
-		if (meta.status == MetaData::SELECT_CARD_MINION)
-		{
-			using Require = MetaData::RequireSummonMinionTaskMeta;
-			Require minion = Serializer<Require>::Deserialize(meta);
-			m_taskAgent.Run(BasicTask::SummonMinionTask(minion.cardIndex, minion.position), meta, m_current, m_opponent);
-		}
+//        TaskMeta meta;
+//        m_taskAgent.Run(BasicTask::SelectCardTask(m_taskAgent), meta, m_current, m_opponent);
+//
+//		if (meta.status == MetaData::SELECT_CARD_MINION)
+//		{
+//			using Require = MetaData::RequireSummonMinionTaskMeta;
+//			Require minion = Serializer<Require>::Deserialize(meta);
+//			m_taskAgent.Run(BasicTask::SummonMinionTask(minion.cardIndex, minion.position), meta, m_current, m_opponent);
+//		}
 	}
 
 	void GameAgent::MainCombat()
 	{
-	    TaskMeta meta;
-		m_taskAgent.Run(BasicTask::SelectTargetingTask(m_taskAgent), meta, m_current, m_opponent);
-
-		using Require = MetaData::RequireTargetingTaskMeta;
-		Require targeting = Serializer<Require>::Deserialize(meta);
-
-		m_taskAgent.Run(BasicTask::CombatTask(targeting.src, targeting.dst), meta, m_current, m_opponent);
+//	    TaskMeta meta;
+//		m_taskAgent.Run(BasicTask::SelectTargetingTask(m_taskAgent), meta, m_current, m_opponent);
+//
+//		using Require = MetaData::RequireTargetingTaskMeta;
+//		Require targeting = Serializer<Require>::Deserialize(meta);
+//
+//		m_taskAgent.Run(BasicTask::CombatTask(targeting.src, targeting.dst), meta, m_current, m_opponent);
 	}
 
 	bool GameAgent::IsGameEnd()
