@@ -3,7 +3,7 @@
 #
 
 # Set warnings as errors flag
-option(CUBBYFLOW_WARNINGS_AS_ERRORS ON)
+option(CUBBYFLOW_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
 if(CUBBYFLOW_WARNINGS_AS_ERRORS)
 	if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		set(WARN_AS_ERROR_FLAGS	"/WX")
@@ -82,7 +82,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		# /wd4592     # -> disable warning: 'identifier': symbol will be dynamically initialized (implementation limitation)
 		# /wd4201     # -> disable warning: nonstandard extension used: nameless struct/union (caused by GLM)
 		# /wd4127     # -> disable warning: conditional expression is constant (caused by Qt)
-		/wd4717       # -> disable warning: recursive on all control paths, function will cause runtime stack overflow (wrong warning)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
