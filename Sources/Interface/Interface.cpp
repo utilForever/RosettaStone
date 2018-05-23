@@ -193,7 +193,7 @@ namespace Hearthstonepp
 			m_ostream << "[*] How many cards to mulligan ? (0 ~ 3) ";
 			m_istream >> numMulligan;
 
-			if (numMulligan >= 0 && numMulligan <= NUM_BEGIN_DRAW)
+			if (numMulligan <= NUM_BEGIN_DRAW)
 			{
 				break;
 			}
@@ -208,7 +208,7 @@ namespace Hearthstonepp
 				m_ostream << "[*] Input card index " << i+1 << " (0 ~ 2) : ";
 				m_istream >> index;
 
-				if (index >= 0 && index <= NUM_BEGIN_DRAW - 1)
+				if (index <= NUM_BEGIN_DRAW - 1)
 				{
 					mulligan[i] = static_cast<BYTE>(index);
 					break;
