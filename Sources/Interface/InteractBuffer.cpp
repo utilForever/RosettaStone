@@ -16,7 +16,7 @@ namespace Hearthstonepp
 		m_buffer = new BYTE[capacity]; // buffer, circular queue
 	}
 
-	int InteractBuffer::GetCapacity() const
+	size_t InteractBuffer::GetCapacity() const
 	{
 		return m_capacity;
 	}
