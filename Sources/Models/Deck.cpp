@@ -105,7 +105,7 @@ namespace Hearthstonepp
 	{
 		const Card* card = Cards::GetInstance()->FindCardByID(cardID);
 		CardClass cls = card->GetCardClass();
-		if (cls != GetClass() && cls != CardClass::NEUTRAL || card->GetMaxAllowedInDeck() < numCardToAdd) 
+		if ((cls != GetClass() && cls != +CardClass::NEUTRAL) || int(card->GetMaxAllowedInDeck()) < numCardToAdd) 
 		{
 			return -1;
 		}
@@ -115,7 +115,7 @@ namespace Hearthstonepp
 
 		if (isCardExistInDeck != m_cards.end()) // card is in deck
 		{
-			if (card->GetMaxAllowedInDeck() < (*isCardExistInDeck).second + numCardToAdd)
+			if (int(card->GetMaxAllowedInDeck()) < (*isCardExistInDeck).second + numCardToAdd)
 				return -1;
 
 			(*isCardExistInDeck).second += numCardToAdd;
