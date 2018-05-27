@@ -24,13 +24,16 @@ else()
 endif()
 if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/Windows)
+    set(SFML_OPENAL_NAME openal32)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/Linux)
+    set(SFML_OPENAL_NAME openal)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/MacOS)
+    set(SFML_OPENAL_NAME openal)
 endif()
 link_directories(${SFML_LIBRARIES_PATH})
-set(SFML_LIBRARIES sfml-audio sfml-graphics sfml-network sfml-system sfml-window openal32)
+set(SFML_LIBRARIES sfml-audio sfml-graphics sfml-network sfml-system sfml-window ${SFML_OPENAL_NAME})
 
 # Sources
 file(GLOB sources
