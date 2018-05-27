@@ -8,3 +8,6 @@
 [submodule "Libraries/Clara"]
 	path = Libraries/Clara
 	url = https://github.com/catchorg/Clara
+[submodule "Libraries/imgui-sfml"]
+	path = Libraries/imgui-sfml
+	url = https://github.com/eliasdaler/imgui-sfml
