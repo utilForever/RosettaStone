@@ -3,9 +3,9 @@ set(target HSppGUI)
 
 # Find packages
 find_package(OpenGL REQUIRED)
-if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-else()
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     find_package(glfw3 REQUIRED)
+    find_package(OpenAL REQUIRED)
 endif()
 
 # Includes
@@ -30,7 +30,7 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(SFML_OPENAL_NAME openal)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/MacOS)
-    set(SFML_OPENAL_NAME openal)
+    set(SFML_OPENAL_NAME ${OPENAL_LIBRARY})
 endif()
 link_directories(${SFML_LIBRARIES_PATH})
 set(SFML_LIBRARIES sfml-audio sfml-graphics sfml-network sfml-system sfml-window ${SFML_OPENAL_NAME})
