@@ -10,9 +10,27 @@
 #include <imgui/imgui.h>
 
 #include <cstdlib>
+#include <string>
 
 void Setup(GLFWwindow* window);
 void Render(ImDrawData* drawData);
+
+static struct LoginSceneData
+{
+    ImGuiWindowFlags flags = 0;
+
+    bool opened = true;
+
+    float positionX = 0.0f;
+    float positionY = 0.0f;
+
+    float width = 200.0f;
+    float height = 350.0f;
+
+    char nick[32] = {""};
+    char password[32] = {""};
+    std::string info;
+} data;
 
 int main()
 {
@@ -53,9 +71,63 @@ int main()
 		ImGui::NewFrame();
 
 		// This creates a window
-		ImGui::Begin("Hearthstone++");
-		ImGui::Text("Simple GUI test");
-		ImGui::End();
+        ImGui::SetNextWindowPos(ImVec2(data.positionX, data.positionY));
+        ImGui::Begin("Login", &data.opened, ImVec2(data.width, data.height),
+                     0.0f, data.flags);
+        {
+            // Info
+            ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f),
+                               data.info.c_str());
+
+            ImGui::NewLine();
+
+            // Nick
+            ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Nick:");
+            static bool focusHere = true;
+            if (focusHere)
+            {
+                ImGui::SetKeyboardFocusHere();
+                focusHere = false;
+            }
+            ImGui::InputText("##Nick", data.nick, IM_ARRAYSIZE(data.nick));
+
+            ImGui::NewLine();
+
+            // Password
+            ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Password:");
+            if (ImGui::InputText("##Password", data.password,
+                                 IM_ARRAYSIZE(data.password),
+                                 ImGuiInputTextFlags_Password |
+                                     ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                
+            }
+
+            ImGui::NewLine();
+
+            // Check Login
+            if (ImGui::Button("Login"))
+            {
+                
+            }
+
+            ImGui::NewLine();
+
+            // Create Account
+            if (ImGui::Button("Create Account"))
+            {
+                
+            }
+
+            ImGui::NewLine();
+
+            // Forgot Password
+            if (ImGui::Button("Forgot Password"))
+            {
+                
+            }
+        }
+        ImGui::End();
 
 		// ImGui functions end here
 		ImGui::Render();
