@@ -5,63 +5,80 @@ set(target HSppGUI)
 find_package(OpenGL REQUIRED)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 else()
-	find_package(glfw3 REQUIRED)
+    find_package(glfw3 REQUIRED)
 endif()
 
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/glfw/include)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/imgui)
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/SFML/include)
 include_directories(${OPENGL_INCLUDE_DIR})
 
 link_libraries(${OPENGL_LIBRARIES})
 link_directories(${CMAKE_SOURCE_DIR}/Libraries/glfw/lib)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-	link_libraries(glfw3)
+    link_libraries(glfw3)
 else()
-	link_libraries(glfw)
+    link_libraries(glfw)
 endif()
+if (CMAKE_SYSTEM_NAME MATCHES "Windows")
+    set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/Windows)
+elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
+    set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/Linux)
+elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/MacOS)
+endif()
+link_directories(${SFML_LIBRARIES_PATH})
+set(SFML_LIBRARIES sfml-audio sfml-graphics sfml-network sfml-system sfml-window openal32)
 
 # Sources
 file(GLOB sources
-	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # Build executable
 add_executable(${target}
-	${sources})
+    ${sources})
 
 # Project options
 set_target_properties(${target}
-	PROPERTIES
-	${DEFAULT_PROJECT_OPTIONS}
+    PROPERTIES
+    ${DEFAULT_PROJECT_OPTIONS}
 )
 
 # Compile options
 target_compile_options(${target}
-	PRIVATE
+    PRIVATE
 
-	PUBLIC
-	${DEFAULT_COMPILE_OPTIONS}
+    PUBLIC
+    ${DEFAULT_COMPILE_OPTIONS}
 
-	INTERFACE
+    INTERFACE
 )
 target_compile_definitions(${target}
-	PRIVATE
-	RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../Resources/"
+    PRIVATE
+    RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../Resources/"
 )
 
 # Link libraries
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-	target_link_libraries(${target}
-		PRIVATE
-		${DEFAULT_LINKER_OPTIONS}
-		Hearthstonepp
-		imgui)
+    target_link_libraries(${target}
+        PRIVATE
+        ${DEFAULT_LINKER_OPTIONS}
+        ${SFML_LIBRARIES}
+        Hearthstonepp
+        imgui)
 else()
-	target_link_libraries(${target}
-		PRIVATE
-		${DEFAULT_LINKER_OPTIONS}
-		${OPENGL_LIBRARIES}
-		Hearthstonepp
-		imgui)
+    target_link_libraries(${target}
+        PRIVATE
+        ${DEFAULT_LINKER_OPTIONS}
+        ${SFML_LIBRARIES}
+        ${OPENGL_LIBRARIES}
+        Hearthstonepp
+        imgui)
 endif()
+
+add_custom_command(TARGET HSppGUI POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${SFML_LIBRARIES_PATH}"
+        $<TARGET_FILE_DIR:HSppGUI>)
