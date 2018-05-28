@@ -16,6 +16,7 @@ TEST(TestCards, GetAllCards)
 {
 	const std::vector<Card*> cards1 = Cards::GetInstance()->GetAllCards();
 	ASSERT_FALSE(cards1.empty());
+	EXPECT_EQ(4676, cards1.size());
 }
 
 TEST(TestCards, FindCardByID)
