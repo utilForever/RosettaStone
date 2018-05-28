@@ -29,14 +29,14 @@ TEST(TestCard, Constructer)
 	EXPECT_NO_THROW(card1.ShowBriefInfo());
 	EXPECT_NO_THROW(card1.ShowInfo());
 	EXPECT_EQ("cardTest", card1.GetID());
-	EXPECT_EQ(Rarity::COMMON, card1.GetRarity());
-	EXPECT_EQ(CardClass::NEUTRAL, card1.GetCardClass());
-	EXPECT_EQ(CardType::MINION, card1.GetCardType());
-	EXPECT_EQ(Race::DRAGON, card1.GetRace());
-	EXPECT_EQ(1, card1.GetCost());
-	EXPECT_EQ(1, card1.GetAttack());
-	EXPECT_EQ(20, card1.GetHealth());
-	EXPECT_EQ(20, card1.GetDurability());
-	EXPECT_EQ(2, card1.GetMaxAllowedInDeck());
-	EXPECT_EQ(1, card2.GetMaxAllowedInDeck());
+	EXPECT_EQ(+Rarity::COMMON, card1.GetRarity());
+	EXPECT_EQ(+CardClass::NEUTRAL, card1.GetCardClass());
+	EXPECT_EQ(+CardType::MINION, card1.GetCardType());
+	EXPECT_EQ(+Race::DRAGON, card1.GetRace());
+	EXPECT_EQ(1, (int)card1.GetCost());
+	EXPECT_EQ(1, (int)card1.GetAttack());
+	EXPECT_EQ(20, (int)card1.GetHealth());
+	EXPECT_EQ(20, (int)card1.GetDurability());
+	EXPECT_EQ(2, (int)card1.GetMaxAllowedInDeck());
+	EXPECT_EQ(1, (int)card2.GetMaxAllowedInDeck());
 }
