@@ -158,3 +158,33 @@ TEST(TestCards, FindCardByMechanics)
 	EXPECT_TRUE(std::find(cardTags.begin(), cardTags.end(), +GameTag::CANT_ATTACK) != cardTags.end());
 	EXPECT_TRUE(cards2.empty());
 }
+
+TEST(TestCards, GetHeroCard)
+{
+	Cards* cards = Cards::GetInstance();
+	EXPECT_EQ(cards->FindCardByID("HERO_06"), cards->GetHeroCard(CardClass::DRUID));
+	EXPECT_EQ(cards->FindCardByID("HERO_05"), cards->GetHeroCard(CardClass::HUNTER));
+	EXPECT_EQ(cards->FindCardByID("HERO_08"), cards->GetHeroCard(CardClass::MAGE));
+	EXPECT_EQ(cards->FindCardByID("HERO_04"), cards->GetHeroCard(CardClass::PALADIN));
+	EXPECT_EQ(cards->FindCardByID("HERO_09"), cards->GetHeroCard(CardClass::PRIEST));
+	EXPECT_EQ(cards->FindCardByID("HERO_03"), cards->GetHeroCard(CardClass::ROGUE));
+	EXPECT_EQ(cards->FindCardByID("HERO_02"), cards->GetHeroCard(CardClass::SHAMAN));
+	EXPECT_EQ(cards->FindCardByID("HERO_07"), cards->GetHeroCard(CardClass::WARLOCK));
+	EXPECT_EQ(cards->FindCardByID("HERO_01"), cards->GetHeroCard(CardClass::WARRIOR));
+	EXPECT_EQ(nullptr, cards->GetHeroCard(CardClass::DEATHKNIGHT));
+}
+
+TEST(TestCards, GetDefaultHeroPower)
+{
+	Cards* cards = Cards::GetInstance();
+	EXPECT_EQ(cards->FindCardByID("CS2_017"), cards->GetDefaultHeroPower(CardClass::DRUID));
+	EXPECT_EQ(cards->FindCardByID("DS1h_292"), cards->GetDefaultHeroPower(CardClass::HUNTER));
+	EXPECT_EQ(cards->FindCardByID("CS2_034"), cards->GetDefaultHeroPower(CardClass::MAGE));
+	EXPECT_EQ(cards->FindCardByID("CS2_101"), cards->GetDefaultHeroPower(CardClass::PALADIN));
+	EXPECT_EQ(cards->FindCardByID("CS1h_001"), cards->GetDefaultHeroPower(CardClass::PRIEST));
+	EXPECT_EQ(cards->FindCardByID("CS2_083b"), cards->GetDefaultHeroPower(CardClass::ROGUE));
+	EXPECT_EQ(cards->FindCardByID("CS2_049"), cards->GetDefaultHeroPower(CardClass::SHAMAN));
+	EXPECT_EQ(cards->FindCardByID("CS2_056"), cards->GetDefaultHeroPower(CardClass::WARLOCK));
+	EXPECT_EQ(cards->FindCardByID("CS2_102"), cards->GetDefaultHeroPower(CardClass::WARRIOR));
+	EXPECT_EQ(nullptr, cards->GetDefaultHeroPower(CardClass::DEATHKNIGHT));
+}

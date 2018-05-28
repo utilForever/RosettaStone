@@ -40,3 +40,25 @@ TEST(TestDeck, CardControl)
 	EXPECT_EQ(-1, deck.DeleteCard(druidCards.at(0)->GetID(), 1));
 	EXPECT_NO_THROW(deck.ShowCardList());
 }
+
+TEST(TestDeck, GetNumCardInDeck)
+{
+	std::vector<Card*> mageCards = Cards::GetInstance()->FindCardByClass(+CardClass::MAGE);
+
+	Deck deck("ice magician", CardClass::MAGE);
+	deck.AddCard(mageCards.at(0)->GetID(), 1);
+
+	EXPECT_EQ(1, (int)deck.GetNumCardInDeck(mageCards.at(0)->GetID()));
+	EXPECT_EQ(0, (int)deck.GetNumCardInDeck(mageCards.at(1)->GetID()));
+}
+
+TEST(TestDeck, GetPrimitiveDeck)
+{
+	std::vector<Card*> mageCards = Cards::GetInstance()->FindCardByClass(+CardClass::MAGE);
+
+	Deck deck("ice magician", CardClass::MAGE);
+	deck.AddCard(mageCards.at(0)->GetID(), 1);
+    std::vector<const Card*> priDeck = deck.GetPrimitiveDeck();
+
+	EXPECT_EQ(priDeck.at(0), mageCards.at(0));
+}

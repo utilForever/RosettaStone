@@ -39,4 +39,38 @@ TEST(TestCard, Constructer)
 	EXPECT_EQ(20, (int)card1.GetDurability());
 	EXPECT_EQ(2, (int)card1.GetMaxAllowedInDeck());
 	EXPECT_EQ(1, (int)card2.GetMaxAllowedInDeck());
+    EXPECT_EQ(true, card1.GetCollectible());
+}    
+
+TEST(TestCard, SetHealth)
+{
+	std::vector<GameTag> tags;
+	std::map<PlayReq, int> reqs;
+	std::vector<std::string> entourages;
+	Card card1("cardTest", Rarity::COMMON, Faction::NEUTRAL, CardSet::NONE,
+		CardClass::NEUTRAL, CardType::MINION, Race::DRAGON, "card", "this is test card", true,
+		1, 1, 20, 20,
+		tags,
+		reqs,
+		entourages
+	);
+
+    card1.SetHealth(1);
+    EXPECT_EQ(1, (int)card1.GetHealth());
+}
+
+TEST(TestCard, HasMechanic)
+{
+	std::vector<GameTag> tags;
+	std::map<PlayReq, int> reqs;
+	std::vector<std::string> entourages;
+	Card card1("cardTest", Rarity::COMMON, Faction::NEUTRAL, CardSet::NONE,
+		CardClass::NEUTRAL, CardType::MINION, Race::DRAGON, "card", "this is test card", true,
+		1, 1, 20, 20,
+		tags,
+		reqs,
+		entourages
+	);
+
+    EXPECT_EQ(false, card1.HasMechanic(+GameTag::ADAPT));
 }
