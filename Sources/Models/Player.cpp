@@ -58,7 +58,7 @@ namespace Hearthstonepp
 
 	int Player::CreateDeck(std::string name, CardClass deckClass)
 	{
-		if (deckClass == CardClass::INVALID)
+		if (deckClass == +CardClass::INVALID)
 			return -1;
 		
 		m_decks.emplace_back(new Deck(name, deckClass));

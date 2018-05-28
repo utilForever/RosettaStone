@@ -9,19 +9,19 @@ TEST(TestDeck, Constructors)
 {
 	Deck deck1;
 	EXPECT_EQ("Empty", deck1.GetName());
-	EXPECT_EQ(CardClass::INVALID, deck1.GetClass());
-	EXPECT_EQ(0, deck1.GetNumOfCards());
+	EXPECT_EQ(+CardClass::INVALID, deck1.GetClass());
+	EXPECT_EQ(0, (int)deck1.GetNumOfCards());
 
 	Deck deck2("ice magician", CardClass::MAGE);
 	EXPECT_EQ("ice magician", deck2.GetName());
-	EXPECT_EQ(CardClass::MAGE, deck2.GetClass());
-	EXPECT_EQ(0, deck2.GetNumOfCards());
+	EXPECT_EQ(+CardClass::MAGE, deck2.GetClass());
+	EXPECT_EQ(0, (int)deck2.GetNumOfCards());
 }
 
 TEST(TestDeck, CardControl) 
 {
-	std::vector<Card*> druidCards = Cards::GetInstance()->FindCardByClass(CardClass::DRUID);
-	std::vector<Card*> mageCards = Cards::GetInstance()->FindCardByClass(CardClass::MAGE);
+	std::vector<Card*> druidCards = Cards::GetInstance()->FindCardByClass(+CardClass::DRUID);
+	std::vector<Card*> mageCards = Cards::GetInstance()->FindCardByClass(+CardClass::MAGE);
 
 	Deck deck("ice magician", CardClass::MAGE);
 	EXPECT_NO_THROW(deck.ShowCardList());
@@ -32,8 +32,8 @@ TEST(TestDeck, CardControl)
 	EXPECT_EQ(-1, deck.AddCard(druidCards.at(0)->GetID(), 1));
 	EXPECT_NO_THROW(deck.ShowCardList());
 
-	EXPECT_EQ(1, deck.GetUniqueNumOfCards());
-	EXPECT_EQ(2, deck.GetNumOfCards());
+	EXPECT_EQ(1, (int)deck.GetUniqueNumOfCards());
+	EXPECT_EQ(2, (int)deck.GetNumOfCards());
 
 	EXPECT_EQ(0, deck.DeleteCard(mageCards.at(0)->GetID(), 1));
 	EXPECT_EQ(-1, deck.DeleteCard(mageCards.at(0)->GetID(), 4));
