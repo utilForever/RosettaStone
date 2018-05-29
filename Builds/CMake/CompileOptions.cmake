@@ -83,7 +83,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		# /wd4201     # -> disable warning: nonstandard extension used: nameless struct/union (caused by GLM)
 		# /wd4127     # -> disable warning: conditional expression is constant (caused by Qt)
 		/wd4189       # -> disable warning: local variable is initialized but not referenced (caused by imgui)
-		/wd4244       # -> disable warning: conversion from 'const float' to 'int', possible loss of data (caused by imgui-sfml)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
