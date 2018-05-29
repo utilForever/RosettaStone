@@ -70,8 +70,8 @@ namespace Hearthstonepp
 		void HandleMulligan(const TaskMeta& meta);
 		void HandleManaModification(const TaskMeta& meta);
 		void HandleHealthModification(const TaskMeta& meta);
-//		void HandleSummonMinion(const TaskMeta& meta);
-//		void HandleCombat(const TaskMeta& meta);
+		void HandleSummonMinion(const TaskMeta& meta);
+		void HandleCombat(const TaskMeta& meta);
 		void HandleRequire(const TaskMeta& meta);
 		void HandleBrief(const TaskMeta& meta);
 		void HandleTaskTuple(const TaskMeta& meta);
@@ -91,8 +91,8 @@ namespace Hearthstonepp
 			{ TaskID::DRAW, 			&GameInterface::HandleDraw },
 			{ TaskID::MULLIGAN, 		&GameInterface::HandleMulligan },
 			{ TaskID::MODIFY_MANA, 		&GameInterface::HandleManaModification },
-//			{ TaskID::SUMMON_MINION, 	&GameInterface::HandleSummonMinion },
-//			{ TaskID::COMBAT, 			&GameInterface::HandleCombatMinion },
+			{ TaskID::SUMMON_MINION, 	&GameInterface::HandleSummonMinion },
+			{ TaskID::COMBAT, 			&GameInterface::HandleCombat },
 			{ TaskID::MODIFY_HEALTH, 	&GameInterface::HandleHealthModification },
 			{ TaskID::REQUIRE, 			&GameInterface::HandleRequire },
 			{ TaskID::BRIEF, 			&GameInterface::HandleBrief },

@@ -258,41 +258,45 @@ namespace Hearthstonepp
 										<< meta->damage() << ", result" << meta->hurted() << std::endl;
 	}
 //
-//	void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
-//	{
-//		using SummonMinionTaskMeta = FlatData::SummonMinionTaskMeta;
-//		SummonMinionTaskMeta meta = Serializer<SummonMinionTaskMeta>::Deserialize(serialized);
-//
-//		std::ostream& stream = LogWriter(m_users[meta.userID]) << "Summon Minion : ";
-//		switch (meta.status)
-//		{
-//			case MetaData::SUMMON_SUCCESS:
-//				stream << meta.card->GetName() << " at " << meta.index << std::endl;
-//				break;
-//
-//			case MetaData::SUMMON_CARD_IDX_OUT_OF_RANGE:
-//				stream << "Card index out of range of hand." << std::endl;
-//				break;
-//
-//			case MetaData::SUMMON_NOT_ENOUGH_MANA:
-//				stream << "Not enough mana" << std::endl;
-//				break;
-//
-//			case MetaData::SUMMON_POSITION_OUT_OF_RANGE:
-//				stream << "Position out of range of field" << std::endl;
-//				break;
-//		}
-//	}
-//
-//	void GameInterface::HandleCombat(const TaskMeta& serialized)
-//	{
-//		using CombatTaskMeta = FlatData::CombatTaskMeta;
-//		CombatTaskMeta meta = Serializer<CombatTaskMeta>::Deserialize(serialized);
-//
-//		LogWriter(m_users[meta.userID])
-//				<< "Combat : {src " << meta.srcCard->GetName() << "} "
-//				<< "vs {dst " << meta.dstCard->GetName() << "}" << std::endl;
-//	}
+	void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
+	{
+		using SummonMinionTaskMeta = FlatData::SummonMinionTaskMeta;
+		auto buffer = serialized.GetBuffer();
+		auto meta = flatbuffers::GetRoot<SummonMinionTaskMeta>(buffer.get());
+
+		auto card = meta->card();
+
+		std::ostream& stream = LogWriter(m_users[serialized.userID]) << "Summon Minion : ";
+		switch (serialized.status)
+		{
+			case MetaData::SUMMON_SUCCESS:
+				stream << card->name()->c_str() << " at " << meta->index() << std::endl;
+				break;
+
+			case MetaData::SUMMON_CARD_IDX_OUT_OF_RANGE:
+				stream << "Card index out of range of hand." << std::endl;
+				break;
+
+			case MetaData::SUMMON_NOT_ENOUGH_MANA:
+				stream << "Not enough mana" << std::endl;
+				break;
+
+			case MetaData::SUMMON_POSITION_OUT_OF_RANGE:
+				stream << "Position out of range of field" << std::endl;
+				break;
+		}
+	}
+
+	void GameInterface::HandleCombat(const TaskMeta& serialized)
+	{
+		using CombatTaskMeta = FlatData::CombatTaskMeta;
+		auto buffer = serialized.GetBuffer();
+		auto meta = flatbuffers::GetRoot<CombatTaskMeta>(buffer.get());
+
+		LogWriter(m_users[serialized.userID])
+				<< "Combat : {src " << meta->src()->name()->c_str() << "} "
+				<< "vs {dst " << meta->dst()->name()->c_str() << "}" << std::endl;
+	}
 
 	void GameInterface::HandleRequire(const TaskMeta& serialized)
 	{
