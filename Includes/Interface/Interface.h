@@ -43,7 +43,9 @@ namespace Hearthstonepp
 
 		GameAgent& m_agent;
 		TaskMeta m_buffer;
-		// FlatData::BriefTaskMeta m_briefCache;
+
+		std::unique_ptr<BYTE[]> m_briefRawCache;
+		const FlatData::BriefTaskMeta* m_briefCache;
 
 		std::ostream& m_ostream;
 		std::istream& m_istream;
@@ -58,27 +60,27 @@ namespace Hearthstonepp
 		void ShowMenus(std::array<std::string, SIZE> menus);
 
 		using CardVector = flatbuffers::Vector<flatbuffers::Offset<FlatData::Card>>;
-		void ShowCards(const CardVector& cards, int size);
+		void ShowCards(const CardVector& cards);
 
 		void HandleInvalid(const TaskMeta& meta);
 		void HandleUserSetting(const TaskMeta& meta);
 		void HandleSwap(const TaskMeta& meta);
 		void HandleShuffle(const TaskMeta& meta);
 		void HandleDraw(const TaskMeta& meta);
-//		void HandleMulligan(const TaskMeta& meta);
-//		void HandleManaModification(const TaskMeta& meta);
-//		void HandleHealthModification(const TaskMeta& meta);
+		void HandleMulligan(const TaskMeta& meta);
+		void HandleManaModification(const TaskMeta& meta);
+		void HandleHealthModification(const TaskMeta& meta);
 //		void HandleSummonMinion(const TaskMeta& meta);
 //		void HandleCombat(const TaskMeta& meta);
 		void HandleRequire(const TaskMeta& meta);
-//		void HandleBrief(const TaskMeta& meta);
+		void HandleBrief(const TaskMeta& meta);
 		void HandleTaskTuple(const TaskMeta& meta);
-//		void HandleGameEnd(const TaskMeta& meta);
+		void HandleGameEnd(const TaskMeta& meta);
 
-//		void InputMulligan(const FlatData::RequireTaskMeta& meta);
-//		void InputSelectMenu(const FlatData::RequireTaskMeta& meta);
-//		void InputSelectCard(const FlatData::RequireTaskMeta& meta);
-//		void InputTargeting(const FlatData::RequireTaskMeta& meta);
+		void InputMulligan(const TaskMeta& meta);
+		void InputSelectMenu(const TaskMeta& meta);
+		void InputSelectCard(const TaskMeta& meta);
+		void InputTargeting(const TaskMeta& meta);
 
 		std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>> m_handler =
 		{
@@ -87,24 +89,24 @@ namespace Hearthstonepp
 			{ TaskID::SWAP, 			&GameInterface::HandleSwap },
 			{ TaskID::SHUFFLE, 			&GameInterface::HandleShuffle },
 			{ TaskID::DRAW, 			&GameInterface::HandleDraw },
-//			{ TaskID::MULLIGAN, 		&GameInterface::HandleMulligan },
-//			{ TaskID::MANA_MOD, 		&GameInterface::HandleManaModification },
-//			{ TaskID::SUMMON_MINION, 	&GameInterface::HandleHealthModification },
-//			{ TaskID::COMBAT, 			&GameInterface::HandleSummonMinion },
-//			{ TaskID::HEALTH_MOD, 		&GameInterface::HandleCombat },
+			{ TaskID::MULLIGAN, 		&GameInterface::HandleMulligan },
+			{ TaskID::MODIFY_MANA, 		&GameInterface::HandleManaModification },
+//			{ TaskID::SUMMON_MINION, 	&GameInterface::HandleSummonMinion },
+//			{ TaskID::COMBAT, 			&GameInterface::HandleCombatMinion },
+			{ TaskID::MODIFY_HEALTH, 	&GameInterface::HandleHealthModification },
 			{ TaskID::REQUIRE, 			&GameInterface::HandleRequire },
-//			{ TaskID::BRIEF, 			&GameInterface::HandleBrief },
+			{ TaskID::BRIEF, 			&GameInterface::HandleBrief },
 			{ TaskID::TASK_TUPLE, 		&GameInterface::HandleTaskTuple },
-//			{ TaskID::GAME_END, 		&GameInterface::HandleGameEnd },
+			{ TaskID::GAME_END, 		&GameInterface::HandleGameEnd },
  		};
 
-//		std::map<TaskID, std::function<void(GameInterface&, const FlatData::RequireTaskMeta&)>> m_inputHandler =
-//		{
-//			{ TaskID::MULLIGAN, 		&GameInterface::InputMulligan },
-//			{ TaskID::SELECT_MENU, 		&GameInterface::InputSelectMenu },
-//			{ TaskID::SELECT_CARD, 		&GameInterface::InputSelectCard },
-//			{ TaskID::SELECT_TARGETING,	&GameInterface::InputTargeting },
-//		};
+		std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>> m_inputHandler =
+		{
+			{ TaskID::MULLIGAN, 		&GameInterface::InputMulligan },
+			{ TaskID::SELECT_MENU, 		&GameInterface::InputSelectMenu },
+			{ TaskID::SELECT_CARD, 		&GameInterface::InputSelectCard },
+			{ TaskID::SELECT_TARGET,	&GameInterface::InputTargeting },
+		};
 
 		std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr =
 		{
