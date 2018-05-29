@@ -24,16 +24,18 @@ else()
 endif()
 if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/Windows)
-    set(SFML_OPENAL_NAME openal32)
+    set(SFML_OPENAL_DEPENDENCIES openal32)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/Linux)
-    set(SFML_OPENAL_NAME openal)
+    set(SFML_OPENGL_DEPENDENCIES GL)
+    set(SFML_OPENAL_DEPENDENCIES openal)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(SFML_LIBRARIES_PATH ${CMAKE_SOURCE_DIR}/Libraries/SFML/lib/MacOS)
-    set(SFML_OPENAL_NAME ${OPENAL_LIBRARY})
+    set(SFML_OPENGL_DEPENDENCIES -framework OpenGL)
+    set(SFML_OPENAL_DEPENDENCIES ${OPENAL_LIBRARY})
 endif()
 link_directories(${SFML_LIBRARIES_PATH})
-set(SFML_LIBRARIES sfml-audio sfml-graphics sfml-network sfml-system sfml-window ${SFML_OPENAL_NAME})
+set(SFML_LIBRARY_DEPENDENCIES sfml-audio sfml-graphics sfml-network sfml-system sfml-window)
 
 # Sources
 file(GLOB sources
@@ -68,14 +70,17 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     target_link_libraries(${target}
         PRIVATE
         ${DEFAULT_LINKER_OPTIONS}
-        ${SFML_LIBRARIES}
+        ${SFML_LIBRARY_DEPENDENCIES}
+        ${SFML_OPENAL_DEPENDENCIES}
         Hearthstonepp
         imgui)
 else()
     target_link_libraries(${target}
         PRIVATE
         ${DEFAULT_LINKER_OPTIONS}
-        ${SFML_LIBRARIES}
+        ${SFML_LIBRARY_DEPENDENCIES}
+        ${SFML_OPENGL_DEPENDENCIES}
+        ${SFML_OPENAL_DEPENDENCIES}
         ${OPENGL_LIBRARIES}
         Hearthstonepp
         imgui)
