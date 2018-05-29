@@ -9,6 +9,7 @@
 #include <Tasks/BasicTask.h>
 #include <Tasks/TaskSerializer.h>
 
+#include <algorithm>
 #include <random>
 
 namespace Hearthstonepp
@@ -75,7 +76,7 @@ namespace Hearthstonepp
         TaskMeta RawUserSwap(User& current, User& opponent)
         {
             std::swap(current, opponent);
-            return TaskMeta(TaskID::SWAP, MetaData::SWAP_SUCCESS);
+            return TaskMeta(TaskMetaTrait(TaskID::SWAP, MetaData::SWAP_SUCCESS));
         }
 
         Task SwapUserTask()
@@ -89,7 +90,7 @@ namespace Hearthstonepp
             std::default_random_engine gen(rd());
             std::shuffle(user.deck.begin(), user.deck.end(), gen);
 
-            return TaskMeta(TaskID::SHUFFLE, MetaData::SHUFFLE_SUCCESS, user.id);
+            return TaskMeta(TaskMetaTrait(TaskID::SHUFFLE, MetaData::SHUFFLE_SUCCESS, user.id));
         }
 
         Task ShuffleTask()
@@ -176,6 +177,226 @@ namespace Hearthstonepp
             };
 
             return Task(TaskID::DRAW, std::move(role));
+        }
+
+        TaskMeta RawModifyMana(User& user, size_t numMode, size_t manaMode, BYTE object)
+        {
+            auto get = [](User& user, size_t type) -> BYTE&
+            {
+                if (type == MANA_EXIST)
+                    return user.existMana;
+                else if (type == MANA_TOTAL)
+                    return user.totalMana;
+            };
+
+            BYTE& mana = get(user, manaMode);
+            switch (numMode)
+            {
+            case NUM_ADD:
+                mana += object;
+                break;
+            case NUM_SUB:
+                mana -= object;
+                break;
+            case NUM_SYNC:
+                mana = object;
+                break;
+            }
+
+            if (mana > 10)
+            {
+                mana = 10;
+            }
+            else if (mana < 0)
+            {
+                mana = 0;
+            }
+
+            Serializer::ModifyManaTaskMeta meta;
+            meta.numMode = static_cast<BYTE>(numMode);
+            meta.manaMode = static_cast<BYTE>(manaMode);
+            meta.object = object;
+            meta.result = mana;
+            return Serializer::CreateModifyManaTaskMeta(meta, MetaData::MODIFY_MANA_SUCCESS, user.id);
+        }
+
+        Task ModifyManaTask(size_t numMode, size_t manaMode, BYTE object)
+        {
+            auto role = [=](User& current, User&) -> TaskMeta
+            {
+                return RawModifyManaTask(current, numMode, manaMode, object);
+            };
+
+            return Task(TaskID::MODIFY_MANA, std::move(role));
+        }
+
+        Task ModifyManaByRef(size_t numMode, size_t manaMode, const BYTE& object)
+        {
+            auto role = [numMode, manaMode, &object](User& current, User&) -> TaskMeta
+            {
+                return RawModifyManaTask(current, numMode, manaMode, object);
+            };
+
+            return Task(TaskID::MODIFY_MANA, std::move(role));
+        }
+
+        TaskMeta RawModifyHealth(User& user, Card* card, BYTE damage)
+        {
+            Serializer::ModifyHealthTaskMeta meta;
+            meta.card = card;
+            meta.damage = damage;
+            meta.hurted = card->GetHealth();
+
+            if (damage > 0)
+            {
+                int hurted = card->GetHealth() - damage;
+                card->SetHealth(hurted);
+                meta.hurted = hurted
+
+                if (hurted > 0)
+                {
+                    meta.isExhausted = false;
+                }
+                else
+                {
+                    meta.isExhausted = true;
+
+                    user.usedMinion.emplace_back(card);
+
+                    auto& field = user.field;
+                    std::remove_if(field.begin(), field.end(), [card](const Card* tmp) { return tmp == card; });
+                }
+            }
+
+            return Serializer::CreateModifyHealthTaskMeta(meta, MetaData::MODIFY_HEALTH_SUCCESS, user.id);
+        }
+
+        TaskMeta RawBrief(const User& current, const User& opponent)
+        {
+            Serializer::BriefTaskMeta meta(
+                    current.id, opponent.id, current.existMana, opponent.existMana, opponent.hand.size(),
+                    current.hand, current.field, opponent.field, current.attacked, opponent.attacked,
+                    current.hero, opponent.hero);
+
+            return Serializer::CreateBriefTaskMeta(meta, TaskID::BRIEF, user.id);
+        }
+
+        Task BriefTask()
+        {
+            return Task(TaskID::BRIEF, RawBrief);
+        }
+
+        Task SelectMenuTask(TaskAgent& agent)
+        {
+            auto role = [&agent](User& current, User&) -> TaskMeta {
+                auto method = RequireMethod(TaskID::SELECT_MENU, current.id, agent);
+                return method();
+            };
+
+            return Task(TaskID::SELECT_MENU, std::move(role));
+        }
+
+        Task SelectCardTask(TaskAgent& agent)
+        {
+            auto role = [&agent](User& current, User&) -> TaskMeta {
+                auto method = RequireMethod(TaskID::SELECT_CARD, current.id, agent);
+                return method();
+            };
+
+            return Task(TaskID::SELECT_CARD, std::move(role));
+        }
+
+        Task SelectTargetTask(TaskAgent& agent)
+        {
+            auto role = [&agent](User& current) -> TaskMeta {
+                auto method = RequireMethod(TaskID::SELECT_TARGET, current.id, agent);
+                return method();
+            };
+
+            return Task(TaskID::SELECT_TARGET, std::move(role));
+        }
+
+        TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
+        {
+            TaskMetaTrait meta(TaskID::MULLIGAN);
+            meta.userID = user.id;
+
+            TaskMeta serialized = method();
+
+            using RequireTaskMeta = MetaData::RequireMulliganTaskMeta;
+            auto buffer = serialized.GetBuffer();
+            auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+
+            auto index = req->mulligan();
+            size_t read = index->size();
+
+            if (read == 0)
+            {
+                meta.status = MetaData::MULLIGAN_SUCCESS;
+                return TaskMeta(meta);
+            }
+
+            std::sort(index, index + read, [](BYTE a, BYTE b) { return a > b; });
+            if (index[0] >= size)
+            {
+                meta.status = MetaData::MULLIGAN_INDEX_OUT_OF_RANGE;
+                return TaskMeta(meta);
+            }
+
+            for (size_t i = 1; i < read; ++i)
+            {
+                if (index[i] == index[i - 1])
+                {
+                    meta.status = MetaData::MULLIGAN_DUPLICATED_INDEX;
+                    return TaskMeta(meta);
+                }
+            }
+
+            std::vector<Card*>& deck = user.deck;
+            std::vector<Card*>& hand = user.hand;
+
+            for (size_t i = 0; i < read; ++i)
+            {
+                deck.emplace_back(hand[index[i]]);
+                hand.erase(hand.begin() + index[i]);
+            }
+
+            meta.status = MetaData::MULLIGAN_SUCCESS;
+            TaskMeta mulligan(meta);
+            TaskMeta shuffle = RawShuffle(user);
+            TaskMeta draw = RawDraw(user, read);
+
+            auto total = { mulligan, shuffle, draw };
+            return Serializer::CreateTaskMetaVector(total);
+        }
+
+        Task MulliganTask(TaskAgent& agent)
+        {
+            auto role = [&agent](User& current, User&) -> TaskMeta {
+                return RawMulligan(current, RequireMethod(TaskID::MULLIGAN, current.userID, agent));
+            };
+
+            return Task(TaskID::MULLIGAN, std::move(role));
+        }
+
+        TaskMeta RawGameEnd(User& current, User& opponent)
+        {
+            std::string winner = "";
+            if (current.hero->GetHealth() <= 0)
+            {
+                winnerID = current.userID;
+            }
+            else
+            {
+                winnerID = opponent.userID;
+            }
+
+            return Serializer::CreateGameEndTaskMeta(winner);
+        }
+
+        Task GameEndTask()
+        {
+            return Task(TaskID::GAME_END, RawGameEnd);
         }
     }
 }
