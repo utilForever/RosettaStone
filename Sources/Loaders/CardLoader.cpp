@@ -71,7 +71,7 @@ namespace Hearthstonepp
 				entourages.emplace_back(entourage.get<std::string>());
 			}
 
-			Card* c;
+			Card* c = nullptr;
 			switch (cardType)
 			{
 			case CardType::HERO:
@@ -115,7 +115,8 @@ namespace Hearthstonepp
 				break;
 			}
 
-			cards.emplace_back(c);
+			if(c != nullptr)
+				cards.emplace_back(c);
 		}
 
 		cardFile.close();
