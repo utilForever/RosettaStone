@@ -15,8 +15,6 @@ namespace Hearthstonepp
 {
     namespace Serializer
     {
-        using fb = flatbuffers;
-
         BriefTaskMeta::BriefTaskMeta(BYTE currentUser, BYTE opponentUser,
                                      BYTE currentMana, BYTE opponentMana, BYTE numOpponentHand,
                                      const std::vector<Card *> &currentHand,
@@ -34,7 +32,7 @@ namespace Hearthstonepp
             // Do Nothing
         }
 
-        fb::Offset<FlatData::Card> CreateCard(fb::FlatBufferBuilder& builder, const Card* card)
+        flatbuffers::Offset<FlatData::Card> CreateCard(flatbuffers::FlatBufferBuilder& builder, const Card* card)
         {
             std::vector<int> mechanics(card->GetMechanics().size());
             for (const auto& mechanic : card->GetMechanics())
@@ -61,33 +59,34 @@ namespace Hearthstonepp
                     builder.CreateVector(mechanics),
                     0,
                     0,
-                    card->GetMaxAllowedInDeck())
+                    card->GetMaxAllowedInDeck());
         }
 
         TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector)
         {
-            fb::FlatBufferBuilder builder(1024);
-            std::vector<fb::Offset<FlatData::TaskMeta>> flatten;
+            flatbuffers::FlatBufferBuilder builder(1024);
+            std::vector<flatbuffers::Offset<FlatData::TaskMeta>> flatten;
 
             for (const auto& task : vector)
             {
                 auto trait = FlatData::TaskMetaTrait(static_cast<int>(task.id), task.status, task.userID);
-                auto buffer = builder.CreateVector(task.GetBuffer(), task.GetBufferSize());
+                auto unique = task.GetBuffer();
+                auto buffer = builder.CreateVector(unique.get(), task.GetBufferSize());
 
-                auto temporal = FlatData::CreateTaskMeta(builder, trait, buffer);
+                auto temporal = FlatData::CreateTaskMeta(builder, &trait, buffer);
                 flatten.emplace_back(std::move(temporal));
             }
 
-            auto integrated = FlatData::CreateTaskMetaVector(fb, flatten);
+            auto integrated = FlatData::CreateTaskMetaVector(builder, builder.CreateVector(flatten));
             builder.Finish(integrated);
 
-            return TaskMeta(TaskMetaTrait(TaskID::TASK_TUPLE), builder.GetSize(), builder.GetBufferPoint());
+            return TaskMeta(TaskMetaTrait(TaskID::TASK_TUPLE), builder.GetSize(), builder.GetBufferPointer());
         }
 
         TaskMeta CreateRequireTaskMeta(TaskID request, BYTE userID)
         {
-            fb:FlatBufferBuilder builder(32);
-            auto flat = FlatData::CreateRequireTaskMeta(fb, static_cast<int>(request));
+            flatbuffers::FlatBufferBuilder builder(32);
+            auto flat = FlatData::CreateRequireTaskMeta(builder, static_cast<int>(request));
 
             builder.Finish(flat);
             return TaskMeta(
@@ -98,9 +97,9 @@ namespace Hearthstonepp
 
         TaskMeta CreateRequireMulliganTaskMeta(const BYTE* index, size_t size)
         {
-            fb::FlatBufferBuilder builder(32);
+            flatbuffers::FlatBufferBuilder builder(32);
             auto vector = builder.CreateVector(index, size);
-            auto flat = FlatData::CreateRequireMulliganTaskMeta(fb, vector);
+            auto flat = FlatData::CreateRequireMulliganTaskMeta(builder, vector);
 
             builder.Finish(flat);
             return TaskMeta(
@@ -111,8 +110,8 @@ namespace Hearthstonepp
 
         TaskMeta CreateRequireSummonMinionTaskMeta(int cardIndex, int position)
         {
-            fb::FlatBufferBuilder builder(32);
-            auto flat = FlatData::CreateRequireSummonMinionTaskMeta(fb,
+            flatbuffers::FlatBufferBuilder builder(32);
+            auto flat = FlatData::CreateRequireSummonMinionTaskMeta(builder,
                     static_cast<BYTE>(cardIndex), static_cast<BYTE>(position));
 
             builder.Finish(flat);
@@ -124,8 +123,8 @@ namespace Hearthstonepp
 
         TaskMeta CreateRequireTargetingTaskMeta(int src, int dst)
         {
-            fb::FlatBufferBuilder builder(32);
-            auto flat = FlatData::CreateRequireTargetingTaskMeta(fb,
+            flatbuffers::FlatBufferBuilder builder(32);
+            auto flat = FlatData::CreateRequireTargetingTaskMeta(builder,
                     static_cast<BYTE>(src), static_cast<BYTE>(dst));
 
             builder.Finish(flat);
@@ -135,22 +134,22 @@ namespace Hearthstonepp
                     builder.GetBufferPointer());
         }
 
-        void CreateUserSettingTaskMeta(const std::string& firstUserID, const std::string& secondUserID)
+        TaskMeta CreateUserSettingTaskMeta(const std::string& firstUserID, const std::string& secondUserID)
         {
-            fb::FlatBufferBuilder builder(128);
+            flatbuffers::FlatBufferBuilder builder(128);
             auto firstID = builder.CreateString(firstUserID);
             auto secondID = builder.CreateString(secondUserID);
 
             auto flat = FlatData::CreateUserSettingTaskMeta(builder, firstID, secondID);
             builder.Finish(flat);
 
-            return TaskMeta(TaskMetaTrait(TaskID::USER_SETTING), builder.GetSize(), builder.GetBufferPointer())
+            return TaskMeta(TaskMetaTrait(TaskID::USER_SETTING), builder.GetSize(), builder.GetBufferPointer());
         }
 
-        void CreateDrawTaskMeta(const DrawTaskMeta& meta, TaskMeta::status_t status, BYTE userID)
+        TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& meta, TaskMeta::status_t status, BYTE userID)
         {
-            fb::FlatBufferBuilder builder(512);
-            std::vector<fb::Offset<FlatData::Card>> burnt;
+            flatbuffers::FlatBufferBuilder builder(512);
+            std::vector<flatbuffers::Offset<FlatData::Card>> burnt;
 
             for (const auto& card : meta.burnt)
             {
@@ -163,7 +162,7 @@ namespace Hearthstonepp
                     meta.numExhausted,
                     meta.numHearts,
                     meta.numOverdraw,
-                    burnt);
+                    builder.CreateVector(burnt));
 
             builder.Finish(flat);
 
@@ -173,9 +172,9 @@ namespace Hearthstonepp
                     builder.GetBufferPointer());
         }
 
-        TaskMeta CreateModifyManaTaskMeta(const ModifyManataskMeta& meta, TaskMeta::status_t status, BYTE userID)
+        TaskMeta CreateModifyManaTaskMeta(const ModifyManaTaskMeta& meta, TaskMeta::status_t status, BYTE userID)
         {
-            fb::FlatBufferBuilder builder(32);
+            flatbuffers::FlatBufferBuilder builder(32);
             auto manaTask = FlatData::CreateModifyManaTaskMeta(
                     builder, meta.numMode, meta.manaMode, meta.object, meta.result);
 
@@ -189,7 +188,7 @@ namespace Hearthstonepp
 
         TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta, TaskMeta::status_t status, BYTE userID)
         {
-            fb::FlatBufferBuilder builder(32);
+            flatbuffers::FlatBufferBuilder builder(32);
             auto card = CreateCard(builder, meta.card);
             auto healthTask = FlatData::CreateModifyHealthTaskMeta(
                     builder, card, meta.damage, meta.hurted, meta.isExhausted);
@@ -203,15 +202,15 @@ namespace Hearthstonepp
 
         TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta, TaskMeta::status_t status, BYTE userID)
         {
-            using CardOffset = fb::Offset<FlatData::Card>;
-            using VectorOffset = fb::Offset<fb::Vector<CardOffset>>;
+            using CardOffset = flatbuffers::Offset<FlatData::Card>;
+            using VectorOffset = flatbuffers::Offset<flatbuffers::Vector<CardOffset>>;
 
-            fb::FlatBufferBuilder builder(256);
+            flatbuffers::FlatBufferBuilder builder(256);
 
             auto target = { meta.currentField, meta.currentHand, meta.opponentField, meta.currentAttacked, meta.opponentAttacked };
             std::vector<VectorOffset> result(target.size());
 
-            std::transform(target.begin(), target.end(), result.begin(), [&builder](auto&& vec)
+            std::transform(target.begin(), target.end(), result.begin(), [&builder](auto&& vec) -> VectorOffset
             {
                 std::vector<CardOffset> dest(vec.size());
                 std::transform(vec.begin(), vec.end(), dest.begin(),
@@ -220,7 +219,8 @@ namespace Hearthstonepp
                 return builder.CreateVector(dest);
             });
 
-            auto brief = FlatData::CreateBriefTaskMeta(builder, meta.currentUser, meta.opponetUser, meta.currentMana, meta.opponetMana,
+            auto brief = FlatData::CreateBriefTaskMeta(builder,
+                    meta.currentUser, meta.opponentUser, meta.currentMana, meta.opponentMana,
                     CreateCard(builder, meta.currentHero), CreateCard(builder, meta.opponentHero),
                     result[0], result[1], result[2], meta.numOpponentHand, result[3], result[4]);
 
@@ -233,7 +233,7 @@ namespace Hearthstonepp
 
         TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, const Card* card, size_t position)
         {
-            fb::FlatBufferBuilder builder(128);
+            flatbuffers::FlatBufferBuilder builder(128);
             auto flat = FlatData::CreateSummonMinionTaskMeta(builder, CreateCard(builder, card), position);
 
             builder.Finish(flat);
@@ -245,7 +245,7 @@ namespace Hearthstonepp
 
         TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, const Card* src, const Card* dst)
         {
-            fb::FlatBufferBuilder builder(256);
+            flatbuffers::FlatBufferBuilder builder(256);
             auto flat = FlatData::CreateCombatTaskMeta(builder, CreateCard(builder, src), CreateCard(builder, dst));
 
             builder.Finish(flat);
@@ -257,9 +257,9 @@ namespace Hearthstonepp
 
         TaskMeta CreateGameEndTaskMeta(const std::string& winner)
         {
-            fb::FlatBufferBuilder builder(128);
+            flatbuffers::FlatBufferBuilder builder(128);
             auto winnerID = builder.CreateString(winner);
-            auto flat = FlatData::CreateGameEndTaskMeta(fb, winnerID);
+            auto flat = FlatData::CreateGameEndTaskMeta(builder, winnerID);
 
             builder.Finish(flat);
             return TaskMeta(

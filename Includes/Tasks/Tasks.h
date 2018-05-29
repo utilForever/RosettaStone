@@ -36,7 +36,7 @@ namespace Hearthstonepp
         Task& operator=(Task&& task);
         Task& operator=(const Task& task);
 
-        TaskID GetTaskID();
+        TaskID GetTaskID() const;
         lambda_t GetTaskRole() const;
 
     private:

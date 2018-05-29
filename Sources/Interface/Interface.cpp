@@ -41,7 +41,7 @@ namespace Hearthstonepp
 		auto meta = flatbuffers::GetRoot<GameEndTaskMeta>(buffer.get());
 
 		GameResult result;
-		result.winnerUserID = meta->winnerID()->c_str();
+		result.winnerID = meta->winnerID()->c_str();
 
 		return result;
 	}

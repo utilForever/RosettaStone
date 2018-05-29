@@ -22,10 +22,10 @@
 
 namespace Hearthstonepp
 {
-//	struct GameResult
-//	{
-//		std::string winnerID;
-//	};
+	struct GameResult
+	{
+		std::string winnerID;
+	};
 
 	class GameInterface
 	{

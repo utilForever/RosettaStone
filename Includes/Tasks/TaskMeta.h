@@ -65,7 +65,7 @@ namespace Hearthstonepp
 
     private:
         size_t m_size;
-        std::unique_ptr<BYTE[]> m_buffer;
+        mutable std::unique_ptr<BYTE[]> m_buffer;
     };
 }
 

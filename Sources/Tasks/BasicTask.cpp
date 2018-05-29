@@ -8,9 +8,11 @@
 *************************************************************************/
 #include <Tasks/BasicTask.h>
 #include <Tasks/TaskSerializer.h>
+#include <Tasks/MetaData.h>
 
 #include <algorithm>
 #include <random>
+#include <Commons/Constants.h>
 
 namespace Hearthstonepp
 {
@@ -34,8 +36,10 @@ namespace Hearthstonepp
         Task DoBothUser(Task&& task)
         {
             auto role = [role = std::move(task.GetTaskRole())](User& current, User& opponent) -> TaskMeta {
-                std::vector<TaskMeta> vector = { role(current, opponent), role(opponent, current) };
-                return Serializer::CreateTaskMetaVector(meta, vector);
+                std::vector<TaskMeta> vector;
+                vector.emplace_back(role(current, opponent));
+                vector.emplace_back(role(opponent, current));
+                return Serializer::CreateTaskMetaVector(vector);
             };
 
             return Task(TaskID::TASK_TUPLE, std::move(role));
@@ -43,7 +47,10 @@ namespace Hearthstonepp
 
         Task DoUntil(Task&& task, std::function<bool(const TaskMeta&)>&& condition)
         {
-            auto role = [role = std::move(task.GetTaskRole())](User& current, User& opponent) -> TaskMeta {
+            auto role =
+                    [role = std::move(task.GetTaskRole()), condition = std::move(condition)]
+                    (User& current, User& opponent) -> TaskMeta
+            {
                 TaskMeta meta;
                 while (true)
                 {
@@ -70,10 +77,10 @@ namespace Hearthstonepp
 
         Task UserSettingTask()
         {
-            return Task(TaskID::USER_SETTING, RawUserSEtting);
+            return Task(TaskID::USER_SETTING, RawUserSetting);
         }
 
-        TaskMeta RawUserSwap(User& current, User& opponent)
+        TaskMeta RawSwapUser(User& current, User& opponent)
         {
             std::swap(current, opponent);
             return TaskMeta(TaskMetaTrait(TaskID::SWAP, MetaData::SWAP_SUCCESS));
@@ -187,6 +194,8 @@ namespace Hearthstonepp
                     return user.existMana;
                 else if (type == MANA_TOTAL)
                     return user.totalMana;
+                else
+                    throw std::runtime_error("RawModifyMana return non-reference");
             };
 
             BYTE& mana = get(user, manaMode);
@@ -224,7 +233,7 @@ namespace Hearthstonepp
         {
             auto role = [=](User& current, User&) -> TaskMeta
             {
-                return RawModifyManaTask(current, numMode, manaMode, object);
+                return RawModifyMana(current, numMode, manaMode, object);
             };
 
             return Task(TaskID::MODIFY_MANA, std::move(role));
@@ -234,7 +243,7 @@ namespace Hearthstonepp
         {
             auto role = [numMode, manaMode, &object](User& current, User&) -> TaskMeta
             {
-                return RawModifyManaTask(current, numMode, manaMode, object);
+                return RawModifyMana(current, numMode, manaMode, object);
             };
 
             return Task(TaskID::MODIFY_MANA, std::move(role));
@@ -251,7 +260,7 @@ namespace Hearthstonepp
             {
                 int hurted = card->GetHealth() - damage;
                 card->SetHealth(hurted);
-                meta.hurted = hurted
+                meta.hurted = hurted;
 
                 if (hurted > 0)
                 {
@@ -278,7 +287,7 @@ namespace Hearthstonepp
                     current.hand, current.field, opponent.field, current.attacked, opponent.attacked,
                     current.hero, opponent.hero);
 
-            return Serializer::CreateBriefTaskMeta(meta, TaskID::BRIEF, user.id);
+            return Serializer::CreateBriefTaskMeta(meta, TaskID::BRIEF, current.id);
         }
 
         Task BriefTask()
@@ -308,7 +317,7 @@ namespace Hearthstonepp
 
         Task SelectTargetTask(TaskAgent& agent)
         {
-            auto role = [&agent](User& current) -> TaskMeta {
+            auto role = [&agent](User& current, User&) -> TaskMeta {
                 auto method = RequireMethod(TaskID::SELECT_TARGET, current.id, agent);
                 return method();
             };
@@ -323,12 +332,15 @@ namespace Hearthstonepp
 
             TaskMeta serialized = method();
 
-            using RequireTaskMeta = MetaData::RequireMulliganTaskMeta;
+            using RequireTaskMeta = FlatData::RequireMulliganTaskMeta;
             auto buffer = serialized.GetBuffer();
             auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
-            auto index = req->mulligan();
-            size_t read = index->size();
+            const BYTE* data = req->mulligan()->data();
+            size_t read = req->mulligan()->size();
+
+            BYTE index[NUM_BEGIN_DRAW] = { 0, };
+            std::copy(data, data + read, index);
 
             if (read == 0)
             {
@@ -337,7 +349,7 @@ namespace Hearthstonepp
             }
 
             std::sort(index, index + read, [](BYTE a, BYTE b) { return a > b; });
-            if (index[0] >= size)
+            if (index[0] >= NUM_BEGIN_DRAW)
             {
                 meta.status = MetaData::MULLIGAN_INDEX_OUT_OF_RANGE;
                 return TaskMeta(meta);
@@ -366,14 +378,18 @@ namespace Hearthstonepp
             TaskMeta shuffle = RawShuffle(user);
             TaskMeta draw = RawDraw(user, read);
 
-            auto total = { mulligan, shuffle, draw };
-            return Serializer::CreateTaskMetaVector(total);
+            std::vector<TaskMeta> vector;
+            vector.emplace_back(std::move(mulligan));
+            vector.emplace_back(std::move(shuffle));
+            vector.emplace_back(std::move(draw));
+
+            return Serializer::CreateTaskMetaVector(vector);
         }
 
         Task MulliganTask(TaskAgent& agent)
         {
             auto role = [&agent](User& current, User&) -> TaskMeta {
-                return RawMulligan(current, RequireMethod(TaskID::MULLIGAN, current.userID, agent));
+                return RawMulligan(current, RequireMethod(TaskID::MULLIGAN, current.id, agent));
             };
 
             return Task(TaskID::MULLIGAN, std::move(role));
@@ -384,11 +400,11 @@ namespace Hearthstonepp
             std::string winner = "";
             if (current.hero->GetHealth() <= 0)
             {
-                winnerID = current.userID;
+                winner = current.userID;
             }
             else
             {
-                winnerID = opponent.userID;
+                winner = opponent.userID;
             }
 
             return Serializer::CreateGameEndTaskMeta(winner);
@@ -432,7 +448,10 @@ namespace Hearthstonepp
 
             TaskMeta summon = Serializer::CreateSummonMinionTaskMeta(meta, card, position);
 
-            auto vector = { summon, modified };
+            std::vector<TaskMeta> vector;
+            vector.emplace_back(std::move(summon));
+            vector.emplace_back(std::move(modified));
+
             return Serializer::CreateTaskMetaVector(vector);
         }
 
@@ -447,7 +466,7 @@ namespace Hearthstonepp
 
         TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
         {
-            TaskmetaTrait meta;
+            TaskMetaTrait meta;
             meta.userID = current.id;
 
             if (src < 0 || src >= current.field.size())
@@ -491,7 +510,11 @@ namespace Hearthstonepp
             TaskMeta hurtedDst = RawModifyHealth(opponent, target, static_cast<BYTE>(source->GetAttack()));
             TaskMeta hurtedSrc = RawModifyHealth(current, source, static_cast<BYTE>(target->GetAttack()));
 
-            auto vector = { combat, hurtedDst, hurtedSrc };
+            std::vector<TaskMeta> vector;
+            vector.emplace_back(std::move(combat));
+            vector.emplace_back(std::move(hurtedDst));
+            vector.emplace_back(std::move(hurtedSrc));
+
             return Serializer::CreateTaskMetaVector(vector);
         }
 

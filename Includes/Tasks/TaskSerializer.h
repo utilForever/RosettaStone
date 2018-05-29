@@ -11,9 +11,12 @@
 
 #include <Flatbuffers/MetaData_generated.h>
 #include <Models/Card.h>
+#include <Tasks/TaskMeta.h>
 
 namespace Hearthstonepp
 {
+    using BYTE = unsigned char;
+
     namespace Serializer
     {
         struct DrawTaskMeta

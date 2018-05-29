@@ -6,7 +6,7 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <TaskMeta.h>
+#include <Tasks/TaskMeta.h>
 
 namespace Hearthstonepp
 {
@@ -51,11 +51,11 @@ namespace Hearthstonepp
     }
 
     TaskMeta::TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer) :
-            TaskMetaTrait(trait), m_size(size), m_buffer(std::make_unique(size))
+            TaskMetaTrait(trait), m_size(size), m_buffer(std::make_unique<BYTE[]>(size))
     {
-        for (BYTE* dst = m_buffer; size; --size)
+        for (BYTE* dst = m_buffer.get(); size; --size)
         {
-            *buffer++ = *dst++;
+            *dst++ = *buffer++;
         }
     }
 
@@ -68,7 +68,7 @@ namespace Hearthstonepp
     TaskMeta::TaskMeta(TaskMeta&& meta) :
             TaskMetaTrait(meta), m_size(meta.GetBufferSize()), m_buffer(std::move(meta.GetBuffer()))
     {
-        // Do NOthing
+        // Do Nothing
     }
 
     TaskMeta& TaskMeta::operator=(TaskMeta&& meta)
@@ -79,14 +79,16 @@ namespace Hearthstonepp
 
         m_size = meta.GetBufferSize();
         m_buffer = std::move(meta.GetBuffer());
+
+        return *this;
     }
 
-    static TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
+    TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
     {
         return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer());
     }
 
-    static TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
+    TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
     {
         auto trait = meta->trait();
         auto taskID = TaskID::_from_integral(trait->id());
@@ -99,9 +101,9 @@ namespace Hearthstonepp
     {
         return m_size;
     }
-//sssㄴㄴsex
+
     std::unique_ptr<BYTE[]>&& TaskMeta::GetBuffer() const
     {
-        return m_buffer;
+        return std::move(m_buffer);
     }
 }

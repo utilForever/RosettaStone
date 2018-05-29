@@ -62,7 +62,12 @@ namespace Hearthstonepp
             pool.emplace_back(std::move(temporal));
         }
 
-        Serializer::CreateTaskMetaVector(meta, pool);
+        meta = Serializer::CreateTaskMetaVector(pool);
         Notify(TaskMeta::CopyFrom(meta));
+    }
+
+    void TaskAgent::Clear()
+    {
+        m_tasks.clear();
     }
 }
