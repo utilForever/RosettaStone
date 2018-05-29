@@ -902,18 +902,13 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMetaDirect(
 
 struct RequireMulliganTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
-    VT_SIZE = 4,
-    VT_MULLIGAN = 6
+    VT_MULLIGAN = 4
   };
-  uint8_t size() const {
-    return GetField<uint8_t>(VT_SIZE, 0);
-  }
   const flatbuffers::Vector<uint8_t> *mulligan() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_MULLIGAN);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_SIZE) &&
            VerifyOffset(verifier, VT_MULLIGAN) &&
            verifier.Verify(mulligan()) &&
            verifier.EndTable();
@@ -923,9 +918,6 @@ struct RequireMulliganTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
 struct RequireMulliganTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_size(uint8_t size) {
-    fbb_.AddElement<uint8_t>(RequireMulliganTaskMeta::VT_SIZE, size, 0);
-  }
   void add_mulligan(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mulligan) {
     fbb_.AddOffset(RequireMulliganTaskMeta::VT_MULLIGAN, mulligan);
   }
@@ -943,21 +935,17 @@ struct RequireMulliganTaskMetaBuilder {
 
 inline flatbuffers::Offset<RequireMulliganTaskMeta> CreateRequireMulliganTaskMeta(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t size = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mulligan = 0) {
   RequireMulliganTaskMetaBuilder builder_(_fbb);
   builder_.add_mulligan(mulligan);
-  builder_.add_size(size);
   return builder_.Finish();
 }
 
 inline flatbuffers::Offset<RequireMulliganTaskMeta> CreateRequireMulliganTaskMetaDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t size = 0,
     const std::vector<uint8_t> *mulligan = nullptr) {
   return Hearthstonepp::FlatData::CreateRequireMulliganTaskMeta(
       _fbb,
-      size,
       mulligan ? _fbb.CreateVector<uint8_t>(*mulligan) : 0);
 }
 

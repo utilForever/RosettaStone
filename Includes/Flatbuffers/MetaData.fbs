@@ -78,7 +78,6 @@ table BriefTaskMeta {
 }
 
 table RequireMulliganTaskMeta {
-    size:ubyte;
     mulligan:[ubyte];
 }
 
