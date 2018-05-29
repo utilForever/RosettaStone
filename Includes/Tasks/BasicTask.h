@@ -63,6 +63,12 @@ namespace Hearthstonepp
         TaskMeta RawMulligan(User& current, std::function<TaskMeta()>&& meta);
         Task MulliganTask(TaskAgent& agent);
 
+        TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position);
+        Task SummonMinionTask(size_t cardIndex, size_t position);
+
+        TaskMeta RawCombat(User& curent, User& opponent, size_t src, size_t dst);
+        Task CombatTask(size_t src, size_t dst);
+
         TaskMeta RawGameEnd(User& current, User& opponent);
         Task GameEndTask();
     }

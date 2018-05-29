@@ -394,6 +394,116 @@ namespace Hearthstonepp
             return Serializer::CreateGameEndTaskMeta(winner);
         }
 
+        TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
+        {
+            TaskMetaTrait meta(TaskID::SUMMON_MINION);
+            meta.userID = current.id;
+
+            if (cardIndex < 0 || cardIndex >= current.hand.size())
+            {
+                meta.status = MetaData::SUMMON_CARD_IDX_OUT_OF_RANGE;
+                return TaskMeta(meta);
+            }
+            if (current.hand[cardIndex]->GetCost() > current.existMana)
+            {
+                // requested mana of minion should be under or equal with user's exist mana
+                meta.status = MetaData::SUMMON_NOT_ENOUGH_MANA;
+                return TaskMeta(meta);
+            }
+            if (position < 0 || position > current.field.size())
+            {
+                // position of the minion should be in range of field size of user
+                meta.status = MetaData::SUMMON_POSITION_OUT_OF_RANGE;
+                return TaskMeta(meta);
+            }
+
+            Card* card = current.hand[cardIndex];
+            int cost = card->GetCost();
+
+            // summoned minion should be rest at that turn
+            current.attacked.emplace_back(card);
+            TaskMeta modified = RawModifyMana(current, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
+
+            // summon minion on the field
+            current.field.insert(current.field.begin() + position, card);
+            // erase from user's hand
+            current.hand.erase(current.hand.begin() + cardIndex);
+            meta.status = MetaData::SUMMON_SUCCESS;
+
+            TaskMeta summon = Serializer::CreateSummonMinionTaskMeta(meta, card, position);
+
+            auto vector = { summon, modified };
+            return Serializer::CreateTaskMetaVector(vector);
+        }
+
+        Task SummonMinionTask(size_t cardIndex, size_t position)
+        {
+            auto role = [=](User& current, User&) -> TaskMeta {
+                return RawSummonMinion(current, cardIndex, position);
+            };
+
+            return Task(TaskID::SUMMON_MINION, std::move(role));
+        }
+
+        TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
+        {
+            TaskmetaTrait meta;
+            meta.userID = current.id;
+
+            if (src < 0 || src >= current.field.size())
+            {
+                // source minion must be in field
+                meta.status = MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
+                return TaskMeta(meta);
+            }
+
+            std::vector<Card*>& attacked = current.attacked;
+            if (std::find(attacked.begin(), attacked.end(), current.field[src]) != attacked.end())
+            {
+                // minion already attacked couldn't be a source of combat action
+                meta.status = MetaData::COMBAT_ALREADY_ATTACKED;
+                return TaskMeta(meta);
+            }
+
+            attacked.emplace_back(current.field[src]);
+
+            // if dst == 0 then destination is hero else minion
+            if (dst < 0 || dst > opponent.field.size())
+            {
+                // destinated minion must be in field or hero
+                meta.status = MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
+                return TaskMeta(meta);
+            }
+
+            Card* source = current.field[src];
+            Card* target = nullptr;
+            if (dst == 0)
+            {
+                target = opponent.hero;
+            }
+            else
+            {
+                target = opponent.field[dst - 1];
+            }
+
+            meta.status = MetaData::COMBAT_SUCCESS;
+            TaskMeta combat = Serializer::CreateCombatTaskMeta(meta, source, target);
+            TaskMeta hurtedDst = RawModifyHealth(opponent, target, static_cast<BYTE>(source->GetAttack()));
+            TaskMeta hurtedSrc = RawModifyHealth(current, source, static_cast<BYTE>(target->GetAttack()));
+
+            auto vector = { combat, hurtedDst, hurtedSrc };
+            return Serializer::CreateTaskMetaVector(vector);
+        }
+
+        Task CombatTask(size_t src, size_t dst)
+        {
+            auto role = [=](User& current, User& opponent) -> TaskMeta {
+                return RawCombat(current, opponent, src, dst);
+            };
+
+            return Task(TaskID::COMBAT, std::move(role));
+        }
+
         Task GameEndTask()
         {
             return Task(TaskID::GAME_END, RawGameEnd);
