@@ -80,6 +80,8 @@ namespace Hearthstonepp
         TaskMeta CreateModifyManaTaskMeta(const ModifyManaTaskMeta& mana, TaskMeta::status_t status, BYTE userID);
         TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta, TaskMeta::status_t status, BYTE userID);
         TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta, TaskMeta::status_t status, BYTE userID);
+        TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, const Card* card, size_t position);
+        TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, const Card* src, const Card* dst);
         TaskMeta CreateGameEndTaskMeta(const std::string& winner);
     }
 }

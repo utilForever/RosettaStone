@@ -231,6 +231,30 @@ namespace Hearthstonepp
                     builder.GetBufferPointer());
         }
 
+        TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, const Card* card, size_t position)
+        {
+            fb::FlatBufferBuilder builder(128);
+            auto flat = FlatData::CreateSummonMinionTaskMeta(builder, CreateCard(builder, card), position);
+
+            builder.Finish(flat);
+            return TaskMeta(
+                    trait,
+                    builder.GetSize(),
+                    builder.GetBufferPointer());
+        }
+
+        TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, const Card* src, const Card* dst)
+        {
+            fb::FlatBufferBuilder builder(256);
+            auto flat = FlatData::CreateCombatTaskMeta(builder, CreateCard(builder, src), CreateCard(builder, dst));
+
+            builder.Finish(flat);
+            return TaskMeta(
+                    trait,
+                    builder.GetSize(),
+                    builder.GetBufferPointer());
+        }
+
         TaskMeta CreateGameEndTaskMeta(const std::string& winner)
         {
             fb::FlatBufferBuilder builder(128);
