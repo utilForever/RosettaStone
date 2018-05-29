@@ -27,7 +27,11 @@ namespace Hearthstonepp
 	    static constexpr inline bool isUser = std::is_same_v<std::decay_t<T>, User>;
 
 	    template <typename UserT, typename = std::enable_if_t<isUser<UserT>>>
-	    GameAgent(UserT&& user1, UserT&& user2);
+	    GameAgent(UserT&& user1, UserT&& user2) :
+                m_current(std::forward<UserT>(user1)), m_opponent(std::forward<UserT>(user2))
+        {
+            // Do Nothing
+        }
 
 		std::thread StartAgent();
 
