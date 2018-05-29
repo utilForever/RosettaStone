@@ -82,7 +82,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		# /wd4592     # -> disable warning: 'identifier': symbol will be dynamically initialized (implementation limitation)
 		# /wd4201     # -> disable warning: nonstandard extension used: nameless struct/union (caused by GLM)
 		# /wd4127     # -> disable warning: conditional expression is constant (caused by Qt)
-		/wd4189       # -> disable warning: local variable is initialized but not referenced (caused by imgui)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
