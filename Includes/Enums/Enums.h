@@ -3599,7 +3599,8 @@ namespace Hearthstonepp
                 EXHAUST_MINION = 105)
 
     BETTER_ENUM(TaskID, int, INVALID = 0, TASK_TUPLE = 1, REQUIRE = 2, USER_SETTING = 3,
-                SWAP = 4, SHUFFLE = 5, DRAW = 6)
+                SWAP = 4, SHUFFLE = 5, DRAW = 6, MODIFY_MANA = 7, MODIFY_HEALTH = 8, BRIEF = 9,
+                SELECT_MENU = 10, SELECT_CARD = 11, SELECT_TARGET = 12, MULLIGAN = 13, GAME_END = 14)
 }
 
 #endif
