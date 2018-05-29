@@ -45,7 +45,8 @@ namespace Hearthstonepp
     public:
         using status_t = TaskMetaTrait::status_t;
 
-        TaskMeta() = default;
+        TaskMeta();
+        TaskMeta(const TaskMetaTrait& trait);
 
         TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
         TaskMeta(const TaskMetaTrait& trait, size_t size, std::unique_ptr<BYTE[]>&& buffer);

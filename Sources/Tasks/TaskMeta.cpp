@@ -40,6 +40,16 @@ namespace Hearthstonepp
         // Do Nothing
     }
 
+    TaskMeta::TaskMeta() : TaskMetaTrait(), m_size(0)
+    {
+        // Do Nothing
+    }
+
+    TaskMeta::TaskMeta(const TaskMetaTrait& trait) : TaskMetaTrait(trait), m_size(0)
+    {
+        // Do Nothing
+    }
+
     TaskMeta::TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer) :
             TaskMetaTrait(trait), m_size(size), m_buffer(std::make_unique(size))
     {
@@ -76,7 +86,7 @@ namespace Hearthstonepp
         return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer());
     }
 
-    static TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta *meta)
+    static TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
     {
         auto trait = meta->trait();
         auto taskID = TaskID::_from_integral(trait->id());
@@ -89,7 +99,7 @@ namespace Hearthstonepp
     {
         return m_size;
     }
-
+//sssㄴㄴsex
     std::unique_ptr<BYTE[]>&& TaskMeta::GetBuffer() const
     {
         return m_buffer;
