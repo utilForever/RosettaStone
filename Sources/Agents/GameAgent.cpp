@@ -143,12 +143,16 @@ namespace Hearthstonepp
         TaskMeta meta;
         m_taskAgent.Run(BasicTask::SelectCardTask(m_taskAgent), meta, m_current, m_opponent);
 
-//		if (meta.status == MetaData::SELECT_CARD_MINION)
-//		{
-//			using Require = MetaData::RequireSummonMinionTaskMeta;
-//			Require minion = Serializer<Require>::Deserialize(meta);
-//			m_taskAgent.Run(BasicTask::SummonMinionTask(minion.cardIndex, minion.position), meta, m_current, m_opponent);
-//		}
+		if (meta.status == MetaData::SELECT_CARD_MINION)
+		{
+			using Require = FlatData::RequireSummonMinionTaskMeta;
+			auto buffer = meta.GetBuffer();
+			auto minion = flatbuffers::GetRoot<Require>(buffer.get());
+
+			m_taskAgent.Run(
+					BasicTask::SummonMinionTask(minion->cardIndex(), minion->position()),
+					meta, m_current, m_opponent);
+		}
 	}
 
 	void GameAgent::MainCombat()
@@ -160,7 +164,7 @@ namespace Hearthstonepp
 		auto buffer = meta.GetBuffer();
 		auto targeting = flatbuffers::GetRoot<Require>(buffer.get());
 
-//		m_taskAgent.Run(BasicTask::CombatTask(targeting.src, targeting.dst), meta, m_current, m_opponent);
+		m_taskAgent.Run(BasicTask::CombatTask(targeting->src(), targeting->dst()), meta, m_current, m_opponent);
 	}
 
 	bool GameAgent::IsGameEnd()
