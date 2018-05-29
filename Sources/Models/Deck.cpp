@@ -101,13 +101,13 @@ namespace Hearthstonepp
 
 	}
 
-	int Deck::AddCard(std::string cardID, int numCardToAdd)
+	bool Deck::AddCard(std::string cardID, int numCardToAdd)
 	{
 		const Card* card = Cards::GetInstance()->FindCardByID(cardID);
 		CardClass cls = card->GetCardClass();
 		if ((cls != GetClass() && cls != +CardClass::NEUTRAL) || int(card->GetMaxAllowedInDeck()) < numCardToAdd) 
 		{
-			return -1;
+			return false;
 		}
 
 		auto isCardExistInDeck = std::find_if(m_cards.begin(), m_cards.end(),
@@ -116,7 +116,7 @@ namespace Hearthstonepp
 		if (isCardExistInDeck != m_cards.end()) // card is in deck
 		{
 			if (int(card->GetMaxAllowedInDeck()) < (*isCardExistInDeck).second + numCardToAdd)
-				return -1;
+				return false;
 
 			(*isCardExistInDeck).second += numCardToAdd;
 		}
@@ -127,10 +127,10 @@ namespace Hearthstonepp
 
 		m_numOfCards += numCardToAdd;
 
-		return 0;
+		return true;
 	}
 
-	int Deck::DeleteCard(std::string cardID, const int numCardToDelete)
+	bool Deck::DeleteCard(std::string cardID, const int numCardToDelete)
 	{
 		auto isCardExistInDeck = std::find_if(m_cards.begin(), m_cards.end(),
 			[&cardID](const std::pair<std::string, int>& elem) { return elem.first == cardID; });
@@ -143,15 +143,15 @@ namespace Hearthstonepp
 			}
 			else if ((*isCardExistInDeck).second - numCardToDelete < 0)
 			{
-				return -1;
+				return false;
 			}
 
 			(*isCardExistInDeck).second -= numCardToDelete;
 			m_numOfCards -= numCardToDelete;
 
-			return 0;
+			return true;
 		}
 
-		return -1;
+		return false;
 	}
 }

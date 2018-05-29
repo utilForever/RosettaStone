@@ -33,12 +33,12 @@ TEST(TestCard, Constructer)
 	EXPECT_EQ(+CardClass::NEUTRAL, card1.GetCardClass());
 	EXPECT_EQ(+CardType::MINION, card1.GetCardType());
 	EXPECT_EQ(+Race::DRAGON, card1.GetRace());
-	EXPECT_EQ(1, (int)card1.GetCost());
-	EXPECT_EQ(1, (int)card1.GetAttack());
-	EXPECT_EQ(20, (int)card1.GetHealth());
-	EXPECT_EQ(20, (int)card1.GetDurability());
-	EXPECT_EQ(2, (int)card1.GetMaxAllowedInDeck());
-	EXPECT_EQ(1, (int)card2.GetMaxAllowedInDeck());
+	EXPECT_EQ(1, static_cast<int>(card1.GetCost()));
+	EXPECT_EQ(1, static_cast<int>(card1.GetAttack()));
+	EXPECT_EQ(20, static_cast<int>(card1.GetHealth()));
+	EXPECT_EQ(20, static_cast<int>(card1.GetDurability()));
+	EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
+	EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
     EXPECT_EQ(true, card1.GetCollectible());
 }    
 
@@ -56,7 +56,7 @@ TEST(TestCard, SetHealth)
 	);
 
     card1.SetHealth(1);
-    EXPECT_EQ(1, (int)card1.GetHealth());
+    EXPECT_EQ(1, static_cast<int>(card1.GetHealth()));
 }
 
 TEST(TestCard, HasMechanic)

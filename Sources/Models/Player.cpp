@@ -56,18 +56,18 @@ namespace Hearthstonepp
 		}
 	}
 
-	int Player::CreateDeck(std::string name, CardClass deckClass)
+	bool Player::CreateDeck(std::string name, CardClass deckClass)
 	{
 		if (deckClass == +CardClass::INVALID)
-			return -1;
+			return false;
 		
 		m_decks.emplace_back(new Deck(name, deckClass));
-		return 0;
+		return true;
 	}
 
-	int Player::DeleteDeck(size_t selectedDeck)
+	bool Player::DeleteDeck(size_t selectedDeck)
 	{
 		m_decks.erase(m_decks.begin() + selectedDeck);
-		return 0;
+		return true;
 	}
 }

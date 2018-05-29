@@ -25,19 +25,19 @@ TEST(TestDeck, CardControl)
 
 	Deck deck("ice magician", CardClass::MAGE);
 	EXPECT_NO_THROW(deck.ShowCardList());
-	EXPECT_EQ(0, deck.AddCard(mageCards.at(0)->GetID(), 1));
-	EXPECT_EQ(0, deck.AddCard(mageCards.at(0)->GetID(), 1));
-	EXPECT_EQ(-1, deck.AddCard(mageCards.at(0)->GetID(), 1));
-	EXPECT_EQ(-1, deck.AddCard(mageCards.at(1)->GetID(), 3));
-	EXPECT_EQ(-1, deck.AddCard(druidCards.at(0)->GetID(), 1));
+	EXPECT_EQ(true, deck.AddCard(mageCards.at(0)->GetID(), 1));
+	EXPECT_EQ(true, deck.AddCard(mageCards.at(0)->GetID(), 1));
+	EXPECT_EQ(false, deck.AddCard(mageCards.at(0)->GetID(), 1));
+	EXPECT_EQ(false, deck.AddCard(mageCards.at(1)->GetID(), 3));
+	EXPECT_EQ(false, deck.AddCard(druidCards.at(0)->GetID(), 1));
 	EXPECT_NO_THROW(deck.ShowCardList());
 
-	EXPECT_EQ(1, (int)deck.GetUniqueNumOfCards());
-	EXPECT_EQ(2, (int)deck.GetNumOfCards());
+	EXPECT_EQ(1, static_cast<int>(deck.GetUniqueNumOfCards()));
+	EXPECT_EQ(2, static_cast<int>(deck.GetNumOfCards()));
 
-	EXPECT_EQ(0, deck.DeleteCard(mageCards.at(0)->GetID(), 1));
-	EXPECT_EQ(-1, deck.DeleteCard(mageCards.at(0)->GetID(), 4));
-	EXPECT_EQ(-1, deck.DeleteCard(druidCards.at(0)->GetID(), 1));
+	EXPECT_EQ(true, deck.DeleteCard(mageCards.at(0)->GetID(), 1));
+	EXPECT_EQ(false, deck.DeleteCard(mageCards.at(0)->GetID(), 4));
+	EXPECT_EQ(false, deck.DeleteCard(druidCards.at(0)->GetID(), 1));
 	EXPECT_NO_THROW(deck.ShowCardList());
 }
 
@@ -48,8 +48,8 @@ TEST(TestDeck, GetNumCardInDeck)
 	Deck deck("ice magician", CardClass::MAGE);
 	deck.AddCard(mageCards.at(0)->GetID(), 1);
 
-	EXPECT_EQ(1, (int)deck.GetNumCardInDeck(mageCards.at(0)->GetID()));
-	EXPECT_EQ(0, (int)deck.GetNumCardInDeck(mageCards.at(1)->GetID()));
+	EXPECT_EQ(1, static_cast<int>(deck.GetNumCardInDeck(mageCards.at(0)->GetID())));
+	EXPECT_EQ(0, static_cast<int>(deck.GetNumCardInDeck(mageCards.at(1)->GetID())));
 }
 
 TEST(TestDeck, GetPrimitiveDeck)

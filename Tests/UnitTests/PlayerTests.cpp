@@ -20,7 +20,7 @@ using namespace Hearthstonepp;
     Player player3("2", "name2", decks);
     EXPECT_EQ("2", player3.GetID());
     EXPECT_EQ("name2", player3.GetName());     
-    EXPECT_EQ(0, (int)player3.GetNumOfDeck());
+    EXPECT_EQ(0, static_cast<int>(player3.GetNumOfDeck()));
  }
 
 TEST(TestPlayer, DeckControl)
@@ -28,16 +28,16 @@ TEST(TestPlayer, DeckControl)
     Player player;
 
     EXPECT_NO_THROW(player.ShowDeckList());
-    EXPECT_EQ(-1, player.CreateDeck("deck1", CardClass::INVALID));
+    EXPECT_EQ(false, player.CreateDeck("deck1", CardClass::INVALID));
 
     player.CreateDeck("deck2", CardClass::DREAM);
     player.CreateDeck("deck3", CardClass::DRUID);
-    EXPECT_EQ(2, (int)player.GetNumOfDeck());
+    EXPECT_EQ(2, static_cast<int>(player.GetNumOfDeck()));
     EXPECT_NO_THROW(player.ShowDeckList());
 
     EXPECT_NO_THROW(player.DeleteDeck(0));
-	EXPECT_EQ(1, (int)player.GetNumOfDeck());
+	EXPECT_EQ(1, static_cast<int>(player.GetNumOfDeck()));
     EXPECT_EQ("deck3", player.GetDeck(0)->GetName());
 
-    EXPECT_EQ(1, (int)player.GetNumOfDeck());
+    EXPECT_EQ(1, static_cast<int>(player.GetNumOfDeck()));
 }
