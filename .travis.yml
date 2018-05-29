@@ -44,6 +44,7 @@ before_install:
        brew update;
        brew install openal-soft;
        brew install glfw3;
+       brew install glew;
        brew install lcov;
        wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz;
        tar xvf release-1.8.0.tar.gz;
