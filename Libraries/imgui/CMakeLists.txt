@@ -1,6 +1,9 @@
 # Target name
 set(target imgui)
 
+# Includes
+include_directories(${CMAKE_SOURCE_DIR}/Libraries/SFML/include)
+
 # Sources
 file(GLOB headers
     ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
