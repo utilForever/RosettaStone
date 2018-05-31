@@ -36,14 +36,7 @@ namespace Hearthstonepp
 		// join agent thread
 		at.join();
 
-		using GameEndTaskMeta = FlatData::GameEndTaskMeta;
-		auto buffer = m_buffer.GetBuffer();
-		auto meta = flatbuffers::GetRoot<GameEndTaskMeta>(buffer.get());
-
-		GameResult result;
-		result.winnerID = meta->winnerID()->c_str();
-
-		return result;
+		return m_result;
 	}
 
 	size_t GameInterface::HandleMessage(const TaskMeta& serialized)
@@ -69,7 +62,7 @@ namespace Hearthstonepp
 	}
 
 	template <std::size_t SIZE>
-	void GameInterface::ShowMenus(std::array<std::string, SIZE> menus)
+	void GameInterface::ShowMenus(const std::array<std::string, SIZE>& menus)
 	{
 		for (auto& menu : menus)
 		{
@@ -82,7 +75,7 @@ namespace Hearthstonepp
 		for (const auto& card : cards)
 		{
 			CardType cardType = CardType::_from_integral(card->cardType());
-			m_ostream << '[' << card->name()->c_str() << '(' << cardType._name() << " / " << card->cost() << ")] ";
+			m_ostream << '[' << card->name()->c_str() << '(' << cardType._to_string() << " / " << card->cost() << ")] ";
 			if (cardType == +CardType::MINION)
 			{
 				m_ostream << "(ATK " << card->attack() << "/HP " << card->health() << ")";
@@ -99,7 +92,7 @@ namespace Hearthstonepp
 	void GameInterface::HandleUserSetting(const TaskMeta& serialized)
 	{
 		using UserSettingTaskMeta = FlatData::UserSettingTaskMeta;
-		auto buffer = serialized.GetBuffer();
+		const auto& buffer = serialized.GetConstBuffer();
 		auto meta = flatbuffers::GetRoot<UserSettingTaskMeta>(buffer.get());
 
 		m_users[0] = meta->firstID()->c_str();
@@ -125,7 +118,7 @@ namespace Hearthstonepp
 	void GameInterface::HandleDraw(const TaskMeta& serialized)
 	{
 		using DrawTaskMeta = FlatData::DrawTaskMeta;
-		auto buffer = serialized.GetBuffer();
+		const auto& buffer = serialized.GetConstBuffer();
 		auto meta = flatbuffers::GetRoot<DrawTaskMeta>(buffer.get());
 
 		std::ostream& stream = LogWriter(m_users[serialized.userID]);
@@ -139,14 +132,14 @@ namespace Hearthstonepp
                 serialized.status == MetaData::DRAW_EXHAUST_OVERDRAW)
 			{
 				stream << "Draw Exhausted : "
-					   << meta->numExhausted() << " Cards, "
-					   << meta->numHearts() << " Hearts" << std::endl;
+					   << static_cast<int>(meta->numExhausted()) << " Cards, "
+					   << static_cast<int>(meta->numHearts()) << " Hearts" << std::endl;
 			}
 
 			if (serialized.status == MetaData::DRAW_OVERDRAW ||
                 serialized.status == MetaData::DRAW_EXHAUST_OVERDRAW)
 			{
-				stream << "Draw OverDraw : " << meta->numOverdraw() << " Cards" << std::endl;
+				stream << "Draw OverDraw : " << static_cast<int>(meta->numOverdraw()) << " Cards" << std::endl;
 				ShowCards(*meta->burnt());
 			}
 		}
@@ -212,7 +205,7 @@ namespace Hearthstonepp
 	void GameInterface::HandleManaModification(const TaskMeta& serialized)
 	{
 		using ModifyManaTaskMeta = FlatData::ModifyManaTaskMeta;
-		auto buffers = serialized.GetBuffer();
+		const auto& buffers = serialized.GetConstBuffer();
 		auto meta = flatbuffers::GetRoot<ModifyManaTaskMeta>(buffers.get());
 
 		std::string manaMode = "";
@@ -250,18 +243,20 @@ namespace Hearthstonepp
 	void GameInterface::HandleHealthModification(const TaskMeta& serialized)
 	{
 		using ModifyHealthTaskMeta = FlatData::ModifyHealthTaskMeta;
-		auto buffer = serialized.GetBuffer();
+		const auto& buffer = serialized.GetConstBuffer();
 		auto meta = flatbuffers::GetRoot<ModifyHealthTaskMeta>(buffer.get());
 
-		LogWriter(m_users[serialized.userID]) << "Modify Health : "
-										<< meta->card()->name()->c_str() << " get damage "
-										<< meta->damage() << ", result" << meta->hurted() << std::endl;
+		LogWriter(m_users[serialized.userID])
+                << "Modify Health : "
+				<< meta->card()->name()->c_str() << " get damage "
+				<< static_cast<int>(meta->damage()) << ", result "
+                << static_cast<int>(meta->hurted()) << std::endl;
 	}
 //
 	void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
 	{
 		using SummonMinionTaskMeta = FlatData::SummonMinionTaskMeta;
-		auto buffer = serialized.GetBuffer();
+		const auto& buffer = serialized.GetConstBuffer();
 		auto meta = flatbuffers::GetRoot<SummonMinionTaskMeta>(buffer.get());
 
 		auto card = meta->card();
@@ -289,52 +284,79 @@ namespace Hearthstonepp
 
 	void GameInterface::HandleCombat(const TaskMeta& serialized)
 	{
-		using CombatTaskMeta = FlatData::CombatTaskMeta;
-		auto buffer = serialized.GetBuffer();
-		auto meta = flatbuffers::GetRoot<CombatTaskMeta>(buffer.get());
+        using CombatTaskMeta = FlatData::CombatTaskMeta;
+        const auto& buffer = serialized.GetConstBuffer();
+        auto meta = flatbuffers::GetRoot<CombatTaskMeta>(buffer.get());
 
-		LogWriter(m_users[serialized.userID])
-				<< "Combat : {src " << meta->src()->name()->c_str() << "} "
-				<< "vs {dst " << meta->dst()->name()->c_str() << "}" << std::endl;
+        std::ostream& stream = LogWriter(m_users[serialized.userID]) << "Combat : ";
+
+	    switch (serialized.status)
+        {
+        case MetaData::COMBAT_SUCCESS:
+            stream << "{src " << meta->src()->name()->c_str() << "} "
+                << "vs {dst " << meta->dst()->name()->c_str() << "}" << std::endl;
+            break;
+        case MetaData::COMBAT_ALREADY_ATTACKED:
+            stream << "Already Attacked Minion" << std::endl;
+            break;
+        case MetaData::COMBAT_DST_IDX_OUT_OF_RANGE:
+            stream << "Destination Index Out of Range" << std::endl;
+            break;
+        case MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE:
+            stream << "Source Index Out of Range" << std::endl;
+            break;
+        default:
+            throw std::runtime_error("GameInterface::HandleCombat::Unknown_Status");
+        }
 	}
 
 	void GameInterface::HandleRequire(const TaskMeta& serialized)
 	{
 		using RequireTaskMeta = FlatData::RequireTaskMeta;
-		auto buffer = serialized.GetBuffer();
+		const auto& buffer = serialized.GetConstBuffer();
 		auto meta = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
 		auto required = TaskID::_from_integral(meta->required());
 
 		if (m_inputHandler.find(required) != m_inputHandler.end())
 		{
-			m_inputHandler[required](*this, serialized);
+			m_inputHandler[required](*this, std::move(serialized));
 		}
 	}
 
 	void GameInterface::HandleBrief(const TaskMeta& serialized)
 	{
 		using BriefTaskMeta = FlatData::BriefTaskMeta;
-		m_briefRawCache = serialized.GetBuffer();
+		const BYTE* buffer = serialized.GetConstBuffer().get();
+		size_t size = serialized.GetBufferSize();
+
+		m_briefRawCache = std::make_unique<BYTE[]>(serialized.GetBufferSize());
+		for (BYTE* ptr = m_briefRawCache.get(); size; --size)
+        {
+            *ptr++ = *buffer++;
+        }
+
 		m_briefCache = flatbuffers::GetRoot<BriefTaskMeta>(m_briefRawCache.get());
 
 		std::ostream& stream = LogWriter(m_users[serialized.userID]) << "Game Briefing" << std::endl;
 
 		stream << m_users[m_briefCache->opponentUser()]
-			   << " - Hero " << m_briefCache->opponentHero()->name()
-			   << ", Health " << m_briefCache->opponentHero()->name()
+			   << " - Hero " << m_briefCache->opponentHero()->name()->c_str()
+			   << ", Health " << m_briefCache->opponentHero()->health()
 			   << ", Mana " << static_cast<int>(m_briefCache->opponentMana())
 			   << ", Hand " << static_cast<int>(m_briefCache->numOpponentHand())
+		       << ", Deck " << static_cast<int>(m_briefCache->numOpponentDeck())
 			   << std::endl;
 
 		stream << m_users[m_briefCache->opponentUser()] << " Field" << std::endl;
 		ShowCards(*m_briefCache->opponentField());
 
 		stream << m_users[m_briefCache->currentUser()]
-			   << " - Hero " << m_briefCache->currentHero()->name()
+			   << " - Hero " << m_briefCache->currentHero()->name()->c_str()
 			   << ", Health " << m_briefCache->currentHero()->health()
 			   << ", Mana " << static_cast<int>(m_briefCache->currentMana())
 			   << ", Hand " << static_cast<int>(m_briefCache->currentHand()->size())
+			   << ", Deck " << static_cast<int>(m_briefCache->numCurrentDeck())
 			   << std::endl;
 
 		stream << m_users[m_briefCache->currentUser()] << " Field" << std::endl;
@@ -483,7 +505,7 @@ namespace Hearthstonepp
 
 	void GameInterface::HandleTaskTuple(const TaskMeta& serialized)
 	{
-		auto buffer = serialized.GetBuffer();
+		const auto& buffer = serialized.GetConstBuffer();
 		auto metaVector = flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
 
 		for (const auto& meta : *metaVector->vector())
@@ -495,9 +517,11 @@ namespace Hearthstonepp
 	void GameInterface::HandleGameEnd(const TaskMeta& serialized)
 	{
 		using GameEndTaskMeta = FlatData::GameEndTaskMeta;
-		auto buffer = serialized.GetBuffer();
+		const auto& buffer = serialized.GetConstBuffer();
 		auto meta = flatbuffers::GetRoot<GameEndTaskMeta>(buffer.get());
 
-		LogWriter(meta->winnerID()->str()) << "Win" << std::endl;
+		m_result.winnerID = meta->winnerID()->c_str();
+
+		LogWriter(m_result.winnerID) << "Win" << std::endl;
 	}
 }

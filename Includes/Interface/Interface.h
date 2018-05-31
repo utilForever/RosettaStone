@@ -44,6 +44,8 @@ namespace Hearthstonepp
 		GameAgent& m_agent;
 		TaskMeta m_buffer;
 
+		GameResult m_result;
+
 		std::unique_ptr<BYTE[]> m_briefRawCache;
 		const FlatData::BriefTaskMeta* m_briefCache;
 
@@ -57,7 +59,7 @@ namespace Hearthstonepp
 		std::ostream& LogWriter(const std::string& name);
 
 		template <std::size_t SIZE>
-		void ShowMenus(std::array<std::string, SIZE> menus);
+		void ShowMenus(const std::array<std::string, SIZE>& menus);
 
 		using CardVector = flatbuffers::Vector<flatbuffers::Offset<FlatData::Card>>;
 		void ShowCards(const CardVector& cards);
