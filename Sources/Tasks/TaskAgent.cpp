@@ -56,14 +56,47 @@ namespace Hearthstonepp
         TaskMeta temporal;
         std::vector<TaskMeta> pool;
 
+        const auto copier = [](auto&& first, auto&& end, auto&& helper)
+        {
+            std::vector<TaskMeta> temporalPool;
+            for (auto iter = first; iter != end; ++iter)
+            {
+                temporalPool.emplace_back(helper(*iter));
+            }
+
+            return temporalPool;
+        };
+
+        pool.reserve(tasks.size());
+        auto begin = pool.begin();
+
         for (const auto& task : tasks)
         {
             Run(task, temporal, current, opponent, false);
             pool.emplace_back(std::move(temporal));
+
+            if (task.GetTaskID() == +TaskID::BRIEF)
+            {
+                auto copied = copier(begin, pool.end(), TaskMeta::CopyFrom);
+                Notify(Serializer::CreateTaskMetaVector(copied));
+
+                begin = pool.end();
+            }
         }
 
         meta = Serializer::CreateTaskMetaVector(pool);
-        Notify(TaskMeta::CopyFrom(meta));
+        if (begin != pool.end())
+        {
+            if (begin == pool.begin())
+            {
+                Notify(TaskMeta::CopyFrom(meta));
+            }
+            else
+            {
+                auto copied = copier(begin, pool.end(), std::move<TaskMeta&>);
+                Notify(Serializer::CreateTaskMetaVector(copied));
+            }
+        }
     }
 
     void TaskAgent::Clear()
