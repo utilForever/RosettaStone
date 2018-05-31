@@ -51,7 +51,7 @@ namespace Hearthstonepp
         TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
         TaskMeta(const TaskMetaTrait& trait, size_t size, std::unique_ptr<BYTE[]>&& buffer);
 
-        TaskMeta(TaskMeta&& meta);
+        TaskMeta(TaskMeta&& meta) noexcept;
         TaskMeta(const TaskMeta&) = delete;
 
         TaskMeta& operator=(TaskMeta&& meta);
@@ -60,12 +60,15 @@ namespace Hearthstonepp
         static TaskMeta CopyFrom(const TaskMeta& meta);
         static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
 
+        void reset();
         size_t GetBufferSize() const;
-        std::unique_ptr<BYTE[]>&& GetBuffer() const;
+
+        std::unique_ptr<BYTE[]>&& MoveBuffer();
+        const std::unique_ptr<BYTE[]>& GetConstBuffer() const;
 
     private:
         size_t m_size;
-        mutable std::unique_ptr<BYTE[]> m_buffer;
+        std::unique_ptr<BYTE[]> m_buffer;
     };
 }
 

@@ -65,8 +65,8 @@ namespace Hearthstonepp
         // Do Nothing
     }
 
-    TaskMeta::TaskMeta(TaskMeta&& meta) :
-            TaskMetaTrait(meta), m_size(meta.GetBufferSize()), m_buffer(std::move(meta.GetBuffer()))
+    TaskMeta::TaskMeta(TaskMeta&& meta) noexcept :
+            TaskMetaTrait(meta), m_size(meta.GetBufferSize()), m_buffer(meta.MoveBuffer())
     {
         // Do Nothing
     }
@@ -78,14 +78,14 @@ namespace Hearthstonepp
         userID = meta.userID;
 
         m_size = meta.GetBufferSize();
-        m_buffer = std::move(meta.GetBuffer());
+        m_buffer = meta.MoveBuffer();
 
         return *this;
     }
 
     TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
     {
-        return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer());
+        return TaskMeta(meta, meta.GetBufferSize(), meta.GetConstBuffer().get());
     }
 
     TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
@@ -97,13 +97,24 @@ namespace Hearthstonepp
         return TaskMeta(TaskMetaTrait(taskID, trait->status(), trait->userID()), buffer->size(), buffer->data());
     }
 
+    void TaskMeta::reset()
+    {
+        m_size = 0;
+        m_buffer.reset();
+    }
+
     size_t TaskMeta::GetBufferSize() const
     {
         return m_size;
     }
 
-    std::unique_ptr<BYTE[]>&& TaskMeta::GetBuffer() const
+    std::unique_ptr<BYTE[]>&& TaskMeta::MoveBuffer()
     {
         return std::move(m_buffer);
+    }
+
+    const std::unique_ptr<BYTE[]>& TaskMeta::GetConstBuffer() const
+    {
+        return m_buffer;
     }
 }
