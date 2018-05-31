@@ -24,7 +24,7 @@ namespace Hearthstonepp
             auto response = [request, userID, &agent]() -> TaskMeta {
                 TaskMeta meta = Serializer::CreateRequireTaskMeta(request, userID);
 
-                agent.Notify(std::move(meta), true);
+                agent.Notify(std::move(meta));
                 agent.Read(meta, true);
 
                 return meta;
@@ -254,36 +254,37 @@ namespace Hearthstonepp
             Serializer::ModifyHealthTaskMeta meta;
             meta.card = card;
             meta.damage = damage;
-            meta.hurted = card->GetHealth();
 
-            if (damage > 0)
+            int hurted = card->GetHealth() - damage;
+            if (hurted > 0)
             {
-                int hurted = card->GetHealth() - damage;
-                card->SetHealth(hurted);
-                meta.hurted = hurted;
+                meta.isExhausted = false;
+                meta.hurted = static_cast<BYTE>(hurted);
+            }
+            else
+            {
+                meta.isExhausted = true;
+                meta.hurted = 0;
 
-                if (hurted > 0)
+                user.usedMinion.emplace_back(card);
+
+                auto& field = user.field;
+                auto ptr = std::find(field.begin(), field.end(), card);
+                if (ptr != field.end())
                 {
-                    meta.isExhausted = false;
-                }
-                else
-                {
-                    meta.isExhausted = true;
-
-                    user.usedMinion.emplace_back(card);
-
-                    auto& field = user.field;
-                    std::remove_if(field.begin(), field.end(), [card](const Card* tmp) { return tmp == card; });
+                    field.erase(ptr);
                 }
             }
 
+            card->SetHealth(meta.hurted);
             return Serializer::CreateModifyHealthTaskMeta(meta, MetaData::MODIFY_HEALTH_SUCCESS, user.id);
         }
 
         TaskMeta RawBrief(const User& current, const User& opponent)
         {
             Serializer::BriefTaskMeta meta(
-                    current.id, opponent.id, current.existMana, opponent.existMana, opponent.hand.size(),
+                    current.id, opponent.id, current.existMana, opponent.existMana,
+                    current.deck.size(), opponent.deck.size(), opponent.hand.size(),
                     current.hand, current.field, opponent.field, current.attacked, opponent.attacked,
                     current.hero, opponent.hero);
 
@@ -333,7 +334,7 @@ namespace Hearthstonepp
             TaskMeta serialized = method();
 
             using RequireTaskMeta = FlatData::RequireMulliganTaskMeta;
-            auto buffer = serialized.GetBuffer();
+            const auto& buffer = serialized.GetConstBuffer();
             auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
             const BYTE* data = req->mulligan()->data();
@@ -383,7 +384,7 @@ namespace Hearthstonepp
             vector.emplace_back(std::move(shuffle));
             vector.emplace_back(std::move(draw));
 
-            return Serializer::CreateTaskMetaVector(vector);
+            return Serializer::CreateTaskMetaVector(vector, meta.status);
         }
 
         Task MulliganTask(TaskAgent& agent)
@@ -466,7 +467,7 @@ namespace Hearthstonepp
 
         TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
         {
-            TaskMetaTrait meta;
+            TaskMetaTrait meta(TaskID::COMBAT);
             meta.userID = current.id;
 
             if (src < 0 || src >= current.field.size())
@@ -495,20 +496,18 @@ namespace Hearthstonepp
             }
 
             Card* source = current.field[src];
-            Card* target = nullptr;
-            if (dst == 0)
-            {
-                target = opponent.hero;
-            }
-            else
+            Card* target = opponent.hero;
+            BYTE targetAttack = 0;
+            if (dst > 0)
             {
                 target = opponent.field[dst - 1];
+                targetAttack = static_cast<BYTE>(target->GetAttack());
             }
 
             meta.status = MetaData::COMBAT_SUCCESS;
             TaskMeta combat = Serializer::CreateCombatTaskMeta(meta, source, target);
             TaskMeta hurtedDst = RawModifyHealth(opponent, target, static_cast<BYTE>(source->GetAttack()));
-            TaskMeta hurtedSrc = RawModifyHealth(current, source, static_cast<BYTE>(target->GetAttack()));
+            TaskMeta hurtedSrc = RawModifyHealth(current, source, targetAttack);
 
             std::vector<TaskMeta> vector;
             vector.emplace_back(std::move(combat));
