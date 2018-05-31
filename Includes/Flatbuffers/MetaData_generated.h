@@ -720,8 +720,10 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_CURRENTHAND = 18,
     VT_OPPONENTFIELD = 20,
     VT_NUMOPPONENTHAND = 22,
-    VT_CURRENTATTACKED = 24,
-    VT_OPPONENTATTACKED = 26
+    VT_NUMCURRENTDECK = 24,
+    VT_NUMOPPONENTDECK = 26,
+    VT_CURRENTATTACKED = 28,
+    VT_OPPONENTATTACKED = 30
   };
   uint8_t currentUser() const {
     return GetField<uint8_t>(VT_CURRENTUSER, 0);
@@ -753,6 +755,12 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint8_t numOpponentHand() const {
     return GetField<uint8_t>(VT_NUMOPPONENTHAND, 0);
   }
+  uint8_t numCurrentDeck() const {
+    return GetField<uint8_t>(VT_NUMCURRENTDECK, 0);
+  }
+  uint8_t numOpponentDeck() const {
+    return GetField<uint8_t>(VT_NUMOPPONENTDECK, 0);
+  }
   const flatbuffers::Vector<flatbuffers::Offset<Card>> *currentAttacked() const {
     return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Card>> *>(VT_CURRENTATTACKED);
   }
@@ -779,6 +787,8 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            verifier.Verify(opponentField()) &&
            verifier.VerifyVectorOfTables(opponentField()) &&
            VerifyField<uint8_t>(verifier, VT_NUMOPPONENTHAND) &&
+           VerifyField<uint8_t>(verifier, VT_NUMCURRENTDECK) &&
+           VerifyField<uint8_t>(verifier, VT_NUMOPPONENTDECK) &&
            VerifyOffset(verifier, VT_CURRENTATTACKED) &&
            verifier.Verify(currentAttacked()) &&
            verifier.VerifyVectorOfTables(currentAttacked()) &&
@@ -822,6 +832,12 @@ struct BriefTaskMetaBuilder {
   void add_numOpponentHand(uint8_t numOpponentHand) {
     fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_NUMOPPONENTHAND, numOpponentHand, 0);
   }
+  void add_numCurrentDeck(uint8_t numCurrentDeck) {
+    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_NUMCURRENTDECK, numCurrentDeck, 0);
+  }
+  void add_numOpponentDeck(uint8_t numOpponentDeck) {
+    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_NUMOPPONENTDECK, numOpponentDeck, 0);
+  }
   void add_currentAttacked(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentAttacked) {
     fbb_.AddOffset(BriefTaskMeta::VT_CURRENTATTACKED, currentAttacked);
   }
@@ -852,6 +868,8 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMeta(
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentHand = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> opponentField = 0,
     uint8_t numOpponentHand = 0,
+    uint8_t numCurrentDeck = 0,
+    uint8_t numOpponentDeck = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentAttacked = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> opponentAttacked = 0) {
   BriefTaskMetaBuilder builder_(_fbb);
@@ -862,6 +880,8 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMeta(
   builder_.add_currentField(currentField);
   builder_.add_opponentHero(opponentHero);
   builder_.add_currentHero(currentHero);
+  builder_.add_numOpponentDeck(numOpponentDeck);
+  builder_.add_numCurrentDeck(numCurrentDeck);
   builder_.add_numOpponentHand(numOpponentHand);
   builder_.add_opponentMana(opponentMana);
   builder_.add_currentMana(currentMana);
@@ -882,6 +902,8 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMetaDirect(
     const std::vector<flatbuffers::Offset<Card>> *currentHand = nullptr,
     const std::vector<flatbuffers::Offset<Card>> *opponentField = nullptr,
     uint8_t numOpponentHand = 0,
+    uint8_t numCurrentDeck = 0,
+    uint8_t numOpponentDeck = 0,
     const std::vector<flatbuffers::Offset<Card>> *currentAttacked = nullptr,
     const std::vector<flatbuffers::Offset<Card>> *opponentAttacked = nullptr) {
   return Hearthstonepp::FlatData::CreateBriefTaskMeta(
@@ -896,6 +918,8 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMetaDirect(
       currentHand ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*currentHand) : 0,
       opponentField ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*opponentField) : 0,
       numOpponentHand,
+      numCurrentDeck,
+      numOpponentDeck,
       currentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*currentAttacked) : 0,
       opponentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*opponentAttacked) : 0);
 }

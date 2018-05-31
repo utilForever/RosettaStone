@@ -73,6 +73,9 @@ table BriefTaskMeta {
     opponentField:[Card];
     numOpponentHand:ubyte;
 
+    numCurrentDeck:ubyte;
+    numOpponentDeck:ubyte;
+
     currentAttacked:[Card];
     opponentAttacked:[Card];
 }
