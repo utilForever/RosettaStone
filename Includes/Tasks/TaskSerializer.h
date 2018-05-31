@@ -12,6 +12,7 @@
 #include <Flatbuffers/MetaData_generated.h>
 #include <Models/Card.h>
 #include <Tasks/TaskMeta.h>
+#include <Tasks/MetaData.h>
 
 namespace Hearthstonepp
 {
@@ -46,7 +47,8 @@ namespace Hearthstonepp
 
         struct BriefTaskMeta
         {
-            BriefTaskMeta(BYTE currentUser, BYTE opponentUser, BYTE currentMana, BYTE opponentMana, BYTE numOpponentHand,
+            BriefTaskMeta(BYTE currentUser, BYTE opponentUser, BYTE currentMana, BYTE opponentMana,
+                          BYTE numCurrentDeck, BYTE numOpponentDeck, BYTE numOpponentHand,
                           const std::vector<Card*>& currentHand, const std::vector<Card*>& currentField,
                           const std::vector<Card*>& opponentField, const std::vector<Card*>& currentAttacked,
                           const std::vector<Card*>& opponentAttacked, Card* currentHero, Card* opponentHero);
@@ -56,6 +58,9 @@ namespace Hearthstonepp
 
             BYTE currentMana;
             BYTE opponentMana;
+
+            BYTE numCurrentDeck;
+            BYTE numOpponentDeck;
 
             BYTE numOpponentHand;
 
@@ -73,7 +78,10 @@ namespace Hearthstonepp
 
         flatbuffers::Offset<FlatData::Card> CreateCard(flatbuffers::FlatBufferBuilder& builder, const Card* card);
 
-        TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector);
+        TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
+                                      TaskMeta::status_t status = TaskMeta::STATUS_INVALID,
+                                      BYTE userID = TaskMeta::USER_INVALID);
+
         TaskMeta CreateRequireTaskMeta(TaskID request, BYTE userID);
         TaskMeta CreateRequireMulliganTaskMeta(const BYTE* index, size_t size);
         TaskMeta CreateRequireSummonMinionTaskMeta(int cardIndex, int position);

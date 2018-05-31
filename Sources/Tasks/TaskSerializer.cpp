@@ -7,7 +7,6 @@
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
 #include <Tasks/TaskSerializer.h>
-#include <Tasks/MetaData.h>
 
 #include <algorithm>
 
@@ -16,7 +15,8 @@ namespace Hearthstonepp
     namespace Serializer
     {
         BriefTaskMeta::BriefTaskMeta(BYTE currentUser, BYTE opponentUser,
-                                     BYTE currentMana, BYTE opponentMana, BYTE numOpponentHand,
+                                     BYTE currentMana, BYTE opponentMana,
+                                     BYTE numCurrentDeck, BYTE numOpponentDeck, BYTE numOpponentHand,
                                      const std::vector<Card *> &currentHand,
                                      const std::vector<Card *> &currentField,
                                      const std::vector<Card *> &opponentField,
@@ -24,7 +24,8 @@ namespace Hearthstonepp
                                      const std::vector<Card *> &opponentAttacked,
                                      Card *currentHero, Card *opponentHero) :
                 currentUser(currentUser), opponentUser(opponentUser),
-                currentMana(currentMana), opponentMana(opponentMana), numOpponentHand(numOpponentHand),
+                currentMana(currentMana), opponentMana(opponentMana),
+                numCurrentDeck(numCurrentDeck), numOpponentDeck(numOpponentDeck), numOpponentHand(numOpponentHand),
                 currentHand(currentHand), currentField(currentField), opponentField(opponentField),
                 currentAttacked(currentAttacked), opponentAttacked(opponentAttacked),
                 currentHero(currentHero), opponentHero(opponentHero)
@@ -62,7 +63,7 @@ namespace Hearthstonepp
                     card->GetMaxAllowedInDeck());
         }
 
-        TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector)
+        TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector, TaskMeta::status_t status, BYTE userID)
         {
             flatbuffers::FlatBufferBuilder builder(1024);
             std::vector<flatbuffers::Offset<FlatData::TaskMeta>> flatten;
@@ -70,7 +71,7 @@ namespace Hearthstonepp
             for (const auto& task : vector)
             {
                 auto trait = FlatData::TaskMetaTrait(static_cast<int>(task.id), task.status, task.userID);
-                auto unique = task.GetBuffer();
+                const auto& unique = task.GetConstBuffer();
                 auto buffer = builder.CreateVector(unique.get(), task.GetBufferSize());
 
                 auto temporal = FlatData::CreateTaskMeta(builder, &trait, buffer);
@@ -80,7 +81,10 @@ namespace Hearthstonepp
             auto integrated = FlatData::CreateTaskMetaVector(builder, builder.CreateVector(flatten));
             builder.Finish(integrated);
 
-            return TaskMeta(TaskMetaTrait(TaskID::TASK_TUPLE), builder.GetSize(), builder.GetBufferPointer());
+            return TaskMeta(TaskMetaTrait(
+                    TaskID::TASK_TUPLE, status, userID),
+                    builder.GetSize(),
+                    builder.GetBufferPointer());
         }
 
         TaskMeta CreateRequireTaskMeta(TaskID request, BYTE userID)
@@ -116,7 +120,7 @@ namespace Hearthstonepp
 
             builder.Finish(flat);
             return TaskMeta(
-                    TaskMetaTrait(TaskID::SELECT_CARD),
+                    TaskMetaTrait(TaskID::SELECT_CARD, MetaData::SELECT_CARD_MINION),
                     builder.GetSize(),
                     builder.GetBufferPointer());
         }
@@ -222,7 +226,8 @@ namespace Hearthstonepp
             auto brief = FlatData::CreateBriefTaskMeta(builder,
                     meta.currentUser, meta.opponentUser, meta.currentMana, meta.opponentMana,
                     CreateCard(builder, meta.currentHero), CreateCard(builder, meta.opponentHero),
-                    result[0], result[1], result[2], meta.numOpponentHand, result[3], result[4]);
+                    result[0], result[1], result[2], meta.numOpponentHand, meta.numCurrentDeck, meta.numOpponentDeck,
+                    result[3], result[4]);
 
             builder.Finish(brief);
             return TaskMeta(
