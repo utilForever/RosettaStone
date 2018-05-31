@@ -15,52 +15,53 @@
 
 namespace Hearthstonepp
 {
-	struct SearchFilter
-	{
-		Rarity rarity = Rarity::INVALID;
-		CardClass playerClass = CardClass::INVALID;
-		CardType cardType = CardType::INVALID;
-		Race race = Race::INVALID;
-		std::string name;
-		int costMin, costMax;
-		int attackMin, attackMax;
-		int healthMin, healthMax;
-		std::vector<GameTag> mechanics;
-	};
+struct SearchFilter
+{
+    Rarity rarity = Rarity::INVALID;
+    CardClass playerClass = CardClass::INVALID;
+    CardType cardType = CardType::INVALID;
+    Race race = Race::INVALID;
+    GameTag mechanic = GameTag::INVALID;
 
-	class Cards
-	{
-	public:
-		static Cards* GetInstance();
+    std::string name;
+    size_t costMin, costMax;
+    size_t attackMin, attackMax;
+    size_t healthMin, healthMax;
+};
 
-		std::vector<Card*> GetAllCards() const;
+class Cards
+{
+ public:
+    static Cards* GetInstance();
 
-		const Card* FindCardByID(const std::string id);
-		std::vector<Card*> FindCardByRarity(Rarity rarity);
-		std::vector<Card*> FindCardByClass(CardClass cardClass);
-		std::vector<Card*> FindCardByType(CardType cardType);
-		std::vector<Card*> FindCardByRace(Race race);
-		std::vector<Card*> FindCardByName(const std::string name);
-		std::vector<Card*> FindCardByCost(int minVal, int maxVal);
-		std::vector<Card*> FindCardByAttack(int minVal, int maxVal);
-		std::vector<Card*> FindCardByHealth(int minVal, int maxVal);
-		std::vector<Card*> FindCardByMechanics(std::vector<GameTag> mechanics);
+    std::vector<Card*> GetAllCards() const;
 
-        const Card* GetHeroCard(CardClass cardClass);
-        const Card* GetDefaultHeroPower(CardClass cardClass);
+    const Card* FindCardByID(const std::string id);
+    std::vector<Card*> FindCardByRarity(Rarity rarity);
+    std::vector<Card*> FindCardByClass(CardClass cardClass);
+    std::vector<Card*> FindCardByType(CardType cardType);
+    std::vector<Card*> FindCardByRace(Race race);
+    std::vector<Card*> FindCardByName(const std::string name);
+    std::vector<Card*> FindCardByCost(size_t minVal, size_t maxVal);
+    std::vector<Card*> FindCardByAttack(size_t minVal, size_t maxVal);
+    std::vector<Card*> FindCardByHealth(size_t minVal, size_t maxVal);
+    std::vector<Card*> FindCardByMechanics(std::vector<GameTag> mechanics);
 
-	private:
-		Cards();
-		~Cards();
-		Cards(const Cards&) = delete;
-		Cards(Cards&&) = delete;
-		Cards& operator=(const Cards&) = delete;
-		Cards& operator=(Cards&&) = delete;
+    const Card* GetHeroCard(CardClass cardClass);
+    const Card* GetDefaultHeroPower(CardClass cardClass);
 
-		static Cards* m_instance;
+ private:
+    Cards();
+    ~Cards();
+    Cards(const Cards&) = delete;
+    Cards(Cards&&) = delete;
+    Cards& operator=(const Cards&) = delete;
+    Cards& operator=(Cards&&) = delete;
 
-		std::vector<Card*> m_cards;
-	};
+    static Cards* m_instance;
+
+    std::vector<Card*> m_cards;
+};
 }
 
 #endif

@@ -78,7 +78,7 @@ namespace Hearthstonepp
     BETTER_ENUM(FormatType, int, UNKNOWN = 0, WILD = 1, STANDARD = 2)
 
 #ifndef HEARTHSTONEPP_EXPAND_LARGE_ENUMS
-    BETTER_ENUM(GameTag, int, IGNORE_DAMAGE = 1, TAG_SCRIPT_DATA_NUM_1 = 2,
+    BETTER_ENUM(GameTag, int, INVALID = 0, IGNORE_DAMAGE = 1, TAG_SCRIPT_DATA_NUM_1 = 2,
         TAG_SCRIPT_DATA_NUM_2 = 3, TAG_SCRIPT_DATA_ENT_1 = 4,
         TAG_SCRIPT_DATA_ENT_2 = 5, MISSION_EVENT = 6, TIMEOUT = 7, TURN_START = 8,
         TURN_TIMER_SLUSH = 9, PREMIUM = 12, GOLD_REWARD_STATE = 13, PLAYSTATE = 17,
@@ -232,6 +232,7 @@ namespace Hearthstonepp
         typedef int _integral;
         enum _enumerated : int
         {
+            INVALID = 0,
             IGNORE_DAMAGE = 1,
             TAG_SCRIPT_DATA_NUM_1 = 2,
             TAG_SCRIPT_DATA_NUM_2 = 3,
@@ -637,7 +638,7 @@ namespace Hearthstonepp
         typedef ::better_enums::_Iterable<const char*> _name_iterable;
         typedef _value_iterable::iterator _value_iterator;
         typedef _name_iterable::iterator _name_iterator;
-        constexpr static const std::size_t _size_constant = 376;
+        constexpr static const std::size_t _size_constant = 377;
         constexpr static std::size_t _size()
         {
             return _size_constant;
@@ -670,6 +671,7 @@ namespace Hearthstonepp
         static ::better_enums::_initialize_at_program_start<GameTag> _force_initialization;
         enum _PutNamesInThisScopeAlso
         {
+            INVALID = 0,
             IGNORE_DAMAGE = 1,
             TAG_SCRIPT_DATA_NUM_1 = 2,
             TAG_SCRIPT_DATA_NUM_2 = 3,
@@ -1052,6 +1054,7 @@ namespace Hearthstonepp
         };
         constexpr const GameTag _value_array[] =
         {
+            ((::better_enums::_eat_assign<GameTag>)GameTag::INVALID = 0),
             ((::better_enums::_eat_assign<GameTag>)GameTag::IGNORE_DAMAGE = 1),
             ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_SCRIPT_DATA_NUM_1 = 2),
             ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_SCRIPT_DATA_NUM_2 = 3),
@@ -1433,6 +1436,8 @@ namespace Hearthstonepp
             ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009),
         };
         constexpr const char* _the_raw_names[] = {
+            "INVALID = 0",
+            "IGNORE_DAMAGE = 1",
             "TAG_SCRIPT_DATA_NUM_1 = 2",
             "TAG_SCRIPT_DATA_NUM_2 = 3",
             "TAG_SCRIPT_DATA_ENT_1 = 4",
@@ -1819,6 +1824,10 @@ namespace Hearthstonepp
         inline char* _name_storage()
         {
             static char storage[] =
+                "INVALID = 0"
+                ","
+                "IGNORE_DAMAGE = 1"
+                ","
                 "TAG_SCRIPT_DATA_NUM_1 = 2"
                 ","
                 "TAG_SCRIPT_DATA_NUM_2 = 3"

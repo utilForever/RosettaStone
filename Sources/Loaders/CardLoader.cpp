@@ -37,12 +37,12 @@ namespace Hearthstonepp
 		for (auto& card : j)
 		{
 			const std::string id = card["id"].get<std::string>();
-			const Rarity rarity = card["rarity"].is_null() ? +Rarity::FREE : std::move(Rarity::_from_string(card["rarity"].get<std::string>().c_str()));
-			const Faction faction = card["faction"].is_null() ? +Faction::NEUTRAL : std::move(Faction::_from_string(card["faction"].get<std::string>().c_str()));
-			const CardSet cardSet = card["set"].is_null() ? +CardSet::NONE : std::move(CardSet::_from_string(card["set"].get<std::string>().c_str()));
-			const CardClass cardClass = card["cardClass"].is_null() ? +CardClass::NEUTRAL : std::move(CardClass::_from_string(card["cardClass"].get<std::string>().c_str()));
-			const CardType cardType = card["type"].is_null() ? +CardType::INVALID : std::move(CardType::_from_string(card["type"].get<std::string>().c_str()));
-			const Race race = card["race"].is_null() ? +Race::INVALID : std::move(Race::_from_string(card["race"].get<std::string>().c_str()));
+			const Rarity rarity = card["rarity"].is_null() ? +Rarity::FREE : Rarity::_from_string(card["rarity"].get<std::string>().c_str());
+			const Faction faction = card["faction"].is_null() ? +Faction::NEUTRAL : Faction::_from_string(card["faction"].get<std::string>().c_str());
+			const CardSet cardSet = card["set"].is_null() ? +CardSet::NONE : CardSet::_from_string(card["set"].get<std::string>().c_str());
+			const CardClass cardClass = card["cardClass"].is_null() ? +CardClass::NEUTRAL : CardClass::_from_string(card["cardClass"].get<std::string>().c_str());
+			const CardType cardType = card["type"].is_null() ? +CardType::INVALID : CardType::_from_string(card["type"].get<std::string>().c_str());
+			const Race race = card["race"].is_null() ? +Race::INVALID : Race::_from_string(card["race"].get<std::string>().c_str());
 
 			const std::string name = card["name"].is_null() ? "" : card["name"]["enUS"].get<std::string>();
 			const std::string text = card["text"].is_null() ? "" : card["text"]["enUS"].get<std::string>();
@@ -56,13 +56,13 @@ namespace Hearthstonepp
 			std::vector<GameTag> mechanics;
 			for (auto& mechanic : card["mechanics"])
 			{
-				mechanics.emplace_back(std::move(GameTag::_from_string(mechanic.get<std::string>().c_str())));
+				mechanics.emplace_back(GameTag::_from_string(mechanic.get<std::string>().c_str()));
 			}
 
 			std::map<PlayReq, int> playRequirements;
 			for (auto iter = card["playRequirements"].begin(); iter != card["playRequirements"].end(); ++iter)
 			{
-				playRequirements.try_emplace(std::move(PlayReq::_from_string(iter.key().c_str())), iter.value().get<int>());
+				playRequirements.try_emplace(PlayReq::_from_string(iter.key().c_str())), iter.value().get<int>();
 			}
 
 			std::vector<std::string> entourages;
@@ -71,7 +71,7 @@ namespace Hearthstonepp
 				entourages.emplace_back(entourage.get<std::string>());
 			}
 
-			Card* c;
+			Card* c = nullptr;
 			switch (cardType)
 			{
 			case CardType::HERO:
@@ -115,7 +115,8 @@ namespace Hearthstonepp
 				break;
 			}
 
-			cards.emplace_back(c);
+			if(c != nullptr)
+				cards.emplace_back(c);
 		}
 
 		cardFile.close();

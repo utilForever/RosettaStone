@@ -45,6 +45,7 @@ namespace Hearthstonepp
 		TaskAgent m_taskAgent;
 
 		bool IsGameEnd();
+
 		void BeginPhase();
 		// Return game status, GAME_END or GAME_CONTINUE
 		bool MainPhase();
