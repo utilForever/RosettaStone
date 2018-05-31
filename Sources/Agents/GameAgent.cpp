@@ -57,7 +57,7 @@ namespace Hearthstonepp
 		}
 
 		auto untilMulliganSuccess = [](const TaskMeta& serialized) {
-			return serialized.status == MetaData::MULLIGAN_SUCCESS;
+		    return serialized.status == MetaData::MULLIGAN_SUCCESS;
 		};
 
 		m_taskAgent.Add(BasicTask::UserSettingTask());
@@ -89,7 +89,7 @@ namespace Hearthstonepp
 	void GameAgent::FinalPhase()
 	{
 	    TaskMeta meta;
-//		m_taskAgent.Run(BasicTask::GameEndTask(), meta, m_current, m_opponent, false);
+		m_taskAgent.Run(BasicTask::GameEndTask(), meta, m_current, m_opponent);
 	}
 
 	void GameAgent::MainReady()
@@ -114,7 +114,7 @@ namespace Hearthstonepp
 		}
 
 		TaskMeta meta;
-		m_taskAgent.Run(BasicTask::BriefTask(), meta, m_current, m_opponent, false);
+		m_taskAgent.Run(BasicTask::BriefTask(), meta, m_current, m_opponent);
 		m_taskAgent.Run(BasicTask::SelectMenuTask(m_taskAgent), meta, m_current, m_opponent);
 
 		TaskMeta::status_t menu = meta.status;
@@ -146,7 +146,7 @@ namespace Hearthstonepp
 		if (meta.status == MetaData::SELECT_CARD_MINION)
 		{
 			using Require = FlatData::RequireSummonMinionTaskMeta;
-			auto buffer = meta.GetBuffer();
+			const auto& buffer = meta.GetConstBuffer();
 			auto minion = flatbuffers::GetRoot<Require>(buffer.get());
 
 			m_taskAgent.Run(
@@ -161,7 +161,7 @@ namespace Hearthstonepp
 		m_taskAgent.Run(BasicTask::SelectTargetTask(m_taskAgent), meta, m_current, m_opponent);
 
 		using Require = FlatData::RequireTargetingTaskMeta;
-		auto buffer = meta.GetBuffer();
+		const auto& buffer = meta.GetConstBuffer();
 		auto targeting = flatbuffers::GetRoot<Require>(buffer.get());
 
 		m_taskAgent.Run(BasicTask::CombatTask(targeting->src(), targeting->dst()), meta, m_current, m_opponent);
@@ -172,10 +172,12 @@ namespace Hearthstonepp
 		int healthCurrent = m_current.hero->GetHealth();
 		int healthOpponent = m_opponent.hero->GetHealth();
 
-		if (healthCurrent < 1 || healthOpponent < 1) {
+		if (healthCurrent < 1 || healthOpponent < 1)
+		{
 			return true;
 		}
-		else {
+		else
+		{
 			return false;
 		}
 
