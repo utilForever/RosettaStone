@@ -103,6 +103,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wall
 		-Wno-missing-braces
+		-Wno-int-in-bool-context
 		${WARN_AS_ERROR_FLAGS}
 		-std=c++1z
 	)
