@@ -9,7 +9,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 endif()
 
 # Includes
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Includes)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/glfw/include)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/imgui)
 include_directories(${CMAKE_SOURCE_DIR}/Libraries/SFML/include)
@@ -37,8 +37,17 @@ endif()
 link_directories(${SFML_LIBRARIES_PATH})
 set(SFML_LIBRARY_DEPENDENCIES sfml-audio sfml-graphics sfml-network sfml-system sfml-window)
 
+# Includes
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Libraries
+)
+
 # Sources
-file(GLOB sources
+file(GLOB_RECURSE headers
+    ${CMAKE_CURRENT_SOURCE_DIR}/Includes/*.h)
+    
+file(GLOB_RECURSE sources
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # Build executable
@@ -62,7 +71,7 @@ target_compile_options(${target}
 )
 target_compile_definitions(${target}
     PRIVATE
-    RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../Resources/"
+    BACKGROUNDS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Assets/Backgrounds/"
 )
 
 # Link libraries
