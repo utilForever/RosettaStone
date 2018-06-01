@@ -18,35 +18,35 @@
 
 namespace Hearthstonepp
 {
-	using BYTE = unsigned char;
+using BYTE = unsigned char;
 
-	struct User
-	{
-		User(Player* player, int deckID);
+struct User
+{
+    User(Player* player, int deckID);
 
-		BYTE id;
-		BYTE totalMana;
-		BYTE existMana;
-		BYTE exhausted;
+    BYTE id;
+    BYTE totalMana;
+    BYTE existMana;
+    BYTE exhausted;
 
-		std::string userID;
-		Hero* hero;
-		HeroPower* power;
-		Weapon* weapon;
+    std::string userID;
+    Hero* hero;
+    HeroPower* power;
+    Weapon* weapon;
 
-		// Card storage, not for processing
-		std::vector<Card> cardDeck;
+    // Card storage
+    std::vector<Card> cardDeck;
 
-		// Card objects for procesisng, based on pointer
-		std::vector<Card*> deck;
-		std::vector<Card*> field;
-		std::vector<Card*> hand;
-		std::vector<Card*> usedSpell;
-		std::vector<Card*> usedMinion;
+    // Card objects
+    std::vector<Card*> deck;
+    std::vector<Card*> field;
+    std::vector<Card*> hand;
+    std::vector<Card*> usedSpell;
+    std::vector<Card*> usedMinion;
 
-		// Card objects for already attacked minion
-		std::vector<Card*> attacked;
-	};
-}
+    // Already Attacked Minion
+    std::vector<Card*> attacked;
+};
+}  // namespace Hearthstonepp
 
 #endif

@@ -17,59 +17,68 @@
 
 namespace Hearthstonepp
 {
-    using BYTE = unsigned char;
+using BYTE = unsigned char;
 
-    struct TaskMetaTrait
-    {
-        using status_t = unsigned int;
-        static constexpr status_t STATUS_INVALID = 0;
-        static constexpr BYTE USER_INVALID = 255;
+// Abstract of TaskMeta, store default meta data
+// `id(TaskID)`, `status(TaskMetaTrait::status_t)`, `userID(unsigned char)`
+struct TaskMetaTrait
+{
+    using status_t = unsigned int;
+    static constexpr status_t STATUS_INVALID = 0;
+    static constexpr BYTE USER_INVALID = 255;
 
-        TaskID id;
-        status_t status;
-        BYTE userID;
+    TaskID id;
+    status_t status;
+    BYTE userID;
 
-        TaskMetaTrait();
-        TaskMetaTrait(TaskID id);
-        TaskMetaTrait(TaskID id, status_t status);
-        TaskMetaTrait(TaskID id, status_t status, BYTE userID);
+    TaskMetaTrait();
+    TaskMetaTrait(TaskID id);
+    TaskMetaTrait(TaskID id, status_t status);
+    TaskMetaTrait(TaskID id, status_t status, BYTE userID);
 
-        TaskMetaTrait(const TaskMetaTrait& trait);
+    TaskMetaTrait(const TaskMetaTrait& trait);
 
-        TaskMetaTrait& operator=(TaskMetaTrait&&) = delete;
-        TaskMetaTrait& operator=(const TaskMetaTrait&) = delete;
-    };
+    TaskMetaTrait& operator=(TaskMetaTrait&&) = delete;
+    TaskMetaTrait& operator=(const TaskMetaTrait&) = delete;
+};
 
-    class TaskMeta : public TaskMetaTrait
-    {
-    public:
-        using status_t = TaskMetaTrait::status_t;
+// Meta data of run Task.
+class TaskMeta : public TaskMetaTrait
+{
+ public:
+    using status_t = TaskMetaTrait::status_t;
 
-        TaskMeta();
-        TaskMeta(const TaskMetaTrait& trait);
+    TaskMeta();
+    TaskMeta(const TaskMetaTrait& trait);
 
-        TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
-        TaskMeta(const TaskMetaTrait& trait, size_t size, std::unique_ptr<BYTE[]>&& buffer);
+    TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
+    TaskMeta(const TaskMetaTrait& trait, size_t size,
+             std::unique_ptr<BYTE[]>&& buffer);
 
-        TaskMeta(TaskMeta&& meta) noexcept;
-        TaskMeta(const TaskMeta&) = delete;
+    // Non copy-assignable object, only movable.
+    // noexcept by move constructor of std::unique_ptr
+    TaskMeta(TaskMeta&& meta) noexcept;
+    TaskMeta(const TaskMeta&) = delete;
 
-        TaskMeta& operator=(TaskMeta&& meta);
-        TaskMeta& operator=(const TaskMeta&) = delete;
+    TaskMeta& operator=(TaskMeta&& meta);
+    TaskMeta& operator=(const TaskMeta&) = delete;
 
-        static TaskMeta CopyFrom(const TaskMeta& meta);
-        static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
+    // Deep copy of TaskMeta
+    static TaskMeta CopyFrom(const TaskMeta& meta);
+    // Convert from FlatData::TaskMeta, deep copy of byte data
+    static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
 
-        void reset();
-        size_t GetBufferSize() const;
+    // Reset std::unique_ptr and size data
+    void reset();
+    size_t GetBufferSize() const;
 
-        std::unique_ptr<BYTE[]>&& MoveBuffer();
-        const std::unique_ptr<BYTE[]>& GetConstBuffer() const;
+    std::unique_ptr<BYTE[]>&& MoveBuffer();
+    const std::unique_ptr<BYTE[]>& GetConstBuffer() const;
 
-    private:
-        size_t m_size;
-        std::unique_ptr<BYTE[]> m_buffer;
-    };
-}
+ private:
+    size_t m_size;
+    std::unique_ptr<BYTE[]> m_buffer;
+};
+}  // namespace Hearthstonepp
 
-#endif //HEARTHSTONEPP_TASKMETA_H
+#endif  // HEARTHSTONEPP_TASKMETA_H

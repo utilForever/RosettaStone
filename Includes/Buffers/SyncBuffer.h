@@ -14,67 +14,70 @@
 
 namespace Hearthstonepp
 {
-    template <typename BufferType>
-    class SyncBuffer {
-    public:
-        SyncBuffer() : m_readable(false)
-        {
-            // Do Nothing
-        }
+// BufferType must be copy-assignable and movable
+template <typename BufferType>
+class SyncBuffer
+{
+ public:
+    SyncBuffer() : m_readable(false)
+    {
+        // Do Nothing
+    }
 
-        SyncBuffer(SyncBuffer&&) = delete;
+    // Not copy-assignable
+    SyncBuffer(SyncBuffer&&) = delete;
 
-        SyncBuffer(const SyncBuffer&) = delete;
+    SyncBuffer(const SyncBuffer&) = delete;
 
-        SyncBuffer& operator=(SyncBuffer&&) = delete;
+    SyncBuffer& operator=(SyncBuffer&&) = delete;
 
-        SyncBuffer& operator=(const SyncBuffer&) = delete;
+    SyncBuffer& operator=(const SyncBuffer&) = delete;
 
-        void WriteBuffer(BufferType &&buffer)
-        {
-            std::unique_lock lock(m_mtx);
-            m_cond.wait(lock, [=]() { return !m_readable; });
+    void WriteBuffer(BufferType&& buffer)
+    {
+        std::unique_lock lock(m_mtx);
+        m_cond.wait(lock, [=]() { return !m_readable; });
 
-            m_buffer = std::move(buffer);
+        m_buffer = std::move(buffer);
 
-            m_readable = true;
-            m_cond.notify_one();
-        }
+        m_readable = true;
+        m_cond.notify_one();
+    }
 
-        void WriteBuffer(const BufferType &buffer)
-        {
-            std::unique_lock lock(m_mtx);
-            m_cond.wait(lock, [=]() { return !m_readable; });
+    void WriteBuffer(const BufferType& buffer)
+    {
+        std::unique_lock lock(m_mtx);
+        m_cond.wait(lock, [=]() { return !m_readable; });
 
-            m_buffer = buffer;
+        m_buffer = buffer;
 
-            m_readable = true;
-            m_cond.notify_one();
-        }
+        m_readable = true;
+        m_cond.notify_one();
+    }
 
-        void ReadBuffer(BufferType& buffer)
-        {
-            std::unique_lock lock(m_mtx);
-            m_cond.wait(lock, [=]() { return m_readable; });
+    void ReadBuffer(BufferType& buffer)
+    {
+        std::unique_lock lock(m_mtx);
+        m_cond.wait(lock, [=]() { return m_readable; });
 
-            buffer = std::move(m_buffer);
+        buffer = std::move(m_buffer);
 
-            m_readable = false;
-            m_cond.notify_one();
-        }
+        m_readable = false;
+        m_cond.notify_one();
+    }
 
-        bool isReadable() const
-        {
-            return m_readable;
-        }
+    bool isReadable() const
+    {
+        return m_readable;
+    }
 
-    private:
-        bool m_readable;
-        BufferType m_buffer;
+ private:
+    bool m_readable;
+    BufferType m_buffer;
 
-        std::mutex m_mtx;
-        std::condition_variable m_cond;
-    };
-}
+    std::mutex m_mtx;
+    std::condition_variable m_cond;
+};
+}  // namespace Hearthstonepp
 
-#endif //HEARTHSTONEPP_SYNCBUFFER_H
+#endif  // HEARTHSTONEPP_SYNCBUFFER_H

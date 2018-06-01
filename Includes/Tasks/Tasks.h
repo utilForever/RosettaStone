@@ -17,32 +17,34 @@
 
 namespace Hearthstonepp
 {
-    class Task
-    {
-    public:
-        template <typename T>
-        static constexpr inline bool is_task = std::is_same_v<std::decay_t<T>, Task>;
+class Task
+{
+ public:
+    template <typename T>
+    static constexpr inline bool is_task =
+        std::is_same_v<std::decay_t<T>, Task>;
 
-        using lambda_t = std::function<TaskMeta(User&, User&)>;
+    // function object of runnable Task role.
+    using lambda_t = std::function<TaskMeta(User&, User&)>;
 
-        Task();
+    Task();
 
-        Task(TaskID id, lambda_t&& role);
-        Task(TaskID id, const lambda_t& role);
+    Task(TaskID id, lambda_t&& role);
+    Task(TaskID id, const lambda_t& role);
 
-        Task(Task&& task);
-        Task(const Task& task);
+    Task(Task&& task);
+    Task(const Task& task);
 
-        Task& operator=(Task&& task);
-        Task& operator=(const Task& task);
+    Task& operator=(Task&& task);
+    Task& operator=(const Task& task);
 
-        TaskID GetTaskID() const;
-        lambda_t GetTaskRole() const;
+    TaskID GetTaskID() const;
+    lambda_t GetTaskRole() const;
 
-    private:
-        TaskID m_id;
-        lambda_t m_role;
-    };
-}
+ private:
+    TaskID m_id;
+    lambda_t m_role;
+};
+}  // namespace Hearthstonepp
 
-#endif //HEARTHSTONEPP_TASKS_H
+#endif  // HEARTHSTONEPP_TASKS_H

@@ -42,11 +42,14 @@ namespace Hearthstonepp
 		const size_t HANDLE_STOP = 1;
 
 		GameAgent& m_agent;
+		// Temporal TaskMeta got from GameAgent
 		TaskMeta m_buffer;
 
 		GameResult m_result;
 
+		// Variable for storing serialized brief cache
 		std::unique_ptr<BYTE[]> m_briefRawCache;
+		// Deserialized brief cache
 		const FlatData::BriefTaskMeta* m_briefCache;
 
 		std::ostream& m_ostream;
@@ -64,6 +67,7 @@ namespace Hearthstonepp
 		using CardVector = flatbuffers::Vector<flatbuffers::Offset<FlatData::Card>>;
 		void ShowCards(const CardVector& cards);
 
+		// TaskMeta Handler
 		void HandleInvalid(const TaskMeta& meta);
 		void HandleUserSetting(const TaskMeta& meta);
 		void HandleSwap(const TaskMeta& meta);
@@ -79,11 +83,13 @@ namespace Hearthstonepp
 		void HandleTaskTuple(const TaskMeta& meta);
 		void HandleGameEnd(const TaskMeta& meta);
 
+		// Input Task Handler
 		void InputMulligan(const TaskMeta& meta);
 		void InputSelectMenu(const TaskMeta& meta);
 		void InputSelectCard(const TaskMeta& meta);
 		void InputTargeting(const TaskMeta& meta);
 
+		// Handler table
 		std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>> m_handler =
 		{
 			{ TaskID::INVALID, 			&GameInterface::HandleInvalid },
@@ -102,6 +108,7 @@ namespace Hearthstonepp
 			{ TaskID::GAME_END, 		&GameInterface::HandleGameEnd },
  		};
 
+		// Input Handler Table
 		std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>> m_inputHandler =
 		{
 			{ TaskID::MULLIGAN, 		&GameInterface::InputMulligan },
