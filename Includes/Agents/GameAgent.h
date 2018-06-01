@@ -23,6 +23,7 @@ namespace Hearthstonepp
 class GameAgent
 {
  public:
+    // Constant expression of User type checking
     template <typename T>
     static constexpr inline bool isUser = std::is_same_v<std::decay_t<T>, User>;
 
