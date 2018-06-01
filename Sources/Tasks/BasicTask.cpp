@@ -35,7 +35,7 @@ std::function<TaskMeta()> RequireMethod(TaskID request, BYTE userID,
 
 Task DoBothUser(Task&& task)
 {
-    auto role = [role = std::move(task.GetTaskRole())](
+    auto role = [role = task.GetTaskRole()](
                     User& current, User& opponent) -> TaskMeta {
         std::vector<TaskMeta> vector;
         // Current User Action
@@ -50,13 +50,13 @@ Task DoBothUser(Task&& task)
 
 Task DoUntil(Task&& task, std::function<bool(const TaskMeta&)>&& condition)
 {
-    auto role = [role = std::move(task.GetTaskRole()),
-                 condition = std::move(condition)](User& current,
+    auto role = [role = task.GetTaskRole(),
+                 condition = condition](User& current,
                                                    User& opponent) -> TaskMeta {
         TaskMeta meta;
         while (true)
         {
-            meta = std::move(role(current, opponent));
+            meta = role(current, opponent);
             // Do until the condition satisfied
             if (condition(meta))
             {
@@ -427,7 +427,7 @@ TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
     meta.userID = current.id;
 
     // Card Hand Index Verification
-    if (cardIndex < 0 || cardIndex >= current.hand.size())
+    if (cardIndex >= current.hand.size())
     {
         meta.status = MetaData::SUMMON_CARD_IDX_OUT_OF_RANGE;
         return TaskMeta(meta);
@@ -439,7 +439,7 @@ TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
         return TaskMeta(meta);
     }
     // Field Position Verification
-    if (position < 0 || position > current.field.size())
+    if (position > current.field.size())
     {
         meta.status = MetaData::SUMMON_POSITION_OUT_OF_RANGE;
         return TaskMeta(meta);
@@ -484,7 +484,7 @@ TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
     meta.userID = current.id;
 
     // Source Minion Index Verification
-    if (src < 0 || src >= current.field.size())
+    if (src >= current.field.size())
     {
         meta.status = MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
         return TaskMeta(meta);
@@ -502,7 +502,7 @@ TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
     attacked.emplace_back(current.field[src]);
 
     // Destination Verification, dst == 0 : hero / 1 < dst <= field.size : minion
-    if (dst < 0 || dst > opponent.field.size())
+    if (dst > opponent.field.size())
     {
         meta.status = MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
         return TaskMeta(meta);

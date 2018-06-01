@@ -44,7 +44,7 @@ void TaskAgent::Run(const Task& task, TaskMeta& meta, User& current,
                     User& opponent, bool notify)
 {
     const Task::lambda_t& role = task.GetTaskRole();
-    meta = std::move(role(current, opponent));
+    meta = role(current, opponent);
 
     if (notify)
     {

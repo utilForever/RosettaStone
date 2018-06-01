@@ -133,7 +133,7 @@ bool GameAgent::MainMenu()
     }
     else
     {
-        if (menu >= 0 && menu < GAME_MAIN_MENU_SIZE - 1)
+        if (menu < GAME_MAIN_MENU_SIZE - 1)
         {
             // call action method
             m_mainMenuFuncs[menu](*this);

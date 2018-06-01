@@ -26,7 +26,7 @@ Task::Task(TaskID id, const lambda_t& role) : m_id(id), m_role(role)
 }
 
 Task::Task(Task&& task)
-    : m_id(task.GetTaskID()), m_role(std::move(task.GetTaskRole()))
+    : m_id(task.GetTaskID()), m_role(task.GetTaskRole())
 {
     // Do Nothing
 }
@@ -40,7 +40,7 @@ Task::Task(const Task& task)
 Task& Task::operator=(Task&& task)
 {
     m_id = task.GetTaskID();
-    m_role = std::move(task.GetTaskRole());
+    m_role = task.GetTaskRole();
 
     return *this;
 }
