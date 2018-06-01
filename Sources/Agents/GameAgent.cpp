@@ -183,8 +183,8 @@ void GameAgent::MainCombat()
 
 bool GameAgent::IsGameEnd()
 {
-    int healthCurrent = m_current.hero->GetHealth();
-    int healthOpponent = m_opponent.hero->GetHealth();
+    int healthCurrent = static_cast<int>(m_current.hero->GetHealth());
+    int healthOpponent = static_cast<int>(m_opponent.hero->GetHealth());
 
     if (healthCurrent < 1 || healthOpponent < 1)
     {
