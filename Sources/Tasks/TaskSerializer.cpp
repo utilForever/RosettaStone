@@ -50,16 +50,25 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
     }
 
     return FlatData::CreateCard(
-        builder, builder.CreateString(card->GetID()),
-        static_cast<int>(card->GetRarity()), static_cast<int>(Faction::INVALID),
+        builder, 
+		builder.CreateString(card->GetID()),
+        static_cast<int>(card->GetRarity()), 
+		static_cast<int>(Faction::INVALID),
         static_cast<int>(CardSet::INVALID),
         static_cast<int>(card->GetCardClass()),
         static_cast<int>(card->GetCardType()),
         static_cast<int>(card->GetRace()),
-        builder.CreateString(card->GetName()), builder.CreateString(""),
-        card->GetCollectible(), card->GetCost(), card->GetAttack(),
-        card->GetHealth(), card->GetDurability(),
-        builder.CreateVector(mechanics), 0, 0, card->GetMaxAllowedInDeck());
+        builder.CreateString(card->GetName()), 
+		builder.CreateString(""),
+        card->GetCollectible(), 
+		static_cast<int>(card->GetCost()), 
+		static_cast<int>(card->GetAttack()),
+        static_cast<int>(card->GetHealth()), 
+		card->GetDurability(),
+        builder.CreateVector(mechanics), 
+		0, 
+		0, 
+		card->GetMaxAllowedInDeck());
 }
 
 TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
@@ -238,7 +247,7 @@ TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait,
 {
     flatbuffers::FlatBufferBuilder builder(128);
     auto flat = FlatData::CreateSummonMinionTaskMeta(
-        builder, CreateCard(builder, card), position);
+        builder, CreateCard(builder, card), static_cast<BYTE>(position));
 
     builder.Finish(flat);
     return TaskMeta(trait, builder.GetSize(), builder.GetBufferPointer());

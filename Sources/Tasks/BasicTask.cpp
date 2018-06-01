@@ -131,7 +131,7 @@ TaskMeta RawDraw(User& user, size_t num)
         // sigma (i = 1 to rest) { current.exhausted + i }
         int hurts =
             static_cast<int>(user.exhausted * rest + rest * (rest + 1) / 2);
-        int hurted = user.hero->GetHealth() - hurts;
+        int hurted = static_cast<int>(user.hero->GetHealth()) - hurts;
 
         meta.numHearts = static_cast<BYTE>(hurts);
 
@@ -181,7 +181,7 @@ TaskMeta RawDraw(User& user, size_t num)
         deck.pop_back();
     }
 
-    meta.numDraw = num;
+    meta.numDraw = static_cast<BYTE>(num);
     return Serializer::CreateDrawTaskMeta(meta, result, user.id);
 }
 
@@ -263,7 +263,7 @@ TaskMeta RawModifyHealth(User& user, Card* card, BYTE damage)
     meta.card = card;
     meta.damage = damage;
 
-    int hurted = card->GetHealth() - damage;
+    int hurted = static_cast<int>(card->GetHealth()) - damage;
     // if minion is alive
     if (hurted > 0)
     {
@@ -297,7 +297,9 @@ TaskMeta RawBrief(const User& current, const User& opponent)
 {
     Serializer::BriefTaskMeta meta(
         current.id, opponent.id, current.existMana, opponent.existMana,
-        current.deck.size(), opponent.deck.size(), opponent.hand.size(),
+        static_cast<BYTE>(current.deck.size()),
+		static_cast<BYTE>(opponent.deck.size()), 
+		static_cast<BYTE>(opponent.hand.size()),
         current.hand, current.field, opponent.field, current.attacked,
         opponent.attacked, current.hero, opponent.hero);
 
@@ -444,7 +446,7 @@ TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
     }
 
     Card* card = current.hand[cardIndex];
-    int cost = card->GetCost();
+    int cost = static_cast<int>(card->GetCost());
 
     // Summoned minion can't attack right turn
     current.attacked.emplace_back(card);
