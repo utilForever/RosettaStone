@@ -75,7 +75,7 @@ void SceneManager::StartSceneManager(const std::string& sceneName)
             sf::VideoMode(GameManager::GetInstance()->GetWindowWidth(),
                           GameManager::GetInstance()->GetWindowHeight()),
             "Hearthstone++ GUI",
-            !sf::Style::Resize | sf::Style::Titlebar | sf::Style::Close);
+            (!sf::Style::Resize) | sf::Style::Titlebar | sf::Style::Close);
         m_window->setFramerateLimit(60);
 
         // Starts the GameManager
