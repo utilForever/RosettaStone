@@ -9,6 +9,8 @@
 #include <Manager/GameManager.h>
 #include <Manager/SceneManager.h>
 
+#include <Commons/Macros.h>
+
 #include <imgui/imgui-SFML.h>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
@@ -134,9 +136,15 @@ void SceneManager::StartSceneManager(const std::string& sceneName)
         if (ImGui::BeginMainMenuBar())
         {
             char fps[256];
+#ifdef HEARTHSTONEPP_WINDOWS
             sprintf_s(fps, "%.3f ms/frame (%.1f FPS)",
                       1000.0f / ImGui::GetIO().Framerate,
                       ImGui::GetIO().Framerate);
+#else
+            sprintf(fps, "%.3f ms/frame (%.1f FPS)",
+                      1000.0f / ImGui::GetIO().Framerate,
+                      ImGui::GetIO().Framerate);
+#endif
             ImGui::MenuItem(fps);
             ImGui::EndMainMenuBar();
         }
