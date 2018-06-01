@@ -35,7 +35,7 @@ class SyncBuffer
 
     void WriteBuffer(BufferType&& buffer)
     {
-        std::unique_lock lock(m_mtx);
+        std::unique_lock<std::mutex> lock(m_mtx);
         m_cond.wait(lock, [=]() { return !m_readable; });
 
         m_buffer = std::move(buffer);
@@ -46,7 +46,7 @@ class SyncBuffer
 
     void WriteBuffer(const BufferType& buffer)
     {
-        std::unique_lock lock(m_mtx);
+        std::unique_lock<std::mutex> lock(m_mtx);
         m_cond.wait(lock, [=]() { return !m_readable; });
 
         m_buffer = buffer;
@@ -57,7 +57,7 @@ class SyncBuffer
 
     void ReadBuffer(BufferType& buffer)
     {
-        std::unique_lock lock(m_mtx);
+        std::unique_lock<std::mutex> lock(m_mtx);
         m_cond.wait(lock, [=]() { return m_readable; });
 
         buffer = std::move(m_buffer);
