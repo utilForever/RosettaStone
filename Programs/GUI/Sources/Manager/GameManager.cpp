@@ -45,6 +45,17 @@ void GameManager::RemoveBackground()
     m_backgroundSprite.setTexture(m_backgroundTexture);
 }
 
+void GameManager::PlayBGM(const char* bgmPath)
+{
+    m_bgm.openFromFile(bgmPath);
+    m_bgm.play();
+}
+
+void GameManager::StopBGM()
+{
+    m_bgm.stop();
+}
+
 void GameManager::ClearDrawList()
 {
     RemoveBackground();

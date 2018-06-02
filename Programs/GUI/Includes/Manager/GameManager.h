@@ -9,6 +9,7 @@
 #ifndef HEARTHSTONEPP_GUI_GAME_MANAGER_H
 #define HEARTHSTONEPP_GUI_GAME_MANAGER_H
 
+#include <SFML/Audio/Music.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -34,6 +35,12 @@ class GameManager
 
     //! Remove the background.
     void RemoveBackground();
+
+    //! Play BGM.
+    void PlayBGM(const char* bgmPath);
+
+    //! Stop BGM.
+    void StopBGM();
 
     //! Clear draw lists.
     void ClearDrawList();
@@ -62,6 +69,8 @@ class GameManager
 
     sf::Texture m_backgroundTexture;
     sf::Sprite m_backgroundSprite;
+
+    sf::Music m_bgm;
 
     int m_windowWidth = 1024;
     int m_windowHeight = 768;
