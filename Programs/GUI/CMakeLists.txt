@@ -72,6 +72,7 @@ target_compile_options(${target}
 target_compile_definitions(${target}
     PRIVATE
     IMAGES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Assets/Images/"
+    SOUNDS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Assets/Sounds/"
 )
 
 # Link libraries

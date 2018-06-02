@@ -14,6 +14,7 @@ namespace Hearthstonepp
 void LoginScene::Start()
 {
     GameManager::GetInstance()->SetBackground(IMAGES_DIR "Background_Login.png");
+    GameManager::GetInstance()->PlayBGM(SOUNDS_DIR "BGM_Login.ogg");
 
     m_flags |= ImGuiWindowFlags_NoResize;
     m_flags |= ImGuiWindowFlags_NoMove;
