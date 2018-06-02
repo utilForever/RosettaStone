@@ -71,7 +71,7 @@ target_compile_options(${target}
 )
 target_compile_definitions(${target}
     PRIVATE
-    BACKGROUNDS_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Assets/Backgrounds/"
+    IMAGES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Assets/Images/"
 )
 
 # Link libraries

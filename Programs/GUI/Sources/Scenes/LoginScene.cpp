@@ -13,7 +13,7 @@ namespace Hearthstonepp
 {
 void LoginScene::Start()
 {
-    GameManager::GetInstance()->SetBackground(BACKGROUNDS_DIR "Login.png");
+    GameManager::GetInstance()->SetBackground(IMAGES_DIR "Background_Login.png");
 
     m_flags |= ImGuiWindowFlags_NoResize;
     m_flags |= ImGuiWindowFlags_NoMove;
