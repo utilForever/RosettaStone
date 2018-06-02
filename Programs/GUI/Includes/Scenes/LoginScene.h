@@ -35,8 +35,8 @@ class LoginScene : public Scene
     float m_positionX = 0.0f;
     float m_positionY = 0.0f;
 
-    float m_width = 200.0f;
-    float m_height = 350.0f;
+    float m_width = 0.0f;
+    float m_height = 0.0f;
 };
 }
 

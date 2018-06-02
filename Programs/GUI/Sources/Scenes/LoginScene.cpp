@@ -21,6 +21,9 @@ void LoginScene::Start()
     m_flags |= ImGuiWindowFlags_NoCollapse;
     m_flags |= ImGuiWindowFlags_NoTitleBar;
 
+    m_width = GameManager::GetInstance()->GetWindowWidth() * 0.3f;
+    m_height = GameManager::GetInstance()->GetWindowHeight() * 0.5f;
+
     m_positionX =
         GameManager::GetInstance()->GetWindowWidth() * 0.5f - m_width * 0.5f;
     m_positionY =
@@ -36,7 +39,7 @@ void LoginScene::Update()
 {
     ImGui::SetNextWindowPos(ImVec2(m_positionX, m_positionY));
 
-    ImGui::Begin("Login", &m_isOpened, ImVec2(m_width, m_height), 0.0f,
+    ImGui::Begin("Login", &m_isOpened, ImVec2(m_width, m_height), 0.5f,
                  m_flags);
     {
         // Info
