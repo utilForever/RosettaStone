@@ -15,6 +15,10 @@ GameManager* GameManager::GetInstance()
     if (m_instance == nullptr)
     {
         m_instance = new GameManager();
+
+        const sf::VideoMode videoMode = sf::VideoMode::getDesktopMode();
+        m_instance->m_windowWidth = videoMode.width / 2;
+        m_instance->m_windowHeight = videoMode.height / 2;
     }
 
     return m_instance;
@@ -37,6 +41,9 @@ void GameManager::SetBackground(const char* imagePath)
     m_backgroundSprite.setTexture(m_backgroundTexture);
     m_backgroundSprite.setOrigin(0.0f, 0.0f);
     m_backgroundSprite.setPosition(0.0f, 0.0f);
+    m_backgroundSprite.setScale(
+        GetWindowWidth() / m_backgroundSprite.getLocalBounds().width,
+        GetWindowHeight() / m_backgroundSprite.getLocalBounds().height);
 }
 
 void GameManager::RemoveBackground()

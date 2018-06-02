@@ -72,8 +72,8 @@ class GameManager
 
     sf::Music m_bgm;
 
-    int m_windowWidth = 1024;
-    int m_windowHeight = 768;
+    int m_windowWidth;
+    int m_windowHeight;
 };
 }
 
