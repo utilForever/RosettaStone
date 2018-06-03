@@ -15,64 +15,64 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 
 ## Card Ability
 
-- [] Adapt
-- [] Auto-Attack
-- [] Auto-cast
-- [] Battlecry
-- [] Cast spell
-- [] Charge
-- [] Choose One
-- [] Choose Twice
-- [] Combo
-- [] Copy
-- [] Deal damage
-- [] Deathrattle
-- [] Destroy
-- [] Discard
-- [] Discover
-- [] Divine Shield
-- [] Draw cards
-- [] Echo
-- [] Elusive
-- [] Enrage
-- [] Equip
-- [] Forgetful
-- [] Freeze
-- [] Gain Armor
-- [] Generate
-- [] Immune
-- [] Inspire
-- [] Joust
-- [] Lifesteal
-- [] Mega-Windfury
-- [] Modify cost
-- [] Overload
-- [] Permanent
-- [] Poisonous
-- [] Put into battlefield
-- [] Put into hand
-- [] Quest
-- [] Recruit
-- [] Refresh Mana
-- [] Remove from deck
-- [] Replace
-- [] Rush
-- [] Restore Health
-- [] Return to hand
-- [] Secret
-- [] Shuffle into deck
-- [] Silence
-- [] Spell Damage
-- [] Spend mana
-- [] Start of Game
-- [] Stealth
-- [] Summon
-- [] Taunt
-- [] Take control
-- [] Transform
-- [] Unlimited attacks
-- [] Upgradable
-- [] Windfury
+- [ ] Adapt
+- [ ] Auto-Attack
+- [ ] Auto-cast
+- [ ] Battlecry
+- [ ] Cast spell
+- [ ] Charge
+- [ ] Choose One
+- [ ] Choose Twice
+- [ ] Combo
+- [ ] Copy
+- [ ] Deal damage
+- [ ] Deathrattle
+- [ ] Destroy
+- [ ] Discard
+- [ ] Discover
+- [ ] Divine Shield
+- [ ] Draw cards
+- [ ] Echo
+- [ ] Elusive
+- [ ] Enrage
+- [ ] Equip
+- [ ] Forgetful
+- [ ] Freeze
+- [ ] Gain Armor
+- [ ] Generate
+- [ ] Immune
+- [ ] Inspire
+- [ ] Joust
+- [ ] Lifesteal
+- [ ] Mega-Windfury
+- [ ] Modify cost
+- [ ] Overload
+- [ ] Permanent
+- [ ] Poisonous
+- [ ] Put into battlefield
+- [ ] Put into hand
+- [ ] Quest
+- [ ] Recruit
+- [ ] Refresh Mana
+- [ ] Remove from deck
+- [ ] Replace
+- [ ] Rush
+- [ ] Restore Health
+- [ ] Return to hand
+- [ ] Secret
+- [ ] Shuffle into deck
+- [ ] Silence
+- [ ] Spell Damage
+- [ ] Spend mana
+- [ ] Start of Game
+- [ ] Stealth
+- [ ] Summon
+- [ ] Taunt
+- [ ] Take control
+- [ ] Transform
+- [ ] Unlimited attacks
+- [ ] Upgradable
+- [ ] Windfury
 
 ## Card Sets
 
