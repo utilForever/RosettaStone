@@ -12,7 +12,8 @@
 
 namespace Hearthstonepp
 {
-GameInterface::GameInterface(GameAgent& agent, std::ostream& output,
+GameInterface::GameInterface(GameAgent& agent,
+                             std::ostream& output,
                              std::istream& input)
     : m_agent(agent), m_briefCache(nullptr), m_ostream(output), m_istream(input)
 {
@@ -69,7 +70,7 @@ void GameInterface::ShowMenus(const std::array<std::string, SIZE>& menus)
 {
     for (auto& menu : menus)
     {
-        m_ostream << menu << std::endl;
+        m_ostream << menu << '\n';
     }
 }
 
@@ -85,7 +86,7 @@ void GameInterface::ShowCards(const CardVector& cards)
             m_ostream << "(ATK " << card->attack() << "/HP " << card->health()
                       << ")";
         }
-        m_ostream << std::endl;
+        m_ostream << '\n';
     }
 }
 
@@ -96,39 +97,67 @@ void GameInterface::HandleInvalid(const TaskMeta&)
 
 void GameInterface::HandleUserSetting(const TaskMeta& serialized)
 {
+    std::string name = "User Setting";
+    std::ostream& stream = LogWriter(name);
+
     using UserSettingTaskMeta = FlatData::UserSettingTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
+    if (buffer == nullptr)
+    {
+        stream << "Exception HandleUserSetting : TaskMeta is nullptr\n";
+        return;
+    }
+
     auto meta = flatbuffers::GetRoot<UserSettingTaskMeta>(buffer.get());
+    if (meta == nullptr)
+    {
+        m_users[0] = "Unknown0";
+        m_users[1] = "Unknown1";
 
-    m_users[0] = meta->firstID()->c_str();
-    m_users[1] = meta->secondID()->c_str();
+        stream << "Exception HandleUserSetting : UserSettingTaskMeta is nullptr\n";
+    }
+    else
+    {
+        m_users[0] = meta->firstID()->c_str();
+        m_users[1] = meta->secondID()->c_str();
 
-    std::string name = "User Setting";
-    LogWriter(name) << "first : " << m_users[0] << " / "
-                    << "second : " << m_users[1] << std::endl;
+        stream << "second : " << m_users[1] << '\n';
+    }
 }
 
 void GameInterface::HandleSwap(const TaskMeta&)
 {
     std::string name = "User";
-    LogWriter(name) << "Swap" << std::endl;
+    LogWriter(name) << "Swap\n";
 }
 
 void GameInterface::HandleShuffle(const TaskMeta& serialized)
 {
-    LogWriter(m_users[serialized.userID]) << "Shuffled" << std::endl;
+    LogWriter(m_users[serialized.userID]) << "Shuffled\n";
 }
 
 void GameInterface::HandleDraw(const TaskMeta& serialized)
 {
+    std::ostream& stream = LogWriter(m_users[serialized.userID]);
+
     using DrawTaskMeta = FlatData::DrawTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
-    auto meta = flatbuffers::GetRoot<DrawTaskMeta>(buffer.get());
+    if (buffer == nullptr)
+    {
+        stream << "Exception HandleDraw : TaskMeta.GetBuffer is nullptr\n";
+        return;
+    }
 
-    std::ostream& stream = LogWriter(m_users[serialized.userID]);
+    auto meta = flatbuffers::GetRoot<DrawTaskMeta>(buffer.get());
+    if (meta == nullptr)
+    {
+        stream << "Exception HandleDraw : DrawTaskMeta is nullptr\n";
+        return;
+    }
+
     if (serialized.status == MetaData::DRAW_SUCCESS)
     {
-        stream << "Draw Success" << std::endl;
+        stream << "Draw Success\n";
     }
     else
     {
@@ -137,16 +166,14 @@ void GameInterface::HandleDraw(const TaskMeta& serialized)
         {
             stream << "Draw Exhausted : "
                    << static_cast<int>(meta->numExhausted()) << " Cards, "
-                   << static_cast<int>(meta->numHearts()) << " Hearts"
-                   << std::endl;
+                   << static_cast<int>(meta->numHearts()) << " Hearts\n";
         }
 
         if (serialized.status == MetaData::DRAW_OVERDRAW ||
             serialized.status == MetaData::DRAW_EXHAUST_OVERDRAW)
         {
             stream << "Draw OverDraw : "
-                   << static_cast<int>(meta->numOverdraw()) << " Cards"
-                   << std::endl;
+                   << static_cast<int>(meta->numOverdraw()) << " Cards\n";
             ShowCards(*meta->burnt());
         }
     }
@@ -154,7 +181,7 @@ void GameInterface::HandleDraw(const TaskMeta& serialized)
 
 void GameInterface::InputMulligan(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Input Mulligan" << std::endl;
+    LogWriter(m_users[meta.userID]) << "Input Mulligan\n";
 
     size_t numMulligan;
     while (true)
@@ -197,24 +224,37 @@ void GameInterface::HandleMulligan(const TaskMeta& serialized)
     switch (serialized.status)
     {
         case MetaData::MULLIGAN_SUCCESS:
-            stream << "Mulligan Success" << std::endl;
+            stream << "Mulligan Success\n";
             break;
 
         case MetaData::MULLIGAN_INDEX_OUT_OF_RANGE:
-            stream << "Mulligan Index out of range exception" << std::endl;
+            stream << "Mulligan Index out of range exception\n";
             break;
 
         case MetaData::MULLIGAN_DUPLICATED_INDEX:
-            stream << "Mulligan Duplicated index exception" << std::endl;
+            stream << "Mulligan Duplicated index exception\n";
             break;
     }
 }
 
 void GameInterface::HandleManaModification(const TaskMeta& serialized)
 {
+    std::ostream& stream = LogWriter(m_users[serialized.userID]);
+
     using ModifyManaTaskMeta = FlatData::ModifyManaTaskMeta;
     const auto& buffers = serialized.GetConstBuffer();
+    if (buffers == nullptr)
+    {
+        stream << "Exception HandleManaModification : TaskMeta is nullptr\n";
+        return;
+    }
+
     auto meta = flatbuffers::GetRoot<ModifyManaTaskMeta>(buffers.get());
+    if (meta == nullptr)
+    {
+        stream << "Exception HandleManaModification - ModifyManaTaskMeta is nullptr\n";
+        return;
+    }
 
     std::string manaMode = "";
     switch (meta->manaMode())
@@ -241,78 +281,111 @@ void GameInterface::HandleManaModification(const TaskMeta& serialized)
             break;
     }
 
-    LogWriter(m_users[serialized.userID])
-        << "Modify Mana : " << numMode << " "
-        << static_cast<int>(meta->object()) << " to " << manaMode << " mana,"
-        << " result " << static_cast<int>(meta->result()) << std::endl;
+    stream << "Modify Mana : " << numMode << " "
+           << static_cast<int>(meta->object()) << " to " << manaMode << " mana,"
+           << " result " << static_cast<int>(meta->result()) << '\n';
 }
 
 void GameInterface::HandleHealthModification(const TaskMeta& serialized)
 {
+    std::ostream& stream = LogWriter(m_users[serialized.userID]);
+
     using ModifyHealthTaskMeta = FlatData::ModifyHealthTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
-    auto meta = flatbuffers::GetRoot<ModifyHealthTaskMeta>(buffer.get());
+    if (buffer == nullptr)
+    {
+        stream << "Exception HandleHealthModification : TaskMets is nullptr\n";
+        return;
+    }
 
-    LogWriter(m_users[serialized.userID])
-        << "Modify Health : " << meta->card()->name()->c_str() << " get damage "
-        << static_cast<int>(meta->damage()) << ", result "
-        << static_cast<int>(meta->hurted()) << std::endl;
+    auto meta = flatbuffers::GetRoot<ModifyHealthTaskMeta>(buffer.get());
+    if (meta == nullptr)
+    {
+        stream << "Exception HandleHealthModification : ModifyHealthTaskMeta is nullptr\n";
+        return;
+    }
+
+    stream << "Modify Health : " << meta->card()->name()->c_str() << " get damage "
+           << static_cast<int>(meta->damage()) << ", result "
+           << static_cast<int>(meta->hurted()) << '\n';
 }
 //
 void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
 {
+    std::ostream& stream = LogWriter(m_users[serialized.userID]);
+
     using SummonMinionTaskMeta = FlatData::SummonMinionTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
+    if (buffer == nullptr)
+    {
+        stream << "Exception HandleSummonMinion : TaskMeta is nullptr\n";
+        return;
+    }
+
     auto meta = flatbuffers::GetRoot<SummonMinionTaskMeta>(buffer.get());
+    if (meta == nullptr)
+    {
+        stream << "Exception HandleSummonMinion : SummonMinionTaskMeta is nullptr\n";
+        return;
+    }
 
     auto card = meta->card();
+    stream << "Summon Minion : ";
 
-    std::ostream& stream = LogWriter(m_users[serialized.userID])
-                           << "Summon Minion : ";
     switch (serialized.status)
     {
         case MetaData::SUMMON_SUCCESS:
-            stream << card->name()->c_str() << " at " << meta->index()
-                   << std::endl;
+            stream << card->name()->c_str() << " at " << meta->index() << '\n';
             break;
 
         case MetaData::SUMMON_CARD_IDX_OUT_OF_RANGE:
-            stream << "Card index out of range of hand." << std::endl;
+            stream << "Card index out of range of hand\n";
             break;
 
         case MetaData::SUMMON_NOT_ENOUGH_MANA:
-            stream << "Not enough mana" << std::endl;
+            stream << "Not enough mana\n";
             break;
 
         case MetaData::SUMMON_POSITION_OUT_OF_RANGE:
-            stream << "Position out of range of field" << std::endl;
+            stream << "Position out of range of field\n";
             break;
     }
 }
 
 void GameInterface::HandleCombat(const TaskMeta& serialized)
 {
+    std::ostream& stream = LogWriter(m_users[serialized.userID]);
+
     using CombatTaskMeta = FlatData::CombatTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
+    if (buffer == nullptr)
+    {
+        stream << "Exception HandleCombat : TaskMeta is nullptr\n";
+        return;
+    }
+
     auto meta = flatbuffers::GetRoot<CombatTaskMeta>(buffer.get());
+    if (meta == nullptr)
+    {
+        stream << "Exception HandleCombat : CombatTaskMeta is nullptr\n";
+        return;
+    }
 
-    std::ostream& stream = LogWriter(m_users[serialized.userID]) << "Combat : ";
-
+    stream << "Combat : ";
     switch (serialized.status)
     {
         case MetaData::COMBAT_SUCCESS:
             stream << "{src " << meta->src()->name()->c_str() << "} "
-                   << "vs {dst " << meta->dst()->name()->c_str() << "}"
-                   << std::endl;
+                   << "vs {dst " << meta->dst()->name()->c_str() << "}\n";
             break;
         case MetaData::COMBAT_ALREADY_ATTACKED:
-            stream << "Already Attacked Minion" << std::endl;
+            stream << "Already Attacked Minion\n";
             break;
         case MetaData::COMBAT_DST_IDX_OUT_OF_RANGE:
-            stream << "Destination Index Out of Range" << std::endl;
+            stream << "Destination Index Out of Range\n";
             break;
         case MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE:
-            stream << "Source Index Out of Range" << std::endl;
+            stream << "Source Index Out of Range\n";
             break;
         default:
             throw std::runtime_error(
@@ -322,12 +395,24 @@ void GameInterface::HandleCombat(const TaskMeta& serialized)
 
 void GameInterface::HandleRequire(const TaskMeta& serialized)
 {
+    std::string name = "Require";
+
     using RequireTaskMeta = FlatData::RequireTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
+    if (buffer == nullptr)
+    {
+        LogWriter(name) << "Exception HandleRequire : TaskMeta is nullptr\n";
+        return;
+    }
+
     auto meta = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+    if (meta == nullptr)
+    {
+        LogWriter(name) << "Exception HandleRequire : RequireTaskMeta is nullptr\n";
+        return;
+    }
 
     auto required = TaskID::_from_integral(meta->required());
-
     if (m_inputHandler.find(required) != m_inputHandler.end())
     {
         // Find and call from Input Handler Table
@@ -337,9 +422,21 @@ void GameInterface::HandleRequire(const TaskMeta& serialized)
 
 void GameInterface::HandleBrief(const TaskMeta& serialized)
 {
+    std::ostream& stream = LogWriter(m_users[serialized.userID]);
+
     using BriefTaskMeta = FlatData::BriefTaskMeta;
     const BYTE* buffer = serialized.GetConstBuffer().get();
     size_t size = serialized.GetBufferSize();
+
+    if (buffer == nullptr)
+    {
+        stream << "Exception HandleBrief : TaskMeta is nullptr\n";
+
+        m_briefCache = nullptr;
+        m_briefRawCache = nullptr;
+
+        return;
+    }
 
     // Deep copy of std::unique_ptr
     m_briefRawCache = std::make_unique<BYTE[]>(serialized.GetBufferSize());
@@ -350,18 +447,25 @@ void GameInterface::HandleBrief(const TaskMeta& serialized)
 
     // Deserialize BriefTaskMeta
     m_briefCache = flatbuffers::GetRoot<BriefTaskMeta>(m_briefRawCache.get());
+    if (m_briefCache == nullptr)
+    {
+        stream << "Exception HandlBrief : BriefTaskMeta is nullptr\n";
 
-    std::ostream& stream = LogWriter(m_users[serialized.userID])
-                           << "Game Briefing" << std::endl;
+        m_briefCache = nullptr;
+        m_briefRawCache = nullptr;
 
-    stream << m_users[m_briefCache->opponentUser()] << " - Hero "
+        return;
+    }
+
+    stream << "Game Briefing\n"
+           << m_users[m_briefCache->opponentUser()] << " - Hero "
            << m_briefCache->opponentHero()->name()->c_str() << ", Health "
            << m_briefCache->opponentHero()->health() << ", Mana "
            << static_cast<int>(m_briefCache->opponentMana()) << ", Hand "
            << static_cast<int>(m_briefCache->numOpponentHand()) << ", Deck "
-           << static_cast<int>(m_briefCache->numOpponentDeck()) << std::endl;
+           << static_cast<int>(m_briefCache->numOpponentDeck()) << '\n';
 
-    stream << m_users[m_briefCache->opponentUser()] << " Field" << std::endl;
+    stream << m_users[m_briefCache->opponentUser()] << " Field\n";
     ShowCards(*m_briefCache->opponentField());
 
     stream << m_users[m_briefCache->currentUser()] << " - Hero "
@@ -369,18 +473,18 @@ void GameInterface::HandleBrief(const TaskMeta& serialized)
            << m_briefCache->currentHero()->health() << ", Mana "
            << static_cast<int>(m_briefCache->currentMana()) << ", Hand "
            << static_cast<int>(m_briefCache->currentHand()->size()) << ", Deck "
-           << static_cast<int>(m_briefCache->numCurrentDeck()) << std::endl;
+           << static_cast<int>(m_briefCache->numCurrentDeck()) << '\n';
 
-    stream << m_users[m_briefCache->currentUser()] << " Field" << std::endl;
+    stream << m_users[m_briefCache->currentUser()] << " Field\n";
     ShowCards(*m_briefCache->currentField());
 
-    stream << m_users[m_briefCache->currentUser()] << " Hand" << std::endl;
+    stream << m_users[m_briefCache->currentUser()] << " Hand\n";
     ShowCards(*m_briefCache->currentHand());
 }
 
 void GameInterface::InputSelectMenu(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Main Menu" << std::endl;
+    LogWriter(m_users[meta.userID]) << "Main Menu\n";
     ShowMenus(m_mainMenuStr);
 
     size_t input;
@@ -405,7 +509,15 @@ void GameInterface::InputSelectMenu(const TaskMeta& meta)
 
 void GameInterface::InputSelectCard(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Select Card" << std::endl;
+    LogWriter(m_users[meta.userID]) << "Select Card\n";
+    if (m_briefCache == nullptr)
+    {
+        m_ostream << "Exception InputSelectCard : BriefCache is nullptr\n";
+        m_agent.WriteSyncBuffer(
+                TaskMeta(TaskMetaTrait(TaskID::REQUIRE, MetaData::INVALID)));
+
+        return;
+    }
 
     auto currentHand = m_briefCache->currentHand();
 
@@ -423,7 +535,7 @@ void GameInterface::InputSelectCard(const TaskMeta& meta)
         {
             if (currentHand->Get(in)->cost() > currentMana)
             {
-                m_ostream << "Not enough mana" << std::endl;
+                m_ostream << "Not enough mana\n";
             }
             else
             {
@@ -467,18 +579,25 @@ void GameInterface::InputSelectCard(const TaskMeta& meta)
 
 void GameInterface::InputTargeting(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Targeting" << std::endl;
+    LogWriter(m_users[meta.userID]) << "Targeting\n";
+    if (m_briefCache == nullptr)
+    {
+        m_ostream << "Exception InputTargeting : BriefCache is nullptr\n";
+        m_agent.WriteSyncBuffer(
+                TaskMeta(TaskMetaTrait(TaskID::REQUIRE, MetaData::INVALID)));
+        return;
+    }
 
     auto currentField = m_briefCache->currentField();
     int numCurrentField = currentField->size();
 
-    m_ostream << "User field : " << std::endl;
+    m_ostream << "User field :\n";
     ShowCards(*currentField);
 
     auto opponentField = m_briefCache->opponentField();
     int numOpponentField = opponentField->size();
 
-    m_ostream << "Opponent field : " << std::endl;
+    m_ostream << "Opponent field :\n";
     ShowCards(*m_briefCache->opponentField());
 
     int src;
@@ -497,7 +616,7 @@ void GameInterface::InputTargeting(const TaskMeta& meta)
 
             if (std::find(begin, end, currentField->Get(src)) != end)
             {
-                m_ostream << "Already attacked minion." << std::endl;
+                m_ostream << "Already attacked minion\n";
             }
             else
             {
@@ -526,9 +645,21 @@ void GameInterface::InputTargeting(const TaskMeta& meta)
 
 void GameInterface::HandleTaskTuple(const TaskMeta& serialized)
 {
+    std::string name = "TaskTuple";
     const auto& buffer = serialized.GetConstBuffer();
+    if (buffer == nullptr)
+    {
+        LogWriter(name) << "Exception HandleTaskTuple : TaskMeta is nullptr\n";
+        return;
+    }
+
     auto metaVector =
         flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
+    if (metaVector == nullptr)
+    {
+        LogWriter(name) << "Exception HandleTaskTuple : TaskMetaVector is nullptr\n";
+        return;
+    }
 
     for (const auto& meta : *metaVector->vector())
     {
@@ -538,12 +669,24 @@ void GameInterface::HandleTaskTuple(const TaskMeta& serialized)
 
 void GameInterface::HandleGameEnd(const TaskMeta& serialized)
 {
+    std::string name = "GameEnd";
+
     using GameEndTaskMeta = FlatData::GameEndTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
+    if (buffer == nullptr)
+    {
+        LogWriter(name) << "Exception HandleGameEnd : TaskMeta is nullptr\n";
+        return;
+    }
+
     auto meta = flatbuffers::GetRoot<GameEndTaskMeta>(buffer.get());
+    if (meta == nullptr)
+    {
+        LogWriter(name) << "Exception HandleGameEnd : GameEndTaskMeta is nullptr\n";
+        return;
+    }
 
     m_result.winnerID = meta->winnerID()->c_str();
-
-    LogWriter(m_result.winnerID) << "Win" << std::endl;
+    LogWriter(m_result.winnerID) << "Win\n";
 }
 }  // namespace Hearthstonepp
