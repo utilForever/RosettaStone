@@ -85,7 +85,7 @@ TaskMeta RawMulligan(User& current, std::function<TaskMeta()>&& meta);
 Task MulliganTask(TaskAgent& agent);
 
 //Return SummonMinionTaskMeta, Summon `current`.hand[`cardIndex`] at `position`
-TaskMeta RawSummonMinion(User&current, size_t cardIndex, size_t position);
+TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position);
 Task SummonMinionTask(size_t cardIndex, size_t position);
 
 // Return CombatTaskMeta, Combat `current`.field[`src`] with `opponent`.field[`dst`]
