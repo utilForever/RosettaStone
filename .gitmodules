@@ -6,10 +6,6 @@
     path = Libraries/googletest
     url = https://www.github.com/google/googletest
 
-[submodule "Libraries/flatbuffers"]
-	path = Libraries/flatbuffers
-	url = https://github.com/google/flatbuffers
-
 [submodule "Libraries/Clara"]
 	path = Libraries/Clara
 	url = https://github.com/catchorg/Clara
