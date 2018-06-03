@@ -155,11 +155,15 @@ void GameAgent::MainUseCard()
     {
         using Require = FlatData::RequireSummonMinionTaskMeta;
         const auto& buffer = meta.GetConstBuffer();
-        auto minion = flatbuffers::GetRoot<Require>(buffer.get());
-
-        m_taskAgent.Run(BasicTask::SummonMinionTask(minion->cardIndex(),
-                                                    minion->position()),
-                        meta, m_current, m_opponent);
+        if (buffer != nullptr)
+        {
+            auto minion = flatbuffers::GetRoot<Require>(buffer.get());
+            if (minion != nullptr) {
+                m_taskAgent.Run(BasicTask::SummonMinionTask(minion->cardIndex(),
+                                                            minion->position()),
+                                meta, m_current, m_opponent);
+            }
+        }
     }
     else
     {
@@ -175,10 +179,15 @@ void GameAgent::MainCombat()
 
     using Require = FlatData::RequireTargetingTaskMeta;
     const auto& buffer = meta.GetConstBuffer();
-    auto targeting = flatbuffers::GetRoot<Require>(buffer.get());
-
-    m_taskAgent.Run(BasicTask::CombatTask(targeting->src(), targeting->dst()),
-                    meta, m_current, m_opponent);
+    if (buffer != nullptr)
+    {
+        auto targeting = flatbuffers::GetRoot<Require>(buffer.get());
+        if (targeting != nullptr)
+        {
+            m_taskAgent.Run(BasicTask::CombatTask(targeting->src(), targeting->dst()),
+                            meta, m_current, m_opponent);
+        }
+    }
 }
 
 bool GameAgent::IsGameEnd()
