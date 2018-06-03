@@ -6,11 +6,11 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
+#include <Commons/Constants.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
 #include <Tasks/TaskSerializer.h>
 
-#include <Commons/Constants.h>
 #include <algorithm>
 #include <random>
 
