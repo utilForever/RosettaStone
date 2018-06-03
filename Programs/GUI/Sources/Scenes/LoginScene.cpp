@@ -8,12 +8,14 @@
 *************************************************************************/
 #include <Manager/GameManager.h>
 #include <Scenes/LoginScene.h>
+#include <Utils/ImGuiUtils.h>
 
 namespace Hearthstonepp
 {
 void LoginScene::Start()
 {
-    GameManager::GetInstance()->SetBackground(IMAGES_DIR "Background_Login.png");
+    GameManager::GetInstance()->SetBackground(IMAGES_DIR
+                                              "Background_Login.png");
     GameManager::GetInstance()->PlayBGM(SOUNDS_DIR "BGM_Login.ogg");
 
     m_flags |= ImGuiWindowFlags_NoResize;
@@ -22,7 +24,7 @@ void LoginScene::Start()
     m_flags |= ImGuiWindowFlags_NoTitleBar;
 
     m_width = GameManager::GetInstance()->GetWindowWidth() * 0.3f;
-    m_height = GameManager::GetInstance()->GetWindowHeight() * 0.5f;
+    m_height = GameManager::GetInstance()->GetWindowHeight() * 0.4f;
 
     m_positionX =
         GameManager::GetInstance()->GetWindowWidth() * 0.5f - m_width * 0.5f;
@@ -43,12 +45,12 @@ void LoginScene::Update()
     ImGui::SetNextWindowSize(sf::Vector2f(450, 250), ImGuiCond_Always);
     ImGui::SetNextWindowPos(ImVec2(m_positionX, m_positionY));
     ImGui::SetNextWindowPosCenter(true);
-        
+
     ImGui::Begin("Login", &m_isOpened, ImVec2(m_width, m_height), 0.5f,
                  m_flags);
     {
         ImGui::PushItemWidth(-1);
-;
+        ;
         ImGui::SetWindowFontScale(1.0f);
 
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "ID:");
@@ -57,7 +59,7 @@ void LoginScene::Update()
         {
             ImGui::SetKeyboardFocusHere();
             focusHere = false;
-        } 
+        }
         ImGui::InputText("##ID", m_id, sizeof(m_id));
 
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Password:");
@@ -67,41 +69,29 @@ void LoginScene::Update()
         ImGui::NewLine();
         ImGui::NewLine();
 
+        ImGui::SetWindowFontScale(1.0f);
+
         // Check Login
-        ImVec2 textSize = ImGui::CalcTextSize("Login", nullptr, true);
-        ImGui::SetCursorScreenPos(
-            ImVec2(GameManager::GetInstance()->GetWindowWidth() * 0.5f -
-                       (textSize.x / 2) - ImGui::GetStyle().WindowPadding.x,
-                   ImGui::GetCursorScreenPos().y));
+        SetAlignmentHorizontalCenter("Login");
         if (ImGui::Button("Login"))
         {
         }
 
         ImGui::NewLine();
 
-        textSize = ImGui::CalcTextSize("Create Account", nullptr, true);
-        ImGui::SetCursorScreenPos(
-            ImVec2(GameManager::GetInstance()->GetWindowWidth() * 0.5f -
-                       (textSize.x / 2) - ImGui::GetStyle().WindowPadding.x,
-                   ImGui::GetCursorScreenPos().y));
         // Create Account
+        SetAlignmentHorizontalCenter("Create Account");
         if (ImGui::Button("Create Account"))
         {
         }
 
         ImGui::NewLine();
 
-        textSize = ImGui::CalcTextSize("Forgot Password", nullptr, true);
-        ImGui::SetCursorScreenPos(
-            ImVec2(GameManager::GetInstance()->GetWindowWidth() * 0.5f -
-                       (textSize.x / 2) - ImGui::GetStyle().WindowPadding.x,
-                   ImGui::GetCursorScreenPos().y));
         // Forgot Password
+        SetAlignmentHorizontalCenter("Forgot Password");
         if (ImGui::Button("Forgot Password"))
         {
         }
-
-        ImGui::NewLine();
 
         ImGui::PopItemWidth();
     }
