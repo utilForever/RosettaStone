@@ -11,6 +11,7 @@
 #define HEARTHSTONEPP_TASKMETA_H
 
 #include <Enums/Enums.h>
+
 #include <Flatbuffers/MetaData_generated.h>
 
 #include <memory>
