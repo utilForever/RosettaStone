@@ -10,6 +10,10 @@
 #define HEARTHSTONEPP_INTERFACE_H
 
 #include <Agents/GameAgent.h>
+#include <Enums/Enums.h>
+#include <Flatbuffers/MetaData_generated.h>
+#include <Tasks/MetaData.h>
+#include <Tasks/TaskMeta.h>
 
 #include <array>
 #include <functional>
@@ -18,92 +22,107 @@
 
 namespace Hearthstonepp
 {
-	class GameInterface
-	{
-	public:
-		GameInterface(
-			GameAgent& agent, 
-			std::ostream& output = std::cout,
-			std::istream& input = std::cin);
+struct GameResult
+{
+    std::string winnerID;
+};
 
-		GameResult StartGame();
+class GameInterface
+{
+ public:
+    GameInterface(GameAgent& agent,
+				  std::ostream& output = std::cout,
+                  std::istream& input = std::cin);
 
-	private:
-		const unsigned int HANDLE_CONTINUE = 0;
-		const unsigned int HANDLE_STOP = 1;
+    GameResult StartGame();
 
-		GameAgent& m_agent;
+ private:
+    const size_t HANDLE_CONTINUE = 0;
+    const size_t HANDLE_STOP = 1;
 
-		std::ostream& m_ostream;
-		std::istream& m_istream;
+    GameAgent& m_agent;
+    // Temporal TaskMeta got from GameAgent
+    TaskMeta m_buffer;
 
-		// temporal buffer
-		BYTE* m_buffer;
-		int m_bufferCapacity;
+    GameResult m_result;
 
-		// user id 
-		std::string m_users[2];
+    // Variable for storing serialized brief cache
+    std::unique_ptr<BYTE[]> m_briefRawCache;
+    // Deserialized brief cache
+    const FlatData::BriefTaskMeta* m_briefCache;
 
-		unsigned int HandleMessage();
-		std::ostream& LogWriter(std::string& name);
+    std::ostream& m_ostream;
+    std::istream& m_istream;
 
-		template <std::size_t SIZE>
-		void ShowMenus(std::array<std::string, SIZE> menus);
-		void ShowCards(Card** cards, int size);
+    // user id
+    std::string m_users[2];
 
-		void BriefGame();
+    size_t HandleMessage(const TaskMeta& meta);
+    std::ostream& LogWriter(const std::string& name);
 
-		void OverDraw();
-		void ExhaustDeck();
-		void ModifiedMana();
-		void ModifiedHealth();
-		void ExhaustMinion();
+    template <std::size_t SIZE>
+    void ShowMenus(const std::array<std::string, SIZE>& menus);
 
-		void BeginFirst();
-		void BeginShuffle();
-		void BeginDraw();
-		void BeginMulligan();
+    using CardVector = flatbuffers::Vector<flatbuffers::Offset<FlatData::Card>>;
+    void ShowCards(const CardVector& cards);
 
-		// Ready for main phase
-		void MainReady();
-		void MainDraw();
-		// Select main menu and pass to agent
-		void MainMenu();
-		// Use card, combat, use spells, etc
-		void MainUseCard();
-		void MainCombat();
-		void MainEnd();
+    // TaskMeta Handler
+    void HandleInvalid(const TaskMeta& meta);
+    void HandleUserSetting(const TaskMeta& meta);
+    void HandleSwap(const TaskMeta& meta);
+    void HandleShuffle(const TaskMeta& meta);
+    void HandleDraw(const TaskMeta& meta);
+    void HandleMulligan(const TaskMeta& meta);
+    void HandleManaModification(const TaskMeta& meta);
+    void HandleHealthModification(const TaskMeta& meta);
+    void HandleSummonMinion(const TaskMeta& meta);
+    void HandleCombat(const TaskMeta& meta);
+    void HandleRequire(const TaskMeta& meta);
+    void HandleBrief(const TaskMeta& meta);
+    void HandleTaskTuple(const TaskMeta& meta);
+    void HandleGameEnd(const TaskMeta& meta);
 
-		void FinalGameOver();
+    // Input Task Handler
+    void InputMulligan(const TaskMeta& meta);
+    void InputSelectMenu(const TaskMeta& meta);
+    void InputSelectCard(const TaskMeta& meta);
+    void InputTargeting(const TaskMeta& meta);
 
-		std::map<BYTE, std::function<void(GameInterface&)>> m_handler =
-		{
-			{ static_cast<BYTE>(Step::BEGIN_FIRST),			&GameInterface::BeginFirst },
-			{ static_cast<BYTE>(Step::BEGIN_SHUFFLE),		&GameInterface::BeginShuffle },
-			{ static_cast<BYTE>(Step::BEGIN_DRAW),			&GameInterface::BeginDraw },
-			{ static_cast<BYTE>(Step::BEGIN_MULLIGAN),		&GameInterface::BeginMulligan },
-			{ static_cast<BYTE>(Step::MAIN_READY), 			&GameInterface::MainReady },
-			{ static_cast<BYTE>(Step::MAIN_DRAW),			&GameInterface::MainDraw },
-			{ static_cast<BYTE>(Step::MAIN_START),			&GameInterface::MainMenu },
-			{ static_cast<BYTE>(Step::MAIN_ACTION),			&GameInterface::MainUseCard },
-			{ static_cast<BYTE>(Step::MAIN_COMBAT),			&GameInterface::MainCombat },
-			{ static_cast<BYTE>(Step::MAIN_END),			&GameInterface::MainEnd },
-			{ static_cast<BYTE>(Step::FINAL_GAMEOVER), 		&GameInterface::FinalGameOver },
-			{ static_cast<BYTE>(Action::BRIEF),				&GameInterface::BriefGame },
-			{ static_cast<BYTE>(Action::OVER_DRAW),			&GameInterface::OverDraw },
-			{ static_cast<BYTE>(Action::EXHAUST_DECK),		&GameInterface::ExhaustDeck },
-			{ static_cast<BYTE>(Action::MANA_MODIFICATION), &GameInterface::ModifiedMana },
-			{ static_cast<BYTE>(Action::HEALTH_MODIFICATION), &GameInterface::ModifiedHealth },
-			{ static_cast<BYTE>(Action::EXHAUST_MINION), 	&GameInterface::ExhaustMinion }
-		};
+    // Handler table
+    std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>>
+        m_handler = {
+            {TaskID::INVALID, &GameInterface::HandleInvalid},
+            {TaskID::USER_SETTING, &GameInterface::HandleUserSetting},
+            {TaskID::SWAP, &GameInterface::HandleSwap},
+            {TaskID::SHUFFLE, &GameInterface::HandleShuffle},
+            {TaskID::DRAW, &GameInterface::HandleDraw},
+            {TaskID::MULLIGAN, &GameInterface::HandleMulligan},
+            {TaskID::MODIFY_MANA, &GameInterface::HandleManaModification},
+            {TaskID::SUMMON_MINION, &GameInterface::HandleSummonMinion},
+            {TaskID::COMBAT, &GameInterface::HandleCombat},
+            {TaskID::MODIFY_HEALTH, &GameInterface::HandleHealthModification},
+            {TaskID::REQUIRE, &GameInterface::HandleRequire},
+            {TaskID::BRIEF, &GameInterface::HandleBrief},
+            {TaskID::TASK_TUPLE, &GameInterface::HandleTaskTuple},
+            {TaskID::GAME_END, &GameInterface::HandleGameEnd},
+    };
 
-		std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr =
-		{
-			"1. Use Card",
-			"2. Combat",
-			"3. Stop"
-		};
-	};
-}
+    // Input Handler Table
+    std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>>
+        m_inputHandler = {
+            {TaskID::MULLIGAN, &GameInterface::InputMulligan},
+            {TaskID::SELECT_MENU, &GameInterface::InputSelectMenu},
+            {TaskID::SELECT_CARD, &GameInterface::InputSelectCard},
+            {TaskID::SELECT_TARGET, &GameInterface::InputTargeting},
+    };
+
+    std::array<std::string, GAME_MAIN_MENU_SIZE>
+            m_mainMenuStr = {
+                "1. Use Card",
+                "2. Combat",
+                "3. Stop"
+    };
+};
+}  // namespace Hearthstonepp
 
 #endif

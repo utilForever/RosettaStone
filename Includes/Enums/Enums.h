@@ -3601,11 +3601,10 @@ namespace Hearthstonepp
     BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3,
                 GRAVEYARD = 4, REMOVEDFROMGAME = 5, SETASIDE = 6, SECRET = 7)
 
-    BETTER_ENUM(NumericModification, int, ADD = 0, SUB = 1, SYNC = 2)
-
-    BETTER_ENUM(Action, int, BRIEF = 100, OVER_DRAW = 101, EXHAUST_DECK = 102,
-                MANA_MODIFICATION = 103, HEALTH_MODIFICATION = 104,
-                EXHAUST_MINION = 105)
+    BETTER_ENUM(TaskID, int, INVALID = 0, TASK_TUPLE = 1, REQUIRE = 2, USER_SETTING = 3,
+                SWAP = 4, SHUFFLE = 5, DRAW = 6, MODIFY_MANA = 7, MODIFY_HEALTH = 8, BRIEF = 9,
+                SELECT_MENU = 10, SELECT_CARD = 11, SELECT_TARGET = 12, MULLIGAN = 13, SUMMON_MINION = 14,
+                COMBAT = 15, GAME_END = 16)
 }
 
 #endif

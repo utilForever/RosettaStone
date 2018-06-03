@@ -11,94 +11,65 @@
 
 #include <Agents/AgentStructures.h>
 #include <Commons/Constants.h>
-#include <Interface/InteractBuffer.h>
+#include <Tasks/TaskAgent.h>
+#include <Tasks/Tasks.h>
 
 #include <array>
 #include <functional>
-#include <random>
 #include <thread>
 
 namespace Hearthstonepp
 {
-	class GameAgent
-	{
-	public:
-		GameAgent(User& user1, User& user2, int maxBufferSize = 2048);
-		GameAgent(User&& user1, User&& user2, int maxBufferSize = 2048);
+class GameAgent
+{
+ public:
+    // Constant expression of User type checking
+    template <typename T>
+    static constexpr inline bool isUser = std::is_same_v<std::decay_t<T>, User>;
 
-		std::thread StartAgent(GameResult& result);
+    template <typename UserT, typename = std::enable_if_t<isUser<UserT>>>
+    GameAgent(UserT&& user1, UserT&& user2)
+        : m_current(std::forward<UserT>(user1)),
+          m_opponent(std::forward<UserT>(user2))
+    {
+        // Do Nothing
+    }
 
-		int GetBufferCapacity() const;
-		// read data written by Agent
-		size_t ReadBuffer(BYTE* arr, size_t maxSize);
-		// write data to Agent
-		size_t WriteBuffer(BYTE* arr, size_t size);
+    std::thread StartAgent();
 
-	private:
-		const unsigned int GAME_END = 0;
-		const unsigned int GAME_CONTINUE = 1;
+    // Get TaskMeta From TaskAgent
+    void GetTaskMeta(TaskMeta& meta);
+    // Write TaskMeta to TaskAgent, using side channel as default
+    void WriteSyncBuffer(TaskMeta&& data, bool sideChannel = true);
 
-		const unsigned int MANA_EXIST = 0;
-		const unsigned int MANA_TOTAL = 1;
+ private:
+    User m_current;
+    User m_opponent;
 
-		const unsigned int DRAW_SUCCESS = 0;
-		// over draw or deck exhausted
-		const unsigned int DRAW_FAIL = 1;
+    TaskAgent m_taskAgent;
 
-		User m_userCurrent;
-		User m_userOpponent;
+    bool IsGameEnd();
 
-		int m_bufferCapacity;
-		// Temporal Buffer
-		BYTE* m_buffer;
-		// Pipe IO : User -> Agent 
-		InteractBuffer m_inBuffer; 
-		// Pipe IO : Agent -> User
-		InteractBuffer m_outBuffer;
+    void BeginPhase();
+    // Return true if game end
+    bool MainPhase();
+    void FinalPhase();
 
-		std::random_device m_rd;
-		// random generator
-		std::default_random_engine m_generator;
+    // Ready for main phase, draw, modify mana, clear attacked vector
+    void MainReady();
+    // Select main menu and call action method, return true if game end
+    bool MainMenu();
+    // Use card such as summon minion, use spell etc.
+    void MainUseCard();
+    // Combat with other minion or hero.
+    void MainCombat();
 
-		// read data written by User
-		size_t ReadInputBuffer(BYTE* arr, size_t maxSize);
-		// write data to User
-		size_t WriteOutputBuffer(BYTE* arr, size_t size);
-
-		// Get opponent user of parameter
-		User& GetOpponentOf(User& user);
-
-		bool IsGameEnd();
-		unsigned int Draw(User& user, size_t num);
-		void ModifyMana(User& user, NumericModification mod, unsigned int type, BYTE num);
-
-		void BeginPhase();
-		// Return game status, GAME_END or GAME_CONTINUE
-		unsigned int MainPhase();
-		void FinalPhase(GameResult& result);
-
-		void BeginFirst();
-		void BeginShuffle(User& user);
-		void BeginDraw(User& user);
-		void BeginMulligan(User& user);
-
-		// Ready for main phase, draw, mana, clear attacekd vector
-		void MainReady(User& user);
-		void MainDraw(User& user);
-		// Select main menu and call action method, return game status
-		unsigned int MainMenu(User& user, User& enemy);
-		// Use card, summon minion, use spell etc.
-		void MainUseCard(User& user);
-		// Combat with other minion or hero.
-		void MainCombat(User& user);
-		void MainEnd(User& user);
-
-		std::array<std::function<void(GameAgent&, User&)>, GAME_MAIN_MENU_SIZE - 1> m_mainMenuFuncs =
-		{
-			&GameAgent::MainUseCard,
-			&GameAgent::MainCombat,
-		};
-	};
-}
+    std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
+        m_mainMenuFuncs = {
+            &GameAgent::MainUseCard,
+            &GameAgent::MainCombat,
+    };
+};
+}  // namespace Hearthstonepp
 
 #endif
