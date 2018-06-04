@@ -55,14 +55,14 @@ void ForgotPasswordScene::Update()
         ImGui::NewLine();
 
         // Info
-        SetAlignmentHorizontalCenter("Not supported yet.");
+        SetAlignmentHorizontalCenter("Not supported yet.", false);
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Not supported yet.");
 
         ImGui::NewLine();
         ImGui::NewLine();
 
         // Back
-        SetAlignmentHorizontalCenter("Back");
+        SetAlignmentHorizontalCenter("Back", true);
         if (ImGui::Button("Back"))
         {
             SceneManager::GetInstance()->ChangeScene("Login");

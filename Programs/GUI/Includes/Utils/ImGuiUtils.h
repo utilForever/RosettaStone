@@ -16,13 +16,24 @@
 
 namespace Hearthstonepp
 {
-void SetAlignmentHorizontalCenter(const char* text)
+inline void SetAlignmentHorizontalCenter(const char* text, bool isButton)
 {
-    ImVec2 textSize = ImGui::CalcTextSize(text, nullptr, true);
-    ImGui::SetCursorScreenPos(
-        ImVec2(GameManager::GetInstance()->GetWindowWidth() * 0.5f -
-                   (textSize.x / 2) - ImGui::GetStyle().WindowPadding.x,
-               ImGui::GetCursorScreenPos().y));
+    const ImVec2 textSize = ImGui::CalcTextSize(text, nullptr, true);
+
+    if (isButton)
+    {
+        ImGui::SetCursorScreenPos(
+            ImVec2(GameManager::GetInstance()->GetWindowWidth() * 0.5f -
+                       (textSize.x / 2) - ImGui::GetStyle().WindowPadding.x,
+                   ImGui::GetCursorScreenPos().y));
+    }
+    else
+    {
+        ImGui::SetCursorScreenPos(
+            ImVec2(GameManager::GetInstance()->GetWindowWidth() * 0.5f -
+                       (textSize.x / 2),
+                   ImGui::GetCursorScreenPos().y));
+    }
 }
 }
 

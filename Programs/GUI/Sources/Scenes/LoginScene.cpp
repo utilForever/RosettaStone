@@ -72,7 +72,7 @@ void LoginScene::Update()
         ImGui::SetWindowFontScale(1.0f);
 
         // Check Login
-        SetAlignmentHorizontalCenter("Login");
+        SetAlignmentHorizontalCenter("Login", true);
         if (ImGui::Button("Login"))
         {
             // CheckLogin(m_id, m_password);
@@ -81,7 +81,7 @@ void LoginScene::Update()
         ImGui::NewLine();
 
         // Create Account
-        SetAlignmentHorizontalCenter("Create Account");
+        SetAlignmentHorizontalCenter("Create Account", true);
         if (ImGui::Button("Create Account"))
         {
             // SceneManager::GetInstance()->ChangeScene("CreateAccount");
@@ -90,7 +90,7 @@ void LoginScene::Update()
         ImGui::NewLine();
 
         // Forgot Password
-        SetAlignmentHorizontalCenter("Forgot Password");
+        SetAlignmentHorizontalCenter("Forgot Password", true);
         if (ImGui::Button("Forgot Password"))
         {
             SceneManager::GetInstance()->ChangeScene("ForgotPassword");
