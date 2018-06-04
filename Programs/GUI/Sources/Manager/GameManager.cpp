@@ -83,6 +83,11 @@ void GameManager::CloseWindow() const
     m_window->close();
 }
 
+bool GameManager::HasWindowFocus() const
+{
+    return m_window->hasFocus();
+}
+
 void GameManager::Draw()
 {
     // Draw the background

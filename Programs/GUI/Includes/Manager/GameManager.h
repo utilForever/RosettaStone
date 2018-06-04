@@ -51,6 +51,9 @@ class GameManager
     //! Close the window.
     void CloseWindow() const;
 
+    //! Returns the windows has focus.
+    bool HasWindowFocus() const;
+
     //! Draw everything.
     void Draw();
 
