@@ -50,7 +50,7 @@ void LoginScene::Update()
                  m_flags);
     {
         ImGui::PushItemWidth(-1);
-        ;
+        
         ImGui::SetWindowFontScale(1.0f);
 
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "ID:");
@@ -93,7 +93,7 @@ void LoginScene::Update()
         SetAlignmentHorizontalCenter("Forgot Password");
         if (ImGui::Button("Forgot Password"))
         {
-            // SceneManager::GetInstance()->ChangeScene("ForgotPassword");
+            SceneManager::GetInstance()->ChangeScene("ForgotPassword");
         }
 
         ImGui::PopItemWidth();

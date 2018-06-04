@@ -8,6 +8,7 @@
 *************************************************************************/
 #include <Manager/GameManager.h>
 #include <Manager/SceneManager.h>
+#include <Scenes/ForgotPasswordScene.h>
 #include <Scenes/LoginScene.h>
 
 using namespace Hearthstonepp;
@@ -21,6 +22,11 @@ int main()
     LoginScene loginScene;
     loginScene.SetName("Login");
     SceneManager::GetInstance()->AddScene(&loginScene);
+
+    // Forgot password Scene
+    ForgotPasswordScene forgotPasswordScene;
+    forgotPasswordScene.SetName("ForgotPassword");
+    SceneManager::GetInstance()->AddScene(&forgotPasswordScene);
 
     // Starts the scene manager
     SceneManager::GetInstance()->StartSceneManager("Login");
