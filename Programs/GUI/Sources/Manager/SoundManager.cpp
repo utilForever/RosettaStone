@@ -24,10 +24,26 @@ void SoundManager::PlayMusic(const char* musicFileName)
 {
     m_music.openFromFile(std::string(SOUNDS_DIR) + musicFileName);
     m_music.play();
+    m_musicName = musicFileName;
 }
 
 void SoundManager::StopMusic()
 {
     m_music.stop();
+}
+
+bool SoundManager::IsMusicPlaying() const
+{
+    return m_music.getStatus() == sf::SoundSource::Playing;
+}
+
+std::optional<std::string> SoundManager::GetPlayingMusicName() const
+{
+    if (IsMusicPlaying())
+    {
+        return m_musicName;
+    }
+
+    return std::nullopt;
 }
 }

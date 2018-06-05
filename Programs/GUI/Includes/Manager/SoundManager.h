@@ -11,6 +11,8 @@
 
 #include <SFML/Audio/Music.hpp>
 
+#include <optional>
+
 namespace Hearthstonepp
 {
 class SoundManager
@@ -27,12 +29,19 @@ class SoundManager
     //! Stop Music.
     void StopMusic();
 
+    //! Returns whether the music is playing.
+    bool IsMusicPlaying() const;
+
+    //! Returns the name of the currently playing music.
+    std::optional<std::string> GetPlayingMusicName() const;
+
  private:
     SoundManager() = default;
 
     static SoundManager* m_instance;
 
     sf::Music m_music;
+    std::string m_musicName;
 };
 }
 
