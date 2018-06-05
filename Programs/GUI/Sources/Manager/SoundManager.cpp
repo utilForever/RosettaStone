@@ -20,9 +20,9 @@ SoundManager* SoundManager::GetInstance()
     return m_instance;
 }
 
-void SoundManager::PlayMusic(const char* musicPath)
+void SoundManager::PlayMusic(const char* musicFileName)
 {
-    m_music.openFromFile(musicPath);
+    m_music.openFromFile(std::string(SOUNDS_DIR) + musicFileName);
     m_music.play();
 }
 

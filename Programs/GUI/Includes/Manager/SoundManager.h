@@ -22,7 +22,7 @@ class SoundManager
     static SoundManager* GetInstance();
 
     //! Play Music.
-    void PlayMusic(const char* musicPath);
+    void PlayMusic(const char* musicFileName);
 
     //! Stop Music.
     void StopMusic();

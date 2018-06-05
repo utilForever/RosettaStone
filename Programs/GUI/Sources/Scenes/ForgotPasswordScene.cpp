@@ -14,9 +14,8 @@ namespace Hearthstonepp
 {
 void ForgotPasswordScene::Start()
 {
-    GameManager::GetInstance()->SetBackground(IMAGES_DIR
-                                              "Background_Login.png");
-    SoundManager::GetInstance()->PlayMusic(SOUNDS_DIR "BGM_Login.ogg");
+    GameManager::GetInstance()->SetBackground("Background_Login.png");
+    SoundManager::GetInstance()->PlayMusic("BGM_Login.ogg");
 
     m_flags |= ImGuiWindowFlags_NoResize;
     m_flags |= ImGuiWindowFlags_NoMove;

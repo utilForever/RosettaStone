@@ -30,7 +30,7 @@ class GameManager
     void Finish();
 
     //! Set the background.
-    void SetBackground(const char* imagePath);
+    void SetBackground(const char* imageFileName);
 
     //! Remove the background.
     void RemoveBackground();

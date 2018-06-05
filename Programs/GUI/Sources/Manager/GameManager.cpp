@@ -35,9 +35,9 @@ void GameManager::Finish()
     RemoveBackground();
 }
 
-void GameManager::SetBackground(const char* imagePath)
+void GameManager::SetBackground(const char* imageFileName)
 {
-    m_backgroundTexture.loadFromFile(imagePath);
+    m_backgroundTexture.loadFromFile(std::string(IMAGES_DIR) + imageFileName);
     m_backgroundSprite.setTexture(m_backgroundTexture);
     m_backgroundSprite.setOrigin(0.0f, 0.0f);
     m_backgroundSprite.setPosition(0.0f, 0.0f);
