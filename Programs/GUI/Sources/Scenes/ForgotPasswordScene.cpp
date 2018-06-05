@@ -6,6 +6,7 @@
 > Created Time: 2018/06/04
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Manager/SoundManager.h>
 #include <Scenes/ForgotPasswordScene.h>
 #include <Utils/ImGuiUtils.h>
 
@@ -15,7 +16,7 @@ void ForgotPasswordScene::Start()
 {
     GameManager::GetInstance()->SetBackground(IMAGES_DIR
                                               "Background_Login.png");
-    GameManager::GetInstance()->PlayBGM(SOUNDS_DIR "BGM_Login.ogg");
+    SoundManager::GetInstance()->PlayMusic(SOUNDS_DIR "BGM_Login.ogg");
 
     m_flags |= ImGuiWindowFlags_NoResize;
     m_flags |= ImGuiWindowFlags_NoMove;

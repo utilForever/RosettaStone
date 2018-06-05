@@ -8,6 +8,7 @@
 *************************************************************************/
 #include <Manager/GameManager.h>
 #include <Manager/SceneManager.h>
+#include <Manager/SoundManager.h>
 #include <Scenes/ForgotPasswordScene.h>
 #include <Scenes/LoginScene.h>
 
@@ -15,6 +16,7 @@ using namespace Hearthstonepp;
 
 GameManager* GameManager::m_instance = nullptr;
 SceneManager* SceneManager::m_instance = nullptr;
+SoundManager* SoundManager::m_instance = nullptr;
 
 int main()
 {

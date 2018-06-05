@@ -7,6 +7,7 @@
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Manager/GameManager.h>
+#include <Manager/SoundManager.h>
 #include <Scenes/LoginScene.h>
 #include <Utils/ImGuiUtils.h>
 
@@ -18,7 +19,7 @@ void LoginScene::Start()
 {
     GameManager::GetInstance()->SetBackground(IMAGES_DIR
                                               "Background_Login.png");
-    GameManager::GetInstance()->PlayBGM(SOUNDS_DIR "BGM_Login.ogg");
+    SoundManager::GetInstance()->PlayMusic(SOUNDS_DIR "BGM_Login.ogg");
 
     m_flags |= ImGuiWindowFlags_NoResize;
     m_flags |= ImGuiWindowFlags_NoMove;
