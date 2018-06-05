@@ -19,4 +19,15 @@ SoundManager* SoundManager::GetInstance()
 
     return m_instance;
 }
+
+void SoundManager::PlayMusic(const char* musicPath)
+{
+    m_music.openFromFile(musicPath);
+    m_music.play();
+}
+
+void SoundManager::StopMusic()
+{
+    m_music.stop();
+}
 }

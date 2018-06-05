@@ -9,6 +9,8 @@
 #ifndef HEARTHSTONEPP_GUI_SOUND_MANAGER_H
 #define HEARTHSTONEPP_GUI_SOUND_MANAGER_H
 
+#include <SFML/Audio/Music.hpp>
+
 namespace Hearthstonepp
 {
 class SoundManager
@@ -19,10 +21,18 @@ class SoundManager
 
     static SoundManager* GetInstance();
 
+    //! Play Music.
+    void PlayMusic(const char* musicPath);
+
+    //! Stop Music.
+    void StopMusic();
+
  private:
     SoundManager() = default;
 
     static SoundManager* m_instance;
+
+    sf::Music m_music;
 };
 }
 
