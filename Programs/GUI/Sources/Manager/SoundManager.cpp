@@ -20,8 +20,16 @@ SoundManager* SoundManager::GetInstance()
     return m_instance;
 }
 
-void SoundManager::PlayMusic(const char* musicFileName)
+void SoundManager::PlayMusic(const char* musicFileName, bool isForceToPlay)
 {
+    // If you try to play the same music file,
+    // the music that was being played will continue to play,
+    // except when you forcibly play it.
+    if (IsMusicPlaying() && m_musicName == musicFileName && !isForceToPlay)
+    {
+        return;
+    }
+
     m_music.openFromFile(std::string(SOUNDS_DIR) + musicFileName);
     m_music.play();
     m_musicName = musicFileName;

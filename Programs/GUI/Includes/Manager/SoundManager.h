@@ -24,7 +24,7 @@ class SoundManager
     static SoundManager* GetInstance();
 
     //! Play Music.
-    void PlayMusic(const char* musicFileName);
+    void PlayMusic(const char* musicFileName, bool isForceToPlay = false);
 
     //! Stop Music.
     void StopMusic();
