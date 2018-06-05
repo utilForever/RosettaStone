@@ -1,8 +1,8 @@
 /*************************************************************************
-> File Name: LoginScene.h
+> File Name: ImGuiUtils.h
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Login scene of Hearthstone++ GUI program.
+> Purpose: ImGui utility functions of Hearthstone++ GUI program.
 > Created Time: 2018/05/31
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
