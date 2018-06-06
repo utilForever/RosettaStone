@@ -46,7 +46,6 @@ void ForgotPasswordScene::Input()
 
 void ForgotPasswordScene::Update()
 {
-    ImGui::SetNextWindowSize(sf::Vector2f(450, 250), ImGuiCond_Always);
     ImGui::SetNextWindowPos(ImVec2(m_positionX, m_positionY));
     ImGui::SetNextWindowPosCenter(true);
 

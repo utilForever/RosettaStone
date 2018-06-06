@@ -192,7 +192,7 @@ bool CreateAccountScene::IsValidAccountInfo() const
         return false;
     }
 
-    // Check two passwords not empty
+    // Check two passwords are not empty
     if (std::strlen(m_password1) == 0 || std::strlen(m_password2) == 0)
     {
         return false;
