@@ -12,7 +12,7 @@
 
 namespace Hearthstonepp
 {
-Player::Player() : m_email("Anonymous"), m_nickname("Anonymous")
+Player::Player() : m_email("anonymous@gmail.com"), m_nickname("Anonymous")
 {
     // Do nothing
 }
