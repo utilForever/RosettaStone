@@ -13,27 +13,28 @@
 
 namespace Hearthstonepp
 {
-	class Player
-	{
-	public:
-		Player();
-		Player(std::string&& id, std::string&& name);
-		Player(std::string&& id, std::string&& name, std::vector<Deck*> decks);
+class Player
+{
+ public:
+    Player();
+    Player(std::string&& email, std::string&& nickname);
+    Player(std::string&& email, std::string&& nickname,
+           std::vector<Deck*> decks);
 
-		std::string GetID() const;
-		std::string GetName() const;
-		size_t GetNumOfDeck() const;
-		Deck* GetDeck(size_t idx) const;
+    std::string GetEmail() const;
+    std::string GetNickname() const;
+    size_t GetNumOfDeck() const;
+    Deck* GetDeck(size_t idx) const;
 
-		void ShowDeckList() const;
-		bool CreateDeck(std::string name, CardClass playerClass);
-		bool DeleteDeck(size_t selectedDeck);
+    void ShowDeckList() const;
+    bool CreateDeck(std::string name, CardClass playerClass);
+    bool DeleteDeck(size_t selectedDeck);
 
-	private:
-		std::string m_id;
-		std::string m_name;
-		std::vector<Deck*> m_decks;
-	};
+ private:
+    std::string m_email;
+    std::string m_nickname;
+    std::vector<Deck*> m_decks;
+};
 }
 
 #endif

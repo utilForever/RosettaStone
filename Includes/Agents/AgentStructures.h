@@ -29,7 +29,7 @@ namespace Hearthstonepp
 		BYTE existMana;
 		BYTE exhausted;
 
-		std::string userID;
+		std::string email;
 		Hero* hero;
 		HeroPower* power;
 		Weapon* weapon;
@@ -37,7 +37,7 @@ namespace Hearthstonepp
 		// Card storage, not for processing
 		std::vector<Card> cardDeck;
 
-		// Card objects for procesisng, based on pointer
+		// Card objects for processing, based on pointer
 		std::vector<Card*> deck;
 		std::vector<Card*> field;
 		std::vector<Card*> hand;

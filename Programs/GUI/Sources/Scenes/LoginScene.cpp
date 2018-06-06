@@ -81,7 +81,7 @@ void LoginScene::Update()
         SetAlignmentHorizontalCenter("Login", true);
         if (ImGui::Button("Login"))
         {
-            // CheckLogin(m_id, m_password);
+            // CheckLogin(m_email, m_password);
         }
 
         ImGui::NewLine();

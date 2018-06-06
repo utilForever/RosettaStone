@@ -98,12 +98,12 @@ void GameAgent::FinalPhase(GameResult& result)
 
     if (m_userCurrent.hero->GetHealth() <= 0)
     {
-        winner = m_userOpponent.userID;
+        winner = m_userOpponent.email;
         winnerUserID = m_userOpponent.id;
     }
     else
     {
-        winner = m_userCurrent.userID;
+        winner = m_userCurrent.email;
         winnerUserID = m_userCurrent.id;
     }
 
@@ -129,7 +129,7 @@ void GameAgent::BeginFirst()
     m_userCurrent.id = 0;
     m_userOpponent.id = 1;
 
-    BeginFirstStructure data(m_userCurrent.userID, m_userOpponent.userID);
+    BeginFirstStructure data(m_userCurrent.email, m_userOpponent.email);
     WriteOutputBuffer(reinterpret_cast<BYTE*>(&data),
                       sizeof(BeginFirstStructure));
 }

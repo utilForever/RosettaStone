@@ -9,17 +9,17 @@ using namespace Hearthstonepp;
  TEST(TestPlayer, Constructors)
  {
     Player player1;
-    EXPECT_EQ("Anonymous", player1.GetID());
-    EXPECT_EQ("Anonymous", player1.GetName());
+    EXPECT_EQ("Anonymous", player1.GetEmail());
+    EXPECT_EQ("Anonymous", player1.GetNickname());
 
     Player player2("1", "name1");
-    EXPECT_EQ("1", player2.GetID());
-    EXPECT_EQ("name1", player2.GetName());     
+    EXPECT_EQ("1", player2.GetEmail());
+    EXPECT_EQ("name1", player2.GetNickname());     
 
     std::vector<Deck*> decks;
     Player player3("2", "name2", decks);
-    EXPECT_EQ("2", player3.GetID());
-    EXPECT_EQ("name2", player3.GetName());     
+    EXPECT_EQ("2", player3.GetEmail());
+    EXPECT_EQ("name2", player3.GetNickname());     
     EXPECT_EQ(0, static_cast<int>(player3.GetNumOfDeck()));
  }
 
