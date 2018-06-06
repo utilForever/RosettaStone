@@ -9,6 +9,7 @@
 #include <Manager/GameManager.h>
 #include <Manager/SceneManager.h>
 #include <Manager/SoundManager.h>
+#include <Scenes/CreateAccountScene.h>
 #include <Scenes/ForgotPasswordScene.h>
 #include <Scenes/LoginScene.h>
 
@@ -24,6 +25,11 @@ int main()
     LoginScene loginScene;
     loginScene.SetName("Login");
     SceneManager::GetInstance()->AddScene(&loginScene);
+
+    // Create account scene
+    CreateAccountScene createAccountScene;
+    createAccountScene.SetName("CreateAccount");
+    SceneManager::GetInstance()->AddScene(&createAccountScene);
 
     // Forgot password Scene
     ForgotPasswordScene forgotPasswordScene;

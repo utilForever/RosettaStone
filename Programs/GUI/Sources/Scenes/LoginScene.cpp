@@ -92,7 +92,7 @@ void LoginScene::Update()
         SetAlignmentHorizontalCenter("Create Account", true);
         if (ImGui::Button("Create Account"))
         {
-            // SceneManager::GetInstance()->ChangeScene("CreateAccount");
+            SceneManager::GetInstance()->ChangeScene("CreateAccount");
         }
 
         ImGui::NewLine();
