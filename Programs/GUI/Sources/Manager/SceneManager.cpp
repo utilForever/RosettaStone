@@ -8,6 +8,7 @@
 *************************************************************************/
 #include <Manager/GameManager.h>
 #include <Manager/SceneManager.h>
+#include <Utils/Constants.h>
 
 #include <Commons/Macros.h>
 
@@ -173,6 +174,12 @@ void SceneManager::ChangeScene(const std::string& sceneName)
         m_nextScene = newScene;
         m_isSceneChanged = true;
     }
+}
+
+float SceneManager::GetFontScale() const
+{
+    const sf::VideoMode videoMode = sf::VideoMode::getDesktopMode();
+    return std::max(std::ceil(videoMode.width / FONT_RATIO_STD_RES), 1.0f);
 }
 
 Scene* SceneManager::GetSceneByName(const std::string& sceneName)

@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp
 {
-
+constexpr float FONT_RATIO_STANDARD_RESOLUTION = 2048.0f;
 }
 
 #endif

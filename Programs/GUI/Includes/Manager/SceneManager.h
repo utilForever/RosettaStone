@@ -38,6 +38,9 @@ class SceneManager
 
     void ChangeScene(const std::string& sceneName);
 
+    //! Returns the font scale based on resolution.
+    float GetFontScale() const;
+
  private:
     SceneManager() = default;
 
