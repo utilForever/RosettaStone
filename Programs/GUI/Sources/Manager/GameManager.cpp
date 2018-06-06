@@ -94,4 +94,14 @@ int GameManager::GetWindowHeight() const
 {
     return m_windowHeight;
 }
+
+void GameManager::SetPlayer(Player* player)
+{
+    m_player = player;
+}
+
+Player* GameManager::GetPlayer() const
+{
+    return m_player;
+}
 }
