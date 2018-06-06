@@ -27,7 +27,7 @@ class Player
     Deck* GetDeck(size_t idx) const;
 
     void ShowDeckList() const;
-    bool CreateDeck(std::string name, CardClass playerClass);
+    bool CreateDeck(std::string name, CardClass deckClass);
     bool DeleteDeck(size_t selectedDeck);
 
  private:
