@@ -91,7 +91,15 @@ void CreateAccountScene::Update()
         {
             if (IsValidAccountInfo())
             {
-
+                if (NetworkManager::GetInstance()->CreateAccount(
+                        m_email, m_nickname, m_password1))
+                {
+                    ImGui::OpenPopup("CreateAccountSuccess");
+                }
+                else
+                {
+                    ImGui::OpenPopup("CreateAccountFail");
+                }
             }
             else
             {
@@ -106,6 +114,26 @@ void CreateAccountScene::Update()
         if (ImGui::Button("Back"))
         {
             SceneManager::GetInstance()->ChangeScene("Login");
+        }
+
+        // Popup notifying create account is success
+        ImGui::SetNextWindowPosCenter(true);
+
+        if (ImGui::BeginPopupModal("CreateAccountSuccess", nullptr, m_popupFlags))
+        {
+            SetAlignmentHorizontalCenter("Create account is success.", false);
+            ImGui::Text("Create account is success.");
+
+            ImGui::NewLine();
+
+            SetAlignmentHorizontalCenter("Close", true);
+            if (ImGui::Button("Close"))
+            {
+                ImGui::CloseCurrentPopup();
+                SceneManager::GetInstance()->ChangeScene("Login");
+            }
+
+            ImGui::EndPopup();
         }
 
         // Popup notifying why create account is not possible
