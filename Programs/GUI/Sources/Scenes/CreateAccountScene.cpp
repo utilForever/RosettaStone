@@ -23,7 +23,7 @@ void CreateAccountScene::Start()
     m_flags |= ImGuiWindowFlags_NoTitleBar;
 
     m_width = GameManager::GetInstance()->GetWindowWidth() * 0.3f;
-    m_height = GameManager::GetInstance()->GetWindowHeight() * 0.4f;
+    m_height = GameManager::GetInstance()->GetWindowHeight() * 0.52f;
 
     m_positionX =
         GameManager::GetInstance()->GetWindowWidth() * 0.5f - m_width * 0.5f;
@@ -40,6 +40,57 @@ void CreateAccountScene::Update()
     ImGui::SetNextWindowSize(sf::Vector2f(450, 250), ImGuiCond_Always);
     ImGui::SetNextWindowPos(ImVec2(m_positionX, m_positionY));
     ImGui::SetNextWindowPosCenter(true);
+
+    ImGui::Begin("CreateAccount", &m_isOpened, ImVec2(m_width, m_height),
+                 0.5f, m_flags);
+    {
+        ImGui::PushItemWidth(-1);
+
+        ImGui::SetWindowFontScale(1.0f);
+
+        // Email
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Email:");
+        ImGui::InputText("##Email", m_email, IM_ARRAYSIZE(m_email));
+
+        ImGui::NewLine();
+
+        // Nickname
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Nickname:");
+        ImGui::InputText("##Nickname", m_nickname, IM_ARRAYSIZE(m_nickname));
+
+        ImGui::NewLine();
+
+        // Password 1
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Password:");
+        ImGui::InputText("##Password1", m_password1, IM_ARRAYSIZE(m_password1),
+                         ImGuiInputTextFlags_Password);
+
+        ImGui::NewLine();
+
+        // Password 2
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Confirm Password:");
+        ImGui::InputText("##Password2", m_password2, IM_ARRAYSIZE(m_password2),
+                         ImGuiInputTextFlags_Password);
+
+        ImGui::NewLine();
+
+        // Create Account
+        SetAlignmentHorizontalCenter("Create Account", true);
+        if (ImGui::Button("Create Account"))
+        {
+            
+        }
+
+        ImGui::NewLine();
+
+        // Back
+        SetAlignmentHorizontalCenter("Back", true);
+        if (ImGui::Button("Back"))
+        {
+            SceneManager::GetInstance()->ChangeScene("Login");
+        }
+    }
+    ImGui::End();
 }
 
 void CreateAccountScene::Finish()

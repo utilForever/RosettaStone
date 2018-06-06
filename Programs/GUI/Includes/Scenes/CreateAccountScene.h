@@ -37,6 +37,9 @@ class CreateAccountScene : public Scene
 
     float m_width = 0.0f;
     float m_height = 0.0f;
+
+    char m_email[256], m_nickname[256];
+    char m_password1[256], m_password2[256];
 };
 }
 
