@@ -38,22 +38,22 @@ class GameManager
     //! Clear draw lists.
     void ClearDrawList();
 
-    //! Return the window is opened.
+    //! Returns the window is opened.
     bool IsOpen() const;
 
     //! Close the window.
     void CloseWindow() const;
 
-    //! Returns the windows has focus.
+    //! Returns the window has focus.
     bool HasWindowFocus() const;
 
     //! Draw everything.
     void Draw();
 
-    //! Return the width of the window
+    //! Returns the width of the window.
     int GetWindowWidth() const;
 
-    //! Return the height of the window
+    //! Returns the height of the window.
     int GetWindowHeight() const;
 
  private:
