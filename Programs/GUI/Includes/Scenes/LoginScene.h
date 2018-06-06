@@ -28,6 +28,8 @@ class LoginScene : public Scene
     void Finish() override;
 
  private:
+    bool IsValidLoginInfo() const;
+
     ImGuiWindowFlags m_flags = 0;
 
     bool m_isOpened = true;
@@ -38,7 +40,7 @@ class LoginScene : public Scene
     float m_width = 0.0f;
     float m_height = 0.0f;
 
-    char m_id[256], m_password[256];
+    char m_email[256], m_password[256];
 };
 }
 
