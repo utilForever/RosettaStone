@@ -21,6 +21,7 @@ class NetworkManager
 
     static NetworkManager* GetInstance();
 
+    bool Login(const std::string& email, const std::string&& password) const;
     bool CreateAccount(std::string email, std::string nickname,
                        const std::string&& password) const;
 

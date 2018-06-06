@@ -38,8 +38,29 @@ NetworkManager* NetworkManager::GetInstance()
     return m_instance;
 }
 
-bool NetworkManager::CreateAccount(std::string email, std::string nickname,
-                                   [[maybe_unused]] const std::string&& password) const
+bool NetworkManager::Login(const std::string& email,
+                           [[maybe_unused]] const std::string&& password) const
+{
+#ifndef HEARTHSTONEPP_MACOSX
+    if (!filesystem::exists("Datas/" + email + ".json"))
+#else
+    struct stat buf;
+    std::string path = "Datas/" + playerID + ".json";
+    if (stat(path.c_str(), &buf) == -1)
+#endif
+    {
+        return false;
+    }
+
+    PlayerLoader loader;
+    GameManager::GetInstance()->SetPlayer(loader.Load(email));
+
+    return GameManager::GetInstance()->GetPlayer() != nullptr;
+}
+
+bool NetworkManager::CreateAccount(
+    std::string email, std::string nickname,
+    [[maybe_unused]] const std::string&& password) const
 {
 #ifndef HEARTHSTONEPP_MACOSX
     if (filesystem::exists("Datas/" + email + ".json"))
@@ -52,14 +73,17 @@ bool NetworkManager::CreateAccount(std::string email, std::string nickname,
         return false;
     }
 
-    GameManager::GetInstance()->SetPlayer(new Player(std::move(email), std::move(nickname)));
+    GameManager::GetInstance()->SetPlayer(
+        new Player(std::move(email), std::move(nickname)));
 
     if (Player* p = GameManager::GetInstance()->GetPlayer())
     {
         PlayerLoader loader;
         loader.Save(p);
+
+        return true;
     }
 
-    return true;
+    return false;
 }
 }
