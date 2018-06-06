@@ -10,6 +10,8 @@
 #include <Scenes/ForgotPasswordScene.h>
 #include <Utils/ImGuiUtils.h>
 
+#include <SFML/Window/Keyboard.hpp>
+
 namespace Hearthstonepp
 {
 void ForgotPasswordScene::Start()
@@ -33,6 +35,13 @@ void ForgotPasswordScene::Start()
 
 void ForgotPasswordScene::Input()
 {
+    if (GameManager::GetInstance()->HasWindowFocus())
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            SceneManager::GetInstance()->ChangeScene("Login");
+        }
+    }
 }
 
 void ForgotPasswordScene::Update()

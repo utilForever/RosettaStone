@@ -11,6 +11,8 @@
 #include <Scenes/CreateAccountScene.h>
 #include <Utils/ImGuiUtils.h>
 
+#include <SFML/Window/Keyboard.hpp>
+
 #include <regex>
 
 namespace Hearthstonepp
@@ -44,7 +46,13 @@ void CreateAccountScene::Start()
 
 void CreateAccountScene::Input()
 {
-    // Do nothing
+    if (GameManager::GetInstance()->HasWindowFocus())
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            SceneManager::GetInstance()->ChangeScene("Login");
+        }
+    }
 }
 
 void CreateAccountScene::Update()

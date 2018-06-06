@@ -11,8 +11,6 @@
 #include <Scenes/LoginScene.h>
 #include <Utils/ImGuiUtils.h>
 
-#include <SFML/Window/Keyboard.hpp>
-
 namespace Hearthstonepp
 {
 void LoginScene::Start()
@@ -39,13 +37,7 @@ void LoginScene::Start()
 
 void LoginScene::Input()
 {
-    if (GameManager::GetInstance()->HasWindowFocus())
-    {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        {
-            SceneManager::GetInstance()->ChangeScene("Login");
-        }
-    }
+    // Do nothing
 }
 
 void LoginScene::Update()
