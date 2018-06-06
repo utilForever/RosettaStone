@@ -28,6 +28,8 @@ class CreateAccountScene : public Scene
     void Finish() override;
 
  private:
+    bool IsValidAccountInfo() const;
+
     ImGuiWindowFlags m_flags = 0;
     ImGuiWindowFlags m_popupFlags = 0;
 

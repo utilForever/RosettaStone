@@ -6,9 +6,12 @@
 > Created Time: 2018/06/06
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Manager/NetworkManager.h>
 #include <Manager/SoundManager.h>
 #include <Scenes/CreateAccountScene.h>
 #include <Utils/ImGuiUtils.h>
+
+#include <regex>
 
 namespace Hearthstonepp
 {
@@ -86,7 +89,14 @@ void CreateAccountScene::Update()
         SetAlignmentHorizontalCenter("Create Account", true);
         if (ImGui::Button("Create Account"))
         {
+            if (IsValidAccountInfo())
+            {
 
+            }
+            else
+            {
+                ImGui::OpenPopup("CreateAccountFail");
+            }
         }
 
         ImGui::NewLine();
@@ -128,5 +138,37 @@ void CreateAccountScene::Update()
 void CreateAccountScene::Finish()
 {
     // Do nothing
+}
+
+bool CreateAccountScene::IsValidAccountInfo() const
+{
+    // Check email is not empty and has valid format
+    const std::string email = m_email;
+    const std::regex emailPattern(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
+    if (!std::regex_match(email, emailPattern))
+    {
+        return false;
+    }
+
+    // Check Nickname is not empty
+    if (std::strlen(m_nickname) == 0)
+    {
+        return false;
+    }
+
+    // Check two passwords not empty
+    if (std::strlen(m_password1) == 0 || std::strlen(m_password2) == 0)
+    {
+        return false;
+    }
+
+    // Check two passwords are same
+    if (std::strlen(m_password1) != std::strlen(m_password2) ||
+        std::strcmp(m_password1, m_password2) != 0)
+    {
+        return false;
+    }
+
+    return true;
 }
 }
