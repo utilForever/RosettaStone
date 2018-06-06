@@ -9,6 +9,8 @@
 #ifndef HEARTHSTONEPP_GUI_NETWORK_MANAGER_H
 #define HEARTHSTONEPP_GUI_NETWORK_MANAGER_H
 
+#include <string>
+
 namespace Hearthstonepp
 {
 class NetworkManager
@@ -18,6 +20,9 @@ class NetworkManager
     ~NetworkManager() = delete;
 
     static NetworkManager* GetInstance();
+
+    bool CreateAccount(std::string email, std::string nickname,
+                       std::string password);
 
  private:
     NetworkManager() = default;
