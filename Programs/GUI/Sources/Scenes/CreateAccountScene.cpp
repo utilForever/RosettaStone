@@ -22,6 +22,9 @@ void CreateAccountScene::Start()
     m_flags |= ImGuiWindowFlags_NoCollapse;
     m_flags |= ImGuiWindowFlags_NoTitleBar;
 
+    m_popupFlags |= ImGuiWindowFlags_AlwaysAutoResize;
+    m_popupFlags |= ImGuiWindowFlags_NoTitleBar;
+
     m_width = GameManager::GetInstance()->GetWindowWidth() * 0.3f;
     m_height = GameManager::GetInstance()->GetWindowHeight() * 0.52f;
 
@@ -29,20 +32,25 @@ void CreateAccountScene::Start()
         GameManager::GetInstance()->GetWindowWidth() * 0.5f - m_width * 0.5f;
     m_positionY =
         GameManager::GetInstance()->GetWindowHeight() * 0.5f - m_height * 0.5f;
+
+    memset(m_email, 0, sizeof(m_email));
+    memset(m_nickname, 0, sizeof(m_nickname));
+    memset(m_password1, 0, sizeof(m_password1));
+    memset(m_password2, 0, sizeof(m_password2));
 }
 
 void CreateAccountScene::Input()
 {
+    // Do nothing
 }
 
 void CreateAccountScene::Update()
 {
-    ImGui::SetNextWindowSize(sf::Vector2f(450, 250), ImGuiCond_Always);
     ImGui::SetNextWindowPos(ImVec2(m_positionX, m_positionY));
     ImGui::SetNextWindowPosCenter(true);
 
-    ImGui::Begin("CreateAccount", &m_isOpened, ImVec2(m_width, m_height),
-                 0.5f, m_flags);
+    ImGui::Begin("CreateAccount", &m_isOpened, ImVec2(m_width, m_height), 0.5f,
+                 m_flags);
     {
         ImGui::PushItemWidth(-1);
 
@@ -78,7 +86,7 @@ void CreateAccountScene::Update()
         SetAlignmentHorizontalCenter("Create Account", true);
         if (ImGui::Button("Create Account"))
         {
-            
+
         }
 
         ImGui::NewLine();
@@ -88,6 +96,30 @@ void CreateAccountScene::Update()
         if (ImGui::Button("Back"))
         {
             SceneManager::GetInstance()->ChangeScene("Login");
+        }
+
+        // Popup notifying why create account is not possible
+        ImGui::SetNextWindowPosCenter(true);
+
+        if (ImGui::BeginPopupModal("CreateAccountFail", nullptr, m_popupFlags))
+        {
+            SetAlignmentHorizontalCenter("Create account is failed.", false);
+            ImGui::Text("Create account is failed.");
+
+            ImGui::NewLine();
+
+            SetAlignmentHorizontalCenter("Try again.", false);
+            ImGui::Text("Try again.");
+
+            ImGui::NewLine();
+
+            SetAlignmentHorizontalCenter("Close", true);
+            if (ImGui::Button("Close"))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+
+            ImGui::EndPopup();
         }
     }
     ImGui::End();

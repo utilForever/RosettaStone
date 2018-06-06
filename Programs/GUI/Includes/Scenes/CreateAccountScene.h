@@ -29,6 +29,7 @@ class CreateAccountScene : public Scene
 
  private:
     ImGuiWindowFlags m_flags = 0;
+    ImGuiWindowFlags m_popupFlags = 0;
 
     bool m_isOpened = true;
 
