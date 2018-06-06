@@ -46,7 +46,7 @@ void CreateAccountScene::Update()
     {
         ImGui::PushItemWidth(-1);
 
-        ImGui::SetWindowFontScale(1.0f);
+        ImGui::SetWindowFontScale(SceneManager::GetInstance()->GetFontScale());
 
         // Email
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "Email:");

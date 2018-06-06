@@ -46,7 +46,7 @@ void ForgotPasswordScene::Update()
     {
         ImGui::PushItemWidth(-1);
 
-        ImGui::SetWindowFontScale(1.0f);
+        ImGui::SetWindowFontScale(SceneManager::GetInstance()->GetFontScale());
 
         ImGui::NewLine();
         ImGui::NewLine();

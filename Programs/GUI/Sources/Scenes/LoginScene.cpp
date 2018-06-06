@@ -59,7 +59,7 @@ void LoginScene::Update()
     {
         ImGui::PushItemWidth(-1);
         
-        ImGui::SetWindowFontScale(1.0f);
+        ImGui::SetWindowFontScale(SceneManager::GetInstance()->GetFontScale());
 
         ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "ID:");
         static bool focusHere = true;
@@ -76,8 +76,6 @@ void LoginScene::Update()
 
         ImGui::NewLine();
         ImGui::NewLine();
-
-        ImGui::SetWindowFontScale(1.0f);
 
         // Check Login
         SetAlignmentHorizontalCenter("Login", true);
