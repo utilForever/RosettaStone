@@ -69,7 +69,21 @@ void LoginScene::Update()
         SetAlignmentHorizontalCenter("Login", true);
         if (ImGui::Button("Login"))
         {
-            // CheckLogin(m_email, m_password);
+            if (IsValidLoginInfo())
+            {
+                if (NetworkManager::GetInstance()->Login(m_email, m_password))
+                {
+                    ImGui::OpenPopup("LoginSuccess");
+                }
+                else
+                {
+                    ImGui::OpenPopup("LoginFail");
+                }
+            }
+            else
+            {
+                ImGui::OpenPopup("LoginFail");
+            }
         }
 
         ImGui::NewLine();
