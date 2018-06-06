@@ -22,7 +22,7 @@ class NetworkManager
     static NetworkManager* GetInstance();
 
     bool CreateAccount(std::string email, std::string nickname,
-                       std::string password);
+                       const std::string&& password) const;
 
  private:
     NetworkManager() = default;
