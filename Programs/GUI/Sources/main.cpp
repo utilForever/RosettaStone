@@ -7,6 +7,7 @@
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Manager/GameManager.h>
+#include <Manager/NetworkManager.h>
 #include <Manager/SceneManager.h>
 #include <Manager/SoundManager.h>
 #include <Scenes/CreateAccountScene.h>
@@ -16,6 +17,7 @@
 using namespace Hearthstonepp;
 
 GameManager* GameManager::m_instance = nullptr;
+NetworkManager* NetworkManager::m_instance = nullptr;
 SceneManager* SceneManager::m_instance = nullptr;
 SoundManager* SoundManager::m_instance = nullptr;
 
