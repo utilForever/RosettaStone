@@ -30,3 +30,6 @@ build:
   project: C:\Hearthstonepp\build\Hearthstonepp.sln
   parallel: true
   verbosity: normal
+
+after_build:
+  - C:\Hearthstonepp\build\bin\Release\UnitTests.exe
