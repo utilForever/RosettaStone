@@ -11,8 +11,6 @@
 
 #include <SFML/Audio/Music.hpp>
 
-#include <optional>
-
 namespace Hearthstonepp
 {
 class SoundManager
