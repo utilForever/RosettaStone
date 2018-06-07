@@ -26,6 +26,9 @@ void LoginScene::Start()
     m_flags |= ImGuiWindowFlags_NoCollapse;
     m_flags |= ImGuiWindowFlags_NoTitleBar;
 
+    m_popupFlags |= ImGuiWindowFlags_AlwaysAutoResize;
+    m_popupFlags |= ImGuiWindowFlags_NoTitleBar;
+
     m_width = GameManager::GetInstance()->GetWindowWidth() * 0.3f;
     m_height = GameManager::GetInstance()->GetWindowHeight() * 0.4f;
 
@@ -105,6 +108,58 @@ void LoginScene::Update()
         }
 
         ImGui::PopItemWidth();
+
+        // Popup notifying login is success
+        ImGui::SetNextWindowPosCenter(true);
+
+        ImGui::SetWindowFontScale(SceneManager::GetInstance()->GetFontScale());
+
+        if (ImGui::BeginPopup("LoginSuccess", m_popupFlags))
+        {
+            ImGui::SetWindowFontScale(
+                SceneManager::GetInstance()->GetFontScale());
+
+            SetAlignmentHorizontalCenter("Login success!", false);
+            ImGui::Text("Login success!");
+
+            ImGui::NewLine();
+
+            SetAlignmentHorizontalCenter("Close", true);
+            if (ImGui::Button("Close"))
+            {
+                ImGui::CloseCurrentPopup();
+                SceneManager::GetInstance()->ChangeScene("Main");
+            }
+
+            ImGui::EndPopup();
+        }
+
+        // Popup notifying login is fail
+        ImGui::SetNextWindowPosCenter(true);
+
+        if (ImGui::BeginPopup("LoginFail", m_popupFlags))
+        {
+            ImGui::SetWindowFontScale(
+                SceneManager::GetInstance()->GetFontScale());
+
+            SetAlignmentHorizontalCenter("Login is failed.", false);
+            ImGui::Text("Login is failed.");
+
+            ImGui::NewLine();
+
+            SetAlignmentHorizontalCenter("Try again.", false);
+            ImGui::Text("Try again.");
+
+            ImGui::NewLine();
+
+            SetAlignmentHorizontalCenter("Close", true);
+            if (ImGui::Button("Close"))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+
+            ImGui::EndPopup();
+        }
     }
     ImGui::End();
 }
