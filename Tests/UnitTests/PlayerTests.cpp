@@ -9,7 +9,7 @@ using namespace Hearthstonepp;
  TEST(TestPlayer, Constructors)
  {
     Player player1;
-    EXPECT_EQ("Anonymous", player1.GetEmail());
+    EXPECT_EQ("anonymous@gmail.com", player1.GetEmail());
     EXPECT_EQ("Anonymous", player1.GetNickname());
 
     Player player2("1", "name1");
@@ -36,7 +36,7 @@ TEST(TestPlayer, DeckControl)
     EXPECT_NO_THROW(player.ShowDeckList());
 
     EXPECT_NO_THROW(player.DeleteDeck(0));
-	EXPECT_EQ(1, static_cast<int>(player.GetNumOfDeck()));
+    EXPECT_EQ(1, static_cast<int>(player.GetNumOfDeck()));
     EXPECT_EQ("deck3", player.GetDeck(0)->GetName());
 
     EXPECT_EQ(1, static_cast<int>(player.GetNumOfDeck()));
