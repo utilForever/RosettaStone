@@ -45,7 +45,7 @@ bool NetworkManager::Login(const std::string& email,
     if (!filesystem::exists("Datas/" + email + ".json"))
 #else
     struct stat buf;
-    std::string path = "Datas/" + playerID + ".json";
+    std::string path = "Datas/" + email + ".json";
     if (stat(path.c_str(), &buf) == -1)
 #endif
     {
