@@ -19,3 +19,7 @@ build
 
 # OSX files
 .DS_Store
+
+# CLion files
+/.idea
+cmake-build-debug

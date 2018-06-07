@@ -1,0 +1,123 @@
+namespace Hearthstonepp.FlatData;
+
+struct TaskMetaTrait {
+    id:int;
+    status:uint;
+    userID:ubyte;
+}
+
+table PlayRequirements {
+    key_:int (key);
+    value:int;
+}
+
+table Card {
+    id:string;
+    rarity:int;
+    faction:int;
+    cardSet:int;
+    cardClass:int;
+    cardType:int;
+    race:int;
+    name:string;
+    text:string;
+    collectible:bool;
+    cost:int;
+    attack:int;
+    health:int;
+    durability:int;
+    mechanics:[int];
+    playRequirements:[PlayRequirements];
+    entourages:[string];
+    maxAllowedInDeck:uint;
+}
+
+table TaskMeta {
+    trait:TaskMetaTrait;
+    buffer:[ubyte];
+}
+
+table TaskMetaVector {
+    vector:[TaskMeta];
+}
+
+table RequireTaskMeta {
+    required:int;
+}
+
+table UserSettingTaskMeta {
+    firstID:string;
+    secondID:string;
+}
+
+table DrawTaskMeta {
+    numDraw:ubyte;
+    numExhausted:ubyte;
+    numHearts:ubyte;
+    numOverdraw:ubyte;
+    burnt:[Card];
+}
+
+table BriefTaskMeta {
+    currentUser:ubyte;
+    opponentUser:ubyte;
+    currentMana:ubyte;
+    opponentMana:ubyte;
+
+    currentHero:Card;
+    opponentHero:Card;
+
+    currentField:[Card];
+    currentHand:[Card];
+
+    opponentField:[Card];
+    numOpponentHand:ubyte;
+
+    numCurrentDeck:ubyte;
+    numOpponentDeck:ubyte;
+
+    currentAttacked:[Card];
+    opponentAttacked:[Card];
+}
+
+table RequireMulliganTaskMeta {
+    mulligan:[ubyte];
+}
+
+table ModifyManaTaskMeta {
+    numMode:ubyte;
+    manaMode:ubyte;
+    object:ubyte;
+    result:ubyte;
+}
+
+table RequireSummonMinionTaskMeta {
+    cardIndex:ubyte;
+    position:ubyte;
+}
+
+table SummonMinionTaskMeta {
+    card:Card;
+    index:ubyte;
+}
+
+table ModifyHealthTaskMeta {
+    card:Card;
+    damage:ubyte;
+    hurted:ubyte;
+    isExhausted:bool;
+}
+
+table CombatTaskMeta {
+    src:Card;
+    dst:Card;
+}
+
+table RequireTargetingTaskMeta {
+    src:ubyte;
+    dst:ubyte;
+}
+
+table GameEndTaskMeta {
+    winnerID:string;
+}

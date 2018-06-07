@@ -4,7 +4,8 @@
  
 [submodule "Libraries/googletest"]
     path = Libraries/googletest
-    url = http://www.github.com/google/googletest
+    url = https://www.github.com/google/googletest
+
 [submodule "Libraries/Clara"]
 	path = Libraries/Clara
 	url = https://github.com/catchorg/Clara
