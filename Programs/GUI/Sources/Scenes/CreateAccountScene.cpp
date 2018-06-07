@@ -127,8 +127,13 @@ void CreateAccountScene::Update()
         // Popup notifying create account is success
         ImGui::SetNextWindowPosCenter(true);
 
-        if (ImGui::BeginPopupModal("CreateAccountSuccess", nullptr, m_popupFlags))
+        ImGui::SetWindowFontScale(SceneManager::GetInstance()->GetFontScale());
+
+        if (ImGui::BeginPopup("CreateAccountSuccess", m_popupFlags))
         {
+            ImGui::SetWindowFontScale(
+                SceneManager::GetInstance()->GetFontScale());
+
             SetAlignmentHorizontalCenter("Create account is success.", false);
             ImGui::Text("Create account is success.");
 
@@ -147,8 +152,11 @@ void CreateAccountScene::Update()
         // Popup notifying why create account is not possible
         ImGui::SetNextWindowPosCenter(true);
 
-        if (ImGui::BeginPopupModal("CreateAccountFail", nullptr, m_popupFlags))
+        if (ImGui::BeginPopup("CreateAccountFail", m_popupFlags))
         {
+            ImGui::SetWindowFontScale(
+                SceneManager::GetInstance()->GetFontScale());
+
             SetAlignmentHorizontalCenter("Create account is failed.", false);
             ImGui::Text("Create account is failed.");
 
