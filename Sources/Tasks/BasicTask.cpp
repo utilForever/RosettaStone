@@ -75,8 +75,7 @@ TaskMeta RawUserSetting(User& current, User& opponent)
     current.id = 0;
     opponent.id = 0;
 
-    return Serializer::CreateUserSettingTaskMeta(current.userID,
-                                                 opponent.userID);
+    return Serializer::CreateUserSettingTaskMeta(current.email, opponent.email);
 }
 
 Task UserSettingTask()
@@ -298,8 +297,8 @@ TaskMeta RawBrief(const User& current, const User& opponent)
     Serializer::BriefTaskMeta meta(
         current.id, opponent.id, current.existMana, opponent.existMana,
         static_cast<BYTE>(current.deck.size()),
-		static_cast<BYTE>(opponent.deck.size()), 
-		static_cast<BYTE>(opponent.hand.size()),
+        static_cast<BYTE>(opponent.deck.size()), 
+        static_cast<BYTE>(opponent.hand.size()),
         current.hand, current.field, opponent.field, current.attacked,
         opponent.attacked, current.hero, opponent.hero);
 
@@ -545,11 +544,11 @@ TaskMeta RawGameEnd(User& current, User& opponent)
     std::string winner = "";
     if (current.hero->GetHealth() <= 0)
     {
-        winner = current.userID;
+        winner = current.email;
     }
     else
     {
-        winner = opponent.userID;
+        winner = opponent.email;
     }
 
     return Serializer::CreateGameEndTaskMeta(winner);
