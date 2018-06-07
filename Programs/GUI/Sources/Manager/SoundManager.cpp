@@ -46,13 +46,13 @@ bool SoundManager::IsMusicPlaying() const
     return m_music.getStatus() == sf::SoundSource::Playing;
 }
 
-std::optional<std::string> SoundManager::GetPlayingMusicName() const
+std::string SoundManager::GetPlayingMusicName() const
 {
     if (IsMusicPlaying())
     {
         return m_musicName;
     }
 
-    return std::nullopt;
+    return "";
 }
 }

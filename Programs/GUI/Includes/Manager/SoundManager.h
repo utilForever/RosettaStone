@@ -33,7 +33,7 @@ class SoundManager
     bool IsMusicPlaying() const;
 
     //! Returns the name of the currently playing music.
-    std::optional<std::string> GetPlayingMusicName() const;
+    std::string GetPlayingMusicName() const;
 
  private:
     SoundManager() = default;
