@@ -149,7 +149,7 @@ void CreateAccountScene::Update()
             ImGui::EndPopup();
         }
 
-        // Popup notifying why create account is not possible
+        // Popup notifying create account is fail
         ImGui::SetNextWindowPosCenter(true);
 
         if (ImGui::BeginPopup("CreateAccountFail", m_popupFlags))
