@@ -17,6 +17,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 
+#include <cmath>
+
 namespace Hearthstonepp
 {
 SceneManager* SceneManager::GetInstance()
