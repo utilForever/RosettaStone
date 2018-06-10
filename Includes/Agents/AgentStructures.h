@@ -29,7 +29,7 @@ struct User
     BYTE existMana;
     BYTE exhausted;
 
-    std::string userID;
+    std::string email;
     Hero* hero;
     HeroPower* power;
     Weapon* weapon;

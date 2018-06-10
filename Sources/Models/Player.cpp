@@ -12,62 +12,66 @@
 
 namespace Hearthstonepp
 {
-	Player::Player() : m_id("Anonymous"), m_name("Anonymous")
-	{
-		// Do nothing
-	}
+Player::Player() : m_email("anonymous@gmail.com"), m_nickname("Anonymous")
+{
+    // Do nothing
+}
 
-	Player::Player(std::string&& id, std::string&& name) : m_id(std::move(id)), m_name(std::move(name))
-	{
-		// Do nothing
-	}
+Player::Player(std::string&& email, std::string&& nickname)
+    : m_email(std::move(email)), m_nickname(std::move(nickname))
+{
+    // Do nothing
+}
 
-	Player::Player(std::string&& id, std::string&& name, std::vector<Deck*> decks) : m_id(std::move(id)), m_name(std::move(name)), m_decks(decks)
-	{
-		// Do nothing
-	}
+Player::Player(std::string&& email, std::string&& nickname,
+               std::vector<Deck*> decks)
+    : m_email(std::move(email)), m_nickname(std::move(nickname)), m_decks(decks)
+{
+    // Do nothing
+}
 
-	std::string Player::GetID() const
-	{
-		return m_id;
-	}
+std::string Player::GetEmail() const
+{
+    return m_email;
+}
 
-	std::string Player::GetName() const
-	{
-		return m_name;
-	}
+std::string Player::GetNickname() const
+{
+    return m_nickname;
+}
 
-	size_t Player::GetNumOfDeck() const
-	{
-		return m_decks.size();
-	}
+size_t Player::GetNumOfDeck() const
+{
+    return m_decks.size();
+}
 
-	Deck* Player::GetDeck(size_t idx) const
-	{
-		return m_decks[idx];
-	}
+Deck* Player::GetDeck(size_t idx) const
+{
+    return m_decks[idx];
+}
 
-	void Player::ShowDeckList() const
-	{
-		size_t idx = 0;
-		for (auto& deck : m_decks)
-		{
-			std::cout << ++idx << ". " << deck->GetName() << " (" << deck->GetNumOfCards() << " cards)\n";
-		}
-	}
+void Player::ShowDeckList() const
+{
+    size_t idx = 0;
+    for (auto& deck : m_decks)
+    {
+        std::cout << ++idx << ". " << deck->GetName() << " ("
+                  << deck->GetNumOfCards() << " cards)\n";
+    }
+}
 
-	bool Player::CreateDeck(std::string name, CardClass deckClass)
-	{
-		if (deckClass == +CardClass::INVALID)
-			return false;
-		
-		m_decks.emplace_back(new Deck(name, deckClass));
-		return true;
-	}
+bool Player::CreateDeck(std::string name, CardClass deckClass)
+{
+    if (deckClass == +CardClass::INVALID)
+        return false;
 
-	bool Player::DeleteDeck(size_t selectedDeck)
-	{
-		m_decks.erase(m_decks.begin() + selectedDeck);
-		return true;
-	}
+    m_decks.emplace_back(new Deck(name, deckClass));
+    return true;
+}
+
+bool Player::DeleteDeck(size_t selectedDeck)
+{
+    m_decks.erase(m_decks.begin() + selectedDeck);
+    return true;
+}
 }

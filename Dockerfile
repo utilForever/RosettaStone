@@ -2,7 +2,8 @@ FROM ubuntu:18.04
 MAINTAINER Chris Ohk <utilForever@gmail.com>
 
 RUN apt-get update -yq && \
-    apt-get install -yq --no-install-recommends libxrandr-dev libxi-dev libxxf86vm-dev libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev libopenal-dev lcov && \
+    apt-get install -yq --no-install-recommends libxrandr-dev libxi-dev libxxf86vm-dev libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev lcov && \
+    apt-get install -yq --no-install-recommends libopenal-dev libvorbis-dev libflac-dev && \
     apt-get install -yq build-essential cmake wget unzip;
 
 RUN wget https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip;

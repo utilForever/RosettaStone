@@ -15,7 +15,7 @@ User::User(Player* player, int deckID)
     : totalMana(0),
       existMana(0),
       exhausted(0),
-      userID(player->GetID()),
+      email(player->GetEmail()),
       weapon(nullptr)
 {
     Cards* cards = Cards::GetInstance();
