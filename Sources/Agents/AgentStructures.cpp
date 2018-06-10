@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp
 {
-User::User(Player* player, int deckID)
+User::User(Player* player, Deck* deck)
     : totalMana(0),
       existMana(0),
       exhausted(0),
@@ -20,14 +20,13 @@ User::User(Player* player, int deckID)
 {
     Cards* cards = Cards::GetInstance();
 
-    Deck* tmpDeck = player->GetDeck(deckID);
-    const CardClass cardclass = tmpDeck->GetClass();
+    const CardClass cardclass = deck->GetClass();
 
     const Card* heroCard = cards->GetHeroCard(cardclass);
     const Card* powerCard = cards->GetDefaultHeroPower(cardclass);
 
     cardsInDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
-    for (auto& ptrCard : tmpDeck->GetPrimitiveDeck())
+    for (auto& ptrCard : deck->GetPrimitiveDeck())
     {
         // Deep copy of card data
         cardsInDeck.emplace_back(Card(*ptrCard));

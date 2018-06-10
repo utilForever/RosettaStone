@@ -22,7 +22,7 @@ using BYTE = unsigned char;
 
 struct User
 {
-    User(Player* player, int deckID);
+    User(Player* player, Deck* deck);
 
     BYTE id;
     BYTE totalMana;
