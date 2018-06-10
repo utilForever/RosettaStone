@@ -26,19 +26,19 @@ User::User(Player* player, int deckID)
     const Card* heroCard = cards->GetHeroCard(cardclass);
     const Card* powerCard = cards->GetDefaultHeroPower(cardclass);
 
-    cardDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
+    cardsInDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
     for (auto& ptrCard : tmpDeck->GetPrimitiveDeck())
     {
         // Deep copy of card data
-        cardDeck.emplace_back(Card(*ptrCard));
-        deck.emplace_back(&cardDeck.back());
+        cardsInDeck.emplace_back(Card(*ptrCard));
+        cardsPtrInDeck.emplace_back(&cardsInDeck.back());
     }
 
-    cardDeck.emplace_back(Hero(*reinterpret_cast<const Hero*>(heroCard)));
-    hero = reinterpret_cast<Hero*>(&cardDeck.back());
+    cardsInDeck.emplace_back(Hero(*reinterpret_cast<const Hero*>(heroCard)));
+    hero = reinterpret_cast<Hero*>(&cardsInDeck.back());
 
-    cardDeck.emplace_back(
+    cardsInDeck.emplace_back(
         HeroPower(*reinterpret_cast<const HeroPower*>(powerCard)));
-    power = reinterpret_cast<HeroPower*>(&cardDeck.back());
+    power = reinterpret_cast<HeroPower*>(&cardsInDeck.back());
 }
 }  // namespace Hearthstonepp

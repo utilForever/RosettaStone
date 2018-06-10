@@ -99,7 +99,7 @@ TaskMeta RawShuffle(User& user)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
-    std::shuffle(user.deck.begin(), user.deck.end(), gen);
+    std::shuffle(user.cardsPtrInDeck.begin(), user.cardsPtrInDeck.end(), gen);
 
     return TaskMeta(
         TaskMetaTrait(TaskID::SHUFFLE, MetaData::SHUFFLE_SUCCESS, user.id));
@@ -119,7 +119,7 @@ TaskMeta RawDraw(User& user, size_t num)
     Serializer::DrawTaskMeta meta;
     TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Card*>& deck = user.deck;
+    std::vector<Card*>& deck = user.cardsPtrInDeck;
     std::vector<Card*>& hand = user.hand;
 
     // when deck is exhausted
@@ -297,8 +297,8 @@ TaskMeta RawBrief(const User& current, const User& opponent)
 {
     Serializer::BriefTaskMeta meta(
         current.id, opponent.id, current.existMana, opponent.existMana,
-        static_cast<BYTE>(current.deck.size()),
-		static_cast<BYTE>(opponent.deck.size()), 
+        static_cast<BYTE>(current.cardsPtrInDeck.size()),
+		static_cast<BYTE>(opponent.cardsPtrInDeck.size()), 
 		static_cast<BYTE>(opponent.hand.size()),
         current.hand, current.field, opponent.field, current.attacked,
         opponent.attacked, current.hero, opponent.hero);
@@ -389,7 +389,7 @@ TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
         }
     }
 
-    std::vector<Card*>& deck = user.deck;
+    std::vector<Card*>& deck = user.cardsPtrInDeck;
     std::vector<Card*>& hand = user.hand;
 
     for (size_t i = 0; i < read; ++i)

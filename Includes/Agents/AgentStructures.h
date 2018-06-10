@@ -35,10 +35,10 @@ struct User
     Weapon* weapon;
 
     // Card storage
-    std::vector<Card> cardDeck;
+    std::vector<Card> cardsInDeck;
 
     // Card objects
-    std::vector<Card*> deck;
+    std::vector<Card*> cardsPtrInDeck;
     std::vector<Card*> field;
     std::vector<Card*> hand;
     std::vector<Card*> usedSpell;
