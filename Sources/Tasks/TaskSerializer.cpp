@@ -12,7 +12,7 @@
 
 namespace Hearthstonepp::Serializer
 {
-BriefTaskMeta::BriefTaskMeta(BYTE currentUser, BYTE opponentUser,
+BriefTaskMeta::BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer,
                              BYTE currentMana, BYTE opponentMana,
                              BYTE numCurrentDeck, BYTE numOpponentDeck,
                              BYTE numOpponentHand,
@@ -22,8 +22,8 @@ BriefTaskMeta::BriefTaskMeta(BYTE currentUser, BYTE opponentUser,
                              const std::vector<Card*>& currentAttacked,
                              const std::vector<Card*>& opponentAttacked,
                              Card* currentHero, Card* opponentHero)
-    : currentUser(currentUser),
-      opponentUser(opponentUser),
+    : currentPlayer(currentPlayer),
+      opponentPlayer(opponentPlayer),
       currentMana(currentMana),
       opponentMana(opponentMana),
       numCurrentDeck(numCurrentDeck),
@@ -51,24 +51,24 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
 
     return FlatData::CreateCard(
         builder, 
-		builder.CreateString(card->GetID()),
+        builder.CreateString(card->GetID()),
         static_cast<int>(card->GetRarity()), 
-		static_cast<int>(Faction::INVALID),
+        static_cast<int>(Faction::INVALID),
         static_cast<int>(CardSet::INVALID),
         static_cast<int>(card->GetCardClass()),
         static_cast<int>(card->GetCardType()),
         static_cast<int>(card->GetRace()),
         builder.CreateString(card->GetName()), 
-		builder.CreateString(""),
+        builder.CreateString(""),
         card->GetCollectible(), 
-		static_cast<int>(card->GetCost()), 
-		static_cast<int>(card->GetAttack()),
+        static_cast<int>(card->GetCost()), 
+        static_cast<int>(card->GetAttack()),
         static_cast<int>(card->GetHealth()), 
-		card->GetDurability(),
+        card->GetDurability(),
         builder.CreateVector(mechanics), 
-		0, 
-		0, 
-		card->GetMaxAllowedInDeck());
+        0, 
+        0, 
+        card->GetMaxAllowedInDeck());
 }
 
 TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
@@ -143,14 +143,14 @@ TaskMeta CreateRequireTargetingTaskMeta(int src, int dst)
                     builder.GetBufferPointer());
 }
 
-TaskMeta CreateUserSettingTaskMeta(const std::string& firstUserID,
-                                   const std::string& secondUserID)
+TaskMeta CreatePlayerSettingTaskMeta(const std::string& firstPlayerID,
+                                   const std::string& secondPlayerID)
 {
     flatbuffers::FlatBufferBuilder builder(128);
-    auto firstID = builder.CreateString(firstUserID);
-    auto secondID = builder.CreateString(secondUserID);
+    auto firstID = builder.CreateString(firstPlayerID);
+    auto secondID = builder.CreateString(secondPlayerID);
 
-    auto flat = FlatData::CreateUserSettingTaskMeta(builder, firstID, secondID);
+    auto flat = FlatData::CreatePlayerSettingTaskMeta(builder, firstID, secondID);
     builder.Finish(flat);
 
     return TaskMeta(TaskMetaTrait(TaskID::USER_SETTING), builder.GetSize(),
@@ -231,7 +231,7 @@ TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
                    });
 
     auto brief = FlatData::CreateBriefTaskMeta(
-        builder, meta.currentUser, meta.opponentUser, meta.currentMana,
+        builder, meta.currentPlayer, meta.opponentPlayer, meta.currentMana,
         meta.opponentMana, CreateCard(builder, meta.currentHero),
         CreateCard(builder, meta.opponentHero), result[0], result[1], result[2],
         meta.numOpponentHand, meta.numCurrentDeck, meta.numOpponentDeck,

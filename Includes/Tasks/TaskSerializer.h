@@ -45,7 +45,7 @@ struct ModifyHealthTaskMeta
 
 struct BriefTaskMeta
 {
-    BriefTaskMeta(BYTE currentUser, BYTE opponentUser, BYTE currentMana,
+    BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer, BYTE currentMana,
                   BYTE opponentMana, BYTE numCurrentDeck, BYTE numOpponentDeck,
                   BYTE numOpponentHand, const std::vector<Card*>& currentHand,
                   const std::vector<Card*>& currentField,
@@ -54,8 +54,8 @@ struct BriefTaskMeta
                   const std::vector<Card*>& opponentAttacked, Card* currentHero,
                   Card* opponentHero);
 
-    BYTE currentUser;
-    BYTE opponentUser;
+    BYTE currentPlayer;
+    BYTE opponentPlayer;
 
     BYTE currentMana;
     BYTE opponentMana;
@@ -95,8 +95,8 @@ TaskMeta CreateRequireMulliganTaskMeta(const BYTE* index, size_t size);
 TaskMeta CreateRequireSummonMinionTaskMeta(int cardIndex, int position);
 // From GameInterface::InputTargeting
 TaskMeta CreateRequireTargetingTaskMeta(int src, int dst);
-// From BasicTask::RawUserSetting
-TaskMeta CreateUserSettingTaskMeta(const std::string& firstUserID, const std::string& secondUserID);
+// From BasicTask::RawPlayerSetting
+TaskMeta CreatePlayerSettingTaskMeta(const std::string& firstPlayerID, const std::string& secondPlayerID);
 // From BasicTask::RawDraw
 TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& draw, TaskMeta::status_t status, BYTE userID);
 // From BasicTask::RawModifyMana

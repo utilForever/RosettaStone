@@ -31,7 +31,7 @@ class GameInterface
 {
  public:
     GameInterface(GameAgent& agent,
-				  std::ostream& output = std::cout,
+                  std::ostream& output = std::cout,
                   std::istream& input = std::cin);
 
     GameResult StartGame();
@@ -68,7 +68,7 @@ class GameInterface
 
     // TaskMeta Handler
     void HandleInvalid(const TaskMeta& meta);
-    void HandleUserSetting(const TaskMeta& meta);
+    void HandlePlayerSetting(const TaskMeta& meta);
     void HandleSwap(const TaskMeta& meta);
     void HandleShuffle(const TaskMeta& meta);
     void HandleDraw(const TaskMeta& meta);
@@ -92,7 +92,7 @@ class GameInterface
     std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>>
         m_handler = {
             {TaskID::INVALID, &GameInterface::HandleInvalid},
-            {TaskID::USER_SETTING, &GameInterface::HandleUserSetting},
+            {TaskID::USER_SETTING, &GameInterface::HandlePlayerSetting},
             {TaskID::SWAP, &GameInterface::HandleSwap},
             {TaskID::SHUFFLE, &GameInterface::HandleShuffle},
             {TaskID::DRAW, &GameInterface::HandleDraw},

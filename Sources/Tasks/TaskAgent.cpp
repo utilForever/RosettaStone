@@ -35,13 +35,13 @@ void TaskAgent::Notify(TaskMeta&& meta, bool sideChannel)
     }
 }
 
-void TaskAgent::Run(TaskMeta& meta, User& current, User& opponent)
+void TaskAgent::Run(TaskMeta& meta, Player& current, Player& opponent)
 {
     Run(m_tasks, meta, current, opponent);
 }
 
-void TaskAgent::Run(const Task& task, TaskMeta& meta, User& current,
-                    User& opponent, bool notify)
+void TaskAgent::Run(const Task& task, TaskMeta& meta, Player& current,
+                    Player& opponent, bool notify)
 {
     const Task::lambda_t& role = task.GetTaskRole();
     meta = role(current, opponent);
@@ -53,7 +53,7 @@ void TaskAgent::Run(const Task& task, TaskMeta& meta, User& current,
 }
 
 void TaskAgent::Run(const std::vector<Task>& tasks, TaskMeta& meta,
-                    User& current, User& opponent)
+                    Player& current, Player& opponent)
 {
     TaskMeta temporal;
     std::vector<TaskMeta> pool;

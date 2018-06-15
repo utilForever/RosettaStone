@@ -23,14 +23,14 @@ namespace Hearthstonepp
 class GameAgent
 {
  public:
-    // Constant expression of User type checking
+    // Constant expression of Player type checking
     template <typename T>
-    static constexpr inline bool isUser = std::is_same_v<std::decay_t<T>, User>;
+    static constexpr inline bool isPlayer = std::is_same_v<std::decay_t<T>, Player>;
 
-    template <typename UserT, typename = std::enable_if_t<isUser<UserT>>>
-    GameAgent(UserT&& user1, UserT&& user2)
-        : m_current(std::forward<UserT>(user1)),
-          m_opponent(std::forward<UserT>(user2))
+    template <typename PlayerT, typename = std::enable_if_t<isPlayer<PlayerT>>>
+    GameAgent(PlayerT&& user1, PlayerT&& user2)
+        : m_current(std::forward<PlayerT>(user1)),
+          m_opponent(std::forward<PlayerT>(user2))
     {
         // Do Nothing
     }
@@ -43,8 +43,8 @@ class GameAgent
     void WriteSyncBuffer(TaskMeta&& data, bool sideChannel = true);
 
  private:
-    User m_current;
-    User m_opponent;
+    Player m_current;
+    Player m_opponent;
 
     TaskAgent m_taskAgent;
 

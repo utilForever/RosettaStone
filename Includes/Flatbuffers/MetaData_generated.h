@@ -21,7 +21,7 @@ struct TaskMetaVector;
 
 struct RequireTaskMeta;
 
-struct UserSettingTaskMeta;
+struct PlayerSettingTaskMeta;
 
 struct DrawTaskMeta;
 
@@ -548,7 +548,7 @@ inline flatbuffers::Offset<RequireTaskMeta> CreateRequireTaskMeta(
   return builder_.Finish();
 }
 
-struct UserSettingTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+struct PlayerSettingTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
     VT_FIRSTID = 4,
     VT_SECONDID = 6
@@ -569,42 +569,42 @@ struct UserSettingTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table 
   }
 };
 
-struct UserSettingTaskMetaBuilder {
+struct PlayerSettingTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_firstID(flatbuffers::Offset<flatbuffers::String> firstID) {
-    fbb_.AddOffset(UserSettingTaskMeta::VT_FIRSTID, firstID);
+    fbb_.AddOffset(PlayerSettingTaskMeta::VT_FIRSTID, firstID);
   }
   void add_secondID(flatbuffers::Offset<flatbuffers::String> secondID) {
-    fbb_.AddOffset(UserSettingTaskMeta::VT_SECONDID, secondID);
+    fbb_.AddOffset(PlayerSettingTaskMeta::VT_SECONDID, secondID);
   }
-  explicit UserSettingTaskMetaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit PlayerSettingTaskMetaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
-  UserSettingTaskMetaBuilder &operator=(const UserSettingTaskMetaBuilder &);
-  flatbuffers::Offset<UserSettingTaskMeta> Finish() {
+  PlayerSettingTaskMetaBuilder &operator=(const PlayerSettingTaskMetaBuilder &);
+  flatbuffers::Offset<PlayerSettingTaskMeta> Finish() {
     const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<UserSettingTaskMeta>(end);
+    auto o = flatbuffers::Offset<PlayerSettingTaskMeta>(end);
     return o;
   }
 };
 
-inline flatbuffers::Offset<UserSettingTaskMeta> CreateUserSettingTaskMeta(
+inline flatbuffers::Offset<PlayerSettingTaskMeta> CreatePlayerSettingTaskMeta(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> firstID = 0,
     flatbuffers::Offset<flatbuffers::String> secondID = 0) {
-  UserSettingTaskMetaBuilder builder_(_fbb);
+  PlayerSettingTaskMetaBuilder builder_(_fbb);
   builder_.add_secondID(secondID);
   builder_.add_firstID(firstID);
   return builder_.Finish();
 }
 
-inline flatbuffers::Offset<UserSettingTaskMeta> CreateUserSettingTaskMetaDirect(
+inline flatbuffers::Offset<PlayerSettingTaskMeta> CreatePlayerSettingTaskMetaDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *firstID = nullptr,
     const char *secondID = nullptr) {
-  return Hearthstonepp::FlatData::CreateUserSettingTaskMeta(
+  return Hearthstonepp::FlatData::CreatePlayerSettingTaskMeta(
       _fbb,
       firstID ? _fbb.CreateString(firstID) : 0,
       secondID ? _fbb.CreateString(secondID) : 0);
@@ -725,10 +725,10 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_CURRENTATTACKED = 28,
     VT_OPPONENTATTACKED = 30
   };
-  uint8_t currentUser() const {
+  uint8_t currentPlayer() const {
     return GetField<uint8_t>(VT_CURRENTUSER, 0);
   }
-  uint8_t opponentUser() const {
+  uint8_t opponentPlayer() const {
     return GetField<uint8_t>(VT_OPPONENTUSER, 0);
   }
   uint8_t currentMana() const {
@@ -802,11 +802,11 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct BriefTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_currentUser(uint8_t currentUser) {
-    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_CURRENTUSER, currentUser, 0);
+  void add_currentPlayer(uint8_t currentPlayer) {
+    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_CURRENTUSER, currentPlayer, 0);
   }
-  void add_opponentUser(uint8_t opponentUser) {
-    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_OPPONENTUSER, opponentUser, 0);
+  void add_opponentPlayer(uint8_t opponentPlayer) {
+    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_OPPONENTUSER, opponentPlayer, 0);
   }
   void add_currentMana(uint8_t currentMana) {
     fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_CURRENTMANA, currentMana, 0);
@@ -858,8 +858,8 @@ struct BriefTaskMetaBuilder {
 
 inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMeta(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t currentUser = 0,
-    uint8_t opponentUser = 0,
+    uint8_t currentPlayer = 0,
+    uint8_t opponentPlayer = 0,
     uint8_t currentMana = 0,
     uint8_t opponentMana = 0,
     flatbuffers::Offset<Card> currentHero = 0,
@@ -885,15 +885,15 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMeta(
   builder_.add_numOpponentHand(numOpponentHand);
   builder_.add_opponentMana(opponentMana);
   builder_.add_currentMana(currentMana);
-  builder_.add_opponentUser(opponentUser);
-  builder_.add_currentUser(currentUser);
+  builder_.add_opponentPlayer(opponentPlayer);
+  builder_.add_currentPlayer(currentPlayer);
   return builder_.Finish();
 }
 
 inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMetaDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t currentUser = 0,
-    uint8_t opponentUser = 0,
+    uint8_t currentPlayer = 0,
+    uint8_t opponentPlayer = 0,
     uint8_t currentMana = 0,
     uint8_t opponentMana = 0,
     flatbuffers::Offset<Card> currentHero = 0,
@@ -908,8 +908,8 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMetaDirect(
     const std::vector<flatbuffers::Offset<Card>> *opponentAttacked = nullptr) {
   return Hearthstonepp::FlatData::CreateBriefTaskMeta(
       _fbb,
-      currentUser,
-      opponentUser,
+      currentPlayer,
+      opponentPlayer,
       currentMana,
       opponentMana,
       currentHero,

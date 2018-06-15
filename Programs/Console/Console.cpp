@@ -216,7 +216,8 @@ void Console::SimulateGame()
     Account* p1 = loader.Load(user1);
     Account* p2 = loader.Load(user2);
 
-    GameAgent agent(User(p1, p1->GetDeck(deck1)), User(p2, p2->GetDeck(deck2)));
+    GameAgent agent(Player(p1, p1->GetDeck(deck1)),
+                    Player(p2, p2->GetDeck(deck2)));
     GameInterface game(agent);
 
     GameResult result = game.StartGame();

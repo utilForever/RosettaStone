@@ -95,26 +95,26 @@ void GameInterface::HandleInvalid(const TaskMeta&)
     // Do Nothing
 }
 
-void GameInterface::HandleUserSetting(const TaskMeta& serialized)
+void GameInterface::HandlePlayerSetting(const TaskMeta& serialized)
 {
-    std::string name = "User Setting";
+    std::string name = "Player Setting";
     std::ostream& stream = LogWriter(name);
 
-    using UserSettingTaskMeta = FlatData::UserSettingTaskMeta;
+    using PlayerSettingTaskMeta = FlatData::PlayerSettingTaskMeta;
     const auto& buffer = serialized.GetConstBuffer();
     if (buffer == nullptr)
     {
-        stream << "Exception HandleUserSetting : TaskMeta is nullptr\n";
+        stream << "Exception HandlePlayerSetting : TaskMeta is nullptr\n";
         return;
     }
 
-    auto meta = flatbuffers::GetRoot<UserSettingTaskMeta>(buffer.get());
+    auto meta = flatbuffers::GetRoot<PlayerSettingTaskMeta>(buffer.get());
     if (meta == nullptr)
     {
         m_users[0] = "Unknown0";
         m_users[1] = "Unknown1";
 
-        stream << "Exception HandleUserSetting : UserSettingTaskMeta is nullptr\n";
+        stream << "Exception HandlePlayerSetting : PlayerSettingTaskMeta is nullptr\n";
     }
     else
     {
@@ -127,7 +127,7 @@ void GameInterface::HandleUserSetting(const TaskMeta& serialized)
 
 void GameInterface::HandleSwap(const TaskMeta&)
 {
-    std::string name = "User";
+    std::string name = "Player";
     LogWriter(name) << "Swap\n";
 }
 
@@ -458,27 +458,27 @@ void GameInterface::HandleBrief(const TaskMeta& serialized)
     }
 
     stream << "Game Briefing\n"
-           << m_users[m_briefCache->opponentUser()] << " - Hero "
+           << m_users[m_briefCache->opponentPlayer()] << " - Hero "
            << m_briefCache->opponentHero()->name()->c_str() << ", Health "
            << m_briefCache->opponentHero()->health() << ", Mana "
            << static_cast<int>(m_briefCache->opponentMana()) << ", Hand "
            << static_cast<int>(m_briefCache->numOpponentHand()) << ", Deck "
            << static_cast<int>(m_briefCache->numOpponentDeck()) << '\n';
 
-    stream << m_users[m_briefCache->opponentUser()] << " Field\n";
+    stream << m_users[m_briefCache->opponentPlayer()] << " Field\n";
     ShowCards(*m_briefCache->opponentField());
 
-    stream << m_users[m_briefCache->currentUser()] << " - Hero "
+    stream << m_users[m_briefCache->currentPlayer()] << " - Hero "
            << m_briefCache->currentHero()->name()->c_str() << ", Health "
            << m_briefCache->currentHero()->health() << ", Mana "
            << static_cast<int>(m_briefCache->currentMana()) << ", Hand "
            << static_cast<int>(m_briefCache->currentHand()->size()) << ", Deck "
            << static_cast<int>(m_briefCache->numCurrentDeck()) << '\n';
 
-    stream << m_users[m_briefCache->currentUser()] << " Field\n";
+    stream << m_users[m_briefCache->currentPlayer()] << " Field\n";
     ShowCards(*m_briefCache->currentField());
 
-    stream << m_users[m_briefCache->currentUser()] << " Hand\n";
+    stream << m_users[m_briefCache->currentPlayer()] << " Hand\n";
     ShowCards(*m_briefCache->currentHand());
 }
 
@@ -591,7 +591,7 @@ void GameInterface::InputTargeting(const TaskMeta& meta)
     auto currentField = m_briefCache->currentField();
     int numCurrentField = currentField->size();
 
-    m_ostream << "User field :\n";
+    m_ostream << "Player field :\n";
     ShowCards(*currentField);
 
     auto opponentField = m_briefCache->opponentField();

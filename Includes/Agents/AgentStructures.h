@@ -20,16 +20,16 @@ namespace Hearthstonepp
 {
 using BYTE = unsigned char;
 
-struct User
+struct Player
 {
-    User(Account* player, Deck* deck);
+    Player(Account* account, Deck* deck);
 
     BYTE id;
     BYTE totalMana;
     BYTE existMana;
     BYTE exhausted;
 
-    std::string userID;
+    std::string accountID;
     Hero* hero;
     HeroPower* power;
     Weapon* weapon;

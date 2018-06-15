@@ -11,11 +11,11 @@
 
 namespace Hearthstonepp
 {
-User::User(Account* player, Deck* deck)
+Player::Player(Account* account, Deck* deck)
     : totalMana(0),
       existMana(0),
       exhausted(0),
-      userID(player->GetID()),
+      accountID(account->GetID()),
       weapon(nullptr)
 {
     Cards* cards = Cards::GetInstance();

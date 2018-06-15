@@ -35,12 +35,12 @@ class TaskAgent
     void Notify(TaskMeta&& meta, bool sideChannel = false);
 
     // Alias of Run(m_tasks, meta, current, opponent)
-    void Run(TaskMeta& meta, User& current, User& opponent);
+    void Run(TaskMeta& meta, Player& current, Player& opponent);
     // Run single task and write result to `meta`,
     // if `notify` is true, TaskAgent notify the SyncBuffer in main channel
-    void Run(const Task& task, TaskMeta& meta, User& current, User& opponent, bool notify = true);
+    void Run(const Task& task, TaskMeta& meta, Player& current, Player& opponent, bool notify = true);
     // Run Multi task and write result to `meta`
-    void Run(const std::vector<Task>& tasks, TaskMeta& meta, User& current, User& opponent);
+    void Run(const std::vector<Task>& tasks, TaskMeta& meta, Player& current, Player& opponent);
 
     // Clear task meta vector
     void Clear();

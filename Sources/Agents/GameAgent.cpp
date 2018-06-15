@@ -53,7 +53,7 @@ void GameAgent::BeginPhase()
     // swap user with 50% probability
     if (bin(gen) == 1)
     {
-        m_taskAgent.Add(BasicTask::SwapUserTask());
+        m_taskAgent.Add(BasicTask::SwapPlayerTask());
     }
 
     auto untilMulliganSuccess = [](const TaskMeta& serialized) {
@@ -61,17 +61,17 @@ void GameAgent::BeginPhase()
     };
 
     // BeginPhase Task List
-    m_taskAgent.Add(BasicTask::UserSettingTask());
-    m_taskAgent.Add(BasicTask::DoBothUser(BasicTask::ShuffleTask()));
-    m_taskAgent.Add(BasicTask::DoBothUser(BasicTask::DrawTask(NUM_BEGIN_DRAW)));
+    m_taskAgent.Add(BasicTask::PlayerSettingTask());
+    m_taskAgent.Add(BasicTask::DoBothPlayer(BasicTask::ShuffleTask()));
+    m_taskAgent.Add(BasicTask::DoBothPlayer(BasicTask::DrawTask(NUM_BEGIN_DRAW)));
     m_taskAgent.Add(BasicTask::BriefTask());
     m_taskAgent.Add(BasicTask::DoUntil(BasicTask::MulliganTask(m_taskAgent),
                                        untilMulliganSuccess));
-    m_taskAgent.Add(BasicTask::SwapUserTask());
+    m_taskAgent.Add(BasicTask::SwapPlayerTask());
     m_taskAgent.Add(BasicTask::BriefTask());
     m_taskAgent.Add(BasicTask::DoUntil(BasicTask::MulliganTask(m_taskAgent),
                                        untilMulliganSuccess));
-    m_taskAgent.Add(BasicTask::SwapUserTask());
+    m_taskAgent.Add(BasicTask::SwapPlayerTask());
 
     TaskMeta meta;
     m_taskAgent.Run(meta, m_current, m_opponent);
@@ -129,7 +129,7 @@ bool GameAgent::MainMenu()
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
         // Main End phase
-        m_taskAgent.Run(BasicTask::SwapUserTask(), meta, m_current, m_opponent);
+        m_taskAgent.Run(BasicTask::SwapPlayerTask(), meta, m_current, m_opponent);
     }
     else
     {

@@ -33,14 +33,14 @@ std::function<TaskMeta()> RequireMethod(TaskID request, BYTE userID,
     return response;
 }
 
-Task DoBothUser(Task&& task)
+Task DoBothPlayer(Task&& task)
 {
     auto role = [role = task.GetTaskRole()](
-                    User& current, User& opponent) -> TaskMeta {
+                    Player& current, Player& opponent) -> TaskMeta {
         std::vector<TaskMeta> vector;
-        // Current User Action
+        // Current Player Action
         vector.emplace_back(role(current, opponent));
-        // Opponent User Action
+        // Opponent Player Action
         vector.emplace_back(role(opponent, current));
         return Serializer::CreateTaskMetaVector(vector);
     };
@@ -51,8 +51,8 @@ Task DoBothUser(Task&& task)
 Task DoUntil(Task&& task, std::function<bool(const TaskMeta&)>&& condition)
 {
     auto role = [role = task.GetTaskRole(),
-                 condition = condition](User& current,
-                                                   User& opponent) -> TaskMeta {
+                 condition = condition](Player& current,
+                                                   Player& opponent) -> TaskMeta {
         TaskMeta meta;
         while (true)
         {
@@ -70,32 +70,32 @@ Task DoUntil(Task&& task, std::function<bool(const TaskMeta&)>&& condition)
     return Task(task.GetTaskID(), std::move(role));
 }
 
-TaskMeta RawUserSetting(User& current, User& opponent)
+TaskMeta RawPlayerSetting(Player& current, Player& opponent)
 {
     current.id = 0;
     opponent.id = 0;
 
-    return Serializer::CreateUserSettingTaskMeta(current.userID,
-                                                 opponent.userID);
+    return Serializer::CreatePlayerSettingTaskMeta(current.accountID,
+                                                   opponent.accountID);
 }
 
-Task UserSettingTask()
+Task PlayerSettingTask()
 {
-    return Task(TaskID::USER_SETTING, RawUserSetting);
+    return Task(TaskID::USER_SETTING, RawPlayerSetting);
 }
 
-TaskMeta RawSwapUser(User& current, User& opponent)
+TaskMeta RawSwapPlayer(Player& current, Player& opponent)
 {
     std::swap(current, opponent);
     return TaskMeta(TaskMetaTrait(TaskID::SWAP, MetaData::SWAP_SUCCESS));
 }
 
-Task SwapUserTask()
+Task SwapPlayerTask()
 {
-    return Task(TaskID::SWAP, RawSwapUser);
+    return Task(TaskID::SWAP, RawSwapPlayer);
 }
 
-TaskMeta RawShuffle(User& user)
+TaskMeta RawShuffle(Player& user)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
@@ -107,14 +107,14 @@ TaskMeta RawShuffle(User& user)
 
 Task ShuffleTask()
 {
-    auto role = [](User& current, User&) -> TaskMeta {
+    auto role = [](Player& current, Player&) -> TaskMeta {
         return RawShuffle(current);
     };
 
     return Task(TaskID::SHUFFLE, std::move(role));
 }
 
-TaskMeta RawDraw(User& user, size_t num)
+TaskMeta RawDraw(Player& user, size_t num)
 {
     Serializer::DrawTaskMeta meta;
     TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
@@ -187,16 +187,16 @@ TaskMeta RawDraw(User& user, size_t num)
 
 Task DrawTask(size_t num)
 {
-    auto role = [=](User& current, User&) -> TaskMeta {
+    auto role = [=](Player& current, Player&) -> TaskMeta {
         return RawDraw(current, num);
     };
 
     return Task(TaskID::DRAW, std::move(role));
 }
 
-TaskMeta RawModifyMana(User& user, size_t numMode, size_t manaMode, BYTE object)
+TaskMeta RawModifyMana(Player& user, size_t numMode, size_t manaMode, BYTE object)
 {
-    auto get = [](User& user, size_t type) -> BYTE& {
+    auto get = [](Player& user, size_t type) -> BYTE& {
         if (type == MANA_EXIST)
             return user.existMana;
         else if (type == MANA_TOTAL)
@@ -241,7 +241,7 @@ TaskMeta RawModifyMana(User& user, size_t numMode, size_t manaMode, BYTE object)
 
 Task ModifyManaTask(size_t numMode, size_t manaMode, BYTE object)
 {
-    auto role = [=](User& current, User&) -> TaskMeta {
+    auto role = [=](Player& current, Player&) -> TaskMeta {
         return RawModifyMana(current, numMode, manaMode, object);
     };
 
@@ -250,14 +250,14 @@ Task ModifyManaTask(size_t numMode, size_t manaMode, BYTE object)
 
 Task ModifyManaByRef(size_t numMode, size_t manaMode, const BYTE& object)
 {
-    auto role = [numMode, manaMode, &object](User& current, User&) -> TaskMeta {
+    auto role = [numMode, manaMode, &object](Player& current, Player&) -> TaskMeta {
         return RawModifyMana(current, numMode, manaMode, object);
     };
 
     return Task(TaskID::MODIFY_MANA, std::move(role));
 }
 
-TaskMeta RawModifyHealth(User& user, Card* card, BYTE damage)
+TaskMeta RawModifyHealth(Player& user, Card* card, BYTE damage)
 {
     Serializer::ModifyHealthTaskMeta meta;
     meta.card = card;
@@ -293,13 +293,13 @@ TaskMeta RawModifyHealth(User& user, Card* card, BYTE damage)
         meta, MetaData::MODIFY_HEALTH_SUCCESS, user.id);
 }
 
-TaskMeta RawBrief(const User& current, const User& opponent)
+TaskMeta RawBrief(const Player& current, const Player& opponent)
 {
     Serializer::BriefTaskMeta meta(
         current.id, opponent.id, current.existMana, opponent.existMana,
         static_cast<BYTE>(current.cardsPtrInDeck.size()),
-		static_cast<BYTE>(opponent.cardsPtrInDeck.size()), 
-		static_cast<BYTE>(opponent.hand.size()),
+        static_cast<BYTE>(opponent.cardsPtrInDeck.size()), 
+        static_cast<BYTE>(opponent.hand.size()),
         current.hand, current.field, opponent.field, current.attacked,
         opponent.attacked, current.hero, opponent.hero);
 
@@ -314,7 +314,7 @@ Task BriefTask()
 Task SelectMenuTask(TaskAgent& agent)
 {
     // Call RequireMethod with TaskID::SELECT_MENU
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         auto method = RequireMethod(TaskID::SELECT_MENU, current.id, agent);
         return method();
     };
@@ -325,7 +325,7 @@ Task SelectMenuTask(TaskAgent& agent)
 Task SelectCardTask(TaskAgent& agent)
 {
     // Call RequireMethod with TaskID::SELECT_CARD
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         auto method = RequireMethod(TaskID::SELECT_CARD, current.id, agent);
         return method();
     };
@@ -336,7 +336,7 @@ Task SelectCardTask(TaskAgent& agent)
 Task SelectTargetTask(TaskAgent& agent)
 {
     // Call RequireMethod with TaskID::SELECT_TARGET
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         auto method = RequireMethod(TaskID::SELECT_TARGET, current.id, agent);
         return method();
     };
@@ -344,7 +344,7 @@ Task SelectTargetTask(TaskAgent& agent)
     return Task(TaskID::SELECT_TARGET, std::move(role));
 }
 
-TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
+TaskMeta RawMulligan(Player& user, std::function<TaskMeta()>&& method)
 {
     TaskMetaTrait meta(TaskID::MULLIGAN);
     meta.userID = user.id;
@@ -413,7 +413,7 @@ TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
 
 Task MulliganTask(TaskAgent& agent)
 {
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         return RawMulligan(current,
                            RequireMethod(TaskID::MULLIGAN, current.id, agent));
     };
@@ -421,7 +421,7 @@ Task MulliganTask(TaskAgent& agent)
     return Task(TaskID::MULLIGAN, std::move(role));
 }
 
-TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
+TaskMeta RawSummonMinion(Player& current, size_t cardIndex, size_t position)
 {
     TaskMetaTrait meta(TaskID::SUMMON_MINION);
     meta.userID = current.id;
@@ -471,14 +471,14 @@ TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
 
 Task SummonMinionTask(size_t cardIndex, size_t position)
 {
-    auto role = [=](User& current, User&) -> TaskMeta {
+    auto role = [=](Player& current, Player&) -> TaskMeta {
         return RawSummonMinion(current, cardIndex, position);
     };
 
     return Task(TaskID::SUMMON_MINION, std::move(role));
 }
 
-TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
+TaskMeta RawCombat(Player& current, Player& opponent, size_t src, size_t dst)
 {
     TaskMetaTrait meta(TaskID::COMBAT);
     meta.userID = current.id;
@@ -533,23 +533,23 @@ TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
 
 Task CombatTask(size_t src, size_t dst)
 {
-    auto role = [=](User& current, User& opponent) -> TaskMeta {
+    auto role = [=](Player& current, Player& opponent) -> TaskMeta {
         return RawCombat(current, opponent, src, dst);
     };
 
     return Task(TaskID::COMBAT, std::move(role));
 }
 
-TaskMeta RawGameEnd(User& current, User& opponent)
+TaskMeta RawGameEnd(Player& current, Player& opponent)
 {
     std::string winner = "";
     if (current.hero->GetHealth() <= 0)
     {
-        winner = current.userID;
+        winner = current.accountID;
     }
     else
     {
-        winner = opponent.userID;
+        winner = opponent.accountID;
     }
 
     return Serializer::CreateGameEndTaskMeta(winner);
