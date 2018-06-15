@@ -1,13 +1,13 @@
 /*************************************************************************
-> File Name: PlayerLoader.cpp
+> File Name: AccountLoader.cpp
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Player loader that loads data from <playerName>.json.
+> Purpose: Account loader that loads data from <accountName>.json.
 > Created Time: 2017/10/19
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Commons/Macros.h>
-#include <Loaders/PlayerLoader.h>
+#include <Loaders/AccountLoader.h>
 
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
@@ -27,10 +27,10 @@ namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
-Account* PlayerLoader::Load(std::string playerID) const
+Account* AccountLoader::Load(std::string accountID) const
 	{
-		// Read player data from JSON file
-		std::ifstream playerFile("Datas/" + playerID + ".json");
+		// Read account data from JSON file
+		std::ifstream playerFile("Datas/" + accountID + ".json");
 		json j;
 
 		if (!playerFile.is_open())
@@ -69,7 +69,7 @@ Account* PlayerLoader::Load(std::string playerID) const
 				}
 			}
 
-			p = new Account(std::move(playerID), std::move(name), decks);
+			p = new Account(std::move(accountID), std::move(name), decks);
 		}
 		catch (...)
 		{
@@ -83,9 +83,9 @@ Account* PlayerLoader::Load(std::string playerID) const
 		return p;
 	}
 
-	void PlayerLoader::Save(Account* p) const
+	void AccountLoader::Save(Account* p) const
 	{
-		// Store player data to JSON file
+		// Store account data to JSON file
 #ifndef HEARTHSTONEPP_MACOSX
 		filesystem::create_directory("Datas");
 #else

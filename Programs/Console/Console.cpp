@@ -13,8 +13,8 @@
 #include <Commons/Macros.h>
 #include <Commons/Utils.h>
 #include <Interface/Interface.h>
+#include <Loaders/AccountLoader.h>
 #include <Loaders/CardLoader.h>
-#include <Loaders/PlayerLoader.h>
 #include <Models/Card.h>
 #include <Models/Cards.h>
 
@@ -40,42 +40,42 @@ namespace Hearthstonepp
 {
 void Console::SignIn()
 {
-    std::cout << "Input Player ID to load data.\n";
+    std::cout << "Input Account ID to load data.\n";
     std::cout << "If you do not want to load, please input \"STOP\"\n";
 
     while (true)
     {
-        std::cout << "Player ID: ";
-        std::string playerID;
-        std::cin >> playerID;
+        std::cout << "Account ID: ";
+        std::string accountID;
+        std::cin >> accountID;
 
-        if (playerID == "STOP")
+        if (accountID == "STOP")
         {
             break;
         }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (!filesystem::exists("Datas/" + playerID + ".json"))
+        if (!filesystem::exists("Datas/" + accountID + ".json"))
 #else
         struct stat buf;
         std::string path = "Datas/" + playerID + ".json";
         if (stat(path.c_str(), &buf) == -1)
 #endif
         {
-            std::cout << playerID << ".json doesn't exist. Try again.\n";
+            std::cout << accountID << ".json doesn't exist. Try again.\n";
             continue;
         }
 
-        PlayerLoader loader;
-        m_account = loader.Load(playerID);
+        AccountLoader loader;
+        m_account = loader.Load(accountID);
 
         if (m_account == nullptr)
         {
-            std::cout << "An error occurred while loading player data.\n";
+            std::cout << "An error occurred while loading account data.\n";
             continue;
         }
 
-        std::cout << "You are signed in. Hello, " << playerID << "!\n";
+        std::cout << "You are signed in. Hello, " << accountID << "!\n";
 
         Main();
 
@@ -85,23 +85,23 @@ void Console::SignIn()
 
 void Console::SignUp()
 {
-    std::cout << "Input Player ID to create data.\n";
+    std::cout << "Input Account ID to create data.\n";
 
     while (true)
     {
-        std::cout << "Player ID: ";
-        std::string playerID;
-        std::cin >> playerID;
+        std::cout << "Account ID: ";
+        std::string accountID;
+        std::cin >> accountID;
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (filesystem::exists("Datas/" + playerID + ".json"))
+        if (filesystem::exists("Datas/" + accountID + ".json"))
 #else
         struct stat buf;
         std::string path = "Datas/" + playerID + ".json";
         if (stat(path.c_str(), &buf) == 0)
 #endif
         {
-            std::cout << playerID << ".json already exists. Try again.\n";
+            std::cout << accountID << ".json already exists. Try again.\n";
             continue;
         }
 
@@ -109,9 +109,9 @@ void Console::SignUp()
         std::string name;
         std::cin >> name;
 
-        m_account = new Account(std::move(playerID), std::move(name));
+        m_account = new Account(std::move(accountID), std::move(name));
 
-        PlayerLoader loader;
+        AccountLoader loader;
         loader.Save(m_account);
 
         std::cout << "Your account has been created. Please sign in.\n";
@@ -212,7 +212,7 @@ void Console::SimulateGame()
     std::cout << "[*] input second id, deck index : ";
     std::cin >> user2 >> deck2;
 
-    PlayerLoader loader;
+    AccountLoader loader;
     Account* p1 = loader.Load(user1);
     Account* p2 = loader.Load(user2);
 
@@ -224,7 +224,7 @@ void Console::SimulateGame()
 
 void Console::Leave()
 {
-    PlayerLoader loader;
+    AccountLoader loader;
     loader.Save(m_account);
 
     if (m_account != nullptr)

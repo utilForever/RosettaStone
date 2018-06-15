@@ -1,8 +1,8 @@
 /*************************************************************************
-> File Name: PlayerLoader.h
+> File Name: AccountLoader.h
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Player loader that loads data from <playerName>.json.
+> Purpose: Account loader that loads data from <accountName>.json.
 > Created Time: 2017/10/19
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
@@ -15,14 +15,14 @@
 
 namespace Hearthstonepp
 {
-	using json = nlohmann::json;
+    using json = nlohmann::json;
 
-	class PlayerLoader
-	{
-	public:
-		Account* Load(std::string playerName) const;
-		void Save(Account* p) const;
-	};
+    class AccountLoader
+    {
+    public:
+        Account* Load(std::string accountID) const;
+        void Save(Account* p) const;
+    };
 }
 
 #endif
