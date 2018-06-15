@@ -10,17 +10,12 @@ TEST(BasicCard, EX1_066)
     GameAgent agent(
         Player(new Account("", ""), new Deck("", CardClass::WARRIOR)),
         Player(new Account("", ""), new Deck("", CardClass::MAGE)));
+    agent.GetPlayer1().totalMana = 10;
+    agent.GetPlayer2().totalMana = 10;
+
     GameInterface game(agent);
 
     GameResult result = game.StartGame();
-
-    //var game = new Game(
-    //    new GameConfig{StartPlayer = 1, Player1HeroClass = CardClass.WARRIOR,
-    //                   Player2HeroClass = CardClass.MAGE, FillDecks = true,
-    //                   FillDecksPredictably = true});
-    //game.Player1.BaseMana = 10;
-    //game.Player2.BaseMana = 10;
-    //game.StartGame();
 
     //IPlayable weapon =
     //    Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
