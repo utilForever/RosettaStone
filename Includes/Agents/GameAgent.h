@@ -42,6 +42,12 @@ class GameAgent
     // Write TaskMeta to TaskAgent, using side channel as default
     void WriteSyncBuffer(TaskMeta&& data, bool sideChannel = true);
 
+    // Returns player 1.
+    Player& GetPlayer1();
+
+    // Returns player 2.
+    Player& GetPlayer2();
+
  private:
     Player m_current;
     Player m_opponent;

@@ -43,6 +43,16 @@ void GameAgent::WriteSyncBuffer(TaskMeta&& data, bool sideChannel)
     m_taskAgent.Notify(std::move(data), sideChannel);
 }
 
+Player& GameAgent::GetPlayer1()
+{
+    return m_current;
+}
+
+Player& GameAgent::GetPlayer2()
+{
+    return m_opponent;
+}
+
 void GameAgent::BeginPhase()
 {
     std::random_device rd;
