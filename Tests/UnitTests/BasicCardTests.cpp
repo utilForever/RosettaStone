@@ -7,8 +7,8 @@ using namespace Hearthstonepp;
 
 TEST(BasicCard, EX1_066)
 {
-    GameAgent agent(User(new Player("", ""), new Deck("", CardClass::WARRIOR)),
-                    User(new Player("", ""), new Deck("", CardClass::MAGE)));
+    GameAgent agent(User(new Account("", ""), new Deck("", CardClass::WARRIOR)),
+                    User(new Account("", ""), new Deck("", CardClass::MAGE)));
     GameInterface game(agent);
 
     GameResult result = game.StartGame();

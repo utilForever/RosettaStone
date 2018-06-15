@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp
 {
-User::User(Player* player, Deck* deck)
+User::User(Account* player, Deck* deck)
     : totalMana(0),
       existMana(0),
       exhausted(0),

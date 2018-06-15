@@ -27,7 +27,7 @@ namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
-	Player* PlayerLoader::Load(std::string playerID) const
+Account* PlayerLoader::Load(std::string playerID) const
 	{
 		// Read player data from JSON file
 		std::ifstream playerFile("Datas/" + playerID + ".json");
@@ -38,7 +38,7 @@ namespace Hearthstonepp
 			return nullptr;
 		}
 
-		Player* p;
+		Account* p;
 
 		try
 		{
@@ -69,7 +69,7 @@ namespace Hearthstonepp
 				}
 			}
 
-			p = new Player(std::move(playerID), std::move(name), decks);
+			p = new Account(std::move(playerID), std::move(name), decks);
 		}
 		catch (...)
 		{
@@ -83,7 +83,7 @@ namespace Hearthstonepp
 		return p;
 	}
 
-	void PlayerLoader::Save(Player* p) const
+	void PlayerLoader::Save(Account* p) const
 	{
 		// Store player data to JSON file
 #ifndef HEARTHSTONEPP_MACOSX

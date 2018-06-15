@@ -1,8 +1,8 @@
 /*************************************************************************
-> File Name: Player.h
+> File Name: Account.h
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Player class that stores a list of decks.
+> Purpose: Account class that stores a list of decks.
 > Created Time: 2017/10/18
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
@@ -13,12 +13,12 @@
 
 namespace Hearthstonepp
 {
-	class Player
+	class Account
 	{
 	public:
-		Player();
-		Player(std::string&& id, std::string&& name);
-		Player(std::string&& id, std::string&& name, std::vector<Deck*> decks);
+		Account();
+		Account(std::string&& id, std::string&& name);
+		Account(std::string&& id, std::string&& name, std::vector<Deck*> decks);
 
 		std::string GetID() const;
 		std::string GetName() const;

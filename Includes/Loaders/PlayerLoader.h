@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_PLAYER_LOADER_H
 #define HEARTHSTONEPP_PLAYER_LOADER_H
 
-#include <Models/Player.h>
+#include <Models/Account.h>
 
 #include <json/json.hpp>
 
@@ -20,8 +20,8 @@ namespace Hearthstonepp
 	class PlayerLoader
 	{
 	public:
-		Player* Load(std::string playerName) const;
-		void Save(Player* p) const;
+		Account* Load(std::string playerName) const;
+		void Save(Account* p) const;
 	};
 }
 

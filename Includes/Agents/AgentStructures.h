@@ -14,7 +14,7 @@
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
 #include <Models/Entities/Weapon.h>
-#include <Models/Player.h>
+#include <Models/Account.h>
 
 namespace Hearthstonepp
 {
@@ -22,7 +22,7 @@ using BYTE = unsigned char;
 
 struct User
 {
-    User(Player* player, Deck* deck);
+    User(Account* player, Deck* deck);
 
     BYTE id;
     BYTE totalMana;

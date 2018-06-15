@@ -67,9 +67,9 @@ void Console::SignIn()
         }
 
         PlayerLoader loader;
-        m_player = loader.Load(playerID);
+        m_account = loader.Load(playerID);
 
-        if (m_player == nullptr)
+        if (m_account == nullptr)
         {
             std::cout << "An error occurred while loading player data.\n";
             continue;
@@ -109,10 +109,10 @@ void Console::SignUp()
         std::string name;
         std::cin >> name;
 
-        m_player = new Player(std::move(playerID), std::move(name));
+        m_account = new Account(std::move(playerID), std::move(name));
 
         PlayerLoader loader;
-        loader.Save(m_player);
+        loader.Save(m_account);
 
         std::cout << "Your account has been created. Please sign in.\n";
         break;
@@ -213,8 +213,8 @@ void Console::SimulateGame()
     std::cin >> user2 >> deck2;
 
     PlayerLoader loader;
-    Player* p1 = loader.Load(user1);
-    Player* p2 = loader.Load(user2);
+    Account* p1 = loader.Load(user1);
+    Account* p2 = loader.Load(user2);
 
     GameAgent agent(User(p1, p1->GetDeck(deck1)), User(p2, p2->GetDeck(deck2)));
     GameInterface game(agent);
@@ -225,12 +225,12 @@ void Console::SimulateGame()
 void Console::Leave()
 {
     PlayerLoader loader;
-    loader.Save(m_player);
+    loader.Save(m_account);
 
-    if (m_player != nullptr)
+    if (m_account != nullptr)
     {
-        delete m_player;
-        m_player = nullptr;
+        delete m_account;
+        m_account = nullptr;
     }
 
     std::cout << "You have been successfully signed out. Have a nice day!\n";
@@ -251,14 +251,14 @@ void Console::CreateDeck()
         InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
     const CardClass deckClass = CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
 
-    m_player->CreateDeck(name, deckClass);
+    m_account->CreateDeck(name, deckClass);
 
-    OperateDeck(m_player->GetNumOfDeck());
+    OperateDeck(m_account->GetNumOfDeck());
 }
 
 void Console::ModifyDeck()
 {
-    if (m_player->GetNumOfDeck() == 0)
+    if (m_account->GetNumOfDeck() == 0)
     {
         std::cout << "Deck does not exist. Create a new deck!\n";
         return;
@@ -270,16 +270,16 @@ void Console::ModifyDeck()
 
     std::cout << "Input the number to modify your deck.\n";
 
-    m_player->ShowDeckList();
+    m_account->ShowDeckList();
     const size_t selectedDeck =
-        InputMenuNum("Select: ", m_player->GetNumOfDeck());
+        InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
     OperateDeck(selectedDeck);
 }
 
 void Console::DeleteDeck()
 {
-    if (m_player->GetNumOfDeck() == 0)
+    if (m_account->GetNumOfDeck() == 0)
     {
         std::cout << "Deck does not exist. Create a new deck!\n";
         return;
@@ -291,11 +291,11 @@ void Console::DeleteDeck()
 
     std::cout << "Input the number to delete your deck.\n";
 
-    m_player->ShowDeckList();
+    m_account->ShowDeckList();
     const size_t selectedDeck =
-        InputMenuNum("Select: ", m_player->GetNumOfDeck());
+        InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
-    m_player->DeleteDeck(selectedDeck);
+    m_account->DeleteDeck(selectedDeck);
 }
 
 int Console::OperateDeck(size_t deckIndex)
@@ -319,7 +319,7 @@ int Console::OperateDeck(size_t deckIndex)
 
 void Console::AddCardInDeck(size_t deckIndex)
 {
-    Deck* deck = m_player->GetDeck(deckIndex - 1);
+    Deck* deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
     {
@@ -369,7 +369,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
 void Console::DeleteCardInDeck(size_t deckIndex)
 {
-    Deck* deck = m_player->GetDeck(deckIndex - 1);
+    Deck* deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() == 0)
     {

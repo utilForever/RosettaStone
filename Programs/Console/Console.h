@@ -13,7 +13,7 @@
 #include <Commons/Macros.h>
 #include <Models/Cards.h>
 #include <Models/Deck.h>
-#include <Models/Player.h>
+#include <Models/Account.h>
 
 #include <clara.hpp>
 
@@ -150,7 +150,7 @@ class Console
     SearchMode m_searchMode = SearchMode::JustSearch;
     CardClass m_deckClass = CardClass::INVALID;
 
-    Player* m_player = nullptr;
+    Account* m_account = nullptr;
 };
 }
 

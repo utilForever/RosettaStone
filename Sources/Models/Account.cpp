@@ -1,53 +1,53 @@
 /*************************************************************************
-> File Name: Player.cpp
+> File Name: Account.cpp
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Player class that stores a list of decks.
+> Purpose: Account class that stores a list of decks.
 > Created Time: 2017/10/18
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Models/Player.h>
+#include <Models/Account.h>
 
 #include <iostream>
 
 namespace Hearthstonepp
 {
-	Player::Player() : m_id("Anonymous"), m_name("Anonymous")
+	Account::Account() : m_id("Anonymous"), m_name("Anonymous")
 	{
 		// Do nothing
 	}
 
-	Player::Player(std::string&& id, std::string&& name) : m_id(std::move(id)), m_name(std::move(name))
+	Account::Account(std::string&& id, std::string&& name) : m_id(std::move(id)), m_name(std::move(name))
 	{
 		// Do nothing
 	}
 
-	Player::Player(std::string&& id, std::string&& name, std::vector<Deck*> decks) : m_id(std::move(id)), m_name(std::move(name)), m_decks(decks)
+	Account::Account(std::string&& id, std::string&& name, std::vector<Deck*> decks) : m_id(std::move(id)), m_name(std::move(name)), m_decks(decks)
 	{
 		// Do nothing
 	}
 
-	std::string Player::GetID() const
+	std::string Account::GetID() const
 	{
 		return m_id;
 	}
 
-	std::string Player::GetName() const
+	std::string Account::GetName() const
 	{
 		return m_name;
 	}
 
-	size_t Player::GetNumOfDeck() const
+	size_t Account::GetNumOfDeck() const
 	{
 		return m_decks.size();
 	}
 
-	Deck* Player::GetDeck(size_t idx) const
+	Deck* Account::GetDeck(size_t idx) const
 	{
 		return m_decks[idx];
 	}
 
-	void Player::ShowDeckList() const
+	void Account::ShowDeckList() const
 	{
 		size_t idx = 0;
 		for (auto& deck : m_decks)
@@ -56,7 +56,7 @@ namespace Hearthstonepp
 		}
 	}
 
-	bool Player::CreateDeck(std::string name, CardClass deckClass)
+	bool Account::CreateDeck(std::string name, CardClass deckClass)
 	{
 		if (deckClass == +CardClass::INVALID)
 			return false;
@@ -65,7 +65,7 @@ namespace Hearthstonepp
 		return true;
 	}
 
-	bool Player::DeleteDeck(size_t selectedDeck)
+	bool Account::DeleteDeck(size_t selectedDeck)
 	{
 		m_decks.erase(m_decks.begin() + selectedDeck);
 		return true;
