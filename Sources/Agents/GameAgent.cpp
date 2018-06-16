@@ -53,6 +53,20 @@ Player& GameAgent::GetPlayer2()
     return m_opponent;
 }
 
+void GameAgent::Process(Player& player, Task t)
+{
+    TaskMeta meta;
+
+    if (player == m_current)
+    {
+        m_taskAgent.Run(t, meta, m_current, m_opponent, false);
+    }
+    else
+    {
+        m_taskAgent.Run(t, meta, m_opponent, m_current, false);
+    }
+}
+
 void GameAgent::BeginPhase()
 {
     std::random_device rd;
@@ -73,7 +87,8 @@ void GameAgent::BeginPhase()
     // BeginPhase Task List
     m_taskAgent.Add(BasicTask::PlayerSettingTask());
     m_taskAgent.Add(BasicTask::DoBothPlayer(BasicTask::ShuffleTask()));
-    m_taskAgent.Add(BasicTask::DoBothPlayer(BasicTask::DrawTask(NUM_BEGIN_DRAW)));
+    m_taskAgent.Add(
+        BasicTask::DoBothPlayer(BasicTask::DrawTask(NUM_BEGIN_DRAW)));
     m_taskAgent.Add(BasicTask::BriefTask());
     m_taskAgent.Add(BasicTask::DoUntil(BasicTask::MulliganTask(m_taskAgent),
                                        untilMulliganSuccess));
@@ -131,7 +146,8 @@ bool GameAgent::MainMenu()
 
     TaskMeta meta;
     m_taskAgent.Run(BasicTask::BriefTask(), meta, m_current, m_opponent);
-    m_taskAgent.Run(BasicTask::SelectMenuTask(m_taskAgent), meta, m_current, m_opponent);
+    m_taskAgent.Run(BasicTask::SelectMenuTask(m_taskAgent), meta, m_current,
+                    m_opponent);
 
     // Interface pass menu by status of TaskMeta
     TaskMeta::status_t menu = meta.status;
@@ -139,7 +155,8 @@ bool GameAgent::MainMenu()
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
         // Main End phase
-        m_taskAgent.Run(BasicTask::SwapPlayerTask(), meta, m_current, m_opponent);
+        m_taskAgent.Run(BasicTask::SwapPlayerTask(), meta, m_current,
+                        m_opponent);
     }
     else
     {
@@ -159,7 +176,8 @@ void GameAgent::MainUseCard()
 {
     // Read what kinds of card user wants to use
     TaskMeta meta;
-    m_taskAgent.Run(BasicTask::SelectCardTask(m_taskAgent), meta, m_current, m_opponent);
+    m_taskAgent.Run(BasicTask::SelectCardTask(m_taskAgent), meta, m_current,
+                    m_opponent);
 
     if (meta.status == MetaData::SELECT_CARD_MINION)
     {
@@ -168,7 +186,8 @@ void GameAgent::MainUseCard()
         if (buffer != nullptr)
         {
             auto minion = flatbuffers::GetRoot<Require>(buffer.get());
-            if (minion != nullptr) {
+            if (minion != nullptr)
+            {
                 m_taskAgent.Run(BasicTask::SummonMinionTask(minion->cardIndex(),
                                                             minion->position()),
                                 meta, m_current, m_opponent);
@@ -194,8 +213,9 @@ void GameAgent::MainCombat()
         auto targeting = flatbuffers::GetRoot<Require>(buffer.get());
         if (targeting != nullptr)
         {
-            m_taskAgent.Run(BasicTask::CombatTask(targeting->src(), targeting->dst()),
-                            meta, m_current, m_opponent);
+            m_taskAgent.Run(
+                BasicTask::CombatTask(targeting->src(), targeting->dst()), meta,
+                m_current, m_opponent);
         }
     }
 }

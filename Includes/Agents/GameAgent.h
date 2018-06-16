@@ -48,6 +48,9 @@ class GameAgent
     // Returns player 2.
     Player& GetPlayer2();
 
+    // Process tasks.
+    void Process(Player& player, Task t);
+
  private:
     Player m_current;
     Player m_opponent;
