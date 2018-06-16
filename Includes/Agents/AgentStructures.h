@@ -9,12 +9,12 @@
 #ifndef HEARTHSTONEPP_AGENT_STRUCTURES_H
 #define HEARTHSTONEPP_AGENT_STRUCTURES_H
 
+#include <Models/Account.h>
 #include <Models/Card.h>
 #include <Models/Cards.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
 #include <Models/Entities/Weapon.h>
-#include <Models/Account.h>
 
 namespace Hearthstonepp
 {
@@ -46,6 +46,11 @@ struct Player
 
     // Already Attacked Minion
     std::vector<Card*> attacked;
+
+    bool operator==(const Player& player) const
+    {
+        return this->accountID == player.accountID;
+    }
 };
 }  // namespace Hearthstonepp
 
