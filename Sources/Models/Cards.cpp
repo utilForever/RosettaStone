@@ -120,19 +120,17 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
     return result;
 }
 
-std::vector<Card*> Cards::FindCardByName(const std::string name)
+Card* Cards::FindCardByName(const std::string name)
 {
-    std::vector<Card*> result;
-
     for (auto card : m_cards)
     {
-        if (card->GetName().find(name) != std::string::npos)
+        if (card->GetName() == name)
         {
-            result.emplace_back(card);
+            return card;
         }
     }
 
-    return result;
+    return nullptr;
 }
 
 std::vector<Card*> Cards::FindCardByCost(size_t minVal, size_t maxVal)

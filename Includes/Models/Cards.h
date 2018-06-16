@@ -41,7 +41,7 @@ class Cards
     std::vector<Card*> FindCardByClass(CardClass cardClass);
     std::vector<Card*> FindCardByType(CardType cardType);
     std::vector<Card*> FindCardByRace(Race race);
-    std::vector<Card*> FindCardByName(const std::string name);
+    Card* FindCardByName(const std::string name);
     std::vector<Card*> FindCardByCost(size_t minVal, size_t maxVal);
     std::vector<Card*> FindCardByAttack(size_t minVal, size_t maxVal);
     std::vector<Card*> FindCardByHealth(size_t minVal, size_t maxVal);

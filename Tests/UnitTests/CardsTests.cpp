@@ -111,10 +111,8 @@ TEST(TestCards, FindCardByRace)
 TEST(TestCards, FindCardByName)
 {
 	Cards* cards = Cards::GetInstance();
-	std::vector<Card*> cards1 = cards->FindCardByName("Flame Lance");
-	std::vector<Card*> cards2 = cards->FindCardByName("");
-	EXPECT_EQ("Flame Lance", cards1.front()->GetName());
-	EXPECT_EQ(cards2, cards->GetAllCards());
+	const Card* card1 = cards->FindCardByName("Flame Lance");
+	EXPECT_EQ("Flame Lance", card1->GetName());
 }
 
 TEST(TestCards, FindCardByCost)
