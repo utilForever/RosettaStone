@@ -194,6 +194,31 @@ Task DrawTask(size_t num)
     return Task(TaskID::DRAW, std::move(role));
 }
 
+TaskMeta RawDraw(Player& user, Card* card)
+{
+    Serializer::DrawTaskMeta meta;
+    TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
+
+    std::vector<Card*>& deck = user.cardsPtrInDeck;
+    std::vector<Card*>& hand = user.hand;
+
+    // successful draw
+    hand.push_back(card);
+    deck.pop_back();
+
+    meta.numDraw = static_cast<BYTE>(1);
+    return Serializer::CreateDrawTaskMeta(meta, result, user.id);
+}
+
+Task DrawTask(Card* card)
+{
+    auto role = [=](Player& current, Player&) -> TaskMeta {
+        return RawDraw(current, card);
+    };
+
+    return Task(TaskID::DRAW, std::move(role));
+}
+
 TaskMeta RawModifyMana(Player& user, size_t numMode, size_t manaMode, BYTE object)
 {
     auto get = [](Player& user, size_t type) -> BYTE& {

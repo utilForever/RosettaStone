@@ -50,6 +50,10 @@ Task ShuffleTask();
 TaskMeta RawDraw(Player& player, size_t num);
 // Call RawDraw with current player
 Task DrawTask(size_t num);
+// Return DrawTaskMeta, Draw specific card
+TaskMeta RawDraw(Player& player, Card* card);
+// Call RawDraw with current player
+Task DrawTask(Card* card);
 
 // Return ModifyManaTaskMeta, Modify `manaMode` with operator `numMode` and
 // `object`
