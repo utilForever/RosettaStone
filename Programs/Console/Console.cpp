@@ -342,7 +342,7 @@ void Console::AddCardInDeck(size_t deckIndex)
     while (true)
     {
         int numCardToAddAvailable =
-            card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
+            card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->id);
         if (deck->GetNumOfCards() + numCardToAddAvailable >
             MAXIMUM_NUM_CARDS_IN_DECK)
         {
@@ -362,7 +362,7 @@ void Console::AddCardInDeck(size_t deckIndex)
         }
         else
         {
-            deck->AddCard(card->GetID(), numCardToAdd);
+            deck->AddCard(card->id, numCardToAdd);
             break;
         }
     }
@@ -616,42 +616,44 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
 
     for (auto& card : Cards::GetInstance()->GetAllCards())
     {
-        if (card->GetCollectible() == false)
+        if (card->isCollectible == false)
         {
             continue;
         }
 
         bool rarityCondition = (filter.rarity == +Rarity::INVALID ||
-                                filter.rarity == card->GetRarity());
+                                filter.rarity == card->rarity);
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to
         // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            classCondition = (card->GetCardClass() == m_deckClass ||
-                card->GetCardClass() == +CardClass::NEUTRAL);
+            classCondition = (card->cardClass == m_deckClass ||
+                              card->cardClass == +CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
             classCondition = (filter.playerClass == +CardClass::INVALID ||
-                              filter.playerClass == card->GetCardClass());
+                              filter.playerClass == card->cardClass);
         }
         bool typeCondition = (filter.cardType == +CardType::INVALID ||
-                              filter.cardType == card->GetCardType());
+                              filter.cardType == card->cardType);
         bool raceCondition =
-            (filter.race == +Race::INVALID || filter.race == card->GetRace());
+            (filter.race == +Race::INVALID || filter.race == card->race);
         bool nameCondition =
             (filter.name.empty() ||
-             card->GetName().find(filter.name) != std::string::npos);
-        bool costCondition =  filter.costMin <= card->GetCost() &&
-            filter.costMax >= card->GetCost();
-        bool attackCondition =
-            filter.attackMin <= card->GetAttack() &&
-            filter.attackMax >= card->GetAttack();
-        bool healthCondition =
-            filter.healthMin <= card->GetHealth() &&
-            filter.healthMax >= card->GetHealth();
+             card->name.find(filter.name) != std::string::npos);
+        bool costCondition =
+            filter.costMin <= card->cost && filter.costMax >= card->cost;
+        bool attackCondition = true;
+        bool healthCondition = true;
+        //bool attackCondition =
+        //    filter.attackMin <= card->attack &&
+        //    filter.attackMax >= card->attack;
+        //bool healthCondition =
+        //    filter.healthMin <= card->health &&
+        //    filter.healthMax >= card->health;
         bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
                                    card->HasMechanic(filter.mechanic));
         const bool isMatched =
