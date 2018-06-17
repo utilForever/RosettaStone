@@ -8,6 +8,7 @@
 *************************************************************************/
 #include <Loaders/CardLoader.h>
 #include <Models/Cards.h>
+#include <Models/Entities/Character.h>
 
 namespace Hearthstonepp
 {
@@ -51,7 +52,7 @@ const Card* Cards::FindCardByID(const std::string id)
 {
     for (auto card : m_cards)
     {
-        if (card->GetID() == id)
+        if (card->id == id)
         {
             return card;
         }
@@ -66,7 +67,7 @@ std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
 
     for (auto card : m_cards)
     {
-        if (card->GetRarity() == rarity)
+        if (card->rarity == rarity)
         {
             result.emplace_back(card);
         }
@@ -81,7 +82,7 @@ std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
 
     for (auto card : m_cards)
     {
-        if (card->GetCardClass() == cardClass)
+        if (card->cardClass == cardClass)
         {
             result.emplace_back(card);
         }
@@ -96,7 +97,7 @@ std::vector<Card*> Cards::FindCardByType(CardType cardType)
 
     for (auto card : m_cards)
     {
-        if (card->GetCardType() == cardType)
+        if (card->cardType == cardType)
         {
             result.emplace_back(card);
         }
@@ -111,7 +112,7 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
 
     for (auto card : m_cards)
     {
-        if (card->GetRace() == race)
+        if (card->race == race)
         {
             result.emplace_back(card);
         }
@@ -124,7 +125,7 @@ Card* Cards::FindCardByName(const std::string name)
 {
     for (auto card : m_cards)
     {
-        if (card->GetName() == name)
+        if (card->name == name)
         {
             return card;
         }
@@ -139,7 +140,7 @@ std::vector<Card*> Cards::FindCardByCost(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-        if (card->GetCost() >= minVal && card->GetCost() <= maxVal)
+        if (card->cost >= minVal && card->cost <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -154,7 +155,13 @@ std::vector<Card*> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-        if (card->GetAttack() >= minVal && card->GetAttack() <= maxVal)
+        const Character* character = dynamic_cast<Character*>(card);
+        if (character == nullptr)
+        {
+            continue;
+        }
+
+        if (character->attack >= minVal && character->attack <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -169,7 +176,13 @@ std::vector<Card*> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-        if (card->GetHealth() >= minVal && card->GetHealth() <= maxVal)
+        const Character* character = dynamic_cast<Character*>(card);
+        if (character == nullptr)
+        {
+            continue;
+        }
+
+        if (character->health >= minVal && character->health <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -184,7 +197,7 @@ std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
 
     for (auto card : m_cards)
     {
-        auto mechanicsInCard = card->GetMechanics();
+        auto mechanicsInCard = card->mechanics;
 
         for (auto mechanic : mechanics)
         {

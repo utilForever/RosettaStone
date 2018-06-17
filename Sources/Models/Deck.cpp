@@ -104,7 +104,7 @@ namespace Hearthstonepp
 	bool Deck::AddCard(std::string cardID, int numCardToAdd)
 	{
 		const Card* card = Cards::GetInstance()->FindCardByID(cardID);
-		CardClass cls = card->GetCardClass();
+		CardClass cls = card->cardClass;
 		if ((cls != GetClass() && cls != +CardClass::NEUTRAL) || int(card->GetMaxAllowedInDeck()) < numCardToAdd) 
 		{
 			return false;
