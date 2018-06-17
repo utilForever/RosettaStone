@@ -24,6 +24,8 @@ TEST(BasicCard, EX1_066)
                       "Acidic Swamp Ooze")));
     EXPECT_EQ(agent.GetPlayer2().hand.size(), 1);
 
+    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(agent.GetPlayer1(), 0));
+
     //IPlayable weapon =
     //    Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
     //game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon));
