@@ -188,17 +188,17 @@ struct Card FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool collectible() const {
     return GetField<uint8_t>(VT_COLLECTIBLE, 0) != 0;
   }
-  int32_t cost() const {
-    return GetField<int32_t>(VT_COST, 0);
+  uint32_t cost() const {
+    return GetField<uint32_t>(VT_COST, 0);
   }
-  int32_t attack() const {
-    return GetField<int32_t>(VT_ATTACK, 0);
+  uint32_t attack() const {
+    return GetField<uint32_t>(VT_ATTACK, 0);
   }
-  int32_t health() const {
-    return GetField<int32_t>(VT_HEALTH, 0);
+  uint32_t health() const {
+    return GetField<uint32_t>(VT_HEALTH, 0);
   }
-  int32_t durability() const {
-    return GetField<int32_t>(VT_DURABILITY, 0);
+  uint32_t durability() const {
+    return GetField<uint32_t>(VT_DURABILITY, 0);
   }
   const flatbuffers::Vector<int32_t> *mechanics() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_MECHANICS);
@@ -227,10 +227,10 @@ struct Card FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyOffset(verifier, VT_TEXT) &&
            verifier.Verify(text()) &&
            VerifyField<uint8_t>(verifier, VT_COLLECTIBLE) &&
-           VerifyField<int32_t>(verifier, VT_COST) &&
-           VerifyField<int32_t>(verifier, VT_ATTACK) &&
-           VerifyField<int32_t>(verifier, VT_HEALTH) &&
-           VerifyField<int32_t>(verifier, VT_DURABILITY) &&
+           VerifyField<uint32_t>(verifier, VT_COST) &&
+           VerifyField<uint32_t>(verifier, VT_ATTACK) &&
+           VerifyField<uint32_t>(verifier, VT_HEALTH) &&
+           VerifyField<uint32_t>(verifier, VT_DURABILITY) &&
            VerifyOffset(verifier, VT_MECHANICS) &&
            verifier.Verify(mechanics()) &&
            VerifyOffset(verifier, VT_PLAYREQUIREMENTS) &&
@@ -277,17 +277,17 @@ struct CardBuilder {
   void add_collectible(bool collectible) {
     fbb_.AddElement<uint8_t>(Card::VT_COLLECTIBLE, static_cast<uint8_t>(collectible), 0);
   }
-  void add_cost(int32_t cost) {
-    fbb_.AddElement<int32_t>(Card::VT_COST, cost, 0);
+  void add_cost(uint32_t cost) {
+    fbb_.AddElement<uint32_t>(Card::VT_COST, cost, 0);
   }
-  void add_attack(int32_t attack) {
-    fbb_.AddElement<int32_t>(Card::VT_ATTACK, attack, 0);
+  void add_attack(uint32_t attack) {
+    fbb_.AddElement<uint32_t>(Card::VT_ATTACK, attack, 0);
   }
-  void add_health(int32_t health) {
-    fbb_.AddElement<int32_t>(Card::VT_HEALTH, health, 0);
+  void add_health(uint32_t health) {
+    fbb_.AddElement<uint32_t>(Card::VT_HEALTH, health, 0);
   }
-  void add_durability(int32_t durability) {
-    fbb_.AddElement<int32_t>(Card::VT_DURABILITY, durability, 0);
+  void add_durability(uint32_t durability) {
+    fbb_.AddElement<uint32_t>(Card::VT_DURABILITY, durability, 0);
   }
   void add_mechanics(flatbuffers::Offset<flatbuffers::Vector<int32_t>> mechanics) {
     fbb_.AddOffset(Card::VT_MECHANICS, mechanics);
@@ -325,10 +325,10 @@ inline flatbuffers::Offset<Card> CreateCard(
     flatbuffers::Offset<flatbuffers::String> name = 0,
     flatbuffers::Offset<flatbuffers::String> text = 0,
     bool collectible = false,
-    int32_t cost = 0,
-    int32_t attack = 0,
-    int32_t health = 0,
-    int32_t durability = 0,
+    uint32_t cost = 0,
+    uint32_t attack = 0,
+    uint32_t health = 0,
+    uint32_t durability = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> mechanics = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<PlayRequirements>>> playRequirements = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> entourages = 0,
@@ -367,10 +367,10 @@ inline flatbuffers::Offset<Card> CreateCardDirect(
     const char *name = nullptr,
     const char *text = nullptr,
     bool collectible = false,
-    int32_t cost = 0,
-    int32_t attack = 0,
-    int32_t health = 0,
-    int32_t durability = 0,
+    uint32_t cost = 0,
+    uint32_t attack = 0,
+    uint32_t health = 0,
+    uint32_t durability = 0,
     const std::vector<int32_t> *mechanics = nullptr,
     const std::vector<flatbuffers::Offset<PlayRequirements>> *playRequirements = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *entourages = nullptr,
@@ -710,8 +710,8 @@ inline flatbuffers::Offset<DrawTaskMeta> CreateDrawTaskMetaDirect(
 
 struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
-    VT_CURRENTUSER = 4,
-    VT_OPPONENTUSER = 6,
+    VT_CURRENTPLAYER = 4,
+    VT_OPPONENTPLAYER = 6,
     VT_CURRENTMANA = 8,
     VT_OPPONENTMANA = 10,
     VT_CURRENTHERO = 12,
@@ -726,10 +726,10 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_OPPONENTATTACKED = 30
   };
   uint8_t currentPlayer() const {
-    return GetField<uint8_t>(VT_CURRENTUSER, 0);
+    return GetField<uint8_t>(VT_CURRENTPLAYER, 0);
   }
   uint8_t opponentPlayer() const {
-    return GetField<uint8_t>(VT_OPPONENTUSER, 0);
+    return GetField<uint8_t>(VT_OPPONENTPLAYER, 0);
   }
   uint8_t currentMana() const {
     return GetField<uint8_t>(VT_CURRENTMANA, 0);
@@ -769,8 +769,8 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_CURRENTUSER) &&
-           VerifyField<uint8_t>(verifier, VT_OPPONENTUSER) &&
+           VerifyField<uint8_t>(verifier, VT_CURRENTPLAYER) &&
+           VerifyField<uint8_t>(verifier, VT_OPPONENTPLAYER) &&
            VerifyField<uint8_t>(verifier, VT_CURRENTMANA) &&
            VerifyField<uint8_t>(verifier, VT_OPPONENTMANA) &&
            VerifyOffset(verifier, VT_CURRENTHERO) &&
@@ -803,10 +803,10 @@ struct BriefTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
   void add_currentPlayer(uint8_t currentPlayer) {
-    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_CURRENTUSER, currentPlayer, 0);
+    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_CURRENTPLAYER, currentPlayer, 0);
   }
   void add_opponentPlayer(uint8_t opponentPlayer) {
-    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_OPPONENTUSER, opponentPlayer, 0);
+    fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_OPPONENTPLAYER, opponentPlayer, 0);
   }
   void add_currentMana(uint8_t currentMana) {
     fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_CURRENTMANA, currentMana, 0);

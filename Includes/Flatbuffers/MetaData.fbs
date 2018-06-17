@@ -22,10 +22,10 @@ table Card {
     name:string;
     text:string;
     collectible:bool;
-    cost:int;
-    attack:int;
-    health:int;
-    durability:int;
+    cost:uint;
+    attack:uint; 
+    health:uint; 
+    durability:uint; 
     mechanics:[int];
     playRequirements:[PlayRequirements];
     entourages:[string];
@@ -45,7 +45,7 @@ table RequireTaskMeta {
     required:int;
 }
 
-table UserSettingTaskMeta {
+table PlayerSettingTaskMeta {
     firstID:string;
     secondID:string;
 }
@@ -59,8 +59,8 @@ table DrawTaskMeta {
 }
 
 table BriefTaskMeta {
-    currentUser:ubyte;
-    opponentUser:ubyte;
+    currentPlayer:ubyte;
+    opponentPlayer:ubyte;
     currentMana:ubyte;
     opponentMana:ubyte;
 
