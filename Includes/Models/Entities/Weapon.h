@@ -9,29 +9,17 @@
 #ifndef HEARTHSTONEPP_WEAPON_H
 #define HEARTHSTONEPP_WEAPON_H
 
-#include <Enums/Enums.h>
 #include <Models/Card.h>
-
-#include <map>
-#include <string>
-#include <vector>
 
 namespace Hearthstonepp
 {
-	class Weapon : public Card
-	{
-	public:
-		Weapon(
-			std::string id, Rarity rarity, Faction faction, CardSet cardSet,
-			CardClass cardClass, CardType cardType, Race race,
-			std::string name, std::string text, bool collectible,
-			int cost, int attack, int health, int durability,
-			std::vector<GameTag> mechanics,
-			std::map<PlayReq, int> playRequirements,
-			std::vector<std::string> entourages);
+struct Weapon : public Card
+{
+    void ShowInfo() const override;
 
-		void ShowInfo() const override;
-	};
+    size_t attack;
+    size_t durability;
+};
 }
 
 #endif

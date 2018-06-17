@@ -17,63 +17,40 @@
 
 namespace Hearthstonepp
 {
-class Card
+struct Card
 {
- public:
     Card() = default;
-    Card(std::string id, Rarity rarity, Faction faction, CardSet cardSet,
-         CardClass cardClass, CardType cardType, Race race, std::string name,
-         std::string text, bool collectible, size_t cost, size_t attack,
-         size_t health, int durability, std::vector<GameTag> mechanics,
-         std::map<PlayReq, int> playRequirements,
-         std::vector<std::string> entourages);
     virtual ~Card() = default;
 
-    std::string GetID() const;
-    Rarity GetRarity() const;
-    CardClass GetCardClass() const;
-    CardType GetCardType() const;
-    Race GetRace() const;
-    std::string GetName() const;
-    bool GetCollectible() const;
-    size_t GetCost() const;
-    size_t GetAttack() const;
-    size_t GetHealth() const;
-    int GetDurability() const;
-    std::vector<GameTag> GetMechanics() const;
-
-    void SetHealth(int health);
+    void Initialize();
 
     bool HasMechanic(GameTag mechanic) const;
 
     unsigned int GetMaxAllowedInDeck() const;
 
     virtual void ShowBriefInfo() const;
+
     virtual void ShowInfo() const;
 
- private:
-    std::string m_id;
-    Rarity m_rarity = Rarity::INVALID;
-    Faction m_faction = Faction::INVALID;
-    CardSet m_cardSet = CardSet::INVALID;
-    CardClass m_cardClass = CardClass::INVALID;
-    CardType m_cardType = CardType::INVALID;
-    Race m_race = Race::INVALID;
+    std::string id;
+    Rarity rarity = Rarity::INVALID;
+    Faction faction = Faction::INVALID;
+    CardSet cardSet = CardSet::INVALID;
+    CardClass cardClass = CardClass::INVALID;
+    CardType cardType = CardType::INVALID;
+    Race race = Race::INVALID;
 
-    std::string m_name;
-    std::string m_text;
+    std::string name;
+    std::string text;
 
-    bool m_collectible;
-    size_t m_cost;
-    size_t m_attack;
-    size_t m_health;
-    int m_durability;
+    bool isCollectible;
+    size_t cost;
 
-    std::vector<GameTag> m_mechanics;
-    std::map<PlayReq, int> m_playRequirements;
-    std::vector<std::string> m_entourages;
+    std::vector<GameTag> mechanics;
+    std::map<PlayReq, int> playRequirements;
+    std::vector<std::string> entourages;
 
-    unsigned int m_maxAllowedInDeck;
+    unsigned int maxAllowedInDeck;
 };
 }
 

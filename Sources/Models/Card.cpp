@@ -13,102 +13,15 @@
 
 namespace Hearthstonepp
 {
-Card::Card(std::string id, Rarity rarity, Faction faction, CardSet cardSet,
-           CardClass cardClass, CardType cardType, Race race, std::string name,
-           std::string text, bool collectible, size_t cost, size_t attack,
-           size_t health, int durability, std::vector<GameTag> mechanics,
-           std::map<PlayReq, int> playRequirements,
-           std::vector<std::string> entourages)
-    : m_id(std::move(id)),
-      m_rarity(rarity),
-      m_faction(faction),
-      m_cardSet(cardSet),
-      m_cardClass(cardClass),
-      m_cardType(cardType),
-      m_race(race),
-      m_name(std::move(name)),
-      m_text(std::move(text)),
-      m_collectible(collectible),
-      m_cost(cost),
-      m_attack(attack),
-      m_health(health),
-      m_durability(durability),
-      m_mechanics(std::move(mechanics)),
-      m_playRequirements(std::move(playRequirements)),
-      m_entourages(std::move(entourages))
+void Card::Initialize()
 {
-    m_maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
+    maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
 }
-
-std::string Card::GetID() const
-{
-    return m_id;
-}
-
-Rarity Card::GetRarity() const
-{
-    return m_rarity;
-}
-
-CardClass Card::GetCardClass() const
-{
-    return m_cardClass;
-}
-
-CardType Card::GetCardType() const
-{
-    return m_cardType;
-}
-
-Race Card::GetRace() const
-{
-    return m_race;
-}
-
-std::string Card::GetName() const
-{
-    return m_name;
-}
-
-bool Card::GetCollectible() const
-{
-    return m_collectible;
-}
-
-size_t Card::GetCost() const
-{
-    return m_cost;
-}
-
-size_t Card::GetAttack() const
-{
-    return m_attack;
-}
-
-size_t Card::GetHealth() const
-{
-    return m_health;
-}
-
-void Card::SetHealth(int health)
-{
-    m_health = health;
-}
-
-int Card::GetDurability() const
-{
-    return m_durability;
-}
-
-std::vector<GameTag> Card::GetMechanics() const
-{
-    return m_mechanics;
-}
-
+    
 bool Card::HasMechanic(GameTag mechanic) const
 {
-    if (std::find(m_mechanics.begin(), m_mechanics.end(), mechanic) !=
-        m_mechanics.end())
+    if (std::find(mechanics.begin(), mechanics.end(), mechanic) !=
+        mechanics.end())
     {
         return true;
     }
@@ -118,24 +31,24 @@ bool Card::HasMechanic(GameTag mechanic) const
 
 unsigned int Card::GetMaxAllowedInDeck() const
 {
-    return m_maxAllowedInDeck;
+    return maxAllowedInDeck;
 }
 
 void Card::ShowBriefInfo() const
 {
-    std::cout << m_name.c_str() << " (" << m_id.c_str() << ") ";
+    std::cout << name.c_str() << " (" << id.c_str() << ") ";
 }
 
 void Card::ShowInfo() const
 {
-    std::cout << "ID: " << m_id.c_str() << '\n';
-    std::cout << "Name: " << m_name.c_str() << '\n';
-    std::cout << "Text: " << m_text.c_str() << '\n';
-    std::cout << "Rarity: " << m_rarity._to_string() << '\n';
-    std::cout << "Faction: " << m_faction._to_string() << '\n';
-    std::cout << "CardSet: " << m_cardSet._to_string() << '\n';
-    std::cout << "CardClass: " << m_cardClass._to_string() << '\n';
-    std::cout << "CardType: " << m_cardType._to_string() << '\n';
-    std::cout << "Race: " << m_race._to_string() << '\n';
+    std::cout << "ID: " << id.c_str() << '\n';
+    std::cout << "Name: " << name.c_str() << '\n';
+    std::cout << "Text: " << text.c_str() << '\n';
+    std::cout << "Rarity: " << rarity._to_string() << '\n';
+    std::cout << "Faction: " << faction._to_string() << '\n';
+    std::cout << "CardSet: " << cardSet._to_string() << '\n';
+    std::cout << "CardClass: " << cardClass._to_string() << '\n';
+    std::cout << "CardType: " << cardType._to_string() << '\n';
+    std::cout << "Race: " << race._to_string() << '\n';
 }
 }
