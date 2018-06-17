@@ -88,9 +88,11 @@ Task SelectTargetTask(TaskAgent& agent);
 TaskMeta RawMulligan(Player& current, std::function<TaskMeta()>&& meta);
 Task MulliganTask(TaskAgent& agent);
 
-//Return SummonMinionTaskMeta, Summon `current`.hand[`cardIndex`] at `position`
-TaskMeta RawSummonMinion(Player& current, size_t cardIndex, size_t position);
-Task SummonMinionTask(size_t cardIndex, size_t position);
+//Return SummonMinionTaskMeta, Summon `player`.hand[`cardIndex`] at `position`
+TaskMeta PlayCard(Player& player, size_t cardIndex, size_t position);
+Task PlayCardTask(Player& player, size_t cardIndex, int position = -1);
+
+TaskMeta PlayWeapon(Player& player, Card* card);
 
 // Return CombatTaskMeta, Combat `current`.field[`src`] with `opponent`.field[`dst`]
 TaskMeta RawCombat(Player& curent, Player& opponent, size_t src, size_t dst);

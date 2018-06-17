@@ -6,6 +6,7 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
+#include <Models/Entities/Weapon.h>
 #include <Tasks/TaskSerializer.h>
 
 #include <algorithm>
@@ -41,34 +42,40 @@ BriefTaskMeta::BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer,
 }
 
 flatbuffers::Offset<FlatData::Card> CreateCard(
-    flatbuffers::FlatBufferBuilder& builder, const Card* card)
+    flatbuffers::FlatBufferBuilder& builder, Card* card)
 {
-    std::vector<int> mechanics(card->GetMechanics().size());
-    for (const auto& mechanic : card->GetMechanics())
+    std::vector<int> mechanics(card->mechanics.size());
+    for (const auto& mechanic : card->mechanics)
     {
         mechanics.emplace_back(static_cast<int>(mechanic));
     }
 
+    size_t attack = 0;
+    size_t health = 0;
+    size_t durability = 0;
+
+    const Character* character = dynamic_cast<Character*>(card);
+    if (character != nullptr)
+    {
+        attack = character->attack;
+        health = character->health;
+    }
+
+    const Weapon* weapon = dynamic_cast<Weapon*>(card);
+    if (weapon != nullptr)
+    {
+        durability = weapon->durability;
+    }
+
     return FlatData::CreateCard(
-        builder, 
-        builder.CreateString(card->GetID()),
-        static_cast<int>(card->GetRarity()), 
-        static_cast<int>(Faction::INVALID),
-        static_cast<int>(CardSet::INVALID),
-        static_cast<int>(card->GetCardClass()),
-        static_cast<int>(card->GetCardType()),
-        static_cast<int>(card->GetRace()),
-        builder.CreateString(card->GetName()), 
-        builder.CreateString(""),
-        card->GetCollectible(), 
-        static_cast<int>(card->GetCost()), 
-        static_cast<int>(card->GetAttack()),
-        static_cast<int>(card->GetHealth()), 
-        card->GetDurability(),
-        builder.CreateVector(mechanics), 
-        0, 
-        0, 
-        card->GetMaxAllowedInDeck());
+        builder, builder.CreateString(card->id), static_cast<int>(card->rarity),
+        static_cast<int>(Faction::INVALID), static_cast<int>(CardSet::INVALID),
+        static_cast<int>(card->cardClass), static_cast<int>(card->cardType),
+        static_cast<int>(card->race), builder.CreateString(card->name),
+        builder.CreateString(""), card->isCollectible,
+        static_cast<int>(card->cost), static_cast<uint32_t>(attack),
+        static_cast<uint32_t>(health), static_cast<uint32_t>(durability),
+        builder.CreateVector(mechanics), 0, 0, card->GetMaxAllowedInDeck());
 }
 
 TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
@@ -144,13 +151,14 @@ TaskMeta CreateRequireTargetingTaskMeta(int src, int dst)
 }
 
 TaskMeta CreatePlayerSettingTaskMeta(const std::string& firstPlayerID,
-                                   const std::string& secondPlayerID)
+                                     const std::string& secondPlayerID)
 {
     flatbuffers::FlatBufferBuilder builder(128);
     auto firstID = builder.CreateString(firstPlayerID);
     auto secondID = builder.CreateString(secondPlayerID);
 
-    auto flat = FlatData::CreatePlayerSettingTaskMeta(builder, firstID, secondID);
+    auto flat =
+        FlatData::CreatePlayerSettingTaskMeta(builder, firstID, secondID);
     builder.Finish(flat);
 
     return TaskMeta(TaskMetaTrait(TaskID::USER_SETTING), builder.GetSize(),
@@ -164,7 +172,7 @@ TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& meta, TaskMeta::status_t status,
     std::vector<flatbuffers::Offset<FlatData::Card>> burnt;
 
     // Conver burnt vector to FlatData::Card vector
-    for (const auto& card : meta.burnt)
+    for (auto& card : meta.burnt)
     {
         burnt.emplace_back(CreateCard(builder, card));
     }
@@ -223,7 +231,7 @@ TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
                    [&builder](auto&& vec) -> VectorOffset {
                        std::vector<CardOffset> dest(vec.size());
                        std::transform(vec.begin(), vec.end(), dest.begin(),
-                                      [&builder](const Card* card) {
+                                      [&builder](Card* card) {
                                           return CreateCard(builder, card);
                                       });
 
@@ -243,7 +251,7 @@ TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
 }
 
 TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait,
-                                    const Card* card, size_t position)
+                                    Card* card, size_t position)
 {
     flatbuffers::FlatBufferBuilder builder(128);
     auto flat = FlatData::CreateSummonMinionTaskMeta(
@@ -253,8 +261,8 @@ TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait,
     return TaskMeta(trait, builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, const Card* src,
-                              const Card* dst)
+TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Card* src,
+                              Card* dst)
 {
     flatbuffers::FlatBufferBuilder builder(256);
     auto flat = FlatData::CreateCombatTaskMeta(

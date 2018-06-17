@@ -14,6 +14,7 @@
 #include <Models/Cards.h>
 #include <Models/Entities/Hero.h>
 #include <Models/Entities/HeroPower.h>
+#include <Models/Entities/Minion.h>
 #include <Models/Entities/Weapon.h>
 
 namespace Hearthstonepp

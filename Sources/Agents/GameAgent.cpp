@@ -188,8 +188,7 @@ void GameAgent::MainUseCard()
             auto minion = flatbuffers::GetRoot<Require>(buffer.get());
             if (minion != nullptr)
             {
-                m_taskAgent.Run(BasicTask::SummonMinionTask(minion->cardIndex(),
-                                                            minion->position()),
+                m_taskAgent.Run(BasicTask::PlayCardTask(m_current, minion->position()),
                                 meta, m_current, m_opponent);
             }
         }
@@ -222,8 +221,8 @@ void GameAgent::MainCombat()
 
 bool GameAgent::IsGameEnd()
 {
-    int healthCurrent = static_cast<int>(m_current.hero->GetHealth());
-    int healthOpponent = static_cast<int>(m_opponent.hero->GetHealth());
+    size_t healthCurrent = m_current.hero->health;
+    size_t healthOpponent = m_opponent.hero->health;
 
     if (healthCurrent < 1 || healthOpponent < 1)
     {

@@ -522,7 +522,7 @@ void GameInterface::InputSelectCard(const TaskMeta& meta)
     auto currentHand = m_briefCache->currentHand();
 
     int numCurrentHand = currentHand->size();
-    int currentMana = m_briefCache->currentMana();
+    size_t currentMana = m_briefCache->currentMana();
 
     int in;
     while (true)
