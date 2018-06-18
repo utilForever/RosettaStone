@@ -24,22 +24,11 @@ TEST(BasicCard, EX1_066)
                       "Acidic Swamp Ooze")));
     EXPECT_EQ(agent.GetPlayer2().hand.size(), 1);
 
-    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(agent.GetPlayer1(), 0));
+    agent.Process(agent.GetPlayer1(),
+                  BasicTask::PlayCardTask(agent.GetPlayer1(), 0));
     EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, true);
 
-    //IPlayable weapon =
-    //    Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
-    //game.Process(PlayCardTask.Any(game.CurrentPlayer, weapon));
-
-    //Assert.True(game.CurrentPlayer.Hero.Weapon != null);
-
-    //game.Process(EndTurnTask.Any(game.CurrentPlayer));
-
-    //Assert.True(game.CurrentOpponent.Hero.Weapon != null);
-
-    //IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer,
-    //                                     Cards.FromName("Acidic Swamp Ooze"));
-    //game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
-
-    //Assert.False(game.CurrentOpponent.Hero.Weapon != null);
+    agent.Process(agent.GetPlayer2(),
+                  BasicTask::PlayCardTask(agent.GetPlayer2(), 0, 0));
+    EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, false);
 }
