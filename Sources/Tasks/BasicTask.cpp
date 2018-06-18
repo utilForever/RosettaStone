@@ -519,8 +519,7 @@ Task PlayCardTask(Player& player, size_t cardIndex, int position)
 
 TaskMeta PlayWeapon(Player& player, Card* card)
 {
-    (void)player;
-    (void)card;
+    player.hero->weapon = dynamic_cast<Weapon*>(card);
 
     std::vector<TaskMeta> vector;
     return Serializer::CreateTaskMetaVector(vector);

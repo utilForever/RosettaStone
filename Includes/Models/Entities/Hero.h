@@ -10,12 +10,15 @@
 #define HEARTHSTONEPP_HERO_H
 
 #include <Models/Entities/Character.h>
+#include <Models/Entities/Weapon.h>
 
 namespace Hearthstonepp
 {
 struct Hero : public Character
 {
     void ShowInfo() const override;
+
+    Weapon* weapon;
 };
 }
 
