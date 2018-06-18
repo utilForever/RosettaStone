@@ -11,8 +11,8 @@ TEST(BasicCard, EX1_066)
     GameAgent agent(
         Player(new Account("Player 1", ""), new Deck("", CardClass::WARRIOR)),
         Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
-    agent.GetPlayer1().totalMana = 10;
-    agent.GetPlayer2().totalMana = 10;
+    agent.GetPlayer1().totalMana = agent.GetPlayer1().existMana = 10;
+    agent.GetPlayer2().totalMana = agent.GetPlayer2().existMana = 10;
 
     agent.Process(agent.GetPlayer1(),
                   BasicTask::DrawTask(
@@ -25,6 +25,7 @@ TEST(BasicCard, EX1_066)
     EXPECT_EQ(agent.GetPlayer2().hand.size(), 1);
 
     agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(agent.GetPlayer1(), 0));
+    EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, true);
 
     //IPlayable weapon =
     //    Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fiery War Axe"));
