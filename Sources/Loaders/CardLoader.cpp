@@ -6,13 +6,13 @@
 > Created Time: 2017/08/13
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Cards/Hero.h>
+#include <Cards/Minion.h>
+#include <Cards/Spell.h>
+#include <Cards/Weapon.h>
+#include <Enchants/Enchant.h>
+#include <Enchants/HeroPower.h>
 #include <Loaders/CardLoader.h>
-#include <Models/Entities/Enchantment.h>
-#include <Models/Entities/Hero.h>
-#include <Models/Entities/HeroPower.h>
-#include <Models/Entities/Minion.h>
-#include <Models/Entities/Spell.h>
-#include <Models/Entities/Weapon.h>
 
 #include <fstream>
 

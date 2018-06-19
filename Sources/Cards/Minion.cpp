@@ -6,7 +6,7 @@
 > Created Time: 2017/10/11
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Models/Entities/Minion.h>
+#include <Cards/Minion.h>
 
 namespace Hearthstonepp
 {

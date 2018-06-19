@@ -6,7 +6,7 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Models/Entities/Weapon.h>
+#include <Cards/Weapon.h>
 #include <Tasks/TaskSerializer.h>
 
 #include <algorithm>

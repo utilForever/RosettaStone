@@ -6,14 +6,14 @@
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Interface/Interface.h>
+#include <Syncs/Interface.h>
 #include <Tasks/BasicTask.h>
+#include <Tasks/MetaData.h>
 #include <Tasks/TaskSerializer.h>
 
 namespace Hearthstonepp
 {
-GameInterface::GameInterface(GameAgent& agent,
-                             std::ostream& output,
+GameInterface::GameInterface(GameAgent& agent, std::ostream& output,
                              std::istream& input)
     : m_agent(agent), m_briefCache(nullptr), m_ostream(output), m_istream(input)
 {
@@ -114,7 +114,8 @@ void GameInterface::HandlePlayerSetting(const TaskMeta& serialized)
         m_users[0] = "Unknown0";
         m_users[1] = "Unknown1";
 
-        stream << "Exception HandlePlayerSetting : PlayerSettingTaskMeta is nullptr\n";
+        stream << "Exception HandlePlayerSetting : PlayerSettingTaskMeta is "
+                  "nullptr\n";
     }
     else
     {
@@ -195,7 +196,9 @@ void GameInterface::InputMulligan(const TaskMeta& meta)
         }
     }
 
-    BYTE mulligan[NUM_BEGIN_DRAW] = { 0, };
+    BYTE mulligan[NUM_BEGIN_DRAW] = {
+        0,
+    };
     for (size_t i = 0; i < numMulligan; ++i)
     {
         while (true)
@@ -252,7 +255,8 @@ void GameInterface::HandleManaModification(const TaskMeta& serialized)
     auto meta = flatbuffers::GetRoot<ModifyManaTaskMeta>(buffers.get());
     if (meta == nullptr)
     {
-        stream << "Exception HandleManaModification - ModifyManaTaskMeta is nullptr\n";
+        stream << "Exception HandleManaModification - ModifyManaTaskMeta is "
+                  "nullptr\n";
         return;
     }
 
@@ -301,12 +305,13 @@ void GameInterface::HandleHealthModification(const TaskMeta& serialized)
     auto meta = flatbuffers::GetRoot<ModifyHealthTaskMeta>(buffer.get());
     if (meta == nullptr)
     {
-        stream << "Exception HandleHealthModification : ModifyHealthTaskMeta is nullptr\n";
+        stream << "Exception HandleHealthModification : ModifyHealthTaskMeta "
+                  "is nullptr\n";
         return;
     }
 
-    stream << "Modify Health : " << meta->card()->name()->c_str() << " get damage "
-           << static_cast<int>(meta->damage()) << ", result "
+    stream << "Modify Health : " << meta->card()->name()->c_str()
+           << " get damage " << static_cast<int>(meta->damage()) << ", result "
            << static_cast<int>(meta->hurted()) << '\n';
 }
 //
@@ -325,7 +330,8 @@ void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
     auto meta = flatbuffers::GetRoot<SummonMinionTaskMeta>(buffer.get());
     if (meta == nullptr)
     {
-        stream << "Exception HandleSummonMinion : SummonMinionTaskMeta is nullptr\n";
+        stream << "Exception HandleSummonMinion : SummonMinionTaskMeta is "
+                  "nullptr\n";
         return;
     }
 
@@ -408,7 +414,8 @@ void GameInterface::HandleRequire(const TaskMeta& serialized)
     auto meta = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
     if (meta == nullptr)
     {
-        LogWriter(name) << "Exception HandleRequire : RequireTaskMeta is nullptr\n";
+        LogWriter(name)
+            << "Exception HandleRequire : RequireTaskMeta is nullptr\n";
         return;
     }
 
@@ -514,7 +521,7 @@ void GameInterface::InputSelectCard(const TaskMeta& meta)
     {
         m_ostream << "Exception InputSelectCard : BriefCache is nullptr\n";
         m_agent.WriteSyncBuffer(
-                TaskMeta(TaskMetaTrait(TaskID::REQUIRE, MetaData::INVALID)));
+            TaskMeta(TaskMetaTrait(TaskID::REQUIRE, MetaData::INVALID)));
 
         return;
     }
@@ -584,7 +591,7 @@ void GameInterface::InputTargeting(const TaskMeta& meta)
     {
         m_ostream << "Exception InputTargeting : BriefCache is nullptr\n";
         m_agent.WriteSyncBuffer(
-                TaskMeta(TaskMetaTrait(TaskID::REQUIRE, MetaData::INVALID)));
+            TaskMeta(TaskMetaTrait(TaskID::REQUIRE, MetaData::INVALID)));
         return;
     }
 
@@ -657,7 +664,8 @@ void GameInterface::HandleTaskTuple(const TaskMeta& serialized)
         flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
     if (metaVector == nullptr)
     {
-        LogWriter(name) << "Exception HandleTaskTuple : TaskMetaVector is nullptr\n";
+        LogWriter(name)
+            << "Exception HandleTaskTuple : TaskMetaVector is nullptr\n";
         return;
     }
 
@@ -682,7 +690,8 @@ void GameInterface::HandleGameEnd(const TaskMeta& serialized)
     auto meta = flatbuffers::GetRoot<GameEndTaskMeta>(buffer.get());
     if (meta == nullptr)
     {
-        LogWriter(name) << "Exception HandleGameEnd : GameEndTaskMeta is nullptr\n";
+        LogWriter(name)
+            << "Exception HandleGameEnd : GameEndTaskMeta is nullptr\n";
         return;
     }
 

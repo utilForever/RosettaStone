@@ -6,9 +6,9 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
+#include <Cards/Hero.h>
+#include <Cards/Minion.h>
 #include <Commons/Constants.h>
-#include <Models/Entities/Hero.h>
-#include <Models/Entities/Minion.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
 #include <Tasks/TaskSerializer.h>

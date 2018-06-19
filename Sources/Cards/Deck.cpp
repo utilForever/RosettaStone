@@ -6,7 +6,7 @@
 > Created Time: 2017/10/13
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Models/Deck.h>
+#include <Cards/Deck.h>
 
 #include <algorithm>
 #include <iostream>

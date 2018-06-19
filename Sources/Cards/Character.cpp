@@ -6,7 +6,7 @@
 > Created Time: 2018/06/17
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Models/Entities/Character.h>
+#include <Cards/Character.h>
 
 namespace Hearthstonepp
 {

@@ -6,7 +6,7 @@
 > Created Time: 2017/09/26
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Agents/GameAgent.h>
+#include <Syncs/GameAgent.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
 

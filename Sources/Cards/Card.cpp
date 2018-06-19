@@ -6,7 +6,7 @@
 > Created Time: 2017/08/30
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Models/Card.h>
+#include <Cards/Card.h>
 
 #include <algorithm>
 #include <iostream>

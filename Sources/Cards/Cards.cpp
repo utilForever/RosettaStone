@@ -7,8 +7,8 @@
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Loaders/CardLoader.h>
-#include <Models/Cards.h>
-#include <Models/Entities/Character.h>
+#include <Cards/Cards.h>
+#include <Cards/Character.h>
 
 namespace Hearthstonepp
 {

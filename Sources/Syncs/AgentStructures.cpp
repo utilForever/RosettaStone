@@ -6,8 +6,8 @@
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Agents/AgentStructures.h>
 #include <Commons/Constants.h>
+#include <Syncs/AgentStructures.h>
 
 namespace Hearthstonepp
 {
