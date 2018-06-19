@@ -6,7 +6,9 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
+#include <Cards/Character.h>
 #include <Cards/Weapon.h>
+#include <Tasks/MetaData.h>
 #include <Tasks/TaskSerializer.h>
 
 #include <algorithm>
@@ -250,8 +252,8 @@ TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
                     builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait,
-                                    Card* card, size_t position)
+TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, Card* card,
+                                    size_t position)
 {
     flatbuffers::FlatBufferBuilder builder(128);
     auto flat = FlatData::CreateSummonMinionTaskMeta(
@@ -261,8 +263,7 @@ TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait,
     return TaskMeta(trait, builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Card* src,
-                              Card* dst)
+TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Card* src, Card* dst)
 {
     flatbuffers::FlatBufferBuilder builder(256);
     auto flat = FlatData::CreateCombatTaskMeta(
