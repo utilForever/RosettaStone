@@ -9,11 +9,9 @@
 #ifndef HEARTHSTONEPP_CONSOLE_H
 #define HEARTHSTONEPP_CONSOLE_H
 
+#include <Accounts/Account.h>
+#include <Cards/Cards.h>
 #include <Commons/Constants.h>
-#include <Commons/Macros.h>
-#include <Models/Cards.h>
-#include <Models/Deck.h>
-#include <Models/Account.h>
 
 #include <clara.hpp>
 

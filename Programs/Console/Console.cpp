@@ -8,15 +8,15 @@
 *************************************************************************/
 #include "Console.h"
 
-#include <Agents/GameAgent.h>
+#include <Cards/Card.h>
+#include <Cards/Cards.h>
 #include <Commons/Constants.h>
 #include <Commons/Macros.h>
 #include <Commons/Utils.h>
-#include <Interface/Interface.h>
 #include <Loaders/AccountLoader.h>
 #include <Loaders/CardLoader.h>
-#include <Models/Card.h>
-#include <Models/Cards.h>
+#include <Syncs/GameAgent.h>
+#include <Syncs/Interface.h>
 
 #include <cctype>
 #ifdef HEARTHSTONEPP_WINDOWS
@@ -30,7 +30,6 @@
 #endif
 #include <fstream>
 #include <iostream>
-#include <regex>
 
 #ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
