@@ -9,11 +9,11 @@
 #ifndef HEARTHSTONEPP_INTERFACE_H
 #define HEARTHSTONEPP_INTERFACE_H
 
-#include <Agents/GameAgent.h>
 #include <Enums/Enums.h>
-#include <Flatbuffers/MetaData_generated.h>
-#include <Tasks/MetaData.h>
+#include <Syncs/GameAgent.h>
 #include <Tasks/TaskMeta.h>
+
+#include <Flatbuffers/generated/MetaData_generated.h>
 
 #include <array>
 #include <functional>

@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_CARDS_H
 #define HEARTHSTONEPP_CARDS_H
 
-#include <Models/Card.h>
+#include <Cards/Card.h>
 
 #include <vector>
 

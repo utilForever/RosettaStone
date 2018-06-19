@@ -9,8 +9,8 @@
 #ifndef HEARTHSTONEPP_HERO_H
 #define HEARTHSTONEPP_HERO_H
 
-#include <Models/Entities/Character.h>
-#include <Models/Entities/Weapon.h>
+#include <Cards/Character.h>
+#include <Cards/Weapon.h>
 
 namespace Hearthstonepp
 {

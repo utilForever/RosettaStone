@@ -9,13 +9,11 @@
 #ifndef HEARTHSTONEPP_AGENT_STRUCTURES_H
 #define HEARTHSTONEPP_AGENT_STRUCTURES_H
 
-#include <Models/Account.h>
-#include <Models/Card.h>
-#include <Models/Cards.h>
-#include <Models/Entities/Hero.h>
-#include <Models/Entities/HeroPower.h>
-#include <Models/Entities/Minion.h>
-#include <Models/Entities/Weapon.h>
+#include <Accounts/Account.h>
+#include <Cards/Card.h>
+#include <Cards/Hero.h>
+#include <Cards/Weapon.h>
+#include <Enchants/HeroPower.h>
 
 namespace Hearthstonepp
 {

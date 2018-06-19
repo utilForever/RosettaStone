@@ -9,11 +9,10 @@
 #ifndef HEARTHSTONEPP_TASKSERIALIZER_H
 #define HEARTHSTONEPP_TASKSERIALIZER_H
 
-#include <Flatbuffers/MetaData_generated.h>
-#include <Models/Card.h>
-#include <Models/Entities/Minion.h>
-#include <Tasks/MetaData.h>
+#include <Cards/Card.h>
 #include <Tasks/TaskMeta.h>
+
+#include <Flatbuffers/generated/MetaData_generated.h>
 
 namespace Hearthstonepp::Serializer
 {

@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_MINION_H
 #define HEARTHSTONEPP_MINION_H
 
-#include <Models/Entities/Character.h>
+#include <Cards/Character.h>
 
 namespace Hearthstonepp
 {

@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_SPELL_H
 #define HEARTHSTONEPP_SPELL_H
 
-#include <Models/Card.h>
+#include <Cards/Card.h>
 
 namespace Hearthstonepp
 {

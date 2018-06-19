@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_ENCHANTMENT_H
 #define HEARTHSTONEPP_ENCHANTMENT_H
 
-#include <Models/Card.h>
+#include <Cards/Card.h>
 
 namespace Hearthstonepp
 {

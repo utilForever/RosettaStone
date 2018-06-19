@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_HERO_POWER_H
 #define HEARTHSTONEPP_HERO_POWER_H
 
-#include <Models/Card.h>
+#include <Cards/Card.h>
 
 namespace Hearthstonepp
 {

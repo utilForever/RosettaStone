@@ -13,6 +13,12 @@
 
 namespace Hearthstonepp::MetaData
 {
+    enum class TaskMetaStatus : TaskMeta::status_t
+    {
+        INVALID,
+
+
+    };
 constexpr TaskMeta::status_t INVALID = 0;
 
 constexpr TaskMeta::status_t SWAP = 1;

@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_WEAPON_H
 #define HEARTHSTONEPP_WEAPON_H
 
-#include <Models/Card.h>
+#include <Cards/Card.h>
 
 namespace Hearthstonepp
 {

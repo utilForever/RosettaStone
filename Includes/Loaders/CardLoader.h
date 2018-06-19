@@ -9,21 +9,21 @@
 #ifndef HEARTHSTONEPP_CARD_LOADER_H
 #define HEARTHSTONEPP_CARD_LOADER_H
 
-#include <Models/Card.h>
-
-#include <vector>
+#include <Cards/Card.h>
 
 #include <json/json.hpp>
 
+#include <vector>
+
 namespace Hearthstonepp
 {
-	using json = nlohmann::json;
+using json = nlohmann::json;
 
-	class CardLoader
-	{
-	public:
-		std::vector<Card*> Load() const;
-	};
+class CardLoader
+{
+ public:
+    std::vector<Card*> Load() const;
+};
 }
 
 #endif

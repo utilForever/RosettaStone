@@ -9,8 +9,8 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_H
 #define HEARTHSTONEPP_GAME_AGENT_H
 
-#include <Agents/AgentStructures.h>
 #include <Commons/Constants.h>
+#include <Syncs/AgentStructures.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 

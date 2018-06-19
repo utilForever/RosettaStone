@@ -9,8 +9,8 @@
 #ifndef HEARTHSTONEPP_TASKS_H
 #define HEARTHSTONEPP_TASKS_H
 
-#include <Agents/AgentStructures.h>
 #include <Enums/Enums.h>
+#include <Syncs/AgentStructures.h>
 #include <Tasks/TaskMeta.h>
 
 #include <functional>

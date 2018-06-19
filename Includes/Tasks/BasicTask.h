@@ -9,6 +9,7 @@
 #ifndef HEARTHSTONEPP_BASICTASK_H
 #define HEARTHSTONEPP_BASICTASK_H
 
+#include <Syncs/AgentStructures.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/TaskMeta.h>
 

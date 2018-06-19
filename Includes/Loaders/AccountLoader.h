@@ -9,20 +9,20 @@
 #ifndef HEARTHSTONEPP_PLAYER_LOADER_H
 #define HEARTHSTONEPP_PLAYER_LOADER_H
 
-#include <Models/Account.h>
+#include <Accounts/Account.h>
 
 #include <json/json.hpp>
 
 namespace Hearthstonepp
 {
-    using json = nlohmann::json;
+using json = nlohmann::json;
 
-    class AccountLoader
-    {
-    public:
-        Account* Load(std::string accountID) const;
-        void Save(Account* p) const;
-    };
+class AccountLoader
+{
+ public:
+    Account* Load(std::string accountID) const;
+    void Save(Account* p) const;
+};
 }
 
 #endif
