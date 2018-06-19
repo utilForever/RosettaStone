@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
+#include <Accounts/Account.h>
+#include <Cards/Deck.h>
 #include <Enums/Enums.h>
-#include <Models/Account.h>
-#include <Models/Deck.h>
 
 using namespace Hearthstonepp;
 

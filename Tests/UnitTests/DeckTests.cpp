@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include <Models/Deck.h>
+#include <Cards/Deck.h>
 #include <Enums/Enums.h>
 
 using namespace Hearthstonepp;
