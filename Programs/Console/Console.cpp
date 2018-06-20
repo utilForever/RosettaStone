@@ -57,7 +57,7 @@ void Console::SignIn()
         if (!filesystem::exists("Datas/" + accountID + ".json"))
 #else
         struct stat buf;
-        std::string path = "Datas/" + playerID + ".json";
+        std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == -1)
 #endif
         {
@@ -96,7 +96,7 @@ void Console::SignUp()
         if (filesystem::exists("Datas/" + accountID + ".json"))
 #else
         struct stat buf;
-        std::string path = "Datas/" + playerID + ".json";
+        std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == 0)
 #endif
         {
