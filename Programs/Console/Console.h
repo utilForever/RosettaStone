@@ -10,8 +10,10 @@
 #define HEARTHSTONEPP_CONSOLE_H
 
 #include <Accounts/Account.h>
-#include <Cards/Cards.h>
 #include <Commons/Constants.h>
+#include <Commons/Macros.h>
+#include <Cards/Cards.h>
+#include <Cards/Deck.h>
 
 #include <clara.hpp>
 
