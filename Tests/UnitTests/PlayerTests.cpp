@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
-#include <Models/Player.h>
-#include <Models/Deck.h>
+#include <Accounts/Account.h>
+#include <Cards/Deck.h>
 #include <Enums/Enums.h>
 
 using namespace Hearthstonepp;
@@ -21,11 +21,11 @@ using namespace Hearthstonepp;
     EXPECT_EQ("2", player3.GetEmail());
     EXPECT_EQ("name2", player3.GetNickname());     
     EXPECT_EQ(0, static_cast<int>(player3.GetNumOfDeck()));
- }
+}
 
-TEST(TestPlayer, DeckControl)
+TEST(Account, DeckControl)
 {
-    Player player;
+    Account player;
 
     EXPECT_NO_THROW(player.ShowDeckList());
     EXPECT_EQ(false, player.CreateDeck("deck1", CardClass::INVALID));

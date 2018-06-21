@@ -9,11 +9,11 @@
 #ifndef HEARTHSTONEPP_CONSOLE_H
 #define HEARTHSTONEPP_CONSOLE_H
 
+#include <Accounts/Account.h>
 #include <Commons/Constants.h>
 #include <Commons/Macros.h>
-#include <Models/Cards.h>
-#include <Models/Deck.h>
-#include <Models/Player.h>
+#include <Cards/Cards.h>
+#include <Cards/Deck.h>
 
 #include <clara.hpp>
 
@@ -150,7 +150,7 @@ class Console
     SearchMode m_searchMode = SearchMode::JustSearch;
     CardClass m_deckClass = CardClass::INVALID;
 
-    Player* m_player = nullptr;
+    Account* m_account = nullptr;
 };
 }
 

@@ -6,6 +6,8 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
+#include <Cards/Hero.h>
+#include <Cards/Minion.h>
 #include <Commons/Constants.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
@@ -33,14 +35,15 @@ std::function<TaskMeta()> RequireMethod(TaskID request, BYTE userID,
     return response;
 }
 
-Task DoBothUser(Task&& task)
+Task DoBothPlayer(Task&& task)
 {
-    auto role = [role = task.GetTaskRole()](
-                    User& current, User& opponent) -> TaskMeta {
+    auto role = [role = task.GetTaskRole()](Player & current, Player & opponent)
+                    ->TaskMeta
+    {
         std::vector<TaskMeta> vector;
-        // Current User Action
+        // Current Player Action
         vector.emplace_back(role(current, opponent));
-        // Opponent User Action
+        // Opponent Player Action
         vector.emplace_back(role(opponent, current));
         return Serializer::CreateTaskMetaVector(vector);
     };
@@ -50,9 +53,10 @@ Task DoBothUser(Task&& task)
 
 Task DoUntil(Task&& task, std::function<bool(const TaskMeta&)>&& condition)
 {
-    auto role = [role = task.GetTaskRole(),
-                 condition = condition](User& current,
-                                                   User& opponent) -> TaskMeta {
+    auto role = [ role = task.GetTaskRole(), condition = condition ](
+                    Player & current, Player & opponent)
+                    ->TaskMeta
+    {
         TaskMeta meta;
         while (true)
         {
@@ -70,7 +74,7 @@ Task DoUntil(Task&& task, std::function<bool(const TaskMeta&)>&& condition)
     return Task(task.GetTaskID(), std::move(role));
 }
 
-TaskMeta RawUserSetting(User& current, User& opponent)
+TaskMeta RawPlayerSetting(Player& current, Player& opponent)
 {
     current.id = 0;
     opponent.id = 0;
@@ -78,27 +82,27 @@ TaskMeta RawUserSetting(User& current, User& opponent)
     return Serializer::CreateUserSettingTaskMeta(current.email, opponent.email);
 }
 
-Task UserSettingTask()
+Task PlayerSettingTask()
 {
-    return Task(TaskID::USER_SETTING, RawUserSetting);
+    return Task(TaskID::USER_SETTING, RawPlayerSetting);
 }
 
-TaskMeta RawSwapUser(User& current, User& opponent)
+TaskMeta RawSwapPlayer(Player& current, Player& opponent)
 {
     std::swap(current, opponent);
     return TaskMeta(TaskMetaTrait(TaskID::SWAP, MetaData::SWAP_SUCCESS));
 }
 
-Task SwapUserTask()
+Task SwapPlayerTask()
 {
-    return Task(TaskID::SWAP, RawSwapUser);
+    return Task(TaskID::SWAP, RawSwapPlayer);
 }
 
-TaskMeta RawShuffle(User& user)
+TaskMeta RawShuffle(Player& user)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
-    std::shuffle(user.deck.begin(), user.deck.end(), gen);
+    std::shuffle(user.cardsPtrInDeck.begin(), user.cardsPtrInDeck.end(), gen);
 
     return TaskMeta(
         TaskMetaTrait(TaskID::SHUFFLE, MetaData::SHUFFLE_SUCCESS, user.id));
@@ -106,19 +110,19 @@ TaskMeta RawShuffle(User& user)
 
 Task ShuffleTask()
 {
-    auto role = [](User& current, User&) -> TaskMeta {
+    auto role = [](Player& current, Player&) -> TaskMeta {
         return RawShuffle(current);
     };
 
     return Task(TaskID::SHUFFLE, std::move(role));
 }
 
-TaskMeta RawDraw(User& user, size_t num)
+TaskMeta RawDraw(Player& user, size_t num)
 {
     Serializer::DrawTaskMeta meta;
     TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Card*>& deck = user.deck;
+    std::vector<Card*>& deck = user.cardsPtrInDeck;
     std::vector<Card*>& hand = user.hand;
 
     // when deck is exhausted
@@ -130,11 +134,11 @@ TaskMeta RawDraw(User& user, size_t num)
         // sigma (i = 1 to rest) { current.exhausted + i }
         int hurts =
             static_cast<int>(user.exhausted * rest + rest * (rest + 1) / 2);
-        int hurted = static_cast<int>(user.hero->GetHealth()) - hurts;
+        int hurted = static_cast<int>(user.hero->health) - hurts;
 
         meta.numHearts = static_cast<BYTE>(hurts);
 
-        user.hero->SetHealth(hurted);
+        user.hero->health = hurted;
         user.exhausted += static_cast<BYTE>(rest);
 
         // calculating rest deck size
@@ -186,16 +190,42 @@ TaskMeta RawDraw(User& user, size_t num)
 
 Task DrawTask(size_t num)
 {
-    auto role = [=](User& current, User&) -> TaskMeta {
+    auto role = [=](Player& current, Player&) -> TaskMeta {
         return RawDraw(current, num);
     };
 
     return Task(TaskID::DRAW, std::move(role));
 }
 
-TaskMeta RawModifyMana(User& user, size_t numMode, size_t manaMode, BYTE object)
+TaskMeta RawDraw(Player& user, Card* card)
 {
-    auto get = [](User& user, size_t type) -> BYTE& {
+    Serializer::DrawTaskMeta meta;
+    TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
+
+    std::vector<Card*>& deck = user.cardsPtrInDeck;
+    std::vector<Card*>& hand = user.hand;
+
+    // successful draw
+    hand.push_back(card);
+    deck.pop_back();
+
+    meta.numDraw = static_cast<BYTE>(1);
+    return Serializer::CreateDrawTaskMeta(meta, result, user.id);
+}
+
+Task DrawTask(Card* card)
+{
+    auto role = [=](Player& current, Player&) -> TaskMeta {
+        return RawDraw(current, card);
+    };
+
+    return Task(TaskID::DRAW, std::move(role));
+}
+
+TaskMeta RawModifyMana(Player& user, size_t numMode, size_t manaMode,
+                       BYTE object)
+{
+    auto get = [](Player& user, size_t type) -> BYTE& {
         if (type == MANA_EXIST)
             return user.existMana;
         else if (type == MANA_TOTAL)
@@ -240,7 +270,7 @@ TaskMeta RawModifyMana(User& user, size_t numMode, size_t manaMode, BYTE object)
 
 Task ModifyManaTask(size_t numMode, size_t manaMode, BYTE object)
 {
-    auto role = [=](User& current, User&) -> TaskMeta {
+    auto role = [=](Player& current, Player&) -> TaskMeta {
         return RawModifyMana(current, numMode, manaMode, object);
     };
 
@@ -249,20 +279,21 @@ Task ModifyManaTask(size_t numMode, size_t manaMode, BYTE object)
 
 Task ModifyManaByRef(size_t numMode, size_t manaMode, const BYTE& object)
 {
-    auto role = [numMode, manaMode, &object](User& current, User&) -> TaskMeta {
+    auto role = [numMode, manaMode, &object](Player& current,
+                                             Player&) -> TaskMeta {
         return RawModifyMana(current, numMode, manaMode, object);
     };
 
     return Task(TaskID::MODIFY_MANA, std::move(role));
 }
 
-TaskMeta RawModifyHealth(User& user, Card* card, BYTE damage)
+TaskMeta RawModifyHealth(Player& user, Character* card, BYTE damage)
 {
     Serializer::ModifyHealthTaskMeta meta;
     meta.card = card;
     meta.damage = damage;
 
-    int hurted = static_cast<int>(card->GetHealth()) - damage;
+    int hurted = static_cast<int>(card->health) - damage;
     // if minion is alive
     if (hurted > 0)
     {
@@ -287,20 +318,20 @@ TaskMeta RawModifyHealth(User& user, Card* card, BYTE damage)
     }
 
     // adjust health
-    card->SetHealth(meta.hurted);
+    card->health = meta.hurted;
     return Serializer::CreateModifyHealthTaskMeta(
         meta, MetaData::MODIFY_HEALTH_SUCCESS, user.id);
 }
 
-TaskMeta RawBrief(const User& current, const User& opponent)
+TaskMeta RawBrief(const Player& current, const Player& opponent)
 {
     Serializer::BriefTaskMeta meta(
         current.id, opponent.id, current.existMana, opponent.existMana,
-        static_cast<BYTE>(current.deck.size()),
-        static_cast<BYTE>(opponent.deck.size()), 
-        static_cast<BYTE>(opponent.hand.size()),
-        current.hand, current.field, opponent.field, current.attacked,
-        opponent.attacked, current.hero, opponent.hero);
+        static_cast<BYTE>(current.cardsPtrInDeck.size()),
+        static_cast<BYTE>(opponent.cardsPtrInDeck.size()),
+        static_cast<BYTE>(opponent.hand.size()), current.hand, current.field,
+        opponent.field, current.attacked, opponent.attacked, current.hero,
+        opponent.hero);
 
     return Serializer::CreateBriefTaskMeta(meta, TaskID::BRIEF, current.id);
 }
@@ -313,7 +344,7 @@ Task BriefTask()
 Task SelectMenuTask(TaskAgent& agent)
 {
     // Call RequireMethod with TaskID::SELECT_MENU
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         auto method = RequireMethod(TaskID::SELECT_MENU, current.id, agent);
         return method();
     };
@@ -324,7 +355,7 @@ Task SelectMenuTask(TaskAgent& agent)
 Task SelectCardTask(TaskAgent& agent)
 {
     // Call RequireMethod with TaskID::SELECT_CARD
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         auto method = RequireMethod(TaskID::SELECT_CARD, current.id, agent);
         return method();
     };
@@ -335,7 +366,7 @@ Task SelectCardTask(TaskAgent& agent)
 Task SelectTargetTask(TaskAgent& agent)
 {
     // Call RequireMethod with TaskID::SELECT_TARGET
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         auto method = RequireMethod(TaskID::SELECT_TARGET, current.id, agent);
         return method();
     };
@@ -343,7 +374,7 @@ Task SelectTargetTask(TaskAgent& agent)
     return Task(TaskID::SELECT_TARGET, std::move(role));
 }
 
-TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
+TaskMeta RawMulligan(Player& user, std::function<TaskMeta()>&& method)
 {
     TaskMetaTrait meta(TaskID::MULLIGAN);
     meta.userID = user.id;
@@ -359,7 +390,9 @@ TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
     size_t read = req->mulligan()->size();
 
     // Copy data from input
-    BYTE index[NUM_BEGIN_DRAW] = { 0, };
+    BYTE index[NUM_BEGIN_DRAW] = {
+        0,
+    };
     std::copy(data, data + read, index);
 
     // Mulligan doesn't require
@@ -388,7 +421,7 @@ TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
         }
     }
 
-    std::vector<Card*>& deck = user.deck;
+    std::vector<Card*>& deck = user.cardsPtrInDeck;
     std::vector<Card*>& hand = user.hand;
 
     for (size_t i = 0; i < read; ++i)
@@ -412,7 +445,7 @@ TaskMeta RawMulligan(User& user, std::function<TaskMeta()>&& method)
 
 Task MulliganTask(TaskAgent& agent)
 {
-    auto role = [&agent](User& current, User&) -> TaskMeta {
+    auto role = [&agent](Player& current, Player&) -> TaskMeta {
         return RawMulligan(current,
                            RequireMethod(TaskID::MULLIGAN, current.id, agent));
     };
@@ -420,42 +453,80 @@ Task MulliganTask(TaskAgent& agent)
     return Task(TaskID::MULLIGAN, std::move(role));
 }
 
-TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
+TaskMeta PlayCard(Player& player, size_t cardIndex, size_t position)
 {
     TaskMetaTrait meta(TaskID::SUMMON_MINION);
-    meta.userID = current.id;
+    meta.userID = player.id;
 
     // Card Hand Index Verification
-    if (cardIndex >= current.hand.size())
+    if (cardIndex >= player.hand.size())
     {
         meta.status = MetaData::SUMMON_CARD_IDX_OUT_OF_RANGE;
         return TaskMeta(meta);
     }
     // Sufficient Mana Verification
-    if (current.hand[cardIndex]->GetCost() > current.existMana)
+    if (player.hand[cardIndex]->cost > player.existMana)
     {
         meta.status = MetaData::SUMMON_NOT_ENOUGH_MANA;
         return TaskMeta(meta);
     }
+
+    Card* card = player.hand[cardIndex];
+
+    // erase from user's hand
+    player.hand.erase(player.hand.begin() + cardIndex);
+
+    switch (card->cardType)
+    {
+        case CardType::MINION:
+            return PlayMinion(player, card, position);
+        case CardType::WEAPON:
+            return PlayWeapon(player, card);
+        default:
+            const std::vector<TaskMeta> vector;
+            return Serializer::CreateTaskMetaVector(vector);
+    }
+}
+
+Task PlayCardTask(Player& player, size_t cardIndex, int position)
+{
+    (void)player;
+
+    auto role = [=](Player& current, Player&) -> TaskMeta {
+        return PlayCard(current, cardIndex, position);
+    };
+
+    return Task(TaskID::SUMMON_MINION, std::move(role));
+}
+
+TaskMeta PlayMinion(Player& player, Card* card, size_t position)
+{
+    TaskMetaTrait meta(TaskID::SUMMON_MINION);
+    meta.userID = player.id;
+
     // Field Position Verification
-    if (position > current.field.size())
+    if (position > player.field.size())
     {
         meta.status = MetaData::SUMMON_POSITION_OUT_OF_RANGE;
         return TaskMeta(meta);
     }
 
-    Card* card = current.hand[cardIndex];
-    int cost = static_cast<int>(card->GetCost());
+    if (player.field[position] != nullptr)
+    {
+        meta.status = MetaData::SUMMON_POSITION_OUT_OF_RANGE;
+        return TaskMeta(meta);
+    }
+
+    player.field[position] = card;
+
+    int cost = static_cast<int>(card->cost);
 
     // Summoned minion can't attack right turn
-    current.attacked.emplace_back(card);
-    TaskMeta modified =
-        RawModifyMana(current, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
+    player.attacked.emplace_back(card);
+    TaskMeta modified = RawModifyMana(player, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
 
     // summon minion at field
-    current.field.insert(current.field.begin() + position, card);
-    // erase from user's hand
-    current.hand.erase(current.hand.begin() + cardIndex);
+    player.field.insert(player.field.begin() + position, card);
     meta.status = MetaData::SUMMON_SUCCESS;
 
     TaskMeta summon =
@@ -468,16 +539,15 @@ TaskMeta RawSummonMinion(User& current, size_t cardIndex, size_t position)
     return Serializer::CreateTaskMetaVector(vector);
 }
 
-Task SummonMinionTask(size_t cardIndex, size_t position)
+TaskMeta PlayWeapon(Player& player, Card* card)
 {
-    auto role = [=](User& current, User&) -> TaskMeta {
-        return RawSummonMinion(current, cardIndex, position);
-    };
+    player.hero->weapon = dynamic_cast<Weapon*>(card);
 
-    return Task(TaskID::SUMMON_MINION, std::move(role));
+    std::vector<TaskMeta> vector;
+    return Serializer::CreateTaskMetaVector(vector);
 }
 
-TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
+TaskMeta RawCombat(Player& current, Player& opponent, size_t src, size_t dst)
 {
     TaskMetaTrait meta(TaskID::COMBAT);
     meta.userID = current.id;
@@ -500,27 +570,25 @@ TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
 
     attacked.emplace_back(current.field[src]);
 
-    // Destination Verification, dst == 0 : hero / 1 < dst <= field.size : minion
+    // Destination Verification, dst == 0 : hero / 1 < dst <= field.size :
+    // minion
     if (dst > opponent.field.size())
     {
         meta.status = MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
         return TaskMeta(meta);
     }
 
-    Card* source = current.field[src];
-    Card* target = opponent.hero;
-    BYTE targetAttack = 0;
-    if (dst > 0)
-    {
-        target = opponent.field[dst - 1];
-        targetAttack = static_cast<BYTE>(target->GetAttack());
-    }
+    Character* source = dynamic_cast<Character*>(current.field[src]);
+    Character* target = (dst > 0)
+                            ? dynamic_cast<Character*>(opponent.field[dst - 1])
+                            : dynamic_cast<Character*>(opponent.hero);
+    BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
 
     meta.status = MetaData::COMBAT_SUCCESS;
     TaskMeta combat = Serializer::CreateCombatTaskMeta(meta, source, target);
     TaskMeta hurtedSrc = RawModifyHealth(current, source, targetAttack);
-    TaskMeta hurtedDst = RawModifyHealth(
-        opponent, target, static_cast<BYTE>(source->GetAttack()));
+    TaskMeta hurtedDst =
+        RawModifyHealth(opponent, target, static_cast<BYTE>(source->attack));
 
     std::vector<TaskMeta> vector;
     vector.emplace_back(std::move(combat));
@@ -532,17 +600,17 @@ TaskMeta RawCombat(User& current, User& opponent, size_t src, size_t dst)
 
 Task CombatTask(size_t src, size_t dst)
 {
-    auto role = [=](User& current, User& opponent) -> TaskMeta {
+    auto role = [=](Player& current, Player& opponent) -> TaskMeta {
         return RawCombat(current, opponent, src, dst);
     };
 
     return Task(TaskID::COMBAT, std::move(role));
 }
 
-TaskMeta RawGameEnd(User& current, User& opponent)
+TaskMeta RawGameEnd(Player& current, Player& opponent)
 {
     std::string winner = "";
-    if (current.hero->GetHealth() <= 0)
+    if (current.hero->health <= 0)
     {
         winner = current.email;
     }

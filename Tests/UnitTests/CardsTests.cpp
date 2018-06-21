@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include <Models/Cards.h>
+#include <Cards/Cards.h>
 #include <Enums/Enums.h>
 
 using namespace Hearthstonepp;
@@ -24,7 +24,7 @@ TEST(TestCards, FindCardByID)
 	const Card* card1 = Cards::GetInstance()->FindCardByID("AT_001");
 	const Card* card2 = Cards::GetInstance()->FindCardByID("");
 	
-	EXPECT_EQ("AT_001", card1->GetID());
+	EXPECT_EQ("AT_001", card1->id);
 	EXPECT_EQ(nullptr, card2);
 }
 
@@ -39,11 +39,11 @@ TEST(TestCards, FindCardByRarity)
 	std::vector<Card*> cards6 = cards->FindCardByRarity(+Rarity::INVALID);
 	std::vector<Card*> cards7 = cards->FindCardByRarity(+Rarity::UNKNOWN_6);
 
-	EXPECT_EQ(+Rarity::COMMON, cards1.front()->GetRarity());
-	EXPECT_EQ(+Rarity::RARE, cards2.front()->GetRarity());
-	EXPECT_EQ(+Rarity::EPIC, cards3.front()->GetRarity());
-	EXPECT_EQ(+Rarity::LEGENDARY, cards4.front()->GetRarity());
-	EXPECT_EQ(+Rarity::FREE, cards5.front()->GetRarity());
+	EXPECT_EQ(+Rarity::COMMON, cards1.front()->rarity);
+	EXPECT_EQ(+Rarity::RARE, cards2.front()->rarity);
+	EXPECT_EQ(+Rarity::EPIC, cards3.front()->rarity);
+	EXPECT_EQ(+Rarity::LEGENDARY, cards4.front()->rarity);
+	EXPECT_EQ(+Rarity::FREE, cards5.front()->rarity);
 	EXPECT_TRUE(cards6.empty());
 	EXPECT_TRUE(cards7.empty());
 }
@@ -61,14 +61,14 @@ TEST(TestCards, FindCardByClass)
 	std::vector<Card*> cards8 = cards->FindCardByClass(+CardClass::PRIEST);
 	std::vector<Card*> cards9 = cards->FindCardByClass(+CardClass::INVALID);
 
-	EXPECT_EQ(+CardClass::DEATHKNIGHT, cards1.front()->GetCardClass());
-	EXPECT_EQ(+CardClass::DREAM, cards2.front()->GetCardClass());
-	EXPECT_EQ(+CardClass::DRUID, cards3.front()->GetCardClass());
-	EXPECT_EQ(+CardClass::HUNTER, cards4.front()->GetCardClass());
-	EXPECT_EQ(+CardClass::MAGE, cards5.front()->GetCardClass());
-	EXPECT_EQ(+CardClass::NEUTRAL, cards6.front()->GetCardClass());
-	EXPECT_EQ(+CardClass::PALADIN, cards7.front()->GetCardClass());
-	EXPECT_EQ(+CardClass::PRIEST, cards8.front()->GetCardClass());
+	EXPECT_EQ(+CardClass::DEATHKNIGHT, cards1.front()->cardClass);
+	EXPECT_EQ(+CardClass::DREAM, cards2.front()->cardClass);
+	EXPECT_EQ(+CardClass::DRUID, cards3.front()->cardClass);
+	EXPECT_EQ(+CardClass::HUNTER, cards4.front()->cardClass);
+	EXPECT_EQ(+CardClass::MAGE, cards5.front()->cardClass);
+	EXPECT_EQ(+CardClass::NEUTRAL, cards6.front()->cardClass);
+	EXPECT_EQ(+CardClass::PALADIN, cards7.front()->cardClass);
+	EXPECT_EQ(+CardClass::PRIEST, cards8.front()->cardClass);
 	EXPECT_TRUE(cards9.empty());
 }
 
@@ -87,12 +87,12 @@ TEST(TestCards, FindCardByType)
 	std::vector<Card*> cards10 = cards->FindCardByType(+CardType::TOKEN);
 	std::vector<Card*> cards11 = cards->FindCardByType(+CardType::INVALID);
 
-	EXPECT_EQ(+CardType::WEAPON, cards1.front()->GetCardType());
-	EXPECT_EQ(+CardType::HERO, cards3.front()->GetCardType());
-	EXPECT_EQ(+CardType::HERO_POWER, cards4.front()->GetCardType());
-	EXPECT_EQ(+CardType::ENCHANTMENT, cards5.front()->GetCardType());
-	EXPECT_EQ(+CardType::MINION, cards7.front()->GetCardType());
-	EXPECT_EQ(+CardType::SPELL, cards9.front()->GetCardType());
+	EXPECT_EQ(+CardType::WEAPON, cards1.front()->cardType);
+	EXPECT_EQ(+CardType::HERO, cards3.front()->cardType);
+	EXPECT_EQ(+CardType::HERO_POWER, cards4.front()->cardType);
+	EXPECT_EQ(+CardType::ENCHANTMENT, cards5.front()->cardType);
+	EXPECT_EQ(+CardType::MINION, cards7.front()->cardType);
+	EXPECT_EQ(+CardType::SPELL, cards9.front()->cardType);
 	EXPECT_TRUE(cards2.empty());
 	EXPECT_TRUE(cards6.empty());
 	EXPECT_TRUE(cards8.empty());
@@ -111,10 +111,8 @@ TEST(TestCards, FindCardByRace)
 TEST(TestCards, FindCardByName)
 {
 	Cards* cards = Cards::GetInstance();
-	std::vector<Card*> cards1 = cards->FindCardByName("Flame Lance");
-	std::vector<Card*> cards2 = cards->FindCardByName("");
-	EXPECT_EQ("Flame Lance", cards1.front()->GetName());
-	EXPECT_EQ(cards2, cards->GetAllCards());
+	const Card* card1 = cards->FindCardByName("Flame Lance");
+	EXPECT_EQ("Flame Lance", card1->name);
 }
 
 TEST(TestCards, FindCardByCost)
@@ -154,7 +152,7 @@ TEST(TestCards, FindCardByMechanics)
 	std::vector<Card*> cards1 = cards->FindCardByMechanics(tags1);
 	std::vector<Card*> cards2 = cards->FindCardByMechanics(tags2);
 
-	auto cardTags = cards1.front()->GetMechanics();
+	auto cardTags = cards1.front()->mechanics;
 	EXPECT_TRUE(std::find(cardTags.begin(), cardTags.end(), +GameTag::CANT_ATTACK) != cardTags.end());
 	EXPECT_TRUE(cards2.empty());
 }

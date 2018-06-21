@@ -9,8 +9,8 @@
 #ifndef HEARTHSTONEPP_TASKS_H
 #define HEARTHSTONEPP_TASKS_H
 
-#include <Agents/AgentStructures.h>
 #include <Enums/Enums.h>
+#include <Syncs/AgentStructures.h>
 #include <Tasks/TaskMeta.h>
 
 #include <functional>
@@ -25,7 +25,7 @@ class Task
         std::is_same_v<std::decay_t<T>, Task>;
 
     // function object of runnable Task role.
-    using lambda_t = std::function<TaskMeta(User&, User&)>;
+    using lambda_t = std::function<TaskMeta(Player&, Player&)>;
 
     Task();
 

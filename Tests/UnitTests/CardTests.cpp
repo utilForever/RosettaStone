@@ -1,76 +1,68 @@
 #include "gtest/gtest.h"
 
-#include <Models/Card.h>
+#include <Cards/Card.h>
 #include <Enums/Enums.h>
 
 using namespace Hearthstonepp;
 
 TEST(TestCard, Constructer)
 {
-	std::vector<GameTag> tags;
-	std::map<PlayReq, int> reqs;
-	std::vector<std::string> entourages;
-	Card card1("cardTest", Rarity::COMMON, Faction::NEUTRAL, CardSet::NONE,
-		CardClass::NEUTRAL, CardType::MINION, Race::DRAGON, "card", "this is test card", true,
-		1, 1, 20, 20,
-		tags,
-		reqs,
-		entourages
-	);
+	Card card1;
+    card1.id = "cardTest1";
+    card1.rarity = Rarity::COMMON;
+    card1.faction = Faction::NEUTRAL;
+    card1.cardSet = CardSet::NONE;
+    card1.cardClass = CardClass::NEUTRAL;
+    card1.cardType = CardType::MINION;
+    card1.race = Race::DRAGON;
+    card1.name = "card1";
+    card1.text = "this is test card1";
+    card1.isCollectible = true;
+    card1.cost = 1;
+    card1.Initialize();
 
-	Card card2("cardTest2", Rarity::LEGENDARY, Faction::NEUTRAL, CardSet::NONE,
-		CardClass::NEUTRAL, CardType::MINION, Race::DRAGON, "card2", "this is test card2", true,
-		1, 1, 20, 20,
-		tags,
-		reqs,
-		entourages
-	);
+    Card card2;
+    card2.id = "cardTest2";
+    card2.rarity = Rarity::LEGENDARY;
+    card2.faction = Faction::NEUTRAL;
+    card2.cardSet = CardSet::NONE;
+    card2.cardClass = CardClass::NEUTRAL;
+    card2.cardType = CardType::MINION;
+    card2.race = Race::DRAGON;
+    card2.name = "card2";
+    card2.text = "this is test card2";
+    card2.isCollectible = true;
+    card2.cost = 1;
+    card2.Initialize();
 
 	EXPECT_NO_THROW(card1.ShowBriefInfo());
 	EXPECT_NO_THROW(card1.ShowInfo());
-	EXPECT_EQ("cardTest", card1.GetID());
-	EXPECT_EQ(+Rarity::COMMON, card1.GetRarity());
-	EXPECT_EQ(+CardClass::NEUTRAL, card1.GetCardClass());
-	EXPECT_EQ(+CardType::MINION, card1.GetCardType());
-	EXPECT_EQ(+Race::DRAGON, card1.GetRace());
-	EXPECT_EQ(1, static_cast<int>(card1.GetCost()));
-	EXPECT_EQ(1, static_cast<int>(card1.GetAttack()));
-	EXPECT_EQ(20, static_cast<int>(card1.GetHealth()));
-	EXPECT_EQ(20, static_cast<int>(card1.GetDurability()));
+	EXPECT_EQ("cardTest1", card1.id);
+	EXPECT_EQ(+Rarity::COMMON, card1.rarity);
+	EXPECT_EQ(+CardClass::NEUTRAL, card1.cardClass);
+	EXPECT_EQ(+CardType::MINION, card1.cardType);
+	EXPECT_EQ(+Race::DRAGON, card1.race);
+	EXPECT_EQ(1, static_cast<int>(card1.cost));
 	EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
 	EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
-    EXPECT_EQ(true, card1.GetCollectible());
+    EXPECT_EQ(true, card1.isCollectible);
 }    
-
-TEST(TestCard, SetHealth)
-{
-	std::vector<GameTag> tags;
-	std::map<PlayReq, int> reqs;
-	std::vector<std::string> entourages;
-	Card card1("cardTest", Rarity::COMMON, Faction::NEUTRAL, CardSet::NONE,
-		CardClass::NEUTRAL, CardType::MINION, Race::DRAGON, "card", "this is test card", true,
-		1, 1, 20, 20,
-		tags,
-		reqs,
-		entourages
-	);
-
-    card1.SetHealth(1);
-    EXPECT_EQ(1, static_cast<int>(card1.GetHealth()));
-}
 
 TEST(TestCard, HasMechanic)
 {
-	std::vector<GameTag> tags;
-	std::map<PlayReq, int> reqs;
-	std::vector<std::string> entourages;
-	Card card1("cardTest", Rarity::COMMON, Faction::NEUTRAL, CardSet::NONE,
-		CardClass::NEUTRAL, CardType::MINION, Race::DRAGON, "card", "this is test card", true,
-		1, 1, 20, 20,
-		tags,
-		reqs,
-		entourages
-	);
+    Card card;
+    card.id = "cardTest1";
+    card.rarity = Rarity::COMMON;
+    card.faction = Faction::NEUTRAL;
+    card.cardSet = CardSet::NONE;
+    card.cardClass = CardClass::NEUTRAL;
+    card.cardType = CardType::MINION;
+    card.race = Race::DRAGON;
+    card.name = "card1";
+    card.text = "this is test card1";
+    card.isCollectible = true;
+    card.cost = 1;
+    card.Initialize();
 
-    EXPECT_EQ(false, card1.HasMechanic(+GameTag::ADAPT));
+    EXPECT_EQ(false, card.HasMechanic(+GameTag::ADAPT));
 }

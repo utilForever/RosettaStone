@@ -12,7 +12,7 @@
 
 #include <Enums/Enums.h>
 
-#include <Flatbuffers/MetaData_generated.h>
+#include <Flatbuffers/generated/MetaData_generated.h>
 
 #include <memory>
 
@@ -21,7 +21,7 @@ namespace Hearthstonepp
 using BYTE = unsigned char;
 
 // Abstract of TaskMeta, store default meta data
-// `id(TaskID)`, `status(TaskMetaTrait::status_t)`, `userID(unsigned char)`
+// `id(TaskID)`, `status(TaskMetaTrait::status_t)`, `accountID(unsigned char)`
 struct TaskMetaTrait
 {
     using status_t = unsigned int;

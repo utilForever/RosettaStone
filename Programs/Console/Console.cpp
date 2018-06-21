@@ -8,15 +8,15 @@
 *************************************************************************/
 #include "Console.h"
 
-#include <Agents/GameAgent.h>
+#include <Cards/Card.h>
+#include <Cards/Cards.h>
 #include <Commons/Constants.h>
 #include <Commons/Macros.h>
 #include <Commons/Utils.h>
-#include <Interface/Interface.h>
+#include <Loaders/AccountLoader.h>
 #include <Loaders/CardLoader.h>
-#include <Loaders/PlayerLoader.h>
-#include <Models/Card.h>
-#include <Models/Cards.h>
+#include <Syncs/GameAgent.h>
+#include <Syncs/Interface.h>
 
 #include <cctype>
 #ifdef HEARTHSTONEPP_WINDOWS
@@ -30,7 +30,6 @@
 #endif
 #include <fstream>
 #include <iostream>
-#include <regex>
 
 #ifndef HEARTHSTONEPP_MACOSX
 namespace filesystem = std::experimental::filesystem;
@@ -40,42 +39,42 @@ namespace Hearthstonepp
 {
 void Console::SignIn()
 {
-    std::cout << "Input Player ID to load data.\n";
+    std::cout << "Input Account ID to load data.\n";
     std::cout << "If you do not want to load, please input \"STOP\"\n";
 
     while (true)
     {
-        std::cout << "Player ID: ";
-        std::string playerID;
-        std::cin >> playerID;
+        std::cout << "Account ID: ";
+        std::string accountID;
+        std::cin >> accountID;
 
-        if (playerID == "STOP")
+        if (accountID == "STOP")
         {
             break;
         }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (!filesystem::exists("Datas/" + playerID + ".json"))
+        if (!filesystem::exists("Datas/" + accountID + ".json"))
 #else
         struct stat buf;
-        std::string path = "Datas/" + playerID + ".json";
+        std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == -1)
 #endif
         {
-            std::cout << playerID << ".json doesn't exist. Try again.\n";
+            std::cout << accountID << ".json doesn't exist. Try again.\n";
             continue;
         }
 
-        PlayerLoader loader;
-        m_player = loader.Load(playerID);
+        AccountLoader loader;
+        m_account = loader.Load(accountID);
 
-        if (m_player == nullptr)
+        if (m_account == nullptr)
         {
-            std::cout << "An error occurred while loading player data.\n";
+            std::cout << "An error occurred while loading account data.\n";
             continue;
         }
 
-        std::cout << "You are signed in. Hello, " << playerID << "!\n";
+        std::cout << "You are signed in. Hello, " << accountID << "!\n";
 
         Main();
 
@@ -85,23 +84,23 @@ void Console::SignIn()
 
 void Console::SignUp()
 {
-    std::cout << "Input Player ID to create data.\n";
+    std::cout << "Input Account ID to create data.\n";
 
     while (true)
     {
-        std::cout << "Player ID: ";
-        std::string playerID;
-        std::cin >> playerID;
+        std::cout << "Account ID: ";
+        std::string accountID;
+        std::cin >> accountID;
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (filesystem::exists("Datas/" + playerID + ".json"))
+        if (filesystem::exists("Datas/" + accountID + ".json"))
 #else
         struct stat buf;
-        std::string path = "Datas/" + playerID + ".json";
+        std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == 0)
 #endif
         {
-            std::cout << playerID << ".json already exists. Try again.\n";
+            std::cout << accountID << ".json already exists. Try again.\n";
             continue;
         }
 
@@ -109,10 +108,10 @@ void Console::SignUp()
         std::string name;
         std::cin >> name;
 
-        m_player = new Player(std::move(playerID), std::move(name));
+        m_account = new Account(std::move(accountID), std::move(name));
 
-        PlayerLoader loader;
-        loader.Save(m_player);
+        AccountLoader loader;
+        loader.Save(m_account);
 
         std::cout << "Your account has been created. Please sign in.\n";
         break;
@@ -212,11 +211,12 @@ void Console::SimulateGame()
     std::cout << "[*] input second id, deck index : ";
     std::cin >> user2 >> deck2;
 
-    PlayerLoader loader;
-    Player* p1 = loader.Load(user1);
-    Player* p2 = loader.Load(user2);
+    AccountLoader loader;
+    Account* p1 = loader.Load(user1);
+    Account* p2 = loader.Load(user2);
 
-    GameAgent agent(User(p1, deck1), User(p2, deck2));
+    GameAgent agent(Player(p1, p1->GetDeck(deck1)),
+                    Player(p2, p2->GetDeck(deck2)));
     GameInterface game(agent);
 
     GameResult result = game.StartGame();
@@ -224,13 +224,13 @@ void Console::SimulateGame()
 
 void Console::Leave()
 {
-    PlayerLoader loader;
-    loader.Save(m_player);
+    AccountLoader loader;
+    loader.Save(m_account);
 
-    if (m_player != nullptr)
+    if (m_account != nullptr)
     {
-        delete m_player;
-        m_player = nullptr;
+        delete m_account;
+        m_account = nullptr;
     }
 
     std::cout << "You have been successfully signed out. Have a nice day!\n";
@@ -251,14 +251,14 @@ void Console::CreateDeck()
         InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
     const CardClass deckClass = CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
 
-    m_player->CreateDeck(name, deckClass);
+    m_account->CreateDeck(name, deckClass);
 
-    OperateDeck(m_player->GetNumOfDeck());
+    OperateDeck(m_account->GetNumOfDeck());
 }
 
 void Console::ModifyDeck()
 {
-    if (m_player->GetNumOfDeck() == 0)
+    if (m_account->GetNumOfDeck() == 0)
     {
         std::cout << "Deck does not exist. Create a new deck!\n";
         return;
@@ -270,16 +270,16 @@ void Console::ModifyDeck()
 
     std::cout << "Input the number to modify your deck.\n";
 
-    m_player->ShowDeckList();
+    m_account->ShowDeckList();
     const size_t selectedDeck =
-        InputMenuNum("Select: ", m_player->GetNumOfDeck());
+        InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
     OperateDeck(selectedDeck);
 }
 
 void Console::DeleteDeck()
 {
-    if (m_player->GetNumOfDeck() == 0)
+    if (m_account->GetNumOfDeck() == 0)
     {
         std::cout << "Deck does not exist. Create a new deck!\n";
         return;
@@ -291,11 +291,11 @@ void Console::DeleteDeck()
 
     std::cout << "Input the number to delete your deck.\n";
 
-    m_player->ShowDeckList();
+    m_account->ShowDeckList();
     const size_t selectedDeck =
-        InputMenuNum("Select: ", m_player->GetNumOfDeck());
+        InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
-    m_player->DeleteDeck(selectedDeck);
+    m_account->DeleteDeck(selectedDeck);
 }
 
 int Console::OperateDeck(size_t deckIndex)
@@ -319,7 +319,7 @@ int Console::OperateDeck(size_t deckIndex)
 
 void Console::AddCardInDeck(size_t deckIndex)
 {
-    Deck* deck = m_player->GetDeck(deckIndex - 1);
+    Deck* deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
     {
@@ -341,7 +341,7 @@ void Console::AddCardInDeck(size_t deckIndex)
     while (true)
     {
         int numCardToAddAvailable =
-            card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->GetID());
+            card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->id);
         if (deck->GetNumOfCards() + numCardToAddAvailable >
             MAXIMUM_NUM_CARDS_IN_DECK)
         {
@@ -361,7 +361,7 @@ void Console::AddCardInDeck(size_t deckIndex)
         }
         else
         {
-            deck->AddCard(card->GetID(), numCardToAdd);
+            deck->AddCard(card->id, numCardToAdd);
             break;
         }
     }
@@ -369,7 +369,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
 void Console::DeleteCardInDeck(size_t deckIndex)
 {
-    Deck* deck = m_player->GetDeck(deckIndex - 1);
+    Deck* deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() == 0)
     {
@@ -615,42 +615,44 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
 
     for (auto& card : Cards::GetInstance()->GetAllCards())
     {
-        if (card->GetCollectible() == false)
+        if (card->isCollectible == false)
         {
             continue;
         }
 
         bool rarityCondition = (filter.rarity == +Rarity::INVALID ||
-                                filter.rarity == card->GetRarity());
+                                filter.rarity == card->rarity);
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to
         // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            classCondition = (card->GetCardClass() == m_deckClass ||
-                card->GetCardClass() == +CardClass::NEUTRAL);
+            classCondition = (card->cardClass == m_deckClass ||
+                              card->cardClass == +CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
             classCondition = (filter.playerClass == +CardClass::INVALID ||
-                              filter.playerClass == card->GetCardClass());
+                              filter.playerClass == card->cardClass);
         }
         bool typeCondition = (filter.cardType == +CardType::INVALID ||
-                              filter.cardType == card->GetCardType());
+                              filter.cardType == card->cardType);
         bool raceCondition =
-            (filter.race == +Race::INVALID || filter.race == card->GetRace());
+            (filter.race == +Race::INVALID || filter.race == card->race);
         bool nameCondition =
             (filter.name.empty() ||
-             card->GetName().find(filter.name) != std::string::npos);
-        bool costCondition =  filter.costMin <= card->GetCost() &&
-            filter.costMax >= card->GetCost();
-        bool attackCondition =
-            filter.attackMin <= card->GetAttack() &&
-            filter.attackMax >= card->GetAttack();
-        bool healthCondition =
-            filter.healthMin <= card->GetHealth() &&
-            filter.healthMax >= card->GetHealth();
+             card->name.find(filter.name) != std::string::npos);
+        bool costCondition =
+            filter.costMin <= card->cost && filter.costMax >= card->cost;
+        bool attackCondition = true;
+        bool healthCondition = true;
+        //bool attackCondition =
+        //    filter.attackMin <= card->attack &&
+        //    filter.attackMax >= card->attack;
+        //bool healthCondition =
+        //    filter.healthMin <= card->health &&
+        //    filter.healthMax >= card->health;
         bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
                                    card->HasMechanic(filter.mechanic));
         const bool isMatched =
