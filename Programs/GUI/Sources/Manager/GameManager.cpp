@@ -95,13 +95,13 @@ int GameManager::GetWindowHeight() const
     return m_windowHeight;
 }
 
-void GameManager::SetPlayer(Player* player)
+void GameManager::SetAccount(Account* account)
 {
-    m_player = player;
+    m_account = account;
 }
 
-Player* GameManager::GetPlayer() const
+Account* GameManager::GetAccount() const
 {
-    return m_player;
+    return m_account;
 }
 }

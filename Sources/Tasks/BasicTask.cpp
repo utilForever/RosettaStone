@@ -79,7 +79,8 @@ TaskMeta RawPlayerSetting(Player& current, Player& opponent)
     current.id = 0;
     opponent.id = 0;
 
-    return Serializer::CreateUserSettingTaskMeta(current.email, opponent.email);
+    return Serializer::CreatePlayerSettingTaskMeta(current.email,
+                                                   opponent.email);
 }
 
 Task PlayerSettingTask()

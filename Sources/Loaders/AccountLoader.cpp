@@ -2,7 +2,7 @@
 > File Name: AccountLoader.cpp
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Account loader that loads data from <accountName>.json.
+> Purpose: Account loader that loads data from <email>.json.
 > Created Time: 2017/10/19
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
@@ -27,10 +27,10 @@ namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
-Account* AccountLoader::Load(std::string accountID) const
+Account* AccountLoader::Load(std::string email) const
 	{
 		// Read account data from JSON file
-		std::ifstream playerFile("Datas/" + accountID + ".json");
+		std::ifstream playerFile("Datas/" + email + ".json");
 		json j;
 
 		if (!playerFile.is_open())
@@ -44,7 +44,7 @@ Account* AccountLoader::Load(std::string accountID) const
 		{
 			playerFile >> j;
 
-			std::string name = j["name"].get<std::string>();
+			std::string nickname = j["nickname"].get<std::string>();
 
 			std::vector<Deck*> decks;
 			decks.reserve(j["decks"].size());
@@ -69,7 +69,7 @@ Account* AccountLoader::Load(std::string accountID) const
 				}
 			}
 
-			p = new Account(std::move(accountID), std::move(name), decks);
+			p = new Account(std::move(email), std::move(nickname), decks);
 		}
 		catch (...)
 		{
@@ -91,7 +91,7 @@ Account* AccountLoader::Load(std::string accountID) const
 #else
 		system("mkdir Datas");
 #endif
-		std::ofstream playerFile("Datas/" + p->GetID() + ".json");
+		std::ofstream playerFile("Datas/" + p->GetEmail() + ".json");
 
 		json j;
 
@@ -102,7 +102,7 @@ Account* AccountLoader::Load(std::string accountID) const
 
 		try
 		{
-			j["name"] = p->GetName();
+			j["nickname"] = p->GetNickname();
 
 			j["decks"] = json::array();
 

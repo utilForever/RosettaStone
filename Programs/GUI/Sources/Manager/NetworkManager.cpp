@@ -10,7 +10,7 @@
 #include <Manager/NetworkManager.h>
 
 #include <Commons/Macros.h>
-#include <Loaders/PlayerLoader.h>
+#include <Loaders/AccountLoader.h>
 
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>
@@ -52,10 +52,10 @@ bool NetworkManager::Login(const std::string& email,
         return false;
     }
 
-    PlayerLoader loader;
-    GameManager::GetInstance()->SetPlayer(loader.Load(email));
+    AccountLoader loader;
+    GameManager::GetInstance()->SetAccount(loader.Load(email));
 
-    return GameManager::GetInstance()->GetPlayer() != nullptr;
+    return GameManager::GetInstance()->GetAccount() != nullptr;
 }
 
 bool NetworkManager::CreateAccount(
@@ -73,12 +73,12 @@ bool NetworkManager::CreateAccount(
         return false;
     }
 
-    GameManager::GetInstance()->SetPlayer(
-        new Player(std::move(email), std::move(nickname)));
+    GameManager::GetInstance()->SetAccount(
+        new Account(std::move(email), std::move(nickname)));
 
-    if (Player* p = GameManager::GetInstance()->GetPlayer())
+    if (Account* p = GameManager::GetInstance()->GetAccount())
     {
-        PlayerLoader loader;
+        AccountLoader loader;
         loader.Save(p);
 
         return true;

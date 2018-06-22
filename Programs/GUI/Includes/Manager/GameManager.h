@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_GUI_GAME_MANAGER_H
 #define HEARTHSTONEPP_GUI_GAME_MANAGER_H
 
-#include <Models/Player.h>
+#include <Accounts/Account.h>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -58,11 +58,11 @@ class GameManager
     //! Returns the height of the window.
     int GetWindowHeight() const;
 
-    //! Set player object.
-    void SetPlayer(Player* player);
+    //! Set account object.
+    void SetAccount(Account* account);
 
-    //! Returns player object.
-    Player* GetPlayer() const;
+    //! Returns account object.
+    Account* GetAccount() const;
 
  private:
     GameManager() = default;
@@ -77,7 +77,7 @@ class GameManager
     int m_windowWidth;
     int m_windowHeight;
 
-    Player* m_player;
+    Account* m_account;
 };
 }
 

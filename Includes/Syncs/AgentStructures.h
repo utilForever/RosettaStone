@@ -28,7 +28,7 @@ struct Player
     BYTE existMana;
     BYTE exhausted;
 
-    std::string accountID;
+    std::string email;
     Hero* hero;
     HeroPower* power;
     Weapon* weapon;
@@ -48,7 +48,7 @@ struct Player
 
     bool operator==(const Player& player) const
     {
-        return this->accountID == player.accountID;
+        return this->email == player.email;
     }
 };
 }  // namespace Hearthstonepp

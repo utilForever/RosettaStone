@@ -19,11 +19,11 @@ class Account
 {
  public:
     Account();
-    Account(std::string&& id, std::string&& name);
-    Account(std::string&& id, std::string&& name, std::vector<Deck*> decks);
+    Account(std::string&& email, std::string&& nickname);
+    Account(std::string&& email, std::string&& nickname, std::vector<Deck*> decks);
 
-    std::string GetID() const;
-    std::string GetName() const;
+    std::string GetEmail() const;
+    std::string GetNickname() const;
     size_t GetNumOfDeck() const;
     Deck* GetDeck(size_t idx) const;
 
@@ -32,8 +32,8 @@ class Account
     bool DeleteDeck(size_t selectedDeck);
 
  private:
-    std::string m_id;
-    std::string m_name;
+    std::string m_email;
+    std::string m_nickname;
     std::vector<Deck*> m_decks;
 };
 }
