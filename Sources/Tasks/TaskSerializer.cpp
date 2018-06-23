@@ -81,7 +81,7 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
 }
 
 TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
-                              TaskMeta::status_t status, BYTE userID)
+                              MetaData status, BYTE userID)
 {
     flatbuffers::FlatBufferBuilder builder(1024);
     std::vector<flatbuffers::Offset<FlatData::TaskMeta>> flatten;
@@ -90,7 +90,8 @@ TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
     for (const auto& task : vector)
     {
         auto trait = FlatData::TaskMetaTrait(static_cast<int>(task.id),
-                                             task.status, task.userID);
+                                             static_cast<status_t>(task.status),
+                                             task.userID);
         const auto& unique = task.GetConstBuffer();
         auto buffer = builder.CreateVector(unique.get(), task.GetBufferSize());
 
@@ -167,7 +168,7 @@ TaskMeta CreatePlayerSettingTaskMeta(const std::string& firstPlayerID,
                     builder.GetBufferPointer());
 }
 
-TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& meta, TaskMeta::status_t status,
+TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& meta, MetaData status,
                             BYTE userID)
 {
     flatbuffers::FlatBufferBuilder builder(512);
@@ -190,7 +191,7 @@ TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& meta, TaskMeta::status_t status,
 }
 
 TaskMeta CreateModifyManaTaskMeta(const ModifyManaTaskMeta& meta,
-                                  TaskMeta::status_t status, BYTE userID)
+                                  MetaData status, BYTE userID)
 {
     flatbuffers::FlatBufferBuilder builder(32);
     auto manaTask = FlatData::CreateModifyManaTaskMeta(
@@ -203,7 +204,7 @@ TaskMeta CreateModifyManaTaskMeta(const ModifyManaTaskMeta& meta,
 }
 
 TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta,
-                                    TaskMeta::status_t status, BYTE userID)
+                                    MetaData status, BYTE userID)
 {
     flatbuffers::FlatBufferBuilder builder(32);
     auto card = CreateCard(builder, meta.card);
@@ -215,8 +216,8 @@ TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta,
                     builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
-                             TaskMeta::status_t status, BYTE userID)
+TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta, MetaData status,
+                             BYTE userID)
 {
     using CardOffset = flatbuffers::Offset<FlatData::Card>;
     using VectorOffset = flatbuffers::Offset<flatbuffers::Vector<CardOffset>>;

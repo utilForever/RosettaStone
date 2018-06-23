@@ -82,10 +82,9 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
     flatbuffers::FlatBufferBuilder& builder, Card* card);
 
 // Convert std::vector<TaskMeta> to FlatData::TaskMetaVector
-TaskMeta CreateTaskMetaVector(
-    const std::vector<TaskMeta>& vector,
-    TaskMeta::status_t status = TaskMeta::STATUS_INVALID,
-    BYTE userID = TaskMeta::USER_INVALID);
+TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
+                              MetaData status = MetaData::INVALID,
+                              BYTE userID = TaskMeta::USER_INVALID);
 
 // From BasicTask::RequireMethod
 TaskMeta CreateRequireTaskMeta(TaskID request, BYTE userID);
@@ -99,23 +98,22 @@ TaskMeta CreateRequireTargetingTaskMeta(int src, int dst);
 TaskMeta CreatePlayerSettingTaskMeta(const std::string& firstPlayerID,
                                      const std::string& secondPlayerID);
 // From BasicTask::RawDraw
-TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& draw, TaskMeta::status_t status,
+TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& draw, MetaData status,
                             BYTE userID);
 // From BasicTask::RawModifyMana
 TaskMeta CreateModifyManaTaskMeta(const ModifyManaTaskMeta& mana,
-                                  TaskMeta::status_t status, BYTE userID);
+                                  MetaData status, BYTE userID);
 // From BasicTask::RawModifyHealth
 TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta,
-                                    TaskMeta::status_t status, BYTE userID);
+                                    MetaData status, BYTE userID);
 // From BasicTask::RawBrief
-TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
-                             TaskMeta::status_t status, BYTE userID);
+TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta, MetaData status,
+                             BYTE userID);
 // From BasicTask::RawSummonMinion
-TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait,
-                                    Card* card, size_t position);
+TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, Card* card,
+                                    size_t position);
 // From BasicTask::RawCombat
-TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Card* src,
-                              Card* dst);
+TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Card* src, Card* dst);
 // From BasicTask::RawGameEnd
 TaskMeta CreateGameEndTaskMeta(const std::string& winner);
 }  // namespace Hearthstonepp::Serializer
