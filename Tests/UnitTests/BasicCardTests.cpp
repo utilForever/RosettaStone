@@ -28,7 +28,7 @@ TEST(BasicCard, EX1_066)
                   BasicTask::PlayCardTask(agent.GetPlayer1(), 0));
     EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, true);
 
-    //agent.Process(agent.GetPlayer2(),
-    //              BasicTask::PlayCardTask(agent.GetPlayer2(), 0, 0));
-    //EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, false);
+    agent.Process(agent.GetPlayer2(),
+                  BasicTask::PlayCardTask(agent.GetPlayer2(), 0, 0));
+    EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, false);
 }
