@@ -11,24 +11,24 @@
 namespace Hearthstonepp
 {
 TaskMetaTrait::TaskMetaTrait()
-    : id(TaskID::INVALID), status(STATUS_INVALID), userID(USER_INVALID)
+    : id(TaskID::INVALID), status(MetaData::INVALID), userID(USER_INVALID)
 {
     // Do Nothing
 }
 
 TaskMetaTrait::TaskMetaTrait(TaskID id)
-    : id(id), status(STATUS_INVALID), userID(USER_INVALID)
+    : id(id), status(MetaData::INVALID), userID(USER_INVALID)
 {
     // Do Nothing
 }
 
-TaskMetaTrait::TaskMetaTrait(TaskID id, status_t status)
+TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status)
     : id(id), status(status), userID(USER_INVALID)
 {
     // Do Nothing
 }
 
-TaskMetaTrait::TaskMetaTrait(TaskID id, status_t status, BYTE userID)
+TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status, BYTE userID)
     : id(id), status(status), userID(userID)
 {
     // Do Nothing
@@ -102,8 +102,10 @@ TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
     auto taskID = TaskID::_from_integral(trait->id());
     auto buffer = meta->buffer();
 
-    return TaskMeta(TaskMetaTrait(taskID, trait->status(), trait->userID()),
-                    buffer->size(), buffer->data());
+    return TaskMeta(
+        TaskMetaTrait(taskID, static_cast<MetaData>(trait->status()),
+                      trait->userID()),
+        buffer->size(), buffer->data());
 }
 
 void TaskMeta::reset()
