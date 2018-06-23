@@ -237,6 +237,9 @@ void GameInterface::HandleMulligan(const TaskMeta& serialized)
         case MetaData::MULLIGAN_DUPLICATED_INDEX:
             stream << "Mulligan Duplicated index exception\n";
             break;
+
+        default:
+            break;
     }
 }
 
@@ -354,6 +357,9 @@ void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
 
         case MetaData::SUMMON_POSITION_OUT_OF_RANGE:
             stream << "Position out of range of field\n";
+            break;
+
+        default:
             break;
     }
 }
@@ -508,9 +514,9 @@ void GameInterface::InputSelectMenu(const TaskMeta& meta)
         }
     }
 
-    TaskMeta result(TaskMetaTrait(TaskID::SELECT_CARD,
-                                  static_cast<TaskMeta::status_t>(input)),
-                    0, nullptr);
+    TaskMeta result(
+        TaskMetaTrait(TaskID::SELECT_CARD, static_cast<MetaData>(input)), 0,
+        nullptr);
     m_agent.WriteSyncBuffer(std::move(result));
 }
 
