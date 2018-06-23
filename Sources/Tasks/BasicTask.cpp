@@ -37,9 +37,8 @@ std::function<TaskMeta()> RequireMethod(TaskID request, BYTE userID,
 
 Task DoBothPlayer(Task&& task)
 {
-    auto role = [role = task.GetTaskRole()](Player & current, Player & opponent)
-                    ->TaskMeta
-    {
+    auto role = [role = task.GetTaskRole()](Player& current,
+                                            Player& opponent) -> TaskMeta {
         std::vector<TaskMeta> vector;
         // Current Player Action
         vector.emplace_back(role(current, opponent));
@@ -53,10 +52,8 @@ Task DoBothPlayer(Task&& task)
 
 Task DoUntil(Task&& task, std::function<bool(const TaskMeta&)>&& condition)
 {
-    auto role = [ role = task.GetTaskRole(), condition = condition ](
-                    Player & current, Player & opponent)
-                    ->TaskMeta
-    {
+    auto role = [role = task.GetTaskRole(), condition = condition](
+                    Player& current, Player& opponent) -> TaskMeta {
         TaskMeta meta;
         while (true)
         {
@@ -121,7 +118,7 @@ Task ShuffleTask()
 TaskMeta RawDraw(Player& user, size_t num)
 {
     Serializer::DrawTaskMeta meta;
-    TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
+    MetaData result = MetaData::DRAW_SUCCESS;
 
     std::vector<Card*>& deck = user.cardsPtrInDeck;
     std::vector<Card*>& hand = user.hand;
@@ -201,7 +198,7 @@ Task DrawTask(size_t num)
 TaskMeta RawDraw(Player& user, Card* card)
 {
     Serializer::DrawTaskMeta meta;
-    TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
+    MetaData result = MetaData::DRAW_SUCCESS;
 
     std::vector<Card*>& deck = user.cardsPtrInDeck;
     std::vector<Card*>& hand = user.hand;
@@ -334,7 +331,7 @@ TaskMeta RawBrief(const Player& current, const Player& opponent)
         opponent.field, current.attacked, opponent.attacked, current.hero,
         opponent.hero);
 
-    return Serializer::CreateBriefTaskMeta(meta, TaskID::BRIEF, current.id);
+    return Serializer::CreateBriefTaskMeta(meta, MetaData::BRIEF, current.id);
 }
 
 Task BriefTask()
@@ -524,7 +521,8 @@ TaskMeta PlayMinion(Player& player, Card* card, size_t position)
 
     // Summoned minion can't attack right turn
     player.attacked.emplace_back(card);
-    TaskMeta modified = RawModifyMana(player, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
+    TaskMeta modified =
+        RawModifyMana(player, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
 
     // summon minion at field
     player.field.insert(player.field.begin() + position, card);
