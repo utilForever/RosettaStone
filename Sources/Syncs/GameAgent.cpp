@@ -150,7 +150,7 @@ bool GameAgent::MainMenu()
                     m_opponent);
 
     // Interface pass menu by status of TaskMeta
-    TaskMeta::status_t menu = meta.status;
+    status_t menu = static_cast<status_t>(meta.status);
 
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
@@ -188,8 +188,9 @@ void GameAgent::MainUseCard()
             auto minion = flatbuffers::GetRoot<Require>(buffer.get());
             if (minion != nullptr)
             {
-                m_taskAgent.Run(BasicTask::PlayCardTask(m_current, minion->position()),
-                                meta, m_current, m_opponent);
+                m_taskAgent.Run(
+                    BasicTask::PlayCardTask(m_current, minion->position()),
+                    meta, m_current, m_opponent);
             }
         }
     }
