@@ -40,12 +40,13 @@ TaskMetaTrait::TaskMetaTrait(const TaskMetaTrait& trait)
     // Do Nothing
 }
 
-TaskMeta::TaskMeta() : TaskMetaTrait(), m_size(0)
+TaskMeta::TaskMeta() : TaskMetaTrait(), m_size(0), m_buffer(nullptr)
 {
     // Do Nothing
 }
 
-TaskMeta::TaskMeta(const TaskMetaTrait& trait) : TaskMetaTrait(trait), m_size(0)
+TaskMeta::TaskMeta(const TaskMetaTrait& trait)
+    : TaskMetaTrait(trait), m_size(0), m_buffer(nullptr)
 {
     // Do Nothing
 }
