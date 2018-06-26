@@ -92,6 +92,16 @@ void BasicCardsGen::AddWarriorNonCollect(std::map<std::string, Power> cards)
 
 void BasicCardsGen::AddNeutral(std::map<std::string, Power> cards)
 {
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
+    // - Fac: alliance, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy your opponent's weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    cards.emplace("EX1_066", Power());
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power> cards)
