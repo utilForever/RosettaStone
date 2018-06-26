@@ -29,13 +29,13 @@ size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
-    std::uniform_int_distribution<BYTE> data(0, 255);
+    std::uniform_int_distribution<int> data(0, 255);
 
     size_t size = data(gen);
     ptr = std::make_unique<BYTE[]>(size);
     for (size_t i = 0; i < size; ++i)
     {
-        ptr[i] = data(gen);
+        ptr[i] = static_cast<BYTE>(data(gen));
     }
 
     return size;
