@@ -63,10 +63,10 @@ namespace Hearthstonepp
 		Cards* cards = Cards::GetInstance();
 
 		std::vector<const Card*> deck;
-		for (const auto& pair : m_cards)
+		for (const auto&[id, num] : m_cards)
 		{
-			const Card* card = cards->FindCardByID(pair.first);
-			for (int i = 0; i < pair.second; ++i)
+			const Card* card = cards->FindCardByID(id);
+			for (int i = 0; i < num; ++i)
 			{
 				deck.push_back(card);
 			}	
