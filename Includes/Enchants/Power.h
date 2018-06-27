@@ -9,11 +9,13 @@
 #ifndef HEARTHSTONEPP_POWER_H
 #define HEARTHSTONEPP_POWER_H
 
+#include <Tasks/Tasks.h>
+
 namespace Hearthstonepp
 {
 struct Power
 {
-    void AddPowerTask();
+    Task powerTask;
 };
 }
 
