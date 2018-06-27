@@ -9,17 +9,16 @@ using namespace Hearthstonepp;
 
 TEST(Tasks, Constructors)
 {
-    // Empty Constructor
-    Task empty;
-    EXPECT_EQ(empty.GetTaskID(), +TaskID::INVALID);
-
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-	int taskSize = static_cast<int>(TaskID::_size() - 1);
-    std::uniform_int_distribution<int> dis(0, taskSize);
-    TaskID rand = TaskID::_from_integral(dis(gen));
+	int taskSize = static_cast<int>(TaskID::_size());
+    TaskID rand = TaskID::_from_integral(gen() % taskSize);
     Task::lambda_t lambda = BasicTask::RawPlayerSetting;
+
+    // Empty Constructor
+    Task empty;
+    EXPECT_EQ(empty.GetTaskID(), +TaskID::INVALID);
 
     // Default Constructor
     Task task(rand, lambda);
@@ -33,7 +32,7 @@ TEST(Tasks, Constructors)
     Task moved(std::move(task));
     EXPECT_EQ(moved.GetTaskID(), rand);
 
-    rand = TaskID::_from_integral(dis(gen));
+    rand = TaskID::_from_integral(gen() % taskSize);
     lambda = BasicTask::RawPlayerSetting;
 
     Task task2(rand, lambda);
