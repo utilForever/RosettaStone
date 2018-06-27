@@ -1,19 +1,10 @@
-#include "Generator.h"
+#include "TestUtils.h"
 #include "gtest/gtest.h"
 
 using namespace Hearthstonepp;
 
 namespace TestUtils
 {
-    void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
-                           const std::unique_ptr<BYTE[]>& buffer2, size_t size)
-    {
-        for (size_t i = 0; i < size; ++i)
-        {
-            EXPECT_EQ(buffer1[i], buffer2[i]);
-        }
-    }
-
     size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr)
     {
         std::random_device rd;
@@ -55,5 +46,14 @@ namespace TestUtils
 
         TaskMeta randomTaskMeta(trait, size, std::move(ptr));
         return randomTaskMeta;
+    }
+
+	void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
+                           const std::unique_ptr<BYTE[]>& buffer2, size_t size)
+    {
+        for (size_t i = 0; i < size; ++i)
+        {
+            EXPECT_EQ(buffer1[i], buffer2[i]);
+        }
     }
 }
