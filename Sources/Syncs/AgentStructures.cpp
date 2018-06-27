@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp
 {
-Player::Player(Account* account, Deck* deck)
+Player::Player(const Account* account, const Deck* deck)
     : totalMana(0),
       existMana(0),
       exhausted(0),
@@ -25,19 +25,30 @@ Player::Player(Account* account, Deck* deck)
     const Card* heroCard = cards->GetHeroCard(cardclass);
     const Card* powerCard = cards->GetDefaultHeroPower(cardclass);
 
-    cardsInDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
-    for (auto& ptrCard : deck->GetPrimitiveDeck())
+    cardsInDeck.reserve(sizeof(Card) * MAXIMUM_NUM_CARDS_IN_DECK * 2);
+	for (auto ptrCard : deck->GetPrimitiveDeck())
     {
         // Deep copy of card data
-        cardsInDeck.emplace_back(Card(*ptrCard));
-        cardsPtrInDeck.emplace_back(&cardsInDeck.back());
+        cardsInDeck.emplace_back(*ptrCard);
     }
 
-    cardsInDeck.emplace_back(Hero(*reinterpret_cast<const Hero*>(heroCard)));
-    hero = reinterpret_cast<Hero*>(&cardsInDeck.back());
+	for (auto& card : cardsInDeck)
+	{
+        cardsPtrInDeck.emplace_back(&card);
+	}
 
-    cardsInDeck.emplace_back(
-        HeroPower(*reinterpret_cast<const HeroPower*>(powerCard)));
-    power = reinterpret_cast<HeroPower*>(&cardsInDeck.back());
+	if (heroCard != nullptr)
+	{
+        cardsInDeck.emplace_back(*heroCard);
+        Card* back = &cardsInDeck.back();
+        hero = reinterpret_cast<Hero*>(back);
+	}
+
+	if (powerCard != nullptr)
+	{
+        cardsInDeck.emplace_back(*powerCard);
+        Card* back = &cardsInDeck.back();
+        power = reinterpret_cast<HeroPower*>(back);
+	}
 }
 }  // namespace Hearthstonepp

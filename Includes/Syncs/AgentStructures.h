@@ -21,7 +21,7 @@ using BYTE = unsigned char;
 
 struct Player
 {
-    Player(Account* account, Deck* deck);
+    Player(const Account* account, const Deck* deck);
 
     BYTE id;
     BYTE totalMana;
