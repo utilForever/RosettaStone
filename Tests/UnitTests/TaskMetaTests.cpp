@@ -1,3 +1,4 @@
+#include "Generator.h"
 #include "gtest/gtest.h"
 
 #include <Tasks/TaskMeta.h>
@@ -5,62 +6,31 @@
 
 #include <Flatbuffers/generated/MetaData_generated.h>
 
-#include <random>
-
 using namespace Hearthstonepp;
-
-void EmptyTraitTest(const TaskMeta& meta)
-{
-    EXPECT_EQ(meta.id, +TaskID::INVALID);
-    EXPECT_EQ(meta.status, MetaData::INVALID);
-    EXPECT_EQ(meta.userID, TaskMetaTrait::USER_INVALID);
-}
-
-void BufferEqualityTest(const std::unique_ptr<BYTE[]>& buffer1,
-                        const std::unique_ptr<BYTE[]>& buffer2, size_t size)
-{
-    for (size_t i = 0; i < size; ++i)
-    {
-        EXPECT_EQ(buffer1[i], buffer2[i]);
-    }
-}
-
-size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr)
-{
-    std::random_device rd;
-    std::default_random_engine gen(rd());
-    std::uniform_int_distribution<int> data(0, 255);
-
-    size_t size = data(gen);
-    ptr = std::make_unique<BYTE[]>(size);
-    for (size_t i = 0; i < size; ++i)
-    {
-        ptr[i] = static_cast<BYTE>(data(gen));
-    }
-
-    return size;
-}
 
 TEST(TaskMeta, TraitConstructors)
 {
+    std::random_device rd;
+    std::default_random_engine gen(rd());
+
+    int sizeTaskID = static_cast<int>(TaskID::_size());
+    int sizeMetaData = static_cast<int>(MetaData::GAME_END);
+
+    TaskID randID = TaskID::_from_integral(gen() % sizeTaskID);
+    MetaData randMeta = static_cast<MetaData>(gen() % sizeMetaData);
+    BYTE randUser = gen() % 2;
+
     // Empty Trait Test
     TaskMetaTrait empty;
     EXPECT_EQ(empty.id, +TaskID::INVALID);
     EXPECT_EQ(empty.status, MetaData::INVALID);
     EXPECT_EQ(empty.userID, TaskMetaTrait::USER_INVALID);
 
-    std::random_device rd;
-    std::default_random_engine gen(rd());
-
     // TaskID Constructor
-    TaskID randID = TaskID::_from_integral(gen() % TaskID::_size());
     TaskMetaTrait traitID(randID);
     EXPECT_EQ(traitID.id, randID);
     EXPECT_EQ(traitID.status, MetaData::INVALID);
     EXPECT_EQ(traitID.userID, TaskMetaTrait::USER_INVALID);
-
-    int metaSize = static_cast<int>(MetaData::GAME_END);
-    MetaData randMeta = static_cast<MetaData>(gen() % metaSize);
 
     // TaskID, Status Constructor
     TaskMetaTrait traitMeta(randID, randMeta);
@@ -69,7 +39,6 @@ TEST(TaskMeta, TraitConstructors)
     EXPECT_EQ(traitMeta.userID, TaskMetaTrait::USER_INVALID);
 
     // TaskID, Status, User Constructor
-    BYTE randUser = gen() % 2;
     TaskMetaTrait traitUser(randID, randMeta, randUser);
     EXPECT_EQ(traitUser.id, randID);
     EXPECT_EQ(traitUser.status, randMeta);
@@ -84,87 +53,89 @@ TEST(TaskMeta, TraitConstructors)
 
 TEST(TaskMeta, Constructors)
 {
-    size_t zero = 0;
+    constexpr size_t zero = 0;
+    std::unique_ptr<BYTE[]> buffer;
+    size_t size = TestUtils::GenerateRandomBuffer(buffer);
+    TaskMetaTrait trait = TestUtils::GenerateRandomTrait();
 
     // Empty Constructor
     TaskMeta meta;
-    EmptyTraitTest(meta);
+    EXPECT_EQ(meta.id, +TaskID::INVALID);
+    EXPECT_EQ(meta.status, MetaData::INVALID);
+    EXPECT_EQ(meta.userID, TaskMeta::USER_INVALID);
     EXPECT_EQ(meta.GetBufferSize(), zero);
     EXPECT_EQ(meta.GetConstBuffer().get(), nullptr);
 
-    std::unique_ptr<BYTE[]> buffer;
-    size_t size = GenerateRandomBuffer(buffer);
-
     // Default Constructor
-    TaskMeta task(TaskMetaTrait(), size, buffer.get());
+    TaskMeta task(trait, size, buffer.get());
+    EXPECT_EQ(trait, task);
     EXPECT_EQ(task.GetBufferSize(), size);
-    EmptyTraitTest(task);
-    BufferEqualityTest(task.GetConstBuffer(), buffer, size);
+    TestUtils::ExpectBufferEqual(task.GetConstBuffer(), buffer, size);
 
     // Move Constructor
-    TaskMeta moved(TaskMetaTrait(), size, std::move(buffer));
+    TaskMeta moved(trait, size, std::move(buffer));
+    EXPECT_EQ(trait, moved);
     EXPECT_EQ(moved.GetBufferSize(), size);
-    EmptyTraitTest(moved);
-    BufferEqualityTest(moved.GetConstBuffer(), task.GetConstBuffer(), size);
+    TestUtils::ExpectBufferEqual(moved.GetConstBuffer(), task.GetConstBuffer(),
+                                 size);
 
     // Move Assignment
     meta = std::move(moved);
+    EXPECT_EQ(trait, meta);
     EXPECT_EQ(meta.GetBufferSize(), size);
-    EmptyTraitTest(meta);
-    BufferEqualityTest(meta.GetConstBuffer(), task.GetConstBuffer(), size);
+    TestUtils::ExpectBufferEqual(meta.GetConstBuffer(), task.GetConstBuffer(),
+                                 size);
 }
 
 TEST(TaskMeta, UniquePtr)
 {
+    constexpr size_t zero = 0;
     std::unique_ptr<BYTE[]> buffer;
-    size_t size = GenerateRandomBuffer(buffer);
-    TaskMeta meta(TaskMetaTrait(), size, buffer.get());
+    size_t size = TestUtils::GenerateRandomBuffer(buffer);
+
+    TaskMetaTrait trait = TestUtils::GenerateRandomTrait();
+    TaskMeta meta(trait, size, buffer.get());
 
     // MoveBuffer
     std::unique_ptr<BYTE[]> moved = meta.MoveBuffer();
+    EXPECT_EQ(meta.GetBufferSize(), zero);
     EXPECT_EQ(meta.GetConstBuffer().get(), nullptr);
-    BufferEqualityTest(buffer, moved, size);
+    TestUtils::ExpectBufferEqual(buffer, moved, size);
 
     // reset
-    meta = TaskMeta(TaskMetaTrait(), size, buffer.get());
+    meta = TaskMeta(trait, size, buffer.get());
     meta.reset();
+    EXPECT_EQ(meta.GetBufferSize(), zero);
     EXPECT_EQ(meta.GetConstBuffer().get(), nullptr);
 }
 
 TEST(TaskMeta, CopyFrom)
 {
-    std::unique_ptr<BYTE[]> buffer;
-    size_t size = GenerateRandomBuffer(buffer);
-    TaskMeta meta(TaskMetaTrait(), size, buffer.get());
-
     // CopyFrom
+    TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
     TaskMeta copied = TaskMeta::CopyFrom(meta);
-    EXPECT_EQ(meta.id, copied.id);
-    EXPECT_EQ(meta.status, copied.status);
-    EXPECT_EQ(meta.userID, copied.userID);
-    EXPECT_EQ(meta.GetBufferSize(), copied.GetBufferSize());
-    BufferEqualityTest(meta.GetConstBuffer(), copied.GetConstBuffer(), size);
+    EXPECT_EQ(meta, copied);
 }
 
 TEST(TaskMeta, ConvertFrom)
 {
-    std::unique_ptr<BYTE[]> buffer;
-    size_t size = GenerateRandomBuffer(buffer);
+    TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
+    const auto& buffer = meta.GetConstBuffer();
+    size_t size = meta.GetBufferSize();
 
     flatbuffers::FlatBufferBuilder builder(512);
-    auto trait = FlatData::TaskMetaTrait(static_cast<int>(TaskID::INVALID),
-                                         static_cast<status_t>(MetaData::INVALID),
-                                         TaskMeta::USER_INVALID);
+    auto trait = FlatData::TaskMetaTrait(static_cast<int>(meta.id),
+                                         static_cast<status_t>(meta.status),
+                                         meta.userID);
 
     auto data = builder.CreateVector(buffer.get(), size);
     auto serialized = FlatData::CreateTaskMeta(builder, &trait, data);
     builder.Finish(serialized);
 
-    auto deserialized = flatbuffers::GetRoot<FlatData::TaskMeta>(builder.GetBufferPointer());
+    auto deserialized =
+        flatbuffers::GetRoot<FlatData::TaskMeta>(builder.GetBufferPointer());
 
     // ConvertFrom
-    TaskMeta meta = TaskMeta::ConvertFrom(deserialized);
-    EmptyTraitTest(meta);
-    EXPECT_EQ(size, meta.GetBufferSize());
-    BufferEqualityTest(meta.GetConstBuffer(), buffer, size);
+    TaskMeta converted = TaskMeta::ConvertFrom(deserialized);
+    EXPECT_EQ(meta, converted);
 }
