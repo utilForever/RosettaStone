@@ -37,9 +37,9 @@ struct TaskMetaTrait
     TaskMetaTrait(TaskID id, MetaData status, BYTE userID);
 
     TaskMetaTrait(const TaskMetaTrait& trait);
+    TaskMetaTrait& operator=(const TaskMetaTrait&);
 
-    TaskMetaTrait& operator=(TaskMetaTrait&&) = delete;
-    TaskMetaTrait& operator=(const TaskMetaTrait&) = delete;
+    bool operator==(const TaskMetaTrait& trait) const;
 };
 
 // Meta data of run Task.
@@ -60,6 +60,8 @@ class TaskMeta : public TaskMetaTrait
 
     TaskMeta& operator=(TaskMeta&& meta);
     TaskMeta& operator=(const TaskMeta&) = delete;
+
+    bool operator==(const TaskMeta& meta) const;
 
     // Deep copy of TaskMeta
     static TaskMeta CopyFrom(const TaskMeta& meta);

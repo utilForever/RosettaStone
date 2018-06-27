@@ -40,6 +40,20 @@ TaskMetaTrait::TaskMetaTrait(const TaskMetaTrait& trait)
     // Do Nothing
 }
 
+TaskMetaTrait& TaskMetaTrait::operator=(const TaskMetaTrait& trait)
+{
+    id = trait.id;
+    status = trait.status;
+    userID = trait.userID;
+
+    return *this;
+}
+
+bool TaskMetaTrait::operator==(const TaskMetaTrait& trait) const
+{
+    return id == trait.id && status == trait.status && userID == trait.userID;
+}
+
 TaskMeta::TaskMeta() : TaskMetaTrait(), m_size(0), m_buffer(nullptr)
 {
     // Do Nothing
@@ -80,14 +94,33 @@ TaskMeta::TaskMeta(TaskMeta&& meta) noexcept
 
 TaskMeta& TaskMeta::operator=(TaskMeta&& meta)
 {
-    id = meta.id;
-    status = meta.status;
-    userID = meta.userID;
+    TaskMetaTrait::operator=(meta);
 
     m_size = meta.GetBufferSize();
     m_buffer = meta.MoveBuffer();
 
     return *this;
+}
+
+bool TaskMeta::operator==(const TaskMeta& meta) const
+{
+    if (TaskMetaTrait::operator==(meta) && m_size == meta.GetBufferSize())
+    {
+        const auto& buffer = meta.GetConstBuffer();
+        for (size_t i = 0; i < m_size; ++i)
+        {
+            if (m_buffer[i] != buffer[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
@@ -122,6 +155,7 @@ size_t TaskMeta::GetBufferSize() const
 
 std::unique_ptr<BYTE[]>&& TaskMeta::MoveBuffer()
 {
+    m_size = 0;
     return std::move(m_buffer);
 }
 
