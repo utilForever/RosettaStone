@@ -80,6 +80,59 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         builder.CreateVector(mechanics), 0, 0, card->GetMaxAllowedInDeck());
 }
 
+std::unique_ptr<Card> ConvertCardFrom(const FlatData::Card* card)
+{ 
+	std::unique_ptr<Card> ptrCard;
+	if (card->attack() != 0 || card->health() != 0)
+	{
+        auto character = std::make_unique<Character>();
+        character->attack = static_cast<size_t>(card->attack());
+        character->health = static_cast<size_t>(card->health());
+
+        ptrCard = std::move(character);
+	}
+	else if (card->durability() != 0)
+	{
+        auto weapon = std::make_unique<Weapon>();
+        weapon->durability = static_cast<size_t>(card->durability());
+
+		ptrCard = std::move(weapon);
+	}
+	else
+	{
+        ptrCard = std::make_unique<Card>();
+	}
+
+	Card& newCard = *ptrCard;
+	newCard.id = card->id()->str();
+
+    newCard.rarity = Rarity::_from_integral(card->rarity());
+    newCard.faction = Faction::_from_integral(card->faction());
+    newCard.cardSet = CardSet::_from_integral(card->cardSet());
+    newCard.cardClass = CardClass::_from_integral(card->cardClass());
+    newCard.cardType = CardType::_from_integral(card->cardType());
+    newCard.race = Race::_from_integral(card->race());
+
+    newCard.name = card->name()->str();
+    newCard.text = card->text()->str();
+
+	newCard.isCollectible = card->collectible();
+    newCard.cost = static_cast<size_t>(card->cost());
+
+	auto mechanics = card->mechanics();
+    newCard.mechanics.reserve(mechanics->size());
+
+	for (auto m : *mechanics)
+	{
+        GameTag tag = GameTag::_from_integral(m);
+        newCard.mechanics.emplace_back(tag);
+	}
+
+	newCard.maxAllowedInDeck = card->maxAllowedInDeck();
+
+	return ptrCard;
+}
+
 TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
                               MetaData status, BYTE userID)
 {

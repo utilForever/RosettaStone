@@ -81,10 +81,13 @@ struct BriefTaskMeta
 flatbuffers::Offset<FlatData::Card> CreateCard(
     flatbuffers::FlatBufferBuilder& builder, Card* card);
 
-// Convert std::vector<TaskMeta> to FlatData::TaskMetaVector
-TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
-                              MetaData status = MetaData::INVALID,
-                              BYTE userID = TaskMeta::USER_INVALID);
+// Convert FlatData::Card to Card
+std::unique_ptr<Card> ConvertCardFrom(const FlatData::Card* card);
+
+    // Convert std::vector<TaskMeta> to FlatData::TaskMetaVector
+    TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
+                                  MetaData status = MetaData::INVALID,
+                                  BYTE userID = TaskMeta::USER_INVALID);
 
 // From BasicTask::RequireMethod
 TaskMeta CreateRequireTaskMeta(TaskID request, BYTE userID);
