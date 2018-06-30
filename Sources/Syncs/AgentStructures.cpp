@@ -41,14 +41,14 @@ Player::Player(const Account* account, const Deck* deck)
 	{
         cardsInDeck.emplace_back(*heroCard);
         Card* back = &cardsInDeck.back();
-        hero = reinterpret_cast<Hero*>(back);
+        hero = dynamic_cast<Hero*>(back);
 	}
 
 	if (powerCard != nullptr)
 	{
         cardsInDeck.emplace_back(*powerCard);
         Card* back = &cardsInDeck.back();
-        power = reinterpret_cast<HeroPower*>(back);
+        power = dynamic_cast<HeroPower*>(back);
 	}
 }
 }  // namespace Hearthstonepp
