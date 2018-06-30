@@ -1,6 +1,8 @@
 #include "TestUtils.h"
 #include "gtest/gtest.h"
 
+#include <Cards/Cards.h>
+
 using namespace Hearthstonepp;
 
 namespace TestUtils
@@ -56,4 +58,23 @@ namespace TestUtils
             EXPECT_EQ(buffer1[i], buffer2[i]);
         }
     }
+
+
+
+	void ExpectCardEqual(const Card* card1, const Card* card2)
+	{
+        bool equal = card1->id == card2->id && card1->rarity == card2->rarity &&
+					 card1->faction == card2->faction &&
+                     card1->cardSet == card2->cardSet &&
+                     card1->cardClass == card2->cardClass &&
+                     card1->cardType == card2->cardType &&
+                     card1->race == card2->race && card1->name == card2->name &&
+                     card1->text == card2->text &&
+                     card1->isCollectible == card2->isCollectible &&
+                     card1->cost == card2->cost &&
+                     card1->mechanics == card2->mechanics &&
+                     card1->maxAllowedInDeck == card2->maxAllowedInDeck; 
+
+		EXPECT_EQ(equal, true);
+	}
 }
