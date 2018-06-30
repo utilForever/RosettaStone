@@ -2,6 +2,8 @@
 #include "gtest/gtest.h"
 
 #include <Cards/Cards.h>
+#include <Cards/Character.h>
+#include <Cards/Weapon.h>
 
 using namespace Hearthstonepp;
 
@@ -61,16 +63,39 @@ void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
 
 void ExpectCardEqual(const Card* card1, const Card* card2)
 {
-    bool equal =
-        card1->id == card2->id && card1->rarity == card2->rarity &&
-        card1->faction == card2->faction && card1->cardSet == card2->cardSet &&
-        card1->cardClass == card2->cardClass &&
-        card1->cardType == card2->cardType && card1->race == card2->race &&
-        card1->name == card2->name && card1->text == card2->text &&
-        card1->isCollectible == card2->isCollectible &&
-        card1->cost == card2->cost && card1->mechanics == card2->mechanics &&
-        card1->maxAllowedInDeck == card2->maxAllowedInDeck;
+    EXPECT_EQ(card1->id, card2->id);
+    EXPECT_EQ(card1->rarity, card2->rarity);
+    EXPECT_EQ(card1->faction, card2->faction);
+    EXPECT_EQ(card1->cardSet, card2->cardSet);
+    EXPECT_EQ(card1->cardClass, card2->cardClass);
+    EXPECT_EQ(card1->cardType, card2->cardType);
+    EXPECT_EQ(card1->race, card2->race);
+    EXPECT_EQ(card1->name, card2->name);
+    EXPECT_EQ(card1->text, card2->text);
+    EXPECT_EQ(card1->isCollectible, card2->isCollectible);
+    EXPECT_EQ(card1->cost, card2->cost);
+    EXPECT_EQ(card1->mechanics, card2->mechanics);
+    EXPECT_EQ(card1->maxAllowedInDeck, card2->maxAllowedInDeck);
 
-    EXPECT_EQ(equal, true);
+    auto character1 = dynamic_cast<const Character*>(card1);
+    auto character2 = dynamic_cast<const Character*>(card2);
+    if (character1 != nullptr || character2 != nullptr)
+    {
+        EXPECT_NE(character1, nullptr);
+        EXPECT_NE(character2, nullptr);
+
+        EXPECT_EQ(character1->attack, character2->attack);
+        EXPECT_EQ(character1->health, character2->health);
+    }
+
+    auto weapon1 = dynamic_cast<const Weapon*>(card1);
+    auto weapon2 = dynamic_cast<const Weapon*>(card2);
+    if (weapon1 != nullptr || weapon2 != nullptr)
+    {
+        EXPECT_NE(weapon1, nullptr);
+        EXPECT_NE(weapon2, nullptr);
+
+        EXPECT_EQ(weapon1->durability, weapon2->durability);
+    }
 }
 }  // namespace TestUtils
