@@ -92,7 +92,7 @@ TEST(TaskAgent, RunSingleTask)
     TaskAgent agent;
 
     TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
-    Task task(TaskID::INVALID, [=, &meta](Player& p1, Player& p2) -> TaskMeta {
+    Task task(TaskID::INVALID, [&meta](Player& p1, Player& p2) -> TaskMeta {
         p1.id = 100;
         p2.id = 200;
 
@@ -191,7 +191,7 @@ TEST(TaskAgent, RunMultiTask)
 
 		return ret;
 	});
-	
+
 	agent.Read(read);
     metaEqual(read, metas, 0, 3);
 
