@@ -222,6 +222,7 @@ TEST(TaskAgent, Clear)
     auto taskVector =
         flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
 
+    size_t zero = 0;
     size_t size = taskVector->vector()->Length();
-    EXPECT_EQ(size, 0);
+    EXPECT_EQ(size, zero);
 }
