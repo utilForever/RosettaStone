@@ -71,10 +71,10 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
 
     return FlatData::CreateCard(
         builder, builder.CreateString(card->id), static_cast<int>(card->rarity),
-        static_cast<int>(Faction::INVALID), static_cast<int>(CardSet::INVALID),
+        static_cast<int>(card->faction), static_cast<int>(card->cardSet),
         static_cast<int>(card->cardClass), static_cast<int>(card->cardType),
         static_cast<int>(card->race), builder.CreateString(card->name),
-        builder.CreateString(""), card->isCollectible,
+        builder.CreateString(card->text), card->isCollectible,
         static_cast<int>(card->cost), static_cast<uint32_t>(attack),
         static_cast<uint32_t>(health), static_cast<uint32_t>(durability),
         builder.CreateVector(mechanics), 0, 0, card->GetMaxAllowedInDeck());
@@ -120,6 +120,7 @@ std::unique_ptr<Card> ConvertCardFrom(const FlatData::Card* card)
     newCard.cost = static_cast<size_t>(card->cost());
 
     auto mechanics = card->mechanics();
+    newCard.mechanics.clear();
     newCard.mechanics.reserve(mechanics->size());
 
     for (auto m : *mechanics)
