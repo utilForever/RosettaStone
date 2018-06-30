@@ -26,29 +26,29 @@ Player::Player(const Account* account, const Deck* deck)
     const Card* powerCard = cards->GetDefaultHeroPower(cardclass);
 
     cardsInDeck.reserve(sizeof(Card) * MAXIMUM_NUM_CARDS_IN_DECK * 2);
-	for (auto ptrCard : deck->GetPrimitiveDeck())
+    for (auto ptrCard : deck->GetPrimitiveDeck())
     {
         // Deep copy of card data
         cardsInDeck.emplace_back(*ptrCard);
     }
 
-	for (auto& card : cardsInDeck)
-	{
+    for (auto& card : cardsInDeck)
+    {
         cardsPtrInDeck.emplace_back(&card);
-	}
+    }
 
-	if (heroCard != nullptr)
-	{
+    if (heroCard != nullptr)
+    {
         cardsInDeck.emplace_back(*heroCard);
         Card* back = &cardsInDeck.back();
         hero = dynamic_cast<Hero*>(back);
-	}
+    }
 
-	if (powerCard != nullptr)
-	{
+    if (powerCard != nullptr)
+    {
         cardsInDeck.emplace_back(*powerCard);
         Card* back = &cardsInDeck.back();
         power = dynamic_cast<HeroPower*>(back);
-	}
+    }
 }
 }  // namespace Hearthstonepp

@@ -17,8 +17,8 @@ TEST(TaskAgent, NotifyAndRead)
     TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
     TaskMeta copied = TaskMeta::CopyFrom(meta);
 
-	agent.Notify(std::move(meta));
-	
+    agent.Notify(std::move(meta));
+
     TaskMeta read;
     agent.Read(read);
 
@@ -32,7 +32,7 @@ TEST(TaskAgent, NotifyAndReadSide)
     TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
     TaskMeta copied = TaskMeta::CopyFrom(meta);
 
-	agent.Notify(std::move(meta), true);
+    agent.Notify(std::move(meta), true);
 
     TaskMeta read;
     agent.Read(read, true);
@@ -135,7 +135,7 @@ TEST(TaskAgent, RunMultiTask)
         };
     };
 
-	auto metaEqual = [](const TaskMeta& meta, const auto& metas, size_t init,
+    auto metaEqual = [](const TaskMeta& meta, const auto& metas, size_t init,
                         size_t size) {
         const auto& buffer = meta.GetConstBuffer();
         auto taskTuple =
@@ -183,22 +183,22 @@ TEST(TaskAgent, RunMultiTask)
     BYTE lastUserID = 4;
     EXPECT_EQ(player1.id, lastUserID);
 
-	// with TaskID::Brief
+    // with TaskID::Brief
     tasks[2] = Task(TaskID::BRIEF, generate(2, metas[2]));
     std::future<TaskMeta> res = std::async(std::launch::async, [&] {
         TaskMeta ret;
-		agent.Run(tasks, ret, player1, player2); 
+        agent.Run(tasks, ret, player1, player2);
 
-		return ret;
-	});
+        return ret;
+    });
 
-	agent.Read(read);
+    agent.Read(read);
     metaEqual(read, metas, 0, 3);
 
-	agent.Read(read);
+    agent.Read(read);
     metaEqual(read, metas, 3, 2);
 
-	res.wait();
+    res.wait();
     metaEqual(res.get(), metas, 0, 5);
 }
 
@@ -206,23 +206,22 @@ TEST(TaskAgent, Clear)
 {
     Task task(TaskID::INVALID, [](Player&, Player&) { return TaskMeta(); });
 
-	TaskAgent agent;
+    TaskAgent agent;
     agent.Add(task);
-	agent.Clear();
+    agent.Clear();
 
-	Deck deck;
+    Deck deck;
     Account account;
     Player player1(&account, &deck);
     Player player2(&account, &deck);
 
-	TaskMeta meta;
+    TaskMeta meta;
     agent.Run(meta, player1, player2);
 
-	const auto& buffer = meta.GetConstBuffer();
+    const auto& buffer = meta.GetConstBuffer();
     auto taskVector =
         flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
 
-	size_t size = taskVector->vector()->Length();
-	EXPECT_EQ(size, 0);
+    size_t size = taskVector->vector()->Length();
+    EXPECT_EQ(size, 0);
 }
-

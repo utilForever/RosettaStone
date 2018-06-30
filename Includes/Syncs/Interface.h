@@ -30,8 +30,7 @@ struct GameResult
 class GameInterface
 {
  public:
-    GameInterface(GameAgent& agent,
-                  std::ostream& output = std::cout,
+    GameInterface(GameAgent& agent, std::ostream& output = std::cout,
                   std::istream& input = std::cin);
 
     GameResult StartGame();
@@ -116,12 +115,8 @@ class GameInterface
             {TaskID::SELECT_TARGET, &GameInterface::InputTargeting},
     };
 
-    std::array<std::string, GAME_MAIN_MENU_SIZE>
-            m_mainMenuStr = {
-                "1. Use Card",
-                "2. Combat",
-                "3. Stop"
-    };
+    std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr = {
+        "1. Use Card", "2. Combat", "3. Stop"};
 };
 }  // namespace Hearthstonepp
 

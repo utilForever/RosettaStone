@@ -81,30 +81,30 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
 }
 
 std::unique_ptr<Card> ConvertCardFrom(const FlatData::Card* card)
-{ 
-	std::unique_ptr<Card> ptrCard;
-	if (card->attack() != 0 || card->health() != 0)
-	{
+{
+    std::unique_ptr<Card> ptrCard;
+    if (card->attack() != 0 || card->health() != 0)
+    {
         auto character = std::make_unique<Character>();
         character->attack = static_cast<size_t>(card->attack());
         character->health = static_cast<size_t>(card->health());
 
         ptrCard = std::move(character);
-	}
-	else if (card->durability() != 0)
-	{
+    }
+    else if (card->durability() != 0)
+    {
         auto weapon = std::make_unique<Weapon>();
         weapon->durability = static_cast<size_t>(card->durability());
 
-		ptrCard = std::move(weapon);
-	}
-	else
-	{
+        ptrCard = std::move(weapon);
+    }
+    else
+    {
         ptrCard = std::make_unique<Card>();
-	}
+    }
 
-	Card& newCard = *ptrCard;
-	newCard.id = card->id()->str();
+    Card& newCard = *ptrCard;
+    newCard.id = card->id()->str();
 
     newCard.rarity = Rarity::_from_integral(card->rarity());
     newCard.faction = Faction::_from_integral(card->faction());
@@ -116,21 +116,21 @@ std::unique_ptr<Card> ConvertCardFrom(const FlatData::Card* card)
     newCard.name = card->name()->str();
     newCard.text = card->text()->str();
 
-	newCard.isCollectible = card->collectible();
+    newCard.isCollectible = card->collectible();
     newCard.cost = static_cast<size_t>(card->cost());
 
-	auto mechanics = card->mechanics();
+    auto mechanics = card->mechanics();
     newCard.mechanics.reserve(mechanics->size());
 
-	for (auto m : *mechanics)
-	{
+    for (auto m : *mechanics)
+    {
         GameTag tag = GameTag::_from_integral(m);
         newCard.mechanics.emplace_back(tag);
-	}
+    }
 
-	newCard.maxAllowedInDeck = card->maxAllowedInDeck();
+    newCard.maxAllowedInDeck = card->maxAllowedInDeck();
 
-	return ptrCard;
+    return ptrCard;
 }
 
 TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,

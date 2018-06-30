@@ -25,7 +25,8 @@ class GameAgent
  public:
     // Constant expression of Player type checking
     template <typename T>
-    static constexpr inline bool isPlayer = std::is_same_v<std::decay_t<T>, Player>;
+    static constexpr inline bool isPlayer =
+        std::is_same_v<std::decay_t<T>, Player>;
 
     template <typename PlayerT, typename = std::enable_if_t<isPlayer<PlayerT>>>
     GameAgent(PlayerT&& user1, PlayerT&& user2)

@@ -12,7 +12,7 @@ TEST(Tasks, Constructors)
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-	int taskSize = static_cast<int>(TaskID::_size());
+    int taskSize = static_cast<int>(TaskID::_size());
     TaskID rand = TaskID::_from_integral(gen() % taskSize);
     Task::lambda_t lambda = BasicTask::RawPlayerSetting;
 

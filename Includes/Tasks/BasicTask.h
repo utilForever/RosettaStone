@@ -26,7 +26,8 @@ constexpr size_t MANA_EXIST = 1;
 
 // Write RequireTaskMeta to main channel of `agent`
 // and wait for receiving meta data from side channel.
-std::function<TaskMeta()> RequireMethod(TaskID request, BYTE playerID, TaskAgent& agent);
+std::function<TaskMeta()> RequireMethod(TaskID request, BYTE playerID,
+                                        TaskAgent& agent);
 
 // Call task both current player and opponent player
 Task DoBothPlayer(Task&& task);
@@ -89,14 +90,15 @@ Task SelectTargetTask(TaskAgent& agent);
 TaskMeta RawMulligan(Player& current, std::function<TaskMeta()>&& meta);
 Task MulliganTask(TaskAgent& agent);
 
-//Return SummonMinionTaskMeta, Summon `player`.hand[`cardIndex`] at `position`
+// Return SummonMinionTaskMeta, Summon `player`.hand[`cardIndex`] at `position`
 TaskMeta PlayCard(Player& player, size_t cardIndex, size_t position);
 Task PlayCardTask(Player& player, size_t cardIndex, int position = -1);
 
 TaskMeta PlayMinion(Player& player, Card* card, size_t position);
 TaskMeta PlayWeapon(Player& player, Card* card);
 
-// Return CombatTaskMeta, Combat `current`.field[`src`] with `opponent`.field[`dst`]
+// Return CombatTaskMeta, Combat `current`.field[`src`] with
+// `opponent`.field[`dst`]
 TaskMeta RawCombat(Player& curent, Player& opponent, size_t src, size_t dst);
 Task CombatTask(size_t src, size_t dst);
 

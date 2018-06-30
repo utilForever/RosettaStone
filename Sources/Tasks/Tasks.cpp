@@ -25,8 +25,7 @@ Task::Task(TaskID id, const lambda_t& role) : m_id(id), m_role(role)
     // Do Nothing
 }
 
-Task::Task(Task&& task)
-    : m_id(task.GetTaskID()), m_role(task.GetTaskRole())
+Task::Task(Task&& task) : m_id(task.GetTaskID()), m_role(task.GetTaskRole())
 {
     // Do Nothing
 }

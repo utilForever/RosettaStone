@@ -14,7 +14,7 @@ TEST(TaskSerializer, CreateAndConvertCard)
     std::default_random_engine engine(rd());
     const std::vector<Card*> cards = Cards::GetInstance()->GetAllCards();
 
-	Card* card = cards[engine() % cards.size()];
+    Card* card = cards[engine() % cards.size()];
     flatbuffers::FlatBufferBuilder builder(1024);
 
     auto serialized = Serializer::CreateCard(builder, card);
