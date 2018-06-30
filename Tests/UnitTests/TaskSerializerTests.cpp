@@ -24,5 +24,5 @@ TEST(TaskSerializer, CreateAndConvertCard)
     auto deserialized = flatbuffers::GetRoot<FlatData::Card>(buffer);
 
     std::unique_ptr<Card> converted = Serializer::ConvertCardFrom(deserialized);
-    ExpectCardEqual(card, converted.get());
+    TestUtils::ExpectCardEqual(card, converted.get());
 }
