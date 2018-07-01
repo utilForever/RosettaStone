@@ -22,7 +22,7 @@ using json = nlohmann::json;
 class CardLoader
 {
  public:
-    std::vector<Card*> Load() const;
+    void LoadData(std::vector<Card*>& cards) const;
 };
 }
 

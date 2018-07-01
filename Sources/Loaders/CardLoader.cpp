@@ -18,7 +18,7 @@
 
 namespace Hearthstonepp
 {
-std::vector<Card*> CardLoader::Load() const
+void CardLoader::LoadData(std::vector<Card*>& cards) const
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -31,7 +31,6 @@ std::vector<Card*> CardLoader::Load() const
 
     cardFile >> j;
 
-    std::vector<Card*> cards;
     cards.reserve(j.size());
 
     for (auto& cardData : j)
@@ -176,7 +175,5 @@ std::vector<Card*> CardLoader::Load() const
     }
 
     cardFile.close();
-
-    return cards;
 }
 }
