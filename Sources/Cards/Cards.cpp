@@ -17,17 +17,14 @@ Cards* Cards::m_instance = nullptr;
 Cards::Cards()
 {
     CardLoader loader;
-    m_cards = loader.Load();
+    loader.LoadData(m_cards);
 }
 
 Cards::~Cards()
 {
     for (auto card : m_cards)
     {
-        if (card != nullptr)
-        {
-            delete card;
-        }
+        delete card;
     }
 
     m_cards.clear();
@@ -48,7 +45,7 @@ std::vector<Card*> Cards::GetAllCards() const
     return m_cards;
 }
 
-const Card* Cards::FindCardByID(const std::string id)
+const Card* Cards::FindCardByID(const std::string& id)
 {
     for (auto card : m_cards)
     {
@@ -121,7 +118,7 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
     return result;
 }
 
-Card* Cards::FindCardByName(const std::string name)
+Card* Cards::FindCardByName(const std::string& name)
 {
     for (auto card : m_cards)
     {
@@ -199,7 +196,7 @@ std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
     {
         auto mechanicsInCard = card->mechanics;
 
-        for (auto mechanic : mechanics)
+        for (const auto mechanic : mechanics)
         {
             if (std::find(mechanicsInCard.begin(), mechanicsInCard.end(),
                           mechanic) != mechanicsInCard.end())
