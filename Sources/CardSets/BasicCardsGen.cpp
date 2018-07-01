@@ -123,7 +123,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     Power p;
-    p.powerTask = PowerTaskType::DESTROY_WEAPON;
+    p.powerTask = PowerTaskType::DESTROY_OPPONENT_WEAPON;
     cards.emplace("EX1_066", p);
 }
 
@@ -134,6 +134,6 @@ void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 
 void BasicCardsGen::AddAll(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    AddNeutral(cards);
 }
 }
