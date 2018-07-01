@@ -9,6 +9,7 @@
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
+#include <Enchants/Power.h>
 #include <Enums/CardEnums.h>
 
 #include <map>
@@ -48,8 +49,9 @@ struct Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
-    unsigned int maxAllowedInDeck;
-    
+    Power power;
+
+    unsigned int maxAllowedInDeck;    
     bool isCollectible;
 };
 }
