@@ -11,6 +11,7 @@
 #include <Commons/Constants.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
+#include <Tasks/PowerTask.h>
 #include <Tasks/TaskSerializer.h>
 
 #include <algorithm>
@@ -454,7 +455,7 @@ Task MulliganTask(TaskAgent& agent)
     return Task(TaskID::MULLIGAN, std::move(role));
 }
 
-TaskMeta PlayCard(Player& player, size_t cardIndex, size_t position)
+TaskMeta PlayCard(Player& player, Player& opponent, size_t cardIndex, size_t position)
 {
     TaskMetaTrait meta(TaskID::SUMMON_MINION);
     meta.userID = player.id;
@@ -480,27 +481,25 @@ TaskMeta PlayCard(Player& player, size_t cardIndex, size_t position)
     switch (card->cardType)
     {
         case CardType::MINION:
-            return PlayMinion(player, card, position);
+            return PlayMinion(player, opponent, card, position);
         case CardType::WEAPON:
-            return PlayWeapon(player, card);
+            return PlayWeapon(player, opponent, card);
         default:
             const std::vector<TaskMeta> vector;
             return Serializer::CreateTaskMetaVector(vector);
     }
 }
 
-Task PlayCardTask(Player& player, size_t cardIndex, int position)
+Task PlayCardTask(size_t cardIndex, int position)
 {
-    (void)player;
-
-    auto role = [=](Player& current, Player&) -> TaskMeta {
-        return PlayCard(current, cardIndex, position);
+    auto role = [=](Player& current, Player& opponent) -> TaskMeta {
+        return PlayCard(current, opponent, cardIndex, position);
     };
 
     return Task(TaskID::SUMMON_MINION, std::move(role));
 }
 
-TaskMeta PlayMinion(Player& player, Card* card, size_t position)
+TaskMeta PlayMinion(Player& player, Player& opponent, Card* card, size_t position)
 {
     TaskMetaTrait meta(TaskID::SUMMON_MINION);
     meta.userID = player.id;
@@ -524,7 +523,8 @@ TaskMeta PlayMinion(Player& player, Card* card, size_t position)
 
     // Summoned minion can't attack right turn
     player.attacked.emplace_back(card);
-    TaskMeta modified = RawModifyMana(player, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
+    TaskMeta modified =
+        RawModifyMana(player, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
 
     // summon minion at field
     player.field.insert(player.field.begin() + position, card);
@@ -540,8 +540,10 @@ TaskMeta PlayMinion(Player& player, Card* card, size_t position)
     return Serializer::CreateTaskMetaVector(vector);
 }
 
-TaskMeta PlayWeapon(Player& player, Card* card)
+TaskMeta PlayWeapon(Player& player, Player& opponent, Card* card)
 {
+    (void)opponent;
+
     player.hero->weapon = dynamic_cast<Weapon*>(card);
 
     std::vector<TaskMeta> vector;

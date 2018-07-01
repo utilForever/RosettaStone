@@ -188,7 +188,7 @@ void GameAgent::MainUseCard()
             auto minion = flatbuffers::GetRoot<Require>(buffer.get());
             if (minion != nullptr)
             {
-                m_taskAgent.Run(BasicTask::PlayCardTask(m_current, minion->position()),
+                m_taskAgent.Run(BasicTask::PlayCardTask(minion->position()),
                                 meta, m_current, m_opponent);
             }
         }

@@ -24,11 +24,13 @@ TEST(BasicCard, EX1_066)
                       "Acidic Swamp Ooze")));
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
 
-    agent.Process(agent.GetPlayer1(),
-                  BasicTask::PlayCardTask(agent.GetPlayer1(), 0));
+    agent.Process(
+        agent.GetPlayer1(),
+        BasicTask::PlayCardTask(0));
     EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, true);
 
-    agent.Process(agent.GetPlayer2(),
-                  BasicTask::PlayCardTask(agent.GetPlayer2(), 0, 0));
+    agent.Process(
+        agent.GetPlayer2(),
+        BasicTask::PlayCardTask(0, 0));
     EXPECT_EQ(agent.GetPlayer1().hero->weapon != nullptr, false);
 }
