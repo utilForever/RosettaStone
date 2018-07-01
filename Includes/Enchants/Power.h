@@ -9,13 +9,13 @@
 #ifndef HEARTHSTONEPP_POWER_H
 #define HEARTHSTONEPP_POWER_H
 
-#include <Tasks/Tasks.h>
+#include <Enums/TaskEnums.h>
 
 namespace Hearthstonepp
 {
 struct Power
 {
-    Task powerTask;
+    PowerTaskType powerTask = PowerTaskType::EMPTY;
 };
 }
 
