@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
-#include <Enums/Enums.h>
+#include <Enums/CardEnums.h>
 
 #include <map>
 #include <string>
@@ -32,7 +32,6 @@ struct Card
 
     virtual void ShowInfo() const;
 
-    std::string id;
     Rarity rarity = Rarity::INVALID;
     Faction faction = Faction::INVALID;
     CardSet cardSet = CardSet::INVALID;
@@ -40,10 +39,9 @@ struct Card
     CardType cardType = CardType::INVALID;
     Race race = Race::INVALID;
 
+    std::string id;
     std::string name;
     std::string text;
-
-    bool isCollectible;
     size_t cost;
 
     std::vector<GameTag> mechanics;
@@ -51,6 +49,8 @@ struct Card
     std::vector<std::string> entourages;
 
     unsigned int maxAllowedInDeck;
+    
+    bool isCollectible;
 };
 }
 

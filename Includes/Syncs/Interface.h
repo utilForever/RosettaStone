@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_INTERFACE_H
 #define HEARTHSTONEPP_INTERFACE_H
 
-#include <Enums/Enums.h>
+#include <Enums/CardEnums.h>
 #include <Syncs/GameAgent.h>
 #include <Tasks/TaskMeta.h>
 

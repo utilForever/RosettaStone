@@ -9,9 +9,9 @@
 #ifndef HEARTHSTONEPP_DECK_H
 #define HEARTHSTONEPP_DECK_H
 
-#include <Enums/Enums.h>
 #include <Cards/Card.h>
 #include <Cards/Cards.h>
+#include <Enums/CardEnums.h>
 
 #include <string>
 
