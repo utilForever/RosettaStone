@@ -39,5 +39,8 @@ Player::Player(Account* account, Deck* deck)
     cardsInDeck.emplace_back(
         HeroPower(*reinterpret_cast<const HeroPower*>(powerCard)));
     power = reinterpret_cast<HeroPower*>(&cardsInDeck.back());
+
+    field.reserve(FIELD_SIZE);
+    field.assign({nullptr});
 }
 }  // namespace Hearthstonepp
