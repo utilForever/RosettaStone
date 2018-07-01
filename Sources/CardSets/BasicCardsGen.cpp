@@ -7,6 +7,7 @@
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <CardSets/BasicCardsGen.h>
+#include <Tasks/PowerTask.h>
 
 namespace Hearthstonepp
 {
@@ -101,7 +102,9 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power> cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    cards.emplace("EX1_066", Power());
+    Power p;
+    p.powerTask = PowerTaskType::DESTROY_WEAPON;
+    cards.emplace("EX1_066", p);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power> cards)
