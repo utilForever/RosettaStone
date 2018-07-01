@@ -11,9 +11,22 @@
 
 namespace Hearthstonepp::PowerTask
 {
+TaskMeta ProcessPower(Player& player, Player& opponent, PowerTaskType powerType)
+{
+    (void)player;
+
+    if (powerType == +PowerTaskType::DESTROY_OPPONENT_WEAPON)
+    {
+        return DestroyWeapon(opponent);
+    }
+
+    std::vector<TaskMeta> vector;
+    return Serializer::CreateTaskMetaVector(vector);
+}
+
 TaskMeta DestroyWeapon(Player& player)
 {
-    delete player.hero->weapon;
+    player.hero->weapon = nullptr;
 
     std::vector<TaskMeta> vector;
     return Serializer::CreateTaskMetaVector(vector);

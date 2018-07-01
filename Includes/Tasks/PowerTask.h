@@ -14,6 +14,8 @@
 
 namespace Hearthstonepp::PowerTask
 {
+TaskMeta ProcessPower(Player& player, Player& opponent,
+                      PowerTaskType powerType);
 TaskMeta DestroyWeapon(Player& player);
 }
 
