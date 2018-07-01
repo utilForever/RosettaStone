@@ -21,6 +21,8 @@ struct Powers
 
     static Powers* GetInstance();
 
+    Power FindPowerByCardID(std::string cardID) const;
+
 private:
     Powers();
 

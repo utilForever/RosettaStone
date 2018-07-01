@@ -11,6 +11,8 @@
 
 namespace Hearthstonepp
 {
+Powers* Powers::m_instance = nullptr;
+
 Powers* Powers::GetInstance()
 {
     if (m_instance == nullptr)
@@ -19,6 +21,17 @@ Powers* Powers::GetInstance()
     }
 
     return m_instance;
+}
+
+Power Powers::FindPowerByCardID(std::string cardID) const
+{
+    const auto res = m_powers.find(cardID);
+    if (res != m_powers.end())
+    {
+        return res->second;
+    }
+
+    return Power{};
 }
 
 Powers::Powers()
