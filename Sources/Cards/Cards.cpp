@@ -18,6 +18,7 @@ Cards::Cards()
 {
     CardLoader loader;
     loader.LoadData(m_cards);
+    loader.LoadPower(m_cards);
 }
 
 Cards::~Cards()
