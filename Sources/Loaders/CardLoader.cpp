@@ -12,6 +12,7 @@
 #include <Cards/Weapon.h>
 #include <Enchants/Enchant.h>
 #include <Enchants/HeroPower.h>
+#include <Enchants/Powers.h>
 #include <Loaders/CardLoader.h>
 
 #include <fstream>
@@ -175,5 +176,15 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
     }
 
     cardFile.close();
+}
+
+void CardLoader::LoadPower(std::vector<Card*>& cards) const
+{
+    Powers* powers = Powers::GetInstance();
+
+    for (auto& card : cards)
+    {
+        card->power = powers->FindPowerByCardID(card->id);
+    }
 }
 }
