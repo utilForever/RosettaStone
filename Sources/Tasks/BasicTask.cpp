@@ -136,7 +136,7 @@ TaskMeta RawDraw(Player& user, size_t num)
 
         meta.numHearts = static_cast<BYTE>(hurts);
 
-        user.hero->health = hurted;
+        user.hero->health = hurted > 0 ? static_cast<size_t>(hurted) : 0;
         user.exhausted += static_cast<BYTE>(rest);
 
         // calculating rest deck size
