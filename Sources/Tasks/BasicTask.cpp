@@ -533,9 +533,12 @@ TaskMeta PlayMinion(Player& player, Player& opponent, Card* card, size_t positio
     TaskMeta summon =
         Serializer::CreateSummonMinionTaskMeta(meta, card, position);
 
-    if (card->power.powerTask != +PowerTaskType::EMPTY)
+    for (auto& power : card->power.powerTask)
     {
-        PowerTask::ProcessPower(player, opponent, card->power.powerTask);
+        if (power != +PowerTaskType::EMPTY)
+        {
+            PowerTask::ProcessPower(player, opponent, power);
+        }
     }
 
     std::vector<TaskMeta> vector;

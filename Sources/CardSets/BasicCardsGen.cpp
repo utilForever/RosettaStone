@@ -123,7 +123,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     Power p;
-    p.powerTask = PowerTaskType::DESTROY_OPPONENT_WEAPON;
+    p.powerTask.emplace_back(PowerTaskType::DESTROY_OPPONENT_WEAPON);
     cards.emplace("EX1_066", p);
 }
 

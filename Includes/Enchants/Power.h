@@ -11,11 +11,13 @@
 
 #include <Enums/TaskEnums.h>
 
+#include <vector>
+
 namespace Hearthstonepp
 {
 struct Power
 {
-    PowerTaskType powerTask = PowerTaskType::EMPTY;
+    std::vector<PowerTaskType> powerTask;
 };
 }
 
