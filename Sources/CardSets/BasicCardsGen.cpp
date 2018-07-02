@@ -134,6 +134,37 @@ void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 
 void BasicCardsGen::AddAll(std::map<std::string, Power>& cards)
 {
+    AddHeroes(cards);
+    AddHeroPowers(cards);
+
+    AddDruid(cards);
+    AddDruidNonCollect(cards);
+
+    AddHunter(cards);
+    AddHunterNonCollect(cards);
+
+    AddMage(cards);
+    AddMageNonCollect(cards);
+
+    AddPaladin(cards);
+    AddPaladinNonCollect(cards);
+
+    AddPriest(cards);
+    AddPriestNonCollect(cards);
+
+    AddRogue(cards);
+    AddRogueNonCollect(cards);
+
+    AddShaman(cards);
+    AddShamanNonCollect(cards);
+
+    AddWarlock(cards);
+    AddWarlockNonCollect(cards);
+
+    AddWarrior(cards);
+    AddWarriorNonCollect(cards);
+
     AddNeutral(cards);
+    AddNeutralNonCollect(cards);
 }
 }
