@@ -12,8 +12,13 @@
 #include <Accounts/Account.h>
 #include <Cards/Card.h>
 #include <Cards/Hero.h>
+#include <Cards/Minion.h>
+#include <Cards/Spell.h>
 #include <Cards/Weapon.h>
+#include <Enchants/Enchant.h>
 #include <Enchants/HeroPower.h>
+
+#include <memory>
 
 namespace Hearthstonepp
 {
@@ -34,7 +39,7 @@ struct Player
     Weapon* weapon;
 
     // Card storage
-    std::vector<Card> cardsInDeck;
+    std::vector<std::unique_ptr<Card>> cardsInDeck;
 
     // Card objects
     std::vector<Card*> cardsPtrInDeck;
