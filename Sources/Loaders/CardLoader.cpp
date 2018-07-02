@@ -88,6 +88,8 @@ std::vector<Card*> CardLoader::Load() const
 
         const int attack =
             cardData["attack"].is_null() ? -1 : cardData["attack"].get<int>();
+        const int health =
+            cardData["health"].is_null() ? -1 : cardData["health"].get<int>();
 
         std::vector<GameTag> mechanics;
         for (auto& mechanic : cardData["mechanics"])
@@ -172,6 +174,13 @@ std::vector<Card*> CardLoader::Load() const
             weapon->durability = durability;
         }
 
+        if (cardType == +CardType::MINION || cardType == +CardType::HERO)
+        {
+            auto character = dynamic_cast<Character*>(card);
+            character->attack = attack;
+            character->health = health;
+        }
+
         cards.emplace_back(card);
     }
 
@@ -179,4 +188,4 @@ std::vector<Card*> CardLoader::Load() const
 
     return cards;
 }
-}
+}  // namespace Hearthstonepp
