@@ -83,7 +83,25 @@ void BasicCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
 
 void BasicCardsGen::AddShaman(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_041] Ancestral Healing - COST:0
+    // - Faction: Neutral, Set: Basic, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Restore a minion
+    //       to full Health and
+    //       give it <b>Taunt</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // Tag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    Power p;
+    p.powerTask.emplace_back(PowerTaskType::HEAL_FULL);
+    // TODO: Add enchantment
+    cards.emplace("CS2_041", p);
 }
 
 void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
