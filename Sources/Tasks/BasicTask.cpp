@@ -490,7 +490,7 @@ TaskMeta PlayCard(Player& player, Player& opponent, size_t cardIndex, size_t pos
     }
 }
 
-Task PlayCardTask(size_t cardIndex, int position)
+Task PlayCardTask(size_t cardIndex, int position, TargetType targetType, int targetPosition)
 {
     auto role = [=](Player& current, Player& opponent) -> TaskMeta {
         return PlayCard(current, opponent, cardIndex, position);
