@@ -22,6 +22,9 @@ namespace Hearthstonepp
 {
 BETTER_ENUM(PowerTaskType, int, EMPTY = 0, DESTROY_OPPONENT_WEAPON = 1,
             HEAL_FULL = 2)
+
+BETTER_ENUM(TargetType, int, INVALID = 0, MY_HERO = 1, MY_FIELD = 2,
+            OPPONENT_HERO = 3, OPPONENT_FIELD = 4);
 }
 
 #endif
