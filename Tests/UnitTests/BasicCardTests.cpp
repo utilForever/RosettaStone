@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include <Syncs/GameAgent.h>
-#include <Syncs/Interface.h>
+#include <Syncs/GameInterface.h>
 #include <Tasks/BasicTask.h>
 
 using namespace Hearthstonepp;
