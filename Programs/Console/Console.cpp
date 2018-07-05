@@ -16,7 +16,7 @@
 #include <Loaders/AccountLoader.h>
 #include <Loaders/CardLoader.h>
 #include <Syncs/GameAgent.h>
-#include <Syncs/Interface.h>
+#include <Syncs/GameInterface.h>
 
 #include <cctype>
 #ifdef HEARTHSTONEPP_WINDOWS
