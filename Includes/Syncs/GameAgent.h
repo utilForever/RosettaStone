@@ -10,7 +10,7 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Commons/Constants.h>
-#include <Syncs/AgentStructures.h>
+#include <Syncs/Player.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 
