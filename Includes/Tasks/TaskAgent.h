@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_TASKAGENT_H
 #define HEARTHSTONEPP_TASKAGENT_H
 
-#include <Syncs/AgentStructures.h>
+#include <Syncs/Player.h>
 #include <Syncs/SyncBuffer.h>
 #include <Tasks/TaskMeta.h>
 #include <Tasks/Tasks.h>
