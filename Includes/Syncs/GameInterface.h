@@ -1,5 +1,5 @@
 /*************************************************************************
-> File Name: Interface.h
+> File Name: GameInterface.h
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
 > Purpose: Interface for Hearthstone Game Agent

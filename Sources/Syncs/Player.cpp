@@ -1,13 +1,13 @@
 /*************************************************************************
-> File Name: AgentStructure.cpp
+> File Name: Player.cpp
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
-> Purpose: Agent Data Structure for Interact with Interface
+> Purpose: Player Structure for GameAgent
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Commons/Constants.h>
-#include <Syncs/AgentStructures.h>
+#include <Syncs/Player.h>
 
 namespace Hearthstonepp
 {

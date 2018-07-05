@@ -1,8 +1,8 @@
 /*************************************************************************
-> File Name: AgentStructure.h
+> File Name: Player.h
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
-> Purpose: Agent Data Structure for Interact with Interface
+> Purpose: Player Structure for GameAgent
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/

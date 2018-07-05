@@ -1,12 +1,12 @@
 /*************************************************************************
-> File Name: Interface.cpp
+> File Name: GameInterface.cpp
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
 > Purpose: Interface for Hearthstone Game Agent
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Syncs/Interface.h>
+#include <Syncs/GameInterface.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
 #include <Tasks/TaskSerializer.h>
