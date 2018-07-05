@@ -52,9 +52,12 @@ TEST(BasicCard, CS2_041)
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
 
     agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0));
-    dynamic_cast<Character*>(agent.GetPlayer1().field.at(0))->health = 1;
-    EXPECT_EQ(dynamic_cast<Character*>(agent.GetPlayer1().field.at(0))->health, 1);
+    auto minion = dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
+    minion->health -= 1;
+    EXPECT_EQ(minion->health, 1);
 
     agent.Process(agent.GetPlayer1(),
                   BasicTask::PlayCardTask(0, -1, TargetType::MY_FIELD, 1));
+    EXPECT_EQ(minion->hasTaunt, true);
+    EXPECT_EQ(minion->health, 2);
 }
