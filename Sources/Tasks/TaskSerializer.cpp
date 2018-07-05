@@ -46,7 +46,8 @@ BriefTaskMeta::BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer,
 flatbuffers::Offset<FlatData::Card> CreateCard(
     flatbuffers::FlatBufferBuilder& builder, Card* card)
 {
-    std::vector<int> mechanics(card->mechanics.size());
+    std::vector<int> mechanics;
+    mechanics.reserve(card->mechanics.size());
     for (const auto& mechanic : card->mechanics)
     {
         mechanics.emplace_back(static_cast<int>(mechanic));
