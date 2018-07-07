@@ -106,7 +106,18 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power>& cards)
 
 void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_041e] Ancestral Infusion (*) - COST:0
+    // - Set: core,
+    // --------------------------------------------------------
+    // Text: Taunt.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    Power p;
+    
+    cards.emplace("CS2_041e", p);
 }
 
 void BasicCardsGen::AddWarlock(std::map<std::string, Power>& cards)
