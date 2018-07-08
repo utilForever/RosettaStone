@@ -12,9 +12,12 @@
 
 #include <Enchants/Effect.h>
 
+namespace Hearthstonepp
+{
 struct Effects
 {
-    Effect taunt;
+    inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
+};  
 };
 
 #endif
