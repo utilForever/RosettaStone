@@ -24,11 +24,7 @@ enum class EffectOperator
 struct Effect
 {
 public:
-    Effect(GameTag gameTag, EffectOperator effectOperator, int value)
-        : m_gameTag(gameTag), m_effectOperator(effectOperator), m_value(value)
-    {
-        // Do nothing
-    }
+    Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
 private:
     GameTag m_gameTag;
