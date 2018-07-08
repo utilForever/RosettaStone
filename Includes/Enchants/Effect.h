@@ -9,9 +9,32 @@
 #ifndef HEARTHSTONEPP_EFFECT_H
 #define HEARTHSTONEPP_EFFECT_H
 
+#include <Enums/CardEnums.h>
+
+namespace Hearthstonepp
+{
+enum class EffectOperator
+{
+    ADD,
+    SUB,
+    MUL,
+    SET
+};
+
 struct Effect
 {
+public:
+    Effect(GameTag gameTag, EffectOperator effectOperator, int value)
+        : m_gameTag(gameTag), m_effectOperator(effectOperator), m_value(value)
+    {
+        // Do nothing
+    }
 
+private:
+    GameTag m_gameTag;
+    EffectOperator m_effectOperator;
+    int m_value;
 };
+}
 
 #endif
