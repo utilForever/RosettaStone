@@ -9,6 +9,7 @@
 #ifndef HEARTHSTONEPP_POWER_H
 #define HEARTHSTONEPP_POWER_H
 
+#include <Enchants/Enchant.h>
 #include <Enums/TaskEnums.h>
 
 #include <vector>
@@ -17,7 +18,8 @@ namespace Hearthstonepp
 {
 struct Power
 {
-    std::vector<PowerTaskType> powerTask;
+    PowerTaskType powerTask = PowerTaskType::EMPTY;
+    Enchant enchant;
 };
 }
 
