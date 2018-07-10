@@ -15,4 +15,12 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
 {
     // Do nothing
 }
+
+void Effect::Apply(Card* card, bool isOneTurnEffect)
+{
+    if (isOneTurnEffect)
+    {
+        // TODO: Process one turn effect
+    }
+}
 }

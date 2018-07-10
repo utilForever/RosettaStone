@@ -9,6 +9,7 @@
 #ifndef HEARTHSTONEPP_EFFECT_H
 #define HEARTHSTONEPP_EFFECT_H
 
+#include <Cards/Card.h>
 #include <Enums/CardEnums.h>
 
 namespace Hearthstonepp
@@ -25,6 +26,8 @@ struct Effect
 {
 public:
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
+
+    void Apply(Card* card, bool isOneTurnEffect = false);
 
 private:
     GameTag m_gameTag;
