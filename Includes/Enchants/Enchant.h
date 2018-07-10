@@ -17,11 +17,15 @@ namespace Hearthstonepp
 {
 struct Enchant
 {
+public:
     Enchant() = default;
     Enchant(Effect& effect);
     Enchant(std::vector<Effect>& effects);
 
-    std::vector<Effect> effects;
+    void ActivateTo(Entity& entity);
+
+private:
+    std::vector<Effect> m_effects;
 };
 }
 

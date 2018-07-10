@@ -12,11 +12,16 @@ namespace Hearthstonepp
 {
 Enchant::Enchant(Effect& effect)
 {
-    this->effects.emplace_back(effect);
+    m_effects.emplace_back(effect);
 }
     
 Enchant::Enchant(std::vector<Effect>& effects)
 {
-    this->effects = effects;
+    m_effects = effects;
+}
+
+void Enchant::ActivateTo(Entity& entity)
+{
+        
 }
 }
