@@ -11,6 +11,18 @@
 #ifndef HEARTHSTONEPP_ENTITY_H
 #define HEARTHSTONEPP_ENTITY_H
 
+#include <Cards/Card.h>
 
+#include <map>
+
+namespace Hearthstonepp
+{
+struct Entity
+{
+    //Card* card;
+
+    //std::map<GameTag, int> gameTags;
+};
+}
 
 #endif
