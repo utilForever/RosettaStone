@@ -16,11 +16,29 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     // Do nothing
 }
 
-void Effect::Apply(Card* card, bool isOneTurnEffect)
+void Effect::Apply(Entity& entity, bool isOneTurnEffect) const
 {
     if (isOneTurnEffect)
     {
         // TODO: Process one turn effect
+    }
+
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+            entity.gameTags[m_gameTag] += m_value;
+            break;
+        case EffectOperator::SUB:
+            entity.gameTags[m_gameTag] -= m_value;
+            break;
+        case EffectOperator::MUL:
+            entity.gameTags[m_gameTag] *= m_value;
+            break;
+        case EffectOperator::SET:
+            entity.gameTags[m_gameTag] = m_value;
+            break;
+        default:
+            throw std::invalid_argument("Invalid effect operator!");
     }
 }
 }
