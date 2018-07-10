@@ -19,8 +19,6 @@ struct Character : public Card
 
     size_t attack;
     size_t health;
-
-    bool hasTaunt = false;
 };
 }
 
