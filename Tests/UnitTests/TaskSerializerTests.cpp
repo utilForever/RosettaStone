@@ -3,8 +3,9 @@
 
 #include <Cards/Cards.h>
 #include <Cards/Minion.h>
-#include <cards/Weapon.h>
+#include <Enchants/Enchant.h>
 #include <Tasks/TaskSerializer.h>
+#include <cards/Weapon.h>
 
 #include <random>
 
@@ -27,7 +28,8 @@ TEST(TaskSerializer, CreateAndConvertCard)
         auto buffer = builder.GetBufferPointer();
         auto deserialized = flatbuffers::GetRoot<FlatData::Card>(buffer);
 
-        std::unique_ptr<Card> converted = Serializer::ConvertCardFrom(deserialized);
+        std::unique_ptr<Card> converted =
+            Serializer::ConvertCardFrom(deserialized);
         TestUtils::ExpectCardEqual(card, converted.get());
     };
 
@@ -37,24 +39,32 @@ TEST(TaskSerializer, CreateAndConvertCard)
     const Card* nerubian = cards->FindCardByID("AT_036t");
     EXPECT_EQ(nerubian->name, "Nerubian");
 
-    const auto * minionNerubian = dynamic_cast<const Minion*>(nerubian);
+    const auto* minionNerubian = dynamic_cast<const Minion*>(nerubian);
     EXPECT_NE(minionNerubian, nullptr);
-    EXPECT_EQ(nerubian->name, "Nerubian");
-    EXPECT_EQ(minionNerubian->cardType, +CardType::MINION);
-    EXPECT_NE(minionNerubian->attack, zero);
-    EXPECT_NE(minionNerubian->health, zero);
 
     Minion copiedNerubian = *minionNerubian;
     cardTest(&copiedNerubian);
 
     // Rogue Weapon : Poisoned Blade
     const Card* poisonedBlade = cards->FindCardByID("AT_034");
-    const Weapon* weaponPoisonedBlade = dynamic_cast<const Weapon*>(poisonedBlade);
+    EXPECT_EQ(poisonedBlade->name, "Poisoned Blade");
+
+    const Weapon* weaponPoisonedBlade =
+        dynamic_cast<const Weapon*>(poisonedBlade);
     EXPECT_NE(weaponPoisonedBlade, nullptr);
-    EXPECT_EQ(weaponPoisonedBlade->cardType, +CardType::WEAPON);
 
     Weapon copiedPoisonedBlade = *weaponPoisonedBlade;
     cardTest(&copiedPoisonedBlade);
+
+    const Card* dreadsteed = cards->FindCardByID("AT_019e");
+    EXPECT_EQ(dreadsteed->name, "Dreadsteed");
+
+    const auto* enchantmentDreadsteed =
+        dynamic_cast<const Enchantment*>(dreadsteed);
+    EXPECT_NE(enchantmentDreadsteed, nullptr);
+
+    Enchantment copiedDreadsteed = *enchantmentDreadsteed;
+    cardTest(&copiedDreadsteed);
 
     Card* randomCard = allCards[engine() % allCards.size()];
     cardTest(randomCard);
