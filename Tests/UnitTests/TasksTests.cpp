@@ -14,7 +14,7 @@ TEST(Tasks, Constructors)
 
     int taskSize = static_cast<int>(TaskID::_size());
     TaskID rand = TaskID::_from_integral(gen() % taskSize);
-    Task::lambda_t lambda = BasicTask::RawPlayerSetting;
+    Task::lambda_t lambda = BasicTask::PlayerSetting;
 
     // Empty Constructor
     Task empty;
@@ -33,7 +33,7 @@ TEST(Tasks, Constructors)
     EXPECT_EQ(moved.GetTaskID(), rand);
 
     rand = TaskID::_from_integral(gen() % taskSize);
-    lambda = BasicTask::RawPlayerSetting;
+    lambda = BasicTask::PlayerSetting;
 
     Task task2(rand, lambda);
 
