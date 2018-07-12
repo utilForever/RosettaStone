@@ -3,9 +3,11 @@
 
 #include <Cards/Cards.h>
 #include <Cards/Minion.h>
+#include <Cards/Weapon.h>
 #include <Enchants/Enchant.h>
+#include <Syncs/Player.h>
 #include <Tasks/TaskSerializer.h>
-#include <cards/Weapon.h>
+#include <Tasks/Tasks.h>
 
 #include <random>
 
@@ -68,4 +70,55 @@ TEST(TaskSerializer, CreateAndConvertCard)
 
     Card* randomCard = allCards[engine() % allCards.size()];
     cardTest(randomCard);
+}
+
+TEST(TaskSerializer, CreateTaskMetaVector)
+{
+    constexpr size_t testSize = 10;
+
+    std::vector<TaskMeta> metas;
+    metas.reserve(testSize);
+
+    for (size_t i = 0; i < testSize; ++i)
+    {
+        metas.emplace_back(TestUtils::GenerateRandomTrait());
+    }
+
+    TaskMetaTrait random = TestUtils::GenerateRandomTrait();
+    TaskMeta generated = Serializer::CreateTaskMetaVector(metas, random.status, random.userID);
+
+    EXPECT_EQ(generated.id, +TaskID::TASK_TUPLE);
+    EXPECT_EQ(generated.status, random.status);
+    EXPECT_EQ(generated.userID, random.userID);
+
+    const auto& buffer = generated.GetConstBuffer();
+    auto taskTuple = flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
+
+    auto vector = taskTuple->vector();
+    EXPECT_EQ(vector->Length(), testSize);
+
+    for (size_t i = 0; i < testSize; ++i)
+    {
+        auto idx = static_cast<flatbuffers::uoffset_t>(i);
+        TaskMeta converted = TaskMeta::ConvertFrom(vector->Get(idx));
+
+        EXPECT_EQ(metas[i], converted);
+    }
+}
+
+TEST(TaskSerializer, CreateRequireTaskMeta)
+{
+    TaskMetaTrait random = TestUtils::GenerateRandomTrait();
+
+    TaskMeta required = Serializer::CreateRequireTaskMeta(random.id, random.userID);
+
+    EXPECT_EQ(required.id, +TaskID::REQUIRE);
+    EXPECT_EQ(required.status, MetaData::INVALID);
+    EXPECT_EQ(required.userID, random.userID);
+
+    const auto& buffer = required.GetConstBuffer();
+    auto meta = flatbuffers::GetRoot<FlatData::RequireTaskMeta>(buffer.get());
+
+    TaskID requiredID = TaskID::_from_integral(meta->required());
+    EXPECT_EQ(requiredID, random.id);
 }
