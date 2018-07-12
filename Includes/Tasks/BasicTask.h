@@ -60,7 +60,7 @@ Task DrawTask(Card* card);
 // Return ModifyManaTaskMeta, Modify `manaMode` with operator `numMode` and
 // `object`
 TaskMeta ModifyMana(Player& player, size_t numMode, size_t manaMode,
-                       BYTE object);
+                    BYTE object);
 // Call ModifyMana with current player
 Task ModifyManaTask(size_t numMode, size_t manaMode, BYTE object);
 // Call ModifyMana with current player and `object` by reference
