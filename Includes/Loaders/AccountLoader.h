@@ -19,10 +19,10 @@ using json = nlohmann::json;
 
 class AccountLoader
 {
-public:
+ public:
     Account* Load(std::string email) const;
     void Save(Account* p) const;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif
