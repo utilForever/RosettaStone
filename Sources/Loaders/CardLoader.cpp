@@ -81,15 +81,15 @@ std::vector<Card*> CardLoader::Load() const
                                      ? false
                                      : cardData["collectible"].get<bool>();
         const int cost =
-            cardData["cost"].is_null() ? -1 : cardData["cost"].get<int>();
+            cardData["cost"].is_null() ? 0 : cardData["cost"].get<int>();
         const int durability = cardData["durability"].is_null()
                                    ? -1
                                    : cardData["durability"].get<int>();
 
         const int attack =
-            cardData["attack"].is_null() ? -1 : cardData["attack"].get<int>();
+            cardData["attack"].is_null() ? 0 : cardData["attack"].get<int>();
         const int health =
-            cardData["health"].is_null() ? -1 : cardData["health"].get<int>();
+            cardData["health"].is_null() ? 0 : cardData["health"].get<int>();
 
         std::vector<GameTag> mechanics;
         for (auto& mechanic : cardData["mechanics"])
