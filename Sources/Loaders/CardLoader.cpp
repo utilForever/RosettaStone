@@ -6,12 +6,12 @@
 > Created Time: 2017/08/13
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Cards/Enchantment.h>
 #include <Cards/Hero.h>
+#include <Cards/HeroPower.h>
 #include <Cards/Minion.h>
 #include <Cards/Spell.h>
 #include <Cards/Weapon.h>
-#include <Enchants/Enchant.h>
-#include <Enchants/HeroPower.h>
 #include <Enchants/Powers.h>
 #include <Loaders/CardLoader.h>
 
@@ -80,14 +80,24 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
         const bool collectible = cardData["collectible"].is_null()
                                      ? false
                                      : cardData["collectible"].get<bool>();
-        const int cost =
-            cardData["cost"].is_null() ? -1 : cardData["cost"].get<int>();
-        const int durability = cardData["durability"].is_null()
-                                   ? -1
-                                   : cardData["durability"].get<int>();
 
-        const int attack =
-            cardData["attack"].is_null() ? -1 : cardData["attack"].get<int>();
+        const std::optional<size_t> attack =
+            cardData["attack"].is_null()
+                ? std::nullopt
+                : std::optional<size_t>(cardData["attack"].get<int>());
+
+        const std::optional<size_t> health =
+            cardData["health"].is_null()
+                ? std::nullopt
+                : std::optional<size_t>(cardData["health"].get<size_t>());
+
+        const size_t cost =
+            cardData["cost"].is_null() ? -1 : cardData["cost"].get<size_t>();
+
+        const std::optional<size_t> durability =
+            cardData["durability"].is_null()
+                ? std::nullopt
+                : std::optional<size_t>(cardData["durability"].get<size_t>());
 
         std::vector<GameTag> mechanics;
         for (auto& mechanic : cardData["mechanics"])
@@ -118,36 +128,7 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
             continue;
         }
 
-        Card* card = nullptr;
-        switch (cardType)
-        {
-            case +CardType::ENCHANTMENT:
-                card = new Enchantment();
-                break;
-            case +CardType::HERO:
-                card = new Hero();
-                break;
-            case +CardType::HERO_POWER:
-                card = new HeroPower();
-                break;
-            case +CardType::MINION:
-                card = new Minion();
-                break;
-            case +CardType::SPELL:
-                card = new Spell();
-                break;
-            case +CardType::WEAPON:
-                card = new Weapon();
-                break;
-            default:
-                // TODO: Handle invalid card type
-                break;
-        }
-
-        if (card == nullptr)
-        {
-            continue;
-        }
+        Card* card = new Card();
 
         card->id = id;
         card->rarity = rarity;
@@ -159,18 +140,14 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
         card->name = name;
         card->text = text;
         card->isCollectible = collectible;
+        card->attack = (attack != -1) ? std::optional<size_t>(attack) : std::nullopt;
+        card->health = health;
         card->cost = cost;
+        card->durability = durability;
         card->mechanics = mechanics;
         card->playRequirements = playRequirements;
         card->entourages = entourages;
         card->Initialize();
-
-        if (cardType == +CardType::WEAPON)
-        {
-            const auto weapon = dynamic_cast<Weapon*>(card);
-            weapon->attack = attack;
-            weapon->durability = durability;
-        }
 
         cards.emplace_back(card);
     }

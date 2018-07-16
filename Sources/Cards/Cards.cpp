@@ -153,13 +153,12 @@ std::vector<Card*> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-        const Character* character = dynamic_cast<Character*>(card);
-        if (character == nullptr)
+        if (!card->attack.has_value())
         {
             continue;
         }
 
-        if (character->attack >= minVal && character->attack <= maxVal)
+        if (card->attack.value() >= minVal && card->attack.value() <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -174,13 +173,12 @@ std::vector<Card*> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-        const Character* character = dynamic_cast<Character*>(card);
-        if (character == nullptr)
+        if (!card->health.has_value())
         {
             continue;
         }
 
-        if (character->health >= minVal && character->health <= maxVal)
+        if (card->health.value() >= minVal && card->health.value() <= maxVal)
         {
             result.emplace_back(card);
         }
