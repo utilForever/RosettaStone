@@ -23,7 +23,7 @@ Powers* Powers::GetInstance()
     return m_instance;
 }
 
-Power Powers::FindPowerByCardID(std::string cardID) const
+Power* Powers::FindPowerByCardID(std::string cardID) const
 {
     const auto res = m_powers.find(cardID);
     if (res != m_powers.end())
@@ -31,7 +31,7 @@ Power Powers::FindPowerByCardID(std::string cardID) const
         return res->second;
     }
 
-    return Power{};
+    return nullptr;
 }
 
 Powers::Powers()
