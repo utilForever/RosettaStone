@@ -13,6 +13,10 @@ struct TaskMetaTrait;
 
 struct PlayRequirements;
 
+struct GameTag;
+
+struct Entity;
+
 struct Card;
 
 struct TaskMeta;
@@ -135,6 +139,132 @@ inline flatbuffers::Offset<PlayRequirements> CreatePlayRequirements(
   builder_.add_value(value);
   builder_.add_key_(key_);
   return builder_.Finish();
+}
+
+struct GameTag FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  enum {
+    VT_KEY_ = 4,
+    VT_VALUE = 6
+  };
+  int32_t key_() const {
+    return GetField<int32_t>(VT_KEY_, 0);
+  }
+  bool KeyCompareLessThan(const GameTag *o) const {
+    return key_() < o->key_();
+  }
+  int KeyCompareWithValue(int32_t val) const {
+    const auto key = key_();
+    if (key < val) {
+      return -1;
+    } else if (key > val) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  int32_t value() const {
+    return GetField<int32_t>(VT_VALUE, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<int32_t>(verifier, VT_KEY_) &&
+           VerifyField<int32_t>(verifier, VT_VALUE) &&
+           verifier.EndTable();
+  }
+};
+
+struct GameTagBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_key_(int32_t key_) {
+    fbb_.AddElement<int32_t>(GameTag::VT_KEY_, key_, 0);
+  }
+  void add_value(int32_t value) {
+    fbb_.AddElement<int32_t>(GameTag::VT_VALUE, value, 0);
+  }
+  explicit GameTagBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  GameTagBuilder &operator=(const GameTagBuilder &);
+  flatbuffers::Offset<GameTag> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<GameTag>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<GameTag> CreateGameTag(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    int32_t key_ = 0,
+    int32_t value = 0) {
+  GameTagBuilder builder_(_fbb);
+  builder_.add_value(value);
+  builder_.add_key_(key_);
+  return builder_.Finish();
+}
+
+struct Entity FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  enum {
+    VT_CARD = 4,
+    VT_GAMETAGS = 6
+  };
+  const Card *card() const {
+    return GetPointer<const Card *>(VT_CARD);
+  }
+  const flatbuffers::Vector<flatbuffers::Offset<GameTag>> *gameTags() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<GameTag>> *>(VT_GAMETAGS);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_CARD) &&
+           verifier.VerifyTable(card()) &&
+           VerifyOffset(verifier, VT_GAMETAGS) &&
+           verifier.Verify(gameTags()) &&
+           verifier.VerifyVectorOfTables(gameTags()) &&
+           verifier.EndTable();
+  }
+};
+
+struct EntityBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_card(flatbuffers::Offset<Card> card) {
+    fbb_.AddOffset(Entity::VT_CARD, card);
+  }
+  void add_gameTags(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<GameTag>>> gameTags) {
+    fbb_.AddOffset(Entity::VT_GAMETAGS, gameTags);
+  }
+  explicit EntityBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  EntityBuilder &operator=(const EntityBuilder &);
+  flatbuffers::Offset<Entity> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<Entity>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<Entity> CreateEntity(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<Card> card = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<GameTag>>> gameTags = 0) {
+  EntityBuilder builder_(_fbb);
+  builder_.add_gameTags(gameTags);
+  builder_.add_card(card);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<Entity> CreateEntityDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<Card> card = 0,
+    const std::vector<flatbuffers::Offset<GameTag>> *gameTags = nullptr) {
+  return Hearthstonepp::FlatData::CreateEntity(
+      _fbb,
+      card,
+      gameTags ? _fbb.CreateVector<flatbuffers::Offset<GameTag>>(*gameTags) : 0);
 }
 
 struct Card FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -630,8 +760,8 @@ struct DrawTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint8_t numOverdraw() const {
     return GetField<uint8_t>(VT_NUMOVERDRAW, 0);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Card>> *burnt() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Card>> *>(VT_BURNT);
+  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *burnt() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_BURNT);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -661,7 +791,7 @@ struct DrawTaskMetaBuilder {
   void add_numOverdraw(uint8_t numOverdraw) {
     fbb_.AddElement<uint8_t>(DrawTaskMeta::VT_NUMOVERDRAW, numOverdraw, 0);
   }
-  void add_burnt(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> burnt) {
+  void add_burnt(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> burnt) {
     fbb_.AddOffset(DrawTaskMeta::VT_BURNT, burnt);
   }
   explicit DrawTaskMetaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -682,7 +812,7 @@ inline flatbuffers::Offset<DrawTaskMeta> CreateDrawTaskMeta(
     uint8_t numExhausted = 0,
     uint8_t numHearts = 0,
     uint8_t numOverdraw = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> burnt = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> burnt = 0) {
   DrawTaskMetaBuilder builder_(_fbb);
   builder_.add_burnt(burnt);
   builder_.add_numOverdraw(numOverdraw);
@@ -698,14 +828,14 @@ inline flatbuffers::Offset<DrawTaskMeta> CreateDrawTaskMetaDirect(
     uint8_t numExhausted = 0,
     uint8_t numHearts = 0,
     uint8_t numOverdraw = 0,
-    const std::vector<flatbuffers::Offset<Card>> *burnt = nullptr) {
+    const std::vector<flatbuffers::Offset<Entity>> *burnt = nullptr) {
   return Hearthstonepp::FlatData::CreateDrawTaskMeta(
       _fbb,
       numDraw,
       numExhausted,
       numHearts,
       numOverdraw,
-      burnt ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*burnt) : 0);
+      burnt ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*burnt) : 0);
 }
 
 struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -737,20 +867,20 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint8_t opponentMana() const {
     return GetField<uint8_t>(VT_OPPONENTMANA, 0);
   }
-  const Card *currentHero() const {
-    return GetPointer<const Card *>(VT_CURRENTHERO);
+  const Entity *currentHero() const {
+    return GetPointer<const Entity *>(VT_CURRENTHERO);
   }
-  const Card *opponentHero() const {
-    return GetPointer<const Card *>(VT_OPPONENTHERO);
+  const Entity *opponentHero() const {
+    return GetPointer<const Entity *>(VT_OPPONENTHERO);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Card>> *currentField() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Card>> *>(VT_CURRENTFIELD);
+  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *currentField() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_CURRENTFIELD);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Card>> *currentHand() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Card>> *>(VT_CURRENTHAND);
+  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *currentHand() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_CURRENTHAND);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Card>> *opponentField() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Card>> *>(VT_OPPONENTFIELD);
+  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *opponentField() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_OPPONENTFIELD);
   }
   uint8_t numOpponentHand() const {
     return GetField<uint8_t>(VT_NUMOPPONENTHAND, 0);
@@ -761,11 +891,11 @@ struct BriefTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint8_t numOpponentDeck() const {
     return GetField<uint8_t>(VT_NUMOPPONENTDECK, 0);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Card>> *currentAttacked() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Card>> *>(VT_CURRENTATTACKED);
+  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *currentAttacked() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_CURRENTATTACKED);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Card>> *opponentAttacked() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Card>> *>(VT_OPPONENTATTACKED);
+  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *opponentAttacked() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_OPPONENTATTACKED);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -814,19 +944,19 @@ struct BriefTaskMetaBuilder {
   void add_opponentMana(uint8_t opponentMana) {
     fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_OPPONENTMANA, opponentMana, 0);
   }
-  void add_currentHero(flatbuffers::Offset<Card> currentHero) {
+  void add_currentHero(flatbuffers::Offset<Entity> currentHero) {
     fbb_.AddOffset(BriefTaskMeta::VT_CURRENTHERO, currentHero);
   }
-  void add_opponentHero(flatbuffers::Offset<Card> opponentHero) {
+  void add_opponentHero(flatbuffers::Offset<Entity> opponentHero) {
     fbb_.AddOffset(BriefTaskMeta::VT_OPPONENTHERO, opponentHero);
   }
-  void add_currentField(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentField) {
+  void add_currentField(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentField) {
     fbb_.AddOffset(BriefTaskMeta::VT_CURRENTFIELD, currentField);
   }
-  void add_currentHand(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentHand) {
+  void add_currentHand(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentHand) {
     fbb_.AddOffset(BriefTaskMeta::VT_CURRENTHAND, currentHand);
   }
-  void add_opponentField(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> opponentField) {
+  void add_opponentField(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> opponentField) {
     fbb_.AddOffset(BriefTaskMeta::VT_OPPONENTFIELD, opponentField);
   }
   void add_numOpponentHand(uint8_t numOpponentHand) {
@@ -838,10 +968,10 @@ struct BriefTaskMetaBuilder {
   void add_numOpponentDeck(uint8_t numOpponentDeck) {
     fbb_.AddElement<uint8_t>(BriefTaskMeta::VT_NUMOPPONENTDECK, numOpponentDeck, 0);
   }
-  void add_currentAttacked(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentAttacked) {
+  void add_currentAttacked(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentAttacked) {
     fbb_.AddOffset(BriefTaskMeta::VT_CURRENTATTACKED, currentAttacked);
   }
-  void add_opponentAttacked(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> opponentAttacked) {
+  void add_opponentAttacked(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> opponentAttacked) {
     fbb_.AddOffset(BriefTaskMeta::VT_OPPONENTATTACKED, opponentAttacked);
   }
   explicit BriefTaskMetaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -862,16 +992,16 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMeta(
     uint8_t opponentPlayer = 0,
     uint8_t currentMana = 0,
     uint8_t opponentMana = 0,
-    flatbuffers::Offset<Card> currentHero = 0,
-    flatbuffers::Offset<Card> opponentHero = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentField = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentHand = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> opponentField = 0,
+    flatbuffers::Offset<Entity> currentHero = 0,
+    flatbuffers::Offset<Entity> opponentHero = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentField = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentHand = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> opponentField = 0,
     uint8_t numOpponentHand = 0,
     uint8_t numCurrentDeck = 0,
     uint8_t numOpponentDeck = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> currentAttacked = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Card>>> opponentAttacked = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentAttacked = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> opponentAttacked = 0) {
   BriefTaskMetaBuilder builder_(_fbb);
   builder_.add_opponentAttacked(opponentAttacked);
   builder_.add_currentAttacked(currentAttacked);
@@ -896,16 +1026,16 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMetaDirect(
     uint8_t opponentPlayer = 0,
     uint8_t currentMana = 0,
     uint8_t opponentMana = 0,
-    flatbuffers::Offset<Card> currentHero = 0,
-    flatbuffers::Offset<Card> opponentHero = 0,
-    const std::vector<flatbuffers::Offset<Card>> *currentField = nullptr,
-    const std::vector<flatbuffers::Offset<Card>> *currentHand = nullptr,
-    const std::vector<flatbuffers::Offset<Card>> *opponentField = nullptr,
+    flatbuffers::Offset<Entity> currentHero = 0,
+    flatbuffers::Offset<Entity> opponentHero = 0,
+    const std::vector<flatbuffers::Offset<Entity>> *currentField = nullptr,
+    const std::vector<flatbuffers::Offset<Entity>> *currentHand = nullptr,
+    const std::vector<flatbuffers::Offset<Entity>> *opponentField = nullptr,
     uint8_t numOpponentHand = 0,
     uint8_t numCurrentDeck = 0,
     uint8_t numOpponentDeck = 0,
-    const std::vector<flatbuffers::Offset<Card>> *currentAttacked = nullptr,
-    const std::vector<flatbuffers::Offset<Card>> *opponentAttacked = nullptr) {
+    const std::vector<flatbuffers::Offset<Entity>> *currentAttacked = nullptr,
+    const std::vector<flatbuffers::Offset<Entity>> *opponentAttacked = nullptr) {
   return Hearthstonepp::FlatData::CreateBriefTaskMeta(
       _fbb,
       currentPlayer,
@@ -914,14 +1044,14 @@ inline flatbuffers::Offset<BriefTaskMeta> CreateBriefTaskMetaDirect(
       opponentMana,
       currentHero,
       opponentHero,
-      currentField ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*currentField) : 0,
-      currentHand ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*currentHand) : 0,
-      opponentField ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*opponentField) : 0,
+      currentField ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*currentField) : 0,
+      currentHand ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*currentHand) : 0,
+      opponentField ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*opponentField) : 0,
       numOpponentHand,
       numCurrentDeck,
       numOpponentDeck,
-      currentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*currentAttacked) : 0,
-      opponentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Card>>(*opponentAttacked) : 0);
+      currentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*currentAttacked) : 0,
+      opponentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*opponentAttacked) : 0);
 }
 
 struct RequireMulliganTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -1095,19 +1225,19 @@ inline flatbuffers::Offset<RequireSummonMinionTaskMeta> CreateRequireSummonMinio
 
 struct SummonMinionTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
-    VT_CARD = 4,
+    VT_ENTITY = 4,
     VT_INDEX = 6
   };
-  const Card *card() const {
-    return GetPointer<const Card *>(VT_CARD);
+  const Entity *entity() const {
+    return GetPointer<const Entity *>(VT_ENTITY);
   }
   uint8_t index() const {
     return GetField<uint8_t>(VT_INDEX, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyOffset(verifier, VT_CARD) &&
-           verifier.VerifyTable(card()) &&
+           VerifyOffset(verifier, VT_ENTITY) &&
+           verifier.VerifyTable(entity()) &&
            VerifyField<uint8_t>(verifier, VT_INDEX) &&
            verifier.EndTable();
   }
@@ -1116,8 +1246,8 @@ struct SummonMinionTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
 struct SummonMinionTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_card(flatbuffers::Offset<Card> card) {
-    fbb_.AddOffset(SummonMinionTaskMeta::VT_CARD, card);
+  void add_entity(flatbuffers::Offset<Entity> entity) {
+    fbb_.AddOffset(SummonMinionTaskMeta::VT_ENTITY, entity);
   }
   void add_index(uint8_t index) {
     fbb_.AddElement<uint8_t>(SummonMinionTaskMeta::VT_INDEX, index, 0);
@@ -1136,23 +1266,23 @@ struct SummonMinionTaskMetaBuilder {
 
 inline flatbuffers::Offset<SummonMinionTaskMeta> CreateSummonMinionTaskMeta(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<Card> card = 0,
+    flatbuffers::Offset<Entity> entity = 0,
     uint8_t index = 0) {
   SummonMinionTaskMetaBuilder builder_(_fbb);
-  builder_.add_card(card);
+  builder_.add_entity(entity);
   builder_.add_index(index);
   return builder_.Finish();
 }
 
 struct ModifyHealthTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
-    VT_CARD = 4,
+    VT_ENTITY = 4,
     VT_DAMAGE = 6,
     VT_HURTED = 8,
     VT_ISEXHAUSTED = 10
   };
-  const Card *card() const {
-    return GetPointer<const Card *>(VT_CARD);
+  const Entity *entity() const {
+    return GetPointer<const Entity *>(VT_ENTITY);
   }
   uint8_t damage() const {
     return GetField<uint8_t>(VT_DAMAGE, 0);
@@ -1165,8 +1295,8 @@ struct ModifyHealthTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyOffset(verifier, VT_CARD) &&
-           verifier.VerifyTable(card()) &&
+           VerifyOffset(verifier, VT_ENTITY) &&
+           verifier.VerifyTable(entity()) &&
            VerifyField<uint8_t>(verifier, VT_DAMAGE) &&
            VerifyField<uint8_t>(verifier, VT_HURTED) &&
            VerifyField<uint8_t>(verifier, VT_ISEXHAUSTED) &&
@@ -1177,8 +1307,8 @@ struct ModifyHealthTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
 struct ModifyHealthTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_card(flatbuffers::Offset<Card> card) {
-    fbb_.AddOffset(ModifyHealthTaskMeta::VT_CARD, card);
+  void add_entity(flatbuffers::Offset<Entity> entity) {
+    fbb_.AddOffset(ModifyHealthTaskMeta::VT_ENTITY, entity);
   }
   void add_damage(uint8_t damage) {
     fbb_.AddElement<uint8_t>(ModifyHealthTaskMeta::VT_DAMAGE, damage, 0);
@@ -1203,12 +1333,12 @@ struct ModifyHealthTaskMetaBuilder {
 
 inline flatbuffers::Offset<ModifyHealthTaskMeta> CreateModifyHealthTaskMeta(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<Card> card = 0,
+    flatbuffers::Offset<Entity> entity = 0,
     uint8_t damage = 0,
     uint8_t hurted = 0,
     bool isExhausted = false) {
   ModifyHealthTaskMetaBuilder builder_(_fbb);
-  builder_.add_card(card);
+  builder_.add_entity(entity);
   builder_.add_isExhausted(isExhausted);
   builder_.add_hurted(hurted);
   builder_.add_damage(damage);
@@ -1220,11 +1350,11 @@ struct CombatTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_SRC = 4,
     VT_DST = 6
   };
-  const Card *src() const {
-    return GetPointer<const Card *>(VT_SRC);
+  const Entity *src() const {
+    return GetPointer<const Entity *>(VT_SRC);
   }
-  const Card *dst() const {
-    return GetPointer<const Card *>(VT_DST);
+  const Entity *dst() const {
+    return GetPointer<const Entity *>(VT_DST);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -1239,10 +1369,10 @@ struct CombatTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct CombatTaskMetaBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_src(flatbuffers::Offset<Card> src) {
+  void add_src(flatbuffers::Offset<Entity> src) {
     fbb_.AddOffset(CombatTaskMeta::VT_SRC, src);
   }
-  void add_dst(flatbuffers::Offset<Card> dst) {
+  void add_dst(flatbuffers::Offset<Entity> dst) {
     fbb_.AddOffset(CombatTaskMeta::VT_DST, dst);
   }
   explicit CombatTaskMetaBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -1259,8 +1389,8 @@ struct CombatTaskMetaBuilder {
 
 inline flatbuffers::Offset<CombatTaskMeta> CreateCombatTaskMeta(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<Card> src = 0,
-    flatbuffers::Offset<Card> dst = 0) {
+    flatbuffers::Offset<Entity> src = 0,
+    flatbuffers::Offset<Entity> dst = 0) {
   CombatTaskMetaBuilder builder_(_fbb);
   builder_.add_dst(dst);
   builder_.add_src(src);
