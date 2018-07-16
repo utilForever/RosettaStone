@@ -13,11 +13,14 @@
 #include <Enums/CardEnums.h>
 
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
 namespace Hearthstonepp
 {
+struct Power;
+
 struct Card
 {
     Card() = default;
@@ -43,13 +46,17 @@ struct Card
     std::string id;
     std::string name;
     std::string text;
+
+    std::optional<size_t> attack;
+    std::optional<size_t> health;
     size_t cost;
+    std::optional<size_t> durability;
 
     std::vector<GameTag> mechanics;
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
-    Power power;
+    Power* power;
 
     unsigned int maxAllowedInDeck;    
     bool isCollectible;
