@@ -21,14 +21,14 @@ struct Powers
 
     static Powers* GetInstance();
 
-    Power FindPowerByCardID(std::string cardID) const;
+    Power* FindPowerByCardID(std::string cardID) const;
 
 private:
     Powers();
 
     static Powers* m_instance;
 
-    std::map<std::string, Power> m_powers;
+    std::map<std::string, Power*> m_powers;
 };
 }
 

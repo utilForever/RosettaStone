@@ -9,12 +9,16 @@
 #ifndef HEARTHSTONEPP_ENCHANT_H
 #define HEARTHSTONEPP_ENCHANT_H
 
+#include <Cards/Entity.h>
 #include <Enchants/Effect.h>
 
 #include <vector>
 
 namespace Hearthstonepp
 {
+struct Effect;
+struct Entity;
+
 struct Enchant
 {
 public:

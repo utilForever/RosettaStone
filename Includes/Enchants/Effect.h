@@ -14,6 +14,8 @@
 
 namespace Hearthstonepp
 {
+struct Entity;
+
 enum class EffectOperator
 {
     ADD,
@@ -25,14 +27,15 @@ enum class EffectOperator
 struct Effect
 {
 public:
+    Effect() = default;
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
     void Apply(Entity& entity, bool isOneTurnEffect = false) const;
 
 private:
-    GameTag m_gameTag;
-    EffectOperator m_effectOperator;
-    int m_value;
+    GameTag m_gameTag = GameTag::INVALID;
+    EffectOperator m_effectOperator = EffectOperator::SET;
+    int m_value = 0;
 };
 }
 
