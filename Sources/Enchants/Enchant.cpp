@@ -22,6 +22,6 @@ Enchant::Enchant(std::vector<Effect>& effects)
 
 void Enchant::ActivateTo(Entity& entity)
 {
-        
+    (void)entity;
 }
 }
