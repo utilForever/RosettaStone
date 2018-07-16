@@ -1,5 +1,5 @@
 /*************************************************************************
-> File Name: Entity.h
+> File Name: Entity.cpp
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
 > Purpose: The base class of all data-holding/action-performing/
@@ -8,30 +8,22 @@
 > Created Time: 2018/07/10
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#ifndef HEARTHSTONEPP_ENTITY_H
-#define HEARTHSTONEPP_ENTITY_H
-
-#include <Cards/Card.h>
-
-#include <map>
+#include <Cards/Entity.h>
 
 namespace Hearthstonepp
 {
-struct Card;
-class GameTag;
-
-struct Entity
+Entity::Entity(const Card* pCard) : card(pCard)
 {
-    Entity() = default;
-    Entity(const Card* pCard);
-    virtual ~Entity();
-
-    const Card* card = nullptr;
-
-    std::map<GameTag, int> gameTags;
-
-    virtual void GetDataFromCard();
-};
+    // Do nothing
 }
 
-#endif
+Entity::~Entity()
+{
+    
+}
+
+void Entity::GetDataFromCard()
+{
+
+}
+}
