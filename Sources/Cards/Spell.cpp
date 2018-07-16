@@ -10,7 +10,8 @@
 
 namespace Hearthstonepp
 {
-void Spell::ShowInfo() const
+void Spell::GetDataFromCard()
 {
+
 }
 }

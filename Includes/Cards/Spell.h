@@ -9,13 +9,13 @@
 #ifndef HEARTHSTONEPP_SPELL_H
 #define HEARTHSTONEPP_SPELL_H
 
-#include <Cards/Card.h>
+#include <Cards/Entity.h>
 
 namespace Hearthstonepp
 {
-struct Spell : public Card
+struct Spell : public Entity
 {
-    void ShowInfo() const override;
+    void GetDataFromCard() override;
 };
 }
 

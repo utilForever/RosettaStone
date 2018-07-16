@@ -10,7 +10,14 @@
 
 namespace Hearthstonepp
 {
-void Character::ShowInfo() const
+Character::Character(const Card* pCard) : Entity(pCard)
 {
+    attack = pCard->attack.has_value() ? pCard->attack.value() : 0;
+    health = pCard->health.has_value() ? pCard->health.value() : 0;
+}
+
+void Character::GetDataFromCard()
+{
+    
 }
 }

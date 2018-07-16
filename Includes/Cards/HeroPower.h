@@ -9,13 +9,15 @@
 #ifndef HEARTHSTONEPP_HERO_POWER_H
 #define HEARTHSTONEPP_HERO_POWER_H
 
-#include <Cards/Card.h>
+#include <Cards/Entity.h>
 
 namespace Hearthstonepp
 {
-struct HeroPower : public Card
+struct HeroPower : public Entity
 {
-    void ShowInfo() const override;
+    HeroPower(const Card* card);
+
+    void GetDataFromCard() override;
 };
 }
 

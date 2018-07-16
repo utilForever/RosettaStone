@@ -15,7 +15,9 @@ namespace Hearthstonepp
 {
 struct Minion : public Character
 {
-    void ShowInfo() const override;
+    Minion() = default;
+    Minion(const Card* pCard);
+    virtual ~Minion();
 };
 }
 

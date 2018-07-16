@@ -16,7 +16,7 @@ namespace Hearthstonepp
 {
 struct Hero : public Character
 {
-    void ShowInfo() const override;
+    Hero(const Card* card);
 
     Weapon* weapon;
 };

@@ -10,7 +10,8 @@
 
 namespace Hearthstonepp
 {
-void Hero::ShowInfo() const
+Hero::Hero(const Card* card)
 {
+    this->card = card;
 }
 }

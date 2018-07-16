@@ -6,11 +6,17 @@
 > Created Time: 2017/10/11
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Enchants/HeroPower.h>
+#include <Cards/HeroPower.h>
 
 namespace Hearthstonepp
 {
-void HeroPower::ShowInfo() const
+HeroPower::HeroPower(const Card* card)
 {
+    this->card = card;
+}
+
+void HeroPower::GetDataFromCard()
+{
+        
 }
 }

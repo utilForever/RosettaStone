@@ -10,7 +10,17 @@
 
 namespace Hearthstonepp
 {
-void Weapon::ShowInfo() const
+Weapon::Weapon(const Card* pCard) : Entity(pCard)
 {
+    durability = pCard->durability.has_value() ? pCard->durability.value() : 0;
+}
+
+Weapon::~Weapon()
+{
+}
+
+void Weapon::GetDataFromCard()
+{
+
 }
 }
