@@ -19,12 +19,12 @@ BriefTaskMeta::BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer,
                              BYTE currentMana, BYTE opponentMana,
                              BYTE numCurrentDeck, BYTE numOpponentDeck,
                              BYTE numOpponentHand,
-                             const std::vector<Card*>& currentHand,
-                             const std::vector<Card*>& currentField,
-                             const std::vector<Card*>& opponentField,
-                             const std::vector<Card*>& currentAttacked,
-                             const std::vector<Card*>& opponentAttacked,
-                             Card* currentHero, Card* opponentHero)
+                             const std::vector<Entity*>& currentHand,
+                             const std::vector<Character*>& currentField,
+                             const std::vector<Character*>& opponentField,
+                             const std::vector<Character*>& currentAttacked,
+                             const std::vector<Character*>& opponentAttacked,
+                             Hero* currentHero, Hero* opponentHero)
     : currentPlayer(currentPlayer),
       opponentPlayer(opponentPlayer),
       currentMana(currentMana),
@@ -41,6 +41,12 @@ BriefTaskMeta::BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer,
       opponentHero(opponentHero)
 {
     // Do Nothing
+}
+
+flatbuffers::Offset<FlatData::Entity> CreateEntity(
+    flatbuffers::FlatBufferBuilder& builder, Entity* entity)
+{
+    return FlatData::CreateEntity(builder, CreateCard(builder, const_cast<Card*>(entity->card)), 0);
 }
 
 flatbuffers::Offset<FlatData::Card> CreateCard(
@@ -171,12 +177,12 @@ TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& meta, TaskMeta::status_t status,
                             BYTE userID)
 {
     flatbuffers::FlatBufferBuilder builder(512);
-    std::vector<flatbuffers::Offset<FlatData::Card>> burnt;
+    std::vector<flatbuffers::Offset<FlatData::Entity>> burnt;
 
-    // Conver burnt vector to FlatData::Card vector
+    // Conver burnt vector to FlatData::Entity vector
     for (auto& card : meta.burnt)
     {
-        burnt.emplace_back(CreateCard(builder, card));
+        burnt.emplace_back(CreateEntity(builder, card));
     }
 
     auto flat = FlatData::CreateDrawTaskMeta(
@@ -206,7 +212,7 @@ TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta,
                                     TaskMeta::status_t status, BYTE userID)
 {
     flatbuffers::FlatBufferBuilder builder(32);
-    auto card = CreateCard(builder, meta.card);
+    auto card = CreateEntity(builder, meta.card);
     auto healthTask = FlatData::CreateModifyHealthTaskMeta(
         builder, card, meta.damage, meta.hurted, meta.isExhausted);
 
@@ -218,23 +224,23 @@ TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta,
 TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
                              TaskMeta::status_t status, BYTE userID)
 {
-    using CardOffset = flatbuffers::Offset<FlatData::Card>;
-    using VectorOffset = flatbuffers::Offset<flatbuffers::Vector<CardOffset>>;
+    using EntityOffset = flatbuffers::Offset<FlatData::Entity>;
+    using VectorOffset = flatbuffers::Offset<flatbuffers::Vector<EntityOffset>>;
 
     flatbuffers::FlatBufferBuilder builder(256);
 
     // Tie multi card vector
-    auto target = {meta.currentField, meta.currentHand, meta.opponentField,
-                   meta.currentAttacked, meta.opponentAttacked};
+    auto target = {meta.currentField, meta.opponentField, meta.currentAttacked,
+                   meta.opponentAttacked};
     std::vector<VectorOffset> result(target.size());
 
     // Convert Card vector to FlatData::Card vector
     std::transform(target.begin(), target.end(), result.begin(),
                    [&builder](auto&& vec) -> VectorOffset {
-                       std::vector<CardOffset> dest(vec.size());
+                       std::vector<EntityOffset> dest(vec.size());
                        std::transform(vec.begin(), vec.end(), dest.begin(),
-                                      [&builder](Card* card) {
-                                          return CreateCard(builder, card);
+                                      [&builder](Entity* entity) {
+                                          return CreateEntity(builder, entity);
                                       });
 
                        return builder.CreateVector(dest);
@@ -242,8 +248,8 @@ TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
 
     auto brief = FlatData::CreateBriefTaskMeta(
         builder, meta.currentPlayer, meta.opponentPlayer, meta.currentMana,
-        meta.opponentMana, CreateCard(builder, meta.currentHero),
-        CreateCard(builder, meta.opponentHero), result[0], result[1], result[2],
+        meta.opponentMana, CreateEntity(builder, meta.currentHero),
+        CreateEntity(builder, meta.opponentHero), result[0], result[1], result[2],
         meta.numOpponentHand, meta.numCurrentDeck, meta.numOpponentDeck,
         result[3], result[4]);
 
@@ -252,22 +258,23 @@ TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
                     builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, Card* card,
+TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, Entity* entity,
                                     size_t position)
 {
     flatbuffers::FlatBufferBuilder builder(128);
     auto flat = FlatData::CreateSummonMinionTaskMeta(
-        builder, CreateCard(builder, card), static_cast<BYTE>(position));
+        builder, CreateEntity(builder, entity), static_cast<BYTE>(position));
 
     builder.Finish(flat);
     return TaskMeta(trait, builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Card* src, Card* dst)
+TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Entity* src,
+                              Entity* dst)
 {
     flatbuffers::FlatBufferBuilder builder(256);
     auto flat = FlatData::CreateCombatTaskMeta(
-        builder, CreateCard(builder, src), CreateCard(builder, dst));
+        builder, CreateEntity(builder, src), CreateEntity(builder, dst));
 
     builder.Finish(flat);
     return TaskMeta(trait, builder.GetSize(), builder.GetBufferPointer());

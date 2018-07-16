@@ -63,8 +63,9 @@ class GameInterface
     template <std::size_t SIZE>
     void ShowMenus(const std::array<std::string, SIZE>& menus);
 
-    using CardVector = flatbuffers::Vector<flatbuffers::Offset<FlatData::Card>>;
-    void ShowCards(const CardVector& cards);
+    using EntityVector =
+        flatbuffers::Vector<flatbuffers::Offset<FlatData::Entity>>;
+    void ShowCards(const EntityVector& entities);
 
     // TaskMeta Handler
     void HandleInvalid(const TaskMeta& meta);

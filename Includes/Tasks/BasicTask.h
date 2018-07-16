@@ -95,8 +95,8 @@ TaskMeta PlayCard(Player& player, Player& opponent, size_t cardIndex,
 Task PlayCardTask(size_t cardIndex, int position = -1,
                   TargetType targetType = TargetType::INVALID, int targetPosition = -1);
 
-TaskMeta PlayMinion(Player& player, Player& opponent, Card* card, size_t position);
-TaskMeta PlayWeapon(Player& player, Player& opponent, Card* card);
+TaskMeta PlayMinion(Player& player, Player& opponent, Entity* entity, size_t position);
+TaskMeta PlayWeapon(Player& player, Player& opponent, Entity* entity);
 
 // Return CombatTaskMeta, Combat `current`.field[`src`] with `opponent`.field[`dst`]
 TaskMeta RawCombat(Player& curent, Player& opponent, size_t src, size_t dst);

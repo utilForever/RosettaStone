@@ -6,6 +6,7 @@
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
+#include <Cards/Hero.h>
 #include <Commons/Constants.h>
 #include <Syncs/AgentStructures.h>
 
@@ -15,32 +16,28 @@ Player::Player(Account* account, Deck* deck)
     : totalMana(0),
       existMana(0),
       exhausted(0),
-      email(account->GetEmail()),
-      weapon(nullptr)
+      email(account->GetEmail())
 {
-    Cards* cards = Cards::GetInstance();
+    Cards* cardsInstance = Cards::GetInstance();
 
     const CardClass cardclass = deck->GetClass();
 
-    const Card* heroCard = cards->GetHeroCard(cardclass);
-    const Card* powerCard = cards->GetDefaultHeroPower(cardclass);
+    const Card* heroCard = cardsInstance->GetHeroCard(cardclass);
+    const Card* powerCard = cardsInstance->GetDefaultHeroPower(cardclass);
 
-    cardsInDeck.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
-    for (auto& ptrCard : deck->GetPrimitiveDeck())
+    cards.reserve(sizeof(Card) * (MAXIMUM_NUM_CARDS_IN_DECK + 2));
+    for (auto& card : deck->GetPrimitiveDeck())
     {
-        // Deep copy of card data
-        cardsInDeck.emplace_back(Card(*ptrCard));
-        cardsPtrInDeck.emplace_back(&cardsInDeck.back());
+        cards.emplace_back(new Entity(card));
     }
 
-    cardsInDeck.emplace_back(Hero(*reinterpret_cast<const Hero*>(heroCard)));
-    hero = reinterpret_cast<Hero*>(&cardsInDeck.back());
-
-    cardsInDeck.emplace_back(
-        HeroPower(*reinterpret_cast<const HeroPower*>(powerCard)));
-    power = reinterpret_cast<HeroPower*>(&cardsInDeck.back());
+    hero = new Hero(heroCard);
+    power = new HeroPower(powerCard);
 
     field.reserve(FIELD_SIZE);
-    field.assign({nullptr});
+    for (size_t i = 0; i < FIELD_SIZE; ++i)
+    {
+        field.emplace_back(nullptr);
+    }
 }
 }  // namespace Hearthstonepp

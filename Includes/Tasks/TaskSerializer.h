@@ -9,7 +9,8 @@
 #ifndef HEARTHSTONEPP_TASKSERIALIZER_H
 #define HEARTHSTONEPP_TASKSERIALIZER_H
 
-#include <Cards/Card.h>
+#include <Cards/Entity.h>
+#include <Cards/Hero.h>
 #include <Tasks/TaskMeta.h>
 
 #include <Flatbuffers/generated/MetaData_generated.h>
@@ -24,7 +25,7 @@ struct DrawTaskMeta
     BYTE numExhausted;
     BYTE numHearts;
     BYTE numOverdraw;
-    std::vector<Card*> burnt;
+    std::vector<Entity*> burnt;
 };
 
 struct ModifyManaTaskMeta
@@ -37,7 +38,7 @@ struct ModifyManaTaskMeta
 
 struct ModifyHealthTaskMeta
 {
-    Card* card;
+    Entity* card;
     BYTE damage;
     BYTE hurted;
     bool isExhausted;
@@ -47,12 +48,12 @@ struct BriefTaskMeta
 {
     BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer, BYTE currentMana,
                   BYTE opponentMana, BYTE numCurrentDeck, BYTE numOpponentDeck,
-                  BYTE numOpponentHand, const std::vector<Card*>& currentHand,
-                  const std::vector<Card*>& currentField,
-                  const std::vector<Card*>& opponentField,
-                  const std::vector<Card*>& currentAttacked,
-                  const std::vector<Card*>& opponentAttacked, Card* currentHero,
-                  Card* opponentHero);
+                  BYTE numOpponentHand, const std::vector<Entity*>& currentHand,
+                  const std::vector<Character*>& currentField,
+                  const std::vector<Character*>& opponentField,
+                  const std::vector<Character*>& currentAttacked,
+                  const std::vector<Character*>& opponentAttacked,
+                  Hero* currentHero, Hero* opponentHero);
 
     BYTE currentPlayer;
     BYTE opponentPlayer;
@@ -65,17 +66,21 @@ struct BriefTaskMeta
 
     BYTE numOpponentHand;
 
-    const std::vector<Card*>& currentHand;
+    const std::vector<Entity*>& currentHand;
 
-    const std::vector<Card*>& currentField;
-    const std::vector<Card*>& opponentField;
+    const std::vector<Character*>& currentField;
+    const std::vector<Character*>& opponentField;
 
-    const std::vector<Card*>& currentAttacked;
-    const std::vector<Card*>& opponentAttacked;
+    const std::vector<Character*>& currentAttacked;
+    const std::vector<Character*>& opponentAttacked;
 
-    Card* currentHero;
-    Card* opponentHero;
+    Hero* currentHero;
+    Hero* opponentHero;
 };
+
+// Convert Entity to FlatData::Entity
+flatbuffers::Offset<FlatData::Entity> CreateEntity(
+    flatbuffers::FlatBufferBuilder& builder, Entity* entity);
 
 // Convert Card to FlatData::Card
 flatbuffers::Offset<FlatData::Card> CreateCard(
@@ -111,11 +116,11 @@ TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta,
 TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
                              TaskMeta::status_t status, BYTE userID);
 // From BasicTask::RawSummonMinion
-TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait,
-                                    Card* card, size_t position);
+TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, Entity* card,
+                                    size_t position);
 // From BasicTask::RawCombat
-TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Card* src,
-                              Card* dst);
+TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Entity* src,
+                              Entity* dst);
 // From BasicTask::RawGameEnd
 TaskMeta CreateGameEndTaskMeta(const std::string& winner);
 }  // namespace Hearthstonepp::Serializer

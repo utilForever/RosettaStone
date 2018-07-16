@@ -74,10 +74,12 @@ void GameInterface::ShowMenus(const std::array<std::string, SIZE>& menus)
     }
 }
 
-void GameInterface::ShowCards(const CardVector& cards)
+void GameInterface::ShowCards(const EntityVector& entities)
 {
-    for (const auto& card : cards)
+    for (const auto& entity : entities)
     {
+        const auto card = entity->card();
+
         CardType cardType = CardType::_from_integral(card->cardType());
         m_ostream << '[' << card->name()->c_str() << '('
                   << cardType._to_string() << " / " << card->cost() << ")] ";
@@ -310,7 +312,7 @@ void GameInterface::HandleHealthModification(const TaskMeta& serialized)
         return;
     }
 
-    stream << "Modify Health : " << meta->card()->name()->c_str()
+    stream << "Modify Health : " << meta->entity()->card()->name()->c_str()
            << " get damage " << static_cast<int>(meta->damage()) << ", result "
            << static_cast<int>(meta->hurted()) << '\n';
 }
@@ -335,7 +337,7 @@ void GameInterface::HandleSummonMinion(const TaskMeta& serialized)
         return;
     }
 
-    auto card = meta->card();
+    auto card = meta->entity()->card();
     stream << "Summon Minion : ";
 
     switch (serialized.status)
@@ -381,8 +383,8 @@ void GameInterface::HandleCombat(const TaskMeta& serialized)
     switch (serialized.status)
     {
         case MetaData::COMBAT_SUCCESS:
-            stream << "{src " << meta->src()->name()->c_str() << "} "
-                   << "vs {dst " << meta->dst()->name()->c_str() << "}\n";
+            stream << "{src " << meta->src()->card()->name()->c_str() << "} "
+                   << "vs {dst " << meta->dst()->card()->name()->c_str() << "}\n";
             break;
         case MetaData::COMBAT_ALREADY_ATTACKED:
             stream << "Already Attacked Minion\n";
@@ -466,8 +468,8 @@ void GameInterface::HandleBrief(const TaskMeta& serialized)
 
     stream << "Game Briefing\n"
            << m_users[m_briefCache->opponentPlayer()] << " - Hero "
-           << m_briefCache->opponentHero()->name()->c_str() << ", Health "
-           << m_briefCache->opponentHero()->health() << ", Mana "
+           << m_briefCache->opponentHero()->card()->name()->c_str() << ", Health "
+           << m_briefCache->opponentHero()->card()->health() << ", Mana "
            << static_cast<int>(m_briefCache->opponentMana()) << ", Hand "
            << static_cast<int>(m_briefCache->numOpponentHand()) << ", Deck "
            << static_cast<int>(m_briefCache->numOpponentDeck()) << '\n';
@@ -476,8 +478,8 @@ void GameInterface::HandleBrief(const TaskMeta& serialized)
     ShowCards(*m_briefCache->opponentField());
 
     stream << m_users[m_briefCache->currentPlayer()] << " - Hero "
-           << m_briefCache->currentHero()->name()->c_str() << ", Health "
-           << m_briefCache->currentHero()->health() << ", Mana "
+           << m_briefCache->currentHero()->card()->name()->c_str() << ", Health "
+           << m_briefCache->currentHero()->card()->health() << ", Mana "
            << static_cast<int>(m_briefCache->currentMana()) << ", Hand "
            << static_cast<int>(m_briefCache->currentHand()->size()) << ", Deck "
            << static_cast<int>(m_briefCache->numCurrentDeck()) << '\n';
@@ -540,7 +542,7 @@ void GameInterface::InputSelectCard(const TaskMeta& meta)
         // Card hand index range verification
         if (in >= 0 && in < numCurrentHand)
         {
-            if (currentHand->Get(in)->cost() > currentMana)
+            if (currentHand->Get(in)->card()->cost() > currentMana)
             {
                 m_ostream << "Not enough mana\n";
             }
@@ -555,7 +557,7 @@ void GameInterface::InputSelectCard(const TaskMeta& meta)
 
     int numCurrentField = currentField->size();
     CardType cardType =
-        CardType::_from_integral(currentHand->Get(in)->cardType());
+        CardType::_from_integral(currentHand->Get(in)->card()->cardType());
 
     // if selected card type is minion
     if (cardType == +CardType::MINION)

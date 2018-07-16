@@ -103,7 +103,7 @@ void GameAgent::BeginPhase()
     m_taskAgent.Clear();
 
     // TODO: Coin for later user
-    m_opponent.hand.push_back(new Card());
+    // m_opponent.hand.push_back(new Card());
 }
 
 bool GameAgent::MainPhase()
