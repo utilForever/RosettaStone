@@ -548,7 +548,10 @@ TaskMeta PlayMinion(Player& player, Player& opponent, Entity* entity,
     TaskMeta summon =
         Serializer::CreateSummonMinionTaskMeta(meta, entity, position);
 
-    PowerTask::ProcessPower(player, opponent, entity->card->power->powerTask);
+    for (auto& power : entity->card->power->powerTask)
+    {
+        PowerTask::ProcessPower(player, opponent, power);   
+    }
 
     std::vector<TaskMeta> vector;
     vector.emplace_back(std::move(summon));
