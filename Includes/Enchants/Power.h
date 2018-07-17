@@ -12,6 +12,8 @@
 #include <Enchants/Enchant.h>
 #include <Enums/TaskEnums.h>
 
+#include <vector>
+
 namespace Hearthstonepp
 {
 struct Enchant;
