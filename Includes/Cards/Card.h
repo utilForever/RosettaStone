@@ -9,11 +9,16 @@
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
+#include <Commons/Macros.h>
 #include <Enchants/Power.h>
 #include <Enums/CardEnums.h>
 
 #include <map>
+#ifndef HEARTHSTONEPP_MACOSX
 #include <optional>
+#else
+#include <experimental/optional>
+#endif
 #include <string>
 #include <vector>
 
@@ -47,10 +52,16 @@ struct Card
     std::string name;
     std::string text;
 
+#ifndef HEARTHSTONEPP_MACOSX
     std::optional<size_t> attack;
     std::optional<size_t> health;
-    size_t cost;
     std::optional<size_t> durability;
+#else
+    std::experimental::optional<size_t> attack;
+    std::experimental::optional<size_t> health;
+    std::experimental::optional<size_t> durability;
+#endif
+    size_t cost;
 
     std::vector<GameTag> mechanics;
     std::map<PlayReq, int> playRequirements;
@@ -58,7 +69,7 @@ struct Card
 
     Power* power;
 
-    unsigned int maxAllowedInDeck;    
+    unsigned int maxAllowedInDeck;
     bool isCollectible;
 };
 }

@@ -6,9 +6,10 @@
 > Created Time: 2017/10/10
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Loaders/CardLoader.h>
 #include <Cards/Cards.h>
 #include <Cards/Character.h>
+#include <Commons/Macros.h>
+#include <Loaders/CardLoader.h>
 
 namespace Hearthstonepp
 {
@@ -153,12 +154,20 @@ std::vector<Card*> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
+#ifndef HEARTHSTONEPP_MACOSX
         if (!card->attack.has_value())
+#else
+        if (card->attack == std::experimental::nullopt)
+#endif
         {
             continue;
         }
 
+#ifndef HEARTHSTONEPP_MACOSX
         if (card->attack.value() >= minVal && card->attack.value() <= maxVal)
+#else
+        if (*(card->attack) >= minVal && *(card->attack) <= maxVal)
+#endif
         {
             result.emplace_back(card);
         }
@@ -173,12 +182,20 @@ std::vector<Card*> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
+#ifndef HEARTHSTONEPP_MACOSX
         if (!card->health.has_value())
+#else
+        if (card->health == std::experimental::nullopt)
+#endif
         {
             continue;
         }
 
+#ifndef HEARTHSTONEPP_MACOSX
         if (card->health.value() >= minVal && card->health.value() <= maxVal)
+#else
+        if (*(card->health) >= minVal && *(card->health) <= maxVal)
+#endif
         {
             result.emplace_back(card);
         }
