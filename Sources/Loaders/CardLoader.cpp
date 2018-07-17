@@ -81,23 +81,18 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
                                      ? false
                                      : cardData["collectible"].get<bool>();
 
-        const std::optional<size_t> attack =
-            cardData["attack"].is_null()
-                ? std::nullopt
-                : std::optional<size_t>(cardData["attack"].get<int>());
+        const int attack =
+            cardData["attack"].is_null() ? -1 : cardData["attack"].get<int>();
 
-        const std::optional<size_t> health =
-            cardData["health"].is_null()
-                ? std::nullopt
-                : std::optional<size_t>(cardData["health"].get<size_t>());
+        const int health =
+            cardData["health"].is_null() ? -1 : cardData["health"].get<int>();
 
         const size_t cost =
             cardData["cost"].is_null() ? -1 : cardData["cost"].get<size_t>();
 
-        const std::optional<size_t> durability =
-            cardData["durability"].is_null()
-                ? std::nullopt
-                : std::optional<size_t>(cardData["durability"].get<size_t>());
+        const int durability = cardData["durability"].is_null()
+                                   ? -1
+                                   : cardData["durability"].get<int>();
 
         std::vector<GameTag> mechanics;
         for (auto& mechanic : cardData["mechanics"])
@@ -140,10 +135,14 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
         card->name = name;
         card->text = text;
         card->isCollectible = collectible;
-        card->attack = (attack != -1) ? std::optional<size_t>(attack) : std::nullopt;
-        card->health = health;
+        card->attack =
+            (attack != -1) ? std::optional<size_t>(attack) : std::nullopt;
+        card->health =
+            (health != -1) ? std::optional<size_t>(health) : std::nullopt;
         card->cost = cost;
-        card->durability = durability;
+        card->durability = (durability != -1)
+                               ? std::optional<size_t>(durability)
+                               : std::nullopt;
         card->mechanics = mechanics;
         card->playRequirements = playRequirements;
         card->entourages = entourages;
