@@ -54,7 +54,7 @@ TEST(BasicCard, CS2_041)
     agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
     auto minion = dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
     minion->health -= 1;
-    EXPECT_EQ(minion->health, 1);
+    EXPECT_EQ(minion->health, 1u);
 
     agent.Process(agent.GetPlayer1(),
                   BasicTask::PlayCardTask(0, -1, TargetType::MY_FIELD, 1));
