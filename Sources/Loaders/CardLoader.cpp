@@ -92,7 +92,7 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
                                    : cardData["durability"].get<int>();
 
         const size_t cost =
-            cardData["cost"].is_null() ? -1 : cardData["cost"].get<size_t>();
+            cardData["cost"].is_null() ? 0 : cardData["cost"].get<size_t>();
 
         std::vector<GameTag> mechanics;
         for (auto& mechanic : cardData["mechanics"])

@@ -10,9 +10,9 @@
 
 namespace Hearthstonepp
 {
-HeroPower::HeroPower(const Card* card)
+HeroPower::HeroPower(const Card* pCard) : Entity(pCard)
 {
-    this->card = card;
+    // Do nothing
 }
 
 void HeroPower::GetDataFromCard()

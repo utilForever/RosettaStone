@@ -15,7 +15,7 @@ namespace Hearthstonepp
 {
 struct HeroPower : public Entity
 {
-    HeroPower(const Card* card);
+    HeroPower(const Card* pCard);
 
     void GetDataFromCard() override;
 };
