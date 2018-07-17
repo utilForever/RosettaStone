@@ -100,7 +100,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     Power* p = new Power;
-    p->powerTask = PowerTaskType::HEAL_FULL;
+    p->powerTask.emplace_back(PowerTaskType::HEAL_FULL);
     // TODO: Add enchantment
     cards.emplace("CS2_041", p);
 }
@@ -153,7 +153,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     Power* p = new Power;
-    p->powerTask = PowerTaskType::DESTROY_OPPONENT_WEAPON;
+    p->powerTask.emplace_back(PowerTaskType::DESTROY_OPPONENT_WEAPON);
     cards.emplace("EX1_066", p);
 }
 

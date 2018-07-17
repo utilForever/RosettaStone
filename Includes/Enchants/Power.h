@@ -18,7 +18,7 @@ struct Enchant;
 
 struct Power
 {
-    PowerTaskType powerTask = PowerTaskType::EMPTY;
+    std::vector<PowerTaskType> powerTask;
     Enchant* enchant = nullptr;
 };
 }
