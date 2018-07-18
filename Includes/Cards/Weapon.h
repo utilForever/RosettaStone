@@ -9,16 +9,19 @@
 #ifndef HEARTHSTONEPP_WEAPON_H
 #define HEARTHSTONEPP_WEAPON_H
 
-#include <Cards/Card.h>
+#include <Cards/Entity.h>
 
 namespace Hearthstonepp
 {
-struct Weapon : public Card
+struct Weapon : public Entity
 {
-    void ShowInfo() const override;
+    Weapon() = default;
+    Weapon(const Card* pCard);
+    virtual ~Weapon();
 
-    size_t attack;
-    size_t durability;
+    void GetDataFromCard() override;
+
+    size_t durability = 0;
 };
 }
 

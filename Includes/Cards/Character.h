@@ -9,16 +9,20 @@
 #ifndef HEARTHSTONEPP_CHARACTER_H
 #define HEARTHSTONEPP_CHARACTER_H
 
-#include <Cards/Card.h>
+#include <Cards/Entity.h>
 
 namespace Hearthstonepp
 {
-struct Character : public Card
+struct Character : virtual Entity
 {
-    void ShowInfo() const override;
+    Character() = default;
+    Character(const Card* pCard);
+    virtual ~Character() = default;
 
-    size_t attack;
-    size_t health;
+    void GetDataFromCard() override;
+
+    size_t attack = 0;
+    size_t health = 0;
 };
 }
 

@@ -103,7 +103,7 @@ void GameAgent::BeginPhase()
     m_taskAgent.Clear();
 
     // TODO: Coin for later user
-    m_opponent.hand.push_back(new Card());
+    // m_opponent.hand.push_back(new Card());
 }
 
 bool GameAgent::MainPhase()
@@ -188,7 +188,7 @@ void GameAgent::MainUseCard()
             auto minion = flatbuffers::GetRoot<Require>(buffer.get());
             if (minion != nullptr)
             {
-                m_taskAgent.Run(BasicTask::PlayCardTask(m_current, minion->position()),
+                m_taskAgent.Run(BasicTask::PlayCardTask(minion->position()),
                                 meta, m_current, m_opponent);
             }
         }

@@ -6,19 +6,20 @@
 > Created Time: 2017/08/13
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Cards/Enchantment.h>
 #include <Cards/Hero.h>
+#include <Cards/HeroPower.h>
 #include <Cards/Minion.h>
 #include <Cards/Spell.h>
 #include <Cards/Weapon.h>
-#include <Enchants/Enchant.h>
-#include <Enchants/HeroPower.h>
+#include <Enchants/Powers.h>
 #include <Loaders/CardLoader.h>
 
 #include <fstream>
 
 namespace Hearthstonepp
 {
-std::vector<Card*> CardLoader::Load() const
+void CardLoader::LoadData(std::vector<Card*>& cards) const
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -31,7 +32,6 @@ std::vector<Card*> CardLoader::Load() const
 
     cardFile >> j;
 
-    std::vector<Card*> cards;
     cards.reserve(j.size());
 
     for (auto& cardData : j)
@@ -80,14 +80,19 @@ std::vector<Card*> CardLoader::Load() const
         const bool collectible = cardData["collectible"].is_null()
                                      ? false
                                      : cardData["collectible"].get<bool>();
-        const int cost =
-            cardData["cost"].is_null() ? -1 : cardData["cost"].get<int>();
+
+        const int attack =
+            cardData["attack"].is_null() ? -1 : cardData["attack"].get<int>();
+
+        const int health =
+            cardData["health"].is_null() ? -1 : cardData["health"].get<int>();
+
         const int durability = cardData["durability"].is_null()
                                    ? -1
                                    : cardData["durability"].get<int>();
 
-        const int attack =
-            cardData["attack"].is_null() ? -1 : cardData["attack"].get<int>();
+        const size_t cost =
+            cardData["cost"].is_null() ? 0 : cardData["cost"].get<size_t>();
 
         std::vector<GameTag> mechanics;
         for (auto& mechanic : cardData["mechanics"])
@@ -118,36 +123,7 @@ std::vector<Card*> CardLoader::Load() const
             continue;
         }
 
-        Card* card = nullptr;
-        switch (cardType)
-        {
-            case +CardType::ENCHANTMENT:
-                card = new Enchantment();
-                break;
-            case +CardType::HERO:
-                card = new Hero();
-                break;
-            case +CardType::HERO_POWER:
-                card = new HeroPower();
-                break;
-            case +CardType::MINION:
-                card = new Minion();
-                break;
-            case +CardType::SPELL:
-                card = new Spell();
-                break;
-            case +CardType::WEAPON:
-                card = new Weapon();
-                break;
-            default:
-                // TODO: Handle invalid card type
-                break;
-        }
-
-        if (card == nullptr)
-        {
-            continue;
-        }
+        Card* card = new Card();
 
         card->id = id;
         card->rarity = rarity;
@@ -159,24 +135,45 @@ std::vector<Card*> CardLoader::Load() const
         card->name = name;
         card->text = text;
         card->isCollectible = collectible;
+
+#ifndef HEARTHSTONEPP_MACOSX
+        card->attack =
+            (attack != -1) ? std::optional<size_t>(attack) : std::nullopt;
+        card->health =
+            (health != -1) ? std::optional<size_t>(health) : std::nullopt;
+        card->durability = (durability != -1)
+                               ? std::optional<size_t>(durability)
+                               : std::nullopt;
+#else
+        card->attack = (attack != -1)
+                           ? std::experimental::optional<size_t>(attack)
+                           : std::experimental::nullopt;
+        card->health = (health != -1)
+                           ? std::experimental::optional<size_t>(health)
+                           : std::experimental::nullopt;
+        card->durability = (durability != -1)
+                               ? std::experimental::optional<size_t>(durability)
+                               : std::experimental::nullopt;
+#endif
         card->cost = cost;
         card->mechanics = mechanics;
         card->playRequirements = playRequirements;
         card->entourages = entourages;
         card->Initialize();
 
-        if (cardType == +CardType::WEAPON)
-        {
-            const auto weapon = dynamic_cast<Weapon*>(card);
-            weapon->attack = attack;
-            weapon->durability = durability;
-        }
-
         cards.emplace_back(card);
     }
 
     cardFile.close();
+}
 
-    return cards;
+void CardLoader::LoadPower(std::vector<Card*>& cards) const
+{
+    Powers* powers = Powers::GetInstance();
+
+    for (auto& card : cards)
+    {
+        card->power = powers->FindPowerByCardID(card->id);
+    }
 }
 }

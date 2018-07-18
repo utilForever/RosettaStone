@@ -9,14 +9,23 @@
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
-#include <Enums/Enums.h>
+#include <Commons/Macros.h>
+#include <Enchants/Power.h>
+#include <Enums/CardEnums.h>
 
 #include <map>
+#ifndef HEARTHSTONEPP_MACOSX
+#include <optional>
+#else
+#include <experimental/optional>
+#endif
 #include <string>
 #include <vector>
 
 namespace Hearthstonepp
 {
+struct Power;
+
 struct Card
 {
     Card() = default;
@@ -32,7 +41,6 @@ struct Card
 
     virtual void ShowInfo() const;
 
-    std::string id;
     Rarity rarity = Rarity::INVALID;
     Faction faction = Faction::INVALID;
     CardSet cardSet = CardSet::INVALID;
@@ -40,17 +48,29 @@ struct Card
     CardType cardType = CardType::INVALID;
     Race race = Race::INVALID;
 
+    std::string id;
     std::string name;
     std::string text;
 
-    bool isCollectible;
+#ifndef HEARTHSTONEPP_MACOSX
+    std::optional<size_t> attack;
+    std::optional<size_t> health;
+    std::optional<size_t> durability;
+#else
+    std::experimental::optional<size_t> attack;
+    std::experimental::optional<size_t> health;
+    std::experimental::optional<size_t> durability;
+#endif
     size_t cost;
 
     std::vector<GameTag> mechanics;
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
+    Power* power;
+
     unsigned int maxAllowedInDeck;
+    bool isCollectible;
 };
 }
 

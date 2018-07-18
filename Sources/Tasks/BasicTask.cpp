@@ -11,6 +11,7 @@
 #include <Commons/Constants.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
+#include <Tasks/PowerTask.h>
 #include <Tasks/TaskSerializer.h>
 
 #include <algorithm>
@@ -103,7 +104,7 @@ TaskMeta RawShuffle(Player& user)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
-    std::shuffle(user.cardsPtrInDeck.begin(), user.cardsPtrInDeck.end(), gen);
+    std::shuffle(user.cards.begin(), user.cards.end(), gen);
 
     return TaskMeta(
         TaskMetaTrait(TaskID::SHUFFLE, MetaData::SHUFFLE_SUCCESS, user.id));
@@ -123,8 +124,8 @@ TaskMeta RawDraw(Player& user, size_t num)
     Serializer::DrawTaskMeta meta;
     TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Card*>& deck = user.cardsPtrInDeck;
-    std::vector<Card*>& hand = user.hand;
+    std::vector<Entity*>& deck = user.cards;
+    std::vector<Entity*>& hand = user.hand;
 
     // when deck is exhausted
     if (deck.size() < num)
@@ -198,17 +199,20 @@ Task DrawTask(size_t num)
     return Task(TaskID::DRAW, std::move(role));
 }
 
-TaskMeta RawDraw(Player& user, Card* card)
+TaskMeta RawDraw(Player& user, Entity* entity)
 {
     Serializer::DrawTaskMeta meta;
     TaskMeta::status_t result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Card*>& deck = user.cardsPtrInDeck;
-    std::vector<Card*>& hand = user.hand;
+    std::vector<Entity*>& deck = user.cards;
+    std::vector<Entity*>& hand = user.hand;
 
     // successful draw
-    hand.push_back(card);
-    deck.pop_back();
+    hand.push_back(entity);
+    if (!deck.empty())
+    {
+        deck.pop_back();
+    }
 
     meta.numDraw = static_cast<BYTE>(1);
     return Serializer::CreateDrawTaskMeta(meta, result, user.id);
@@ -217,7 +221,15 @@ TaskMeta RawDraw(Player& user, Card* card)
 Task DrawTask(Card* card)
 {
     auto role = [=](Player& current, Player&) -> TaskMeta {
-        return RawDraw(current, card);
+        switch (card->cardType)
+        {
+            case +CardType::MINION:
+                return RawDraw(current, new Minion(card));
+            case +CardType::WEAPON:
+                return RawDraw(current, new Weapon(card));
+            default:
+                return RawDraw(current, new Entity(card));
+        }
     };
 
     return Task(TaskID::DRAW, std::move(role));
@@ -328,8 +340,8 @@ TaskMeta RawBrief(const Player& current, const Player& opponent)
 {
     Serializer::BriefTaskMeta meta(
         current.id, opponent.id, current.existMana, opponent.existMana,
-        static_cast<BYTE>(current.cardsPtrInDeck.size()),
-        static_cast<BYTE>(opponent.cardsPtrInDeck.size()),
+        static_cast<BYTE>(current.cards.size()),
+        static_cast<BYTE>(opponent.cards.size()),
         static_cast<BYTE>(opponent.hand.size()), current.hand, current.field,
         opponent.field, current.attacked, opponent.attacked, current.hero,
         opponent.hero);
@@ -422,8 +434,8 @@ TaskMeta RawMulligan(Player& user, std::function<TaskMeta()>&& method)
         }
     }
 
-    std::vector<Card*>& deck = user.cardsPtrInDeck;
-    std::vector<Card*>& hand = user.hand;
+    std::vector<Entity*>& deck = user.cards;
+    std::vector<Entity*>& hand = user.hand;
 
     for (size_t i = 0; i < read; ++i)
     {
@@ -454,7 +466,8 @@ Task MulliganTask(TaskAgent& agent)
     return Task(TaskID::MULLIGAN, std::move(role));
 }
 
-TaskMeta PlayCard(Player& player, size_t cardIndex, size_t position)
+TaskMeta PlayCard(Player& player, Player& opponent, size_t cardIndex,
+                  size_t position)
 {
     TaskMetaTrait meta(TaskID::SUMMON_MINION);
     meta.userID = player.id;
@@ -466,41 +479,44 @@ TaskMeta PlayCard(Player& player, size_t cardIndex, size_t position)
         return TaskMeta(meta);
     }
     // Sufficient Mana Verification
-    if (player.hand[cardIndex]->cost > player.existMana)
+    if (player.hand[cardIndex]->card->cost > player.existMana)
     {
         meta.status = MetaData::SUMMON_NOT_ENOUGH_MANA;
         return TaskMeta(meta);
     }
 
-    Card* card = player.hand[cardIndex];
+    Entity* entity = player.hand[cardIndex];
 
     // erase from user's hand
     player.hand.erase(player.hand.begin() + cardIndex);
 
-    switch (card->cardType)
+    switch (entity->card->cardType)
     {
         case CardType::MINION:
-            return PlayMinion(player, card, position);
+            return PlayMinion(player, opponent, entity, position);
         case CardType::WEAPON:
-            return PlayWeapon(player, card);
+            return PlayWeapon(player, opponent, entity);
         default:
             const std::vector<TaskMeta> vector;
             return Serializer::CreateTaskMetaVector(vector);
     }
 }
 
-Task PlayCardTask(Player& player, size_t cardIndex, int position)
+Task PlayCardTask(size_t cardIndex, int position, TargetType targetType,
+                  int targetPosition)
 {
-    (void)player;
+    (void)targetType;
+    (void)targetPosition;
 
-    auto role = [=](Player& current, Player&) -> TaskMeta {
-        return PlayCard(current, cardIndex, position);
+    auto role = [=](Player& current, Player& opponent) -> TaskMeta {
+        return PlayCard(current, opponent, cardIndex, position);
     };
 
     return Task(TaskID::SUMMON_MINION, std::move(role));
 }
 
-TaskMeta PlayMinion(Player& player, Card* card, size_t position)
+TaskMeta PlayMinion(Player& player, Player& opponent, Entity* entity,
+                    size_t position)
 {
     TaskMetaTrait meta(TaskID::SUMMON_MINION);
     meta.userID = player.id;
@@ -518,20 +534,24 @@ TaskMeta PlayMinion(Player& player, Card* card, size_t position)
         return TaskMeta(meta);
     }
 
-    player.field[position] = card;
-
-    int cost = static_cast<int>(card->cost);
-
-    // Summoned minion can't attack right turn
-    player.attacked.emplace_back(card);
-    TaskMeta modified = RawModifyMana(player, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
-
     // summon minion at field
-    player.field.insert(player.field.begin() + position, card);
+    player.field[position] = dynamic_cast<Character*>(entity);
     meta.status = MetaData::SUMMON_SUCCESS;
 
+    int cost = static_cast<int>(entity->card->cost);
+
+    // Summoned minion can't attack right turn
+    player.attacked.emplace_back(dynamic_cast<Character*>(entity));
+    TaskMeta modified =
+        RawModifyMana(player, NUM_SUB, MANA_EXIST, static_cast<BYTE>(cost));
+
     TaskMeta summon =
-        Serializer::CreateSummonMinionTaskMeta(meta, card, position);
+        Serializer::CreateSummonMinionTaskMeta(meta, entity, position);
+
+    for (auto& power : entity->card->power->powerTask)
+    {
+        PowerTask::ProcessPower(player, opponent, power);   
+    }
 
     std::vector<TaskMeta> vector;
     vector.emplace_back(std::move(summon));
@@ -540,9 +560,11 @@ TaskMeta PlayMinion(Player& player, Card* card, size_t position)
     return Serializer::CreateTaskMetaVector(vector);
 }
 
-TaskMeta PlayWeapon(Player& player, Card* card)
+TaskMeta PlayWeapon(Player& player, Player& opponent, Entity* entity)
 {
-    player.hero->weapon = dynamic_cast<Weapon*>(card);
+    (void)opponent;
+
+    player.hero->weapon = dynamic_cast<Weapon*>(entity);
 
     std::vector<TaskMeta> vector;
     return Serializer::CreateTaskMetaVector(vector);
@@ -561,7 +583,7 @@ TaskMeta RawCombat(Player& current, Player& opponent, size_t src, size_t dst)
     }
 
     // Source Minion Verification By Attacked Vector
-    std::vector<Card*>& attacked = current.attacked;
+    std::vector<Character*>& attacked = current.attacked;
     if (std::find(attacked.begin(), attacked.end(), current.field[src]) !=
         attacked.end())
     {
