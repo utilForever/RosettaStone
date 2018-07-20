@@ -6,11 +6,10 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-
 #ifndef HEARTHSTONEPP_TASKMETA_H
 #define HEARTHSTONEPP_TASKMETA_H
 
-#include <Enums/Enums.h>
+#include <Enums/CardEnums.h>
 #include <Tasks/MetaData.h>
 
 #include <Flatbuffers/generated/MetaData_generated.h>

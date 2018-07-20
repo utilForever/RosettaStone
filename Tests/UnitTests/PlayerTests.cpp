@@ -2,7 +2,7 @@
 
 #include <Accounts/Account.h>
 #include <Cards/Deck.h>
-#include <Enums/Enums.h>
+#include <Enums/CardEnums.h>
 
 using namespace Hearthstonepp;
 

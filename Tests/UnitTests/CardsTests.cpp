@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include <Cards/Cards.h>
-#include <Enums/Enums.h>
+#include <Enums/CardEnums.h>
 
 using namespace Hearthstonepp;
 

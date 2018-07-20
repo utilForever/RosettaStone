@@ -1,19 +1,19 @@
 /*************************************************************************
-> File Name: Spell.h
+> File Name: Enchantment.h
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Spell class inherits from Card class.
-> Created Time: 2017/09/16
-> Copyright (c) 2017, Chan-Ho Chris Ohk
+> Purpose: Enchantment class inherits from Card class.
+> Created Time: 2018/07/11
+> Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
-#ifndef HEARTHSTONEPP_SPELL_H
-#define HEARTHSTONEPP_SPELL_H
+#ifndef HEARTHSTONEPP_ENCHANTMENT_H
+#define HEARTHSTONEPP_ENCHANTMENT_H
 
 #include <Cards/Entity.h>
 
 namespace Hearthstonepp
 {
-struct Spell : public Entity
+struct Enchantment : public Entity
 {
     void GetDataFromCard() override;
 };

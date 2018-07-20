@@ -1,17 +1,17 @@
 /*************************************************************************
-> File Name: Spell.cpp
+> File Name: Enchantment.cpp
 > Project Name: Hearthstone++
 > Author: Chan-Ho Chris Ohk
-> Purpose: Spell class inherits from Card class.
-> Created Time: 2017/10/11
-> Copyright (c) 2017, Chan-Ho Chris Ohk
+> Purpose: Enchantment class inherits from Card class.
+> Created Time: 2018/07/11
+> Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
-#include <Cards/Spell.h>
+#include <Cards/Enchantment.h>
 
 namespace Hearthstonepp
 {
-void Spell::GetDataFromCard()
+void Enchantment::GetDataFromCard()
 {
-
+        
 }
 }

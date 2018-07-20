@@ -10,13 +10,13 @@
 #define HEARTHSTONEPP_AGENT_STRUCTURES_H
 
 #include <Accounts/Account.h>
-#include <Cards/Card.h>
+#include <Cards/Entity.h>
 #include <Cards/Hero.h>
+#include <Cards/HeroPower.h>
 #include <Cards/Minion.h>
 #include <Cards/Spell.h>
 #include <Cards/Weapon.h>
 #include <Enchants/Enchant.h>
-#include <Enchants/HeroPower.h>
 
 #include <memory>
 
@@ -36,20 +36,18 @@ struct Player
     std::string email;
     Hero* hero;
     HeroPower* power;
-    Weapon* weapon;
 
     // Card storage
-    std::vector<std::unique_ptr<Card>> cardsInDeck;
+    std::vector<Entity*> cards;
 
     // Card objects
-    std::vector<Card*> cardsPtrInDeck;
-    std::vector<Card*> field;
-    std::vector<Card*> hand;
-    std::vector<Card*> usedSpell;
-    std::vector<Card*> usedMinion;
+    std::vector<Character*> field;
+    std::vector<Entity*> hand;
+    std::vector<Spell*> usedSpell;
+    std::vector<Character*> usedMinion;
 
     // Already Attacked Minion
-    std::vector<Card*> attacked;
+    std::vector<Character*> attacked;
 
     bool operator==(const Player& player) const
     {

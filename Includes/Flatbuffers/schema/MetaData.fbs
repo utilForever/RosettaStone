@@ -11,6 +11,16 @@ table PlayRequirements {
     value:int;
 }
 
+table GameTag {
+    key_:int (key);
+    value:int;
+}
+
+table Entity {
+    card:Card;
+    gameTags:[GameTag];
+}
+
 table Card {
     id:string;
     rarity:int;
@@ -55,7 +65,7 @@ table DrawTaskMeta {
     numExhausted:ubyte;
     numHearts:ubyte;
     numOverdraw:ubyte;
-    burnt:[Card];
+    burnt:[Entity];
 }
 
 table BriefTaskMeta {
@@ -64,20 +74,20 @@ table BriefTaskMeta {
     currentMana:ubyte;
     opponentMana:ubyte;
 
-    currentHero:Card;
-    opponentHero:Card;
+    currentHero:Entity;
+    opponentHero:Entity;
 
-    currentField:[Card];
-    currentHand:[Card];
+    currentField:[Entity];
+    currentHand:[Entity];
 
-    opponentField:[Card];
+    opponentField:[Entity];
     numOpponentHand:ubyte;
 
     numCurrentDeck:ubyte;
     numOpponentDeck:ubyte;
 
-    currentAttacked:[Card];
-    opponentAttacked:[Card];
+    currentAttacked:[Entity];
+    opponentAttacked:[Entity];
 }
 
 table RequireMulliganTaskMeta {
@@ -97,20 +107,20 @@ table RequireSummonMinionTaskMeta {
 }
 
 table SummonMinionTaskMeta {
-    card:Card;
+    entity:Entity;
     index:ubyte;
 }
 
 table ModifyHealthTaskMeta {
-    card:Card;
+    entity:Entity;
     damage:ubyte;
     hurted:ubyte;
     isExhausted:bool;
 }
 
 table CombatTaskMeta {
-    src:Card;
-    dst:Card;
+    src:Entity;
+    dst:Entity;
 }
 
 table RequireTargetingTaskMeta {

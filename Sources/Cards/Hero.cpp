@@ -10,7 +10,8 @@
 
 namespace Hearthstonepp
 {
-void Hero::ShowInfo() const
+Hero::Hero(const Card* pCard) : Entity(pCard), Character(pCard)
 {
+    // Do nothing
 }
 }

@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_TASKS_H
 #define HEARTHSTONEPP_TASKS_H
 
-#include <Enums/Enums.h>
+#include <Enums/CardEnums.h>
 #include <Syncs/Player.h>
 #include <Tasks/TaskMeta.h>
 
