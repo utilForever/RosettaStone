@@ -10,7 +10,7 @@
 #define HEARTHSTONEPP_INTERFACE_H
 
 #include <Enums/CardEnums.h>
-#include <Syncs/GameAgent.h>
+#include <InGame/GameAgent.h>
 #include <Tasks/TaskMeta.h>
 
 #include <Flatbuffers/generated/MetaData_generated.h>

@@ -20,11 +20,18 @@
 
 namespace Hearthstonepp
 {
+BETTER_ENUM(TaskID, int, INVALID = 0, TASK_VECTOR = 1, REQUIRE = 2,
+            PLAYER_SETTING = 3, SWAP = 4, SHUFFLE = 5, DRAW = 6, OVER_DRAW = 7,
+            MODIFY_MANA = 8, MODIFY_HEALTH = 9, BRIEF = 10, SELECT_MENU = 11,
+            SELECT_CARD = 12, SELECT_TARGET = 13, SELECT_POSITION = 14,
+            MULLIGAN = 15, COMBAT = 16, PLAY_CARD = 17, PLAY_MINION = 18,
+            PLAY_WEAPON = 19, GAME_END = 20, POWER_TASK = 21)
+
 BETTER_ENUM(PowerTaskType, int, EMPTY = 0, DESTROY_OPPONENT_WEAPON = 1,
             HEAL_FULL = 2)
 
 BETTER_ENUM(TargetType, int, INVALID = 0, MY_HERO = 1, MY_FIELD = 2,
             OPPONENT_HERO = 3, OPPONENT_FIELD = 4);
-}
+}  // namespace Hearthstonepp
 
 #endif

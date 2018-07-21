@@ -10,7 +10,7 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Commons/Constants.h>
-#include <Syncs/Player.h>
+#include <InGame/Player.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 
@@ -50,7 +50,7 @@ class GameAgent
     Player& GetPlayer2();
 
     // Process tasks.
-    void Process(Player& player, Task t);
+    void Process(Player& player, const ITask& t);
 
  private:
     Player m_current;
@@ -70,13 +70,13 @@ class GameAgent
     // Select main menu and call action method, return true if game end
     bool MainMenu();
     // Use card such as summon minion, use spell etc.
-    void MainUseCard();
+    void MainPlayCard();
     // Combat with other minion or hero.
     void MainCombat();
 
     std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
         m_mainMenuFuncs = {
-            &GameAgent::MainUseCard,
+            &GameAgent::MainPlayCard,
             &GameAgent::MainCombat,
     };
 };

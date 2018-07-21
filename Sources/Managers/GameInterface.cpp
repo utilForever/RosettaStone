@@ -6,7 +6,7 @@
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <Syncs/GameInterface.h>
+#include <InGame/GameInterface.h>
 #include <Tasks/BasicTask.h>
 #include <Tasks/MetaData.h>
 #include <Tasks/TaskSerializer.h>
