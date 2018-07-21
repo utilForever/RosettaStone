@@ -36,6 +36,7 @@ struct Player
     std::string email;
     Hero* hero;
     HeroPower* power;
+    Weapon* weapon;
 
     // Card storage
     std::vector<Entity*> cards;

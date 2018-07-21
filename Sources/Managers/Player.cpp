@@ -7,24 +7,10 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Commons/Constants.h>
-#include <Syncs/Player.h>
+#include <Managers/Player.h>
 
 namespace Hearthstonepp
 {
-template <typename T>
-std::unique_ptr<Card> CopyCard(const Card *card)
-{
-    auto ptr = dynamic_cast<const T *>(card);
-    if (ptr != nullptr)
-    {
-        return std::make_unique<T>(*ptr);
-    }
-    else
-    {
-        return std::make_unique<Card>(*card);
-    }
-}
-
 Player::Player(const Account *account, const Deck *deck)
     : totalMana(0),
       existMana(0),
@@ -34,7 +20,6 @@ Player::Player(const Account *account, const Deck *deck)
     Cards* cardsInstance = Cards::GetInstance();
 
     const CardClass cardclass = deck->GetClass();
-
     const Card* heroCard = cardsInstance->GetHeroCard(cardclass);
     const Card* powerCard = cardsInstance->GetDefaultHeroPower(cardclass);
 
