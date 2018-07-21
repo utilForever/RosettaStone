@@ -9,10 +9,10 @@
 #ifndef HEARTHSTONEPP_TASKMETA_H
 #define HEARTHSTONEPP_TASKMETA_H
 
-#include <Enums/CardEnums.h>
+#include <Enums/TaskEnums.h>
 #include <Tasks/MetaData.h>
 
-#include <Flatbuffers/generated/MetaData_generated.h>
+#include <Flatbuffers/generated/FlatData_generated.h>
 
 #include <memory>
 
