@@ -7,58 +7,25 @@
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
 #include <Tasks/Tasks.h>
+#include <Tasks/TaskSerializer.h>
 
 namespace Hearthstonepp
 {
-Task::Task() : m_id(TaskID::INVALID)
+MetaData ITask::Run(Player& player1, Player& player2) const
 {
-    // Do Nothing
+    return Impl(player1, player2);
 }
 
-Task::Task(TaskID id, lambda_t&& role) : m_id(id), m_role(std::move(role))
+MetaData ITask::Run(Player& player1, Player& player2, TaskMeta& meta) const
 {
-    // Do Nothing
+    MetaData status = Impl(player1, player2);
+    meta = Serializer::CreateGameStatus(GetTaskID(), status, player1, player2);
+
+    return status;
 }
 
-Task::Task(TaskID id, const lambda_t& role) : m_id(id), m_role(role)
+TaskID ITask::GetTaskID() const
 {
-    // Do Nothing
-}
-
-Task::Task(Task&& task) : m_id(task.GetTaskID()), m_role(task.GetTaskRole())
-{
-    // Do Nothing
-}
-
-Task::Task(const Task& task)
-    : m_id(task.GetTaskID()), m_role(task.GetTaskRole())
-{
-    // Do Nothing
-}
-
-Task& Task::operator=(Task&& task)
-{
-    m_id = task.GetTaskID();
-    m_role = task.GetTaskRole();
-
-    return *this;
-}
-
-Task& Task::operator=(const Task& task)
-{
-    m_id = task.GetTaskID();
-    m_role = task.GetTaskRole();
-
-    return *this;
-}
-
-TaskID Task::GetTaskID() const
-{
-    return m_id;
-}
-
-Task::lambda_t Task::GetTaskRole() const
-{
-    return m_role;
+    return TaskID::INVALID;
 }
 }  // namespace Hearthstonepp

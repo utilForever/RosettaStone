@@ -10,40 +10,28 @@
 #define HEARTHSTONEPP_TASKS_H
 
 #include <Enums/CardEnums.h>
-#include <Syncs/Player.h>
+#include <Managers/Player.h>
+#include <Tasks/MetaData.h>
 #include <Tasks/TaskMeta.h>
 
 #include <functional>
 
 namespace Hearthstonepp
 {
-class Task
+class ITask
 {
  public:
     template <typename T>
-    static constexpr inline bool is_task =
-        std::is_same_v<std::decay_t<T>, Task>;
+    static inline constexpr bool isTask =
+        std::is_convertible_v<std::decay_t<T>, ITask>;
 
-    // function object of runnable Task role.
-    using lambda_t = std::function<TaskMeta(Player&, Player&)>;
+    MetaData Run(Player& player1, Player& player2) const;
+    MetaData Run(Player& player1, Player& player2, TaskMeta& meta) const;
 
-    Task();
+    virtual TaskID GetTaskID() const;
 
-    Task(TaskID id, lambda_t&& role);
-    Task(TaskID id, const lambda_t& role);
-
-    Task(Task&& task);
-    Task(const Task& task);
-
-    Task& operator=(Task&& task);
-    Task& operator=(const Task& task);
-
-    TaskID GetTaskID() const;
-    lambda_t GetTaskRole() const;
-
- private:
-    TaskID m_id;
-    lambda_t m_role;
+private:
+    virtual MetaData Impl(Player& player1, Player& player2) const = 0;
 };
 }  // namespace Hearthstonepp
 
