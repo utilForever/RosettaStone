@@ -6,7 +6,7 @@
 > Created Time: 2017/09/26
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
-#include <InGame/GameAgent.h>
+#include <Managers/GameAgent.h>
 #include <Tasks/BasicTasks/Brief.h>
 #include <Tasks/BasicTasks/Combat.h>
 #include <Tasks/BasicTasks/Draw.h>
@@ -54,26 +54,31 @@ void GameAgent::WriteSyncBuffer(TaskMeta&& data, bool sideChannel)
     m_taskAgent.Notify(std::move(data), sideChannel);
 }
 
+void GameAgent::Process(Player& player, const ITask& t)
+{
+    if (player == m_player1)
+    {
+        t.Run(m_player1, m_player2);
+    }
+    else
+    {
+        t.Run(m_player2, m_player1);
+    }
+}
+
 Player& GameAgent::GetPlayer1()
 {
-    return m_current;
+    return m_player1;
 }
 
 Player& GameAgent::GetPlayer2()
 {
-    return m_opponent;
+    return m_player2;
 }
 
-void GameAgent::Process(Player& player, const ITask& t)
+TaskAgent& GameAgent::GetTaskAgent()
 {
-    if (player == m_current)
-    {
-        t.Run(m_current, m_opponent);
-    }
-    else
-    {
-        t.Run(m_opponent, m_current);
-    }
+    return m_taskAgent;
 }
 
 void GameAgent::BeginPhase()
@@ -86,7 +91,7 @@ void GameAgent::BeginPhase()
     // swap user with 50% probability
     if (bin(gen) == 1)
     {
-        SwapPlayerTask().Run(m_current, m_opponent);
+        BasicTasks::SwapPlayerTask().Run(m_player1, m_player2);
     }
 
     auto success = [](const TaskMeta& meta) {
@@ -96,14 +101,17 @@ void GameAgent::BeginPhase()
     TaskMeta meta;
     // BeginPhase Task List
     m_taskAgent.Run(
-        meta, m_current, m_opponent, PlayerSettingTask(),
-        DoBothPlayer(ShuffleTask()), DoBothPlayer(DrawTask(NUM_BEGIN_DRAW)),
-        BriefTask(), DoUntil(MulliganTask(m_taskAgent), success),
-        SwapPlayerTask(), BriefTask(),
-        DoUntil(MulliganTask(m_taskAgent), success), SwapPlayerTask());
+        meta, m_player1, m_player2, BasicTasks::PlayerSettingTask(m_taskAgent),
+        BasicTasks::DoBothPlayer(BasicTasks::ShuffleTask()),
+        BasicTasks::DoBothPlayer(BasicTasks::DrawTask(NUM_BEGIN_DRAW, m_taskAgent)),
+        BasicTasks::BriefTask(),
+        BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
+        BasicTasks::SwapPlayerTask(), BasicTasks::BriefTask(),
+        BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
+        BasicTasks::SwapPlayerTask());
 
     // TODO: Coin for later user
-    // m_opponent.hand.push_back(new Card());
+    // m_player2.hand.push_back(new Card());
 }
 
 bool GameAgent::MainPhase()
@@ -117,7 +125,7 @@ bool GameAgent::MainPhase()
 void GameAgent::FinalPhase()
 {
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_current, m_opponent, GameEndTask());
+    m_taskAgent.Run(meta, m_player1, m_player2, BasicTasks::GameEndTask());
 }
 
 void GameAgent::MainReady()
@@ -125,11 +133,12 @@ void GameAgent::MainReady()
     // MainReady : Draw, ModifyMana, Clear vector `attacked`
     TaskMeta meta;
     m_taskAgent.Run(
-        meta, m_current, m_opponent, DrawTask(1),
-        ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
-        ModifyManaByRef(NumMode::SYNC, ManaMode::EXIST, m_current.totalMana));
+        meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
+        BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
+        BasicTasks::ModifyManaByRef(NumMode::SYNC, ManaMode::EXIST,
+                                    m_player1.totalMana));
 
-    m_current.attacked.clear();
+    m_player1.attacked.clear();
 }
 
 bool GameAgent::MainMenu()
@@ -141,8 +150,9 @@ bool GameAgent::MainMenu()
     }
 
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_current, m_opponent, BriefTask());
-    Requirement(TaskID::SELECT_MENU, m_taskAgent).Interact(m_current.id, meta);
+    m_taskAgent.Run(meta, m_player1, m_player2, BasicTasks::BriefTask());
+    BasicTasks::Requirement(TaskID::SELECT_MENU, m_taskAgent)
+        .Interact(m_player1.id, meta);
 
     // Interface pass menu by status of TaskMeta
     status_t menu = static_cast<status_t>(meta.status);
@@ -150,7 +160,8 @@ bool GameAgent::MainMenu()
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
         // Main End phase
-        m_taskAgent.Run(meta, m_current, m_opponent, SwapPlayerTask());
+        m_taskAgent.Run(meta, m_player1, m_player2,
+                        BasicTasks::SwapPlayerTask());
     }
     else
     {
@@ -170,19 +181,21 @@ void GameAgent::MainPlayCard()
 {
     // Read what kinds of card user wants to use
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_current, m_opponent, PlayCardTask(m_taskAgent));
+    m_taskAgent.Run(meta, m_player1, m_player2,
+                    BasicTasks::PlayCardTask(m_taskAgent));
 }
 
 void GameAgent::MainCombat()
 {
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_current, m_opponent, CombatTask(m_taskAgent));
+    m_taskAgent.Run(meta, m_player1, m_player2,
+                    BasicTasks::CombatTask(m_taskAgent));
 }
 
 bool GameAgent::IsGameEnd()
 {
-    size_t healthCurrent = m_current.hero->health;
-    size_t healthOpponent = m_opponent.hero->health;
+    size_t healthCurrent = m_player1.hero->health;
+    size_t healthOpponent = m_player2.hero->health;
 
     if (healthCurrent < 1 || healthOpponent < 1)
     {

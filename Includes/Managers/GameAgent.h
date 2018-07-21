@@ -10,7 +10,7 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Commons/Constants.h>
-#include <InGame/Player.h>
+#include <Managers/Player.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 
@@ -43,18 +43,17 @@ class GameAgent
     // Write TaskMeta to TaskAgent, using side channel as default
     void WriteSyncBuffer(TaskMeta&& data, bool sideChannel = true);
 
-    // Returns player 1.
-    Player& GetPlayer1();
-
-    // Returns player 2.
-    Player& GetPlayer2();
-
     // Process tasks.
     void Process(Player& player, const ITask& t);
 
+    Player& GetPlayer1();
+    Player& GetPlayer2();
+
+    TaskAgent& GetTaskAgent();
+
  private:
-    Player m_current;
-    Player m_opponent;
+    Player m_player1;
+    Player m_player2;
 
     TaskAgent m_taskAgent;
 
