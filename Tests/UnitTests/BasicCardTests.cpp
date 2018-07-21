@@ -30,11 +30,22 @@ TEST(BasicCard, EX1_066)
     TaskAgent& taskAgent = agent.GetTaskAgent();
 
     agent.Process(agent.GetPlayer1(), BasicTasks::PlayCardTask(taskAgent));
-    std::future<void>
+    std::future<void> response1 = std::async(std::launch::async, [&agent]() {
+        TaskMeta select = Serializer::CreateResponsePlayCard(0);
+        agent.WriteSyncBuffer(std::move(select));
+    });
 
     EXPECT_NE(agent.GetPlayer1().hero->weapon, nullptr);
 
     agent.Process(agent.GetPlayer2(), BasicTasks::PlayCardTask(taskAgent));
+    std::future<void> response2 = std::async(std::launch::async, [&agent]() {
+        TaskMeta card = Serializer::CreateResponsePlayCard(0);
+        agent.WriteSyncBuffer(std::move(card));
+
+        TaskMeta position = Serializer::CreateResponsePlayMinion(0);
+        agent.WriteSyncBuffer(std::move(position));
+    });
+
     EXPECT_EQ(agent.GetPlayer1().hero->weapon, nullptr);
 }
 
@@ -53,14 +64,16 @@ TEST(BasicCard, CS2_041)
                   BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
                       "Ancestral Healing")));
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
-//
-//    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
-//    auto minion = dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
-//    minion->health -= 1;
-//    EXPECT_EQ(minion->health, 1u);
-//
-//    agent.Process(agent.GetPlayer1(),
-//                  BasicTask::PlayCardTask(0, -1, TargetType::MY_FIELD, 1));
+    //
+    //    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
+    //    auto minion =
+    //    dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
+    //    minion->health -= 1;
+    //    EXPECT_EQ(minion->health, 1u);
+    //
+    //    agent.Process(agent.GetPlayer1(),
+    //                  BasicTask::PlayCardTask(0, -1, TargetType::MY_FIELD,
+    //                  1));
     // EXPECT_EQ(static_cast<bool>(minion->gameTags[GameTag::TAUNT]), true);
     // EXPECT_EQ(minion->health, 2);
 }
