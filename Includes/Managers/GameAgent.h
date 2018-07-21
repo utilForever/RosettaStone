@@ -30,8 +30,8 @@ class GameAgent
 
     template <typename PlayerT, typename = std::enable_if_t<isPlayer<PlayerT>>>
     GameAgent(PlayerT&& user1, PlayerT&& user2)
-        : m_current(std::forward<PlayerT>(user1)),
-          m_opponent(std::forward<PlayerT>(user2))
+        : m_player1(std::forward<PlayerT>(user1)),
+          m_player2(std::forward<PlayerT>(user2))
     {
         // Do Nothing
     }
