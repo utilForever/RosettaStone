@@ -17,7 +17,7 @@ PowerTaskType DestroyWeapon::GetPowerType() const
 
 MetaData DestroyWeapon::Impl(Player& player1, Player& player2) const
 {
-    player2.weapon = nullptr;
+    player2.hero->weapon = nullptr;
     return MetaData::INVALID;
 }
 }
