@@ -31,18 +31,18 @@ class TaskAgent
     TaskAgent& operator=(TaskAgent&&) = delete;
     TaskAgent& operator=(const TaskAgent&) = delete;
 
-    // Read TaskMeta from SyncBuffer, main channel as default, side channel by
-    // true flag
+    // Read TaskMeta from SyncBuffer
+    // main channel as default, side channel by flag
     void Read(TaskMeta& meta, bool sideChannel = false);
-    // Write TaskMeta from SyncBuffer, main channel as default, side channel by
-    // true flag
+    // Write TaskMeta from SyncBuffer,
+    // main channel as default, side channel by flag
     void Notify(TaskMeta&& meta, bool sideChannel = false);
 
     // Run single task and write result to `meta`,
-    // if `notify` is true, TaskAgent notify the SyncBuffer to main channel
+    // if `notify` is true, TaskAgent notify the main channel as SyncBuffer
     void Run(TaskMeta& meta, Player& player1, Player& player2,
              const ITask& task, bool notify = true);
-    // Run Multi task and write result to `meta`
+    // Run Multi tasks and write result to `meta`
     template <typename... ITaskT>
     void Run(TaskMeta& meta, Player& player1, Player& player2,
              const ITaskT&... tasks)
