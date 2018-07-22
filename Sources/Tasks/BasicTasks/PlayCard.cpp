@@ -2,7 +2,7 @@
 > File Name: PlayCard.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement PlayCardTask, Select Card and Passing it to Sub Logics
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -26,6 +26,7 @@ TaskID PlayCardTask::GetTaskID() const
 MetaData PlayCardTask::Impl(Player& player1, Player& player2) const
 {
     TaskMeta serialized;
+    // Get Response from GameInterface
     m_requirement.Interact(player1.id, serialized);
 
     using RequireTaskMeta = FlatData::ResponsePlayCard;
@@ -55,6 +56,7 @@ MetaData PlayCardTask::Impl(Player& player1, Player& player2) const
     // erase from user's hand
     player1.hand.erase(player1.hand.begin() + cardIndex);
 
+    // Pass to Sub Logics
     switch (entity->card->cardType)
     {
         case CardType::MINION:
@@ -65,4 +67,4 @@ MetaData PlayCardTask::Impl(Player& player1, Player& player2) const
             return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
     }
 }
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks

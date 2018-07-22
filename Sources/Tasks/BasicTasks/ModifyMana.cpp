@@ -2,7 +2,7 @@
 > File Name: ModifyMana.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement ModifyManaTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -12,7 +12,8 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-MetaData ImplModifyMana(Player& user, NumMode numMode, ManaMode manaMode, BYTE num)
+MetaData ImplModifyMana(Player& user, NumMode numMode, ManaMode manaMode,
+                        BYTE num)
 {
     auto get = [](Player& user, ManaMode mode) -> BYTE& {
         if (mode == ManaMode::EXIST)
@@ -83,4 +84,4 @@ MetaData ModifyManaByRef::Impl(Player& player1, Player&) const
 {
     return ImplModifyMana(player1, m_numMode, m_manaMode, m_num);
 }
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks

@@ -2,7 +2,7 @@
 > File Name: Wrapper.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Task Wrapper for some utilities
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -62,4 +62,4 @@ MetaData DoUntil::Impl(Player& player1, Player& player2) const
 
     return meta.status;
 }
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks

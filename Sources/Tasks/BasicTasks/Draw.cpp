@@ -2,7 +2,7 @@
 > File Name: Draw.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement DrawTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -43,7 +43,6 @@ MetaData DrawTask::Impl(Player& user, Player&) const
         user.hero->health = hurted > 0 ? static_cast<size_t>(hurted) : 0;
         user.exhausted += static_cast<BYTE>(rest);
 
-        // full draw is fail
         result = MetaData::DRAW_EXHAUST;
     }
 
@@ -65,7 +64,6 @@ MetaData DrawTask::Impl(Player& user, Player&) const
 
         num = 10 - hand.size();
 
-        // draw is fail
         if (result == MetaData::DRAW_EXHAUST)
         {
             result = MetaData::DRAW_EXHAUST_OVERDRAW;
@@ -75,6 +73,7 @@ MetaData DrawTask::Impl(Player& user, Player&) const
             result = MetaData::DRAW_OVERDRAW;
         }
 
+        // Send Burnt Cards to GameInterface
         TaskMetaTrait trait(TaskID::OVER_DRAW, result, user.id);
         m_agent.Notify(Serializer::CreateEntityVector(trait, burnt));
     }

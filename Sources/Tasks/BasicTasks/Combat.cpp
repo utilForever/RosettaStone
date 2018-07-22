@@ -2,7 +2,7 @@
 > File Name: Combat.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement CombatTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-CombatTask::CombatTask(TaskAgent &agent)
+CombatTask::CombatTask(TaskAgent& agent)
     : m_requirement(TaskID::SELECT_TARGET, agent)
 {
     // Do Nothing
@@ -25,6 +25,7 @@ TaskID CombatTask::GetTaskID() const
 MetaData CombatTask::Impl(Player& player1, Player& player2) const
 {
     TaskMeta serialized;
+    // Get Targeting Response from GameInterface
     m_requirement.Interact(player1.id, serialized);
 
     using RequireTaskMeta = FlatData::ResponseTarget;
@@ -45,7 +46,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
         return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
-    // Source Minion Verification By Attacked Vector
+    // Source Minion Verification for Attacked Vector
     std::vector<Character*>& attacked = player1.attacked;
     if (std::find(attacked.begin(), attacked.end(), player1.field[src]) !=
         attacked.end())
@@ -55,8 +56,9 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
 
     attacked.emplace_back(player1.field[src]);
 
-    // Destination Verification, dst == 0 : hero / 1 < dst <= field.size :
-    // minion
+    // Destination Verification
+    // dst == 0 : hero
+    // 1 < dst <= field.size : minion
     if (dst > player2.field.size())
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
@@ -64,19 +66,23 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
 
     Character* source = dynamic_cast<Character*>(player1.field[src]);
     Character* target = (dst > 0)
-                        ? dynamic_cast<Character*>(player2.field[dst - 1])
-                        : dynamic_cast<Character*>(player2.hero);
+                            ? dynamic_cast<Character*>(player2.field[dst - 1])
+                            : dynamic_cast<Character*>(player2.hero);
 
     BYTE sourceAttack = static_cast<BYTE>(source->attack);
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
 
-    MetaData hurtedSrc = ModifyHealthTask(source, targetAttack).Run(player1, player2);
+    // Attack : Dst -> Src
+    MetaData hurtedSrc =
+        ModifyHealthTask(source, targetAttack).Run(player1, player2);
     if (hurtedSrc != MetaData::MODIFY_HEALTH_SUCCESS)
     {
         return hurtedSrc;
     }
 
-    MetaData hurtedDst = ModifyHealthTask(target, sourceAttack).Run(player1, player2);
+    // Attack : Src -> Dst
+    MetaData hurtedDst =
+        ModifyHealthTask(target, sourceAttack).Run(player1, player2);
     if (hurtedDst != MetaData::MODIFY_HEALTH_SUCCESS)
     {
         return hurtedDst;
@@ -84,4 +90,4 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
 
     return MetaData::COMBAT_SUCCESS;
 }
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks

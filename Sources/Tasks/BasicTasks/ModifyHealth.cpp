@@ -2,7 +2,7 @@
 > File Name: ModifyHealth.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement ModifyHealthTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -46,4 +46,4 @@ MetaData ModifyHealthTask::Impl(Player& user, Player&) const
     m_character->health = static_cast<size_t>(hurted);
     return MetaData::MODIFY_HEALTH_SUCCESS;
 }
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks

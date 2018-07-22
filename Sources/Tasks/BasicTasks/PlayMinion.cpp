@@ -2,7 +2,7 @@
 > File Name: PlayMinion.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement PlayMinion, Summon Minion and Process PowerTasks
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -28,6 +28,7 @@ TaskID PlayMinionTask::GetTaskID() const
 MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
 {
     TaskMeta meta;
+    // Get Position Response from GameInterface
     m_requirement.Interact(player1.id, meta);
 
     using RequireTaskMeta = FlatData::ResponsePlayMinion;
@@ -47,12 +48,14 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
         return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
 
+    // Character Casting Verification
     auto character = dynamic_cast<Character*>(m_entity);
     if (character == nullptr)
     {
         return MetaData::PLAY_MINION_CANNOT_CONVERT_ENTITY;
     }
 
+    // Summon
     player1.field.insert(player1.field.begin() + position, character);
 
     // Summoned minion can't attack right turn
@@ -62,6 +65,7 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
     MetaData modified = ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
                             .Run(player1, player2);
 
+    // Process PowerTasks
     for (auto& power : m_entity->card->power->powerTask)
     {
         PowerTask::ProcessPower(player1, player2, power);

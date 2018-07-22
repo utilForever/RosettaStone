@@ -2,7 +2,7 @@
 > File Name: Shuffle.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement ShuffleTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -25,4 +25,4 @@ MetaData ShuffleTask::Impl(Player& player1, Player&) const
 
     return MetaData::SHUFFLE_SUCCESS;
 }
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks

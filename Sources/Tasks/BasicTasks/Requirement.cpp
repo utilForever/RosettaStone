@@ -2,7 +2,7 @@
 > File Name: Requirement.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose: 
+> Purpose: Implement Requirement, Interact with GameInterface
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -25,4 +25,4 @@ void Requirement::Interact(BYTE userID, TaskMeta &meta) const
     // Read TaskMeta from side channel
     m_agent.Read(meta, true);
 }
-}
+}  // namespace Hearthstonepp::BasicTasks

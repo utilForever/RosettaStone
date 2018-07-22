@@ -2,7 +2,7 @@
 > File Name: Mulligan.cpp
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement MulliganTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -50,7 +50,7 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2) const
     };
     std::copy(data, data + read, index);
 
-    // Mulligan doesn't require
+    // None of cards are selected
     if (read == 0)
     {
         return MetaData::MULLIGAN_SUCCESS;
@@ -76,6 +76,7 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2) const
     std::vector<Entity*>& deck = player1.cards;
     std::vector<Entity*>& hand = player1.hand;
 
+    // Rollback to Deck
     for (size_t i = 0; i < read; ++i)
     {
         deck.emplace_back(hand[index[i]]);
