@@ -43,13 +43,10 @@ class GameAgent
     // Write TaskMeta to TaskAgent, using side channel as default
     void WriteSyncBuffer(TaskMeta&& data, bool sideChannel = true);
 
-    // Process tasks.
-    void Process(Player& player, const ITask& t);
+    TaskAgent& GetTaskAgent();
 
     Player& GetPlayer1();
     Player& GetPlayer2();
-
-    TaskAgent& GetTaskAgent();
 
  private:
     Player m_player1;

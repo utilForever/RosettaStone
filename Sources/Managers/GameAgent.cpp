@@ -54,18 +54,6 @@ void GameAgent::WriteSyncBuffer(TaskMeta&& data, bool sideChannel)
     m_taskAgent.Notify(std::move(data), sideChannel);
 }
 
-void GameAgent::Process(Player& player, const ITask& t)
-{
-    if (player == m_player1)
-    {
-        t.Run(m_player1, m_player2);
-    }
-    else
-    {
-        t.Run(m_player2, m_player1);
-    }
-}
-
 Player& GameAgent::GetPlayer1()
 {
     return m_player1;
