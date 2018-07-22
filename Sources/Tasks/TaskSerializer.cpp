@@ -32,9 +32,9 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         mechanics.emplace_back(static_cast<int>(mechanic));
     }
 
-    size_t attack = card->attack ? card->attack.value() : 0;
-    size_t health = card->health ? card->health.value() : 0;
-    size_t durability = card->durability ? card->durability.value() : 0;
+    size_t attack = card->attack ? *card->attack : 0;
+    size_t health = card->health ? *card->health : 0;
+    size_t durability = card->durability ? *card->durability : 0;
 
     return FlatData::CreateCard(
         builder, builder.CreateString(card->id), static_cast<int>(card->rarity),
