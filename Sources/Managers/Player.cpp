@@ -11,11 +11,8 @@
 
 namespace Hearthstonepp
 {
-Player::Player(const Account *account, const Deck *deck)
-    : totalMana(0),
-      existMana(0),
-      exhausted(0),
-      email(account->GetEmail())
+Player::Player(const Account* account, const Deck* deck)
+    : totalMana(0), existMana(0), exhausted(0), email(account->GetEmail())
 {
     Cards* cardsInstance = Cards::GetInstance();
     const CardClass cardclass = deck->GetClass();

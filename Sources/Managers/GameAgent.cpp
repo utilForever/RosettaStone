@@ -139,6 +139,7 @@ bool GameAgent::MainMenu()
 
     TaskMeta meta;
     m_taskAgent.Run(meta, m_player1, m_player2, BasicTasks::BriefTask());
+    // Get Menu Response from GameInterface
     BasicTasks::Requirement(TaskID::SELECT_MENU, m_taskAgent)
         .Interact(m_player1.id, meta);
 
@@ -167,7 +168,6 @@ bool GameAgent::MainMenu()
 
 void GameAgent::MainPlayCard()
 {
-    // Read what kinds of card user wants to use
     TaskMeta meta;
     m_taskAgent.Run(meta, m_player1, m_player2,
                     BasicTasks::PlayCardTask(m_taskAgent));
