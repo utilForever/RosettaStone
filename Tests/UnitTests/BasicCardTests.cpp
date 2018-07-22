@@ -27,6 +27,7 @@ TEST(BasicCard, EX1_066)
     Card* AcidicSwampOoze =
         Cards::GetInstance()->FindCardByName("Acidic Swamp Ooze");
 
+    // Run DrawCardTask Directly (without TaskAgent or GameAgent)
     BasicTasks::DrawCardTask(FieryWarAxe).Run(player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Fiery War Axe");
@@ -35,10 +36,12 @@ TEST(BasicCard, EX1_066)
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");
 
+    // Temporal GameInterface, Return Response Data to PlayCardTask
     std::future<void> response1 = std::async(std::launch::async, [&agent]() {
         TaskMeta meta;
         agent.GetTaskMeta(meta);
 
+        // Select Card Requirement Verification
         auto required = flatbuffers::GetRoot<FlatData::RequireTaskMeta>(
             meta.GetConstBuffer().get());
         EXPECT_EQ(TaskID::_from_integral(required->required()),
@@ -52,10 +55,12 @@ TEST(BasicCard, EX1_066)
     EXPECT_EQ(result, MetaData::PLAY_WEAPON_SUCCESS);
     EXPECT_NE(agent.GetPlayer1().hero->weapon, nullptr);
 
+    // Return Response Data to PlayCardTask And PlayMinionTask
     std::future<void> response2 = std::async(std::launch::async, [&agent]() {
         TaskMeta meta;
         agent.GetTaskMeta(meta);
 
+        // Select Card Requirement Verification
         auto selectCard = flatbuffers::GetRoot<FlatData::RequireTaskMeta>(
             meta.GetConstBuffer().get());
         EXPECT_EQ(TaskID::_from_integral(selectCard->required()),
@@ -65,6 +70,7 @@ TEST(BasicCard, EX1_066)
         agent.WriteSyncBuffer(std::move(card));
 
         agent.GetTaskMeta(meta);
+        // Select Position Requirement Verification
         auto selectPosition = flatbuffers::GetRoot<FlatData::RequireTaskMeta>(
             meta.GetConstBuffer().get());
         EXPECT_EQ(TaskID::_from_integral(selectPosition->required()),
@@ -100,13 +106,15 @@ TEST(BasicCard, CS2_041)
     BasicTasks::DrawCardTask(AncestralHealing).Run(player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
 
-//    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
-//    auto minion = dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
-//    minion->health -= 1;
-//    EXPECT_EQ(minion->health, 1u);
-//
-//    agent.Process(agent.GetPlayer1(),
-//                  BasicTask::PlayCardTask(0, -1, TargetType::MY_FIELD, 1));
-//    EXPECT_EQ(static_cast<bool>(minion->gameTags[GameTag::TAUNT]), true);
-//    EXPECT_EQ(minion->health, 2);
+    //    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
+    //    auto minion =
+    //    dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
+    //    minion->health -= 1;
+    //    EXPECT_EQ(minion->health, 1u);
+    //
+    //    agent.Process(agent.GetPlayer1(),
+    //                  BasicTask::PlayCardTask(0, -1, TargetType::MY_FIELD,
+    //                  1));
+    //    EXPECT_EQ(static_cast<bool>(minion->gameTags[GameTag::TAUNT]), true);
+    //    EXPECT_EQ(minion->health, 2);
 }
