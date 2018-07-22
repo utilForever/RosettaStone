@@ -32,22 +32,9 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         mechanics.emplace_back(static_cast<int>(mechanic));
     }
 
-    size_t attack = 0;
-    size_t health = 0;
-    size_t durability = 0;
-
-    const Character* character = dynamic_cast<const Character*>(card);
-    if (character != nullptr)
-    {
-        attack = character->attack;
-        health = character->health;
-    }
-
-    const Weapon* weapon = dynamic_cast<const Weapon*>(card);
-    if (weapon != nullptr)
-    {
-        durability = weapon->durability;
-    }
+    size_t attack = card->attack ? card->attack.value() : 0;
+    size_t health = card->health ? card->health.value() : 0;
+    size_t durability = card->durability ? card->durability.value() : 0;
 
     return FlatData::CreateCard(
         builder, builder.CreateString(card->id), static_cast<int>(card->rarity),

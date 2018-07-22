@@ -18,6 +18,8 @@
 
 namespace Hearthstonepp
 {
+// Interface of Tasks.
+// Method `Run` call virtual method `Impl` and return GameStatus TaskMeta
 class ITask
 {
  public:
@@ -30,7 +32,7 @@ class ITask
 
     virtual TaskID GetTaskID() const;
 
-private:
+ private:
     virtual MetaData Impl(Player& player1, Player& player2) const = 0;
 };
 }  // namespace Hearthstonepp

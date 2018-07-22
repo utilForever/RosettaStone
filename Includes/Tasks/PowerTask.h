@@ -17,6 +17,7 @@ namespace Hearthstonepp::PowerTask
 {
 void ProcessPower(Player& player1, Player& player2, PowerTaskType powerType);
 
+// Interface of Power Tasks
 class IPower : public ITask
 {
  public:

@@ -28,6 +28,7 @@ flatbuffers::Offset<FlatData::Entity> CreateEntity(
 flatbuffers::Offset<FlatData::Card> CreateCard(
     flatbuffers::FlatBufferBuilder& builder, const Card* card);
 
+// Convert std::vector<Entity*> to FlatData::EntityVector
 TaskMeta CreateEntityVector(const TaskMetaTrait& trait,
                             const std::vector<Entity*>& vector);
 
@@ -36,21 +37,22 @@ TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
                               MetaData status = MetaData::INVALID,
                               BYTE userID = TaskMeta::USER_INVALID);
 
-// From BasicTask::RequireMethod
+// Create Requirements with TaskID
 TaskMeta CreateRequire(TaskID request, BYTE userID);
-// From BasicTask::RawMulligan
+// Create Response for Mulligan Task
 TaskMeta CreateResponseMulligan(const BYTE* index, size_t size);
-// From GameInterface::InputSelectCard
+// Create Response For PlayCard Task, Select Card from Hand
 TaskMeta CreateResponsePlayCard(size_t cardIndex);
-
+// Create Response for PlayMinion Task, Select position where minion will summon
 TaskMeta CreateResponsePlayMinion(size_t position);
-// From GameInterface::InputTargeting
+// Create Response for Targeting Tasks, eg. Combat
 TaskMeta CreateResponseTarget(size_t src, size_t dst);
 
+// Pack email of both players and set id
 TaskMeta CreatePlayerSetting(const std::string& player1,
                              const std::string& player2);
 
-// From BasicTask::RawBrief
+// Create GameStatus TaskMeta
 TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
                           const Player& player2);
 }  // namespace Hearthstonepp::Serializer

@@ -6,8 +6,8 @@
 > Created Time: 2018/05/20
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/Tasks.h>
 #include <Tasks/TaskSerializer.h>
+#include <Tasks/Tasks.h>
 
 namespace Hearthstonepp
 {
