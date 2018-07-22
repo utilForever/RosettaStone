@@ -186,12 +186,21 @@ void GameInterface::HandlePlayerSetting(const TaskMeta& meta)
 
         auto setting =
             flatbuffers::GetRoot<FlatData::PlayerSetting>(buffer.get());
+        if (setting != nullptr)
+        {
+            m_users[0] = setting->player1()->str();
+            m_users[1] = setting->player2()->str();
 
-        m_users[0] = setting->player1()->str();
-        m_users[1] = setting->player2()->str();
+            stream << "first : " << m_users[0] << '\n'
+                   << "second : " << m_users[1] << '\n';
+        }
+        else
+        {
+            stream << "Exception HandlePlayerSetting : Invalid FlatBuffer\n";
 
-        stream << "first : " << m_users[0] << '\n'
-               << "second : " << m_users[1] << '\n';
+            m_users[0] = "Unknown0";
+            m_users[1] = "Unknown1";
+        }
     }
 }
 
@@ -269,10 +278,10 @@ void GameInterface::HandleBrief(const TaskMeta& meta)
     }
 
     size_t bufferSize = meta.GetBufferSize();
-    m_brief = std::make_unique<BYTE[]>(bufferSize);
+    m_status = std::make_unique<BYTE[]>(bufferSize);
 
     const auto& buffer = meta.GetConstBuffer();
-    std::copy(buffer.get(), buffer.get() + bufferSize, m_brief.get());
+    std::copy(buffer.get(), buffer.get() + bufferSize, m_status.get());
 
     stream << "Game Briefing\n"
            << m_users[status->opponentPlayer()] << " - Hero "
@@ -520,7 +529,7 @@ void GameInterface::InputMenu(const TaskMeta& meta)
 void GameInterface::InputCard(const TaskMeta& meta)
 {
     LogWriter(m_users[meta.userID]) << "Select Card\n";
-    if (m_brief == nullptr)
+    if (m_status == nullptr)
     {
         m_ostream << "Exception InputSelectCard : BriefCache is nullptr\n";
         m_agent.WriteSyncBuffer(
@@ -529,7 +538,7 @@ void GameInterface::InputCard(const TaskMeta& meta)
         return;
     }
 
-    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_brief.get());
+    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
     auto currentHand = brief->currentHand();
 
     int numCurrentHand = currentHand->size();
@@ -562,7 +571,7 @@ void GameInterface::InputCard(const TaskMeta& meta)
 void GameInterface::InputTarget(const TaskMeta& meta)
 {
     LogWriter(m_users[meta.userID]) << "Targeting\n";
-    if (m_brief == nullptr)
+    if (m_status == nullptr)
     {
         m_ostream << "Exception InputTargeting : BriefCache is nullptr\n";
         m_agent.WriteSyncBuffer(
@@ -570,7 +579,7 @@ void GameInterface::InputTarget(const TaskMeta& meta)
         return;
     }
 
-    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_brief.get());
+    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
     auto currentField = brief->currentField();
     int numCurrentField = currentField->size();
 
@@ -629,7 +638,7 @@ void GameInterface::InputTarget(const TaskMeta& meta)
 void GameInterface::InputPosition(const TaskMeta& meta)
 {
     LogWriter(m_users[meta.userID]) << "Input Position\n";
-    if (m_brief == nullptr)
+    if (m_status == nullptr)
     {
         m_ostream << "Exception InputPosition : BriefCache is nullptr\n";
         m_agent.WriteSyncBuffer(
@@ -637,7 +646,7 @@ void GameInterface::InputPosition(const TaskMeta& meta)
         return;
     }
 
-    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_brief.get());
+    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
     auto currentField = brief->currentField();
 
     int numCurrentField = currentField->size();

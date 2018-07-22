@@ -43,7 +43,7 @@ class GameInterface
 
  private:
     GameAgent& m_agent;
-    // Temporal TaskMeta got from GameAgent
+    // Temporal TaskMeta
     TaskMeta m_buffer;
 
     GameResult m_result;
@@ -53,8 +53,8 @@ class GameInterface
 
     // user id
     std::string m_users[2];
-
-    std::unique_ptr<BYTE[]> m_brief;
+    // Cached Game Status for processing some requirements
+    std::unique_ptr<BYTE[]> m_status;
 
     HandleStatus HandleMessage(const TaskMeta& meta);
     std::ostream& LogWriter(const std::string& name);
