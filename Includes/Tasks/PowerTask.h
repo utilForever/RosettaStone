@@ -25,7 +25,7 @@ class IPower : public ITask
     virtual PowerTaskType GetPowerType() const = 0;
 
  private:
-    virtual MetaData Impl(Player& player1, Player& player2) const = 0;
+    virtual MetaData Impl(Player& player1, Player& player2) const override = 0;
 };
 }  // namespace Hearthstonepp::PowerTask
 
