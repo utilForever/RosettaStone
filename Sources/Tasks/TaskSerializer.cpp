@@ -192,8 +192,9 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
         builder, player1.id, player2.id, player1.existMana, player2.existMana,
         CreateEntity(builder, player1.hero),
         CreateEntity(builder, player2.hero), result[0], result[1], result[2],
-        player2.hand.size(), player1.cards.size(), player2.cards.size(),
-        result[3], result[4]);
+        static_cast<BYTE>(player2.hand.size()),
+        static_cast<BYTE>(player1.cards.size()),
+        static_cast<BYTE>(player2.cards.size()), result[3], result[4]);
 
     builder.Finish(gameStatus);
     return TaskMeta(TaskMetaTrait(taskID, status, player1.id),
