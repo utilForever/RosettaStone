@@ -27,10 +27,11 @@ TaskID PlayMinionTask::GetTaskID() const
 
 MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
 {
-    TaskMeta serialized;
+    TaskMeta meta;
+    m_requirement.Interact(player1.id, meta);
 
     using RequireTaskMeta = FlatData::ResponsePlayMinion;
-    const auto& buffer = serialized.GetConstBuffer();
+    const auto& buffer = meta.GetConstBuffer();
     auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
     if (req == nullptr)
@@ -46,22 +47,20 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
         return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
 
-    if (player1.field[position] != nullptr)
+    auto character = dynamic_cast<Character*>(m_entity);
+    if (character == nullptr)
     {
-        return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
+        return MetaData::PLAY_MINION_CANNOT_CONVERT_ENTITY;
     }
 
-    // summon minion at field
-    player1.field[position] = dynamic_cast<Character*>(m_entity);
-
-    int cost = static_cast<int>(m_entity->card->cost);
+    player1.field.insert(player1.field.begin() + position, character);
 
     // Summoned minion can't attack right turn
-    Character* character = dynamic_cast<Character*>(m_entity);
     player1.attacked.emplace_back(character);
-    MetaData modified =
-        ModifyManaTask(NumMode::SUB, ManaMode::EXIST, static_cast<BYTE>(cost))
-            .Run(player1, player2);
+
+    BYTE cost = static_cast<BYTE>(m_entity->card->cost);
+    MetaData modified = ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
+                            .Run(player1, player2);
 
     for (auto& power : m_entity->card->power->powerTask)
     {
