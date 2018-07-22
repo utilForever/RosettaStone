@@ -18,23 +18,31 @@ Player::Player(const Account *account, const Deck *deck)
       email(account->GetEmail())
 {
     Cards* cardsInstance = Cards::GetInstance();
-
     const CardClass cardclass = deck->GetClass();
+
     const Card* heroCard = cardsInstance->GetHeroCard(cardclass);
+    hero = new Hero(heroCard);
+
     const Card* powerCard = cardsInstance->GetDefaultHeroPower(cardclass);
+    power = new HeroPower(powerCard);
 
     for (auto& card : deck->GetPrimitiveDeck())
     {
-        cards.emplace_back(new Entity(card));
-    }
+        Entity* entity = nullptr;
+        switch (card->cardType)
+        {
+            case CardType::MINION:
+                entity = new Minion(card);
+                break;
+            case CardType::WEAPON:
+                entity = new Weapon(card);
+                break;
+            default:
+                entity = new Entity(card);
+                break;
+        }
 
-    hero = new Hero(heroCard);
-    power = new HeroPower(powerCard);
-
-    field.reserve(FIELD_SIZE);
-    for (size_t i = 0; i < FIELD_SIZE; ++i)
-    {
-        field.emplace_back(nullptr);
+        cards.emplace_back(entity);
     }
 }
 }  // namespace Hearthstonepp
