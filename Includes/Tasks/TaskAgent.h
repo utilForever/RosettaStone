@@ -50,7 +50,8 @@ class TaskAgent
         std::vector<TaskMeta> pool;
         Run(pool, player1, player2, tasks...);
 
-        Notify(Serializer::CreateTaskMetaVector(pool));
+        meta = Serializer::CreateTaskMetaVector(pool);
+        Notify(TaskMeta::CopyFrom(meta));
     }
 
  private:
