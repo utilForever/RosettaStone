@@ -95,8 +95,10 @@ DrawCardTask::DrawCardTask(Card* card)
     {
         case +CardType::MINION:
             m_entity = new Minion(card);
+            break;
         case +CardType::WEAPON:
             m_entity = new Weapon(card);
+            break;
         default:
             m_entity = new Entity(card);
     }
@@ -112,7 +114,7 @@ MetaData DrawCardTask::Impl(Player& user, Player&) const
     std::vector<Entity*>& deck = user.cards;
     std::vector<Entity*>& hand = user.hand;
 
-    hand.emplace_back(dynamic_cast<Character*>(m_entity));
+    hand.emplace_back(m_entity);
     if (!deck.empty())
     {
         deck.pop_back();
