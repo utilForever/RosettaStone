@@ -2,7 +2,7 @@
 > File Name: Combat.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement CombatTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -25,6 +25,6 @@ class CombatTask : public ITask
     Requirement m_requirement;
     MetaData Impl(Player& player1, Player& player2) const override;
 };
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks
 
 #endif  // HEARTHSTONEPP_COMBAT_H

@@ -2,7 +2,7 @@
 > File Name: Wrapper.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Task Wrapper for some utilities
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -37,5 +37,5 @@ class DoUntil : public ITask
 
     MetaData Impl(Player& player1, Player& player2) const override;
 };
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks
 #endif  // HEARTHSTONEPP_WRAPPER_H

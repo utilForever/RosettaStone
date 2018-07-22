@@ -2,7 +2,7 @@
 > File Name: PlayMinion.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement PlayMinion, Summon Minion and Process PowerTasks
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -15,6 +15,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+// Summon Minion and Process PowerTasks
 class PlayMinionTask : public ITask
 {
  public:
@@ -26,6 +27,6 @@ class PlayMinionTask : public ITask
     Requirement m_requirement;
     MetaData Impl(Player& player1, Player& player2) const override;
 };
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks
 
 #endif  // HEARTHSTONEPP_PLAYMINION_H

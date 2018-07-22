@@ -2,7 +2,7 @@
 > File Name: Draw.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement DrawTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -14,6 +14,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+// Draw Random Card from Deck
 class DrawTask : public ITask
 {
  public:
@@ -26,7 +27,7 @@ class DrawTask : public ITask
 
     MetaData Impl(Player& player1, Player& player2) const override;
 };
-
+// Draw fixed card
 class DrawCardTask : public ITask
 {
  public:
@@ -37,6 +38,6 @@ class DrawCardTask : public ITask
     Entity* m_entity;
     MetaData Impl(Player& player1, Player& player2) const override;
 };
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks
 
 #endif  // HEARTHSTONEPP_DRAW_H

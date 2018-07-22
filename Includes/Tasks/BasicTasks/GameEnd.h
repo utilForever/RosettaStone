@@ -2,7 +2,7 @@
 > File Name: GameEnd.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement GameEndTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -21,6 +21,6 @@ class GameEndTask : public ITask
  private:
     MetaData Impl(Player& player1, Player& player2) const override;
 };
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks
 
 #endif  // HEARTHSTONEPP_GAMEEND_H

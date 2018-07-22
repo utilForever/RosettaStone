@@ -2,7 +2,7 @@
 > File Name: Brief.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement Brief Task, Return GameStatus Immediately to GameInterface
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -13,6 +13,8 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+// Briefing Game Status.
+// TaskAgent send GameStatus to GameInterface immediately when meet BriefTask
 class BriefTask : public ITask
 {
  public:
@@ -21,6 +23,6 @@ class BriefTask : public ITask
  private:
     MetaData Impl(Player& player1, Player& player2) const override;
 };
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::BasicTasks
 
 #endif  // HEARTHSTONEPP_BRIEF_H

@@ -2,7 +2,7 @@
 > File Name: ModifyHealth.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
-> Purpose:
+> Purpose: Implement ModifyHealthTask
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
@@ -23,7 +23,7 @@ class ModifyHealthTask : public ITask
     Character* m_character;
     BYTE m_damage;
 
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2c) const override;
 };
 }  // namespace Hearthstonepp
 
