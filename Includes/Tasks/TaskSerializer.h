@@ -11,118 +11,50 @@
 
 #include <Cards/Entity.h>
 #include <Cards/Hero.h>
+#include <Managers/Player.h>
 #include <Tasks/TaskMeta.h>
 
-#include <Flatbuffers/generated/MetaData_generated.h>
+#include <Flatbuffers/generated/FlatData_generated.h>
 
 namespace Hearthstonepp::Serializer
 {
 using BYTE = unsigned char;
 
-struct DrawTaskMeta
-{
-    BYTE numDraw;
-    BYTE numExhausted;
-    BYTE numHearts;
-    BYTE numOverdraw;
-    std::vector<Entity*> burnt;
-};
-
-struct ModifyManaTaskMeta
-{
-    BYTE numMode;
-    BYTE manaMode;
-    BYTE object;
-    BYTE result;
-};
-
-struct ModifyHealthTaskMeta
-{
-    Entity* card;
-    BYTE damage;
-    BYTE hurted;
-    bool isExhausted;
-};
-
-struct BriefTaskMeta
-{
-    BriefTaskMeta(BYTE currentPlayer, BYTE opponentPlayer, BYTE currentMana,
-                  BYTE opponentMana, BYTE numCurrentDeck, BYTE numOpponentDeck,
-                  BYTE numOpponentHand, const std::vector<Entity*>& currentHand,
-                  const std::vector<Character*>& currentField,
-                  const std::vector<Character*>& opponentField,
-                  const std::vector<Character*>& currentAttacked,
-                  const std::vector<Character*>& opponentAttacked,
-                  Hero* currentHero, Hero* opponentHero);
-
-    BYTE currentPlayer;
-    BYTE opponentPlayer;
-
-    BYTE currentMana;
-    BYTE opponentMana;
-
-    BYTE numCurrentDeck;
-    BYTE numOpponentDeck;
-
-    BYTE numOpponentHand;
-
-    const std::vector<Entity*>& currentHand;
-
-    const std::vector<Character*>& currentField;
-    const std::vector<Character*>& opponentField;
-
-    const std::vector<Character*>& currentAttacked;
-    const std::vector<Character*>& opponentAttacked;
-
-    Hero* currentHero;
-    Hero* opponentHero;
-};
-
 // Convert Entity to FlatData::Entity
 flatbuffers::Offset<FlatData::Entity> CreateEntity(
-    flatbuffers::FlatBufferBuilder& builder, Entity* entity);
+    flatbuffers::FlatBufferBuilder& builder, const Entity* entity);
 
 // Convert Card to FlatData::Card
 flatbuffers::Offset<FlatData::Card> CreateCard(
-    flatbuffers::FlatBufferBuilder& builder, Card* card);
+    flatbuffers::FlatBufferBuilder& builder, const Card* card);
+
+// Convert std::vector<Entity*> to FlatData::EntityVector
+TaskMeta CreateEntityVector(const TaskMetaTrait& trait,
+                            const std::vector<Entity*>& vector);
 
 // Convert std::vector<TaskMeta> to FlatData::TaskMetaVector
-TaskMeta CreateTaskMetaVector(
-    const std::vector<TaskMeta>& vector,
-    TaskMeta::status_t status = TaskMeta::STATUS_INVALID,
-    BYTE userID = TaskMeta::USER_INVALID);
+TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
+                              MetaData status = MetaData::INVALID,
+                              BYTE userID = TaskMeta::USER_INVALID);
 
-// From BasicTask::RequireMethod
-TaskMeta CreateRequireTaskMeta(TaskID request, BYTE userID);
-// From BasicTask::RawMulligan
-TaskMeta CreateRequireMulliganTaskMeta(const BYTE* index, size_t size);
-// From GameInterface::InputSelectCard
-TaskMeta CreateRequireSummonMinionTaskMeta(int cardIndex, int position);
-// From GameInterface::InputTargeting
-TaskMeta CreateRequireTargetingTaskMeta(int src, int dst);
-// From BasicTask::RawPlayerSetting
-TaskMeta CreatePlayerSettingTaskMeta(const std::string& firstPlayerID,
-                                     const std::string& secondPlayerID);
-// From BasicTask::RawDraw
-TaskMeta CreateDrawTaskMeta(const DrawTaskMeta& draw, TaskMeta::status_t status,
-                            BYTE userID);
-// From BasicTask::RawModifyMana
-TaskMeta CreateModifyManaTaskMeta(const ModifyManaTaskMeta& mana,
-                                  TaskMeta::status_t status, BYTE userID);
-// From BasicTask::RawModifyHealth
-TaskMeta CreateModifyHealthTaskMeta(const ModifyHealthTaskMeta& meta,
-                                    TaskMeta::status_t status, BYTE userID);
-// From BasicTask::RawBrief
-TaskMeta CreateBriefTaskMeta(const BriefTaskMeta& meta,
-                             TaskMeta::status_t status, BYTE userID);
-// From BasicTask::RawSummonMinion
-TaskMeta CreateSummonMinionTaskMeta(const TaskMetaTrait& trait, Entity* card,
-                                    size_t position);
-// From BasicTask::RawCombat
-TaskMeta CreateCombatTaskMeta(const TaskMetaTrait& trait, Entity* src,
-                              Entity* dst);
-// From BasicTask::RawGameEnd
-TaskMeta CreateGameEndTaskMeta(const std::string& winner);
+// Create Requirements with TaskID
+TaskMeta CreateRequire(TaskID request, BYTE userID);
+// Create Response for Mulligan Task
+TaskMeta CreateResponseMulligan(const BYTE* index, size_t size);
+// Create Response For PlayCard Task, Select Card from Hand
+TaskMeta CreateResponsePlayCard(size_t cardIndex);
+// Create Response for PlayMinion Task, Select position where minion will summon
+TaskMeta CreateResponsePlayMinion(size_t position);
+// Create Response for Targeting Tasks, eg. Combat
+TaskMeta CreateResponseTarget(size_t src, size_t dst);
+
+// Pack email of both players and set id
+TaskMeta CreatePlayerSetting(const std::string& player1,
+                             const std::string& player2);
+
+// Create GameStatus TaskMeta
+TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
+                          const Player& player2);
 }  // namespace Hearthstonepp::Serializer
 
 #endif  // HEARTHSTONEPP_TASKSERIALIZER_H

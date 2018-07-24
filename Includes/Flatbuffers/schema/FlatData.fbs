@@ -42,6 +42,10 @@ table Card {
     maxAllowedInDeck:uint;
 }
 
+table EntityVector {
+    vector:[Entity];
+}
+
 table TaskMeta {
     trait:TaskMetaTrait;
     buffer:[ubyte];
@@ -51,24 +55,12 @@ table TaskMetaVector {
     vector:[TaskMeta];
 }
 
-table RequireTaskMeta {
-    required:int;
+table PlayerSetting {
+    player1:string;
+    player2:string;
 }
 
-table PlayerSettingTaskMeta {
-    firstID:string;
-    secondID:string;
-}
-
-table DrawTaskMeta {
-    numDraw:ubyte;
-    numExhausted:ubyte;
-    numHearts:ubyte;
-    numOverdraw:ubyte;
-    burnt:[Entity];
-}
-
-table BriefTaskMeta {
+table GameStatus {
     currentPlayer:ubyte;
     opponentPlayer:ubyte;
     currentMana:ubyte;
@@ -90,40 +82,23 @@ table BriefTaskMeta {
     opponentAttacked:[Entity];
 }
 
-table RequireMulliganTaskMeta {
+table RequireTaskMeta {
+    required:int;
+}
+
+table ResponseMulligan {
     mulligan:[ubyte];
 }
 
-table ModifyManaTaskMeta {
-    numMode:ubyte;
-    manaMode:ubyte;
-    object:ubyte;
-    result:ubyte;
+table ResponsePlayCard {
+    cardIndex:ubyte;
 }
 
-table RequireSummonMinionTaskMeta {
-    cardIndex:ubyte;
+table ResponsePlayMinion {
     position:ubyte;
 }
 
-table SummonMinionTaskMeta {
-    entity:Entity;
-    index:ubyte;
-}
-
-table ModifyHealthTaskMeta {
-    entity:Entity;
-    damage:ubyte;
-    hurted:ubyte;
-    isExhausted:bool;
-}
-
-table CombatTaskMeta {
-    src:Entity;
-    dst:Entity;
-}
-
-table RequireTargetingTaskMeta {
+table ResponseTarget {
     src:ubyte;
     dst:ubyte;
 }

@@ -7,28 +7,20 @@
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Tasks/PowerTask.h>
-#include <Tasks/TaskSerializer.h>
+#include <Tasks/PowerTasks/DestroyWeapon.h>
 
 namespace Hearthstonepp::PowerTask
 {
-TaskMeta ProcessPower(Player& player, Player& opponent, PowerTaskType powerType)
+TaskID IPower::GetTaskID() const
 {
-    (void)player;
+    return TaskID::POWER_TASK;
+}
 
+void ProcessPower(Player& player1, Player& player2, PowerTaskType powerType)
+{
     if (powerType == +PowerTaskType::DESTROY_OPPONENT_WEAPON)
     {
-        return DestroyWeapon(opponent);
+        DestroyWeapon().Run(player1, player2);
     }
-
-    std::vector<TaskMeta> vector;
-    return Serializer::CreateTaskMetaVector(vector);
 }
-
-TaskMeta DestroyWeapon(Player& player)
-{
-    player.hero->weapon = nullptr;
-
-    std::vector<TaskMeta> vector;
-    return Serializer::CreateTaskMetaVector(vector);
-}
-}
+}  // namespace Hearthstonepp::PowerTask

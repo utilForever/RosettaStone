@@ -176,4 +176,4 @@ void CardLoader::LoadPower(std::vector<Card*>& cards) const
         card->power = powers->FindPowerByCardID(card->id);
     }
 }
-}
+}  // namespace Hearthstonepp

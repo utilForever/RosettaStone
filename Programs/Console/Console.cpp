@@ -15,8 +15,8 @@
 #include <Commons/Utils.h>
 #include <Loaders/AccountLoader.h>
 #include <Loaders/CardLoader.h>
-#include <Syncs/GameAgent.h>
-#include <Syncs/Interface.h>
+#include <Managers/GameAgent.h>
+#include <Managers/GameInterface.h>
 
 #include <cctype>
 #ifdef HEARTHSTONEPP_WINDOWS
@@ -134,7 +134,7 @@ std::experimental::optional<Card*> Console::SearchCard()
 
     while (true)
     {
-        auto[filter, isValid, isFinish] =
+        auto [filter, isValid, isFinish] =
             InputAndParseSearchCommand("Command > ");
 
         if (!isValid)
@@ -249,7 +249,8 @@ void Console::CreateDeck()
     ShowMenu(m_playerClassStr);
     const size_t selectedClassNum =
         InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
-    const CardClass deckClass = CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
+    const CardClass deckClass =
+        CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
 
     m_account->CreateDeck(name, deckClass);
 
@@ -482,7 +483,8 @@ bool Console::InputYesNo(std::string sentence) const
 
     std::string str;
     std::cin >> str;
-    std::transform(str.begin(), str.end(), str.begin(), [](char c){return static_cast<char>(std::toupper(c));});
+    std::transform(str.begin(), str.end(), str.begin(),
+                   [](char c) { return static_cast<char>(std::toupper(c)); });
 
     return (str == "y" || str == "yes")
                ? true
@@ -557,8 +559,9 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
             "effects or powers additional to the basic functions of the card") |
         clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
 
-    auto result = parser.parse(
-        clara::Args(static_cast<int>(convertedSplitCmds.size()), convertedSplitCmds.data()));
+    auto result =
+        parser.parse(clara::Args(static_cast<int>(convertedSplitCmds.size()),
+                                 convertedSplitCmds.data()));
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << '\n';
@@ -585,12 +588,12 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
                     ? Race::_from_string(strRace.c_str())
                     : Race::_from_string("INVALID");
     GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
-                            ? GameTag::_from_string(strMechanics.c_str())
-                            : GameTag::_from_string("INVALID");
+                           ? GameTag::_from_string(strMechanics.c_str())
+                           : GameTag::_from_string("INVALID");
 
-    auto[minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
-    auto[minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
-    auto[minHealth, maxHealth] = ParseValueRangeFromString(strHealth, isValid);
+    auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
+    auto [minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
+    auto [minHealth, maxHealth] = ParseValueRangeFromString(strHealth, isValid);
 
     SearchFilter filter;
     filter.rarity = rarity;
@@ -647,10 +650,10 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
             filter.costMin <= card->cost && filter.costMax >= card->cost;
         bool attackCondition = true;
         bool healthCondition = true;
-        //bool attackCondition =
+        // bool attackCondition =
         //    filter.attackMin <= card->attack &&
         //    filter.attackMax >= card->attack;
-        //bool healthCondition =
+        // bool healthCondition =
         //    filter.healthMin <= card->health &&
         //    filter.healthMax >= card->health;
         bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
@@ -691,4 +694,4 @@ std::vector<std::string> Console::SplitString(std::string str,
 
     return tokens;
 }
-}
+}  // namespace Hearthstonepp

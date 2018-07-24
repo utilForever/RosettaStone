@@ -10,7 +10,7 @@
 #define HEARTHSTONEPP_GAME_AGENT_H
 
 #include <Commons/Constants.h>
-#include <Syncs/AgentStructures.h>
+#include <Managers/Player.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 
@@ -25,12 +25,13 @@ class GameAgent
  public:
     // Constant expression of Player type checking
     template <typename T>
-    static constexpr inline bool isPlayer = std::is_same_v<std::decay_t<T>, Player>;
+    static constexpr inline bool isPlayer =
+        std::is_same_v<std::decay_t<T>, Player>;
 
     template <typename PlayerT, typename = std::enable_if_t<isPlayer<PlayerT>>>
     GameAgent(PlayerT&& user1, PlayerT&& user2)
-        : m_current(std::forward<PlayerT>(user1)),
-          m_opponent(std::forward<PlayerT>(user2))
+        : m_player1(std::forward<PlayerT>(user1)),
+          m_player2(std::forward<PlayerT>(user2))
     {
         // Do Nothing
     }
@@ -42,18 +43,16 @@ class GameAgent
     // Write TaskMeta to TaskAgent, using side channel as default
     void WriteSyncBuffer(TaskMeta&& data, bool sideChannel = true);
 
-    // Returns player 1.
-    Player& GetPlayer1();
+    TaskAgent& GetTaskAgent();
 
-    // Returns player 2.
+    Player& GetPlayer1();
     Player& GetPlayer2();
 
-    // Process tasks.
-    void Process(Player& player, Task t);
+	MetaData RunTask(const ITask& task, Player& player1, Player& player2);
 
  private:
-    Player m_current;
-    Player m_opponent;
+    Player m_player1;
+    Player m_player2;
 
     TaskAgent m_taskAgent;
 
@@ -69,13 +68,13 @@ class GameAgent
     // Select main menu and call action method, return true if game end
     bool MainMenu();
     // Use card such as summon minion, use spell etc.
-    void MainUseCard();
+    void MainPlayCard();
     // Combat with other minion or hero.
     void MainCombat();
 
     std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
         m_mainMenuFuncs = {
-            &GameAgent::MainUseCard,
+            &GameAgent::MainPlayCard,
             &GameAgent::MainCombat,
     };
 };

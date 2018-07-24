@@ -9,9 +9,10 @@
 #ifndef HEARTHSTONEPP_TASKAGENT_H
 #define HEARTHSTONEPP_TASKAGENT_H
 
-#include <Syncs/AgentStructures.h>
-#include <Syncs/SyncBuffer.h>
+#include <Managers/Player.h>
+#include <Managers/SyncBuffer.h>
 #include <Tasks/TaskMeta.h>
+#include <Tasks/TaskSerializer.h>
 #include <Tasks/Tasks.h>
 
 #include <vector>
@@ -30,38 +31,49 @@ class TaskAgent
     TaskAgent& operator=(TaskAgent&&) = delete;
     TaskAgent& operator=(const TaskAgent&) = delete;
 
-    // Read TaskMeta from SyncBuffer, main channel as default, side channel by
-    // true flag
+    // Read TaskMeta from SyncBuffer
+    // main channel as default, side channel by flag
     void Read(TaskMeta& meta, bool sideChannel = false);
-    // Write TaskMeta from SyncBuffer, main channel as default, side channel by
-    // true flag
+    // Write TaskMeta from SyncBuffer,
+    // main channel as default, side channel by flag
     void Notify(TaskMeta&& meta, bool sideChannel = false);
 
-    // Alias of Run(m_tasks, meta, current, opponent)
-    void Run(TaskMeta& meta, Player& current, Player& opponent);
     // Run single task and write result to `meta`,
-    // if `notify` is true, TaskAgent notify the SyncBuffer in main channel
-    void Run(const Task& task, TaskMeta& meta, Player& current,
-             Player& opponent, bool notify = true);
-    // Run Multi task and write result to `meta`
-    void Run(const std::vector<Task>& tasks, TaskMeta& meta, Player& current,
-             Player& opponent);
-
-    // Clear task meta vector
-    void Clear();
-
-    // Add task to task vector
-    template <class T, typename = std::enable_if_t<Task::is_task<T>>>
-    void Add(T&& task)
+    // if `notify` is true, TaskAgent notify the main channel as SyncBuffer
+    void Run(TaskMeta& meta, Player& player1, Player& player2,
+             const ITask& task, bool notify = true);
+    // Run Multi tasks and write result to `meta`
+    template <typename... ITaskT>
+    void Run(TaskMeta& meta, Player& player1, Player& player2,
+             const ITaskT&... tasks)
     {
-        m_tasks.emplace_back(std::forward<T>(task));
+        std::vector<TaskMeta> pool;
+        Run(pool, player1, player2, tasks...);
+
+        meta = Serializer::CreateTaskMetaVector(pool);
+        Notify(TaskMeta::CopyFrom(meta));
     }
 
  private:
     SyncBuffer<TaskMeta> m_syncBuffer;
     SyncBuffer<TaskMeta> m_sideChannel;
 
-    std::vector<Task> m_tasks;
+    template <typename... ITaskT>
+    void Run(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
+             const ITaskT&... tasks)
+    {
+        auto pusher = [&, this](const ITask& task) -> void {
+            pool.emplace_back();
+            TaskMeta& meta = pool.back();
+
+            task.Run(player1, player2, meta);
+            if (task.GetTaskID() == +TaskID::BRIEF)
+            {
+                Notify(TaskMeta::CopyFrom(meta));
+            }
+        };
+        (pusher(tasks), ...);
+    }
 };
 }  // namespace Hearthstonepp
 

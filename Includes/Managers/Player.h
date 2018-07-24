@@ -1,8 +1,8 @@
 /*************************************************************************
-> File Name: AgentStructure.h
+> File Name: Player.h
 > Project Name: Hearthstone++
 > Author: Young-Joong Kim
-> Purpose: Agent Data Structure for Interact with Interface
+> Purpose: Player Structure for GameAgent
 > Created Time: 2017/10/24
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
@@ -13,7 +13,12 @@
 #include <Cards/Entity.h>
 #include <Cards/Hero.h>
 #include <Cards/HeroPower.h>
+#include <Cards/Minion.h>
 #include <Cards/Spell.h>
+#include <Cards/Weapon.h>
+#include <Enchants/Enchant.h>
+
+#include <memory>
 
 namespace Hearthstonepp
 {
@@ -21,7 +26,7 @@ using BYTE = unsigned char;
 
 struct Player
 {
-    Player(Account* account, Deck* deck);
+    Player(const Account* account, const Deck* deck);
 
     BYTE id;
     BYTE totalMana;

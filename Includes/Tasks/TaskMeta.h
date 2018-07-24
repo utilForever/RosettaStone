@@ -9,9 +9,10 @@
 #ifndef HEARTHSTONEPP_TASKMETA_H
 #define HEARTHSTONEPP_TASKMETA_H
 
-#include <Enums/CardEnums.h>
+#include <Enums/TaskEnums.h>
+#include <Tasks/MetaData.h>
 
-#include <Flatbuffers/generated/MetaData_generated.h>
+#include <Flatbuffers/generated/FlatData_generated.h>
 
 #include <memory>
 
@@ -20,34 +21,30 @@ namespace Hearthstonepp
 using BYTE = unsigned char;
 
 // Abstract of TaskMeta, store default meta data
-// `id(TaskID)`, `status(TaskMetaTrait::status_t)`, `accountID(unsigned char)`
+// `id(TaskID)`, `status(MetaData)`, `accountID(unsigned char)`
 struct TaskMetaTrait
 {
-    using status_t = unsigned int;
-    static constexpr status_t STATUS_INVALID = 0;
     static constexpr BYTE USER_INVALID = 255;
 
     TaskID id;
-    status_t status;
+    MetaData status;
     BYTE userID;
 
     TaskMetaTrait();
     TaskMetaTrait(TaskID id);
-    TaskMetaTrait(TaskID id, status_t status);
-    TaskMetaTrait(TaskID id, status_t status, BYTE userID);
+    TaskMetaTrait(TaskID id, MetaData status);
+    TaskMetaTrait(TaskID id, MetaData status, BYTE userID);
 
     TaskMetaTrait(const TaskMetaTrait& trait);
+    TaskMetaTrait& operator=(const TaskMetaTrait&);
 
-    TaskMetaTrait& operator=(TaskMetaTrait&&) = delete;
-    TaskMetaTrait& operator=(const TaskMetaTrait&) = delete;
+    bool operator==(const TaskMetaTrait& trait) const;
 };
 
 // Meta data of run Task.
 class TaskMeta : public TaskMetaTrait
 {
  public:
-    using status_t = TaskMetaTrait::status_t;
-
     TaskMeta();
     TaskMeta(const TaskMetaTrait& trait);
 
@@ -62,6 +59,8 @@ class TaskMeta : public TaskMetaTrait
 
     TaskMeta& operator=(TaskMeta&& meta);
     TaskMeta& operator=(const TaskMeta&) = delete;
+
+    bool operator==(const TaskMeta& meta) const;
 
     // Deep copy of TaskMeta
     static TaskMeta CopyFrom(const TaskMeta& meta);
