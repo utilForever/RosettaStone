@@ -64,6 +64,11 @@ Player& GameAgent::GetPlayer2()
     return m_player2;
 }
 
+MetaData GameAgent::RunTask(const ITask& task, Player& player1, Player& player2)
+{
+    return task.Run(player1, player2);
+}
+
 TaskAgent& GameAgent::GetTaskAgent()
 {
     return m_taskAgent;

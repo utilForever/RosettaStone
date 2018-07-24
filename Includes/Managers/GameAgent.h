@@ -48,6 +48,8 @@ class GameAgent
     Player& GetPlayer1();
     Player& GetPlayer2();
 
+	MetaData RunTask(const ITask& task, Player& player1, Player& player2);
+
  private:
     Player m_player1;
     Player m_player2;
