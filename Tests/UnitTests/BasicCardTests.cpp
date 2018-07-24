@@ -28,11 +28,11 @@ TEST(BasicCard, EX1_066)
         Cards::GetInstance()->FindCardByName("Acidic Swamp Ooze");
 
     // Run DrawCardTask Directly (without TaskAgent or GameAgent)
-    BasicTasks::DrawCardTask(FieryWarAxe).Run(player1, player2);
+    agent.RunTask(BasicTasks::DrawCardTask(FieryWarAxe), player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Fiery War Axe");
 
-    BasicTasks::DrawCardTask(AcidicSwampOoze).Run(player2, player1);
+	agent.RunTask(BasicTasks::DrawCardTask(AcidicSwampOoze), player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");
 
@@ -51,7 +51,7 @@ TEST(BasicCard, EX1_066)
         agent.WriteSyncBuffer(std::move(meta));
     });
 
-    MetaData result = BasicTasks::PlayCardTask(taskAgent).Run(player1, player2);
+    MetaData result = agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::PLAY_WEAPON_SUCCESS);
     EXPECT_NE(agent.GetPlayer1().hero->weapon, nullptr);
 
@@ -80,7 +80,7 @@ TEST(BasicCard, EX1_066)
         agent.WriteSyncBuffer(std::move(position));
     });
 
-    result = BasicTasks::PlayCardTask(taskAgent).Run(player2, player1);
+    result = agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().hero->weapon, nullptr);
 }
@@ -102,8 +102,8 @@ TEST(BasicCard, CS2_041)
     Card* AncestralHealing =
         Cards::GetInstance()->FindCardByName("Ancestral Healing");
 
-    BasicTasks::DrawCardTask(AcidicSwampOoze).Run(player1, player2);
-    BasicTasks::DrawCardTask(AncestralHealing).Run(player1, player2);
+	agent.RunTask(BasicTasks::DrawCardTask(AcidicSwampOoze), player1, player2);
+    agent.RunTask(BasicTasks::DrawCardTask(AncestralHealing), player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
 
     //    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
