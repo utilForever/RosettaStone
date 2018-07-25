@@ -11,6 +11,12 @@ include_directories(
 )
 
 # Sources
+file(GLOB header_dir
+    ${root_dir}/Includes)
+
+file(GLOB_RECURSE headers
+    ${header_dir}/*.h)
+
 file(GLOB_RECURSE sources
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
