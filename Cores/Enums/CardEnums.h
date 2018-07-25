@@ -13,7 +13,7 @@
 #define HEARTHSTONEPP_EXPAND_LARGE_ENUMS
 #else  // _MSC_VER
 #undef BETTER_ENUMS_MACRO_FILE
-#define BETTER_ENUMS_MACRO_FILE "../../Includes/Enums/EnumMacros.h"
+#define BETTER_ENUMS_MACRO_FILE "../../Cores/Enums/EnumMacros.h"
 #endif  // _MSC_VER
 
 #include <better-enums/enum.h>
