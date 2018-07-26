@@ -93,7 +93,7 @@ void GameAgent::BeginPhase()
 
     TaskMeta meta;
     // BeginPhase Task List
-    m_taskAgent.Run(
+    m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::PlayerSettingTask(m_taskAgent),
         BasicTasks::DoBothPlayer(BasicTasks::ShuffleTask()),
         BasicTasks::DoBothPlayer(BasicTasks::DrawTask(NUM_BEGIN_DRAW, m_taskAgent)),
@@ -125,7 +125,7 @@ void GameAgent::MainReady()
 {
     // MainReady : Draw, ModifyMana, Clear vector `attacked`
     TaskMeta meta;
-    m_taskAgent.Run(
+    m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
         BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
         BasicTasks::ModifyManaByRef(NumMode::SYNC, ManaMode::EXIST,
