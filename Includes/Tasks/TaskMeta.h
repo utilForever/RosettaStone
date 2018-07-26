@@ -10,6 +10,7 @@
 #define HEARTHSTONEPP_TASKMETA_H
 
 #include <Enums/TaskEnums.h>
+#include <Managers/Player.h>
 #include <Tasks/MetaData.h>
 
 #include <Flatbuffers/generated/FlatData_generated.h>
@@ -24,7 +25,7 @@ using BYTE = unsigned char;
 // `id(TaskID)`, `status(MetaData)`, `accountID(unsigned char)`
 struct TaskMetaTrait
 {
-    static constexpr BYTE USER_INVALID = 255;
+    static constexpr BYTE USER_INVALID = Player::USER_INVALID;
 
     TaskID id;
     MetaData status;
@@ -66,6 +67,13 @@ class TaskMeta : public TaskMetaTrait
     static TaskMeta CopyFrom(const TaskMeta& meta);
     // Convert from FlatData::TaskMeta, deep copy of byte data
     static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
+
+    template <typename T>
+    static inline const T* ConvertTo(const TaskMeta& meta)
+    {
+        const auto& buffer = meta.GetConstBuffer();
+        return flatbuffers::GetRoot<T>(buffer.get());
+    }
 
     // Reset std::unique_ptr and size data
     void reset();

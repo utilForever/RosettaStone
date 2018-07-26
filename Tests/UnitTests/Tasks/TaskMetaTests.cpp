@@ -1,4 +1,4 @@
-#include "TestUtils.hpp"
+#include "TestUtils/TestUtils.h"
 #include "gtest/gtest.h"
 
 #include <Tasks/TaskMeta.h>
@@ -145,4 +145,13 @@ TEST(TaskMeta, ConvertFrom)
     // ConvertFrom
     TaskMeta converted = TaskMeta::ConvertFrom(deserialized);
     EXPECT_EQ(meta, converted);
+}
+
+TEST(TaskMeta, ConvertTo)
+{
+    TaskMeta meta = Serializer::CreateRequire(TaskID::MULLIGAN, 0);
+    auto require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
+
+    EXPECT_EQ(meta.userID, 0);
+    EXPECT_EQ(TaskID::MULLIGAN, require->required());
 }
