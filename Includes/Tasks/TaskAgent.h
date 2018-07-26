@@ -44,8 +44,8 @@ class TaskAgent
              const ITask& task, bool notify = true);
     // Run Multi tasks and write result to `meta`
     template <typename... ITaskT>
-    void Run(TaskMeta& meta, Player& player1, Player& player2,
-             const ITaskT&... tasks)
+    void RunMulti(TaskMeta& meta, Player& player1, Player& player2,
+                  const ITaskT&... tasks)
     {
         std::vector<TaskMeta> pool;
         Run(pool, player1, player2, tasks...);
