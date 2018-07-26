@@ -18,6 +18,11 @@ namespace Hearthstonepp::Serializer
 flatbuffers::Offset<FlatData::Entity> CreateEntity(
     flatbuffers::FlatBufferBuilder& builder, const Entity* entity)
 {
+	if (entity == nullptr)
+	{
+		return FlatData::CreateEntity(builder);
+	}
+
     return FlatData::CreateEntity(builder, CreateCard(builder, entity->card),
                                   0);
 }
