@@ -72,6 +72,6 @@ struct Card
     unsigned int maxAllowedInDeck;
     bool isCollectible;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif
