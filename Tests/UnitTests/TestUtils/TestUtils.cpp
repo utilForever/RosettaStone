@@ -1,19 +1,9 @@
-#ifndef UNITTEST_GENERATOR_H
-#define UNITTEST_GENERATOR_H
-
-#include "gtest/gtest.h"
-
-#include <Cards/Card.h>
-#include <Tasks/TaskMeta.h>
-
-#include <random>
-
-using namespace Hearthstonepp;
+#include "TestUtils/TestUtils.h"
 
 namespace TestUtils
 {
 std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]> &ptr,
-                                 size_t maximumSize = 255)
+                                 size_t maximumSize)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
@@ -27,7 +17,7 @@ std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]> &ptr,
         ptr[i] = static_cast<BYTE>(data(gen));
     }
 
-	return size;
+    return size;
 }
 
 TaskMetaTrait GenerateRandomTrait()
@@ -55,11 +45,6 @@ TaskMeta GenerateRandomTaskMeta()
 
     TaskMeta randomTaskMeta(trait, size, std::move(ptr));
     return randomTaskMeta;
-}
-
-std::unique_ptr<ITask*> GenerateReturnTask(const TaskMeta& meta)
-{
-
 }
 
 void ExpectBufferEqual(const std::unique_ptr<BYTE[]> &buffer1,
@@ -95,5 +80,3 @@ void ExpectCardEqual(const Card *card1, const Card *card2)
     EXPECT_EQ(card1->durability, card2->durability);
 }
 }  // namespace TestUtils
-
-#endif  // UNITTEST_GENERATOR_HPP
