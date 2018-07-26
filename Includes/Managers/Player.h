@@ -26,6 +26,8 @@ using BYTE = unsigned char;
 
 struct Player
 {
+	static constexpr BYTE USER_INVALID = 255;
+
     Player(const Account* account, const Deck* deck);
 
     BYTE id;
