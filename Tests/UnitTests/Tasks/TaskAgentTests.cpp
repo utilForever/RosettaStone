@@ -163,7 +163,9 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
     auto check = [&traits](const TaskMeta& meta) {
         auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
         auto vec = metas->vector();
-        EXPECT_EQ(vec->Length(), 5);
+
+		constexpr size_t size = 5;
+        EXPECT_EQ(vec->Length(), size);
 
         for (size_t i = 0; i < 5; ++i)
         {
