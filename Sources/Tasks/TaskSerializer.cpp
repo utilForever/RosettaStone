@@ -18,10 +18,10 @@ namespace Hearthstonepp::Serializer
 flatbuffers::Offset<FlatData::Entity> CreateEntity(
     flatbuffers::FlatBufferBuilder& builder, const Entity* entity)
 {
-	if (entity == nullptr)
-	{
-		return FlatData::CreateEntity(builder);
-	}
+    if (entity == nullptr)
+    {
+        return FlatData::CreateEntity(builder);
+    }
 
     return FlatData::CreateEntity(builder, CreateCard(builder, entity->card),
                                   0);
@@ -176,30 +176,31 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
 
     flatbuffers::FlatBufferBuilder builder(256);
 
+    auto makeOffset = [&builder](auto&& vec) -> VectorOffset {
+        std::vector<EntityOffset> dest(vec.size());
+        std::transform(vec.begin(), vec.end(), dest.begin(),
+                       [&builder](Entity* entity) {
+                           return CreateEntity(builder, entity);
+                       });
+        return builder.CreateVector(dest);
+    };
+
     // Tie multi card vector
     auto target = {player1.field, player2.field, player1.attacked,
                    player2.attacked};
     std::vector<VectorOffset> result(target.size());
 
     // Convert Card vector to FlatData::Card vector
-    std::transform(target.begin(), target.end(), result.begin(),
-                   [&builder](auto&& vec) -> VectorOffset {
-                       std::vector<EntityOffset> dest(vec.size());
-                       std::transform(vec.begin(), vec.end(), dest.begin(),
-                                      [&builder](Entity* entity) {
-                                          return CreateEntity(builder, entity);
-                                      });
-
-                       return builder.CreateVector(dest);
-                   });
+    std::transform(target.begin(), target.end(), result.begin(), makeOffset);
 
     auto gameStatus = FlatData::CreateGameStatus(
         builder, player1.id, player2.id, player1.existMana, player2.existMana,
         CreateEntity(builder, player1.hero),
-        CreateEntity(builder, player2.hero), result[0], result[1], result[2],
+        CreateEntity(builder, player2.hero), result[0],
+        makeOffset(player1.hand), result[1],
         static_cast<BYTE>(player2.hand.size()),
         static_cast<BYTE>(player1.cards.size()),
-        static_cast<BYTE>(player2.cards.size()), result[3], result[4]);
+        static_cast<BYTE>(player2.cards.size()), result[2], result[3]);
 
     builder.Finish(gameStatus);
     return TaskMeta(TaskMetaTrait(taskID, status, player1.id),
