@@ -1,3 +1,4 @@
+#include "TestUtils/ResponseUtils.h"
 #include "gtest/gtest.h"
 
 #include <Managers/GameAgent.h>
@@ -16,6 +17,7 @@ TEST(BasicCard, EX1_066)
         Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
 
     TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
 
     Player& player1 = agent.GetPlayer1();
     Player& player2 = agent.GetPlayer2();
@@ -27,60 +29,27 @@ TEST(BasicCard, EX1_066)
     Card* AcidicSwampOoze =
         Cards::GetInstance()->FindCardByName("Acidic Swamp Ooze");
 
-    // Run DrawCardTask Directly (without TaskAgent or GameAgent)
     agent.RunTask(BasicTasks::DrawCardTask(FieryWarAxe), player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Fiery War Axe");
 
-	agent.RunTask(BasicTasks::DrawCardTask(AcidicSwampOoze), player2, player1);
+    agent.RunTask(BasicTasks::DrawCardTask(AcidicSwampOoze), player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");
 
-    // Temporal GameInterface, Return Response Data to PlayCardTask
-    std::future<void> response1 = std::async(std::launch::async, [&agent]() {
-        TaskMeta meta;
-        agent.GetTaskMeta(meta);
+    // Create Response for GameAgent to Run PlayCardTask
+    std::future<TaskMeta> respPlayCard = response.PlayCard(0);
 
-        // Select Card Requirement Verification
-        auto required = flatbuffers::GetRoot<FlatData::RequireTaskMeta>(
-            meta.GetConstBuffer().get());
-        EXPECT_EQ(TaskID::_from_integral(required->required()),
-                  +TaskID::SELECT_CARD);
-
-        meta = Serializer::CreateResponsePlayCard(0);
-        agent.WriteSyncBuffer(std::move(meta));
-    });
-
-    MetaData result = agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    MetaData result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::PLAY_WEAPON_SUCCESS);
     EXPECT_NE(agent.GetPlayer1().hero->weapon, nullptr);
 
-    // Return Response Data to PlayCardTask And PlayMinionTask
-    std::future<void> response2 = std::async(std::launch::async, [&agent]() {
-        TaskMeta meta;
-        agent.GetTaskMeta(meta);
+    // Create Multiple Response for PlayCardTask And PlayMinionTask
+    auto resp = response.AutoMinion(0, 0);
 
-        // Select Card Requirement Verification
-        auto selectCard = flatbuffers::GetRoot<FlatData::RequireTaskMeta>(
-            meta.GetConstBuffer().get());
-        EXPECT_EQ(TaskID::_from_integral(selectCard->required()),
-                  +TaskID::SELECT_CARD);
-
-        TaskMeta card = Serializer::CreateResponsePlayCard(0);
-        agent.WriteSyncBuffer(std::move(card));
-
-        agent.GetTaskMeta(meta);
-        // Select Position Requirement Verification
-        auto selectPosition = flatbuffers::GetRoot<FlatData::RequireTaskMeta>(
-            meta.GetConstBuffer().get());
-        EXPECT_EQ(TaskID::_from_integral(selectPosition->required()),
-                  +TaskID::SELECT_POSITION);
-
-        TaskMeta position = Serializer::CreateResponsePlayMinion(0);
-        agent.WriteSyncBuffer(std::move(position));
-    });
-
-    result = agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().hero->weapon, nullptr);
 }
@@ -102,7 +71,7 @@ TEST(BasicCard, CS2_041)
     Card* AncestralHealing =
         Cards::GetInstance()->FindCardByName("Ancestral Healing");
 
-	agent.RunTask(BasicTasks::DrawCardTask(AcidicSwampOoze), player1, player2);
+    agent.RunTask(BasicTasks::DrawCardTask(AcidicSwampOoze), player1, player2);
     agent.RunTask(BasicTasks::DrawCardTask(AncestralHealing), player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
 
