@@ -44,8 +44,9 @@ TEST(BasicCard, EX1_066)
     EXPECT_EQ(result, MetaData::PLAY_WEAPON_SUCCESS);
     EXPECT_NE(agent.GetPlayer1().hero->weapon, nullptr);
 
-    auto require =
-        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard.get());
+    TaskMeta reqPlayCard = respPlayCard.get();
+    EXPECT_EQ(reqPlayCard.id, +TaskID::REQUIRE);
+    auto require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(reqPlayCard);
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_CARD);
 
