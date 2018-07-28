@@ -90,9 +90,6 @@ TEST(TaskAgent, RunSingleTask)
 
 TEST(TaskAgent, RunMultiTasks)
 {
-    std::random_device rd;
-    std::default_random_engine gen(rd());
-
     TestTask task1(TaskID::SWAP, [](Player& p1, Player&) -> MetaData {
         p1.id = 100;
         return MetaData::SWAP;
