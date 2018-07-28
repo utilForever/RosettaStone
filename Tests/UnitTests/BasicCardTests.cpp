@@ -88,6 +88,7 @@ TEST(BasicCard, CS2_041)
     agent.RunTask(BasicTasks::DrawCardTask(AncestralHealing), player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
 
+    //
     //    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
     //    auto minion =
     //    dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
