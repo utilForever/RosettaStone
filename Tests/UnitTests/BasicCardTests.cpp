@@ -39,19 +39,31 @@ TEST(BasicCard, EX1_066)
 
     // Create Response for GameAgent to Run PlayCardTask
     std::future<TaskMeta> respPlayCard = response.PlayCard(0);
-
     MetaData result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::PLAY_WEAPON_SUCCESS);
     EXPECT_NE(agent.GetPlayer1().hero->weapon, nullptr);
 
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard.get());
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
     // Create Multiple Response for PlayCardTask And PlayMinionTask
     auto resp = response.AutoMinion(0, 0);
-
     result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().hero->weapon, nullptr);
+
+    auto [respPlayCard2, respPlayMinion] = resp.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
 }
 
 TEST(BasicCard, CS2_041)
