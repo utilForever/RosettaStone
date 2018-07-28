@@ -1,5 +1,5 @@
-#ifndef UNITTEST_TESTUTILS_H
-#define UNITTEST_TESTUTILS_H
+#ifndef UNIT_TEST_TEST_UTILS_H
+#define UNIT_TEST_TEST_UTILS_H
 
 #include "gtest/gtest.h"
 

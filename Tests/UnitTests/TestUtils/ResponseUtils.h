@@ -1,5 +1,5 @@
-#ifndef UNITTEST_RESPONSE_UTILS
-#define UNITTEST_RESPONSE_UTILS
+#ifndef UNIT_TEST_RESPONSE_UTILS
+#define UNIT_TEST_RESPONSE_UTILS
 
 #include <Managers/GameAgent.h>
 #include <Tasks/TaskMeta.h>
