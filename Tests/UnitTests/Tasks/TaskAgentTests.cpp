@@ -145,8 +145,8 @@ TEST(TaskAgent, RunMultiTasks)
 
 TEST(TaskAgent, RunMultiTaskWithBrief)
 {
-	std::vector<TestTask> tasks;
-	std::vector<TaskMetaTrait> traits;
+    std::vector<TestTask> tasks;
+    std::vector<TaskMetaTrait> traits;
 
     auto generate = [](const TaskMetaTrait& trait) -> TestTask {
         return TestTask(trait.id,
@@ -161,7 +161,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
         auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
         auto vec = metas->vector();
 
-		constexpr size_t size = 5;
+        constexpr size_t size = 5;
         EXPECT_EQ(vec->Length(), size);
 
         for (size_t i = 0; i < 5; ++i)
@@ -220,14 +220,14 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
         return ret;
     });
 
-	agent.Read(read);
-	auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(read);
+    agent.Read(read);
+    auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(read);
 
-	EXPECT_EQ(read.id, +TaskID::BRIEF);
-	EXPECT_EQ(read.status, MetaData::BRIEF);
-	EXPECT_EQ(read.userID, 100);
+    EXPECT_EQ(read.id, +TaskID::BRIEF);
+    EXPECT_EQ(read.status, MetaData::BRIEF);
+    EXPECT_EQ(read.userID, 100);
 
-	EXPECT_EQ(status->currentPlayer(), 100);
+    EXPECT_EQ(status->currentPlayer(), 100);
 
     agent.Read(read);
     check(read);
