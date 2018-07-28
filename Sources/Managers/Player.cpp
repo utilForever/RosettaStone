@@ -8,23 +8,41 @@
 *************************************************************************/
 #include <Commons/Constants.h>
 #include <Managers/Player.h>
+#include <Tasks/TaskMeta.h>
 
 namespace Hearthstonepp
 {
 Player::Player(const Account* account, const Deck* deck)
-    : totalMana(0), existMana(0), exhausted(0), email(account->GetEmail())
+    : id(USER_INVALID),
+      totalMana(0),
+      existMana(0),
+      exhausted(0),
+      email(account->GetEmail()),
+      hero(nullptr),
+      power(nullptr)
 {
     Cards* cardsInstance = Cards::GetInstance();
     const CardClass cardclass = deck->GetClass();
 
     const Card* heroCard = cardsInstance->GetHeroCard(cardclass);
-    hero = new Hero(heroCard);
+    if (heroCard != nullptr)
+    {
+        hero = new Hero(heroCard);
+    }
 
     const Card* powerCard = cardsInstance->GetDefaultHeroPower(cardclass);
-    power = new HeroPower(powerCard);
+    if (powerCard != nullptr)
+    {
+        power = new HeroPower(powerCard);
+    }
 
     for (auto& card : deck->GetPrimitiveDeck())
     {
+        if (card == nullptr)
+        {
+            continue;
+        }
+
         Entity* entity = nullptr;
         switch (card->cardType)
         {

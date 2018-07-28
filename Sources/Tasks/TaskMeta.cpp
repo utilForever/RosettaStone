@@ -11,19 +11,19 @@
 namespace Hearthstonepp
 {
 TaskMetaTrait::TaskMetaTrait()
-    : id(TaskID::INVALID), status(MetaData::INVALID), userID(USER_INVALID)
+    : id(TaskID::INVALID), status(MetaData::INVALID), userID(TaskMetaTrait::USER_INVALID)
 {
     // Do Nothing
 }
 
 TaskMetaTrait::TaskMetaTrait(TaskID id)
-    : id(id), status(MetaData::INVALID), userID(USER_INVALID)
+    : id(id), status(MetaData::INVALID), userID(TaskMetaTrait::USER_INVALID)
 {
     // Do Nothing
 }
 
 TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status)
-    : id(id), status(status), userID(USER_INVALID)
+    : id(id), status(status), userID(TaskMetaTrait::USER_INVALID)
 {
     // Do Nothing
 }
