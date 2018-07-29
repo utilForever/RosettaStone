@@ -39,6 +39,7 @@ MetaData ModifyHealthTask::Impl(Player& user, Player&) const
         if (ptr != field.end())
         {
             field.erase(ptr);
+            *ptr = nullptr;
         }
     }
 
