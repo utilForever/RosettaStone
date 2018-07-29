@@ -41,7 +41,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
     BYTE dst = req->dst();
 
     // Source Minion Index Verification
-    if (src >= player1.field.size())
+    if (src > player1.field.size())
     {
         return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
@@ -64,7 +64,9 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
-    Character* source = dynamic_cast<Character*>(player1.field[src]);
+    Character* source = (src > 0)
+                            ? dynamic_cast<Character*>(player1.field[src - 1])
+                            : dynamic_cast<Character*>(player1.hero);
     Character* target = (dst > 0)
                             ? dynamic_cast<Character*>(player2.field[dst - 1])
                             : dynamic_cast<Character*>(player2.hero);
