@@ -59,7 +59,12 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
     player1.field.insert(player1.field.begin() + position, character);
 
     // Summoned minion can't attack right turn
-    player1.attacked.emplace_back(character);
+    if (std::find(m_entity->card->mechanics.begin(),
+                  m_entity->card->mechanics.end(),
+        +GameTag::CHARGE) == m_entity->card->mechanics.end())
+    {
+        player1.attacked.emplace_back(character);
+    }
 
     BYTE cost = static_cast<BYTE>(m_entity->card->cost);
     MetaData modified = ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
