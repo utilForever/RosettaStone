@@ -134,6 +134,12 @@ TEST(BasicCard, CS2_041)
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_POSITION);
 
+    auto respAutoTarget = response.Target(1, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->health, 1);
+    EXPECT_EQ(agent.GetPlayer2().field[0], nullptr);
+
     //
     //    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
     //    auto minion =
