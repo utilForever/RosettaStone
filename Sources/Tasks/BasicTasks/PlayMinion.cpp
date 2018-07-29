@@ -66,9 +66,12 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
                             .Run(player1, player2);
 
     // Process PowerTasks
-    for (auto& power : m_entity->card->power->powerTask)
+    if (m_entity->card->power != nullptr)
     {
-        PowerTask::ProcessPower(player1, player2, power);
+        for (auto& power : m_entity->card->power->powerTask)
+        {
+            PowerTask::ProcessPower(player1, player2, power);
+        }   
     }
 
     if (modified == MetaData::MODIFY_MANA_SUCCESS)
