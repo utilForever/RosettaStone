@@ -8,6 +8,7 @@
 *************************************************************************/
 #include <Tasks/BasicTasks/PlayCard.h>
 #include <Tasks/BasicTasks/PlayMinion.h>
+#include <Tasks/BasicTasks/PlaySpell.h>
 #include <Tasks/BasicTasks/PlayWeapon.h>
 
 namespace Hearthstonepp::BasicTasks
@@ -63,6 +64,8 @@ MetaData PlayCardTask::Impl(Player& player1, Player& player2) const
             return PlayMinionTask(m_agent, entity).Run(player1, player2);
         case CardType::WEAPON:
             return PlayWeaponTask(entity).Run(player1, player2);
+        case CardType::SPELL:
+            return PlaySpellTask(entity).Run(player1, player2);
         default:
             return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
     }
