@@ -40,6 +40,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
     BYTE src = req->src();
     BYTE dst = req->dst();
 
+    Character* source = (src > 0)
+                            ? dynamic_cast<Character*>(player1.field[src - 1])
+                            : dynamic_cast<Character*>(player1.hero);
+    Character* target = (dst > 0)
+                            ? dynamic_cast<Character*>(player2.field[dst - 1])
+                            : dynamic_cast<Character*>(player2.hero);
+
     // Source Minion Index Verification
     if (src > player1.field.size())
     {
@@ -48,13 +55,12 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
 
     // Source Minion Verification for Attacked Vector
     std::vector<Character*>& attacked = player1.attacked;
-    if (std::find(attacked.begin(), attacked.end(), player1.field[src]) !=
-        attacked.end())
+    if (std::find(attacked.begin(), attacked.end(), source) != attacked.end())
     {
         return MetaData::COMBAT_ALREADY_ATTACKED;
     }
 
-    attacked.emplace_back(player1.field[src]);
+    attacked.emplace_back(source);
 
     // Destination Verification
     // dst == 0 : hero
@@ -63,13 +69,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2) const
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
-
-    Character* source = (src > 0)
-                            ? dynamic_cast<Character*>(player1.field[src - 1])
-                            : dynamic_cast<Character*>(player1.hero);
-    Character* target = (dst > 0)
-                            ? dynamic_cast<Character*>(player2.field[dst - 1])
-                            : dynamic_cast<Character*>(player2.hero);
 
     BYTE sourceAttack = static_cast<BYTE>(source->attack);
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;

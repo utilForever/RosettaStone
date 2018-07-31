@@ -38,8 +38,8 @@ MetaData ModifyHealthTask::Impl(Player& user, Player&) const
         auto ptr = std::find(field.begin(), field.end(), m_character);
         if (ptr != field.end())
         {
-            field.erase(ptr);
             *ptr = nullptr;
+            field.erase(ptr);
         }
     }
 
