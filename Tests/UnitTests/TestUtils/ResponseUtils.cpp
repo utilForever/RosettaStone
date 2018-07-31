@@ -48,6 +48,20 @@ std::future<TaskMeta> AutoResponder::PlayMinion(size_t position)
     });
 }
 
+std::future<TaskMeta> AutoResponder::PlaySpell(TargetType targetType,
+                                               size_t targetPosition)
+{
+    return std::async(std::launch::async, [this, targetType, targetPosition] {
+        TaskMeta meta;
+        m_agent.GetTaskMeta(meta);
+
+        TaskMeta playSpell = Serializer::CreateResponsePlaySpell(targetType, targetPosition);
+        m_agent.WriteSyncBuffer(std::move(playSpell));
+
+        return meta;
+    });
+}
+
 std::future<TaskMeta> AutoResponder::Target(size_t src, size_t dst)
 {
     return std::async(std::launch::async, [this, src, dst] {
@@ -70,6 +84,19 @@ auto AutoResponder::AutoMinion(size_t cardIndex, size_t position)
 
         auto playMinion = PlayMinion(position);
         return std::make_tuple(playCard.get(), playMinion.get());
+    });
+}
+
+auto AutoResponder::AutoSpell(size_t cardIndex, TargetType targetType, size_t targetPosition)
+    -> std::future<std::tuple<TaskMeta, TaskMeta>>
+{
+    return std::async(
+        std::launch::async, [this, cardIndex, targetType, targetPosition] {
+        auto playCard = PlayCard(cardIndex);
+        playCard.wait();
+
+        auto playSpell = PlaySpell(targetType, targetPosition);
+        return std::make_tuple(playCard.get(), playSpell.get());
     });
 }
 }  // namespace TestUtils
