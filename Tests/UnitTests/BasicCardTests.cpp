@@ -141,30 +141,20 @@ TEST(BasicCard, CS2_041)
     EXPECT_EQ(agent.GetPlayer2().field[0], nullptr);
 
     // Create multiple response for PlayCardTask And PlaySpellTask
-    //auto respAutoSpell = response.AutoSpell(0, 0);
-    //result =
-    //    agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
-    //EXPECT_EQ(result, MetaData::PLAY_SPELL_SUCCESS);
+    auto respAutoSpell = response.AutoSpell(0, TargetType::MY_FIELD, 0);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    EXPECT_EQ(result, MetaData::PLAY_SPELL_SUCCESS);
 
-    //auto[respPlayCard3, respPlaySpell] = respAutoSpell.get();
-    //require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard3);
-    //EXPECT_EQ(TaskID::_from_integral(require->required()),
-    //          +TaskID::SELECT_CARD);
+    auto[respPlayCard3, respPlaySpell] = respAutoSpell.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard3);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
 
-    //require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlaySpell);
-    //EXPECT_EQ(TaskID::_from_integral(require->required()),
-    //          +TaskID::SELECT_POSITION);
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlaySpell);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_TARGET);
 
-    //
-    //    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
-    //    auto minion =
-    //    dynamic_cast<Character*>(agent.GetPlayer1().field.at(0));
-    //    minion->health -= 1;
-    //    EXPECT_EQ(minion->health, 1u);
-    //
-    //    agent.Process(agent.GetPlayer1(),
-    //                  BasicTask::PlayCardTask(0, -1, TargetType::MY_FIELD,
-    //                  1));
-    //    EXPECT_EQ(static_cast<bool>(minion->gameTags[GameTag::TAUNT]), true);
-    //    EXPECT_EQ(minion->health, 2);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->health, 2);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->gameTags[GameTag::TAUNT], 1);
 }
