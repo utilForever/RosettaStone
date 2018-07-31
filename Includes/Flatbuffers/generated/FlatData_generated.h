@@ -1133,14 +1133,19 @@ inline flatbuffers::Offset<ResponsePlayMinion> CreateResponsePlayMinion(
 
 struct ResponsePlaySpell FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum {
-    VT_TARGET = 4
+    VT_TARGETTYPE = 4,
+    VT_POSITION = 6
   };
-  uint8_t target() const {
-    return GetField<uint8_t>(VT_TARGET, 0);
+  uint8_t targetType() const {
+    return GetField<uint8_t>(VT_TARGETTYPE, 0);
+  }
+  uint8_t position() const {
+    return GetField<uint8_t>(VT_POSITION, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_TARGET) &&
+           VerifyField<uint8_t>(verifier, VT_TARGETTYPE) &&
+           VerifyField<uint8_t>(verifier, VT_POSITION) &&
            verifier.EndTable();
   }
 };
@@ -1148,8 +1153,11 @@ struct ResponsePlaySpell FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct ResponsePlaySpellBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_target(uint8_t target) {
-    fbb_.AddElement<uint8_t>(ResponsePlaySpell::VT_TARGET, target, 0);
+  void add_targetType(uint8_t targetType) {
+    fbb_.AddElement<uint8_t>(ResponsePlaySpell::VT_TARGETTYPE, targetType, 0);
+  }
+  void add_position(uint8_t position) {
+    fbb_.AddElement<uint8_t>(ResponsePlaySpell::VT_POSITION, position, 0);
   }
   explicit ResponsePlaySpellBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -1165,9 +1173,11 @@ struct ResponsePlaySpellBuilder {
 
 inline flatbuffers::Offset<ResponsePlaySpell> CreateResponsePlaySpell(
     flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t target = 0) {
+    uint8_t targetType = 0,
+    uint8_t position = 0) {
   ResponsePlaySpellBuilder builder_(_fbb);
-  builder_.add_target(target);
+  builder_.add_position(position);
+  builder_.add_targetType(targetType);
   return builder_.Finish();
 }
 
