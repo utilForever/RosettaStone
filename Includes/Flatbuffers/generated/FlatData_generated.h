@@ -37,6 +37,8 @@ struct ResponsePlayCard;
 
 struct ResponsePlayMinion;
 
+struct ResponsePlaySpell;
+
 struct ResponseTarget;
 
 struct GameEndTaskMeta;
@@ -1126,6 +1128,46 @@ inline flatbuffers::Offset<ResponsePlayMinion> CreateResponsePlayMinion(
     uint8_t position = 0) {
   ResponsePlayMinionBuilder builder_(_fbb);
   builder_.add_position(position);
+  return builder_.Finish();
+}
+
+struct ResponsePlaySpell FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  enum {
+    VT_TARGET = 4
+  };
+  uint8_t target() const {
+    return GetField<uint8_t>(VT_TARGET, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_TARGET) &&
+           verifier.EndTable();
+  }
+};
+
+struct ResponsePlaySpellBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_target(uint8_t target) {
+    fbb_.AddElement<uint8_t>(ResponsePlaySpell::VT_TARGET, target, 0);
+  }
+  explicit ResponsePlaySpellBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ResponsePlaySpellBuilder &operator=(const ResponsePlaySpellBuilder &);
+  flatbuffers::Offset<ResponsePlaySpell> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<ResponsePlaySpell>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<ResponsePlaySpell> CreateResponsePlaySpell(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t target = 0) {
+  ResponsePlaySpellBuilder builder_(_fbb);
+  builder_.add_target(target);
   return builder_.Finish();
 }
 

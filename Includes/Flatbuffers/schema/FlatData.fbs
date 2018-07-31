@@ -98,6 +98,10 @@ table ResponsePlayMinion {
     position:ubyte;
 }
 
+table ResponsePlaySpell {
+    target:ubyte;
+}
+
 table ResponseTarget {
     src:ubyte;
     dst:ubyte;
