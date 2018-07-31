@@ -140,6 +140,21 @@ TEST(BasicCard, CS2_041)
     EXPECT_EQ(agent.GetPlayer1().field[0]->health, 1);
     EXPECT_EQ(agent.GetPlayer2().field[0], nullptr);
 
+    // Create multiple response for PlayCardTask And PlaySpellTask
+    //auto respAutoSpell = response.AutoSpell(0, 0);
+    //result =
+    //    agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    //EXPECT_EQ(result, MetaData::PLAY_SPELL_SUCCESS);
+
+    //auto[respPlayCard3, respPlaySpell] = respAutoSpell.get();
+    //require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard3);
+    //EXPECT_EQ(TaskID::_from_integral(require->required()),
+    //          +TaskID::SELECT_CARD);
+
+    //require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlaySpell);
+    //EXPECT_EQ(TaskID::_from_integral(require->required()),
+    //          +TaskID::SELECT_POSITION);
+
     //
     //    agent.Process(agent.GetPlayer1(), BasicTask::PlayCardTask(0, 0));
     //    auto minion =
