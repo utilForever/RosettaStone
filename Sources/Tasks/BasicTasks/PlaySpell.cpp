@@ -6,6 +6,7 @@
 > Created Time: 2018/07/31
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Enums/TaskEnums.h>
 #include <Tasks/BasicTasks/ModifyMana.h>
 #include <Tasks/BasicTasks/PlaySpell.h>
 #include <Tasks/PowerTask.h>
@@ -35,33 +36,25 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2) const
 
     if (req == nullptr)
     {
-        return MetaData::PLAY_MINION_FLATBUFFER_NULLPTR;
+        return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
     }
 
+    TargetType targetType = TargetType::_from_integral(req->targetType());
     BYTE position = req->position();
 
-    // Field Position Verification
-    if (position > player1.field.size())
+    if (targetType == +TargetType::MY_FIELD)
     {
-        return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
-    }
+        // Verify field position
+        if (position > player1.field.size())
+        {
+            return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
+        }
 
-    // Character Casting Verification
-    auto character = dynamic_cast<Character*>(m_entity);
-    if (character == nullptr)
-    {
-        return MetaData::PLAY_MINION_CANNOT_CONVERT_ENTITY;
-    }
-
-    // Summon
-    player1.field.insert(player1.field.begin() + position, character);
-
-    // Summoned minion can't attack right turn
-    if (std::find(m_entity->card->mechanics.begin(),
-                  m_entity->card->mechanics.end(),
-                  +GameTag::CHARGE) == m_entity->card->mechanics.end())
-    {
-        player1.attacked.emplace_back(character);
+        // Verify valid target
+        if (player1.field[position] == nullptr)
+        {
+            return MetaData::PLAY_SPELL_INVALID_TARGET;
+        }
     }
 
     BYTE cost = static_cast<BYTE>(m_entity->card->cost);
@@ -79,11 +72,11 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2) const
 
     if (modified == MetaData::MODIFY_MANA_SUCCESS)
     {
-        return MetaData::PLAY_MINION_SUCCESS;
+        return MetaData::PLAY_SPELL_SUCCESS;
     }
     else
     {
-        return MetaData::PLAY_MINION_MODIFY_MANA_FAIL;
+        return MetaData::PLAY_SPELL_MODIFY_MANA_FAIL;
     }
 }
 }  // namespace Hearthstonepp::BasicTasks
