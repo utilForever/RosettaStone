@@ -15,8 +15,8 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-PlaySpellTask::PlaySpellTask(Entity* entity)
-    : m_entity(entity)
+PlaySpellTask::PlaySpellTask(TaskAgent& agent, Entity* entity)
+    : m_entity(entity), m_requirement(TaskID::SELECT_TARGET, agent)
 {
     // Do Nothing
 }
@@ -29,6 +29,8 @@ TaskID PlaySpellTask::GetTaskID() const
 MetaData PlaySpellTask::Impl(Player& player1, Player& player2) const
 {
     TaskMeta meta;
+    // Get Position Response from GameInterface
+    m_requirement.Interact(player1.id, meta);
 
     using RequireTaskMeta = FlatData::ResponsePlaySpell;
     const auto& buffer = meta.GetConstBuffer();
