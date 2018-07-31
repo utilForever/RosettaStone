@@ -65,7 +65,7 @@ MetaData PlayCardTask::Impl(Player& player1, Player& player2) const
         case CardType::WEAPON:
             return PlayWeaponTask(entity).Run(player1, player2);
         case CardType::SPELL:
-            return PlaySpellTask(entity).Run(player1, player2);
+            return PlaySpellTask(m_agent, entity).Run(player1, player2);
         default:
             return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
     }
