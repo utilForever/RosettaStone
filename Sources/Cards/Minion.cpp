@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp
 {
-Minion::Minion(const Card* pCard) : Entity(pCard), Character(pCard)
+Minion::Minion(const Card* pCard) : Character(pCard)
 {
     // Do nothing
 }
