@@ -22,6 +22,7 @@ Character::Character(const Card* pCard) : Entity(pCard)
     health =
         (pCard->health != std::experimental::nullopt) ? *(pCard->health) : 0;
 #endif
+    maxHealth = health;
 }
 
 void Character::GetDataFromCard()
