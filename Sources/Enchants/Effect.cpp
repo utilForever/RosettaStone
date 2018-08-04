@@ -6,6 +6,7 @@
 > Created Time: 2018/07/08
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Cards/Character.h>
 #include <Enchants/Effect.h>
 
 namespace Hearthstonepp
@@ -16,10 +17,8 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     // Do nothing
 }
 
-void Effect::Apply(Entity& entity, bool isOneTurnEffect) const
+void Effect::Apply(Character* character, bool isOneTurnEffect) const
 {
-    (void)entity;
-
     if (isOneTurnEffect)
     {
         // TODO: Process one turn effect
@@ -28,16 +27,16 @@ void Effect::Apply(Entity& entity, bool isOneTurnEffect) const
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            entity.gameTags[m_gameTag] += m_value;
+            character->gameTags[m_gameTag] += m_value;
             break;
         case EffectOperator::SUB:
-            entity.gameTags[m_gameTag] -= m_value;
+            character->gameTags[m_gameTag] -= m_value;
             break;
         case EffectOperator::MUL:
-            entity.gameTags[m_gameTag] *= m_value;
+            character->gameTags[m_gameTag] *= m_value;
             break;
         case EffectOperator::SET:
-            entity.gameTags[m_gameTag] = m_value;
+            character->gameTags[m_gameTag] = m_value;
             break;
         default:
             throw std::invalid_argument("Invalid effect operator!");

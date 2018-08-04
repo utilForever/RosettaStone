@@ -9,12 +9,11 @@
 #ifndef HEARTHSTONEPP_EFFECT_H
 #define HEARTHSTONEPP_EFFECT_H
 
-#include <Cards/Entity.h>
 #include <Enums/CardEnums.h>
 
 namespace Hearthstonepp
 {
-struct Entity;
+struct Character;
 
 enum class EffectOperator
 {
@@ -30,7 +29,7 @@ public:
     Effect() = default;
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
-    void Apply(Entity& entity, bool isOneTurnEffect = false) const;
+    void Apply(Character* character, bool isOneTurnEffect = false) const;
 
 private:
     GameTag m_gameTag = GameTag::INVALID;
