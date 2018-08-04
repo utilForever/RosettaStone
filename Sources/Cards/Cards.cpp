@@ -10,6 +10,7 @@
 #include <Cards/Character.h>
 #include <Commons/Macros.h>
 #include <Loaders/CardLoader.h>
+#include <Loaders/PowerLoader.h>
 
 namespace Hearthstonepp
 {
@@ -17,9 +18,10 @@ Cards* Cards::m_instance = nullptr;
 
 Cards::Cards()
 {
-    CardLoader loader;
-    loader.LoadData(m_cards);
-    loader.LoadPower(m_cards);
+    CardLoader cardLoader;
+    cardLoader.LoadData(m_cards);
+    PowerLoader powerLoader;
+    powerLoader.LoadData(m_cards);
 }
 
 Cards::~Cards()
