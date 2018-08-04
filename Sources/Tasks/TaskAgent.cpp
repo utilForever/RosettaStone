@@ -23,6 +23,18 @@ void TaskAgent::Read(TaskMeta& meta, bool sideChannel)
     }
 }
 
+void TaskAgent::Notify(TaskMeta& meta, bool sideChannel)
+{
+    if (sideChannel)
+    {
+        m_sideChannel.WriteBuffer(std::move(meta));
+    }
+    else
+    {
+        m_syncBuffer.WriteBuffer(std::move(meta));
+    }
+}
+
 void TaskAgent::Notify(TaskMeta&& meta, bool sideChannel)
 {
     if (sideChannel)
@@ -36,7 +48,17 @@ void TaskAgent::Notify(TaskMeta&& meta, bool sideChannel)
 }
 
 void TaskAgent::Run(TaskMeta& meta, Player& player1, Player& player2,
-                    const ITask& task, bool notify)
+                    ITask& task, bool notify)
+{
+    task.Run(player1, player2, meta);
+    if (notify)
+    {
+        Notify(TaskMeta::CopyFrom(meta));
+    }
+}
+
+void TaskAgent::Run(TaskMeta& meta, Player& player1, Player& player2,
+                    ITask&& task, bool notify)
 {
     task.Run(player1, player2, meta);
     if (notify)
