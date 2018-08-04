@@ -8,7 +8,9 @@
 *************************************************************************/
 #include <CardSets/BasicCardsGen.h>
 #include <Enchants/Effects.h>
-#include <Tasks/PowerTask.h>
+#include <Tasks/PowerTasks/AddEnchantment.h>
+#include <Tasks/PowerTasks/Destroy.h>
+#include <Tasks/PowerTasks/HealFull.h>
 
 namespace Hearthstonepp
 {
@@ -100,8 +102,8 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     Power* p = new Power;
-    p->powerTask.emplace_back(PowerTaskType::HEAL_FULL);
-    // TODO: Add enchantment
+    p->powerTask.emplace_back(new PowerTask::HealFullTask(EntityType::TARGET));
+    p->powerTask.emplace_back(new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     cards.emplace("CS2_041", p);
 }
 
@@ -153,7 +155,8 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     Power* p = new Power;
-    p->powerTask.emplace_back(PowerTaskType::DESTROY_OPPONENT_WEAPON);
+    p->powerTask.emplace_back(
+        new PowerTask::DestroyTask(EntityType::OPPONENT_WEAPON));
     cards.emplace("EX1_066", p);
 
     // --------------------------------------- MINION - NEUTRAL
