@@ -6,18 +6,19 @@
 > Created Time: 2018/07/22
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/PowerTasks/DestroyWeapon.h>
+#include <Tasks/PowerTasks/HealFull.h>
 
 namespace Hearthstonepp::PowerTask
 {
-PowerTaskType DestroyWeapon::GetPowerType() const
+HealFullTask::HealFullTask(EntityType entityType) : m_entityType(entityType)
 {
-    return PowerTaskType::DESTROY_OPPONENT_WEAPON;
+    // Do nothing
 }
 
-MetaData DestroyWeapon::Impl(Player&, Player& player2) const
+MetaData HealFullTask::Impl(Player&, Player&)
 {
-    player2.hero->weapon = nullptr;
+    target->health = target->maxHealth;
+
     return MetaData::INVALID;
 }
 }  // namespace Hearthstonepp::PowerTask
