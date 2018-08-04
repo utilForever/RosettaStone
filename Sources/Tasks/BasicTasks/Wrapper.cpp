@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DoBothPlayer::DoBothPlayer(const ITask& task) : m_task(task)
+DoBothPlayer::DoBothPlayer(ITask&& task) : m_task(task)
 {
     // Do Nothign
 }
@@ -35,7 +35,7 @@ MetaData DoBothPlayer::Impl(Player& player1, Player& player2)
     }
 }
 
-DoUntil::DoUntil(const ITask& task,
+DoUntil::DoUntil(ITask&& task,
                  std::function<bool(const TaskMeta&)>&& condition)
     : m_task(task), m_condition(std::move(condition))
 {
