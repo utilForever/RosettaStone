@@ -9,7 +9,6 @@
 #include <Enums/TaskEnums.h>
 #include <Tasks/BasicTasks/ModifyMana.h>
 #include <Tasks/BasicTasks/PlaySpell.h>
-#include <Tasks/PowerTask.h>
 
 #include <algorithm>
 
@@ -68,7 +67,8 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
     {
         for (auto& power : m_entity->card->power->powerTask)
         {
-            PowerTask::ProcessPower(player1, player2, power);
+            power->target = player1.field[position];
+            power->Run(player1, player2);
         }
     }
 

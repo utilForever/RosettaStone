@@ -8,7 +8,6 @@
 *************************************************************************/
 #include <Tasks/BasicTasks/ModifyMana.h>
 #include <Tasks/BasicTasks/PlayMinion.h>
-#include <Tasks/PowerTask.h>
 
 #include <algorithm>
 
@@ -75,7 +74,7 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
     {
         for (auto& power : m_entity->card->power->powerTask)
         {
-            PowerTask::ProcessPower(player1, player2, power);
+            power->Run(player1, player2);
         }   
     }
 
