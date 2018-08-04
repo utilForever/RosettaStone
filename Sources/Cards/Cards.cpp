@@ -44,7 +44,7 @@ Cards* Cards::GetInstance()
     return m_instance;
 }
 
-std::vector<Card*> Cards::GetAllCards() const
+const std::vector<Card*>& Cards::GetAllCards() const
 {
     return m_cards;
 }

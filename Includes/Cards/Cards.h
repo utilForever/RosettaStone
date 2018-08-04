@@ -34,7 +34,7 @@ class Cards
  public:
     static Cards* GetInstance();
 
-    std::vector<Card*> GetAllCards() const;
+    const std::vector<Card*>& GetAllCards() const;
 
     const Card* FindCardByID(const std::string& id);
     std::vector<Card*> FindCardByRarity(Rarity rarity);
