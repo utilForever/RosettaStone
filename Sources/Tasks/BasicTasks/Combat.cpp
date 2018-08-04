@@ -40,12 +40,10 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     BYTE src = req->src();
     BYTE dst = req->dst();
 
-    Character* source = (src > 0)
-                            ? dynamic_cast<Character*>(player1.field[src - 1])
-                            : dynamic_cast<Character*>(player1.hero);
-    Character* target = (dst > 0)
-                            ? dynamic_cast<Character*>(player2.field[dst - 1])
-                            : dynamic_cast<Character*>(player2.hero);
+    source = (src > 0) ? dynamic_cast<Character*>(player1.field[src - 1])
+                       : dynamic_cast<Character*>(player1.hero);
+    target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
+                       : dynamic_cast<Character*>(player2.hero);
 
     // Source Minion Index Verification
     if (src > player1.field.size())

@@ -27,6 +27,9 @@ class ITask
     static inline constexpr bool isTask =
         std::is_convertible_v<std::decay_t<T>, ITask>;
 
+    Character* source = nullptr;
+    Character* target = nullptr;
+
     MetaData Run(Player& player1, Player& player2);
     MetaData Run(Player& player1, Player& player2, TaskMeta& meta);
 
