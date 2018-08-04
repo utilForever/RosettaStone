@@ -20,7 +20,7 @@ TaskID DoBothPlayer::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoBothPlayer::Impl(Player& player1, Player& player2) const
+MetaData DoBothPlayer::Impl(Player& player1, Player& player2)
 {
     MetaData status1 = m_task.Run(player1, player2);
     MetaData status2 = m_task.Run(player2, player1);
@@ -47,7 +47,7 @@ TaskID DoUntil::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoUntil::Impl(Player& player1, Player& player2) const
+MetaData DoUntil::Impl(Player& player1, Player& player2)
 {
     TaskMeta meta;
     while (true)

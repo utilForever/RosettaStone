@@ -21,7 +21,7 @@ class DoBothPlayer : public ITask
 
  private:
     const ITask& m_task;
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 
 class DoUntil : public ITask
@@ -35,7 +35,7 @@ class DoUntil : public ITask
     const ITask& m_task;
     std::function<bool(const TaskMeta&)> m_condition;
 
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks
 #endif  // HEARTHSTONEPP_WRAPPER_H
