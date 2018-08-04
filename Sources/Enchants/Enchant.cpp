@@ -22,6 +22,9 @@ Enchant::Enchant(std::vector<Effect>& effects)
 
 void Enchant::ActivateTo(Character* character)
 {
-    (void)character;
+    for (auto& effect : m_effects)
+    {
+        effect.Apply(character);
+    }
 }
 }
