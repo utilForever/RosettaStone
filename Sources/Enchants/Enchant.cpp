@@ -20,8 +20,8 @@ Enchant::Enchant(std::vector<Effect>& effects)
     m_effects = effects;
 }
 
-void Enchant::ActivateTo(Entity& entity)
+void Enchant::ActivateTo(Character* character)
 {
-    (void)entity;
+    (void)character;
 }
 }
