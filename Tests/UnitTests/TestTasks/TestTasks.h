@@ -21,7 +21,7 @@ private:
 	TaskID m_id;
 	std::function<MetaData(Player &, Player &)> m_impl;
 
-	MetaData Impl(Player &player1, Player &player2) const override;
+	MetaData Impl(Player &player1, Player &player2) override;
 };
 
 
