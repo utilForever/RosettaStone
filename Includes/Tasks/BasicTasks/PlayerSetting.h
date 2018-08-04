@@ -23,7 +23,7 @@ class PlayerSettingTask : public ITask
 
  private:
     TaskAgent& m_agent;
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

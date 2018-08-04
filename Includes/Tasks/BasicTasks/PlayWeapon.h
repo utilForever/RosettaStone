@@ -21,7 +21,7 @@ class PlayWeaponTask : public ITask
 
  private:
     Entity* m_entity;
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

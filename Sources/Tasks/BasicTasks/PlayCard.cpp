@@ -24,7 +24,7 @@ TaskID PlayCardTask::GetTaskID() const
     return TaskID::PLAY_CARD;
 }
 
-MetaData PlayCardTask::Impl(Player& player1, Player& player2) const
+MetaData PlayCardTask::Impl(Player& player1, Player& player2)
 {
     TaskMeta serialized;
     // Get Response from GameInterface

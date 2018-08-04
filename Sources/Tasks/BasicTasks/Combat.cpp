@@ -22,7 +22,7 @@ TaskID CombatTask::GetTaskID() const
     return TaskID::COMBAT;
 }
 
-MetaData CombatTask::Impl(Player& player1, Player& player2) const
+MetaData CombatTask::Impl(Player& player1, Player& player2)
 {
     TaskMeta serialized;
     // Get Targeting Response from GameInterface

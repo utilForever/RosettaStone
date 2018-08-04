@@ -25,7 +25,7 @@ TaskID PlayMinionTask::GetTaskID() const
     return TaskID::PLAY_MINION;
 }
 
-MetaData PlayMinionTask::Impl(Player& player1, Player& player2) const
+MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
 {
     TaskMeta meta;
     // Get Position Response from GameInterface

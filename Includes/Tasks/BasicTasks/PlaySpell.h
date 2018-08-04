@@ -25,7 +25,7 @@ class PlaySpellTask : public ITask
  private:
     Entity* m_entity;
     Requirement m_requirement;
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

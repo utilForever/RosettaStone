@@ -23,7 +23,7 @@ class ModifyHealthTask : public ITask
     Character* m_character;
     BYTE m_damage;
 
-    MetaData Impl(Player& player1, Player& player2c) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp
 

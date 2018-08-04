@@ -26,7 +26,7 @@ TaskID MulliganTask::GetTaskID() const
     return TaskID::MULLIGAN;
 }
 
-MetaData MulliganTask::Impl(Player& player1, Player& player2) const
+MetaData MulliganTask::Impl(Player& player1, Player& player2)
 {
     // Get Mulligan Input from Interface
     TaskMeta serialized;

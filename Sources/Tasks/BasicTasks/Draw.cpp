@@ -22,7 +22,7 @@ TaskID DrawTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawTask::Impl(Player& user, Player&) const
+MetaData DrawTask::Impl(Player& user, Player&)
 {
     size_t num = m_num;
     MetaData result = MetaData::DRAW_SUCCESS;
@@ -108,7 +108,7 @@ TaskID DrawCardTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawCardTask::Impl(Player& user, Player&) const
+MetaData DrawCardTask::Impl(Player& user, Player&)
 {
     std::vector<Entity*>& deck = user.cards;
     std::vector<Entity*>& hand = user.hand;

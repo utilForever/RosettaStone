@@ -17,7 +17,7 @@ TaskID ShuffleTask::GetTaskID() const
     return TaskID::SHUFFLE;
 }
 
-MetaData ShuffleTask::Impl(Player& player1, Player&) const
+MetaData ShuffleTask::Impl(Player& player1, Player&)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());

@@ -26,7 +26,7 @@ TaskID PlaySpellTask::GetTaskID() const
     return TaskID::PLAY_SPELL;
 }
 
-MetaData PlaySpellTask::Impl(Player& player1, Player& player2) const
+MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
 {
     TaskMeta meta;
     // Get Position Response from GameInterface

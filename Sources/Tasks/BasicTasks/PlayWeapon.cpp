@@ -22,7 +22,7 @@ TaskID PlayWeaponTask::GetTaskID() const
     return TaskID::PLAY_WEAPON;
 }
 
-MetaData PlayWeaponTask::Impl(Player& player1, Player&) const
+MetaData PlayWeaponTask::Impl(Player& player1, Player&)
 {
     player1.hero->weapon = dynamic_cast<Weapon*>(m_entity);
 

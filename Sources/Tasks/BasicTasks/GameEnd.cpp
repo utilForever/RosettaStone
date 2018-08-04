@@ -15,7 +15,7 @@ TaskID GameEndTask::GetTaskID() const
     return TaskID::GAME_END;
 }
 
-MetaData GameEndTask::Impl(Player&, Player&) const
+MetaData GameEndTask::Impl(Player&, Player&)
 {
     return MetaData::GAME_END;
 }

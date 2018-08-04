@@ -63,7 +63,7 @@ TaskID ModifyManaTask::GetTaskID() const
     return TaskID::MODIFY_MANA;
 }
 
-MetaData ModifyManaTask::Impl(Player& player1, Player&) const
+MetaData ModifyManaTask::Impl(Player& player1, Player&)
 {
     return ImplModifyMana(player1, m_numMode, m_manaMode, m_num);
 }
@@ -80,7 +80,7 @@ TaskID ModifyManaByRef::GetTaskID() const
     return TaskID::MODIFY_MANA;
 }
 
-MetaData ModifyManaByRef::Impl(Player& player1, Player&) const
+MetaData ModifyManaByRef::Impl(Player& player1, Player&)
 {
     return ImplModifyMana(player1, m_numMode, m_manaMode, m_num);
 }

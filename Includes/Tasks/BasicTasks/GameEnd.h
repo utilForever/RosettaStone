@@ -19,7 +19,7 @@ class GameEndTask : public ITask
     TaskID GetTaskID() const override;
 
  private:
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

@@ -15,7 +15,7 @@ TaskID BriefTask::GetTaskID() const
     return TaskID::BRIEF;
 }
 
-MetaData BriefTask::Impl(Player&, Player&) const
+MetaData BriefTask::Impl(Player&, Player&)
 {
     return MetaData::BRIEF;
 }
