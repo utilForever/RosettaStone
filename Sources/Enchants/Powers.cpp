@@ -13,6 +13,21 @@ namespace Hearthstonepp
 {
 Powers* Powers::m_instance = nullptr;
 
+Powers::Powers()
+{
+    BasicCardsGen::AddAll(m_powers);
+}
+
+Powers::~Powers()
+{
+    for (const auto& power : m_powers)
+    {
+        delete power.second;
+    }
+
+    m_powers.clear();
+}
+
 Powers* Powers::GetInstance()
 {
     if (m_instance == nullptr)
@@ -32,10 +47,5 @@ Power* Powers::FindPowerByCardID(std::string cardID) const
     }
 
     return nullptr;
-}
-
-Powers::Powers()
-{
-    BasicCardsGen::AddAll(m_powers);
 }
 }
