@@ -9,17 +9,18 @@
 #ifndef HEARTHSTONEPP_DESTROYWEAPON_H
 #define HEARTHSTONEPP_DESTROYWEAPON_H
 
-#include <Tasks/PowerTask.h>
+#include <Tasks/Tasks.h>
 
 namespace Hearthstonepp::PowerTask
 {
-class DestroyWeapon : public IPower
+class DestroyTask : public ITask
 {
  public:
-    PowerTaskType GetPowerType() const override;
+    DestroyTask(EntityType entityType);
 
  private:
-    MetaData Impl(Player& player1, Player& player2) const override;
+    EntityType m_entityType;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::PowerTask
 
