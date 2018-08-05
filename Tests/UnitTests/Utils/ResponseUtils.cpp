@@ -1,4 +1,4 @@
-#include "ResponseUtils.h"
+#include <Utils/ResponseUtils.h>
 
 #include <Tasks/TaskSerializer.h>
 
@@ -55,7 +55,8 @@ std::future<TaskMeta> AutoResponder::PlaySpell(TargetType targetType,
         TaskMeta meta;
         m_agent.GetTaskMeta(meta);
 
-        TaskMeta playSpell = Serializer::CreateResponsePlaySpell(targetType, targetPosition);
+        TaskMeta playSpell =
+            Serializer::CreateResponsePlaySpell(targetType, targetPosition);
         m_agent.WriteSyncBuffer(std::move(playSpell));
 
         return meta;
@@ -87,16 +88,17 @@ auto AutoResponder::AutoMinion(size_t cardIndex, size_t position)
     });
 }
 
-auto AutoResponder::AutoSpell(size_t cardIndex, TargetType targetType, size_t targetPosition)
+auto AutoResponder::AutoSpell(size_t cardIndex, TargetType targetType,
+                              size_t targetPosition)
     -> std::future<std::tuple<TaskMeta, TaskMeta>>
 {
     return std::async(
         std::launch::async, [this, cardIndex, targetType, targetPosition] {
-        auto playCard = PlayCard(cardIndex);
-        playCard.wait();
+            auto playCard = PlayCard(cardIndex);
+            playCard.wait();
 
-        auto playSpell = PlaySpell(targetType, targetPosition);
-        return std::make_tuple(playCard.get(), playSpell.get());
-    });
+            auto playSpell = PlaySpell(targetType, targetPosition);
+            return std::make_tuple(playCard.get(), playSpell.get());
+        });
 }
 }  // namespace TestUtils

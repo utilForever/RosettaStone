@@ -1,8 +1,10 @@
-#include "TestUtils/TestUtils.h"
+#include <Utils/TestUtils.h>
+
+#include <random>
 
 namespace TestUtils
 {
-std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]> &ptr,
+std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
                                  size_t maximumSize)
 {
     std::random_device rd;
@@ -47,8 +49,8 @@ TaskMeta GenerateRandomTaskMeta()
     return randomTaskMeta;
 }
 
-void ExpectBufferEqual(const std::unique_ptr<BYTE[]> &buffer1,
-                       const std::unique_ptr<BYTE[]> &buffer2, std::size_t size)
+void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
+                       const std::unique_ptr<BYTE[]>& buffer2, std::size_t size)
 {
     for (size_t i = 0; i < size; ++i)
     {
@@ -56,7 +58,7 @@ void ExpectBufferEqual(const std::unique_ptr<BYTE[]> &buffer1,
     }
 }
 
-void ExpectCardEqual(const Card *card1, const Card *card2)
+void ExpectCardEqual(const Card* card1, const Card* card2)
 {
     EXPECT_EQ(card1->id, card2->id);
     EXPECT_EQ(card1->rarity, card2->rarity);

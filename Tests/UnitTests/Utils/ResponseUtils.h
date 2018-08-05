@@ -1,11 +1,10 @@
-#ifndef UNIT_TEST_RESPONSE_UTILS
-#define UNIT_TEST_RESPONSE_UTILS
+#ifndef UNIT_TESTS_RESPONSE_UTILS
+#define UNIT_TESTS_RESPONSE_UTILS
 
 #include <Managers/GameAgent.h>
 #include <Tasks/TaskMeta.h>
 
 #include <future>
-#include <vector>
 
 using namespace Hearthstonepp;
 
