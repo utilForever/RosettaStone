@@ -1,10 +1,13 @@
-#include "TestUtils/TestUtils.h"
 #include "gtest/gtest.h"
+
+#include <Utils/TestUtils.h>
 
 #include <Tasks/TaskMeta.h>
 #include <Tasks/TaskSerializer.h>
 
 #include <Flatbuffers/generated/FlatData_generated.h>
+
+#include <random>
 
 using namespace Hearthstonepp;
 
