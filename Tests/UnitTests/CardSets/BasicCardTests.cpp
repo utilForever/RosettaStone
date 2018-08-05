@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include <TestUtils/ResponseUtils.h>
+#include <Utils/ResponseUtils.h>
 
 #include <Managers/GameAgent.h>
 #include <Managers/GameInterface.h>
