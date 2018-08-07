@@ -6,8 +6,8 @@
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/BasicTasks/ModifyMana.h>
-#include <Tasks/BasicTasks/PlayMinion.h>
+#include <Tasks/BasicTasks/ModifyManaTask.h>
+#include <Tasks/BasicTasks/PlayMinionTask.h>
 
 #include <algorithm>
 

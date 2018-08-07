@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_PLAYERSETTING_H
 #define HEARTHSTONEPP_PLAYERSETTING_H
 
-#include <Tasks/BasicTasks/Requirement.h>
+#include <Tasks/BasicTasks/RequirementTask.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 

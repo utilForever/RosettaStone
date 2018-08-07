@@ -6,7 +6,7 @@
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/BasicTasks/SwapPlayer.h>
+#include <Tasks/BasicTasks/SwapPlayerTask.h>
 
 #include <algorithm>
 

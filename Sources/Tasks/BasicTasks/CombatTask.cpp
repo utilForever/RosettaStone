@@ -6,8 +6,8 @@
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/BasicTasks/Combat.h>
-#include <Tasks/BasicTasks/ModifyHealth.h>
+#include <Tasks/BasicTasks/CombatTask.h>
+#include <Tasks/BasicTasks/ModifyHealthTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {

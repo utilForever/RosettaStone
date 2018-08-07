@@ -6,7 +6,7 @@
 > Created Time: 2018/07/22
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/PowerTasks/Destroy.h>
+#include <Tasks/PowerTasks/DestroyTask.h>
 
 namespace Hearthstonepp::PowerTask
 {

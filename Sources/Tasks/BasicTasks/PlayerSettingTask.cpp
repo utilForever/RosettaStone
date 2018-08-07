@@ -6,7 +6,7 @@
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/BasicTasks/PlayerSetting.h>
+#include <Tasks/BasicTasks/PlayerSettingTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {

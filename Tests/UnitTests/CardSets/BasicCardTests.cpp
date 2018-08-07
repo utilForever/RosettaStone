@@ -4,9 +4,9 @@
 
 #include <Managers/GameAgent.h>
 #include <Managers/GameInterface.h>
-#include <Tasks/BasicTasks/Combat.h>
-#include <Tasks/BasicTasks/Draw.h>
-#include <Tasks/BasicTasks/PlayCard.h>
+#include <Tasks/BasicTasks/CombatTask.h>
+#include <Tasks/BasicTasks/DrawTask.h>
+#include <Tasks/BasicTasks/PlayCardTask.h>
 
 #include <future>
 

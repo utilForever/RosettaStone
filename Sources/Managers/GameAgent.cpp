@@ -7,17 +7,17 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Managers/GameAgent.h>
-#include <Tasks/BasicTasks/Brief.h>
-#include <Tasks/BasicTasks/Combat.h>
-#include <Tasks/BasicTasks/Draw.h>
-#include <Tasks/BasicTasks/GameEnd.h>
-#include <Tasks/BasicTasks/ModifyMana.h>
-#include <Tasks/BasicTasks/Mulligan.h>
-#include <Tasks/BasicTasks/PlayCard.h>
-#include <Tasks/BasicTasks/PlayerSetting.h>
-#include <Tasks/BasicTasks/Requirement.h>
-#include <Tasks/BasicTasks/Shuffle.h>
-#include <Tasks/BasicTasks/SwapPlayer.h>
+#include <Tasks/BasicTasks/BriefTask.h>
+#include <Tasks/BasicTasks/CombatTask.h>
+#include <Tasks/BasicTasks/DrawTask.h>
+#include <Tasks/BasicTasks/GameEndTask.h>
+#include <Tasks/BasicTasks/ModifyManaTask.h>
+#include <Tasks/BasicTasks/MulliganTask.h>
+#include <Tasks/BasicTasks/PlayCardTask.h>
+#include <Tasks/BasicTasks/PlayerSettingTask.h>
+#include <Tasks/BasicTasks/RequirementTask.h>
+#include <Tasks/BasicTasks/ShuffleTask.h>
+#include <Tasks/BasicTasks/SwapPlayerTask.h>
 #include <Tasks/BasicTasks/Wrapper.h>
 #include <Tasks/MetaData.h>
 

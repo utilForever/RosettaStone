@@ -8,9 +8,9 @@
 *************************************************************************/
 #include <CardSets/BasicCardsGen.h>
 #include <Enchants/Effects.h>
-#include <Tasks/PowerTasks/AddEnchantment.h>
-#include <Tasks/PowerTasks/Destroy.h>
-#include <Tasks/PowerTasks/HealFull.h>
+#include <Tasks/PowerTasks/AddEnchantmentTask.h>
+#include <Tasks/PowerTasks/DestroyTask.h>
+#include <Tasks/PowerTasks/HealFullTask.h>
 
 namespace Hearthstonepp
 {

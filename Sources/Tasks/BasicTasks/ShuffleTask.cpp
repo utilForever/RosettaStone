@@ -6,7 +6,7 @@
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/BasicTasks/Shuffle.h>
+#include <Tasks/BasicTasks/ShuffleTask.h>
 
 #include <random>
 

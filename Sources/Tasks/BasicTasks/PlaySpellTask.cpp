@@ -7,8 +7,8 @@
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
 #include <Enums/TaskEnums.h>
-#include <Tasks/BasicTasks/ModifyMana.h>
-#include <Tasks/BasicTasks/PlaySpell.h>
+#include <Tasks/BasicTasks/ModifyManaTask.h>
+#include <Tasks/BasicTasks/PlaySpellTask.h>
 
 #include <algorithm>
 

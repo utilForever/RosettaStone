@@ -7,9 +7,9 @@
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
 #include <Commons/Constants.h>
-#include <Tasks/BasicTasks/Draw.h>
-#include <Tasks/BasicTasks/Mulligan.h>
-#include <Tasks/BasicTasks/Shuffle.h>
+#include <Tasks/BasicTasks/DrawTask.h>
+#include <Tasks/BasicTasks/MulliganTask.h>
+#include <Tasks/BasicTasks/ShuffleTask.h>
 
 #include <algorithm>
 

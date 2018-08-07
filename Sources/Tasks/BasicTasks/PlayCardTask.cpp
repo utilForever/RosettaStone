@@ -6,10 +6,10 @@
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/BasicTasks/PlayCard.h>
-#include <Tasks/BasicTasks/PlayMinion.h>
-#include <Tasks/BasicTasks/PlaySpell.h>
-#include <Tasks/BasicTasks/PlayWeapon.h>
+#include <Tasks/BasicTasks/PlayCardTask.h>
+#include <Tasks/BasicTasks/PlayMinionTask.h>
+#include <Tasks/BasicTasks/PlaySpellTask.h>
+#include <Tasks/BasicTasks/PlayWeaponTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
