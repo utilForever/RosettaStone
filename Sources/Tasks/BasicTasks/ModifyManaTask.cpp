@@ -36,6 +36,9 @@ MetaData ImplModifyMana(Player& user, NumMode numMode, ManaMode manaMode,
             break;
     }
 
+    // Clamps a mana cost to a given range (min:0 ~ max:10)
+    mana = std::clamp(mana, static_cast<BYTE>(0), static_cast<BYTE>(10));
+
     return MetaData::MODIFY_MANA_SUCCESS;
 }
 
