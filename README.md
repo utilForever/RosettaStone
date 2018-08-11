@@ -21,7 +21,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Auto-cast
 - [ ] Battlecry
 - [ ] Cast spell
-- [v] Charge
+- [x] Charge
 - [ ] Choose One
 - [ ] Choose Twice
 - [ ] Combo
@@ -68,7 +68,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Start of Game
 - [ ] Stealth
 - [ ] Summon
-- [v] Taunt
+- [x] Taunt
 - [ ] Take control
 - [ ] Transform
 - [ ] Unlimited attacks
