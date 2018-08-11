@@ -10,7 +10,7 @@
 #define HEARTHSTONEPP_COMBAT_H
 
 #include <Flatbuffers/generated/FlatData_generated.h>
-#include <Tasks/BasicTasks/RequirementTask.h>
+#include <Tasks/BasicTasks/Requirement.h>
 #include <Tasks/Tasks.h>
 
 namespace Hearthstonepp::BasicTasks

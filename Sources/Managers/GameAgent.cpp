@@ -15,7 +15,7 @@
 #include <Tasks/BasicTasks/MulliganTask.h>
 #include <Tasks/BasicTasks/PlayCardTask.h>
 #include <Tasks/BasicTasks/PlayerSettingTask.h>
-#include <Tasks/BasicTasks/RequirementTask.h>
+#include <Tasks/BasicTasks/Requirement.h>
 #include <Tasks/BasicTasks/ShuffleTask.h>
 #include <Tasks/BasicTasks/SwapPlayerTask.h>
 #include <Tasks/BasicTasks/Wrapper.h>

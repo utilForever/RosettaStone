@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_PLAYMINION_H
 #define HEARTHSTONEPP_PLAYMINION_H
 
-#include <Tasks/BasicTasks/RequirementTask.h>
+#include <Tasks/BasicTasks/Requirement.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 
