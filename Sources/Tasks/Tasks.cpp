@@ -23,9 +23,4 @@ MetaData ITask::Run(Player& player1, Player& player2, TaskMeta& meta)
 
     return status;
 }
-
-TaskID ITask::GetTaskID() const
-{
-    return TaskID::INVALID;
-}
 }  // namespace Hearthstonepp

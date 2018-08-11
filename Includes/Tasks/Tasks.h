@@ -33,7 +33,7 @@ class ITask
     MetaData Run(Player& player1, Player& player2);
     MetaData Run(Player& player1, Player& player2, TaskMeta& meta);
 
-    virtual TaskID GetTaskID() const;
+    virtual TaskID GetTaskID() const = 0;
 
  private:
     virtual MetaData Impl(Player& player1, Player& player2) = 0;
