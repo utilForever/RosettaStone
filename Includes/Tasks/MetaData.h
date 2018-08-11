@@ -15,6 +15,7 @@ using status_t = unsigned int;
 enum class MetaData : status_t
 {
     INVALID,
+    NULLPTR,
 
     SWAP,
     SWAP_SUCCESS,
@@ -77,6 +78,12 @@ enum class MetaData : status_t
     COMBAT_SRC_IDX_OUT_OF_RANGE,
     COMBAT_DST_IDX_OUT_OF_RANGE,
     COMBAT_ALREADY_ATTACKED,
+
+    ADD_ENCHANTMENT_SUCCESS,
+
+    DESTROY_OPPONENT_WEAPON_SUCCESS,
+
+    HEAL_FULL_SUCCESS,
 
     GAME_END
 };

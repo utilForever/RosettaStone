@@ -25,7 +25,7 @@ MetaData DestroyTask::Impl(Player&, Player& player2)
     if (m_entityType == +EntityType::OPPONENT_WEAPON)
     {
         player2.hero->weapon = nullptr;
-        return MetaData::INVALID;
+        return MetaData::DESTROY_OPPONENT_WEAPON_SUCCESS;
     }
 
     return MetaData::INVALID;

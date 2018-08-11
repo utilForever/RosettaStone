@@ -24,6 +24,6 @@ MetaData HealFullTask::Impl(Player&, Player&)
 {
     target->health = target->maxHealth;
 
-    return MetaData::INVALID;
+    return MetaData::HEAL_FULL_SUCCESS;
 }
 }  // namespace Hearthstonepp::PowerTask

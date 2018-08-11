@@ -27,17 +27,17 @@ MetaData AddEnchantmentTask::Impl(Player&, Player&)
     const Card* enchantmentCard = Cards::GetInstance()->FindCardByID(m_cardID);
     if (enchantmentCard == nullptr)
     {
-        return MetaData::INVALID;
+        return MetaData::NULLPTR;
     }
 
     Power* power = Cards::GetInstance()->FindCardByID(m_cardID)->power;
     if (power == nullptr)
     {
-        return MetaData::INVALID;
+        return MetaData::NULLPTR;
     }
 
     power->enchant->ActivateTo(target);
 
-    return MetaData::INVALID;
+    return MetaData::ADD_ENCHANTMENT_SUCCESS;
 }
 }  // namespace Hearthstonepp::PowerTask
