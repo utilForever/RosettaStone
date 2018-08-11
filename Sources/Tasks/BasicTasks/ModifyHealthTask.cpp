@@ -25,12 +25,12 @@ TaskID ModifyHealthTask::GetTaskID() const
 
 MetaData ModifyHealthTask::Impl(Player& user, Player&)
 {
-    int hurted = static_cast<int>(m_character->health) - m_damage;
+    int remainHealth = static_cast<int>(m_character->health) - m_damage;
 
     // if minion is exhausted
-    if (hurted <= 0)
+    if (remainHealth <= 0)
     {
-        hurted = 0;
+        remainHealth = 0;
         user.usedMinion.emplace_back(m_character);
 
         // find minion and remove it from field
@@ -44,7 +44,8 @@ MetaData ModifyHealthTask::Impl(Player& user, Player&)
     }
 
     // adjust health
-    m_character->health = static_cast<size_t>(hurted);
+    m_character->health = static_cast<size_t>(remainHealth);
+
     return MetaData::MODIFY_HEALTH_SUCCESS;
 }
 }  // namespace Hearthstonepp::BasicTasks

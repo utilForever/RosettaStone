@@ -76,9 +76,7 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
     {
         return MetaData::PLAY_SPELL_SUCCESS;
     }
-    else
-    {
-        return MetaData::PLAY_SPELL_MODIFY_MANA_FAIL;
-    }
+
+    return MetaData::PLAY_SPELL_MODIFY_MANA_FAIL;
 }
 }  // namespace Hearthstonepp::BasicTasks

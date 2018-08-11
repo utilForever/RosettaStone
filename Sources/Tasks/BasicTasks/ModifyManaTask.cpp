@@ -8,8 +8,6 @@
 *************************************************************************/
 #include <Tasks/BasicTasks/ModifyManaTask.h>
 
-#include <algorithm>
-
 namespace Hearthstonepp::BasicTasks
 {
 MetaData ImplModifyMana(Player& user, NumMode numMode, ManaMode manaMode,
@@ -18,10 +16,10 @@ MetaData ImplModifyMana(Player& user, NumMode numMode, ManaMode manaMode,
     auto get = [](Player& user, ManaMode mode) -> BYTE& {
         if (mode == ManaMode::EXIST)
             return user.existMana;
-        else if (mode == ManaMode::TOTAL)
+        if (mode == ManaMode::TOTAL)
             return user.totalMana;
-        else
-            throw std::runtime_error("ImplModifyMana : Invalid ManaMode");
+
+        throw std::runtime_error("ImplModifyMana : Invalid ManaMode");
     };
 
     BYTE& mana = get(user, manaMode);
@@ -31,22 +29,11 @@ MetaData ImplModifyMana(Player& user, NumMode numMode, ManaMode manaMode,
             mana += num;
             break;
         case NumMode::SUB:
-            mana -= num;
+            mana = (mana <= num) ? 0 : (mana - num);
             break;
-        case NumMode::SYNC:
+        case NumMode::SET:
             mana = num;
             break;
-    }
-
-    // Mana overflow
-    if (mana > 10)
-    {
-        mana = 10;
-    }
-    // Mana underflow
-    else if (mana < 0)
-    {
-        mana = 0;
     }
 
     return MetaData::MODIFY_MANA_SUCCESS;

@@ -29,6 +29,6 @@ MetaData PlayerSettingTask::Impl(Player& player1, Player& player2)
         Serializer::CreatePlayerSetting(player1.email, player2.email);
     m_agent.Notify(std::move(setting));
 
-    return MetaData::INVALID;
+    return MetaData::PLAYER_SETTING_SUCCESS;
 }
 }  // namespace Hearthstonepp::BasicTasks

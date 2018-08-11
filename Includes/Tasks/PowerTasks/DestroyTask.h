@@ -22,6 +22,7 @@ class DestroyTask : public ITask
 
  private:
     EntityType m_entityType;
+
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::PowerTask

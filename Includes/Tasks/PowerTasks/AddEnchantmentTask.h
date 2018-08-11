@@ -23,6 +23,7 @@ class AddEnchantmentTask : public ITask
  private:
     std::string m_cardID;
     EntityType m_entityType;
+
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::PowerTask

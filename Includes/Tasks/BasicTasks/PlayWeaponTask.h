@@ -17,10 +17,12 @@ class PlayWeaponTask : public ITask
 {
  public:
     PlayWeaponTask(Entity* entity);
+
     TaskID GetTaskID() const override;
 
  private:
     Entity* m_entity;
+
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks

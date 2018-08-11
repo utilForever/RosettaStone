@@ -133,7 +133,7 @@ void GameAgent::MainReady()
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
         BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
-        BasicTasks::ModifyManaByRef(NumMode::SYNC, ManaMode::EXIST,
+        BasicTasks::ModifyManaByRef(NumMode::SET, ManaMode::EXIST,
                                     m_player1.totalMana));
 
     m_player1.attacked.clear();

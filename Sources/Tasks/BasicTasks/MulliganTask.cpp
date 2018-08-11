@@ -91,9 +91,7 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
     {
         return MetaData::MULLIGAN_SUCCESS;
     }
-    else
-    {
-        return statusDraw;
-    }
+
+    return statusDraw;
 }
 }  // namespace Hearthstonepp::BasicTasks

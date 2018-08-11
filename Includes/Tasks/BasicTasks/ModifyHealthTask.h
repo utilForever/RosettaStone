@@ -17,6 +17,7 @@ class ModifyHealthTask : public ITask
 {
  public:
     ModifyHealthTask(Character* character, BYTE damage);
+
     TaskID GetTaskID() const override;
 
  private:

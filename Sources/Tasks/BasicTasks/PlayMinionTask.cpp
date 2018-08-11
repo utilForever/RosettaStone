@@ -82,9 +82,7 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
     {
         return MetaData::PLAY_MINION_SUCCESS;
     }
-    else
-    {
-        return MetaData::PLAY_MINION_MODIFY_MANA_FAIL;
-    }
+
+    return MetaData::PLAY_MINION_MODIFY_MANA_FAIL;
 }
 }  // namespace Hearthstonepp::BasicTasks

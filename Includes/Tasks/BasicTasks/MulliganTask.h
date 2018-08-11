@@ -19,6 +19,7 @@ class MulliganTask : public ITask
 {
  public:
     MulliganTask(TaskAgent& agent);
+
     TaskID GetTaskID() const override;
 
  private:

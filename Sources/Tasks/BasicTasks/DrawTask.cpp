@@ -30,18 +30,20 @@ MetaData DrawTask::Impl(Player& user, Player&)
     std::vector<Entity*>& deck = user.cards;
     std::vector<Entity*>& hand = user.hand;
 
-    // when deck is exhausted
+    // after reaching fatigue
     if (deck.size() < num)
     {
-        size_t rest = num - deck.size();
+        size_t numDrawAfterFatigue = num - deck.size();
 
-        // sigma (i = 1 to rest) { current.exhausted + i }
-        int hurts =
-            static_cast<int>(user.exhausted * rest + rest * (rest + 1) / 2);
-        int hurted = static_cast<int>(user.hero->health) - hurts;
+        // sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
+        int fatigueDamage = static_cast<int>(
+            user.exhausted * numDrawAfterFatigue +
+            numDrawAfterFatigue * (numDrawAfterFatigue + 1) / 2);
+        int remainHealth = static_cast<int>(user.hero->health) - fatigueDamage;
 
-        user.hero->health = hurted > 0 ? static_cast<size_t>(hurted) : 0;
-        user.exhausted += static_cast<BYTE>(rest);
+        user.hero->health =
+            remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0;
+        user.exhausted += static_cast<BYTE>(numDrawAfterFatigue);
 
         result = MetaData::DRAW_EXHAUST;
     }

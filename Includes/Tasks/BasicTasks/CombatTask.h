@@ -19,10 +19,12 @@ class CombatTask : public ITask
 {
  public:
     CombatTask(TaskAgent& agent);
+
     TaskID GetTaskID() const override;
 
  private:
     Requirement m_requirement;
+    
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks

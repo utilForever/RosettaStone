@@ -20,11 +20,13 @@ class PlayCardTask : public ITask
 {
  public:
     PlayCardTask(TaskAgent& agent);
+
     TaskID GetTaskID() const override;
 
  private:
     TaskAgent& m_agent;
     Requirement m_requirement;
+
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks

@@ -19,6 +19,7 @@ class DrawTask : public ITask
 {
  public:
     DrawTask(size_t num, TaskAgent& agent);
+
     TaskID GetTaskID() const override;
 
  private:
@@ -27,15 +28,18 @@ class DrawTask : public ITask
 
     MetaData Impl(Player& player1, Player& player2) override;
 };
+
 // Draw fixed card
 class DrawCardTask : public ITask
 {
  public:
     DrawCardTask(Card* card);
+
     TaskID GetTaskID() const override;
 
  private:
     Entity* m_entity;
+
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks

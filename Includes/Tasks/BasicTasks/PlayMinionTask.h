@@ -20,11 +20,13 @@ class PlayMinionTask : public ITask
 {
  public:
     PlayMinionTask(TaskAgent& agent, Entity* entity);
+
     TaskID GetTaskID() const override;
 
  private:
     Entity* m_entity;
     Requirement m_requirement;
+
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks

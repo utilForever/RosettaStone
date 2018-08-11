@@ -17,7 +17,7 @@ enum class NumMode
 {
     ADD = 0,
     SUB = 1,
-    SYNC = 2,
+    SET = 2,
 };
 
 enum class ManaMode
