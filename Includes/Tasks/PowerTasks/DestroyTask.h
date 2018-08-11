@@ -18,6 +18,8 @@ class DestroyTask : public ITask
  public:
     DestroyTask(EntityType entityType);
 
+    TaskID GetTaskID() const override;
+
  private:
     EntityType m_entityType;
     MetaData Impl(Player& player1, Player& player2) override;

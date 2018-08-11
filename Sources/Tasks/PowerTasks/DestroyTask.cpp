@@ -15,6 +15,11 @@ DestroyTask::DestroyTask(EntityType entityType) : m_entityType(entityType)
     // Do nothing
 }
 
+TaskID DestroyTask::GetTaskID() const
+{
+    return TaskID::DESTROY;
+}
+
 MetaData DestroyTask::Impl(Player&, Player& player2)
 {
     if (m_entityType == +EntityType::OPPONENT_WEAPON)

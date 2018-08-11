@@ -17,6 +17,11 @@ AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
     // Do nothing
 }
 
+TaskID AddEnchantmentTask::GetTaskID() const
+{
+    return TaskID::ADD_ENCHANTMENT;
+}
+
 MetaData AddEnchantmentTask::Impl(Player&, Player&)
 {
     const Card* enchantmentCard = Cards::GetInstance()->FindCardByID(m_cardID);

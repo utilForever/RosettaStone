@@ -18,6 +18,8 @@ class AddEnchantmentTask : public ITask
  public:
     AddEnchantmentTask(std::string&& cardID, EntityType entityType);
 
+    TaskID GetTaskID() const override;
+
  private:
     std::string m_cardID;
     EntityType m_entityType;
