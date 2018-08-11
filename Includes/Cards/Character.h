@@ -13,7 +13,7 @@
 
 namespace Hearthstonepp
 {
-struct Character : virtual Entity
+struct Character : public Entity
 {
     Character() = default;
     Character(const Card* pCard);
@@ -23,6 +23,7 @@ struct Character : virtual Entity
 
     size_t attack = 0;
     size_t health = 0;
+    size_t maxHealth = 0;
 };
 }
 

@@ -45,6 +45,8 @@ TaskMeta CreateResponseMulligan(const BYTE* index, size_t size);
 TaskMeta CreateResponsePlayCard(size_t cardIndex);
 // Create Response for PlayMinion Task, Select position where minion will summon
 TaskMeta CreateResponsePlayMinion(size_t position);
+// Create response for PlaySpell task, select target type and position where caster will cast
+TaskMeta CreateResponsePlaySpell(TargetType targetType, size_t targetPosition);
 // Create Response for Targeting Tasks, eg. Combat
 TaskMeta CreateResponseTarget(size_t src, size_t dst);
 

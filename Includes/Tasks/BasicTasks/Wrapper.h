@@ -16,26 +16,26 @@ namespace Hearthstonepp::BasicTasks
 class DoBothPlayer : public ITask
 {
  public:
-    DoBothPlayer(const ITask& task);
+    DoBothPlayer(ITask&& task);
     TaskID GetTaskID() const override;
 
  private:
-    const ITask& m_task;
-    MetaData Impl(Player& player1, Player& player2) const override;
+    ITask& m_task;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 
 class DoUntil : public ITask
 {
  public:
-    DoUntil(const ITask& task,
+    DoUntil(ITask&& task,
             std::function<bool(const TaskMeta&)>&& condition);
     TaskID GetTaskID() const override;
 
  private:
-    const ITask& m_task;
+    ITask& m_task;
     std::function<bool(const TaskMeta&)> m_condition;
 
-    MetaData Impl(Player& player1, Player& player2) const override;
+    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks
 #endif  // HEARTHSTONEPP_WRAPPER_H

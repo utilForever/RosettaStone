@@ -9,15 +9,13 @@
 #ifndef HEARTHSTONEPP_ENCHANT_H
 #define HEARTHSTONEPP_ENCHANT_H
 
-#include <Cards/Entity.h>
 #include <Enchants/Effect.h>
 
 #include <vector>
 
 namespace Hearthstonepp
 {
-struct Effect;
-struct Entity;
+struct Character;
 
 struct Enchant
 {
@@ -26,7 +24,7 @@ public:
     Enchant(Effect& effect);
     Enchant(std::vector<Effect>& effects);
 
-    void ActivateTo(Entity& entity);
+    void ActivateTo(Character* character);
 
 private:
     std::vector<Effect> m_effects;

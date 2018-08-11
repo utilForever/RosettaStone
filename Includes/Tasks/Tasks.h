@@ -27,13 +27,16 @@ class ITask
     static inline constexpr bool isTask =
         std::is_convertible_v<std::decay_t<T>, ITask>;
 
-    MetaData Run(Player& player1, Player& player2) const;
-    MetaData Run(Player& player1, Player& player2, TaskMeta& meta) const;
+    Character* source = nullptr;
+    Character* target = nullptr;
 
-    virtual TaskID GetTaskID() const;
+    MetaData Run(Player& player1, Player& player2);
+    MetaData Run(Player& player1, Player& player2, TaskMeta& meta);
+
+    virtual TaskID GetTaskID() const = 0;
 
  private:
-    virtual MetaData Impl(Player& player1, Player& player2) const = 0;
+    virtual MetaData Impl(Player& player1, Player& player2) = 0;
 };
 }  // namespace Hearthstonepp
 

@@ -37,6 +37,8 @@ struct ResponsePlayCard;
 
 struct ResponsePlayMinion;
 
+struct ResponsePlaySpell;
+
 struct ResponseTarget;
 
 struct GameEndTaskMeta;
@@ -1126,6 +1128,56 @@ inline flatbuffers::Offset<ResponsePlayMinion> CreateResponsePlayMinion(
     uint8_t position = 0) {
   ResponsePlayMinionBuilder builder_(_fbb);
   builder_.add_position(position);
+  return builder_.Finish();
+}
+
+struct ResponsePlaySpell FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  enum {
+    VT_TARGETTYPE = 4,
+    VT_POSITION = 6
+  };
+  uint8_t targetType() const {
+    return GetField<uint8_t>(VT_TARGETTYPE, 0);
+  }
+  uint8_t position() const {
+    return GetField<uint8_t>(VT_POSITION, 0);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_TARGETTYPE) &&
+           VerifyField<uint8_t>(verifier, VT_POSITION) &&
+           verifier.EndTable();
+  }
+};
+
+struct ResponsePlaySpellBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_targetType(uint8_t targetType) {
+    fbb_.AddElement<uint8_t>(ResponsePlaySpell::VT_TARGETTYPE, targetType, 0);
+  }
+  void add_position(uint8_t position) {
+    fbb_.AddElement<uint8_t>(ResponsePlaySpell::VT_POSITION, position, 0);
+  }
+  explicit ResponsePlaySpellBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ResponsePlaySpellBuilder &operator=(const ResponsePlaySpellBuilder &);
+  flatbuffers::Offset<ResponsePlaySpell> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<ResponsePlaySpell>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<ResponsePlaySpell> CreateResponsePlaySpell(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t targetType = 0,
+    uint8_t position = 0) {
+  ResponsePlaySpellBuilder builder_(_fbb);
+  builder_.add_position(position);
+  builder_.add_targetType(targetType);
   return builder_.Finish();
 }
 

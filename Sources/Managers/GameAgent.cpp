@@ -7,17 +7,17 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Managers/GameAgent.h>
-#include <Tasks/BasicTasks/Brief.h>
-#include <Tasks/BasicTasks/Combat.h>
-#include <Tasks/BasicTasks/Draw.h>
-#include <Tasks/BasicTasks/GameEnd.h>
-#include <Tasks/BasicTasks/ModifyMana.h>
-#include <Tasks/BasicTasks/Mulligan.h>
-#include <Tasks/BasicTasks/PlayCard.h>
-#include <Tasks/BasicTasks/PlayerSetting.h>
+#include <Tasks/BasicTasks/BriefTask.h>
+#include <Tasks/BasicTasks/CombatTask.h>
+#include <Tasks/BasicTasks/DrawTask.h>
+#include <Tasks/BasicTasks/GameEndTask.h>
+#include <Tasks/BasicTasks/ModifyManaTask.h>
+#include <Tasks/BasicTasks/MulliganTask.h>
+#include <Tasks/BasicTasks/PlayCardTask.h>
+#include <Tasks/BasicTasks/PlayerSettingTask.h>
 #include <Tasks/BasicTasks/Requirement.h>
-#include <Tasks/BasicTasks/Shuffle.h>
-#include <Tasks/BasicTasks/SwapPlayer.h>
+#include <Tasks/BasicTasks/ShuffleTask.h>
+#include <Tasks/BasicTasks/SwapPlayerTask.h>
 #include <Tasks/BasicTasks/Wrapper.h>
 #include <Tasks/MetaData.h>
 
@@ -64,7 +64,12 @@ Player& GameAgent::GetPlayer2()
     return m_player2;
 }
 
-MetaData GameAgent::RunTask(const ITask& task, Player& player1, Player& player2)
+MetaData GameAgent::RunTask(ITask& task, Player& player1, Player& player2)
+{
+    return task.Run(player1, player2);
+}
+
+MetaData GameAgent::RunTask(ITask&& task, Player& player1, Player& player2)
 {
     return task.Run(player1, player2);
 }
@@ -128,7 +133,7 @@ void GameAgent::MainReady()
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
         BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
-        BasicTasks::ModifyManaByRef(NumMode::SYNC, ManaMode::EXIST,
+        BasicTasks::ModifyManaByRef(NumMode::SET, ManaMode::EXIST,
                                     m_player1.totalMana));
 
     m_player1.attacked.clear();

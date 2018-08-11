@@ -1,12 +1,13 @@
-#include "TestTasks/TestTasks.h"
-#include "TestUtils/TestUtils.h"
 #include "gtest/gtest.h"
 
-#include <Enums/CardEnums.h>
-#include <Flatbuffers/generated/FlatData_generated.h>
+#include <Utils/TestTasks.h>
+#include <Utils/TestUtils.h>
+
 #include <Tasks/MetaData.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/TaskMeta.h>
+
+#include <Flatbuffers/generated/FlatData_generated.h>
 
 #include <future>
 

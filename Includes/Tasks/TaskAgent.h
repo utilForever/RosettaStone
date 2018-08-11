@@ -36,16 +36,29 @@ class TaskAgent
     void Read(TaskMeta& meta, bool sideChannel = false);
     // Write TaskMeta from SyncBuffer,
     // main channel as default, side channel by flag
+    void Notify(TaskMeta& meta, bool sideChannel = false);
     void Notify(TaskMeta&& meta, bool sideChannel = false);
 
     // Run single task and write result to `meta`,
     // if `notify` is true, TaskAgent notify the main channel as SyncBuffer
+    void Run(TaskMeta& meta, Player& player1, Player& player2, ITask& task,
+             bool notify = true);
     void Run(TaskMeta& meta, Player& player1, Player& player2,
-             const ITask& task, bool notify = true);
+             ITask&& task, bool notify = true);
     // Run Multi tasks and write result to `meta`
     template <typename... ITaskT>
     void RunMulti(TaskMeta& meta, Player& player1, Player& player2,
-                  const ITaskT&... tasks)
+                  ITaskT&... tasks)
+    {
+        std::vector<TaskMeta> pool;
+        Run(pool, player1, player2, tasks...);
+
+        meta = Serializer::CreateTaskMetaVector(pool);
+        Notify(TaskMeta::CopyFrom(meta));
+    }
+    template <typename... ITaskT>
+    void RunMulti(TaskMeta& meta, Player& player1, Player& player2,
+                  ITaskT&&... tasks)
     {
         std::vector<TaskMeta> pool;
         Run(pool, player1, player2, tasks...);
@@ -60,9 +73,25 @@ class TaskAgent
 
     template <typename... ITaskT>
     void Run(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
-             const ITaskT&... tasks)
+             ITaskT&... tasks)
     {
-        auto pusher = [&, this](const ITask& task) -> void {
+        auto pusher = [&, this](ITask& task) -> void {
+            pool.emplace_back();
+            TaskMeta& meta = pool.back();
+
+            task.Run(player1, player2, meta);
+            if (task.GetTaskID() == +TaskID::BRIEF)
+            {
+                Notify(TaskMeta::CopyFrom(meta));
+            }
+        };
+        (pusher(tasks), ...);
+    }
+    template <typename... ITaskT>
+    void Run(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
+             ITaskT&&... tasks)
+    {
+        auto pusher = [&, this](ITask& task) -> void {
             pool.emplace_back();
             TaskMeta& meta = pool.back();
 

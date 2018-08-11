@@ -17,7 +17,7 @@ namespace Hearthstonepp
 struct Powers
 {
     Powers(const Powers& other) = delete;
-    ~Powers() = delete;
+    ~Powers();
 
     static Powers* GetInstance();
 

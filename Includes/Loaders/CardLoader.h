@@ -23,7 +23,6 @@ class CardLoader
 {
  public:
     void LoadData(std::vector<Card*>& cards) const;
-    void LoadPower(std::vector<Card*>& cards) const;
 };
 }  // namespace Hearthstonepp
 
