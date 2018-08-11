@@ -31,9 +31,9 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
     // Get Position Response from GameInterface
     m_requirement.Interact(player1.id, meta);
 
-    using RequireTaskMeta = FlatData::ResponsePlaySpell;
+    using ResponsePlaySpell = FlatData::ResponsePlaySpell;
     const auto& buffer = meta.GetConstBuffer();
-    auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+    auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
 
     if (req == nullptr)
     {

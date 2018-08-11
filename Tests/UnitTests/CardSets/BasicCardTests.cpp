@@ -139,7 +139,7 @@ TEST(BasicCard, CS2_041)
     result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().field[0], nullptr);
+    EXPECT_EQ(agent.GetPlayer2().field.size(), 0);
 
     // Create multiple response for PlayCardTask And PlaySpellTask
     auto respAutoSpell = response.AutoSpell(0, TargetType::MY_FIELD, 0);
@@ -224,5 +224,5 @@ TEST(BasicCard, CS2_171)
     result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().field[0], nullptr);
+    EXPECT_EQ(agent.GetPlayer2().field.size(), 0);
 }
