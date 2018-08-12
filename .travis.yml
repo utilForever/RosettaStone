@@ -20,6 +20,7 @@ before_install:
   - eval "${MATRIX_EVAL}"
   - if [ $TRAVIS_OS_NAME == linux ]; then 
        sudo apt-get update -qq;
+       sudo apt-get install -y --no-install-recommends xorg-dev libglu1-mesa-dev;
        sudo apt-get install -y --no-install-recommends libxrandr-dev libxi-dev libxxf86vm-dev libxinerama-dev libxcursor-dev lcov;
        sudo apt-get install -y --no-install-recommends libopenal-dev libvorbis-dev libflac-dev;
        wget https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip;
