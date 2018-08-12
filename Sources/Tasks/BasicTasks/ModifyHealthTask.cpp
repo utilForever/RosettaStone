@@ -23,7 +23,7 @@ TaskID ModifyHealthTask::GetTaskID() const
     return TaskID::MODIFY_HEALTH;
 }
 
-MetaData ModifyHealthTask::Impl(Player& user, Player&)
+MetaData ModifyHealthTask::Impl(Player&, Player&)
 {
     int remainHealth = static_cast<int>(m_character->health) - m_damage;
 

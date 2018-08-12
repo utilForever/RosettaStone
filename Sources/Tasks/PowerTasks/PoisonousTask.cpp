@@ -20,7 +20,7 @@ TaskID PoisonousTask::GetTaskID() const
     return TaskID::POISONOUS;
 }
 
-MetaData PoisonousTask::Impl(Player&, Player& user)
+MetaData PoisonousTask::Impl(Player&, Player&)
 {
     if (m_source->attack <= 0)
     {
