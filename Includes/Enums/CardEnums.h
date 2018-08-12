@@ -57,7 +57,8 @@ BETTER_ENUM(CardSet, int, INVALID = 0, TEST_TEMPORARY = 1, CORE = 2,
             TGT = 15, CREDITS = 16, HERO_SKINS = 17, TB = 18, SLUSH = 19,
             LOE = 20, OG = 21, OG_RESERVE = 22, KARA = 23, KARA_RESERVE = 24,
             GANGS = 25, GANGS_RESERVE = 26, UNGORO = 27, ICECROWN = 1001,
-            LOOTAPALOOZA = 1004, GILNEAS = 1125, BOOMSDAY = 1127)
+            LOOTAPALOOZA = 1004, GILNEAS = 1125, BOOMSDAY = 1127,
+            TAVERNS_OF_TIME = 1143)
 
 BETTER_ENUM(CardType, int, INVALID = 0, GAME = 1, PLAYER = 2, HERO = 3,
             MINION = 4, SPELL = 5, ENCHANTMENT = 6, WEAPON = 7, ITEM = 8,
@@ -201,7 +202,9 @@ BETTER_ENUM(
     HEALTH_DISPLAY_COLOR = 1046, HEALTH_DISPLAY_NEGATIVE = 1047,
     WHIZBANG_DECK_ID = 1048, HIDE_OUT_OF_CARDS_WARNING = 1050, GEARS = 1052,
     LUNAHIGHLIGHTHINT = 1054, SUPPRESS_JOBS_DONE_VO = 1055,
-    ALL_HEALING_DOUBLE = 1058, BLOCK_ALL_INPUT = 1071, PUZZLE_MODE = 1073)
+    ALL_HEALING_DOUBLE = 1058, BLOCK_ALL_INPUT = 1071, PUZZLE_MODE = 1073,
+    InvisibleDeathrattle = 335, ImmuneToSpellpower = 349,
+    AttackVisualType = 251, DevState = 268, GrantCharge = 355, HealTarget = 361)
 #else
 namespace better_enums_data_GameTag
 {
@@ -551,7 +554,13 @@ class GameTag
         SUPPRESS_JOBS_DONE_VO = 1055,
         ALL_HEALING_DOUBLE = 1058,
         BLOCK_ALL_INPUT = 1071,
-        PUZZLE_MODE = 1073
+        PUZZLE_MODE = 1073,
+        InvisibleDeathrattle = 335,
+        ImmuneToSpellpower = 349,
+        AttackVisualType = 251,
+        DevState = 268,
+        GrantCharge = 355,
+        HealTarget = 361
     };
 
     constexpr GameTag(_enumerated value) : _value(value)
@@ -578,7 +587,7 @@ class GameTag
     typedef ::better_enums::_Iterable<const char*> _name_iterable;
     typedef _value_iterable::iterator _value_iterator;
     typedef _name_iterable::iterator _name_iterator;
-    constexpr static const std::size_t _size_constant = 377;
+    constexpr static const std::size_t _size_constant = 342;
     constexpr static std::size_t _size()
     {
         return _size_constant;
@@ -950,7 +959,13 @@ enum _PutNamesInThisScopeAlso
     SUPPRESS_JOBS_DONE_VO = 1055,
     ALL_HEALING_DOUBLE = 1058,
     BLOCK_ALL_INPUT = 1071,
-    PUZZLE_MODE = 1073
+    PUZZLE_MODE = 1073,
+    InvisibleDeathrattle = 335,
+    ImmuneToSpellpower = 349,
+    AttackVisualType = 251,
+    DevState = 268,
+    GrantCharge = 355,
+    HealTarget = 361
 };
 constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::INVALID = 0),
@@ -1363,7 +1378,14 @@ constexpr const GameTag _value_array[] = {
          1055),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ALL_HEALING_DOUBLE = 1058),
     ((::better_enums::_eat_assign<GameTag>)GameTag::BLOCK_ALL_INPUT = 1071),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_MODE = 1073)};
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_MODE = 1073),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::InvisibleDeathrattle = 335),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::ImmuneToSpellpower = 349),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::AttackVisualType = 251),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::DevState = 268),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::GrantCharge = 355),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HealTarget = 361)
+};
 constexpr const char* _the_raw_names[] = {
     "INVALID = 0",
     "TAG_SCRIPT_DATA_NUM_1 = 2",
@@ -1700,7 +1722,14 @@ constexpr const char* _the_raw_names[] = {
     "SUPPRESS_JOBS_DONE_VO = 1055",
     "ALL_HEALING_DOUBLE = 1058",
     "BLOCK_ALL_INPUT = 1071",
-    "PUZZLE_MODE = 1073"};
+    "PUZZLE_MODE = 1073",
+    "InvisibleDeathrattle = 335",
+    "ImmuneToSpellpower = 349",
+    "AttackVisualType = 251",
+    "DevState = 268",
+    "GrantCharge = 355",
+    "HealTarget = 361"
+};
 constexpr const char* const* _raw_names()
 {
     return _the_raw_names;
@@ -2379,6 +2408,18 @@ inline char* _name_storage()
         "BLOCK_ALL_INPUT = 1071"
         ","
         "PUZZLE_MODE = 1073"
+        ","
+        "InvisibleDeathrattle = 335"
+        ","
+        "ImmuneToSpellpower = 349"
+        ","
+        "AttackVisualType = 251"
+        ","
+        "DevState = 268"
+        ","
+        "GrantCharge = 355"
+        ","
+        "HealTarget = 361"
         ",";
     return storage;
 }
@@ -2750,7 +2791,7 @@ class PlayReq
     typedef ::better_enums::_Iterable<const char*> _name_iterable;
     typedef _value_iterable::iterator _value_iterator;
     typedef _name_iterable::iterator _name_iterator;
-    constexpr static const std::size_t _size_constant = 75;
+    constexpr static const std::size_t _size_constant = 77;
     constexpr static std::size_t _size()
     {
         return _size_constant;

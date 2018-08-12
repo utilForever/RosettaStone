@@ -16,6 +16,7 @@
 #include <Loaders/CardLoader.h>
 
 #include <fstream>
+#include <iostream>
 
 namespace Hearthstonepp
 {
@@ -37,6 +38,13 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
     for (auto& cardData : j)
     {
         const std::string id = cardData["id"].get<std::string>();
+        // Check invalid card type for 'Placeholder'
+        // See https://hearthstone.gamepedia.com/Placeholder_Card
+        if (id == "PlaceholderCard")
+        {
+            continue;
+        }
+
         const Rarity rarity =
             cardData["rarity"].is_null()
                 ? +Rarity::FREE
@@ -114,13 +122,6 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
         for (auto& entourage : cardData["entourage"])
         {
             entourages.emplace_back(entourage.get<std::string>());
-        }
-
-        // Check invalid card type for 'Placeholder'
-        // See https://hearthstone.gamepedia.com/Placeholder_Card
-        if (cardType == +CardType::INVALID)
-        {
-            continue;
         }
 
         Card* card = new Card();
