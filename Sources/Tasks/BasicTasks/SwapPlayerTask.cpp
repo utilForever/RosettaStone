@@ -21,6 +21,16 @@ MetaData SwapPlayerTask::Impl(Player& player1, Player& player2)
 {
     std::swap(player1, player2);
 
+    for (auto &character : player1.field)
+    {  
+        character->attackableCount = 1;
+    }
+
+    for (auto &character : player2.field)
+    {  
+        character->attackableCount = 1;
+    }
+
     return MetaData::SWAP_SUCCESS;
 }
 }  // namespace Hearthstonepp::BasicTasks

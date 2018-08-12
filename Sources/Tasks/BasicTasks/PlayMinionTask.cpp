@@ -58,11 +58,9 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
     player1.field.insert(player1.field.begin() + position, character);
 
     // Summoned minion can't attack right turn
-    auto cardMechanics = m_entity->card->mechanics;
-    if (std::find(cardMechanics.begin(), cardMechanics.end(),
-                  +GameTag::CHARGE) == m_entity->card->mechanics.end())
+    if (m_entity->card->HasMechanic(+GameTag::CHARGE))
     {
-        player1.attacked.emplace_back(character);
+        ((Character*) m_entity)->attackableCount = 1;
     }
 
     BYTE cost = static_cast<BYTE>(m_entity->card->cost);

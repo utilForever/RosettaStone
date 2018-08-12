@@ -53,13 +53,11 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     }
 
     // Source Minion Verification for Attacked Vector
-    std::vector<Character*>& attacked = player1.attacked;
-    if (std::find(attacked.begin(), attacked.end(), source) != attacked.end())
+    if (source->attackableCount == 0 )
     {
         return MetaData::COMBAT_ALREADY_ATTACKED;
     }
-
-    attacked.emplace_back(source);
+    source->attackableCount--;
 
     // Destination Verification
     // dst == 0 : hero
