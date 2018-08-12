@@ -91,6 +91,10 @@ enum class MetaData : status_t
     HEAL_FULL,
     HEAL_FULL_SUCCESS,
 
+    POISONOUS,
+    POISONOUS_SUCCESS,
+    POISONOUS_IGNORE,
+
     GAME_END
 };
 }  // namespace Hearthstonepp

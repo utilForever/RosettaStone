@@ -31,16 +31,6 @@ MetaData ModifyHealthTask::Impl(Player& user, Player&)
     if (remainHealth <= 0)
     {
         remainHealth = 0;
-        user.usedMinion.emplace_back(m_character);
-
-        // find minion and remove it from field
-        auto& field = user.field;
-        auto ptr = std::find(field.begin(), field.end(), m_character);
-        if (ptr != field.end())
-        {
-            *ptr = nullptr;
-            field.erase(ptr);
-        }
     }
 
     // adjust health

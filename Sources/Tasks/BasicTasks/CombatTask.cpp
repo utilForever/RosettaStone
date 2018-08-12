@@ -8,6 +8,7 @@
 *************************************************************************/
 #include <Tasks/BasicTasks/CombatTask.h>
 #include <Tasks/BasicTasks/ModifyHealthTask.h>
+#include <Tasks/PowerTasks/PoisonousTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
@@ -85,6 +86,42 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     if (hurtedDst != MetaData::MODIFY_HEALTH_SUCCESS)
     {
         return hurtedDst;
+    }
+
+    // Poisonous : Dst -> Src
+    if (target->card->HasMechanic(+GameTag::POISONOUS))
+    {
+        PowerTask::PoisonousTask(target, source).Run(player1, player2);
+    }
+
+    // Poisonous : Src -> Dst
+    if (source->card->HasMechanic(+GameTag::POISONOUS))
+    {
+        PowerTask::PoisonousTask(source, target).Run(player1, player2);
+    }
+
+    // Source Health Check
+    if (source->health == 0) 
+    {
+        auto& field = player1.field;
+        auto ptr = std::find(field.begin(), field.end(), source);
+        if (ptr != field.end())
+        {
+            *ptr = nullptr;
+            field.erase(ptr);
+        }
+    }
+
+    // Target Health Check
+    if (target->health == 0)
+    {
+        auto& field = player2.field;
+        auto ptr = std::find(field.begin(), field.end(), target);
+        if (ptr != field.end())
+        {
+            *ptr = nullptr;
+            field.erase(ptr);
+        }        
     }
 
     return MetaData::COMBAT_SUCCESS;
