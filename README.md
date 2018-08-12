@@ -20,6 +20,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Auto-Attack
 - [ ] Auto-cast
 - [ ] Battlecry
+- [ ] Can't attack
 - [ ] Cast spell
 - [x] Charge
 - [ ] Choose One
@@ -45,6 +46,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Inspire
 - [ ] Joust
 - [ ] Lifesteal
+- [ ] Magnetic
 - [ ] Mega-Windfury
 - [ ] Modify cost
 - [ ] Overload
@@ -92,6 +94,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 
 ### Expensions
 
+- 0% The Boomsday Project (135 Cards)
 - 0% The Witchwood (135 Cards)
 - 0% Kobolds & Catacombs (135 Cards)
 - 0% Knights of the Frozen Throne (135 Cards)
