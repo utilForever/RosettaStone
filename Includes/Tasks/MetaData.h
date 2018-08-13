@@ -18,6 +18,7 @@ enum class MetaData : status_t
     NULLPTR,
 
     PLAYER_SETTING,
+    PLAYER_SETTING_REQUEST,
     PLAYER_SETTING_SUCCESS,
 
     SWAP,
@@ -33,6 +34,7 @@ enum class MetaData : status_t
     SHUFFLE_SUCCESS,
 
     BRIEF,
+    BRIEF_EXPIRED,
 
     MULLIGAN,
     MULLIGAN_SUCCESS,
