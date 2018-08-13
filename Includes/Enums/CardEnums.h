@@ -31,7 +31,7 @@ BETTER_ENUM(BattleNetGameType, int, UNKNOWN = 0, FRIENDS = 1,
             TAVERNBRAWL_1P_VERSUS_AI = 17, TAVERNBRAWL_2P_COOP = 18,
             RANKED_WILD = 30, CASUAL_WILD = 31, FSG_BRAWL_VS_FRIEND = 40,
             FSG_BRAWL_PVP = 41, FSG_BRAWL_1P_VERSUS_AI = 42,
-            FSG_BRAWL_2P_COOP = 43)
+            FSG_BRAWL_2P_COOP = 43, BGT_TOURNAMENT = 44)
 
 BETTER_ENUM(BattleNetRegion, int, UNINITIALIZED = -1, UNKNOWN = 0, US = 1,
             EU = 2, KR = 3, TW = 4, CN = 5, LIVE_VERIFICATION = 40,
@@ -41,14 +41,15 @@ BETTER_ENUM(Booster, int, INVALID = 0, CLASSIC = 1, GOBLINS_VS_GNOMES = 9,
             THE_GRAND_TOURNAMENT = 10, OLD_GODS = 11, FIRST_PURCHASE = 17,
             SIGNUP_INCENTIVE = 18, MEAN_STREETS = 19, UNGORO = 20,
             FROZEN_THRONE = 21, GOLDEN_CLASSIC_PACK = 23,
-            KOBOLDS_AND_CATACOMBS = 30)
+            KOBOLDS_AND_CATACOMBS = 30, WITCHWOOD = 31,
+            THE_BOOMSDAY_PROJECT = 38, MAMMOTH_BUNDLE = 41)
 
 BETTER_ENUM(BrawlType, int, UNKNOWN = 0, TAVERN_BRAWL = 1,
             FIRESIDE_GATHERING = 2, COUNT = 3)
 
 BETTER_ENUM(CardClass, int, INVALID = 0, DEATHKNIGHT = 1, DRUID = 2, HUNTER = 3,
             MAGE = 4, PALADIN = 5, PRIEST = 6, ROGUE = 7, SHAMAN = 8,
-            WARLOCK = 9, WARRIOR = 10, DREAM = 11, NEUTRAL = 12)
+            WARLOCK = 9, WARRIOR = 10, DREAM = 11, NEUTRAL = 12, WHIZBANG = 13)
 
 BETTER_ENUM(CardSet, int, INVALID = 0, TEST_TEMPORARY = 1, CORE = 2,
             EXPERT1 = 3, HOF = 4, MISSIONS = 5, DEMO = 6, NONE = 7, CHEAT = 8,
@@ -56,7 +57,8 @@ BETTER_ENUM(CardSet, int, INVALID = 0, TEST_TEMPORARY = 1, CORE = 2,
             TGT = 15, CREDITS = 16, HERO_SKINS = 17, TB = 18, SLUSH = 19,
             LOE = 20, OG = 21, OG_RESERVE = 22, KARA = 23, KARA_RESERVE = 24,
             GANGS = 25, GANGS_RESERVE = 26, UNGORO = 27, ICECROWN = 1001,
-            LOOTAPALOOZA = 1004, GILNEAS = 1125)
+            LOOTAPALOOZA = 1004, GILNEAS = 1125, BOOMSDAY = 1127,
+            TAVERNS_OF_TIME = 1143)
 
 BETTER_ENUM(CardType, int, INVALID = 0, GAME = 1, PLAYER = 2, HERO = 3,
             MINION = 4, SPELL = 5, ENCHANTMENT = 6, WEAPON = 7, ITEM = 8,
@@ -66,7 +68,8 @@ BETTER_ENUM(ChoiceType, int, INVALID = 0, MULLIGAN = 1, GENERAL = 2)
 
 BETTER_ENUM(DeckType, int, CLIENT_ONLY_DECK = -1, UNKNOWN_DECK_TYPE = 0,
             NORMAL_DECK = 1, AI_DECK = 2, DRAFT_DECK = 4, PRECON_DECK = 5,
-            TAVERN_BRAWL_DECK = 6, FSG_BRAWL_DECK = 7, HIDDEN_DECK = 1000)
+            TAVERN_BRAWL_DECK = 6, FSG_BRAWL_DECK = 7,
+            FRIENDLY_TOURNAMENT_DECK = 8, HIDDEN_DECK = 1000)
 
 BETTER_ENUM(DungeonRewardOption, int, INVALID = 0, LOOT = 1, TREASURE = 2)
 
@@ -79,7 +82,7 @@ BETTER_ENUM(FormatType, int, UNKNOWN = 0, WILD = 1, STANDARD = 2)
 
 #ifndef HEARTHSTONEPP_EXPAND_LARGE_ENUMS
 BETTER_ENUM(
-    GameTag, int, INVALID = 0, IGNORE_DAMAGE = 1, TAG_SCRIPT_DATA_NUM_1 = 2,
+    GameTag, int, INVALID = 0, TAG_SCRIPT_DATA_NUM_1 = 2,
     TAG_SCRIPT_DATA_NUM_2 = 3, TAG_SCRIPT_DATA_ENT_1 = 4,
     TAG_SCRIPT_DATA_ENT_2 = 5, MISSION_EVENT = 6, TIMEOUT = 7, TURN_START = 8,
     TURN_TIMER_SLUSH = 9, PREMIUM = 12, GOLD_REWARD_STATE = 13, PLAYSTATE = 17,
@@ -90,58 +93,37 @@ BETTER_ENUM(
     PROTECTING = 35, DEFENDING = 36, PROPOSED_DEFENDER = 37, ATTACKING = 38,
     PROPOSED_ATTACKER = 39, ATTACHED = 40, EXHAUSTED = 43, DAMAGE = 44,
     HEALTH = 45, ATK = 47, COST = 48, ZONE = 49, CONTROLLER = 50, OWNER = 51,
-    DEFINITION = 52, ENTITY_ID = 53, HISTORY_PROXY = 54, COPY_DEATHRATTLE = 55,
-    COPY_DEATHRATTLE_INDEX = 56, ELITE = 114, MAXRESOURCES = 176,
-    CARD_SET = 183, CARDTEXT = 184, CARDNAME = 185, CARD_ID = 186,
-    DURABILITY = 187, SILENCED = 188, WINDFURY = 189, TAUNT = 190,
-    STEALTH = 191, SPELLPOWER = 192, DIVINE_SHIELD = 194, CHARGE = 197,
-    NEXT_STEP = 198, CLASS = 199, CARDRACE = 200, FACTION = 201, CARDTYPE = 202,
-    RARITY = 203, STATE = 204, SUMMONED = 205, FREEZE = 208, ENRAGED = 212,
-    OVERLOAD = 215, LOYALTY = 216, DEATHRATTLE = 217, BATTLECRY = 218,
-    SECRET = 219, COMBO = 220, CANT_HEAL = 221, CANT_DAMAGE = 222,
-    CANT_SET_ASIDE = 223, CANT_REMOVE_FROM_GAME = 224, CANT_READY = 225,
-    CANT_EXHAUST = 226, CANT_ATTACK = 227, CANT_TARGET = 228,
-    CANT_DESTROY = 229, CANT_DISCARD = 230, CANT_PLAY = 231, CANT_DRAW = 232,
-    INCOMING_HEALING_MULTIPLIER = 233, INCOMING_HEALING_ADJUSTMENT = 234,
-    INCOMING_HEALING_CAP = 235, INCOMING_DAMAGE_MULTIPLIER = 236,
-    INCOMING_DAMAGE_ADJUSTMENT = 237, INCOMING_DAMAGE_CAP = 238,
-    CANT_BE_HEALED = 239, IMMUNE = 240, CANT_BE_SET_ASIDE = 241,
-    CANT_BE_REMOVED_FROM_GAME = 242, CANT_BE_READIED = 243,
-    CANT_BE_EXHAUSTED = 244, CANT_BE_ATTACKED = 245, CANT_BE_TARGETED = 246,
-    CANT_BE_DESTROYED = 247, AttackVisualType = 251, CardTextInPlay = 252,
-    CANT_BE_SUMMONING_SICK = 253, FROZEN = 260, JUST_PLAYED = 261,
-    LINKED_ENTITY = 262, ZONE_POSITION = 263, CANT_BE_FROZEN = 264,
-    COMBO_ACTIVE = 266, CARD_TARGET = 267, DevState = 268,
+    DEFINITION = 52, ENTITY_ID = 53, HISTORY_PROXY = 54, ELITE = 114,
+    MAXRESOURCES = 176, CARD_SET = 183, CARDTEXT = 184, DURABILITY = 187,
+    SILENCED = 188, WINDFURY = 189, TAUNT = 190, STEALTH = 191,
+    SPELLPOWER = 192, DIVINE_SHIELD = 194, CHARGE = 197, NEXT_STEP = 198,
+    CLASS = 199, CARDRACE = 200, FACTION = 201, CARDTYPE = 202, RARITY = 203,
+    STATE = 204, SUMMONED = 205, FREEZE = 208, ENRAGED = 212, OVERLOAD = 215,
+    LOYALTY = 216, DEATHRATTLE = 217, BATTLECRY = 218, SECRET = 219,
+    COMBO = 220, CANT_HEAL = 221, CANT_DAMAGE = 222, CANT_SET_ASIDE = 223,
+    CANT_REMOVE_FROM_GAME = 224, CANT_READY = 225, CANT_ATTACK = 227,
+    CANT_DISCARD = 230, CANT_PLAY = 231, CANT_DRAW = 232, CANT_BE_HEALED = 239,
+    IMMUNE = 240, CANT_BE_SET_ASIDE = 241, CANT_BE_REMOVED_FROM_GAME = 242,
+    CANT_BE_READIED = 243, CANT_BE_ATTACKED = 245, CANT_BE_TARGETED = 246,
+    CANT_BE_DESTROYED = 247, CANT_BE_SUMMONING_SICK = 253, FROZEN = 260,
+    JUST_PLAYED = 261, LINKED_ENTITY = 262, ZONE_POSITION = 263,
+    CANT_BE_FROZEN = 264, COMBO_ACTIVE = 266, CARD_TARGET = 267,
     NUM_CARDS_PLAYED_THIS_TURN = 269, CANT_BE_TARGETED_BY_OPPONENTS = 270,
-    NUM_TURNS_IN_PLAY = 271, NUM_TURNS_LEFT = 272, OUTGOING_DAMAGE_CAP = 273,
-    OUTGOING_DAMAGE_ADJUSTMENT = 274, OUTGOING_DAMAGE_MULTIPLIER = 275,
-    OUTGOING_HEALING_CAP = 276, OUTGOING_HEALING_ADJUSTMENT = 277,
-    OUTGOING_HEALING_MULTIPLIER = 278, INCOMING_ABILITY_DAMAGE_ADJUSTMENT = 279,
-    INCOMING_COMBAT_DAMAGE_ADJUSTMENT = 280,
-    OUTGOING_ABILITY_DAMAGE_ADJUSTMENT = 281,
-    OUTGOING_COMBAT_DAMAGE_ADJUSTMENT = 282,
-    OUTGOING_ABILITY_DAMAGE_MULTIPLIER = 283, OUTGOING_ABILITY_DAMAGE_CAP = 284,
-    INCOMING_ABILITY_DAMAGE_MULTIPLIER = 285, INCOMING_ABILITY_DAMAGE_CAP = 286,
-    OUTGOING_COMBAT_DAMAGE_MULTIPLIER = 287, OUTGOING_COMBAT_DAMAGE_CAP = 288,
-    INCOMING_COMBAT_DAMAGE_MULTIPLIER = 289, INCOMING_COMBAT_DAMAGE_CAP = 290,
-    CURRENT_SPELLPOWER = 291, ARMOR = 292, MORPH = 293, IS_MORPHED = 294,
-    TEMP_RESOURCES = 295, OVERLOAD_OWED = 296, NUM_ATTACKS_THIS_TURN = 297,
-    NEXT_ALLY_BUFF = 302, MAGNET = 303, FIRST_CARD_PLAYED_THIS_TURN = 304,
-    MULLIGAN_STATE = 305, TAUNT_READY = 306, STEALTH_READY = 307,
-    CHARGE_READY = 308, CANT_BE_TARGETED_BY_SPELLS = 311,
-    SHOULDEXITCOMBAT = 312, CREATOR = 313, CANT_BE_SILENCED = 314,
-    PARENT_CARD = 316, NUM_MINIONS_PLAYED_THIS_TURN = 317, PREDAMAGE = 318,
-    COLLECTIBLE = 321, TARGETING_ARROW_TEXT = 325, DATABASE_ID = 327,
-    ENCHANTMENT_BIRTH_VISUAL = 330, ENCHANTMENT_IDLE_VISUAL = 331,
-    CANT_BE_TARGETED_BY_HERO_POWERS = 332, WEAPON = 334,
-    InvisibleDeathrattle = 335, HEALTH_MINIMUM = 337, TAG_ONE_TURN_EFFECT = 338,
-    SILENCE = 339, COUNTER = 340, ARTISTNAME = 342, LocalizationNotes = 344,
-    ZONES_REVEALED = 348, ImmuneToSpellpower = 349, ADJACENT_BUFF = 350,
-    FLAVORTEXT = 351, FORCED_PLAY = 352, LOW_HEALTH_THRESHOLD = 353,
-    IGNORE_DAMAGE_OFF = 354, GrantCharge = 355, SPELLPOWER_DOUBLE = 356,
-    HEALING_DOUBLE = 357, NUM_OPTIONS_PLAYED_THIS_TURN = 358, NUM_OPTIONS = 359,
-    TO_BE_DESTROYED = 360, HealTarget = 361, AURA = 362, POISONOUS = 363,
-    HOW_TO_EARN = 364, HOW_TO_EARN_GOLDEN = 365, HERO_POWER_DOUBLE = 366,
+    NUM_TURNS_IN_PLAY = 271, NUM_TURNS_LEFT = 272, CURRENT_SPELLPOWER = 291,
+    ARMOR = 292, MORPH = 293, IS_MORPHED = 294, TEMP_RESOURCES = 295,
+    OVERLOAD_OWED = 296, NUM_ATTACKS_THIS_TURN = 297, NEXT_ALLY_BUFF = 302,
+    MAGNET = 303, FIRST_CARD_PLAYED_THIS_TURN = 304, MULLIGAN_STATE = 305,
+    TAUNT_READY = 306, STEALTH_READY = 307, CHARGE_READY = 308,
+    CANT_BE_TARGETED_BY_SPELLS = 311, SHOULDEXITCOMBAT = 312, CREATOR = 313,
+    CANT_BE_SILENCED = 314, PARENT_CARD = 316,
+    NUM_MINIONS_PLAYED_THIS_TURN = 317, PREDAMAGE = 318, COLLECTIBLE = 321,
+    DATABASE_ID = 327, ENCHANTMENT_BIRTH_VISUAL = 330,
+    ENCHANTMENT_IDLE_VISUAL = 331, CANT_BE_TARGETED_BY_HERO_POWERS = 332,
+    HEALTH_MINIMUM = 337, TAG_ONE_TURN_EFFECT = 338, SILENCE = 339,
+    COUNTER = 340, ZONES_REVEALED = 348, ADJACENT_BUFF = 350, FORCED_PLAY = 352,
+    LOW_HEALTH_THRESHOLD = 353, SPELLPOWER_DOUBLE = 356,
+    SPELL_HEALING_DOUBLE = 357, NUM_OPTIONS_PLAYED_THIS_TURN = 358,
+    TO_BE_DESTROYED = 360, AURA = 362, POISONOUS = 363, HERO_POWER_DOUBLE = 366,
     AI_MUST_PLAY = 367, NUM_MINIONS_PLAYER_KILLED_THIS_TURN = 368,
     NUM_MINIONS_KILLED_THIS_TURN = 369, AFFECTED_BY_SPELL_POWER = 370,
     EXTRA_DEATHRATTLES = 371, START_WITH_1_HEALTH = 372,
@@ -172,23 +154,22 @@ BETTER_ENUM(
     CHOOSE_ONE = 443, EXTRA_ATTACKS_THIS_TURN = 444, SEEN_CTHUN = 445,
     MINION_TYPE_REFERENCE = 447, UNTOUCHABLE = 448, RED_MANA_CRYSTALS = 449,
     SCORE_LABELID_1 = 450, SCORE_VALUE_1 = 451, SCORE_LABELID_2 = 452,
-    SCORE_VALUE_2 = 453, SCORE_LABELID_3 = 454, SCORE_VALUE_3 = 455,
-    CANT_BE_FATIGUED = 456, AUTOATTACK = 457, ARMS_DEALING = 458,
-    PENDING_EVOLUTIONS = 461, QUEST = 462, TAG_LAST_KNOWN_COST_IN_HAND = 466,
-    DEFINING_ENCHANTMENT = 469, FINISH_ATTACK_SPELL_ON_DAMAGE = 470,
-    MODULAR_ENTITY_PART_1 = 471, MODULAR_ENTITY_PART_2 = 472,
-    MODIFY_DEFINITION_ATTACK = 473, MODIFY_DEFINITION_HEALTH = 474,
-    MODIFY_DEFINITION_COST = 475, MULTIPLE_CLASSES = 476,
-    ALL_TARGETS_RANDOM = 477, MULTI_CLASS_GROUP = 480, CARD_COSTS_HEALTH = 481,
-    GRIMY_GOONS = 482, JADE_LOTUS = 483, KABAL = 484,
+    SCORE_LABELID_3 = 454, SCORE_VALUE_2 = 453, SCORE_VALUE_3 = 455,
+    CANT_BE_FATIGUED = 456, AUTOATTACK = 457, ARMS_DEALING = 458, QUEST = 462,
+    TAG_LAST_KNOWN_COST_IN_HAND = 466, DEFINING_ENCHANTMENT = 469,
+    FINISH_ATTACK_SPELL_ON_DAMAGE = 470, MODULAR_ENTITY_PART_1 = 471,
+    MODULAR_ENTITY_PART_2 = 472, MODIFY_DEFINITION_ATTACK = 473,
+    MODIFY_DEFINITION_HEALTH = 474, MODIFY_DEFINITION_COST = 475,
+    MULTIPLE_CLASSES = 476, ALL_TARGETS_RANDOM = 477, MULTI_CLASS_GROUP = 480,
+    CARD_COSTS_HEALTH = 481, GRIMY_GOONS = 482, JADE_LOTUS = 483, KABAL = 484,
     ADDITIONAL_PLAY_REQS_1 = 515, ADDITIONAL_PLAY_REQS_2 = 516,
     ELEMENTAL_POWERED_UP = 532, QUEST_PROGRESS = 534,
     QUEST_PROGRESS_TOTAL = 535, QUEST_CONTRIBUTOR = 541, ADAPT = 546,
     IS_CURRENT_TURN_AN_EXTRA_TURN = 547, EXTRA_TURNS_TAKEN_THIS_GAME = 548,
-    SHIFTING_MINION = 549, SHIFTING_WEAPON = 550, DEATH_KNIGHT = 554,
-    BOSS = 556, TREASURE = 557, TREASURE_DEFINTIONAL_ATTACK = 558,
+    TREASURE = 557, TREASURE_DEFINTIONAL_ATTACK = 558,
     TREASURE_DEFINTIONAL_COST = 559, TREASURE_DEFINTIONAL_HEALTH = 560,
-    ACTS_LIKE_A_SPELL = 561, STAMPEDE = 564, EMPOWERED_TREASURE = 646,
+    ACTS_LIKE_A_SPELL = 561, SHIFTING_MINION = 549, SHIFTING_WEAPON = 550,
+    DEATH_KNIGHT = 554, BOSS = 556, STAMPEDE = 564, EMPOWERED_TREASURE = 646,
     ONE_SIDED_GHOSTLY = 648, CURRENT_NEGATIVE_SPELLPOWER = 651,
     IS_VAMPIRE = 680, CORRUPTED = 681, HIDE_HEALTH = 682, HIDE_ATTACK = 683,
     HIDE_COST = 684, LIFESTEAL = 685, OVERRIDE_EMOTE_0 = 740,
@@ -200,26 +181,30 @@ BETTER_ENUM(
     DISGUISED_TWIN = 788, SECRET_DEATHRATTLE = 789, RUSH = 791,
     REVEAL_CHOICES = 792, HIDDEN_CHOICE = 813, ZOMBEAST = 823,
     HERO_EMOTE_SILENCED = 832, MINION_IN_HAND_BUFF = 845, ECHO = 846,
-    IGNORE_HIDE_STATS_FOR_BIG_CARD = 857, REAL_TIME_TRANSFORM = 859,
-    WAIT_FOR_PLAYER_RECONNECT_PERIOD = 860, PHASED_RESTART = 888,
-    HEALTH_DISPLAY = 917, ENABLE_HEALTH_DISPLAY = 920, VOODOO_LINK = 921,
-    ATTACKABLE_BY_RUSH = 930, SHIFTING_SPELL = 936,
+    MODULAR = 849, IGNORE_HIDE_STATS_FOR_BIG_CARD = 857,
+    REAL_TIME_TRANSFORM = 859, WAIT_FOR_PLAYER_RECONNECT_PERIOD = 860,
+    PHASED_RESTART = 888, HEALTH_DISPLAY = 917, ENABLE_HEALTH_DISPLAY = 920,
+    VOODOO_LINK = 921, ATTACKABLE_BY_RUSH = 930, SHIFTING_SPELL = 936,
     USE_ALTERNATE_CARD_TEXT = 955, SUPPRESS_DEATH_SOUND = 959,
     ECHOING_OOZE_SPELL = 963, COLLECTIONMANAGER_FILTER_MANA_EVEN = 956,
     COLLECTIONMANAGER_FILTER_MANA_ODD = 957,
     ZOMBEAST_DEBUG_CURRENT_BEAST_DATABASE_ID = 964,
     ZOMBEAST_DEBUG_CURRENT_ITERATION = 965, ZOMBEAST_DEBUG_MAX_ITERATIONS = 966,
-    START_OF_GAME = 968, ENCHANTMENT_INVISIBLE = 976, HEADCRACK_COMBO = 298,
-    RESTORE_TO_DAMAGE = 326, CONTROLLER_CHANGED_THIS_TURN = 333,
-    EXTRA_BATTLECRY = 411, NUM_SPELLS_PLAYED_THIS_TURN = 430,
-    NUM_CARDS_TO_DRAW = 467, MOAT_LURKER_MINION = 468,
-    TAG_LAST_KNOWN_ATK_IN_HAND = 479, EXTRA_END_TURN_EFFECT = 755,
-    AMOUNT_HERO_HEALED_THIS_TURN = 821, KEEP_ENCHANTMENTS = 851,
-    NUM_SPELLS_PLAYED_THIS_GAME = 1001, NUM_SECRETS_PLAYED_THIS_GAME = 1002,
-    NUM_WEAPONS_PLAYED_THIS_GAME = 1003, LAST_CARD_DRAWN = 1004,
-    LAST_CARD_DISCARDED = 1005, NUM_ELEMENTAL_PLAYED_THIS_TURN = 1006,
-    NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007, NUM_MURLOCS_PLAYED_THIS_GAME = 1008,
-    TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009)
+    START_OF_GAME = 968, ENCHANTMENT_INVISIBLE = 976, PUZZLE = 979,
+    PUZZLE_PROGRESS = 980, PUZZLE_PROGRESS_TOTAL = 981, PUZZLE_TYPE = 982,
+    PUZZLE_COMPLETED = 984, CONCEDE_BUTTON_ALTERNATIVE_TEXT = 985,
+    HIDE_RESTART_BUTTON = 990, WILD = 991, HALL_OF_FAME = 992,
+    DECK_RULE_MOD_DECK_SIZE = 997, FAST_BATTLECRY = 998,
+    END_TURN_BUTTON_ALTERNATIVE_APPEARANCE = 1000,
+    TREAT_AS_PLAYED_HERO_CARD = 1016, PUZZLE_NAME = 1026,
+    TURN_INDICATOR_ALTERNATIVE_APPEARANCE = 1027,
+    PREVIOUS_PUZZLE_COMPLETED = 1042, GLORIOUSGLOOP = 1044,
+    HEALTH_DISPLAY_COLOR = 1046, HEALTH_DISPLAY_NEGATIVE = 1047,
+    WHIZBANG_DECK_ID = 1048, HIDE_OUT_OF_CARDS_WARNING = 1050, GEARS = 1052,
+    LUNAHIGHLIGHTHINT = 1054, SUPPRESS_JOBS_DONE_VO = 1055,
+    ALL_HEALING_DOUBLE = 1058, BLOCK_ALL_INPUT = 1071, PUZZLE_MODE = 1073,
+    InvisibleDeathrattle = 335, ImmuneToSpellpower = 349,
+    AttackVisualType = 251, DevState = 268, GrantCharge = 355, HealTarget = 361)
 #else
 namespace better_enums_data_GameTag
 {
@@ -235,7 +220,6 @@ class GameTag
     enum _enumerated : int
     {
         INVALID = 0,
-        IGNORE_DAMAGE = 1,
         TAG_SCRIPT_DATA_NUM_1 = 2,
         TAG_SCRIPT_DATA_NUM_2 = 3,
         TAG_SCRIPT_DATA_ENT_1 = 4,
@@ -280,14 +264,10 @@ class GameTag
         DEFINITION = 52,
         ENTITY_ID = 53,
         HISTORY_PROXY = 54,
-        COPY_DEATHRATTLE = 55,
-        COPY_DEATHRATTLE_INDEX = 56,
         ELITE = 114,
         MAXRESOURCES = 176,
         CARD_SET = 183,
         CARDTEXT = 184,
-        CARDNAME = 185,
-        CARD_ID = 186,
         DURABILITY = 187,
         SILENCED = 188,
         WINDFURY = 189,
@@ -317,30 +297,18 @@ class GameTag
         CANT_SET_ASIDE = 223,
         CANT_REMOVE_FROM_GAME = 224,
         CANT_READY = 225,
-        CANT_EXHAUST = 226,
         CANT_ATTACK = 227,
-        CANT_TARGET = 228,
-        CANT_DESTROY = 229,
         CANT_DISCARD = 230,
         CANT_PLAY = 231,
         CANT_DRAW = 232,
-        INCOMING_HEALING_MULTIPLIER = 233,
-        INCOMING_HEALING_ADJUSTMENT = 234,
-        INCOMING_HEALING_CAP = 235,
-        INCOMING_DAMAGE_MULTIPLIER = 236,
-        INCOMING_DAMAGE_ADJUSTMENT = 237,
-        INCOMING_DAMAGE_CAP = 238,
         CANT_BE_HEALED = 239,
         IMMUNE = 240,
         CANT_BE_SET_ASIDE = 241,
         CANT_BE_REMOVED_FROM_GAME = 242,
         CANT_BE_READIED = 243,
-        CANT_BE_EXHAUSTED = 244,
         CANT_BE_ATTACKED = 245,
         CANT_BE_TARGETED = 246,
         CANT_BE_DESTROYED = 247,
-        AttackVisualType = 251,
-        CardTextInPlay = 252,
         CANT_BE_SUMMONING_SICK = 253,
         FROZEN = 260,
         JUST_PLAYED = 261,
@@ -349,29 +317,10 @@ class GameTag
         CANT_BE_FROZEN = 264,
         COMBO_ACTIVE = 266,
         CARD_TARGET = 267,
-        DevState = 268,
         NUM_CARDS_PLAYED_THIS_TURN = 269,
         CANT_BE_TARGETED_BY_OPPONENTS = 270,
         NUM_TURNS_IN_PLAY = 271,
         NUM_TURNS_LEFT = 272,
-        OUTGOING_DAMAGE_CAP = 273,
-        OUTGOING_DAMAGE_ADJUSTMENT = 274,
-        OUTGOING_DAMAGE_MULTIPLIER = 275,
-        OUTGOING_HEALING_CAP = 276,
-        OUTGOING_HEALING_ADJUSTMENT = 277,
-        OUTGOING_HEALING_MULTIPLIER = 278,
-        INCOMING_ABILITY_DAMAGE_ADJUSTMENT = 279,
-        INCOMING_COMBAT_DAMAGE_ADJUSTMENT = 280,
-        OUTGOING_ABILITY_DAMAGE_ADJUSTMENT = 281,
-        OUTGOING_COMBAT_DAMAGE_ADJUSTMENT = 282,
-        OUTGOING_ABILITY_DAMAGE_MULTIPLIER = 283,
-        OUTGOING_ABILITY_DAMAGE_CAP = 284,
-        INCOMING_ABILITY_DAMAGE_MULTIPLIER = 285,
-        INCOMING_ABILITY_DAMAGE_CAP = 286,
-        OUTGOING_COMBAT_DAMAGE_MULTIPLIER = 287,
-        OUTGOING_COMBAT_DAMAGE_CAP = 288,
-        INCOMING_COMBAT_DAMAGE_MULTIPLIER = 289,
-        INCOMING_COMBAT_DAMAGE_CAP = 290,
         CURRENT_SPELLPOWER = 291,
         ARMOR = 292,
         MORPH = 293,
@@ -394,37 +343,24 @@ class GameTag
         NUM_MINIONS_PLAYED_THIS_TURN = 317,
         PREDAMAGE = 318,
         COLLECTIBLE = 321,
-        TARGETING_ARROW_TEXT = 325,
         DATABASE_ID = 327,
         ENCHANTMENT_BIRTH_VISUAL = 330,
         ENCHANTMENT_IDLE_VISUAL = 331,
         CANT_BE_TARGETED_BY_HERO_POWERS = 332,
-        WEAPON = 334,
-        InvisibleDeathrattle = 335,
         HEALTH_MINIMUM = 337,
         TAG_ONE_TURN_EFFECT = 338,
         SILENCE = 339,
         COUNTER = 340,
-        ARTISTNAME = 342,
-        LocalizationNotes = 344,
         ZONES_REVEALED = 348,
-        ImmuneToSpellpower = 349,
         ADJACENT_BUFF = 350,
-        FLAVORTEXT = 351,
         FORCED_PLAY = 352,
         LOW_HEALTH_THRESHOLD = 353,
-        IGNORE_DAMAGE_OFF = 354,
-        GrantCharge = 355,
         SPELLPOWER_DOUBLE = 356,
-        HEALING_DOUBLE = 357,
+        SPELL_HEALING_DOUBLE = 357,
         NUM_OPTIONS_PLAYED_THIS_TURN = 358,
-        NUM_OPTIONS = 359,
         TO_BE_DESTROYED = 360,
-        HealTarget = 361,
         AURA = 362,
         POISONOUS = 363,
-        HOW_TO_EARN = 364,
-        HOW_TO_EARN_GOLDEN = 365,
         HERO_POWER_DOUBLE = 366,
         AI_MUST_PLAY = 367,
         NUM_MINIONS_PLAYER_KILLED_THIS_TURN = 368,
@@ -496,13 +432,12 @@ class GameTag
         SCORE_LABELID_1 = 450,
         SCORE_VALUE_1 = 451,
         SCORE_LABELID_2 = 452,
-        SCORE_VALUE_2 = 453,
         SCORE_LABELID_3 = 454,
+        SCORE_VALUE_2 = 453,
         SCORE_VALUE_3 = 455,
         CANT_BE_FATIGUED = 456,
         AUTOATTACK = 457,
         ARMS_DEALING = 458,
-        PENDING_EVOLUTIONS = 461,
         QUEST = 462,
         TAG_LAST_KNOWN_COST_IN_HAND = 466,
         DEFINING_ENCHANTMENT = 469,
@@ -528,15 +463,15 @@ class GameTag
         ADAPT = 546,
         IS_CURRENT_TURN_AN_EXTRA_TURN = 547,
         EXTRA_TURNS_TAKEN_THIS_GAME = 548,
-        SHIFTING_MINION = 549,
-        SHIFTING_WEAPON = 550,
-        DEATH_KNIGHT = 554,
-        BOSS = 556,
         TREASURE = 557,
         TREASURE_DEFINTIONAL_ATTACK = 558,
         TREASURE_DEFINTIONAL_COST = 559,
         TREASURE_DEFINTIONAL_HEALTH = 560,
         ACTS_LIKE_A_SPELL = 561,
+        SHIFTING_MINION = 549,
+        SHIFTING_WEAPON = 550,
+        DEATH_KNIGHT = 554,
+        BOSS = 556,
         STAMPEDE = 564,
         EMPOWERED_TREASURE = 646,
         ONE_SIDED_GHOSTLY = 648,
@@ -573,6 +508,7 @@ class GameTag
         HERO_EMOTE_SILENCED = 832,
         MINION_IN_HAND_BUFF = 845,
         ECHO = 846,
+        MODULAR = 849,
         IGNORE_HIDE_STATS_FOR_BIG_CARD = 857,
         REAL_TIME_TRANSFORM = 859,
         WAIT_FOR_PLAYER_RECONNECT_PERIOD = 860,
@@ -592,28 +528,39 @@ class GameTag
         ZOMBEAST_DEBUG_MAX_ITERATIONS = 966,
         START_OF_GAME = 968,
         ENCHANTMENT_INVISIBLE = 976,
-
-        // More or less guessed gametags
-        HEADCRACK_COMBO = 298,
-        RESTORE_TO_DAMAGE = 326,
-        CONTROLLER_CHANGED_THIS_TURN = 333,
-        EXTRA_BATTLECRY = 411,
-        NUM_SPELLS_PLAYED_THIS_TURN = 430,
-        NUM_CARDS_TO_DRAW = 467,
-        MOAT_LURKER_MINION = 468,
-        TAG_LAST_KNOWN_ATK_IN_HAND = 479,
-        EXTRA_END_TURN_EFFECT = 755,
-        AMOUNT_HERO_HEALED_THIS_TURN = 821,
-        KEEP_ENCHANTMENTS = 851,
-        NUM_SPELLS_PLAYED_THIS_GAME = 1001,
-        NUM_SECRETS_PLAYED_THIS_GAME = 1002,
-        NUM_WEAPONS_PLAYED_THIS_GAME = 1003,
-        LAST_CARD_DRAWN = 1004,
-        LAST_CARD_DISCARDED = 1005,
-        NUM_ELEMENTAL_PLAYED_THIS_TURN = 1006,
-        NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007,
-        NUM_MURLOCS_PLAYED_THIS_GAME = 1008,
-        TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009,
+        PUZZLE = 979,
+        PUZZLE_PROGRESS = 980,
+        PUZZLE_PROGRESS_TOTAL = 981,
+        PUZZLE_TYPE = 982,
+        PUZZLE_COMPLETED = 984,
+        CONCEDE_BUTTON_ALTERNATIVE_TEXT = 985,
+        HIDE_RESTART_BUTTON = 990,
+        WILD = 991,
+        HALL_OF_FAME = 992,
+        DECK_RULE_MOD_DECK_SIZE = 997,
+        FAST_BATTLECRY = 998,
+        END_TURN_BUTTON_ALTERNATIVE_APPEARANCE = 1000,
+        TREAT_AS_PLAYED_HERO_CARD = 1016,
+        PUZZLE_NAME = 1026,
+        TURN_INDICATOR_ALTERNATIVE_APPEARANCE = 1027,
+        PREVIOUS_PUZZLE_COMPLETED = 1042,
+        GLORIOUSGLOOP = 1044,
+        HEALTH_DISPLAY_COLOR = 1046,
+        HEALTH_DISPLAY_NEGATIVE = 1047,
+        WHIZBANG_DECK_ID = 1048,
+        HIDE_OUT_OF_CARDS_WARNING = 1050,
+        GEARS = 1052,
+        LUNAHIGHLIGHTHINT = 1054,
+        SUPPRESS_JOBS_DONE_VO = 1055,
+        ALL_HEALING_DOUBLE = 1058,
+        BLOCK_ALL_INPUT = 1071,
+        PUZZLE_MODE = 1073,
+        InvisibleDeathrattle = 335,
+        ImmuneToSpellpower = 349,
+        AttackVisualType = 251,
+        DevState = 268,
+        GrantCharge = 355,
+        HealTarget = 361
     };
 
     constexpr GameTag(_enumerated value) : _value(value)
@@ -640,7 +587,7 @@ class GameTag
     typedef ::better_enums::_Iterable<const char*> _name_iterable;
     typedef _value_iterable::iterator _value_iterator;
     typedef _name_iterable::iterator _name_iterator;
-    constexpr static const std::size_t _size_constant = 377;
+    constexpr static const std::size_t _size_constant = 342;
     constexpr static std::size_t _size()
     {
         return _size_constant;
@@ -678,7 +625,6 @@ static ::better_enums::_initialize_at_program_start<GameTag>
 enum _PutNamesInThisScopeAlso
 {
     INVALID = 0,
-    IGNORE_DAMAGE = 1,
     TAG_SCRIPT_DATA_NUM_1 = 2,
     TAG_SCRIPT_DATA_NUM_2 = 3,
     TAG_SCRIPT_DATA_ENT_1 = 4,
@@ -723,14 +669,10 @@ enum _PutNamesInThisScopeAlso
     DEFINITION = 52,
     ENTITY_ID = 53,
     HISTORY_PROXY = 54,
-    COPY_DEATHRATTLE = 55,
-    COPY_DEATHRATTLE_INDEX = 56,
     ELITE = 114,
     MAXRESOURCES = 176,
     CARD_SET = 183,
     CARDTEXT = 184,
-    CARDNAME = 185,
-    CARD_ID = 186,
     DURABILITY = 187,
     SILENCED = 188,
     WINDFURY = 189,
@@ -760,30 +702,18 @@ enum _PutNamesInThisScopeAlso
     CANT_SET_ASIDE = 223,
     CANT_REMOVE_FROM_GAME = 224,
     CANT_READY = 225,
-    CANT_EXHAUST = 226,
     CANT_ATTACK = 227,
-    CANT_TARGET = 228,
-    CANT_DESTROY = 229,
     CANT_DISCARD = 230,
     CANT_PLAY = 231,
     CANT_DRAW = 232,
-    INCOMING_HEALING_MULTIPLIER = 233,
-    INCOMING_HEALING_ADJUSTMENT = 234,
-    INCOMING_HEALING_CAP = 235,
-    INCOMING_DAMAGE_MULTIPLIER = 236,
-    INCOMING_DAMAGE_ADJUSTMENT = 237,
-    INCOMING_DAMAGE_CAP = 238,
     CANT_BE_HEALED = 239,
     IMMUNE = 240,
     CANT_BE_SET_ASIDE = 241,
     CANT_BE_REMOVED_FROM_GAME = 242,
     CANT_BE_READIED = 243,
-    CANT_BE_EXHAUSTED = 244,
     CANT_BE_ATTACKED = 245,
     CANT_BE_TARGETED = 246,
     CANT_BE_DESTROYED = 247,
-    AttackVisualType = 251,
-    CardTextInPlay = 252,
     CANT_BE_SUMMONING_SICK = 253,
     FROZEN = 260,
     JUST_PLAYED = 261,
@@ -792,29 +722,10 @@ enum _PutNamesInThisScopeAlso
     CANT_BE_FROZEN = 264,
     COMBO_ACTIVE = 266,
     CARD_TARGET = 267,
-    DevState = 268,
     NUM_CARDS_PLAYED_THIS_TURN = 269,
     CANT_BE_TARGETED_BY_OPPONENTS = 270,
     NUM_TURNS_IN_PLAY = 271,
     NUM_TURNS_LEFT = 272,
-    OUTGOING_DAMAGE_CAP = 273,
-    OUTGOING_DAMAGE_ADJUSTMENT = 274,
-    OUTGOING_DAMAGE_MULTIPLIER = 275,
-    OUTGOING_HEALING_CAP = 276,
-    OUTGOING_HEALING_ADJUSTMENT = 277,
-    OUTGOING_HEALING_MULTIPLIER = 278,
-    INCOMING_ABILITY_DAMAGE_ADJUSTMENT = 279,
-    INCOMING_COMBAT_DAMAGE_ADJUSTMENT = 280,
-    OUTGOING_ABILITY_DAMAGE_ADJUSTMENT = 281,
-    OUTGOING_COMBAT_DAMAGE_ADJUSTMENT = 282,
-    OUTGOING_ABILITY_DAMAGE_MULTIPLIER = 283,
-    OUTGOING_ABILITY_DAMAGE_CAP = 284,
-    INCOMING_ABILITY_DAMAGE_MULTIPLIER = 285,
-    INCOMING_ABILITY_DAMAGE_CAP = 286,
-    OUTGOING_COMBAT_DAMAGE_MULTIPLIER = 287,
-    OUTGOING_COMBAT_DAMAGE_CAP = 288,
-    INCOMING_COMBAT_DAMAGE_MULTIPLIER = 289,
-    INCOMING_COMBAT_DAMAGE_CAP = 290,
     CURRENT_SPELLPOWER = 291,
     ARMOR = 292,
     MORPH = 293,
@@ -837,37 +748,24 @@ enum _PutNamesInThisScopeAlso
     NUM_MINIONS_PLAYED_THIS_TURN = 317,
     PREDAMAGE = 318,
     COLLECTIBLE = 321,
-    TARGETING_ARROW_TEXT = 325,
     DATABASE_ID = 327,
     ENCHANTMENT_BIRTH_VISUAL = 330,
     ENCHANTMENT_IDLE_VISUAL = 331,
     CANT_BE_TARGETED_BY_HERO_POWERS = 332,
-    WEAPON = 334,
-    InvisibleDeathrattle = 335,
     HEALTH_MINIMUM = 337,
     TAG_ONE_TURN_EFFECT = 338,
     SILENCE = 339,
     COUNTER = 340,
-    ARTISTNAME = 342,
-    LocalizationNotes = 344,
     ZONES_REVEALED = 348,
-    ImmuneToSpellpower = 349,
     ADJACENT_BUFF = 350,
-    FLAVORTEXT = 351,
     FORCED_PLAY = 352,
     LOW_HEALTH_THRESHOLD = 353,
-    IGNORE_DAMAGE_OFF = 354,
-    GrantCharge = 355,
     SPELLPOWER_DOUBLE = 356,
-    HEALING_DOUBLE = 357,
+    SPELL_HEALING_DOUBLE = 357,
     NUM_OPTIONS_PLAYED_THIS_TURN = 358,
-    NUM_OPTIONS = 359,
     TO_BE_DESTROYED = 360,
-    HealTarget = 361,
     AURA = 362,
     POISONOUS = 363,
-    HOW_TO_EARN = 364,
-    HOW_TO_EARN_GOLDEN = 365,
     HERO_POWER_DOUBLE = 366,
     AI_MUST_PLAY = 367,
     NUM_MINIONS_PLAYER_KILLED_THIS_TURN = 368,
@@ -939,13 +837,12 @@ enum _PutNamesInThisScopeAlso
     SCORE_LABELID_1 = 450,
     SCORE_VALUE_1 = 451,
     SCORE_LABELID_2 = 452,
-    SCORE_VALUE_2 = 453,
     SCORE_LABELID_3 = 454,
+    SCORE_VALUE_2 = 453,
     SCORE_VALUE_3 = 455,
     CANT_BE_FATIGUED = 456,
     AUTOATTACK = 457,
     ARMS_DEALING = 458,
-    PENDING_EVOLUTIONS = 461,
     QUEST = 462,
     TAG_LAST_KNOWN_COST_IN_HAND = 466,
     DEFINING_ENCHANTMENT = 469,
@@ -971,15 +868,15 @@ enum _PutNamesInThisScopeAlso
     ADAPT = 546,
     IS_CURRENT_TURN_AN_EXTRA_TURN = 547,
     EXTRA_TURNS_TAKEN_THIS_GAME = 548,
-    SHIFTING_MINION = 549,
-    SHIFTING_WEAPON = 550,
-    DEATH_KNIGHT = 554,
-    BOSS = 556,
     TREASURE = 557,
     TREASURE_DEFINTIONAL_ATTACK = 558,
     TREASURE_DEFINTIONAL_COST = 559,
     TREASURE_DEFINTIONAL_HEALTH = 560,
     ACTS_LIKE_A_SPELL = 561,
+    SHIFTING_MINION = 549,
+    SHIFTING_WEAPON = 550,
+    DEATH_KNIGHT = 554,
+    BOSS = 556,
     STAMPEDE = 564,
     EMPOWERED_TREASURE = 646,
     ONE_SIDED_GHOSTLY = 648,
@@ -1016,6 +913,7 @@ enum _PutNamesInThisScopeAlso
     HERO_EMOTE_SILENCED = 832,
     MINION_IN_HAND_BUFF = 845,
     ECHO = 846,
+    MODULAR = 849,
     IGNORE_HIDE_STATS_FOR_BIG_CARD = 857,
     REAL_TIME_TRANSFORM = 859,
     WAIT_FOR_PLAYER_RECONNECT_PERIOD = 860,
@@ -1035,32 +933,42 @@ enum _PutNamesInThisScopeAlso
     ZOMBEAST_DEBUG_MAX_ITERATIONS = 966,
     START_OF_GAME = 968,
     ENCHANTMENT_INVISIBLE = 976,
-
-    // More or less guessed gametags
-    HEADCRACK_COMBO = 298,
-    RESTORE_TO_DAMAGE = 326,
-    CONTROLLER_CHANGED_THIS_TURN = 333,
-    EXTRA_BATTLECRY = 411,
-    NUM_SPELLS_PLAYED_THIS_TURN = 430,
-    NUM_CARDS_TO_DRAW = 467,
-    MOAT_LURKER_MINION = 468,
-    TAG_LAST_KNOWN_ATK_IN_HAND = 479,
-    EXTRA_END_TURN_EFFECT = 755,
-    AMOUNT_HERO_HEALED_THIS_TURN = 821,
-    KEEP_ENCHANTMENTS = 851,
-    NUM_SPELLS_PLAYED_THIS_GAME = 1001,
-    NUM_SECRETS_PLAYED_THIS_GAME = 1002,
-    NUM_WEAPONS_PLAYED_THIS_GAME = 1003,
-    LAST_CARD_DRAWN = 1004,
-    LAST_CARD_DISCARDED = 1005,
-    NUM_ELEMENTAL_PLAYED_THIS_TURN = 1006,
-    NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007,
-    NUM_MURLOCS_PLAYED_THIS_GAME = 1008,
-    TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009,
+    PUZZLE = 979,
+    PUZZLE_PROGRESS = 980,
+    PUZZLE_PROGRESS_TOTAL = 981,
+    PUZZLE_TYPE = 982,
+    PUZZLE_COMPLETED = 984,
+    CONCEDE_BUTTON_ALTERNATIVE_TEXT = 985,
+    HIDE_RESTART_BUTTON = 990,
+    WILD = 991,
+    HALL_OF_FAME = 992,
+    DECK_RULE_MOD_DECK_SIZE = 997,
+    FAST_BATTLECRY = 998,
+    END_TURN_BUTTON_ALTERNATIVE_APPEARANCE = 1000,
+    TREAT_AS_PLAYED_HERO_CARD = 1016,
+    PUZZLE_NAME = 1026,
+    TURN_INDICATOR_ALTERNATIVE_APPEARANCE = 1027,
+    PREVIOUS_PUZZLE_COMPLETED = 1042,
+    GLORIOUSGLOOP = 1044,
+    HEALTH_DISPLAY_COLOR = 1046,
+    HEALTH_DISPLAY_NEGATIVE = 1047,
+    WHIZBANG_DECK_ID = 1048,
+    HIDE_OUT_OF_CARDS_WARNING = 1050,
+    GEARS = 1052,
+    LUNAHIGHLIGHTHINT = 1054,
+    SUPPRESS_JOBS_DONE_VO = 1055,
+    ALL_HEALING_DOUBLE = 1058,
+    BLOCK_ALL_INPUT = 1071,
+    PUZZLE_MODE = 1073,
+    InvisibleDeathrattle = 335,
+    ImmuneToSpellpower = 349,
+    AttackVisualType = 251,
+    DevState = 268,
+    GrantCharge = 355,
+    HealTarget = 361
 };
 constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::INVALID = 0),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::IGNORE_DAMAGE = 1),
     ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_SCRIPT_DATA_NUM_1 = 2),
     ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_SCRIPT_DATA_NUM_2 = 3),
     ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_SCRIPT_DATA_ENT_1 = 4),
@@ -1105,15 +1013,10 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::DEFINITION = 52),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ENTITY_ID = 53),
     ((::better_enums::_eat_assign<GameTag>)GameTag::HISTORY_PROXY = 54),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::COPY_DEATHRATTLE = 55),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::COPY_DEATHRATTLE_INDEX =
-         56),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ELITE = 114),
     ((::better_enums::_eat_assign<GameTag>)GameTag::MAXRESOURCES = 176),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CARD_SET = 183),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CARDTEXT = 184),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::CARDNAME = 185),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::CARD_ID = 186),
     ((::better_enums::_eat_assign<GameTag>)GameTag::DURABILITY = 187),
     ((::better_enums::_eat_assign<GameTag>)GameTag::SILENCED = 188),
     ((::better_enums::_eat_assign<GameTag>)GameTag::WINDFURY = 189),
@@ -1144,35 +1047,19 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_REMOVE_FROM_GAME =
          224),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_READY = 225),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_EXHAUST = 226),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_ATTACK = 227),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_TARGET = 228),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_DESTROY = 229),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_DISCARD = 230),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_PLAY = 231),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_DRAW = 232),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::INCOMING_HEALING_MULTIPLIER = 233),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::INCOMING_HEALING_ADJUSTMENT = 234),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::INCOMING_HEALING_CAP = 235),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::INCOMING_DAMAGE_MULTIPLIER =
-         236),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::INCOMING_DAMAGE_ADJUSTMENT =
-         237),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::INCOMING_DAMAGE_CAP = 238),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_HEALED = 239),
     ((::better_enums::_eat_assign<GameTag>)GameTag::IMMUNE = 240),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_SET_ASIDE = 241),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_REMOVED_FROM_GAME =
          242),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_READIED = 243),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_EXHAUSTED = 244),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_ATTACKED = 245),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_TARGETED = 246),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_DESTROYED = 247),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::AttackVisualType = 251),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::CardTextInPlay = 252),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_SUMMONING_SICK =
          253),
     ((::better_enums::_eat_assign<GameTag>)GameTag::FROZEN = 260),
@@ -1182,47 +1069,12 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_FROZEN = 264),
     ((::better_enums::_eat_assign<GameTag>)GameTag::COMBO_ACTIVE = 266),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CARD_TARGET = 267),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::DevState = 268),
     ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_CARDS_PLAYED_THIS_TURN =
          269),
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::CANT_BE_TARGETED_BY_OPPONENTS = 270),
     ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_TURNS_IN_PLAY = 271),
     ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_TURNS_LEFT = 272),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::OUTGOING_DAMAGE_CAP = 273),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::OUTGOING_DAMAGE_ADJUSTMENT =
-         274),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::OUTGOING_DAMAGE_MULTIPLIER =
-         275),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::OUTGOING_HEALING_CAP = 276),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::OUTGOING_HEALING_ADJUSTMENT = 277),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::OUTGOING_HEALING_MULTIPLIER = 278),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::INCOMING_ABILITY_DAMAGE_ADJUSTMENT = 279),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::INCOMING_COMBAT_DAMAGE_ADJUSTMENT = 280),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::OUTGOING_ABILITY_DAMAGE_ADJUSTMENT = 281),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::OUTGOING_COMBAT_DAMAGE_ADJUSTMENT = 282),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::OUTGOING_ABILITY_DAMAGE_MULTIPLIER = 283),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::OUTGOING_ABILITY_DAMAGE_CAP = 284),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::INCOMING_ABILITY_DAMAGE_MULTIPLIER = 285),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::INCOMING_ABILITY_DAMAGE_CAP = 286),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::OUTGOING_COMBAT_DAMAGE_MULTIPLIER = 287),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::OUTGOING_COMBAT_DAMAGE_CAP =
-         288),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::INCOMING_COMBAT_DAMAGE_MULTIPLIER = 289),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::INCOMING_COMBAT_DAMAGE_CAP =
-         290),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CURRENT_SPELLPOWER = 291),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ARMOR = 292),
     ((::better_enums::_eat_assign<GameTag>)GameTag::MORPH = 293),
@@ -1249,7 +1101,6 @@ constexpr const GameTag _value_array[] = {
          GameTag::NUM_MINIONS_PLAYED_THIS_TURN = 317),
     ((::better_enums::_eat_assign<GameTag>)GameTag::PREDAMAGE = 318),
     ((::better_enums::_eat_assign<GameTag>)GameTag::COLLECTIBLE = 321),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::TARGETING_ARROW_TEXT = 325),
     ((::better_enums::_eat_assign<GameTag>)GameTag::DATABASE_ID = 327),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ENCHANTMENT_BIRTH_VISUAL =
          330),
@@ -1257,33 +1108,21 @@ constexpr const GameTag _value_array[] = {
          331),
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::CANT_BE_TARGETED_BY_HERO_POWERS = 332),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::WEAPON = 334),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::InvisibleDeathrattle = 335),
     ((::better_enums::_eat_assign<GameTag>)GameTag::HEALTH_MINIMUM = 337),
     ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_ONE_TURN_EFFECT = 338),
     ((::better_enums::_eat_assign<GameTag>)GameTag::SILENCE = 339),
     ((::better_enums::_eat_assign<GameTag>)GameTag::COUNTER = 340),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::ARTISTNAME = 342),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::LocalizationNotes = 344),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ZONES_REVEALED = 348),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::ImmuneToSpellpower = 349),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ADJACENT_BUFF = 350),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::FLAVORTEXT = 351),
     ((::better_enums::_eat_assign<GameTag>)GameTag::FORCED_PLAY = 352),
     ((::better_enums::_eat_assign<GameTag>)GameTag::LOW_HEALTH_THRESHOLD = 353),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::IGNORE_DAMAGE_OFF = 354),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::GrantCharge = 355),
     ((::better_enums::_eat_assign<GameTag>)GameTag::SPELLPOWER_DOUBLE = 356),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::HEALING_DOUBLE = 357),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::SPELL_HEALING_DOUBLE = 357),
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::NUM_OPTIONS_PLAYED_THIS_TURN = 358),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_OPTIONS = 359),
     ((::better_enums::_eat_assign<GameTag>)GameTag::TO_BE_DESTROYED = 360),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::HealTarget = 361),
     ((::better_enums::_eat_assign<GameTag>)GameTag::AURA = 362),
     ((::better_enums::_eat_assign<GameTag>)GameTag::POISONOUS = 363),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::HOW_TO_EARN = 364),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::HOW_TO_EARN_GOLDEN = 365),
     ((::better_enums::_eat_assign<GameTag>)GameTag::HERO_POWER_DOUBLE = 366),
     ((::better_enums::_eat_assign<GameTag>)GameTag::AI_MUST_PLAY = 367),
     ((::better_enums::_eat_assign<GameTag>)
@@ -1380,13 +1219,12 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::SCORE_LABELID_1 = 450),
     ((::better_enums::_eat_assign<GameTag>)GameTag::SCORE_VALUE_1 = 451),
     ((::better_enums::_eat_assign<GameTag>)GameTag::SCORE_LABELID_2 = 452),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::SCORE_VALUE_2 = 453),
     ((::better_enums::_eat_assign<GameTag>)GameTag::SCORE_LABELID_3 = 454),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::SCORE_VALUE_2 = 453),
     ((::better_enums::_eat_assign<GameTag>)GameTag::SCORE_VALUE_3 = 455),
     ((::better_enums::_eat_assign<GameTag>)GameTag::CANT_BE_FATIGUED = 456),
     ((::better_enums::_eat_assign<GameTag>)GameTag::AUTOATTACK = 457),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ARMS_DEALING = 458),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::PENDING_EVOLUTIONS = 461),
     ((::better_enums::_eat_assign<GameTag>)GameTag::QUEST = 462),
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::TAG_LAST_KNOWN_COST_IN_HAND = 466),
@@ -1423,10 +1261,6 @@ constexpr const GameTag _value_array[] = {
          GameTag::IS_CURRENT_TURN_AN_EXTRA_TURN = 547),
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::EXTRA_TURNS_TAKEN_THIS_GAME = 548),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::SHIFTING_MINION = 549),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::SHIFTING_WEAPON = 550),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::DEATH_KNIGHT = 554),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::BOSS = 556),
     ((::better_enums::_eat_assign<GameTag>)GameTag::TREASURE = 557),
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::TREASURE_DEFINTIONAL_ATTACK = 558),
@@ -1435,6 +1269,10 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::TREASURE_DEFINTIONAL_HEALTH = 560),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ACTS_LIKE_A_SPELL = 561),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::SHIFTING_MINION = 549),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::SHIFTING_WEAPON = 550),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::DEATH_KNIGHT = 554),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::BOSS = 556),
     ((::better_enums::_eat_assign<GameTag>)GameTag::STAMPEDE = 564),
     ((::better_enums::_eat_assign<GameTag>)GameTag::EMPOWERED_TREASURE = 646),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ONE_SIDED_GHOSTLY = 648),
@@ -1473,6 +1311,7 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::HERO_EMOTE_SILENCED = 832),
     ((::better_enums::_eat_assign<GameTag>)GameTag::MINION_IN_HAND_BUFF = 845),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ECHO = 846),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::MODULAR = 849),
     ((::better_enums::_eat_assign<GameTag>)
          GameTag::IGNORE_HIDE_STATS_FOR_BIG_CARD = 857),
     ((::better_enums::_eat_assign<GameTag>)GameTag::REAL_TIME_TRANSFORM = 859),
@@ -1502,44 +1341,53 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::START_OF_GAME = 968),
     ((::better_enums::_eat_assign<GameTag>)GameTag::ENCHANTMENT_INVISIBLE =
          976),
-
-    // More or less guessed gametags
-    ((::better_enums::_eat_assign<GameTag>)GameTag::HEADCRACK_COMBO = 298),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::RESTORE_TO_DAMAGE = 326),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE = 979),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_PROGRESS = 980),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_PROGRESS_TOTAL =
+         981),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_TYPE = 982),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_COMPLETED = 984),
     ((::better_enums::_eat_assign<GameTag>)
-         GameTag::CONTROLLER_CHANGED_THIS_TURN = 333),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::EXTRA_BATTLECRY = 411),
+         GameTag::CONCEDE_BUTTON_ALTERNATIVE_TEXT = 985),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HIDE_RESTART_BUTTON = 990),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::WILD = 991),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HALL_OF_FAME = 992),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::DECK_RULE_MOD_DECK_SIZE =
+         997),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::FAST_BATTLECRY = 998),
     ((::better_enums::_eat_assign<GameTag>)
-         GameTag::NUM_SPELLS_PLAYED_THIS_TURN = 430),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::NUM_CARDS_TO_DRAW = 467),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::MOAT_LURKER_MINION = 468),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::TAG_LAST_KNOWN_ATK_IN_HAND =
-         479),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::EXTRA_END_TURN_EFFECT =
-         755),
+         GameTag::END_TURN_BUTTON_ALTERNATIVE_APPEARANCE = 1000),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::TREAT_AS_PLAYED_HERO_CARD =
+         1016),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_NAME = 1026),
     ((::better_enums::_eat_assign<GameTag>)
-         GameTag::AMOUNT_HERO_HEALED_THIS_TURN = 821),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::KEEP_ENCHANTMENTS = 851),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::NUM_SPELLS_PLAYED_THIS_GAME = 1001),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::NUM_SECRETS_PLAYED_THIS_GAME = 1002),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::NUM_WEAPONS_PLAYED_THIS_GAME = 1003),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::LAST_CARD_DRAWN = 1004),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::LAST_CARD_DISCARDED = 1005),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::NUM_ELEMENTAL_PLAYED_THIS_TURN = 1006),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::NUM_MURLOCS_PLAYED_THIS_GAME = 1008),
-    ((::better_enums::_eat_assign<GameTag>)
-         GameTag::TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009),
+         GameTag::TURN_INDICATOR_ALTERNATIVE_APPEARANCE = 1027),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PREVIOUS_PUZZLE_COMPLETED =
+         1042),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::GLORIOUSGLOOP = 1044),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HEALTH_DISPLAY_COLOR =
+         1046),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HEALTH_DISPLAY_NEGATIVE =
+         1047),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::WHIZBANG_DECK_ID = 1048),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HIDE_OUT_OF_CARDS_WARNING =
+         1050),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::GEARS = 1052),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::LUNAHIGHLIGHTHINT = 1054),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::SUPPRESS_JOBS_DONE_VO =
+         1055),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::ALL_HEALING_DOUBLE = 1058),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::BLOCK_ALL_INPUT = 1071),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::PUZZLE_MODE = 1073),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::InvisibleDeathrattle = 335),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::ImmuneToSpellpower = 349),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::AttackVisualType = 251),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::DevState = 268),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::GrantCharge = 355),
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HealTarget = 361)
 };
 constexpr const char* _the_raw_names[] = {
     "INVALID = 0",
-    "IGNORE_DAMAGE = 1",
     "TAG_SCRIPT_DATA_NUM_1 = 2",
     "TAG_SCRIPT_DATA_NUM_2 = 3",
     "TAG_SCRIPT_DATA_ENT_1 = 4",
@@ -1584,14 +1432,10 @@ constexpr const char* _the_raw_names[] = {
     "DEFINITION = 52",
     "ENTITY_ID = 53",
     "HISTORY_PROXY = 54",
-    "COPY_DEATHRATTLE = 55",
-    "COPY_DEATHRATTLE_INDEX = 56",
     "ELITE = 114",
     "MAXRESOURCES = 176",
     "CARD_SET = 183",
     "CARDTEXT = 184",
-    "CARDNAME = 185",
-    "CARD_ID = 186",
     "DURABILITY = 187",
     "SILENCED = 188",
     "WINDFURY = 189",
@@ -1621,30 +1465,18 @@ constexpr const char* _the_raw_names[] = {
     "CANT_SET_ASIDE = 223",
     "CANT_REMOVE_FROM_GAME = 224",
     "CANT_READY = 225",
-    "CANT_EXHAUST = 226",
     "CANT_ATTACK = 227",
-    "CANT_TARGET = 228",
-    "CANT_DESTROY = 229",
     "CANT_DISCARD = 230",
     "CANT_PLAY = 231",
     "CANT_DRAW = 232",
-    "INCOMING_HEALING_MULTIPLIER = 233",
-    "INCOMING_HEALING_ADJUSTMENT = 234",
-    "INCOMING_HEALING_CAP = 235",
-    "INCOMING_DAMAGE_MULTIPLIER = 236",
-    "INCOMING_DAMAGE_ADJUSTMENT = 237",
-    "INCOMING_DAMAGE_CAP = 238",
     "CANT_BE_HEALED = 239",
     "IMMUNE = 240",
     "CANT_BE_SET_ASIDE = 241",
     "CANT_BE_REMOVED_FROM_GAME = 242",
     "CANT_BE_READIED = 243",
-    "CANT_BE_EXHAUSTED = 244",
     "CANT_BE_ATTACKED = 245",
     "CANT_BE_TARGETED = 246",
     "CANT_BE_DESTROYED = 247",
-    "AttackVisualType = 251",
-    "CardTextInPlay = 252",
     "CANT_BE_SUMMONING_SICK = 253",
     "FROZEN = 260",
     "JUST_PLAYED = 261",
@@ -1653,29 +1485,10 @@ constexpr const char* _the_raw_names[] = {
     "CANT_BE_FROZEN = 264",
     "COMBO_ACTIVE = 266",
     "CARD_TARGET = 267",
-    "DevState = 268",
     "NUM_CARDS_PLAYED_THIS_TURN = 269",
     "CANT_BE_TARGETED_BY_OPPONENTS = 270",
     "NUM_TURNS_IN_PLAY = 271",
     "NUM_TURNS_LEFT = 272",
-    "OUTGOING_DAMAGE_CAP = 273",
-    "OUTGOING_DAMAGE_ADJUSTMENT = 274",
-    "OUTGOING_DAMAGE_MULTIPLIER = 275",
-    "OUTGOING_HEALING_CAP = 276",
-    "OUTGOING_HEALING_ADJUSTMENT = 277",
-    "OUTGOING_HEALING_MULTIPLIER = 278",
-    "INCOMING_ABILITY_DAMAGE_ADJUSTMENT = 279",
-    "INCOMING_COMBAT_DAMAGE_ADJUSTMENT = 280",
-    "OUTGOING_ABILITY_DAMAGE_ADJUSTMENT = 281",
-    "OUTGOING_COMBAT_DAMAGE_ADJUSTMENT = 282",
-    "OUTGOING_ABILITY_DAMAGE_MULTIPLIER = 283",
-    "OUTGOING_ABILITY_DAMAGE_CAP = 284",
-    "INCOMING_ABILITY_DAMAGE_MULTIPLIER = 285",
-    "INCOMING_ABILITY_DAMAGE_CAP = 286",
-    "OUTGOING_COMBAT_DAMAGE_MULTIPLIER = 287",
-    "OUTGOING_COMBAT_DAMAGE_CAP = 288",
-    "INCOMING_COMBAT_DAMAGE_MULTIPLIER = 289",
-    "INCOMING_COMBAT_DAMAGE_CAP = 290",
     "CURRENT_SPELLPOWER = 291",
     "ARMOR = 292",
     "MORPH = 293",
@@ -1698,37 +1511,24 @@ constexpr const char* _the_raw_names[] = {
     "NUM_MINIONS_PLAYED_THIS_TURN = 317",
     "PREDAMAGE = 318",
     "COLLECTIBLE = 321",
-    "TARGETING_ARROW_TEXT = 325",
     "DATABASE_ID = 327",
     "ENCHANTMENT_BIRTH_VISUAL = 330",
     "ENCHANTMENT_IDLE_VISUAL = 331",
     "CANT_BE_TARGETED_BY_HERO_POWERS = 332",
-    "WEAPON = 334",
-    "InvisibleDeathrattle = 335",
     "HEALTH_MINIMUM = 337",
     "TAG_ONE_TURN_EFFECT = 338",
     "SILENCE = 339",
     "COUNTER = 340",
-    "ARTISTNAME = 342",
-    "LocalizationNotes = 344",
     "ZONES_REVEALED = 348",
-    "ImmuneToSpellpower = 349",
     "ADJACENT_BUFF = 350",
-    "FLAVORTEXT = 351",
     "FORCED_PLAY = 352",
     "LOW_HEALTH_THRESHOLD = 353",
-    "IGNORE_DAMAGE_OFF = 354",
-    "GrantCharge = 355",
     "SPELLPOWER_DOUBLE = 356",
-    "HEALING_DOUBLE = 357",
+    "SPELL_HEALING_DOUBLE = 357",
     "NUM_OPTIONS_PLAYED_THIS_TURN = 358",
-    "NUM_OPTIONS = 359",
     "TO_BE_DESTROYED = 360",
-    "HealTarget = 361",
     "AURA = 362",
     "POISONOUS = 363",
-    "HOW_TO_EARN = 364",
-    "HOW_TO_EARN_GOLDEN = 365",
     "HERO_POWER_DOUBLE = 366",
     "AI_MUST_PLAY = 367",
     "NUM_MINIONS_PLAYER_KILLED_THIS_TURN = 368",
@@ -1800,13 +1600,12 @@ constexpr const char* _the_raw_names[] = {
     "SCORE_LABELID_1 = 450",
     "SCORE_VALUE_1 = 451",
     "SCORE_LABELID_2 = 452",
-    "SCORE_VALUE_2 = 453",
     "SCORE_LABELID_3 = 454",
+    "SCORE_VALUE_2 = 453",
     "SCORE_VALUE_3 = 455",
     "CANT_BE_FATIGUED = 456",
     "AUTOATTACK = 457",
     "ARMS_DEALING = 458",
-    "PENDING_EVOLUTIONS = 461",
     "QUEST = 462",
     "TAG_LAST_KNOWN_COST_IN_HAND = 466",
     "DEFINING_ENCHANTMENT = 469",
@@ -1832,15 +1631,15 @@ constexpr const char* _the_raw_names[] = {
     "ADAPT = 546",
     "IS_CURRENT_TURN_AN_EXTRA_TURN = 547",
     "EXTRA_TURNS_TAKEN_THIS_GAME = 548",
-    "SHIFTING_MINION = 549",
-    "SHIFTING_WEAPON = 550",
-    "DEATH_KNIGHT = 554",
-    "BOSS = 556",
     "TREASURE = 557",
     "TREASURE_DEFINTIONAL_ATTACK = 558",
     "TREASURE_DEFINTIONAL_COST = 559",
     "TREASURE_DEFINTIONAL_HEALTH = 560",
     "ACTS_LIKE_A_SPELL = 561",
+    "SHIFTING_MINION = 549",
+    "SHIFTING_WEAPON = 550",
+    "DEATH_KNIGHT = 554",
+    "BOSS = 556",
     "STAMPEDE = 564",
     "EMPOWERED_TREASURE = 646",
     "ONE_SIDED_GHOSTLY = 648",
@@ -1877,6 +1676,7 @@ constexpr const char* _the_raw_names[] = {
     "HERO_EMOTE_SILENCED = 832",
     "MINION_IN_HAND_BUFF = 845",
     "ECHO = 846",
+    "MODULAR = 849",
     "IGNORE_HIDE_STATS_FOR_BIG_CARD = 857",
     "REAL_TIME_TRANSFORM = 859",
     "WAIT_FOR_PLAYER_RECONNECT_PERIOD = 860",
@@ -1896,28 +1696,39 @@ constexpr const char* _the_raw_names[] = {
     "ZOMBEAST_DEBUG_MAX_ITERATIONS = 966",
     "START_OF_GAME = 968",
     "ENCHANTMENT_INVISIBLE = 976",
-
-    // More or less guessed gametags
-    "HEADCRACK_COMBO = 298",
-    "RESTORE_TO_DAMAGE = 326",
-    "CONTROLLER_CHANGED_THIS_TURN = 333",
-    "EXTRA_BATTLECRY = 411",
-    "NUM_SPELLS_PLAYED_THIS_TURN = 430",
-    "NUM_CARDS_TO_DRAW = 467",
-    "MOAT_LURKER_MINION = 468",
-    "TAG_LAST_KNOWN_ATK_IN_HAND = 479",
-    "EXTRA_END_TURN_EFFECT = 755",
-    "AMOUNT_HERO_HEALED_THIS_TURN = 821",
-    "KEEP_ENCHANTMENTS = 851",
-    "NUM_SPELLS_PLAYED_THIS_GAME = 1001",
-    "NUM_SECRETS_PLAYED_THIS_GAME = 1002",
-    "NUM_WEAPONS_PLAYED_THIS_GAME = 1003",
-    "LAST_CARD_DRAWN = 1004",
-    "LAST_CARD_DISCARDED = 1005",
-    "NUM_ELEMENTAL_PLAYED_THIS_TURN = 1006",
-    "NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007",
-    "NUM_MURLOCS_PLAYED_THIS_GAME = 1008",
-    "TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009",
+    "PUZZLE = 979",
+    "PUZZLE_PROGRESS = 980",
+    "PUZZLE_PROGRESS_TOTAL = 981",
+    "PUZZLE_TYPE = 982",
+    "PUZZLE_COMPLETED = 984",
+    "CONCEDE_BUTTON_ALTERNATIVE_TEXT = 985",
+    "HIDE_RESTART_BUTTON = 990",
+    "WILD = 991",
+    "HALL_OF_FAME = 992",
+    "DECK_RULE_MOD_DECK_SIZE = 997",
+    "FAST_BATTLECRY = 998",
+    "END_TURN_BUTTON_ALTERNATIVE_APPEARANCE = 1000",
+    "TREAT_AS_PLAYED_HERO_CARD = 1016",
+    "PUZZLE_NAME = 1026",
+    "TURN_INDICATOR_ALTERNATIVE_APPEARANCE = 1027",
+    "PREVIOUS_PUZZLE_COMPLETED = 1042",
+    "GLORIOUSGLOOP = 1044",
+    "HEALTH_DISPLAY_COLOR = 1046",
+    "HEALTH_DISPLAY_NEGATIVE = 1047",
+    "WHIZBANG_DECK_ID = 1048",
+    "HIDE_OUT_OF_CARDS_WARNING = 1050",
+    "GEARS = 1052",
+    "LUNAHIGHLIGHTHINT = 1054",
+    "SUPPRESS_JOBS_DONE_VO = 1055",
+    "ALL_HEALING_DOUBLE = 1058",
+    "BLOCK_ALL_INPUT = 1071",
+    "PUZZLE_MODE = 1073",
+    "InvisibleDeathrattle = 335",
+    "ImmuneToSpellpower = 349",
+    "AttackVisualType = 251",
+    "DevState = 268",
+    "GrantCharge = 355",
+    "HealTarget = 361"
 };
 constexpr const char* const* _raw_names()
 {
@@ -1927,8 +1738,6 @@ inline char* _name_storage()
 {
     static char storage[] =
         "INVALID = 0"
-        ","
-        "IGNORE_DAMAGE = 1"
         ","
         "TAG_SCRIPT_DATA_NUM_1 = 2"
         ","
@@ -2018,10 +1827,6 @@ inline char* _name_storage()
         ","
         "HISTORY_PROXY = 54"
         ","
-        "COPY_DEATHRATTLE = 55"
-        ","
-        "COPY_DEATHRATTLE_INDEX = 56"
-        ","
         "ELITE = 114"
         ","
         "MAXRESOURCES = 176"
@@ -2029,10 +1834,6 @@ inline char* _name_storage()
         "CARD_SET = 183"
         ","
         "CARDTEXT = 184"
-        ","
-        "CARDNAME = 185"
-        ","
-        "CARD_ID = 186"
         ","
         "DURABILITY = 187"
         ","
@@ -2092,31 +1893,13 @@ inline char* _name_storage()
         ","
         "CANT_READY = 225"
         ","
-        "CANT_EXHAUST = 226"
-        ","
         "CANT_ATTACK = 227"
-        ","
-        "CANT_TARGET = 228"
-        ","
-        "CANT_DESTROY = 229"
         ","
         "CANT_DISCARD = 230"
         ","
         "CANT_PLAY = 231"
         ","
         "CANT_DRAW = 232"
-        ","
-        "INCOMING_HEALING_MULTIPLIER = 233"
-        ","
-        "INCOMING_HEALING_ADJUSTMENT = 234"
-        ","
-        "INCOMING_HEALING_CAP = 235"
-        ","
-        "INCOMING_DAMAGE_MULTIPLIER = 236"
-        ","
-        "INCOMING_DAMAGE_ADJUSTMENT = 237"
-        ","
-        "INCOMING_DAMAGE_CAP = 238"
         ","
         "CANT_BE_HEALED = 239"
         ","
@@ -2128,17 +1911,11 @@ inline char* _name_storage()
         ","
         "CANT_BE_READIED = 243"
         ","
-        "CANT_BE_EXHAUSTED = 244"
-        ","
         "CANT_BE_ATTACKED = 245"
         ","
         "CANT_BE_TARGETED = 246"
         ","
         "CANT_BE_DESTROYED = 247"
-        ","
-        "AttackVisualType = 251"
-        ","
-        "CardTextInPlay = 252"
         ","
         "CANT_BE_SUMMONING_SICK = 253"
         ","
@@ -2156,8 +1933,6 @@ inline char* _name_storage()
         ","
         "CARD_TARGET = 267"
         ","
-        "DevState = 268"
-        ","
         "NUM_CARDS_PLAYED_THIS_TURN = 269"
         ","
         "CANT_BE_TARGETED_BY_OPPONENTS = 270"
@@ -2165,42 +1940,6 @@ inline char* _name_storage()
         "NUM_TURNS_IN_PLAY = 271"
         ","
         "NUM_TURNS_LEFT = 272"
-        ","
-        "OUTGOING_DAMAGE_CAP = 273"
-        ","
-        "OUTGOING_DAMAGE_ADJUSTMENT = 274"
-        ","
-        "OUTGOING_DAMAGE_MULTIPLIER = 275"
-        ","
-        "OUTGOING_HEALING_CAP = 276"
-        ","
-        "OUTGOING_HEALING_ADJUSTMENT = 277"
-        ","
-        "OUTGOING_HEALING_MULTIPLIER = 278"
-        ","
-        "INCOMING_ABILITY_DAMAGE_ADJUSTMENT = 279"
-        ","
-        "INCOMING_COMBAT_DAMAGE_ADJUSTMENT = 280"
-        ","
-        "OUTGOING_ABILITY_DAMAGE_ADJUSTMENT = 281"
-        ","
-        "OUTGOING_COMBAT_DAMAGE_ADJUSTMENT = 282"
-        ","
-        "OUTGOING_ABILITY_DAMAGE_MULTIPLIER = 283"
-        ","
-        "OUTGOING_ABILITY_DAMAGE_CAP = 284"
-        ","
-        "INCOMING_ABILITY_DAMAGE_MULTIPLIER = 285"
-        ","
-        "INCOMING_ABILITY_DAMAGE_CAP = 286"
-        ","
-        "OUTGOING_COMBAT_DAMAGE_MULTIPLIER = 287"
-        ","
-        "OUTGOING_COMBAT_DAMAGE_CAP = 288"
-        ","
-        "INCOMING_COMBAT_DAMAGE_MULTIPLIER = 289"
-        ","
-        "INCOMING_COMBAT_DAMAGE_CAP = 290"
         ","
         "CURRENT_SPELLPOWER = 291"
         ","
@@ -2246,8 +1985,6 @@ inline char* _name_storage()
         ","
         "COLLECTIBLE = 321"
         ","
-        "TARGETING_ARROW_TEXT = 325"
-        ","
         "DATABASE_ID = 327"
         ","
         "ENCHANTMENT_BIRTH_VISUAL = 330"
@@ -2255,10 +1992,6 @@ inline char* _name_storage()
         "ENCHANTMENT_IDLE_VISUAL = 331"
         ","
         "CANT_BE_TARGETED_BY_HERO_POWERS = 332"
-        ","
-        "WEAPON = 334"
-        ","
-        "InvisibleDeathrattle = 335"
         ","
         "HEALTH_MINIMUM = 337"
         ","
@@ -2268,45 +2001,25 @@ inline char* _name_storage()
         ","
         "COUNTER = 340"
         ","
-        "ARTISTNAME = 342"
-        ","
-        "LocalizationNotes = 344"
-        ","
         "ZONES_REVEALED = 348"
         ","
-        "ImmuneToSpellpower = 349"
-        ","
         "ADJACENT_BUFF = 350"
-        ","
-        "FLAVORTEXT = 351"
         ","
         "FORCED_PLAY = 352"
         ","
         "LOW_HEALTH_THRESHOLD = 353"
         ","
-        "IGNORE_DAMAGE_OFF = 354"
-        ","
-        "GrantCharge = 355"
-        ","
         "SPELLPOWER_DOUBLE = 356"
         ","
-        "HEALING_DOUBLE = 357"
+        "SPELL_HEALING_DOUBLE = 357"
         ","
         "NUM_OPTIONS_PLAYED_THIS_TURN = 358"
         ","
-        "NUM_OPTIONS = 359"
-        ","
         "TO_BE_DESTROYED = 360"
-        ","
-        "HealTarget = 361"
         ","
         "AURA = 362"
         ","
         "POISONOUS = 363"
-        ","
-        "HOW_TO_EARN = 364"
-        ","
-        "HOW_TO_EARN_GOLDEN = 365"
         ","
         "HERO_POWER_DOUBLE = 366"
         ","
@@ -2450,9 +2163,9 @@ inline char* _name_storage()
         ","
         "SCORE_LABELID_2 = 452"
         ","
-        "SCORE_VALUE_2 = 453"
-        ","
         "SCORE_LABELID_3 = 454"
+        ","
+        "SCORE_VALUE_2 = 453"
         ","
         "SCORE_VALUE_3 = 455"
         ","
@@ -2461,8 +2174,6 @@ inline char* _name_storage()
         "AUTOATTACK = 457"
         ","
         "ARMS_DEALING = 458"
-        ","
-        "PENDING_EVOLUTIONS = 461"
         ","
         "QUEST = 462"
         ","
@@ -2514,14 +2225,6 @@ inline char* _name_storage()
         ","
         "EXTRA_TURNS_TAKEN_THIS_GAME = 548"
         ","
-        "SHIFTING_MINION = 549"
-        ","
-        "SHIFTING_WEAPON = 550"
-        ","
-        "DEATH_KNIGHT = 554"
-        ","
-        "BOSS = 556"
-        ","
         "TREASURE = 557"
         ","
         "TREASURE_DEFINTIONAL_ATTACK = 558"
@@ -2531,6 +2234,14 @@ inline char* _name_storage()
         "TREASURE_DEFINTIONAL_HEALTH = 560"
         ","
         "ACTS_LIKE_A_SPELL = 561"
+        ","
+        "SHIFTING_MINION = 549"
+        ","
+        "SHIFTING_WEAPON = 550"
+        ","
+        "DEATH_KNIGHT = 554"
+        ","
+        "BOSS = 556"
         ","
         "STAMPEDE = 564"
         ","
@@ -2604,6 +2315,8 @@ inline char* _name_storage()
         ","
         "ECHO = 846"
         ","
+        "MODULAR = 849"
+        ","
         "IGNORE_HIDE_STATS_FOR_BIG_CARD = 857"
         ","
         "REAL_TIME_TRANSFORM = 859"
@@ -2642,47 +2355,71 @@ inline char* _name_storage()
         ","
         "ENCHANTMENT_INVISIBLE = 976"
         ","
-
-        // More or less guessed gametags
-        "HEADCRACK_COMBO = 298"
+        "PUZZLE = 979"
         ","
-        "RESTORE_TO_DAMAGE = 326"
+        "PUZZLE_PROGRESS = 980"
         ","
-        "CONTROLLER_CHANGED_THIS_TURN = 333"
+        "PUZZLE_PROGRESS_TOTAL = 981"
         ","
-        "EXTRA_BATTLECRY = 411"
+        "PUZZLE_TYPE = 982"
         ","
-        "NUM_SPELLS_PLAYED_THIS_TURN = 430"
+        "PUZZLE_COMPLETED = 984"
         ","
-        "NUM_CARDS_TO_DRAW = 467"
+        "CONCEDE_BUTTON_ALTERNATIVE_TEXT = 985"
         ","
-        "MOAT_LURKER_MINION = 468"
+        "HIDE_RESTART_BUTTON = 990"
         ","
-        "TAG_LAST_KNOWN_ATK_IN_HAND = 479"
+        "WILD = 991"
         ","
-        "EXTRA_END_TURN_EFFECT = 755"
+        "HALL_OF_FAME = 992"
         ","
-        "AMOUNT_HERO_HEALED_THIS_TURN = 821"
+        "DECK_RULE_MOD_DECK_SIZE = 997"
         ","
-        "KEEP_ENCHANTMENTS = 851"
+        "FAST_BATTLECRY = 998"
         ","
-        "NUM_SPELLS_PLAYED_THIS_GAME = 1001"
+        "END_TURN_BUTTON_ALTERNATIVE_APPEARANCE = 1000"
         ","
-        "NUM_SECRETS_PLAYED_THIS_GAME = 1002"
+        "TREAT_AS_PLAYED_HERO_CARD = 1016"
         ","
-        "NUM_WEAPONS_PLAYED_THIS_GAME = 1003"
+        "PUZZLE_NAME = 1026"
         ","
-        "LAST_CARD_DRAWN = 1004"
+        "TURN_INDICATOR_ALTERNATIVE_APPEARANCE = 1027"
         ","
-        "LAST_CARD_DISCARDED = 1005"
+        "PREVIOUS_PUZZLE_COMPLETED = 1042"
         ","
-        "NUM_ELEMENTAL_PLAYED_THIS_TURN = 1006"
+        "GLORIOUSGLOOP = 1044"
         ","
-        "NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007"
+        "HEALTH_DISPLAY_COLOR = 1046"
         ","
-        "NUM_MURLOCS_PLAYED_THIS_GAME = 1008"
+        "HEALTH_DISPLAY_NEGATIVE = 1047"
         ","
-        "TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009"
+        "WHIZBANG_DECK_ID = 1048"
+        ","
+        "HIDE_OUT_OF_CARDS_WARNING = 1050"
+        ","
+        "GEARS = 1052"
+        ","
+        "LUNAHIGHLIGHTHINT = 1054"
+        ","
+        "SUPPRESS_JOBS_DONE_VO = 1055"
+        ","
+        "ALL_HEALING_DOUBLE = 1058"
+        ","
+        "BLOCK_ALL_INPUT = 1071"
+        ","
+        "PUZZLE_MODE = 1073"
+        ","
+        "InvisibleDeathrattle = 335"
+        ","
+        "ImmuneToSpellpower = 349"
+        ","
+        "AttackVisualType = 251"
+        ","
+        "DevState = 268"
+        ","
+        "GrantCharge = 355"
+        ","
+        "HealTarget = 361"
         ",";
     return storage;
 }
@@ -2866,7 +2603,9 @@ std::basic_istream<Char, Traits>& operator>>(
 
 BETTER_ENUM(GameType, int, UNKNOWN = 0, VS_AI = 1, VS_FRIEND = 2, TUTORIAL = 4,
             ARENA = 5, TEST_AI_VS_AI = 6, RANKED = 7, CASUAL = 8,
-            TAVERNBRAWL = 16, TB_1P_VS_AI = 17, TB_2P_COOP = 18, LAST = 19)
+            TAVERNBRAWL = 16, TB_1P_VS_AI = 17, TB_2P_COOP = 18,
+            FSG_BRAWL_VS_FRIEND = 19, FSG_BRAWL = 20, FSG_BRAWL_1P_VS_AI = 21,
+            FSG_BRAWL_2P_COOP = 22, GT_TOURNAMENT = 23)
 
 BETTER_ENUM(GoldRewardState, int, INVALID = 0, ELIGIBLE = 1,
             WRONG_GAME_TYPE = 2, ALREADY_CAPPED = 3, BAD_RATING = 4,
@@ -2882,7 +2621,8 @@ BETTER_ENUM(MetaDataType, int, TARGET = 0, DAMAGE = 1, HEALING = 2, JOUST = 3,
             HISTORY_TARGET_DONT_DUPLICATE_UNTIL_END = 9,
             BEGIN_ARTIFICIAL_HISTORY_TILE = 10,
             BEGIN_ARTIFICIAL_HISTORY_TRIGGER_TILE = 11,
-            END_ARTIFICIAL_HISTORY_TILE = 12, START_DRAW = 13)
+            END_ARTIFICIAL_HISTORY_TILE = 12, START_DRAW = 13, BURNED_CARD = 14,
+            EFFECT_SELECTION = 15, BEGIN_LISTENING_FOR_TURN_EVENTS = 16)
 
 BETTER_ENUM(Mulligan, int, INVALID = 0, INPUT = 1, DEALING = 2, WAITING = 3,
             DONE = 4)
@@ -2894,7 +2634,7 @@ BETTER_ENUM(OptionType, int, PASS = 1, END_TURN = 2, POWER = 3)
 
 #ifndef HEARTHSTONEPP_EXPAND_LARGE_ENUMS
 BETTER_ENUM(
-    PlayReq, int, REQ_MINION_TARGET = 1, REQ_FRIENDLY_TARGET = 2,
+    PlayReq, int, INVALID = -1, REQ_MINION_TARGET = 1, REQ_FRIENDLY_TARGET = 2,
     REQ_ENEMY_TARGET = 3, REQ_DAMAGED_TARGET = 4, REQ_MAX_SECRETS = 5,
     REQ_FROZEN_TARGET = 6, REQ_CHARGE_TARGET = 7, REQ_TARGET_MAX_ATTACK = 8,
     REQ_NONSELF_TARGET = 9, REQ_TARGET_WITH_RACE = 10, REQ_TARGET_TO_PLAY = 11,
@@ -2932,7 +2672,8 @@ BETTER_ENUM(
     REQ_HAND_NOT_FULL = 70,
     REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK = 71,
     REQ_CAN_BE_TARGETED_BY_COMBOS = 72, REQ_CANNOT_PLAY_THIS = 73,
-    REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74, REQ_DRAG_TO_PLAY = 75)
+    REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74, REQ_DRAG_TO_PLAY = 75,
+    REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77)
 #else
 namespace better_enums_data_PlayReq
 {
@@ -2947,6 +2688,7 @@ class PlayReq
     typedef int _integral;
     enum _enumerated : int
     {
+        INVALID = -1,
         REQ_MINION_TARGET = 1,
         REQ_FRIENDLY_TARGET = 2,
         REQ_ENEMY_TARGET = 3,
@@ -3022,6 +2764,7 @@ class PlayReq
         REQ_CANNOT_PLAY_THIS = 73,
         REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74,
         REQ_DRAG_TO_PLAY = 75,
+        REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77
     };
 
     constexpr PlayReq(_enumerated value) : _value(value)
@@ -3048,7 +2791,7 @@ class PlayReq
     typedef ::better_enums::_Iterable<const char*> _name_iterable;
     typedef _value_iterable::iterator _value_iterator;
     typedef _name_iterable::iterator _name_iterator;
-    constexpr static const std::size_t _size_constant = 75;
+    constexpr static const std::size_t _size_constant = 77;
     constexpr static std::size_t _size()
     {
         return _size_constant;
@@ -3085,6 +2828,7 @@ static ::better_enums::_initialize_at_program_start<PlayReq>
     _force_initialization;
 enum _PutNamesInThisScopeAlso
 {
+    INVALID = -1,
     REQ_MINION_TARGET = 1,
     REQ_FRIENDLY_TARGET = 2,
     REQ_ENEMY_TARGET = 3,
@@ -3160,8 +2904,10 @@ enum _PutNamesInThisScopeAlso
     REQ_CANNOT_PLAY_THIS = 73,
     REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74,
     REQ_DRAG_TO_PLAY = 75,
+    REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77
 };
 constexpr const PlayReq _value_array[] = {
+    ((::better_enums::_eat_assign<PlayReq>)PlayReq::INVALID = -1),
     ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_MINION_TARGET = 1),
     ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_FRIENDLY_TARGET = 2),
     ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_ENEMY_TARGET = 3),
@@ -3280,8 +3026,10 @@ constexpr const PlayReq _value_array[] = {
     ((::better_enums::_eat_assign<PlayReq>)
          PlayReq::REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74),
     ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_DRAG_TO_PLAY = 75),
-};
+    ((::better_enums::_eat_assign<PlayReq>)
+         PlayReq::REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77)};
 constexpr const char* _the_raw_names[] = {
+    "INVALID = -1",
     "REQ_MINION_TARGET = 1",
     "REQ_FRIENDLY_TARGET = 2",
     "REQ_ENEMY_TARGET = 3",
@@ -3357,7 +3105,7 @@ constexpr const char* _the_raw_names[] = {
     "REQ_CANNOT_PLAY_THIS = 73",
     "REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74",
     "REQ_DRAG_TO_PLAY = 75",
-};
+    "REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77"};
 constexpr const char* const* _raw_names()
 {
     return _the_raw_names;
@@ -3365,6 +3113,8 @@ constexpr const char* const* _raw_names()
 inline char* _name_storage()
 {
     static char storage[] =
+        "INVALID = -1"
+        ","
         "REQ_MINION_TARGET = 1"
         ","
         "REQ_FRIENDLY_TARGET = 2"
@@ -3514,6 +3264,8 @@ inline char* _name_storage()
         "REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74"
         ","
         "REQ_DRAG_TO_PLAY = 75"
+        ","
+        "REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77"
         ",";
     return storage;
 }
@@ -3700,7 +3452,8 @@ BETTER_ENUM(PlayState, int, INVALID = 0, PLAYING = 1, WINNING = 2, LOSING = 3,
 
 BETTER_ENUM(PowerType, int, FULL_ENTITY = 1, SHOW_ENTITY = 2, HIDE_ENTITY = 3,
             TAG_CHANGE = 4, BLOCK_START = 5, ACTION_START = 5, BLOCK_END = 6,
-            ACTION_END = 6, CREATE_GAME = 7, META_DATA = 8, CHANGE_ENTITY = 9)
+            ACTION_END = 6, CREATE_GAME = 7, META_DATA = 8, CHANGE_ENTITY = 9,
+            RESET_GAME = 10)
 
 BETTER_ENUM(Race, int, INVALID = 0, BLOODELF = 1, DRAENEI = 2, DWARF = 3,
             GNOME = 4, GOBLIN = 5, HUMAN = 6, NIGHTELF = 7, ORC = 8, TAUREN = 9,
@@ -3725,7 +3478,7 @@ BETTER_ENUM(Type, int, LOCSTRING = -2, UNKNOWN = 0, BOOL = 1, NUMBER = 2,
             ENTITY_DEFINITION = 7, STRING = 8)
 
 BETTER_ENUM(ZodiacYear, int, INVALID = -1, PRE_STANDARD = 0, KRAKEN = 1,
-            MAMMOTH = 2)
+            MAMMOTH = 2, RAVEN = 3)
 
 BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3, GRAVEYARD = 4,
             REMOVEDFROMGAME = 5, SETASIDE = 6, SECRET = 7)
