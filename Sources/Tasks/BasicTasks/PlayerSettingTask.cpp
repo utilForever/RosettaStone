@@ -23,7 +23,7 @@ TaskID PlayerSettingTask::GetTaskID() const
 MetaData PlayerSettingTask::Impl(Player& player1, Player& player2)
 {
     player1.id = 0;
-    player2.id = 0;
+    player2.id = 1;
 
     TaskMeta setting =
         Serializer::CreatePlayerSetting(player1.email, player2.email);
