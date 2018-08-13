@@ -22,13 +22,12 @@ flatbuffers::Offset<FlatData::Entity> CreateEntity(
     {
         return FlatData::CreateEntity(builder);
     }
-
-    return FlatData::CreateEntity(builder, CreateCard(builder, entity->card),
-                                  0);
+    return FlatData::CreateEntity(builder,
+                                  CreateCard(builder, entity->card, entity), 0);
 }
 
 flatbuffers::Offset<FlatData::Card> CreateCard(
-    flatbuffers::FlatBufferBuilder& builder, const Card* card)
+    flatbuffers::FlatBufferBuilder& builder, const Card* card, const Entity* entity)
 {
     std::vector<int> mechanics;
     mechanics.reserve(card->mechanics.size());
@@ -41,6 +40,18 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
     size_t health = card->health ? *card->health : 0;
     size_t durability = card->durability ? *card->durability : 0;
 
+    if (entity != nullptr)
+    {
+        if (auto character = dynamic_cast<const Character*>(entity); character != nullptr)
+        {
+            attack = character->attack;
+            health = character->health;
+        }
+        if (auto weapon = dynamic_cast<const Weapon*>(entity); weapon != nullptr)
+        {
+            durability = weapon->durability;
+        }
+    }
     return FlatData::CreateCard(
         builder, builder.CreateString(card->id), static_cast<int>(card->rarity),
         static_cast<int>(card->faction), static_cast<int>(card->cardSet),
