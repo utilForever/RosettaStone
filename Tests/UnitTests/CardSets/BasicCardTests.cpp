@@ -292,8 +292,6 @@ TEST(BasicCard, EX1_008)
     std::string player1_card = "Argent Squire";
     std::string player2_card = "Stormwind Knight";
 
-
-
     agent.RunTask(BasicTasks::DrawCardTask(
                       Cards::GetInstance()->FindCardByName(player1_card)),
                   player1, player2);
