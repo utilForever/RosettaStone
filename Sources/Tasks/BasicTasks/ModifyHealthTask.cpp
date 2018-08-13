@@ -25,6 +25,11 @@ TaskID ModifyHealthTask::GetTaskID() const
 
 MetaData ModifyHealthTask::Impl(Player&, Player&)
 {
+    if (m_character->gameTags[+GameTag::DIVINE_SHIELD] == 1)
+    {
+        m_damage = 0;
+    }
+
     int remainHealth = static_cast<int>(m_character->health) - m_damage;
 
     // if minion is exhausted

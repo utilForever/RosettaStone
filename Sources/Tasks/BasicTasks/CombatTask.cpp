@@ -86,16 +86,32 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         return hurtedDst;
     }
 
-    // Poisonous : Dst -> Src
-    if (target->card->HasMechanic(+GameTag::POISONOUS))
+    // Divine Shield : Dst
+    if (target->gameTags[+GameTag::DIVINE_SHIELD] == 1)
     {
-        PowerTask::PoisonousTask(target, source).Run(player1, player2);
+        target->gameTags[+GameTag::DIVINE_SHIELD] = 0;
+    }
+    else
+    {
+        // Poisonous : Src -> Dst
+        if (source->gameTags[+GameTag::POISONOUS] == 1)
+        {
+            PowerTask::PoisonousTask(source, target).Run(player1, player2);
+        }
     }
 
-    // Poisonous : Src -> Dst
-    if (source->card->HasMechanic(+GameTag::POISONOUS))
+    // Divine Shield : Src
+    if (source->gameTags[+GameTag::DIVINE_SHIELD] == 1)
     {
-        PowerTask::PoisonousTask(source, target).Run(player1, player2);
+        source->gameTags[+GameTag::DIVINE_SHIELD] = 0;
+    }
+    else
+    {
+        // Poisonous : Dst -> Src
+        if (target->gameTags[+GameTag::POISONOUS] == 1)
+        {
+            PowerTask::PoisonousTask(target, source).Run(player1, player2);
+        }
     }
 
     // Source Health Check

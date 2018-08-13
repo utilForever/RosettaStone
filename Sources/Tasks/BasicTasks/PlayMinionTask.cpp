@@ -57,8 +57,14 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
     // Summon
     player1.field.insert(player1.field.begin() + position, character);
 
+    // Apply card mechanics tags
+    for (auto tags : m_entity->card->mechanics)
+    {
+        m_entity->gameTags[tags] = 1;
+    }
+
     // Summoned minion can't attack right turn
-    if (m_entity->card->HasMechanic(+GameTag::CHARGE))
+    if (m_entity->gameTags[+GameTag::CHARGE] == 1)
     {
         ((Character*) m_entity)->attackableCount = 1;
     }
