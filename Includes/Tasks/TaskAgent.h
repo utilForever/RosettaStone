@@ -43,8 +43,8 @@ class TaskAgent
     // if `notify` is true, TaskAgent notify the main channel as SyncBuffer
     void Run(TaskMeta& meta, Player& player1, Player& player2, ITask& task,
              bool notify = true);
-    void Run(TaskMeta& meta, Player& player1, Player& player2,
-             ITask&& task, bool notify = true);
+    void Run(TaskMeta& meta, Player& player1, Player& player2, ITask&& task,
+             bool notify = true);
     // Run Multi tasks and write result to `meta`
     template <typename... ITaskT>
     void RunMulti(TaskMeta& meta, Player& player1, Player& player2,
@@ -62,7 +62,8 @@ class TaskAgent
     SyncBuffer<TaskMeta> m_sideChannel;
 
     template <typename... ITaskT>
-    void ImplRun(std::vector<TaskMeta>& pool, Player& player1, Player& player2, ITaskT&&... tasks)
+    void ImplRun(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
+                 ITaskT&&... tasks)
     {
         auto pusher = [&, this](auto&& task) -> void {
             pool.emplace_back();

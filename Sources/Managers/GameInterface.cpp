@@ -102,7 +102,8 @@ void GameInterface::ShowCards(const EntityVector& entities)
 
 void GameInterface::HandleDefault(const TaskMeta& meta)
 {
-    m_ostream << m_users[meta.userID] << " TaskID::" << TaskID::_from_integral(meta.id)._to_string()
+    m_ostream << m_users[meta.userID]
+              << " TaskID::" << TaskID::_from_integral(meta.id)._to_string()
               << '\n';
 }
 
@@ -131,8 +132,8 @@ void GameInterface::HandlePlayerSetting(const TaskMeta& meta)
         m_users[0] = setting->player1()->str();
         m_users[1] = setting->player2()->str();
 
-        LogWriter("PlayerSetting")
-            << "player1 - " << m_users[0] << " / player2 - " << m_users[1] << '\n';
+        LogWriter("PlayerSetting") << "player1 - " << m_users[0]
+                                   << " / player2 - " << m_users[1] << '\n';
     }
 }
 
