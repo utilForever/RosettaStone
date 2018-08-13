@@ -49,6 +49,10 @@ HandleStatus GameInterface::HandleMessage(const TaskMeta& serialized)
         // find from handler table and call it
         m_handler[serialized.id](*this, serialized);
     }
+    else
+    {
+        HandleDefault(serialized);
+    }
 
     if (serialized.id == +TaskID::GAME_END)
     {
@@ -64,16 +68,9 @@ std::ostream& GameInterface::LogWriter(const std::string& name)
     return m_ostream;
 }
 
-const FlatData::GameStatus* GameInterface::ConvertToGameStatus(
-    const TaskMeta& meta) const
+std::ostream& GameInterface::LogWriter(std::string&& name)
 {
-    const auto& buffer = meta.GetConstBuffer();
-    if (buffer == nullptr)
-    {
-        return nullptr;
-    }
-
-    return flatbuffers::GetRoot<FlatData::GameStatus>(buffer.get());
+    return LogWriter(name);
 }
 
 template <std::size_t SIZE>
@@ -90,7 +87,6 @@ void GameInterface::ShowCards(const EntityVector& entities)
     for (const auto& entity : entities)
     {
         const auto card = entity->card();
-
         CardType cardType = CardType::_from_integral(card->cardType());
         m_ostream << '[' << card->name()->c_str() << '('
                   << cardType._to_string() << " / " << card->cost() << ")] ";
@@ -104,173 +100,70 @@ void GameInterface::ShowCards(const EntityVector& entities)
     }
 }
 
-void GameInterface::HandleInvalid(const TaskMeta&)
+void GameInterface::HandleDefault(const TaskMeta& meta)
 {
-    // Do Nothing
+    m_ostream << m_users[meta.userID] << " TaskID::" << TaskID::_from_integral(meta.id)._to_string()
+              << '\n';
 }
 
 void GameInterface::HandleTaskVector(const TaskMeta& meta)
 {
-    std::string name = "TaskVector";
-    const auto& buffer = meta.GetConstBuffer();
-    if (buffer == nullptr)
-    {
-        LogWriter(name) << "Exception HandleTaskVector : TaskMeta is nullptr\n";
-        return;
-    }
-
-    auto metas = flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
+    auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
     if (metas == nullptr)
     {
-        LogWriter(name)
-            << "Exception HandleTaskVector : TaskMetaVector is nullptr\n";
+        LogWriter("TaskVector")
+            << "Exception HandleTaskMeta : Invalid FlatBuffers\n";
         return;
     }
 
-    for (const auto& ind : *metas->vector())
+    auto vector = metas->vector();
+    for (const auto& ind : *vector)
     {
         HandleMessage(TaskMeta::ConvertFrom(ind));
     }
 }
 
-void GameInterface::HandleRequire(const TaskMeta& meta)
-{
-    std::string name = "Require";
-
-    using RequireTaskMeta = FlatData::RequireTaskMeta;
-    const auto& buffer = meta.GetConstBuffer();
-    if (buffer == nullptr)
-    {
-        LogWriter(name) << "Exception HandleRequire : TaskMeta is nullptr\n";
-        return;
-    }
-
-    auto deserialized = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-    if (deserialized == nullptr)
-    {
-        LogWriter(name)
-            << "Exception HandleRequire : RequireTaskMeta is nullptr\n";
-        return;
-    }
-
-    auto required = TaskID::_from_integral(deserialized->required());
-    if (m_inputHandler.find(required) != m_inputHandler.end())
-    {
-        // Find and call from Input Handler Table
-        m_inputHandler[required](*this, meta);
-    }
-}
-
 void GameInterface::HandlePlayerSetting(const TaskMeta& meta)
 {
-    std::string name = "Player Setting";
-    std::ostream& stream = LogWriter(name);
-
-    auto status = ConvertToGameStatus(meta);
-    if (status != nullptr)
+    auto setting = TaskMeta::ConvertTo<FlatData::PlayerSetting>(meta);
+    if (setting != nullptr && meta.status == MetaData::PLAYER_SETTING_REQUEST)
     {
-        return;
-    }
-    else
-    {
-        const auto& buffer = meta.GetConstBuffer();
-        if (buffer == nullptr)
-        {
-            stream << "Exception HandlePlayerSetting : GameStatus is nullptr\n";
+        m_users[0] = setting->player1()->str();
+        m_users[1] = setting->player2()->str();
 
-            m_users[0] = "Unknown0";
-            m_users[1] = "Unknown1";
-
-            return;
-        }
-
-        auto setting =
-            flatbuffers::GetRoot<FlatData::PlayerSetting>(buffer.get());
-        if (setting != nullptr)
-        {
-            m_users[0] = setting->player1()->str();
-            m_users[1] = setting->player2()->str();
-
-            stream << "first : " << m_users[0] << '\n'
-                   << "second : " << m_users[1] << '\n';
-        }
-        else
-        {
-            stream << "Exception HandlePlayerSetting : Invalid FlatBuffer\n";
-
-            m_users[0] = "Unknown0";
-            m_users[1] = "Unknown1";
-        }
+        LogWriter("PlayerSetting")
+            << "player1 - " << m_users[0] << " / player2 - " << m_users[1] << '\n';
     }
 }
 
-void GameInterface::HandleSwap(const TaskMeta&)
+void GameInterface::HandleRequire(const TaskMeta& meta)
 {
-    std::string name = "Player";
-    LogWriter(name) << "Swap\n";
-}
-
-void GameInterface::HandleShuffle(const TaskMeta& meta)
-{
-    LogWriter(m_users[meta.userID]) << "Shuffled\n";
-}
-
-void GameInterface::HandleDraw(const TaskMeta& meta)
-{
-    std::ostream& stream = LogWriter(m_users[meta.userID]);
-    auto status = ConvertToGameStatus(meta);
-    if (status == nullptr)
+    using RequireTaskMeta = FlatData::RequireTaskMeta;
+    auto required = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
+    if (required == nullptr)
     {
-        stream << "Exception HandleDraw : TaskMeta is nullptr\n";
+        LogWriter("Require")
+            << "Exception HandleRequire : TaskMeta is nullptr\n";
         return;
     }
 
-    if (meta.status == MetaData::DRAW_SUCCESS)
+    auto taskid = TaskID::_from_integral(required->required());
+    if (m_inputHandler.find(taskid) != m_inputHandler.end())
     {
-        stream << "Draw Success\n";
+        // Find and call from Input Handler Table
+        m_inputHandler[taskid](*this, meta);
     }
-    else
-    {
-        if (meta.status == MetaData::DRAW_EXHAUST ||
-            meta.status == MetaData::DRAW_EXHAUST_OVERDRAW)
-        {
-            stream << "Draw Exhausted\n";
-        }
-
-        if (meta.status == MetaData::DRAW_OVERDRAW ||
-            meta.status == MetaData::DRAW_EXHAUST_OVERDRAW)
-        {
-            stream << "Draw OverDraw\n";
-        }
-    }
-
-    ShowCards(*status->currentHand());
-}
-
-void GameInterface::HandleModifyMana(const TaskMeta& meta)
-{
-    std::ostream& stream = LogWriter(m_users[meta.userID]);
-
-    auto status = ConvertToGameStatus(meta);
-    if (status == nullptr)
-    {
-        stream << "Exception HandleModifyMana : TaskMeta is nullptr\n";
-        return;
-    }
-
-    stream << "Modfiy Mana : " << status->currentMana() << '\n';
-}
-
-void GameInterface::HandleModifyHealth(const TaskMeta& meta)
-{
-    LogWriter(m_users[meta.userID]) << "Modify Health\n";
 }
 
 void GameInterface::HandleBrief(const TaskMeta& meta)
 {
-    std::ostream& stream = LogWriter(m_users[meta.userID]);
+    if (meta.status == MetaData::BRIEF_EXPIRED)
+    {
+        return;
+    }
 
-    auto status = ConvertToGameStatus(meta);
+    std::ostream& stream = LogWriter(m_users[meta.userID]);
+    auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
     if (status == nullptr)
     {
         stream << "Exception HandleBrief : TaskMeta is nullptr\n";
@@ -308,114 +201,14 @@ void GameInterface::HandleBrief(const TaskMeta& meta)
     ShowCards(*status->currentHand());
 }
 
-void GameInterface::HandleMulligan(const TaskMeta& meta)
-{
-    std::ostream& stream = LogWriter(m_users[meta.userID]) << "Mulligan : ";
-    switch (meta.status)
-    {
-        case MetaData::MULLIGAN_SUCCESS:
-            stream << "Success\n";
-            break;
-
-        case MetaData::MULLIGAN_INDEX_OUT_OF_RANGE:
-            stream << "Index out of range exception\n";
-            break;
-
-        case MetaData::MULLIGAN_DUPLICATED_INDEX:
-            stream << "Duplicated index exception\n";
-            break;
-
-        default:
-            break;
-    }
-}
-
-void GameInterface::HandleCombat(const TaskMeta& meta)
-{
-    std::ostream& stream = LogWriter(m_users[meta.userID]) << "Combat : ";
-
-    switch (meta.status)
-    {
-        case MetaData::COMBAT_SUCCESS:
-            stream << "Success\n";
-            break;
-        case MetaData::COMBAT_ALREADY_ATTACKED:
-            stream << "Already Attacked Minion\n";
-            break;
-        case MetaData::COMBAT_DST_IDX_OUT_OF_RANGE:
-            stream << "Destination Index Out of Range\n";
-            break;
-        case MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE:
-            stream << "Source Index Out of Range\n";
-            break;
-        default:
-            throw std::runtime_error(
-                "GameInterface::HandleCombat::Unknown_Status");
-    }
-}
-
-void GameInterface::HandlePlayCard(const TaskMeta& meta)
-{
-    std::ostream& stream = LogWriter(m_users[meta.userID]) << "Play Card : ";
-
-    switch (meta.status)
-    {
-        case MetaData::PLAY_CARD_SUCCESS:
-            stream << "Success\n";
-            break;
-        case MetaData::PLAY_CARD_FLATBUFFER_NULLPTR:
-            stream << "Interacted Flatbuffer is nullptr\n";
-            break;
-        case MetaData::PLAY_CARD_IDX_OUT_OF_RANGE:
-            stream << "Card Index Out of Range\n";
-            break;
-        case MetaData::PLAY_CARD_NOT_ENOUGH_MANA:
-            stream << "Not Enough Mana\n";
-            break;
-        case MetaData::PLAY_CARD_INVALID_CARD_TYPE:
-            stream << "Invalid Card Type\n";
-            break;
-        default:
-            throw std::runtime_error("HandlePlayCard : Unexpected status type");
-    }
-}
-
-void GameInterface::HandlePlayMinion(const TaskMeta& meta)
-{
-    std::ostream& stream = LogWriter(m_users[meta.userID]) << "Play Minion : ";
-
-    switch (meta.status)
-    {
-        case MetaData::PLAY_MINION_SUCCESS:
-            stream << "Success\n";
-            break;
-        case MetaData::PLAY_MINION_FLATBUFFER_NULLPTR:
-            stream << "Interacted Flatbuffer is nullptr\n";
-            break;
-        case MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE:
-            stream << "Minion Position out of Range\n";
-            break;
-        case MetaData::PLAY_MINION_MODIFY_MANA_FAIL:
-            stream << "Fail Modifying Mana\n";
-            break;
-        default:
-            throw std::runtime_error(
-                "HandlePlayMinion : Unexpected status type");
-    }
-}
-
-void GameInterface::HandlePlayWeapon(const TaskMeta& meta)
-{
-    LogWriter(m_users[meta.userID]) << "Play Weapon\n";
-}
-
 void GameInterface::HandleGameEnd(const TaskMeta& meta)
 {
-    std::string name = "GameEnd";
-    auto status = ConvertToGameStatus(meta);
+    auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
+    ;
     if (status == nullptr)
     {
-        LogWriter(name) << "Exception HandleGameEnd : TaskMeta is nullptr\n";
+        LogWriter("GameEnd")
+            << "Exception HandleGameEnd : TaskMeta is nullptr\n";
         return;
     }
 
@@ -442,7 +235,7 @@ void GameInterface::HandleGameEnd(const TaskMeta& meta)
 
 void GameInterface::HandleOverDraw(const TaskMeta& meta)
 {
-    std::ostream& stream = LogWriter(m_users[meta.id]);
+    std::ostream& stream = LogWriter(m_users[meta.userID]);
 
     const auto& buffer = meta.GetConstBuffer();
     if (buffer == nullptr)
