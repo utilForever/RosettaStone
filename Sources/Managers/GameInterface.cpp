@@ -170,7 +170,7 @@ void GameInterface::HandleBrief(const TaskMeta& meta)
         stream << "Exception HandleBrief : TaskMeta is nullptr\n";
         return;
     }
-
+    
     size_t bufferSize = meta.GetBufferSize();
     m_status = std::make_unique<BYTE[]>(bufferSize);
 
@@ -205,7 +205,6 @@ void GameInterface::HandleBrief(const TaskMeta& meta)
 void GameInterface::HandleGameEnd(const TaskMeta& meta)
 {
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
-    ;
     if (status == nullptr)
     {
         LogWriter("GameEnd")
@@ -213,21 +212,26 @@ void GameInterface::HandleGameEnd(const TaskMeta& meta)
         return;
     }
 
-    auto current = status->currentHero()->card();
-    auto opponent = status->opponentHero()->card();
-    if (current->health() == 0 && opponent->health() == 0)
+    auto hpPlayer1 = status->currentHero()->card()->health();
+    auto hpPlayer2 = status->opponentHero()->card()->health();
+    if (hpPlayer1 != 0 && hpPlayer2 != 0)
     {
-        m_result.winnerID = "DRAW";
-        LogWriter(m_result.winnerID) << '\n';
-
+        LogWriter("GameEnd")
+            << "Exception HandleGame End : No one end the game - "
+            << static_cast<int>(hpPlayer1) << " / "
+            << static_cast<int>(hpPlayer2) << '\n';
         return;
     }
 
-    if (current->health() == 0 && opponent->health() != 0)
+    if (hpPlayer1 == 0 && hpPlayer2 == 0)
+    {
+        m_result.winnerID = "DRAW";
+    }
+    else if (hpPlayer1 == 0 && hpPlayer2 != 0)
     {
         m_result.winnerID = m_users[status->opponentPlayer()];
     }
-    else if (current->health() != 0 && opponent->health() == 0)
+    else if (hpPlayer1 != 0 && hpPlayer2 == 0)
     {
         m_result.winnerID = m_users[status->currentPlayer()];
     }
