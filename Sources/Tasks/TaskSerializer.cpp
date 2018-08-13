@@ -177,7 +177,7 @@ TaskMeta CreatePlayerSetting(const std::string& player1,
         builder, builder.CreateString(player1), builder.CreateString(player2));
 
     builder.Finish(setting);
-    return TaskMeta(TaskMetaTrait(TaskID::PLAYER_SETTING), builder.GetSize(),
+    return TaskMeta(TaskMetaTrait(TaskID::PLAYER_SETTING, MetaData::PLAYER_SETTING_REQUEST), builder.GetSize(),
                     builder.GetBufferPointer());
 }
 
