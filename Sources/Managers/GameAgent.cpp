@@ -136,13 +136,19 @@ void GameAgent::MainReady()
         BasicTasks::ModifyManaByRef(NumMode::SET, ManaMode::EXIST,
                                     m_player1.totalMana));
 
-    for (auto &character : player1.field)
-    {  
-        character->attackableCount = character->gameTags[+GameTag::WINDFURY] ? 2 : 1;
-    }
+    for (auto &character : m_player1.field)
+    {
+        if (character->gameTags[+GameTag::FROZEN] == 1)
+        {
+            character->gameTags[+GameTag::FROZEN] = 0;
+        }
+        else if (character->gameTags[+GameTag::FROZEN] == 2)
+        {
+            character->gameTags[+GameTag::FROZEN] = 1;
+            character->attackableCount = 0;
+            continue;
+        }
 
-    for (auto &character : player2.field)
-    {  
         character->attackableCount = character->gameTags[+GameTag::WINDFURY] ? 2 : 1;
     }
 }

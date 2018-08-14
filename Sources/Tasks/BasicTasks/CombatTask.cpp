@@ -9,6 +9,7 @@
 #include <Tasks/BasicTasks/CombatTask.h>
 #include <Tasks/BasicTasks/ModifyHealthTask.h>
 #include <Tasks/PowerTasks/PoisonousTask.h>
+#include <Tasks/PowerTasks/FreezeTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
@@ -67,6 +68,23 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
+    // Taunt Verification
+    if (target->gameTags[+GameTag::TAUNT] == 0)
+    for (auto& item: player2.field)
+    {
+        if (item->gameTags[+GameTag::TAUNT] == 1)
+        {
+            return MetaData::COMBAT_FIELD_HAVE_TAUNT;
+        }
+    }
+
+    // Stealth Verification
+    if (target->gameTags[+GameTag::STEALTH] == 1)
+    {
+        return MetaData::COMBAT_TARGET_STEALTH;
+    }
+
+
     BYTE sourceAttack = static_cast<BYTE>(source->attack);
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
 
@@ -98,6 +116,12 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         {
             PowerTask::PoisonousTask(source, target).Run(player1, player2);
         }
+
+        // Freeze : Src -> Dst
+        if (source->gameTags[+GameTag::FREEZE] == 1)
+        {
+            PowerTask::FreezeTask(target, 2).Run(player1, player2);
+        }
     }
 
     // Divine Shield : Src
@@ -111,6 +135,12 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         if (target->gameTags[+GameTag::POISONOUS] == 1)
         {
             PowerTask::PoisonousTask(target, source).Run(player1, player2);
+        }
+
+        // Freeze : Dst -> Src
+        if (target->gameTags[+GameTag::FREEZE] == 1)
+        {
+            PowerTask::FreezeTask(source, 1).Run(player1, player2);
         }
     }
 
