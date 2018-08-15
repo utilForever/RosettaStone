@@ -27,7 +27,8 @@ flatbuffers::Offset<FlatData::Entity> CreateEntity(
 }
 
 flatbuffers::Offset<FlatData::Card> CreateCard(
-    flatbuffers::FlatBufferBuilder& builder, const Card* card, const Entity* entity)
+    flatbuffers::FlatBufferBuilder& builder, const Card* card,
+    const Entity* entity)
 {
     std::vector<int> mechanics;
     mechanics.reserve(card->mechanics.size());
@@ -42,12 +43,14 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
 
     if (entity != nullptr)
     {
-        if (auto character = dynamic_cast<const Character*>(entity); character != nullptr)
+        if (auto character = dynamic_cast<const Character*>(entity);
+            character != nullptr)
         {
             attack = character->attack;
             health = character->health;
         }
-        if (auto weapon = dynamic_cast<const Weapon*>(entity); weapon != nullptr)
+        if (auto weapon = dynamic_cast<const Weapon*>(entity);
+            weapon != nullptr)
         {
             durability = weapon->durability;
         }
@@ -224,7 +227,7 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
         makeOffset(player1.hand), result[1],
         static_cast<BYTE>(player2.hand.size()),
         static_cast<BYTE>(player1.cards.size()),
-        static_cast<BYTE>(player2.cards.size()), result[2], result[3]);
+        static_cast<BYTE>(player2.cards.size()));
 
     builder.Finish(gameStatus);
     return TaskMeta(TaskMetaTrait(taskID, status, player1.id),
