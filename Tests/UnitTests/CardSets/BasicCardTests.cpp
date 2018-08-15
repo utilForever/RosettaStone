@@ -234,6 +234,17 @@ TEST(BasicCard, EX1_170)
     GameAgent agent(
         Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
         Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
+
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
+
+    player1.totalMana = agent.GetPlayer1().existMana = 10;
+    player2.totalMana = agent.GetPlayer2().existMana = 10;
+
+    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
                       "Emperor Cobra")),
                   player1, player2);
 
