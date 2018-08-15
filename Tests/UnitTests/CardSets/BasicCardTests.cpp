@@ -553,7 +553,7 @@ TEST(BasicCard, CS2_179)
 TEST(BasicCard, EX1_306)
 {
     GameAgent agent(
-        Player(new Account("Player 1", ""), new Deck("", CardClass::WARRIOR)),
+        Player(new Account("Player 1", ""), new Deck("", CardClass::WARLOCK)),
         Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
 
     TaskAgent& taskAgent = agent.GetTaskAgent();
