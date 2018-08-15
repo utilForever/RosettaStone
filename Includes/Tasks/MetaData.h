@@ -92,7 +92,6 @@ enum class MetaData : status_t
 
     DISCARD,
     DISCARD_MY_HAND_SUCCESS,
-    DISCARD_HAND_IS_EMPTY,
     DISCARD_IDX_OUT_OF_RANGE,
 
     HEAL_FULL,

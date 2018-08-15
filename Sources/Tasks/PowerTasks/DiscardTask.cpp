@@ -27,7 +27,7 @@ MetaData DiscardTask::Impl(Player& player1, Player&)
     {
         if (player1.hand.size() <= 0)
         {
-            return MetaData::DISCARD_HAND_IS_EMPTY;
+            return MetaData::DISCARD_MY_HAND_SUCCESS;
         }
 
         std::random_device rd;
