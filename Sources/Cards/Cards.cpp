@@ -223,7 +223,7 @@ std::vector<Card*> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
         }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (card->spellDamage.value() >= minVal && card->health.value() <= maxVal)
+        if (card->spellDamage.value() >= minVal && card->spellDamage.value() <= maxVal)
 #else
         if (*(card->spellDamage) >= minVal && *(card->spellDamage) <= maxVal)
 #endif
