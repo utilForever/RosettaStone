@@ -104,8 +104,7 @@ void GameInterface::HandleDefault(const TaskMeta& meta)
 {
     m_ostream << m_users[meta.userID]
               << " TaskID::" << TaskID::_from_integral(meta.id)._to_string()
-              << ' ' << static_cast<int>(meta.status)
-              << '\n';
+              << ' ' << static_cast<int>(meta.status) << '\n';
 }
 
 void GameInterface::HandleTaskVector(const TaskMeta& meta)
@@ -171,7 +170,7 @@ void GameInterface::HandleBrief(const TaskMeta& meta)
         stream << "Exception HandleBrief : TaskMeta is nullptr\n";
         return;
     }
-    
+
     size_t bufferSize = meta.GetBufferSize();
     m_status = std::make_unique<BYTE[]>(bufferSize);
 
@@ -394,25 +393,14 @@ void GameInterface::InputTarget(const TaskMeta& meta)
     int src;
     while (true)
     {
-        m_ostream << "Select source minion (0 for hearo, 1 ~ " << numCurrentField
-                  << " for minion) : ";
+        m_ostream << "Select source minion (0 for hearo, 1 ~ "
+                  << numCurrentField << " for minion) : ";
 
         m_istream >> src;
         // Source Field range verification
         if (src >= 0 && src <= numCurrentField)
         {
-            auto currentAttacked = brief->currentAttacked();
-            auto begin = currentAttacked->begin();
-            auto end = currentAttacked->end();
-            auto srcCard = src == 0 ? brief->currentHero() : currentField->Get(src);
-            if (std::find(begin, end, srcCard) != end)
-            {
-                m_ostream << "Already attacked minion\n";
-            }
-            else
-            {
-                break;
-            }
+            break;
         }
     }
 
