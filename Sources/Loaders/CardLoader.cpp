@@ -148,6 +148,9 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
         card->durability = (durability != -1)
                                ? std::optional<size_t>(durability)
                                : std::nullopt;
+        card->spellDamage = (spellDamage != -1)
+                            ? std::experimental::optional<size_t>(spellDamage)
+                            : std::experimental::nullopt;
 #else
         card->attack = (attack != -1)
                            ? std::experimental::optional<size_t>(attack)
@@ -161,7 +164,6 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
         card->spellDamage = (spellDamage != -1)
                             ? std::experimental::optional<size_t>(spellDamage)
                             : std::experimental::nullopt;
-        card->spellDamage = spellDamage;
 #endif
         card->cost = cost;
         card->mechanics = mechanics;
