@@ -6,6 +6,7 @@
 > Created Time: 2017/10/10
 > Copyright (c) 2017, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Cards/Card.h>
 #include <Cards/Cards.h>
 #include <Cards/Character.h>
 #include <Commons/Macros.h>
