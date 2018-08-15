@@ -48,9 +48,6 @@ struct Player
     std::vector<Spell*> usedSpell;
     std::vector<Character*> usedMinion;
 
-    // Already Attacked Minion
-    std::vector<Character*> attacked;
-
     bool operator==(const Player& player) const
     {
         return this->email == player.email;

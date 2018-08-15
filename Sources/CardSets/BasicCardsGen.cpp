@@ -169,6 +169,23 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     cards.emplace("CS2_171", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
+    // - Race: troll, Fac: HORDE, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - Taunt = 1
+    // --------------------------------------------------------
+    cards.emplace("CS2_179", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
+    // - Race: element, Fac: neutral, Set: core, Rarity: free
+    // --------------------------------------------------------
+    cards.emplace("CS2_118", nullptr);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
