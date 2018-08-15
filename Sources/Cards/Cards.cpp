@@ -206,6 +206,34 @@ std::vector<Card*> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
     return result;
 }
 
+std::vector<Card*> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
+{
+    std::vector<Card*> result;
+
+    for (auto card : m_cards)
+    {
+#ifndef HEARTHSTONEPP_MACOSX
+        if (!card->spellDamage.has_value())
+#else
+        if (card->spellDamage == std::experimental::nullopt)
+#endif
+        {
+            continue;
+        }
+
+#ifndef HEARTHSTONEPP_MACOSX
+        if (card->spellDamage.value() >= minVal && card->health.value() <= maxVal)
+#else
+        if (*(card->spellDamage) >= minVal && *(card->spellDamage) <= maxVal)
+#endif
+        {
+            result.emplace_back(card);
+        }
+    }
+
+    return result;
+}
+
 std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
 {
     std::vector<Card*> result;

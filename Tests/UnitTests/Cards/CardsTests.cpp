@@ -205,3 +205,12 @@ TEST(TestCards, GetDefaultHeroPower)
               cards->GetDefaultHeroPower(CardClass::WARRIOR));
     EXPECT_EQ(nullptr, cards->GetDefaultHeroPower(CardClass::DEATHKNIGHT));
 }
+
+TEST(TestCards, FindCardBySpellDamage)
+{
+    Cards* cards = Cards::GetInstance();
+    std::vector<Card*> cards1 = cards->FindCardBySpellDamage(1, 1);
+    std::vector<Card*> cards2 = cards->FindCardByCost(2, 1);
+    EXPECT_FALSE(cards1.empty());
+    EXPECT_TRUE(cards2.empty());
+}

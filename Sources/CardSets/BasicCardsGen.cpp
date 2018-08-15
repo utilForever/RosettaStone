@@ -169,6 +169,17 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     cards.emplace("CS2_171", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
+    // - Race: beast
+    // --------------------------------------------------------
+    cards.emplace("CS2_201", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
+    cards.emplace("CS2_155", nullptr);
+
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)

@@ -59,9 +59,11 @@ struct Card
 #else
     std::experimental::optional<size_t> attack;
     std::experimental::optional<size_t> health;
+    std::experimental::optional<size_t> spellDamage;;
     std::experimental::optional<size_t> durability;
 #endif
     size_t cost;
+
 
     std::vector<GameTag> mechanics;
     std::map<PlayReq, int> playRequirements;
