@@ -120,7 +120,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         // Freeze : Src -> Dst
         if (source->gameTags[+GameTag::FREEZE] == 1)
         {
-            PowerTask::FreezeTask(target, 2).Run(player1, player2);
+            PowerTask::FreezeTask(EntityType::TARGET, 2).Run(player1, player2);
         }
     }
 
@@ -140,7 +140,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         // Freeze : Dst -> Src
         if (target->gameTags[+GameTag::FREEZE] == 1)
         {
-            PowerTask::FreezeTask(source, 1).Run(player1, player2);
+            PowerTask::FreezeTask(EntityType::TARGET, 1).Run(player1, player2);
         }
     }
 

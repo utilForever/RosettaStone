@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp::PowerTask
 {
-    FreezeTask::FreezeTask(Character* target, int turn): m_target(target), m_turn(turn)
+    FreezeTask::FreezeTask(EntityType entityType, int turn): m_entityType(entityType), m_turn(turn)
     {
         // Do nothing
     }
@@ -22,8 +22,8 @@ namespace Hearthstonepp::PowerTask
 
     MetaData FreezeTask::Impl(Player&, Player&)
     {
-        m_target->gameTags[+GameTag::FROZEN] = m_turn;
-        m_target->attackableCount = 0;
+        target->gameTags[+GameTag::FROZEN] = m_turn;
+        target->attackableCount = 0;
 
         return MetaData::FREEZE_SUCCESS;
     }

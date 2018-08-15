@@ -16,12 +16,12 @@ namespace Hearthstonepp::PowerTask
     class FreezeTask : public ITask
     {
     public:
-        FreezeTask(Character* target, int turn);
+        FreezeTask(EntityType entityType, int turn);
 
         TaskID GetTaskID() const override;
 
     private:
-        Character* m_target;
+        EntityType m_entityType;
         int m_turn;
 
         MetaData Impl(Player& player1, Player& player2) override;
