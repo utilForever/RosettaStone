@@ -342,12 +342,12 @@ TEST(BasicCard, EX1_306)
     MetaData result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), 0);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(0));
 
 	// This task doesn't affect player 2's hand
     respAutoMinion = response.AutoMinion(0, 0);
     result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), 1);
+    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
 }
