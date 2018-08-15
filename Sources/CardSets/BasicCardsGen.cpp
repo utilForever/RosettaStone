@@ -190,6 +190,12 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - Taunt = 1
     // --------------------------------------------------------
     cards.emplace("CS2_179", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
+    // - Race: element, Fac: neutral, Set: core, Rarity: free
+    // --------------------------------------------------------
+    cards.emplace("CS2_118", nullptr);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
