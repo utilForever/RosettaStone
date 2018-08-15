@@ -28,10 +28,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Get Targeting Response from GameInterface
     m_requirement.Interact(player1.id, serialized);
 
-    using RequireTaskMeta = FlatData::ResponseTarget;
-    const auto& buffer = serialized.GetConstBuffer();
-    auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
+    auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
     if (req == nullptr)
     {
         return MetaData::COMBAT_FLATBUFFER_NULLPTR;
@@ -58,8 +55,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         return MetaData::COMBAT_ALREADY_ATTACKED;
     }
 
-    attacked.emplace_back(source);
-
     // Destination Verification
     // dst == 0 : hero
     // 1 < dst <= field.size : minion
@@ -68,7 +63,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
-    BYTE sourceAttack = static_cast<BYTE>(source->attack);
+    BYTE sourceAttack = (src > 0) ? static_cast<BYTE>(source->attack) : 0;
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
 
     // Attack : Dst -> Src
@@ -78,6 +73,17 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     {
         return hurtedSrc;
     }
+    if (source->health <= 0)
+    {
+        // find minion and remove it from field
+        auto& field = player1.field;
+        if (auto ptr = std::find(field.begin(), field.end(), source);  ptr != field.end())
+        {
+            field.erase(ptr);
+        }
+        player1.usedMinion.emplace_back(source);
+    }
+    attacked.emplace_back(source);
 
     // Attack : Src -> Dst
     MetaData hurtedDst =
@@ -85,6 +91,15 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     if (hurtedDst != MetaData::MODIFY_HEALTH_SUCCESS)
     {
         return hurtedDst;
+    }
+    if (target->health <= 0)
+    {
+        auto& field = player2.field;
+        if (auto ptr = std::find(field.begin(), field.end(), target); ptr != field.end())
+        {
+            field.erase(ptr);
+        }
+        player2.usedMinion.emplace_back(source);
     }
 
     return MetaData::COMBAT_SUCCESS;
