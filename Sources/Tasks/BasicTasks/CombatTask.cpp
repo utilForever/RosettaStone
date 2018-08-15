@@ -116,12 +116,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         {
             PowerTask::PoisonousTask(source, target).Run(player1, player2);
         }
-
-        // Freeze : Src -> Dst
-        if (source->gameTags[+GameTag::FREEZE] == 1)
-        {
-            PowerTask::FreezeTask(EntityType::TARGET, 2).Run(player1, player2);
-        }
     }
 
     // Divine Shield : Src
@@ -135,12 +129,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         if (target->gameTags[+GameTag::POISONOUS] == 1)
         {
             PowerTask::PoisonousTask(target, source).Run(player1, player2);
-        }
-
-        // Freeze : Dst -> Src
-        if (target->gameTags[+GameTag::FREEZE] == 1)
-        {
-            PowerTask::FreezeTask(EntityType::TARGET, 1).Run(player1, player2);
         }
     }
 
