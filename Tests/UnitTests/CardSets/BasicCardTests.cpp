@@ -291,15 +291,15 @@ TEST(BasicCard, EX1_008)
     player1.totalMana = agent.GetPlayer1().existMana = 10;
     player2.totalMana = agent.GetPlayer2().existMana = 10;
 
-    std::string player1_card = "Argent Squire";
-    std::string player2_card = "Grimscale Oracle";
+    std::string player1Card = "Argent Squire";
+    std::string player2Card = "Grimscale Oracle";
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player1_card)),
+            Cards::GetInstance()->FindCardByName(player1Card)),
                   player1, player2);
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player2_card)),
+            Cards::GetInstance()->FindCardByName(player2Card)),
                   player2, player1);
 
     // Create multiple response for PlayCardTask And PlayMinionTask
@@ -343,15 +343,15 @@ TEST(BasicCard, EX1_017)
     player1.totalMana = agent.GetPlayer1().existMana = 10;
     player2.totalMana = agent.GetPlayer2().existMana = 10;
 
-    std::string player1_card = "Ironfur Grizzly";
-    std::string player2_card = "Grimscale Oracle";
+    std::string player1Card = "Ironfur Grizzly";
+    std::string player2Card = "Grimscale Oracle";
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player1_card)),
+            Cards::GetInstance()->FindCardByName(player1Card)),
                   player1, player2);
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player2_card)),
+            Cards::GetInstance()->FindCardByName(player2Card)),
                   player2, player1);
 
     // Create multiple response for PlayCardTask And PlayMinionTask
@@ -392,15 +392,15 @@ TEST(BasicCard, CS2_125)
     player1.totalMana = agent.GetPlayer1().existMana = 10;
     player2.totalMana = agent.GetPlayer2().existMana = 10;
 
-    std::string player1_card = "Jungle Panther";
-    std::string player2_card = "Grimscale Oracle";
+    std::string player1Card = "Jungle Panther";
+    std::string player2Card = "Grimscale Oracle";
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player1_card)),
+            Cards::GetInstance()->FindCardByName(player1Card)),
                   player1, player2);
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player2_card)),
+            Cards::GetInstance()->FindCardByName(player2Card)),
                   player2, player1);
 
     // Create multiple response for PlayCardTask And PlayMinionTask
@@ -442,15 +442,15 @@ TEST(BasicCard, CS2_169)
     player1.totalMana = agent.GetPlayer1().existMana = 10;
     player2.totalMana = agent.GetPlayer2().existMana = 10;
 
-    std::string player1_card = "Young Dragonhawk";
-    std::string player2_card = "Grimscale Oracle";
+    std::string player1Card = "Young Dragonhawk";
+    std::string player2Card = "Grimscale Oracle";
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player1_card)),
+            Cards::GetInstance()->FindCardByName(player1Card)),
                   player1, player2);
 
     agent.RunTask(BasicTasks::DrawCardTask(
-            Cards::GetInstance()->FindCardByName(player2_card)),
+            Cards::GetInstance()->FindCardByName(player2Card)),
                   player2, player1);
 
     // Create multiple response for PlayCardTask And PlayMinionTask
