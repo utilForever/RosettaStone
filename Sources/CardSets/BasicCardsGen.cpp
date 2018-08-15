@@ -275,4 +275,3 @@ void BasicCardsGen::AddAll(std::map<std::string, Power*>& cards)
     AddNeutral(cards);
     AddNeutralNonCollect(cards);
 }
-}
