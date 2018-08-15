@@ -23,24 +23,19 @@ TaskID ModifyHealthTask::GetTaskID() const
     return TaskID::MODIFY_HEALTH;
 }
 
-MetaData ModifyHealthTask::Impl(Player& user, Player&)
+MetaData ModifyHealthTask::Impl(Player&, Player&)
 {
+    if (m_character->gameTags[+GameTag::DIVINE_SHIELD] == 1)
+    {
+        m_damage = 0;
+    }
+
     int remainHealth = static_cast<int>(m_character->health) - m_damage;
 
     // if minion is exhausted
     if (remainHealth <= 0)
     {
         remainHealth = 0;
-        user.usedMinion.emplace_back(m_character);
-
-        // find minion and remove it from field
-        auto& field = user.field;
-        auto ptr = std::find(field.begin(), field.end(), m_character);
-        if (ptr != field.end())
-        {
-            *ptr = nullptr;
-            field.erase(ptr);
-        }
     }
 
     // adjust health
