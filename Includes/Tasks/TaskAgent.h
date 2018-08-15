@@ -43,25 +43,15 @@ class TaskAgent
     // if `notify` is true, TaskAgent notify the main channel as SyncBuffer
     void Run(TaskMeta& meta, Player& player1, Player& player2, ITask& task,
              bool notify = true);
-    void Run(TaskMeta& meta, Player& player1, Player& player2,
-             ITask&& task, bool notify = true);
+    void Run(TaskMeta& meta, Player& player1, Player& player2, ITask&& task,
+             bool notify = true);
     // Run Multi tasks and write result to `meta`
-    template <typename... ITaskT>
-    void RunMulti(TaskMeta& meta, Player& player1, Player& player2,
-                  ITaskT&... tasks)
-    {
-        std::vector<TaskMeta> pool;
-        Run(pool, player1, player2, tasks...);
-
-        meta = Serializer::CreateTaskMetaVector(pool);
-        Notify(TaskMeta::CopyFrom(meta));
-    }
     template <typename... ITaskT>
     void RunMulti(TaskMeta& meta, Player& player1, Player& player2,
                   ITaskT&&... tasks)
     {
         std::vector<TaskMeta> pool;
-        Run(pool, player1, player2, tasks...);
+        ImplRun(pool, player1, player2, std::forward<ITaskT>(tasks)...);
 
         meta = Serializer::CreateTaskMetaVector(pool);
         Notify(TaskMeta::CopyFrom(meta));
@@ -72,36 +62,21 @@ class TaskAgent
     SyncBuffer<TaskMeta> m_sideChannel;
 
     template <typename... ITaskT>
-    void Run(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
-             ITaskT&... tasks)
+    void ImplRun(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
+                 ITaskT&&... tasks)
     {
-        auto pusher = [&, this](ITask& task) -> void {
+        auto pusher = [&, this](auto&& task) -> void {
             pool.emplace_back();
             TaskMeta& meta = pool.back();
 
             task.Run(player1, player2, meta);
             if (task.GetTaskID() == +TaskID::BRIEF)
             {
-                Notify(TaskMeta::CopyFrom(meta));
+                Notify(std::move(meta));
+                meta.status = MetaData::BRIEF_EXPIRED;
             }
         };
-        (pusher(tasks), ...);
-    }
-    template <typename... ITaskT>
-    void Run(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
-             ITaskT&&... tasks)
-    {
-        auto pusher = [&, this](ITask& task) -> void {
-            pool.emplace_back();
-            TaskMeta& meta = pool.back();
-
-            task.Run(player1, player2, meta);
-            if (task.GetTaskID() == +TaskID::BRIEF)
-            {
-                Notify(TaskMeta::CopyFrom(meta));
-            }
-        };
-        (pusher(tasks), ...);
+        (pusher(std::forward<ITaskT>(tasks)), ...);
     }
 };
 }  // namespace Hearthstonepp

@@ -26,7 +26,8 @@ flatbuffers::Offset<FlatData::Entity> CreateEntity(
 
 // Convert Card to FlatData::Card
 flatbuffers::Offset<FlatData::Card> CreateCard(
-    flatbuffers::FlatBufferBuilder& builder, const Card* card);
+    flatbuffers::FlatBufferBuilder& builder, const Card* card,
+    const Entity* entity = nullptr);
 
 // Convert std::vector<Entity*> to FlatData::EntityVector
 TaskMeta CreateEntityVector(const TaskMetaTrait& trait,
@@ -45,7 +46,8 @@ TaskMeta CreateResponseMulligan(const BYTE* index, size_t size);
 TaskMeta CreateResponsePlayCard(size_t cardIndex);
 // Create Response for PlayMinion Task, Select position where minion will summon
 TaskMeta CreateResponsePlayMinion(size_t position);
-// Create response for PlaySpell task, select target type and position where caster will cast
+// Create response for PlaySpell task, select target type and position where
+// caster will cast
 TaskMeta CreateResponsePlaySpell(TargetType targetType, size_t targetPosition);
 // Create Response for Targeting Tasks, eg. Combat
 TaskMeta CreateResponseTarget(size_t src, size_t dst);

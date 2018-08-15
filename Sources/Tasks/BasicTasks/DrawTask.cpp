@@ -45,6 +45,7 @@ MetaData DrawTask::Impl(Player& user, Player&)
             remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0;
         user.exhausted += static_cast<BYTE>(numDrawAfterFatigue);
 
+        num = deck.size();
         result = MetaData::DRAW_EXHAUST;
     }
 
