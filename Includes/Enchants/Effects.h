@@ -17,7 +17,11 @@ namespace Hearthstonepp
 struct Effects
 {
     inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
-};  
+    inline static Effect Poisonous = Effect(GameTag::POISONOUS, EffectOperator::SET, 1);
+    inline static Effect DvineShield = Effect(GameTag::DIVINE_SHIELD, EffectOperator::SET, 1);
+    inline static Effect WindFury = Effect(GameTag::WINDFURY, EffectOperator::SET, 1);
+    inline static Effect Stealth = Effect(GameTag::STEALTH, EffectOperator::SET, 1);
+};
 };
 
 #endif
