@@ -128,7 +128,7 @@ void GameAgent::FinalPhase()
 
 void GameAgent::MainReady()
 {
-    // MainReady : Draw, ModifyMana, Clear vector `attacked`
+    // MainReady : Draw, ModifyMana, Clear field character attackableCount
     TaskMeta meta;
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
@@ -136,7 +136,21 @@ void GameAgent::MainReady()
         BasicTasks::ModifyManaByRef(NumMode::SET, ManaMode::EXIST,
                                     m_player1.totalMana));
 
-    m_player1.attacked.clear();
+    for (auto &character : m_player1.field)
+    {
+        if (character->gameTags[+GameTag::FROZEN] == 1)
+        {
+            character->gameTags[+GameTag::FROZEN] = 0;
+        }
+        else if (character->gameTags[+GameTag::FROZEN] == 2)
+        {
+            character->gameTags[+GameTag::FROZEN] = 1;
+            character->attackableCount = 0;
+            continue;
+        }
+
+        character->attackableCount = character->gameTags[+GameTag::WINDFURY] ? 2 : 1;
+    }
 }
 
 bool GameAgent::MainMenu()
