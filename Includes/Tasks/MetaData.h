@@ -100,6 +100,9 @@ enum class MetaData : status_t
     FREEZE,
     FREEZE_SUCCESS,
 
+    INIT_ATTACK_COUNT,
+    INIT_ATTACK_COUNT_SUCCESS,
+
     GAME_END
 };
 }  // namespace Hearthstonepp
