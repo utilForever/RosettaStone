@@ -199,8 +199,7 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
     };
 
     // Tie multi card vector
-    auto target = {player1.field, player2.field, player1.attacked,
-                   player2.attacked};
+    auto target = {player1.field, player2.field};
     std::vector<VectorOffset> result(target.size());
 
     // Convert Card vector to FlatData::Card vector
