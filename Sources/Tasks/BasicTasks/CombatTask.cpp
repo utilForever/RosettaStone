@@ -8,6 +8,8 @@
 *************************************************************************/
 #include <Tasks/BasicTasks/CombatTask.h>
 #include <Tasks/BasicTasks/ModifyHealthTask.h>
+#include <Tasks/PowerTasks/PoisonousTask.h>
+#include <Tasks/PowerTasks/FreezeTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
@@ -51,15 +53,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
-    // Source Minion Verification for Attacked Vector
-    std::vector<Character*>& attacked = player1.attacked;
-    if (std::find(attacked.begin(), attacked.end(), source) != attacked.end())
-    {
-        return MetaData::COMBAT_ALREADY_ATTACKED;
-    }
-
-    attacked.emplace_back(source);
-
     // Destination Verification
     // dst == 0 : hero
     // 1 < dst <= field.size : minion
@@ -67,6 +60,30 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
+
+    // Taunt Verification
+    if (target->gameTags[+GameTag::TAUNT] == 0)
+    for (auto& item: player2.field)
+    {
+        if (item->gameTags[+GameTag::TAUNT] == 1)
+        {
+            return MetaData::COMBAT_FIELD_HAVE_TAUNT;
+        }
+    }
+
+    // Stealth Verification
+    if (target->gameTags[+GameTag::STEALTH] == 1)
+    {
+        return MetaData::COMBAT_TARGET_STEALTH;
+    }
+
+    // Source Minion Verification for Attacked Vector
+    if (source->attackableCount == 0)
+    {
+        return MetaData::COMBAT_ALREADY_ATTACKED;
+    }
+
+    source->attackableCount--;
 
     BYTE sourceAttack = static_cast<BYTE>(source->attack);
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
@@ -85,6 +102,58 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     if (hurtedDst != MetaData::MODIFY_HEALTH_SUCCESS)
     {
         return hurtedDst;
+    }
+
+    // Divine Shield : Dst
+    if (target->gameTags[+GameTag::DIVINE_SHIELD] == 1)
+    {
+        target->gameTags[+GameTag::DIVINE_SHIELD] = 0;
+    }
+    else
+    {
+        // Poisonous : Src -> Dst
+        if (source->gameTags[+GameTag::POISONOUS] == 1)
+        {
+            PowerTask::PoisonousTask(source, target).Run(player1, player2);
+        }
+    }
+
+    // Divine Shield : Src
+    if (source->gameTags[+GameTag::DIVINE_SHIELD] == 1)
+    {
+        source->gameTags[+GameTag::DIVINE_SHIELD] = 0;
+    }
+    else
+    {
+        // Poisonous : Dst -> Src
+        if (target->gameTags[+GameTag::POISONOUS] == 1)
+        {
+            PowerTask::PoisonousTask(target, source).Run(player1, player2);
+        }
+    }
+
+    // Source Health Check
+    if (source->health == 0) 
+    {
+        auto& field = player1.field;
+        auto ptr = std::find(field.begin(), field.end(), source);
+        if (ptr != field.end())
+        {
+            *ptr = nullptr;
+            field.erase(ptr);
+        }
+    }
+
+    // Target Health Check
+    if (target->health == 0)
+    {
+        auto& field = player2.field;
+        auto ptr = std::find(field.begin(), field.end(), target);
+        if (ptr != field.end())
+        {
+            *ptr = nullptr;
+            field.erase(ptr);
+        }        
     }
 
     return MetaData::COMBAT_SUCCESS;

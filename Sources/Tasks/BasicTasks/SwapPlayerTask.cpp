@@ -7,6 +7,7 @@
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
 #include <Tasks/BasicTasks/SwapPlayerTask.h>
+#include <Tasks/BasicTasks/InitAttackCountTask.h>
 
 #include <algorithm>
 
@@ -20,6 +21,7 @@ TaskID SwapPlayerTask::GetTaskID() const
 MetaData SwapPlayerTask::Impl(Player& player1, Player& player2)
 {
     std::swap(player1, player2);
+    InitAttackCountTask(player1).Run(player1, player2);
 
     return MetaData::SWAP_SUCCESS;
 }
