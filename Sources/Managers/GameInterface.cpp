@@ -139,7 +139,6 @@ void GameInterface::HandlePlayerSetting(const TaskMeta& meta)
 
 void GameInterface::HandleRequire(const TaskMeta& meta)
 {
-    using RequireTaskMeta = FlatData::RequireTaskMeta;
     auto required = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
     if (required == nullptr)
     {
