@@ -171,6 +171,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_171", nullptr);
 
     // --------------------------------------- MINION - NEUTRAL
+
     // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
     // - Race: beast
     // --------------------------------------------------------
@@ -180,6 +181,15 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
     cards.emplace("CS2_155", nullptr);
 
+    // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
+    // - Race: troll, Fac: HORDE, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - Taunt = 1
+    // --------------------------------------------------------
+    cards.emplace("CS2_179", nullptr);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
