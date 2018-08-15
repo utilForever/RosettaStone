@@ -23,7 +23,7 @@ TaskID ModifyHealthTask::GetTaskID() const
     return TaskID::MODIFY_HEALTH;
 }
 
-MetaData ModifyHealthTask::Impl(Player& user, Player&)
+MetaData ModifyHealthTask::Impl(Player&, Player&)
 {
     int remainHealth = static_cast<int>(m_character->health) - m_damage;
 
@@ -31,16 +31,6 @@ MetaData ModifyHealthTask::Impl(Player& user, Player&)
     if (remainHealth <= 0)
     {
         remainHealth = 0;
-        user.usedMinion.emplace_back(m_character);
-
-        // find minion and remove it from field
-        auto& field = user.field;
-        auto ptr = std::find(field.begin(), field.end(), m_character);
-        if (ptr != field.end())
-        {
-            *ptr = nullptr;
-            field.erase(ptr);
-        }
     }
 
     // adjust health
