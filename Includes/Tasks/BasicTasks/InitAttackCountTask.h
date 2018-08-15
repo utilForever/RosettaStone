@@ -6,8 +6,8 @@
 > Created Time: 2018/08/15
 > Copyright (c) 2018, Seung-Hyun Jeon
 *************************************************************************/
-#ifndef HEARTHSTONEPP_INIT_ATTACK_COUNT_H
-#define HEARTHSTONEPP_INIT_ATTACK_COUNT_H
+#ifndef HEARTHSTONEPP_INIT_ATTACK_COUNT_TASK_H
+#define HEARTHSTONEPP_INIT_ATTACK_COUNT_TASK_H
 
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
@@ -28,4 +28,4 @@ class InitAttackCountTask : public ITask
 
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_INIT_ATTACK_COUNT_H
+#endif  // HEARTHSTONEPP_INIT_ATTACK_COUNT_TASK_H
