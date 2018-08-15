@@ -486,7 +486,6 @@ TEST(BasicCard, CS2_179)
         Player(new Account("Player 1", ""), new Deck("", CardClass::ROGUE)),
         Player(new Account("Player 2", ""), new Deck("", CardClass::WARRIOR)));
 
-
     TaskAgent& taskAgent = agent.GetTaskAgent();
     TestUtils::AutoResponder response(agent);
 

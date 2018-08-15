@@ -54,10 +54,11 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     }
 
     // Source Minion Verification for Attacked Vector
-    if (source->attackableCount == 0 )
+    if (source->attackableCount == 0)
     {
         return MetaData::COMBAT_ALREADY_ATTACKED;
     }
+
     source->attackableCount--;
 
     // Destination Verification
@@ -83,7 +84,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     {
         return MetaData::COMBAT_TARGET_STEALTH;
     }
-
 
     BYTE sourceAttack = static_cast<BYTE>(source->attack);
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
