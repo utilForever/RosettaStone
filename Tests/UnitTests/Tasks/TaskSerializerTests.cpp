@@ -126,7 +126,7 @@ TEST(TaskSerializer, CreateEntityVector)
 
     auto vector =
         TaskMeta::ConvertTo<FlatData::EntityVector>(entityVector)->vector();
-    EXPECT_EQ(vector->size(), 2);
+    EXPECT_EQ(vector->size(), static_cast<size_t>(2));
 
     auto deNerubian =
         TestUtils::ConvertCardFrom(nerubian, vector->Get(0)->card());
