@@ -193,6 +193,15 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_171", nullptr);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
+    // - Race: beast
+    // --------------------------------------------------------
+    cards.emplace("CS2_201", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
+    cards.emplace("CS2_155", nullptr);
+
     // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
     // - Race: beast, Fac: neutral, Set: core, Rarity: free
     // --------------------------------------------------------
