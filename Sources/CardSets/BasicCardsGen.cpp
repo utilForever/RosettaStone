@@ -10,6 +10,7 @@
 #include <Enchants/Effects.h>
 #include <Tasks/PowerTasks/AddEnchantmentTask.h>
 #include <Tasks/PowerTasks/DestroyTask.h>
+#include <Tasks/PowerTasks/DiscardTask.h>
 #include <Tasks/PowerTasks/HealFullTask.h>
 
 namespace Hearthstonepp
@@ -36,7 +37,16 @@ void BasicCardsGen::AddDruidNonCollect(std::map<std::string, Power*>& cards)
 
 void BasicCardsGen::AddHunter(std::map<std::string, Power*>& cards)
 {
-    (void)cards;
+    // ----------------------------------------- MINION - HUNTER
+    // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
+    // - Race: beast, Set: expert1, Rarity: legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    cards.emplace("EX1_543", nullptr);
 }
 
 void BasicCardsGen::AddHunterNonCollect(std::map<std::string, Power*>& cards)
@@ -125,7 +135,19 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 
 void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
 {
-    (void)cards;
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
+    // - Fac: horde, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Discard a random card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    Power* p = new Power;
+    p->powerTask.emplace_back(
+        new PowerTask::DiscardTask(EntityType::MY_HAND));
+    cards.emplace("EX1_306", p);
 }
 
 void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
@@ -171,7 +193,6 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_171", nullptr);
 
     // --------------------------------------- MINION - NEUTRAL
-
     // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
     // - Race: beast
     // --------------------------------------------------------
@@ -181,6 +202,17 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
     cards.emplace("CS2_155", nullptr);
 
+    // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
+    // - Race: beast, Fac: neutral, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>"Kill 30 raptors." - Hemet Nesingwary</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // 
+    // --------------------------------------------------------
+    cards.emplace("CS2_172", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
     // - Race: troll, Fac: HORDE, Set: core, Rarity: free
     // --------------------------------------------------------
@@ -190,6 +222,50 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - Taunt = 1
     // --------------------------------------------------------
     cards.emplace("CS2_179", nullptr);
+    
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
+    // - Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    cards.emplace("CS2_124", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
+    // - Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    cards.emplace("CS2_213", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5]
+    // - Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    cards.emplace("CS2_131", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
+    // - Race: murloc, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    cards.emplace("CS2_173", nullptr);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
