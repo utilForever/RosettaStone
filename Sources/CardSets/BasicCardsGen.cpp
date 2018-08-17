@@ -215,7 +215,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_179", nullptr);
     
     // --------------------------------------- MINION - NEUTRAL
-    // [CS2_114] Wolfrider - COST:3 [ATK:3/HP:1]
+    // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
     // - Set: core, Rarity: free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
@@ -223,7 +223,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
-    cards.emplace("CS2_114", nullptr);
+    cards.emplace("CS2_124", nullptr);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
