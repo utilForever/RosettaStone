@@ -295,6 +295,19 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // -
     // --------------------------------------------------------
     cards.emplace("CS2_182", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
+    // - Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - Taunt = 1
+    // --------------------------------------------------------
+    Power* p1 = new Power;
+    p1->enchant = new Enchant(Effects::Taunt);
+    cards.emplace("CS2_187", p1);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
