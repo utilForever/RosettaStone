@@ -272,6 +272,17 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - Race: element, Fac: neutral, Set: core, Rarity: free
     // --------------------------------------------------------
     cards.emplace("CS2_118", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
+    // - Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b></b>
+    // --------------------------------------------------------
+    // GameTag:
+    // -
+    // --------------------------------------------------------
+    cards.emplace("CS2_182", nullptr);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
