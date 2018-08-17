@@ -86,9 +86,9 @@ TEST(TaskSerializer, CreateEntity)
     auto buffer = autoEncode(&mNerubian);
     auto minion = flatbuffers::GetRoot<FlatData::Entity>(buffer.get());
     EXPECT_EQ(minion->card()->id()->str(), nerubian->id);
-    EXPECT_EQ(minion->card()->health(), 100);
-    EXPECT_EQ(minion->card()->attack(), 1000);
-    EXPECT_EQ(minion->card()->durability(), 0);
+    EXPECT_EQ(minion->card()->health(), static_cast<size_t>(100));
+    EXPECT_EQ(minion->card()->attack(), static_cast<size_t>(1000));
+    EXPECT_EQ(minion->card()->durability(), static_cast<size_t>(0));
 
     // Rogue Weapon : Poisoned Blade
     const Card* poisonedBlade = cards->FindCardByID("AT_034");
@@ -101,9 +101,9 @@ TEST(TaskSerializer, CreateEntity)
     buffer = autoEncode(&wPoisonedBlade);
     auto weapon = flatbuffers::GetRoot<FlatData::Entity>(buffer.get());
     EXPECT_EQ(weapon->card()->id()->str(), poisonedBlade->id);
-    EXPECT_EQ(weapon->card()->health(), 0);
-    EXPECT_EQ(weapon->card()->attack(), 1);
-    EXPECT_EQ(weapon->card()->durability(), 500);
+    EXPECT_EQ(weapon->card()->health(), static_cast<size_t>(0));
+    EXPECT_EQ(weapon->card()->attack(), static_cast<size_t>(1));
+    EXPECT_EQ(weapon->card()->durability(), static_cast<size_t>(500));
 }
 
 TEST(TaskSerializer, CreateEntityVector)
@@ -206,7 +206,7 @@ TEST(TaskSerializer, CreateResponsePlayCard)
 
     auto data = TaskMeta::ConvertTo<FlatData::ResponsePlayCard>(resp);
     EXPECT_EQ(resp.id, +TaskID::SELECT_CARD);
-    EXPECT_EQ(data->cardIndex(), 10);
+    EXPECT_EQ(data->cardIndex(), static_cast<size_t>(10));
 }
 
 TEST(TaskSerializer, CreateResponsePlayMinion)
@@ -214,7 +214,7 @@ TEST(TaskSerializer, CreateResponsePlayMinion)
     TaskMeta resp = Serializer::CreateResponsePlayMinion(10);
     auto data = TaskMeta::ConvertTo<FlatData::ResponsePlayMinion>(resp);
     EXPECT_EQ(resp.id, +TaskID::SELECT_POSITION);
-    EXPECT_EQ(data->position(), 10);
+    EXPECT_EQ(data->position(), static_cast<size_t>(10));
 }
 
 TEST(TaskSerializer, CreateResponsePlaySpell)
@@ -233,8 +233,8 @@ TEST(TaskSerializer, CreateResponseTarget)
     TaskMeta resp = Serializer::CreateResponseTarget(10, 50);
     auto data = TaskMeta::ConvertTo<FlatData::ResponseTarget>(resp);
     EXPECT_EQ(resp.id, +TaskID::SELECT_TARGET);
-    EXPECT_EQ(data->src(), 10);
-    EXPECT_EQ(data->dst(), 50);
+    EXPECT_EQ(data->src(), static_cast<size_t>(10));
+    EXPECT_EQ(data->dst(), static_cast<size_t>(50));
 }
 
 TEST(TaskSerializer, CreatePlayerSetting)
@@ -294,13 +294,13 @@ TEST(TaskSerializer, CreateGameStatus)
     EXPECT_EQ(status->opponentMana(), player2.existMana);
     EXPECT_EQ(status->currentHero()->card()->id()->str(), "HERO_06");
     EXPECT_EQ(status->opponentHero()->card()->id()->str(), "HERO_04");
-    EXPECT_EQ(status->currentField()->size(), 1);
+    EXPECT_EQ(status->currentField()->size(), static_cast<size_t>(1));
     EXPECT_EQ(status->currentField()->Get(0)->card()->id()->str(), "AT_036t");
-    EXPECT_EQ(status->opponentField()->size(), 1);
+    EXPECT_EQ(status->opponentField()->size(), static_cast<size_t>(1));
     EXPECT_EQ(status->opponentField()->Get(0)->card()->id()->str(), "AT_036t");
-    EXPECT_EQ(status->currentHand()->size(), 1);
+    EXPECT_EQ(status->currentHand()->size(), static_cast<size_t>(1));
     EXPECT_EQ(status->currentHand()->Get(0)->card()->id()->str(), "AT_034");
-    EXPECT_EQ(status->numOpponentHand(), 1);
-    EXPECT_EQ(status->numCurrentDeck(), 0);
-    EXPECT_EQ(status->numOpponentDeck(), 0);
+    EXPECT_EQ(status->numOpponentHand(), static_cast<size_t>(1));
+    EXPECT_EQ(status->numCurrentDeck(), static_cast<size_t>(0));
+    EXPECT_EQ(status->numOpponentDeck(), static_cast<size_t>(0));
 }
