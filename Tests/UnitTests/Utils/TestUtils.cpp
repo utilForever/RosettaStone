@@ -94,6 +94,15 @@ std::unique_ptr<Card> ConvertCardFrom(const Card* card,
     {
         converted->mechanics.emplace_back(GameTag::_from_integral(mechanic));
     }
+    for (auto req : *deserialized->playRequirements())
+    {
+        converted->playRequirements.emplace(
+            PlayReq::_from_integral(req->key_()), req->value());
+    }
+    for (auto entourage : *deserialized->entourages())
+    {
+        converted->entourages.emplace_back(entourage->str());
+    }
     converted->maxAllowedInDeck = deserialized->maxAllowedInDeck();
     converted->Initialize();
 

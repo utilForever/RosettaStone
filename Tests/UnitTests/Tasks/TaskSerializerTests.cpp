@@ -252,4 +252,55 @@ TEST(TaskSerializer, CreatePlayerSetting)
 
 TEST(TaskSerializer, CreateGameStatus)
 {
+    TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
+
+    Account account1("email1", "name1");
+    Account account2("email2", "name2");
+    Deck deck1("deck1", CardClass::DRUID);
+    Deck deck2("deck2", CardClass::PALADIN);
+
+    Player player1(&account1, &deck1);
+    Player player2(&account2, &deck2);
+
+    player1.id = 100;
+    player2.id = 200;
+
+    player1.existMana = 10;
+    player2.existMana = 20;
+
+    Cards* cards = Cards::GetInstance();
+    const Card* nerubian = cards->FindCardByID("AT_036t");
+    Minion mNerubian(nerubian);
+
+    const Card* poisonedBlade = cards->FindCardByID("AT_034");
+    Weapon wPoisonedBlade(poisonedBlade);
+
+    player1.field.emplace_back(&mNerubian);
+    player2.field.emplace_back(&mNerubian);
+
+    player1.hand.emplace_back(&wPoisonedBlade);
+    player2.hand.emplace_back(&wPoisonedBlade);
+
+    TaskMeta meta = Serializer::CreateGameStatus(randTrait.id, randTrait.status,
+                                                 player1, player2);
+    EXPECT_EQ(meta.id, randTrait.id);
+    EXPECT_EQ(meta.status, randTrait.status);
+    EXPECT_EQ(meta.userID, player1.id);
+
+    auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
+    EXPECT_EQ(status->currentPlayer(), player1.id);
+    EXPECT_EQ(status->opponentPlayer(), player2.id);
+    EXPECT_EQ(status->currentMana(), player1.existMana);
+    EXPECT_EQ(status->opponentMana(), player2.existMana);
+    EXPECT_EQ(status->currentHero()->card()->id()->str(), "HERO_06");
+    EXPECT_EQ(status->opponentHero()->card()->id()->str(), "HERO_04");
+    EXPECT_EQ(status->currentField()->size(), 1);
+    EXPECT_EQ(status->currentField()->Get(0)->card()->id()->str(), "AT_036t");
+    EXPECT_EQ(status->opponentField()->size(), 1);
+    EXPECT_EQ(status->opponentField()->Get(0)->card()->id()->str(), "AT_036t");
+    EXPECT_EQ(status->currentHand()->size(), 1);
+    EXPECT_EQ(status->currentHand()->Get(0)->card()->id()->str(), "AT_034");
+    EXPECT_EQ(status->numOpponentHand(), 1);
+    EXPECT_EQ(status->numCurrentDeck(), 0);
+    EXPECT_EQ(status->numOpponentDeck(), 0);
 }
