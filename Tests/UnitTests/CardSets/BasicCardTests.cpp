@@ -699,7 +699,7 @@ TEST(BasicCard, EX1_306)
     player1.totalMana = player1.existMana = 10;
     player2.totalMana = player2.existMana = 10;
 
-	// Each players draw 2 cards.
+    // Each players draw 2 cards.
     agent.RunTask(BasicTasks::DrawCardTask(
                       Cards::GetInstance()->FindCardByName("Succubus")),
                   player1, player2);
@@ -724,17 +724,352 @@ TEST(BasicCard, EX1_306)
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(2));
     EXPECT_EQ(agent.GetPlayer2().hand[1]->card->name, "Stonetusk Boar");
 
-	// Player 1 plays Succubus, and now the player 1's hand is empty
+    // Player 1 plays Succubus, and now the player 1's hand is empty
     auto respAutoMinion = response.AutoMinion(0, 0);
     MetaData result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(0));
 
-	// This task doesn't affect player 2's hand
+    // This task doesn't affect player 2's hand
     respAutoMinion = response.AutoMinion(0, 0);
     result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+}
+
+TEST(BasicCard, EX1_543)
+{
+    GameAgent agent(
+        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
+        Player(new Account("Player 2", ""), new Deck("", CardClass::HUNTER)));
+
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
+
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
+
+    player1.totalMana = agent.GetPlayer1().existMana = 10;
+    player2.totalMana = agent.GetPlayer2().existMana = 10;
+
+    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
+                      "Stormwind Knight")),
+                  player1, player2);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Stormwind Knight");
+
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance()->FindCardByName("King Krush")),
+                  player2, player1);
+    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "King Krush");
+
+   // Create multiple response for PlayCardTask And PlayMinionTask
+    auto respAutoMinion = response.AutoMinion(0, 0);
+    MetaData result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Stormwind Knight");
+
+    auto[respPlayCard1, respPlayMinion1] = respAutoMinion.get();
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    // Create multiple response for PlayCardTask And PlayMinionTask
+    respAutoMinion = response.AutoMinion(0, 0);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "King Krush");
+
+    auto[respPlayCard2, respPlayMinion2] = respAutoMinion.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    auto respAutoTarget = response.Target(1, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(agent.GetPlayer2().field[0]->health, static_cast<size_t>(6));
+}
+
+TEST(BasicCard, CS2_124)
+{
+    GameAgent agent(
+        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
+        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
+
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
+
+    player1.totalMana = agent.GetPlayer1().existMana = 10;
+    player2.totalMana = agent.GetPlayer2().existMana = 10;
+
+    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
+                      "Acidic Swamp Ooze")),
+                  player1, player2);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Acidic Swamp Ooze");
+
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance()->FindCardByName("Wolfrider")),
+                  player2, player1);
+    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Wolfrider");
+
+   // Create multiple response for PlayCardTask And PlayMinionTask
+    auto respAutoMinion = response.AutoMinion(0, 0);
+    MetaData result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Acidic Swamp Ooze");
+
+    auto[respPlayCard1, respPlayMinion1] = respAutoMinion.get();
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    // Create multiple response for PlayCardTask And PlayMinionTask
+    respAutoMinion = response.AutoMinion(0, 0);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "Wolfrider");
+
+    auto[respPlayCard2, respPlayMinion2] = respAutoMinion.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    auto respAutoTarget = response.Target(1, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(agent.GetPlayer2().field.size(), static_cast<size_t>(0));
+}
+
+TEST(BasicCard, CS2_213)
+{
+    GameAgent agent(
+        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
+        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
+
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
+
+    player1.totalMana = agent.GetPlayer1().existMana = 10;
+    player2.totalMana = agent.GetPlayer2().existMana = 10;
+
+    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
+                      "Stonetusk Boar")),
+                  player1, player2);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Stonetusk Boar");
+
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance()->FindCardByName("Reckless Rocketeer")),
+                  player2, player1);
+    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Reckless Rocketeer");
+
+   // Create multiple response for PlayCardTask And PlayMinionTask
+    auto respAutoMinion = response.AutoMinion(0, 0);
+    MetaData result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Stonetusk Boar");
+
+    auto[respPlayCard1, respPlayMinion1] = respAutoMinion.get();
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    // Create multiple response for PlayCardTask And PlayMinionTask
+    respAutoMinion = response.AutoMinion(0, 0);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "Reckless Rocketeer");
+
+    auto[respPlayCard2, respPlayMinion2] = respAutoMinion.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    auto respAutoTarget = response.Target(1, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(agent.GetPlayer2().field[0]->health, static_cast<size_t>(1));
+}
+
+TEST(BasicCard, CS2_131)
+{
+    GameAgent agent(
+        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
+        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
+
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
+
+    player1.totalMana = agent.GetPlayer1().existMana = 10;
+    player2.totalMana = agent.GetPlayer2().existMana = 10;
+
+    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
+                      "Stonetusk Boar")),
+                  player1, player2);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Stonetusk Boar");
+
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance()->FindCardByName("Stormwind Knight")),
+                  player2, player1);
+    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Stormwind Knight");
+
+   // Create multiple response for PlayCardTask And PlayMinionTask
+    auto respAutoMinion = response.AutoMinion(0, 0);
+    MetaData result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Stonetusk Boar");
+
+    auto[respPlayCard1, respPlayMinion1] = respAutoMinion.get();
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    // Create multiple response for PlayCardTask And PlayMinionTask
+    respAutoMinion = response.AutoMinion(0, 0);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "Stormwind Knight");
+
+    auto[respPlayCard2, respPlayMinion2] = respAutoMinion.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    auto respAutoTarget = response.Target(1, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(agent.GetPlayer2().field[0]->health, static_cast<size_t>(4));
+}
+
+TEST(BasicCard, CS2_173)
+{
+    GameAgent agent(
+        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
+        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
+
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
+
+    player1.totalMana = agent.GetPlayer1().existMana = 10;
+    player2.totalMana = agent.GetPlayer2().existMana = 10;
+
+    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
+                      "Stormwind Knight")),
+                  player1, player2);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Stormwind Knight");
+
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance()->FindCardByName("Bluegill Warrior")),
+                  player2, player1);
+    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Bluegill Warrior");
+
+   // Create multiple response for PlayCardTask And PlayMinionTask
+    auto respAutoMinion = response.AutoMinion(0, 0);
+    MetaData result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Stormwind Knight");
+
+    auto[respPlayCard1, respPlayMinion1] = respAutoMinion.get();
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    // Create multiple response for PlayCardTask And PlayMinionTask
+    respAutoMinion = response.AutoMinion(0, 0);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "Bluegill Warrior");
+
+    auto[respPlayCard2, respPlayMinion2] = respAutoMinion.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    auto respAutoTarget = response.Target(1, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(3));
+    EXPECT_EQ(agent.GetPlayer2().field.size(), static_cast<size_t>(0));
 }
