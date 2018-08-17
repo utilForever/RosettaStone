@@ -60,6 +60,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
 
     // Taunt Verification
     if (target->gameTags[+GameTag::TAUNT] == 0)
+    {
         for (auto& item : player2.field)
         {
             if (item->gameTags[+GameTag::TAUNT] == 1)
@@ -67,6 +68,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
                 return MetaData::COMBAT_FIELD_HAVE_TAUNT;
             }
         }
+    }
 
     // Stealth Verification
     if (target->gameTags[+GameTag::STEALTH] == 1)
