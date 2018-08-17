@@ -10,6 +10,7 @@
 #include <Enchants/Effects.h>
 #include <Tasks/PowerTasks/AddEnchantmentTask.h>
 #include <Tasks/PowerTasks/DestroyTask.h>
+#include <Tasks/PowerTasks/DiscardTask.h>
 #include <Tasks/PowerTasks/HealFullTask.h>
 
 namespace Hearthstonepp
@@ -125,7 +126,19 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 
 void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
 {
-    (void)cards;
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
+    // - Fac: horde, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Discard a random card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    Power* p = new Power;
+    p->powerTask.emplace_back(
+        new PowerTask::DiscardTask(EntityType::MY_HAND));
+    cards.emplace("EX1_306", p);
 }
 
 void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
