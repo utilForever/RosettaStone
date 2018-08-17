@@ -184,6 +184,17 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_171", nullptr);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
+    // - Race: beast, Fac: neutral, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>"Kill 30 raptors." - Hemet Nesingwary</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // 
+    // --------------------------------------------------------
+    cards.emplace("CS2_172", nullptr);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
     // - Race: troll, Fac: HORDE, Set: core, Rarity: free
     // --------------------------------------------------------
