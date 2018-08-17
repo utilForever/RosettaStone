@@ -1078,7 +1078,7 @@ TEST(BasicCard, CS2_088)
 
     player1.totalMana = player1.existMana = 10;
     player2.totalMana = player2.existMana = 10;
-
+    player2.hero->health = 24;
 
     //drawing procedure of player 1
     agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
@@ -1093,10 +1093,6 @@ TEST(BasicCard, CS2_088)
                   player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Guardian of Kings");
-
-
-
-
 
     // Create multiple response for PlayCardTask And PlayMinionTask
     auto respAutoMinion = response.AutoMinion(0, 0);
@@ -1115,10 +1111,6 @@ TEST(BasicCard, CS2_088)
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_POSITION);
 
-
-
-
-
     // Create multiple response for PlayCardTask And PlayMinionTask
     respAutoMinion = response.AutoMinion(0, 0);
     result =
@@ -1136,5 +1128,7 @@ TEST(BasicCard, CS2_088)
     require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_POSITION);
-    /**/
+
+    EXPECT_EQ(player2.hero->maxHealth, player2.hero->health);
 }
+

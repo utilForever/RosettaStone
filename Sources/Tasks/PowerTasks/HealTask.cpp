@@ -19,24 +19,16 @@ namespace Hearthstonepp::PowerTask
 
     MetaData HealTask::Impl(Player& player1, Player&)
     {
-
-        if(m_entityType == +EntityType::MY_HERO){
+        if(m_entityType == +EntityType::MY_HERO)
+        {
             if (player1.hero->health + m_amount <= player1.hero->maxHealth) {
                 player1.hero->health += m_amount;
             }
             else {
                 player1.hero->health = player1.hero->maxHealth;
             }
-
             return MetaData::HEAL_SUCCESS;
         }
-        /*
-        else{
-            // do nothing
-        }
-         */
-
     return MetaData::HEAL_SUCCESS;
-
     }
 }  // namespace Hearthstonepp::PowerTask
