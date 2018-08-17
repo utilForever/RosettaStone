@@ -8,8 +8,8 @@
 *************************************************************************/
 #include <Tasks/BasicTasks/CombatTask.h>
 #include <Tasks/BasicTasks/ModifyHealthTask.h>
-#include <Tasks/PowerTasks/PoisonousTask.h>
 #include <Tasks/PowerTasks/FreezeTask.h>
+#include <Tasks/PowerTasks/PoisonousTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
@@ -30,10 +30,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Get Targeting Response from GameInterface
     m_requirement.Interact(player1.id, serialized);
 
-    using RequireTaskMeta = FlatData::ResponseTarget;
-    const auto& buffer = serialized.GetConstBuffer();
-    auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
+    auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
     if (req == nullptr)
     {
         return MetaData::COMBAT_FLATBUFFER_NULLPTR;
@@ -63,13 +60,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
 
     // Taunt Verification
     if (target->gameTags[+GameTag::TAUNT] == 0)
-    for (auto& item: player2.field)
-    {
-        if (item->gameTags[+GameTag::TAUNT] == 1)
+        for (auto& item : player2.field)
         {
-            return MetaData::COMBAT_FIELD_HAVE_TAUNT;
+            if (item->gameTags[+GameTag::TAUNT] == 1)
+            {
+                return MetaData::COMBAT_FIELD_HAVE_TAUNT;
+            }
         }
-    }
 
     // Stealth Verification
     if (target->gameTags[+GameTag::STEALTH] == 1)
@@ -85,7 +82,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
 
     source->attackableCount--;
 
-    BYTE sourceAttack = static_cast<BYTE>(source->attack);
+    BYTE sourceAttack = (src > 0) ? static_cast<BYTE>(source->attack) : 0;
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
 
     // Attack : Dst -> Src
@@ -133,27 +130,25 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     }
 
     // Source Health Check
-    if (source->health == 0) 
+    if (source->health <= 0)
     {
         auto& field = player1.field;
         auto ptr = std::find(field.begin(), field.end(), source);
         if (ptr != field.end())
         {
-            *ptr = nullptr;
             field.erase(ptr);
         }
     }
 
     // Target Health Check
-    if (target->health == 0)
+    if (target->health <= 0)
     {
         auto& field = player2.field;
         auto ptr = std::find(field.begin(), field.end(), target);
         if (ptr != field.end())
         {
-            *ptr = nullptr;
             field.erase(ptr);
-        }        
+        }
     }
 
     return MetaData::COMBAT_SUCCESS;

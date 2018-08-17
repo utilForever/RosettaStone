@@ -759,9 +759,7 @@ struct GameStatus FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_OPPONENTFIELD = 20,
     VT_NUMOPPONENTHAND = 22,
     VT_NUMCURRENTDECK = 24,
-    VT_NUMOPPONENTDECK = 26,
-    VT_CURRENTATTACKED = 28,
-    VT_OPPONENTATTACKED = 30
+    VT_NUMOPPONENTDECK = 26
   };
   uint8_t currentPlayer() const {
     return GetField<uint8_t>(VT_CURRENTPLAYER, 0);
@@ -799,12 +797,6 @@ struct GameStatus FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint8_t numOpponentDeck() const {
     return GetField<uint8_t>(VT_NUMOPPONENTDECK, 0);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *currentAttacked() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_CURRENTATTACKED);
-  }
-  const flatbuffers::Vector<flatbuffers::Offset<Entity>> *opponentAttacked() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Entity>> *>(VT_OPPONENTATTACKED);
-  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_CURRENTPLAYER) &&
@@ -827,12 +819,6 @@ struct GameStatus FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<uint8_t>(verifier, VT_NUMOPPONENTHAND) &&
            VerifyField<uint8_t>(verifier, VT_NUMCURRENTDECK) &&
            VerifyField<uint8_t>(verifier, VT_NUMOPPONENTDECK) &&
-           VerifyOffset(verifier, VT_CURRENTATTACKED) &&
-           verifier.Verify(currentAttacked()) &&
-           verifier.VerifyVectorOfTables(currentAttacked()) &&
-           VerifyOffset(verifier, VT_OPPONENTATTACKED) &&
-           verifier.Verify(opponentAttacked()) &&
-           verifier.VerifyVectorOfTables(opponentAttacked()) &&
            verifier.EndTable();
   }
 };
@@ -876,12 +862,6 @@ struct GameStatusBuilder {
   void add_numOpponentDeck(uint8_t numOpponentDeck) {
     fbb_.AddElement<uint8_t>(GameStatus::VT_NUMOPPONENTDECK, numOpponentDeck, 0);
   }
-  void add_currentAttacked(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentAttacked) {
-    fbb_.AddOffset(GameStatus::VT_CURRENTATTACKED, currentAttacked);
-  }
-  void add_opponentAttacked(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> opponentAttacked) {
-    fbb_.AddOffset(GameStatus::VT_OPPONENTATTACKED, opponentAttacked);
-  }
   explicit GameStatusBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -907,12 +887,8 @@ inline flatbuffers::Offset<GameStatus> CreateGameStatus(
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> opponentField = 0,
     uint8_t numOpponentHand = 0,
     uint8_t numCurrentDeck = 0,
-    uint8_t numOpponentDeck = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> currentAttacked = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Entity>>> opponentAttacked = 0) {
+    uint8_t numOpponentDeck = 0) {
   GameStatusBuilder builder_(_fbb);
-  builder_.add_opponentAttacked(opponentAttacked);
-  builder_.add_currentAttacked(currentAttacked);
   builder_.add_opponentField(opponentField);
   builder_.add_currentHand(currentHand);
   builder_.add_currentField(currentField);
@@ -941,9 +917,7 @@ inline flatbuffers::Offset<GameStatus> CreateGameStatusDirect(
     const std::vector<flatbuffers::Offset<Entity>> *opponentField = nullptr,
     uint8_t numOpponentHand = 0,
     uint8_t numCurrentDeck = 0,
-    uint8_t numOpponentDeck = 0,
-    const std::vector<flatbuffers::Offset<Entity>> *currentAttacked = nullptr,
-    const std::vector<flatbuffers::Offset<Entity>> *opponentAttacked = nullptr) {
+    uint8_t numOpponentDeck = 0) {
   return Hearthstonepp::FlatData::CreateGameStatus(
       _fbb,
       currentPlayer,
@@ -957,9 +931,7 @@ inline flatbuffers::Offset<GameStatus> CreateGameStatusDirect(
       opponentField ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*opponentField) : 0,
       numOpponentHand,
       numCurrentDeck,
-      numOpponentDeck,
-      currentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*currentAttacked) : 0,
-      opponentAttacked ? _fbb.CreateVector<flatbuffers::Offset<Entity>>(*opponentAttacked) : 0);
+      numOpponentDeck);
 }
 
 struct RequireTaskMeta FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

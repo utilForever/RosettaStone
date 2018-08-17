@@ -72,6 +72,10 @@ class TaskMeta : public TaskMetaTrait
     static inline const T* ConvertTo(const TaskMeta& meta)
     {
         const auto& buffer = meta.GetConstBuffer();
+        if (buffer.get() == nullptr)
+        {
+            return nullptr;
+        }
         return flatbuffers::GetRoot<T>(buffer.get());
     }
 

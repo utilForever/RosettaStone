@@ -171,11 +171,20 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
 
             TaskMeta converted = TaskMeta::ConvertFrom(vec->Get(idx));
             EXPECT_EQ(converted.id, traits[i].id);
-            EXPECT_EQ(converted.status, traits[i].status);
             EXPECT_EQ(converted.userID, traits[i].userID);
 
-            auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(converted);
-            EXPECT_EQ(status->currentPlayer(), traits[i].userID);
+            if (converted.status == MetaData::BRIEF_EXPIRED)
+            {
+                EXPECT_EQ(traits[i].status, MetaData::BRIEF);
+            }
+            else
+            {
+                EXPECT_EQ(converted.status, traits[i].status);
+
+                auto status =
+                    TaskMeta::ConvertTo<FlatData::GameStatus>(converted);
+                EXPECT_EQ(status->currentPlayer(), traits[i].userID);
+            }
         }
     };
 
@@ -217,7 +226,6 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
         TaskMeta ret;
         agent.RunMulti(ret, player1, player2, tasks[0], tasks[1], tasks[2],
                        tasks[3], tasks[4]);
-
         return ret;
     });
 
@@ -232,7 +240,5 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
 
     agent.Read(read);
     check(read);
-
-    res.wait();
     check(res.get());
 }

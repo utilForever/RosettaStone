@@ -55,10 +55,12 @@ struct Card
 #ifndef HEARTHSTONEPP_MACOSX
     std::optional<size_t> attack;
     std::optional<size_t> health;
+    std::optional<size_t> spellDamage;
     std::optional<size_t> durability;
 #else
     std::experimental::optional<size_t> attack;
     std::experimental::optional<size_t> health;
+    std::experimental::optional<size_t> spellDamage;
     std::experimental::optional<size_t> durability;
 #endif
     size_t cost;

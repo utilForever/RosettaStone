@@ -101,7 +101,8 @@ void GameAgent::BeginPhase()
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::PlayerSettingTask(m_taskAgent),
         BasicTasks::DoBothPlayer(BasicTasks::ShuffleTask()),
-        BasicTasks::DoBothPlayer(BasicTasks::DrawTask(NUM_BEGIN_DRAW, m_taskAgent)),
+        BasicTasks::DoBothPlayer(
+            BasicTasks::DrawTask(NUM_BEGIN_DRAW, m_taskAgent)),
         BasicTasks::BriefTask(),
         BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
         BasicTasks::SwapPlayerTask(), BasicTasks::BriefTask(),
