@@ -77,6 +77,12 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         return MetaData::COMBAT_TARGET_STEALTH;
     }
 
+    // Immune Verification
+    if (target->gameTags[+GameTag::IMMUNE] == 1)
+    {
+        return MetaData::COMBAT_TARGET_IMMUNE;
+    }
+
     // Source Minion Verification for Attacked Vector
     if (source->attackableCount == 0)
     {
