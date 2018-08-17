@@ -12,6 +12,7 @@
 #include <Tasks/PowerTasks/DestroyTask.h>
 #include <Tasks/PowerTasks/DiscardTask.h>
 #include <Tasks/PowerTasks/HealFullTask.h>
+#include <Tasks/PowerTasks/HealTask.h>
 
 namespace Hearthstonepp
 {
@@ -67,6 +68,17 @@ void BasicCardsGen::AddMageNonCollect(std::map<std::string, Power*>& cards)
 void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
 {
     (void)cards;
+
+    // --------------------------------------- MINION - Paladin
+    // [CS2_088] Guardian of Kings - COST:7
+    // - Faction: Neutral, Set: Basic, Rarity: Free
+    // --------------------------------------------------------
+    // CtrlCVplz...
+    // --------------------------------------------------------
+    Power* p = new Power;
+    p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::MY_HERO, 6));
+    cards.emplace("CS2_088", p);
+
 }
 
 void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)

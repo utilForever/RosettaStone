@@ -100,6 +100,9 @@ enum class MetaData : status_t
     HEAL_FULL,
     HEAL_FULL_SUCCESS,
 
+    HEAL,
+    HEAL_SUCCESS,
+
     POISONOUS,
     POISONOUS_SUCCESS,
     POISONOUS_IGNORE,
