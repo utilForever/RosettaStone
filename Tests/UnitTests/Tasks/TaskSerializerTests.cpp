@@ -191,7 +191,7 @@ TEST(TaskSerializer, CreateResponseMulligan)
 
     auto data = TaskMeta::ConvertTo<FlatData::ResponseMulligan>(resp);
     EXPECT_EQ(resp.id, +TaskID::MULLIGAN);
-    EXPECT_EQ(data->mulligan()->size(), 3);
+    EXPECT_EQ(data->mulligan()->size(), static_cast<size_t>(3));
 
     size_t i = 0;
     for (auto choice : *data->mulligan())
