@@ -37,6 +37,22 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         mechanics.emplace_back(static_cast<int>(mechanic));
     }
 
+    std::vector<flatbuffers::Offset<FlatData::PlayRequirements>> requirements;
+    requirements.reserve(card->playRequirements.size());
+    for (const auto& [req, num] : card->playRequirements)
+    {
+        auto playReq = FlatData::CreatePlayRequirements(
+            builder, static_cast<int>(req), num);
+        requirements.emplace_back(playReq);
+    }
+
+    std::vector<flatbuffers::Offset<flatbuffers::String>> entourages;
+    entourages.reserve(card->entourages.size());
+    for (const auto& entourage : card->entourages)
+    {
+        entourages.emplace_back(builder.CreateString(entourage));
+    }
+
     size_t attack = card->attack ? *card->attack : 0;
     size_t health = card->health ? *card->health : 0;
     size_t durability = card->durability ? *card->durability : 0;
@@ -63,7 +79,8 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         builder.CreateString(card->text), card->isCollectible,
         static_cast<int>(card->cost), static_cast<uint32_t>(attack),
         static_cast<uint32_t>(health), static_cast<uint32_t>(durability),
-        builder.CreateVector(mechanics), 0, 0, card->GetMaxAllowedInDeck());
+        builder.CreateVector(mechanics), builder.CreateVector(requirements),
+        builder.CreateVector(entourages), card->GetMaxAllowedInDeck());
 }
 
 TaskMeta CreateEntityVector(const TaskMetaTrait& trait,
