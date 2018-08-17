@@ -35,8 +35,7 @@ MetaData DoBothPlayer::Impl(Player& player1, Player& player2)
     }
 }
 
-DoUntil::DoUntil(ITask&& task,
-                 std::function<bool(const TaskMeta&)>&& condition)
+DoUntil::DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition)
     : m_task(task), m_condition(std::move(condition))
 {
     // Do Nothing

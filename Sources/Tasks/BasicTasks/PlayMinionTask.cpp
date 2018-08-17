@@ -79,7 +79,7 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
         for (auto& power : m_entity->card->power->powerTask)
         {
             power->Run(player1, player2);
-        }   
+        }
     }
 
     if (modified == MetaData::MODIFY_MANA_SUCCESS)

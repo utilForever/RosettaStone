@@ -77,9 +77,6 @@ table GameStatus {
 
     numCurrentDeck:ubyte;
     numOpponentDeck:ubyte;
-
-    currentAttacked:[Entity];
-    opponentAttacked:[Entity];
 }
 
 table RequireTaskMeta {

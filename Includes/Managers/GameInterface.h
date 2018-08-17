@@ -57,9 +57,9 @@ class GameInterface
     std::unique_ptr<BYTE[]> m_status;
 
     HandleStatus HandleMessage(const TaskMeta& meta);
-    std::ostream& LogWriter(const std::string& name);
 
-    const FlatData::GameStatus* ConvertToGameStatus(const TaskMeta& meta) const;
+    std::ostream& LogWriter(std::string&& name);
+    std::ostream& LogWriter(const std::string& name);
 
     template <std::size_t SIZE>
     void ShowMenus(const std::array<std::string, SIZE>& menus);
@@ -69,23 +69,12 @@ class GameInterface
     void ShowCards(const EntityVector& entities);
 
     // TaskMeta Handler
-    void HandleInvalid(const TaskMeta& meta);
+    void HandleDefault(const TaskMeta& meta);
     void HandleTaskVector(const TaskMeta& meta);
-    void HandleRequire(const TaskMeta& meta);
     void HandlePlayerSetting(const TaskMeta& meta);
-    void HandleSwap(const TaskMeta& meta);
-    void HandleShuffle(const TaskMeta& meta);
-    void HandleDraw(const TaskMeta& meta);
-    void HandleModifyMana(const TaskMeta& meta);
-    void HandleModifyHealth(const TaskMeta& meta);
+    void HandleRequire(const TaskMeta& meta);
     void HandleBrief(const TaskMeta& meta);
-    void HandleMulligan(const TaskMeta& meta);
-    void HandleCombat(const TaskMeta& meta);
-    void HandlePlayCard(const TaskMeta& meta);
-    void HandlePlayMinion(const TaskMeta& meta);
-    void HandlePlayWeapon(const TaskMeta& meta);
     void HandleGameEnd(const TaskMeta& meta);
-
     void HandleOverDraw(const TaskMeta& meta);
 
     // Input Task Handler
@@ -98,21 +87,10 @@ class GameInterface
     // Handler table
     std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>>
         m_handler = {
-            {TaskID::INVALID, &GameInterface::HandleInvalid},
             {TaskID::TASK_VECTOR, &GameInterface::HandleTaskVector},
-            {TaskID::REQUIRE, &GameInterface::HandleRequire},
             {TaskID::PLAYER_SETTING, &GameInterface::HandlePlayerSetting},
-            {TaskID::SWAP, &GameInterface::HandleSwap},
-            {TaskID::SHUFFLE, &GameInterface::HandleShuffle},
-            {TaskID::DRAW, &GameInterface::HandleDraw},
-            {TaskID::MODIFY_MANA, &GameInterface::HandleModifyMana},
-            {TaskID::MODIFY_HEALTH, &GameInterface::HandleModifyHealth},
+            {TaskID::REQUIRE, &GameInterface::HandleRequire},
             {TaskID::BRIEF, &GameInterface::HandleBrief},
-            {TaskID::MULLIGAN, &GameInterface::HandleMulligan},
-            {TaskID::COMBAT, &GameInterface::HandleCombat},
-            {TaskID::PLAY_CARD, &GameInterface::HandlePlayCard},
-            {TaskID::PLAY_MINION, &GameInterface::HandlePlayMinion},
-            {TaskID::PLAY_WEAPON, &GameInterface::HandlePlayWeapon},
             {TaskID::GAME_END, &GameInterface::HandleGameEnd},
             {TaskID::OVER_DRAW, &GameInterface::HandleOverDraw},
     };
