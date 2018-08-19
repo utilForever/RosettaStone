@@ -4,6 +4,17 @@
 
 namespace TestUtils
 {
+GenPlayer::GenPlayer(CardClass class1, CardClass class2)
+    : account1("test1@test.com", "test1"),
+      account2("test2@test.com", "test2"),
+      deck1("deck1", class1),
+      deck2("deck2", class2),
+      player1(&account1, &deck1),
+      player2(&account2, &deck2)
+{
+    // Do Nothing
+}
+
 std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
                                  size_t maximumSize)
 {

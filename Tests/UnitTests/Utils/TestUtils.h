@@ -10,6 +10,20 @@ using namespace Hearthstonepp;
 
 namespace TestUtils
 {
+struct GenPlayer
+{
+    GenPlayer(CardClass class1, CardClass class2);
+
+    Account account1;
+    Account account2;
+
+    Deck deck1;
+    Deck deck2;
+
+    Player player1;
+    Player player2;
+};
+
 std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
                                  size_t maximumSize = 255);
 
@@ -17,7 +31,8 @@ TaskMetaTrait GenerateRandomTrait();
 
 TaskMeta GenerateRandomTaskMeta();
 
-std::unique_ptr<Card> ConvertCardFrom(const Card* card, const FlatData::Card* deserialized);
+std::unique_ptr<Card> ConvertCardFrom(const Card* card,
+                                      const FlatData::Card* deserialized);
 
 void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
                        const std::unique_ptr<BYTE[]>& buffer2,
