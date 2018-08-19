@@ -37,19 +37,19 @@ TEST(TaskSerializer, CreateCard)
 
     // Rogue Minion : Nerubian
     const Card* nerubian = cards->FindCardByID("AT_036t");
-    EXPECT_NE(nerubian, nullptr);
+    EXPECT_NE(nerubian, static_cast<const Card*>(nullptr));
     EXPECT_EQ(nerubian->name, "Nerubian");
     cardTest(nerubian);
 
     // Rogue Weapon : Poisoned Blade
     const Card* poisonedBlade = cards->FindCardByID("AT_034");
-    EXPECT_NE(poisonedBlade, nullptr);
+    EXPECT_NE(poisonedBlade, static_cast<const Card*>(nullptr));
     EXPECT_EQ(poisonedBlade->name, "Poisoned Blade");
     cardTest(poisonedBlade);
 
     // Enchantment
     const Card* dreadsteed = cards->FindCardByID("AT_019e");
-    EXPECT_NE(dreadsteed, nullptr);
+    EXPECT_NE(dreadsteed, static_cast<const Card*>(nullptr));
     EXPECT_EQ(dreadsteed->name, "Dreadsteed");
     cardTest(dreadsteed);
 
@@ -76,7 +76,7 @@ TEST(TaskSerializer, CreateEntity)
 
     // Rogue Minion : Nerubian
     const Card* nerubian = cards->FindCardByID("AT_036t");
-    EXPECT_NE(nerubian, nullptr);
+    EXPECT_NE(nerubian, static_cast<const Card*>(nullptr));
     EXPECT_EQ(nerubian->name, "Nerubian");
 
     Minion mNerubian(nerubian);
@@ -92,7 +92,7 @@ TEST(TaskSerializer, CreateEntity)
 
     // Rogue Weapon : Poisoned Blade
     const Card* poisonedBlade = cards->FindCardByID("AT_034");
-    EXPECT_NE(poisonedBlade, nullptr);
+    EXPECT_NE(poisonedBlade, static_cast<const Card*>(nullptr));
     EXPECT_EQ(poisonedBlade->name, "Poisoned Blade");
 
     Weapon wPoisonedBlade(poisonedBlade);

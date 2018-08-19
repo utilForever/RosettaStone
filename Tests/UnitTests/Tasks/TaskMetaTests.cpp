@@ -67,7 +67,7 @@ TEST(TaskMeta, Constructors)
     EXPECT_EQ(meta.status, MetaData::INVALID);
     EXPECT_EQ(meta.userID, TaskMeta::USER_INVALID);
     EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetConstBuffer().get(), nullptr);
+    EXPECT_EQ(meta.GetConstBuffer().get(), static_cast<BYTE*>(nullptr));
 
     // Default Constructor
     TaskMeta task(trait, size, buffer.get());
@@ -109,14 +109,14 @@ TEST(TaskMeta, UniquePtr)
     // MoveBuffer
     std::unique_ptr<BYTE[]> moved = meta.MoveBuffer();
     EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetConstBuffer().get(), nullptr);
+    EXPECT_EQ(meta.GetConstBuffer().get(), static_cast<BYTE*>(nullptr));
     TestUtils::ExpectBufferEqual(buffer, moved, size);
 
     // reset
     meta = TaskMeta(trait, size, buffer.get());
     meta.reset();
     EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetConstBuffer().get(), nullptr);
+    EXPECT_EQ(meta.GetConstBuffer().get(), static_cast<BYTE*>(nullptr));
 }
 
 TEST(TaskMeta, CopyFrom)
