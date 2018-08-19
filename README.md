@@ -29,17 +29,17 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Copy
 - [ ] Deal damage
 - [ ] Deathrattle
-- [ ] Destroy
+- [x] Destroy
 - [ ] Discard
 - [ ] Discover
-- [ ] Divine Shield
+- [x] Divine Shield
 - [ ] Draw cards
 - [ ] Echo
 - [ ] Elusive
 - [ ] Enrage
 - [ ] Equip
 - [ ] Forgetful
-- [ ] Freeze
+- [x] Freeze
 - [ ] Gain Armor
 - [ ] Generate
 - [ ] Immune
@@ -51,7 +51,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Modify cost
 - [ ] Overload
 - [ ] Permanent
-- [ ] Poisonous
+- [x] Poisonous
 - [ ] Put into battlefield
 - [ ] Put into hand
 - [ ] Quest
@@ -59,7 +59,7 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Refresh Mana
 - [ ] Remove from deck
 - [ ] Replace
-- [ ] Rush
+- [x] Rush
 - [ ] Restore Health
 - [ ] Return to hand
 - [ ] Secret
@@ -69,40 +69,40 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - [ ] Spend mana
 - [ ] Start of Game
 - [ ] Stealth
-- [ ] Summon
+- [x] Summon
 - [x] Taunt
 - [ ] Take control
 - [ ] Transform
 - [ ] Unlimited attacks
 - [ ] Upgradable
-- [ ] Windfury
+- [x] Windfury
 
 ## Card Sets
 
 ### Basic & Classic
 
-- 2% Basic (142 Cards)
-- 0% Classic (239 Cards)
-- 0% Hall of Fame (10 Cards)
+- 4% Basic (6 of 142 Cards)
+- 6% Classic (14 of 239 Cards)
+- 0% Hall of Fame (0 of 10 Cards)
 
 ### Adventures
 
-- 0% One Night in Karazhan (45 Cards)
-- 0% The League of Explorers (45 Cards)
-- 0% Blackrock Mountain (31 Cards)
-- 0% Curse of Naxxramas (30 Cards)
+- 0% One Night in Karazhan (0 of 45 Cards)
+- 0% The League of Explorers (0 of 45 Cards)
+- 0% Blackrock Mountain (0 of 31 Cards)
+- 0% Curse of Naxxramas (0 of 30 Cards)
 
 ### Expensions
 
-- 0% The Boomsday Project (135 Cards)
-- 0% The Witchwood (135 Cards)
-- 0% Kobolds & Catacombs (135 Cards)
-- 0% Knights of the Frozen Throne (135 Cards)
-- 0% Journey to Un'Goro (135 Cards)
-- 0% Mean Streets of Gadgetzan (132 Cards)
-- 0% Whispers of the Old Gods (134 Cards)
-- 0% The Grand Tournament (132 Cards)
-- 0% Goblins vs Gnomes (123 Cards)
+- 0% The Boomsday Project (0 of 135 Cards)
+- 0% The Witchwood (0 of 135 Cards)
+- 0% Kobolds & Catacombs (0 of 135 Cards)
+- 0% Knights of the Frozen Throne (0 of 135 Cards)
+- 0% Journey to Un'Goro (0 of 135 Cards)
+- 0% Mean Streets of Gadgetzan (0 of 132 Cards)
+- 0% Whispers of the Old Gods (0 of 134 Cards)
+- 0% The Grand Tournament (0 of 132 Cards)
+- 0% Goblins vs Gnomes (0 of 123 Cards)
 
 ## Quick Start
 
