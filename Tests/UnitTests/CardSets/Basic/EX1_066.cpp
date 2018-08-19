@@ -32,7 +32,7 @@ TEST(BasicCard, EX1_066)
     MetaData result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::PLAY_WEAPON_SUCCESS);
-    EXPECT_NE(agent.GetPlayer1().hero->weapon, nullptr);
+    EXPECT_NE(agent.GetPlayer1().hero->weapon, static_cast<Weapon*>(nullptr));
 
     TaskMeta reqPlayCard1 = respPlayCard1.get();
     EXPECT_EQ(reqPlayCard1.id, +TaskID::REQUIRE);
@@ -45,7 +45,7 @@ TEST(BasicCard, EX1_066)
     result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().hero->weapon, nullptr);
+    EXPECT_EQ(agent.GetPlayer1().hero->weapon, static_cast<Weapon*>(nullptr));
 
     auto[respPlayCard2, respPlayMinion] = respAutoMinion.get();
     require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
