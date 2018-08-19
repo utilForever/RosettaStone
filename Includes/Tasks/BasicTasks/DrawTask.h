@@ -33,7 +33,7 @@ class DrawTask : public ITask
 class DrawCardTask : public ITask
 {
  public:
-    DrawCardTask(Card* card);
+    DrawCardTask(const Card* card);
 
     TaskID GetTaskID() const override;
 
