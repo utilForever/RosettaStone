@@ -1,6 +1,6 @@
 #include <Utils/CardSetUtils.h>
 
-TEST(BasicCard, EX1_543)
+TEST(BasicCardSet, EX1_543)
 {
     GameAgent agent(
         Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),

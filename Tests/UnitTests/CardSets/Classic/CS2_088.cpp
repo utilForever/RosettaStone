@@ -1,6 +1,6 @@
 #include <Utils/CardSetUtils.h>
 
-TEST(BasicCard, CS2_088)
+TEST(ClassicCardSet, CS2_088)
 {
     // init agent state
     GameAgent agent(
