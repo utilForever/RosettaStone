@@ -52,6 +52,7 @@ add_subdirectory(Libraries/imgui)
 add_subdirectory(Programs/Console)
 add_subdirectory(Programs/GUI)
 add_subdirectory(Tests/UnitTests)
+add_subdirectory(Tools)
 
 if (NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     include(CodeCoverage)
