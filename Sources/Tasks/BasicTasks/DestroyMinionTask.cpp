@@ -21,9 +21,9 @@ TaskID DestroyMinionTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyMinionTask::Impl(Player&, Player& player2)
+MetaData DestroyMinionTask::Impl(Player& player1, Player&)
 {
-    auto& field = player2.field;
+    auto& field = player1.field;
 
     auto ptr = std::find(field.begin(), field.end(), m_character);
     if (ptr != field.end())

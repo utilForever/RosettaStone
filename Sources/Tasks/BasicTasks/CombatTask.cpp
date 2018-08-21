@@ -141,13 +141,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Source Health Check
     if (source->health <= 0)
     {
-        DestroyMinionTask(source).Run(player2, player1);
+        DestroyMinionTask(source).Run(player1, player2);
     }
 
     // Target Health Check
     if (target->health <= 0)
     {
-        DestroyMinionTask(target).Run(player1, player2);
+        DestroyMinionTask(target).Run(player2, player1);
     }
 
     return MetaData::COMBAT_SUCCESS;

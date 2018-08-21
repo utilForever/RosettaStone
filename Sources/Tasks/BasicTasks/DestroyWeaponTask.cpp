@@ -20,9 +20,9 @@ TaskID DestroyWeaponTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyWeaponTask::Impl(Player &, Player & player2)
+MetaData DestroyWeaponTask::Impl(Player& player1, Player&)
 {
-    player2.hero->weapon = nullptr;
+    player1.hero->weapon = nullptr;
     return MetaData::DESTROY_OPPONENT_WEAPON_SUCCESS;
 
 }
