@@ -12,7 +12,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-InitAttackCountTask::InitAttackCountTask(Player& player) : m_player(player)
+InitAttackCountTask::InitAttackCountTask()
 {
     // Do Nothing
 }
@@ -22,9 +22,9 @@ TaskID InitAttackCountTask::GetTaskID() const
     return TaskID::INIT_ATTACK_COUNT;
 }
 
-MetaData InitAttackCountTask::Impl(Player&, Player&)
+MetaData InitAttackCountTask::Impl(Player& player1, Player&)
 {
-    for (auto &character : m_player.field)
+    for (auto& character : player1.field)
     {
         if (character->gameTags[+GameTag::FROZEN] == 1)
         {
@@ -37,7 +37,8 @@ MetaData InitAttackCountTask::Impl(Player&, Player&)
             continue;
         }
 
-        character->attackableCount = character->gameTags[+GameTag::WINDFURY] == 1 ? 2 : 1;
+        character->attackableCount =
+            character->gameTags[+GameTag::WINDFURY] == 1 ? 2 : 1;
     }
 
     return MetaData::INIT_ATTACK_COUNT_SUCCESS;

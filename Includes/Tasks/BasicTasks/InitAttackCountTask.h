@@ -18,11 +18,10 @@ namespace Hearthstonepp::BasicTasks
 class InitAttackCountTask : public ITask
 {
   public:
-    InitAttackCountTask(Player& player);
+    InitAttackCountTask();
     TaskID GetTaskID() const override;
 
   private:
-    Player& m_player;
     MetaData Impl(Player& player1, Player& player2) override;
 };
 
