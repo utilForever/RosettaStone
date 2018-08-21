@@ -7,6 +7,7 @@
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
 #include <Tasks/BasicTasks/CombatTask.h>
+#include <Tasks/BasicTasks/DestroyTask.h>
 #include <Tasks/BasicTasks/ModifyHealthTask.h>
 #include <Tasks/PowerTasks/FreezeTask.h>
 #include <Tasks/PowerTasks/PoisonousTask.h>
@@ -140,23 +141,17 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Source Health Check
     if (source->health <= 0)
     {
-        auto& field = player1.field;
-        auto ptr = std::find(field.begin(), field.end(), source);
-        if (ptr != field.end())
-        {
-            field.erase(ptr);
-        }
+       auto task = DestroyTask(+EntityType::SOURCE);
+       task.source = source;
+       task.Run(player1, player2);
     }
 
     // Target Health Check
     if (target->health <= 0)
     {
-        auto& field = player2.field;
-        auto ptr = std::find(field.begin(), field.end(), target);
-        if (ptr != field.end())
-        {
-            field.erase(ptr);
-        }
+        auto task = DestroyTask(+EntityType::TARGET);
+        task.target = target;
+        task.Run(player1, player2);
     }
 
     return MetaData::COMBAT_SUCCESS;

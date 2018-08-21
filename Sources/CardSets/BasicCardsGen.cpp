@@ -190,7 +190,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // --------------------------------------------------------
     Power* p = new Power;
     p->powerTask.emplace_back(
-        new BasicTask::DestroyTask(EntityType::OPPONENT_WEAPON));
+        new BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON));
     cards.emplace("EX1_066", p);
 
     // --------------------------------------- MINION - NEUTRAL

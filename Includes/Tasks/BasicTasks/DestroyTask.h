@@ -11,7 +11,7 @@
 
 #include <Tasks/Tasks.h>
 
-namespace Hearthstonepp::BasicTask
+namespace Hearthstonepp::BasicTasks
 {
 class DestroyTask : public ITask
 {
