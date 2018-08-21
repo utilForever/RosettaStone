@@ -42,7 +42,7 @@ TEST(ClassicCardSet, CS2_169)
     TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
     TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
 
-    agent.RunTask(BasicTasks::InitAttackCountTask(player1), player1, player2);
+    agent.RunTask(BasicTasks::InitAttackCountTask(), player1, player2);
 
     auto respAutoTarget = response.Target(1, 0);
     auto result =

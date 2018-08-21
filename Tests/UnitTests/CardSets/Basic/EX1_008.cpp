@@ -42,7 +42,7 @@ TEST(BasicCardSet, EX1_008)
     TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
     TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
 
-    agent.RunTask(BasicTasks::InitAttackCountTask(player2), player1, player2);
+    agent.RunTask(BasicTasks::InitAttackCountTask(), player2, player1);
 
     auto respAutoTarget = response.Target(1, 1);
     EXPECT_EQ(agent.GetPlayer1().field[0]->gameTags[+GameTag::DIVINE_SHIELD],
