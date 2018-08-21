@@ -17,12 +17,11 @@ namespace Hearthstonepp::BasicTasks
 class DestroyMinionTask : public ITask
 {
 public:
-    DestroyMinionTask(Player& player, Character* character);
+    DestroyMinionTask(Character* character);
 
     TaskID GetTaskID() const override;
 
 private:
-    Player& m_player;
     Character* m_character;
 
     MetaData Impl(Player& player1, Player& player2) override;

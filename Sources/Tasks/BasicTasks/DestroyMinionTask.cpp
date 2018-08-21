@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DestroyMinionTask::DestroyMinionTask(Player& player, Character* character) : m_player(player), m_character(character)
+DestroyMinionTask::DestroyMinionTask(Character* character) : m_character(character)
 {
     // Do nothing
 }
@@ -21,9 +21,9 @@ TaskID DestroyMinionTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyMinionTask::Impl(Player &, Player &)
+MetaData DestroyMinionTask::Impl(Player&, Player& player2)
 {
-    auto& field = m_player.field;
+    auto& field = player2.field;
 
     auto ptr = std::find(field.begin(), field.end(), m_character);
     if (ptr != field.end())
@@ -32,6 +32,6 @@ MetaData DestroyMinionTask::Impl(Player &, Player &)
         return MetaData::DESTROY_MINION_SUCCESS;
     }
 
-    return MetaData::INVALID;
+    return MetaData::DESTROY_MINION_NOT_FOUND;
 }
 }

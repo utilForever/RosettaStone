@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DestroyWeaponTask::DestroyWeaponTask(Hero* hero) : m_hero(hero)
+DestroyWeaponTask::DestroyWeaponTask()
 {
     // Do nothing
 }
@@ -20,9 +20,9 @@ TaskID DestroyWeaponTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyWeaponTask::Impl(Player &, Player &)
+MetaData DestroyWeaponTask::Impl(Player &, Player & player2)
 {
-    m_hero->weapon = nullptr;
+    player2.hero->weapon = nullptr;
     return MetaData::DESTROY_OPPONENT_WEAPON_SUCCESS;
 
 }

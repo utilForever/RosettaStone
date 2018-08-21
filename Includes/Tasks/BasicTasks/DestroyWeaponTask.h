@@ -17,13 +17,11 @@ namespace Hearthstonepp::BasicTasks
 class DestroyWeaponTask : public ITask
 {
  public:
-    DestroyWeaponTask(Hero* hero);
+    DestroyWeaponTask();
 
     TaskID GetTaskID() const override;
 
  private:
-    Hero* m_hero;
-
     MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTask

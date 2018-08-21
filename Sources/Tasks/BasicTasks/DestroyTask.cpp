@@ -27,13 +27,13 @@ MetaData DestroyTask::Impl(Player& player1, Player& player2)
     switch (m_entityType)
     {
         case EntityType::SOURCE:
-            return DestroyMinionTask(player1, source).Run(player1, player2);
+            return DestroyMinionTask(source).Run(player2, player1);
 
         case EntityType::TARGET:
-            return DestroyMinionTask(player2, target).Run(player1, player2);
+            return DestroyMinionTask(target).Run(player1, player2);
 
         case EntityType::OPPONENT_WEAPON:
-            return DestroyWeaponTask(player2.hero).Run(player1, player2);
+            return DestroyWeaponTask().Run(player1, player2);
 
         default:
             return MetaData::INVALID;
