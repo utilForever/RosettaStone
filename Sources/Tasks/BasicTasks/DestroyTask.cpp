@@ -6,9 +6,9 @@
 > Created Time: 2018/07/22
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#include <Tasks/PowerTasks/DestroyTask.h>
+#include <Tasks/BasicTasks/DestroyTask.h>
 
-namespace Hearthstonepp::PowerTask
+namespace Hearthstonepp::BasicTask
 {
 DestroyTask::DestroyTask(EntityType entityType) : m_entityType(entityType)
 {

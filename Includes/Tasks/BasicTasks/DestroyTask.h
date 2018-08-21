@@ -6,12 +6,12 @@
 > Created Time: 2018/07/22
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#ifndef HEARTHSTONEPP_DESTROYWEAPON_H
-#define HEARTHSTONEPP_DESTROYWEAPON_H
+#ifndef HEARTHSTONEPP_DESTROYTASK_H
+#define HEARTHSTONEPP_DESTROYTASK_H
 
 #include <Tasks/Tasks.h>
 
-namespace Hearthstonepp::PowerTask
+namespace Hearthstonepp::BasicTask
 {
 class DestroyTask : public ITask
 {
@@ -25,6 +25,6 @@ class DestroyTask : public ITask
 
     MetaData Impl(Player& player1, Player& player2) override;
 };
-}  // namespace Hearthstonepp::PowerTask
+}  // namespace Hearthstonepp::BasicTask
 
-#endif  // HEARTHSTONEPP_DESTROYWEAPON_H
+#endif  // HEARTHSTONEPP_DESTROYTASK_H
