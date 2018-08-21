@@ -7,7 +7,7 @@
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
 #include <Tasks/BasicTasks/CombatTask.h>
-#include <Tasks/BasicTasks/DestroyTask.h>
+#include <Tasks/BasicTasks/DestroyMinionTask.h>
 #include <Tasks/BasicTasks/ModifyHealthTask.h>
 #include <Tasks/PowerTasks/FreezeTask.h>
 #include <Tasks/PowerTasks/PoisonousTask.h>
@@ -141,17 +141,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Source Health Check
     if (source->health <= 0)
     {
-       auto task = DestroyTask(+EntityType::SOURCE);
-       task.source = source;
-       task.Run(player1, player2);
+        DestroyMinionTask(player1, source).Run(player1, player2);
     }
 
     // Target Health Check
     if (target->health <= 0)
     {
-        auto task = DestroyTask(+EntityType::TARGET);
-        task.target = target;
-        task.Run(player1, player2);
+        DestroyMinionTask(player2, target).Run(player1, player2);
     }
 
     return MetaData::COMBAT_SUCCESS;

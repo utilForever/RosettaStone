@@ -1,12 +1,14 @@
 /*************************************************************************
-> File Name: DestroyWeapon.cpp
+> File Name: DestroyTask.cpp
 > Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement DestroyWeapon
+> Author: Young-Joong Kim, SeungHyun Jeon
+> Purpose: Implement DestroyTask
 > Created Time: 2018/07/22
-> Copyright (c) 2018, Young-Joong Kim
+> Copyright (c) 2018, Young-Joong Kim, SeungHyun Jeon
 *************************************************************************/
 #include <Tasks/BasicTasks/DestroyTask.h>
+#include <Tasks/BasicTasks/DestroyWeaponTask.h>
+#include <Tasks/BasicTasks/DestroyMinionTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
@@ -22,25 +24,19 @@ TaskID DestroyTask::GetTaskID() const
 
 MetaData DestroyTask::Impl(Player& player1, Player& player2)
 {
-    if (m_entityType == +EntityType::OPPONENT_WEAPON)
+    switch (m_entityType)
     {
-        player2.hero->weapon = nullptr;
-        return MetaData::DESTROY_OPPONENT_WEAPON_SUCCESS;
+        case EntityType::SOURCE:
+            return DestroyMinionTask(player1, source).Run(player1, player2);
+
+        case EntityType::TARGET:
+            return DestroyMinionTask(player2, target).Run(player1, player2);
+
+        case EntityType::OPPONENT_WEAPON:
+            return DestroyWeaponTask(player2.hero).Run(player1, player2);
+
+        default:
+            return MetaData::INVALID;
     }
-
-    else if (m_entityType == +EntityType::SOURCE || m_entityType == +EntityType::TARGET)
-    {
-        auto& field = m_entityType == +EntityType::SOURCE ? player1.field : player2.field;
-        auto& entity = m_entityType == +EntityType::SOURCE ? source : target;
-
-        auto ptr = std::find(field.begin(), field.end(), entity);
-        if (ptr != field.end())
-        {
-            field.erase(ptr);
-            return MetaData::DESTROY_MINION_SUCCESS;
-        }
-    }
-
-    return MetaData::INVALID;
 }
 }  // namespace Hearthstonepp::BasicTasks
