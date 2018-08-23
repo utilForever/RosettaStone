@@ -8,8 +8,8 @@
 *************************************************************************/
 #include <CardSets/BasicCardsGen.h>
 #include <Enchants/Effects.h>
+#include <Tasks/BasicTasks/DestroyTask.h>
 #include <Tasks/PowerTasks/AddEnchantmentTask.h>
-#include <Tasks/PowerTasks/DestroyTask.h>
 #include <Tasks/PowerTasks/DiscardTask.h>
 #include <Tasks/PowerTasks/HealFullTask.h>
 #include <Tasks/PowerTasks/HealTask.h>
@@ -190,7 +190,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // --------------------------------------------------------
     Power* p = new Power;
     p->powerTask.emplace_back(
-        new PowerTask::DestroyTask(EntityType::OPPONENT_WEAPON));
+        new BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON));
     cards.emplace("EX1_066", p);
 
     // --------------------------------------- MINION - NEUTRAL
