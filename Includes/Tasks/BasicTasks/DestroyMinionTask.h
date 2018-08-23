@@ -6,8 +6,8 @@
 > Created Time: 2018/08/21
 > Copyright (c) 2018, SeungHyun Jeon
 *************************************************************************/
-#ifndef HEARTHSTONEPP_DESTORYMINIONTASK_H
-#define HEARTHSTONEPP_DESTORYMINIONTASK_H
+#ifndef HEARTHSTONEPP_DESTORY_MINION_TASK_H
+#define HEARTHSTONEPP_DESTORY_MINION_TASK_H
 
 #include <Cards/Character.h>
 #include <Tasks/Tasks.h>
@@ -28,4 +28,4 @@ private:
 };
 }  // namespace Hearthstonepp::BasicTask
 
-#endif //HEARTHSTONEPP_DESTORYMINIONTASK_H
+#endif //HEARTHSTONEPP_DESTORY_MINION_TASK_H

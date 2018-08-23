@@ -6,8 +6,8 @@
 > Created Time: 2018/08/21
 > Copyright (c) 2018, SeungHyun Jeon
 *************************************************************************/
-#ifndef HEARTHSTONEPP_DESTROYWEAPONTASK_H
-#define HEARTHSTONEPP_DESTROYWEAPONTASK_H
+#ifndef HEARTHSTONEPP_DESTROY_WEAPON_TASK_H
+#define HEARTHSTONEPP_DESTROY_WEAPON_TASK_H
 
 #include <Cards/Hero.h>
 #include <Tasks/Tasks.h>
@@ -26,4 +26,4 @@ class DestroyWeaponTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTask
 
-#endif //HEARTHSTONEPP_DESTROYWEAPONTASK_H
+#endif //HEARTHSTONEPP_DESTROY_WEAPON_TASK_H

@@ -6,8 +6,8 @@
 > Created Time: 2018/07/22
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#ifndef HEARTHSTONEPP_DESTROYTASK_H
-#define HEARTHSTONEPP_DESTROYTASK_H
+#ifndef HEARTHSTONEPP_DESTROY_TASK_H
+#define HEARTHSTONEPP_DESTROY_TASK_H
 
 #include <Tasks/Tasks.h>
 
@@ -27,4 +27,4 @@ class DestroyTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTask
 
-#endif  // HEARTHSTONEPP_DESTROYTASK_H
+#endif  // HEARTHSTONEPP_DESTROY_TASK_H
