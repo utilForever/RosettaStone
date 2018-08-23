@@ -7,11 +7,16 @@
 > Created Time: 2018/08/21
 > Copyright (c) 2018, Chan-Ho Chris Ohk
 *************************************************************************/
+#include <Cards/Cards.h>
+
 #include <clara.hpp>
 
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
+
+using namespace Hearthstonepp;
 
 inline std::string ToString(const clara::Opt& opt)
 {
@@ -25,6 +30,23 @@ inline std::string ToString(const clara::Parser& p)
     std::ostringstream oss;
     oss << p;
     return oss.str();
+}
+
+inline void QueryCardSetList(const std::string& cardSetName)
+{
+    std::vector<Card*> cards;
+
+
+    if (cardSetName == "ALL")
+    {
+        cards = Cards::GetInstance()->GetAllCards();
+    }
+    else
+    {
+        // TODO: Find cards by cards set
+    }
+
+    // TODO: Identify card is implemented
 }
 
 inline void ExportFile(const std::string& fileName)
@@ -70,11 +92,11 @@ int main(int argc, char* argv[])
 
     if (exportAllCard)
     {
-         
+        QueryCardSetList("ALL");
     }
     else if (!cardSetName.empty())
     {
-        
+        QueryCardSetList(cardSetName);
     }
 
     exit(EXIT_SUCCESS);
