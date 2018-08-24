@@ -93,6 +93,21 @@ std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
     return result;
 }
 
+std::vector<Card*> Cards::FindCardBySet(CardSet cardSet)
+{
+    std::vector<Card*> result;
+
+    for (auto card : m_cards)
+    {
+        if (card->cardSet == cardSet)
+        {
+            result.emplace_back(card);
+        }
+    }
+
+    return result;
+}
+
 std::vector<Card*> Cards::FindCardByType(CardType cardType)
 {
     std::vector<Card*> result;
@@ -223,7 +238,8 @@ std::vector<Card*> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
         }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (card->spellDamage.value() >= minVal && card->spellDamage.value() <= maxVal)
+        if (card->spellDamage.value() >= minVal &&
+            card->spellDamage.value() <= maxVal)
 #else
         if (*(card->spellDamage) >= minVal && *(card->spellDamage) <= maxVal)
 #endif
@@ -309,4 +325,4 @@ const Card* Cards::GetDefaultHeroPower(CardClass cardClass)
             return nullptr;
     }
 }
-}
+}  // namespace Hearthstonepp
