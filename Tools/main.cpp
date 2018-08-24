@@ -52,10 +52,10 @@ inline std::vector<Card*> QueryCardSetList(CardSet cardSet)
     return Cards::GetInstance()->FindCardBySet(cardSet);
 }
 
-inline bool CheckCardImpl(std::string path, std::string id)
+inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {
 #ifndef HEARTHSTONEPP_MACOSX
-    filesystem::path p(path + "/Tests/UnitTests/CardSets");
+    const filesystem::path p(path + "/Tests/UnitTests/CardSets");
 
     if (!filesystem::exists(p))
     {
@@ -94,7 +94,7 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card*> cards)
     std::ofstream outputFile("result.md");
     if (outputFile)
     {
-        size_t collectiableCardNum = 0;
+        size_t collectibleCardNum = 0;
         size_t implementedCardNum = 0;
 
         outputFile << "Set | ID | Name | Implemented\n";
@@ -107,9 +107,9 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card*> cards)
                 continue;
             }
 
-            collectiableCardNum++;
+            collectibleCardNum++;
 
-            bool isImplemented = CheckCardImpl(projectPath, card->id);
+            const bool isImplemented = CheckCardImpl(projectPath, card->id);
             if (isImplemented)
             {
                 implementedCardNum++;
@@ -120,12 +120,11 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card*> cards)
                        << (isImplemented ? 'O' : ' ') << '\n';
         }
 
-        size_t implPercent =
-            static_cast<size_t>(static_cast<double>(implementedCardNum) /
-                                collectiableCardNum * 100);
+        const size_t implPercent = static_cast<size_t>(
+            static_cast<double>(implementedCardNum) / collectibleCardNum * 100);
         outputFile << '\n';
         outputFile << "- Progress: " << implPercent << "% ("
-                   << implementedCardNum << " of " << collectiableCardNum
+                   << implementedCardNum << " of " << collectibleCardNum
                    << " Cards)";
 
         std::cout << "Export file is completed.\n";
@@ -180,7 +179,7 @@ int main(int argc, char* argv[])
     }
     else if (!cardSetName.empty())
     {
-        auto maybeCardSet = CardSet::_from_string_nothrow(cardSetName.c_str());
+        const auto maybeCardSet = CardSet::_from_string_nothrow(cardSetName.c_str());
         if (!maybeCardSet)
         {
             std::cerr << "Invalid card set name: " << cardSetName << '\n';
