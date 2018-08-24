@@ -42,40 +42,24 @@ inline std::vector<Card*> QueryCardSetList(CardSet cardSet)
     return Cards::GetInstance()->FindCardBySet(cardSet);
 }
 
-inline std::tuple<size_t, size_t, size_t> GetMaxLengthsInCards(
-    std::vector<Card*>& cards)
-{
-    size_t cardIDMaxLen = std::numeric_limits<size_t>::min();
-    size_t cardSetMaxLen = std::numeric_limits<size_t>::min();
-    size_t cardNameMaxLen = std::numeric_limits<size_t>::min();
-
-    for (auto& card : cards)
-    {
-        if (card->id.length() > cardIDMaxLen)
-        {
-            cardIDMaxLen = card->id.length();
-        }
-
-        if (std::strlen(card->cardSet._to_string()) > cardSetMaxLen)
-        {
-            cardSetMaxLen = std::strlen(card->cardSet._to_string());
-        }
-
-        if (card->name.length() > cardNameMaxLen)
-        {
-            cardNameMaxLen = card->name.length();
-        }
-    }
-
-    return std::make_tuple(cardIDMaxLen, cardSetMaxLen, cardNameMaxLen);
-}
-
-inline void ExportFile(const std::string& fileName)
+inline void ExportFile(const std::string& fileName, std::vector<Card*> cards)
 {
     std::ofstream outputFile(fileName + ".md");
     if (outputFile)
     {
-        // TODO: export card data
+        outputFile << "Set | ID | Name\n";
+        outputFile << "--- | --- | ---\n";
+
+        for (auto& card : cards)
+        {
+            if (!card->isCollectible)
+            {
+                continue;
+            }
+
+            outputFile << card->cardSet._to_string() << " | " << card->id
+                       << " | " << card->name << '\n';
+        }
     }
     else
     {
@@ -135,7 +119,7 @@ int main(int argc, char* argv[])
         exit(EXIT_SUCCESS);
     }
 
-    auto[cardIDMaxLen, cardSetMaxLen, cardNameMaxLen] = GetMaxLengthsInCards(cards);
+    ExportFile("result", cards);
 
     exit(EXIT_SUCCESS);
 }
