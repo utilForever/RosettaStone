@@ -51,7 +51,7 @@ BETTER_ENUM(CardClass, int, INVALID = 0, DEATHKNIGHT = 1, DRUID = 2, HUNTER = 3,
             MAGE = 4, PALADIN = 5, PRIEST = 6, ROGUE = 7, SHAMAN = 8,
             WARLOCK = 9, WARRIOR = 10, DREAM = 11, NEUTRAL = 12, WHIZBANG = 13)
 
-BETTER_ENUM(CardSet, int, INVALID = 0, TEST_TEMPORARY = 1, CORE = 2,
+BETTER_ENUM(CardSet, int, ALL = -1, INVALID = 0, TEST_TEMPORARY = 1, CORE = 2,
             EXPERT1 = 3, HOF = 4, MISSIONS = 5, DEMO = 6, NONE = 7, CHEAT = 8,
             BLANK = 9, DEBUG_SP = 10, PROMO = 11, NAXX = 12, GVG = 13, BRM = 14,
             TGT = 15, CREDITS = 16, HERO_SKINS = 17, TB = 18, SLUSH = 19,
