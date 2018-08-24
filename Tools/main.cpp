@@ -94,6 +94,9 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card*> cards)
     std::ofstream outputFile("result.md");
     if (outputFile)
     {
+        size_t collectiableCardNum = 0;
+        size_t implementedCardNum = 0;
+
         outputFile << "Set | ID | Name | Implemented\n";
         outputFile << ":---: | :---: | :---: | :---:\n";
 
@@ -104,18 +107,33 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card*> cards)
                 continue;
             }
 
+            collectiableCardNum++;
+
             bool isImplemented = CheckCardImpl(projectPath, card->id);
+            if (isImplemented)
+            {
+                implementedCardNum++;
+            }
 
             outputFile << card->cardSet._to_string() << " | " << card->id
                        << " | " << card->name << " | "
                        << (isImplemented ? 'O' : ' ') << '\n';
         }
+
+        size_t implPercent =
+            static_cast<size_t>(static_cast<double>(implementedCardNum) /
+                                collectiableCardNum * 100);
+        outputFile << '\n';
+        outputFile << "- Progress: " << implPercent << "% ("
+                   << implementedCardNum << " of " << collectiableCardNum
+                   << " Cards)";
+
+        std::cout << "Export file is completed.\n";
+        exit(EXIT_SUCCESS);
     }
-    else
-    {
-        std::cerr << "Failed to write file result.md\n";
-        exit(EXIT_FAILURE);
-    }
+
+    std::cerr << "Failed to write file result.md\n";
+    exit(EXIT_FAILURE);
 }
 
 int main(int argc, char* argv[])
