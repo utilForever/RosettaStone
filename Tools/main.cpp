@@ -32,21 +32,14 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline void QueryCardSetList(const std::string& cardSetName)
+inline std::vector<Card*> QueryCardSetList(CardSet cardSet)
 {
-    std::vector<Card*> cards;
-
-
-    if (cardSetName == "ALL")
+    if (cardSet == +CardSet::ALL)
     {
-        cards = Cards::GetInstance()->GetAllCards();
-    }
-    else
-    {
-        // TODO: Find cards by cards set
+        return Cards::GetInstance()->GetAllCards();
     }
 
-    // TODO: Identify card is implemented
+    return Cards::GetInstance()->FindCardBySet(cardSet);
 }
 
 inline void ExportFile(const std::string& fileName)
@@ -90,13 +83,28 @@ int main(int argc, char* argv[])
         exit(EXIT_SUCCESS);
     }
 
+    std::vector<Card*> cards;
+
     if (exportAllCard)
     {
-        QueryCardSetList("ALL");
+        cards = QueryCardSetList(CardSet::ALL);
     }
     else if (!cardSetName.empty())
     {
-        QueryCardSetList(cardSetName);
+        auto maybeCardSet = CardSet::_from_string_nothrow(cardSetName.c_str());
+        if (!maybeCardSet)
+        {
+            std::cerr << "Invalid card set name: " << cardSetName << '\n';
+            exit(EXIT_FAILURE);
+        }
+            
+        cards = QueryCardSetList(*maybeCardSet);
+    }
+
+    if (cards.empty())
+    {
+        std::cerr << "Your search did not generate any hits.\n";
+        exit(EXIT_SUCCESS);
     }
 
     exit(EXIT_SUCCESS);
