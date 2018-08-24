@@ -42,6 +42,34 @@ inline std::vector<Card*> QueryCardSetList(CardSet cardSet)
     return Cards::GetInstance()->FindCardBySet(cardSet);
 }
 
+inline std::tuple<size_t, size_t, size_t> GetMaxLengthsInCards(
+    std::vector<Card*>& cards)
+{
+    size_t cardIDMaxLen = std::numeric_limits<size_t>::min();
+    size_t cardSetMaxLen = std::numeric_limits<size_t>::min();
+    size_t cardNameMaxLen = std::numeric_limits<size_t>::min();
+
+    for (auto& card : cards)
+    {
+        if (card->id.length() > cardIDMaxLen)
+        {
+            cardIDMaxLen = card->id.length();
+        }
+
+        if (std::strlen(card->cardSet._to_string()) > cardSetMaxLen)
+        {
+            cardSetMaxLen = std::strlen(card->cardSet._to_string());
+        }
+
+        if (card->name.length() > cardNameMaxLen)
+        {
+            cardNameMaxLen = card->name.length();
+        }
+    }
+
+    return std::make_tuple(cardIDMaxLen, cardSetMaxLen, cardNameMaxLen);
+}
+
 inline void ExportFile(const std::string& fileName)
 {
     std::ofstream outputFile(fileName + ".md");
@@ -97,7 +125,7 @@ int main(int argc, char* argv[])
             std::cerr << "Invalid card set name: " << cardSetName << '\n';
             exit(EXIT_FAILURE);
         }
-            
+
         cards = QueryCardSetList(*maybeCardSet);
     }
 
@@ -106,6 +134,8 @@ int main(int argc, char* argv[])
         std::cerr << "Your search did not generate any hits.\n";
         exit(EXIT_SUCCESS);
     }
+
+    auto[cardIDMaxLen, cardSetMaxLen, cardNameMaxLen] = GetMaxLengthsInCards(cards);
 
     exit(EXIT_SUCCESS);
 }
