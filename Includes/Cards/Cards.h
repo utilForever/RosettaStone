@@ -39,6 +39,7 @@ class Cards
     const Card* FindCardByID(const std::string& id);
     std::vector<Card*> FindCardByRarity(Rarity rarity);
     std::vector<Card*> FindCardByClass(CardClass cardClass);
+    std::vector<Card*> FindCardBySet(CardSet cardSet);
     std::vector<Card*> FindCardByType(CardType cardType);
     std::vector<Card*> FindCardByRace(Race race);
     Card* FindCardByName(const std::string& name);
