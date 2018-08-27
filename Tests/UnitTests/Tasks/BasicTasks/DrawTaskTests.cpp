@@ -41,7 +41,7 @@ TEST(DrawTask, Run)
     BasicTasks::DrawTask draw(3, agent.GetTaskAgent());
     MetaData result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
-    EXPECT_EQ(gen.player1.hand.size(), 3);
+    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(3));
 
     for (size_t i = 0; i < 3; ++i)
     {
