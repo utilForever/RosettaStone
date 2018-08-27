@@ -103,8 +103,8 @@ TEST(DrawTask, RunOverDraw)
     BasicTasks::DrawTask draw(3, agent.GetTaskAgent());
     MetaData result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
-    EXPECT_EQ(gen.player1.cards.size(), 0);
-    EXPECT_EQ(gen.player1.hand.size(), 10);
+    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
+    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(10));
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
@@ -149,8 +149,8 @@ TEST(DrawTask, RunExhaustOverdraw)
     BasicTasks::DrawTask draw(4, agent.GetTaskAgent());
     MetaData result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
-    EXPECT_EQ(gen.player1.cards.size(), 0);
-    EXPECT_EQ(gen.player1.hand.size(), 10);
+    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
+    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(10));
     EXPECT_EQ(gen.player1.hand[9]->card->id, "card0");
 
     TaskMeta burnt;
