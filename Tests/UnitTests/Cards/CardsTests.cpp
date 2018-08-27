@@ -72,6 +72,46 @@ TEST(TestCards, FindCardByClass)
     EXPECT_TRUE(cards9.empty());
 }
 
+TEST(TestCards, FindCardBySet)
+{
+    Cards* cards = Cards::GetInstance();
+    std::vector<Card*> cards1 = cards->FindCardBySet(+CardSet::CORE);
+    std::vector<Card*> cards2 = cards->FindCardBySet(+CardSet::EXPERT1);
+    std::vector<Card*> cards3 = cards->FindCardBySet(+CardSet::HOF);
+    std::vector<Card*> cards4 = cards->FindCardBySet(+CardSet::NAXX);
+    std::vector<Card*> cards5 = cards->FindCardBySet(+CardSet::GVG);
+    std::vector<Card*> cards6 = cards->FindCardBySet(+CardSet::BRM);
+    std::vector<Card*> cards7 = cards->FindCardBySet(+CardSet::TGT);
+    std::vector<Card*> cards8 = cards->FindCardBySet(+CardSet::LOE);
+    std::vector<Card*> cards9 = cards->FindCardBySet(+CardSet::OG);
+    std::vector<Card*> cards10 = cards->FindCardBySet(+CardSet::KARA);
+    std::vector<Card*> cards11 = cards->FindCardBySet(+CardSet::GANGS);
+    std::vector<Card*> cards12 = cards->FindCardBySet(+CardSet::UNGORO);
+    std::vector<Card*> cards13 = cards->FindCardBySet(+CardSet::ICECROWN);
+    std::vector<Card*> cards14 = cards->FindCardBySet(+CardSet::LOOTAPALOOZA);
+    std::vector<Card*> cards15 = cards->FindCardBySet(+CardSet::GILNEAS);
+    std::vector<Card*> cards16 = cards->FindCardBySet(+CardSet::BOOMSDAY);
+    std::vector<Card*> cards17 = cards->FindCardBySet(+CardSet::INVALID);
+
+    EXPECT_EQ(+CardSet::CORE, cards1.front()->cardSet);
+    EXPECT_EQ(+CardSet::EXPERT1, cards2.front()->cardSet);
+    EXPECT_EQ(+CardSet::HOF, cards3.front()->cardSet);
+    EXPECT_EQ(+CardSet::NAXX, cards4.front()->cardSet);
+    EXPECT_EQ(+CardSet::GVG, cards5.front()->cardSet);
+    EXPECT_EQ(+CardSet::BRM, cards6.front()->cardSet);
+    EXPECT_EQ(+CardSet::TGT, cards7.front()->cardSet);
+    EXPECT_EQ(+CardSet::LOE, cards8.front()->cardSet);
+    EXPECT_EQ(+CardSet::OG, cards9.front()->cardSet);
+    EXPECT_EQ(+CardSet::KARA, cards10.front()->cardSet);
+    EXPECT_EQ(+CardSet::GANGS, cards11.front()->cardSet);
+    EXPECT_EQ(+CardSet::UNGORO, cards12.front()->cardSet);
+    EXPECT_EQ(+CardSet::ICECROWN, cards13.front()->cardSet);
+    EXPECT_EQ(+CardSet::LOOTAPALOOZA, cards14.front()->cardSet);
+    EXPECT_EQ(+CardSet::GILNEAS, cards15.front()->cardSet);
+    EXPECT_EQ(+CardSet::BOOMSDAY, cards16.front()->cardSet);
+    EXPECT_TRUE(cards17.empty());
+}
+
 TEST(TestCards, FindCardByType)
 {
     Cards* cards = Cards::GetInstance();
