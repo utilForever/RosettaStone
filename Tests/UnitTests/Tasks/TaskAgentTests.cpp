@@ -175,7 +175,9 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
 
             if (converted.status == MetaData::BRIEF_EXPIRED)
             {
-                EXPECT_EQ(traits[i].status, MetaData::BRIEF);
+                EXPECT_EQ(traits[i].status == MetaData::BRIEF ||
+                              traits[i].status == MetaData::BRIEF_EXPIRED,
+                          true);
             }
             else
             {

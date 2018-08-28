@@ -91,7 +91,7 @@ MetaData DrawTask::Impl(Player& user, Player&)
     return result;
 }
 
-DrawCardTask::DrawCardTask(Card* card)
+DrawCardTask::DrawCardTask(const Card* card)
 {
     switch (card->cardType)
     {
