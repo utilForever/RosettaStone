@@ -4,7 +4,7 @@
 
 namespace TestUtils
 {
-GenPlayer::GenPlayer(CardClass class1, CardClass class2)
+PlayerGenerator::PlayerGenerator(CardClass class1, CardClass class2)
     : account1("test1@test.com", "test1"),
       account2("test2@test.com", "test2"),
       deck1("deck1", class1),

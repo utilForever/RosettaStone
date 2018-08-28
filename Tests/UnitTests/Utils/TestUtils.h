@@ -10,9 +10,9 @@ using namespace Hearthstonepp;
 
 namespace TestUtils
 {
-struct GenPlayer
+struct PlayerGenerator
 {
-    GenPlayer(CardClass class1, CardClass class2);
+    PlayerGenerator(CardClass class1, CardClass class2);
 
     Account account1;
     Account account2;
