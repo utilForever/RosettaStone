@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
 #include <Managers/GameAgent.h>
 #include <Tasks/BasicTasks/DrawTask.h>
@@ -9,7 +9,7 @@ using namespace Hearthstonepp;
 
 TEST(DrawTask, GetTaskID)
 {
-    TestUtils::GenPlayer gen(CardClass::ROGUE, CardClass::DRUID);
+    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
     GameAgent agent(gen.player1, gen.player2);
 
     BasicTasks::DrawTask draw(1, agent.GetTaskAgent());
@@ -29,7 +29,7 @@ TEST(DrawTask, Run)
         return entities.back().get();
     };
 
-    TestUtils::GenPlayer gen(CardClass::ROGUE, CardClass::DRUID);
+    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
     GameAgent agent(gen.player1, gen.player2);
 
     std::string id = "card";
@@ -45,14 +45,16 @@ TEST(DrawTask, Run)
 
     for (size_t i = 0; i < 3; ++i)
     {
-        EXPECT_EQ(gen.player1.hand[i]->card->id, id + static_cast<char>(2 - i + 0x30));
+        EXPECT_EQ(gen.player1.hand[i]->card->id,
+                  id + static_cast<char>(2 - i + 0x30));
     }
 }
 
 TEST(DrawTask, RunExhaust)
 {
-    TestUtils::GenPlayer gen(CardClass::ROGUE, CardClass::DRUID);
+    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
     GameAgent agent(gen.player1, gen.player2);
+    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
 
     BasicTasks::DrawTask draw(3, agent.GetTaskAgent());
     MetaData result = draw.Run(gen.player1, gen.player2);
@@ -60,7 +62,8 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(0));
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
     EXPECT_EQ(gen.player1.exhausted, 3);
-    EXPECT_EQ(gen.player1.hero->health, static_cast<size_t>(24)); // 30 - (1 + 2 + 3)
+    EXPECT_EQ(gen.player1.hero->health,
+              static_cast<size_t>(24));  // 30 - (1 + 2 + 3)
 
     auto card = std::make_unique<Card>();
     card->id = "card1";
@@ -74,7 +77,8 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(gen.player1.hand[0]->card->id, "card1");
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
     EXPECT_EQ(gen.player1.exhausted, 5);
-    EXPECT_EQ(gen.player1.hero->health, static_cast<size_t>(15)); // 30 - (1 + 2 + 3 + 4 + 5)
+    EXPECT_EQ(gen.player1.hero->health,
+              static_cast<size_t>(15));  // 30 - (1 + 2 + 3 + 4 + 5)
 }
 
 TEST(DrawTask, RunOverDraw)
@@ -85,12 +89,12 @@ TEST(DrawTask, RunOverDraw)
         cards.emplace_back(std::make_unique<Card>());
         Card* card = cards.back().get();
         card->id = std::move(id);
-        
+
         entities.emplace_back(std::make_unique<Entity>(card));
         return entities.back().get();
     };
 
-    TestUtils::GenPlayer gen(CardClass::ROGUE, CardClass::DRUID);
+    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
     GameAgent agent(gen.player1, gen.player2);
 
     std::string id = "card";
@@ -113,9 +117,10 @@ TEST(DrawTask, RunOverDraw)
     EXPECT_EQ(burnt.status, MetaData::DRAW_OVERDRAW);
     EXPECT_EQ(burnt.userID, gen.player1.id);
 
-    auto burntCard = TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
+    auto burntCard =
+        TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
     EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(3));
-    
+
     for (flatbuffers::uoffset_t i = 0; i < 3; ++i)
     {
         auto card = burntCard->Get(i)->card();
@@ -136,7 +141,7 @@ TEST(DrawTask, RunExhaustOverdraw)
         return entities.back().get();
     };
 
-    TestUtils::GenPlayer gen(CardClass::ROGUE, CardClass::DRUID);
+    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
     GameAgent agent(gen.player1, gen.player2);
 
     std::string id = "card";
@@ -160,7 +165,8 @@ TEST(DrawTask, RunExhaustOverdraw)
     EXPECT_EQ(burnt.status, MetaData::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(burnt.userID, gen.player1.id);
 
-    auto burntCard = TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
+    auto burntCard =
+        TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
     EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(2));
 
     for (flatbuffers::uoffset_t i = 0; i < 2; ++i)
@@ -180,7 +186,7 @@ TEST(DrawCardTask, GetTaskID)
 TEST(DrawCardTask, Run)
 {
     Cards* cards = Cards::GetInstance();
-    TestUtils::GenPlayer gen(CardClass::ROGUE, CardClass::DRUID);
+    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
 
     const Card* nerubian = cards->FindCardByID("AT_036t");
     EXPECT_NE(nerubian, static_cast<const Card*>(nullptr));
