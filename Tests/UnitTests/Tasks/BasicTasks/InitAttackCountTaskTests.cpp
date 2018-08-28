@@ -14,7 +14,7 @@ TEST(InitAttackCountTask, GetTaskID)
 TEST(InitAttackCountTask, Run)
 {
     BasicTasks::InitAttackCountTask init;
-    TestUtils::GenPlayer gen(CardClass::DRUID, CardClass::ROGUE);
+    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
     gen.player1.id = 100;
 
@@ -32,7 +32,7 @@ TEST(InitAttackCountTask, Run)
 TEST(InitAttackCountTask, RunFrozen)
 {
     BasicTasks::InitAttackCountTask init;
-    TestUtils::GenPlayer gen(CardClass::DRUID, CardClass::ROGUE);
+    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
     Card card1, card2, card3;
     Minion minion1(&card1), minion2(&card2), minion3(&card3);
@@ -57,7 +57,7 @@ TEST(InitAttackCountTask, RunFrozen)
 TEST(InitAttackCountTask, RunWindFury)
 {
     BasicTasks::InitAttackCountTask init;
-    TestUtils::GenPlayer gen(CardClass::DRUID, CardClass::ROGUE);
+    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
     Card card1, card2;
     Minion minion1(&card1), minion2(&card2);

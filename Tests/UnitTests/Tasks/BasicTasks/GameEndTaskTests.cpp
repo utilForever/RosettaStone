@@ -14,7 +14,7 @@ TEST(GameEndTask, GetTaskID)
 TEST(GameEndTask, Run)
 {
     BasicTasks::GameEndTask gameEnd;
-    TestUtils::GenPlayer gen(CardClass::DRUID, CardClass::ROGUE);
+    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
     gen.player1.id = 100;
 

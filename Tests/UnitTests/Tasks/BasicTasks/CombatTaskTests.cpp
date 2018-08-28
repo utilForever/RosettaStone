@@ -15,7 +15,7 @@ TEST(CombatTask, GetTaskID)
 
 TEST(CombatTask, CombatDefault)
 {
-    TestUtils::GenPlayer gen(CardClass::DRUID, CardClass::ROGUE);
+    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
     GameAgent agent(gen.player1, gen.player2);
     TestUtils::AutoResponder resp(agent);

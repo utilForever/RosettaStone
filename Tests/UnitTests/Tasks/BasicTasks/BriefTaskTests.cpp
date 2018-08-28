@@ -14,7 +14,7 @@ TEST(BriefTask, GetTaskID)
 TEST(BriefTask, Run)
 {
     BasicTasks::BriefTask brief;
-    TestUtils::GenPlayer gen(CardClass::DRUID, CardClass::ROGUE);
+    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
     gen.player1.id = 100;
 
