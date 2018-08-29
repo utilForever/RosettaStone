@@ -9,3 +9,7 @@ extraction:
       build_command:
         - cd _lgtm_build_dir
         - make
+
+path_classifiers:
+  library:
+    - Libraries
