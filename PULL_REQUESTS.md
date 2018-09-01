@@ -16,6 +16,8 @@
     * [Approval and Request Changes Workflow](#approval-and-request-changes-workflow)
   * [Step 11: Landing](#step-11-landing)
   * [Continuous Integration Testing](#continuous-integration-testing)
+  * [Code Coverage Testing](#code-coverage-testing) 
+  * [Code Quality Checking](#code-quality-checking)
 
 ## Setting up your local environment
 
@@ -24,7 +26,7 @@
 Fork the project [on GitHub](https://github.com/utilForever/Hearthstone++) and clone your fork
 locally.
 
-```sh
+```
 $ git clone git@github.com:username/Hearthstonepp.git
 $ cd Hearthstonepp
 $ git remote add upstream https://github.com/utilForever/Hearthstonepp.git
@@ -46,7 +48,7 @@ Once you've built the project locally, you're ready to start making changes!
 To keep your development environment organized, create local branches to
 hold your work. These should be branched directly off of the `master` branch.
 
-```sh
+```
 $ git checkout -b my-branch -t upstream/master
 ```
 
@@ -69,7 +71,7 @@ commits. Many contributors find it easier to review changes that are split
 across multiple commits. There is no limit to the number of commits in a
 pull request.
 
-```sh
+```
 $ git add my/changed/files
 $ git commit
 ```
@@ -128,7 +130,7 @@ See [conventionalcommits.org](https://conventionalcommits.org) for more details.
 Once you have committed your changes, it is a good idea to use `git rebase`
 (not `git merge`) to synchronize your work with the main repository.
 
-```sh
+```
 $ git fetch upstream
 $ git rebase upstream/master
 ```
@@ -159,7 +161,7 @@ Once your commits are ready to go -- with passing tests and linting --
 begin the process of opening a pull request by pushing your working branch
 to your fork on GitHub.
 
-```sh
+```
 $ git push origin my-branch
 ```
 
@@ -191,7 +193,7 @@ To make changes to an existing pull request, make the changes to your local
 branch, add a new commit with those changes, and push those to your fork.
 GitHub will automatically update the pull request.
 
-```sh
+```
 $ git add my/changed/files
 $ git commit
 $ git push origin my-branch
@@ -223,7 +225,7 @@ reviewers should be expected to provide helpful feeback.
 ### Step 11: Landing
 
 In order to land, a pull request needs to be reviewed and approved by
-all Hearthstone++ collaborators and pass CI, test coverage and code quality. After that, if there are no
+all Hearthstone++ collaborators and pass CI. After that, if there are no
 objections from other contributors, the pull request can be merged.
 
 Congratulations and thanks for your contribution!
@@ -240,3 +242,30 @@ platforms or for so-called "flaky" tests to fail ("be red"). Each CI
 failure must be manually inspected to determine the cause.
 
 CI starts automatically when you open a pull request, everyone can restart a CI run. If you believe CI is giving a false negative, restart the tests.
+
+### Code Coverage Testing
+
+After CI passes, code coverage is calculated using [codecov](https://codecov.io/).
+
+**NOTE: Passing this test isn’t essential but it is highly advised.**
+
+Code coverage is a measurement used to express which lines of code were executed by a test suite. We use three primary terms to describe each lines executed.
+
+- **hit** indicates that the source code was executed by the test suite.
+- **partial** indicates that the source code was not fully executed by the test suite; there are remaining branches that were not executed.
+- **miss** indicates that the source code was not executed by the test suite.
+Coverage is the ratio of hits / (sum of hit + partial + miss). A code base that has 5 lines executed by tests out of 12 total lines will receive a coverage ratio of 41% (rounding down).
+
+Phrased simply, code coverage provides a visual measurement of what source code is being executed by a test suite. This information indicates to the software developer where they should write new tests in the effort to achieve higher coverage.
+
+Testing source code helps to prevent bugs and syntax errors by executing each line with a known variable and cross-checking it with an expected output.
+
+### Code Quality Checking
+
+After CI passes, code quality is checked using [Codacy](https://www.codacy.com/) and [LGTM](https://lgtm.com/).
+
+**NOTE: Passing this check isn’t essential but it is highly advised.**
+
+Software is critical in all aspects of our lives. From entertainment, shopping and dating, to business-critical systems and software where human lives are at stake. And yet preventable bugs are all too frequent.
+
+Code quality is a loose approximation of how long-term useful and long-term **maintainable** the code is. Code that is thrown away tomorrow: Low quality. Code that is being carried over from product to product, developed further, maybe even open sourced after establishing its value: **High quality**.
