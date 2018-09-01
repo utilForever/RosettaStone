@@ -8,20 +8,31 @@ small and all contributions are valued.
 
 This guide explains the process for contributing to the Hearthstone++ project code and describes what to expect at each step.
 
-## Code of Conduct
+## [Code of Conduct](./CODE_OF_CONDUCT.md)
 
 Hearthstone++ project has a
 [Code of Conduct](https://github.com/utilForever/Hearthstonepp/blob/master/CODE_OF_CONDUCT.md)
 that *all* contributors are expected to follow. This code describes the
 *minimum* behavior expectations for all contributors.
 
-## Issues
+## [Issues](./ISSUES.md)
 
-TBA
+Issues in Hearthstone++ are the primary means by which bug reports and
+general discussions are made.
 
-## Pull Requests
+* [How to Contribute in Issues](./ISSUES.md#how-to-contribute-in-issues)
+* [Asking for General Help](./ISSUES.md#asking-for-general-help)
+* [Submitting a Bug Report](./ISSUES.md#submitting-a-bug-report)
+* [Triaging a Bug Report](./ISSUES.md#triaging-a-bug-report)
+* [Resolving a Bug Report](./ISSUES.md#resolving-a-bug-report)
 
-TBA
+## [Pull Requests](./PULL_REQUESTS.md)
+
+Pull Requests are the way concrete changes are made to the code, documentation,
+dependencies, and tools contained in the Hearthstone++.
+
+* [Setting up your local environment](./PULL_REQUESTS.md#setting-up-your-local-environment)
+* [Making Changes](./PULL_REQUESTS.md#making-changes)
 
 <a id="developers-certificate-of-origin"></a>
 ## Developer's Certificate of Origin 1.1
