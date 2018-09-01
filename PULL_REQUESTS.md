@@ -223,7 +223,7 @@ reviewers should be expected to provide helpful feeback.
 ### Step 11: Landing
 
 In order to land, a pull request needs to be reviewed and approved by
-at least one Electron Code Owner and pass CI. After that, if there are no
+all Hearthstone++ collaborators and pass CI, test coverage and code quality. After that, if there are no
 objections from other contributors, the pull request can be merged.
 
 Congratulations and thanks for your contribution!
