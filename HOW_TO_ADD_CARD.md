@@ -158,3 +158,5 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 **NOTE: There are many tasks that are not yet implemented. A list of currently implemented tasks can be found in [TaskList.md](https://github.com/utilForever/Hearthstonepp/blob/master/TaskList.md). If selected card is required a task to be implemented, see [How to add task](https://github.com/utilForever/Hearthstonepp/blob/master/HOW_TO_ADD_TASK.md) or please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
 
 ## Step 3: Add test code
+
+The last thing we need to do is test card we've added. There are many test files for each card in `Tests/UnitTests/CardSets`. Card that you will add is a basic card set. This card should be added to `BasicCardsGen.cpp`.
