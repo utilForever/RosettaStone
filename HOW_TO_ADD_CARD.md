@@ -20,7 +20,7 @@ Let's assume that you have selected the **CS2_124 ("Wolfrider")** card.
 
 ## Step 2: Add card to CardSets
 
-The next thing to do is to add selected card to the card set. There are C++ source files for each card set in `Sources/CardSets`. Card that you will add is a basic card set. This card should be added to `BasicCardsGen.cpp`.
+The next thing to do is to add selected card to the card set. There are C++ source files for each card set in `Sources/CardSets`. Card `CS2_124` that you will add is a basic card set. This card should be added to `BasicCardsGen.cpp`.
 
 The main code for `BasicCardsGen.cpp` is as follows.
 
@@ -159,4 +159,146 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 
 ## Step 3: Add test code
 
-The last thing we need to do is test card we've added. There are many test files for each card in `Tests/UnitTests/CardSets`. Card that you will add is a basic card set. This card should be added to `BasicCardsGen.cpp`.
+The last thing you need to do is test card we've added. There are many test files for each card in `Tests/UnitTests/CardSets`. Card `CS2_124` that you will add is a basic card set. So, create `CS2_124.cpp` file in `Basic` folder.
+
+Test file has the following structure:
+
+```C++
+#include <Utils/CardSetUtils.h>
+
+TEST(BasicCardSet, CS2_124)
+{
+    ...
+}
+```
+
+To test card, you need to consider play scenario. Also, you need to consider the abilities and powers that the cards have. For example, Wolfrider has **Charge** ability.
+
+```
+Charge is an ability allowing a minion to attack the same turn it is summoned or brought under a new player's control.
+```
+
+Therefore, you need to create a scenario to ensure that this ability works properly. An example of a scenario is:
+
+```
+1. Player 1 draws "Acidic Swamp Ooze" card.
+2. Player 2 draws "Wolfrider" card.
+3. Player 1 plays "Acidic Swap Ooze" card.
+4. Player 2 plays "Wolfrider" card.
+5. Player 2 attacks "Acidic Swamp Ooze" with "Wolfrider".
+```
+
+It is important to check whether the processing is normal after each operation. For example, after Player 1 draws "Acidic Swamp Ooze" card, you make sure that there is a card in hand and that card is "Acidic Swamp Ooze". In addition, after Player 2 attacks "Acidic Swamp Ooze" with "Wolfrider", you make sure that there are no cards in the field. Let's write test code based on this scenario.
+
+First, you should configure the scenario environment. `GameAgent` is a class that stores player and deck information. `TaskAgent` is a class that processes various tasks.
+
+```C++
+GameAgent agent(
+    Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
+    Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+
+TaskAgent& taskAgent = agent.GetTaskAgent();
+TestUtils::AutoResponder response(agent);
+
+Player& player1 = agent.GetPlayer1();
+Player& player2 = agent.GetPlayer2();
+
+player1.totalMana = agent.GetPlayer1().existMana = 10;
+player2.totalMana = agent.GetPlayer2().existMana = 10;
+```
+
+Then, you should perform operations according to the scenario and test it.
+
+```C++
+TEST(ClassicCardSet, CS2_124)
+{
+    GameAgent agent(
+        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
+        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+    TestUtils::AutoResponder response(agent);
+
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
+
+    player1.totalMana = agent.GetPlayer1().existMana = 10;
+    player2.totalMana = agent.GetPlayer2().existMana = 10;
+
+    // 1. Player 1 draws "Acidic Swamp Ooze" card.
+    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
+                      "Acidic Swamp Ooze")),
+                  player1, player2);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Acidic Swamp Ooze");
+
+    // 2. Player 2 draws "Wolfrider" card.
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance()->FindCardByName("Wolfrider")),
+                  player2, player1);
+    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Wolfrider");
+
+    // 3. Player 1 plays "Acidic Swap Ooze" card.
+    auto respAutoMinion = response.AutoMinion(0, 0);
+    MetaData result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Acidic Swamp Ooze");
+
+    auto [respPlayCard1, respPlayMinion1] = respAutoMinion.get();
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    // 4. Player 2 plays "Wolfrider" card.
+    respAutoMinion = response.AutoMinion(0, 0);
+    result =
+        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "Wolfrider");
+
+    auto [respPlayCard2, respPlayMinion2] = respAutoMinion.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
+    // 5. Player 2 attacks "Acidic Swamp Ooze" with "Wolfrider".
+    auto respAutoTarget = response.Target(1, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
+    EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(agent.GetPlayer2().field.size(), static_cast<size_t>(0));
+}
+```
+
+When you have finished writing test code, compile and build it. And you have to make sure the test passes.
+
+```
+[==========] Running 77 tests from 16 test cases.
+[----------] Global test environment set-up.
+
+...
+
+[----------] 1 tests from BasicCardSet
+[ RUN      ] BasicCardSet.CS2_124
+[       OK ] BasicCardSet.CS2_124 (0 ms)
+[----------] 1 tests from BasicCardSet (27 ms total)
+
+...
+
+[----------] Global test environment tear-down
+[==========] 77 tests from 16 test cases ran. (501 ms total)
+[  PASSED  ] 77 tests.
+```
+
+Good! Now, [let's do a pull request](https://github.com/utilForever/Hearthstonepp/blob/master/PULL_REQUESTS.md).
