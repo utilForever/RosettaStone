@@ -224,7 +224,7 @@ seem unfamiliar, refer to this
 
 #### Approval and Request Changes Workflow
 
-All pull requests require approval from a collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)) of the area you
+All pull requests require approval from collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)) of the area you
 modified in order to land. Whenever a maintainer reviews a pull request they
 may request changes. These may be small, such as fixing a typo, or may involve
 substantive changes. Such requests are intended to be helpful, but at times
