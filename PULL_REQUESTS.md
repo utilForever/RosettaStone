@@ -7,7 +7,6 @@
 * [Making Changes](#making-changes)
   * [Step 4: Code](#step-4-code)
     * [How to add card](#how-to-add-card)
-    * [How to add task](#how-to-add-task)
   * [Step 5: Commit](#step-5-commit)
     * [Commit message guidelines](#commit-message-guidelines)
   * [Step 6: Rebase](#step-6-rebase)
@@ -69,10 +68,6 @@ to ensure that they follow the project's code style.***
 #### How to add card
 
 See [HOW_TO_ADD_CARD.md](https://github.com/utilForever/Hearthstonepp/blob/master/HOW_TO_ADD_CARD.md) for more details.
-
-#### How to add task
-
-See [HOW_TO_ADD_TASK.md](https://github.com/utilForever/Hearthstonepp/blob/master/HOW_TO_ADD_TASK.md) for more details.
 
 ### Step 5: Commit
 
