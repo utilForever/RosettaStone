@@ -12,7 +12,6 @@
     * [Commit message guidelines](#commit-message-guidelines)
   * [Step 6: Rebase](#step-6-rebase)
   * [Step 7: Test](#step-7-test)
-    * [How to add test](#how-to-add-test)
   * [Step 8: Push](#step-8-push)
   * [Step 9: Opening the Pull Request](#step-9-opening-the-pull-request)
   * [Step 10: Discuss and Update](#step-10-discuss-and-update)
@@ -165,10 +164,6 @@ bin/UnitTests
 
 Make sure the linter does not report any issues and that all tests pass.
 Please do not submit patches that fail either check.
-
-#### How to add test
-
-See [HOW_TO_ADD_TEST.md](https://github.com/utilForever/Hearthstonepp/blob/master/HOW_TO_ADD_TEST.md) for more details.
 
 ### Step 8: Push
 
