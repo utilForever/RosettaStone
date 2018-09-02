@@ -33,6 +33,8 @@ dependencies, and tools contained in the Hearthstone++.
 
 * [Setting up your local environment](./PULL_REQUESTS.md#setting-up-your-local-environment)
 * [Making Changes](./PULL_REQUESTS.md#making-changes)
+* [How to add card](./HOW_TO_ADD_CARD.md)
+* [How to add task](./HOW_TO_ADD_TASK.md)
 
 <a id="developers-certificate-of-origin"></a>
 ## Developer's Certificate of Origin 1.1
