@@ -149,7 +149,7 @@ TBA
 
 ### More Instructions of Building the Code
 
-To learn how to build, test, and install the SDK, please check out [INSTALL.md](https://github.com/utilForever/Hearthstonepp/blob/master/INSTALL.md).
+To learn how to build, test, and install the SDK, please check out [Install.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Install.md).
 
 ## Documentation
 
@@ -157,7 +157,7 @@ All the documentations for the framework can be found from [the project website]
 
 ## How To Contribute
 
-Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please contact me.
+Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please check out [Contributing.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Contributing.md).
 
 ## Contact
 

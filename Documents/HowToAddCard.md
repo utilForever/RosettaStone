@@ -96,7 +96,7 @@ Note that the first parameter is card ID and the second parameter is card power.
 
 That's it! Now, it's time to test the card to see if it works.
 
-**NOTE: There are many abilities that are not yet implemented. A list of currently implemented abilities can be found in [AbilityList.md](https://github.com/utilForever/Hearthstonepp/blob/master/AbilityList.md). If selected card is required an ability to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
+**NOTE: There are many abilities that are not yet implemented. A list of currently implemented abilities can be found in [AbilityList.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/AbilityList.md). If selected card is required an ability to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
 
 ### Cards with power
 
@@ -155,7 +155,7 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 }
 ```
 
-**NOTE: There are many tasks that are not yet implemented. A list of currently implemented tasks can be found in [TaskList.md](https://github.com/utilForever/Hearthstonepp/blob/master/TaskList.md). If selected card is required a task to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
+**NOTE: There are many tasks that are not yet implemented. A list of currently implemented tasks can be found in [TaskList.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/TaskList.md). If selected card is required a task to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
 
 ## Step 3: Add test code
 
@@ -301,4 +301,4 @@ When you have finished writing test code, compile and build it. And you have to 
 [  PASSED  ] 77 tests.
 ```
 
-Good! Now, [let's do a pull request](https://github.com/utilForever/Hearthstonepp/blob/master/PULL_REQUESTS.md).
+Good! Now, [let's do a pull request](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/PullRequests.md).
