@@ -11,7 +11,7 @@ This guide explains the process for contributing to the Hearthstone++ project co
 ## [Code of Conduct](./CodeOfConduct.md)
 
 Hearthstone++ project has a
-[Code of Conduct](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/CodeOfConduct.md)
+[Code of Conduct](./CodeOfConduct.md)
 that *all* contributors are expected to follow. This code describes the
 *minimum* behavior expectations for all contributors.
 

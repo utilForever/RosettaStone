@@ -38,9 +38,9 @@ $ git fetch upstream
 
 Build steps and dependencies differ slightly depending on your operating system.
 See these detailed guides on building Hearthstone++ locally:
-* [Building on MacOS](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Install.md#building-from-macos)
-* [Building on Ubuntu or WSL(Windows Subsystem for Linux)](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Install.md#building-from-ubuntu-and-windows-subsystem-for-linux-wsl)
-* [Building on Windows](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Install.md#building-from-windows)
+* [Building on MacOS](./Install.md#building-from-macos)
+* [Building on Ubuntu or Windows Subsystem for Linux (WSL)](./Install.md#building-from-ubuntu-and-windows-subsystem-for-linux-wsl)
+* [Building on Windows](./Install.md#building-from-windows)
 
 Once you've built the project locally, you're ready to start making changes!
 
@@ -67,7 +67,7 @@ to ensure that they follow the project's code style.***
 
 #### How to add card
 
-See [HOW_TO_ADD_CARD.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/HowToAddCard.md) for more details.
+See [HowToAddCard.md](./HowToAddCard.md) for more details.
 
 ### Step 5: Commit
 
@@ -146,7 +146,7 @@ master.
 ### Step 7: Test
 
 Bug fixes and features should always come with tests. A
-testing guide([How to add card](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/HowToAddCard.md#step-3-add-test-code)) has been
+testing guide([How to add card](./HowToAddCard.md#step-3-add-test-code)) has been
 provided to make the process easier. Looking at other tests to see how they
 should be structured can also help.
 

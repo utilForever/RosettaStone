@@ -1,6 +1,6 @@
 # Hearthstone++
 
-<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Logo.png" align="center" width=256 height=256 />
+<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Logo.png" width=256 height=256 />
 
 [![License](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://github.com/utilForever/Hearthstonepp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/Hearthstonepp.svg?branch=master)](https://travis-ci.org/utilForever/Hearthstonepp/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/Hearthstonepp?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/Hearthstonepp/branch/master) [![codecov](https://codecov.io/gh/utilForever/Hearthstonepp/branch/master/graph/badge.svg)](https://codecov.io/gh/utilForever/Hearthstonepp)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ffcbfe61470e4f9da7131db3abb34487)](https://app.codacy.com/app/utilForever/Hearthstonepp?utm_source=github.com&utm_medium=referral&utm_content=utilForever/Hearthstonepp&utm_campaign=badger) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
@@ -149,7 +149,7 @@ TBA
 
 ### More Instructions of Building the Code
 
-To learn how to build, test, and install the SDK, please check out [Install.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Install.md).
+To learn how to build, test, and install the SDK, please check out [Install.md](./Documents/Install.md).
 
 ## Documentation
 
@@ -157,7 +157,7 @@ All the documentations for the framework can be found from [the project website]
 
 ## How To Contribute
 
-Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please check out [Contributing.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Contributing.md).
+Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please check out [Contributing.md](./Documents/Contributing.md).
 
 ## Contact
 

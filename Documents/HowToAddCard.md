@@ -9,10 +9,10 @@
 
 The first thing you have to do is to select the cards to add.
 
-See [Issues](https://github.com/utilForever/Hearthstonepp/issues) for card list.
+See [CardList.md](./CardList.md) for all card list.
 
-* [Basic(CORE) card implementation progress](https://github.com/utilForever/Hearthstonepp/issues/132)
-* [Classic(EXPERT1) card implementation progress](https://github.com/utilForever/Hearthstonepp/issues/133)
+* [Basic card list](./CardList.md#basic-card-list)
+* [Classic card list](./CardList.md#classic-card-list)
 
 Select a card that is not yet implemented in card list.
 
@@ -96,7 +96,7 @@ Note that the first parameter is card ID and the second parameter is card power.
 
 That's it! Now, it's time to test the card to see if it works.
 
-**NOTE: There are many abilities that are not yet implemented. A list of currently implemented abilities can be found in [AbilityList.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/AbilityList.md). If selected card is required an ability to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
+**NOTE: There are many abilities that are not yet implemented. A list of currently implemented abilities can be found in [AbilityList.md](./AbilityList.md). If selected card is required an ability to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
 
 ### Cards with power
 
@@ -155,7 +155,7 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 }
 ```
 
-**NOTE: There are many tasks that are not yet implemented. A list of currently implemented tasks can be found in [TaskList.md](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/TaskList.md). If selected card is required a task to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
+**NOTE: There are many tasks that are not yet implemented. A list of currently implemented tasks can be found in [TaskList.md](./TaskList.md). If selected card is required a task to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
 
 ## Step 3: Add test code
 
@@ -301,4 +301,4 @@ When you have finished writing test code, compile and build it. And you have to 
 [  PASSED  ] 77 tests.
 ```
 
-Good! Now, [let's do a pull request](https://github.com/utilForever/Hearthstonepp/blob/master/Documents/PullRequests.md).
+Good! Now, [let's do a pull request](./PullRequests.md).

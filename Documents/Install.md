@@ -143,4 +143,4 @@ Then, build `INSTALL` project under `Hearthstonepp.sln`. This will install the h
 
 ### Coding Style
 
-Hearthstone++ uses clang-format. Checkout [`.clang-format`](https://github.com/utilforever/Hearthstonepp/blob/master/.clang-format) file for the style guideline.
+Hearthstone++ uses clang-format. Checkout [`.clang-format`](./../.clang-format) file for the style guideline.
