@@ -93,5 +93,5 @@
 
 ## Boss and Tavern Brawl abilities
 
-* [] Auto-cast
-* [] Auto-attack
+* [ ] Auto-cast
+* [ ] Auto-attack
