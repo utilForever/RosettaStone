@@ -1,5 +1,8 @@
 # Hearthstone++ card list
 
+* [Basic card list](#basic)
+* [Classic card list](#classic)
+
 ## Basic
 
 Set | ID | Name | Implemented
