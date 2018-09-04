@@ -11,8 +11,8 @@ The first thing you have to do is to select the cards to add.
 
 See [CardList.md](./CardList.md) for all card list.
 
-* [Basic card list](./CardList.md#basic-card-list)
-* [Classic card list](./CardList.md#classic-card-list)
+* [Basic card list](./CardList.md#basic)
+* [Classic card list](./CardList.md#classic)
 
 Select a card that is not yet implemented in card list.
 
