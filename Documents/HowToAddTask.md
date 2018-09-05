@@ -116,4 +116,31 @@ agent.Run(meta, player1, player2, BasicTasks::ShuffleTask());
 
 ## Step 4: Add test code
 
-Last thing you need to do is test the tasks. 
+As we implement two virtual methods, we need to test it.
+
+Baseline I suggest is [BriefTaskTests](../Tests/UnitTests/Tasks/BasicTasks/BriefTaskTests.cpp), it just return `MetaData::BRIEF`.
+```C++
+TEST(BriefTask, GetTaskID)
+{
+    BasicTasks::BriefTask brief;
+    EXPECT_EQ(brief.GetTaskID(), +TaskID::BRIEF);
+}
+```
+
+`GetTaskID` tests check it return proper TaskID.
+
+```C++
+TEST(BriefTask, Run)
+{
+    BasicTasks::BriefTask brief;
+    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
+    ...
+}    
+```
+
+In source file [TestUtils](../Tests/UnitTests/Utils/TestUtils.h), struct `PlayerGenerator` generates default user with given `CardClass`.
+You can use it to test the tasks. 
+
+We suggest you to test task behavior and returned `MetaData`. 
+
+All tests pass, you can make a pull requests.
