@@ -3,7 +3,7 @@
 - [Step 1: Define task](#step-1-define-task)
 - [Step 2: Select TaskID](#step-2-select-taskid)
 - [Step 3: Implement task interface ITask](#step-3-implement-task-interface-itask)
-- [Step 5: Add test code](#step-4-add-test-code)
+- [Step 4: Add test code](#step-4-add-test-code)
 
 ## Step 1: Define task
 
@@ -33,7 +33,7 @@ BETTER_ENUM(TaskID, int, INVALID = 0, TASK_VECTOR = 1, REQUIRE = 2,
 ```
 
 We suggest you to add new one,
-because old one could be implemented in `BasicTasks` with specific way.
+because old one would be implemented in `BasicTasks` with specific way.
 If you use old one, you have to check new task doesn't affect existing routines.
 
 In `ShuffleTask`, we choose `TaskID::SHUFFLE`.
@@ -43,7 +43,7 @@ In `ShuffleTask`, we choose `TaskID::SHUFFLE`.
 `ITask` is task interface which can be run by `TaskAgent`.
 
 Hearthstonepp is consists of `GameAgent`, `TaskAgent` and `GameInterface`.
-- `GameAgent` is game implementation managing the `Player` structure.
+- `GameAgent` is game implementation to manage the `Player` structure.
 - `TaskAgent` manage the `ITask`. It run the task for `GameAgent` and communicate with `GameInterface`.
 - `GameInterface` interact with user with some I/O.
 
@@ -99,7 +99,7 @@ MetaData ShuffleTask::Impl(Player& player1, Player&)
 `Impl` give two players, player1 is current, player2 is opponent.
 In common way, we use player1 as default.
 
-`MetaData` enums represents result of tasks like status.
+`MetaData` enums represents result of tasks.
 You can add proper `MetaData` enums to file [MetaData.h](../Includes/Tasks/MetaData.h).
 
 `ITask` provides discrete method `Run` to run method `Impl` for `TaskAgent`.
@@ -107,7 +107,7 @@ You can add proper `MetaData` enums to file [MetaData.h](../Includes/Tasks/MetaD
 BasicTasks::ShuffleTask task;
 MetaData status = task.Run(player1, player2);
 ```
-or with `TaskAgent`.
+We can directly call the method `Run` or indirectly by `TaskAgent`.
 ```C++
 TaskAgent agent;
 TaskMeta meta;
