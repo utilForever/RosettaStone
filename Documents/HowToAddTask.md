@@ -24,7 +24,7 @@ Let's assume that we have selected the task `ShuffleTask`.
 
 Next thing we have to do is select `TaskID`. 
 
-In source file [TaskEnums](../Includes/Enums/TaskEnums.h), TaskID is listed with `better-enums`.
+In source file [TaskEnums](../Includes/Enums/TaskEnums.h), TaskID is listed by `better-enums`.
 You can choose one of them or add new `TaskID`.
 
 ```C++
@@ -127,7 +127,7 @@ TEST(BriefTask, GetTaskID)
 }
 ```
 
-`GetTaskID` tests check it return proper TaskID.
+`GetTaskID` tests it returns proper TaskID.
 
 ```C++
 TEST(BriefTask, Run)
@@ -141,6 +141,6 @@ TEST(BriefTask, Run)
 In source file [TestUtils](../Tests/UnitTests/Utils/TestUtils.h), struct `PlayerGenerator` generates default user with given `CardClass`.
 You can use it to test the tasks. 
 
-We suggest you to test task behavior and returned `MetaData`. 
+We suggest you to test behavior and returned `MetaData`. 
 
 All tests pass, you can make a pull requests.
