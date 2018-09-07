@@ -7,49 +7,49 @@
 
 ## Step 1: Define task
 
-The first thing you have to do is defining task.
+The first thing you have to do is defining task. There are some tasks composing the card effect. And it could be already implemented as `BasicTasks` or `PowerTasks`, but some are not implemented yet.
 
-There are some tasks composing the card effects.
-And it could be already implemented as `BasicTasks` or `PowerTasks`, but some are not implemented yet.
+Let's define task! There are two things you need to consider: How task affect the game and what `TaskID` you want to use. Assume that you have selected the task `ShuffleTask`.
 
-So what you have to do first is defining task. 
-How task affect the game and what `TaskID` you want to use. 
-
-Let's assume that we have selected the task `ShuffleTask`.
-
-1. we can define task which shuffle the deck.
+1. You can define task which shuffle the deck.
 2. And it can use `TaskID` relative to shuffle.
 
 ## Step 2: Select `TaskID`
 
-Next thing we have to do is select `TaskID`. 
+Next thing you have to do is select `TaskID`. 
 
-In source file [TaskEnums](../Includes/Enums/TaskEnums.h), TaskID is listed by `better-enums`.
-You can choose one of them or add new `TaskID`.
+In [TaskEnums.h](../Includes/Enums/TaskEnums.h), TaskID is listed by `BETTER_ENUM` macro. You can choose one of them or add new `TaskID`.
 
 ```C++
 BETTER_ENUM(TaskID, int, INVALID = 0, TASK_VECTOR = 1, REQUIRE = 2,
-            PLAYER_SETTING = 3, SWAP = 4, SHUFFLE = 5, DRAW = 6, OVER_DRAW = 7, ...)
+            PLAYER_SETTING = 3, SWAP = 4, DRAW = 5, OVER_DRAW = 6,
+            ...)
 ```
 
-We suggest you to add new one,
-because old one would be implemented in `BasicTasks` with specific way.
-If you use old one, you have to check new task doesn't affect existing routines.
+We suggest you to add new one, because old one would be implemented in `BasicTasks` with specific way. If you use old one, you have to check new task doesn't affect existing task routines.
 
-In `ShuffleTask`, we choose `TaskID::SHUFFLE`.
+Let's add task ID for `ShuffleTask` that you need to create.
+
+```C++
+BETTER_ENUM(TaskID, int, INVALID = 0, TASK_VECTOR = 1, REQUIRE = 2,
+            PLAYER_SETTING = 3, SWAP = 4, SHUFFLE = 5, DRAW = 6, OVER_DRAW = 7, 
+            ...)
+```
 
 ## Step 3: Implement task interface `ITask`
 
 `ITask` is task interface which can be run by `TaskAgent`.
 
-Hearthstonepp is consists of `GameAgent`, `TaskAgent` and `GameInterface`.
-- `GameAgent` is game implementation to manage the `Player` structure.
-- `TaskAgent` manage the `ITask`. It run the task for `GameAgent` and communicate with `GameInterface`.
-- `GameInterface` interact with user with some I/O.
+Hearthstone++ task system is consists of three classes: `GameAgent`, `TaskAgent` and `GameInterface`.
 
-So, we can implement `ITask` to control the `Player` structure to affect the game.
+- `GameAgent` class manages game phase and `Player` structure.
+- `TaskAgent` class manages `ITask`. It run the task for `GameAgent` and communicate with `GameInterface`.
+- `GameInterface` class interacts with user using I/O serialization.
+
+You can implement `ITask` to control `Player` structure to affect the game.
 
 *In source file [Tasks.h](../Includes/Tasks/Tasks.h)*
+
 ```C++
 class ITask
 {
@@ -61,9 +61,12 @@ class ITask
 };
 ```
 
-There are two virtual methods we have to implement.
-- `GetTaskID` return the proper TaskID.
-- `Impl` is task implementation with given player.
+There are two virtual methods you have to implement.
+
+- `GetTaskID` method returns proper TaskID.
+- `Impl` method implements task logic and takes two player as arguments.
+
+First, declare `ShuffleTask` class which inherits `ITask` class.
 
 ```C++
 class ShuffleTask : public ITask
@@ -76,16 +79,14 @@ class ShuffleTask : public ITask
 };
 ```
 
-In `ShuffleTask`, we already choose `TaskID::SHUFFLE` to use.
+Next you need to write implementation code. `GetTaskID()` method returns `TaskID` type, so you can write to return `TaskID::SHUFFLE` that task ID you choose. `Impl()` method takes two player as arguments and processes actual task logic for its purpose. The purpose of `ShuffleTask` is to shuffle multiple cards in random order. Finally, if shuffle succeeds, it returns `MetaData::SHUFFLE_SUCCESS` to indicate that shuffle was success.
+
 ```C++
 TaskID ShuffleTask::GetTaskID() const
 {
     return TaskID::SHUFFLE;
 }
-```
 
-And it purpose to shuffle the deck.
-```C++
 MetaData ShuffleTask::Impl(Player& player1, Player&)
 {
     std::random_device rd;
@@ -96,18 +97,21 @@ MetaData ShuffleTask::Impl(Player& player1, Player&)
 }
 ```
 
-`Impl` give two players, player1 is current, player2 is opponent.
-In common way, we use player1 as default.
+**NOTE: `player1` is current player and `player2` is opponent player. In common way, we use `player1` as default.**
 
-`MetaData` enums represents result of tasks.
-You can add proper `MetaData` enums to file [MetaData.h](../Includes/Tasks/MetaData.h).
+**NOTE: `MetaData` enum represents result of tasks. You can add another `MetaData` enum to [MetaData.h](../Includes/Tasks/MetaData.h).**
 
-`ITask` provides discrete method `Run` to run method `Impl` for `TaskAgent`.
+`ITask` class provides `Run` method. it runs `Impl` method of `TaskAgent` class. For your convenience, we have implemented `Run` method so that you can call it directly or indirectly by `TaskAgent` class.
+
+*Direct call*
+
 ```C++
 BasicTasks::ShuffleTask task;
 MetaData status = task.Run(player1, player2);
 ```
-We can directly call the method `Run` or indirectly by `TaskAgent`.
+
+*Indirect call*
+
 ```C++
 TaskAgent agent;
 TaskMeta meta;
@@ -116,20 +120,15 @@ agent.Run(meta, player1, player2, BasicTasks::ShuffleTask());
 
 ## Step 4: Add test code
 
-As we implement two virtual methods, we need to test it.
+The last thing you need to do is test task you've added. We propose [BriefTaskTests](../Tests/UnitTests/Tasks/BasicTasks/BriefTaskTests.cpp). This is simplest task to learn how to test. When `GetTaskID()` of this task is called, it just returns `TaskID::BRIEF`. You can verify that your test code returns this value.
 
-Baseline I suggest is [BriefTaskTests](../Tests/UnitTests/Tasks/BasicTasks/BriefTaskTests.cpp), it just return `MetaData::BRIEF`.
 ```C++
 TEST(BriefTask, GetTaskID)
 {
     BasicTasks::BriefTask brief;
     EXPECT_EQ(brief.GetTaskID(), +TaskID::BRIEF);
 }
-```
 
-`GetTaskID` tests it returns proper TaskID.
-
-```C++
 TEST(BriefTask, Run)
 {
     BasicTasks::BriefTask brief;
@@ -138,9 +137,30 @@ TEST(BriefTask, Run)
 }    
 ```
 
-In source file [TestUtils](../Tests/UnitTests/Utils/TestUtils.h), struct `PlayerGenerator` generates default user with given `CardClass`.
-You can use it to test the tasks. 
+In [TestUtils.h](../Tests/UnitTests/Utils/TestUtils.h), struct `PlayerGenerator` generates default user with given `CardClass`.
+You can use it to test task. We suggest you to test behavior and returned `MetaData` type. 
 
-We suggest you to test behavior and returned `MetaData`. 
 
-All tests pass, you can make a pull requests.
+When you have finished writing test code, compile and build it. And you have to make sure the test passes.
+
+```
+[==========] Running 77 tests from 16 test cases.
+[----------] Global test environment set-up.
+
+...
+
+[----------] 2 tests from BriefTask
+[ RUN      ] BriefTask.GetTaskID
+[       OK ] BriefTask.GetTaskID (0 ms)
+[ RUN      ] BriefTask.Run
+[       OK ] BriefTask.Run (0 ms)
+[----------] 2 tests from BriefTask (0 ms total)
+
+...
+
+[----------] Global test environment tear-down
+[==========] 77 tests from 16 test cases ran. (501 ms total)
+[  PASSED  ] 77 tests.
+```
+
+Good! Now, [let's do a pull request](./PullRequests.md).
