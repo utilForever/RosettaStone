@@ -159,7 +159,7 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 
 ## Step 3: Add test code
 
-The last thing you need to do is test card we've added. There are many test files for each card in `Tests/UnitTests/CardSets`. Card `CS2_124` that you will add is a basic card set. So, create `CS2_124.cpp` file in `Basic` folder.
+The last thing you need to do is test card you've added. There are many test files for each card in `Tests/UnitTests/CardSets`. Card `CS2_124` that you will add is a basic card set. So, create `CS2_124.cpp` file in `Basic` folder.
 
 Test file has the following structure:
 
@@ -292,7 +292,7 @@ When you have finished writing test code, compile and build it. And you have to 
 [----------] 1 tests from BasicCardSet
 [ RUN      ] BasicCardSet.CS2_124
 [       OK ] BasicCardSet.CS2_124 (0 ms)
-[----------] 1 tests from BasicCardSet (27 ms total)
+[----------] 1 tests from BasicCardSet (0 ms total)
 
 ...
 
