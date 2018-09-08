@@ -1,13 +1,13 @@
 /*************************************************************************
-> File Name: Wrapper.h
+> File Name: TaskWrapper.h
 > Project Name: Hearthstonepp
 > Author: Young-Joong Kim
 > Purpose: Task Wrapper for some utilities
 > Created Time: 2018/07/21
 > Copyright (c) 2018, Young-Joong Kim
 *************************************************************************/
-#ifndef HEARTHSTONEPP_WRAPPER_H
-#define HEARTHSTONEPP_WRAPPER_H
+#ifndef HEARTHSTONEPP_TASK_WRAPPER_H
+#define HEARTHSTONEPP_TASK_WRAPPER_H
 
 #include <Tasks/Tasks.h>
 

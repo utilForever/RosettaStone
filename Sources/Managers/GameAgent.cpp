@@ -7,6 +7,9 @@
 > Copyright (c) 2017, Young-Joong Kim
 *************************************************************************/
 #include <Managers/GameAgent.h>
+#include <Tasks/MetaData.h>
+#include <Tasks/TaskWrapper.h>
+#include <Tasks/Requirement.h>
 #include <Tasks/BasicTasks/BriefTask.h>
 #include <Tasks/BasicTasks/CombatTask.h>
 #include <Tasks/BasicTasks/DrawTask.h>
@@ -15,11 +18,8 @@
 #include <Tasks/BasicTasks/MulliganTask.h>
 #include <Tasks/BasicTasks/PlayCardTask.h>
 #include <Tasks/BasicTasks/PlayerSettingTask.h>
-#include <Tasks/BasicTasks/Requirement.h>
 #include <Tasks/BasicTasks/ShuffleTask.h>
 #include <Tasks/BasicTasks/SwapPlayerTask.h>
-#include <Tasks/BasicTasks/Wrapper.h>
-#include <Tasks/MetaData.h>
 
 #include <random>
 

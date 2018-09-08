@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_MULLIGAN_H
 #define HEARTHSTONEPP_MULLIGAN_H
 
-#include <Tasks/BasicTasks/Requirement.h>
+#include <Tasks/Requirement.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 
