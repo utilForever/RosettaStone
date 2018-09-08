@@ -45,17 +45,17 @@ size_t Account::GetNumOfDeck() const
     return m_decks.size();
 }
 
-Deck* Account::GetDeck(size_t emailx) const
+Deck* Account::GetDeck(size_t idx) const
 {
-    return m_decks[emailx];
+    return m_decks[idx];
 }
 
 void Account::ShowDeckList() const
 {
-    size_t emailx = 0;
+    size_t idx = 0;
     for (auto& deck : m_decks)
     {
-        std::cout << ++emailx << ". " << deck->GetName() << " ("
+        std::cout << ++idx << ". " << deck->GetName() << " ("
                   << deck->GetNumOfCards() << " cards)\n";
     }
 }
@@ -63,15 +63,17 @@ void Account::ShowDeckList() const
 bool Account::CreateDeck(std::string nickname, CardClass deckClass)
 {
     if (deckClass == +CardClass::INVALID)
+    {
         return false;
+    }
 
     m_decks.emplace_back(new Deck(nickname, deckClass));
     return true;
 }
 
-bool Account::DeleteDeck(size_t selectedDeck)
+bool Account::DeleteDeck(size_t idx)
 {
-    m_decks.erase(m_decks.begin() + selectedDeck);
+    m_decks.erase(m_decks.begin() + idx);
     return true;
 }
 }
