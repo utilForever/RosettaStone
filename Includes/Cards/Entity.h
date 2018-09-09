@@ -1,13 +1,3 @@
-/*************************************************************************
-> File Name: Entity.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: The base class of all data-holding/action-performing/
-           visible or invisible objects in a Hearthstone++.
-           An entity is defined as a collection of properties, called Tags.
-> Created Time: 2018/07/10
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_ENTITY_H
 #define HEARTHSTONEPP_ENTITY_H
 
@@ -20,17 +10,32 @@ namespace Hearthstonepp
 struct Card;
 class GameTag;
 
+//!
+//! \brief Entity structure.
+//!
+//! This structure is base structure of all data-holding/action-performing/
+//! visible or invisible objects in a Hearthstone++.
+//! An entity is defined as a collection of properties, called GameTags.
+//!
 struct Entity
 {
+    //! Default constructor.
     Entity() = default;
+
+    //! Constructs entity with given \p pCard.
+    //! \param pCard Point to the card.
     Entity(const Card* pCard);
-    virtual ~Entity();
+
+    //! Destructor.
+    virtual ~Entity() = default;
+
+    //! Returns card data.
+    virtual void GetDataFromCard();
 
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;
 
-    virtual void GetDataFromCard();
 };
 }
 
