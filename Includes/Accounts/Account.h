@@ -44,9 +44,9 @@ class Account
     //! \return Number of decks.
     size_t GetNumOfDeck() const;
 
-    //! Returns deck at given index.
+    //! Returns a deck at \p idx.
     //! \param idx Index of decks.
-    //! \return Pointer to deck at given index.
+    //! \return Pointer to deck at \p idx.
     Deck* GetDeck(size_t idx) const;
 
     //! Prints a list of decks.
@@ -58,7 +58,7 @@ class Account
     //! \return true if deck is created successfully, and false otherwise.
     bool CreateDeck(std::string name, CardClass deckClass);
 
-    //! Deletes a deck with given \p idx.
+    //! Deletes a deck at \p idx.
     //! \param idx Index of decks.
     //! \return true if deck is deleted successfully, and false otherwise.
     bool DeleteDeck(size_t idx);
