@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Character.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Character class inherits from Card class.
-> Created Time: 2018/06/17
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_CHARACTER_H
 #define HEARTHSTONEPP_CHARACTER_H
 
@@ -13,10 +5,22 @@
 
 namespace Hearthstonepp
 {
+//!
+//! \brief Abstract character structure that stores hero and minion data.
+//!
+//! This structure inherits from Entity structure. Also, it stores some
+//! attributes that only characters have such as attack and health.
+//!
 struct Character : public Entity
 {
+    //! Default constructor.
     Character() = default;
+
+    //! Constructs character with given \p pCard.
+    //! \param pCard A pointer to the card.
     Character(const Card* pCard);
+
+    //! Default destructor.
     virtual ~Character() = default;
 
     size_t attack = 0;

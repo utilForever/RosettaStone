@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Hero.h
-> Project Name: Hearthstone++
-> Author: Young-Joong Kim
-> Purpose: Hero class inherits from Card class.
-> Created Time: 2017/08/21
-> Copyright (c) 2017, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_HERO_H
 #define HEARTHSTONEPP_HERO_H
 
@@ -14,8 +6,16 @@
 
 namespace Hearthstonepp
 {
+//!
+//! \brief Hero structure.
+//!
+//! This structure inherits from Character structure.
+//! Also, it stores weapon that can attack to enemy.
+//!
 struct Hero : public Character
 {
+    //! Constructs hero with given \p pCard.
+    //! \param pCard A pointer to the card.
     Hero(const Card* pCard);
 
     Weapon* weapon;
