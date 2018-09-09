@@ -11,7 +11,7 @@ struct Card;
 class GameTag;
 
 //!
-//! \brief Entity structure.
+//! \brief Abstract entity structure that stores card data.
 //!
 //! This structure is base structure of all data-holding/action-performing/
 //! visible or invisible objects in a Hearthstone++.
