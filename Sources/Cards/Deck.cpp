@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Deck.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Deck class that stores a list of cards.
-> Created Time: 2017/10/13
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #include <Cards/Deck.h>
 
 #include <algorithm>
@@ -15,11 +7,13 @@ namespace Hearthstonepp
 {
 Deck::Deck() : m_name("Empty"), m_class(CardClass::INVALID), m_numOfCards(0)
 {
+    // Do nothing
 }
 
-Deck::Deck(std::string name, const CardClass playerClass)
-    : m_name(std::move(name)), m_class(playerClass), m_numOfCards(0)
+Deck::Deck(std::string name, const CardClass deckClass)
+    : m_name(std::move(name)), m_class(deckClass), m_numOfCards(0)
 {
+    // Do nothing
 }
 
 std::string Deck::GetName() const
