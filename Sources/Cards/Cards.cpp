@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Cards.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Cards class that stores a list of cards.
-> Created Time: 2017/10/10
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #include <Cards/Card.h>
 #include <Cards/Cards.h>
 #include <Cards/Character.h>
