@@ -44,9 +44,9 @@ class Account
     //! \return Number of decks.
     size_t GetNumOfDeck() const;
 
-    //! Returns a deck at \p idx.
+    //! Returns a pointer to deck at \p idx.
     //! \param idx Index of decks.
-    //! \return Pointer to deck at \p idx.
+    //! \return A pointer to deck at \p idx.
     Deck* GetDeck(size_t idx) const;
 
     //! Prints a list of decks.
