@@ -14,9 +14,4 @@ HeroPower::HeroPower(const Card* pCard) : Entity(pCard)
 {
     // Do nothing
 }
-
-void HeroPower::GetDataFromCard()
-{
-        
-}
 }

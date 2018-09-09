@@ -15,7 +15,7 @@ namespace Hearthstonepp
 {
 struct Spell : public Entity
 {
-    void GetDataFromCard() override;
+
 };
 }
 

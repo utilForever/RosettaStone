@@ -24,10 +24,6 @@ Weapon::Weapon(const Card* pCard) : Entity(pCard)
 
 Weapon::~Weapon()
 {
-}
-
-void Weapon::GetDataFromCard()
-{
-
+    // Do nothing
 }
 }

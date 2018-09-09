@@ -29,9 +29,6 @@ struct Entity
     //! Destructor.
     virtual ~Entity() = default;
 
-    //! Returns card data.
-    virtual void GetDataFromCard();
-
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;

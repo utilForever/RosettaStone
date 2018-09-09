@@ -24,9 +24,4 @@ Character::Character(const Card* pCard) : Entity(pCard)
 #endif
     maxHealth = health;
 }
-
-void Character::GetDataFromCard()
-{
-    
-}
 }

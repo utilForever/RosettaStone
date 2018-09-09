@@ -19,8 +19,6 @@ struct Character : public Entity
     Character(const Card* pCard);
     virtual ~Character() = default;
 
-    void GetDataFromCard() override;
-
     size_t attack = 0;
     size_t attackableCount = 0;
     size_t health = 0;

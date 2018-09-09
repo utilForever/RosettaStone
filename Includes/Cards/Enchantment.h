@@ -15,7 +15,7 @@ namespace Hearthstonepp
 {
 struct Enchantment : public Entity
 {
-    void GetDataFromCard() override;
+
 };
 }
 

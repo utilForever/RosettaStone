@@ -19,8 +19,6 @@ struct Weapon : public Entity
     Weapon(const Card* pCard);
     virtual ~Weapon();
 
-    void GetDataFromCard() override;
-
     size_t durability = 0;
 };
 }

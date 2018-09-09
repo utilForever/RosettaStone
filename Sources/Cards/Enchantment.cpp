@@ -10,8 +10,5 @@
 
 namespace Hearthstonepp
 {
-void Enchantment::GetDataFromCard()
-{
-        
-}
+
 }
