@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Minion.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Minion class inherits from Card class.
-> Created Time: 2017/09/16
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_MINION_H
 #define HEARTHSTONEPP_MINION_H
 
@@ -13,11 +5,22 @@
 
 namespace Hearthstonepp
 {
+//!
+//! \brief Minion structure.
+//!
+//! This structure inherits from Character structure.
+//!
 struct Minion : public Character
 {
+    //! Default constructor.
     Minion() = default;
+
+    //! Constructs minion with given \p pCard.
+    //! \param pCard A pointer to the card.
     Minion(const Card* pCard);
-    virtual ~Minion();
+
+    //! Default destructor.
+    virtual ~Minion() = default;
 };
 }
 
