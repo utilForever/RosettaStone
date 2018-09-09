@@ -23,7 +23,7 @@ struct Entity
     Entity() = default;
 
     //! Constructs entity with given \p pCard.
-    //! \param pCard Point to the card.
+    //! \param pCard A pointer to the card.
     Entity(const Card* pCard);
 
     //! Destructor.
