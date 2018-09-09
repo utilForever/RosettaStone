@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Card.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Card class that stores card information.
-> Created Time: 2017/08/21
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
@@ -26,19 +18,35 @@ namespace Hearthstonepp
 {
 struct Power;
 
+//!
+//! \brief Card structure.
+//!
+//! This structure stores card information such as attack, health and cost.
+//!
 struct Card
 {
+    //! Default constructor.
     Card() = default;
+
+    //! Default destructor.
     virtual ~Card() = default;
 
+    //! Initializes card data.
     void Initialize();
 
+    //! Finds out if this card has \p mechanic.
+    //! \param mechanic The mechanic of card.
+    //! \return true if this card has \p mechanic, and false otherwise.
     bool HasMechanic(GameTag mechanic) const;
 
+    //! Returns the number of cards that can be inserted into the deck.
+    //! \return The number of cards that can be inserted into the deck.
     unsigned int GetMaxAllowedInDeck() const;
 
+    //! Prints brief card information.
     virtual void ShowBriefInfo() const;
 
+    //! Prints card information.
     virtual void ShowInfo() const;
 
     Rarity rarity = Rarity::INVALID;
