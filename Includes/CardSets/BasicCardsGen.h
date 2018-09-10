@@ -16,13 +16,28 @@
 
 namespace Hearthstonepp
 {
+//!
+//! \brief BasicCardsGen class.
+//!
+//! This structure adds basic cards to data storage with power.
+//!
 class BasicCardsGen
 {
  public:
+    //! Adds hero cards to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddHeroes(std::map<std::string, Power*>& cards);
+
+    //! Adds hero power cards to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddHeroPowers(std::map<std::string, Power*>& cards);
 
+    //! Adds druid cards that are collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddDruid(std::map<std::string, Power*>& cards);
+
+    //! Adds druid cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddDruidNonCollect(std::map<std::string, Power*>& cards);
 
     static void AddHunter(std::map<std::string, Power*>& cards);
