@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: BasicCardsGen.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: BasicCardsGen class that stores the power of basic cards.
-> Created Time: 2018/06/23
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_BASIC_CARDS_GEN_H
 #define HEARTHSTONEPP_BASIC_CARDS_GEN_H
 
@@ -40,33 +32,80 @@ class BasicCardsGen
     //! \param cards Data storage to store added cards with power.
     static void AddDruidNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds hunter cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddHunter(std::map<std::string, Power*>& cards);
+
+    //! Adds hunter cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddHunterNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds mage cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddMage(std::map<std::string, Power*>& cards);
+
+    //! Adds mage cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddMageNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds paladin cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddPaladin(std::map<std::string, Power*>& cards);
+
+    //! Adds paladin cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddPaladinNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds priest cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddPriest(std::map<std::string, Power*>& cards);
+
+    //! Adds priest cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddPriestNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds rogue cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddRogue(std::map<std::string, Power*>& cards);
+
+    //! Adds rogue cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddRogueNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds shaman cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddShaman(std::map<std::string, Power*>& cards);
+
+    //! Adds shaman cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddShamanNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds warlock cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddWarlock(std::map<std::string, Power*>& cards);
+
+    //! Adds warlock cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddWarlockNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds warrior cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddWarrior(std::map<std::string, Power*>& cards);
+
+    //! Adds warrior cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddWarriorNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds neutral cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddNeutral(std::map<std::string, Power*>& cards);
+
+    //! Adds neutral cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddNeutralNonCollect(std::map<std::string, Power*>& cards);
 
+    //! Adds all cards to \p cards.
+    //! \param cards Data storage to store added cards with power.
     static void AddAll(std::map<std::string, Power*>& cards);
 };
 }

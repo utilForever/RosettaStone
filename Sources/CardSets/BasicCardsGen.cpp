@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: BasicCardsGen.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: BasicCardsGen class that stores the power of basic cards.
-> Created Time: 2018/06/23
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
 #include <CardSets/BasicCardsGen.h>
 #include <Enchants/Effects.h>
 #include <Tasks/BasicTasks/DestroyTask.h>
