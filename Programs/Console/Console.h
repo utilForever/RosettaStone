@@ -26,6 +26,11 @@
 #endif
 #include <regex>
 
+constexpr std::size_t LOGIN_MENU_SIZE = 3;
+constexpr std::size_t MAIN_MENU_SIZE = 4;
+constexpr std::size_t MANAGE_DECK_MENU_SIZE = 4;
+constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
+
 inline std::string ToString(const clara::Opt& opt)
 {
     std::ostringstream oss;
