@@ -15,7 +15,7 @@ namespace Hearthstonepp
 {
     constexpr float VERSION = 0.3f;
 
-    constexpr std::size_t PLAYER_CLASS_SIZE = 9;
+    constexpr std::size_t NUM_PLAYER_CLASS = 9;
     constexpr std::size_t MAXIMUM_NUM_CARDS_IN_DECK = 30;
     constexpr std::size_t FIELD_SIZE = 7;
 

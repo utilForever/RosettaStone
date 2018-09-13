@@ -143,7 +143,7 @@ class Console
     std::array<std::function<void(Console&)>, MANAGE_DECK_MENU_SIZE - 1>
         m_manageDeckFuncs = {&Console::CreateDeck, &Console::ModifyDeck,
                              &Console::DeleteDeck};
-    std::array<std::string, PLAYER_CLASS_SIZE> m_playerClassStr = {
+    std::array<std::string, NUM_PLAYER_CLASS> m_playerClassStr = {
         "1. Druid", "2. Hunter", "3. Mage",    "4. Paladin", "5. Priest",
         "6. Rogue", "7. Shaman", "8. Warlock", "9. Warrior"};
     std::array<std::string, CREATE_DECK_MENU_SIZE> m_deckOperationStr = {

@@ -248,7 +248,7 @@ void Console::CreateDeck()
 
     ShowMenu(m_playerClassStr);
     const size_t selectedClassNum =
-        InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
+        InputMenuNum("What's your player class? ", NUM_PLAYER_CLASS);
     const CardClass deckClass =
         CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
 
