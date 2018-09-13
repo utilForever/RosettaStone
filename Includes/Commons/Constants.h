@@ -22,7 +22,7 @@ namespace Hearthstonepp
 
     //! The number of cards at the start of each game to whichever player is selected to go first.
     //! \note The initial hand and mulligan at the start of the game also draws 3-4 randomly selected cards.
-    constexpr std::size_t NUM_BEGIN_DRAW = 3;
+    constexpr std::size_t NUM_DRAW_CARDS_AT_START = 3;
 
     //! The number of menus in main phase.
     //! \note We will refactor it soon.

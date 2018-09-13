@@ -45,7 +45,7 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
     size_t read = req->mulligan()->size();
 
     // Copy data from input
-    BYTE index[NUM_BEGIN_DRAW] = {
+    BYTE index[NUM_DRAW_CARDS_AT_START] = {
         0,
     };
     std::copy(data, data + read, index);
@@ -59,7 +59,7 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
     // Sort decreasing order
     std::sort(index, index + read, [](BYTE a, BYTE b) { return a > b; });
     // Range verification
-    if (index[0] >= NUM_BEGIN_DRAW)
+    if (index[0] >= NUM_DRAW_CARDS_AT_START)
     {
         return MetaData::MULLIGAN_INDEX_OUT_OF_RANGE;
     }
