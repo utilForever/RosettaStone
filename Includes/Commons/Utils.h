@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Utils.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Utility functions for Hearthstone++.
-> Created Time: 2017/10/29
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_UTILS_H
 #define HEARTHSTONEPP_UTILS_H
 
