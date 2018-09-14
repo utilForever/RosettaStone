@@ -27,6 +27,6 @@ namespace Hearthstonepp
     //! The number of menus in main phase.
     //! \note We will refactor it soon.
     constexpr std::size_t GAME_MAIN_MENU_SIZE = 3;
-    }
+}
 
 #endif
