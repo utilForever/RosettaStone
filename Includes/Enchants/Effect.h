@@ -15,23 +15,31 @@ namespace Hearthstonepp
 {
 struct Character;
 
+//! Effect operator to change card value such as attack and health.
 enum class EffectOperator
 {
-    ADD,
-    SUB,
-    MUL,
-    SET
+    ADD,  //!< Add card value.
+    SUB,  //!< Subtract card value.
+    MUL,  //!< Multiply card value.
+    SET   //!< Set card value.
 };
 
-struct Effect
+//!
+//! \brief Effect class.
+//!
+//! This class represents an effect of auras or enchantment cards.
+//!
+class Effect
 {
-public:
+ public:
+    //! Default constructor.
     Effect() = default;
+
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
     void Apply(Character* character, bool isOneTurnEffect = false) const;
 
-private:
+ private:
     GameTag m_gameTag = GameTag::INVALID;
     EffectOperator m_effectOperator = EffectOperator::SET;
     int m_value = 0;
