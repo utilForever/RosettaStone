@@ -6,12 +6,13 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Effects structure.
+//! \brief Effects class.
 //!
 //! This class lists specific effects such as Taunt, Poisonous and Stealth.
 //!
-struct Effects
+class Effects
 {
+ public:
     //! A minion ability which forces the opposing player to direct any melee
     //! attacks toward enemy targets with this ability.
     inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
