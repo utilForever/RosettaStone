@@ -22,7 +22,7 @@ class Effects
         Effect(GameTag::POISONOUS, EffectOperator::SET, 1);
 
     //! An ability which causes a minion to ignore the next damage it receives.
-    inline static Effect DvineShield =
+    inline static Effect DivineShield =
         Effect(GameTag::DIVINE_SHIELD, EffectOperator::SET, 1);
 
     //! An ability which allows a character to attack twice per turn.
