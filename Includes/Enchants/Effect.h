@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Effect.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Represents an effect of auras or enchantment cards.
-> Created Time: 2018/07/07
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_EFFECT_H
 #define HEARTHSTONEPP_EFFECT_H
 
@@ -35,8 +27,15 @@ class Effect
     //! Default constructor.
     Effect() = default;
 
+    //! Constructs effect with given \p gameTag, \p effectOPerator and \p value.
+    //! \param gameTag The mechanics of the card.
+    //! \param effectOperator The effect operator to change card value.
+    //! \param value The value to change.
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
+    //! Apply effect to \p character.
+    //! \param character The character to which effect is applied.
+    //! \param isOneTurnEffect The value that whether effect lasts only one turn.
     void Apply(Character* character, bool isOneTurnEffect = false) const;
 
  private:
@@ -44,6 +43,6 @@ class Effect
     EffectOperator m_effectOperator = EffectOperator::SET;
     int m_value = 0;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

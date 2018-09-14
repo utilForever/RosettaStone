@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Effect.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Represents an effect of auras or enchantment cards.
-> Created Time: 2018/07/08
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
 #include <Cards/Character.h>
 #include <Enchants/Effect.h>
 
@@ -42,4 +34,4 @@ void Effect::Apply(Character* character, bool isOneTurnEffect) const
             throw std::invalid_argument("Invalid effect operator!");
     }
 }
-}
+}  // namespace Hearthstonepp
