@@ -55,6 +55,23 @@ TEST(CombatTask, CombatDefault)
     attack(1, 1);
     EXPECT_EQ(gen.player1.field.size(), static_cast<size_t>(0));
     EXPECT_EQ(gen.player2.field.size(), static_cast<size_t>(0));
+
+    card1->attack = 5;
+    Character minion3(card1.get());
+
+    gen.player1.field.emplace_back(&minion3);
+    gen.player2.field.emplace_back(&minion2);
+
+    attack(1, 1);
+    EXPECT_EQ(gen.player1.field[0]->health, static_cast<size_t>(1));
+    EXPECT_EQ(gen.player2.field.size(), static_cast<size_t>(0));
+
+    gen.player1.field[0]->attack = 1;
+    gen.player2.field.emplace_back(&minion2);
+
+    attack(1, 1);
+    EXPECT_EQ(gen.player1.field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(gen.player2.field[0]->health, static_cast<size_t>(3));
 }
 
 TEST(CombatTask, CombatTaunt)
