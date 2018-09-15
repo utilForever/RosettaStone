@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Enchantment.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Class to store attributes of the power of an enchantment card.
-> Created Time: 2017/09/16
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_ENCHANT_H
 #define HEARTHSTONEPP_ENCHANT_H
 
@@ -17,13 +9,27 @@ namespace Hearthstonepp
 {
 struct Character;
 
+//!
+//! \brief Enchant structure.
+//!
+//! This structure stores some effects of enchantment card.
+//!
 struct Enchant
 {
 public:
+    //! Default constructor.
     Enchant() = default;
+
+    //! Constructs enchant with given \p effect.
+    //! \param effect The effect of the card.
     Enchant(Effect& effect);
+
+    //! Constructs enchant with given \p effects.
+    //! \param effects A list of effect.
     Enchant(std::vector<Effect>& effects);
 
+    //! Activates enchant to \p character.
+    //! \param character The character to which enchant is activated.
     void ActivateTo(Character* character);
 
 private:
