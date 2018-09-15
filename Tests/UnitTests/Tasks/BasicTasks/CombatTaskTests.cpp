@@ -27,7 +27,7 @@ TEST(CombatTask, CombatDefault)
         init.Run(gen.player1, gen.player2);
         init.Run(gen.player2, gen.player1);
 
-        auto target = resp.Target(1, 1);
+        auto target = resp.Target(src, dst);
         MetaData result = combat.Run(gen.player1, gen.player2);
         EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
 
@@ -43,6 +43,10 @@ TEST(CombatTask, CombatDefault)
 
     gen.player1.field.emplace_back(&minion1);
     gen.player2.field.emplace_back(&minion2);
+
+    attack(1, 0);
+    EXPECT_EQ(gen.player1.field[0]->health, gen.player1.field[0]->maxHealth);
+    EXPECT_EQ(gen.player2.hero->health, gen.player2.hero->maxHealth - gen.player1.field[0]->attack);
 
     attack(1, 1);
     EXPECT_EQ(gen.player1.field[0]->health, static_cast<size_t>(1));
