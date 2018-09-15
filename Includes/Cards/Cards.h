@@ -73,7 +73,7 @@ class Cards
     std::vector<Card*> FindCardByRace(Race race);
 
     //! Returns a pointer to card that matches \p name.
-    //! \param id The ID of the card.
+    //! \param name The name of the card.
     //! \return A pointer to card that matches \p name.
     Card* FindCardByName(const std::string& name);
 
@@ -117,7 +117,7 @@ class Cards
     const Card* GetDefaultHeroPower(CardClass cardClass);
 
  private:
-    //! Constructor that loads card and power data.
+    //! Constructor that loads card data.
     Cards();
 
     //! Destructor.
