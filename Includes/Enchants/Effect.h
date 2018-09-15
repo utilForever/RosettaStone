@@ -27,7 +27,7 @@ class Effect
     //! Default constructor.
     Effect() = default;
 
-    //! Constructs effect with given \p gameTag, \p effectOPerator and \p value.
+    //! Constructs effect with given \p gameTag, \p effectOperator and \p value.
     //! \param gameTag The mechanics of the card.
     //! \param effectOperator The effect operator to change card value.
     //! \param value The value to change.
