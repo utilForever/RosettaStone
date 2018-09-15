@@ -10,13 +10,13 @@ namespace Hearthstonepp
 struct Character;
 
 //!
-//! \brief Enchant structure.
+//! \brief Enchant class.
 //!
-//! This structure stores some effects of enchantment card.
+//! This class stores some effects of enchantment card.
 //!
-struct Enchant
+class Enchant
 {
-public:
+ public:
     //! Default constructor.
     Enchant() = default;
 
@@ -32,7 +32,7 @@ public:
     //! \param character The character to which enchant is activated.
     void ActivateTo(Character* character);
 
-private:
+ private:
     std::vector<Effect> m_effects;
 };
 }
