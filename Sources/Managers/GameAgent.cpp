@@ -1,15 +1,4 @@
-/*************************************************************************
-> File Name: GameAgent.cpp
-> Project Name: Hearthstone++
-> Author: Young-Joong Kim
-> Purpose: Hearthstone Game Agent
-> Created Time: 2017/09/26
-> Copyright (c) 2017, Young-Joong Kim
-*************************************************************************/
 #include <Managers/GameAgent.h>
-#include <Tasks/MetaData.h>
-#include <Tasks/TaskWrapper.h>
-#include <Tasks/Requirement.h>
 #include <Tasks/BasicTasks/BriefTask.h>
 #include <Tasks/BasicTasks/CombatTask.h>
 #include <Tasks/BasicTasks/DrawTask.h>
@@ -20,6 +9,9 @@
 #include <Tasks/BasicTasks/PlayerSettingTask.h>
 #include <Tasks/BasicTasks/ShuffleTask.h>
 #include <Tasks/BasicTasks/SwapPlayerTask.h>
+#include <Tasks/MetaData.h>
+#include <Tasks/Requirement.h>
+#include <Tasks/TaskWrapper.h>
 
 #include <random>
 
@@ -49,9 +41,9 @@ void GameAgent::GetTaskMeta(TaskMeta& meta)
     m_taskAgent.Read(meta);
 }
 
-void GameAgent::WriteSyncBuffer(TaskMeta&& data, bool sideChannel)
+void GameAgent::WriteSyncBuffer(TaskMeta&& data, bool isUseSideChannel)
 {
-    m_taskAgent.Notify(std::move(data), sideChannel);
+    m_taskAgent.Notify(std::move(data), isUseSideChannel);
 }
 
 Player& GameAgent::GetPlayer1()
@@ -137,7 +129,7 @@ void GameAgent::MainReady()
         BasicTasks::ModifyManaByRef(NumMode::SET, ManaMode::EXIST,
                                     m_player1.totalMana));
 
-    for (auto &character : m_player1.field)
+    for (auto& character : m_player1.field)
     {
         if (character->gameTags[+GameTag::FROZEN] == 1)
         {
@@ -150,7 +142,8 @@ void GameAgent::MainReady()
             continue;
         }
 
-        character->attackableCount = character->gameTags[+GameTag::WINDFURY] ? 2 : 1;
+        character->attackableCount =
+            character->gameTags[+GameTag::WINDFURY] ? 2 : 1;
     }
 }
 
