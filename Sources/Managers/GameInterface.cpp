@@ -21,7 +21,7 @@ GameInterface::GameInterface(GameAgent& agent, std::ostream& output,
 
 GameResult GameInterface::StartGame()
 {
-    std::thread at = m_agent.StartAgent();
+    std::thread at = m_agent.Start();
 
     while (true)
     {

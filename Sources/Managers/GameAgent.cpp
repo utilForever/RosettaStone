@@ -17,7 +17,7 @@
 
 namespace Hearthstonepp
 {
-std::thread GameAgent::StartAgent()
+std::thread GameAgent::Start()
 {
     auto flow = [this]() {
         BeginPhase();
@@ -108,9 +108,9 @@ void GameAgent::BeginPhase()
 bool GameAgent::MainPhase()
 {
     // Ready for main phase
-    MainReady();
-    // MainMenu return isGameEnd flag
-    return MainMenu();
+    PrepareMainPhase();
+    // ProcessMainMenu return isGameEnd flag
+    return ProcessMainMenu();
 }
 
 void GameAgent::FinalPhase()
@@ -119,9 +119,9 @@ void GameAgent::FinalPhase()
     m_taskAgent.Run(meta, m_player1, m_player2, BasicTasks::GameEndTask());
 }
 
-void GameAgent::MainReady()
+void GameAgent::PrepareMainPhase()
 {
-    // MainReady : Draw, ModifyMana, Clear field character attackableCount
+    // PrepareMainPhase : Draw, ModifyMana, Clear field character attackableCount
     TaskMeta meta;
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
@@ -147,10 +147,10 @@ void GameAgent::MainReady()
     }
 }
 
-bool GameAgent::MainMenu()
+bool GameAgent::ProcessMainMenu()
 {
     // Check before starting main phase
-    if (IsGameEnd())
+    if (IsGameOver())
     {
         return true;
     }
@@ -178,27 +178,27 @@ bool GameAgent::MainMenu()
             m_mainMenuFuncs[menu](*this);
         }
         // Recursion
-        return MainMenu();
+        return ProcessMainMenu();
     }
 
     return false;
 }
 
-void GameAgent::MainPlayCard()
+void GameAgent::PlayCard()
 {
     TaskMeta meta;
     m_taskAgent.Run(meta, m_player1, m_player2,
                     BasicTasks::PlayCardTask(m_taskAgent));
 }
 
-void GameAgent::MainCombat()
+void GameAgent::Combat()
 {
     TaskMeta meta;
     m_taskAgent.Run(meta, m_player1, m_player2,
                     BasicTasks::CombatTask(m_taskAgent));
 }
 
-bool GameAgent::IsGameEnd()
+bool GameAgent::IsGameOver()
 {
     size_t healthCurrent = m_player1.hero->health;
     size_t healthOpponent = m_player2.hero->health;

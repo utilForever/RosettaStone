@@ -48,7 +48,7 @@ class GameAgent
 
     //! Starts the game agent.
     //! \return The thread that plays the game.
-    std::thread StartAgent();
+    std::thread Start();
 
     //! Returns task meta from task agent.
     //! \param meta A task meta that defines return status of task.
@@ -89,7 +89,7 @@ class GameAgent
  private:
     //! Returns whether the game is over.
     //! \return true if the game is over, and false otherwise.
-    bool IsGameEnd();
+    bool IsGameOver();
 
     //! Processes the begin phase of the game.
     void BeginPhase();
@@ -103,17 +103,17 @@ class GameAgent
 
     //! Prepares to handle the main phase: draw card, modify mana and clear
     //! attacked characters.
-    void MainReady();
+    void PrepareMainPhase();
 
     //! Processes command in main menu and calls action.
     //! \return return true if the game is over, and false otherwise.
-    bool MainMenu();
+    bool ProcessMainMenu();
 
     //! Plays card such as minion, weapon and spell.
-    void MainPlayCard();
+    void PlayCard();
 
     //! Combats with other minion or hero.
-    void MainCombat();
+    void Combat();
 
     Player m_player1;
     Player m_player2;
@@ -122,8 +122,8 @@ class GameAgent
 
     std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
         m_mainMenuFuncs = {
-            &GameAgent::MainPlayCard,
-            &GameAgent::MainCombat,
+            &GameAgent::PlayCard,
+            &GameAgent::Combat,
     };
 };
 }  // namespace Hearthstonepp
