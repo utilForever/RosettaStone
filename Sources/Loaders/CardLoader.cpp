@@ -5,7 +5,7 @@
 
 namespace Hearthstonepp
 {
-void CardLoader::LoadData(std::vector<Card*>& cards) const
+void CardLoader::Load(std::vector<Card*>& cards) const
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");

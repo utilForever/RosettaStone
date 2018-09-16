@@ -12,9 +12,9 @@ Cards* Cards::m_instance = nullptr;
 Cards::Cards()
 {
     CardLoader cardLoader;
-    cardLoader.LoadData(m_cards);
+    cardLoader.Load(m_cards);
     PowerLoader powerLoader;
-    powerLoader.LoadData(m_cards);
+    powerLoader.Load(m_cards);
 }
 
 Cards::~Cards()
