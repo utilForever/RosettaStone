@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: AccountLoader.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Account loader that loads data from <email>.json.
-> Created Time: 2017/10/19
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_ACCOUNT_LOADER_H
 #define HEARTHSTONEPP_ACCOUNT_LOADER_H
 
@@ -15,13 +7,19 @@
 
 namespace Hearthstonepp
 {
-using json = nlohmann::json;
-
+//!
+//! \brief AccountLoader class.
+//!
+//! This class loads/saves data from/to <email>.json.
+//!
 class AccountLoader
 {
  public:
+    //! Loads account information from a json file named \p email.
     Account* Load(std::string email) const;
-    void Save(Account* p) const;
+
+    //! Saves account information \p p to a json file.
+    void Save(Account* account) const;
 };
 }  // namespace Hearthstonepp
 

@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: AccountLoader.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Account loader that loads data from <email>.json.
-> Created Time: 2017/10/19
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #include <Commons/Macros.h>
 #include <Loaders/AccountLoader.h>
 
@@ -31,7 +23,7 @@ Account* AccountLoader::Load(std::string email) const
 {
     // Read account data from JSON file
     std::ifstream playerFile("Datas/" + email + ".json");
-    json j;
+    nlohmann::json j;
 
     if (!playerFile.is_open())
     {
@@ -84,7 +76,7 @@ Account* AccountLoader::Load(std::string email) const
     return p;
 }
 
-void AccountLoader::Save(Account* p) const
+void AccountLoader::Save(Account* account) const
 {
     // Store account data to JSON file
 #ifndef HEARTHSTONEPP_MACOSX
@@ -92,9 +84,9 @@ void AccountLoader::Save(Account* p) const
 #else
     system("mkdir Datas");
 #endif
-    std::ofstream playerFile("Datas/" + p->GetEmail() + ".json");
+    std::ofstream playerFile("Datas/" + account->GetEmail() + ".json");
 
-    json j;
+    nlohmann::json j;
 
     if (!playerFile.is_open())
     {
@@ -103,24 +95,28 @@ void AccountLoader::Save(Account* p) const
 
     try
     {
-        j["nickname"] = p->GetNickname();
+        j["nickname"] = account->GetNickname();
 
-        j["decks"] = json::array();
+        j["decks"] = nlohmann::json::array();
 
-        for (size_t deckIdx = 0; deckIdx < p->GetNumOfDeck(); ++deckIdx)
+        for (size_t deckIdx = 0; deckIdx < account->GetNumOfDeck(); ++deckIdx)
         {
-            j["decks"].emplace_back(json::object(
-                {{"class", p->GetDeck(deckIdx)->GetClass()._to_string()},
-                 {"name", p->GetDeck(deckIdx)->GetName()},
-                 {"cards", json::array()}}));
+            j["decks"].emplace_back(nlohmann::json::object(
+                {{"class", account->GetDeck(deckIdx)->GetClass()._to_string()},
+                 {"name", account->GetDeck(deckIdx)->GetName()},
+                 {"cards", nlohmann::json::array()}}));
 
             for (size_t cardIdx = 0;
-                 cardIdx < p->GetDeck(deckIdx)->GetUniqueNumOfCards();
+                 cardIdx < account->GetDeck(deckIdx)->GetUniqueNumOfCards();
                  ++cardIdx)
             {
-                j["decks"].at(deckIdx)["cards"].emplace_back(json::object(
-                    {{"id", p->GetDeck(deckIdx)->GetCard(cardIdx).first},
-                     {"num", p->GetDeck(deckIdx)->GetCard(cardIdx).second}}));
+                j["decks"].at(deckIdx)["cards"].emplace_back(
+                    nlohmann::json::object(
+                        {{"id",
+                          account->GetDeck(deckIdx)->GetCard(cardIdx).first},
+                         {"num", account->GetDeck(deckIdx)
+                                     ->GetCard(cardIdx)
+                                     .second}}));
             }
         }
 
