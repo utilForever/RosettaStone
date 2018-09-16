@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: CardLoader.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Card loader that loads data from cards.json.
-> Created Time: 2017/08/13
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
 #ifndef HEARTHSTONEPP_CARD_LOADER_H
 #define HEARTHSTONEPP_CARD_LOADER_H
 
@@ -17,11 +9,16 @@
 
 namespace Hearthstonepp
 {
-using json = nlohmann::json;
-
+//!
+//! \brief CardLoader class.
+//!
+//! This class loads card data from cards.json.
+//!
 class CardLoader
 {
  public:
+    //! Loads card data from cards.json.
+    //! \param cards Data storage to store added cards with power.
     void LoadData(std::vector<Card*>& cards) const;
 };
 }  // namespace Hearthstonepp

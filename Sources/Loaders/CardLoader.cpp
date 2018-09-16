@@ -1,18 +1,3 @@
-/*************************************************************************
-> File Name: CardLoader.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Card loader that loads data from cards.json.
-> Created Time: 2017/08/13
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
-#include <Cards/Enchantment.h>
-#include <Cards/Hero.h>
-#include <Cards/HeroPower.h>
-#include <Cards/Minion.h>
-#include <Cards/Spell.h>
-#include <Cards/Weapon.h>
-#include <Enchants/Powers.h>
 #include <Loaders/CardLoader.h>
 
 #include <fstream>
@@ -24,7 +9,7 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
-    json j;
+    nlohmann::json j;
 
     if (!cardFile.is_open())
     {
@@ -38,7 +23,7 @@ void CardLoader::LoadData(std::vector<Card*>& cards) const
     for (auto& cardData : j)
     {
         const std::string id = cardData["id"].get<std::string>();
-        // Check invalid card type for 'Placeholder'
+        // NOTE: Check invalid card type for 'Placeholder'
         // See https://hearthstone.gamepedia.com/Placeholder_Card
         if (id == "PlaceholderCard")
         {
