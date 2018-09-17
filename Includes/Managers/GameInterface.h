@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: GameInterface.h
-> Project Name: Hearthstone++
-> Author: Young-Joong Kim
-> Purpose: Interface for Hearthstone Game Agent
-> Created Time: 2017/10/24
-> Copyright (c) 2017, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_INTERFACE_H
 #define HEARTHSTONEPP_INTERFACE_H
 
@@ -22,38 +14,54 @@
 
 namespace Hearthstonepp
 {
+//!
+//! \brief GameResult structure.
+//!
+//! This structure stores the result of Hearthstone game.
+//!
 struct GameResult
 {
     std::string winnerID;
 };
 
+//! \brief An enumerator for identifying handle status.
 enum class HandleStatus
 {
-    CONTINUE = 0,
-    STOP = 1,
+    CONTINUE = 0,  //!< Continues the game.
+    STOP = 1,      //!< Ends the game.
 };
 
+//!
+//! \brief GameInterface class.
+//!
+//! This class is a interface for Hearthstone game agent.
+//! Also, it handles various messages and tasks. All tasks are logged.
+//!
 class GameInterface
 {
  public:
+
+    //! Constructs game interface with given \p agent, \p output and \p input.
+    //! \param agent The agent for the game.
+    //! \param output The output stream. (std::cout as default)
+    //! \param input The input stream. (std::cin as default)
     GameInterface(GameAgent& agent, std::ostream& output = std::cout,
                   std::istream& input = std::cin);
 
+    //! Starts the game. And over and over again, until it's done.
+    //! \return The result of the game.
     GameResult StartGame();
 
  private:
     GameAgent& m_agent;
-    // Temporal TaskMeta
     TaskMeta m_buffer;
-
     GameResult m_result;
 
     std::ostream& m_ostream;
     std::istream& m_istream;
 
-    // user id
     std::string m_users[2];
-    // Cached Game Status for processing some requirements
+    //! Cached game status for processing some requirements.
     std::unique_ptr<BYTE[]> m_status;
 
     HandleStatus HandleMessage(const TaskMeta& meta);
