@@ -42,19 +42,19 @@ GameResult GameInterface::StartGame()
     return m_result;
 }
 
-HandleStatus GameInterface::HandleMessage(const TaskMeta& serialized)
+HandleStatus GameInterface::HandleMessage(const TaskMeta& meta)
 {
-    if (m_handler.find(serialized.id) != m_handler.end())
+    if (m_handler.find(meta.id) != m_handler.end())
     {
         // find from handler table and call it
-        m_handler[serialized.id](*this, serialized);
+        m_handler[meta.id](*this, meta);
     }
     else
     {
-        HandleDefault(serialized);
+        HandleDefault(meta);
     }
 
-    if (serialized.id == +TaskID::GAME_END)
+    if (meta.id == +TaskID::GAME_END)
     {
         return HandleStatus::STOP;
     }
