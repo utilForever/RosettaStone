@@ -70,7 +70,6 @@ void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     Power* p = new Power;
     p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::MY_HERO, 6));
     cards.emplace("CS2_088", p);
-
 }
 
 void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
@@ -117,7 +116,8 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // --------------------------------------------------------
     Power* p = new Power;
     p->powerTask.emplace_back(new PowerTask::HealFullTask(EntityType::TARGET));
-    p->powerTask.emplace_back(new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
+    p->powerTask.emplace_back(
+        new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     cards.emplace("CS2_041", p);
 }
 
@@ -149,8 +149,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     Power* p = new Power;
-    p->powerTask.emplace_back(
-        new PowerTask::DiscardTask(EntityType::MY_HAND));
+    p->powerTask.emplace_back(new PowerTask::DiscardTask(EntityType::MY_HAND));
     cards.emplace("EX1_306", p);
 }
 
@@ -212,7 +211,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // Text: <b>"Kill 30 raptors." - Hemet Nesingwary</b>
     // --------------------------------------------------------
     // GameTag:
-    // 
+    //
     // --------------------------------------------------------
     cards.emplace("CS2_172", nullptr);
 
@@ -226,7 +225,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - Taunt = 1
     // --------------------------------------------------------
     cards.emplace("CS2_179", nullptr);
-    
+
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
     // - Set: core, Rarity: free
@@ -342,4 +341,4 @@ void BasicCardsGen::AddAll(std::map<std::string, Power*>& cards)
     AddNeutral(cards);
     AddNeutralNonCollect(cards);
 }
-}
+}  // namespace Hearthstonepp

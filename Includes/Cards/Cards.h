@@ -77,25 +77,29 @@ class Cards
     //! \return A pointer to card that matches \p name.
     Card* FindCardByName(const std::string& name);
 
-    //! Returns a list of pointers to each card whose cost is between \p minVal and \p maxVal.
+    //! Returns a list of pointers to each card whose cost is between \p minVal
+    //! and \p maxVal.
     //! \param minVal The minimum cost value of the card.
     //! \param maxVal The maximum cost value of the card.
     //! \return A list of pointers to each card whose cost is between \p minVal and \p maxVal.
     std::vector<Card*> FindCardByCost(size_t minVal, size_t maxVal);
 
-    //! Returns a list of pointers to each card whose attack is between \p minVal and \p maxVal.
+    //! Returns a list of pointers to each card whose attack is between \p minVal
+    //! and \p maxVal.
     //! \param minVal The minimum attack value of the card.
     //! \param maxVal The maximum attack value of the card.
     //! \return A list of pointers to each card whose attack is between \p minVal and \p maxVal.
     std::vector<Card*> FindCardByAttack(size_t minVal, size_t maxVal);
 
-    //! Returns a list of pointers to each card whose health is between \p minVal and \p maxVal.
+    //! Returns a list of pointers to each card whose health is between \p minVal
+    //! and \p maxVal.
     //! \param minVal The minimum health value of the card.
     //! \param maxVal The maximum health value of the card.
     //! \return A list of pointers to each card whose health is between \p minVal and \p maxVal.
     std::vector<Card*> FindCardByHealth(size_t minVal, size_t maxVal);
 
-    //! Returns a list of pointers to each card whose spell damage is between \p minVal and \p maxVal.
+    //! Returns a list of pointers to each card whose spell damage is between \p minVal
+    //! and \p maxVal.
     //! \param minVal The minimum spell damage value of the card.
     //! \param maxVal The maximum spell damage value of the card.
     //! \return A list of pointers to each card whose spell damage is between \p minVal and \p maxVal.
@@ -139,6 +143,6 @@ class Cards
 
     std::vector<Card*> m_cards;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

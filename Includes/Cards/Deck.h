@@ -49,7 +49,6 @@ class Deck
     //! \return The number of cards in deck that matches \p cardID.
     unsigned int GetNumCardInDeck(std::string cardID);
 
-
     //! Creates a deck from a list of pointers to cards to play game.
     //! \return A deck from a list of pointers to cards.
     std::vector<const Card*> GetPrimitiveDeck() const;
@@ -65,13 +64,15 @@ class Deck
     //! Add card(s) to deck with given \p cardID and \p numCardToAdd.
     //! \param cardID The ID of the card to add to deck.
     //! \param numCardToAdd The number of card to add to deck.
-    //! \return true if card(s) is added to deck successfully, and false otherwise.
+    //! \return true if card(s) is added to deck successfully, and false
+    //! otherwise.
     bool AddCard(std::string cardID, int numCardToAdd);
 
     //! Delete card(s) from deck with given \p cardID and \p numCardToDelete.
     //! \param cardID The ID of the card to delete from deck.
     //! \param numCardToDelete The number of card to delete from deck.
-    //! \return true if card(s) is deleted from deck successfully, and false otherwise.
+    //! \return true if card(s) is deleted from deck successfully, and false
+    //! otherwise.
     bool DeleteCard(std::string cardID, const int numCardToDelete);
 
  private:
@@ -81,6 +82,6 @@ class Deck
     unsigned int m_numOfCards;
     std::vector<std::pair<std::string, int>> m_cards;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

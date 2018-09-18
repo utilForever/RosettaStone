@@ -6,4 +6,4 @@ Entity::Entity(const Card* pCard) : card(pCard)
 {
     // Do nothing
 }
-}
+}  // namespace Hearthstonepp

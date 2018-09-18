@@ -20,12 +20,12 @@ struct Weapon : public Entity
     //! Constructs weapon with given \p pCard.
     //! \param pCard A pointer to the card.
     Weapon(const Card* pCard);
-    
+
     //! Default destructor.
     virtual ~Weapon();
 
     size_t durability = 0;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

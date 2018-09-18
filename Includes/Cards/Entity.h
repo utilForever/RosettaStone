@@ -32,8 +32,7 @@ struct Entity
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;
-
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

@@ -102,9 +102,10 @@ void AccountLoader::Save(Account* account) const
         for (size_t deckIdx = 0; deckIdx < account->GetNumOfDeck(); ++deckIdx)
         {
             j["decks"].emplace_back(nlohmann::json::object(
-                {{"class", account->GetDeck(deckIdx)->GetClass()._to_string()},
-                 {"name", account->GetDeck(deckIdx)->GetName()},
-                 {"cards", nlohmann::json::array()}}));
+                { { "class",
+                    account->GetDeck(deckIdx)->GetClass()._to_string() },
+                  { "name", account->GetDeck(deckIdx)->GetName() },
+                  { "cards", nlohmann::json::array() } }));
 
             for (size_t cardIdx = 0;
                  cardIdx < account->GetDeck(deckIdx)->GetUniqueNumOfCards();
@@ -112,11 +113,11 @@ void AccountLoader::Save(Account* account) const
             {
                 j["decks"].at(deckIdx)["cards"].emplace_back(
                     nlohmann::json::object(
-                        {{"id",
-                          account->GetDeck(deckIdx)->GetCard(cardIdx).first},
-                         {"num", account->GetDeck(deckIdx)
-                                     ->GetCard(cardIdx)
-                                     .second}}));
+                        { { "id",
+                            account->GetDeck(deckIdx)->GetCard(cardIdx).first },
+                          { "num", account->GetDeck(deckIdx)
+                                       ->GetCard(cardIdx)
+                                       .second } }));
             }
         }
 

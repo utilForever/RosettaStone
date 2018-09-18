@@ -16,6 +16,6 @@ struct HeroPower : public Entity
     //! \param pCard A pointer to the card.
     HeroPower(const Card* pCard);
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

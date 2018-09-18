@@ -20,6 +20,6 @@ struct Hero : public Character
 
     Weapon* weapon;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

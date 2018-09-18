@@ -18,6 +18,6 @@ struct Power
     std::vector<ITask*> powerTask;
     Enchant* enchant = nullptr;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

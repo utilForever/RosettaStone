@@ -135,28 +135,29 @@ class GameInterface
     void InputPosition(const TaskMeta& meta);
 
     std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr = {
-        "1. Use Card", "2. Combat", "3. Stop"};
+        "1. Use Card", "2. Combat", "3. Stop"
+    };
 
     // Handler table
     std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>>
         m_handler = {
-            {TaskID::TASK_VECTOR, &GameInterface::HandleTaskVector},
-            {TaskID::PLAYER_SETTING, &GameInterface::HandlePlayerSetting},
-            {TaskID::REQUIRE, &GameInterface::HandleRequire},
-            {TaskID::BRIEF, &GameInterface::HandleBrief},
-            {TaskID::GAME_END, &GameInterface::HandleGameEnd},
-            {TaskID::OVER_DRAW, &GameInterface::HandleOverDraw},
-    };
+            { TaskID::TASK_VECTOR, &GameInterface::HandleTaskVector },
+            { TaskID::PLAYER_SETTING, &GameInterface::HandlePlayerSetting },
+            { TaskID::REQUIRE, &GameInterface::HandleRequire },
+            { TaskID::BRIEF, &GameInterface::HandleBrief },
+            { TaskID::GAME_END, &GameInterface::HandleGameEnd },
+            { TaskID::OVER_DRAW, &GameInterface::HandleOverDraw },
+        };
 
     // Input Handler Table
     std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>>
         m_inputHandler = {
-            {TaskID::MULLIGAN, &GameInterface::InputMulligan},
-            {TaskID::SELECT_MENU, &GameInterface::InputMenu},
-            {TaskID::SELECT_CARD, &GameInterface::InputCard},
-            {TaskID::SELECT_TARGET, &GameInterface::InputTarget},
-            {TaskID::SELECT_POSITION, &GameInterface::InputPosition},
-    };
+            { TaskID::MULLIGAN, &GameInterface::InputMulligan },
+            { TaskID::SELECT_MENU, &GameInterface::InputMenu },
+            { TaskID::SELECT_CARD, &GameInterface::InputCard },
+            { TaskID::SELECT_TARGET, &GameInterface::InputTarget },
+            { TaskID::SELECT_POSITION, &GameInterface::InputPosition },
+        };
 
     GameAgent& m_agent;
     TaskMeta m_buffer;

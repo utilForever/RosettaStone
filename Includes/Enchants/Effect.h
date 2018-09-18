@@ -35,7 +35,7 @@ class Effect
 
     //! Apply effect to \p character.
     //! \param character The character to which effect is applied.
-    //! \param isOneTurnEffect The value that whether effect lasts only one turn.
+    //! \param isOneTurnEffect Whether effect lasts only one turn.
     void Apply(Character* character, bool isOneTurnEffect = false) const;
 
  private:

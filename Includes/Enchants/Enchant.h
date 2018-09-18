@@ -35,6 +35,6 @@ class Enchant
  private:
     std::vector<Effect> m_effects;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

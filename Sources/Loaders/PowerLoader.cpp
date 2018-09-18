@@ -1,5 +1,5 @@
-#include <Loaders/PowerLoader.h>
 #include <Enchants/Powers.h>
+#include <Loaders/PowerLoader.h>
 
 namespace Hearthstonepp
 {

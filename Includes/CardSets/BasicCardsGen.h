@@ -108,6 +108,6 @@ class BasicCardsGen
     //! \param cards Data storage to store added cards with power.
     static void AddAll(std::map<std::string, Power*>& cards);
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

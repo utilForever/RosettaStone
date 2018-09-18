@@ -68,4 +68,4 @@ bool Account::DeleteDeck(size_t idx)
     m_decks.erase(m_decks.begin() + idx);
     return true;
 }
-}
+}  // namespace Hearthstonepp

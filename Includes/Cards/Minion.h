@@ -22,6 +22,6 @@ struct Minion : public Character
     //! Default destructor.
     virtual ~Minion() = default;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

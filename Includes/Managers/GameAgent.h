@@ -116,7 +116,7 @@ class GameAgent
         m_mainMenuFuncs = {
             &GameAgent::PlayCard,
             &GameAgent::Combat,
-    };
+        };
 };
 }  // namespace Hearthstonepp
 

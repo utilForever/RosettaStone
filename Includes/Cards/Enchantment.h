@@ -12,8 +12,7 @@ namespace Hearthstonepp
 //!
 struct Enchantment : public Entity
 {
-
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

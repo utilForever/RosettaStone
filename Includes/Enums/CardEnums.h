@@ -165,7 +165,8 @@ BETTER_ENUM(FormatType, int, UNKNOWN = 0, WILD = 1, STANDARD = 2)
 #endif
 
 //! \brief An enumerator for identifying the game tag of the card.
-#if !defined(HEARTHSTONEPP_EXPAND_LARGE_ENUMS) && !defined(HEARTHSTONEPP_DOXYGEN)
+#if !defined(HEARTHSTONEPP_EXPAND_LARGE_ENUMS) && \
+    !defined(HEARTHSTONEPP_DOXYGEN)
 BETTER_ENUM(
     GameTag, int, INVALID = 0, TAG_SCRIPT_DATA_NUM_1 = 2,
     TAG_SCRIPT_DATA_NUM_2 = 3, TAG_SCRIPT_DATA_ENT_1 = 4,
@@ -1815,7 +1816,8 @@ constexpr const GameTag _value_array[] = {
     ((::better_enums::_eat_assign<GameTag>)GameTag::AttackVisualType = 251),
     ((::better_enums::_eat_assign<GameTag>)GameTag::DevState = 268),
     ((::better_enums::_eat_assign<GameTag>)GameTag::GrantCharge = 355),
-    ((::better_enums::_eat_assign<GameTag>)GameTag::HealTarget = 361)};
+    ((::better_enums::_eat_assign<GameTag>)GameTag::HealTarget = 361)
+};
 constexpr const char* _the_raw_names[] = {
     "INVALID = 0",
     "TAG_SCRIPT_DATA_NUM_1 = 2",
@@ -2158,7 +2160,8 @@ constexpr const char* _the_raw_names[] = {
     "AttackVisualType = 251",
     "DevState = 268",
     "GrantCharge = 355",
-    "HealTarget = 361"};
+    "HealTarget = 361"
+};
 constexpr const char* const* _raw_names()
 {
     return _the_raw_names;
@@ -3064,7 +3067,8 @@ BETTER_ENUM(OptionType, int, PASS = 1, END_TURN = 2, POWER = 3)
 #endif
 
 //! \brief An enumerator for identifying the play requirement of the card.
-#if !defined(HEARTHSTONEPP_EXPAND_LARGE_ENUMS) && !defined(HEARTHSTONEPP_DOXYGEN)
+#if !defined(HEARTHSTONEPP_EXPAND_LARGE_ENUMS) && \
+    !defined(HEARTHSTONEPP_DOXYGEN)
 BETTER_ENUM(
     PlayReq, int, INVALID = -1, REQ_MINION_TARGET = 1, REQ_FRIENDLY_TARGET = 2,
     REQ_ENEMY_TARGET = 3, REQ_DAMAGED_TARGET = 4, REQ_MAX_SECRETS = 5,
@@ -3540,7 +3544,8 @@ constexpr const PlayReq _value_array[] = {
          PlayReq::REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74),
     ((::better_enums::_eat_assign<PlayReq>)PlayReq::REQ_DRAG_TO_PLAY = 75),
     ((::better_enums::_eat_assign<PlayReq>)
-         PlayReq::REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77)};
+         PlayReq::REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77)
+};
 constexpr const char* _the_raw_names[] = {
     "INVALID = -1",
     "REQ_MINION_TARGET = 1",
@@ -3618,7 +3623,8 @@ constexpr const char* _the_raw_names[] = {
     "REQ_CANNOT_PLAY_THIS = 73",
     "REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74",
     "REQ_DRAG_TO_PLAY = 75",
-    "REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77"};
+    "REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77"
+};
 constexpr const char* const* _raw_names()
 {
     return _the_raw_names;

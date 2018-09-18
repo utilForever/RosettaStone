@@ -9,7 +9,7 @@ void Card::Initialize()
 {
     maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
 }
-    
+
 bool Card::HasMechanic(GameTag mechanic) const
 {
     if (std::find(mechanics.begin(), mechanics.end(), mechanic) !=
@@ -43,4 +43,4 @@ void Card::ShowInfo() const
     std::cout << "CardType: " << cardType._to_string() << '\n';
     std::cout << "Race: " << race._to_string() << '\n';
 }
-}
+}  // namespace Hearthstonepp

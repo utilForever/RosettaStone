@@ -18,4 +18,4 @@ Weapon::~Weapon()
 {
     // Do nothing
 }
-}
+}  // namespace Hearthstonepp

@@ -40,4 +40,4 @@ Power* Powers::FindPowerByCardID(std::string cardID) const
 
     return nullptr;
 }
-}
+}  // namespace Hearthstonepp

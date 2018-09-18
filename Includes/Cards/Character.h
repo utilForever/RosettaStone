@@ -28,6 +28,6 @@ struct Character : public Entity
     size_t health = 0;
     size_t maxHealth = 0;
 };
-}
+}  // namespace Hearthstonepp
 
 #endif

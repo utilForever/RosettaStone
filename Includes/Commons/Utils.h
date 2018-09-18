@@ -4,13 +4,13 @@
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
 {
-	return t == true;
+    return t == true;
 }
 
 template <typename T, typename... Others>
 constexpr bool AllCondIsTrue(const T& t, Others const&... args)
 {
-	return (t == true) && AllCondIsTrue(args...);
+    return (t == true) && AllCondIsTrue(args...);
 }
 
 #endif
