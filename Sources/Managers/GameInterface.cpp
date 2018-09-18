@@ -62,15 +62,15 @@ HandleStatus GameInterface::HandleMessage(const TaskMeta& meta)
     return HandleStatus::CONTINUE;
 }
 
-std::ostream& GameInterface::LogWriter(const std::string& name)
+std::ostream& GameInterface::WriteLog(const std::string& name)
 {
     m_ostream << "[*] " << name << " : ";
     return m_ostream;
 }
 
-std::ostream& GameInterface::LogWriter(std::string&& name)
+std::ostream& GameInterface::WriteLog(std::string&& name)
 {
-    return LogWriter(name);
+    return WriteLog(name);
 }
 
 template <std::size_t SIZE>
@@ -112,7 +112,7 @@ void GameInterface::HandleTaskVector(const TaskMeta& meta)
     auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
     if (metas == nullptr)
     {
-        LogWriter("TaskVector")
+        WriteLog("TaskVector")
             << "Exception HandleTaskMeta : Invalid FlatBuffers\n";
         return;
     }
@@ -132,7 +132,7 @@ void GameInterface::HandlePlayerSetting(const TaskMeta& meta)
         m_users[0] = setting->player1()->str();
         m_users[1] = setting->player2()->str();
 
-        LogWriter("PlayerSetting") << "player1 - " << m_users[0]
+        WriteLog("PlayerSetting") << "player1 - " << m_users[0]
                                    << " / player2 - " << m_users[1] << '\n';
     }
 }
@@ -142,7 +142,7 @@ void GameInterface::HandleRequire(const TaskMeta& meta)
     auto required = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
     if (required == nullptr)
     {
-        LogWriter("Require")
+        WriteLog("Require")
             << "Exception HandleRequire : TaskMeta is nullptr\n";
         return;
     }
@@ -155,18 +155,18 @@ void GameInterface::HandleRequire(const TaskMeta& meta)
     }
 }
 
-void GameInterface::HandleBrief(const TaskMeta& meta)
+void GameInterface::HandleBriefing(const TaskMeta& meta)
 {
     if (meta.status == MetaData::BRIEF_EXPIRED)
     {
         return;
     }
 
-    std::ostream& stream = LogWriter(m_users[meta.userID]);
+    std::ostream& stream = WriteLog(m_users[meta.userID]);
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
     if (status == nullptr)
     {
-        stream << "Exception HandleBrief : TaskMeta is nullptr\n";
+        stream << "Exception HandleBriefing : TaskMeta is nullptr\n";
         return;
     }
 
@@ -201,13 +201,13 @@ void GameInterface::HandleBrief(const TaskMeta& meta)
     ShowCards(*status->currentHand());
 }
 
-void GameInterface::HandleGameEnd(const TaskMeta& meta)
+void GameInterface::HandleGameOver(const TaskMeta& meta)
 {
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
     if (status == nullptr)
     {
-        LogWriter("GameEnd")
-            << "Exception HandleGameEnd : TaskMeta is nullptr\n";
+        WriteLog("GameEnd")
+            << "Exception HandleGameOver : TaskMeta is nullptr\n";
         return;
     }
 
@@ -215,7 +215,7 @@ void GameInterface::HandleGameEnd(const TaskMeta& meta)
     auto hpPlayer2 = status->opponentHero()->card()->health();
     if (hpPlayer1 != 0 && hpPlayer2 != 0)
     {
-        LogWriter("GameEnd")
+        WriteLog("GameEnd")
             << "Exception HandleGame End : No one end the game - "
             << static_cast<int>(hpPlayer1) << " / "
             << static_cast<int>(hpPlayer2) << '\n';
@@ -234,12 +234,12 @@ void GameInterface::HandleGameEnd(const TaskMeta& meta)
     {
         m_result.winnerID = m_users[status->currentPlayer()];
     }
-    LogWriter(m_result.winnerID) << "Win\n";
+    WriteLog(m_result.winnerID) << "Win\n";
 }
 
 void GameInterface::HandleOverDraw(const TaskMeta& meta)
 {
-    std::ostream& stream = LogWriter(m_users[meta.userID]);
+    std::ostream& stream = WriteLog(m_users[meta.userID]);
 
     const auto& buffer = meta.GetConstBuffer();
     if (buffer == nullptr)
@@ -260,9 +260,9 @@ void GameInterface::HandleOverDraw(const TaskMeta& meta)
     ShowCards(*entities->vector());
 }
 
-void GameInterface::InputMulligan(const TaskMeta& meta)
+void GameInterface::HandleMulliganInput(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Input Mulligan\n";
+    WriteLog(m_users[meta.userID]) << "Input Mulligan\n";
 
     size_t numMulligan;
     while (true)
@@ -299,9 +299,9 @@ void GameInterface::InputMulligan(const TaskMeta& meta)
     m_agent.WriteSyncBuffer(std::move(result));
 }
 
-void GameInterface::InputMenu(const TaskMeta& meta)
+void GameInterface::HandleMenuInput(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Main Menu\n";
+    WriteLog(m_users[meta.userID]) << "Main Menu\n";
     ShowMenus(m_mainMenuStr);
 
     size_t input;
@@ -323,9 +323,9 @@ void GameInterface::InputMenu(const TaskMeta& meta)
     m_agent.WriteSyncBuffer(std::move(result));
 }
 
-void GameInterface::InputCard(const TaskMeta& meta)
+void GameInterface::HandleCardInput(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Select Card\n";
+    WriteLog(m_users[meta.userID]) << "Select Card\n";
     if (m_status == nullptr)
     {
         m_ostream << "Exception InputSelectCard : BriefCache is nullptr\n";
@@ -365,9 +365,9 @@ void GameInterface::InputCard(const TaskMeta& meta)
     m_agent.WriteSyncBuffer(std::move(serialized));
 }
 
-void GameInterface::InputTarget(const TaskMeta& meta)
+void GameInterface::HandleTargetInput(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Targeting\n";
+    WriteLog(m_users[meta.userID]) << "Targeting\n";
     if (m_status == nullptr)
     {
         m_ostream << "Exception InputTargeting : BriefCache is nullptr\n";
@@ -421,12 +421,12 @@ void GameInterface::InputTarget(const TaskMeta& meta)
     m_agent.WriteSyncBuffer(std::move(targeting));
 }
 
-void GameInterface::InputPosition(const TaskMeta& meta)
+void GameInterface::HandlePositionInput(const TaskMeta& meta)
 {
-    LogWriter(m_users[meta.userID]) << "Input Position\n";
+    WriteLog(m_users[meta.userID]) << "Input Position\n";
     if (m_status == nullptr)
     {
-        m_ostream << "Exception InputPosition : BriefCache is nullptr\n";
+        m_ostream << "Exception HandlePositionInput : BriefCache is nullptr\n";
         m_agent.WriteSyncBuffer(
             TaskMeta(TaskMetaTrait(TaskID::REQUIRE, MetaData::INVALID)));
         return;

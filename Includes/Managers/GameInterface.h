@@ -62,12 +62,12 @@ class GameInterface
     //! Writes log.
     //! \param name The name to write to log (rvalue ref).
     //! \return The output stream.
-    std::ostream& LogWriter(std::string&& name);
+    std::ostream& WriteLog(std::string&& name);
 
     //! Writes log.
     //! \param name The name to write to log (const lvalue ref).
     //! \return The output stream.
-    std::ostream& LogWriter(const std::string& name);
+    std::ostream& WriteLog(const std::string& name);
 
     //! Shows game menus.
     //! \tparam SIZE The number of game menus.
@@ -99,11 +99,11 @@ class GameInterface
 
     //! Handles game briefing.
     //! \param meta Serialized task meta.
-    void HandleBrief(const TaskMeta& meta);
+    void HandleBriefing(const TaskMeta& meta);
 
     //! Handles game over.
     //! \param meta Serialized task meta.
-    void HandleGameEnd(const TaskMeta& meta);
+    void HandleGameOver(const TaskMeta& meta);
 
     //! Handles over draw.
     //! \param meta Serialized task meta.
@@ -111,28 +111,28 @@ class GameInterface
 
     // MARK: Input Task Handler
 
-    //! Inputs mulligan. The mulligan, or card selection stage, occurs at the
+    //! Handles mulligan. The mulligan, or card selection stage, occurs at the
     //! start of each match. Each player is shown their randomly selected
     //! starting hand and is given the option to redraw as many of those cards
     //! as they like.
     //! \param meta Serialized task meta.
-    void InputMulligan(const TaskMeta& meta);
+    void HandleMulliganInput(const TaskMeta& meta);
 
-    //! Inputs the value you selected in the game menu.
+    //! Handles the value you selected in the game menu.
     //! \param meta Serialized task meta.
-    void InputMenu(const TaskMeta& meta);
+    void HandleMenuInput(const TaskMeta& meta);
 
-    //! Inputs the card to choose.
+    //! Handles the card to choose.
     //! \param meta Serialized task meta.
-    void InputCard(const TaskMeta& meta);
+    void HandleCardInput(const TaskMeta& meta);
 
-    //! Inputs the target.
+    //! Handles the target.
     //! \param meta Serialized task meta.
-    void InputTarget(const TaskMeta& meta);
+    void HandleTargetInput(const TaskMeta& meta);
 
-    //! Inputs the position.
+    //! Handles the position.
     //! \param meta Serialized task meta.
-    void InputPosition(const TaskMeta& meta);
+    void HandlePositionInput(const TaskMeta& meta);
 
     std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr = {
         "1. Use Card", "2. Combat", "3. Stop"
@@ -144,19 +144,19 @@ class GameInterface
             { TaskID::TASK_VECTOR, &GameInterface::HandleTaskVector },
             { TaskID::PLAYER_SETTING, &GameInterface::HandlePlayerSetting },
             { TaskID::REQUIRE, &GameInterface::HandleRequire },
-            { TaskID::BRIEF, &GameInterface::HandleBrief },
-            { TaskID::GAME_END, &GameInterface::HandleGameEnd },
+            { TaskID::BRIEF, &GameInterface::HandleBriefing },
+            { TaskID::GAME_END, &GameInterface::HandleGameOver },
             { TaskID::OVER_DRAW, &GameInterface::HandleOverDraw },
         };
 
     // Input Handler Table
     std::map<TaskID, std::function<void(GameInterface&, const TaskMeta&)>>
         m_inputHandler = {
-            { TaskID::MULLIGAN, &GameInterface::InputMulligan },
-            { TaskID::SELECT_MENU, &GameInterface::InputMenu },
-            { TaskID::SELECT_CARD, &GameInterface::InputCard },
-            { TaskID::SELECT_TARGET, &GameInterface::InputTarget },
-            { TaskID::SELECT_POSITION, &GameInterface::InputPosition },
+            { TaskID::MULLIGAN, &GameInterface::HandleMulliganInput },
+            { TaskID::SELECT_MENU, &GameInterface::HandleMenuInput },
+            { TaskID::SELECT_CARD, &GameInterface::HandleCardInput },
+            { TaskID::SELECT_TARGET, &GameInterface::HandleTargetInput },
+            { TaskID::SELECT_POSITION, &GameInterface::HandlePositionInput },
         };
 
     GameAgent& m_agent;
