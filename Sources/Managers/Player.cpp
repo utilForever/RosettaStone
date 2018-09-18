@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Player.cpp
-> Project Name: Hearthstone++
-> Author: Young-Joong Kim
-> Purpose: Player Structure for GameAgent
-> Created Time: 2017/10/24
-> Copyright (c) 2017, Young-Joong Kim
-*************************************************************************/
 #include <Commons/Constants.h>
 #include <Managers/Player.h>
 #include <Tasks/TaskMeta.h>

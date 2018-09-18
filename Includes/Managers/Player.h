@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Player.h
-> Project Name: Hearthstone++
-> Author: Young-Joong Kim
-> Purpose: Player Structure for GameAgent
-> Created Time: 2017/10/24
-> Copyright (c) 2017, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_AGENT_STRUCTURES_H
 #define HEARTHSTONEPP_AGENT_STRUCTURES_H
 
@@ -15,20 +7,33 @@
 #include <Cards/HeroPower.h>
 #include <Cards/Minion.h>
 #include <Cards/Spell.h>
-#include <Cards/Weapon.h>
-#include <Enchants/Enchant.h>
-
-#include <memory>
 
 namespace Hearthstonepp
 {
 using BYTE = unsigned char;
 
-struct Player
+//!
+//! \brief Player class.
+//!
+//! This class stores various information that used in Hearthstone game.
+//! NOTE: This information should be used differently from the existing card
+//! information because there are various effects on the card.
+//!
+class Player
 {
+ public:
     static constexpr BYTE USER_INVALID = 255;
 
+    //! Constructs player with given \p account and \p deck.
+    //! \param account The account stores user information.
+    //! \param deck A deck where cards are stored.
     Player(const Account* account, const Deck* deck);
+
+    //! Operator overloading: The equality operator.
+    bool operator==(const Player& player) const
+    {
+        return this->email == player.email;
+    }
 
     BYTE id;
     BYTE totalMana;
@@ -47,11 +52,6 @@ struct Player
     std::vector<Entity*> hand;
     std::vector<Spell*> usedSpell;
     std::vector<Character*> usedMinion;
-
-    bool operator==(const Player& player) const
-    {
-        return this->email == player.email;
-    }
 };
 }  // namespace Hearthstonepp
 
