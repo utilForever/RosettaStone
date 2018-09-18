@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_TASKAGENT_H
 #define HEARTHSTONEPP_TASKAGENT_H
 
-#include <Managers/Player.h>
+#include <Accounts/Player.h>
 #include <Managers/SyncBuffer.h>
 #include <Tasks/TaskMeta.h>
 #include <Tasks/TaskSerializer.h>

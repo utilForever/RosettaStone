@@ -9,9 +9,9 @@
 #ifndef HEARTHSTONEPP_TASKSERIALIZER_H
 #define HEARTHSTONEPP_TASKSERIALIZER_H
 
+#include <Accounts/Player.h>
 #include <Cards/Entity.h>
 #include <Cards/Hero.h>
-#include <Managers/Player.h>
 #include <Tasks/TaskMeta.h>
 
 #include <Flatbuffers/generated/FlatData_generated.h>

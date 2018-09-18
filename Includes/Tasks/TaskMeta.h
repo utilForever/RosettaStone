@@ -9,8 +9,8 @@
 #ifndef HEARTHSTONEPP_TASKMETA_H
 #define HEARTHSTONEPP_TASKMETA_H
 
+#include <Accounts/Player.h>
 #include <Enums/TaskEnums.h>
-#include <Managers/Player.h>
 #include <Tasks/MetaData.h>
 
 #include <Flatbuffers/generated/FlatData_generated.h>

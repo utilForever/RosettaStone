@@ -9,8 +9,8 @@
 #ifndef HEARTHSTONEPP_TASKS_H
 #define HEARTHSTONEPP_TASKS_H
 
+#include <Accounts/Player.h>
 #include <Enums/CardEnums.h>
-#include <Managers/Player.h>
 #include <Tasks/MetaData.h>
 #include <Tasks/TaskMeta.h>
 

@@ -1,8 +1,8 @@
 #ifndef UNIT_TESTS_TEST_TASKS_H
 #define UNIT_TESTS_TEST_TASKS_H
 
+#include <Accounts/Player.h>
 #include <Enums/TaskEnums.h>
-#include <Managers/Player.h>
 #include <Tasks/MetaData.h>
 #include <Tasks/Tasks.h>
 

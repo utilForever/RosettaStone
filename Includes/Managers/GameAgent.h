@@ -1,8 +1,8 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_H
 #define HEARTHSTONEPP_GAME_AGENT_H
 
+#include <Accounts/Player.h>
 #include <Commons/Constants.h>
-#include <Managers/Player.h>
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>
 

@@ -1,5 +1,5 @@
+#include <Accounts/Player.h>
 #include <Commons/Constants.h>
-#include <Managers/Player.h>
 #include <Tasks/TaskMeta.h>
 
 namespace Hearthstonepp

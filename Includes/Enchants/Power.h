@@ -1,6 +1,8 @@
 #ifndef HEARTHSTONEPP_POWER_H
 #define HEARTHSTONEPP_POWER_H
 
+#include <Enchants/Enchant.h>
+
 #include <vector>
 
 namespace Hearthstonepp

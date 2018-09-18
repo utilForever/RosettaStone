@@ -1,11 +1,11 @@
 #include <Utils/TestUtils.h>
 #include "gtest/gtest.h"
 
+#include <Accounts/Player.h>
 #include <Cards/Cards.h>
 #include <Cards/Minion.h>
 #include <Cards/Weapon.h>
 #include <Enchants/Enchant.h>
-#include <Managers/Player.h>
 #include <Tasks/TaskSerializer.h>
 #include <Tasks/Tasks.h>
 
