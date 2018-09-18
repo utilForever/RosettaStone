@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: SyncBuffer.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Synchronized Buffer
-> Created Time: 2018/05/20
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_SYNCBUFFER_H
 #define HEARTHSTONEPP_SYNCBUFFER_H
 
@@ -14,25 +6,35 @@
 
 namespace Hearthstonepp
 {
-// BufferType must be copy-assignable and movable
+//!
+//! \brief SyncBuffer class.
+//!
+//! This class reads/writes synchronized buffer.
+//! \tparam BufferType The type of buffer. (copy-assignable and movable)
+//!
 template <typename BufferType>
 class SyncBuffer
 {
  public:
+    //! Default constructor.
     SyncBuffer() : m_readable(false)
     {
         // Do Nothing
     }
 
-    // Not copy-assignable
-    SyncBuffer(SyncBuffer&&) = delete;
-
+    //! Deleted copy constructor.
     SyncBuffer(const SyncBuffer&) = delete;
 
-    SyncBuffer& operator=(SyncBuffer&&) = delete;
+    //! Deleted move constructor.
+    SyncBuffer(SyncBuffer&&) = delete;
 
+    //! Deleted copy assignment operator.
     SyncBuffer& operator=(const SyncBuffer&) = delete;
 
+    //! Deleted move assignment operator.
+    SyncBuffer& operator=(SyncBuffer&&) = delete;
+
+    //! Writes \p buffer to synchronized buffer.
     void WriteBuffer(BufferType&& buffer)
     {
         std::unique_lock<std::mutex> lock(m_mtx);
@@ -44,6 +46,7 @@ class SyncBuffer
         m_cond.notify_one();
     }
 
+    //! Writes \p buffer to synchronized buffer.
     void WriteBuffer(const BufferType& buffer)
     {
         std::unique_lock<std::mutex> lock(m_mtx);
@@ -55,6 +58,7 @@ class SyncBuffer
         m_cond.notify_one();
     }
 
+    //! Reads \p buffer from synchronized buffer.
     void ReadBuffer(BufferType& buffer)
     {
         std::unique_lock<std::mutex> lock(m_mtx);
@@ -66,6 +70,7 @@ class SyncBuffer
         m_cond.notify_one();
     }
 
+    //! Returns whether it is readable.
     bool isReadable() const
     {
         return m_readable;
