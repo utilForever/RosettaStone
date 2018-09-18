@@ -1,6 +1,8 @@
 #ifndef HEARTHSTONEPP_POWERS_H
 #define HEARTHSTONEPP_POWERS_H
 
+#include <Enchants/Power.h>
+
 #include <map>
 #include <string>
 
