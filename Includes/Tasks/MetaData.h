@@ -1,17 +1,11 @@
-/*************************************************************************
-> File Name: MetaData.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: MetaData for TaskMeta
-> Created Time: 2018/05/20
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
-#ifndef HEARTHSTONEPP_METADATA_H
-#define HEARTHSTONEPP_METADATA_H
+#ifndef HEARTHSTONEPP_META_DATA_H
+#define HEARTHSTONEPP_META_DATA_H
 
 namespace Hearthstonepp
 {
 using status_t = unsigned int;
+
+//! Meta data to represent the result of the task.
 enum class MetaData : status_t
 {
     INVALID,
