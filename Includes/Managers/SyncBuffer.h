@@ -35,7 +35,7 @@ class SyncBuffer
     SyncBuffer& operator=(SyncBuffer&&) = delete;
 
     //! Writes \p buffer to synchronized buffer.
-    //! \param buffer The data to write (rvalue ref).
+    //! \param buffer The buffer to write (rvalue ref).
     void WriteBuffer(BufferType&& buffer)
     {
         std::unique_lock<std::mutex> lock(m_mtx);
@@ -48,7 +48,7 @@ class SyncBuffer
     }
 
     //! Writes \p buffer to synchronized buffer.
-    //! \param buffer The data to write (lvalue ref).
+    //! \param buffer The buffer to write (lvalue ref).
     void WriteBuffer(const BufferType& buffer)
     {
         std::unique_lock<std::mutex> lock(m_mtx);
@@ -61,7 +61,7 @@ class SyncBuffer
     }
 
     //! Reads \p buffer from synchronized buffer.
-    //! \param buffer The data to read.
+    //! \param buffer The buffer to read.
     void ReadBuffer(BufferType& buffer)
     {
         std::unique_lock<std::mutex> lock(m_mtx);
@@ -75,7 +75,7 @@ class SyncBuffer
 
     //! Returns whether it is readable.
     //! \return true if it is readable, and false otherwise.
-    bool isReadable() const
+    bool IsReadable() const
     {
         return m_readable;
     }
