@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: TaskAgent.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Agent for managing Task Unit
-> Created Time: 2018/05/20
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Tasks/TaskAgent.h>
 #include <Tasks/TaskSerializer.h>
 

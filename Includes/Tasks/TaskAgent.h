@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: TaskAgent.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Agent for managing Task Unit
-> Created Time: 2018/05/20
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_TASKAGENT_H
 #define HEARTHSTONEPP_TASKAGENT_H
 
@@ -19,20 +11,32 @@
 
 namespace Hearthstonepp
 {
+//!
+//! \brief TaskAgent class.
+//!
+//! This class runs single/multiple task(s) and notifies to buffer.
+//!
 class TaskAgent
 {
  public:
+    //! Default constructor.
     TaskAgent() = default;
 
-    // Non copy-assignable class
-    TaskAgent(TaskAgent&&) = delete;
+    //! Deleted copy constructor.
     TaskAgent(const TaskAgent&) = delete;
 
+    //! Deleted move constructor.
+    TaskAgent(TaskAgent&&) = delete;
+
+    //! Deleted copy assignment operator.
     TaskAgent& operator=(TaskAgent&&) = delete;
+
+    //! Deleted move assignment operator.
     TaskAgent& operator=(const TaskAgent&) = delete;
 
-    // Read TaskMeta from SyncBuffer
-    // main channel as default, side channel by flag
+    //! Reads task meta from synchronized buffer.
+    //! \param meta A task meta data to write to task agent.
+    //! \param sideChannel A variable that tells you whether to use side.
     void Read(TaskMeta& meta, bool sideChannel = false);
     // Write TaskMeta from SyncBuffer,
     // main channel as default, side channel by flag
