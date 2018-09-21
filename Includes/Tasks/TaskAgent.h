@@ -14,7 +14,8 @@ namespace Hearthstonepp
 //!
 //! \brief TaskAgent class.
 //!
-//! This class runs single/multiple task(s) and notifies to buffer.
+//! This class runs single/multiple task(s).
+//! Also, it reads/writes task meta from/to synchronized buffer.
 //!
 class TaskAgent
 {
@@ -38,18 +39,41 @@ class TaskAgent
     //! \param meta A task meta data to write to task agent.
     //! \param sideChannel A variable that tells you whether to use side.
     void Read(TaskMeta& meta, bool sideChannel = false);
-    // Write TaskMeta from SyncBuffer,
-    // main channel as default, side channel by flag
+
+    //! Writes task meta to synchronized buffer.
+    //! \param meta A task meta data to write to task agent (lvalue ref).
+    //! \param sideChannel A variable that tells you whether to use side.
     void Notify(TaskMeta& meta, bool sideChannel = false);
+
+    //! Writes task meta to synchronized buffer.
+    //! \param meta A task meta data to write to task agent (rvalue ref).
+    //! \param sideChannel A variable that tells you whether to use side.
     void Notify(TaskMeta&& meta, bool sideChannel = false);
 
-    // Run single task and write result to `meta`,
-    // if `notify` is true, TaskAgent notify the main channel as SyncBuffer
+    //! Runs single task and write the result to \p meta.
+    //! \param meta A task meta that defines return status of task.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \param task The task to run (lvalue ref).
+    //! \param notify Writes \p meta to synchronized buffer if it is true.
     void Run(TaskMeta& meta, Player& player1, Player& player2, ITask& task,
              bool notify = true);
+
+    //! Runs single task and write the result to \p meta.
+    //! \param meta A task meta that defines return status of task.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \param task The task to run (rvalue ref).
+    //! \param notify Writes \p meta to synchronized buffer if it is true.
     void Run(TaskMeta& meta, Player& player1, Player& player2, ITask&& task,
              bool notify = true);
-    // Run Multi tasks and write result to `meta`
+
+    //! Runs multiple tasks and write the result to \p meta.
+    //! \tparam ITaskT The type of task.
+    //! \param meta A task meta that defines return status of task.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \param tasks The task to run (variadic template).
     template <typename... ITaskT>
     void RunMulti(TaskMeta& meta, Player& player1, Player& player2,
                   ITaskT&&... tasks)
@@ -62,9 +86,12 @@ class TaskAgent
     }
 
  private:
-    SyncBuffer<TaskMeta> m_syncBuffer;
-    SyncBuffer<TaskMeta> m_sideChannel;
-
+    //! Internal implementation methods of Run().
+    //! \tparam ITaskT The type of task.
+    //! \param pool A task meta pool that stores task list.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \param tasks The task to run (variadic template).
     template <typename... ITaskT>
     void ImplRun(std::vector<TaskMeta>& pool, Player& player1, Player& player2,
                  ITaskT&&... tasks)
@@ -82,6 +109,9 @@ class TaskAgent
         };
         (pusher(std::forward<ITaskT>(tasks)), ...);
     }
+
+    SyncBuffer<TaskMeta> m_syncBuffer;
+    SyncBuffer<TaskMeta> m_sideChannel;
 };
 }  // namespace Hearthstonepp
 
