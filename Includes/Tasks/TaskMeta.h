@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: TaskMeta.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Meta data structure for managing task
-> Created Time: 2018/05/20
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_TASKMETA_H
 #define HEARTHSTONEPP_TASKMETA_H
 
@@ -21,42 +13,83 @@ namespace Hearthstonepp
 {
 using BYTE = unsigned char;
 
-// Abstract of TaskMeta, store default meta data
-// `id(TaskID)`, `status(MetaData)`, `accountID(unsigned char)`
+//!
+//! \brief TaskMetaTrait class.
+//!
+//! This class is abstract class of TaskMeta class.
+//! It stores default meta data such as id, status and userID.
+//!
 struct TaskMetaTrait
 {
     static constexpr BYTE USER_INVALID = Player::USER_INVALID;
 
+    //! Default constructor.
+    TaskMetaTrait();
+
+    //! Constructs task meta trait with given \p id.
+    //! \param id The task ID.
+    TaskMetaTrait(TaskID id);
+
+    //! Constructs task meta trait with given \p id and \p status.
+    //! \param id The task ID.
+    //! \param status The task status.
+    TaskMetaTrait(TaskID id, MetaData status);
+
+    //! Constructs task meta trait with given \p id, \p status and \p userID.
+    //! \param id The task ID.
+    //! \param status The task status.
+    //! \param userID The user ID.
+    TaskMetaTrait(TaskID id, MetaData status, BYTE userID);
+
+    //! Copy constructor.
+    TaskMetaTrait(const TaskMetaTrait& trait);
+
+    //! Copy assignment operator.
+    TaskMetaTrait& operator=(const TaskMetaTrait&);
+
+    //! Operator overloading: The equality operator.
+    bool operator==(const TaskMetaTrait& trait) const;
+
     TaskID id;
     MetaData status;
     BYTE userID;
-
-    TaskMetaTrait();
-    TaskMetaTrait(TaskID id);
-    TaskMetaTrait(TaskID id, MetaData status);
-    TaskMetaTrait(TaskID id, MetaData status, BYTE userID);
-
-    TaskMetaTrait(const TaskMetaTrait& trait);
-    TaskMetaTrait& operator=(const TaskMetaTrait&);
-
-    bool operator==(const TaskMetaTrait& trait) const;
 };
 
-// Meta data of run Task.
+//!
+//! \brief TaskMeta class.
+//!
+//! This class manages task array as buffer.
+//! Also, it provides conversion methods to/from flatbuffers type.
+//!
 class TaskMeta : public TaskMetaTrait
 {
  public:
+    //! Default constructor.
     TaskMeta();
+
+    //! Constructs task meta with given \p trait.
+    //! \param trait An instance of base class that stores default meta data.
     TaskMeta(const TaskMetaTrait& trait);
 
+    //! Constructs task meta with given \p trait, \p size and \p buffer.
+    //! \param trait An instance of base class that stores default meta data.
+    //! \param size The size of tasks.
+    //! \param buffer A pointer points to the start position of task array.
     TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
-    TaskMeta(const TaskMetaTrait& trait, size_t size,
-             std::unique_ptr<BYTE[]>&& buffer);
 
-    // Non copy-assignable object, only movable.
-    // noexcept by move constructor of std::unique_ptr
-    TaskMeta(TaskMeta&& meta) noexcept;
+    //! Constructs task meta with given \p trait, \p size and \p buffers.
+    //! \param trait An instance of base class that stores default meta data.
+    //! \param size The size of tasks.
+    //! \param buffers The task array (rvalue ref).
+    TaskMeta(const TaskMetaTrait& trait, size_t size,
+             std::unique_ptr<BYTE[]>&& buffers);
+
+    //! Deleted copy constructor.
     TaskMeta(const TaskMeta&) = delete;
+
+    //! Constructs task meta with given \p meta (move constructor).
+    //! \param meta An instance of TaskMeta class (rvalue ref).
+    TaskMeta(TaskMeta&& meta) noexcept;
 
     TaskMeta& operator=(TaskMeta&& meta);
     TaskMeta& operator=(const TaskMeta&) = delete;
