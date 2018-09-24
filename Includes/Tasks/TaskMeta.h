@@ -91,16 +91,31 @@ class TaskMeta : public TaskMetaTrait
     //! \param meta An instance of TaskMeta class (rvalue ref).
     TaskMeta(TaskMeta&& meta) noexcept;
 
-    TaskMeta& operator=(TaskMeta&& meta);
+    //! Deleted copy assignment operator.
     TaskMeta& operator=(const TaskMeta&) = delete;
 
+    //! Assigns task meta with given \p meta (move assignment operator).
+    //! \param meta An instance of TaskMeta class (rvalue ref).
+    TaskMeta& operator=(TaskMeta&& meta);
+
+    //! Operator overloading: The equality operator.
+    //! \param meta An instance of TaskMeta class (lvalue ref).
     bool operator==(const TaskMeta& meta) const;
 
-    // Deep copy of TaskMeta
+    //! Copies task meta data (deep copy).
+    //! \param meta An instance of TaskMeta class.
+    //! \return Copied task meta data.
     static TaskMeta CopyFrom(const TaskMeta& meta);
-    // Convert from FlatData::TaskMeta, deep copy of byte data
+
+    //! Converts task meta data from FlatData::TaskMeta.
+    //! \param meta A pointer to an instance of FlatData::TaskMeta class.
+    //! \return Converted task meta data.
     static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
 
+    //! Converts task data to FlatData::TaskMeta.
+    //! \tparam T The type of flatbuffers.
+    //! \param meta An instance of TaskMeta class.
+    //! \return Converted flatbuffers task meta data.
     template <typename T>
     static inline const T* ConvertTo(const TaskMeta& meta)
     {
@@ -112,11 +127,19 @@ class TaskMeta : public TaskMetaTrait
         return flatbuffers::GetRoot<T>(buffer.get());
     }
 
-    // Reset std::unique_ptr and size data
+    //! Resets buffer and its size.
     void reset();
+
+    //! Returns the size of buffer.
+    //! \return The size of buffer.
     size_t GetBufferSize() const;
 
+    //! Move buffer to another through rvalue reference.
+    //! \return Moved buffer (rvalue ref).
     std::unique_ptr<BYTE[]>&& MoveBuffer();
+
+    //! Returns the buffer as const type.
+    //! \return The buffer (const).
     const std::unique_ptr<BYTE[]>& GetConstBuffer() const;
 
  private:
