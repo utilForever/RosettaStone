@@ -119,7 +119,7 @@ class TaskMeta : public TaskMetaTrait
     template <typename T>
     static inline const T* ConvertTo(const TaskMeta& meta)
     {
-        const auto& buffer = meta.GetConstBuffer();
+        const auto& buffer = meta.GetBuffer();
         if (buffer.get() == nullptr)
         {
             return nullptr;
@@ -128,7 +128,7 @@ class TaskMeta : public TaskMetaTrait
     }
 
     //! Resets buffer and its size.
-    void reset();
+    void Reset();
 
     //! Returns the size of buffer.
     //! \return The size of buffer.
@@ -140,7 +140,7 @@ class TaskMeta : public TaskMetaTrait
 
     //! Returns the buffer as const type.
     //! \return The buffer (const).
-    const std::unique_ptr<BYTE[]>& GetConstBuffer() const;
+    const std::unique_ptr<BYTE[]>& GetBuffer() const;
 
  private:
     size_t m_size;

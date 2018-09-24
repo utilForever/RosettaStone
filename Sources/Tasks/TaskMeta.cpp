@@ -100,7 +100,7 @@ bool TaskMeta::operator==(const TaskMeta& meta) const
 {
     if (TaskMetaTrait::operator==(meta) && m_size == meta.GetBufferSize())
     {
-        const auto& buffer = meta.GetConstBuffer();
+        const auto& buffer = meta.GetBuffer();
         for (size_t i = 0; i < m_size; ++i)
         {
             if (m_buffer[i] != buffer[i])
@@ -120,7 +120,7 @@ bool TaskMeta::operator==(const TaskMeta& meta) const
 TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
 {
     // Deep Copy of TaskMeta
-    return TaskMeta(meta, meta.GetBufferSize(), meta.GetConstBuffer().get());
+    return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer().get());
 }
 
 TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
@@ -136,7 +136,7 @@ TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
         buffer->size(), buffer->data());
 }
 
-void TaskMeta::reset()
+void TaskMeta::Reset()
 {
     m_size = 0;
     m_buffer.reset();
@@ -153,7 +153,7 @@ std::unique_ptr<BYTE[]>&& TaskMeta::MoveBuffer()
     return std::move(m_buffer);
 }
 
-const std::unique_ptr<BYTE[]>& TaskMeta::GetConstBuffer() const
+const std::unique_ptr<BYTE[]>& TaskMeta::GetBuffer() const
 {
     return m_buffer;
 }
