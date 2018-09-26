@@ -1,22 +1,9 @@
-/*************************************************************************
-> File Name: InitAttackCountTask.cpp
-> Project Name: Hearthstonepp
-> Author: Seung-Hyun Jeon
-> Purpose: Implement Init Attack Count
-> Created Time: 2018/08/15
-> Copyright (c) 2018, Seung-Hyun Jeon
-*************************************************************************/
 #include <Tasks/BasicTasks/InitAttackCountTask.h>
 
 #include <Cards/Entity.h>
 
 namespace Hearthstonepp::BasicTasks
 {
-InitAttackCountTask::InitAttackCountTask()
-{
-    // Do Nothing
-}
-
 TaskID InitAttackCountTask::GetTaskID() const
 {
     return TaskID::INIT_ATTACK_COUNT;

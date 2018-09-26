@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Combat.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement CombatTask
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Tasks/BasicTasks/CombatTask.h>
 #include <Tasks/BasicTasks/DestroyMinionTask.h>
 #include <Tasks/BasicTasks/ModifyHealthTask.h>

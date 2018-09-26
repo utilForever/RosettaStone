@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: GameEnd.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement GameEndTask
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Tasks/BasicTasks/GameEndTask.h>
 
 namespace Hearthstonepp::BasicTasks

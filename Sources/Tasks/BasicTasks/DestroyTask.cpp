@@ -1,14 +1,6 @@
-/*************************************************************************
-> File Name: DestroyTask.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim, SeungHyun Jeon
-> Purpose: Implement DestroyTask
-> Created Time: 2018/07/22
-> Copyright (c) 2018, Young-Joong Kim, SeungHyun Jeon
-*************************************************************************/
+#include <Tasks/BasicTasks/DestroyMinionTask.h>
 #include <Tasks/BasicTasks/DestroyTask.h>
 #include <Tasks/BasicTasks/DestroyWeaponTask.h>
-#include <Tasks/BasicTasks/DestroyMinionTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {

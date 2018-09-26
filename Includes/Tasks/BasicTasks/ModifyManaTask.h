@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: ModifyMana.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement ModifyManaTask
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_MODIFYMANA_H
 #define HEARTHSTONEPP_MODIFYMANA_H
 
@@ -31,19 +23,35 @@ namespace BasicTasks
 MetaData ImplModifyMana(Player &user, NumMode numMode, ManaMode manaMode,
                         BYTE num);
 
+//!
+//! \brief ModifyManaTask class.
+//!
+//! This class represents the task for modifying mana of player.
+//!
 class ModifyManaTask : public ITask
 {
  public:
+    //! Constructs task with given \p numMode, \p manaMode and \p num.
+    //! \param numMode A value that specifies the operation of \p num.
+    //! \param manaMode A value that specifies whether the modified mana is
+    //! one-time or permanent.
+    //! \param num A value indicating how much to modify mana.
     ModifyManaTask(NumMode numMode, ManaMode manaMode, BYTE num);
 
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
  private:
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
+    MetaData Impl(Player& player1, Player& player2) override;
+
     NumMode m_numMode;
     ManaMode m_manaMode;
     BYTE m_num;
-
-    MetaData Impl(Player &player1, Player &player2) override;
 };
 };  // namespace BasicTasks
 }  // namespace Hearthstonepp

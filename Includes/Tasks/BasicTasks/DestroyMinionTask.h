@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: DestroyMinionTask.h
-> Project Name: Hearthstonepp
-> Author: SeungHyun Jeon
-> Purpose: Implement DestroyMinion
-> Created Time: 2018/08/21
-> Copyright (c) 2018, SeungHyun Jeon
-*************************************************************************/
 #ifndef HEARTHSTONEPP_DESTORY_MINION_TASK_H
 #define HEARTHSTONEPP_DESTORY_MINION_TASK_H
 
@@ -14,18 +6,31 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+//!
+//! \brief DestroyMinionTask class.
+//!
+//! This class represents the task for destroying minion.
+//!
 class DestroyMinionTask : public ITask
 {
-public:
+ public:
+    //! Constructs task with given \p character.
+    //! \param character A pointer to character to destroy.
     DestroyMinionTask(Character* character);
 
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
-private:
-    Character* m_character;
-
+ private:
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
-};
-}  // namespace Hearthstonepp::BasicTask
 
-#endif //HEARTHSTONEPP_DESTORY_MINION_TASK_H
+    Character* m_character;
+};
+}  // namespace Hearthstonepp::BasicTasks
+
+#endif  // HEARTHSTONEPP_DESTORY_MINION_TASK_H

@@ -1,17 +1,10 @@
-/*************************************************************************
-> File Name: DestroyMinionTask.cpp
-> Project Name: Hearthstonepp
-> Author: SeungHyun Jeon
-> Purpose: Implement DestroyMinion
-> Created Time: 2018/08/21
-> Copyright (c) 2018, SeungHyun Jeon
-*************************************************************************/
 #include <Cards/Character.h>
 #include <Tasks/BasicTasks/DestroyMinionTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
-DestroyMinionTask::DestroyMinionTask(Character* character) : m_character(character)
+DestroyMinionTask::DestroyMinionTask(Character* character)
+    : m_character(character)
 {
     // Do nothing
 }
@@ -34,4 +27,4 @@ MetaData DestroyMinionTask::Impl(Player& player1, Player&)
 
     return MetaData::DESTROY_MINION_NOT_FOUND;
 }
-}
+}  // namespace Hearthstonepp::BasicTasks

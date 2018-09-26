@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Combat.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement CombatTask
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_COMBAT_H
 #define HEARTHSTONEPP_COMBAT_H
 
@@ -15,17 +7,30 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+//!
+//! \brief CombatTask class.
+//!
+//! This class represents the task for combating between two characters.
+//!
 class CombatTask : public ITask
 {
  public:
+    //! Constructs task with given \p agent.
+    //! \param agent The task agent that is required to the requirement.
     CombatTask(TaskAgent& agent);
 
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
  private:
-    Requirement m_requirement;
-    
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
+
+    Requirement m_requirement;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

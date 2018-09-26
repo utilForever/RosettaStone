@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Brief.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement Brief Task, Return GameStatus Immediately to GameInterface
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Tasks/BasicTasks/BriefTask.h>
 
 namespace Hearthstonepp::BasicTasks

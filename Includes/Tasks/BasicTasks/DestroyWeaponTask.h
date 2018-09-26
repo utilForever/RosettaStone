@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: DestroyWeaponTask.h
-> Project Name: Hearthstonepp
-> Author: SeungHyun Jeon
-> Purpose: Implement DestroyWeapon
-> Created Time: 2018/08/21
-> Copyright (c) 2018, SeungHyun Jeon
-*************************************************************************/
 #ifndef HEARTHSTONEPP_DESTROY_WEAPON_TASK_H
 #define HEARTHSTONEPP_DESTROY_WEAPON_TASK_H
 
@@ -14,16 +6,25 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+//!
+//! \brief DestroyWeaponTask class.
+//!
+//! This class represents the task for destroying weapon.
+//!
 class DestroyWeaponTask : public ITask
 {
  public:
-    DestroyWeaponTask();
-
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
  private:
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 };
-}  // namespace Hearthstonepp::BasicTask
+}  // namespace Hearthstonepp::BasicTasks
 
-#endif //HEARTHSTONEPP_DESTROY_WEAPON_TASK_H
+#endif  // HEARTHSTONEPP_DESTROY_WEAPON_TASK_H

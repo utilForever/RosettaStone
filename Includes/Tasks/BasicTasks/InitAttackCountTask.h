@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: InitAttackCountTask.h
-> Project Name: Hearthstonepp
-> Author: Seung-Hyun Jeon
-> Purpose: Implement Init Attack Count
-> Created Time: 2018/08/15
-> Copyright (c) 2018, Seung-Hyun Jeon
-*************************************************************************/
 #ifndef HEARTHSTONEPP_INIT_ATTACK_COUNT_TASK_H
 #define HEARTHSTONEPP_INIT_ATTACK_COUNT_TASK_H
 
@@ -14,14 +6,23 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-
+//!
+//! \brief InitAttackCountTask class.
+//!
+//! This class represents the task for initializing attack count.
+//!
 class InitAttackCountTask : public ITask
 {
-  public:
-    InitAttackCountTask();
+ public:
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
-  private:
+ private:
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 };
 
