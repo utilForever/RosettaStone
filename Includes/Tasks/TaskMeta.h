@@ -74,7 +74,7 @@ class TaskMeta : public TaskMetaTrait
     //! Constructs task meta with given \p trait, \p size and \p buffer.
     //! \param trait An instance of base class that stores default meta data.
     //! \param size The size of tasks.
-    //! \param buffer A pointer points to the start position of task array.
+    //! \param buffer A pointer to the start position of task array.
     TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
 
     //! Constructs task meta with given \p trait, \p size and \p buffers.
@@ -102,20 +102,20 @@ class TaskMeta : public TaskMetaTrait
     //! \param meta An instance of TaskMeta class (lvalue ref).
     bool operator==(const TaskMeta& meta) const;
 
-    //! Copies task meta data (deep copy).
-    //! \param meta An instance of TaskMeta class.
-    //! \return Copied task meta data.
+    //! Copies TaskMeta object (deep copy).
+    //! \param meta A TaskMeta object to copy.
+    //! \return Copied TaskMeta object.
     static TaskMeta CopyFrom(const TaskMeta& meta);
 
-    //! Converts task meta data from FlatData::TaskMeta.
-    //! \param meta A pointer to an instance of FlatData::TaskMeta class.
-    //! \return Converted task meta data.
+    //! Converts TaskMeta object from FlatData::TaskMeta object.
+    //! \param meta A pointer to FlatData::TaskMeta object to convert.
+    //! \return Converted TaskMeta object.
     static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
 
-    //! Converts task data to FlatData::TaskMeta.
+    //! Converts TaskMeta object to FlatData::TaskMeta object.
     //! \tparam T The type of flatbuffers.
-    //! \param meta An instance of TaskMeta class.
-    //! \return Converted flatbuffers task meta data.
+    //! \param meta A TaskMeta object to convert.
+    //! \return Converted flatbuffers task meta object.
     template <typename T>
     static inline const T* ConvertTo(const TaskMeta& meta)
     {
