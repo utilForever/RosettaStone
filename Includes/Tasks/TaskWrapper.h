@@ -13,7 +13,7 @@ namespace Hearthstonepp::BasicTasks
 class DoBothPlayer : public ITask
 {
  public:
-    //! Constructs task with given \p task (move constructor).
+    //! Constructs task with given \p task.
     //! \param task The task that applies to both players.
     DoBothPlayer(ITask&& task);
 
@@ -39,7 +39,7 @@ class DoBothPlayer : public ITask
 class DoUntil : public ITask
 {
  public:
-    //! Constructs task with given \p task (move constructor).
+    //! Constructs task with given \p task and \p condition.
     //! \param task The task that is infinite-loop until completes.
     //! \param condition The condition under which the task completes.
     DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition);
