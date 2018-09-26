@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: TaskSerializer.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Serializer for TaskMeta and MetaData
-> Created Time: 2018/05/20
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Cards/Character.h>
 #include <Cards/Weapon.h>
 #include <Tasks/MetaData.h>
@@ -231,7 +223,7 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
     };
 
     // Tie multi card vector
-    auto target = {player1.field, player2.field};
+    auto target = { player1.field, player2.field };
     std::vector<VectorOffset> result(target.size());
 
     // Convert Card vector to FlatData::Card vector

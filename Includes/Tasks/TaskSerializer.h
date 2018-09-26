@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: TaskSerializer.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Serializer for TaskMeta and MetaData
-> Created Time: 2018/05/20
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_TASKSERIALIZER_H
 #define HEARTHSTONEPP_TASKSERIALIZER_H
 
@@ -20,43 +12,88 @@ namespace Hearthstonepp::Serializer
 {
 using BYTE = unsigned char;
 
-// Convert Entity to FlatData::Entity
+//! Converts Entity object to FlatData::Entity object.
+//! \param builder The builder for flatbuffers.
+//! \param entity A pointer to Entity object to convert.
+//! \return Converted entity object.
 flatbuffers::Offset<FlatData::Entity> CreateEntity(
     flatbuffers::FlatBufferBuilder& builder, const Entity* entity);
 
-// Convert Card to FlatData::Card
+//! Converts Card object to FlatData::Card object.
+//! \param builder The builder for flatbuffers.
+//! \param card A pointer to Card object to convert.
+//! \param entity A pointer to Entity object to convert (nullptr as default).
+//! \return Converted card object.
 flatbuffers::Offset<FlatData::Card> CreateCard(
     flatbuffers::FlatBufferBuilder& builder, const Card* card,
     const Entity* entity = nullptr);
 
-// Convert std::vector<Entity*> to FlatData::EntityVector
+//! Converts std::vector<Entity*> to FlatData::EntityVector object.
+//! \param trait A task meta data.
+//! \param vector A list of pointers to Entity object.
+//! \return Converted task meta object as entity vector.
 TaskMeta CreateEntityVector(const TaskMetaTrait& trait,
                             const std::vector<Entity*>& vector);
 
-// Convert std::vector<TaskMeta> to FlatData::TaskMetaVector
+//! Converts std::vector<TaskMeta> to FlatData::TaskMetaVector object.
+//! \param vector A list of TaskMeta objects.
+//! \param status The task status.
+//! \param userID The unique user ID.
+//! \return Converted task meta object as task meta vector.
 TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
                               MetaData status = MetaData::INVALID,
                               BYTE userID = TaskMeta::USER_INVALID);
 
-// Create Requirements with TaskID
+//! Creates task meta object for packing require task.
+//! \param request The task ID.
+//! \param userID The unique user ID.
+//! \return Created task meta object as require.
 TaskMeta CreateRequire(TaskID request, BYTE userID);
-// Create Response for Mulligan Task
+
+//! Creates task meta object for packing mulligan task.
+//! \param index A pointer to the start position of the array that stores the
+//! card position to change.
+//! \param size The number of cards to change.
+//! \return Created task meta object as mulligan.
 TaskMeta CreateResponseMulligan(const BYTE* index, size_t size);
-// Create Response For PlayCard Task, Select Card from Hand
+
+//! Creates task meta object for playing card task that selects card from hand.
+//! \param cardIndex The position of card to play.
+//! \return Created task meta object as select card.
 TaskMeta CreateResponsePlayCard(size_t cardIndex);
-// Create Response for PlayMinion Task, Select position where minion will summon
+
+//! Creates task meta object for playing minion task that selects position where
+//! minion will summon.
+//! \param position The position of field to summon minion.
+//! \return Created task meta object as select position.
 TaskMeta CreateResponsePlayMinion(size_t position);
-// Create response for PlaySpell task, select target type and position where
-// caster will cast
+
+//! Creates task meta object for playing spell task that selects target type and
+//! position where caster will cast.
+//! \param targetType The type of target.
+//! \param targetPosition The position of field where caster will cast.
+//! \return Created task meta object as select target.
 TaskMeta CreateResponsePlaySpell(TargetType targetType, size_t targetPosition);
-// Create Response for Targeting Tasks, eg. Combat
+
+//! Creates task meta object for targeting task (e.g. combat).
+//! \param src The position of source in field.
+//! \param dst The position of target in field.
+//! \return Created task meta object as select target.
 TaskMeta CreateResponseTarget(size_t src, size_t dst);
 
-// Pack email of both players and set id
+//! Creates task meta object for packing two player's email.
+//! \param player1 The email address of first player.
+//! \param player2 The email address of second player.
+//! \return Created task meta object as player setting.
 TaskMeta CreatePlayerSetting(const std::string& player1,
                              const std::string& player2);
 
-// Create GameStatus TaskMeta
+//! Creates task meta object for packing game status.
+//! \param taskID The task ID.
+//! \param status The task status.
+//! \param player1 The first player.
+//! \param player2 The second player.
+//! \return Created task meta object as game status.
 TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
                           const Player& player2);
 }  // namespace Hearthstonepp::Serializer
