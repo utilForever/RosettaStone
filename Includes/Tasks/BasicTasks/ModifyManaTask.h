@@ -20,9 +20,6 @@ enum class ManaMode
 
 namespace BasicTasks
 {
-MetaData ImplModifyMana(Player &user, NumMode numMode, ManaMode manaMode,
-                        BYTE num);
-
 //!
 //! \brief ModifyManaTask class.
 //!
