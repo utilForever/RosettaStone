@@ -31,7 +31,7 @@ MetaData PlayCardTask::Impl(Player& player1, Player& player2)
     m_requirement.Interact(player1.id, serialized);
 
     using RequireTaskMeta = FlatData::ResponsePlayCard;
-    const auto& buffer = serialized.GetConstBuffer();
+    const auto& buffer = serialized.GetBuffer();
     auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
     if (req == nullptr)

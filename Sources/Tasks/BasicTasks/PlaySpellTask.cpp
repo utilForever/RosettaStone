@@ -32,7 +32,7 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
     m_requirement.Interact(player1.id, meta);
 
     using ResponsePlaySpell = FlatData::ResponsePlaySpell;
-    const auto& buffer = meta.GetConstBuffer();
+    const auto& buffer = meta.GetBuffer();
     auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
 
     if (req == nullptr)

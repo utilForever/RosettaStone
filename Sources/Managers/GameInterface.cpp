@@ -173,7 +173,7 @@ void GameInterface::HandleBriefing(const TaskMeta& meta)
     size_t bufferSize = meta.GetBufferSize();
     m_status = std::make_unique<BYTE[]>(bufferSize);
 
-    const auto& buffer = meta.GetConstBuffer();
+    const auto& buffer = meta.GetBuffer();
     std::copy(buffer.get(), buffer.get() + bufferSize, m_status.get());
 
     stream << "Game Briefing\n"
@@ -241,7 +241,7 @@ void GameInterface::HandleOverDraw(const TaskMeta& meta)
 {
     std::ostream& stream = WriteLog(m_users[meta.userID]);
 
-    const auto& buffer = meta.GetConstBuffer();
+    const auto& buffer = meta.GetBuffer();
     if (buffer == nullptr)
     {
         stream << "Exception HandleOverDraw : TaskMeta is nullptr\n";

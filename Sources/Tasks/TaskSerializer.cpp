@@ -105,7 +105,7 @@ TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
         auto trait = FlatData::TaskMetaTrait(static_cast<int>(task.id),
                                              static_cast<status_t>(task.status),
                                              task.userID);
-        const auto& unique = task.GetConstBuffer();
+        const auto& unique = task.GetBuffer();
         auto buffer = builder.CreateVector(unique.get(), task.GetBufferSize());
 
         auto temporal = FlatData::CreateTaskMeta(builder, &trait, buffer);

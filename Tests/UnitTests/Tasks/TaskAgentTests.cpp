@@ -120,7 +120,7 @@ TEST(TaskAgent, RunMultiTasks)
     EXPECT_EQ(player1.id, 100);
     EXPECT_EQ(player2.id, 200);
 
-    const auto& buffer = ret.GetConstBuffer();
+    const auto& buffer = ret.GetBuffer();
     auto taskTuple =
         flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
 

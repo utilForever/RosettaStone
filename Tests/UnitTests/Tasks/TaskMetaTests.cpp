@@ -67,33 +67,32 @@ TEST(TaskMeta, Constructors)
     EXPECT_EQ(meta.status, MetaData::INVALID);
     EXPECT_EQ(meta.userID, TaskMeta::USER_INVALID);
     EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetConstBuffer().get(), static_cast<BYTE*>(nullptr));
+    EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
 
     // Default Constructor
     TaskMeta task(trait, size, buffer.get());
     EXPECT_EQ(trait, task);
     EXPECT_EQ(task.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(task.GetConstBuffer(), buffer, size);
+    TestUtils::ExpectBufferEqual(task.GetBuffer(), buffer, size);
 
     // Move Buffer
     TaskMeta moveBuffer(trait, size, std::move(buffer));
     EXPECT_EQ(trait, moveBuffer);
     EXPECT_EQ(moveBuffer.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(moveBuffer.GetConstBuffer(),
-                                 task.GetConstBuffer(), size);
+    TestUtils::ExpectBufferEqual(moveBuffer.GetBuffer(), task.GetBuffer(),
+                                 size);
 
     // Move Constructor
     TaskMeta moved(std::move(moveBuffer));
     EXPECT_EQ(trait, moved);
     EXPECT_EQ(moved.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(moved.GetConstBuffer(), task.GetConstBuffer(),
-                                 size);
+    TestUtils::ExpectBufferEqual(moved.GetBuffer(), task.GetBuffer(), size);
 
     // Move Assignment
     meta = std::move(moved);
     EXPECT_EQ(trait, meta);
     EXPECT_EQ(meta.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(meta.GetConstBuffer(), task.GetConstBuffer(),
+    TestUtils::ExpectBufferEqual(meta.GetBuffer(), task.GetBuffer(),
                                  size);
 }
 
@@ -109,14 +108,14 @@ TEST(TaskMeta, UniquePtr)
     // MoveBuffer
     std::unique_ptr<BYTE[]> moved = meta.MoveBuffer();
     EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetConstBuffer().get(), static_cast<BYTE*>(nullptr));
+    EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
     TestUtils::ExpectBufferEqual(buffer, moved, size);
 
     // reset
     meta = TaskMeta(trait, size, buffer.get());
-    meta.reset();
+    meta.Reset();
     EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetConstBuffer().get(), static_cast<BYTE*>(nullptr));
+    EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
 }
 
 TEST(TaskMeta, CopyFrom)
@@ -130,7 +129,7 @@ TEST(TaskMeta, CopyFrom)
 TEST(TaskMeta, ConvertFrom)
 {
     TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
-    const auto& buffer = meta.GetConstBuffer();
+    const auto& buffer = meta.GetBuffer();
     size_t size = meta.GetBufferSize();
 
     flatbuffers::FlatBufferBuilder builder(512);
