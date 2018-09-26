@@ -127,8 +127,8 @@ void GameAgent::PrepareMainPhase()
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
         BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
-        BasicTasks::ModifyManaByRef(NumMode::SET, ManaMode::EXIST,
-                                    m_player1.totalMana));
+        BasicTasks::ModifyManaTask(NumMode::SET, ManaMode::EXIST,
+                                   m_player1.totalMana + 1));
 
     for (auto& character : m_player1.field)
     {

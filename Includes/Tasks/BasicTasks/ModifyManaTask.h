@@ -45,21 +45,6 @@ class ModifyManaTask : public ITask
 
     MetaData Impl(Player &player1, Player &player2) override;
 };
-
-class ModifyManaByRef : public ITask
-{
- public:
-    ModifyManaByRef(NumMode numMode, ManaMode manaMode, const BYTE &ref);
-
-    TaskID GetTaskID() const override;
-
- private:
-    NumMode m_numMode;
-    ManaMode m_manaMode;
-    const BYTE &m_num;
-
-    MetaData Impl(Player &player1, Player &player2) override;
-};
 };  // namespace BasicTasks
 }  // namespace Hearthstonepp
 

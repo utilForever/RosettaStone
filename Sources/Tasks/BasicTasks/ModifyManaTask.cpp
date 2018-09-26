@@ -57,21 +57,4 @@ MetaData ModifyManaTask::Impl(Player& player1, Player&)
 {
     return ImplModifyMana(player1, m_numMode, m_manaMode, m_num);
 }
-
-ModifyManaByRef::ModifyManaByRef(NumMode numMode, ManaMode manaMode,
-                                 const BYTE& ref)
-    : m_numMode(numMode), m_manaMode(manaMode), m_num(ref)
-{
-    // Do Nothing
-}
-
-TaskID ModifyManaByRef::GetTaskID() const
-{
-    return TaskID::MODIFY_MANA;
-}
-
-MetaData ModifyManaByRef::Impl(Player& player1, Player&)
-{
-    return ImplModifyMana(player1, m_numMode, m_manaMode, m_num);
-}
 }  // namespace Hearthstonepp::BasicTasks
