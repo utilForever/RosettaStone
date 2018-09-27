@@ -94,7 +94,7 @@ void GameAgent::BeginPhase()
         meta, m_player1, m_player2, BasicTasks::PlayerSettingTask(m_taskAgent),
         BasicTasks::DoBothPlayer(BasicTasks::ShuffleTask()),
         BasicTasks::DoBothPlayer(
-            BasicTasks::DrawTask(NUM_DRAW_CARDS_AT_START, m_taskAgent)),
+            BasicTasks::DrawTask(m_taskAgent, NUM_DRAW_CARDS_AT_START)),
         BasicTasks::BriefTask(),
         BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
         BasicTasks::SwapPlayerTask(), BasicTasks::BriefTask(),
@@ -125,7 +125,7 @@ void GameAgent::PrepareMainPhase()
     // attackableCount
     TaskMeta meta;
     m_taskAgent.RunMulti(
-        meta, m_player1, m_player2, BasicTasks::DrawTask(1, m_taskAgent),
+        meta, m_player1, m_player2, BasicTasks::DrawTask(m_taskAgent, 1),
         BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
         BasicTasks::ModifyManaTask(NumMode::SET, ManaMode::EXIST,
                                    m_player1.totalMana + 1));

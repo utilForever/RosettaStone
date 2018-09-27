@@ -14,10 +14,10 @@ namespace Hearthstonepp::BasicTasks
 class DrawTask : public ITask
 {
  public:
-    //! Constructs task with given \p num and \p agent.
-    //! \param num The number of cards to draw.
+    //! Constructs task with given \p agent and \p num.
     //! \param agent The task agent that notifies overdrawn cards.
-    DrawTask(size_t num, TaskAgent& agent);
+    //! \param num The number of cards to draw.
+    DrawTask(TaskAgent& agent, size_t num);
 
     //! Returns task ID.
     //! \return Task ID.

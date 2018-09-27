@@ -4,7 +4,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DrawTask::DrawTask(size_t num, TaskAgent& agent) : m_num(num), m_agent(agent)
+DrawTask::DrawTask(TaskAgent& agent, size_t num) : m_agent(agent), m_num(num)
 {
     // Do Nothing
 }

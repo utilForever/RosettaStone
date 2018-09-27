@@ -12,7 +12,7 @@ TEST(DrawTask, GetTaskID)
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
     GameAgent agent(gen.player1, gen.player2);
 
-    BasicTasks::DrawTask draw(1, agent.GetTaskAgent());
+    BasicTasks::DrawTask draw(agent.GetTaskAgent(), 1);
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
 }
 
@@ -38,7 +38,7 @@ TEST(DrawTask, Run)
         gen.player1.cards.emplace_back(generate(id + i));
     }
 
-    BasicTasks::DrawTask draw(3, agent.GetTaskAgent());
+    BasicTasks::DrawTask draw(agent.GetTaskAgent(), 3);
     MetaData result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
     EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(3));
@@ -56,7 +56,7 @@ TEST(DrawTask, RunExhaust)
     GameAgent agent(gen.player1, gen.player2);
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
 
-    BasicTasks::DrawTask draw(3, agent.GetTaskAgent());
+    BasicTasks::DrawTask draw(agent.GetTaskAgent(), 3);
     MetaData result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
     EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(0));
@@ -104,7 +104,7 @@ TEST(DrawTask, RunOverDraw)
     }
 
     gen.player1.hand.resize(10);
-    BasicTasks::DrawTask draw(3, agent.GetTaskAgent());
+    BasicTasks::DrawTask draw(agent.GetTaskAgent(), 3);
     MetaData result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
@@ -151,7 +151,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     }
 
     gen.player1.hand.resize(9);
-    BasicTasks::DrawTask draw(4, agent.GetTaskAgent());
+    BasicTasks::DrawTask draw(agent.GetTaskAgent(), 4);
     MetaData result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
