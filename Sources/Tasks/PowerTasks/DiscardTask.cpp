@@ -1,12 +1,5 @@
-/*************************************************************************
-> File Name: DiscardTask.cpp
-> Project Name: Hearthstonepp
-> Author: Sungkuk Park
-> Purpose: Implement DiscardTask
-> Created Time: 2018/08/15
-> Copyright (c) 2018, Sungkuk Park
-*************************************************************************/
 #include <Tasks/PowerTasks/DiscardTask.h>
+
 #include <random>
 
 namespace Hearthstonepp::PowerTask

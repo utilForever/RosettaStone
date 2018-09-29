@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: FreezeTask.h
-> Project Name: Hearthstonepp
-> Author: Seung-Hyun Jeon
-> Purpose: Implement Freeze
-> Created Time: 2018/08/14
-> Copyright (c) 2018, Seung-Hyun Jeon
-*************************************************************************/
 #ifndef HEARTHSTONEPP_FREEZE_TASK_H
 #define HEARTHSTONEPP_FREEZE_TASK_H
 
@@ -13,19 +5,33 @@
 
 namespace Hearthstonepp::PowerTask
 {
-    class FreezeTask : public ITask
-    {
-    public:
-        FreezeTask(EntityType entityType, int turn);
+//!
+//! \brief FreezeTask class.
+//!
+//! This class represents the task for freezing target.
+//!
+class FreezeTask : public ITask
+{
+ public:
+    //! Constructs task with given \p entityType and \p turn.
+    //! \param entityType The entity type of target to freeze.
+    //! \param turn The number of turns remaining until freeze is melted.
+    FreezeTask(EntityType entityType, int turn);
 
-        TaskID GetTaskID() const override;
+    //! Returns task ID.
+    //! \return Task ID.
+    TaskID GetTaskID() const override;
 
-    private:
-        EntityType m_entityType;
-        int m_turn;
+ private:
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
+    MetaData Impl(Player& player1, Player& player2) override;
 
-        MetaData Impl(Player& player1, Player& player2) override;
-    };
+    EntityType m_entityType;
+    int m_turn;
+};
 }  // namespace Hearthstonepp::PowerTask
 
 #endif  // HEARTHSTONEPP_FREEZE_TASK_H

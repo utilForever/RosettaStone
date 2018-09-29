@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: DestroyWeapon.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement DestroyWeapon
-> Created Time: 2018/07/22
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Tasks/PowerTasks/HealFullTask.h>
 
 namespace Hearthstonepp::PowerTask

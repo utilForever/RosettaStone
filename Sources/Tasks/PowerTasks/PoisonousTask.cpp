@@ -1,16 +1,9 @@
-/*************************************************************************
-> File Name: PoisonousTask.cpp
-> Project Name: Hearthstonepp
-> Author: Seung-Hyun Jeon
-> Purpose: Implement Poisonous
-> Created Time: 2018/08/12
-> Copyright (c) 2018, Seung-Hyun Jeon
-*************************************************************************/
 #include <Tasks/PowerTasks/PoisonousTask.h>
 
 namespace Hearthstonepp::PowerTask
 {
-PoisonousTask::PoisonousTask(Character* source, Character* target): m_source(source), m_target(target)
+PoisonousTask::PoisonousTask(Character* source, Character* target)
+    : m_source(source), m_target(target)
 {
     // Do nothing
 }

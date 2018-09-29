@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: DiscardTask.h
-> Project Name: Hearthstonepp
-> Author: Sungkuk Park
-> Purpose: Implement DiscardTask
-> Created Time: 2018/08/15
-> Copyright (c) 2018, Sungkuk Park
-*************************************************************************/
 #ifndef HEARTHSTONEPP_DISCARD_TASK_H
 #define HEARTHSTONEPP_DISCARD_TASK_H
 
@@ -13,17 +5,30 @@
 
 namespace Hearthstonepp::PowerTask
 {
+//!
+//! \brief DiscardTask class.
+//!
+//! This class represents the task for discarding card(s) from hand.
+//!
 class DiscardTask : public ITask
 {
  public:
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target to discard card(s).
     DiscardTask(EntityType entityType);
 
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
  private:
-    EntityType m_entityType;
-
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
+
+    EntityType m_entityType;
 };
 }  // namespace Hearthstonepp::PowerTask
 
