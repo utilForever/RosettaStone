@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: Mulligan.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement MulliganTask
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Commons/Constants.h>
 #include <Tasks/BasicTasks/DrawTask.h>
 #include <Tasks/BasicTasks/MulliganTask.h>

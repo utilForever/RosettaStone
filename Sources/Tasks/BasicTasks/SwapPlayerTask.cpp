@@ -1,13 +1,5 @@
-/*************************************************************************
-> File Name: SwapPlayer.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement SwapPlayerTask
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
-#include <Tasks/BasicTasks/SwapPlayerTask.h>
 #include <Tasks/BasicTasks/InitAttackCountTask.h>
+#include <Tasks/BasicTasks/SwapPlayerTask.h>
 
 #include <algorithm>
 

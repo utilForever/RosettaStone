@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: PlayerSetting.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement PlayerSetting
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_PLAYERSETTING_H
 #define HEARTHSTONEPP_PLAYERSETTING_H
 
@@ -15,17 +7,30 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+//!
+//! \brief PlayerSettingTask class.
+//!
+//! This class represents the task for setting player information.
+//!
 class PlayerSettingTask : public ITask
 {
  public:
+    //! Constructs task with given \p agent.
+    //! \param agent The task agent that notifies the result of player setting.
     PlayerSettingTask(TaskAgent& agent);
 
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
  private:
-    TaskAgent& m_agent;
-
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
+
+    TaskAgent& m_agent;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

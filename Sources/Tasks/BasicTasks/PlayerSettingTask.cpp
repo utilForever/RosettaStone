@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: PlayerSetting.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement PlayerSetting
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Tasks/BasicTasks/PlayerSettingTask.h>
 
 namespace Hearthstonepp::BasicTasks
