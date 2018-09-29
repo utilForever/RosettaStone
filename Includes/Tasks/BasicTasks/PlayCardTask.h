@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: PlayCard.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement PlayCardTask, Select Card and Passing it to Sub Logics
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_PLAYCARD_H
 #define HEARTHSTONEPP_PLAYCARD_H
 
@@ -15,19 +7,32 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-// Use Card from Hand
+//!
+//! \brief PlayCardTask class.
+//!
+//! This class represents the task for playing card from hand.
+//! Then it runs each task according to the card type.
+//!
 class PlayCardTask : public ITask
 {
  public:
+    //! Constructs task with given \p agent.
+    //! \param agent The task agent that performs card play.
     PlayCardTask(TaskAgent& agent);
 
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
  private:
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
+    MetaData Impl(Player& player1, Player& player2) override;
+
     TaskAgent& m_agent;
     Requirement m_requirement;
-
-    MetaData Impl(Player& player1, Player& player2) override;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

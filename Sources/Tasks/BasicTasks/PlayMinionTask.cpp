@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: PlayMinion.cpp
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement PlayMinion, Summon Minion and Process PowerTasks
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #include <Tasks/BasicTasks/ModifyManaTask.h>
 #include <Tasks/BasicTasks/PlayMinionTask.h>
 

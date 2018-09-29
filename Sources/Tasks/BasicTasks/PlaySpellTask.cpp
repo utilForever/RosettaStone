@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: PlaySpell.cpp
-> Project Name: Hearthstonepp
-> Author: Chan-Ho Chris Ohk
-> Purpose: Implement PlaySpell, cast spells
-> Created Time: 2018/07/31
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
 #include <Enums/TaskEnums.h>
 #include <Tasks/BasicTasks/ModifyManaTask.h>
 #include <Tasks/BasicTasks/PlaySpellTask.h>

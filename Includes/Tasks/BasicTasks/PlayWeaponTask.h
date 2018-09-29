@@ -1,11 +1,3 @@
-/*************************************************************************
-> File Name: PlayWeapon.h
-> Project Name: Hearthstonepp
-> Author: Young-Joong Kim
-> Purpose: Implement PlayWeapon
-> Created Time: 2018/07/21
-> Copyright (c) 2018, Young-Joong Kim
-*************************************************************************/
 #ifndef HEARTHSTONEPP_PLAYWEAPON_H
 #define HEARTHSTONEPP_PLAYWEAPON_H
 
@@ -13,17 +5,31 @@
 
 namespace Hearthstonepp::BasicTasks
 {
+//!
+//! \brief PlayWeaponTask class.
+//!
+//! This class represents the task for playing weapon.
+//! It equips the weapon to hero.
+//!
 class PlayWeaponTask : public ITask
 {
  public:
+    //! Constructs task with given \p entity.
+    //! \param entity The weapon to equip.
     PlayWeaponTask(Entity* entity);
 
+    //! Returns task ID.
+    //! \return Task ID.
     TaskID GetTaskID() const override;
 
  private:
-    Entity* m_entity;
-
+    //! Processes task logic internally and returns meta data.
+    //! \param player1 The first player.
+    //! \param player2 The second player.
+    //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
+
+    Entity* m_entity;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
