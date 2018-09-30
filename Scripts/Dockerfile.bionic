@@ -11,5 +11,3 @@ RUN cmake .. && \
     make -j`nproc` && \
     make install && \
     bin/UnitTests
-
-WORKDIR /
