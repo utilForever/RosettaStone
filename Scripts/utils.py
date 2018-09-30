@@ -34,21 +34,23 @@ import re
 import os
 import fnmatch
 
+
 def guess_os():
     """
     Returns the name of the operating system.
     This will return 'linux' for Linux compatible system, 'macos' for Macs,
     'win32' for Windows, and 'freebsd' for FreeBSD.
     """
-    id = platform.system()
-    if id == 'Linux':
+    _id = platform.system()
+    if _id == 'Linux':
         return 'linux'
-    elif id == 'Darwin':
+    elif _id == 'Darwin':
         return 'macosx'
-    elif id == 'Windows' or id == 'Microsoft':
+    elif _id == 'Windows' or _id == 'Microsoft':
         return 'win32'
     else:
         return None
+
 
 def guess_word_size():
     """
@@ -64,6 +66,7 @@ def guess_word_size():
                 return '64'
         return '32'
 
+
 def guess_arch():
     """
     Returns the architecture name of the system.
@@ -74,20 +77,21 @@ def guess_arch():
         else:
             return 'win32'
 
-    id = platform.machine()
+    _id = platform.machine()
 
     if is_mac():
-        if guess_word_size() == '64' and id == 'i386':
+        if guess_word_size() == '64' and _id == 'i386':
             return 'x86_64'
         else:
-            return id
+            return _id
 
-    if id.startswith('arm'):
+    if _id.startswith('arm'):
         return 'arm'
-    elif (not id) or (not re.match('(x|i[3-6])86', id) is None):
-        return id
+    elif (not _id) or (not re.match('(x|i[3-6])86', _id) is None):
+        return _id
     else:
         return None
+
 
 def detect_num_cpus():
     """
@@ -100,20 +104,22 @@ def detect_num_cpus():
             ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
             if isinstance(ncpus, int) and ncpus > 0:
                 return ncpus
-            else: # OSX:
+            else:  # OSX:
                 return int(os.popen2("sysctl -n hw.ncpu")[1].read())
     # Windows:
     if os.environ.has_key("NUMBER_OF_PROCESSORS"):
         ncpus = int(os.environ["NUMBER_OF_PROCESSORS"]);
         if ncpus > 0:
             return ncpus
-    return 1 # Default
+    return 1  # Default
+
 
 def is_windows():
     """
     Returns True if you are using Windows.
     """
     return guess_os() == 'win32'
+
 
 def is_windows64():
     """
@@ -124,6 +130,7 @@ def is_windows64():
     else:
         return False
 
+
 def is_unix():
     """
     Returns True if you are using Unix compatible system (Linux, Mac, and
@@ -131,11 +138,13 @@ def is_unix():
     """
     return not is_windows()
 
+
 def is_mac():
     """
     Returns True if you are using Mac.
     """
     return guess_os() == 'macosx'
+
 
 def is_linux():
     """
@@ -143,11 +152,13 @@ def is_linux():
     """
     return guess_os() == 'linux'
 
+
 def is64():
     """
     Returns True if running on 64-bit machine
     """
     return guess_word_size() == '64'
+
 
 def navigate_all_files(root_path, patterns):
     """
@@ -159,12 +170,12 @@ def navigate_all_files(root_path, patterns):
             for filename in fnmatch.filter(files, pattern):
                 yield os.path.join(root, filename)
 
+
 def get_all_files(root_path, patterns):
     """
     Returns a list of all files that matches the given patterns from the
     root_path.
     """
-    ret = []
-    for filepath in navigate_all_files(root_path, patterns):
-        ret.append(filepath)
+    ret = [fp for fp in navigate_all_files(root_path, patterns)]
     return ret
+
