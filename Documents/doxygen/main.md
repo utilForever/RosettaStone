@@ -1,14 +1,8 @@
-CubbyFlow is voxel-based fluid simulation engine for computer games based on [Jet framework](https://github.com/doyubkim/fluid-engine-dev) that was created by [Doyub Kim](https://twitter.com/doyub).
-The code is built on C++17 and can be compiled with commonly available compilers such as VC++. Currently tested platforms are Windows (Visual Studio 2017).
+Hearthstone++ is hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (17.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
 
 ### Key Features
 
-- SPH and PCISPH fluid simulators
-- Stable fluids-based smoke simulator
-- Level set-based liquid simulator
-- PIC, FLIP, and APIC fluid simulators
-- Upwind, ENO and FMM level set solvers
-- Converters between signed distance function and triangular mesh
-- Voxel surface reconstruction
-
-Every simulator has both 2-D and 3-D implementations.
+- JSON-based hearthstone card data
+- Console, GUI, web-based simulator
+- Reinforcement learning to "The Innkeeper" smart
+- C++ and Python API
