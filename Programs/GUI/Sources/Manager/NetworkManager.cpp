@@ -9,8 +9,8 @@
 #include <Manager/GameManager.h>
 #include <Manager/NetworkManager.h>
 
-#include <Commons/Macros.h>
-#include <Loaders/AccountLoader.h>
+#include <hspp/Commons/Macros.h>
+#include <hspp/Loaders/AccountLoader.h>
 
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>

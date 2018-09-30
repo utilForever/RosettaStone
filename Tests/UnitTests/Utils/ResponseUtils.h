@@ -1,8 +1,8 @@
 #ifndef UNIT_TESTS_RESPONSE_UTILS
 #define UNIT_TESTS_RESPONSE_UTILS
 
-#include <Managers/GameAgent.h>
-#include <Tasks/TaskMeta.h>
+#include <hspp/Managers/GameAgent.h>
+#include <hspp/Tasks/TaskMeta.h>
 
 #include <future>
 

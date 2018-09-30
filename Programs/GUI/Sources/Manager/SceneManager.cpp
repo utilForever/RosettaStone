@@ -10,7 +10,7 @@
 #include <Manager/SceneManager.h>
 #include <Utils/Constants.h>
 
-#include <Commons/Macros.h>
+#include <hspp/Commons/Macros.h>
 
 #include <imgui/imgui-SFML.h>
 #include <SFML/System/Clock.hpp>

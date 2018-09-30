@@ -3,8 +3,8 @@
 
 #include "gtest/gtest.h"
 
-#include <Cards/Card.h>
-#include <Tasks/TaskMeta.h>
+#include <hspp/Cards/Card.h>
+#include <hspp/Tasks/TaskMeta.h>
 
 using namespace Hearthstonepp;
 

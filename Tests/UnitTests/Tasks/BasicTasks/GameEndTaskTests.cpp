@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
-#include <Tasks/BasicTasks/GameEndTask.h>
+#include <hspp/Tasks/BasicTasks/GameEndTask.h>
 
 using namespace Hearthstonepp;
 

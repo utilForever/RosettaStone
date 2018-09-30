@@ -1,13 +1,12 @@
 #include "gtest/gtest.h"
-
 #include <Utils/TestTasks.h>
 #include <Utils/TestUtils.h>
 
-#include <Tasks/MetaData.h>
-#include <Tasks/TaskAgent.h>
-#include <Tasks/TaskMeta.h>
+#include <hspp/Tasks/MetaData.h>
+#include <hspp/Tasks/TaskAgent.h>
+#include <hspp/Tasks/TaskMeta.h>
 
-#include <Flatbuffers/generated/FlatData_generated.h>
+#include <hspp/Flatbuffers/generated/FlatData_generated.h>
 
 #include <future>
 

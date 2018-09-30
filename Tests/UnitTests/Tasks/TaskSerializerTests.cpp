@@ -1,13 +1,13 @@
-#include <Utils/TestUtils.h>
 #include "gtest/gtest.h"
+#include <Utils/TestUtils.h>
 
-#include <Accounts/Player.h>
-#include <Cards/Cards.h>
-#include <Cards/Minion.h>
-#include <Cards/Weapon.h>
-#include <Enchants/Enchant.h>
-#include <Tasks/TaskSerializer.h>
-#include <Tasks/Tasks.h>
+#include <hspp/Accounts/Player.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Cards/Minion.h>
+#include <hspp/Cards/Weapon.h>
+#include <hspp/Enchants/Enchant.h>
+#include <hspp/Tasks/TaskSerializer.h>
+#include <hspp/Tasks/Tasks.h>
 
 #include <random>
 

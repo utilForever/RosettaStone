@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
-#include <Tasks/BasicTasks/InitAttackCountTask.h>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
 
 using namespace Hearthstonepp;
 

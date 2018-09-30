@@ -1,6 +1,6 @@
 #include <Utils/ResponseUtils.h>
 
-#include <Tasks/TaskSerializer.h>
+#include <hspp/Tasks/TaskSerializer.h>
 
 namespace TestUtils
 {

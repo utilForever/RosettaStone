@@ -9,11 +9,11 @@
 #ifndef HEARTHSTONEPP_CONSOLE_H
 #define HEARTHSTONEPP_CONSOLE_H
 
-#include <Accounts/Account.h>
-#include <Commons/Constants.h>
-#include <Commons/Macros.h>
-#include <Cards/Cards.h>
-#include <Cards/Deck.h>
+#include <hspp/Accounts/Account.h>
+#include <hspp/Commons/Constants.h>
+#include <hspp/Commons/Macros.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Cards/Deck.h>
 
 #include <clara.hpp>
 

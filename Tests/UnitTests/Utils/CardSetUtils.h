@@ -5,13 +5,13 @@
 
 #include <Utils/ResponseUtils.h>
 
-#include <Managers/GameAgent.h>
-#include <Managers/GameInterface.h>
-#include <Tasks/BasicTasks/CombatTask.h>
-#include <Tasks/BasicTasks/DrawTask.h>
-#include <Tasks/BasicTasks/InitAttackCountTask.h>
-#include <Tasks/BasicTasks/PlayCardTask.h>
-#include <Tasks/BasicTasks/SwapPlayerTask.h>
+#include <hspp/Managers/GameAgent.h>
+#include <hspp/Managers/GameInterface.h>
+#include <hspp/Tasks/BasicTasks/CombatTask.h>
+#include <hspp/Tasks/BasicTasks/DrawTask.h>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
+#include <hspp/Tasks/BasicTasks/PlayCardTask.h>
+#include <hspp/Tasks/BasicTasks/SwapPlayerTask.h>
 
 #include <future>
 

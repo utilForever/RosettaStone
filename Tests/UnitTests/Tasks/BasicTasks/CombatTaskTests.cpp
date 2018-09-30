@@ -2,7 +2,7 @@
 #include <Utils/ResponseUtils.h>
 #include <Utils/TestUtils.h>
 
-#include <Tasks/BasicTasks/CombatTask.h>
+#include <hspp/Tasks/BasicTasks/CombatTask.h>
 
 using namespace Hearthstonepp;
 

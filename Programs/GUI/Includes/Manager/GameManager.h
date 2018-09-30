@@ -9,7 +9,7 @@
 #ifndef HEARTHSTONEPP_GUI_GAME_MANAGER_H
 #define HEARTHSTONEPP_GUI_GAME_MANAGER_H
 
-#include <Accounts/Account.h>
+#include <hspp/Accounts/Account.h>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>

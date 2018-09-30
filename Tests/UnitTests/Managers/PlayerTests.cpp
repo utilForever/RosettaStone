@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include <Accounts/Account.h>
-#include <Cards/Deck.h>
-#include <Enums/CardEnums.h>
+#include <hspp/Accounts/Account.h>
+#include <hspp/Cards/Deck.h>
+#include <hspp/Enums/CardEnums.h>
 
 using namespace Hearthstonepp;
 

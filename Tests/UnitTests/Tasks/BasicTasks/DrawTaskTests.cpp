@@ -1,9 +1,9 @@
-#include <Utils/TestUtils.h>
 #include "gtest/gtest.h"
+#include <Utils/TestUtils.h>
 
-#include <Managers/GameAgent.h>
-#include <Tasks/BasicTasks/DrawTask.h>
-#include <Tasks/TaskAgent.h>
+#include <hspp/Managers/GameAgent.h>
+#include <hspp/Tasks/BasicTasks/DrawTask.h>
+#include <hspp/Tasks/TaskAgent.h>
 
 using namespace Hearthstonepp;
 

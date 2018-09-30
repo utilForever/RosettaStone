@@ -1,11 +1,10 @@
 #include "gtest/gtest.h"
-
 #include <Utils/TestUtils.h>
 
-#include <Tasks/TaskMeta.h>
-#include <Tasks/TaskSerializer.h>
+#include <hspp/Tasks/TaskMeta.h>
+#include <hspp/Tasks/TaskSerializer.h>
 
-#include <Flatbuffers/generated/FlatData_generated.h>
+#include <hspp/Flatbuffers/generated/FlatData_generated.h>
 
 #include <random>
 

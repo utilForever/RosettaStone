@@ -8,15 +8,15 @@
 *************************************************************************/
 #include "Console.h"
 
-#include <Cards/Card.h>
-#include <Cards/Cards.h>
-#include <Commons/Constants.h>
-#include <Commons/Macros.h>
-#include <Commons/Utils.h>
-#include <Loaders/AccountLoader.h>
-#include <Loaders/CardLoader.h>
-#include <Managers/GameAgent.h>
-#include <Managers/GameInterface.h>
+#include <hspp/Cards/Card.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Commons/Constants.h>
+#include <hspp/Commons/Macros.h>
+#include <hspp/Commons/Utils.h>
+#include <hspp/Loaders/AccountLoader.h>
+#include <hspp/Loaders/CardLoader.h>
+#include <hspp/Managers/GameAgent.h>
+#include <hspp/Managers/GameInterface.h>
 
 #include <cctype>
 #ifdef HEARTHSTONEPP_WINDOWS
