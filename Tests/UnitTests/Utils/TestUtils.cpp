@@ -60,7 +60,7 @@ TaskMeta GenerateRandomTaskMeta()
     return randomTaskMeta;
 }
 
-std::unique_ptr<Card> GenerateMinion(std::string&& id, size_t attack, size_t health)
+std::unique_ptr<Card> GenerateMinionCard(std::string &&id, size_t attack, size_t health)
 {
     auto card = std::make_unique<Card>();
     card->cardType = CardType::MINION;

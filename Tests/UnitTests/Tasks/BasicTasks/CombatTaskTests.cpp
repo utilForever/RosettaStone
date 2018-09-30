@@ -35,8 +35,8 @@ TEST(CombatTask, CombatDefault)
         EXPECT_EQ(meta.id, +TaskID::REQUIRE);
     };
 
-    auto card1 = TestUtils::GenerateMinion("minion1", 3, 6);
-    auto card2 = TestUtils::GenerateMinion("minion2", 5, 4);
+    auto card1 = TestUtils::GenerateMinionCard("minion1", 3, 6);
+    auto card2 = TestUtils::GenerateMinionCard("minion2", 5, 4);
 
     Minion minion1(card1.get());
     Minion minion2(card2.get());
@@ -56,8 +56,8 @@ TEST(CombatTask, CombatDefault)
     EXPECT_EQ(gen.player1.field.size(), static_cast<size_t>(0));
     EXPECT_EQ(gen.player2.field.size(), static_cast<size_t>(0));
 
-    auto card3 = TestUtils::GenerateMinion("minion3", 5, 6);
-    auto card4 = TestUtils::GenerateMinion("minion4", 5, 4);
+    auto card3 = TestUtils::GenerateMinionCard("minion3", 5, 6);
+    auto card4 = TestUtils::GenerateMinionCard("minion4", 5, 4);
 
     Minion minion3(card3.get());
     Minion minion4(card4.get());
@@ -69,7 +69,7 @@ TEST(CombatTask, CombatDefault)
     EXPECT_EQ(gen.player1.field[0]->health, static_cast<size_t>(1));
     EXPECT_EQ(gen.player2.field.size(), static_cast<size_t>(0));
 
-    auto card5 = TestUtils::GenerateMinion("minion5", 5, 4);
+    auto card5 = TestUtils::GenerateMinionCard("minion5", 5, 4);
 
     Minion minion5(card5.get());
 
@@ -83,21 +83,6 @@ TEST(CombatTask, CombatDefault)
 
 TEST(CombatTask, CombatAlreadyAttacked)
 {
-    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
-    GameAgent agent(gen.player1, gen.player2);
-    TestUtils::AutoResponder resp(agent);
-
-    BasicTasks::CombatTask combat(agent.GetTaskAgent());
-    auto attack = [&](size_t src, size_t dst) {
-        auto target = resp.Target(src, dst);
-        MetaData result = combat.Run(gen.player1, gen.player2);
-        EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
-
-        TaskMeta meta = target.get();
-        EXPECT_EQ(meta.id, +TaskID::REQUIRE);
-    };
-
-    auto card = TestUtils::GenerateMinion("minion1", 1, 10);
 }
 
 TEST(CombatTask, CombatTaunt)
