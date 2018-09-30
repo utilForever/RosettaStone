@@ -49,8 +49,6 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 add_subdirectory(Sources/hspp)
 add_subdirectory(Libraries/imgui)
-add_subdirectory(Programs/Console)
-add_subdirectory(Programs/GUI)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Tools)
 
