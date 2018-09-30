@@ -138,6 +138,11 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         }
     }
 
+    if (source->gameTags[+GameTag::STEALTH] == 1)
+    {
+        source->gameTags[+GameTag::STEALTH] = 0;
+    }
+
     // Source Health Check
     if (source->health <= 0)
     {
