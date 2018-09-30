@@ -5,17 +5,21 @@
 
 namespace Hearthstonepp
 {
+//! Num mode to change mana.
+// TODO: We'll refactor later.
 enum class NumMode
 {
-    ADD = 0,
-    SUB = 1,
-    SET = 2,
+    ADD = 0,  //!< Add mana.
+    SUB = 1,  //!< Subtract mana.
+    SET = 2,  //!< Set mana.
 };
 
+//! Mana mode to change mana.
+// TODO: We'll refactor later.
 enum class ManaMode
 {
-    TOTAL = 0,
-    EXIST = 1,
+    TOTAL = 0,  //!< Total mana.
+    EXIST = 1,  //!< Temporary mana.
 };
 
 namespace BasicTasks
