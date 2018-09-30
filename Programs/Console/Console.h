@@ -1,11 +1,9 @@
-/*************************************************************************
-> File Name: Console.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Console version of Hearthstone++ game.
-> Created Time: 2017/10/08
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #ifndef HEARTHSTONEPP_CONSOLE_H
 #define HEARTHSTONEPP_CONSOLE_H
 
