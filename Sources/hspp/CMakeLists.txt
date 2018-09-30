@@ -20,9 +20,20 @@ file(GLOB_RECURSE headers
 file(GLOB_RECURSE sources
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
+# Custom-build event
+set(hearthstonepp_header_gen_py ${root_dir}/Scripts/header_gen.py)
+add_custom_command(
+    COMMAND python ${hearthstonepp_header_gen_py}
+    DEPENDS ${headers}
+    OUTPUT ${root_dir}/Includes/hspp.h
+)
+add_custom_target(hearthstonepp_header_gen_py ALL
+    DEPENDS ${root_dir}/Includes/hspp.h)
+
 # Build library
 add_library(${target}
     ${sources})
+add_dependencies(${target} hearthstonepp_header_gen_py)
 
 # Project options
 set_target_properties(${target}
