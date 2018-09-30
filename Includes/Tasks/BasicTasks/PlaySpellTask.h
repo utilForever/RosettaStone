@@ -1,5 +1,5 @@
-#ifndef HEARTHSTONEPP_PLAYSPELL_H
-#define HEARTHSTONEPP_PLAYSPELL_H
+#ifndef HEARTHSTONEPP_PLAY_SPELL_TASK_H
+#define HEARTHSTONEPP_PLAY_SPELL_TASK_H
 
 #include <Tasks/Requirement.h>
 #include <Tasks/TaskAgent.h>

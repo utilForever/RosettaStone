@@ -1,5 +1,5 @@
-#ifndef HEARTHSTONEPP_COMBAT_H
-#define HEARTHSTONEPP_COMBAT_H
+#ifndef HEARTHSTONEPP_COMBAT_TASK_H
+#define HEARTHSTONEPP_COMBAT_TASK_H
 
 #include <Flatbuffers/generated/FlatData_generated.h>
 #include <Tasks/Requirement.h>

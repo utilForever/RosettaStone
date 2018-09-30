@@ -1,5 +1,5 @@
-#ifndef HEARTHSTONEPP_MULLIGAN_H
-#define HEARTHSTONEPP_MULLIGAN_H
+#ifndef HEARTHSTONEPP_MULLIGAN_TASK_H
+#define HEARTHSTONEPP_MULLIGAN_TASK_H
 
 #include <Tasks/Requirement.h>
 #include <Tasks/TaskAgent.h>

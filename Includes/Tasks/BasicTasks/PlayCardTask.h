@@ -1,5 +1,5 @@
-#ifndef HEARTHSTONEPP_PLAYCARD_H
-#define HEARTHSTONEPP_PLAYCARD_H
+#ifndef HEARTHSTONEPP_PLAY_CARD_TASK_H
+#define HEARTHSTONEPP_PLAY_CARD_TASK_H
 
 #include <Flatbuffers/generated/FlatData_generated.h>
 #include <Tasks/Requirement.h>

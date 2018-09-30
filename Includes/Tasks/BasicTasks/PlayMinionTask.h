@@ -1,5 +1,5 @@
-#ifndef HEARTHSTONEPP_PLAYMINION_H
-#define HEARTHSTONEPP_PLAYMINION_H
+#ifndef HEARTHSTONEPP_PLAY_MINION_TASK_H
+#define HEARTHSTONEPP_PLAY_MINION_TASK_H
 
 #include <Tasks/Requirement.h>
 #include <Tasks/TaskAgent.h>

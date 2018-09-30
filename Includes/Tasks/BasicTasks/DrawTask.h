@@ -1,5 +1,5 @@
-#ifndef HEARTHSTONEPP_DRAW_H
-#define HEARTHSTONEPP_DRAW_H
+#ifndef HEARTHSTONEPP_DRAW_TASK_H
+#define HEARTHSTONEPP_DRAW_TASK_H
 
 #include <Tasks/TaskAgent.h>
 #include <Tasks/Tasks.h>

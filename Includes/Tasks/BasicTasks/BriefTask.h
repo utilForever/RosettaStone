@@ -1,5 +1,5 @@
-#ifndef HEARTHSTONEPP_BRIEF_H
-#define HEARTHSTONEPP_BRIEF_H
+#ifndef HEARTHSTONEPP_BRIEF_TASK_H
+#define HEARTHSTONEPP_BRIEF_TASK_H
 
 #include <Tasks/Tasks.h>
 
