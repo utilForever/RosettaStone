@@ -1,11 +1,9 @@
-/*************************************************************************
-> File Name: CardEnums.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Enumerations for card data.
-> Created Time: 2017/08/11
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #ifndef HEARTHSTONEPP_CARD_ENUMS_H
 #define HEARTHSTONEPP_CARD_ENUMS_H
 

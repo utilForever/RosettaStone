@@ -1,5 +1,11 @@
-#ifndef HEARTHSTONEPP_TASKMETA_H
-#define HEARTHSTONEPP_TASKMETA_H
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
+#ifndef HEARTHSTONEPP_TASK_META_H
+#define HEARTHSTONEPP_TASK_META_H
 
 #include <hspp/Accounts/Player.h>
 #include <hspp/Enums/TaskEnums.h>
