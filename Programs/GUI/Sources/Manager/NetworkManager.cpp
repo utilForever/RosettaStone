@@ -1,16 +1,14 @@
-/*************************************************************************
-> File Name: NetworkManager.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Network manager of Hearthstone++ GUI program.
-> Created Time: 2018/06/06
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #include <Manager/GameManager.h>
 #include <Manager/NetworkManager.h>
 
-#include <Commons/Macros.h>
-#include <Loaders/AccountLoader.h>
+#include <hspp/Commons/Macros.h>
+#include <hspp/Loaders/AccountLoader.h>
 
 #ifdef HEARTHSTONEPP_WINDOWS
 #include <filesystem>

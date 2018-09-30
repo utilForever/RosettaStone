@@ -1,16 +1,14 @@
-/*************************************************************************
-> File Name: SceneManager.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Scene manager of Hearthstone++ GUI program.
-> Created Time: 2018/05/31
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #include <Manager/GameManager.h>
 #include <Manager/SceneManager.h>
 #include <Utils/Constants.h>
 
-#include <Commons/Macros.h>
+#include <hspp/Commons/Macros.h>
 
 #include <imgui/imgui-SFML.h>
 #include <SFML/System/Clock.hpp>

@@ -1,11 +1,9 @@
-/*************************************************************************
-> File Name: main.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Main entry of Hearthstone++ console program.
-> Created Time: 2017/08/10
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #include "Console.h"
 
 using namespace Hearthstonepp;

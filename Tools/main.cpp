@@ -1,12 +1,10 @@
-/*************************************************************************
-> File Name: main.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Main entry of Hearthstone++ tool.
-> Created Time: 2018/08/21
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
-#include <Cards/Cards.h>
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
+#include <hspp/Cards/Cards.h>
 
 #include <clara.hpp>
 

@@ -1,19 +1,17 @@
-/*************************************************************************
-> File Name: Console.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Console version of Hearthstone++ game.
-> Created Time: 2017/10/08
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #ifndef HEARTHSTONEPP_CONSOLE_H
 #define HEARTHSTONEPP_CONSOLE_H
 
-#include <Accounts/Account.h>
-#include <Commons/Constants.h>
-#include <Commons/Macros.h>
-#include <Cards/Cards.h>
-#include <Cards/Deck.h>
+#include <hspp/Accounts/Account.h>
+#include <hspp/Commons/Constants.h>
+#include <hspp/Commons/Macros.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Cards/Deck.h>
 
 #include <clara.hpp>
 
@@ -25,6 +23,11 @@
 #include <experimental/optional>
 #endif
 #include <regex>
+
+constexpr std::size_t LOGIN_MENU_SIZE = 3;
+constexpr std::size_t MAIN_MENU_SIZE = 4;
+constexpr std::size_t MANAGE_DECK_MENU_SIZE = 4;
+constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
 
 inline std::string ToString(const clara::Opt& opt)
 {
@@ -138,7 +141,7 @@ class Console
     std::array<std::function<void(Console&)>, MANAGE_DECK_MENU_SIZE - 1>
         m_manageDeckFuncs = {&Console::CreateDeck, &Console::ModifyDeck,
                              &Console::DeleteDeck};
-    std::array<std::string, PLAYER_CLASS_SIZE> m_playerClassStr = {
+    std::array<std::string, NUM_PLAYER_CLASS> m_playerClassStr = {
         "1. Druid", "2. Hunter", "3. Mage",    "4. Paladin", "5. Priest",
         "6. Rogue", "7. Shaman", "8. Warlock", "9. Warrior"};
     std::array<std::string, CREATE_DECK_MENU_SIZE> m_deckOperationStr = {

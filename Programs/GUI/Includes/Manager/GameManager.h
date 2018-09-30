@@ -1,15 +1,13 @@
-/*************************************************************************
-> File Name: GameManager.h
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Game manager of Hearthstone++ GUI program.
-> Created Time: 2018/05/31
-> Copyright (c) 2018, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #ifndef HEARTHSTONEPP_GUI_GAME_MANAGER_H
 #define HEARTHSTONEPP_GUI_GAME_MANAGER_H
 
-#include <Accounts/Account.h>
+#include <hspp/Accounts/Account.h>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>

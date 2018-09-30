@@ -1,13 +1,19 @@
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #include "gtest/gtest.h"
 
-#include <Cards/Card.h>
-#include <Enums/CardEnums.h>
+#include <hspp/Cards/Card.h>
+#include <hspp/Enums/CardEnums.h>
 
 using namespace Hearthstonepp;
 
 TEST(TestCard, Constructer)
 {
-	Card card1;
+    Card card1;
     card1.id = "cardTest1";
     card1.rarity = Rarity::COMMON;
     card1.faction = Faction::NEUTRAL;
@@ -35,16 +41,16 @@ TEST(TestCard, Constructer)
     card2.cost = 1;
     card2.Initialize();
 
-	EXPECT_NO_THROW(card1.ShowBriefInfo());
-	EXPECT_NO_THROW(card1.ShowInfo());
-	EXPECT_EQ("cardTest1", card1.id);
-	EXPECT_EQ(+Rarity::COMMON, card1.rarity);
-	EXPECT_EQ(+CardClass::NEUTRAL, card1.cardClass);
-	EXPECT_EQ(+CardType::MINION, card1.cardType);
-	EXPECT_EQ(+Race::DRAGON, card1.race);
-	EXPECT_EQ(1, static_cast<int>(card1.cost));
-	EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
-	EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
+    EXPECT_NO_THROW(card1.ShowBriefInfo());
+    EXPECT_NO_THROW(card1.ShowInfo());
+    EXPECT_EQ("cardTest1", card1.id);
+    EXPECT_EQ(+Rarity::COMMON, card1.rarity);
+    EXPECT_EQ(+CardClass::NEUTRAL, card1.cardClass);
+    EXPECT_EQ(+CardType::MINION, card1.cardType);
+    EXPECT_EQ(+Race::DRAGON, card1.race);
+    EXPECT_EQ(1, static_cast<int>(card1.cost));
+    EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
+    EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
     EXPECT_EQ(true, card1.isCollectible);
 }    
 

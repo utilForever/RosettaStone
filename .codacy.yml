@@ -1,0 +1,6 @@
+exclude_paths:
+  - Datas/**
+  - Documents/**
+  - Libraries/**
+  - Resources/**
+  - Scripts/**

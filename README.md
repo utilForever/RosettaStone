@@ -1,6 +1,6 @@
 # Hearthstone++
 
-<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Logo.png" align="center" width=256 height=256 />
+<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Logo.png" width=256 height=256 />
 
 [![License](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://github.com/utilForever/Hearthstonepp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/Hearthstonepp.svg?branch=master)](https://travis-ci.org/utilForever/Hearthstonepp/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/Hearthstonepp?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/Hearthstonepp/branch/master) [![codecov](https://codecov.io/gh/utilForever/Hearthstonepp/branch/master/graph/badge.svg)](https://codecov.io/gh/utilForever/Hearthstonepp)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ffcbfe61470e4f9da7131db3abb34487)](https://app.codacy.com/app/utilForever/Hearthstonepp?utm_source=github.com&utm_medium=referral&utm_content=utilForever/Hearthstonepp&utm_campaign=badger) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
@@ -11,80 +11,23 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 
 ## Key Features
 
-- JSON-based hearthstone card data
-- Console, GUI, web-based simulator
-- Reinforcement learning to "The Innkeeper" smart
-- C++ and Python API
+- Support C++17 based Hearthstone library
+- Provide console and GUI simulator
 
-## Card Ability
+## To-do Features
 
-- [ ] Adapt
-- [ ] Auto-Attack
-- [ ] Auto-cast
-- [ ] Battlecry
-- [ ] Can't attack
-- [ ] Cast spell
-- [x] Charge
-- [ ] Choose One
-- [ ] Choose Twice
-- [ ] Combo
-- [ ] Copy
-- [ ] Deal damage
-- [ ] Deathrattle
-- [x] Destroy
-- [ ] Discard
-- [ ] Discover
-- [x] Divine Shield
-- [ ] Draw cards
-- [ ] Echo
-- [ ] Elusive
-- [ ] Enrage
-- [ ] Equip
-- [ ] Forgetful
-- [x] Freeze
-- [ ] Gain Armor
-- [ ] Generate
-- [ ] Immune
-- [ ] Inspire
-- [ ] Joust
-- [ ] Lifesteal
-- [ ] Magnetic
-- [ ] Mega-Windfury
-- [ ] Modify cost
-- [ ] Overload
-- [ ] Permanent
-- [x] Poisonous
-- [ ] Put into battlefield
-- [ ] Put into hand
-- [ ] Quest
-- [ ] Recruit
-- [ ] Refresh Mana
-- [ ] Remove from deck
-- [ ] Replace
-- [x] Rush
-- [ ] Restore Health
-- [ ] Return to hand
-- [ ] Secret
-- [ ] Shuffle into deck
-- [ ] Silence
-- [ ] Spell Damage
-- [ ] Spend mana
-- [ ] Start of Game
-- [ ] Stealth
-- [x] Summon
-- [x] Taunt
-- [ ] Take control
-- [ ] Transform
-- [ ] Unlimited attacks
-- [ ] Upgradable
-- [x] Windfury
+- Upgrade "The Innkeeper" to smart
+- Recommend top-tier decks
+- Deck tracker
+- Web simulator
+- Python API
 
 ## Card Sets
 
 ### Basic & Classic
 
-- 4% Basic (6 of 142 Cards)
-- 6% Classic (14 of 239 Cards)
+- 10% Basic (15 of 142 Cards)
+- 2% Classic (5 of 236 Cards)
 - 0% Hall of Fame (0 of 10 Cards)
 
 ### Adventures
@@ -105,6 +48,12 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 - 0% Whispers of the Old Gods (0 of 134 Cards)
 - 0% The Grand Tournament (0 of 132 Cards)
 - 0% Goblins vs Gnomes (0 of 123 Cards)
+
+## Implementation List
+
+- [Ability list](./Documents/AbilityList.md)
+- [Card list](./Documents/CardList.md)
+- [Task list](./Documents/TaskList.md)
 
 ## Quick Start
 
@@ -143,13 +92,15 @@ Now run simulators, such as:
 bin/HSppConsole
 ```
 
-### Python API
+or
 
-TBA
+```
+bin/HsppGUI
+```
 
 ### More Instructions of Building the Code
 
-To learn how to build, test, and install the SDK, please check out [INSTALL.md](https://github.com/utilForever/Hearthstonepp/blob/master/INSTALL.md).
+To learn how to build, test, and install the SDK, please check out [Install.md](./Documents/Install.md).
 
 ## Documentation
 
@@ -157,7 +108,20 @@ All the documentations for the framework can be found from [the project website]
 
 ## How To Contribute
 
-Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please contact me.
+Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please check out [Contributing.md](./Documents/Contributing.md).
+
+  * [Code of Conduct](./Documents/CodeOfConduct.md)
+  * [Issues](./Documents/Issues.md)
+    * [How to Contribute in Issues](./Issues.md#how-to-contribute-in-issues)
+    * [Asking for General Help](./Issues.md#asking-for-general-help)
+    * [Submitting a Bug Report](./Issues.md#submitting-a-bug-report)
+    * [Triaging a Bug Report](./Issues.md#triaging-a-bug-report)
+    * [Resolving a Bug Report](./Issues.md#resolving-a-bug-report)
+  * [Pull request](./Documents/PullRequests.md)
+    * [Setting up your local environment](./PullRequests.md#setting-up-your-local-environment)
+    * [Making Changes](./PullRequests.md#making-changes)
+    * [How to add card](./HowToAddCard.md)
+    * [How to add task](./HowToAddTask.md)
 
 ## Contact
 

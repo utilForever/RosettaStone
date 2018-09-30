@@ -1,13 +1,19 @@
-#include <Utils/TestUtils.h>
-#include "gtest/gtest.h"
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Cards/Cards.h>
-#include <Cards/Minion.h>
-#include <Cards/Weapon.h>
-#include <Enchants/Enchant.h>
-#include <Managers/Player.h>
-#include <Tasks/TaskSerializer.h>
-#include <Tasks/Tasks.h>
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
+#include "gtest/gtest.h"
+#include <Utils/TestUtils.h>
+
+#include <hspp/Accounts/Player.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Cards/Minion.h>
+#include <hspp/Cards/Weapon.h>
+#include <hspp/Enchants/Enchant.h>
+#include <hspp/Tasks/TaskSerializer.h>
+#include <hspp/Tasks/Tasks.h>
 
 #include <random>
 

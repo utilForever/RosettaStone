@@ -1,8 +1,14 @@
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #ifndef UNIT_TESTS_RESPONSE_UTILS
 #define UNIT_TESTS_RESPONSE_UTILS
 
-#include <Managers/GameAgent.h>
-#include <Tasks/TaskMeta.h>
+#include <hspp/Managers/GameAgent.h>
+#include <hspp/Tasks/TaskMeta.h>
 
 #include <future>
 
