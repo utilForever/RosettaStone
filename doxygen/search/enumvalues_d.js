@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['naxx',['NAXX',['../namespace_hearthstonepp.html#a8aa03b2bfa1a4b7355f407e250809131a04bf85c3533ec2df347a76d0a8a12465',1,'Hearthstonepp']]],
+  ['nerubian',['NERUBIAN',['../namespace_hearthstonepp.html#a871012636606827331b75d9e40d16a19a3316cc4c1e579c89d7531b02241cf22e',1,'Hearthstonepp']]],
+  ['neutral',['NEUTRAL',['../namespace_hearthstonepp.html#a76bfe58a36dfb7b07ad8fffd4b40a857a31ba17aa58cdb681423f07ca21a6efc7',1,'Hearthstonepp']]],
+  ['next_5fally_5fbuff',['NEXT_ALLY_BUFF',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca559de465985942ccd25fb6352362a321',1,'Hearthstonepp']]],
+  ['next_5fstep',['NEXT_STEP',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca2d63e8167956e70bcf24d353552256b8',1,'Hearthstonepp']]],
+  ['nightelf',['NIGHTELF',['../namespace_hearthstonepp.html#a871012636606827331b75d9e40d16a19af6a46ff1f222cce5521825d3c1221278',1,'Hearthstonepp']]],
+  ['none',['NONE',['../namespace_hearthstonepp.html#a8aa03b2bfa1a4b7355f407e250809131ab50339a10e1de285ac99d4c3990b8693',1,'Hearthstonepp']]],
+  ['nullptr',['NULLPTR',['../namespace_hearthstonepp.html#a9e14a3d3eb2d4ef08c7c1acff660cd8cabf31abdbb1a298903e3a7f0edd0dcaf9',1,'Hearthstonepp']]],
+  ['num_5fattacks_5fthis_5fturn',['NUM_ATTACKS_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cafd8740177194dbdbde187a3c457fe47e',1,'Hearthstonepp']]],
+  ['num_5fcards_5fdrawn_5fthis_5fturn',['NUM_CARDS_DRAWN_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caa68bdfa58b58edfa41e02e50118800a9',1,'Hearthstonepp']]],
+  ['num_5fcards_5fplayed_5fthis_5fturn',['NUM_CARDS_PLAYED_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca01874efb8238b9e589677b8bc791f711',1,'Hearthstonepp']]],
+  ['num_5ffriendly_5fminions_5fthat_5fattacked_5fthis_5fturn',['NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cab301dd52896717e9413b4a65fde291c9',1,'Hearthstonepp']]],
+  ['num_5ffriendly_5fminions_5fthat_5fdied_5fthis_5fgame',['NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_GAME',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca3d3b650fd887ff4f0c2560c4ad6bc286',1,'Hearthstonepp']]],
+  ['num_5ffriendly_5fminions_5fthat_5fdied_5fthis_5fturn',['NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cabdf959df0758cbf083646a8f6309ca6b',1,'Hearthstonepp']]],
+  ['num_5fminions_5fkilled_5fthis_5fturn',['NUM_MINIONS_KILLED_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca6d095c48922afa558bca31de08a44e6f',1,'Hearthstonepp']]],
+  ['num_5fminions_5fplayed_5fthis_5fturn',['NUM_MINIONS_PLAYED_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca61aebebc30d5392f9c1561665795df71',1,'Hearthstonepp']]],
+  ['num_5fminions_5fplayer_5fkilled_5fthis_5fturn',['NUM_MINIONS_PLAYER_KILLED_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cab7f8a2e7672fdb8a26cb7e5b3a859575',1,'Hearthstonepp']]],
+  ['num_5foptions_5fplayed_5fthis_5fturn',['NUM_OPTIONS_PLAYED_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cad911af296471a91422bc02cf96468941',1,'Hearthstonepp']]],
+  ['num_5fresources_5fspent_5fthis_5fgame',['NUM_RESOURCES_SPENT_THIS_GAME',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca7f3a32bc7696ddfdbfc937a1c3b5db40',1,'Hearthstonepp']]],
+  ['num_5ftimes_5fhero_5fpower_5fused_5fthis_5fgame',['NUM_TIMES_HERO_POWER_USED_THIS_GAME',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cacce106cfc8fd5460039369feea4d3e54',1,'Hearthstonepp']]],
+  ['num_5fturns_5fin_5fplay',['NUM_TURNS_IN_PLAY',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca1c23a89861637aaea41cc3e4afdfad5f',1,'Hearthstonepp']]],
+  ['num_5fturns_5fleft',['NUM_TURNS_LEFT',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caa19c4bcc42babcccd31e7d241a4c5134',1,'Hearthstonepp']]]
+];

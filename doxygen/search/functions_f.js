@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['race',['race',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#a6b47950b2fbef03a0a24f19bd56cebcd',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS']]],
+  ['rarity',['rarity',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#ac1997596abb9c7080fefe20c30140b94',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS']]],
+  ['read',['Read',['../class_hearthstonepp_1_1_task_agent.html#a565a2229ac995249559821419984bb31',1,'Hearthstonepp::TaskAgent']]],
+  ['readbuffer',['ReadBuffer',['../class_hearthstonepp_1_1_sync_buffer.html#ab8324573c15e1c4f6c7115c98af01407',1,'Hearthstonepp::SyncBuffer']]],
+  ['required',['required',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#ad7b55894f759626f894a929c9482ef73',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS']]],
+  ['requirement',['Requirement',['../class_hearthstonepp_1_1_basic_tasks_1_1_requirement.html#a81d1152273337cd96e1786e53894a1c5',1,'Hearthstonepp::BasicTasks::Requirement']]],
+  ['requiretaskmetabuilder',['RequireTaskMetaBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_require_task_meta_builder.html#a1451566603a7f3a273fd20dd0a86868c',1,'Hearthstonepp::FlatData::RequireTaskMetaBuilder']]],
+  ['reset',['Reset',['../class_hearthstonepp_1_1_task_meta.html#a721fc14e5c7a91b9aac92f1b6557f311',1,'Hearthstonepp::TaskMeta']]],
+  ['responsemulliganbuilder',['ResponseMulliganBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_response_mulligan_builder.html#acb6c20cae2ff5ba06537ea35a6234256',1,'Hearthstonepp::FlatData::ResponseMulliganBuilder']]],
+  ['responseplaycardbuilder',['ResponsePlayCardBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_response_play_card_builder.html#a20df563b5611c31c956ee59e53911e5d',1,'Hearthstonepp::FlatData::ResponsePlayCardBuilder']]],
+  ['responseplayminionbuilder',['ResponsePlayMinionBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_response_play_minion_builder.html#adc8af368d9e1d611e2bbf34ccc9d7591',1,'Hearthstonepp::FlatData::ResponsePlayMinionBuilder']]],
+  ['responseplayspellbuilder',['ResponsePlaySpellBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_response_play_spell_builder.html#a6945479f4fb72cd4e071060ba8db9856',1,'Hearthstonepp::FlatData::ResponsePlaySpellBuilder']]],
+  ['responsetargetbuilder',['ResponseTargetBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_response_target_builder.html#ae611638428ab4e35e815582c09c717b8',1,'Hearthstonepp::FlatData::ResponseTargetBuilder']]],
+  ['run',['Run',['../class_hearthstonepp_1_1_task_agent.html#a6f0792d8187f7ad4d932bcbbefb5d215',1,'Hearthstonepp::TaskAgent::Run(TaskMeta &amp;meta, Player &amp;player1, Player &amp;player2, ITask &amp;task, bool notify=true)'],['../class_hearthstonepp_1_1_task_agent.html#a0db112e901c6131d4a440bba28d8903a',1,'Hearthstonepp::TaskAgent::Run(TaskMeta &amp;meta, Player &amp;player1, Player &amp;player2, ITask &amp;&amp;task, bool notify=true)'],['../class_hearthstonepp_1_1_i_task.html#a9e677f872fdc11515087d482905affa5',1,'Hearthstonepp::ITask::Run(Player &amp;player1, Player &amp;player2)'],['../class_hearthstonepp_1_1_i_task.html#adf2146b95716dca581c386baac418b08',1,'Hearthstonepp::ITask::Run(Player &amp;player1, Player &amp;player2, TaskMeta &amp;meta)']]],
+  ['runmulti',['RunMulti',['../class_hearthstonepp_1_1_task_agent.html#a50323202b3931c5d51fe7f543c47aa19',1,'Hearthstonepp::TaskAgent']]],
+  ['runtask',['RunTask',['../class_hearthstonepp_1_1_game_agent.html#a78e3b81ce596bc6d07a08a95d1c1b05d',1,'Hearthstonepp::GameAgent::RunTask(ITask &amp;task, Player &amp;player1, Player &amp;player2)'],['../class_hearthstonepp_1_1_game_agent.html#a73640040c4cd21f3a9e18920f9ea5683',1,'Hearthstonepp::GameAgent::RunTask(ITask &amp;&amp;task, Player &amp;player1, Player &amp;player2)']]]
+];
