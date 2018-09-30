@@ -48,7 +48,6 @@ cmake_policy(SET CMP0063 NEW)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 add_subdirectory(Sources/hspp)
-add_subdirectory(Libraries/imgui)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Tools)
 
