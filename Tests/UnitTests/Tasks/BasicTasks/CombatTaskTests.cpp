@@ -65,8 +65,8 @@ TEST(CombatTask, CombatDefault)
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
 
-    auto card1 = TestUtils::GenerateMinion("minion1", 3, 6);
-    auto card2 = TestUtils::GenerateMinion("minion2", 5, 4);
+    auto card1 = TestUtils::GenerateMinionCard("minion1", 3, 6);
+    auto card2 = TestUtils::GenerateMinionCard("minion2", 5, 4);
 
     Minion minion1(card1.get());
     Minion minion2(card2.get());
@@ -87,8 +87,8 @@ TEST(CombatTask, CombatDefault)
     EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
     EXPECT_EQ(player2.field.size(), static_cast<size_t>(0));
 
-    auto card3 = TestUtils::GenerateMinion("minion3", 5, 6);
-    auto card4 = TestUtils::GenerateMinion("minion4", 5, 4);
+    auto card3 = TestUtils::GenerateMinionCard("minion3", 5, 6);
+    auto card4 = TestUtils::GenerateMinionCard("minion4", 5, 4);
 
     Minion minion3(card3.get());
     Minion minion4(card4.get());
@@ -100,7 +100,7 @@ TEST(CombatTask, CombatDefault)
     EXPECT_EQ(player1.field[0]->health, static_cast<size_t>(1));
     EXPECT_EQ(player2.field.size(), static_cast<size_t>(0));
 
-    auto card5 = TestUtils::GenerateMinion("minion5", 5, 4);
+    auto card5 = TestUtils::GenerateMinionCard("minion5", 5, 4);
 
     Minion minion5(card5.get());
 
@@ -116,7 +116,7 @@ TEST(CombatTask, IndexOutOfRange)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
-    auto card = TestUtils::GenerateMinion("minion1", 1, 10);
+    auto card = TestUtils::GenerateMinionCard("minion1", 1, 10);
 
     Minion minion1(card.get());
     Minion minion2(card.get());
@@ -132,7 +132,7 @@ TEST(CombatTask, CombatTaunt)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
-    auto card = TestUtils::GenerateMinion("minion1", 1, 10);
+    auto card = TestUtils::GenerateMinionCard("minion1", 1, 10);
 
     Minion minion1(card.get());
     Minion minion2(card.get());
@@ -153,7 +153,7 @@ TEST(CombatTask, CombatStealth)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
-    auto card = TestUtils::GenerateMinion("minion", 1, 10);
+    auto card = TestUtils::GenerateMinionCard("minion", 1, 10);
 
     Minion minion1(card.get());
     Minion minion2(card.get());
@@ -175,7 +175,7 @@ TEST(CombatTask, CombatImmune)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
-    auto card = TestUtils::GenerateMinion("minion", 1, 10);
+    auto card = TestUtils::GenerateMinionCard("minion", 1, 10);
 
     Minion minion1(card.get());
     Minion minion2(card.get());
@@ -191,7 +191,7 @@ TEST(CombatTask, CombatAttackCount)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
-    auto card = TestUtils::GenerateMinion("minion", 1, 10);
+    auto card = TestUtils::GenerateMinionCard("minion", 1, 10);
 
     Minion minion1(card.get());
     Minion minion2(card.get());
@@ -212,7 +212,7 @@ TEST(CombatTask, CombatDivineShield)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
-    auto card = TestUtils::GenerateMinion("minion", 1, 10);
+    auto card = TestUtils::GenerateMinionCard("minion", 1, 10);
 
     Minion minion1(card.get());
     Minion minion2(card.get());
@@ -237,7 +237,7 @@ TEST(CombatTask, Poisonous)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
-    auto card = TestUtils::GenerateMinion("minion", 1, 10);
+    auto card = TestUtils::GenerateMinionCard("minion", 1, 10);
 
     Minion minion1(card.get());
     Minion minion2(card.get());

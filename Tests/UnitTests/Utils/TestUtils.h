@@ -31,7 +31,7 @@ TaskMetaTrait GenerateRandomTrait();
 
 TaskMeta GenerateRandomTaskMeta();
 
-std::unique_ptr<Card> GenerateMinion(std::string&& id, size_t attack, size_t health);
+std::unique_ptr<Card> GenerateMinionCard(std::string &&id, size_t attack, size_t health);
 
 std::unique_ptr<Card> ConvertCardFrom(const Card* card,
                                       const FlatData::Card* deserialized);

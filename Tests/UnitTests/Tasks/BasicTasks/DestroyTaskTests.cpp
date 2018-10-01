@@ -17,7 +17,7 @@ TEST(DestroyTask, Run)
     Player& player1 = gen.player1;
     Player& player2 = gen.player2;
 
-    auto card = TestUtils::GenerateMinion("minion1", 1, 1);
+    auto card = TestUtils::GenerateMinionCard("minion1", 1, 1);
     Minion minion(card.get());
 
     // Destroy Source Minion
