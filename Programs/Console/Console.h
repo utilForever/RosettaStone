@@ -117,11 +117,11 @@ class Console
     template <std::size_t SIZE>
     void ShowMenu(std::array<std::string, SIZE>& menus);
 
-    size_t InputMenuNum(std::string questionStr, size_t menuSize);
-    bool InputYesNo(std::string sentence) const;
+    size_t InputMenuNum(std::string& questionStr, size_t menuSize);
+    bool InputYesNo(std::string& sentence) const;
 
     std::tuple<SearchFilter, bool, bool> InputAndParseSearchCommand(
-        std::string commandStr) const;
+        std::string& commandStr) const;
     std::vector<Card*> ProcessSearchCommand(SearchFilter filter) const;
 
     std::vector<std::string> SplitString(std::string str,
