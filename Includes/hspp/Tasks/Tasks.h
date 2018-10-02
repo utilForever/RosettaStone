@@ -29,9 +29,6 @@ class ITask
     static inline constexpr bool isTask =
         std::is_convertible_v<std::decay_t<T>, ITask>;
 
-    //! Destructor: Releases pointers to source and target.
-    virtual ~ITask();
-
     //! Calls Impl method and returns meta data.
     //! \param player1 The first player.
     //! \param player2 The second player.

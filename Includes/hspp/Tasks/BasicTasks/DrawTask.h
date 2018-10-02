@@ -52,9 +52,6 @@ class DrawCardTask : public ITask
     //! \param card A pointer to card to draw from deck.
     DrawCardTask(const Card* card);
 
-    //! Destructor: Releases a pointer to entity.
-    ~DrawCardTask();
-
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;

@@ -103,11 +103,6 @@ DrawCardTask::DrawCardTask(const Card* card)
     }
 }
 
-DrawCardTask::~DrawCardTask()
-{
-    delete m_entity;
-}
-
 TaskID DrawCardTask::GetTaskID() const
 {
     return TaskID::DRAW;

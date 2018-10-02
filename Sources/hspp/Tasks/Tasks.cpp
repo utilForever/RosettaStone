@@ -9,12 +9,6 @@
 
 namespace Hearthstonepp
 {
-ITask::~ITask()
-{
-    delete source;
-    delete target;
-}
-
 MetaData ITask::Run(Player& player1, Player& player2)
 {
     return Impl(player1, player2);
