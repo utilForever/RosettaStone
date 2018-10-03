@@ -35,6 +35,21 @@ class Player
     //! \param deck A deck where cards are stored.
     Player(const Account* account, const Deck* deck);
 
+    //! Destructor: releases dynamic allocated resources.
+    ~Player();
+
+    //! Copy constructor.
+    Player(const Player& p);
+
+    //! Move constructor.
+    Player(Player&& p);
+
+    //! Copy assignment operator.
+    Player& operator=(const Player& p);
+
+    //! Move assignment operator.
+    Player& operator=(Player&& p);
+
     //! Operator overloading: The equality operator.
     bool operator==(const Player& player) const
     {

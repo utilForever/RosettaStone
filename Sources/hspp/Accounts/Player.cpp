@@ -58,4 +58,71 @@ Player::Player(const Account* account, const Deck* deck)
         cards.emplace_back(entity);
     }
 }
+
+Player::~Player()
+{
+    for (auto& card : cards)
+    {
+        delete card;
+    }
+    cards.clear();
+
+    for (auto& minion : field)
+    {
+        delete minion;
+    }
+    field.clear();
+
+    for (auto& card : hand)
+    {
+        delete card;
+    }
+    hand.clear();
+
+    for (auto& spell : usedSpell)
+    {
+        delete spell;
+    }
+    usedSpell.clear();
+
+    for (auto& minion : usedMinion)
+    {
+        delete minion;
+    }
+    usedMinion.clear();
+}
+
+Player::Player(const Player& p)
+{
+    *this = p;
+}
+
+Player::Player(Player&& p)
+{
+    *this = std::move(p);
+}
+
+Player& Player::operator=(const Player& p)
+{
+    hero = p.hero;
+    power = p.power;
+    field = p.field;
+    hand = p.hand;
+    usedSpell = p.usedSpell;
+    usedMinion = p.usedMinion;
+
+    return *this;
+}
+
+Player& Player::operator=(Player&& p)
+{
+    hero = p.hero;
+    power = p.power;
+    field = std::move(p.field);
+    hand = std::move(p.hand);
+    usedSpell = std::move(p.usedSpell);
+    usedMinion = std::move(p.usedMinion);
+
+    return *this;
+}
 }  // namespace Hearthstonepp
