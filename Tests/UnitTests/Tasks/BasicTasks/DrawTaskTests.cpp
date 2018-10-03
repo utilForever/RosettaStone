@@ -24,15 +24,15 @@ TEST(DrawTask, GetTaskID)
 
 TEST(DrawTask, Run)
 {
-    std::vector<std::unique_ptr<Card>> cards;
-    std::vector<std::unique_ptr<Entity>> entities;
+    std::vector<Card*> cards;
+    std::vector<Entity*> entities;
     auto generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(std::make_unique<Card>());
-        Card* card = cards.back().get();
+        cards.emplace_back(new Card);
+        Card* card = cards.back();
         card->id = std::move(id);
 
-        entities.emplace_back(std::make_unique<Entity>(card));
-        return entities.back().get();
+        entities.emplace_back(new Entity(card));
+        return entities.back();
     };
 
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
@@ -71,11 +71,11 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(gen.player1.hero->health,
               static_cast<size_t>(24));  // 30 - (1 + 2 + 3)
 
-    auto card = std::make_unique<Card>();
+    auto card = new Card;
     card->id = "card1";
 
-    auto entity = std::make_unique<Entity>(card.get());
-    gen.player1.cards.emplace_back(entity.get());
+    auto entity = new Entity(card);
+    gen.player1.cards.emplace_back(entity);
 
     result = draw.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
@@ -89,15 +89,15 @@ TEST(DrawTask, RunExhaust)
 
 TEST(DrawTask, RunOverDraw)
 {
-    std::vector<std::unique_ptr<Card>> cards;
-    std::vector<std::unique_ptr<Entity>> entities;
+    std::vector<Card*> cards;
+    std::vector<Entity*> entities;
     auto generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(std::make_unique<Card>());
-        Card* card = cards.back().get();
+        cards.emplace_back(new Card);
+        Card* card = cards.back();
         card->id = std::move(id);
 
-        entities.emplace_back(std::make_unique<Entity>(card));
-        return entities.back().get();
+        entities.emplace_back(new Entity(card));
+        return entities.back();
     };
 
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
@@ -136,15 +136,15 @@ TEST(DrawTask, RunOverDraw)
 
 TEST(DrawTask, RunExhaustOverdraw)
 {
-    std::vector<std::unique_ptr<Card>> cards;
-    std::vector<std::unique_ptr<Entity>> entities;
+    std::vector<Card*> cards;
+    std::vector<Entity*> entities;
     auto generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(std::make_unique<Card>());
-        Card* card = cards.back().get();
+        cards.emplace_back(new Card);
+        Card* card = cards.back();
         card->id = std::move(id);
 
-        entities.emplace_back(std::make_unique<Entity>(card));
-        return entities.back().get();
+        entities.emplace_back(new Entity(card));
+        return entities.back();
     };
 
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
@@ -184,8 +184,8 @@ TEST(DrawTask, RunExhaustOverdraw)
 
 TEST(DrawCardTask, GetTaskID)
 {
-    auto card = std::make_unique<Card>();
-    BasicTasks::DrawCardTask draw(card.get());
+    auto card = new Card;
+    BasicTasks::DrawCardTask draw(card);
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
 }
 
@@ -202,10 +202,10 @@ TEST(DrawCardTask, Run)
     EXPECT_NE(poisonedBlade, static_cast<const Card*>(nullptr));
     EXPECT_EQ(poisonedBlade->name, "Poisoned Blade");
 
-    auto eNerubian = std::make_unique<Entity>(nerubian);
-    auto ePoisonedBlade = std::make_unique<Entity>(poisonedBlade);
-    gen.player1.cards.emplace_back(ePoisonedBlade.get());
-    gen.player1.cards.emplace_back(eNerubian.get());
+    auto eNerubian = new Entity(nerubian);
+    auto ePoisonedBlade = new Entity(poisonedBlade);
+    gen.player1.cards.emplace_back(ePoisonedBlade);
+    gen.player1.cards.emplace_back(eNerubian);
 
     BasicTasks::DrawCardTask drawNerubian(nerubian);
     MetaData result = drawNerubian.Run(gen.player1, gen.player2);
