@@ -12,4 +12,18 @@ Entity::Entity(const Card* pCard) : card(pCard)
 {
     // Do nothing
 }
+
+Entity::Entity(const Entity& ent)
+{
+    gameTags.clear();
+    delete card;
+
+    card = ent.card;
+    gameTags = ent.gameTags;
+}
+
+Entity* Entity::Clone() const
+{
+    return new Entity(*this);
+}
 }  // namespace Hearthstonepp

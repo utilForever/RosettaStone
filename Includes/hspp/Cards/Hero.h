@@ -24,7 +24,13 @@ struct Hero : public Character
     //! \param pCard A pointer to the card.
     Hero(const Card* pCard);
 
-    Weapon* weapon;
+    //! Copy constructor.
+    Hero(const Hero& hero);
+
+    //! Clones member variables.
+    Hero* Clone() const override;
+
+    Weapon* weapon = nullptr;
 };
 }  // namespace Hearthstonepp
 

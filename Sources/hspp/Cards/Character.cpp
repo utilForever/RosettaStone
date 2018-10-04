@@ -27,4 +27,17 @@ Character::Character(const Card* pCard) : Entity(pCard)
         maxHealth = health;
     }
 }
+
+Character::Character(const Character& c) : Entity(c)
+{
+    attack = c.attack;
+    attackableCount = c.attackableCount;
+    health = c.health;
+    maxHealth = c.maxHealth;
+}
+
+Character* Character::Clone() const
+{
+    return new Character(*this);
+}
 }  // namespace Hearthstonepp

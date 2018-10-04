@@ -12,4 +12,19 @@ Hero::Hero(const Card* pCard) : Character(pCard)
 {
     // Do nothing
 }
+
+Hero::Hero(const Hero& hero) : Character(hero)
+{
+    delete weapon;
+
+    if (hero.weapon != nullptr)
+    {
+        weapon = hero.weapon->Clone();        
+    }
+}
+
+Hero* Hero::Clone() const
+{
+    return new Hero(*this);
+}
 }  // namespace Hearthstonepp

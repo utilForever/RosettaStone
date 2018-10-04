@@ -12,4 +12,14 @@ HeroPower::HeroPower(const Card* pCard) : Entity(pCard)
 {
     // Do nothing
 }
+
+HeroPower::HeroPower(const HeroPower& power) : Entity(power)
+{
+    // Do nothing
+}
+
+HeroPower* HeroPower::Clone() const
+{
+    return new HeroPower(*this);
+}
 }  // namespace Hearthstonepp

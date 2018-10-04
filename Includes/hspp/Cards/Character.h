@@ -29,6 +29,12 @@ struct Character : public Entity
     //! Default destructor.
     virtual ~Character() = default;
 
+    //! Copy constructor.
+    Character(const Character& c);
+
+    //! Clones member variables.
+    Character* Clone() const override;
+
     size_t attack = 0;
     size_t attackableCount = 0;
     size_t health = 0;

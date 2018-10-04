@@ -20,8 +20,13 @@ Weapon::Weapon(const Card* pCard) : Entity(pCard)
 #endif
 }
 
-Weapon::~Weapon()
+Weapon::Weapon(const Weapon& weapon) : Entity(weapon)
 {
-    // Do nothing
+    durability = weapon.durability;
+}
+
+Weapon* Weapon::Clone() const
+{
+    return new Weapon(*this);
 }
 }  // namespace Hearthstonepp

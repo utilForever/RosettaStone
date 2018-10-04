@@ -28,7 +28,13 @@ struct Weapon : public Entity
     Weapon(const Card* pCard);
 
     //! Default destructor.
-    virtual ~Weapon();
+    virtual ~Weapon() = default;
+
+    //! Copy constructor.
+    Weapon(const Weapon& weapon);
+
+    //! Clones member variables.
+    Weapon* Clone() const override;
 
     size_t durability = 0;
 };

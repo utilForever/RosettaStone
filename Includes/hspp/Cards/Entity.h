@@ -35,6 +35,12 @@ struct Entity
     //! Destructor.
     virtual ~Entity() = default;
 
+    //! Copy constructor.
+    Entity(const Entity& ent);
+
+    //! Clones member variables.
+    virtual Entity* Clone() const;
+
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;

@@ -18,6 +18,11 @@ namespace Hearthstonepp
 //!
 struct Spell : public Entity
 {
+    //! Copy constructor.
+    Spell(const Spell& spell);
+
+    //! Clones member variables.
+    Spell* Clone() const override;
 };
 }  // namespace Hearthstonepp
 
