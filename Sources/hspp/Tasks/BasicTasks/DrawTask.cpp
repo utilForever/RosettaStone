@@ -88,19 +88,9 @@ MetaData DrawTask::Impl(Player& user, Player&)
     return result;
 }
 
-DrawCardTask::DrawCardTask(const Card* card)
+DrawCardTask::DrawCardTask(const Card* card) : m_card(card)
 {
-    switch (card->cardType)
-    {
-        case +CardType::MINION:
-            m_entity = new Minion(card);
-            break;
-        case +CardType::WEAPON:
-            m_entity = new Weapon(card);
-            break;
-        default:
-            m_entity = new Entity(card);
-    }
+    // Do nothing
 }
 
 TaskID DrawCardTask::GetTaskID() const
@@ -113,7 +103,18 @@ MetaData DrawCardTask::Impl(Player& user, Player&)
     std::vector<Entity*>& deck = user.cards;
     std::vector<Entity*>& hand = user.hand;
 
-    hand.emplace_back(m_entity);
+    switch (m_card->cardType)
+    {
+        case +CardType::MINION:
+            hand.emplace_back(new Minion(m_card));
+            break;
+        case +CardType::WEAPON:
+            hand.emplace_back(new Weapon(m_card));
+            break;
+        default:
+            hand.emplace_back(new Entity(m_card));
+    }
+
     if (!deck.empty())
     {
         deck.pop_back();

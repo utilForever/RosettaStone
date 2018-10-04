@@ -63,7 +63,7 @@ class DrawCardTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    Entity* m_entity;
+    const Card* m_card;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
