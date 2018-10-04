@@ -12,12 +12,7 @@ namespace Hearthstonepp
 {
 Player::Player(const Account* account, const Deck* deck)
     : id(USER_INVALID),
-      totalMana(0),
-      existMana(0),
-      exhausted(0),
-      email(account->GetEmail()),
-      hero(nullptr),
-      power(nullptr)
+      email(account->GetEmail())
 {
     Cards* cardsInstance = Cards::GetInstance();
     const CardClass cardclass = deck->GetClass();
@@ -97,7 +92,7 @@ Player::Player(const Player& p)
     *this = p;
 }
 
-Player::Player(Player&& p)
+Player::Player(Player&& p) noexcept
 {
     *this = std::move(p);
 }
@@ -114,7 +109,7 @@ Player& Player::operator=(const Player& p)
     return *this;
 }
 
-Player& Player::operator=(Player&& p)
+Player& Player::operator=(Player&& p) noexcept
 {
     hero = p.hero;
     power = p.power;
