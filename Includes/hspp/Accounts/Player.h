@@ -42,13 +42,13 @@ class Player
     Player(const Player& p);
 
     //! Move constructor.
-    Player(Player&& p);
+    Player(Player&& p) noexcept;
 
     //! Copy assignment operator.
     Player& operator=(const Player& p);
 
     //! Move assignment operator.
-    Player& operator=(Player&& p);
+    Player& operator=(Player&& p) noexcept;
 
     //! Operator overloading: The equality operator.
     bool operator==(const Player& player) const
@@ -56,14 +56,15 @@ class Player
         return this->email == player.email;
     }
 
-    BYTE id;
-    BYTE totalMana;
-    BYTE existMana;
-    BYTE exhausted;
+    Hero* hero = nullptr;
+    HeroPower* power = nullptr;
+
+    BYTE id = 0;
+    BYTE totalMana = 0;
+    BYTE existMana = 0;
+    BYTE exhausted = 0;
 
     std::string email;
-    Hero* hero;
-    HeroPower* power;
 
     // Card storage
     std::vector<Entity*> cards;
