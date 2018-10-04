@@ -11,8 +11,7 @@
 namespace Hearthstonepp
 {
 Player::Player(const Account* account, const Deck* deck)
-    : id(USER_INVALID),
-      email(account->GetEmail())
+    : id(USER_INVALID), email(account->GetEmail())
 {
     Cards* cardsInstance = Cards::GetInstance();
     const CardClass cardclass = deck->GetClass();
@@ -85,6 +84,9 @@ Player::~Player()
         delete minion;
     }
     usedMinion.clear();
+
+    delete hero;
+    delete power;
 }
 
 Player::Player(const Player& p)
@@ -99,20 +101,84 @@ Player::Player(Player&& p) noexcept
 
 Player& Player::operator=(const Player& p)
 {
-    hero = p.hero;
-    power = p.power;
-    field = p.field;
-    hand = p.hand;
-    usedSpell = p.usedSpell;
-    usedMinion = p.usedMinion;
+    if (*this == p)
+    {
+        return *this;
+    }
+
+    for (auto& card : cards)
+    {
+        delete card;
+    }
+    cards.clear();
+
+    for (auto& minion : field)
+    {
+        delete minion;
+    }
+    field.clear();
+
+    for (auto& card : hand)
+    {
+        delete card;
+    }
+    hand.clear();
+
+    for (auto& spell : usedSpell)
+    {
+        delete spell;
+    }
+    usedSpell.clear();
+
+    for (auto& minion : usedMinion)
+    {
+        delete minion;
+    }
+    usedMinion.clear();
+
+    delete hero;
+    delete power;
+
+    if (p.hero != nullptr)
+    {
+        hero = p.hero->Clone();        
+    }
+    if (p.power != nullptr)
+    {
+        power = p.power->Clone();        
+    }
+
+    field.resize(p.field.size());
+    std::transform(p.field.begin(), p.field.end(), field.begin(),
+                   [](Character* c) -> Character* { return c->Clone(); });
+
+    hand.resize(p.hand.size());
+    std::transform(p.hand.begin(), p.hand.end(), hand.begin(),
+                   [](Entity* e) -> Entity* { return e->Clone(); });
+
+    usedSpell.resize(p.usedSpell.size());
+    std::transform(p.usedSpell.begin(), p.usedSpell.end(), usedSpell.begin(),
+                   [](Spell* s) -> Spell* { return s->Clone(); });
+
+    usedMinion.resize(p.usedMinion.size());
+    std::transform(p.usedMinion.begin(), p.usedMinion.end(), usedMinion.begin(),
+                   [](Character* c) -> Character* { return c->Clone(); });
 
     return *this;
 }
 
 Player& Player::operator=(Player&& p) noexcept
 {
+    if (*this == p)
+    {
+        return *this;
+    }
+
     hero = p.hero;
+    p.hero = nullptr;
     power = p.power;
+    p.power = nullptr;
+
     field = std::move(p.field);
     hand = std::move(p.hand);
     usedSpell = std::move(p.usedSpell);
