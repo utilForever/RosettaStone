@@ -89,10 +89,8 @@ TEST(ClassicCardSet, CS2_187)
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_POSITION);
 
-    TaskMeta tempTaskMeta;
-    taskAgent.RunMulti(tempTaskMeta, player1, player2,
-                       BasicTasks::SwapPlayerTask(),
-                       BasicTasks::SwapPlayerTask());
+    result = agent.RunTask(BasicTasks::InitAttackCountTask(), player2, player1);
+    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
     // TODO: Add new test scenario for Taunt minion to interrupt opponent
     // minions from attacking the hero. CombatTask result must return FAILURE if
@@ -104,8 +102,8 @@ TEST(ClassicCardSet, CS2_187)
     EXPECT_EQ(result, MetaData::COMBAT_FIELD_HAVE_TAUNT);
 
     // Chillwind Yeti attack to Booty Bay Bodyguard with Taunt
-    resAutoTarget = response.Target(2, 1);
-    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player1, player2);
+    resAutoTarget = response.Target(1, 2);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(2));
