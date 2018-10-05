@@ -101,7 +101,7 @@ Player::Player(Player&& p) noexcept
 
 Player& Player::operator=(const Player& p)
 {
-    if (*this == p)
+    if (this == &p)
     {
         return *this;
     }
@@ -169,7 +169,7 @@ Player& Player::operator=(const Player& p)
 
 Player& Player::operator=(Player&& p) noexcept
 {
-    if (*this == p)
+    if (this == &p)
     {
         return *this;
     }
