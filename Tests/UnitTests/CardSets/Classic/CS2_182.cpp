@@ -71,7 +71,7 @@ TEST(ClassicCardSet, CS2_182)
                        BasicTasks::SwapPlayerTask());
 
     auto respAutoTarget = response.Target(1, 1);
-    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(2));
     EXPECT_EQ(agent.GetPlayer2().field.size(), static_cast<size_t>(0));

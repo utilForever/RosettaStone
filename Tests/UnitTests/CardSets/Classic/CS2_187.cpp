@@ -104,8 +104,8 @@ TEST(ClassicCardSet, CS2_187)
     EXPECT_EQ(result, MetaData::COMBAT_FIELD_HAVE_TAUNT);
 
     // Chillwind Yeti attack to Booty Bay Bodyguard with Taunt
-    resAutoTarget = response.Target(1, 2);
-    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
+    resAutoTarget = response.Target(2, 1);
+    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(2));
