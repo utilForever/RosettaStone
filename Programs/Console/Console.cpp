@@ -156,20 +156,20 @@ std::experimental::optional<Card*> Console::SearchCard()
         }
         else
         {
-            size_t idx = 1;
+            size_t cardIdx = 1;
 
             for (auto& card : result)
             {
-                std::cout << idx << ". ";
+                std::cout << cardIdx << ". ";
                 card->ShowBriefInfo();
                 std::cout << '\n';
 
-                idx++;
+                cardIdx++;
             }
 
             if (m_searchMode == SearchMode::AddCardInDeck)
             {
-                const size_t selectedCardIndex = InputMenuNum("Select: ", idx);
+                const size_t selectedCardIndex = InputMenuNum("Select: ", cardIdx);
                 return result.at(selectedCardIndex);
             }
         }
@@ -612,7 +612,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     return std::make_tuple(filter, isValid, isFinish);
 }
 
-std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
+std::vector<Card*> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
     std::vector<Card*> result;
 
