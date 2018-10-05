@@ -22,6 +22,22 @@ Entity::Entity(const Entity& ent)
     gameTags = ent.gameTags;
 }
 
+Entity& Entity::operator=(const Entity& ent)
+{
+    if (this == &ent)
+    {
+        return *this;
+    }
+
+    gameTags.clear();
+    delete card;
+
+    card = ent.card;
+    gameTags = ent.gameTags;
+
+    return *this;
+}
+
 Entity* Entity::Clone() const
 {
     return new Entity(*this);

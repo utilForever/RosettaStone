@@ -38,6 +38,9 @@ struct Entity
     //! Copy constructor.
     Entity(const Entity& ent);
 
+    //! Copy assignment operator.
+    Entity& operator=(const Entity& ent);
+
     //! Clones member variables.
     virtual Entity* Clone() const;
 

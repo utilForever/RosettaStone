@@ -33,6 +33,9 @@ struct Weapon : public Entity
     //! Copy constructor.
     Weapon(const Weapon& weapon);
 
+    //! Copy assignment operator.
+    Weapon& operator=(const Weapon& weapon);
+
     //! Clones member variables.
     Weapon* Clone() const override;
 

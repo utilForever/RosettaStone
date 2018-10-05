@@ -21,6 +21,9 @@ struct Spell : public Entity
     //! Copy constructor.
     Spell(const Spell& spell);
 
+    //! Copy assignment operator.
+    Spell& operator=(const Spell& spell);
+
     //! Clones member variables.
     Spell* Clone() const override;
 };

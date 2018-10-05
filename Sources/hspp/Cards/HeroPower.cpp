@@ -18,6 +18,16 @@ HeroPower::HeroPower(const HeroPower& power) : Entity(power)
     // Do nothing
 }
 
+HeroPower& HeroPower::operator=(const HeroPower& power)
+{
+    if (this == &power)
+    {
+        return *this;
+    }
+
+    return *this;
+}
+
 HeroPower* HeroPower::Clone() const
 {
     return new HeroPower(*this);

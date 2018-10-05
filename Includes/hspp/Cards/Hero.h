@@ -27,6 +27,9 @@ struct Hero : public Character
     //! Copy constructor.
     Hero(const Hero& hero);
 
+    //! Copy assignment operator.
+    Hero& operator=(const Hero& hero);
+
     //! Clones member variables.
     Hero* Clone() const override;
 

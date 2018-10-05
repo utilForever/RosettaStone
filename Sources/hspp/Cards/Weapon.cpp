@@ -25,6 +25,18 @@ Weapon::Weapon(const Weapon& weapon) : Entity(weapon)
     durability = weapon.durability;
 }
 
+Weapon& Weapon::operator=(const Weapon& weapon)
+{
+    if (this == &weapon)
+    {
+        return *this;
+    }
+
+    durability = weapon.durability;
+
+    return *this;
+}
+
 Weapon* Weapon::Clone() const
 {
     return new Weapon(*this);

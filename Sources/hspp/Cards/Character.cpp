@@ -36,6 +36,21 @@ Character::Character(const Character& c) : Entity(c)
     maxHealth = c.maxHealth;
 }
 
+Character& Character::operator=(const Character& c)
+{
+    if (this == &c)
+    {
+        return *this;
+    }
+
+    attack = c.attack;
+    attackableCount = c.attackableCount;
+    health = c.health;
+    maxHealth = c.maxHealth;
+
+    return *this;
+}
+
 Character* Character::Clone() const
 {
     return new Character(*this);

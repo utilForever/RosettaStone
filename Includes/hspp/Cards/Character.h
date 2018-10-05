@@ -32,6 +32,9 @@ struct Character : public Entity
     //! Copy constructor.
     Character(const Character& c);
 
+    //! Copy assignment operator.
+    Character& operator=(const Character& c);
+
     //! Clones member variables.
     Character* Clone() const override;
 

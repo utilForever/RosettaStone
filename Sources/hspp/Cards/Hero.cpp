@@ -23,6 +23,23 @@ Hero::Hero(const Hero& hero) : Character(hero)
     }
 }
 
+Hero& Hero::operator=(const Hero& hero)
+{
+    if (this == &hero)
+    {
+        return *this;
+    }
+
+    delete weapon;
+
+    if (hero.weapon != nullptr)
+    {
+        weapon = hero.weapon->Clone();
+    }
+
+    return *this;
+}
+
 Hero* Hero::Clone() const
 {
     return new Hero(*this);

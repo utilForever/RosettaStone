@@ -25,6 +25,9 @@ struct HeroPower : public Entity
     //! Copy constructor.
     HeroPower(const HeroPower& power);
 
+    //! Copy assignment operator.
+    HeroPower& operator=(const HeroPower& power);
+
     //! Clones member variables.
     HeroPower* Clone() const override;
 };
