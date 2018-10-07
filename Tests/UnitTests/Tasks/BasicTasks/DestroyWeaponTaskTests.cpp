@@ -24,5 +24,5 @@ TEST(DestroyWeaponTask, Run)
 
     MetaData result = destroy.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DESTROY_WEAPON_SUCCESS);
-    EXPECT_EQ(gen.player1.hero->weapon, nullptr);
+    EXPECT_EQ(gen.player1.hero->weapon, static_cast<const Weapon*>(nullptr));
 }

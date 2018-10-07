@@ -26,5 +26,5 @@ TEST(ShuffleTask, Run)
 
     MetaData result = init.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::SHUFFLE_SUCCESS);
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<u_long>(5));
+    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(5));
 }
