@@ -80,9 +80,11 @@ class Player
     void FreeMemory();
 
     //! Copies data from given \p p.
+    //! \param p An instance of Player class to copy data.
     void CopyData(const Player& p);
 
     //! Moves data from given \p p.
+    //! \param p An instance of Player class to move data.
     void MoveData(Player&& p);
 };
 }  // namespace Hearthstonepp
