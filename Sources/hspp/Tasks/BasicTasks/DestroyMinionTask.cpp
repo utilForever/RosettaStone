@@ -27,7 +27,9 @@ MetaData DestroyMinionTask::Impl(Player& player1, Player&)
     auto ptr = std::find(field.begin(), field.end(), m_character);
     if (ptr != field.end())
     {
+        delete *ptr;
         field.erase(ptr);
+
         return MetaData::DESTROY_MINION_SUCCESS;
     }
 
