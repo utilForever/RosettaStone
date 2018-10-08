@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <hspp/Accounts/Player.h>
-#include <hspp/Commons/Constants.h>
 #include <hspp/Tasks/TaskMeta.h>
 
 namespace Hearthstonepp
@@ -14,15 +13,15 @@ Player::Player(const Account* account, const Deck* deck)
     : id(USER_INVALID), email(account->GetEmail())
 {
     Cards* cardsInstance = Cards::GetInstance();
-    const CardClass cardclass = deck->GetClass();
+    const CardClass cardClass = deck->GetClass();
 
-    const Card* heroCard = cardsInstance->GetHeroCard(cardclass);
+    const Card* heroCard = cardsInstance->GetHeroCard(cardClass);
     if (heroCard != nullptr)
     {
         hero = new Hero(heroCard);
     }
 
-    const Card* powerCard = cardsInstance->GetDefaultHeroPower(cardclass);
+    const Card* powerCard = cardsInstance->GetDefaultHeroPower(cardClass);
     if (powerCard != nullptr)
     {
         power = new HeroPower(powerCard);
@@ -55,48 +54,21 @@ Player::Player(const Account* account, const Deck* deck)
 
 Player::~Player()
 {
-    for (auto& card : cards)
-    {
-        delete card;
-    }
-    cards.clear();
-
-    for (auto& minion : field)
-    {
-        delete minion;
-    }
-    field.clear();
-
-    for (auto& card : hand)
-    {
-        delete card;
-    }
-    hand.clear();
-
-    for (auto& spell : usedSpell)
-    {
-        delete spell;
-    }
-    usedSpell.clear();
-
-    for (auto& minion : usedMinion)
-    {
-        delete minion;
-    }
-    usedMinion.clear();
-
-    delete hero;
-    delete power;
+    FreeMemory();
 }
 
 Player::Player(const Player& p)
 {
-    *this = p;
+    FreeMemory();
+
+    CopyData(p);
 }
 
 Player::Player(Player&& p) noexcept
 {
-    *this = std::move(p);
+    FreeMemory();
+
+    MoveData(std::move(p));
 }
 
 Player& Player::operator=(const Player& p)
@@ -106,6 +78,29 @@ Player& Player::operator=(const Player& p)
         return *this;
     }
 
+    FreeMemory();
+
+    CopyData(p);
+
+    return *this;
+}
+
+Player& Player::operator=(Player&& p) noexcept
+{
+    if (this == &p)
+    {
+        return *this;
+    }
+
+    FreeMemory();
+
+    MoveData(std::move(p));
+
+    return *this;
+}
+
+void Player::FreeMemory()
+{
     for (auto& card : cards)
     {
         delete card;
@@ -138,14 +133,17 @@ Player& Player::operator=(const Player& p)
 
     delete hero;
     delete power;
+}
 
+void Player::CopyData(const Player& p)
+{
     if (p.hero != nullptr)
     {
-        hero = p.hero->Clone();        
+        hero = p.hero->Clone();
     }
     if (p.power != nullptr)
     {
-        power = p.power->Clone();        
+        power = p.power->Clone();
     }
 
     field.resize(p.field.size());
@@ -163,17 +161,10 @@ Player& Player::operator=(const Player& p)
     usedMinion.resize(p.usedMinion.size());
     std::transform(p.usedMinion.begin(), p.usedMinion.end(), usedMinion.begin(),
                    [](Character* c) -> Character* { return c->Clone(); });
-
-    return *this;
 }
 
-Player& Player::operator=(Player&& p) noexcept
+void Player::MoveData(Player&& p)
 {
-    if (this == &p)
-    {
-        return *this;
-    }
-
     hero = p.hero;
     p.hero = nullptr;
     power = p.power;
@@ -183,7 +174,5 @@ Player& Player::operator=(Player&& p) noexcept
     hand = std::move(p.hand);
     usedSpell = std::move(p.usedSpell);
     usedMinion = std::move(p.usedMinion);
-
-    return *this;
 }
 }  // namespace Hearthstonepp

@@ -35,7 +35,7 @@ class Player
     //! \param deck A deck where cards are stored.
     Player(const Account* account, const Deck* deck);
 
-    //! Destructor: releases dynamic allocated resources.
+    //! Destructor.
     ~Player();
 
     //! Copy constructor.
@@ -74,6 +74,16 @@ class Player
     std::vector<Entity*> hand;
     std::vector<Spell*> usedSpell;
     std::vector<Character*> usedMinion;
+
+ private:
+    //! Releases dynamic allocated resources.
+    void FreeMemory();
+
+    //! Copies data from given \p p.
+    void CopyData(const Player& p);
+
+    //! Moves data from given \p p.
+    void MoveData(Player&& p);
 };
 }  // namespace Hearthstonepp
 
