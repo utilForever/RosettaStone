@@ -33,7 +33,7 @@ struct Entity
     Entity(const Card* pCard);
 
     //! Destructor.
-    virtual ~Entity() = default;
+    virtual ~Entity();
 
     //! Copy constructor.
     Entity(const Entity& ent);
@@ -47,6 +47,10 @@ struct Entity
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;
+
+private:
+    //! Releases dynamic allocated resources.
+    void FreeMemory();
 };
 }  // namespace Hearthstonepp
 

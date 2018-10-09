@@ -15,11 +15,15 @@ Entity::Entity(const Card* pCard) : card(pCard)
 
 Entity::Entity(const Entity& ent)
 {
-    gameTags.clear();
-    delete card;
+    FreeMemory();
 
     card = ent.card;
     gameTags = ent.gameTags;
+}
+
+Entity::~Entity()
+{
+    FreeMemory();
 }
 
 Entity& Entity::operator=(const Entity& ent)
@@ -29,8 +33,7 @@ Entity& Entity::operator=(const Entity& ent)
         return *this;
     }
 
-    gameTags.clear();
-    delete card;
+    FreeMemory();
 
     card = ent.card;
     gameTags = ent.gameTags;
@@ -41,5 +44,11 @@ Entity& Entity::operator=(const Entity& ent)
 Entity* Entity::Clone() const
 {
     return new Entity(*this);
+}
+
+void Entity::FreeMemory()
+{
+    gameTags.clear();
+    delete card;
 }
 }  // namespace Hearthstonepp
