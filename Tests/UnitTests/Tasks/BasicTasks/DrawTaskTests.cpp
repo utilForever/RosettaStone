@@ -16,7 +16,7 @@ using namespace Hearthstonepp;
 TEST(DrawTask, GetTaskID)
 {
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(gen.player1, gen.player2);
+    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
 
     BasicTasks::DrawTask draw(agent.GetTaskAgent(), 1);
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
@@ -36,22 +36,25 @@ TEST(DrawTask, Run)
     };
 
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(gen.player1, gen.player2);
+    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+
+    Player& p1 = agent.GetPlayer1();
+    Player& p2 = agent.GetPlayer2();
 
     std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
-        gen.player1.cards.emplace_back(generate(id + i));
+        p1.cards.emplace_back(generate(id + i));
     }
 
     BasicTasks::DrawTask draw(agent.GetTaskAgent(), 3);
-    MetaData result = draw.Run(gen.player1, gen.player2);
+    MetaData result = draw.Run(p1, p2);
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
-    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(3));
+    EXPECT_EQ(p1.hand.size(), static_cast<size_t>(3));
 
     for (size_t i = 0; i < 3; ++i)
     {
-        EXPECT_EQ(gen.player1.hand[i]->card->id,
+        EXPECT_EQ(p1.hand[i]->card->id,
                   id + static_cast<char>(2 - i + 0x30));
     }
 }
@@ -59,31 +62,33 @@ TEST(DrawTask, Run)
 TEST(DrawTask, RunExhaust)
 {
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(gen.player1, gen.player2);
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
+    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+
+    Player& p1 = agent.GetPlayer1();
+    EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
 
     BasicTasks::DrawTask draw(agent.GetTaskAgent(), 3);
-    MetaData result = draw.Run(gen.player1, gen.player2);
+    MetaData result = draw.Run(agent.GetPlayer1(), agent.GetPlayer2());
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
-    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(0));
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
-    EXPECT_EQ(gen.player1.exhausted, 3);
-    EXPECT_EQ(gen.player1.hero->health,
+    EXPECT_EQ(p1.hand.size(), static_cast<size_t>(0));
+    EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
+    EXPECT_EQ(p1.exhausted, 3);
+    EXPECT_EQ(p1.hero->health,
               static_cast<size_t>(24));  // 30 - (1 + 2 + 3)
 
     auto card = new Card;
     card->id = "card1";
 
     auto entity = new Entity(card);
-    gen.player1.cards.emplace_back(entity);
+    p1.cards.emplace_back(entity);
 
-    result = draw.Run(gen.player1, gen.player2);
+    result = draw.Run(agent.GetPlayer1(), agent.GetPlayer2());
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
-    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(gen.player1.hand[0]->card->id, "card1");
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
-    EXPECT_EQ(gen.player1.exhausted, 5);
-    EXPECT_EQ(gen.player1.hero->health,
+    EXPECT_EQ(p1.hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(p1.hand[0]->card->id, "card1");
+    EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
+    EXPECT_EQ(p1.exhausted, 5);
+    EXPECT_EQ(p1.hero->health,
               static_cast<size_t>(15));  // 30 - (1 + 2 + 3 + 4 + 5)
 }
 
@@ -101,27 +106,30 @@ TEST(DrawTask, RunOverDraw)
     };
 
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(gen.player1, gen.player2);
+    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+
+    Player& p1 = agent.GetPlayer1();
+    Player& p2 = agent.GetPlayer2();
 
     std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
-        gen.player1.cards.emplace_back(generate(id + i));
+        p1.cards.emplace_back(generate(id + i));
     }
 
-    gen.player1.hand.resize(10);
+    p1.hand.resize(10);
     BasicTasks::DrawTask draw(agent.GetTaskAgent(), 3);
-    MetaData result = draw.Run(gen.player1, gen.player2);
+    MetaData result = draw.Run(p1, p2);
     EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
-    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(10));
+    EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
+    EXPECT_EQ(p1.hand.size(), static_cast<size_t>(10));
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
 
     EXPECT_EQ(burnt.id, +TaskID::OVER_DRAW);
     EXPECT_EQ(burnt.status, MetaData::DRAW_OVERDRAW);
-    EXPECT_EQ(burnt.userID, gen.player1.id);
+    EXPECT_EQ(burnt.userID, p1.id);
 
     auto burntCard =
         TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
@@ -148,28 +156,31 @@ TEST(DrawTask, RunExhaustOverdraw)
     };
 
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(gen.player1, gen.player2);
+    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+
+    Player& p1 = agent.GetPlayer1();
+    Player& p2 = agent.GetPlayer2();
 
     std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
-        gen.player1.cards.emplace_back(generate(id + i));
+        p1.cards.emplace_back(generate(id + i));
     }
 
-    gen.player1.hand.resize(9);
+    p1.hand.resize(9);
     BasicTasks::DrawTask draw(agent.GetTaskAgent(), 4);
-    MetaData result = draw.Run(gen.player1, gen.player2);
+    MetaData result = draw.Run(p1, p2);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
-    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(10));
-    EXPECT_EQ(gen.player1.hand[9]->card->id, "card0");
+    EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
+    EXPECT_EQ(p1.hand.size(), static_cast<size_t>(10));
+    EXPECT_EQ(p1.hand[9]->card->id, "card0");
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
 
     EXPECT_EQ(burnt.id, +TaskID::OVER_DRAW);
     EXPECT_EQ(burnt.status, MetaData::DRAW_EXHAUST_OVERDRAW);
-    EXPECT_EQ(burnt.userID, gen.player1.id);
+    EXPECT_EQ(burnt.userID, p1.id);
 
     auto burntCard =
         TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();

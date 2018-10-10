@@ -23,7 +23,7 @@ TEST(CombatTask, CombatDefault)
 {
     TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
-    GameAgent agent(gen.player1, gen.player2);
+    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
     TestUtils::AutoResponder resp(agent);
     BasicTasks::CombatTask combat(agent.GetTaskAgent());
 

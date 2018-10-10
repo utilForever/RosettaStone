@@ -275,14 +275,14 @@ TEST(TaskSerializer, CreateGameStatus)
     player2.existMana = 20;
 
     Cards* cards = Cards::GetInstance();
-    const Card* nerubian = cards->FindCardByID("AT_036t");
-    const Card* poisonedBlade = cards->FindCardByID("AT_034");
 
-    player1.field.emplace_back(new Minion(nerubian));
-    player2.field.emplace_back(new Minion(nerubian));
+    // Summons 'Nerubian' card to field (minion)
+    player1.field.emplace_back(new Minion(cards->FindCardByID("AT_036t")));
+    player2.field.emplace_back(new Minion(cards->FindCardByID("AT_036t")));
 
-    player1.hand.emplace_back(new Weapon(poisonedBlade));
-    player2.hand.emplace_back(new Weapon(poisonedBlade));
+    // Draws 'Poisoned Blade' card (weapon)
+    player1.hand.emplace_back(new Weapon(cards->FindCardByID("AT_034")));
+    player2.hand.emplace_back(new Weapon(cards->FindCardByID("AT_034")));
 
     TaskMeta meta = Serializer::CreateGameStatus(randTrait.id, randTrait.status,
                                                  player1, player2);
