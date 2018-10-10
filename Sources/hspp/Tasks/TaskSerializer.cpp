@@ -21,23 +21,23 @@ flatbuffers::Offset<FlatData::Entity> CreateEntity(
         return FlatData::CreateEntity(builder);
     }
     return FlatData::CreateEntity(builder,
-                                  CreateCard(builder, entity->card, entity), 0);
+                                  CreateCard(builder, *entity->card, entity), 0);
 }
 
 flatbuffers::Offset<FlatData::Card> CreateCard(
-    flatbuffers::FlatBufferBuilder& builder, const Card* card,
+    flatbuffers::FlatBufferBuilder& builder, const Card& card,
     const Entity* entity)
 {
     std::vector<int> mechanics;
-    mechanics.reserve(card->mechanics.size());
-    for (const auto& mechanic : card->mechanics)
+    mechanics.reserve(card.mechanics.size());
+    for (const auto& mechanic : card.mechanics)
     {
         mechanics.emplace_back(static_cast<int>(mechanic));
     }
 
     std::vector<flatbuffers::Offset<FlatData::PlayRequirements>> requirements;
-    requirements.reserve(card->playRequirements.size());
-    for (const auto& [req, num] : card->playRequirements)
+    requirements.reserve(card.playRequirements.size());
+    for (const auto& [req, num] : card.playRequirements)
     {
         auto playReq = FlatData::CreatePlayRequirements(
             builder, static_cast<int>(req), num);
@@ -45,15 +45,15 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
     }
 
     std::vector<flatbuffers::Offset<flatbuffers::String>> entourages;
-    entourages.reserve(card->entourages.size());
-    for (const auto& entourage : card->entourages)
+    entourages.reserve(card.entourages.size());
+    for (const auto& entourage : card.entourages)
     {
         entourages.emplace_back(builder.CreateString(entourage));
     }
 
-    size_t attack = card->attack ? *card->attack : 0;
-    size_t health = card->health ? *card->health : 0;
-    size_t durability = card->durability ? *card->durability : 0;
+    size_t attack = card.attack ? *card.attack : 0;
+    size_t health = card.health ? *card.health : 0;
+    size_t durability = card.durability ? *card.durability : 0;
 
     if (entity != nullptr)
     {
@@ -70,15 +70,15 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         }
     }
     return FlatData::CreateCard(
-        builder, builder.CreateString(card->id), static_cast<int>(card->rarity),
-        static_cast<int>(card->faction), static_cast<int>(card->cardSet),
-        static_cast<int>(card->cardClass), static_cast<int>(card->cardType),
-        static_cast<int>(card->race), builder.CreateString(card->name),
-        builder.CreateString(card->text), card->isCollectible,
-        static_cast<int>(card->cost), static_cast<uint32_t>(attack),
+        builder, builder.CreateString(card.id), static_cast<int>(card.rarity),
+        static_cast<int>(card.faction), static_cast<int>(card.cardSet),
+        static_cast<int>(card.cardClass), static_cast<int>(card.cardType),
+        static_cast<int>(card.race), builder.CreateString(card.name),
+        builder.CreateString(card.text), card.isCollectible,
+        static_cast<int>(card.cost), static_cast<uint32_t>(attack),
         static_cast<uint32_t>(health), static_cast<uint32_t>(durability),
         builder.CreateVector(mechanics), builder.CreateVector(requirements),
-        builder.CreateVector(entourages), card->GetMaxAllowedInDeck());
+        builder.CreateVector(entourages), card.GetMaxAllowedInDeck());
 }
 
 TaskMeta CreateEntityVector(const TaskMetaTrait& trait,
@@ -115,7 +115,7 @@ TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
         auto buffer = builder.CreateVector(unique.get(), task.GetBufferSize());
 
         auto temporal = FlatData::CreateTaskMeta(builder, &trait, buffer);
-        flatten.emplace_back(std::move(temporal));
+        flatten.emplace_back(temporal);
     }
 
     // Convert std::vector to FlatData::TaskMetaVector

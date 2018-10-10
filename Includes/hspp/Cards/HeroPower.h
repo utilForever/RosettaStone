@@ -20,7 +20,7 @@ struct HeroPower : public Entity
 {
     //! Constructs hero power with given \p pCard.
     //! \param pCard A pointer to the card.
-    HeroPower(const Card* pCard);
+    HeroPower(Card& card);
 
     //! Copy constructor.
     HeroPower(const HeroPower& power);

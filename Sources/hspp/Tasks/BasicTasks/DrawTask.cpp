@@ -88,7 +88,7 @@ MetaData DrawTask::Impl(Player& user, Player&)
     return result;
 }
 
-DrawCardTask::DrawCardTask(const Card* card) : m_card(card)
+DrawCardTask::DrawCardTask(Card card) : m_card(card)
 {
     // Do nothing
 }
@@ -103,7 +103,7 @@ MetaData DrawCardTask::Impl(Player& user, Player&)
     std::vector<Entity*>& deck = user.cards;
     std::vector<Entity*>& hand = user.hand;
 
-    switch (m_card->cardType)
+    switch (m_card.cardType)
     {
         case +CardType::MINION:
             hand.emplace_back(new Minion(m_card));

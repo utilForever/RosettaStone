@@ -50,7 +50,7 @@ class DrawCardTask : public ITask
  public:
     //! Constructs task with given \p card.
     //! \param card A pointer to card to draw from deck.
-    DrawCardTask(const Card* card);
+    DrawCardTask(Card card);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -63,7 +63,7 @@ class DrawCardTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    const Card* m_card;
+    Card m_card;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

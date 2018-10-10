@@ -23,7 +23,7 @@ struct Minion : public Character
 
     //! Constructs minion with given \p pCard.
     //! \param pCard A pointer to the card.
-    Minion(const Card* pCard);
+    Minion(Card& card);
 
     //! Default destructor.
     virtual ~Minion() = default;

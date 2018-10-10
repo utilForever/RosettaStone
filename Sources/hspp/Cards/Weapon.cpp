@@ -9,13 +9,13 @@
 
 namespace Hearthstonepp
 {
-Weapon::Weapon(const Card* pCard) : Entity(pCard)
+Weapon::Weapon(Card& card) : Entity(card)
 {
 #ifndef HEARTHSTONEPP_MACOSX
-    durability = pCard->durability.has_value() ? pCard->durability.value() : 0;
+    durability = card.durability.has_value() ? card.durability.value() : 0;
 #else
-    durability = (pCard->durability != std::experimental::nullopt)
-                     ? *(pCard->durability)
+    durability = (card.durability != std::experimental::nullopt)
+                     ? card.durability
                      : 0;
 #endif
 }

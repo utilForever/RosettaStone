@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp
 {
-Entity::Entity(const Card* pCard) : card(pCard)
+Entity::Entity(Card& _card) : card(new Card(_card))
 {
     // Do nothing
 }
@@ -49,6 +49,7 @@ Entity* Entity::Clone() const
 void Entity::FreeMemory()
 {
     gameTags.clear();
+
     delete card;
 }
 }  // namespace Hearthstonepp

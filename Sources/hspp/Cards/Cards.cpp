@@ -6,8 +6,6 @@
 
 #include <hspp/Cards/Card.h>
 #include <hspp/Cards/Cards.h>
-#include <hspp/Cards/Character.h>
-#include <hspp/Commons/Macros.h>
 #include <hspp/Loaders/CardLoader.h>
 #include <hspp/Loaders/PowerLoader.h>
 
@@ -25,12 +23,9 @@ Cards::Cards()
 
 Cards::~Cards()
 {
-    for (auto card : m_cards)
-    {
-        delete card;
-    }
-
     m_cards.clear();
+
+    delete m_instance;
 }
 
 Cards* Cards::GetInstance()
@@ -43,226 +38,226 @@ Cards* Cards::GetInstance()
     return m_instance;
 }
 
-const std::vector<Card*>& Cards::GetAllCards() const
+const std::vector<Card>& Cards::GetAllCards() const
 {
     return m_cards;
 }
 
-const Card* Cards::FindCardByID(const std::string& id)
+Card Cards::FindCardByID(const std::string& id)
 {
     for (auto card : m_cards)
     {
-        if (card->id == id)
+        if (card.id == id)
         {
-            return new Card(*card);
+            return card;
         }
     }
 
-    return nullptr;
+    return Card();
 }
 
-std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
+std::vector<Card> Cards::FindCardByRarity(Rarity rarity)
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (card->rarity == rarity)
+        if (card.rarity == rarity)
         {
-            result.emplace_back(new Card(*card));
-        }
-    }
-
-    return result;
-}
-
-std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
-{
-    std::vector<Card*> result;
-
-    for (auto card : m_cards)
-    {
-        if (card->cardClass == cardClass)
-        {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-std::vector<Card*> Cards::FindCardBySet(CardSet cardSet)
+std::vector<Card> Cards::FindCardByClass(CardClass cardClass)
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (card->cardSet == cardSet)
+        if (card.cardClass == cardClass)
         {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-std::vector<Card*> Cards::FindCardByType(CardType cardType)
+std::vector<Card> Cards::FindCardBySet(CardSet cardSet)
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (card->cardType == cardType)
+        if (card.cardSet == cardSet)
         {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-std::vector<Card*> Cards::FindCardByRace(Race race)
+std::vector<Card> Cards::FindCardByType(CardType cardType)
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (card->race == race)
+        if (card.cardType == cardType)
         {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-Card* Cards::FindCardByName(const std::string& name)
+std::vector<Card> Cards::FindCardByRace(Race race)
 {
-    for (auto card : m_cards)
-    {
-        if (card->name == name)
-        {
-            return new Card(*card);
-        }
-    }
-
-    return nullptr;
-}
-
-std::vector<Card*> Cards::FindCardByCost(size_t minVal, size_t maxVal)
-{
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (card->cost >= minVal && card->cost <= maxVal)
+        if (card.race == race)
         {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-std::vector<Card*> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
+Card Cards::FindCardByName(const std::string& name)
 {
-    std::vector<Card*> result;
+    for (auto card : m_cards)
+    {
+        if (card.name == name)
+        {
+            return card;
+        }
+    }
+
+    return Card();
+}
+
+std::vector<Card> Cards::FindCardByCost(size_t minVal, size_t maxVal)
+{
+    std::vector<Card> result;
+
+    for (auto card : m_cards)
+    {
+        if (card.cost >= minVal && card.cost <= maxVal)
+        {
+            result.emplace_back(card);
+        }
+    }
+
+    return result;
+}
+
+std::vector<Card> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
+{
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
 #ifndef HEARTHSTONEPP_MACOSX
-        if (!card->attack.has_value())
+        if (!card.attack.has_value())
 #else
-        if (card->attack == std::experimental::nullopt)
+        if (card.attack == std::experimental::nullopt)
 #endif
         {
             continue;
         }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (card->attack.value() >= minVal && card->attack.value() <= maxVal)
+        if (card.attack.value() >= minVal && card.attack.value() <= maxVal)
 #else
-        if (*(card->attack) >= minVal && *(card->attack) <= maxVal)
+        if (card.attack >= minVal && card.attack <= maxVal)
 #endif
         {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-std::vector<Card*> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
+std::vector<Card> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
 #ifndef HEARTHSTONEPP_MACOSX
-        if (!card->health.has_value())
+        if (!card.health.has_value())
 #else
-        if (card->health == std::experimental::nullopt)
+        if (card.health == std::experimental::nullopt)
 #endif
         {
             continue;
         }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (card->health.value() >= minVal && card->health.value() <= maxVal)
+        if (card.health.value() >= minVal && card.health.value() <= maxVal)
 #else
-        if (*(card->health) >= minVal && *(card->health) <= maxVal)
+        if (card.health >= minVal && card.health <= maxVal)
 #endif
         {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-std::vector<Card*> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
+std::vector<Card> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
 #ifndef HEARTHSTONEPP_MACOSX
-        if (!card->spellDamage.has_value())
+        if (!card.spellDamage.has_value())
 #else
-        if (card->spellDamage == std::experimental::nullopt)
+        if (card.spellDamage == std::experimental::nullopt)
 #endif
         {
             continue;
         }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (card->spellDamage.value() >= minVal &&
-            card->spellDamage.value() <= maxVal)
+        if (card.spellDamage.value() >= minVal &&
+            card.spellDamage.value() <= maxVal)
 #else
-        if (*(card->spellDamage) >= minVal && *(card->spellDamage) <= maxVal)
+        if (card.spellDamage >= minVal && card.spellDamage <= maxVal)
 #endif
         {
-            result.emplace_back(new Card(*card));
+            result.emplace_back(card);
         }
     }
 
     return result;
 }
 
-std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
+std::vector<Card> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        auto mechanicsInCard = card->mechanics;
+        auto mechanicsInCard = card.mechanics;
 
         for (const auto mechanic : mechanics)
         {
             if (std::find(mechanicsInCard.begin(), mechanicsInCard.end(),
                           mechanic) != mechanicsInCard.end())
             {
-                result.emplace_back(new Card(*card));
+                result.emplace_back(card);
             }
         }
     }
@@ -270,7 +265,7 @@ std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
     return result;
 }
 
-const Card* Cards::GetHeroCard(CardClass cardClass)
+Card Cards::GetHeroCard(CardClass cardClass)
 {
     switch (cardClass)
     {
@@ -293,11 +288,11 @@ const Card* Cards::GetHeroCard(CardClass cardClass)
         case CardClass::WARRIOR:
             return FindCardByID("HERO_01");
         default:
-            return nullptr;
+            return Card();
     }
 }
 
-const Card* Cards::GetDefaultHeroPower(CardClass cardClass)
+Card Cards::GetDefaultHeroPower(CardClass cardClass)
 {
     switch (cardClass)
     {
@@ -320,7 +315,7 @@ const Card* Cards::GetDefaultHeroPower(CardClass cardClass)
         case CardClass::WARRIOR:
             return FindCardByID("CS2_102");
         default:
-            return nullptr;
+            return Card();
     }
 }
 }  // namespace Hearthstonepp

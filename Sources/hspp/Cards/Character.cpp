@@ -9,19 +9,19 @@
 
 namespace Hearthstonepp
 {
-Character::Character(const Card* pCard) : Entity(pCard)
+Character::Character(Card& card) : Entity(card)
 {
-    if (pCard != nullptr)
+    if (card.health > 0)
     {
 #ifndef HEARTHSTONEPP_MACOSX
-        attack = pCard->attack.has_value() ? pCard->attack.value() : 0;
-        health = pCard->health.has_value() ? pCard->health.value() : 0;
+        attack = card.attack.has_value() ? card.attack.value() : 0;
+        health = card.health.has_value() ? card.health.value() : 0;
 #else
-        attack = (pCard->attack != std::experimental::nullopt)
-                     ? *(pCard->attack)
+        attack = (card.attack != std::experimental::nullopt)
+                     ? card.attack
                      : 0;
-        health = (pCard->health != std::experimental::nullopt)
-                     ? *(pCard->health)
+        health = card.health != std::experimental::nullopt)
+                     ? card.health
                      : 0;
 #endif
         maxHealth = health;

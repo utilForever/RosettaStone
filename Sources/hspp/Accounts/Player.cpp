@@ -15,27 +15,27 @@ Player::Player(const Account* account, const Deck* deck)
     Cards* cardsInstance = Cards::GetInstance();
     const CardClass cardClass = deck->GetClass();
 
-    const Card* heroCard = cardsInstance->GetHeroCard(cardClass);
-    if (heroCard != nullptr)
+    Card heroCard = cardsInstance->GetHeroCard(cardClass);
+    if (!heroCard.id.empty())
     {
         hero = new Hero(heroCard);
     }
 
-    const Card* powerCard = cardsInstance->GetDefaultHeroPower(cardClass);
-    if (powerCard != nullptr)
+    Card powerCard = cardsInstance->GetDefaultHeroPower(cardClass);
+    if (!powerCard.id.empty())
     {
         power = new HeroPower(powerCard);
     }
 
     for (auto& card : deck->GetPrimitiveDeck())
     {
-        if (card == nullptr)
+        if (card.id.empty())
         {
             continue;
         }
 
         Entity* entity = nullptr;
-        switch (card->cardType)
+        switch (card.cardType)
         {
             case CardType::MINION:
                 entity = new Minion(card);

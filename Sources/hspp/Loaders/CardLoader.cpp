@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp
 {
-void CardLoader::Load(std::vector<Card*>& cards) const
+void CardLoader::Load(std::vector<Card>& cards) const
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -119,50 +119,48 @@ void CardLoader::Load(std::vector<Card*>& cards) const
             entourages.emplace_back(entourage.get<std::string>());
         }
 
-        Card* card = new Card();
-
-        card->id = id;
-        card->rarity = rarity;
-        card->faction = faction;
-        card->cardSet = cardSet;
-        card->cardClass = cardClass;
-        card->cardType = cardType;
-        card->race = race;
-        card->name = name;
-        card->text = text;
-        card->isCollectible = collectible;
+        Card card;
+        card.id = id;
+        card.rarity = rarity;
+        card.faction = faction;
+        card.cardSet = cardSet;
+        card.cardClass = cardClass;
+        card.cardType = cardType;
+        card.race = race;
+        card.name = name;
+        card.text = text;
+        card.isCollectible = collectible;
 
 #ifndef HEARTHSTONEPP_MACOSX
-        card->attack =
+        card.attack =
             (attack != -1) ? std::optional<size_t>(attack) : std::nullopt;
-        card->health =
+        card.health =
             (health != -1) ? std::optional<size_t>(health) : std::nullopt;
-        card->durability = (durability != -1)
-                               ? std::optional<size_t>(durability)
+        card.durability = (durability != -1) ? std::optional<size_t>(durability)
+                                             : std::nullopt;
+        card.spellDamage = (spellDamage != -1)
+                               ? std::optional<size_t>(spellDamage)
                                : std::nullopt;
-        card->spellDamage = (spellDamage != -1)
-                                ? std::optional<size_t>(spellDamage)
-                                : std::nullopt;
 #else
-        card->attack = (attack != -1)
-                           ? std::experimental::optional<size_t>(attack)
-                           : std::experimental::nullopt;
-        card->health = (health != -1)
-                           ? std::experimental::optional<size_t>(health)
-                           : std::experimental::nullopt;
-        card->durability = (durability != -1)
-                               ? std::experimental::optional<size_t>(durability)
-                               : std::experimental::nullopt;
-        card->spellDamage =
+        card.attack = (attack != -1)
+                          ? std::experimental::optional<size_t>(attack)
+                          : std::experimental::nullopt;
+        card.health = (health != -1)
+                          ? std::experimental::optional<size_t>(health)
+                          : std::experimental::nullopt;
+        card.durability = (durability != -1)
+                              ? std::experimental::optional<size_t>(durability)
+                              : std::experimental::nullopt;
+        card.spellDamage =
             (spellDamage != -1)
                 ? std::experimental::optional<size_t>(spellDamage)
                 : std::experimental::nullopt;
 #endif
-        card->cost = cost;
-        card->mechanics = mechanics;
-        card->playRequirements = playRequirements;
-        card->entourages = entourages;
-        card->Initialize();
+        card.cost = cost;
+        card.mechanics = mechanics;
+        card.playRequirements = playRequirements;
+        card.entourages = entourages;
+        card.Initialize();
 
         cards.emplace_back(card);
     }

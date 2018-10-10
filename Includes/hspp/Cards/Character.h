@@ -24,7 +24,7 @@ struct Character : public Entity
 
     //! Constructs character with given \p pCard.
     //! \param pCard A pointer to the card.
-    Character(const Card* pCard);
+    Character(Card& card);
 
     //! Default destructor.
     virtual ~Character() = default;

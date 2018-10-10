@@ -22,7 +22,7 @@ struct Hero : public Character
 {
     //! Constructs hero with given \p pCard.
     //! \param pCard A pointer to the card.
-    Hero(const Card* pCard);
+    Hero(Card& card);
 
     //! Copy constructor.
     Hero(const Hero& hero);

@@ -30,7 +30,7 @@ struct Entity
 
     //! Constructs entity with given \p pCard.
     //! \param pCard A pointer to the card.
-    Entity(const Card* pCard);
+    Entity(Card& _card);
 
     //! Destructor.
     virtual ~Entity();
