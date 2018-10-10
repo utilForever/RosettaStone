@@ -54,7 +54,7 @@ const Card* Cards::FindCardByID(const std::string& id)
     {
         if (card->id == id)
         {
-            return card;
+            return new Card(*card);
         }
     }
 
@@ -69,7 +69,7 @@ std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
     {
         if (card->rarity == rarity)
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -84,7 +84,7 @@ std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
     {
         if (card->cardClass == cardClass)
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -99,7 +99,7 @@ std::vector<Card*> Cards::FindCardBySet(CardSet cardSet)
     {
         if (card->cardSet == cardSet)
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -114,7 +114,7 @@ std::vector<Card*> Cards::FindCardByType(CardType cardType)
     {
         if (card->cardType == cardType)
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -129,7 +129,7 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
     {
         if (card->race == race)
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -142,7 +142,7 @@ Card* Cards::FindCardByName(const std::string& name)
     {
         if (card->name == name)
         {
-            return card;
+            return new Card(*card);
         }
     }
 
@@ -157,7 +157,7 @@ std::vector<Card*> Cards::FindCardByCost(size_t minVal, size_t maxVal)
     {
         if (card->cost >= minVal && card->cost <= maxVal)
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -185,7 +185,7 @@ std::vector<Card*> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
         if (*(card->attack) >= minVal && *(card->attack) <= maxVal)
 #endif
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -213,7 +213,7 @@ std::vector<Card*> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
         if (*(card->health) >= minVal && *(card->health) <= maxVal)
 #endif
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -242,7 +242,7 @@ std::vector<Card*> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
         if (*(card->spellDamage) >= minVal && *(card->spellDamage) <= maxVal)
 #endif
         {
-            result.emplace_back(card);
+            result.emplace_back(new Card(*card));
         }
     }
 
@@ -262,7 +262,7 @@ std::vector<Card*> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
             if (std::find(mechanicsInCard.begin(), mechanicsInCard.end(),
                           mechanic) != mechanicsInCard.end())
             {
-                result.emplace_back(card);
+                result.emplace_back(new Card(*card));
             }
         }
     }
