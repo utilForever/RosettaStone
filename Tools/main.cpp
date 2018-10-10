@@ -40,7 +40,7 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline std::vector<Card*> QueryCardSetList(CardSet cardSet)
+inline std::vector<Card> QueryCardSetList(CardSet cardSet)
 {
     if (cardSet == +CardSet::ALL)
     {
@@ -87,7 +87,7 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
     return false;
 }
 
-inline void ExportFile(const std::string& projectPath, std::vector<Card*> cards)
+inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
 {
     std::ofstream outputFile("result.md");
     if (outputFile)
@@ -100,21 +100,21 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card*> cards)
 
         for (auto& card : cards)
         {
-            if (!card->isCollectible)
+            if (!card.isCollectible)
             {
                 continue;
             }
 
             collectibleCardNum++;
 
-            const bool isImplemented = CheckCardImpl(projectPath, card->id);
+            const bool isImplemented = CheckCardImpl(projectPath, card.id);
             if (isImplemented)
             {
                 implementedCardNum++;
             }
 
-            outputFile << card->cardSet._to_string() << " | " << card->id
-                       << " | " << card->name << " | "
+            outputFile << card.cardSet._to_string() << " | " << card.id
+                       << " | " << card.name << " | "
                        << (isImplemented ? 'O' : ' ') << '\n';
         }
 
@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    std::vector<Card*> cards;
+    std::vector<Card> cards;
 
     if (exportAllCard)
     {
