@@ -11,7 +11,7 @@ namespace Hearthstonepp
 {
 Character::Character(Card& card) : Entity(card)
 {
-    if (card.health > 0)
+    if (!card.id.empty())
     {
 #ifndef HEARTHSTONEPP_MACOSX
         attack = card.attack.has_value() ? card.attack.value() : 0;
