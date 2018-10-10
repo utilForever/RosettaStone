@@ -14,9 +14,7 @@ Weapon::Weapon(Card& card) : Entity(card)
 #ifndef HEARTHSTONEPP_MACOSX
     durability = card.durability.has_value() ? card.durability.value() : 0;
 #else
-    durability = (card.durability != std::experimental::nullopt)
-                     ? card.durability
-                     : 0;
+    durability = card.durability.value_or(0);
 #endif
 }
 
