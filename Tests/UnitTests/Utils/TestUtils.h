@@ -37,14 +37,14 @@ TaskMetaTrait GenerateRandomTrait();
 
 TaskMeta GenerateRandomTaskMeta();
 
-std::unique_ptr<Card> ConvertCardFrom(const Card* card,
+std::unique_ptr<Card> ConvertCardFrom(const Card& card,
                                       const FlatData::Card* deserialized);
 
 void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
                        const std::unique_ptr<BYTE[]>& buffer2,
                        std::size_t size);
 
-void ExpectCardEqual(const Card* card1, const Card* card2);
+void ExpectCardEqual(const Card& card1, const Card& card2);
 }  // namespace TestUtils
 
 #endif  // UNITTEST_TESTUTILS_H

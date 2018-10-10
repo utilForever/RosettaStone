@@ -66,7 +66,7 @@ TaskMeta GenerateRandomTaskMeta()
     return randomTaskMeta;
 }
 
-std::unique_ptr<Card> ConvertCardFrom(const Card* card,
+std::unique_ptr<Card> ConvertCardFrom(const Card& card,
                                       const FlatData::Card* deserialized)
 {
     auto converted = std::make_unique<Card>();
@@ -83,26 +83,26 @@ std::unique_ptr<Card> ConvertCardFrom(const Card* card,
     converted->isCollectible = deserialized->collectible();
     converted->cost = deserialized->cost();
 #ifndef HEARTHSTONEPP_MACOSX
-    converted->attack = card->attack
+    converted->attack = card.attack
                             ? std::optional<size_t>(deserialized->attack())
                             : std::nullopt;
-    converted->health = card->health
+    converted->health = card.health
                             ? std::optional<size_t>(deserialized->health())
                             : std::nullopt;
     converted->durability =
-        card->durability ? std::optional<size_t>(deserialized->durability())
+        card.durability ? std::optional<size_t>(deserialized->durability())
                          : std::nullopt;
 #else
     converted->attack =
-        card->attack
+        card.attack
             ? std::experimental::optional<size_t>(deserialized->attack())
             : std::experimental::nullopt;
     converted->health =
-        card->health
+        card.health
             ? std::experimental::optional<size_t>(deserialized->health())
             : std::experimental::nullopt;
     converted->durability =
-        card->durability
+        card.durability
             ? std::experimental::optional<size_t>(deserialized->durability())
             : std::experimental::nullopt;
 #endif
@@ -135,27 +135,27 @@ void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
     }
 }
 
-void ExpectCardEqual(const Card* card1, const Card* card2)
+void ExpectCardEqual(const Card& card1, const Card& card2)
 {
-    EXPECT_EQ(card1->id, card2->id);
-    EXPECT_EQ(card1->rarity, card2->rarity);
-    EXPECT_EQ(card1->faction, card2->faction);
-    EXPECT_EQ(card1->cardSet, card2->cardSet);
-    EXPECT_EQ(card1->cardClass, card2->cardClass);
-    EXPECT_EQ(card1->cardType, card2->cardType);
-    EXPECT_EQ(card1->race, card2->race);
-    EXPECT_EQ(card1->name, card2->name);
-    EXPECT_EQ(card1->text, card2->text);
-    EXPECT_EQ(card1->isCollectible, card2->isCollectible);
-    EXPECT_EQ(card1->cost, card2->cost);
-    EXPECT_EQ(card1->mechanics, card2->mechanics);
-    EXPECT_EQ(card1->playRequirements, card2->playRequirements);
-    EXPECT_EQ(card1->entourages, card2->entourages);
-    EXPECT_EQ(card1->maxAllowedInDeck, card2->maxAllowedInDeck);
+    EXPECT_EQ(card1.id, card2.id);
+    EXPECT_EQ(card1.rarity, card2.rarity);
+    EXPECT_EQ(card1.faction, card2.faction);
+    EXPECT_EQ(card1.cardSet, card2.cardSet);
+    EXPECT_EQ(card1.cardClass, card2.cardClass);
+    EXPECT_EQ(card1.cardType, card2.cardType);
+    EXPECT_EQ(card1.race, card2.race);
+    EXPECT_EQ(card1.name, card2.name);
+    EXPECT_EQ(card1.text, card2.text);
+    EXPECT_EQ(card1.isCollectible, card2.isCollectible);
+    EXPECT_EQ(card1.cost, card2.cost);
+    EXPECT_EQ(card1.mechanics, card2.mechanics);
+    EXPECT_EQ(card1.playRequirements, card2.playRequirements);
+    EXPECT_EQ(card1.entourages, card2.entourages);
+    EXPECT_EQ(card1.maxAllowedInDeck, card2.maxAllowedInDeck);
 
-    EXPECT_EQ(card1->attack, card2->attack);
-    EXPECT_EQ(card1->health, card2->health);
+    EXPECT_EQ(card1.attack, card2.attack);
+    EXPECT_EQ(card1.health, card2.health);
 
-    EXPECT_EQ(card1->durability, card2->durability);
+    EXPECT_EQ(card1.durability, card2.durability);
 }
 }  // namespace TestUtils

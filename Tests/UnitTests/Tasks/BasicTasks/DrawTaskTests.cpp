@@ -24,12 +24,12 @@ TEST(DrawTask, GetTaskID)
 
 TEST(DrawTask, Run)
 {
-    std::vector<Card*> cards;
+    std::vector<Card> cards;
     std::vector<Entity*> entities;
     auto generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(new Card);
-        Card* card = cards.back();
-        card->id = std::move(id);
+        cards.emplace_back(Card());
+        Card card = cards.back();
+        card.id = std::move(id);
 
         entities.emplace_back(new Entity(card));
         return entities.back();
@@ -76,8 +76,8 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p1.hero->health,
               static_cast<size_t>(24));  // 30 - (1 + 2 + 3)
 
-    auto card = new Card;
-    card->id = "card1";
+    Card card;
+    card.id = "card1";
 
     auto entity = new Entity(card);
     p1.cards.emplace_back(entity);
@@ -94,12 +94,12 @@ TEST(DrawTask, RunExhaust)
 
 TEST(DrawTask, RunOverDraw)
 {
-    std::vector<Card*> cards;
+    std::vector<Card> cards;
     std::vector<Entity*> entities;
     auto generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(new Card);
-        Card* card = cards.back();
-        card->id = std::move(id);
+        cards.emplace_back(Card());
+        Card card = cards.back();
+        card.id = std::move(id);
 
         entities.emplace_back(new Entity(card));
         return entities.back();
@@ -144,12 +144,12 @@ TEST(DrawTask, RunOverDraw)
 
 TEST(DrawTask, RunExhaustOverdraw)
 {
-    std::vector<Card*> cards;
+    std::vector<Card> cards;
     std::vector<Entity*> entities;
     auto generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(new Card);
-        Card* card = cards.back();
-        card->id = std::move(id);
+        cards.emplace_back(Card());
+        Card card = cards.back();
+        card.id = std::move(id);
 
         entities.emplace_back(new Entity(card));
         return entities.back();
@@ -195,7 +195,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 
 TEST(DrawCardTask, GetTaskID)
 {
-    auto card = new Card;
+    Card card{};
     BasicTasks::DrawCardTask draw(card);
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
 }
@@ -205,13 +205,13 @@ TEST(DrawCardTask, Run)
     Cards* cards = Cards::GetInstance();
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
 
-    const Card* nerubian = cards->FindCardByID("AT_036t");
-    EXPECT_NE(nerubian, static_cast<const Card*>(nullptr));
-    EXPECT_EQ(nerubian->name, "Nerubian");
+    Card nerubian = cards->FindCardByID("AT_036t");
+    EXPECT_NE(nerubian.id, "");
+    EXPECT_EQ(nerubian.name, "Nerubian");
 
-    const Card* poisonedBlade = cards->FindCardByID("AT_034");
-    EXPECT_NE(poisonedBlade, static_cast<const Card*>(nullptr));
-    EXPECT_EQ(poisonedBlade->name, "Poisoned Blade");
+    Card poisonedBlade = cards->FindCardByID("AT_034");
+    EXPECT_NE(poisonedBlade.id, "");
+    EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
     auto eNerubian = new Entity(nerubian);
     auto ePoisonedBlade = new Entity(poisonedBlade);
@@ -223,15 +223,18 @@ TEST(DrawCardTask, Run)
 
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
     EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(gen.player1.hand[0]->card->id, nerubian->id);
+    EXPECT_EQ(gen.player1.hand[0]->card->id, nerubian.id);
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(1));
-    EXPECT_EQ(gen.player1.cards[0]->card->id, poisonedBlade->id);
+    EXPECT_EQ(gen.player1.cards[0]->card->id, poisonedBlade.id);
 
     BasicTasks::DrawCardTask drawPoisonedBlade(poisonedBlade);
     result = drawPoisonedBlade.Run(gen.player1, gen.player2);
 
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
     EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(2));
-    EXPECT_EQ(gen.player1.hand[1]->card->id, poisonedBlade->id);
+    EXPECT_EQ(gen.player1.hand[1]->card->id, poisonedBlade.id);
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
+
+    delete eNerubian;
+    delete ePoisonedBlade;
 }

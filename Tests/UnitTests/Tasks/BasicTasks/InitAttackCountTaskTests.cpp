@@ -40,9 +40,9 @@ TEST(InitAttackCountTask, RunFrozen)
     BasicTasks::InitAttackCountTask init;
     TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
-    Card* card1 = nullptr;
-    Card* card2 = nullptr;
-    Card* card3 = nullptr;
+    Card card1;
+    Card card2;
+    Card card3;
 
     Minion* minion1 = new Minion(card1);
     Minion* minion2 = new Minion(card2);
@@ -70,8 +70,8 @@ TEST(InitAttackCountTask, RunWindFury)
     BasicTasks::InitAttackCountTask init;
     TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
-    Card* card1 = nullptr;
-    Card* card2 = nullptr;
+    Card card1;
+    Card card2;
 
     Minion* minion1 = new Minion(card1);
     Minion* minion2 = new Minion(card2);
