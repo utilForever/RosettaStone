@@ -167,12 +167,11 @@ std::vector<Card> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
     {
 #ifndef HEARTHSTONEPP_MACOSX
         if (!card.attack.has_value())
-#else
-        if (card.attack == std::experimental::nullopt)
-#endif
         {
             continue;
         }
+#else
+#endif
 
 #ifndef HEARTHSTONEPP_MACOSX
         if (card.attack.value() >= minVal && card.attack.value() <= maxVal)
@@ -195,12 +194,11 @@ std::vector<Card> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
     {
 #ifndef HEARTHSTONEPP_MACOSX
         if (!card.health.has_value())
-#else
-        if (card.health == std::experimental::nullopt)
-#endif
         {
             continue;
         }
+#else
+#endif
 
 #ifndef HEARTHSTONEPP_MACOSX
         if (card.health.value() >= minVal && card.health.value() <= maxVal)
@@ -223,12 +221,11 @@ std::vector<Card> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
     {
 #ifndef HEARTHSTONEPP_MACOSX
         if (!card.spellDamage.has_value())
-#else
-        if (card.spellDamage == std::experimental::nullopt)
-#endif
         {
             continue;
         }
+#else
+#endif
 
 #ifndef HEARTHSTONEPP_MACOSX
         if (card.spellDamage.value() >= minVal &&

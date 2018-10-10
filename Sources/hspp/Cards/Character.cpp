@@ -17,12 +17,8 @@ Character::Character(Card& card) : Entity(card)
         attack = card.attack.has_value() ? card.attack.value() : 0;
         health = card.health.has_value() ? card.health.value() : 0;
 #else
-        attack = (card.attack != std::experimental::nullopt)
-                     ? card.attack
-                     : 0;
-        health = card.health != std::experimental::nullopt)
-                     ? card.health
-                     : 0;
+        attack = card.attack.value_or(0);
+        health = card.health.value_or(0);
 #endif
         maxHealth = health;
     }
