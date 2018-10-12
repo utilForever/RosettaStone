@@ -8,8 +8,28 @@
 
 namespace Hearthstonepp
 {
-HeroPower::HeroPower(const Card* pCard) : Entity(pCard)
+HeroPower::HeroPower(Card& card) : Entity(card)
 {
     // Do nothing
+}
+
+HeroPower::HeroPower(const HeroPower& power) : Entity(power)
+{
+    // Do nothing
+}
+
+HeroPower& HeroPower::operator=(const HeroPower& power)
+{
+    if (this == &power)
+    {
+        return *this;
+    }
+
+    return *this;
+}
+
+HeroPower* HeroPower::Clone() const
+{
+    return new HeroPower(*this);
 }
 }  // namespace Hearthstonepp

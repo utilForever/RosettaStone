@@ -57,7 +57,7 @@ class Deck
 
     //! Creates a deck from a list of pointers to cards to play game.
     //! \return A deck from a list of pointers to cards.
-    std::vector<const Card*> GetPrimitiveDeck() const;
+    std::vector<Card> GetPrimitiveDeck() const;
 
     //! Returns card ID and the number of card at \p idx in deck.
     //! \param idx Index of cards in deck.

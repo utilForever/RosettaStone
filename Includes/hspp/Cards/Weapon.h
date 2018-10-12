@@ -25,10 +25,19 @@ struct Weapon : public Entity
 
     //! Constructs weapon with given \p pCard.
     //! \param pCard A pointer to the card.
-    Weapon(const Card* pCard);
+    Weapon(Card& card);
 
     //! Default destructor.
-    virtual ~Weapon();
+    virtual ~Weapon() = default;
+
+    //! Copy constructor.
+    Weapon(const Weapon& weapon);
+
+    //! Copy assignment operator.
+    Weapon& operator=(const Weapon& weapon);
+
+    //! Clones member variables.
+    Weapon* Clone() const override;
 
     size_t durability = 0;
 };

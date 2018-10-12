@@ -35,20 +35,36 @@ class Player
     //! \param deck A deck where cards are stored.
     Player(const Account* account, const Deck* deck);
 
+    //! Destructor.
+    ~Player();
+
+    //! Copy constructor.
+    Player(const Player& p);
+
+    //! Move constructor.
+    Player(Player&& p) noexcept;
+
+    //! Copy assignment operator.
+    Player& operator=(const Player& p);
+
+    //! Move assignment operator.
+    Player& operator=(Player&& p) noexcept;
+
     //! Operator overloading: The equality operator.
     bool operator==(const Player& player) const
     {
         return this->email == player.email;
     }
 
-    BYTE id;
-    BYTE totalMana;
-    BYTE existMana;
-    BYTE exhausted;
+    Hero* hero = nullptr;
+    HeroPower* power = nullptr;
+
+    BYTE id = 0;
+    BYTE totalMana = 0;
+    BYTE existMana = 0;
+    BYTE exhausted = 0;
 
     std::string email;
-    Hero* hero;
-    HeroPower* power;
 
     // Card storage
     std::vector<Entity*> cards;
@@ -58,6 +74,18 @@ class Player
     std::vector<Entity*> hand;
     std::vector<Spell*> usedSpell;
     std::vector<Character*> usedMinion;
+
+ private:
+    //! Releases dynamic allocated resources.
+    void FreeMemory();
+
+    //! Copies data from given \p p.
+    //! \param p An instance of Player class to copy data.
+    void CopyData(const Player& p);
+
+    //! Moves data from given \p p.
+    //! \param p An instance of Player class to move data.
+    void MoveData(Player&& p);
 };
 }  // namespace Hearthstonepp
 

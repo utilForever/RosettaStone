@@ -148,7 +148,7 @@ std::experimental::optional<Card*> Console::SearchCard()
         std::cout << "========================================\n";
         std::cout << "             Search Result!             \n";
         std::cout << "========================================\n";
-        size_t idx = 1;
+
         std::vector<Card*> result = ProcessSearchCommand(filter);
         if (result.empty())
         {
@@ -156,18 +156,20 @@ std::experimental::optional<Card*> Console::SearchCard()
         }
         else
         {
+            size_t cardIdx = 1;
+
             for (auto& card : result)
             {
-                std::cout << idx << ". ";
+                std::cout << cardIdx << ". ";
                 card->ShowBriefInfo();
                 std::cout << '\n';
 
-                idx++;
+                cardIdx++;
             }
 
             if (m_searchMode == SearchMode::AddCardInDeck)
             {
-                const size_t selectedCardIndex = InputMenuNum("Select: ", idx);
+                const size_t selectedCardIndex = InputMenuNum("Select: ", cardIdx);
                 return result.at(selectedCardIndex);
             }
         }
@@ -454,7 +456,7 @@ void Console::ShowMenu(std::array<std::string, SIZE>& menus)
     std::cout << "========================================\n";
 }
 
-size_t Console::InputMenuNum(std::string questionStr, size_t menuSize)
+size_t Console::InputMenuNum(std::string& questionStr, size_t menuSize)
 {
     while (true)
     {
@@ -473,7 +475,7 @@ size_t Console::InputMenuNum(std::string questionStr, size_t menuSize)
     }
 }
 
-bool Console::InputYesNo(std::string sentence) const
+bool Console::InputYesNo(std::string& sentence) const
 {
     std::cout << sentence;
     std::cout << "(Please input \"y/yes\" or \"n/no\" (insensitive))\n";
@@ -490,7 +492,7 @@ bool Console::InputYesNo(std::string sentence) const
 }
 
 std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
-    std::string commandStr) const
+    std::string& commandStr) const
 {
     // Output command string
     std::cout << commandStr;
@@ -610,7 +612,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     return std::make_tuple(filter, isValid, isFinish);
 }
 
-std::vector<Card*> Console::ProcessSearchCommand(SearchFilter filter) const
+std::vector<Card*> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
     std::vector<Card*> result;
 

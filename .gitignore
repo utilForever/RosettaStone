@@ -12,7 +12,6 @@ build
 
 # Visual Studio files
 /.vs
-CMakeSettings.json
 
 # Visual Studio Code files
 /.vscode

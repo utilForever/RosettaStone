@@ -22,9 +22,18 @@ struct Hero : public Character
 {
     //! Constructs hero with given \p pCard.
     //! \param pCard A pointer to the card.
-    Hero(const Card* pCard);
+    Hero(Card& card);
 
-    Weapon* weapon;
+    //! Copy constructor.
+    Hero(const Hero& hero);
+
+    //! Copy assignment operator.
+    Hero& operator=(const Hero& hero);
+
+    //! Clones member variables.
+    Hero* Clone() const override;
+
+    Weapon* weapon = nullptr;
 };
 }  // namespace Hearthstonepp
 

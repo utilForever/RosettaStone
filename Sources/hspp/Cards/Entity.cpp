@@ -8,8 +8,48 @@
 
 namespace Hearthstonepp
 {
-Entity::Entity(const Card* pCard) : card(pCard)
+Entity::Entity(Card& _card) : card(new Card(_card))
 {
     // Do nothing
+}
+
+Entity::Entity(const Entity& ent)
+{
+    FreeMemory();
+
+    card = ent.card;
+    gameTags = ent.gameTags;
+}
+
+Entity::~Entity()
+{
+    FreeMemory();
+}
+
+Entity& Entity::operator=(const Entity& ent)
+{
+    if (this == &ent)
+    {
+        return *this;
+    }
+
+    FreeMemory();
+
+    card = ent.card;
+    gameTags = ent.gameTags;
+
+    return *this;
+}
+
+Entity* Entity::Clone() const
+{
+    return new Entity(*this);
+}
+
+void Entity::FreeMemory()
+{
+    gameTags.clear();
+
+    delete card;
 }
 }  // namespace Hearthstonepp

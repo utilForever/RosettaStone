@@ -66,9 +66,8 @@ TEST(ClassicCardSet, CS2_182)
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_POSITION);
 
-    TaskMeta temporal;
-    taskAgent.RunMulti(temporal, player1, player2, BasicTasks::SwapPlayerTask(),
-                       BasicTasks::SwapPlayerTask());
+    result = agent.RunTask(BasicTasks::InitAttackCountTask(), player2, player1);
+    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
     auto respAutoTarget = response.Target(1, 1);
     result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);

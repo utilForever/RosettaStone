@@ -30,14 +30,27 @@ struct Entity
 
     //! Constructs entity with given \p pCard.
     //! \param pCard A pointer to the card.
-    Entity(const Card* pCard);
+    Entity(Card& _card);
 
     //! Destructor.
-    virtual ~Entity() = default;
+    virtual ~Entity();
+
+    //! Copy constructor.
+    Entity(const Entity& ent);
+
+    //! Copy assignment operator.
+    Entity& operator=(const Entity& ent);
+
+    //! Clones member variables.
+    virtual Entity* Clone() const;
 
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;
+
+private:
+    //! Releases dynamic allocated resources.
+    void FreeMemory();
 };
 }  // namespace Hearthstonepp
 

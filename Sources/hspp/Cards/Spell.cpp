@@ -8,4 +8,23 @@
 
 namespace Hearthstonepp
 {
+Spell::Spell(const Spell& spell) : Entity(spell)
+{
+    // Do nothing
 }
+
+Spell& Spell::operator=(const Spell& spell)
+{
+    if (this == &spell)
+    {
+        return *this;
+    }
+
+    return *this;
+}
+
+Spell* Spell::Clone() const
+{
+    return new Spell(*this);
+}
+}  // namespace Hearthstonepp

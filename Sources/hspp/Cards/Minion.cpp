@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp
 {
-Minion::Minion(const Card* pCard) : Character(pCard)
+Minion::Minion(Card& card) : Character(card)
 {
     // Do nothing
 }

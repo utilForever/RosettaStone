@@ -22,13 +22,13 @@ TaskID AddEnchantmentTask::GetTaskID() const
 
 MetaData AddEnchantmentTask::Impl(Player&, Player&)
 {
-    const Card* enchantmentCard = Cards::GetInstance()->FindCardByID(m_cardID);
-    if (enchantmentCard == nullptr)
+    Card enchantmentCard = Cards::GetInstance()->FindCardByID(m_cardID);
+    if (enchantmentCard.id.empty())
     {
         return MetaData::NULLPTR;
     }
 
-    Power* power = Cards::GetInstance()->FindCardByID(m_cardID)->power;
+    Power* power = Cards::GetInstance()->FindCardByID(m_cardID).power;
     if (power == nullptr)
     {
         return MetaData::NULLPTR;
