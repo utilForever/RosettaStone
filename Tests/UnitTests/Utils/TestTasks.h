@@ -1,10 +1,16 @@
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #ifndef UNIT_TESTS_TEST_TASKS_H
 #define UNIT_TESTS_TEST_TASKS_H
 
-#include <Enums/TaskEnums.h>
-#include <Managers/Player.h>
-#include <Tasks/MetaData.h>
-#include <Tasks/Tasks.h>
+#include <hspp/Accounts/Player.h>
+#include <hspp/Enums/TaskEnums.h>
+#include <hspp/Tasks/MetaData.h>
+#include <hspp/Tasks/Tasks.h>
 
 #include <functional>
 

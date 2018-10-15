@@ -8,7 +8,7 @@ matrix:
       sudo: required
       services: docker
       script:
-        - sh Scripts/travis_build_docker.sh
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.bionic bionic
     # Test OS X 10.12 + Xcode 9 + clang
     - os: osx
       osx_image: xcode9

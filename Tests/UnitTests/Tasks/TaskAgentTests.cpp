@@ -1,13 +1,18 @@
-#include "gtest/gtest.h"
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
+#include "gtest/gtest.h"
 #include <Utils/TestTasks.h>
 #include <Utils/TestUtils.h>
 
-#include <Tasks/MetaData.h>
-#include <Tasks/TaskAgent.h>
-#include <Tasks/TaskMeta.h>
+#include <hspp/Tasks/MetaData.h>
+#include <hspp/Tasks/TaskAgent.h>
+#include <hspp/Tasks/TaskMeta.h>
 
-#include <Flatbuffers/generated/FlatData_generated.h>
+#include <hspp/Flatbuffers/generated/FlatData_generated.h>
 
 #include <future>
 
@@ -120,7 +125,7 @@ TEST(TaskAgent, RunMultiTasks)
     EXPECT_EQ(player1.id, 100);
     EXPECT_EQ(player2.id, 200);
 
-    const auto& buffer = ret.GetConstBuffer();
+    const auto& buffer = ret.GetBuffer();
     auto taskTuple =
         flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
 

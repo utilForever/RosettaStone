@@ -1,22 +1,20 @@
-/*************************************************************************
-> File Name: Console.cpp
-> Project Name: Hearthstone++
-> Author: Chan-Ho Chris Ohk
-> Purpose: Console version of Hearthstone++ game.
-> Created Time: 2017/10/08
-> Copyright (c) 2017, Chan-Ho Chris Ohk
-*************************************************************************/
+// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
 #include "Console.h"
 
-#include <Cards/Card.h>
-#include <Cards/Cards.h>
-#include <Commons/Constants.h>
-#include <Commons/Macros.h>
-#include <Commons/Utils.h>
-#include <Loaders/AccountLoader.h>
-#include <Loaders/CardLoader.h>
-#include <Managers/GameAgent.h>
-#include <Managers/GameInterface.h>
+#include <hspp/Cards/Card.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Commons/Constants.h>
+#include <hspp/Commons/Macros.h>
+#include <hspp/Commons/Utils.h>
+#include <hspp/Loaders/AccountLoader.h>
+#include <hspp/Loaders/CardLoader.h>
+#include <hspp/Managers/GameAgent.h>
+#include <hspp/Managers/GameInterface.h>
 
 #include <cctype>
 #ifdef HEARTHSTONEPP_WINDOWS
@@ -248,7 +246,7 @@ void Console::CreateDeck()
 
     ShowMenu(m_playerClassStr);
     const size_t selectedClassNum =
-        InputMenuNum("What's your player class? ", PLAYER_CLASS_SIZE);
+        InputMenuNum("What's your player class? ", NUM_PLAYER_CLASS);
     const CardClass deckClass =
         CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
 
