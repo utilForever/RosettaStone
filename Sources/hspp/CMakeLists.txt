@@ -6,7 +6,7 @@ set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 # Includes
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Includes
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Libraries
 )
 

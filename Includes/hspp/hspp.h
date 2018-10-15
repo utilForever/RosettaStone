@@ -22,6 +22,7 @@
 #include <hspp/Cards/Spell.h>
 #include <hspp/Cards/Weapon.h>
 #include <hspp/Commons/Constants.h>
+#include <hspp/Commons/EnumMacros.h>
 #include <hspp/Commons/Macros.h>
 #include <hspp/Commons/Utils.h>
 #include <hspp/Enchants/Effect.h>
@@ -30,7 +31,6 @@
 #include <hspp/Enchants/Power.h>
 #include <hspp/Enchants/Powers.h>
 #include <hspp/Enums/CardEnums.h>
-#include <hspp/Enums/EnumMacros.h>
 #include <hspp/Enums/TaskEnums.h>
 #include <hspp/Flatbuffers/generated/FlatData_generated.h>
 #include <hspp/Loaders/AccountLoader.h>
