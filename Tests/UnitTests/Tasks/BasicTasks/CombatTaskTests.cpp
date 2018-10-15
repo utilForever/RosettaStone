@@ -9,6 +9,7 @@
 #include <Utils/TestUtils.h>
 
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
 
 using namespace Hearthstonepp;
 

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
-#include <Tasks/BasicTasks/DestroyTask.h>
+#include <hspp/Tasks/BasicTasks/DestroyTask.h>
 
 using namespace Hearthstonepp;
 

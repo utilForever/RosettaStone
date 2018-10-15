@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
-#include <Cards/Cards.h>
-#include <Tasks/BasicTasks/ShuffleTask.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Tasks/BasicTasks/ShuffleTask.h>
 
 using namespace Hearthstonepp;
 

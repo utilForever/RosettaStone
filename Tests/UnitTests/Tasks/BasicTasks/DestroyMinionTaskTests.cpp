@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
-#include <Tasks/BasicTasks/DestroyMinionTask.h>
+#include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
 
 using namespace Hearthstonepp;
 

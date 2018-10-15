@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
-#include <Tasks/BasicTasks/SwapPlayerTask.h>
+#include <hspp/Tasks/BasicTasks/SwapPlayerTask.h>
 
 using namespace Hearthstonepp;
 
