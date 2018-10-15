@@ -89,10 +89,8 @@ TEST(ClassicCardSet, CS2_187)
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_POSITION);
 
-    TaskMeta tempTaskMeta;
-    taskAgent.RunMulti(tempTaskMeta, player1, player2,
-                       BasicTasks::SwapPlayerTask(),
-                       BasicTasks::SwapPlayerTask());
+    result = agent.RunTask(BasicTasks::InitAttackCountTask(), player2, player1);
+    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
     // TODO: Add new test scenario for Taunt minion to interrupt opponent
     // minions from attacking the hero. CombatTask result must return FAILURE if

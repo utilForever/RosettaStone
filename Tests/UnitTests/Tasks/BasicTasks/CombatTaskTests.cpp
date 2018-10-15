@@ -89,9 +89,9 @@ TEST(CombatTask, CombatDefault)
     EXPECT_EQ(player1.field[0]->health, static_cast<size_t>(1));
     EXPECT_EQ(player2.field[0]->health, static_cast<size_t>(1));
 
-    tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
-    EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
-    EXPECT_EQ(player2.field.size(), static_cast<size_t>(0));
+    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+    TestUtils::AutoResponder resp(agent);
+    BasicTasks::CombatTask combat(agent.GetTaskAgent());
 
     auto card3 = TestUtils::GenerateMinionCard("minion3", 5, 6);
     auto card4 = TestUtils::GenerateMinionCard("minion4", 5, 4);

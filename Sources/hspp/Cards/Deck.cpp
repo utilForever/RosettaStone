@@ -58,15 +58,15 @@ unsigned int Deck::GetNumCardInDeck(std::string cardID)
     return 0;
 }
 
-std::vector<const Card*> Deck::GetPrimitiveDeck() const
+std::vector<Card> Deck::GetPrimitiveDeck() const
 {
     Cards* cards = Cards::GetInstance();
 
-    std::vector<const Card*> deck;
+    std::vector<Card> deck;
     for (const auto& [id, num] : m_cards)
     {
-        const Card* card = cards->FindCardByID(id);
-        for (int i = 0; i < num; ++i)
+        Card card = cards->FindCardByID(id);
+        for (size_t i = 0; i < static_cast<size_t>(num); ++i)
         {
             deck.push_back(card);
         }
@@ -86,14 +86,14 @@ void Deck::ShowCardList() const
 
     for (auto& cardInfo : m_cards)
     {
-        const Card* card = Cards::GetInstance()->FindCardByID(cardInfo.first);
-        if (card == nullptr)
+        Card card = Cards::GetInstance()->FindCardByID(cardInfo.first);
+        if (card.id.empty())
         {
             continue;
         }
 
         std::cout << idx << ". ";
-        card->ShowBriefInfo();
+        card.ShowBriefInfo();
         std::cout << "(" << cardInfo.second << " card(s))\n";
 
         idx++;
@@ -102,10 +102,10 @@ void Deck::ShowCardList() const
 
 bool Deck::AddCard(std::string cardID, int numCardToAdd)
 {
-    const Card* card = Cards::GetInstance()->FindCardByID(cardID);
-    CardClass cls = card->cardClass;
-    if ((cls != GetClass() && cls != +CardClass::NEUTRAL) ||
-        int(card->GetMaxAllowedInDeck()) < numCardToAdd)
+    Card card = Cards::GetInstance()->FindCardByID(cardID);
+    CardClass cardClass = card.cardClass;
+    if ((cardClass != GetClass() && cardClass != +CardClass::NEUTRAL) ||
+        card.GetMaxAllowedInDeck() < static_cast<size_t>(numCardToAdd))
     {
         return false;
     }
@@ -118,8 +118,8 @@ bool Deck::AddCard(std::string cardID, int numCardToAdd)
 
     if (isCardExistInDeck != m_cards.end())  // card is in deck
     {
-        if (int(card->GetMaxAllowedInDeck()) <
-            (*isCardExistInDeck).second + numCardToAdd)
+        if (card.GetMaxAllowedInDeck() <
+            static_cast<size_t>((*isCardExistInDeck).second + numCardToAdd))
             return false;
 
         (*isCardExistInDeck).second += numCardToAdd;

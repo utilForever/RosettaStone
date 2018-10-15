@@ -9,17 +9,46 @@
 
 namespace Hearthstonepp
 {
-Character::Character(const Card* pCard) : Entity(pCard)
+Character::Character(Card& card) : Entity(card)
 {
+    if (!card.id.empty())
+    {
 #ifndef HEARTHSTONEPP_MACOSX
-    attack = pCard->attack.has_value() ? pCard->attack.value() : 0;
-    health = pCard->health.has_value() ? pCard->health.value() : 0;
+        attack = card.attack.has_value() ? card.attack.value() : 0;
+        health = card.health.has_value() ? card.health.value() : 0;
 #else
-    attack =
-        (pCard->attack != std::experimental::nullopt) ? *(pCard->attack) : 0;
-    health =
-        (pCard->health != std::experimental::nullopt) ? *(pCard->health) : 0;
+        attack = card.attack.value_or(0);
+        health = card.health.value_or(0);
 #endif
-    maxHealth = health;
+        maxHealth = health;
+    }
+}
+
+Character::Character(const Character& c) : Entity(c)
+{
+    attack = c.attack;
+    attackableCount = c.attackableCount;
+    health = c.health;
+    maxHealth = c.maxHealth;
+}
+
+Character& Character::operator=(const Character& c)
+{
+    if (this == &c)
+    {
+        return *this;
+    }
+
+    attack = c.attack;
+    attackableCount = c.attackableCount;
+    health = c.health;
+    maxHealth = c.maxHealth;
+
+    return *this;
+}
+
+Character* Character::Clone() const
+{
+    return new Character(*this);
 }
 }  // namespace Hearthstonepp

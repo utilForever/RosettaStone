@@ -31,7 +31,7 @@ flatbuffers::Offset<FlatData::Entity> CreateEntity(
 //! \param entity A pointer to Entity object to convert (nullptr as default).
 //! \return Converted card object.
 flatbuffers::Offset<FlatData::Card> CreateCard(
-    flatbuffers::FlatBufferBuilder& builder, const Card* card,
+    flatbuffers::FlatBufferBuilder& builder, const Card& card,
     const Entity* entity = nullptr);
 
 //! Converts std::vector<Entity*> to FlatData::EntityVector object.
