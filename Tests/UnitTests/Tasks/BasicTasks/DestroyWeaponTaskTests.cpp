@@ -19,7 +19,7 @@ TEST(DestroyWeaponTask, Run)
     Card card;
     card.id = "weapon1";
 
-    Weapon weapon(&card);
+    Weapon weapon(card);
     gen.player1.hero->weapon = &weapon;
 
     MetaData result = destroy.Run(gen.player1, gen.player2);

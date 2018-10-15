@@ -8,7 +8,7 @@ using namespace Hearthstonepp;
 TEST(DestroyMinionTask, GetTaskID)
 {
     auto card = TestUtils::GenerateMinionCard("test", 1, 1);
-    Minion minion(card.get());
+    Minion minion(*card.get());
 
     BasicTasks::DestroyMinionTask destroy(&minion);
     EXPECT_EQ(destroy.GetTaskID(), +TaskID::DESTROY);
@@ -33,7 +33,7 @@ TEST(DestroyMinionTask, Run)
     {
         char id = static_cast<char>(i + 0x30);
         cards.emplace_back(TestUtils::GenerateMinionCard(name + id, 1, 1));
-        minions.emplace_back(cards[i].get());
+        minions.emplace_back(*cards[i].get());
         player1.field.emplace_back(&minions[i]);
     }
 

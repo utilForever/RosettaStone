@@ -20,7 +20,7 @@ TEST(ShuffleTask, Run)
     for (int i = 0; i < 5; i++)
     {
         auto card = TestUtils::GenerateMinionCard("minion", 5, 1);
-        Minion minion(card.get());
+        Minion minion(*card.get());
         gen.player1.cards.emplace_back(&minion);
     }
 

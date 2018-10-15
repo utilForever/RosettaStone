@@ -18,7 +18,7 @@ TEST(DestroyTask, Run)
     Player& player2 = gen.player2;
 
     auto card = TestUtils::GenerateMinionCard("minion1", 1, 1);
-    Minion minion(card.get());
+    Minion minion(*card.get());
 
     // Destroy Source Minion
     player1.field.emplace_back(&minion);
@@ -42,7 +42,7 @@ TEST(DestroyTask, Run)
 
     // Destroy Target Weapon
     Card weaponCard;
-    Weapon weapon(&weaponCard);
+    Weapon weapon(weaponCard);
     player2.hero->weapon = &weapon;
 
     BasicTasks::DestroyTask task3 = BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON);
