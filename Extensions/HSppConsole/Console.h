@@ -87,9 +87,9 @@ class Console
     void SignIn();
     void SignUp();
 #ifndef HEARTHSTONEPP_MACOSX
-    std::optional<Card*> SearchCard();
+    std::optional<Card> SearchCard();
 #else
-    std::experimental::optional<Card*> SearchCard();
+    std::experimental::optional<Card> SearchCard();
 #endif
     int ManageDeck();
     void SimulateGame();
@@ -117,12 +117,12 @@ class Console
     template <std::size_t SIZE>
     void ShowMenu(std::array<std::string, SIZE>& menus);
 
-    size_t InputMenuNum(std::string& questionStr, size_t menuSize);
+    size_t InputMenuNum(std::string questionStr, size_t menuSize);
     bool InputYesNo(std::string& sentence) const;
 
     std::tuple<SearchFilter, bool, bool> InputAndParseSearchCommand(
-        std::string& commandStr) const;
-    std::vector<Card*> ProcessSearchCommand(SearchFilter& filter) const;
+        std::string commandStr) const;
+    std::vector<Card> ProcessSearchCommand(SearchFilter& filter) const;
 
     std::vector<std::string> SplitString(std::string str,
                                          std::string delimiter) const;

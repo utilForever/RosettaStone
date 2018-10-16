@@ -116,9 +116,9 @@ void Console::SignUp()
     }
 }
 #ifndef HEARTHSTONEPP_MACOSX
-std::optional<Card*> Console::SearchCard()
+std::optional<Card> Console::SearchCard()
 #else
-std::experimental::optional<Card*> Console::SearchCard()
+std::experimental::optional<Card> Console::SearchCard()
 #endif
 {
     std::cout << "========================================\n";
@@ -149,7 +149,7 @@ std::experimental::optional<Card*> Console::SearchCard()
         std::cout << "             Search Result!             \n";
         std::cout << "========================================\n";
 
-        std::vector<Card*> result = ProcessSearchCommand(filter);
+        std::vector<Card> result = ProcessSearchCommand(filter);
         if (result.empty())
         {
             std::cout << "There are no cards matching your search condition.\n";
@@ -161,7 +161,7 @@ std::experimental::optional<Card*> Console::SearchCard()
             for (auto& card : result)
             {
                 std::cout << cardIdx << ". ";
-                card->ShowBriefInfo();
+                card.ShowBriefInfo();
                 std::cout << '\n';
 
                 cardIdx++;
@@ -169,7 +169,8 @@ std::experimental::optional<Card*> Console::SearchCard()
 
             if (m_searchMode == SearchMode::AddCardInDeck)
             {
-                const size_t selectedCardIndex = InputMenuNum("Select: ", cardIdx);
+                const size_t selectedCardIndex =
+                    InputMenuNum("Select: ", cardIdx);
                 return result.at(selectedCardIndex);
             }
         }
@@ -332,8 +333,8 @@ void Console::AddCardInDeck(size_t deckIndex)
     m_searchMode = SearchMode::AddCardInDeck;
     m_deckClass = deck->GetClass();
 
-    const Card* card = SearchCard().value_or(nullptr);
-    if (card == nullptr)
+    const Card card = SearchCard().value_or(Card());
+    if (card.id.empty())
     {
         std::cout << " doesn't exist. Try again.\n";
         return;
@@ -342,7 +343,7 @@ void Console::AddCardInDeck(size_t deckIndex)
     while (true)
     {
         int numCardToAddAvailable =
-            card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->id);
+            card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
         if (deck->GetNumOfCards() + numCardToAddAvailable >
             MAXIMUM_NUM_CARDS_IN_DECK)
         {
@@ -362,7 +363,7 @@ void Console::AddCardInDeck(size_t deckIndex)
         }
         else
         {
-            deck->AddCard(card->id, numCardToAdd);
+            deck->AddCard(card.id, numCardToAdd);
             break;
         }
     }
@@ -456,7 +457,7 @@ void Console::ShowMenu(std::array<std::string, SIZE>& menus)
     std::cout << "========================================\n";
 }
 
-size_t Console::InputMenuNum(std::string& questionStr, size_t menuSize)
+size_t Console::InputMenuNum(std::string questionStr, size_t menuSize)
 {
     while (true)
     {
@@ -492,7 +493,7 @@ bool Console::InputYesNo(std::string& sentence) const
 }
 
 std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
-    std::string& commandStr) const
+    std::string commandStr) const
 {
     // Output command string
     std::cout << commandStr;
@@ -503,7 +504,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
 
     // Split commands by whitespace and quote
     std::istringstream iss(cmd);
-    std::vector<std::string> cmdTokens{"Hearthstone++"};
+    std::vector<std::string> cmdTokens{ "Hearthstone++" };
     std::string cmdToken;
 
     while (iss >> std::quoted(cmdToken))
@@ -612,52 +613,47 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     return std::make_tuple(filter, isValid, isFinish);
 }
 
-std::vector<Card*> Console::ProcessSearchCommand(SearchFilter& filter) const
+std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
-    std::vector<Card*> result;
+    std::vector<Card> result;
 
     for (auto& card : Cards::GetInstance()->GetAllCards())
     {
-        if (card->isCollectible == false)
+        if (card.isCollectible == false)
         {
             continue;
         }
 
-        bool rarityCondition = (filter.rarity == +Rarity::INVALID ||
-                                filter.rarity == card->rarity);
+        bool rarityCondition =
+            (filter.rarity == +Rarity::INVALID || filter.rarity == card.rarity);
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to
         // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            classCondition = (card->cardClass == m_deckClass ||
-                              card->cardClass == +CardClass::NEUTRAL);
+            classCondition = (card.cardClass == m_deckClass ||
+                              card.cardClass == +CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
             classCondition = (filter.playerClass == +CardClass::INVALID ||
-                              filter.playerClass == card->cardClass);
+                              filter.playerClass == card.cardClass);
         }
         bool typeCondition = (filter.cardType == +CardType::INVALID ||
-                              filter.cardType == card->cardType);
+                              filter.cardType == card.cardType);
         bool raceCondition =
-            (filter.race == +Race::INVALID || filter.race == card->race);
-        bool nameCondition =
-            (filter.name.empty() ||
-             card->name.find(filter.name) != std::string::npos);
+            (filter.race == +Race::INVALID || filter.race == card.race);
+        bool nameCondition = (filter.name.empty() ||
+                              card.name.find(filter.name) != std::string::npos);
         bool costCondition =
-            filter.costMin <= card->cost && filter.costMax >= card->cost;
-        bool attackCondition = true;
-        bool healthCondition = true;
-        // bool attackCondition =
-        //    filter.attackMin <= card->attack &&
-        //    filter.attackMax >= card->attack;
-        // bool healthCondition =
-        //    filter.healthMin <= card->health &&
-        //    filter.healthMax >= card->health;
+            filter.costMin <= card.cost && filter.costMax >= card.cost;
+        bool attackCondition =
+            filter.attackMin <= card.attack && filter.attackMax >= card.attack;
+        bool healthCondition =
+            filter.healthMin <= card.health && filter.healthMax >= card.health;
         bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
-                                   card->HasMechanic(filter.mechanic));
+                                   card.HasMechanic(filter.mechanic));
         const bool isMatched =
             AllCondIsTrue(rarityCondition, classCondition, typeCondition,
                           raceCondition, nameCondition, costCondition,
