@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
-#include <hspp/Cards/Cards.h>
 #include <hspp/Tasks/BasicTasks/ShuffleTask.h>
 
 using namespace Hearthstonepp;
@@ -20,8 +19,7 @@ TEST(ShuffleTask, Run)
     for (int i = 0; i < 5; i++)
     {
         auto card = TestUtils::GenerateMinionCard("minion", 5, 1);
-        Minion minion(*card.get());
-        gen.player1.cards.emplace_back(&minion);
+        gen.player1.cards.emplace_back(new Minion(card));
     }
 
     MetaData result = init.Run(gen.player1, gen.player2);

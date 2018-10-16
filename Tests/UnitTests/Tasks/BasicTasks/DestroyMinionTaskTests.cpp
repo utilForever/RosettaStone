@@ -8,9 +8,7 @@ using namespace Hearthstonepp;
 TEST(DestroyMinionTask, GetTaskID)
 {
     auto card = TestUtils::GenerateMinionCard("test", 1, 1);
-    Minion minion(*card.get());
-
-    BasicTasks::DestroyMinionTask destroy(&minion);
+    BasicTasks::DestroyMinionTask destroy(new Minion(card));
     EXPECT_EQ(destroy.GetTaskID(), +TaskID::DESTROY);
 }
 
@@ -20,24 +18,18 @@ TEST(DestroyMinionTask, Run)
     Player& player1 = gen.player1;
     Player& player2 = gen.player2;
 
-    using pCard = std::unique_ptr<Card>;
-
-    std::vector<pCard> cards;
-    std::vector<Minion> minions;
-
+    std::vector<Card> cards;
     cards.reserve(5);
-    minions.reserve(5);
 
     std::string name = "test";
     for (size_t i = 0; i < 5; ++i)
     {
         char id = static_cast<char>(i + 0x30);
         cards.emplace_back(TestUtils::GenerateMinionCard(name + id, 1, 1));
-        minions.emplace_back(*cards[i].get());
-        player1.field.emplace_back(&minions[i]);
+        player1.field.emplace_back(new Minion(cards[i]));
     }
 
-    BasicTasks::DestroyMinionTask destroy(&minions[2]);
+    BasicTasks::DestroyMinionTask destroy(player1.field[2]);
     MetaData result = destroy.Run(player1, player2);
 
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);

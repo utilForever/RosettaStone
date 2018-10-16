@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
 #include <random>
@@ -66,54 +67,54 @@ TaskMeta GenerateRandomTaskMeta()
     return randomTaskMeta;
 }
 
-std::unique_ptr<Card> GenerateMinionCard(std::string &&id, size_t attack, size_t health)
+Card GenerateMinionCard(std::string&& id, size_t attack, size_t health)
 {
-    auto card = std::make_unique<Card>();
-    card->cardType = CardType::MINION;
+    Card card;
+    card.cardType = CardType::MINION;
 
-    card->id = std::move(id);
-    card->attack = attack;
-    card->health = health;
+    card.id = std::move(id);
+    card.attack = attack;
+    card.health = health;
 
     return card;
 }
 
-std::unique_ptr<Card> ConvertCardFrom(const Card& card,
-                                      const FlatData::Card* deserialized)
+Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)
 {
-    auto converted = std::make_unique<Card>();
+    Card convertedCard;
 
-    converted->id = deserialized->id()->str();
-    converted->rarity = Rarity::_from_integral(deserialized->rarity());
-    converted->faction = Faction::_from_integral(deserialized->faction());
-    converted->cardSet = CardSet::_from_integral(deserialized->cardSet());
-    converted->cardClass = CardClass::_from_integral(deserialized->cardClass());
-    converted->cardType = CardType::_from_integral(deserialized->cardType());
-    converted->race = Race::_from_integral(deserialized->race());
-    converted->name = deserialized->name()->str();
-    converted->text = deserialized->text()->str();
-    converted->isCollectible = deserialized->collectible();
-    converted->cost = deserialized->cost();
+    convertedCard.id = deserialized->id()->str();
+    convertedCard.rarity = Rarity::_from_integral(deserialized->rarity());
+    convertedCard.faction = Faction::_from_integral(deserialized->faction());
+    convertedCard.cardSet = CardSet::_from_integral(deserialized->cardSet());
+    convertedCard.cardClass =
+        CardClass::_from_integral(deserialized->cardClass());
+    convertedCard.cardType = CardType::_from_integral(deserialized->cardType());
+    convertedCard.race = Race::_from_integral(deserialized->race());
+    convertedCard.name = deserialized->name()->str();
+    convertedCard.text = deserialized->text()->str();
+    convertedCard.isCollectible = deserialized->collectible();
+    convertedCard.cost = deserialized->cost();
 #ifndef HEARTHSTONEPP_MACOSX
-    converted->attack = card.attack
-                            ? std::optional<size_t>(deserialized->attack())
-                            : std::nullopt;
-    converted->health = card.health
-                            ? std::optional<size_t>(deserialized->health())
-                            : std::nullopt;
-    converted->durability =
+    convertedCard.attack = card.attack
+                               ? std::optional<size_t>(deserialized->attack())
+                               : std::nullopt;
+    convertedCard.health = card.health
+                               ? std::optional<size_t>(deserialized->health())
+                               : std::nullopt;
+    convertedCard.durability =
         card.durability ? std::optional<size_t>(deserialized->durability())
-                         : std::nullopt;
+                        : std::nullopt;
 #else
-    converted->attack =
+    converted.attack =
         card.attack
             ? std::experimental::optional<size_t>(deserialized->attack())
             : std::experimental::nullopt;
-    converted->health =
+    converted.health =
         card.health
             ? std::experimental::optional<size_t>(deserialized->health())
             : std::experimental::nullopt;
-    converted->durability =
+    converted.durability =
         card.durability
             ? std::experimental::optional<size_t>(deserialized->durability())
             : std::experimental::nullopt;
@@ -121,21 +122,22 @@ std::unique_ptr<Card> ConvertCardFrom(const Card& card,
 
     for (auto mechanic : *deserialized->mechanics())
     {
-        converted->mechanics.emplace_back(GameTag::_from_integral(mechanic));
+        convertedCard.mechanics.emplace_back(GameTag::_from_integral(mechanic));
     }
     for (auto req : *deserialized->playRequirements())
     {
-        converted->playRequirements.emplace(
+        convertedCard.playRequirements.emplace(
             PlayReq::_from_integral(req->key_()), req->value());
     }
     for (auto entourage : *deserialized->entourages())
     {
-        converted->entourages.emplace_back(entourage->str());
+        convertedCard.entourages.emplace_back(entourage->str());
     }
-    converted->maxAllowedInDeck = deserialized->maxAllowedInDeck();
-    converted->Initialize();
+    convertedCard.maxAllowedInDeck = deserialized->maxAllowedInDeck();
 
-    return converted;
+    convertedCard.Initialize();
+
+    return convertedCard;
 }
 
 void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,

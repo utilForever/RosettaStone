@@ -18,23 +18,22 @@ TEST(DestroyTask, Run)
     Player& player2 = gen.player2;
 
     auto card = TestUtils::GenerateMinionCard("minion1", 1, 1);
-    Minion minion(*card.get());
 
     // Destroy Source Minion
-    player1.field.emplace_back(&minion);
+    player1.field.emplace_back(new Minion(card));
 
     BasicTasks::DestroyTask task(EntityType::SOURCE);
-    task.source = &minion;
+    task.source = player1.field[0];
 
     MetaData result = task.Run(player1, player2);
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
     EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
 
     // Destroy Target Minion
-    player2.field.emplace_back(&minion);
+    player2.field.emplace_back(new Minion(card));
 
     BasicTasks::DestroyTask task2(EntityType::TARGET);
-    task2.target = &minion;
+    task2.target = player2.field[0];
 
     MetaData result2 = task2.Run(player1, player2);
     EXPECT_EQ(result2, MetaData::DESTROY_MINION_SUCCESS);
@@ -42,8 +41,7 @@ TEST(DestroyTask, Run)
 
     // Destroy Target Weapon
     Card weaponCard;
-    Weapon weapon(weaponCard);
-    player2.hero->weapon = &weapon;
+    player2.hero->weapon = new Weapon(weaponCard);
 
     BasicTasks::DestroyTask task3 = BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON);
 

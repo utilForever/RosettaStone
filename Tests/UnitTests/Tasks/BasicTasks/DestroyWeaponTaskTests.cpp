@@ -18,9 +18,7 @@ TEST(DestroyWeaponTask, Run)
 
     Card card;
     card.id = "weapon1";
-
-    Weapon weapon(card);
-    gen.player1.hero->weapon = &weapon;
+    gen.player1.hero->weapon = new Weapon(card);
 
     MetaData result = destroy.Run(gen.player1, gen.player2);
     EXPECT_EQ(result, MetaData::DESTROY_WEAPON_SUCCESS);
