@@ -106,15 +106,15 @@ Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)
         card.durability ? std::optional<size_t>(deserialized->durability())
                         : std::nullopt;
 #else
-    converted.attack =
+    convertedCard.attack =
         card.attack
             ? std::experimental::optional<size_t>(deserialized->attack())
             : std::experimental::nullopt;
-    converted.health =
+    convertedCard.health =
         card.health
             ? std::experimental::optional<size_t>(deserialized->health())
             : std::experimental::nullopt;
-    converted.durability =
+    convertedCard.durability =
         card.durability
             ? std::experimental::optional<size_t>(deserialized->durability())
             : std::experimental::nullopt;
