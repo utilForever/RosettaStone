@@ -1,5 +1,4 @@
 ignore:
+    - 'Extensions'
     - 'Tests'
-    - 'Tools'
     - 'Libraries'
-    - 'Programs'
