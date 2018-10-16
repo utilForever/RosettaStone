@@ -116,9 +116,9 @@ void Console::SignUp()
     }
 }
 #ifndef HEARTHSTONEPP_MACOSX
-std::optional<Card> Console::SearchCard()
+std::optional<Card> Console::SearchCard() const
 #else
-std::experimental::optional<Card> Console::SearchCard()
+std::experimental::optional<Card> Console::SearchCard() const
 #endif
 {
     std::cout << "========================================\n";
@@ -201,7 +201,7 @@ int Console::ManageDeck()
     return isFinish ? 0 : ManageDeck();
 }
 
-void Console::SimulateGame()
+void Console::SimulateGame() const
 {
     int deck1, deck2;
     std::string user1, user2;
@@ -279,7 +279,7 @@ void Console::ModifyDeck()
     OperateDeck(selectedDeck);
 }
 
-void Console::DeleteDeck()
+void Console::DeleteDeck() const
 {
     if (m_account->GetNumOfDeck() == 0)
     {
@@ -369,7 +369,7 @@ void Console::AddCardInDeck(size_t deckIndex)
     }
 }
 
-void Console::DeleteCardInDeck(size_t deckIndex)
+void Console::DeleteCardInDeck(size_t deckIndex) const
 {
     Deck* deck = m_account->GetDeck(deckIndex - 1);
 
@@ -392,7 +392,7 @@ void Console::DeleteCardInDeck(size_t deckIndex)
         int numCardToDelete;
         std::cin >> numCardToDelete;
 
-        int numCardinDeck =
+        const int numCardinDeck =
             static_cast<int>(deck->GetNumCardInDeck(selectedCardID));
         if (numCardToDelete < 0 || numCardToDelete > numCardinDeck)
         {
@@ -457,7 +457,8 @@ void Console::ShowMenu(std::array<std::string, SIZE>& menus)
     std::cout << "========================================\n";
 }
 
-size_t Console::InputMenuNum(std::string questionStr, size_t menuSize)
+size_t Console::InputMenuNum(const std::string& questionStr,
+                             size_t menuSize) const
 {
     while (true)
     {
@@ -493,7 +494,7 @@ bool Console::InputYesNo(std::string& sentence) const
 }
 
 std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
-    std::string commandStr) const
+    const std::string& commandStr) const
 {
     // Output command string
     std::cout << commandStr;
@@ -514,6 +515,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
 
     // Convert std::string to const char*
     std::vector<const char*> convertedSplitCmds{};
+    convertedSplitCmds.reserve(cmdTokens.size());
     for (const auto& token : cmdTokens)
     {
         convertedSplitCmds.push_back(token.c_str());
@@ -575,22 +577,23 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         isValid = false;
     }
 
-    Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
-                        ? Rarity::_from_string(strRarity.c_str())
-                        : Rarity::_from_string("INVALID");
-    CardClass playerClass =
+    const Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
+                              ? Rarity::_from_string(strRarity.c_str())
+                              : Rarity::_from_string("INVALID");
+    const CardClass playerClass =
         CardClass::_from_string_nothrow(strPlayerClass.c_str())
             ? CardClass::_from_string(strPlayerClass.c_str())
             : CardClass::_from_string("INVALID");
-    CardType cardType = CardType::_from_string_nothrow(strCardType.c_str())
-                            ? CardType::_from_string(strCardType.c_str())
-                            : CardType::_from_string("INVALID");
-    Race race = Race::_from_string_nothrow(strRace.c_str())
-                    ? Race::_from_string(strRace.c_str())
-                    : Race::_from_string("INVALID");
-    GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
-                           ? GameTag::_from_string(strMechanics.c_str())
-                           : GameTag::_from_string("INVALID");
+    const CardType cardType =
+        CardType::_from_string_nothrow(strCardType.c_str())
+            ? CardType::_from_string(strCardType.c_str())
+            : CardType::_from_string("INVALID");
+    const Race race = Race::_from_string_nothrow(strRace.c_str())
+                          ? Race::_from_string(strRace.c_str())
+                          : Race::_from_string("INVALID");
+    const GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
+                                 ? GameTag::_from_string(strMechanics.c_str())
+                                 : GameTag::_from_string("INVALID");
 
     auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto [minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
@@ -619,7 +622,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 
     for (auto& card : Cards::GetInstance()->GetAllCards())
     {
-        if (card.isCollectible == false)
+        if (!card.isCollectible)
         {
             continue;
         }
@@ -668,8 +671,8 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
     return result;
 }
 
-std::vector<std::string> Console::SplitString(std::string str,
-                                              std::string delimiter) const
+std::vector<std::string> Console::SplitString(
+    std::string str, const std::string& delimiter) const
 {
     size_t pos;
     std::vector<std::string> tokens;
