@@ -38,11 +38,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     BYTE src = req->src();
     BYTE dst = req->dst();
 
-    source = (src > 0) ? dynamic_cast<Character*>(player1.field[src - 1])
-                       : dynamic_cast<Character*>(player1.hero);
-    target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
-                       : dynamic_cast<Character*>(player2.hero);
-
     // Source Minion Index Verification
     if (src > player1.field.size())
     {
@@ -56,6 +51,11 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
+
+    source = (src > 0) ? dynamic_cast<Character*>(player1.field[src - 1])
+                       : dynamic_cast<Character*>(player1.hero);
+    target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
+                       : dynamic_cast<Character*>(player2.hero);
 
     // Taunt Verification
     if (target->gameTags[+GameTag::TAUNT] == 0)
@@ -134,6 +134,11 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         {
             PowerTask::PoisonousTask(target, source).Run(player1, player2);
         }
+    }
+
+    if (source->gameTags[+GameTag::STEALTH] == 1)
+    {
+        source->gameTags[+GameTag::STEALTH] = 0;
     }
 
     // Source Health Check

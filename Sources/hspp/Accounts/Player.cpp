@@ -137,6 +137,13 @@ void Player::FreeMemory()
 
 void Player::CopyData(const Player& p)
 {
+    email = p.email;
+
+    id = p.id;
+    totalMana = p.totalMana;
+    existMana = p.existMana;
+    exhausted = p.exhausted;
+
     if (p.hero != nullptr)
     {
         hero = p.hero->Clone();
@@ -165,6 +172,13 @@ void Player::CopyData(const Player& p)
 
 void Player::MoveData(Player&& p)
 {
+    email = std::move(p.email);
+
+    id = p.id;
+    totalMana = p.totalMana;
+    existMana = p.existMana;
+    exhausted = p.exhausted;
+
     hero = p.hero;
     p.hero = nullptr;
     power = p.power;

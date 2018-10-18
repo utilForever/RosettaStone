@@ -36,7 +36,7 @@ TEST(TaskSerializer, CreateCard)
         auto buffer = builder.GetBufferPointer();
         auto deserialized = flatbuffers::GetRoot<FlatData::Card>(buffer);
         auto converted = TestUtils::ConvertCardFrom(card, deserialized);
-        TestUtils::ExpectCardEqual(card, *converted);
+        TestUtils::ExpectCardEqual(card, converted);
     };
 
     constexpr size_t zero = 0;
@@ -139,11 +139,11 @@ TEST(TaskSerializer, CreateEntityVector)
 
     auto deNerubian =
         TestUtils::ConvertCardFrom(nerubian, vector->Get(0)->card());
-    TestUtils::ExpectCardEqual(nerubian, *deNerubian);
+    TestUtils::ExpectCardEqual(nerubian, deNerubian);
 
     auto dePoisonedBlade =
         TestUtils::ConvertCardFrom(poisonedBlade, vector->Get(1)->card());
-    TestUtils::ExpectCardEqual(poisonedBlade, *dePoisonedBlade);
+    TestUtils::ExpectCardEqual(poisonedBlade, dePoisonedBlade);
 
     delete mNerubian;
     delete wPoisonedBlade;
