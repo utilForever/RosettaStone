@@ -1,0 +1,10 @@
+steps:
+- checkout: self
+  fetchDepth: 2
+  submodules: true
+- script: |
+    mkdir build
+    cd build
+    cmake ..
+    make -j 8
+    bin/UnitTests
