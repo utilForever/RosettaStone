@@ -240,7 +240,7 @@ int main(int argc, char* argv[])
             "Export a list of all expansion cards") |
         clara::Opt(cardSetName, "cardSet")["-c"]["--cardset"](
             "Export a list of specific expansion cards") |
-        clara::Opt(implCardOnly, "implCardOnly")["-i"]["--implcardonly"](
+        clara::Opt(implCardOnly)["-i"]["--implcardonly"](
             "Export a list of cards that need to be implemented") |
         clara::Opt(projectPath, "path")["-p"]["--path"](
             "Specify Hearthstone++ project path");
