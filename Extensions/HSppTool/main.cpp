@@ -6,6 +6,7 @@
 
 #include <hspp/Cards/Cards.h>
 
+#include <better-enums/enum.h>
 #include <clara.hpp>
 
 #ifdef HEARTHSTONEPP_WINDOWS
@@ -82,7 +83,8 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
         }
     }
 #else
-    std::cerr << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
+    std::cerr
+        << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
 #endif
     return false;
 }
@@ -95,8 +97,8 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
         size_t collectibleCardNum = 0;
         size_t implementedCardNum = 0;
 
-        outputFile << "Set | ID | Name | Implemented\n";
-        outputFile << ":---: | :---: | :---: | :---:\n";
+        outputFile << "Set | ID | Name | Tag | Implemented\n";
+        outputFile << ":---: | :---: | :---: | :---: | :---:\n";
 
         for (auto& card : cards)
         {
@@ -107,14 +109,20 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
 
             collectibleCardNum++;
 
+            std::string mechanicStr;
+            for (auto& mechanic : card.mechanics)
+            {
+                mechanicStr += mechanic._to_string();
+            }
+
             const bool isImplemented = CheckCardImpl(projectPath, card.id);
             if (isImplemented)
             {
                 implementedCardNum++;
             }
 
-            outputFile << card.cardSet._to_string() << " | " << card.id
-                       << " | " << card.name << " | "
+            outputFile << card.cardSet._to_string() << " | " << card.id << " | "
+                       << card.name << " | " << mechanicStr << " | "
                        << (isImplemented ? 'O' : ' ') << '\n';
         }
 
@@ -177,7 +185,8 @@ int main(int argc, char* argv[])
     }
     else if (!cardSetName.empty())
     {
-        const auto maybeCardSet = CardSet::_from_string_nothrow(cardSetName.c_str());
+        const auto maybeCardSet =
+            CardSet::_from_string_nothrow(cardSetName.c_str());
         if (!maybeCardSet)
         {
             std::cerr << "Invalid card set name: " << cardSetName << '\n';
