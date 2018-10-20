@@ -41,6 +41,11 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
+inline std::vector<GameTag> CheckAbilityImpl()
+{
+    // TODO: Check ability tests in CombatTaskTests.cpp
+}
+
 inline std::vector<Card> QueryCardSetList(CardSet cardSet, bool implCardOnly)
 {
     if (cardSet == +CardSet::ALL)
@@ -48,7 +53,26 @@ inline std::vector<Card> QueryCardSetList(CardSet cardSet, bool implCardOnly)
         return Cards::GetInstance()->GetAllCards();
     }
 
-    return Cards::GetInstance()->FindCardBySet(cardSet);
+    std::vector<GameTag> implementedAbilityList;
+    if (implCardOnly)
+    {
+        implementedAbilityList = CheckAbilityImpl();
+    }
+
+    std::vector<Card> result;
+    for (auto& card : Cards::GetInstance()->FindCardBySet(cardSet))
+    {
+        if (implCardOnly)
+        {
+            // TODO: Check abilities in card are all implemented
+        }
+        else
+        {
+            result.emplace_back(card);
+        }
+    }
+
+    return result;
 }
 
 inline bool CheckCardImpl(const std::string& path, const std::string& id)
