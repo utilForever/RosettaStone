@@ -41,22 +41,78 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline std::vector<GameTag> CheckAbilityImpl()
+inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
 {
-    // TODO: Check ability tests in CombatTaskTests.cpp
+    std::map<std::string, GameTag> abilityStrMap = {
+        { "Charge", GameTag::CHARGE },
+        { "DivineShield", GameTag::DIVINE_SHIELD },
+        { "Freeze", GameTag::FREEZE },
+        { "Poisonous", GameTag::POISONOUS },
+        { "Taunt", GameTag::TAUNT },
+        { "Windfury", GameTag::WINDFURY }
+    };
+
+#ifndef HEARTHSTONEPP_MACOSX
+    const filesystem::path p(
+        path + "/Tests/UnitTests/Tasks/BasicTasks/CombatTaskTests.cpp");
+
+    if (!filesystem::exists(p))
+    {
+        std::cerr << p << " does not exist\n";
+        exit(EXIT_FAILURE);
+    }
+
+    if (!filesystem::is_regular_file(p))
+    {
+        std::cerr << p << " exists, but is not regular file\n";
+        exit(EXIT_FAILURE);
+    }
+
+    std::ifstream abilityFile;
+    abilityFile.open(p.string());
+
+    if (!abilityFile.is_open())
+    {
+        std::cerr << p << " couldn't open\n";
+        exit(EXIT_FAILURE);
+    }
+
+    std::vector<GameTag> result;
+
+    std::string line;
+    while (std::getline(abilityFile, line))
+    {
+        for (auto& ability : abilityStrMap)
+        {
+            std::string sentence = "TEST(CombatTask, " + ability.first + ")";
+            if (line.find(sentence, 0) != std::string::npos)
+            {
+                result.emplace_back(ability.second);
+                break;
+            }
+        }
+    }
+
+#else
+    std::cerr << "CheckAbilityImpl skip: apple-clang doesn't support <filesystem>\n";
+    exit(EXIT_FAILURE);
+#endif
+
+    return result;
 }
 
-inline std::vector<Card> QueryCardSetList(CardSet cardSet, bool implCardOnly)
+inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
+                                          CardSet cardSet, bool implCardOnly)
 {
     if (cardSet == +CardSet::ALL)
     {
         return Cards::GetInstance()->GetAllCards();
     }
 
-    std::vector<GameTag> implementedAbilityList;
+    std::vector<GameTag> implementedAbilityList{};
     if (implCardOnly)
     {
-        implementedAbilityList = CheckAbilityImpl();
+        implementedAbilityList = CheckAbilityImpl(projectPath);
     }
 
     std::vector<Card> result;
@@ -89,6 +145,7 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
     if (!filesystem::is_directory(p))
     {
         std::cerr << p << " exists, but is not directory\n";
+        exit(EXIT_FAILURE);
     }
 
     for (auto&& file : filesystem::recursive_directory_iterator(p))
@@ -109,7 +166,9 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
 #else
     std::cerr
         << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
+    exit(EXIT_FAILURE);
 #endif
+
     return false;
 }
 
@@ -209,7 +268,7 @@ int main(int argc, char* argv[])
 
     if (isExportAllCard)
     {
-        cards = QueryCardSetList(CardSet::ALL, implCardOnly);
+        cards = QueryCardSetList(projectPath, CardSet::ALL, implCardOnly);
     }
     else if (!cardSetName.empty())
     {
@@ -221,7 +280,7 @@ int main(int argc, char* argv[])
             exit(EXIT_FAILURE);
         }
 
-        cards = QueryCardSetList(*maybeCardSet, implCardOnly);
+        cards = QueryCardSetList(projectPath, *maybeCardSet, implCardOnly);
     }
 
     if (cards.empty())
