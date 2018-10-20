@@ -41,7 +41,7 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline std::vector<Card> QueryCardSetList(CardSet cardSet)
+inline std::vector<Card> QueryCardSetList(CardSet cardSet, bool implCardOnly)
 {
     if (cardSet == +CardSet::ALL)
     {
@@ -145,18 +145,22 @@ int main(int argc, char* argv[])
 {
     // Parse command
     bool showHelp = false;
-    bool exportAllCard = false;
+    bool isExportAllCard = false;
+    bool implCardOnly = false;
     std::string cardSetName;
     std::string projectPath;
 
     // Parsing
-    auto parser = clara::Help(showHelp) |
-                  clara::Opt(exportAllCard)["-a"]["--all"](
-                      "Export all card set list to markdown format") |
-                  clara::Opt(cardSetName, "cardSet")["-c"]["--cardset"](
-                      "Export specific card set list to markdown format") |
-                  clara::Opt(projectPath, "path")["-p"]["--path"](
-                      "Hearthstone++ project path");
+    auto parser =
+        clara::Help(showHelp) |
+        clara::Opt(isExportAllCard)["-a"]["--all"](
+            "Export a list of all expansion cards") |
+        clara::Opt(cardSetName, "cardSet")["-c"]["--cardset"](
+            "Export a list of specific expansion cards") |
+        clara::Opt(implCardOnly, "implCardOnly")["-i"]["--implcardonly"](
+            "Export a list of cards that need to be implemented") |
+        clara::Opt(projectPath, "path")["-p"]["--path"](
+            "Specify Hearthstone++ project path");
 
     auto result = parser.parse(clara::Args(argc, argv));
     if (!result)
@@ -179,9 +183,9 @@ int main(int argc, char* argv[])
 
     std::vector<Card> cards;
 
-    if (exportAllCard)
+    if (isExportAllCard)
     {
-        cards = QueryCardSetList(CardSet::ALL);
+        cards = QueryCardSetList(CardSet::ALL, implCardOnly);
     }
     else if (!cardSetName.empty())
     {
@@ -193,7 +197,7 @@ int main(int argc, char* argv[])
             exit(EXIT_FAILURE);
         }
 
-        cards = QueryCardSetList(*maybeCardSet);
+        cards = QueryCardSetList(*maybeCardSet, implCardOnly);
     }
 
     if (cards.empty())
