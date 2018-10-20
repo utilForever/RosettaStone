@@ -63,7 +63,7 @@ TEST(CombatTask, GetTaskID)
     EXPECT_EQ(combat.GetTaskID(), +TaskID::COMBAT);
 }
 
-TEST(CombatTask, CombatDefault)
+TEST(CombatTask, Default)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
@@ -120,7 +120,7 @@ TEST(CombatTask, IndexOutOfRange)
     tester.Attack(2, 1, MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE, true);
 }
 
-TEST(CombatTask, CombatTaunt)
+TEST(CombatTask, Taunt)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
@@ -137,7 +137,7 @@ TEST(CombatTask, CombatTaunt)
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
 }
 
-TEST(CombatTask, CombatStealth)
+TEST(CombatTask, Stealth)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
@@ -157,7 +157,7 @@ TEST(CombatTask, CombatStealth)
     EXPECT_EQ(player1.field[0]->gameTags[+GameTag::STEALTH], 0);
 }
 
-TEST(CombatTask, CombatImmune)
+TEST(CombatTask, Immune)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
@@ -171,7 +171,7 @@ TEST(CombatTask, CombatImmune)
     tester.Attack(1, 1, MetaData::COMBAT_TARGET_IMMUNE, true);
 }
 
-TEST(CombatTask, CombatAttackCount)
+TEST(CombatTask, Windfury)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
@@ -190,7 +190,7 @@ TEST(CombatTask, CombatAttackCount)
     tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED);
 }
 
-TEST(CombatTask, CombatDivineShield)
+TEST(CombatTask, DivineShield)
 {
     CombatTester tester;
     auto [player1, player2] = tester.GetPlayer();
