@@ -94,7 +94,8 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
     }
 
 #else
-    std::cerr << "CheckAbilityImpl skip: apple-clang doesn't support <filesystem>\n";
+    std::cerr
+        << "CheckAbilityImpl skip: apple-clang doesn't support <filesystem>\n";
     exit(EXIT_FAILURE);
 #endif
 
@@ -109,10 +110,10 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
         return Cards::GetInstance()->GetAllCards();
     }
 
-    std::vector<GameTag> implementedAbilityList{};
+    std::vector<GameTag> abilityList{};
     if (implCardOnly)
     {
-        implementedAbilityList = CheckAbilityImpl(projectPath);
+        abilityList = CheckAbilityImpl(projectPath);
     }
 
     std::vector<Card> result;
@@ -120,7 +121,21 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
     {
         if (implCardOnly)
         {
-            // TODO: Check abilities in card are all implemented
+            bool isAbilityImpl = true;
+            for (auto& mechanic : card.mechanics)
+            {
+                if (std::find(abilityList.begin(), abilityList.end(),
+                              mechanic) == abilityList.end())
+                {
+                    isAbilityImpl = false;
+                    break;
+                }
+            }
+
+            if (!isAbilityImpl)
+            {
+                result.emplace_back(card);
+            }
         }
         else
         {
@@ -234,16 +249,15 @@ int main(int argc, char* argv[])
     std::string projectPath;
 
     // Parsing
-    auto parser =
-        clara::Help(showHelp) |
-        clara::Opt(isExportAllCard)["-a"]["--all"](
-            "Export a list of all expansion cards") |
-        clara::Opt(cardSetName, "cardSet")["-c"]["--cardset"](
-            "Export a list of specific expansion cards") |
-        clara::Opt(implCardOnly)["-i"]["--implcardonly"](
-            "Export a list of cards that need to be implemented") |
-        clara::Opt(projectPath, "path")["-p"]["--path"](
-            "Specify Hearthstone++ project path");
+    auto parser = clara::Help(showHelp) |
+                  clara::Opt(isExportAllCard)["-a"]["--all"](
+                      "Export a list of all expansion cards") |
+                  clara::Opt(cardSetName, "cardSet")["-c"]["--cardset"](
+                      "Export a list of specific expansion cards") |
+                  clara::Opt(implCardOnly)["-i"]["--implcardonly"](
+                      "Export a list of cards that need to be implemented") |
+                  clara::Opt(projectPath, "path")["-p"]["--path"](
+                      "Specify Hearthstone++ project path");
 
     auto result = parser.parse(clara::Args(argc, argv));
     if (!result)
