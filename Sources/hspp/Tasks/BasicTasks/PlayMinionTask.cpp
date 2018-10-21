@@ -61,12 +61,6 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
         m_entity->gameTags[tags] = 1;
     }
 
-    // Summoned minion can't attack right turn
-    if (m_entity->gameTags[+GameTag::CHARGE] == 1)
-    {
-        static_cast<Character*>(m_entity)->attackableCount = 1;
-    }
-
     BYTE cost = static_cast<BYTE>(m_entity->card->cost);
     MetaData modified = ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
                             .Run(player1, player2);
