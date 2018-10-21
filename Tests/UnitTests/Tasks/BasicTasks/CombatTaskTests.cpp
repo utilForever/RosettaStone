@@ -120,6 +120,22 @@ TEST(CombatTask, IndexOutOfRange)
     tester.Attack(2, 1, MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE, true);
 }
 
+TEST(CombatTask, Charge)
+{
+    CombatTester tester;
+    auto [player1, player2] = tester.GetPlayer();
+    auto card = TestUtils::GenerateMinionCard("minion1", 1, 10);
+
+    player1.field.emplace_back(new Minion(card));
+    player2.field.emplace_back(new Minion(card));
+
+    player2.field[0]->gameTags[+GameTag::CHARGE] = 1;
+    tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, false);
+
+    player2.field[0]->gameTags[+GameTag::CHARGE] = 0;
+    tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, false);
+}
+
 TEST(CombatTask, Taunt)
 {
     CombatTester tester;
