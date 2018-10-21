@@ -44,10 +44,12 @@ inline std::string ToString(const clara::Parser& p)
 inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
 {
     std::map<std::string, GameTag> abilityStrMap = {
+        { "Adapt", GameTag::ADAPT },
         { "Charge", GameTag::CHARGE },
         { "DivineShield", GameTag::DIVINE_SHIELD },
         { "Freeze", GameTag::FREEZE },
         { "Poisonous", GameTag::POISONOUS },
+        { "Stealth", GameTag::STEALTH },
         { "Taunt", GameTag::TAUNT },
         { "Windfury", GameTag::WINDFURY }
     };
