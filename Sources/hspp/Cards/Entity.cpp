@@ -49,6 +49,11 @@ Entity* Entity::Clone() const
     return new Entity(*this);
 }
 
+void Entity::SetAbility(GameTag tag, bool flag)
+{
+    gameTags.insert_or_assign(tag, flag);
+}
+
 void Entity::FreeMemory()
 {
     gameTags.clear();
