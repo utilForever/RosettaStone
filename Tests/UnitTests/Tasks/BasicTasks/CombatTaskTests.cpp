@@ -129,13 +129,11 @@ TEST(CombatTask, Charge)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    // player2.field[0]->gameTags[+GameTag::CHARGE] = 1;
     player1.field[0]->SetAbility(GameTag::CHARGE, true);
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, false);
 
-    // player2.field[0]->gameTags[+GameTag::CHARGE] = 0;
     player1.field[0]->SetAbility(GameTag::CHARGE, false);
-    // tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, false);
+    tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, false);
 }
 
 TEST(CombatTask, Taunt)
