@@ -27,6 +27,11 @@ struct Minion : public Character
 
     //! Default destructor.
     virtual ~Minion() = default;
+
+    //! Sets ability to the card.
+    //! \param tag The game tag to indicate ability.
+    //! \param flag The flag that specifies whether or not the ability is set.
+    virtual void SetAbility(GameTag tag, bool flag) override;
 };
 }  // namespace Hearthstonepp
 
