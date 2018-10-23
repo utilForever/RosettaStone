@@ -54,6 +54,8 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
         { "Windfury", GameTag::WINDFURY }
     };
 
+    std::vector<GameTag> result;
+
 #ifndef HEARTHSTONEPP_MACOSX
     const filesystem::path p(
         path + "/Tests/UnitTests/Tasks/BasicTasks/CombatTaskTests.cpp");
@@ -78,8 +80,6 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
         std::cerr << p << " couldn't open\n";
         exit(EXIT_FAILURE);
     }
-
-    std::vector<GameTag> result;
 
     std::string line;
     while (std::getline(abilityFile, line))
