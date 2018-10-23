@@ -134,7 +134,10 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
                 }
             }
 
-            if (!isAbilityImpl)
+            if (!isAbilityImpl || (card.cardType != +CardType::MINION &&
+                                   card.cardType != +CardType::HERO &&
+                                   card.cardType != +CardType::HERO_POWER &&
+                                   card.cardType != +CardType::WEAPON))
             {
                 result.emplace_back(card);
             }
