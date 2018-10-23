@@ -33,7 +33,7 @@
 * [ ] Secret
 * [ ] Silence
 * [ ] Start of Game
-* [ ] Stealth
+* [x] Stealth
 * [ ] Spell Damage
 * [x] Taunt
 * [x] Windfury
