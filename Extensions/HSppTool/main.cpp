@@ -192,13 +192,23 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
     return false;
 }
 
-inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
+inline void ExportFile(const std::string& projectPath,
+                       CardSet cardSet, std::vector<Card>& cards)
 {
     std::ofstream outputFile("result.md");
     if (outputFile)
     {
-        size_t collectibleCardNum = 0;
-        size_t implementedCardNum = 0;
+        size_t allCardNum = 0;
+        size_t toImplCardNum = 0;
+        size_t impledCardNum = 0;
+
+        for (auto& card : Cards::GetInstance()->FindCardBySet(cardSet))
+        {
+            if (card.isCollectible)
+            {
+                allCardNum++;
+            }
+        }
 
         outputFile << "Set | ID | Name | Implemented\n";
         outputFile << ":---: | :---: | :---: | :---:\n";
@@ -210,7 +220,7 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
                 continue;
             }
 
-            collectibleCardNum++;
+            toImplCardNum++;
 
             std::string mechanicStr;
             for (auto& mechanic : card.mechanics)
@@ -221,7 +231,7 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
             const bool isImplemented = CheckCardImpl(projectPath, card.id);
             if (isImplemented)
             {
-                implementedCardNum++;
+                impledCardNum++;
             }
 
             outputFile << card.cardSet._to_string() << " | " << card.id << " | "
@@ -229,12 +239,13 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
                        << '\n';
         }
 
+        // Adds the number of card that implemented by ability
+        impledCardNum += (allCardNum - toImplCardNum);
         const size_t implPercent = static_cast<size_t>(
-            static_cast<double>(implementedCardNum) / collectibleCardNum * 100);
+            static_cast<double>(impledCardNum) / allCardNum * 100);
         outputFile << '\n';
-        outputFile << "- Progress: " << implPercent << "% ("
-                   << implementedCardNum << " of " << collectibleCardNum
-                   << " Cards)";
+        outputFile << "- Progress: " << implPercent << "% (" << impledCardNum
+                   << " of " << allCardNum << " Cards)";
 
         std::cout << "Export file is completed.\n";
         exit(EXIT_SUCCESS);
@@ -283,24 +294,27 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    std::vector<Card> cards;
+    CardSet cardSet = CardSet::INVALID;
 
     if (isExportAllCard)
     {
-        cards = QueryCardSetList(projectPath, CardSet::ALL, implCardOnly);
+        cardSet = CardSet::ALL;
     }
     else if (!cardSetName.empty())
     {
-        const auto maybeCardSet =
+        const auto convertedCardSet =
             CardSet::_from_string_nothrow(cardSetName.c_str());
-        if (!maybeCardSet)
+        if (!convertedCardSet)
         {
             std::cerr << "Invalid card set name: " << cardSetName << '\n';
             exit(EXIT_FAILURE);
         }
 
-        cards = QueryCardSetList(projectPath, *maybeCardSet, implCardOnly);
+        cardSet = *convertedCardSet;
     }
+
+    std::vector<Card> cards =
+        QueryCardSetList(projectPath, cardSet, implCardOnly);
 
     if (cards.empty())
     {
@@ -308,7 +322,7 @@ int main(int argc, char* argv[])
         exit(EXIT_SUCCESS);
     }
 
-    ExportFile(projectPath, cards);
+    ExportFile(projectPath, cardSet, cards);
 
     exit(EXIT_SUCCESS);
 }
