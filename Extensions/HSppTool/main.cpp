@@ -200,8 +200,8 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
         size_t collectibleCardNum = 0;
         size_t implementedCardNum = 0;
 
-        outputFile << "Set | ID | Name | Tag | Implemented\n";
-        outputFile << ":---: | :---: | :---: | :---: | :---:\n";
+        outputFile << "Set | ID | Name | Implemented\n";
+        outputFile << ":---: | :---: | :---: | :---:\n";
 
         for (auto& card : cards)
         {
@@ -225,8 +225,8 @@ inline void ExportFile(const std::string& projectPath, std::vector<Card>& cards)
             }
 
             outputFile << card.cardSet._to_string() << " | " << card.id << " | "
-                       << card.name << " | " << mechanicStr << " | "
-                       << (isImplemented ? 'O' : ' ') << '\n';
+                       << card.name << " | " << (isImplemented ? 'O' : ' ')
+                       << '\n';
         }
 
         const size_t implPercent = static_cast<size_t>(
