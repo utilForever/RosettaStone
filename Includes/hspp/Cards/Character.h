@@ -22,8 +22,8 @@ struct Character : public Entity
     //! Default constructor.
     Character() = default;
 
-    //! Constructs character with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs character with given \p card.
+    //! \param card A reference to the card.
     Character(Card& card);
 
     //! Default destructor.

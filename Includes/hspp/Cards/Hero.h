@@ -20,8 +20,8 @@ namespace Hearthstonepp
 //!
 struct Hero : public Character
 {
-    //! Constructs hero with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs hero with given \p card.
+    //! \param card A reference to the card.
     Hero(Card& card);
 
     //! Copy constructor.

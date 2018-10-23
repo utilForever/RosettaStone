@@ -21,8 +21,8 @@ struct Minion : public Character
     //! Default constructor.
     Minion() = default;
 
-    //! Constructs minion with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs minion with given \p card.
+    //! \param card A reference to the card.
     Minion(Card& card);
 
     //! Default destructor.

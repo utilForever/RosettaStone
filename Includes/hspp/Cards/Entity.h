@@ -28,8 +28,8 @@ struct Entity
     //! Default constructor.
     Entity() = default;
 
-    //! Constructs entity with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs entity with given \p _card.
+    //! \param _card A reference to the card.
     Entity(Card& _card);
 
     //! Destructor.
