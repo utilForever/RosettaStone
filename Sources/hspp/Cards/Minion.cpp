@@ -10,13 +10,18 @@ namespace Hearthstonepp
 {
 Minion::Minion(Card& card) : Character(card)
 {
-    // Do nothing
+    CheckAbilities();
 }
 
 void Minion::SetAbility(GameTag tag, bool flag)
 {
     Character::SetAbility(tag, flag);
 
+    CheckAbilities();
+}
+
+void Minion::CheckAbilities()
+{
     if (gameTags[GameTag::CHARGE] == 1)
     {
         attackableCount = 1;

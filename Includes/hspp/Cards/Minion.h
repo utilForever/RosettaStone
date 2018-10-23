@@ -31,7 +31,10 @@ struct Minion : public Character
     //! Sets ability to the card.
     //! \param tag The game tag to indicate ability.
     //! \param flag The flag that specifies whether or not the ability is set.
-    virtual void SetAbility(GameTag tag, bool flag) override;
+    void SetAbility(GameTag tag, bool flag) override;
+
+    //! Checks newly assigned abilities.
+    void CheckAbilities();
 };
 }  // namespace Hearthstonepp
 
