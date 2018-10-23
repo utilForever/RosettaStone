@@ -10,9 +10,9 @@ namespace Hearthstonepp
 {
 Entity::Entity(Card& _card) : card(new Card(_card))
 {
-    for (auto& mechanic : card->mechanics)
+    for (auto& mechanic : _card.mechanics)
     {
-        gameTags.insert(std::make_pair(mechanic, 1));
+        Entity::SetAbility(mechanic, true);
     }
 }
 
