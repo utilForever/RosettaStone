@@ -146,10 +146,10 @@ TEST(CombatTask, Taunt)
     player2.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player2.field[1]->gameTags[+GameTag::TAUNT] = 1;
+    player2.field[1]->SetAbility(GameTag::TAUNT, true);
     tester.Attack(1, 1, MetaData::COMBAT_FIELD_HAVE_TAUNT, true);
 
-    player2.field[1]->gameTags[+GameTag::TAUNT] = 0;
+    player2.field[1]->SetAbility(GameTag::TAUNT, false);
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
 }
 
@@ -162,12 +162,12 @@ TEST(CombatTask, Stealth)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player2.field[0]->gameTags[+GameTag::STEALTH] = 1;
+    player2.field[0]->SetAbility(GameTag::STEALTH, true);
 
     tester.Attack(1, 1, MetaData::COMBAT_TARGET_STEALTH, true);
 
-    player1.field[0]->gameTags[+GameTag::STEALTH] = 1;
-    player2.field[0]->gameTags[+GameTag::STEALTH] = 0;
+    player1.field[0]->SetAbility(GameTag::STEALTH, true);
+    player2.field[0]->SetAbility(GameTag::STEALTH, false);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
     EXPECT_EQ(player1.field[0]->gameTags[+GameTag::STEALTH], 0);
@@ -182,7 +182,7 @@ TEST(CombatTask, Immune)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player2.field[0]->gameTags[+GameTag::IMMUNE] = 1;
+    player2.field[0]->SetAbility(GameTag::IMMUNE, true);
 
     tester.Attack(1, 1, MetaData::COMBAT_TARGET_IMMUNE, true);
 }
@@ -199,7 +199,7 @@ TEST(CombatTask, Windfury)
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
     tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED);
 
-    player1.field[0]->gameTags[+GameTag::WINDFURY] = 1;
+    player1.field[0]->SetAbility(GameTag::WINDFURY, true);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS);
@@ -215,13 +215,13 @@ TEST(CombatTask, DivineShield)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player1.field[0]->gameTags[+GameTag::DIVINE_SHIELD] = 1;
+    player1.field[0]->SetAbility(GameTag::DIVINE_SHIELD, true);
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
 
     EXPECT_EQ(player1.field[0]->health, player1.field[0]->maxHealth);
     EXPECT_EQ(player2.field[0]->health, static_cast<size_t>(9));
 
-    player2.field[0]->gameTags[+GameTag::DIVINE_SHIELD] = 1;
+    player2.field[0]->SetAbility(GameTag::DIVINE_SHIELD, true);
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
 
     EXPECT_EQ(player1.field[0]->health, static_cast<size_t>(9));
@@ -237,7 +237,7 @@ TEST(CombatTask, Poisonous)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player1.field[0]->gameTags[+GameTag::POISONOUS] = 1;
+    player1.field[0]->SetAbility(GameTag::POISONOUS, true);
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
 
     EXPECT_EQ(player1.field[0]->health, static_cast<size_t>(9));
@@ -245,8 +245,8 @@ TEST(CombatTask, Poisonous)
 
     player2.field.emplace_back(new Minion(card));
 
-    player1.field[0]->gameTags[+GameTag::POISONOUS] = 0;
-    player2.field[0]->gameTags[+GameTag::POISONOUS] = 1;
+    player1.field[0]->SetAbility(GameTag::POISONOUS, false);
+    player2.field[0]->SetAbility(GameTag::POISONOUS, true);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
     EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
