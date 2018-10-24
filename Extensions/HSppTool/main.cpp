@@ -326,11 +326,6 @@ int main(int argc, char* argv[])
     std::vector<Card> cards =
         QueryCardSetList(projectPath, cardSet, implCardOnly);
 
-    for (auto& card : cards)
-    {
-        std::cout << card.id << '\n';
-    }
-
     if (cards.empty())
     {
         std::cerr << "Your search did not generate any hits.\n";
