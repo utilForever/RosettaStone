@@ -134,10 +134,9 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
                 }
             }
 
-            if (!isAbilityImpl || (card.cardType != +CardType::MINION &&
-                                   card.cardType != +CardType::HERO &&
-                                   card.cardType != +CardType::HERO_POWER &&
-                                   card.cardType != +CardType::WEAPON))
+            // Counts minion and weapon card only
+            if (isAbilityImpl && (card.cardType == +CardType::MINION ||
+                                  card.cardType == +CardType::WEAPON))
             {
                 result.emplace_back(card);
             }
@@ -151,9 +150,17 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
     return result;
 }
 
-inline bool CheckCardImpl(const std::string& path, const std::string& id)
+inline bool CheckCardImpl(const std::string& path, std::vector<Card>& cards,
+                          const std::string& id)
 {
 #ifndef HEARTHSTONEPP_MACOSX
+    auto iter = std::find_if(cards.begin(), cards.end(),
+                             [&id](const Card& c) { return c.id == id; });
+    if (iter != cards.end())
+    {
+        return true;
+    }
+
     const filesystem::path p(path + "/Tests/UnitTests/CardSets");
 
     if (!filesystem::exists(p))
@@ -192,49 +199,47 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
     return false;
 }
 
-inline void ExportFile(const std::string& projectPath,
-                       CardSet cardSet, std::vector<Card>& cards)
+inline void ExportFile(const std::string& projectPath, CardSet cardSet,
+                       std::vector<Card>& cards)
 {
     std::ofstream outputFile("result.md");
     if (outputFile)
     {
-        size_t allCardNum = 0;
-        size_t toImplCardNum = 0;
-        size_t impledCardNum = 0;
+        auto cardsInCardSet = Cards::GetInstance()->FindCardBySet(cardSet);
 
-        for (auto& card : Cards::GetInstance()->FindCardBySet(cardSet))
-        {
-            if (card.isCollectible)
-            {
-                allCardNum++;
-            }
-        }
+        // Excludes cards that is not collectible
+        cardsInCardSet.erase(
+            std::remove_if(cardsInCardSet.begin(), cardsInCardSet.end(),
+                           [](const Card& c) { return !c.isCollectible; }),
+            cardsInCardSet.end());
 
         // Excludes 9 hero cards from CardSet::CORE
         if (cardSet == +CardSet::CORE)
         {
-            allCardNum -= 9;
+            cardsInCardSet.erase(
+                std::remove_if(cardsInCardSet.begin(), cardsInCardSet.end(),
+                               [](const Card& c) {
+                                   return c.cardType == +CardType::HERO;
+                               }),
+                cardsInCardSet.end());
         }
+
+        size_t impledCardNum = 0;
+        const size_t allCardNum = cardsInCardSet.size();
 
         outputFile << "Set | ID | Name | Implemented\n";
         outputFile << ":---: | :---: | :---: | :---:\n";
 
-        for (auto& card : cards)
+        for (auto& card : cardsInCardSet)
         {
-            if (!card.isCollectible)
-            {
-                continue;
-            }
-
-            toImplCardNum++;
-
             std::string mechanicStr;
             for (auto& mechanic : card.mechanics)
             {
                 mechanicStr += mechanic._to_string();
             }
 
-            const bool isImplemented = CheckCardImpl(projectPath, card.id);
+            const bool isImplemented =
+                CheckCardImpl(projectPath, cards, card.id);
             if (isImplemented)
             {
                 impledCardNum++;
@@ -246,7 +251,6 @@ inline void ExportFile(const std::string& projectPath,
         }
 
         // Adds the number of card that implemented by ability
-        impledCardNum += (allCardNum - toImplCardNum);
         const size_t implPercent = static_cast<size_t>(
             static_cast<double>(impledCardNum) / allCardNum * 100);
         outputFile << '\n';
@@ -321,6 +325,11 @@ int main(int argc, char* argv[])
 
     std::vector<Card> cards =
         QueryCardSetList(projectPath, cardSet, implCardOnly);
+
+    for (auto& card : cards)
+    {
+        std::cout << card.id << '\n';
+    }
 
     if (cards.empty())
     {
