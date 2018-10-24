@@ -210,6 +210,12 @@ inline void ExportFile(const std::string& projectPath,
             }
         }
 
+        // Excludes 9 hero cards from CardSet::CORE
+        if (cardSet == +CardSet::CORE)
+        {
+            allCardNum -= 9;
+        }
+
         outputFile << "Set | ID | Name | Implemented\n";
         outputFile << ":---: | :---: | :---: | :---:\n";
 
