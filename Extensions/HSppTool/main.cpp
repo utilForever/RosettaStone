@@ -107,6 +107,22 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
 inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
                                           CardSet cardSet, bool implCardOnly)
 {
+    // Excludes this cards because it has power that doesn't appear in ability
+    // EX1_508: Grimscale Oracle (CORE)
+    // CS2_146: Southsea Deckhand (EXPERT1)
+    // DS1_188: Gladiator's Longbow (EXPERT1)
+    // EX1_105: Mountain Giant (EXPERT1)
+    // EX1_335: Lightspawn (EXPERT1)
+    // EX1_350: Prophet Velen (EXPERT1)
+    // EX1_411: Gorehowl (EXPERT1)
+    // EX1_560: Nozdormu (EXPERT1)
+    // EX1_586: Sea Giant (EXPERT1)
+    // NEW1_022: Dread Corsair (EXPERT1)
+    std::vector<std::string> excludeCardList = {
+        "EX1_508", "CS2_146", "DS1_188", "EX1_105", "EX1_335",
+        "EX1_350", "EX1_411", "EX1_560", "EX1_586", "NEW1_022",
+    };
+
     if (cardSet == +CardSet::ALL)
     {
         return Cards::GetInstance()->GetAllCards();
