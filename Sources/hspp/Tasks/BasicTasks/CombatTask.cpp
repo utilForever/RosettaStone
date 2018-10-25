@@ -57,6 +57,12 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
                        : dynamic_cast<Character*>(player2.hero);
 
+    // Verify source has GameTag::FROZEN
+    if (source->gameTags[+GameTag::FROZEN] == 1)
+    {
+        return MetaData::COMBAT_SOURCE_FROZEN;
+    }
+
     // Taunt Verification
     if (target->gameTags[+GameTag::TAUNT] == 0)
     {
@@ -120,6 +126,10 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         {
             PowerTask::PoisonousTask(source, target).Run(player1, player2);
         }
+        else if (source->gameTags[+GameTag::FREEZE] == 1)
+        {
+            PowerTask::FreezeTask(source, target).Run(player1, player2);
+        }
     }
 
     // Divine Shield : Src
@@ -133,6 +143,10 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         if (target->gameTags[+GameTag::POISONOUS] == 1)
         {
             PowerTask::PoisonousTask(target, source).Run(player1, player2);
+        }
+        else if (target->gameTags[+GameTag::FREEZE] == 1)
+        {
+            PowerTask::FreezeTask(target, source).Run(player1, player2);
         }
     }
 
