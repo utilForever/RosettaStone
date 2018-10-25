@@ -139,6 +139,13 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
     {
         if (implCardOnly)
         {
+            // Excludes cards that its power doesn't appear in ability
+            if (std::find(excludeCardList.begin(), excludeCardList.end(),
+                          card.id) != excludeCardList.end())
+            {
+                continue;
+            }
+
             bool isAbilityImpl = true;
             for (auto& mechanic : card.mechanics)
             {
