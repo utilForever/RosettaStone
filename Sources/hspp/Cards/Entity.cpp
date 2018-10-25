@@ -51,12 +51,16 @@ Entity* Entity::Clone() const
 
 void Entity::SetAbility(GameTag tag, bool flag)
 {
-    const bool isExistAbility = (gameTags.find(tag) != gameTags.end()) &&
-                                (static_cast<bool>(gameTags[tag]));
-    if (isExistAbility ^ flag)
+    if (HasAbility(tag) ^ flag)
     {
         gameTags.insert_or_assign(tag, flag);
     }
+}
+
+bool Entity::HasAbility(GameTag ability)
+{
+    return (gameTags.find(ability) != gameTags.end()) &&
+           (static_cast<bool>(gameTags[ability]));
 }
 
 void Entity::FreeMemory()

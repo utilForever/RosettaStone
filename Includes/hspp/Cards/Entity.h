@@ -49,6 +49,11 @@ struct Entity
     //! \param flag The flag that specifies whether or not the ability is set.
     virtual void SetAbility(GameTag tag, bool flag);
 
+    //! Finds out if this card has \p ability.
+    //! \param ability The ability of card.
+    //! \return true if this card has \p ability, and false otherwise.
+    bool HasAbility(GameTag ability);
+
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;
