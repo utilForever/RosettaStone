@@ -3,8 +3,6 @@
 * [Basic card list](#basic)
 * [Classic card list](#classic)
 
-## Basic
-
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 CORE | CS1_042 | Goldshire Footman | O
@@ -28,7 +26,7 @@ CORE | CS2_026 | Frost Nova |
 CORE | CS2_027 | Mirror Image |  
 CORE | CS2_029 | Fireball |  
 CORE | CS2_032 | Flamestrike |  
-CORE | CS2_033 | Water Elemental |  
+CORE | CS2_033 | Water Elemental | O
 CORE | CS2_037 | Frost Shock |  
 CORE | CS2_039 | Windfury |  
 CORE | CS2_041 | Ancestral Healing | O
@@ -127,7 +125,7 @@ CORE | EX1_371 | Hand of Protection |
 CORE | EX1_399 | Gurubashi Berserker |  
 CORE | EX1_400 | Whirlwind |  
 CORE | EX1_506 | Murloc Tidehunter |  
-CORE | EX1_508 | Grimscale Oracle | O
+CORE | EX1_508 | Grimscale Oracle |  
 CORE | EX1_539 | Kill Command |  
 CORE | EX1_565 | Flametongue Totem |  
 CORE | EX1_581 | Sap |  
@@ -156,7 +154,7 @@ EXPERT1 | CS2_059 | Blood Imp |
 EXPERT1 | CS2_073 | Cold Blood |  
 EXPERT1 | CS2_104 | Rampage |  
 EXPERT1 | CS2_117 | Earthen Ring Farseer |  
-EXPERT1 | CS2_146 | Southsea Deckhand | O
+EXPERT1 | CS2_146 | Southsea Deckhand |  
 EXPERT1 | CS2_151 | Silver Hand Knight |  
 EXPERT1 | CS2_161 | Ravenholdt Assassin | O
 EXPERT1 | CS2_169 | Young Dragonhawk | O
@@ -167,7 +165,7 @@ EXPERT1 | CS2_221 | Spiteful Smith |
 EXPERT1 | CS2_227 | Venture Co. Mercenary |  
 EXPERT1 | CS2_231 | Wisp | O
 EXPERT1 | CS2_233 | Blade Flurry |  
-EXPERT1 | DS1_188 | Gladiator's Longbow | O
+EXPERT1 | DS1_188 | Gladiator's Longbow |  
 EXPERT1 | EX1_001 | Lightwarden |  
 EXPERT1 | EX1_002 | The Black Knight |  
 EXPERT1 | EX1_004 | Young Priestess |  
@@ -212,7 +210,7 @@ EXPERT1 | EX1_097 | Abomination |
 EXPERT1 | EX1_100 | Lorewalker Cho |  
 EXPERT1 | EX1_102 | Demolisher |  
 EXPERT1 | EX1_103 | Coldlight Seer |  
-EXPERT1 | EX1_105 | Mountain Giant | O
+EXPERT1 | EX1_105 | Mountain Giant |  
 EXPERT1 | EX1_110 | Cairne Bloodhoof |  
 EXPERT1 | EX1_116 | Leeroy Jenkins |  
 EXPERT1 | EX1_124 | Eviscerate |  
@@ -269,12 +267,12 @@ EXPERT1 | EX1_320 | Bane of Doom |
 EXPERT1 | EX1_323 | Lord Jaraxxus |  
 EXPERT1 | EX1_332 | Silence |  
 EXPERT1 | EX1_334 | Shadow Madness |  
-EXPERT1 | EX1_335 | Lightspawn | O
+EXPERT1 | EX1_335 | Lightspawn |  
 EXPERT1 | EX1_339 | Thoughtsteal |  
 EXPERT1 | EX1_341 | Lightwell |  
 EXPERT1 | EX1_345 | Mindgames |  
 EXPERT1 | EX1_349 | Divine Favor |  
-EXPERT1 | EX1_350 | Prophet Velen | O
+EXPERT1 | EX1_350 | Prophet Velen |  
 EXPERT1 | EX1_354 | Lay on Hands |  
 EXPERT1 | EX1_355 | Blessed Champion |  
 EXPERT1 | EX1_362 | Argent Protector |  
@@ -297,7 +295,7 @@ EXPERT1 | EX1_407 | Brawl |
 EXPERT1 | EX1_408 | Mortal Strike |  
 EXPERT1 | EX1_409 | Upgrade! |  
 EXPERT1 | EX1_410 | Shield Slam |  
-EXPERT1 | EX1_411 | Gorehowl | O
+EXPERT1 | EX1_411 | Gorehowl |  
 EXPERT1 | EX1_412 | Raging Worgen |  
 EXPERT1 | EX1_414 | Grommash Hellscream |  
 EXPERT1 | EX1_507 | Murloc Warleader |  
@@ -317,7 +315,7 @@ EXPERT1 | EX1_556 | Harvest Golem |
 EXPERT1 | EX1_557 | Nat Pagle |  
 EXPERT1 | EX1_558 | Harrison Jones |  
 EXPERT1 | EX1_559 | Archmage Antonidas |  
-EXPERT1 | EX1_560 | Nozdormu | O
+EXPERT1 | EX1_560 | Nozdormu |  
 EXPERT1 | EX1_561 | Alexstrasza |  
 EXPERT1 | EX1_562 | Onyxia |  
 EXPERT1 | EX1_563 | Malygos |  
@@ -332,7 +330,7 @@ EXPERT1 | EX1_577 | The Beast |
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune |  
 EXPERT1 | EX1_584 | Ancient Mage |  
-EXPERT1 | EX1_586 | Sea Giant | O
+EXPERT1 | EX1_586 | Sea Giant |  
 EXPERT1 | EX1_590 | Blood Knight |  
 EXPERT1 | EX1_591 | Auchenai Soulpriest |  
 EXPERT1 | EX1_594 | Vaporize |  
@@ -368,7 +366,7 @@ EXPERT1 | NEW1_018 | Bloodsail Raider |
 EXPERT1 | NEW1_019 | Knife Juggler |  
 EXPERT1 | NEW1_020 | Wild Pyromancer |  
 EXPERT1 | NEW1_021 | Doomsayer |  
-EXPERT1 | NEW1_022 | Dread Corsair | O
+EXPERT1 | NEW1_022 | Dread Corsair |  
 EXPERT1 | NEW1_023 | Faerie Dragon |  
 EXPERT1 | NEW1_024 | Captain Greenskin |  
 EXPERT1 | NEW1_025 | Bloodsail Corsair |  
@@ -384,4 +382,4 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 12% (29 of 236 Cards)
+- Progress: 8% (20 of 236 Cards)
