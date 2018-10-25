@@ -46,6 +46,23 @@ class CombatTester
         EXPECT_EQ(meta.id, +TaskID::REQUIRE);
     }
 
+    void ReverseAttack(size_t src, size_t dst, MetaData expected,
+                       bool init = false)
+    {
+        if (init)
+        {
+            m_init.Run(m_agent.GetPlayer2(), m_agent.GetPlayer1());
+            m_init.Run(m_agent.GetPlayer1(), m_agent.GetPlayer2());
+        }
+        auto target = m_resp.Target(src, dst);
+        MetaData result =
+            m_combat.Run(m_agent.GetPlayer2(), m_agent.GetPlayer1());
+        EXPECT_EQ(result, expected);
+
+        TaskMeta meta = target.get();
+        EXPECT_EQ(meta.id, +TaskID::REQUIRE);
+    }
+
  private:
     TestUtils::PlayerGenerator m_gen;
 
@@ -250,5 +267,23 @@ TEST(CombatTask, Poisonous)
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
     EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(player2.field[0]->health, static_cast<size_t>(9));
+}
+
+TEST(CombatTask, Freeze)
+{
+    CombatTester tester;
+    auto [player1, player2] = tester.GetPlayer();
+    auto card = TestUtils::GenerateMinionCard("minion", 1, 10);
+
+    player1.field.emplace_back(new Minion(card));
+    player2.field.emplace_back(new Minion(card));
+
+    player1.field[0]->SetAbility(GameTag::FREEZE, true);
+    tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, true);
+    EXPECT_EQ(player2.field[0]->HasAbility(GameTag::FROZEN), true);
+    tester.ReverseAttack(1, 1, MetaData::COMBAT_SOURCE_FROZEN, false);
+
+    EXPECT_EQ(player1.field[0]->health, static_cast<size_t>(9));
     EXPECT_EQ(player2.field[0]->health, static_cast<size_t>(9));
 }
