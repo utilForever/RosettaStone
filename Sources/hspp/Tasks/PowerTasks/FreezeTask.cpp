@@ -8,8 +8,8 @@
 
 namespace Hearthstonepp::PowerTask
 {
-FreezeTask::FreezeTask(EntityType entityType, int turn)
-    : m_entityType(entityType), m_turn(turn)
+FreezeTask::FreezeTask(Character* source, Character* target)
+    : m_source(source), m_target(target)
 {
     // Do nothing
 }
@@ -21,8 +21,7 @@ TaskID FreezeTask::GetTaskID() const
 
 MetaData FreezeTask::Impl(Player&, Player&)
 {
-    target->gameTags[+GameTag::FROZEN] = m_turn;
-    target->attackableCount = 0;
+    m_target->gameTags[+GameTag::FROZEN] = 1;
 
     return MetaData::FREEZE_SUCCESS;
 }

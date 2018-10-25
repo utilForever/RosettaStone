@@ -19,10 +19,10 @@ namespace Hearthstonepp::PowerTask
 class FreezeTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p turn.
-    //! \param entityType The entity type of target to freeze.
-    //! \param turn The number of turns remaining until freeze is melted.
-    FreezeTask(EntityType entityType, int turn);
+    //! Constructs task with given \p source and \p target.
+    //! \param source A pointer to attacking character.
+    //! \param target A pointer to attacked character.
+    FreezeTask(Character* source, Character* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -35,8 +35,8 @@ class FreezeTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    EntityType m_entityType;
-    int m_turn;
+    Character* m_source;
+    Character* m_target;
 };
 }  // namespace Hearthstonepp::PowerTask
 
