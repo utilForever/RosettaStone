@@ -8,8 +8,8 @@
 
 namespace Hearthstonepp::PowerTask
 {
-FreezeTask::FreezeTask(Character* source, Character* target)
-    : m_source(source), m_target(target)
+FreezeTask::FreezeTask(Character* target)
+    : m_target(target)
 {
     // Do nothing
 }

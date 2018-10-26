@@ -19,10 +19,9 @@ namespace Hearthstonepp::PowerTask
 class FreezeTask : public ITask
 {
  public:
-    //! Constructs task with given \p source and \p target.
-    //! \param source A pointer to attacking character.
+    //! Constructs task with given \p target.
     //! \param target A pointer to attacked character.
-    FreezeTask(Character* source, Character* target);
+    FreezeTask(Character* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -35,7 +34,6 @@ class FreezeTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    Character* m_source;
     Character* m_target;
 };
 }  // namespace Hearthstonepp::PowerTask
