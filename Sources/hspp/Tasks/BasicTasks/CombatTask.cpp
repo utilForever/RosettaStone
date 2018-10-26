@@ -130,7 +130,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         // Poisonous : Src -> Dst
         if (source->gameTags[+GameTag::POISONOUS] == 1)
         {
-            PowerTask::PoisonousTask(source, target).Run(player1, player2);
+            PowerTask::PoisonousTask(target).Run(player1, player2);
         }
         else if (source->gameTags[+GameTag::FREEZE] == 1)
         {
@@ -148,7 +148,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         // Poisonous : Dst -> Src
         if (target->gameTags[+GameTag::POISONOUS] == 1)
         {
-            PowerTask::PoisonousTask(target, source).Run(player1, player2);
+            PowerTask::PoisonousTask(source).Run(player1, player2);
         }
         else if (target->gameTags[+GameTag::FREEZE] == 1)
         {

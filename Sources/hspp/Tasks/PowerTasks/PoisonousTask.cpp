@@ -8,8 +8,7 @@
 
 namespace Hearthstonepp::PowerTask
 {
-PoisonousTask::PoisonousTask(Character* source, Character* target)
-    : m_source(source), m_target(target)
+PoisonousTask::PoisonousTask(Character* target) : m_target(target)
 {
     // Do nothing
 }
