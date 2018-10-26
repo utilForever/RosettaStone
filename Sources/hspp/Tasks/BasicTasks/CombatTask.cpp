@@ -57,6 +57,12 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
                        : dynamic_cast<Character*>(player2.hero);
 
+    // Verify attack of source is 0
+    if (source->attack == 0)
+    {
+        return MetaData::COMBAT_SOURCE_ATTACK_ZERO;
+    }
+
     // Verify source has GameTag::FROZEN
     if (source->gameTags[+GameTag::FROZEN] == 1)
     {
