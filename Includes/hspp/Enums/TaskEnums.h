@@ -83,15 +83,18 @@ enum class EntityType
 //! \brief An enumerator for identifying target type.
 #ifndef HEARTHSTONEPP_DOXYGEN
 BETTER_ENUM(TargetType, int, INVALID = 0, MY_HERO = 1, MY_FIELD = 2,
-            OPPONENT_HERO = 3, OPPONENT_FIELD = 4)
+            MY_MINION = 3, OPPONENT_HERO = 4, OPPONENT_FIELD = 5,
+            OPPONENT_MINION = 6)
 #else
 enum class TargetType
 {
     INVALID = 0,
     MY_HERO = 1,
     MY_FIELD = 2,
-    OPPONENT_HERO = 3,
-    OPPONENT_FIELD = 4
+    MY_MINION = 3,
+    OPPONENT_HERO = 4,
+    OPPONENT_FIELD = 5,
+    OPPONENT_MINION = 6
 };
 #endif
 }  // namespace Hearthstonepp
