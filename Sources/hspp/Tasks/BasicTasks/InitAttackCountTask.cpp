@@ -14,23 +14,45 @@ TaskID InitAttackCountTask::GetTaskID() const
     return TaskID::INIT_ATTACK_COUNT;
 }
 
-MetaData InitAttackCountTask::Impl(Player& player1, Player&)
+MetaData InitAttackCountTask::Impl(Player& player1, Player& player2)
 {
     for (auto& character : player1.field)
     {
         if (character->gameTags[+GameTag::FROZEN] == 1)
         {
-            character->gameTags[+GameTag::FROZEN] = 0;
+            character->remainTurnToThaw--;
+
+            if (character->remainTurnToThaw == 0)
+            {
+                character->gameTags[+GameTag::FROZEN] = 0;
+                character->attackableCount =
+                    character->gameTags[+GameTag::WINDFURY] == 1 ? 2 : 1;
+            }
+            else
+            {
+                character->attackableCount = 0;
+            }
         }
-        else if (character->gameTags[+GameTag::FROZEN] == 2)
+        else
         {
-            character->gameTags[+GameTag::FROZEN] = 1;
-            character->attackableCount = 0;
-            continue;
+            character->attackableCount =
+                character->gameTags[+GameTag::WINDFURY] == 1 ? 2 : 1;
+        }
+    }
+
+    for (auto& character : player2.field)
+    {
+        if (character->gameTags[+GameTag::FROZEN] == 1)
+        {
+            character->remainTurnToThaw--;
+
+            if (character->remainTurnToThaw == 0)
+            {
+                character->gameTags[+GameTag::FROZEN] = 0;
+            }
         }
 
-        character->attackableCount =
-            character->gameTags[+GameTag::WINDFURY] == 1 ? 2 : 1;
+        character->attackableCount = 0;
     }
 
     return MetaData::INIT_ATTACK_COUNT_SUCCESS;
