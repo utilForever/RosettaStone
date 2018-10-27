@@ -134,7 +134,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         }
         else if (source->gameTags[+GameTag::FREEZE] == 1)
         {
-            PowerTask::FreezeTask(target).Run(player1, player2);
+            PowerTask::FreezeTask(target, TargetType::OPPONENT_MINION).Run(player1, player2);
         }
     }
 
@@ -152,7 +152,8 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         }
         else if (target->gameTags[+GameTag::FREEZE] == 1)
         {
-            PowerTask::FreezeTask(source).Run(player1, player2);
+            PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
+                .Run(player1, player2);
         }
     }
 
