@@ -40,6 +40,7 @@ struct Character : public Entity
 
     size_t attack = 0;
     size_t attackableCount = 0;
+    size_t remainTurnToThaw = 0;
     size_t health = 0;
     size_t maxHealth = 0;
 };
