@@ -8,8 +8,8 @@
 
 namespace Hearthstonepp::PowerTask
 {
-FreezeTask::FreezeTask(Character* target)
-    : m_target(target)
+FreezeTask::FreezeTask(Character* target, TargetType type)
+    : m_target(target), m_type(type)
 {
     // Do nothing
 }
@@ -21,7 +21,53 @@ TaskID FreezeTask::GetTaskID() const
 
 MetaData FreezeTask::Impl(Player&, Player&)
 {
+    /*
+     * The logic of Freeze
+     *
+     * 1. For enemy characters on your turn, the result is very simple:
+     * if you Freeze an enemy character during your turn,
+     * it will thaw at the start of your next turn.
+     * 2. For friendly characters on your turn, it depends on
+     * whether or not they have attacked that turn.
+     * 2-1. If a friendly character gets Frozen before attacking,
+     * they will thaw at the end of the turn. This includes characters
+     * which were unable to attack, such as a 0 Attack minion or hero.
+     * 2-2. If a friendly character gets Frozen after attacking, they
+     * will thaw at the end of the next turn. This includes characters
+     * with Windfury who have only attacked once this turn.
+     *
+     * Reference: https://hearthstone.gamepedia.com/Freeze
+     */
+
     m_target->gameTags[+GameTag::FROZEN] = 1;
+
+    // Case 1
+    if (m_type == +TargetType::OPPONENT_FIELD ||
+        m_type == +TargetType::OPPONENT_HERO ||
+        m_type == +TargetType::OPPONENT_MINION)
+    {
+        m_target->remainTurnToThaw = 2;
+    }
+    // Case 2
+    else if (m_type == +TargetType::MY_FIELD ||
+             m_type == +TargetType::MY_HERO || m_type == +TargetType::MY_MINION)
+    {
+        // Case 2-1
+        if (m_target->attackableCount == 1 ||
+            (m_target->HasAbility(GameTag::WINDFURY) &&
+             m_target->attackableCount == 2))
+        {
+            m_target->attackableCount = 0;
+            m_target->remainTurnToThaw = 1;
+        }
+        // Case 2-2
+        else if (m_target->attackableCount == 0 ||
+                 (m_target->HasAbility(GameTag::WINDFURY) &&
+                  m_target->attackableCount == 1))
+        {
+            m_target->remainTurnToThaw = 3;
+        }
+    }
 
     return MetaData::FREEZE_SUCCESS;
 }
