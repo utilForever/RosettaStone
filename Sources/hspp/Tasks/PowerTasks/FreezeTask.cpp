@@ -42,33 +42,70 @@ MetaData FreezeTask::Impl(Player&, Player&)
     m_target->gameTags[+GameTag::FROZEN] = 1;
 
     // Case 1
-    if (m_type == +TargetType::OPPONENT_FIELD ||
-        m_type == +TargetType::OPPONENT_HERO ||
-        m_type == +TargetType::OPPONENT_MINION)
+    if (IsOpponentCharacter())
     {
         m_target->remainTurnToThaw = 2;
     }
     // Case 2
-    else if (m_type == +TargetType::MY_FIELD ||
-             m_type == +TargetType::MY_HERO || m_type == +TargetType::MY_MINION)
+    else if (IsMyCharacter())
     {
         // Case 2-1
-        if (m_target->attackableCount == 1 ||
-            (m_target->HasAbility(GameTag::WINDFURY) &&
-             m_target->attackableCount == 2))
+        if (IsFrozenBeforeAttack())
         {
             m_target->attackableCount = 0;
             m_target->remainTurnToThaw = 1;
         }
         // Case 2-2
-        else if (m_target->attackableCount == 0 ||
-                 (m_target->HasAbility(GameTag::WINDFURY) &&
-                  m_target->attackableCount == 1))
+        else if (IsFrozenAfterAttack())
         {
             m_target->remainTurnToThaw = 3;
         }
     }
 
     return MetaData::FREEZE_SUCCESS;
+}
+
+bool FreezeTask::IsMyCharacter() const
+{
+    return m_type == +TargetType::MY_FIELD || m_type == +TargetType::MY_HERO ||
+           m_type == +TargetType::MY_MINION;
+}
+
+bool FreezeTask::IsOpponentCharacter() const
+{
+    return m_type == +TargetType::OPPONENT_FIELD || m_type == +TargetType::
+           OPPONENT_HERO || m_type == +TargetType::OPPONENT_MINION;
+}
+
+bool FreezeTask::IsFrozenBeforeAttack() const
+{
+    if (m_target->attackableCount == 1)
+    {
+        return true;
+    }
+
+    if (m_target->HasAbility(GameTag::WINDFURY) &&
+        m_target->attackableCount == 2)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool FreezeTask::IsFrozenAfterAttack() const
+{
+    if (m_target->attackableCount == 0)
+    {
+        return true;
+    }
+
+    if (m_target->HasAbility(GameTag::WINDFURY) &&
+        m_target->attackableCount == 1)
+    {
+        return true;
+    }
+
+    return false;
 }
 }  // namespace Hearthstonepp::PowerTask

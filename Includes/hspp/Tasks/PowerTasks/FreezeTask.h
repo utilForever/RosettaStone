@@ -35,6 +35,24 @@ class FreezeTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
+    //! Finds out if this character is ours.
+    //! \return true if this character is ours, and false otherwise.
+    bool IsMyCharacter() const;
+
+    //! Finds out if this character is an opponent.
+    //! \return true if this character is an opponent, and false otherwise.
+    bool IsOpponentCharacter() const;
+
+    //! Finds out if this character gets Frozen before attacking.
+    //! \return true if this character gets Frozen before attacking, and false
+    //! otherwise.
+    bool IsFrozenBeforeAttack() const;
+
+    //! Finds out if this character gets Frozen after attacking.
+    //! \return true if this character gets Frozen after attacking, and false
+    //! otherwise.
+    bool IsFrozenAfterAttack() const;
+
     Character* m_target;
     TargetType m_type;
 };
