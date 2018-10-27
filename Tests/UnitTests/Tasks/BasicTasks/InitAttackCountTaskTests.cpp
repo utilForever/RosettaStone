@@ -40,29 +40,85 @@ TEST(InitAttackCountTask, RunFrozen)
     BasicTasks::InitAttackCountTask init;
     TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
 
-    Card card1;
-    Card card2;
-    Card card3;
+    Card card;
 
-    Minion* minion1 = new Minion(card1);
-    Minion* minion2 = new Minion(card2);
-    Minion* minion3 = new Minion(card3);
+    Minion* minion1 = new Minion(card);
+    Minion* minion2 = new Minion(card);
+    Minion* minion3 = new Minion(card);
+    Minion* minion4 = new Minion(card);
+    Minion* minion5 = new Minion(card);
+    Minion* minion6 = new Minion(card);
 
+    // Case 1
+    minion6->gameTags[GameTag::FROZEN] = 1;
+    minion6->remainTurnToThaw = 2;
+    // Case 2-1
     minion2->gameTags[GameTag::FROZEN] = 1;
-    minion3->gameTags[GameTag::FROZEN] = 2;
+    minion2->attackableCount = 1;
+    minion2->remainTurnToThaw = 1;
+    // Case 2-2
+    minion3->gameTags[GameTag::FROZEN] = 1;
+    minion3->attackableCount = 0;
+    minion3->remainTurnToThaw = 3;
+    minion4->gameTags[GameTag::FROZEN] = 1;
+    minion4->gameTags[GameTag::WINDFURY] = 1;
+    minion4->attackableCount = 1;
+    minion4->remainTurnToThaw = 3;
 
     gen.player1.field.emplace_back(minion1);
     gen.player1.field.emplace_back(minion2);
     gen.player1.field.emplace_back(minion3);
+    gen.player1.field.emplace_back(minion4);
+    gen.player2.field.emplace_back(minion5);
+    gen.player2.field.emplace_back(minion6);
 
-    MetaData result = init.Run(gen.player1, gen.player2);
+    MetaData result = init.Run(gen.player2, gen.player1);
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
+    EXPECT_EQ(minion1->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion2->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion2->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion3->gameTags[GameTag::FROZEN], static_cast<int>(1));
+    EXPECT_EQ(minion3->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion4->gameTags[GameTag::FROZEN], static_cast<int>(1));
+    EXPECT_EQ(minion4->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion5->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion5->attackableCount, static_cast<size_t>(1));
+    EXPECT_EQ(minion6->gameTags[GameTag::FROZEN], static_cast<int>(1));
+    EXPECT_EQ(minion6->attackableCount, static_cast<size_t>(0));
+
+    result = init.Run(gen.player1, gen.player2);
+    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+
+    EXPECT_EQ(minion1->gameTags[GameTag::FROZEN], static_cast<int>(0));
     EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(1));
     EXPECT_EQ(minion2->gameTags[GameTag::FROZEN], static_cast<int>(0));
     EXPECT_EQ(minion2->attackableCount, static_cast<size_t>(1));
     EXPECT_EQ(minion3->gameTags[GameTag::FROZEN], static_cast<int>(1));
     EXPECT_EQ(minion3->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion4->gameTags[GameTag::FROZEN], static_cast<int>(1));
+    EXPECT_EQ(minion4->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion5->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion5->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion6->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion6->attackableCount, static_cast<size_t>(0));
+
+    result = init.Run(gen.player2, gen.player1);
+    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+
+    EXPECT_EQ(minion1->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion2->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion2->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion3->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion3->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion4->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion4->attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion5->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion5->attackableCount, static_cast<size_t>(1));
+    EXPECT_EQ(minion6->gameTags[GameTag::FROZEN], static_cast<int>(0));
+    EXPECT_EQ(minion6->attackableCount, static_cast<size_t>(1));
 }
 
 TEST(InitAttackCountTask, RunWindFury)
