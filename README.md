@@ -26,8 +26,8 @@ Hearthstone++ is hearthstone simulator using C++ with some reinforcement learnin
 
 ### Basic & Classic
 
-- 10% Basic (15 of 142 Cards)
-- 2% Classic (5 of 236 Cards)
+- 24% Basic (33 of 133 Cards)
+- 8% Classic (20 of 236 Cards)
 - 0% Hall of Fame (0 of 10 Cards)
 
 ### Adventures
