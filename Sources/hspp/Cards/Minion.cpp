@@ -22,9 +22,13 @@ void Minion::SetAbility(GameTag tag, bool flag)
 
 void Minion::CheckAbilities()
 {
-    if (gameTags[GameTag::CHARGE] == 1)
+    if (gameTags[GameTag::CHARGE] == 1 && attackableCount == 0)
     {
         attackableCount = 1;
+    }
+    else if (gameTags[GameTag::WINDFURY] == 1 && attackableCount == 1)
+    {
+        attackableCount = 2;
     }
 }
 }  // namespace Hearthstonepp
