@@ -161,11 +161,11 @@ TEST(CombatTask, Charge)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player1.field[0]->SetAbility(GameTag::CHARGE, true);
+    player1.field[0]->SetGameTag(GameTag::CHARGE, 1);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
 
-    player1.field[0]->SetAbility(GameTag::CHARGE, false);
+    player1.field[0]->SetGameTag(GameTag::CHARGE, 0);
 
     tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, PlayerType::PLAYER1);
 }
@@ -182,11 +182,11 @@ TEST(CombatTask, Taunt)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    player2.field[1]->SetAbility(GameTag::TAUNT, true);
+    player2.field[1]->SetGameTag(GameTag::TAUNT, 1);
 
     tester.Attack(1, 1, MetaData::COMBAT_FIELD_HAVE_TAUNT, PlayerType::PLAYER1);
 
-    player2.field[1]->SetAbility(GameTag::TAUNT, false);
+    player2.field[1]->SetGameTag(GameTag::TAUNT, 0);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
 }
@@ -200,14 +200,14 @@ TEST(CombatTask, Stealth)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player2.field[0]->SetAbility(GameTag::STEALTH, true);
+    player2.field[0]->SetGameTag(GameTag::STEALTH, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(1, 1, MetaData::COMBAT_TARGET_STEALTH, PlayerType::PLAYER1);
 
-    player1.field[0]->SetAbility(GameTag::STEALTH, true);
-    player2.field[0]->SetAbility(GameTag::STEALTH, false);
+    player1.field[0]->SetGameTag(GameTag::STEALTH, 1);
+    player2.field[0]->SetGameTag(GameTag::STEALTH, 0);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.field[0]->gameTags[+GameTag::STEALTH], 0);
@@ -222,7 +222,7 @@ TEST(CombatTask, Immune)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player2.field[0]->SetAbility(GameTag::IMMUNE, true);
+    player2.field[0]->SetGameTag(GameTag::IMMUNE, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -243,7 +243,7 @@ TEST(CombatTask, Windfury)
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
     tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, PlayerType::PLAYER1);
 
-    player1.field[0]->SetAbility(GameTag::WINDFURY, true);
+    player1.field[0]->SetGameTag(GameTag::WINDFURY, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -263,13 +263,13 @@ TEST(CombatTask, DivineShield)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    player1.field[0]->SetAbility(GameTag::DIVINE_SHIELD, true);
+    player1.field[0]->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.field[0]->health, player1.field[0]->maxHealth);
     EXPECT_EQ(player2.field[0]->health, static_cast<size_t>(9));
 
-    player2.field[0]->SetAbility(GameTag::DIVINE_SHIELD, true);
+    player2.field[0]->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -287,7 +287,7 @@ TEST(CombatTask, Poisonous)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player1.field[0]->SetAbility(GameTag::POISONOUS, true);
+    player1.field[0]->SetGameTag(GameTag::POISONOUS, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
        
@@ -297,8 +297,8 @@ TEST(CombatTask, Poisonous)
 
     player2.field.emplace_back(new Minion(card));
 
-    player1.field[0]->SetAbility(GameTag::POISONOUS, false);
-    player2.field[0]->SetAbility(GameTag::POISONOUS, true);
+    player1.field[0]->SetGameTag(GameTag::POISONOUS, 0);
+    player2.field[0]->SetGameTag(GameTag::POISONOUS, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -316,12 +316,12 @@ TEST(CombatTask, Freeze)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player1.field[0]->SetAbility(GameTag::FREEZE, true);
+    player1.field[0]->SetGameTag(GameTag::FREEZE, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
-    EXPECT_EQ(player2.field[0]->HasAbility(GameTag::FROZEN), true);
+    EXPECT_EQ(player2.field[0]->GetGameTag(GameTag::FROZEN), 1);
 
     tester.InitAttackCount(PlayerType::PLAYER2);
 

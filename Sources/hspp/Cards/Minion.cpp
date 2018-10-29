@@ -13,9 +13,9 @@ Minion::Minion(Card& card) : Character(card)
     CheckAbilities();
 }
 
-void Minion::SetAbility(GameTag tag, bool flag)
+void Minion::SetGameTag(GameTag tag, int value)
 {
-    Character::SetAbility(tag, flag);
+    Character::SetGameTag(tag, value);
 
     CheckAbilities();
 }

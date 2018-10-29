@@ -44,21 +44,21 @@ struct Entity
     //! Clones member variables.
     virtual Entity* Clone() const;
 
-    //! Sets ability to the card.
-    //! \param tag The game tag to indicate ability.
-    //! \param flag The flag that specifies whether or not the ability is set.
-    virtual void SetAbility(GameTag tag, bool flag);
+    //! Returns the value of game tag.
+    //! \param tag The game tag of card.
+    //! \return The value of game tag.
+    int GetGameTag(GameTag tag);
 
-    //! Finds out if this card has \p ability.
-    //! \param ability The ability of card.
-    //! \return true if this card has \p ability, and false otherwise.
-    bool HasAbility(GameTag ability);
+    //! Sets game tag to the card.
+    //! \param tag The game tag to indicate ability or condition.
+    //! \param value The value to set for game tag.
+    virtual void SetGameTag(GameTag tag, int value);
 
     const Card* card = nullptr;
 
     std::map<GameTag, int> gameTags;
 
-private:
+ private:
     //! Releases dynamic allocated resources.
     void FreeMemory();
 };

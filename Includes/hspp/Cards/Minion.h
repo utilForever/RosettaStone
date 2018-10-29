@@ -28,10 +28,10 @@ struct Minion : public Character
     //! Default destructor.
     virtual ~Minion() = default;
 
-    //! Sets ability to the card.
-    //! \param tag The game tag to indicate ability.
-    //! \param flag The flag that specifies whether or not the ability is set.
-    void SetAbility(GameTag tag, bool flag) override;
+    //! Sets game tag to the card.
+    //! \param tag The game tag to indicate ability or condition.
+    //! \param value The value to set for game tag.
+    void SetGameTag(GameTag tag, int value) override;
 
     //! Checks newly assigned abilities.
     void CheckAbilities();

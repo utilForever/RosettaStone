@@ -12,7 +12,7 @@ Entity::Entity(Card& _card) : card(new Card(_card))
 {
     for (auto& mechanic : _card.mechanics)
     {
-        Entity::SetAbility(mechanic, true);
+        Entity::SetGameTag(mechanic, true);
     }
 }
 
@@ -49,18 +49,14 @@ Entity* Entity::Clone() const
     return new Entity(*this);
 }
 
-void Entity::SetAbility(GameTag tag, bool flag)
+int Entity::GetGameTag(GameTag tag)
 {
-    if (HasAbility(tag) ^ flag)
-    {
-        gameTags.insert_or_assign(tag, flag);
-    }
+    return gameTags[tag];
 }
 
-bool Entity::HasAbility(GameTag ability)
+void Entity::SetGameTag(GameTag tag, int value)
 {
-    return (gameTags.find(ability) != gameTags.end()) &&
-           (static_cast<bool>(gameTags[ability]));
+    gameTags.insert_or_assign(tag, value);
 }
 
 void Entity::FreeMemory()

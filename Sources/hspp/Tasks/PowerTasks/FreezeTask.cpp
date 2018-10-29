@@ -73,8 +73,9 @@ bool FreezeTask::IsMyCharacter() const
 
 bool FreezeTask::IsOpponentCharacter() const
 {
-    return m_type == +TargetType::OPPONENT_FIELD || m_type == +TargetType::
-           OPPONENT_HERO || m_type == +TargetType::OPPONENT_MINION;
+    return m_type == +TargetType::OPPONENT_FIELD ||
+           m_type == +TargetType::OPPONENT_HERO ||
+           m_type == +TargetType::OPPONENT_MINION;
 }
 
 bool FreezeTask::IsFrozenBeforeAttack() const
@@ -84,7 +85,7 @@ bool FreezeTask::IsFrozenBeforeAttack() const
         return true;
     }
 
-    if (m_target->HasAbility(GameTag::WINDFURY) &&
+    if (m_target->GetGameTag(GameTag::WINDFURY) == 1 &&
         m_target->attackableCount == 2)
     {
         return true;
@@ -100,7 +101,7 @@ bool FreezeTask::IsFrozenAfterAttack() const
         return true;
     }
 
-    if (m_target->HasAbility(GameTag::WINDFURY) &&
+    if (m_target->GetGameTag(GameTag::WINDFURY) == 1 &&
         m_target->attackableCount == 1)
     {
         return true;
