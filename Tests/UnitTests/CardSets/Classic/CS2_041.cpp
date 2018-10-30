@@ -94,5 +94,5 @@ TEST(ClassicCardSet, CS2_041)
               +TaskID::SELECT_TARGET);
 
     EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(2));
-    EXPECT_EQ(agent.GetPlayer1().field[0]->gameTags[GameTag::TAUNT], 1);
+    EXPECT_EQ(agent.GetPlayer1().field[0]->GetGameTag(GameTag::TAUNT), 1);
 }

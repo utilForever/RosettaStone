@@ -210,7 +210,7 @@ TEST(CombatTask, Stealth)
     player2.field[0]->SetGameTag(GameTag::STEALTH, 0);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
-    EXPECT_EQ(player1.field[0]->gameTags[+GameTag::STEALTH], 0);
+    EXPECT_EQ(player1.field[0]->GetGameTag(GameTag::STEALTH), 0);
 }
 
 TEST(CombatTask, Immune)
