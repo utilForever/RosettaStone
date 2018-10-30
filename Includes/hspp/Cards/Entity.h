@@ -23,8 +23,9 @@ class GameTag;
 //! visible or invisible objects in a Hearthstone++.
 //! An entity is defined as a collection of properties, called GameTags.
 //!
-struct Entity
+class Entity
 {
+ public:
     //! Default constructor.
     Entity() = default;
 
@@ -56,7 +57,8 @@ struct Entity
 
     const Card* card = nullptr;
 
-    std::map<GameTag, int> gameTags;
+ protected:
+    std::map<GameTag, int> m_gameTags;
 
  private:
     //! Releases dynamic allocated resources.
