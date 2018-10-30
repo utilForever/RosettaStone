@@ -22,19 +22,21 @@ void Effect::Apply(Character* character, bool isOneTurnEffect) const
         // TODO: Process one turn effect
     }
 
+    const int prevValue = character->GetGameTag(m_gameTag);
+
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            character->gameTags[m_gameTag] += m_value;
+            character->SetGameTag(m_gameTag, prevValue + m_value);
             break;
         case EffectOperator::SUB:
-            character->gameTags[m_gameTag] -= m_value;
+            character->SetGameTag(m_gameTag, prevValue - m_value);
             break;
         case EffectOperator::MUL:
-            character->gameTags[m_gameTag] *= m_value;
+            character->SetGameTag(m_gameTag, prevValue * m_value);
             break;
         case EffectOperator::SET:
-            character->gameTags[m_gameTag] = m_value;
+            character->SetGameTag(m_gameTag, m_value);
             break;
         default:
             throw std::invalid_argument("Invalid effect operator!");

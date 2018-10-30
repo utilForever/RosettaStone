@@ -18,15 +18,15 @@ MetaData InitAttackCountTask::Impl(Player& player1, Player& player2)
 {
     for (auto& character : player1.field)
     {
-        if (character->gameTags[+GameTag::FROZEN] == 1)
+        if (character->GetGameTag(GameTag::FROZEN) == 1)
         {
             character->remainTurnToThaw--;
 
             if (character->remainTurnToThaw == 0)
             {
-                character->gameTags[+GameTag::FROZEN] = 0;
+                character->SetGameTag(GameTag::FROZEN, 0);
                 character->attackableCount =
-                    character->gameTags[+GameTag::WINDFURY] == 1 ? 2 : 1;
+                    character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
             }
             else
             {
@@ -36,19 +36,19 @@ MetaData InitAttackCountTask::Impl(Player& player1, Player& player2)
         else
         {
             character->attackableCount =
-                character->gameTags[+GameTag::WINDFURY] == 1 ? 2 : 1;
+                character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
         }
     }
 
     for (auto& character : player2.field)
     {
-        if (character->gameTags[+GameTag::FROZEN] == 1)
+        if (character->GetGameTag(GameTag::FROZEN) == 1)
         {
             character->remainTurnToThaw--;
 
             if (character->remainTurnToThaw == 0)
             {
-                character->gameTags[+GameTag::FROZEN] = 0;
+                character->SetGameTag(GameTag::FROZEN, 0);
             }
         }
 

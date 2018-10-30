@@ -22,11 +22,11 @@ void Minion::SetGameTag(GameTag tag, int value)
 
 void Minion::CheckAbilities()
 {
-    if (gameTags[GameTag::CHARGE] == 1 && attackableCount == 0)
+    if (m_gameTags[GameTag::CHARGE] == 1 && attackableCount == 0)
     {
         attackableCount = 1;
     }
-    else if (gameTags[GameTag::WINDFURY] == 1 && attackableCount == 1)
+    else if (m_gameTags[GameTag::WINDFURY] == 1 && attackableCount == 1)
     {
         attackableCount = 2;
     }

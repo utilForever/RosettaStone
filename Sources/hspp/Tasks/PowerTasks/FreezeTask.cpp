@@ -39,7 +39,7 @@ MetaData FreezeTask::Impl(Player&, Player&)
      * Reference: https://hearthstone.gamepedia.com/Freeze
      */
 
-    m_target->gameTags[+GameTag::FROZEN] = 1;
+    m_target->SetGameTag(GameTag::FROZEN, 1);
 
     // Case 1
     if (IsOpponentCharacter())
