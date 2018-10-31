@@ -3,10 +3,4 @@ steps:
   fetchDepth: 2
   submodules: true
 - script: |
-    sudo apt-get update -qq
-    sudo apt-get install -y --no-install-recommends lcov
-    mkdir build
-    cd build
-    cmake ..
-    make -j 8
-    bin/UnitTests
+    docker build -f Scripts/Dockerfile.bionic -t utilforever/hearthstonepp:bionic .
