@@ -1013,8 +1013,8 @@ class GameTag
     constexpr static bool _is_valid(_integral value);
     constexpr static bool _is_valid(const char* name);
     constexpr static bool _is_valid_nocase(const char* name);
-    typedef ::better_enums::_Iterable<GameTag> _value_iterable;
-    typedef ::better_enums::_Iterable<const char*> _name_iterable;
+    typedef ::better_enums::_iterable<GameTag> _value_iterable;
+    typedef ::better_enums::_iterable<const char*> _name_iterable;
     typedef _value_iterable::iterator _value_iterator;
     typedef _name_iterable::iterator _name_iterator;
     constexpr static const std::size_t _size_constant = 342;
@@ -3302,8 +3302,8 @@ class PlayReq
     constexpr static bool _is_valid(_integral value);
     constexpr static bool _is_valid(const char* name);
     constexpr static bool _is_valid_nocase(const char* name);
-    typedef ::better_enums::_Iterable<PlayReq> _value_iterable;
-    typedef ::better_enums::_Iterable<const char*> _name_iterable;
+    typedef ::better_enums::_iterable<PlayReq> _value_iterable;
+    typedef ::better_enums::_iterable<const char*> _name_iterable;
     typedef _value_iterable::iterator _value_iterator;
     typedef _name_iterable::iterator _name_iterator;
     constexpr static const std::size_t _size_constant = 77;
