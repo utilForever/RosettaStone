@@ -8,9 +8,9 @@ jobs:
   pool:
     vmImage: 'Ubuntu-16.04'
   steps:
-  - template: Scripts/azure_pipelines_build.yml
+  - template: Scripts/azure_pipelines_build_linux.yml
 - job: macOS
   pool:
     vmImage: 'macOS 10.13'
   steps:
-  - template: Scripts/azure_pipelines_build.yml
+  - template: Scripts/azure_pipelines_build_macos.yml

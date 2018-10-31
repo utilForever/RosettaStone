@@ -3,6 +3,8 @@ steps:
   fetchDepth: 2
   submodules: true
 - script: |
+    sudo apt-get update -qq
+    sudo apt-get install -y --no-install-recommends lcov
     mkdir build
     cd build
     cmake ..
