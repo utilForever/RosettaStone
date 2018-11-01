@@ -1,6 +1,6 @@
 # Hearthstone++
 
-<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Logo.png" width=256 height=256 />
+<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Medias/Logo.png" width=256 height=256 />
 
 [![License](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://github.com/utilForever/Hearthstonepp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/Hearthstonepp.svg?branch=master)](https://travis-ci.org/utilForever/Hearthstonepp/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/Hearthstonepp?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/Hearthstonepp/branch/master) [![Build Status](https://dev.azure.com/utilforever/Hearthstonepp/_apis/build/status/utilForever.Hearthstonepp)](https://dev.azure.com/utilforever/Hearthstonepp/_build/latest?definitionId=2)
 
@@ -128,6 +128,10 @@ Contributions are always welcome, either reporting issues/bugs or forking the re
 ## Contact
 
 You can contact me via e-mail (utilForever at gmail.com). I am always happy to answer questions or help with any issues you might have, and please be sure to share any additional work or your creations with me, I love seeing what other people are making.
+
+## Supporter
+
+[![CppDepend](https://github.com/utilForever/Hearthstonepp/blob/master/Medias/CppDepend.png)](http://www.cppdepend.com)
 
 ## License
 
