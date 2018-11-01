@@ -12,7 +12,7 @@ Entity::Entity(Card& _card) : card(new Card(_card))
 {
     for (auto& mechanic : _card.mechanics)
     {
-        Entity::SetGameTag(mechanic, true);
+        Entity::SetGameTag(mechanic, 1);
     }
 }
 
