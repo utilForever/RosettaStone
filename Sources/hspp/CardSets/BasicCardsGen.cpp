@@ -36,16 +36,7 @@ void BasicCardsGen::AddDruidNonCollect(std::map<std::string, Power*>& cards)
 
 void BasicCardsGen::AddHunter(std::map<std::string, Power*>& cards)
 {
-    // ----------------------------------------- MINION - HUNTER
-    // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
-    // - Race: beast, Set: expert1, Rarity: legendary
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    cards.emplace("EX1_543", nullptr);
+    (void)cards;
 }
 
 void BasicCardsGen::AddHunterNonCollect(std::map<std::string, Power*>& cards)
@@ -67,11 +58,14 @@ void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 
-    // --------------------------------------- MINION - Paladin
-    // [CS2_088] Guardian of Kings - COST:7
-    // - Faction: Neutral, Set: Basic, Rarity: Free
+    // --------------------------------------- MINION - PALADIN
+    // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
+    // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // CtrlCVplz...
+    // Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
     // --------------------------------------------------------
     Power* p = new Power;
     p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::MY_HERO, 6));
@@ -189,122 +183,6 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     p->powerTask.emplace_back(
         new BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON));
     cards.emplace("EX1_066", p);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_171] Stonetusk Boar - COST:1 [ATK:1/HP:1]
-    // - Race: beast, Fac: neutral, Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    cards.emplace("CS2_171", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
-    // - Race: beast
-    // --------------------------------------------------------
-    cards.emplace("CS2_201", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
-    cards.emplace("CS2_155", nullptr);
-
-    // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
-    // - Race: beast, Fac: neutral, Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>"Kill 30 raptors." - Hemet Nesingwary</b>
-    // --------------------------------------------------------
-    // GameTag:
-    //
-    // --------------------------------------------------------
-    cards.emplace("CS2_172", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
-    // - Race: troll, Fac: HORDE, Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - Taunt = 1
-    // --------------------------------------------------------
-    cards.emplace("CS2_179", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
-    // - Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    cards.emplace("CS2_124", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
-    // - Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    cards.emplace("CS2_213", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5]
-    // - Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    cards.emplace("CS2_131", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
-    // - Race: murloc, Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    cards.emplace("CS2_173", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
-    // - Race: element, Fac: neutral, Set: core, Rarity: free
-    // --------------------------------------------------------
-    cards.emplace("CS2_118", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
-    // - Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b></b>
-    // --------------------------------------------------------
-    // GameTag:
-    // -
-    // --------------------------------------------------------
-    cards.emplace("CS2_182", nullptr);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
-    // - Set: core, Rarity: free
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - Taunt = 1
-    // --------------------------------------------------------
-    Power* p1 = new Power;
-    p1->enchant = new Enchant(Effects::Taunt);
-    cards.emplace("CS2_187", p1);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
