@@ -19,10 +19,10 @@ namespace Hearthstonepp::PowerTask
 class FreezeTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p turn.
-    //! \param entityType The entity type of target to freeze.
-    //! \param turn The number of turns remaining until freeze is melted.
-    FreezeTask(EntityType entityType, int turn);
+    //! Constructs task with given \p target and \type.
+    //! \param target A pointer to attacked character.
+    //! \param type A type of target.
+    FreezeTask(Character* target, TargetType type);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -35,8 +35,26 @@ class FreezeTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    EntityType m_entityType;
-    int m_turn;
+    //! Finds out if this character is ours.
+    //! \return true if this character is ours, and false otherwise.
+    bool IsMyCharacter() const;
+
+    //! Finds out if this character is an opponent.
+    //! \return true if this character is an opponent, and false otherwise.
+    bool IsOpponentCharacter() const;
+
+    //! Finds out if this character gets Frozen before attacking.
+    //! \return true if this character gets Frozen before attacking, and false
+    //! otherwise.
+    bool IsFrozenBeforeAttack() const;
+
+    //! Finds out if this character gets Frozen after attacking.
+    //! \return true if this character gets Frozen after attacking, and false
+    //! otherwise.
+    bool IsFrozenAfterAttack() const;
+
+    Character* m_target;
+    TargetType m_type;
 };
 }  // namespace Hearthstonepp::PowerTask
 

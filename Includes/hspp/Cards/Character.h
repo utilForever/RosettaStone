@@ -22,8 +22,8 @@ struct Character : public Entity
     //! Default constructor.
     Character() = default;
 
-    //! Constructs character with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs character with given \p card.
+    //! \param card A reference to the card.
     Character(Card& card);
 
     //! Default destructor.
@@ -40,6 +40,7 @@ struct Character : public Entity
 
     size_t attack = 0;
     size_t attackableCount = 0;
+    size_t remainTurnToThaw = 0;
     size_t health = 0;
     size_t maxHealth = 0;
 };

@@ -21,12 +21,20 @@ struct Minion : public Character
     //! Default constructor.
     Minion() = default;
 
-    //! Constructs minion with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs minion with given \p card.
+    //! \param card A reference to the card.
     Minion(Card& card);
 
     //! Default destructor.
     virtual ~Minion() = default;
+
+    //! Sets game tag to the card.
+    //! \param tag The game tag to indicate ability or condition.
+    //! \param value The value to set for game tag.
+    void SetGameTag(GameTag tag, int value) override;
+
+    //! Checks newly assigned abilities.
+    void CheckAbilities();
 };
 }  // namespace Hearthstonepp
 

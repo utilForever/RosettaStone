@@ -9,6 +9,7 @@
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
 #include <hspp/Tasks/BasicTasks/GameEndTask.h>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
 #include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
 #include <hspp/Tasks/BasicTasks/MulliganTask.h>
 #include <hspp/Tasks/BasicTasks/PlayCardTask.h>
@@ -134,24 +135,8 @@ void GameAgent::PrepareMainPhase()
         meta, m_player1, m_player2, BasicTasks::DrawTask(m_taskAgent, 1),
         BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
         BasicTasks::ModifyManaTask(NumMode::SET, ManaMode::EXIST,
-                                   m_player1.totalMana + 1));
-
-    for (auto& character : m_player1.field)
-    {
-        if (character->gameTags[+GameTag::FROZEN] == 1)
-        {
-            character->gameTags[+GameTag::FROZEN] = 0;
-        }
-        else if (character->gameTags[+GameTag::FROZEN] == 2)
-        {
-            character->gameTags[+GameTag::FROZEN] = 1;
-            character->attackableCount = 0;
-            continue;
-        }
-
-        character->attackableCount =
-            character->gameTags[+GameTag::WINDFURY] ? 2 : 1;
-    }
+                                   m_player1.totalMana + 1),
+        BasicTasks::InitAttackCountTask());
 }
 
 bool GameAgent::ProcessMainMenu()

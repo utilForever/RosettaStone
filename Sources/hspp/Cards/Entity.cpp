@@ -10,7 +10,10 @@ namespace Hearthstonepp
 {
 Entity::Entity(Card& _card) : card(new Card(_card))
 {
-    // Do nothing
+    for (auto& mechanic : _card.mechanics)
+    {
+        Entity::SetGameTag(mechanic, 1);
+    }
 }
 
 Entity::Entity(const Entity& ent)
@@ -18,7 +21,7 @@ Entity::Entity(const Entity& ent)
     FreeMemory();
 
     card = ent.card;
-    gameTags = ent.gameTags;
+    m_gameTags = ent.m_gameTags;
 }
 
 Entity::~Entity()
@@ -36,7 +39,7 @@ Entity& Entity::operator=(const Entity& ent)
     FreeMemory();
 
     card = ent.card;
-    gameTags = ent.gameTags;
+    m_gameTags = ent.m_gameTags;
 
     return *this;
 }
@@ -46,9 +49,19 @@ Entity* Entity::Clone() const
     return new Entity(*this);
 }
 
+int Entity::GetGameTag(GameTag tag)
+{
+    return m_gameTags[tag];
+}
+
+void Entity::SetGameTag(GameTag tag, int value)
+{
+    m_gameTags.insert_or_assign(tag, value);
+}
+
 void Entity::FreeMemory()
 {
-    gameTags.clear();
+    m_gameTags.clear();
 
     delete card;
 }

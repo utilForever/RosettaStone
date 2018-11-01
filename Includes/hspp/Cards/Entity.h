@@ -23,13 +23,14 @@ class GameTag;
 //! visible or invisible objects in a Hearthstone++.
 //! An entity is defined as a collection of properties, called GameTags.
 //!
-struct Entity
+class Entity
 {
+ public:
     //! Default constructor.
     Entity() = default;
 
-    //! Constructs entity with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs entity with given \p _card.
+    //! \param _card A reference to the card.
     Entity(Card& _card);
 
     //! Destructor.
@@ -44,11 +45,22 @@ struct Entity
     //! Clones member variables.
     virtual Entity* Clone() const;
 
+    //! Returns the value of game tag.
+    //! \param tag The game tag of card.
+    //! \return The value of game tag.
+    int GetGameTag(GameTag tag);
+
+    //! Sets game tag to the card.
+    //! \param tag The game tag to indicate ability or condition.
+    //! \param value The value to set for game tag.
+    virtual void SetGameTag(GameTag tag, int value);
+
     const Card* card = nullptr;
 
-    std::map<GameTag, int> gameTags;
+ protected:
+    std::map<GameTag, int> m_gameTags;
 
-private:
+ private:
     //! Releases dynamic allocated resources.
     void FreeMemory();
 };

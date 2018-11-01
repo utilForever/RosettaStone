@@ -7,8 +7,6 @@
 #include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
 #include <hspp/Tasks/BasicTasks/PlayMinionTask.h>
 
-#include <algorithm>
-
 namespace Hearthstonepp::BasicTasks
 {
 PlayMinionTask::PlayMinionTask(TaskAgent& agent, Entity* entity)
@@ -58,13 +56,7 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
     // Apply card mechanics tags
     for (auto tags : m_entity->card->mechanics)
     {
-        m_entity->gameTags[tags] = 1;
-    }
-
-    // Summoned minion can't attack right turn
-    if (m_entity->gameTags[+GameTag::CHARGE] == 1)
-    {
-        static_cast<Character*>(m_entity)->attackableCount = 1;
+        m_entity->SetGameTag(tags, 1);
     }
 
     BYTE cost = static_cast<BYTE>(m_entity->card->cost);

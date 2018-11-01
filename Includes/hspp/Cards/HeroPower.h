@@ -18,8 +18,8 @@ namespace Hearthstonepp
 //!
 struct HeroPower : public Entity
 {
-    //! Constructs hero power with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs hero power with given \p card.
+    //! \param card A reference to the card.
     HeroPower(Card& card);
 
     //! Copy constructor.

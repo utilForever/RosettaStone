@@ -57,12 +57,24 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
                        : dynamic_cast<Character*>(player2.hero);
 
+    // Verify attack of source is 0
+    if (source->attack == 0)
+    {
+        return MetaData::COMBAT_SOURCE_ATTACK_ZERO;
+    }
+
+    // Verify source has GameTag::FROZEN
+    if (source->GetGameTag(GameTag::FROZEN) == 1)
+    {
+        return MetaData::COMBAT_SOURCE_FROZEN;
+    }
+
     // Taunt Verification
-    if (target->gameTags[+GameTag::TAUNT] == 0)
+    if (target->GetGameTag(GameTag::TAUNT) == 0)
     {
         for (auto& item : player2.field)
         {
-            if (item->gameTags[+GameTag::TAUNT] == 1)
+            if (item->GetGameTag(GameTag::TAUNT) == 1)
             {
                 return MetaData::COMBAT_FIELD_HAVE_TAUNT;
             }
@@ -70,13 +82,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     }
 
     // Stealth Verification
-    if (target->gameTags[+GameTag::STEALTH] == 1)
+    if (target->GetGameTag(GameTag::STEALTH) == 1)
     {
         return MetaData::COMBAT_TARGET_STEALTH;
     }
 
     // Immune Verification
-    if (target->gameTags[+GameTag::IMMUNE] == 1)
+    if (target->GetGameTag(GameTag::IMMUNE) == 1)
     {
         return MetaData::COMBAT_TARGET_IMMUNE;
     }
@@ -109,36 +121,45 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     }
 
     // Divine Shield : Dst
-    if (target->gameTags[+GameTag::DIVINE_SHIELD] == 1)
+    if (target->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
-        target->gameTags[+GameTag::DIVINE_SHIELD] = 0;
+        target->SetGameTag(GameTag::DIVINE_SHIELD, 0);
     }
     else
     {
         // Poisonous : Src -> Dst
-        if (source->gameTags[+GameTag::POISONOUS] == 1)
+        if (source->GetGameTag(GameTag::POISONOUS) == 1)
         {
-            PowerTask::PoisonousTask(source, target).Run(player1, player2);
+            PowerTask::PoisonousTask(target).Run(player1, player2);
+        }
+        else if (source->GetGameTag(GameTag::FREEZE) == 1)
+        {
+            PowerTask::FreezeTask(target, TargetType::OPPONENT_MINION).Run(player1, player2);
         }
     }
 
     // Divine Shield : Src
-    if (source->gameTags[+GameTag::DIVINE_SHIELD] == 1)
+    if (source->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
-        source->gameTags[+GameTag::DIVINE_SHIELD] = 0;
+        source->SetGameTag(GameTag::DIVINE_SHIELD, 0);
     }
     else
     {
         // Poisonous : Dst -> Src
-        if (target->gameTags[+GameTag::POISONOUS] == 1)
+        if (target->GetGameTag(GameTag::POISONOUS) == 1)
         {
-            PowerTask::PoisonousTask(target, source).Run(player1, player2);
+            PowerTask::PoisonousTask(source).Run(player1, player2);
+        }
+        else if (target->GetGameTag(GameTag::FREEZE) == 1)
+        {
+            PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
+                .Run(player1, player2);
         }
     }
 
-    if (source->gameTags[+GameTag::STEALTH] == 1)
+    if (source->GetGameTag(GameTag::STEALTH) == 1)
     {
-        source->gameTags[+GameTag::STEALTH] = 0;
+        source->SetGameTag(GameTag::STEALTH, 0);
     }
 
     // Source Health Check

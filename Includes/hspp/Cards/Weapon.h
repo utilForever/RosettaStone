@@ -23,8 +23,8 @@ struct Weapon : public Entity
     //! Default constructor.
     Weapon() = default;
 
-    //! Constructs weapon with given \p pCard.
-    //! \param pCard A pointer to the card.
+    //! Constructs weapon with given \p card.
+    //! \param card A reference to the card.
     Weapon(Card& card);
 
     //! Default destructor.

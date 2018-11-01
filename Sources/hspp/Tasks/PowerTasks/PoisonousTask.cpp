@@ -8,8 +8,7 @@
 
 namespace Hearthstonepp::PowerTask
 {
-PoisonousTask::PoisonousTask(Character* source, Character* target)
-    : m_source(source), m_target(target)
+PoisonousTask::PoisonousTask(Character* target) : m_target(target)
 {
     // Do nothing
 }
@@ -21,11 +20,6 @@ TaskID PoisonousTask::GetTaskID() const
 
 MetaData PoisonousTask::Impl(Player&, Player&)
 {
-    if (m_source->attack <= 0)
-    {
-        return MetaData::POISONOUS_IGNORE;
-    }
-
     m_target->health = static_cast<size_t>(0);
 
     return MetaData::POISONOUS_SUCCESS;

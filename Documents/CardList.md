@@ -3,11 +3,9 @@
 * [Basic card list](#basic)
 * [Classic card list](#classic)
 
-## Basic
-
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-CORE | CS1_042 | Goldshire Footman |  
+CORE | CS1_042 | Goldshire Footman | O
 CORE | CS1_112 | Holy Nova |  
 CORE | CS1_113 | Mind Control |  
 CORE | CS1_130 | Holy Smite |  
@@ -28,7 +26,7 @@ CORE | CS2_026 | Frost Nova |
 CORE | CS2_027 | Mirror Image |  
 CORE | CS2_029 | Fireball |  
 CORE | CS2_032 | Flamestrike |  
-CORE | CS2_033 | Water Elemental |  
+CORE | CS2_033 | Water Elemental | O
 CORE | CS2_037 | Frost Shock |  
 CORE | CS2_039 | Windfury |  
 CORE | CS2_041 | Ancestral Healing | O
@@ -40,60 +38,60 @@ CORE | CS2_061 | Drain Life |
 CORE | CS2_062 | Hellfire |  
 CORE | CS2_063 | Corruption |  
 CORE | CS2_064 | Dread Infernal |  
-CORE | CS2_065 | Voidwalker |  
+CORE | CS2_065 | Voidwalker | O
 CORE | CS2_072 | Backstab |  
 CORE | CS2_074 | Deadly Poison |  
 CORE | CS2_075 | Sinister Strike |  
 CORE | CS2_076 | Assassinate |  
 CORE | CS2_077 | Sprint |  
-CORE | CS2_080 | Assassin's Blade |  
+CORE | CS2_080 | Assassin's Blade | O
 CORE | CS2_084 | Hunter's Mark |  
 CORE | CS2_087 | Blessing of Might |  
 CORE | CS2_088 | Guardian of Kings | O
 CORE | CS2_089 | Holy Light |  
-CORE | CS2_091 | Light's Justice |  
+CORE | CS2_091 | Light's Justice | O
 CORE | CS2_092 | Blessing of Kings |  
 CORE | CS2_093 | Consecration |  
 CORE | CS2_094 | Hammer of Wrath |  
 CORE | CS2_097 | Truesilver Champion |  
 CORE | CS2_103 | Charge |  
 CORE | CS2_105 | Heroic Strike |  
-CORE | CS2_106 | Fiery War Axe |  
+CORE | CS2_106 | Fiery War Axe | O
 CORE | CS2_108 | Execute |  
-CORE | CS2_112 | Arcanite Reaper |  
+CORE | CS2_112 | Arcanite Reaper | O
 CORE | CS2_114 | Cleave |  
 CORE | CS2_118 | Magma Rager | O
-CORE | CS2_119 | Oasis Snapjaw |  
-CORE | CS2_120 | River Crocolisk |  
-CORE | CS2_121 | Frostwolf Grunt |  
+CORE | CS2_119 | Oasis Snapjaw | O
+CORE | CS2_120 | River Crocolisk | O
+CORE | CS2_121 | Frostwolf Grunt | O
 CORE | CS2_122 | Raid Leader |  
 CORE | CS2_124 | Wolfrider | O
 CORE | CS2_125 | Ironfur Grizzly | O
-CORE | CS2_127 | Silverback Patriarch |  
+CORE | CS2_127 | Silverback Patriarch | O
 CORE | CS2_131 | Stormwind Knight | O
 CORE | CS2_141 | Ironforge Rifleman |  
 CORE | CS2_142 | Kobold Geomancer |  
 CORE | CS2_147 | Gnomish Inventor |  
 CORE | CS2_150 | Stormpike Commando |  
 CORE | CS2_155 | Archmage |  
-CORE | CS2_162 | Lord of the Arena |  
-CORE | CS2_168 | Murloc Raider |  
+CORE | CS2_162 | Lord of the Arena | O
+CORE | CS2_168 | Murloc Raider | O
 CORE | CS2_171 | Stonetusk Boar | O
 CORE | CS2_172 | Bloodfen Raptor | O
-CORE | CS2_173 | Bluegill Warrior |  
+CORE | CS2_173 | Bluegill Warrior | O
 CORE | CS2_179 | Sen'jin Shieldmasta | O
 CORE | CS2_182 | Chillwind Yeti | O
-CORE | CS2_186 | War Golem |  
+CORE | CS2_186 | War Golem | O
 CORE | CS2_187 | Booty Bay Bodyguard | O
 CORE | CS2_189 | Elven Archer |  
 CORE | CS2_196 | Razorfen Hunter |  
 CORE | CS2_197 | Ogre Magi |  
-CORE | CS2_200 | Boulderfist Ogre |  
+CORE | CS2_200 | Boulderfist Ogre | O
 CORE | CS2_201 | Core Hound | O
 CORE | CS2_213 | Reckless Rocketeer | O
 CORE | CS2_222 | Stormwind Champion |  
 CORE | CS2_226 | Frostwolf Warlord |  
-CORE | CS2_232 | Ironbark Protector |  
+CORE | CS2_232 | Ironbark Protector | O
 CORE | CS2_234 | Shadow Word: Pain |  
 CORE | CS2_235 | Northshire Cleric |  
 CORE | CS2_236 | Divine Spirit |  
@@ -136,27 +134,18 @@ CORE | EX1_587 | Windspeaker |
 CORE | EX1_593 | Nightblade |  
 CORE | EX1_606 | Shield Block |  
 CORE | EX1_622 | Shadow Word: Death |  
-CORE | HERO_01 | Garrosh Hellscream |  
-CORE | HERO_02 | Thrall |  
-CORE | HERO_03 | Valeera Sanguinar |  
-CORE | HERO_04 | Uther Lightbringer |  
-CORE | HERO_05 | Rexxar |  
-CORE | HERO_06 | Malfurion Stormrage |  
-CORE | HERO_07 | Gul'dan |  
-CORE | HERO_08 | Jaina Proudmoore |  
-CORE | HERO_09 | Anduin Wrynn |  
 CORE | NEW1_003 | Sacrificial Pact |  
 CORE | NEW1_004 | Vanish |  
-CORE | NEW1_011 | Kor'kron Elite |  
+CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 10% (15 of 142 Cards)
+- Progress: 24% (33 of 133 Cards)
 
 ## Classic
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-EXPERT1 | CS1_069 | Fen Creeper |  
+EXPERT1 | CS1_069 | Fen Creeper | O
 EXPERT1 | CS1_129 | Inner Fire |  
 EXPERT1 | CS2_028 | Blizzard |  
 EXPERT1 | CS2_038 | Ancestral Spirit |  
@@ -167,14 +156,14 @@ EXPERT1 | CS2_104 | Rampage |
 EXPERT1 | CS2_117 | Earthen Ring Farseer |  
 EXPERT1 | CS2_146 | Southsea Deckhand |  
 EXPERT1 | CS2_151 | Silver Hand Knight |  
-EXPERT1 | CS2_161 | Ravenholdt Assassin |  
+EXPERT1 | CS2_161 | Ravenholdt Assassin | O
 EXPERT1 | CS2_169 | Young Dragonhawk | O
 EXPERT1 | CS2_181 | Injured Blademaster |  
 EXPERT1 | CS2_188 | Abusive Sergeant |  
 EXPERT1 | CS2_203 | Ironbeak Owl |  
 EXPERT1 | CS2_221 | Spiteful Smith |  
 EXPERT1 | CS2_227 | Venture Co. Mercenary |  
-EXPERT1 | CS2_231 | Wisp |  
+EXPERT1 | CS2_231 | Wisp | O
 EXPERT1 | CS2_233 | Blade Flurry |  
 EXPERT1 | DS1_188 | Gladiator's Longbow |  
 EXPERT1 | EX1_001 | Lightwarden |  
@@ -185,17 +174,17 @@ EXPERT1 | EX1_006 | Alarm-o-Bot |
 EXPERT1 | EX1_007 | Acolyte of Pain |  
 EXPERT1 | EX1_008 | Argent Squire | O
 EXPERT1 | EX1_009 | Angry Chicken |  
-EXPERT1 | EX1_010 | Worgen Infiltrator |  
+EXPERT1 | EX1_010 | Worgen Infiltrator | O
 EXPERT1 | EX1_012 | Bloodmage Thalnos |  
 EXPERT1 | EX1_014 | King Mukla |  
 EXPERT1 | EX1_017 | Jungle Panther | O
-EXPERT1 | EX1_020 | Scarlet Crusader |  
-EXPERT1 | EX1_021 | Thrallmar Farseer |  
-EXPERT1 | EX1_023 | Silvermoon Guardian |  
-EXPERT1 | EX1_028 | Stranglethorn Tiger |  
+EXPERT1 | EX1_020 | Scarlet Crusader | O
+EXPERT1 | EX1_021 | Thrallmar Farseer | O
+EXPERT1 | EX1_023 | Silvermoon Guardian | O
+EXPERT1 | EX1_028 | Stranglethorn Tiger | O
 EXPERT1 | EX1_029 | Leper Gnome |  
-EXPERT1 | EX1_032 | Sunwalker |  
-EXPERT1 | EX1_033 | Windfury Harpy |  
+EXPERT1 | EX1_032 | Sunwalker | O
+EXPERT1 | EX1_033 | Windfury Harpy | O
 EXPERT1 | EX1_043 | Twilight Drake |  
 EXPERT1 | EX1_044 | Questing Adventurer |  
 EXPERT1 | EX1_045 | Ancient Watcher |  
@@ -206,7 +195,7 @@ EXPERT1 | EX1_055 | Mana Addict |
 EXPERT1 | EX1_057 | Ancient Brewmaster |  
 EXPERT1 | EX1_058 | Sunfury Protector |  
 EXPERT1 | EX1_059 | Crazed Alchemist |  
-EXPERT1 | EX1_067 | Argent Commander |  
+EXPERT1 | EX1_067 | Argent Commander | O
 EXPERT1 | EX1_076 | Pint-Sized Summoner |  
 EXPERT1 | EX1_080 | Secretkeeper |  
 EXPERT1 | EX1_082 | Mad Bomber |  
@@ -298,10 +287,10 @@ EXPERT1 | EX1_390 | Tauren Warrior |
 EXPERT1 | EX1_391 | Slam |  
 EXPERT1 | EX1_392 | Battle Rage |  
 EXPERT1 | EX1_393 | Amani Berserker |  
-EXPERT1 | EX1_396 | Mogu'shan Warden |  
+EXPERT1 | EX1_396 | Mogu'shan Warden | O
 EXPERT1 | EX1_398 | Arathi Weaponsmith |  
 EXPERT1 | EX1_402 | Armorsmith |  
-EXPERT1 | EX1_405 | Shieldbearer |  
+EXPERT1 | EX1_405 | Shieldbearer | O
 EXPERT1 | EX1_407 | Brawl |  
 EXPERT1 | EX1_408 | Mortal Strike |  
 EXPERT1 | EX1_409 | Upgrade! |  
@@ -311,7 +300,7 @@ EXPERT1 | EX1_412 | Raging Worgen |
 EXPERT1 | EX1_414 | Grommash Hellscream |  
 EXPERT1 | EX1_507 | Murloc Warleader |  
 EXPERT1 | EX1_509 | Murloc Tidecaller |  
-EXPERT1 | EX1_522 | Patient Assassin |  
+EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena |  
 EXPERT1 | EX1_533 | Misdirection |  
 EXPERT1 | EX1_534 | Savannah Highmane |  
@@ -369,7 +358,7 @@ EXPERT1 | EX1_626 | Mass Dispel |
 EXPERT1 | NEW1_005 | Kidnapper |  
 EXPERT1 | NEW1_007 | Starfall |  
 EXPERT1 | NEW1_008 | Ancient of Lore |  
-EXPERT1 | NEW1_010 | Al'Akir the Windlord |  
+EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm |  
 EXPERT1 | NEW1_014 | Master of Disguise |  
 EXPERT1 | NEW1_017 | Hungry Crab |  
@@ -393,4 +382,4 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 2% (5 of 236 Cards)
+- Progress: 8% (20 of 236 Cards)

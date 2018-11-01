@@ -6,8 +6,6 @@
 
 #include <hspp/Tasks/BasicTasks/ModifyHealthTask.h>
 
-#include <algorithm>
-
 namespace Hearthstonepp::BasicTasks
 {
 ModifyHealthTask::ModifyHealthTask(Character* character, BYTE damage)
@@ -23,7 +21,7 @@ TaskID ModifyHealthTask::GetTaskID() const
 
 MetaData ModifyHealthTask::Impl(Player&, Player&)
 {
-    if (m_character->gameTags[+GameTag::DIVINE_SHIELD] == 1)
+    if (m_character->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
         m_damage = 0;
     }

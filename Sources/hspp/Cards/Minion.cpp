@@ -10,6 +10,25 @@ namespace Hearthstonepp
 {
 Minion::Minion(Card& card) : Character(card)
 {
-    // Do nothing
+    CheckAbilities();
+}
+
+void Minion::SetGameTag(GameTag tag, int value)
+{
+    Character::SetGameTag(tag, value);
+
+    CheckAbilities();
+}
+
+void Minion::CheckAbilities()
+{
+    if (m_gameTags[GameTag::CHARGE] == 1 && attackableCount == 0)
+    {
+        attackableCount = 1;
+    }
+    else if (m_gameTags[GameTag::WINDFURY] == 1 && attackableCount == 1)
+    {
+        attackableCount = 2;
+    }
 }
 }  // namespace Hearthstonepp

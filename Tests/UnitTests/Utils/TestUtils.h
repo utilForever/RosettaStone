@@ -14,6 +14,12 @@ using namespace Hearthstonepp;
 
 namespace TestUtils
 {
+enum class PlayerType
+{
+    PLAYER1,
+    PLAYER2
+};
+
 struct PlayerGenerator
 {
     PlayerGenerator(CardClass class1, CardClass class2);
