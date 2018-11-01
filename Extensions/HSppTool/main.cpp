@@ -43,6 +43,9 @@ inline std::string ToString(const clara::Parser& p)
 
 inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
 {
+    std::vector<GameTag> result;
+
+#ifndef HEARTHSTONEPP_MACOSX
     std::map<std::string, GameTag> abilityStrMap = {
         { "Adapt", GameTag::ADAPT },
         { "Charge", GameTag::CHARGE },
@@ -54,9 +57,6 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
         { "Windfury", GameTag::WINDFURY }
     };
 
-    std::vector<GameTag> result;
-
-#ifndef HEARTHSTONEPP_MACOSX
     const filesystem::path p(
         path + "/Tests/UnitTests/Tasks/BasicTasks/CombatTaskTests.cpp");
 
