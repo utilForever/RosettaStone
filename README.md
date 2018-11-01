@@ -11,6 +11,10 @@
 
 Hearthstone++ is hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (17.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
 
+## Related Repositories
+
+- [Hearthstone++ GUI](https://www.github.com/utilforever/Hearthstonepp-GUI)
+
 ## Key Features
 
 - Support C++17 based Hearthstone library
@@ -88,17 +92,13 @@ cmake .. -G"Visual Studio 15 2017 Win64"
 MSBuild Hearthstonepp.sln /p:Configuration=Release
 ```
 
-Now run simulators, such as:
+Now run console simulator:
 
 ```
 bin/HSppConsole
 ```
 
-or
-
-```
-bin/HsppGUI
-```
+To run GUI simulator, please check out [Hearthstone++ GUI](https://www.github.com/utilforever/Hearthstonepp-GUI).
 
 ### More Instructions of Building the Code
 
