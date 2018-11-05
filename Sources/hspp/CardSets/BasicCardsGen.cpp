@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -79,7 +79,18 @@ void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
 
 void BasicCardsGen::AddPriest(std::map<std::string, Power*>& cards)
 {
-    (void)cards;
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS1_112] Holy Nova - COST:5
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to all enemies.
+    //       Restore #2 Health to all friendly characters.
+    // --------------------------------------------------------
+    //Power* p = new Power;
+    //p->powerTask.emplace_back(
+    //    new PowerTask::DamageTask(EntityType::ENEMIES, 2));
+    //p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::FRIENDS, 2));
+    //cards.emplace("CS1_112", p);
 }
 
 void BasicCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
