@@ -21,7 +21,7 @@ TaskID HealTask::GetTaskID() const
 
 MetaData HealTask::Impl(Player& player1, Player&)
 {
-    if (m_entityType == +EntityType::MY_HERO)
+    if (m_entityType == +EntityType::HERO)
     {
         if (player1.hero->health + m_amount <= player1.hero->maxHealth)
         {

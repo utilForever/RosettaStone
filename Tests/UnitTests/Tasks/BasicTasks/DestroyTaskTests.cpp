@@ -49,7 +49,7 @@ TEST(DestroyTask, Run)
     Card weaponCard;
     player2.hero->weapon = new Weapon(weaponCard);
 
-    BasicTasks::DestroyTask task3 = BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON);
+    BasicTasks::DestroyTask task3(EntityType::ENEMY_WEAPON);
 
     MetaData result3 = task3.Run(player1, player2);
     EXPECT_EQ(result3, MetaData::DESTROY_WEAPON_SUCCESS);

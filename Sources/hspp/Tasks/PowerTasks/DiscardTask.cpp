@@ -22,7 +22,7 @@ TaskID DiscardTask::GetTaskID() const
 
 MetaData DiscardTask::Impl(Player& player1, Player&)
 {
-    if (m_entityType == +EntityType::MY_HAND)
+    if (m_entityType == +EntityType::HAND)
     {
         if (player1.hand.size() <= 0)
         {

@@ -30,7 +30,7 @@ MetaData DestroyTask::Impl(Player& player1, Player& player2)
         case EntityType::TARGET:
             return DestroyMinionTask(target).Run(player2, player1);
 
-        case EntityType::OPPONENT_WEAPON:
+        case EntityType::ENEMY_WEAPON:
             return DestroyWeaponTask().Run(player2, player1);
 
         default:

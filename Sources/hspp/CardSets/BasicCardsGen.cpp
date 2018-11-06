@@ -68,7 +68,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::MY_HERO, 6));
+    p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::HERO, 6));
     cards.emplace("CS2_088", p);
 }
 
@@ -79,6 +79,7 @@ void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
 
 void BasicCardsGen::AddPriest(std::map<std::string, Power*>& cards)
 {
+    (void)cards;
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_112] Holy Nova - COST:5
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -160,7 +161,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::DiscardTask(EntityType::MY_HAND));
+    p->powerTask.emplace_back(new PowerTask::DiscardTask(EntityType::HAND));
     cards.emplace("EX1_306", p);
 }
 
@@ -192,7 +193,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // --------------------------------------------------------
     Power* p = new Power;
     p->powerTask.emplace_back(
-        new BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON));
+        new BasicTasks::DestroyTask(EntityType::ENEMY_WEAPON));
     cards.emplace("EX1_066", p);
 }
 
