@@ -6,6 +6,7 @@
 
 #include <hspp/CardSets/BasicCardsGen.h>
 #include <hspp/Enchants/Effects.h>
+#include <hspp/Tasks/BasicTasks/DamageTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyTask.h>
 #include <hspp/Tasks/PowerTasks/AddEnchantmentTask.h>
 #include <hspp/Tasks/PowerTasks/DiscardTask.h>

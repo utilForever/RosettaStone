@@ -5,8 +5,8 @@
 // property of any third parties.
 
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
+#include <hspp/Tasks/BasicTasks/DamageTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
-#include <hspp/Tasks/BasicTasks/ModifyHealthTask.h>
 #include <hspp/Tasks/PowerTasks/FreezeTask.h>
 #include <hspp/Tasks/PowerTasks/PoisonousTask.h>
 
@@ -105,16 +105,14 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
 
     // Attack : Dst -> Src
-    MetaData hurtedSrc =
-        ModifyHealthTask(source, targetAttack).Run(player1, player2);
+    MetaData hurtedSrc = DamageTask(source, targetAttack).Run(player1, player2);
     if (hurtedSrc != MetaData::MODIFY_HEALTH_SUCCESS)
     {
         return hurtedSrc;
     }
 
     // Attack : Src -> Dst
-    MetaData hurtedDst =
-        ModifyHealthTask(target, sourceAttack).Run(player1, player2);
+    MetaData hurtedDst = DamageTask(target, sourceAttack).Run(player1, player2);
     if (hurtedDst != MetaData::MODIFY_HEALTH_SUCCESS)
     {
         return hurtedDst;

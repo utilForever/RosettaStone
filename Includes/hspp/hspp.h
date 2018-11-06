@@ -41,13 +41,13 @@
 #include <hspp/Managers/SyncBuffer.h>
 #include <hspp/Tasks/BasicTasks/BriefTask.h>
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
+#include <hspp/Tasks/BasicTasks/DamageTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyWeaponTask.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
 #include <hspp/Tasks/BasicTasks/GameEndTask.h>
 #include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
-#include <hspp/Tasks/BasicTasks/ModifyHealthTask.h>
 #include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
 #include <hspp/Tasks/BasicTasks/MulliganTask.h>
 #include <hspp/Tasks/BasicTasks/PlayCardTask.h>

@@ -4,25 +4,25 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_MODIFY_HEALTH_TASK_H
-#define HEARTHSTONEPP_MODIFY_HEALTH_TASK_H
+#ifndef HEARTHSTONEPP_DAMAGE_TASK_H
+#define HEARTHSTONEPP_DAMAGE_TASK_H
 
 #include <hspp/Tasks/Tasks.h>
 
 namespace Hearthstonepp::BasicTasks
 {
 //!
-//! \brief ModifyHealthTask class.
+//! \brief DamageTask class.
 //!
-//! This class represents the task for modifying health of character.
+//! This class represents the task for taking damage.
 //!
-class ModifyHealthTask : public ITask
+class DamageTask : public ITask
 {
  public:
     //! Constructs task with given \p character and \p damage.
-    //! \param character A pointer to character to modify the health.
-    //! \param damage A value indicating how much to modify health.
-    ModifyHealthTask(Character* character, BYTE damage);
+    //! \param character A pointer to character to take damage.
+    //! \param damage A value indicating how much to take.
+    DamageTask(Character* character, BYTE damage);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -40,4 +40,4 @@ class ModifyHealthTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_MODIFYHEALTH_H
+#endif  // HEARTHSTONEPP_DAMAGE_TASK_H
