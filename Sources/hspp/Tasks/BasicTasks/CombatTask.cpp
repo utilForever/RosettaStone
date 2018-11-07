@@ -58,7 +58,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
                        : dynamic_cast<Character*>(player2.hero);
 
     // Verify attack of source is 0
-    if (source->attack == 0)
+    if (source->GetAttack() == 0)
     {
         return MetaData::COMBAT_SOURCE_ATTACK_ZERO;
     }
@@ -101,8 +101,8 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
 
     source->attackableCount--;
 
-    BYTE sourceAttack = (src > 0) ? static_cast<BYTE>(source->attack) : 0;
-    BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
+    const size_t sourceAttack = source->GetAttack();
+    const size_t targetAttack = target->GetAttack();
 
     // Attack : Dst -> Src
     MetaData hurtedSrc = DamageTask(source, targetAttack).Run(player1, player2);

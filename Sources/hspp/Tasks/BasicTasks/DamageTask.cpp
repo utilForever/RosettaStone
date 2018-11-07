@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DamageTask::DamageTask(Character* character, BYTE damage)
+DamageTask::DamageTask(Character* character, size_t damage)
     : m_character(character), m_damage(damage)
 {
     // Do Nothing
@@ -26,8 +26,9 @@ MetaData DamageTask::Impl(Player&, Player&)
         m_damage = 0;
     }
 
-    const int remainHealth = static_cast<int>(m_character->health) - m_damage;
-    m_character->health = static_cast<size_t>(remainHealth);
+    const int remainHealth =
+        static_cast<int>(m_character->health) - static_cast<int>(m_damage);
+    m_character->health = remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0u;
 
     return MetaData::MODIFY_HEALTH_SUCCESS;
 }

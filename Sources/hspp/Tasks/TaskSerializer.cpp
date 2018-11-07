@@ -60,7 +60,7 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         if (auto character = dynamic_cast<const Character*>(entity);
             character != nullptr)
         {
-            attack = character->attack;
+            attack = character->GetAttack();
             health = character->health;
         }
         if (auto weapon = dynamic_cast<const Weapon*>(entity);

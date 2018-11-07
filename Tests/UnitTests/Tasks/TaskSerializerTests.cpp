@@ -87,7 +87,7 @@ TEST(TaskSerializer, CreateEntity)
 
     Minion* mNerubian = new Minion(nerubian);
     mNerubian->health = 100;
-    mNerubian->attack = 1000;
+    mNerubian->SetAttack(1000);
 
     auto buffer = autoEncode(mNerubian);
     auto minion = flatbuffers::GetRoot<FlatData::Entity>(buffer.get());

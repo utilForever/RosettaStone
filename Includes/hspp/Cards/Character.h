@@ -12,13 +12,14 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Abstract character structure that stores hero and minion data.
+//! \brief Abstract character class that stores hero and minion data.
 //!
-//! This structure inherits from Entity structure. Also, it stores some
+//! This class inherits from Entity class. Also, it stores some
 //! attributes that only characters have such as attack and health.
 //!
-struct Character : public Entity
+class Character : public Entity
 {
+ public:
     //! Default constructor.
     Character() = default;
 
@@ -38,11 +39,17 @@ struct Character : public Entity
     //! Clones member variables.
     Character* Clone() const override;
 
-    size_t attack = 0;
+    size_t GetAttack() const;
+
+    void SetAttack(size_t attack);
+
     size_t attackableCount = 0;
     size_t remainTurnToThaw = 0;
     size_t health = 0;
     size_t maxHealth = 0;
+
+ private:
+    size_t m_attack = 0;
 };
 }  // namespace Hearthstonepp
 

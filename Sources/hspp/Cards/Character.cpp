@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <hspp/Cards/Character.h>
-#include <hspp/Commons/Macros.h>
 
 namespace Hearthstonepp
 {
@@ -14,10 +13,10 @@ Character::Character(Card& card) : Entity(card)
     if (!card.id.empty())
     {
 #ifndef HEARTHSTONEPP_MACOSX
-        attack = card.attack.has_value() ? card.attack.value() : 0;
+        m_attack = card.attack.has_value() ? card.attack.value() : 0;
         health = card.health.has_value() ? card.health.value() : 0;
 #else
-        attack = card.attack.value_or(0);
+        m_attack = card.attack.value_or(0);
         health = card.health.value_or(0);
 #endif
         maxHealth = health;
@@ -26,7 +25,7 @@ Character::Character(Card& card) : Entity(card)
 
 Character::Character(const Character& c) : Entity(c)
 {
-    attack = c.attack;
+    m_attack = c.m_attack;
     attackableCount = c.attackableCount;
     health = c.health;
     maxHealth = c.maxHealth;
@@ -39,7 +38,7 @@ Character& Character::operator=(const Character& c)
         return *this;
     }
 
-    attack = c.attack;
+    m_attack = c.m_attack;
     attackableCount = c.attackableCount;
     health = c.health;
     maxHealth = c.maxHealth;
@@ -50,5 +49,15 @@ Character& Character::operator=(const Character& c)
 Character* Character::Clone() const
 {
     return new Character(*this);
+}
+
+size_t Character::GetAttack() const
+{
+    return m_attack;
+}
+
+void Character::SetAttack(size_t attack)
+{
+    m_attack = attack;
 }
 }  // namespace Hearthstonepp

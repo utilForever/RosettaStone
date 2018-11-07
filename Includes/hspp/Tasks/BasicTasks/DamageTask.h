@@ -22,7 +22,7 @@ class DamageTask : public ITask
     //! Constructs task with given \p character and \p damage.
     //! \param character A pointer to character to take damage.
     //! \param damage A value indicating how much to take.
-    DamageTask(Character* character, BYTE damage);
+    DamageTask(Character* character, size_t damage);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -36,7 +36,7 @@ class DamageTask : public ITask
     MetaData Impl(Player& player1, Player& player2) override;
 
     Character* m_character;
-    BYTE m_damage;
+    size_t m_damage;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

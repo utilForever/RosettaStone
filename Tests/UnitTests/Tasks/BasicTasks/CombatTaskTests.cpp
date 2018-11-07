@@ -97,7 +97,7 @@ TEST(CombatTask, Default)
     tester.Attack(1, 0, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.field[0]->health, player1.field[0]->maxHealth);
     EXPECT_EQ(player2.hero->health,
-              player2.hero->maxHealth - player1.field[0]->attack);
+              player2.hero->maxHealth - player1.field[0]->GetAttack());
 
     tester.InitAttackCount(PlayerType::PLAYER2);
 
@@ -125,7 +125,7 @@ TEST(CombatTask, Default)
 
     auto card5 = GenerateMinionCard("minion5", 5, 4);
 
-    player1.field[0]->attack = 1;
+    player1.field[0]->SetAttack(1);
     player2.field.emplace_back(new Minion(card5));
 
     tester.InitAttackCount(PlayerType::PLAYER1);
