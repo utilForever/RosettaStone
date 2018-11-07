@@ -47,6 +47,12 @@ class Character : public Entity
     //! \param attack the value of attack.
     void SetAttack(size_t attack);
 
+    //! Takes damage from \p source with \p damage value.
+    //! \param source The character to give damage.
+    //! \param damage The value of damage.
+    //! \return Final damage taking into account ability.
+    size_t TakeDamage(Character& source, size_t damage);
+
     size_t attackableCount = 0;
     size_t remainTurnToThaw = 0;
     size_t health = 0;

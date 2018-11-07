@@ -60,4 +60,19 @@ void Character::SetAttack(size_t attack)
 {
     m_attack = attack;
 }
+
+size_t Character::TakeDamage(Character& source, size_t damage)
+{
+    (void)source;
+
+    if (GetGameTag(GameTag::DIVINE_SHIELD) == 1)
+    {
+        SetGameTag(GameTag::DIVINE_SHIELD, 0);
+        return 0;
+    }
+
+    health = (health <= damage) ? 0 : health - damage;
+
+    return damage;
+}
 }  // namespace Hearthstonepp
