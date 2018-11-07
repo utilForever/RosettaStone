@@ -104,55 +104,34 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     const size_t sourceAttack = source->GetAttack();
     const size_t targetAttack = target->GetAttack();
 
-    // Attack : Dst -> Src
-    MetaData hurtedSrc = DamageTask(source, targetAttack).Run(player1, player2);
-    if (hurtedSrc != MetaData::MODIFY_HEALTH_SUCCESS)
+    const size_t targetDamage = target->TakeDamage(*source, sourceAttack);
+    const size_t sourceDamage = source->TakeDamage(*target, targetAttack);
+
+    (void)targetDamage;
+    (void)sourceDamage;
+
+    // Destroy target if attacker is poisonous
+    if (source->GetGameTag(GameTag::POISONOUS) == 1)
     {
-        return hurtedSrc;
+        PowerTask::PoisonousTask(target).Run(player1, player2);
+    }
+    // Freeze target if attacker is freezer
+    else if (source->GetGameTag(GameTag::FREEZE) == 1)
+    {
+        PowerTask::FreezeTask(target, TargetType::OPPONENT_MINION)
+            .Run(player1, player2);
     }
 
-    // Attack : Src -> Dst
-    MetaData hurtedDst = DamageTask(target, sourceAttack).Run(player1, player2);
-    if (hurtedDst != MetaData::MODIFY_HEALTH_SUCCESS)
+    // Destroy source if defender is poisonous
+    if (target->GetGameTag(GameTag::POISONOUS) == 1)
     {
-        return hurtedDst;
+        PowerTask::PoisonousTask(source).Run(player1, player2);
     }
-
-    // Divine Shield : Dst
-    if (target->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
+    // Freeze source if defender is freezer
+    else if (target->GetGameTag(GameTag::FREEZE) == 1)
     {
-        target->SetGameTag(GameTag::DIVINE_SHIELD, 0);
-    }
-    else
-    {
-        // Poisonous : Src -> Dst
-        if (source->GetGameTag(GameTag::POISONOUS) == 1)
-        {
-            PowerTask::PoisonousTask(target).Run(player1, player2);
-        }
-        else if (source->GetGameTag(GameTag::FREEZE) == 1)
-        {
-            PowerTask::FreezeTask(target, TargetType::OPPONENT_MINION).Run(player1, player2);
-        }
-    }
-
-    // Divine Shield : Src
-    if (source->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
-    {
-        source->SetGameTag(GameTag::DIVINE_SHIELD, 0);
-    }
-    else
-    {
-        // Poisonous : Dst -> Src
-        if (target->GetGameTag(GameTag::POISONOUS) == 1)
-        {
-            PowerTask::PoisonousTask(source).Run(player1, player2);
-        }
-        else if (target->GetGameTag(GameTag::FREEZE) == 1)
-        {
-            PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
-                .Run(player1, player2);
-        }
+        PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
+            .Run(player1, player2);
     }
 
     if (source->GetGameTag(GameTag::STEALTH) == 1)
