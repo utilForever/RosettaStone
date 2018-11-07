@@ -39,8 +39,12 @@ class Character : public Entity
     //! Clones member variables.
     Character* Clone() const override;
 
+    //! Returns the value of attack.
+    //! \return The value of attack.
     size_t GetAttack() const;
 
+    //! Sets the value of attack.
+    //! \param attack the value of attack.
     void SetAttack(size_t attack);
 
     size_t attackableCount = 0;
