@@ -228,8 +228,9 @@ TEST(CombatTask, Immune)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK,
-                  PlayerType::PLAYER1);
+    tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+    EXPECT_EQ(player1.field[0]->health, 10);
+    EXPECT_EQ(player2.field[0]->health, 9);
 }
 
 TEST(CombatTask, Windfury)

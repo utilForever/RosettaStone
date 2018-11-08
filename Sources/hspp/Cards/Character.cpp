@@ -146,6 +146,11 @@ size_t Character::TakeDamage(Character& source, size_t damage)
         return 0;
     }
 
+    if (GetGameTag(GameTag::IMMUNE) == 1)
+    {
+        return 0;
+    }
+
     health = (health <= damage) ? 0 : health - damage;
 
     return damage;
