@@ -57,33 +57,9 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
                        : dynamic_cast<Character*>(player2.hero);
 
-    if (!source->CanAttack())
+    if (!source->CanAttack() || !source->IsValidAttackTarget(player2, *target))
     {
         return MetaData::COMBAT_SOURCE_CANT_ATTACK;
-    }
-
-    // Taunt Verification
-    if (target->GetGameTag(GameTag::TAUNT) == 0)
-    {
-        for (auto& item : player2.field)
-        {
-            if (item->GetGameTag(GameTag::TAUNT) == 1)
-            {
-                return MetaData::COMBAT_FIELD_HAVE_TAUNT;
-            }
-        }
-    }
-
-    // Stealth Verification
-    if (target->GetGameTag(GameTag::STEALTH) == 1)
-    {
-        return MetaData::COMBAT_TARGET_STEALTH;
-    }
-
-    // Immune Verification
-    if (target->GetGameTag(GameTag::IMMUNE) == 1)
-    {
-        return MetaData::COMBAT_TARGET_IMMUNE;
     }
 
     source->attackableCount--;

@@ -184,7 +184,8 @@ TEST(CombatTask, Taunt)
 
     player2.field[1]->SetGameTag(GameTag::TAUNT, 1);
 
-    tester.Attack(1, 1, MetaData::COMBAT_FIELD_HAVE_TAUNT, PlayerType::PLAYER1);
+    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK,
+                  PlayerType::PLAYER1);
 
     player2.field[1]->SetGameTag(GameTag::TAUNT, 0);
 
@@ -204,7 +205,8 @@ TEST(CombatTask, Stealth)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    tester.Attack(1, 1, MetaData::COMBAT_TARGET_STEALTH, PlayerType::PLAYER1);
+    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK,
+                  PlayerType::PLAYER1);
 
     player1.field[0]->SetGameTag(GameTag::STEALTH, 1);
     player2.field[0]->SetGameTag(GameTag::STEALTH, 0);
@@ -222,11 +224,12 @@ TEST(CombatTask, Immune)
     player1.field.emplace_back(new Minion(card));
     player2.field.emplace_back(new Minion(card));
 
-    player2.field[0]->SetGameTag(GameTag::IMMUNE, 1);
+    player1.field[0]->SetGameTag(GameTag::IMMUNE, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    tester.Attack(1, 1, MetaData::COMBAT_TARGET_IMMUNE, PlayerType::PLAYER1);
+    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK,
+                  PlayerType::PLAYER1);
 }
 
 TEST(CombatTask, Windfury)
