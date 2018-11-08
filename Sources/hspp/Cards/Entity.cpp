@@ -49,9 +49,14 @@ Entity* Entity::Clone() const
     return new Entity(*this);
 }
 
-int Entity::GetGameTag(GameTag tag)
+int Entity::GetGameTag(GameTag tag) const
 {
-    return m_gameTags[tag];
+    if (m_gameTags.find(tag) == m_gameTags.end())
+    {
+        return 0;
+    }
+
+    return m_gameTags.at(tag);
 }
 
 void Entity::SetGameTag(GameTag tag, int value)

@@ -48,7 +48,7 @@ class Entity
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
-    int GetGameTag(GameTag tag);
+    int GetGameTag(GameTag tag) const;
 
     //! Sets game tag to the card.
     //! \param tag The game tag to indicate ability or condition.
