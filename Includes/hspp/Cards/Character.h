@@ -11,6 +11,8 @@
 
 namespace Hearthstonepp
 {
+class Player;
+
 //!
 //! \brief Abstract character class that stores hero and minion data.
 //!
@@ -50,6 +52,17 @@ class Character : public Entity
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack() const;
+
+    //! Returns whether the target is valid.
+    //! \param opponent The opponent player.
+    //! \param target The target to attack.
+    //! \return Whether the target is valid.
+    bool IsValidAttackTarget(Player& opponent, Character& target) const;
+
+    //! Returns a list of valid target.
+    //! \param opponent The opponent player.
+    //! \return A list of pointer to valid target.
+    std::vector<Character*> GetValidAttackTargets(Player& opponent) const;
 
     //! Takes damage from \p source with \p damage value.
     //! \param source The character to give damage.

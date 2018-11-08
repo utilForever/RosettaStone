@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Accounts/Player.h>
 #include <hspp/Cards/Character.h>
 
 namespace Hearthstonepp
@@ -82,6 +83,57 @@ bool Character::CanAttack() const
     }
 
     return true;
+}
+
+bool Character::IsValidAttackTarget(Player& opponent, Character& target) const
+{
+    auto validTargets = GetValidAttackTargets(opponent);
+    if (std::find(validTargets.begin(), validTargets.end(), &target) ==
+        validTargets.end())
+    {
+        return false;
+    }
+
+    return true;
+}
+
+std::vector<Character*> Character::GetValidAttackTargets(Player& opponent) const
+{
+    bool isExistTauntInField = false;
+    std::vector<Character*> targets;
+    std::vector<Character*> targetsHaveTaunt;
+
+    for (auto& minion : opponent.field)
+    {
+        if (minion->GetGameTag(GameTag::STEALTH) == 0)
+        {
+            if (minion->GetGameTag(GameTag::TAUNT) == 1)
+            {
+                isExistTauntInField = true;
+                targetsHaveTaunt.emplace_back(minion);
+                continue;
+            }
+
+            if (!isExistTauntInField)
+            {
+                targets.emplace_back(minion);
+            }
+        }
+    }
+
+    if (isExistTauntInField)
+    {
+        return targetsHaveTaunt;
+    }
+
+    if (opponent.hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
+        opponent.hero->GetGameTag(GameTag::IMMUNE) == 0 &&
+        opponent.hero->GetGameTag(GameTag::STEALTH) == 0)
+    {
+        targets.emplace_back(opponent.hero);
+    }
+
+    return targets;
 }
 
 size_t Character::TakeDamage(Character& source, size_t damage)
