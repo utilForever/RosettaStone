@@ -47,6 +47,10 @@ class Character : public Entity
     //! \param attack the value of attack.
     void SetAttack(size_t attack);
 
+    //! Returns whether attack is possible.
+    //! \return Whether attack is possible.
+    bool CanAttack() const;
+
     //! Takes damage from \p source with \p damage value.
     //! \param source The character to give damage.
     //! \param damage The value of damage.

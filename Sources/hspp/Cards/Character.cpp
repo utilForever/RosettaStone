@@ -61,6 +61,29 @@ void Character::SetAttack(size_t attack)
     m_attack = attack;
 }
 
+bool Character::CanAttack() const
+{
+    // If the value of attack is 0, returns false
+    if (GetAttack() == 0)
+    {
+        return false;
+    }
+
+    // If the character is frozen, returns false
+    if (GetGameTag(GameTag::FROZEN) == 1)
+    {
+        return false;
+    }
+
+    // If attack count is 0, returns false
+    if (attackableCount == 0)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 size_t Character::TakeDamage(Character& source, size_t damage)
 {
     (void)source;
