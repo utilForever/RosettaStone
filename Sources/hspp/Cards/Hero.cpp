@@ -44,4 +44,9 @@ Hero* Hero::Clone() const
 {
     return new Hero(*this);
 }
+
+size_t Hero::GetAttack() const
+{
+    return weapon != nullptr ? m_attack + weapon->attack : m_attack;
+}
 }  // namespace Hearthstonepp

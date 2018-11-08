@@ -33,6 +33,10 @@ struct Hero : public Character
     //! Clones member variables.
     Hero* Clone() const override;
 
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    size_t GetAttack() const override;
+
     Weapon* weapon = nullptr;
 };
 }  // namespace Hearthstonepp
