@@ -40,6 +40,27 @@ MetaData InitAttackCountTask::Impl(Player& player1, Player& player2)
         }
     }
 
+    if (player1.hero->GetGameTag(GameTag::FROZEN) == 1)
+    {
+        player1.hero->remainTurnToThaw--;
+
+        if (player1.hero->remainTurnToThaw == 0)
+        {
+            player1.hero->SetGameTag(GameTag::FROZEN, 0);
+            player1.hero->attackableCount =
+                player1.hero->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
+        }
+        else
+        {
+            player1.hero->attackableCount = 0;
+        }
+    }
+    else
+    {
+        player1.hero->attackableCount =
+            player1.hero->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
+    }
+
     for (auto& character : player2.field)
     {
         if (character->GetGameTag(GameTag::FROZEN) == 1)
