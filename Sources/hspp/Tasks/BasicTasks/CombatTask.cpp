@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
-#include <hspp/Tasks/BasicTasks/DamageTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
 #include <hspp/Tasks/PowerTasks/FreezeTask.h>
 #include <hspp/Tasks/PowerTasks/PoisonousTask.h>
@@ -26,36 +25,39 @@ TaskID CombatTask::GetTaskID() const
 MetaData CombatTask::Impl(Player& player1, Player& player2)
 {
     TaskMeta serialized;
-    // Get Targeting Response from GameInterface
+    // Get targeting response from game interface
     m_requirement.Interact(player1.id, serialized);
 
-    auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
+    // Get the source and the target
+    const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
     if (req == nullptr)
     {
         return MetaData::COMBAT_FLATBUFFER_NULLPTR;
     }
 
-    BYTE src = req->src();
-    BYTE dst = req->dst();
+    const BYTE sourceIndex = req->src();
+    const BYTE targetIndex = req->dst();
 
-    // Source Minion Index Verification
-    if (src > player1.field.size())
+    // Verify index of the source
+    // NOTE: 0 means hero, 1 ~ field.size() means minion
+    if (sourceIndex > player1.field.size())
     {
         return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
-    // Destination Verification
-    // dst == 0 : hero
-    // 1 < dst <= field.size : minion
-    if (dst > player2.field.size())
+    // Verify index of the target
+    // NOTE: 0 means hero, 1 ~ field.size() means minion
+    if (targetIndex > player2.field.size())
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
-    source = (src > 0) ? dynamic_cast<Character*>(player1.field[src - 1])
-                       : dynamic_cast<Character*>(player1.hero);
-    target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
-                       : dynamic_cast<Character*>(player2.hero);
+    source = (sourceIndex > 0)
+                 ? dynamic_cast<Character*>(player1.field[sourceIndex - 1])
+                 : dynamic_cast<Character*>(player1.hero);
+    target = (targetIndex > 0)
+                 ? dynamic_cast<Character*>(player2.field[targetIndex - 1])
+                 : dynamic_cast<Character*>(player2.hero);
 
     if (!source->CanAttack() || !source->IsValidAttackTarget(player2, *target))
     {
@@ -103,18 +105,19 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         }
     }
 
+    // Remove stealth ability if attacker has it
     if (source->GetGameTag(GameTag::STEALTH) == 1)
     {
         source->SetGameTag(GameTag::STEALTH, 0);
     }
 
-    // Source Health Check
+    // Check health of the source
     if (source->health <= 0)
     {
         DestroyMinionTask(source).Run(player1, player2);
     }
 
-    // Target Health Check
+    // Check health of the target
     if (target->health <= 0)
     {
         DestroyMinionTask(target).Run(player2, player1);
