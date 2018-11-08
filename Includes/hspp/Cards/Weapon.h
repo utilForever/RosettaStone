@@ -39,6 +39,7 @@ struct Weapon : public Entity
     //! Clones member variables.
     Weapon* Clone() const override;
 
+    size_t attack = 0;
     size_t durability = 0;
 };
 }  // namespace Hearthstonepp
