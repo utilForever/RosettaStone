@@ -64,8 +64,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         return MetaData::COMBAT_SOURCE_CANT_ATTACK;
     }
 
-    source->attackableCount--;
-
     const size_t targetAttack = target->GetAttack();
     const size_t sourceAttack = source->GetAttack();
 
@@ -110,6 +108,16 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     {
         source->SetGameTag(GameTag::STEALTH, 0);
     }
+
+    // Remove durability from weapon if hero attack
+    const Hero* hero = dynamic_cast<Hero*>(source);
+    if (hero != nullptr && hero->weapon != nullptr &&
+        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
+    {
+        hero->weapon->durability -= hero->weapon->durability > 0 ? 1 : 0;
+    }
+
+    source->attackableCount--;
 
     // Check health of the source
     if (source->health <= 0)
