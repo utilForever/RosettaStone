@@ -167,7 +167,7 @@ TEST(CombatTask, Charge)
 
     player1.field[0]->SetGameTag(GameTag::CHARGE, 0);
 
-    tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, PlayerType::PLAYER1);
+    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 }
 
 TEST(CombatTask, Taunt)
@@ -241,7 +241,8 @@ TEST(CombatTask, Windfury)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
-    tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, PlayerType::PLAYER1);
+    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK,
+                  PlayerType::PLAYER1);
 
     player1.field[0]->SetGameTag(GameTag::WINDFURY, 1);
 
@@ -249,7 +250,8 @@ TEST(CombatTask, Windfury)
 
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
     tester.Attack(1, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
-    tester.Attack(1, 1, MetaData::COMBAT_ALREADY_ATTACKED, PlayerType::PLAYER1);
+    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK,
+                  PlayerType::PLAYER1);
 }
 
 TEST(CombatTask, DivineShield)
@@ -325,7 +327,7 @@ TEST(CombatTask, Freeze)
 
     tester.InitAttackCount(PlayerType::PLAYER2);
 
-    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_FROZEN, PlayerType::PLAYER2);
+    tester.Attack(1, 1, MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER2);
     EXPECT_EQ(player1.field[0]->health, static_cast<size_t>(9));
     EXPECT_EQ(player2.field[0]->health, static_cast<size_t>(9));
 }

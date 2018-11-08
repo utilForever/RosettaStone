@@ -57,16 +57,9 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
                        : dynamic_cast<Character*>(player2.hero);
 
-    // Verify attack of source is 0
-    if (source->GetAttack() == 0)
+    if (!source->CanAttack())
     {
-        return MetaData::COMBAT_SOURCE_ATTACK_ZERO;
-    }
-
-    // Verify source has GameTag::FROZEN
-    if (source->GetGameTag(GameTag::FROZEN) == 1)
-    {
-        return MetaData::COMBAT_SOURCE_FROZEN;
+        return MetaData::COMBAT_SOURCE_CANT_ATTACK;
     }
 
     // Taunt Verification
@@ -91,12 +84,6 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     if (target->GetGameTag(GameTag::IMMUNE) == 1)
     {
         return MetaData::COMBAT_TARGET_IMMUNE;
-    }
-
-    // Source Minion Verification for Attacked Vector
-    if (source->attackableCount == 0)
-    {
-        return MetaData::COMBAT_ALREADY_ATTACKED;
     }
 
     source->attackableCount--;
