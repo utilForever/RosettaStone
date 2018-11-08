@@ -101,37 +101,43 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
 
     source->attackableCount--;
 
-    const size_t sourceAttack = source->GetAttack();
     const size_t targetAttack = target->GetAttack();
+    const size_t sourceAttack = source->GetAttack();
 
     const size_t targetDamage = target->TakeDamage(*source, sourceAttack);
-    const size_t sourceDamage = source->TakeDamage(*target, targetAttack);
-
-    (void)targetDamage;
-    (void)sourceDamage;
+    const bool isTargetDamaged = targetDamage > 0;
 
     // Destroy target if attacker is poisonous
-    if (source->GetGameTag(GameTag::POISONOUS) == 1)
+    if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
     {
         PowerTask::PoisonousTask(target).Run(player1, player2);
     }
+
     // Freeze target if attacker is freezer
-    else if (source->GetGameTag(GameTag::FREEZE) == 1)
+    if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
         PowerTask::FreezeTask(target, TargetType::OPPONENT_MINION)
             .Run(player1, player2);
     }
 
-    // Destroy source if defender is poisonous
-    if (target->GetGameTag(GameTag::POISONOUS) == 1)
+    // Ignore damage from defenders with 0 attack
+    if (targetAttack > 0)
     {
-        PowerTask::PoisonousTask(source).Run(player1, player2);
-    }
-    // Freeze source if defender is freezer
-    else if (target->GetGameTag(GameTag::FREEZE) == 1)
-    {
-        PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
-            .Run(player1, player2);
+        const size_t sourceDamage = source->TakeDamage(*target, targetAttack);
+        const bool isSourceDamaged = sourceDamage > 0;
+
+        // Destroy source if defender is poisonous
+        if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
+        {
+            PowerTask::PoisonousTask(source).Run(player1, player2);
+        }
+
+        // Freeze source if defender is freezer
+        if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
+        {
+            PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
+                .Run(player1, player2);
+        }
     }
 
     if (source->GetGameTag(GameTag::STEALTH) == 1)
