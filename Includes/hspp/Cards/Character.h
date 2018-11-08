@@ -43,7 +43,7 @@ class Character : public Entity
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    size_t GetAttack() const;
+    virtual size_t GetAttack() const;
 
     //! Sets the value of attack.
     //! \param attack the value of attack.
@@ -75,7 +75,7 @@ class Character : public Entity
     size_t health = 0;
     size_t maxHealth = 0;
 
- private:
+ protected:
     size_t m_attack = 0;
 };
 }  // namespace Hearthstonepp
