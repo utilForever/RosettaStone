@@ -7,6 +7,8 @@
 #include <hspp/Accounts/Player.h>
 #include <hspp/Cards/Character.h>
 
+#include <algorithm>
+
 namespace Hearthstonepp
 {
 Character::Character(Card& card) : Entity(card)
