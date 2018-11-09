@@ -169,6 +169,14 @@ TEST(CombatTask, Weapon)
 
     EXPECT_EQ(player1.hero->weapon->GetDurability(), 1);
     EXPECT_EQ(player2.field[0]->health, 6);
+
+    tester.InitAttackCount(PlayerType::PLAYER1);
+
+    tester.Attack(0, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+
+    EXPECT_EQ(player1.hero->weapon, nullptr);
+    EXPECT_EQ(player1.hero->GetAttack(), 0);
+    EXPECT_EQ(player2.field[0]->health, 2);
 }
 
 TEST(CombatTask, Charge)
