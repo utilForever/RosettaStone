@@ -59,7 +59,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
                  ? dynamic_cast<Character*>(player2.field[targetIndex - 1])
                  : dynamic_cast<Character*>(player2.hero);
 
-    if (!source->CanAttack() || !source->IsValidAttackTarget(player2, *target))
+    if (!source->CanAttack() || !source->IsValidAttackTarget(player2, target))
     {
         return MetaData::COMBAT_SOURCE_CANT_ATTACK;
     }

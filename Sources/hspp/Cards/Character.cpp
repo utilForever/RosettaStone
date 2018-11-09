@@ -87,11 +87,17 @@ bool Character::CanAttack() const
     return true;
 }
 
-bool Character::IsValidAttackTarget(Player& opponent, Character& target) const
+bool Character::IsValidAttackTarget(Player& opponent, Character* target) const
 {
     auto validTargets = GetValidAttackTargets(opponent);
-    if (std::find(validTargets.begin(), validTargets.end(), &target) ==
+    if (std::find(validTargets.begin(), validTargets.end(), target) ==
         validTargets.end())
+    {
+        return false;
+    }
+
+    const Hero* hero = dynamic_cast<Hero*>(target);
+    if (hero != nullptr && hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1)
     {
         return false;
     }

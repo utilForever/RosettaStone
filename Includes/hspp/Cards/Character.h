@@ -55,9 +55,9 @@ class Character : public Entity
 
     //! Returns whether the target is valid.
     //! \param opponent The opponent player.
-    //! \param target The target to attack.
+    //! \param target A pointer to the target.
     //! \return Whether the target is valid.
-    bool IsValidAttackTarget(Player& opponent, Character& target) const;
+    bool IsValidAttackTarget(Player& opponent, Character* target) const;
 
     //! Returns a list of valid target.
     //! \param opponent The opponent player.
