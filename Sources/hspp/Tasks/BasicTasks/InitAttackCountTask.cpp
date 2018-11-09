@@ -33,10 +33,10 @@ void InitAttackCountTask::ProcessMyField(Player& my)
         // Process Frozen status
         if (character->GetGameTag(GameTag::FROZEN) == 1)
         {
-            character->remainTurnToThaw--;
+            character->numTurnToUnfreeze--;
 
             // If character is removed Frozen status, initialize attack count
-            if (character->remainTurnToThaw == 0)
+            if (character->numTurnToUnfreeze == 0)
             {
                 character->SetGameTag(GameTag::FROZEN, 0);
                 // Consider Windfury status
@@ -65,9 +65,9 @@ void InitAttackCountTask::ProcessEnemyField(Player& opponent)
         // Process Frozen status
         if (minion->GetGameTag(GameTag::FROZEN) == 1)
         {
-            minion->remainTurnToThaw--;
+            minion->numTurnToUnfreeze--;
 
-            if (minion->remainTurnToThaw == 0)
+            if (minion->numTurnToUnfreeze == 0)
             {
                 minion->SetGameTag(GameTag::FROZEN, 0);
             }

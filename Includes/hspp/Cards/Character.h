@@ -71,7 +71,7 @@ class Character : public Entity
     size_t TakeDamage(Character& source, size_t damage);
 
     size_t attackableCount = 0;
-    size_t remainTurnToThaw = 0;
+    size_t numTurnToUnfreeze = 0;
     size_t health = 0;
     size_t maxHealth = 0;
 

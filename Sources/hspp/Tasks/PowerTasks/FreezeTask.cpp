@@ -44,7 +44,7 @@ MetaData FreezeTask::Impl(Player&, Player&)
     // Case 1
     if (IsOpponentCharacter())
     {
-        m_target->remainTurnToThaw = 2;
+        m_target->numTurnToUnfreeze = 2;
     }
     // Case 2
     else if (IsMyCharacter())
@@ -53,12 +53,12 @@ MetaData FreezeTask::Impl(Player&, Player&)
         if (IsFrozenBeforeAttack())
         {
             m_target->attackableCount = 0;
-            m_target->remainTurnToThaw = 1;
+            m_target->numTurnToUnfreeze = 1;
         }
         // Case 2-2
         else if (IsFrozenAfterAttack())
         {
-            m_target->remainTurnToThaw = 3;
+            m_target->numTurnToUnfreeze = 3;
         }
     }
 

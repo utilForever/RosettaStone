@@ -51,19 +51,19 @@ TEST(InitAttackCountTask, RunFrozen)
 
     // Case 1
     minion6->SetGameTag(GameTag::FROZEN, 1);
-    minion6->remainTurnToThaw = 2;
+    minion6->numTurnToUnfreeze = 2;
     // Case 2-1
     minion2->SetGameTag(GameTag::FROZEN, 1);
     minion2->attackableCount = 1;
-    minion2->remainTurnToThaw = 1;
+    minion2->numTurnToUnfreeze = 1;
     // Case 2-2
     minion3->SetGameTag(GameTag::FROZEN, 1);
     minion3->attackableCount = 0;
-    minion3->remainTurnToThaw = 3;
+    minion3->numTurnToUnfreeze = 3;
     minion4->SetGameTag(GameTag::FROZEN, 1);
     minion4->SetGameTag(GameTag::WINDFURY, 1);
     minion4->attackableCount = 1;
-    minion4->remainTurnToThaw = 3;
+    minion4->numTurnToUnfreeze = 3;
 
     gen.player1.field.emplace_back(minion1);
     gen.player1.field.emplace_back(minion2);
