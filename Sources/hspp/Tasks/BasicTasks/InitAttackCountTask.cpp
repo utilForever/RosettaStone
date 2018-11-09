@@ -16,18 +16,34 @@ TaskID InitAttackCountTask::GetTaskID() const
 
 MetaData InitAttackCountTask::Impl(Player& player1, Player& player2)
 {
-    for (auto& character : player1.field)
+    ProcessMyField(player1);
+    ProcessEnemyField(player2);
+
+    return MetaData::INIT_ATTACK_COUNT_SUCCESS;
+}
+
+void InitAttackCountTask::ProcessMyField(Player& my)
+{
+    // Add minions in field and hero
+    std::vector<Character*> characters = my.field;
+    characters.emplace_back(my.hero);
+
+    for (auto& character : characters)
     {
+        // Process Frozen status
         if (character->GetGameTag(GameTag::FROZEN) == 1)
         {
             character->remainTurnToThaw--;
 
+            // If character is removed Frozen status, initialize attack count
             if (character->remainTurnToThaw == 0)
             {
                 character->SetGameTag(GameTag::FROZEN, 0);
+                // Consider Windfury status
                 character->attackableCount =
                     character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
             }
+            // Otherwise, character can't attack
             else
             {
                 character->attackableCount = 0;
@@ -35,47 +51,30 @@ MetaData InitAttackCountTask::Impl(Player& player1, Player& player2)
         }
         else
         {
+            // Consider Windfury status
             character->attackableCount =
                 character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
         }
     }
+}
 
-    if (player1.hero->GetGameTag(GameTag::FROZEN) == 1)
+void InitAttackCountTask::ProcessEnemyField(Player& opponent)
+{
+    for (auto& minion : opponent.field)
     {
-        player1.hero->remainTurnToThaw--;
-
-        if (player1.hero->remainTurnToThaw == 0)
+        // Process Frozen status
+        if (minion->GetGameTag(GameTag::FROZEN) == 1)
         {
-            player1.hero->SetGameTag(GameTag::FROZEN, 0);
-            player1.hero->attackableCount =
-                player1.hero->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
-        }
-        else
-        {
-            player1.hero->attackableCount = 0;
-        }
-    }
-    else
-    {
-        player1.hero->attackableCount =
-            player1.hero->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
-    }
+            minion->remainTurnToThaw--;
 
-    for (auto& character : player2.field)
-    {
-        if (character->GetGameTag(GameTag::FROZEN) == 1)
-        {
-            character->remainTurnToThaw--;
-
-            if (character->remainTurnToThaw == 0)
+            if (minion->remainTurnToThaw == 0)
             {
-                character->SetGameTag(GameTag::FROZEN, 0);
+                minion->SetGameTag(GameTag::FROZEN, 0);
             }
         }
 
-        character->attackableCount = 0;
+        // Attack count is always 0 because it's my turn
+        minion->attackableCount = 0;
     }
-
-    return MetaData::INIT_ATTACK_COUNT_SUCCESS;
 }
 }  // namespace Hearthstonepp::BasicTasks

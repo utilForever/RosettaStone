@@ -30,6 +30,14 @@ class InitAttackCountTask : public ITask
     //! \param player2 The second player.
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
+
+    //! Processes attack count initialization logic of my field.
+    //! \param my The player.
+    void ProcessMyField(Player& my);
+
+    //! Processes attack count initialization logic of enemy field.
+    //! \param opponent The opponent player.
+    void ProcessEnemyField(Player& opponent);
 };
 
 }  // namespace Hearthstonepp::BasicTasks
