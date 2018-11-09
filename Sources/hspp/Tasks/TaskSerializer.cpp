@@ -172,11 +172,11 @@ TaskMeta CreateResponsePlayMinion(size_t position)
         builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateResponsePlaySpell(TargetType targetType, size_t targetPosition)
+TaskMeta CreateResponsePlaySpell(EntityType type, size_t targetPosition)
 {
     flatbuffers::FlatBufferBuilder builder(32);
     auto flat = FlatData::CreateResponsePlaySpell(
-        builder, static_cast<BYTE>(targetType),
+        builder, static_cast<BYTE>(type),
         static_cast<BYTE>(targetPosition));
 
     builder.Finish(flat);

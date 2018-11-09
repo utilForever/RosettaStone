@@ -38,10 +38,10 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
         return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
     }
 
-    TargetType targetType = TargetType::_from_integral(req->targetType());
+    EntityType type = EntityType::_from_integral(req->targetType());
     BYTE position = req->position();
 
-    if (targetType == +TargetType::MY_FIELD)
+    if (type == +EntityType::FIELD)
     {
         // Verify field position
         if (position > player1.field.size())

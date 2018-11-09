@@ -80,7 +80,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Freeze target if attacker is freezer
     if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        PowerTask::FreezeTask(target, TargetType::OPPONENT_MINION)
+        PowerTask::FreezeTask(target, EntityType::TARGET)
             .Run(player1, player2);
     }
 
@@ -99,7 +99,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         // Freeze source if defender is freezer
         if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
         {
-            PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
+            PowerTask::FreezeTask(source, EntityType::SOURCE)
                 .Run(player1, player2);
         }
     }

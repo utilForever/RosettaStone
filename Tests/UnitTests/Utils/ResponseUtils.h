@@ -26,16 +26,14 @@ class AutoResponder
     std::future<TaskMeta> Mulligan(const BYTE* index, size_t size);
     std::future<TaskMeta> PlayCard(size_t cardIndex);
     std::future<TaskMeta> PlayMinion(size_t position);
-    std::future<TaskMeta> PlaySpell(TargetType targetType,
-                                    size_t targetPosition);
+    std::future<TaskMeta> PlaySpell(EntityType type, size_t targetPosition);
     std::future<TaskMeta> Target(size_t src, size_t dst);
 
     // Consists of PlayCard and PlayMinion
     auto AutoMinion(size_t cardIndex, size_t position)
         -> std::future<std::tuple<TaskMeta, TaskMeta>>;
     // Consists of PlayCard and PlaySpell
-    auto AutoSpell(size_t cardIndex, TargetType targetType,
-                   size_t targetPosition)
+    auto AutoSpell(size_t cardIndex, EntityType type, size_t targetPosition)
         -> std::future<std::tuple<TaskMeta, TaskMeta>>;
 
  private:

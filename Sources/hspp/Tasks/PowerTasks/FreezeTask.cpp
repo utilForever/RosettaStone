@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp::PowerTask
 {
-FreezeTask::FreezeTask(Character* target, TargetType type)
+FreezeTask::FreezeTask(Character* target, EntityType type)
     : m_target(target), m_type(type)
 {
     // Do nothing
@@ -67,15 +67,15 @@ MetaData FreezeTask::Impl(Player&, Player&)
 
 bool FreezeTask::IsMyCharacter() const
 {
-    return m_type == +TargetType::MY_FIELD || m_type == +TargetType::MY_HERO ||
-           m_type == +TargetType::MY_MINION;
+    return m_type == +EntityType::FIELD || m_type == +EntityType::HERO ||
+           m_type == +EntityType::FRIENDS;
 }
 
 bool FreezeTask::IsOpponentCharacter() const
 {
-    return m_type == +TargetType::OPPONENT_FIELD ||
-           m_type == +TargetType::OPPONENT_HERO ||
-           m_type == +TargetType::OPPONENT_MINION;
+    return m_type == +EntityType::ENEMY_FIELD ||
+           m_type == +EntityType::ENEMY_HERO ||
+           m_type == +EntityType::ENEMIES;
 }
 
 bool FreezeTask::IsFrozenBeforeAttack() const

@@ -76,10 +76,10 @@ TaskMeta CreateResponsePlayMinion(size_t position);
 
 //! Creates task meta object for playing spell task that selects target type and
 //! position where caster will cast.
-//! \param targetType The type of target.
+//! \param type An entity type of the target.
 //! \param targetPosition The position of field where caster will cast.
 //! \return Created task meta object as select target.
-TaskMeta CreateResponsePlaySpell(TargetType targetType, size_t targetPosition);
+TaskMeta CreateResponsePlaySpell(EntityType type, size_t targetPosition);
 
 //! Creates task meta object for targeting task (e.g. combat).
 //! \param src The position of source in field.

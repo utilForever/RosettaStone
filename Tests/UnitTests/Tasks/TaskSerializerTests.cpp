@@ -232,12 +232,12 @@ TEST(TaskSerializer, CreateResponsePlayMinion)
 TEST(TaskSerializer, CreateResponsePlaySpell)
 {
     TaskMeta resp =
-        Serializer::CreateResponsePlaySpell(TargetType::OPPONENT_FIELD, 10);
+        Serializer::CreateResponsePlaySpell(EntityType::ENEMY_FIELD, 10);
     auto data = TaskMeta::ConvertTo<FlatData::ResponsePlaySpell>(resp);
     EXPECT_EQ(resp.id, +TaskID::SELECT_TARGET);
     EXPECT_EQ(data->position(), 10);
-    EXPECT_EQ(TargetType::_from_integral(data->targetType()),
-              +TargetType::OPPONENT_FIELD);
+    EXPECT_EQ(EntityType::_from_integral(data->targetType()),
+              +EntityType::ENEMY_FIELD);
 }
 
 TEST(TaskSerializer, CreateResponseTarget)

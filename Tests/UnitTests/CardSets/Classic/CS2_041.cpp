@@ -79,7 +79,7 @@ TEST(ClassicCardSet, CS2_041)
     EXPECT_EQ(agent.GetPlayer2().field.size(), static_cast<size_t>(0));
 
     // Create multiple response for PlayCardTask And PlaySpellTask
-    auto respAutoSpell = response.AutoSpell(0, TargetType::MY_FIELD, 0);
+    auto respAutoSpell = response.AutoSpell(0, EntityType::FIELD, 0);
     result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
     EXPECT_EQ(result, MetaData::PLAY_SPELL_SUCCESS);

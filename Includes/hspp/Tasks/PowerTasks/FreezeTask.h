@@ -21,8 +21,8 @@ class FreezeTask : public ITask
  public:
     //! Constructs task with given \p target and \type.
     //! \param target A pointer to attacked character.
-    //! \param type A type of target.
-    FreezeTask(Character* target, TargetType type);
+    //! \param type A type of the target.
+    FreezeTask(Character* target, EntityType type);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -54,7 +54,7 @@ class FreezeTask : public ITask
     bool IsFrozenAfterAttack() const;
 
     Character* m_target;
-    TargetType m_type;
+    EntityType m_type;
 };
 }  // namespace Hearthstonepp::PowerTask
 
