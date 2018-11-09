@@ -6,6 +6,7 @@
 
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
+#include <hspp/Tasks/BasicTasks/DestroyWeaponTask.h>
 #include <hspp/Tasks/PowerTasks/FreezeTask.h>
 #include <hspp/Tasks/PowerTasks/PoisonousTask.h>
 
@@ -14,7 +15,7 @@ namespace Hearthstonepp::BasicTasks
 CombatTask::CombatTask(TaskAgent& agent)
     : m_requirement(TaskID::SELECT_TARGET, agent)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID CombatTask::GetTaskID() const
@@ -114,19 +115,24 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        const size_t durability = hero->weapon->GetDurability();
-        hero->weapon->SetDurability(durability > 0 ? durability - 1 : 0);
+        hero->weapon->SetDurability(hero->weapon->GetDurability() - 1);
+
+        // Destroy weapon if durability is 0
+        if (hero->weapon->GetDurability() <= 0)
+        {
+            DestroyWeaponTask().Run(player1, player2);
+        }
     }
 
     source->attackableCount--;
 
-    // Check health of the source
+    // Destroy source minion if health less than 0
     if (source->health <= 0)
     {
         DestroyMinionTask(source).Run(player1, player2);
     }
 
-    // Check health of the target
+    // Destroy target minion if health less than 0
     if (target->health <= 0)
     {
         DestroyMinionTask(target).Run(player2, player1);
