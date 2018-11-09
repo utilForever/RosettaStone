@@ -159,15 +159,15 @@ TEST(CombatTask, Weapon)
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     player1.hero->weapon = new Weapon();
-    player1.hero->weapon->attack = 4;
-    player1.hero->weapon->durability = 3;
+    player1.hero->weapon->SetAttack(4);
+    player1.hero->weapon->SetDurability(2);
     player2.field.emplace_back(new Minion(card));
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(0, 1, MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
 
-    EXPECT_EQ(player1.hero->weapon->durability, 2);
+    EXPECT_EQ(player1.hero->weapon->GetDurability(), 1);
     EXPECT_EQ(player2.field[0]->health, 6);
 }
 

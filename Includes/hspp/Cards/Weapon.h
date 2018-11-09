@@ -12,14 +12,15 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Weapon structure.
+//! \brief Weapon class.
 //!
-//! This structure inherits from Entity structure.
+//! This class inherits from Entity class.
 //! Also, it stores durability that shows the number of times you can use that
 //! weapon before it is destroyed.
 //!
-struct Weapon : public Entity
+class Weapon : public Entity
 {
+ public:
     //! Default constructor.
     Weapon() = default;
 
@@ -39,8 +40,25 @@ struct Weapon : public Entity
     //! Clones member variables.
     Weapon* Clone() const override;
 
-    size_t attack = 0;
-    size_t durability = 0;
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    virtual size_t GetAttack() const;
+
+    //! Sets the value of attack.
+    //! \param attack the value of attack.
+    void SetAttack(size_t attack);
+
+    //! Returns the value of durability.
+    //! \return The value of durability.
+    virtual size_t GetDurability() const;
+
+    //! Sets the value of durability.
+    //! \param durability the value of durability.
+    void SetDurability(size_t durability);
+
+ protected:
+    size_t m_attack = 0;
+    size_t m_durability = 0;
 };
 }  // namespace Hearthstonepp
 

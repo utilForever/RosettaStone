@@ -102,7 +102,7 @@ TEST(TaskSerializer, CreateEntity)
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
     Weapon* wPoisonedBlade = new Weapon(poisonedBlade);
-    wPoisonedBlade->durability = 500;
+    wPoisonedBlade->SetDurability(500);
 
     buffer = autoEncode(wPoisonedBlade);
     auto weapon = flatbuffers::GetRoot<FlatData::Entity>(buffer.get());

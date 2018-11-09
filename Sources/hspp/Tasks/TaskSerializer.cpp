@@ -66,7 +66,7 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
         if (auto weapon = dynamic_cast<const Weapon*>(entity);
             weapon != nullptr)
         {
-            durability = weapon->durability;
+            durability = weapon->GetDurability();
         }
     }
     return FlatData::CreateCard(

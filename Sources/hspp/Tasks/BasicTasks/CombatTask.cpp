@@ -114,7 +114,8 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        hero->weapon->durability -= hero->weapon->durability > 0 ? 1 : 0;
+        const size_t durability = hero->weapon->GetDurability();
+        hero->weapon->SetDurability(durability > 0 ? durability - 1 : 0);
     }
 
     source->attackableCount--;

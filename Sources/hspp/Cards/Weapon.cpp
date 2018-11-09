@@ -12,18 +12,18 @@ namespace Hearthstonepp
 Weapon::Weapon(Card& card) : Entity(card)
 {
 #ifndef HEARTHSTONEPP_MACOSX
-    attack = card.attack.has_value() ? card.attack.value() : 0;
-    durability = card.durability.has_value() ? card.durability.value() : 0;
+    m_attack = card.attack.has_value() ? card.attack.value() : 0;
+    m_durability = card.durability.has_value() ? card.durability.value() : 0;
 #else
-    attack = card.attack.value_or(0);
-    durability = card.durability.value_or(0);
+    m_attack = card.attack.value_or(0);
+    m_durability = card.durability.value_or(0);
 #endif
 }
 
 Weapon::Weapon(const Weapon& weapon) : Entity(weapon)
 {
-    attack = weapon.attack;
-    durability = weapon.durability;
+    m_attack = weapon.m_attack;
+    m_durability = weapon.m_durability;
 }
 
 Weapon& Weapon::operator=(const Weapon& weapon)
@@ -33,10 +33,30 @@ Weapon& Weapon::operator=(const Weapon& weapon)
         return *this;
     }
 
-    attack = weapon.attack;
-    durability = weapon.durability;
+    m_attack = weapon.m_attack;
+    m_durability = weapon.m_durability;
 
     return *this;
+}
+
+size_t Weapon::GetAttack() const
+{
+    return m_attack;
+}
+
+void Weapon::SetAttack(size_t attack)
+{
+    m_attack = attack;
+}
+
+size_t Weapon::GetDurability() const
+{
+    return m_durability;
+}
+
+void Weapon::SetDurability(size_t durability)
+{
+    m_durability = durability;
 }
 
 Weapon* Weapon::Clone() const
