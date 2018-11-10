@@ -89,7 +89,12 @@ MetaData DrawTask::Impl(Player& user, Player&)
     return result;
 }
 
-DrawCardTask::DrawCardTask(Card& card) : m_card(card)
+DrawCardTask::DrawCardTask(const Card& card) : m_card(card)
+{
+    // Do nothing
+}
+
+DrawCardTask::DrawCardTask(Card&& card) : m_card(card)
 {
     // Do nothing
 }
