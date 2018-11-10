@@ -12,8 +12,6 @@
 #include <hspp/Tasks/MetaData.h>
 #include <hspp/Tasks/TaskMeta.h>
 
-#include <functional>
-
 namespace Hearthstonepp
 {
 //!
@@ -28,6 +26,24 @@ class ITask
     template <typename T>
     static inline constexpr bool isTask =
         std::is_convertible_v<std::decay_t<T>, ITask>;
+
+    //! Default constructor.
+    ITask() = default;
+
+    //! Default destructor.
+    virtual ~ITask() = default;
+
+    //! Default copy constructor.
+    ITask(const ITask& task) = default;
+
+    //! Default move constructor.
+    ITask(ITask&& task) = default;
+
+    //! Default copy assignment operator.
+    ITask& operator=(const ITask& task) = default;
+
+    //! Default move assignment operator.
+    ITask& operator=(ITask&& task) = default;
 
     //! Calls Impl method and returns meta data.
     //! \param player1 The first player.

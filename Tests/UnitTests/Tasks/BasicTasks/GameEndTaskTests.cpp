@@ -13,7 +13,7 @@ using namespace Hearthstonepp;
 
 TEST(GameEndTask, GetTaskID)
 {
-    BasicTasks::GameEndTask gameEnd;
+    const BasicTasks::GameEndTask gameEnd;
     EXPECT_EQ(gameEnd.GetTaskID(), +TaskID::GAME_END);
 }
 

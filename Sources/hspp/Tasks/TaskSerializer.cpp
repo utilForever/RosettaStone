@@ -20,8 +20,8 @@ flatbuffers::Offset<FlatData::Entity> CreateEntity(
     {
         return FlatData::CreateEntity(builder);
     }
-    return FlatData::CreateEntity(builder,
-                                  CreateCard(builder, *entity->card, entity), 0);
+    return FlatData::CreateEntity(
+        builder, CreateCard(builder, *entity->card, entity), 0);
 }
 
 flatbuffers::Offset<FlatData::Card> CreateCard(
@@ -57,13 +57,13 @@ flatbuffers::Offset<FlatData::Card> CreateCard(
 
     if (entity != nullptr)
     {
-        if (auto character = dynamic_cast<const Character*>(entity);
+        if (const auto character = dynamic_cast<const Character*>(entity);
             character != nullptr)
         {
             attack = character->GetAttack();
             health = character->health;
         }
-        if (auto weapon = dynamic_cast<const Weapon*>(entity);
+        if (const auto weapon = dynamic_cast<const Weapon*>(entity);
             weapon != nullptr)
         {
             durability = weapon->GetDurability();
@@ -87,12 +87,13 @@ TaskMeta CreateEntityVector(const TaskMetaTrait& trait,
     flatbuffers::FlatBufferBuilder builder(1024);
     std::vector<flatbuffers::Offset<FlatData::Entity>> flatten;
 
+    flatten.reserve(vector.size());
     for (const auto entity : vector)
     {
         flatten.emplace_back(CreateEntity(builder, entity));
     }
 
-    auto entities =
+    const auto entities =
         FlatData::CreateEntityVector(builder, builder.CreateVector(flatten));
     builder.Finish(entities);
 
@@ -112,14 +113,15 @@ TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
                                              static_cast<status_t>(task.status),
                                              task.userID);
         const auto& unique = task.GetBuffer();
-        auto buffer = builder.CreateVector(unique.get(), task.GetBufferSize());
+        const auto buffer =
+            builder.CreateVector(unique.get(), task.GetBufferSize());
 
         auto temporal = FlatData::CreateTaskMeta(builder, &trait, buffer);
         flatten.emplace_back(temporal);
     }
 
     // Convert std::vector to FlatData::TaskMetaVector
-    auto integrated =
+    const auto integrated =
         FlatData::CreateTaskMetaVector(builder, builder.CreateVector(flatten));
     builder.Finish(integrated);
 
@@ -130,7 +132,7 @@ TaskMeta CreateTaskMetaVector(const std::vector<TaskMeta>& vector,
 TaskMeta CreateRequire(TaskID request, BYTE userID)
 {
     flatbuffers::FlatBufferBuilder builder(32);
-    auto flat =
+    const auto flat =
         FlatData::CreateRequireTaskMeta(builder, static_cast<int>(request));
 
     builder.Finish(flat);
@@ -141,8 +143,8 @@ TaskMeta CreateRequire(TaskID request, BYTE userID)
 TaskMeta CreateResponseMulligan(const BYTE* index, size_t size)
 {
     flatbuffers::FlatBufferBuilder builder(32);
-    auto vector = builder.CreateVector(index, size);
-    auto flat = FlatData::CreateResponseMulligan(builder, vector);
+    const auto vector = builder.CreateVector(index, size);
+    const auto flat = FlatData::CreateResponseMulligan(builder, vector);
 
     builder.Finish(flat);
     return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN), builder.GetSize(),
@@ -152,7 +154,7 @@ TaskMeta CreateResponseMulligan(const BYTE* index, size_t size)
 TaskMeta CreateResponsePlayCard(size_t cardIndex)
 {
     flatbuffers::FlatBufferBuilder builder(32);
-    auto flat =
+    const auto flat =
         FlatData::CreateResponsePlayCard(builder, static_cast<BYTE>(cardIndex));
 
     builder.Finish(flat);
@@ -163,8 +165,8 @@ TaskMeta CreateResponsePlayCard(size_t cardIndex)
 TaskMeta CreateResponsePlayMinion(size_t position)
 {
     flatbuffers::FlatBufferBuilder builder(32);
-    auto flat = FlatData::CreateResponsePlayMinion(builder,
-                                                   static_cast<BYTE>(position));
+    const auto flat = FlatData::CreateResponsePlayMinion(
+        builder, static_cast<BYTE>(position));
 
     builder.Finish(flat);
     return TaskMeta(
@@ -175,9 +177,8 @@ TaskMeta CreateResponsePlayMinion(size_t position)
 TaskMeta CreateResponsePlaySpell(EntityType type, size_t targetPosition)
 {
     flatbuffers::FlatBufferBuilder builder(32);
-    auto flat = FlatData::CreateResponsePlaySpell(
-        builder, static_cast<BYTE>(type),
-        static_cast<BYTE>(targetPosition));
+    const auto flat = FlatData::CreateResponsePlaySpell(
+        builder, static_cast<BYTE>(type), static_cast<BYTE>(targetPosition));
 
     builder.Finish(flat);
     return TaskMeta(
@@ -188,8 +189,8 @@ TaskMeta CreateResponsePlaySpell(EntityType type, size_t targetPosition)
 TaskMeta CreateResponseTarget(size_t src, size_t dst)
 {
     flatbuffers::FlatBufferBuilder builder(32);
-    auto flat = FlatData::CreateResponseTarget(builder, static_cast<BYTE>(src),
-                                               static_cast<BYTE>(dst));
+    const auto flat = FlatData::CreateResponseTarget(
+        builder, static_cast<BYTE>(src), static_cast<BYTE>(dst));
 
     builder.Finish(flat);
     return TaskMeta(
@@ -202,7 +203,7 @@ TaskMeta CreatePlayerSetting(const std::string& player1,
 {
     flatbuffers::FlatBufferBuilder builder(256);
 
-    auto setting = FlatData::CreatePlayerSetting(
+    const auto setting = FlatData::CreatePlayerSetting(
         builder, builder.CreateString(player1), builder.CreateString(player2));
 
     builder.Finish(setting);
@@ -219,7 +220,7 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
 
     flatbuffers::FlatBufferBuilder builder(256);
 
-    auto makeOffset = [&builder](auto&& vec) -> VectorOffset {
+    const auto makeOffset = [&builder](auto&& vec) -> VectorOffset {
         std::vector<EntityOffset> dest(vec.size());
         std::transform(vec.begin(), vec.end(), dest.begin(),
                        [&builder](Entity* entity) {
@@ -235,7 +236,7 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
     // Convert Card vector to FlatData::Card vector
     std::transform(target.begin(), target.end(), result.begin(), makeOffset);
 
-    auto gameStatus = FlatData::CreateGameStatus(
+    const auto gameStatus = FlatData::CreateGameStatus(
         builder, player1.id, player2.id, player1.existMana, player2.existMana,
         CreateEntity(builder, player1.hero),
         CreateEntity(builder, player2.hero), result[0],

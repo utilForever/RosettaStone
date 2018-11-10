@@ -65,4 +65,4 @@ class DoUntil : public ITask
     std::function<bool(const TaskMeta&)> m_condition;
 };
 }  // namespace Hearthstonepp::BasicTasks
-#endif  // HEARTHSTONEPP_WRAPPER_H
+#endif  // HEARTHSTONEPP_TASK_WRAPPER_H

@@ -53,10 +53,29 @@ TEST(BasicCardSet, EX1_306)
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(0));
 
+    auto [respPlayCard1, respPlayMinion1] = respAutoMinion.get();
+    auto require =
+        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
+
     // This task doesn't affect player 2's hand
     respAutoMinion = response.AutoMinion(0, 0);
     result =
         agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+
+    auto [respPlayCard2, respPlayMinion2] = respAutoMinion.get();
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_CARD);
+
+    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
+    EXPECT_EQ(TaskID::_from_integral(require->required()),
+              +TaskID::SELECT_POSITION);
 }

@@ -77,7 +77,7 @@ class CombatTester
 TEST(CombatTask, GetTaskID)
 {
     TaskAgent agent;
-    BasicTasks::CombatTask combat(agent);
+    const BasicTasks::CombatTask combat(agent);
     EXPECT_EQ(combat.GetTaskID(), +TaskID::COMBAT);
 }
 

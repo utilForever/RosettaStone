@@ -10,7 +10,7 @@ namespace Hearthstonepp::BasicTasks
 {
 DoBothPlayer::DoBothPlayer(ITask&& task) : m_task(task)
 {
-    // Do Nothign
+    // Do nothing
 }
 
 TaskID DoBothPlayer::GetTaskID() const
@@ -20,23 +20,21 @@ TaskID DoBothPlayer::GetTaskID() const
 
 MetaData DoBothPlayer::Impl(Player& player1, Player& player2)
 {
-    MetaData status1 = m_task.Run(player1, player2);
-    MetaData status2 = m_task.Run(player2, player1);
+    const MetaData status1 = m_task.Run(player1, player2);
+    const MetaData status2 = m_task.Run(player2, player1);
 
     if (status1 == status2)
     {
         return status1;
     }
-    else
-    {
-        return status2;
-    }
+
+    return status2;
 }
 
 DoUntil::DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition)
     : m_task(task), m_condition(std::move(condition))
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID DoUntil::GetTaskID() const
@@ -47,9 +45,11 @@ TaskID DoUntil::GetTaskID() const
 MetaData DoUntil::Impl(Player& player1, Player& player2)
 {
     TaskMeta meta;
+
     while (true)
     {
         m_task.Run(player1, player2, meta);
+
         // Do until the condition satisfied
         if (m_condition(meta))
         {

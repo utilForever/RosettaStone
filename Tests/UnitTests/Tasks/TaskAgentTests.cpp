@@ -126,10 +126,10 @@ TEST(TaskAgent, RunMultiTasks)
     EXPECT_EQ(player2.id, 200);
 
     const auto& buffer = ret.GetBuffer();
-    auto taskTuple =
+    const auto taskTuple =
         flatbuffers::GetRoot<FlatData::TaskMetaVector>(buffer.get());
 
-    auto taskVector = taskTuple->vector();
+    const auto taskVector = taskTuple->vector();
     TaskMeta received1 = TaskMeta::ConvertFrom(taskVector->Get(0));
     TaskMeta received2 = TaskMeta::ConvertFrom(taskVector->Get(1));
 
@@ -154,7 +154,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
     std::vector<TestTask> tasks;
     std::vector<TaskMetaTrait> traits;
 
-    auto generate = [](const TaskMetaTrait& trait) -> TestTask {
+    const auto generate = [](const TaskMetaTrait& trait) -> TestTask {
         return TestTask(trait.id,
                         [status = trait.status, userID = trait.userID](
                             Player& p, Player&) -> MetaData {
@@ -163,8 +163,8 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
                         });
     };
 
-    auto check = [&traits](const TaskMeta& meta) {
-        auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
+    const auto check = [&traits](const TaskMeta& meta) {
+        const auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
         auto vec = metas->vector();
 
         constexpr size_t size = 5;
@@ -172,7 +172,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
 
         for (size_t i = 0; i < 5; ++i)
         {
-            auto idx = static_cast<flatbuffers::uoffset_t>(i);
+            const auto idx = static_cast<flatbuffers::uoffset_t>(i);
 
             TaskMeta converted = TaskMeta::ConvertFrom(vec->Get(idx));
             EXPECT_EQ(converted.id, traits[i].id);
@@ -230,10 +230,10 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
     tasks[2] = generate(traits[2]);
 
     std::future<TaskMeta> res = std::async(std::launch::async, [&] {
-        TaskMeta ret;
-        agent.RunMulti(ret, player1, player2, tasks[0], tasks[1], tasks[2],
+        TaskMeta meta;
+        agent.RunMulti(meta, player1, player2, tasks[0], tasks[1], tasks[2],
                        tasks[3], tasks[4]);
-        return ret;
+        return meta;
     });
 
     agent.Read(read);

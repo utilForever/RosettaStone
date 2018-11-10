@@ -13,7 +13,7 @@ using namespace Hearthstonepp;
 
 TEST(DestroyWeaponTask, GetTaskID)
 {
-    BasicTasks::DestroyWeaponTask destroy;
+    const BasicTasks::DestroyWeaponTask destroy;
     EXPECT_EQ(destroy.GetTaskID(), +TaskID::DESTROY);
 }
 

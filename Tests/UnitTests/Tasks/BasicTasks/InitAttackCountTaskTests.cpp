@@ -13,7 +13,7 @@ using namespace Hearthstonepp;
 
 TEST(InitAttackCountTask, GetTaskID)
 {
-    BasicTasks::InitAttackCountTask init;
+    const BasicTasks::InitAttackCountTask init;
     EXPECT_EQ(init.GetTaskID(), +TaskID::INIT_ATTACK_COUNT);
 }
 

@@ -22,7 +22,7 @@ using namespace Hearthstonepp;
     EXPECT_EQ("1", player2.GetEmail());
     EXPECT_EQ("name1", player2.GetNickname());     
 
-    std::vector<Deck*> decks;
+    const std::vector<Deck*> decks;
     Account player3("2", "name2", decks);
     EXPECT_EQ("2", player3.GetEmail());
     EXPECT_EQ("name2", player3.GetNickname());     

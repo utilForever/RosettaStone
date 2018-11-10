@@ -53,7 +53,7 @@ TEST(BasicCardSet, EX1_066)
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().hero->weapon, static_cast<Weapon*>(nullptr));
 
-    auto[respPlayCard2, respPlayMinion] = respAutoMinion.get();
+    auto [respPlayCard2, respPlayMinion] = respAutoMinion.get();
     require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
     EXPECT_EQ(TaskID::_from_integral(require->required()),
               +TaskID::SELECT_CARD);

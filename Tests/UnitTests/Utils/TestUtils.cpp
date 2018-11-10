@@ -27,9 +27,9 @@ std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
-    std::uniform_int_distribution<int> data(0, 255);
+    const std::uniform_int_distribution<int> data(0, 255);
 
-    size_t size = gen() % maximumSize;
+    const size_t size = gen() % maximumSize;
     ptr = std::make_unique<BYTE[]>(size);
 
     for (size_t i = 0; i < size; ++i)
@@ -45,12 +45,12 @@ TaskMetaTrait GenerateRandomTrait()
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    int sizeTaskID = static_cast<int>(TaskID::_size());
-    int sizeMetaData = static_cast<int>(MetaData::GAME_END);
+    const auto sizeTaskID = static_cast<int>(TaskID::_size());
+    const auto sizeMetaData = static_cast<int>(MetaData::GAME_END);
 
-    TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
-    MetaData metaData = static_cast<MetaData>(gen() % sizeMetaData);
-    BYTE userID = gen() % 2;
+    const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
+    const auto metaData = static_cast<MetaData>(gen() % sizeMetaData);
+    const BYTE userID = gen() % 2;
 
     TaskMetaTrait randomTrait(taskID, metaData, userID);
     return randomTrait;
@@ -58,10 +58,10 @@ TaskMetaTrait GenerateRandomTrait()
 
 TaskMeta GenerateRandomTaskMeta()
 {
-    TaskMetaTrait trait = GenerateRandomTrait();
+    const TaskMetaTrait trait = GenerateRandomTrait();
 
     std::unique_ptr<BYTE[]> ptr;
-    size_t size = GenerateRandomBuffer(ptr);
+    const size_t size = GenerateRandomBuffer(ptr);
 
     TaskMeta randomTaskMeta(trait, size, std::move(ptr));
     return randomTaskMeta;

@@ -115,4 +115,4 @@ enum class MetaData : status_t
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_METADATA_H
+#endif  // HEARTHSTONEPP_META_DATA_H

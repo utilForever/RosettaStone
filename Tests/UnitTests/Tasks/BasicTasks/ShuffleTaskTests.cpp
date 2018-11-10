@@ -13,7 +13,7 @@ using namespace Hearthstonepp;
 
 TEST(ShuffleTask, GetTaskID)
 {
-    BasicTasks::ShuffleTask init;
+    const BasicTasks::ShuffleTask init;
     EXPECT_EQ(init.GetTaskID(), +TaskID::SHUFFLE);
 }
 

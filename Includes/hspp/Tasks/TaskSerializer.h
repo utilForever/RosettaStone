@@ -104,4 +104,4 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
                           const Player& player2);
 }  // namespace Hearthstonepp::Serializer
 
-#endif  // HEARTHSTONEPP_TASKSERIALIZER_H
+#endif  // HEARTHSTONEPP_TASK_SERIALIZER_H

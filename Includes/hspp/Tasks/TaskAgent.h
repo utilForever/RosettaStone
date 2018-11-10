@@ -29,6 +29,9 @@ class TaskAgent
     //! Default constructor.
     TaskAgent() = default;
 
+    //! Default destructor.
+    ~TaskAgent() = default;
+
     //! Deleted copy constructor.
     TaskAgent(const TaskAgent&) = delete;
 
@@ -121,4 +124,4 @@ class TaskAgent
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_TASKAGENT_H
+#endif  // HEARTHSTONEPP_TASK_AGENT_H

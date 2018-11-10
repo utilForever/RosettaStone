@@ -11,7 +11,6 @@
 #include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Minion.h>
 #include <hspp/Cards/Weapon.h>
-#include <hspp/Enchants/Enchant.h>
 #include <hspp/Tasks/TaskSerializer.h>
 #include <hspp/Tasks/Tasks.h>
 
@@ -27,34 +26,32 @@ TEST(TaskSerializer, CreateCard)
     Cards* cards = Cards::GetInstance();
     const std::vector<Card>& allCards = cards->GetAllCards();
 
-    auto cardTest = [](const Card& card) {
+    const auto cardTest = [](const Card& card) {
         flatbuffers::FlatBufferBuilder builder(1024);
 
-        auto serialized = Serializer::CreateCard(builder, card);
+        const auto serialized = Serializer::CreateCard(builder, card);
         builder.Finish(serialized);
 
-        auto buffer = builder.GetBufferPointer();
-        auto deserialized = flatbuffers::GetRoot<FlatData::Card>(buffer);
-        auto converted = TestUtils::ConvertCardFrom(card, deserialized);
+        const auto buffer = builder.GetBufferPointer();
+        const auto deserialized = flatbuffers::GetRoot<FlatData::Card>(buffer);
+        const auto converted = TestUtils::ConvertCardFrom(card, deserialized);
         TestUtils::ExpectCardEqual(card, converted);
     };
 
-    constexpr size_t zero = 0;
-
-    // Rogue Minion : Nerubian
-    const Card nerubian = cards->FindCardByID("AT_036t");
+    // Rogue minion: Nerubian
+    const auto nerubian = cards->FindCardByID("AT_036t");
     EXPECT_NE(nerubian.id, "");
     EXPECT_EQ(nerubian.name, "Nerubian");
     cardTest(nerubian);
 
-    // Rogue Weapon : Poisoned Blade
-    const Card poisonedBlade = cards->FindCardByID("AT_034");
+    // Rogue weapon: Poisoned Blade
+    const auto poisonedBlade = cards->FindCardByID("AT_034");
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
     cardTest(poisonedBlade);
 
-    // Enchantment
-    const Card dreadsteed = cards->FindCardByID("AT_019e");
+    // Warlock minion: Dreadsteed
+    const auto dreadsteed = cards->FindCardByID("AT_019e");
     EXPECT_NE(dreadsteed.id, "");
     EXPECT_EQ(dreadsteed.name, "Dreadsteed");
     cardTest(dreadsteed);
@@ -65,13 +62,13 @@ TEST(TaskSerializer, CreateCard)
 
 TEST(TaskSerializer, CreateEntity)
 {
-    auto autoEncode = [](const Entity* entity) {
+    const auto autoEncode = [](const Entity* entity) {
         flatbuffers::FlatBufferBuilder builder(1024);
 
-        auto serialized = Serializer::CreateEntity(builder, entity);
+        const auto serialized = Serializer::CreateEntity(builder, entity);
         builder.Finish(serialized);
 
-        auto ptr = builder.GetBufferPointer();
+        const auto ptr = builder.GetBufferPointer();
         auto buffer = std::make_unique<BYTE[]>(builder.GetSize());
         std::copy(ptr, ptr + builder.GetSize(), buffer.get());
 
@@ -81,15 +78,15 @@ TEST(TaskSerializer, CreateEntity)
     Cards* cards = Cards::GetInstance();
 
     // Rogue Minion : Nerubian
-    Card nerubian = cards->FindCardByID("AT_036t");
+    auto nerubian = cards->FindCardByID("AT_036t");
     EXPECT_NE(nerubian.id, "");
     EXPECT_EQ(nerubian.name, "Nerubian");
 
-    Minion* mNerubian = new Minion(nerubian);
-    mNerubian->health = 100;
-    mNerubian->SetAttack(1000);
+    auto minionNerubian = new Minion(nerubian);
+    minionNerubian->health = 100;
+    minionNerubian->SetAttack(1000);
 
-    auto buffer = autoEncode(mNerubian);
+    auto buffer = autoEncode(minionNerubian);
     auto minion = flatbuffers::GetRoot<FlatData::Entity>(buffer.get());
     EXPECT_EQ(minion->card()->id()->str(), nerubian.id);
     EXPECT_EQ(minion->card()->health(), static_cast<size_t>(100));
@@ -101,32 +98,33 @@ TEST(TaskSerializer, CreateEntity)
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
-    Weapon* wPoisonedBlade = new Weapon(poisonedBlade);
-    wPoisonedBlade->SetDurability(500);
+    auto weaponPoisonBlade = new Weapon(poisonedBlade);
+    weaponPoisonBlade->SetDurability(500);
 
-    buffer = autoEncode(wPoisonedBlade);
+    buffer = autoEncode(weaponPoisonBlade);
     auto weapon = flatbuffers::GetRoot<FlatData::Entity>(buffer.get());
     EXPECT_EQ(weapon->card()->id()->str(), poisonedBlade.id);
     EXPECT_EQ(weapon->card()->health(), static_cast<size_t>(0));
     EXPECT_EQ(weapon->card()->attack(), static_cast<size_t>(1));
     EXPECT_EQ(weapon->card()->durability(), static_cast<size_t>(500));
 
-    delete mNerubian;
-    delete wPoisonedBlade;
+    delete minionNerubian;
+    delete weaponPoisonBlade;
 }
 
 TEST(TaskSerializer, CreateEntityVector)
 {
     Cards* cards = Cards::GetInstance();
-    TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
 
-    Card nerubian = cards->FindCardByID("AT_036t");
-    Minion* mNerubian = new Minion(nerubian);
+    auto nerubian = cards->FindCardByID("AT_036t");
+    const auto minionNerubian = new Minion(nerubian);
 
-    Card poisonedBlade = cards->FindCardByID("AT_034");
-    Weapon* wPoisonedBlade = new Weapon(poisonedBlade);
+    auto poisonedBlade = cards->FindCardByID("AT_034");
+    const auto weaponPoisonedBlade = new Weapon(poisonedBlade);
 
-    std::vector<Entity*> entities = {mNerubian, wPoisonedBlade};
+    const std::vector<Entity*> entities = { minionNerubian,
+                                            weaponPoisonedBlade };
     TaskMeta entityVector = Serializer::CreateEntityVector(randTrait, entities);
 
     EXPECT_EQ(entityVector.id, randTrait.id);
@@ -137,16 +135,16 @@ TEST(TaskSerializer, CreateEntityVector)
         TaskMeta::ConvertTo<FlatData::EntityVector>(entityVector)->vector();
     EXPECT_EQ(vector->size(), static_cast<size_t>(2));
 
-    auto deNerubian =
+    const auto deserializedNerubian =
         TestUtils::ConvertCardFrom(nerubian, vector->Get(0)->card());
-    TestUtils::ExpectCardEqual(nerubian, deNerubian);
+    TestUtils::ExpectCardEqual(nerubian, deserializedNerubian);
 
-    auto dePoisonedBlade =
+    const auto deserializedPoisonedBlade =
         TestUtils::ConvertCardFrom(poisonedBlade, vector->Get(1)->card());
-    TestUtils::ExpectCardEqual(poisonedBlade, dePoisonedBlade);
+    TestUtils::ExpectCardEqual(poisonedBlade, deserializedPoisonedBlade);
 
-    delete mNerubian;
-    delete wPoisonedBlade;
+    delete minionNerubian;
+    delete weaponPoisonedBlade;
 }
 
 TEST(TaskSerializer, CreateTaskMetaVector)
@@ -161,7 +159,7 @@ TEST(TaskSerializer, CreateTaskMetaVector)
         metas.emplace_back(TestUtils::GenerateRandomTrait());
     }
 
-    TaskMetaTrait random = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait random = TestUtils::GenerateRandomTrait();
     TaskMeta generated =
         Serializer::CreateTaskMetaVector(metas, random.status, random.userID);
 
@@ -169,13 +167,13 @@ TEST(TaskSerializer, CreateTaskMetaVector)
     EXPECT_EQ(generated.status, random.status);
     EXPECT_EQ(generated.userID, random.userID);
 
-    auto taskVector = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(generated);
+    const auto taskVector = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(generated);
     auto vector = taskVector->vector();
     EXPECT_EQ(vector->Length(), testSize);
 
     for (size_t i = 0; i < testSize; ++i)
     {
-        auto idx = static_cast<flatbuffers::uoffset_t>(i);
+        const auto idx = static_cast<flatbuffers::uoffset_t>(i);
         TaskMeta converted = TaskMeta::ConvertFrom(vector->Get(idx));
 
         EXPECT_EQ(metas[i], converted);
@@ -184,14 +182,14 @@ TEST(TaskSerializer, CreateTaskMetaVector)
 
 TEST(TaskSerializer, CreateRequireTaskMeta)
 {
-    TaskMetaTrait random = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait random = TestUtils::GenerateRandomTrait();
     TaskMeta required = Serializer::CreateRequire(random.id, random.userID);
 
     EXPECT_EQ(required.id, +TaskID::REQUIRE);
     EXPECT_EQ(required.status, MetaData::INVALID);
     EXPECT_EQ(required.userID, random.userID);
 
-    auto meta = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(required);
+    const auto meta = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(required);
     TaskID requiredID = TaskID::_from_integral(meta->required());
     EXPECT_EQ(requiredID, random.id);
 }
@@ -251,8 +249,8 @@ TEST(TaskSerializer, CreateResponseTarget)
 
 TEST(TaskSerializer, CreatePlayerSetting)
 {
-    std::string player1 = "player1";
-    std::string player2 = "player2";
+    const std::string player1 = "player1";
+    const std::string player2 = "player2";
 
     TaskMeta resp = Serializer::CreatePlayerSetting(player1, player2);
     auto data = TaskMeta::ConvertTo<FlatData::PlayerSetting>(resp);
@@ -264,7 +262,7 @@ TEST(TaskSerializer, CreatePlayerSetting)
 
 TEST(TaskSerializer, CreateGameStatus)
 {
-    TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
 
     Account account1("email1", "name1");
     Account account2("email2", "name2");
@@ -282,12 +280,12 @@ TEST(TaskSerializer, CreateGameStatus)
 
     Cards* cards = Cards::GetInstance();
 
-    // Summons 'Nerubian' card to field (minion)
+    // Summon 'Nerubian' card to field (minion)
     Card nerubian = cards->FindCardByID("AT_036t");
     player1.field.emplace_back(new Minion(nerubian));
     player2.field.emplace_back(new Minion(nerubian));
 
-    // Draws 'Poisoned Blade' card (weapon)
+    // Draw 'Poisoned Blade' card (weapon)
     Card poisonedBlade = cards->FindCardByID("AT_034");
     player1.hand.emplace_back(new Weapon(poisonedBlade));
     player2.hand.emplace_back(new Weapon(poisonedBlade));

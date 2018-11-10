@@ -18,7 +18,7 @@ TEST(DrawTask, GetTaskID)
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
     GameAgent agent(std::move(gen.player1), std::move(gen.player2));
 
-    BasicTasks::DrawTask draw(agent.GetTaskAgent(), 1);
+    const BasicTasks::DrawTask draw(agent.GetTaskAgent(), 1);
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
 }
 
@@ -26,7 +26,7 @@ TEST(DrawTask, Run)
 {
     std::vector<Card> cards;
     std::vector<Entity*> entities;
-    auto generate = [&](std::string&& id) -> Entity* {
+    const auto generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(Card());
         Card card = cards.back();
         card.id = std::move(id);
@@ -41,7 +41,7 @@ TEST(DrawTask, Run)
     Player& p1 = agent.GetPlayer1();
     Player& p2 = agent.GetPlayer2();
 
-    std::string id = "card";
+    const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
         p1.cards.emplace_back(generate(id + i));
@@ -96,7 +96,7 @@ TEST(DrawTask, RunOverDraw)
 {
     std::vector<Card> cards;
     std::vector<Entity*> entities;
-    auto generate = [&](std::string&& id) -> Entity* {
+    const auto generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(Card());
         Card card = cards.back();
         card.id = std::move(id);
@@ -111,7 +111,7 @@ TEST(DrawTask, RunOverDraw)
     Player& p1 = agent.GetPlayer1();
     Player& p2 = agent.GetPlayer2();
 
-    std::string id = "card";
+    const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
         p1.cards.emplace_back(generate(id + i));
@@ -146,7 +146,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 {
     std::vector<Card> cards;
     std::vector<Entity*> entities;
-    auto generate = [&](std::string&& id) -> Entity* {
+    const auto generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(Card());
         Card card = cards.back();
         card.id = std::move(id);
@@ -161,7 +161,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     Player& p1 = agent.GetPlayer1();
     Player& p2 = agent.GetPlayer2();
 
-    std::string id = "card";
+    const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
         p1.cards.emplace_back(generate(id + i));
@@ -195,8 +195,8 @@ TEST(DrawTask, RunExhaustOverdraw)
 
 TEST(DrawCardTask, GetTaskID)
 {
-    Card card{};
-    BasicTasks::DrawCardTask draw(card);
+    const Card card{};
+    const BasicTasks::DrawCardTask draw(card);
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
 }
 
@@ -213,10 +213,10 @@ TEST(DrawCardTask, Run)
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
-    auto eNerubian = new Entity(nerubian);
-    auto ePoisonedBlade = new Entity(poisonedBlade);
-    gen.player1.cards.emplace_back(ePoisonedBlade);
-    gen.player1.cards.emplace_back(eNerubian);
+    auto minionNerubian = new Entity(nerubian);
+    auto weaponPoisonedBlade = new Entity(poisonedBlade);
+    gen.player1.cards.emplace_back(weaponPoisonedBlade);
+    gen.player1.cards.emplace_back(minionNerubian);
 
     BasicTasks::DrawCardTask drawNerubian(nerubian);
     MetaData result = drawNerubian.Run(gen.player1, gen.player2);
@@ -235,6 +235,6 @@ TEST(DrawCardTask, Run)
     EXPECT_EQ(gen.player1.hand[1]->card->id, poisonedBlade.id);
     EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
 
-    delete eNerubian;
-    delete ePoisonedBlade;
+    delete minionNerubian;
+    delete weaponPoisonedBlade;
 }

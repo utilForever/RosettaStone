@@ -14,7 +14,7 @@ using namespace Hearthstonepp;
 TEST(DestroyMinionTask, GetTaskID)
 {
     auto card = TestUtils::GenerateMinionCard("test", 1, 1);
-    BasicTasks::DestroyMinionTask destroy(new Minion(card));
+    const BasicTasks::DestroyMinionTask destroy(new Minion(card));
     EXPECT_EQ(destroy.GetTaskID(), +TaskID::DESTROY);
 }
 
@@ -27,10 +27,10 @@ TEST(DestroyMinionTask, Run)
     std::vector<Card> cards;
     cards.reserve(5);
 
-    std::string name = "test";
+    const std::string name = "test";
     for (size_t i = 0; i < 5; ++i)
     {
-        char id = static_cast<char>(i + 0x30);
+        const char id = static_cast<char>(i + 0x30);
         cards.emplace_back(TestUtils::GenerateMinionCard(name + id, 1, 1));
         player1.field.emplace_back(new Minion(cards[i]));
     }

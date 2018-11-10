@@ -13,7 +13,7 @@ using namespace Hearthstonepp;
 
 TEST(BriefTask, GetTaskID)
 {
-    BasicTasks::BriefTask brief;
+    const BasicTasks::BriefTask brief;
     EXPECT_EQ(brief.GetTaskID(), +TaskID::BRIEF);
 }
 
