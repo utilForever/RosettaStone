@@ -28,9 +28,10 @@ std::thread GameAgent::Start()
 {
     auto flow = [this]() {
         BeginPhase();
+
         while (true)
         {
-            bool isGameEnd = MainPhase();
+            const bool isGameEnd = MainPhase();
             if (isGameEnd)
             {
                 break;
@@ -91,7 +92,7 @@ void GameAgent::BeginPhase()
         BasicTasks::SwapPlayerTask().Run(m_player1, m_player2);
     }
 
-    auto success = [](const TaskMeta& meta) {
+    const auto success = [](const TaskMeta& meta) {
         return meta.status == MetaData::MULLIGAN_SUCCESS;
     };
 
@@ -128,8 +129,8 @@ void GameAgent::FinalPhase()
 
 void GameAgent::PrepareMainPhase()
 {
-    // PrepareMainPhase : Draw, ModifyMana, Clear field character
-    // attackableCount
+    // PrepareMainPhase: Draw card, reset used mana,
+    // increase total mana, initialize attack count
     TaskMeta meta;
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(m_taskAgent, 1),
@@ -154,7 +155,7 @@ bool GameAgent::ProcessMainMenu()
         .Interact(m_player1.id, meta);
 
     // Interface pass menu by status of TaskMeta
-    status_t menu = static_cast<status_t>(meta.status);
+    const status_t menu = static_cast<status_t>(meta.status);
 
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
@@ -190,18 +191,11 @@ void GameAgent::Combat()
                     BasicTasks::CombatTask(m_taskAgent));
 }
 
-bool GameAgent::IsGameOver()
+bool GameAgent::IsGameOver() const
 {
-    size_t healthCurrent = m_player1.hero->health;
-    size_t healthOpponent = m_player2.hero->health;
+    const size_t healthCurrent = m_player1.hero->health;
+    const size_t healthOpponent = m_player2.hero->health;
 
-    if (healthCurrent < 1 || healthOpponent < 1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return healthCurrent <= 0 || healthOpponent <= 0;
 }
 }  // namespace Hearthstonepp

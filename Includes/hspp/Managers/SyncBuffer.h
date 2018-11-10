@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_SYNCBUFFER_H
-#define HEARTHSTONEPP_SYNCBUFFER_H
+#ifndef HEARTHSTONEPP_SYNC_BUFFER_H
+#define HEARTHSTONEPP_SYNC_BUFFER_H
 
 #include <condition_variable>
 #include <mutex>
@@ -25,8 +25,11 @@ class SyncBuffer
     //! Default constructor.
     SyncBuffer() : m_readable(false)
     {
-        // Do Nothing
+        // Do nothing
     }
+
+    //! Default destructor.
+    ~SyncBuffer() = default;
 
     //! Deleted copy constructor.
     SyncBuffer(const SyncBuffer&) = delete;
@@ -95,4 +98,4 @@ class SyncBuffer
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_SYNCBUFFER_H
+#endif  // HEARTHSTONEPP_SYNC_BUFFER_H

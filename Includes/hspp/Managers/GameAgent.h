@@ -75,19 +75,19 @@ class GameAgent
     //! \param player1 The first player.
     //! \param player2 The second player.
     //! \return The result of running the task.
-    MetaData RunTask(ITask& task, Player& player1, Player& player2);
+    static MetaData RunTask(ITask& task, Player& player1, Player& player2);
 
     //! Runs the task with given \p task, \p player1 and \p player2.
     //! \param task The task to run (rvalue ref).
     //! \param player1 The first player.
     //! \param player2 The second player.
     //! \return The result of running the task.
-    MetaData RunTask(ITask&& task, Player& player1, Player& player2);
+    static MetaData RunTask(ITask&& task, Player& player1, Player& player2);
 
  private:
     //! Returns whether the game is over.
     //! \return true if the game is over, and false otherwise.
-    bool IsGameOver();
+    bool IsGameOver() const;
 
     //! Processes the begin phase of the game.
     void BeginPhase();
@@ -126,4 +126,4 @@ class GameAgent
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_GAME_AGENT_H

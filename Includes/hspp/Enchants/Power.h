@@ -17,15 +17,16 @@ class ITask;
 class Enchant;
 
 //!
-//! \brief Power structure.
+//! \brief Power class.
 //!
-//! This structure stores task to perform power and enchant to apply it.
+//! This class stores task to perform power and enchant to apply it.
 //!
-struct Power
+class Power
 {
+ public:
     std::vector<ITask*> powerTask;
     Enchant* enchant = nullptr;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_POWER_H

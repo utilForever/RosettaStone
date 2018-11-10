@@ -4082,4 +4082,4 @@ BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3, GRAVEYARD = 4,
 #endif
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_CARD_ENUMS_H

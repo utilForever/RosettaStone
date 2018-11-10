@@ -42,4 +42,4 @@ class Effects
 };
 };  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_EFFECTS_H

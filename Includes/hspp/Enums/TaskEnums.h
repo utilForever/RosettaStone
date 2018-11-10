@@ -89,4 +89,4 @@ enum class EntityType
 #endif
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_TASK_ENUMS_H

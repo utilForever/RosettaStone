@@ -9,7 +9,7 @@
 
 namespace Hearthstonepp
 {
-void PowerLoader::Load(std::vector<Card>& cards) const
+void PowerLoader::Load(std::vector<Card>& cards)
 {
     Powers* powers = Powers::GetInstance();
 

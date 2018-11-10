@@ -43,4 +43,4 @@ class Enchant
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_ENCHANT_H

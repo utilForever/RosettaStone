@@ -7,7 +7,6 @@
 #include <hspp/Loaders/CardLoader.h>
 
 #include <fstream>
-#include <iostream>
 
 namespace Hearthstonepp
 {

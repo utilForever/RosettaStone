@@ -22,7 +22,7 @@
 
 namespace Hearthstonepp
 {
-struct Power;
+class Power;
 
 //!
 //! \brief Card structure.

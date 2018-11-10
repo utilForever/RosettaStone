@@ -68,12 +68,12 @@ class GameInterface
     //! Writes log.
     //! \param name The name to write to log (rvalue ref).
     //! \return The output stream.
-    std::ostream& WriteLog(std::string&& name);
+    std::ostream& WriteLog(std::string&& name) const;
 
     //! Writes log.
     //! \param name The name to write to log (const lvalue ref).
     //! \return The output stream.
-    std::ostream& WriteLog(const std::string& name);
+    std::ostream& WriteLog(const std::string& name) const;
 
     //! Shows game menus.
     //! \tparam SIZE The number of game menus.
@@ -83,13 +83,13 @@ class GameInterface
 
     //! Shows cards.
     //! \param entities An array in which cards are stored.
-    void ShowCards(const EntityVector& entities);
+    void ShowCards(const EntityVector& entities) const;
 
     // MARK: TaskMeta Handler
 
     //! Handles default task.
     //! \param meta Serialized task meta.
-    void HandleDefault(const TaskMeta& meta);
+    void HandleDefault(const TaskMeta& meta) const;
 
     //! Handles task vector.
     //! \param meta Serialized task meta.
@@ -113,7 +113,7 @@ class GameInterface
 
     //! Handles over draw.
     //! \param meta Serialized task meta.
-    void HandleOverDraw(const TaskMeta& meta);
+    void HandleOverDraw(const TaskMeta& meta) const;
 
     // MARK: Input Task Handler
 
@@ -122,7 +122,7 @@ class GameInterface
     //! starting hand and is given the option to redraw as many of those cards
     //! as they like.
     //! \param meta Serialized task meta.
-    void HandleMulliganInput(const TaskMeta& meta);
+    void HandleMulliganInput(const TaskMeta& meta) const;
 
     //! Handles the value you selected in the game menu.
     //! \param meta Serialized task meta.
@@ -130,15 +130,15 @@ class GameInterface
 
     //! Handles the card to choose.
     //! \param meta Serialized task meta.
-    void HandleCardInput(const TaskMeta& meta);
+    void HandleCardInput(const TaskMeta& meta) const;
 
     //! Handles the target.
     //! \param meta Serialized task meta.
-    void HandleTargetInput(const TaskMeta& meta);
+    void HandleTargetInput(const TaskMeta& meta) const;
 
     //! Handles the position.
     //! \param meta Serialized task meta.
-    void HandlePositionInput(const TaskMeta& meta);
+    void HandlePositionInput(const TaskMeta& meta) const;
 
     std::array<std::string, GAME_MAIN_MENU_SIZE> m_mainMenuStr = {
         "1. Use Card", "2. Combat", "3. Stop"
@@ -178,4 +178,4 @@ class GameInterface
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_INTERFACE_H

@@ -32,4 +32,4 @@ class AccountLoader
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_ACCOUNT_LOADER_H

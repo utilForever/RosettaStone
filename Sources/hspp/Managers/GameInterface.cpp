@@ -14,7 +14,7 @@ GameInterface::GameInterface(GameAgent& agent, std::ostream& output,
                              std::istream& input)
     : m_agent(agent), m_ostream(output), m_istream(input)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 GameResult GameInterface::StartGame()
@@ -33,10 +33,10 @@ GameResult GameInterface::StartGame()
         }
     }
 
-    // join agent thread
+    // Join agent thread
     at.join();
 
-    // GameResult is set by GameEndTaskMeta Handler
+    // GameResult is set by GameEndTaskMeta handler
     return m_result;
 }
 
@@ -44,7 +44,7 @@ HandleStatus GameInterface::HandleMessage(const TaskMeta& meta)
 {
     if (m_handler.find(meta.id) != m_handler.end())
     {
-        // find from handler table and call it
+        // Find from handler table and call it
         m_handler[meta.id](*this, meta);
     }
     else
@@ -60,13 +60,13 @@ HandleStatus GameInterface::HandleMessage(const TaskMeta& meta)
     return HandleStatus::CONTINUE;
 }
 
-std::ostream& GameInterface::WriteLog(const std::string& name)
+std::ostream& GameInterface::WriteLog(const std::string& name) const
 {
     m_ostream << "[*] " << name << " : ";
     return m_ostream;
 }
 
-std::ostream& GameInterface::WriteLog(std::string&& name)
+std::ostream& GameInterface::WriteLog(std::string&& name) const
 {
     return WriteLog(name);
 }
@@ -80,7 +80,7 @@ void GameInterface::ShowMenus(const std::array<std::string, SIZE>& menus)
     }
 }
 
-void GameInterface::ShowCards(const EntityVector& entities)
+void GameInterface::ShowCards(const EntityVector& entities) const
 {
     for (const auto& entity : entities)
     {
@@ -98,7 +98,7 @@ void GameInterface::ShowCards(const EntityVector& entities)
     }
 }
 
-void GameInterface::HandleDefault(const TaskMeta& meta)
+void GameInterface::HandleDefault(const TaskMeta& meta) const
 {
     m_ostream << m_users[meta.userID]
               << " TaskID::" << TaskID::_from_integral(meta.id)._to_string()
@@ -107,7 +107,7 @@ void GameInterface::HandleDefault(const TaskMeta& meta)
 
 void GameInterface::HandleTaskVector(const TaskMeta& meta)
 {
-    auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
+    const auto metas = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(meta);
     if (metas == nullptr)
     {
         WriteLog("TaskVector")
@@ -115,7 +115,7 @@ void GameInterface::HandleTaskVector(const TaskMeta& meta)
         return;
     }
 
-    auto vector = metas->vector();
+    const auto vector = metas->vector();
     for (const auto& ind : *vector)
     {
         HandleMessage(TaskMeta::ConvertFrom(ind));
@@ -124,20 +124,20 @@ void GameInterface::HandleTaskVector(const TaskMeta& meta)
 
 void GameInterface::HandlePlayerSetting(const TaskMeta& meta)
 {
-    auto setting = TaskMeta::ConvertTo<FlatData::PlayerSetting>(meta);
+    const auto setting = TaskMeta::ConvertTo<FlatData::PlayerSetting>(meta);
     if (setting != nullptr && meta.status == MetaData::PLAYER_SETTING_REQUEST)
     {
         m_users[0] = setting->player1()->str();
         m_users[1] = setting->player2()->str();
 
         WriteLog("PlayerSetting") << "player1 - " << m_users[0]
-                                   << " / player2 - " << m_users[1] << '\n';
+                                  << " / player2 - " << m_users[1] << '\n';
     }
 }
 
 void GameInterface::HandleRequire(const TaskMeta& meta)
 {
-    auto required = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
+    const auto required = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
     if (required == nullptr)
     {
         WriteLog("Require")
@@ -145,11 +145,11 @@ void GameInterface::HandleRequire(const TaskMeta& meta)
         return;
     }
 
-    auto taskid = TaskID::_from_integral(required->required());
-    if (m_inputHandler.find(taskid) != m_inputHandler.end())
+    const auto taskID = TaskID::_from_integral(required->required());
+    if (m_inputHandler.find(taskID) != m_inputHandler.end())
     {
-        // Find and call from Input Handler Table
-        m_inputHandler[taskid](*this, meta);
+        // Find and call from input handler table
+        m_inputHandler[taskID](*this, meta);
     }
 }
 
@@ -161,14 +161,15 @@ void GameInterface::HandleBriefing(const TaskMeta& meta)
     }
 
     std::ostream& stream = WriteLog(m_users[meta.userID]);
-    auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
+
+    const auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
     if (status == nullptr)
     {
         stream << "Exception HandleBriefing : TaskMeta is nullptr\n";
         return;
     }
 
-    size_t bufferSize = meta.GetBufferSize();
+    const size_t bufferSize = meta.GetBufferSize();
     m_status = std::make_unique<BYTE[]>(bufferSize);
 
     const auto& buffer = meta.GetBuffer();
@@ -201,7 +202,7 @@ void GameInterface::HandleBriefing(const TaskMeta& meta)
 
 void GameInterface::HandleGameOver(const TaskMeta& meta)
 {
-    auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
+    const auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
     if (status == nullptr)
     {
         WriteLog("GameEnd")
@@ -209,33 +210,33 @@ void GameInterface::HandleGameOver(const TaskMeta& meta)
         return;
     }
 
-    auto hpPlayer1 = status->currentHero()->card()->health();
-    auto hpPlayer2 = status->opponentHero()->card()->health();
-    if (hpPlayer1 != 0 && hpPlayer2 != 0)
+    const auto player1Health = status->currentHero()->card()->health();
+    const auto player2Health = status->opponentHero()->card()->health();
+    if (player1Health != 0 && player2Health != 0)
     {
         WriteLog("GameEnd")
             << "Exception HandleGame End : No one end the game - "
-            << static_cast<int>(hpPlayer1) << " / "
-            << static_cast<int>(hpPlayer2) << '\n';
+            << static_cast<int>(player1Health) << " / "
+            << static_cast<int>(player2Health) << '\n';
         return;
     }
 
-    if (hpPlayer1 == 0 && hpPlayer2 == 0)
+    if (player1Health == 0 && player2Health == 0)
     {
         m_result.winnerID = "DRAW";
     }
-    else if (hpPlayer1 == 0 && hpPlayer2 != 0)
+    else if (player1Health == 0 && player2Health != 0)
     {
         m_result.winnerID = m_users[status->opponentPlayer()];
     }
-    else if (hpPlayer1 != 0 && hpPlayer2 == 0)
+    else if (player1Health != 0 && player2Health == 0)
     {
         m_result.winnerID = m_users[status->currentPlayer()];
     }
     WriteLog(m_result.winnerID) << "Win\n";
 }
 
-void GameInterface::HandleOverDraw(const TaskMeta& meta)
+void GameInterface::HandleOverDraw(const TaskMeta& meta) const
 {
     std::ostream& stream = WriteLog(m_users[meta.userID]);
 
@@ -258,7 +259,7 @@ void GameInterface::HandleOverDraw(const TaskMeta& meta)
     ShowCards(*entities->vector());
 }
 
-void GameInterface::HandleMulliganInput(const TaskMeta& meta)
+void GameInterface::HandleMulliganInput(const TaskMeta& meta) const
 {
     WriteLog(m_users[meta.userID]) << "Input Mulligan\n";
 
@@ -321,7 +322,7 @@ void GameInterface::HandleMenuInput(const TaskMeta& meta)
     m_agent.WriteSyncBuffer(std::move(result));
 }
 
-void GameInterface::HandleCardInput(const TaskMeta& meta)
+void GameInterface::HandleCardInput(const TaskMeta& meta) const
 {
     WriteLog(m_users[meta.userID]) << "Select Card\n";
     if (m_status == nullptr)
@@ -333,11 +334,11 @@ void GameInterface::HandleCardInput(const TaskMeta& meta)
         return;
     }
 
-    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
-    auto currentHand = brief->currentHand();
-
-    int numCurrentHand = currentHand->size();
-    size_t currentMana = brief->currentMana();
+    const auto brief =
+        flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
+    const auto currentHand = brief->currentHand();
+    const int numCurrentHand = currentHand->size();
+    const size_t currentMana = brief->currentMana();
 
     int in;
     while (true)
@@ -363,7 +364,7 @@ void GameInterface::HandleCardInput(const TaskMeta& meta)
     m_agent.WriteSyncBuffer(std::move(serialized));
 }
 
-void GameInterface::HandleTargetInput(const TaskMeta& meta)
+void GameInterface::HandleTargetInput(const TaskMeta& meta) const
 {
     WriteLog(m_users[meta.userID]) << "Targeting\n";
     if (m_status == nullptr)
@@ -374,15 +375,16 @@ void GameInterface::HandleTargetInput(const TaskMeta& meta)
         return;
     }
 
-    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
-    auto currentField = brief->currentField();
-    int numCurrentField = currentField->size();
+    const auto brief =
+        flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
+    const auto currentField = brief->currentField();
+    const int numCurrentField = currentField->size();
 
     m_ostream << "Player field :\n";
     ShowCards(*currentField);
 
-    auto opponentField = brief->opponentField();
-    int numOpponentField = opponentField->size();
+    const auto opponentField = brief->opponentField();
+    const int numOpponentField = opponentField->size();
 
     m_ostream << "Opponent field :\n";
     ShowCards(*brief->opponentField());
@@ -390,8 +392,8 @@ void GameInterface::HandleTargetInput(const TaskMeta& meta)
     int src;
     while (true)
     {
-        m_ostream << "Select source minion (0 for hearo, 1 ~ "
-                  << numCurrentField << " for minion) : ";
+        m_ostream << "Select source minion (0 for hero, 1 ~ " << numCurrentField
+                  << " for minion) : ";
 
         m_istream >> src;
         // Source Field range verification
@@ -419,7 +421,7 @@ void GameInterface::HandleTargetInput(const TaskMeta& meta)
     m_agent.WriteSyncBuffer(std::move(targeting));
 }
 
-void GameInterface::HandlePositionInput(const TaskMeta& meta)
+void GameInterface::HandlePositionInput(const TaskMeta& meta) const
 {
     WriteLog(m_users[meta.userID]) << "Input Position\n";
     if (m_status == nullptr)
@@ -430,10 +432,10 @@ void GameInterface::HandlePositionInput(const TaskMeta& meta)
         return;
     }
 
-    auto brief = flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
-    auto currentField = brief->currentField();
-
-    int numCurrentField = currentField->size();
+    const auto brief =
+        flatbuffers::GetRoot<FlatData::GameStatus>(m_status.get());
+    const auto currentField = brief->currentField();
+    const int numCurrentField = currentField->size();
 
     int pos;
     while (true)
