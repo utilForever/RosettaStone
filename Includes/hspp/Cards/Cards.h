@@ -27,9 +27,9 @@ struct SearchFilter
     GameTag mechanic = GameTag::INVALID;
 
     std::string name;
-    size_t costMin, costMax;
-    size_t attackMin, attackMax;
-    size_t healthMin, healthMax;
+    size_t costMin = 0, costMax = 0;
+    size_t attackMin = 0, attackMax = 0;
+    size_t healthMin = 0, healthMax = 0;
 };
 
 //!
@@ -40,9 +40,21 @@ struct SearchFilter
 class Cards
 {
  public:
-    //! Returns a pointer to instance of Cards class.
-    //! \return A pointer to instance of Cards class.
-    static Cards* GetInstance();
+    //! Deleted copy constructor.
+    Cards(const Cards& cards) = delete;
+
+    //! Deleted move constructor.
+    Cards(Cards&& cards) = delete;
+
+    //! Deleted copy assignment operator.
+    Cards& operator=(const Cards& cards) = delete;
+
+    //! Deleted move assignment operator.
+    Cards& operator=(Cards&& cards) = delete;
+
+    //! Returns a reference to instance of Cards class.
+    //! \return A reference to instance of Cards class.
+    static Cards& GetInstance();
 
     //! Returns a list of pointers to all cards.
     //! \return A list of pointers to all cards.
@@ -127,28 +139,14 @@ class Cards
     Card GetDefaultHeroPower(CardClass cardClass);
 
  private:
-    //! Constructor that loads card data.
+    //! Constructor: Loads card data.
     Cards();
 
-    //! Destructor.
+    //! Destructor: Releases card data.
     ~Cards();
-
-    //! Deleted copy constructor.
-    Cards(const Cards&) = delete;
-
-    //! Deleted move constructor.
-    Cards(Cards&&) = delete;
-
-    //! Deleted copy assignment operator.
-    Cards& operator=(const Cards&) = delete;
-
-    //! Deleted move assignment operator.
-    Cards& operator=(Cards&&) = delete;
-
-    static Cards* m_instance;
 
     std::vector<Card> m_cards;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_CARDS_H

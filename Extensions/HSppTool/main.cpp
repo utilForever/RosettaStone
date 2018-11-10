@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Cards/Cards.h>
+#include <hspp/Commons/Macros.h>
 
 #include <better-enums/enum.h>
 #include <clara.hpp>
@@ -125,7 +126,7 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
 
     if (cardSet == +CardSet::ALL)
     {
-        return Cards::GetInstance()->GetAllCards();
+        return Cards::GetInstance().GetAllCards();
     }
 
     std::vector<GameTag> abilityList{};
@@ -135,7 +136,7 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
     }
 
     std::vector<Card> result;
-    for (auto& card : Cards::GetInstance()->FindCardBySet(cardSet))
+    for (auto& card : Cards::GetInstance().FindCardBySet(cardSet))
     {
         if (implCardOnly)
         {
@@ -228,7 +229,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet,
     std::ofstream outputFile("result.md");
     if (outputFile)
     {
-        auto cardsInCardSet = Cards::GetInstance()->FindCardBySet(cardSet);
+        auto cardsInCardSet = Cards::GetInstance().FindCardBySet(cardSet);
 
         // Excludes cards that is not collectible
         cardsInCardSet.erase(

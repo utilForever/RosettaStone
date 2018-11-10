@@ -6,6 +6,8 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Cards/Cards.h>
+
 TEST(ClassicCardSet, CS2_041)
 {
     GameAgent agent(
@@ -21,20 +23,20 @@ TEST(ClassicCardSet, CS2_041)
     player1.totalMana = agent.GetPlayer1().existMana = 10;
     player2.totalMana = agent.GetPlayer2().existMana = 10;
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")),
                   player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Acidic Swamp Ooze");
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Ancestral Healing")),
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Ancestral Healing")),
                   player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
     EXPECT_EQ(agent.GetPlayer1().hand[1]->card->name, "Ancestral Healing");
 
     agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Stonetusk Boar")),
+                      Cards::GetInstance().FindCardByName("Stonetusk Boar")),
                   player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Stonetusk Boar");

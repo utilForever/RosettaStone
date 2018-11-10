@@ -61,12 +61,10 @@ unsigned int Deck::GetNumCardInDeck(std::string cardID)
 
 std::vector<Card> Deck::GetPrimitiveDeck() const
 {
-    Cards* cards = Cards::GetInstance();
-
     std::vector<Card> deck;
     for (const auto& [id, num] : m_cards)
     {
-        Card card = cards->FindCardByID(id);
+        Card card = Cards::GetInstance().FindCardByID(id);
         for (size_t i = 0; i < static_cast<size_t>(num); ++i)
         {
             deck.push_back(card);
@@ -87,7 +85,7 @@ void Deck::ShowCardList() const
 
     for (auto& cardInfo : m_cards)
     {
-        Card card = Cards::GetInstance()->FindCardByID(cardInfo.first);
+        Card card = Cards::GetInstance().FindCardByID(cardInfo.first);
         if (card.id.empty())
         {
             continue;
@@ -103,7 +101,7 @@ void Deck::ShowCardList() const
 
 bool Deck::AddCard(std::string cardID, int numCardToAdd)
 {
-    Card card = Cards::GetInstance()->FindCardByID(cardID);
+    Card card = Cards::GetInstance().FindCardByID(cardID);
     const CardClass cardClass = card.cardClass;
     if ((cardClass != GetClass() && cardClass != +CardClass::NEUTRAL) ||
         card.GetMaxAllowedInDeck() < static_cast<size_t>(numCardToAdd))

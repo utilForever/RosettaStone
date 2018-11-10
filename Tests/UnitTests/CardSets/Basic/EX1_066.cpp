@@ -6,6 +6,8 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Cards/Cards.h>
+
 TEST(BasicCardSet, EX1_066)
 {
     GameAgent agent(
@@ -22,13 +24,13 @@ TEST(BasicCardSet, EX1_066)
     player2.totalMana = player2.existMana = 10;
 
     agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Fiery War Axe")),
+                      Cards::GetInstance().FindCardByName("Fiery War Axe")),
                   player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Fiery War Axe");
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")),
                   player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");

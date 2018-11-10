@@ -7,6 +7,7 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
+#include <hspp/Cards/Cards.h>
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
 #include <hspp/Tasks/TaskAgent.h>
@@ -201,14 +202,14 @@ TEST(DrawCardTask, GetTaskID)
 
 TEST(DrawCardTask, Run)
 {
-    Cards* cards = Cards::GetInstance();
+    Cards& instance = Cards::GetInstance();
     TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
 
-    Card nerubian = cards->FindCardByID("AT_036t");
+    Card nerubian = instance.FindCardByID("AT_036t");
     EXPECT_NE(nerubian.id, "");
     EXPECT_EQ(nerubian.name, "Nerubian");
 
-    Card poisonedBlade = cards->FindCardByID("AT_034");
+    Card poisonedBlade = instance.FindCardByID("AT_034");
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 

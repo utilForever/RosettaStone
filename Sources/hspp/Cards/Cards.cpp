@@ -11,31 +11,22 @@
 
 namespace Hearthstonepp
 {
-Cards* Cards::m_instance = nullptr;
-
 Cards::Cards()
 {
     CardLoader cardLoader;
     cardLoader.Load(m_cards);
-    PowerLoader powerLoader;
-    powerLoader.Load(m_cards);
+    PowerLoader::Load(m_cards);
 }
 
 Cards::~Cards()
 {
     m_cards.clear();
-
-    delete m_instance;
 }
 
-Cards* Cards::GetInstance()
+Cards& Cards::GetInstance()
 {
-    if (m_instance == nullptr)
-    {
-        m_instance = new Cards();
-    }
-
-    return m_instance;
+    static Cards instance;
+    return instance;
 }
 
 const std::vector<Card>& Cards::GetAllCards() const

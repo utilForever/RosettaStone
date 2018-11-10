@@ -6,6 +6,8 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Cards/Cards.h>
+
 TEST(ClassicCardSet, CS2_088)
 {
     // init agent state
@@ -24,15 +26,15 @@ TEST(ClassicCardSet, CS2_088)
     player2.hero->health = 24;
 
     // drawing procedure of player 1
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")),
                   player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Acidic Swamp Ooze");
 
     // drawing procedure of player 2
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Guardian of Kings")),
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Guardian of Kings")),
                   player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Guardian of Kings");

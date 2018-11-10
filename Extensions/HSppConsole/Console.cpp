@@ -620,7 +620,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
     std::vector<Card> result;
 
-    for (auto& card : Cards::GetInstance()->GetAllCards())
+    for (auto& card : Cards::GetInstance().GetAllCards())
     {
         if (!card.isCollectible)
         {

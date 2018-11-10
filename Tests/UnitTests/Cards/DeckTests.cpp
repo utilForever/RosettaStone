@@ -6,6 +6,7 @@
 
 #include "gtest/gtest.h"
 
+#include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Deck.h>
 #include <hspp/Enums/CardEnums.h>
 
@@ -27,9 +28,9 @@ TEST(TestDeck, Constructors)
 TEST(TestDeck, CardControl)
 {
     std::vector<Card> druidCards =
-        Cards::GetInstance()->FindCardByClass(+CardClass::DRUID);
+        Cards::GetInstance().FindCardByClass(+CardClass::DRUID);
     std::vector<Card> mageCards =
-        Cards::GetInstance()->FindCardByClass(+CardClass::MAGE);
+        Cards::GetInstance().FindCardByClass(+CardClass::MAGE);
 
     Deck deck("Ice Magician", CardClass::MAGE);
     EXPECT_NO_THROW(deck.ShowCardList());
@@ -52,7 +53,7 @@ TEST(TestDeck, CardControl)
 TEST(TestDeck, GetNumCardInDeck)
 {
     std::vector<Card> mageCards =
-        Cards::GetInstance()->FindCardByClass(+CardClass::MAGE);
+        Cards::GetInstance().FindCardByClass(+CardClass::MAGE);
 
     Deck deck("Ice Magician", CardClass::MAGE);
     deck.AddCard(mageCards.at(0).id, 1);
@@ -64,7 +65,7 @@ TEST(TestDeck, GetNumCardInDeck)
 TEST(TestDeck, GetPrimitiveDeck)
 {
     std::vector<Card> mageCards =
-        Cards::GetInstance()->FindCardByClass(+CardClass::MAGE);
+        Cards::GetInstance().FindCardByClass(+CardClass::MAGE);
 
     Deck deck("Ice Magician", CardClass::MAGE);
     deck.AddCard(mageCards.at(0).id, 1);

@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Accounts/Player.h>
+#include <hspp/Cards/Cards.h>
 #include <hspp/Tasks/TaskMeta.h>
 
 namespace Hearthstonepp
@@ -12,16 +13,15 @@ namespace Hearthstonepp
 Player::Player(const Account* account, const Deck* deck)
     : id(USER_INVALID), email(account->GetEmail())
 {
-    Cards* cardsInstance = Cards::GetInstance();
     const CardClass cardClass = deck->GetClass();
 
-    Card heroCard = cardsInstance->GetHeroCard(cardClass);
+    Card heroCard = Cards::GetInstance().GetHeroCard(cardClass);
     if (!heroCard.id.empty())
     {
         hero = new Hero(heroCard);
     }
 
-    Card powerCard = cardsInstance->GetDefaultHeroPower(cardClass);
+    Card powerCard = Cards::GetInstance().GetDefaultHeroPower(cardClass);
     if (!powerCard.id.empty())
     {
         power = new HeroPower(powerCard);

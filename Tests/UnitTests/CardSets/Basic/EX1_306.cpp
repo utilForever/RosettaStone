@@ -6,6 +6,8 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Cards/Cards.h>
+
 TEST(BasicCardSet, EX1_306)
 {
     GameAgent agent(
@@ -23,25 +25,25 @@ TEST(BasicCardSet, EX1_306)
 
     // Each players draw 2 cards.
     agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Succubus")),
+                      Cards::GetInstance().FindCardByName("Succubus")),
                   player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Succubus");
 
     agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Fiery War Axe")),
+                      Cards::GetInstance().FindCardByName("Fiery War Axe")),
                   player1, player2);
     EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
     EXPECT_EQ(agent.GetPlayer1().hand[1]->card->name, "Fiery War Axe");
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
+    agent.RunTask(BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")),
                   player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");
 
     agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Stonetusk Boar")),
+                      Cards::GetInstance().FindCardByName("Stonetusk Boar")),
                   player2, player1);
     EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(2));
     EXPECT_EQ(agent.GetPlayer2().hand[1]->card->name, "Stonetusk Boar");
