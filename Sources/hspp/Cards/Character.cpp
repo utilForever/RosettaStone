@@ -74,8 +74,8 @@ bool Character::IsValidAttackTarget(Player& opponent, Character* target) const
     }
 
     const Hero* hero = dynamic_cast<Hero*>(target);
-    return (hero == nullptr) ||
-           (hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
+    return !(hero != nullptr &&
+             hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
 }
 
 std::vector<Character*> Character::GetValidAttackTargets(Player& opponent)
