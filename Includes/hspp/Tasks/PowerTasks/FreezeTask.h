@@ -53,8 +53,8 @@ class FreezeTask : public ITask
     //! otherwise.
     bool IsFrozenAfterAttack() const;
 
-    Character* m_target;
-    EntityType m_type;
+    Character* m_target = nullptr;
+    EntityType m_type = EntityType::EMPTY;
 };
 }  // namespace Hearthstonepp::PowerTask
 

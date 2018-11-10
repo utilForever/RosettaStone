@@ -21,16 +21,21 @@ TaskID ModifyManaTask::GetTaskID() const
 
 MetaData ModifyManaTask::Impl(Player& player1, Player&)
 {
-    auto get = [](Player& user, ManaMode mode) -> BYTE& {
+    const auto getMana = [](Player& user, ManaMode mode) -> BYTE& {
         if (mode == ManaMode::EXIST)
+        {
             return user.existMana;
-        if (mode == ManaMode::TOTAL)
-            return user.totalMana;
+        }
 
-        throw std::runtime_error("ImplModifyMana : Invalid ManaMode");
+        if (mode == ManaMode::TOTAL)
+        {
+            return user.totalMana;
+        }
+
+        throw std::runtime_error("ModifyMana: Invalid mana mode");
     };
 
-    BYTE& mana = get(player1, m_manaMode);
+    BYTE& mana = getMana(player1, m_manaMode);
     switch (m_numMode)
     {
         case NumMode::ADD:

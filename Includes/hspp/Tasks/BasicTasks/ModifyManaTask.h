@@ -63,4 +63,4 @@ class ModifyManaTask : public ITask
 };  // namespace BasicTasks
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_MODIFYMANA_H
+#endif  // HEARTHSTONEPP_MODIFY_MANA_TASK_H

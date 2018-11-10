@@ -74,8 +74,7 @@ bool FreezeTask::IsMyCharacter() const
 bool FreezeTask::IsOpponentCharacter() const
 {
     return m_type == +EntityType::ENEMY_FIELD ||
-           m_type == +EntityType::ENEMY_HERO ||
-           m_type == +EntityType::ENEMIES;
+           m_type == +EntityType::ENEMY_HERO || m_type == +EntityType::ENEMIES;
 }
 
 bool FreezeTask::IsFrozenBeforeAttack() const

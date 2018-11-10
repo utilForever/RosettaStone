@@ -10,8 +10,6 @@
 #include <hspp/Tasks/Requirement.h>
 #include <hspp/Tasks/Tasks.h>
 
-#include <hspp/Flatbuffers/generated/FlatData_generated.h>
-
 namespace Hearthstonepp::BasicTasks
 {
 //!
@@ -41,4 +39,4 @@ class CombatTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_COMBAT_H
+#endif  // HEARTHSTONEPP_COMBAT_TASK_H

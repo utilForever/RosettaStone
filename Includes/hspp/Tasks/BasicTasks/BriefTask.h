@@ -34,4 +34,4 @@ class BriefTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_BRIEF_H
+#endif  // HEARTHSTONEPP_BRIEF_TASK_H

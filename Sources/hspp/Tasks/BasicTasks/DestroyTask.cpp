@@ -26,13 +26,10 @@ MetaData DestroyTask::Impl(Player& player1, Player& player2)
     {
         case EntityType::SOURCE:
             return DestroyMinionTask(source).Run(player1, player2);
-
         case EntityType::TARGET:
             return DestroyMinionTask(target).Run(player2, player1);
-
         case EntityType::ENEMY_WEAPON:
             return DestroyWeaponTask().Run(player2, player1);
-
         default:
             return MetaData::INVALID;
     }

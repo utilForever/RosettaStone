@@ -32,7 +32,7 @@ class Requirement
     void Interact(BYTE userID, TaskMeta& meta) const;
 
  private:
-    TaskID m_request;
+    TaskID m_request = TaskID::INVALID;
     TaskAgent& m_agent;
 };
 }  // namespace Hearthstonepp::BasicTasks

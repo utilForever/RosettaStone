@@ -8,14 +8,12 @@
 #include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
 #include <hspp/Tasks/BasicTasks/PlaySpellTask.h>
 
-#include <algorithm>
-
 namespace Hearthstonepp::BasicTasks
 {
 PlaySpellTask::PlaySpellTask(TaskAgent& agent, Entity* entity)
     : m_entity(entity), m_requirement(TaskID::SELECT_TARGET, agent)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID PlaySpellTask::GetTaskID() const
@@ -26,20 +24,21 @@ TaskID PlaySpellTask::GetTaskID() const
 MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
 {
     TaskMeta meta;
-    // Get Position Response from GameInterface
+
+    // Get position response from GameInterface
     m_requirement.Interact(player1.id, meta);
 
     using ResponsePlaySpell = FlatData::ResponsePlaySpell;
     const auto& buffer = meta.GetBuffer();
-    auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
+    const auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
 
     if (req == nullptr)
     {
         return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
     }
 
-    EntityType type = EntityType::_from_integral(req->targetType());
-    BYTE position = req->position();
+    const EntityType type = EntityType::_from_integral(req->targetType());
+    const BYTE position = req->position();
 
     if (type == +EntityType::FIELD)
     {
@@ -56,8 +55,9 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
         }
     }
 
-    BYTE cost = static_cast<BYTE>(m_entity->card->cost);
-    MetaData modified = ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
+    const BYTE cost = static_cast<BYTE>(m_entity->card->cost);
+    const MetaData modified =
+        ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
                             .Run(player1, player2);
 
     // Process PowerTasks

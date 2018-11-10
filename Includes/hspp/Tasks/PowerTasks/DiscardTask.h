@@ -34,7 +34,7 @@ class DiscardTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    EntityType m_entityType;
+    EntityType m_entityType = EntityType::EMPTY;
 };
 }  // namespace Hearthstonepp::PowerTask
 

@@ -10,7 +10,7 @@ namespace Hearthstonepp::BasicTasks
 {
 PlayerSettingTask::PlayerSettingTask(TaskAgent& agent) : m_agent(agent)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID PlayerSettingTask::GetTaskID() const

@@ -35,8 +35,8 @@ class PlayWeaponTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    Entity* m_entity;
+    Entity* m_entity = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_PLAYWEAPON_H
+#endif  // HEARTHSTONEPP_PLAY_WEAPON_TASK_H

@@ -14,7 +14,7 @@ namespace Hearthstonepp::BasicTasks
 PlayCardTask::PlayCardTask(TaskAgent& agent)
     : m_agent(agent), m_requirement(TaskID::SELECT_CARD, agent)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID PlayCardTask::GetTaskID() const
@@ -25,26 +25,28 @@ TaskID PlayCardTask::GetTaskID() const
 MetaData PlayCardTask::Impl(Player& player1, Player& player2)
 {
     TaskMeta serialized;
-    // Get Response from GameInterface
+
+    // Get response from GameInterface
     m_requirement.Interact(player1.id, serialized);
 
     using RequireTaskMeta = FlatData::ResponsePlayCard;
     const auto& buffer = serialized.GetBuffer();
-    auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+    const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
     if (req == nullptr)
     {
         return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
     }
 
-    BYTE cardIndex = req->cardIndex();
+    const BYTE cardIndex = req->cardIndex();
 
-    // Card Hand Index Verification
+    // Verify index of card hand
     if (cardIndex >= player1.hand.size())
     {
         return MetaData::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
-    // Sufficient Mana Verification
+
+    // Verify mana is sufficient
     if (player1.hand[cardIndex]->card->cost > player1.existMana)
     {
         return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
@@ -52,10 +54,10 @@ MetaData PlayCardTask::Impl(Player& player1, Player& player2)
 
     Entity* entity = player1.hand[cardIndex];
 
-    // erase from user's hand
+    // Erase from user's hand
     player1.hand.erase(player1.hand.begin() + cardIndex);
 
-    // Pass to Sub Logics
+    // Pass to sub-logic
     switch (entity->card->cardType)
     {
         case CardType::MINION:

@@ -37,7 +37,7 @@ class DrawTask : public ITask
     MetaData Impl(Player& player1, Player& player2) override;
 
     TaskAgent& m_agent;
-    size_t m_num;
+    size_t m_num = 0;
 };
 
 //!
@@ -50,7 +50,7 @@ class DrawCardTask : public ITask
  public:
     //! Constructs task with given \p card.
     //! \param card A pointer to card to draw from deck.
-    DrawCardTask(Card card);
+    DrawCardTask(Card& card);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -67,4 +67,4 @@ class DrawCardTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_DRAW_H
+#endif  // HEARTHSTONEPP_DRAW_TASK_H

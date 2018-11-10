@@ -35,8 +35,8 @@ class DamageTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    Character* m_character;
-    size_t m_damage;
+    Character* m_character = nullptr;
+    size_t m_damage = 0;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

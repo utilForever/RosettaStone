@@ -11,7 +11,7 @@ namespace Hearthstonepp::BasicTasks
 {
 DrawTask::DrawTask(TaskAgent& agent, size_t num) : m_agent(agent), m_num(num)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID DrawTask::GetTaskID() const
@@ -27,16 +27,17 @@ MetaData DrawTask::Impl(Player& user, Player&)
     std::vector<Entity*>& deck = user.cards;
     std::vector<Entity*>& hand = user.hand;
 
-    // after reaching fatigue
+    // After reaching fatigue
     if (deck.size() < num)
     {
-        size_t numDrawAfterFatigue = num - deck.size();
+        const size_t numDrawAfterFatigue = num - deck.size();
 
-        // sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
-        int fatigueDamage = static_cast<int>(
+        // Sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
+        const auto fatigueDamage = static_cast<int>(
             user.exhausted * numDrawAfterFatigue +
             numDrawAfterFatigue * (numDrawAfterFatigue + 1) / 2);
-        int remainHealth = static_cast<int>(user.hero->health) - fatigueDamage;
+        const int remainHealth =
+            static_cast<int>(user.hero->health) - fatigueDamage;
 
         user.hero->health =
             remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0;
@@ -46,11 +47,11 @@ MetaData DrawTask::Impl(Player& user, Player&)
         result = MetaData::DRAW_EXHAUST;
     }
 
-    // when hand size over 10, over draw
+    // When hand size over 10, over draw
     if (hand.size() + num > 10)
     {
-        // number of over draw
-        size_t over = hand.size() + num - 10;
+        // The number of over draw
+        const size_t over = hand.size() + num - 10;
 
         std::vector<Entity*> burnt;
         burnt.reserve(over);
@@ -73,12 +74,12 @@ MetaData DrawTask::Impl(Player& user, Player&)
             result = MetaData::DRAW_OVERDRAW;
         }
 
-        // Send Burnt Cards to GameInterface
-        TaskMetaTrait trait(TaskID::OVER_DRAW, result, user.id);
+        // Send burnt cards to GameInterface
+        const TaskMetaTrait trait(TaskID::OVER_DRAW, result, user.id);
         m_agent.Notify(Serializer::CreateEntityVector(trait, burnt));
     }
 
-    // successful draw
+    // Draw success
     for (size_t i = 0; i < num; ++i)
     {
         hand.push_back(deck.back());
@@ -88,7 +89,7 @@ MetaData DrawTask::Impl(Player& user, Player&)
     return result;
 }
 
-DrawCardTask::DrawCardTask(Card card) : m_card(card)
+DrawCardTask::DrawCardTask(Card& card) : m_card(card)
 {
     // Do nothing
 }

@@ -7,7 +7,6 @@
 #ifndef HEARTHSTONEPP_PLAYER_SETTING_TASK_H
 #define HEARTHSTONEPP_PLAYER_SETTING_TASK_H
 
-#include <hspp/Tasks/Requirement.h>
 #include <hspp/Tasks/TaskAgent.h>
 #include <hspp/Tasks/Tasks.h>
 
@@ -40,4 +39,4 @@ class PlayerSettingTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_PLAYERSETTING_H
+#endif  // HEARTHSTONEPP_PLAYER_SETTING_TASK_H

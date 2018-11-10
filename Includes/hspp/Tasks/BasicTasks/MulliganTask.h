@@ -41,4 +41,4 @@ class MulliganTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_MULLIGAN_H
+#endif  // HEARTHSTONEPP_MULLIGAN_TASK_H

@@ -33,11 +33,11 @@ class InitAttackCountTask : public ITask
 
     //! Processes attack count initialization logic of my field.
     //! \param my The player.
-    void ProcessMyField(Player& my);
+    static void ProcessMyField(Player& my);
 
     //! Processes attack count initialization logic of enemy field.
     //! \param opponent The opponent player.
-    void ProcessEnemyField(Player& opponent);
+    static void ProcessEnemyField(Player& opponent);
 };
 
 }  // namespace Hearthstonepp::BasicTasks

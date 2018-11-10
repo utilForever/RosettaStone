@@ -16,7 +16,7 @@ namespace Hearthstonepp::BasicTasks
 MulliganTask::MulliganTask(TaskAgent& agent)
     : m_agent(agent), m_requirement(Requirement(TaskID::MULLIGAN, agent))
 {
-    // Do  Nothing
+    // Do nothing
 }
 
 TaskID MulliganTask::GetTaskID() const
@@ -26,13 +26,14 @@ TaskID MulliganTask::GetTaskID() const
 
 MetaData MulliganTask::Impl(Player& player1, Player& player2)
 {
-    // Get Mulligan Input from Interface
     TaskMeta serialized;
+
+    // Get mulligan input from Interface
     m_requirement.Interact(player1.id, serialized);
 
     using RequireTaskMeta = FlatData::ResponseMulligan;
     const auto& buffer = serialized.GetBuffer();
-    auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+    const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
     if (req == nullptr)
     {
@@ -40,7 +41,7 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
     }
 
     const BYTE* data = req->mulligan()->data();
-    size_t read = req->mulligan()->size();
+    const size_t read = req->mulligan()->size();
 
     // Copy data from input
     BYTE index[NUM_DRAW_CARDS_AT_START] = {
@@ -56,13 +57,14 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
 
     // Sort decreasing order
     std::sort(index, index + read, [](BYTE a, BYTE b) { return a > b; });
-    // Range verification
+
+    // Verify range
     if (index[0] >= NUM_DRAW_CARDS_AT_START)
     {
         return MetaData::MULLIGAN_INDEX_OUT_OF_RANGE;
     }
 
-    // Duplicated Element Verification
+    // Verify duplicated element
     for (size_t i = 1; i < read; ++i)
     {
         if (index[i] == index[i - 1])
@@ -74,15 +76,15 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
     std::vector<Entity*>& deck = player1.cards;
     std::vector<Entity*>& hand = player1.hand;
 
-    // Rollback to Deck
+    // Rollback to deck
     for (size_t i = 0; i < read; ++i)
     {
         deck.emplace_back(hand[index[i]]);
         hand.erase(hand.begin() + index[i]);
     }
 
-    MetaData statusShuffle = ShuffleTask().Run(player1, player2);
-    MetaData statusDraw = DrawTask(m_agent, read).Run(player1, player2);
+    const MetaData statusShuffle = ShuffleTask().Run(player1, player2);
+    const MetaData statusDraw = DrawTask(m_agent, read).Run(player1, player2);
 
     if (statusShuffle == MetaData::SHUFFLE_SUCCESS &&
         statusDraw == MetaData::DRAW_SUCCESS)

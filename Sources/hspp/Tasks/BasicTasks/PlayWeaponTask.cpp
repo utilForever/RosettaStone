@@ -6,8 +6,6 @@
 
 #include <hspp/Tasks/BasicTasks/PlayWeaponTask.h>
 
-#include <algorithm>
-
 namespace Hearthstonepp::BasicTasks
 {
 PlayWeaponTask::PlayWeaponTask(Entity* entity) : m_entity(entity)

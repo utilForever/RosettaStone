@@ -32,4 +32,4 @@ class SwapPlayerTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_SWAPPLAYER_H
+#endif  // HEARTHSTONEPP_SWAP_PLAYER_TASK_H

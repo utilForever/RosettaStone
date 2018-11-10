@@ -24,15 +24,17 @@ MetaData DiscardTask::Impl(Player& player1, Player&)
 {
     if (m_entityType == +EntityType::HAND)
     {
-        if (player1.hand.size() <= 0)
+        if (player1.hand.empty())
         {
             return MetaData::DISCARD_MY_HAND_SUCCESS;
         }
 
         std::random_device rd;
+        // ReSharper disable once CppLocalVariableMayBeConst
+        // NOTE: 'const' occurs compile error on Linux and macOS
         std::uniform_int_distribution<size_t> dist(0, player1.hand.size() - 1);
 
-        size_t discardIdx = dist(rd);
+        const size_t discardIdx = dist(rd);
 
         // Card Hand Index Verification
         if (discardIdx >= player1.hand.size())

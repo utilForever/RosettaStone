@@ -34,9 +34,9 @@ class HealTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player&) override;
 
-    EntityType m_entityType;
-    int m_amount;
+    EntityType m_entityType = EntityType::EMPTY;
+    int m_amount = 0;
 };
 }  // namespace Hearthstonepp::PowerTask
 
-#endif  // HEARTHSTONEPP_HEALTASK_H
+#endif  // HEARTHSTONEPP_HEAL_TASK_H

@@ -28,7 +28,8 @@ MetaData DamageTask::Impl(Player&, Player&)
 
     const int remainHealth =
         static_cast<int>(m_character->health) - static_cast<int>(m_damage);
-    m_character->health = remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0u;
+    m_character->health =
+        remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0u;
 
     return MetaData::MODIFY_HEALTH_SUCCESS;
 }

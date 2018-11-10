@@ -35,7 +35,7 @@ class DestroyMinionTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    Character* m_character;
+    Character* m_character = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

@@ -32,4 +32,4 @@ class GameEndTask : public ITask
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_GAMEEND_H
+#endif  // HEARTHSTONEPP_GAME_END_TASK_H

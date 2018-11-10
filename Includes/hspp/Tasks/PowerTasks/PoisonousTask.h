@@ -34,7 +34,7 @@ class PoisonousTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    Character* m_target;
+    Character* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::PowerTask
 
