@@ -23,14 +23,14 @@ class Powers
 {
  public:
     //! Deleted copy constructor.
-    Powers(const Powers& other) = delete;
+    Powers(const Powers& powers) = delete;
 
-    //! Destructor.
-    ~Powers();
+    //! Deleted copy assignment operator.
+    Powers& operator=(const Powers& powers) = delete;
 
     //! Returns a pointer to instance of Powers class.
     //! \return A pointer to instance of Powers class.
-    static Powers* GetInstance();
+    static Powers& GetInstance();
 
     //! Returns a pointer to card that matches \p cardID.
     //! \param cardID The ID of the card.
@@ -38,13 +38,14 @@ class Powers
     Power* FindPowerByCardID(std::string cardID) const;
 
  private:
-    //! Constructor that loads power data.
+    //! Constructor: Loads power data.
     Powers();
 
-    static Powers* m_instance;
+    //! Destructor: Releases power data.
+    ~Powers();
 
     std::map<std::string, Power*> m_powers;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_POWERS_H
