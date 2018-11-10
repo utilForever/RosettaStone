@@ -27,7 +27,9 @@ std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
-    const std::uniform_int_distribution<int> data(0, 255);
+    // ReSharper disable once CppLocalVariableMayBeConst
+    // NOTE: 'const' occurs compile error on Linux and macOS
+    std::uniform_int_distribution<int> data(0, 255);
 
     const size_t size = gen() % maximumSize;
     ptr = std::make_unique<BYTE[]>(size);
