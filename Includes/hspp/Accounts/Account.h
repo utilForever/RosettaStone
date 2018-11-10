@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_PLAYER_H
-#define HEARTHSTONEPP_PLAYER_H
+#ifndef HEARTHSTONEPP_ACCOUNT_H
+#define HEARTHSTONEPP_ACCOUNT_H
 
 #include <hspp/Cards/Deck.h>
 
@@ -76,4 +76,4 @@ class Account
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_ACCOUNT_H

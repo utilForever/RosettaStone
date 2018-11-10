@@ -7,6 +7,7 @@
 #include <hspp/Accounts/Account.h>
 
 #include <iostream>
+#include <utility>
 
 namespace Hearthstonepp
 {
@@ -23,7 +24,9 @@ Account::Account(std::string&& email, std::string&& nickname)
 
 Account::Account(std::string&& email, std::string&& nickname,
                  std::vector<Deck*> decks)
-    : m_email(std::move(email)), m_nickname(std::move(nickname)), m_decks(decks)
+    : m_email(std::move(email)),
+      m_nickname(std::move(nickname)),
+      m_decks(std::move(decks))
 {
     // Do nothing
 }

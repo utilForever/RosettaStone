@@ -31,11 +31,17 @@ class Weapon : public Entity
     //! Default destructor.
     virtual ~Weapon() = default;
 
-    //! Copy constructor.
-    Weapon(const Weapon& weapon);
+    //! Default copy constructor.
+    Weapon(const Weapon& weapon) = default;
 
-    //! Copy assignment operator.
-    Weapon& operator=(const Weapon& weapon);
+    //! Default move constructor.
+    Weapon(Weapon&& weapon) = default;
+
+    //! Default copy assignment operator.
+    Weapon& operator=(const Weapon& weapon) = default;
+
+    //! Default move assignment operator.
+    Weapon& operator=(Weapon&& weapon) = default;
 
     //! Clones member variables.
     Weapon* Clone() const override;
@@ -62,4 +68,4 @@ class Weapon : public Entity
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_WEAPON_H

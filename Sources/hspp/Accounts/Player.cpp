@@ -99,6 +99,11 @@ Player& Player::operator=(Player&& p) noexcept
     return *this;
 }
 
+bool Player::operator==(const Player& player) const
+{
+    return email == player.email;
+}
+
 void Player::FreeMemory()
 {
     for (auto& card : cards)

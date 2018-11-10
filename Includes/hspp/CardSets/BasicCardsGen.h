@@ -116,4 +116,4 @@ class BasicCardsGen
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_BASIC_CARDS_GEN_H

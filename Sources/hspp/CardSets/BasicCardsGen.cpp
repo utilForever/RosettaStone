@@ -68,9 +68,9 @@ void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::HERO, 6));
-    cards.emplace("CS2_088", p);
+    auto power = new Power;
+    power->powerTask.emplace_back(new PowerTask::HealTask(EntityType::HERO, 6));
+    cards.emplace("CS2_088", power);
 }
 
 void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
@@ -88,11 +88,11 @@ void BasicCardsGen::AddPriest(std::map<std::string, Power*>& cards)
     // Text: Deal $2 damage to all enemies.
     //       Restore #2 Health to all friendly characters.
     // --------------------------------------------------------
-    //Power* p = new Power;
-    //p->powerTask.emplace_back(
+    // Power* p = new Power;
+    // p->powerTask.emplace_back(
     //    new PowerTask::DamageTask(EntityType::ENEMIES, 2));
-    //p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::FRIENDS, 2));
-    //cards.emplace("CS1_112", p);
+    // p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::FRIENDS,
+    // 2)); cards.emplace("CS1_112", p);
 }
 
 void BasicCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
@@ -127,11 +127,12 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // Tag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::HealFullTask(EntityType::TARGET));
-    p->powerTask.emplace_back(
+    auto power = new Power;
+    power->powerTask.emplace_back(
+        new PowerTask::HealFullTask(EntityType::TARGET));
+    power->powerTask.emplace_back(
         new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
-    cards.emplace("CS2_041", p);
+    cards.emplace("CS2_041", power);
 }
 
 void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
@@ -145,9 +146,9 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->enchant = new Enchant(Effects::Taunt);
-    cards.emplace("CS2_041e", p);
+    auto power = new Power;
+    power->enchant = new Enchant(Effects::Taunt);
+    cards.emplace("CS2_041e", power);
 }
 
 void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
@@ -161,9 +162,9 @@ void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::DiscardTask(EntityType::HAND));
-    cards.emplace("EX1_306", p);
+    auto power = new Power;
+    power->powerTask.emplace_back(new PowerTask::DiscardTask(EntityType::HAND));
+    cards.emplace("EX1_306", power);
 }
 
 void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
@@ -192,10 +193,10 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(
+    auto power = new Power;
+    power->powerTask.emplace_back(
         new BasicTasks::DestroyTask(EntityType::ENEMY_WEAPON));
-    cards.emplace("EX1_066", p);
+    cards.emplace("EX1_066", power);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)

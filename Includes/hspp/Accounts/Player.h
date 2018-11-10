@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_AGENT_STRUCTURES_H
-#define HEARTHSTONEPP_AGENT_STRUCTURES_H
+#ifndef HEARTHSTONEPP_PLAYER_H
+#define HEARTHSTONEPP_PLAYER_H
 
 #include <hspp/Accounts/Account.h>
 #include <hspp/Cards/Entity.h>
@@ -51,10 +51,7 @@ class Player
     Player& operator=(Player&& p) noexcept;
 
     //! Operator overloading: The equality operator.
-    bool operator==(const Player& player) const
-    {
-        return this->email == player.email;
-    }
+    bool operator==(const Player& player) const;
 
     Hero* hero = nullptr;
     HeroPower* power = nullptr;
@@ -89,4 +86,4 @@ class Player
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_PLAYER_H

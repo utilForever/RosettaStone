@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <hspp/Cards/Weapon.h>
-#include <hspp/Commons/Macros.h>
 
 namespace Hearthstonepp
 {
@@ -18,25 +17,6 @@ Weapon::Weapon(Card& card) : Entity(card)
     m_attack = card.attack.value_or(0);
     m_durability = card.durability.value_or(0);
 #endif
-}
-
-Weapon::Weapon(const Weapon& weapon) : Entity(weapon)
-{
-    m_attack = weapon.m_attack;
-    m_durability = weapon.m_durability;
-}
-
-Weapon& Weapon::operator=(const Weapon& weapon)
-{
-    if (this == &weapon)
-    {
-        return *this;
-    }
-
-    m_attack = weapon.m_attack;
-    m_durability = weapon.m_durability;
-
-    return *this;
 }
 
 size_t Weapon::GetAttack() const
