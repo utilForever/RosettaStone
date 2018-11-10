@@ -25,11 +25,17 @@ class Powers
     //! Deleted copy constructor.
     Powers(const Powers& powers) = delete;
 
+    //! Deleted move constructor.
+    Powers(Powers&& powers) = delete;
+
     //! Deleted copy assignment operator.
     Powers& operator=(const Powers& powers) = delete;
 
-    //! Returns a pointer to instance of Powers class.
-    //! \return A pointer to instance of Powers class.
+    //! Deleted move assignment operator.
+    Powers& operator=(Powers&& powers) = delete;
+
+    //! Returns a reference to instance of Powers class.
+    //! \return A reference to instance of Powers class.
     static Powers& GetInstance();
 
     //! Returns a pointer to card that matches \p cardID.

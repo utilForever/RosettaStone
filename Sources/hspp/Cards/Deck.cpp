@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Deck.h>
 
 #include <algorithm>
@@ -11,13 +12,13 @@
 
 namespace Hearthstonepp
 {
-Deck::Deck() : m_name("Empty"), m_class(CardClass::INVALID), m_numOfCards(0)
+Deck::Deck() : m_name("Empty")
 {
     // Do nothing
 }
 
 Deck::Deck(std::string name, const CardClass deckClass)
-    : m_name(std::move(name)), m_class(deckClass), m_numOfCards(0)
+    : m_name(std::move(name)), m_class(deckClass)
 {
     // Do nothing
 }
@@ -44,7 +45,7 @@ size_t Deck::GetUniqueNumOfCards() const
 
 unsigned int Deck::GetNumCardInDeck(std::string cardID)
 {
-    auto isCardExistInDeck =
+    const auto isCardExistInDeck =
         std::find_if(m_cards.begin(), m_cards.end(),
                      [&cardID](const std::pair<std::string, int>& elem) {
                          return elem.first == cardID;
@@ -103,14 +104,14 @@ void Deck::ShowCardList() const
 bool Deck::AddCard(std::string cardID, int numCardToAdd)
 {
     Card card = Cards::GetInstance()->FindCardByID(cardID);
-    CardClass cardClass = card.cardClass;
+    const CardClass cardClass = card.cardClass;
     if ((cardClass != GetClass() && cardClass != +CardClass::NEUTRAL) ||
         card.GetMaxAllowedInDeck() < static_cast<size_t>(numCardToAdd))
     {
         return false;
     }
 
-    auto isCardExistInDeck =
+    const auto isCardExistInDeck =
         std::find_if(m_cards.begin(), m_cards.end(),
                      [&cardID](const std::pair<std::string, int>& elem) {
                          return elem.first == cardID;
@@ -136,7 +137,7 @@ bool Deck::AddCard(std::string cardID, int numCardToAdd)
 
 bool Deck::DeleteCard(std::string cardID, const int numCardToDelete)
 {
-    auto isCardExistInDeck =
+    const auto isCardExistInDeck =
         std::find_if(m_cards.begin(), m_cards.end(),
                      [&cardID](const std::pair<std::string, int>& elem) {
                          return elem.first == cardID;

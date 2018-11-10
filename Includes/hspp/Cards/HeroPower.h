@@ -12,25 +12,38 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief HeroPower structure.
+//! \brief HeroPower class.
 //!
-//! This structure inherits from Entity structure.
+//! This class inherits from Entity structure.
 //!
-struct HeroPower : public Entity
+class HeroPower : public Entity
 {
+ public:
+    //! Default constructor.
+    HeroPower() = default;
+
     //! Constructs hero power with given \p card.
     //! \param card A reference to the card.
     HeroPower(Card& card);
 
-    //! Copy constructor.
-    HeroPower(const HeroPower& power);
+    //! Default destructor.
+    ~HeroPower() = default;
 
-    //! Copy assignment operator.
-    HeroPower& operator=(const HeroPower& power);
+    //! Default copy constructor.
+    HeroPower(const HeroPower& power) = default;
+
+    //! Default move constructor.
+    HeroPower(HeroPower&& power) = default;
+
+    //! Default copy assignment operator.
+    HeroPower& operator=(const HeroPower& power) = default;
+
+    //! Default move assignment operator.
+    HeroPower& operator=(HeroPower&& power) = default;
 
     //! Clones member variables.
     HeroPower* Clone() const override;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_HERO_POWER_H

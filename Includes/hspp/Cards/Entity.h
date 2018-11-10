@@ -13,7 +13,7 @@
 
 namespace Hearthstonepp
 {
-struct Card;
+class Card;
 class GameTag;
 
 //!
@@ -39,8 +39,14 @@ class Entity
     //! Copy constructor.
     Entity(const Entity& ent);
 
+    //! Move constructor.
+    Entity(Entity&& ent) noexcept;
+
     //! Copy assignment operator.
     Entity& operator=(const Entity& ent);
+
+    //! Move assignment operator.
+    Entity& operator=(Entity&& ent) noexcept;
 
     //! Clones member variables.
     virtual Entity* Clone() const;
@@ -66,4 +72,4 @@ class Entity
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_ENTITY_H

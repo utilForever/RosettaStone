@@ -24,12 +24,35 @@ Entity::Entity(const Entity& ent)
     m_gameTags = ent.m_gameTags;
 }
 
+Entity::Entity(Entity&& ent) noexcept
+{
+    FreeMemory();
+
+    card = ent.card;
+    m_gameTags = ent.m_gameTags;
+}
+
 Entity::~Entity()
 {
     FreeMemory();
 }
 
 Entity& Entity::operator=(const Entity& ent)
+{
+    if (this == &ent)
+    {
+        return *this;
+    }
+
+    FreeMemory();
+
+    card = ent.card;
+    m_gameTags = ent.m_gameTags;
+
+    return *this;
+}
+
+Entity& Entity::operator=(Entity&& ent) noexcept
 {
     if (this == &ent)
     {

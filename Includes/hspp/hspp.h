@@ -14,7 +14,6 @@
 #include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Character.h>
 #include <hspp/Cards/Deck.h>
-#include <hspp/Cards/Enchantment.h>
 #include <hspp/Cards/Entity.h>
 #include <hspp/Cards/Hero.h>
 #include <hspp/Cards/HeroPower.h>

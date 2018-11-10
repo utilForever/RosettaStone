@@ -8,7 +8,6 @@
 #define HEARTHSTONEPP_DECK_H
 
 #include <hspp/Cards/Card.h>
-#include <hspp/Cards/Cards.h>
 #include <hspp/Enums/CardEnums.h>
 
 #include <string>
@@ -20,7 +19,7 @@ namespace Hearthstonepp
 //!
 //! This class stores a deck. A deck is a collection of exactly 30 cards
 //! assembled before a match, as well as the zone which players draw cards from
-//! (and sometimes add cards to) during gameplay. Each deck is tied to a
+//! (and sometimes add cards to) during game play. Each deck is tied to a
 //! specific class.
 //!
 class Deck
@@ -32,7 +31,7 @@ class Deck
     //! Constructs deck with given \p name and \p deckClass.
     //! \param name The name of deck.
     //! \param deckClass The class of deck.
-    Deck(std::string name, const CardClass deckClass);
+    Deck(std::string name, CardClass deckClass);
 
     //! Returns the name of deck.
     //! \return The name of deck.
@@ -79,15 +78,15 @@ class Deck
     //! \param numCardToDelete The number of card to delete from deck.
     //! \return true if card(s) is deleted from deck successfully, and false
     //! otherwise.
-    bool DeleteCard(std::string cardID, const int numCardToDelete);
+    bool DeleteCard(std::string cardID, int numCardToDelete);
 
  private:
     std::string m_name;
-    CardClass m_class;
+    CardClass m_class = CardClass::INVALID;
 
-    unsigned int m_numOfCards;
+    unsigned int m_numOfCards = 0;
     std::vector<std::pair<std::string, int>> m_cards;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_DECK_H

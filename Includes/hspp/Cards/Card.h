@@ -7,7 +7,6 @@
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
-#include <hspp/Commons/Macros.h>
 #include <hspp/Enchants/Power.h>
 #include <hspp/Enums/CardEnums.h>
 
@@ -25,17 +24,30 @@ namespace Hearthstonepp
 class Power;
 
 //!
-//! \brief Card structure.
+//! \brief Card class.
 //!
-//! This structure stores card information such as attack, health and cost.
+//! This class stores card information such as attack, health and cost.
 //!
-struct Card
+class Card
 {
+ public:
     //! Default constructor.
     Card() = default;
 
     //! Default destructor.
     virtual ~Card() = default;
+
+    //! Default copy constructor.
+    Card(const Card& card) = default;
+
+    //! Default move constructor.
+    Card(Card&& card) = default;
+
+    //! Default copy assignment operator.
+    Card& operator=(const Card& card) = default;
+
+    //! Default move assignment operator.
+    Card& operator=(Card&& card) = default;
 
     //! Initializes card data.
     void Initialize();
@@ -77,17 +89,17 @@ struct Card
     std::experimental::optional<size_t> spellDamage;
     std::experimental::optional<size_t> durability;
 #endif
-    size_t cost;
+    size_t cost = 0;
 
     std::vector<GameTag> mechanics;
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
-    Power* power;
+    Power* power = nullptr;
 
-    unsigned int maxAllowedInDeck;
-    bool isCollectible;
+    unsigned int maxAllowedInDeck = 0;
+    bool isCollectible = false;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_CARD_H

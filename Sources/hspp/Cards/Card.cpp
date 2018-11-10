@@ -18,13 +18,8 @@ void Card::Initialize()
 
 bool Card::HasMechanic(GameTag mechanic) const
 {
-    if (std::find(mechanics.begin(), mechanics.end(), mechanic) !=
-        mechanics.end())
-    {
-        return true;
-    }
-
-    return false;
+    return std::find(mechanics.begin(), mechanics.end(), mechanic) !=
+           mechanics.end();
 }
 
 unsigned int Card::GetMaxAllowedInDeck() const

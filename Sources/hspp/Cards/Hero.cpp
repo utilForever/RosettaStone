@@ -13,17 +13,49 @@ Hero::Hero(Card& card) : Character(card)
     // Do nothing
 }
 
+Hero::~Hero()
+{
+    delete weapon;
+}
+
 Hero::Hero(const Hero& hero) : Character(hero)
 {
     delete weapon;
 
     if (hero.weapon != nullptr)
     {
-        weapon = hero.weapon->Clone();        
+        weapon = hero.weapon->Clone();
+    }
+}
+
+Hero::Hero(Hero&& hero) noexcept : Character(hero)
+{
+    delete weapon;
+
+    if (hero.weapon != nullptr)
+    {
+        weapon = hero.weapon->Clone();
     }
 }
 
 Hero& Hero::operator=(const Hero& hero)
+{
+    if (this == &hero)
+    {
+        return *this;
+    }
+
+    delete weapon;
+
+    if (hero.weapon != nullptr)
+    {
+        weapon = hero.weapon->Clone();
+    }
+
+    return *this;
+}
+
+Hero& Hero::operator=(Hero&& hero) noexcept
 {
     if (this == &hero)
     {

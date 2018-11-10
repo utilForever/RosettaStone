@@ -13,22 +13,35 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Hero structure.
+//! \brief Hero class.
 //!
-//! This structure inherits from Character structure.
+//! This class inherits from Character structure.
 //! Also, it stores weapon that can attack to enemy.
 //!
-struct Hero : public Character
+class Hero : public Character
 {
+ public:
+    //! Default constructor.
+    Hero() = default;
+
     //! Constructs hero with given \p card.
     //! \param card A reference to the card.
     Hero(Card& card);
 
+    //! Default destructor.
+    ~Hero();
+
     //! Copy constructor.
     Hero(const Hero& hero);
 
+    //! Move constructor.
+    Hero(Hero&& hero) noexcept;
+
     //! Copy assignment operator.
     Hero& operator=(const Hero& hero);
+
+    //! Move assignment operator.
+    Hero& operator=(Hero&& hero) noexcept;
 
     //! Clones member variables.
     Hero* Clone() const override;
@@ -41,4 +54,4 @@ struct Hero : public Character
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_HERO_H

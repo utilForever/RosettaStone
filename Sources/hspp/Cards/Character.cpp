@@ -26,29 +26,6 @@ Character::Character(Card& card) : Entity(card)
     }
 }
 
-Character::Character(const Character& c) : Entity(c)
-{
-    m_attack = c.m_attack;
-    attackableCount = c.attackableCount;
-    health = c.health;
-    maxHealth = c.maxHealth;
-}
-
-Character& Character::operator=(const Character& c)
-{
-    if (this == &c)
-    {
-        return *this;
-    }
-
-    m_attack = c.m_attack;
-    attackableCount = c.attackableCount;
-    health = c.health;
-    maxHealth = c.maxHealth;
-
-    return *this;
-}
-
 Character* Character::Clone() const
 {
     return new Character(*this);
@@ -97,15 +74,11 @@ bool Character::IsValidAttackTarget(Player& opponent, Character* target) const
     }
 
     const Hero* hero = dynamic_cast<Hero*>(target);
-    if (hero != nullptr && hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1)
-    {
-        return false;
-    }
-
-    return true;
+    return (hero == nullptr) ||
+           (hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
 }
 
-std::vector<Character*> Character::GetValidAttackTargets(Player& opponent) const
+std::vector<Character*> Character::GetValidAttackTargets(Player& opponent)
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;

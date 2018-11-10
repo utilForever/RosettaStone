@@ -32,11 +32,17 @@ class Character : public Entity
     //! Default destructor.
     virtual ~Character() = default;
 
-    //! Copy constructor.
-    Character(const Character& c);
+    //! Default copy constructor.
+    Character(const Character& c) = default;
 
-    //! Copy assignment operator.
-    Character& operator=(const Character& c);
+    //! Default move constructor.
+    Character(Character&& c) = default;
+
+    //! Default copy assignment operator.
+    Character& operator=(const Character& c) = default;
+
+    //! Default move assignment operator.
+    Character& operator=(Character&& c) = default;
 
     //! Clones member variables.
     Character* Clone() const override;
@@ -62,7 +68,7 @@ class Character : public Entity
     //! Returns a list of valid target.
     //! \param opponent The opponent player.
     //! \return A list of pointer to valid target.
-    std::vector<Character*> GetValidAttackTargets(Player& opponent) const;
+    static std::vector<Character*> GetValidAttackTargets(Player& opponent);
 
     //! Takes damage from \p source with \p damage value.
     //! \param source The character to give damage.
@@ -80,4 +86,4 @@ class Character : public Entity
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_CHARACTER_H

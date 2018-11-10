@@ -12,12 +12,13 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Minion structure.
+//! \brief Minion class.
 //!
-//! This structure inherits from Character structure.
+//! This class inherits from Character structure.
 //!
-struct Minion : public Character
+class Minion : public Character
 {
+ public:
     //! Default constructor.
     Minion() = default;
 
@@ -27,6 +28,18 @@ struct Minion : public Character
 
     //! Default destructor.
     virtual ~Minion() = default;
+
+    //! Default copy constructor.
+    Minion(const Minion& minion) = default;
+
+    //! Default move constructor.
+    Minion(Minion&& minion) = default;
+
+    //! Default copy assignment operator.
+    Minion& operator=(const Minion& minion) = default;
+
+    //! Default move assignment operator.
+    Minion& operator=(Minion&& minion) = default;
 
     //! Sets game tag to the card.
     //! \param tag The game tag to indicate ability or condition.
@@ -38,4 +51,4 @@ struct Minion : public Character
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_MINION_H
