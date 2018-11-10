@@ -17,7 +17,7 @@ using namespace Hearthstonepp;
 TestTask::TestTask(TaskID id, std::function<MetaData(Player&, Player&)>&& impl)
     : m_id(id), m_impl(std::move(impl))
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID TestTask::GetTaskID() const

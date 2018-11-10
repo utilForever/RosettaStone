@@ -19,7 +19,7 @@ PlayerGenerator::PlayerGenerator(CardClass class1, CardClass class2)
       player1(&account1, &deck1),
       player2(&account2, &deck2)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
@@ -54,7 +54,7 @@ TaskMetaTrait GenerateRandomTrait()
     const auto metaData = static_cast<MetaData>(gen() % sizeMetaData);
     const BYTE userID = gen() % 2;
 
-    TaskMetaTrait randomTrait(taskID, metaData, userID);
+    const TaskMetaTrait randomTrait(taskID, metaData, userID);
     return randomTrait;
 }
 

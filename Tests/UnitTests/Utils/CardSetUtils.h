@@ -20,4 +20,4 @@
 
 #include <future>
 
-#endif // HEARTHSTONEPP_CARD_SET_UTILS_H
+#endif  // HEARTHSTONEPP_CARD_SET_UTILS_H

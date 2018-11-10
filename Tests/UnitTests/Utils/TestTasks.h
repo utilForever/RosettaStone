@@ -30,4 +30,4 @@ class TestTask : public ITask
     MetaData Impl(Player& player1, Player& player2) override;
 };
 
-#endif  // UNITTEST_TEST_TASKS_H
+#endif  // UNIT_TESTS_TEST_TASKS_H

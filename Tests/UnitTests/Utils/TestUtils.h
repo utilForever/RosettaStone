@@ -52,4 +52,4 @@ void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
 void ExpectCardEqual(const Card& card1, const Card& card2);
 }  // namespace TestUtils
 
-#endif  // UNITTEST_TESTUTILS_H
+#endif  // UNIT_TESTS_TEST_UTILS_H

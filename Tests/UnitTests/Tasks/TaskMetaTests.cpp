@@ -97,8 +97,7 @@ TEST(TaskMeta, Constructors)
     meta = std::move(moved);
     EXPECT_EQ(trait, meta);
     EXPECT_EQ(meta.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(meta.GetBuffer(), task.GetBuffer(),
-                                 size);
+    TestUtils::ExpectBufferEqual(meta.GetBuffer(), task.GetBuffer(), size);
 }
 
 TEST(TaskMeta, UniquePtr)

@@ -167,7 +167,8 @@ TEST(TaskSerializer, CreateTaskMetaVector)
     EXPECT_EQ(generated.status, random.status);
     EXPECT_EQ(generated.userID, random.userID);
 
-    const auto taskVector = TaskMeta::ConvertTo<FlatData::TaskMetaVector>(generated);
+    const auto taskVector =
+        TaskMeta::ConvertTo<FlatData::TaskMetaVector>(generated);
     auto vector = taskVector->vector();
     EXPECT_EQ(vector->Length(), testSize);
 
@@ -196,7 +197,7 @@ TEST(TaskSerializer, CreateRequireTaskMeta)
 
 TEST(TaskSerializer, CreateResponseMulligan)
 {
-    BYTE mulligan[] = {1, 2, 3};
+    BYTE mulligan[] = { 1, 2, 3 };
     TaskMeta resp = Serializer::CreateResponseMulligan(mulligan, 3);
 
     auto data = TaskMeta::ConvertTo<FlatData::ResponseMulligan>(resp);

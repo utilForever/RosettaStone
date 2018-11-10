@@ -54,8 +54,7 @@ TEST(DrawTask, Run)
 
     for (size_t i = 0; i < 3; ++i)
     {
-        EXPECT_EQ(p1.hand[i]->card->id,
-                  id + static_cast<char>(2 - i + 0x30));
+        EXPECT_EQ(p1.hand[i]->card->id, id + static_cast<char>(2 - i + 0x30));
     }
 }
 

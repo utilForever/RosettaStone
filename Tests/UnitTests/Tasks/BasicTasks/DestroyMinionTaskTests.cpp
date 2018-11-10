@@ -30,7 +30,7 @@ TEST(DestroyMinionTask, Run)
     const std::string name = "test";
     for (size_t i = 0; i < 5; ++i)
     {
-        const char id = static_cast<char>(i + 0x30);
+        const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(TestUtils::GenerateMinionCard(name + id, 1, 1));
         player1.field.emplace_back(new Minion(cards[i]));
     }

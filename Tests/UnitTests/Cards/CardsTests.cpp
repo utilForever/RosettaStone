@@ -192,7 +192,7 @@ TEST(TestCards, FindCardByMechanics)
 {
     Cards* cards = Cards::GetInstance();
     std::vector<GameTag> tags1;
-    std::vector<GameTag> tags2;
+    const std::vector<GameTag> tags2;
 
     tags1.emplace_back(GameTag::CANT_ATTACK);
     std::vector<Card> cards1 = cards->FindCardByMechanics(tags1);

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef UNIT_TESTS_RESPONSE_UTILS
-#define UNIT_TESTS_RESPONSE_UTILS
+#ifndef UNIT_TESTS_RESPONSE_UTILS_H
+#define UNIT_TESTS_RESPONSE_UTILS_H
 
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/TaskMeta.h>
@@ -16,7 +16,7 @@ using namespace Hearthstonepp;
 
 namespace TestUtils
 {
-// AutoResponder for GameAgent
+// Auto responder for GameAgent
 // Response stated data to RequireTasks of GameAgent asynchronously
 class AutoResponder
 {
@@ -41,4 +41,4 @@ class AutoResponder
 };
 }  // namespace TestUtils
 
-#endif
+#endif  // UNIT_TESTS_RESPONSE_UTILS_H
