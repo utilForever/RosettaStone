@@ -8,7 +8,8 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-ModifyManaTask::ModifyManaTask(NumMode numMode, ManaMode manaMode, BYTE num)
+ModifyManaTask::ModifyManaTask(ManaOperator numMode, ManaType manaMode,
+                               BYTE num)
     : m_numMode(numMode), m_manaMode(manaMode), m_num(num)
 {
     // Do Nothing
@@ -21,13 +22,13 @@ TaskID ModifyManaTask::GetTaskID() const
 
 MetaData ModifyManaTask::Impl(Player& player1, Player&)
 {
-    const auto getMana = [](Player& user, ManaMode mode) -> BYTE& {
-        if (mode == ManaMode::EXIST)
+    const auto getMana = [](Player& user, ManaType mode) -> BYTE& {
+        if (mode == ManaType::EXIST)
         {
             return user.existMana;
         }
 
-        if (mode == ManaMode::TOTAL)
+        if (mode == ManaType::TOTAL)
         {
             return user.totalMana;
         }
@@ -38,13 +39,13 @@ MetaData ModifyManaTask::Impl(Player& player1, Player&)
     BYTE& mana = getMana(player1, m_manaMode);
     switch (m_numMode)
     {
-        case NumMode::ADD:
+        case ManaOperator::ADD:
             mana += m_num;
             break;
-        case NumMode::SUB:
+        case ManaOperator::SUB:
             mana = (mana <= m_num) ? 0 : (mana - m_num);
             break;
-        case NumMode::SET:
+        case ManaOperator::SET:
             mana = m_num;
             break;
     }

@@ -134,8 +134,8 @@ void GameAgent::PrepareMainPhase()
     TaskMeta meta;
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::DrawTask(m_taskAgent, 1),
-        BasicTasks::ModifyManaTask(NumMode::ADD, ManaMode::TOTAL, 1),
-        BasicTasks::ModifyManaTask(NumMode::SET, ManaMode::EXIST,
+        BasicTasks::ModifyManaTask(ManaOperator::ADD, ManaType::TOTAL, 1),
+        BasicTasks::ModifyManaTask(ManaOperator::SET, ManaType::EXIST,
                                    m_player1.totalMana + 1),
         BasicTasks::InitAttackCountTask());
 }

@@ -62,7 +62,7 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
 
     const auto cost = static_cast<BYTE>(m_entity->card->cost);
     const MetaData modified =
-        ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
+        ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost)
             .Run(player1, player2);
 
     // Process PowerTasks

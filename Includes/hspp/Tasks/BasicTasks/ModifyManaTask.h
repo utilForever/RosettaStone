@@ -11,18 +11,16 @@
 
 namespace Hearthstonepp
 {
-//! Num mode to change mana.
-// TODO: We'll refactor later.
-enum class NumMode
+//! The operator to change mana.
+enum class ManaOperator
 {
     ADD = 0,  //!< Add mana.
     SUB = 1,  //!< Subtract mana.
     SET = 2,  //!< Set mana.
 };
 
-//! Mana mode to change mana.
-// TODO: We'll refactor later.
-enum class ManaMode
+//! The type to change mana.
+enum class ManaType
 {
     TOTAL = 0,  //!< Total mana.
     EXIST = 1,  //!< Temporary mana.
@@ -43,7 +41,7 @@ class ModifyManaTask : public ITask
     //! \param manaMode A value that specifies whether the modified mana is
     //! one-time or permanent.
     //! \param num A value indicating how much to modify mana.
-    ModifyManaTask(NumMode numMode, ManaMode manaMode, BYTE num);
+    ModifyManaTask(ManaOperator numMode, ManaType manaMode, BYTE num);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -56,8 +54,8 @@ class ModifyManaTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    NumMode m_numMode;
-    ManaMode m_manaMode;
+    ManaOperator m_numMode;
+    ManaType m_manaMode;
     BYTE m_num;
 };
 };  // namespace BasicTasks

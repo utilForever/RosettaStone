@@ -57,8 +57,8 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
 
     const BYTE cost = static_cast<BYTE>(m_entity->card->cost);
     const MetaData modified =
-        ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
-                            .Run(player1, player2);
+        ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost)
+            .Run(player1, player2);
 
     // Process PowerTasks
     if (m_entity->card->power != nullptr)
