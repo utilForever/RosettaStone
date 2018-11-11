@@ -11,7 +11,7 @@
 #include <filesystem>
 #elif defined(HEARTHSTONEPP_LINUX)
 #include <experimental/filesystem>
-#elif deinfed(HEARTHSTONEPP_MACOSX)
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <stdlib.h>
 #endif
 #include <fstream>
