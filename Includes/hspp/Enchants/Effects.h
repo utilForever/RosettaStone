@@ -40,6 +40,6 @@ class Effects
     inline static Effect Stealth =
         Effect(GameTag::STEALTH, EffectOperator::SET, 1);
 };
-};  // namespace Hearthstonepp
+}  // namespace Hearthstonepp
 
 #endif  // HEARTHSTONEPP_EFFECTS_H

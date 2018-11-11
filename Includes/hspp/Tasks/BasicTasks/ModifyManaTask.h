@@ -58,7 +58,7 @@ class ModifyManaTask : public ITask
     ManaType m_manaMode;
     BYTE m_num;
 };
-};  // namespace BasicTasks
+}  // namespace BasicTasks
 }  // namespace Hearthstonepp
 
 #endif  // HEARTHSTONEPP_MODIFY_MANA_TASK_H
