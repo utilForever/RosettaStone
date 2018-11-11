@@ -152,7 +152,7 @@ class GameInterface
             { TaskID::REQUIRE, &GameInterface::HandleRequire },
             { TaskID::BRIEF, &GameInterface::HandleBriefing },
             { TaskID::GAME_END, &GameInterface::HandleGameOver },
-            { TaskID::OVER_DRAW, &GameInterface::HandleOverDraw },
+            { TaskID::OVERDRAW, &GameInterface::HandleOverDraw },
         };
 
     // Input Handler Table

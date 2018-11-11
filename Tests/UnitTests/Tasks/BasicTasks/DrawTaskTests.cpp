@@ -127,7 +127,7 @@ TEST(DrawTask, RunOverDraw)
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
 
-    EXPECT_EQ(burnt.id, +TaskID::OVER_DRAW);
+    EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
     EXPECT_EQ(burnt.status, MetaData::DRAW_OVERDRAW);
     EXPECT_EQ(burnt.userID, p1.id);
 
@@ -178,7 +178,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
 
-    EXPECT_EQ(burnt.id, +TaskID::OVER_DRAW);
+    EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
     EXPECT_EQ(burnt.status, MetaData::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(burnt.userID, p1.id);
 

@@ -5,7 +5,10 @@
 // property of any third parties.
 
 #include <hspp/Cards/Entity.h>
+#include <hspp/Commons/Constants.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
+
+#include <utility>
 
 namespace Hearthstonepp::BasicTasks
 {
@@ -47,23 +50,23 @@ MetaData DrawTask::Impl(Player& user, Player&)
         result = MetaData::DRAW_EXHAUST;
     }
 
-    // When hand size over 10, over draw
-    if (hand.size() + num > 10)
+    // When hand size over MAXIMUM_NUM_CARDS_IN_HAND, overdraw
+    if (hand.size() + num > MAXIMUM_NUM_CARDS_IN_HAND)
     {
-        // The number of over draw
-        const size_t over = hand.size() + num - 10;
+        // The number of overdraw
+        const size_t over = hand.size() + num - MAXIMUM_NUM_CARDS_IN_HAND;
 
         std::vector<Entity*> burnt;
         burnt.reserve(over);
 
-        // draw burnt card
+        // Draw burnt card
         for (size_t i = 0; i < over; ++i)
         {
             burnt.emplace_back(deck.back());
             deck.pop_back();
         }
 
-        num = 10 - hand.size();
+        num = MAXIMUM_NUM_CARDS_IN_HAND - hand.size();
 
         if (result == MetaData::DRAW_EXHAUST)
         {
@@ -75,7 +78,7 @@ MetaData DrawTask::Impl(Player& user, Player&)
         }
 
         // Send burnt cards to GameInterface
-        const TaskMetaTrait trait(TaskID::OVER_DRAW, result, user.id);
+        const TaskMetaTrait trait(TaskID::OVERDRAW, result, user.id);
         m_agent.Notify(Serializer::CreateEntityVector(trait, burnt));
     }
 
@@ -89,12 +92,7 @@ MetaData DrawTask::Impl(Player& user, Player&)
     return result;
 }
 
-DrawCardTask::DrawCardTask(const Card& card) : m_card(card)
-{
-    // Do nothing
-}
-
-DrawCardTask::DrawCardTask(Card&& card) : m_card(card)
+DrawCardTask::DrawCardTask(Card card) : m_card(std::move(card))
 {
     // Do nothing
 }

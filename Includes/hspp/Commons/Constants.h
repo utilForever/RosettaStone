@@ -32,6 +32,9 @@ constexpr std::size_t FIELD_SIZE = 7;
 //! the game also draws 3-4 randomly selected cards.
 constexpr std::size_t NUM_DRAW_CARDS_AT_START = 3;
 
+//! The maximum number of cards in your hand.
+constexpr std::size_t MAXIMUM_NUM_CARDS_IN_HAND = 10;
+
 //! The number of menus in main phase.
 //! \note We will refactor it soon.
 constexpr std::size_t GAME_MAIN_MENU_SIZE = 3;
