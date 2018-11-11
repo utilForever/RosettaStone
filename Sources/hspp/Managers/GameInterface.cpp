@@ -269,13 +269,13 @@ void GameInterface::HandleMulliganInput(const TaskMeta& meta) const
         m_ostream << "[*] How many cards to mulligan ? (0 ~ 3) ";
         m_istream >> numMulligan;
 
-        if (numMulligan <= NUM_DRAW_CARDS_AT_START)
+        if (numMulligan <= NUM_DRAW_CARDS_AT_START_FIRST)
         {
             break;
         }
     }
 
-    BYTE mulligan[NUM_DRAW_CARDS_AT_START] = {
+    BYTE mulligan[NUM_DRAW_CARDS_AT_START_FIRST] = {
         0,
     };
     for (size_t i = 0; i < numMulligan; ++i)
@@ -286,7 +286,7 @@ void GameInterface::HandleMulliganInput(const TaskMeta& meta) const
             m_ostream << "[*] Input card index " << i + 1 << " (0 ~ 2) : ";
             m_istream >> index;
 
-            if (index <= NUM_DRAW_CARDS_AT_START - 1)
+            if (index <= NUM_DRAW_CARDS_AT_START_FIRST - 1)
             {
                 mulligan[i] = static_cast<BYTE>(index);
                 break;
