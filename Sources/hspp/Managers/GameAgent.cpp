@@ -65,6 +65,21 @@ Player& GameAgent::GetPlayer2()
     return m_player2;
 }
 
+Player& GameAgent::GetFirstPlayer() const
+{
+    return m_firstPlayer;
+}
+
+Player& GameAgent::GetCurrentPlayer() const
+{
+    return m_currentPlayer;
+}
+
+Player& GameAgent::GetOpponentPlayer()
+{
+    return (m_currentPlayer == m_player1) ? m_player2 : m_player1;
+}
+
 MetaData GameAgent::RunTask(ITask& task, Player& player1, Player& player2)
 {
     return task.Run(player1, player2);

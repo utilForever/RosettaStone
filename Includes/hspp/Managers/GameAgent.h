@@ -39,9 +39,11 @@ class GameAgent
     template <typename PlayerT, typename = std::enable_if_t<isPlayer<PlayerT>>>
     GameAgent(PlayerT&& player1, PlayerT&& player2)
         : m_player1(std::forward<PlayerT>(player1)),
-          m_player2(std::forward<PlayerT>(player2))
+          m_player2(std::forward<PlayerT>(player2)),
+          m_firstPlayer(m_player1),
+          m_currentPlayer(m_player1)
     {
-        // Do Nothing
+        // Do nothing
     }
 
     //! Starts the game agent.
@@ -69,6 +71,18 @@ class GameAgent
     //! Returns the second player.
     //! \return The second player.
     Player& GetPlayer2();
+
+    //! Returns the first player.
+    //! \return The first player.
+    Player& GetFirstPlayer() const;
+
+    //! Returns the player controlling the current turn.
+    //! \return The player controlling the current turn.
+    Player& GetCurrentPlayer() const;
+
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    Player& GetOpponentPlayer();
 
     //! Runs the task with given \p task, \p player1 and \p player2.
     //! \param task The task to run (lvalue ref).
@@ -115,6 +129,9 @@ class GameAgent
 
     Player m_player1;
     Player m_player2;
+
+    Player& m_firstPlayer;
+    Player& m_currentPlayer;
 
     TaskAgent m_taskAgent;
 
