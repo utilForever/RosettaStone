@@ -156,17 +156,14 @@ std::vector<Card> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         if (!card.attack.has_value())
         {
             continue;
         }
-#else
-#endif
 
-#ifndef HEARTHSTONEPP_MACOSX
         if (card.attack.value() >= minVal && card.attack.value() <= maxVal)
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
         if (card.attack >= minVal && card.attack <= maxVal)
 #endif
         {
@@ -183,17 +180,14 @@ std::vector<Card> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         if (!card.health.has_value())
         {
             continue;
         }
-#else
-#endif
 
-#ifndef HEARTHSTONEPP_MACOSX
         if (card.health.value() >= minVal && card.health.value() <= maxVal)
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
         if (card.health >= minVal && card.health <= maxVal)
 #endif
         {
@@ -210,18 +204,15 @@ std::vector<Card> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         if (!card.spellDamage.has_value())
         {
             continue;
         }
-#else
-#endif
 
-#ifndef HEARTHSTONEPP_MACOSX
         if (card.spellDamage.value() >= minVal &&
             card.spellDamage.value() <= maxVal)
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
         if (card.spellDamage >= minVal && card.spellDamage <= maxVal)
 #endif
         {

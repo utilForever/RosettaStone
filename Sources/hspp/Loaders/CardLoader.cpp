@@ -130,7 +130,7 @@ void CardLoader::Load(std::vector<Card>& cards) const
         card.text = text;
         card.isCollectible = collectible;
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         card.attack =
             (attack != -1) ? std::optional<size_t>(attack) : std::nullopt;
         card.health =
@@ -140,7 +140,7 @@ void CardLoader::Load(std::vector<Card>& cards) const
         card.spellDamage = (spellDamage != -1)
                                ? std::optional<size_t>(spellDamage)
                                : std::nullopt;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
         card.attack = (attack != -1)
                           ? std::experimental::optional<size_t>(attack)
                           : std::experimental::nullopt;

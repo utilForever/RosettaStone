@@ -11,14 +11,15 @@
 #include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Deck.h>
 #include <hspp/Commons/Constants.h>
+#include <hspp/Commons/Macros.h>
 
 #include <clara.hpp>
 
 #include <array>
 #include <functional>
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <optional>
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <experimental/optional>
 #endif
 #include <regex>
@@ -85,9 +86,9 @@ class Console
  public:
     void SignIn();
     void SignUp();
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     std::optional<Card> SearchCard() const;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     std::experimental::optional<Card> SearchCard() const;
 #endif
     int ManageDeck();

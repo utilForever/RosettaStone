@@ -5,15 +5,16 @@
 // property of any third parties.
 
 #include <hspp/Cards/Weapon.h>
+#include <hspp/Commons/Macros.h>
 
 namespace Hearthstonepp
 {
 Weapon::Weapon(Card& card) : Entity(card)
 {
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     m_attack = card.attack.has_value() ? card.attack.value() : 0;
     m_durability = card.durability.has_value() ? card.durability.value() : 0;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     m_attack = card.attack.value_or(0);
     m_durability = card.durability.value_or(0);
 #endif

@@ -10,10 +10,9 @@
 #include <better-enums/enum.h>
 #include <clara.hpp>
 
-#ifdef HEARTHSTONEPP_WINDOWS
+#if defined(HEARTHSTONEPP_WINDOWS)
 #include <filesystem>
-#endif
-#ifdef HEARTHSTONEPP_LINUX
+#elif defined(HEARTHSTONEPP_LINUX)
 #include <experimental/filesystem>
 #endif
 #include <fstream>
@@ -22,11 +21,13 @@
 #include <string>
 #include <vector>
 
-using namespace Hearthstonepp;
-
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS)
+namespace filesystem = std::filesystem;
+#elif defined(HEARTHSTONEPP_LINUX)
 namespace filesystem = std::experimental::filesystem;
 #endif
+
+using namespace Hearthstonepp;
 
 inline std::string ToString(const clara::Opt& opt)
 {
@@ -46,7 +47,7 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
 {
     std::vector<GameTag> result;
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     std::map<std::string, GameTag> abilityStrMap = {
         { "Adapt", GameTag::ADAPT },
         { "Charge", GameTag::CHARGE },
@@ -95,8 +96,7 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
             }
         }
     }
-
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     std::cerr
         << "CheckAbilityImpl skip: apple-clang doesn't support <filesystem>\n";
     exit(EXIT_FAILURE);
@@ -177,7 +177,7 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
 inline bool CheckCardImpl(const std::string& path, std::vector<Card>& cards,
                           const std::string& id)
 {
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     auto iter = std::find_if(cards.begin(), cards.end(),
                              [&id](const Card& c) { return c.id == id; });
     if (iter != cards.end())
@@ -214,7 +214,7 @@ inline bool CheckCardImpl(const std::string& path, std::vector<Card>& cards,
             }
         }
     }
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     std::cerr
         << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
     exit(EXIT_FAILURE);

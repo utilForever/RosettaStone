@@ -7,13 +7,14 @@
 #ifndef HEARTHSTONEPP_CARD_H
 #define HEARTHSTONEPP_CARD_H
 
+#include <hspp/Commons/Macros.h>
 #include <hspp/Enchants/Power.h>
 #include <hspp/Enums/CardEnums.h>
 
 #include <map>
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <optional>
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <experimental/optional>
 #endif
 #include <string>
@@ -78,12 +79,12 @@ class Card
     std::string name;
     std::string text;
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     std::optional<size_t> attack;
     std::optional<size_t> health;
     std::optional<size_t> spellDamage;
     std::optional<size_t> durability;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     std::experimental::optional<size_t> attack;
     std::experimental::optional<size_t> health;
     std::experimental::optional<size_t> spellDamage;

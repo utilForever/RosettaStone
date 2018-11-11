@@ -9,7 +9,6 @@
 #include <hspp/Cards/Card.h>
 #include <hspp/Cards/Cards.h>
 #include <hspp/Commons/Constants.h>
-#include <hspp/Commons/Macros.h>
 #include <hspp/Commons/Utils.h>
 #include <hspp/Loaders/AccountLoader.h>
 #include <hspp/Loaders/CardLoader.h>
@@ -17,19 +16,19 @@
 #include <hspp/Managers/GameInterface.h>
 
 #include <cctype>
-#ifdef HEARTHSTONEPP_WINDOWS
+#if defined(HEARTHSTONEPP_WINDOWS)
 #include <filesystem>
-#endif
-#ifdef HEARTHSTONEPP_LINUX
+#elif defined(HEARTHSTONEPP_LINUX)
 #include <experimental/filesystem>
-#endif
-#ifdef HEARTHSTONEPP_MACOSX
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <sys/stat.h>
 #endif
 #include <fstream>
 #include <iostream>
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS)
+namespace filesystem = std::filesystem;
+#elif defined(HEARTHSTONEPP_LINUX)
 namespace filesystem = std::experimental::filesystem;
 #endif
 
@@ -90,9 +89,9 @@ void Console::SignUp()
         std::string accountID;
         std::cin >> accountID;
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         if (filesystem::exists("Datas/" + accountID + ".json"))
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
         struct stat buf;
         std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == 0)
@@ -115,9 +114,9 @@ void Console::SignUp()
         break;
     }
 }
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 std::optional<Card> Console::SearchCard() const
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
 std::experimental::optional<Card> Console::SearchCard() const
 #endif
 {

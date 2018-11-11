@@ -7,6 +7,8 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
+#include <hspp/Commons/Macros.h>
+
 #include <random>
 
 namespace TestUtils
@@ -97,7 +99,7 @@ Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)
     convertedCard.text = deserialized->text()->str();
     convertedCard.isCollectible = deserialized->collectible();
     convertedCard.cost = deserialized->cost();
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     convertedCard.attack = card.attack
                                ? std::optional<size_t>(deserialized->attack())
                                : std::nullopt;
@@ -107,7 +109,7 @@ Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)
     convertedCard.durability =
         card.durability ? std::optional<size_t>(deserialized->durability())
                         : std::nullopt;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     convertedCard.attack =
         card.attack
             ? std::experimental::optional<size_t>(deserialized->attack())

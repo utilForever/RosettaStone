@@ -6,6 +6,7 @@
 
 #include <hspp/Accounts/Player.h>
 #include <hspp/Cards/Character.h>
+#include <hspp/Commons/Macros.h>
 
 #include <algorithm>
 
@@ -15,10 +16,10 @@ Character::Character(Card& card) : Entity(card)
 {
     if (!card.id.empty())
     {
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         m_attack = card.attack.has_value() ? card.attack.value() : 0;
         health = card.health.has_value() ? card.health.value() : 0;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
         m_attack = card.attack.value_or(0);
         health = card.health.value_or(0);
 #endif
