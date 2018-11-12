@@ -16,7 +16,6 @@
 #include <hspp/Tasks/BasicTasks/PlayCardTask.h>
 #include <hspp/Tasks/BasicTasks/PlayerSettingTask.h>
 #include <hspp/Tasks/BasicTasks/ShuffleTask.h>
-#include <hspp/Tasks/BasicTasks/SwapPlayerTask.h>
 #include <hspp/Tasks/MetaData.h>
 #include <hspp/Tasks/Requirement.h>
 #include <hspp/Tasks/TaskWrapper.h>
@@ -70,9 +69,19 @@ Player& GameAgent::GetFirstPlayer() const
     return m_firstPlayer;
 }
 
+void GameAgent::SetFirstPlayer(Player& player) const
+{
+    m_firstPlayer = player;
+}
+
 Player& GameAgent::GetCurrentPlayer() const
 {
     return m_currentPlayer;
+}
+
+void GameAgent::SetCurrentPlayer(Player& player) const
+{
+    m_currentPlayer = player;
 }
 
 Player& GameAgent::GetOpponentPlayer()

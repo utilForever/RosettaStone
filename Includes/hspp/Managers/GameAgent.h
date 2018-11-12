@@ -76,9 +76,17 @@ class GameAgent
     //! \return The first player.
     Player& GetFirstPlayer() const;
 
+    //! Sets the first player.
+    //! \param player The first player.
+    void SetFirstPlayer(Player& player) const;
+
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
     Player& GetCurrentPlayer() const;
+
+    //! Sets the player controlling the current turn.
+    //! \param player The player controlling the current turn.
+    void SetCurrentPlayer(Player& player) const;
 
     //! Returns the opponent player.
     //! \return The opponent player.
