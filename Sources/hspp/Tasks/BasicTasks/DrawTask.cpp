@@ -12,7 +12,7 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DrawTask::DrawTask(TaskAgent& agent, size_t num) : m_agent(agent), m_num(num)
+DrawTask::DrawTask(Player& player, size_t num) : m_player(player), m_num(num)
 {
     // Do nothing
 }
@@ -78,8 +78,8 @@ MetaData DrawTask::Impl(Player& user, Player&)
         }
 
         // Send burnt cards to GameInterface
-        const TaskMetaTrait trait(TaskID::OVERDRAW, result, user.id);
-        m_agent.Notify(Serializer::CreateEntityVector(trait, burnt));
+        //const TaskMetaTrait trait(TaskID::OVERDRAW, result, user.id);
+        //m_agent.Notify(Serializer::CreateEntityVector(trait, burnt));
     }
 
     // Draw success

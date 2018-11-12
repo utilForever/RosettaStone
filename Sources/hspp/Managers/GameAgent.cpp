@@ -115,8 +115,11 @@ void GameAgent::BeginPhase()
     // Swap user with 50% probability
     if (bin(gen) == 1)
     {
-        BasicTasks::SwapPlayerTask().Run(m_player1, m_player2);
+        SetFirstPlayer(m_player2);
     }
+
+    m_player1.SetOpponent(m_player2);
+    m_player2.SetOpponent(m_player1);
 
     const auto success = [](const TaskMeta& meta) {
         return meta.status == MetaData::MULLIGAN_SUCCESS;
@@ -140,16 +143,14 @@ void GameAgent::BeginPhase()
     m_taskAgent.RunMulti(
         meta, m_player1, m_player2, BasicTasks::PlayerSettingTask(m_taskAgent),
         BasicTasks::DoBothPlayer(BasicTasks::ShuffleTask()),
-        BasicTasks::DrawTask(m_taskAgent, NUM_DRAW_CARDS_AT_START_FIRST),
-        BasicTasks::SwapPlayerTask(),
-        BasicTasks::DrawTask(m_taskAgent, NUM_DRAW_CARDS_AT_START_SECOND),
-        BasicTasks::SwapPlayerTask(),
+        BasicTasks::DrawTask(GetFirstPlayer(), NUM_DRAW_CARDS_AT_START_FIRST),
+        BasicTasks::DrawTask(GetFirstPlayer().GetOpponent(),
+                             NUM_DRAW_CARDS_AT_START_SECOND),
         BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
-        BasicTasks::SwapPlayerTask(), BasicTasks::BriefTask(),
+        BasicTasks::BriefTask(),
         BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
         BasicTasks::DrawCardTask(
-            Cards::GetInstance().FindCardByName("The Coin")),
-        BasicTasks::SwapPlayerTask());
+            Cards::GetInstance().FindCardByName("The Coin")));
 }
 
 bool GameAgent::MainPhase()
@@ -179,7 +180,7 @@ void GameAgent::PrepareMainPhase()
     // 3. Refill all of their non-overloaded mana crystals.
     // 4. Initialize attack count of minions and hero.
     m_taskAgent.RunMulti(
-        meta, m_player1, m_player2, BasicTasks::DrawTask(m_taskAgent, 1),
+        meta, m_player1, m_player2, BasicTasks::DrawTask(GetCurrentPlayer(), 1),
         BasicTasks::ModifyManaTask(ManaOperator::ADD, ManaType::TOTAL, 1),
         BasicTasks::ModifyManaTask(ManaOperator::SET, ManaType::EXIST,
                                    m_player1.totalMana + 1),
@@ -207,8 +208,7 @@ bool GameAgent::ProcessMainMenu()
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
         // End main end phase
-        m_taskAgent.Run(meta, m_player1, m_player2,
-                        BasicTasks::SwapPlayerTask());
+        SetCurrentPlayer(GetCurrentPlayer().GetOpponent());
     }
     else
     {

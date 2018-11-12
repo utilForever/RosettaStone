@@ -23,7 +23,7 @@ class DrawTask : public ITask
     //! Constructs task with given \p agent and \p num.
     //! \param agent The task agent that notifies overdrawn cards.
     //! \param num The number of cards to draw.
-    DrawTask(TaskAgent& agent, size_t num);
+    DrawTask(Player& player, size_t num);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -36,7 +36,7 @@ class DrawTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player1, Player& player2) override;
 
-    TaskAgent& m_agent;
+    Player& m_player;
     size_t m_num = 0;
 };
 

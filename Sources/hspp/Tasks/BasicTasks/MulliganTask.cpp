@@ -84,7 +84,7 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
     }
 
     const MetaData statusShuffle = ShuffleTask().Run(player1, player2);
-    const MetaData statusDraw = DrawTask(m_agent, read).Run(player1, player2);
+    const MetaData statusDraw = DrawTask(player1, read).Run(player1, player2);
 
     if (statusShuffle == MetaData::SHUFFLE_SUCCESS &&
         statusDraw == MetaData::DRAW_SUCCESS)
