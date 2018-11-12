@@ -11,7 +11,7 @@
 namespace Hearthstonepp
 {
 Player::Player(const Account* account, const Deck* deck)
-    : id(USER_INVALID), email(account->GetEmail())
+    : id(USER_INVALID), email(account->GetEmail()), m_opponent(*this)
 {
     const CardClass cardClass = deck->GetClass();
 
@@ -57,14 +57,14 @@ Player::~Player()
     FreeMemory();
 }
 
-Player::Player(const Player& p)
+Player::Player(const Player& p) : m_opponent(p.m_opponent)
 {
     FreeMemory();
 
     CopyData(p);
 }
 
-Player::Player(Player&& p) noexcept
+Player::Player(Player&& p) noexcept : m_opponent(p.m_opponent)
 {
     FreeMemory();
 
@@ -102,6 +102,16 @@ Player& Player::operator=(Player&& p) noexcept
 bool Player::operator==(const Player& player) const
 {
     return email == player.email;
+}
+
+Player& Player::GetOpponent() const
+{
+    return m_opponent;
+}
+
+void Player::SetOpponent(Player& player) const
+{
+    m_opponent = player;
 }
 
 void Player::FreeMemory()

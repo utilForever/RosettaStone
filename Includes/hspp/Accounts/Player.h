@@ -53,6 +53,14 @@ class Player
     //! Operator overloading: The equality operator.
     bool operator==(const Player& player) const;
 
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    Player& GetOpponent() const;
+
+    //! Sets the opponent player.
+    //! \param player The opponent player.
+    void SetOpponent(Player& player) const;
+
     Hero* hero = nullptr;
     HeroPower* power = nullptr;
 
@@ -83,6 +91,8 @@ class Player
     //! Moves data from given \p p.
     //! \param p An instance of Player class to move data.
     void MoveData(Player&& p);
+
+    Player& m_opponent;
 };
 }  // namespace Hearthstonepp
 
