@@ -55,7 +55,6 @@
 #include <hspp/Tasks/BasicTasks/PlayWeaponTask.h>
 #include <hspp/Tasks/BasicTasks/PlayerSettingTask.h>
 #include <hspp/Tasks/BasicTasks/ShuffleTask.h>
-#include <hspp/Tasks/BasicTasks/SwapPlayerTask.h>
 #include <hspp/Tasks/MetaData.h>
 #include <hspp/Tasks/PowerTasks/AddEnchantmentTask.h>
 #include <hspp/Tasks/PowerTasks/DiscardTask.h>

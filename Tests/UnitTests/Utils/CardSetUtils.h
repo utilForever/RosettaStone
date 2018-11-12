@@ -16,7 +16,6 @@
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
 #include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
 #include <hspp/Tasks/BasicTasks/PlayCardTask.h>
-#include <hspp/Tasks/BasicTasks/SwapPlayerTask.h>
 
 #include <future>
 
