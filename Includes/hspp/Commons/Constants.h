@@ -36,6 +36,12 @@ constexpr std::size_t NUM_DRAW_CARDS_AT_START_SECOND = 4;
 //! The maximum number of cards in your hand.
 constexpr std::size_t MAXIMUM_NUM_CARDS_IN_HAND = 10;
 
+//! The number that represents player 1.
+constexpr std::size_t PLAYER1 = 1;
+
+//! The number that represents player 2.
+constexpr std::size_t PLAYER2 = 2;
+
 //! The number of menus in main phase.
 //! \note We will refactor it soon.
 constexpr std::size_t GAME_MAIN_MENU_SIZE = 3;
