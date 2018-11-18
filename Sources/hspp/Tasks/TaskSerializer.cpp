@@ -212,8 +212,7 @@ TaskMeta CreatePlayerSetting(const std::string& player1,
         builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
-                          const Player& player2)
+TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status)
 {
     using EntityOffset = flatbuffers::Offset<FlatData::Entity>;
     using VectorOffset = flatbuffers::Offset<flatbuffers::Vector<EntityOffset>>;
@@ -230,23 +229,23 @@ TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
     };
 
     // Tie multi card vector
-    auto target = { player1.field, player2.field };
+    auto target = { player.field, player.GetOpponent().field };
     std::vector<VectorOffset> result(target.size());
 
     // Convert Card vector to FlatData::Card vector
     std::transform(target.begin(), target.end(), result.begin(), makeOffset);
 
     const auto gameStatus = FlatData::CreateGameStatus(
-        builder, player1.id, player2.id, player1.existMana, player2.existMana,
-        CreateEntity(builder, player1.hero),
-        CreateEntity(builder, player2.hero), result[0],
-        makeOffset(player1.hand), result[1],
-        static_cast<BYTE>(player2.hand.size()),
-        static_cast<BYTE>(player1.cards.size()),
-        static_cast<BYTE>(player2.cards.size()));
+        builder, player.id, player.GetOpponent().id, player.existMana,
+        player.GetOpponent().existMana, CreateEntity(builder, player.hero),
+        CreateEntity(builder, player.GetOpponent().hero), result[0],
+        makeOffset(player.hand), result[1],
+        static_cast<BYTE>(player.GetOpponent().hand.size()),
+        static_cast<BYTE>(player.cards.size()),
+        static_cast<BYTE>(player.GetOpponent().cards.size()));
 
     builder.Finish(gameStatus);
-    return TaskMeta(TaskMetaTrait(taskID, status, player1.id),
-                    builder.GetSize(), builder.GetBufferPointer());
+    return TaskMeta(TaskMetaTrait(taskID, status, player.id), builder.GetSize(),
+                    builder.GetBufferPointer());
 }
 }  // namespace Hearthstonepp::Serializer

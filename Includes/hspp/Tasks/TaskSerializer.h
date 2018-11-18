@@ -95,13 +95,11 @@ TaskMeta CreatePlayerSetting(const std::string& player1,
                              const std::string& player2);
 
 //! Creates task meta object for packing game status.
+//! \param player The player.
 //! \param taskID The task ID.
 //! \param status The task status.
-//! \param player1 The first player.
-//! \param player2 The second player.
 //! \return Created task meta object as game status.
-TaskMeta CreateGameStatus(TaskID taskID, MetaData status, const Player& player1,
-                          const Player& player2);
+TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status);
 }  // namespace Hearthstonepp::Serializer
 
 #endif  // HEARTHSTONEPP_TASK_SERIALIZER_H
