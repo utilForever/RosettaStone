@@ -28,7 +28,7 @@ Hero::Hero(const Hero& hero) : Character(hero)
     }
 }
 
-Hero::Hero(Hero&& hero) noexcept : Character(hero)
+Hero::Hero(Hero&& hero) noexcept : Character(std::move(hero))
 {
     delete weapon;
 
