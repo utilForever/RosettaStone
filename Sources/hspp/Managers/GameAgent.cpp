@@ -24,6 +24,24 @@
 
 namespace Hearthstonepp
 {
+GameAgent::GameAgent(CardClass player1Class, CardClass player2Class,
+                     size_t firstPlayer)
+    : m_firstPlayer(firstPlayer), m_currentPlayer(firstPlayer)
+{
+    m_player1.AddHeroAndPower(
+        Cards::GetInstance().GetHeroCard(player1Class),
+        Cards::GetInstance().GetDefaultHeroPower(player1Class));
+    m_player2.AddHeroAndPower(
+        Cards::GetInstance().GetHeroCard(player2Class),
+        Cards::GetInstance().GetDefaultHeroPower(player2Class));
+
+    m_player1.SetGameAgent(this);
+    m_player2.SetGameAgent(this);
+
+    m_player1.SetOpponent(&m_player2);
+    m_player2.SetOpponent(&m_player1);
+}
+
 std::thread GameAgent::Start()
 {
     auto flow = [this]() {
@@ -64,39 +82,49 @@ Player& GameAgent::GetPlayer2()
     return m_player2;
 }
 
-Player& GameAgent::GetFirstPlayer() const
+Player& GameAgent::GetFirstPlayer()
 {
-    return m_firstPlayer;
+    return m_firstPlayer == PLAYER1 ? m_player1 : m_player2;
 }
 
-void GameAgent::SetFirstPlayer(Player& player) const
+void GameAgent::SetFirstPlayer(size_t playerNum)
 {
-    m_firstPlayer = player;
+    m_firstPlayer = playerNum;
 }
 
-Player& GameAgent::GetCurrentPlayer() const
+Player& GameAgent::GetCurrentPlayer()
 {
-    return m_currentPlayer;
+    return m_currentPlayer == PLAYER1 ? m_player1 : m_player2;
 }
 
-void GameAgent::SetCurrentPlayer(Player& player) const
+void GameAgent::SetCurrentPlayer(size_t playerNum)
 {
-    m_currentPlayer = player;
+    m_currentPlayer = playerNum;
 }
 
 Player& GameAgent::GetOpponentPlayer()
 {
-    return (m_currentPlayer == m_player1) ? m_player2 : m_player1;
+    return m_currentPlayer == PLAYER1 ? m_player2 : m_player1;
 }
 
-MetaData GameAgent::RunTask(ITask& task, Player& player1, Player& player2)
+MetaData GameAgent::RunTask(Player& player, ITask& task)
 {
-    return task.Run(player1, player2);
+    return task.Run(player);
 }
 
-MetaData GameAgent::RunTask(ITask&& task, Player& player1, Player& player2)
+MetaData GameAgent::RunTask(Player& player, ITask&& task)
 {
-    return task.Run(player1, player2);
+    return task.Run(player);
+}
+
+void GameAgent::NotifyToTaskAgent(TaskMeta& meta, bool sideChannel)
+{
+    m_taskAgent.Notify(meta, sideChannel);
+}
+
+void GameAgent::NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel)
+{
+    m_taskAgent.Notify(std::move(meta), sideChannel);
 }
 
 TaskAgent& GameAgent::GetTaskAgent()
@@ -112,14 +140,15 @@ void GameAgent::BeginPhase()
     // Get random number: zero or one.
     std::uniform_int_distribution<int> bin(0, 1);
 
+    SetFirstPlayer(PLAYER1);
+    SetCurrentPlayer(PLAYER1);
+
     // Swap user with 50% probability
     if (bin(gen) == 1)
     {
-        SetFirstPlayer(m_player2);
+        SetFirstPlayer(PLAYER2);
+        SetCurrentPlayer(PLAYER2);
     }
-
-    m_player1.SetOpponent(m_player2);
-    m_player2.SetOpponent(m_player1);
 
     const auto success = [](const TaskMeta& meta) {
         return meta.status == MetaData::MULLIGAN_SUCCESS;
@@ -140,15 +169,20 @@ void GameAgent::BeginPhase()
     // 4. The player going second receives "The Coin" card.
     // NOTE: The Coin is a special uncollectible spell card granted at the start
     // of each game to whichever player is selected to go second.
+    m_taskAgent.Run(meta, GetFirstPlayer(),
+                    BasicTasks::PlayerSettingTask(m_taskAgent));
+
     m_taskAgent.RunMulti(
-        meta, m_player1, m_player2, BasicTasks::PlayerSettingTask(m_taskAgent),
-        BasicTasks::DoBothPlayer(BasicTasks::ShuffleTask()),
-        BasicTasks::DrawTask(GetFirstPlayer(), NUM_DRAW_CARDS_AT_START_FIRST),
-        BasicTasks::DrawTask(GetFirstPlayer().GetOpponent(),
-                             NUM_DRAW_CARDS_AT_START_SECOND),
+        meta, GetFirstPlayer(), BasicTasks::ShuffleTask(),
+        BasicTasks::DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
+        BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
+        BasicTasks::BriefTask());
+
+    m_taskAgent.RunMulti(
+        meta, GetFirstPlayer().GetOpponent(), BasicTasks::ShuffleTask(),
+        BasicTasks::DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
         BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
         BasicTasks::BriefTask(),
-        BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
         BasicTasks::DrawCardTask(
             Cards::GetInstance().FindCardByName("The Coin")));
 }
@@ -165,7 +199,7 @@ bool GameAgent::MainPhase()
 void GameAgent::FinalPhase()
 {
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_player1, m_player2, BasicTasks::GameEndTask());
+    m_taskAgent.Run(meta, GetCurrentPlayer(), BasicTasks::GameEndTask());
 }
 
 void GameAgent::PrepareMainPhase()
@@ -180,7 +214,7 @@ void GameAgent::PrepareMainPhase()
     // 3. Refill all of their non-overloaded mana crystals.
     // 4. Initialize attack count of minions and hero.
     m_taskAgent.RunMulti(
-        meta, m_player1, m_player2, BasicTasks::DrawTask(GetCurrentPlayer(), 1),
+        meta, GetCurrentPlayer(), BasicTasks::DrawTask(1),
         BasicTasks::ModifyManaTask(ManaOperator::ADD, ManaType::TOTAL, 1),
         BasicTasks::ModifyManaTask(ManaOperator::SET, ManaType::EXIST,
                                    m_player1.totalMana + 1),
@@ -196,7 +230,7 @@ bool GameAgent::ProcessMainMenu()
     }
 
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_player1, m_player2, BasicTasks::BriefTask());
+    m_taskAgent.Run(meta, GetCurrentPlayer(), BasicTasks::BriefTask());
 
     // Get menu response from game interface
     BasicTasks::Requirement(TaskID::SELECT_MENU, m_taskAgent)
@@ -208,7 +242,7 @@ bool GameAgent::ProcessMainMenu()
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
         // End main end phase
-        SetCurrentPlayer(GetCurrentPlayer().GetOpponent());
+        SetCurrentPlayer(m_currentPlayer == PLAYER1 ? PLAYER2 : PLAYER1);
     }
     else
     {
@@ -228,14 +262,14 @@ bool GameAgent::ProcessMainMenu()
 void GameAgent::PlayCard()
 {
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_player1, m_player2,
+    m_taskAgent.Run(meta, GetCurrentPlayer(),
                     BasicTasks::PlayCardTask(m_taskAgent));
 }
 
 void GameAgent::Combat()
 {
     TaskMeta meta;
-    m_taskAgent.Run(meta, m_player1, m_player2,
+    m_taskAgent.Run(meta, GetCurrentPlayer(),
                     BasicTasks::CombatTask(m_taskAgent));
 }
 

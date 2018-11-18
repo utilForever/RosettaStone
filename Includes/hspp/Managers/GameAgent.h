@@ -27,24 +27,8 @@ namespace Hearthstonepp
 class GameAgent
 {
  public:
-    //! Constant expression to check if \tparam T is a Player type.
-    template <typename T>
-    static constexpr inline bool isPlayer =
-        std::is_same_v<std::decay_t<T>, Player>;
-
-    //! Constructs game agent with given \p player1 and \p player2.
-    //! \tparam PlayerT Player type.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
-    template <typename PlayerT, typename = std::enable_if_t<isPlayer<PlayerT>>>
-    GameAgent(PlayerT&& player1, PlayerT&& player2)
-        : m_player1(std::forward<PlayerT>(player1)),
-          m_player2(std::forward<PlayerT>(player2)),
-          m_firstPlayer(m_player1),
-          m_currentPlayer(m_player1)
-    {
-        // Do nothing
-    }
+    GameAgent(CardClass player1Class, CardClass player2Class,
+              size_t firstPlayer);
 
     //! Starts the game agent.
     //! \return The thread that plays the game.
@@ -74,37 +58,39 @@ class GameAgent
 
     //! Returns the first player.
     //! \return The first player.
-    Player& GetFirstPlayer() const;
+    Player& GetFirstPlayer();
 
     //! Sets the first player.
     //! \param player The first player.
-    void SetFirstPlayer(Player& player) const;
+    void SetFirstPlayer(size_t playerNum);
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
-    Player& GetCurrentPlayer() const;
+    Player& GetCurrentPlayer();
 
     //! Sets the player controlling the current turn.
     //! \param player The player controlling the current turn.
-    void SetCurrentPlayer(Player& player) const;
+    void SetCurrentPlayer(size_t playerNum);
 
     //! Returns the opponent player.
     //! \return The opponent player.
     Player& GetOpponentPlayer();
 
-    //! Runs the task with given \p task, \p player1 and \p player2.
+    //! Runs the task with given \p player and \p task.
+    //! \param player The player to run task.
     //! \param task The task to run (lvalue ref).
-    //! \param player1 The first player.
-    //! \param player2 The second player.
     //! \return The result of running the task.
-    static MetaData RunTask(ITask& task, Player& player1, Player& player2);
+    static MetaData RunTask(Player& player, ITask& task);
 
-    //! Runs the task with given \p task, \p player1 and \p player2.
+    //! Runs the task with given \p player and \p task.
+    //! \param player The player to run task.
     //! \param task The task to run (rvalue ref).
-    //! \param player1 The first player.
-    //! \param player2 The second player.
     //! \return The result of running the task.
-    static MetaData RunTask(ITask&& task, Player& player1, Player& player2);
+    static MetaData RunTask(Player& player, ITask&& task);
+
+    void NotifyToTaskAgent(TaskMeta& meta, bool sideChannel = false);
+
+    void NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel = false);
 
  private:
     //! Returns whether the game is over.
@@ -138,8 +124,8 @@ class GameAgent
     Player m_player1;
     Player m_player2;
 
-    Player& m_firstPlayer;
-    Player& m_currentPlayer;
+    size_t m_firstPlayer;
+    size_t m_currentPlayer;
 
     TaskAgent m_taskAgent;
 
