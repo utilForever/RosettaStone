@@ -18,13 +18,13 @@ TaskID PlayerSettingTask::GetTaskID() const
     return TaskID::PLAYER_SETTING;
 }
 
-MetaData PlayerSettingTask::Impl(Player& player1, Player& player2)
+MetaData PlayerSettingTask::Impl(Player& player)
 {
-    player1.id = 0;
-    player2.id = 1;
+    player.id = 0;
+    player.GetOpponent().id = 1;
 
-    TaskMeta setting =
-        Serializer::CreatePlayerSetting(player1.email, player2.email);
+    TaskMeta setting = Serializer::CreatePlayerSetting(
+        player.email, player.GetOpponent().email);
     m_agent.Notify(std::move(setting));
 
     return MetaData::PLAYER_SETTING_SUCCESS;

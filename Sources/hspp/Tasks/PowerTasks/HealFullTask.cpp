@@ -18,7 +18,7 @@ TaskID HealFullTask::GetTaskID() const
     return TaskID::HEAL_FULL;
 }
 
-MetaData HealFullTask::Impl(Player&, Player&)
+MetaData HealFullTask::Impl(Player&)
 {
     target->health = target->maxHealth;
 

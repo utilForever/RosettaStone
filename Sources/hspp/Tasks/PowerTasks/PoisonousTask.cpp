@@ -18,7 +18,7 @@ TaskID PoisonousTask::GetTaskID() const
     return TaskID::POISONOUS;
 }
 
-MetaData PoisonousTask::Impl(Player&, Player&)
+MetaData PoisonousTask::Impl(Player&)
 {
     m_target->health = static_cast<size_t>(0);
 

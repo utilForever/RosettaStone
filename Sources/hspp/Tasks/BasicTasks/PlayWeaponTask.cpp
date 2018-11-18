@@ -18,11 +18,11 @@ TaskID PlayWeaponTask::GetTaskID() const
     return TaskID::PLAY_WEAPON;
 }
 
-MetaData PlayWeaponTask::Impl(Player& player1, Player&)
+MetaData PlayWeaponTask::Impl(Player& player)
 {
-    player1.hero->weapon = dynamic_cast<Weapon*>(m_entity);
+    player.hero->weapon = dynamic_cast<Weapon*>(m_entity);
 
-    if (player1.hero->weapon == nullptr)
+    if (player.hero->weapon == nullptr)
     {
         return MetaData::PLAY_WEAPON_DYNAMIC_CAST_FAIL;
     }

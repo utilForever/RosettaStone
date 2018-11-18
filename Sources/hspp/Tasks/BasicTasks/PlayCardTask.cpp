@@ -22,12 +22,12 @@ TaskID PlayCardTask::GetTaskID() const
     return TaskID::PLAY_CARD;
 }
 
-MetaData PlayCardTask::Impl(Player& player1, Player& player2)
+MetaData PlayCardTask::Impl(Player& player)
 {
     TaskMeta serialized;
 
     // Get response from GameInterface
-    m_requirement.Interact(player1.id, serialized);
+    m_requirement.Interact(player.id, serialized);
 
     using RequireTaskMeta = FlatData::ResponsePlayCard;
     const auto& buffer = serialized.GetBuffer();
@@ -41,31 +41,38 @@ MetaData PlayCardTask::Impl(Player& player1, Player& player2)
     const BYTE cardIndex = req->cardIndex();
 
     // Verify index of card hand
-    if (cardIndex >= player1.hand.size())
+    if (cardIndex >= player.hand.size())
     {
         return MetaData::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
 
     // Verify mana is sufficient
-    if (player1.hand[cardIndex]->card->cost > player1.existMana)
+    if (player.hand[cardIndex]->card->cost > player.existMana)
     {
         return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
-    Entity* entity = player1.hand[cardIndex];
+    Entity* entity = player.hand[cardIndex];
 
     // Erase from user's hand
-    player1.hand.erase(player1.hand.begin() + cardIndex);
+    if (player.hand.size() == 1)
+    {
+        player.hand.clear();
+    }
+    else
+    {
+        player.hand.erase(player.hand.begin() + cardIndex);
+    }
 
     // Pass to sub-logic
     switch (entity->card->cardType)
     {
         case CardType::MINION:
-            return PlayMinionTask(m_agent, entity).Run(player1, player2);
+            return PlayMinionTask(m_agent, entity).Run(player);
         case CardType::WEAPON:
-            return PlayWeaponTask(entity).Run(player1, player2);
+            return PlayWeaponTask(entity).Run(player);
         case CardType::SPELL:
-            return PlaySpellTask(m_agent, entity).Run(player1, player2);
+            return PlaySpellTask(m_agent, entity).Run(player);
         default:
             return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
     }

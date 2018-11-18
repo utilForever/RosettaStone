@@ -6,13 +6,14 @@
 
 #include <hspp/Cards/Entity.h>
 #include <hspp/Commons/Constants.h>
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
 
 #include <utility>
 
 namespace Hearthstonepp::BasicTasks
 {
-DrawTask::DrawTask(Player& player, size_t num) : m_player(player), m_num(num)
+DrawTask::DrawTask(size_t num) : m_num(num)
 {
     // Do nothing
 }
@@ -22,13 +23,13 @@ TaskID DrawTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawTask::Impl(Player& user, Player&)
+MetaData DrawTask::Impl(Player& player)
 {
     size_t num = m_num;
     MetaData result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Entity*>& deck = user.cards;
-    std::vector<Entity*>& hand = user.hand;
+    std::vector<Entity*>& deck = player.cards;
+    std::vector<Entity*>& hand = player.hand;
 
     // After reaching fatigue
     if (deck.size() < num)
@@ -37,14 +38,14 @@ MetaData DrawTask::Impl(Player& user, Player&)
 
         // Sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
         const auto fatigueDamage = static_cast<int>(
-            user.exhausted * numDrawAfterFatigue +
+            player.exhausted * numDrawAfterFatigue +
             numDrawAfterFatigue * (numDrawAfterFatigue + 1) / 2);
         const int remainHealth =
-            static_cast<int>(user.hero->health) - fatigueDamage;
+            static_cast<int>(player.hero->health) - fatigueDamage;
 
-        user.hero->health =
+        player.hero->health =
             remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0;
-        user.exhausted += static_cast<BYTE>(numDrawAfterFatigue);
+        player.exhausted += static_cast<BYTE>(numDrawAfterFatigue);
 
         num = deck.size();
         result = MetaData::DRAW_EXHAUST;
@@ -78,8 +79,9 @@ MetaData DrawTask::Impl(Player& user, Player&)
         }
 
         // Send burnt cards to GameInterface
-        //const TaskMetaTrait trait(TaskID::OVERDRAW, result, user.id);
-        //m_agent.Notify(Serializer::CreateEntityVector(trait, burnt));
+        const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.id);
+        player.GetGameAgent().NotifyToTaskAgent(
+            Serializer::CreateEntityVector(trait, burnt));
     }
 
     // Draw success
@@ -102,10 +104,10 @@ TaskID DrawCardTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawCardTask::Impl(Player& user, Player&)
+MetaData DrawCardTask::Impl(Player& player)
 {
-    std::vector<Entity*>& deck = user.cards;
-    std::vector<Entity*>& hand = user.hand;
+    std::vector<Entity*>& deck = player.cards;
+    std::vector<Entity*>& hand = player.hand;
 
     switch (m_card.cardType)
     {

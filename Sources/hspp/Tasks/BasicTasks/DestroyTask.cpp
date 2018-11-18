@@ -20,16 +20,16 @@ TaskID DestroyTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyTask::Impl(Player& player1, Player& player2)
+MetaData DestroyTask::Impl(Player& player)
 {
     switch (m_entityType)
     {
         case EntityType::SOURCE:
-            return DestroyMinionTask(source).Run(player1, player2);
+            return DestroyMinionTask(source).Run(player);
         case EntityType::TARGET:
-            return DestroyMinionTask(target).Run(player2, player1);
+            return DestroyMinionTask(target).Run(player);
         case EntityType::ENEMY_WEAPON:
-            return DestroyWeaponTask().Run(player2, player1);
+            return DestroyWeaponTask().Run(player.GetOpponent());
         default:
             return MetaData::INVALID;
     }

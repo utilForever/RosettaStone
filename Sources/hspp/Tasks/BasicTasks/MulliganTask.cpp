@@ -24,12 +24,12 @@ TaskID MulliganTask::GetTaskID() const
     return TaskID::MULLIGAN;
 }
 
-MetaData MulliganTask::Impl(Player& player1, Player& player2)
+MetaData MulliganTask::Impl(Player& player)
 {
     TaskMeta serialized;
 
     // Get mulligan input from Interface
-    m_requirement.Interact(player1.id, serialized);
+    m_requirement.Interact(player.id, serialized);
 
     using RequireTaskMeta = FlatData::ResponseMulligan;
     const auto& buffer = serialized.GetBuffer();
@@ -73,8 +73,8 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
         }
     }
 
-    std::vector<Entity*>& deck = player1.cards;
-    std::vector<Entity*>& hand = player1.hand;
+    std::vector<Entity*>& deck = player.cards;
+    std::vector<Entity*>& hand = player.hand;
 
     // Rollback to deck
     for (size_t i = 0; i < read; ++i)
@@ -83,8 +83,8 @@ MetaData MulliganTask::Impl(Player& player1, Player& player2)
         hand.erase(hand.begin() + index[i]);
     }
 
-    const MetaData statusShuffle = ShuffleTask().Run(player1, player2);
-    const MetaData statusDraw = DrawTask(player1, read).Run(player1, player2);
+    const MetaData statusShuffle = ShuffleTask().Run(player);
+    const MetaData statusDraw = DrawTask(read).Run(player);
 
     if (statusShuffle == MetaData::SHUFFLE_SUCCESS &&
         statusDraw == MetaData::DRAW_SUCCESS)

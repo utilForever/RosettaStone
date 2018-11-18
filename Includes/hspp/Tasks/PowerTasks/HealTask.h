@@ -30,9 +30,9 @@ class HealTask : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player&) override;
+    MetaData Impl(Player& player) override;
 
     EntityType m_entityType = EntityType::EMPTY;
     int m_amount = 0;

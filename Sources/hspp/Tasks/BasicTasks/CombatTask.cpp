@@ -23,11 +23,11 @@ TaskID CombatTask::GetTaskID() const
     return TaskID::COMBAT;
 }
 
-MetaData CombatTask::Impl(Player& player1, Player& player2)
+MetaData CombatTask::Impl(Player& player)
 {
     TaskMeta serialized;
     // Get targeting response from game interface
-    m_requirement.Interact(player1.id, serialized);
+    m_requirement.Interact(player.id, serialized);
 
     // Get the source and the target
     const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
@@ -41,26 +41,28 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
 
     // Verify index of the source
     // NOTE: 0 means hero, 1 ~ field.size() means minion
-    if (sourceIndex > player1.field.size())
+    if (sourceIndex > player.field.size())
     {
         return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
     // Verify index of the target
     // NOTE: 0 means hero, 1 ~ field.size() means minion
-    if (targetIndex > player2.field.size())
+    if (targetIndex > player.GetOpponent().field.size())
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
     source = (sourceIndex > 0)
-                 ? dynamic_cast<Character*>(player1.field[sourceIndex - 1])
-                 : dynamic_cast<Character*>(player1.hero);
+                 ? dynamic_cast<Character*>(player.field[sourceIndex - 1])
+                 : dynamic_cast<Character*>(player.hero);
     target = (targetIndex > 0)
-                 ? dynamic_cast<Character*>(player2.field[targetIndex - 1])
-                 : dynamic_cast<Character*>(player2.hero);
+                 ? dynamic_cast<Character*>(
+                       player.GetOpponent().field[targetIndex - 1])
+                 : dynamic_cast<Character*>(player.GetOpponent().hero);
 
-    if (!source->CanAttack() || !source->IsValidAttackTarget(player2, target))
+    if (!source->CanAttack() ||
+        !source->IsValidAttackTarget(player.GetOpponent(), target))
     {
         return MetaData::COMBAT_SOURCE_CANT_ATTACK;
     }
@@ -74,13 +76,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Destroy target if attacker is poisonous
     if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
     {
-        PowerTask::PoisonousTask(target).Run(player1, player2);
+        PowerTask::PoisonousTask(target).Run(player);
     }
 
     // Freeze target if attacker is freezer
     if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        PowerTask::FreezeTask(target, EntityType::TARGET).Run(player1, player2);
+        PowerTask::FreezeTask(target, EntityType::TARGET).Run(player);
     }
 
     // Ignore damage from defenders with 0 attack
@@ -92,14 +94,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         // Destroy source if defender is poisonous
         if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
         {
-            PowerTask::PoisonousTask(source).Run(player1, player2);
+            PowerTask::PoisonousTask(source).Run(player);
         }
 
         // Freeze source if defender is freezer
         if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
         {
-            PowerTask::FreezeTask(source, EntityType::SOURCE)
-                .Run(player1, player2);
+            PowerTask::FreezeTask(source, EntityType::SOURCE).Run(player);
         }
     }
 
@@ -119,7 +120,7 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
         // Destroy weapon if durability is 0
         if (hero->weapon->GetDurability() <= 0)
         {
-            DestroyWeaponTask().Run(player1, player2);
+            DestroyWeaponTask().Run(player);
         }
     }
 
@@ -128,13 +129,13 @@ MetaData CombatTask::Impl(Player& player1, Player& player2)
     // Destroy source minion if health less than 0
     if (source->health <= 0)
     {
-        DestroyMinionTask(source).Run(player1, player2);
+        DestroyMinionTask(source).Run(player);
     }
 
     // Destroy target minion if health less than 0
     if (target->health <= 0)
     {
-        DestroyMinionTask(target).Run(player2, player1);
+        DestroyMinionTask(target).Run(player);
     }
 
     return MetaData::COMBAT_SUCCESS;

@@ -19,7 +19,7 @@ TaskID DamageTask::GetTaskID() const
     return TaskID::MODIFY_HEALTH;
 }
 
-MetaData DamageTask::Impl(Player&, Player&)
+MetaData DamageTask::Impl(Player&)
 {
     if (m_character->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {

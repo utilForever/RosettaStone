@@ -20,23 +20,23 @@ TaskID ModifyManaTask::GetTaskID() const
     return TaskID::MODIFY_MANA;
 }
 
-MetaData ModifyManaTask::Impl(Player& player1, Player&)
+MetaData ModifyManaTask::Impl(Player& player)
 {
-    const auto getMana = [](Player& user, ManaType mode) -> BYTE& {
+    const auto getMana = [](Player& p, ManaType mode) -> BYTE& {
         if (mode == ManaType::EXIST)
         {
-            return user.existMana;
+            return p.existMana;
         }
 
         if (mode == ManaType::TOTAL)
         {
-            return user.totalMana;
+            return p.totalMana;
         }
 
         throw std::runtime_error("ModifyMana: Invalid mana mode");
     };
 
-    BYTE& mana = getMana(player1, m_manaMode);
+    BYTE& mana = getMana(player, m_manaMode);
     switch (m_numMode)
     {
         case ManaOperator::ADD:

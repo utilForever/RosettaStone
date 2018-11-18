@@ -21,7 +21,7 @@ TaskID AddEnchantmentTask::GetTaskID() const
     return TaskID::ADD_ENCHANTMENT;
 }
 
-MetaData AddEnchantmentTask::Impl(Player&, Player&)
+MetaData AddEnchantmentTask::Impl(Player&)
 {
     Card enchantmentCard = Cards::GetInstance().FindCardByID(m_cardID);
     if (enchantmentCard.id.empty())

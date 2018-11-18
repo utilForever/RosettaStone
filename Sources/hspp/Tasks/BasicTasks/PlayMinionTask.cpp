@@ -20,12 +20,12 @@ TaskID PlayMinionTask::GetTaskID() const
     return TaskID::PLAY_MINION;
 }
 
-MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
+MetaData PlayMinionTask::Impl(Player& player)
 {
     TaskMeta meta;
 
     // Get position response from GameInterface
-    m_requirement.Interact(player1.id, meta);
+    m_requirement.Interact(player.id, meta);
 
     using RequireTaskMeta = FlatData::ResponsePlayMinion;
     const auto& buffer = meta.GetBuffer();
@@ -39,7 +39,7 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
     const BYTE position = req->position();
 
     // Verify field position
-    if (position > player1.field.size())
+    if (position > player.field.size())
     {
         return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
@@ -52,7 +52,14 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
     }
 
     // Summon minion
-    player1.field.insert(player1.field.begin() + position, character);
+    if (player.field.empty())
+    {
+        player.field.emplace_back(character);
+    }
+    else
+    {
+        player.field.insert(player.field.begin() + position, character);
+    } 
 
     // Apply card mechanics tags
     for (const auto tags : m_entity->card->mechanics)
@@ -62,15 +69,14 @@ MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
 
     const auto cost = static_cast<BYTE>(m_entity->card->cost);
     const MetaData modified =
-        ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost)
-            .Run(player1, player2);
+        ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost).Run(player);
 
     // Process PowerTasks
     if (m_entity->card->power != nullptr)
     {
         for (auto& power : m_entity->card->power->powerTask)
         {
-            power->Run(player1, player2);
+            power->Run(player);
         }
     }
 

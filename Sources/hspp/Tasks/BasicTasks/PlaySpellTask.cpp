@@ -21,12 +21,12 @@ TaskID PlaySpellTask::GetTaskID() const
     return TaskID::PLAY_SPELL;
 }
 
-MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
+MetaData PlaySpellTask::Impl(Player& player)
 {
     TaskMeta meta;
 
     // Get position response from GameInterface
-    m_requirement.Interact(player1.id, meta);
+    m_requirement.Interact(player.id, meta);
 
     using ResponsePlaySpell = FlatData::ResponsePlaySpell;
     const auto& buffer = meta.GetBuffer();
@@ -43,13 +43,13 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
     if (type == +EntityType::FIELD)
     {
         // Verify field position
-        if (position > player1.field.size())
+        if (position > player.field.size())
         {
             return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
         }
 
         // Verify valid target
-        if (player1.field[position] == nullptr)
+        if (player.field[position] == nullptr)
         {
             return MetaData::PLAY_SPELL_INVALID_TARGET;
         }
@@ -57,16 +57,15 @@ MetaData PlaySpellTask::Impl(Player& player1, Player& player2)
 
     const BYTE cost = static_cast<BYTE>(m_entity->card->cost);
     const MetaData modified =
-        ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost)
-            .Run(player1, player2);
+        ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost).Run(player);
 
     // Process PowerTasks
     if (m_entity->card->power != nullptr)
     {
         for (auto& power : m_entity->card->power->powerTask)
         {
-            power->target = player1.field[position];
-            power->Run(player1, player2);
+            power->target = player.field[position];
+            power->Run(player);
         }
     }
 

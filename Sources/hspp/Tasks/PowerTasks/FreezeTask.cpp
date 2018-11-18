@@ -19,7 +19,7 @@ TaskID FreezeTask::GetTaskID() const
     return TaskID::FREEZE;
 }
 
-MetaData FreezeTask::Impl(Player&, Player&)
+MetaData FreezeTask::Impl(Player& player)
 {
     /*
      * The logic of Freeze
@@ -42,12 +42,12 @@ MetaData FreezeTask::Impl(Player&, Player&)
     m_target->SetGameTag(GameTag::FROZEN, 1);
 
     // Case 1
-    if (IsOpponentCharacter())
+    if (IsOpponentCharacter(player))
     {
         m_target->numTurnToUnfreeze = 2;
     }
     // Case 2
-    else if (IsMyCharacter())
+    else if (IsMyCharacter(player))
     {
         // Case 2-1
         if (IsFrozenBeforeAttack())
@@ -65,14 +65,27 @@ MetaData FreezeTask::Impl(Player&, Player&)
     return MetaData::FREEZE_SUCCESS;
 }
 
-bool FreezeTask::IsMyCharacter() const
+bool FreezeTask::IsMyCharacter(Player& player) const
 {
+    if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
+    {
+        return std::find(player.field.begin(), player.field.end(), m_target) !=
+               player.field.end();
+    }
+
     return m_type == +EntityType::FIELD || m_type == +EntityType::HERO ||
            m_type == +EntityType::FRIENDS;
 }
 
-bool FreezeTask::IsOpponentCharacter() const
+bool FreezeTask::IsOpponentCharacter(Player& player) const
 {
+    if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
+    {
+        return std::find(player.GetOpponent().field.begin(),
+                         player.GetOpponent().field.end(),
+                         m_target) != player.GetOpponent().field.end();
+    }
+
     return m_type == +EntityType::ENEMY_FIELD ||
            m_type == +EntityType::ENEMY_HERO || m_type == +EntityType::ENEMIES;
 }
