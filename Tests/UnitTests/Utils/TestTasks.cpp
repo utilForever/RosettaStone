@@ -14,7 +14,7 @@
 
 using namespace Hearthstonepp;
 
-TestTask::TestTask(TaskID id, std::function<MetaData(Player&, Player&)>&& impl)
+TestTask::TestTask(TaskID id, std::function<MetaData(Player&)>&& impl)
     : m_id(id), m_impl(std::move(impl))
 {
     // Do nothing
@@ -25,7 +25,7 @@ TaskID TestTask::GetTaskID() const
     return m_id;
 }
 
-MetaData TestTask::Impl(Player& player1, Player& player2)
+MetaData TestTask::Impl(Player& player)
 {
-    return m_impl(player1, player2);
+    return m_impl(player);
 }

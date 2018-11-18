@@ -14,25 +14,25 @@ using namespace Hearthstonepp;
 
 namespace TestUtils
 {
-enum class PlayerType
-{
-    PLAYER1,
-    PLAYER2
-};
-
-struct PlayerGenerator
-{
-    PlayerGenerator(CardClass class1, CardClass class2);
-
-    Account account1;
-    Account account2;
-
-    Deck deck1;
-    Deck deck2;
-
-    Player player1;
-    Player player2;
-};
+//enum class PlayerType
+//{
+//    PLAYER1,
+//    PLAYER2
+//};
+//
+//struct PlayerGenerator
+//{
+//    PlayerGenerator(CardClass class1, CardClass class2);
+//
+//    Account account1;
+//    Account account2;
+//
+//    Deck deck1;
+//    Deck deck2;
+//
+//    Player player1;
+//    Player player2;
+//};
 
 std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
                                  size_t maximumSize = 255);
