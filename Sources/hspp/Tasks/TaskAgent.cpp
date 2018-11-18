@@ -45,20 +45,18 @@ void TaskAgent::Notify(TaskMeta&& meta, bool sideChannel)
     }
 }
 
-void TaskAgent::Run(TaskMeta& meta, Player& player1, Player& player2,
-                    ITask& task, bool notify)
+void TaskAgent::Run(TaskMeta& meta, Player& player, ITask& task, bool notify)
 {
-    task.Run(player1, player2, meta);
+    task.Run(player, meta);
     if (notify)
     {
         Notify(TaskMeta::CopyFrom(meta));
     }
 }
 
-void TaskAgent::Run(TaskMeta& meta, Player& player1, Player& player2,
-                    ITask&& task, bool notify)
+void TaskAgent::Run(TaskMeta& meta, Player& player, ITask&& task, bool notify)
 {
-    task.Run(player1, player2, meta);
+    task.Run(player, meta);
     if (notify)
     {
         Notify(TaskMeta::CopyFrom(meta));
