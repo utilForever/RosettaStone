@@ -10,13 +10,14 @@
 #include <hspp/Accounts/Account.h>
 #include <hspp/Cards/Entity.h>
 #include <hspp/Cards/Hero.h>
-#include <hspp/Cards/HeroPower.h>
 #include <hspp/Cards/Minion.h>
 #include <hspp/Cards/Spell.h>
 
 namespace Hearthstonepp
 {
 using BYTE = unsigned char;
+
+class GameAgent;
 
 //!
 //! \brief Player class.
@@ -30,28 +31,39 @@ class Player
  public:
     static constexpr BYTE USER_INVALID = 255;
 
+    //! Default constructor.
+    Player();
+
     //! Constructs player with given \p account and \p deck.
     //! \param account The account stores user information.
     //! \param deck A deck where cards are stored.
-    Player(const Account* account, const Deck* deck);
+    // Player(const Account* account, const Deck* deck);
 
     //! Destructor.
     ~Player();
 
     //! Copy constructor.
-    Player(const Player& p);
+    Player(const Player& p) = delete;
 
     //! Move constructor.
-    Player(Player&& p) noexcept;
+    Player(Player&& p) = delete;
 
     //! Copy assignment operator.
-    Player& operator=(const Player& p);
+    Player& operator=(const Player& p) = delete;
 
     //! Move assignment operator.
-    Player& operator=(Player&& p) noexcept;
+    Player& operator=(Player&& p) = delete;
 
     //! Operator overloading: The equality operator.
     bool operator==(const Player& player) const;
+
+    //! Returns the game agent.
+    //! \return The game agent.
+    GameAgent& GetGameAgent() const;
+
+    //! Sets the game agent.
+    //! \param agent The game agent.
+    void SetGameAgent(GameAgent* agent);
 
     //! Returns the opponent player.
     //! \return The opponent player.
@@ -59,10 +71,11 @@ class Player
 
     //! Sets the opponent player.
     //! \param player The opponent player.
-    void SetOpponent(Player& player) const;
+    void SetOpponent(Player* player);
+
+    void AddHeroAndPower(Card heroCard, Card powerCard);
 
     Hero* hero = nullptr;
-    HeroPower* power = nullptr;
 
     BYTE id = 0;
     BYTE totalMana = 0;
@@ -84,15 +97,8 @@ class Player
     //! Releases dynamic allocated resources.
     void FreeMemory();
 
-    //! Copies data from given \p p.
-    //! \param p An instance of Player class to copy data.
-    void CopyData(const Player& p);
-
-    //! Moves data from given \p p.
-    //! \param p An instance of Player class to move data.
-    void MoveData(Player&& p);
-
-    Player& m_opponent;
+    GameAgent* m_gameAgent = nullptr;
+    Player* m_opponent = nullptr;
 };
 }  // namespace Hearthstonepp
 
