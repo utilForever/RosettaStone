@@ -18,10 +18,10 @@ TaskID DoBothPlayer::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoBothPlayer::Impl(Player& player1, Player& player2)
+MetaData DoBothPlayer::Impl(Player& player)
 {
-    const MetaData status1 = m_task.Run(player1, player2);
-    const MetaData status2 = m_task.Run(player2, player1);
+    const MetaData status1 = m_task.Run(player);
+    const MetaData status2 = m_task.Run(player.GetOpponent());
 
     if (status1 == status2)
     {
@@ -42,13 +42,13 @@ TaskID DoUntil::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoUntil::Impl(Player& player1, Player& player2)
+MetaData DoUntil::Impl(Player& player)
 {
     TaskMeta meta;
 
     while (true)
     {
-        m_task.Run(player1, player2, meta);
+        m_task.Run(player, meta);
 
         // Do until the condition satisfied
         if (m_condition(meta))
