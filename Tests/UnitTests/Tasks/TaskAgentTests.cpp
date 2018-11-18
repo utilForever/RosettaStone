@@ -4,10 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestTasks.h>
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/MetaData.h>
 #include <hspp/Tasks/TaskAgent.h>
 #include <hspp/Tasks/TaskMeta.h>
@@ -50,31 +51,27 @@ TEST(TaskAgent, NotifyAndReadSide)
 
 TEST(TaskAgent, RunSingleTask)
 {
-    TaskAgent agent;
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    TaskAgent& taskAgent = agent.GetTaskAgent();
 
-    TestTask task(TaskID::COMBAT, [](Player& p1, Player& p2) -> MetaData {
-        p1.id = 100;
-        p2.id = 200;
+    TestTask task(TaskID::COMBAT, [](Player& p) -> MetaData {
+        p.id = 100;
+        p.GetOpponent().id = 200;
 
         return MetaData::COMBAT;
     });
 
-    Deck deck;
-    Account account;
-    Player player1(&account, &deck);
-    Player player2(&account, &deck);
-
     // with Notifying
     TaskMeta read;
-    agent.Run(read, player1, player2, task);
+    taskAgent.Run(read, agent.GetPlayer1(), task);
 
     TaskMeta ret;
-    agent.Read(ret);
+    taskAgent.Read(ret);
 
     EXPECT_EQ(read, ret);
 
-    EXPECT_EQ(player1.id, 100);
-    EXPECT_EQ(player2.id, 200);
+    EXPECT_EQ(agent.GetPlayer1().id, 100);
+    EXPECT_EQ(agent.GetPlayer2().id, 200);
 
     EXPECT_EQ(read.id, +TaskID::COMBAT);
     EXPECT_EQ(read.status, MetaData::COMBAT);
@@ -85,45 +82,41 @@ TEST(TaskAgent, RunSingleTask)
 
     // without Notifying
     TaskMeta read2;
-    agent.Run(read2, player2, player1, task, false);
+    taskAgent.Run(read2, agent.GetPlayer2(), task, false);
 
     EXPECT_EQ(read.id, read2.id);
     EXPECT_EQ(read.status, read2.status);
 
-    EXPECT_EQ(player2.id, 100);
-    EXPECT_EQ(player1.id, 200);
+    EXPECT_EQ(agent.GetPlayer1().id, 200);
+    EXPECT_EQ(agent.GetPlayer2().id, 100);
 }
 
 TEST(TaskAgent, RunMultiTasks)
 {
-    TestTask task1(TaskID::SWAP, [](Player& p1, Player&) -> MetaData {
-        p1.id = 100;
+    TestTask task1(TaskID::SWAP, [](Player& p) -> MetaData {
+        p.id = 100;
         return MetaData::SWAP;
     });
 
-    TestTask task2(TaskID::COMBAT, [](Player&, Player& p2) -> MetaData {
-        p2.id = 200;
+    TestTask task2(TaskID::COMBAT, [](Player& p) -> MetaData {
+        p.GetOpponent().id = 200;
         return MetaData::COMBAT;
     });
 
-    Deck deck;
-    Account account;
-    Player player1(&account, &deck);
-    Player player2(&account, &deck);
-
-    TaskAgent agent;
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    TaskAgent& taskAgent = agent.GetTaskAgent();
 
     TaskMeta ret;
-    agent.RunMulti(ret, player1, player2, task1, task2);
+    taskAgent.RunMulti(ret, agent.GetPlayer1(), task1, task2);
 
     TaskMeta read;
-    agent.Read(read);
+    taskAgent.Read(read);
 
     EXPECT_EQ(ret, read);
     EXPECT_EQ(ret.id, +TaskID::TASK_VECTOR);
 
-    EXPECT_EQ(player1.id, 100);
-    EXPECT_EQ(player2.id, 200);
+    EXPECT_EQ(agent.GetPlayer1().id, 100);
+    EXPECT_EQ(agent.GetPlayer2().id, 200);
 
     const auto& buffer = ret.GetBuffer();
     const auto taskTuple =
@@ -156,8 +149,8 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
 
     const auto generate = [](const TaskMetaTrait& trait) -> TestTask {
         return TestTask(trait.id,
-                        [status = trait.status, userID = trait.userID](
-                            Player& p, Player&) -> MetaData {
+                        [status = trait.status,
+                         userID = trait.userID](Player& p) -> MetaData {
                             p.id = userID;
                             return status;
                         });
@@ -207,20 +200,16 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
         tasks.emplace_back(generate(traits[i]));
     }
 
-    Deck deck;
-    Account account;
-    Player player1(&account, &deck);
-    Player player2(&account, &deck);
-
-    TaskAgent agent;
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    TaskAgent& taskAgent = agent.GetTaskAgent();
 
     // without TaskID::Brief
     TaskMeta ret;
-    agent.RunMulti(ret, player1, player2, tasks[0], tasks[1], tasks[2],
-                   tasks[3], tasks[4]);
+    taskAgent.RunMulti(ret, agent.GetPlayer1(), tasks[0], tasks[1], tasks[2],
+                       tasks[3], tasks[4]);
 
     TaskMeta read;
-    agent.Read(read);
+    taskAgent.Read(read);
 
     EXPECT_EQ(ret, read);
     check(ret);
@@ -231,12 +220,12 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
 
     std::future<TaskMeta> res = std::async(std::launch::async, [&] {
         TaskMeta meta;
-        agent.RunMulti(meta, player1, player2, tasks[0], tasks[1], tasks[2],
-                       tasks[3], tasks[4]);
+        taskAgent.RunMulti(meta, agent.GetPlayer1(), tasks[0], tasks[1],
+                           tasks[2], tasks[3], tasks[4]);
         return meta;
     });
 
-    agent.Read(read);
+    taskAgent.Read(read);
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(read);
 
     EXPECT_EQ(read.id, +TaskID::BRIEF);
@@ -245,7 +234,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
 
     EXPECT_EQ(status->currentPlayer(), 100);
 
-    agent.Read(read);
+    taskAgent.Read(read);
     check(read);
     check(res.get());
 }

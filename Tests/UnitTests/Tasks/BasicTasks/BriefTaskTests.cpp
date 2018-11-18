@@ -5,8 +5,8 @@
 // property of any third parties.
 
 #include "gtest/gtest.h"
-#include <Utils/TestUtils.h>
 
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/BriefTask.h>
 
 using namespace Hearthstonepp;
@@ -20,17 +20,17 @@ TEST(BriefTask, GetTaskID)
 TEST(BriefTask, Run)
 {
     BasicTasks::BriefTask brief;
-    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
-    gen.player1.id = 100;
+    agent.GetPlayer1().id = 100;
 
-    MetaData result = brief.Run(gen.player1, gen.player2);
+    MetaData result = brief.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::BRIEF);
 
     TaskMeta meta;
-    result = brief.Run(gen.player1, gen.player2, meta);
+    result = brief.Run(agent.GetPlayer1(), meta);
     EXPECT_EQ(result, MetaData::BRIEF);
     EXPECT_EQ(meta.id, +TaskID::BRIEF);
     EXPECT_EQ(meta.status, MetaData::BRIEF);
-    EXPECT_EQ(meta.userID, gen.player1.id);
+    EXPECT_EQ(meta.userID, agent.GetPlayer1().id);
 }

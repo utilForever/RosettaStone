@@ -4,22 +4,20 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
 #include <hspp/Cards/Cards.h>
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
-#include <hspp/Tasks/TaskAgent.h>
 
 using namespace Hearthstonepp;
 
 TEST(DrawTask, GetTaskID)
 {
-    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
-    const BasicTasks::DrawTask draw(agent.GetCurrentPlayer(), 1);
+    const BasicTasks::DrawTask draw(1);
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
 }
 
@@ -36,11 +34,9 @@ TEST(DrawTask, Run)
         return entities.back();
     };
 
-    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Player& p1 = agent.GetPlayer1();
-    Player& p2 = agent.GetPlayer2();
 
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
@@ -48,8 +44,8 @@ TEST(DrawTask, Run)
         p1.cards.emplace_back(generate(id + i));
     }
 
-    BasicTasks::DrawTask draw(agent.GetCurrentPlayer(), 3);
-    MetaData result = draw.Run(p1, p2);
+    BasicTasks::DrawTask draw(3);
+    MetaData result = draw.Run(p1);
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
     EXPECT_EQ(p1.hand.size(), static_cast<size_t>(3));
 
@@ -61,14 +57,13 @@ TEST(DrawTask, Run)
 
 TEST(DrawTask, RunExhaust)
 {
-    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Player& p1 = agent.GetPlayer1();
     EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
 
-    BasicTasks::DrawTask draw(agent.GetCurrentPlayer(), 3);
-    MetaData result = draw.Run(agent.GetPlayer1(), agent.GetPlayer2());
+    BasicTasks::DrawTask draw(3);
+    MetaData result = draw.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
     EXPECT_EQ(p1.hand.size(), static_cast<size_t>(0));
     EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
@@ -82,7 +77,7 @@ TEST(DrawTask, RunExhaust)
     auto entity = new Entity(card);
     p1.cards.emplace_back(entity);
 
-    result = draw.Run(agent.GetPlayer1(), agent.GetPlayer2());
+    result = draw.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
     EXPECT_EQ(p1.hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(p1.hand[0]->card->id, "card1");
@@ -105,11 +100,9 @@ TEST(DrawTask, RunOverDraw)
         return entities.back();
     };
 
-    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Player& p1 = agent.GetPlayer1();
-    Player& p2 = agent.GetPlayer2();
 
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
@@ -118,8 +111,8 @@ TEST(DrawTask, RunOverDraw)
     }
 
     p1.hand.resize(10);
-    BasicTasks::DrawTask draw(agent.GetCurrentPlayer(), 3);
-    MetaData result = draw.Run(p1, p2);
+    BasicTasks::DrawTask draw(3);
+    MetaData result = draw.Run(p1);
     EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
     EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
     EXPECT_EQ(p1.hand.size(), static_cast<size_t>(10));
@@ -155,11 +148,9 @@ TEST(DrawTask, RunExhaustOverdraw)
         return entities.back();
     };
 
-    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
-    GameAgent agent(std::move(gen.player1), std::move(gen.player2));
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Player& p1 = agent.GetPlayer1();
-    Player& p2 = agent.GetPlayer2();
 
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
@@ -168,8 +159,8 @@ TEST(DrawTask, RunExhaustOverdraw)
     }
 
     p1.hand.resize(9);
-    BasicTasks::DrawTask draw(agent.GetCurrentPlayer(), 4);
-    MetaData result = draw.Run(p1, p2);
+    BasicTasks::DrawTask draw(4);
+    MetaData result = draw.Run(p1);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
     EXPECT_EQ(p1.hand.size(), static_cast<size_t>(10));
@@ -203,7 +194,7 @@ TEST(DrawCardTask, GetTaskID)
 TEST(DrawCardTask, Run)
 {
     Cards& instance = Cards::GetInstance();
-    TestUtils::PlayerGenerator gen(CardClass::ROGUE, CardClass::DRUID);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Card nerubian = instance.FindCardByID("AT_036t");
     EXPECT_NE(nerubian.id, "");
@@ -215,25 +206,25 @@ TEST(DrawCardTask, Run)
 
     auto minionNerubian = new Entity(nerubian);
     auto weaponPoisonedBlade = new Entity(poisonedBlade);
-    gen.player1.cards.emplace_back(weaponPoisonedBlade);
-    gen.player1.cards.emplace_back(minionNerubian);
+    agent.GetPlayer1().cards.emplace_back(weaponPoisonedBlade);
+    agent.GetPlayer1().cards.emplace_back(minionNerubian);
 
     BasicTasks::DrawCardTask drawNerubian(nerubian);
-    MetaData result = drawNerubian.Run(gen.player1, gen.player2);
+    MetaData result = drawNerubian.Run(agent.GetPlayer1());
 
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
-    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(gen.player1.hand[0]->card->id, nerubian.id);
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(1));
-    EXPECT_EQ(gen.player1.cards[0]->card->id, poisonedBlade.id);
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->id, nerubian.id);
+    EXPECT_EQ(agent.GetPlayer1().cards.size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().cards[0]->card->id, poisonedBlade.id);
 
     BasicTasks::DrawCardTask drawPoisonedBlade(poisonedBlade);
-    result = drawPoisonedBlade.Run(gen.player1, gen.player2);
+    result = drawPoisonedBlade.Run(agent.GetPlayer1());
 
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
-    EXPECT_EQ(gen.player1.hand.size(), static_cast<size_t>(2));
-    EXPECT_EQ(gen.player1.hand[1]->card->id, poisonedBlade.id);
-    EXPECT_EQ(gen.player1.cards.size(), static_cast<size_t>(0));
+    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
+    EXPECT_EQ(agent.GetPlayer1().hand[1]->card->id, poisonedBlade.id);
+    EXPECT_EQ(agent.GetPlayer1().cards.size(), static_cast<size_t>(0));
 
     delete minionNerubian;
     delete weaponPoisonedBlade;

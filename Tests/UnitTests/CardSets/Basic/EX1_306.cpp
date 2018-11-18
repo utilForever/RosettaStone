@@ -10,50 +10,48 @@
 
 TEST(BasicCardSet, EX1_306)
 {
-    GameAgent agent(
-        Player(new Account("Player 1", ""), new Deck("", CardClass::WARLOCK)),
-        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
 
     TaskAgent& taskAgent = agent.GetTaskAgent();
     TestUtils::AutoResponder response(agent);
 
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Player& player1 = agent.GetCurrentPlayer();
+    Player& player2 = agent.GetCurrentPlayer().GetOpponent();
 
     player1.totalMana = player1.existMana = 10;
     player2.totalMana = player2.existMana = 10;
 
     // Each players draw 2 cards.
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance().FindCardByName("Succubus")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Succubus");
+    agent.RunTask(player1,
+                  BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Succubus")));
+    EXPECT_EQ(player1.hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(player1.hand[0]->card->name, "Succubus");
 
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance().FindCardByName("Fiery War Axe")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
-    EXPECT_EQ(agent.GetPlayer1().hand[1]->card->name, "Fiery War Axe");
+    agent.RunTask(player1,
+                  BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Fiery War Axe")));
+    EXPECT_EQ(player1.hand.size(), static_cast<size_t>(2));
+    EXPECT_EQ(player1.hand[1]->card->name, "Fiery War Axe");
 
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")),
-                  player2, player1);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");
+    agent.RunTask(
+        player2, BasicTasks::DrawCardTask(
+                     Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")));
+    EXPECT_EQ(player2.hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(player2.hand[0]->card->name, "Acidic Swamp Ooze");
 
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance().FindCardByName("Stonetusk Boar")),
-                  player2, player1);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(2));
-    EXPECT_EQ(agent.GetPlayer2().hand[1]->card->name, "Stonetusk Boar");
+    agent.RunTask(player2,
+                  BasicTasks::DrawCardTask(
+                      Cards::GetInstance().FindCardByName("Stonetusk Boar")));
+    EXPECT_EQ(player2.hand.size(), static_cast<size_t>(2));
+    EXPECT_EQ(player2.hand[1]->card->name, "Stonetusk Boar");
 
     // Player 1 plays Succubus, and now the player 1's hand is empty
     auto respAutoMinion = response.AutoMinion(0, 0);
     MetaData result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
+        agent.RunTask(player1, BasicTasks::PlayCardTask(taskAgent));
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(0));
+    EXPECT_EQ(player1.hand.size(), static_cast<size_t>(0));
 
     auto [respPlayCard1, respPlayMinion1] = respAutoMinion.get();
     auto require =
@@ -67,10 +65,9 @@ TEST(BasicCardSet, EX1_306)
 
     // This task doesn't affect player 2's hand
     respAutoMinion = response.AutoMinion(0, 0);
-    result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
+    result = agent.RunTask(player2, BasicTasks::PlayCardTask(taskAgent));
     EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    EXPECT_EQ(player2.hand.size(), static_cast<size_t>(1));
 
     auto [respPlayCard2, respPlayMinion2] = respAutoMinion.get();
     require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);

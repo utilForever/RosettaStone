@@ -4,13 +4,14 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
 #include <hspp/Accounts/Player.h>
 #include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Minion.h>
 #include <hspp/Cards/Weapon.h>
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/TaskSerializer.h>
 #include <hspp/Tasks/Tasks.h>
 
@@ -263,47 +264,40 @@ TEST(TaskSerializer, CreatePlayerSetting)
 
 TEST(TaskSerializer, CreateGameStatus)
 {
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
     const TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
 
-    Account account1("email1", "name1");
-    Account account2("email2", "name2");
-    Deck deck1("deck1", CardClass::DRUID);
-    Deck deck2("deck2", CardClass::PALADIN);
+    agent.GetPlayer1().id = 100;
+    agent.GetPlayer2().id = 200;
 
-    Player player1(&account1, &deck1);
-    Player player2(&account2, &deck2);
-
-    player1.id = 100;
-    player2.id = 200;
-
-    player1.existMana = 10;
-    player2.existMana = 20;
+    agent.GetPlayer1().existMana = 10;
+    agent.GetPlayer2().existMana = 20;
 
     Cards& instance = Cards::GetInstance();
 
     // Summon 'Nerubian' card to field (minion)
     Card nerubian = instance.FindCardByID("AT_036t");
-    player1.field.emplace_back(new Minion(nerubian));
-    player2.field.emplace_back(new Minion(nerubian));
+    agent.GetPlayer1().field.emplace_back(new Minion(nerubian));
+    agent.GetPlayer2().field.emplace_back(new Minion(nerubian));
 
     // Draw 'Poisoned Blade' card (weapon)
     Card poisonedBlade = instance.FindCardByID("AT_034");
-    player1.hand.emplace_back(new Weapon(poisonedBlade));
-    player2.hand.emplace_back(new Weapon(poisonedBlade));
+    agent.GetPlayer1().hand.emplace_back(new Weapon(poisonedBlade));
+    agent.GetPlayer2().hand.emplace_back(new Weapon(poisonedBlade));
 
-    TaskMeta meta = Serializer::CreateGameStatus(randTrait.id, randTrait.status,
-                                                 player1, player2);
+    TaskMeta meta = Serializer::CreateGameStatus(
+        agent.GetPlayer1(), randTrait.id, randTrait.status);
     EXPECT_EQ(meta.id, randTrait.id);
     EXPECT_EQ(meta.status, randTrait.status);
-    EXPECT_EQ(meta.userID, player1.id);
+    EXPECT_EQ(meta.userID, agent.GetPlayer1().id);
 
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
-    EXPECT_EQ(status->currentPlayer(), player1.id);
-    EXPECT_EQ(status->opponentPlayer(), player2.id);
-    EXPECT_EQ(status->currentMana(), player1.existMana);
-    EXPECT_EQ(status->opponentMana(), player2.existMana);
+    EXPECT_EQ(status->currentPlayer(), agent.GetPlayer1().id);
+    EXPECT_EQ(status->opponentPlayer(), agent.GetPlayer2().id);
+    EXPECT_EQ(status->currentMana(), agent.GetPlayer1().existMana);
+    EXPECT_EQ(status->opponentMana(), agent.GetPlayer2().existMana);
     EXPECT_EQ(status->currentHero()->card()->id()->str(), "HERO_06");
-    EXPECT_EQ(status->opponentHero()->card()->id()->str(), "HERO_04");
+    EXPECT_EQ(status->opponentHero()->card()->id()->str(), "HERO_03");
     EXPECT_EQ(status->currentField()->size(), static_cast<size_t>(1));
     EXPECT_EQ(status->currentField()->Get(0)->card()->id()->str(), "AT_036t");
     EXPECT_EQ(status->opponentField()->size(), static_cast<size_t>(1));

@@ -7,6 +7,7 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DestroyTask.h>
 
 using namespace Hearthstonepp;
@@ -19,9 +20,9 @@ TEST(DestroyTask, GetTaskID)
 
 TEST(DestroyTask, Run)
 {
-    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
-    Player& player1 = gen.player1;
-    Player& player2 = gen.player2;
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
 
     auto card = TestUtils::GenerateMinionCard("minion1", 1, 1);
 
@@ -31,7 +32,7 @@ TEST(DestroyTask, Run)
     BasicTasks::DestroyTask task(EntityType::SOURCE);
     task.source = player1.field[0];
 
-    MetaData result = task.Run(player1, player2);
+    MetaData result = task.Run(player1);
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
     EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
 
@@ -41,7 +42,7 @@ TEST(DestroyTask, Run)
     BasicTasks::DestroyTask task2(EntityType::TARGET);
     task2.target = player2.field[0];
 
-    MetaData result2 = task2.Run(player1, player2);
+    MetaData result2 = task2.Run(player1);
     EXPECT_EQ(result2, MetaData::DESTROY_MINION_SUCCESS);
     EXPECT_EQ(player2.field.size(), static_cast<size_t>(0));
 
@@ -51,7 +52,7 @@ TEST(DestroyTask, Run)
 
     BasicTasks::DestroyTask task3(EntityType::ENEMY_WEAPON);
 
-    MetaData result3 = task3.Run(player1, player2);
+    MetaData result3 = task3.Run(player1);
     EXPECT_EQ(result3, MetaData::DESTROY_WEAPON_SUCCESS);
     EXPECT_EQ(player2.hero->weapon, static_cast<const Weapon*>(nullptr));
 }
