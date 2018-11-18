@@ -8,6 +8,7 @@
 #define HEARTHSTONEPP_HERO_H
 
 #include <hspp/Cards/Character.h>
+#include <hspp/Cards/HeroPower.h>
 #include <hspp/Cards/Weapon.h>
 
 namespace Hearthstonepp
@@ -50,6 +51,7 @@ class Hero : public Character
     //! \return The value of attack.
     size_t GetAttack() const override;
 
+    HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
 };
 }  // namespace Hearthstonepp
