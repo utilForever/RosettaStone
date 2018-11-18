@@ -46,17 +46,15 @@ class ITask
     ITask& operator=(ITask&& task) = default;
 
     //! Calls Impl method and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Run(Player& player1, Player& player2);
+    MetaData Run(Player& player);
 
     //! Calls Impl method and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \param meta The task meta that stores game status.
     //! \return The result of task processing.
-    MetaData Run(Player& player1, Player& player2, TaskMeta& meta);
+    MetaData Run(Player& player, TaskMeta& meta);
 
     //! Returns task ID (pure virtual).
     //! \return Task ID.
@@ -67,10 +65,9 @@ class ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    virtual MetaData Impl(Player& player1, Player& player2) = 0;
+    virtual MetaData Impl(Player& player) = 0;
 };
 }  // namespace Hearthstonepp
 
