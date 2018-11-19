@@ -14,7 +14,7 @@
 namespace Hearthstonepp::BasicTasks
 {
 MulliganTask::MulliganTask(TaskAgent& agent)
-    : m_agent(agent), m_requirement(Requirement(TaskID::MULLIGAN, agent))
+    : m_requirement(Requirement(TaskID::MULLIGAN, agent))
 {
     // Do nothing
 }

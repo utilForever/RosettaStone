@@ -35,7 +35,6 @@ class MulliganTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    TaskAgent& m_agent;
     Requirement m_requirement;
 };
 }  // namespace Hearthstonepp::BasicTasks
