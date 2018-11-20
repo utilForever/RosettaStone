@@ -11,8 +11,10 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-PlayCardTask::PlayCardTask(TaskAgent& agent)
-    : m_agent(agent), m_requirement(TaskID::SELECT_CARD, agent)
+PlayCardTask::PlayCardTask(TaskAgent& agent, Entity* entity)
+    : m_agent(agent),
+      m_requirement(TaskID::SELECT_CARD, agent),
+      m_entity(entity)
 {
     // Do nothing
 }
@@ -24,35 +26,47 @@ TaskID PlayCardTask::GetTaskID() const
 
 MetaData PlayCardTask::Impl(Player& player)
 {
-    TaskMeta serialized;
+    BYTE handIndex;
 
-    // Get response from GameInterface
-    m_requirement.Interact(player.id, serialized);
-
-    using RequireTaskMeta = FlatData::ResponsePlayCard;
-    const auto& buffer = serialized.GetBuffer();
-    const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
-    if (req == nullptr)
+    if (m_entity != nullptr)
     {
-        return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
+        const auto handIter =
+            std::find(player.hand.begin(), player.hand.end(), m_entity);
+        handIndex =
+            static_cast<BYTE>(std::distance(player.hand.begin(), handIter));
+    }
+    else
+    {
+        TaskMeta serialized;
+
+        // Get response from GameInterface
+        m_requirement.Interact(player.id, serialized);
+
+        using RequireTaskMeta = FlatData::ResponsePlayCard;
+        const auto& buffer = serialized.GetBuffer();
+        const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+
+        if (req == nullptr)
+        {
+            return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
+        }
+
+        handIndex = req->cardIndex();
     }
 
-    const BYTE cardIndex = req->cardIndex();
-
     // Verify index of card hand
-    if (cardIndex >= player.hand.size())
+    if (handIndex >= player.hand.size())
     {
         return MetaData::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
 
     // Verify mana is sufficient
-    if (player.hand[cardIndex]->card->cost > player.existMana)
+    if (player.hand[handIndex]->card->cost > player.existMana)
     {
         return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
-    Entity* entity = player.hand[cardIndex];
+    Entity* entity = player.hand[handIndex];
 
     // Erase from user's hand
     if (player.hand.size() == 1)
@@ -61,7 +75,7 @@ MetaData PlayCardTask::Impl(Player& player)
     }
     else
     {
-        player.hand.erase(player.hand.begin() + cardIndex);
+        player.hand.erase(player.hand.begin() + handIndex);
     }
 
     // Pass to sub-logic
