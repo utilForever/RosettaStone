@@ -41,10 +41,10 @@ TEST(ClassicCardSet, CS2_041)
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent));
     EXPECT_EQ(currentPlayer.field[0]->card->name, "Acidic Swamp Ooze");
 
-    GameAgent::RunTask(agent.GetOpponentPlayer(), PlayCardTask(taskAgent));
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent));
     EXPECT_EQ(opponentPlayer.field[0]->card->name, "Stonetusk Boar");
 
-    GameAgent::RunTask(agent.GetOpponentPlayer(), CombatTask(taskAgent));
+    GameAgent::RunTask(opponentPlayer, CombatTask(taskAgent));
     EXPECT_EQ(currentPlayer.field[0]->health, 1u);
     EXPECT_EQ(opponentPlayer.field.size(), 0u);
 
