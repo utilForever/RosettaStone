@@ -6,6 +6,7 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Actions/Generic.h>
 #include <hspp/Cards/Cards.h>
 
 using namespace BasicTasks;
@@ -20,33 +21,30 @@ TEST(BasicCardSet, EX1_306)
     currentPlayer.totalMana = currentPlayer.existMana = 10;
     opponentPlayer.totalMana = opponentPlayer.existMana = 10;
 
-    GameAgent::RunTask(
-        currentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Succubus")));
+    const auto card1 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Succubus"));
     EXPECT_EQ(currentPlayer.hand.size(), 1u);
     EXPECT_EQ(currentPlayer.hand[0]->card->name, "Succubus");
 
-    GameAgent::RunTask(
-        currentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Fiery War Axe")));
+    Generic::DrawCard(currentPlayer,
+                      Cards::GetInstance().FindCardByName("Fiery War Axe"));
     EXPECT_EQ(currentPlayer.hand.size(), 2u);
     EXPECT_EQ(currentPlayer.hand[1]->card->name, "Fiery War Axe");
 
-    GameAgent::RunTask(
+    const auto card2 = Generic::DrawCard(
         opponentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")));
+        Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
     EXPECT_EQ(opponentPlayer.hand.size(), 1u);
     EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
 
-    GameAgent::RunTask(
-        opponentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Stonetusk Boar")));
+    Generic::DrawCard(opponentPlayer,
+                      Cards::GetInstance().FindCardByName("Stonetusk Boar"));
     EXPECT_EQ(opponentPlayer.hand.size(), 2);
     EXPECT_EQ(opponentPlayer.hand[1]->card->name, "Stonetusk Boar");
 
-    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent));
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
     EXPECT_EQ(currentPlayer.hand.size(), 0u);
 
-    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent));
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card2));
     EXPECT_EQ(opponentPlayer.hand.size(), 1u);
 }

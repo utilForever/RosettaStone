@@ -6,6 +6,7 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Actions/Generic.h>
 #include <hspp/Cards/Cards.h>
 
 using namespace BasicTasks;
@@ -21,22 +22,22 @@ TEST(ClassicCardSet, CS2_088)
     opponentPlayer.totalMana = opponentPlayer.existMana = 10;
     opponentPlayer.hero->health = 24;
 
-    GameAgent::RunTask(
+    const auto card1 = Generic::DrawCard(
         currentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")));
+        Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
     EXPECT_EQ(currentPlayer.hand.size(), 1u);
     EXPECT_EQ(currentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
 
-    GameAgent::RunTask(
+    const auto card2 = Generic::DrawCard(
         opponentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Guardian of Kings")));
+        Cards::GetInstance().FindCardByName("Guardian of Kings"));
     EXPECT_EQ(opponentPlayer.hand.size(), 1u);
     EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Guardian of Kings");
 
-    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent));
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
     EXPECT_EQ(currentPlayer.field[0]->card->name, "Acidic Swamp Ooze");
 
-    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent));
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
     EXPECT_EQ(opponentPlayer.field[0]->card->name, "Guardian of Kings");
     EXPECT_EQ(opponentPlayer.hero->maxHealth, opponentPlayer.hero->health);
 }

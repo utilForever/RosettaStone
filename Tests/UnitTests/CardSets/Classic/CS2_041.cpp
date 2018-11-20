@@ -6,6 +6,7 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Actions/Generic.h>
 #include <hspp/Cards/Cards.h>
 
 using namespace BasicTasks;
@@ -20,35 +21,34 @@ TEST(ClassicCardSet, CS2_041)
     currentPlayer.totalMana = currentPlayer.existMana = 10;
     opponentPlayer.totalMana = opponentPlayer.existMana = 10;
 
-    GameAgent::RunTask(
+    const auto card1 = Generic::DrawCard(
         currentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Acidic Swamp Ooze")));
+        Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
     EXPECT_EQ(currentPlayer.hand.size(), 1u);
     EXPECT_EQ(currentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
 
-    GameAgent::RunTask(
+    const auto card2 = Generic::DrawCard(
         currentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Ancestral Healing")));
+        Cards::GetInstance().FindCardByName("Ancestral Healing"));
     EXPECT_EQ(currentPlayer.hand.size(), 2u);
     EXPECT_EQ(currentPlayer.hand[1]->card->name, "Ancestral Healing");
 
-    GameAgent::RunTask(
-        opponentPlayer,
-        DrawCardTask(Cards::GetInstance().FindCardByName("Stonetusk Boar")));
+    const auto card3 = Generic::DrawCard(
+        opponentPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
     EXPECT_EQ(opponentPlayer.hand.size(), 1u);
     EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Stonetusk Boar");
 
-    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent));
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
     EXPECT_EQ(currentPlayer.field[0]->card->name, "Acidic Swamp Ooze");
 
-    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent));
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card3));
     EXPECT_EQ(opponentPlayer.field[0]->card->name, "Stonetusk Boar");
 
     GameAgent::RunTask(opponentPlayer, CombatTask(taskAgent));
     EXPECT_EQ(currentPlayer.field[0]->health, 1u);
     EXPECT_EQ(opponentPlayer.field.size(), 0u);
 
-    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent));
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card2));
     EXPECT_EQ(currentPlayer.field[0]->health, 2u);
     EXPECT_EQ(currentPlayer.field[0]->GetGameTag(GameTag::TAUNT), 1);
 }
