@@ -79,6 +79,33 @@ void Player::SetOpponent(Player* player)
     m_opponent = player;
 }
 
+void Player::SetDeck(Deck* deck)
+{
+    for (auto& card : deck->GetPrimitiveDeck())
+    {
+        if (card.id.empty())
+        {
+            continue;
+        }
+
+        Entity* entity = nullptr;
+        switch (card.cardType)
+        {
+            case CardType::MINION:
+                entity = new Minion(card);
+                break;
+            case CardType::WEAPON:
+                entity = new Weapon(card);
+                break;
+            default:
+                entity = new Entity(card);
+                break;
+        }
+
+        cards.emplace_back(entity);
+    }    
+}
+
 void Player::AddHeroAndPower(Card heroCard, Card powerCard)
 {
     hero = new Hero(heroCard);

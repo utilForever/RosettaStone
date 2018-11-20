@@ -34,11 +34,6 @@ class Player
     //! Default constructor.
     Player();
 
-    //! Constructs player with given \p account and \p deck.
-    //! \param account The account stores user information.
-    //! \param deck A deck where cards are stored.
-    // Player(const Account* account, const Deck* deck);
-
     //! Destructor.
     ~Player();
 
@@ -72,6 +67,10 @@ class Player
     //! Sets the opponent player.
     //! \param player The opponent player.
     void SetOpponent(Player* player);
+
+    //! Sets the deck.
+    //! \param deck A pointer to the deck.
+    void SetDeck(Deck* deck);
 
     void AddHeroAndPower(Card heroCard, Card powerCard);
 
