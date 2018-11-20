@@ -9,6 +9,7 @@
 
 #include <hspp/Accounts/Account.h>
 #include <hspp/Accounts/Player.h>
+#include <hspp/Actions/Generic.h>
 #include <hspp/CardSets/BasicCardsGen.h>
 #include <hspp/Cards/Card.h>
 #include <hspp/Cards/Cards.h>
