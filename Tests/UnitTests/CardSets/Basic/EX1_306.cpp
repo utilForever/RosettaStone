@@ -45,6 +45,6 @@ TEST(BasicCardSet, EX1_306)
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
     EXPECT_EQ(currentPlayer.hand.size(), 0u);
 
-    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card2));
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
     EXPECT_EQ(opponentPlayer.hand.size(), 1u);
 }
