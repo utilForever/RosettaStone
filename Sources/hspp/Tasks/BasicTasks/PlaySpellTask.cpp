@@ -10,8 +10,10 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-PlaySpellTask::PlaySpellTask(TaskAgent& agent, Entity* entity)
-    : m_entity(entity), m_requirement(TaskID::SELECT_TARGET, agent)
+PlaySpellTask::PlaySpellTask(TaskAgent& agent, Entity* source, Entity* target)
+    : m_source(source),
+      m_requirement(TaskID::SELECT_TARGET, agent),
+      m_target(target)
 {
     // Do nothing
 }
@@ -23,46 +25,54 @@ TaskID PlaySpellTask::GetTaskID() const
 
 MetaData PlaySpellTask::Impl(Player& player)
 {
-    TaskMeta meta;
+    BYTE position;
 
-    // Get position response from GameInterface
-    m_requirement.Interact(player.id, meta);
-
-    using ResponsePlaySpell = FlatData::ResponsePlaySpell;
-    const auto& buffer = meta.GetBuffer();
-    const auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
-
-    if (req == nullptr)
+    if (m_target != nullptr)
     {
-        return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
+        const auto fieldIter =
+            std::find(player.field.begin(), player.field.end(), m_source);
+        position = static_cast<BYTE>(
+            std::distance(player.field.begin(), fieldIter) - 1);
     }
-
-    const EntityType type = EntityType::_from_integral(req->targetType());
-    const BYTE position = req->position();
-
-    if (type == +EntityType::FIELD)
+    else
     {
-        // Verify field position
-        if (position > player.field.size())
+        TaskMeta meta;
+
+        // Get position response from GameInterface
+        m_requirement.Interact(player.id, meta);
+
+        using ResponsePlaySpell = FlatData::ResponsePlaySpell;
+        const auto& buffer = meta.GetBuffer();
+        const auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
+
+        if (req == nullptr)
         {
-            return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
+            return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
         }
 
-        // Verify valid target
-        if (player.field[position] == nullptr)
-        {
-            return MetaData::PLAY_SPELL_INVALID_TARGET;
-        }
+        position = req->position();
     }
 
-    const BYTE cost = static_cast<BYTE>(m_entity->card->cost);
+    // Verify field position
+    if (position > player.field.size())
+    {
+        return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
+    }
+
+    // Verify valid target
+    if (player.field[position] == nullptr)
+    {
+        return MetaData::PLAY_SPELL_INVALID_TARGET;
+    }
+
+    const BYTE cost = static_cast<BYTE>(m_source->card->cost);
     const MetaData modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost).Run(player);
 
     // Process PowerTasks
-    if (m_entity->card->power != nullptr)
+    if (m_source->card->power != nullptr)
     {
-        for (auto& power : m_entity->card->power->powerTask)
+        for (auto& power : m_source->card->power->powerTask)
         {
             power->target = player.field[position];
             power->Run(player);

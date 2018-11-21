@@ -11,10 +11,13 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-PlayCardTask::PlayCardTask(TaskAgent& agent, Entity* entity)
+PlayCardTask::PlayCardTask(TaskAgent& agent, Entity* source, int fieldPos,
+                           Entity* target)
     : m_agent(agent),
       m_requirement(TaskID::SELECT_CARD, agent),
-      m_entity(entity)
+      m_source(source),
+      m_fieldPos(fieldPos),
+      m_target(target)
 {
     // Do nothing
 }
@@ -28,10 +31,10 @@ MetaData PlayCardTask::Impl(Player& player)
 {
     BYTE handIndex;
 
-    if (m_entity != nullptr)
+    if (m_source != nullptr)
     {
         const auto handIter =
-            std::find(player.hand.begin(), player.hand.end(), m_entity);
+            std::find(player.hand.begin(), player.hand.end(), m_source);
         handIndex =
             static_cast<BYTE>(std::distance(player.hand.begin(), handIter));
     }
@@ -82,11 +85,12 @@ MetaData PlayCardTask::Impl(Player& player)
     switch (entity->card->cardType)
     {
         case CardType::MINION:
-            return PlayMinionTask(m_agent, entity).Run(player);
+            return PlayMinionTask(m_agent, entity, m_fieldPos, m_target)
+                .Run(player);
         case CardType::WEAPON:
             return PlayWeaponTask(entity).Run(player);
         case CardType::SPELL:
-            return PlaySpellTask(m_agent, entity).Run(player);
+            return PlaySpellTask(m_agent, entity, m_target).Run(player);
         default:
             return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
     }

@@ -25,7 +25,8 @@ class PlayMinionTask : public ITask
     //! Constructs task with given \p agent and \p entity.
     //! \param agent The task agent that interacts with game interface.
     //! \param entity A pointer to minion to summon.
-    PlayMinionTask(TaskAgent& agent, Entity* entity);
+    PlayMinionTask(TaskAgent& agent, Entity* source = nullptr,
+                   int fieldPos = -1, Entity* target = nullptr);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -37,8 +38,10 @@ class PlayMinionTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    Entity* m_entity = nullptr;
     Requirement m_requirement;
+    Entity* m_source = nullptr;
+    int m_fieldPos = -1;
+    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

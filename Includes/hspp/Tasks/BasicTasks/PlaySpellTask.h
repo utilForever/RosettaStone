@@ -25,7 +25,7 @@ class PlaySpellTask : public ITask
     //! Constructs task with given \p agent and \p entity.
     //! \param agent The task agent that interacts with game interface.
     //! \param entity A pointer to spell to cast.
-    PlaySpellTask(TaskAgent& agent, Entity* entity);
+    PlaySpellTask(TaskAgent& agent, Entity* source, Entity* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -37,8 +37,9 @@ class PlaySpellTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    Entity* m_entity = nullptr;
+    Entity* m_source = nullptr;
     Requirement m_requirement;
+    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

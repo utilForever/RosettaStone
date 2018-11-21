@@ -23,7 +23,8 @@ class PlayCardTask : public ITask
  public:
     //! Constructs task with given \p agent.
     //! \param agent The task agent that performs card play.
-    PlayCardTask(TaskAgent& agent, Entity* entity = nullptr);
+    PlayCardTask(TaskAgent& agent, Entity* source = nullptr, int fieldPos = -1,
+                 Entity* target = nullptr);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -37,7 +38,9 @@ class PlayCardTask : public ITask
 
     TaskAgent& m_agent;
     Requirement m_requirement;
-    Entity* m_entity = nullptr;
+    Entity* m_source = nullptr;
+    int m_fieldPos = -1;
+    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
