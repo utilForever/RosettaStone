@@ -117,22 +117,22 @@ TEST(DrawTask, RunOverDraw)
     EXPECT_EQ(p1.cards.size(), static_cast<size_t>(0));
     EXPECT_EQ(p1.hand.size(), static_cast<size_t>(10));
 
-    //TaskMeta burnt;
-    //agent.GetTaskMeta(burnt);
+    TaskMeta burnt;
+    agent.GetTaskMeta(burnt);
 
-    //EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
-    //EXPECT_EQ(burnt.status, MetaData::DRAW_OVERDRAW);
-    //EXPECT_EQ(burnt.userID, p1.id);
+    EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
+    EXPECT_EQ(burnt.status, MetaData::DRAW_OVERDRAW);
+    EXPECT_EQ(burnt.userID, p1.id);
 
-    //auto burntCard =
-    //    TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
-    //EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(3));
+    auto burntCard =
+        TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
+    EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(3));
 
-    //for (flatbuffers::uoffset_t i = 0; i < 3; ++i)
-    //{
-    //    auto card = burntCard->Get(i)->card();
-    //    EXPECT_EQ(card->id()->str(), id + static_cast<char>(2 - i + 0x30));
-    //}
+    for (flatbuffers::uoffset_t i = 0; i < 3; ++i)
+    {
+        auto card = burntCard->Get(i)->card();
+        EXPECT_EQ(card->id()->str(), id + static_cast<char>(2 - i + 0x30));
+    }
 }
 
 TEST(DrawTask, RunExhaustOverdraw)
@@ -166,22 +166,22 @@ TEST(DrawTask, RunExhaustOverdraw)
     EXPECT_EQ(p1.hand.size(), static_cast<size_t>(10));
     EXPECT_EQ(p1.hand[9]->card->id, "card0");
 
-    //TaskMeta burnt;
-    //agent.GetTaskMeta(burnt);
+    TaskMeta burnt;
+    agent.GetTaskMeta(burnt);
 
-    //EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
-    //EXPECT_EQ(burnt.status, MetaData::DRAW_EXHAUST_OVERDRAW);
-    //EXPECT_EQ(burnt.userID, p1.id);
+    EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
+    EXPECT_EQ(burnt.status, MetaData::DRAW_EXHAUST_OVERDRAW);
+    EXPECT_EQ(burnt.userID, p1.id);
 
-    //auto burntCard =
-    //    TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
-    //EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(2));
+    auto burntCard =
+        TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
+    EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(2));
 
-    //for (flatbuffers::uoffset_t i = 0; i < 2; ++i)
-    //{
-    //    auto card = burntCard->Get(i)->card();
-    //    EXPECT_EQ(card->id()->str(), id + static_cast<char>(2 - i + 0x30));
-    //}
+    for (flatbuffers::uoffset_t i = 0; i < 2; ++i)
+    {
+        auto card = burntCard->Get(i)->card();
+        EXPECT_EQ(card->id()->str(), id + static_cast<char>(2 - i + 0x30));
+    }
 }
 
 TEST(DrawCardTask, GetTaskID)
