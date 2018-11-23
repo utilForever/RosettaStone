@@ -10,7 +10,8 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DestroyTask::DestroyTask(EntityType entityType) : m_entityType(entityType)
+DestroyTask::DestroyTask(EntityType entityType, Entity* source, Entity* target)
+    : ITask(source, target), m_entityType(entityType)
 {
     // Do nothing
 }
@@ -25,9 +26,9 @@ MetaData DestroyTask::Impl(Player& player)
     switch (m_entityType)
     {
         case EntityType::SOURCE:
-            return DestroyMinionTask(source).Run(player);
+            return DestroyMinionTask(m_source).Run(player);
         case EntityType::TARGET:
-            return DestroyMinionTask(target).Run(player);
+            return DestroyMinionTask(m_target).Run(player);
         case EntityType::ENEMY_WEAPON:
             return DestroyWeaponTask().Run(player.GetOpponent());
         default:
