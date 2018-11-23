@@ -74,7 +74,7 @@ MetaData PlaySpellTask::Impl(Player& player)
     {
         for (auto& power : m_source->card->power->powerTask)
         {
-            power->target = player.field[position];
+            power->SetTarget(player.field[position]);
             power->Run(player);
         }
     }
