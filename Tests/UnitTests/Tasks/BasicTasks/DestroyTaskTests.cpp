@@ -4,17 +4,18 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DestroyTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
 
 TEST(DestroyTask, GetTaskID)
 {
-    const BasicTasks::DestroyTask task(EntityType::EMPTY);
+    const DestroyTask task(EntityType::EMPTY, nullptr, nullptr);
     EXPECT_EQ(task.GetTaskID(), +TaskID::DESTROY);
 }
 
@@ -29,8 +30,7 @@ TEST(DestroyTask, Run)
     // Destroy Source Minion
     player1.field.emplace_back(new Minion(card));
 
-    BasicTasks::DestroyTask task(EntityType::SOURCE);
-    task.source = player1.field[0];
+    DestroyTask task(EntityType::SOURCE, player1.field[0], nullptr);
 
     MetaData result = task.Run(player1);
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
@@ -39,8 +39,7 @@ TEST(DestroyTask, Run)
     // Destroy Target Minion
     player2.field.emplace_back(new Minion(card));
 
-    BasicTasks::DestroyTask task2(EntityType::TARGET);
-    task2.target = player2.field[0];
+    DestroyTask task2(EntityType::TARGET, nullptr, player2.field[0]);
 
     MetaData result2 = task2.Run(player1);
     EXPECT_EQ(result2, MetaData::DESTROY_MINION_SUCCESS);
@@ -50,7 +49,7 @@ TEST(DestroyTask, Run)
     Card weaponCard;
     player2.hero->weapon = new Weapon(weaponCard);
 
-    BasicTasks::DestroyTask task3(EntityType::ENEMY_WEAPON);
+    DestroyTask task3(EntityType::ENEMY_WEAPON, nullptr, nullptr);
 
     MetaData result3 = task3.Run(player1);
     EXPECT_EQ(result3, MetaData::DESTROY_WEAPON_SUCCESS);
