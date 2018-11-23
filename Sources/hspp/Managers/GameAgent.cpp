@@ -270,7 +270,7 @@ void GameAgent::Combat()
 {
     TaskMeta meta;
     m_taskAgent.Run(meta, GetCurrentPlayer(),
-                    BasicTasks::CombatTask(m_taskAgent));
+                    BasicTasks::CombatTask(m_taskAgent, nullptr, nullptr));
 }
 
 bool GameAgent::IsGameOver() const
