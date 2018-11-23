@@ -22,7 +22,7 @@ class CombatTask : public ITask
  public:
     //! Constructs task with given \p agent.
     //! \param agent The task agent that is required to the requirement.
-    CombatTask(TaskAgent& agent);
+    CombatTask(TaskAgent& agent, Entity* source, Entity* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,6 +33,8 @@ class CombatTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
+
+    std::tuple<BYTE, BYTE> CalculateIndex(Player& player);
 
     Requirement m_requirement;
 };

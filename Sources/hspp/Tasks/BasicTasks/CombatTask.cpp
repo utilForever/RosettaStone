@@ -12,8 +12,8 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-CombatTask::CombatTask(TaskAgent& agent)
-    : m_requirement(TaskID::SELECT_TARGET, agent)
+CombatTask::CombatTask(TaskAgent& agent, Entity* source, Entity* target)
+    : ITask(source, target), m_requirement(TaskID::SELECT_TARGET, agent)
 {
     // Do nothing
 }
@@ -25,19 +25,7 @@ TaskID CombatTask::GetTaskID() const
 
 MetaData CombatTask::Impl(Player& player)
 {
-    TaskMeta serialized;
-    // Get targeting response from game interface
-    m_requirement.Interact(player.id, serialized);
-
-    // Get the source and the target
-    const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
-    if (req == nullptr)
-    {
-        return MetaData::COMBAT_FLATBUFFER_NULLPTR;
-    }
-
-    const BYTE sourceIndex = req->src();
-    const BYTE targetIndex = req->dst();
+    auto [sourceIndex, targetIndex] = CalculateIndex(player);
 
     // Verify index of the source
     // NOTE: 0 means hero, 1 ~ field.size() means minion
@@ -53,13 +41,13 @@ MetaData CombatTask::Impl(Player& player)
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
-    source = (sourceIndex > 0)
-                 ? dynamic_cast<Character*>(player.field[sourceIndex - 1])
-                 : dynamic_cast<Character*>(player.hero);
-    target = (targetIndex > 0)
-                 ? dynamic_cast<Character*>(
-                       player.GetOpponent().field[targetIndex - 1])
-                 : dynamic_cast<Character*>(player.GetOpponent().hero);
+    auto source = (sourceIndex > 0)
+                      ? dynamic_cast<Character*>(player.field[sourceIndex - 1])
+                      : dynamic_cast<Character*>(player.hero);
+    auto target = (targetIndex > 0)
+                      ? dynamic_cast<Character*>(
+                            player.GetOpponent().field[targetIndex - 1])
+                      : dynamic_cast<Character*>(player.GetOpponent().hero);
 
     if (!source->CanAttack() ||
         !source->IsValidAttackTarget(player.GetOpponent(), target))
@@ -139,5 +127,49 @@ MetaData CombatTask::Impl(Player& player)
     }
 
     return MetaData::COMBAT_SUCCESS;
+}
+
+std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player)
+{
+    if (m_source != nullptr && m_target != nullptr)
+    {
+        BYTE sourceIndex, targetIndex;
+
+        if (m_source == player.hero)
+        {
+            sourceIndex = 0;
+        }
+        else
+        {
+            const auto sourceIter =
+                std::find(player.field.begin(), player.field.end(), m_source);
+            sourceIndex = static_cast<BYTE>(
+                std::distance(player.field.begin(), sourceIter) + 1);
+        }
+
+        Player& opponent = player.GetOpponent();
+
+        if (m_target == opponent.hero)
+        {
+            targetIndex = 0;
+        }
+        else
+        {
+            const auto targetIter = std::find(opponent.field.begin(),
+                                              opponent.field.end(), m_target);
+            targetIndex = static_cast<BYTE>(
+                std::distance(opponent.field.begin(), targetIter) + 1);
+        }
+
+        return std::make_tuple(sourceIndex, targetIndex);
+    }
+
+    TaskMeta serialized;
+    // Get targeting response from game interface
+    m_requirement.Interact(player.id, serialized);
+
+    // Get the source and the target
+    const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
+    return std::make_tuple(req->src(), req->dst());
 }
 }  // namespace Hearthstonepp::BasicTasks
