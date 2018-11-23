@@ -20,7 +20,8 @@ TaskID HealFullTask::GetTaskID() const
 
 MetaData HealFullTask::Impl(Player&)
 {
-    target->health = target->maxHealth;
+    const auto character = dynamic_cast<Character*>(m_target);
+    character->health = character->maxHealth;
 
     return MetaData::HEAL_FULL_SUCCESS;
 }
