@@ -22,7 +22,7 @@ class DestroyMinionTask : public ITask
  public:
     //! Constructs task with given \p character.
     //! \param character A pointer to character to destroy.
-    DestroyMinionTask(Character* character);
+    DestroyMinionTask(Entity* entity);
 
     //! Returns task ID.
     //! \return Task ID.

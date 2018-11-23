@@ -9,8 +9,8 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-DestroyMinionTask::DestroyMinionTask(Character* character)
-    : m_character(character)
+DestroyMinionTask::DestroyMinionTask(Entity* entity)
+    : m_character(dynamic_cast<Character*>(entity))
 {
     // Do nothing
 }
