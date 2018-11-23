@@ -30,9 +30,9 @@ MetaData PlaySpellTask::Impl(Player& player)
     if (m_target != nullptr)
     {
         const auto fieldIter =
-            std::find(player.field.begin(), player.field.end(), m_source);
+            std::find(player.field.begin(), player.field.end(), m_target);
         position = static_cast<BYTE>(
-            std::distance(player.field.begin(), fieldIter) - 1);
+            std::distance(player.field.begin(), fieldIter));
     }
     else
     {
