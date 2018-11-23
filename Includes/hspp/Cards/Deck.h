@@ -43,7 +43,7 @@ class Deck
 
     //! Returns the number of cards in deck.
     //! \return The number of cards in deck.
-    unsigned int GetNumOfCards() const;
+    size_t GetNumOfCards() const;
 
     //! Returns the unique number of cards in deck.
     //! \return The unique number of cards in deck.
@@ -52,7 +52,7 @@ class Deck
     //! Returns the number of cards in deck that matches \p cardID.
     //! \param cardID The ID of the card.
     //! \return The number of cards in deck that matches \p cardID.
-    unsigned int GetNumCardInDeck(std::string cardID);
+    size_t GetNumCardInDeck(std::string cardID);
 
     //! Creates a deck from a list of pointers to cards to play game.
     //! \return A deck from a list of pointers to cards.
@@ -61,7 +61,7 @@ class Deck
     //! Returns card ID and the number of card at \p idx in deck.
     //! \param idx Index of cards in deck.
     //! \return card ID and the number of card at \p idx in deck.
-    std::pair<std::string, int> GetCard(size_t idx) const;
+    std::pair<std::string, size_t> GetCard(size_t idx) const;
 
     //! Prints card list in deck.
     void ShowCardList() const;
@@ -71,21 +71,21 @@ class Deck
     //! \param numCardToAdd The number of card to add to deck.
     //! \return true if card(s) is added to deck successfully, and false
     //! otherwise.
-    bool AddCard(std::string cardID, int numCardToAdd);
+    bool AddCard(std::string cardID, size_t numCardToAdd);
 
     //! Delete card(s) from deck with given \p cardID and \p numCardToDelete.
     //! \param cardID The ID of the card to delete from deck.
     //! \param numCardToDelete The number of card to delete from deck.
     //! \return true if card(s) is deleted from deck successfully, and false
     //! otherwise.
-    bool DeleteCard(std::string cardID, int numCardToDelete);
+    bool DeleteCard(std::string cardID, size_t numCardToDelete);
 
  private:
     std::string m_name;
     CardClass m_class = CardClass::INVALID;
 
-    unsigned int m_numOfCards = 0;
-    std::vector<std::pair<std::string, int>> m_cards;
+    size_t m_numOfCards = 0;
+    std::vector<std::pair<std::string, size_t>> m_cards;
 };
 }  // namespace Hearthstonepp
 

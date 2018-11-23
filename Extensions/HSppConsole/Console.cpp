@@ -345,7 +345,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
     while (true)
     {
-        int numCardToAddAvailable =
+        size_t numCardToAddAvailable =
             card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
         if (deck->GetNumOfCards() + numCardToAddAvailable >
             MAXIMUM_NUM_CARDS_IN_DECK)
@@ -357,7 +357,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
         std::cout << "How many cards to add (0 - " << numCardToAddAvailable
                   << ") ? ";
-        int numCardToAdd;
+        size_t numCardToAdd;
         std::cin >> numCardToAdd;
 
         if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
@@ -392,11 +392,10 @@ void Console::DeleteCardInDeck(size_t deckIndex) const
     {
         std::cout << "How many cards to delete (0 - "
                   << deck->GetNumCardInDeck(selectedCardID) << ") ? ";
-        int numCardToDelete;
+        size_t numCardToDelete;
         std::cin >> numCardToDelete;
 
-        const int numCardinDeck =
-            static_cast<int>(deck->GetNumCardInDeck(selectedCardID));
+        const size_t numCardinDeck = deck->GetNumCardInDeck(selectedCardID);
         if (numCardToDelete < 0 || numCardToDelete > numCardinDeck)
         {
             std::cout << "Invalid number! Try again.\n";

@@ -33,7 +33,7 @@ CardClass Deck::GetClass() const
     return m_class;
 }
 
-unsigned int Deck::GetNumOfCards() const
+size_t Deck::GetNumOfCards() const
 {
     return m_numOfCards;
 }
@@ -43,17 +43,18 @@ size_t Deck::GetUniqueNumOfCards() const
     return m_cards.size();
 }
 
-unsigned int Deck::GetNumCardInDeck(std::string cardID)
+size_t Deck::GetNumCardInDeck(std::string cardID)
 {
-    const auto isCardExistInDeck =
+    const auto cardIer =
         std::find_if(m_cards.begin(), m_cards.end(),
-                     [&cardID](const std::pair<std::string, int>& elem) {
+                     [&cardID](const std::pair<std::string, size_t>& elem) {
                          return elem.first == cardID;
                      });
 
-    if (isCardExistInDeck != m_cards.end())
+    // A card is in deck
+    if (cardIer != m_cards.end())
     {
-        return (*isCardExistInDeck).second;
+        return (*cardIer).second;
     }
 
     return 0;
@@ -62,10 +63,12 @@ unsigned int Deck::GetNumCardInDeck(std::string cardID)
 std::vector<Card> Deck::GetPrimitiveDeck() const
 {
     std::vector<Card> deck;
+
     for (const auto& [id, num] : m_cards)
     {
         Card card = Cards::GetInstance().FindCardByID(id);
-        for (size_t i = 0; i < static_cast<size_t>(num); ++i)
+
+        for (size_t i = 0; i < num; ++i)
         {
             deck.push_back(card);
         }
@@ -74,7 +77,7 @@ std::vector<Card> Deck::GetPrimitiveDeck() const
     return deck;
 }
 
-std::pair<std::string, int> Deck::GetCard(size_t idx) const
+std::pair<std::string, size_t> Deck::GetCard(size_t idx) const
 {
     return m_cards.at(idx);
 }
@@ -99,29 +102,30 @@ void Deck::ShowCardList() const
     }
 }
 
-bool Deck::AddCard(std::string cardID, int numCardToAdd)
+bool Deck::AddCard(std::string cardID, size_t numCardToAdd)
 {
     Card card = Cards::GetInstance().FindCardByID(cardID);
+
     const CardClass cardClass = card.cardClass;
     if ((cardClass != GetClass() && cardClass != +CardClass::NEUTRAL) ||
-        card.GetMaxAllowedInDeck() < static_cast<size_t>(numCardToAdd))
+        card.GetMaxAllowedInDeck() < numCardToAdd)
     {
         return false;
     }
 
-    const auto isCardExistInDeck =
+    const auto cardIter =
         std::find_if(m_cards.begin(), m_cards.end(),
-                     [&cardID](const std::pair<std::string, int>& elem) {
+                     [&cardID](const std::pair<std::string, size_t>& elem) {
                          return elem.first == cardID;
                      });
 
-    if (isCardExistInDeck != m_cards.end())  // card is in deck
+    // A card is in deck
+    if (cardIter != m_cards.end())
     {
-        if (card.GetMaxAllowedInDeck() <
-            static_cast<size_t>((*isCardExistInDeck).second + numCardToAdd))
+        if (card.GetMaxAllowedInDeck() < (*cardIter).second + numCardToAdd)
             return false;
 
-        (*isCardExistInDeck).second += numCardToAdd;
+        (*cardIter).second += numCardToAdd;
     }
     else
     {
@@ -133,26 +137,23 @@ bool Deck::AddCard(std::string cardID, int numCardToAdd)
     return true;
 }
 
-bool Deck::DeleteCard(std::string cardID, const int numCardToDelete)
+bool Deck::DeleteCard(std::string cardID, size_t numCardToDelete)
 {
-    const auto isCardExistInDeck =
+    const auto cardIter =
         std::find_if(m_cards.begin(), m_cards.end(),
-                     [&cardID](const std::pair<std::string, int>& elem) {
+                     [&cardID](const std::pair<std::string, size_t>& elem) {
                          return elem.first == cardID;
                      });
 
-    if (isCardExistInDeck != m_cards.end())
+    // A card is in deck
+    if (cardIter != m_cards.end())
     {
-        if ((*isCardExistInDeck).second - numCardToDelete == 0)
+        if ((*cardIter).second - numCardToDelete == 0)
         {
-            m_cards.erase(isCardExistInDeck);
-        }
-        else if ((*isCardExistInDeck).second - numCardToDelete < 0)
-        {
-            return false;
+            m_cards.erase(cardIter);
         }
 
-        (*isCardExistInDeck).second -= numCardToDelete;
+        (*cardIter).second -= numCardToDelete;
         m_numOfCards -= numCardToDelete;
 
         return true;
