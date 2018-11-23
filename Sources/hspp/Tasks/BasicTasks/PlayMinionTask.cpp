@@ -11,10 +11,9 @@ namespace Hearthstonepp::BasicTasks
 {
 PlayMinionTask::PlayMinionTask(TaskAgent& agent, Entity* source, int fieldPos,
                                Entity* target)
-    : m_requirement(TaskID::SELECT_POSITION, agent),
-      m_source(source),
-      m_fieldPos(fieldPos),
-      m_target(target)
+    : ITask(source, target),
+      m_requirement(TaskID::SELECT_POSITION, agent),
+      m_fieldPos(fieldPos)
 {
     // Do nothing
 }

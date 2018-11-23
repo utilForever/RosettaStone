@@ -39,9 +39,7 @@ class PlayMinionTask : public ITask
     MetaData Impl(Player& player) override;
 
     Requirement m_requirement;
-    Entity* m_source = nullptr;
     int m_fieldPos = -1;
-    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
