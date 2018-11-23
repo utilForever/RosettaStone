@@ -12,6 +12,7 @@
 
 using namespace Hearthstonepp;
 using namespace BasicTasks;
+using namespace TestUtils;
 
 TEST(DestroyTask, GetTaskID)
 {
@@ -25,7 +26,7 @@ TEST(DestroyTask, Run)
     Player& player1 = agent.GetPlayer1();
     Player& player2 = agent.GetPlayer2();
 
-    auto card = TestUtils::GenerateMinionCard("minion1", 1, 1);
+    auto card = GenerateMinionCard("minion1", 1, 1);
 
     // Destroy Source Minion
     player1.field.emplace_back(new Minion(card));

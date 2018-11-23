@@ -34,11 +34,11 @@ class CombatTester
     {
         if (player == PLAYER1)
         {
-            m_init.Run(m_gameAgent.GetPlayer1());
+            InitAttackCountTask().Run(m_gameAgent.GetPlayer1());
         }
         else
         {
-            m_init.Run(m_gameAgent.GetPlayer2());
+            InitAttackCountTask().Run(m_gameAgent.GetPlayer2());
         }
     }
 
@@ -64,14 +64,13 @@ class CombatTester
  private:
     GameAgent m_gameAgent;
     TaskAgent& m_taskAgent;
-
-    InitAttackCountTask m_init;
 };
 
 TEST(CombatTask, GetTaskID)
 {
     TaskAgent agent;
     const CombatTask combat(agent, nullptr, nullptr);
+
     EXPECT_EQ(combat.GetTaskID(), +TaskID::COMBAT);
 }
 

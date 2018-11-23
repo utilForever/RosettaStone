@@ -10,16 +10,17 @@
 #include <hspp/Tasks/BasicTasks/DestroyWeaponTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
 
 TEST(DestroyWeaponTask, GetTaskID)
 {
-    const BasicTasks::DestroyWeaponTask destroy;
+    const DestroyWeaponTask destroy;
     EXPECT_EQ(destroy.GetTaskID(), +TaskID::DESTROY);
 }
 
 TEST(DestroyWeaponTask, Run)
 {
-    BasicTasks::DestroyWeaponTask destroy;
+    DestroyWeaponTask destroy;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Card card;

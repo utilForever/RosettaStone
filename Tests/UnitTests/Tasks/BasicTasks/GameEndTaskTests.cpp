@@ -10,16 +10,17 @@
 #include <hspp/Tasks/BasicTasks/GameEndTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
 
 TEST(GameEndTask, GetTaskID)
 {
-    const BasicTasks::GameEndTask gameEnd;
+    const GameEndTask gameEnd;
     EXPECT_EQ(gameEnd.GetTaskID(), +TaskID::GAME_END);
 }
 
 TEST(GameEndTask, Run)
 {
-    BasicTasks::GameEndTask gameEnd;
+    GameEndTask gameEnd;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     agent.GetPlayer1().id = 100;

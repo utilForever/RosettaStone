@@ -16,7 +16,7 @@ TEST(TestCards, GetAllCards)
     const std::vector<Card> cards1 = Cards::GetInstance().GetAllCards();
 
     ASSERT_FALSE(cards1.empty());
-    EXPECT_EQ(static_cast<int>(cards1.size()), 5216);
+    EXPECT_EQ(cards1.size(), 5216u);
 }
 
 TEST(TestCards, FindCardByID)
@@ -31,6 +31,7 @@ TEST(TestCards, FindCardByID)
 TEST(TestCards, FindCardByRarity)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 = instance.FindCardByRarity(+Rarity::COMMON);
     std::vector<Card> cards2 = instance.FindCardByRarity(+Rarity::RARE);
     std::vector<Card> cards3 = instance.FindCardByRarity(+Rarity::EPIC);
@@ -51,6 +52,7 @@ TEST(TestCards, FindCardByRarity)
 TEST(TestCards, FindCardByClass)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 =
         instance.FindCardByClass(+CardClass::DEATHKNIGHT);
     std::vector<Card> cards2 = instance.FindCardByClass(+CardClass::DREAM);
@@ -76,6 +78,7 @@ TEST(TestCards, FindCardByClass)
 TEST(TestCards, FindCardBySet)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 = instance.FindCardBySet(+CardSet::CORE);
     std::vector<Card> cards2 = instance.FindCardBySet(+CardSet::EXPERT1);
     std::vector<Card> cards3 = instance.FindCardBySet(+CardSet::HOF);
@@ -116,6 +119,7 @@ TEST(TestCards, FindCardBySet)
 TEST(TestCards, FindCardByType)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 = instance.FindCardByType(+CardType::WEAPON);
     std::vector<Card> cards2 = instance.FindCardByType(+CardType::GAME);
     std::vector<Card> cards3 = instance.FindCardByType(+CardType::HERO);
@@ -144,23 +148,26 @@ TEST(TestCards, FindCardByType)
 TEST(TestCards, FindCardByRace)
 {
     Cards& instance = Cards::GetInstance();
-    std::vector<Card> cards1 = instance.FindCardByRace(+Race::INVALID);
 
-    EXPECT_FALSE(cards1.empty());
+    std::vector<Card> cards = instance.FindCardByRace(+Race::INVALID);
+
+    EXPECT_FALSE(cards.empty());
     EXPECT_NO_THROW(instance.FindCardByRace(+Race::ALL));
 }
 
 TEST(TestCards, FindCardByName)
 {
     Cards& instance = Cards::GetInstance();
-    const Card card1 = instance.FindCardByName("Flame Lance");
 
-    EXPECT_EQ("Flame Lance", card1.name);
+    const Card card = instance.FindCardByName("Flame Lance");
+
+    EXPECT_EQ("Flame Lance", card.name);
 }
 
 TEST(TestCards, FindCardByCost)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 = instance.FindCardByCost(0, 1);
     std::vector<Card> cards2 = instance.FindCardByCost(2, 1);
 
@@ -171,6 +178,7 @@ TEST(TestCards, FindCardByCost)
 TEST(TestCards, FindCardByAttack)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 = instance.FindCardByAttack(0, 1);
     std::vector<Card> cards2 = instance.FindCardByAttack(2, 1);
 
@@ -181,6 +189,7 @@ TEST(TestCards, FindCardByAttack)
 TEST(TestCards, FindCardByHealth)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 = instance.FindCardByHealth(0, 1);
     std::vector<Card> cards2 = instance.FindCardByHealth(2, 1);
 
@@ -191,10 +200,11 @@ TEST(TestCards, FindCardByHealth)
 TEST(TestCards, FindCardByMechanics)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<GameTag> tags1;
     const std::vector<GameTag> tags2;
-
     tags1.emplace_back(GameTag::CANT_ATTACK);
+
     std::vector<Card> cards1 = instance.FindCardByMechanics(tags1);
     std::vector<Card> cards2 = instance.FindCardByMechanics(tags2);
     auto cardTags = cards1.front().mechanics;
@@ -257,6 +267,7 @@ TEST(TestCards, GetDefaultHeroPower)
 TEST(TestCards, FindCardBySpellDamage)
 {
     Cards& instance = Cards::GetInstance();
+
     std::vector<Card> cards1 = instance.FindCardBySpellDamage(1, 1);
     std::vector<Card> cards2 = instance.FindCardBySpellDamage(2, 1);
 

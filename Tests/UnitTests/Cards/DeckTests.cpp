@@ -69,6 +69,7 @@ TEST(TestDeck, GetPrimitiveDeck)
 
     Deck deck("Ice Magician", CardClass::MAGE);
     deck.AddCard(mageCards.at(0).id, 1);
+
     std::vector<Card> priDeck = deck.GetPrimitiveDeck();
 
     EXPECT_EQ(priDeck.at(0).id, mageCards.at(0).id);

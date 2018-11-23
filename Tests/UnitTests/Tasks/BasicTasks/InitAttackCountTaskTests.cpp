@@ -10,16 +10,17 @@
 #include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
 
 TEST(InitAttackCountTask, GetTaskID)
 {
-    const BasicTasks::InitAttackCountTask init;
+    const InitAttackCountTask init;
     EXPECT_EQ(init.GetTaskID(), +TaskID::INIT_ATTACK_COUNT);
 }
 
 TEST(InitAttackCountTask, Run)
 {
-    BasicTasks::InitAttackCountTask init;
+    InitAttackCountTask init;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     agent.GetPlayer1().id = 100;
@@ -37,7 +38,7 @@ TEST(InitAttackCountTask, Run)
 
 TEST(InitAttackCountTask, RunFrozen)
 {
-    BasicTasks::InitAttackCountTask init;
+    InitAttackCountTask init;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Card card;
@@ -123,7 +124,7 @@ TEST(InitAttackCountTask, RunFrozen)
 
 TEST(InitAttackCountTask, RunWindFury)
 {
-    BasicTasks::InitAttackCountTask init;
+    InitAttackCountTask init;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     Card card1;

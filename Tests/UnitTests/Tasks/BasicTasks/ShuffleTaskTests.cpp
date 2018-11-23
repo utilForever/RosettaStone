@@ -4,28 +4,30 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/ShuffleTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
+using namespace TestUtils;
 
 TEST(ShuffleTask, GetTaskID)
 {
-    const BasicTasks::ShuffleTask init;
+    const ShuffleTask init;
     EXPECT_EQ(init.GetTaskID(), +TaskID::SHUFFLE);
 }
 
 TEST(ShuffleTask, Run)
 {
-    BasicTasks::ShuffleTask init;
+    ShuffleTask init;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     for (int i = 0; i < 5; i++)
     {
-        auto card = TestUtils::GenerateMinionCard("minion", 5, 1);
+        auto card = GenerateMinionCard("minion", 5, 1);
         agent.GetPlayer1().cards.emplace_back(new Minion(card));
     }
 

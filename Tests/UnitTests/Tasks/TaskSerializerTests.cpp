@@ -18,6 +18,7 @@
 #include <random>
 
 using namespace Hearthstonepp;
+using namespace TestUtils;
 
 TEST(TaskSerializer, CreateCard)
 {
@@ -35,8 +36,8 @@ TEST(TaskSerializer, CreateCard)
 
         const auto buffer = builder.GetBufferPointer();
         const auto deserialized = flatbuffers::GetRoot<FlatData::Card>(buffer);
-        const auto converted = TestUtils::ConvertCardFrom(card, deserialized);
-        TestUtils::ExpectCardEqual(card, converted);
+        const auto converted = ConvertCardFrom(card, deserialized);
+        ExpectCardEqual(card, converted);
     };
 
     // Rogue minion: Nerubian
@@ -116,7 +117,7 @@ TEST(TaskSerializer, CreateEntity)
 TEST(TaskSerializer, CreateEntityVector)
 {
     Cards& instance = Cards::GetInstance();
-    const TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait randTrait = GenerateRandomTrait();
 
     auto nerubian = instance.FindCardByID("AT_036t");
     const auto minionNerubian = new Minion(nerubian);
@@ -137,12 +138,12 @@ TEST(TaskSerializer, CreateEntityVector)
     EXPECT_EQ(vector->size(), static_cast<size_t>(2));
 
     const auto deserializedNerubian =
-        TestUtils::ConvertCardFrom(nerubian, vector->Get(0)->card());
-    TestUtils::ExpectCardEqual(nerubian, deserializedNerubian);
+        ConvertCardFrom(nerubian, vector->Get(0)->card());
+    ExpectCardEqual(nerubian, deserializedNerubian);
 
     const auto deserializedPoisonedBlade =
-        TestUtils::ConvertCardFrom(poisonedBlade, vector->Get(1)->card());
-    TestUtils::ExpectCardEqual(poisonedBlade, deserializedPoisonedBlade);
+        ConvertCardFrom(poisonedBlade, vector->Get(1)->card());
+    ExpectCardEqual(poisonedBlade, deserializedPoisonedBlade);
 
     delete minionNerubian;
     delete weaponPoisonedBlade;
@@ -157,10 +158,10 @@ TEST(TaskSerializer, CreateTaskMetaVector)
 
     for (size_t i = 0; i < testSize; ++i)
     {
-        metas.emplace_back(TestUtils::GenerateRandomTrait());
+        metas.emplace_back(GenerateRandomTrait());
     }
 
-    const TaskMetaTrait random = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait random = GenerateRandomTrait();
     TaskMeta generated =
         Serializer::CreateTaskMetaVector(metas, random.status, random.userID);
 
@@ -184,7 +185,7 @@ TEST(TaskSerializer, CreateTaskMetaVector)
 
 TEST(TaskSerializer, CreateRequireTaskMeta)
 {
-    const TaskMetaTrait random = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait random = GenerateRandomTrait();
     TaskMeta required = Serializer::CreateRequire(random.id, random.userID);
 
     EXPECT_EQ(required.id, +TaskID::REQUIRE);
@@ -265,7 +266,7 @@ TEST(TaskSerializer, CreatePlayerSetting)
 TEST(TaskSerializer, CreateGameStatus)
 {
     GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
-    const TaskMetaTrait randTrait = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait randTrait = GenerateRandomTrait();
 
     agent.GetPlayer1().id = 100;
     agent.GetPlayer2().id = 200;

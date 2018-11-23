@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
 #include <hspp/Tasks/TaskMeta.h>
 #include <hspp/Tasks/TaskSerializer.h>
@@ -15,6 +15,7 @@
 #include <random>
 
 using namespace Hearthstonepp;
+using namespace TestUtils;
 
 TEST(TaskMeta, TraitConstructors)
 {
@@ -63,8 +64,8 @@ TEST(TaskMeta, Constructors)
 {
     constexpr size_t zero = 0;
     std::unique_ptr<BYTE[]> buffer;
-    const size_t size = TestUtils::GenerateRandomBuffer(buffer);
-    TaskMetaTrait trait = TestUtils::GenerateRandomTrait();
+    const size_t size = GenerateRandomBuffer(buffer);
+    TaskMetaTrait trait = GenerateRandomTrait();
 
     // Empty Constructor
     TaskMeta meta;
@@ -78,42 +79,41 @@ TEST(TaskMeta, Constructors)
     TaskMeta task(trait, size, buffer.get());
     EXPECT_EQ(trait, task);
     EXPECT_EQ(task.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(task.GetBuffer(), buffer, size);
+    ExpectBufferEqual(task.GetBuffer(), buffer, size);
 
     // Move Buffer
     TaskMeta moveBuffer(trait, size, std::move(buffer));
     EXPECT_EQ(trait, moveBuffer);
     EXPECT_EQ(moveBuffer.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(moveBuffer.GetBuffer(), task.GetBuffer(),
-                                 size);
+    ExpectBufferEqual(moveBuffer.GetBuffer(), task.GetBuffer(), size);
 
     // Move Constructor
     TaskMeta moved(std::move(moveBuffer));
     EXPECT_EQ(trait, moved);
     EXPECT_EQ(moved.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(moved.GetBuffer(), task.GetBuffer(), size);
+    ExpectBufferEqual(moved.GetBuffer(), task.GetBuffer(), size);
 
     // Move Assignment
     meta = std::move(moved);
     EXPECT_EQ(trait, meta);
     EXPECT_EQ(meta.GetBufferSize(), size);
-    TestUtils::ExpectBufferEqual(meta.GetBuffer(), task.GetBuffer(), size);
+    ExpectBufferEqual(meta.GetBuffer(), task.GetBuffer(), size);
 }
 
 TEST(TaskMeta, UniquePtr)
 {
     constexpr size_t zero = 0;
     std::unique_ptr<BYTE[]> buffer;
-    const size_t size = TestUtils::GenerateRandomBuffer(buffer);
+    const size_t size = GenerateRandomBuffer(buffer);
 
-    const TaskMetaTrait trait = TestUtils::GenerateRandomTrait();
+    const TaskMetaTrait trait = GenerateRandomTrait();
     TaskMeta meta(trait, size, buffer.get());
 
     // MoveBuffer
     const std::unique_ptr<BYTE[]> moved = meta.MoveBuffer();
     EXPECT_EQ(meta.GetBufferSize(), zero);
     EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
-    TestUtils::ExpectBufferEqual(buffer, moved, size);
+    ExpectBufferEqual(buffer, moved, size);
 
     // reset
     meta = TaskMeta(trait, size, buffer.get());
@@ -125,14 +125,14 @@ TEST(TaskMeta, UniquePtr)
 TEST(TaskMeta, CopyFrom)
 {
     // CopyFrom
-    TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
+    TaskMeta meta = GenerateRandomTaskMeta();
     const TaskMeta copied = TaskMeta::CopyFrom(meta);
     EXPECT_EQ(meta, copied);
 }
 
 TEST(TaskMeta, ConvertFrom)
 {
-    TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
+    TaskMeta meta = GenerateRandomTaskMeta();
     const auto& buffer = meta.GetBuffer();
     const size_t size = meta.GetBufferSize();
 

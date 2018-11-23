@@ -38,6 +38,7 @@ TEST(Account, DeckControl)
 
     player.CreateDeck("deck2", CardClass::DREAM);
     player.CreateDeck("deck3", CardClass::DRUID);
+
     EXPECT_EQ(2, static_cast<int>(player.GetNumOfDeck()));
     EXPECT_NO_THROW(player.ShowDeckList());
 

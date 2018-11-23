@@ -10,16 +10,17 @@
 #include <hspp/Tasks/BasicTasks/BriefTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
 
 TEST(BriefTask, GetTaskID)
 {
-    const BasicTasks::BriefTask brief;
+    const BriefTask brief;
     EXPECT_EQ(brief.GetTaskID(), +TaskID::BRIEF);
 }
 
 TEST(BriefTask, Run)
 {
-    BasicTasks::BriefTask brief;
+    BriefTask brief;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
 
     agent.GetPlayer1().id = 100;

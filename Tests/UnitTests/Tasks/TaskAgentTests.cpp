@@ -18,12 +18,13 @@
 #include <future>
 
 using namespace Hearthstonepp;
+using namespace TestUtils;
 
 TEST(TaskAgent, NotifyAndRead)
 {
     TaskAgent agent;
 
-    TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
+    TaskMeta meta = GenerateRandomTaskMeta();
     TaskMeta copied = TaskMeta::CopyFrom(meta);
 
     agent.Notify(std::move(meta));
@@ -38,7 +39,7 @@ TEST(TaskAgent, NotifyAndReadSide)
 {
     TaskAgent agent;
 
-    TaskMeta meta = TestUtils::GenerateRandomTaskMeta();
+    TaskMeta meta = GenerateRandomTaskMeta();
     TaskMeta copied = TaskMeta::CopyFrom(meta);
 
     agent.Notify(std::move(meta), true);
@@ -191,7 +192,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
     traits.reserve(5);
     for (size_t i = 0; i < 5; ++i)
     {
-        traits.emplace_back(TestUtils::GenerateRandomTrait());
+        traits.emplace_back(GenerateRandomTrait());
         if (traits[i].id == +TaskID::BRIEF)
         {
             traits[i].id = TaskID::INVALID;
