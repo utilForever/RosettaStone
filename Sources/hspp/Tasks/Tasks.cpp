@@ -9,6 +9,17 @@
 
 namespace Hearthstonepp
 {
+ITask::ITask(Entity* source, Entity* target)
+    : m_source(source), m_target(target)
+{
+    // Do nothing
+}
+
+void ITask::SetTarget(Entity* target)
+{
+    m_target = target;
+}
+
 MetaData ITask::Run(Player& player)
 {
     return Impl(player);

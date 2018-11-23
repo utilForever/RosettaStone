@@ -30,6 +30,8 @@ class ITask
     //! Default constructor.
     ITask() = default;
 
+    ITask(Entity* source, Entity* target);
+
     //! Default destructor.
     virtual ~ITask() = default;
 
@@ -44,6 +46,8 @@ class ITask
 
     //! Default move assignment operator.
     ITask& operator=(ITask&& task) = default;
+
+    void SetTarget(Entity* target);
 
     //! Calls Impl method and returns meta data.
     //! \param player The player to run task.
@@ -60,8 +64,9 @@ class ITask
     //! \return Task ID.
     virtual TaskID GetTaskID() const = 0;
 
-    Character* source = nullptr;
-    Character* target = nullptr;
+ protected:
+    Entity* m_source = nullptr;
+    Entity* m_target = nullptr;
 
  private:
     //! Processes task logic internally and returns meta data.
