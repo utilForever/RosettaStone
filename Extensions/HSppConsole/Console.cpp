@@ -360,7 +360,7 @@ void Console::AddCardInDeck(size_t deckIndex)
         size_t numCardToAdd;
         std::cin >> numCardToAdd;
 
-        if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
+        if (numCardToAdd > numCardToAddAvailable)
         {
             std::cout << "Invalid number! Try again.\n";
         }
@@ -396,7 +396,7 @@ void Console::DeleteCardInDeck(size_t deckIndex) const
         std::cin >> numCardToDelete;
 
         const size_t numCardinDeck = deck->GetNumCardInDeck(selectedCardID);
-        if (numCardToDelete < 0 || numCardToDelete > numCardinDeck)
+        if (numCardToDelete > numCardinDeck)
         {
             std::cout << "Invalid number! Try again.\n";
         }
