@@ -21,7 +21,7 @@ class DestroyMinionTask : public ITask
 {
  public:
     //! Constructs task with given \p character.
-    //! \param character A pointer to character to destroy.
+    //! \param entity A pointer to character to destroy.
     DestroyMinionTask(Entity* entity);
 
     //! Returns task ID.

@@ -23,6 +23,9 @@ class PlayCardTask : public ITask
  public:
     //! Constructs task with given \p agent.
     //! \param agent The task agent that performs card play.
+    //! \param source A pointer to source entity to play card.
+    //! \param fieldPos A value indicating where to place card.
+    //! \param target A target of the card to receive power.
     PlayCardTask(TaskAgent& agent, Entity* source = nullptr, int fieldPos = -1,
                  Entity* target = nullptr);
 

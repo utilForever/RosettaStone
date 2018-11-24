@@ -24,7 +24,8 @@ class PlaySpellTask : public ITask
  public:
     //! Constructs task with given \p agent and \p entity.
     //! \param agent The task agent that interacts with game interface.
-    //! \param entity A pointer to spell to cast.
+    //! \param source A pointer to source entity to play card.
+    //! \param target A target of the card to receive power.
     PlaySpellTask(TaskAgent& agent, Entity* source, Entity* target);
 
     //! Returns task ID.

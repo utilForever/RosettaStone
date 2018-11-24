@@ -47,6 +47,8 @@ class ITask
     //! Default move assignment operator.
     ITask& operator=(ITask&& task) = default;
 
+    //! Sets the target.
+    //! \param target A pointer to the target.
     void SetTarget(Entity* target);
 
     //! Calls Impl method and returns meta data.

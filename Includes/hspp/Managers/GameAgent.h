@@ -27,8 +27,11 @@ namespace Hearthstonepp
 class GameAgent
 {
  public:
-    GameAgent(CardClass player1Class, CardClass player2Class,
-              size_t firstPlayer);
+    //! Constructs account with given \p p1Class, \p p2Class and \p firstPlayer.
+    //! \param p1Class The class of player 1.
+    //! \param p2Class The class of player 2.
+    //! \param firstPlayer The first player who starts turn first.
+    GameAgent(CardClass p1Class, CardClass p2Class, size_t firstPlayer);
 
     //! Starts the game agent.
     //! \return The thread that plays the game.
@@ -39,7 +42,7 @@ class GameAgent
     void GetTaskMeta(TaskMeta& meta);
 
     //! Writes task meta to task agent using side channel as default.
-    //! \param data A task meta data to write to task agent.
+    //! \param data A task meta to write to task agent.
     //! \param isUseSideChannel A variable that tells you whether to use side
     //! channel.
     void WriteSyncBuffer(TaskMeta&& data, bool isUseSideChannel = true);
@@ -61,7 +64,7 @@ class GameAgent
     Player& GetFirstPlayer();
 
     //! Sets the first player.
-    //! \param player The first player.
+    //! \param playerNum The first player who starts turn first.
     void SetFirstPlayer(size_t playerNum);
 
     //! Returns the player controlling the current turn.
@@ -69,7 +72,7 @@ class GameAgent
     Player& GetCurrentPlayer();
 
     //! Sets the player controlling the current turn.
-    //! \param player The player controlling the current turn.
+    //! \param playerNum The player controlling the current turn.
     void SetCurrentPlayer(size_t playerNum);
 
     //! Returns the opponent player.
@@ -88,8 +91,14 @@ class GameAgent
     //! \return The result of running the task.
     static MetaData RunTask(Player& player, ITask&& task);
 
+    //! Notifies a task meta to the task agent.
+    //! \param meta A task meta to write to task agent (lvalue ref).
+    //! \param sideChannel A variable that tells you whether to use side.
     void NotifyToTaskAgent(TaskMeta& meta, bool sideChannel = false);
 
+    //! Notifies a task meta to the task agent.
+    //! \param meta A task meta to write to task agent (lvalue ref).
+    //! \param sideChannel A variable that tells you whether to use side.
     void NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel = false);
 
  private:

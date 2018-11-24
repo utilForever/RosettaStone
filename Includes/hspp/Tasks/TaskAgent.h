@@ -44,18 +44,18 @@ class TaskAgent
     //! Deleted move assignment operator.
     TaskAgent& operator=(const TaskAgent&) = delete;
 
-    //! Reads task meta from synchronized buffer.
-    //! \param meta A task meta data to write to task agent.
+    //! Reads a task meta from synchronized buffer.
+    //! \param meta A task meta to write to the task agent.
     //! \param sideChannel A variable that tells you whether to use side.
     void Read(TaskMeta& meta, bool sideChannel = false);
 
-    //! Writes task meta to synchronized buffer.
-    //! \param meta A task meta data to write to task agent (lvalue ref).
+    //! Writes a task meta to synchronized buffer.
+    //! \param meta A task meta to write to the the task agent (lvalue ref).
     //! \param sideChannel A variable that tells you whether to use side.
     void Notify(TaskMeta& meta, bool sideChannel = false);
 
-    //! Writes task meta to synchronized buffer.
-    //! \param meta A task meta data to write to task agent (rvalue ref).
+    //! Writes a task meta to synchronized buffer.
+    //! \param meta A task meta to write to task agent (rvalue ref).
     //! \param sideChannel A variable that tells you whether to use side.
     void Notify(TaskMeta&& meta, bool sideChannel = false);
 

@@ -72,6 +72,9 @@ class Player
     //! \param deck A pointer to the deck.
     void SetDeck(Deck* deck);
 
+    //! Adds hero and hero power.
+    //! \param heroCard A card that represents hero.
+    //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card heroCard, Card powerCard);
 
     Hero* hero = nullptr;

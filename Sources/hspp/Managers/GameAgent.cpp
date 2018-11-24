@@ -24,16 +24,15 @@
 
 namespace Hearthstonepp
 {
-GameAgent::GameAgent(CardClass player1Class, CardClass player2Class,
-                     size_t firstPlayer)
+GameAgent::GameAgent(CardClass p1Class, CardClass p2Class, size_t firstPlayer)
     : m_firstPlayer(firstPlayer), m_currentPlayer(firstPlayer)
 {
     m_player1.AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(player1Class),
-        Cards::GetInstance().GetDefaultHeroPower(player1Class));
+        Cards::GetInstance().GetHeroCard(p1Class),
+        Cards::GetInstance().GetDefaultHeroPower(p1Class));
     m_player2.AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(player2Class),
-        Cards::GetInstance().GetDefaultHeroPower(player2Class));
+        Cards::GetInstance().GetHeroCard(p2Class),
+        Cards::GetInstance().GetDefaultHeroPower(p2Class));
 
     m_player1.SetGameAgent(this);
     m_player2.SetGameAgent(this);

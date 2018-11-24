@@ -24,7 +24,9 @@ class PlayMinionTask : public ITask
  public:
     //! Constructs task with given \p agent and \p entity.
     //! \param agent The task agent that interacts with game interface.
-    //! \param entity A pointer to minion to summon.
+    //! \param source A pointer to source entity to play card.
+    //! \param fieldPos A value indicating where to place card.
+    //! \param target A target of the card to receive power.
     PlayMinionTask(TaskAgent& agent, Entity* source = nullptr,
                    int fieldPos = -1, Entity* target = nullptr);
 
