@@ -219,6 +219,8 @@ void Console::SimulateGame() const
     Deck* deck2 = p2->GetDeck(deckIndex2);
 
     GameAgent agent(deck1->GetClass(), deck2->GetClass(), PlayerType::PLAYER1);
+    agent.GetPlayer1().SetNickname(p1->GetNickname());
+    agent.GetPlayer2().SetNickname(p2->GetNickname());
     agent.GetPlayer1().SetDeck(deck1);
     agent.GetPlayer2().SetDeck(deck2);
 

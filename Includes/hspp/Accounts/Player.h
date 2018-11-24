@@ -49,8 +49,13 @@ class Player
     //! Move assignment operator.
     Player& operator=(Player&& p) = delete;
 
-    //! Operator overloading: The equality operator.
-    bool operator==(const Player& player) const;
+    //! Returns the nickname of player.
+    //! \return The nickname of player.
+    std::string GetNickname() const;
+
+    //! Sets the nickname of player.
+    //! \param nickname The nickname of player.
+    void SetNickname(std::string nickname);
 
     //! Returns the game agent.
     //! \return The game agent.
@@ -84,8 +89,6 @@ class Player
     BYTE existMana = 0;
     BYTE exhausted = 0;
 
-    std::string email;
-
     // Card storage
     std::vector<Entity*> cards;
 
@@ -98,6 +101,8 @@ class Player
  private:
     //! Releases dynamic allocated resources.
     void FreeMemory();
+
+    std::string m_nickname;
 
     GameAgent* m_gameAgent = nullptr;
     Player* m_opponent = nullptr;

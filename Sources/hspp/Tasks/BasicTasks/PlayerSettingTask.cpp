@@ -24,7 +24,7 @@ MetaData PlayerSettingTask::Impl(Player& player)
     player.GetOpponent().id = 1;
 
     TaskMeta setting = Serializer::CreatePlayerSetting(
-        player.email, player.GetOpponent().email);
+        player.GetNickname(), player.GetOpponent().GetNickname());
     m_agent.Notify(std::move(setting));
 
     return MetaData::PLAYER_SETTING_SUCCESS;

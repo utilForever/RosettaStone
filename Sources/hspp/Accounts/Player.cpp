@@ -17,46 +17,19 @@ Player::Player() : id(USER_INVALID)
     hand.reserve(MAXIMUM_NUM_CARDS_IN_HAND);
 }
 
-// Player::Player(const Account* account, const Deck* deck)
-//    : id(USER_INVALID), email(account->GetEmail()), m_opponent(*this)
-//{
-//    cards.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
-//    field.reserve(FIELD_SIZE);
-//    hand.reserve(MAXIMUM_NUM_CARDS_IN_HAND);
-//
-//    for (auto& card : deck->GetPrimitiveDeck())
-//    {
-//        if (card.id.empty())
-//        {
-//            continue;
-//        }
-//
-//        Entity* entity = nullptr;
-//        switch (card.cardType)
-//        {
-//            case CardType::MINION:
-//                entity = new Minion(card);
-//                break;
-//            case CardType::WEAPON:
-//                entity = new Weapon(card);
-//                break;
-//            default:
-//                entity = new Entity(card);
-//                break;
-//        }
-//
-//        cards.emplace_back(entity);
-//    }
-//}
-
 Player::~Player()
 {
     FreeMemory();
 }
 
-bool Player::operator==(const Player& player) const
+std::string Player::GetNickname() const
 {
-    return email == player.email;
+    return m_nickname;
+}
+
+void Player::SetNickname(std::string nickname)
+{
+    m_nickname = nickname;
 }
 
 GameAgent& Player::GetGameAgent() const
