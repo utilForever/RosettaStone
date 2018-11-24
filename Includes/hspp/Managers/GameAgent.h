@@ -31,7 +31,7 @@ class GameAgent
     //! \param p1Class The class of player 1.
     //! \param p2Class The class of player 2.
     //! \param firstPlayer The first player who starts turn first.
-    GameAgent(CardClass p1Class, CardClass p2Class, size_t firstPlayer);
+    GameAgent(CardClass p1Class, CardClass p2Class, PlayerType firstPlayer);
 
     //! Starts the game agent.
     //! \return The thread that plays the game.
@@ -64,16 +64,16 @@ class GameAgent
     Player& GetFirstPlayer();
 
     //! Sets the first player.
-    //! \param playerNum The first player who starts turn first.
-    void SetFirstPlayer(size_t playerNum);
+    //! \param playerType The first player who starts turn first.
+    void SetFirstPlayer(PlayerType playerType);
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
     Player& GetCurrentPlayer();
 
     //! Sets the player controlling the current turn.
-    //! \param playerNum The player controlling the current turn.
-    void SetCurrentPlayer(size_t playerNum);
+    //! \param playerType The player controlling the current turn.
+    void SetCurrentPlayer(PlayerType playerType);
 
     //! Returns the opponent player.
     //! \return The opponent player.
@@ -133,8 +133,8 @@ class GameAgent
     Player m_player1;
     Player m_player2;
 
-    size_t m_firstPlayer;
-    size_t m_currentPlayer;
+    PlayerType m_firstPlayer;
+    PlayerType m_currentPlayer;
 
     TaskAgent m_taskAgent;
 

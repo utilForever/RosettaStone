@@ -52,7 +52,7 @@ TEST(TaskAgent, NotifyAndReadSide)
 
 TEST(TaskAgent, RunSingleTask)
 {
-    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     TaskAgent& taskAgent = agent.GetTaskAgent();
 
     TestTask task(TaskID::COMBAT, [](Player& p) -> MetaData {
@@ -104,7 +104,7 @@ TEST(TaskAgent, RunMultiTasks)
         return MetaData::COMBAT;
     });
 
-    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     TaskAgent& taskAgent = agent.GetTaskAgent();
 
     TaskMeta ret;
@@ -201,7 +201,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
         tasks.emplace_back(generate(traits[i]));
     }
 
-    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     TaskAgent& taskAgent = agent.GetTaskAgent();
 
     // without TaskID::Brief

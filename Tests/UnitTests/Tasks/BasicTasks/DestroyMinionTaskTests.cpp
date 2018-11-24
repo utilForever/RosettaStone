@@ -23,7 +23,7 @@ TEST(DestroyMinionTask, GetTaskID)
 
 TEST(DestroyMinionTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& player1 = agent.GetPlayer1();
 
     std::vector<Card> cards;

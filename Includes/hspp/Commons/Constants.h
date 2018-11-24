@@ -36,11 +36,12 @@ constexpr std::size_t NUM_DRAW_CARDS_AT_START_SECOND = 4;
 //! The maximum number of cards in your hand.
 constexpr std::size_t MAXIMUM_NUM_CARDS_IN_HAND = 10;
 
-//! The number that represents player 1.
-constexpr std::size_t PLAYER1 = 1;
-
-//! The number that represents player 2.
-constexpr std::size_t PLAYER2 = 2;
+//! Enumeration that represents the player.
+enum class PlayerType
+{
+    PLAYER1,    //!< The first player.
+    PLAYER2,    //!< The second player.
+};
 
 //! The number of menus in main phase.
 //! \note We will refactor it soon.

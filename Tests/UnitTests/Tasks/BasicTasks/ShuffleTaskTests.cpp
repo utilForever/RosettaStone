@@ -23,7 +23,7 @@ TEST(ShuffleTask, GetTaskID)
 TEST(ShuffleTask, Run)
 {
     ShuffleTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     for (int i = 0; i < 5; i++)
     {

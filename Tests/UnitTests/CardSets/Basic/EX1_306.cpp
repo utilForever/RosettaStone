@@ -13,7 +13,7 @@ using namespace BasicTasks;
 
 TEST(BasicCardSet, EX1_306)
 {
-    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     TaskAgent& taskAgent = agent.GetTaskAgent();
 
     Player& currentPlayer = agent.GetCurrentPlayer();

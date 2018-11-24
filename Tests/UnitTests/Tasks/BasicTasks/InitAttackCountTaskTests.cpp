@@ -21,7 +21,7 @@ TEST(InitAttackCountTask, GetTaskID)
 TEST(InitAttackCountTask, Run)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     agent.GetPlayer1().id = 100;
 
@@ -39,7 +39,7 @@ TEST(InitAttackCountTask, Run)
 TEST(InitAttackCountTask, RunFrozen)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card;
 
@@ -125,7 +125,7 @@ TEST(InitAttackCountTask, RunFrozen)
 TEST(InitAttackCountTask, RunWindFury)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card1;
     Card card2;

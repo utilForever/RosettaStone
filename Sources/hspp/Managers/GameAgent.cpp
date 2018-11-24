@@ -24,7 +24,8 @@
 
 namespace Hearthstonepp
 {
-GameAgent::GameAgent(CardClass p1Class, CardClass p2Class, size_t firstPlayer)
+GameAgent::GameAgent(CardClass p1Class, CardClass p2Class,
+                     PlayerType firstPlayer)
     : m_firstPlayer(firstPlayer), m_currentPlayer(firstPlayer)
 {
     m_player1.AddHeroAndPower(
@@ -83,27 +84,27 @@ Player& GameAgent::GetPlayer2()
 
 Player& GameAgent::GetFirstPlayer()
 {
-    return m_firstPlayer == PLAYER1 ? m_player1 : m_player2;
+    return m_firstPlayer == PlayerType::PLAYER1 ? m_player1 : m_player2;
 }
 
-void GameAgent::SetFirstPlayer(size_t playerNum)
+void GameAgent::SetFirstPlayer(PlayerType playerType)
 {
-    m_firstPlayer = playerNum;
+    m_firstPlayer = playerType;
 }
 
 Player& GameAgent::GetCurrentPlayer()
 {
-    return m_currentPlayer == PLAYER1 ? m_player1 : m_player2;
+    return m_currentPlayer == PlayerType::PLAYER1 ? m_player1 : m_player2;
 }
 
-void GameAgent::SetCurrentPlayer(size_t playerNum)
+void GameAgent::SetCurrentPlayer(PlayerType playerType)
 {
-    m_currentPlayer = playerNum;
+    m_currentPlayer = playerType;
 }
 
 Player& GameAgent::GetOpponentPlayer()
 {
-    return m_currentPlayer == PLAYER1 ? m_player2 : m_player1;
+    return m_currentPlayer == PlayerType::PLAYER1 ? m_player2 : m_player1;
 }
 
 MetaData GameAgent::RunTask(Player& player, ITask& task)
@@ -139,14 +140,14 @@ void GameAgent::BeginPhase()
     // Get random number: zero or one.
     std::uniform_int_distribution<int> bin(0, 1);
 
-    SetFirstPlayer(PLAYER1);
-    SetCurrentPlayer(PLAYER1);
+    SetFirstPlayer(PlayerType::PLAYER1);
+    SetCurrentPlayer(PlayerType::PLAYER1);
 
     // Swap user with 50% probability
     if (bin(gen) == 1)
     {
-        SetFirstPlayer(PLAYER2);
-        SetCurrentPlayer(PLAYER2);
+        SetFirstPlayer(PlayerType::PLAYER2);
+        SetCurrentPlayer(PlayerType::PLAYER2);
     }
 
     const auto success = [](const TaskMeta& meta) {
@@ -241,7 +242,9 @@ bool GameAgent::ProcessMainMenu()
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
         // End main end phase
-        SetCurrentPlayer(m_currentPlayer == PLAYER1 ? PLAYER2 : PLAYER1);
+        SetCurrentPlayer(m_currentPlayer == PlayerType::PLAYER2
+                             ? PlayerType::PLAYER1
+                             : PlayerType::PLAYER2);
     }
     else
     {

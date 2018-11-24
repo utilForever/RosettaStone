@@ -21,7 +21,7 @@ TEST(BriefTask, GetTaskID)
 TEST(BriefTask, Run)
 {
     BriefTask brief;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     agent.GetPlayer1().id = 100;
 

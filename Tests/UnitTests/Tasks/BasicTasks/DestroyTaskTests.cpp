@@ -22,7 +22,7 @@ TEST(DestroyTask, GetTaskID)
 
 TEST(DestroyTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& player1 = agent.GetPlayer1();
     Player& player2 = agent.GetPlayer2();
 

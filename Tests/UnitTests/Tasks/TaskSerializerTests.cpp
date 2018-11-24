@@ -265,7 +265,7 @@ TEST(TaskSerializer, CreatePlayerSetting)
 
 TEST(TaskSerializer, CreateGameStatus)
 {
-    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PLAYER1);
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     const TaskMetaTrait randTrait = GenerateRandomTrait();
 
     agent.GetPlayer1().id = 100;

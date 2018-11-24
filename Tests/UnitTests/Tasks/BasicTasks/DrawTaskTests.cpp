@@ -37,7 +37,7 @@ TEST(DrawTask, Run)
         return entities.back();
     };
 
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
 
     const std::string id = "card";
@@ -59,7 +59,7 @@ TEST(DrawTask, Run)
 
 TEST(DrawTask, RunExhaust)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
     EXPECT_EQ(p.cards.size(), static_cast<size_t>(0));
 
@@ -105,7 +105,7 @@ TEST(DrawTask, RunOverDraw)
         return entities.back();
     };
 
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
 
     const std::string id = "card";
@@ -155,7 +155,7 @@ TEST(DrawTask, RunExhaustOverdraw)
         return entities.back();
     };
 
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
 
     const std::string id = "card";
@@ -202,7 +202,7 @@ TEST(DrawCardTask, GetTaskID)
 TEST(DrawCardTask, Run)
 {
     Cards& instance = Cards::GetInstance();
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card nerubian = instance.FindCardByID("AT_036t");
     EXPECT_NE(nerubian.id, "");

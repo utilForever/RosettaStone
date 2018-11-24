@@ -21,7 +21,7 @@ TEST(DestroyWeaponTask, GetTaskID)
 TEST(DestroyWeaponTask, Run)
 {
     DestroyWeaponTask destroy;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, 1);
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card;
     card.id = "weapon1";
