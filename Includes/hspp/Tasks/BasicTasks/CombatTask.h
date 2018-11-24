@@ -34,7 +34,7 @@ class CombatTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    std::tuple<BYTE, BYTE> CalculateIndex(Player& player);
+    std::tuple<BYTE, BYTE> CalculateIndex(Player& player) const;
 
     Requirement m_requirement;
 };

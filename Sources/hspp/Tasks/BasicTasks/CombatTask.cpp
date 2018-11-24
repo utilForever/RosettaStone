@@ -129,7 +129,7 @@ MetaData CombatTask::Impl(Player& player)
     return MetaData::COMBAT_SUCCESS;
 }
 
-std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player)
+std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
 {
     if (m_source != nullptr && m_target != nullptr)
     {
