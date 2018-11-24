@@ -133,23 +133,6 @@ TEST(CombatTask, Default)
     EXPECT_EQ(player2.field[0]->health, static_cast<size_t>(3));
 }
 
-// TEST(CombatTask, IndexOutOfRange)
-//{
-//    CombatTester tester;
-//    auto [player1, player2] = tester.GetPlayer();
-//    auto card = GenerateMinionCard("minion1", 1, 10);
-//
-//    player1.field.emplace_back(new Minion(card));
-//    player2.field.emplace_back(new Minion(card));
-//
-//    tester.InitAttackCount(PLAYER1);
-//
-//    tester.Attack(player1.field[0], player2.field[1],
-//    MetaData::COMBAT_DST_IDX_OUT_OF_RANGE, PLAYER1);
-//    tester.Attack(player1.field[1], player2.field[0],
-//    MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE, PLAYER1);
-//}
-
 TEST(CombatTask, Weapon)
 {
     CombatTester tester;
