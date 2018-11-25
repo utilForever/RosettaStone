@@ -12,9 +12,9 @@ namespace Hearthstonepp
 {
 Player::Player() : m_id(USER_INVALID)
 {
-    cards.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
-    field.reserve(FIELD_SIZE);
-    hand.reserve(MAXIMUM_NUM_CARDS_IN_HAND);
+    m_deck.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
+    m_field.reserve(FIELD_SIZE);
+    m_hand.reserve(MAXIMUM_NUM_CARDS_IN_HAND);
 }
 
 Player::~Player()
@@ -45,6 +45,21 @@ void Player::SetID(BYTE id)
 Hero* Player::GetHero() const
 {
     return m_hero;
+}
+
+std::vector<Entity*>& Player::GetDeck()
+{
+    return m_deck;
+}
+
+std::vector<Character*>& Player::GetField()
+{
+    return m_field;
+}
+
+std::vector<Entity*>& Player::GetHand()
+{
+    return m_hand;
 }
 
 BYTE Player::GetAvailableMana() const
@@ -120,7 +135,7 @@ void Player::SetDeck(Deck* deck)
                 break;
         }
 
-        cards.emplace_back(entity);
+        m_deck.emplace_back(entity);
     }
 }
 
@@ -132,35 +147,35 @@ void Player::AddHeroAndPower(Card heroCard, Card powerCard)
 
 void Player::FreeMemory()
 {
-    for (auto& card : cards)
+    for (auto& card : m_deck)
     {
         delete card;
     }
-    cards.clear();
+    m_deck.clear();
 
-    for (auto& minion : field)
+    for (auto& minion : m_field)
     {
         delete minion;
     }
-    field.clear();
+    m_field.clear();
 
-    for (auto& card : hand)
+    for (auto& card : m_hand)
     {
         delete card;
     }
-    hand.clear();
+    m_hand.clear();
 
-    for (auto& spell : usedSpell)
+    for (auto& spell : m_playedSpell)
     {
         delete spell;
     }
-    usedSpell.clear();
+    m_playedSpell.clear();
 
-    for (auto& minion : usedMinion)
+    for (auto& minion : m_playedMinion)
     {
         delete minion;
     }
-    usedMinion.clear();
+    m_playedMinion.clear();
 
     delete m_hero;
 }

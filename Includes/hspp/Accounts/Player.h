@@ -65,9 +65,21 @@ class Player
     //! \param id Player ID.
     void SetID(BYTE id);
 
-    //! Returns hero of player.
-    //! \return Hero of player.
+    //! Returns player's hero.
+    //! \return Player's hero.
     Hero* GetHero() const;
+
+    //! Returns player's deck.
+    //! \return Player's deck.
+    std::vector<Entity*>& GetDeck();
+
+    //! Returns player's field.
+    //! \return Player's field.
+    std::vector<Character*>& GetField();
+
+    //! Returns player's hand.
+    //! \return Player's hand.
+    std::vector<Entity*>& GetHand();
 
     //! Returns available mana that player has.
     //! \return Available mana that player has.
@@ -121,15 +133,6 @@ class Player
     //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card heroCard, Card powerCard);
 
-    // Card storage
-    std::vector<Entity*> cards;
-
-    // Card objects
-    std::vector<Character*> field;
-    std::vector<Entity*> hand;
-    std::vector<Spell*> usedSpell;
-    std::vector<Character*> usedMinion;
-
  private:
     //! Releases dynamic allocated resources.
     void FreeMemory();
@@ -138,6 +141,15 @@ class Player
     BYTE m_id = 0;
 
     Hero* m_hero = nullptr;
+
+    // Card storage
+    std::vector<Entity*> m_deck;
+
+    // Card objects
+    std::vector<Character*> m_field;
+    std::vector<Entity*> m_hand;
+    std::vector<Spell*> m_playedSpell;
+    std::vector<Character*> m_playedMinion;
 
     BYTE m_availableMana = 0;
     BYTE m_maximumMana = 0;
