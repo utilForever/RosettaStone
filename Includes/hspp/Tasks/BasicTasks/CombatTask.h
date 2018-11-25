@@ -10,8 +10,6 @@
 #include <hspp/Tasks/Requirement.h>
 #include <hspp/Tasks/Tasks.h>
 
-#include <hspp/Flatbuffers/generated/FlatData_generated.h>
-
 namespace Hearthstonepp::BasicTasks
 {
 //!
@@ -24,7 +22,9 @@ class CombatTask : public ITask
  public:
     //! Constructs task with given \p agent.
     //! \param agent The task agent that is required to the requirement.
-    CombatTask(TaskAgent& agent);
+    //! \param source A pointer to source character to combat.
+    //! \param target A pointer to target character to combat.
+    CombatTask(TaskAgent& agent, Entity* source, Entity* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,13 +32,17 @@ class CombatTask : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
+
+    //! Calculates index of the source and the target.
+    //! \param player The player to run task.
+    //! \return A tuple consisting of source and target index.
+    std::tuple<BYTE, BYTE> CalculateIndex(Player& player) const;
 
     Requirement m_requirement;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_COMBAT_H
+#endif  // HEARTHSTONEPP_COMBAT_TASK_H

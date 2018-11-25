@@ -11,7 +11,7 @@ namespace Hearthstonepp::BasicTasks
 Requirement::Requirement(TaskID request, TaskAgent& agent)
     : m_request(request), m_agent(agent)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 void Requirement::Interact(BYTE userID, TaskMeta& meta) const

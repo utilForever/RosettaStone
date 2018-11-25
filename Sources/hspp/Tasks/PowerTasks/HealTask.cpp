@@ -19,17 +19,17 @@ TaskID HealTask::GetTaskID() const
     return TaskID::HEAL;
 }
 
-MetaData HealTask::Impl(Player& player1, Player&)
+MetaData HealTask::Impl(Player& player)
 {
-    if (m_entityType == +EntityType::MY_HERO)
+    if (m_entityType == +EntityType::HERO)
     {
-        if (player1.hero->health + m_amount <= player1.hero->maxHealth)
+        if (player.GetHero()->health + m_amount <= player.GetHero()->maxHealth)
         {
-            player1.hero->health += m_amount;
+            player.GetHero()->health += m_amount;
         }
         else
         {
-            player1.hero->health = player1.hero->maxHealth;
+            player.GetHero()->health = player.GetHero()->maxHealth;
         }
 
         return MetaData::HEAL_SUCCESS;

@@ -11,31 +11,22 @@
 
 namespace Hearthstonepp
 {
-Cards* Cards::m_instance = nullptr;
-
 Cards::Cards()
 {
     CardLoader cardLoader;
     cardLoader.Load(m_cards);
-    PowerLoader powerLoader;
-    powerLoader.Load(m_cards);
+    PowerLoader::Load(m_cards);
 }
 
 Cards::~Cards()
 {
     m_cards.clear();
-
-    delete m_instance;
 }
 
-Cards* Cards::GetInstance()
+Cards& Cards::GetInstance()
 {
-    if (m_instance == nullptr)
-    {
-        m_instance = new Cards();
-    }
-
-    return m_instance;
+    static Cards instance;
+    return instance;
 }
 
 const std::vector<Card>& Cards::GetAllCards() const
@@ -165,19 +156,12 @@ std::vector<Card> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-#ifndef HEARTHSTONEPP_MACOSX
-        if (!card.attack.has_value())
+        if (!card.attack)
         {
             continue;
         }
-#else
-#endif
 
-#ifndef HEARTHSTONEPP_MACOSX
-        if (card.attack.value() >= minVal && card.attack.value() <= maxVal)
-#else
-        if (card.attack >= minVal && card.attack <= maxVal)
-#endif
+        if (*card.attack >= minVal && *card.attack <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -192,19 +176,12 @@ std::vector<Card> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-#ifndef HEARTHSTONEPP_MACOSX
-        if (!card.health.has_value())
+        if (!card.health)
         {
             continue;
         }
-#else
-#endif
 
-#ifndef HEARTHSTONEPP_MACOSX
-        if (card.health.value() >= minVal && card.health.value() <= maxVal)
-#else
-        if (card.health >= minVal && card.health <= maxVal)
-#endif
+        if (*card.health >= minVal && *card.health <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -219,20 +196,12 @@ std::vector<Card> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
 
     for (auto card : m_cards)
     {
-#ifndef HEARTHSTONEPP_MACOSX
-        if (!card.spellDamage.has_value())
+        if (!card.spellDamage)
         {
             continue;
         }
-#else
-#endif
 
-#ifndef HEARTHSTONEPP_MACOSX
-        if (card.spellDamage.value() >= minVal &&
-            card.spellDamage.value() <= maxVal)
-#else
-        if (card.spellDamage >= minVal && card.spellDamage <= maxVal)
-#endif
+        if (*card.spellDamage >= minVal && *card.spellDamage <= maxVal)
         {
             result.emplace_back(card);
         }

@@ -29,10 +29,9 @@ class DoBothPlayer : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 
     ITask& m_task;
 };
@@ -56,13 +55,12 @@ class DoUntil : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 
     ITask& m_task;
     std::function<bool(const TaskMeta&)> m_condition;
 };
 }  // namespace Hearthstonepp::BasicTasks
-#endif  // HEARTHSTONEPP_WRAPPER_H
+#endif  // HEARTHSTONEPP_TASK_WRAPPER_H

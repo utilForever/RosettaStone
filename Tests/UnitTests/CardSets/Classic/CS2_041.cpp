@@ -6,93 +6,51 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Actions/Generic.h>
+#include <hspp/Cards/Cards.h>
+
+using namespace BasicTasks;
+
 TEST(ClassicCardSet, CS2_041)
 {
-    GameAgent agent(
-        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
-        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
-
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     TaskAgent& taskAgent = agent.GetTaskAgent();
-    TestUtils::AutoResponder response(agent);
 
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Player& currentPlayer = agent.GetCurrentPlayer();
+    Player& opponentPlayer = agent.GetCurrentPlayer().GetOpponent();
+    currentPlayer.SetMaximumMana(10);
+    currentPlayer.SetAvailableMana(10);
+    opponentPlayer.SetMaximumMana(10);
+    opponentPlayer.SetAvailableMana(10);
 
-    player1.totalMana = agent.GetPlayer1().existMana = 10;
-    player2.totalMana = agent.GetPlayer2().existMana = 10;
+    const auto card1 = Generic::DrawCard(
+        currentPlayer,
+        Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    EXPECT_EQ(currentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(currentPlayer.GetHand()[0]->card->name, "Acidic Swamp Ooze");
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Acidic Swamp Ooze");
+    const auto card2 = Generic::DrawCard(
+        currentPlayer,
+        Cards::GetInstance().FindCardByName("Ancestral Healing"));
+    EXPECT_EQ(currentPlayer.GetHand().size(), 2u);
+    EXPECT_EQ(currentPlayer.GetHand()[1]->card->name, "Ancestral Healing");
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Ancestral Healing")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
-    EXPECT_EQ(agent.GetPlayer1().hand[1]->card->name, "Ancestral Healing");
+    const auto card3 = Generic::DrawCard(
+        opponentPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand()[0]->card->name, "Stonetusk Boar");
 
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Stonetusk Boar")),
-                  player2, player1);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Stonetusk Boar");
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
+    EXPECT_EQ(currentPlayer.GetField()[0]->card->name, "Acidic Swamp Ooze");
 
-    // Create multiple response for PlayCardTask And PlayMinionTask
-    auto respAutoMinion = response.AutoMinion(0, 0);
-    MetaData result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
-    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Acidic Swamp Ooze");
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card3));
+    EXPECT_EQ(opponentPlayer.GetField()[0]->card->name, "Stonetusk Boar");
 
-    auto [respPlayCard1, respPlayMinion1] = respAutoMinion.get();
-    auto require =
-        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_CARD);
+    GameAgent::RunTask(opponentPlayer, CombatTask(taskAgent, card3, card1));
+    EXPECT_EQ(currentPlayer.GetField()[0]->health, 1);
+    EXPECT_EQ(opponentPlayer.GetField().size(), 0u);
 
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_POSITION);
-
-    // Create multiple response for PlayCardTask And PlayMinionTask
-    respAutoMinion = response.AutoMinion(0, 0);
-    result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
-    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "Stonetusk Boar");
-
-    auto [respPlayCard2, respPlayMinion2] = respAutoMinion.get();
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_CARD);
-
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_POSITION);
-
-    auto respAutoTarget = response.Target(1, 1);
-    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
-    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().field.size(), static_cast<size_t>(0));
-
-    // Create multiple response for PlayCardTask And PlaySpellTask
-    auto respAutoSpell = response.AutoSpell(0, TargetType::MY_FIELD, 0);
-    result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
-    EXPECT_EQ(result, MetaData::PLAY_SPELL_SUCCESS);
-
-    auto [respPlayCard3, respPlaySpell] = respAutoSpell.get();
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard3);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_CARD);
-
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlaySpell);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_TARGET);
-
-    EXPECT_EQ(agent.GetPlayer1().field[0]->health, static_cast<size_t>(2));
-    EXPECT_EQ(agent.GetPlayer1().field[0]->GetGameTag(GameTag::TAUNT), 1);
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card2, -1, card1));
+    EXPECT_EQ(currentPlayer.GetField()[0]->health, 2);
+    EXPECT_EQ(currentPlayer.GetField()[0]->GetGameTag(GameTag::TAUNT), 1);
 }

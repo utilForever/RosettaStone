@@ -20,27 +20,30 @@ TaskID DiscardTask::GetTaskID() const
     return TaskID::DISCARD;
 }
 
-MetaData DiscardTask::Impl(Player& player1, Player&)
+MetaData DiscardTask::Impl(Player& player)
 {
-    if (m_entityType == +EntityType::MY_HAND)
+    if (m_entityType == +EntityType::HAND)
     {
-        if (player1.hand.size() <= 0)
+        if (player.GetHand().empty())
         {
             return MetaData::DISCARD_MY_HAND_SUCCESS;
         }
 
         std::random_device rd;
-        std::uniform_int_distribution<size_t> dist(0, player1.hand.size() - 1);
+        // ReSharper disable once CppLocalVariableMayBeConst
+        // NOTE: 'const' occurs compile error on Linux and macOS
+        std::uniform_int_distribution<size_t> dist(0,
+                                                   player.GetHand().size() - 1);
 
-        size_t discardIdx = dist(rd);
+        const size_t discardIdx = dist(rd);
 
         // Card Hand Index Verification
-        if (discardIdx >= player1.hand.size())
+        if (discardIdx >= player.GetHand().size())
         {
             return MetaData::DISCARD_IDX_OUT_OF_RANGE;
         }
 
-        player1.hand.erase(player1.hand.begin() + discardIdx);
+        player.GetHand().erase(player.GetHand().begin() + discardIdx);
         return MetaData::DISCARD_MY_HAND_SUCCESS;
     }
 

@@ -4,8 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Accounts/Player.h>
 #include <hspp/Cards/Character.h>
 #include <hspp/Commons/Macros.h>
+
+#include <algorithm>
 
 namespace Hearthstonepp
 {
@@ -13,42 +16,115 @@ Character::Character(Card& card) : Entity(card)
 {
     if (!card.id.empty())
     {
-#ifndef HEARTHSTONEPP_MACOSX
-        attack = card.attack.has_value() ? card.attack.value() : 0;
-        health = card.health.has_value() ? card.health.value() : 0;
-#else
-        attack = card.attack.value_or(0);
-        health = card.health.value_or(0);
-#endif
+        m_attack = card.attack ? *card.attack : 0;
+        health = card.health ? static_cast<int>(*card.health) : 0;
         maxHealth = health;
     }
 }
 
-Character::Character(const Character& c) : Entity(c)
+size_t Character::GetAttack() const
 {
-    attack = c.attack;
-    attackableCount = c.attackableCount;
-    health = c.health;
-    maxHealth = c.maxHealth;
+    return m_attack;
 }
 
-Character& Character::operator=(const Character& c)
+void Character::SetAttack(size_t attack)
 {
-    if (this == &c)
+    m_attack = attack;
+}
+
+bool Character::CanAttack() const
+{
+    // If the value of attack is 0, returns false
+    if (GetAttack() == 0)
     {
-        return *this;
+        return false;
     }
 
-    attack = c.attack;
-    attackableCount = c.attackableCount;
-    health = c.health;
-    maxHealth = c.maxHealth;
+    // If the character is frozen, returns false
+    if (GetGameTag(GameTag::FROZEN) == 1)
+    {
+        return false;
+    }
 
-    return *this;
+    // If attack count is 0, returns false
+    if (attackableCount == 0)
+    {
+        return false;
+    }
+
+    return true;
 }
 
-Character* Character::Clone() const
+bool Character::IsValidAttackTarget(Player& opponent, Character* target) const
 {
-    return new Character(*this);
+    auto validTargets = GetValidAttackTargets(opponent);
+    if (std::find(validTargets.begin(), validTargets.end(), target) ==
+        validTargets.end())
+    {
+        return false;
+    }
+
+    const Hero* hero = dynamic_cast<Hero*>(target);
+    return !(hero != nullptr &&
+             hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
+}
+
+std::vector<Character*> Character::GetValidAttackTargets(Player& opponent)
+{
+    bool isExistTauntInField = false;
+    std::vector<Character*> targets;
+    std::vector<Character*> targetsHaveTaunt;
+
+    for (auto& minion : opponent.GetField())
+    {
+        if (minion->GetGameTag(GameTag::STEALTH) == 0)
+        {
+            if (minion->GetGameTag(GameTag::TAUNT) == 1)
+            {
+                isExistTauntInField = true;
+                targetsHaveTaunt.emplace_back(minion);
+                continue;
+            }
+
+            if (!isExistTauntInField)
+            {
+                targets.emplace_back(minion);
+            }
+        }
+    }
+
+    if (isExistTauntInField)
+    {
+        return targetsHaveTaunt;
+    }
+
+    if (opponent.GetHero()->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
+        opponent.GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
+        opponent.GetHero()->GetGameTag(GameTag::STEALTH) == 0)
+    {
+        targets.emplace_back(opponent.GetHero());
+    }
+
+    return targets;
+}
+
+size_t Character::TakeDamage(Character& source, size_t damage)
+{
+    (void)source;
+
+    if (GetGameTag(GameTag::DIVINE_SHIELD) == 1)
+    {
+        SetGameTag(GameTag::DIVINE_SHIELD, 0);
+        return 0;
+    }
+
+    if (GetGameTag(GameTag::IMMUNE) == 1)
+    {
+        return 0;
+    }
+
+    health -= static_cast<int>(damage);
+
+    return damage;
 }
 }  // namespace Hearthstonepp

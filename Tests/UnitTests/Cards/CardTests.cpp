@@ -52,7 +52,7 @@ TEST(TestCard, Constructer)
     EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
     EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
     EXPECT_EQ(true, card1.isCollectible);
-}    
+}
 
 TEST(TestCard, HasMechanic)
 {

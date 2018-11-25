@@ -9,12 +9,12 @@
 
 #include <hspp/Accounts/Account.h>
 #include <hspp/Accounts/Player.h>
+#include <hspp/Actions/Generic.h>
 #include <hspp/CardSets/BasicCardsGen.h>
 #include <hspp/Cards/Card.h>
 #include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Character.h>
 #include <hspp/Cards/Deck.h>
-#include <hspp/Cards/Enchantment.h>
 #include <hspp/Cards/Entity.h>
 #include <hspp/Cards/Hero.h>
 #include <hspp/Cards/HeroPower.h>
@@ -41,13 +41,13 @@
 #include <hspp/Managers/SyncBuffer.h>
 #include <hspp/Tasks/BasicTasks/BriefTask.h>
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
+#include <hspp/Tasks/BasicTasks/DamageTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyWeaponTask.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
 #include <hspp/Tasks/BasicTasks/GameEndTask.h>
 #include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
-#include <hspp/Tasks/BasicTasks/ModifyHealthTask.h>
 #include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
 #include <hspp/Tasks/BasicTasks/MulliganTask.h>
 #include <hspp/Tasks/BasicTasks/PlayCardTask.h>
@@ -56,7 +56,6 @@
 #include <hspp/Tasks/BasicTasks/PlayWeaponTask.h>
 #include <hspp/Tasks/BasicTasks/PlayerSettingTask.h>
 #include <hspp/Tasks/BasicTasks/ShuffleTask.h>
-#include <hspp/Tasks/BasicTasks/SwapPlayerTask.h>
 #include <hspp/Tasks/MetaData.h>
 #include <hspp/Tasks/PowerTasks/AddEnchantmentTask.h>
 #include <hspp/Tasks/PowerTasks/DiscardTask.h>

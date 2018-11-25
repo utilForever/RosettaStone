@@ -9,15 +9,26 @@
 
 namespace Hearthstonepp
 {
-MetaData ITask::Run(Player& player1, Player& player2)
+ITask::ITask(Entity* source, Entity* target)
+    : m_source(source), m_target(target)
 {
-    return Impl(player1, player2);
+    // Do nothing
 }
 
-MetaData ITask::Run(Player& player1, Player& player2, TaskMeta& meta)
+void ITask::SetTarget(Entity* target)
 {
-    MetaData status = Impl(player1, player2);
-    meta = Serializer::CreateGameStatus(GetTaskID(), status, player1, player2);
+    m_target = target;
+}
+
+MetaData ITask::Run(Player& player)
+{
+    return Impl(player);
+}
+
+MetaData ITask::Run(Player& player, TaskMeta& meta)
+{
+    const MetaData status = Impl(player);
+    meta = Serializer::CreateGameStatus(player, GetTaskID(), status);
 
     return status;
 }

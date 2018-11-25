@@ -21,8 +21,8 @@ class DestroyMinionTask : public ITask
 {
  public:
     //! Constructs task with given \p character.
-    //! \param character A pointer to character to destroy.
-    DestroyMinionTask(Character* character);
+    //! \param entity A pointer to character to destroy.
+    DestroyMinionTask(Entity* entity);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -30,12 +30,11 @@ class DestroyMinionTask : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 
-    Character* m_character;
+    Character* m_character = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

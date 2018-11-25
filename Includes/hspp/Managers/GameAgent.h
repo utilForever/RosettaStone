@@ -27,22 +27,12 @@ namespace Hearthstonepp
 class GameAgent
 {
  public:
-    //! Constant expression to check if \tparam T is a Player type.
-    template <typename T>
-    static constexpr inline bool isPlayer =
-        std::is_same_v<std::decay_t<T>, Player>;
-
-    //! Constructs game agent with given \p player1 and \p player2.
-    //! \tparam PlayerT Player type.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
-    template <typename PlayerT, typename = std::enable_if_t<isPlayer<PlayerT>>>
-    GameAgent(PlayerT&& player1, PlayerT&& player2)
-        : m_player1(std::forward<PlayerT>(player1)),
-          m_player2(std::forward<PlayerT>(player2))
-    {
-        // Do Nothing
-    }
+    //! Constructs account with given \p p1Class, \p p2Class and \p firstPlayer.
+    //! \param p1Class The class of player 1.
+    //! \param p2Class The class of player 2.
+    //! \param firstPlayer The first player who starts turn first.
+    GameAgent(CardClass p1Class, CardClass p2Class,
+              PlayerType firstPlayer = PlayerType::PLAYER1);
 
     //! Starts the game agent.
     //! \return The thread that plays the game.
@@ -53,7 +43,7 @@ class GameAgent
     void GetTaskMeta(TaskMeta& meta);
 
     //! Writes task meta to task agent using side channel as default.
-    //! \param data A task meta data to write to task agent.
+    //! \param data A task meta to write to task agent.
     //! \param isUseSideChannel A variable that tells you whether to use side
     //! channel.
     void WriteSyncBuffer(TaskMeta&& data, bool isUseSideChannel = true);
@@ -70,24 +60,52 @@ class GameAgent
     //! \return The second player.
     Player& GetPlayer2();
 
-    //! Runs the task with given \p task, \p player1 and \p player2.
-    //! \param task The task to run (lvalue ref).
-    //! \param player1 The first player.
-    //! \param player2 The second player.
-    //! \return The result of running the task.
-    MetaData RunTask(ITask& task, Player& player1, Player& player2);
+    //! Returns the first player.
+    //! \return The first player.
+    Player& GetFirstPlayer();
 
-    //! Runs the task with given \p task, \p player1 and \p player2.
-    //! \param task The task to run (rvalue ref).
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! Sets the first player.
+    //! \param playerType The first player who starts turn first.
+    void SetFirstPlayer(PlayerType playerType);
+
+    //! Returns the player controlling the current turn.
+    //! \return The player controlling the current turn.
+    Player& GetCurrentPlayer();
+
+    //! Sets the player controlling the current turn.
+    //! \param playerType The player controlling the current turn.
+    void SetCurrentPlayer(PlayerType playerType);
+
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    Player& GetOpponentPlayer();
+
+    //! Runs the task with given \p player and \p task.
+    //! \param player The player to run task.
+    //! \param task The task to run (lvalue ref).
     //! \return The result of running the task.
-    MetaData RunTask(ITask&& task, Player& player1, Player& player2);
+    static MetaData RunTask(Player& player, ITask& task);
+
+    //! Runs the task with given \p player and \p task.
+    //! \param player The player to run task.
+    //! \param task The task to run (rvalue ref).
+    //! \return The result of running the task.
+    static MetaData RunTask(Player& player, ITask&& task);
+
+    //! Notifies a task meta to the task agent.
+    //! \param meta A task meta to write to task agent (lvalue ref).
+    //! \param sideChannel A variable that tells you whether to use side.
+    void NotifyToTaskAgent(TaskMeta& meta, bool sideChannel = false);
+
+    //! Notifies a task meta to the task agent.
+    //! \param meta A task meta to write to task agent (lvalue ref).
+    //! \param sideChannel A variable that tells you whether to use side.
+    void NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel = false);
 
  private:
     //! Returns whether the game is over.
     //! \return true if the game is over, and false otherwise.
-    bool IsGameOver();
+    bool IsGameOver() const;
 
     //! Processes the begin phase of the game.
     void BeginPhase();
@@ -116,6 +134,9 @@ class GameAgent
     Player m_player1;
     Player m_player2;
 
+    PlayerType m_firstPlayer;
+    PlayerType m_currentPlayer;
+
     TaskAgent m_taskAgent;
 
     std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
@@ -126,4 +147,4 @@ class GameAgent
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_GAME_AGENT_H

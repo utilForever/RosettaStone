@@ -28,13 +28,12 @@ class HealFullTask : public ITask
     TaskID GetTaskID() const override;
 
  private:
-    EntityType m_entityType;
+    EntityType m_entityType = EntityType::EMPTY;
 
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 };
 }  // namespace Hearthstonepp::PowerTask
 

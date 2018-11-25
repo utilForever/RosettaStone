@@ -23,8 +23,8 @@ class PowerLoader
  public:
     //! Loads power data from card data generators.
     //! \param cards Data storage to store added cards with power.
-    void Load(std::vector<Card>& cards) const;
+    static void Load(std::vector<Card>& cards);
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_POWER_LOADER_H

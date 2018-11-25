@@ -5,13 +5,17 @@
 // property of any third parties.
 
 #include <hspp/Cards/Entity.h>
+#include <hspp/Commons/Constants.h>
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
+
+#include <utility>
 
 namespace Hearthstonepp::BasicTasks
 {
-DrawTask::DrawTask(TaskAgent& agent, size_t num) : m_agent(agent), m_num(num)
+DrawTask::DrawTask(size_t num) : m_num(num)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID DrawTask::GetTaskID() const
@@ -19,50 +23,49 @@ TaskID DrawTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawTask::Impl(Player& user, Player&)
+MetaData DrawTask::Impl(Player& player)
 {
     size_t num = m_num;
     MetaData result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Entity*>& deck = user.cards;
-    std::vector<Entity*>& hand = user.hand;
+    std::vector<Entity*>& deck = player.GetDeck();
+    std::vector<Entity*>& hand = player.GetHand();
 
-    // after reaching fatigue
+    // After reaching fatigue
     if (deck.size() < num)
     {
-        size_t numDrawAfterFatigue = num - deck.size();
+        const size_t numDrawAfterFatigue = num - deck.size();
 
-        // sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
-        int fatigueDamage = static_cast<int>(
-            user.exhausted * numDrawAfterFatigue +
+        // Sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
+        const auto fatigueDamage = static_cast<int>(
+            player.GetNumCardAfterExhaust() * numDrawAfterFatigue +
             numDrawAfterFatigue * (numDrawAfterFatigue + 1) / 2);
-        int remainHealth = static_cast<int>(user.hero->health) - fatigueDamage;
 
-        user.hero->health =
-            remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0;
-        user.exhausted += static_cast<BYTE>(numDrawAfterFatigue);
+        player.GetHero()->health = player.GetHero()->health - fatigueDamage;
+        player.SetNumCardAfterExhaust(static_cast<BYTE>(
+            player.GetNumCardAfterExhaust() + numDrawAfterFatigue));
 
         num = deck.size();
         result = MetaData::DRAW_EXHAUST;
     }
 
-    // when hand size over 10, over draw
-    if (hand.size() + num > 10)
+    // When hand size over MAXIMUM_NUM_CARDS_IN_HAND, overdraw
+    if (hand.size() + num > MAXIMUM_NUM_CARDS_IN_HAND)
     {
-        // number of over draw
-        size_t over = hand.size() + num - 10;
+        // The number of overdraw
+        const size_t over = hand.size() + num - MAXIMUM_NUM_CARDS_IN_HAND;
 
         std::vector<Entity*> burnt;
         burnt.reserve(over);
 
-        // draw burnt card
+        // Draw burnt card
         for (size_t i = 0; i < over; ++i)
         {
             burnt.emplace_back(deck.back());
             deck.pop_back();
         }
 
-        num = 10 - hand.size();
+        num = MAXIMUM_NUM_CARDS_IN_HAND - hand.size();
 
         if (result == MetaData::DRAW_EXHAUST)
         {
@@ -73,12 +76,13 @@ MetaData DrawTask::Impl(Player& user, Player&)
             result = MetaData::DRAW_OVERDRAW;
         }
 
-        // Send Burnt Cards to GameInterface
-        TaskMetaTrait trait(TaskID::OVER_DRAW, result, user.id);
-        m_agent.Notify(Serializer::CreateEntityVector(trait, burnt));
+        // Send burnt cards to GameInterface
+        const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.GetID());
+        player.GetGameAgent().NotifyToTaskAgent(
+            Serializer::CreateEntityVector(trait, burnt));
     }
 
-    // successful draw
+    // Draw success
     for (size_t i = 0; i < num; ++i)
     {
         hand.push_back(deck.back());
@@ -88,7 +92,7 @@ MetaData DrawTask::Impl(Player& user, Player&)
     return result;
 }
 
-DrawCardTask::DrawCardTask(Card card) : m_card(card)
+DrawCardTask::DrawCardTask(Card card) : m_card(std::move(card))
 {
     // Do nothing
 }
@@ -98,10 +102,10 @@ TaskID DrawCardTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawCardTask::Impl(Player& user, Player&)
+MetaData DrawCardTask::Impl(Player& player)
 {
-    std::vector<Entity*>& deck = user.cards;
-    std::vector<Entity*>& hand = user.hand;
+    std::vector<Entity*>& deck = player.GetDeck();
+    std::vector<Entity*>& hand = player.GetHand();
 
     switch (m_card.cardType)
     {

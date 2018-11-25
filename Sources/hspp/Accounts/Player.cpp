@@ -5,28 +5,115 @@
 // property of any third parties.
 
 #include <hspp/Accounts/Player.h>
-#include <hspp/Tasks/TaskMeta.h>
+#include <hspp/Cards/Cards.h>
+#include <hspp/Commons/Constants.h>
 
 namespace Hearthstonepp
 {
-Player::Player(const Account* account, const Deck* deck)
-    : id(USER_INVALID), email(account->GetEmail())
+Player::Player() : m_id(USER_INVALID)
 {
-    Cards* cardsInstance = Cards::GetInstance();
-    const CardClass cardClass = deck->GetClass();
+    m_deck.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
+    m_field.reserve(FIELD_SIZE);
+    m_hand.reserve(MAXIMUM_NUM_CARDS_IN_HAND);
+}
 
-    Card heroCard = cardsInstance->GetHeroCard(cardClass);
-    if (!heroCard.id.empty())
-    {
-        hero = new Hero(heroCard);
-    }
+Player::~Player()
+{
+    FreeMemory();
+}
 
-    Card powerCard = cardsInstance->GetDefaultHeroPower(cardClass);
-    if (!powerCard.id.empty())
-    {
-        power = new HeroPower(powerCard);
-    }
+std::string Player::GetNickname() const
+{
+    return m_nickname;
+}
 
+void Player::SetNickname(std::string nickname)
+{
+    m_nickname = nickname;
+}
+
+BYTE Player::GetID() const
+{
+    return m_id;
+}
+
+void Player::SetID(BYTE id)
+{
+    m_id = id;
+}
+
+Hero* Player::GetHero() const
+{
+    return m_hero;
+}
+
+std::vector<Entity*>& Player::GetDeck()
+{
+    return m_deck;
+}
+
+std::vector<Character*>& Player::GetField()
+{
+    return m_field;
+}
+
+std::vector<Entity*>& Player::GetHand()
+{
+    return m_hand;
+}
+
+BYTE Player::GetAvailableMana() const
+{
+    return m_availableMana;
+}
+
+void Player::SetAvailableMana(BYTE mana)
+{
+    m_availableMana = mana;
+}
+
+BYTE Player::GetMaximumMana() const
+{
+    return m_maximumMana;
+}
+
+void Player::SetMaximumMana(BYTE mana)
+{
+    m_maximumMana = mana;
+}
+
+BYTE Player::GetNumCardAfterExhaust() const
+{
+    return m_numCardAfterExhaust;
+}
+
+void Player::SetNumCardAfterExhaust(BYTE numCard)
+{
+    m_numCardAfterExhaust = numCard;
+}
+
+GameAgent& Player::GetGameAgent() const
+{
+    return *m_gameAgent;
+}
+
+void Player::SetGameAgent(GameAgent* agent)
+{
+    m_gameAgent = agent;
+}
+
+Player& Player::GetOpponent() const
+{
+    return *m_opponent;
+}
+
+void Player::SetOpponent(Player* player)
+{
+    m_opponent = player;
+}
+
+void Player::SetDeck(Deck* deck)
+{
     for (auto& card : deck->GetPrimitiveDeck())
     {
         if (card.id.empty())
@@ -48,145 +135,48 @@ Player::Player(const Account* account, const Deck* deck)
                 break;
         }
 
-        cards.emplace_back(entity);
+        m_deck.emplace_back(entity);
     }
 }
 
-Player::~Player()
+void Player::AddHeroAndPower(Card heroCard, Card powerCard)
 {
-    FreeMemory();
-}
-
-Player::Player(const Player& p)
-{
-    FreeMemory();
-
-    CopyData(p);
-}
-
-Player::Player(Player&& p) noexcept
-{
-    FreeMemory();
-
-    MoveData(std::move(p));
-}
-
-Player& Player::operator=(const Player& p)
-{
-    if (this == &p)
-    {
-        return *this;
-    }
-
-    FreeMemory();
-
-    CopyData(p);
-
-    return *this;
-}
-
-Player& Player::operator=(Player&& p) noexcept
-{
-    if (this == &p)
-    {
-        return *this;
-    }
-
-    FreeMemory();
-
-    MoveData(std::move(p));
-
-    return *this;
+    m_hero = new Hero(heroCard);
+    m_hero->heroPower = new HeroPower(powerCard);
 }
 
 void Player::FreeMemory()
 {
-    for (auto& card : cards)
+    for (auto& card : m_deck)
     {
         delete card;
     }
-    cards.clear();
+    m_deck.clear();
 
-    for (auto& minion : field)
+    for (auto& minion : m_field)
     {
         delete minion;
     }
-    field.clear();
+    m_field.clear();
 
-    for (auto& card : hand)
+    for (auto& card : m_hand)
     {
         delete card;
     }
-    hand.clear();
+    m_hand.clear();
 
-    for (auto& spell : usedSpell)
+    for (auto& spell : m_playedSpell)
     {
         delete spell;
     }
-    usedSpell.clear();
+    m_playedSpell.clear();
 
-    for (auto& minion : usedMinion)
+    for (auto& minion : m_playedMinion)
     {
         delete minion;
     }
-    usedMinion.clear();
+    m_playedMinion.clear();
 
-    delete hero;
-    delete power;
-}
-
-void Player::CopyData(const Player& p)
-{
-    email = p.email;
-
-    id = p.id;
-    totalMana = p.totalMana;
-    existMana = p.existMana;
-    exhausted = p.exhausted;
-
-    if (p.hero != nullptr)
-    {
-        hero = p.hero->Clone();
-    }
-    if (p.power != nullptr)
-    {
-        power = p.power->Clone();
-    }
-
-    field.resize(p.field.size());
-    std::transform(p.field.begin(), p.field.end(), field.begin(),
-                   [](Character* c) -> Character* { return c->Clone(); });
-
-    hand.resize(p.hand.size());
-    std::transform(p.hand.begin(), p.hand.end(), hand.begin(),
-                   [](Entity* e) -> Entity* { return e->Clone(); });
-
-    usedSpell.resize(p.usedSpell.size());
-    std::transform(p.usedSpell.begin(), p.usedSpell.end(), usedSpell.begin(),
-                   [](Spell* s) -> Spell* { return s->Clone(); });
-
-    usedMinion.resize(p.usedMinion.size());
-    std::transform(p.usedMinion.begin(), p.usedMinion.end(), usedMinion.begin(),
-                   [](Character* c) -> Character* { return c->Clone(); });
-}
-
-void Player::MoveData(Player&& p)
-{
-    email = std::move(p.email);
-
-    id = p.id;
-    totalMana = p.totalMana;
-    existMana = p.existMana;
-    exhausted = p.exhausted;
-
-    hero = p.hero;
-    p.hero = nullptr;
-    power = p.power;
-    p.power = nullptr;
-
-    field = std::move(p.field);
-    hand = std::move(p.hand);
-    usedSpell = std::move(p.usedSpell);
-    usedMinion = std::move(p.usedMinion);
+    delete m_hero;
 }
 }  // namespace Hearthstonepp

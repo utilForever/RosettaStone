@@ -6,16 +6,16 @@
 
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
-#include <hspp/Tasks/BasicTasks/ModifyHealthTask.h>
+#include <hspp/Tasks/BasicTasks/DestroyWeaponTask.h>
 #include <hspp/Tasks/PowerTasks/FreezeTask.h>
 #include <hspp/Tasks/PowerTasks/PoisonousTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
-CombatTask::CombatTask(TaskAgent& agent)
-    : m_requirement(TaskID::SELECT_TARGET, agent)
+CombatTask::CombatTask(TaskAgent& agent, Entity* source, Entity* target)
+    : ITask(source, target), m_requirement(TaskID::SELECT_TARGET, agent)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID CombatTask::GetTaskID() const
@@ -23,157 +23,156 @@ TaskID CombatTask::GetTaskID() const
     return TaskID::COMBAT;
 }
 
-MetaData CombatTask::Impl(Player& player1, Player& player2)
+MetaData CombatTask::Impl(Player& player)
 {
-    TaskMeta serialized;
-    // Get Targeting Response from GameInterface
-    m_requirement.Interact(player1.id, serialized);
+    auto [sourceIndex, targetIndex] = CalculateIndex(player);
 
-    auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
-    if (req == nullptr)
-    {
-        return MetaData::COMBAT_FLATBUFFER_NULLPTR;
-    }
-
-    BYTE src = req->src();
-    BYTE dst = req->dst();
-
-    // Source Minion Index Verification
-    if (src > player1.field.size())
+    // Verify index of the source
+    // NOTE: 0 means hero, 1 ~ field.size() means minion
+    if (sourceIndex > player.GetField().size())
     {
         return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
-    // Destination Verification
-    // dst == 0 : hero
-    // 1 < dst <= field.size : minion
-    if (dst > player2.field.size())
+    // Verify index of the target
+    // NOTE: 0 means hero, 1 ~ field.size() means minion
+    if (targetIndex > player.GetOpponent().GetField().size())
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
-    source = (src > 0) ? dynamic_cast<Character*>(player1.field[src - 1])
-                       : dynamic_cast<Character*>(player1.hero);
-    target = (dst > 0) ? dynamic_cast<Character*>(player2.field[dst - 1])
-                       : dynamic_cast<Character*>(player2.hero);
+    auto source =
+        (sourceIndex > 0)
+            ? dynamic_cast<Character*>(player.GetField()[sourceIndex - 1])
+            : dynamic_cast<Character*>(player.GetHero());
+    auto target =
+        (targetIndex > 0)
+            ? dynamic_cast<Character*>(
+                  player.GetOpponent().GetField()[targetIndex - 1])
+            : dynamic_cast<Character*>(player.GetOpponent().GetHero());
 
-    // Verify attack of source is 0
-    if (source->attack == 0)
+    if (!source->CanAttack() ||
+        !source->IsValidAttackTarget(player.GetOpponent(), target))
     {
-        return MetaData::COMBAT_SOURCE_ATTACK_ZERO;
+        return MetaData::COMBAT_SOURCE_CANT_ATTACK;
     }
 
-    // Verify source has GameTag::FROZEN
-    if (source->GetGameTag(GameTag::FROZEN) == 1)
+    const size_t targetAttack = target->GetAttack();
+    const size_t sourceAttack = source->GetAttack();
+
+    const size_t targetDamage = target->TakeDamage(*source, sourceAttack);
+    const bool isTargetDamaged = targetDamage > 0;
+
+    // Destroy target if attacker is poisonous
+    if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
     {
-        return MetaData::COMBAT_SOURCE_FROZEN;
+        PowerTask::PoisonousTask(target).Run(player);
     }
 
-    // Taunt Verification
-    if (target->GetGameTag(GameTag::TAUNT) == 0)
+    // Freeze target if attacker is freezer
+    if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        for (auto& item : player2.field)
+        PowerTask::FreezeTask(target, EntityType::TARGET).Run(player);
+    }
+
+    // Ignore damage from defenders with 0 attack
+    if (targetAttack > 0)
+    {
+        const size_t sourceDamage = source->TakeDamage(*target, targetAttack);
+        const bool isSourceDamaged = sourceDamage > 0;
+
+        // Destroy source if defender is poisonous
+        if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
         {
-            if (item->GetGameTag(GameTag::TAUNT) == 1)
-            {
-                return MetaData::COMBAT_FIELD_HAVE_TAUNT;
-            }
+            PowerTask::PoisonousTask(source).Run(player);
+        }
+
+        // Freeze source if defender is freezer
+        if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
+        {
+            PowerTask::FreezeTask(source, EntityType::SOURCE).Run(player);
         }
     }
 
-    // Stealth Verification
-    if (target->GetGameTag(GameTag::STEALTH) == 1)
-    {
-        return MetaData::COMBAT_TARGET_STEALTH;
-    }
-
-    // Immune Verification
-    if (target->GetGameTag(GameTag::IMMUNE) == 1)
-    {
-        return MetaData::COMBAT_TARGET_IMMUNE;
-    }
-
-    // Source Minion Verification for Attacked Vector
-    if (source->attackableCount == 0)
-    {
-        return MetaData::COMBAT_ALREADY_ATTACKED;
-    }
-
-    source->attackableCount--;
-
-    BYTE sourceAttack = (src > 0) ? static_cast<BYTE>(source->attack) : 0;
-    BYTE targetAttack = (dst > 0) ? static_cast<BYTE>(target->attack) : 0;
-
-    // Attack : Dst -> Src
-    MetaData hurtedSrc =
-        ModifyHealthTask(source, targetAttack).Run(player1, player2);
-    if (hurtedSrc != MetaData::MODIFY_HEALTH_SUCCESS)
-    {
-        return hurtedSrc;
-    }
-
-    // Attack : Src -> Dst
-    MetaData hurtedDst =
-        ModifyHealthTask(target, sourceAttack).Run(player1, player2);
-    if (hurtedDst != MetaData::MODIFY_HEALTH_SUCCESS)
-    {
-        return hurtedDst;
-    }
-
-    // Divine Shield : Dst
-    if (target->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
-    {
-        target->SetGameTag(GameTag::DIVINE_SHIELD, 0);
-    }
-    else
-    {
-        // Poisonous : Src -> Dst
-        if (source->GetGameTag(GameTag::POISONOUS) == 1)
-        {
-            PowerTask::PoisonousTask(target).Run(player1, player2);
-        }
-        else if (source->GetGameTag(GameTag::FREEZE) == 1)
-        {
-            PowerTask::FreezeTask(target, TargetType::OPPONENT_MINION).Run(player1, player2);
-        }
-    }
-
-    // Divine Shield : Src
-    if (source->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
-    {
-        source->SetGameTag(GameTag::DIVINE_SHIELD, 0);
-    }
-    else
-    {
-        // Poisonous : Dst -> Src
-        if (target->GetGameTag(GameTag::POISONOUS) == 1)
-        {
-            PowerTask::PoisonousTask(source).Run(player1, player2);
-        }
-        else if (target->GetGameTag(GameTag::FREEZE) == 1)
-        {
-            PowerTask::FreezeTask(source, TargetType::OPPONENT_MINION)
-                .Run(player1, player2);
-        }
-    }
-
+    // Remove stealth ability if attacker has it
     if (source->GetGameTag(GameTag::STEALTH) == 1)
     {
         source->SetGameTag(GameTag::STEALTH, 0);
     }
 
-    // Source Health Check
-    if (source->health <= 0)
+    // Remove durability from weapon if hero attack
+    const Hero* hero = dynamic_cast<Hero*>(source);
+    if (hero != nullptr && hero->weapon != nullptr &&
+        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        DestroyMinionTask(source).Run(player1, player2);
+        hero->weapon->SetDurability(hero->weapon->GetDurability() - 1);
+
+        // Destroy weapon if durability is 0
+        if (hero->weapon->GetDurability() <= 0)
+        {
+            DestroyWeaponTask().Run(player);
+        }
     }
 
-    // Target Health Check
+    source->attackableCount--;
+
+    // Destroy source minion if health less than 0
+    if (source->health <= 0)
+    {
+        DestroyMinionTask(source).Run(player);
+    }
+
+    // Destroy target minion if health less than 0
     if (target->health <= 0)
     {
-        DestroyMinionTask(target).Run(player2, player1);
+        DestroyMinionTask(target).Run(player);
     }
 
     return MetaData::COMBAT_SUCCESS;
+}
+
+std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
+{
+    if (m_source != nullptr && m_target != nullptr)
+    {
+        BYTE sourceIndex, targetIndex;
+
+        if (m_source == player.GetHero())
+        {
+            sourceIndex = 0;
+        }
+        else
+        {
+            const auto sourceIter = std::find(
+                player.GetField().begin(), player.GetField().end(), m_source);
+            sourceIndex = static_cast<BYTE>(
+                std::distance(player.GetField().begin(), sourceIter) + 1);
+        }
+
+        Player& opponent = player.GetOpponent();
+
+        if (m_target == opponent.GetHero())
+        {
+            targetIndex = 0;
+        }
+        else
+        {
+            const auto targetIter =
+                std::find(opponent.GetField().begin(),
+                          opponent.GetField().end(), m_target);
+            targetIndex = static_cast<BYTE>(
+                std::distance(opponent.GetField().begin(), targetIter) + 1);
+        }
+
+        return std::make_tuple(sourceIndex, targetIndex);
+    }
+
+    TaskMeta serialized;
+    // Get targeting response from game interface
+    m_requirement.Interact(player.GetID(), serialized);
+
+    // Get the source and the target
+    const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
+    return std::make_tuple(req->src(), req->dst());
 }
 }  // namespace Hearthstonepp::BasicTasks

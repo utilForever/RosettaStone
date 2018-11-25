@@ -21,7 +21,7 @@ namespace Hearthstonepp
 //! \brief An enumerator for identifying each task.
 #ifndef HEARTHSTONEPP_DOXYGEN
 BETTER_ENUM(TaskID, int, INVALID = 0, TASK_VECTOR = 1, REQUIRE = 2,
-            PLAYER_SETTING = 3, SWAP = 4, SHUFFLE = 5, DRAW = 6, OVER_DRAW = 7,
+            PLAYER_SETTING = 3, SWAP = 4, SHUFFLE = 5, DRAW = 6, OVERDRAW = 7,
             MODIFY_MANA = 8, MODIFY_HEALTH = 9, BRIEF = 10, SELECT_MENU = 11,
             SELECT_CARD = 12, SELECT_TARGET = 13, SELECT_POSITION = 14,
             MULLIGAN = 15, COMBAT = 16, PLAY_CARD = 17, PLAY_MINION = 18,
@@ -66,37 +66,27 @@ enum class TaskID
 
 //! \brief An enumerator for identifying entity type.
 #ifndef HEARTHSTONEPP_DOXYGEN
-BETTER_ENUM(EntityType, int, EMPTY = 0, SOURCE = 1, TARGET = 2,
-            OPPONENT_WEAPON = 3, MY_HAND = 4, MY_HERO = 5)
+BETTER_ENUM(EntityType, int, EMPTY = 0, SOURCE = 1, TARGET = 2, FRIENDS = 3,
+            ENEMIES = 4, HERO = 5, ENEMY_HERO = 6, WEAPON = 7, ENEMY_WEAPON = 8,
+            HAND = 9, ENEMY_HAND = 10, FIELD = 11, ENEMY_FIELD = 12)
 #else
 enum class EntityType
 {
     EMPTY = 0,
     SOURCE = 1,
     TARGET = 2,
-    OPPONENT_WEAPON = 3,
-    MY_HAND = 4,
-    MY_HERO = 5
-};
-#endif
-
-//! \brief An enumerator for identifying target type.
-#ifndef HEARTHSTONEPP_DOXYGEN
-BETTER_ENUM(TargetType, int, INVALID = 0, MY_HERO = 1, MY_FIELD = 2,
-            MY_MINION = 3, OPPONENT_HERO = 4, OPPONENT_FIELD = 5,
-            OPPONENT_MINION = 6)
-#else
-enum class TargetType
-{
-    INVALID = 0,
-    MY_HERO = 1,
-    MY_FIELD = 2,
-    MY_MINION = 3,
-    OPPONENT_HERO = 4,
-    OPPONENT_FIELD = 5,
-    OPPONENT_MINION = 6
+    FRIENDS = 3,
+    ENEMIES = 4,
+    HERO = 5,
+    ENEMY_HERO = 6,
+    WEAPON = 7,
+    ENEMY_WEAPON = 8,
+    HAND = 9,
+    ENEMY_HAND = 10,
+    FIELD = 11,
+    ENEMY_FIELD = 12
 };
 #endif
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_TASK_ENUMS_H

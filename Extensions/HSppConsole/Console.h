@@ -11,14 +11,16 @@
 #include <hspp/Cards/Cards.h>
 #include <hspp/Cards/Deck.h>
 #include <hspp/Commons/Constants.h>
+#include <hspp/Commons/Macros.h>
 
 #include <clara.hpp>
 
 #include <array>
+#include <cctype>
 #include <functional>
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <optional>
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <experimental/optional>
 #endif
 #include <regex>
@@ -27,6 +29,29 @@ constexpr std::size_t LOGIN_MENU_SIZE = 3;
 constexpr std::size_t MAIN_MENU_SIZE = 4;
 constexpr std::size_t MANAGE_DECK_MENU_SIZE = 4;
 constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
+
+inline size_t GetInputNum(const std::string& inputStr)
+{
+    const auto isNumber = [](const std::string& str) {
+        auto iter = str.begin();
+
+        while (iter != str.end() &&
+               std::isdigit(static_cast<unsigned char>(*iter)))
+        {
+            ++iter;
+        }
+
+        return !str.empty() && iter == str.end();
+    };
+
+    if (isNumber(inputStr))
+    {
+        const auto inputNum = static_cast<size_t>(std::stoi(inputStr));
+        return inputNum;
+    }
+
+    return 0;
+}
 
 inline std::string ToString(const clara::Opt& opt)
 {
@@ -42,10 +67,10 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline std::tuple<size_t, size_t> ParseValueRangeFromString(std::string str,
-                                                            bool& isValid)
+inline std::tuple<size_t, size_t> ParseValueRangeFromString(
+    const std::string& str, bool& isValid)
 {
-    std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
+    const std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
     std::smatch values;
 
     size_t minValue = 0, maxValue = std::numeric_limits<size_t>::max();
@@ -85,9 +110,9 @@ class Console
  public:
     void SignIn();
     void SignUp();
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     std::optional<Card> SearchCard() const;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     std::experimental::optional<Card> SearchCard() const;
 #endif
     int ManageDeck();

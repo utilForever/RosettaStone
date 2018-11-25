@@ -9,10 +9,13 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-PlayMinionTask::PlayMinionTask(TaskAgent& agent, Entity* entity)
-    : m_entity(entity), m_requirement(TaskID::SELECT_POSITION, agent)
+PlayMinionTask::PlayMinionTask(TaskAgent& agent, Entity* source, int fieldPos,
+                               Entity* target)
+    : ITask(source, target),
+      m_requirement(TaskID::SELECT_POSITION, agent),
+      m_fieldPos(fieldPos)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID PlayMinionTask::GetTaskID() const
@@ -20,55 +23,77 @@ TaskID PlayMinionTask::GetTaskID() const
     return TaskID::PLAY_MINION;
 }
 
-MetaData PlayMinionTask::Impl(Player& player1, Player& player2)
+MetaData PlayMinionTask::Impl(Player& player)
 {
-    TaskMeta meta;
-    // Get Position Response from GameInterface
-    m_requirement.Interact(player1.id, meta);
+    BYTE position;
 
-    using RequireTaskMeta = FlatData::ResponsePlayMinion;
-    const auto& buffer = meta.GetBuffer();
-    auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
-    if (req == nullptr)
+    if (m_fieldPos == -1)
     {
-        return MetaData::PLAY_MINION_FLATBUFFER_NULLPTR;
+        const auto fieldIter = std::find(player.GetField().begin(),
+                                         player.GetField().end(), nullptr);
+        position = static_cast<BYTE>(
+            std::distance(player.GetField().begin(), fieldIter));
+    }
+    else
+    {
+        TaskMeta meta;
+
+        // Get position response from GameInterface
+        m_requirement.Interact(player.GetID(), meta);
+
+        using RequireTaskMeta = FlatData::ResponsePlayMinion;
+        const auto& buffer = meta.GetBuffer();
+        const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+
+        if (req == nullptr)
+        {
+            return MetaData::PLAY_MINION_FLATBUFFER_NULLPTR;
+        }
+
+        position = req->position();
     }
 
-    BYTE position = req->position();
-
-    // Field Position Verification
-    if (position > player1.field.size())
+    // Verify field position
+    if (position > player.GetField().size())
     {
         return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
 
-    // Character Casting Verification
-    auto character = dynamic_cast<Character*>(m_entity);
+    // Verify character casting
+    const auto character = dynamic_cast<Character*>(m_source);
     if (character == nullptr)
     {
         return MetaData::PLAY_MINION_CANNOT_CONVERT_ENTITY;
     }
 
-    // Summon
-    player1.field.insert(player1.field.begin() + position, character);
-
-    // Apply card mechanics tags
-    for (auto tags : m_entity->card->mechanics)
+    // Summon minion
+    if (player.GetField().empty())
     {
-        m_entity->SetGameTag(tags, 1);
+        player.GetField().emplace_back(character);
+    }
+    else
+    {
+        player.GetField().insert(player.GetField().begin() + position,
+                                 character);
     }
 
-    BYTE cost = static_cast<BYTE>(m_entity->card->cost);
-    MetaData modified = ModifyManaTask(NumMode::SUB, ManaMode::EXIST, cost)
-                            .Run(player1, player2);
+    // Apply card mechanics tags
+    for (const auto tags : m_source->card->mechanics)
+    {
+        m_source->SetGameTag(tags, 1);
+    }
+
+    const auto cost = static_cast<BYTE>(m_source->card->cost);
+    const MetaData modified =
+        ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
+            .Run(player);
 
     // Process PowerTasks
-    if (m_entity->card->power != nullptr)
+    if (m_source->card->power != nullptr)
     {
-        for (auto& power : m_entity->card->power->powerTask)
+        for (auto& power : m_source->card->power->GetPowerTask())
         {
-            power->Run(player1, player2);
+            power->Run(player);
         }
     }
 

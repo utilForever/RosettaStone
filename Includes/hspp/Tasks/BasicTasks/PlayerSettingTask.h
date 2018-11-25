@@ -7,7 +7,6 @@
 #ifndef HEARTHSTONEPP_PLAYER_SETTING_TASK_H
 #define HEARTHSTONEPP_PLAYER_SETTING_TASK_H
 
-#include <hspp/Tasks/Requirement.h>
 #include <hspp/Tasks/TaskAgent.h>
 #include <hspp/Tasks/Tasks.h>
 
@@ -31,13 +30,12 @@ class PlayerSettingTask : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 
     TaskAgent& m_agent;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_PLAYERSETTING_H
+#endif  // HEARTHSTONEPP_PLAYER_SETTING_TASK_H

@@ -5,32 +5,33 @@
 // property of any third parties.
 
 #include "gtest/gtest.h"
-#include <Utils/TestUtils.h>
 
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/GameEndTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
 
 TEST(GameEndTask, GetTaskID)
 {
-    BasicTasks::GameEndTask gameEnd;
+    const GameEndTask gameEnd;
     EXPECT_EQ(gameEnd.GetTaskID(), +TaskID::GAME_END);
 }
 
 TEST(GameEndTask, Run)
 {
-    BasicTasks::GameEndTask gameEnd;
-    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
+    GameEndTask gameEnd;
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
-    gen.player1.id = 100;
+    agent.GetPlayer1().SetID(100);
 
-    MetaData result = gameEnd.Run(gen.player1, gen.player2);
+    MetaData result = gameEnd.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::GAME_END);
 
     TaskMeta meta;
-    result = gameEnd.Run(gen.player1, gen.player2, meta);
+    result = gameEnd.Run(agent.GetPlayer1(), meta);
     EXPECT_EQ(result, MetaData::GAME_END);
-    EXPECT_EQ(meta.id, +TaskID::GAME_END);
-    EXPECT_EQ(meta.status, MetaData::GAME_END);
-    EXPECT_EQ(meta.userID, gen.player1.id);
+    EXPECT_EQ(meta.GetID(), +TaskID::GAME_END);
+    EXPECT_EQ(meta.GetStatus(), MetaData::GAME_END);
+    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
 }

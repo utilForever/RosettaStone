@@ -20,8 +20,11 @@ class DestroyTask : public ITask
 {
  public:
     //! Constructs task with given \p entityType.
-    //! \param entityType The type of entity to destroy.
-    DestroyTask(EntityType entityType);
+    //! \param entityType The entity type of target to destroy.
+    //! \param source A pointer to source character to destroy.
+    //! \param target A pointer to target character to destroy.
+    DestroyTask(EntityType entityType, Entity* source = nullptr,
+                Entity* target = nullptr);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -29,12 +32,11 @@ class DestroyTask : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 
-    EntityType m_entityType;
+    EntityType m_entityType = EntityType::EMPTY;
 };
 }  // namespace Hearthstonepp::BasicTasks
 

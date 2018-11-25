@@ -21,8 +21,8 @@ class FreezeTask : public ITask
  public:
     //! Constructs task with given \p target and \type.
     //! \param target A pointer to attacked character.
-    //! \param type A type of target.
-    FreezeTask(Character* target, TargetType type);
+    //! \param type A type of the target.
+    FreezeTask(Character* target, EntityType type);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -30,18 +30,17 @@ class FreezeTask : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 
     //! Finds out if this character is ours.
     //! \return true if this character is ours, and false otherwise.
-    bool IsMyCharacter() const;
+    bool IsMyCharacter(Player& player) const;
 
     //! Finds out if this character is an opponent.
     //! \return true if this character is an opponent, and false otherwise.
-    bool IsOpponentCharacter() const;
+    bool IsOpponentCharacter(Player& player) const;
 
     //! Finds out if this character gets Frozen before attacking.
     //! \return true if this character gets Frozen before attacking, and false
@@ -53,8 +52,8 @@ class FreezeTask : public ITask
     //! otherwise.
     bool IsFrozenAfterAttack() const;
 
-    Character* m_target;
-    TargetType m_type;
+    Character* m_target = nullptr;
+    EntityType m_type = EntityType::EMPTY;
 };
 }  // namespace Hearthstonepp::PowerTask
 

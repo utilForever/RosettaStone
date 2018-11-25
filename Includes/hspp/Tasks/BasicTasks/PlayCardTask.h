@@ -10,8 +10,6 @@
 #include <hspp/Tasks/Requirement.h>
 #include <hspp/Tasks/Tasks.h>
 
-#include <hspp/Flatbuffers/generated/FlatData_generated.h>
-
 namespace Hearthstonepp::BasicTasks
 {
 //!
@@ -25,7 +23,11 @@ class PlayCardTask : public ITask
  public:
     //! Constructs task with given \p agent.
     //! \param agent The task agent that performs card play.
-    PlayCardTask(TaskAgent& agent);
+    //! \param source A pointer to source entity to play card.
+    //! \param fieldPos A value indicating where to place card.
+    //! \param target A target of the card to receive power.
+    PlayCardTask(TaskAgent& agent, Entity* source = nullptr, int fieldPos = -1,
+                 Entity* target = nullptr);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,14 +35,16 @@ class PlayCardTask : public ITask
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player1, Player& player2) override;
+    MetaData Impl(Player& player) override;
 
     TaskAgent& m_agent;
     Requirement m_requirement;
+    Entity* m_source = nullptr;
+    int m_fieldPos = -1;
+    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::BasicTasks
 
-#endif  // HEARTHSTONEPP_PLAYCARD_H
+#endif  // HEARTHSTONEPP_PLAY_CARD_TASK_H

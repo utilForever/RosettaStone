@@ -9,7 +9,6 @@
 #include <hspp/Cards/Card.h>
 #include <hspp/Cards/Cards.h>
 #include <hspp/Commons/Constants.h>
-#include <hspp/Commons/Macros.h>
 #include <hspp/Commons/Utils.h>
 #include <hspp/Loaders/AccountLoader.h>
 #include <hspp/Loaders/CardLoader.h>
@@ -17,19 +16,19 @@
 #include <hspp/Managers/GameInterface.h>
 
 #include <cctype>
-#ifdef HEARTHSTONEPP_WINDOWS
+#if defined(HEARTHSTONEPP_WINDOWS)
 #include <filesystem>
-#endif
-#ifdef HEARTHSTONEPP_LINUX
+#elif defined(HEARTHSTONEPP_LINUX)
 #include <experimental/filesystem>
-#endif
-#ifdef HEARTHSTONEPP_MACOSX
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <sys/stat.h>
 #endif
 #include <fstream>
 #include <iostream>
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS)
+namespace filesystem = std::filesystem;
+#elif defined(HEARTHSTONEPP_LINUX)
 namespace filesystem = std::experimental::filesystem;
 #endif
 
@@ -90,9 +89,9 @@ void Console::SignUp()
         std::string accountID;
         std::cin >> accountID;
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         if (filesystem::exists("Datas/" + accountID + ".json"))
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
         struct stat buf;
         std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == 0)
@@ -115,9 +114,9 @@ void Console::SignUp()
         break;
     }
 }
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 std::optional<Card> Console::SearchCard() const
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
 std::experimental::optional<Card> Console::SearchCard() const
 #endif
 {
@@ -203,23 +202,29 @@ int Console::ManageDeck()
 
 void Console::SimulateGame() const
 {
-    int deck1, deck2;
+    int deckIndex1, deckIndex2;
     std::string user1, user2;
 
     std::cout << "[*] input first id, deck index : ";
-    std::cin >> user1 >> deck1;
+    std::cin >> user1 >> deckIndex1;
 
     std::cout << "[*] input second id, deck index : ";
-    std::cin >> user2 >> deck2;
+    std::cin >> user2 >> deckIndex2;
 
     AccountLoader loader;
     Account* p1 = loader.Load(user1);
     Account* p2 = loader.Load(user2);
 
-    GameAgent agent(Player(p1, p1->GetDeck(deck1)),
-                    Player(p2, p2->GetDeck(deck2)));
-    GameInterface game(agent);
+    Deck* deck1 = p1->GetDeck(deckIndex1);
+    Deck* deck2 = p2->GetDeck(deckIndex2);
 
+    GameAgent agent(deck1->GetClass(), deck2->GetClass());
+    agent.GetPlayer1().SetNickname(p1->GetNickname());
+    agent.GetPlayer2().SetNickname(p2->GetNickname());
+    agent.GetPlayer1().SetDeck(deck1);
+    agent.GetPlayer2().SetDeck(deck2);
+
+    GameInterface game(agent);
     GameResult result = game.StartGame();
 }
 
@@ -342,7 +347,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
     while (true)
     {
-        int numCardToAddAvailable =
+        size_t numCardToAddAvailable =
             card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
         if (deck->GetNumOfCards() + numCardToAddAvailable >
             MAXIMUM_NUM_CARDS_IN_DECK)
@@ -354,10 +359,10 @@ void Console::AddCardInDeck(size_t deckIndex)
 
         std::cout << "How many cards to add (0 - " << numCardToAddAvailable
                   << ") ? ";
-        int numCardToAdd;
+        size_t numCardToAdd;
         std::cin >> numCardToAdd;
 
-        if (numCardToAdd < 0 || numCardToAdd > numCardToAddAvailable)
+        if (numCardToAdd > numCardToAddAvailable)
         {
             std::cout << "Invalid number! Try again.\n";
         }
@@ -389,12 +394,11 @@ void Console::DeleteCardInDeck(size_t deckIndex) const
     {
         std::cout << "How many cards to delete (0 - "
                   << deck->GetNumCardInDeck(selectedCardID) << ") ? ";
-        int numCardToDelete;
+        size_t numCardToDelete;
         std::cin >> numCardToDelete;
 
-        const int numCardinDeck =
-            static_cast<int>(deck->GetNumCardInDeck(selectedCardID));
-        if (numCardToDelete < 0 || numCardToDelete > numCardinDeck)
+        const size_t numCardinDeck = deck->GetNumCardInDeck(selectedCardID);
+        if (numCardToDelete > numCardinDeck)
         {
             std::cout << "Invalid number! Try again.\n";
         }
@@ -463,9 +467,10 @@ size_t Console::InputMenuNum(const std::string& questionStr,
     while (true)
     {
         std::cout << questionStr;
-        size_t num;
-        std::cin >> num;
+        std::string inputStr;
+        std::cin >> inputStr;
 
+        const size_t num = GetInputNum(inputStr);
         if (num < 1 || num > menuSize)
         {
             std::cout << "Invalid number! Try again.\n";
@@ -620,7 +625,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
     std::vector<Card> result;
 
-    for (auto& card : Cards::GetInstance()->GetAllCards())
+    for (auto& card : Cards::GetInstance().GetAllCards())
     {
         if (!card.isCollectible)
         {

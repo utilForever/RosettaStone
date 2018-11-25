@@ -13,7 +13,7 @@
 
 namespace Hearthstonepp
 {
-struct Character;
+class Character;
 
 //!
 //! \brief Enchant class.
@@ -43,4 +43,4 @@ class Enchant
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_ENCHANT_H

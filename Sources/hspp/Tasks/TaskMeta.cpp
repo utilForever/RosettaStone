@@ -8,61 +8,57 @@
 
 namespace Hearthstonepp
 {
-TaskMetaTrait::TaskMetaTrait()
-    : id(TaskID::INVALID),
-      status(MetaData::INVALID),
-      userID(TaskMetaTrait::USER_INVALID)
+TaskMetaTrait::TaskMetaTrait(TaskID id) : m_id(id)
 {
-    // Do Nothing
-}
-
-TaskMetaTrait::TaskMetaTrait(TaskID id)
-    : id(id), status(MetaData::INVALID), userID(TaskMetaTrait::USER_INVALID)
-{
-    // Do Nothing
+    // Do nothing
 }
 
 TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status)
-    : id(id), status(status), userID(TaskMetaTrait::USER_INVALID)
+    : m_id(id), m_status(status)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status, BYTE userID)
-    : id(id), status(status), userID(userID)
+    : m_id(id), m_status(status), m_userID(userID)
 {
-    // Do Nothing
-}
-
-TaskMetaTrait::TaskMetaTrait(const TaskMetaTrait& trait)
-    : id(trait.id), status(trait.status), userID(trait.userID)
-{
-    // Do Nothing
-}
-
-TaskMetaTrait& TaskMetaTrait::operator=(const TaskMetaTrait& trait)
-{
-    id = trait.id;
-    status = trait.status;
-    userID = trait.userID;
-
-    return *this;
+    // Do nothing
 }
 
 bool TaskMetaTrait::operator==(const TaskMetaTrait& trait) const
 {
-    return id == trait.id && status == trait.status && userID == trait.userID;
+    return m_id == trait.m_id && m_status == trait.m_status &&
+           m_userID == trait.m_userID;
 }
 
-TaskMeta::TaskMeta() : TaskMetaTrait(), m_size(0), m_buffer(nullptr)
+TaskID TaskMetaTrait::GetID() const
 {
-    // Do Nothing
+    return m_id;
 }
 
-TaskMeta::TaskMeta(const TaskMetaTrait& trait)
-    : TaskMetaTrait(trait), m_size(0), m_buffer(nullptr)
+void TaskMetaTrait::SetID(TaskID id)
 {
-    // Do Nothing
+    m_id = id;
+}
+
+MetaData TaskMetaTrait::GetStatus() const
+{
+    return m_status;
+}
+
+void TaskMetaTrait::SetStatus(MetaData status)
+{
+    m_status = status;
+}
+
+BYTE TaskMetaTrait::GetUserID() const
+{
+    return m_userID;
+}
+
+TaskMeta::TaskMeta(const TaskMetaTrait& trait) : TaskMetaTrait(trait)
+{
+    // Do nothing
 }
 
 TaskMeta::TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer)
@@ -70,7 +66,7 @@ TaskMeta::TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer)
       m_size(size),
       m_buffer(std::make_unique<BYTE[]>(size))
 {
-    // Deep Copy
+    // Deep copy
     for (BYTE* dst = m_buffer.get(); size; --size)
     {
         *dst++ = *buffer++;
@@ -81,7 +77,7 @@ TaskMeta::TaskMeta(const TaskMetaTrait& trait, size_t size,
                    std::unique_ptr<BYTE[]>&& buffer)
     : TaskMetaTrait(trait), m_size(size), m_buffer(std::move(buffer))
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskMeta::TaskMeta(TaskMeta&& meta) noexcept
@@ -89,11 +85,16 @@ TaskMeta::TaskMeta(TaskMeta&& meta) noexcept
       m_size(meta.GetBufferSize()),
       m_buffer(meta.MoveBuffer())
 {
-    // Do Nothing
+    // Do nothing
 }
 
-TaskMeta& TaskMeta::operator=(TaskMeta&& meta)
+TaskMeta& TaskMeta::operator=(TaskMeta&& meta) noexcept
 {
+    if (*this == meta)
+    {
+        return *this;
+    }
+
     TaskMetaTrait::operator=(meta);
 
     m_size = meta.GetBufferSize();
@@ -117,24 +118,22 @@ bool TaskMeta::operator==(const TaskMeta& meta) const
 
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
 {
-    // Deep Copy of TaskMeta
+    // Deep copy
     return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer().get());
 }
 
 TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
 {
-    // Convert from FlatDat::TaskMeta, deep copy
-    auto trait = meta->trait();
-    auto taskID = TaskID::_from_integral(trait->id());
-    auto buffer = meta->buffer();
+    // Convert from FlatData::TaskMeta and deep copy
+    const auto trait = meta->trait();
+    const auto taskID = TaskID::_from_integral(trait->id());
+    const auto buffer = meta->buffer();
 
     return TaskMeta(
         TaskMetaTrait(taskID, static_cast<MetaData>(trait->status()),

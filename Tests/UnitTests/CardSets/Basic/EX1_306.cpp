@@ -6,57 +6,47 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Actions/Generic.h>
+#include <hspp/Cards/Cards.h>
+
+using namespace BasicTasks;
+
 TEST(BasicCardSet, EX1_306)
 {
-    GameAgent agent(
-        Player(new Account("Player 1", ""), new Deck("", CardClass::WARLOCK)),
-        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
-
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     TaskAgent& taskAgent = agent.GetTaskAgent();
-    TestUtils::AutoResponder response(agent);
 
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Player& currentPlayer = agent.GetCurrentPlayer();
+    Player& opponentPlayer = agent.GetCurrentPlayer().GetOpponent();
+    currentPlayer.SetMaximumMana(10);
+    currentPlayer.SetAvailableMana(10);
+    opponentPlayer.SetMaximumMana(10);
+    opponentPlayer.SetAvailableMana(10);
 
-    player1.totalMana = player1.existMana = 10;
-    player2.totalMana = player2.existMana = 10;
+    const auto card1 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Succubus"));
+    EXPECT_EQ(currentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(currentPlayer.GetHand()[0]->card->name, "Succubus");
 
-    // Each players draw 2 cards.
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Succubus")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Succubus");
+    Generic::DrawCard(currentPlayer,
+                      Cards::GetInstance().FindCardByName("Fiery War Axe"));
+    EXPECT_EQ(currentPlayer.GetHand().size(), 2u);
+    EXPECT_EQ(currentPlayer.GetHand()[1]->card->name, "Fiery War Axe");
 
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Fiery War Axe")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(2));
-    EXPECT_EQ(agent.GetPlayer1().hand[1]->card->name, "Fiery War Axe");
+    const auto card2 = Generic::DrawCard(
+        opponentPlayer,
+        Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand()[0]->card->name, "Acidic Swamp Ooze");
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
-                  player2, player1);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");
+    Generic::DrawCard(opponentPlayer,
+                      Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 2);
+    EXPECT_EQ(opponentPlayer.GetHand()[1]->card->name, "Stonetusk Boar");
 
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Stonetusk Boar")),
-                  player2, player1);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(2));
-    EXPECT_EQ(agent.GetPlayer2().hand[1]->card->name, "Stonetusk Boar");
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
+    EXPECT_EQ(currentPlayer.GetHand().size(), 0u);
 
-    // Player 1 plays Succubus, and now the player 1's hand is empty
-    auto respAutoMinion = response.AutoMinion(0, 0);
-    MetaData result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
-    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(0));
-
-    // This task doesn't affect player 2's hand
-    respAutoMinion = response.AutoMinion(0, 0);
-    result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
-    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
 }

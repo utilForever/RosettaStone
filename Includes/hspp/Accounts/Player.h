@@ -4,19 +4,20 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_AGENT_STRUCTURES_H
-#define HEARTHSTONEPP_AGENT_STRUCTURES_H
+#ifndef HEARTHSTONEPP_PLAYER_H
+#define HEARTHSTONEPP_PLAYER_H
 
 #include <hspp/Accounts/Account.h>
 #include <hspp/Cards/Entity.h>
 #include <hspp/Cards/Hero.h>
-#include <hspp/Cards/HeroPower.h>
 #include <hspp/Cards/Minion.h>
 #include <hspp/Cards/Spell.h>
 
 namespace Hearthstonepp
 {
 using BYTE = unsigned char;
+
+class GameAgent;
 
 //!
 //! \brief Player class.
@@ -30,63 +31,133 @@ class Player
  public:
     static constexpr BYTE USER_INVALID = 255;
 
-    //! Constructs player with given \p account and \p deck.
-    //! \param account The account stores user information.
-    //! \param deck A deck where cards are stored.
-    Player(const Account* account, const Deck* deck);
+    //! Default constructor.
+    Player();
 
     //! Destructor.
     ~Player();
 
     //! Copy constructor.
-    Player(const Player& p);
+    Player(const Player& p) = delete;
 
     //! Move constructor.
-    Player(Player&& p) noexcept;
+    Player(Player&& p) = delete;
 
     //! Copy assignment operator.
-    Player& operator=(const Player& p);
+    Player& operator=(const Player& p) = delete;
 
     //! Move assignment operator.
-    Player& operator=(Player&& p) noexcept;
+    Player& operator=(Player&& p) = delete;
 
-    //! Operator overloading: The equality operator.
-    bool operator==(const Player& player) const
-    {
-        return this->email == player.email;
-    }
+    //! Returns player nickname.
+    //! \return player nickname.
+    std::string GetNickname() const;
 
-    Hero* hero = nullptr;
-    HeroPower* power = nullptr;
+    //! Sets player nickname.
+    //! \param nickname player nickname.
+    void SetNickname(std::string nickname);
 
-    BYTE id = 0;
-    BYTE totalMana = 0;
-    BYTE existMana = 0;
-    BYTE exhausted = 0;
+    //! Returns player ID.
+    //! \return Player ID.
+    BYTE GetID() const;
 
-    std::string email;
+    //! Sets player ID.
+    //! \param id Player ID.
+    void SetID(BYTE id);
 
-    // Card storage
-    std::vector<Entity*> cards;
+    //! Returns player's hero.
+    //! \return Player's hero.
+    Hero* GetHero() const;
 
-    // Card objects
-    std::vector<Character*> field;
-    std::vector<Entity*> hand;
-    std::vector<Spell*> usedSpell;
-    std::vector<Character*> usedMinion;
+    //! Returns player's deck.
+    //! \return Player's deck.
+    std::vector<Entity*>& GetDeck();
+
+    //! Returns player's field.
+    //! \return Player's field.
+    std::vector<Character*>& GetField();
+
+    //! Returns player's hand.
+    //! \return Player's hand.
+    std::vector<Entity*>& GetHand();
+
+    //! Returns available mana that player has.
+    //! \return Available mana that player has.
+    BYTE GetAvailableMana() const;
+
+    //! Sets available mana that player has.
+    //! \param mana Available mana that player has.
+    void SetAvailableMana(BYTE mana);
+
+    //! Returns maximum mana that player has.
+    //! \return Maximum mana that player has.
+    BYTE GetMaximumMana() const;
+
+    //! Sets maximum mana that player has.
+    //! \param mana Maximum mana that player has.
+    void SetMaximumMana(BYTE mana);
+
+    //! Returns the number of drawn card that causes fatigue after a player has
+    //! exhausted their deck.
+    //! \return The number of drawn card that causes fatigue after a player has
+    //! exhausted their deck.
+    BYTE GetNumCardAfterExhaust() const;
+
+    //! Sets the number of drawn card that causes fatigue after a player has
+    //! exhausted their deck.
+    //! \param numCard The number of drawn card.
+    void SetNumCardAfterExhaust(BYTE numCard);
+
+    //! Returns the game agent.
+    //! \return The game agent.
+    GameAgent& GetGameAgent() const;
+
+    //! Sets the game agent.
+    //! \param agent The game agent.
+    void SetGameAgent(GameAgent* agent);
+
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    Player& GetOpponent() const;
+
+    //! Sets the opponent player.
+    //! \param player The opponent player.
+    void SetOpponent(Player* player);
+
+    //! Sets the deck.
+    //! \param deck A pointer to the deck.
+    void SetDeck(Deck* deck);
+
+    //! Adds hero and hero power.
+    //! \param heroCard A card that represents hero.
+    //! \param powerCard A card that represents hero power.
+    void AddHeroAndPower(Card heroCard, Card powerCard);
 
  private:
     //! Releases dynamic allocated resources.
     void FreeMemory();
 
-    //! Copies data from given \p p.
-    //! \param p An instance of Player class to copy data.
-    void CopyData(const Player& p);
+    std::string m_nickname;
+    BYTE m_id = 0;
 
-    //! Moves data from given \p p.
-    //! \param p An instance of Player class to move data.
-    void MoveData(Player&& p);
+    Hero* m_hero = nullptr;
+
+    // Card storage
+    std::vector<Entity*> m_deck;
+
+    // Card objects
+    std::vector<Character*> m_field;
+    std::vector<Entity*> m_hand;
+    std::vector<Spell*> m_playedSpell;
+    std::vector<Character*> m_playedMinion;
+
+    BYTE m_availableMana = 0;
+    BYTE m_maximumMana = 0;
+    BYTE m_numCardAfterExhaust = 0;
+
+    GameAgent* m_gameAgent = nullptr;
+    Player* m_opponent = nullptr;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_PLAYER_H

@@ -4,48 +4,50 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
+using namespace TestUtils;
 
 TEST(DestroyMinionTask, GetTaskID)
 {
-    auto card = TestUtils::GenerateMinionCard("test", 1, 1);
-    BasicTasks::DestroyMinionTask destroy(new Minion(card));
+    auto card = GenerateMinionCard("test", 1, 1);
+    const DestroyMinionTask destroy(new Minion(card));
     EXPECT_EQ(destroy.GetTaskID(), +TaskID::DESTROY);
 }
 
 TEST(DestroyMinionTask, Run)
 {
-    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
-    Player& player1 = gen.player1;
-    Player& player2 = gen.player2;
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = agent.GetPlayer1();
 
     std::vector<Card> cards;
     cards.reserve(5);
 
-    std::string name = "test";
+    const std::string name = "test";
     for (size_t i = 0; i < 5; ++i)
     {
-        char id = static_cast<char>(i + 0x30);
-        cards.emplace_back(TestUtils::GenerateMinionCard(name + id, 1, 1));
-        player1.field.emplace_back(new Minion(cards[i]));
+        const auto id = static_cast<char>(i + 0x30);
+        cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        player1.GetField().emplace_back(new Minion(cards[i]));
     }
 
-    BasicTasks::DestroyMinionTask destroy(player1.field[2]);
-    MetaData result = destroy.Run(player1, player2);
+    DestroyMinionTask destroy(player1.GetField()[2]);
+    MetaData result = destroy.Run(player1);
 
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player1.field.size(), static_cast<size_t>(4));
+    EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(4));
 
-    EXPECT_EQ(player1.field[0]->card->id, name + '0');
-    EXPECT_EQ(player1.field[1]->card->id, name + '1');
-    EXPECT_EQ(player1.field[2]->card->id, name + '3');
-    EXPECT_EQ(player1.field[3]->card->id, name + '4');
+    EXPECT_EQ(player1.GetField()[0]->card->id, name + '0');
+    EXPECT_EQ(player1.GetField()[1]->card->id, name + '1');
+    EXPECT_EQ(player1.GetField()[2]->card->id, name + '3');
+    EXPECT_EQ(player1.GetField()[3]->card->id, name + '4');
 
-    result = destroy.Run(player1, player2);
+    result = destroy.Run(player1);
     EXPECT_EQ(result, MetaData::DESTROY_MINION_NOT_FOUND);
 }

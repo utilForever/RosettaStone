@@ -7,29 +7,33 @@
 #include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
 
+#include <hspp/Commons/Macros.h>
+
 #include <random>
 
 namespace TestUtils
 {
-PlayerGenerator::PlayerGenerator(CardClass class1, CardClass class2)
-    : account1("test1@test.com", "test1"),
-      account2("test2@test.com", "test2"),
-      deck1("deck1", class1),
-      deck2("deck2", class2),
-      player1(&account1, &deck1),
-      player2(&account2, &deck2)
-{
-    // Do Nothing
-}
+//PlayerGenerator::PlayerGenerator(CardClass class1, CardClass class2)
+//    : account1("test1@test.com", "test1"),
+//      account2("test2@test.com", "test2"),
+//      deck1("deck1", class1),
+//      deck2("deck2", class2),
+//      player1(&account1, &deck1),
+//      player2(&account2, &deck2)
+//{
+//    // Do nothing
+//}
 
 std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
                                  size_t maximumSize)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
+    // ReSharper disable once CppLocalVariableMayBeConst
+    // NOTE: 'const' occurs compile error on Linux and macOS
     std::uniform_int_distribution<int> data(0, 255);
 
-    size_t size = gen() % maximumSize;
+    const size_t size = gen() % maximumSize;
     ptr = std::make_unique<BYTE[]>(size);
 
     for (size_t i = 0; i < size; ++i)
@@ -45,23 +49,23 @@ TaskMetaTrait GenerateRandomTrait()
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    int sizeTaskID = static_cast<int>(TaskID::_size());
-    int sizeMetaData = static_cast<int>(MetaData::GAME_END);
+    const auto sizeTaskID = static_cast<int>(TaskID::_size());
+    const auto sizeMetaData = static_cast<int>(MetaData::GAME_END);
 
-    TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
-    MetaData metaData = static_cast<MetaData>(gen() % sizeMetaData);
-    BYTE userID = gen() % 2;
+    const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
+    const auto metaData = static_cast<MetaData>(gen() % sizeMetaData);
+    const BYTE userID = gen() % 2;
 
-    TaskMetaTrait randomTrait(taskID, metaData, userID);
+    const TaskMetaTrait randomTrait(taskID, metaData, userID);
     return randomTrait;
 }
 
 TaskMeta GenerateRandomTaskMeta()
 {
-    TaskMetaTrait trait = GenerateRandomTrait();
+    const TaskMetaTrait trait = GenerateRandomTrait();
 
     std::unique_ptr<BYTE[]> ptr;
-    size_t size = GenerateRandomBuffer(ptr);
+    const size_t size = GenerateRandomBuffer(ptr);
 
     TaskMeta randomTaskMeta(trait, size, std::move(ptr));
     return randomTaskMeta;
@@ -95,7 +99,7 @@ Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)
     convertedCard.text = deserialized->text()->str();
     convertedCard.isCollectible = deserialized->collectible();
     convertedCard.cost = deserialized->cost();
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     convertedCard.attack = card.attack
                                ? std::optional<size_t>(deserialized->attack())
                                : std::nullopt;
@@ -105,7 +109,7 @@ Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)
     convertedCard.durability =
         card.durability ? std::optional<size_t>(deserialized->durability())
                         : std::nullopt;
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     convertedCard.attack =
         card.attack
             ? std::experimental::optional<size_t>(deserialized->attack())

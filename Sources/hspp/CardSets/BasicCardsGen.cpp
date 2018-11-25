@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -6,6 +6,7 @@
 
 #include <hspp/CardSets/BasicCardsGen.h>
 #include <hspp/Enchants/Effects.h>
+#include <hspp/Tasks/BasicTasks/DamageTask.h>
 #include <hspp/Tasks/BasicTasks/DestroyTask.h>
 #include <hspp/Tasks/PowerTasks/AddEnchantmentTask.h>
 #include <hspp/Tasks/PowerTasks/DiscardTask.h>
@@ -67,9 +68,9 @@ void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::MY_HERO, 6));
-    cards.emplace("CS2_088", p);
+    auto power = new Power;
+    power->AddPowerTask(new PowerTask::HealTask(EntityType::HERO, 6));
+    cards.emplace("CS2_088", power);
 }
 
 void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
@@ -80,6 +81,18 @@ void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
 void BasicCardsGen::AddPriest(std::map<std::string, Power*>& cards)
 {
     (void)cards;
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS1_112] Holy Nova - COST:5
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to all enemies.
+    //       Restore #2 Health to all friendly characters.
+    // --------------------------------------------------------
+    // Power* p = new Power;
+    // p->powerTask.emplace_back(
+    //    new PowerTask::DamageTask(EntityType::ENEMIES, 2));
+    // p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::FRIENDS,
+    // 2)); cards.emplace("CS1_112", p);
 }
 
 void BasicCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
@@ -114,11 +127,11 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // Tag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::HealFullTask(EntityType::TARGET));
-    p->powerTask.emplace_back(
+    auto power = new Power;
+    power->AddPowerTask(new PowerTask::HealFullTask(EntityType::TARGET));
+    power->AddPowerTask(
         new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
-    cards.emplace("CS2_041", p);
+    cards.emplace("CS2_041", power);
 }
 
 void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
@@ -132,9 +145,9 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->enchant = new Enchant(Effects::Taunt);
-    cards.emplace("CS2_041e", p);
+    auto power = new Power;
+    power->AddEnchant(new Enchant(Effects::Taunt));
+    cards.emplace("CS2_041e", power);
 }
 
 void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
@@ -148,9 +161,9 @@ void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::DiscardTask(EntityType::MY_HAND));
-    cards.emplace("EX1_306", p);
+    auto power = new Power;
+    power->AddPowerTask(new PowerTask::DiscardTask(EntityType::HAND));
+    cards.emplace("EX1_306", power);
 }
 
 void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
@@ -179,10 +192,9 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(
-        new BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON));
-    cards.emplace("EX1_066", p);
+    auto power = new Power;
+    power->AddPowerTask(new BasicTasks::DestroyTask(EntityType::ENEMY_WEAPON));
+    cards.emplace("EX1_066", power);
 }
 
 void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)

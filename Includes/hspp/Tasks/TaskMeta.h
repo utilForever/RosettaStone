@@ -25,12 +25,13 @@ using BYTE = unsigned char;
 //! This class is abstract class of TaskMeta class.
 //! It stores default meta data such as id, status and userID.
 //!
-struct TaskMetaTrait
+class TaskMetaTrait
 {
+ public:
     static constexpr BYTE USER_INVALID = Player::USER_INVALID;
 
     //! Default constructor.
-    TaskMetaTrait();
+    TaskMetaTrait() = default;
 
     //! Constructs task meta trait with given \p id.
     //! \param id The task ID.
@@ -47,18 +48,48 @@ struct TaskMetaTrait
     //! \param userID The user ID.
     TaskMetaTrait(TaskID id, MetaData status, BYTE userID);
 
-    //! Copy constructor.
-    TaskMetaTrait(const TaskMetaTrait& trait);
+    //! Default destructor.
+    ~TaskMetaTrait() = default;
 
-    //! Copy assignment operator.
-    TaskMetaTrait& operator=(const TaskMetaTrait&);
+    //! Default copy constructor.
+    TaskMetaTrait(const TaskMetaTrait& trait) = default;
+
+    //! Default move constructor.
+    TaskMetaTrait(TaskMetaTrait&& trait) = default;
+
+    //! Default copy assignment operator.
+    TaskMetaTrait& operator=(const TaskMetaTrait& trait) = default;
+
+    //! Default move assignment operator.
+    TaskMetaTrait& operator=(TaskMetaTrait&& trait) = default;
 
     //! Operator overloading: The equality operator.
     bool operator==(const TaskMetaTrait& trait) const;
 
-    TaskID id;
-    MetaData status;
-    BYTE userID;
+    //! Returns task ID.
+    //! \return Task ID.
+    TaskID GetID() const;
+
+    //! Sets task ID.
+    //! \param id Task ID.
+    void SetID(TaskID id);
+
+    //! Returns status of task meta.
+    //! \return Status of task meta.
+    MetaData GetStatus() const;
+
+    //! Sets status of task meta.
+    //! \param status Status of task meta.
+    void SetStatus(MetaData status);
+
+    //! Returns user ID.
+    //! \return User ID.
+    BYTE GetUserID() const;
+
+ protected:
+    TaskID m_id = TaskID::INVALID;
+    MetaData m_status = MetaData::INVALID;
+    BYTE m_userID = USER_INVALID;
 };
 
 //!
@@ -71,7 +102,7 @@ class TaskMeta : public TaskMetaTrait
 {
  public:
     //! Default constructor.
-    TaskMeta();
+    TaskMeta() = default;
 
     //! Constructs task meta with given \p trait.
     //! \param trait An instance of base class that stores default meta data.
@@ -86,26 +117,26 @@ class TaskMeta : public TaskMetaTrait
     //! Constructs task meta with given \p trait, \p size and \p buffers.
     //! \param trait An instance of base class that stores default meta data.
     //! \param size The size of tasks.
-    //! \param buffers The task array (rvalue ref).
+    //! \param buffer std::unique_ptr to task array (rvalue ref).
     TaskMeta(const TaskMetaTrait& trait, size_t size,
-             std::unique_ptr<BYTE[]>&& buffers);
+             std::unique_ptr<BYTE[]>&& buffer);
+
+    //! Default destructor.
+    ~TaskMeta() = default;
 
     //! Deleted copy constructor.
     TaskMeta(const TaskMeta&) = delete;
 
-    //! Constructs task meta with given \p meta (move constructor).
-    //! \param meta An instance of TaskMeta class (rvalue ref).
+    //! Move constructor.
     TaskMeta(TaskMeta&& meta) noexcept;
 
     //! Deleted copy assignment operator.
     TaskMeta& operator=(const TaskMeta&) = delete;
 
-    //! Assigns task meta with given \p meta (move assignment operator).
-    //! \param meta An instance of TaskMeta class (rvalue ref).
-    TaskMeta& operator=(TaskMeta&& meta);
+    //! Move assignment operator.
+    TaskMeta& operator=(TaskMeta&& meta) noexcept;
 
     //! Operator overloading: The equality operator.
-    //! \param meta An instance of TaskMeta class (lvalue ref).
     bool operator==(const TaskMeta& meta) const;
 
     //! Copies TaskMeta object (deep copy).
@@ -149,9 +180,9 @@ class TaskMeta : public TaskMetaTrait
     const std::unique_ptr<BYTE[]>& GetBuffer() const;
 
  private:
-    size_t m_size;
-    std::unique_ptr<BYTE[]> m_buffer;
+    size_t m_size = 0;
+    std::unique_ptr<BYTE[]> m_buffer = nullptr;
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_TASKMETA_H
+#endif  // HEARTHSTONEPP_TASK_META_H

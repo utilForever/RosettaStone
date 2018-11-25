@@ -4,38 +4,32 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/BasicTasks/ModifyHealthTask.h>
+#include <hspp/Tasks/BasicTasks/DamageTask.h>
 
 namespace Hearthstonepp::BasicTasks
 {
-ModifyHealthTask::ModifyHealthTask(Character* character, BYTE damage)
+DamageTask::DamageTask(Character* character, size_t damage)
     : m_character(character), m_damage(damage)
 {
     // Do Nothing
 }
 
-TaskID ModifyHealthTask::GetTaskID() const
+TaskID DamageTask::GetTaskID() const
 {
     return TaskID::MODIFY_HEALTH;
 }
 
-MetaData ModifyHealthTask::Impl(Player&, Player&)
+MetaData DamageTask::Impl(Player&)
 {
     if (m_character->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
         m_damage = 0;
     }
 
-    int remainHealth = static_cast<int>(m_character->health) - m_damage;
-
-    // if minion is exhausted
-    if (remainHealth <= 0)
-    {
-        remainHealth = 0;
-    }
-
-    // adjust health
-    m_character->health = static_cast<size_t>(remainHealth);
+    const int remainHealth =
+        static_cast<int>(m_character->health) - static_cast<int>(m_damage);
+    m_character->health =
+        remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0u;
 
     return MetaData::MODIFY_HEALTH_SUCCESS;
 }

@@ -6,59 +6,37 @@
 
 #include <Utils/CardSetUtils.h>
 
+#include <hspp/Actions/Generic.h>
+#include <hspp/Cards/Cards.h>
+
+using namespace BasicTasks;
+
 TEST(BasicCardSet, EX1_066)
 {
-    GameAgent agent(
-        Player(new Account("Player 1", ""), new Deck("", CardClass::WARRIOR)),
-        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
-
+    GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     TaskAgent& taskAgent = agent.GetTaskAgent();
-    TestUtils::AutoResponder response(agent);
 
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Player& currentPlayer = agent.GetCurrentPlayer();
+    Player& opponentPlayer = agent.GetCurrentPlayer().GetOpponent();
+    currentPlayer.SetMaximumMana(10);
+    currentPlayer.SetAvailableMana(10);
+    opponentPlayer.SetMaximumMana(10);
+    opponentPlayer.SetAvailableMana(10);
 
-    player1.totalMana = player1.existMana = 10;
-    player2.totalMana = player2.existMana = 10;
+    const auto card1 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
+    EXPECT_EQ(currentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(currentPlayer.GetHand()[0]->card->name, "Fiery War Axe");
 
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Fiery War Axe")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Fiery War Axe");
+    const auto card2 = Generic::DrawCard(
+        opponentPlayer,
+        Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand()[0]->card->name, "Acidic Swamp Ooze");
 
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
-                  player2, player1);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Acidic Swamp Ooze");
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
+    EXPECT_EQ(currentPlayer.GetHero()->HasWeapon(), true);
 
-    // Create response for GameAgent to run PlayCardTask
-    auto respPlayCard1 = response.PlayCard(0);
-    MetaData result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
-    EXPECT_EQ(result, MetaData::PLAY_WEAPON_SUCCESS);
-    EXPECT_NE(agent.GetPlayer1().hero->weapon, static_cast<Weapon*>(nullptr));
-
-    TaskMeta reqPlayCard1 = respPlayCard1.get();
-    EXPECT_EQ(reqPlayCard1.id, +TaskID::REQUIRE);
-    auto require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(reqPlayCard1);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_CARD);
-
-    // Create multiple response for PlayCardTask And PlayMinionTask
-    auto respAutoMinion = response.AutoMinion(0, 0);
-    result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
-    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().hero->weapon, static_cast<Weapon*>(nullptr));
-
-    auto[respPlayCard2, respPlayMinion] = respAutoMinion.get();
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_CARD);
-
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_POSITION);
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
+    EXPECT_EQ(currentPlayer.GetHero()->HasWeapon(), false);
 }

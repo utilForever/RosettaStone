@@ -12,8 +12,6 @@
 #include <hspp/Tasks/MetaData.h>
 #include <hspp/Tasks/TaskMeta.h>
 
-#include <functional>
-
 namespace Hearthstonepp
 {
 //!
@@ -29,32 +27,54 @@ class ITask
     static inline constexpr bool isTask =
         std::is_convertible_v<std::decay_t<T>, ITask>;
 
-    //! Calls Impl method and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
-    //! \return The result of task processing.
-    MetaData Run(Player& player1, Player& player2);
+    //! Default constructor.
+    ITask() = default;
+
+    ITask(Entity* source, Entity* target);
+
+    //! Default destructor.
+    virtual ~ITask() = default;
+
+    //! Default copy constructor.
+    ITask(const ITask& task) = default;
+
+    //! Default move constructor.
+    ITask(ITask&& task) = default;
+
+    //! Default copy assignment operator.
+    ITask& operator=(const ITask& task) = default;
+
+    //! Default move assignment operator.
+    ITask& operator=(ITask&& task) = default;
+
+    //! Sets the target.
+    //! \param target A pointer to the target.
+    void SetTarget(Entity* target);
 
     //! Calls Impl method and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
+    //! \return The result of task processing.
+    MetaData Run(Player& player);
+
+    //! Calls Impl method and returns meta data.
+    //! \param player The player to run task.
     //! \param meta The task meta that stores game status.
     //! \return The result of task processing.
-    MetaData Run(Player& player1, Player& player2, TaskMeta& meta);
+    MetaData Run(Player& player, TaskMeta& meta);
 
     //! Returns task ID (pure virtual).
     //! \return Task ID.
     virtual TaskID GetTaskID() const = 0;
 
-    Character* source = nullptr;
-    Character* target = nullptr;
+ protected:
+    Entity* m_source = nullptr;
+    Entity* m_target = nullptr;
 
  private:
     //! Processes task logic internally and returns meta data.
-    //! \param player1 The first player.
-    //! \param player2 The second player.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    virtual MetaData Impl(Player& player1, Player& player2) = 0;
+    virtual MetaData Impl(Player& player) = 0;
 };
 }  // namespace Hearthstonepp
 

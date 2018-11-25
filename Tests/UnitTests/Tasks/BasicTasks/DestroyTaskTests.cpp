@@ -4,54 +4,55 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "gtest/gtest.h"
 #include <Utils/TestUtils.h>
+#include "gtest/gtest.h"
 
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DestroyTask.h>
 
 using namespace Hearthstonepp;
+using namespace BasicTasks;
+using namespace TestUtils;
 
 TEST(DestroyTask, GetTaskID)
 {
-    BasicTasks::DestroyTask task(EntityType::EMPTY);
+    const DestroyTask task(EntityType::EMPTY, nullptr, nullptr);
     EXPECT_EQ(task.GetTaskID(), +TaskID::DESTROY);
 }
 
 TEST(DestroyTask, Run)
 {
-    TestUtils::PlayerGenerator gen(CardClass::DRUID, CardClass::ROGUE);
-    Player& player1 = gen.player1;
-    Player& player2 = gen.player2;
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = agent.GetPlayer1();
+    Player& player2 = agent.GetPlayer2();
 
-    auto card = TestUtils::GenerateMinionCard("minion1", 1, 1);
+    auto card = GenerateMinionCard("minion1", 1, 1);
 
     // Destroy Source Minion
-    player1.field.emplace_back(new Minion(card));
+    player1.GetField().emplace_back(new Minion(card));
 
-    BasicTasks::DestroyTask task(EntityType::SOURCE);
-    task.source = player1.field[0];
+    DestroyTask task1(EntityType::SOURCE, player1.GetField()[0], nullptr);
 
-    MetaData result = task.Run(player1, player2);
+    MetaData result = task1.Run(player1);
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(0));
 
     // Destroy Target Minion
-    player2.field.emplace_back(new Minion(card));
+    player2.GetField().emplace_back(new Minion(card));
 
-    BasicTasks::DestroyTask task2(EntityType::TARGET);
-    task2.target = player2.field[0];
+    DestroyTask task2(EntityType::TARGET, nullptr, player2.GetField()[0]);
 
-    MetaData result2 = task2.Run(player1, player2);
+    MetaData result2 = task2.Run(player1);
     EXPECT_EQ(result2, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player2.field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(player2.GetField().size(), static_cast<size_t>(0));
 
     // Destroy Target Weapon
     Card weaponCard;
-    player2.hero->weapon = new Weapon(weaponCard);
+    player2.GetHero()->weapon = new Weapon(weaponCard);
 
-    BasicTasks::DestroyTask task3 = BasicTasks::DestroyTask(EntityType::OPPONENT_WEAPON);
+    DestroyTask task3(EntityType::ENEMY_WEAPON, nullptr, nullptr);
 
-    MetaData result3 = task3.Run(player1, player2);
+    MetaData result3 = task3.Run(player1);
     EXPECT_EQ(result3, MetaData::DESTROY_WEAPON_SUCCESS);
-    EXPECT_EQ(player2.hero->weapon, static_cast<const Weapon*>(nullptr));
+    EXPECT_EQ(player2.GetHero()->HasWeapon(), false);
 }

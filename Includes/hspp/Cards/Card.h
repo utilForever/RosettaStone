@@ -12,30 +12,53 @@
 #include <hspp/Enums/CardEnums.h>
 
 #include <map>
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <optional>
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <experimental/optional>
 #endif
 #include <string>
 #include <vector>
 
+#if defined(HEARTHSTONEPP_MACOSX)
+template <typename T>
+using optional = std::experimental::optional<T>;
+inline constexpr auto nullopt = std::experimental::nullopt;
+#elif defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+template <typename T>
+using optional = std::optional<T>;
+inline constexpr auto nullopt = std::nullopt;
+#endif
+
 namespace Hearthstonepp
 {
-struct Power;
+class Power;
 
 //!
-//! \brief Card structure.
+//! \brief Card class.
 //!
-//! This structure stores card information such as attack, health and cost.
+//! This class stores card information such as attack, health and cost.
 //!
-struct Card
+class Card
 {
+ public:
     //! Default constructor.
     Card() = default;
 
     //! Default destructor.
     virtual ~Card() = default;
+
+    //! Default copy constructor.
+    Card(const Card& card) = default;
+
+    //! Default move constructor.
+    Card(Card&& card) = default;
+
+    //! Default copy assignment operator.
+    Card& operator=(const Card& card) = default;
+
+    //! Default move assignment operator.
+    Card& operator=(Card&& card) = default;
 
     //! Initializes card data.
     void Initialize();
@@ -66,28 +89,22 @@ struct Card
     std::string name;
     std::string text;
 
-#ifndef HEARTHSTONEPP_MACOSX
-    std::optional<size_t> attack;
-    std::optional<size_t> health;
-    std::optional<size_t> spellDamage;
-    std::optional<size_t> durability;
-#else
-    std::experimental::optional<size_t> attack;
-    std::experimental::optional<size_t> health;
-    std::experimental::optional<size_t> spellDamage;
-    std::experimental::optional<size_t> durability;
-#endif
-    size_t cost;
+    optional<size_t> attack;
+    optional<size_t> health;
+    optional<size_t> spellDamage;
+    optional<size_t> durability;
+
+    size_t cost = 0;
 
     std::vector<GameTag> mechanics;
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
-    Power* power;
+    Power* power = nullptr;
 
-    unsigned int maxAllowedInDeck;
-    bool isCollectible;
+    unsigned int maxAllowedInDeck = 0;
+    bool isCollectible = false;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_CARD_H

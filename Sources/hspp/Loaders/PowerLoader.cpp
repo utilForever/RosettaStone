@@ -9,13 +9,11 @@
 
 namespace Hearthstonepp
 {
-void PowerLoader::Load(std::vector<Card>& cards) const
+void PowerLoader::Load(std::vector<Card>& cards)
 {
-    Powers* powers = Powers::GetInstance();
-
     for (auto& card : cards)
     {
-        card.power = powers->FindPowerByCardID(card.id);
+        card.power = Powers::GetInstance().FindPowerByCardID(card.id);
     }
 }
 }  // namespace Hearthstonepp

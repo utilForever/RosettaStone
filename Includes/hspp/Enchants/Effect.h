@@ -11,7 +11,7 @@
 
 namespace Hearthstonepp
 {
-struct Character;
+class Character;
 
 //! Effect operator to change card value such as attack and health.
 enum class EffectOperator
@@ -51,4 +51,4 @@ class Effect
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_EFFECT_H

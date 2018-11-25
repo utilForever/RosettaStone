@@ -27,10 +27,21 @@ constexpr std::size_t MAXIMUM_NUM_CARDS_IN_DECK = 30;
 //! battlefield at any time.
 constexpr std::size_t FIELD_SIZE = 7;
 
-//! The number of cards at the start of each game to whichever player is
-//! selected to go first. \note The initial hand and mulligan at the start of
-//! the game also draws 3-4 randomly selected cards.
-constexpr std::size_t NUM_DRAW_CARDS_AT_START = 3;
+//! The number of cards that the player going first will be given.
+constexpr std::size_t NUM_DRAW_CARDS_AT_START_FIRST = 3;
+
+//! The number of cards that the player going second will be given.
+constexpr std::size_t NUM_DRAW_CARDS_AT_START_SECOND = 4;
+
+//! The maximum number of cards in your hand.
+constexpr std::size_t MAXIMUM_NUM_CARDS_IN_HAND = 10;
+
+//! Enumeration that represents the player.
+enum class PlayerType
+{
+    PLAYER1,    //!< The first player.
+    PLAYER2,    //!< The second player.
+};
 
 //! The number of menus in main phase.
 //! \note We will refactor it soon.

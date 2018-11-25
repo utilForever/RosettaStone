@@ -29,4 +29,4 @@ class CardLoader
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_CARD_LOADER_H

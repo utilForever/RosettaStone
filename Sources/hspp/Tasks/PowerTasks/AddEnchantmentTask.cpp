@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Cards/Cards.h>
 #include <hspp/Tasks/PowerTasks/AddEnchantmentTask.h>
 
 namespace Hearthstonepp::PowerTask
@@ -20,21 +21,21 @@ TaskID AddEnchantmentTask::GetTaskID() const
     return TaskID::ADD_ENCHANTMENT;
 }
 
-MetaData AddEnchantmentTask::Impl(Player&, Player&)
+MetaData AddEnchantmentTask::Impl(Player&)
 {
-    Card enchantmentCard = Cards::GetInstance()->FindCardByID(m_cardID);
+    Card enchantmentCard = Cards::GetInstance().FindCardByID(m_cardID);
     if (enchantmentCard.id.empty())
     {
         return MetaData::NULLPTR;
     }
 
-    Power* power = Cards::GetInstance()->FindCardByID(m_cardID).power;
+    Power* power = Cards::GetInstance().FindCardByID(m_cardID).power;
     if (power == nullptr)
     {
         return MetaData::NULLPTR;
     }
 
-    power->enchant->ActivateTo(target);
+    power->GetEnchant()->ActivateTo(dynamic_cast<Character*>(m_target));
 
     return MetaData::ADD_ENCHANTMENT_SUCCESS;
 }

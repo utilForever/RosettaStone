@@ -12,21 +12,31 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Spell structure.
+//! \brief Spell class.
 //!
-//! This structure inherits from Entity structure.
+//! This class inherits from Entity structure.
 //!
-struct Spell : public Entity
+class Spell : public Entity
 {
-    //! Copy constructor.
-    Spell(const Spell& spell);
+ public:
+    //! Default constructor.
+    Spell() = default;
 
-    //! Copy assignment operator.
-    Spell& operator=(const Spell& spell);
+    //! Default destructor.
+    ~Spell() = default;
 
-    //! Clones member variables.
-    Spell* Clone() const override;
+    //! Default copy constructor.
+    Spell(const Spell& spell) = default;
+
+    //! Default move constructor.
+    Spell(Spell&& spell) = default;
+
+    //! Default copy assignment operator.
+    Spell& operator=(const Spell& spell) = default;
+
+    //! Default move assignment operator.
+    Spell& operator=(Spell&& spell) = default;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_SPELL_H

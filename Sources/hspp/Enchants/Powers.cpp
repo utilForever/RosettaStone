@@ -9,8 +9,6 @@
 
 namespace Hearthstonepp
 {
-Powers* Powers::m_instance = nullptr;
-
 Powers::Powers()
 {
     BasicCardsGen::AddAll(m_powers);
@@ -26,14 +24,10 @@ Powers::~Powers()
     m_powers.clear();
 }
 
-Powers* Powers::GetInstance()
+Powers& Powers::GetInstance()
 {
-    if (m_instance == nullptr)
-    {
-        m_instance = new Powers();
-    }
-
-    return m_instance;
+    static Powers instance;
+    return instance;
 }
 
 Power* Powers::FindPowerByCardID(std::string cardID) const

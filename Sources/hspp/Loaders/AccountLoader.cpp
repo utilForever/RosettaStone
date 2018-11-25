@@ -7,19 +7,19 @@
 #include <hspp/Commons/Macros.h>
 #include <hspp/Loaders/AccountLoader.h>
 
-#ifdef HEARTHSTONEPP_WINDOWS
+#if defined(HEARTHSTONEPP_WINDOWS)
 #include <filesystem>
-#endif
-#ifdef HEARTHSTONEPP_LINUX
+#elif defined(HEARTHSTONEPP_LINUX)
 #include <experimental/filesystem>
-#endif
-#ifdef HEARTHSTONEPP_MACOSX
+#elif defined(HEARTHSTONEPP_MACOSX)
 #include <stdlib.h>
 #endif
 #include <fstream>
 #include <iostream>
 
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS)
+namespace filesystem = std::filesystem;
+#elif defined(HEARTHSTONEPP_LINUX)
 namespace filesystem = std::experimental::filesystem;
 #endif
 
@@ -42,7 +42,7 @@ Account* AccountLoader::Load(std::string email) const
     {
         playerFile >> j;
 
-        std::string nickname = j["nickname"].get<std::string>();
+        auto nickname = j["nickname"].get<std::string>();
 
         std::vector<Deck*> decks;
         decks.reserve(j["decks"].size());
@@ -85,9 +85,9 @@ Account* AccountLoader::Load(std::string email) const
 void AccountLoader::Save(Account* account) const
 {
     // Store account data to JSON file
-#ifndef HEARTHSTONEPP_MACOSX
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     filesystem::create_directory("Datas");
-#else
+#elif defined(HEARTHSTONEPP_MACOSX)
     system("mkdir Datas");
 #endif
     std::ofstream playerFile("Datas/" + account->GetEmail() + ".json");

@@ -8,33 +8,53 @@
 #define HEARTHSTONEPP_HERO_H
 
 #include <hspp/Cards/Character.h>
+#include <hspp/Cards/HeroPower.h>
 #include <hspp/Cards/Weapon.h>
 
 namespace Hearthstonepp
 {
 //!
-//! \brief Hero structure.
+//! \brief Hero class.
 //!
-//! This structure inherits from Character structure.
+//! This class inherits from Character structure.
 //! Also, it stores weapon that can attack to enemy.
 //!
-struct Hero : public Character
+class Hero : public Character
 {
+ public:
+    //! Default constructor.
+    Hero() = default;
+
     //! Constructs hero with given \p card.
     //! \param card A reference to the card.
     Hero(Card& card);
 
-    //! Copy constructor.
-    Hero(const Hero& hero);
+    //! Default destructor.
+    ~Hero();
+
+    //! Deleted copy constructor.
+    Hero(const Hero& hero) = delete;
+
+    //! Deleted move constructor.
+    Hero(Hero&& hero) = delete;
 
     //! Copy assignment operator.
-    Hero& operator=(const Hero& hero);
+    Hero& operator=(const Hero& hero) = delete;
 
-    //! Clones member variables.
-    Hero* Clone() const override;
+    //! Move assignment operator.
+    Hero& operator=(Hero&& hero) = delete;
 
+    //! Returns the presence of weapon.
+    //! \return true if hero has weapon, and false otherwise.
+    bool HasWeapon() const;
+
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    size_t GetAttack() const override;
+
+    HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_HERO_H

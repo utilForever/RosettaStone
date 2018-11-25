@@ -54,15 +54,15 @@ std::future<TaskMeta> AutoResponder::PlayMinion(size_t position)
     });
 }
 
-std::future<TaskMeta> AutoResponder::PlaySpell(TargetType targetType,
+std::future<TaskMeta> AutoResponder::PlaySpell(EntityType type,
                                                size_t targetPosition)
 {
-    return std::async(std::launch::async, [this, targetType, targetPosition] {
+    return std::async(std::launch::async, [this, type, targetPosition] {
         TaskMeta meta;
         m_agent.GetTaskMeta(meta);
 
         TaskMeta playSpell =
-            Serializer::CreateResponsePlaySpell(targetType, targetPosition);
+            Serializer::CreateResponsePlaySpell(type, targetPosition);
         m_agent.WriteSyncBuffer(std::move(playSpell));
 
         return meta;
@@ -94,16 +94,16 @@ auto AutoResponder::AutoMinion(size_t cardIndex, size_t position)
     });
 }
 
-auto AutoResponder::AutoSpell(size_t cardIndex, TargetType targetType,
+auto AutoResponder::AutoSpell(size_t cardIndex, EntityType type,
                               size_t targetPosition)
     -> std::future<std::tuple<TaskMeta, TaskMeta>>
 {
     return std::async(
-        std::launch::async, [this, cardIndex, targetType, targetPosition] {
+        std::launch::async, [this, cardIndex, type, targetPosition] {
             auto playCard = PlayCard(cardIndex);
             playCard.wait();
 
-            auto playSpell = PlaySpell(targetType, targetPosition);
+            auto playSpell = PlaySpell(type, targetPosition);
             return std::make_tuple(playCard.get(), playSpell.get());
         });
 }

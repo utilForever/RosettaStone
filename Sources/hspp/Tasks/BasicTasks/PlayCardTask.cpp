@@ -11,10 +11,15 @@
 
 namespace Hearthstonepp::BasicTasks
 {
-PlayCardTask::PlayCardTask(TaskAgent& agent)
-    : m_agent(agent), m_requirement(TaskID::SELECT_CARD, agent)
+PlayCardTask::PlayCardTask(TaskAgent& agent, Entity* source, int fieldPos,
+                           Entity* target)
+    : m_agent(agent),
+      m_requirement(TaskID::SELECT_CARD, agent),
+      m_source(source),
+      m_fieldPos(fieldPos),
+      m_target(target)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID PlayCardTask::GetTaskID() const
@@ -22,48 +27,70 @@ TaskID PlayCardTask::GetTaskID() const
     return TaskID::PLAY_CARD;
 }
 
-MetaData PlayCardTask::Impl(Player& player1, Player& player2)
+MetaData PlayCardTask::Impl(Player& player)
 {
-    TaskMeta serialized;
-    // Get Response from GameInterface
-    m_requirement.Interact(player1.id, serialized);
+    BYTE handIndex;
 
-    using RequireTaskMeta = FlatData::ResponsePlayCard;
-    const auto& buffer = serialized.GetBuffer();
-    auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
-    if (req == nullptr)
+    if (m_source != nullptr)
     {
-        return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
+        const auto handIter = std::find(player.GetHand().begin(),
+                                        player.GetHand().end(), m_source);
+        handIndex = static_cast<BYTE>(
+            std::distance(player.GetHand().begin(), handIter));
+    }
+    else
+    {
+        TaskMeta serialized;
+
+        // Get response from GameInterface
+        m_requirement.Interact(player.GetID(), serialized);
+
+        using RequireTaskMeta = FlatData::ResponsePlayCard;
+        const auto& buffer = serialized.GetBuffer();
+        const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+
+        if (req == nullptr)
+        {
+            return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
+        }
+
+        handIndex = req->cardIndex();
     }
 
-    BYTE cardIndex = req->cardIndex();
-
-    // Card Hand Index Verification
-    if (cardIndex >= player1.hand.size())
+    // Verify index of card hand
+    if (handIndex >= player.GetHand().size())
     {
         return MetaData::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
-    // Sufficient Mana Verification
-    if (player1.hand[cardIndex]->card->cost > player1.existMana)
+
+    // Verify mana is sufficient
+    if (player.GetHand()[handIndex]->card->cost > player.GetAvailableMana())
     {
         return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
-    Entity* entity = player1.hand[cardIndex];
+    Entity* entity = player.GetHand()[handIndex];
 
-    // erase from user's hand
-    player1.hand.erase(player1.hand.begin() + cardIndex);
+    // Erase from user's hand
+    if (player.GetHand().size() == 1)
+    {
+        player.GetHand().clear();
+    }
+    else
+    {
+        player.GetHand().erase(player.GetHand().begin() + handIndex);
+    }
 
-    // Pass to Sub Logics
+    // Pass to sub-logic
     switch (entity->card->cardType)
     {
         case CardType::MINION:
-            return PlayMinionTask(m_agent, entity).Run(player1, player2);
+            return PlayMinionTask(m_agent, entity, m_fieldPos, m_target)
+                .Run(player);
         case CardType::WEAPON:
-            return PlayWeaponTask(entity).Run(player1, player2);
+            return PlayWeaponTask(entity).Run(player);
         case CardType::SPELL:
-            return PlaySpellTask(m_agent, entity).Run(player1, player2);
+            return PlaySpellTask(m_agent, entity, m_target).Run(player);
         default:
             return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
     }

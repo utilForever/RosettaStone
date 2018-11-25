@@ -13,35 +13,19 @@ Hero::Hero(Card& card) : Character(card)
     // Do nothing
 }
 
-Hero::Hero(const Hero& hero) : Character(hero)
+Hero::~Hero()
 {
     delete weapon;
-
-    if (hero.weapon != nullptr)
-    {
-        weapon = hero.weapon->Clone();        
-    }
+    delete heroPower;
 }
 
-Hero& Hero::operator=(const Hero& hero)
+bool Hero::HasWeapon() const
 {
-    if (this == &hero)
-    {
-        return *this;
-    }
-
-    delete weapon;
-
-    if (hero.weapon != nullptr)
-    {
-        weapon = hero.weapon->Clone();
-    }
-
-    return *this;
+    return weapon != nullptr;
 }
 
-Hero* Hero::Clone() const
+size_t Hero::GetAttack() const
 {
-    return new Hero(*this);
+    return weapon != nullptr ? m_attack + weapon->GetAttack() : m_attack;
 }
 }  // namespace Hearthstonepp

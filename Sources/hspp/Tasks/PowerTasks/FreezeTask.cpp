@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp::PowerTask
 {
-FreezeTask::FreezeTask(Character* target, TargetType type)
+FreezeTask::FreezeTask(Character* target, EntityType type)
     : m_target(target), m_type(type)
 {
     // Do nothing
@@ -19,7 +19,7 @@ TaskID FreezeTask::GetTaskID() const
     return TaskID::FREEZE;
 }
 
-MetaData FreezeTask::Impl(Player&, Player&)
+MetaData FreezeTask::Impl(Player& player)
 {
     /*
      * The logic of Freeze
@@ -42,40 +42,52 @@ MetaData FreezeTask::Impl(Player&, Player&)
     m_target->SetGameTag(GameTag::FROZEN, 1);
 
     // Case 1
-    if (IsOpponentCharacter())
+    if (IsOpponentCharacter(player))
     {
-        m_target->remainTurnToThaw = 2;
+        m_target->numTurnToUnfreeze = 2;
     }
     // Case 2
-    else if (IsMyCharacter())
+    else if (IsMyCharacter(player))
     {
         // Case 2-1
         if (IsFrozenBeforeAttack())
         {
             m_target->attackableCount = 0;
-            m_target->remainTurnToThaw = 1;
+            m_target->numTurnToUnfreeze = 1;
         }
         // Case 2-2
         else if (IsFrozenAfterAttack())
         {
-            m_target->remainTurnToThaw = 3;
+            m_target->numTurnToUnfreeze = 3;
         }
     }
 
     return MetaData::FREEZE_SUCCESS;
 }
 
-bool FreezeTask::IsMyCharacter() const
+bool FreezeTask::IsMyCharacter(Player& player) const
 {
-    return m_type == +TargetType::MY_FIELD || m_type == +TargetType::MY_HERO ||
-           m_type == +TargetType::MY_MINION;
+    if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
+    {
+        return std::find(player.GetField().begin(), player.GetField().end(),
+                         m_target) != player.GetField().end();
+    }
+
+    return m_type == +EntityType::FIELD || m_type == +EntityType::HERO ||
+           m_type == +EntityType::FRIENDS;
 }
 
-bool FreezeTask::IsOpponentCharacter() const
+bool FreezeTask::IsOpponentCharacter(Player& player) const
 {
-    return m_type == +TargetType::OPPONENT_FIELD ||
-           m_type == +TargetType::OPPONENT_HERO ||
-           m_type == +TargetType::OPPONENT_MINION;
+    if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
+    {
+        return std::find(player.GetOpponent().GetField().begin(),
+                         player.GetOpponent().GetField().end(),
+                         m_target) != player.GetOpponent().GetField().end();
+    }
+
+    return m_type == +EntityType::ENEMY_FIELD ||
+           m_type == +EntityType::ENEMY_HERO || m_type == +EntityType::ENEMIES;
 }
 
 bool FreezeTask::IsFrozenBeforeAttack() const

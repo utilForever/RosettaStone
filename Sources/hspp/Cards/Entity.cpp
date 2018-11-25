@@ -24,6 +24,14 @@ Entity::Entity(const Entity& ent)
     m_gameTags = ent.m_gameTags;
 }
 
+Entity::Entity(Entity&& ent) noexcept
+{
+    FreeMemory();
+
+    card = ent.card;
+    m_gameTags = ent.m_gameTags;
+}
+
 Entity::~Entity()
 {
     FreeMemory();
@@ -44,14 +52,29 @@ Entity& Entity::operator=(const Entity& ent)
     return *this;
 }
 
-Entity* Entity::Clone() const
+Entity& Entity::operator=(Entity&& ent) noexcept
 {
-    return new Entity(*this);
+    if (this == &ent)
+    {
+        return *this;
+    }
+
+    FreeMemory();
+
+    card = ent.card;
+    m_gameTags = ent.m_gameTags;
+
+    return *this;
 }
 
-int Entity::GetGameTag(GameTag tag)
+int Entity::GetGameTag(GameTag tag) const
 {
-    return m_gameTags[tag];
+    if (m_gameTags.find(tag) == m_gameTags.end())
+    {
+        return 0;
+    }
+
+    return m_gameTags.at(tag);
 }
 
 void Entity::SetGameTag(GameTag tag, int value)
