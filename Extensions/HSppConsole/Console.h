@@ -35,7 +35,8 @@ inline size_t GetInputNum(const std::string& inputStr)
     const auto isNumber = [](const std::string& str) {
         auto iter = str.begin();
 
-        while (iter != str.end() && std::isdigit(*iter))
+        while (iter != str.end() &&
+               std::isdigit(static_cast<unsigned char>(*iter)))
         {
             ++iter;
         }
