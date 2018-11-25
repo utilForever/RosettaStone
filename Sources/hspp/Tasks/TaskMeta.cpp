@@ -8,26 +8,52 @@
 
 namespace Hearthstonepp
 {
-TaskMetaTrait::TaskMetaTrait(TaskID id) : id(id)
+TaskMetaTrait::TaskMetaTrait(TaskID id) : m_id(id)
 {
     // Do nothing
 }
 
 TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status)
-    : id(id), status(status)
+    : m_id(id), m_status(status)
 {
     // Do nothing
 }
 
 TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status, BYTE userID)
-    : id(id), status(status), userID(userID)
+    : m_id(id), m_status(status), m_userID(userID)
 {
     // Do nothing
 }
 
 bool TaskMetaTrait::operator==(const TaskMetaTrait& trait) const
 {
-    return id == trait.id && status == trait.status && userID == trait.userID;
+    return m_id == trait.m_id && m_status == trait.m_status &&
+           m_userID == trait.m_userID;
+}
+
+TaskID TaskMetaTrait::GetID() const
+{
+    return m_id;
+}
+
+void TaskMetaTrait::SetID(TaskID id)
+{
+    m_id = id;
+}
+
+MetaData TaskMetaTrait::GetStatus() const
+{
+    return m_status;
+}
+
+void TaskMetaTrait::SetStatus(MetaData status)
+{
+    m_status = status;
+}
+
+BYTE TaskMetaTrait::GetUserID() const
+{
+    return m_userID;
 }
 
 TaskMeta::TaskMeta(const TaskMetaTrait& trait) : TaskMetaTrait(trait)

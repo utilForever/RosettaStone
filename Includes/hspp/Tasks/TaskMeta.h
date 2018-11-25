@@ -66,9 +66,30 @@ class TaskMetaTrait
     //! Operator overloading: The equality operator.
     bool operator==(const TaskMetaTrait& trait) const;
 
-    TaskID id = TaskID::INVALID;
-    MetaData status = MetaData::INVALID;
-    BYTE userID = USER_INVALID;
+    //! Returns task ID.
+    //! \return Task ID.
+    TaskID GetID() const;
+
+    //! Sets task ID.
+    //! \param id Task ID.
+    void SetID(TaskID id);
+
+    //! Returns status of task meta.
+    //! \return Status of task meta.
+    MetaData GetStatus() const;
+
+    //! Sets status of task meta.
+    //! \param status Status of task meta.
+    void SetStatus(MetaData status);
+
+    //! Returns user ID.
+    //! \return User ID.
+    BYTE GetUserID() const;
+
+ protected:
+    TaskID m_id = TaskID::INVALID;
+    MetaData m_status = MetaData::INVALID;
+    BYTE m_userID = USER_INVALID;
 };
 
 //!
