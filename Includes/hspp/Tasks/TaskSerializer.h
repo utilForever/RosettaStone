@@ -99,7 +99,7 @@ TaskMeta CreatePlayerSetting(const std::string& player1,
 //! \param taskID The task ID.
 //! \param status The task status.
 //! \return Created task meta object as game status.
-TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status);
+TaskMeta CreateGameStatus(Player& player, TaskID taskID, MetaData status);
 }  // namespace Hearthstonepp::Serializer
 
 #endif  // HEARTHSTONEPP_TASK_SERIALIZER_H

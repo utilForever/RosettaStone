@@ -66,12 +66,12 @@ TEST(InitAttackCountTask, RunFrozen)
     minion4->attackableCount = 1;
     minion4->numTurnToUnfreeze = 3;
 
-    agent.GetPlayer1().field.emplace_back(minion1);
-    agent.GetPlayer1().field.emplace_back(minion2);
-    agent.GetPlayer1().field.emplace_back(minion3);
-    agent.GetPlayer1().field.emplace_back(minion4);
-    agent.GetPlayer2().field.emplace_back(minion5);
-    agent.GetPlayer2().field.emplace_back(minion6);
+    agent.GetPlayer1().GetField().emplace_back(minion1);
+    agent.GetPlayer1().GetField().emplace_back(minion2);
+    agent.GetPlayer1().GetField().emplace_back(minion3);
+    agent.GetPlayer1().GetField().emplace_back(minion4);
+    agent.GetPlayer2().GetField().emplace_back(minion5);
+    agent.GetPlayer2().GetField().emplace_back(minion6);
 
     MetaData result = init.Run(agent.GetPlayer2());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
@@ -135,8 +135,8 @@ TEST(InitAttackCountTask, RunWindFury)
 
     minion2->SetGameTag(GameTag::WINDFURY, 1);
 
-    agent.GetPlayer1().field.emplace_back(minion1);
-    agent.GetPlayer1().field.emplace_back(minion2);
+    agent.GetPlayer1().GetField().emplace_back(minion1);
+    agent.GetPlayer1().GetField().emplace_back(minion2);
 
     MetaData result = init.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);

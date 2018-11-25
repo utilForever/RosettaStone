@@ -33,10 +33,10 @@ MetaData PlayCardTask::Impl(Player& player)
 
     if (m_source != nullptr)
     {
-        const auto handIter =
-            std::find(player.hand.begin(), player.hand.end(), m_source);
-        handIndex =
-            static_cast<BYTE>(std::distance(player.hand.begin(), handIter));
+        const auto handIter = std::find(player.GetHand().begin(),
+                                        player.GetHand().end(), m_source);
+        handIndex = static_cast<BYTE>(
+            std::distance(player.GetHand().begin(), handIter));
     }
     else
     {
@@ -58,27 +58,27 @@ MetaData PlayCardTask::Impl(Player& player)
     }
 
     // Verify index of card hand
-    if (handIndex >= player.hand.size())
+    if (handIndex >= player.GetHand().size())
     {
         return MetaData::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
 
     // Verify mana is sufficient
-    if (player.hand[handIndex]->card->cost > player.GetAvailableMana())
+    if (player.GetHand()[handIndex]->card->cost > player.GetAvailableMana())
     {
         return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
-    Entity* entity = player.hand[handIndex];
+    Entity* entity = player.GetHand()[handIndex];
 
     // Erase from user's hand
-    if (player.hand.size() == 1)
+    if (player.GetHand().size() == 1)
     {
-        player.hand.clear();
+        player.GetHand().clear();
     }
     else
     {
-        player.hand.erase(player.hand.begin() + handIndex);
+        player.GetHand().erase(player.GetHand().begin() + handIndex);
     }
 
     // Pass to sub-logic

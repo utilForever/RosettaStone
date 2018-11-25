@@ -25,14 +25,14 @@ TEST(BasicCardSet, EX1_066)
 
     const auto card1 = Generic::DrawCard(
         currentPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
-    EXPECT_EQ(currentPlayer.hand.size(), 1u);
-    EXPECT_EQ(currentPlayer.hand[0]->card->name, "Fiery War Axe");
+    EXPECT_EQ(currentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(currentPlayer.GetHand()[0]->card->name, "Fiery War Axe");
 
     const auto card2 = Generic::DrawCard(
         opponentPlayer,
         Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
-    EXPECT_EQ(opponentPlayer.hand.size(), 1u);
-    EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand()[0]->card->name, "Acidic Swamp Ooze");
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
     EXPECT_NE(currentPlayer.GetHero()->weapon, static_cast<Weapon*>(nullptr));

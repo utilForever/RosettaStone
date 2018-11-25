@@ -278,13 +278,13 @@ TEST(TaskSerializer, CreateGameStatus)
 
     // Summon 'Nerubian' card to field (minion)
     Card nerubian = instance.FindCardByID("AT_036t");
-    agent.GetPlayer1().field.emplace_back(new Minion(nerubian));
-    agent.GetPlayer2().field.emplace_back(new Minion(nerubian));
+    agent.GetPlayer1().GetField().emplace_back(new Minion(nerubian));
+    agent.GetPlayer2().GetField().emplace_back(new Minion(nerubian));
 
     // Draw 'Poisoned Blade' card (weapon)
     Card poisonedBlade = instance.FindCardByID("AT_034");
-    agent.GetPlayer1().hand.emplace_back(new Weapon(poisonedBlade));
-    agent.GetPlayer2().hand.emplace_back(new Weapon(poisonedBlade));
+    agent.GetPlayer1().GetHand().emplace_back(new Weapon(poisonedBlade));
+    agent.GetPlayer2().GetHand().emplace_back(new Weapon(poisonedBlade));
 
     TaskMeta meta = Serializer::CreateGameStatus(
         agent.GetPlayer1(), randTrait.id, randTrait.status);

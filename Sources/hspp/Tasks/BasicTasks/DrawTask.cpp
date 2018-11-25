@@ -28,8 +28,8 @@ MetaData DrawTask::Impl(Player& player)
     size_t num = m_num;
     MetaData result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Entity*>& deck = player.cards;
-    std::vector<Entity*>& hand = player.hand;
+    std::vector<Entity*>& deck = player.GetDeck();
+    std::vector<Entity*>& hand = player.GetHand();
 
     // After reaching fatigue
     if (deck.size() < num)
@@ -104,8 +104,8 @@ TaskID DrawCardTask::GetTaskID() const
 
 MetaData DrawCardTask::Impl(Player& player)
 {
-    std::vector<Entity*>& deck = player.cards;
-    std::vector<Entity*>& hand = player.hand;
+    std::vector<Entity*>& deck = player.GetDeck();
+    std::vector<Entity*>& hand = player.GetHand();
 
     switch (m_card.cardType)
     {

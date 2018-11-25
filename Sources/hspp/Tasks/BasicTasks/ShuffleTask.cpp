@@ -20,7 +20,7 @@ MetaData ShuffleTask::Impl(Player& player)
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    std::shuffle(player.cards.begin(), player.cards.end(), gen);
+    std::shuffle(player.GetDeck().begin(), player.GetDeck().end(), gen);
 
     return MetaData::SHUFFLE_SUCCESS;
 }

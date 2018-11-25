@@ -26,31 +26,31 @@ TEST(ClassicCardSet, CS2_041)
     const auto card1 = Generic::DrawCard(
         currentPlayer,
         Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
-    EXPECT_EQ(currentPlayer.hand.size(), 1u);
-    EXPECT_EQ(currentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
+    EXPECT_EQ(currentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(currentPlayer.GetHand()[0]->card->name, "Acidic Swamp Ooze");
 
     const auto card2 = Generic::DrawCard(
         currentPlayer,
         Cards::GetInstance().FindCardByName("Ancestral Healing"));
-    EXPECT_EQ(currentPlayer.hand.size(), 2u);
-    EXPECT_EQ(currentPlayer.hand[1]->card->name, "Ancestral Healing");
+    EXPECT_EQ(currentPlayer.GetHand().size(), 2u);
+    EXPECT_EQ(currentPlayer.GetHand()[1]->card->name, "Ancestral Healing");
 
     const auto card3 = Generic::DrawCard(
         opponentPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
-    EXPECT_EQ(opponentPlayer.hand.size(), 1u);
-    EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Stonetusk Boar");
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand()[0]->card->name, "Stonetusk Boar");
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
-    EXPECT_EQ(currentPlayer.field[0]->card->name, "Acidic Swamp Ooze");
+    EXPECT_EQ(currentPlayer.GetField()[0]->card->name, "Acidic Swamp Ooze");
 
     GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card3));
-    EXPECT_EQ(opponentPlayer.field[0]->card->name, "Stonetusk Boar");
+    EXPECT_EQ(opponentPlayer.GetField()[0]->card->name, "Stonetusk Boar");
 
     GameAgent::RunTask(opponentPlayer, CombatTask(taskAgent, card3, card1));
-    EXPECT_EQ(currentPlayer.field[0]->health, 1);
-    EXPECT_EQ(opponentPlayer.field.size(), 0u);
+    EXPECT_EQ(currentPlayer.GetField()[0]->health, 1);
+    EXPECT_EQ(opponentPlayer.GetField().size(), 0u);
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card2, -1, card1));
-    EXPECT_EQ(currentPlayer.field[0]->health, 2);
-    EXPECT_EQ(currentPlayer.field[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(currentPlayer.GetField()[0]->health, 2);
+    EXPECT_EQ(currentPlayer.GetField()[0]->GetGameTag(GameTag::TAUNT), 1);
 }

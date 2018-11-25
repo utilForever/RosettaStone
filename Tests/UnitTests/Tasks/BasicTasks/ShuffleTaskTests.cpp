@@ -28,10 +28,10 @@ TEST(ShuffleTask, Run)
     for (int i = 0; i < 5; i++)
     {
         auto card = GenerateMinionCard("minion", 5, 1);
-        agent.GetPlayer1().cards.emplace_back(new Minion(card));
+        agent.GetPlayer1().GetDeck().emplace_back(new Minion(card));
     }
 
     MetaData result = init.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::SHUFFLE_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().cards.size(), static_cast<size_t>(5));
+    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), static_cast<size_t>(5));
 }

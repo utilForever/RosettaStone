@@ -29,25 +29,26 @@ MetaData CombatTask::Impl(Player& player)
 
     // Verify index of the source
     // NOTE: 0 means hero, 1 ~ field.size() means minion
-    if (sourceIndex > player.field.size())
+    if (sourceIndex > player.GetField().size())
     {
         return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
     // Verify index of the target
     // NOTE: 0 means hero, 1 ~ field.size() means minion
-    if (targetIndex > player.GetOpponent().field.size())
+    if (targetIndex > player.GetOpponent().GetField().size())
     {
         return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
-    auto source = (sourceIndex > 0)
-                      ? dynamic_cast<Character*>(player.field[sourceIndex - 1])
-                      : dynamic_cast<Character*>(player.GetHero());
+    auto source =
+        (sourceIndex > 0)
+            ? dynamic_cast<Character*>(player.GetField()[sourceIndex - 1])
+            : dynamic_cast<Character*>(player.GetHero());
     auto target =
         (targetIndex > 0)
             ? dynamic_cast<Character*>(
-                  player.GetOpponent().field[targetIndex - 1])
+                  player.GetOpponent().GetField()[targetIndex - 1])
             : dynamic_cast<Character*>(player.GetOpponent().GetHero());
 
     if (!source->CanAttack() ||
@@ -142,10 +143,10 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         }
         else
         {
-            const auto sourceIter =
-                std::find(player.field.begin(), player.field.end(), m_source);
+            const auto sourceIter = std::find(
+                player.GetField().begin(), player.GetField().end(), m_source);
             sourceIndex = static_cast<BYTE>(
-                std::distance(player.field.begin(), sourceIter) + 1);
+                std::distance(player.GetField().begin(), sourceIter) + 1);
         }
 
         Player& opponent = player.GetOpponent();
@@ -156,10 +157,11 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         }
         else
         {
-            const auto targetIter = std::find(opponent.field.begin(),
-                                              opponent.field.end(), m_target);
+            const auto targetIter =
+                std::find(opponent.GetField().begin(),
+                          opponent.GetField().end(), m_target);
             targetIndex = static_cast<BYTE>(
-                std::distance(opponent.field.begin(), targetIter) + 1);
+                std::distance(opponent.GetField().begin(), targetIter) + 1);
         }
 
         return std::make_tuple(sourceIndex, targetIndex);

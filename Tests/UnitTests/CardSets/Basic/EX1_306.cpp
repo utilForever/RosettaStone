@@ -25,28 +25,28 @@ TEST(BasicCardSet, EX1_306)
 
     const auto card1 = Generic::DrawCard(
         currentPlayer, Cards::GetInstance().FindCardByName("Succubus"));
-    EXPECT_EQ(currentPlayer.hand.size(), 1u);
-    EXPECT_EQ(currentPlayer.hand[0]->card->name, "Succubus");
+    EXPECT_EQ(currentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(currentPlayer.GetHand()[0]->card->name, "Succubus");
 
     Generic::DrawCard(currentPlayer,
                       Cards::GetInstance().FindCardByName("Fiery War Axe"));
-    EXPECT_EQ(currentPlayer.hand.size(), 2u);
-    EXPECT_EQ(currentPlayer.hand[1]->card->name, "Fiery War Axe");
+    EXPECT_EQ(currentPlayer.GetHand().size(), 2u);
+    EXPECT_EQ(currentPlayer.GetHand()[1]->card->name, "Fiery War Axe");
 
     const auto card2 = Generic::DrawCard(
         opponentPlayer,
         Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
-    EXPECT_EQ(opponentPlayer.hand.size(), 1u);
-    EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand()[0]->card->name, "Acidic Swamp Ooze");
 
     Generic::DrawCard(opponentPlayer,
                       Cards::GetInstance().FindCardByName("Stonetusk Boar"));
-    EXPECT_EQ(opponentPlayer.hand.size(), 2);
-    EXPECT_EQ(opponentPlayer.hand[1]->card->name, "Stonetusk Boar");
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 2);
+    EXPECT_EQ(opponentPlayer.GetHand()[1]->card->name, "Stonetusk Boar");
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
-    EXPECT_EQ(currentPlayer.hand.size(), 0u);
+    EXPECT_EQ(currentPlayer.GetHand().size(), 0u);
 
     GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
-    EXPECT_EQ(opponentPlayer.hand.size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
 }

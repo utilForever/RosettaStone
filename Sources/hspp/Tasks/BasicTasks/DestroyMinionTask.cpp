@@ -22,8 +22,8 @@ TaskID DestroyMinionTask::GetTaskID() const
 
 MetaData DestroyMinionTask::Impl(Player& player)
 {
-    auto& myField = player.field;
-    auto& opponentField = player.GetOpponent().field;
+    auto& myField = player.GetField();
+    auto& opponentField = player.GetOpponent().GetField();
 
     auto fieldIter = std::find(myField.begin(), myField.end(), m_character);
     if (fieldIter != myField.end())

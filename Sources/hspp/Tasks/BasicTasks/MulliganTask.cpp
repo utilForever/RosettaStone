@@ -73,8 +73,8 @@ MetaData MulliganTask::Impl(Player& player)
         }
     }
 
-    std::vector<Entity*>& deck = player.cards;
-    std::vector<Entity*>& hand = player.hand;
+    std::vector<Entity*>& deck = player.GetDeck();
+    std::vector<Entity*>& hand = player.GetHand();
 
     // Rollback to deck
     for (size_t i = 0; i < read; ++i)

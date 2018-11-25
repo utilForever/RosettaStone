@@ -69,8 +69,8 @@ bool FreezeTask::IsMyCharacter(Player& player) const
 {
     if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
     {
-        return std::find(player.field.begin(), player.field.end(), m_target) !=
-               player.field.end();
+        return std::find(player.GetField().begin(), player.GetField().end(),
+                         m_target) != player.GetField().end();
     }
 
     return m_type == +EntityType::FIELD || m_type == +EntityType::HERO ||
@@ -81,9 +81,9 @@ bool FreezeTask::IsOpponentCharacter(Player& player) const
 {
     if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
     {
-        return std::find(player.GetOpponent().field.begin(),
-                         player.GetOpponent().field.end(),
-                         m_target) != player.GetOpponent().field.end();
+        return std::find(player.GetOpponent().GetField().begin(),
+                         player.GetOpponent().GetField().end(),
+                         m_target) != player.GetOpponent().GetField().end();
     }
 
     return m_type == +EntityType::ENEMY_FIELD ||

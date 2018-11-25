@@ -29,22 +29,22 @@ TEST(DestroyTask, Run)
     auto card = GenerateMinionCard("minion1", 1, 1);
 
     // Destroy Source Minion
-    player1.field.emplace_back(new Minion(card));
+    player1.GetField().emplace_back(new Minion(card));
 
-    DestroyTask task(EntityType::SOURCE, player1.field[0], nullptr);
+    DestroyTask task1(EntityType::SOURCE, player1.GetField()[0], nullptr);
 
-    MetaData result = task.Run(player1);
+    MetaData result = task1.Run(player1);
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player1.field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(0));
 
     // Destroy Target Minion
-    player2.field.emplace_back(new Minion(card));
+    player2.GetField().emplace_back(new Minion(card));
 
-    DestroyTask task2(EntityType::TARGET, nullptr, player2.field[0]);
+    DestroyTask task2(EntityType::TARGET, nullptr, player2.GetField()[0]);
 
     MetaData result2 = task2.Run(player1);
     EXPECT_EQ(result2, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player2.field.size(), static_cast<size_t>(0));
+    EXPECT_EQ(player2.GetField().size(), static_cast<size_t>(0));
 
     // Destroy Target Weapon
     Card weaponCard;

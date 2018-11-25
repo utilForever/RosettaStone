@@ -212,7 +212,7 @@ TaskMeta CreatePlayerSetting(const std::string& player1,
         builder.GetSize(), builder.GetBufferPointer());
 }
 
-TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status)
+TaskMeta CreateGameStatus(Player& player, TaskID taskID, MetaData status)
 {
     using EntityOffset = flatbuffers::Offset<FlatData::Entity>;
     using VectorOffset = flatbuffers::Offset<flatbuffers::Vector<EntityOffset>>;
@@ -229,7 +229,7 @@ TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status)
     };
 
     // Tie multi card vector
-    auto target = { player.field, player.GetOpponent().field };
+    auto target = { player.GetField(), player.GetOpponent().GetField() };
     std::vector<VectorOffset> result(target.size());
 
     // Convert Card vector to FlatData::Card vector
@@ -240,10 +240,10 @@ TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status)
         player.GetAvailableMana(), player.GetOpponent().GetAvailableMana(),
         CreateEntity(builder, player.GetHero()),
         CreateEntity(builder, player.GetOpponent().GetHero()), result[0],
-        makeOffset(player.hand), result[1],
-        static_cast<BYTE>(player.GetOpponent().hand.size()),
-        static_cast<BYTE>(player.cards.size()),
-        static_cast<BYTE>(player.GetOpponent().cards.size()));
+        makeOffset(player.GetHand()), result[1],
+        static_cast<BYTE>(player.GetOpponent().GetHand().size()),
+        static_cast<BYTE>(player.GetDeck().size()),
+        static_cast<BYTE>(player.GetOpponent().GetDeck().size()));
 
     builder.Finish(gameStatus);
     return TaskMeta(TaskMetaTrait(taskID, status, player.GetID()),

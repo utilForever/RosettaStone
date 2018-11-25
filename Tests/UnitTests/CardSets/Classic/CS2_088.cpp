@@ -27,20 +27,20 @@ TEST(ClassicCardSet, CS2_088)
     const auto card1 = Generic::DrawCard(
         currentPlayer,
         Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
-    EXPECT_EQ(currentPlayer.hand.size(), 1u);
-    EXPECT_EQ(currentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
+    EXPECT_EQ(currentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(currentPlayer.GetHand()[0]->card->name, "Acidic Swamp Ooze");
 
     const auto card2 = Generic::DrawCard(
         opponentPlayer,
         Cards::GetInstance().FindCardByName("Guardian of Kings"));
-    EXPECT_EQ(opponentPlayer.hand.size(), 1u);
-    EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Guardian of Kings");
+    EXPECT_EQ(opponentPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetHand()[0]->card->name, "Guardian of Kings");
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
-    EXPECT_EQ(currentPlayer.field[0]->card->name, "Acidic Swamp Ooze");
+    EXPECT_EQ(currentPlayer.GetField()[0]->card->name, "Acidic Swamp Ooze");
 
     GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
-    EXPECT_EQ(opponentPlayer.field[0]->card->name, "Guardian of Kings");
+    EXPECT_EQ(opponentPlayer.GetField()[0]->card->name, "Guardian of Kings");
     EXPECT_EQ(opponentPlayer.GetHero()->maxHealth,
               opponentPlayer.GetHero()->health);
 }

@@ -24,7 +24,7 @@ Entity* Generic::DrawCard(Player& player, Card card)
             entity = new Entity(card);
     }
 
-    player.hand.emplace_back(entity);
+    player.GetHand().emplace_back(entity);
 
     return entity;
 }

@@ -25,7 +25,7 @@ MetaData InitAttackCountTask::Impl(Player& player)
 void InitAttackCountTask::ProcessMyField(Player& my)
 {
     // Add minions in field and hero
-    std::vector<Character*> characters = my.field;
+    std::vector<Character*> characters = my.GetField();
     characters.emplace_back(my.GetHero());
 
     for (auto& character : characters)
@@ -60,7 +60,7 @@ void InitAttackCountTask::ProcessMyField(Player& my)
 
 void InitAttackCountTask::ProcessEnemyField(Player& opponent)
 {
-    for (auto& minion : opponent.field)
+    for (auto& minion : opponent.GetField())
     {
         // Process Frozen status
         if (minion->GetGameTag(GameTag::FROZEN) == 1)

@@ -29,10 +29,10 @@ MetaData PlaySpellTask::Impl(Player& player)
 
     if (m_target != nullptr)
     {
-        const auto fieldIter =
-            std::find(player.field.begin(), player.field.end(), m_target);
+        const auto fieldIter = std::find(player.GetField().begin(),
+                                         player.GetField().end(), m_target);
         position = static_cast<BYTE>(
-            std::distance(player.field.begin(), fieldIter));
+            std::distance(player.GetField().begin(), fieldIter));
     }
     else
     {
@@ -54,13 +54,13 @@ MetaData PlaySpellTask::Impl(Player& player)
     }
 
     // Verify field position
-    if (position > player.field.size())
+    if (position > player.GetField().size())
     {
         return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
     }
 
     // Verify valid target
-    if (player.field[position] == nullptr)
+    if (player.GetField()[position] == nullptr)
     {
         return MetaData::PLAY_SPELL_INVALID_TARGET;
     }
@@ -75,7 +75,7 @@ MetaData PlaySpellTask::Impl(Player& player)
     {
         for (auto& power : m_source->card->power->powerTask)
         {
-            power->SetTarget(player.field[position]);
+            power->SetTarget(player.GetField()[position]);
             power->Run(player);
         }
     }

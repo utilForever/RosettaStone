@@ -34,19 +34,19 @@ TEST(DestroyMinionTask, Run)
     {
         const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
-        player1.field.emplace_back(new Minion(cards[i]));
+        player1.GetField().emplace_back(new Minion(cards[i]));
     }
 
-    DestroyMinionTask destroy(player1.field[2]);
+    DestroyMinionTask destroy(player1.GetField()[2]);
     MetaData result = destroy.Run(player1);
 
     EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player1.field.size(), static_cast<size_t>(4));
+    EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(4));
 
-    EXPECT_EQ(player1.field[0]->card->id, name + '0');
-    EXPECT_EQ(player1.field[1]->card->id, name + '1');
-    EXPECT_EQ(player1.field[2]->card->id, name + '3');
-    EXPECT_EQ(player1.field[3]->card->id, name + '4');
+    EXPECT_EQ(player1.GetField()[0]->card->id, name + '0');
+    EXPECT_EQ(player1.GetField()[1]->card->id, name + '1');
+    EXPECT_EQ(player1.GetField()[2]->card->id, name + '3');
+    EXPECT_EQ(player1.GetField()[3]->card->id, name + '4');
 
     result = destroy.Run(player1);
     EXPECT_EQ(result, MetaData::DESTROY_MINION_NOT_FOUND);

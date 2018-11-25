@@ -29,10 +29,10 @@ MetaData PlayMinionTask::Impl(Player& player)
 
     if (m_fieldPos == -1)
     {
-        const auto fieldIter =
-            std::find(player.field.begin(), player.field.end(), nullptr);
-        position =
-            static_cast<BYTE>(std::distance(player.field.begin(), fieldIter));
+        const auto fieldIter = std::find(player.GetField().begin(),
+                                         player.GetField().end(), nullptr);
+        position = static_cast<BYTE>(
+            std::distance(player.GetField().begin(), fieldIter));
     }
     else
     {
@@ -54,7 +54,7 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
 
     // Verify field position
-    if (position > player.field.size())
+    if (position > player.GetField().size())
     {
         return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
@@ -67,13 +67,14 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
 
     // Summon minion
-    if (player.field.empty())
+    if (player.GetField().empty())
     {
-        player.field.emplace_back(character);
+        player.GetField().emplace_back(character);
     }
     else
     {
-        player.field.insert(player.field.begin() + position, character);
+        player.GetField().insert(player.GetField().begin() + position,
+                                 character);
     }
 
     // Apply card mechanics tags
