@@ -176,5 +176,6 @@ def get_all_files(root_path, patterns):
     Returns a list of all files that matches the given patterns from the
     root_path.
     """
-    ret = [fp.replace(root_path + "\\", '').replace('\\', '/') for fp in navigate_all_files(root_path, patterns)]
+    ret = [fp.replace(root_path, '').lstrip('\\').lstrip('/').replace('\\', '/')
+           for fp in navigate_all_files(root_path, patterns)]
     return ret
