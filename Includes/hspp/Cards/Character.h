@@ -78,8 +78,8 @@ class Character : public Entity
 
     size_t attackableCount = 0;
     size_t numTurnToUnfreeze = 0;
-    size_t health = 0;
-    size_t maxHealth = 0;
+    int health = 0;
+    int maxHealth = 0;
 
  protected:
     size_t m_attack = 0;

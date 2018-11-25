@@ -18,10 +18,11 @@ Character::Character(Card& card) : Entity(card)
     {
 #if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
         m_attack = card.attack.has_value() ? card.attack.value() : 0;
-        health = card.health.has_value() ? card.health.value() : 0;
+        health =
+            card.health.has_value() ? static_cast<int>(card.health.value()) : 0;
 #elif defined(HEARTHSTONEPP_MACOSX)
         m_attack = card.attack.value_or(0);
-        health = card.health.value_or(0);
+        health = static_cast<int>(card.health.value_or(0));
 #endif
         maxHealth = health;
     }
@@ -133,7 +134,7 @@ size_t Character::TakeDamage(Character& source, size_t damage)
         return 0;
     }
 
-    health = (health <= damage) ? 0 : health - damage;
+    health -= static_cast<int>(damage);
 
     return damage;
 }
