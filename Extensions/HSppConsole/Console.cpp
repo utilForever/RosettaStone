@@ -45,7 +45,7 @@ size_t getInputNum(const std::string& inputStr)
 
     if (isNumber(inputStr))
     {
-        size_t inputNum = static_cast<size_t>(std::stoi(inputStr));
+        int inputNum = std::stoi(inputStr);
         return inputNum;
     }
     else
