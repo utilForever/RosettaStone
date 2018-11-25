@@ -34,110 +34,90 @@ namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
-size_t getInputNum(const std::string& inputStr)
-{
-    auto isNumber = [](const std::string& string) {
-        std::string::const_iterator it = string.begin();
-        while (it != string.end() && std::isdigit(*it))
-            ++it;
-        return !string.empty() && it == string.end();
-    };
-
-    if (isNumber(inputStr))
+    void Console::SignIn()
     {
-        int inputNum = std::stoi(inputStr);
-        return inputNum;
-    }
-    else
-    {
-        return 0;
-    }
-}
+        std::cout << "Input Account ID to load data.\n";
+        std::cout << "If you do not want to load, please input \"STOP\"\n";
 
-void Console::SignIn()
-{
-    std::cout << "Input Account ID to load data.\n";
-    std::cout << "If you do not want to load, please input \"STOP\"\n";
-
-    while (true)
-    {
-        std::cout << "Account ID: ";
-        std::string accountID;
-        std::cin >> accountID;
-
-        if (accountID == "STOP")
+        while (true)
         {
-            break;
-        }
+            std::cout << "Account ID: ";
+            std::string accountID;
+            std::cin >> accountID;
+
+            if (accountID == "STOP")
+            {
+                break;
+            }
 
 #ifndef HEARTHSTONEPP_MACOSX
-        if (!filesystem::exists("Datas/" + accountID + ".json"))
+            if (!filesystem::exists("Datas/" + accountID + ".json"))
 #else
-        struct stat buf;
+                struct stat buf;
         std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == -1)
 #endif
-        {
-            std::cout << accountID << ".json doesn't exist. Try again.\n";
-            continue;
+            {
+                std::cout << accountID << ".json doesn't exist. Try again.\n";
+                continue;
+            }
+
+            AccountLoader loader;
+            m_account = loader.Load(accountID);
+
+            if (m_account == nullptr)
+            {
+                std::cout << "An error occurred while loading account data.\n";
+                continue;
+            }
+
+            std::cout << "You are signed in. Hello, " << accountID << "!\n";
+
+            Main();
+
+            break;
         }
-
-        AccountLoader loader;
-        m_account = loader.Load(accountID);
-
-        if (m_account == nullptr)
-        {
-            std::cout << "An error occurred while loading account data.\n";
-            continue;
-        }
-
-        std::cout << "You are signed in. Hello, " << accountID << "!\n";
-
-        Main();
-
-        break;
     }
-}
 
-void Console::SignUp()
-{
-    std::cout << "Input Account ID to create data.\n";
-
-    while (true)
+    void Console::SignUp()
     {
-        std::cout << "Account ID: ";
-        std::string accountID;
-        std::cin >> accountID;
+        std::cout << "Input Account ID to create data.\n";
+
+        while (true)
+        {
+            std::cout << "Account ID: ";
+            std::string accountID;
+            std::cin >> accountID;
 
 #if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
-        if (filesystem::exists("Datas/" + accountID + ".json"))
+            if (filesystem::exists("Datas/" + accountID + ".json"))
 #elif defined(HEARTHSTONEPP_MACOSX)
-        struct stat buf;
+            struct stat buf;
         std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == 0)
 #endif
-        {
-            std::cout << accountID << ".json already exists. Try again.\n";
-            continue;
+            {
+                std::cout << accountID << ".json already exists. Try again.\n";
+                continue;
+            }
+
+            std::cout << "Name: ";
+            std::string name;
+            std::cin >> name;
+
+            m_account = new Account(std::move(accountID), std::move(name));
+
+            AccountLoader loader;
+            loader.Save(m_account);
+
+            std::cout << "Your account has been created. Please sign in.\n";
+            break;
         }
-
-        std::cout << "Name: ";
-        std::string name;
-        std::cin >> name;
-
-        m_account = new Account(std::move(accountID), std::move(name));
-
-        AccountLoader loader;
-        loader.Save(m_account);
-
-        std::cout << "Your account has been created. Please sign in.\n";
-        break;
     }
-}
 #if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
-std::optional<Card> Console::SearchCard() const
+    std::optional<Card> Console::SearchCard() const
 #elif defined(HEARTHSTONEPP_MACOSX)
-std::experimental::optional<Card> Console::SearchCard() const
+    std::experimental::optional<Card> Console::SearchCard() const
 #endif
 {
     std::cout << "========================================\n";
@@ -150,52 +130,52 @@ std::experimental::optional<Card> Console::SearchCard() const
     std::cout << "If you want to get help, type -h or --help.\n";
 
     while (true)
-    {
-        auto [filter, isValid, isFinish] =
-            InputAndParseSearchCommand("Command > ");
+{
+    auto [filter, isValid, isFinish] =
+    InputAndParseSearchCommand("Command > ");
 
-        if (!isValid)
-        {
-            continue;
-        }
+    if (!isValid)
+{
+    continue;
+}
 
-        if (isFinish)
-        {
-            break;
-        }
+if (isFinish)
+{
+break;
+}
 
-        std::cout << "========================================\n";
-        std::cout << "             Search Result!             \n";
-        std::cout << "========================================\n";
+std::cout << "========================================\n";
+std::cout << "             Search Result!             \n";
+std::cout << "========================================\n";
 
-        std::vector<Card> result = ProcessSearchCommand(filter);
-        if (result.empty())
-        {
-            std::cout << "There are no cards matching your search condition.\n";
-        }
-        else
-        {
-            size_t cardIdx = 1;
+std::vector<Card> result = ProcessSearchCommand(filter);
+if (result.empty())
+{
+std::cout << "There are no cards matching your search condition.\n";
+}
+else
+{
+size_t cardIdx = 1;
 
-            for (auto& card : result)
-            {
-                std::cout << cardIdx << ". ";
-                card.ShowBriefInfo();
-                std::cout << '\n';
+for (auto& card : result)
+{
+std::cout << cardIdx << ". ";
+card.ShowBriefInfo();
+std::cout << '\n';
 
-                cardIdx++;
-            }
+cardIdx++;
+}
 
-            if (m_searchMode == SearchMode::AddCardInDeck)
-            {
-                const size_t selectedCardIndex =
-                    InputMenuNum("Select: ", cardIdx);
-                return result.at(selectedCardIndex);
-            }
-        }
-    }
+if (m_searchMode == SearchMode::AddCardInDeck)
+{
+const size_t selectedCardIndex =
+        InputMenuNum("Select: ", cardIdx);
+return result.at(selectedCardIndex);
+}
+}
+}
 
-    return {};
+return {};
 }
 
 int Console::ManageDeck()
@@ -274,9 +254,9 @@ void Console::CreateDeck()
 
     ShowMenu(m_playerClassStr);
     const size_t selectedClassNum =
-        InputMenuNum("What's your player class? ", NUM_PLAYER_CLASS);
+            InputMenuNum("What's your player class? ", NUM_PLAYER_CLASS);
     const CardClass deckClass =
-        CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
+            CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
 
     m_account->CreateDeck(name, deckClass);
 
@@ -299,7 +279,7 @@ void Console::ModifyDeck()
 
     m_account->ShowDeckList();
     const size_t selectedDeck =
-        InputMenuNum("Select: ", m_account->GetNumOfDeck());
+            InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
     OperateDeck(selectedDeck);
 }
@@ -320,7 +300,7 @@ void Console::DeleteDeck() const
 
     m_account->ShowDeckList();
     const size_t selectedDeck =
-        InputMenuNum("Select: ", m_account->GetNumOfDeck());
+            InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
     m_account->DeleteDeck(selectedDeck);
 }
@@ -329,7 +309,7 @@ int Console::OperateDeck(size_t deckIndex)
 {
     ShowMenu(m_deckOperationStr);
     const size_t selectedOperation =
-        InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
+            InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
     bool isFinish = false;
 
     if (selectedOperation != CREATE_DECK_MENU_SIZE)
@@ -368,7 +348,7 @@ void Console::AddCardInDeck(size_t deckIndex)
     while (true)
     {
         size_t numCardToAddAvailable =
-            card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
+                card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
         if (deck->GetNumOfCards() + numCardToAddAvailable >
             MAXIMUM_NUM_CARDS_IN_DECK)
         {
@@ -406,9 +386,9 @@ void Console::DeleteCardInDeck(size_t deckIndex) const
 
     deck->ShowCardList();
     const size_t selectedCardIndex =
-        InputMenuNum("Select: ", deck->GetUniqueNumOfCards());
+            InputMenuNum("Select: ", deck->GetUniqueNumOfCards());
     const std::string selectedCardID =
-        deck->GetCard(selectedCardIndex - 1).first;
+            deck->GetCard(selectedCardIndex - 1).first;
 
     while (true)
     {
@@ -489,7 +469,8 @@ size_t Console::InputMenuNum(const std::string& questionStr,
         std::cout << questionStr;
         std::string inputStr;
         std::cin >> inputStr;
-        size_t num = getInputNum(inputStr);
+
+        size_t num = GetInputNum(inputStr);
         if (num < 1 || num > menuSize)
         {
             std::cout << "Invalid number! Try again.\n";
@@ -513,12 +494,12 @@ bool Console::InputYesNo(std::string& sentence) const
                    [](char c) { return static_cast<char>(std::toupper(c)); });
 
     return (str == "y" || str == "yes")
-               ? true
-               : (str == "n" || str == "no") ? false : InputYesNo(sentence);
+           ? true
+           : (str == "n" || str == "no") ? false : InputYesNo(sentence);
 }
 
 std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
-    const std::string& commandStr) const
+        const std::string& commandStr) const
 {
     // Output command string
     std::cout << commandStr;
@@ -553,42 +534,42 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
 
     // Parsing
     auto parser =
-        clara::Help(showHelp) |
-        clara::Opt(strName, "name")["-n"]["--name"](
-            "the name of a card"
-            "(You can enclose the name with \"\", regardless of whether it "
-            "contains spaces.)") |
-        clara::Opt(strRarity, "rarity")["-r"]["--rarity"](
-            "a rough measure of the quality and scarcity of a card") |
-        clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"](
-            "the primary determinant of a hero's powers and abilities") |
-        clara::Opt(strCardType, "cardType")["-t"]["--type"](
-            "spell cards, weapon cards, minion cards and hero cards") |
-        clara::Opt(strRace, "race")["-e"]["--race"](
-            "does not directly affect the behavior of the minion, but allows "
-            "it to be affected by certain type-specific effects") |
-        clara::Opt(strCost, "cost")["-s"]["--cost"](
-            "determines how much mana is required to play that card from the "
-            "hand or to use that hero power"
-            "(You can search for an exact value such as 3 or a range of values "
-            "like 3-4.)") |
-        clara::Opt(strAttack, "attack")["-a"]["--attack"](
-            "the primary determinant of a hero's powers and abilities"
-            "(You can search for an exact value such as 3 or a range of values "
-            "like 3-4.)") |
-        clara::Opt(strHealth, "health")["-l"]["--health"](
-            "an attribute found on heroes and minions, reflecting the "
-            "remaining survivability of the character"
-            "(You can search for an exact value such as 3 or a range of values "
-            "like 3-4.)") |
-        clara::Opt(strMechanics, "mechanic")["-m"]["--mechanic"](
-            "describes the total effect of playing that card or special "
-            "effects or powers additional to the basic functions of the card") |
-        clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
+            clara::Help(showHelp) |
+            clara::Opt(strName, "name")["-n"]["--name"](
+                    "the name of a card"
+                    "(You can enclose the name with \"\", regardless of whether it "
+                    "contains spaces.)") |
+            clara::Opt(strRarity, "rarity")["-r"]["--rarity"](
+                    "a rough measure of the quality and scarcity of a card") |
+            clara::Opt(strPlayerClass, "playerClass")["-c"]["--class"](
+                    "the primary determinant of a hero's powers and abilities") |
+            clara::Opt(strCardType, "cardType")["-t"]["--type"](
+                    "spell cards, weapon cards, minion cards and hero cards") |
+            clara::Opt(strRace, "race")["-e"]["--race"](
+                    "does not directly affect the behavior of the minion, but allows "
+                    "it to be affected by certain type-specific effects") |
+            clara::Opt(strCost, "cost")["-s"]["--cost"](
+                    "determines how much mana is required to play that card from the "
+                    "hand or to use that hero power"
+                    "(You can search for an exact value such as 3 or a range of values "
+                    "like 3-4.)") |
+            clara::Opt(strAttack, "attack")["-a"]["--attack"](
+                    "the primary determinant of a hero's powers and abilities"
+                    "(You can search for an exact value such as 3 or a range of values "
+                    "like 3-4.)") |
+            clara::Opt(strHealth, "health")["-l"]["--health"](
+                    "an attribute found on heroes and minions, reflecting the "
+                    "remaining survivability of the character"
+                    "(You can search for an exact value such as 3 or a range of values "
+                    "like 3-4.)") |
+            clara::Opt(strMechanics, "mechanic")["-m"]["--mechanic"](
+                    "describes the total effect of playing that card or special "
+                    "effects or powers additional to the basic functions of the card") |
+            clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
 
     auto result =
-        parser.parse(clara::Args(static_cast<int>(convertedSplitCmds.size()),
-                                 convertedSplitCmds.data()));
+            parser.parse(clara::Args(static_cast<int>(convertedSplitCmds.size()),
+                                     convertedSplitCmds.data()));
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << '\n';
@@ -602,22 +583,22 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     }
 
     const Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
-                              ? Rarity::_from_string(strRarity.c_str())
-                              : Rarity::_from_string("INVALID");
+                          ? Rarity::_from_string(strRarity.c_str())
+                          : Rarity::_from_string("INVALID");
     const CardClass playerClass =
-        CardClass::_from_string_nothrow(strPlayerClass.c_str())
+            CardClass::_from_string_nothrow(strPlayerClass.c_str())
             ? CardClass::_from_string(strPlayerClass.c_str())
             : CardClass::_from_string("INVALID");
     const CardType cardType =
-        CardType::_from_string_nothrow(strCardType.c_str())
+            CardType::_from_string_nothrow(strCardType.c_str())
             ? CardType::_from_string(strCardType.c_str())
             : CardType::_from_string("INVALID");
     const Race race = Race::_from_string_nothrow(strRace.c_str())
-                          ? Race::_from_string(strRace.c_str())
-                          : Race::_from_string("INVALID");
+                      ? Race::_from_string(strRace.c_str())
+                      : Race::_from_string("INVALID");
     const GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
-                                 ? GameTag::_from_string(strMechanics.c_str())
-                                 : GameTag::_from_string("INVALID");
+                             ? GameTag::_from_string(strMechanics.c_str())
+                             : GameTag::_from_string("INVALID");
 
     auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto [minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
@@ -652,7 +633,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
         }
 
         bool rarityCondition =
-            (filter.rarity == +Rarity::INVALID || filter.rarity == card.rarity);
+                (filter.rarity == +Rarity::INVALID || filter.rarity == card.rarity);
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to
@@ -670,21 +651,21 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
         bool typeCondition = (filter.cardType == +CardType::INVALID ||
                               filter.cardType == card.cardType);
         bool raceCondition =
-            (filter.race == +Race::INVALID || filter.race == card.race);
+                (filter.race == +Race::INVALID || filter.race == card.race);
         bool nameCondition = (filter.name.empty() ||
                               card.name.find(filter.name) != std::string::npos);
         bool costCondition =
-            filter.costMin <= card.cost && filter.costMax >= card.cost;
+                filter.costMin <= card.cost && filter.costMax >= card.cost;
         bool attackCondition =
-            filter.attackMin <= card.attack && filter.attackMax >= card.attack;
+                filter.attackMin <= card.attack && filter.attackMax >= card.attack;
         bool healthCondition =
-            filter.healthMin <= card.health && filter.healthMax >= card.health;
+                filter.healthMin <= card.health && filter.healthMax >= card.health;
         bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
                                    card.HasMechanic(filter.mechanic));
         const bool isMatched =
-            AllCondIsTrue(rarityCondition, classCondition, typeCondition,
-                          raceCondition, nameCondition, costCondition,
-                          attackCondition, healthCondition, mechanicsCondition);
+                AllCondIsTrue(rarityCondition, classCondition, typeCondition,
+                              raceCondition, nameCondition, costCondition,
+                              attackCondition, healthCondition, mechanicsCondition);
 
         if (isMatched)
         {
@@ -696,7 +677,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 }
 
 std::vector<std::string> Console::SplitString(
-    std::string str, const std::string& delimiter) const
+        std::string str, const std::string& delimiter) const
 {
     size_t pos;
     std::vector<std::string> tokens;
