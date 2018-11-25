@@ -34,6 +34,26 @@ namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
+size_t getInputNum(const std::string& inputStr)
+{
+    auto isNumber = [](const std::string& string) {
+        std::string::const_iterator it = string.begin();
+        while (it != string.end() && std::isdigit(*it))
+            ++it;
+        return !string.empty() && it == string.end();
+    };
+
+    if (isNumber(inputStr))
+    {
+        int inputNum = std::stoi(inputStr);
+        return inputNum;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 void Console::SignIn()
 {
     std::cout << "Input Account ID to load data.\n";
@@ -467,9 +487,9 @@ size_t Console::InputMenuNum(const std::string& questionStr,
     while (true)
     {
         std::cout << questionStr;
-        size_t num;
-        std::cin >> num;
-
+        std::string inputStr;
+        std::cin >> inputStr;
+        size_t num = getInputNum(inputStr);
         if (num < 1 || num > menuSize)
         {
             std::cout << "Invalid number! Try again.\n";

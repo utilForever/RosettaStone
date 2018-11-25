@@ -29,6 +29,8 @@ constexpr std::size_t MAIN_MENU_SIZE = 4;
 constexpr std::size_t MANAGE_DECK_MENU_SIZE = 4;
 constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
 
+size_t getInputNum(const std::string &inputStr);
+
 inline std::string ToString(const clara::Opt& opt)
 {
     std::ostringstream oss;

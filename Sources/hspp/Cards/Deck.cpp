@@ -159,7 +159,6 @@ bool Deck::DeleteCard(std::string cardID, size_t numCardToDelete)
         {
             m_cards.erase(cardIter);
         }
-
         return true;
     }
 
