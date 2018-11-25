@@ -32,7 +32,7 @@ constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
 
 inline size_t GetInputNum(const std::string& inputStr)
 {
-    auto isNumber = [](const std::string& str) {
+    const auto isNumber = [](const std::string& str) {
         auto iter = str.begin();
 
         while (iter != str.end() && std::isdigit(*iter))
@@ -45,7 +45,7 @@ inline size_t GetInputNum(const std::string& inputStr)
 
     if (isNumber(inputStr))
     {
-        size_t inputNum = static_cast<size_t>(std::stoi(inputStr));
+        const auto inputNum = static_cast<size_t>(std::stoi(inputStr));
         return inputNum;
     }
 
@@ -66,10 +66,10 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline std::tuple<size_t, size_t> ParseValueRangeFromString(std::string str,
-                                                            bool& isValid)
+inline std::tuple<size_t, size_t> ParseValueRangeFromString(
+    const std::string& str, bool& isValid)
 {
-    std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
+    const std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
     std::smatch values;
 
     size_t minValue = 0, maxValue = std::numeric_limits<size_t>::max();

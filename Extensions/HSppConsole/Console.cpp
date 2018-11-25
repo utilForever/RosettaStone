@@ -464,22 +464,20 @@ void Console::ShowMenu(std::array<std::string, SIZE>& menus)
 size_t Console::InputMenuNum(const std::string& questionStr,
                              size_t menuSize) const
 {
+    while (true)
     {
-        while (true)
-        {
-            std::cout << questionStr;
-            std::string inputStr;
-            std::cin >> inputStr;
+        std::cout << questionStr;
+        std::string inputStr;
+        std::cin >> inputStr;
 
-            size_t num = GetInputNum(inputStr);
-            if (num < 1 || num > menuSize)
-            {
-                std::cout << "Invalid number! Try again.\n";
-            }
-            else
-            {
-                return num;
-            }
+        const size_t num = GetInputNum(inputStr);
+        if (num < 1 || num > menuSize)
+        {
+            std::cout << "Invalid number! Try again.\n";
+        }
+        else
+        {
+            return num;
         }
     }
 }
