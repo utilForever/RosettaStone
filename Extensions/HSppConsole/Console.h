@@ -29,6 +29,28 @@ constexpr std::size_t MAIN_MENU_SIZE = 4;
 constexpr std::size_t MANAGE_DECK_MENU_SIZE = 4;
 constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
 
+inline size_t GetInputNum(const std::string& inputStr)
+{
+    auto isNumber = [](const std::string& str) {
+        auto iter = str.begin();
+
+        while (iter != str.end() && std::isdigit(*iter))
+        {
+            ++iter;
+        }
+
+        return !str.empty() && iter == str.end();
+    };
+
+    if (isNumber(inputStr))
+    {
+        size_t inputNum = static_cast<size_t>(std::stoi(inputStr));
+        return inputNum;
+    }
+
+    return 0;
+}
+
 inline std::string ToString(const clara::Opt& opt)
 {
     std::ostringstream oss;
