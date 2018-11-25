@@ -105,7 +105,7 @@ class TaskAgent
             if (task.GetTaskID() == +TaskID::BRIEF)
             {
                 Notify(std::move(meta));
-                meta.status = MetaData::BRIEF_EXPIRED;
+                meta.SetStatus(MetaData::BRIEF_EXPIRED);
             }
         };
         (pusher(std::forward<ITaskT>(tasks)), ...);

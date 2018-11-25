@@ -74,8 +74,8 @@ TEST(TaskAgent, RunSingleTask)
     EXPECT_EQ(agent.GetPlayer1().GetID(), 100);
     EXPECT_EQ(agent.GetPlayer2().GetID(), 200);
 
-    EXPECT_EQ(read.id, +TaskID::COMBAT);
-    EXPECT_EQ(read.status, MetaData::COMBAT);
+    EXPECT_EQ(read.GetID(), +TaskID::COMBAT);
+    EXPECT_EQ(read.GetStatus(), MetaData::COMBAT);
 
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(read);
     EXPECT_EQ(status->currentPlayer(), 100);
@@ -85,8 +85,8 @@ TEST(TaskAgent, RunSingleTask)
     TaskMeta read2;
     taskAgent.Run(read2, agent.GetPlayer2(), task, false);
 
-    EXPECT_EQ(read.id, read2.id);
-    EXPECT_EQ(read.status, read2.status);
+    EXPECT_EQ(read.GetID(), read2.GetID());
+    EXPECT_EQ(read.GetStatus(), read2.GetStatus());
 
     EXPECT_EQ(agent.GetPlayer1().GetID(), 200);
     EXPECT_EQ(agent.GetPlayer2().GetID(), 100);
@@ -114,7 +114,7 @@ TEST(TaskAgent, RunMultiTasks)
     taskAgent.Read(read);
 
     EXPECT_EQ(ret, read);
-    EXPECT_EQ(ret.id, +TaskID::TASK_VECTOR);
+    EXPECT_EQ(ret.GetID(), +TaskID::TASK_VECTOR);
 
     EXPECT_EQ(agent.GetPlayer1().GetID(), 100);
     EXPECT_EQ(agent.GetPlayer2().GetID(), 200);
@@ -127,11 +127,11 @@ TEST(TaskAgent, RunMultiTasks)
     TaskMeta received1 = TaskMeta::ConvertFrom(taskVector->Get(0));
     TaskMeta received2 = TaskMeta::ConvertFrom(taskVector->Get(1));
 
-    EXPECT_EQ(received1.id, +TaskID::SWAP);
-    EXPECT_EQ(received1.status, MetaData::SWAP);
+    EXPECT_EQ(received1.GetID(), +TaskID::SWAP);
+    EXPECT_EQ(received1.GetStatus(), MetaData::SWAP);
 
-    EXPECT_EQ(received2.id, +TaskID::COMBAT);
-    EXPECT_EQ(received2.status, MetaData::COMBAT);
+    EXPECT_EQ(received2.GetID(), +TaskID::COMBAT);
+    EXPECT_EQ(received2.GetStatus(), MetaData::COMBAT);
 
     auto status1 = TaskMeta::ConvertTo<FlatData::GameStatus>(received1);
     auto status2 = TaskMeta::ConvertTo<FlatData::GameStatus>(received2);
@@ -149,9 +149,9 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
     std::vector<TaskMetaTrait> traits;
 
     const auto generate = [](const TaskMetaTrait& trait) -> TestTask {
-        return TestTask(trait.id,
-                        [status = trait.status,
-                         userID = trait.userID](Player& p) -> MetaData {
+        return TestTask(trait.GetID(),
+                        [status = trait.GetStatus(),
+                         userID = trait.GetUserID()](Player& p) -> MetaData {
                             p.SetID(userID);
                             return status;
                         });
@@ -169,22 +169,22 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
             const auto idx = static_cast<flatbuffers::uoffset_t>(i);
 
             TaskMeta converted = TaskMeta::ConvertFrom(vec->Get(idx));
-            EXPECT_EQ(converted.id, traits[i].id);
-            EXPECT_EQ(converted.userID, traits[i].userID);
+            EXPECT_EQ(converted.GetID(), traits[i].GetID());
+            EXPECT_EQ(converted.GetUserID(), traits[i].GetUserID());
 
-            if (converted.status == MetaData::BRIEF_EXPIRED)
+            if (converted.GetStatus() == MetaData::BRIEF_EXPIRED)
             {
-                EXPECT_EQ(traits[i].status == MetaData::BRIEF ||
-                              traits[i].status == MetaData::BRIEF_EXPIRED,
+                EXPECT_EQ(traits[i].GetStatus() == MetaData::BRIEF ||
+                              traits[i].GetStatus() == MetaData::BRIEF_EXPIRED,
                           true);
             }
             else
             {
-                EXPECT_EQ(converted.status, traits[i].status);
+                EXPECT_EQ(converted.GetStatus(), traits[i].GetStatus());
 
                 auto status =
                     TaskMeta::ConvertTo<FlatData::GameStatus>(converted);
-                EXPECT_EQ(status->currentPlayer(), traits[i].userID);
+                EXPECT_EQ(status->currentPlayer(), traits[i].GetUserID());
             }
         }
     };
@@ -193,9 +193,9 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
     for (size_t i = 0; i < 5; ++i)
     {
         traits.emplace_back(GenerateRandomTrait());
-        if (traits[i].id == +TaskID::BRIEF)
+        if (traits[i].GetID() == +TaskID::BRIEF)
         {
-            traits[i].id = TaskID::INVALID;
+            traits[i].GetID() = TaskID::INVALID;
         }
 
         tasks.emplace_back(generate(traits[i]));
@@ -229,9 +229,9 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
     taskAgent.Read(read);
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(read);
 
-    EXPECT_EQ(read.id, +TaskID::BRIEF);
-    EXPECT_EQ(read.status, MetaData::BRIEF);
-    EXPECT_EQ(read.userID, 100);
+    EXPECT_EQ(read.GetID(), +TaskID::BRIEF);
+    EXPECT_EQ(read.GetStatus(), MetaData::BRIEF);
+    EXPECT_EQ(read.GetUserID(), 100);
 
     EXPECT_EQ(status->currentPlayer(), 100);
 

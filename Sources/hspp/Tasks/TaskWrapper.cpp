@@ -57,6 +57,6 @@ MetaData DoUntil::Impl(Player& player)
         }
     }
 
-    return meta.status;
+    return meta.GetStatus();
 }
 }  // namespace Hearthstonepp::BasicTasks

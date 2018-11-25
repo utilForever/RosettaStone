@@ -31,33 +31,33 @@ TEST(TaskMeta, TraitConstructors)
 
     // Empty Trait Test
     TaskMetaTrait empty;
-    EXPECT_EQ(empty.id, +TaskID::INVALID);
-    EXPECT_EQ(empty.status, MetaData::INVALID);
-    EXPECT_EQ(empty.userID, TaskMetaTrait::USER_INVALID);
+    EXPECT_EQ(empty.GetID(), +TaskID::INVALID);
+    EXPECT_EQ(empty.GetStatus(), MetaData::INVALID);
+    EXPECT_EQ(empty.GetUserID(), TaskMetaTrait::USER_INVALID);
 
     // TaskID Constructor
     TaskMetaTrait traitID(randID);
-    EXPECT_EQ(traitID.id, randID);
-    EXPECT_EQ(traitID.status, MetaData::INVALID);
-    EXPECT_EQ(traitID.userID, TaskMetaTrait::USER_INVALID);
+    EXPECT_EQ(traitID.GetID(), randID);
+    EXPECT_EQ(traitID.GetStatus(), MetaData::INVALID);
+    EXPECT_EQ(traitID.GetUserID(), TaskMetaTrait::USER_INVALID);
 
     // TaskID, Status Constructor
     TaskMetaTrait traitMeta(randID, randMeta);
-    EXPECT_EQ(traitMeta.id, randID);
-    EXPECT_EQ(traitMeta.status, randMeta);
-    EXPECT_EQ(traitMeta.userID, TaskMetaTrait::USER_INVALID);
+    EXPECT_EQ(traitMeta.GetID(), randID);
+    EXPECT_EQ(traitMeta.GetStatus(), randMeta);
+    EXPECT_EQ(traitMeta.GetUserID(), TaskMetaTrait::USER_INVALID);
 
     // TaskID, Status, User Constructor
     TaskMetaTrait traitUser(randID, randMeta, randUser);
-    EXPECT_EQ(traitUser.id, randID);
-    EXPECT_EQ(traitUser.status, randMeta);
-    EXPECT_EQ(traitUser.userID, randUser);
+    EXPECT_EQ(traitUser.GetID(), randID);
+    EXPECT_EQ(traitUser.GetStatus(), randMeta);
+    EXPECT_EQ(traitUser.GetUserID(), randUser);
 
     // Copy Assignment
     TaskMetaTrait copied(traitUser);
-    EXPECT_EQ(copied.id, traitUser.id);
-    EXPECT_EQ(copied.status, traitUser.status);
-    EXPECT_EQ(copied.userID, traitUser.userID);
+    EXPECT_EQ(copied.GetID(), traitUser.GetID());
+    EXPECT_EQ(copied.GetStatus(), traitUser.GetStatus());
+    EXPECT_EQ(copied.GetUserID(), traitUser.GetUserID());
 }
 
 TEST(TaskMeta, Constructors)
@@ -69,9 +69,9 @@ TEST(TaskMeta, Constructors)
 
     // Empty Constructor
     TaskMeta meta;
-    EXPECT_EQ(meta.id, +TaskID::INVALID);
-    EXPECT_EQ(meta.status, MetaData::INVALID);
-    EXPECT_EQ(meta.userID, TaskMeta::USER_INVALID);
+    EXPECT_EQ(meta.GetID(), +TaskID::INVALID);
+    EXPECT_EQ(meta.GetStatus(), MetaData::INVALID);
+    EXPECT_EQ(meta.GetUserID(), TaskMeta::USER_INVALID);
     EXPECT_EQ(meta.GetBufferSize(), zero);
     EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
 
@@ -137,9 +137,9 @@ TEST(TaskMeta, ConvertFrom)
     const size_t size = meta.GetBufferSize();
 
     flatbuffers::FlatBufferBuilder builder(512);
-    auto trait = FlatData::TaskMetaTrait(static_cast<int>(meta.id),
-                                         static_cast<status_t>(meta.status),
-                                         meta.userID);
+    auto trait = FlatData::TaskMetaTrait(
+        static_cast<int>(meta.GetID()), static_cast<status_t>(meta.GetStatus()),
+        meta.GetUserID());
 
     const auto data = builder.CreateVector(buffer.get(), size);
     const auto serialized = FlatData::CreateTaskMeta(builder, &trait, data);
@@ -158,6 +158,6 @@ TEST(TaskMeta, ConvertTo)
     TaskMeta meta = Serializer::CreateRequire(TaskID::MULLIGAN, 0);
     const auto require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
 
-    EXPECT_EQ(meta.userID, 0);
+    EXPECT_EQ(meta.GetUserID(), 0);
     EXPECT_EQ(TaskID::MULLIGAN, require->required());
 }

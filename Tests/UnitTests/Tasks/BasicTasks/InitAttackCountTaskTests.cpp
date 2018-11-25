@@ -31,9 +31,9 @@ TEST(InitAttackCountTask, Run)
     TaskMeta meta;
     result = init.Run(agent.GetPlayer1(), meta);
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
-    EXPECT_EQ(meta.id, +TaskID::INIT_ATTACK_COUNT);
-    EXPECT_EQ(meta.status, MetaData::INIT_ATTACK_COUNT_SUCCESS);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
+    EXPECT_EQ(meta.GetID(), +TaskID::INIT_ATTACK_COUNT);
+    EXPECT_EQ(meta.GetStatus(), MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
 }
 
 TEST(InitAttackCountTask, RunFrozen)

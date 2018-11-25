@@ -126,9 +126,9 @@ TEST(DrawTask, RunOverDraw)
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
-    EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
-    EXPECT_EQ(burnt.status, MetaData::DRAW_OVERDRAW);
-    EXPECT_EQ(burnt.userID, p.GetID());
+    EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+    EXPECT_EQ(burnt.GetStatus(), MetaData::DRAW_OVERDRAW);
+    EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
     auto burntCard =
         TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
@@ -177,9 +177,9 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
-    EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
-    EXPECT_EQ(burnt.status, MetaData::DRAW_EXHAUST_OVERDRAW);
-    EXPECT_EQ(burnt.userID, p.GetID());
+    EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+    EXPECT_EQ(burnt.GetStatus(), MetaData::DRAW_EXHAUST_OVERDRAW);
+    EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
     auto burntCard =
         TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();

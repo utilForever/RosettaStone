@@ -31,7 +31,7 @@ TEST(BriefTask, Run)
     TaskMeta meta;
     result = brief.Run(agent.GetPlayer1(), meta);
     EXPECT_EQ(result, MetaData::BRIEF);
-    EXPECT_EQ(meta.id, +TaskID::BRIEF);
-    EXPECT_EQ(meta.status, MetaData::BRIEF);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
+    EXPECT_EQ(meta.GetID(), +TaskID::BRIEF);
+    EXPECT_EQ(meta.GetStatus(), MetaData::BRIEF);
+    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
 }

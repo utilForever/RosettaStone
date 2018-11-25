@@ -151,7 +151,7 @@ void GameAgent::BeginPhase()
     }
 
     const auto success = [](const TaskMeta& meta) {
-        return meta.status == MetaData::MULLIGAN_SUCCESS;
+        return meta.GetStatus() == MetaData::MULLIGAN_SUCCESS;
     };
 
     TaskMeta meta;
@@ -237,7 +237,7 @@ bool GameAgent::ProcessMainMenu()
         .Interact(m_player1.GetID(), meta);
 
     // Interface pass menu by the status of TaskMeta
-    const auto menu = static_cast<status_t>(meta.status);
+    const auto menu = static_cast<status_t>(meta.GetStatus());
 
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {

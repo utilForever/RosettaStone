@@ -31,7 +31,7 @@ TEST(GameEndTask, Run)
     TaskMeta meta;
     result = gameEnd.Run(agent.GetPlayer1(), meta);
     EXPECT_EQ(result, MetaData::GAME_END);
-    EXPECT_EQ(meta.id, +TaskID::GAME_END);
-    EXPECT_EQ(meta.status, MetaData::GAME_END);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
+    EXPECT_EQ(meta.GetID(), +TaskID::GAME_END);
+    EXPECT_EQ(meta.GetStatus(), MetaData::GAME_END);
+    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
 }

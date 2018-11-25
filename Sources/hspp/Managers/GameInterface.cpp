@@ -42,17 +42,17 @@ GameResult GameInterface::StartGame()
 
 HandleStatus GameInterface::HandleMessage(const TaskMeta& meta)
 {
-    if (m_handler.find(meta.id) != m_handler.end())
+    if (m_handler.find(meta.GetID()) != m_handler.end())
     {
         // Find from handler table and call it
-        m_handler[meta.id](*this, meta);
+        m_handler[meta.GetID()](*this, meta);
     }
     else
     {
         HandleDefault(meta);
     }
 
-    if (meta.id == +TaskID::GAME_END)
+    if (meta.GetID() == +TaskID::GAME_END)
     {
         return HandleStatus::STOP;
     }
@@ -100,9 +100,9 @@ void GameInterface::ShowCards(const EntityVector& entities) const
 
 void GameInterface::HandleDefault(const TaskMeta& meta) const
 {
-    m_ostream << m_users[meta.userID]
-              << " TaskID::" << TaskID::_from_integral(meta.id)._to_string()
-              << ' ' << static_cast<int>(meta.status) << '\n';
+    m_ostream << m_users[meta.GetUserID()] << " TaskID::"
+              << TaskID::_from_integral(meta.GetID())._to_string() << ' '
+              << static_cast<int>(meta.GetStatus()) << '\n';
 }
 
 void GameInterface::HandleTaskVector(const TaskMeta& meta)
@@ -125,7 +125,8 @@ void GameInterface::HandleTaskVector(const TaskMeta& meta)
 void GameInterface::HandlePlayerSetting(const TaskMeta& meta)
 {
     const auto setting = TaskMeta::ConvertTo<FlatData::PlayerSetting>(meta);
-    if (setting != nullptr && meta.status == MetaData::PLAYER_SETTING_REQUEST)
+    if (setting != nullptr &&
+        meta.GetStatus() == MetaData::PLAYER_SETTING_REQUEST)
     {
         m_users[0] = setting->player1()->str();
         m_users[1] = setting->player2()->str();
@@ -155,12 +156,12 @@ void GameInterface::HandleRequire(const TaskMeta& meta)
 
 void GameInterface::HandleBriefing(const TaskMeta& meta)
 {
-    if (meta.status == MetaData::BRIEF_EXPIRED)
+    if (meta.GetStatus() == MetaData::BRIEF_EXPIRED)
     {
         return;
     }
 
-    std::ostream& stream = WriteLog(m_users[meta.userID]);
+    std::ostream& stream = WriteLog(m_users[meta.GetUserID()]);
 
     const auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
     if (status == nullptr)
@@ -238,7 +239,7 @@ void GameInterface::HandleGameOver(const TaskMeta& meta)
 
 void GameInterface::HandleOverDraw(const TaskMeta& meta) const
 {
-    std::ostream& stream = WriteLog(m_users[meta.userID]);
+    std::ostream& stream = WriteLog(m_users[meta.GetUserID()]);
 
     const auto& buffer = meta.GetBuffer();
     if (buffer == nullptr)
@@ -261,7 +262,7 @@ void GameInterface::HandleOverDraw(const TaskMeta& meta) const
 
 void GameInterface::HandleMulliganInput(const TaskMeta& meta) const
 {
-    WriteLog(m_users[meta.userID]) << "Input Mulligan\n";
+    WriteLog(m_users[meta.GetUserID()]) << "Input Mulligan\n";
 
     size_t numMulligan;
     while (true)
@@ -300,7 +301,7 @@ void GameInterface::HandleMulliganInput(const TaskMeta& meta) const
 
 void GameInterface::HandleMenuInput(const TaskMeta& meta)
 {
-    WriteLog(m_users[meta.userID]) << "Main Menu\n";
+    WriteLog(m_users[meta.GetUserID()]) << "Main Menu\n";
     ShowMenus(m_mainMenuStr);
 
     size_t input;
@@ -324,7 +325,7 @@ void GameInterface::HandleMenuInput(const TaskMeta& meta)
 
 void GameInterface::HandleCardInput(const TaskMeta& meta) const
 {
-    WriteLog(m_users[meta.userID]) << "Select Card\n";
+    WriteLog(m_users[meta.GetUserID()]) << "Select Card\n";
     if (m_status == nullptr)
     {
         m_ostream << "Exception InputSelectCard : BriefCache is nullptr\n";
@@ -366,7 +367,7 @@ void GameInterface::HandleCardInput(const TaskMeta& meta) const
 
 void GameInterface::HandleTargetInput(const TaskMeta& meta) const
 {
-    WriteLog(m_users[meta.userID]) << "Targeting\n";
+    WriteLog(m_users[meta.GetUserID()]) << "Targeting\n";
     if (m_status == nullptr)
     {
         m_ostream << "Exception InputTargeting : BriefCache is nullptr\n";
@@ -423,7 +424,7 @@ void GameInterface::HandleTargetInput(const TaskMeta& meta) const
 
 void GameInterface::HandlePositionInput(const TaskMeta& meta) const
 {
-    WriteLog(m_users[meta.userID]) << "Input Position\n";
+    WriteLog(m_users[meta.GetUserID()]) << "Input Position\n";
     if (m_status == nullptr)
     {
         m_ostream << "Exception HandlePositionInput : BriefCache is nullptr\n";

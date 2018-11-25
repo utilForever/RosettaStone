@@ -129,9 +129,9 @@ TEST(TaskSerializer, CreateEntityVector)
                                             weaponPoisonedBlade };
     TaskMeta entityVector = Serializer::CreateEntityVector(randTrait, entities);
 
-    EXPECT_EQ(entityVector.id, randTrait.id);
-    EXPECT_EQ(entityVector.userID, randTrait.userID);
-    EXPECT_EQ(entityVector.status, randTrait.status);
+    EXPECT_EQ(entityVector.GetID(), randTrait.GetID());
+    EXPECT_EQ(entityVector.GetUserID(), randTrait.GetUserID());
+    EXPECT_EQ(entityVector.GetStatus(), randTrait.GetStatus());
 
     auto vector =
         TaskMeta::ConvertTo<FlatData::EntityVector>(entityVector)->vector();
@@ -162,12 +162,12 @@ TEST(TaskSerializer, CreateTaskMetaVector)
     }
 
     const TaskMetaTrait random = GenerateRandomTrait();
-    TaskMeta generated =
-        Serializer::CreateTaskMetaVector(metas, random.status, random.userID);
+    TaskMeta generated = Serializer::CreateTaskMetaVector(
+        metas, random.GetStatus(), random.GetUserID());
 
-    EXPECT_EQ(generated.id, +TaskID::TASK_VECTOR);
-    EXPECT_EQ(generated.status, random.status);
-    EXPECT_EQ(generated.userID, random.userID);
+    EXPECT_EQ(generated.GetID(), +TaskID::TASK_VECTOR);
+    EXPECT_EQ(generated.GetStatus(), random.GetStatus());
+    EXPECT_EQ(generated.GetUserID(), random.GetUserID());
 
     const auto taskVector =
         TaskMeta::ConvertTo<FlatData::TaskMetaVector>(generated);
@@ -186,15 +186,16 @@ TEST(TaskSerializer, CreateTaskMetaVector)
 TEST(TaskSerializer, CreateRequireTaskMeta)
 {
     const TaskMetaTrait random = GenerateRandomTrait();
-    TaskMeta required = Serializer::CreateRequire(random.id, random.userID);
+    TaskMeta required =
+        Serializer::CreateRequire(random.GetID(), random.GetUserID());
 
-    EXPECT_EQ(required.id, +TaskID::REQUIRE);
-    EXPECT_EQ(required.status, MetaData::INVALID);
-    EXPECT_EQ(required.userID, random.userID);
+    EXPECT_EQ(required.GetID(), +TaskID::REQUIRE);
+    EXPECT_EQ(required.GetStatus(), MetaData::INVALID);
+    EXPECT_EQ(required.GetUserID(), random.GetUserID());
 
     const auto meta = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(required);
     TaskID requiredID = TaskID::_from_integral(meta->required());
-    EXPECT_EQ(requiredID, random.id);
+    EXPECT_EQ(requiredID, random.GetID());
 }
 
 TEST(TaskSerializer, CreateResponseMulligan)
@@ -203,7 +204,7 @@ TEST(TaskSerializer, CreateResponseMulligan)
     TaskMeta resp = Serializer::CreateResponseMulligan(mulligan, 3);
 
     auto data = TaskMeta::ConvertTo<FlatData::ResponseMulligan>(resp);
-    EXPECT_EQ(resp.id, +TaskID::MULLIGAN);
+    EXPECT_EQ(resp.GetID(), +TaskID::MULLIGAN);
     EXPECT_EQ(data->mulligan()->size(), static_cast<size_t>(3));
 
     size_t i = 0;
@@ -218,7 +219,7 @@ TEST(TaskSerializer, CreateResponsePlayCard)
     TaskMeta resp = Serializer::CreateResponsePlayCard(10);
 
     auto data = TaskMeta::ConvertTo<FlatData::ResponsePlayCard>(resp);
-    EXPECT_EQ(resp.id, +TaskID::SELECT_CARD);
+    EXPECT_EQ(resp.GetID(), +TaskID::SELECT_CARD);
     EXPECT_EQ(data->cardIndex(), static_cast<size_t>(10));
 }
 
@@ -226,7 +227,7 @@ TEST(TaskSerializer, CreateResponsePlayMinion)
 {
     TaskMeta resp = Serializer::CreateResponsePlayMinion(10);
     auto data = TaskMeta::ConvertTo<FlatData::ResponsePlayMinion>(resp);
-    EXPECT_EQ(resp.id, +TaskID::SELECT_POSITION);
+    EXPECT_EQ(resp.GetID(), +TaskID::SELECT_POSITION);
     EXPECT_EQ(data->position(), static_cast<size_t>(10));
 }
 
@@ -235,7 +236,7 @@ TEST(TaskSerializer, CreateResponsePlaySpell)
     TaskMeta resp =
         Serializer::CreateResponsePlaySpell(EntityType::ENEMY_FIELD, 10);
     auto data = TaskMeta::ConvertTo<FlatData::ResponsePlaySpell>(resp);
-    EXPECT_EQ(resp.id, +TaskID::SELECT_TARGET);
+    EXPECT_EQ(resp.GetID(), +TaskID::SELECT_TARGET);
     EXPECT_EQ(data->position(), 10);
     EXPECT_EQ(EntityType::_from_integral(data->targetType()),
               +EntityType::ENEMY_FIELD);
@@ -245,7 +246,7 @@ TEST(TaskSerializer, CreateResponseTarget)
 {
     TaskMeta resp = Serializer::CreateResponseTarget(10, 50);
     auto data = TaskMeta::ConvertTo<FlatData::ResponseTarget>(resp);
-    EXPECT_EQ(resp.id, +TaskID::SELECT_TARGET);
+    EXPECT_EQ(resp.GetID(), +TaskID::SELECT_TARGET);
     EXPECT_EQ(data->src(), static_cast<size_t>(10));
     EXPECT_EQ(data->dst(), static_cast<size_t>(50));
 }
@@ -258,7 +259,7 @@ TEST(TaskSerializer, CreatePlayerSetting)
     TaskMeta resp = Serializer::CreatePlayerSetting(player1, player2);
     auto data = TaskMeta::ConvertTo<FlatData::PlayerSetting>(resp);
 
-    EXPECT_EQ(resp.id, +TaskID::PLAYER_SETTING);
+    EXPECT_EQ(resp.GetID(), +TaskID::PLAYER_SETTING);
     EXPECT_EQ(data->player1()->str(), player1);
     EXPECT_EQ(data->player2()->str(), player2);
 }
@@ -287,10 +288,10 @@ TEST(TaskSerializer, CreateGameStatus)
     agent.GetPlayer2().GetHand().emplace_back(new Weapon(poisonedBlade));
 
     TaskMeta meta = Serializer::CreateGameStatus(
-        agent.GetPlayer1(), randTrait.id, randTrait.status);
-    EXPECT_EQ(meta.id, randTrait.id);
-    EXPECT_EQ(meta.status, randTrait.status);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
+        agent.GetPlayer1(), randTrait.GetID(), randTrait.GetStatus());
+    EXPECT_EQ(meta.GetID(), randTrait.GetID());
+    EXPECT_EQ(meta.GetStatus(), randTrait.GetStatus());
+    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
 
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
     EXPECT_EQ(status->currentPlayer(), agent.GetPlayer1().GetID());
