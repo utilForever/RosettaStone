@@ -28,11 +28,6 @@ Character::Character(Card& card) : Entity(card)
     }
 }
 
-Character* Character::Clone() const
-{
-    return new Character(*this);
-}
-
 size_t Character::GetAttack() const
 {
     return m_attack;

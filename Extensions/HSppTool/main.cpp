@@ -21,10 +21,8 @@
 #include <string>
 #include <vector>
 
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 namespace filesystem = std::filesystem;
-#elif defined(HEARTHSTONEPP_LINUX)
-namespace filesystem = std::experimental::filesystem;
 #endif
 
 using namespace Hearthstonepp;

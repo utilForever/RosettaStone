@@ -32,20 +32,21 @@ class Hero : public Character
     //! Default destructor.
     ~Hero();
 
-    //! Copy constructor.
-    Hero(const Hero& hero);
+    //! Deleted copy constructor.
+    Hero(const Hero& hero) = delete;
 
-    //! Move constructor.
-    Hero(Hero&& hero) noexcept;
+    //! Deleted move constructor.
+    Hero(Hero&& hero) = delete;
 
     //! Copy assignment operator.
-    Hero& operator=(const Hero& hero);
+    Hero& operator=(const Hero& hero) = delete;
 
     //! Move assignment operator.
-    Hero& operator=(Hero&& hero) noexcept;
+    Hero& operator=(Hero&& hero) = delete;
 
-    //! Clones member variables.
-    Hero* Clone() const override;
+    //! Returns the presence of weapon.
+    //! \return true if hero has weapon, and false otherwise.
+    bool HasWeapon() const;
 
     //! Returns the value of attack.
     //! \return The value of attack.

@@ -48,9 +48,6 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
-    //! Clones member variables.
-    virtual Entity* Clone() const;
-
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.

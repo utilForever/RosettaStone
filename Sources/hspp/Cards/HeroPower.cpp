@@ -12,9 +12,4 @@ HeroPower::HeroPower(Card& card) : Entity(card)
 {
     // Do nothing
 }
-
-HeroPower* HeroPower::Clone() const
-{
-    return new HeroPower(*this);
-}
 }  // namespace Hearthstonepp

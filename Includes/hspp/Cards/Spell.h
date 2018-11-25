@@ -36,9 +36,6 @@ class Spell : public Entity
 
     //! Default move assignment operator.
     Spell& operator=(Spell&& spell) = default;
-
-    //! Clones member variables.
-    Spell* Clone() const override;
 };
 }  // namespace Hearthstonepp
 

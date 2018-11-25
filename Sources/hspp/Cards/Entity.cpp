@@ -67,11 +67,6 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
-Entity* Entity::Clone() const
-{
-    return new Entity(*this);
-}
-
 int Entity::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())

@@ -39,9 +39,4 @@ void Weapon::SetDurability(size_t durability)
 {
     m_durability = durability;
 }
-
-Weapon* Weapon::Clone() const
-{
-    return new Weapon(*this);
-}
 }  // namespace Hearthstonepp

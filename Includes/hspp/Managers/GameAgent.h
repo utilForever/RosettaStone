@@ -31,7 +31,8 @@ class GameAgent
     //! \param p1Class The class of player 1.
     //! \param p2Class The class of player 2.
     //! \param firstPlayer The first player who starts turn first.
-    GameAgent(CardClass p1Class, CardClass p2Class, PlayerType firstPlayer);
+    GameAgent(CardClass p1Class, CardClass p2Class,
+              PlayerType firstPlayer = PlayerType::PLAYER1);
 
     //! Starts the game agent.
     //! \return The thread that plays the game.

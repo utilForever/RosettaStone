@@ -29,6 +29,5 @@ TEST(DestroyWeaponTask, Run)
 
     MetaData result = destroy.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DESTROY_WEAPON_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().GetHero()->weapon,
-              static_cast<const Weapon*>(nullptr));
+    EXPECT_EQ(agent.GetPlayer1().GetHero()->HasWeapon(), false);
 }

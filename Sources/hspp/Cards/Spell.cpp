@@ -8,8 +8,4 @@
 
 namespace Hearthstonepp
 {
-Spell* Spell::Clone() const
-{
-    return new Spell(*this);
-}
 }  // namespace Hearthstonepp

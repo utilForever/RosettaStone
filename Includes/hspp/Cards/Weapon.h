@@ -43,9 +43,6 @@ class Weapon : public Entity
     //! Default move assignment operator.
     Weapon& operator=(Weapon&& weapon) = default;
 
-    //! Clones member variables.
-    Weapon* Clone() const override;
-
     //! Returns the value of attack.
     //! \return The value of attack.
     virtual size_t GetAttack() const;

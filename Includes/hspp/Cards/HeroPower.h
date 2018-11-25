@@ -40,9 +40,6 @@ class HeroPower : public Entity
 
     //! Default move assignment operator.
     HeroPower& operator=(HeroPower&& power) = default;
-
-    //! Clones member variables.
-    HeroPower* Clone() const override;
 };
 }  // namespace Hearthstonepp
 

@@ -158,7 +158,7 @@ TEST(CombatTask, Weapon)
     tester.Attack(player1.GetHero(), player2.GetField()[0],
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
 
-    EXPECT_EQ(player1.GetHero()->weapon, nullptr);
+    EXPECT_EQ(player1.GetHero()->HasWeapon(), false);
     EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
     EXPECT_EQ(player2.GetField()[0]->health, 2);
 }

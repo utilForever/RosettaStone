@@ -44,9 +44,6 @@ class Character : public Entity
     //! Default move assignment operator.
     Character& operator=(Character&& c) = default;
 
-    //! Clones member variables.
-    Character* Clone() const override;
-
     //! Returns the value of attack.
     //! \return The value of attack.
     virtual size_t GetAttack() const;

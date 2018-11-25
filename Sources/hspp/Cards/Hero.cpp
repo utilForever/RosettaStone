@@ -16,65 +16,12 @@ Hero::Hero(Card& card) : Character(card)
 Hero::~Hero()
 {
     delete weapon;
+    delete heroPower;
 }
 
-Hero::Hero(const Hero& hero) : Character(hero)
+bool Hero::HasWeapon() const
 {
-    delete weapon;
-
-    if (hero.weapon != nullptr)
-    {
-        weapon = hero.weapon->Clone();
-    }
-}
-
-Hero::Hero(Hero&& hero) noexcept : Character(std::move(hero))
-{
-    delete weapon;
-
-    if (hero.weapon != nullptr)
-    {
-        weapon = hero.weapon->Clone();
-    }
-}
-
-Hero& Hero::operator=(const Hero& hero)
-{
-    if (this == &hero)
-    {
-        return *this;
-    }
-
-    delete weapon;
-
-    if (hero.weapon != nullptr)
-    {
-        weapon = hero.weapon->Clone();
-    }
-
-    return *this;
-}
-
-Hero& Hero::operator=(Hero&& hero) noexcept
-{
-    if (this == &hero)
-    {
-        return *this;
-    }
-
-    delete weapon;
-
-    if (hero.weapon != nullptr)
-    {
-        weapon = hero.weapon->Clone();
-    }
-
-    return *this;
-}
-
-Hero* Hero::Clone() const
-{
-    return new Hero(*this);
+    return weapon != nullptr;
 }
 
 size_t Hero::GetAttack() const

@@ -16,20 +16,16 @@
 #include <hspp/Managers/GameInterface.h>
 
 #include <cctype>
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <filesystem>
-#elif defined(HEARTHSTONEPP_LINUX)
-#include <experimental/filesystem>
 #elif defined(HEARTHSTONEPP_MACOSX)
 #include <sys/stat.h>
 #endif
 #include <fstream>
 #include <iostream>
 
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 namespace filesystem = std::filesystem;
-#elif defined(HEARTHSTONEPP_LINUX)
-namespace filesystem = std::experimental::filesystem;
 #endif
 
 namespace Hearthstonepp
@@ -218,7 +214,7 @@ void Console::SimulateGame() const
     Deck* deck1 = p1->GetDeck(deckIndex1);
     Deck* deck2 = p2->GetDeck(deckIndex2);
 
-    GameAgent agent(deck1->GetClass(), deck2->GetClass(), PlayerType::PLAYER1);
+    GameAgent agent(deck1->GetClass(), deck2->GetClass());
     agent.GetPlayer1().SetNickname(p1->GetNickname());
     agent.GetPlayer2().SetNickname(p2->GetNickname());
     agent.GetPlayer1().SetDeck(deck1);
