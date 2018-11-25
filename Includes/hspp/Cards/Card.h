@@ -20,6 +20,16 @@
 #include <string>
 #include <vector>
 
+#if defined(HEARTHSTONEPP_MACOSX)
+template <typename T>
+using optional = std::experimental::optional<T>;
+inline constexpr auto nullopt = std::experimental::nullopt;
+#elif defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+template <typename T>
+using optional = std::optional<T>;
+inline constexpr auto nullopt = std::nullopt;
+#endif
+
 namespace Hearthstonepp
 {
 class Power;
@@ -79,17 +89,11 @@ class Card
     std::string name;
     std::string text;
 
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
-    std::optional<size_t> attack;
-    std::optional<size_t> health;
-    std::optional<size_t> spellDamage;
-    std::optional<size_t> durability;
-#elif defined(HEARTHSTONEPP_MACOSX)
-    std::experimental::optional<size_t> attack;
-    std::experimental::optional<size_t> health;
-    std::experimental::optional<size_t> spellDamage;
-    std::experimental::optional<size_t> durability;
-#endif
+    optional<size_t> attack;
+    optional<size_t> health;
+    optional<size_t> spellDamage;
+    optional<size_t> durability;
+
     size_t cost = 0;
 
     std::vector<GameTag> mechanics;

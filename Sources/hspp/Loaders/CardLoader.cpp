@@ -130,31 +130,20 @@ void CardLoader::Load(std::vector<Card>& cards) const
         card.text = text;
         card.isCollectible = collectible;
 
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
-        card.attack =
-            (attack != -1) ? std::optional<size_t>(attack) : std::nullopt;
-        card.health =
-            (health != -1) ? std::optional<size_t>(health) : std::nullopt;
-        card.durability = (durability != -1) ? std::optional<size_t>(durability)
-                                             : std::nullopt;
-        card.spellDamage = (spellDamage != -1)
-                               ? std::optional<size_t>(spellDamage)
-                               : std::nullopt;
-#elif defined(HEARTHSTONEPP_MACOSX)
         card.attack = (attack != -1)
-                          ? std::experimental::optional<size_t>(attack)
-                          : std::experimental::nullopt;
+                          ? optional<size_t>(attack)
+                          : nullopt;
         card.health = (health != -1)
-                          ? std::experimental::optional<size_t>(health)
-                          : std::experimental::nullopt;
+                          ? optional<size_t>(health)
+                          : nullopt;
         card.durability = (durability != -1)
-                              ? std::experimental::optional<size_t>(durability)
-                              : std::experimental::nullopt;
+                              ? optional<size_t>(durability)
+                              : nullopt;
         card.spellDamage =
             (spellDamage != -1)
-                ? std::experimental::optional<size_t>(spellDamage)
-                : std::experimental::nullopt;
-#endif
+                ? optional<size_t>(spellDamage)
+                : nullopt;
+
         card.cost = cost;
         card.mechanics = mechanics;
         card.playRequirements = playRequirements;

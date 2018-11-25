@@ -16,14 +16,8 @@ Character::Character(Card& card) : Entity(card)
 {
     if (!card.id.empty())
     {
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
-        m_attack = card.attack.has_value() ? card.attack.value() : 0;
-        health =
-            card.health.has_value() ? static_cast<int>(card.health.value()) : 0;
-#elif defined(HEARTHSTONEPP_MACOSX)
-        m_attack = card.attack.value_or(0);
-        health = static_cast<int>(card.health.value_or(0));
-#endif
+        m_attack = card.attack ? *card.attack : 0;
+        health = card.health ? static_cast<int>(*card.health) : 0;
         maxHealth = health;
     }
 }

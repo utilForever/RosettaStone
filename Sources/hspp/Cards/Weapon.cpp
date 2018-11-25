@@ -11,13 +11,8 @@ namespace Hearthstonepp
 {
 Weapon::Weapon(Card& card) : Entity(card)
 {
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
-    m_attack = card.attack.has_value() ? card.attack.value() : 0;
-    m_durability = card.durability.has_value() ? card.durability.value() : 0;
-#elif defined(HEARTHSTONEPP_MACOSX)
-    m_attack = card.attack.value_or(0);
-    m_durability = card.durability.value_or(0);
-#endif
+    m_attack = card.attack ? *card.attack : 0;
+    m_durability = card.durability ? *card.durability : 0;
 }
 
 size_t Weapon::GetAttack() const
