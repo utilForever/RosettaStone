@@ -49,13 +49,48 @@ class Player
     //! Move assignment operator.
     Player& operator=(Player&& p) = delete;
 
-    //! Returns the nickname of player.
-    //! \return The nickname of player.
+    //! Returns player nickname.
+    //! \return player nickname.
     std::string GetNickname() const;
 
-    //! Sets the nickname of player.
-    //! \param nickname The nickname of player.
+    //! Sets player nickname.
+    //! \param nickname player nickname.
     void SetNickname(std::string nickname);
+
+    //! Returns player ID.
+    //! \return Player ID.
+    BYTE GetID() const;
+
+    //! Sets player ID.
+    //! \param id Player ID.
+    void SetID(BYTE id);
+
+    //! Returns available mana that player has.
+    //! \return Available mana that player has.
+    BYTE GetAvailableMana() const;
+
+    //! Sets available mana that player has.
+    //! \param mana Available mana that player has.
+    void SetAvailableMana(BYTE mana);
+
+    //! Returns maximum mana that player has.
+    //! \return Maximum mana that player has.
+    BYTE GetMaximumMana() const;
+
+    //! Sets maximum mana that player has.
+    //! \param mana Maximum mana that player has.
+    void SetMaximumMana(BYTE mana);
+
+    //! Returns the number of drawn card that causes fatigue after a player has
+    //! exhausted their deck.
+    //! \return The number of drawn card that causes fatigue after a player has
+    //! exhausted their deck.
+    BYTE GetNumCardAfterExhaust() const;
+
+    //! Sets the number of drawn card that causes fatigue after a player has
+    //! exhausted their deck.
+    //! \param numCard The number of drawn card.
+    void SetNumCardAfterExhaust(BYTE numCard);
 
     //! Returns the game agent.
     //! \return The game agent.
@@ -84,11 +119,6 @@ class Player
 
     Hero* hero = nullptr;
 
-    BYTE id = 0;
-    BYTE totalMana = 0;
-    BYTE existMana = 0;
-    BYTE exhausted = 0;
-
     // Card storage
     std::vector<Entity*> cards;
 
@@ -103,6 +133,11 @@ class Player
     void FreeMemory();
 
     std::string m_nickname;
+    BYTE m_id = 0;
+
+    BYTE m_availableMana = 0;
+    BYTE m_maximumMana = 0;
+    BYTE m_numCardAfterExhaust = 0;
 
     GameAgent* m_gameAgent = nullptr;
     Player* m_opponent = nullptr;

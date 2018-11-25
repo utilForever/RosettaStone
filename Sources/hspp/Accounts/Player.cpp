@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp
 {
-Player::Player() : id(USER_INVALID)
+Player::Player() : m_id(USER_INVALID)
 {
     cards.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
     field.reserve(FIELD_SIZE);
@@ -30,6 +30,46 @@ std::string Player::GetNickname() const
 void Player::SetNickname(std::string nickname)
 {
     m_nickname = nickname;
+}
+
+BYTE Player::GetID() const
+{
+    return m_id;
+}
+
+void Player::SetID(BYTE id)
+{
+    m_id = id;
+}
+
+BYTE Player::GetAvailableMana() const
+{
+    return m_availableMana;
+}
+
+void Player::SetAvailableMana(BYTE mana)
+{
+    m_availableMana = mana;
+}
+
+BYTE Player::GetMaximumMana() const
+{
+    return m_maximumMana;
+}
+
+void Player::SetMaximumMana(BYTE mana)
+{
+    m_maximumMana = mana;
+}
+
+BYTE Player::GetNumCardAfterExhaust() const
+{
+    return m_numCardAfterExhaust;
+}
+
+void Player::SetNumCardAfterExhaust(BYTE numCard)
+{
+    m_numCardAfterExhaust = numCard;
 }
 
 GameAgent& Player::GetGameAgent() const
@@ -76,7 +116,7 @@ void Player::SetDeck(Deck* deck)
         }
 
         cards.emplace_back(entity);
-    }    
+    }
 }
 
 void Player::AddHeroAndPower(Card heroCard, Card powerCard)
