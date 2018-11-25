@@ -29,7 +29,7 @@ MetaData MulliganTask::Impl(Player& player)
     TaskMeta serialized;
 
     // Get mulligan input from Interface
-    m_requirement.Interact(player.id, serialized);
+    m_requirement.Interact(player.GetID(), serialized);
 
     using RequireTaskMeta = FlatData::ResponseMulligan;
     const auto& buffer = serialized.GetBuffer();

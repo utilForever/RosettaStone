@@ -43,7 +43,7 @@ MetaData PlayCardTask::Impl(Player& player)
         TaskMeta serialized;
 
         // Get response from GameInterface
-        m_requirement.Interact(player.id, serialized);
+        m_requirement.Interact(player.GetID(), serialized);
 
         using RequireTaskMeta = FlatData::ResponsePlayCard;
         const auto& buffer = serialized.GetBuffer();
@@ -64,7 +64,7 @@ MetaData PlayCardTask::Impl(Player& player)
     }
 
     // Verify mana is sufficient
-    if (player.hand[handIndex]->card->cost > player.existMana)
+    if (player.hand[handIndex]->card->cost > player.GetAvailableMana())
     {
         return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
     }

@@ -20,8 +20,8 @@ TaskID PlayerSettingTask::GetTaskID() const
 
 MetaData PlayerSettingTask::Impl(Player& player)
 {
-    player.id = 0;
-    player.GetOpponent().id = 1;
+    player.SetID(0);
+    player.GetOpponent().SetID(1);
 
     TaskMeta setting = Serializer::CreatePlayerSetting(
         player.GetNickname(), player.GetOpponent().GetNickname());

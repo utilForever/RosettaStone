@@ -166,7 +166,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
 
     TaskMeta serialized;
     // Get targeting response from game interface
-    m_requirement.Interact(player.id, serialized);
+    m_requirement.Interact(player.GetID(), serialized);
 
     // Get the source and the target
     const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);

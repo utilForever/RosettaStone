@@ -236,8 +236,9 @@ TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status)
     std::transform(target.begin(), target.end(), result.begin(), makeOffset);
 
     const auto gameStatus = FlatData::CreateGameStatus(
-        builder, player.id, player.GetOpponent().id, player.existMana,
-        player.GetOpponent().existMana, CreateEntity(builder, player.hero),
+        builder, player.GetID(), player.GetOpponent().GetID(),
+        player.GetAvailableMana(), player.GetOpponent().GetAvailableMana(),
+        CreateEntity(builder, player.hero),
         CreateEntity(builder, player.GetOpponent().hero), result[0],
         makeOffset(player.hand), result[1],
         static_cast<BYTE>(player.GetOpponent().hand.size()),
@@ -245,7 +246,7 @@ TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status)
         static_cast<BYTE>(player.GetOpponent().cards.size()));
 
     builder.Finish(gameStatus);
-    return TaskMeta(TaskMetaTrait(taskID, status, player.id), builder.GetSize(),
-                    builder.GetBufferPointer());
+    return TaskMeta(TaskMetaTrait(taskID, status, player.GetID()),
+                    builder.GetSize(), builder.GetBufferPointer());
 }
 }  // namespace Hearthstonepp::Serializer

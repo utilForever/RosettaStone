@@ -9,7 +9,7 @@
 namespace Hearthstonepp::BasicTasks
 {
 ModifyManaTask::ModifyManaTask(ManaOperator numMode, ManaType manaMode,
-                               BYTE num)
+                               size_t num)
     : m_numMode(numMode), m_manaMode(manaMode), m_num(num)
 {
     // Do Nothing
@@ -22,21 +22,21 @@ TaskID ModifyManaTask::GetTaskID() const
 
 MetaData ModifyManaTask::Impl(Player& player)
 {
-    const auto getMana = [](Player& p, ManaType mode) -> BYTE& {
-        if (mode == ManaType::EXIST)
+    const auto getMana = [](Player& p, ManaType mode) -> size_t {
+        if (mode == ManaType::AVAILABLE)
         {
-            return p.existMana;
+            return p.GetAvailableMana();
         }
 
-        if (mode == ManaType::TOTAL)
+        if (mode == ManaType::MAXIMUM)
         {
-            return p.totalMana;
+            return p.GetMaximumMana();
         }
 
         throw std::runtime_error("ModifyMana: Invalid mana mode");
     };
 
-    BYTE& mana = getMana(player, m_manaMode);
+    size_t mana = getMana(player, m_manaMode);
     switch (m_numMode)
     {
         case ManaOperator::ADD:
@@ -51,7 +51,7 @@ MetaData ModifyManaTask::Impl(Player& player)
     }
 
     // Clamps a mana cost to a given range (min:0 ~ max:10)
-    mana = std::clamp(mana, static_cast<BYTE>(0), static_cast<BYTE>(10));
+    mana = std::clamp(mana, static_cast<size_t>(0), static_cast<size_t>(10));
 
     return MetaData::MODIFY_MANA_SUCCESS;
 }

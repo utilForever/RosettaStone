@@ -38,14 +38,12 @@ MetaData DrawTask::Impl(Player& player)
 
         // Sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
         const auto fatigueDamage = static_cast<int>(
-            player.exhausted * numDrawAfterFatigue +
+            player.GetNumCardAfterExhaust() * numDrawAfterFatigue +
             numDrawAfterFatigue * (numDrawAfterFatigue + 1) / 2);
-        const int remainHealth =
-            static_cast<int>(player.hero->health) - fatigueDamage;
 
-        player.hero->health =
-            remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0;
-        player.exhausted += static_cast<BYTE>(numDrawAfterFatigue);
+        player.hero->health = player.hero->health - fatigueDamage;
+        player.SetNumCardAfterExhaust(static_cast<BYTE>(
+            player.GetNumCardAfterExhaust() + numDrawAfterFatigue));
 
         num = deck.size();
         result = MetaData::DRAW_EXHAUST;
@@ -79,7 +77,7 @@ MetaData DrawTask::Impl(Player& player)
         }
 
         // Send burnt cards to GameInterface
-        const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.id);
+        const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.GetID());
         player.GetGameAgent().NotifyToTaskAgent(
             Serializer::CreateEntityVector(trait, burnt));
     }

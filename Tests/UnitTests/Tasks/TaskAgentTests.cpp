@@ -56,8 +56,8 @@ TEST(TaskAgent, RunSingleTask)
     TaskAgent& taskAgent = agent.GetTaskAgent();
 
     TestTask task(TaskID::COMBAT, [](Player& p) -> MetaData {
-        p.id = 100;
-        p.GetOpponent().id = 200;
+        p.SetID(100);
+        p.GetOpponent().SetID(200);
 
         return MetaData::COMBAT;
     });
@@ -71,8 +71,8 @@ TEST(TaskAgent, RunSingleTask)
 
     EXPECT_EQ(read, ret);
 
-    EXPECT_EQ(agent.GetPlayer1().id, 100);
-    EXPECT_EQ(agent.GetPlayer2().id, 200);
+    EXPECT_EQ(agent.GetPlayer1().GetID(), 100);
+    EXPECT_EQ(agent.GetPlayer2().GetID(), 200);
 
     EXPECT_EQ(read.id, +TaskID::COMBAT);
     EXPECT_EQ(read.status, MetaData::COMBAT);
@@ -88,19 +88,19 @@ TEST(TaskAgent, RunSingleTask)
     EXPECT_EQ(read.id, read2.id);
     EXPECT_EQ(read.status, read2.status);
 
-    EXPECT_EQ(agent.GetPlayer1().id, 200);
-    EXPECT_EQ(agent.GetPlayer2().id, 100);
+    EXPECT_EQ(agent.GetPlayer1().GetID(), 200);
+    EXPECT_EQ(agent.GetPlayer2().GetID(), 100);
 }
 
 TEST(TaskAgent, RunMultiTasks)
 {
     TestTask task1(TaskID::SWAP, [](Player& p) -> MetaData {
-        p.id = 100;
+        p.SetID(100);
         return MetaData::SWAP;
     });
 
     TestTask task2(TaskID::COMBAT, [](Player& p) -> MetaData {
-        p.GetOpponent().id = 200;
+        p.GetOpponent().SetID(200);
         return MetaData::COMBAT;
     });
 
@@ -116,8 +116,8 @@ TEST(TaskAgent, RunMultiTasks)
     EXPECT_EQ(ret, read);
     EXPECT_EQ(ret.id, +TaskID::TASK_VECTOR);
 
-    EXPECT_EQ(agent.GetPlayer1().id, 100);
-    EXPECT_EQ(agent.GetPlayer2().id, 200);
+    EXPECT_EQ(agent.GetPlayer1().GetID(), 100);
+    EXPECT_EQ(agent.GetPlayer2().GetID(), 200);
 
     const auto& buffer = ret.GetBuffer();
     const auto taskTuple =
@@ -152,7 +152,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
         return TestTask(trait.id,
                         [status = trait.status,
                          userID = trait.userID](Player& p) -> MetaData {
-                            p.id = userID;
+                            p.SetID(userID);
                             return status;
                         });
     };

@@ -18,8 +18,10 @@ TEST(BasicCardSet, EX1_306)
 
     Player& currentPlayer = agent.GetCurrentPlayer();
     Player& opponentPlayer = agent.GetCurrentPlayer().GetOpponent();
-    currentPlayer.totalMana = currentPlayer.existMana = 10;
-    opponentPlayer.totalMana = opponentPlayer.existMana = 10;
+    currentPlayer.SetMaximumMana(10);
+    currentPlayer.SetAvailableMana(10);
+    opponentPlayer.SetMaximumMana(10);
+    opponentPlayer.SetAvailableMana(10);
 
     const auto card1 = Generic::DrawCard(
         currentPlayer, Cards::GetInstance().FindCardByName("Succubus"));

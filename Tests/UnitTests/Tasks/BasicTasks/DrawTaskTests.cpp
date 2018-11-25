@@ -69,7 +69,7 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
     EXPECT_EQ(p.hand.size(), static_cast<size_t>(0));
     EXPECT_EQ(p.cards.size(), static_cast<size_t>(0));
-    EXPECT_EQ(p.exhausted, 3);
+    EXPECT_EQ(p.GetNumCardAfterExhaust(), 3);
     // Health: 30 - (1 + 2 + 3)
     EXPECT_EQ(p.hero->health, static_cast<size_t>(24));
 
@@ -84,7 +84,7 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p.hand.size(), static_cast<size_t>(1));
     EXPECT_EQ(p.hand[0]->card->id, "card1");
     EXPECT_EQ(p.cards.size(), static_cast<size_t>(0));
-    EXPECT_EQ(p.exhausted, 5);
+    EXPECT_EQ(p.GetNumCardAfterExhaust(), 5);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
     EXPECT_EQ(p.hero->health, static_cast<size_t>(15));
 }
@@ -127,7 +127,7 @@ TEST(DrawTask, RunOverDraw)
     agent.GetTaskMeta(burnt);
     EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
     EXPECT_EQ(burnt.status, MetaData::DRAW_OVERDRAW);
-    EXPECT_EQ(burnt.userID, p.id);
+    EXPECT_EQ(burnt.userID, p.GetID());
 
     auto burntCard =
         TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
@@ -178,7 +178,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     agent.GetTaskMeta(burnt);
     EXPECT_EQ(burnt.id, +TaskID::OVERDRAW);
     EXPECT_EQ(burnt.status, MetaData::DRAW_EXHAUST_OVERDRAW);
-    EXPECT_EQ(burnt.userID, p.id);
+    EXPECT_EQ(burnt.userID, p.GetID());
 
     auto burntCard =
         TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();

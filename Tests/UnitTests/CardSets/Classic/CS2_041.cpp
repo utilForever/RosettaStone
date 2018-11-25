@@ -18,8 +18,10 @@ TEST(ClassicCardSet, CS2_041)
 
     Player& currentPlayer = agent.GetCurrentPlayer();
     Player& opponentPlayer = agent.GetCurrentPlayer().GetOpponent();
-    currentPlayer.totalMana = currentPlayer.existMana = 10;
-    opponentPlayer.totalMana = opponentPlayer.existMana = 10;
+    currentPlayer.SetMaximumMana(10);
+    currentPlayer.SetAvailableMana(10);
+    opponentPlayer.SetMaximumMana(10);
+    opponentPlayer.SetAvailableMana(10);
 
     const auto card1 = Generic::DrawCard(
         currentPlayer,
@@ -45,10 +47,10 @@ TEST(ClassicCardSet, CS2_041)
     EXPECT_EQ(opponentPlayer.field[0]->card->name, "Stonetusk Boar");
 
     GameAgent::RunTask(opponentPlayer, CombatTask(taskAgent, card3, card1));
-    EXPECT_EQ(currentPlayer.field[0]->health, 1u);
+    EXPECT_EQ(currentPlayer.field[0]->health, 1);
     EXPECT_EQ(opponentPlayer.field.size(), 0u);
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card2, -1, card1));
-    EXPECT_EQ(currentPlayer.field[0]->health, 2u);
+    EXPECT_EQ(currentPlayer.field[0]->health, 2);
     EXPECT_EQ(currentPlayer.field[0]->GetGameTag(GameTag::TAUNT), 1);
 }

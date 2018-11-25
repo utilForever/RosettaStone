@@ -268,11 +268,11 @@ TEST(TaskSerializer, CreateGameStatus)
     GameAgent agent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1);
     const TaskMetaTrait randTrait = GenerateRandomTrait();
 
-    agent.GetPlayer1().id = 100;
-    agent.GetPlayer2().id = 200;
+    agent.GetPlayer1().SetID(100);
+    agent.GetPlayer2().SetID(200);
 
-    agent.GetPlayer1().existMana = 10;
-    agent.GetPlayer2().existMana = 20;
+    agent.GetPlayer1().SetAvailableMana(10);
+    agent.GetPlayer2().SetAvailableMana(20);
 
     Cards& instance = Cards::GetInstance();
 
@@ -290,13 +290,13 @@ TEST(TaskSerializer, CreateGameStatus)
         agent.GetPlayer1(), randTrait.id, randTrait.status);
     EXPECT_EQ(meta.id, randTrait.id);
     EXPECT_EQ(meta.status, randTrait.status);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().id);
+    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
 
     auto status = TaskMeta::ConvertTo<FlatData::GameStatus>(meta);
-    EXPECT_EQ(status->currentPlayer(), agent.GetPlayer1().id);
-    EXPECT_EQ(status->opponentPlayer(), agent.GetPlayer2().id);
-    EXPECT_EQ(status->currentMana(), agent.GetPlayer1().existMana);
-    EXPECT_EQ(status->opponentMana(), agent.GetPlayer2().existMana);
+    EXPECT_EQ(status->currentPlayer(), agent.GetPlayer1().GetID());
+    EXPECT_EQ(status->opponentPlayer(), agent.GetPlayer2().GetID());
+    EXPECT_EQ(status->currentMana(), agent.GetPlayer1().GetAvailableMana());
+    EXPECT_EQ(status->opponentMana(), agent.GetPlayer2().GetAvailableMana());
     EXPECT_EQ(status->currentHero()->card()->id()->str(), "HERO_06");
     EXPECT_EQ(status->opponentHero()->card()->id()->str(), "HERO_03");
     EXPECT_EQ(status->currentField()->size(), static_cast<size_t>(1));

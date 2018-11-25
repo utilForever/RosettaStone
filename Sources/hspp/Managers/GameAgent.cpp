@@ -215,9 +215,9 @@ void GameAgent::PrepareMainPhase()
     // 4. Initialize attack count of minions and hero.
     m_taskAgent.RunMulti(
         meta, GetCurrentPlayer(), BasicTasks::DrawTask(1),
-        BasicTasks::ModifyManaTask(ManaOperator::ADD, ManaType::TOTAL, 1),
-        BasicTasks::ModifyManaTask(ManaOperator::SET, ManaType::EXIST,
-                                   m_player1.totalMana + 1),
+        BasicTasks::ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
+        BasicTasks::ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
+                                   m_player1.GetMaximumMana() + 1),
         BasicTasks::InitAttackCountTask());
 }
 
@@ -234,7 +234,7 @@ bool GameAgent::ProcessMainMenu()
 
     // Get menu response from game interface
     BasicTasks::Requirement(TaskID::SELECT_MENU, m_taskAgent)
-        .Interact(m_player1.id, meta);
+        .Interact(m_player1.GetID(), meta);
 
     // Interface pass menu by the status of TaskMeta
     const auto menu = static_cast<status_t>(meta.status);

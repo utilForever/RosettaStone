@@ -23,7 +23,7 @@ TEST(BriefTask, Run)
     BriefTask brief;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
-    agent.GetPlayer1().id = 100;
+    agent.GetPlayer1().SetID(100);
 
     MetaData result = brief.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::BRIEF);
@@ -33,5 +33,5 @@ TEST(BriefTask, Run)
     EXPECT_EQ(result, MetaData::BRIEF);
     EXPECT_EQ(meta.id, +TaskID::BRIEF);
     EXPECT_EQ(meta.status, MetaData::BRIEF);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().id);
+    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
 }

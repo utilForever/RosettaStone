@@ -23,7 +23,7 @@ TEST(GameEndTask, Run)
     GameEndTask gameEnd;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
-    agent.GetPlayer1().id = 100;
+    agent.GetPlayer1().SetID(100);
 
     MetaData result = gameEnd.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::GAME_END);
@@ -33,5 +33,5 @@ TEST(GameEndTask, Run)
     EXPECT_EQ(result, MetaData::GAME_END);
     EXPECT_EQ(meta.id, +TaskID::GAME_END);
     EXPECT_EQ(meta.status, MetaData::GAME_END);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().id);
+    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
 }

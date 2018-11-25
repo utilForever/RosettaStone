@@ -23,7 +23,7 @@ TEST(InitAttackCountTask, Run)
     InitAttackCountTask init;
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
-    agent.GetPlayer1().id = 100;
+    agent.GetPlayer1().SetID(100);
 
     MetaData result = init.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
@@ -33,7 +33,7 @@ TEST(InitAttackCountTask, Run)
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
     EXPECT_EQ(meta.id, +TaskID::INIT_ATTACK_COUNT);
     EXPECT_EQ(meta.status, MetaData::INIT_ATTACK_COUNT_SUCCESS);
-    EXPECT_EQ(meta.userID, agent.GetPlayer1().id);
+    EXPECT_EQ(meta.userID, agent.GetPlayer1().GetID());
 }
 
 TEST(InitAttackCountTask, RunFrozen)

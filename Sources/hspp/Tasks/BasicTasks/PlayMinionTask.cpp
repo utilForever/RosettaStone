@@ -39,7 +39,7 @@ MetaData PlayMinionTask::Impl(Player& player)
         TaskMeta meta;
 
         // Get position response from GameInterface
-        m_requirement.Interact(player.id, meta);
+        m_requirement.Interact(player.GetID(), meta);
 
         using RequireTaskMeta = FlatData::ResponsePlayMinion;
         const auto& buffer = meta.GetBuffer();
@@ -84,7 +84,8 @@ MetaData PlayMinionTask::Impl(Player& player)
 
     const auto cost = static_cast<BYTE>(m_source->card->cost);
     const MetaData modified =
-        ModifyManaTask(ManaOperator::SUB, ManaType::EXIST, cost).Run(player);
+        ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
+            .Run(player);
 
     // Process PowerTasks
     if (m_source->card->power != nullptr)
