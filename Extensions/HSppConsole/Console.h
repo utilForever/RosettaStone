@@ -16,6 +16,7 @@
 #include <clara.hpp>
 
 #include <array>
+#include <cctype>
 #include <functional>
 #if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <optional>
