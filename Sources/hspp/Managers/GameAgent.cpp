@@ -277,8 +277,8 @@ void GameAgent::Combat()
 
 bool GameAgent::IsGameOver() const
 {
-    const size_t healthCurrent = m_player1.GetHero()->health;
-    const size_t healthOpponent = m_player2.GetHero()->health;
+    const int healthCurrent = m_player1.GetHero()->health;
+    const int healthOpponent = m_player2.GetHero()->health;
 
     return healthCurrent <= 0 || healthOpponent <= 0;
 }
