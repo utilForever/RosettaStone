@@ -15,8 +15,8 @@ TaskID DestroyWeaponTask::GetTaskID() const
 
 MetaData DestroyWeaponTask::Impl(Player& player)
 {
-    delete player.hero->weapon;
-    player.hero->weapon = nullptr;
+    delete player.GetHero()->weapon;
+    player.GetHero()->weapon = nullptr;
 
     return MetaData::DESTROY_WEAPON_SUCCESS;
 }

@@ -35,8 +35,8 @@ TEST(BasicCardSet, EX1_066)
     EXPECT_EQ(opponentPlayer.hand[0]->card->name, "Acidic Swamp Ooze");
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
-    EXPECT_NE(currentPlayer.hero->weapon, static_cast<Weapon*>(nullptr));
+    EXPECT_NE(currentPlayer.GetHero()->weapon, static_cast<Weapon*>(nullptr));
 
     GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
-    EXPECT_EQ(currentPlayer.hero->weapon, static_cast<Weapon*>(nullptr));
+    EXPECT_EQ(currentPlayer.GetHero()->weapon, static_cast<Weapon*>(nullptr));
 }

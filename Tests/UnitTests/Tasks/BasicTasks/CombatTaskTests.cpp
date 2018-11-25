@@ -87,11 +87,11 @@ TEST(CombatTask, Default)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    tester.Attack(player1.field[0], player2.hero, MetaData::COMBAT_SUCCESS,
+    tester.Attack(player1.field[0], player2.GetHero(), MetaData::COMBAT_SUCCESS,
                   PlayerType::PLAYER1);
     EXPECT_EQ(player1.field[0]->health, player1.field[0]->maxHealth);
-    EXPECT_EQ(player2.hero->health,
-              player2.hero->maxHealth - player1.field[0]->GetAttack());
+    EXPECT_EQ(player2.GetHero()->health,
+              player2.GetHero()->maxHealth - player1.field[0]->GetAttack());
 
     tester.InitAttackCount(PlayerType::PLAYER2);
 
@@ -139,26 +139,26 @@ TEST(CombatTask, Weapon)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion1", 1, 10);
 
-    player1.hero->weapon = new Weapon();
-    player1.hero->weapon->SetAttack(4);
-    player1.hero->weapon->SetDurability(2);
+    player1.GetHero()->weapon = new Weapon();
+    player1.GetHero()->weapon->SetAttack(4);
+    player1.GetHero()->weapon->SetDurability(2);
     player2.field.emplace_back(new Minion(card));
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    tester.Attack(player1.hero, player2.field[0], MetaData::COMBAT_SUCCESS,
+    tester.Attack(player1.GetHero(), player2.field[0], MetaData::COMBAT_SUCCESS,
                   PlayerType::PLAYER1);
 
-    EXPECT_EQ(player1.hero->weapon->GetDurability(), 1);
+    EXPECT_EQ(player1.GetHero()->weapon->GetDurability(), 1);
     EXPECT_EQ(player2.field[0]->health, 6);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    tester.Attack(player1.hero, player2.field[0], MetaData::COMBAT_SUCCESS,
+    tester.Attack(player1.GetHero(), player2.field[0], MetaData::COMBAT_SUCCESS,
                   PlayerType::PLAYER1);
 
-    EXPECT_EQ(player1.hero->weapon, nullptr);
-    EXPECT_EQ(player1.hero->GetAttack(), 0);
+    EXPECT_EQ(player1.GetHero()->weapon, nullptr);
+    EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
     EXPECT_EQ(player2.field[0]->health, 2);
 }
 

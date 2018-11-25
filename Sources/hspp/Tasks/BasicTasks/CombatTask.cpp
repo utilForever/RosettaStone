@@ -43,11 +43,12 @@ MetaData CombatTask::Impl(Player& player)
 
     auto source = (sourceIndex > 0)
                       ? dynamic_cast<Character*>(player.field[sourceIndex - 1])
-                      : dynamic_cast<Character*>(player.hero);
-    auto target = (targetIndex > 0)
-                      ? dynamic_cast<Character*>(
-                            player.GetOpponent().field[targetIndex - 1])
-                      : dynamic_cast<Character*>(player.GetOpponent().hero);
+                      : dynamic_cast<Character*>(player.GetHero());
+    auto target =
+        (targetIndex > 0)
+            ? dynamic_cast<Character*>(
+                  player.GetOpponent().field[targetIndex - 1])
+            : dynamic_cast<Character*>(player.GetOpponent().GetHero());
 
     if (!source->CanAttack() ||
         !source->IsValidAttackTarget(player.GetOpponent(), target))
@@ -135,7 +136,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
     {
         BYTE sourceIndex, targetIndex;
 
-        if (m_source == player.hero)
+        if (m_source == player.GetHero())
         {
             sourceIndex = 0;
         }
@@ -149,7 +150,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
 
         Player& opponent = player.GetOpponent();
 
-        if (m_target == opponent.hero)
+        if (m_target == opponent.GetHero())
         {
             targetIndex = 0;
         }

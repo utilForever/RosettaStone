@@ -25,10 +25,10 @@ TEST(DestroyWeaponTask, Run)
 
     Card card;
     card.id = "weapon1";
-    agent.GetPlayer1().hero->weapon = new Weapon(card);
+    agent.GetPlayer1().GetHero()->weapon = new Weapon(card);
 
     MetaData result = destroy.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DESTROY_WEAPON_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().hero->weapon,
+    EXPECT_EQ(agent.GetPlayer1().GetHero()->weapon,
               static_cast<const Weapon*>(nullptr));
 }

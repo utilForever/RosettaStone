@@ -42,6 +42,11 @@ void Player::SetID(BYTE id)
     m_id = id;
 }
 
+Hero* Player::GetHero() const
+{
+    return m_hero;
+}
+
 BYTE Player::GetAvailableMana() const
 {
     return m_availableMana;
@@ -121,8 +126,8 @@ void Player::SetDeck(Deck* deck)
 
 void Player::AddHeroAndPower(Card heroCard, Card powerCard)
 {
-    hero = new Hero(heroCard);
-    hero->heroPower = new HeroPower(powerCard);
+    m_hero = new Hero(heroCard);
+    m_hero->heroPower = new HeroPower(powerCard);
 }
 
 void Player::FreeMemory()
@@ -157,6 +162,6 @@ void Player::FreeMemory()
     }
     usedMinion.clear();
 
-    delete hero;
+    delete m_hero;
 }
 }  // namespace Hearthstonepp

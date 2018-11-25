@@ -26,7 +26,7 @@ void InitAttackCountTask::ProcessMyField(Player& my)
 {
     // Add minions in field and hero
     std::vector<Character*> characters = my.field;
-    characters.emplace_back(my.hero);
+    characters.emplace_back(my.GetHero());
 
     for (auto& character : characters)
     {

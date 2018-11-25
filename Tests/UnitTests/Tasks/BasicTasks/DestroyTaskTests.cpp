@@ -48,11 +48,11 @@ TEST(DestroyTask, Run)
 
     // Destroy Target Weapon
     Card weaponCard;
-    player2.hero->weapon = new Weapon(weaponCard);
+    player2.GetHero()->weapon = new Weapon(weaponCard);
 
     DestroyTask task3(EntityType::ENEMY_WEAPON, nullptr, nullptr);
 
     MetaData result3 = task3.Run(player1);
     EXPECT_EQ(result3, MetaData::DESTROY_WEAPON_SUCCESS);
-    EXPECT_EQ(player2.hero->weapon, static_cast<const Weapon*>(nullptr));
+    EXPECT_EQ(player2.GetHero()->weapon, static_cast<const Weapon*>(nullptr));
 }

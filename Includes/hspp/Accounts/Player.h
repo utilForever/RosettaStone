@@ -65,6 +65,10 @@ class Player
     //! \param id Player ID.
     void SetID(BYTE id);
 
+    //! Returns hero of player.
+    //! \return Hero of player.
+    Hero* GetHero() const;
+
     //! Returns available mana that player has.
     //! \return Available mana that player has.
     BYTE GetAvailableMana() const;
@@ -117,8 +121,6 @@ class Player
     //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card heroCard, Card powerCard);
 
-    Hero* hero = nullptr;
-
     // Card storage
     std::vector<Entity*> cards;
 
@@ -134,6 +136,8 @@ class Player
 
     std::string m_nickname;
     BYTE m_id = 0;
+
+    Hero* m_hero = nullptr;
 
     BYTE m_availableMana = 0;
     BYTE m_maximumMana = 0;

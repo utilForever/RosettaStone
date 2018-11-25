@@ -238,8 +238,8 @@ TaskMeta CreateGameStatus(const Player& player, TaskID taskID, MetaData status)
     const auto gameStatus = FlatData::CreateGameStatus(
         builder, player.GetID(), player.GetOpponent().GetID(),
         player.GetAvailableMana(), player.GetOpponent().GetAvailableMana(),
-        CreateEntity(builder, player.hero),
-        CreateEntity(builder, player.GetOpponent().hero), result[0],
+        CreateEntity(builder, player.GetHero()),
+        CreateEntity(builder, player.GetOpponent().GetHero()), result[0],
         makeOffset(player.hand), result[1],
         static_cast<BYTE>(player.GetOpponent().hand.size()),
         static_cast<BYTE>(player.cards.size()),

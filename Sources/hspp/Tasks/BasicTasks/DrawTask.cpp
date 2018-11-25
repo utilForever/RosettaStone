@@ -41,7 +41,7 @@ MetaData DrawTask::Impl(Player& player)
             player.GetNumCardAfterExhaust() * numDrawAfterFatigue +
             numDrawAfterFatigue * (numDrawAfterFatigue + 1) / 2);
 
-        player.hero->health = player.hero->health - fatigueDamage;
+        player.GetHero()->health = player.GetHero()->health - fatigueDamage;
         player.SetNumCardAfterExhaust(static_cast<BYTE>(
             player.GetNumCardAfterExhaust() + numDrawAfterFatigue));
 

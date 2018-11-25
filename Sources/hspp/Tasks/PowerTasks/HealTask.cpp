@@ -23,13 +23,13 @@ MetaData HealTask::Impl(Player& player)
 {
     if (m_entityType == +EntityType::HERO)
     {
-        if (player.hero->health + m_amount <= player.hero->maxHealth)
+        if (player.GetHero()->health + m_amount <= player.GetHero()->maxHealth)
         {
-            player.hero->health += m_amount;
+            player.GetHero()->health += m_amount;
         }
         else
         {
-            player.hero->health = player.hero->maxHealth;
+            player.GetHero()->health = player.GetHero()->maxHealth;
         }
 
         return MetaData::HEAL_SUCCESS;

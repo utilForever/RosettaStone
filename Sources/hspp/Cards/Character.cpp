@@ -109,11 +109,11 @@ std::vector<Character*> Character::GetValidAttackTargets(Player& opponent)
         return targetsHaveTaunt;
     }
 
-    if (opponent.hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
-        opponent.hero->GetGameTag(GameTag::IMMUNE) == 0 &&
-        opponent.hero->GetGameTag(GameTag::STEALTH) == 0)
+    if (opponent.GetHero()->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
+        opponent.GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
+        opponent.GetHero()->GetGameTag(GameTag::STEALTH) == 0)
     {
-        targets.emplace_back(opponent.hero);
+        targets.emplace_back(opponent.GetHero());
     }
 
     return targets;

@@ -71,7 +71,7 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p.cards.size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 3);
     // Health: 30 - (1 + 2 + 3)
-    EXPECT_EQ(p.hero->health, static_cast<size_t>(24));
+    EXPECT_EQ(p.GetHero()->health, static_cast<size_t>(24));
 
     Card card;
     card.id = "card1";
@@ -86,7 +86,7 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p.cards.size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 5);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
-    EXPECT_EQ(p.hero->health, static_cast<size_t>(15));
+    EXPECT_EQ(p.GetHero()->health, static_cast<size_t>(15));
 }
 
 TEST(DrawTask, RunOverDraw)

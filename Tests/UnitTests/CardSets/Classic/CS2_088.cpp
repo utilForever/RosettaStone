@@ -22,7 +22,7 @@ TEST(ClassicCardSet, CS2_088)
     currentPlayer.SetAvailableMana(10);
     opponentPlayer.SetMaximumMana(10);
     opponentPlayer.SetAvailableMana(10);
-    opponentPlayer.hero->health = 24;
+    opponentPlayer.GetHero()->health = 24;
 
     const auto card1 = Generic::DrawCard(
         currentPlayer,
@@ -41,5 +41,6 @@ TEST(ClassicCardSet, CS2_088)
 
     GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
     EXPECT_EQ(opponentPlayer.field[0]->card->name, "Guardian of Kings");
-    EXPECT_EQ(opponentPlayer.hero->maxHealth, opponentPlayer.hero->health);
+    EXPECT_EQ(opponentPlayer.GetHero()->maxHealth,
+              opponentPlayer.GetHero()->health);
 }
