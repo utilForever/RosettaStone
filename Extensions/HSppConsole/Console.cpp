@@ -467,9 +467,10 @@ size_t Console::InputMenuNum(const std::string& questionStr,
     while (true)
     {
         std::cout << questionStr;
-        size_t num;
-        std::cin >> num;
+        std::string inputStr;
+        std::cin >> inputStr;
 
+        const size_t num = GetInputNum(inputStr);
         if (num < 1 || num > menuSize)
         {
             std::cout << "Invalid number! Try again.\n";
