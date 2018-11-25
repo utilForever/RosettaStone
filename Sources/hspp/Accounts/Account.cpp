@@ -61,14 +61,14 @@ void Account::ShowDeckList() const
     }
 }
 
-bool Account::CreateDeck(std::string nickname, CardClass deckClass)
+bool Account::CreateDeck(std::string name, CardClass deckClass)
 {
     if (deckClass == +CardClass::INVALID)
     {
         return false;
     }
 
-    m_decks.emplace_back(new Deck(nickname, deckClass));
+    m_decks.emplace_back(new Deck(name, deckClass));
     return true;
 }
 
