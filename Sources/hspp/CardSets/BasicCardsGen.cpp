@@ -69,7 +69,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->powerTask.emplace_back(new PowerTask::HealTask(EntityType::HERO, 6));
+    power->AddPowerTask(new PowerTask::HealTask(EntityType::HERO, 6));
     cards.emplace("CS2_088", power);
 }
 
@@ -128,9 +128,8 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->powerTask.emplace_back(
-        new PowerTask::HealFullTask(EntityType::TARGET));
-    power->powerTask.emplace_back(
+    power->AddPowerTask(new PowerTask::HealFullTask(EntityType::TARGET));
+    power->AddPowerTask(
         new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     cards.emplace("CS2_041", power);
 }
@@ -147,7 +146,7 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->enchant = new Enchant(Effects::Taunt);
+    power->AddEnchant(new Enchant(Effects::Taunt));
     cards.emplace("CS2_041e", power);
 }
 
@@ -163,7 +162,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->powerTask.emplace_back(new PowerTask::DiscardTask(EntityType::HAND));
+    power->AddPowerTask(new PowerTask::DiscardTask(EntityType::HAND));
     cards.emplace("EX1_306", power);
 }
 
@@ -194,8 +193,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->powerTask.emplace_back(
-        new BasicTasks::DestroyTask(EntityType::ENEMY_WEAPON));
+    power->AddPowerTask(new BasicTasks::DestroyTask(EntityType::ENEMY_WEAPON));
     cards.emplace("EX1_066", power);
 }
 

@@ -35,7 +35,7 @@ MetaData AddEnchantmentTask::Impl(Player&)
         return MetaData::NULLPTR;
     }
 
-    power->enchant->ActivateTo(dynamic_cast<Character*>(m_target));
+    power->GetEnchant()->ActivateTo(dynamic_cast<Character*>(m_target));
 
     return MetaData::ADD_ENCHANTMENT_SUCCESS;
 }

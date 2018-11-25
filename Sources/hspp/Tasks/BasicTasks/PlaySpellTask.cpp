@@ -73,7 +73,7 @@ MetaData PlaySpellTask::Impl(Player& player)
     // Process PowerTasks
     if (m_source->card->power != nullptr)
     {
-        for (auto& power : m_source->card->power->powerTask)
+        for (auto& power : m_source->card->power->GetPowerTask())
         {
             power->SetTarget(player.GetField()[position]);
             power->Run(player);
