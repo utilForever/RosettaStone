@@ -7,16 +7,20 @@
 #include <hspp/Commons/Macros.h>
 #include <hspp/Loaders/AccountLoader.h>
 
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+#if defined(HEARTHSTONEPP_WINDOWS)
 #include <filesystem>
+#elif defined(HEARTHSTONEPP_LINUX)
+#include <experimental/filesystem>
 #elif defined(HEARTHSTONEPP_MACOSX)
 #include <stdlib.h>
 #endif
 #include <fstream>
 #include <iostream>
 
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+#if defined(HEARTHSTONEPP_WINDOWS)
 namespace filesystem = std::filesystem;
+#elif defined(HEARTHSTONEPP_LINUX)
+namespace filesystem = std::experimental::filesystem;
 #endif
 
 namespace Hearthstonepp
