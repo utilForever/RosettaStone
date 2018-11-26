@@ -12,7 +12,7 @@
 
 using namespace Hearthstonepp;
 
-TEST(TestPlayer, Constructors)
+TEST(Account, Constructors)
 {
     Account player1;
     EXPECT_EQ("anonymous@gmail.com", player1.GetEmail());
