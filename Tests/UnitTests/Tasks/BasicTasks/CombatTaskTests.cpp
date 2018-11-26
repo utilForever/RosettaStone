@@ -4,10 +4,13 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/ResponseUtils.h>
 #include <Utils/TestUtils.h>
 #include "gtest/gtest.h"
 
+#include <hspp/Cards/Minion.h>
+#include <hspp/Cards/Weapon.h>
+#include <hspp/Commons/Constants.h>
+#include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/CombatTask.h>
 #include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
 

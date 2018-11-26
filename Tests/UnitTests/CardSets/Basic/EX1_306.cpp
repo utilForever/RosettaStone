@@ -9,6 +9,7 @@
 #include <hspp/Actions/Generic.h>
 #include <hspp/Cards/Cards.h>
 
+using namespace Hearthstonepp;
 using namespace BasicTasks;
 
 TEST(BasicCardSet, EX1_306)
