@@ -6,6 +6,7 @@
 
 #include "gtest/gtest.h"
 
+#include <hspp/Cards/Minion.h>
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
 

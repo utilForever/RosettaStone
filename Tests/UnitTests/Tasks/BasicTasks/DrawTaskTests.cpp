@@ -4,7 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/TestUtils.h>
 #include "gtest/gtest.h"
 
 #include <hspp/Cards/Cards.h>

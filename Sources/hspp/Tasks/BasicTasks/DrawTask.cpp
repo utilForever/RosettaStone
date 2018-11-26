@@ -5,6 +5,8 @@
 // property of any third parties.
 
 #include <hspp/Cards/Entity.h>
+#include <hspp/Cards/Minion.h>
+#include <hspp/Cards/Weapon.h>
 #include <hspp/Commons/Constants.h>
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Tasks/BasicTasks/DrawTask.h>
@@ -92,7 +94,12 @@ MetaData DrawTask::Impl(Player& player)
     return result;
 }
 
-DrawCardTask::DrawCardTask(Card card) : m_card(std::move(card))
+DrawCardTask::DrawCardTask(const Card& card) : m_card(card)
+{
+    // Do nothing
+}
+
+DrawCardTask::DrawCardTask(Card&& card) : m_card(std::move(card))
 {
     // Do nothing
 }

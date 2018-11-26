@@ -8,7 +8,6 @@
 #define HEARTHSTONEPP_CARD_SET_UTILS_H
 
 #include "gtest/gtest.h"
-#include <Utils/ResponseUtils.h>
 
 #include <hspp/Managers/GameAgent.h>
 #include <hspp/Managers/GameInterface.h>
