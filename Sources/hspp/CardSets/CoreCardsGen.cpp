@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/CardSets/BasicCardsGen.hpp>
+#include <hspp/CardSets/CoreCardsGen.hpp>
 #include <hspp/Enchants/Effects.hpp>
 #include <hspp/Tasks/BasicTasks/DamageTask.hpp>
 #include <hspp/Tasks/BasicTasks/DestroyTask.hpp>
@@ -15,47 +15,47 @@
 
 namespace Hearthstonepp
 {
-void BasicCardsGen::AddHeroes(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHeroes(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddHeroPowers(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHeroPowers(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddDruid(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddDruid(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddDruidNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddHunter(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHunter(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddHunterNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddMage(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddMage(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddMageNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 
@@ -73,12 +73,12 @@ void BasicCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_088", power);
 }
 
-void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddPriest(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPriest(std::map<std::string, Power*>& cards)
 {
     (void)cards;
     // ----------------------------------------- SPELL - PRIEST
@@ -95,22 +95,22 @@ void BasicCardsGen::AddPriest(std::map<std::string, Power*>& cards)
     // 2)); cards.emplace("CS1_112", p);
 }
 
-void BasicCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddRogue(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddRogue(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddRogueNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
 {
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
@@ -134,7 +134,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_041", power);
 }
 
-void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 {
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
@@ -150,7 +150,7 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
     cards.emplace("CS2_041e", power);
 }
 
-void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
@@ -166,22 +166,22 @@ void BasicCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     cards.emplace("EX1_306", power);
 }
 
-void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddWarrior(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarrior(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddWarriorNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
@@ -197,12 +197,12 @@ void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     cards.emplace("EX1_066", power);
 }
 
-void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddAll(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddAll(std::map<std::string, Power*>& cards)
 {
     AddHeroes(cards);
     AddHeroPowers(cards);

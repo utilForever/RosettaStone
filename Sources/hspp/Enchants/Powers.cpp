@@ -4,14 +4,14 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/CardSets/BasicCardsGen.hpp>
+#include <hspp/CardSets/CoreCardsGen.hpp>
 #include <hspp/Enchants/Powers.hpp>
 
 namespace Hearthstonepp
 {
 Powers::Powers()
 {
-    BasicCardsGen::AddAll(m_powers);
+    CoreCardsGen::AddAll(m_powers);
 }
 
 Powers::~Powers()

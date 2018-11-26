@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_BASIC_CARDS_GEN_HPP
-#define HEARTHSTONEPP_BASIC_CARDS_GEN_HPP
+#ifndef HEARTHSTONEPP_CORE_CARDS_GEN_HPP
+#define HEARTHSTONEPP_CORE_CARDS_GEN_HPP
 
 #include <hspp/Enchants/Power.hpp>
 
@@ -15,11 +15,11 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief BasicCardsGen class.
+//! \brief CoreCardsGen class.
 //!
-//! This structure adds basic cards to data storage with power.
+//! This structure adds CORE cards to data storage with power.
 //!
-class BasicCardsGen
+class CoreCardsGen
 {
  public:
     //! Adds hero cards to \p cards.
@@ -116,4 +116,4 @@ class BasicCardsGen
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_BASIC_CARDS_GEN_HPP
+#endif  // HEARTHSTONEPP_CORE_CARDS_GEN_HPP
