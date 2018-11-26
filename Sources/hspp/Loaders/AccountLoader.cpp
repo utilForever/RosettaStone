@@ -12,7 +12,7 @@
 #elif defined(HEARTHSTONEPP_LINUX)
 #include <experimental/filesystem>
 #elif defined(HEARTHSTONEPP_MACOSX)
-#include <stdlib.hpp>
+#include <stdlib.h>
 #endif
 #include <fstream>
 #include <iostream>
