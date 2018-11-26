@@ -195,7 +195,7 @@ TEST(TaskAgent, RunMultiTaskWithBrief)
         traits.emplace_back(GenerateRandomTrait());
         if (traits[i].GetID() == +TaskID::BRIEF)
         {
-            traits[i].GetID() = TaskID::INVALID;
+            traits[i].SetID(TaskID::INVALID);
         }
 
         tasks.emplace_back(generate(traits[i]));
