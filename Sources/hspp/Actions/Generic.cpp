@@ -5,10 +5,12 @@
 // property of any third parties.
 
 #include <hspp/Actions/Generic.h>
+#include <hspp/Cards/Minion.h>
+#include <hspp/Cards/Weapon.h>
 
 namespace Hearthstonepp
 {
-Entity* Generic::DrawCard(Player& player, Card card)
+Entity* Generic::DrawCard(Player& player, Card&& card)
 {
     Entity* entity;
 

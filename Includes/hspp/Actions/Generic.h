@@ -24,7 +24,7 @@ class Generic
     //! \param player The player to create card.
     //! \param card An object that is stored card information.
     //! \return A dynamic allocated card object.
-    static Entity* DrawCard(Player& player, Card card);
+    static Entity* DrawCard(Player& player, Card&& card);
 };
 }  // namespace Hearthstonepp
 

@@ -5,7 +5,9 @@
 // property of any third parties.
 
 #include <hspp/Accounts/Player.h>
-#include <hspp/Cards/Cards.h>
+#include <hspp/Cards/HeroPower.h>
+#include <hspp/Cards/Minion.h>
+#include <hspp/Cards/Weapon.h>
 #include <hspp/Commons/Constants.h>
 
 namespace Hearthstonepp
@@ -139,7 +141,7 @@ void Player::SetDeck(Deck* deck)
     }
 }
 
-void Player::AddHeroAndPower(Card heroCard, Card powerCard)
+void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
     m_hero = new Hero(heroCard);
     m_hero->heroPower = new HeroPower(powerCard);
