@@ -11,7 +11,7 @@
 
 using namespace Hearthstonepp;
 
-TEST(TestCards, GetAllCards)
+TEST(Cards, GetAllCards)
 {
     const std::vector<Card> cards1 = Cards::GetInstance().GetAllCards();
 
@@ -19,7 +19,7 @@ TEST(TestCards, GetAllCards)
     EXPECT_EQ(cards1.size(), 5216u);
 }
 
-TEST(TestCards, FindCardByID)
+TEST(Cards, FindCardByID)
 {
     const Card card1 = Cards::GetInstance().FindCardByID("AT_001");
     const Card card2 = Cards::GetInstance().FindCardByID("");
@@ -28,7 +28,7 @@ TEST(TestCards, FindCardByID)
     EXPECT_EQ(card2.id, "");
 }
 
-TEST(TestCards, FindCardByRarity)
+TEST(Cards, FindCardByRarity)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -49,7 +49,7 @@ TEST(TestCards, FindCardByRarity)
     EXPECT_TRUE(cards7.empty());
 }
 
-TEST(TestCards, FindCardByClass)
+TEST(Cards, FindCardByClass)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -75,7 +75,7 @@ TEST(TestCards, FindCardByClass)
     EXPECT_TRUE(cards9.empty());
 }
 
-TEST(TestCards, FindCardBySet)
+TEST(Cards, FindCardBySet)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -116,7 +116,7 @@ TEST(TestCards, FindCardBySet)
     EXPECT_TRUE(cards17.empty());
 }
 
-TEST(TestCards, FindCardByType)
+TEST(Cards, FindCardByType)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -145,7 +145,7 @@ TEST(TestCards, FindCardByType)
     EXPECT_TRUE(cards11.empty());
 }
 
-TEST(TestCards, FindCardByRace)
+TEST(Cards, FindCardByRace)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -155,7 +155,7 @@ TEST(TestCards, FindCardByRace)
     EXPECT_NO_THROW(instance.FindCardByRace(+Race::ALL));
 }
 
-TEST(TestCards, FindCardByName)
+TEST(Cards, FindCardByName)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -164,7 +164,7 @@ TEST(TestCards, FindCardByName)
     EXPECT_EQ("Flame Lance", card.name);
 }
 
-TEST(TestCards, FindCardByCost)
+TEST(Cards, FindCardByCost)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -175,7 +175,7 @@ TEST(TestCards, FindCardByCost)
     EXPECT_TRUE(cards2.empty());
 }
 
-TEST(TestCards, FindCardByAttack)
+TEST(Cards, FindCardByAttack)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -186,7 +186,7 @@ TEST(TestCards, FindCardByAttack)
     EXPECT_TRUE(cards2.empty());
 }
 
-TEST(TestCards, FindCardByHealth)
+TEST(Cards, FindCardByHealth)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -197,7 +197,7 @@ TEST(TestCards, FindCardByHealth)
     EXPECT_TRUE(cards2.empty());
 }
 
-TEST(TestCards, FindCardByMechanics)
+TEST(Cards, FindCardByMechanics)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -214,7 +214,7 @@ TEST(TestCards, FindCardByMechanics)
     EXPECT_TRUE(cards2.empty());
 }
 
-TEST(TestCards, GetHeroCard)
+TEST(Cards, GetHeroCard)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -239,7 +239,7 @@ TEST(TestCards, GetHeroCard)
     EXPECT_EQ(instance.GetHeroCard(CardClass::DEATHKNIGHT).id, "");
 }
 
-TEST(TestCards, GetDefaultHeroPower)
+TEST(Cards, GetDefaultHeroPower)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -264,7 +264,7 @@ TEST(TestCards, GetDefaultHeroPower)
     EXPECT_EQ(instance.GetDefaultHeroPower(CardClass::DEATHKNIGHT).id, "");
 }
 
-TEST(TestCards, FindCardBySpellDamage)
+TEST(Cards, FindCardBySpellDamage)
 {
     Cards& instance = Cards::GetInstance();
 
