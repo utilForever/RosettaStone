@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/CardSetUtils.h>
+#include <Utils/CardSetUtils.hpp>
 
-#include <hspp/Actions/Generic.h>
-#include <hspp/Cards/Cards.h>
+#include <hspp/Actions/Generic.hpp>
+#include <hspp/Cards/Cards.hpp>
 
 using namespace Hearthstonepp;
 using namespace BasicTasks;

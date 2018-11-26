@@ -6,9 +6,9 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Minion.h>
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
+#include <hspp/Cards/Minion.hpp>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace BasicTasks;

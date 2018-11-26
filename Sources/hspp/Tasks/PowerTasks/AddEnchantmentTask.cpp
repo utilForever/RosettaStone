@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Cards.h>
-#include <hspp/Tasks/PowerTasks/AddEnchantmentTask.h>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Tasks/PowerTasks/AddEnchantmentTask.hpp>
 
 namespace Hearthstonepp::PowerTask
 {

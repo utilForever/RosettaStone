@@ -4,21 +4,21 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Cards.h>
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/BasicTasks/BriefTask.h>
-#include <hspp/Tasks/BasicTasks/CombatTask.h>
-#include <hspp/Tasks/BasicTasks/DrawTask.h>
-#include <hspp/Tasks/BasicTasks/GameEndTask.h>
-#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
-#include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
-#include <hspp/Tasks/BasicTasks/MulliganTask.h>
-#include <hspp/Tasks/BasicTasks/PlayCardTask.h>
-#include <hspp/Tasks/BasicTasks/PlayerSettingTask.h>
-#include <hspp/Tasks/BasicTasks/ShuffleTask.h>
-#include <hspp/Tasks/MetaData.h>
-#include <hspp/Tasks/Requirement.h>
-#include <hspp/Tasks/TaskWrapper.h>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/BasicTasks/BriefTask.hpp>
+#include <hspp/Tasks/BasicTasks/CombatTask.hpp>
+#include <hspp/Tasks/BasicTasks/DrawTask.hpp>
+#include <hspp/Tasks/BasicTasks/GameEndTask.hpp>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.hpp>
+#include <hspp/Tasks/BasicTasks/ModifyManaTask.hpp>
+#include <hspp/Tasks/BasicTasks/MulliganTask.hpp>
+#include <hspp/Tasks/BasicTasks/PlayCardTask.hpp>
+#include <hspp/Tasks/BasicTasks/PlayerSettingTask.hpp>
+#include <hspp/Tasks/BasicTasks/ShuffleTask.hpp>
+#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/Requirement.hpp>
+#include <hspp/Tasks/TaskWrapper.hpp>
 
 #include <random>
 

@@ -4,16 +4,16 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/TestUtils.h>
+#include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Accounts/Player.h>
-#include <hspp/Cards/Cards.h>
-#include <hspp/Cards/Minion.h>
-#include <hspp/Cards/Weapon.h>
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/TaskSerializer.h>
-#include <hspp/Tasks/Tasks.h>
+#include <hspp/Accounts/Player.hpp>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Cards/Minion.hpp>
+#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/TaskSerializer.hpp>
+#include <hspp/Tasks/Tasks.hpp>
 
 #include <random>
 

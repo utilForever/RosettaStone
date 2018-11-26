@@ -4,11 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "TestTasks.h"
+#include "TestTasks.hpp"
 
-#include <hspp/Accounts/Player.h>
-#include <hspp/Enums/TaskEnums.h>
-#include <hspp/Tasks/MetaData.h>
+#include <hspp/Accounts/Player.hpp>
+#include <hspp/Enums/TaskEnums.hpp>
+#include <hspp/Tasks/MetaData.hpp>
 
 #include <functional>
 

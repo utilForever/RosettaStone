@@ -4,14 +4,14 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/CardSets/BasicCardsGen.h>
-#include <hspp/Enchants/Effects.h>
-#include <hspp/Tasks/BasicTasks/DamageTask.h>
-#include <hspp/Tasks/BasicTasks/DestroyTask.h>
-#include <hspp/Tasks/PowerTasks/AddEnchantmentTask.h>
-#include <hspp/Tasks/PowerTasks/DiscardTask.h>
-#include <hspp/Tasks/PowerTasks/HealFullTask.h>
-#include <hspp/Tasks/PowerTasks/HealTask.h>
+#include <hspp/CardSets/BasicCardsGen.hpp>
+#include <hspp/Enchants/Effects.hpp>
+#include <hspp/Tasks/BasicTasks/DamageTask.hpp>
+#include <hspp/Tasks/BasicTasks/DestroyTask.hpp>
+#include <hspp/Tasks/PowerTasks/AddEnchantmentTask.hpp>
+#include <hspp/Tasks/PowerTasks/DiscardTask.hpp>
+#include <hspp/Tasks/PowerTasks/HealFullTask.hpp>
+#include <hspp/Tasks/PowerTasks/HealTask.hpp>
 
 namespace Hearthstonepp
 {

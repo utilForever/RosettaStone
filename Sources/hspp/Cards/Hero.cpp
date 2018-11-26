@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Hero.h>
+#include <hspp/Cards/Hero.hpp>
 
 namespace Hearthstonepp
 {

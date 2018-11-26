@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Weapon.h>
-#include <hspp/Commons/Macros.h>
+#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Commons/Macros.hpp>
 
 namespace Hearthstonepp
 {

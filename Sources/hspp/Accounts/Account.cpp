@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Accounts/Account.h>
+#include <hspp/Accounts/Account.hpp>
 
 #include <iostream>
 #include <utility>

@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Card.h>
-#include <hspp/Cards/Cards.h>
-#include <hspp/Loaders/CardLoader.h>
-#include <hspp/Loaders/PowerLoader.h>
+#include <hspp/Cards/Card.hpp>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Loaders/CardLoader.hpp>
+#include <hspp/Loaders/PowerLoader.hpp>
 
 namespace Hearthstonepp
 {

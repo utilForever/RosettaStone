@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Entity.h>
-#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
+#include <hspp/Cards/Entity.hpp>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.hpp>
 
 namespace Hearthstonepp::BasicTasks
 {

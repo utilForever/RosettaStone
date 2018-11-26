@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/TaskSerializer.h>
-#include <hspp/Tasks/Tasks.h>
+#include <hspp/Tasks/TaskSerializer.hpp>
+#include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp
 {

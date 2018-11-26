@@ -4,15 +4,15 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/TestUtils.h>
+#include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Minion.h>
-#include <hspp/Cards/Weapon.h>
-#include <hspp/Commons/Constants.h>
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/BasicTasks/CombatTask.h>
-#include <hspp/Tasks/BasicTasks/InitAttackCountTask.h>
+#include <hspp/Cards/Minion.hpp>
+#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Commons/Constants.hpp>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/BasicTasks/CombatTask.hpp>
+#include <hspp/Tasks/BasicTasks/InitAttackCountTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace BasicTasks;

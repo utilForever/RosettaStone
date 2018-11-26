@@ -4,15 +4,15 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Commons/Macros.h>
-#include <hspp/Loaders/AccountLoader.h>
+#include <hspp/Commons/Macros.hpp>
+#include <hspp/Loaders/AccountLoader.hpp>
 
 #if defined(HEARTHSTONEPP_WINDOWS)
 #include <filesystem>
 #elif defined(HEARTHSTONEPP_LINUX)
 #include <experimental/filesystem>
 #elif defined(HEARTHSTONEPP_MACOSX)
-#include <stdlib.h>
+#include <stdlib.hpp>
 #endif
 #include <fstream>
 #include <iostream>

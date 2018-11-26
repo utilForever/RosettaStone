@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Commons/Constants.h>
-#include <hspp/Tasks/BasicTasks/DrawTask.h>
-#include <hspp/Tasks/BasicTasks/MulliganTask.h>
-#include <hspp/Tasks/BasicTasks/ShuffleTask.h>
+#include <hspp/Commons/Constants.hpp>
+#include <hspp/Tasks/BasicTasks/DrawTask.hpp>
+#include <hspp/Tasks/BasicTasks/MulliganTask.hpp>
+#include <hspp/Tasks/BasicTasks/ShuffleTask.hpp>
 
 #include <algorithm>
 

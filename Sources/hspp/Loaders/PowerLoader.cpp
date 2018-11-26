@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Enchants/Powers.h>
-#include <hspp/Loaders/PowerLoader.h>
+#include <hspp/Enchants/Powers.hpp>
+#include <hspp/Loaders/PowerLoader.hpp>
 
 namespace Hearthstonepp
 {

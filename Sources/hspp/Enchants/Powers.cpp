@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/CardSets/BasicCardsGen.h>
-#include <hspp/Enchants/Powers.h>
+#include <hspp/CardSets/BasicCardsGen.hpp>
+#include <hspp/Enchants/Powers.hpp>
 
 namespace Hearthstonepp
 {

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/TaskAgent.h>
-#include <hspp/Tasks/TaskSerializer.h>
+#include <hspp/Tasks/TaskAgent.hpp>
+#include <hspp/Tasks/TaskSerializer.hpp>
 
 namespace Hearthstonepp
 {

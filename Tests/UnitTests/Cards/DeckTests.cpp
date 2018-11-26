@@ -6,9 +6,9 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Cards.h>
-#include <hspp/Cards/Deck.h>
-#include <hspp/Enums/CardEnums.h>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Cards/Deck.hpp>
+#include <hspp/Enums/CardEnums.hpp>
 
 using namespace Hearthstonepp;
 

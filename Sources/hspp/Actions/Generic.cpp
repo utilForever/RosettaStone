@@ -4,9 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Actions/Generic.h>
-#include <hspp/Cards/Minion.h>
-#include <hspp/Cards/Weapon.h>
+#include <hspp/Actions/Generic.hpp>
+#include <hspp/Cards/Minion.hpp>
+#include <hspp/Cards/Weapon.hpp>
 
 namespace Hearthstonepp
 {

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
-#include <hspp/Tasks/BasicTasks/PlayMinionTask.h>
+#include <hspp/Tasks/BasicTasks/ModifyManaTask.hpp>
+#include <hspp/Tasks/BasicTasks/PlayMinionTask.hpp>
 
 namespace Hearthstonepp::BasicTasks
 {
