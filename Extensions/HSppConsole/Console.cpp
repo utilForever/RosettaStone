@@ -4,16 +4,16 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "Console.h"
+#include "Console.hpp"
 
-#include <hspp/Cards/Card.h>
-#include <hspp/Cards/Cards.h>
-#include <hspp/Commons/Constants.h>
-#include <hspp/Commons/Utils.h>
-#include <hspp/Loaders/AccountLoader.h>
-#include <hspp/Loaders/CardLoader.h>
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Managers/GameInterface.h>
+#include <hspp/Cards/Card.hpp>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Commons/Constants.hpp>
+#include <hspp/Commons/Utils.hpp>
+#include <hspp/Loaders/AccountLoader.hpp>
+#include <hspp/Loaders/CardLoader.hpp>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Managers/GameInterface.hpp>
 
 #include <cctype>
 #if defined(HEARTHSTONEPP_WINDOWS)

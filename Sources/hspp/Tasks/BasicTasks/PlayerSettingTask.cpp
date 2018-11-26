@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/BasicTasks/PlayerSettingTask.h>
+#include <hspp/Tasks/BasicTasks/PlayerSettingTask.hpp>
 
 namespace Hearthstonepp::BasicTasks
 {

@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/BasicTasks/PlayCardTask.h>
-#include <hspp/Tasks/BasicTasks/PlayMinionTask.h>
-#include <hspp/Tasks/BasicTasks/PlaySpellTask.h>
-#include <hspp/Tasks/BasicTasks/PlayWeaponTask.h>
+#include <hspp/Tasks/BasicTasks/PlayCardTask.hpp>
+#include <hspp/Tasks/BasicTasks/PlayMinionTask.hpp>
+#include <hspp/Tasks/BasicTasks/PlaySpellTask.hpp>
+#include <hspp/Tasks/BasicTasks/PlayWeaponTask.hpp>
 
 namespace Hearthstonepp::BasicTasks
 {

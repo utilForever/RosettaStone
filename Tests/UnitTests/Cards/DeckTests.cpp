@@ -6,13 +6,13 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Cards.h>
-#include <hspp/Cards/Deck.h>
-#include <hspp/Enums/CardEnums.h>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Cards/Deck.hpp>
+#include <hspp/Enums/CardEnums.hpp>
 
 using namespace Hearthstonepp;
 
-TEST(TestDeck, Constructors)
+TEST(Deck, Constructors)
 {
     Deck deck1;
     EXPECT_EQ("Empty", deck1.GetName());
@@ -25,7 +25,7 @@ TEST(TestDeck, Constructors)
     EXPECT_EQ(0u, deck2.GetNumOfCards());
 }
 
-TEST(TestDeck, CardControl)
+TEST(Deck, CardControl)
 {
     std::vector<Card> druidCards =
         Cards::GetInstance().FindCardByClass(+CardClass::DRUID);
@@ -50,7 +50,7 @@ TEST(TestDeck, CardControl)
     EXPECT_NO_THROW(deck.ShowCardList());
 }
 
-TEST(TestDeck, GetNumCardInDeck)
+TEST(Deck, GetNumCardInDeck)
 {
     std::vector<Card> mageCards =
         Cards::GetInstance().FindCardByClass(+CardClass::MAGE);
@@ -62,7 +62,7 @@ TEST(TestDeck, GetNumCardInDeck)
     EXPECT_EQ(0, static_cast<int>(deck.GetNumCardInDeck(mageCards.at(1).id)));
 }
 
-TEST(TestDeck, GetPrimitiveDeck)
+TEST(Deck, GetPrimitiveDeck)
 {
     std::vector<Card> mageCards =
         Cards::GetInstance().FindCardByClass(+CardClass::MAGE);

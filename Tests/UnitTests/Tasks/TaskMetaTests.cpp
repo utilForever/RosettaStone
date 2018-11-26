@@ -4,13 +4,13 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/TestUtils.h>
+#include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Tasks/TaskMeta.h>
-#include <hspp/Tasks/TaskSerializer.h>
+#include <hspp/Tasks/TaskMeta.hpp>
+#include <hspp/Tasks/TaskSerializer.hpp>
 
-#include <hspp/Flatbuffers/generated/FlatData_generated.h>
+#include <hspp/Flatbuffers/generated/FlatData_generated.hpp>
 
 #include <random>
 

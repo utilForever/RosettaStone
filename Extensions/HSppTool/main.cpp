@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Cards.h>
-#include <hspp/Commons/Macros.h>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Commons/Macros.hpp>
 
 #include <better-enums/enum.h>
 #include <clara.hpp>

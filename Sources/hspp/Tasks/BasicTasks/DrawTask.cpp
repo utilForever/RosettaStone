@@ -4,12 +4,12 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Entity.h>
-#include <hspp/Cards/Minion.h>
-#include <hspp/Cards/Weapon.h>
-#include <hspp/Commons/Constants.h>
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/BasicTasks/DrawTask.h>
+#include <hspp/Cards/Entity.hpp>
+#include <hspp/Cards/Minion.hpp>
+#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Commons/Constants.hpp>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/BasicTasks/DrawTask.hpp>
 
 #include <utility>
 

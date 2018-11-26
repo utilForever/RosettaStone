@@ -4,9 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Managers/GameInterface.h>
-#include <hspp/Tasks/MetaData.h>
-#include <hspp/Tasks/TaskSerializer.h>
+#include <hspp/Managers/GameInterface.hpp>
+#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/TaskSerializer.hpp>
 
 namespace Hearthstonepp
 {

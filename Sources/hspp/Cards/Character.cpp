@@ -4,9 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Accounts/Player.h>
-#include <hspp/Cards/Character.h>
-#include <hspp/Commons/Macros.h>
+#include <hspp/Accounts/Player.hpp>
+#include <hspp/Cards/Character.hpp>
+#include <hspp/Commons/Macros.hpp>
 
 #include <algorithm>
 

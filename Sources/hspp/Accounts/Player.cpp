@@ -4,11 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Accounts/Player.h>
-#include <hspp/Cards/HeroPower.h>
-#include <hspp/Cards/Minion.h>
-#include <hspp/Cards/Weapon.h>
-#include <hspp/Commons/Constants.h>
+#include <hspp/Accounts/Player.hpp>
+#include <hspp/Cards/HeroPower.hpp>
+#include <hspp/Cards/Minion.hpp>
+#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Commons/Constants.hpp>
 
 namespace Hearthstonepp
 {

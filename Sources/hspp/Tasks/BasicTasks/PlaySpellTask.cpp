@@ -4,9 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Enums/TaskEnums.h>
-#include <hspp/Tasks/BasicTasks/ModifyManaTask.h>
-#include <hspp/Tasks/BasicTasks/PlaySpellTask.h>
+#include <hspp/Enums/TaskEnums.hpp>
+#include <hspp/Tasks/BasicTasks/ModifyManaTask.hpp>
+#include <hspp/Tasks/BasicTasks/PlaySpellTask.hpp>
 
 namespace Hearthstonepp::BasicTasks
 {

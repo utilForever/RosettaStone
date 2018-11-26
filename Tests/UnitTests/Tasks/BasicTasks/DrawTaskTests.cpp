@@ -6,9 +6,9 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Cards.h>
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/BasicTasks/DrawTask.h>
+#include <hspp/Cards/Cards.hpp>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/BasicTasks/DrawTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace BasicTasks;

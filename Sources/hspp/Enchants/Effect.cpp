@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Character.h>
-#include <hspp/Enchants/Effect.h>
+#include <hspp/Cards/Character.hpp>
+#include <hspp/Enchants/Effect.hpp>
 
 namespace Hearthstonepp
 {

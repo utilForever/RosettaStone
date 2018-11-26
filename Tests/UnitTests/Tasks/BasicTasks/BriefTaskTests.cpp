@@ -6,8 +6,8 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/BasicTasks/BriefTask.h>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/BasicTasks/BriefTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace BasicTasks;

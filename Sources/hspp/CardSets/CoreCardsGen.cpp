@@ -1,0 +1,240 @@
+﻿// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
+#include <hspp/CardSets/CoreCardsGen.hpp>
+#include <hspp/Enchants/Effects.hpp>
+#include <hspp/Tasks/BasicTasks/DamageTask.hpp>
+#include <hspp/Tasks/BasicTasks/DestroyTask.hpp>
+#include <hspp/Tasks/PowerTasks/AddEnchantmentTask.hpp>
+#include <hspp/Tasks/PowerTasks/DiscardTask.hpp>
+#include <hspp/Tasks/PowerTasks/HealFullTask.hpp>
+#include <hspp/Tasks/PowerTasks/HealTask.hpp>
+
+namespace Hearthstonepp
+{
+void CoreCardsGen::AddHeroes(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddHeroPowers(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddDruid(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddHunter(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddMage(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+
+    // --------------------------------------- MINION - PALADIN
+    // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    auto power = new Power;
+    power->AddPowerTask(new PowerTask::HealTask(EntityType::HERO, 6));
+    cards.emplace("CS2_088", power);
+}
+
+void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddPriest(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS1_112] Holy Nova - COST:5
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to all enemies.
+    //       Restore #2 Health to all friendly characters.
+    // --------------------------------------------------------
+    // Power* p = new Power;
+    // p->powerTask.emplace_back(
+    //    new PowerTask::DamageTask(EntityType::ENEMIES, 2));
+    // p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::FRIENDS,
+    // 2)); cards.emplace("CS1_112", p);
+}
+
+void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddRogue(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
+{
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_041] Ancestral Healing - COST:0
+    // - Faction: Neutral, Set: Basic, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Restore a minion
+    //       to full Health and
+    //       give it <b>Taunt</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // Tag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    auto power = new Power;
+    power->AddPowerTask(new PowerTask::HealFullTask(EntityType::TARGET));
+    power->AddPowerTask(
+        new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
+    cards.emplace("CS2_041", power);
+}
+
+void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
+{
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_041e] Ancestral Infusion (*) - COST:0
+    // - Set: core,
+    // --------------------------------------------------------
+    // Text: Taunt.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    auto power = new Power;
+    power->AddEnchant(new Enchant(Effects::Taunt));
+    cards.emplace("CS2_041e", power);
+}
+
+void CoreCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
+{
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
+    // - Fac: horde, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Discard a random card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    auto power = new Power;
+    power->AddPowerTask(new PowerTask::DiscardTask(EntityType::HAND));
+    cards.emplace("EX1_306", power);
+}
+
+void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddWarrior(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
+{
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
+    // - Fac: alliance, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy your opponent's weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    auto power = new Power;
+    power->AddPowerTask(new BasicTasks::DestroyTask(EntityType::ENEMY_WEAPON));
+    cards.emplace("EX1_066", power);
+}
+
+void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
+{
+    (void)cards;
+}
+
+void CoreCardsGen::AddAll(std::map<std::string, Power*>& cards)
+{
+    AddHeroes(cards);
+    AddHeroPowers(cards);
+
+    AddDruid(cards);
+    AddDruidNonCollect(cards);
+
+    AddHunter(cards);
+    AddHunterNonCollect(cards);
+
+    AddMage(cards);
+    AddMageNonCollect(cards);
+
+    AddPaladin(cards);
+    AddPaladinNonCollect(cards);
+
+    AddPriest(cards);
+    AddPriestNonCollect(cards);
+
+    AddRogue(cards);
+    AddRogueNonCollect(cards);
+
+    AddShaman(cards);
+    AddShamanNonCollect(cards);
+
+    AddWarlock(cards);
+    AddWarlockNonCollect(cards);
+
+    AddWarrior(cards);
+    AddWarriorNonCollect(cards);
+
+    AddNeutral(cards);
+    AddNeutralNonCollect(cards);
+}
+}  // namespace Hearthstonepp

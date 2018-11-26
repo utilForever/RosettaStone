@@ -4,16 +4,16 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/TestTasks.h>
-#include <Utils/TestUtils.h>
+#include <Utils/TestTasks.hpp>
+#include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Managers/GameAgent.h>
-#include <hspp/Tasks/MetaData.h>
-#include <hspp/Tasks/TaskAgent.h>
-#include <hspp/Tasks/TaskMeta.h>
+#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/TaskAgent.hpp>
+#include <hspp/Tasks/TaskMeta.hpp>
 
-#include <hspp/Flatbuffers/generated/FlatData_generated.h>
+#include <hspp/Flatbuffers/generated/FlatData_generated.hpp>
 
 #include <future>
 

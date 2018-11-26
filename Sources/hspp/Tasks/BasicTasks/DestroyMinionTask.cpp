@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Character.h>
-#include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
+#include <hspp/Cards/Character.hpp>
+#include <hspp/Tasks/BasicTasks/DestroyMinionTask.hpp>
 
 namespace Hearthstonepp::BasicTasks
 {

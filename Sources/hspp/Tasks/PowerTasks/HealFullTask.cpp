@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/PowerTasks/HealFullTask.h>
+#include <hspp/Tasks/PowerTasks/HealFullTask.hpp>
 
 namespace Hearthstonepp::PowerTask
 {

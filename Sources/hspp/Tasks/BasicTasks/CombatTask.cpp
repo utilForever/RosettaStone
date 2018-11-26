@@ -4,11 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/BasicTasks/CombatTask.h>
-#include <hspp/Tasks/BasicTasks/DestroyMinionTask.h>
-#include <hspp/Tasks/BasicTasks/DestroyWeaponTask.h>
-#include <hspp/Tasks/PowerTasks/FreezeTask.h>
-#include <hspp/Tasks/PowerTasks/PoisonousTask.h>
+#include <hspp/Tasks/BasicTasks/CombatTask.hpp>
+#include <hspp/Tasks/BasicTasks/DestroyMinionTask.hpp>
+#include <hspp/Tasks/BasicTasks/DestroyWeaponTask.hpp>
+#include <hspp/Tasks/PowerTasks/FreezeTask.hpp>
+#include <hspp/Tasks/PowerTasks/PoisonousTask.hpp>
 
 namespace Hearthstonepp::BasicTasks
 {

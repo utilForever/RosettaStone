@@ -6,12 +6,12 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Card.h>
-#include <hspp/Enums/CardEnums.h>
+#include <hspp/Cards/Card.hpp>
+#include <hspp/Enums/CardEnums.hpp>
 
 using namespace Hearthstonepp;
 
-TEST(TestCard, Constructer)
+TEST(Card, Constructer)
 {
     Card card1;
     card1.id = "cardTest1";
@@ -54,7 +54,7 @@ TEST(TestCard, Constructer)
     EXPECT_EQ(true, card1.isCollectible);
 }
 
-TEST(TestCard, HasMechanic)
+TEST(Card, HasMechanic)
 {
     Card card;
     card.id = "cardTest1";

@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
-#include <Utils/TestUtils.h>
 
-#include <hspp/Commons/Macros.h>
+#include <hspp/Commons/Macros.hpp>
 
 #include <random>
 
