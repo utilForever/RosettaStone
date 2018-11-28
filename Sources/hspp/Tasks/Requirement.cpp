@@ -6,7 +6,7 @@
 
 #include <hspp/Tasks/Requirement.hpp>
 
-namespace Hearthstonepp::BasicTasks
+namespace Hearthstonepp
 {
 Requirement::Requirement(TaskID request, TaskAgent& agent)
     : m_request(request), m_agent(agent)
@@ -23,4 +23,4 @@ void Requirement::Interact(BYTE userID, TaskMeta& meta) const
     // Read TaskMeta from side channel
     m_agent.Read(meta, true);
 }
-}  // namespace Hearthstonepp::BasicTasks
+}  // namespace Hearthstonepp

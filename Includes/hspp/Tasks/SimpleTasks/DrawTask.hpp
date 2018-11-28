@@ -4,24 +4,24 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_TASK_WRAPPER_HPP
-#define HEARTHSTONEPP_TASK_WRAPPER_HPP
+#ifndef HEARTHSTONEPP_DRAW_TASK_HPP
+#define HEARTHSTONEPP_DRAW_TASK_HPP
 
 #include <hspp/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp
+namespace Hearthstonepp::SimpleTasks
 {
 //!
-//! \brief DoBothPlayer class.
+//! \brief DrawTask class.
 //!
-//! This class represents the task that applies to both players.
+//! This class represents the task for drawing card(s) from deck at random.
 //!
-class DoBothPlayer : public ITask
+class DrawTask : public ITask
 {
  public:
-    //! Constructs task with given \p task.
-    //! \param task The task that applies to both players.
-    DoBothPlayer(ITask&& task);
+    //! Constructs task with given \p agent and \p num.
+    //! \param num The number of cards to draw.
+    DrawTask(size_t num);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,21 +33,24 @@ class DoBothPlayer : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    ITask& m_task;
+    size_t m_num = 0;
 };
 
 //!
-//! \brief DoUntil class.
+//! \brief DrawCardTask class.
 //!
-//! This class represents the task that is infinite-loop until completes.
+//! This class represents the task for drawing specified card from deck.
 //!
-class DoUntil : public ITask
+class DrawCardTask : public ITask
 {
  public:
-    //! Constructs task with given \p task and \p condition.
-    //! \param task The task that is infinite-loop until completes.
-    //! \param condition The condition under which the task completes.
-    DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition);
+    //! Constructs task with given \p card.
+    //! \param card A card to draw from deck (lvalue-ref).
+    DrawCardTask(const Card& card);
+
+    //! Constructs task with given \p card.
+    //! \param card A card to draw from deck (rvalue-ref).
+    DrawCardTask(Card&& card);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -59,9 +62,8 @@ class DoUntil : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    ITask& m_task;
-    std::function<bool(const TaskMeta&)> m_condition;
+    Card m_card;
 };
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::SimpleTasks
 
-#endif  // HEARTHSTONEPP_TASK_WRAPPER_HPP
+#endif  // HEARTHSTONEPP_DRAW_TASK_HPP
