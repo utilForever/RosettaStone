@@ -6,21 +6,24 @@
 
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Managers/GameAgent.hpp>
-#include <hspp/Tasks/BasicTasks/BriefTask.hpp>
-#include <hspp/Tasks/BasicTasks/CombatTask.hpp>
-#include <hspp/Tasks/BasicTasks/DrawTask.hpp>
-#include <hspp/Tasks/BasicTasks/GameEndTask.hpp>
-#include <hspp/Tasks/BasicTasks/InitAttackCountTask.hpp>
-#include <hspp/Tasks/BasicTasks/ModifyManaTask.hpp>
-#include <hspp/Tasks/BasicTasks/MulliganTask.hpp>
-#include <hspp/Tasks/BasicTasks/PlayCardTask.hpp>
-#include <hspp/Tasks/BasicTasks/PlayerSettingTask.hpp>
-#include <hspp/Tasks/BasicTasks/ShuffleTask.hpp>
 #include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
+#include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
+#include <hspp/Tasks/PlayerTasks/GameEndTask.hpp>
+#include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
+#include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
 #include <hspp/Tasks/Requirement.hpp>
+#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
+#include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
+#include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
+#include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 #include <hspp/Tasks/TaskWrapper.hpp>
 
 #include <random>
+
+using namespace Hearthstonepp::PlayerTasks;
+using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp
 {
@@ -169,22 +172,18 @@ void GameAgent::BeginPhase()
     // 4. The player going second receives "The Coin" card.
     // NOTE: The Coin is a special uncollectible spell card granted at the start
     // of each game to whichever player is selected to go second.
-    m_taskAgent.Run(meta, GetFirstPlayer(),
-                    BasicTasks::PlayerSettingTask(m_taskAgent));
+    m_taskAgent.Run(meta, GetFirstPlayer(), PlayerSettingTask(m_taskAgent));
+
+    m_taskAgent.RunMulti(meta, GetFirstPlayer(), ShuffleTask(),
+                         DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
+                         DoUntil(MulliganTask(m_taskAgent), success),
+                         BriefTask());
 
     m_taskAgent.RunMulti(
-        meta, GetFirstPlayer(), BasicTasks::ShuffleTask(),
-        BasicTasks::DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
-        BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
-        BasicTasks::BriefTask());
-
-    m_taskAgent.RunMulti(
-        meta, GetFirstPlayer().GetOpponent(), BasicTasks::ShuffleTask(),
-        BasicTasks::DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
-        BasicTasks::DoUntil(BasicTasks::MulliganTask(m_taskAgent), success),
-        BasicTasks::BriefTask(),
-        BasicTasks::DrawCardTask(
-            Cards::GetInstance().FindCardByName("The Coin")));
+        meta, GetFirstPlayer().GetOpponent(), ShuffleTask(),
+        DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
+        DoUntil(MulliganTask(m_taskAgent), success), BriefTask(),
+        DrawCardTask(Cards::GetInstance().FindCardByName("The Coin")));
 }
 
 bool GameAgent::MainPhase()
@@ -199,7 +198,7 @@ bool GameAgent::MainPhase()
 void GameAgent::FinalPhase()
 {
     TaskMeta meta;
-    m_taskAgent.Run(meta, GetCurrentPlayer(), BasicTasks::GameEndTask());
+    m_taskAgent.Run(meta, GetCurrentPlayer(), GameEndTask());
 }
 
 void GameAgent::PrepareMainPhase()
@@ -214,11 +213,11 @@ void GameAgent::PrepareMainPhase()
     // 3. Refill all of their non-overloaded mana crystals.
     // 4. Initialize attack count of minions and hero.
     m_taskAgent.RunMulti(
-        meta, GetCurrentPlayer(), BasicTasks::DrawTask(1),
-        BasicTasks::ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
-        BasicTasks::ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
-                                   m_player1.GetMaximumMana() + 1),
-        BasicTasks::InitAttackCountTask());
+        meta, GetCurrentPlayer(), DrawTask(1),
+        ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
+        ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
+                       m_player1.GetMaximumMana() + 1),
+        InitAttackCountTask());
 }
 
 bool GameAgent::ProcessMainMenu()
@@ -230,10 +229,10 @@ bool GameAgent::ProcessMainMenu()
     }
 
     TaskMeta meta;
-    m_taskAgent.Run(meta, GetCurrentPlayer(), BasicTasks::BriefTask());
+    m_taskAgent.Run(meta, GetCurrentPlayer(), BriefTask());
 
     // Get menu response from game interface
-    BasicTasks::Requirement(TaskID::SELECT_MENU, m_taskAgent)
+    Requirement(TaskID::SELECT_MENU, m_taskAgent)
         .Interact(m_player1.GetID(), meta);
 
     // Interface pass menu by the status of TaskMeta
@@ -264,15 +263,14 @@ bool GameAgent::ProcessMainMenu()
 void GameAgent::PlayCard()
 {
     TaskMeta meta;
-    m_taskAgent.Run(meta, GetCurrentPlayer(),
-                    BasicTasks::PlayCardTask(m_taskAgent));
+    m_taskAgent.Run(meta, GetCurrentPlayer(), PlayCardTask(m_taskAgent));
 }
 
 void GameAgent::Combat()
 {
     TaskMeta meta;
     m_taskAgent.Run(meta, GetCurrentPlayer(),
-                    BasicTasks::CombatTask(m_taskAgent, nullptr, nullptr));
+                    CombatTask(m_taskAgent, nullptr, nullptr));
 }
 
 bool GameAgent::IsGameOver() const

@@ -10,7 +10,8 @@
 #include <hspp/Cards/Cards.hpp>
 
 using namespace Hearthstonepp;
-using namespace BasicTasks;
+using namespace PlayerTasks;
+using namespace SimpleTasks;
 
 TEST(CoreCardsGen, EX1_066)
 {

@@ -11,10 +11,10 @@
 
 #include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Managers/GameInterface.hpp>
-#include <hspp/Tasks/BasicTasks/CombatTask.hpp>
-#include <hspp/Tasks/BasicTasks/DrawTask.hpp>
-#include <hspp/Tasks/BasicTasks/InitAttackCountTask.hpp>
-#include <hspp/Tasks/BasicTasks/PlayCardTask.hpp>
+#include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
+#include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
+#include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 
 #include <future>
 

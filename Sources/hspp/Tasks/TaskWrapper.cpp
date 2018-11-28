@@ -6,7 +6,7 @@
 
 #include <hspp/Tasks/TaskWrapper.hpp>
 
-namespace Hearthstonepp::BasicTasks
+namespace Hearthstonepp
 {
 DoBothPlayer::DoBothPlayer(ITask&& task) : m_task(task)
 {
@@ -59,4 +59,4 @@ MetaData DoUntil::Impl(Player& player)
 
     return meta.GetStatus();
 }
-}  // namespace Hearthstonepp::BasicTasks
+}  // namespace Hearthstonepp

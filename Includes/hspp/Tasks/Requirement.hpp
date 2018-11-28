@@ -10,7 +10,7 @@
 #include <hspp/Enums/TaskEnums.hpp>
 #include <hspp/Tasks/TaskAgent.hpp>
 
-namespace Hearthstonepp::BasicTasks
+namespace Hearthstonepp
 {
 //!
 //! \brief Requirement class.

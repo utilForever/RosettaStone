@@ -6,12 +6,14 @@
 
 #include <hspp/CardSets/CoreCardsGen.hpp>
 #include <hspp/Enchants/Effects.hpp>
-#include <hspp/Tasks/BasicTasks/DamageTask.hpp>
-#include <hspp/Tasks/BasicTasks/DestroyTask.hpp>
-#include <hspp/Tasks/PowerTasks/AddEnchantmentTask.hpp>
-#include <hspp/Tasks/PowerTasks/DiscardTask.hpp>
-#include <hspp/Tasks/PowerTasks/HealFullTask.hpp>
-#include <hspp/Tasks/PowerTasks/HealTask.hpp>
+#include <hspp/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <hspp/Tasks/SimpleTasks/HealFullTask.hpp>
+#include <hspp/Tasks/SimpleTasks/HealTask.hpp>
+
+using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp
 {
@@ -69,7 +71,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->AddPowerTask(new PowerTask::HealTask(EntityType::HERO, 6));
+    power->AddPowerTask(new HealTask(EntityType::HERO, 6));
     cards.emplace("CS2_088", power);
 }
 
@@ -128,9 +130,8 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->AddPowerTask(new PowerTask::HealFullTask(EntityType::TARGET));
-    power->AddPowerTask(
-        new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
+    power->AddPowerTask(new HealFullTask(EntityType::TARGET));
+    power->AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     cards.emplace("CS2_041", power);
 }
 
@@ -162,7 +163,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->AddPowerTask(new PowerTask::DiscardTask(EntityType::HAND));
+    power->AddPowerTask(new DiscardTask(EntityType::HAND));
     cards.emplace("EX1_306", power);
 }
 
@@ -193,7 +194,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     auto power = new Power;
-    power->AddPowerTask(new BasicTasks::DestroyTask(EntityType::ENEMY_WEAPON));
+    power->AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
     cards.emplace("EX1_066", power);
 }
 
