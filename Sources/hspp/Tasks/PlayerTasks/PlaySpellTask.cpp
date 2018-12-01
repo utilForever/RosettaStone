@@ -27,44 +27,54 @@ TaskID PlaySpellTask::GetTaskID() const
 
 MetaData PlaySpellTask::Impl(Player& player)
 {
-    BYTE position;
-
-    if (m_target != nullptr)
+    Power* power = m_source->card->power;
+    if (power == nullptr)
     {
-        const auto fieldIter = std::find(player.GetField().begin(),
-                                         player.GetField().end(), m_target);
-        position = static_cast<BYTE>(
-            std::distance(player.GetField().begin(), fieldIter));
+        return MetaData::PLAY_SPELL_NO_POWER;
     }
-    else
+
+    BYTE position = 0;
+
+    if (NeedTarget(power))
     {
-        TaskMeta meta;
-
-        // Get position response from GameInterface
-        m_requirement.Interact(player.GetID(), meta);
-
-        using ResponsePlaySpell = FlatData::ResponsePlaySpell;
-        const auto& buffer = meta.GetBuffer();
-        const auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
-
-        if (req == nullptr)
+        if (m_target != nullptr)
         {
-            return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
+            const auto fieldIter = std::find(player.GetField().begin(),
+                                             player.GetField().end(), m_target);
+            position = static_cast<BYTE>(
+                std::distance(player.GetField().begin(), fieldIter));
+        }
+        else
+        {
+            TaskMeta meta;
+
+            // Get position response from GameInterface
+            m_requirement.Interact(player.GetID(), meta);
+
+            using ResponsePlaySpell = FlatData::ResponsePlaySpell;
+            const auto& buffer = meta.GetBuffer();
+            const auto req =
+                flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
+
+            if (req == nullptr)
+            {
+                return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
+            }
+
+            position = req->position();
         }
 
-        position = req->position();
-    }
+        // Verify field position
+        if (position > player.GetField().size())
+        {
+            return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
+        }
 
-    // Verify field position
-    if (position > player.GetField().size())
-    {
-        return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
-    }
-
-    // Verify valid target
-    if (player.GetField()[position] == nullptr)
-    {
-        return MetaData::PLAY_SPELL_INVALID_TARGET;
+        // Verify valid target
+        if (player.GetField()[position] == nullptr)
+        {
+            return MetaData::PLAY_SPELL_INVALID_TARGET;
+        }        
     }
 
     const auto cost = static_cast<BYTE>(m_source->card->cost);
@@ -73,13 +83,10 @@ MetaData PlaySpellTask::Impl(Player& player)
             .Run(player);
 
     // Process PowerTasks
-    if (m_source->card->power != nullptr)
+    for (auto& powerTask : m_source->card->power->GetPowerTask())
     {
-        for (auto& power : m_source->card->power->GetPowerTask())
-        {
-            power->SetTarget(player.GetField()[position]);
-            power->Run(player);
-        }
+        powerTask->SetTarget(player.GetField()[position]);
+        powerTask->Run(player);
     }
 
     if (modified == MetaData::MODIFY_MANA_SUCCESS)
@@ -88,5 +95,19 @@ MetaData PlaySpellTask::Impl(Player& player)
     }
 
     return MetaData::PLAY_SPELL_MODIFY_MANA_FAIL;
+}
+
+bool PlaySpellTask::NeedTarget(Power* power)
+{
+    for (auto& powerTask : power->GetPowerTask())
+    {
+        if (powerTask->GetEntityType() == +EntityType::SOURCE ||
+            powerTask->GetEntityType() == +EntityType::TARGET)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 }  // namespace Hearthstonepp::PlayerTasks
