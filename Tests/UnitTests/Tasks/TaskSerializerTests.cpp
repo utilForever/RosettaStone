@@ -84,7 +84,7 @@ TEST(TaskSerializer, CreateEntity)
     EXPECT_NE(nerubian.id, "");
     EXPECT_EQ(nerubian.name, "Nerubian");
 
-    auto minionNerubian = new Minion(nerubian);
+    auto minionNerubian = new Minion(nullptr, nerubian);
     minionNerubian->health = 100;
     minionNerubian->SetAttack(1000);
 
@@ -100,7 +100,7 @@ TEST(TaskSerializer, CreateEntity)
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
-    auto weaponPoisonBlade = new Weapon(poisonedBlade);
+    auto weaponPoisonBlade = new Weapon(nullptr, poisonedBlade);
     weaponPoisonBlade->SetDurability(500);
 
     buffer = autoEncode(weaponPoisonBlade);
@@ -120,10 +120,10 @@ TEST(TaskSerializer, CreateEntityVector)
     const TaskMetaTrait randTrait = GenerateRandomTrait();
 
     auto nerubian = instance.FindCardByID("AT_036t");
-    const auto minionNerubian = new Minion(nerubian);
+    const auto minionNerubian = new Minion(nullptr, nerubian);
 
     auto poisonedBlade = instance.FindCardByID("AT_034");
-    const auto weaponPoisonedBlade = new Weapon(poisonedBlade);
+    const auto weaponPoisonedBlade = new Weapon(nullptr, poisonedBlade);
 
     const std::vector<Entity*> entities = { minionNerubian,
                                             weaponPoisonedBlade };
@@ -279,13 +279,15 @@ TEST(TaskSerializer, CreateGameStatus)
 
     // Summon 'Nerubian' card to field (minion)
     Card nerubian = instance.FindCardByID("AT_036t");
-    agent.GetPlayer1().GetField().emplace_back(new Minion(nerubian));
-    agent.GetPlayer2().GetField().emplace_back(new Minion(nerubian));
+    agent.GetPlayer1().GetField().emplace_back(new Minion(&agent, nerubian));
+    agent.GetPlayer2().GetField().emplace_back(new Minion(&agent, nerubian));
 
     // Draw 'Poisoned Blade' card (weapon)
     Card poisonedBlade = instance.FindCardByID("AT_034");
-    agent.GetPlayer1().GetHand().emplace_back(new Weapon(poisonedBlade));
-    agent.GetPlayer2().GetHand().emplace_back(new Weapon(poisonedBlade));
+    agent.GetPlayer1().GetHand().emplace_back(
+        new Weapon(&agent, poisonedBlade));
+    agent.GetPlayer2().GetHand().emplace_back(
+        new Weapon(&agent, poisonedBlade));
 
     TaskMeta meta = Serializer::CreateGameStatus(
         agent.GetPlayer1(), randTrait.GetID(), randTrait.GetStatus());

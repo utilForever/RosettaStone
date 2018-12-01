@@ -29,7 +29,7 @@ TEST(ShuffleTask, Run)
     for (int i = 0; i < 5; i++)
     {
         auto card = GenerateMinionCard("minion", 5, 1);
-        agent.GetPlayer1().GetDeck().emplace_back(new Minion(card));
+        agent.GetPlayer1().GetDeck().emplace_back(new Minion(&agent, card));
     }
 
     MetaData result = init.Run(agent.GetPlayer1());

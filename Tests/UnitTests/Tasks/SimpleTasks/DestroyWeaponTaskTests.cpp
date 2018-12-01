@@ -25,7 +25,7 @@ TEST(DestroyWeaponTask, Run)
 
     Card card;
     card.id = "weapon1";
-    agent.GetPlayer1().GetHero()->weapon = new Weapon(card);
+    agent.GetPlayer1().GetHero()->weapon = new Weapon(&agent, card);
 
     MetaData result = destroy.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DESTROY_WEAPON_SUCCESS);

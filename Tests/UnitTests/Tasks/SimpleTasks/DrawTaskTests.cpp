@@ -16,7 +16,6 @@ using namespace SimpleTasks;
 TEST(DrawTask, GetTaskID)
 {
     const DrawTask draw(1);
-
     EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
 }
 
@@ -25,19 +24,19 @@ TEST(DrawTask, Run)
     std::vector<Card> cards;
     std::vector<Entity*> entities;
 
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& p = agent.GetPlayer1();
+
     const auto Generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(Card());
 
         Card card = cards.back();
         card.id = std::move(id);
 
-        entities.emplace_back(new Entity(card));
+        entities.emplace_back(new Entity(&agent, card));
 
         return entities.back();
     };
-
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& p = agent.GetPlayer1();
 
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
@@ -76,7 +75,7 @@ TEST(DrawTask, RunExhaust)
     Card card;
     card.id = "card1";
 
-    auto entity = new Entity(card);
+    auto entity = new Entity(&agent, card);
     p.GetDeck().emplace_back(entity);
 
     result = draw.Run(agent.GetPlayer1());
@@ -94,19 +93,19 @@ TEST(DrawTask, RunOverDraw)
     std::vector<Card> cards;
     std::vector<Entity*> entities;
 
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& p = agent.GetPlayer1();
+
     const auto Generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(Card());
 
         Card card = cards.back();
         card.id = std::move(id);
 
-        entities.emplace_back(new Entity(card));
+        entities.emplace_back(new Entity(&agent, card));
 
         return entities.back();
     };
-
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& p = agent.GetPlayer1();
 
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
@@ -145,18 +144,18 @@ TEST(DrawTask, RunExhaustOverdraw)
     std::vector<Card> cards;
     std::vector<Entity*> entities;
 
+    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& p = agent.GetPlayer1();
+
     const auto Generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(Card());
 
         Card card = cards.back();
         card.id = std::move(id);
 
-        entities.emplace_back(new Entity(card));
+        entities.emplace_back(new Entity(&agent, card));
         return entities.back();
     };
-
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& p = agent.GetPlayer1();
 
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
@@ -212,8 +211,8 @@ TEST(DrawCardTask, Run)
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
-    auto minionNerubian = new Entity(nerubian);
-    auto weaponPoisonedBlade = new Entity(poisonedBlade);
+    auto minionNerubian = new Entity(&agent, nerubian);
+    auto weaponPoisonedBlade = new Entity(&agent, poisonedBlade);
     agent.GetPlayer1().GetDeck().emplace_back(weaponPoisonedBlade);
     agent.GetPlayer1().GetDeck().emplace_back(minionNerubian);
 

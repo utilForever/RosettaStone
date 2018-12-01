@@ -44,12 +44,12 @@ TEST(InitAttackCountTask, RunFrozen)
 
     Card card;
 
-    auto minion1 = new Minion(card);
-    auto minion2 = new Minion(card);
-    auto minion3 = new Minion(card);
-    auto minion4 = new Minion(card);
-    auto minion5 = new Minion(card);
-    auto minion6 = new Minion(card);
+    auto minion1 = new Minion(&agent, card);
+    auto minion2 = new Minion(&agent, card);
+    auto minion3 = new Minion(&agent, card);
+    auto minion4 = new Minion(&agent, card);
+    auto minion5 = new Minion(&agent, card);
+    auto minion6 = new Minion(&agent, card);
 
     // Case 1
     minion6->SetGameTag(GameTag::FROZEN, 1);
@@ -131,8 +131,8 @@ TEST(InitAttackCountTask, RunWindFury)
     Card card1;
     Card card2;
 
-    auto minion1 = new Minion(card1);
-    auto minion2 = new Minion(card2);
+    auto minion1 = new Minion(&agent, card1);
+    auto minion2 = new Minion(&agent, card2);
 
     minion2->SetGameTag(GameTag::WINDFURY, 1);
 
