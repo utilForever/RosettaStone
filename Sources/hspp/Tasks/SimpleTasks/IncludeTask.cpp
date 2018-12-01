@@ -6,6 +6,8 @@
 
 #include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 
+#include <stdexcept>
+
 namespace Hearthstonepp::SimpleTasks
 {
 TaskID IncludeTask::GetTaskID() const
@@ -38,7 +40,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(player.GetOpponent().GetHero());
             break;
         default:
-            throw std::exception("Not implemented");
+            throw std::domain_error("Invalid entity type");
     }
 
     return entities;
