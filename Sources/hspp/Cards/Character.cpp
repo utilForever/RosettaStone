@@ -6,13 +6,14 @@
 
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Cards/Character.hpp>
-#include <hspp/Commons/Macros.hpp>
+#include <hspp/Cards/Minion.hpp>
+#include <hspp/Managers/GameAgent.hpp>
 
 #include <algorithm>
 
 namespace Hearthstonepp
 {
-Character::Character(Card& card) : Entity(card)
+Character::Character(GameAgent* gameAgent, Card& card) : Entity(gameAgent, card)
 {
     if (!card.id.empty())
     {
@@ -53,6 +54,16 @@ bool Character::CanAttack() const
     }
 
     return true;
+}
+
+std::vector<Character*>& Character::GetField() const
+{
+    return *m_field;
+}
+
+void Character::SetField(std::vector<Character*>& field)
+{
+    m_field = &field;
 }
 
 bool Character::IsValidAttackTarget(Player& opponent, Character* target) const
