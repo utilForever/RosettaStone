@@ -27,7 +27,7 @@ class Hero : public Character
 
     //! Constructs hero with given \p card.
     //! \param card A reference to the card.
-    Hero(Card& card);
+    Hero(GameAgent* gameAgent, Card& card);
 
     //! Default destructor.
     ~Hero();

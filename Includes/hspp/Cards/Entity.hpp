@@ -14,6 +14,7 @@
 namespace Hearthstonepp
 {
 class Card;
+class GameAgent;
 class GameTag;
 
 //!
@@ -31,7 +32,7 @@ class Entity
 
     //! Constructs entity with given \p _card.
     //! \param _card A reference to the card.
-    Entity(Card& _card);
+    Entity(GameAgent* gameAgent, Card& _card);
 
     //! Destructor.
     virtual ~Entity();
@@ -48,6 +49,8 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
+    GameAgent* GetGameAgent() const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -61,6 +64,8 @@ class Entity
     const Card* card = nullptr;
 
  protected:
+    GameAgent* m_gameAgent = nullptr;
+
     std::map<GameTag, int> m_gameTags;
 
  private:
