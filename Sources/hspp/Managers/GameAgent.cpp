@@ -130,6 +130,12 @@ void GameAgent::NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel)
     m_taskAgent.Notify(std::move(meta), sideChannel);
 }
 
+void GameAgent::KillMinion(Minion& minion) const
+{
+    auto& field = minion.GetField();
+    field.erase(std::find(field.begin(), field.end(), &minion));
+}
+
 TaskAgent& GameAgent::GetTaskAgent()
 {
     return m_taskAgent;

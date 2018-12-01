@@ -7,6 +7,7 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_HPP
 #define HEARTHSTONEPP_GAME_AGENT_HPP
 
+#include <hspp/Cards/Minion.hpp>
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Tasks/TaskAgent.hpp>
@@ -101,6 +102,10 @@ class GameAgent
     //! \param meta A task meta to write to task agent (lvalue ref).
     //! \param sideChannel A variable that tells you whether to use side.
     void NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel = false);
+
+    //! Kills a minion from field.
+    //! \param minion A character to kill.
+    void KillMinion(Minion& minion) const;
 
  private:
     //! Returns whether the game is over.
