@@ -82,7 +82,6 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
 
 void CoreCardsGen::AddPriest(std::map<std::string, Power*>& cards)
 {
-    (void)cards;
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_112] Holy Nova - COST:5
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -90,11 +89,10 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power*>& cards)
     // Text: Deal $2 damage to all enemies.
     //       Restore #2 Health to all friendly characters.
     // --------------------------------------------------------
-    // Power* p = new Power;
-    // p->powerTask.emplace_back(
-    //    new PowerTask::DamageTask(EntityType::ENEMIES, 2));
-    // p->powerTask.emplace_back(new PowerTask::HealTask(EntityType::FRIENDS,
-    // 2)); cards.emplace("CS1_112", p);
+    auto power = new Power;
+    power->AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
+    power->AddPowerTask(new HealTask(EntityType::FRIENDS, 2));
+    cards.emplace("CS1_112", power);
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
