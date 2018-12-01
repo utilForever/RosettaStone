@@ -11,7 +11,7 @@ namespace Hearthstonepp::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
                                        EntityType entityType)
-    : m_cardID(cardID), m_entityType(entityType)
+    : ITask(entityType), m_cardID(cardID)
 {
     // Do nothing
 }

@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp::SimpleTasks
 {
-DiscardTask::DiscardTask(EntityType entityType) : m_entityType(entityType)
+DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
 {
     // Do nothing
 }

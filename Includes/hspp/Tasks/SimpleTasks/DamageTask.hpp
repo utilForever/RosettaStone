@@ -20,9 +20,9 @@ class DamageTask : public ITask
 {
  public:
     //! Constructs task with given \p character and \p damage.
-    //! \param character A pointer to character to take damage.
+    //! \param entityType The entity type of target to take damage.
     //! \param damage A value indicating how much to take.
-    DamageTask(Character* character, size_t damage);
+    DamageTask(EntityType entityType, size_t damage);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,7 +34,6 @@ class DamageTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    Character* m_character = nullptr;
     size_t m_damage = 0;
 };
 }  // namespace Hearthstonepp::SimpleTasks

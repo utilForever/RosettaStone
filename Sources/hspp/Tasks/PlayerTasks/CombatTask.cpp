@@ -74,7 +74,7 @@ MetaData CombatTask::Impl(Player& player)
     // Freeze target if attacker is freezer
     if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        FreezeTask(target, EntityType::TARGET).Run(player);
+        FreezeTask(EntityType::TARGET, target).Run(player);
     }
 
     // Ignore damage from defenders with 0 attack
@@ -92,7 +92,7 @@ MetaData CombatTask::Impl(Player& player)
         // Freeze source if defender is freezer
         if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
         {
-            FreezeTask(source, EntityType::SOURCE).Run(player);
+            FreezeTask(EntityType::SOURCE, source).Run(player);
         }
     }
 

@@ -19,10 +19,10 @@ namespace Hearthstonepp::SimpleTasks
 class FreezeTask : public ITask
 {
  public:
-    //! Constructs task with given \p target and \type.
+    //! Constructs task with given \p entityType and \p target.
+    //! \param entityType A entity type of the target.
     //! \param target A pointer to attacked character.
-    //! \param type A type of the target.
-    FreezeTask(Character* target, EntityType type);
+    FreezeTask(EntityType entityType, Character* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -51,9 +51,6 @@ class FreezeTask : public ITask
     //! \return true if this character gets Frozen after attacking, and false
     //! otherwise.
     bool IsFrozenAfterAttack() const;
-
-    Character* m_target = nullptr;
-    EntityType m_type = EntityType::EMPTY;
 };
 }  // namespace Hearthstonepp::SimpleTasks
 
