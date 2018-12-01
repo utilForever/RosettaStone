@@ -30,7 +30,14 @@ class ITask
     //! Default constructor.
     ITask() = default;
 
+    //!
+    ITask(EntityType entityType);
+
+    //!
     ITask(Entity* source, Entity* target);
+
+    //!
+    ITask(EntityType entityType, Entity* source, Entity* target);
 
     //! Default destructor.
     virtual ~ITask() = default;
@@ -46,6 +53,10 @@ class ITask
 
     //! Default move assignment operator.
     ITask& operator=(ITask&& task) = default;
+
+    //! Returns entity type.
+    //! \return Entity type.
+    EntityType GetEntityType() const;
 
     //! Sets the target.
     //! \param target A pointer to the target.
@@ -67,6 +78,7 @@ class ITask
     virtual TaskID GetTaskID() const = 0;
 
  protected:
+    EntityType m_entityType = EntityType::EMPTY;
     Entity* m_source = nullptr;
     Entity* m_target = nullptr;
 
