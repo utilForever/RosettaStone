@@ -136,6 +136,15 @@ size_t Character::TakeDamage(Character& source, size_t damage)
 
     health -= static_cast<int>(damage);
 
+    if (health <= 0)
+    {
+        const auto minion = dynamic_cast<Minion*>(this);
+        if (minion != nullptr)
+        {
+            GetGameAgent()->KillMinion(*minion);
+        }
+    }
+
     return damage;
 }
 
