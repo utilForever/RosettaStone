@@ -77,6 +77,11 @@ class Character : public Entity
     //! \return Final damage taking into account ability.
     size_t TakeDamage(Character& source, size_t damage);
 
+    //! Gets healed by a certain other entity.
+    //! \param source The character to get heal.
+    //! \param heal The value of heal.
+    void TakeHeal(Character& source, int heal);
+
     size_t attackableCount = 0;
     size_t numTurnToUnfreeze = 0;
     int health = 0;
