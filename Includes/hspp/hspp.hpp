@@ -60,6 +60,7 @@
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <hspp/Tasks/SimpleTasks/HealTask.hpp>
+#include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
