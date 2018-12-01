@@ -86,8 +86,8 @@ TEST(CombatTask, Default)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     auto card2 = GenerateMinionCard("minion2", 5, 4);
 
-    player1.GetField().emplace_back(new Minion(card1));
-    player2.GetField().emplace_back(new Minion(card2));
+    PlayMinionCard(player1, card1);
+    PlayMinionCard(player2, card2);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -115,8 +115,8 @@ TEST(CombatTask, Default)
     auto card3 = GenerateMinionCard("minion3", 5, 6);
     auto card4 = GenerateMinionCard("minion4", 5, 4);
 
-    player1.GetField().emplace_back(new Minion(card3));
-    player2.GetField().emplace_back(new Minion(card4));
+    PlayMinionCard(player1, card3);
+    PlayMinionCard(player2, card4);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -128,7 +128,7 @@ TEST(CombatTask, Default)
     auto card5 = GenerateMinionCard("minion5", 5, 4);
 
     player1.GetField()[0]->SetAttack(1);
-    player2.GetField().emplace_back(new Minion(card5));
+    PlayMinionCard(player2, card5);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -147,7 +147,7 @@ TEST(CombatTask, Weapon)
     player1.GetHero()->weapon = new Weapon();
     player1.GetHero()->weapon->SetAttack(4);
     player1.GetHero()->weapon->SetDurability(2);
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player2, card);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -173,8 +173,8 @@ TEST(CombatTask, Charge)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion1", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
 
     player1.GetField()[0]->SetGameTag(GameTag::CHARGE, 1);
 
@@ -193,9 +193,9 @@ TEST(CombatTask, Taunt)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion1", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
+    PlayMinionCard(player2, card);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -216,8 +216,8 @@ TEST(CombatTask, Stealth)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
 
     player2.GetField()[0]->SetGameTag(GameTag::STEALTH, 1);
 
@@ -240,8 +240,8 @@ TEST(CombatTask, Immune)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
 
     player1.GetField()[0]->SetGameTag(GameTag::IMMUNE, 1);
 
@@ -259,8 +259,8 @@ TEST(CombatTask, Windfury)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -287,8 +287,8 @@ TEST(CombatTask, DivineShield)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -315,8 +315,8 @@ TEST(CombatTask, Poisonous)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
 
     player1.GetField()[0]->SetGameTag(GameTag::POISONOUS, 1);
 
@@ -327,7 +327,7 @@ TEST(CombatTask, Poisonous)
     EXPECT_EQ(player1.GetField()[0]->health, static_cast<size_t>(9));
     EXPECT_EQ(player2.GetField().size(), static_cast<size_t>(0));
 
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player2, card);
 
     player1.GetField()[0]->SetGameTag(GameTag::POISONOUS, 0);
     player2.GetField()[0]->SetGameTag(GameTag::POISONOUS, 1);
@@ -346,8 +346,8 @@ TEST(CombatTask, Freeze)
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    player1.GetField().emplace_back(new Minion(card));
-    player2.GetField().emplace_back(new Minion(card));
+    PlayMinionCard(player1, card);
+    PlayMinionCard(player2, card);
 
     player1.GetField()[0]->SetGameTag(GameTag::FREEZE, 1);
 
