@@ -7,6 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
+#include <hspp/Cards/Minion.hpp>
 #include <hspp/Commons/Macros.hpp>
 
 #include <random>
@@ -70,6 +71,12 @@ Card GenerateMinionCard(std::string&& id, size_t attack, size_t health)
     card.health = health;
 
     return card;
+}
+
+void PlayMinionCard(Player& player, Card& card)
+{
+    auto iter = player.GetField().emplace_back(new Minion(nullptr, card));
+    iter->SetField(player.GetField());
 }
 
 Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)

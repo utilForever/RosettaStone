@@ -23,6 +23,8 @@ TaskMeta GenerateRandomTaskMeta();
 
 Card GenerateMinionCard(std::string&& id, size_t attack, size_t health);
 
+void PlayMinionCard(Player& player, Card& card);
+
 Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized);
 
 void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
