@@ -123,3 +123,50 @@ TEST(CoreCardsGen, CS2_088)
     EXPECT_EQ(opponentPlayer.GetHero()->maxHealth,
               opponentPlayer.GetHero()->health);
 }
+
+TEST(CoreCardsGen, CS1_112)
+{
+    GameAgent agent(CardClass::PRIEST, CardClass::PALADIN, PlayerType::PLAYER1);
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+
+    Player& currentPlayer = agent.GetCurrentPlayer();
+    Player& opponentPlayer = agent.GetCurrentPlayer().GetOpponent();
+    currentPlayer.SetMaximumMana(10);
+    currentPlayer.SetAvailableMana(10);
+    opponentPlayer.SetMaximumMana(10);
+    opponentPlayer.SetAvailableMana(10);
+    currentPlayer.GetHero()->health = 26;
+
+    const auto card1 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
+    const auto card2 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Holy Nova"));
+    const auto card4 = Generic::DrawCard(
+        opponentPlayer, Cards::GetInstance().FindCardByName("Argent Squire"));
+    const auto card5 = Generic::DrawCard(
+        opponentPlayer,
+        Cards::GetInstance().FindCardByName("Worgen Infiltrator"));
+
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
+    currentPlayer.SetAvailableMana(10);
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card2));
+    currentPlayer.SetAvailableMana(10);
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card4));
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card5));
+
+    GameAgent::RunTask(currentPlayer, InitAttackCountTask());
+
+    GameAgent::RunTask(currentPlayer, CombatTask(taskAgent, card1, card4));
+    EXPECT_EQ(currentPlayer.GetField()[0]->health, 4);
+    EXPECT_EQ(opponentPlayer.GetField()[0]->GetGameTag(GameTag::DIVINE_SHIELD),
+              0);
+
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card3));
+    EXPECT_EQ(currentPlayer.GetHero()->health, 28);
+    EXPECT_EQ(opponentPlayer.GetHero()->health, 28);
+    EXPECT_EQ(currentPlayer.GetField()[0]->health, 5);
+    EXPECT_EQ(currentPlayer.GetField()[1]->health, 7);
+    EXPECT_EQ(opponentPlayer.GetField().size(), 0u);
+}
