@@ -123,17 +123,19 @@ void Player::SetDeck(Deck* deck)
             continue;
         }
 
+        auto* pGameAgent = &GetGameAgent();
         Entity* entity = nullptr;
+
         switch (card.cardType)
         {
             case CardType::MINION:
-                entity = new Minion(card);
+                entity = new Minion(pGameAgent, card);
                 break;
             case CardType::WEAPON:
-                entity = new Weapon(card);
+                entity = new Weapon(pGameAgent, card);
                 break;
             default:
-                entity = new Entity(card);
+                entity = new Entity(pGameAgent, card);
                 break;
         }
 
@@ -143,8 +145,10 @@ void Player::SetDeck(Deck* deck)
 
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
-    m_hero = new Hero(heroCard);
-    m_hero->heroPower = new HeroPower(powerCard);
+    auto* pGameAgent = &GetGameAgent();
+
+    m_hero = new Hero(pGameAgent, heroCard);
+    m_hero->heroPower = new HeroPower(pGameAgent, powerCard);
 }
 
 void Player::FreeMemory()
