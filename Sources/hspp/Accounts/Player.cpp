@@ -34,6 +34,16 @@ void Player::SetNickname(std::string nickname)
     m_nickname = nickname;
 }
 
+PlayerType Player::GetPlayerType() const
+{
+    return m_playerType;
+}
+
+void Player::SetPlayerType(PlayerType type)
+{
+    m_playerType = type;
+}
+
 BYTE Player::GetID() const
 {
     return m_id;
