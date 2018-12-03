@@ -13,7 +13,7 @@ namespace Hearthstonepp::SimpleTasks
 DamageTask::DamageTask(EntityType entityType, size_t damage)
     : ITask(entityType), m_damage(damage)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID DamageTask::GetTaskID() const
