@@ -4,33 +4,31 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 #include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace Hearthstonepp::SimpleTasks
 {
-DamageTask::DamageTask(EntityType entityType, size_t damage)
-    : ITask(entityType), m_damage(damage)
+ControlTask::ControlTask(EntityType entityType)
+    : ITask(entityType)
 {
     // Do nothing
 }
 
-TaskID DamageTask::GetTaskID() const
+TaskID ControlTask::GetTaskID() const
 {
-    return TaskID::DAMAGE;
+    return TaskID::CONTROL;
 }
 
-MetaData DamageTask::Impl(Player& player)
+MetaData ControlTask::Impl(Player& player)
 {
     auto entities = IncludeTask::GetEntities(m_entityType, player);
 
     for (auto& entity : entities)
     {
-        auto character = dynamic_cast<Character*>(entity);
-        character->TakeDamage(*character, m_damage);
+        (void)entity;
     }
 
-    return MetaData::DAMAGE_SUCCESS;
+    return MetaData::CONTROL_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

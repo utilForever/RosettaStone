@@ -28,7 +28,7 @@ BETTER_ENUM(TaskID, int, INVALID = 0, TASK_VECTOR = 1, REQUIRE = 2,
             PLAY_WEAPON = 19, PLAY_SPELL = 20, GAME_END = 21,
             ADD_ENCHANTMENT = 22, DESTROY = 23, DISCARD = 24, HEAL_FULL = 25,
             POISONOUS = 26, FREEZE = 27, INIT_ATTACK_COUNT = 28, HEAL = 29,
-            INCLUDE = 30);
+            INCLUDE = 30, CONTROL = 31);
 #else
 enum class TaskID
 {
@@ -62,7 +62,8 @@ enum class TaskID
     FREEZE = 27,
     INIT_ATTACK_COUNT = 28,
     HEAL = 29,
-    INCLUDE = 30
+    INCLUDE = 30,
+    CONTROL = 31
 };
 #endif
 

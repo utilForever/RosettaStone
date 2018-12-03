@@ -51,6 +51,7 @@
 #include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
 #include <hspp/Tasks/Requirement.hpp>
 #include <hspp/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>

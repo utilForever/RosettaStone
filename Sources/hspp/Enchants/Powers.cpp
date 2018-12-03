@@ -16,11 +16,6 @@ Powers::Powers()
 
 Powers::~Powers()
 {
-    for (const auto& power : m_powers)
-    {
-        delete power.second;
-    }
-
     m_powers.clear();
 }
 
@@ -30,7 +25,7 @@ Powers& Powers::GetInstance()
     return instance;
 }
 
-Power* Powers::FindPowerByCardID(std::string cardID) const
+Power Powers::FindPowerByCardID(const std::string& cardID)
 {
     const auto res = m_powers.find(cardID);
     if (res != m_powers.end())
@@ -38,6 +33,6 @@ Power* Powers::FindPowerByCardID(std::string cardID) const
         return res->second;
     }
 
-    return nullptr;
+    return Power();
 }
 }  // namespace Hearthstonepp
