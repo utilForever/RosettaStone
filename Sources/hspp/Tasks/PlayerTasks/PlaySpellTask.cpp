@@ -27,8 +27,8 @@ TaskID PlaySpellTask::GetTaskID() const
 
 MetaData PlaySpellTask::Impl(Player& player)
 {
-    Power* power = m_source->card->power;
-    if (power == nullptr)
+    Power power = m_source->card->power;
+    if (power.GetEnchant() == nullptr && power.GetPowerTask().empty())
     {
         return MetaData::PLAY_SPELL_NO_POWER;
     }
@@ -83,7 +83,7 @@ MetaData PlaySpellTask::Impl(Player& player)
             .Run(player);
 
     // Process PowerTasks
-    for (auto& powerTask : m_source->card->power->GetPowerTask())
+    for (auto& powerTask : m_source->card->power.GetPowerTask())
     {
         powerTask->SetTarget(player.GetField()[position]);
         powerTask->Run(player);
@@ -97,9 +97,9 @@ MetaData PlaySpellTask::Impl(Player& player)
     return MetaData::PLAY_SPELL_MODIFY_MANA_FAIL;
 }
 
-bool PlaySpellTask::NeedTarget(Power* power)
+bool PlaySpellTask::NeedTarget(Power& power)
 {
-    for (auto& powerTask : power->GetPowerTask())
+    for (auto& powerTask : power.GetPowerTask())
     {
         if (powerTask->GetEntityType() == +EntityType::SOURCE ||
             powerTask->GetEntityType() == +EntityType::TARGET)

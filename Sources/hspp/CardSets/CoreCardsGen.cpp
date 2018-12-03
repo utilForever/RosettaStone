@@ -17,47 +17,47 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp
 {
-void CoreCardsGen::AddHeroes(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHeroes(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddHeroPowers(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddDruid(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddHunter(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddMage(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
     (void)cards;
 
@@ -70,17 +70,17 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    auto power = new Power;
-    power->AddPowerTask(new HealTask(EntityType::HERO, 6));
+    Power power;
+    power.AddPowerTask(new HealTask(EntityType::HERO, 6));
     cards.emplace("CS2_088", power);
 }
 
-void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddPriest(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
 {
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_112] Holy Nova - COST:5
@@ -89,28 +89,28 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power*>& cards)
     // Text: Deal $2 damage to all enemies.
     //       Restore #2 Health to all friendly characters.
     // --------------------------------------------------------
-    auto power = new Power;
-    power->AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
-    power->AddPowerTask(new HealTask(EntityType::FRIENDS, 2));
+    Power power;
+    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
+    power.AddPowerTask(new HealTask(EntityType::FRIENDS, 2));
     cards.emplace("CS1_112", power);
 }
 
-void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddRogue(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
 {
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
@@ -127,13 +127,13 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // Tag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    auto power = new Power;
-    power->AddPowerTask(new HealFullTask(EntityType::TARGET));
-    power->AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
+    Power power;
+    power.AddPowerTask(new HealFullTask(EntityType::TARGET));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     cards.emplace("CS2_041", power);
 }
 
-void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 {
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
@@ -144,12 +144,12 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    auto power = new Power;
-    power->AddEnchant(new Enchant(Effects::Taunt));
+    Power power;
+    power.AddEnchant(new Enchant(Effects::Taunt));
     cards.emplace("CS2_041e", power);
 }
 
-void CoreCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
@@ -160,27 +160,27 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    auto power = new Power;
-    power->AddPowerTask(new DiscardTask(EntityType::HAND));
+    Power power;
+    power.AddPowerTask(new DiscardTask(EntityType::HAND));
     cards.emplace("EX1_306", power);
 }
 
-void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddWarrior(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
@@ -191,17 +191,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    auto power = new Power;
-    power->AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
+    Power power;
+    power.AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
     cards.emplace("EX1_066", power);
 }
 
-void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
     (void)cards;
 }
 
-void CoreCardsGen::AddAll(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddAll(std::map<std::string, Power>& cards)
 {
     AddHeroes(cards);
     AddHeroPowers(cards);

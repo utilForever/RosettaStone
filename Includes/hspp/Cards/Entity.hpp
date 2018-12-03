@@ -61,7 +61,7 @@ class Entity
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
-    const Card* card = nullptr;
+    Card* card = nullptr;
 
  protected:
     GameAgent* m_gameAgent = nullptr;

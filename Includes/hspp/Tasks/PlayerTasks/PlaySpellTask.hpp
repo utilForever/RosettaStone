@@ -39,9 +39,9 @@ class PlaySpellTask : public ITask
     MetaData Impl(Player& player) override;
 
     //! Checks that spell card needs target.
-    //! \param power A pointer to power of the card.
+    //! \param power A reference to power of the card.
     //! \return true if spell card needs target, and false otherwise.
-    static bool NeedTarget(Power* power);
+    static bool NeedTarget(Power& power);
 
     Entity* m_source = nullptr;
     Requirement m_requirement;
