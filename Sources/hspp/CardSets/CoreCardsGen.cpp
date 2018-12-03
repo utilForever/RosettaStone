@@ -93,6 +93,19 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
     power.AddPowerTask(new HealTask(EntityType::FRIENDS, 2));
     cards.emplace("CS1_112", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS1_113] Mind Control - COST:10
+    // - Faction: neutral, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: Take control of an enemy minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
