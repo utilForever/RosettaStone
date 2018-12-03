@@ -115,6 +115,9 @@ enum class MetaData : status_t
     INIT_ATTACK_COUNT,
     INIT_ATTACK_COUNT_SUCCESS,
 
+    CONTROL,
+    CONTROL_SUCCESS,
+
     GAME_END
 };
 }  // namespace Hearthstonepp
