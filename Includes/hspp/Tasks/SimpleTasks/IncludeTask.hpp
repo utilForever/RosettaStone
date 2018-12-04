@@ -28,7 +28,8 @@ class IncludeTask : public ITask
     TaskID GetTaskID() const override;
 
     static std::vector<Entity*> GetEntities(EntityType entityType,
-                                            Player& player);
+                                            Player& player,
+                                            Entity* target = nullptr);
 
  private:
     //! Processes task logic internally and returns meta data.
