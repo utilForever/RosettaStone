@@ -170,3 +170,33 @@ TEST(CoreCardsGen, CS1_112)
     EXPECT_EQ(currentPlayer.GetField()[1]->health, 7);
     EXPECT_EQ(opponentPlayer.GetField().size(), 0u);
 }
+
+TEST(CoreCardsGen, CS1_113)
+{
+    GameAgent agent(CardClass::PRIEST, CardClass::PALADIN, PlayerType::PLAYER1);
+    TaskAgent& taskAgent = agent.GetTaskAgent();
+
+    Player& currentPlayer = agent.GetCurrentPlayer();
+    Player& opponentPlayer = agent.GetCurrentPlayer().GetOpponent();
+    currentPlayer.SetMaximumMana(10);
+    currentPlayer.SetAvailableMana(10);
+    opponentPlayer.SetMaximumMana(10);
+    opponentPlayer.SetAvailableMana(10);
+
+    const auto card1 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
+    const auto card2 = Generic::DrawCard(
+        opponentPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        currentPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
+
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
+    currentPlayer.SetAvailableMana(10);
+    GameAgent::RunTask(opponentPlayer, PlayCardTask(taskAgent, card2));
+    EXPECT_EQ(currentPlayer.GetField().size(), 1u);
+    EXPECT_EQ(opponentPlayer.GetField().size(), 1u);
+
+    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card3, -1, card2));
+    EXPECT_EQ(currentPlayer.GetField().size(), 2u);
+    EXPECT_EQ(opponentPlayer.GetField().size(), 0u);
+}
