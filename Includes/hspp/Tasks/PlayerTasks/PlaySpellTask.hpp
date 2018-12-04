@@ -43,9 +43,9 @@ class PlaySpellTask : public ITask
     //! \return true if spell card needs target, and false otherwise.
     static bool NeedTarget(Power& power);
 
-    Entity* m_source = nullptr;
+    BYTE FindTargetPos(Player& player) const;
+
     Requirement m_requirement;
-    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 

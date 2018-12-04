@@ -13,9 +13,7 @@ using namespace Hearthstonepp::SimpleTasks;
 namespace Hearthstonepp::PlayerTasks
 {
 PlaySpellTask::PlaySpellTask(TaskAgent& agent, Entity* source, Entity* target)
-    : m_source(source),
-      m_requirement(TaskID::SELECT_TARGET, agent),
-      m_target(target)
+    : ITask(source, target), m_requirement(TaskID::SELECT_TARGET, agent)
 {
     // Do nothing
 }
@@ -33,16 +31,16 @@ MetaData PlaySpellTask::Impl(Player& player)
         return MetaData::PLAY_SPELL_NO_POWER;
     }
 
-    BYTE position = 0;
+    // NOTE: 0 means my hero, 1 ~ 7 means my minion
+    //       8 means opponent hero, 9 ~ 15 means opponent minion
+    BYTE position;
+    Character* target = nullptr;
 
     if (NeedTarget(power))
     {
         if (m_target != nullptr)
         {
-            const auto fieldIter = std::find(player.GetField().begin(),
-                                             player.GetField().end(), m_target);
-            position = static_cast<BYTE>(
-                std::distance(player.GetField().begin(), fieldIter));
+            position = FindTargetPos(player);
         }
         else
         {
@@ -65,16 +63,33 @@ MetaData PlaySpellTask::Impl(Player& player)
         }
 
         // Verify field position
-        if (position > player.GetField().size())
+        if (position >= 2 * FIELD_SIZE + 2)
         {
             return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
         }
 
+        if (position == 0)
+        {
+            target = player.GetHero();
+        }
+        else if (position >= 1 && position <= 7)
+        {
+            target = player.GetField()[position - 1];
+        }
+        else if (position == 8)
+        {
+            target = player.GetOpponent().GetHero();
+        }
+        else if (position >= 9 && position <= 15)
+        {
+            target = player.GetOpponent().GetField()[position - 9];
+        }
+
         // Verify valid target
-        if (player.GetField()[position] == nullptr)
+        if (target == nullptr)
         {
             return MetaData::PLAY_SPELL_INVALID_TARGET;
-        }        
+        }
     }
 
     const auto cost = static_cast<BYTE>(m_source->card->cost);
@@ -85,7 +100,7 @@ MetaData PlaySpellTask::Impl(Player& player)
     // Process PowerTasks
     for (auto& powerTask : m_source->card->power.GetPowerTask())
     {
-        powerTask->SetTarget(player.GetField()[position]);
+        powerTask->SetTarget(target);
         powerTask->Run(player);
     }
 
@@ -109,5 +124,43 @@ bool PlaySpellTask::NeedTarget(Power& power)
     }
 
     return false;
+}
+
+BYTE PlaySpellTask::FindTargetPos(Player& player) const
+{
+    if (m_target != nullptr)
+    {
+        Player& opponent = player.GetOpponent();
+
+        if (m_target == player.GetHero())
+        {
+            return 0;
+        }
+
+        auto myField = player.GetField();
+        const auto myFieldIter =
+            std::find(myField.begin(), myField.end(), m_target);
+        if (myFieldIter != myField.end())
+        {
+            return static_cast<BYTE>(
+                std::distance(myField.begin(), myFieldIter) + 1);
+        }
+
+        if (m_target == player.GetHero())
+        {
+            return 8;
+        }
+
+        auto opponentField = opponent.GetField();
+        const auto opponentFieldIter =
+            std::find(opponentField.begin(), opponentField.end(), m_target);
+        if (opponentFieldIter != opponentField.end())
+        {
+            return static_cast<BYTE>(
+                std::distance(opponentField.begin(), opponentFieldIter) + 9);
+        }
+    }
+
+    return 0;
 }
 }  // namespace Hearthstonepp::PlayerTasks
