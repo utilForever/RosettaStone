@@ -7,6 +7,7 @@
 #include <hspp/CardSets/CoreCardsGen.hpp>
 #include <hspp/Enchants/Effects.hpp>
 #include <hspp/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DiscardTask.hpp>
@@ -106,6 +107,9 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // - REQ_ENEMY_TARGET = 0
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ControlTask(EntityType::TARGET));
+    cards.emplace("CS1_113", power);
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
