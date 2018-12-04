@@ -18,6 +18,12 @@ Enchant* Power::GetEnchant() const
     return m_enchant;
 }
 
+void Power::ClearData()
+{
+    m_powerTask.clear();
+    delete m_enchant;
+}
+
 void Power::AddPowerTask(ITask* task)
 {
     m_powerTask.emplace_back(task);
@@ -25,8 +31,6 @@ void Power::AddPowerTask(ITask* task)
 
 void Power::AddEnchant(Enchant* enchant)
 {
-    delete m_enchant;
-
     m_enchant = enchant;
 }
 }  // namespace Hearthstonepp

@@ -32,6 +32,9 @@ class Power
     //! \return A pointer to enchant.
     Enchant* GetEnchant() const;
 
+    //! Clears power task and enchant.
+    void ClearData();
+
     //! Adds power task to a list of power tasks.
     //! \param task A pointer to power task.
     void AddPowerTask(ITask* task);
