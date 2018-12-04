@@ -9,8 +9,7 @@
 
 namespace Hearthstonepp::SimpleTasks
 {
-ControlTask::ControlTask(EntityType entityType)
-    : ITask(entityType)
+ControlTask::ControlTask(EntityType entityType) : ITask(entityType)
 {
     // Do nothing
 }
@@ -22,11 +21,21 @@ TaskID ControlTask::GetTaskID() const
 
 MetaData ControlTask::Impl(Player& player)
 {
-    auto entities = IncludeTask::GetEntities(m_entityType, player);
+    auto entities = IncludeTask::GetEntities(m_entityType, player, m_target);
+    auto& myField = player.GetField();
+    auto& opponentField = player.GetOpponent().GetField();
 
     for (auto& entity : entities)
     {
-        (void)entity;
+        auto iter =
+            std::find(opponentField.begin(), opponentField.end(), entity);
+        if (iter == opponentField.end())
+        {
+            return MetaData::CONTROL_INVALID_TARGET;
+        }
+
+        myField.emplace_back(*iter);
+        opponentField.erase(iter);
     }
 
     return MetaData::CONTROL_SUCCESS;
