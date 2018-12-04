@@ -59,8 +59,6 @@ void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
-    (void)cards;
-
     // --------------------------------------- MINION - PALADIN
     // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -82,6 +80,8 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_112] Holy Nova - COST:5
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -89,14 +89,14 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // Text: Deal $2 damage to all enemies.
     //       Restore #2 Health to all friendly characters.
     // --------------------------------------------------------
-    Power power;
+    power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
     power.AddPowerTask(new HealTask(EntityType::FRIENDS, 2));
     cards.emplace("CS1_112", power);
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_113] Mind Control - COST:10
-    // - Faction: neutral, Set: core, Rarity: free
+    // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Take control of an enemy minion.
     // --------------------------------------------------------
@@ -127,7 +127,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
 {
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
-    // - Faction: Neutral, Set: Basic, Rarity: Free
+    // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: Restore a minion
     //       to full Health and
@@ -150,7 +150,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 {
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
-    // - Set: core,
+    // - Set: Core,
     // --------------------------------------------------------
     // Text: Taunt.
     // --------------------------------------------------------
@@ -166,7 +166,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
-    // - Fac: horde, Set: core, Rarity: free
+    // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Discard a random card.
     // --------------------------------------------------------
@@ -197,7 +197,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
-    // - Fac: alliance, Set: core, Rarity: free
+    // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy your opponent's weapon.
     // --------------------------------------------------------
