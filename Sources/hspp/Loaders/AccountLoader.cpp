@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #endif
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 
 #if defined(HEARTHSTONEPP_WINDOWS)
