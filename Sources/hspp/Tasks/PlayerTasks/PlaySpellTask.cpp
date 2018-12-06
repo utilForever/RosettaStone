@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Commons/Constants.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
@@ -31,8 +32,6 @@ MetaData PlaySpellTask::Impl(Player& player)
         return MetaData::PLAY_SPELL_NO_POWER;
     }
 
-    // NOTE: 0 means my hero, 1 ~ 7 means my minion
-    //       8 means opponent hero, 9 ~ 15 means opponent minion
     BYTE position;
     Character* target = nullptr;
 
@@ -152,22 +151,23 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
 
 Character* PlaySpellTask::GetTargetByPos(Player& player, BYTE pos)
 {
-    if (pos == 0)
+    if (pos == INDEX_MY_HERO)
     {
         return player.GetHero();
     }
 
-    if (pos >= 1 && pos <= 7)
+    if (pos >= INDEX_MY_MINION && pos < INDEX_MY_MINION + FIELD_SIZE)
     {
         return player.GetField()[pos - 1];
     }
 
-    if (pos == 8)
+    if (pos == INDEX_OPPONENT_HERO)
     {
         return player.GetOpponent().GetHero();
     }
 
-    if (pos >= 9 && pos <= 15)
+    if (pos >= INDEX_OPPONENT_MINION &&
+        pos < INDEX_OPPONENT_MINION + FIELD_SIZE)
     {
         return player.GetOpponent().GetField()[pos - 9];
     }
