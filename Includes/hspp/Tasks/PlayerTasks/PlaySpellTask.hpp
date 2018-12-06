@@ -45,6 +45,8 @@ class PlaySpellTask : public ITask
 
     BYTE FindTargetPos(Player& player) const;
 
+    static Character* GetTargetByPos(Player& player, BYTE pos);
+
     Requirement m_requirement;
 };
 }  // namespace Hearthstonepp::PlayerTasks

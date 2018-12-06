@@ -68,22 +68,8 @@ MetaData PlaySpellTask::Impl(Player& player)
             return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
         }
 
-        if (position == 0)
-        {
-            target = player.GetHero();
-        }
-        else if (position >= 1 && position <= 7)
-        {
-            target = player.GetField()[position - 1];
-        }
-        else if (position == 8)
-        {
-            target = player.GetOpponent().GetHero();
-        }
-        else if (position >= 9 && position <= 15)
-        {
-            target = player.GetOpponent().GetField()[position - 9];
-        }
+        // Set target by position
+        target = GetTargetByPos(player, position);
 
         // Verify valid target
         if (target == nullptr)
@@ -162,5 +148,30 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
     }
 
     return 0;
+}
+
+Character* PlaySpellTask::GetTargetByPos(Player& player, BYTE pos)
+{
+    if (pos == 0)
+    {
+        return player.GetHero();
+    }
+
+    if (pos >= 1 && pos <= 7)
+    {
+        return player.GetField()[pos - 1];
+    }
+
+    if (pos == 8)
+    {
+        return player.GetOpponent().GetHero();
+    }
+
+    if (pos >= 9 && pos <= 15)
+    {
+        return player.GetOpponent().GetField()[pos - 9];
+    }
+
+    return nullptr;
 }
 }  // namespace Hearthstonepp::PlayerTasks
