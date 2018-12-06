@@ -108,8 +108,8 @@ void CardLoader::Load(std::vector<Card>& cards) const
              iter != cardData["playRequirements"].end(); ++iter)
         {
             playRequirements.try_emplace(
-                PlayReq::_from_string(iter.key().c_str())),
-                iter.value().get<int>();
+                PlayReq::_from_string(iter.key().c_str()),
+                iter.value().get<int>());
         }
 
         std::vector<std::string> entourages;
