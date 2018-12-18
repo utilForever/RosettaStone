@@ -140,7 +140,14 @@ You can contact me via e-mail (utilForever at gmail.com). I am always happy to a
 The class is licensed under the [Affero GPLv3 License](https://opensource.org/licenses/AGPL-3.0):
 
 Hearthstone++, Hearthstone simulator using C++ with some reinforcement learning
-Copyright (C) 2017-2018 Hearthstone++ Team, [Chris Ohk](http://www.github.com/utilForever), [Youngjoong Kim](https://github.com/revsic), [SeungHyun Jeon](https://github.com/FuZer), [SungHyun Kim](https://github.com/devArtoria) and [Hyeongchan Kim](https://github.com/kozistr).
+
+Copyright (C) 2017-2018 Hearthstone++ Team
+
+- [Chris Ohk](http://www.github.com/utilForever)
+- [Youngjoong Kim](https://github.com/revsic)
+- [SeungHyun Jeon](https://github.com/FuZer)
+- [SungHyun Kim](https://github.com/devArtoria)
+- [Hyeongchan Kim](https://github.com/kozistr)
 
 Hearthstone++ is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
