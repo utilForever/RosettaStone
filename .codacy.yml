@@ -1,4 +1,6 @@
 exclude_paths:
+  - README.md
+  - 3RD-PARTY.md
   - Datas/**
   - Documents/**
   - Libraries/**
