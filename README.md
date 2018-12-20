@@ -139,6 +139,10 @@ You can contact me via e-mail (utilForever at gmail.com). I am always happy to a
 
 The class is licensed under the [Affero GPLv3 License](https://opensource.org/licenses/AGPL-3.0):
 
+Hearthstone++ is based on part of Sabberstone's code
+
+Copyright (c) 2017-2018 SabberStone Team, darkfriend77 & rnilva
+
 Hearthstone++, Hearthstone simulator using C++ with some reinforcement learning
 
 Copyright (C) 2017-2018 Hearthstone++ Team
