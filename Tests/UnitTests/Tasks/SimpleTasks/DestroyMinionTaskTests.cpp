@@ -18,7 +18,7 @@ using namespace TestUtils;
 TEST(DestroyMinionTask, GetTaskID)
 {
     auto card = GenerateMinionCard("test", 1, 1);
-    const DestroyMinionTask destroy(new Minion(card));
+    const DestroyMinionTask destroy(new Minion(nullptr, card));
     EXPECT_EQ(destroy.GetTaskID(), +TaskID::DESTROY);
 }
 
@@ -35,7 +35,7 @@ TEST(DestroyMinionTask, Run)
     {
         const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
-        player1.GetField().emplace_back(new Minion(cards[i]));
+        player1.GetField().emplace_back(new Minion(&agent, cards[i]));
     }
 
     DestroyMinionTask destroy(player1.GetField()[2]);

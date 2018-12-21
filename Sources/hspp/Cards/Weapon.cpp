@@ -5,11 +5,10 @@
 // property of any third parties.
 
 #include <hspp/Cards/Weapon.hpp>
-#include <hspp/Commons/Macros.hpp>
 
 namespace Hearthstonepp
 {
-Weapon::Weapon(Card& card) : Entity(card)
+Weapon::Weapon(GameAgent* gameAgent, Card& card) : Entity(gameAgent, card)
 {
     m_attack = card.attack ? *card.attack : 0;
     m_durability = card.durability ? *card.durability : 0;

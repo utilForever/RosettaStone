@@ -9,7 +9,7 @@ namespace Hearthstonepp::PlayerTasks
 {
 PlayWeaponTask::PlayWeaponTask(Entity* entity) : m_entity(entity)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID PlayWeaponTask::GetTaskID() const

@@ -24,7 +24,7 @@ class HeroPower : public Entity
 
     //! Constructs hero power with given \p card.
     //! \param card A reference to the card.
-    HeroPower(Card& card);
+    HeroPower(GameAgent* gameAgent, Card& card);
 
     //! Default destructor.
     ~HeroPower() = default;

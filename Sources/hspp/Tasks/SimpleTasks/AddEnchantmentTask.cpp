@@ -10,7 +10,7 @@ namespace Hearthstonepp::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
                                        EntityType entityType)
-    : m_cardID(cardID), m_entityType(entityType)
+    : ITask(entityType), m_cardID(cardID)
 {
     // Do nothing
 }
@@ -28,13 +28,8 @@ MetaData AddEnchantmentTask::Impl(Player&)
         return MetaData::NULLPTR;
     }
 
-    Power* power = Cards::GetInstance().FindCardByID(m_cardID).power;
-    if (power == nullptr)
-    {
-        return MetaData::NULLPTR;
-    }
-
-    power->GetEnchant()->ActivateTo(dynamic_cast<Character*>(m_target));
+    const Power power = Cards::GetInstance().FindCardByID(m_cardID).power;
+    power.GetEnchant()->ActivateTo(dynamic_cast<Character*>(m_target));
 
     return MetaData::ADD_ENCHANTMENT_SUCCESS;
 }

@@ -37,9 +37,16 @@ class PlaySpellTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    Entity* m_source = nullptr;
+    //! Checks that spell card needs target.
+    //! \param power A reference to power of the card.
+    //! \return true if spell card needs target, and false otherwise.
+    static bool NeedTarget(Power& power);
+
+    BYTE FindTargetPos(Player& player) const;
+
+    static Character* GetTargetByPos(Player& player, BYTE pos);
+
     Requirement m_requirement;
-    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 

@@ -51,6 +51,7 @@
 #include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
 #include <hspp/Tasks/Requirement.hpp>
 #include <hspp/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
@@ -60,6 +61,7 @@
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <hspp/Tasks/SimpleTasks/HealTask.hpp>
+#include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>

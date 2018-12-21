@@ -34,7 +34,6 @@ class AddEnchantmentTask : public ITask
     MetaData Impl(Player& player) override;
 
     std::string m_cardID;
-    EntityType m_entityType = EntityType::EMPTY;
 };
 }  // namespace Hearthstonepp::SimpleTasks
 

@@ -8,7 +8,8 @@
 
 namespace Hearthstonepp
 {
-Entity::Entity(Card& _card) : card(new Card(_card))
+Entity::Entity(GameAgent* gameAgent, Card& _card)
+    : card(new Card(_card)), m_gameAgent(gameAgent)
 {
     for (auto& mechanic : _card.mechanics)
     {
@@ -16,19 +17,21 @@ Entity::Entity(Card& _card) : card(new Card(_card))
     }
 }
 
-Entity::Entity(const Entity& ent)
+Entity::Entity(const Entity& ent) : m_gameAgent(ent.m_gameAgent)
 {
     FreeMemory();
 
     card = ent.card;
+    m_gameAgent = ent.m_gameAgent;
     m_gameTags = ent.m_gameTags;
 }
 
-Entity::Entity(Entity&& ent) noexcept
+Entity::Entity(Entity&& ent) noexcept : m_gameAgent(ent.m_gameAgent)
 {
     FreeMemory();
 
     card = ent.card;
+    m_gameAgent = ent.m_gameAgent;
     m_gameTags = ent.m_gameTags;
 }
 
@@ -47,6 +50,7 @@ Entity& Entity::operator=(const Entity& ent)
     FreeMemory();
 
     card = ent.card;
+    m_gameAgent = ent.m_gameAgent;
     m_gameTags = ent.m_gameTags;
 
     return *this;
@@ -62,9 +66,15 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     FreeMemory();
 
     card = ent.card;
+    m_gameAgent = ent.m_gameAgent;
     m_gameTags = ent.m_gameTags;
 
     return *this;
+}
+
+GameAgent* Entity::GetGameAgent() const
+{
+    return m_gameAgent;
 }
 
 int Entity::GetGameTag(GameTag tag) const

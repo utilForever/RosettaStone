@@ -31,7 +31,7 @@ TEST(DestroyTask, Run)
     auto card = GenerateMinionCard("minion1", 1, 1);
 
     // Destroy Source Minion
-    player1.GetField().emplace_back(new Minion(card));
+    player1.GetField().emplace_back(new Minion(&agent, card));
 
     DestroyTask task1(EntityType::SOURCE, player1.GetField()[0], nullptr);
 
@@ -40,7 +40,7 @@ TEST(DestroyTask, Run)
     EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(0));
 
     // Destroy Target Minion
-    player2.GetField().emplace_back(new Minion(card));
+    player2.GetField().emplace_back(new Minion(&agent, card));
 
     DestroyTask task2(EntityType::TARGET, nullptr, player2.GetField()[0]);
 
@@ -50,7 +50,7 @@ TEST(DestroyTask, Run)
 
     // Destroy Target Weapon
     Card weaponCard;
-    player2.GetHero()->weapon = new Weapon(weaponCard);
+    player2.GetHero()->weapon = new Weapon(&agent, weaponCard);
 
     DestroyTask task3(EntityType::ENEMY_WEAPON, nullptr, nullptr);
 

@@ -10,7 +10,7 @@
 namespace Hearthstonepp::SimpleTasks
 {
 DestroyTask::DestroyTask(EntityType entityType, Entity* source, Entity* target)
-    : ITask(source, target), m_entityType(entityType)
+    : ITask(entityType, source, target)
 {
     // Do nothing
 }

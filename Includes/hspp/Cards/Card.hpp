@@ -100,7 +100,7 @@ class Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
-    Power* power = nullptr;
+    Power power;
 
     unsigned int maxAllowedInDeck = 0;
     bool isCollectible = false;

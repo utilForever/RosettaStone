@@ -40,9 +40,7 @@ class PlayCardTask : public ITask
 
     TaskAgent& m_agent;
     Requirement m_requirement;
-    Entity* m_source = nullptr;
     int m_fieldPos = -1;
-    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 

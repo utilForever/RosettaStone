@@ -26,7 +26,7 @@ class Weapon : public Entity
 
     //! Constructs weapon with given \p card.
     //! \param card A reference to the card.
-    Weapon(Card& card);
+    Weapon(GameAgent* gameAgent, Card& card);
 
     //! Default destructor.
     virtual ~Weapon() = default;

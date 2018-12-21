@@ -11,7 +11,7 @@ ModifyManaTask::ModifyManaTask(ManaOperator numMode, ManaType manaMode,
                                BYTE num)
     : m_numMode(numMode), m_manaMode(manaMode), m_num(num)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID ModifyManaTask::GetTaskID() const

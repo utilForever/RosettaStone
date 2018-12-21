@@ -34,8 +34,6 @@ class DestroyTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
-
-    EntityType m_entityType = EntityType::EMPTY;
 };
 }  // namespace Hearthstonepp::SimpleTasks
 

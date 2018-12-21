@@ -113,16 +113,18 @@ MetaData DrawCardTask::Impl(Player& player)
     std::vector<Entity*>& deck = player.GetDeck();
     std::vector<Entity*>& hand = player.GetHand();
 
+    auto* pGameAgent = &(player.GetGameAgent());
+
     switch (m_card.cardType)
     {
         case +CardType::MINION:
-            hand.emplace_back(new Minion(m_card));
+            hand.emplace_back(new Minion(pGameAgent, m_card));
             break;
         case +CardType::WEAPON:
-            hand.emplace_back(new Weapon(m_card));
+            hand.emplace_back(new Weapon(pGameAgent, m_card));
             break;
         default:
-            hand.emplace_back(new Entity(m_card));
+            hand.emplace_back(new Entity(pGameAgent, m_card));
     }
 
     if (!deck.empty())

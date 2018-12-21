@@ -71,11 +71,13 @@ MetaData PlayMinionTask::Impl(Player& player)
     if (player.GetField().empty())
     {
         player.GetField().emplace_back(character);
+        character->SetField(player.GetField());
     }
     else
     {
         player.GetField().insert(player.GetField().begin() + position,
                                  character);
+        character->SetField(player.GetField());
     }
 
     // Apply card mechanics tags
@@ -90,12 +92,9 @@ MetaData PlayMinionTask::Impl(Player& player)
             .Run(player);
 
     // Process PowerTasks
-    if (m_source->card->power != nullptr)
+    for (auto& power : m_source->card->power.GetPowerTask())
     {
-        for (auto& power : m_source->card->power->GetPowerTask())
-        {
-            power->Run(player);
-        }
+        power->Run(player);
     }
 
     if (modified == MetaData::MODIFY_MANA_SUCCESS)

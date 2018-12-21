@@ -22,12 +22,13 @@ namespace Hearthstonepp
 #ifndef HEARTHSTONEPP_DOXYGEN
 BETTER_ENUM(TaskID, int, INVALID = 0, TASK_VECTOR = 1, REQUIRE = 2,
             PLAYER_SETTING = 3, SWAP = 4, SHUFFLE = 5, DRAW = 6, OVERDRAW = 7,
-            MODIFY_MANA = 8, MODIFY_HEALTH = 9, BRIEF = 10, SELECT_MENU = 11,
+            MODIFY_MANA = 8, DAMAGE = 9, BRIEF = 10, SELECT_MENU = 11,
             SELECT_CARD = 12, SELECT_TARGET = 13, SELECT_POSITION = 14,
             MULLIGAN = 15, COMBAT = 16, PLAY_CARD = 17, PLAY_MINION = 18,
             PLAY_WEAPON = 19, PLAY_SPELL = 20, GAME_END = 21,
             ADD_ENCHANTMENT = 22, DESTROY = 23, DISCARD = 24, HEAL_FULL = 25,
-            POISONOUS = 26, FREEZE = 27, INIT_ATTACK_COUNT = 28, HEAL = 29);
+            POISONOUS = 26, FREEZE = 27, INIT_ATTACK_COUNT = 28, HEAL = 29,
+            INCLUDE = 30, CONTROL = 31);
 #else
 enum class TaskID
 {
@@ -40,7 +41,7 @@ enum class TaskID
     DRAW = 6,
     OVER_DRAW = 7,
     MODIFY_MANA = 8,
-    MODIFY_HEALTH = 9,
+    DAMAGE = 9,
     BRIEF = 10,
     SELECT_MENU = 11,
     SELECT_CARD = 12,
@@ -60,7 +61,9 @@ enum class TaskID
     POISONOUS = 26,
     FREEZE = 27,
     INIT_ATTACK_COUNT = 28,
-    HEAL = 29
+    HEAL = 29,
+    INCLUDE = 30,
+    CONTROL = 31
 };
 #endif
 

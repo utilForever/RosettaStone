@@ -12,11 +12,10 @@ namespace Hearthstonepp::PlayerTasks
 {
 PlayCardTask::PlayCardTask(TaskAgent& agent, Entity* source, int fieldPos,
                            Entity* target)
-    : m_agent(agent),
+    : ITask(source, target),
+      m_agent(agent),
       m_requirement(TaskID::SELECT_CARD, agent),
-      m_source(source),
-      m_fieldPos(fieldPos),
-      m_target(target)
+      m_fieldPos(fieldPos)
 {
     // Do nothing
 }

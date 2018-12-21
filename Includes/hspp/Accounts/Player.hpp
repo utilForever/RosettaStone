@@ -12,6 +12,7 @@
 #include <hspp/Cards/Entity.hpp>
 #include <hspp/Cards/Hero.hpp>
 #include <hspp/Cards/Spell.hpp>
+#include <hspp/Commons/Constants.hpp>
 
 #include <string>
 #include <vector>
@@ -59,6 +60,14 @@ class Player
     //! Sets player nickname.
     //! \param nickname player nickname.
     void SetNickname(std::string nickname);
+
+    //! Returns player type.
+    //! \return Player type.
+    PlayerType GetPlayerType() const;
+
+    //! Sets player type.
+    //! \param type Player type.
+    void SetPlayerType(PlayerType type);
 
     //! Returns player ID.
     //! \return Player ID.
@@ -141,6 +150,7 @@ class Player
     void FreeMemory();
 
     std::string m_nickname;
+    PlayerType m_playerType;
     BYTE m_id = 0;
 
     Hero* m_hero = nullptr;

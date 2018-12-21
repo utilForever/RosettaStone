@@ -1,26 +1,27 @@
-// This code is based on Sabberstone project.
-// Copyright (c) 2017-2018 SabberStone Team, darkfriend77 & rnilva
-// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_HEAL_FULL_TASK_HPP
-#define HEARTHSTONEPP_HEAL_FULL_TASK_HPP
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
+#ifndef HEARTHSTONEPP_CONTROL_TASK_HPP
+#define HEARTHSTONEPP_CONTROL_TASK_HPP
 
 #include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::SimpleTasks
 {
 //!
-//! \brief HealFullTask class.
+//! \brief ControlTask class.
 //!
-//! This class represents the task for healing target fully.
+//! This class represents the task for taking control.
 //!
-class HealFullTask : public ITask
+class ControlTask : public ITask
 {
  public:
     //! Constructs task with given \p entityType.
-    //! \param entityType The entity type of target to heal.
-    HealFullTask(EntityType entityType);
+    //! \param entityType The entity type of target to take control.
+    ControlTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,4 +35,4 @@ class HealFullTask : public ITask
 };
 }  // namespace Hearthstonepp::SimpleTasks
 
-#endif  // HEARTHSTONEPP_HEAL_FULL_TASK_HPP
+#endif  // HEARTHSTONEPP_CONTROL_TASK_HPP
