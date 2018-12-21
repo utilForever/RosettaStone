@@ -2,14 +2,14 @@
 
 <img src="https://github.com/utilForever/Hearthstonepp/blob/master/Medias/Logo.png" width=256 height=256 />
 
-[![License](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://github.com/utilForever/Hearthstonepp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/Hearthstonepp.svg?branch=master)](https://travis-ci.org/utilForever/Hearthstonepp/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/Hearthstonepp?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/Hearthstonepp/branch/master) [![Build Status](https://dev.azure.com/utilforever/Hearthstonepp/_apis/build/status/utilForever.Hearthstonepp)](https://dev.azure.com/utilforever/Hearthstonepp/_build/latest?definitionId=2)
+[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/Hearthstonepp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/Hearthstonepp.svg?branch=master)](https://travis-ci.org/utilForever/Hearthstonepp/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/Hearthstonepp?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/Hearthstonepp/branch/master) [![Build Status](https://dev.azure.com/utilforever/Hearthstonepp/_apis/build/status/utilForever.Hearthstonepp)](https://dev.azure.com/utilforever/Hearthstonepp/_build/latest?definitionId=2)
 
 [![codecov](https://codecov.io/gh/utilForever/Hearthstonepp/branch/master/graph/badge.svg)](https://codecov.io/gh/utilForever/Hearthstonepp)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ffcbfe61470e4f9da7131db3abb34487)](https://app.codacy.com/app/utilForever/Hearthstonepp?utm_source=github.com&utm_medium=referral&utm_content=utilForever/Hearthstonepp&utm_campaign=badger) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/Hearthstonepp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/Hearthstonepp&amp;utm_campaign=Badge_Grade) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/utilForever/Hearthstonepp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/Hearthstonepp/alerts/)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/Hearthstonepp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/Hearthstonepp/context:cpp)
 
-Hearthstone++ is hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (17.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
+Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (17.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
 
 ## Related Repositories
 
@@ -137,12 +137,27 @@ You can contact me via e-mail (utilForever at gmail.com). I am always happy to a
 
 <img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
 
-The class is licensed under the [MIT License](http://opensource.org/licenses/MIT):
+The class is licensed under the [Affero GPLv3 License](https://opensource.org/licenses/AGPL-3.0):
 
-Copyright &copy; 2018 [Chris Ohk](http://www.github.com/utilForever), [Youngjoong Kim](https://github.com/revsic), [SeungHyun Jeon](https://github.com/FuZer), [SungHyun Kim](https://github.com/devArtoria) and [JunYoung Park](https://github.com/ChalkPE).
+Hearthstone++ is based on part of Sabberstone's code
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Copyright (c) 2017-2018 SabberStone Team, darkfriend77 & rnilva
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+Hearthstone++, Hearthstone simulator using C++ with some reinforcement learning
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Copyright (C) 2017-2018 Hearthstone++ Team
+
+- [Chris Ohk](http://www.github.com/utilForever)
+- [Youngjoong Kim](https://github.com/revsic)
+- [SeungHyun Jeon](https://github.com/FuZer)
+- [SungHyun Kim](https://github.com/devArtoria)
+- [Hyeongchan Kim](https://github.com/kozistr)
+
+Hearthstone++ is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License.
+Hearthstone++ is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
