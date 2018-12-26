@@ -121,8 +121,8 @@ class Player
     void SetNumCardAfterExhaust(BYTE numCard);
 
     //! Returns the game agent.
-    //! \return The game agent.
-    GameAgent& GetGameAgent() const;
+    //! \return A pointer to the game agent.
+    GameAgent* GetGameAgent() const;
 
     //! Sets the game agent.
     //! \param agent The game agent.
@@ -150,7 +150,7 @@ class Player
     void FreeMemory();
 
     std::string m_nickname;
-    PlayerType m_playerType;
+    PlayerType m_playerType = PlayerType::PLAYER1;
     BYTE m_id = 0;
 
     Hero* m_hero = nullptr;

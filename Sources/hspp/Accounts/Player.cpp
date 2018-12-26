@@ -9,6 +9,7 @@
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
 #include <hspp/Commons/Constants.hpp>
+#include <hspp/Managers/GameAgent.hpp>
 
 namespace Hearthstonepp
 {
@@ -104,9 +105,9 @@ void Player::SetNumCardAfterExhaust(BYTE numCard)
     m_numCardAfterExhaust = numCard;
 }
 
-GameAgent& Player::GetGameAgent() const
+GameAgent* Player::GetGameAgent() const
 {
-    return *m_gameAgent;
+    return m_gameAgent;
 }
 
 void Player::SetGameAgent(GameAgent* agent)
@@ -133,19 +134,19 @@ void Player::SetDeck(Deck* deck)
             continue;
         }
 
-        auto* pGameAgent = &GetGameAgent();
+        auto* gameAgent = GetGameAgent();
         Entity* entity = nullptr;
 
         switch (card.cardType)
         {
             case CardType::MINION:
-                entity = new Minion(pGameAgent, card);
+                entity = new Minion(gameAgent, card);
                 break;
             case CardType::WEAPON:
-                entity = new Weapon(pGameAgent, card);
+                entity = new Weapon(gameAgent, card);
                 break;
             default:
-                entity = new Entity(pGameAgent, card);
+                entity = new Entity(gameAgent, card);
                 break;
         }
 
@@ -155,10 +156,10 @@ void Player::SetDeck(Deck* deck)
 
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
-    auto* pGameAgent = &GetGameAgent();
+    auto* gameAgent = GetGameAgent();
 
-    m_hero = new Hero(pGameAgent, heroCard);
-    m_hero->heroPower = new HeroPower(pGameAgent, powerCard);
+    m_hero = new Hero(gameAgent, heroCard);
+    m_hero->heroPower = new HeroPower(gameAgent, powerCard);
 }
 
 void Player::FreeMemory()

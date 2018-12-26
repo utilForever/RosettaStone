@@ -11,19 +11,19 @@ namespace Hearthstonepp
 {
 Entity* Generic::DrawCard(Player& player, Card&& card)
 {
-    auto* pGameAgent = &(player.GetGameAgent());
+    auto* gameAgent = player.GetGameAgent();
     Entity* entity;
 
     switch (card.cardType)
     {
         case +CardType::MINION:
-            entity = new Minion(pGameAgent, card);
+            entity = new Minion(gameAgent, card);
             break;
         case +CardType::WEAPON:
-            entity = new Weapon(pGameAgent, card);
+            entity = new Weapon(gameAgent, card);
             break;
         default:
-            entity = new Entity(pGameAgent, card);
+            entity = new Entity(gameAgent, card);
     }
 
     player.GetHand().emplace_back(entity);
