@@ -49,6 +49,8 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
+    //! Returns the game agent.
+    //! \return A pointer to the game agent.
     GameAgent* GetGameAgent() const;
 
     //! Returns the value of game tag.
