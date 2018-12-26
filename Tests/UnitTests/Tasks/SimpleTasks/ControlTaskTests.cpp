@@ -31,7 +31,7 @@ TEST(ControlTask, Run)
     cards.reserve(5);
 
     const std::string name = "test";
-    for (size_t i = 0; i < 5; ++i)
+    for (size_t i = 0; i < 6; ++i)
     {
         const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
@@ -44,6 +44,13 @@ TEST(ControlTask, Run)
     MetaData result = control.Run(player1);
 
     EXPECT_EQ(result, MetaData::CONTROL_SUCCESS);
-    EXPECT_EQ(player1.GetField().size(), 6u);
-    EXPECT_EQ(player2.GetField().size(), 4u);
+    EXPECT_EQ(player1.GetField().size(), 7u);
+    EXPECT_EQ(player2.GetField().size(), 5u);
+
+    control.SetTarget(player2.GetField()[0]);
+    result = control.Run(player1);
+
+    EXPECT_EQ(result, MetaData::CONTROL_FIELD_IS_FULL);
+    EXPECT_EQ(player1.GetField().size(), 7u);
+    EXPECT_EQ(player2.GetField().size(), 5u);
 }
