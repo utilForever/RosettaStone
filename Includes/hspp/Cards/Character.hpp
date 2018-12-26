@@ -59,16 +59,16 @@ class Character : public Entity
     //! \return Whether attack is possible.
     bool CanAttack() const;
 
-    //! Returns whether the target is valid.
+    //! Returns whether the target is valid in combat.
     //! \param opponent The opponent player.
     //! \param target A pointer to the target.
     //! \return true if the target is valid, and false otherwise.
-    bool IsValidAttackTarget(Player& opponent, Character* target) const;
+    bool IsValidCombatTarget(Player& opponent, Character* target) const;
 
-    //! Returns a list of valid target.
+    //! Returns a list of valid target in combat.
     //! \param opponent The opponent player.
     //! \return A list of pointer to valid target.
-    static std::vector<Character*> GetValidAttackTargets(Player& opponent);
+    static std::vector<Character*> GetValidCombatTargets(Player& opponent);
 
     //! Takes damage from a certain other entity.
     //! \param source The character to take damage.

@@ -65,11 +65,10 @@ void Character::SetField(std::vector<Character*>& field)
     m_field = &field;
 }
 
-bool Character::IsValidAttackTarget(Player& opponent, Character* target) const
+bool Character::IsValidCombatTarget(Player& opponent, Character* target) const
 {
-    auto validTargets = GetValidAttackTargets(opponent);
-    if (std::find(validTargets.begin(), validTargets.end(), target) ==
-        validTargets.end())
+    auto targets = GetValidCombatTargets(opponent);
+    if (std::find(targets.begin(), targets.end(), target) == targets.end())
     {
         return false;
     }
@@ -79,7 +78,7 @@ bool Character::IsValidAttackTarget(Player& opponent, Character* target) const
              hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
 }
 
-std::vector<Character*> Character::GetValidAttackTargets(Player& opponent)
+std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;

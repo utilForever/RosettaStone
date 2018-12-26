@@ -53,7 +53,7 @@ MetaData CombatTask::Impl(Player& player)
             : dynamic_cast<Character*>(player.GetOpponent().GetHero());
 
     if (!source->CanAttack() ||
-        !source->IsValidAttackTarget(player.GetOpponent(), target))
+        !source->IsValidCombatTarget(player.GetOpponent(), target))
     {
         return MetaData::COMBAT_SOURCE_CANT_ATTACK;
     }
