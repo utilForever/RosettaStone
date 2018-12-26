@@ -122,12 +122,11 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
         }
 
         auto myField = player.GetField();
-        const auto myFieldIter =
-            std::find(myField.begin(), myField.end(), m_target);
-        if (myFieldIter != myField.end())
+        auto fieldIter = std::find(myField.begin(), myField.end(), m_target);
+        if (fieldIter != myField.end())
         {
-            return static_cast<BYTE>(
-                std::distance(myField.begin(), myFieldIter) + 1);
+            return static_cast<BYTE>(std::distance(myField.begin(), fieldIter) +
+                                     1);
         }
 
         if (m_target == player.GetHero())
@@ -135,13 +134,12 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
             return 8;
         }
 
-        auto opponentField = opponent.GetField();
-        const auto opponentFieldIter =
-            std::find(opponentField.begin(), opponentField.end(), m_target);
-        if (opponentFieldIter != opponentField.end())
+        auto opField = opponent.GetField();
+        fieldIter = std::find(opField.begin(), opField.end(), m_target);
+        if (fieldIter != opField.end())
         {
-            return static_cast<BYTE>(
-                std::distance(opponentField.begin(), opponentFieldIter) + 9);
+            return static_cast<BYTE>(std::distance(opField.begin(), fieldIter) +
+                                     9);
         }
     }
 

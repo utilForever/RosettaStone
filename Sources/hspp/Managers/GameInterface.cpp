@@ -384,8 +384,8 @@ void GameInterface::HandleTargetInput(const TaskMeta& meta) const
     m_ostream << "Player field :\n";
     ShowCards(*currentField);
 
-    const auto opponentField = brief->opponentField();
-    const int numOpponentField = opponentField->size();
+    const auto opField = brief->opponentField();
+    const int numOpField = opField->size();
 
     m_ostream << "Opponent field :\n";
     ShowCards(*brief->opponentField());
@@ -407,12 +407,12 @@ void GameInterface::HandleTargetInput(const TaskMeta& meta) const
     int dst;
     while (true)
     {
-        m_ostream << "Select destination (0 for hero, 1 ~ " << numOpponentField
+        m_ostream << "Select destination (0 for hero, 1 ~ " << numOpField
                   << " for minion) : ";
 
         m_istream >> dst;
         // Destination Field range verification
-        if (dst >= 0 && dst <= numOpponentField)
+        if (dst >= 0 && dst <= numOpField)
         {
             break;
         }

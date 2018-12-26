@@ -22,7 +22,7 @@ TaskID DestroyMinionTask::GetTaskID() const
 MetaData DestroyMinionTask::Impl(Player& player)
 {
     auto& myField = player.GetField();
-    auto& opponentField = player.GetOpponent().GetField();
+    auto& opField = player.GetOpponent().GetField();
 
     auto fieldIter = std::find(myField.begin(), myField.end(), m_character);
     if (fieldIter != myField.end())
@@ -33,12 +33,11 @@ MetaData DestroyMinionTask::Impl(Player& player)
         return MetaData::DESTROY_MINION_SUCCESS;
     }
 
-    fieldIter =
-        std::find(opponentField.begin(), opponentField.end(), m_character);
-    if (fieldIter != opponentField.end())
+    fieldIter = std::find(opField.begin(), opField.end(), m_character);
+    if (fieldIter != opField.end())
     {
         delete *fieldIter;
-        opponentField.erase(fieldIter);
+        opField.erase(fieldIter);
 
         return MetaData::DESTROY_MINION_SUCCESS;
     }

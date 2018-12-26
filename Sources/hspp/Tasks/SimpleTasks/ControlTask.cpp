@@ -23,19 +23,18 @@ MetaData ControlTask::Impl(Player& player)
 {
     auto entities = IncludeTask::GetEntities(m_entityType, player, m_target);
     auto& myField = player.GetField();
-    auto& opponentField = player.GetOpponent().GetField();
+    auto& opField = player.GetOpponent().GetField();
 
     for (auto& entity : entities)
     {
-        auto iter =
-            std::find(opponentField.begin(), opponentField.end(), entity);
-        if (iter == opponentField.end())
+        auto fieldIter = std::find(opField.begin(), opField.end(), entity);
+        if (fieldIter == opField.end())
         {
             return MetaData::CONTROL_INVALID_TARGET;
         }
 
-        myField.emplace_back(*iter);
-        opponentField.erase(iter);
+        myField.emplace_back(*fieldIter);
+        opField.erase(fieldIter);
     }
 
     return MetaData::CONTROL_SUCCESS;
