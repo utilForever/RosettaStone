@@ -25,6 +25,11 @@ MetaData ControlTask::Impl(Player& player)
     auto& myField = player.GetField();
     auto& opField = player.GetOpponent().GetField();
 
+    if (myField.size() == FIELD_SIZE)
+    {
+        return MetaData::CONTROL_FIELD_IS_FULL;
+    }
+
     for (auto& entity : entities)
     {
         auto fieldIter = std::find(opField.begin(), opField.end(), entity);

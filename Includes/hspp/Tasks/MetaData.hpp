@@ -117,6 +117,7 @@ enum class MetaData : status_t
 
     CONTROL,
     CONTROL_INVALID_TARGET,
+    CONTROL_FIELD_IS_FULL,
     CONTROL_SUCCESS,
 
     GAME_END
