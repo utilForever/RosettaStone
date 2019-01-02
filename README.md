@@ -8,6 +8,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/Hearthstonepp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/Hearthstonepp&amp;utm_campaign=Badge_Grade) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/utilForever/Hearthstonepp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/Hearthstonepp/alerts/)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/Hearthstonepp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/Hearthstonepp/context:cpp)
+[![CodeFactor](https://www.codefactor.io/repository/github/utilforever/hearthstonepp/badge)](https://www.codefactor.io/repository/github/utilforever/hearthstonepp)
 
 Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (17.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
 
