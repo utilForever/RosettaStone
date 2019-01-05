@@ -53,6 +53,12 @@ class Player
     //! Move assignment operator.
     Player& operator=(Player&& p) = delete;
 
+    //! Operator overloading: The equality operator.
+    bool operator==(const Player& p) const;
+
+    //! Operator overloading: The inequality operator.
+    bool operator!=(const Player& p) const;
+
     //! Returns player nickname.
     //! \return player nickname.
     std::string GetNickname() const;

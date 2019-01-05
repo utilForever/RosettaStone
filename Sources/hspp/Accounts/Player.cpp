@@ -25,6 +25,16 @@ Player::~Player()
     FreeMemory();
 }
 
+bool Player::operator==(const Player& p) const
+    {
+    return m_id == p.m_id;
+}
+
+bool Player::operator!=(const Player& p) const
+{
+    return !(m_id == p.m_id);
+}
+
 std::string Player::GetNickname() const
 {
     return m_nickname;
