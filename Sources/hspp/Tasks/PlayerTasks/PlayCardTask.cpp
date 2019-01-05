@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Actions/Targeting.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
@@ -55,6 +56,8 @@ MetaData PlayCardTask::Impl(Player& player)
         handIndex = req->cardIndex();
     }
 
+    Card* card = player.GetHand()[handIndex]->card;
+
     // Verify index of card hand
     if (handIndex >= player.GetHand().size())
     {
@@ -62,9 +65,15 @@ MetaData PlayCardTask::Impl(Player& player)
     }
 
     // Verify mana is sufficient
-    if (player.GetHand()[handIndex]->card->cost > player.GetAvailableMana())
+    if (card->cost > player.GetAvailableMana())
     {
         return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
+    }
+
+    // Verify target is valid
+    if (!Targeting::IsValidTarget(card, m_target))
+    {
+        return MetaData::PLAY_CARD_INVALID_TARGET;
     }
 
     Entity* entity = player.GetHand()[handIndex];
