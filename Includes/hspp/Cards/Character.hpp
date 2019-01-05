@@ -51,9 +51,13 @@ class Character : public Entity
     //! \param attack the value of attack.
     void SetAttack(size_t attack);
 
-    std::vector<Character*>& GetField() const;
+    //! Returns the owner of character.
+    //! \return The owner of character.
+    Player& GetOwner() const;
 
-    void SetField(std::vector<Character*>& field);
+    //! Sets the owner of character.
+    //! \param owner The owner of character.
+    void SetOwner(Player& owner);
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
@@ -89,7 +93,7 @@ class Character : public Entity
  protected:
     size_t m_attack = 0;
 
-    std::vector<Character*>* m_field = nullptr;
+    Player* m_owner = nullptr;
 };
 }  // namespace Hearthstonepp
 

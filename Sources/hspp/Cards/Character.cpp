@@ -55,14 +55,14 @@ bool Character::CanAttack() const
     return true;
 }
 
-std::vector<Character*>& Character::GetField() const
+Player& Character::GetOwner() const
 {
-    return *m_field;
+    return *m_owner;
 }
 
-void Character::SetField(std::vector<Character*>& field)
+void Character::SetOwner(Player& owner)
 {
-    m_field = &field;
+    m_owner = &owner;
 }
 
 bool Character::IsValidCombatTarget(Player& opponent, Character* target) const
