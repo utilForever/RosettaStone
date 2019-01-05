@@ -186,9 +186,12 @@ TEST(CoreCardsGen, CS1_113)
     const auto card1 = Generic::DrawCard(
         currentPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
     const auto card2 = Generic::DrawCard(
-        opponentPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+        opponentPlayer,
+        Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
     const auto card3 = Generic::DrawCard(
         currentPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
+    const auto card4 = Generic::DrawCard(
+        opponentPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
 
     GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card1));
     currentPlayer.SetAvailableMana(10);
@@ -196,7 +199,14 @@ TEST(CoreCardsGen, CS1_113)
     EXPECT_EQ(currentPlayer.GetField().size(), 1u);
     EXPECT_EQ(opponentPlayer.GetField().size(), 1u);
 
-    GameAgent::RunTask(currentPlayer, PlayCardTask(taskAgent, card3, -1, card2));
+    GameAgent::RunTask(currentPlayer,
+                       PlayCardTask(taskAgent, card3, -1, card2));
     EXPECT_EQ(currentPlayer.GetField().size(), 2u);
     EXPECT_EQ(opponentPlayer.GetField().size(), 0u);
+
+    opponentPlayer.SetAvailableMana(10);
+    auto result = GameAgent::RunTask(
+        opponentPlayer,
+        PlayCardTask(taskAgent, card4, -1, currentPlayer.GetHero()));
+    EXPECT_EQ(result, MetaData::PLAY_CARD_INVALID_TARGET);
 }
