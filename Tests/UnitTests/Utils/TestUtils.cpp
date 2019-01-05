@@ -76,7 +76,7 @@ Card GenerateMinionCard(std::string&& id, size_t attack, size_t health)
 void PlayMinionCard(Player& player, Card& card)
 {
     auto iter = player.GetField().emplace_back(new Minion(nullptr, card));
-    iter->SetField(player.GetField());
+    iter->SetOwner(player);
 }
 
 Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)

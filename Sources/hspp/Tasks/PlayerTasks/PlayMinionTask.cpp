@@ -71,13 +71,13 @@ MetaData PlayMinionTask::Impl(Player& player)
     if (player.GetField().empty())
     {
         player.GetField().emplace_back(character);
-        character->SetField(player.GetField());
+        character->SetOwner(player);
     }
     else
     {
         player.GetField().insert(player.GetField().begin() + position,
                                  character);
-        character->SetField(player.GetField());
+        character->SetOwner(player);
     }
 
     // Apply card mechanics tags
