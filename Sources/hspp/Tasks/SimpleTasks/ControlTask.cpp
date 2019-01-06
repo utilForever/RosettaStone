@@ -25,7 +25,7 @@ MetaData ControlTask::Impl(Player& player)
     auto& myField = player.GetField();
     auto& opField = player.GetOpponent().GetField();
 
-    if (myField.size() == FIELD_SIZE)
+    if (myField.GetNumOfMinions() == FIELD_SIZE)
     {
         return MetaData::CONTROL_FIELD_IS_FULL;
     }
