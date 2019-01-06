@@ -8,6 +8,7 @@
 #define HEARTHSTONEPP_BATTLEFIELD_HPP
 
 #include <hspp/Cards/Character.hpp>
+#include <hspp/Cards/Minion.hpp>
 #include <hspp/Commons/Constants.hpp>
 
 #include <array>
@@ -39,8 +40,14 @@ class Battlefield
     //! \param owner The owner of battlefield.
     void SetOwner(Player& owner);
 
+    //! Returns the number of minions in battlefield.
+    std::size_t GetNumOfMinions() const;
+
     //! Returns all minions in battlefield.
     std::vector<Character*> GetAllMinions();
+
+    //! Removes minion from battlefield.
+    void RemoveMinion(Minion& minion);
 
  private:
     Player* m_owner = nullptr;
