@@ -16,7 +16,7 @@ namespace Hearthstonepp
 Player::Player() : m_id(USER_INVALID)
 {
     m_deck.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
-    m_field.reserve(FIELD_SIZE);
+    m_field.SetOwner(*this);
     m_hand.reserve(MAXIMUM_NUM_CARDS_IN_HAND);
 }
 
@@ -75,7 +75,7 @@ std::vector<Entity*>& Player::GetDeck()
     return m_deck;
 }
 
-std::vector<Character*>& Player::GetField()
+Battlefield& Player::GetField()
 {
     return m_field;
 }
@@ -179,12 +179,6 @@ void Player::FreeMemory()
         delete card;
     }
     m_deck.clear();
-
-    for (auto& minion : m_field)
-    {
-        delete minion;
-    }
-    m_field.clear();
 
     for (auto& card : m_hand)
     {

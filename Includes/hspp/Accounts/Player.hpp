@@ -13,6 +13,7 @@
 #include <hspp/Cards/Hero.hpp>
 #include <hspp/Cards/Spell.hpp>
 #include <hspp/Commons/Constants.hpp>
+#include <hspp/Models/Battlefield.hpp>
 
 #include <string>
 #include <vector>
@@ -91,9 +92,9 @@ class Player
     //! \return Player's deck.
     std::vector<Entity*>& GetDeck();
 
-    //! Returns player's field.
-    //! \return Player's field.
-    std::vector<Character*>& GetField();
+    //! Returns player's battlefield.
+    //! \return Player's battlefield.
+    Battlefield& GetField();
 
     //! Returns player's hand.
     //! \return Player's hand.
@@ -165,7 +166,7 @@ class Player
     std::vector<Entity*> m_deck;
 
     // Card objects
-    std::vector<Character*> m_field;
+    Battlefield m_field;
     std::vector<Entity*> m_hand;
     std::vector<Spell*> m_playedSpell;
     std::vector<Character*> m_playedMinion;
