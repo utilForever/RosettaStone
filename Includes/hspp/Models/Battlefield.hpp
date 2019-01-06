@@ -7,6 +7,11 @@
 #ifndef HEARTHSTONEPP_BATTLEFIELD_HPP
 #define HEARTHSTONEPP_BATTLEFIELD_HPP
 
+#include <hspp/Cards/Character.hpp>
+#include <hspp/Commons/Constants.hpp>
+
+#include <array>
+
 namespace Hearthstonepp
 {
 //!
@@ -22,6 +27,24 @@ namespace Hearthstonepp
 //!
 class Battlefield
 {
+ public:
+    //! Default constructor.
+    Battlefield();
+
+    //! Returns the owner of battlefield.
+    //! \return The owner of battlefield.
+    Player& GetOwner() const;
+
+    //! Sets the owner of battlefield.
+    //! \param owner The owner of battlefield.
+    void SetOwner(Player& owner);
+
+    //! Returns all minions in battlefield.
+    std::vector<Character*> GetAllMinions();
+
+ private:
+    Player* m_owner = nullptr;
+    std::array<Character*, FIELD_SIZE> m_minions{};
 };
 }  // namespace Hearthstonepp
 
