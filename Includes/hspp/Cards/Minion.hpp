@@ -41,6 +41,9 @@ class Minion : public Character
     //! Default move assignment operator.
     Minion& operator=(Minion&& minion) = default;
 
+    //! Destroys minion.
+    void Destroy() override;
+
     //! Sets game tag to the card.
     //! \param tag The game tag to indicate ability or condition.
     //! \param value The value to set for game tag.

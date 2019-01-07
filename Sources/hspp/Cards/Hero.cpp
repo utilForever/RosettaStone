@@ -19,6 +19,11 @@ Hero::~Hero()
     delete heroPower;
 }
 
+void Hero::Destroy()
+{
+    // Do nothing
+}
+
 bool Hero::HasWeapon() const
 {
     return weapon != nullptr;

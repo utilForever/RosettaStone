@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Accounts/Player.hpp>
 #include <hspp/Cards/Minion.hpp>
 
 namespace Hearthstonepp
@@ -11,6 +12,11 @@ namespace Hearthstonepp
 Minion::Minion(GameAgent* gameAgent, Card& card) : Character(gameAgent, card)
 {
     CheckAbilities();
+}
+
+void Minion::Destroy()
+{
+    GetOwner().GetField().RemoveMinion(*this);
 }
 
 void Minion::SetGameTag(GameTag tag, int value)

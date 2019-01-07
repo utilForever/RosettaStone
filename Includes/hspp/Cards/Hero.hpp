@@ -44,6 +44,9 @@ class Hero : public Character
     //! Move assignment operator.
     Hero& operator=(Hero&& hero) = delete;
 
+    //! Destroys hero.
+    void Destroy() override;
+
     //! Returns the presence of weapon.
     //! \return true if hero has weapon, and false otherwise.
     bool HasWeapon() const;

@@ -59,6 +59,9 @@ class Character : public Entity
     //! \param owner The owner of character.
     void SetOwner(Player& owner);
 
+    //! Destroys character (pure virtual function).
+    virtual void Destroy() = 0;
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack() const;
