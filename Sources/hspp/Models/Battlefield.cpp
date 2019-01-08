@@ -38,6 +38,11 @@ std::size_t Battlefield::GetNumOfMinions() const
     return ret;
 }
 
+Character* Battlefield::GetMinion(std::size_t pos)
+{
+    return m_minions.at(pos);
+}
+
 std::vector<Character*> Battlefield::GetAllMinions()
 {
     std::vector<Character*> ret(FIELD_SIZE);
@@ -51,6 +56,17 @@ std::vector<Character*> Battlefield::GetAllMinions()
     }
 
     return ret;
+}
+
+optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
+{
+    const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
+    if (iter != std::end(m_minions))
+    {
+        return std::distance(std::begin(m_minions), iter);
+    }
+
+    return nullopt;
 }
 
 void Battlefield::RemoveMinion(Minion& minion)

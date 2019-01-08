@@ -41,12 +41,29 @@ class Battlefield
     void SetOwner(Player& owner);
 
     //! Returns the number of minions in battlefield.
+    //! \return The number of minions in battlefield.
     std::size_t GetNumOfMinions() const;
 
+    //! Returns minion in battlefield.
+    //! \param pos The position of minion in battlefield.
+    //! \return A minion in battlefield at \p pos.
+    Character* GetMinion(std::size_t pos);
+
     //! Returns all minions in battlefield.
+    //! \return A list of minions in battlefield.
     std::vector<Character*> GetAllMinions();
 
+    //! Returns the position of minion in battlefield.
+    //! \return The position of minion in battlefield.
+    optional<std::size_t> FindMinionPos(Minion& minion);
+
+    //! Adds minion to battlefield.
+    //! \param minion The minion to add to battlefield.
+    //! \param pos The position of minion in battlefield.
+    void AddMinion(Minion& minion, std::size_t pos);
+
     //! Removes minion from battlefield.
+    //! \param minion The minion to remove from battlefield.
     void RemoveMinion(Minion& minion);
 
  private:
