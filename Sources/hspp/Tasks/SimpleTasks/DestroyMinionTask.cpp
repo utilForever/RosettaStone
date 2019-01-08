@@ -19,29 +19,10 @@ TaskID DestroyMinionTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyMinionTask::Impl(Player& player)
+MetaData DestroyMinionTask::Impl(Player&)
 {
-    auto& myField = player.GetField();
-    auto& opField = player.GetOpponent().GetField();
+    m_character->Destroy();
 
-    auto fieldIter = std::find(myField.begin(), myField.end(), m_character);
-    if (fieldIter != myField.end())
-    {
-        delete *fieldIter;
-        myField.erase(fieldIter);
-
-        return MetaData::DESTROY_MINION_SUCCESS;
-    }
-
-    fieldIter = std::find(opField.begin(), opField.end(), m_character);
-    if (fieldIter != opField.end())
-    {
-        delete *fieldIter;
-        opField.erase(fieldIter);
-
-        return MetaData::DESTROY_MINION_SUCCESS;
-    }
-
-    return MetaData::DESTROY_MINION_NOT_FOUND;
+    return MetaData::DESTROY_MINION_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks
