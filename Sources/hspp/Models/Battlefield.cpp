@@ -69,6 +69,11 @@ optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
     return nullopt;
 }
 
+void Battlefield::AddMinion(Minion& minion, std::size_t pos)
+{
+    m_minions.at(pos) = &minion;
+}
+
 void Battlefield::RemoveMinion(Minion& minion)
 {
     const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
