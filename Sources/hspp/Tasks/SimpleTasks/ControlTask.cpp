@@ -32,14 +32,20 @@ MetaData ControlTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        auto fieldIter = std::find(opField.begin(), opField.end(), entity);
-        if (fieldIter == opField.end())
+        const auto minion = dynamic_cast<Minion*>(entity);
+        if (minion == nullptr)
         {
-            return MetaData::CONTROL_INVALID_TARGET;
+            continue;
         }
 
-        myField.emplace_back(*fieldIter);
-        opField.erase(fieldIter);
+        auto minionPos = opField.FindMinionPos(*minion);
+        if (!minionPos.has_value())
+        {
+            continue;
+        }
+
+        myField.AddMinion(*minion, minionPos.value());
+        opField.RemoveMinion(*minion);
     }
 
     return MetaData::CONTROL_SUCCESS;
