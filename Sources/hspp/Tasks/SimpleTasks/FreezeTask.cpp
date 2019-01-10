@@ -43,7 +43,7 @@ MetaData FreezeTask::Impl(Player& player)
     target->SetGameTag(GameTag::FROZEN, 1);
 
     // Case 1
-    if (IsOpponentCharacter(player))
+    if (IsOpCharacter(player))
     {
         target->numTurnToUnfreeze = 2;
     }
@@ -71,8 +71,9 @@ bool FreezeTask::IsMyCharacter(Player& player) const
     if (m_entityType == +EntityType::SOURCE ||
         m_entityType == +EntityType::TARGET)
     {
-        return std::find(player.GetField().begin(), player.GetField().end(),
-                         m_target) != player.GetField().end();
+        const auto minion = dynamic_cast<Minion*>(m_target);
+        return minion != nullptr &&
+               player.GetField().FindMinionPos(*minion).has_value();
     }
 
     return m_entityType == +EntityType::FIELD ||
@@ -80,14 +81,16 @@ bool FreezeTask::IsMyCharacter(Player& player) const
            m_entityType == +EntityType::FRIENDS;
 }
 
-bool FreezeTask::IsOpponentCharacter(Player& player) const
+bool FreezeTask::IsOpCharacter(Player& player) const
 {
     if (m_entityType == +EntityType::SOURCE ||
         m_entityType == +EntityType::TARGET)
     {
-        return std::find(player.GetOpponent().GetField().begin(),
-                         player.GetOpponent().GetField().end(),
-                         m_target) != player.GetOpponent().GetField().end();
+        const auto minion = dynamic_cast<Minion*>(m_target);
+        return minion != nullptr && player.GetOpponent()
+                                        .GetField()
+                                        .FindMinionPos(*minion)
+                                        .has_value();
     }
 
     return m_entityType == +EntityType::ENEMY_FIELD ||

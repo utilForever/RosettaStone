@@ -39,7 +39,7 @@ class FreezeTask : public ITask
 
     //! Finds out if this character is an opponent.
     //! \return true if this character is an opponent, and false otherwise.
-    bool IsOpponentCharacter(Player& player) const;
+    bool IsOpCharacter(Player& player) const;
 
     //! Finds out if this character gets Frozen before attacking.
     //! \return true if this character gets Frozen before attacking, and false
