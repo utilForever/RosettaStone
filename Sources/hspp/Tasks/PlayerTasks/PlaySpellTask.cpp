@@ -121,25 +121,29 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
             return 0;
         }
 
-        auto myField = player.GetField();
-        auto fieldIter = std::find(myField.begin(), myField.end(), m_target);
-        if (fieldIter != myField.end())
-        {
-            return static_cast<BYTE>(std::distance(myField.begin(), fieldIter) +
-                                     1);
-        }
-
-        if (m_target == player.GetHero())
+        if (m_target == opponent.GetHero())
         {
             return 8;
         }
 
-        auto opField = opponent.GetField();
-        fieldIter = std::find(opField.begin(), opField.end(), m_target);
-        if (fieldIter != opField.end())
+        const auto minion = dynamic_cast<Minion*>(m_target);
+        if (minion == nullptr)
         {
-            return static_cast<BYTE>(std::distance(opField.begin(), fieldIter) +
-                                     9);
+            return 0;
+        }
+
+        auto myField = player.GetField();
+        auto myMinionPos = myField.FindMinionPos(*minion);
+        if (myMinionPos.has_value())
+        {
+            return static_cast<BYTE>(myMinionPos.value() + 1);
+        }
+
+        auto opField = opponent.GetField();
+        auto opMinionPos = opField.FindMinionPos(*minion);
+        if (opMinionPos.has_value())
+        {
+            return static_cast<BYTE>(opMinionPos.value() + 9);
         }
     }
 
@@ -155,7 +159,7 @@ Character* PlaySpellTask::GetTargetByPos(Player& player, BYTE pos)
 
     if (pos >= INDEX_MY_MINION && pos < INDEX_MY_MINION + FIELD_SIZE)
     {
-        return player.GetField()[pos - 1];
+        return player.GetField().GetMinion(pos - 1);
     }
 
     if (pos == INDEX_OPPONENT_HERO)
@@ -166,7 +170,7 @@ Character* PlaySpellTask::GetTargetByPos(Player& player, BYTE pos)
     if (pos >= INDEX_OPPONENT_MINION &&
         pos < INDEX_OPPONENT_MINION + FIELD_SIZE)
     {
-        return player.GetOpponent().GetField()[pos - 9];
+        return player.GetOpponent().GetField().GetMinion(pos - 9);
     }
 
     return nullptr;

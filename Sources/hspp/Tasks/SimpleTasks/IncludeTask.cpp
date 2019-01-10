@@ -29,14 +29,14 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(player.GetHero());
             break;
         case EntityType::FRIENDS:
-            for (auto& minion : player.GetField())
+            for (auto& minion : player.GetField().GetAllMinions())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player.GetHero());
             break;
         case EntityType::ENEMIES:
-            for (auto& minion : player.GetOpponent().GetField())
+            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
             {
                 entities.emplace_back(minion);
             }
