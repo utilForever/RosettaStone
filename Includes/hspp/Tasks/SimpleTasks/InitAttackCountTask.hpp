@@ -30,12 +30,12 @@ class InitAttackCountTask : public ITask
     MetaData Impl(Player& player) override;
 
     //! Processes attack count initialization logic of my field.
-    //! \param my The player.
-    static void ProcessMyField(Player& my);
+    //! \param player The my player.
+    static void ProcessMyField(Player& player);
 
-    //! Processes attack count initialization logic of enemy field.
-    //! \param opponent The opponent player.
-    static void ProcessEnemyField(Player& opponent);
+    //! Processes attack count initialization logic of opponent field.
+    //! \param player The opponent player.
+    static void ProcessOpField(Player& player);
 };
 
 }  // namespace Hearthstonepp::SimpleTasks

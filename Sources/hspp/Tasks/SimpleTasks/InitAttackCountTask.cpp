@@ -16,16 +16,16 @@ TaskID InitAttackCountTask::GetTaskID() const
 MetaData InitAttackCountTask::Impl(Player& player)
 {
     ProcessMyField(player);
-    ProcessEnemyField(player.GetOpponent());
+    ProcessOpField(player.GetOpponent());
 
     return MetaData::INIT_ATTACK_COUNT_SUCCESS;
 }
 
-void InitAttackCountTask::ProcessMyField(Player& my)
+void InitAttackCountTask::ProcessMyField(Player& player)
 {
     // Add minions in field and hero
-    std::vector<Character*> characters = my.GetField();
-    characters.emplace_back(my.GetHero());
+    std::vector<Character*> characters = player.GetField().GetAllMinions();
+    characters.emplace_back(player.GetHero());
 
     for (auto& character : characters)
     {
@@ -57,9 +57,9 @@ void InitAttackCountTask::ProcessMyField(Player& my)
     }
 }
 
-void InitAttackCountTask::ProcessEnemyField(Player& opponent)
+void InitAttackCountTask::ProcessOpField(Player& player)
 {
-    for (auto& minion : opponent.GetField())
+    for (auto& minion : player.GetField().GetAllMinions())
     {
         // Process Frozen status
         if (minion->GetGameTag(GameTag::FROZEN) == 1)
