@@ -59,21 +59,25 @@ void InitAttackCountTask::ProcessMyField(Player& player)
 
 void InitAttackCountTask::ProcessOpField(Player& player)
 {
-    for (auto& minion : player.GetField().GetAllMinions())
+    // Add minions in field and hero
+    std::vector<Character*> characters = player.GetField().GetAllMinions();
+    characters.emplace_back(player.GetHero());
+
+    for (auto& character : characters)
     {
         // Process Frozen status
-        if (minion->GetGameTag(GameTag::FROZEN) == 1)
+        if (character->GetGameTag(GameTag::FROZEN) == 1)
         {
-            minion->numTurnToUnfreeze--;
+            character->numTurnToUnfreeze--;
 
-            if (minion->numTurnToUnfreeze == 0)
+            if (character->numTurnToUnfreeze == 0)
             {
-                minion->SetGameTag(GameTag::FROZEN, 0);
+                character->SetGameTag(GameTag::FROZEN, 0);
             }
         }
 
         // Attack count is always 0 because it's my turn
-        minion->attackableCount = 0;
+        character->attackableCount = 0;
     }
 }
 }  // namespace Hearthstonepp::SimpleTasks
