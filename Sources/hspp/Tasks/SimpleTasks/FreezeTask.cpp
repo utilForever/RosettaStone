@@ -71,6 +71,12 @@ bool FreezeTask::IsMyCharacter(Player& player) const
     if (m_entityType == +EntityType::SOURCE ||
         m_entityType == +EntityType::TARGET)
     {
+        const auto hero = dynamic_cast<Hero*>(m_target);
+        if (hero != nullptr && hero == player.GetHero())
+        {
+            return true;
+        }
+
         const auto minion = dynamic_cast<Minion*>(m_target);
         return minion != nullptr &&
                player.GetField().FindMinionPos(*minion).has_value();
@@ -86,6 +92,12 @@ bool FreezeTask::IsOpCharacter(Player& player) const
     if (m_entityType == +EntityType::SOURCE ||
         m_entityType == +EntityType::TARGET)
     {
+        const auto hero = dynamic_cast<Hero*>(m_target);
+        if (hero != nullptr && hero == player.GetOpponent().GetHero())
+        {
+            return true;
+        }
+
         const auto minion = dynamic_cast<Minion*>(m_target);
         return minion != nullptr && player.GetOpponent()
                                         .GetField()
