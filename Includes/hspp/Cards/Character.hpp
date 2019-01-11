@@ -59,6 +59,10 @@ class Character : public Entity
     //! \param owner The owner of character.
     void SetOwner(Player& owner);
 
+    //! Summons character (pure virtual function).
+    //! \param pos The position to summon.
+    virtual void Summon(std::size_t pos) = 0;
+
     //! Destroys character (pure virtual function).
     virtual void Destroy() = 0;
 

@@ -14,6 +14,11 @@ Minion::Minion(GameAgent* gameAgent, Card& card) : Character(gameAgent, card)
     CheckAbilities();
 }
 
+void Minion::Summon(std::size_t pos)
+{
+    GetOwner().GetField().AddMinion(*this, pos);
+}
+
 void Minion::Destroy()
 {
     GetOwner().GetField().RemoveMinion(*this);
