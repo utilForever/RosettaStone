@@ -30,10 +30,13 @@ MetaData PlayMinionTask::Impl(Player& player)
 
     if (m_fieldPos == -1)
     {
-        const auto fieldIter = std::find(player.GetField().begin(),
-                                         player.GetField().end(), nullptr);
-        position = static_cast<BYTE>(
-            std::distance(player.GetField().begin(), fieldIter));
+        auto emptyPos = player.GetField().FindEmptyPos();
+        if (!emptyPos.has_value())
+        {
+            return MetaData::PLAY_MINION_FIELD_IS_FULL;
+        }
+
+        position = static_cast<BYTE>(emptyPos.value());
     }
     else
     {
@@ -55,7 +58,7 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
 
     // Verify field position
-    if (position > player.GetField().size())
+    if (position > FIELD_SIZE)
     {
         return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
@@ -68,17 +71,8 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
 
     // Summon minion
-    if (player.GetField().empty())
-    {
-        player.GetField().emplace_back(character);
-        character->SetOwner(player);
-    }
-    else
-    {
-        player.GetField().insert(player.GetField().begin() + position,
-                                 character);
-        character->SetOwner(player);
-    }
+    character->SetOwner(player);
+    character->Summon(position);
 
     // Apply card mechanics tags
     for (const auto tags : m_source->card->mechanics)

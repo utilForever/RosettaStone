@@ -229,7 +229,8 @@ TaskMeta CreateGameStatus(Player& player, TaskID taskID, MetaData status)
     };
 
     // Tie multi card vector
-    auto target = { player.GetField(), player.GetOpponent().GetField() };
+    auto target = { player.GetField().GetAllMinions(),
+                    player.GetOpponent().GetField().GetAllMinions() };
     std::vector<VectorOffset> result(target.size());
 
     // Convert Card vector to FlatData::Card vector
