@@ -151,6 +151,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
             {
                 sourceIndex = static_cast<BYTE>(
                     player.GetField().FindMinionPos(*minionSource).value());
+                sourceIndex += 1;
             }
         }
 
@@ -166,6 +167,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
             {
                 targetIndex = static_cast<BYTE>(
                     opponent.GetField().FindMinionPos(*minionTarget).value());
+                targetIndex += 1;
             }
         }
 
