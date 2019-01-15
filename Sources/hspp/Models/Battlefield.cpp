@@ -45,7 +45,7 @@ Character* Battlefield::GetMinion(std::size_t pos)
 
 std::vector<Character*> Battlefield::GetAllMinions()
 {
-    std::vector<Character*> ret(FIELD_SIZE);
+    std::vector<Character*> ret;
 
     for (auto& minion : m_minions)
     {
