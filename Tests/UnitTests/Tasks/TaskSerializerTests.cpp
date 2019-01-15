@@ -279,8 +279,12 @@ TEST(TaskSerializer, CreateGameStatus)
 
     // Summon 'Nerubian' card to field (minion)
     Card nerubian = instance.FindCardByID("AT_036t");
-    agent.GetPlayer1().GetField().emplace_back(new Minion(&agent, nerubian));
-    agent.GetPlayer2().GetField().emplace_back(new Minion(&agent, nerubian));
+    
+    Minion minion1(&agent, nerubian);
+    Minion minion2(&agent, nerubian);
+    
+    agent.GetPlayer1().GetField().AddMinion(minion1, 0);
+    agent.GetPlayer2().GetField().AddMinion(minion2, 0);
 
     // Draw 'Poisoned Blade' card (weapon)
     Card poisonedBlade = instance.FindCardByID("AT_034");

@@ -105,8 +105,8 @@ TEST(CombatTask, Default)
 
     tester.Attack(player2Field.GetMinion(0), player1Field.GetMinion(0),
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER2);
-    EXPECT_EQ(player1Field.GetMinion(0)->health, 1u);
-    EXPECT_EQ(player2Field.GetMinion(0)->health, 1u);
+    EXPECT_EQ(player1Field.GetMinion(0)->health, 1);
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
@@ -125,7 +125,7 @@ TEST(CombatTask, Default)
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
-    EXPECT_EQ(player1Field.GetMinion(0)->health, 1u);
+    EXPECT_EQ(player1Field.GetMinion(0)->health, 1);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
     auto card5 = GenerateMinionCard("minion5", 5, 4);
@@ -138,7 +138,7 @@ TEST(CombatTask, Default)
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 0u);
-    EXPECT_EQ(player2Field.GetMinion(0)->health, 3u);
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 3);
 }
 
 TEST(CombatTask, Weapon)

@@ -27,6 +27,9 @@ TEST(ControlTask, Run)
     Player& player1 = agent.GetPlayer1();
     Player& player2 = agent.GetPlayer2();
 
+    auto player1Field = player1.GetField();
+    auto player2Field = player2.GetField();
+
     std::vector<Card> cards;
     cards.reserve(5);
 
@@ -40,17 +43,17 @@ TEST(ControlTask, Run)
     }
 
     ControlTask control(EntityType::TARGET);
-    control.SetTarget(player2.GetField()[0]);
+    control.SetTarget(player2Field.GetMinion(0));
     MetaData result = control.Run(player1);
 
     EXPECT_EQ(result, MetaData::CONTROL_SUCCESS);
-    EXPECT_EQ(player1.GetField().size(), 7u);
-    EXPECT_EQ(player2.GetField().size(), 5u);
+    EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
+    EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
-    control.SetTarget(player2.GetField()[0]);
+    control.SetTarget(player2Field.GetMinion(0));
     result = control.Run(player1);
 
     EXPECT_EQ(result, MetaData::CONTROL_FIELD_IS_FULL);
-    EXPECT_EQ(player1.GetField().size(), 7u);
-    EXPECT_EQ(player2.GetField().size(), 5u);
+    EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
+    EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 }

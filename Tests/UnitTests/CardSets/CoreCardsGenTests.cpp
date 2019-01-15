@@ -78,6 +78,9 @@ TEST(CoreCardsGen, CS2_041)
     opPlayer.SetMaximumMana(10);
     opPlayer.SetAvailableMana(10);
 
+    auto curField = curPlayer.GetField();
+    const auto opField = opPlayer.GetField();
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
     const auto card2 = Generic::DrawCard(
@@ -89,12 +92,12 @@ TEST(CoreCardsGen, CS2_041)
     GameAgent::RunTask(opPlayer, PlayCardTask(taskAgent, card3));
 
     GameAgent::RunTask(opPlayer, CombatTask(taskAgent, card3, card1));
-    EXPECT_EQ(curPlayer.GetField()[0]->health, 1);
-    EXPECT_EQ(opPlayer.GetField().size(), 0u);
+    EXPECT_EQ(curField.GetMinion(0)->health, 1);
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     GameAgent::RunTask(curPlayer, PlayCardTask(taskAgent, card2, -1, card1));
-    EXPECT_EQ(curPlayer.GetField()[0]->health, 2);
-    EXPECT_EQ(curPlayer.GetField()[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField.GetMinion(0)->health, 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
 }
 
 TEST(CoreCardsGen, CS2_088)
@@ -130,6 +133,9 @@ TEST(CoreCardsGen, CS1_112)
     opPlayer.SetAvailableMana(10);
     curPlayer.GetHero()->health = 26;
 
+    auto curField = curPlayer.GetField();
+    auto opField = opPlayer.GetField();
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
     const auto card2 = Generic::DrawCard(
@@ -151,15 +157,15 @@ TEST(CoreCardsGen, CS1_112)
     GameAgent::RunTask(curPlayer, InitAttackCountTask());
 
     GameAgent::RunTask(curPlayer, CombatTask(taskAgent, card1, card4));
-    EXPECT_EQ(curPlayer.GetField()[0]->health, 4);
-    EXPECT_EQ(opPlayer.GetField()[0]->GetGameTag(GameTag::DIVINE_SHIELD), 0);
+    EXPECT_EQ(curField.GetMinion(0)->health, 4);
+    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
     GameAgent::RunTask(curPlayer, PlayCardTask(taskAgent, card3));
     EXPECT_EQ(curPlayer.GetHero()->health, 28);
     EXPECT_EQ(opPlayer.GetHero()->health, 28);
-    EXPECT_EQ(curPlayer.GetField()[0]->health, 5);
-    EXPECT_EQ(curPlayer.GetField()[1]->health, 7);
-    EXPECT_EQ(opPlayer.GetField().size(), 0u);
+    EXPECT_EQ(curField.GetMinion(0)->health, 5);
+    EXPECT_EQ(curField.GetMinion(1)->health, 7);
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 }
 
 TEST(CoreCardsGen, CS1_113)
@@ -174,6 +180,9 @@ TEST(CoreCardsGen, CS1_113)
     opPlayer.SetMaximumMana(10);
     opPlayer.SetAvailableMana(10);
 
+    const auto curField = curPlayer.GetField();
+    const auto opField = opPlayer.GetField();
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
     const auto card2 = Generic::DrawCard(
@@ -186,12 +195,12 @@ TEST(CoreCardsGen, CS1_113)
     GameAgent::RunTask(curPlayer, PlayCardTask(taskAgent, card1));
     curPlayer.SetAvailableMana(10);
     GameAgent::RunTask(opPlayer, PlayCardTask(taskAgent, card2));
-    EXPECT_EQ(curPlayer.GetField().size(), 1u);
-    EXPECT_EQ(opPlayer.GetField().size(), 1u);
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
     GameAgent::RunTask(curPlayer, PlayCardTask(taskAgent, card3, -1, card2));
-    EXPECT_EQ(curPlayer.GetField().size(), 2u);
-    EXPECT_EQ(opPlayer.GetField().size(), 0u);
+    EXPECT_EQ(curField.GetNumOfMinions(), 2u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     opPlayer.SetAvailableMana(10);
     auto result = GameAgent::RunTask(

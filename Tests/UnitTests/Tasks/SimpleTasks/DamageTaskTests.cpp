@@ -41,5 +41,5 @@ TEST(DamageTask, Run)
     MetaData result = damage.Run(player1);
 
     EXPECT_EQ(result, MetaData::DAMAGE_SUCCESS);
-    EXPECT_EQ(player1.GetField().size(), 0u);
+    EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
 }
