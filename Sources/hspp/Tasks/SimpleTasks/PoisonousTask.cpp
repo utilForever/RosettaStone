@@ -19,7 +19,7 @@ TaskID PoisonousTask::GetTaskID() const
 
 MetaData PoisonousTask::Impl(Player&)
 {
-    dynamic_cast<Character*>(m_target)->health = 0;
+    dynamic_cast<Character*>(m_target)->Destroy();
 
     return MetaData::POISONOUS_SUCCESS;
 }
