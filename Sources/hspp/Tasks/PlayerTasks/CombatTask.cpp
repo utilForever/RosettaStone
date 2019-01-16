@@ -83,26 +83,29 @@ MetaData CombatTask::Impl(Player& player)
         const bool isSourceDamaged = sourceDamage > 0;
 
         // Destroy source if defender is poisonous
-        if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
+        if (isSourceDamaged && !target->isDestroyed &&
+            target->GetGameTag(GameTag::POISONOUS) == 1)
         {
             PoisonousTask(source).Run(player);
         }
 
         // Freeze source if defender is freezer
-        if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
+        if (isSourceDamaged && !target->isDestroyed &&
+            target->GetGameTag(GameTag::FREEZE) == 1)
         {
             FreezeTask(EntityType::SOURCE, source).Run(player);
         }
     }
 
     // Remove stealth ability if attacker has it
-    if (source->GetGameTag(GameTag::STEALTH) == 1)
+    if (!source->isDestroyed && source->GetGameTag(GameTag::STEALTH) == 1)
     {
         source->SetGameTag(GameTag::STEALTH, 0);
     }
 
     // Remove durability from weapon if hero attack
-    const Hero* hero = dynamic_cast<Hero*>(source);
+    const Hero* hero =
+        source->isDestroyed ? nullptr : dynamic_cast<Hero*>(source);
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
@@ -118,13 +121,13 @@ MetaData CombatTask::Impl(Player& player)
     source->attackableCount--;
 
     // Destroy source minion if health less than 0
-    if (source->health <= 0)
+    if (!source->isDestroyed && source->health <= 0)
     {
         DestroyMinionTask(source).Run(player);
     }
 
     // Destroy target minion if health less than 0
-    if (target->health <= 0)
+    if (!target->isDestroyed && target->health <= 0)
     {
         DestroyMinionTask(target).Run(player);
     }
