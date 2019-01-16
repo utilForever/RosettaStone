@@ -321,7 +321,7 @@ TEST(CombatTask, DivineShield)
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->health,
               player1Field.GetMinion(0)->maxHealth);
-    EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 
     player2Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
