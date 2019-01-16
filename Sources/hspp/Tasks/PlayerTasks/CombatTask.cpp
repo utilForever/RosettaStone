@@ -120,17 +120,17 @@ MetaData CombatTask::Impl(Player& player)
 
     source->attackableCount--;
 
-    // Destroy source minion if health less than 0
-    if (!source->isDestroyed && source->health <= 0)
-    {
-        DestroyMinionTask(source).Run(player);
-    }
+    //// Destroy source minion if health less than 0
+    //if (!source->isDestroyed && source->health <= 0)
+    //{
+    //    DestroyMinionTask(source).Run(player);
+    //}
 
-    // Destroy target minion if health less than 0
-    if (!target->isDestroyed && target->health <= 0)
-    {
-        DestroyMinionTask(target).Run(player);
-    }
+    //// Destroy target minion if health less than 0
+    //if (!target->isDestroyed && target->health <= 0)
+    //{
+    //    DestroyMinionTask(target).Run(player);
+    //}
 
     return MetaData::COMBAT_SUCCESS;
 }
