@@ -27,7 +27,7 @@ TEST(DestroyMinionTask, Run)
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& player1 = agent.GetPlayer1();
 
-    auto player1Field = player1.GetField();
+    auto& player1Field = player1.GetField();
 
     std::vector<Card> cards;
     cards.reserve(5);

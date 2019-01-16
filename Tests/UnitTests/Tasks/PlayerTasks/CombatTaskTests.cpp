@@ -90,8 +90,8 @@ TEST(CombatTask, Default)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     tester.Attack(player1Field.GetMinion(0), player2.GetHero(),
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -154,7 +154,7 @@ TEST(CombatTask, Weapon)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player2Field = player2.GetField();
+    auto& player2Field = player2.GetField();
 
     tester.Attack(player1.GetHero(), player2Field.GetMinion(0),
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -181,8 +181,8 @@ TEST(CombatTask, Charge)
     PlayMinionCard(player1, card);
     PlayMinionCard(player2, card);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::CHARGE, 1);
 
@@ -207,8 +207,8 @@ TEST(CombatTask, Taunt)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     player2Field.GetMinion(1)->SetGameTag(GameTag::TAUNT, 1);
 
@@ -232,8 +232,8 @@ TEST(CombatTask, Stealth)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     player2Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 1);
 
@@ -259,8 +259,8 @@ TEST(CombatTask, Immune)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 1);
 
@@ -281,8 +281,8 @@ TEST(CombatTask, Windfury)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -312,8 +312,8 @@ TEST(CombatTask, DivineShield)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
@@ -344,8 +344,8 @@ TEST(CombatTask, Poisonous)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
 
@@ -378,8 +378,8 @@ TEST(CombatTask, Freeze)
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
-    auto player1Field = player1.GetField();
-    auto player2Field = player2.GetField();
+    auto& player1Field = player1.GetField();
+    auto& player2Field = player2.GetField();
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::FREEZE, 1);
 

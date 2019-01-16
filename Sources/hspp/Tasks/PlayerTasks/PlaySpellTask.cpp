@@ -132,14 +132,14 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
             return 0;
         }
 
-        auto myField = player.GetField();
+        auto& myField = player.GetField();
         auto myMinionPos = myField.FindMinionPos(*minion);
         if (myMinionPos.has_value())
         {
             return static_cast<BYTE>(myMinionPos.value() + 1);
         }
 
-        auto opField = opponent.GetField();
+        auto& opField = opponent.GetField();
         auto opMinionPos = opField.FindMinionPos(*minion);
         if (opMinionPos.has_value())
         {

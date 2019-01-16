@@ -78,8 +78,8 @@ TEST(CoreCardsGen, CS2_041)
     opPlayer.SetMaximumMana(10);
     opPlayer.SetAvailableMana(10);
 
-    auto curField = curPlayer.GetField();
-    const auto opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetField();
+    const auto& opField = opPlayer.GetField();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
@@ -133,8 +133,8 @@ TEST(CoreCardsGen, CS1_112)
     opPlayer.SetAvailableMana(10);
     curPlayer.GetHero()->health = 26;
 
-    auto curField = curPlayer.GetField();
-    auto opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
@@ -180,8 +180,8 @@ TEST(CoreCardsGen, CS1_113)
     opPlayer.SetMaximumMana(10);
     opPlayer.SetAvailableMana(10);
 
-    const auto curField = curPlayer.GetField();
-    const auto opField = opPlayer.GetField();
+    const auto& curField = curPlayer.GetField();
+    const auto& opField = opPlayer.GetField();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
