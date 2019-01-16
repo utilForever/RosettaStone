@@ -91,6 +91,7 @@ void Battlefield::RemoveMinion(Minion& minion)
     if (iter != std::end(m_minions))
     {
         delete *iter;
+        *iter = nullptr;
     }
 }
 }  // namespace Hearthstonepp
