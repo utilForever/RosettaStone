@@ -44,7 +44,7 @@ MetaData ControlTask::Impl(Player& player)
             continue;
         }
 
-        myField.AddMinion(*minion, minionPos.value());
+        myField.AddMinion(*minion, myField.FindEmptyPos().value());
         opField.RemoveMinion(*minion);
     }
 
