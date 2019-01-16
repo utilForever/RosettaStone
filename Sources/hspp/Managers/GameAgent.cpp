@@ -130,9 +130,10 @@ void GameAgent::NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel)
     m_taskAgent.Notify(std::move(meta), sideChannel);
 }
 
-void GameAgent::KillMinion(Minion& minion) const
+void GameAgent::KillMinion(Minion& minion)
 {
     minion.Destroy();
+    minion.isDestroyed = true;
 }
 
 TaskAgent& GameAgent::GetTaskAgent()

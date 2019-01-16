@@ -105,7 +105,7 @@ class GameAgent
 
     //! Kills a minion from field.
     //! \param minion A character to kill.
-    void KillMinion(Minion& minion) const;
+    void KillMinion(Minion& minion);
 
  private:
     //! Returns whether the game is over.
