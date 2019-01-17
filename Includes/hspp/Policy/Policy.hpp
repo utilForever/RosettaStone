@@ -7,8 +7,16 @@
 #ifndef HEARTHSTONEPP_POLICY_HPP
 #define HEARTHSTONEPP_POLICY_HPP
 
-class Policy {
+#include <hspp/Game/Game.hpp>
+#include <hspp/Tasks/TaskMeta.hpp>
 
+namespace Hearthstonepp
+{
+class IPolicy
+{
+ public:
+    virtual TaskMeta next(const Game& game) = 0;
 };
+}  // namespace Hearthstonepp
 
 #endif
