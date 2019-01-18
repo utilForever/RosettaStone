@@ -29,6 +29,7 @@ class IncludeTask : public ITask
 
     static std::vector<Entity*> GetEntities(EntityType entityType,
                                             Player& player,
+                                            Entity* source = nullptr,
                                             Entity* target = nullptr);
 
  private:

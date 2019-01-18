@@ -16,12 +16,16 @@ TaskID IncludeTask::GetTaskID() const
 }
 
 std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
-                                              Player& player, Entity* target)
+                                              Player& player, Entity* source,
+                                              Entity* target)
 {
     std::vector<Entity*> entities;
 
     switch (entityType)
     {
+        case EntityType::SOURCE:
+            entities.emplace_back(source);
+            break;
         case EntityType::TARGET:
             entities.emplace_back(target);
             break;
