@@ -21,7 +21,7 @@ TaskID HealTask::GetTaskID() const
 
 MetaData HealTask::Impl(Player& player)
 {
-    auto entities = IncludeTask::GetEntities(m_entityType, player);
+    auto entities = IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& entity : entities)
     {

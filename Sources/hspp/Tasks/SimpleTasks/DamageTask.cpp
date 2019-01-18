@@ -22,7 +22,7 @@ TaskID DamageTask::GetTaskID() const
 
 MetaData DamageTask::Impl(Player& player)
 {
-    auto entities = IncludeTask::GetEntities(m_entityType, player);
+    auto entities = IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& entity : entities)
     {

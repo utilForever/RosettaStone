@@ -21,7 +21,7 @@ TaskID ControlTask::GetTaskID() const
 
 MetaData ControlTask::Impl(Player& player)
 {
-    auto entities = IncludeTask::GetEntities(m_entityType, player, m_target);
+    auto entities = IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
     auto& myField = player.GetField();
     auto& opField = player.GetOpponent().GetField();
 
