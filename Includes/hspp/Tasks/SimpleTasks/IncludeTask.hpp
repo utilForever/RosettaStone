@@ -27,6 +27,12 @@ class IncludeTask : public ITask
     //! \return Task ID.
     TaskID GetTaskID() const override;
 
+    //! Returns a list of entities based on the type of entity.
+    //! \param entityType The type of entity.
+    //! \param player The player to get hand or battlefield.
+    //! \param source The source that indicates source entity.
+    //! \param target The target that indicates target entity.
+    //! \return A list of entities based on the type of entity.
     static std::vector<Entity*> GetEntities(EntityType entityType,
                                             Player& player,
                                             Entity* source = nullptr,
