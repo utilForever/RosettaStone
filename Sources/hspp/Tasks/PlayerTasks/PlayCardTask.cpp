@@ -88,6 +88,8 @@ MetaData PlayCardTask::Impl(Player& player)
         player.GetHand().erase(player.GetHand().begin() + handIndex);
     }
 
+    entity->SetOwner(player);
+
     // Pass to sub-logic
     switch (entity->card->cardType)
     {

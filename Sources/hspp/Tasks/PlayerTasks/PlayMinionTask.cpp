@@ -71,7 +71,6 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
 
     // Summon minion
-    character->SetOwner(player);
     character->Summon(position);
 
     // Apply card mechanics tags
