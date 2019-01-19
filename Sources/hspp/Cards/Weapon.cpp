@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Accounts/Player.hpp>
 #include <hspp/Cards/Weapon.hpp>
 
 namespace Hearthstonepp
@@ -36,6 +37,7 @@ void Weapon::SetDurability(size_t durability)
 
 void Weapon::Destroy()
 {
-    // Do nothing
+    GetOwner().GetHero()->weapon = nullptr;
+    delete this;
 }
 }  // namespace Hearthstonepp
