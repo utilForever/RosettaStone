@@ -20,10 +20,7 @@ class DestroyTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type of target to destroy.
-    //! \param source A pointer to source character to destroy.
-    //! \param target A pointer to target character to destroy.
-    DestroyTask(EntityType entityType, Entity* source = nullptr,
-                Entity* target = nullptr);
+    DestroyTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.

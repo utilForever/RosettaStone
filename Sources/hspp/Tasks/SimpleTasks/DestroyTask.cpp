@@ -3,14 +3,12 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyWeaponTask.hpp>
+#include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace Hearthstonepp::SimpleTasks
 {
-DestroyTask::DestroyTask(EntityType entityType, Entity* source, Entity* target)
-    : ITask(entityType, source, target)
+DestroyTask::DestroyTask(EntityType entityType) : ITask(entityType)
 {
     // Do nothing
 }
@@ -22,16 +20,14 @@ TaskID DestroyTask::GetTaskID() const
 
 MetaData DestroyTask::Impl(Player& player)
 {
-    switch (m_entityType)
+    auto entities =
+        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+
+    for (auto& entity : entities)
     {
-        case EntityType::SOURCE:
-            return DestroyMinionTask(m_source).Run(player);
-        case EntityType::TARGET:
-            return DestroyMinionTask(m_target).Run(player);
-        case EntityType::ENEMY_WEAPON:
-            return DestroyWeaponTask().Run(player.GetOpponent());
-        default:
-            return MetaData::INVALID;
+        entity->Destroy();
     }
+
+    return MetaData::DESTROY_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks
