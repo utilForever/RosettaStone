@@ -58,6 +58,10 @@ class ITask
     //! \return Entity type.
     EntityType GetEntityType() const;
 
+    //! Sets the source.
+    //! \param source A pointer to the source.
+    void SetSource(Entity* source);
+
     //! Sets the target.
     //! \param target A pointer to the target.
     void SetTarget(Entity* target);

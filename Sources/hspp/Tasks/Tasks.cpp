@@ -31,6 +31,11 @@ EntityType ITask::GetEntityType() const
     return m_entityType;
 }
 
+void ITask::SetSource(Entity* source)
+{
+    m_source = source;
+}
+
 void ITask::SetTarget(Entity* target)
 {
     m_target = target;
