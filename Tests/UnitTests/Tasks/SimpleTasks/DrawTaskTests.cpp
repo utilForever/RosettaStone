@@ -22,7 +22,7 @@ TEST(DrawTask, GetTaskID)
 TEST(DrawTask, Run)
 {
     std::vector<Card> cards;
-    std::vector<Entity*> entities;
+    std::vector<Entity*> minions;
 
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
@@ -33,9 +33,9 @@ TEST(DrawTask, Run)
         Card card = cards.back();
         card.id = std::move(id);
 
-        entities.emplace_back(new Entity(&agent, card));
+        minions.emplace_back(new Minion(&agent, card));
 
-        return entities.back();
+        return minions.back();
     };
 
     const std::string id = "card";
@@ -47,7 +47,7 @@ TEST(DrawTask, Run)
     DrawTask draw(3);
     MetaData result = draw.Run(p);
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
-    EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(3));
+    EXPECT_EQ(p.GetHand().size(), 3u);
 
     for (size_t i = 0; i < 3; ++i)
     {
@@ -60,38 +60,38 @@ TEST(DrawTask, RunExhaust)
 {
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
-    EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
+    EXPECT_EQ(p.GetDeck().size(), 0u);
 
     DrawTask draw(3);
 
     MetaData result = draw.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
-    EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(0));
-    EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
+    EXPECT_EQ(p.GetHand().size(), 0u);
+    EXPECT_EQ(p.GetDeck().size(), 0u);
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 3);
     // Health: 30 - (1 + 2 + 3)
-    EXPECT_EQ(p.GetHero()->health, static_cast<size_t>(24));
+    EXPECT_EQ(p.GetHero()->health, 24);
 
     Card card;
     card.id = "card1";
 
-    auto entity = new Entity(&agent, card);
-    p.GetDeck().emplace_back(entity);
+    auto minion = new Minion(&agent, card);
+    p.GetDeck().emplace_back(minion);
 
     result = draw.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
-    EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(1));
+    EXPECT_EQ(p.GetHand().size(), 1u);
     EXPECT_EQ(p.GetHand()[0]->card->id, "card1");
-    EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
+    EXPECT_EQ(p.GetDeck().size(), 0u);
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 5);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
-    EXPECT_EQ(p.GetHero()->health, static_cast<size_t>(15));
+    EXPECT_EQ(p.GetHero()->health, 15);
 }
 
 TEST(DrawTask, RunOverDraw)
 {
     std::vector<Card> cards;
-    std::vector<Entity*> entities;
+    std::vector<Entity*> minions;
 
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
@@ -102,9 +102,9 @@ TEST(DrawTask, RunOverDraw)
         Card card = cards.back();
         card.id = std::move(id);
 
-        entities.emplace_back(new Entity(&agent, card));
+        minions.emplace_back(new Minion(&agent, card));
 
-        return entities.back();
+        return minions.back();
     };
 
     const std::string id = "card";
@@ -119,8 +119,8 @@ TEST(DrawTask, RunOverDraw)
 
     MetaData result = draw.Run(p);
     EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
-    EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
-    EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(10));
+    EXPECT_EQ(p.GetDeck().size(), 0u);
+    EXPECT_EQ(p.GetHand().size(), 10u);
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
@@ -142,7 +142,7 @@ TEST(DrawTask, RunOverDraw)
 TEST(DrawTask, RunExhaustOverdraw)
 {
     std::vector<Card> cards;
-    std::vector<Entity*> entities;
+    std::vector<Minion*> minions;
 
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
@@ -153,8 +153,8 @@ TEST(DrawTask, RunExhaustOverdraw)
         Card card = cards.back();
         card.id = std::move(id);
 
-        entities.emplace_back(new Entity(&agent, card));
-        return entities.back();
+        minions.emplace_back(new Minion(&agent, card));
+        return minions.back();
     };
 
     const std::string id = "card";
@@ -169,8 +169,8 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     MetaData result = draw.Run(p);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
-    EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
-    EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(10));
+    EXPECT_EQ(p.GetDeck().size(), 0u);
+    EXPECT_EQ(p.GetHand().size(), 10u);
     EXPECT_EQ(p.GetHand()[9]->card->id, "card0");
 
     TaskMeta burnt;
@@ -211,8 +211,8 @@ TEST(DrawCardTask, Run)
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
-    auto minionNerubian = new Entity(&agent, nerubian);
-    auto weaponPoisonedBlade = new Entity(&agent, poisonedBlade);
+    auto minionNerubian = new Minion(&agent, nerubian);
+    auto weaponPoisonedBlade = new Weapon(&agent, poisonedBlade);
     agent.GetPlayer1().GetDeck().emplace_back(weaponPoisonedBlade);
     agent.GetPlayer1().GetDeck().emplace_back(minionNerubian);
 
@@ -220,18 +220,18 @@ TEST(DrawCardTask, Run)
     MetaData result = drawNerubian.Run(agent.GetPlayer1());
 
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().GetHand().size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().GetHand().size(), 1u);
     EXPECT_EQ(agent.GetPlayer1().GetHand()[0]->card->id, nerubian.id);
-    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), static_cast<size_t>(1));
+    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), 1u);
     EXPECT_EQ(agent.GetPlayer1().GetDeck()[0]->card->id, poisonedBlade.id);
 
     DrawCardTask drawPoisonedBlade(poisonedBlade);
     result = drawPoisonedBlade.Run(agent.GetPlayer1());
 
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().GetHand().size(), static_cast<size_t>(2));
+    EXPECT_EQ(agent.GetPlayer1().GetHand().size(), 2u);
     EXPECT_EQ(agent.GetPlayer1().GetHand()[1]->card->id, poisonedBlade.id);
-    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), static_cast<size_t>(0));
+    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), 0u);
 
     delete minionNerubian;
     delete weaponPoisonedBlade;
