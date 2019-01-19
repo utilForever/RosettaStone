@@ -51,14 +51,6 @@ class Character : public Entity
     //! \param attack the value of attack.
     void SetAttack(size_t attack);
 
-    //! Returns the owner of character.
-    //! \return The owner of character.
-    Player& GetOwner() const;
-
-    //! Sets the owner of character.
-    //! \param owner The owner of character.
-    void SetOwner(Player& owner);
-
     //! Summons character (pure virtual function).
     //! \param pos The position to summon.
     virtual void Summon(std::size_t pos) = 0;
@@ -100,8 +92,6 @@ class Character : public Entity
 
  protected:
     size_t m_attack = 0;
-
-    Player* m_owner = nullptr;
 };
 }  // namespace Hearthstonepp
 

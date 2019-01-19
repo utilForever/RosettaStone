@@ -60,16 +60,6 @@ bool Character::CanAttack() const
     return true;
 }
 
-Player& Character::GetOwner() const
-{
-    return *m_owner;
-}
-
-void Character::SetOwner(Player& owner)
-{
-    m_owner = &owner;
-}
-
 bool Character::IsValidCombatTarget(Player& opponent, Character* target) const
 {
     auto targets = GetValidCombatTargets(opponent);

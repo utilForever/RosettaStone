@@ -77,6 +77,16 @@ GameAgent* Entity::GetGameAgent() const
     return m_gameAgent;
 }
 
+Player& Entity::GetOwner() const
+{
+    return *m_owner;
+}
+
+void Entity::SetOwner(Player& owner)
+{
+    m_owner = &owner;
+}
+
 int Entity::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())

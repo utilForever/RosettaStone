@@ -16,6 +16,7 @@ namespace Hearthstonepp
 class Card;
 class GameAgent;
 class GameTag;
+class Player;
 
 //!
 //! \brief Abstract entity structure that stores card data.
@@ -53,6 +54,14 @@ class Entity
     //! \return A pointer to the game agent.
     GameAgent* GetGameAgent() const;
 
+    //! Returns the owner of character.
+    //! \return The owner of character.
+    Player& GetOwner() const;
+
+    //! Sets the owner of character.
+    //! \param owner The owner of character.
+    void SetOwner(Player& owner);
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -70,6 +79,7 @@ class Entity
 
  protected:
     GameAgent* m_gameAgent = nullptr;
+    Player* m_owner = nullptr;
 
     std::map<GameTag, int> m_gameTags;
 
