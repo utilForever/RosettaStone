@@ -67,6 +67,9 @@ class ITask
     //! \return Task ID.
     virtual TaskID GetTaskID() const = 0;
 
+    //! Run multiple Tasks
+    //! \param player The player to run task.
+    //! \param meta The task meta that stores packed multiple game status.
     template <typename... Tasks>
     static void RunMulti(Player& player, TaskMeta& meta, Tasks&&... tasks)
     {
