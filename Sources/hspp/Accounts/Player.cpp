@@ -26,7 +26,7 @@ Player::~Player()
 }
 
 bool Player::operator==(const Player& p) const
-    {
+{
     return m_id == p.m_id;
 }
 
@@ -156,8 +156,8 @@ void Player::SetDeck(Deck* deck)
                 entity = new Weapon(gameAgent, card);
                 break;
             default:
-                entity = new Entity(gameAgent, card);
-                break;
+                throw std::invalid_argument(
+                    "Player::SetDeck() - Invalid card type!");
         }
 
         m_deck.emplace_back(entity);

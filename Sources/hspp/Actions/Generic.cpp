@@ -23,7 +23,8 @@ Entity* Generic::DrawCard(Player& player, Card&& card)
             entity = new Weapon(gameAgent, card);
             break;
         default:
-            entity = new Entity(gameAgent, card);
+            throw std::invalid_argument(
+                "Generic::DrawCard() - Invalid card type!");
     }
 
     player.GetHand().emplace_back(entity);

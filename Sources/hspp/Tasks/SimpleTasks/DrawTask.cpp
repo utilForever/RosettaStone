@@ -124,7 +124,8 @@ MetaData DrawCardTask::Impl(Player& player)
             hand.emplace_back(new Weapon(gameAgent, m_card));
             break;
         default:
-            hand.emplace_back(new Entity(gameAgent, m_card));
+            throw std::invalid_argument(
+                "DrawCardTask::Impl() - Invalid card type!");
     }
 
     if (!deck.empty())
