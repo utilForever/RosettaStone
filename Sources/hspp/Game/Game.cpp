@@ -24,4 +24,32 @@ Game::Game(CardClass p1Class,
     m_player1.SetOpponent(&m_player2);
     m_player2.SetOpponent(&m_player1);
 }
+
+Player& Game::GetPlayer1() {
+    return m_player1;
+}
+
+Player& Game::GetPlayer2() {
+    return m_player2;
+}
+
+Player& Game::GetFirstPlayer() {
+    return m_firstPlayer == PlayerType::PLAYER1 ? m_player1 : m_player2;
+}
+
+void Game::SetFirstPlayer(PlayerType playerType) {
+    m_firstPlayer = playerType;
+}
+
+Player& Game::GetCurrentPlayer() {
+    return m_currentPlayer == PlayerType::PLAYER1 ?  m_player1 : m_player2;
+}
+
+void Game::SetCurrentPlayer(PlayerType playerType) {
+    m_currentPlayer = playerType;
+}
+
+Player& Game::GetOpponentPlayer() {
+    return m_currentPlayer == PlayerType::PLAYER1 ? m_player2 : m_player1;
+}
 }  // namespace Hearthstonepp
