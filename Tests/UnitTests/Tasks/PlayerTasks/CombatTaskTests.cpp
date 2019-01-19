@@ -150,6 +150,7 @@ TEST(CombatTask, Weapon)
     player1.GetHero()->weapon = new Weapon();
     player1.GetHero()->weapon->SetAttack(4);
     player1.GetHero()->weapon->SetDurability(2);
+    player1.GetHero()->weapon->SetOwner(player1);
     PlayMinionCard(player2, card);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
