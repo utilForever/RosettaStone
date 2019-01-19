@@ -9,7 +9,7 @@
 
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Tasks/TaskAgent.hpp>
+#include <hspp/Game/Game.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
 #include <array>
@@ -18,6 +18,10 @@
 
 namespace Hearthstonepp
 {
+struct GameResult
+{
+}
+
 //!
 //! \brief GameAgent class.
 //!
@@ -27,80 +31,28 @@ namespace Hearthstonepp
 class GameAgent
 {
  public:
-    //! Constructs account with given \p p1Class, \p p2Class and \p firstPlayer.
+    //! Constructs game with given \p p1Class, \p p2Class and \p firstPlayer.
     //! \param p1Class The class of player 1.
     //! \param p2Class The class of player 2.
     //! \param firstPlayer The first player who starts turn first.
     GameAgent(CardClass p1Class, CardClass p2Class,
               PlayerType firstPlayer = PlayerType::PLAYER1);
 
+    //! Constructs agent with given \p game.
+    //! \param game The game for running agent.
+    GameAgent(const Game& game);
+
+    //! Constructs agent with given \p game.
+    //! \param game The game for running agent.
+    GameAgent(Game&& game);
+
     //! Starts the game agent.
     //! \return The thread that plays the game.
-    std::thread Start();
+    GameResult Start();
 
-    //! Returns task meta from task agent.
-    //! \param meta A task meta that defines return status of task.
-    void GetTaskMeta(TaskMeta& meta);
+    Game& GetGame();
 
-    //! Writes task meta to task agent using side channel as default.
-    //! \param data A task meta to write to task agent.
-    //! \param isUseSideChannel A variable that tells you whether to use side
-    //! channel.
-    void WriteSyncBuffer(TaskMeta&& data, bool isUseSideChannel = true);
-
-    //! Returns the task agent.
-    //! \return the task agent.
-    TaskAgent& GetTaskAgent();
-
-    //! Returns the first player.
-    //! \return The first player.
-    Player& GetPlayer1();
-
-    //! Returns the second player.
-    //! \return The second player.
-    Player& GetPlayer2();
-
-    //! Returns the first player.
-    //! \return The first player.
-    Player& GetFirstPlayer();
-
-    //! Sets the first player.
-    //! \param playerType The first player who starts turn first.
-    void SetFirstPlayer(PlayerType playerType);
-
-    //! Returns the player controlling the current turn.
-    //! \return The player controlling the current turn.
-    Player& GetCurrentPlayer();
-
-    //! Sets the player controlling the current turn.
-    //! \param playerType The player controlling the current turn.
-    void SetCurrentPlayer(PlayerType playerType);
-
-    //! Returns the opponent player.
-    //! \return The opponent player.
-    Player& GetOpponentPlayer();
-
-    //! Runs the task with given \p player and \p task.
-    //! \param player The player to run task.
-    //! \param task The task to run (lvalue ref).
-    //! \return The result of running the task.
-    static MetaData RunTask(Player& player, ITask& task);
-
-    //! Runs the task with given \p player and \p task.
-    //! \param player The player to run task.
-    //! \param task The task to run (rvalue ref).
-    //! \return The result of running the task.
-    static MetaData RunTask(Player& player, ITask&& task);
-
-    //! Notifies a task meta to the task agent.
-    //! \param meta A task meta to write to task agent (lvalue ref).
-    //! \param sideChannel A variable that tells you whether to use side.
-    void NotifyToTaskAgent(TaskMeta& meta, bool sideChannel = false);
-
-    //! Notifies a task meta to the task agent.
-    //! \param meta A task meta to write to task agent (lvalue ref).
-    //! \param sideChannel A variable that tells you whether to use side.
-    void NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel = false);
+    const Game& GetGame() const;
 
  private:
     //! Returns whether the game is over.
@@ -131,13 +83,7 @@ class GameAgent
     //! Combats with other minion or hero.
     void Combat();
 
-    Player m_player1;
-    Player m_player2;
-
-    PlayerType m_firstPlayer;
-    PlayerType m_currentPlayer;
-
-    TaskAgent m_taskAgent;
+    Game m_game;
 
     std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
         m_mainMenuFuncs = {
