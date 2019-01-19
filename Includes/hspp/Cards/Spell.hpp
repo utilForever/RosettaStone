@@ -36,6 +36,9 @@ class Spell : public Entity
 
     //! Default move assignment operator.
     Spell& operator=(Spell&& spell) = default;
+
+    //! Destroys spell.
+    void Destroy() override;
 };
 }  // namespace Hearthstonepp
 

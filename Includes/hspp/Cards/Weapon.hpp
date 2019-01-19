@@ -59,6 +59,9 @@ class Weapon : public Entity
     //! \param durability the value of durability.
     void SetDurability(size_t durability);
 
+    //! Destroys weapon.
+    void Destroy() override;
+
  protected:
     size_t m_attack = 0;
     size_t m_durability = 0;

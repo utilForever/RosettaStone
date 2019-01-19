@@ -33,4 +33,9 @@ void Weapon::SetDurability(size_t durability)
 {
     m_durability = durability;
 }
+
+void Weapon::Destroy()
+{
+    // Do nothing
+}
 }  // namespace Hearthstonepp

@@ -8,4 +8,8 @@
 
 namespace Hearthstonepp
 {
+void Spell::Destroy()
+{
+    // Do nothing
+}
 }  // namespace Hearthstonepp

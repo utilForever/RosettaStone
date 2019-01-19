@@ -63,8 +63,8 @@ class Character : public Entity
     //! \param pos The position to summon.
     virtual void Summon(std::size_t pos) = 0;
 
-    //! Destroys character (pure virtual function).
-    virtual void Destroy() = 0;
+    //! Destroys character.
+    void Destroy() override;
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.

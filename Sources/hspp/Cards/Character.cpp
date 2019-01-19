@@ -32,6 +32,11 @@ void Character::SetAttack(size_t attack)
     m_attack = attack;
 }
 
+void Character::Destroy()
+{
+    // Do nothing
+}
+
 bool Character::CanAttack() const
 {
     // If the value of attack is 0, returns false

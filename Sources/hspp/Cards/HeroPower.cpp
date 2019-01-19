@@ -12,4 +12,9 @@ HeroPower::HeroPower(GameAgent* gameAgent, Card& card) : Entity(gameAgent, card)
 {
     // Do nothing
 }
+
+void HeroPower::Destroy()
+{
+    // Do nothing
+}
 }  // namespace Hearthstonepp
