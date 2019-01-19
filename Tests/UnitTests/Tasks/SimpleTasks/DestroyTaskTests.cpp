@@ -31,8 +31,9 @@ TEST(DestroyTask, Run)
     auto card = GenerateMinionCard("minion1", 1, 1);
 
     // Destroy Source Minion
-    Minion minion1(&agent, card);
-    player1.GetField().AddMinion(minion1, 0);
+    auto minion1 = new Minion(&agent, card);
+    minion1->SetOwner(player1);
+    player1.GetField().AddMinion(*minion1, 0);
 
     DestroyTask task1(EntityType::SOURCE);
     task1.SetSource(player1.GetField().GetMinion(0));
@@ -42,8 +43,9 @@ TEST(DestroyTask, Run)
     EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
 
     // Destroy Target Minion
-    Minion minion2(&agent, card);
-    player2.GetField().AddMinion(minion2, 0);
+    auto minion2 = new Minion(&agent, card);
+    minion2->SetOwner(player2);
+    player2.GetField().AddMinion(*minion2, 0);
 
     DestroyTask task2(EntityType::TARGET);
     task2.SetTarget(player2.GetField().GetMinion(0));
@@ -55,6 +57,7 @@ TEST(DestroyTask, Run)
     // Destroy Target Weapon
     Card weaponCard;
     player2.GetHero()->weapon = new Weapon(&agent, weaponCard);
+    player2.GetHero()->weapon->SetOwner(player2);
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);
 
