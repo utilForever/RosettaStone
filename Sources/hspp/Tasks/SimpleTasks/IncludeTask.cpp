@@ -46,6 +46,18 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             }
             entities.emplace_back(player.GetOpponent().GetHero());
             break;
+        case EntityType::WEAPON:
+            if (player.GetHero()->weapon != nullptr)
+            {
+                entities.emplace_back(player.GetHero()->weapon);
+            }
+            break;
+        case EntityType::ENEMY_WEAPON:
+            if (player.GetOpponent().GetHero()->weapon != nullptr)
+            {
+                entities.emplace_back(player.GetOpponent().GetHero()->weapon);
+            }
+            break;
         default:
             throw std::domain_error(
                 "IncludeTask::GetEntities() - Invalid entity type");
