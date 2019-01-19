@@ -4,8 +4,7 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyWeaponTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
 
@@ -114,7 +113,7 @@ MetaData CombatTask::Impl(Player& player)
         // Destroy weapon if durability is 0
         if (hero->weapon->GetDurability() <= 0)
         {
-            DestroyWeaponTask().Run(player);
+            DestroyTask(EntityType::WEAPON).Run(player);
         }
     }
 

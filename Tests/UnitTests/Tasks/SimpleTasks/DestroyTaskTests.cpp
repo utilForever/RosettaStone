@@ -18,7 +18,7 @@ using namespace TestUtils;
 
 TEST(DestroyTask, GetTaskID)
 {
-    const DestroyTask task(EntityType::EMPTY, nullptr, nullptr);
+    const DestroyTask task(EntityType::EMPTY);
     EXPECT_EQ(task.GetTaskID(), +TaskID::DESTROY);
 }
 
@@ -34,31 +34,31 @@ TEST(DestroyTask, Run)
     Minion minion1(&agent, card);
     player1.GetField().AddMinion(minion1, 0);
 
-    DestroyTask task1(EntityType::SOURCE, player1.GetField().GetMinion(0),
-                      nullptr);
+    DestroyTask task1(EntityType::SOURCE);
+    task1.SetSource(player1.GetField().GetMinion(0));
 
     MetaData result = task1.Run(player1);
-    EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player1.GetField().GetNumOfMinions(), static_cast<size_t>(0));
+    EXPECT_EQ(result, MetaData::DESTROY_SUCCESS);
+    EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
 
     // Destroy Target Minion
     Minion minion2(&agent, card);
     player2.GetField().AddMinion(minion2, 0);
 
-    DestroyTask task2(EntityType::TARGET, nullptr,
-                      player2.GetField().GetMinion(0));
+    DestroyTask task2(EntityType::TARGET);
+    task2.SetTarget(player2.GetField().GetMinion(0));
 
     MetaData result2 = task2.Run(player1);
-    EXPECT_EQ(result2, MetaData::DESTROY_MINION_SUCCESS);
-    EXPECT_EQ(player2.GetField().GetNumOfMinions(), static_cast<size_t>(0));
+    EXPECT_EQ(result2, MetaData::DESTROY_SUCCESS);
+    EXPECT_EQ(player2.GetField().GetNumOfMinions(), 0u);
 
     // Destroy Target Weapon
     Card weaponCard;
     player2.GetHero()->weapon = new Weapon(&agent, weaponCard);
 
-    DestroyTask task3(EntityType::ENEMY_WEAPON, nullptr, nullptr);
+    DestroyTask task3(EntityType::ENEMY_WEAPON);
 
     MetaData result3 = task3.Run(player1);
-    EXPECT_EQ(result3, MetaData::DESTROY_WEAPON_SUCCESS);
+    EXPECT_EQ(result3, MetaData::DESTROY_SUCCESS);
     EXPECT_EQ(player2.GetHero()->HasWeapon(), false);
 }
