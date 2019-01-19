@@ -29,110 +29,45 @@ namespace Hearthstonepp
 {
 GameAgent::GameAgent(CardClass p1Class, CardClass p2Class,
                      PlayerType firstPlayer)
-    : m_firstPlayer(firstPlayer), m_currentPlayer(firstPlayer)
+    : m_game(p1Class, p2Class, firstPlayer)
 {
-    m_player1.AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(p1Class),
-        Cards::GetInstance().GetDefaultHeroPower(p1Class));
-    m_player2.AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(p2Class),
-        Cards::GetInstance().GetDefaultHeroPower(p2Class));
-
-    m_player1.SetGameAgent(this);
-    m_player2.SetGameAgent(this);
-
-    m_player1.SetOpponent(&m_player2);
-    m_player2.SetOpponent(&m_player1);
+    // Do nothing
 }
 
-std::thread GameAgent::Start()
+GameAgent::GameAgent(const Game& game) : m_game(game)
 {
-    auto flow = [this]() {
-        BeginPhase();
+    // Do Nothing
+}
 
-        while (true)
+GameAgent::GameAgent(Game&& game) : m_game(std::move(game))
+{
+    // Do Nothing
+}
+
+GameResult GameAgent::Start()
+{
+    BeginPhase();
+
+    while (true)
+    {
+        const bool isGameEnd = MainPhase();
+        if (isGameEnd)
         {
-            const bool isGameEnd = MainPhase();
-            if (isGameEnd)
-            {
-                break;
-            }
+            break;
         }
+    }
 
-        FinalPhase();
-    };
+    FinalPhase();
 
-    return std::thread(std::move(flow));
+    return GameResult();
 }
 
-void GameAgent::GetTaskMeta(TaskMeta& meta)
-{
-    m_taskAgent.Read(meta);
+Game& GameAgent::GetGame() {
+    return m_game;
 }
 
-void GameAgent::WriteSyncBuffer(TaskMeta&& data, bool isUseSideChannel)
-{
-    m_taskAgent.Notify(std::move(data), isUseSideChannel);
-}
-
-Player& GameAgent::GetPlayer1()
-{
-    return m_player1;
-}
-
-Player& GameAgent::GetPlayer2()
-{
-    return m_player2;
-}
-
-Player& GameAgent::GetFirstPlayer()
-{
-    return m_firstPlayer == PlayerType::PLAYER1 ? m_player1 : m_player2;
-}
-
-void GameAgent::SetFirstPlayer(PlayerType playerType)
-{
-    m_firstPlayer = playerType;
-}
-
-Player& GameAgent::GetCurrentPlayer()
-{
-    return m_currentPlayer == PlayerType::PLAYER1 ? m_player1 : m_player2;
-}
-
-void GameAgent::SetCurrentPlayer(PlayerType playerType)
-{
-    m_currentPlayer = playerType;
-}
-
-Player& GameAgent::GetOpponentPlayer()
-{
-    return m_currentPlayer == PlayerType::PLAYER1 ? m_player2 : m_player1;
-}
-
-MetaData GameAgent::RunTask(Player& player, ITask& task)
-{
-    return task.Run(player);
-}
-
-MetaData GameAgent::RunTask(Player& player, ITask&& task)
-{
-    return task.Run(player);
-}
-
-void GameAgent::NotifyToTaskAgent(TaskMeta& meta, bool sideChannel)
-{
-    m_taskAgent.Notify(meta, sideChannel);
-}
-
-void GameAgent::NotifyToTaskAgent(TaskMeta&& meta, bool sideChannel)
-{
-    m_taskAgent.Notify(std::move(meta), sideChannel);
-}
-
-TaskAgent& GameAgent::GetTaskAgent()
-{
-    return m_taskAgent;
+const Game& GameAgent::GetGame() const {
+    return m_game;
 }
 
 void GameAgent::BeginPhase()
@@ -143,14 +78,14 @@ void GameAgent::BeginPhase()
     // Get random number: zero or one.
     std::uniform_int_distribution<int> bin(0, 1);
 
-    SetFirstPlayer(PlayerType::PLAYER1);
-    SetCurrentPlayer(PlayerType::PLAYER1);
+    m_game.SetFirstPlayer(PlayerType::PLAYER1);
+    m_game.SetCurrentPlayer(PlayerType::PLAYER1);
 
     // Swap user with 50% probability
     if (bin(gen) == 1)
     {
-        SetFirstPlayer(PlayerType::PLAYER2);
-        SetCurrentPlayer(PlayerType::PLAYER2);
+        m_game.SetFirstPlayer(PlayerType::PLAYER2);
+        m_game.SetCurrentPlayer(PlayerType::PLAYER2);
     }
 
     const auto success = [](const TaskMeta& meta) {
