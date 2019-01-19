@@ -19,6 +19,9 @@ Entity* Generic::DrawCard(Player& player, Card&& card)
         case +CardType::MINION:
             entity = new Minion(gameAgent, card);
             break;
+        case +CardType::SPELL:
+            entity = new Spell(gameAgent, card);
+            break;
         case +CardType::WEAPON:
             entity = new Weapon(gameAgent, card);
             break;
