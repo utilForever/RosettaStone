@@ -11,6 +11,7 @@
 #include <hspp/Enums/CardEnums.hpp>
 #include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
+#include <hspp/Tasks/TaskSerializer.hpp>
 
 namespace Hearthstonepp
 {
@@ -65,6 +66,23 @@ class ITask
     //! Returns task ID (pure virtual).
     //! \return Task ID.
     virtual TaskID GetTaskID() const = 0;
+
+    template <typename... Tasks>
+    static void RunMulti(Player& player, TaskMeta& meta, Tasks&&... tasks)
+    {
+        std::vector<TaskMeta> metas;
+        metas.reserve(sizeof...(Tasks));
+
+        auto pusher =
+            [&](auto&& task) {
+                metas.emplace_back();
+                task.Run(player, metas.back());
+            }
+
+        (pusher(std::forward<Tasks>(tasks)), ...);
+        meta = Serializer::CreateTaskMetaVector(metas, MetaData::INVALID,
+                                                player.id);
+    }
 
  protected:
     Entity* m_source = nullptr;
