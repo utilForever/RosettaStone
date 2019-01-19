@@ -22,7 +22,8 @@ class Minion : public Character
     //! Default constructor.
     Minion() = default;
 
-    //! Constructs minion with given \p card.
+    //! Constructs minion with given \p gameAgent and \p card.
+    //! \param gameAgent The game agent.
     //! \param card A reference to the card.
     Minion(GameAgent* gameAgent, Card& card);
 

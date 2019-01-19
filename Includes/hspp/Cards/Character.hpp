@@ -24,7 +24,8 @@ class Character : public Entity
     //! Default constructor.
     Character() = default;
 
-    //! Constructs character with given \p card.
+    //! Constructs character with given \p gameAgent and \p card.
+    //! \param gameAgent The game agent.
     //! \param card A reference to the card.
     Character(GameAgent* gameAgent, Card& card);
 

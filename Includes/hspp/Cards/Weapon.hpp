@@ -24,7 +24,8 @@ class Weapon : public Entity
     //! Default constructor.
     Weapon() = default;
 
-    //! Constructs weapon with given \p card.
+    //! Constructs weapon with given \p gameAgent and \p card.
+    //! \param gameAgent The game agent.
     //! \param card A reference to the card.
     Weapon(GameAgent* gameAgent, Card& card);
 

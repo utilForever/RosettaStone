@@ -31,7 +31,8 @@ class Entity
     //! Default constructor.
     Entity() = default;
 
-    //! Constructs entity with given \p _card.
+    //! Constructs entity with given \p gameAgent and \p _card.
+    //! \param gameAgent The game agent.
     //! \param _card A reference to the card.
     Entity(GameAgent* gameAgent, Card& _card);
 
