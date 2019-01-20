@@ -119,18 +119,6 @@ MetaData CombatTask::Impl(Player& player)
 
     source->attackableCount--;
 
-    //// Destroy source minion if health less than 0
-    //if (!source->isDestroyed && source->health <= 0)
-    //{
-    //    DestroyMinionTask(source).Run(player);
-    //}
-
-    //// Destroy target minion if health less than 0
-    //if (!target->isDestroyed && target->health <= 0)
-    //{
-    //    DestroyMinionTask(target).Run(player);
-    //}
-
     return MetaData::COMBAT_SUCCESS;
 }
 
@@ -141,7 +129,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         Minion* minionSource = dynamic_cast<Minion*>(m_source);
         Minion* minionTarget = dynamic_cast<Minion*>(m_target);
 
-        BYTE sourceIndex, targetIndex;
+        int sourceIndex = -1, targetIndex = -1;
 
         if (m_source == player.GetHero())
         {
@@ -173,7 +161,14 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
             }
         }
 
-        return std::make_tuple(sourceIndex, targetIndex);
+        if (sourceIndex == -1 || targetIndex == -1)
+        {
+            throw std::logic_error(
+                "CombatTask::CalculateIndex() - Invalid index!");
+        }
+
+        return std::make_tuple(static_cast<BYTE>(sourceIndex),
+                               static_cast<BYTE>(targetIndex));
     }
 
     TaskMeta serialized;
