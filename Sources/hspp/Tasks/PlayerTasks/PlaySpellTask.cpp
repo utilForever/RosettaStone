@@ -133,17 +133,19 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
         }
 
         auto& myField = player.GetField();
-        auto myMinionPos = myField.FindMinionPos(*minion);
-        if (myMinionPos.has_value())
+        const auto myMinionPos = myField.FindMinionPos(*minion).value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (myMinionPos != std::numeric_limits<std::size_t>::max())
         {
-            return static_cast<BYTE>(myMinionPos.value() + 1);
+            return static_cast<BYTE>(myMinionPos + 1);
         }
 
         auto& opField = opponent.GetField();
-        auto opMinionPos = opField.FindMinionPos(*minion);
-        if (opMinionPos.has_value())
+        const auto opMinionPos = opField.FindMinionPos(*minion).value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (opMinionPos != std::numeric_limits<std::size_t>::max())
         {
-            return static_cast<BYTE>(opMinionPos.value() + 9);
+            return static_cast<BYTE>(opMinionPos + 9);
         }
     }
 
