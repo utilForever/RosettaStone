@@ -50,7 +50,7 @@ TEST(ControlTask, Run)
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
-    control.SetTarget(player2Field.GetMinion(0));
+    control.SetTarget(player2Field.GetMinion(1));
     result = control.Run(player1);
 
     EXPECT_EQ(result, MetaData::CONTROL_FIELD_IS_FULL);
