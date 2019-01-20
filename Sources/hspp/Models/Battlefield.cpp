@@ -6,6 +6,8 @@
 
 #include <hspp/Models/Battlefield.hpp>
 
+#include <algorithm>
+
 namespace Hearthstonepp
 {
 Battlefield::Battlefield()
