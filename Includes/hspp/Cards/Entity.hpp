@@ -77,6 +77,7 @@ class Entity
     virtual void Destroy() = 0;
 
     Card* card = nullptr;
+    bool isDestroyed = false;
 
  protected:
     GameAgent* m_gameAgent = nullptr;
