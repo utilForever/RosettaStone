@@ -30,13 +30,14 @@ MetaData PlayMinionTask::Impl(Player& player)
 
     if (m_fieldPos == -1)
     {
-        auto emptyPos = player.GetField().FindEmptyPos();
-        if (!emptyPos.has_value())
+        const auto emptyPos = player.GetField().FindEmptyPos().value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (emptyPos == std::numeric_limits<std::size_t>::max())
         {
             return MetaData::PLAY_MINION_FIELD_IS_FULL;
         }
 
-        position = static_cast<BYTE>(emptyPos.value());
+        position = static_cast<BYTE>(emptyPos);
     }
     else
     {
