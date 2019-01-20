@@ -31,6 +31,14 @@ MetaData DamageTask::Impl(Player& player)
         character->TakeDamage(*character, m_damage);
     }
 
+    for (auto& entity : entities)
+    {
+        if (entity->isDestroyed)
+        {
+            entity->Destroy();
+        }
+    }
+
     return MetaData::DAMAGE_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks
