@@ -26,11 +26,6 @@ MetaData ControlTask::Impl(Player& player)
     auto& myField = player.GetField();
     auto& opField = player.GetOpponent().GetField();
 
-    if (myField.GetNumOfMinions() == FIELD_SIZE)
-    {
-        return MetaData::CONTROL_FIELD_IS_FULL;
-    }
-
     for (auto& entity : entities)
     {
         const auto minion = dynamic_cast<Minion*>(entity);
@@ -39,13 +34,21 @@ MetaData ControlTask::Impl(Player& player)
             continue;
         }
 
-        auto minionPos = opField.FindMinionPos(*minion);
-        if (!minionPos.has_value())
+        const auto opMinionPos = opField.FindMinionPos(*minion).value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (opMinionPos == std::numeric_limits<std::size_t>::max())
         {
-            continue;
+            return MetaData::CONTROL_INVALID_TARGET;
         }
 
-        myField.AddMinion(*minion, myField.FindEmptyPos().value());
+        const auto myMinionPos = myField.FindEmptyPos().value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (myMinionPos == std::numeric_limits<std::size_t>::max())
+        {
+            return MetaData::CONTROL_FIELD_IS_FULL;
+        }
+
+        myField.AddMinion(*minion, myMinionPos);
         opField.RemoveMinion(*minion);
     }
 
