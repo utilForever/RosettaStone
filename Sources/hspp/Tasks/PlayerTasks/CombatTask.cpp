@@ -146,8 +146,10 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         {
             if (minionSource != nullptr)
             {
-                sourceIndex = static_cast<BYTE>(
-                    player.GetField().FindMinionPos(*minionSource).value());
+                sourceIndex =
+                    static_cast<BYTE>(player.GetField()
+                                          .FindMinionPos(*minionSource)
+                                          .value_or(-1));
                 sourceIndex += 1;
             }
         }
@@ -162,8 +164,10 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         {
             if (minionTarget != nullptr)
             {
-                targetIndex = static_cast<BYTE>(
-                    opponent.GetField().FindMinionPos(*minionTarget).value());
+                targetIndex =
+                    static_cast<BYTE>(opponent.GetField()
+                                          .FindMinionPos(*minionTarget)
+                                          .value_or(-1));
                 targetIndex += 1;
             }
         }
