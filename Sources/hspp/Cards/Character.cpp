@@ -134,7 +134,7 @@ size_t Character::TakeDamage(Character& source, size_t damage)
         const auto minion = dynamic_cast<Minion*>(this);
         if (minion != nullptr)
         {
-            GetGameAgent()->KillMinion(*minion);
+            minion->isDestroyed = true;
         }
     }
 
