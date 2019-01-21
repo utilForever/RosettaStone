@@ -48,7 +48,8 @@ MetaData ControlTask::Impl(Player& player)
             return MetaData::CONTROL_FIELD_IS_FULL;
         }
 
-        myField.AddMinion(*minion, myMinionPos);
+        Minion* minionClone = new Minion(*minion);
+        myField.AddMinion(*minionClone, myMinionPos);
         opField.RemoveMinion(*minion);
     }
 
