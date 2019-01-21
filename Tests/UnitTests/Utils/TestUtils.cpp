@@ -77,10 +77,15 @@ void PlayMinionCard(Player& player, Card& card)
 {
     Battlefield& playerField = player.GetField();
 
-    Minion* minion = new Minion(nullptr, card);
-    playerField.AddMinion(*minion, playerField.FindEmptyPos().value());
-    playerField.GetMinion(playerField.FindMinionPos(*minion).value())
-        ->SetOwner(player);
+    const auto minion = new Minion(nullptr, card);
+    const auto minionPos = playerField.FindEmptyPos().value_or(
+        std::numeric_limits<std::size_t>::max());
+
+    if (minionPos != std::numeric_limits<std::size_t>::max())
+    {
+        playerField.AddMinion(*minion, minionPos);
+        playerField.GetMinion(minionPos)->SetOwner(player);
+    }
 }
 
 Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized)
