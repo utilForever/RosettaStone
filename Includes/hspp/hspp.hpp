@@ -41,6 +41,7 @@
 #include <hspp/Managers/GameInterface.hpp>
 #include <hspp/Managers/SyncBuffer.hpp>
 #include <hspp/Models/Battlefield.hpp>
+#include <hspp/Models/Hand.hpp>
 #include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
