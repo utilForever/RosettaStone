@@ -14,6 +14,7 @@
 #include <hspp/Cards/Spell.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
+#include <hspp/Models/Hand.hpp>
 
 #include <string>
 #include <vector>
@@ -167,7 +168,7 @@ class Player
 
     // Card objects
     Battlefield m_field;
-    std::vector<Entity*> m_hand;
+    Hand m_hand;
     std::vector<Spell*> m_playedSpell;
     std::vector<Character*> m_playedMinion;
 
