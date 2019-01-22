@@ -34,7 +34,7 @@ constexpr std::size_t NUM_DRAW_CARDS_AT_START_FIRST = 3;
 constexpr std::size_t NUM_DRAW_CARDS_AT_START_SECOND = 4;
 
 //! The maximum number of cards in your hand.
-constexpr std::size_t MAXIMUM_NUM_CARDS_IN_HAND = 10;
+constexpr std::size_t HAND_SIZE = 10;
 
 // NOTE: 0 means my hero, 1 ~ 7 means my minion in field
 //       8 means opponent hero, 9 ~ 15 means opponent minion in field.

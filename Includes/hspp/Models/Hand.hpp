@@ -25,7 +25,7 @@ class Hand
 {
  public:
  private:
-    std::array<Entity*, MAXIMUM_NUM_CARDS_IN_HAND> m_cards{};
+    std::array<Entity*, HAND_SIZE> m_cards{};
 };
 }  // namespace Hearthstonepp
 

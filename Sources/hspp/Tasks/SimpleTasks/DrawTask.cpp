@@ -50,11 +50,11 @@ MetaData DrawTask::Impl(Player& player)
         result = MetaData::DRAW_EXHAUST;
     }
 
-    // When hand size over MAXIMUM_NUM_CARDS_IN_HAND, overdraw
-    if (hand.size() + num > MAXIMUM_NUM_CARDS_IN_HAND)
+    // When hand size over HAND_SIZE, overdraw
+    if (hand.size() + num > HAND_SIZE)
     {
         // The number of overdraw
-        const size_t over = hand.size() + num - MAXIMUM_NUM_CARDS_IN_HAND;
+        const size_t over = hand.size() + num - HAND_SIZE;
 
         std::vector<Entity*> burnt;
         burnt.reserve(over);
@@ -66,7 +66,7 @@ MetaData DrawTask::Impl(Player& player)
             deck.pop_back();
         }
 
-        num = MAXIMUM_NUM_CARDS_IN_HAND - hand.size();
+        num = HAND_SIZE - hand.size();
 
         if (result == MetaData::DRAW_EXHAUST)
         {
