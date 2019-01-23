@@ -8,4 +8,18 @@
 
 namespace Hearthstonepp
 {
+Hand::Hand()
+{
+    m_cards.fill(nullptr);
+}
+
+Player& Hand::GetOwner() const
+{
+    return *m_owner;
+}
+
+void Hand::SetOwner(Player& owner)
+{
+    m_owner = &owner;
+}
 }  // namespace Hearthstonepp

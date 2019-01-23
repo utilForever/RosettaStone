@@ -24,7 +24,19 @@ namespace Hearthstonepp
 class Hand
 {
  public:
+    //! Default constructor.
+    Hand();
+
+    //! Returns the owner of hand.
+    //! \return The owner of hand.
+    Player& GetOwner() const;
+
+    //! Sets the owner of hand.
+    //! \param owner The owner of hand.
+    void SetOwner(Player& owner);
+
  private:
+    Player* m_owner = nullptr;
     std::array<Entity*, HAND_SIZE> m_cards{};
 };
 }  // namespace Hearthstonepp
