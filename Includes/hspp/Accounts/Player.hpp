@@ -99,7 +99,7 @@ class Player
 
     //! Returns player's hand.
     //! \return Player's hand.
-    std::vector<Entity*>& GetHand();
+    Hand& GetHand();
 
     //! Returns available mana that player has.
     //! \return Available mana that player has.

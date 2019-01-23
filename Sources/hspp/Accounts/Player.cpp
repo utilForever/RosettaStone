@@ -17,7 +17,7 @@ Player::Player() : m_id(USER_INVALID)
 {
     m_deck.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
     m_field.SetOwner(*this);
-    m_hand.reserve(MAXIMUM_NUM_CARDS_IN_HAND);
+    m_hand.SetOwner(*this);
 }
 
 Player::~Player()
@@ -80,7 +80,7 @@ Battlefield& Player::GetField()
     return m_field;
 }
 
-std::vector<Entity*>& Player::GetHand()
+Hand& Player::GetHand()
 {
     return m_hand;
 }
@@ -179,12 +179,6 @@ void Player::FreeMemory()
         delete card;
     }
     m_deck.clear();
-
-    for (auto& card : m_hand)
-    {
-        delete card;
-    }
-    m_hand.clear();
 
     for (auto& spell : m_playedSpell)
     {
