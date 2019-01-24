@@ -30,7 +30,7 @@ Entity* Generic::DrawCard(Player& player, Card&& card)
                 "Generic::DrawCard() - Invalid card type!");
     }
 
-    player.GetHand().emplace_back(entity);
+    player.GetHand().AddCard(*entity);
 
     return entity;
 }
