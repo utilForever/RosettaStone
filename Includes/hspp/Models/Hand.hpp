@@ -35,9 +35,15 @@ class Hand
     //! \param owner The owner of hand.
     void SetOwner(Player& owner);
 
+    //! Adds a card to hand.
+    //! \param card The card to add to hand.
+    void AddCard(Entity& card);
+
  private:
     Player* m_owner = nullptr;
     std::array<Entity*, HAND_SIZE> m_cards{};
+
+    int m_numCard = 0;
 };
 }  // namespace Hearthstonepp
 

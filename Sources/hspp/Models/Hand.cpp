@@ -22,4 +22,10 @@ void Hand::SetOwner(Player& owner)
 {
     m_owner = &owner;
 }
+
+void Hand::AddCard(Entity& card)
+{
+    m_cards.at(m_numCard) = &card;
+    ++m_numCard;
+}
 }  // namespace Hearthstonepp
