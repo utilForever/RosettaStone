@@ -39,6 +39,10 @@ class Hand
     //! \return The number of cards in hand.
     std::size_t GetNumOfCards() const;
 
+    //! Returns all cards in hand.
+    //! \return A list of cards in hand.
+    std::vector<Entity*> GetAllCards();
+
     //! Adds a card to hand.
     //! \param card The card to add to hand.
     void AddCard(Entity& card);

@@ -38,6 +38,21 @@ std::size_t Hand::GetNumOfCards() const
     return ret;
 }
 
+std::vector<Entity*> Hand::GetAllCards()
+{
+    std::vector<Entity*> ret;
+
+    for (auto& card : m_cards)
+    {
+        if (card != nullptr)
+        {
+            ret.emplace_back(card);
+        }
+    }
+
+    return ret;
+}
+
 void Hand::AddCard(Entity& card)
 {
     m_cards.at(m_numCard) = &card;
