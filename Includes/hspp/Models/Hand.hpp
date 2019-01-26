@@ -52,6 +52,10 @@ class Hand
     //! \param card The card to add to hand.
     void AddCard(Entity& card);
 
+    //! Removes a card from hand.
+    //! \param card The card to remove from hand.
+    void RemoveCard(Entity& card);
+
  private:
     Player* m_owner = nullptr;
     std::array<Entity*, HAND_SIZE> m_cards{};
