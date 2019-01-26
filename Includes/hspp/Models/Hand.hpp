@@ -48,6 +48,10 @@ class Hand
     //! \return A list of cards in hand.
     std::vector<Entity*> GetAllCards();
 
+    //! Returns the position of card in hand.
+    //! \return The position of card in hand.
+    optional<std::size_t> FindCardPos(Entity& card);
+
     //! Adds a card to hand.
     //! \param card The card to add to hand.
     void AddCard(Entity& card);
