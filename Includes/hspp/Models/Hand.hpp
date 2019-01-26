@@ -39,6 +39,11 @@ class Hand
     //! \return The number of cards in hand.
     std::size_t GetNumOfCards() const;
 
+    //! Returns card in hand.
+    //! \param pos The position of card in hand.
+    //! \return A card in hand at \p pos.
+    Entity* GetCard(std::size_t pos);
+
     //! Returns all cards in hand.
     //! \return A list of cards in hand.
     std::vector<Entity*> GetAllCards();

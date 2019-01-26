@@ -38,6 +38,11 @@ std::size_t Hand::GetNumOfCards() const
     return ret;
 }
 
+Entity* Hand::GetCard(std::size_t pos)
+{
+    return m_cards.at(pos);
+}
+
 std::vector<Entity*> Hand::GetAllCards()
 {
     std::vector<Entity*> ret;
