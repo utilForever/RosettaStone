@@ -23,6 +23,21 @@ void Hand::SetOwner(Player& owner)
     m_owner = &owner;
 }
 
+std::size_t Hand::GetNumOfCards() const
+{
+    std::size_t ret = 0;
+
+    for (auto& card : m_cards)
+    {
+        if (card != nullptr)
+        {
+            ++ret;
+        }
+    }
+
+    return ret;
+}
+
 void Hand::AddCard(Entity& card)
 {
     m_cards.at(m_numCard) = &card;

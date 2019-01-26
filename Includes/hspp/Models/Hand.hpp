@@ -35,6 +35,10 @@ class Hand
     //! \param owner The owner of hand.
     void SetOwner(Player& owner);
 
+    //! Returns the number of cards in hand.
+    //! \return The number of cards in hand.
+    std::size_t GetNumOfCards() const;
+
     //! Adds a card to hand.
     //! \param card The card to add to hand.
     void AddCard(Entity& card);
