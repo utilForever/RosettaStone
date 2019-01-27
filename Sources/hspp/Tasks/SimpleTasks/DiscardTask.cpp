@@ -23,7 +23,7 @@ MetaData DiscardTask::Impl(Player& player)
 {
     if (m_entityType == +EntityType::HAND)
     {
-        if (player.GetHand().empty())
+        if (player.GetHand().IsEmpty())
         {
             return MetaData::DISCARD_MY_HAND_SUCCESS;
         }
@@ -31,18 +31,18 @@ MetaData DiscardTask::Impl(Player& player)
         std::random_device rd;
         // ReSharper disable once CppLocalVariableMayBeConst
         // NOTE: 'const' occurs compile error on Linux and macOS
-        std::uniform_int_distribution<size_t> dist(0,
-                                                   player.GetHand().size() - 1);
+        std::uniform_int_distribution<size_t> dist(
+            0, player.GetHand().GetNumOfCards() - 1);
 
         const size_t discardIdx = dist(rd);
 
         // Card Hand Index Verification
-        if (discardIdx >= player.GetHand().size())
+        if (discardIdx >= player.GetHand().GetNumOfCards())
         {
             return MetaData::DISCARD_IDX_OUT_OF_RANGE;
         }
 
-        player.GetHand().erase(player.GetHand().begin() + discardIdx);
+        player.GetHand().RemoveCard(*player.GetHand().GetCard(discardIdx));
         return MetaData::DISCARD_MY_HAND_SUCCESS;
     }
 

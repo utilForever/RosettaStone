@@ -75,13 +75,13 @@ MetaData MulliganTask::Impl(Player& player)
     }
 
     std::vector<Entity*>& deck = player.GetDeck();
-    std::vector<Entity*>& hand = player.GetHand();
+    auto& hand = player.GetHand();
 
     // Rollback to deck
     for (size_t i = 0; i < read; ++i)
     {
-        deck.emplace_back(hand[index[i]]);
-        hand.erase(hand.begin() + index[i]);
+        deck.emplace_back(hand.GetCard(index[i]));
+        hand.RemoveCard(*hand.GetCard(index[i]));
     }
 
     const MetaData statusShuffle = ShuffleTask().Run(player);

@@ -32,10 +32,15 @@ MetaData PlayCardTask::Impl(Player& player)
 
     if (m_source != nullptr)
     {
-        const auto handIter = std::find(player.GetHand().begin(),
-                                        player.GetHand().end(), m_source);
-        handIndex = static_cast<BYTE>(
-            std::distance(player.GetHand().begin(), handIter));
+        auto& hand = player.GetHand();
+        const auto handPos = hand.FindCardPos(*m_source).value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (handPos == std::numeric_limits<std::size_t>::max())
+        {
+            return MetaData::PLAY_CARD_INVALID_POSITION;
+        }
+
+        handIndex = static_cast<BYTE>(handPos);
     }
     else
     {
@@ -56,10 +61,10 @@ MetaData PlayCardTask::Impl(Player& player)
         handIndex = req->cardIndex();
     }
 
-    Card* card = player.GetHand()[handIndex]->card;
+    Card* card = player.GetHand().GetCard(handIndex)->card;
 
     // Verify index of card hand
-    if (handIndex >= player.GetHand().size())
+    if (handIndex >= player.GetHand().GetNumOfCards())
     {
         return MetaData::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
@@ -76,17 +81,10 @@ MetaData PlayCardTask::Impl(Player& player)
         return MetaData::PLAY_CARD_INVALID_TARGET;
     }
 
-    Entity* entity = player.GetHand()[handIndex];
+    Entity* entity = player.GetHand().GetCard(handIndex);
 
     // Erase from user's hand
-    if (player.GetHand().size() == 1)
-    {
-        player.GetHand().clear();
-    }
-    else
-    {
-        player.GetHand().erase(player.GetHand().begin() + handIndex);
-    }
+    player.GetHand().RemoveCard(*entity);
 
     entity->SetOwner(player);
 

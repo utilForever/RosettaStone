@@ -30,7 +30,7 @@ MetaData DrawTask::Impl(Player& player)
     MetaData result = MetaData::DRAW_SUCCESS;
 
     std::vector<Entity*>& deck = player.GetDeck();
-    std::vector<Entity*>& hand = player.GetHand();
+    auto& hand = player.GetHand();
 
     // After reaching fatigue
     if (deck.size() < num)
@@ -51,10 +51,10 @@ MetaData DrawTask::Impl(Player& player)
     }
 
     // When hand size over HAND_SIZE, overdraw
-    if (hand.size() + num > HAND_SIZE)
+    if (hand.GetNumOfCards() + num > HAND_SIZE)
     {
         // The number of overdraw
-        const size_t over = hand.size() + num - HAND_SIZE;
+        const size_t over = hand.GetNumOfCards() + num - HAND_SIZE;
 
         std::vector<Entity*> burnt;
         burnt.reserve(over);
@@ -66,7 +66,7 @@ MetaData DrawTask::Impl(Player& player)
             deck.pop_back();
         }
 
-        num = HAND_SIZE - hand.size();
+        num = HAND_SIZE - hand.GetNumOfCards();
 
         if (result == MetaData::DRAW_EXHAUST)
         {
@@ -86,7 +86,9 @@ MetaData DrawTask::Impl(Player& player)
     // Draw success
     for (size_t i = 0; i < num; ++i)
     {
-        hand.push_back(deck.back());
+        const auto entity = deck.back();
+        const auto entityClone = new Entity(*entity);
+        hand.AddCard(*entityClone);
         deck.pop_back();
     }
 
@@ -111,18 +113,24 @@ TaskID DrawCardTask::GetTaskID() const
 MetaData DrawCardTask::Impl(Player& player)
 {
     std::vector<Entity*>& deck = player.GetDeck();
-    std::vector<Entity*>& hand = player.GetHand();
+    auto& hand = player.GetHand();
 
     auto* gameAgent = player.GetGameAgent();
 
     switch (m_card.cardType)
     {
         case +CardType::MINION:
-            hand.emplace_back(new Minion(gameAgent, m_card));
+        {
+            const auto minion = new Minion(gameAgent, m_card);
+            hand.AddCard(*minion);
             break;
+        }
         case +CardType::WEAPON:
-            hand.emplace_back(new Weapon(gameAgent, m_card));
+        {
+            const auto weapon = new Weapon(gameAgent, m_card);
+            hand.AddCard(*weapon);
             break;
+        }
         default:
             throw std::invalid_argument(
                 "DrawCardTask::Impl() - Invalid card type!");
