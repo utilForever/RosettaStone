@@ -44,12 +44,8 @@ class DrawCardTask : public ITask
 {
  public:
     //! Constructs task with given \p card.
-    //! \param card A card to draw from deck (lvalue-ref).
-    DrawCardTask(const Card& card);
-
-    //! Constructs task with given \p card.
-    //! \param card A card to draw from deck (rvalue-ref).
-    DrawCardTask(Card&& card);
+    //! \param card A card to draw from deck.
+    DrawCardTask(Card card);
 
     //! Returns task ID.
     //! \return Task ID.
