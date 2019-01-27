@@ -23,6 +23,11 @@ void Hand::SetOwner(Player& owner)
     m_owner = &owner;
 }
 
+bool Hand::IsEmpty() const
+{
+    return GetNumOfCards() == 0;
+}
+
 std::size_t Hand::GetNumOfCards() const
 {
     std::size_t ret = 0;

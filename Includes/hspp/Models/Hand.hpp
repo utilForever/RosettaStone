@@ -35,6 +35,10 @@ class Hand
     //! \param owner The owner of hand.
     void SetOwner(Player& owner);
 
+    //! Finds out if hand is empty.
+    //! \return true if hand is empty, and false otherwise.
+    bool IsEmpty() const;
+
     //! Returns the number of cards in hand.
     //! \return The number of cards in hand.
     std::size_t GetNumOfCards() const;
