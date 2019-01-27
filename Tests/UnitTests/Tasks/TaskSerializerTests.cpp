@@ -288,10 +288,12 @@ TEST(TaskSerializer, CreateGameStatus)
 
     // Draw 'Poisoned Blade' card (weapon)
     Card poisonedBlade = instance.FindCardByID("AT_034");
-    agent.GetPlayer1().GetHand().emplace_back(
-        new Weapon(&agent, poisonedBlade));
-    agent.GetPlayer2().GetHand().emplace_back(
-        new Weapon(&agent, poisonedBlade));
+
+    Weapon weapon1(&agent, poisonedBlade);
+    Weapon weapon2(&agent, poisonedBlade);
+
+    agent.GetPlayer1().GetHand().AddCard(weapon1);
+    agent.GetPlayer2().GetHand().AddCard(weapon2);
 
     TaskMeta meta = Serializer::CreateGameStatus(
         agent.GetPlayer1(), randTrait.GetID(), randTrait.GetStatus());

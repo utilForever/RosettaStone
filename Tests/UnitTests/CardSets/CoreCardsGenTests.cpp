@@ -60,10 +60,10 @@ TEST(CoreCardsGen, EX1_306)
                       Cards::GetInstance().FindCardByName("Fiery War Axe"));
 
     GameAgent::RunTask(curPlayer, PlayCardTask(taskAgent, card1));
-    EXPECT_EQ(curPlayer.GetHand().size(), 0u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 0u);
 
     GameAgent::RunTask(opPlayer, PlayCardTask(taskAgent, card2));
-    EXPECT_EQ(opPlayer.GetHand().size(), 1u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 1u);
 }
 
 TEST(CoreCardsGen, CS2_041)
