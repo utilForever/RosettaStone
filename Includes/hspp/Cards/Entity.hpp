@@ -73,8 +73,8 @@ class Entity
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
-    //! Destroys character (pure virtual function).
-    virtual void Destroy() = 0;
+    //! Destroys character.
+    virtual void Destroy();
 
     Card* card = nullptr;
     bool isDestroyed = false;

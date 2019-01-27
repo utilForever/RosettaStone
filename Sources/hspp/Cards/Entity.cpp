@@ -102,6 +102,11 @@ void Entity::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
+void Entity::Destroy()
+{
+    // Do nothing
+}
+
 void Entity::FreeMemory()
 {
     m_gameTags.clear();
