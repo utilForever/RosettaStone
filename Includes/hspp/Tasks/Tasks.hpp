@@ -67,26 +67,6 @@ class ITask
     //! \return Task ID.
     virtual TaskID GetTaskID() const = 0;
 
-    //! Run multiple Tasks
-    //! \param player The player to run task.
-    //! \param meta The task meta that stores packed multiple game status.
-    template <typename... Tasks>
-    static void RunMulti(Player& player, TaskMeta& meta, Tasks&&... tasks)
-    {
-        std::vector<TaskMeta> metas;
-        metas.reserve(sizeof...(Tasks));
-
-        auto pusher =
-            [&](auto&& task) {
-                metas.emplace_back();
-                task.Run(player, metas.back());
-            }
-
-        (pusher(std::forward<Tasks>(tasks)), ...);
-        meta = Serializer::CreateTaskMetaVector(metas, MetaData::INVALID,
-                                                player.id);
-    }
-
  protected:
     Entity* m_source = nullptr;
     Entity* m_target = nullptr;
@@ -98,5 +78,29 @@ class ITask
     virtual MetaData Impl(Player& player) = 0;
 };
 }  // namespace Hearthstonepp
+
+namespace Task
+{
+//! Calls Impl method and returns meta data.
+//! \param player The player to run task.
+//! \return The result of task processing.
+TaskMeta Run(Player& player, ITask& tasks)
+{
+    return task.Run(player);
+}
+
+//! Run multiple Tasks
+//! \param player The player to run task.
+//! \param meta The task meta that stores packed multiple game status.
+template <typename... TaskType>
+std::vector<TaskMeta> RunMulti(Player& player, TaskType&& task)
+{
+    std::vector<TaskMeta> metas;
+    metas.reserve(sizeof...(tasks));
+
+    (..., metas.push_back(tasks.run(player)));
+    return metas;
+}
+}  // namespace Task
 
 #endif  // HEARTHSTONEPP_TASKS_HPP
