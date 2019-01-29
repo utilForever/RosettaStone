@@ -92,7 +92,6 @@ void Battlefield::RemoveMinion(Minion& minion)
     const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
     if (iter != std::end(m_minions))
     {
-        delete *iter;
         *iter = nullptr;
     }
 }
