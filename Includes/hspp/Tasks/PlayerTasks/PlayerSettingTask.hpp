@@ -19,9 +19,8 @@ namespace Hearthstonepp::PlayerTasks
 class PlayerSettingTask : public ITask
 {
  public:
-    //! Constructs task with given \p agent.
-    //! \param agent The task agent that notifies the result of player setting.
-    PlayerSettingTask(TaskAgent& agent);
+    //! Constructs task.
+    PlayerSettingTask() = default;
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,8 +31,6 @@ class PlayerSettingTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
-
-    TaskAgent& m_agent;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 
