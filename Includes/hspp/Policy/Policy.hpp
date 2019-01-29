@@ -18,11 +18,11 @@ class IPolicy
  public:
     IPolicy() = default;
 
-    virtual ~IPolicy(){};
+    virtual ~IPolicy() = default;
 
-    virtual TaskMeta next(const Game& game) = 0;
+    virtual TaskMeta Next(const Game& game) = 0;
 
-    virtual TaskMeta require(const Game& game, TaskID id) = 0;
+    virtual TaskMeta Require(Player& player, TaskID id) = 0;
 };
 }  // namespace Hearthstonepp
 
