@@ -34,24 +34,34 @@ class GameAgent
     //! Constructs game with given \p p1Class, \p p2Class and \p firstPlayer.
     //! \param p1Class The class of player 1.
     //! \param p2Class The class of player 2.
+    //! \param p1Policy The game playing policy for player1.
+    //! \param p2Policy The game playing policy for player2.
     //! \param firstPlayer The first player who starts turn first.
-    GameAgent(CardClass p1Class, CardClass p2Class,
-              PlayerType firstPlayer = PlayerType::PLAYER1);
+    GameAgent(CardClass p1Class, CardClass p2Class, Policy* p1Policy,
+              Policy* p2Policy, PlayerType firstPlayer = PlayerType::PLAYER1);
 
     //! Constructs agent with given \p game.
     //! \param game The game for running agent.
-    GameAgent(const Game& game);
+    //! \param p1Policy The game playing policy for player1.
+    //! \param p2Policy The game playing policy for player2.
+    GameAgent(const Game& game, Policy* p1Policy, Policy* p2Policy);
 
-    //! Constructs agent with given \p game.
+    //! Constructs agent with given \p game and policy.
     //! \param game The game for running agent.
-    GameAgent(Game&& game);
+    //! \param p1Policy The game playing policy for player1.
+    //! \param p2Policy The game playing policy for player2.
+    GameAgent(Game&& game, Policy* p1Policy, Policy* p2Policy);
 
     //! Starts the game agent.
     //! \return The thread that plays the game.
     GameResult Start();
 
+    //! Get game structure.
+    //! \return The game structure.
     Game& GetGame();
 
+    //! Get game structure.
+    //! \return The game structure.
     const Game& GetGame() const;
 
  private:

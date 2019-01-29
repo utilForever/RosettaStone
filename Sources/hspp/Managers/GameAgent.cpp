@@ -27,21 +27,26 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp
 {
-GameAgent::GameAgent(CardClass p1Class, CardClass p2Class,
-                     PlayerType firstPlayer)
+GameAgent::GameAgent(CardClass p1Class, CardClass p2Class, Policy* p1Policy,
+                     Policy* p2Policy, PlayerType firstPlayer)
     : m_game(p1Class, p2Class, firstPlayer)
 {
-    // Do nothing
+    m_game.GetPlayer1().SetPolicy(p1Policy);
+    m_game.GetPlayer2().SetPolicy(p2Policy);
 }
 
-GameAgent::GameAgent(const Game& game) : m_game(game)
+GameAgent::GameAgent(const Game& game, Policy* p1Policy, Policy* p2Policy)
+    : m_game(game)
 {
-    // Do Nothing
+    m_game.GetPlayer1().SetPolicy(p1Policy);
+    m_game.GetPlayer2().SetPolicy(p2Policy);
 }
 
-GameAgent::GameAgent(Game&& game) : m_game(std::move(game))
+GameAgent::GameAgent(Game&& game, Policy* p1Policy, Policy* p2Policy)
+    : m_game(std::move(game))
 {
-    // Do Nothing
+    m_game.GetPlayer1().SetPolicy(p1Policy);
+    m_game.GetPlayer2().SetPolicy(p2Policy);
 }
 
 GameResult GameAgent::Start()
@@ -62,11 +67,13 @@ GameResult GameAgent::Start()
     return GameResult();
 }
 
-Game& GameAgent::GetGame() {
+Game& GameAgent::GetGame()
+{
     return m_game;
 }
 
-const Game& GameAgent::GetGame() const {
+const Game& GameAgent::GetGame() const
+{
     return m_game;
 }
 
@@ -88,12 +95,6 @@ void GameAgent::BeginPhase()
         m_game.SetCurrentPlayer(PlayerType::PLAYER2);
     }
 
-    const auto success = [](const TaskMeta& meta) {
-        return meta.GetStatus() == MetaData::MULLIGAN_SUCCESS;
-    };
-
-    TaskMeta meta;
-
     // Task list of begin phase
     // 1. Both players shuffle the deck.
     // 2. Both players draw cards from the deck.
@@ -107,17 +108,16 @@ void GameAgent::BeginPhase()
     // 4. The player going second receives "The Coin" card.
     // NOTE: The Coin is a special uncollectible spell card granted at the start
     // of each game to whichever player is selected to go second.
-    m_taskAgent.Run(meta, GetFirstPlayer(), PlayerSettingTask(m_taskAgent));
+    Task::Run(m_game.GetFirstPlayer(), PlayerSettingTask());
 
-    m_taskAgent.RunMulti(meta, GetFirstPlayer(), ShuffleTask(),
-                         DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
-                         DoUntil(MulliganTask(m_taskAgent), success),
-                         BriefTask());
+    Task::RunMulti(m_game.GetFirstPlayer(), ShuffleTask(),
+                   DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
+                   DoUntil(MulliganTask(), MetaData::MULLIGAN_SUCCESS));
 
-    m_taskAgent.RunMulti(
-        meta, GetFirstPlayer().GetOpponent(), ShuffleTask(),
+    Task::RunMulti(
+        m_game.GetFirstPlayer().GetOpponent(), ShuffleTask(),
         DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
-        DoUntil(MulliganTask(m_taskAgent), success), BriefTask(),
+        DoUntil(MulliganTask(), MetaData::MULLIGAN_SUCCESS),
         DrawCardTask(Cards::GetInstance().FindCardByName("The Coin")));
 }
 
@@ -132,8 +132,7 @@ bool GameAgent::MainPhase()
 
 void GameAgent::FinalPhase()
 {
-    TaskMeta meta;
-    m_taskAgent.Run(meta, GetCurrentPlayer(), GameEndTask());
+    Task::Run(m_game.GetCurrentPlayer(), GameEndTask());
 }
 
 void GameAgent::PrepareMainPhase()
@@ -147,12 +146,11 @@ void GameAgent::PrepareMainPhase()
     // NOTE: A player can never have more than 10 maximum mana.
     // 3. Refill all of their non-overloaded mana crystals.
     // 4. Initialize attack count of minions and hero.
-    m_taskAgent.RunMulti(
-        meta, GetCurrentPlayer(), DrawTask(1),
-        ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
-        ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
-                       m_player1.GetMaximumMana() + 1),
-        InitAttackCountTask());
+    Task::RunMulti(m_game.GetCurrentPlayer(), DrawTask(1),
+                   ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
+                   ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
+                                  m_player1.GetMaximumMana() + 1),
+                   InitAttackCountTask());
 }
 
 bool GameAgent::ProcessMainMenu()
