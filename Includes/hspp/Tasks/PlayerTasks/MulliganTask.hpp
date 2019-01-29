@@ -6,7 +6,6 @@
 #ifndef HEARTHSTONEPP_MULLIGAN_TASK_HPP
 #define HEARTHSTONEPP_MULLIGAN_TASK_HPP
 
-#include <hspp/Tasks/Requirement.hpp>
 #include <hspp/Tasks/TaskAgent.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
@@ -20,9 +19,8 @@ namespace Hearthstonepp::PlayerTasks
 class MulliganTask : public ITask
 {
  public:
-    //! Constructs task with given \p agent.
-    //! \param agent The task agent that performs card draw.
-    MulliganTask(TaskAgent& agent);
+    //! Default constructor.
+    MulliganTask() = default;
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,8 +31,6 @@ class MulliganTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
-
-    Requirement m_requirement;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 

@@ -14,8 +14,7 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-MulliganTask::MulliganTask(TaskAgent& agent)
-    : m_requirement(Requirement(TaskID::MULLIGAN, agent))
+MulliganTask::MulliganTask()
 {
     // Do nothing
 }
@@ -27,6 +26,8 @@ TaskID MulliganTask::GetTaskID() const
 
 MetaData MulliganTask::Impl(Player& player)
 {
+    TaskMeta result = player.GetPolicy().Require(player, TaskID::MULLIGAN);
+
     TaskMeta serialized;
 
     // Get mulligan input from Interface
