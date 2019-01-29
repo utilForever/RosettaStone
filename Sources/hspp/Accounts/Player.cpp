@@ -94,16 +94,6 @@ void Player::SetNumCardAfterExhaust(BYTE numCard)
     m_numCardAfterExhaust = numCard;
 }
 
-GameAgent& Player::GetGameAgent() const
-{
-    return *m_gameAgent;
-}
-
-void Player::SetGameAgent(GameAgent* agent)
-{
-    m_gameAgent = agent;
-}
-
 Player& Player::GetOpponent() const
 {
     return *m_opponent;
@@ -180,5 +170,13 @@ void Player::FreeMemory()
     m_playedMinion.clear();
 
     delete m_hero;
+}
+
+IPolicy& Player::GetPolicy() const {
+    return *m_policy;
+}
+
+void Player::SetPolicy(IPolicy* policy) {
+    m_policy = policy;
 }
 }  // namespace Hearthstonepp
