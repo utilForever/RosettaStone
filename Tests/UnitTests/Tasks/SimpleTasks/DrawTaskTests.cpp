@@ -108,9 +108,13 @@ TEST(DrawTask, RunOverDraw)
     };
 
     const std::string id = "card";
-    for (char i = '0'; i < '3'; ++i)
+    for (char i = '0'; i <= '2'; ++i)
     {
         p.GetDeck().emplace_back(Generate(id + i));
+    }
+    for (char i = '0'; i <= '9'; ++i)
+    {
+        p.GetHand().AddCard(*Generate(id + i));
     }
 
     DrawTask draw(3);
@@ -156,9 +160,13 @@ TEST(DrawTask, RunExhaustOverdraw)
     };
 
     const std::string id = "card";
-    for (char i = '0'; i < '3'; ++i)
+    for (char i = '0'; i <= '2'; ++i)
     {
         p.GetDeck().emplace_back(Generate(id + i));
+    }
+    for (char i = '0'; i <= '8'; ++i)
+    {
+        p.GetHand().AddCard(*Generate(id + i));
     }
 
     DrawTask draw(4);
@@ -225,7 +233,8 @@ TEST(DrawCardTask, Run)
 
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().GetHand().GetNumOfCards(), 2u);
-    EXPECT_EQ(agent.GetPlayer1().GetHand().GetCard(1)->card->id, poisonedBlade.id);
+    EXPECT_EQ(agent.GetPlayer1().GetHand().GetCard(1)->card->id,
+              poisonedBlade.id);
     EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), 0u);
 
     delete minionNerubian;
