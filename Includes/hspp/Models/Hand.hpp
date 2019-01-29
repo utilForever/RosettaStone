@@ -68,7 +68,7 @@ class Hand
     Player* m_owner = nullptr;
     std::array<Entity*, HAND_SIZE> m_cards{};
 
-    int m_numCard = 0;
+    std::size_t m_numCard = 0;
 };
 }  // namespace Hearthstonepp
 
