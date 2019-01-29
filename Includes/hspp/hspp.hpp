@@ -33,13 +33,15 @@
 #include <hspp/Enums/CardEnums.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
 #include <hspp/Flatbuffers/generated/FlatData_generated.hpp>
+#include <hspp/Game/Game.hpp>
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
 #include <hspp/Loaders/PowerLoader.hpp>
 #include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Managers/GameInterface.hpp>
-#include <hspp/Managers/SyncBuffer.hpp>
-#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Policy/BasicPolicy.hpp>
+#include <hspp/Policy/IoPolicy.hpp>
+#include <hspp/Policy/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/PlayerTasks/GameEndTask.hpp>
@@ -49,7 +51,6 @@
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayWeaponTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
-#include <hspp/Tasks/Requirement.hpp>
 #include <hspp/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
@@ -64,9 +65,8 @@
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
-#include <hspp/Tasks/TaskAgent.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
-#include <hspp/Tasks/TaskSerializer.hpp>
+#include <hspp/Tasks/TaskStatus.hpp>
 #include <hspp/Tasks/TaskWrapper.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 #include <hspp/hspp.hpp>
