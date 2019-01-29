@@ -37,6 +37,13 @@ DoUntil::DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition)
     // Do nothing
 }
 
+DoUntil::DoUntil(ITask&& task, MetaData id)
+    : m_task(task),
+      m_condition([=](const TaskMeta& meta) { return meta.GetStatus() == id; })
+{
+    // Do Nothing
+}
+
 TaskID DoUntil::GetTaskID() const
 {
     return m_task.GetTaskID();

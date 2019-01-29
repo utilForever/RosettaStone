@@ -49,6 +49,11 @@ class DoUntil : public ITask
     //! \param condition The condition under which the task completes.
     DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition);
 
+   //! Constructs task with given \p task and \p id.
+   //! \param task The task that is infinite-loop until completes.
+   //! \param id The condition whether returned TaskMeta::status is equal to id.
+    DoUntil(ITask&& task, MetaData id);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
