@@ -6,6 +6,8 @@
 
 #include <hspp/Models/Hand.hpp>
 
+#include <algorithm>
+
 namespace Hearthstonepp
 {
 Hand::Hand()
