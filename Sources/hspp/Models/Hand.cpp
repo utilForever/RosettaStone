@@ -82,12 +82,23 @@ void Hand::AddCard(Entity& card)
 
 void Hand::RemoveCard(Entity& card)
 {
-    const auto iter = std::find(m_cards.begin(), m_cards.end(), &card);
-    if (iter != std::end(m_cards))
+    std::size_t idx = 0;
+
+    for (; idx < m_numCard; ++idx)
     {
-        delete *iter;
-        *iter = nullptr;
-        --m_numCard;
+        if (m_cards[idx] == &card)
+        {
+            m_cards[idx] = nullptr;
+            break;
+        }
     }
+
+    for (; idx < m_numCard - 1; ++idx)
+    {
+        m_cards[idx] = m_cards[idx + 1];
+        m_cards[idx + 1] = nullptr;
+    }
+
+    --m_numCard;
 }
 }  // namespace Hearthstonepp
