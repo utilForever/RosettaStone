@@ -122,7 +122,7 @@ TEST(DrawTask, RunOverDraw)
     MetaData result = draw.Run(p);
     EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
     EXPECT_EQ(p.GetDeck().size(), 0u);
-    EXPECT_EQ(p.GetHand().GetNumOfCards(), 3u);
+    EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
@@ -174,7 +174,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     MetaData result = draw.Run(p);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(p.GetDeck().size(), 0u);
-    EXPECT_EQ(p.GetHand().GetNumOfCards(), 4u);
+    EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
 
     TaskMeta burnt;
     agent.GetTaskMeta(burnt);
