@@ -16,15 +16,14 @@ class BasicPolicy : public IPolicy
  public:
     BasicPolicy() = default;
 
-    TaskMeta next(const Game& game) override;
+    ~BasicPolicy() = default;
 
-    TaskMeta require(const Game& game, TaskID id) override;
+    TaskMeta Next(const Game& game) override;
+
+    TaskMeta Require(Player& player, TaskID id) override;
 
  private:
-    TaskMeta PlayerSetting(const Game& game);
-
     std::map<TaskID, std::function<TaskMeta(const Game& game)>> m_table = {
-        { TaskID::PLAYER_SETTING, &BasicPolicy::PlayerSetting }
     };
 };
 }  // namespace Hearthstonepp
