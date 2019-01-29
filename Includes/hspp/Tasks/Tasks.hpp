@@ -96,9 +96,9 @@ template <typename... TaskType>
 std::vector<TaskMeta> RunMulti(Player& player, TaskType&& task)
 {
     std::vector<TaskMeta> metas;
-    metas.reserve(sizeof...(tasks));
+    metas.reserve(sizeof...(task));
 
-    (..., metas.push_back(tasks.run(player)));
+    (..., metas.push_back(task.run(player)));
     return metas;
 }
 }  // namespace Task
