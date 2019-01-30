@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Cards/Cards.hpp>
-#include <hspp/Cards/Deck.hpp>
+#include <hspp/Models/Deck.hpp>
 
 #include <algorithm>
 #include <iostream>

@@ -15,7 +15,6 @@
 #include <hspp/Cards/Card.hpp>
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Cards/Character.hpp>
-#include <hspp/Cards/Deck.hpp>
 #include <hspp/Cards/Entity.hpp>
 #include <hspp/Cards/Hero.hpp>
 #include <hspp/Cards/HeroPower.hpp>
@@ -41,6 +40,7 @@
 #include <hspp/Managers/GameInterface.hpp>
 #include <hspp/Managers/SyncBuffer.hpp>
 #include <hspp/Models/Battlefield.hpp>
+#include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
