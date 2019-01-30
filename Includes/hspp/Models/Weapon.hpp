@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_WEAPON_HPP
 #define HEARTHSTONEPP_WEAPON_HPP
 
-#include <hspp/Cards/Entity.hpp>
+#include <hspp/Models/Entity.hpp>
 
 namespace Hearthstonepp
 {

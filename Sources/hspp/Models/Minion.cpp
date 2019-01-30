@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Accounts/Player.hpp>
-#include <hspp/Cards/Minion.hpp>
+#include <hspp/Models/Minion.hpp>
 
 namespace Hearthstonepp
 {

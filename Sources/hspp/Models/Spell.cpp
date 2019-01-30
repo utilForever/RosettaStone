@@ -4,16 +4,16 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/HeroPower.hpp>
+#include <hspp/Models/Spell.hpp>
 
 namespace Hearthstonepp
 {
-HeroPower::HeroPower(GameAgent* gameAgent, Card& card) : Entity(gameAgent, card)
+Spell::Spell(GameAgent* gameAgent, Card& card) : Entity(gameAgent, card)
 {
     // Do nothing
 }
 
-void HeroPower::Destroy()
+void Spell::Destroy()
 {
     // Do nothing
 }

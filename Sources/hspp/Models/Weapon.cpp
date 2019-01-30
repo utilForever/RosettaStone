@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Accounts/Player.hpp>
-#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Models/Weapon.hpp>
 
 namespace Hearthstonepp
 {

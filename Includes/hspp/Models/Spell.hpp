@@ -4,47 +4,47 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_HERO_POWER_HPP
-#define HEARTHSTONEPP_HERO_POWER_HPP
+#ifndef HEARTHSTONEPP_SPELL_HPP
+#define HEARTHSTONEPP_SPELL_HPP
 
-#include <hspp/Cards/Entity.hpp>
+#include <hspp/Models/Entity.hpp>
 
 namespace Hearthstonepp
 {
 //!
-//! \brief HeroPower class.
+//! \brief Spell class.
 //!
 //! This class inherits from Entity structure.
 //!
-class HeroPower : public Entity
+class Spell : public Entity
 {
  public:
     //! Default constructor.
-    HeroPower() = default;
+    Spell() = default;
 
-    //! Constructs hero power with given \p gameAgent and \p card.
+    //! Constructs spell with given \p gameAgent and \p card.
     //! \param gameAgent The game agent.
     //! \param card A reference to the card.
-    HeroPower(GameAgent* gameAgent, Card& card);
+    Spell(GameAgent* gameAgent, Card& card);
 
     //! Default destructor.
-    ~HeroPower() = default;
+    ~Spell() = default;
 
     //! Default copy constructor.
-    HeroPower(const HeroPower& power) = default;
+    Spell(const Spell& spell) = default;
 
     //! Default move constructor.
-    HeroPower(HeroPower&& power) = default;
+    Spell(Spell&& spell) = default;
 
     //! Default copy assignment operator.
-    HeroPower& operator=(const HeroPower& power) = default;
+    Spell& operator=(const Spell& spell) = default;
 
     //! Default move assignment operator.
-    HeroPower& operator=(HeroPower&& power) = default;
+    Spell& operator=(Spell&& spell) = default;
 
-    //! Destroys hero power.
+    //! Destroys spell.
     void Destroy() override;
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_HERO_POWER_HPP
+#endif  // HEARTHSTONEPP_SPELL_HPP

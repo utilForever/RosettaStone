@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_CHARACTER_HPP
 #define HEARTHSTONEPP_CHARACTER_HPP
 
-#include <hspp/Cards/Entity.hpp>
+#include <hspp/Models/Entity.hpp>
 
 namespace Hearthstonepp
 {

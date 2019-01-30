@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_MINION_HPP
 #define HEARTHSTONEPP_MINION_HPP
 
-#include <hspp/Cards/Character.hpp>
+#include <hspp/Models/Character.hpp>
 
 namespace Hearthstonepp
 {

@@ -4,9 +4,9 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Accounts/Player.hpp>
-#include <hspp/Cards/Character.hpp>
-#include <hspp/Cards/Minion.hpp>
 #include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Character.hpp>
+#include <hspp/Models/Minion.hpp>
 
 #include <algorithm>
 
