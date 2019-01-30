@@ -8,12 +8,12 @@
 #define HEARTHSTONEPP_PLAYER_HPP
 
 #include <hspp/Cards/Character.hpp>
-#include <hspp/Cards/Deck.hpp>
 #include <hspp/Cards/Entity.hpp>
 #include <hspp/Cards/Hero.hpp>
 #include <hspp/Cards/Spell.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
+#include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Hand.hpp>
 
 #include <string>

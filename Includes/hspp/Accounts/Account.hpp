@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_ACCOUNT_HPP
 #define HEARTHSTONEPP_ACCOUNT_HPP
 
-#include <hspp/Cards/Deck.hpp>
+#include <hspp/Models/Deck.hpp>
 
 #include <vector>
 
