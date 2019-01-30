@@ -4,8 +4,8 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Generic.hpp>
-#include <hspp/Cards/Minion.hpp>
-#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Models/Minion.hpp>
+#include <hspp/Models/Weapon.hpp>
 
 namespace Hearthstonepp
 {

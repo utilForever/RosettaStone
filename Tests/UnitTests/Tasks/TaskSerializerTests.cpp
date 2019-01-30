@@ -9,9 +9,9 @@
 
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Cards/Cards.hpp>
-#include <hspp/Cards/Minion.hpp>
-#include <hspp/Cards/Weapon.hpp>
 #include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Minion.hpp>
+#include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/TaskSerializer.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
@@ -279,10 +279,10 @@ TEST(TaskSerializer, CreateGameStatus)
 
     // Summon 'Nerubian' card to field (minion)
     Card nerubian = instance.FindCardByID("AT_036t");
-    
+
     Minion minion1(&agent, nerubian);
     Minion minion2(&agent, nerubian);
-    
+
     agent.GetPlayer1().GetField().AddMinion(minion1, 0);
     agent.GetPlayer2().GetField().AddMinion(minion2, 0);
 

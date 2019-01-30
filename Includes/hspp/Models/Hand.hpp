@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_HAND_HPP
 #define HEARTHSTONEPP_HAND_HPP
 
-#include <hspp/Cards/Entity.hpp>
 #include <hspp/Commons/Constants.hpp>
+#include <hspp/Models/Entity.hpp>
 
 #include <array>
 

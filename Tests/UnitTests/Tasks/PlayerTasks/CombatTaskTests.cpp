@@ -7,9 +7,9 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Weapon.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 

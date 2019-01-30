@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Character.hpp>
-#include <hspp/Cards/Weapon.hpp>
+#include <hspp/Models/Character.hpp>
+#include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/TaskSerializer.hpp>
 

@@ -8,8 +8,7 @@
 #define HEARTHSTONEPP_TASK_SERIALIZER_HPP
 
 #include <hspp/Accounts/Player.hpp>
-#include <hspp/Cards/Entity.hpp>
-#include <hspp/Cards/Hero.hpp>
+#include <hspp/Models/Entity.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 
 #include <hspp/Flatbuffers/generated/FlatData_generated.hpp>

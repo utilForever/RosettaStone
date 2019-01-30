@@ -7,8 +7,8 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Minion.hpp>
 #include <hspp/Commons/Macros.hpp>
+#include <hspp/Models/Minion.hpp>
 
 #include <random>
 

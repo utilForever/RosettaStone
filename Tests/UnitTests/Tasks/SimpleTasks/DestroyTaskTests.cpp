@@ -7,9 +7,9 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Minion.hpp>
-#include <hspp/Cards/Weapon.hpp>
 #include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Minion.hpp>
+#include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 
 using namespace Hearthstonepp;

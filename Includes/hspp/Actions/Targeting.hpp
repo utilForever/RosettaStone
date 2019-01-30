@@ -7,7 +7,7 @@
 #define HEARTHSTONEPP_TARGETING_HPP
 
 #include <hspp/Cards/Card.hpp>
-#include <hspp/Cards/Entity.hpp>
+#include <hspp/Models/Entity.hpp>
 
 namespace Hearthstonepp
 {

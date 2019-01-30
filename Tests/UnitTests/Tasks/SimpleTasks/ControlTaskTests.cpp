@@ -7,7 +7,6 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Minion.hpp>
 #include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 
