@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_DECK_HPP
-#define HEARTHSTONEPP_DECK_HPP
+#ifndef HEARTHSTONEPP_DECK_INFO_HPP
+#define HEARTHSTONEPP_DECK_INFO_HPP
 
 #include <hspp/Cards/Card.hpp>
 #include <hspp/Enums/CardEnums.hpp>
@@ -15,23 +15,23 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Deck class.
+//! \brief DeckInfo class.
 //!
 //! This class stores a deck. A deck is a collection of exactly 30 cards
 //! assembled before a match, as well as the zone which players draw cards from
 //! (and sometimes add cards to) during game play. Each deck is tied to a
 //! specific class.
 //!
-class Deck
+class DeckInfo
 {
  public:
     //! Default constructor.
-    Deck();
+    DeckInfo();
 
     //! Constructs deck with given \p name and \p deckClass.
     //! \param name The name of deck.
     //! \param deckClass The class of deck.
-    Deck(std::string name, CardClass deckClass);
+    DeckInfo(std::string name, CardClass deckClass);
 
     //! Returns the name of deck.
     //! \return The name of deck.
@@ -89,4 +89,4 @@ class Deck
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_DECK_HPP
+#endif  // HEARTHSTONEPP_DECK_INFO_HPP

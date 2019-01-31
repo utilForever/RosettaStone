@@ -8,6 +8,7 @@
 #define HEARTHSTONEPP_HSPP_HPP
 
 #include <hspp/Accounts/AccountInfo.hpp>
+#include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Actions/Generic.hpp>
 #include <hspp/Actions/Targeting.hpp>
@@ -34,7 +35,6 @@
 #include <hspp/Managers/SyncBuffer.hpp>
 #include <hspp/Models/Battlefield.hpp>
 #include <hspp/Models/Character.hpp>
-#include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Models/Hero.hpp>

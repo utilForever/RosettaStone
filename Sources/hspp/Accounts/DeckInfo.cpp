@@ -4,46 +4,46 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Cards/Cards.hpp>
-#include <hspp/Models/Deck.hpp>
 
 #include <algorithm>
 #include <iostream>
 
 namespace Hearthstonepp
 {
-Deck::Deck() : m_name("Empty")
+DeckInfo::DeckInfo() : m_name("Empty")
 {
     // Do nothing
 }
 
-Deck::Deck(std::string name, const CardClass deckClass)
+DeckInfo::DeckInfo(std::string name, const CardClass deckClass)
     : m_name(std::move(name)), m_class(deckClass)
 {
     // Do nothing
 }
 
-std::string Deck::GetName() const
+std::string DeckInfo::GetName() const
 {
     return m_name;
 }
 
-CardClass Deck::GetClass() const
+CardClass DeckInfo::GetClass() const
 {
     return m_class;
 }
 
-size_t Deck::GetNumOfCards() const
+size_t DeckInfo::GetNumOfCards() const
 {
     return m_numOfCards;
 }
 
-size_t Deck::GetUniqueNumOfCards() const
+size_t DeckInfo::GetUniqueNumOfCards() const
 {
     return m_cards.size();
 }
 
-size_t Deck::GetNumCardInDeck(std::string cardID)
+size_t DeckInfo::GetNumCardInDeck(std::string cardID)
 {
     const auto cardIer =
         std::find_if(m_cards.begin(), m_cards.end(),
@@ -60,7 +60,7 @@ size_t Deck::GetNumCardInDeck(std::string cardID)
     return 0;
 }
 
-std::vector<Card> Deck::GetPrimitiveDeck() const
+std::vector<Card> DeckInfo::GetPrimitiveDeck() const
 {
     std::vector<Card> deck;
 
@@ -77,12 +77,12 @@ std::vector<Card> Deck::GetPrimitiveDeck() const
     return deck;
 }
 
-std::pair<std::string, size_t> Deck::GetCard(size_t idx) const
+std::pair<std::string, size_t> DeckInfo::GetCard(size_t idx) const
 {
     return m_cards.at(idx);
 }
 
-void Deck::ShowCardList() const
+void DeckInfo::ShowCardList() const
 {
     int idx = 1;
 
@@ -102,7 +102,7 @@ void Deck::ShowCardList() const
     }
 }
 
-bool Deck::AddCard(std::string cardID, size_t numCardToAdd)
+bool DeckInfo::AddCard(std::string cardID, size_t numCardToAdd)
 {
     Card card = Cards::GetInstance().FindCardByID(cardID);
 
@@ -137,7 +137,7 @@ bool Deck::AddCard(std::string cardID, size_t numCardToAdd)
     return true;
 }
 
-bool Deck::DeleteCard(std::string cardID, size_t numCardToDelete)
+bool DeckInfo::DeleteCard(std::string cardID, size_t numCardToDelete)
 {
     const auto cardIter =
         std::find_if(m_cards.begin(), m_cards.end(),
