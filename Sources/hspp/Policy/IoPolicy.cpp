@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Commons/Utils.hpp>
 #include <hspp/Policy/IoPolicy.hpp>
 
 namespace Hearthstonepp
@@ -11,6 +12,14 @@ namespace Hearthstonepp
 IoPolicy::IoPolicy(std::ostream& out, std::istream& in) : m_out(out), m_in(in)
 {
     // Do Nothing
+}
+
+TaskMeta IoPolicy::RequireMulligan(Player& player)
+{
+    TaskMetaTrait trait(TaskID::MULLIGAN, MetaData::MULLIGAN_SUCCESS,
+                        player.GetID());
+
+    return TaskMeta(trait, std::make_any<Box<size_t>>(3));
 }
 
 }  // namespace Hearthstonepp

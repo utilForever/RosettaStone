@@ -19,6 +19,8 @@ class IoPolicy : public BasicPolicy
     IoPolicy(std::ostream& out, std::istream& in);
 
  private:
+    TaskMeta RequireMulligan(Player& player) override;
+
     std::ostream& m_out;
     std::istream& m_in;
 };
