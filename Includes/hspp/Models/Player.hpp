@@ -90,13 +90,13 @@ class Player
     //! \return Player's hero.
     Hero* GetHero() const;
 
-    //! Returns player's deck.
-    //! \return Player's deck.
-    std::vector<Entity*>& GetDeck();
-
     //! Returns player's battlefield.
     //! \return Player's battlefield.
     Battlefield& GetField();
+
+    //! Returns player's deck.
+    //! \return Player's deck.
+    Deck& GetDeck();
 
     //! Returns player's hand.
     //! \return Player's hand.
@@ -144,10 +144,6 @@ class Player
     //! Sets the opponent player.
     //! \param player The opponent player.
     void SetOpponent(Player* player);
-
-    //! Sets the deck.
-    //! \param deck A pointer to the deck.
-    void SetDeck(DeckInfo* deck);
 
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.

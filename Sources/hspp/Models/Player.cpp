@@ -15,7 +15,6 @@ namespace Hearthstonepp
 {
 Player::Player() : m_id(USER_INVALID)
 {
-    m_deck.reserve(MAXIMUM_NUM_CARDS_IN_DECK);
     m_field.SetOwner(*this);
     m_hand.SetOwner(*this);
 }
@@ -70,14 +69,14 @@ Hero* Player::GetHero() const
     return m_hero;
 }
 
-std::vector<Entity*>& Player::GetDeck()
-{
-    return m_deck;
-}
-
 Battlefield& Player::GetField()
 {
     return m_field;
+}
+
+Deck& Player::GetDeck()
+{
+    return m_deck;
 }
 
 Hand& Player::GetHand()
@@ -135,35 +134,6 @@ void Player::SetOpponent(Player* player)
     m_opponent = player;
 }
 
-void Player::SetDeck(DeckInfo* deck)
-{
-    for (auto& card : deck->GetPrimitiveDeck())
-    {
-        if (card.id.empty())
-        {
-            continue;
-        }
-
-        auto* gameAgent = GetGameAgent();
-        Entity* entity = nullptr;
-
-        switch (card.cardType)
-        {
-            case CardType::MINION:
-                entity = new Minion(gameAgent, card);
-                break;
-            case CardType::WEAPON:
-                entity = new Weapon(gameAgent, card);
-                break;
-            default:
-                throw std::invalid_argument(
-                    "Player::SetDeck() - Invalid card type!");
-        }
-
-        m_deck.emplace_back(entity);
-    }
-}
-
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
     auto* gameAgent = GetGameAgent();
@@ -174,12 +144,6 @@ void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 
 void Player::FreeMemory()
 {
-    for (auto& card : m_deck)
-    {
-        delete card;
-    }
-    m_deck.clear();
-
     for (auto& spell : m_playedSpell)
     {
         delete spell;
