@@ -6,32 +6,32 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Accounts/Account.hpp>
+#include <hspp/Accounts/AccountInfo.hpp>
 #include <hspp/Enums/CardEnums.hpp>
 #include <hspp/Models/Deck.hpp>
 
 using namespace Hearthstonepp;
 
-TEST(Account, Constructors)
+TEST(AccountInfo, Constructors)
 {
-    Account player1;
+    AccountInfo player1;
     EXPECT_EQ("anonymous@gmail.com", player1.GetEmail());
     EXPECT_EQ("Anonymous", player1.GetNickname());
 
-    Account player2("1", "name1");
+    AccountInfo player2("1", "name1");
     EXPECT_EQ("1", player2.GetEmail());
     EXPECT_EQ("name1", player2.GetNickname());
 
     const std::vector<Deck*> decks;
-    Account player3("2", "name2", decks);
+    AccountInfo player3("2", "name2", decks);
     EXPECT_EQ("2", player3.GetEmail());
     EXPECT_EQ("name2", player3.GetNickname());
     EXPECT_EQ(0, static_cast<int>(player3.GetNumOfDeck()));
 }
 
-TEST(Account, DeckControl)
+TEST(AccountInfo, DeckControl)
 {
-    Account player;
+    AccountInfo player;
 
     EXPECT_NO_THROW(player.ShowDeckList());
     EXPECT_EQ(false, player.CreateDeck("deck1", CardClass::INVALID));

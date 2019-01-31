@@ -106,7 +106,7 @@ void Console::SignUp()
         std::string name;
         std::cin >> name;
 
-        m_account = new Account(std::move(accountID), std::move(name));
+        m_account = new AccountInfo(std::move(accountID), std::move(name));
 
         AccountLoader loader;
         loader.Save(m_account);
@@ -213,8 +213,8 @@ void Console::SimulateGame() const
     std::cin >> user2 >> deckIndex2;
 
     AccountLoader loader;
-    Account* p1 = loader.Load(user1);
-    Account* p2 = loader.Load(user2);
+    AccountInfo* p1 = loader.Load(user1);
+    AccountInfo* p2 = loader.Load(user2);
 
     Deck* deck1 = p1->GetDeck(deckIndex1);
     Deck* deck2 = p2->GetDeck(deckIndex2);

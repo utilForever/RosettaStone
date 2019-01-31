@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_CONSOLE_HPP
 #define HEARTHSTONEPP_CONSOLE_HPP
 
-#include <hspp/Accounts/Account.hpp>
+#include <hspp/Accounts/AccountInfo.hpp>
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Commons/Macros.hpp>
@@ -182,7 +182,7 @@ class Console
     SearchMode m_searchMode = SearchMode::JustSearch;
     CardClass m_deckClass = CardClass::INVALID;
 
-    Account* m_account = nullptr;
+    AccountInfo* m_account = nullptr;
 };
 }  // namespace Hearthstonepp
 

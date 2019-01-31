@@ -26,7 +26,7 @@ namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
-Account* AccountLoader::Load(std::string email) const
+AccountInfo* AccountLoader::Load(std::string email) const
 {
     // Read account data from JSON file
     std::ifstream playerFile("Datas/" + email + ".json");
@@ -37,7 +37,7 @@ Account* AccountLoader::Load(std::string email) const
         return nullptr;
     }
 
-    Account* p;
+    AccountInfo* account;
 
     try
     {
@@ -69,7 +69,7 @@ Account* AccountLoader::Load(std::string email) const
             }
         }
 
-        p = new Account(std::move(email), std::move(nickname), decks);
+        account = new AccountInfo(std::move(email), std::move(nickname), decks);
     }
     catch (...)
     {
@@ -80,10 +80,10 @@ Account* AccountLoader::Load(std::string email) const
 
     playerFile.close();
 
-    return p;
+    return account;
 }
 
-void AccountLoader::Save(Account* account) const
+void AccountLoader::Save(AccountInfo* account) const
 {
     // Store account data to JSON file
 #if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
