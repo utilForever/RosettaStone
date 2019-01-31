@@ -61,105 +61,45 @@ TaskMeta::TaskMeta(const TaskMetaTrait& trait) : TaskMetaTrait(trait)
     // Do nothing
 }
 
-TaskMeta::TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer)
-    : TaskMetaTrait(trait),
-      m_size(size),
-      m_buffer(std::make_unique<BYTE[]>(size))
+TaskMeta::TaskMeta(const TaskMetaTrait& trait, std::any object)
+    : TaskMetaTrait(trait), m_object(object)
 {
-    // Deep copy
-    for (BYTE* dst = m_buffer.get(); size; --size)
-    {
-        *dst++ = *buffer++;
-    }
+    // Do Nothing
 }
 
-TaskMeta::TaskMeta(const TaskMetaTrait& trait, size_t size,
-                   std::unique_ptr<BYTE[]>&& buffer)
-    : TaskMetaTrait(trait), m_size(size), m_buffer(std::move(buffer))
+TaskMeta::TaskMeta(const TaskMeta& meta)
+    : TaskMetaTrait(meta), m_object(meta.m_object)
 {
-    // Do nothing
+    // Do Nothing
 }
 
 TaskMeta::TaskMeta(TaskMeta&& meta) noexcept
-    : TaskMetaTrait(meta),
-      m_size(meta.GetBufferSize()),
-      m_buffer(meta.MoveBuffer())
+    : TaskMetaTrait(meta), m_object(std::move(meta.m_object))
 {
     // Do nothing
+}
+
+TaskMeta& TaskMeta::operator=(const TaskMeta& meta)
+{
+    TaskMetaTrait::operator=(meta);
+    m_object = meta.m_object;
+    return *this;
 }
 
 TaskMeta& TaskMeta::operator=(TaskMeta&& meta) noexcept
 {
-    if (*this == meta)
-    {
-        return *this;
-    }
-
     TaskMetaTrait::operator=(meta);
-
-    m_size = meta.GetBufferSize();
-    m_buffer = meta.MoveBuffer();
-
+    m_object = std::move(meta.m_object);
     return *this;
-}
-
-bool TaskMeta::operator==(const TaskMeta& meta) const
-{
-    if (TaskMetaTrait::operator==(meta) && m_size == meta.GetBufferSize())
-    {
-        const auto& buffer = meta.GetBuffer();
-        for (size_t i = 0; i < m_size; ++i)
-        {
-            if (m_buffer[i] != buffer[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    return false;
-}
-
-TaskMeta TaskMeta::CopyFrom(const TaskMeta& meta)
-{
-    // Deep copy
-    return TaskMeta(meta, meta.GetBufferSize(), meta.GetBuffer().get());
-}
-
-TaskMeta TaskMeta::ConvertFrom(const FlatData::TaskMeta* meta)
-{
-    // Convert from FlatData::TaskMeta and deep copy
-    const auto trait = meta->trait();
-    const auto taskID = TaskID::_from_integral(trait->id());
-    const auto buffer = meta->buffer();
-
-    return TaskMeta(
-        TaskMetaTrait(taskID, static_cast<MetaData>(trait->status()),
-                      trait->userID()),
-        buffer->size(), buffer->data());
 }
 
 void TaskMeta::Reset()
 {
-    m_size = 0;
-    m_buffer.reset();
+    m_object.reset();
 }
 
-size_t TaskMeta::GetBufferSize() const
+bool TaskMeta::HasObjects() const
 {
-    return m_size;
-}
-
-std::unique_ptr<BYTE[]>&& TaskMeta::MoveBuffer()
-{
-    m_size = 0;
-    return std::move(m_buffer);
-}
-
-const std::unique_ptr<BYTE[]>& TaskMeta::GetBuffer() const
-{
-    return m_buffer;
+    return m_object.has_value();
 }
 }  // namespace Hearthstonepp
