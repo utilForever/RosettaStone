@@ -10,7 +10,7 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief DeckInfo class.
+//! \brief Deck class.
 //!
 //! This class stores a deck. A deck is a collection of exactly 30 cards
 //! assembled before a match, as well as the zone which players draw cards from
