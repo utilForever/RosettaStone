@@ -11,6 +11,7 @@
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
 #include <hspp/Models/Character.hpp>
+#include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Models/Hero.hpp>
@@ -164,7 +165,7 @@ class Player
     Hero* m_hero = nullptr;
 
     // Card storage
-    std::vector<Entity*> m_deck;
+    Deck m_deck;
 
     // Card objects
     Battlefield m_field;
