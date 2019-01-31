@@ -9,7 +9,6 @@
 
 #include <hspp/Accounts/AccountInfo.hpp>
 #include <hspp/Accounts/DeckInfo.hpp>
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Actions/Generic.hpp>
 #include <hspp/Actions/Targeting.hpp>
 #include <hspp/CardSets/CoreCardsGen.hpp>
@@ -40,6 +39,7 @@
 #include <hspp/Models/Hero.hpp>
 #include <hspp/Models/HeroPower.hpp>
 #include <hspp/Models/Minion.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Models/Spell.hpp>
 #include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/MetaData.hpp>

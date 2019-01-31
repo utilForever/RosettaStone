@@ -7,10 +7,10 @@
 #ifndef HEARTHSTONEPP_PLAYER_HPP
 #define HEARTHSTONEPP_PLAYER_HPP
 
+#include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
 #include <hspp/Models/Character.hpp>
-#include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Models/Hero.hpp>
@@ -146,7 +146,7 @@ class Player
 
     //! Sets the deck.
     //! \param deck A pointer to the deck.
-    void SetDeck(Deck* deck);
+    void SetDeck(DeckInfo* deck);
 
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.

@@ -4,11 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Models/HeroPower.hpp>
 #include <hspp/Models/Minion.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Models/Weapon.hpp>
 
 namespace Hearthstonepp
@@ -135,7 +135,7 @@ void Player::SetOpponent(Player* player)
     m_opponent = player;
 }
 
-void Player::SetDeck(Deck* deck)
+void Player::SetDeck(DeckInfo* deck)
 {
     for (auto& card : deck->GetPrimitiveDeck())
     {
