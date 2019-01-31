@@ -18,6 +18,7 @@ namespace Hearthstonepp
 //!
 //! This class stores account information such as e-mail address and nickname.
 //! Also, it stores a list of decks. An account can make several decks.
+//! This information imports/exports from/to json file.
 //!
 class AccountInfo
 {
