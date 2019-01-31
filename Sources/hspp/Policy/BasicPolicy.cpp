@@ -8,11 +8,17 @@
 
 namespace Hearthstonepp
 {
-TaskMeta BasicPolicy::Next(const Game& game) {
+TaskMeta BasicPolicy::Next(const Game& game)
+{
     return TaskMeta();
 }
 
-TaskMeta BasicPolicy::Require(Player& player, TaskID id) {
-    return TaskMeta();
+TaskMeta BasicPolicy::Require(Player& player, TaskID id)
+{
+    if (auto iter = m_require.find(id); iter != m_require.end())
+    {
+        return iter->second(*this, player);
+    }
+    return TaskMeta(id);
 }
-}
+}  // namespace Hearthstonepp

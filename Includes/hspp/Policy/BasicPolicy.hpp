@@ -9,6 +9,8 @@
 
 #include <hspp/Policy/Policy.hpp>
 
+#include <functional>
+
 namespace Hearthstonepp
 {
 class BasicPolicy : public IPolicy
@@ -23,7 +25,10 @@ class BasicPolicy : public IPolicy
     TaskMeta Require(Player& player, TaskID id) override;
 
  private:
-    std::map<TaskID, std::function<TaskMeta(const Game& game)>> m_table = {
+    virtual TaskMeta RequireMulligan(Player& player) = 0;
+
+    std::map<TaskID, std::function<TaskMeta(BasicPolicy&, Player&)>> m_require = {
+        { TaskID::MULLIGAN, &BasicPolicy::RequireMulligan }
     };
 };
 }  // namespace Hearthstonepp
