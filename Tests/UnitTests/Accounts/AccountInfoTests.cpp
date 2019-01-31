@@ -7,8 +7,8 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Accounts/AccountInfo.hpp>
+#include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Enums/CardEnums.hpp>
-#include <hspp/Models/Deck.hpp>
 
 using namespace Hearthstonepp;
 
@@ -22,7 +22,7 @@ TEST(AccountInfo, Constructors)
     EXPECT_EQ("1", player2.GetEmail());
     EXPECT_EQ("name1", player2.GetNickname());
 
-    const std::vector<Deck*> decks;
+    const std::vector<DeckInfo*> decks;
     AccountInfo player3("2", "name2", decks);
     EXPECT_EQ("2", player3.GetEmail());
     EXPECT_EQ("name2", player3.GetNickname());

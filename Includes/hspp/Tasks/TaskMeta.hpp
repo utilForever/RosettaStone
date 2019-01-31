@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_TASK_META_HPP
 #define HEARTHSTONEPP_TASK_META_HPP
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Tasks/MetaData.hpp>
 
 #include <hspp/Flatbuffers/generated/FlatData_generated.hpp>

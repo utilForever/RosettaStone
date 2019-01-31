@@ -6,8 +6,8 @@
 #ifndef HEARTHSTONEPP_GENERIC_HPP
 #define HEARTHSTONEPP_GENERIC_HPP
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Models/Entity.hpp>
+#include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp
 {

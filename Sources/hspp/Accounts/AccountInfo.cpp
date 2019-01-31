@@ -24,7 +24,7 @@ AccountInfo::AccountInfo(std::string&& email, std::string&& nickname)
 }
 
 AccountInfo::AccountInfo(std::string&& email, std::string&& nickname,
-                         std::vector<Deck*> decks)
+                         std::vector<DeckInfo*> decks)
     : m_email(std::move(email)),
       m_nickname(std::move(nickname)),
       m_decks(std::move(decks))
@@ -47,7 +47,7 @@ size_t AccountInfo::GetNumOfDeck() const
     return m_decks.size();
 }
 
-Deck* AccountInfo::GetDeck(size_t idx) const
+DeckInfo* AccountInfo::GetDeck(size_t idx) const
 {
     return m_decks[idx];
 }
@@ -69,7 +69,7 @@ bool AccountInfo::CreateDeck(std::string name, CardClass deckClass)
         return false;
     }
 
-    m_decks.emplace_back(new Deck(name, deckClass));
+    m_decks.emplace_back(new DeckInfo(name, deckClass));
     return true;
 }
 

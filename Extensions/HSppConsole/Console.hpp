@@ -8,10 +8,10 @@
 #define HEARTHSTONEPP_CONSOLE_HPP
 
 #include <hspp/Accounts/AccountInfo.hpp>
+#include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Commons/Macros.hpp>
-#include <hspp/Models/Deck.hpp>
 
 #include <clara.hpp>
 

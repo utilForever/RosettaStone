@@ -45,7 +45,7 @@ AccountInfo* AccountLoader::Load(std::string email) const
 
         auto nickname = j["nickname"].get<std::string>();
 
-        std::vector<Deck*> decks;
+        std::vector<DeckInfo*> decks;
         decks.reserve(j["decks"].size());
 
         if (!j["decks"].is_null())
@@ -56,7 +56,7 @@ AccountInfo* AccountLoader::Load(std::string email) const
                     deck["class"].get<std::string>().c_str());
                 const std::string deckName = deck["name"].get<std::string>();
 
-                Deck* d = new Deck(deckName, deckClass);
+                DeckInfo* d = new DeckInfo(deckName, deckClass);
                 for (auto& card : deck["cards"])
                 {
                     const std::string cardID = card["id"].get<std::string>();

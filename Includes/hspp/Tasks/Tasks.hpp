@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_TASKS_HPP
 #define HEARTHSTONEPP_TASKS_HPP
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Enums/CardEnums.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 

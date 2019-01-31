@@ -7,10 +7,10 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Models/Minion.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/TaskSerializer.hpp>
 #include <hspp/Tasks/Tasks.hpp>

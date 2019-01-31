@@ -7,9 +7,9 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_HPP
 #define HEARTHSTONEPP_GAME_AGENT_HPP
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Minion.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Tasks/TaskAgent.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 

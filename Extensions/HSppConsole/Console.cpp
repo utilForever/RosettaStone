@@ -216,8 +216,8 @@ void Console::SimulateGame() const
     AccountInfo* p1 = loader.Load(user1);
     AccountInfo* p2 = loader.Load(user2);
 
-    Deck* deck1 = p1->GetDeck(deckIndex1);
-    Deck* deck2 = p2->GetDeck(deckIndex2);
+    DeckInfo* deck1 = p1->GetDeck(deckIndex1);
+    DeckInfo* deck2 = p2->GetDeck(deckIndex2);
 
     GameAgent agent(deck1->GetClass(), deck2->GetClass());
     agent.GetPlayer1().SetNickname(p1->GetNickname());
@@ -327,7 +327,7 @@ int Console::OperateDeck(size_t deckIndex)
 
 void Console::AddCardInDeck(size_t deckIndex)
 {
-    Deck* deck = m_account->GetDeck(deckIndex - 1);
+    DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
     {
@@ -377,7 +377,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
 void Console::DeleteCardInDeck(size_t deckIndex) const
 {
-    Deck* deck = m_account->GetDeck(deckIndex - 1);
+    DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() == 0)
     {

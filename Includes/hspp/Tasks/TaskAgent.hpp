@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_TASK_AGENT_HPP
 #define HEARTHSTONEPP_TASK_AGENT_HPP
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Managers/SyncBuffer.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 #include <hspp/Tasks/TaskSerializer.hpp>
 #include <hspp/Tasks/Tasks.hpp>

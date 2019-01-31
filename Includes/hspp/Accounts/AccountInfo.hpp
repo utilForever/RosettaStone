@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_ACCOUNT_INFO_HPP
 #define HEARTHSTONEPP_ACCOUNT_INFO_HPP
 
-#include <hspp/Models/Deck.hpp>
+#include <hspp/Accounts/DeckInfo.hpp>
 
 #include <vector>
 
@@ -36,7 +36,7 @@ class AccountInfo
     //! \param nickname Nickname of account.
     //! \param decks A list of decks.
     AccountInfo(std::string&& email, std::string&& nickname,
-                std::vector<Deck*> decks);
+                std::vector<DeckInfo*> decks);
 
     //! Returns e-mail address of account.
     //! \return E-mail address of account.
@@ -53,7 +53,7 @@ class AccountInfo
     //! Returns a pointer to deck at \p idx.
     //! \param idx Index of decks.
     //! \return A pointer to deck at \p idx.
-    Deck* GetDeck(size_t idx) const;
+    DeckInfo* GetDeck(size_t idx) const;
 
     //! Prints a list of decks.
     void ShowDeckList() const;
@@ -72,7 +72,7 @@ class AccountInfo
  private:
     std::string m_email;
     std::string m_nickname;
-    std::vector<Deck*> m_decks;
+    std::vector<DeckInfo*> m_decks;
 };
 }  // namespace Hearthstonepp
 
