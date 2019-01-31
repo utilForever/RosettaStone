@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_HSPP_HPP
 #define HEARTHSTONEPP_HSPP_HPP
 
-#include <hspp/Accounts/Account.hpp>
+#include <hspp/Accounts/AccountInfo.hpp>
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Actions/Generic.hpp>
 #include <hspp/Actions/Targeting.hpp>

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_ACCOUNT_HPP
-#define HEARTHSTONEPP_ACCOUNT_HPP
+#ifndef HEARTHSTONEPP_ACCOUNT_INFO_HPP
+#define HEARTHSTONEPP_ACCOUNT_INFO_HPP
 
 #include <hspp/Models/Deck.hpp>
 
@@ -14,36 +14,36 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Account class.
+//! \brief AccountInfo class.
 //!
-//! This class stores user information such as e-mail address and nickname.
-//! Also, it stores a list of decks. A user can construct several decks.
+//! This class stores account information such as e-mail address and nickname.
+//! Also, it stores a list of decks. An account can make several decks.
 //!
-class Account
+class AccountInfo
 {
  public:
     //! Constructs anonymous account.
-    Account();
+    AccountInfo();
 
     //! Constructs account with given \p email and \p nickname.
-    //! \param email E-mail address of user.
-    //! \param nickname Nickname of user.
-    Account(std::string&& email, std::string&& nickname);
+    //! \param email E-mail address of account.
+    //! \param nickname Nickname of account.
+    AccountInfo(std::string&& email, std::string&& nickname);
 
     //! Constructs account with given \p email and \p nickname
     //! and fill deck list with \p decks.
-    //! \param email E-mail address of user.
-    //! \param nickname Nickname of user.
+    //! \param email E-mail address of account.
+    //! \param nickname Nickname of account.
     //! \param decks A list of decks.
-    Account(std::string&& email, std::string&& nickname,
-            std::vector<Deck*> decks);
+    AccountInfo(std::string&& email, std::string&& nickname,
+                std::vector<Deck*> decks);
 
-    //! Returns e-mail address of user.
-    //! \return E-mail address of user.
+    //! Returns e-mail address of account.
+    //! \return E-mail address of account.
     std::string GetEmail() const;
 
-    //! Returns nickname of user.
-    //! \return Nickname of user.
+    //! Returns nickname of account.
+    //! \return Nickname of account.
     std::string GetNickname() const;
 
     //! Returns the number of decks.
@@ -76,4 +76,4 @@ class Account
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_ACCOUNT_HPP
+#endif  // HEARTHSTONEPP_ACCOUNT_INFO_HPP
