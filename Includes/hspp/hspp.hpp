@@ -34,6 +34,7 @@
 #include <hspp/Managers/SyncBuffer.hpp>
 #include <hspp/Models/Battlefield.hpp>
 #include <hspp/Models/Character.hpp>
+#include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Models/Hero.hpp>
