@@ -18,13 +18,13 @@ constexpr float VERSION = 0.3f;
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
 constexpr std::size_t NUM_PLAYER_CLASS = 9;
 
-//! The maximum number of cards that can be stored in the deck.
-//! \note A deck is a collection of exactly 30 cards.
-constexpr std::size_t MAXIMUM_NUM_CARDS_IN_DECK = 30;
+//! The number of cards that can be stored in the deck at game start.
+constexpr std::size_t START_DECK_SIZE = 30;
+
+//! The maximum number of cards that can be stored in the deck during game.
+constexpr std::size_t MAX_DECK_SIZE = 60;
 
 //! The maximum number of minions that can be placed in the field.
-//! \note Each player can normally have a maximum of 7 minions on the
-//! battlefield at any time.
 constexpr std::size_t FIELD_SIZE = 7;
 
 //! The number of cards that the player going first will be given.
