@@ -7,15 +7,14 @@
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Models/HeroPower.hpp>
-#include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Player.hpp>
-#include <hspp/Models/Weapon.hpp>
 
 namespace Hearthstonepp
 {
 Player::Player() : m_id(USER_INVALID)
 {
     m_field.SetOwner(*this);
+    m_deck.SetOwner(*this);
     m_hand.SetOwner(*this);
 }
 
