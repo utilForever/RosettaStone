@@ -10,6 +10,16 @@ namespace Hearthstonepp
 {
 Deck::Deck()
 {
-    // Do nothing
+    m_cards.fill(nullptr);
+}
+
+Player& Deck::GetOwner() const
+{
+    return *m_owner;
+}
+
+void Deck::SetOwner(Player& owner)
+{
+    m_owner = &owner;
 }
 }  // namespace Hearthstonepp

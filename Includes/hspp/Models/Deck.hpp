@@ -7,6 +7,11 @@
 #ifndef HEARTHSTONEPP_DECK_HPP
 #define HEARTHSTONEPP_DECK_HPP
 
+#include <hspp/Commons/Constants.hpp>
+#include <hspp/Models/Entity.hpp>
+
+#include <array>
+
 namespace Hearthstonepp
 {
 //!
@@ -22,6 +27,20 @@ class Deck
  public:
     //! Default constructor.
     Deck();
+
+    //! Returns the owner of deck.
+    //! \return The owner of deck.
+    Player& GetOwner() const;
+
+    //! Sets the owner of deck.
+    //! \param owner The owner of deck.
+    void SetOwner(Player& owner);
+
+ private:
+    Player* m_owner = nullptr;
+    std::array<Entity*, MAX_DECK_SIZE> m_cards{};
+
+    std::size_t m_numCard = 0;
 };
 }  // namespace Hearthstonepp
 
