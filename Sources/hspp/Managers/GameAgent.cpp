@@ -161,12 +161,7 @@ bool GameAgent::ProcessMainMenu()
         return true;
     }
 
-    TaskMeta meta;
-    m_taskAgent.Run(meta, GetCurrentPlayer(), BriefTask());
-
-    // Get menu response from game interface
-    Requirement(TaskID::SELECT_MENU, m_taskAgent)
-        .Interact(m_player1.GetID(), meta);
+    TaskMeta meta = m_game.GetCurrentPlayer().GetPolicy().Next(m_game);
 
     // Interface pass menu by the status of TaskMeta
     const auto menu = static_cast<status_t>(meta.GetStatus());
@@ -174,9 +169,7 @@ bool GameAgent::ProcessMainMenu()
     if (menu == GAME_MAIN_MENU_SIZE - 1)
     {
         // End main end phase
-        SetCurrentPlayer(m_currentPlayer == PlayerType::PLAYER2
-                             ? PlayerType::PLAYER1
-                             : PlayerType::PLAYER2);
+        m_game.FlipCurrentPlayer();
     }
     else
     {
@@ -195,15 +188,12 @@ bool GameAgent::ProcessMainMenu()
 
 void GameAgent::PlayCard()
 {
-    TaskMeta meta;
-    m_taskAgent.Run(meta, GetCurrentPlayer(), PlayCardTask(m_taskAgent));
+    Task::Run(m_game.GetCurrentPlayer(), PlayCardTask());
 }
 
 void GameAgent::Combat()
 {
-    TaskMeta meta;
-    m_taskAgent.Run(meta, GetCurrentPlayer(),
-                    CombatTask(m_taskAgent, nullptr, nullptr));
+    Task:Run(m_game.GetCurrentPlayer(), CombatTask());
 }
 
 bool GameAgent::IsGameOver() const
