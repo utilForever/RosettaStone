@@ -36,6 +36,10 @@ class Deck
     //! \param owner The owner of deck.
     void SetOwner(Player& owner);
 
+    //! Adds a card to deck.
+    //! \param card The card to add to deck.
+    void AddCard(Entity& card);
+
  private:
     Player* m_owner = nullptr;
     std::array<Entity*, MAX_DECK_SIZE> m_cards{};
