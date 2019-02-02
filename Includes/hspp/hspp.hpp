@@ -67,7 +67,6 @@
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
-#include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 #include <hspp/Tasks/TaskAgent.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 #include <hspp/Tasks/TaskSerializer.hpp>
