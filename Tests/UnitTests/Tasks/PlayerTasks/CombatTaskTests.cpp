@@ -10,7 +10,7 @@
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Game/Game.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 

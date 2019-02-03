@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Cards/Cards.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/GameAgent.hpp>
 #include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>

@@ -12,7 +12,7 @@
 #include <hspp/Commons/Utils.hpp>
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/GameAgent.hpp>
 
 #include <cctype>
 #if defined(HEARTHSTONEPP_WINDOWS)

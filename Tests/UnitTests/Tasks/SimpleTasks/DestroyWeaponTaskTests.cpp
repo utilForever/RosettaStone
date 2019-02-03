@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Game/Game.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyWeaponTask.hpp>
 
 using namespace Hearthstonepp;

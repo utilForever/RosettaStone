@@ -7,7 +7,7 @@
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/GameAgent.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 
 #include <utility>

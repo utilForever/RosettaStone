@@ -9,7 +9,7 @@
 
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Game/Game.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
 #include <array>

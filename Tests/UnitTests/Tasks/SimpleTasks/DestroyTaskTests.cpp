@@ -9,7 +9,7 @@
 
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
-#include <hspp/Game/Game.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 
 using namespace Hearthstonepp;

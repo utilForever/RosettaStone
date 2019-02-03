@@ -32,12 +32,11 @@
 #include <hspp/Enchants/Powers.hpp>
 #include <hspp/Enums/CardEnums.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
-#include <hspp/Game/Game.hpp>
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
 #include <hspp/Loaders/PowerLoader.hpp>
-#include <hspp/Managers/GameAgent.hpp>
-#include <hspp/Managers/GameInterface.hpp>
+#include <hspp/Models/Game.hpp>
+#include <hspp/Models/GameAgent.hpp>
 #include <hspp/Policy/BasicPolicy.hpp>
 #include <hspp/Policy/IoPolicy.hpp>
 #include <hspp/Policy/Policy.hpp>

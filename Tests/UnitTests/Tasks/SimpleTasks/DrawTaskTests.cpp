@@ -7,7 +7,7 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Cards/Cards.hpp>
-#include <hspp/Game/Game.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 
 using namespace Hearthstonepp;
