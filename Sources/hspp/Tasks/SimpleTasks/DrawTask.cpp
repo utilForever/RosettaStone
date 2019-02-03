@@ -7,6 +7,7 @@
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
 #include <hspp/Commons/Constants.hpp>
+#include <hspp/Commons/Utils.hpp>
 #include <hspp/Models/GameAgent.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 
@@ -56,13 +57,12 @@ TaskStatus DrawTask::Impl(Player& player)
         // The number of overdraw
         const size_t over = hand.size() + num - MAXIMUM_NUM_CARDS_IN_HAND;
 
-        std::vector<Entity*> burnt;
-        burnt.reserve(over);
+        Box<Entity*> burnt(over);
 
         // Draw burnt card
         for (size_t i = 0; i < over; ++i)
         {
-            burnt.emplace_back(deck.back());
+            burnt[i] = deck.back();
             deck.pop_back();
         }
 
@@ -77,10 +77,10 @@ TaskStatus DrawTask::Impl(Player& player)
             result = TaskStatus::DRAW_OVERDRAW;
         }
 
-        // Send burnt cards to GameInterface
-        // const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.GetID());
-        // player.GetGameAgent().NotifyToTaskAgent(
-        //     Serializer::CreateEntityVector(trait, burnt));
+        // Send burnt cards to policy
+        TaskMetaTrait trait(TaskID::DRAW, TaskStatus::DRAW_OVERDRAW,
+                            player.GetID());
+        player.GetPolicy().Notify(TaskMeta(trait, std::move(burnt)));
     }
 
     // Draw success
