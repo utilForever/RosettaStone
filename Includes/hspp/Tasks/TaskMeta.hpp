@@ -153,7 +153,7 @@ class TaskMeta : public TaskMetaTrait
     //! Move objects that this class had.
     //! \return Objects from this class.
     template <typename T>
-    T MoveObejct()
+    T MoveObject()
     {
         return std::any_cast<T&&>(std::move(m_object));
     }
