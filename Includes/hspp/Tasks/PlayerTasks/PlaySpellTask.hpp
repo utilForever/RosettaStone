@@ -6,8 +6,6 @@
 #ifndef HEARTHSTONEPP_PLAY_SPELL_TASK_HPP
 #define HEARTHSTONEPP_PLAY_SPELL_TASK_HPP
 
-#include <hspp/Tasks/Requirement.hpp>
-#include <hspp/Tasks/TaskAgent.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::PlayerTasks
@@ -25,7 +23,7 @@ class PlaySpellTask : public ITask
     //! \param agent The task agent that interacts with game interface.
     //! \param source A pointer to source entity to play card.
     //! \param target A target of the card to receive power.
-    PlaySpellTask(TaskAgent& agent, Entity* source, Entity* target);
+    PlaySpellTask(Entity* source, Entity* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -38,7 +36,6 @@ class PlaySpellTask : public ITask
     MetaData Impl(Player& player) override;
 
     Entity* m_source = nullptr;
-    Requirement m_requirement;
     Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::PlayerTasks

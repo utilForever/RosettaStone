@@ -11,10 +11,8 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-PlaySpellTask::PlaySpellTask(TaskAgent& agent, Entity* source, Entity* target)
-    : m_source(source),
-      m_requirement(TaskID::SELECT_TARGET, agent),
-      m_target(target)
+PlaySpellTask::PlaySpellTask(Entity* source, Entity* target)
+    : m_source(source), m_target(target)
 {
     // Do nothing
 }
@@ -37,21 +35,23 @@ MetaData PlaySpellTask::Impl(Player& player)
     }
     else
     {
-        TaskMeta meta;
+        // TaskMeta meta;
 
-        // Get position response from GameInterface
-        m_requirement.Interact(player.GetID(), meta);
+        // // Get position response from GameInterface
+        // m_requirement.Interact(player.GetID(), meta);
 
-        using ResponsePlaySpell = FlatData::ResponsePlaySpell;
-        const auto& buffer = meta.GetBuffer();
-        const auto req = flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
+        // using ResponsePlaySpell = FlatData::ResponsePlaySpell;
+        // const auto& buffer = meta.GetBuffer();
+        // const auto req =
+        // flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
 
-        if (req == nullptr)
-        {
-            return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
-        }
+        // if (req == nullptr)
+        // {
+        //     return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
+        // }
 
-        position = req->position();
+        // position = req->position();
+        position = 0;
     }
 
     // Verify field position
