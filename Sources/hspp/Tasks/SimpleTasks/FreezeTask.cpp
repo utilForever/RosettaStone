@@ -5,6 +5,8 @@
 
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 
+#include <algorithm>
+
 namespace Hearthstonepp::SimpleTasks
 {
 FreezeTask::FreezeTask(Character* target, EntityType type)

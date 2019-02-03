@@ -7,6 +7,8 @@
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 
+#include <algorithm>
+
 using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks

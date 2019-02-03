@@ -5,6 +5,7 @@
 
 #include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 
+#include <algorithm>
 #include <random>
 
 namespace Hearthstonepp::SimpleTasks

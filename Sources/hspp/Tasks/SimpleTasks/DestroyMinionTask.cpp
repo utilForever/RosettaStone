@@ -6,6 +6,8 @@
 #include <hspp/Cards/Character.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
 
+#include <algorithm>
+
 namespace Hearthstonepp::SimpleTasks
 {
 DestroyMinionTask::DestroyMinionTask(Entity* entity)
