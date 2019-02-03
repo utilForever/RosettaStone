@@ -78,7 +78,7 @@ TaskStatus DrawTask::Impl(Player& player)
         }
 
         // Send burnt cards to policy
-        TaskMetaTrait trait(TaskID::DRAW, TaskStatus::DRAW_OVERDRAW,
+        TaskMetaTrait trait(TaskID::OVERDRAW, TaskStatus::DRAW_OVERDRAW,
                             player.GetID());
         player.GetPolicy().Notify(TaskMeta(trait, std::move(burnt)));
     }
