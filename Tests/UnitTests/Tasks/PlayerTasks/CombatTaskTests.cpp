@@ -10,7 +10,7 @@
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Game/Game.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 
@@ -23,26 +23,25 @@ class CombatTester
 {
  public:
     CombatTester()
-        : m_gameAgent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1),
-          m_taskAgent(m_gameAgent.GetTaskAgent())
+        : m_game(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1)
     {
         // Do nothing
     }
 
     std::tuple<Player&, Player&> GetPlayer()
     {
-        return { m_gameAgent.GetPlayer1(), m_gameAgent.GetPlayer2() };
+        return { m_game.GetPlayer1(), m_game.GetPlayer2() };
     }
 
     void InitAttackCount(PlayerType playerType)
     {
         if (playerType == PlayerType::PLAYER1)
         {
-            InitAttackCountTask().Run(m_gameAgent.GetPlayer1());
+            InitAttackCountTask().Run(m_game.GetPlayer1());
         }
         else
         {
-            InitAttackCountTask().Run(m_gameAgent.GetPlayer2());
+            InitAttackCountTask().Run(m_game.GetPlayer2());
         }
     }
 
@@ -53,27 +52,23 @@ class CombatTester
 
         if (playerType == PlayerType::PLAYER1)
         {
-            result = CombatTask(m_taskAgent, source, target)
-                         .Run(m_gameAgent.GetPlayer1());
+            result = CombatTask(source, target).Run(m_game.GetPlayer1());
         }
         else
         {
-            result = CombatTask(m_taskAgent, source, target)
-                         .Run(m_gameAgent.GetPlayer2());
+            result = CombatTask(source, target).Run(m_game.GetPlayer2());
         }
 
         EXPECT_EQ(result, expected);
     }
 
  private:
-    GameAgent m_gameAgent;
-    TaskAgent& m_taskAgent;
+    Game m_game;
 };
 
 TEST(CombatTask, GetTaskID)
 {
-    TaskAgent agent;
-    const CombatTask combat(agent, nullptr, nullptr);
+    const CombatTask combat(nullptr, nullptr);
 
     EXPECT_EQ(combat.GetTaskID(), +TaskID::COMBAT);
 }
