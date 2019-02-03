@@ -6,7 +6,6 @@
 #ifndef HEARTHSTONEPP_MULLIGAN_TASK_HPP
 #define HEARTHSTONEPP_MULLIGAN_TASK_HPP
 
-#include <hspp/Tasks/TaskAgent.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::PlayerTasks

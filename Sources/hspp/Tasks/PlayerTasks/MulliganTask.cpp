@@ -5,6 +5,7 @@
 
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Commons/Utils.hpp>
+#include <hspp/Policy/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
@@ -15,11 +16,6 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-MulliganTask::MulliganTask()
-{
-    // Do nothing
-}
-
 TaskID MulliganTask::GetTaskID() const
 {
     return TaskID::MULLIGAN;
@@ -34,7 +30,7 @@ MetaData MulliganTask::Impl(Player& player)
     }
 
     Box<size_t>& index = result.GetObject<Box<size_t>>();
-    if (index.size() == 0) 
+    if (index.size() == 0)
     {
         return MetaData::MULLIGAN_SUCCESS;
     }
@@ -61,7 +57,8 @@ MetaData MulliganTask::Impl(Player& player)
     std::vector<Entity*>& hand = player.GetHand();
 
     // Rollback to deck
-    for (size_t idx : index) {
+    for (size_t idx : index)
+    {
         deck.emplace_back(hand[idx]);
         hand.erase(hand.begin() + idx);
     }
