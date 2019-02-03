@@ -10,11 +10,8 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-PlayMinionTask::PlayMinionTask(TaskAgent& agent, Entity* source, int fieldPos,
-                               Entity* target)
-    : ITask(source, target),
-      m_requirement(TaskID::SELECT_POSITION, agent),
-      m_fieldPos(fieldPos)
+PlayMinionTask::PlayMinionTask(Entity* source, int fieldPos, Entity* target)
+    : ITask(source, target), m_fieldPos(fieldPos)
 {
     // Do nothing
 }
@@ -37,21 +34,22 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
     else
     {
-        TaskMeta meta;
+    //     TaskMeta meta;
 
-        // Get position response from GameInterface
-        m_requirement.Interact(player.GetID(), meta);
+    //     // Get position response from GameInterface
+    //     m_requirement.Interact(player.GetID(), meta);
 
-        using RequireTaskMeta = FlatData::ResponsePlayMinion;
-        const auto& buffer = meta.GetBuffer();
-        const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+    //     using RequireTaskMeta = FlatData::ResponsePlayMinion;
+    //     const auto& buffer = meta.GetBuffer();
+    //     const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
-        if (req == nullptr)
-        {
-            return MetaData::PLAY_MINION_FLATBUFFER_NULLPTR;
-        }
+    //     if (req == nullptr)
+    //     {
+    //         return MetaData::PLAY_MINION_FLATBUFFER_NULLPTR;
+    //     }
 
-        position = req->position();
+    //     position = req->position();
+        position = 0;
     }
 
     // Verify field position
