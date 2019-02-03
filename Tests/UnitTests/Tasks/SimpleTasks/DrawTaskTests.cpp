@@ -7,11 +7,30 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Cards/Cards.hpp>
+#include <hspp/Commons/Utils.hpp>
 #include <hspp/Models/Game.hpp>
+#include <hspp/Policy/BasicPolicy.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace SimpleTasks;
+
+class DrawTestPolicy : public BasicPolicy
+{
+ public:
+    DrawTestPolicy(std::function<void(const TaskMeta&)>&& overdrawHandler)
+        : m_overdrawHandler(std::move(overdrawHandler))
+    {
+    }
+
+    void NotifyOverDraw(const TaskMeta& meta) override
+    {
+        m_overdrawHandler(meta);
+    }
+
+ private:
+    std::function<void(const TaskMeta&)> m_overdrawHandler;
+};
 
 TEST(DrawTask, GetTaskID)
 {
@@ -118,26 +137,26 @@ TEST(DrawTask, RunOverDraw)
 
     DrawTask draw(3);
 
+    DrawTestPolicy policy([&](const TaskMeta& burnt) {
+        EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+        EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
+        EXPECT_EQ(burnt.GetUserID(), p.GetID());
+
+        EXPECT_TRUE(burnt.HasObjects());
+
+        const Box<Entity*>& entities = burnt.GetObject<Box<Entity*>>();
+        for (size_t i = 0; i < 3; ++i)
+        {
+            EXPECT_EQ(entities[i]->card->id,
+                      id + static_cast<char>(2 - i + 0x30));
+        }
+    });
+    p.SetPolicy(&policy);
+
     TaskStatus result = draw.Run(p);
     EXPECT_EQ(result, TaskStatus::DRAW_OVERDRAW);
     EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(10));
-
-    // TaskMeta burnt;
-    // game.GetTaskMeta(burnt);
-    // EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-    // EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
-    // EXPECT_EQ(burnt.GetUserID(), p.GetID());
-
-    // auto burntCard =
-    //     TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
-    // EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(3));
-
-    // for (flatbuffers::uoffset_t i = 0; i < 3; ++i)
-    // {
-    //     auto card = burntCard->Get(i)->card();
-    //     EXPECT_EQ(card->id()->str(), id + static_cast<char>(2 - i + 0x30));
-    // }
 }
 
 TEST(DrawTask, RunExhaustOverdraw)
@@ -168,27 +187,27 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     DrawTask draw(4);
 
+    DrawTestPolicy policy([&](const TaskMeta& burnt) {
+        EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+        EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
+        EXPECT_EQ(burnt.GetUserID(), p.GetID());
+
+        EXPECT_TRUE(burnt.HasObjects());
+
+        const Box<Entity*>& entities = burnt.GetObject<Box<Entity*>>();
+        for (size_t i = 0; i < 2; ++i)
+        {
+            EXPECT_EQ(entities[i]->card->id,
+                        id + static_cast<char>(2 - i + 0x30));
+        }
+    });
+    p.SetPolicy(&policy);
+
     TaskStatus result = draw.Run(p);
     EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(10));
     EXPECT_EQ(p.GetHand()[9]->card->id, "card0");
-
-    // TaskMeta burnt;
-    // agent.GetTaskMeta(burnt);
-    // EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-    // EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_EXHAUST_OVERDRAW);
-    // EXPECT_EQ(burnt.GetUserID(), p.GetID());
-
-    // auto burntCard =
-    //     TaskMeta::ConvertTo<FlatData::EntityVector>(burnt)->vector();
-    // EXPECT_EQ(burntCard->size(), static_cast<flatbuffers::uoffset_t>(2));
-
-    // for (flatbuffers::uoffset_t i = 0; i < 2; ++i)
-    // {
-    //     auto card = burntCard->Get(i)->card();
-    //     EXPECT_EQ(card->id()->str(), id + static_cast<char>(2 - i + 0x30));
-    // }
 }
 
 TEST(DrawCardTask, GetTaskID)
