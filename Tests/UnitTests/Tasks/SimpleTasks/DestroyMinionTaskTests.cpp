@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Cards/Minion.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Game/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
 
 using namespace Hearthstonepp;
@@ -24,8 +24,8 @@ TEST(DestroyMinionTask, GetTaskID)
 
 TEST(DestroyMinionTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& player1 = agent.GetPlayer1();
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = game.GetPlayer1();
 
     std::vector<Card> cards;
     cards.reserve(5);
