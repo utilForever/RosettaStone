@@ -6,7 +6,6 @@
 #ifndef HEARTHSTONEPP_PLAYER_SETTING_TASK_HPP
 #define HEARTHSTONEPP_PLAYER_SETTING_TASK_HPP
 
-#include <hspp/Tasks/TaskAgent.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::PlayerTasks
