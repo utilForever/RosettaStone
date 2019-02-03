@@ -20,7 +20,7 @@ namespace Hearthstonepp
 {
 struct GameResult
 {
-}
+};
 
 //!
 //! \brief GameAgent class.
@@ -37,20 +37,8 @@ class GameAgent
     //! \param p1Policy The game playing policy for player1.
     //! \param p2Policy The game playing policy for player2.
     //! \param firstPlayer The first player who starts turn first.
-    GameAgent(CardClass p1Class, CardClass p2Class, Policy* p1Policy,
-              Policy* p2Policy, PlayerType firstPlayer = PlayerType::PLAYER1);
-
-    //! Constructs agent with given \p game.
-    //! \param game The game for running agent.
-    //! \param p1Policy The game playing policy for player1.
-    //! \param p2Policy The game playing policy for player2.
-    GameAgent(const Game& game, Policy* p1Policy, Policy* p2Policy);
-
-    //! Constructs agent with given \p game and policy.
-    //! \param game The game for running agent.
-    //! \param p1Policy The game playing policy for player1.
-    //! \param p2Policy The game playing policy for player2.
-    GameAgent(Game&& game, Policy* p1Policy, Policy* p2Policy);
+    GameAgent(CardClass p1Class, CardClass p2Class, IPolicy* p1Policy,
+              IPolicy* p2Policy, PlayerType firstPlayer = PlayerType::PLAYER1);
 
     //! Starts the game agent.
     //! \return The thread that plays the game.
@@ -67,7 +55,7 @@ class GameAgent
  private:
     //! Returns whether the game is over.
     //! \return true if the game is over, and false otherwise.
-    bool IsGameOver() const;
+    bool IsGameOver();
 
     //! Processes the begin phase of the game.
     void BeginPhase();

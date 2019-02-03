@@ -13,7 +13,6 @@
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
-#include <hspp/Tasks/Requirement.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
@@ -27,23 +26,9 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp
 {
-GameAgent::GameAgent(CardClass p1Class, CardClass p2Class, Policy* p1Policy,
-                     Policy* p2Policy, PlayerType firstPlayer)
+GameAgent::GameAgent(CardClass p1Class, CardClass p2Class, IPolicy* p1Policy,
+                     IPolicy* p2Policy, PlayerType firstPlayer)
     : m_game(p1Class, p2Class, firstPlayer)
-{
-    m_game.GetPlayer1().SetPolicy(p1Policy);
-    m_game.GetPlayer2().SetPolicy(p2Policy);
-}
-
-GameAgent::GameAgent(const Game& game, Policy* p1Policy, Policy* p2Policy)
-    : m_game(game)
-{
-    m_game.GetPlayer1().SetPolicy(p1Policy);
-    m_game.GetPlayer2().SetPolicy(p2Policy);
-}
-
-GameAgent::GameAgent(Game&& game, Policy* p1Policy, Policy* p2Policy)
-    : m_game(std::move(game))
 {
     m_game.GetPlayer1().SetPolicy(p1Policy);
     m_game.GetPlayer2().SetPolicy(p2Policy);
@@ -146,11 +131,12 @@ void GameAgent::PrepareMainPhase()
     // NOTE: A player can never have more than 10 maximum mana.
     // 3. Refill all of their non-overloaded mana crystals.
     // 4. Initialize attack count of minions and hero.
-    Task::RunMulti(m_game.GetCurrentPlayer(), DrawTask(1),
-                   ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
-                   ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
-                                  m_player1.GetMaximumMana() + 1),
-                   InitAttackCountTask());
+    Task::RunMulti(
+        m_game.GetCurrentPlayer(), DrawTask(1),
+        ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
+        ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
+                       m_game.GetCurrentPlayer().GetMaximumMana() + 1),
+        InitAttackCountTask());
 }
 
 bool GameAgent::ProcessMainMenu()
@@ -193,13 +179,13 @@ void GameAgent::PlayCard()
 
 void GameAgent::Combat()
 {
-    Task:Run(m_game.GetCurrentPlayer(), CombatTask());
+    Task::Run(m_game.GetCurrentPlayer(), CombatTask(nullptr, nullptr));
 }
 
-bool GameAgent::IsGameOver() const
+bool GameAgent::IsGameOver()
 {
-    const int healthCurrent = m_player1.GetHero()->health;
-    const int healthOpponent = m_player2.GetHero()->health;
+    const int healthCurrent = m_game.GetPlayer1().GetHero()->health;
+    const int healthOpponent = m_game.GetPlayer2().GetHero()->health;
 
     return healthCurrent <= 0 || healthOpponent <= 0;
 }
