@@ -13,8 +13,7 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-CombatTask::CombatTask(TaskAgent& agent, Entity* source, Entity* target)
-    : ITask(source, target), m_requirement(TaskID::SELECT_TARGET, agent)
+CombatTask::CombatTask(Entity* source, Entity* target) : ITask(source, target)
 {
     // Do nothing
 }
@@ -168,12 +167,13 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         return std::make_tuple(sourceIndex, targetIndex);
     }
 
-    TaskMeta serialized;
-    // Get targeting response from game interface
-    m_requirement.Interact(player.GetID(), serialized);
+    // TaskMeta serialized;
+    // // Get targeting response from game interface
+    // m_requirement.Interact(player.GetID(), serialized);
 
-    // Get the source and the target
-    const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
-    return std::make_tuple(req->src(), req->dst());
+    // // Get the source and the target
+    // const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
+    // return std::make_tuple(req->src(), req->dst());
+    return std::make_tuple(static_cast<BYTE>(0), static_cast<BYTE>(0));
 }
 }  // namespace Hearthstonepp::PlayerTasks
