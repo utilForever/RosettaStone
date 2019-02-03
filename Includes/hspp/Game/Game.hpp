@@ -30,11 +30,17 @@ class Game
     Game(CardClass p1Class, CardClass p2Class,
          PlayerType firstPlayer = PlayerType::PLAYER1);
 
-    Game(const Game&) = default;
-    Game(Game&&) = default;
+    //! Copy Constructor
+    Game(const Game&) = delete;
 
-    Game& operator=(const Game&) = default;
-    Game& operator=(Game&&) = default;
+    //! Move Constructor
+    Game(Game&&) = delete;
+
+    //! Copy assignment
+    Game& operator=(const Game&) = delete;
+    
+    //! Move assignment
+    Game& operator=(Game&&) = delete;
 
     //! Returns the first player.
     //! \return The first player.
