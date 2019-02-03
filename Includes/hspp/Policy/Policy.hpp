@@ -8,11 +8,12 @@
 #define HEARTHSTONEPP_POLICY_HPP
 
 #include <hspp/Enums/TaskEnums.hpp>
-#include <hspp/Game/Game.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 
 namespace Hearthstonepp
 {
+class Game;
+
 class IPolicy
 {
  public:

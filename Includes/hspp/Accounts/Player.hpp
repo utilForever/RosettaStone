@@ -12,7 +12,6 @@
 #include <hspp/Cards/Entity.hpp>
 #include <hspp/Cards/Hero.hpp>
 #include <hspp/Cards/Spell.hpp>
-#include <hspp/Policy/Policy.hpp>
 
 #include <string>
 #include <vector>
@@ -21,7 +20,7 @@ namespace Hearthstonepp
 {
 using BYTE = unsigned char;
 
-class GameAgent;
+class IPolicy;
 
 //!
 //! \brief Player class.
