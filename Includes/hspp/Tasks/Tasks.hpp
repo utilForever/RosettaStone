@@ -76,7 +76,7 @@ namespace Task
 //! Calls Impl method and returns meta data.
 //! \param player The player to run task.
 //! \return The result of task processing.
-MetaData Run(Player& player, ITask&& task)
+inline MetaData Run(Player& player, ITask&& task)
 {
     return task.Run(player);
 }
