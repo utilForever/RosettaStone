@@ -5,6 +5,8 @@
 
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 
+#include <algorithm>
+
 namespace Hearthstonepp::SimpleTasks
 {
 ModifyManaTask::ModifyManaTask(ManaOperator numMode, ManaType manaMode,
