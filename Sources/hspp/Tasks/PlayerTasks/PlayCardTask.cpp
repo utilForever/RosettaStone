@@ -10,13 +10,8 @@
 
 namespace Hearthstonepp::PlayerTasks
 {
-PlayCardTask::PlayCardTask(TaskAgent& agent, Entity* source, int fieldPos,
-                           Entity* target)
-    : m_agent(agent),
-      m_requirement(TaskID::SELECT_CARD, agent),
-      m_source(source),
-      m_fieldPos(fieldPos),
-      m_target(target)
+PlayCardTask::PlayCardTask(Entity* source, int fieldPos, Entity* target)
+    : m_source(source), m_fieldPos(fieldPos), m_target(target)
 {
     // Do nothing
 }
@@ -39,21 +34,22 @@ MetaData PlayCardTask::Impl(Player& player)
     }
     else
     {
-        TaskMeta serialized;
+        // TaskMeta serialized;
 
-        // Get response from GameInterface
-        m_requirement.Interact(player.GetID(), serialized);
+        // // Get response from GameInterface
+        // m_requirement.Interact(player.GetID(), serialized);
 
-        using RequireTaskMeta = FlatData::ResponsePlayCard;
-        const auto& buffer = serialized.GetBuffer();
-        const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
+        // using RequireTaskMeta = FlatData::ResponsePlayCard;
+        // const auto& buffer = serialized.GetBuffer();
+        // const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
 
-        if (req == nullptr)
-        {
-            return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
-        }
+        // if (req == nullptr)
+        // {
+        //     return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
+        // }
 
-        handIndex = req->cardIndex();
+        // handIndex = req->cardIndex();
+        handIndex = 0;
     }
 
     // Verify index of card hand
@@ -84,12 +80,12 @@ MetaData PlayCardTask::Impl(Player& player)
     switch (entity->card->cardType)
     {
         case CardType::MINION:
-            return PlayMinionTask(m_agent, entity, m_fieldPos, m_target)
+            return PlayMinionTask(entity, m_fieldPos, m_target)
                 .Run(player);
         case CardType::WEAPON:
             return PlayWeaponTask(entity).Run(player);
         case CardType::SPELL:
-            return PlaySpellTask(m_agent, entity, m_target).Run(player);
+            return PlaySpellTask(entity, m_target).Run(player);
         default:
             return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
     }

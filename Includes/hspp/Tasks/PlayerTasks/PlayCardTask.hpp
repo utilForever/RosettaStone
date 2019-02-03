@@ -6,7 +6,6 @@
 #ifndef HEARTHSTONEPP_PLAY_CARD_TASK_HPP
 #define HEARTHSTONEPP_PLAY_CARD_TASK_HPP
 
-#include <hspp/Tasks/Requirement.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::PlayerTasks
@@ -20,12 +19,11 @@ namespace Hearthstonepp::PlayerTasks
 class PlayCardTask : public ITask
 {
  public:
-    //! Constructs task with given \p agent.
-    //! \param agent The task agent that performs card play.
+    //! Constructs task
     //! \param source A pointer to source entity to play card.
     //! \param fieldPos A value indicating where to place card.
     //! \param target A target of the card to receive power.
-    PlayCardTask(TaskAgent& agent, Entity* source = nullptr, int fieldPos = -1,
+    PlayCardTask(Entity* source = nullptr, int fieldPos = -1,
                  Entity* target = nullptr);
 
     //! Returns task ID.
@@ -38,8 +36,6 @@ class PlayCardTask : public ITask
     //! \return The result of task processing.
     MetaData Impl(Player& player) override;
 
-    TaskAgent& m_agent;
-    Requirement m_requirement;
     Entity* m_source = nullptr;
     int m_fieldPos = -1;
     Entity* m_target = nullptr;
