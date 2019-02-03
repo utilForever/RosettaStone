@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Policy/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 
@@ -34,22 +35,12 @@ TaskStatus PlayMinionTask::Impl(Player& player)
     }
     else
     {
-    //     TaskMeta meta;
-
-    //     // Get position response from GameInterface
-    //     m_requirement.Interact(player.GetID(), meta);
-
-    //     using RequireTaskMeta = FlatData::ResponsePlayMinion;
-    //     const auto& buffer = meta.GetBuffer();
-    //     const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
-    //     if (req == nullptr)
-    //     {
-    //         return TaskStatus::PLAY_MINION_FLATBUFFER_NULLPTR;
-    //     }
-
-    //     position = req->position();
-        position = 0;
+        TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_MINION);
+        if (!req.HasObjects())
+        {
+            return TaskStatus::PLAY_MINION_FLATBUFFER_NULLPTR;
+        }
+        position = req.GetObject<BYTE>();
     }
 
     // Verify field position
