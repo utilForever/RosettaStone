@@ -9,7 +9,7 @@
 
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Game/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 
 using namespace Hearthstonepp;
@@ -24,9 +24,9 @@ TEST(DestroyTask, GetTaskID)
 
 TEST(DestroyTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
 
     auto card = GenerateMinionCard("minion1", 1, 1);
 
