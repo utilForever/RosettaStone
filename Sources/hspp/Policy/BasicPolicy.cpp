@@ -10,6 +10,7 @@ namespace Hearthstonepp
 {
 TaskMeta BasicPolicy::Next(const Game& game)
 {
+    (void)game;
     return TaskMeta();
 }
 
