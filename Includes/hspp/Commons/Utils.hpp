@@ -50,22 +50,12 @@ class Box
         // Do Nothing
     }
 
-    Box(std::initializer_list<T>&& list)
-        : m_size(list.size()), m_ptr(new T[m_size])
-    {
-        size_t idx = 0;
-        for (auto const& elem : list) {
-            m_ptr[idx++] = elem;            
-        }
-    }
-
     ~Box()
     {
         reset();
     }
 
-    template <typename U>
-    Box(const Box<U>& box) : m_size(box.size()), m_ptr(new T[m_size])
+    Box(const Box& box) : m_size(box.size()), m_ptr(new T[m_size])
     {
         for (size_t i = 0; i < m_size; ++i)
         {
@@ -78,8 +68,7 @@ class Box
         box.reset();
     }
 
-    template <typename U>
-    Box& operator=(const Box<U>& box)
+    Box& operator=(const Box& box)
     {
         reset(new T[box.size()], box.size());
         for (size_t i = 0; i < m_size; ++i)
@@ -149,7 +138,7 @@ class Box
         return m_ptr[idx];
     }
 
-    const T& operator[](size_t size) const
+    const T& operator[](size_t idx) const
     {
         return m_ptr[idx];
     }
