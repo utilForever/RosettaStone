@@ -78,9 +78,9 @@ MetaData DrawTask::Impl(Player& player)
         }
 
         // Send burnt cards to GameInterface
-        const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.GetID());
-        player.GetGameAgent().NotifyToTaskAgent(
-            Serializer::CreateEntityVector(trait, burnt));
+        // const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.GetID());
+        // player.GetGameAgent().NotifyToTaskAgent(
+        //     Serializer::CreateEntityVector(trait, burnt));
     }
 
     // Draw success
