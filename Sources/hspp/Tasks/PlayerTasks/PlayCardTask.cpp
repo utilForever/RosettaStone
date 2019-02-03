@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Policy/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
@@ -11,7 +12,7 @@
 namespace Hearthstonepp::PlayerTasks
 {
 PlayCardTask::PlayCardTask(Entity* source, int fieldPos, Entity* target)
-    : m_source(source), m_fieldPos(fieldPos), m_target(target)
+    : ITask(source, target), m_fieldPos(fieldPos)
 {
     // Do nothing
 }
@@ -34,22 +35,12 @@ TaskStatus PlayCardTask::Impl(Player& player)
     }
     else
     {
-        // TaskMeta serialized;
-
-        // // Get response from GameInterface
-        // m_requirement.Interact(player.GetID(), serialized);
-
-        // using RequireTaskMeta = FlatData::ResponsePlayCard;
-        // const auto& buffer = serialized.GetBuffer();
-        // const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
-        // if (req == nullptr)
-        // {
-        //     return TaskStatus::PLAY_CARD_FLATBUFFER_NULLPTR;
-        // }
-
-        // handIndex = req->cardIndex();
-        handIndex = 0;
+        TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_CARD);
+        if (!req.HasObjects())
+        {
+            return TaskStatus::PLAY_CARD_FLATBUFFER_NULLPTR;
+        }
+        handIndex = req.GetObject<BYTE>();
     }
 
     // Verify index of card hand
@@ -80,8 +71,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
     switch (entity->card->cardType)
     {
         case CardType::MINION:
-            return PlayMinionTask(entity, m_fieldPos, m_target)
-                .Run(player);
+            return PlayMinionTask(entity, m_fieldPos, m_target).Run(player);
         case CardType::WEAPON:
             return PlayWeaponTask(entity).Run(player);
         case CardType::SPELL:

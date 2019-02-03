@@ -36,9 +36,7 @@ class PlayCardTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    Entity* m_source = nullptr;
     int m_fieldPos = -1;
-    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 
