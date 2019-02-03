@@ -4,6 +4,7 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Enums/TaskEnums.hpp>
+#include <hspp/Policy/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 
@@ -12,7 +13,7 @@ using namespace Hearthstonepp::SimpleTasks;
 namespace Hearthstonepp::PlayerTasks
 {
 PlaySpellTask::PlaySpellTask(Entity* source, Entity* target)
-    : m_source(source), m_target(target)
+    : ITask(source, target)
 {
     // Do nothing
 }
@@ -35,23 +36,12 @@ TaskStatus PlaySpellTask::Impl(Player& player)
     }
     else
     {
-        // TaskMeta meta;
-
-        // // Get position response from GameInterface
-        // m_requirement.Interact(player.GetID(), meta);
-
-        // using ResponsePlaySpell = FlatData::ResponsePlaySpell;
-        // const auto& buffer = meta.GetBuffer();
-        // const auto req =
-        // flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
-
-        // if (req == nullptr)
-        // {
-        //     return TaskStatus::PLAY_SPELL_FLATBUFFER_NULLPTR;
-        // }
-
-        // position = req->position();
-        position = 0;
+        TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_SPELL);
+        if (!req.HasObjects())
+        {
+            return TaskStatus::PLAY_SPELL_FLATBUFFER_NULLPTR;
+        }
+        position = req.GetObject<BYTE>();
     }
 
     // Verify field position

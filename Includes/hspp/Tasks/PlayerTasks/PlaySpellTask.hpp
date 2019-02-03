@@ -33,9 +33,6 @@ class PlaySpellTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
-
-    Entity* m_source = nullptr;
-    Entity* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 
