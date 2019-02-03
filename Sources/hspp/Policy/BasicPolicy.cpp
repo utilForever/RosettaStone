@@ -25,6 +25,9 @@ TaskMeta BasicPolicy::Require(Player& player, TaskID id)
 
 void BasicPolicy::Notify(const TaskMeta& meta)
 {
-    (void)meta;
+    if (auto iter = m_notify.find(meta.GetID()); iter != m_notify.end())
+    {
+        return iter->second(*this, meta);
+    }
 }
 }  // namespace Hearthstonepp
