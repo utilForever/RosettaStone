@@ -46,7 +46,7 @@ TaskMeta IoPolicy::RequireCombat(Player& player)
     return TaskMeta();
 }
 
-void IoPolicy::NotifyDraw(const TaskMeta& meta)
+void IoPolicy::NotifyOverDraw(const TaskMeta& meta)
 {
     (void)meta;
 }

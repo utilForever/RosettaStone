@@ -25,7 +25,7 @@ class IoPolicy : public BasicPolicy
     TaskMeta RequirePlayMinion(Player& player) override;
     TaskMeta RequireCombat(Player& player) override;
 
-    void NotifyDraw(const TaskMeta& meta) override;
+    void NotifyOverDraw(const TaskMeta& meta) override;
 
     std::ostream& m_out;
     std::istream& m_in;
