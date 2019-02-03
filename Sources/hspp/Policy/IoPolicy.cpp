@@ -22,4 +22,32 @@ TaskMeta IoPolicy::RequireMulligan(Player& player)
     return TaskMeta(trait, Box<size_t>(3));
 }
 
+TaskMeta IoPolicy::RequirePlaySpell(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+TaskMeta IoPolicy::RequirePlayCard(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+TaskMeta IoPolicy::RequirePlayMinion(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+TaskMeta IoPolicy::RequireCombat(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+void IoPolicy::NotifyDraw(const TaskMeta& meta)
+{
+    (void)meta;
+}
 }  // namespace Hearthstonepp
