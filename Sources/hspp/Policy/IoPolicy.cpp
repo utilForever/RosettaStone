@@ -19,7 +19,7 @@ TaskMeta IoPolicy::RequireMulligan(Player& player)
     TaskMetaTrait trait(TaskID::MULLIGAN, MetaData::MULLIGAN_SUCCESS,
                         player.GetID());
 
-    return TaskMeta(trait, std::make_any<Box<size_t>>(3));
+    return TaskMeta(trait, Box<size_t>(3));
 }
 
 }  // namespace Hearthstonepp
