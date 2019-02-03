@@ -13,7 +13,6 @@
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
 #include <hspp/Managers/GameAgent.hpp>
-#include <hspp/Managers/GameInterface.hpp>
 
 #include <cctype>
 #if defined(HEARTHSTONEPP_WINDOWS)
@@ -211,21 +210,21 @@ void Console::SimulateGame() const
     std::cout << "[*] input second id, deck index : ";
     std::cin >> user2 >> deckIndex2;
 
-    AccountLoader loader;
-    Account* p1 = loader.Load(user1);
-    Account* p2 = loader.Load(user2);
+    // AccountLoader loader;
+    // Account* p1 = loader.Load(user1);
+    // Account* p2 = loader.Load(user2);
 
-    Deck* deck1 = p1->GetDeck(deckIndex1);
-    Deck* deck2 = p2->GetDeck(deckIndex2);
+    // Deck* deck1 = p1->GetDeck(deckIndex1);
+    // Deck* deck2 = p2->GetDeck(deckIndex2);
 
-    GameAgent agent(deck1->GetClass(), deck2->GetClass());
-    agent.GetPlayer1().SetNickname(p1->GetNickname());
-    agent.GetPlayer2().SetNickname(p2->GetNickname());
-    agent.GetPlayer1().SetDeck(deck1);
-    agent.GetPlayer2().SetDeck(deck2);
+    // GameAgent agent(deck1->GetClass(), deck2->GetClass());
+    // agent.GetPlayer1().SetNickname(p1->GetNickname());
+    // agent.GetPlayer2().SetNickname(p2->GetNickname());
+    // agent.GetPlayer1().SetDeck(deck1);
+    // agent.GetPlayer2().SetDeck(deck2);
 
-    GameInterface game(agent);
-    GameResult result = game.StartGame();
+    // GameInterface game(agent);
+    // GameResult result = game.StartGame();
 }
 
 void Console::Leave()
