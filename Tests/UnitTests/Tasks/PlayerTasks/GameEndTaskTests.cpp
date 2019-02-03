@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Game/Game.hpp>
 #include <hspp/Tasks/PlayerTasks/GameEndTask.hpp>
 
 using namespace Hearthstonepp;
@@ -21,17 +21,10 @@ TEST(GameEndTask, GetTaskID)
 TEST(GameEndTask, Run)
 {
     GameEndTask gameEnd;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
-    agent.GetPlayer1().SetID(100);
+    game.GetPlayer1().SetID(100);
 
-    MetaData result = gameEnd.Run(agent.GetPlayer1());
+    MetaData result = gameEnd.Run(game.GetPlayer1());
     EXPECT_EQ(result, MetaData::GAME_END);
-
-    TaskMeta meta;
-    result = gameEnd.Run(agent.GetPlayer1(), meta);
-    EXPECT_EQ(result, MetaData::GAME_END);
-    EXPECT_EQ(meta.GetID(), +TaskID::GAME_END);
-    EXPECT_EQ(meta.GetStatus(), MetaData::GAME_END);
-    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
 }
