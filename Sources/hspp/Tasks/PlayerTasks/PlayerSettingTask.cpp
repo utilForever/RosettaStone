@@ -12,11 +12,11 @@ TaskID PlayerSettingTask::GetTaskID() const
     return TaskID::PLAYER_SETTING;
 }
 
-MetaData PlayerSettingTask::Impl(Player& player)
+TaskStatus PlayerSettingTask::Impl(Player& player)
 {
     player.SetID(0);
     player.GetOpponent().SetID(1);
 
-    return MetaData::PLAYER_SETTING_SUCCESS;
+    return TaskStatus::PLAYER_SETTING_SUCCESS;
 }
 }  // namespace Hearthstonepp::PlayerTasks

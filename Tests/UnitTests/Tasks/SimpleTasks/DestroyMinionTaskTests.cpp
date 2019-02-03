@@ -39,9 +39,9 @@ TEST(DestroyMinionTask, Run)
     }
 
     DestroyMinionTask destroy(player1.GetField()[2]);
-    MetaData result = destroy.Run(player1);
+    TaskStatus result = destroy.Run(player1);
 
-    EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::DESTROY_MINION_SUCCESS);
     EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(4));
 
     EXPECT_EQ(player1.GetField()[0]->card->id, name + '0');
@@ -50,5 +50,5 @@ TEST(DestroyMinionTask, Run)
     EXPECT_EQ(player1.GetField()[3]->card->id, name + '4');
 
     result = destroy.Run(player1);
-    EXPECT_EQ(result, MetaData::DESTROY_MINION_NOT_FOUND);
+    EXPECT_EQ(result, TaskStatus::DESTROY_MINION_NOT_FOUND);
 }

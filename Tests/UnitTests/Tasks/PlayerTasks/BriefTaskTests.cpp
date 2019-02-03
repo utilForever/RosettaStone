@@ -25,6 +25,6 @@ TEST(BriefTask, Run)
 
     game.GetPlayer1().SetID(100);
 
-    MetaData result = brief.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::BRIEF);
+    TaskStatus result = brief.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::BRIEF);
 }

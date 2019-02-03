@@ -19,7 +19,7 @@ void ITask::SetTarget(Entity* target)
     m_target = target;
 }
 
-MetaData ITask::Run(Player& player)
+TaskStatus ITask::Run(Player& player)
 {
     return Impl(player);
 }

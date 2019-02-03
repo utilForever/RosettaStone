@@ -18,7 +18,7 @@ TaskID FreezeTask::GetTaskID() const
     return TaskID::FREEZE;
 }
 
-MetaData FreezeTask::Impl(Player& player)
+TaskStatus FreezeTask::Impl(Player& player)
 {
     /*
      * The logic of Freeze
@@ -61,7 +61,7 @@ MetaData FreezeTask::Impl(Player& player)
         }
     }
 
-    return MetaData::FREEZE_SUCCESS;
+    return TaskStatus::FREEZE_SUCCESS;
 }
 
 bool FreezeTask::IsMyCharacter(Player& player) const

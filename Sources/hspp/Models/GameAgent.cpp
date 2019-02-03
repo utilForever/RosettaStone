@@ -6,7 +6,6 @@
 
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Models/GameAgent.hpp>
-#include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/PlayerTasks/GameEndTask.hpp>
@@ -17,6 +16,7 @@
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
+#include <hspp/Tasks/TaskStatus.hpp>
 #include <hspp/Tasks/TaskWrapper.hpp>
 
 #include <random>
@@ -97,12 +97,12 @@ void GameAgent::BeginPhase()
 
     Task::RunMulti(m_game.GetFirstPlayer(), ShuffleTask(),
                    DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
-                   DoUntil(MulliganTask(), MetaData::MULLIGAN_SUCCESS));
+                   DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
 
     Task::RunMulti(
         m_game.GetFirstPlayer().GetOpponent(), ShuffleTask(),
         DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
-        DoUntil(MulliganTask(), MetaData::MULLIGAN_SUCCESS),
+        DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS),
         DrawCardTask(Cards::GetInstance().FindCardByName("The Coin")));
 }
 

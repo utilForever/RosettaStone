@@ -4,15 +4,15 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_META_DATA_HPP
-#define HEARTHSTONEPP_META_DATA_HPP
+#ifndef HEARTHSTONEPP_TASK_STATUS_HPP
+#define HEARTHSTONEPP_TASK_STATUS_HPP
 
 namespace Hearthstonepp
 {
 using status_t = unsigned int;
 
 //! Meta data to represent the result of the task.
-enum class MetaData : status_t
+enum class TaskStatus : status_t
 {
     INVALID,
     NULLPTR,
@@ -115,4 +115,4 @@ enum class MetaData : status_t
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_META_DATA_HPP
+#endif  // HEARTHSTONEPP_TASK_STATUS_HPP

@@ -20,7 +20,7 @@ TaskID DestroyTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyTask::Impl(Player& player)
+TaskStatus DestroyTask::Impl(Player& player)
 {
     switch (m_entityType)
     {
@@ -31,7 +31,7 @@ MetaData DestroyTask::Impl(Player& player)
         case EntityType::ENEMY_WEAPON:
             return DestroyWeaponTask().Run(player.GetOpponent());
         default:
-            return MetaData::INVALID;
+            return TaskStatus::INVALID;
     }
 }
 }  // namespace Hearthstonepp::SimpleTasks

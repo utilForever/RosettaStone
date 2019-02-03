@@ -13,13 +13,13 @@ TaskMetaTrait::TaskMetaTrait(TaskID id) : m_id(id)
     // Do nothing
 }
 
-TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status)
+TaskMetaTrait::TaskMetaTrait(TaskID id, TaskStatus status)
     : m_id(id), m_status(status)
 {
     // Do nothing
 }
 
-TaskMetaTrait::TaskMetaTrait(TaskID id, MetaData status, BYTE userID)
+TaskMetaTrait::TaskMetaTrait(TaskID id, TaskStatus status, BYTE userID)
     : m_id(id), m_status(status), m_userID(userID)
 {
     // Do nothing
@@ -41,12 +41,12 @@ void TaskMetaTrait::SetID(TaskID id)
     m_id = id;
 }
 
-MetaData TaskMetaTrait::GetStatus() const
+TaskStatus TaskMetaTrait::GetStatus() const
 {
     return m_status;
 }
 
-void TaskMetaTrait::SetStatus(MetaData status)
+void TaskMetaTrait::SetStatus(TaskStatus status)
 {
     m_status = status;
 }

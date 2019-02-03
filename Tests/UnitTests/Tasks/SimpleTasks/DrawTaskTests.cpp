@@ -46,8 +46,8 @@ TEST(DrawTask, Run)
     }
 
     DrawTask draw(3);
-    MetaData result = draw.Run(p);
-    EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
+    TaskStatus result = draw.Run(p);
+    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(3));
 
     for (size_t i = 0; i < 3; ++i)
@@ -65,8 +65,8 @@ TEST(DrawTask, RunExhaust)
 
     DrawTask draw(3);
 
-    MetaData result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
+    TaskStatus result = draw.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST);
     EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 3);
@@ -80,7 +80,7 @@ TEST(DrawTask, RunExhaust)
     p.GetDeck().emplace_back(entity);
 
     result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
+    EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST);
     EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(1));
     EXPECT_EQ(p.GetHand()[0]->card->id, "card1");
     EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
@@ -118,15 +118,15 @@ TEST(DrawTask, RunOverDraw)
 
     DrawTask draw(3);
 
-    MetaData result = draw.Run(p);
-    EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
+    TaskStatus result = draw.Run(p);
+    EXPECT_EQ(result, TaskStatus::DRAW_OVERDRAW);
     EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(10));
 
     // TaskMeta burnt;
     // game.GetTaskMeta(burnt);
     // EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-    // EXPECT_EQ(burnt.GetStatus(), MetaData::DRAW_OVERDRAW);
+    // EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
     // EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
     // auto burntCard =
@@ -168,8 +168,8 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     DrawTask draw(4);
 
-    MetaData result = draw.Run(p);
-    EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
+    TaskStatus result = draw.Run(p);
+    EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(p.GetDeck().size(), static_cast<size_t>(0));
     EXPECT_EQ(p.GetHand().size(), static_cast<size_t>(10));
     EXPECT_EQ(p.GetHand()[9]->card->id, "card0");
@@ -177,7 +177,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     // TaskMeta burnt;
     // agent.GetTaskMeta(burnt);
     // EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-    // EXPECT_EQ(burnt.GetStatus(), MetaData::DRAW_EXHAUST_OVERDRAW);
+    // EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_EXHAUST_OVERDRAW);
     // EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
     // auto burntCard =
@@ -218,9 +218,9 @@ TEST(DrawCardTask, Run)
     game.GetPlayer1().GetDeck().emplace_back(minionNerubian);
 
     DrawCardTask drawNerubian(nerubian);
-    MetaData result = drawNerubian.Run(game.GetPlayer1());
+    TaskStatus result = drawNerubian.Run(game.GetPlayer1());
 
-    EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(game.GetPlayer1().GetHand().size(), static_cast<size_t>(1));
     EXPECT_EQ(game.GetPlayer1().GetHand()[0]->card->id, nerubian.id);
     EXPECT_EQ(game.GetPlayer1().GetDeck().size(), static_cast<size_t>(1));
@@ -229,7 +229,7 @@ TEST(DrawCardTask, Run)
     DrawCardTask drawPoisonedBlade(poisonedBlade);
     result = drawPoisonedBlade.Run(game.GetPlayer1());
 
-    EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(game.GetPlayer1().GetHand().size(), static_cast<size_t>(2));
     EXPECT_EQ(game.GetPlayer1().GetHand()[1]->card->id, poisonedBlade.id);
     EXPECT_EQ(game.GetPlayer1().GetDeck().size(), static_cast<size_t>(0));

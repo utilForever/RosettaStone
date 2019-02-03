@@ -18,7 +18,7 @@ TaskID HealTask::GetTaskID() const
     return TaskID::HEAL;
 }
 
-MetaData HealTask::Impl(Player& player)
+TaskStatus HealTask::Impl(Player& player)
 {
     if (m_entityType == +EntityType::HERO)
     {
@@ -31,9 +31,9 @@ MetaData HealTask::Impl(Player& player)
             player.GetHero()->health = player.GetHero()->maxHealth;
         }
 
-        return MetaData::HEAL_SUCCESS;
+        return TaskStatus::HEAL_SUCCESS;
     }
 
-    return MetaData::HEAL_SUCCESS;
+    return TaskStatus::HEAL_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

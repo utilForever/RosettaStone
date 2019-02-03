@@ -32,7 +32,7 @@ TEST(ShuffleTask, Run)
         game.GetPlayer1().GetDeck().emplace_back(new Minion(card));
     }
 
-    MetaData result = init.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::SHUFFLE_SUCCESS);
+    TaskStatus result = init.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::SHUFFLE_SUCCESS);
     EXPECT_EQ(game.GetPlayer1().GetDeck().size(), static_cast<size_t>(5));
 }

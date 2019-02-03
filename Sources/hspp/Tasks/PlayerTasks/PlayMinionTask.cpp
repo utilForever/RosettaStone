@@ -21,7 +21,7 @@ TaskID PlayMinionTask::GetTaskID() const
     return TaskID::PLAY_MINION;
 }
 
-MetaData PlayMinionTask::Impl(Player& player)
+TaskStatus PlayMinionTask::Impl(Player& player)
 {
     BYTE position;
 
@@ -45,7 +45,7 @@ MetaData PlayMinionTask::Impl(Player& player)
 
     //     if (req == nullptr)
     //     {
-    //         return MetaData::PLAY_MINION_FLATBUFFER_NULLPTR;
+    //         return TaskStatus::PLAY_MINION_FLATBUFFER_NULLPTR;
     //     }
 
     //     position = req->position();
@@ -55,14 +55,14 @@ MetaData PlayMinionTask::Impl(Player& player)
     // Verify field position
     if (position > player.GetField().size())
     {
-        return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
+        return TaskStatus::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
 
     // Verify character casting
     const auto character = dynamic_cast<Character*>(m_source);
     if (character == nullptr)
     {
-        return MetaData::PLAY_MINION_CANNOT_CONVERT_ENTITY;
+        return TaskStatus::PLAY_MINION_CANNOT_CONVERT_ENTITY;
     }
 
     // Summon minion
@@ -83,7 +83,7 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
 
     const auto cost = static_cast<BYTE>(m_source->card->cost);
-    const MetaData modified =
+    const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
@@ -96,11 +96,11 @@ MetaData PlayMinionTask::Impl(Player& player)
         }
     }
 
-    if (modified == MetaData::MODIFY_MANA_SUCCESS)
+    if (modified == TaskStatus::MODIFY_MANA_SUCCESS)
     {
-        return MetaData::PLAY_MINION_SUCCESS;
+        return TaskStatus::PLAY_MINION_SUCCESS;
     }
 
-    return MetaData::PLAY_MINION_MODIFY_MANA_FAIL;
+    return TaskStatus::PLAY_MINION_MODIFY_MANA_FAIL;
 }
 }  // namespace Hearthstonepp::PlayerTasks

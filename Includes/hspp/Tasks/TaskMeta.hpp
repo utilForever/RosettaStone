@@ -9,7 +9,7 @@
 
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
-#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/TaskStatus.hpp>
 
 #include <any>
 #include <memory>
@@ -39,13 +39,13 @@ class TaskMetaTrait
     //! Constructs task meta trait with given \p id and \p status.
     //! \param id The task ID.
     //! \param status The task status.
-    TaskMetaTrait(TaskID id, MetaData status);
+    TaskMetaTrait(TaskID id, TaskStatus status);
 
     //! Constructs task meta trait with given \p id, \p status and \p userID.
     //! \param id The task ID.
     //! \param status The task status.
     //! \param userID The user ID.
-    TaskMetaTrait(TaskID id, MetaData status, BYTE userID);
+    TaskMetaTrait(TaskID id, TaskStatus status, BYTE userID);
 
     //! Default destructor.
     ~TaskMetaTrait() = default;
@@ -75,11 +75,11 @@ class TaskMetaTrait
 
     //! Returns status of task meta.
     //! \return Status of task meta.
-    MetaData GetStatus() const;
+    TaskStatus GetStatus() const;
 
     //! Sets status of task meta.
     //! \param status Status of task meta.
-    void SetStatus(MetaData status);
+    void SetStatus(TaskStatus status);
 
     //! Returns user ID.
     //! \return User ID.
@@ -87,7 +87,7 @@ class TaskMetaTrait
 
  protected:
     TaskID m_id = TaskID::INVALID;
-    MetaData m_status = MetaData::INVALID;
+    TaskStatus m_status = TaskStatus::INVALID;
     BYTE m_userID = USER_INVALID;
 };
 

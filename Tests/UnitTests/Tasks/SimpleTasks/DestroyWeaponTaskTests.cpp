@@ -27,7 +27,7 @@ TEST(DestroyWeaponTask, Run)
     card.id = "weapon1";
     game.GetPlayer1().GetHero()->weapon = new Weapon(card);
 
-    MetaData result = destroy.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::DESTROY_WEAPON_SUCCESS);
+    TaskStatus result = destroy.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::DESTROY_WEAPON_SUCCESS);
     EXPECT_EQ(game.GetPlayer1().GetHero()->HasWeapon(), false);
 }

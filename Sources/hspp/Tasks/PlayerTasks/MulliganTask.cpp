@@ -21,18 +21,18 @@ TaskID MulliganTask::GetTaskID() const
     return TaskID::MULLIGAN;
 }
 
-MetaData MulliganTask::Impl(Player& player)
+TaskStatus MulliganTask::Impl(Player& player)
 {
     TaskMeta result = player.GetPolicy().Require(player, TaskID::MULLIGAN);
     if (!result.HasObjects())
     {
-        return MetaData::MULLIGAN_FLATBUFFER_NULLPTR;
+        return TaskStatus::MULLIGAN_FLATBUFFER_NULLPTR;
     }
 
     Box<size_t>& index = result.GetObject<Box<size_t>>();
     if (index.size() == 0)
     {
-        return MetaData::MULLIGAN_SUCCESS;
+        return TaskStatus::MULLIGAN_SUCCESS;
     }
 
     // Sort decreasing order
@@ -41,7 +41,7 @@ MetaData MulliganTask::Impl(Player& player)
     // Verify range
     if (index[0] >= NUM_DRAW_CARDS_AT_START_SECOND)
     {
-        return MetaData::MULLIGAN_INDEX_OUT_OF_RANGE;
+        return TaskStatus::MULLIGAN_INDEX_OUT_OF_RANGE;
     }
 
     // Verify duplicated element
@@ -49,7 +49,7 @@ MetaData MulliganTask::Impl(Player& player)
     {
         if (index[i] == index[i - 1])
         {
-            return MetaData::MULLIGAN_DUPLICATED_INDEX;
+            return TaskStatus::MULLIGAN_DUPLICATED_INDEX;
         }
     }
 
@@ -63,13 +63,13 @@ MetaData MulliganTask::Impl(Player& player)
         hand.erase(hand.begin() + idx);
     }
 
-    const MetaData statusShuffle = ShuffleTask().Run(player);
-    const MetaData statusDraw = DrawTask(index.size()).Run(player);
+    const TaskStatus statusShuffle = ShuffleTask().Run(player);
+    const TaskStatus statusDraw = DrawTask(index.size()).Run(player);
 
-    if (statusShuffle == MetaData::SHUFFLE_SUCCESS &&
-        statusDraw == MetaData::DRAW_SUCCESS)
+    if (statusShuffle == TaskStatus::SHUFFLE_SUCCESS &&
+        statusDraw == TaskStatus::DRAW_SUCCESS)
     {
-        return MetaData::MULLIGAN_SUCCESS;
+        return TaskStatus::MULLIGAN_SUCCESS;
     }
 
     return statusDraw;

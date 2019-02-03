@@ -19,13 +19,13 @@ TaskID DiscardTask::GetTaskID() const
     return TaskID::DISCARD;
 }
 
-MetaData DiscardTask::Impl(Player& player)
+TaskStatus DiscardTask::Impl(Player& player)
 {
     if (m_entityType == +EntityType::HAND)
     {
         if (player.GetHand().empty())
         {
-            return MetaData::DISCARD_MY_HAND_SUCCESS;
+            return TaskStatus::DISCARD_MY_HAND_SUCCESS;
         }
 
         std::random_device rd;
@@ -39,13 +39,13 @@ MetaData DiscardTask::Impl(Player& player)
         // Card Hand Index Verification
         if (discardIdx >= player.GetHand().size())
         {
-            return MetaData::DISCARD_IDX_OUT_OF_RANGE;
+            return TaskStatus::DISCARD_IDX_OUT_OF_RANGE;
         }
 
         player.GetHand().erase(player.GetHand().begin() + discardIdx);
-        return MetaData::DISCARD_MY_HAND_SUCCESS;
+        return TaskStatus::DISCARD_MY_HAND_SUCCESS;
     }
 
-    return MetaData::INVALID;
+    return TaskStatus::INVALID;
 }
 }  // namespace Hearthstonepp::SimpleTasks

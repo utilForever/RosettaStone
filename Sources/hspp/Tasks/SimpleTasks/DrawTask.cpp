@@ -24,10 +24,10 @@ TaskID DrawTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawTask::Impl(Player& player)
+TaskStatus DrawTask::Impl(Player& player)
 {
     size_t num = m_num;
-    MetaData result = MetaData::DRAW_SUCCESS;
+    TaskStatus result = TaskStatus::DRAW_SUCCESS;
 
     std::vector<Entity*>& deck = player.GetDeck();
     std::vector<Entity*>& hand = player.GetHand();
@@ -47,7 +47,7 @@ MetaData DrawTask::Impl(Player& player)
             player.GetNumCardAfterExhaust() + numDrawAfterFatigue));
 
         num = deck.size();
-        result = MetaData::DRAW_EXHAUST;
+        result = TaskStatus::DRAW_EXHAUST;
     }
 
     // When hand size over MAXIMUM_NUM_CARDS_IN_HAND, overdraw
@@ -68,13 +68,13 @@ MetaData DrawTask::Impl(Player& player)
 
         num = MAXIMUM_NUM_CARDS_IN_HAND - hand.size();
 
-        if (result == MetaData::DRAW_EXHAUST)
+        if (result == TaskStatus::DRAW_EXHAUST)
         {
-            result = MetaData::DRAW_EXHAUST_OVERDRAW;
+            result = TaskStatus::DRAW_EXHAUST_OVERDRAW;
         }
         else
         {
-            result = MetaData::DRAW_OVERDRAW;
+            result = TaskStatus::DRAW_OVERDRAW;
         }
 
         // Send burnt cards to GameInterface
@@ -108,7 +108,7 @@ TaskID DrawCardTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawCardTask::Impl(Player& player)
+TaskStatus DrawCardTask::Impl(Player& player)
 {
     std::vector<Entity*>& deck = player.GetDeck();
     std::vector<Entity*>& hand = player.GetHand();
@@ -130,6 +130,6 @@ MetaData DrawCardTask::Impl(Player& player)
         deck.pop_back();
     }
 
-    return MetaData::DRAW_SUCCESS;
+    return TaskStatus::DRAW_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

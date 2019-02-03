@@ -21,7 +21,7 @@ TaskID PlayCardTask::GetTaskID() const
     return TaskID::PLAY_CARD;
 }
 
-MetaData PlayCardTask::Impl(Player& player)
+TaskStatus PlayCardTask::Impl(Player& player)
 {
     BYTE handIndex;
 
@@ -45,7 +45,7 @@ MetaData PlayCardTask::Impl(Player& player)
 
         // if (req == nullptr)
         // {
-        //     return MetaData::PLAY_CARD_FLATBUFFER_NULLPTR;
+        //     return TaskStatus::PLAY_CARD_FLATBUFFER_NULLPTR;
         // }
 
         // handIndex = req->cardIndex();
@@ -55,13 +55,13 @@ MetaData PlayCardTask::Impl(Player& player)
     // Verify index of card hand
     if (handIndex >= player.GetHand().size())
     {
-        return MetaData::PLAY_CARD_IDX_OUT_OF_RANGE;
+        return TaskStatus::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
 
     // Verify mana is sufficient
     if (player.GetHand()[handIndex]->card->cost > player.GetAvailableMana())
     {
-        return MetaData::PLAY_CARD_NOT_ENOUGH_MANA;
+        return TaskStatus::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
     Entity* entity = player.GetHand()[handIndex];
@@ -87,7 +87,7 @@ MetaData PlayCardTask::Impl(Player& player)
         case CardType::SPELL:
             return PlaySpellTask(entity, m_target).Run(player);
         default:
-            return MetaData::PLAY_CARD_INVALID_CARD_TYPE;
+            return TaskStatus::PLAY_CARD_INVALID_CARD_TYPE;
     }
 }
 }  // namespace Hearthstonepp::PlayerTasks

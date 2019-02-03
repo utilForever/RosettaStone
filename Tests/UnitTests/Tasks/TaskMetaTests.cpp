@@ -20,22 +20,22 @@ TEST(TaskMeta, TraitConstructors)
     std::default_random_engine gen(rd());
 
     const int sizeTaskID = static_cast<int>(TaskID::_size());
-    const int sizeMetaData = static_cast<int>(MetaData::GAME_END);
+    const int sizeTaskStatus = static_cast<int>(TaskStatus::GAME_END);
 
     const TaskID randID = TaskID::_from_integral(gen() % sizeTaskID);
-    const auto randMeta = static_cast<MetaData>(gen() % sizeMetaData);
+    const auto randMeta = static_cast<TaskStatus>(gen() % sizeTaskStatus);
     const BYTE randUser = gen() % 2;
 
     // Empty Trait Test
     TaskMetaTrait empty;
     EXPECT_EQ(empty.GetID(), +TaskID::INVALID);
-    EXPECT_EQ(empty.GetStatus(), MetaData::INVALID);
+    EXPECT_EQ(empty.GetStatus(), TaskStatus::INVALID);
     EXPECT_EQ(empty.GetUserID(), TaskMetaTrait::USER_INVALID);
 
     // TaskID Constructor
     TaskMetaTrait traitID(randID);
     EXPECT_EQ(traitID.GetID(), randID);
-    EXPECT_EQ(traitID.GetStatus(), MetaData::INVALID);
+    EXPECT_EQ(traitID.GetStatus(), TaskStatus::INVALID);
     EXPECT_EQ(traitID.GetUserID(), TaskMetaTrait::USER_INVALID);
 
     // TaskID, Status Constructor
@@ -66,7 +66,7 @@ TEST(TaskMeta, Constructors)
     // Empty Constructor
     TaskMeta meta;
     EXPECT_EQ(meta.GetID(), +TaskID::INVALID);
-    EXPECT_EQ(meta.GetStatus(), MetaData::INVALID);
+    EXPECT_EQ(meta.GetStatus(), TaskStatus::INVALID);
     EXPECT_EQ(meta.GetUserID(), TaskMeta::USER_INVALID);
     EXPECT_FALSE(meta.HasObjects());
 

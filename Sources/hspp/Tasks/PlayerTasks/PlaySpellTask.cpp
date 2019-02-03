@@ -22,7 +22,7 @@ TaskID PlaySpellTask::GetTaskID() const
     return TaskID::PLAY_SPELL;
 }
 
-MetaData PlaySpellTask::Impl(Player& player)
+TaskStatus PlaySpellTask::Impl(Player& player)
 {
     BYTE position;
 
@@ -47,7 +47,7 @@ MetaData PlaySpellTask::Impl(Player& player)
 
         // if (req == nullptr)
         // {
-        //     return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
+        //     return TaskStatus::PLAY_SPELL_FLATBUFFER_NULLPTR;
         // }
 
         // position = req->position();
@@ -57,17 +57,17 @@ MetaData PlaySpellTask::Impl(Player& player)
     // Verify field position
     if (position > player.GetField().size())
     {
-        return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
+        return TaskStatus::PLAY_SPELL_POSITION_OUT_OF_RANGE;
     }
 
     // Verify valid target
     if (player.GetField()[position] == nullptr)
     {
-        return MetaData::PLAY_SPELL_INVALID_TARGET;
+        return TaskStatus::PLAY_SPELL_INVALID_TARGET;
     }
 
     const auto cost = static_cast<BYTE>(m_source->card->cost);
-    const MetaData modified =
+    const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
@@ -81,11 +81,11 @@ MetaData PlaySpellTask::Impl(Player& player)
         }
     }
 
-    if (modified == MetaData::MODIFY_MANA_SUCCESS)
+    if (modified == TaskStatus::MODIFY_MANA_SUCCESS)
     {
-        return MetaData::PLAY_SPELL_SUCCESS;
+        return TaskStatus::PLAY_SPELL_SUCCESS;
     }
 
-    return MetaData::PLAY_SPELL_MODIFY_MANA_FAIL;
+    return TaskStatus::PLAY_SPELL_MODIFY_MANA_FAIL;
 }
 }  // namespace Hearthstonepp::PlayerTasks

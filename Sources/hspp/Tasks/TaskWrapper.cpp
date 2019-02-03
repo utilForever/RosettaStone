@@ -18,10 +18,10 @@ TaskID DoBothPlayer::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoBothPlayer::Impl(Player& player)
+TaskStatus DoBothPlayer::Impl(Player& player)
 {
-    const MetaData status1 = m_task.Run(player);
-    const MetaData status2 = m_task.Run(player.GetOpponent());
+    const TaskStatus status1 = m_task.Run(player);
+    const TaskStatus status2 = m_task.Run(player.GetOpponent());
 
     if (status1 == status2)
     {
@@ -31,15 +31,15 @@ MetaData DoBothPlayer::Impl(Player& player)
     return status2;
 }
 
-DoUntil::DoUntil(ITask&& task, std::function<bool(MetaData)>&& condition)
+DoUntil::DoUntil(ITask&& task, std::function<bool(TaskStatus)>&& condition)
     : m_task(task), m_condition(std::move(condition))
 {
     // Do nothing
 }
 
-DoUntil::DoUntil(ITask&& task, MetaData id)
+DoUntil::DoUntil(ITask&& task, TaskStatus id)
     : m_task(task),
-      m_condition([=](MetaData meta) { return meta == id; })
+      m_condition([=](TaskStatus meta) { return meta == id; })
 {
     // Do Nothing
 }
@@ -49,9 +49,9 @@ TaskID DoUntil::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoUntil::Impl(Player& player)
+TaskStatus DoUntil::Impl(Player& player)
 {
-    MetaData meta;
+    TaskStatus meta;
 
     while (true)
     {

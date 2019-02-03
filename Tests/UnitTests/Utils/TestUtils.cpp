@@ -33,13 +33,13 @@ TaskMetaTrait GenerateRandomTrait()
     std::default_random_engine gen(rd());
 
     const auto sizeTaskID = static_cast<int>(TaskID::_size());
-    const auto sizeMetaData = static_cast<int>(MetaData::GAME_END);
+    const auto sizeTaskStatus = static_cast<int>(TaskStatus::GAME_END);
 
     const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
-    const auto metaData = static_cast<MetaData>(gen() % sizeMetaData);
+    const auto taskStatus = static_cast<TaskStatus>(gen() % sizeTaskStatus);
     const BYTE userID = gen() % 2;
 
-    const TaskMetaTrait randomTrait(taskID, metaData, userID);
+    const TaskMetaTrait randomTrait(taskID, taskStatus, userID);
     return randomTrait;
 }
 

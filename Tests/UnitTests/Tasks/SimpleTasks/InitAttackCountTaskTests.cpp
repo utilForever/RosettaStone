@@ -26,8 +26,8 @@ TEST(InitAttackCountTask, Run)
 
     game.GetPlayer1().SetID(100);
 
-    MetaData result = init.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    TaskStatus result = init.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 }
 
 TEST(InitAttackCountTask, RunFrozen)
@@ -67,8 +67,8 @@ TEST(InitAttackCountTask, RunFrozen)
     game.GetPlayer2().GetField().emplace_back(minion5);
     game.GetPlayer2().GetField().emplace_back(minion6);
 
-    MetaData result = init.Run(game.GetPlayer2());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    TaskStatus result = init.Run(game.GetPlayer2());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(0));
@@ -84,7 +84,7 @@ TEST(InitAttackCountTask, RunFrozen)
     EXPECT_EQ(minion6->attackableCount, static_cast<size_t>(0));
 
     result = init.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(1));
@@ -100,7 +100,7 @@ TEST(InitAttackCountTask, RunFrozen)
     EXPECT_EQ(minion6->attackableCount, static_cast<size_t>(0));
 
     result = init.Run(game.GetPlayer2());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(0));
@@ -132,8 +132,8 @@ TEST(InitAttackCountTask, RunWindFury)
     game.GetPlayer1().GetField().emplace_back(minion1);
     game.GetPlayer1().GetField().emplace_back(minion2);
 
-    MetaData result = init.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    TaskStatus result = init.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(1));
     EXPECT_EQ(minion2->attackableCount, static_cast<size_t>(2));

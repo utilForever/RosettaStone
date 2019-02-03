@@ -25,6 +25,6 @@ TEST(GameEndTask, Run)
 
     game.GetPlayer1().SetID(100);
 
-    MetaData result = gameEnd.Run(game.GetPlayer1());
-    EXPECT_EQ(result, MetaData::GAME_END);
+    TaskStatus result = gameEnd.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::GAME_END);
 }

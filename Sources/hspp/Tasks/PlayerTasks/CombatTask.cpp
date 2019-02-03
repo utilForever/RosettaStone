@@ -23,7 +23,7 @@ TaskID CombatTask::GetTaskID() const
     return TaskID::COMBAT;
 }
 
-MetaData CombatTask::Impl(Player& player)
+TaskStatus CombatTask::Impl(Player& player)
 {
     auto [sourceIndex, targetIndex] = CalculateIndex(player);
 
@@ -31,14 +31,14 @@ MetaData CombatTask::Impl(Player& player)
     // NOTE: 0 means hero, 1 ~ field.size() means minion
     if (sourceIndex > player.GetField().size())
     {
-        return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
+        return TaskStatus::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
     // Verify index of the target
     // NOTE: 0 means hero, 1 ~ field.size() means minion
     if (targetIndex > player.GetOpponent().GetField().size())
     {
-        return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
+        return TaskStatus::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
     auto source =
@@ -54,7 +54,7 @@ MetaData CombatTask::Impl(Player& player)
     if (!source->CanAttack() ||
         !source->IsValidAttackTarget(player.GetOpponent(), target))
     {
-        return MetaData::COMBAT_SOURCE_CANT_ATTACK;
+        return TaskStatus::COMBAT_SOURCE_CANT_ATTACK;
     }
 
     const size_t targetAttack = target->GetAttack();
@@ -128,7 +128,7 @@ MetaData CombatTask::Impl(Player& player)
         DestroyMinionTask(target).Run(player);
     }
 
-    return MetaData::COMBAT_SUCCESS;
+    return TaskStatus::COMBAT_SUCCESS;
 }
 
 std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const

@@ -34,7 +34,7 @@ class PlayCardTask : public ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player) override;
+    TaskStatus Impl(Player& player) override;
 
     Entity* m_source = nullptr;
     int m_fieldPos = -1;

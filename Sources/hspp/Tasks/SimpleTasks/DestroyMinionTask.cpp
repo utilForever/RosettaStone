@@ -19,7 +19,7 @@ TaskID DestroyMinionTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyMinionTask::Impl(Player& player)
+TaskStatus DestroyMinionTask::Impl(Player& player)
 {
     auto& myField = player.GetField();
     auto& opponentField = player.GetOpponent().GetField();
@@ -30,7 +30,7 @@ MetaData DestroyMinionTask::Impl(Player& player)
         delete *fieldIter;
         myField.erase(fieldIter);
 
-        return MetaData::DESTROY_MINION_SUCCESS;
+        return TaskStatus::DESTROY_MINION_SUCCESS;
     }
 
     fieldIter =
@@ -40,9 +40,9 @@ MetaData DestroyMinionTask::Impl(Player& player)
         delete *fieldIter;
         opponentField.erase(fieldIter);
 
-        return MetaData::DESTROY_MINION_SUCCESS;
+        return TaskStatus::DESTROY_MINION_SUCCESS;
     }
 
-    return MetaData::DESTROY_MINION_NOT_FOUND;
+    return TaskStatus::DESTROY_MINION_NOT_FOUND;
 }
 }  // namespace Hearthstonepp::SimpleTasks

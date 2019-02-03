@@ -30,7 +30,7 @@ class DrawTask : public ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player) override;
+    TaskStatus Impl(Player& player) override;
 
     size_t m_num = 0;
 };
@@ -59,7 +59,7 @@ class DrawCardTask : public ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player) override;
+    TaskStatus Impl(Player& player) override;
 
     Card m_card;
 };
