@@ -9,6 +9,7 @@
 
 #include "gtest/gtest.h"
 
+#include <hspp/Game/Game.hpp>
 #include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
