@@ -7,7 +7,7 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Cards/Minion.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Game/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 
 using namespace Hearthstonepp;
@@ -22,25 +22,18 @@ TEST(InitAttackCountTask, GetTaskID)
 TEST(InitAttackCountTask, Run)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
-    agent.GetPlayer1().SetID(100);
+    game.GetPlayer1().SetID(100);
 
-    MetaData result = init.Run(agent.GetPlayer1());
+    MetaData result = init.Run(game.GetPlayer1());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
-
-    TaskMeta meta;
-    result = init.Run(agent.GetPlayer1(), meta);
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
-    EXPECT_EQ(meta.GetID(), +TaskID::INIT_ATTACK_COUNT);
-    EXPECT_EQ(meta.GetStatus(), MetaData::INIT_ATTACK_COUNT_SUCCESS);
-    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
 }
 
 TEST(InitAttackCountTask, RunFrozen)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card;
 
@@ -67,14 +60,14 @@ TEST(InitAttackCountTask, RunFrozen)
     minion4->attackableCount = 1;
     minion4->numTurnToUnfreeze = 3;
 
-    agent.GetPlayer1().GetField().emplace_back(minion1);
-    agent.GetPlayer1().GetField().emplace_back(minion2);
-    agent.GetPlayer1().GetField().emplace_back(minion3);
-    agent.GetPlayer1().GetField().emplace_back(minion4);
-    agent.GetPlayer2().GetField().emplace_back(minion5);
-    agent.GetPlayer2().GetField().emplace_back(minion6);
+    game.GetPlayer1().GetField().emplace_back(minion1);
+    game.GetPlayer1().GetField().emplace_back(minion2);
+    game.GetPlayer1().GetField().emplace_back(minion3);
+    game.GetPlayer1().GetField().emplace_back(minion4);
+    game.GetPlayer2().GetField().emplace_back(minion5);
+    game.GetPlayer2().GetField().emplace_back(minion6);
 
-    MetaData result = init.Run(agent.GetPlayer2());
+    MetaData result = init.Run(game.GetPlayer2());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->GetGameTag(GameTag::FROZEN), 0);
@@ -90,7 +83,7 @@ TEST(InitAttackCountTask, RunFrozen)
     EXPECT_EQ(minion6->GetGameTag(GameTag::FROZEN), 1);
     EXPECT_EQ(minion6->attackableCount, static_cast<size_t>(0));
 
-    result = init.Run(agent.GetPlayer1());
+    result = init.Run(game.GetPlayer1());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->GetGameTag(GameTag::FROZEN), 0);
@@ -106,7 +99,7 @@ TEST(InitAttackCountTask, RunFrozen)
     EXPECT_EQ(minion6->GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion6->attackableCount, static_cast<size_t>(0));
 
-    result = init.Run(agent.GetPlayer2());
+    result = init.Run(game.GetPlayer2());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->GetGameTag(GameTag::FROZEN), 0);
@@ -126,7 +119,7 @@ TEST(InitAttackCountTask, RunFrozen)
 TEST(InitAttackCountTask, RunWindFury)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card1;
     Card card2;
@@ -136,10 +129,10 @@ TEST(InitAttackCountTask, RunWindFury)
 
     minion2->SetGameTag(GameTag::WINDFURY, 1);
 
-    agent.GetPlayer1().GetField().emplace_back(minion1);
-    agent.GetPlayer1().GetField().emplace_back(minion2);
+    game.GetPlayer1().GetField().emplace_back(minion1);
+    game.GetPlayer1().GetField().emplace_back(minion2);
 
-    MetaData result = init.Run(agent.GetPlayer1());
+    MetaData result = init.Run(game.GetPlayer1());
     EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1->attackableCount, static_cast<size_t>(1));
