@@ -8,9 +8,6 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Tasks/TaskMeta.hpp>
-#include <hspp/Tasks/TaskSerializer.hpp>
-
-#include <hspp/Flatbuffers/generated/FlatData_generated.hpp>
 
 #include <random>
 
@@ -63,101 +60,62 @@ TEST(TaskMeta, TraitConstructors)
 TEST(TaskMeta, Constructors)
 {
     constexpr size_t zero = 0;
-    std::unique_ptr<BYTE[]> buffer;
-    const size_t size = GenerateRandomBuffer(buffer);
     TaskMetaTrait trait = GenerateRandomTrait();
+    Box<int> buffer = GenerateRandomBuffer();
 
     // Empty Constructor
     TaskMeta meta;
     EXPECT_EQ(meta.GetID(), +TaskID::INVALID);
     EXPECT_EQ(meta.GetStatus(), MetaData::INVALID);
     EXPECT_EQ(meta.GetUserID(), TaskMeta::USER_INVALID);
-    EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
+    EXPECT_FALSE(meta.HasObjects());
 
     // Default Constructor
-    TaskMeta task(trait, size, buffer.get());
+    TaskMeta task(trait, buffer);
     EXPECT_EQ(trait, task);
-    EXPECT_EQ(task.GetBufferSize(), size);
-    ExpectBufferEqual(task.GetBuffer(), buffer, size);
+    EXPECT_TRUE(task.HasObjects());
+    EXPECT_EQ(task.GetObject<Box<int>>(), buffer);
 
-    // Move Buffer
-    TaskMeta moveBuffer(trait, size, std::move(buffer));
-    EXPECT_EQ(trait, moveBuffer);
-    EXPECT_EQ(moveBuffer.GetBufferSize(), size);
-    ExpectBufferEqual(moveBuffer.GetBuffer(), task.GetBuffer(), size);
+    // Copy Constructor
+    TaskMeta copied(task);
+    EXPECT_EQ(trait, copied);
+    EXPECT_TRUE(copied.HasObjects());
+    EXPECT_EQ(copied.GetObject<Box<int>>(), buffer);
+
+    // Copy Assignment
+    meta = copied;
+    EXPECT_EQ(trait, meta);
+    EXPECT_TRUE(meta.HasObjects());
+    EXPECT_EQ(meta.GetObject<Box<int>>(), buffer);
 
     // Move Constructor
-    TaskMeta moved(std::move(moveBuffer));
+    TaskMeta moved(std::move(task));
     EXPECT_EQ(trait, moved);
-    EXPECT_EQ(moved.GetBufferSize(), size);
-    ExpectBufferEqual(moved.GetBuffer(), task.GetBuffer(), size);
+    EXPECT_TRUE(moved.HasObjects());
+    EXPECT_EQ(moved.GetObject<Box<int>>(), buffer);
 
     // Move Assignment
     meta = std::move(moved);
     EXPECT_EQ(trait, meta);
-    EXPECT_EQ(meta.GetBufferSize(), size);
-    ExpectBufferEqual(meta.GetBuffer(), task.GetBuffer(), size);
+    EXPECT_TRUE(meta.HasObjects());
+    EXPECT_EQ(meta.GetObject<Box<int>>(), buffer);
 }
 
-TEST(TaskMeta, UniquePtr)
+TEST(TaskMeta, Object)
 {
-    constexpr size_t zero = 0;
-    std::unique_ptr<BYTE[]> buffer;
-    const size_t size = GenerateRandomBuffer(buffer);
+    TaskMeta empty;
+    EXPECT_FALSE(empty.HasObjects());
 
-    const TaskMetaTrait trait = GenerateRandomTrait();
-    TaskMeta meta(trait, size, buffer.get());
+    TaskMeta meta = GenerateRandomTaskMeta();
+    EXPECT_TRUE(meta.HasObjects());
 
-    // MoveBuffer
-    const std::unique_ptr<BYTE[]> moved = meta.MoveBuffer();
-    EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
-    ExpectBufferEqual(buffer, moved, size);
+    meta.GetObject<Box<int>>()[0] = 1024;
+    EXPECT_EQ(meta.GetObject<Box<int>>()[0], 1024);
 
-    // reset
-    meta = TaskMeta(trait, size, buffer.get());
+    Box<int> box = meta.MoveObject<Box<int>>();
+    EXPECT_TRUE(meta.HasObjects());
+    EXPECT_EQ(meta.GetObject<Box<int>>(), nullptr);
+
     meta.Reset();
-    EXPECT_EQ(meta.GetBufferSize(), zero);
-    EXPECT_EQ(meta.GetBuffer().get(), static_cast<BYTE*>(nullptr));
-}
-
-TEST(TaskMeta, CopyFrom)
-{
-    // CopyFrom
-    TaskMeta meta = GenerateRandomTaskMeta();
-    const TaskMeta copied = TaskMeta::CopyFrom(meta);
-    EXPECT_EQ(meta, copied);
-}
-
-TEST(TaskMeta, ConvertFrom)
-{
-    TaskMeta meta = GenerateRandomTaskMeta();
-    const auto& buffer = meta.GetBuffer();
-    const size_t size = meta.GetBufferSize();
-
-    flatbuffers::FlatBufferBuilder builder(512);
-    auto trait = FlatData::TaskMetaTrait(
-        static_cast<int>(meta.GetID()), static_cast<status_t>(meta.GetStatus()),
-        meta.GetUserID());
-
-    const auto data = builder.CreateVector(buffer.get(), size);
-    const auto serialized = FlatData::CreateTaskMeta(builder, &trait, data);
-    builder.Finish(serialized);
-
-    const auto deserialized =
-        flatbuffers::GetRoot<FlatData::TaskMeta>(builder.GetBufferPointer());
-
-    // ConvertFrom
-    const TaskMeta converted = TaskMeta::ConvertFrom(deserialized);
-    EXPECT_EQ(meta, converted);
-}
-
-TEST(TaskMeta, ConvertTo)
-{
-    TaskMeta meta = Serializer::CreateRequire(TaskID::MULLIGAN, 0);
-    const auto require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(meta);
-
-    EXPECT_EQ(meta.GetUserID(), 0);
-    EXPECT_EQ(TaskID::MULLIGAN, require->required());
+    EXPECT_FALSE(meta.HasObjects());
 }
