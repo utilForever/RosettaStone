@@ -22,4 +22,9 @@ TaskMeta BasicPolicy::Require(Player& player, TaskID id)
     }
     return TaskMeta(id);
 }
+
+void BasicPolicy::Notify(const TaskMeta& meta)
+{
+    (void)meta;
+}
 }  // namespace Hearthstonepp

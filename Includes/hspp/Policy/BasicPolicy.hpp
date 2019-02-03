@@ -24,6 +24,8 @@ class BasicPolicy : public IPolicy
 
     TaskMeta Require(Player& player, TaskID id) override;
 
+    void Notify(const TaskMeta& meta) override;
+
  private:
     virtual TaskMeta RequireMulligan(Player& player) = 0;
     virtual TaskMeta RequirePlaySpell(Player& player) = 0;

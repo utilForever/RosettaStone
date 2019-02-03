@@ -24,6 +24,8 @@ class IPolicy
     virtual TaskMeta Next(const Game& game) = 0;
 
     virtual TaskMeta Require(Player& player, TaskID id) = 0;
+
+    virtual void Notify(const TaskMeta& meta) = 0;
 };
 }  // namespace Hearthstonepp
 
