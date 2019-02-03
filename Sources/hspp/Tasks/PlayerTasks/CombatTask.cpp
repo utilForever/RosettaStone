@@ -3,6 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Commons/Utils.hpp>
+#include <hspp/Policy/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyWeaponTask.hpp>
@@ -167,13 +169,8 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         return std::make_tuple(sourceIndex, targetIndex);
     }
 
-    // TaskMeta serialized;
-    // // Get targeting response from game interface
-    // m_requirement.Interact(player.GetID(), serialized);
-
-    // // Get the source and the target
-    // const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
-    // return std::make_tuple(req->src(), req->dst());
-    return std::make_tuple(static_cast<BYTE>(0), static_cast<BYTE>(0));
+    TaskMeta req = player.GetPolicy().Require(player, TaskID::COMBAT);
+    Box<BYTE> obj = req.MoveObject<Box<BYTE>>();
+    return std::make_tuple(obj[0], obj[1]);
 }
 }  // namespace Hearthstonepp::PlayerTasks
