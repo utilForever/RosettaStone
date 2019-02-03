@@ -7,6 +7,8 @@
 #ifndef HEARTHSTONEPP_UTILS_HPP
 #define HEARTHSTONEPP_UTILS_HPP
 
+#include <cstddef>
+
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
 {
