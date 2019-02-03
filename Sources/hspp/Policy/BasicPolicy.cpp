@@ -30,4 +30,39 @@ void BasicPolicy::Notify(const TaskMeta& meta)
         return iter->second(*this, meta);
     }
 }
+
+TaskMeta BasicPolicy::RequireMulligan(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+TaskMeta BasicPolicy::RequirePlaySpell(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+TaskMeta BasicPolicy::RequirePlayCard(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+TaskMeta BasicPolicy::RequirePlayMinion(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+TaskMeta BasicPolicy::RequireCombat(Player& player)
+{
+    (void)player;
+    return TaskMeta();
+}
+
+void BasicPolicy::NotifyOverDraw(const TaskMeta& meta)
+{
+    (void)meta;
+}
 }  // namespace Hearthstonepp

@@ -27,13 +27,13 @@ class BasicPolicy : public IPolicy
     void Notify(const TaskMeta& meta) override;
 
  private:
-    virtual TaskMeta RequireMulligan(Player& player) = 0;
-    virtual TaskMeta RequirePlaySpell(Player& player) = 0;
-    virtual TaskMeta RequirePlayCard(Player& player) = 0;
-    virtual TaskMeta RequirePlayMinion(Player& player) = 0;
-    virtual TaskMeta RequireCombat(Player& player) = 0;
+    virtual TaskMeta RequireMulligan(Player& player);
+    virtual TaskMeta RequirePlaySpell(Player& player);
+    virtual TaskMeta RequirePlayCard(Player& player);
+    virtual TaskMeta RequirePlayMinion(Player& player);
+    virtual TaskMeta RequireCombat(Player& player);
 
-    virtual void NotifyDraw(const TaskMeta& meta) = 0;
+    virtual void NotifyOverDraw(const TaskMeta& meta);
 
     std::map<TaskID, std::function<TaskMeta(BasicPolicy&, Player&)>> m_require =
         {
@@ -46,7 +46,7 @@ class BasicPolicy : public IPolicy
 
     std::map<TaskID, std::function<void(BasicPolicy&, const TaskMeta&)>>
         m_notify = {
-            { TaskID::DRAW, &BasicPolicy::NotifyDraw },
+            { TaskID::OVERDRAW, &BasicPolicy::NotifyOverDraw },
         };
 };
 }  // namespace Hearthstonepp
