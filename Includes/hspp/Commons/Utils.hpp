@@ -143,6 +143,27 @@ class Box
         return m_ptr[idx];
     }
 
+    bool operator==(const Box& other) const
+    {
+        if (m_size == other.size())
+        {
+            for (size_t i = 0; i < m_size; ++i)
+            {
+                if (m_ptr[i] != other[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    bool operator==(std::nullptr_t) const
+    {
+        return m_ptr == nullptr;
+    }
+
     iterator begin()
     {
         return m_ptr;
