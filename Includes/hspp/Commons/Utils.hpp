@@ -65,7 +65,8 @@ class Box
 
     Box(Box&& box) noexcept : m_size(box.size()), m_ptr(box.get())
     {
-        box.reset();
+        box.m_ptr = nullptr;
+        box.m_size = 0;
     }
 
     Box& operator=(const Box& box)
@@ -75,12 +76,15 @@ class Box
         {
             m_ptr[i] = box[i];
         }
+        return *this;
     }
 
     Box& operator=(Box&& box) noexcept
     {
         reset(box.get(), box.size());
-        box.reset();
+        box.m_ptr = nullptr;
+        box.m_size = 0;
+        return *this;
     }
 
     void reset() noexcept
@@ -159,9 +163,18 @@ class Box
         return false;
     }
 
+    bool operator!=(const Box& other) const {
+        return !operator==(other);
+    }
+
     bool operator==(std::nullptr_t) const
     {
         return m_ptr == nullptr;
+    }
+
+    bool operator!=(std::nullptr_t) const
+    {
+        return m_ptr != nullptr;
     }
 
     iterator begin()
