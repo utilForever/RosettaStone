@@ -9,6 +9,8 @@
 
 #include <hspp/Tasks/Tasks.hpp>
 
+#include <functional>
+
 namespace Hearthstonepp
 {
 //!
@@ -47,7 +49,7 @@ class DoUntil : public ITask
     //! Constructs task with given \p task and \p condition.
     //! \param task The task that is infinite-loop until completes.
     //! \param condition The condition under which the task completes.
-    DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition);
+    DoUntil(ITask&& task, std::function<bool(MetaData)>&& condition);
 
    //! Constructs task with given \p task and \p id.
    //! \param task The task that is infinite-loop until completes.
@@ -65,7 +67,7 @@ class DoUntil : public ITask
     MetaData Impl(Player& player) override;
 
     ITask& m_task;
-    std::function<bool(const TaskMeta&)> m_condition;
+    std::function<bool(MetaData)> m_condition;
 };
 }  // namespace Hearthstonepp
 

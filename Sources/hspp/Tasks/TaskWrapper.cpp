@@ -31,7 +31,7 @@ MetaData DoBothPlayer::Impl(Player& player)
     return status2;
 }
 
-DoUntil::DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition)
+DoUntil::DoUntil(ITask&& task, std::function<bool(MetaData)>&& condition)
     : m_task(task), m_condition(std::move(condition))
 {
     // Do nothing
@@ -39,7 +39,7 @@ DoUntil::DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition)
 
 DoUntil::DoUntil(ITask&& task, MetaData id)
     : m_task(task),
-      m_condition([=](const TaskMeta& meta) { return meta.GetStatus() == id; })
+      m_condition([=](MetaData meta) { return meta == id; })
 {
     // Do Nothing
 }
@@ -51,11 +51,11 @@ TaskID DoUntil::GetTaskID() const
 
 MetaData DoUntil::Impl(Player& player)
 {
-    TaskMeta meta;
+    MetaData meta;
 
     while (true)
     {
-        m_task.Run(player, meta);
+        meta = m_task.Run(player);
 
         // Do until the condition satisfied
         if (m_condition(meta))
@@ -64,6 +64,6 @@ MetaData DoUntil::Impl(Player& player)
         }
     }
 
-    return meta.GetStatus();
+    return meta;
 }
 }  // namespace Hearthstonepp
