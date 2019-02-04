@@ -75,15 +75,16 @@ namespace Task
 {
 //! Calls Impl method and returns meta data.
 //! \param player The player to run task.
+//! \param task The task to run.
 //! \return The result of task processing.
 inline TaskStatus Run(Player& player, ITask&& task)
 {
     return task.Run(player);
 }
 
-//! Run multiple Tasks
+//! Runs multiple Tasks.
 //! \param player The player to run task.
-//! \param meta The task meta that stores packed multiple game status.
+//! \param task Packed multiple tasks.
 template <typename... TaskType>
 std::vector<TaskStatus> RunMulti(Player& player, TaskType&&... task)
 {
