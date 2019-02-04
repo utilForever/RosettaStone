@@ -39,17 +39,17 @@ class Box
 
     Box() : m_size(0), m_ptr(nullptr)
     {
-        // Do Nothing
+        // Do nothing
     }
 
     explicit Box(size_t size) : m_size(size), m_ptr(new T[m_size])
     {
-        // Do Nothing
+        // Do nothing
     }
 
     Box(T* ptr, size_t size) : m_size(size), m_ptr(ptr)
     {
-        // Do Nothing
+        // Do nothing
     }
 
     ~Box()
