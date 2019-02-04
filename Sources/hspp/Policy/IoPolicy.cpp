@@ -25,6 +25,8 @@ TaskMeta IoPolicy::RequireMulligan(Player& player)
 TaskMeta IoPolicy::RequirePlaySpell(Player& player)
 {
     (void)player;
+    (void)m_out;
+    (void)m_in;
     return TaskMeta();
 }
 

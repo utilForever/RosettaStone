@@ -24,7 +24,7 @@ Box<int> GenerateRandomBuffer(size_t maximumSize)
         box[i] = gen() % 255;
     }
 
-    return std::move(box);
+    return box;
 }
 
 TaskMetaTrait GenerateRandomTrait()
