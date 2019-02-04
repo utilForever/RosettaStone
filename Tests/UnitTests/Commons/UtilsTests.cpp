@@ -30,7 +30,7 @@ TEST(Box, Constructor)
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    Box<int> box(gen() % 1024);
+    Box<int> box(gen() % 1024 + 1);
     for (size_t i = 0; i < box.size(); ++i)
     {
         box[i] = gen() % 255;
