@@ -42,7 +42,7 @@ class Box
         // Do Nothing
     }
 
-    Box(size_t size) : m_size(size), m_ptr(new T[m_size])
+    explicit Box(size_t size) : m_size(size), m_ptr(new T[m_size])
     {
         // Do Nothing
     }
@@ -165,7 +165,8 @@ class Box
         return false;
     }
 
-    bool operator!=(const Box& other) const {
+    bool operator!=(const Box& other) const
+    {
         return !operator==(other);
     }
 

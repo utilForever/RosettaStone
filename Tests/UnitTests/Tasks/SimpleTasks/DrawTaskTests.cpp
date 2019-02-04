@@ -18,7 +18,8 @@ using namespace SimpleTasks;
 class DrawTestPolicy : public BasicPolicy
 {
  public:
-    DrawTestPolicy(std::function<void(const TaskMeta&)>&& overdrawHandler)
+    explicit DrawTestPolicy(
+        std::function<void(const TaskMeta&)>&& overdrawHandler)
         : m_overdrawHandler(std::move(overdrawHandler))
     {
     }
@@ -198,7 +199,7 @@ TEST(DrawTask, RunExhaustOverdraw)
         for (size_t i = 0; i < 2; ++i)
         {
             EXPECT_EQ(entities[i]->card->id,
-                        id + static_cast<char>(2 - i + 0x30));
+                      id + static_cast<char>(2 - i + 0x30));
         }
     });
     p.SetPolicy(&policy);
