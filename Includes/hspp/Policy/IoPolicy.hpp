@@ -13,18 +13,36 @@
 
 namespace Hearthstonepp
 {
+//!
+//! \brief IoPolicy class.
+//!
+//! This class implement IPolicy for user input policy.
+//!
 class IoPolicy : public BasicPolicy
 {
  public:
+    //! Constructs IO policy with given \p out and \p in.
+    //! \param out Basic output stream.
+    //! \param in Basic input stream.
     IoPolicy(std::ostream& out, std::istream& in);
 
  private:
+    //! Method for MulliganTask requirement.
     TaskMeta RequireMulligan(Player& player) override;
+
+    //! Method for PlaySpellTask requirement.
     TaskMeta RequirePlaySpell(Player& player) override;
+
+    //! Method for PlayCardTask requirement.
     TaskMeta RequirePlayCard(Player& player) override;
+
+    //! Method for PlayMinionTask requirement.
     TaskMeta RequirePlayMinion(Player& player) override;
+
+    //! Method for CombatTask requirement.
     TaskMeta RequireCombat(Player& player) override;
 
+    //! Method for OverDraw notifying.
     void NotifyOverDraw(const TaskMeta& meta) override;
 
     std::ostream& m_out;
