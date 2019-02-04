@@ -18,7 +18,7 @@ namespace Hearthstonepp::PlayerTasks
 class PlayerSettingTask : public ITask
 {
  public:
-    //! Constructs task.
+    //! Default constructor.
     PlayerSettingTask() = default;
 
     //! Returns task ID.

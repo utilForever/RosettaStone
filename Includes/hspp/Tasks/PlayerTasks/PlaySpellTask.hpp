@@ -19,7 +19,7 @@ namespace Hearthstonepp::PlayerTasks
 class PlaySpellTask : public ITask
 {
  public:
-    //! Constructs task with given \p entity.
+    //! Constructs task with given \p source and \p target.
     //! \param source A pointer to source entity to play card.
     //! \param target A target of the card to receive power.
     PlaySpellTask(Entity* source, Entity* target);

@@ -107,7 +107,7 @@ class TaskMeta : public TaskMetaTrait
     //! \param trait An instance of base class that stores default meta data.
     TaskMeta(const TaskMetaTrait& trait);
 
-    //! Constructs task meta with given object.
+    //! Constructs task meta with given \p trait and \p object.
     //! \param trait An instance of base class that stores default meta data.
     //! \param object An object to save in this class.
     TaskMeta(const TaskMetaTrait& trait, std::any object);
@@ -130,28 +130,28 @@ class TaskMeta : public TaskMetaTrait
     //! Resets object.
     void Reset();
 
-    //! Query that is objects having value or not.
-    //! \return Whether object has value or not.
+    //! Queries that object has value.
+    //! \return true if object has value, false otherwise.
     bool HasObjects() const;
 
-    //! Get objects that this class had.
-    //! \return Objects from this class.
+    //! Gets object from this class.
+    //! \return Object from this class.
     template <typename T>
     T& GetObject()
     {
         return std::any_cast<T&>(m_object);
     }
 
-    //! Get objects that this class had.
-    //! \return Objects from this class.
+    //! Gets object from this class.
+    //! \return Object from this class.
     template <typename T>
     const T& GetObject() const
     {
         return std::any_cast<const T&>(m_object);
     }
 
-    //! Move objects that this class had.
-    //! \return Objects from this class.
+    //! Moves object from this class.
+    //! \return Moved object from this class.
     template <typename T>
     T MoveObject()
     {

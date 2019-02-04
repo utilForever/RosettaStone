@@ -51,9 +51,10 @@ class DoUntil : public ITask
     //! \param condition The condition under which the task completes.
     DoUntil(ITask&& task, std::function<bool(TaskStatus)>&& condition);
 
-   //! Constructs task with given \p task and \p id.
-   //! \param task The task that is infinite-loop until completes.
-   //! \param id The condition whether returned TaskMeta::status is equal to id.
+    //! Constructs task with given \p task and \p id.
+    //! \param task The task that is infinite-loop until completes.
+    //! \param id The condition whether returned TaskMeta::status is equal to
+    //! id.
     DoUntil(ITask&& task, TaskStatus id);
 
     //! Returns task ID.
