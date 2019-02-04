@@ -11,7 +11,7 @@ namespace Hearthstonepp
 {
 IoPolicy::IoPolicy(std::ostream& out, std::istream& in) : m_out(out), m_in(in)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskMeta IoPolicy::RequireMulligan(Player& player)
