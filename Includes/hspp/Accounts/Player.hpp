@@ -132,8 +132,8 @@ class Player
     //! \return The policy of current player.
     IPolicy& GetPolicy() const;
 
-   //! Sets game playing policy for current player.
-   //! \param policy Policy for playing game.
+    //! Sets game playing policy for current player.
+    //! \param policy Policy for playing game.
     void SetPolicy(IPolicy* policy);
 
  private:
