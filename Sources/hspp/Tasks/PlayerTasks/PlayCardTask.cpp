@@ -38,10 +38,12 @@ TaskStatus PlayCardTask::Impl(Player& player)
     else
     {
         TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_CARD);
+
         if (!req.HasObjects())
         {
             return TaskStatus::PLAY_CARD_INVALID_REQUIRE;
         }
+
         handIndex = req.GetObject<BYTE>();
     }
 

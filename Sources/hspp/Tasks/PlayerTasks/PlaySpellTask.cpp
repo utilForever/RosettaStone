@@ -39,10 +39,12 @@ TaskStatus PlaySpellTask::Impl(Player& player)
     else
     {
         TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_SPELL);
+
         if (!req.HasObjects())
         {
             return TaskStatus::PLAY_SPELL_INVALID_REQUIRE;
         }
+
         position = req.GetObject<BYTE>();
     }
 
