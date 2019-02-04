@@ -41,7 +41,7 @@ DoUntil::DoUntil(ITask&& task, TaskStatus id)
     : m_task(task),
       m_condition([=](TaskStatus meta) { return meta == id; })
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID DoUntil::GetTaskID() const

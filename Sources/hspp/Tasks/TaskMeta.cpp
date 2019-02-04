@@ -64,13 +64,13 @@ TaskMeta::TaskMeta(const TaskMetaTrait& trait) : TaskMetaTrait(trait)
 TaskMeta::TaskMeta(const TaskMetaTrait& trait, std::any object)
     : TaskMetaTrait(trait), m_object(object)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskMeta::TaskMeta(const TaskMeta& meta)
     : TaskMetaTrait(meta), m_object(meta.m_object)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskMeta::TaskMeta(TaskMeta&& meta) noexcept
