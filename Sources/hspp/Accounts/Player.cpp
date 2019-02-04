@@ -172,11 +172,13 @@ void Player::FreeMemory()
     delete m_hero;
 }
 
-IPolicy& Player::GetPolicy() const {
+IPolicy& Player::GetPolicy() const
+{
     return *m_policy;
 }
 
-void Player::SetPolicy(IPolicy* policy) {
+void Player::SetPolicy(IPolicy* policy)
+{
     m_policy = policy;
 }
 }  // namespace Hearthstonepp
