@@ -119,8 +119,7 @@ TEST(CoreCardsGen, CS2_041)
     EXPECT_EQ(currentPlayer.GetField()[0]->health, 1);
     EXPECT_EQ(opponentPlayer.GetField().size(), 0u);
 
-    Task::Run(currentPlayer,
-                       PlayCardTask(card2, -1, card1));
+    Task::Run(currentPlayer, PlayCardTask(card2, -1, card1));
     EXPECT_EQ(currentPlayer.GetField()[0]->health, 2);
     EXPECT_EQ(currentPlayer.GetField()[0]->GetGameTag(GameTag::TAUNT), 1);
 }
