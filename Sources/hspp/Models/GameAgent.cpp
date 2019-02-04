@@ -122,9 +122,6 @@ void GameAgent::FinalPhase()
 
 void GameAgent::PrepareMainPhase()
 {
-    // increase total mana, initialize attack count
-    TaskMeta meta;
-
     // Task list of prepare main phase
     // 1. Draw a card from deck.
     // 2. Gain a new mana crystal. (increase maximum mana by 1)
