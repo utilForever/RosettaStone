@@ -40,7 +40,7 @@ TaskStatus PlayMinionTask::Impl(Player& player)
         TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_MINION);
         if (!req.HasObjects())
         {
-            return TaskStatus::PLAY_MINION_FLATBUFFER_NULLPTR;
+            return TaskStatus::PLAY_MINION_INVALID_REQUIRE;
         }
         position = req.GetObject<BYTE>();
     }

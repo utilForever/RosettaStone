@@ -26,7 +26,7 @@ TaskStatus MulliganTask::Impl(Player& player)
     TaskMeta result = player.GetPolicy().Require(player, TaskID::MULLIGAN);
     if (!result.HasObjects())
     {
-        return TaskStatus::MULLIGAN_FLATBUFFER_NULLPTR;
+        return TaskStatus::MULLIGAN_INVALID_REQUIRE;
     }
 
     Box<size_t>& index = result.GetObject<Box<size_t>>();
