@@ -40,6 +40,9 @@ class Deck
     //! \param card The card to add to deck.
     void AddCard(Entity& card);
 
+    //! Shuffles cards in deck.
+    void Shuffle();
+
  private:
     Player* m_owner = nullptr;
     std::array<Entity*, MAX_DECK_SIZE> m_cards{};

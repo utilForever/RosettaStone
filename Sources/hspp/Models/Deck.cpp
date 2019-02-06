@@ -6,6 +6,9 @@
 
 #include <hspp/Models/Deck.hpp>
 
+#include <algorithm>
+#include <random>
+
 namespace Hearthstonepp
 {
 Deck::Deck()
@@ -27,5 +30,13 @@ void Deck::AddCard(Entity& card)
 {
     m_cards.at(m_numCard) = &card;
     ++m_numCard;
+}
+
+void Deck::Shuffle()
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::shuffle(m_cards.begin(), m_cards.end(), gen);
 }
 }  // namespace Hearthstonepp
