@@ -36,6 +36,10 @@ class Deck
     //! \param owner The owner of deck.
     void SetOwner(Player& owner);
 
+    //! Returns the number of cards in deck.
+    //! \return The number of cards in deck.
+    std::size_t GetNumOfCards() const;
+
     //! Adds a card to deck.
     //! \param card The card to add to deck.
     void AddCard(Entity& card);
