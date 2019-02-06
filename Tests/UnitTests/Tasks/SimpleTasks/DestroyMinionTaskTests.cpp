@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Cards/Minion.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
 
 using namespace Hearthstonepp;
@@ -24,8 +24,8 @@ TEST(DestroyMinionTask, GetTaskID)
 
 TEST(DestroyMinionTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& player1 = agent.GetPlayer1();
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = game.GetPlayer1();
 
     std::vector<Card> cards;
     cards.reserve(5);
@@ -39,9 +39,9 @@ TEST(DestroyMinionTask, Run)
     }
 
     DestroyMinionTask destroy(player1.GetField()[2]);
-    MetaData result = destroy.Run(player1);
+    TaskStatus result = destroy.Run(player1);
 
-    EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::DESTROY_MINION_SUCCESS);
     EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(4));
 
     EXPECT_EQ(player1.GetField()[0]->card->id, name + '0');
@@ -50,5 +50,5 @@ TEST(DestroyMinionTask, Run)
     EXPECT_EQ(player1.GetField()[3]->card->id, name + '4');
 
     result = destroy.Run(player1);
-    EXPECT_EQ(result, MetaData::DESTROY_MINION_NOT_FOUND);
+    EXPECT_EQ(result, TaskStatus::DESTROY_MINION_NOT_FOUND);
 }

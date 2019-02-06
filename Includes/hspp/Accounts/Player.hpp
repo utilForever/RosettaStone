@@ -20,7 +20,7 @@ namespace Hearthstonepp
 {
 using BYTE = unsigned char;
 
-class GameAgent;
+class IPolicy;
 
 //!
 //! \brief Player class.
@@ -111,14 +111,6 @@ class Player
     //! \param numCard The number of drawn card.
     void SetNumCardAfterExhaust(BYTE numCard);
 
-    //! Returns the game agent.
-    //! \return The game agent.
-    GameAgent& GetGameAgent() const;
-
-    //! Sets the game agent.
-    //! \param agent The game agent.
-    void SetGameAgent(GameAgent* agent);
-
     //! Returns the opponent player.
     //! \return The opponent player.
     Player& GetOpponent() const;
@@ -135,6 +127,14 @@ class Player
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
+
+    //! Returns game playing policy of current player.
+    //! \return The policy of current player.
+    IPolicy& GetPolicy() const;
+
+    //! Sets game playing policy for current player.
+    //! \param policy Policy for playing game.
+    void SetPolicy(IPolicy* policy);
 
  private:
     //! Releases dynamic allocated resources.
@@ -158,8 +158,8 @@ class Player
     BYTE m_maximumMana = 0;
     BYTE m_numCardAfterExhaust = 0;
 
-    GameAgent* m_gameAgent = nullptr;
     Player* m_opponent = nullptr;
+    IPolicy* m_policy = nullptr;
 };
 }  // namespace Hearthstonepp
 

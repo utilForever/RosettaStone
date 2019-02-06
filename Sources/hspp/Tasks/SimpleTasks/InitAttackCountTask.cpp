@@ -13,12 +13,12 @@ TaskID InitAttackCountTask::GetTaskID() const
     return TaskID::INIT_ATTACK_COUNT;
 }
 
-MetaData InitAttackCountTask::Impl(Player& player)
+TaskStatus InitAttackCountTask::Impl(Player& player)
 {
     ProcessMyField(player);
     ProcessEnemyField(player.GetOpponent());
 
-    return MetaData::INIT_ATTACK_COUNT_SUCCESS;
+    return TaskStatus::INIT_ATTACK_COUNT_SUCCESS;
 }
 
 void InitAttackCountTask::ProcessMyField(Player& my)

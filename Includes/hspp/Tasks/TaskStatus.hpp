@@ -4,15 +4,15 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_META_DATA_HPP
-#define HEARTHSTONEPP_META_DATA_HPP
+#ifndef HEARTHSTONEPP_TASK_STATUS_HPP
+#define HEARTHSTONEPP_TASK_STATUS_HPP
 
 namespace Hearthstonepp
 {
 using status_t = unsigned int;
 
 //! Meta data to represent the result of the task.
-enum class MetaData : status_t
+enum class TaskStatus : status_t
 {
     INVALID,
     NULLPTR,
@@ -38,7 +38,7 @@ enum class MetaData : status_t
 
     MULLIGAN,
     MULLIGAN_SUCCESS,
-    MULLIGAN_FLATBUFFER_NULLPTR,
+    MULLIGAN_INVALID_REQUIRE,
     MULLIGAN_INDEX_OUT_OF_RANGE,
     MULLIGAN_DUPLICATED_INDEX,
 
@@ -51,14 +51,14 @@ enum class MetaData : status_t
 
     PLAY_CARD,
     PLAY_CARD_SUCCESS,
-    PLAY_CARD_FLATBUFFER_NULLPTR,
+    PLAY_CARD_INVALID_REQUIRE,
     PLAY_CARD_IDX_OUT_OF_RANGE,
     PLAY_CARD_NOT_ENOUGH_MANA,
     PLAY_CARD_INVALID_CARD_TYPE,
 
     PLAY_MINION,
     PLAY_MINION_SUCCESS,
-    PLAY_MINION_FLATBUFFER_NULLPTR,
+    PLAY_MINION_INVALID_REQUIRE,
     PLAY_MINION_CANNOT_CONVERT_ENTITY,
     PLAY_MINION_POSITION_OUT_OF_RANGE,
     PLAY_MINION_MODIFY_MANA_FAIL,
@@ -69,7 +69,7 @@ enum class MetaData : status_t
 
     PLAY_SPELL,
     PLAY_SPELL_SUCCESS,
-    PLAY_SPELL_FLATBUFFER_NULLPTR,
+    PLAY_SPELL_INVALID_REQUIRE,
     PLAY_SPELL_POSITION_OUT_OF_RANGE,
     PLAY_SPELL_INVALID_TARGET,
     PLAY_SPELL_MODIFY_MANA_FAIL,
@@ -79,7 +79,7 @@ enum class MetaData : status_t
 
     COMBAT,
     COMBAT_SUCCESS,
-    COMBAT_FLATBUFFER_NULLPTR,
+    COMBAT_INVALID_REQUIRE,
     COMBAT_SRC_IDX_OUT_OF_RANGE,
     COMBAT_DST_IDX_OUT_OF_RANGE,
     COMBAT_SOURCE_CANT_ATTACK,
@@ -115,4 +115,4 @@ enum class MetaData : status_t
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_META_DATA_HPP
+#endif  // HEARTHSTONEPP_TASK_STATUS_HPP

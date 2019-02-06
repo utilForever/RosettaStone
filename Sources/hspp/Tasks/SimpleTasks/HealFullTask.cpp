@@ -17,11 +17,11 @@ TaskID HealFullTask::GetTaskID() const
     return TaskID::HEAL_FULL;
 }
 
-MetaData HealFullTask::Impl(Player&)
+TaskStatus HealFullTask::Impl(Player&)
 {
     const auto character = dynamic_cast<Character*>(m_target);
     character->health = character->maxHealth;
 
-    return MetaData::HEAL_FULL_SUCCESS;
+    return TaskStatus::HEAL_FULL_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

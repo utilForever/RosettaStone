@@ -8,26 +8,20 @@
 #define UNIT_TESTS_TEST_UTILS_HPP
 
 #include <hspp/Cards/Card.hpp>
+#include <hspp/Commons/Utils.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 
 using namespace Hearthstonepp;
 
 namespace TestUtils
 {
-std::size_t GenerateRandomBuffer(std::unique_ptr<BYTE[]>& ptr,
-                                 size_t maximumSize = 255);
+SizedPtr<int> GenerateRandomBuffer(size_t maximumSize = 255);
 
 TaskMetaTrait GenerateRandomTrait();
 
 TaskMeta GenerateRandomTaskMeta();
 
 Card GenerateMinionCard(std::string&& id, size_t attack, size_t health);
-
-Card ConvertCardFrom(const Card& card, const FlatData::Card* deserialized);
-
-void ExpectBufferEqual(const std::unique_ptr<BYTE[]>& buffer1,
-                       const std::unique_ptr<BYTE[]>& buffer2,
-                       std::size_t size);
 
 void ExpectCardEqual(const Card& card1, const Card& card2);
 }  // namespace TestUtils

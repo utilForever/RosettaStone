@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyWeaponTask.hpp>
 
 using namespace Hearthstonepp;
@@ -21,13 +21,13 @@ TEST(DestroyWeaponTask, GetTaskID)
 TEST(DestroyWeaponTask, Run)
 {
     DestroyWeaponTask destroy;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card;
     card.id = "weapon1";
-    agent.GetPlayer1().GetHero()->weapon = new Weapon(card);
+    game.GetPlayer1().GetHero()->weapon = new Weapon(card);
 
-    MetaData result = destroy.Run(agent.GetPlayer1());
-    EXPECT_EQ(result, MetaData::DESTROY_WEAPON_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().GetHero()->HasWeapon(), false);
+    TaskStatus result = destroy.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::DESTROY_WEAPON_SUCCESS);
+    EXPECT_EQ(game.GetPlayer1().GetHero()->HasWeapon(), false);
 }

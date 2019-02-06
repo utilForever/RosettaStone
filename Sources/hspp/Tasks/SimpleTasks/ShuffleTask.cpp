@@ -5,6 +5,7 @@
 
 #include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 
+#include <algorithm>
 #include <random>
 
 namespace Hearthstonepp::SimpleTasks
@@ -14,13 +15,13 @@ TaskID ShuffleTask::GetTaskID() const
     return TaskID::SHUFFLE;
 }
 
-MetaData ShuffleTask::Impl(Player& player)
+TaskStatus ShuffleTask::Impl(Player& player)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
 
     std::shuffle(player.GetDeck().begin(), player.GetDeck().end(), gen);
 
-    return MetaData::SHUFFLE_SUCCESS;
+    return TaskStatus::SHUFFLE_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

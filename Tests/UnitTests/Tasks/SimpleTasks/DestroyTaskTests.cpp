@@ -9,7 +9,7 @@
 
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 
 using namespace Hearthstonepp;
@@ -24,9 +24,9 @@ TEST(DestroyTask, GetTaskID)
 
 TEST(DestroyTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
 
     auto card = GenerateMinionCard("minion1", 1, 1);
 
@@ -35,8 +35,8 @@ TEST(DestroyTask, Run)
 
     DestroyTask task1(EntityType::SOURCE, player1.GetField()[0], nullptr);
 
-    MetaData result = task1.Run(player1);
-    EXPECT_EQ(result, MetaData::DESTROY_MINION_SUCCESS);
+    TaskStatus result = task1.Run(player1);
+    EXPECT_EQ(result, TaskStatus::DESTROY_MINION_SUCCESS);
     EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(0));
 
     // Destroy Target Minion
@@ -44,8 +44,8 @@ TEST(DestroyTask, Run)
 
     DestroyTask task2(EntityType::TARGET, nullptr, player2.GetField()[0]);
 
-    MetaData result2 = task2.Run(player1);
-    EXPECT_EQ(result2, MetaData::DESTROY_MINION_SUCCESS);
+    TaskStatus result2 = task2.Run(player1);
+    EXPECT_EQ(result2, TaskStatus::DESTROY_MINION_SUCCESS);
     EXPECT_EQ(player2.GetField().size(), static_cast<size_t>(0));
 
     // Destroy Target Weapon
@@ -54,7 +54,7 @@ TEST(DestroyTask, Run)
 
     DestroyTask task3(EntityType::ENEMY_WEAPON, nullptr, nullptr);
 
-    MetaData result3 = task3.Run(player1);
-    EXPECT_EQ(result3, MetaData::DESTROY_WEAPON_SUCCESS);
+    TaskStatus result3 = task3.Run(player1);
+    EXPECT_EQ(result3, TaskStatus::DESTROY_WEAPON_SUCCESS);
     EXPECT_EQ(player2.GetHero()->HasWeapon(), false);
 }

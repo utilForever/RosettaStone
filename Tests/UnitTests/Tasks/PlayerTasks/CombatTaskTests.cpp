@@ -10,7 +10,7 @@
 #include <hspp/Cards/Minion.hpp>
 #include <hspp/Cards/Weapon.hpp>
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 
@@ -23,57 +23,52 @@ class CombatTester
 {
  public:
     CombatTester()
-        : m_gameAgent(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1),
-          m_taskAgent(m_gameAgent.GetTaskAgent())
+        : m_game(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1)
     {
         // Do nothing
     }
 
     std::tuple<Player&, Player&> GetPlayer()
     {
-        return { m_gameAgent.GetPlayer1(), m_gameAgent.GetPlayer2() };
+        return { m_game.GetPlayer1(), m_game.GetPlayer2() };
     }
 
     void InitAttackCount(PlayerType playerType)
     {
         if (playerType == PlayerType::PLAYER1)
         {
-            InitAttackCountTask().Run(m_gameAgent.GetPlayer1());
+            InitAttackCountTask().Run(m_game.GetPlayer1());
         }
         else
         {
-            InitAttackCountTask().Run(m_gameAgent.GetPlayer2());
+            InitAttackCountTask().Run(m_game.GetPlayer2());
         }
     }
 
-    void Attack(Entity* source, Entity* target, MetaData expected,
+    void Attack(Entity* source, Entity* target, TaskStatus expected,
                 PlayerType playerType)
     {
-        MetaData result;
+        TaskStatus result;
 
         if (playerType == PlayerType::PLAYER1)
         {
-            result = CombatTask(m_taskAgent, source, target)
-                         .Run(m_gameAgent.GetPlayer1());
+            result = CombatTask(source, target).Run(m_game.GetPlayer1());
         }
         else
         {
-            result = CombatTask(m_taskAgent, source, target)
-                         .Run(m_gameAgent.GetPlayer2());
+            result = CombatTask(source, target).Run(m_game.GetPlayer2());
         }
 
         EXPECT_EQ(result, expected);
     }
 
  private:
-    GameAgent m_gameAgent;
-    TaskAgent& m_taskAgent;
+    Game m_game;
 };
 
 TEST(CombatTask, GetTaskID)
 {
-    TaskAgent agent;
-    const CombatTask combat(agent, nullptr, nullptr);
+    const CombatTask combat(nullptr, nullptr);
 
     EXPECT_EQ(combat.GetTaskID(), +TaskID::COMBAT);
 }
@@ -92,7 +87,7 @@ TEST(CombatTask, Default)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetHero(),
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField()[0]->health, player1.GetField()[0]->maxHealth);
     EXPECT_EQ(
         player2.GetHero()->health,
@@ -101,14 +96,14 @@ TEST(CombatTask, Default)
     tester.InitAttackCount(PlayerType::PLAYER2);
 
     tester.Attack(player2.GetField()[0], player1.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER2);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER2);
     EXPECT_EQ(player1.GetField()[0]->health, static_cast<size_t>(1));
     EXPECT_EQ(player2.GetField()[0]->health, static_cast<size_t>(1));
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(0));
     EXPECT_EQ(player2.GetField().size(), static_cast<size_t>(0));
 
@@ -121,7 +116,7 @@ TEST(CombatTask, Default)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField()[0]->health, static_cast<size_t>(1));
     EXPECT_EQ(player2.GetField().size(), static_cast<size_t>(0));
 
@@ -133,7 +128,7 @@ TEST(CombatTask, Default)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(0));
     EXPECT_EQ(player2.GetField()[0]->health, static_cast<size_t>(3));
 }
@@ -152,7 +147,7 @@ TEST(CombatTask, Weapon)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetHero(), player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
 
     EXPECT_EQ(player1.GetHero()->weapon->GetDurability(), 1);
     EXPECT_EQ(player2.GetField()[0]->health, 6);
@@ -160,7 +155,7 @@ TEST(CombatTask, Weapon)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetHero(), player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
 
     EXPECT_EQ(player1.GetHero()->HasWeapon(), false);
     EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
@@ -179,12 +174,12 @@ TEST(CombatTask, Charge)
     player1.GetField()[0]->SetGameTag(GameTag::CHARGE, 1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
 
     player1.GetField()[0]->SetGameTag(GameTag::CHARGE, 0);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 }
 
 TEST(CombatTask, Taunt)
@@ -202,12 +197,12 @@ TEST(CombatTask, Taunt)
     player2.GetField()[1]->SetGameTag(GameTag::TAUNT, 1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 
     player2.GetField()[1]->SetGameTag(GameTag::TAUNT, 0);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
 }
 
 TEST(CombatTask, Stealth)
@@ -224,13 +219,13 @@ TEST(CombatTask, Stealth)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 
     player1.GetField()[0]->SetGameTag(GameTag::STEALTH, 1);
     player2.GetField()[0]->SetGameTag(GameTag::STEALTH, 0);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField()[0]->GetGameTag(GameTag::STEALTH), 0);
 }
 
@@ -248,7 +243,7 @@ TEST(CombatTask, Immune)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField()[0]->health, 10);
     EXPECT_EQ(player2.GetField()[0]->health, 9);
 }
@@ -265,20 +260,20 @@ TEST(CombatTask, Windfury)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 
     player1.GetField()[0]->SetGameTag(GameTag::WINDFURY, 1);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 }
 
 TEST(CombatTask, DivineShield)
@@ -295,7 +290,7 @@ TEST(CombatTask, DivineShield)
     player1.GetField()[0]->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField()[0]->health, player1.GetField()[0]->maxHealth);
     EXPECT_EQ(player2.GetField()[0]->health, static_cast<size_t>(9));
 
@@ -304,7 +299,7 @@ TEST(CombatTask, DivineShield)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField()[0]->health, static_cast<size_t>(9));
     EXPECT_EQ(player2.GetField()[0]->health, static_cast<size_t>(9));
 }
@@ -323,7 +318,7 @@ TEST(CombatTask, Poisonous)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField()[0]->health, static_cast<size_t>(9));
     EXPECT_EQ(player2.GetField().size(), static_cast<size_t>(0));
 
@@ -335,7 +330,7 @@ TEST(CombatTask, Poisonous)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player1.GetField().size(), static_cast<size_t>(0));
     EXPECT_EQ(player2.GetField()[0]->health, static_cast<size_t>(9));
 }
@@ -354,13 +349,13 @@ TEST(CombatTask, Freeze)
     tester.InitAttackCount(PlayerType::PLAYER1);
 
     tester.Attack(player1.GetField()[0], player2.GetField()[0],
-                  MetaData::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player2.GetField()[0]->GetGameTag(GameTag::FROZEN), 1);
 
     tester.InitAttackCount(PlayerType::PLAYER2);
 
     tester.Attack(player2.GetField()[0], player1.GetField()[0],
-                  MetaData::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER2);
+                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER2);
     EXPECT_EQ(player1.GetField()[0]->health, static_cast<size_t>(9));
     EXPECT_EQ(player2.GetField()[0]->health, static_cast<size_t>(9));
 }

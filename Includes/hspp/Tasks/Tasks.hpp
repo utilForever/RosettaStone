@@ -9,8 +9,8 @@
 
 #include <hspp/Accounts/Player.hpp>
 #include <hspp/Enums/CardEnums.hpp>
-#include <hspp/Tasks/MetaData.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
+#include <hspp/Tasks/TaskStatus.hpp>
 
 namespace Hearthstonepp
 {
@@ -54,13 +54,7 @@ class ITask
     //! Calls Impl method and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Run(Player& player);
-
-    //! Calls Impl method and returns meta data.
-    //! \param player The player to run task.
-    //! \param meta The task meta that stores game status.
-    //! \return The result of task processing.
-    MetaData Run(Player& player, TaskMeta& meta);
+    TaskStatus Run(Player& player);
 
     //! Returns task ID (pure virtual).
     //! \return Task ID.
@@ -74,8 +68,33 @@ class ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    virtual MetaData Impl(Player& player) = 0;
+    virtual TaskStatus Impl(Player& player) = 0;
 };
+
+namespace Task
+{
+//! Calls Impl method and returns meta data.
+//! \param player The player to run task.
+//! \param task The task to run.
+//! \return The result of task processing.
+inline TaskStatus Run(Player& player, ITask&& task)
+{
+    return task.Run(player);
+}
+
+//! Runs multiple Tasks.
+//! \param player The player to run task.
+//! \param task Packed multiple tasks.
+template <typename... TaskType>
+std::vector<TaskStatus> RunMulti(Player& player, TaskType&&... task)
+{
+    std::vector<TaskStatus> metas;
+    metas.reserve(sizeof...(task));
+
+    (..., metas.push_back(task.Run(player)));
+    return metas;
+}
+}  // namespace Task
 }  // namespace Hearthstonepp
 
 #endif  // HEARTHSTONEPP_TASKS_HPP

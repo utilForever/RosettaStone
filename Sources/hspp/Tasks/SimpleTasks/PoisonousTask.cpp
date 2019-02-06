@@ -17,10 +17,10 @@ TaskID PoisonousTask::GetTaskID() const
     return TaskID::POISONOUS;
 }
 
-MetaData PoisonousTask::Impl(Player&)
+TaskStatus PoisonousTask::Impl(Player&)
 {
     m_target->health = static_cast<size_t>(0);
 
-    return MetaData::POISONOUS_SUCCESS;
+    return TaskStatus::POISONOUS_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

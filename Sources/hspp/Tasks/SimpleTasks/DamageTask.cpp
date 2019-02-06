@@ -18,7 +18,7 @@ TaskID DamageTask::GetTaskID() const
     return TaskID::MODIFY_HEALTH;
 }
 
-MetaData DamageTask::Impl(Player&)
+TaskStatus DamageTask::Impl(Player&)
 {
     if (m_character->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
@@ -30,6 +30,6 @@ MetaData DamageTask::Impl(Player&)
     m_character->health =
         remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0u;
 
-    return MetaData::MODIFY_HEALTH_SUCCESS;
+    return TaskStatus::MODIFY_HEALTH_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

@@ -12,11 +12,11 @@ TaskID DestroyWeaponTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyWeaponTask::Impl(Player& player)
+TaskStatus DestroyWeaponTask::Impl(Player& player)
 {
     delete player.GetHero()->weapon;
     player.GetHero()->weapon = nullptr;
 
-    return MetaData::DESTROY_WEAPON_SUCCESS;
+    return TaskStatus::DESTROY_WEAPON_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

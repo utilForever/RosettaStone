@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Cards/Minion.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 
 using namespace Hearthstonepp;
@@ -24,15 +24,15 @@ TEST(ShuffleTask, GetTaskID)
 TEST(ShuffleTask, Run)
 {
     ShuffleTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     for (int i = 0; i < 5; i++)
     {
         auto card = GenerateMinionCard("minion", 5, 1);
-        agent.GetPlayer1().GetDeck().emplace_back(new Minion(card));
+        game.GetPlayer1().GetDeck().emplace_back(new Minion(card));
     }
 
-    MetaData result = init.Run(agent.GetPlayer1());
-    EXPECT_EQ(result, MetaData::SHUFFLE_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), static_cast<size_t>(5));
+    TaskStatus result = init.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::SHUFFLE_SUCCESS);
+    EXPECT_EQ(game.GetPlayer1().GetDeck().size(), static_cast<size_t>(5));
 }
