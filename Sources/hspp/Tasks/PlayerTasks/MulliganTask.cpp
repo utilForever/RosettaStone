@@ -6,7 +6,6 @@
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
-#include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 
 #include <algorithm>
 
@@ -84,11 +83,10 @@ MetaData MulliganTask::Impl(Player& player)
         hand.RemoveCard(*hand.GetCard(index[i]));
     }
 
-    const MetaData statusShuffle = ShuffleTask().Run(player);
+    deck.Shuffle();
     const MetaData statusDraw = DrawTask(read).Run(player);
 
-    if (statusShuffle == MetaData::SHUFFLE_SUCCESS &&
-        statusDraw == MetaData::DRAW_SUCCESS)
+    if (statusDraw == MetaData::DRAW_SUCCESS)
     {
         return MetaData::MULLIGAN_SUCCESS;
     }

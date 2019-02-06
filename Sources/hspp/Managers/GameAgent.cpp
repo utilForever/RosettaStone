@@ -17,7 +17,6 @@
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
-#include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 #include <hspp/Tasks/TaskWrapper.hpp>
 
 #include <random>
@@ -163,6 +162,8 @@ void GameAgent::BeginPhase()
         return meta.GetStatus() == MetaData::MULLIGAN_SUCCESS;
     };
 
+    Player& player1 = GetFirstPlayer();
+    Player& player2 = GetFirstPlayer().GetOpponent();
     TaskMeta meta;
 
     // Task list of begin phase
@@ -178,16 +179,17 @@ void GameAgent::BeginPhase()
     // 4. The player going second receives "The Coin" card.
     // NOTE: The Coin is a special uncollectible spell card granted at the start
     // of each game to whichever player is selected to go second.
-    m_taskAgent.Run(meta, GetFirstPlayer(), PlayerSettingTask(m_taskAgent));
+    m_taskAgent.Run(meta, player1, PlayerSettingTask(m_taskAgent));
 
-    m_taskAgent.RunMulti(meta, GetFirstPlayer(), ShuffleTask(),
-                         DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
+    player1.GetDeck().Shuffle();
+    player2.GetDeck().Shuffle();
+
+    m_taskAgent.RunMulti(meta, player1, DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
                          DoUntil(MulliganTask(m_taskAgent), success),
                          BriefTask());
 
     m_taskAgent.RunMulti(
-        meta, GetFirstPlayer().GetOpponent(), ShuffleTask(),
-        DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
+        meta, player2, DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
         DoUntil(MulliganTask(m_taskAgent), success), BriefTask(),
         DrawCardTask(Cards::GetInstance().FindCardByName("The Coin")));
 }
