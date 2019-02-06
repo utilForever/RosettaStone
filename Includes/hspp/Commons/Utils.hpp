@@ -22,14 +22,14 @@ constexpr bool AllCondIsTrue(const T& t, Others const&... args)
 }
 
 //!
-//! \brief Box class.
+//! \brief SizedPtr class.
 //!
 //! This class is unique_ptr like pointer wrapper.
 //! For std::any, base class required copy constructible, it supports both deep
 //! copy and move operations.
 //!
 template <typename T>
-class Box
+class SizedPtr
 {
  public:
     using value_type = T;
@@ -45,66 +45,66 @@ class Box
     using const_iterator = const_pointer;
 
     //! Default constructor.
-    Box() : m_size(0), m_ptr(nullptr)
+    SizedPtr() : m_size(0), m_ptr(nullptr)
     {
         // Do nothing
     }
 
-    //! Constructs box with given /p size.
+    //! Constructs sized ptr with given /p size.
     //! \param size The size of buffer.
-    explicit Box(size_t size) : m_size(size), m_ptr(new T[m_size])
+    explicit SizedPtr(size_t size) : m_size(size), m_ptr(new T[m_size])
     {
         // Do nothing
     }
 
-    //! Constructs box with given \p ptr and \p size.
-    //! \param ptr The pointer that box managing.
+    //! Constructs sized ptr with given \p ptr and \p size.
+    //! \param ptr The pointer that sized ptr managing.
     //! \param size The size of buffer.
-    Box(T* ptr, size_t size) : m_size(size), m_ptr(ptr)
+    SizedPtr(T* ptr, size_t size) : m_size(size), m_ptr(ptr)
     {
         // Do nothing
     }
 
     //! Default destructor.
-    ~Box()
+    ~SizedPtr()
     {
         reset();
     }
 
     //! Copy constructor, deep copying buffer.
-    Box(const Box& box) : m_size(box.size()), m_ptr(new T[m_size])
+    SizedPtr(const SizedPtr& ptr) : m_size(ptr.size()), m_ptr(new T[m_size])
     {
         for (size_t i = 0; i < m_size; ++i)
         {
-            m_ptr[i] = box[i];
+            m_ptr[i] = ptr[i];
         }
     }
 
     //! Move constructor.
-    Box(Box&& box) noexcept : m_size(box.size()), m_ptr(box.get())
+    SizedPtr(SizedPtr&& ptr) noexcept : m_size(ptr.size()), m_ptr(ptr.get())
     {
-        box.m_ptr = nullptr;
-        box.m_size = 0;
+        ptr.m_ptr = nullptr;
+        ptr.m_size = 0;
     }
 
     //! Copy assignment operator, deep copying buffer.
-    Box& operator=(const Box& box)
+    SizedPtr& operator=(const SizedPtr& ptr)
     {
-        reset(new T[box.size()], box.size());
+        reset(new T[ptr.size()], ptr.size());
         for (size_t i = 0; i < m_size; ++i)
         {
-            m_ptr[i] = box[i];
+            m_ptr[i] = ptr[i];
         }
         return *this;
     }
 
     //! Move assignment operator.
-    Box& operator=(Box&& box) noexcept
+    SizedPtr& operator=(SizedPtr&& ptr) noexcept
     {
-        reset(box.get(), box.size());
+        reset(ptr.get(), ptr.size());
 
-        box.m_ptr = nullptr;
-        box.m_size = 0;
+        ptr.m_ptr = nullptr;
+        ptr.m_size = 0;
 
         return *this;
     }
@@ -122,7 +122,7 @@ class Box
     }
 
     //! Resets buffer with given \p other and \p size.
-    //! \param other The pointer that box managing.
+    //! \param other The pointer that sized ptr managing.
     //! \param size The size of buffer.
     void reset(T* other, size_t size) noexcept
     {
@@ -195,7 +195,7 @@ class Box
     //! Check the equality of two buffers.
     //! \param other Comparable object.
     //! \return Equality about two buffers.
-    bool operator==(const Box& other) const
+    bool operator==(const SizedPtr& other) const
     {
         if (m_size != other.size())
         {
@@ -216,7 +216,7 @@ class Box
     //! Check the inequality of two buffers.
     //! \param other Comparable object.
     //! \return Inequality about two buffers.
-    bool operator!=(const Box& other) const
+    bool operator!=(const SizedPtr& other) const
     {
         return !operator==(other);
     }
