@@ -70,11 +70,13 @@ void GameAgent::BeginPhase()
     // Get random number: zero or one.
     std::uniform_int_distribution<int> bin(0, 1);
 
-    m_game.SetFirstPlayer(PlayerType::PLAYER1);
-    m_game.SetCurrentPlayer(PlayerType::PLAYER1);
-
     // Swap user with 50% probability
     if (bin(gen) == 1)
+    {
+        m_game.SetFirstPlayer(PlayerType::PLAYER1);
+        m_game.SetCurrentPlayer(PlayerType::PLAYER1);
+    }
+    else
     {
         m_game.SetFirstPlayer(PlayerType::PLAYER2);
         m_game.SetCurrentPlayer(PlayerType::PLAYER2);
