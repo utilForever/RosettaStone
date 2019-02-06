@@ -243,8 +243,8 @@ TaskMeta CreateGameStatus(Player& player, TaskID taskID, MetaData status)
         CreateEntity(builder, player.GetOpponent().GetHero()), result[0],
         makeOffset(player.GetHand().GetAllCards()), result[1],
         static_cast<BYTE>(player.GetOpponent().GetHand().GetNumOfCards()),
-        static_cast<BYTE>(player.GetDeck().size()),
-        static_cast<BYTE>(player.GetOpponent().GetDeck().size()));
+        static_cast<BYTE>(player.GetDeck().GetNumOfCards()),
+        static_cast<BYTE>(player.GetOpponent().GetDeck().GetNumOfCards()));
 
     builder.Finish(gameStatus);
     return TaskMeta(TaskMetaTrait(taskID, status, player.GetID()),

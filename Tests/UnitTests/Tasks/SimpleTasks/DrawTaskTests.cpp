@@ -60,14 +60,14 @@ TEST(DrawTask, RunExhaust)
 {
     GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = agent.GetPlayer1();
-    EXPECT_EQ(p.GetDeck().size(), 0u);
+    EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
 
     DrawTask draw(3);
 
     MetaData result = draw.Run(agent.GetPlayer1());
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 0u);
-    EXPECT_EQ(p.GetDeck().size(), 0u);
+    EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 3);
     // Health: 30 - (1 + 2 + 3)
     EXPECT_EQ(p.GetHero()->health, 24);
@@ -82,7 +82,7 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 1u);
     EXPECT_EQ(p.GetHand().GetCard(0)->card->id, "card1");
-    EXPECT_EQ(p.GetDeck().size(), 0u);
+    EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 5);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
     EXPECT_EQ(p.GetHero()->health, 15);
@@ -121,7 +121,7 @@ TEST(DrawTask, RunOverDraw)
 
     MetaData result = draw.Run(p);
     EXPECT_EQ(result, MetaData::DRAW_OVERDRAW);
-    EXPECT_EQ(p.GetDeck().size(), 0u);
+    EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
 
     TaskMeta burnt;
@@ -173,7 +173,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     MetaData result = draw.Run(p);
     EXPECT_EQ(result, MetaData::DRAW_EXHAUST_OVERDRAW);
-    EXPECT_EQ(p.GetDeck().size(), 0u);
+    EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
 
     TaskMeta burnt;
@@ -225,7 +225,7 @@ TEST(DrawCardTask, Run)
     EXPECT_EQ(result, MetaData::DRAW_SUCCESS);
     EXPECT_EQ(agent.GetPlayer1().GetHand().GetNumOfCards(), 1u);
     EXPECT_EQ(agent.GetPlayer1().GetHand().GetCard(0)->card->id, nerubian.id);
-    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), 1u);
+    EXPECT_EQ(agent.GetPlayer1().GetDeck().GetNumOfCards(), 1u);
     EXPECT_EQ(agent.GetPlayer1().GetDeck()[0]->card->id, poisonedBlade.id);
 
     DrawCardTask drawPoisonedBlade(poisonedBlade);
@@ -235,7 +235,7 @@ TEST(DrawCardTask, Run)
     EXPECT_EQ(agent.GetPlayer1().GetHand().GetNumOfCards(), 2u);
     EXPECT_EQ(agent.GetPlayer1().GetHand().GetCard(1)->card->id,
               poisonedBlade.id);
-    EXPECT_EQ(agent.GetPlayer1().GetDeck().size(), 0u);
+    EXPECT_EQ(agent.GetPlayer1().GetDeck().GetNumOfCards(), 0u);
 
     delete minionNerubian;
     delete weaponPoisonedBlade;

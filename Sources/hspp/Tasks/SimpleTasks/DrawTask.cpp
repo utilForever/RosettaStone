@@ -29,13 +29,13 @@ MetaData DrawTask::Impl(Player& player)
     size_t num = m_num;
     MetaData result = MetaData::DRAW_SUCCESS;
 
-    std::vector<Entity*>& deck = player.GetDeck();
+    auto& deck = player.GetDeck();
     auto& hand = player.GetHand();
 
     // After reaching fatigue
-    if (deck.size() < num)
+    if (deck.GetNumOfCards() < num)
     {
-        const size_t numDrawAfterFatigue = num - deck.size();
+        const size_t numDrawAfterFatigue = num - deck.GetNumOfCards();
 
         // Sigma (i = 1 to numDrawAfterFatigue) { current.exhausted + i }
         const auto fatigueDamage = static_cast<int>(
@@ -46,7 +46,7 @@ MetaData DrawTask::Impl(Player& player)
         player.SetNumCardAfterExhaust(static_cast<BYTE>(
             player.GetNumCardAfterExhaust() + numDrawAfterFatigue));
 
-        num = deck.size();
+        num = deck.GetNumOfCards();
         result = MetaData::DRAW_EXHAUST;
     }
 
