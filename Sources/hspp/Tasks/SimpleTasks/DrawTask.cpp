@@ -57,7 +57,7 @@ TaskStatus DrawTask::Impl(Player& player)
         // The number of overdraw
         const size_t over = hand.size() + num - MAXIMUM_NUM_CARDS_IN_HAND;
 
-        Box<Entity*> burnt(over);
+        SizedPtr<Entity*> burnt(over);
 
         // Draw burnt card
         for (size_t i = 0; i < over; ++i)

@@ -29,7 +29,7 @@ TaskStatus MulliganTask::Impl(Player& player)
         return TaskStatus::MULLIGAN_INVALID_REQUIRE;
     }
 
-    Box<size_t>& index = result.GetObject<Box<size_t>>();
+    SizedPtr<size_t>& index = result.GetObject<SizedPtr<size_t>>();
     if (index.size() == 0)
     {
         return TaskStatus::MULLIGAN_SUCCESS;

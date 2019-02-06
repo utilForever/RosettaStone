@@ -172,7 +172,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
     }
 
     TaskMeta req = player.GetPolicy().Require(player, TaskID::COMBAT);
-    Box<BYTE> obj = req.MoveObject<Box<BYTE>>();
+    SizedPtr<BYTE> obj = req.MoveObject<SizedPtr<BYTE>>();
     return std::make_tuple(obj[0], obj[1]);
 }
 }  // namespace Hearthstonepp::PlayerTasks
