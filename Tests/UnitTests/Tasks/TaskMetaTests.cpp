@@ -61,7 +61,7 @@ TEST(TaskMeta, Constructors)
 {
     constexpr size_t zero = 0;
     TaskMetaTrait trait = GenerateRandomTrait();
-    Box<int> buffer = GenerateRandomBuffer();
+    SizedPtr<int> buffer = GenerateRandomBuffer();
 
     // Empty Constructor
     TaskMeta meta;
@@ -74,31 +74,31 @@ TEST(TaskMeta, Constructors)
     TaskMeta task(trait, buffer);
     EXPECT_EQ(trait, task);
     EXPECT_TRUE(task.HasObjects());
-    EXPECT_EQ(task.GetObject<Box<int>>(), buffer);
+    EXPECT_EQ(task.GetObject<SizedPtr<int>>(), buffer);
 
     // Copy Constructor
     TaskMeta copied(task);
     EXPECT_EQ(trait, copied);
     EXPECT_TRUE(copied.HasObjects());
-    EXPECT_EQ(copied.GetObject<Box<int>>(), buffer);
+    EXPECT_EQ(copied.GetObject<SizedPtr<int>>(), buffer);
 
     // Copy Assignment
     meta = copied;
     EXPECT_EQ(trait, meta);
     EXPECT_TRUE(meta.HasObjects());
-    EXPECT_EQ(meta.GetObject<Box<int>>(), buffer);
+    EXPECT_EQ(meta.GetObject<SizedPtr<int>>(), buffer);
 
     // Move Constructor
     TaskMeta moved(std::move(task));
     EXPECT_EQ(trait, moved);
     EXPECT_TRUE(moved.HasObjects());
-    EXPECT_EQ(moved.GetObject<Box<int>>(), buffer);
+    EXPECT_EQ(moved.GetObject<SizedPtr<int>>(), buffer);
 
     // Move Assignment
     meta = std::move(moved);
     EXPECT_EQ(trait, meta);
     EXPECT_TRUE(meta.HasObjects());
-    EXPECT_EQ(meta.GetObject<Box<int>>(), buffer);
+    EXPECT_EQ(meta.GetObject<SizedPtr<int>>(), buffer);
 }
 
 TEST(TaskMeta, Object)
@@ -109,12 +109,12 @@ TEST(TaskMeta, Object)
     TaskMeta meta = GenerateRandomTaskMeta();
     EXPECT_TRUE(meta.HasObjects());
 
-    meta.GetObject<Box<int>>()[0] = 1024;
-    EXPECT_EQ(meta.GetObject<Box<int>>()[0], 1024);
+    meta.GetObject<SizedPtr<int>>()[0] = 1024;
+    EXPECT_EQ(meta.GetObject<SizedPtr<int>>()[0], 1024);
 
-    Box<int> box = meta.MoveObject<Box<int>>();
+    SizedPtr<int> sizedPtr = meta.MoveObject<SizedPtr<int>>();
     EXPECT_TRUE(meta.HasObjects());
-    EXPECT_EQ(meta.GetObject<Box<int>>(), nullptr);
+    EXPECT_EQ(meta.GetObject<SizedPtr<int>>(), nullptr);
 
     meta.Reset();
     EXPECT_FALSE(meta.HasObjects());

@@ -13,18 +13,18 @@
 
 namespace TestUtils
 {
-Box<int> GenerateRandomBuffer(size_t maximumSize)
+SizedPtr<int> GenerateRandomBuffer(size_t maximumSize)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    Box<int> box(gen() % maximumSize + 1);
-    for (size_t i = 0; i < box.size(); ++i)
+    SizedPtr<int> sizedPtr(gen() % maximumSize + 1);
+    for (size_t i = 0; i < sizedPtr.size(); ++i)
     {
-        box[i] = gen() % 255;
+        sizedPtr[i] = gen() % 255;
     }
 
-    return box;
+    return sizedPtr;
 }
 
 TaskMetaTrait GenerateRandomTrait()

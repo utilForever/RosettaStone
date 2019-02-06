@@ -15,7 +15,7 @@ using namespace Hearthstonepp;
 
 namespace TestUtils
 {
-Box<int> GenerateRandomBuffer(size_t maximumSize = 255);
+SizedPtr<int> GenerateRandomBuffer(size_t maximumSize = 255);
 
 TaskMetaTrait GenerateRandomTrait();
 

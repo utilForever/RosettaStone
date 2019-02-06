@@ -11,98 +11,98 @@
 
 #include <random>
 
-TEST(Box, Constructor)
+TEST(SizedPtr, Constructor)
 {
-    Box<int> defaultCtor;
+    SizedPtr<int> defaultCtor;
     EXPECT_EQ(defaultCtor.size(), 0);
     EXPECT_EQ(defaultCtor.get(), nullptr);
 
     constexpr size_t size = 255;
 
-    Box<int> box1(size);
-    EXPECT_EQ(box1.size(), size);
-    EXPECT_NE(box1.get(), nullptr);
+    SizedPtr<int> ptr1(size);
+    EXPECT_EQ(ptr1.size(), size);
+    EXPECT_NE(ptr1.get(), nullptr);
 
     int* ptr = new int[size];
-    Box<int> box2(ptr, size);
-    EXPECT_EQ(box2.size(), size);
-    EXPECT_EQ(box2.get(), ptr);
+    SizedPtr<int> ptr2(ptr, size);
+    EXPECT_EQ(ptr2.size(), size);
+    EXPECT_EQ(ptr2.get(), ptr);
 
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    Box<int> box(gen() % 1024 + 1);
-    for (size_t i = 0; i < box.size(); ++i)
+    SizedPtr<int> sizedPtr(gen() % 1024 + 1);
+    for (size_t i = 0; i < sizedPtr.size(); ++i)
     {
-        box[i] = gen() % 255;
+        sizedPtr[i] = gen() % 255;
     }
 
     // Copy constructor
-    Box<int> copied(box);
-    EXPECT_EQ(box, copied);
+    SizedPtr<int> copied(sizedPtr);
+    EXPECT_EQ(sizedPtr, copied);
 
     // Move constructor
-    Box<int> moved(std::move(copied));
-    EXPECT_EQ(box, moved);
+    SizedPtr<int> moved(std::move(copied));
+    EXPECT_EQ(sizedPtr, moved);
 
     // Copy assignment
-    copied = box;
-    EXPECT_EQ(box, copied);
+    copied = sizedPtr;
+    EXPECT_EQ(sizedPtr, copied);
 
     // Move assignment
     moved = std::move(copied);
-    EXPECT_EQ(box, moved);
+    EXPECT_EQ(sizedPtr, moved);
 }
 
-TEST(Box, Reset)
+TEST(SizedPtr, Reset)
 {
-    Box<int> box = TestUtils::GenerateRandomBuffer();
-    EXPECT_NE(box.size(), 0);
-    EXPECT_NE(box, nullptr);
+    SizedPtr<int> sizedPtr = TestUtils::GenerateRandomBuffer();
+    EXPECT_NE(sizedPtr.size(), 0);
+    EXPECT_NE(sizedPtr, nullptr);
 
-    box.reset();
-    EXPECT_EQ(box.size(), 0);
-    EXPECT_EQ(box, nullptr);
+    sizedPtr.reset();
+    EXPECT_EQ(sizedPtr.size(), 0);
+    EXPECT_EQ(sizedPtr, nullptr);
 
     constexpr size_t size = 10;
 
     int* ptr = new int[size];
-    box.reset(ptr, size);
-    EXPECT_EQ(box.size(), size);
-    EXPECT_EQ(box.get(), ptr);
+    sizedPtr.reset(ptr, size);
+    EXPECT_EQ(sizedPtr.size(), size);
+    EXPECT_EQ(sizedPtr.get(), ptr);
 }
 
-TEST(Box, Operator)
+TEST(SizedPtr, Operator)
 {
-    Box<int> box = TestUtils::GenerateRandomBuffer();
-    EXPECT_EQ(*box, box[0]);
+    SizedPtr<int> sizedPtr = TestUtils::GenerateRandomBuffer();
+    EXPECT_EQ(*sizedPtr, sizedPtr[0]);
 
-    *box = 10;
-    EXPECT_EQ(*box, 10);
-    EXPECT_EQ(box[0], 10);
+    *sizedPtr = 10;
+    EXPECT_EQ(*sizedPtr, 10);
+    EXPECT_EQ(sizedPtr[0], 10);
 
-    box[box.size() - 1] = 20;
-    EXPECT_EQ(box[box.size() - 1], 20);
+    sizedPtr[sizedPtr.size() - 1] = 20;
+    EXPECT_EQ(sizedPtr[sizedPtr.size() - 1], 20);
 
-    EXPECT_TRUE(static_cast<bool>(box));
+    EXPECT_TRUE(static_cast<bool>(sizedPtr));
     
-    box.reset();
-    EXPECT_FALSE(static_cast<bool>(box));
+    sizedPtr.reset();
+    EXPECT_FALSE(static_cast<bool>(sizedPtr));
 }
 
-TEST(Box, Iterator)
+TEST(SizedPtr, Iterator)
 {
-    Box<int> box = TestUtils::GenerateRandomBuffer();
+    SizedPtr<int> sizedPtr = TestUtils::GenerateRandomBuffer();
 
     size_t idx = 0;
-    for (int elem : box)
+    for (int elem : sizedPtr)
     {
-        EXPECT_EQ(elem, box[idx++]);
+        EXPECT_EQ(elem, sizedPtr[idx++]);
     }
 
     idx = 0;
-    for (auto iter = box.cbegin(); iter != box.cend(); ++iter)
+    for (auto iter = sizedPtr.cbegin(); iter != sizedPtr.cend(); ++iter)
     {
-        EXPECT_EQ(*iter, box[idx++]);
+        EXPECT_EQ(*iter, sizedPtr[idx++]);
     }
 }

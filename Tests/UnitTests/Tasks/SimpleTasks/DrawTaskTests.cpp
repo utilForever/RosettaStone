@@ -145,7 +145,7 @@ TEST(DrawTask, RunOverDraw)
 
         EXPECT_TRUE(burnt.HasObjects());
 
-        const Box<Entity*>& entities = burnt.GetObject<Box<Entity*>>();
+        const SizedPtr<Entity*>& entities = burnt.GetObject<SizedPtr<Entity*>>();
         for (size_t i = 0; i < 3; ++i)
         {
             EXPECT_EQ(entities[i]->card->id,
@@ -195,7 +195,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 
         EXPECT_TRUE(burnt.HasObjects());
 
-        const Box<Entity*>& entities = burnt.GetObject<Box<Entity*>>();
+        const SizedPtr<Entity*>& entities = burnt.GetObject<SizedPtr<Entity*>>();
         for (size_t i = 0; i < 2; ++i)
         {
             EXPECT_EQ(entities[i]->card->id,
