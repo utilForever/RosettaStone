@@ -35,6 +35,10 @@ class Hand
     //! \param owner The owner of hand.
     void SetOwner(Player& owner);
 
+    //! Finds out if hand is full.
+    //! \return true if hand is full, and false otherwise.
+    bool IsFull() const;
+
     //! Finds out if hand is empty.
     //! \return true if hand is empty, and false otherwise.
     bool IsEmpty() const;

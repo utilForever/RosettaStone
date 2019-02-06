@@ -25,6 +25,11 @@ void Hand::SetOwner(Player& owner)
     m_owner = &owner;
 }
 
+bool Hand::IsFull() const
+{
+    return GetNumOfCards() == HAND_SIZE;
+}
+
 bool Hand::IsEmpty() const
 {
     return GetNumOfCards() == 0;
