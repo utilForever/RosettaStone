@@ -7,7 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
 
 using namespace Hearthstonepp;
@@ -22,8 +22,8 @@ TEST(DamageTask, GetTaskID)
 
 TEST(DamageTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& player1 = agent.GetPlayer1();
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = game.GetPlayer1();
 
     std::vector<Card> cards;
     cards.reserve(5);
@@ -37,8 +37,8 @@ TEST(DamageTask, Run)
     }
 
     DamageTask damage(EntityType::FRIENDS, 1);
-    MetaData result = damage.Run(player1);
+    TaskStatus result = damage.Run(player1);
 
-    EXPECT_EQ(result, MetaData::DAMAGE_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::DAMAGE_SUCCESS);
     EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
 }

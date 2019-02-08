@@ -7,7 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 
 using namespace Hearthstonepp;
@@ -22,9 +22,9 @@ TEST(ControlTask, GetTaskID)
 
 TEST(ControlTask, Run)
 {
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -43,9 +43,9 @@ TEST(ControlTask, Run)
 
     ControlTask control(EntityType::TARGET);
     control.SetTarget(player2Field.GetMinion(0));
-    MetaData result = control.Run(player1);
+    TaskStatus result = control.Run(player1);
 
-    EXPECT_EQ(result, MetaData::CONTROL_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::CONTROL_SUCCESS);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
@@ -56,7 +56,7 @@ TEST(ControlTask, Run)
     control.SetTarget(player2Field.GetMinion(1));
     result = control.Run(player1);
 
-    EXPECT_EQ(result, MetaData::CONTROL_FIELD_IS_FULL);
+    EXPECT_EQ(result, TaskStatus::CONTROL_FIELD_IS_FULL);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 }

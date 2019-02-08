@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Models/Minion.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 
@@ -22,34 +22,27 @@ TEST(InitAttackCountTask, GetTaskID)
 TEST(InitAttackCountTask, Run)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
-    agent.GetPlayer1().SetID(100);
+    game.GetPlayer1().SetID(100);
 
-    MetaData result = init.Run(agent.GetPlayer1());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
-
-    TaskMeta meta;
-    result = init.Run(agent.GetPlayer1(), meta);
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
-    EXPECT_EQ(meta.GetID(), +TaskID::INIT_ATTACK_COUNT);
-    EXPECT_EQ(meta.GetStatus(), MetaData::INIT_ATTACK_COUNT_SUCCESS);
-    EXPECT_EQ(meta.GetUserID(), agent.GetPlayer1().GetID());
+    TaskStatus result = init.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 }
 
 TEST(InitAttackCountTask, RunFrozen)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card;
 
-    Minion minion1(&agent, card);
-    Minion minion2(&agent, card);
-    Minion minion3(&agent, card);
-    Minion minion4(&agent, card);
-    Minion minion5(&agent, card);
-    Minion minion6(&agent, card);
+    Minion minion1(&game, card);
+    Minion minion2(&game, card);
+    Minion minion3(&game, card);
+    Minion minion4(&game, card);
+    Minion minion5(&game, card);
+    Minion minion6(&game, card);
 
     // Case 1
     minion6.SetGameTag(GameTag::FROZEN, 1);
@@ -67,15 +60,15 @@ TEST(InitAttackCountTask, RunFrozen)
     minion4.attackableCount = 1;
     minion4.numTurnToUnfreeze = 3;
 
-    agent.GetPlayer1().GetField().AddMinion(minion1, 0);
-    agent.GetPlayer1().GetField().AddMinion(minion2, 1);
-    agent.GetPlayer1().GetField().AddMinion(minion3, 2);
-    agent.GetPlayer1().GetField().AddMinion(minion4, 3);
-    agent.GetPlayer2().GetField().AddMinion(minion5, 0);
-    agent.GetPlayer2().GetField().AddMinion(minion6, 1);
+    game.GetPlayer1().GetField().AddMinion(minion1, 0);
+    game.GetPlayer1().GetField().AddMinion(minion2, 1);
+    game.GetPlayer1().GetField().AddMinion(minion3, 2);
+    game.GetPlayer1().GetField().AddMinion(minion4, 3);
+    game.GetPlayer2().GetField().AddMinion(minion5, 0);
+    game.GetPlayer2().GetField().AddMinion(minion6, 1);
 
-    MetaData result = init.Run(agent.GetPlayer2());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    TaskStatus result = init.Run(game.GetPlayer2());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1.GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(0));
@@ -90,8 +83,8 @@ TEST(InitAttackCountTask, RunFrozen)
     EXPECT_EQ(minion6.GetGameTag(GameTag::FROZEN), 1);
     EXPECT_EQ(minion6.attackableCount, static_cast<size_t>(0));
 
-    result = init.Run(agent.GetPlayer1());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    result = init.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1.GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(1));
@@ -106,8 +99,8 @@ TEST(InitAttackCountTask, RunFrozen)
     EXPECT_EQ(minion6.GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion6.attackableCount, static_cast<size_t>(0));
 
-    result = init.Run(agent.GetPlayer2());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    result = init.Run(game.GetPlayer2());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1.GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(0));
@@ -126,20 +119,20 @@ TEST(InitAttackCountTask, RunFrozen)
 TEST(InitAttackCountTask, RunWindFury)
 {
     InitAttackCountTask init;
-    GameAgent agent(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
 
     Card card;
 
-    Minion minion1(&agent, card);
-    Minion minion2(&agent, card);
+    Minion minion1(&game, card);
+    Minion minion2(&game, card);
 
     minion2.SetGameTag(GameTag::WINDFURY, 1);
 
-    agent.GetPlayer1().GetField().AddMinion(minion1, 0);
-    agent.GetPlayer1().GetField().AddMinion(minion2, 1);
+    game.GetPlayer1().GetField().AddMinion(minion1, 0);
+    game.GetPlayer1().GetField().AddMinion(minion2, 1);
 
-    MetaData result = init.Run(agent.GetPlayer1());
-    EXPECT_EQ(result, MetaData::INIT_ATTACK_COUNT_SUCCESS);
+    TaskStatus result = init.Run(game.GetPlayer1());
+    EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(1));
     EXPECT_EQ(minion2.attackableCount, static_cast<size_t>(2));

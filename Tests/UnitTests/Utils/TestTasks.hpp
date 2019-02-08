@@ -9,7 +9,7 @@
 
 #include <hspp/Enums/TaskEnums.hpp>
 #include <hspp/Models/Player.hpp>
-#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/TaskStatus.hpp>
 #include <hspp/Tasks/Tasks.hpp>
 
 #include <functional>
@@ -19,15 +19,15 @@ using namespace Hearthstonepp;
 class TestTask : public ITask
 {
  public:
-    TestTask(TaskID id, std::function<MetaData(Player&)>&& impl);
+    TestTask(TaskID id, std::function<TaskStatus(Player&)>&& impl);
 
     TaskID GetTaskID() const override;
 
  private:
     TaskID m_id;
-    std::function<MetaData(Player&)> m_impl;
+    std::function<TaskStatus(Player&)> m_impl;
 
-    MetaData Impl(Player& player) override;
+    TaskStatus Impl(Player& player) override;
 };
 
 #endif  // UNIT_TESTS_TEST_TASKS_HPP

@@ -8,13 +8,13 @@
 
 #include <hspp/Enums/TaskEnums.hpp>
 #include <hspp/Models/Player.hpp>
-#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/TaskStatus.hpp>
 
 #include <functional>
 
 using namespace Hearthstonepp;
 
-TestTask::TestTask(TaskID id, std::function<MetaData(Player&)>&& impl)
+TestTask::TestTask(TaskID id, std::function<TaskStatus(Player&)>&& impl)
     : m_id(id), m_impl(std::move(impl))
 {
     // Do nothing
@@ -25,7 +25,7 @@ TaskID TestTask::GetTaskID() const
     return m_id;
 }
 
-MetaData TestTask::Impl(Player& player)
+TaskStatus TestTask::Impl(Player& player)
 {
     return m_impl(player);
 }
