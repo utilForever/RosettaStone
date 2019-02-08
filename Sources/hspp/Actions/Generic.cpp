@@ -11,7 +11,7 @@ namespace Hearthstonepp
 {
 Entity* Generic::DrawCard(Player& player, Card&& card)
 {
-    auto* gameAgent = player.GetGameAgent();
+    auto* gameAgent = player.GetGame();
     Entity* entity;
 
     switch (card.cardType)

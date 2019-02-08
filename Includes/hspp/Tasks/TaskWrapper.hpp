@@ -9,6 +9,8 @@
 
 #include <hspp/Tasks/Tasks.hpp>
 
+#include <functional>
+
 namespace Hearthstonepp
 {
 //!
@@ -31,7 +33,7 @@ class DoBothPlayer : public ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player) override;
+    TaskStatus Impl(Player& player) override;
 
     ITask& m_task;
 };
@@ -47,7 +49,13 @@ class DoUntil : public ITask
     //! Constructs task with given \p task and \p condition.
     //! \param task The task that is infinite-loop until completes.
     //! \param condition The condition under which the task completes.
-    DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition);
+    DoUntil(ITask&& task, std::function<bool(TaskStatus)>&& condition);
+
+    //! Constructs task with given \p task and \p id.
+    //! \param task The task that is infinite-loop until completes.
+    //! \param id The condition whether returned TaskMeta::status is equal to
+    //! id.
+    DoUntil(ITask&& task, TaskStatus id);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -57,10 +65,10 @@ class DoUntil : public ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player) override;
+    TaskStatus Impl(Player& player) override;
 
     ITask& m_task;
-    std::function<bool(const TaskMeta&)> m_condition;
+    std::function<bool(TaskStatus)> m_condition;
 };
 }  // namespace Hearthstonepp
 

@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 
@@ -10,11 +11,8 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-PlayMinionTask::PlayMinionTask(TaskAgent& agent, Entity* source, int fieldPos,
-                               Entity* target)
-    : ITask(source, target),
-      m_requirement(TaskID::SELECT_POSITION, agent),
-      m_fieldPos(fieldPos)
+PlayMinionTask::PlayMinionTask(Entity* source, int fieldPos, Entity* target)
+    : ITask(source, target), m_fieldPos(fieldPos)
 {
     // Do nothing
 }
@@ -24,7 +22,7 @@ TaskID PlayMinionTask::GetTaskID() const
     return TaskID::PLAY_MINION;
 }
 
-MetaData PlayMinionTask::Impl(Player& player)
+TaskStatus PlayMinionTask::Impl(Player& player)
 {
     BYTE position;
 
@@ -34,41 +32,34 @@ MetaData PlayMinionTask::Impl(Player& player)
             std::numeric_limits<std::size_t>::max());
         if (emptyPos == std::numeric_limits<std::size_t>::max())
         {
-            return MetaData::PLAY_MINION_FIELD_IS_FULL;
+            return TaskStatus::PLAY_MINION_FIELD_IS_FULL;
         }
 
         position = static_cast<BYTE>(emptyPos);
     }
     else
     {
-        TaskMeta meta;
+        TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_MINION);
 
-        // Get position response from GameInterface
-        m_requirement.Interact(player.GetID(), meta);
-
-        using RequireTaskMeta = FlatData::ResponsePlayMinion;
-        const auto& buffer = meta.GetBuffer();
-        const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
-        if (req == nullptr)
+        if (!req.HasObjects())
         {
-            return MetaData::PLAY_MINION_FLATBUFFER_NULLPTR;
+            return TaskStatus::PLAY_MINION_INVALID_REQUIRE;
         }
 
-        position = req->position();
+        position = req.GetObject<BYTE>();
     }
 
     // Verify field position
     if (position > FIELD_SIZE)
     {
-        return MetaData::PLAY_MINION_POSITION_OUT_OF_RANGE;
+        return TaskStatus::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
 
     // Verify character casting
     const auto character = dynamic_cast<Character*>(m_source);
     if (character == nullptr)
     {
-        return MetaData::PLAY_MINION_CANNOT_CONVERT_ENTITY;
+        return TaskStatus::PLAY_MINION_CANNOT_CONVERT_ENTITY;
     }
 
     // Summon minion
@@ -81,7 +72,7 @@ MetaData PlayMinionTask::Impl(Player& player)
     }
 
     const auto cost = static_cast<BYTE>(m_source->card->cost);
-    const MetaData modified =
+    const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
@@ -91,11 +82,11 @@ MetaData PlayMinionTask::Impl(Player& player)
         power->Run(player);
     }
 
-    if (modified == MetaData::MODIFY_MANA_SUCCESS)
+    if (modified == TaskStatus::MODIFY_MANA_SUCCESS)
     {
-        return MetaData::PLAY_MINION_SUCCESS;
+        return TaskStatus::PLAY_MINION_SUCCESS;
     }
 
-    return MetaData::PLAY_MINION_MODIFY_MANA_FAIL;
+    return TaskStatus::PLAY_MINION_MODIFY_MANA_FAIL;
 }
 }  // namespace Hearthstonepp::PlayerTasks

@@ -20,17 +20,17 @@ TaskID AddEnchantmentTask::GetTaskID() const
     return TaskID::ADD_ENCHANTMENT;
 }
 
-MetaData AddEnchantmentTask::Impl(Player&)
+TaskStatus AddEnchantmentTask::Impl(Player&)
 {
     Card enchantmentCard = Cards::GetInstance().FindCardByID(m_cardID);
     if (enchantmentCard.id.empty())
     {
-        return MetaData::NULLPTR;
+        return TaskStatus::NULLPTR;
     }
 
     const Power power = Cards::GetInstance().FindCardByID(m_cardID).power;
     power.GetEnchant()->ActivateTo(dynamic_cast<Character*>(m_target));
 
-    return MetaData::ADD_ENCHANTMENT_SUCCESS;
+    return TaskStatus::ADD_ENCHANTMENT_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

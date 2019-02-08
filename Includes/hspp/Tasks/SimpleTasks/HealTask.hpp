@@ -31,7 +31,7 @@ class HealTask : public ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    MetaData Impl(Player& player) override;
+    TaskStatus Impl(Player& player) override;
 
     int m_amount = 0;
 };

@@ -19,7 +19,7 @@ TaskID HealTask::GetTaskID() const
     return TaskID::HEAL;
 }
 
-MetaData HealTask::Impl(Player& player)
+TaskStatus HealTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
@@ -30,6 +30,6 @@ MetaData HealTask::Impl(Player& player)
         character->TakeHeal(*character, m_amount);
     }
 
-    return MetaData::HEAL_SUCCESS;
+    return TaskStatus::HEAL_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

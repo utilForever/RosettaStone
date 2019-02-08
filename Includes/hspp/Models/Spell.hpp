@@ -25,7 +25,7 @@ class Spell : public Entity
     //! Constructs spell with given \p gameAgent and \p card.
     //! \param gameAgent The game agent.
     //! \param card A reference to the card.
-    Spell(GameAgent* gameAgent, Card& card);
+    Spell(Game* gameAgent, Card& card);
 
     //! Default destructor.
     ~Spell() = default;

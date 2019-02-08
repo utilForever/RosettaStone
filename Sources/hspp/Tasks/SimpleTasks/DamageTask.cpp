@@ -20,7 +20,7 @@ TaskID DamageTask::GetTaskID() const
     return TaskID::DAMAGE;
 }
 
-MetaData DamageTask::Impl(Player& player)
+TaskStatus DamageTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
@@ -39,6 +39,6 @@ MetaData DamageTask::Impl(Player& player)
         }
     }
 
-    return MetaData::DAMAGE_SUCCESS;
+    return TaskStatus::DAMAGE_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

@@ -66,8 +66,8 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
     return entities;
 }
 
-MetaData IncludeTask::Impl(Player&)
+TaskStatus IncludeTask::Impl(Player&)
 {
-    return MetaData::INCLUDE_SUCCESS;
+    return TaskStatus::INCLUDE_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

@@ -18,7 +18,7 @@ TaskID DestroyTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-MetaData DestroyTask::Impl(Player& player)
+TaskStatus DestroyTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
@@ -28,6 +28,6 @@ MetaData DestroyTask::Impl(Player& player)
         entity->Destroy();
     }
 
-    return MetaData::DESTROY_SUCCESS;
+    return TaskStatus::DESTROY_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

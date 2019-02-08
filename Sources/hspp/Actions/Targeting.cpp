@@ -4,7 +4,7 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Targeting.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/Game.hpp>
 
 namespace Hearthstonepp
 {
@@ -17,7 +17,7 @@ bool Targeting::IsValidTarget(Card* card, Entity* target)
             case +PlayReq::REQ_ENEMY_TARGET:
             {
                 if (dynamic_cast<Character*>(target)->GetOwner() !=
-                    target->GetGameAgent()->GetCurrentPlayer())
+                    target->GetGame()->GetCurrentPlayer())
                 {
                     return false;
                 }

@@ -19,7 +19,7 @@ TaskID ControlTask::GetTaskID() const
     return TaskID::CONTROL;
 }
 
-MetaData ControlTask::Impl(Player& player)
+TaskStatus ControlTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
@@ -38,14 +38,14 @@ MetaData ControlTask::Impl(Player& player)
             std::numeric_limits<std::size_t>::max());
         if (opMinionPos == std::numeric_limits<std::size_t>::max())
         {
-            return MetaData::CONTROL_INVALID_TARGET;
+            return TaskStatus::CONTROL_INVALID_TARGET;
         }
 
         const auto myMinionPos = myField.FindEmptyPos().value_or(
             std::numeric_limits<std::size_t>::max());
         if (myMinionPos == std::numeric_limits<std::size_t>::max())
         {
-            return MetaData::CONTROL_FIELD_IS_FULL;
+            return TaskStatus::CONTROL_FIELD_IS_FULL;
         }
 
         const auto minionClone = new Minion(*minion);
@@ -53,6 +53,6 @@ MetaData ControlTask::Impl(Player& player)
         opField.RemoveMinion(*minion);
     }
 
-    return MetaData::CONTROL_SUCCESS;
+    return TaskStatus::CONTROL_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

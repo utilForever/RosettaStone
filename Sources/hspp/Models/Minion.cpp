@@ -9,7 +9,7 @@
 
 namespace Hearthstonepp
 {
-Minion::Minion(GameAgent* gameAgent, Card& card) : Character(gameAgent, card)
+Minion::Minion(Game* gameAgent, Card& card) : Character(gameAgent, card)
 {
     CheckAbilities();
 }

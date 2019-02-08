@@ -4,10 +4,11 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Models/Entity.hpp>
+#include <hspp/Models/Game.hpp>
 #include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Weapon.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 
 #include <utility>
@@ -24,10 +25,10 @@ TaskID DrawTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawTask::Impl(Player& player)
+TaskStatus DrawTask::Impl(Player& player)
 {
     size_t num = m_num;
-    MetaData result = MetaData::DRAW_SUCCESS;
+    TaskStatus result = TaskStatus::DRAW_SUCCESS;
 
     auto& deck = player.GetDeck();
     auto& hand = player.GetHand();
@@ -47,7 +48,7 @@ MetaData DrawTask::Impl(Player& player)
             player.GetNumCardAfterExhaust() + numDrawAfterFatigue));
 
         num = deck.GetNumOfCards();
-        result = MetaData::DRAW_EXHAUST;
+        result = TaskStatus::DRAW_EXHAUST;
     }
 
     // When hand size over HAND_SIZE, overdraw
@@ -62,34 +63,34 @@ MetaData DrawTask::Impl(Player& player)
         // Draw burnt card
         for (size_t i = 0; i < over; ++i)
         {
-            burnt.emplace_back(deck.back());
-            deck.pop_back();
+            //burnt[i] = deck.back();
+            //deck.pop_back();
         }
 
         num = HAND_SIZE - hand.GetNumOfCards();
 
-        if (result == MetaData::DRAW_EXHAUST)
+        if (result == TaskStatus::DRAW_EXHAUST)
         {
-            result = MetaData::DRAW_EXHAUST_OVERDRAW;
+            result = TaskStatus::DRAW_EXHAUST_OVERDRAW;
         }
         else
         {
-            result = MetaData::DRAW_OVERDRAW;
+            result = TaskStatus::DRAW_OVERDRAW;
         }
 
-        // Send burnt cards to GameInterface
-        const TaskMetaTrait trait(TaskID::OVERDRAW, result, player.GetID());
-        player.GetGameAgent()->NotifyToTaskAgent(
-            Serializer::CreateEntityVector(trait, burnt));
+        // Send burnt cards to policy
+        TaskMetaTrait trait(TaskID::OVERDRAW, TaskStatus::DRAW_OVERDRAW,
+                            player.GetID());
+        player.GetPolicy().Notify(TaskMeta(trait, std::move(burnt)));
     }
 
     // Draw success
     for (size_t i = 0; i < num; ++i)
     {
-        const auto entity = deck.back();
-        const auto entityClone = new Entity(*entity);
-        hand.AddCard(*entityClone);
-        deck.pop_back();
+        //const auto entity = deck.back();
+        //const auto entityClone = new Entity(*entity);
+        //hand.AddCard(*entityClone);
+        //deck.pop_back();
     }
 
     return result;
@@ -105,24 +106,24 @@ TaskID DrawCardTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-MetaData DrawCardTask::Impl(Player& player)
+TaskStatus DrawCardTask::Impl(Player& player)
 {
-    std::vector<Entity*>& deck = player.GetDeck();
+    //auto& deck = player.GetDeck();
     auto& hand = player.GetHand();
 
-    auto* gameAgent = player.GetGameAgent();
+    auto* game = player.GetGame();
 
     switch (m_card.cardType)
     {
         case +CardType::MINION:
         {
-            const auto minion = new Minion(gameAgent, m_card);
+            const auto minion = new Minion(game, m_card);
             hand.AddCard(*minion);
             break;
         }
         case +CardType::WEAPON:
         {
-            const auto weapon = new Weapon(gameAgent, m_card);
+            const auto weapon = new Weapon(game, m_card);
             hand.AddCard(*weapon);
             break;
         }
@@ -131,11 +132,11 @@ MetaData DrawCardTask::Impl(Player& player)
                 "DrawCardTask::Impl() - Invalid card type!");
     }
 
-    if (!deck.empty())
-    {
-        deck.pop_back();
-    }
+    //if (!deck.empty())
+    //{
+    //    deck.pop_back();
+    //}
 
-    return MetaData::DRAW_SUCCESS;
+    return TaskStatus::DRAW_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

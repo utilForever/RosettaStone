@@ -19,7 +19,7 @@ TaskID ModifyManaTask::GetTaskID() const
     return TaskID::MODIFY_MANA;
 }
 
-MetaData ModifyManaTask::Impl(Player& player)
+TaskStatus ModifyManaTask::Impl(Player& player)
 {
     const auto getMana = [](Player& p, ManaType mode) -> BYTE {
         if (mode == ManaType::AVAILABLE)
@@ -62,6 +62,6 @@ MetaData ModifyManaTask::Impl(Player& player)
         player.SetMaximumMana(mana);
     }
 
-    return MetaData::MODIFY_MANA_SUCCESS;
+    return TaskStatus::MODIFY_MANA_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

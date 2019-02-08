@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp
 {
-HeroPower::HeroPower(GameAgent* gameAgent, Card& card) : Entity(gameAgent, card)
+HeroPower::HeroPower(Game* gameAgent, Card& card) : Entity(gameAgent, card)
 {
     // Do nothing
 }

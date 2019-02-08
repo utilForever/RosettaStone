@@ -25,7 +25,7 @@ class Minion : public Character
     //! Constructs minion with given \p gameAgent and \p card.
     //! \param gameAgent The game agent.
     //! \param card A reference to the card.
-    Minion(GameAgent* gameAgent, Card& card);
+    Minion(Game* gameAgent, Card& card);
 
     //! Default destructor.
     virtual ~Minion() = default;

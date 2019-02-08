@@ -4,6 +4,8 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Commons/Constants.hpp>
+#include <hspp/Commons/Utils.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 
@@ -13,63 +15,40 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-MulliganTask::MulliganTask(TaskAgent& agent)
-    : m_requirement(Requirement(TaskID::MULLIGAN, agent))
-{
-    // Do nothing
-}
-
 TaskID MulliganTask::GetTaskID() const
 {
     return TaskID::MULLIGAN;
 }
 
-MetaData MulliganTask::Impl(Player& player)
+TaskStatus MulliganTask::Impl(Player& player)
 {
-    TaskMeta serialized;
-
-    // Get mulligan input from Interface
-    m_requirement.Interact(player.GetID(), serialized);
-
-    using RequireTaskMeta = FlatData::ResponseMulligan;
-    const auto& buffer = serialized.GetBuffer();
-    const auto req = flatbuffers::GetRoot<RequireTaskMeta>(buffer.get());
-
-    if (req == nullptr)
+    TaskMeta result = player.GetPolicy().Require(player, TaskID::MULLIGAN);
+    if (!result.HasObjects())
     {
-        return MetaData::MULLIGAN_FLATBUFFER_NULLPTR;
+        return TaskStatus::MULLIGAN_INVALID_REQUIRE;
     }
 
-    const BYTE* data = req->mulligan()->data();
-    const size_t read = req->mulligan()->size();
-
-    // Copy data from input
-    BYTE index[NUM_DRAW_CARDS_AT_START_SECOND] = {
-        0,
-    };
-    std::copy(data, data + read, index);
-
-    // None of cards are selected
-    if (read == 0)
+    SizedPtr<size_t>& index = result.GetObject<SizedPtr<size_t>>();
+    if (index.size() == 0)
     {
-        return MetaData::MULLIGAN_SUCCESS;
+        return TaskStatus::MULLIGAN_SUCCESS;
     }
-
+    
     // Sort decreasing order
-    std::sort(index, index + read, [](BYTE a, BYTE b) { return a > b; });
+    std::sort(index.begin(), index.end(), std::greater<size_t>());
 
     // Verify range
     if (index[0] >= NUM_DRAW_CARDS_AT_START_SECOND)
     {
-        return MetaData::MULLIGAN_INDEX_OUT_OF_RANGE;
+        return TaskStatus::MULLIGAN_INDEX_OUT_OF_RANGE;
     }
 
     // Verify duplicated element
-    for (size_t i = 1; i < read; ++i)
+    for (size_t i = 1; i < index.size(); ++i)
     {
         if (index[i] == index[i - 1])
         {
-            return MetaData::MULLIGAN_DUPLICATED_INDEX;
+            return TaskStatus::MULLIGAN_DUPLICATED_INDEX;
         }
     }
 
@@ -77,18 +56,18 @@ MetaData MulliganTask::Impl(Player& player)
     auto& hand = player.GetHand();
 
     // Rollback to deck
-    for (size_t i = 0; i < read; ++i)
+    for (size_t idx : index)
     {
-        deck.AddCard(*hand.GetCard(index[i]));
-        hand.RemoveCard(*hand.GetCard(index[i]));
+        deck.AddCard(*hand.GetCard(index[idx]));
+        hand.RemoveCard(*hand.GetCard(index[idx]));
     }
 
     deck.Shuffle();
-    const MetaData statusDraw = DrawTask(read).Run(player);
+    const TaskStatus statusDraw = DrawTask(index.size()).Run(player);
 
-    if (statusDraw == MetaData::DRAW_SUCCESS)
+    if (statusDraw == TaskStatus::DRAW_SUCCESS)
     {
-        return MetaData::MULLIGAN_SUCCESS;
+        return TaskStatus::MULLIGAN_SUCCESS;
     }
 
     return statusDraw;

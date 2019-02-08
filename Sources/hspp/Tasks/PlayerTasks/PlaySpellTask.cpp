@@ -5,6 +5,7 @@
 
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 
@@ -12,8 +13,8 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-PlaySpellTask::PlaySpellTask(TaskAgent& agent, Entity* source, Entity* target)
-    : ITask(source, target), m_requirement(TaskID::SELECT_TARGET, agent)
+PlaySpellTask::PlaySpellTask(Entity* source, Entity* target)
+    : ITask(source, target)
 {
     // Do nothing
 }
@@ -23,12 +24,12 @@ TaskID PlaySpellTask::GetTaskID() const
     return TaskID::PLAY_SPELL;
 }
 
-MetaData PlaySpellTask::Impl(Player& player)
+TaskStatus PlaySpellTask::Impl(Player& player)
 {
     Power power = m_source->card->power;
     if (power.GetEnchant() == nullptr && power.GetPowerTask().empty())
     {
-        return MetaData::PLAY_SPELL_NO_POWER;
+        return TaskStatus::PLAY_SPELL_NO_POWER;
     }
 
     BYTE position;
@@ -42,28 +43,21 @@ MetaData PlaySpellTask::Impl(Player& player)
         }
         else
         {
-            TaskMeta meta;
+            TaskMeta req =
+                player.GetPolicy().Require(player, TaskID::PLAY_SPELL);
 
-            // Get position response from GameInterface
-            m_requirement.Interact(player.GetID(), meta);
-
-            using ResponsePlaySpell = FlatData::ResponsePlaySpell;
-            const auto& buffer = meta.GetBuffer();
-            const auto req =
-                flatbuffers::GetRoot<ResponsePlaySpell>(buffer.get());
-
-            if (req == nullptr)
+            if (!req.HasObjects())
             {
-                return MetaData::PLAY_SPELL_FLATBUFFER_NULLPTR;
+                return TaskStatus::PLAY_SPELL_INVALID_REQUIRE;
             }
 
-            position = req->position();
+            position = req.GetObject<BYTE>();
         }
 
         // Verify field position
         if (position >= 2 * FIELD_SIZE + 2)
         {
-            return MetaData::PLAY_SPELL_POSITION_OUT_OF_RANGE;
+            return TaskStatus::PLAY_SPELL_POSITION_OUT_OF_RANGE;
         }
 
         // Set target by position
@@ -72,12 +66,12 @@ MetaData PlaySpellTask::Impl(Player& player)
         // Verify valid target
         if (target == nullptr)
         {
-            return MetaData::PLAY_SPELL_INVALID_TARGET;
+            return TaskStatus::PLAY_SPELL_INVALID_TARGET;
         }
     }
 
     const auto cost = static_cast<BYTE>(m_source->card->cost);
-    const MetaData modified =
+    const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
@@ -88,12 +82,12 @@ MetaData PlaySpellTask::Impl(Player& player)
         powerTask->Run(player);
     }
 
-    if (modified == MetaData::MODIFY_MANA_SUCCESS)
+    if (modified == TaskStatus::MODIFY_MANA_SUCCESS)
     {
-        return MetaData::PLAY_SPELL_SUCCESS;
+        return TaskStatus::PLAY_SPELL_SUCCESS;
     }
 
-    return MetaData::PLAY_SPELL_MODIFY_MANA_FAIL;
+    return TaskStatus::PLAY_SPELL_MODIFY_MANA_FAIL;
 }
 
 bool PlaySpellTask::NeedTarget(Power& power)

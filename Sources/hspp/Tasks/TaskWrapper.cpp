@@ -18,10 +18,10 @@ TaskID DoBothPlayer::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoBothPlayer::Impl(Player& player)
+TaskStatus DoBothPlayer::Impl(Player& player)
 {
-    const MetaData status1 = m_task.Run(player);
-    const MetaData status2 = m_task.Run(player.GetOpponent());
+    const TaskStatus status1 = m_task.Run(player);
+    const TaskStatus status2 = m_task.Run(player.GetOpponent());
 
     if (status1 == status2)
     {
@@ -31,8 +31,14 @@ MetaData DoBothPlayer::Impl(Player& player)
     return status2;
 }
 
-DoUntil::DoUntil(ITask&& task, std::function<bool(const TaskMeta&)>&& condition)
+DoUntil::DoUntil(ITask&& task, std::function<bool(TaskStatus)>&& condition)
     : m_task(task), m_condition(std::move(condition))
+{
+    // Do nothing
+}
+
+DoUntil::DoUntil(ITask&& task, TaskStatus id)
+    : m_task(task), m_condition([=](TaskStatus meta) { return meta == id; })
 {
     // Do nothing
 }
@@ -42,21 +48,21 @@ TaskID DoUntil::GetTaskID() const
     return m_task.GetTaskID();
 }
 
-MetaData DoUntil::Impl(Player& player)
+TaskStatus DoUntil::Impl(Player& player)
 {
-    TaskMeta meta;
+    TaskStatus status;
 
     while (true)
     {
-        m_task.Run(player, meta);
+        status = m_task.Run(player);
 
         // Do until the condition satisfied
-        if (m_condition(meta))
+        if (m_condition(status))
         {
             break;
         }
     }
 
-    return meta.GetStatus();
+    return status;
 }
 }  // namespace Hearthstonepp

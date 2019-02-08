@@ -3,6 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Commons/Utils.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
@@ -12,8 +14,7 @@ using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
 {
-CombatTask::CombatTask(TaskAgent& agent, Entity* source, Entity* target)
-    : ITask(source, target), m_requirement(TaskID::SELECT_TARGET, agent)
+CombatTask::CombatTask(Entity* source, Entity* target) : ITask(source, target)
 {
     // Do nothing
 }
@@ -23,7 +24,7 @@ TaskID CombatTask::GetTaskID() const
     return TaskID::COMBAT;
 }
 
-MetaData CombatTask::Impl(Player& player)
+TaskStatus CombatTask::Impl(Player& player)
 {
     auto [sourceIndex, targetIndex] = CalculateIndex(player);
 
@@ -31,14 +32,14 @@ MetaData CombatTask::Impl(Player& player)
     // NOTE: 0 means hero, 1 ~ field.size() means minion
     if (sourceIndex > player.GetField().GetNumOfMinions())
     {
-        return MetaData::COMBAT_SRC_IDX_OUT_OF_RANGE;
+        return TaskStatus::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
     // Verify index of the target
     // NOTE: 0 means hero, 1 ~ field.size() means minion
     if (targetIndex > player.GetOpponent().GetField().GetNumOfMinions())
     {
-        return MetaData::COMBAT_DST_IDX_OUT_OF_RANGE;
+        return TaskStatus::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
     auto source = (sourceIndex > 0)
@@ -54,7 +55,7 @@ MetaData CombatTask::Impl(Player& player)
     if (!source->CanAttack() ||
         !source->IsValidCombatTarget(player.GetOpponent(), target))
     {
-        return MetaData::COMBAT_SOURCE_CANT_ATTACK;
+        return TaskStatus::COMBAT_SOURCE_CANT_ATTACK;
     }
 
     const size_t targetAttack = target->GetAttack();
@@ -126,7 +127,7 @@ MetaData CombatTask::Impl(Player& player)
         target->Destroy();
     }
 
-    return MetaData::COMBAT_SUCCESS;
+    return TaskStatus::COMBAT_SUCCESS;
 }
 
 std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
@@ -182,12 +183,8 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
                                static_cast<BYTE>(targetIndex));
     }
 
-    TaskMeta serialized;
-    // Get targeting response from game interface
-    m_requirement.Interact(player.GetID(), serialized);
-
-    // Get the source and the target
-    const auto req = TaskMeta::ConvertTo<FlatData::ResponseTarget>(serialized);
-    return std::make_tuple(req->src(), req->dst());
+    TaskMeta req = player.GetPolicy().Require(player, TaskID::COMBAT);
+    SizedPtr<BYTE> obj = req.MoveObject<SizedPtr<BYTE>>();
+    return std::make_tuple(obj[0], obj[1]);
 }
 }  // namespace Hearthstonepp::PlayerTasks

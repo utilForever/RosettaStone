@@ -12,8 +12,8 @@ TaskID BriefTask::GetTaskID() const
     return TaskID::BRIEF;
 }
 
-MetaData BriefTask::Impl(Player&)
+TaskStatus BriefTask::Impl(Player&)
 {
-    return MetaData::BRIEF;
+    return TaskStatus::BRIEF;
 }
 }  // namespace Hearthstonepp::PlayerTasks

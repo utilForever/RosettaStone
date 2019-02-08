@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/Managers/GameAgent.hpp>
 #include <hspp/Models/Character.hpp>
+#include <hspp/Models/GameAgent.hpp>
 #include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Player.hpp>
 
@@ -12,7 +12,7 @@
 
 namespace Hearthstonepp
 {
-Character::Character(GameAgent* gameAgent, Card& card) : Entity(gameAgent, card)
+Character::Character(Game* gameAgent, Card& card) : Entity(gameAgent, card)
 {
     if (!card.id.empty())
     {

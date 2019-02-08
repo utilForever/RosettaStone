@@ -14,7 +14,7 @@
 namespace Hearthstonepp
 {
 class Card;
-class GameAgent;
+class Game;
 class GameTag;
 class Player;
 
@@ -34,7 +34,7 @@ class Entity
     //! Constructs entity with given \p gameAgent and \p _card.
     //! \param gameAgent The game agent.
     //! \param _card A reference to the card.
-    Entity(GameAgent* gameAgent, Card& _card);
+    Entity(Game* gameAgent, Card& _card);
 
     //! Destructor.
     virtual ~Entity();
@@ -53,7 +53,7 @@ class Entity
 
     //! Returns the game agent.
     //! \return A pointer to the game agent.
-    GameAgent* GetGameAgent() const;
+    Game* GetGame() const;
 
     //! Returns the owner of character.
     //! \return The owner of character.
@@ -80,7 +80,7 @@ class Entity
     bool isDestroyed = false;
 
  protected:
-    GameAgent* m_gameAgent = nullptr;
+    Game* m_game = nullptr;
     Player* m_owner = nullptr;
 
     std::map<GameTag, int> m_gameTags;

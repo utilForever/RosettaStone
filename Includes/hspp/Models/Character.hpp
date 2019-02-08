@@ -27,7 +27,7 @@ class Character : public Entity
     //! Constructs character with given \p gameAgent and \p card.
     //! \param gameAgent The game agent.
     //! \param card A reference to the card.
-    Character(GameAgent* gameAgent, Card& card);
+    Character(Game* gameAgent, Card& card);
 
     //! Default destructor.
     virtual ~Character() = default;

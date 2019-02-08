@@ -9,11 +9,9 @@
 
 #include <hspp/Enums/TaskEnums.hpp>
 #include <hspp/Models/Player.hpp>
-#include <hspp/Tasks/MetaData.hpp>
+#include <hspp/Tasks/TaskStatus.hpp>
 
-#include <hspp/Flatbuffers/generated/FlatData_generated.hpp>
-
-#include <memory>
+#include <any>
 
 namespace Hearthstonepp
 {
@@ -40,13 +38,13 @@ class TaskMetaTrait
     //! Constructs task meta trait with given \p id and \p status.
     //! \param id The task ID.
     //! \param status The task status.
-    TaskMetaTrait(TaskID id, MetaData status);
+    TaskMetaTrait(TaskID id, TaskStatus status);
 
     //! Constructs task meta trait with given \p id, \p status and \p userID.
     //! \param id The task ID.
     //! \param status The task status.
     //! \param userID The user ID.
-    TaskMetaTrait(TaskID id, MetaData status, BYTE userID);
+    TaskMetaTrait(TaskID id, TaskStatus status, BYTE userID);
 
     //! Default destructor.
     ~TaskMetaTrait() = default;
@@ -76,11 +74,11 @@ class TaskMetaTrait
 
     //! Returns status of task meta.
     //! \return Status of task meta.
-    MetaData GetStatus() const;
+    TaskStatus GetStatus() const;
 
     //! Sets status of task meta.
     //! \param status Status of task meta.
-    void SetStatus(MetaData status);
+    void SetStatus(TaskStatus status);
 
     //! Returns user ID.
     //! \return User ID.
@@ -88,7 +86,7 @@ class TaskMetaTrait
 
  protected:
     TaskID m_id = TaskID::INVALID;
-    MetaData m_status = MetaData::INVALID;
+    TaskStatus m_status = TaskStatus::INVALID;
     BYTE m_userID = USER_INVALID;
 };
 
@@ -108,80 +106,59 @@ class TaskMeta : public TaskMetaTrait
     //! \param trait An instance of base class that stores default meta data.
     TaskMeta(const TaskMetaTrait& trait);
 
-    //! Constructs task meta with given \p trait, \p size and \p buffer.
+    //! Constructs task meta with given \p trait and \p object.
     //! \param trait An instance of base class that stores default meta data.
-    //! \param size The size of tasks.
-    //! \param buffer A pointer to the start position of task array.
-    TaskMeta(const TaskMetaTrait& trait, size_t size, const BYTE* buffer);
-
-    //! Constructs task meta with given \p trait, \p size and \p buffers.
-    //! \param trait An instance of base class that stores default meta data.
-    //! \param size The size of tasks.
-    //! \param buffer std::unique_ptr to task array (rvalue ref).
-    TaskMeta(const TaskMetaTrait& trait, size_t size,
-             std::unique_ptr<BYTE[]>&& buffer);
+    //! \param object An object to save in this class.
+    TaskMeta(const TaskMetaTrait& trait, std::any object);
 
     //! Default destructor.
     ~TaskMeta() = default;
 
-    //! Deleted copy constructor.
-    TaskMeta(const TaskMeta&) = delete;
+    //! Copy constructor.
+    TaskMeta(const TaskMeta&);
 
     //! Move constructor.
     TaskMeta(TaskMeta&& meta) noexcept;
 
-    //! Deleted copy assignment operator.
-    TaskMeta& operator=(const TaskMeta&) = delete;
+    //! Copy assignment operator.
+    TaskMeta& operator=(const TaskMeta&);
 
     //! Move assignment operator.
     TaskMeta& operator=(TaskMeta&& meta) noexcept;
 
-    //! Operator overloading: The equality operator.
-    bool operator==(const TaskMeta& meta) const;
-
-    //! Copies TaskMeta object (deep copy).
-    //! \param meta A TaskMeta object to copy.
-    //! \return Copied TaskMeta object.
-    static TaskMeta CopyFrom(const TaskMeta& meta);
-
-    //! Converts TaskMeta object from FlatData::TaskMeta object.
-    //! \param meta A pointer to FlatData::TaskMeta object to convert.
-    //! \return Converted TaskMeta object.
-    static TaskMeta ConvertFrom(const FlatData::TaskMeta* meta);
-
-    //! Converts TaskMeta object to FlatData::TaskMeta object.
-    //! \tparam T The type of flatbuffers.
-    //! \param meta A TaskMeta object to convert.
-    //! \return Converted flatbuffers task meta object.
-    template <typename T>
-    static inline const T* ConvertTo(const TaskMeta& meta)
-    {
-        const auto& buffer = meta.GetBuffer();
-        if (buffer.get() == nullptr)
-        {
-            return nullptr;
-        }
-        return flatbuffers::GetRoot<T>(buffer.get());
-    }
-
-    //! Resets buffer and its size.
+    //! Resets object.
     void Reset();
 
-    //! Returns the size of buffer.
-    //! \return The size of buffer.
-    size_t GetBufferSize() const;
+    //! Queries that object has value.
+    //! \return true if object has value, false otherwise.
+    bool HasObjects() const;
 
-    //! Move buffer to another through rvalue reference.
-    //! \return Moved buffer (rvalue ref).
-    std::unique_ptr<BYTE[]>&& MoveBuffer();
+    //! Gets object from this class.
+    //! \return Object from this class.
+    template <typename T>
+    T& GetObject()
+    {
+        return std::any_cast<T&>(m_object);
+    }
 
-    //! Returns the buffer as const type.
-    //! \return The buffer (const).
-    const std::unique_ptr<BYTE[]>& GetBuffer() const;
+    //! Gets object from this class.
+    //! \return Object from this class.
+    template <typename T>
+    const T& GetObject() const
+    {
+        return std::any_cast<const T&>(m_object);
+    }
+
+    //! Moves object from this class.
+    //! \return Moved object from this class.
+    template <typename T>
+    T MoveObject()
+    {
+        return std::any_cast<T&&>(std::move(m_object));
+    }
 
  private:
-    size_t m_size = 0;
-    std::unique_ptr<BYTE[]> m_buffer = nullptr;
+    std::any m_object;
 };
 }  // namespace Hearthstonepp
 

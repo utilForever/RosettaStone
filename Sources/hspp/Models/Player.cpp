@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Managers/GameAgent.hpp>
+#include <hspp/Models/GameAgent.hpp>
 #include <hspp/Models/HeroPower.hpp>
 #include <hspp/Models/Player.hpp>
 
@@ -113,14 +113,24 @@ void Player::SetNumCardAfterExhaust(BYTE numCard)
     m_numCardAfterExhaust = numCard;
 }
 
-GameAgent* Player::GetGameAgent() const
+Game* Player::GetGame() const
 {
-    return m_gameAgent;
+    return m_game;
 }
 
-void Player::SetGameAgent(GameAgent* agent)
+void Player::SetGame(Game* game)
 {
-    m_gameAgent = agent;
+    m_game = game;
+}
+
+IPolicy& Player::GetPolicy() const
+{
+    return *m_policy;
+}
+
+void Player::SetPolicy(IPolicy* policy)
+{
+    m_policy = policy;
 }
 
 Player& Player::GetOpponent() const
@@ -135,10 +145,10 @@ void Player::SetOpponent(Player* player)
 
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
-    auto* gameAgent = GetGameAgent();
+    auto* game = GetGame();
 
-    m_hero = new Hero(gameAgent, heroCard);
-    m_hero->heroPower = new HeroPower(gameAgent, powerCard);
+    m_hero = new Hero(game, heroCard);
+    m_hero->heroPower = new HeroPower(game, powerCard);
 }
 
 void Player::FreeMemory()

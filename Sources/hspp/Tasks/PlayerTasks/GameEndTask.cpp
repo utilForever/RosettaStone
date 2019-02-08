@@ -12,8 +12,8 @@ TaskID GameEndTask::GetTaskID() const
     return TaskID::GAME_END;
 }
 
-MetaData GameEndTask::Impl(Player&)
+TaskStatus GameEndTask::Impl(Player&)
 {
-    return MetaData::GAME_END;
+    return TaskStatus::GAME_END;
 }
 }  // namespace Hearthstonepp::PlayerTasks

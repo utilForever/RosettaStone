@@ -17,15 +17,15 @@ TaskID PlayWeaponTask::GetTaskID() const
     return TaskID::PLAY_WEAPON;
 }
 
-MetaData PlayWeaponTask::Impl(Player& player)
+TaskStatus PlayWeaponTask::Impl(Player& player)
 {
     player.GetHero()->weapon = dynamic_cast<Weapon*>(m_entity);
 
     if (player.GetHero()->weapon == nullptr)
     {
-        return MetaData::PLAY_WEAPON_DYNAMIC_CAST_FAIL;
+        return TaskStatus::PLAY_WEAPON_DYNAMIC_CAST_FAIL;
     }
 
-    return MetaData::PLAY_WEAPON_SUCCESS;
+    return TaskStatus::PLAY_WEAPON_SUCCESS;
 }
 }  // namespace Hearthstonepp::PlayerTasks
