@@ -12,8 +12,8 @@
 #include <hspp/Commons/Utils.hpp>
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
-#include <hspp/Managers/GameAgent.hpp>
-#include <hspp/Managers/GameInterface.hpp>
+#include <hspp/Models/GameAgent.hpp>
+#include <hspp/Policies/IoPolicy.hpp>
 
 #include <cctype>
 #if defined(HEARTHSTONEPP_WINDOWS)
@@ -219,14 +219,18 @@ void Console::SimulateGame() const
     DeckInfo* deck1 = p1->GetDeck(deckIndex1);
     DeckInfo* deck2 = p2->GetDeck(deckIndex2);
 
-    GameAgent agent(deck1->GetClass(), deck2->GetClass());
-    agent.GetPlayer1().SetNickname(p1->GetNickname());
-    agent.GetPlayer2().SetNickname(p2->GetNickname());
-    agent.GetPlayer1().SetDeck(deck1);
-    agent.GetPlayer2().SetDeck(deck2);
+    IoPolicy policy1(std::cout, std::cin);
+    IoPolicy policy2(std::cout, std::cin);
 
-    GameInterface game(agent);
-    GameResult result = game.StartGame();
+    GameAgent agent(deck1->GetClass(), deck2->GetClass(), &policy1, &policy2);
+
+    Game& game = agent.GetGame();
+    game.GetPlayer1().SetNickname(p1->GetNickname());
+    game.GetPlayer2().SetNickname(p2->GetNickname());
+    // game.GetPlayer1().SetDeck(deck1);
+    // game.GetPlayer2().SetDeck(deck2);
+
+    agent.Start();
 }
 
 void Console::Leave()
@@ -329,7 +333,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 {
     DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
 
-    if (deck->GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
+    if (deck->GetNumOfCards() >= START_DECK_SIZE)
     {
         std::cout << "The deck " << deck->GetName() << " is full of cards.\n";
         return;
@@ -350,12 +354,10 @@ void Console::AddCardInDeck(size_t deckIndex)
     {
         size_t numCardToAddAvailable =
             card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
-        if (deck->GetNumOfCards() + numCardToAddAvailable >
-            MAXIMUM_NUM_CARDS_IN_DECK)
+        if (deck->GetNumOfCards() + numCardToAddAvailable > START_DECK_SIZE)
         {
-            numCardToAddAvailable = deck->GetNumOfCards() +
-                                    numCardToAddAvailable -
-                                    MAXIMUM_NUM_CARDS_IN_DECK;
+            numCardToAddAvailable =
+                deck->GetNumOfCards() + numCardToAddAvailable - START_DECK_SIZE;
         }
 
         std::cout << "How many cards to add (0 - " << numCardToAddAvailable
