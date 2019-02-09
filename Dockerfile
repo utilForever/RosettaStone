@@ -6,10 +6,10 @@ RUN apt-get update -yq && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ADD . /app
+COPY . /app
 
 WORKDIR /app/build
-RUN cmake $(..) && \
-    make -j`nproc` && \
+RUN cmake .. && \
+    make -j "$(nproc)" && \
     make install && \
     bin/UnitTests
