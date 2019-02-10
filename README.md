@@ -12,7 +12,7 @@
 
 **Important Notice: We use ```std::any_cast``` in Hearthstone++ core library. ```std::any_cast``` is one of C++17 library features. Unfortunately, it is introduced macOS 10.14. Currently, Travis CI and Azure Pipelines supports macOS 10.13 only. They will support macOS 10.14 soon, so we'll stop supporting it for a while. See [this](https://github.com/utilForever/Hearthstonepp/issues/185) for more details. Thanks. :)**
 
-Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (17.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
+Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (18.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
 
 ## Related Repositories
 
