@@ -63,6 +63,16 @@ void Player::SetID(BYTE id)
     m_id = id;
 }
 
+Game* Player::GetGame() const
+{
+    return m_game;
+}
+
+void Player::SetGame(Game* game)
+{
+    m_game = game;
+}
+
 Hero* Player::GetHero() const
 {
     return m_hero;
@@ -111,16 +121,6 @@ BYTE Player::GetNumCardAfterExhaust() const
 void Player::SetNumCardAfterExhaust(BYTE numCard)
 {
     m_numCardAfterExhaust = numCard;
-}
-
-Game* Player::GetGame() const
-{
-    return m_game;
-}
-
-void Player::SetGame(Game* game)
-{
-    m_game = game;
 }
 
 IPolicy& Player::GetPolicy() const

@@ -87,6 +87,14 @@ class Player
     //! \param id Player ID.
     void SetID(BYTE id);
 
+    //! Returns a pointer to game.
+    //! \return A pointer to game.
+    Game* GetGame() const;
+
+    //! Sets a pointer to game.
+    //! \param game A pointer to game.
+    void SetGame(Game* game);
+
     //! Returns player's hero.
     //! \return Player's hero.
     Hero* GetHero() const;
@@ -129,10 +137,6 @@ class Player
     //! exhausted their deck.
     //! \param numCard The number of drawn card.
     void SetNumCardAfterExhaust(BYTE numCard);
-
-    Game* GetGame() const;
-
-    void SetGame(Game* game);
 
     //! Returns game playing policy of current player.
     //! \return The policy of current player.
