@@ -11,19 +11,19 @@ namespace Hearthstonepp
 {
 Entity* Generic::DrawCard(Player& player, Card&& card)
 {
-    auto* gameAgent = player.GetGame();
+    auto* game = player.GetGame();
     Entity* entity;
 
     switch (card.cardType)
     {
         case +CardType::MINION:
-            entity = new Minion(gameAgent, card);
+            entity = new Minion(game, card);
             break;
         case +CardType::SPELL:
-            entity = new Spell(gameAgent, card);
+            entity = new Spell(game, card);
             break;
         case +CardType::WEAPON:
-            entity = new Weapon(gameAgent, card);
+            entity = new Weapon(game, card);
             break;
         default:
             throw std::invalid_argument(
