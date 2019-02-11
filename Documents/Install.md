@@ -42,7 +42,7 @@ It should show all the tests are passing.
 
 ### Building from Ubuntu and Windows Subsystem for Linux (WSL)
 
-Hearthstone++ supports Ubuntu 17.04 or higher. Using `apt-get`, install required tools and libraries by running,
+Hearthstone++ supports Ubuntu 18.04 or higher. Using `apt-get`, install required tools and libraries by running,
 
 ```
 sudo apt-get install build-essential cmake
