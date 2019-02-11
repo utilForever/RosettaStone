@@ -3,24 +3,24 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_DRAW_TASK_HPP
-#define HEARTHSTONEPP_DRAW_TASK_HPP
+#ifndef HEARTHSTONEPP_DRAW_CARD_TASK_HPP
+#define HEARTHSTONEPP_DRAW_CARD_TASK_HPP
 
 #include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::SimpleTasks
 {
 //!
-//! \brief DrawTask class.
+//! \brief DrawCardTask class.
 //!
-//! This class represents the task for drawing card(s) from deck at random.
+//! This class represents the task for drawing specified card from deck.
 //!
-class DrawTask : public ITask
+class DrawCardTask : public ITask
 {
  public:
-    //! Constructs task with given \p agent and \p num.
-    //! \param num The number of cards to draw.
-    DrawTask(size_t num);
+    //! Constructs task with given \p card.
+    //! \param card A card to draw from deck.
+    DrawCardTask(Card card);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,8 +32,8 @@ class DrawTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    size_t m_num = 0;
+    Card m_card;
 };
 }  // namespace Hearthstonepp::SimpleTasks
 
-#endif  // HEARTHSTONEPP_DRAW_TASK_HPP
+#endif  // HEARTHSTONEPP_DRAW_CARD_TASK_HPP

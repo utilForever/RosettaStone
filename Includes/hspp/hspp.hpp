@@ -58,6 +58,7 @@
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DrawCardTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/HealFullTask.hpp>
