@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_GENERIC_HPP
-#define HEARTHSTONEPP_GENERIC_HPP
+#ifndef HEARTHSTONEPP_DRAW_HPP
+#define HEARTHSTONEPP_DRAW_HPP
 
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Player.hpp>
@@ -12,11 +12,11 @@
 namespace Hearthstonepp
 {
 //!
-//! \brief Generic class.
+//! \brief Draw class.
 //!
-//! This class is a container of game logic functionality.
+//! This class is a collection of card draw functions.
 //!
-class Generic
+class Draw
 {
  public:
     //! Draws a \p card to \p player.
@@ -27,4 +27,4 @@ class Generic
 };
 }  // namespace Hearthstonepp
 
-#endif  // HEARTHSTONEPP_GENERIC_HPP
+#endif  // HEARTHSTONEPP_DRAW_HPP

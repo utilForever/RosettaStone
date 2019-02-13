@@ -3,13 +3,13 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/Actions/Generic.hpp>
+#include <hspp/Actions/Draw.hpp>
 #include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Weapon.hpp>
 
 namespace Hearthstonepp
 {
-Entity* Generic::DrawCard(Player& player, Card&& card)
+Entity* Draw::DrawCard(Player& player, Card&& card)
 {
     auto* game = player.GetGame();
     Entity* entity;

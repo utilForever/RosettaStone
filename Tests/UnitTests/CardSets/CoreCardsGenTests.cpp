@@ -6,7 +6,7 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-#include <hspp/Actions/Generic.hpp>
+#include <hspp/Actions/Draw.hpp>
 #include <hspp/Cards/Cards.hpp>
 
 using namespace Hearthstonepp;
@@ -24,9 +24,9 @@ TEST(CoreCardsGen, EX1_066)
     opPlayer.SetMaximumMana(10);
     opPlayer.SetAvailableMana(10);
 
-    const auto card1 = Generic::DrawCard(
+    const auto card1 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
-    const auto card2 = Generic::DrawCard(
+    const auto card2 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
@@ -47,14 +47,14 @@ TEST(CoreCardsGen, EX1_306)
     opPlayer.SetMaximumMana(10);
     opPlayer.SetAvailableMana(10);
 
-    const auto card1 = Generic::DrawCard(
+    const auto card1 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Succubus"));
-    Generic::DrawCard(curPlayer,
-                      Cards::GetInstance().FindCardByName("Stonetusk Boar"));
-    const auto card2 = Generic::DrawCard(
+    Draw::DrawCard(curPlayer,
+                   Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+    const auto card2 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
-    Generic::DrawCard(opPlayer,
-                      Cards::GetInstance().FindCardByName("Fiery War Axe"));
+    Draw::DrawCard(opPlayer,
+                   Cards::GetInstance().FindCardByName("Fiery War Axe"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 0u);
@@ -77,11 +77,11 @@ TEST(CoreCardsGen, CS2_041)
     auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
 
-    const auto card1 = Generic::DrawCard(
+    const auto card1 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
-    const auto card2 = Generic::DrawCard(
+    const auto card2 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Ancestral Healing"));
-    const auto card3 = Generic::DrawCard(
+    const auto card3 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
@@ -108,7 +108,7 @@ TEST(CoreCardsGen, CS2_088)
     opPlayer.SetAvailableMana(10);
     opPlayer.GetHero()->health = 24;
 
-    const auto card1 = Generic::DrawCard(
+    const auto card1 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Guardian of Kings"));
 
     Task::Run(opPlayer, PlayCardTask(card1));
@@ -130,15 +130,15 @@ TEST(CoreCardsGen, CS1_112)
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
 
-    const auto card1 = Generic::DrawCard(
+    const auto card1 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
-    const auto card2 = Generic::DrawCard(
+    const auto card2 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
-    const auto card3 = Generic::DrawCard(
+    const auto card3 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Holy Nova"));
-    const auto card4 = Generic::DrawCard(
+    const auto card4 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Argent Squire"));
-    const auto card5 = Generic::DrawCard(
+    const auto card5 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Worgen Infiltrator"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
@@ -176,13 +176,13 @@ TEST(CoreCardsGen, CS1_113)
     const auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
 
-    const auto card1 = Generic::DrawCard(
+    const auto card1 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
-    const auto card2 = Generic::DrawCard(
+    const auto card2 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
-    const auto card3 = Generic::DrawCard(
+    const auto card3 = Draw::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
-    const auto card4 = Generic::DrawCard(
+    const auto card4 = Draw::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
