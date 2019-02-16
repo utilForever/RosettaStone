@@ -122,7 +122,7 @@ TEST(DrawTask, RunOverDraw)
         Card card = cards.back();
         card.id = std::move(id);
 
-        minions.emplace_back(new Minion(&game, card));
+        minions.emplace_back(new Minion(p, card));
 
         return minions.back();
     };
@@ -176,7 +176,7 @@ TEST(DrawTask, RunExhaustOverdraw)
         Card card = cards.back();
         card.id = std::move(id);
 
-        minions.emplace_back(new Minion(&game, card));
+        minions.emplace_back(new Minion(p, card));
         return minions.back();
     };
 

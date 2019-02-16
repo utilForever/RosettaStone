@@ -35,8 +35,8 @@ TEST(DrawCardTask, Run)
     EXPECT_NE(poisonedBlade.id, "");
     EXPECT_EQ(poisonedBlade.name, "Poisoned Blade");
 
-    auto minionNerubian = new Minion(&game, nerubian);
-    auto weaponPoisonedBlade = new Weapon(&game, poisonedBlade);
+    auto minionNerubian = new Minion(game.GetPlayer1(), nerubian);
+    auto weaponPoisonedBlade = new Weapon(game.GetPlayer1(), poisonedBlade);
     // game.GetPlayer1().GetDeck().emplace_back(weaponPoisonedBlade);
     // game.GetPlayer1().GetDeck().emplace_back(minionNerubian);
 

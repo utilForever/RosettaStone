@@ -37,12 +37,12 @@ TEST(InitAttackCountTask, RunFrozen)
 
     Card card;
 
-    Minion minion1(&game, card);
-    Minion minion2(&game, card);
-    Minion minion3(&game, card);
-    Minion minion4(&game, card);
-    Minion minion5(&game, card);
-    Minion minion6(&game, card);
+    Minion minion1(game.GetPlayer1(), card);
+    Minion minion2(game.GetPlayer1(), card);
+    Minion minion3(game.GetPlayer1(), card);
+    Minion minion4(game.GetPlayer1(), card);
+    Minion minion5(game.GetPlayer2(), card);
+    Minion minion6(game.GetPlayer2(), card);
 
     // Case 1
     minion6.SetGameTag(GameTag::FROZEN, 1);
@@ -123,8 +123,8 @@ TEST(InitAttackCountTask, RunWindFury)
 
     Card card;
 
-    Minion minion1(&game, card);
-    Minion minion2(&game, card);
+    Minion minion1(game.GetPlayer1(), card);
+    Minion minion2(game.GetPlayer1(), card);
 
     minion2.SetGameTag(GameTag::WINDFURY, 1);
 

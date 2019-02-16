@@ -4,7 +4,6 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Game.hpp>
 #include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Weapon.hpp>
@@ -28,20 +27,18 @@ TaskStatus DrawCardTask::Impl(Player& player)
 {
     // auto& deck = player.GetDeck();
     auto& hand = player.GetHand();
-
-    auto* game = player.GetGame();
-
+    
     switch (m_card.cardType)
     {
         case +CardType::MINION:
         {
-            const auto minion = new Minion(game, m_card);
+            const auto minion = new Minion(player, m_card);
             hand.AddCard(*minion);
             break;
         }
         case +CardType::WEAPON:
         {
-            const auto weapon = new Weapon(game, m_card);
+            const auto weapon = new Weapon(player, m_card);
             hand.AddCard(*weapon);
             break;
         }

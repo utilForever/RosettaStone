@@ -62,7 +62,7 @@ void PlayMinionCard(Player& player, Card& card)
 {
     Battlefield& playerField = player.GetField();
 
-    const auto minion = new Minion(nullptr, card);
+    const auto minion = new Minion(player, card);
     const auto minionPos = playerField.FindEmptyPos().value_or(
         std::numeric_limits<std::size_t>::max());
 

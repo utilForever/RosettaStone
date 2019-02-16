@@ -31,7 +31,7 @@ TEST(DestroyTask, Run)
     auto card = GenerateMinionCard("minion1", 1, 1);
 
     // Destroy Source Minion
-    auto minion1 = new Minion(&game, card);
+    auto minion1 = new Minion(player1, card);
     minion1->SetOwner(player1);
     player1.GetField().AddMinion(*minion1, 0);
 
@@ -43,7 +43,7 @@ TEST(DestroyTask, Run)
     EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
 
     // Destroy Target Minion
-    auto minion2 = new Minion(&game, card);
+    auto minion2 = new Minion(player2, card);
     minion2->SetOwner(player2);
     player2.GetField().AddMinion(*minion2, 0);
 
@@ -56,7 +56,7 @@ TEST(DestroyTask, Run)
 
     // Destroy Target Weapon
     Card weaponCard;
-    player2.GetHero()->weapon = new Weapon(&game, weaponCard);
+    player2.GetHero()->weapon = new Weapon(player2, weaponCard);
     player2.GetHero()->weapon->SetOwner(player2);
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);
