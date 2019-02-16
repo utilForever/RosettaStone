@@ -9,7 +9,7 @@
 
 namespace Hearthstonepp
 {
-Weapon::Weapon(Game* gameAgent, Card& card) : Entity(gameAgent, card)
+Weapon::Weapon(Player& player, Card& card) : Entity(player, card)
 {
     m_attack = card.attack ? *card.attack : 0;
     m_durability = card.durability ? *card.durability : 0;

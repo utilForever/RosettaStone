@@ -12,7 +12,7 @@
 
 namespace Hearthstonepp
 {
-Character::Character(Game* gameAgent, Card& card) : Entity(gameAgent, card)
+Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
     if (!card.id.empty())
     {

@@ -24,10 +24,10 @@ class Weapon : public Entity
     //! Default constructor.
     Weapon() = default;
 
-    //! Constructs weapon with given \p gameAgent and \p card.
-    //! \param gameAgent The game agent.
-    //! \param card A reference to the card.
-    Weapon(Game* gameAgent, Card& card);
+    //! Constructs weapon with given \p _owner and \p _card.
+    //! \param _owner An owner of the card.
+    //! \param _card A reference to the card.
+    Weapon(Player& _owner, Card& _card);
 
     //! Default destructor.
     virtual ~Weapon() = default;

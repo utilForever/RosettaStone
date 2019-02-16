@@ -31,10 +31,10 @@ class Entity
     //! Default constructor.
     Entity() = default;
 
-    //! Constructs entity with given \p gameAgent and \p _card.
-    //! \param gameAgent The game agent.
+    //! Constructs entity with given \p _owner and \p _card.
+    //! \param _owner An owner of the card.
     //! \param _card A reference to the card.
-    Entity(Game* gameAgent, Card& _card);
+    Entity(Player& _owner, Card& _card);
 
     //! Destructor.
     virtual ~Entity();
@@ -50,10 +50,6 @@ class Entity
 
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
-
-    //! Returns the game agent.
-    //! \return A pointer to the game agent.
-    Game* GetGame() const;
 
     //! Returns the owner of character.
     //! \return The owner of character.
@@ -80,7 +76,6 @@ class Entity
     bool isDestroyed = false;
 
  protected:
-    Game* m_game = nullptr;
     Player* m_owner = nullptr;
 
     std::map<GameTag, int> m_gameTags;

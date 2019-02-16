@@ -5,11 +5,12 @@
 // property of any third parties.
 
 #include <hspp/Models/Entity.hpp>
+#include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp
 {
-Entity::Entity(Game* gameAgent, Card& _card)
-    : card(new Card(_card)), m_game(gameAgent)
+Entity::Entity(Player& _owner, Card& _card)
+    : card(new Card(_card)), m_owner(&_owner)
 {
     for (auto& mechanic : _card.mechanics)
     {
@@ -17,21 +18,21 @@ Entity::Entity(Game* gameAgent, Card& _card)
     }
 }
 
-Entity::Entity(const Entity& ent) : m_game(ent.m_game)
+Entity::Entity(const Entity& ent) : m_owner(ent.m_owner)
 {
     FreeMemory();
 
     card = ent.card;
-    m_game = ent.m_game;
+    m_owner = ent.m_owner;
     m_gameTags = ent.m_gameTags;
 }
 
-Entity::Entity(Entity&& ent) noexcept : m_game(ent.m_game)
+Entity::Entity(Entity&& ent) noexcept : m_owner(ent.m_owner)
 {
     FreeMemory();
 
     card = ent.card;
-    m_game = ent.m_game;
+    m_owner = ent.m_owner;
     m_gameTags = ent.m_gameTags;
 }
 
@@ -50,7 +51,7 @@ Entity& Entity::operator=(const Entity& ent)
     FreeMemory();
 
     card = ent.card;
-    m_game = ent.m_game;
+    m_owner = ent.m_owner;
     m_gameTags = ent.m_gameTags;
 
     return *this;
@@ -66,15 +67,10 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     FreeMemory();
 
     card = ent.card;
-    m_game = ent.m_game;
+    m_owner = ent.m_owner;
     m_gameTags = ent.m_gameTags;
 
     return *this;
-}
-
-Game* Entity::GetGame() const
-{
-    return m_game;
 }
 
 Player& Entity::GetOwner() const

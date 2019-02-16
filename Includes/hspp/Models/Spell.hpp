@@ -22,10 +22,10 @@ class Spell : public Entity
     //! Default constructor.
     Spell() = default;
 
-    //! Constructs spell with given \p gameAgent and \p card.
-    //! \param gameAgent The game agent.
-    //! \param card A reference to the card.
-    Spell(Game* gameAgent, Card& card);
+    //! Constructs spell with given \p _owner and \p _card.
+    //! \param _owner An owner of the card.
+    //! \param _card A reference to the card.
+    Spell(Player& _owner, Card& _card);
 
     //! Default destructor.
     ~Spell() = default;

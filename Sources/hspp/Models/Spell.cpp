@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp
 {
-Spell::Spell(Game* gameAgent, Card& card) : Entity(gameAgent, card)
+Spell::Spell(Player& player, Card& card) : Entity(player, card)
 {
     // Do nothing
 }

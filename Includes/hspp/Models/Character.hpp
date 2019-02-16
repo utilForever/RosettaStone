@@ -24,10 +24,10 @@ class Character : public Entity
     //! Default constructor.
     Character() = default;
 
-    //! Constructs character with given \p gameAgent and \p card.
-    //! \param gameAgent The game agent.
-    //! \param card A reference to the card.
-    Character(Game* gameAgent, Card& card);
+    //! Constructs character with given \p _owner and \p _card.
+    //! \param _owner An owner of the card.
+    //! \param _card A reference to the card.
+    Character(Player& _owner, Card& _card);
 
     //! Default destructor.
     virtual ~Character() = default;

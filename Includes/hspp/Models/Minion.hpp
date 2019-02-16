@@ -22,10 +22,10 @@ class Minion : public Character
     //! Default constructor.
     Minion() = default;
 
-    //! Constructs minion with given \p gameAgent and \p card.
-    //! \param gameAgent The game agent.
-    //! \param card A reference to the card.
-    Minion(Game* gameAgent, Card& card);
+    //! Constructs minion with given \p _owner and \p _card.
+    //! \param _owner An owner of the card.
+    //! \param _card A reference to the card.
+    Minion(Player& _owner, Card& _card);
 
     //! Default destructor.
     virtual ~Minion() = default;

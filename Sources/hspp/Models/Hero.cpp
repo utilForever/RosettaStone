@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp
 {
-Hero::Hero(Game* gameAgent, Card& card) : Character(gameAgent, card)
+Hero::Hero(Player& player, Card& card) : Character(player, card)
 {
     // Do nothing
 }

@@ -25,10 +25,10 @@ class Hero : public Character
     //! Default constructor.
     Hero() = default;
 
-    //! Constructs hero with given \p gameAgent and \p card.
-    //! \param gameAgent The game agent.
-    //! \param card A reference to the card.
-    Hero(Game* gameAgent, Card& card);
+    //! Constructs hero with given \p _owner and \p _card.
+    //! \param _owner An owner of the card.
+    //! \param _card A reference to the card.
+    Hero(Player& _owner, Card& _card);
 
     //! Default destructor.
     ~Hero();
