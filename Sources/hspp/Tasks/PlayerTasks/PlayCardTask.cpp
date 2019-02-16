@@ -51,7 +51,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
         handIndex = req.GetObject<BYTE>();
     }
 
-    Card* card = player.GetHand().GetCard(handIndex)->card;
+    Card& card = player.GetHand().GetCard(handIndex)->card;
 
     // Verify index of card hand
     if (handIndex >= player.GetHand().GetNumOfCards())
@@ -60,13 +60,13 @@ TaskStatus PlayCardTask::Impl(Player& player)
     }
 
     // Verify mana is sufficient
-    if (card->cost > player.GetAvailableMana())
+    if (card.cost > player.GetAvailableMana())
     {
         return TaskStatus::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
     // Verify target is valid
-    if (!Targeting::IsValidTarget(card, m_target))
+    if (!Targeting::IsValidTarget(&card, m_target))
     {
         return TaskStatus::PLAY_CARD_INVALID_TARGET;
     }
@@ -79,7 +79,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
     entity->SetOwner(player);
 
     // Pass to sub-logic
-    switch (entity->card->cardType)
+    switch (entity->card.cardType)
     {
         case CardType::MINION:
             return PlayMinionTask(entity, m_fieldPos, m_target).Run(player);

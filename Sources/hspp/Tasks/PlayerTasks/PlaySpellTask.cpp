@@ -26,7 +26,7 @@ TaskID PlaySpellTask::GetTaskID() const
 
 TaskStatus PlaySpellTask::Impl(Player& player)
 {
-    Power power = m_source->card->power;
+    Power power = m_source->card.power;
     if (power.GetEnchant() == nullptr && power.GetPowerTask().empty())
     {
         return TaskStatus::PLAY_SPELL_NO_POWER;
@@ -70,13 +70,13 @@ TaskStatus PlaySpellTask::Impl(Player& player)
         }
     }
 
-    const auto cost = static_cast<BYTE>(m_source->card->cost);
+    const auto cost = static_cast<BYTE>(m_source->card.cost);
     const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
     // Process PowerTasks
-    for (auto& powerTask : m_source->card->power.GetPowerTask())
+    for (auto& powerTask : m_source->card.power.GetPowerTask())
     {
         powerTask->SetTarget(target);
         powerTask->Run(player);

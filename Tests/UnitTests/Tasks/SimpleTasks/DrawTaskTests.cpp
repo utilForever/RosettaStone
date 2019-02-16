@@ -47,7 +47,7 @@ TEST(DrawTask, Run)
     Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = game.GetPlayer1();
 
-    //const auto Generate = [&](std::string&& id) -> Entity* {
+    // const auto Generate = [&](std::string&& id) -> Entity* {
     //    cards.emplace_back(Card());
 
     //    Card card = cards.back();
@@ -71,7 +71,7 @@ TEST(DrawTask, Run)
 
     for (size_t i = 0; i < 3; ++i)
     {
-        EXPECT_EQ(p.GetHand().GetCard(i)->card->id,
+        EXPECT_EQ(p.GetHand().GetCard(i)->card.id,
                   id + static_cast<char>(2 - i + 0x30));
     }
 }
@@ -95,13 +95,13 @@ TEST(DrawTask, RunExhaust)
     Card card;
     card.id = "card1";
 
-    //auto minion = new Minion(&game, card);
-    //p.GetDeck().emplace_back(minion);
+    // auto minion = new Minion(&game, card);
+    // p.GetDeck().emplace_back(minion);
 
     result = draw.Run(game.GetPlayer1());
     EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 1u);
-    EXPECT_EQ(p.GetHand().GetCard(0)->card->id, "card1");
+    EXPECT_EQ(p.GetHand().GetCard(0)->card.id, "card1");
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetNumCardAfterExhaust(), 5);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
@@ -130,7 +130,7 @@ TEST(DrawTask, RunOverDraw)
     const std::string id = "card";
     for (char i = '0'; i <= '2'; ++i)
     {
-        //p.GetDeck().emplace_back(Generate(id + i));
+        // p.GetDeck().emplace_back(Generate(id + i));
     }
     for (char i = '0'; i <= '9'; ++i)
     {
@@ -150,7 +150,7 @@ TEST(DrawTask, RunOverDraw)
             burnt.GetObject<SizedPtr<Entity*>>();
         for (size_t i = 0; i < 3; ++i)
         {
-            EXPECT_EQ(entities[i]->card->id,
+            EXPECT_EQ(entities[i]->card.id,
                       id + static_cast<char>(2 - i + 0x30));
         }
     });
@@ -183,7 +183,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     const std::string id = "card";
     for (char i = '0'; i <= '2'; ++i)
     {
-        //p.GetDeck().emplace_back(Generate(id + i));
+        // p.GetDeck().emplace_back(Generate(id + i));
     }
     for (char i = '0'; i <= '8'; ++i)
     {
@@ -199,11 +199,11 @@ TEST(DrawTask, RunExhaustOverdraw)
 
         EXPECT_TRUE(burnt.HasObjects());
 
-                const SizedPtr<Entity*>& entities =
+        const SizedPtr<Entity*>& entities =
             burnt.GetObject<SizedPtr<Entity*>>();
         for (size_t i = 0; i < 2; ++i)
         {
-            EXPECT_EQ(entities[i]->card->id,
+            EXPECT_EQ(entities[i]->card.id,
                       id + static_cast<char>(2 - i + 0x30));
         }
     });
@@ -213,5 +213,5 @@ TEST(DrawTask, RunExhaustOverdraw)
     EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST_OVERDRAW);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
-    EXPECT_EQ(p.GetHand().GetCard(9)->card->id, "card0");
+    EXPECT_EQ(p.GetHand().GetCard(9)->card.id, "card0");
 }

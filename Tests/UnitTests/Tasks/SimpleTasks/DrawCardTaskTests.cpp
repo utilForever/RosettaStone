@@ -45,7 +45,7 @@ TEST(DrawCardTask, Run)
 
     EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(game.GetPlayer1().GetHand().GetNumOfCards(), 1u);
-    EXPECT_EQ(game.GetPlayer1().GetHand().GetCard(0)->card->id, nerubian.id);
+    EXPECT_EQ(game.GetPlayer1().GetHand().GetCard(0)->card.id, nerubian.id);
     EXPECT_EQ(game.GetPlayer1().GetDeck().GetNumOfCards(), 1u);
     // EXPECT_EQ(game.GetPlayer1().GetDeck()[0]->card->id, poisonedBlade.id);
 
@@ -54,7 +54,7 @@ TEST(DrawCardTask, Run)
 
     EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(game.GetPlayer1().GetHand().GetNumOfCards(), 2u);
-    EXPECT_EQ(game.GetPlayer1().GetHand().GetCard(1)->card->id,
+    EXPECT_EQ(game.GetPlayer1().GetHand().GetCard(1)->card.id,
               poisonedBlade.id);
     EXPECT_EQ(game.GetPlayer1().GetDeck().GetNumOfCards(), 0u);
 

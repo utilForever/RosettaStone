@@ -66,18 +66,18 @@ TaskStatus PlayMinionTask::Impl(Player& player)
     character->Summon(position);
 
     // Apply card mechanics tags
-    for (const auto tags : m_source->card->mechanics)
+    for (const auto tags : m_source->card.mechanics)
     {
         m_source->SetGameTag(tags, 1);
     }
 
-    const auto cost = static_cast<BYTE>(m_source->card->cost);
+    const auto cost = static_cast<BYTE>(m_source->card.cost);
     const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
     // Process PowerTasks
-    for (auto& power : m_source->card->power.GetPowerTask())
+    for (auto& power : m_source->card.power.GetPowerTask())
     {
         power->Run(player);
     }
