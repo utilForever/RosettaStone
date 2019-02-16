@@ -7,31 +7,32 @@
 #include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Weapon.hpp>
 
-namespace Hearthstonepp
+namespace Hearthstonepp::Generic
 {
-Entity* Draw::DrawCard(Player& player, Card&& card)
+Entity* Draw(Player& player, optional<Entity> card)
 {
-    auto* game = player.GetGame();
-    Entity* entity;
+    (void)card;
+    Entity* entity = nullptr;
 
-    switch (card.cardType)
-    {
-        case +CardType::MINION:
-            entity = new Minion(game, card);
-            break;
-        case +CardType::SPELL:
-            entity = new Spell(game, card);
-            break;
-        case +CardType::WEAPON:
-            entity = new Weapon(game, card);
-            break;
-        default:
-            throw std::invalid_argument(
-                "Generic::DrawCard() - Invalid card type!");
-    }
+    //if (card.has_value())
+    //{
+    //    player.GetDeck().RemoveCard(card);
+    //}
+    //else
+    //{
+    //    player.GetDeck().RemoveCard(player.GetDeck().GetTopCard());
+    //}
 
     player.GetHand().AddCard(*entity);
 
     return entity;
 }
-}  // namespace Hearthstonepp
+
+Entity* DrawCard(Player& player, Card card)
+{
+    Entity* entity = Entity::GetFromCard(player, card);
+    player.GetHand().AddCard(*entity);
+
+    return entity;
+}
+}  // namespace Hearthstonepp::Generic

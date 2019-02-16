@@ -9,22 +9,19 @@
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Player.hpp>
 
-namespace Hearthstonepp
+namespace Hearthstonepp::Generic
 {
-//!
-//! \brief Draw class.
-//!
-//! This class is a collection of card draw functions.
-//!
-class Draw
-{
- public:
-    //! Draws a \p card to \p player.
-    //! \param player The player to create card.
-    //! \param card An object that is stored card information.
-    //! \return A dynamic allocated card object.
-    static Entity* DrawCard(Player& player, Card&& card);
-};
-}  // namespace Hearthstonepp
+    //! Draws a card in the deck.
+    //! \param player The player to add card to the hand.
+    //! \param cardToDraw A card to draw in the deck.
+    //! \return A dynamic allocated entity object.
+    Entity* Draw(Player& player, optional<Entity> cardToDraw = nullopt);
+
+    //! Draws a specific card to the hand.
+    //! \param player The player to add card to the hand.
+    //! \param card A card to draw to the hand.
+    //! \return A dynamic allocated entity object.
+    Entity* DrawCard(Player& player, Card card);
+}  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_DRAW_HPP
