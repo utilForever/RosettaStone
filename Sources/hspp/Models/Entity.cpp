@@ -108,6 +108,12 @@ Entity* Entity::GetFromCard(Player& player, Card card)
 
     switch (card.cardType)
     {
+        case +CardType::HERO:
+            result = new Hero(player, card);
+            break;
+        case +CardType::HERO_POWER:
+            result = new HeroPower(player, card);
+            break;
         case +CardType::MINION:
             result = new Minion(player, card);
             break;
