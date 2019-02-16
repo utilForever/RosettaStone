@@ -78,7 +78,7 @@ class Entity
     //! \return A pointer to entity that is allocated dynamically.
     static Entity* GetFromCard(Player& player, Card card);
 
-    Card* card = nullptr;
+    Card card;
     bool isDestroyed = false;
 
  protected:

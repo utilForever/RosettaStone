@@ -9,8 +9,7 @@
 
 namespace Hearthstonepp
 {
-Entity::Entity(Player& _owner, Card& _card)
-    : card(new Card(_card)), m_owner(&_owner)
+Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
 {
     for (auto& mechanic : _card.mechanics)
     {
@@ -129,7 +128,5 @@ Entity* Entity::GetFromCard(Player& player, Card card)
 void Entity::FreeMemory()
 {
     m_gameTags.clear();
-
-    delete card;
 }
 }  // namespace Hearthstonepp
