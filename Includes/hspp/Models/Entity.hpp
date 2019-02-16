@@ -72,6 +72,12 @@ class Entity
     //! Destroys character.
     virtual void Destroy();
 
+    //! Creates entity from the card.
+    //! \param player A player to get the card.
+    //! \param card A card to draw.
+    //! \return A pointer to entity that is allocated dynamically.
+    static Entity* GetFromCard(Player& player, Card card);
+
     Card* card = nullptr;
     bool isDestroyed = false;
 

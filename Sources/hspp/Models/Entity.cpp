@@ -103,6 +103,29 @@ void Entity::Destroy()
     // Do nothing
 }
 
+Entity* Entity::GetFromCard(Player& player, Card card)
+{
+    Entity* result;
+
+    switch (card.cardType)
+    {
+        case +CardType::MINION:
+            result = new Minion(player, card);
+            break;
+        case +CardType::SPELL:
+            result = new Spell(player, card);
+            break;
+        case +CardType::WEAPON:
+            result = new Weapon(player, card);
+            break;
+        default:
+            throw std::invalid_argument(
+                "Generic::DrawCard() - Invalid card type!");
+    }
+
+    return result;
+}
+
 void Entity::FreeMemory()
 {
     m_gameTags.clear();
