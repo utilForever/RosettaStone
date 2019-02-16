@@ -22,7 +22,7 @@ TaskStatus DrawTask::Impl(Player& player)
 {
     for (std::size_t i = 0; i < m_num; ++i)
     {
-        Draw::DrawCard(player, Card{});
+        Generic::Draw(player, nullopt);
     }
 
     // auto& deck = player.GetDeck();
