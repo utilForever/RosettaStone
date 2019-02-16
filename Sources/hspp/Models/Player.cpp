@@ -145,10 +145,8 @@ void Player::SetOpponent(Player* player)
 
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
-    auto* game = GetGame();
-
-    m_hero = new Hero(game, heroCard);
-    m_hero->heroPower = new HeroPower(game, powerCard);
+    m_hero = dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
+    m_hero->heroPower = dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
 }
 
 void Player::FreeMemory()
