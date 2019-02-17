@@ -8,16 +8,15 @@
 
 namespace Hearthstonepp
 {
-bool Targeting::IsValidTarget(Card* card, Entity* target)
+bool Targeting::IsValidTarget(Entity* source, Entity* target)
 {
-    for (auto& requirement : card->playRequirements)
+    for (auto& requirement : source->card.playRequirements)
     {
         switch (requirement.first)
         {
             case +PlayReq::REQ_ENEMY_TARGET:
             {
-                if (dynamic_cast<Character*>(target)->GetOwner() !=
-                    target->GetGame()->GetCurrentPlayer())
+                if (target->GetOwner() == source->GetOwner())
                 {
                     return false;
                 }

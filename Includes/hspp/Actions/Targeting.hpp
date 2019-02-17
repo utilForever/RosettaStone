@@ -14,7 +14,7 @@ namespace Hearthstonepp
 class Targeting
 {
  public:
-    static bool IsValidTarget(Card* card, Entity* target);
+    static bool IsValidTarget(Entity* source, Entity* target);
 };
 }  // namespace Hearthstonepp
 
