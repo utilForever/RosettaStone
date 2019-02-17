@@ -83,6 +83,11 @@ optional<std::size_t> Hand::FindCardPos(Entity& card)
 
 void Hand::AddCard(Entity& card)
 {
+    if (IsFull())
+    {
+        return;
+    }
+
     m_cards.at(m_numCard) = &card;
     ++m_numCard;
 }
