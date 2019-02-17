@@ -114,7 +114,14 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
 
 size_t Character::TakeDamage(Character& source, size_t damage)
 {
-    (void)source;
+    const auto hero = dynamic_cast<Hero*>(this);
+    const auto minion = dynamic_cast<Minion*>(this);
+
+    const bool isFatigue = (hero != nullptr) && (this == &source);
+    if (isFatigue)
+    {
+        hero->fatigue = damage;
+    }
 
     if (GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
@@ -131,7 +138,6 @@ size_t Character::TakeDamage(Character& source, size_t damage)
 
     if (health <= 0)
     {
-        const auto minion = dynamic_cast<Minion*>(this);
         if (minion != nullptr)
         {
             minion->isDestroyed = true;

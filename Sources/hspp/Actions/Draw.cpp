@@ -4,21 +4,29 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Draw.hpp>
-#include <hspp/Models/Minion.hpp>
-#include <hspp/Models/Weapon.hpp>
 
 namespace Hearthstonepp::Generic
 {
 Entity* Draw(Player& player, optional<Entity> card)
 {
     (void)card;
+
+    if (player.GetDeck().IsEmpty())
+    {
+        const std::size_t fatigueDamage =
+            player.GetHero()->fatigue == 0 ? 1 : player.GetHero()->fatigue + 1;
+        player.GetHero()->TakeDamage(*player.GetHero(), fatigueDamage);
+
+        return nullptr;
+    }
+
     Entity* entity = nullptr;
 
-    //if (card.has_value())
+    // if (card.has_value())
     //{
     //    player.GetDeck().RemoveCard(card);
     //}
-    //else
+    // else
     //{
     //    player.GetDeck().RemoveCard(player.GetDeck().GetTopCard());
     //}
