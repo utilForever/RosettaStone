@@ -12,7 +12,6 @@
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DrawCardTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
@@ -82,8 +81,8 @@ void GameAgent::BeginPhase()
         m_game.SetCurrentPlayer(PlayerType::PLAYER2);
     }
 
-    Player& player1 = m_game.GetFirstPlayer();
-    Player& player2 = m_game.GetFirstPlayer().GetOpponent();
+    Player& firstPlayer = m_game.GetFirstPlayer();
+    Player& secondPlayer = m_game.GetFirstPlayer().GetOpponent();
 
     // Task list of begin phase
     // 1. Both players shuffle the deck.
@@ -100,16 +99,18 @@ void GameAgent::BeginPhase()
     // of each game to whichever player is selected to go second.
     Task::Run(m_game.GetFirstPlayer(), PlayerSettingTask());
 
-    player1.GetDeck().Shuffle();
-    player2.GetDeck().Shuffle();
+    firstPlayer.GetDeck().Shuffle();
+    secondPlayer.GetDeck().Shuffle();
 
-    Task::RunMulti(player1, DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
+    Task::RunMulti(firstPlayer, DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
                    DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
 
     Task::RunMulti(
-        player2, DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
-        DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS),
-        DrawCardTask(Cards::GetInstance().FindCardByName("The Coin")));
+        secondPlayer, DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
+        DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
+
+    const Card coin = Cards::GetInstance().FindCardByID("GAME_005");
+    secondPlayer.GetHand().AddCard(*Entity::GetFromCard(secondPlayer, coin));
 }
 
 bool GameAgent::MainPhase()
