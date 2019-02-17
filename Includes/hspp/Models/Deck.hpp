@@ -36,6 +36,10 @@ class Deck
     //! \param owner The owner of deck.
     void SetOwner(Player& owner);
 
+    //! Finds out if deck is empty.
+    //! \return true if deck is empty, and false otherwise.
+    bool IsEmpty() const;
+
     //! Returns the number of cards in deck.
     //! \return The number of cards in deck.
     std::size_t GetNumOfCards() const;

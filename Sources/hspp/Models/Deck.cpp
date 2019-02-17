@@ -26,6 +26,11 @@ void Deck::SetOwner(Player& owner)
     m_owner = &owner;
 }
 
+bool Deck::IsEmpty() const
+{
+    return GetNumOfCards() == 0;
+}
+
 std::size_t Deck::GetNumOfCards() const
 {
     std::size_t ret = 0;
