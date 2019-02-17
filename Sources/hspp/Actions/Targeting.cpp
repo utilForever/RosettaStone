@@ -16,7 +16,7 @@ bool Targeting::IsValidTarget(Entity* source, Entity* target)
         {
             case +PlayReq::REQ_ENEMY_TARGET:
             {
-                if (target->GetOwner() == source->GetOwner())
+                if (&target->GetOwner() == &source->GetOwner())
                 {
                     return false;
                 }
