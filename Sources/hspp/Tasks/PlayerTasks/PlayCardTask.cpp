@@ -51,7 +51,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
         handIndex = req.GetObject<BYTE>();
     }
 
-    Card& card = player.GetHand().GetCard(handIndex)->card;
+    Entity* entity = player.GetHand().GetCard(handIndex);
 
     // Verify index of card hand
     if (handIndex >= player.GetHand().GetNumOfCards())
@@ -60,18 +60,16 @@ TaskStatus PlayCardTask::Impl(Player& player)
     }
 
     // Verify mana is sufficient
-    if (card.cost > player.GetAvailableMana())
+    if (entity->card.cost > player.GetAvailableMana())
     {
         return TaskStatus::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
     // Verify target is valid
-    if (!Targeting::IsValidTarget(&card, m_target))
+    if (!Targeting::IsValidTarget(entity, m_target))
     {
         return TaskStatus::PLAY_CARD_INVALID_TARGET;
     }
-
-    Entity* entity = player.GetHand().GetCard(handIndex);
 
     // Erase from user's hand
     player.GetHand().RemoveCard(*entity);
