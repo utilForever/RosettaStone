@@ -121,17 +121,6 @@ class Player
     //! \param mana Maximum mana that player has.
     void SetMaximumMana(BYTE mana);
 
-    //! Returns the number of drawn card that causes fatigue after a player has
-    //! exhausted their deck.
-    //! \return The number of drawn card that causes fatigue after a player has
-    //! exhausted their deck.
-    BYTE GetNumCardAfterExhaust() const;
-
-    //! Sets the number of drawn card that causes fatigue after a player has
-    //! exhausted their deck.
-    //! \param numCard The number of drawn card.
-    void SetNumCardAfterExhaust(BYTE numCard);
-
     //! Returns game playing policy of current player.
     //! \return The policy of current player.
     IPolicy& GetPolicy() const;
@@ -174,7 +163,6 @@ class Player
 
     BYTE m_availableMana = 0;
     BYTE m_maximumMana = 0;
-    BYTE m_numCardAfterExhaust = 0;
 
     Game* m_game = nullptr;
     IPolicy* m_policy = nullptr;

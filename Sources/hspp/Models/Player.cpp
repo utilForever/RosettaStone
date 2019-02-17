@@ -103,16 +103,6 @@ void Player::SetMaximumMana(BYTE mana)
     m_maximumMana = mana;
 }
 
-BYTE Player::GetNumCardAfterExhaust() const
-{
-    return m_numCardAfterExhaust;
-}
-
-void Player::SetNumCardAfterExhaust(BYTE numCard)
-{
-    m_numCardAfterExhaust = numCard;
-}
-
 IPolicy& Player::GetPolicy() const
 {
     return *m_policy;
