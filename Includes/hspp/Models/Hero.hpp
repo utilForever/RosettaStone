@@ -62,6 +62,8 @@ class Hero : public Character
 
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
+
+    std::size_t fatigue = 0;
 };
 }  // namespace Hearthstonepp
 
