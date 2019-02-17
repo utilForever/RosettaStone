@@ -85,10 +85,9 @@ TEST(DrawTask, RunExhaust)
     DrawTask draw(3);
 
     TaskStatus result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST);
+    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
-    EXPECT_EQ(p.GetNumCardAfterExhaust(), 3);
     // Health: 30 - (1 + 2 + 3)
     EXPECT_EQ(p.GetHero()->health, 24);
 
@@ -99,11 +98,10 @@ TEST(DrawTask, RunExhaust)
     // p.GetDeck().emplace_back(minion);
 
     result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST);
+    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 1u);
     EXPECT_EQ(p.GetHand().GetCard(0)->card.id, "card1");
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
-    EXPECT_EQ(p.GetNumCardAfterExhaust(), 5);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
     EXPECT_EQ(p.GetHero()->health, 15);
 }
