@@ -48,6 +48,10 @@ class Deck
     //! \param card The card to add to deck.
     void AddCard(Entity& card);
 
+    //! Removes a card from deck.
+    //! \param card The card to remove from Deck.
+    void RemoveCard(Entity& card);
+
     //! Shuffles cards in deck.
     void Shuffle();
 

@@ -52,6 +52,28 @@ void Deck::AddCard(Entity& card)
     ++m_numCard;
 }
 
+void Deck::RemoveCard(Entity& card)
+{
+    std::size_t idx = 0;
+
+    for (; idx < m_numCard; ++idx)
+    {
+        if (m_cards[idx] == &card)
+        {
+            m_cards[idx] = nullptr;
+            break;
+        }
+    }
+
+    for (; idx < m_numCard - 1; ++idx)
+    {
+        m_cards[idx] = m_cards[idx + 1];
+        m_cards[idx + 1] = nullptr;
+    }
+
+    --m_numCard;
+}
+
 void Deck::Shuffle()
 {
     std::random_device rd;
