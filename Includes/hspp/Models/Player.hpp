@@ -7,7 +7,6 @@
 #ifndef HEARTHSTONEPP_PLAYER_HPP
 #define HEARTHSTONEPP_PLAYER_HPP
 
-#include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
 #include <hspp/Models/Deck.hpp>
@@ -87,10 +86,6 @@ class Player
     //! \param game A pointer to game.
     void SetGame(Game* game);
 
-    //! Returns player's hero.
-    //! \return Player's hero.
-    Hero* GetHero() const;
-
     //! Returns player's battlefield.
     //! \return Player's battlefield.
     Battlefield& GetField();
@@ -99,9 +94,17 @@ class Player
     //! \return Player's deck.
     Deck& GetDeck();
 
+    //! Returns player's graveyard.
+    //! \return Player's graveyard.
+    Graveyard& GetGraveyard();
+
     //! Returns player's hand.
     //! \return Player's hand.
     Hand& GetHand();
+
+    //! Returns player's hero.
+    //! \return Player's hero.
+    Hero* GetHero() const;
 
     //! Returns available mana that player has.
     //! \return Available mana that player has.

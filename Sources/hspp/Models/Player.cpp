@@ -63,11 +63,6 @@ void Player::SetGame(Game* game)
     m_game = game;
 }
 
-Hero* Player::GetHero() const
-{
-    return m_hero;
-}
-
 Battlefield& Player::GetField()
 {
     return m_field;
@@ -78,9 +73,19 @@ Deck& Player::GetDeck()
     return m_deck;
 }
 
+Graveyard& Player::GetGraveyard()
+{
+    return m_graveyard;
+}
+
 Hand& Player::GetHand()
 {
     return m_hand;
+}
+
+Hero* Player::GetHero() const
+{
+    return m_hero;
 }
 
 BYTE Player::GetAvailableMana() const
@@ -126,6 +131,7 @@ void Player::SetOpponent(Player* player)
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
     m_hero = dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
-    m_hero->heroPower = dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
+    m_hero->heroPower =
+        dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
 }
 }  // namespace Hearthstonepp
