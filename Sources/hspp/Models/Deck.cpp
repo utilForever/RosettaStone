@@ -57,7 +57,7 @@ void Deck::AddCard(Entity& card)
     ++m_numCard;
 }
 
-void Deck::RemoveCard(Entity& card)
+Entity& Deck::RemoveCard(Entity& card)
 {
     std::size_t idx = 0;
 
@@ -77,6 +77,8 @@ void Deck::RemoveCard(Entity& card)
     }
 
     --m_numCard;
+
+    return card;
 }
 
 void Deck::Shuffle()

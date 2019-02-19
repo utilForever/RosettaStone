@@ -54,7 +54,8 @@ class Deck
 
     //! Removes a card from deck.
     //! \param card The card to remove from deck.
-    void RemoveCard(Entity& card);
+    //! \return The card that is removed from deck.
+    Entity& RemoveCard(Entity& card);
 
     //! Shuffles cards in deck.
     void Shuffle();
