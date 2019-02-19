@@ -17,7 +17,7 @@ namespace Hearthstonepp
 //!
 //! \brief Hand class.
 //!
-//! This class is where  each player keeps the cards currently available to
+//! This class is where each player keeps the cards currently available to
 //! them. The player can see their hand face-up at the bottom of the screen,
 //! while the opponent's hand is shown face-down at the top of the screen.
 //!
