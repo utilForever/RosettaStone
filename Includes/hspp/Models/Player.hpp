@@ -10,15 +10,13 @@
 #include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
-#include <hspp/Models/Character.hpp>
 #include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
+#include <hspp/Models/Graveyard.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Models/Hero.hpp>
-#include <hspp/Models/Spell.hpp>
 
 #include <string>
-#include <vector>
 
 namespace Hearthstonepp
 {
@@ -143,23 +141,16 @@ class Player
     void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
 
  private:
-    //! Releases dynamic allocated resources.
-    void FreeMemory();
-
     std::string m_nickname;
     PlayerType m_playerType = PlayerType::PLAYER1;
     BYTE m_id = 0;
 
-    Hero* m_hero = nullptr;
-
-    // Card storage
-    Deck m_deck;
-
-    // Card objects
     Battlefield m_field;
+    Deck m_deck;
+    Graveyard m_graveyard;
     Hand m_hand;
-    std::vector<Spell*> m_playedSpell;
-    std::vector<Character*> m_playedMinion;
+
+    Hero* m_hero = nullptr;
 
     BYTE m_availableMana = 0;
     BYTE m_maximumMana = 0;

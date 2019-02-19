@@ -20,7 +20,7 @@ Player::Player() : m_id(USER_INVALID)
 
 Player::~Player()
 {
-    FreeMemory();
+    delete m_hero;
 }
 
 std::string Player::GetNickname() const
@@ -127,22 +127,5 @@ void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
     m_hero = dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
     m_hero->heroPower = dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
-}
-
-void Player::FreeMemory()
-{
-    for (auto& spell : m_playedSpell)
-    {
-        delete spell;
-    }
-    m_playedSpell.clear();
-
-    for (auto& minion : m_playedMinion)
-    {
-        delete minion;
-    }
-    m_playedMinion.clear();
-
-    delete m_hero;
 }
 }  // namespace Hearthstonepp
