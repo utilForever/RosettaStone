@@ -9,8 +9,6 @@ namespace Hearthstonepp::Generic
 {
 Entity* Draw(Player& player, optional<Entity> card)
 {
-    (void)card;
-
     if (player.GetDeck().IsEmpty())
     {
         const std::size_t fatigueDamage =
@@ -20,16 +18,16 @@ Entity* Draw(Player& player, optional<Entity> card)
         return nullptr;
     }
 
-    Entity* entity = nullptr;
+    Entity* entity;
 
-    // if (card.has_value())
-    //{
-    //    player.GetDeck().RemoveCard(card);
-    //}
-    // else
-    //{
-    //    player.GetDeck().RemoveCard(player.GetDeck().GetTopCard());
-    //}
+    if (card.has_value())
+    {
+        entity = &player.GetDeck().RemoveCard(card.value());
+    }
+    else
+    {
+        entity = &player.GetDeck().RemoveCard(player.GetDeck().GetTopCard());
+    }
 
     player.GetHand().AddCard(*entity);
 
