@@ -44,12 +44,16 @@ class Deck
     //! \return The number of cards in deck.
     std::size_t GetNumOfCards() const;
 
+    //! Returns the top card from deck.
+    //! \return The top card of deck.
+    Entity& GetTopCard() const;
+
     //! Adds a card to deck.
     //! \param card The card to add to deck.
     void AddCard(Entity& card);
 
     //! Removes a card from deck.
-    //! \param card The card to remove from Deck.
+    //! \param card The card to remove from deck.
     void RemoveCard(Entity& card);
 
     //! Shuffles cards in deck.
