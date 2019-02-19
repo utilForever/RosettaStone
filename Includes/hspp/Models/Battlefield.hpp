@@ -72,6 +72,7 @@ class Battlefield
 
  private:
     Player* m_owner = nullptr;
+
     std::array<Character*, FIELD_SIZE> m_minions{};
 };
 }  // namespace Hearthstonepp

@@ -62,8 +62,8 @@ class Deck
 
  private:
     Player* m_owner = nullptr;
-    std::array<Entity*, MAX_DECK_SIZE> m_cards{};
 
+    std::array<Entity*, MAX_DECK_SIZE> m_cards{};
     std::size_t m_numCard = 0;
 };
 }  // namespace Hearthstonepp
