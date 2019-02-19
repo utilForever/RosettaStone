@@ -34,6 +34,7 @@
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Game.hpp>
 #include <hspp/Models/GameAgent.hpp>
+#include <hspp/Models/Graveyard.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Models/Hero.hpp>
 #include <hspp/Models/HeroPower.hpp>
