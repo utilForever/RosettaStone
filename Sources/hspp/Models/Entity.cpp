@@ -6,6 +6,7 @@
 
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Player.hpp>
+#include <hspp/Models/Spell.hpp>
 
 namespace Hearthstonepp
 {
