@@ -15,6 +15,7 @@ Player::Player() : m_id(USER_INVALID)
 {
     m_field.SetOwner(*this);
     m_deck.SetOwner(*this);
+    m_graveyard.SetOwner(*this);
     m_hand.SetOwner(*this);
 }
 

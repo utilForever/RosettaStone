@@ -21,7 +21,21 @@ namespace Hearthstonepp
 //!
 class Graveyard
 {
+ public:
+    //! Default constructor.
+    Graveyard();
+
+    //! Returns the owner of graveyard.
+    //! \return The owner of graveyard.
+    Player& GetOwner() const;
+
+    //! Sets the owner of graveyard.
+    //! \param owner The owner of graveyard.
+    void SetOwner(Player& owner);
+
  private:
+     Player* m_owner = nullptr;
+
     std::vector<Entity*> m_cards;
 };
 }  // namespace Hearthstonepp
