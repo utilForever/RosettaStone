@@ -22,6 +22,7 @@ class DrawTestPolicy : public BasicPolicy
         std::function<void(const TaskMeta&)>&& overdrawHandler)
         : m_overdrawHandler(std::move(overdrawHandler))
     {
+        // Do nothing
     }
 
     void NotifyOverDraw(const TaskMeta& meta) override
@@ -47,21 +48,21 @@ TEST(DrawTask, Run)
     Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
     Player& p = game.GetPlayer1();
 
-    // const auto Generate = [&](std::string&& id) -> Entity* {
-    //    cards.emplace_back(Card());
+    const auto Generate = [&](std::string&& id) -> Entity* {
+        cards.emplace_back(Card());
 
-    //    Card card = cards.back();
-    //    card.id = std::move(id);
+        Card card = cards.back();
+        card.id = std::move(id);
 
-    //    minions.emplace_back(new Minion(&game, card));
+        minions.emplace_back(new Minion(p, card));
 
-    //    return minions.back();
-    //};
+        return minions.back();
+    };
 
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
-        // p.GetDeck().emplace_back(Generate(id + i));
+        p.GetDeck().AddCard(*Generate(id + i));
     }
 
     DrawTask draw(3);
@@ -94,8 +95,8 @@ TEST(DrawTask, RunExhaust)
     Card card;
     card.id = "card1";
 
-    // auto minion = new Minion(&game, card);
-    // p.GetDeck().emplace_back(minion);
+    auto minion = new Minion(p, card);
+    p.GetDeck().AddCard(*minion);
 
     result = draw.Run(game.GetPlayer1());
     EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
@@ -128,7 +129,7 @@ TEST(DrawTask, RunOverDraw)
     const std::string id = "card";
     for (char i = '0'; i <= '2'; ++i)
     {
-        // p.GetDeck().emplace_back(Generate(id + i));
+        p.GetDeck().AddCard(*Generate(id + i));
     }
     for (char i = '0'; i <= '9'; ++i)
     {
@@ -144,8 +145,7 @@ TEST(DrawTask, RunOverDraw)
 
         EXPECT_TRUE(burnt.HasObjects());
 
-        const SizedPtr<Entity*>& entities =
-            burnt.GetObject<SizedPtr<Entity*>>();
+        const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
         for (size_t i = 0; i < 3; ++i)
         {
             EXPECT_EQ(entities[i]->card.id,
@@ -155,7 +155,7 @@ TEST(DrawTask, RunOverDraw)
     p.SetPolicy(&policy);
 
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_OVERDRAW);
+    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
 }
@@ -181,7 +181,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     const std::string id = "card";
     for (char i = '0'; i <= '2'; ++i)
     {
-        // p.GetDeck().emplace_back(Generate(id + i));
+        p.GetDeck().AddCard(*Generate(id + i));
     }
     for (char i = '0'; i <= '8'; ++i)
     {
@@ -197,8 +197,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 
         EXPECT_TRUE(burnt.HasObjects());
 
-        const SizedPtr<Entity*>& entities =
-            burnt.GetObject<SizedPtr<Entity*>>();
+        const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
         for (size_t i = 0; i < 2; ++i)
         {
             EXPECT_EQ(entities[i]->card.id,
@@ -208,8 +207,8 @@ TEST(DrawTask, RunExhaustOverdraw)
     p.SetPolicy(&policy);
 
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_EXHAUST_OVERDRAW);
+    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
-    EXPECT_EQ(p.GetHand().GetCard(9)->card.id, "card0");
+    EXPECT_EQ(p.GetHand().GetCard(9)->card.id, "card2");
 }
