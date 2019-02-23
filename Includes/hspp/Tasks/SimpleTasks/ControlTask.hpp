@@ -21,7 +21,7 @@ class ControlTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type of target to take control.
-    ControlTask(EntityType entityType);
+    explicit ControlTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.

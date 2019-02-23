@@ -78,11 +78,15 @@ bool FreezeTask::IsMyCharacter(Player& player) const
         }
 
         const auto minion = dynamic_cast<Minion*>(m_target);
+        if (minion == nullptr)
+        {
+            return false;
+        }
+
         const auto minionPos =
             player.GetField().FindMinionPos(*minion).value_or(
                 std::numeric_limits<std::size_t>::max());
-        return minion != nullptr &&
-               minionPos != std::numeric_limits<std::size_t>::max();
+        return minionPos != std::numeric_limits<std::size_t>::max();
     }
 
     return m_entityType == +EntityType::FIELD ||
@@ -102,11 +106,15 @@ bool FreezeTask::IsOpCharacter(Player& player) const
         }
 
         const auto minion = dynamic_cast<Minion*>(m_target);
+        if (minion == nullptr)
+        {
+            return false;
+        }
+
         const auto minionPos =
             player.GetOpponent().GetField().FindMinionPos(*minion).value_or(
                 std::numeric_limits<std::size_t>::max());
-        return minion != nullptr &&
-               minionPos != std::numeric_limits<std::size_t>::max();
+        return minionPos != std::numeric_limits<std::size_t>::max();
     }
 
     return m_entityType == +EntityType::ENEMY_FIELD ||

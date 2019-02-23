@@ -20,7 +20,7 @@ class DestroyTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type of target to destroy.
-    DestroyTask(EntityType entityType);
+    explicit DestroyTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.
