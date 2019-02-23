@@ -46,26 +46,26 @@ class Weapon : public Entity
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    virtual size_t GetAttack() const;
+    virtual std::size_t GetAttack() const;
 
     //! Sets the value of attack.
     //! \param attack the value of attack.
-    void SetAttack(size_t attack);
+    void SetAttack(std::size_t attack);
 
     //! Returns the value of durability.
     //! \return The value of durability.
-    virtual size_t GetDurability() const;
+    virtual std::size_t GetDurability() const;
 
     //! Sets the value of durability.
     //! \param durability the value of durability.
-    void SetDurability(size_t durability);
+    void SetDurability(std::size_t durability);
 
     //! Destroys weapon.
     void Destroy() override;
 
  protected:
-    size_t m_attack = 0;
-    size_t m_durability = 0;
+    std::size_t m_attack = 0;
+    std::size_t m_durability = 0;
 };
 }  // namespace Hearthstonepp
 

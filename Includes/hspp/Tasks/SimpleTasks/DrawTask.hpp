@@ -20,7 +20,7 @@ class DrawTask : public ITask
  public:
     //! Constructs task with given \p agent and \p num.
     //! \param num The number of cards to draw.
-    DrawTask(size_t num);
+    DrawTask(std::size_t num);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,7 +32,7 @@ class DrawTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    size_t m_num = 0;
+    std::size_t m_num = 0;
 };
 }  // namespace Hearthstonepp::SimpleTasks
 

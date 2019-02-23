@@ -49,12 +49,12 @@ class AccountInfo
 
     //! Returns the number of decks.
     //! \return Number of decks.
-    size_t GetNumOfDeck() const;
+    std::size_t GetNumOfDeck() const;
 
     //! Returns a pointer to deck at \p idx.
     //! \param idx Index of decks.
     //! \return A pointer to deck at \p idx.
-    DeckInfo* GetDeck(size_t idx) const;
+    DeckInfo* GetDeck(std::size_t idx) const;
 
     //! Prints a list of decks.
     void ShowDeckList() const;
@@ -68,7 +68,7 @@ class AccountInfo
     //! Deletes a deck at \p idx.
     //! \param idx Index of decks.
     //! \return true if deck is deleted successfully, and false otherwise.
-    bool DeleteDeck(size_t idx);
+    bool DeleteDeck(std::size_t idx);
 
  private:
     std::string m_email;

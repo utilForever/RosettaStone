@@ -33,23 +33,23 @@ CardClass DeckInfo::GetClass() const
     return m_class;
 }
 
-size_t DeckInfo::GetNumOfCards() const
+std::size_t DeckInfo::GetNumOfCards() const
 {
     return m_numOfCards;
 }
 
-size_t DeckInfo::GetUniqueNumOfCards() const
+std::size_t DeckInfo::GetUniqueNumOfCards() const
 {
     return m_cards.size();
 }
 
-size_t DeckInfo::GetNumCardInDeck(std::string cardID)
+std::size_t DeckInfo::GetNumCardInDeck(std::string cardID)
 {
-    const auto cardIer =
-        std::find_if(m_cards.begin(), m_cards.end(),
-                     [&cardID](const std::pair<std::string, size_t>& elem) {
-                         return elem.first == cardID;
-                     });
+    const auto cardIer = std::find_if(
+        m_cards.begin(), m_cards.end(),
+        [&cardID](const std::pair<std::string, std::size_t>& elem) {
+            return elem.first == cardID;
+        });
 
     // A card is in deck
     if (cardIer != m_cards.end())
@@ -68,7 +68,7 @@ std::vector<Card> DeckInfo::GetPrimitiveDeck() const
     {
         Card card = Cards::GetInstance().FindCardByID(id);
 
-        for (size_t i = 0; i < num; ++i)
+        for (std::size_t i = 0; i < num; ++i)
         {
             deck.push_back(card);
         }
@@ -77,7 +77,7 @@ std::vector<Card> DeckInfo::GetPrimitiveDeck() const
     return deck;
 }
 
-std::pair<std::string, size_t> DeckInfo::GetCard(size_t idx) const
+std::pair<std::string, std::size_t> DeckInfo::GetCard(std::size_t idx) const
 {
     return m_cards.at(idx);
 }
@@ -102,7 +102,7 @@ void DeckInfo::ShowCardList() const
     }
 }
 
-bool DeckInfo::AddCard(std::string cardID, size_t numCardToAdd)
+bool DeckInfo::AddCard(std::string cardID, std::size_t numCardToAdd)
 {
     Card card = Cards::GetInstance().FindCardByID(cardID);
 
@@ -113,11 +113,11 @@ bool DeckInfo::AddCard(std::string cardID, size_t numCardToAdd)
         return false;
     }
 
-    const auto cardIter =
-        std::find_if(m_cards.begin(), m_cards.end(),
-                     [&cardID](const std::pair<std::string, size_t>& elem) {
-                         return elem.first == cardID;
-                     });
+    const auto cardIter = std::find_if(
+        m_cards.begin(), m_cards.end(),
+        [&cardID](const std::pair<std::string, std::size_t>& elem) {
+            return elem.first == cardID;
+        });
 
     // A card is in deck
     if (cardIter != m_cards.end())
@@ -137,22 +137,22 @@ bool DeckInfo::AddCard(std::string cardID, size_t numCardToAdd)
     return true;
 }
 
-bool DeckInfo::DeleteCard(std::string cardID, size_t numCardToDelete)
+bool DeckInfo::DeleteCard(std::string cardID, std::size_t numCardToDelete)
 {
-    const auto cardIter =
-        std::find_if(m_cards.begin(), m_cards.end(),
-                     [&cardID](const std::pair<std::string, size_t>& elem) {
-                         return elem.first == cardID;
-                     });
+    const auto cardIter = std::find_if(
+        m_cards.begin(), m_cards.end(),
+        [&cardID](const std::pair<std::string, std::size_t>& elem) {
+            return elem.first == cardID;
+        });
 
     // A card is in deck
     if (cardIter != m_cards.end())
     {
         // Remove a given number of cards from deck
         (*cardIter).second = std::min((*cardIter).second - numCardToDelete,
-                                      static_cast<size_t>(0u));
-        m_numOfCards =
-            std::min(m_numOfCards - numCardToDelete, static_cast<size_t>(0u));
+                                      static_cast<std::size_t>(0u));
+        m_numOfCards = std::min(m_numOfCards - numCardToDelete,
+                                static_cast<std::size_t>(0u));
 
         // If the number of cards is less than 0, remove card from deck
         if ((*cardIter).second <= 0)

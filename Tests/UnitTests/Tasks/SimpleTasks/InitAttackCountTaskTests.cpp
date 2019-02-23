@@ -71,49 +71,49 @@ TEST(InitAttackCountTask, RunFrozen)
     EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion1.attackableCount, 0u);
     EXPECT_EQ(minion2.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion2.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion2.attackableCount, 0u);
     EXPECT_EQ(minion3.GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(minion3.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion3.attackableCount, 0u);
     EXPECT_EQ(minion4.GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(minion4.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion4.attackableCount, 0u);
     EXPECT_EQ(minion5.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion5.attackableCount, static_cast<size_t>(1));
+    EXPECT_EQ(minion5.attackableCount, 1u);
     EXPECT_EQ(minion6.GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(minion6.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion6.attackableCount, 0u);
 
     result = init.Run(game.GetPlayer1());
     EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(1));
+    EXPECT_EQ(minion1.attackableCount, 1u);
     EXPECT_EQ(minion2.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion2.attackableCount, static_cast<size_t>(1));
+    EXPECT_EQ(minion2.attackableCount, 1u);
     EXPECT_EQ(minion3.GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(minion3.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion3.attackableCount, 0u);
     EXPECT_EQ(minion4.GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(minion4.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion4.attackableCount, 0u);
     EXPECT_EQ(minion5.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion5.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion5.attackableCount, 0u);
     EXPECT_EQ(minion6.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion6.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion6.attackableCount, 0u);
 
     result = init.Run(game.GetPlayer2());
     EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
     EXPECT_EQ(minion1.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion1.attackableCount, 0u);
     EXPECT_EQ(minion2.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion2.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion2.attackableCount, 0u);
     EXPECT_EQ(minion3.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion3.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion3.attackableCount, 0u);
     EXPECT_EQ(minion4.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion4.attackableCount, static_cast<size_t>(0));
+    EXPECT_EQ(minion4.attackableCount, 0u);
     EXPECT_EQ(minion5.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion5.attackableCount, static_cast<size_t>(1));
+    EXPECT_EQ(minion5.attackableCount, 1u);
     EXPECT_EQ(minion6.GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(minion6.attackableCount, static_cast<size_t>(1));
+    EXPECT_EQ(minion6.attackableCount, 1u);
 }
 
 TEST(InitAttackCountTask, RunWindFury)
@@ -134,6 +134,6 @@ TEST(InitAttackCountTask, RunWindFury)
     TaskStatus result = init.Run(game.GetPlayer1());
     EXPECT_EQ(result, TaskStatus::INIT_ATTACK_COUNT_SUCCESS);
 
-    EXPECT_EQ(minion1.attackableCount, static_cast<size_t>(1));
-    EXPECT_EQ(minion2.attackableCount, static_cast<size_t>(2));
+    EXPECT_EQ(minion1.attackableCount, 1u);
+    EXPECT_EQ(minion2.attackableCount, 2u);
 }

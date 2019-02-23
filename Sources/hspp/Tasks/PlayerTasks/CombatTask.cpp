@@ -10,8 +10,6 @@
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
 
-#include <algorithm>
-
 using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks
@@ -60,10 +58,10 @@ TaskStatus CombatTask::Impl(Player& player)
         return TaskStatus::COMBAT_SOURCE_CANT_ATTACK;
     }
 
-    const size_t targetAttack = target->GetAttack();
-    const size_t sourceAttack = source->GetAttack();
+    const std::size_t targetAttack = target->GetAttack();
+    const std::size_t sourceAttack = source->GetAttack();
 
-    const size_t targetDamage = target->TakeDamage(*source, sourceAttack);
+    const std::size_t targetDamage = target->TakeDamage(*source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
 
     // Destroy target if attacker is poisonous
@@ -81,7 +79,8 @@ TaskStatus CombatTask::Impl(Player& player)
     // Ignore damage from defenders with 0 attack
     if (targetAttack > 0)
     {
-        const size_t sourceDamage = source->TakeDamage(*target, targetAttack);
+        const std::size_t sourceDamage =
+            source->TakeDamage(*target, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
         // Destroy source if defender is poisonous

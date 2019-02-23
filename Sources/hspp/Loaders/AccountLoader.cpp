@@ -106,7 +106,8 @@ void AccountLoader::Save(AccountInfo* account) const
 
         j["decks"] = nlohmann::json::array();
 
-        for (size_t deckIdx = 0; deckIdx < account->GetNumOfDeck(); ++deckIdx)
+        for (std::size_t deckIdx = 0; deckIdx < account->GetNumOfDeck();
+             ++deckIdx)
         {
             j["decks"].emplace_back(nlohmann::json::object(
                 { { "class",
@@ -114,7 +115,7 @@ void AccountLoader::Save(AccountInfo* account) const
                   { "name", account->GetDeck(deckIdx)->GetName() },
                   { "cards", nlohmann::json::array() } }));
 
-            for (size_t cardIdx = 0;
+            for (std::size_t cardIdx = 0;
                  cardIdx < account->GetDeck(deckIdx)->GetUniqueNumOfCards();
                  ++cardIdx)
             {

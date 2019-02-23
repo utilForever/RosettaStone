@@ -70,7 +70,7 @@ class Card
 
     //! Returns the number of cards that can be inserted into the deck.
     //! \return The number of cards that can be inserted into the deck.
-    unsigned int GetMaxAllowedInDeck() const;
+    std::size_t GetMaxAllowedInDeck() const;
 
     //! Prints brief card information.
     virtual void ShowBriefInfo() const;
@@ -89,12 +89,12 @@ class Card
     std::string name;
     std::string text;
 
-    optional<size_t> attack;
-    optional<size_t> health;
-    optional<size_t> spellDamage;
-    optional<size_t> durability;
+    optional<std::size_t> attack;
+    optional<std::size_t> health;
+    optional<std::size_t> spellDamage;
+    optional<std::size_t> durability;
 
-    size_t cost = 0;
+    std::size_t cost = 0;
 
     std::vector<GameTag> mechanics;
     std::map<PlayReq, int> playRequirements;
@@ -102,7 +102,7 @@ class Card
 
     Power power;
 
-    unsigned int maxAllowedInDeck = 0;
+    std::size_t maxAllowedInDeck = 0;
     bool isCollectible = false;
 };
 }  // namespace Hearthstonepp

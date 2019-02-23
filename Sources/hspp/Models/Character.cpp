@@ -22,12 +22,12 @@ Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
     }
 }
 
-size_t Character::GetAttack() const
+std::size_t Character::GetAttack() const
 {
     return m_attack;
 }
 
-void Character::SetAttack(size_t attack)
+void Character::SetAttack(std::size_t attack)
 {
     m_attack = attack;
 }
@@ -112,7 +112,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
     return targets;
 }
 
-size_t Character::TakeDamage(Character& source, size_t damage)
+std::size_t Character::TakeDamage(Character& source, std::size_t damage)
 {
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);

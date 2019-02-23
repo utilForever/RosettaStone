@@ -50,7 +50,7 @@ class Character : public Entity
 
     //! Sets the value of attack.
     //! \param attack the value of attack.
-    void SetAttack(size_t attack);
+    void SetAttack(std::size_t attack);
 
     //! Summons character (pure virtual function).
     //! \param pos The position to summon.
@@ -78,20 +78,20 @@ class Character : public Entity
     //! \param source The character to take damage.
     //! \param damage The value of damage.
     //! \return Final damage taking into account ability.
-    size_t TakeDamage(Character& source, size_t damage);
+    size_t TakeDamage(Character& source, std::size_t damage);
 
     //! Gets healed by a certain other entity.
     //! \param source The character to get heal.
     //! \param heal The value of heal.
     void TakeHeal(Character& source, int heal);
 
-    size_t attackableCount = 0;
-    size_t numTurnToUnfreeze = 0;
+    std::size_t attackableCount = 0;
+    std::size_t numTurnToUnfreeze = 0;
     int health = 0;
     int maxHealth = 0;
 
  protected:
-    size_t m_attack = 0;
+    std::size_t m_attack = 0;
 };
 }  // namespace Hearthstonepp
 

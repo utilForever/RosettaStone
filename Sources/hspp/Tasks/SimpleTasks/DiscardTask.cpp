@@ -31,10 +31,10 @@ TaskStatus DiscardTask::Impl(Player& player)
         std::random_device rd;
         // ReSharper disable once CppLocalVariableMayBeConst
         // NOTE: 'const' occurs compile error on Linux and macOS
-        std::uniform_int_distribution<size_t> dist(
+        std::uniform_int_distribution<std::size_t> dist(
             0, player.GetHand().GetNumOfCards() - 1);
 
-        const size_t discardIdx = dist(rd);
+        const std::size_t discardIdx = dist(rd);
 
         // Card Hand Index Verification
         if (discardIdx >= player.GetHand().GetNumOfCards())

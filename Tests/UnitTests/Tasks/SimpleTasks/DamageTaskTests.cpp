@@ -29,7 +29,7 @@ TEST(DamageTask, Run)
     cards.reserve(5);
 
     const std::string name = "test";
-    for (size_t i = 0; i < 5; ++i)
+    for (std::size_t i = 0; i < 5; ++i)
     {
         const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(GenerateMinionCard(name + id, 1, 1));

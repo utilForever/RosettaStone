@@ -28,14 +28,14 @@ TaskStatus MulliganTask::Impl(Player& player)
         return TaskStatus::MULLIGAN_INVALID_REQUIRE;
     }
 
-    SizedPtr<size_t>& index = result.GetObject<SizedPtr<size_t>>();
+    SizedPtr<std::size_t>& index = result.GetObject<SizedPtr<std::size_t>>();
     if (index.size() == 0)
     {
         return TaskStatus::MULLIGAN_SUCCESS;
     }
-    
+
     // Sort decreasing order
-    std::sort(index.begin(), index.end(), std::greater<size_t>());
+    std::sort(index.begin(), index.end(), std::greater<std::size_t>());
 
     // Verify range
     if (index[0] >= NUM_DRAW_CARDS_AT_START_SECOND)
@@ -44,7 +44,7 @@ TaskStatus MulliganTask::Impl(Player& player)
     }
 
     // Verify duplicated element
-    for (size_t i = 1; i < index.size(); ++i)
+    for (std::size_t i = 1; i < index.size(); ++i)
     {
         if (index[i] == index[i - 1])
         {
@@ -56,7 +56,7 @@ TaskStatus MulliganTask::Impl(Player& player)
     auto& hand = player.GetHand();
 
     // Rollback to deck
-    for (size_t idx : index)
+    for (std::size_t idx : index)
     {
         deck.AddCard(*hand.GetCard(index[idx]));
         hand.RemoveCard(*hand.GetCard(index[idx]));

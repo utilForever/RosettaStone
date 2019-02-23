@@ -22,7 +22,7 @@ bool Card::HasMechanic(GameTag mechanic) const
            mechanics.end();
 }
 
-unsigned int Card::GetMaxAllowedInDeck() const
+std::size_t Card::GetMaxAllowedInDeck() const
 {
     return maxAllowedInDeck;
 }

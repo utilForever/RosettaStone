@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp::SimpleTasks
 {
-DrawTask::DrawTask(size_t num) : m_num(num)
+DrawTask::DrawTask(std::size_t num) : m_num(num)
 {
     // Do nothing
 }

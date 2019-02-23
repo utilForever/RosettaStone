@@ -70,7 +70,7 @@ TEST(DrawTask, Run)
     EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 3u);
 
-    for (size_t i = 0; i < 3; ++i)
+    for (std::size_t i = 0; i < 3; ++i)
     {
         EXPECT_EQ(p.GetHand().GetCard(i)->card.id,
                   id + static_cast<char>(2 - i + 0x30));
@@ -146,7 +146,7 @@ TEST(DrawTask, RunOverDraw)
         EXPECT_TRUE(burnt.HasObjects());
 
         const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
-        for (size_t i = 0; i < 3; ++i)
+        for (std::size_t i = 0; i < 3; ++i)
         {
             EXPECT_EQ(entities[i]->card.id,
                       id + static_cast<char>(2 - i + 0x30));
@@ -198,7 +198,7 @@ TEST(DrawTask, RunExhaustOverdraw)
         EXPECT_TRUE(burnt.HasObjects());
 
         const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
-        for (size_t i = 0; i < 2; ++i)
+        for (std::size_t i = 0; i < 2; ++i)
         {
             EXPECT_EQ(entities[i]->card.id,
                       id + static_cast<char>(2 - i + 0x30));

@@ -42,19 +42,19 @@ std::string AccountInfo::GetNickname() const
     return m_nickname;
 }
 
-size_t AccountInfo::GetNumOfDeck() const
+std::size_t AccountInfo::GetNumOfDeck() const
 {
     return m_decks.size();
 }
 
-DeckInfo* AccountInfo::GetDeck(size_t idx) const
+DeckInfo* AccountInfo::GetDeck(std::size_t idx) const
 {
     return m_decks[idx];
 }
 
 void AccountInfo::ShowDeckList() const
 {
-    size_t idx = 0;
+    std::size_t idx = 0;
     for (auto& deck : m_decks)
     {
         std::cout << ++idx << ". " << deck->GetName() << " ("
@@ -73,7 +73,7 @@ bool AccountInfo::CreateDeck(std::string name, CardClass deckClass)
     return true;
 }
 
-bool AccountInfo::DeleteDeck(size_t idx)
+bool AccountInfo::DeleteDeck(std::size_t idx)
 {
     m_decks.erase(m_decks.begin() + idx);
     return true;

@@ -11,13 +11,13 @@
 
 namespace TestUtils
 {
-SizedPtr<int> GenerateRandomBuffer(size_t maximumSize)
+SizedPtr<int> GenerateRandomBuffer(std::size_t maximumSize)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
 
     SizedPtr<int> sizedPtr(gen() % maximumSize + 1);
-    for (size_t i = 0; i < sizedPtr.size(); ++i)
+    for (std::size_t i = 0; i < sizedPtr.size(); ++i)
     {
         sizedPtr[i] = gen() % 255;
     }
@@ -46,7 +46,8 @@ TaskMeta GenerateRandomTaskMeta()
     return TaskMeta(GenerateRandomTrait(), GenerateRandomBuffer());
 }
 
-Card GenerateMinionCard(std::string&& id, size_t attack, size_t health)
+Card GenerateMinionCard(std::string&& id, std::size_t attack,
+                        std::size_t health)
 {
     Card card;
     card.cardType = CardType::MINION;
