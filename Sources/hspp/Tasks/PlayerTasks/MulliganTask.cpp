@@ -28,14 +28,14 @@ TaskStatus MulliganTask::Impl(Player& player)
         return TaskStatus::MULLIGAN_INVALID_REQUIRE;
     }
 
-    SizedPtr<std::size_t>& index = result.GetObject<SizedPtr<std::size_t>>();
+    auto& index = result.GetObject<SizedPtr<std::size_t>>();
     if (index.size() == 0)
     {
         return TaskStatus::MULLIGAN_SUCCESS;
     }
 
     // Sort decreasing order
-    std::sort(index.begin(), index.end(), std::greater<std::size_t>());
+    std::sort(index.begin(), index.end(), std::greater<>());
 
     // Verify range
     if (index[0] >= NUM_DRAW_CARDS_AT_START_SECOND)

@@ -135,8 +135,8 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
 {
     if (m_source != nullptr && m_target != nullptr)
     {
-        Minion* minionSource = dynamic_cast<Minion*>(m_source);
-        Minion* minionTarget = dynamic_cast<Minion*>(m_target);
+        auto* minionSource = dynamic_cast<Minion*>(m_source);
+        auto* minionTarget = dynamic_cast<Minion*>(m_target);
 
         int sourceIndex = -1, targetIndex = -1;
 
@@ -185,7 +185,7 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
     }
 
     TaskMeta req = player.GetPolicy().Require(player, TaskID::COMBAT);
-    SizedPtr<BYTE> obj = req.MoveObject<SizedPtr<BYTE>>();
+    auto obj = req.MoveObject<SizedPtr<BYTE>>();
     return std::make_tuple(obj[0], obj[1]);
 }
 }  // namespace Hearthstonepp::PlayerTasks
