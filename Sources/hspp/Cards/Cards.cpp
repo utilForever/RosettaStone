@@ -13,8 +13,7 @@ namespace Hearthstonepp
 {
 Cards::Cards()
 {
-    CardLoader cardLoader;
-    cardLoader.Load(m_cards);
+    CardLoader::Load(m_cards);
     PowerLoader::Load(m_cards);
 }
 
