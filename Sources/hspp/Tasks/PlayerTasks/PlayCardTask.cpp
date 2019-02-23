@@ -10,8 +10,6 @@
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayWeaponTask.hpp>
 
-#include <algorithm>
-
 namespace Hearthstonepp::PlayerTasks
 {
 PlayCardTask::PlayCardTask(Entity* source, int fieldPos, Entity* target)
@@ -68,7 +66,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
     }
 
     // Verify target is valid
-    if (!Targeting::IsValidTarget(entity, m_target))
+    if (!Generic::IsValidTarget(entity, m_target))
     {
         return TaskStatus::PLAY_CARD_INVALID_TARGET;
     }

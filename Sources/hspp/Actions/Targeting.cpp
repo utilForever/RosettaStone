@@ -6,9 +6,9 @@
 #include <hspp/Actions/Targeting.hpp>
 #include <hspp/Models/Game.hpp>
 
-namespace Hearthstonepp
+namespace Hearthstonepp::Generic
 {
-bool Targeting::IsValidTarget(Entity* source, Entity* target)
+bool IsValidTarget(Entity* source, Entity* target)
 {
     for (auto& requirement : source->card.playRequirements)
     {
@@ -35,4 +35,4 @@ bool Targeting::IsValidTarget(Entity* source, Entity* target)
 
     return true;
 }
-}  // namespace Hearthstonepp
+}  // namespace Hearthstonepp::Generic

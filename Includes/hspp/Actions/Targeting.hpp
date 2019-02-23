@@ -6,16 +6,11 @@
 #ifndef HEARTHSTONEPP_TARGETING_HPP
 #define HEARTHSTONEPP_TARGETING_HPP
 
-#include <hspp/Cards/Card.hpp>
 #include <hspp/Models/Entity.hpp>
 
-namespace Hearthstonepp
+namespace Hearthstonepp::Generic
 {
-class Targeting
-{
- public:
-    static bool IsValidTarget(Entity* source, Entity* target);
-};
-}  // namespace Hearthstonepp
+bool IsValidTarget(Entity* source, Entity* target);
+}  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_TARGETING_HPP
