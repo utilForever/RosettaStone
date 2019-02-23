@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp
 {
-Hero::Hero(Player& player, Card& card) : Character(player, card)
+Hero::Hero(Player& _owner, Card& _card) : Character(_owner, _card)
 {
     // Do nothing
 }
@@ -35,7 +35,7 @@ bool Hero::HasWeapon() const
     return weapon != nullptr;
 }
 
-size_t Hero::GetAttack() const
+std::size_t Hero::GetAttack() const
 {
     return weapon != nullptr ? m_attack + weapon->GetAttack() : m_attack;
 }
