@@ -7,21 +7,20 @@
 #define HEARTHSTONEPP_DRAW_HPP
 
 #include <hspp/Models/Entity.hpp>
-#include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp::Generic
 {
-    //! Draws a card in the deck.
-    //! \param player The player to add card to the hand.
-    //! \param cardToDraw A card to draw in the deck.
-    //! \return A dynamic allocated entity object.
-    Entity* Draw(Player& player, optional<Entity> cardToDraw = nullopt);
+//! Draws a card in the deck.
+//! \param player The player to add card to the hand.
+//! \param cardToDraw A card to draw in the deck.
+//! \return A dynamic allocated entity object.
+Entity* Draw(Player& player, optional<Entity> cardToDraw = nullopt);
 
-    //! Draws a specific card to the hand.
-    //! \param player The player to add card to the hand.
-    //! \param card A card to draw to the hand.
-    //! \return A dynamic allocated entity object.
-    Entity* DrawCard(Player& player, Card card);
+//! Draws a specific card to the hand.
+//! \param player The player to add card to the hand.
+//! \param card A card to draw to the hand.
+//! \return A dynamic allocated entity object.
+Entity* DrawCard(Player& player, Card card);
 }  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_DRAW_HPP

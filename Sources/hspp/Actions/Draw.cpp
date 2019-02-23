@@ -4,6 +4,7 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Draw.hpp>
+#include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp::Generic
 {

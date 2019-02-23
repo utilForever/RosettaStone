@@ -10,11 +10,9 @@
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Game.hpp>
 #include <hspp/Models/Player.hpp>
-#include <hspp/Tasks/Tasks.hpp>
 
 #include <array>
 #include <functional>
-#include <thread>
 
 namespace Hearthstonepp
 {

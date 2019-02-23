@@ -50,11 +50,11 @@ TEST(CoreCardsGen, EX1_306)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Succubus"));
     Generic::DrawCard(curPlayer,
-                   Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+                      Cards::GetInstance().FindCardByName("Stonetusk Boar"));
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
     Generic::DrawCard(opPlayer,
-                   Cards::GetInstance().FindCardByName("Fiery War Axe"));
+                      Cards::GetInstance().FindCardByName("Fiery War Axe"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 0u);

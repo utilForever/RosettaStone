@@ -34,7 +34,7 @@ class Graveyard
     void SetOwner(Player& owner);
 
  private:
-     Player* m_owner = nullptr;
+    Player* m_owner = nullptr;
 
     std::vector<Entity*> m_cards;
 };
