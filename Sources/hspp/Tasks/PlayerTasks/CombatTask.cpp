@@ -10,6 +10,8 @@
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
 
+#include <algorithm>
+
 using namespace Hearthstonepp::SimpleTasks;
 
 namespace Hearthstonepp::PlayerTasks

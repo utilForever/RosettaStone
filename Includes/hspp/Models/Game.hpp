@@ -37,7 +37,7 @@ class Game
 
     //! Copy assignment
     Game& operator=(const Game&) = delete;
-
+    
     //! Move assignment
     Game& operator=(Game&&) = delete;
 

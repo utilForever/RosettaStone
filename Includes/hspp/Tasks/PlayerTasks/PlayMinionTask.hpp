@@ -19,7 +19,7 @@ namespace Hearthstonepp::PlayerTasks
 class PlayMinionTask : public ITask
 {
  public:
-    //! Constructs task with given \p agent and \p entity.
+    //! Constructs task with given \p source, \p fieldPos and \p target.
     //! \param source A pointer to source entity to play card.
     //! \param fieldPos A value indicating where to place card.
     //! \param target A target of the card to receive power.

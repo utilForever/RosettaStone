@@ -18,7 +18,7 @@ namespace Hearthstonepp::PlayerTasks
 class CombatTask : public ITask
 {
  public:
-    //! Constructs task with given \p agent.
+    //! Construct task with given \p source and \p target.
     //! \param source A pointer to source character to combat.
     //! \param target A pointer to target character to combat.
     CombatTask(Entity* source, Entity* target);

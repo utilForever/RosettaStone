@@ -10,6 +10,8 @@
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayWeaponTask.hpp>
 
+#include <algorithm>
+
 namespace Hearthstonepp::PlayerTasks
 {
 PlayCardTask::PlayCardTask(Entity* source, int fieldPos, Entity* target)
