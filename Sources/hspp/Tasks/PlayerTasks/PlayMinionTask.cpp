@@ -50,7 +50,7 @@ TaskStatus PlayMinionTask::Impl(Player& player)
     }
 
     // Verify field position
-    if (position > FIELD_SIZE)
+    if (position > player.GetField().GetNumOfMinions())
     {
         return TaskStatus::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
