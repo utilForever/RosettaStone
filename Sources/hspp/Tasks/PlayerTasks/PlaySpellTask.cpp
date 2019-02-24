@@ -112,12 +112,12 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
 
         if (m_target == player.GetHero())
         {
-            return 0;
+            return INDEX_MY_MINION;
         }
 
         if (m_target == opponent.GetHero())
         {
-            return 8;
+            return INDEX_OPPONENT_HERO;
         }
 
         const auto minion = dynamic_cast<Minion*>(m_target);
@@ -131,7 +131,7 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
             std::numeric_limits<std::size_t>::max());
         if (myMinionPos != std::numeric_limits<std::size_t>::max())
         {
-            return static_cast<BYTE>(myMinionPos + 1);
+            return static_cast<BYTE>(myMinionPos + INDEX_MY_MINION);
         }
 
         auto& opField = opponent.GetField();
@@ -139,7 +139,7 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
             std::numeric_limits<std::size_t>::max());
         if (opMinionPos != std::numeric_limits<std::size_t>::max())
         {
-            return static_cast<BYTE>(opMinionPos + 9);
+            return static_cast<BYTE>(opMinionPos + INDEX_OPPONENT_MINION);
         }
     }
 
@@ -148,6 +148,8 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
 
 Character* PlaySpellTask::GetTargetByPos(Player& player, BYTE pos)
 {
+    Player& opPlayer = player.GetOpponent();
+
     if (pos == INDEX_MY_HERO)
     {
         return player.GetHero();
@@ -155,18 +157,18 @@ Character* PlaySpellTask::GetTargetByPos(Player& player, BYTE pos)
 
     if (pos >= INDEX_MY_MINION && pos < INDEX_MY_MINION + FIELD_SIZE)
     {
-        return player.GetField().GetMinion(pos - 1);
+        return player.GetField().GetMinion(pos - INDEX_MY_MINION);
     }
 
     if (pos == INDEX_OPPONENT_HERO)
     {
-        return player.GetOpponent().GetHero();
+        return opPlayer.GetHero();
     }
 
     if (pos >= INDEX_OPPONENT_MINION &&
         pos < INDEX_OPPONENT_MINION + FIELD_SIZE)
     {
-        return player.GetOpponent().GetField().GetMinion(pos - 9);
+        return opPlayer.GetField().GetMinion(pos - INDEX_OPPONENT_MINION);
     }
 
     return nullptr;
