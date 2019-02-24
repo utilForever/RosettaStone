@@ -32,11 +32,12 @@ TaskStatus PlaySpellTask::Impl(Player& player)
         return TaskStatus::PLAY_SPELL_NO_POWER;
     }
 
-    std::size_t position;
     Character* target = nullptr;
 
     if (NeedTarget(power))
     {
+        std::size_t position;
+
         if (m_target != nullptr)
         {
             position = FindTargetPos(player);
