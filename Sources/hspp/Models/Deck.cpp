@@ -33,17 +33,7 @@ bool Deck::IsEmpty() const
 
 std::size_t Deck::GetNumOfCards() const
 {
-    std::size_t ret = 0;
-
-    for (auto& card : m_cards)
-    {
-        if (card != nullptr)
-        {
-            ++ret;
-        }
-    }
-
-    return ret;
+    return m_numCard;
 }
 
 Entity* Deck::GetTopCard() const

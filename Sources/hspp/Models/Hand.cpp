@@ -37,17 +37,7 @@ bool Hand::IsEmpty() const
 
 std::size_t Hand::GetNumOfCards() const
 {
-    std::size_t ret = 0;
-
-    for (auto& card : m_cards)
-    {
-        if (card != nullptr)
-        {
-            ++ret;
-        }
-    }
-
-    return ret;
+    return m_numCard;
 }
 
 Entity* Hand::GetCard(std::size_t pos)
@@ -58,13 +48,11 @@ Entity* Hand::GetCard(std::size_t pos)
 std::vector<Entity*> Hand::GetAllCards()
 {
     std::vector<Entity*> ret;
+    ret.reserve(m_numCard);
 
-    for (auto& card : m_cards)
+    for (size_t i = 0; i < m_numCard; ++i)
     {
-        if (card != nullptr)
-        {
-            ret.emplace_back(card);
-        }
+        ret.emplace_back(m_cards[i]);
     }
 
     return ret;
