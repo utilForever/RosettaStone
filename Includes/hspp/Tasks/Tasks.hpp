@@ -29,13 +29,19 @@ class ITask
     //! Default constructor.
     ITask() = default;
 
-    //!
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target.
     ITask(EntityType entityType);
 
-    //!
+    //! Constructs task with given \p source and \p target.
+    //! \param source A source entity to apply task.
+    //! \param target A target entity to apply task.
     ITask(Entity* source, Entity* target);
 
-    //!
+    //! Constructs task with given \p entityType, \p source and \p target.
+    //! \param entityType The entity type of target.
+    //! \param source A source entity to apply task.
+    //! \param target A target entity to apply task.
     ITask(EntityType entityType, Entity* source, Entity* target);
 
     //! Default destructor.
