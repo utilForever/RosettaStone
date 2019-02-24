@@ -6,8 +6,8 @@
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 CORE | CS1_042 | Goldshire Footman | O
-CORE | CS1_112 | Holy Nova |  
-CORE | CS1_113 | Mind Control |  
+CORE | CS1_112 | Holy Nova | O
+CORE | CS1_113 | Mind Control | O
 CORE | CS1_130 | Holy Smite |  
 CORE | CS2_003 | Mind Vision |  
 CORE | CS2_004 | Power Word: Shield |  
@@ -139,7 +139,7 @@ CORE | NEW1_004 | Vanish |
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 24% (33 of 133 Cards)
+- Progress: 26% (35 of 133 Cards)
 
 ## Classic
 
