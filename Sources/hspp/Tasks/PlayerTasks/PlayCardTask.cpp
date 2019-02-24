@@ -25,7 +25,7 @@ TaskID PlayCardTask::GetTaskID() const
 
 TaskStatus PlayCardTask::Impl(Player& player)
 {
-    BYTE handIndex;
+    std::size_t handIndex;
 
     if (m_source != nullptr)
     {
@@ -37,7 +37,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
             return TaskStatus::PLAY_CARD_INVALID_POSITION;
         }
 
-        handIndex = static_cast<BYTE>(handPos);
+        handIndex = static_cast<std::size_t>(handPos);
     }
     else
     {
@@ -48,7 +48,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
             return TaskStatus::PLAY_CARD_INVALID_REQUIRE;
         }
 
-        handIndex = req.GetObject<BYTE>();
+        handIndex = req.GetObject<std::size_t>();
     }
 
     Entity* entity = player.GetHand().GetCard(handIndex);

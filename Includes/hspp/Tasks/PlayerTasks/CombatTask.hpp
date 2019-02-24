@@ -36,7 +36,7 @@ class CombatTask : public ITask
     //! Calculates index of the source and the target.
     //! \param player The player to run task.
     //! \return A tuple consisting of source and target index.
-    std::tuple<BYTE, BYTE> CalculateIndex(Player& player) const;
+    std::tuple<std::size_t, std::size_t> CalculateIndex(Player& player) const;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 

@@ -35,7 +35,7 @@ TaskMetaTrait GenerateRandomTrait()
 
     const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
     const auto taskStatus = static_cast<TaskStatus>(gen() % sizeTaskStatus);
-    const BYTE userID = gen() % 2;
+    const std::size_t userID = gen() % 2;
 
     const TaskMetaTrait randomTrait(taskID, taskStatus, userID);
     return randomTrait;

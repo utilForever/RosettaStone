@@ -19,8 +19,6 @@
 
 namespace Hearthstonepp
 {
-using BYTE = unsigned char;
-
 class Game;
 class IPolicy;
 
@@ -34,7 +32,7 @@ class IPolicy;
 class Player
 {
  public:
-    static constexpr BYTE USER_INVALID = 255;
+    static constexpr std::size_t USER_INVALID = 255;
 
     //! Default constructor.
     Player();
@@ -72,11 +70,11 @@ class Player
 
     //! Returns player ID.
     //! \return Player ID.
-    BYTE GetID() const;
+    std::size_t GetID() const;
 
     //! Sets player ID.
     //! \param id Player ID.
-    void SetID(BYTE id);
+    void SetID(std::size_t id);
 
     //! Returns a pointer to game.
     //! \return A pointer to game.
@@ -108,19 +106,19 @@ class Player
 
     //! Returns available mana that player has.
     //! \return Available mana that player has.
-    BYTE GetAvailableMana() const;
+    std::size_t GetAvailableMana() const;
 
     //! Sets available mana that player has.
     //! \param mana Available mana that player has.
-    void SetAvailableMana(BYTE mana);
+    void SetAvailableMana(std::size_t mana);
 
     //! Returns maximum mana that player has.
     //! \return Maximum mana that player has.
-    BYTE GetMaximumMana() const;
+    std::size_t GetMaximumMana() const;
 
     //! Sets maximum mana that player has.
     //! \param mana Maximum mana that player has.
-    void SetMaximumMana(BYTE mana);
+    void SetMaximumMana(std::size_t mana);
 
     //! Returns game playing policy of current player.
     //! \return The policy of current player.
@@ -146,7 +144,7 @@ class Player
  private:
     std::string m_nickname;
     PlayerType m_playerType = PlayerType::PLAYER1;
-    BYTE m_id = 0;
+    std::size_t m_id = 0;
 
     Battlefield m_field;
     Deck m_deck;
@@ -155,8 +153,8 @@ class Player
 
     Hero* m_hero = nullptr;
 
-    BYTE m_availableMana = 0;
-    BYTE m_maximumMana = 0;
+    std::size_t m_availableMana = 0;
+    std::size_t m_maximumMana = 0;
 
     Game* m_game = nullptr;
     IPolicy* m_policy = nullptr;

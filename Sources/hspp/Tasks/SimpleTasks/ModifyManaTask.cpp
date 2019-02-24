@@ -10,7 +10,7 @@
 namespace Hearthstonepp::SimpleTasks
 {
 ModifyManaTask::ModifyManaTask(ManaOperator numMode, ManaType manaMode,
-                               BYTE num)
+                               std::size_t num)
     : m_numMode(numMode), m_manaMode(manaMode), m_num(num)
 {
     // Do nothing
@@ -23,7 +23,7 @@ TaskID ModifyManaTask::GetTaskID() const
 
 TaskStatus ModifyManaTask::Impl(Player& player)
 {
-    const auto getMana = [](Player& p, ManaType mode) -> BYTE {
+    const auto getMana = [](Player& p, ManaType mode) -> std::size_t {
         if (mode == ManaType::AVAILABLE)
         {
             return p.GetAvailableMana();
@@ -37,7 +37,7 @@ TaskStatus ModifyManaTask::Impl(Player& player)
         throw std::runtime_error("ModifyMana: Invalid mana mode");
     };
 
-    BYTE mana = getMana(player, m_manaMode);
+    std::size_t mana = getMana(player, m_manaMode);
     switch (m_numMode)
     {
         case ManaOperator::ADD:
@@ -52,7 +52,8 @@ TaskStatus ModifyManaTask::Impl(Player& player)
     }
 
     // Clamps a mana cost to a given range (min:0 ~ max:10)
-    mana = std::clamp(mana, static_cast<BYTE>(0), static_cast<BYTE>(10));
+    mana = std::clamp(mana, static_cast<std::size_t>(0),
+                      static_cast<std::size_t>(10));
 
     if (m_manaMode == ManaType::AVAILABLE)
     {

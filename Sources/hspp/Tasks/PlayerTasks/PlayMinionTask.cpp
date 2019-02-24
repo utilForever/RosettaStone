@@ -24,7 +24,7 @@ TaskID PlayMinionTask::GetTaskID() const
 
 TaskStatus PlayMinionTask::Impl(Player& player)
 {
-    BYTE position;
+    std::size_t position;
 
     if (m_fieldPos == -1)
     {
@@ -35,7 +35,7 @@ TaskStatus PlayMinionTask::Impl(Player& player)
             return TaskStatus::PLAY_MINION_FIELD_IS_FULL;
         }
 
-        position = static_cast<BYTE>(emptyPos);
+        position = static_cast<std::size_t>(emptyPos);
     }
     else
     {
@@ -46,7 +46,7 @@ TaskStatus PlayMinionTask::Impl(Player& player)
             return TaskStatus::PLAY_MINION_INVALID_REQUIRE;
         }
 
-        position = req.GetObject<BYTE>();
+        position = req.GetObject<std::size_t>();
     }
 
     // Verify field position
@@ -71,7 +71,7 @@ TaskStatus PlayMinionTask::Impl(Player& player)
         m_source->SetGameTag(tags, 1);
     }
 
-    const auto cost = static_cast<BYTE>(m_source->card.cost);
+    const auto cost = static_cast<std::size_t>(m_source->card.cost);
     const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);

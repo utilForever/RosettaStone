@@ -44,12 +44,12 @@ void Player::SetPlayerType(PlayerType type)
     m_playerType = type;
 }
 
-BYTE Player::GetID() const
+std::size_t Player::GetID() const
 {
     return m_id;
 }
 
-void Player::SetID(BYTE id)
+void Player::SetID(std::size_t id)
 {
     m_id = id;
 }
@@ -89,22 +89,22 @@ Hero* Player::GetHero() const
     return m_hero;
 }
 
-BYTE Player::GetAvailableMana() const
+std::size_t Player::GetAvailableMana() const
 {
     return m_availableMana;
 }
 
-void Player::SetAvailableMana(BYTE mana)
+void Player::SetAvailableMana(std::size_t mana)
 {
     m_availableMana = mana;
 }
 
-BYTE Player::GetMaximumMana() const
+std::size_t Player::GetMaximumMana() const
 {
     return m_maximumMana;
 }
 
-void Player::SetMaximumMana(BYTE mana)
+void Player::SetMaximumMana(std::size_t mana)
 {
     m_maximumMana = mana;
 }

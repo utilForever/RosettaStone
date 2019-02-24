@@ -131,7 +131,8 @@ TaskStatus CombatTask::Impl(Player& player)
     return TaskStatus::COMBAT_SUCCESS;
 }
 
-std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
+std::tuple<std::size_t, std::size_t> CombatTask::CalculateIndex(
+    Player& player) const
 {
     if (m_source != nullptr && m_target != nullptr)
     {
@@ -148,10 +149,9 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         {
             if (minionSource != nullptr)
             {
-                sourceIndex =
-                    static_cast<BYTE>(player.GetField()
-                                          .FindMinionPos(*minionSource)
-                                          .value_or(-1));
+                sourceIndex = static_cast<int>(player.GetField()
+                                                   .FindMinionPos(*minionSource)
+                                                   .value_or(-1));
                 sourceIndex += 1;
             }
         }
@@ -166,10 +166,9 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         {
             if (minionTarget != nullptr)
             {
-                targetIndex =
-                    static_cast<BYTE>(opponent.GetField()
-                                          .FindMinionPos(*minionTarget)
-                                          .value_or(-1));
+                targetIndex = static_cast<int>(opponent.GetField()
+                                                   .FindMinionPos(*minionTarget)
+                                                   .value_or(-1));
                 targetIndex += 1;
             }
         }
@@ -180,12 +179,12 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
                 "CombatTask::CalculateIndex() - Invalid index!");
         }
 
-        return std::make_tuple(static_cast<BYTE>(sourceIndex),
-                               static_cast<BYTE>(targetIndex));
+        return std::make_tuple(static_cast<std::size_t>(sourceIndex),
+                               static_cast<std::size_t>(targetIndex));
     }
 
     TaskMeta req = player.GetPolicy().Require(player, TaskID::COMBAT);
-    auto obj = req.MoveObject<SizedPtr<BYTE>>();
+    auto obj = req.MoveObject<SizedPtr<std::size_t>>();
     return std::make_tuple(obj[0], obj[1]);
 }
 }  // namespace Hearthstonepp::PlayerTasks

@@ -32,7 +32,7 @@ TaskStatus PlaySpellTask::Impl(Player& player)
         return TaskStatus::PLAY_SPELL_NO_POWER;
     }
 
-    BYTE position;
+    std::size_t position;
     Character* target = nullptr;
 
     if (NeedTarget(power))
@@ -51,7 +51,7 @@ TaskStatus PlaySpellTask::Impl(Player& player)
                 return TaskStatus::PLAY_SPELL_INVALID_REQUIRE;
             }
 
-            position = req.GetObject<BYTE>();
+            position = req.GetObject<std::size_t>();
         }
 
         // Verify field position
@@ -70,7 +70,7 @@ TaskStatus PlaySpellTask::Impl(Player& player)
         }
     }
 
-    const auto cost = static_cast<BYTE>(m_source->card.cost);
+    const auto cost = static_cast<std::size_t>(m_source->card.cost);
     const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
@@ -104,7 +104,7 @@ bool PlaySpellTask::NeedTarget(Power& power)
     return false;
 }
 
-BYTE PlaySpellTask::FindTargetPos(Player& player) const
+std::size_t PlaySpellTask::FindTargetPos(Player& player) const
 {
     if (m_target != nullptr)
     {
@@ -131,7 +131,7 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
             std::numeric_limits<std::size_t>::max());
         if (myMinionPos != std::numeric_limits<std::size_t>::max())
         {
-            return static_cast<BYTE>(myMinionPos + INDEX_MY_MINION);
+            return static_cast<std::size_t>(myMinionPos + INDEX_MY_MINION);
         }
 
         auto& opField = opponent.GetField();
@@ -139,14 +139,15 @@ BYTE PlaySpellTask::FindTargetPos(Player& player) const
             std::numeric_limits<std::size_t>::max());
         if (opMinionPos != std::numeric_limits<std::size_t>::max())
         {
-            return static_cast<BYTE>(opMinionPos + INDEX_OPPONENT_MINION);
+            return static_cast<std::size_t>(opMinionPos +
+                                            INDEX_OPPONENT_MINION);
         }
     }
 
     return 0;
 }
 
-Character* PlaySpellTask::GetTargetByPos(Player& player, BYTE pos)
+Character* PlaySpellTask::GetTargetByPos(Player& player, std::size_t pos)
 {
     Player& opPlayer = player.GetOpponent();
 

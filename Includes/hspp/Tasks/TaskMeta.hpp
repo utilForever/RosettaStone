@@ -15,8 +15,6 @@
 
 namespace Hearthstonepp
 {
-using BYTE = unsigned char;
-
 //!
 //! \brief TaskMetaTrait class.
 //!
@@ -26,7 +24,7 @@ using BYTE = unsigned char;
 class TaskMetaTrait
 {
  public:
-    static constexpr BYTE USER_INVALID = Player::USER_INVALID;
+    static constexpr std::size_t USER_INVALID = Player::USER_INVALID;
 
     //! Default constructor.
     TaskMetaTrait() = default;
@@ -44,7 +42,7 @@ class TaskMetaTrait
     //! \param id The task ID.
     //! \param status The task status.
     //! \param userID The user ID.
-    TaskMetaTrait(TaskID id, TaskStatus status, BYTE userID);
+    TaskMetaTrait(TaskID id, TaskStatus status, std::size_t userID);
 
     //! Default destructor.
     ~TaskMetaTrait() = default;
@@ -82,12 +80,12 @@ class TaskMetaTrait
 
     //! Returns user ID.
     //! \return User ID.
-    BYTE GetUserID() const;
+    std::size_t GetUserID() const;
 
  protected:
     TaskID m_id = TaskID::INVALID;
     TaskStatus m_status = TaskStatus::INVALID;
-    BYTE m_userID = USER_INVALID;
+    std::size_t m_userID = USER_INVALID;
 };
 
 //!
