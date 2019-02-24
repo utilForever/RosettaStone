@@ -27,7 +27,7 @@ TaskID PlaySpellTask::GetTaskID() const
 TaskStatus PlaySpellTask::Impl(Player& player)
 {
     Power power = m_source->card.power;
-    if (power.GetEnchant() == nullptr && power.GetPowerTask().empty())
+    if (power.GetPowerTask().empty())
     {
         return TaskStatus::PLAY_SPELL_NO_POWER;
     }

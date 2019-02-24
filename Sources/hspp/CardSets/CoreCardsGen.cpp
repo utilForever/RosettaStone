@@ -161,7 +161,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     Power power;
-    power.AddEnchant(new Enchant(Effects::Taunt));
+    power.AddEnchant(Enchant(Effects::Taunt));
     cards.emplace("CS2_041e", power);
 }
 

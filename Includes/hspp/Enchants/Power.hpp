@@ -29,8 +29,8 @@ class Power
     std::vector<ITask*>& GetPowerTask();
 
     //! Returns enchant.
-    //! \return A pointer to enchant.
-    Enchant* GetEnchant() const;
+    //! \return A reference to enchant.
+    Enchant& GetEnchant();
 
     //! Clears power task and enchant.
     void ClearData();
@@ -40,12 +40,12 @@ class Power
     void AddPowerTask(ITask* task);
 
     //! Adds enchant.
-    //! \param enchant A pointer to enchant.
-    void AddEnchant(Enchant* enchant);
+    //! \param enchant An enchant to add.
+    void AddEnchant(Enchant&& enchant);
 
  private:
     std::vector<ITask*> m_powerTask;
-    Enchant* m_enchant = nullptr;
+    Enchant m_enchant;
 };
 }  // namespace Hearthstonepp
 

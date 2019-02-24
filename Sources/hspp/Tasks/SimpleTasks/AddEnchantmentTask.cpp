@@ -28,8 +28,8 @@ TaskStatus AddEnchantmentTask::Impl(Player&)
         return TaskStatus::NULLPTR;
     }
 
-    const Power power = Cards::GetInstance().FindCardByID(m_cardID).power;
-    power.GetEnchant()->ActivateTo(dynamic_cast<Character*>(m_target));
+    Power power = Cards::GetInstance().FindCardByID(m_cardID).power;
+    power.GetEnchant().ActivateTo(dynamic_cast<Character*>(m_target));
 
     return TaskStatus::ADD_ENCHANTMENT_SUCCESS;
 }
