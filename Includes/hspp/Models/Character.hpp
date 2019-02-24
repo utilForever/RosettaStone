@@ -83,7 +83,7 @@ class Character : public Entity
     //! Gets healed by a certain other entity.
     //! \param source The character to get heal.
     //! \param heal The value of heal.
-    void TakeHeal(Character& source, int heal);
+    void TakeHeal(Character& source, std::size_t heal);
 
     std::size_t attackableCount = 0;
     std::size_t numTurnToUnfreeze = 0;

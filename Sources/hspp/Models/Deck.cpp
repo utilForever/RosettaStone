@@ -46,9 +46,14 @@ std::size_t Deck::GetNumOfCards() const
     return ret;
 }
 
-Entity& Deck::GetTopCard() const
+Entity* Deck::GetTopCard() const
 {
-    return *m_cards[m_numCard - 1];
+    if (IsEmpty())
+    {
+        return nullptr;
+    }
+
+    return m_cards[m_numCard - 1];
 }
 
 void Deck::AddCard(Entity& card)

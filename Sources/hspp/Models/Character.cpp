@@ -147,10 +147,10 @@ std::size_t Character::TakeDamage(Character& source, std::size_t damage)
     return damage;
 }
 
-void Character::TakeHeal(Character& source, int heal)
+void Character::TakeHeal(Character& source, std::size_t heal)
 {
     (void)source;
 
-    health = std::min(health + heal, maxHealth);
+    health = std::min(health + static_cast<int>(heal), maxHealth);
 }
 }  // namespace Hearthstonepp

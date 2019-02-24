@@ -27,7 +27,13 @@ Entity* Draw(Player& player, optional<Entity> card)
     }
     else
     {
-        entity = &player.GetDeck().RemoveCard(player.GetDeck().GetTopCard());
+        Entity* topCard = player.GetDeck().GetTopCard();
+        if (topCard == nullptr)
+        {
+			return nullptr;
+		}
+
+        entity = &player.GetDeck().RemoveCard(*topCard);
     }
 
     player.GetHand().AddCard(*entity);

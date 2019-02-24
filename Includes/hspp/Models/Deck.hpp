@@ -46,7 +46,7 @@ class Deck
 
     //! Returns the top card from deck.
     //! \return The top card of deck.
-    Entity& GetTopCard() const;
+    Entity* GetTopCard() const;
 
     //! Adds a card to deck.
     //! \param card The card to add to deck.
