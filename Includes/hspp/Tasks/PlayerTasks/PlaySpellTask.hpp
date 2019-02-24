@@ -39,8 +39,15 @@ class PlaySpellTask : public ITask
     //! \return true if spell card needs target, and false otherwise.
     static bool NeedTarget(Power& power);
 
+    //! Finds the position of target.
+    //! \param player The player to find target.
+    //! \return The position of target.
     BYTE FindTargetPos(Player& player) const;
 
+    //! Returns target at given position.
+    //! \param player The player to get target.
+    //! \param pos The position of target.
+    //! \return Target at given position.
     static Character* GetTargetByPos(Player& player, BYTE pos);
 };
 }  // namespace Hearthstonepp::PlayerTasks
