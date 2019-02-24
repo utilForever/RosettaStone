@@ -7,10 +7,9 @@
 #ifndef HEARTHSTONEPP_GAME_HPP
 #define HEARTHSTONEPP_GAME_HPP
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Enums/CardEnums.hpp>
-#include <hspp/Policy/Policy.hpp>
+#include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp
 {
@@ -38,7 +37,7 @@ class Game
 
     //! Copy assignment
     Game& operator=(const Game&) = delete;
-    
+
     //! Move assignment
     Game& operator=(Game&&) = delete;
 
@@ -82,4 +81,4 @@ class Game
 };
 }  // namespace Hearthstonepp
 
-#endif
+#endif  // HEARTHSTONEPP_GAME_HPP

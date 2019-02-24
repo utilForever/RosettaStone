@@ -52,7 +52,7 @@ class SizedPtr
 
     //! Constructs sized ptr with given /p size.
     //! \param size The size of buffer.
-    explicit SizedPtr(size_t size) : m_size(size), m_ptr(new T[m_size])
+    explicit SizedPtr(std::size_t size) : m_size(size), m_ptr(new T[m_size])
     {
         // Do nothing
     }
@@ -60,7 +60,7 @@ class SizedPtr
     //! Constructs sized ptr with given \p ptr and \p size.
     //! \param ptr The pointer that sized ptr managing.
     //! \param size The size of buffer.
-    SizedPtr(T* ptr, size_t size) : m_size(size), m_ptr(ptr)
+    SizedPtr(T* ptr, std::size_t size) : m_size(size), m_ptr(ptr)
     {
         // Do nothing
     }
@@ -91,7 +91,7 @@ class SizedPtr
     SizedPtr& operator=(const SizedPtr& ptr)
     {
         reset(new T[ptr.size()], ptr.size());
-        for (size_t i = 0; i < m_size; ++i)
+        for (std::size_t i = 0; i < m_size; ++i)
         {
             m_ptr[i] = ptr[i];
         }
@@ -124,7 +124,7 @@ class SizedPtr
     //! Resets buffer with given \p other and \p size.
     //! \param other The pointer that sized ptr managing.
     //! \param size The size of buffer.
-    void reset(T* other, size_t size) noexcept
+    void reset(T* other, std::size_t size) noexcept
     {
         if (m_ptr != nullptr)
         {
@@ -157,7 +157,7 @@ class SizedPtr
 
     //! Gets size of buffer.
     //! \return The size of buffer.
-    size_t size() const
+    std::size_t size() const
     {
         return m_size;
     }
@@ -178,16 +178,16 @@ class SizedPtr
 
     //! Gets the element with given \p idx from buffer.
     //! \param idx The index of buffer.
-    //! \return The index'th element of buffer.
-    T& operator[](size_t idx)
+    //! \return The element of buffer at idx.
+    T& operator[](std::size_t idx)
     {
         return m_ptr[idx];
     }
 
     //! Gets the element with given \p idx from buffer.
     //! \param idx The index of buffer.
-    //! \return The index'th element of buffer.
-    const T& operator[](size_t idx) const
+    //! \return The element of buffer at idx.
+    const T& operator[](std::size_t idx) const
     {
         return m_ptr[idx];
     }
@@ -202,7 +202,7 @@ class SizedPtr
             return false;
         }
 
-        for (size_t i = 0; i < m_size; ++i)
+        for (std::size_t i = 0; i < m_size; ++i)
         {
             if (m_ptr[i] != other[i])
             {
@@ -278,7 +278,7 @@ class SizedPtr
     }
 
  private:
-    size_t m_size;
+    std::size_t m_size;
     T* m_ptr;
 };
 

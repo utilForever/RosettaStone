@@ -6,8 +6,8 @@
 
 #include "TestTasks.hpp"
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Tasks/TaskStatus.hpp>
 
 #include <functional>

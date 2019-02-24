@@ -7,7 +7,7 @@
 
 namespace Hearthstonepp::SimpleTasks
 {
-PoisonousTask::PoisonousTask(Character* target) : m_target(target)
+PoisonousTask::PoisonousTask(Character* target) : ITask(nullptr, target)
 {
     // Do nothing
 }
@@ -19,7 +19,7 @@ TaskID PoisonousTask::GetTaskID() const
 
 TaskStatus PoisonousTask::Impl(Player&)
 {
-    m_target->health = static_cast<size_t>(0);
+    m_target->isDestroyed = true;
 
     return TaskStatus::POISONOUS_SUCCESS;
 }

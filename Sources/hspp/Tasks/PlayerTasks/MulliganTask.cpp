@@ -5,10 +5,9 @@
 
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Commons/Utils.hpp>
-#include <hspp/Policy/Policy.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
-#include <hspp/Tasks/SimpleTasks/ShuffleTask.hpp>
 
 #include <algorithm>
 
@@ -29,14 +28,14 @@ TaskStatus MulliganTask::Impl(Player& player)
         return TaskStatus::MULLIGAN_INVALID_REQUIRE;
     }
 
-    SizedPtr<size_t>& index = result.GetObject<SizedPtr<size_t>>();
+    auto& index = result.GetObject<SizedPtr<std::size_t>>();
     if (index.size() == 0)
     {
         return TaskStatus::MULLIGAN_SUCCESS;
     }
 
     // Sort decreasing order
-    std::sort(index.begin(), index.end(), std::greater<size_t>());
+    std::sort(index.begin(), index.end(), std::greater<>());
 
     // Verify range
     if (index[0] >= NUM_DRAW_CARDS_AT_START_SECOND)
@@ -45,7 +44,7 @@ TaskStatus MulliganTask::Impl(Player& player)
     }
 
     // Verify duplicated element
-    for (size_t i = 1; i < index.size(); ++i)
+    for (std::size_t i = 1; i < index.size(); ++i)
     {
         if (index[i] == index[i - 1])
         {
@@ -53,21 +52,20 @@ TaskStatus MulliganTask::Impl(Player& player)
         }
     }
 
-    std::vector<Entity*>& deck = player.GetDeck();
-    std::vector<Entity*>& hand = player.GetHand();
+    auto& deck = player.GetDeck();
+    auto& hand = player.GetHand();
 
     // Rollback to deck
-    for (size_t idx : index)
+    for (std::size_t idx : index)
     {
-        deck.emplace_back(hand[idx]);
-        hand.erase(hand.begin() + idx);
+        deck.AddCard(*hand.GetCard(index[idx]));
+        hand.RemoveCard(*hand.GetCard(index[idx]));
     }
 
-    const TaskStatus statusShuffle = ShuffleTask().Run(player);
+    deck.Shuffle();
     const TaskStatus statusDraw = DrawTask(index.size()).Run(player);
 
-    if (statusShuffle == TaskStatus::SHUFFLE_SUCCESS &&
-        statusDraw == TaskStatus::DRAW_SUCCESS)
+    if (statusDraw == TaskStatus::DRAW_SUCCESS)
     {
         return TaskStatus::MULLIGAN_SUCCESS;
     }

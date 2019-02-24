@@ -31,8 +31,6 @@ class PoisonousTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
-
-    Character* m_target = nullptr;
 };
 }  // namespace Hearthstonepp::SimpleTasks
 

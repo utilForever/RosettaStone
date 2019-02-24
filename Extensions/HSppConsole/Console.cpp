@@ -13,7 +13,7 @@
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
 #include <hspp/Models/GameAgent.hpp>
-#include <hspp/Policy/IoPolicy.hpp>
+#include <hspp/Policies/IoPolicy.hpp>
 
 #include <cctype>
 #if defined(HEARTHSTONEPP_WINDOWS)
@@ -24,6 +24,7 @@
 #include <sys/stat.h>
 #endif
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 
 #if defined(HEARTHSTONEPP_WINDOWS)
@@ -105,7 +106,7 @@ void Console::SignUp()
         std::string name;
         std::cin >> name;
 
-        m_account = new Account(std::move(accountID), std::move(name));
+        m_account = new AccountInfo(std::move(accountID), std::move(name));
 
         AccountLoader loader;
         loader.Save(m_account);
@@ -212,11 +213,11 @@ void Console::SimulateGame() const
     std::cin >> user2 >> deckIndex2;
 
     AccountLoader loader;
-    Account* p1 = loader.Load(user1);
-    Account* p2 = loader.Load(user2);
+    AccountInfo* p1 = loader.Load(user1);
+    AccountInfo* p2 = loader.Load(user2);
 
-    Deck* deck1 = p1->GetDeck(deckIndex1);
-    Deck* deck2 = p2->GetDeck(deckIndex2);
+    DeckInfo* deck1 = p1->GetDeck(deckIndex1);
+    DeckInfo* deck2 = p2->GetDeck(deckIndex2);
 
     IoPolicy policy1(std::cout, std::cin);
     IoPolicy policy2(std::cout, std::cin);
@@ -226,8 +227,8 @@ void Console::SimulateGame() const
     Game& game = agent.GetGame();
     game.GetPlayer1().SetNickname(p1->GetNickname());
     game.GetPlayer2().SetNickname(p2->GetNickname());
-    game.GetPlayer1().SetDeck(deck1);
-    game.GetPlayer2().SetDeck(deck2);
+    // game.GetPlayer1().SetDeck(deck1);
+    // game.GetPlayer2().SetDeck(deck2);
 
     agent.Start();
 }
@@ -330,9 +331,9 @@ int Console::OperateDeck(size_t deckIndex)
 
 void Console::AddCardInDeck(size_t deckIndex)
 {
-    Deck* deck = m_account->GetDeck(deckIndex - 1);
+    DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
 
-    if (deck->GetNumOfCards() >= MAXIMUM_NUM_CARDS_IN_DECK)
+    if (deck->GetNumOfCards() >= START_DECK_SIZE)
     {
         std::cout << "The deck " << deck->GetName() << " is full of cards.\n";
         return;
@@ -353,12 +354,10 @@ void Console::AddCardInDeck(size_t deckIndex)
     {
         size_t numCardToAddAvailable =
             card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
-        if (deck->GetNumOfCards() + numCardToAddAvailable >
-            MAXIMUM_NUM_CARDS_IN_DECK)
+        if (deck->GetNumOfCards() + numCardToAddAvailable > START_DECK_SIZE)
         {
-            numCardToAddAvailable = deck->GetNumOfCards() +
-                                    numCardToAddAvailable -
-                                    MAXIMUM_NUM_CARDS_IN_DECK;
+            numCardToAddAvailable =
+                deck->GetNumOfCards() + numCardToAddAvailable - START_DECK_SIZE;
         }
 
         std::cout << "How many cards to add (0 - " << numCardToAddAvailable
@@ -380,7 +379,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
 void Console::DeleteCardInDeck(size_t deckIndex) const
 {
-    Deck* deck = m_account->GetDeck(deckIndex - 1);
+    DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
 
     if (deck->GetNumOfCards() == 0)
     {

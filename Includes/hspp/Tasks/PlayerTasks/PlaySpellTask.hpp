@@ -33,6 +33,22 @@ class PlaySpellTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    //! Checks that spell card needs target.
+    //! \param power A reference to power of the card.
+    //! \return true if spell card needs target, and false otherwise.
+    static bool NeedTarget(Power& power);
+
+    //! Finds the position of target.
+    //! \param player The player to find target.
+    //! \return The position of target.
+    std::size_t FindTargetPos(Player& player) const;
+
+    //! Returns target at given position.
+    //! \param player The player to get target.
+    //! \param pos The position of target.
+    //! \return Target at given position.
+    static Character* GetTargetByPos(Player& player, std::size_t pos);
 };
 }  // namespace Hearthstonepp::PlayerTasks
 

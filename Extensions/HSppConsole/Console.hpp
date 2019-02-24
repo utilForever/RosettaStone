@@ -7,9 +7,9 @@
 #ifndef HEARTHSTONEPP_CONSOLE_HPP
 #define HEARTHSTONEPP_CONSOLE_HPP
 
-#include <hspp/Accounts/Account.hpp>
+#include <hspp/Accounts/AccountInfo.hpp>
+#include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Cards/Cards.hpp>
-#include <hspp/Cards/Deck.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Commons/Macros.hpp>
 
@@ -151,17 +151,17 @@ class Console
     std::vector<std::string> SplitString(std::string str,
                                          const std::string& delimiter) const;
 
-    std::array<std::string, LOGIN_MENU_SIZE> m_loginMenuStr = {
-        "1. Sign in", "2. Sign up", "3. Exit"
-    };
+    std::array<std::string, LOGIN_MENU_SIZE> m_loginMenuStr = { "1. Sign in",
+                                                                "2. Sign up",
+                                                                "3. Exit" };
     std::array<std::function<void(Console&)>, LOGIN_MENU_SIZE - 1>
         m_loginMenuFuncs = { &Console::SignIn, &Console::SignUp };
     std::array<std::string, MAIN_MENU_SIZE> m_mainMenuStr = {
         "1. Search Card", "2. Manage Deck", "3. Simulate Game", "4. Leave"
     };
-    std::array<std::function<void(Console&)>, MAIN_MENU_SIZE> m_mainMenuFuncs =
-        { &Console::SearchCard, &Console::ManageDeck, &Console::SimulateGame,
-          &Console::Leave };
+    std::array<std::function<void(Console&)>, MAIN_MENU_SIZE>
+        m_mainMenuFuncs = { &Console::SearchCard, &Console::ManageDeck,
+                            &Console::SimulateGame, &Console::Leave };
     std::array<std::string, MANAGE_DECK_MENU_SIZE> m_manageDeckStr = {
         "1. Create deck", "2. Modify deck", "3. Delete deck", "4. Back"
     };
@@ -182,7 +182,7 @@ class Console
     SearchMode m_searchMode = SearchMode::JustSearch;
     CardClass m_deckClass = CardClass::INVALID;
 
-    Account* m_account = nullptr;
+    AccountInfo* m_account = nullptr;
 };
 }  // namespace Hearthstonepp
 

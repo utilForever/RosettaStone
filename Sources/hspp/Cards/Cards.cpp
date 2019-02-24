@@ -13,8 +13,7 @@ namespace Hearthstonepp
 {
 Cards::Cards()
 {
-    CardLoader cardLoader;
-    cardLoader.Load(m_cards);
+    CardLoader::Load(m_cards);
     PowerLoader::Load(m_cards);
 }
 
@@ -135,7 +134,7 @@ Card Cards::FindCardByName(const std::string& name)
     return Card();
 }
 
-std::vector<Card> Cards::FindCardByCost(size_t minVal, size_t maxVal)
+std::vector<Card> Cards::FindCardByCost(std::size_t minVal, std::size_t maxVal)
 {
     std::vector<Card> result;
 
@@ -150,7 +149,8 @@ std::vector<Card> Cards::FindCardByCost(size_t minVal, size_t maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
+std::vector<Card> Cards::FindCardByAttack(std::size_t minVal,
+                                          std::size_t maxVal)
 {
     std::vector<Card> result;
 
@@ -170,7 +170,8 @@ std::vector<Card> Cards::FindCardByAttack(size_t minVal, size_t maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
+std::vector<Card> Cards::FindCardByHealth(std::size_t minVal,
+                                          std::size_t maxVal)
 {
     std::vector<Card> result;
 
@@ -190,7 +191,8 @@ std::vector<Card> Cards::FindCardByHealth(size_t minVal, size_t maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardBySpellDamage(size_t minVal, size_t maxVal)
+std::vector<Card> Cards::FindCardBySpellDamage(std::size_t minVal,
+                                               std::size_t maxVal)
 {
     std::vector<Card> result;
 

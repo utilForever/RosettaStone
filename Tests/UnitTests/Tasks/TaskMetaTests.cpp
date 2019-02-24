@@ -24,7 +24,7 @@ TEST(TaskMeta, TraitConstructors)
 
     const TaskID randID = TaskID::_from_integral(gen() % sizeTaskID);
     const auto randMeta = static_cast<TaskStatus>(gen() % sizeTaskStatus);
-    const BYTE randUser = gen() % 2;
+    const std::size_t randUser = gen() % 2;
 
     // Empty Trait Test
     TaskMetaTrait empty;
@@ -59,7 +59,6 @@ TEST(TaskMeta, TraitConstructors)
 
 TEST(TaskMeta, Constructors)
 {
-    constexpr size_t zero = 0;
     TaskMetaTrait trait = GenerateRandomTrait();
     SizedPtr<int> buffer = GenerateRandomBuffer();
 

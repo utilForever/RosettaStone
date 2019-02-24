@@ -33,7 +33,6 @@ class HealTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    EntityType m_entityType = EntityType::EMPTY;
     int m_amount = 0;
 };
 }  // namespace Hearthstonepp::SimpleTasks

@@ -5,12 +5,10 @@
 
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 
-#include <algorithm>
-
 namespace Hearthstonepp::SimpleTasks
 {
-FreezeTask::FreezeTask(Character* target, EntityType type)
-    : m_target(target), m_type(type)
+FreezeTask::FreezeTask(EntityType entityType, Character* target)
+    : ITask(entityType, nullptr, target)
 {
     // Do nothing
 }
@@ -40,12 +38,14 @@ TaskStatus FreezeTask::Impl(Player& player)
      * Reference: https://hearthstone.gamepedia.com/Freeze
      */
 
-    m_target->SetGameTag(GameTag::FROZEN, 1);
+    auto target = dynamic_cast<Character*>(m_target);
+
+    target->SetGameTag(GameTag::FROZEN, 1);
 
     // Case 1
-    if (IsOpponentCharacter(player))
+    if (IsOpCharacter(player))
     {
-        m_target->numTurnToUnfreeze = 2;
+        target->numTurnToUnfreeze = 2;
     }
     // Case 2
     else if (IsMyCharacter(player))
@@ -53,13 +53,13 @@ TaskStatus FreezeTask::Impl(Player& player)
         // Case 2-1
         if (IsFrozenBeforeAttack())
         {
-            m_target->attackableCount = 0;
-            m_target->numTurnToUnfreeze = 1;
+            target->attackableCount = 0;
+            target->numTurnToUnfreeze = 1;
         }
         // Case 2-2
         else if (IsFrozenAfterAttack())
         {
-            m_target->numTurnToUnfreeze = 3;
+            target->numTurnToUnfreeze = 3;
         }
     }
 
@@ -68,38 +68,71 @@ TaskStatus FreezeTask::Impl(Player& player)
 
 bool FreezeTask::IsMyCharacter(Player& player) const
 {
-    if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
+    if (m_entityType == +EntityType::SOURCE ||
+        m_entityType == +EntityType::TARGET)
     {
-        return std::find(player.GetField().begin(), player.GetField().end(),
-                         m_target) != player.GetField().end();
+        const auto hero = dynamic_cast<Hero*>(m_target);
+        if (hero != nullptr && hero == player.GetHero())
+        {
+            return true;
+        }
+
+        const auto minion = dynamic_cast<Minion*>(m_target);
+        if (minion == nullptr)
+        {
+            return false;
+        }
+
+        const auto minionPos =
+            player.GetField().FindMinionPos(*minion).value_or(
+                std::numeric_limits<std::size_t>::max());
+        return minionPos != std::numeric_limits<std::size_t>::max();
     }
 
-    return m_type == +EntityType::FIELD || m_type == +EntityType::HERO ||
-           m_type == +EntityType::FRIENDS;
+    return m_entityType == +EntityType::FIELD ||
+           m_entityType == +EntityType::HERO ||
+           m_entityType == +EntityType::FRIENDS;
 }
 
-bool FreezeTask::IsOpponentCharacter(Player& player) const
+bool FreezeTask::IsOpCharacter(Player& player) const
 {
-    if (m_type == +EntityType::SOURCE || m_type == +EntityType::TARGET)
+    if (m_entityType == +EntityType::SOURCE ||
+        m_entityType == +EntityType::TARGET)
     {
-        return std::find(player.GetOpponent().GetField().begin(),
-                         player.GetOpponent().GetField().end(),
-                         m_target) != player.GetOpponent().GetField().end();
+        const auto hero = dynamic_cast<Hero*>(m_target);
+        if (hero != nullptr && hero == player.GetOpponent().GetHero())
+        {
+            return true;
+        }
+
+        const auto minion = dynamic_cast<Minion*>(m_target);
+        if (minion == nullptr)
+        {
+            return false;
+        }
+
+        const auto minionPos =
+            player.GetOpponent().GetField().FindMinionPos(*minion).value_or(
+                std::numeric_limits<std::size_t>::max());
+        return minionPos != std::numeric_limits<std::size_t>::max();
     }
 
-    return m_type == +EntityType::ENEMY_FIELD ||
-           m_type == +EntityType::ENEMY_HERO || m_type == +EntityType::ENEMIES;
+    return m_entityType == +EntityType::ENEMY_FIELD ||
+           m_entityType == +EntityType::ENEMY_HERO ||
+           m_entityType == +EntityType::ENEMIES;
 }
 
 bool FreezeTask::IsFrozenBeforeAttack() const
 {
-    if (m_target->attackableCount == 1)
+    const auto target = dynamic_cast<Character*>(m_target);
+
+    if (target->attackableCount == 1)
     {
         return true;
     }
 
-    if (m_target->GetGameTag(GameTag::WINDFURY) == 1 &&
-        m_target->attackableCount == 2)
+    if (target->GetGameTag(GameTag::WINDFURY) == 1 &&
+        target->attackableCount == 2)
     {
         return true;
     }
@@ -109,13 +142,15 @@ bool FreezeTask::IsFrozenBeforeAttack() const
 
 bool FreezeTask::IsFrozenAfterAttack() const
 {
-    if (m_target->attackableCount == 0)
+    const auto target = dynamic_cast<Character*>(m_target);
+
+    if (target->attackableCount == 0)
     {
         return true;
     }
 
-    if (m_target->GetGameTag(GameTag::WINDFURY) == 1 &&
-        m_target->attackableCount == 1)
+    if (target->GetGameTag(GameTag::WINDFURY) == 1 &&
+        target->attackableCount == 1)
     {
         return true;
     }

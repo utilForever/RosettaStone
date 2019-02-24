@@ -17,7 +17,7 @@ TEST(SizedPtr, Constructor)
     EXPECT_EQ(defaultCtor.size(), 0);
     EXPECT_EQ(defaultCtor.get(), nullptr);
 
-    constexpr size_t size = 255;
+    constexpr std::size_t size = 255;
 
     SizedPtr<int> ptr1(size);
     EXPECT_EQ(ptr1.size(), size);
@@ -32,7 +32,7 @@ TEST(SizedPtr, Constructor)
     std::default_random_engine gen(rd());
 
     SizedPtr<int> sizedPtr(gen() % 1024 + 1);
-    for (size_t i = 0; i < sizedPtr.size(); ++i)
+    for (std::size_t i = 0; i < sizedPtr.size(); ++i)
     {
         sizedPtr[i] = gen() % 255;
     }
@@ -64,7 +64,7 @@ TEST(SizedPtr, Reset)
     EXPECT_EQ(sizedPtr.size(), 0);
     EXPECT_EQ(sizedPtr, nullptr);
 
-    constexpr size_t size = 10;
+    constexpr std::size_t size = 10;
 
     int* ptr = new int[size];
     sizedPtr.reset(ptr, size);
@@ -85,7 +85,7 @@ TEST(SizedPtr, Operator)
     EXPECT_EQ(sizedPtr[sizedPtr.size() - 1], 20);
 
     EXPECT_TRUE(static_cast<bool>(sizedPtr));
-    
+
     sizedPtr.reset();
     EXPECT_FALSE(static_cast<bool>(sizedPtr));
 }
@@ -94,7 +94,7 @@ TEST(SizedPtr, Iterator)
 {
     SizedPtr<int> sizedPtr = TestUtils::GenerateRandomBuffer();
 
-    size_t idx = 0;
+    std::size_t idx = 0;
     for (int elem : sizedPtr)
     {
         EXPECT_EQ(elem, sizedPtr[idx++]);

@@ -40,7 +40,7 @@ class ModifyManaTask : public ITask
     //! \param manaMode A value that specifies whether the modified mana is
     //! one-time or permanent.
     //! \param num A value indicating how much to modify mana.
-    ModifyManaTask(ManaOperator numMode, ManaType manaMode, BYTE num);
+    ModifyManaTask(ManaOperator numMode, ManaType manaMode, std::size_t num);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -54,7 +54,7 @@ class ModifyManaTask : public ITask
 
     ManaOperator m_numMode;
     ManaType m_manaMode;
-    BYTE m_num;
+    std::size_t m_num;
 };
 }  // namespace SimpleTasks
 }  // namespace Hearthstonepp

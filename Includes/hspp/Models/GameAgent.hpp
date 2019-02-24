@@ -7,14 +7,12 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_HPP
 #define HEARTHSTONEPP_GAME_AGENT_HPP
 
-#include <hspp/Accounts/Player.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Game.hpp>
-#include <hspp/Tasks/Tasks.hpp>
+#include <hspp/Models/Player.hpp>
 
 #include <array>
 #include <functional>
-#include <thread>
 
 namespace Hearthstonepp
 {

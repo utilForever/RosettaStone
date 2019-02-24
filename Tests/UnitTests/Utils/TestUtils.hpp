@@ -15,13 +15,16 @@ using namespace Hearthstonepp;
 
 namespace TestUtils
 {
-SizedPtr<int> GenerateRandomBuffer(size_t maximumSize = 255);
+SizedPtr<int> GenerateRandomBuffer(std::size_t maximumSize = 255);
 
 TaskMetaTrait GenerateRandomTrait();
 
 TaskMeta GenerateRandomTaskMeta();
 
-Card GenerateMinionCard(std::string&& id, size_t attack, size_t health);
+Card GenerateMinionCard(std::string&& id, std::size_t attack,
+                        std::size_t health);
+
+void PlayMinionCard(Player& player, Card& card);
 
 void ExpectCardEqual(const Card& card1, const Card& card2);
 }  // namespace TestUtils

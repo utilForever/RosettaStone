@@ -4,32 +4,41 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace Hearthstonepp::SimpleTasks
 {
-DamageTask::DamageTask(Character* character, size_t damage)
-    : m_character(character), m_damage(damage)
+DamageTask::DamageTask(EntityType entityType, std::size_t damage)
+    : ITask(entityType), m_damage(damage)
 {
-    // Do Nothing
+    // Do nothing
 }
 
 TaskID DamageTask::GetTaskID() const
 {
-    return TaskID::MODIFY_HEALTH;
+    return TaskID::DAMAGE;
 }
 
-TaskStatus DamageTask::Impl(Player&)
+TaskStatus DamageTask::Impl(Player& player)
 {
-    if (m_character->GetGameTag(GameTag::DIVINE_SHIELD) == 1)
+    auto entities =
+        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+
+    for (auto& entity : entities)
     {
-        m_damage = 0;
+        auto character = dynamic_cast<Character*>(entity);
+        character->TakeDamage(*character, m_damage);
     }
 
-    const int remainHealth =
-        static_cast<int>(m_character->health) - static_cast<int>(m_damage);
-    m_character->health =
-        remainHealth > 0 ? static_cast<size_t>(remainHealth) : 0u;
+    for (auto& entity : entities)
+    {
+        if (entity->isDestroyed)
+        {
+            entity->Destroy();
+        }
+    }
 
-    return TaskStatus::MODIFY_HEALTH_SUCCESS;
+    return TaskStatus::DAMAGE_SUCCESS;
 }
 }  // namespace Hearthstonepp::SimpleTasks

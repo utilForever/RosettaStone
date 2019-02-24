@@ -7,19 +7,17 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Commons/Macros.hpp>
-
 #include <random>
 
 namespace TestUtils
 {
-SizedPtr<int> GenerateRandomBuffer(size_t maximumSize)
+SizedPtr<int> GenerateRandomBuffer(std::size_t maximumSize)
 {
     std::random_device rd;
     std::default_random_engine gen(rd());
 
     SizedPtr<int> sizedPtr(gen() % maximumSize + 1);
-    for (size_t i = 0; i < sizedPtr.size(); ++i)
+    for (std::size_t i = 0; i < sizedPtr.size(); ++i)
     {
         sizedPtr[i] = gen() % 255;
     }
@@ -37,7 +35,7 @@ TaskMetaTrait GenerateRandomTrait()
 
     const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
     const auto taskStatus = static_cast<TaskStatus>(gen() % sizeTaskStatus);
-    const BYTE userID = gen() % 2;
+    const std::size_t userID = gen() % 2;
 
     const TaskMetaTrait randomTrait(taskID, taskStatus, userID);
     return randomTrait;
@@ -48,7 +46,8 @@ TaskMeta GenerateRandomTaskMeta()
     return TaskMeta(GenerateRandomTrait(), GenerateRandomBuffer());
 }
 
-Card GenerateMinionCard(std::string&& id, size_t attack, size_t health)
+Card GenerateMinionCard(std::string&& id, std::size_t attack,
+                        std::size_t health)
 {
     Card card;
     card.cardType = CardType::MINION;
@@ -58,6 +57,21 @@ Card GenerateMinionCard(std::string&& id, size_t attack, size_t health)
     card.health = health;
 
     return card;
+}
+
+void PlayMinionCard(Player& player, Card& card)
+{
+    Battlefield& playerField = player.GetField();
+
+    const auto minion = new Minion(player, card);
+    const auto minionPos = playerField.FindEmptyPos().value_or(
+        std::numeric_limits<std::size_t>::max());
+
+    if (minionPos != std::numeric_limits<std::size_t>::max())
+    {
+        playerField.AddMinion(*minion, minionPos);
+        playerField.GetMinion(minionPos)->SetOwner(player);
+    }
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

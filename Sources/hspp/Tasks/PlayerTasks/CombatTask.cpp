@@ -4,14 +4,11 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Commons/Utils.hpp>
-#include <hspp/Policy/Policy.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyMinionTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyWeaponTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
-
-#include <algorithm>
 
 using namespace Hearthstonepp::SimpleTasks;
 
@@ -33,38 +30,38 @@ TaskStatus CombatTask::Impl(Player& player)
 
     // Verify index of the source
     // NOTE: 0 means hero, 1 ~ field.size() means minion
-    if (sourceIndex > player.GetField().size())
+    if (sourceIndex > player.GetField().GetNumOfMinions())
     {
         return TaskStatus::COMBAT_SRC_IDX_OUT_OF_RANGE;
     }
 
     // Verify index of the target
     // NOTE: 0 means hero, 1 ~ field.size() means minion
-    if (targetIndex > player.GetOpponent().GetField().size())
+    if (targetIndex > player.GetOpponent().GetField().GetNumOfMinions())
     {
         return TaskStatus::COMBAT_DST_IDX_OUT_OF_RANGE;
     }
 
-    auto source =
-        (sourceIndex > 0)
-            ? dynamic_cast<Character*>(player.GetField()[sourceIndex - 1])
-            : dynamic_cast<Character*>(player.GetHero());
+    auto source = (sourceIndex > 0)
+                      ? dynamic_cast<Character*>(
+                            player.GetField().GetMinion(sourceIndex - 1))
+                      : dynamic_cast<Character*>(player.GetHero());
     auto target =
         (targetIndex > 0)
             ? dynamic_cast<Character*>(
-                  player.GetOpponent().GetField()[targetIndex - 1])
+                  player.GetOpponent().GetField().GetMinion(targetIndex - 1))
             : dynamic_cast<Character*>(player.GetOpponent().GetHero());
 
     if (!source->CanAttack() ||
-        !source->IsValidAttackTarget(player.GetOpponent(), target))
+        !source->IsValidCombatTarget(player.GetOpponent(), target))
     {
         return TaskStatus::COMBAT_SOURCE_CANT_ATTACK;
     }
 
-    const size_t targetAttack = target->GetAttack();
-    const size_t sourceAttack = source->GetAttack();
+    const std::size_t targetAttack = target->GetAttack();
+    const std::size_t sourceAttack = source->GetAttack();
 
-    const size_t targetDamage = target->TakeDamage(*source, sourceAttack);
+    const std::size_t targetDamage = target->TakeDamage(*source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
 
     // Destroy target if attacker is poisonous
@@ -76,13 +73,14 @@ TaskStatus CombatTask::Impl(Player& player)
     // Freeze target if attacker is freezer
     if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        FreezeTask(target, EntityType::TARGET).Run(player);
+        FreezeTask(EntityType::TARGET, target).Run(player);
     }
 
     // Ignore damage from defenders with 0 attack
     if (targetAttack > 0)
     {
-        const size_t sourceDamage = source->TakeDamage(*target, targetAttack);
+        const std::size_t sourceDamage =
+            source->TakeDamage(*target, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
         // Destroy source if defender is poisonous
@@ -94,7 +92,7 @@ TaskStatus CombatTask::Impl(Player& player)
         // Freeze source if defender is freezer
         if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
         {
-            FreezeTask(source, EntityType::SOURCE).Run(player);
+            FreezeTask(EntityType::SOURCE, source).Run(player);
         }
     }
 
@@ -114,32 +112,34 @@ TaskStatus CombatTask::Impl(Player& player)
         // Destroy weapon if durability is 0
         if (hero->weapon->GetDurability() <= 0)
         {
-            DestroyWeaponTask().Run(player);
+            DestroyTask(EntityType::WEAPON).Run(player);
         }
     }
 
     source->attackableCount--;
 
-    // Destroy source minion if health less than 0
-    if (source->health <= 0)
+    if (source->isDestroyed)
     {
-        DestroyMinionTask(source).Run(player);
+        source->Destroy();
     }
 
-    // Destroy target minion if health less than 0
-    if (target->health <= 0)
+    if (target->isDestroyed)
     {
-        DestroyMinionTask(target).Run(player);
+        target->Destroy();
     }
 
     return TaskStatus::COMBAT_SUCCESS;
 }
 
-std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
+std::tuple<std::size_t, std::size_t> CombatTask::CalculateIndex(
+    Player& player) const
 {
     if (m_source != nullptr && m_target != nullptr)
     {
-        BYTE sourceIndex, targetIndex;
+        auto* minionSource = dynamic_cast<Minion*>(m_source);
+        auto* minionTarget = dynamic_cast<Minion*>(m_target);
+
+        int sourceIndex = -1, targetIndex = -1;
 
         if (m_source == player.GetHero())
         {
@@ -147,10 +147,13 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         }
         else
         {
-            const auto sourceIter = std::find(
-                player.GetField().begin(), player.GetField().end(), m_source);
-            sourceIndex = static_cast<BYTE>(
-                std::distance(player.GetField().begin(), sourceIter) + 1);
+            if (minionSource != nullptr)
+            {
+                sourceIndex = static_cast<int>(player.GetField()
+                                                   .FindMinionPos(*minionSource)
+                                                   .value_or(-1));
+                sourceIndex += 1;
+            }
         }
 
         Player& opponent = player.GetOpponent();
@@ -161,18 +164,27 @@ std::tuple<BYTE, BYTE> CombatTask::CalculateIndex(Player& player) const
         }
         else
         {
-            const auto targetIter =
-                std::find(opponent.GetField().begin(),
-                          opponent.GetField().end(), m_target);
-            targetIndex = static_cast<BYTE>(
-                std::distance(opponent.GetField().begin(), targetIter) + 1);
+            if (minionTarget != nullptr)
+            {
+                targetIndex = static_cast<int>(opponent.GetField()
+                                                   .FindMinionPos(*minionTarget)
+                                                   .value_or(-1));
+                targetIndex += 1;
+            }
         }
 
-        return std::make_tuple(sourceIndex, targetIndex);
+        if (sourceIndex == -1 || targetIndex == -1)
+        {
+            throw std::logic_error(
+                "CombatTask::CalculateIndex() - Invalid index!");
+        }
+
+        return std::make_tuple(static_cast<std::size_t>(sourceIndex),
+                               static_cast<std::size_t>(targetIndex));
     }
 
     TaskMeta req = player.GetPolicy().Require(player, TaskID::COMBAT);
-    SizedPtr<BYTE> obj = req.MoveObject<SizedPtr<BYTE>>();
+    auto obj = req.MoveObject<SizedPtr<std::size_t>>();
     return std::make_tuple(obj[0], obj[1]);
 }
 }  // namespace Hearthstonepp::PlayerTasks

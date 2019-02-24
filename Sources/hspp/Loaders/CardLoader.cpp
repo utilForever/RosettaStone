@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp
 {
-void CardLoader::Load(std::vector<Card>& cards) const
+void CardLoader::Load(std::vector<Card>& cards)
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -93,8 +93,9 @@ void CardLoader::Load(std::vector<Card>& cards) const
                                    ? -1
                                    : cardData["durability"].get<int>();
 
-        const size_t cost =
-            cardData["cost"].is_null() ? 0 : cardData["cost"].get<size_t>();
+        const std::size_t cost = cardData["cost"].is_null()
+                                     ? 0
+                                     : cardData["cost"].get<std::size_t>();
 
         std::vector<GameTag> mechanics;
         for (auto& mechanic : cardData["mechanics"])
@@ -108,8 +109,8 @@ void CardLoader::Load(std::vector<Card>& cards) const
              iter != cardData["playRequirements"].end(); ++iter)
         {
             playRequirements.try_emplace(
-                PlayReq::_from_string(iter.key().c_str())),
-                iter.value().get<int>();
+                PlayReq::_from_string(iter.key().c_str()),
+                iter.value().get<int>());
         }
 
         std::vector<std::string> entourages;
@@ -130,19 +131,12 @@ void CardLoader::Load(std::vector<Card>& cards) const
         card.text = text;
         card.isCollectible = collectible;
 
-        card.attack = (attack != -1)
-                          ? optional<size_t>(attack)
-                          : nullopt;
-        card.health = (health != -1)
-                          ? optional<size_t>(health)
-                          : nullopt;
-        card.durability = (durability != -1)
-                              ? optional<size_t>(durability)
-                              : nullopt;
+        card.attack = (attack != -1) ? optional<std::size_t>(attack) : nullopt;
+        card.health = (health != -1) ? optional<std::size_t>(health) : nullopt;
+        card.durability =
+            (durability != -1) ? optional<std::size_t>(durability) : nullopt;
         card.spellDamage =
-            (spellDamage != -1)
-                ? optional<size_t>(spellDamage)
-                : nullopt;
+            (spellDamage != -1) ? optional<std::size_t>(spellDamage) : nullopt;
 
         card.cost = cost;
         card.mechanics = mechanics;

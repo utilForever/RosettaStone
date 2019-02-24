@@ -52,90 +52,87 @@ class Cards
     //! Deleted move assignment operator.
     Cards& operator=(Cards&& cards) = delete;
 
-    //! Returns a reference to instance of Cards class.
-    //! \return A reference to instance of Cards class.
+    //! Returns an instance of Cards class.
+    //! \return An instance of Cards class.
     static Cards& GetInstance();
 
-    //! Returns a list of pointers to all cards.
-    //! \return A list of pointers to all cards.
+    //! Returns a list of all cards.
+    //! \return A list of all cards.
     const std::vector<Card>& GetAllCards() const;
 
-    //! Returns a pointer to card that matches \p id.
+    //! Returns a card that matches \p id.
     //! \param id The ID of the card.
-    //! \return A pointer to card that matches \p id.
+    //! \return A card that matches \p id.
     Card FindCardByID(const std::string& id);
 
-    //! Returns a list of pointers to each card that matches \p rarity.
+    //! Returns a list of cards that matches \p rarity.
     //! \param rarity The rarity of the card.
-    //! \return A list of pointers to each card that matches \p rarity.
+    //! \return A list of cards that matches condition.
     std::vector<Card> FindCardByRarity(Rarity rarity);
 
-    //! Returns a list of pointers to each card that matches \p cardClass.
+    //! Returns a list of cards that matches \p cardClass.
     //! \param cardClass The class of the card.
-    //! \return A list of pointers to each card that matches \p cardClass.
+    //! \return A list of cards that matches condition.
     std::vector<Card> FindCardByClass(CardClass cardClass);
 
-    //! Returns a list of pointers to each card that matches \p cardSet.
+    //! Returns a list of cards that matches \p cardSet.
     //! \param cardSet The set of the card.
-    //! \return A list of pointers to each card that matches \p cardSet.
+    //! \return A list of cards that matches condition.
     std::vector<Card> FindCardBySet(CardSet cardSet);
 
-    //! Returns a list of pointers to each card that matches \p cardType.
+    //! Returns a list of cards that matches \p cardType.
     //! \param cardType The type of the card.
-    //! \return A list of pointers to each card that matches \p cardType.
+    //! \return A list of cards that matches condition.
     std::vector<Card> FindCardByType(CardType cardType);
 
-    //! Returns a list of pointers to each card that matches \p race.
+    //! Returns a list of cards that matches \p race.
     //! \param race The race of the card.
-    //! \return A list of pointers to each card that matches \p race.
+    //! \return A list of cards that matches condition.
     std::vector<Card> FindCardByRace(Race race);
 
-    //! Returns a pointer to card that matches \p name.
+    //! Returns a card that matches \p name.
     //! \param name The name of the card.
-    //! \return A pointer to card that matches \p name.
+    //! \return A card that matches condition.
     Card FindCardByName(const std::string& name);
 
-    //! Returns a list of pointers to each card whose cost is between \p minVal
-    //! and \p maxVal.
+    //! Returns a list of cards whose cost is between \p minVal and \p maxVal.
     //! \param minVal The minimum cost value of the card.
     //! \param maxVal The maximum cost value of the card.
-    //! \return A list of pointers to each card whose cost is between \p minVal and \p maxVal.
-    std::vector<Card> FindCardByCost(size_t minVal, size_t maxVal);
+    //! \return A list of cards that matches condition.
+    std::vector<Card> FindCardByCost(std::size_t minVal, std::size_t maxVal);
 
-    //! Returns a list of pointers to each card whose attack is between \p minVal
-    //! and \p maxVal.
+    //! Returns a list of cards whose attack is between \p minVal and \p maxVal.
     //! \param minVal The minimum attack value of the card.
     //! \param maxVal The maximum attack value of the card.
-    //! \return A list of pointers to each card whose attack is between \p minVal and \p maxVal.
-    std::vector<Card> FindCardByAttack(size_t minVal, size_t maxVal);
+    //! \return A list of cards that matches condition.
+    std::vector<Card> FindCardByAttack(std::size_t minVal, std::size_t maxVal);
 
-    //! Returns a list of pointers to each card whose health is between \p minVal
-    //! and \p maxVal.
+    //! Returns a list of cards whose health is between \p minVal and \p maxVal.
     //! \param minVal The minimum health value of the card.
     //! \param maxVal The maximum health value of the card.
-    //! \return A list of pointers to each card whose health is between \p minVal and \p maxVal.
-    std::vector<Card> FindCardByHealth(size_t minVal, size_t maxVal);
+    //! \return A list of cards that matches condition.
+    std::vector<Card> FindCardByHealth(std::size_t minVal, std::size_t maxVal);
 
-    //! Returns a list of pointers to each card whose spell damage is between \p minVal
-    //! and \p maxVal.
+    //! Returns a list of cards whose damage is between \p minVal and \p maxVal.
     //! \param minVal The minimum spell damage value of the card.
     //! \param maxVal The maximum spell damage value of the card.
-    //! \return A list of pointers to each card whose spell damage is between \p minVal and \p maxVal.
-    std::vector<Card> FindCardBySpellDamage(size_t minVal, size_t maxVal);
+    //! \return A list of cards that matches condition.
+    std::vector<Card> FindCardBySpellDamage(std::size_t minVal,
+                                            std::size_t maxVal);
 
-    //! Returns a list of pointers to each card that has \p mechanics.
+    //! Returns a list of cards that has \p mechanics.
     //! \param mechanics The mechanics of the card.
-    //! \return A list of pointers to each card that has \p mechanics.
+    //! \return A list of cards that matches condition.
     std::vector<Card> FindCardByMechanics(std::vector<GameTag> mechanics);
 
-    //! Returns a pointer to hero card that matches \p cardClass.
+    //! Returns a hero card that matches \p cardClass.
     //! \param cardClass The class of the card.
-    //! \return A pointer to hero card that matches \p cardClass.
+    //! \return A hero card that matches condition.
     Card GetHeroCard(CardClass cardClass);
 
-    //! Returns a pointer to default hero power card that matches \p cardClass.
+    //! Returns a default hero power card that matches \p cardClass.
     //! \param cardClass The class of the card.
-    //! \return A pointer to default hero power card that matches \p cardClass.
+    //! \return A default hero power card that matches condition.
     Card GetDefaultHeroPower(CardClass cardClass);
 
  private:

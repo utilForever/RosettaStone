@@ -18,7 +18,8 @@ class Character;
 //!
 //! \brief Enchant class.
 //!
-//! This class stores some effects of enchantment card.
+//! This class stores an enchantment, also known as a buff or debuff. It is a
+//! special effect gained by a minion, or in rarer occasions by a weapon.
 //!
 class Enchant
 {

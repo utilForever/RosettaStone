@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #endif
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 
 #if defined(HEARTHSTONEPP_WINDOWS)
@@ -25,7 +26,7 @@ namespace filesystem = std::experimental::filesystem;
 
 namespace Hearthstonepp
 {
-Account* AccountLoader::Load(std::string email) const
+AccountInfo* AccountLoader::Load(std::string email) const
 {
     // Read account data from JSON file
     std::ifstream playerFile("Datas/" + email + ".json");
@@ -36,7 +37,7 @@ Account* AccountLoader::Load(std::string email) const
         return nullptr;
     }
 
-    Account* p;
+    AccountInfo* account;
 
     try
     {
@@ -44,7 +45,7 @@ Account* AccountLoader::Load(std::string email) const
 
         auto nickname = j["nickname"].get<std::string>();
 
-        std::vector<Deck*> decks;
+        std::vector<DeckInfo*> decks;
         decks.reserve(j["decks"].size());
 
         if (!j["decks"].is_null())
@@ -55,7 +56,7 @@ Account* AccountLoader::Load(std::string email) const
                     deck["class"].get<std::string>().c_str());
                 const std::string deckName = deck["name"].get<std::string>();
 
-                Deck* d = new Deck(deckName, deckClass);
+                DeckInfo* d = new DeckInfo(deckName, deckClass);
                 for (auto& card : deck["cards"])
                 {
                     const std::string cardID = card["id"].get<std::string>();
@@ -68,7 +69,7 @@ Account* AccountLoader::Load(std::string email) const
             }
         }
 
-        p = new Account(std::move(email), std::move(nickname), decks);
+        account = new AccountInfo(std::move(email), std::move(nickname), decks);
     }
     catch (...)
     {
@@ -79,10 +80,10 @@ Account* AccountLoader::Load(std::string email) const
 
     playerFile.close();
 
-    return p;
+    return account;
 }
 
-void AccountLoader::Save(Account* account) const
+void AccountLoader::Save(AccountInfo* account) const
 {
     // Store account data to JSON file
 #if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
@@ -105,7 +106,8 @@ void AccountLoader::Save(Account* account) const
 
         j["decks"] = nlohmann::json::array();
 
-        for (size_t deckIdx = 0; deckIdx < account->GetNumOfDeck(); ++deckIdx)
+        for (std::size_t deckIdx = 0; deckIdx < account->GetNumOfDeck();
+             ++deckIdx)
         {
             j["decks"].emplace_back(nlohmann::json::object(
                 { { "class",
@@ -113,7 +115,7 @@ void AccountLoader::Save(Account* account) const
                   { "name", account->GetDeck(deckIdx)->GetName() },
                   { "cards", nlohmann::json::array() } }));
 
-            for (size_t cardIdx = 0;
+            for (std::size_t cardIdx = 0;
                  cardIdx < account->GetDeck(deckIdx)->GetUniqueNumOfCards();
                  ++cardIdx)
             {

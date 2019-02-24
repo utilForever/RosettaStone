@@ -3,7 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/Cards/Entity.hpp>
+#include <hspp/Models/Entity.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 
 namespace Hearthstonepp::SimpleTasks
@@ -16,16 +16,16 @@ TaskID InitAttackCountTask::GetTaskID() const
 TaskStatus InitAttackCountTask::Impl(Player& player)
 {
     ProcessMyField(player);
-    ProcessEnemyField(player.GetOpponent());
+    ProcessOpField(player.GetOpponent());
 
     return TaskStatus::INIT_ATTACK_COUNT_SUCCESS;
 }
 
-void InitAttackCountTask::ProcessMyField(Player& my)
+void InitAttackCountTask::ProcessMyField(Player& player)
 {
     // Add minions in field and hero
-    std::vector<Character*> characters = my.GetField();
-    characters.emplace_back(my.GetHero());
+    std::vector<Character*> characters = player.GetField().GetAllMinions();
+    characters.emplace_back(player.GetHero());
 
     for (auto& character : characters)
     {
@@ -57,23 +57,27 @@ void InitAttackCountTask::ProcessMyField(Player& my)
     }
 }
 
-void InitAttackCountTask::ProcessEnemyField(Player& opponent)
+void InitAttackCountTask::ProcessOpField(Player& player)
 {
-    for (auto& minion : opponent.GetField())
+    // Add minions in field and hero
+    std::vector<Character*> characters = player.GetField().GetAllMinions();
+    characters.emplace_back(player.GetHero());
+
+    for (auto& character : characters)
     {
         // Process Frozen status
-        if (minion->GetGameTag(GameTag::FROZEN) == 1)
+        if (character->GetGameTag(GameTag::FROZEN) == 1)
         {
-            minion->numTurnToUnfreeze--;
+            character->numTurnToUnfreeze--;
 
-            if (minion->numTurnToUnfreeze == 0)
+            if (character->numTurnToUnfreeze == 0)
             {
-                minion->SetGameTag(GameTag::FROZEN, 0);
+                character->SetGameTag(GameTag::FROZEN, 0);
             }
         }
 
         // Attack count is always 0 because it's my turn
-        minion->attackableCount = 0;
+        character->attackableCount = 0;
     }
 }
 }  // namespace Hearthstonepp::SimpleTasks

@@ -4,11 +4,12 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Tasks/SimpleTasks/HealTask.hpp>
+#include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace Hearthstonepp::SimpleTasks
 {
 HealTask::HealTask(EntityType entityType, int amount)
-    : m_entityType(entityType), m_amount(amount)
+    : ITask(entityType), m_amount(amount)
 {
     // Do nothing
 }
@@ -20,18 +21,13 @@ TaskID HealTask::GetTaskID() const
 
 TaskStatus HealTask::Impl(Player& player)
 {
-    if (m_entityType == +EntityType::HERO)
-    {
-        if (player.GetHero()->health + m_amount <= player.GetHero()->maxHealth)
-        {
-            player.GetHero()->health += m_amount;
-        }
-        else
-        {
-            player.GetHero()->health = player.GetHero()->maxHealth;
-        }
+    auto entities =
+        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-        return TaskStatus::HEAL_SUCCESS;
+    for (auto& entity : entities)
+    {
+        auto character = dynamic_cast<Character*>(entity);
+        character->TakeHeal(*character, m_amount);
     }
 
     return TaskStatus::HEAL_SUCCESS;

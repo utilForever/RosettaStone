@@ -19,7 +19,7 @@ TaskMetaTrait::TaskMetaTrait(TaskID id, TaskStatus status)
     // Do nothing
 }
 
-TaskMetaTrait::TaskMetaTrait(TaskID id, TaskStatus status, BYTE userID)
+TaskMetaTrait::TaskMetaTrait(TaskID id, TaskStatus status, std::size_t userID)
     : m_id(id), m_status(status), m_userID(userID)
 {
     // Do nothing
@@ -51,7 +51,7 @@ void TaskMetaTrait::SetStatus(TaskStatus status)
     m_status = status;
 }
 
-BYTE TaskMetaTrait::GetUserID() const
+std::size_t TaskMetaTrait::GetUserID() const
 {
     return m_userID;
 }

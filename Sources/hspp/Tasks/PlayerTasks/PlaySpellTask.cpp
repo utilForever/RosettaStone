@@ -3,12 +3,11 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Commons/Constants.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
-#include <hspp/Policy/Policy.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
-
-#include <algorithm>
 
 using namespace Hearthstonepp::SimpleTasks;
 
@@ -27,52 +26,61 @@ TaskID PlaySpellTask::GetTaskID() const
 
 TaskStatus PlaySpellTask::Impl(Player& player)
 {
-    BYTE position;
-
-    if (m_target != nullptr)
+    Power power = m_source->card.power;
+    if (power.GetPowerTask().empty())
     {
-        const auto fieldIter = std::find(player.GetField().begin(),
-                                         player.GetField().end(), m_target);
-        position = static_cast<BYTE>(
-            std::distance(player.GetField().begin(), fieldIter));
+        return TaskStatus::PLAY_SPELL_NO_POWER;
     }
-    else
-    {
-        TaskMeta req = player.GetPolicy().Require(player, TaskID::PLAY_SPELL);
 
-        if (!req.HasObjects())
+    Character* target = nullptr;
+
+    if (NeedTarget(power))
+    {
+        std::size_t position;
+
+        if (m_target != nullptr)
         {
-            return TaskStatus::PLAY_SPELL_INVALID_REQUIRE;
+            position = FindTargetPos(player);
+        }
+        else
+        {
+            TaskMeta req =
+                player.GetPolicy().Require(player, TaskID::PLAY_SPELL);
+
+            if (!req.HasObjects())
+            {
+                return TaskStatus::PLAY_SPELL_INVALID_REQUIRE;
+            }
+
+            position = req.GetObject<std::size_t>();
         }
 
-        position = req.GetObject<BYTE>();
+        // Verify field position
+        if (position >= 2 * FIELD_SIZE + 2)
+        {
+            return TaskStatus::PLAY_SPELL_POSITION_OUT_OF_RANGE;
+        }
+
+        // Set target by position
+        target = GetTargetByPos(player, position);
+
+        // Verify valid target
+        if (target == nullptr)
+        {
+            return TaskStatus::PLAY_SPELL_INVALID_TARGET;
+        }
     }
 
-    // Verify field position
-    if (position > player.GetField().size())
-    {
-        return TaskStatus::PLAY_SPELL_POSITION_OUT_OF_RANGE;
-    }
-
-    // Verify valid target
-    if (player.GetField()[position] == nullptr)
-    {
-        return TaskStatus::PLAY_SPELL_INVALID_TARGET;
-    }
-
-    const auto cost = static_cast<BYTE>(m_source->card->cost);
+    const auto cost = static_cast<std::size_t>(m_source->card.cost);
     const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
     // Process PowerTasks
-    if (m_source->card->power != nullptr)
+    for (auto& powerTask : m_source->card.power.GetPowerTask())
     {
-        for (auto& power : m_source->card->power->GetPowerTask())
-        {
-            power->SetTarget(player.GetField()[position]);
-            power->Run(player);
-        }
+        powerTask->SetTarget(target);
+        powerTask->Run(player);
     }
 
     if (modified == TaskStatus::MODIFY_MANA_SUCCESS)
@@ -81,5 +89,90 @@ TaskStatus PlaySpellTask::Impl(Player& player)
     }
 
     return TaskStatus::PLAY_SPELL_MODIFY_MANA_FAIL;
+}
+
+bool PlaySpellTask::NeedTarget(Power& power)
+{
+    for (auto& powerTask : power.GetPowerTask())
+    {
+        if (powerTask->GetEntityType() == +EntityType::SOURCE ||
+            powerTask->GetEntityType() == +EntityType::TARGET)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+std::size_t PlaySpellTask::FindTargetPos(Player& player) const
+{
+    if (m_target != nullptr)
+    {
+        Player& opponent = player.GetOpponent();
+
+        if (m_target == player.GetHero())
+        {
+            return INDEX_MY_MINION;
+        }
+
+        if (m_target == opponent.GetHero())
+        {
+            return INDEX_OPPONENT_HERO;
+        }
+
+        const auto minion = dynamic_cast<Minion*>(m_target);
+        if (minion == nullptr)
+        {
+            return 0;
+        }
+
+        auto& myField = player.GetField();
+        const auto myMinionPos = myField.FindMinionPos(*minion).value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (myMinionPos != std::numeric_limits<std::size_t>::max())
+        {
+            return static_cast<std::size_t>(myMinionPos + INDEX_MY_MINION);
+        }
+
+        auto& opField = opponent.GetField();
+        const auto opMinionPos = opField.FindMinionPos(*minion).value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (opMinionPos != std::numeric_limits<std::size_t>::max())
+        {
+            return static_cast<std::size_t>(opMinionPos +
+                                            INDEX_OPPONENT_MINION);
+        }
+    }
+
+    return 0;
+}
+
+Character* PlaySpellTask::GetTargetByPos(Player& player, std::size_t pos)
+{
+    Player& opPlayer = player.GetOpponent();
+
+    if (pos == INDEX_MY_HERO)
+    {
+        return player.GetHero();
+    }
+
+    if (pos >= INDEX_MY_MINION && pos < INDEX_MY_MINION + FIELD_SIZE)
+    {
+        return player.GetField().GetMinion(pos - INDEX_MY_MINION);
+    }
+
+    if (pos == INDEX_OPPONENT_HERO)
+    {
+        return opPlayer.GetHero();
+    }
+
+    if (pos >= INDEX_OPPONENT_MINION &&
+        pos < INDEX_OPPONENT_MINION + FIELD_SIZE)
+    {
+        return opPlayer.GetField().GetMinion(pos - INDEX_OPPONENT_MINION);
+    }
+
+    return nullptr;
 }
 }  // namespace Hearthstonepp::PlayerTasks

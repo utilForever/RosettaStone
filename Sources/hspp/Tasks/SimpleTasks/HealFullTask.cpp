@@ -7,7 +7,7 @@
 
 namespace Hearthstonepp::SimpleTasks
 {
-HealFullTask::HealFullTask(EntityType entityType) : m_entityType(entityType)
+HealFullTask::HealFullTask(EntityType entityType) : ITask(entityType)
 {
     // Do nothing
 }

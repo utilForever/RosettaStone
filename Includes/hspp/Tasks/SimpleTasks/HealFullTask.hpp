@@ -27,8 +27,6 @@ class HealFullTask : public ITask
     TaskID GetTaskID() const override;
 
  private:
-    EntityType m_entityType = EntityType::EMPTY;
-
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.

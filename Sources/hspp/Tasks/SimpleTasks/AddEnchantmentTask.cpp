@@ -10,7 +10,7 @@ namespace Hearthstonepp::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
                                        EntityType entityType)
-    : m_cardID(cardID), m_entityType(entityType)
+    : ITask(entityType), m_cardID(cardID)
 {
     // Do nothing
 }
@@ -28,13 +28,8 @@ TaskStatus AddEnchantmentTask::Impl(Player&)
         return TaskStatus::NULLPTR;
     }
 
-    Power* power = Cards::GetInstance().FindCardByID(m_cardID).power;
-    if (power == nullptr)
-    {
-        return TaskStatus::NULLPTR;
-    }
-
-    power->GetEnchant()->ActivateTo(dynamic_cast<Character*>(m_target));
+    Power power = Cards::GetInstance().FindCardByID(m_cardID).power;
+    power.GetEnchant().ActivateTo(dynamic_cast<Character*>(m_target));
 
     return TaskStatus::ADD_ENCHANTMENT_SUCCESS;
 }

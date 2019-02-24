@@ -3,13 +3,12 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/Policy/Policy.hpp>
+#include <hspp/Actions/Targeting.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayWeaponTask.hpp>
-
-#include <algorithm>
 
 namespace Hearthstonepp::PlayerTasks
 {
@@ -26,14 +25,19 @@ TaskID PlayCardTask::GetTaskID() const
 
 TaskStatus PlayCardTask::Impl(Player& player)
 {
-    BYTE handIndex;
+    std::size_t handIndex;
 
     if (m_source != nullptr)
     {
-        const auto handIter = std::find(player.GetHand().begin(),
-                                        player.GetHand().end(), m_source);
-        handIndex = static_cast<BYTE>(
-            std::distance(player.GetHand().begin(), handIter));
+        auto& hand = player.GetHand();
+        const auto handPos = hand.FindCardPos(*m_source).value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (handPos == std::numeric_limits<std::size_t>::max())
+        {
+            return TaskStatus::PLAY_CARD_INVALID_POSITION;
+        }
+
+        handIndex = static_cast<std::size_t>(handPos);
     }
     else
     {
@@ -44,35 +48,36 @@ TaskStatus PlayCardTask::Impl(Player& player)
             return TaskStatus::PLAY_CARD_INVALID_REQUIRE;
         }
 
-        handIndex = req.GetObject<BYTE>();
+        handIndex = req.GetObject<std::size_t>();
     }
 
+    Entity* entity = player.GetHand().GetCard(handIndex);
+
     // Verify index of card hand
-    if (handIndex >= player.GetHand().size())
+    if (handIndex >= player.GetHand().GetNumOfCards())
     {
         return TaskStatus::PLAY_CARD_IDX_OUT_OF_RANGE;
     }
 
     // Verify mana is sufficient
-    if (player.GetHand()[handIndex]->card->cost > player.GetAvailableMana())
+    if (entity->card.cost > player.GetAvailableMana())
     {
         return TaskStatus::PLAY_CARD_NOT_ENOUGH_MANA;
     }
 
-    Entity* entity = player.GetHand()[handIndex];
+    // Verify target is valid
+    if (!Generic::IsValidTarget(entity, m_target))
+    {
+        return TaskStatus::PLAY_CARD_INVALID_TARGET;
+    }
 
     // Erase from user's hand
-    if (player.GetHand().size() == 1)
-    {
-        player.GetHand().clear();
-    }
-    else
-    {
-        player.GetHand().erase(player.GetHand().begin() + handIndex);
-    }
+    player.GetHand().RemoveCard(*entity);
+
+    entity->SetOwner(player);
 
     // Pass to sub-logic
-    switch (entity->card->cardType)
+    switch (entity->card.cardType)
     {
         case CardType::MINION:
             return PlayMinionTask(entity, m_fieldPos, m_target).Run(player);

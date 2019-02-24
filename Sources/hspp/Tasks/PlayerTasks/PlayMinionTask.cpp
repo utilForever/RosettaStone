@@ -3,11 +3,9 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/Policy/Policy.hpp>
+#include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
-
-#include <algorithm>
 
 using namespace Hearthstonepp::SimpleTasks;
 
@@ -26,14 +24,18 @@ TaskID PlayMinionTask::GetTaskID() const
 
 TaskStatus PlayMinionTask::Impl(Player& player)
 {
-    BYTE position;
+    std::size_t position;
 
     if (m_fieldPos == -1)
     {
-        const auto fieldIter = std::find(player.GetField().begin(),
-                                         player.GetField().end(), nullptr);
-        position = static_cast<BYTE>(
-            std::distance(player.GetField().begin(), fieldIter));
+        const auto emptyPos = player.GetField().FindEmptyPos().value_or(
+            std::numeric_limits<std::size_t>::max());
+        if (emptyPos == std::numeric_limits<std::size_t>::max())
+        {
+            return TaskStatus::PLAY_MINION_FIELD_IS_FULL;
+        }
+
+        position = static_cast<std::size_t>(emptyPos);
     }
     else
     {
@@ -44,11 +46,11 @@ TaskStatus PlayMinionTask::Impl(Player& player)
             return TaskStatus::PLAY_MINION_INVALID_REQUIRE;
         }
 
-        position = req.GetObject<BYTE>();
+        position = req.GetObject<std::size_t>();
     }
 
     // Verify field position
-    if (position > player.GetField().size())
+    if (position > player.GetField().GetNumOfMinions())
     {
         return TaskStatus::PLAY_MINION_POSITION_OUT_OF_RANGE;
     }
@@ -61,34 +63,23 @@ TaskStatus PlayMinionTask::Impl(Player& player)
     }
 
     // Summon minion
-    if (player.GetField().empty())
-    {
-        player.GetField().emplace_back(character);
-    }
-    else
-    {
-        player.GetField().insert(player.GetField().begin() + position,
-                                 character);
-    }
+    character->Summon(position);
 
     // Apply card mechanics tags
-    for (const auto tags : m_source->card->mechanics)
+    for (const auto tags : m_source->card.mechanics)
     {
         m_source->SetGameTag(tags, 1);
     }
 
-    const auto cost = static_cast<BYTE>(m_source->card->cost);
+    const auto cost = static_cast<std::size_t>(m_source->card.cost);
     const TaskStatus modified =
         ModifyManaTask(ManaOperator::SUB, ManaType::AVAILABLE, cost)
             .Run(player);
 
     // Process PowerTasks
-    if (m_source->card->power != nullptr)
+    for (auto& power : m_source->card.power.GetPowerTask())
     {
-        for (auto& power : m_source->card->power->GetPowerTask())
-        {
-            power->Run(player);
-        }
+        power->Run(player);
     }
 
     if (modified == TaskStatus::MODIFY_MANA_SUCCESS)

@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_ACCOUNT_LOADER_HPP
 #define HEARTHSTONEPP_ACCOUNT_LOADER_HPP
 
-#include <hspp/Accounts/Account.hpp>
+#include <hspp/Accounts/AccountInfo.hpp>
 
 #include <json/json.hpp>
 
@@ -24,11 +24,11 @@ class AccountLoader
     //! Loads account information from a json file named \p email.
     //! \param email The email address of the account.
     //! \return Account instance that stores information that was loaded.
-    Account* Load(std::string email) const;
+    AccountInfo* Load(std::string email) const;
 
     //! Saves account information \p p to a json file.
     //! \param account A pointer to account instance that stores information.
-    void Save(Account* account) const;
+    void Save(AccountInfo* account) const;
 };
 }  // namespace Hearthstonepp
 

@@ -7,8 +7,7 @@
 #ifndef HEARTHSTONEPP_TASKS_HPP
 #define HEARTHSTONEPP_TASKS_HPP
 
-#include <hspp/Accounts/Player.hpp>
-#include <hspp/Enums/CardEnums.hpp>
+#include <hspp/Models/Player.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 #include <hspp/Tasks/TaskStatus.hpp>
 
@@ -30,7 +29,20 @@ class ITask
     //! Default constructor.
     ITask() = default;
 
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target.
+    ITask(EntityType entityType);
+
+    //! Constructs task with given \p source and \p target.
+    //! \param source A source entity to apply task.
+    //! \param target A target entity to apply task.
     ITask(Entity* source, Entity* target);
+
+    //! Constructs task with given \p entityType, \p source and \p target.
+    //! \param entityType The entity type of target.
+    //! \param source A source entity to apply task.
+    //! \param target A target entity to apply task.
+    ITask(EntityType entityType, Entity* source, Entity* target);
 
     //! Default destructor.
     virtual ~ITask() = default;
@@ -47,6 +59,14 @@ class ITask
     //! Default move assignment operator.
     ITask& operator=(ITask&& task) = default;
 
+    //! Returns entity type.
+    //! \return Entity type.
+    EntityType GetEntityType() const;
+
+    //! Sets the source.
+    //! \param source A pointer to the source.
+    void SetSource(Entity* source);
+
     //! Sets the target.
     //! \param target A pointer to the target.
     void SetTarget(Entity* target);
@@ -61,6 +81,7 @@ class ITask
     virtual TaskID GetTaskID() const = 0;
 
  protected:
+    EntityType m_entityType = EntityType::EMPTY;
     Entity* m_source = nullptr;
     Entity* m_target = nullptr;
 

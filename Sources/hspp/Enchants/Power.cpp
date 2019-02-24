@@ -13,9 +13,14 @@ std::vector<ITask*>& Power::GetPowerTask()
     return m_powerTask;
 }
 
-Enchant* Power::GetEnchant() const
+Enchant& Power::GetEnchant()
 {
     return m_enchant;
+}
+
+void Power::ClearData()
+{
+    m_powerTask.clear();
 }
 
 void Power::AddPowerTask(ITask* task)
@@ -23,10 +28,8 @@ void Power::AddPowerTask(ITask* task)
     m_powerTask.emplace_back(task);
 }
 
-void Power::AddEnchant(Enchant* enchant)
+void Power::AddEnchant(Enchant&& enchant)
 {
-    delete m_enchant;
-
-    m_enchant = enchant;
+    m_enchant = std::move(enchant);
 }
 }  // namespace Hearthstonepp

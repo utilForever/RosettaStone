@@ -38,8 +38,7 @@ DoUntil::DoUntil(ITask&& task, std::function<bool(TaskStatus)>&& condition)
 }
 
 DoUntil::DoUntil(ITask&& task, TaskStatus id)
-    : m_task(task),
-      m_condition([=](TaskStatus meta) { return meta == id; })
+    : m_task(task), m_condition([=](TaskStatus meta) { return meta == id; })
 {
     // Do nothing
 }
@@ -51,19 +50,19 @@ TaskID DoUntil::GetTaskID() const
 
 TaskStatus DoUntil::Impl(Player& player)
 {
-    TaskStatus meta;
+    TaskStatus status;
 
     while (true)
     {
-        meta = m_task.Run(player);
+        status = m_task.Run(player);
 
         // Do until the condition satisfied
-        if (m_condition(meta))
+        if (m_condition(status))
         {
             break;
         }
     }
 
-    return meta;
+    return status;
 }
 }  // namespace Hearthstonepp
