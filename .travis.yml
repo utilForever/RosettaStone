@@ -17,7 +17,7 @@ matrix:
       env:
         - BUILD_TYPE=Debug
       script:
-        - bash Scripts/travis_build_docker.sh Scripts/Dockerfile.bionic-codecov bionic-codecov
+        - bash Scripts/travis_build_docker_codecov.sh Scripts/Dockerfile.bionic-codecov bionic-codecov
     - name: Test Docker based on Ubuntu 18.10 LTS + gcc
       os: linux
       dist: trusty

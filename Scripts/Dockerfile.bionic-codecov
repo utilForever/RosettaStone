@@ -28,5 +28,3 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON && \
     lcov -r coverage.info '*/Tests/*' -o coverage.info && \
     lcov -r coverage.info '*/Tools/*' -o coverage.info && \
     lcov -l coverage.info
-
-RUN bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"    

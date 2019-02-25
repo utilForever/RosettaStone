@@ -9,14 +9,14 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-venv \
     cmake \
-    clang-8.0 \
+    clang-8 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
 
 WORKDIR /app/build
-RUN cmake .. -DCMAKE_C_COMPILER=clang-8.0 -DCMAKE_CXX_COMPILER=clang++-8.0 && \
+RUN cmake .. -DCMAKE_C_COMPILER=clang-8 -DCMAKE_CXX_COMPILER=clang++-8 && \
     make -j "$(nproc)" && \
     make install && \
     bin/UnitTests
