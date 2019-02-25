@@ -33,7 +33,7 @@ Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learnin
 
 ### Basic & Classic
 
-- 24% Basic (33 of 133 Cards)
+- 26% Basic (35 of 133 Cards)
 - 8% Classic (20 of 236 Cards)
 - 0% Hall of Fame (0 of 10 Cards)
 
@@ -150,9 +150,11 @@ Copyright (C) 2017-2018 Hearthstone++ Team
 
 - [Chris Ohk](http://www.github.com/utilForever)
 - [Youngjoong Kim](https://github.com/revsic)
-- [SeungHyun Jeon](https://github.com/FuZer)
-- [SungHyun Kim](https://github.com/devArtoria)
+- [Seunghyun Jeon](https://github.com/FuZer)
+- [Sunghyun Kim](https://github.com/devArtoria)
 - [Hyeongchan Kim](https://github.com/kozistr)
+- [Yoohan Park](https://github.com/CreatorSeraph)
+- [Junghyun Choi](https://github.com/junghyun397)
 
 Hearthstone++ is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
