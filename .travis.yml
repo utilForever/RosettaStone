@@ -17,7 +17,7 @@ matrix:
       env:
         - BUILD_TYPE=Debug
       script:
-        - bash scripts/travis_build_docker.sh Scripts/Dockerfile.bionic-codecov bionic-codecov
+        - bash Scripts/travis_build_docker.sh Scripts/Dockerfile.bionic-codecov bionic-codecov
     - name: Test Docker based on Ubuntu 18.10 LTS + gcc
       os: linux
       dist: trusty
@@ -38,14 +38,14 @@ matrix:
       sudo: required
       services: docker
       script:
-        - sh scripts/travis_build_docker.sh Scripts/Dockerfile.disco.gcc-latest disco-gcc-latest
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.gcc-latest disco-gcc-latest
     - name: Test Docker based on Ubuntu 19.04 LTS + clang-latest
       os: linux
       dist: trusty
       sudo: required
       services: docker
       script:
-        - sh scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest        
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest        
     - name: Test OS X 10.14 + Xcode 10.2 + clang
       os: osx
       osx_image: xcode10.2
