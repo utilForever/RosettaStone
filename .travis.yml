@@ -2,35 +2,53 @@ language: cpp
 
 matrix:
   include:
-    # Test Docker based on Ubuntu 18.04 LTS + gcc
-    - os: linux
+    - name: Test Docker based on Ubuntu 18.04 LTS + gcc
+      os: linux
       dist: trusty
       sudo: required
       services: docker
       script:
         - sh Scripts/travis_build_docker.sh
-    # Test OS X 10.14 + Xcode 10.2 + clang
-    - os: osx
+    - name: Test Docker based on Ubuntu 18.04 LTS + gcc + codecov
+      os: linux
+      dist: trusty
+      sudo: required
+      compiler: gcc
+      env:
+        - BUILD_TYPE=Debug
+      script:
+        - bash scripts/travis_build_docker.sh Scripts/Dockerfile.bionic-codecov bionic-codecov
+    - name: Test Docker based on Ubuntu 18.10 LTS + gcc
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.cosmic cosmic
+    - name: Test Docker based on Ubuntu 19.04 LTS + gcc
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco disco        
+    - name: Test Docker based on Ubuntu 19.04 LTS + gcc-latest
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh scripts/travis_build_docker.sh Scripts/Dockerfile.disco.gcc-latest disco-gcc-latest
+    - name: Test Docker based on Ubuntu 19.04 LTS + clang-latest
+      os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      script:
+        - sh scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest        
+    - name: Test OS X 10.14 + Xcode 10.2 + clang
+      os: osx
       osx_image: xcode10.2
       compiler: clang
       script:
         - sh Scripts/travis_build.sh
-
-before_install:
-  - eval "${MATRIX_EVAL}"
-  - if [ $TRAVIS_OS_NAME == linux ]; then 
-       sudo apt-get update -qq;
-       sudo apt-get install -y --no-install-recommends lcov;
-    fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then 
-       brew update;
-       brew install lcov;
-       wget https://github.com/google/googletest/archive/release-1.8.0.tar.gz;
-       tar xvf release-1.8.0.tar.gz;
-       cd googletest-release-1.8.0;
-       cmake .;
-       sudo make -j $CPU_NUM install && cd ..;
-    fi
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)

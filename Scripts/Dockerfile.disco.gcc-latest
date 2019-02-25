@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:19.04
 LABEL maintainer "Chris Ohk <utilforever@gmail.com>"
 
 RUN apt-get update && apt-get install -y \
@@ -9,13 +9,15 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-venv \
     cmake \
+    gcc-8.2 \
+    g++-8.2 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
 
 WORKDIR /app/build
-RUN cmake .. && \
+RUN cmake .. -DCMAKE_C_COMPILER=gcc-8.2 -DCMAKE_CXX_COMPILER=g++-8.2 && \
     make -j "$(nproc)" && \
     make install && \
     bin/UnitTests
