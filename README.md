@@ -115,16 +115,16 @@ Contributions are always welcome, either reporting issues/bugs or forking the re
 
   * [Code of Conduct](./Documents/CodeOfConduct.md)
   * [Issues](./Documents/Issues.md)
-    * [How to Contribute in Issues](./Issues.md#how-to-contribute-in-issues)
-    * [Asking for General Help](./Issues.md#asking-for-general-help)
-    * [Submitting a Bug Report](./Issues.md#submitting-a-bug-report)
-    * [Triaging a Bug Report](./Issues.md#triaging-a-bug-report)
-    * [Resolving a Bug Report](./Issues.md#resolving-a-bug-report)
+    * [How to Contribute in Issues](./Documents/Issues.md#how-to-contribute-in-issues)
+    * [Asking for General Help](./Documents/Issues.md#asking-for-general-help)
+    * [Submitting a Bug Report](./Documents/Issues.md#submitting-a-bug-report)
+    * [Triaging a Bug Report](./Documents/Issues.md#triaging-a-bug-report)
+    * [Resolving a Bug Report](./Documents/Issues.md#resolving-a-bug-report)
   * [Pull request](./Documents/PullRequests.md)
-    * [Setting up your local environment](./PullRequests.md#setting-up-your-local-environment)
-    * [Making Changes](./PullRequests.md#making-changes)
-    * [How to add card](./HowToAddCard.md)
-    * [How to add task](./HowToAddTask.md)
+    * [Setting up your local environment](./Documents/PullRequests.md#setting-up-your-local-environment)
+    * [Making Changes](./Documents/PullRequests.md#making-changes)
+    * [How to add card](./Documents/HowToAddCard.md)
+    * [How to add task](./Documents/HowToAddTask.md)
 
 ## Contact
 
