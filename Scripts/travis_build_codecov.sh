@@ -13,6 +13,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
 make UnitTests
 lcov -c -i -d Tests/UnitTests -o base.info
 bin/UnitTests
+lcov -c -d Tests/UnitTests -o test.info
 lcov -a base.info -a test.info -o coverage.info
 lcov -r coverage.info '/usr/*' -o coverage.info
 lcov -r coverage.info '*/Libraries/*' -o coverage.info
