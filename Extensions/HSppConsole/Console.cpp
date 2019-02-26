@@ -115,11 +115,8 @@ void Console::SignUp()
         break;
     }
 }
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+
 std::optional<Card> Console::SearchCard() const
-#elif defined(HEARTHSTONEPP_MACOSX)
-std::experimental::optional<Card> Console::SearchCard() const
-#endif
 {
     std::cout << "========================================\n";
     std::cout << "              Search Card!              \n";

@@ -18,11 +18,7 @@
 #include <array>
 #include <cctype>
 #include <functional>
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <optional>
-#elif defined(HEARTHSTONEPP_MACOSX)
-#include <experimental/optional>
-#endif
 #include <regex>
 
 constexpr std::size_t LOGIN_MENU_SIZE = 3;
@@ -110,11 +106,7 @@ class Console
  public:
     void SignIn();
     void SignUp();
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
     std::optional<Card> SearchCard() const;
-#elif defined(HEARTHSTONEPP_MACOSX)
-    std::experimental::optional<Card> SearchCard() const;
-#endif
     int ManageDeck();
     void SimulateGame() const;
     void Leave();

@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp::Generic
 {
-Entity* Draw(Player& player, optional<Entity> card)
+Entity* Draw(Player& player, std::optional<Entity> card)
 {
     if (player.GetDeck().IsEmpty())
     {
@@ -30,8 +30,8 @@ Entity* Draw(Player& player, optional<Entity> card)
         Entity* topCard = player.GetDeck().GetTopCard();
         if (topCard == nullptr)
         {
-			return nullptr;
-		}
+            return nullptr;
+        }
 
         entity = &player.GetDeck().RemoveCard(*topCard);
     }

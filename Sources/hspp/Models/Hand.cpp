@@ -58,7 +58,7 @@ std::vector<Entity*> Hand::GetAllCards()
     return ret;
 }
 
-optional<std::size_t> Hand::FindCardPos(Entity& card)
+std::optional<std::size_t> Hand::FindCardPos(Entity& card)
 {
     const auto iter = std::find(m_cards.begin(), m_cards.end(), &card);
     if (iter != std::end(m_cards))
@@ -66,7 +66,7 @@ optional<std::size_t> Hand::FindCardPos(Entity& card)
         return std::distance(std::begin(m_cards), iter);
     }
 
-    return nullopt;
+    return std::nullopt;
 }
 
 void Hand::AddCard(Entity& card)
