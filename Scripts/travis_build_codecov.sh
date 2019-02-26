@@ -4,6 +4,9 @@ set -e
 
 export NUM_JOBS=1
 
+brew update;
+brew install lcov;
+
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
