@@ -2,6 +2,21 @@ language: cpp
 
 matrix:
   include:
+    - name: Test Ubuntu 16.04 + gcc-7 + codecov
+      os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      dist: xenial
+      sudo: required
+      compiler: gcc
+      env:
+        - BUILD_TYPE=Debug      
+      script:
+        - sh Scripts/travis_build_codecov.sh
     - name: Test Docker based on Ubuntu 18.04 LTS + gcc
       os: linux
       dist: trusty
@@ -43,11 +58,5 @@ matrix:
       compiler: clang
       script:
         - sh Scripts/travis_build.sh
-    - name: Test OS X 10.14 + Xcode 10.2 + clang + codecov
-      os: osx
-      osx_image: xcode10.2
-      compiler: clang
-      env:
-        - BUILD_TYPE=Debug      
-      script:
-        - sh Scripts/travis_build_codecov.sh
+  before_install:
+    - eval "${MATRIX_EVAL}" 

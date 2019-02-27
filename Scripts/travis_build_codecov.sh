@@ -2,26 +2,30 @@
 
 set -e
 
+export TRAVIS_COMPILER=g++-7
+export CXX=g++-7
+export CXX_FOR_BUILD=g++-7
+export CC=gcc-7
+export CC_FOR_BUILD=gcc-7
+
 export NUM_JOBS=1
 
-brew update;
-brew install bash;
-brew install lcov;
+sudo apt-get install -yq gcovr ggcov lcov curl
 
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
 make UnitTests
-lcov -c -i -d Tests/UnitTests -o base.info
+lcov --gcov-tool /usr/bin/gcov-7 -c -i -d Tests/UnitTests -o base.info
 bin/UnitTests
-lcov -c -d Tests/UnitTests -o test.info
-lcov -a base.info -a test.info -o coverage.info
-lcov -r coverage.info '*/Toolchains/*' -o coverage.info
-lcov -r coverage.info '*/Libraries/*' -o coverage.info
-lcov -r coverage.info '*/Programs/*' -o coverage.info
-lcov -r coverage.info '*/Tests/*' -o coverage.info
-lcov -r coverage.info '*/Tools/*' -o coverage.info
-lcov -l coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -c -d Tests/UnitTests -o test.info
+lcov --gcov-tool /usr/bin/gcov-7 -a base.info -a test.info -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '/usr/*' -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Libraries/*' -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Programs/*' -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Tests/*' -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Tools/*' -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -l coverage.info
 
 curl -s https://codecov.io/bash > .codecov
 chmod +x .codecov
