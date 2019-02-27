@@ -22,4 +22,7 @@ lcov -r coverage.info '*/Programs/*' -o coverage.info
 lcov -r coverage.info '*/Tests/*' -o coverage.info
 lcov -r coverage.info '*/Tools/*' -o coverage.info
 lcov -l coverage.info
-bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+
+curl -s https://codecov.io/bash > .codecov
+chmod +x .codecov
+./.codecov
