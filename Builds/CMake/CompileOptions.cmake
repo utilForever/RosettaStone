@@ -128,14 +128,18 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_SYSTEM_NAME MATCHES "Linux")
 	)
 endif()
 
-if (NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
-	    -fprofile-arcs
-	    -ftest-coverage
-	)
+# Code coverage - Debug only
+# NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
+if (CMAKE_BUILD_TYPE MATCHES Debug AND (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
+    set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
+        -g
+        -O0
+        -fprofile-arcs
+        -ftest-coverage
+    )
 
-	set(DEFAULT_LINKER_OPTIONS ${DEFAULT_LINKER_OPTIONS}
-	    -fprofile-arcs
-	    -ftest-coverage
-	)
+    set(DEFAULT_LINKER_OPTIONS ${DEFAULT_LINKER_OPTIONS}
+        -fprofile-arcs
+        -ftest-coverage
+    )
 endif()
