@@ -24,6 +24,7 @@
 * [ ] Lifesteal
 * [ ] Magnetic
 * [ ] Mega-Windfury
+* [ ] Overkill
 * [ ] Overload
 * [ ] Passive
 * [x] Poisonous
