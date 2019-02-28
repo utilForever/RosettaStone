@@ -14,13 +14,13 @@ namespace Hearthstonepp::Generic
 //! \param player The player to add card to the hand.
 //! \param cardToDraw A card to draw in the deck.
 //! \return A dynamic allocated entity object.
-Entity* Draw(Player& player, optional<Entity> cardToDraw = nullopt);
+Entity* Draw(Player& player, std::optional<Entity> cardToDraw = std::nullopt);
 
 //! Draws a specific card to the hand.
 //! \param player The player to add card to the hand.
 //! \param card A card to draw to the hand.
 //! \return A dynamic allocated entity object.
-Entity* DrawCard(Player& player, Card card);
+Entity* DrawCard(Player& player, Card&& card);
 }  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_DRAW_HPP

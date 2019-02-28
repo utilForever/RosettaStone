@@ -15,7 +15,7 @@ To build the code, a compiler that supports C++17 is required. Platform-specific
 
 ### Building from macOS
 
-Hearthstone++ supports OS X 10.12.6 Sierra or higher. Also, Xcode 9 or higher and the command line tools are required for building Hearthstone++. Once ready, install [Homebrew](http://brew.sh) and run the following command line to setup [CMake](https://cmake.org/):
+Hearthstone++ supports OS X 10.14 Mojave or higher. Also, Xcode 10.2 or higher and the command line tools are required for building Hearthstone++. Once ready, install [Homebrew](http://brew.sh) and run the following command line to setup [CMake](https://cmake.org/):
 
 ```
 brew install cmake
@@ -104,7 +104,7 @@ Hearthstone++ uses ```lcov``` for the code coverage. For macOS and Ubuntu platfo
 ```
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Debug
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
 make -j 8
 lcov -c -i -d Tests/UnitTests -o base.info
 bin/UnitTests

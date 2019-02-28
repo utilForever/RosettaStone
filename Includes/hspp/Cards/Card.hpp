@@ -7,28 +7,13 @@
 #ifndef HEARTHSTONEPP_CARD_HPP
 #define HEARTHSTONEPP_CARD_HPP
 
-#include <hspp/Commons/Macros.hpp>
 #include <hspp/Enchants/Power.hpp>
 #include <hspp/Enums/CardEnums.hpp>
 
 #include <map>
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
 #include <optional>
-#elif defined(HEARTHSTONEPP_MACOSX)
-#include <experimental/optional>
-#endif
 #include <string>
 #include <vector>
-
-#if defined(HEARTHSTONEPP_MACOSX)
-template <typename T>
-using optional = std::experimental::optional<T>;
-inline constexpr auto nullopt = std::experimental::nullopt;
-#elif defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
-template <typename T>
-using optional = std::optional<T>;
-inline constexpr auto nullopt = std::nullopt;
-#endif
 
 namespace Hearthstonepp
 {
@@ -89,10 +74,10 @@ class Card
     std::string name;
     std::string text;
 
-    optional<std::size_t> attack;
-    optional<std::size_t> health;
-    optional<std::size_t> spellDamage;
-    optional<std::size_t> durability;
+    std::optional<std::size_t> attack;
+    std::optional<std::size_t> health;
+    std::optional<std::size_t> spellDamage;
+    std::optional<std::size_t> durability;
 
     std::size_t cost = 0;
 

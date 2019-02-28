@@ -103,7 +103,7 @@ void Entity::Destroy()
     // Do nothing
 }
 
-Entity* Entity::GetFromCard(Player& player, Card card)
+Entity* Entity::GetFromCard(Player& player, Card&& card)
 {
     Entity* result;
 

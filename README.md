@@ -10,9 +10,7 @@
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/Hearthstonepp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/Hearthstonepp/context:cpp)
 [![CodeFactor](https://www.codefactor.io/repository/github/utilforever/hearthstonepp/badge)](https://www.codefactor.io/repository/github/utilforever/hearthstonepp)
 
-**Important Notice: We use ```std::any_cast``` in Hearthstone++ core library. ```std::any_cast``` is one of C++17 library features. Unfortunately, it is introduced macOS 10.14. Currently, Travis CI and Azure Pipelines supports macOS 10.13 only. They will support macOS 10.14 soon, so we'll stop supporting it for a while. See [this](https://github.com/utilForever/Hearthstonepp/issues/185) for more details. Thanks. :)**
-
-Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.12.6 or later), Ubuntu (18.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
+Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.14 or later), Ubuntu (18.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
 
 ## Related Repositories
 
@@ -35,7 +33,7 @@ Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learnin
 
 ### Basic & Classic
 
-- 24% Basic (33 of 133 Cards)
+- 26% Basic (35 of 133 Cards)
 - 8% Classic (20 of 236 Cards)
 - 0% Hall of Fame (0 of 10 Cards)
 
@@ -117,16 +115,16 @@ Contributions are always welcome, either reporting issues/bugs or forking the re
 
   * [Code of Conduct](./Documents/CodeOfConduct.md)
   * [Issues](./Documents/Issues.md)
-    * [How to Contribute in Issues](./Issues.md#how-to-contribute-in-issues)
-    * [Asking for General Help](./Issues.md#asking-for-general-help)
-    * [Submitting a Bug Report](./Issues.md#submitting-a-bug-report)
-    * [Triaging a Bug Report](./Issues.md#triaging-a-bug-report)
-    * [Resolving a Bug Report](./Issues.md#resolving-a-bug-report)
+    * [How to Contribute in Issues](./Documents/Issues.md#how-to-contribute-in-issues)
+    * [Asking for General Help](./Documents/Issues.md#asking-for-general-help)
+    * [Submitting a Bug Report](./Documents/Issues.md#submitting-a-bug-report)
+    * [Triaging a Bug Report](./Documents/Issues.md#triaging-a-bug-report)
+    * [Resolving a Bug Report](./Documents/Issues.md#resolving-a-bug-report)
   * [Pull request](./Documents/PullRequests.md)
-    * [Setting up your local environment](./PullRequests.md#setting-up-your-local-environment)
-    * [Making Changes](./PullRequests.md#making-changes)
-    * [How to add card](./HowToAddCard.md)
-    * [How to add task](./HowToAddTask.md)
+    * [Setting up your local environment](./Documents/PullRequests.md#setting-up-your-local-environment)
+    * [Making Changes](./Documents/PullRequests.md#making-changes)
+    * [How to add card](./Documents/HowToAddCard.md)
+    * [How to add task](./Documents/HowToAddTask.md)
 
 ## Contact
 
@@ -152,9 +150,11 @@ Copyright (C) 2017-2018 Hearthstone++ Team
 
 - [Chris Ohk](http://www.github.com/utilForever)
 - [Youngjoong Kim](https://github.com/revsic)
-- [SeungHyun Jeon](https://github.com/FuZer)
-- [SungHyun Kim](https://github.com/devArtoria)
+- [Seunghyun Jeon](https://github.com/FuZer)
+- [Sunghyun Kim](https://github.com/devArtoria)
 - [Hyeongchan Kim](https://github.com/kozistr)
+- [Yoohan Park](https://github.com/CreatorSeraph)
+- [Junghyun Choi](https://github.com/junghyun397)
 
 Hearthstone++ is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as

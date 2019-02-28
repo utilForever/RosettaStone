@@ -131,8 +131,9 @@ void Player::SetOpponent(Player* player)
 
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
-    m_hero = dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
-    m_hero->heroPower =
-        dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
+    m_hero =
+        dynamic_cast<Hero*>(Entity::GetFromCard(*this, std::move(heroCard)));
+    m_hero->heroPower = dynamic_cast<HeroPower*>(
+        Entity::GetFromCard(*this, std::move(powerCard)));
 }
 }  // namespace Hearthstonepp

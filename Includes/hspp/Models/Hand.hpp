@@ -58,7 +58,7 @@ class Hand
 
     //! Returns the position of card in hand.
     //! \return The position of card in hand.
-    optional<std::size_t> FindCardPos(Entity& card);
+    std::optional<std::size_t> FindCardPos(Entity& card);
 
     //! Adds a card to hand.
     //! \param card The card to add to hand.

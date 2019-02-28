@@ -60,7 +60,7 @@ std::vector<Character*> Battlefield::GetAllMinions()
     return ret;
 }
 
-optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
+std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
 {
     const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
     if (iter != std::end(m_minions))
@@ -68,10 +68,10 @@ optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
         return std::distance(std::begin(m_minions), iter);
     }
 
-    return nullopt;
+    return std::nullopt;
 }
 
-optional<std::size_t> Battlefield::FindEmptyPos() const
+std::optional<std::size_t> Battlefield::FindEmptyPos() const
 {
     const auto iter = std::find(m_minions.begin(), m_minions.end(), nullptr);
     if (iter != std::end(m_minions))
@@ -79,7 +79,7 @@ optional<std::size_t> Battlefield::FindEmptyPos() const
         return std::distance(std::begin(m_minions), iter);
     }
 
-    return nullopt;
+    return std::nullopt;
 }
 
 void Battlefield::AddMinion(Minion& minion, std::size_t pos)
