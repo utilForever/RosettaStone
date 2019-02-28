@@ -104,7 +104,7 @@ Hearthstone++ uses ```lcov``` for the code coverage. For macOS and Ubuntu platfo
 ```
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Debug
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
 make -j 8
 lcov -c -i -d Tests/UnitTests -o base.info
 bin/UnitTests
