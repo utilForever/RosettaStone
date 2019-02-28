@@ -44,8 +44,9 @@ Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learnin
 - 0% Blackrock Mountain (0 of 31 Cards)
 - 0% Curse of Naxxramas (0 of 30 Cards)
 
-### Expensions
+### Expansions
 
+- 0% Rastakhan's Rumble (0 of 135 Cards)
 - 0% The Boomsday Project (0 of 135 Cards)
 - 0% The Witchwood (0 of 135 Cards)
 - 0% Kobolds & Catacombs (0 of 135 Cards)
