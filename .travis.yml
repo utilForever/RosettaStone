@@ -14,7 +14,7 @@ matrix:
       sudo: required
       compiler: gcc
       env:
-        - BUILD_TYPE=Debug      
+        - BUILD_TYPE=Debug
       script:
         - sh Scripts/travis_build_codecov.sh
     - name: Test Docker based on Ubuntu 18.04 LTS + gcc
@@ -37,7 +37,7 @@ matrix:
       sudo: required
       services: docker
       script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco disco        
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco disco
     - name: Test Docker based on Ubuntu 19.04 LTS + gcc-latest
       os: linux
       dist: trusty
@@ -51,7 +51,7 @@ matrix:
       sudo: required
       services: docker
       script:
-        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest        
+        - sh Scripts/travis_build_docker.sh Scripts/Dockerfile.disco.clang-latest disco-clang-latest
     - name: Test OS X 10.14 + Xcode 10.2 + clang
       os: osx
       osx_image: xcode10.2
@@ -59,4 +59,4 @@ matrix:
       script:
         - sh Scripts/travis_build.sh
   before_install:
-    - eval "${MATRIX_EVAL}" 
+    - eval "${MATRIX_EVAL}"
