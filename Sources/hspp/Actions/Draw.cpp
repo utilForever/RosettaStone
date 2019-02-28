@@ -41,9 +41,9 @@ Entity* Draw(Player& player, std::optional<Entity> card)
     return entity;
 }
 
-Entity* DrawCard(Player& player, Card card)
+Entity* DrawCard(Player& player, Card&& card)
 {
-    Entity* entity = Entity::GetFromCard(player, card);
+    Entity* entity = Entity::GetFromCard(player, std::move(card));
     player.GetHand().AddCard(*entity);
 
     return entity;

@@ -108,8 +108,9 @@ void GameAgent::BeginPhase()
     Task::RunMulti(secondPlayer, DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
                    DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
 
-    const Card coin = Cards::GetInstance().FindCardByID("GAME_005");
-    secondPlayer.GetHand().AddCard(*Entity::GetFromCard(secondPlayer, coin));
+    Card coin = Cards::GetInstance().FindCardByID("GAME_005");
+    secondPlayer.GetHand().AddCard(
+        *Entity::GetFromCard(secondPlayer, std::move(coin)));
 }
 
 bool GameAgent::MainPhase()

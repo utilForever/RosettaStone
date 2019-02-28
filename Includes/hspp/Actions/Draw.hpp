@@ -20,7 +20,7 @@ Entity* Draw(Player& player, std::optional<Entity> cardToDraw = std::nullopt);
 //! \param player The player to add card to the hand.
 //! \param card A card to draw to the hand.
 //! \return A dynamic allocated entity object.
-Entity* DrawCard(Player& player, Card card);
+Entity* DrawCard(Player& player, Card&& card);
 }  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_DRAW_HPP
