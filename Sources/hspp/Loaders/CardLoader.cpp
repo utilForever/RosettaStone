@@ -66,14 +66,12 @@ void CardLoader::Load(std::vector<Card>& cards)
                 : Race::_from_string(
                       cardData["race"].get<std::string>().c_str());
 
-        const std::string name =
-            cardData["name"].is_null()
-                ? ""
-                : cardData["name"]["enUS"].get<std::string>();
-        const std::string text =
-            cardData["text"].is_null()
-                ? ""
-                : cardData["text"]["enUS"].get<std::string>();
+        const std::string name = cardData["name"].is_null()
+                                     ? ""
+                                     : cardData["name"].get<std::string>();
+        const std::string text = cardData["text"].is_null()
+                                     ? ""
+                                     : cardData["text"].get<std::string>();
 
         const bool collectible = cardData["collectible"].is_null()
                                      ? false
