@@ -53,6 +53,7 @@ constexpr std::size_t INDEX_OPPONENT_MINION = INDEX_OPPONENT_HERO + 1;
 //! Enumeration that represents the player.
 enum class PlayerType
 {
+    RANDOM,   //!< The random player.
     PLAYER1,  //!< The first player.
     PLAYER2,  //!< The second player.
 };
