@@ -9,8 +9,8 @@
 
 namespace Hearthstonepp
 {
-Game::Game(CardClass p1Class, CardClass p2Class, PlayerType firstPlayer)
-    : m_firstPlayer(firstPlayer), m_currentPlayer(firstPlayer)
+Game::Game(CardClass p1Class, CardClass p2Class, PlayerType startPlayer)
+    : m_startPlayer(startPlayer)
 {
     m_player1.AddHeroAndPower(
         Cards::GetInstance().GetHeroCard(p1Class),
@@ -31,37 +31,15 @@ Player& Game::GetPlayer1()
 Player& Game::GetPlayer2()
 {
     return m_player2;
-}
-
-Player& Game::GetFirstPlayer()
-{
-    return m_firstPlayer == PlayerType::PLAYER1 ? m_player1 : m_player2;
-}
-
-void Game::SetFirstPlayer(PlayerType playerType)
-{
-    m_firstPlayer = playerType;
-}
+}                                                                                           
 
 Player& Game::GetCurrentPlayer()
 {
-    return m_currentPlayer == PlayerType::PLAYER1 ? m_player1 : m_player2;
-}
-
-void Game::SetCurrentPlayer(PlayerType playerType)
-{
-    m_currentPlayer = playerType;
+    return *m_currentPlayer;
 }
 
 Player& Game::GetOpponentPlayer()
 {
-    return m_currentPlayer == PlayerType::PLAYER1 ? m_player2 : m_player1;
-}
-
-void Game::FlipCurrentPlayer()
-{
-    m_currentPlayer = m_currentPlayer == PlayerType::PLAYER2
-                          ? PlayerType::PLAYER1
-                          : PlayerType::PLAYER2;
+    return m_currentPlayer->GetOpponent();
 }
 }  // namespace Hearthstonepp
