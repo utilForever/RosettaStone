@@ -70,19 +70,19 @@ void GameAgent::BeginPhase()
     std::uniform_int_distribution<int> bin(0, 1);
 
     // Swap user with 50% probability
-    if (bin(gen) == 1)
-    {
-        m_game.SetFirstPlayer(PlayerType::PLAYER1);
-        m_game.SetCurrentPlayer(PlayerType::PLAYER1);
-    }
-    else
-    {
-        m_game.SetFirstPlayer(PlayerType::PLAYER2);
-        m_game.SetCurrentPlayer(PlayerType::PLAYER2);
-    }
+    //if (bin(gen) == 1)
+    //{
+    //    m_game.SetFirstPlayer(PlayerType::PLAYER1);
+    //    m_game.SetCurrentPlayer(PlayerType::PLAYER1);
+    //}
+    //else
+    //{
+    //    m_game.SetFirstPlayer(PlayerType::PLAYER2);
+    //    m_game.SetCurrentPlayer(PlayerType::PLAYER2);
+    //}
 
-    Player& firstPlayer = m_game.GetFirstPlayer();
-    Player& secondPlayer = m_game.GetFirstPlayer().GetOpponent();
+    //Player& firstPlayer = m_game.GetFirstPlayer();
+    //Player& secondPlayer = m_game.GetFirstPlayer().GetOpponent();
 
     // Task list of begin phase
     // 1. Both players shuffle the deck.
@@ -97,20 +97,20 @@ void GameAgent::BeginPhase()
     // 4. The player going second receives "The Coin" card.
     // NOTE: The Coin is a special uncollectible spell card granted at the start
     // of each game to whichever player is selected to go second.
-    Task::Run(m_game.GetFirstPlayer(), PlayerSettingTask());
+    //Task::Run(m_game.GetFirstPlayer(), PlayerSettingTask());
 
-    firstPlayer.GetDeck().Shuffle();
-    secondPlayer.GetDeck().Shuffle();
+    //firstPlayer.GetDeck().Shuffle();
+    //secondPlayer.GetDeck().Shuffle();
 
-    Task::RunMulti(firstPlayer, DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
-                   DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
+    //Task::RunMulti(firstPlayer, DrawTask(NUM_DRAW_CARDS_AT_START_FIRST),
+    //               DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
 
-    Task::RunMulti(secondPlayer, DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
-                   DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
+    //Task::RunMulti(secondPlayer, DrawTask(NUM_DRAW_CARDS_AT_START_SECOND),
+    //               DoUntil(MulliganTask(), TaskStatus::MULLIGAN_SUCCESS));
 
-    Card coin = Cards::GetInstance().FindCardByID("GAME_005");
-    secondPlayer.GetHand().AddCard(
-        *Entity::GetFromCard(secondPlayer, std::move(coin)));
+    //Card coin = Cards::GetInstance().FindCardByID("GAME_005");
+    //secondPlayer.GetHand().AddCard(
+    //    *Entity::GetFromCard(secondPlayer, std::move(coin)));
 }
 
 bool GameAgent::MainPhase()
@@ -124,7 +124,7 @@ bool GameAgent::MainPhase()
 
 void GameAgent::FinalPhase()
 {
-    Task::Run(m_game.GetCurrentPlayer(), GameEndTask());
+    //Task::Run(m_game.GetCurrentPlayer(), GameEndTask());
 }
 
 void GameAgent::PrepareMainPhase()
@@ -135,55 +135,55 @@ void GameAgent::PrepareMainPhase()
     // NOTE: A player can never have more than 10 maximum mana.
     // 3. Refill all of their non-overloaded mana crystals.
     // 4. Initialize attack count of minions and hero.
-    Task::RunMulti(
-        m_game.GetCurrentPlayer(), DrawTask(1),
-        ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
-        ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
-                       m_game.GetCurrentPlayer().GetMaximumMana() + 1),
-        InitAttackCountTask());
+    //Task::RunMulti(
+    //    m_game.GetCurrentPlayer(), DrawTask(1),
+    //    ModifyManaTask(ManaOperator::ADD, ManaType::MAXIMUM, 1),
+    //    ModifyManaTask(ManaOperator::SET, ManaType::AVAILABLE,
+    //                   m_game.GetCurrentPlayer().GetMaximumMana() + 1),
+    //    InitAttackCountTask());
 }
 
 bool GameAgent::ProcessMainMenu()
 {
-    // Check before starting main phase
-    if (IsGameOver())
-    {
-        return true;
-    }
+    //// Check before starting main phase
+    //if (IsGameOver())
+    //{
+    //    return true;
+    //}
 
-    TaskMeta meta = m_game.GetCurrentPlayer().GetPolicy().Next(m_game);
+    //TaskMeta meta = m_game.GetCurrentPlayer().GetPolicy().Next(m_game);
 
-    // Interface pass menu by the status of TaskMeta
-    const auto menu = static_cast<status_t>(meta.GetStatus());
+    //// Interface pass menu by the status of TaskMeta
+    //const auto menu = static_cast<status_t>(meta.GetStatus());
 
-    if (menu == GAME_MAIN_MENU_SIZE - 1)
-    {
-        // End main end phase
-        m_game.FlipCurrentPlayer();
-    }
-    else
-    {
-        if (menu < GAME_MAIN_MENU_SIZE - 1)
-        {
-            // Call action method
-            m_mainMenuFuncs[menu](*this);
-        }
+    //if (menu == GAME_MAIN_MENU_SIZE - 1)
+    //{
+    //    // End main end phase
+    //    m_game.FlipCurrentPlayer();
+    //}
+    //else
+    //{
+    //    if (menu < GAME_MAIN_MENU_SIZE - 1)
+    //    {
+    //        // Call action method
+    //        m_mainMenuFuncs[menu](*this);
+    //    }
 
-        // NOTE: It returns isGameEnd flag
-        return ProcessMainMenu();
-    }
+    //    // NOTE: It returns isGameEnd flag
+    //    return ProcessMainMenu();
+    //}
 
     return false;
 }
 
 void GameAgent::PlayCard()
 {
-    Task::Run(m_game.GetCurrentPlayer(), PlayCardTask());
+    //Task::Run(m_game.GetCurrentPlayer(), PlayCardTask());
 }
 
 void GameAgent::Combat()
 {
-    Task::Run(m_game.GetCurrentPlayer(), CombatTask(nullptr, nullptr));
+    //Task::Run(m_game.GetCurrentPlayer(), CombatTask(nullptr, nullptr));
 }
 
 bool GameAgent::IsGameOver()
