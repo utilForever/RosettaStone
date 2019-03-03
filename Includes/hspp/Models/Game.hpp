@@ -57,6 +57,60 @@ class Game
     //! \return The opponent player.
     Player& GetOpponentPlayer();
 
+    //! Part of the game state.
+    void BeginFirst();
+
+    //! Part of the game state.
+    void BeginShuffle();
+
+    //! Part of the game state.
+    void BeginDraw();
+
+    //! Part of the game state.
+    void BeginMulligan();
+
+    //! Part of the game state.
+    void MainBegin();
+
+    //! Part of the game state.
+    void MainReady();
+
+    //! Part of the game state.
+    void MainStartTriggers();
+
+    //! Part of the game state.
+    void MainResource();
+
+    //! Part of the game state.
+    void MainDraw();
+
+    //! Part of the game state.
+    void MainStart();
+
+    //! Part of the game state.
+    void MainAction();
+
+    //! Part of the game state.
+    void MainCombat();
+
+    //! Part of the game state.
+    void MainEnd();
+
+    //! Part of the game state.
+    void MainCleanUp();
+
+    //! Part of the game state.
+    void MainNext();
+
+    //! Part of the game state.
+    void FinalWrapUp();
+
+    //! Part of the game state.
+    void FinalGameOver();
+
+    //! Starts the game.
+    void StartGame();
+
  private:
     Player m_player1;
     Player m_player2;
