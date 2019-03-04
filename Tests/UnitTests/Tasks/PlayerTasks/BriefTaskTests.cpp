@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
 
 using namespace Hearthstonepp;

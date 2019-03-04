@@ -7,7 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 #include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>

@@ -25,6 +25,8 @@
 #include <hspp/Enchants/Powers.hpp>
 #include <hspp/Enums/CardEnums.hpp>
 #include <hspp/Enums/TaskEnums.hpp>
+#include <hspp/Games/Game.hpp>
+#include <hspp/Games/GameAgent.hpp>
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
 #include <hspp/Loaders/PowerLoader.hpp>
@@ -32,8 +34,6 @@
 #include <hspp/Models/Character.hpp>
 #include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
-#include <hspp/Models/Game.hpp>
-#include <hspp/Models/GameAgent.hpp>
 #include <hspp/Models/Graveyard.hpp>
 #include <hspp/Models/Hand.hpp>
 #include <hspp/Models/Hero.hpp>

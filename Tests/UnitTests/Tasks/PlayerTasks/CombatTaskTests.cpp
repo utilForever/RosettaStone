@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 #include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>

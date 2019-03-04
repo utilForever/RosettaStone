@@ -10,9 +10,9 @@
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Commons/Utils.hpp>
+#include <hspp/Games/GameAgent.hpp>
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
-#include <hspp/Models/GameAgent.hpp>
 #include <hspp/Policies/IoPolicy.hpp>
 
 #include <cctype>

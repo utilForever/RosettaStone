@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/GameAgent.hpp>
+#include <hspp/Games/GameAgent.hpp>
 #include <hspp/Models/HeroPower.hpp>
 #include <hspp/Models/Player.hpp>
 

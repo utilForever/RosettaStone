@@ -8,7 +8,7 @@
 
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Commons/Utils.hpp>
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 #include <hspp/Policies/BasicPolicy.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 
