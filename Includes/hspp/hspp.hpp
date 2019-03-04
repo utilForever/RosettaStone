@@ -27,6 +27,7 @@
 #include <hspp/Enums/TaskEnums.hpp>
 #include <hspp/Games/Game.hpp>
 #include <hspp/Games/GameAgent.hpp>
+#include <hspp/Games/GameManager.hpp>
 #include <hspp/Loaders/AccountLoader.hpp>
 #include <hspp/Loaders/CardLoader.hpp>
 #include <hspp/Loaders/PowerLoader.hpp>
