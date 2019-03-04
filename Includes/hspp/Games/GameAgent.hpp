@@ -8,7 +8,7 @@
 #define HEARTHSTONEPP_GAME_AGENT_HPP
 
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 #include <hspp/Models/Player.hpp>
 
 #include <array>

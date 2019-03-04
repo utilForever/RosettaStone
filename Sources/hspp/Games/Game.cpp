@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Cards/Cards.hpp>
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 
 namespace Hearthstonepp
 {
