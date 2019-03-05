@@ -7,6 +7,8 @@
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Games/Game.hpp>
 
+#include <random>
+
 namespace Hearthstonepp
 {
 Game::Game(CardClass p1Class, CardClass p2Class, PlayerType startPlayer)
@@ -130,6 +132,32 @@ void Game::FinalGameOver()
 
 void Game::StartGame()
 {
-    // Do nothing
+    // Determine first player
+    switch (m_startPlayer)
+    {
+        case PlayerType::RANDOM:
+        {
+            std::random_device rd;
+            std::uniform_int_distribution<int> dist(0, 1);
+
+            const std::size_t idx = dist(rd);
+            if (idx == 0)
+            {
+                m_firstPlayer = &m_player1;
+            }
+            else
+            {
+                m_firstPlayer = &m_player2;
+            }
+            break;
+        }
+        case PlayerType::PLAYER1:
+            m_firstPlayer = &m_player1;
+            break;
+        case PlayerType::PLAYER2:
+            m_firstPlayer = &m_player2;
+            break;
+    }
+    m_currentPlayer = m_firstPlayer;
 }
 }  // namespace Hearthstonepp
