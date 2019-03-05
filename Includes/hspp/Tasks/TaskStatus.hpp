@@ -82,7 +82,6 @@ enum class TaskStatus : status_t
 
     DISCARD,
     DISCARD_MY_HAND_SUCCESS,
-    DISCARD_IDX_OUT_OF_RANGE,
 
     HEAL_FULL,
     HEAL_FULL_SUCCESS,
