@@ -7,32 +7,34 @@
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Games/Game.hpp>
 
-#include <random>
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace Hearthstonepp
 {
 Game::Game(CardClass p1Class, CardClass p2Class, PlayerType startPlayer)
     : m_startPlayer(startPlayer)
 {
-    m_player1.AddHeroAndPower(
+    GetPlayer1().AddHeroAndPower(
         Cards::GetInstance().GetHeroCard(p1Class),
         Cards::GetInstance().GetDefaultHeroPower(p1Class));
-    m_player2.AddHeroAndPower(
+    GetPlayer2().AddHeroAndPower(
         Cards::GetInstance().GetHeroCard(p2Class),
         Cards::GetInstance().GetDefaultHeroPower(p2Class));
 
-    m_player1.SetOpponent(&m_player2);
-    m_player2.SetOpponent(&m_player1);
+    GetPlayer1().SetOpponent(&GetPlayer2());
+    GetPlayer2().SetOpponent(&GetPlayer1());
 }
 
 Player& Game::GetPlayer1()
 {
-    return m_player1;
+    return m_players[0];
 }
 
 Player& Game::GetPlayer2()
 {
-    return m_player2;
+    return m_players[1];
 }
 
 Player& Game::GetCurrentPlayer()
@@ -137,25 +139,15 @@ void Game::StartGame()
     {
         case PlayerType::RANDOM:
         {
-            std::random_device rd;
-            std::uniform_int_distribution<int> dist(0, 1);
-
-            const std::size_t idx = dist(rd);
-            if (idx == 0)
-            {
-                m_firstPlayer = &m_player1;
-            }
-            else
-            {
-                m_firstPlayer = &m_player2;
-            }
+            auto val = Random::get(0, 1);
+            m_firstPlayer = &m_players[val];
             break;
         }
         case PlayerType::PLAYER1:
-            m_firstPlayer = &m_player1;
+            m_firstPlayer = &m_players[0];
             break;
         case PlayerType::PLAYER2:
-            m_firstPlayer = &m_player2;
+            m_firstPlayer = &m_players[1];
             break;
     }
     m_currentPlayer = m_firstPlayer;

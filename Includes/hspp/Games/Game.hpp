@@ -115,8 +115,7 @@ class Game
     Step nextStep = Step::INVALID;
 
  private:
-    Player m_player1;
-    Player m_player2;
+    std::array<Player, 2> m_players;
 
     PlayerType m_startPlayer = PlayerType::RANDOM;
     Player* m_firstPlayer = nullptr;
