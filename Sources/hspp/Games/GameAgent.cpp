@@ -63,11 +63,11 @@ const Game& GameAgent::GetGame() const
 
 void GameAgent::BeginPhase()
 {
-    std::random_device rd;
-    std::default_random_engine gen(rd());
+    //std::random_device rd;
+    //std::default_random_engine gen(rd());
 
-    // Get random number: zero or one.
-    std::uniform_int_distribution<int> bin(0, 1);
+    //// Get random number: zero or one.
+    //std::uniform_int_distribution<int> bin(0, 1);
 
     // Swap user with 50% probability
     //if (bin(gen) == 1)
