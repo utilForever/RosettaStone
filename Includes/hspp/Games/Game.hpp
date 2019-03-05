@@ -111,6 +111,9 @@ class Game
     //! Starts the game.
     void StartGame();
 
+    Step step = Step::INVALID;
+    Step nextStep = Step::INVALID;
+
  private:
     Player m_player1;
     Player m_player2;
