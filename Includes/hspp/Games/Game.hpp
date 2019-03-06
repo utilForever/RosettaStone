@@ -16,7 +16,7 @@ namespace Hearthstonepp
 //!
 //! \brief Game class.
 //!
-//! This class stores Hearthstone game states which consists of informations of
+//! This class stores Hearthstone game states which consists of information of
 //! both players.
 //!
 class Game
