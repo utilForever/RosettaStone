@@ -13,15 +13,14 @@ using Random = effolkronium::random_static;
 
 namespace Hearthstonepp
 {
-Game::Game(CardClass p1Class, CardClass p2Class, PlayerType startPlayer)
-    : m_startPlayer(startPlayer)
+Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
     GetPlayer1().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(p1Class),
-        Cards::GetInstance().GetDefaultHeroPower(p1Class));
+        Cards::GetInstance().GetHeroCard(gameConfig.player1Class),
+        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player1Class));
     GetPlayer2().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(p2Class),
-        Cards::GetInstance().GetDefaultHeroPower(p2Class));
+        Cards::GetInstance().GetHeroCard(gameConfig.player2Class),
+        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player2Class));
 
     GetPlayer1().SetOpponent(&GetPlayer2());
     GetPlayer2().SetOpponent(&GetPlayer1());

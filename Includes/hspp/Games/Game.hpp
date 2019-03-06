@@ -9,6 +9,7 @@
 
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Enums/CardEnums.hpp>
+#include <hspp/Games/GameConfig.hpp>
 #include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp
@@ -22,12 +23,9 @@ namespace Hearthstonepp
 class Game
 {
  public:
-    //! Constructs account with given \p p1Class, \p p2Class and \p firstPlayer.
-    //! \param p1Class The class of player 1.
-    //! \param p2Class The class of player 2.
-    //! \param startPlayer The starting player.
-    Game(CardClass p1Class, CardClass p2Class,
-         PlayerType startPlayer = PlayerType::RANDOM);
+    //! Constructs account with given \p gameConfig.
+    //! \param gameConfig The game config holds all configuration values.
+    Game(GameConfig& gameConfig);
 
     //! Copy Constructor
     Game(const Game&) = delete;
@@ -115,6 +113,8 @@ class Game
     Step nextStep = Step::INVALID;
 
  private:
+    GameConfig m_gameConfig;
+
     std::array<Player, 2> m_players;
 
     PlayerType m_startPlayer = PlayerType::RANDOM;
