@@ -23,20 +23,26 @@ namespace Hearthstonepp
 class Game
 {
  public:
+    //! Deleted default constructor.
+    Game() = delete;
+
     //! Constructs account with given \p gameConfig.
     //! \param gameConfig The game config holds all configuration values.
     Game(GameConfig& gameConfig);
 
-    //! Copy Constructor
+    //! Default destructor.
+    ~Game() = default;
+
+    //! Deleted copy constructor.
     Game(const Game&) = delete;
 
-    //! Move Constructor
+    //! Deleted move constructor.
     Game(Game&&) = delete;
 
-    //! Copy assignment
+    //! Deleted copy assignment operator.
     Game& operator=(const Game&) = delete;
 
-    //! Move assignment
+    //! Deleted move assignment operator.
     Game& operator=(Game&&) = delete;
 
     //! Returns the first player.
