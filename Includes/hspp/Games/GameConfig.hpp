@@ -6,6 +6,10 @@
 #ifndef HEARTHSTONEPP_GAME_CONFIG_HPP
 #define HEARTHSTONEPP_GAME_CONFIG_HPP
 
+#include <hspp/Cards/Card.hpp>
+
+#include <array>
+
 namespace Hearthstonepp
 {
 //!
@@ -17,8 +21,11 @@ struct GameConfig
 {
     PlayerType startPlayer = PlayerType::RANDOM;
 
-    CardClass player1Class;
-    CardClass player2Class;
+    CardClass player1Class = CardClass::MAGE;
+    CardClass player2Class = CardClass::WARLOCK;
+
+    std::array<Card, START_DECK_SIZE> player1Deck;
+    std::array<Card, START_DECK_SIZE> player2Deck;
 };
 }  // namespace Hearthstonepp
 
