@@ -117,7 +117,6 @@ class Game
 
     std::array<Player, 2> m_players;
 
-    PlayerType m_startPlayer = PlayerType::RANDOM;
     Player* m_firstPlayer = nullptr;
     Player* m_currentPlayer = nullptr;
 };

@@ -134,7 +134,7 @@ void Game::FinalGameOver()
 void Game::StartGame()
 {
     // Determine first player
-    switch (m_startPlayer)
+    switch (m_gameConfig.startPlayer)
     {
         case PlayerType::RANDOM:
         {
