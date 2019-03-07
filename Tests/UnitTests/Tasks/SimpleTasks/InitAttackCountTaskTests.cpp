@@ -22,7 +22,10 @@ TEST(InitAttackCountTask, GetTaskID)
 TEST(InitAttackCountTask, Run)
 {
     InitAttackCountTask init;
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     game.GetPlayer1().SetID(100);
 
@@ -33,7 +36,10 @@ TEST(InitAttackCountTask, Run)
 TEST(InitAttackCountTask, RunFrozen)
 {
     InitAttackCountTask init;
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Card card;
 
@@ -119,7 +125,10 @@ TEST(InitAttackCountTask, RunFrozen)
 TEST(InitAttackCountTask, RunWindFury)
 {
     InitAttackCountTask init;
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Card card;
 

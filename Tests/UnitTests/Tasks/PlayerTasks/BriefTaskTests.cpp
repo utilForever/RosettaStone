@@ -21,7 +21,10 @@ TEST(BriefTask, GetTaskID)
 TEST(BriefTask, Run)
 {
     BriefTask brief;
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     game.GetPlayer1().SetID(100);
 

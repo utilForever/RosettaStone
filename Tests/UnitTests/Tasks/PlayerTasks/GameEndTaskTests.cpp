@@ -21,7 +21,10 @@ TEST(GameEndTask, GetTaskID)
 TEST(GameEndTask, Run)
 {
     GameEndTask gameEnd;
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     game.GetPlayer1().SetID(100);
 

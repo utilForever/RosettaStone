@@ -27,10 +27,13 @@ namespace Hearthstonepp
 {
 GameAgent::GameAgent(CardClass p1Class, CardClass p2Class, IPolicy* p1Policy,
                      IPolicy* p2Policy, PlayerType firstPlayer)
-    : m_game(p1Class, p2Class, firstPlayer)
 {
-    m_game.GetPlayer1().SetPolicy(p1Policy);
-    m_game.GetPlayer2().SetPolicy(p2Policy);
+    (void)p1Class;
+    (void)p2Class;
+    (void)firstPlayer;
+
+    m_game->GetPlayer1().SetPolicy(p1Policy);
+    m_game->GetPlayer2().SetPolicy(p2Policy);
 }
 
 GameResult GameAgent::Start()
@@ -53,12 +56,12 @@ GameResult GameAgent::Start()
 
 Game& GameAgent::GetGame()
 {
-    return m_game;
+    return *m_game;
 }
 
 const Game& GameAgent::GetGame() const
 {
-    return m_game;
+    return *m_game;
 }
 
 void GameAgent::BeginPhase()
@@ -188,8 +191,8 @@ void GameAgent::Combat()
 
 bool GameAgent::IsGameOver()
 {
-    const int healthCurrent = m_game.GetPlayer1().GetHero()->health;
-    const int healthOpponent = m_game.GetPlayer2().GetHero()->health;
+    const int healthCurrent = m_game->GetPlayer1().GetHero()->health;
+    const int healthOpponent = m_game->GetPlayer2().GetHero()->health;
 
     return healthCurrent <= 0 || healthOpponent <= 0;
 }

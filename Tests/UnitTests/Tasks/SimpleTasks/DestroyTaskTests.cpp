@@ -24,7 +24,10 @@ TEST(DestroyTask, GetTaskID)
 
 TEST(DestroyTask, Run)
 {
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
 

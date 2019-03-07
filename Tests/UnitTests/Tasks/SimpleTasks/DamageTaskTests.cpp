@@ -22,7 +22,10 @@ TEST(DamageTask, GetTaskID)
 
 TEST(DamageTask, Run)
 {
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& player1 = game.GetPlayer1();
 
     std::vector<Card> cards;

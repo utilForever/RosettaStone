@@ -9,6 +9,7 @@
 
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Games/Game.hpp>
+#include <hspp/Games/GameConfig.hpp>
 #include <hspp/Models/Weapon.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
@@ -22,25 +23,30 @@ class CombatTester
 {
  public:
     CombatTester()
-        : m_game(CardClass::DRUID, CardClass::ROGUE, PlayerType::PLAYER1)
     {
-        // Do nothing
+        GameConfig config;
+        m_game = new Game(config);
+    }
+
+    ~CombatTester()
+    {
+        delete m_game;
     }
 
     std::tuple<Player&, Player&> GetPlayer()
     {
-        return { m_game.GetPlayer1(), m_game.GetPlayer2() };
+        return { m_game->GetPlayer1(), m_game->GetPlayer2() };
     }
 
     void InitAttackCount(PlayerType playerType)
     {
         if (playerType == PlayerType::PLAYER1)
         {
-            InitAttackCountTask().Run(m_game.GetPlayer1());
+            InitAttackCountTask().Run(m_game->GetPlayer1());
         }
         else
         {
-            InitAttackCountTask().Run(m_game.GetPlayer2());
+            InitAttackCountTask().Run(m_game->GetPlayer2());
         }
     }
 
@@ -51,18 +57,18 @@ class CombatTester
 
         if (playerType == PlayerType::PLAYER1)
         {
-            result = CombatTask(source, target).Run(m_game.GetPlayer1());
+            result = CombatTask(source, target).Run(m_game->GetPlayer1());
         }
         else
         {
-            result = CombatTask(source, target).Run(m_game.GetPlayer2());
+            result = CombatTask(source, target).Run(m_game->GetPlayer2());
         }
 
         EXPECT_EQ(result, expected);
     }
 
  private:
-    Game m_game;
+    Game* m_game = nullptr;
 };
 
 TEST(CombatTask, GetTaskID)

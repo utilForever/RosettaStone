@@ -45,7 +45,10 @@ TEST(DrawTask, Run)
     std::vector<Card> cards;
     std::vector<Entity*> minions;
 
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
@@ -79,7 +82,10 @@ TEST(DrawTask, Run)
 
 TEST(DrawTask, RunExhaust)
 {
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
 
@@ -112,7 +118,10 @@ TEST(DrawTask, RunOverDraw)
     std::vector<Card> cards;
     std::vector<Entity*> minions;
 
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
@@ -165,7 +174,10 @@ TEST(DrawTask, RunExhaustOverdraw)
     std::vector<Card> cards;
     std::vector<Minion*> minions;
 
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {

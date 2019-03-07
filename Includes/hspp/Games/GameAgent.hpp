@@ -79,7 +79,7 @@ class GameAgent
     //! Combats with other minion or hero.
     void Combat();
 
-    Game m_game;
+    Game* m_game = nullptr;
 
     std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
         m_mainMenuFuncs = {

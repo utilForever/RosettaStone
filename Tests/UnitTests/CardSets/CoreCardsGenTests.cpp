@@ -15,7 +15,11 @@ using namespace SimpleTasks;
 
 TEST(CoreCardsGen, EX1_066)
 {
-    Game game(CardClass::WARRIOR, CardClass::ROGUE, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -38,7 +42,11 @@ TEST(CoreCardsGen, EX1_066)
 
 TEST(CoreCardsGen, EX1_306)
 {
-    Game game(CardClass::WARLOCK, CardClass::WARRIOR, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -65,7 +73,11 @@ TEST(CoreCardsGen, EX1_306)
 
 TEST(CoreCardsGen, CS2_041)
 {
-    Game game(CardClass::SHAMAN, CardClass::ROGUE, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -98,7 +110,11 @@ TEST(CoreCardsGen, CS2_041)
 
 TEST(CoreCardsGen, CS2_088)
 {
-    Game game(CardClass::DRUID, CardClass::PALADIN, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -117,7 +133,11 @@ TEST(CoreCardsGen, CS2_088)
 
 TEST(CoreCardsGen, CS1_112)
 {
-    Game game(CardClass::PRIEST, CardClass::PALADIN, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -164,7 +184,11 @@ TEST(CoreCardsGen, CS1_112)
 
 TEST(CoreCardsGen, CS1_113)
 {
-    Game game(CardClass::PRIEST, CardClass::PALADIN, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
