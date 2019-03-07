@@ -15,6 +15,7 @@ namespace Hearthstonepp
 {
 Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
+    // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
         Cards::GetInstance().GetHeroCard(gameConfig.player1Class),
         Cards::GetInstance().GetDefaultHeroPower(gameConfig.player1Class));
@@ -22,6 +23,7 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Cards::GetInstance().GetHeroCard(gameConfig.player2Class),
         Cards::GetInstance().GetDefaultHeroPower(gameConfig.player2Class));
 
+    // Set opponent player
     GetPlayer1().SetOpponent(&GetPlayer2());
     GetPlayer2().SetOpponent(&GetPlayer1());
 }
@@ -133,6 +135,18 @@ void Game::FinalGameOver()
 
 void Game::StartGame()
 {
+    // Set up decks
+    for (auto& card : m_gameConfig.player1Deck)
+    {
+        Entity* entity = Entity::GetFromCard(GetPlayer1(), std::move(card));
+        GetPlayer1().GetDeck().AddCard(*entity);
+    }
+    for (auto& card : m_gameConfig.player2Deck)
+    {
+        Entity* entity = Entity::GetFromCard(GetPlayer2(), std::move(card));
+        GetPlayer2().GetDeck().AddCard(*entity);
+    }
+
     // Determine first player
     switch (m_gameConfig.startPlayer)
     {
