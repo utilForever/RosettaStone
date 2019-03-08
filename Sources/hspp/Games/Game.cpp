@@ -9,6 +9,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <algorithm>
+
 using Random = effolkronium::random_static;
 
 namespace Hearthstonepp
@@ -135,6 +137,15 @@ void Game::FinalGameOver()
 
 void Game::StartGame()
 {
+    // Reverse card order in deck
+    if (!m_gameConfig.doShuffle)
+    {
+        std::reverse(m_gameConfig.player1Deck.begin(),
+                     m_gameConfig.player1Deck.end());
+        std::reverse(m_gameConfig.player2Deck.begin(),
+                     m_gameConfig.player2Deck.end());
+    }
+
     // Set up decks
     for (auto& card : m_gameConfig.player1Deck)
     {

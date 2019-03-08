@@ -26,6 +26,8 @@ struct GameConfig
 
     std::array<Card, START_DECK_SIZE> player1Deck;
     std::array<Card, START_DECK_SIZE> player2Deck;
+
+    bool doShuffle = true;
 };
 }  // namespace Hearthstonepp
 
