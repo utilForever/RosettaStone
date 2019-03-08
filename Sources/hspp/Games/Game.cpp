@@ -175,5 +175,8 @@ void Game::StartGame()
             break;
     }
     m_currentPlayer = m_firstPlayer;
+
+    // Set first turn
+    m_turn = 1;
 }
 }  // namespace Hearthstonepp

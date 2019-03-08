@@ -122,6 +122,7 @@ class Game
     GameConfig m_gameConfig;
 
     std::array<Player, 2> m_players;
+    std::size_t m_turn = 0;
 
     Player* m_firstPlayer = nullptr;
     Player* m_currentPlayer = nullptr;
