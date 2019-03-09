@@ -113,7 +113,17 @@ void Game::MainBegin()
 
 void Game::MainReady()
 {
-    // Do nothing
+    // Reset the number of attacked
+    for (auto& p : m_players)
+    {
+        // Hero
+        p.GetHero()->numAttacked = 0;
+        // Field
+        for (auto& m : p.GetField().GetAllMinions())
+        {
+            m->numAttacked = 0;
+        }
+    }
 }
 
 void Game::MainStartTriggers()
