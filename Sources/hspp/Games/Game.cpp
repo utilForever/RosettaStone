@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Actions/Draw.hpp>
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Games/Game.hpp>
 #include <hspp/Games/GameManager.hpp>
@@ -74,7 +75,23 @@ void Game::BeginShuffle()
 
 void Game::BeginDraw()
 {
-    // Do nothing
+    for (auto& p : m_players)
+    {
+        // Draw 3 cards
+        Generic::Draw(p);
+        Generic::Draw(p);
+        Generic::Draw(p);
+
+        if (&p != m_firstPlayer)
+        {
+            // Draw 4th card for second player
+            Generic::Draw(p);
+
+            // Give "The Coin" card to second player
+            Card coin = Cards::GetInstance().FindCardByID("GAME_005");
+            p.GetHand().AddCard(*Entity::GetFromCard(p, std::move(coin)));
+        }
+    }
 }
 
 void Game::BeginMulligan()
