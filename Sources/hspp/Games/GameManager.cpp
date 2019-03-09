@@ -20,6 +20,10 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.BeginShuffle();
             break;
+        case Step::BEGIN_DRAW:
+            game.step = step;
+            game.BeginDraw();
+            break;
         default:
             break;
     }
