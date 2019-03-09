@@ -48,14 +48,6 @@ class Minion : public Character
 
     //! Destroys minion.
     void Destroy() override;
-
-    //! Sets game tag to the card.
-    //! \param tag The game tag to indicate ability or condition.
-    //! \param value The value to set for game tag.
-    void SetGameTag(GameTag tag, int value) override;
-
-    //! Checks newly assigned abilities.
-    void CheckAbilities();
 };
 }  // namespace Hearthstonepp
 
