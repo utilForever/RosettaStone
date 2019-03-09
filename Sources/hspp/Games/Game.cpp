@@ -124,6 +124,23 @@ void Game::MainReady()
             m->numAttacked = 0;
         }
     }
+
+    // Reset exhaust for current player
+    auto& curPlayer = GetCurrentPlayer();
+    // Hero
+    curPlayer.GetHero()->SetGameTag(GameTag::EXHAUSTED, 0);
+    // Weapon
+    if (curPlayer.GetHero()->weapon != nullptr)
+    {
+        curPlayer.GetHero()->weapon->SetGameTag(GameTag::EXHAUSTED, 0);
+    }
+    // Hero power
+    curPlayer.GetHero()->heroPower->SetGameTag(GameTag::EXHAUSTED, 0);
+    // Field
+    for (auto& m : curPlayer.GetField().GetAllMinions())
+    {
+        m->SetGameTag(GameTag::EXHAUSTED, 0);
+    }
 }
 
 void Game::MainStartTriggers()
