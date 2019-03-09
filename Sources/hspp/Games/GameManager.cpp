@@ -28,6 +28,10 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.BeginMulligan();
             break;
+        case Step::MAIN_BEGIN:
+            game.step = step;
+            game.MainBegin();
+            break;
         default:
             break;
     }
