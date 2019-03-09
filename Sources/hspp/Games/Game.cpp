@@ -141,6 +141,10 @@ void Game::MainReady()
     {
         m->SetGameTag(GameTag::EXHAUSTED, 0);
     }
+
+    // Set next step
+    nextStep = Step::MAIN_START_TRIGGERS;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainStartTriggers()
