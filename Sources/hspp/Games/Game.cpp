@@ -53,7 +53,9 @@ Player& Game::GetOpponentPlayer()
 
 void Game::BeginFirst()
 {
-    // Do nothing
+    // Set next step
+    nextStep = Step::BEGIN_SHUFFLE;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::BeginShuffle()
