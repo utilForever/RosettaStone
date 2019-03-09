@@ -10,6 +10,14 @@ namespace Hearthstonepp
 {
 void GameManager::ProcessNextStep(Game& game, Step step)
 {
-    // Do nothing
+    switch (step)
+    {
+        case Step::BEGIN_FIRST:
+            game.step = step;
+            game.BeginFirst();
+            break;
+        default:
+            break;
+    }
 }
 }  // namespace Hearthstonepp
