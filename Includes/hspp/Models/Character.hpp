@@ -85,7 +85,7 @@ class Character : public Entity
     //! \param heal The value of heal.
     void TakeHeal(Character& source, std::size_t heal);
 
-    std::size_t attackableCount = 0;
+    std::size_t numAttacked = 0;
     std::size_t numTurnToUnfreeze = 0;
     int health = 0;
     int maxHealth = 0;
