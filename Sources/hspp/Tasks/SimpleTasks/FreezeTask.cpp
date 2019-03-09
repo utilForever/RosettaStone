@@ -53,7 +53,7 @@ TaskStatus FreezeTask::Impl(Player& player)
         // Case 2-1
         if (IsFrozenBeforeAttack())
         {
-            target->attackableCount = 0;
+            //target->attackableCount = 0;
             target->numTurnToUnfreeze = 1;
         }
         // Case 2-2
@@ -124,36 +124,36 @@ bool FreezeTask::IsOpCharacter(Player& player) const
 
 bool FreezeTask::IsFrozenBeforeAttack() const
 {
-    const auto target = dynamic_cast<Character*>(m_target);
+    //const auto target = dynamic_cast<Character*>(m_target);
 
-    if (target->attackableCount == 1)
-    {
-        return true;
-    }
+    //if (target->attackableCount == 1)
+    //{
+    //    return true;
+    //}
 
-    if (target->GetGameTag(GameTag::WINDFURY) == 1 &&
-        target->attackableCount == 2)
-    {
-        return true;
-    }
+    //if (target->GetGameTag(GameTag::WINDFURY) == 1 &&
+    //    target->attackableCount == 2)
+    //{
+    //    return true;
+    //}
 
     return false;
 }
 
 bool FreezeTask::IsFrozenAfterAttack() const
 {
-    const auto target = dynamic_cast<Character*>(m_target);
+    //const auto target = dynamic_cast<Character*>(m_target);
 
-    if (target->attackableCount == 0)
-    {
-        return true;
-    }
+    //if (target->attackableCount == 0)
+    //{
+    //    return true;
+    //}
 
-    if (target->GetGameTag(GameTag::WINDFURY) == 1 &&
-        target->attackableCount == 1)
-    {
-        return true;
-    }
+    //if (target->GetGameTag(GameTag::WINDFURY) == 1 &&
+    //    target->attackableCount == 1)
+    //{
+    //    return true;
+    //}
 
     return false;
 }

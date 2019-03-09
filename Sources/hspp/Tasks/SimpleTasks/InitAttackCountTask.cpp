@@ -39,20 +39,20 @@ void InitAttackCountTask::ProcessMyField(Player& player)
             {
                 character->SetGameTag(GameTag::FROZEN, 0);
                 // Consider Windfury status
-                character->attackableCount =
-                    character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
+                //character->attackableCount =
+                //    character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
             }
             // Otherwise, character can't attack
             else
             {
-                character->attackableCount = 0;
+                //character->attackableCount = 0;
             }
         }
         else
         {
             // Consider Windfury status
-            character->attackableCount =
-                character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
+            //character->attackableCount =
+            //    character->GetGameTag(GameTag::WINDFURY) == 1 ? 2 : 1;
         }
     }
 }
@@ -77,7 +77,7 @@ void InitAttackCountTask::ProcessOpField(Player& player)
         }
 
         // Attack count is always 0 because it's my turn
-        character->attackableCount = 0;
+        //character->attackableCount = 0;
     }
 }
 }  // namespace Hearthstonepp::SimpleTasks
