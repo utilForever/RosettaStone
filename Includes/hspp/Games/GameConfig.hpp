@@ -29,6 +29,7 @@ struct GameConfig
     std::array<Card, START_DECK_SIZE> player2Deck;
 
     bool doShuffle = true;
+    bool skipMulligan = true;
 };
 }  // namespace Hearthstonepp
 

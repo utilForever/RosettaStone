@@ -92,6 +92,11 @@ void Game::BeginDraw()
             p.GetHand().AddCard(*Entity::GetFromCard(p, std::move(coin)));
         }
     }
+
+    // Set next step
+    nextStep =
+        m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::BeginMulligan()
