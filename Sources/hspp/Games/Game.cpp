@@ -106,7 +106,9 @@ void Game::BeginMulligan()
 
 void Game::MainBegin()
 {
-    // Do nothing
+    // Set next step
+    nextStep = Step::MAIN_READY;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainReady()
