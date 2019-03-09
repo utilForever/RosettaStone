@@ -7,6 +7,7 @@
 #define HEARTHSTONEPP_GAME_CONFIG_HPP
 
 #include <hspp/Cards/Card.hpp>
+#include <hspp/Commons/Constants.hpp>
 
 #include <array>
 

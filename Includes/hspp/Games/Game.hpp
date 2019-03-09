@@ -7,7 +7,6 @@
 #ifndef HEARTHSTONEPP_GAME_HPP
 #define HEARTHSTONEPP_GAME_HPP
 
-#include <hspp/Commons/Constants.hpp>
 #include <hspp/Enums/CardEnums.hpp>
 #include <hspp/Games/GameConfig.hpp>
 #include <hspp/Models/Player.hpp>
