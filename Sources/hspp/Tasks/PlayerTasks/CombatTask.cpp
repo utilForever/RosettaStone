@@ -116,7 +116,15 @@ TaskStatus CombatTask::Impl(Player& player)
         }
     }
 
-    source->attackableCount--;
+    source->numAttacked++;
+
+    if ((source->numAttacked >= 1 &&
+         source->GetGameTag(GameTag::WINDFURY) == 0) ||
+        (source->numAttacked >= 2 &&
+         source->GetGameTag(GameTag::WINDFURY) == 1))
+    {
+        source->SetGameTag(GameTag::EXHAUSTED, 1);
+    }
 
     if (source->isDestroyed)
     {
