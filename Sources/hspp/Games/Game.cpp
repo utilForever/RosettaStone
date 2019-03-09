@@ -6,6 +6,7 @@
 
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Games/Game.hpp>
+#include <hspp/Games/GameManager.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -178,5 +179,9 @@ void Game::StartGame()
 
     // Set first turn
     m_turn = 1;
+
+    // Set next step
+    nextStep = Step::BEGIN_FIRST;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 }  // namespace Hearthstonepp
