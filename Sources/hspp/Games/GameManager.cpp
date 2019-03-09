@@ -8,14 +8,8 @@
 
 namespace Hearthstonepp
 {
-GameManager::GameManager(Game* game) : m_game(game)
+void GameManager::ProcessNextStep(Game& game, Step step)
 {
     // Do nothing
 }
-
-void GameManager::ProcessNextStep()
-{
-    // Do nothing
-}
-
 }  // namespace Hearthstonepp
