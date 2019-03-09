@@ -51,8 +51,14 @@ bool Character::CanAttack() const
         return false;
     }
 
-    // If attack count is 0, returns false
-    if (attackableCount == 0)
+    // If the character is exhausted, returns false
+    if (GetGameTag(GameTag::EXHAUSTED) == 1)
+    {
+        return false;
+    }
+
+    //! If the character can't attack, returns false
+    if (GetGameTag(GameTag::CANT_ATTACK) == 1)
     {
         return false;
     }
