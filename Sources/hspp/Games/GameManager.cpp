@@ -16,6 +16,10 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.BeginFirst();
             break;
+        case Step::BEGIN_SHUFFLE:
+            game.step = step;
+            game.BeginShuffle();
+            break;
         default:
             break;
     }
