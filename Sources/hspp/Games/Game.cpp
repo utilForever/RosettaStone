@@ -60,7 +60,16 @@ void Game::BeginFirst()
 
 void Game::BeginShuffle()
 {
-    // Do nothing
+    // Shuffle cards in deck
+    if (m_gameConfig.doShuffle)
+    {
+        GetPlayer1().GetDeck().Shuffle();
+        GetPlayer2().GetDeck().Shuffle();
+    }
+
+    // Set next step
+    nextStep = Step::BEGIN_DRAW;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::BeginDraw()
