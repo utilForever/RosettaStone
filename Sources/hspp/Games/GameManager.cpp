@@ -36,6 +36,10 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.MainReady();
             break;
+        case Step::MAIN_START_TRIGGERS:
+            game.step = step;
+            game.MainStartTriggers();
+            break;
         default:
             break;
     }
