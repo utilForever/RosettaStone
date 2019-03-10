@@ -44,6 +44,10 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.MainResource();
             break;
+        case Step::MAIN_DRAW:
+            game.step = step;
+            game.MainDraw();
+            break;
         default:
             break;
     }
