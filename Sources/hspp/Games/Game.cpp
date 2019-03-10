@@ -172,7 +172,8 @@ void Game::MainResource()
 
 void Game::MainDraw()
 {
-    // Do nothing
+    // Draw a card for current player
+    Generic::Draw(GetCurrentPlayer());
 }
 
 void Game::MainStart()
