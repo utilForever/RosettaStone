@@ -23,10 +23,10 @@ TEST(CoreCardsGen, EX1_066)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.availableMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.availableMana = 10;
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
@@ -50,10 +50,10 @@ TEST(CoreCardsGen, EX1_306)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.availableMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.availableMana = 10;
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Succubus"));
@@ -81,10 +81,10 @@ TEST(CoreCardsGen, CS2_041)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.availableMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.availableMana = 10;
 
     auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
@@ -118,10 +118,10 @@ TEST(CoreCardsGen, CS2_088)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.availableMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.availableMana = 10;
     opPlayer.GetHero()->health = 24;
 
     const auto card1 = Generic::DrawCard(
@@ -141,10 +141,10 @@ TEST(CoreCardsGen, CS1_112)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.availableMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.availableMana = 10;
     curPlayer.GetHero()->health = 26;
 
     auto& curField = curPlayer.GetField();
@@ -162,9 +162,9 @@ TEST(CoreCardsGen, CS1_112)
         opPlayer, Cards::GetInstance().FindCardByName("Worgen Infiltrator"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
-    curPlayer.SetAvailableMana(10);
+    curPlayer.availableMana = 10;
     Task::Run(curPlayer, PlayCardTask(card2));
-    curPlayer.SetAvailableMana(10);
+    curPlayer.availableMana = 10;
     Task::Run(opPlayer, PlayCardTask(card4));
     Task::Run(opPlayer, PlayCardTask(card5));
 
@@ -192,10 +192,10 @@ TEST(CoreCardsGen, CS1_113)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.availableMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.availableMana = 10;
 
     const auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
@@ -210,7 +210,7 @@ TEST(CoreCardsGen, CS1_113)
         opPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
 
     Task::Run(curPlayer, PlayCardTask(card1));
-    curPlayer.SetAvailableMana(10);
+    curPlayer.availableMana = 10;
     Task::Run(opPlayer, PlayCardTask(card2));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
@@ -219,7 +219,7 @@ TEST(CoreCardsGen, CS1_113)
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
-    opPlayer.SetAvailableMana(10);
+    opPlayer.availableMana = 10;
     auto result =
         Task::Run(opPlayer, PlayCardTask(card4, -1, curPlayer.GetHero()));
     EXPECT_EQ(result, TaskStatus::PLAY_CARD_INVALID_TARGET);
