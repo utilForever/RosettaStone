@@ -125,7 +125,7 @@ class Player
     //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
 
-    std::size_t availableMana = 0;
+    std::size_t currentMana = 0;
     std::size_t maximumMana = 0;
 
  private:

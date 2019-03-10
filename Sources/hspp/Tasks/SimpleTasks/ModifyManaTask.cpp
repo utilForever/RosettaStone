@@ -26,7 +26,7 @@ TaskStatus ModifyManaTask::Impl(Player& player)
     const auto getMana = [](Player& p, ManaType mode) -> std::size_t {
         if (mode == ManaType::AVAILABLE)
         {
-            return p.availableMana;
+            return p.currentMana;
         }
 
         if (mode == ManaType::MAXIMUM)
@@ -57,7 +57,7 @@ TaskStatus ModifyManaTask::Impl(Player& player)
 
     if (m_manaMode == ManaType::AVAILABLE)
     {
-        player.availableMana = mana;
+        player.currentMana = mana;
     }
 
     if (m_manaMode == ManaType::MAXIMUM)

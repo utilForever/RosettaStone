@@ -60,7 +60,7 @@ TaskStatus PlayCardTask::Impl(Player& player)
     }
 
     // Verify mana is sufficient
-    if (entity->card.cost > player.availableMana)
+    if (entity->card.cost > player.currentMana)
     {
         return TaskStatus::PLAY_CARD_NOT_ENOUGH_MANA;
     }
