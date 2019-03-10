@@ -174,6 +174,10 @@ void Game::MainDraw()
 {
     // Draw a card for current player
     Generic::Draw(GetCurrentPlayer());
+
+    // Set next step
+    nextStep = Step::MAIN_START;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainStart()
