@@ -161,6 +161,9 @@ void Game::MainResource()
 
     // Add mana crystal to current player
     Generic::ChangeManaCrystal(curPlayer, 1, false);
+
+    // Reset current mana
+    curPlayer.currentMana = curPlayer.maximumMana;
 }
 
 void Game::MainDraw()
