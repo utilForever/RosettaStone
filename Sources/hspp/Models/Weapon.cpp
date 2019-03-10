@@ -11,28 +11,8 @@ namespace Hearthstonepp
 {
 Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
-    m_attack = _card.attack ? *_card.attack : 0;
-    m_durability = _card.durability ? *_card.durability : 0;
-}
-
-size_t Weapon::GetAttack() const
-{
-    return m_attack;
-}
-
-void Weapon::SetAttack(size_t attack)
-{
-    m_attack = attack;
-}
-
-size_t Weapon::GetDurability() const
-{
-    return m_durability;
-}
-
-void Weapon::SetDurability(size_t durability)
-{
-    m_durability = durability;
+    attack = _card.attack ? *_card.attack : 0;
+    durability = _card.durability ? *_card.durability : 0;
 }
 
 void Weapon::Destroy()
