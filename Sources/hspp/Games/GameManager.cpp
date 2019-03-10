@@ -52,6 +52,11 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.MainStart();
             break;
+        case Step::MAIN_ACTION:
+            game.step = step;
+            break;
+        case Step::MAIN_COMBAT:
+            break;
         default:
             break;
     }
