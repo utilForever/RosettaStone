@@ -164,6 +164,10 @@ void Game::MainResource()
 
     // Reset current mana
     curPlayer.currentMana = curPlayer.maximumMana;
+
+    // Set next step
+    nextStep = Step::MAIN_DRAW;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainDraw()
