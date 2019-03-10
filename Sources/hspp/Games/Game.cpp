@@ -149,7 +149,9 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
-    // Do nothing
+    // Set next step
+    nextStep = Step::MAIN_RESOURCE;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainResource()
