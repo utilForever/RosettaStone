@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Actions/Draw.hpp>
+#include <hspp/Actions/Generic.hpp>
 #include <hspp/Cards/Cards.hpp>
 #include <hspp/Games/Game.hpp>
 #include <hspp/Games/GameManager.hpp>
@@ -156,7 +157,10 @@ void Game::MainStartTriggers()
 
 void Game::MainResource()
 {
-    // Do nothing
+    auto& curPlayer = GetCurrentPlayer();
+
+    // Add mana crystal to current player
+    Generic::ChangeManaCrystal(curPlayer, 1, false);
 }
 
 void Game::MainDraw()
