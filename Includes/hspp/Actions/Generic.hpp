@@ -10,6 +10,10 @@
 
 namespace Hearthstonepp::Generic
 {
+//! Changes mana crystal of the player.
+//! \param player The player to change mana crystal.
+//! \param amount A value indicating how much to change mana crystal.
+//! \param fill true if mana crystal is filled, and false otherwise.
 void ChangeManaCrystal(Player& player, int amount, bool fill);
 }  // namespace Hearthstonepp::Generic
 
