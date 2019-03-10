@@ -16,7 +16,7 @@ Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
     if (!card.id.empty())
     {
-        m_attack = card.attack ? *card.attack : 0;
+        attack = card.attack ? *card.attack : 0;
         health = card.health ? static_cast<int>(*card.health) : 0;
         maxHealth = health;
     }
@@ -24,12 +24,7 @@ Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 
 std::size_t Character::GetAttack() const
 {
-    return m_attack;
-}
-
-void Character::SetAttack(std::size_t attack)
-{
-    m_attack = attack;
+    return attack;
 }
 
 void Character::Destroy()
