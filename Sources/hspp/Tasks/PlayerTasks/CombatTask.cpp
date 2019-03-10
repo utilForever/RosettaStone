@@ -107,10 +107,10 @@ TaskStatus CombatTask::Impl(Player& player)
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        hero->weapon->SetDurability(hero->weapon->GetDurability() - 1);
+        hero->weapon->durability -= 1;
 
         // Destroy weapon if durability is 0
-        if (hero->weapon->GetDurability() <= 0)
+        if (hero->weapon->durability == 0)
         {
             DestroyTask(EntityType::WEAPON).Run(player);
         }

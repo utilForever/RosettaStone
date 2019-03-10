@@ -37,6 +37,6 @@ bool Hero::HasWeapon() const
 
 std::size_t Hero::GetAttack() const
 {
-    return weapon != nullptr ? m_attack + weapon->GetAttack() : m_attack;
+    return weapon != nullptr ? attack + weapon->attack : attack;
 }
 }  // namespace Hearthstonepp

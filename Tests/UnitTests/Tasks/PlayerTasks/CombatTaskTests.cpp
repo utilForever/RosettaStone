@@ -131,7 +131,7 @@ TEST(CombatTask, Default)
 
     auto card5 = GenerateMinionCard("minion5", 5, 4);
 
-    player1Field.GetMinion(0)->SetAttack(1);
+    player1Field.GetMinion(0)->attack = 1;
     PlayMinionCard(player2, card5);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
@@ -149,8 +149,8 @@ TEST(CombatTask, Weapon)
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     player1.GetHero()->weapon = new Weapon();
-    player1.GetHero()->weapon->SetAttack(4);
-    player1.GetHero()->weapon->SetDurability(2);
+    player1.GetHero()->weapon->attack = 4;
+    player1.GetHero()->weapon->durability = 2;
     player1.GetHero()->weapon->SetOwner(player1);
     PlayMinionCard(player2, card);
 
@@ -161,7 +161,7 @@ TEST(CombatTask, Weapon)
     tester.Attack(player1.GetHero(), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
 
-    EXPECT_EQ(player1.GetHero()->weapon->GetDurability(), 1);
+    EXPECT_EQ(player1.GetHero()->weapon->durability, 1);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 6);
 
     tester.InitAttackCount(PlayerType::PLAYER1);
