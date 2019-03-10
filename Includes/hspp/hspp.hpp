@@ -10,6 +10,7 @@
 #include <hspp/Accounts/AccountInfo.hpp>
 #include <hspp/Accounts/DeckInfo.hpp>
 #include <hspp/Actions/Draw.hpp>
+#include <hspp/Actions/Generic.hpp>
 #include <hspp/Actions/Targeting.hpp>
 #include <hspp/CardSets/CoreCardsGen.hpp>
 #include <hspp/Cards/Card.hpp>
