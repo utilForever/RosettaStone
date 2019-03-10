@@ -40,6 +40,10 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.MainStartTriggers();
             break;
+        case Step::MAIN_RESOURCE:
+            game.step = step;
+            game.MainResource();
+            break;
         default:
             break;
     }
