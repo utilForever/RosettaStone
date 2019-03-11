@@ -254,7 +254,8 @@ void Game::FinalWrapUp()
 
 void Game::FinalGameOver()
 {
-    // Do nothing
+    // Set game state to complete
+    state = State::COMPLETE;
 }
 
 void Game::StartGame()
