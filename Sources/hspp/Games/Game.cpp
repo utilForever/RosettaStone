@@ -267,6 +267,13 @@ void Game::StartGame()
         GetPlayer2().GetDeck().AddCard(*entity);
     }
 
+    // Set game states
+    state = State::RUNNING;
+    for (auto& p : m_players)
+    {
+        p.playState = PlayState::PLAYING;
+    }
+
     // Determine first player
     switch (m_gameConfig.startPlayer)
     {
