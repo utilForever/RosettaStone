@@ -187,16 +187,6 @@ void Game::MainStart()
     GameManager::ProcessNextStep(*this, nextStep);
 }
 
-void Game::MainAction()
-{
-    // Do nothing
-}
-
-void Game::MainCombat()
-{
-    // Do nothing
-}
-
 void Game::MainEnd()
 {
     // Do nothing
