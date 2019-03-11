@@ -108,6 +108,8 @@ class Game
     //! Starts the game.
     void StartGame();
 
+    State state = State::INVALID;
+
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
