@@ -196,7 +196,25 @@ void Game::MainEnd()
 
 void Game::MainCleanUp()
 {
-    // Do nothing
+    auto& curPlayer = GetCurrentPlayer();
+
+    // Unfreeze all characters they control that are Frozen, don't have
+    // summoning sickness (or do have Charge) and have not attacked that turn
+    // Hero
+    if (curPlayer.GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
+        curPlayer.GetHero()->numAttacked == 0)
+    {
+        curPlayer.GetHero()->SetGameTag(GameTag::FROZEN, 0);
+    }
+    // Field
+    for (auto& m : curPlayer.GetField().GetAllMinions())
+    {
+        if (m->GetGameTag(GameTag::FROZEN) == 1 && m->numAttacked == 0 &&
+            m->GetGameTag(GameTag::EXHAUSTED) == 0)
+        {
+            m->SetGameTag(GameTag::FROZEN, 0);
+        }
+    }
 }
 
 void Game::MainNext()
