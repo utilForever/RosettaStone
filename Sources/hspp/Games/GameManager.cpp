@@ -69,6 +69,12 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             game.step = step;
             game.MainNext();
             break;
+        case Step::FINAL_WRAPUP:
+            game.FinalWrapUp();
+            break;
+        case Step::FINAL_GAMEOVER:
+            game.FinalGameOver();
+            break;
         default:
             break;
     }
