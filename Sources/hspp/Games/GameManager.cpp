@@ -57,6 +57,14 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             break;
         case Step::MAIN_COMBAT:
             break;
+        case Step::MAIN_END:
+            game.step = step;
+            game.MainEnd();
+            break;
+        case Step::MAIN_CLEANUP:
+            game.step = step;
+            game.MainCleanUp();
+            break;
         default:
             break;
     }
