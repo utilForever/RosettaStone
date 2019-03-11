@@ -225,6 +225,9 @@ void Game::MainNext()
 {
     // Set player for next turn
     m_currentPlayer = &m_currentPlayer->GetOpponent();
+
+    // Count next turn
+    m_turn++;
 }
 
 void Game::FinalWrapUp()
