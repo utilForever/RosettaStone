@@ -223,7 +223,8 @@ void Game::MainCleanUp()
 
 void Game::MainNext()
 {
-    // Do nothing
+    // Set player for next turn
+    m_currentPlayer = &m_currentPlayer->GetOpponent();
 }
 
 void Game::FinalWrapUp()
