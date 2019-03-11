@@ -228,6 +228,10 @@ void Game::MainNext()
 
     // Count next turn
     m_turn++;
+
+    // Set next step
+    nextStep = Step::MAIN_READY;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::FinalWrapUp()
