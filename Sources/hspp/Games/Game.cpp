@@ -246,6 +246,10 @@ void Game::FinalWrapUp()
             p.GetOpponent().playState = PlayState::WON;
         }
     }
+
+    // Set next step
+    nextStep = Step::FINAL_GAMEOVER;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::FinalGameOver()
