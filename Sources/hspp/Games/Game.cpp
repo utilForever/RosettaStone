@@ -189,7 +189,9 @@ void Game::MainStart()
 
 void Game::MainEnd()
 {
-    // Do nothing
+    // Set next step
+    nextStep = Step::MAIN_CLEANUP;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainCleanUp()
