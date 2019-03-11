@@ -215,6 +215,10 @@ void Game::MainCleanUp()
             m->SetGameTag(GameTag::FROZEN, 0);
         }
     }
+
+    // Set next step
+    nextStep = Step::MAIN_NEXT;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainNext()
