@@ -45,6 +45,7 @@
 #include <hspp/Policies/BasicPolicy.hpp>
 #include <hspp/Policies/IoPolicy.hpp>
 #include <hspp/Policies/Policy.hpp>
+#include <hspp/Policies/TorchPolicy.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/PlayerTasks/GameEndTask.hpp>
