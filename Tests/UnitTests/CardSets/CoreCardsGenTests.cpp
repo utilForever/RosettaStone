@@ -179,7 +179,7 @@ TEST(CoreCardsGen, CS1_112)
     Task::Run(opPlayer, PlayCardTask(card4));
     Task::Run(opPlayer, PlayCardTask(card5));
 
-    Task::Run(curPlayer, InitAttackCountTask());
+    Task::Run(curPlayer, EndTurnTask());
 
     Task::Run(curPlayer, CombatTask(card1, card4));
     EXPECT_EQ(curField.GetMinion(0)->health, 4);

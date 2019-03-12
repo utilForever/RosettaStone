@@ -13,7 +13,6 @@
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
-#include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 #include <hspp/Tasks/TaskStatus.hpp>
 #include <hspp/Tasks/TaskWrapper.hpp>
