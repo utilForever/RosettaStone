@@ -200,3 +200,52 @@ TEST(CoreCardsGen, CS1_113)
         Task::Run(opPlayer, PlayCardTask(card4, -1, curPlayer.GetHero()));
     EXPECT_EQ(result, TaskStatus::PLAY_CARD_INVALID_TARGET);
 }
+
+TEST(CoreCardsGen, EX1_129)
+{
+    Game game(CardClass::ROGUE, CardClass::PALADIN, PlayerType::PLAYER1);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.SetMaximumMana(10);
+    curPlayer.SetAvailableMana(10);
+    opPlayer.SetMaximumMana(10);
+    opPlayer.SetAvailableMana(10);
+
+    const auto& curField = curPlayer.GetField();
+    const auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fan of Knives"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fan of Knives"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Entity* entity1 = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    curPlayer.GetDeck().AddCard(*entity1);
+
+    Entity* entity2 = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    curPlayer.GetDeck().AddCard(*entity2);
+
+    Task::Run(opPlayer, PlayCardTask(card3));
+    Task::Run(opPlayer, PlayCardTask(card4));
+    Task::Run(opPlayer, PlayCardTask(card5));
+
+    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 3u);
+
+    Task::Run(curPlayer, PlayCardTask(card1));
+    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    Task::Run(curPlayer, PlayCardTask(card2));
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), std::size_t(2));
+}

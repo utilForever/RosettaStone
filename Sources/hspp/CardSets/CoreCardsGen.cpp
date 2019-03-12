@@ -10,6 +10,7 @@
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <hspp/Tasks/SimpleTasks/HealTask.hpp>
 
@@ -118,7 +119,19 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+	// ------------------------------------------ SPELL - ROGUE
+    // [EX1_129] Fan of Knives - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to all enemy minions.
+    //       Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 1));
+    power.AddPowerTask(new DrawTask(std::size_t(1)));
+    cards.emplace("EX1_129", power);
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
