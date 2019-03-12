@@ -272,11 +272,21 @@ void Game::StartGame()
     // Set up decks
     for (auto& card : m_gameConfig.player1Deck)
     {
+        if (card.cardType == +CardType::INVALID)
+        {
+            continue;
+        }
+
         Entity* entity = Entity::GetFromCard(GetPlayer1(), std::move(card));
         GetPlayer1().GetDeck().AddCard(*entity);
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
+        if (card.cardType == +CardType::INVALID)
+        {
+            continue;
+        }
+
         Entity* entity = Entity::GetFromCard(GetPlayer2(), std::move(card));
         GetPlayer2().GetDeck().AddCard(*entity);
     }
