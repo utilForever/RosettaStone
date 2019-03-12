@@ -23,8 +23,8 @@ namespace Hearthstonepp
 BETTER_ENUM(TaskID, int, INVALID, PLAYER_SETTING, DRAW, OVERDRAW, MODIFY_MANA,
             DAMAGE, BRIEF, MULLIGAN, COMBAT, PLAY_CARD, PLAY_MINION,
             PLAY_WEAPON, PLAY_SPELL, GAME_END, ADD_ENCHANTMENT, DESTROY,
-            DISCARD, HEAL_FULL, POISONOUS, FREEZE, HEAL,
-            INCLUDE, CONTROL);
+            DISCARD, HEAL_FULL, POISONOUS, FREEZE, HEAL, INCLUDE, CONTROL,
+            END_TURN);
 #else
 enum class TaskID
 {
@@ -50,7 +50,8 @@ enum class TaskID
     FREEZE,
     HEAL,
     INCLUDE,
-    CONTROL
+    CONTROL,
+    END_TURN
 };
 #endif
 

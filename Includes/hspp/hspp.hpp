@@ -50,6 +50,7 @@
 #include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/BriefTask.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
+#include <hspp/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <hspp/Tasks/PlayerTasks/GameEndTask.hpp>
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>

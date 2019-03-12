@@ -16,6 +16,7 @@ enum class TaskStatus : status_t
 {
     INVALID,
     NULLPTR,
+    COMPLETE,
 
     PLAYER_SETTING,
     PLAYER_SETTING_SUCCESS,
