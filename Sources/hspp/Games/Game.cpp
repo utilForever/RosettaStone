@@ -291,6 +291,20 @@ void Game::StartGame()
         GetPlayer2().GetDeck().AddCard(*entity);
     }
 
+    // Fill cards to deck
+    if (m_gameConfig.doFillDecks)
+    {
+        for (auto& p : m_players)
+        {
+            for (auto& cardID : m_gameConfig.fillCardIDs)
+            {
+                Card card = Cards::GetInstance().FindCardByID(cardID);
+                Entity* entity = Entity::GetFromCard(p, std::move(card));
+                p.GetDeck().AddCard(*entity);
+            }
+        }
+    }
+
     // Set game states
     state = State::RUNNING;
     for (auto& p : m_players)
