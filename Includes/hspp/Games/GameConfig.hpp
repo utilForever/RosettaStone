@@ -28,6 +28,12 @@ struct GameConfig
     std::array<Card, START_DECK_SIZE> player1Deck;
     std::array<Card, START_DECK_SIZE> player2Deck;
 
+    std::array<std::string, NUM_PLAYER_CLASS> fillCardIDs = {
+        "UNG_028", "UNG_067", "UNG_116", "UNG_829", "UNG_934",
+        "UNG_920", "UNG_940", "UNG_942", "UNG_954"
+    };
+
+    bool doFillDecks = false;
     bool doShuffle = true;
     bool skipMulligan = true;
 };
