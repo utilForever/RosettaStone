@@ -19,7 +19,9 @@ TEST(CoreCardsGen, EX1_066)
     config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
+ 
     Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -46,7 +48,9 @@ TEST(CoreCardsGen, EX1_306)
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
+
     Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -77,7 +81,9 @@ TEST(CoreCardsGen, CS2_041)
     config.player1Class = CardClass::SHAMAN;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
+
     Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -114,7 +120,9 @@ TEST(CoreCardsGen, CS2_088)
     config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+
     Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -137,7 +145,9 @@ TEST(CoreCardsGen, CS1_112)
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+
     Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -188,7 +198,9 @@ TEST(CoreCardsGen, CS1_113)
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+
     Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
