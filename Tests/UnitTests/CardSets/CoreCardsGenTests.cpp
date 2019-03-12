@@ -72,7 +72,7 @@ TEST(CoreCardsGen, EX1_306)
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 0u);
 
     Task::Run(opPlayer, PlayCardTask(card2));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 1u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
 }
 
 TEST(CoreCardsGen, CS2_041)
