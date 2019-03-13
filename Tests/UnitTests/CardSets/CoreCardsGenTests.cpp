@@ -233,7 +233,6 @@ TEST(CoreCardsGen, CS1_113)
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     opPlayer.currentMana = 10;
-    auto result =
-        Task::Run(opPlayer, PlayCardTask(card4, -1, curPlayer.GetHero()));
-    EXPECT_EQ(result, TaskStatus::PLAY_CARD_INVALID_TARGET);
+    Task::Run(opPlayer, PlayCardTask(card4, -1, curPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
 }
