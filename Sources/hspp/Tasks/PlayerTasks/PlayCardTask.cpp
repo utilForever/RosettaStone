@@ -8,7 +8,7 @@
 
 namespace Hearthstonepp::PlayerTasks
 {
-PlayCardTask::PlayCardTask(Entity* source, int fieldPos, Entity* target)
+PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos)
     : ITask(source, target), m_fieldPos(fieldPos)
 {
     // Do nothing

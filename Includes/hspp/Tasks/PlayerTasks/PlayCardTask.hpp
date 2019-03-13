@@ -21,10 +21,9 @@ class PlayCardTask : public ITask
  public:
     //! Constructs task with given \p source, \p fieldPos and \p target.
     //! \param source A pointer to source entity to play card.
-    //! \param fieldPos A value indicating where to place card.
     //! \param target A target of the card to receive power.
-    PlayCardTask(Entity* source = nullptr, int fieldPos = -1,
-                 Entity* target = nullptr);
+    //! \param fieldPos A value indicating where to place card.
+    PlayCardTask(Entity* source, Entity* target = nullptr, int fieldPos = -1);
 
     //! Returns task ID.
     //! \return Task ID.
