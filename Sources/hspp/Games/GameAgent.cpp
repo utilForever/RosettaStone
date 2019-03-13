@@ -11,7 +11,6 @@
 #include <hspp/Tasks/PlayerTasks/GameEndTask.hpp>
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <hspp/Tasks/PlayerTasks/PlayerSettingTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
 #include <hspp/Tasks/TaskStatus.hpp>
