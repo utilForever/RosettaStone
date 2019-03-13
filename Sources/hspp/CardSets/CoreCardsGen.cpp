@@ -121,7 +121,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
 {
     Power power;
 
-	// ------------------------------------------ SPELL - ROGUE
+    // ------------------------------------------ SPELL - ROGUE
     // [EX1_129] Fan of Knives - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
