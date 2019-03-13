@@ -109,7 +109,7 @@ TEST(CoreCardsGen, CS2_041)
     EXPECT_EQ(curField.GetMinion(0)->health, 1);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
-    Task::Run(curPlayer, PlayCardTask(card2, -1, card1));
+    Task::Run(curPlayer, PlayCardTask(card2, card1));
     EXPECT_EQ(curField.GetMinion(0)->health, 2);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
 }
@@ -228,11 +228,11 @@ TEST(CoreCardsGen, CS1_113)
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
-    Task::Run(curPlayer, PlayCardTask(card3, -1, card2));
+    Task::Run(curPlayer, PlayCardTask(card3, card2));
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     opPlayer.currentMana = 10;
-    Task::Run(opPlayer, PlayCardTask(card4, -1, curPlayer.GetHero()));
+    Task::Run(opPlayer, PlayCardTask(card4, curPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
 }
