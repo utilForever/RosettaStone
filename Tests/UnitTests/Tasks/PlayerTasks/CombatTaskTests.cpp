@@ -80,9 +80,10 @@ TEST(CombatTask, Default)
     auto card2 = GenerateMinionCard("minion2", 5, 4);
 
     PlayMinionCard(player1, card1);
-    PlayMinionCard(player2, card2);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card2);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -95,14 +96,14 @@ TEST(CombatTask, Default)
         player2.GetHero()->health,
         player2.GetHero()->maxHealth - player1Field.GetMinion(0)->GetAttack());
 
-    EndTurnTask().Run(player2);
+    EndTurnTask().Run(player1);
 
     tester.Attack(player2Field.GetMinion(0), player1Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER2);
     EXPECT_EQ(player1Field.GetMinion(0)->health, 1);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 1);
 
-    EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -116,6 +117,7 @@ TEST(CombatTask, Default)
     PlayMinionCard(player2, card4);
 
     EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -128,6 +130,7 @@ TEST(CombatTask, Default)
     PlayMinionCard(player2, card5);
 
     EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -145,9 +148,10 @@ TEST(CombatTask, Weapon)
     player1.GetHero()->weapon->attack = 4;
     player1.GetHero()->weapon->durability = 2;
     player1.GetHero()->weapon->SetOwner(player1);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player2Field = player2.GetField();
 
@@ -158,6 +162,7 @@ TEST(CombatTask, Weapon)
     EXPECT_EQ(player2Field.GetMinion(0)->health, 6);
 
     EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
 
     tester.Attack(player1.GetHero(), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -174,7 +179,10 @@ TEST(CombatTask, Charge)
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     PlayMinionCard(player1, card);
+    EndTurnTask().Run(player1);
+
     PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -197,10 +205,11 @@ TEST(CombatTask, Taunt)
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     PlayMinionCard(player1, card);
-    PlayMinionCard(player2, card);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -223,9 +232,10 @@ TEST(CombatTask, Stealth)
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -250,9 +260,10 @@ TEST(CombatTask, Immune)
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -272,9 +283,10 @@ TEST(CombatTask, Windfury)
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -287,6 +299,7 @@ TEST(CombatTask, Windfury)
     player1Field.GetMinion(0)->SetGameTag(GameTag::WINDFURY, 1);
 
     EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -303,9 +316,10 @@ TEST(CombatTask, DivineShield)
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -321,6 +335,7 @@ TEST(CombatTask, DivineShield)
     player2Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -335,9 +350,10 @@ TEST(CombatTask, Poisonous)
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -349,12 +365,14 @@ TEST(CombatTask, Poisonous)
     EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
+    EndTurnTask().Run(player1);
+
     PlayMinionCard(player2, card);
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 0);
     player2Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
 
-    EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
@@ -369,9 +387,10 @@ TEST(CombatTask, Freeze)
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
-    PlayMinionCard(player2, card);
-
     EndTurnTask().Run(player1);
+
+    PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
@@ -382,7 +401,7 @@ TEST(CombatTask, Freeze)
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
     EXPECT_EQ(player2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
-    EndTurnTask().Run(player2);
+    EndTurnTask().Run(player1);
 
     tester.Attack(player2Field.GetMinion(0), player1Field.GetMinion(0),
                   TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER2);
