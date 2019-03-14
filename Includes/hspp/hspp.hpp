@@ -53,7 +53,6 @@
 #include <hspp/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
 #include <hspp/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
