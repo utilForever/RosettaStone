@@ -5,7 +5,7 @@
 
 #include <hspp/Actions/PlayCard.hpp>
 #include <hspp/Actions/Targeting.hpp>
-#include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
+#include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::Generic
 {
@@ -64,10 +64,22 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 
 void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 {
-    (void)player;
-    (void)minion;
     (void)target;
-    (void)fieldPos;
+
+    // Summon minion
+    minion->Summon(fieldPos);
+
+    // Apply card mechanics tags
+    for (const auto tags : minion->card.mechanics)
+    {
+        minion->SetGameTag(tags, 1);
+    }
+
+    // Process power tasks
+    for (auto& power : minion->card.power.GetPowerTask())
+    {
+        power->Run(player);
+    }
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
