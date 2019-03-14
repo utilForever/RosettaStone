@@ -19,7 +19,7 @@ TEST(CoreCardsGen, EX1_066)
     config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
- 
+
     Game game(config);
     game.StartGame();
 
@@ -109,7 +109,7 @@ TEST(CoreCardsGen, CS2_041)
     EXPECT_EQ(curField.GetMinion(0)->health, 1);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
-    Task::Run(curPlayer, PlayCardTask(card2, card1));
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card1));
     EXPECT_EQ(curField.GetMinion(0)->health, 2);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
 }
@@ -185,7 +185,7 @@ TEST(CoreCardsGen, CS1_112)
     EXPECT_EQ(curField.GetMinion(0)->health, 4);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
-    Task::Run(curPlayer, PlayCardTask(card3));
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card3));
     EXPECT_EQ(curPlayer.GetHero()->health, 28);
     EXPECT_EQ(opPlayer.GetHero()->health, 28);
     EXPECT_EQ(curField.GetMinion(0)->health, 5);
@@ -228,11 +228,12 @@ TEST(CoreCardsGen, CS1_113)
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
-    Task::Run(curPlayer, PlayCardTask(card3, card2));
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card2));
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     opPlayer.currentMana = 10;
-    Task::Run(opPlayer, PlayCardTask(card4, curPlayer.GetHero()));
+    auto curHero = curPlayer.GetHero();
+    Task::Run(opPlayer, PlayCardTask::SpellTarget(curPlayer, card4, curHero));
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
 }
