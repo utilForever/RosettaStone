@@ -38,7 +38,7 @@ TEST(CoreCardsGen, EX1_066)
     Task::Run(curPlayer, PlayCardTask(card1));
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
 
-    Task::Run(opPlayer, PlayCardTask(card2));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), false);
 }
 
@@ -68,10 +68,10 @@ TEST(CoreCardsGen, EX1_306)
     Generic::DrawCard(opPlayer,
                       Cards::GetInstance().FindCardByName("Fiery War Axe"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 0u);
 
-    Task::Run(opPlayer, PlayCardTask(card2));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
 }
 
@@ -102,8 +102,8 @@ TEST(CoreCardsGen, CS2_041)
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
-    Task::Run(opPlayer, PlayCardTask(card3));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
 
     Task::Run(opPlayer, CombatTask(card3, card1));
     EXPECT_EQ(curField.GetMinion(0)->health, 1);
@@ -135,7 +135,7 @@ TEST(CoreCardsGen, CS2_088)
     const auto card1 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Guardian of Kings"));
 
-    Task::Run(opPlayer, PlayCardTask(card1));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card1));
     EXPECT_EQ(opPlayer.GetHero()->maxHealth, opPlayer.GetHero()->health);
 }
 
@@ -172,12 +172,12 @@ TEST(CoreCardsGen, CS1_112)
     const auto card5 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Worgen Infiltrator"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     curPlayer.currentMana = 10;
-    Task::Run(curPlayer, PlayCardTask(card2));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
     curPlayer.currentMana = 10;
-    Task::Run(opPlayer, PlayCardTask(card4));
-    Task::Run(opPlayer, PlayCardTask(card5));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
 
     Task::Run(curPlayer, EndTurnTask());
 
@@ -222,9 +222,9 @@ TEST(CoreCardsGen, CS1_113)
     const auto card4 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     curPlayer.currentMana = 10;
-    Task::Run(opPlayer, PlayCardTask(card2));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
