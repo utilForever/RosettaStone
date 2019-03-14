@@ -9,8 +9,10 @@
 
 #include <hspp/Policies/BasicPolicy.hpp>
 
-namespace Hearthstonepp
+namespace HSppTorch
 {
+using namespace Hearthstonepp;
+
 class TorchPolicy : public BasicPolicy
 {
  public:

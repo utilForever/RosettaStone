@@ -5,9 +5,9 @@
 // property of any third parties.
 
 #include <hspp/Commons/Utils.hpp>
-#include <hspp/Policies/TorchPolicy.hpp>
+#include <hspp_torch/TorchPolicy.hpp>
 
-namespace Hearthstonepp
+namespace HSppTorch
 {
 TaskMeta TorchPolicy::RequireMulligan(Player& player)
 {
