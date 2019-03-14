@@ -6,7 +6,6 @@
 #include <hspp/Actions/PlayCard.hpp>
 #include <hspp/Actions/Targeting.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayMinionTask.hpp>
-#include <hspp/Tasks/PlayerTasks/PlaySpellTask.hpp>
 
 namespace Hearthstonepp::Generic
 {
@@ -68,6 +67,11 @@ void PlayWeapon(Player& player, Entity* source, Entity* target)
 
 void PlaySpell(Player& player, Entity* source, Entity* target)
 {
-    PlayerTasks::PlaySpellTask(source, target).Run(player);
+    // Process power tasks
+    for (auto& powerTask : source->card.power.GetPowerTask())
+    {
+        powerTask->SetTarget(target);
+        powerTask->Run(player);
+    }
 }
 }  // namespace Hearthstonepp::Generic
