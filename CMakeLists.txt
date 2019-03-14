@@ -51,6 +51,7 @@ add_subdirectory(Sources/hspp)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/HSppConsole)
 add_subdirectory(Extensions/HSppTool)
+add_subdirectory(Extensions/HSppTorch)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
