@@ -14,6 +14,12 @@ PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos)
     // Do nothing
 }
 
+PlayCardTask PlayCardTask::Minion(Player& player, Entity* source)
+{
+    int fieldPos = static_cast<int>(player.GetField().FindEmptyPos().value());
+    return PlayCardTask(source, nullptr, fieldPos);
+}
+
 TaskID PlayCardTask::GetTaskID() const
 {
     return TaskID::PLAY_CARD;

@@ -25,6 +25,12 @@ class PlayCardTask : public ITask
     //! \param fieldPos A value indicating where to place card.
     PlayCardTask(Entity* source, Entity* target = nullptr, int fieldPos = -1);
 
+    //! Wrapper for PlayCardTask without target and field position.
+    //! \param player The player to run task.
+    //! \param source A pointer to source entity to play card.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask Minion(Player& player, Entity* source);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
