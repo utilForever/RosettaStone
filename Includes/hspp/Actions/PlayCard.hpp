@@ -6,37 +6,40 @@
 #ifndef HEARTHSTONEPP_PLAY_CARD_HPP
 #define HEARTHSTONEPP_PLAY_CARD_HPP
 
+#include <hspp/Models/Minion.hpp>
 #include <hspp/Models/Player.hpp>
+#include <hspp/Models/Spell.hpp>
+#include <hspp/Models/Weapon.hpp>
 
 namespace Hearthstonepp::Generic
 {
 //! Plays a card from player's hand.
 //! \param player The player to play card.
 //! \param source A pointer to source entity to play card.
-//! \param target A target of the card to receive power.
+//! \param target A target of the character to receive power.
 //! \param fieldPos A value indicating where to place card.
-void PlayCard(Player& player, Entity* source, Entity* target = nullptr,
+void PlayCard(Player& player, Entity* source, Character* target = nullptr,
               int fieldPos = -1);
 
-//! Plays a minion from player's hand.
-//! \param player The player to play card.
-//! \param source A pointer to source entity to play card.
-//! \param target A target of the card to receive power.
+//! Plays a minion card from player's hand.
+//! \param player The player to play minion card.
+//! \param minion A pointer to minion card to play.
+//! \param target A target of the character to receive power.
 //! \param fieldPos A value indicating where to place card.
-void PlayMinion(Player& player, Entity* source, Entity* target = nullptr,
+void PlayMinion(Player& player, Minion* minion, Character* target = nullptr,
                 int fieldPos = -1);
 
-//! Plays a weapon from player's hand.
-//! \param player The player to play card.
-//! \param source A pointer to source entity to play card.
-//! \param target A target of the card to receive power.
-void PlayWeapon(Player& player, Entity* source, Entity* target = nullptr);
+//! Plays a weapon card from player's hand.
+//! \param player The player to play weapon card.
+//! \param weapon A pointer to weapon card to play.
+//! \param target A target of the character to receive power.
+void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
 
-//! Plays a spell from player's hand.
-//! \param player The player to play card.
-//! \param source A pointer to source entity to play card.
-//! \param target A target of the card to receive power.
-void PlaySpell(Player& player, Entity* source, Entity* target = nullptr);
+//! Plays a spell card from player's hand.
+//! \param player The player to play spell card.
+//! \param spell A pointer to spell card to play.
+//! \param target A target of the character to receive power.
+void PlaySpell(Player& player, Spell* spell, Character* target = nullptr);
 }  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_PLAY_CARD_HPP

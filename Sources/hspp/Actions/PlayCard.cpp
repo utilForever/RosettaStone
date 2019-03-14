@@ -9,7 +9,7 @@
 
 namespace Hearthstonepp::Generic
 {
-void PlayCard(Player& player, Entity* source, Entity* target, int fieldPos)
+void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
     // Verify mana is sufficient
     if (source->card.cost > player.currentMana)
@@ -39,36 +39,48 @@ void PlayCard(Player& player, Entity* source, Entity* target, int fieldPos)
     switch (source->card.cardType)
     {
         case CardType::MINION:
-            PlayMinion(player, source, target, fieldPos);
+        {
+            auto minion = dynamic_cast<Minion*>(source);
+            PlayMinion(player, minion, target, fieldPos);
             break;
+        }
         case CardType::WEAPON:
-            PlayWeapon(player, source, target);
+        {
+            auto weapon = dynamic_cast<Weapon*>(source);
+            PlayWeapon(player, weapon, target);
             break;
+        }
         case CardType::SPELL:
-            PlaySpell(player, source, target);
+        {
+            auto spell = dynamic_cast<Spell*>(source);
+            PlaySpell(player, spell, target);
             break;
+        }
         default:
             throw std::invalid_argument(
                 "Generic::PlayCard() - Invalid card type!");
     }
 }
 
-void PlayMinion(Player& player, Entity* source, Entity* target, int fieldPos)
+void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 {
-    PlayerTasks::PlayMinionTask(source, fieldPos, target).Run(player);
+    (void)player;
+    (void)minion;
+    (void)target;
+    (void)fieldPos;
 }
 
-void PlayWeapon(Player& player, Entity* source, Entity* target)
+void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 {
     (void)target;
 
-    player.GetHero()->weapon = dynamic_cast<Weapon*>(source);
+    player.GetHero()->weapon = weapon;
 }
 
-void PlaySpell(Player& player, Entity* source, Entity* target)
+void PlaySpell(Player& player, Spell* spell, Character* target)
 {
     // Process power tasks
-    for (auto& powerTask : source->card.power.GetPowerTask())
+    for (auto& powerTask : spell->card.power.GetPowerTask())
     {
         powerTask->SetTarget(target);
         powerTask->Run(player);

@@ -21,7 +21,8 @@ TaskID PlayCardTask::GetTaskID() const
 
 TaskStatus PlayCardTask::Impl(Player& player)
 {
-    Generic::PlayCard(player, m_source, m_target, m_fieldPos);
+    auto target = dynamic_cast<Character*>(m_target);
+    Generic::PlayCard(player, m_source, target, m_fieldPos);
 
     return TaskStatus::COMPLETE;
 }
