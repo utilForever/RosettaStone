@@ -20,6 +20,16 @@ PlayCardTask PlayCardTask::Minion(Player& player, Entity* source)
     return PlayCardTask(source, nullptr, fieldPos);
 }
 
+PlayCardTask PlayCardTask::Spell(Player&, Entity* source)
+{
+    return PlayCardTask(source, nullptr);
+}
+
+PlayCardTask PlayCardTask::SpellTarget(Player&, Entity* source, Entity* target)
+{
+    return PlayCardTask(source, target);
+}
+
 TaskID PlayCardTask::GetTaskID() const
 {
     return TaskID::PLAY_CARD;

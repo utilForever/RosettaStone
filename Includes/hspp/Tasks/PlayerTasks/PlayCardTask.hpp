@@ -21,15 +21,29 @@ class PlayCardTask : public ITask
  public:
     //! Constructs task with given \p source, \p fieldPos and \p target.
     //! \param source A pointer to source entity to play card.
-    //! \param target A target of the card to receive power.
+    //! \param target A pointer to target entity to receive power.
     //! \param fieldPos A value indicating where to place card.
     PlayCardTask(Entity* source, Entity* target = nullptr, int fieldPos = -1);
 
-    //! Wrapper for PlayCardTask without target and field position.
+    //! PlayCardTask wrapper for minion without target and field position.
     //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.
     //! \return Generated PlayCardTask for intended purpose.
     static PlayCardTask Minion(Player& player, Entity* source);
+
+    //! PlayCardTask wrapper for spell without target.
+    //! \param player The player to run task.
+    //! \param source A pointer to source entity to play card.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask Spell(Player& player, Entity* source);
+
+    //! PlayCardTask wrapper for spell.
+    //! \param player The player to run task.
+    //! \param source A pointer to source entity to play card.
+    //! \param target A pointer to target entity to receive power.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask SpellTarget(Player& player, Entity* source,
+                                    Entity* target);
 
     //! Returns task ID.
     //! \return Task ID.
