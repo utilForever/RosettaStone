@@ -24,6 +24,12 @@ void PlayCard(Player& player, Entity* source, Entity* target, int fieldPos)
         return;
     }
 
+    // Spend mana to play cards
+    if (source->card.cost > 0)
+    {
+        player.currentMana -= source->card.cost;
+    }
+
     // Erase from player's hand
     player.GetHand().RemoveCard(*source);
 
