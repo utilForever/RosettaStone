@@ -19,6 +19,12 @@ namespace Hearthstonepp
 {
 Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
+    // Set game to player
+    for (auto& p : m_players)
+    {
+        p.SetGame(this);
+    }
+
     // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
         Cards::GetInstance().GetHeroCard(gameConfig.player1Class),
@@ -271,12 +277,6 @@ void Game::FinalGameOver()
 
 void Game::StartGame()
 {
-    // Set game to player
-    for (auto& p : m_players)
-    {
-        p.SetGame(this);
-    }
-
     // Reverse card order in deck
     if (!m_gameConfig.doShuffle)
     {
