@@ -29,17 +29,17 @@ void PlayCard(Player& player, Entity* source, Character* target = nullptr,
 void PlayMinion(Player& player, Minion* minion, Character* target = nullptr,
                 int fieldPos = -1);
 
-//! Plays a weapon card from player's hand.
-//! \param player The player to play weapon card.
-//! \param weapon A pointer to weapon card to play.
-//! \param target A target of the character to receive power.
-void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
-
 //! Plays a spell card from player's hand.
 //! \param player The player to play spell card.
 //! \param spell A pointer to spell card to play.
 //! \param target A target of the character to receive power.
 void PlaySpell(Player& player, Spell* spell, Character* target = nullptr);
+
+//! Plays a weapon card from player's hand.
+//! \param player The player to play weapon card.
+//! \param weapon A pointer to weapon card to play.
+//! \param target A target of the character to receive power.
+void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
 }  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_PLAY_CARD_HPP

@@ -44,16 +44,16 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
             PlayMinion(player, minion, target, fieldPos);
             break;
         }
-        case CardType::WEAPON:
-        {
-            auto weapon = dynamic_cast<Weapon*>(source);
-            PlayWeapon(player, weapon, target);
-            break;
-        }
         case CardType::SPELL:
         {
             auto spell = dynamic_cast<Spell*>(source);
             PlaySpell(player, spell, target);
+            break;
+        }
+        case CardType::WEAPON:
+        {
+            auto weapon = dynamic_cast<Weapon*>(source);
+            PlayWeapon(player, weapon, target);
             break;
         }
         default:
@@ -82,13 +82,6 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     }
 }
 
-void PlayWeapon(Player& player, Weapon* weapon, Character* target)
-{
-    (void)target;
-
-    player.GetHero()->weapon = weapon;
-}
-
 void PlaySpell(Player& player, Spell* spell, Character* target)
 {
     // Process power tasks
@@ -97,5 +90,12 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
         powerTask->SetTarget(target);
         powerTask->Run(player);
     }
+}
+
+void PlayWeapon(Player& player, Weapon* weapon, Character* target)
+{
+    (void)target;
+
+    player.GetHero()->weapon = weapon;
 }
 }  // namespace Hearthstonepp::Generic
