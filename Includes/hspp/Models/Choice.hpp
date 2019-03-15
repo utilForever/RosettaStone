@@ -9,6 +9,12 @@
 
 namespace Hearthstonepp
 {
+//! The action type of choice.
+enum class ChoiceAction
+{
+    HAND = 0,       //!< Hand.
+};
+
 //!
 //! \brief Choice struct.
 //!
