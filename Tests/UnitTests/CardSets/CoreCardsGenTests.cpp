@@ -35,7 +35,7 @@ TEST(CoreCardsGen, EX1_066)
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
+    Task::Run(curPlayer, PlayCardTask::Weapon(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
