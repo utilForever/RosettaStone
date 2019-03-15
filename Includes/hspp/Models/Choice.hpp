@@ -22,7 +22,10 @@ enum class ChoiceAction
 //!
 struct Choice
 {
+    ChoiceType choiceType;
+    ChoiceAction choiceAction;
 
+    std::vector<std::size_t> choices;
 };
 }  // namespace Hearthstonepp
 
