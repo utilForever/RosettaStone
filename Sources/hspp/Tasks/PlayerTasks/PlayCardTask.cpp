@@ -30,6 +30,11 @@ PlayCardTask PlayCardTask::SpellTarget(Player&, Entity* source, Entity* target)
     return PlayCardTask(source, target);
 }
 
+PlayCardTask PlayCardTask::Weapon(Player&, Entity* source)
+{
+    return PlayCardTask(source, nullptr);
+}
+
 TaskID PlayCardTask::GetTaskID() const
 {
     return TaskID::PLAY_CARD;

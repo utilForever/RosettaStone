@@ -45,6 +45,12 @@ class PlayCardTask : public ITask
     static PlayCardTask SpellTarget(Player& player, Entity* source,
                                     Entity* target);
 
+    //! PlayCardTask wrapper for weapon without target.
+    //! \param player The player to run task.
+    //! \param source A pointer to source entity to play card.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask Weapon(Player& player, Entity* source);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
