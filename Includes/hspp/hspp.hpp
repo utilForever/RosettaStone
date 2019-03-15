@@ -36,6 +36,7 @@
 #include <hspp/Loaders/PowerLoader.hpp>
 #include <hspp/Models/Battlefield.hpp>
 #include <hspp/Models/Character.hpp>
+#include <hspp/Models/Choice.hpp>
 #include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Graveyard.hpp>
