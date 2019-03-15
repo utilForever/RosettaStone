@@ -59,6 +59,14 @@ class Game
     //! \return The opponent player.
     Player& GetOpponentPlayer();
 
+    //! Gets the next entity identifier.
+    //! \return The next entity ID.
+    std::size_t GetNextID();
+
+    //! Gets the next order of play index.
+    //! \return The next order of play index.
+    std::size_t GetNextOOP();
+
     //! Part of the game state.
     void BeginFirst();
 

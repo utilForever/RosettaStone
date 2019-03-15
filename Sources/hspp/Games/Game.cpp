@@ -1,8 +1,7 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2018 SabberStone Team, darkfriend77 & rnilva
+// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
-
-// We are making my contributions/submissions to this project solely in our
-// personal capacity and are not conveying any rights to any intellectual
-// property of any third parties.
 
 #include <hspp/Actions/Draw.hpp>
 #include <hspp/Actions/Generic.hpp>
@@ -51,6 +50,16 @@ Player& Game::GetCurrentPlayer()
 Player& Game::GetOpponentPlayer()
 {
     return m_currentPlayer->GetOpponent();
+}
+
+std::size_t Game::GetNextID()
+{
+    return m_entityID++;
+}
+
+std::size_t Game::GetNextOOP()
+{
+    return m_oopIndex++;
 }
 
 void Game::BeginFirst()
