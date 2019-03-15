@@ -102,7 +102,9 @@ void Game::BeginDraw()
 
 void Game::BeginMulligan()
 {
-    // Do nothing
+    // Start mulligan state
+    GetPlayer1().mulliganState = Mulligan::INPUT;
+    GetPlayer2().mulliganState = Mulligan::INPUT;
 }
 
 void Game::MainBegin()
