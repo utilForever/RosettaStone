@@ -9,6 +9,7 @@
 
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
+#include <hspp/Models/Choice.hpp>
 #include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Graveyard.hpp>
@@ -127,6 +128,7 @@ class Player
 
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
+    std::optional<Choice> choice = std::nullopt;
 
     std::size_t currentMana = 0;
     std::size_t maximumMana = 0;
