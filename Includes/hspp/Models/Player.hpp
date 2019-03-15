@@ -126,6 +126,7 @@ class Player
     void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
 
     PlayState playState = PlayState::INVALID;
+    Mulligan mulliganState = Mulligan::INVALID;
 
     std::size_t currentMana = 0;
     std::size_t maximumMana = 0;
