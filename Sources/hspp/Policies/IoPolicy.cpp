@@ -22,21 +22,7 @@ TaskMeta IoPolicy::RequireMulligan(Player& player)
     return TaskMeta(trait, SizedPtr<std::size_t>(3));
 }
 
-TaskMeta IoPolicy::RequirePlaySpell(Player& player)
-{
-    (void)player;
-    (void)m_out;
-    (void)m_in;
-    return TaskMeta();
-}
-
 TaskMeta IoPolicy::RequirePlayCard(Player& player)
-{
-    (void)player;
-    return TaskMeta();
-}
-
-TaskMeta IoPolicy::RequirePlayMinion(Player& player)
 {
     (void)player;
     return TaskMeta();

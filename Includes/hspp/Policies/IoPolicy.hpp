@@ -30,14 +30,8 @@ class IoPolicy : public BasicPolicy
     //! Method for MulliganTask requirement.
     TaskMeta RequireMulligan(Player& player) override;
 
-    //! Method for PlaySpellTask requirement.
-    TaskMeta RequirePlaySpell(Player& player) override;
-
     //! Method for PlayCardTask requirement.
     TaskMeta RequirePlayCard(Player& player) override;
-
-    //! Method for PlayMinionTask requirement.
-    TaskMeta RequirePlayMinion(Player& player) override;
 
     //! Method for CombatTask requirement.
     TaskMeta RequireCombat(Player& player) override;

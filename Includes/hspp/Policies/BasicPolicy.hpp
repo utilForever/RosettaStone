@@ -45,14 +45,8 @@ class BasicPolicy : public IPolicy
     //! Virtual method for MulliganTask requirement.
     virtual TaskMeta RequireMulligan(Player& player);
 
-    //! Virtual method for PlaySpellTask requirement.
-    virtual TaskMeta RequirePlaySpell(Player& player);
-
     //! Virtual method for PlayCardTask requirement.
     virtual TaskMeta RequirePlayCard(Player& player);
-
-    //! Virtual method for PlayMinionTask requirement.
-    virtual TaskMeta RequirePlayMinion(Player& player);
 
     //! Virtual method for CombatTask requirement.
     virtual TaskMeta RequireCombat(Player& player);
@@ -63,9 +57,7 @@ class BasicPolicy : public IPolicy
     std::map<TaskID, std::function<TaskMeta(BasicPolicy&, Player&)>>
         m_require = {
             { TaskID::MULLIGAN, &BasicPolicy::RequireMulligan },
-            { TaskID::PLAY_SPELL, &BasicPolicy::RequirePlaySpell },
             { TaskID::PLAY_CARD, &BasicPolicy::RequirePlayCard },
-            { TaskID::PLAY_MINION, &BasicPolicy::RequirePlayMinion },
             { TaskID::COMBAT, &BasicPolicy::RequireCombat },
         };
 
