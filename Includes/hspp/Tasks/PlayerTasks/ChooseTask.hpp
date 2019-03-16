@@ -13,13 +13,13 @@ namespace Hearthstonepp::PlayerTasks
 //!
 //! \brief ChooseTask class.
 //!
-//! This class represents the task for choosing a card between some cards.
+//! This class represents the task for choosing cards.
 //!
 class ChooseTask : public ITask
 {
  public:
     //! Construct task with given \p choices.
-    //! \param choices A container of card to choose one.
+    //! \param choices A container of card to choose.
     ChooseTask(std::vector<std::size_t> choices);
 
     //! Returns task ID.

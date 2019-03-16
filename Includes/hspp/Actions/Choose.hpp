@@ -16,7 +16,7 @@ namespace Hearthstonepp::Generic
 //! \param player The player to create a choice.
 //! \param type A choice type.
 //! \param action A choice action.
-//! \param choices A container of card to choose one.
+//! \param choices A container of card to choose.
 void CreateChoice(Player& player, ChoiceType type, ChoiceAction action,
                   std::vector<std::size_t> choices);
 }  // namespace Hearthstonepp::Generic
