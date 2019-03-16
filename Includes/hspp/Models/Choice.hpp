@@ -7,6 +7,8 @@
 #ifndef HEARTHSTONEPP_CHOICE_HPP
 #define HEARTHSTONEPP_CHOICE_HPP
 
+#include <vector>
+
 namespace Hearthstonepp
 {
 //! The action type of choice.
