@@ -8,6 +8,8 @@
 
 #include <hspp/Tasks/Tasks.hpp>
 
+#include <vector>
+
 namespace Hearthstonepp::PlayerTasks
 {
 //!
@@ -21,6 +23,12 @@ class ChooseTask : public ITask
     //! Construct task with given \p choices.
     //! \param choices A container of card to choose.
     ChooseTask(std::vector<std::size_t> choices);
+
+    //! ChooseTask wrapper for mulligan.
+    //! \param player The player to run task.
+    //! \param source A pointer to source entity to play card.
+    //! \return Generated PlayCardTask for intended purpose.
+    static ChooseTask Mulligan(Player& player, std::vector<std::size_t> choices);
 
     //! Returns task ID.
     //! \return Task ID.
