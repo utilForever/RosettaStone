@@ -14,7 +14,8 @@ namespace Hearthstonepp
 //! The action type of choice.
 enum class ChoiceAction
 {
-    HAND = 0,       //!< Hand.
+    INVALID = 0,    //!< Invalid action.
+    HAND = 1,       //!< Hand.
 };
 
 //!
@@ -24,8 +25,8 @@ enum class ChoiceAction
 //!
 struct Choice
 {
-    ChoiceType choiceType;
-    ChoiceAction choiceAction;
+    ChoiceType choiceType = ChoiceType::INVALID;
+    ChoiceAction choiceAction = ChoiceAction::INVALID;
 
     std::vector<std::size_t> choices;
 };
