@@ -79,6 +79,6 @@ Entity& Deck::RemoveCard(Entity& card)
 
 void Deck::Shuffle()
 {
-    Random::shuffle(m_cards.begin(), m_cards.end());
+    Random::shuffle(m_cards.begin(), m_cards.begin() + m_numCard);
 }
 }  // namespace Hearthstonepp
