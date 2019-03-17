@@ -79,11 +79,13 @@ class Entity
     static Entity* GetFromCard(Player& player, Card&& card);
 
     Card card;
+
+	std::size_t id = 0;
+
     bool isDestroyed = false;
 
  protected:
     Player* m_owner = nullptr;
-    std::size_t m_id = 0;
 
     std::map<GameTag, int> m_gameTags;
 

@@ -131,7 +131,7 @@ Entity* Entity::GetFromCard(Player& player, Card&& card)
     }
 
     // Set entity ID
-    result->m_id = player.GetGame()->GetNextID();
+    result->id = player.GetGame()->GetNextID();
 
     return result;
 }
