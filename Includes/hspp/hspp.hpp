@@ -9,6 +9,7 @@
 
 #include <hspp/Accounts/AccountInfo.hpp>
 #include <hspp/Accounts/DeckInfo.hpp>
+#include <hspp/Actions/Attack.hpp>
 #include <hspp/Actions/Choose.hpp>
 #include <hspp/Actions/Draw.hpp>
 #include <hspp/Actions/Generic.hpp>
