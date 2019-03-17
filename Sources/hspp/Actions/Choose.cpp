@@ -6,6 +6,8 @@
 #include <hspp/Actions/Choose.hpp>
 #include <hspp/Actions/Generic.hpp>
 
+#include <algorithm>
+
 namespace Hearthstonepp::Generic
 {
 void ChoiceMulligan(Player& player, std::vector<std::size_t> choices)
