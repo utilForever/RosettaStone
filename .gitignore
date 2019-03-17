@@ -30,3 +30,6 @@ cmake-build-debug
 
 # Python files
 *.pyc
+
+# External downloads
+Downloads
