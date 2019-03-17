@@ -8,6 +8,25 @@
 
 namespace Hearthstonepp::Generic
 {
+void AddCardToHand(Player& player, Entity* entity)
+{
+    // Add card to graveyard if hand is full
+    if (player.GetHand().IsFull())
+    {
+        player.GetGraveyard().AddCard(*entity);
+        return;
+    }
+
+    // Add card to hand
+    player.GetHand().AddCard(*entity);
+}
+
+void RemoveCardFromHand(Player& player, Entity* entity)
+{
+	// Remove card from hand
+    player.GetHand().RemoveCard(*entity);
+}
+
 void ChangeManaCrystal(Player& player, int amount, bool fill)
 {
     // Available and maximum mana are up to a maximum of 10
