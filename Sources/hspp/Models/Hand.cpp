@@ -71,11 +71,6 @@ std::optional<std::size_t> Hand::FindCardPos(Entity& card)
 
 void Hand::AddCard(Entity& card)
 {
-    if (IsFull())
-    {
-        return;
-    }
-
     m_cards.at(m_numCard) = &card;
     ++m_numCard;
 }
@@ -100,5 +95,13 @@ void Hand::RemoveCard(Entity& card)
     }
 
     --m_numCard;
+}
+
+void Hand::SwapCard(Entity& card1, Entity& card2)
+{
+    std::size_t card1Pos = FindCardPos(card1).value();
+    std::size_t card2Pos = FindCardPos(card2).value();
+
+    std::swap(m_cards[card1Pos], m_cards[card2Pos]);
 }
 }  // namespace Hearthstonepp
