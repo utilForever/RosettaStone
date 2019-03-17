@@ -6,8 +6,6 @@
 #include <hspp/Actions/Choose.hpp>
 #include <hspp/Actions/Generic.hpp>
 
-#include <iostream>
-
 namespace Hearthstonepp::Generic
 {
 void ChoiceMulligan(Player& player, std::vector<std::size_t> choices)
@@ -20,7 +18,7 @@ void ChoiceMulligan(Player& player, std::vector<std::size_t> choices)
 
     // Block it if player tries to mulligan a card that doesn't exist
     Choice& choice = player.choice.value();
-    for (auto& choosedID : choices)
+    for (const auto choosedID : choices)
     {
         if (std::find(choice.choices.begin(), choice.choices.end(),
                       choosedID) == choice.choices.end())
@@ -42,7 +40,7 @@ void ChoiceMulligan(Player& player, std::vector<std::size_t> choices)
 
             // Collect cards to redraw
             std::vector<Entity*> mulliganList;
-            for (const auto& entity : hand.GetAllCards())
+            for (const auto entity : hand.GetAllCards())
             {
                 bool isExist = std::find(choices.begin(), choices.end(),
                                          entity->id) == choices.end();
