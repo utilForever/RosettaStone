@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <hspp/Actions/Choose.hpp>
 #include <hspp/Actions/Draw.hpp>
 #include <hspp/Actions/Generic.hpp>
 #include <hspp/Cards/Cards.hpp>
@@ -120,6 +121,23 @@ void Game::BeginMulligan()
     // Start mulligan state
     GetPlayer1().mulliganState = Mulligan::INPUT;
     GetPlayer2().mulliganState = Mulligan::INPUT;
+
+    // Collect cards that can redraw
+    std::vector<std::size_t> p1HandIDs, p2HandIDs;
+    for (auto& entity : GetPlayer1().GetHand().GetAllCards())
+    {
+        p1HandIDs.emplace_back(entity->id);
+    }
+    for (auto& entity : GetPlayer2().GetHand().GetAllCards())
+    {
+        p2HandIDs.emplace_back(entity->id);
+    }
+
+    // Create choice for each player
+    Generic::CreateChoice(GetPlayer1(), ChoiceType::MULLIGAN,
+                          ChoiceAction::HAND, p1HandIDs);
+    Generic::CreateChoice(GetPlayer2(), ChoiceType::MULLIGAN,
+                          ChoiceAction::HAND, p2HandIDs);
 }
 
 void Game::MainBegin()
