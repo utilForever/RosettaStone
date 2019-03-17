@@ -33,6 +33,10 @@ class Graveyard
     //! \param owner The owner of graveyard.
     void SetOwner(Player& owner);
 
+    //! Adds a card to graveyard.
+    //! \param card The card to add to graveyard.
+    void AddCard(Entity& card);
+
  private:
     Player* m_owner = nullptr;
 
