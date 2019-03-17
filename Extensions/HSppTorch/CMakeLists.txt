@@ -3,6 +3,9 @@ set(target HSppTorch)
 
 # Defines
 set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+set(script_dir ${CMAKE_CURRENT_SOURCE_DIR}/Scripts)
+set(external_dir ${CMAKE_CURRENT_SOURCE_DIR}/External)
+set(download_dir ${external_dir}/Downloads)
 
 # Includes
 include_directories(
@@ -23,7 +26,7 @@ file(GLOB_RECURSE sources
 add_library(${target}
     ${sources})
 
-# Project Options
+# Project options
 set_target_properties(${target}
     PROPERTIES
     ${DEFAULT_PROJECT_OPTIONS}
@@ -43,10 +46,14 @@ target_compile_definitions(${target}
     RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../Resources/"
 )
 
+# Add external library
+include(External/libtorch.cmake)
+
 # Link libraries
 target_link_libraries(${target}
         PRIVATE
         ${DEFAULT_LINKER_OPTIONS}
+        ${TORCH_LIBRARIES}
         Hearthstonepp)
 
 # Install
