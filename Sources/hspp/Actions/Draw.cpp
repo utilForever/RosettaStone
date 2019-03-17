@@ -4,6 +4,7 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Draw.hpp>
+#include <hspp/Actions/Generic.hpp>
 #include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp::Generic
@@ -36,7 +37,7 @@ Entity* Draw(Player& player, std::optional<Entity> card)
         entity = &player.GetDeck().RemoveCard(*topCard);
     }
 
-    player.GetHand().AddCard(*entity);
+	Generic::AddCardToHand(player, entity);
 
     return entity;
 }
@@ -44,7 +45,7 @@ Entity* Draw(Player& player, std::optional<Entity> card)
 Entity* DrawCard(Player& player, Card&& card)
 {
     Entity* entity = Entity::GetFromCard(player, std::move(card));
-    player.GetHand().AddCard(*entity);
+    Generic::AddCardToHand(player, entity);
 
     return entity;
 }
