@@ -8,7 +8,6 @@
 #include <hspp/Games/GameAgent.hpp>
 #include <hspp/Policies/Policy.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
-#include <hspp/Tasks/PlayerTasks/MulliganTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
