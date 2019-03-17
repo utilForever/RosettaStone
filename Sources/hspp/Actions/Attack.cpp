@@ -7,7 +7,7 @@
 
 namespace Hearthstonepp::Generic
 {
-void Attack(Player& player, Entity* source, Entity* target)
+void Attack(Player& player, Character* source, Character* target)
 {
     (void)player;
     (void)source;

@@ -14,7 +14,7 @@ namespace Hearthstonepp::Generic
 //! \param player An owner of source character.
 //! \param source A pointer to source character.
 //! \param target A pointer to target character.
-void Attack(Player& player, Entity* source, Entity* target);
+void Attack(Player& player, Character* source, Character* target);
 }  // namespace Hearthstonepp::Generic
 
 #endif  // HEARTHSTONEPP_ATTACK_HPP
