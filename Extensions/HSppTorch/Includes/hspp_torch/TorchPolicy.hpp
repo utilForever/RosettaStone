@@ -8,6 +8,7 @@
 #define HEARTHSTONEPP_TORCH_POLICY_HPP
 
 #include <hspp/Policies/BasicPolicy.hpp>
+#include <torch/torch.h>
 
 namespace HSppTorch
 {
