@@ -36,6 +36,8 @@ TaskMeta IoPolicy::RequireCombat(Player& player)
 
 void IoPolicy::NotifyOverDraw(const TaskMeta& meta)
 {
+    (void)m_in;
+    (void)m_out;
     (void)meta;
 }
 }  // namespace Hearthstonepp
