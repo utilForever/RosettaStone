@@ -21,9 +21,8 @@ namespace Hearthstonepp
 //! \brief An enumerator for identifying each task.
 #ifndef HEARTHSTONEPP_DOXYGEN
 BETTER_ENUM(TaskID, int, INVALID, DRAW, OVERDRAW, MODIFY_MANA, DAMAGE, MULLIGAN,
-            COMBAT, PLAY_CARD, ADD_ENCHANTMENT, DESTROY, DISCARD, HEAL_FULL,
-            POISONOUS, FREEZE, HEAL, INCLUDE, CONTROL, END_TURN, CHOOSE,
-            ATTACK);
+            PLAY_CARD, ADD_ENCHANTMENT, DESTROY, DISCARD, HEAL_FULL, POISONOUS,
+            FREEZE, HEAL, INCLUDE, CONTROL, END_TURN, CHOOSE, ATTACK);
 #else
 enum class TaskID
 {
@@ -33,7 +32,6 @@ enum class TaskID
     MODIFY_MANA,
     DAMAGE,
     MULLIGAN,
-    COMBAT,
     PLAY_CARD,
     ADD_ENCHANTMENT,
     DESTROY,
