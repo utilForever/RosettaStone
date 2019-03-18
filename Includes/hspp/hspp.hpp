@@ -52,6 +52,7 @@
 #include <hspp/Policies/BasicPolicy.hpp>
 #include <hspp/Policies/IoPolicy.hpp>
 #include <hspp/Policies/Policy.hpp>
+#include <hspp/Tasks/PlayerTasks/AttackTask.hpp>
 #include <hspp/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
 #include <hspp/Tasks/PlayerTasks/EndTurnTask.hpp>
