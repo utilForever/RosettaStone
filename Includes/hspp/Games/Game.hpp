@@ -68,49 +68,49 @@ class Game
     std::size_t GetNextOOP();
 
     //! Part of the game state.
-    void BeginFirst();
+    virtual void BeginFirst();
 
     //! Part of the game state.
-    void BeginShuffle();
+    virtual void BeginShuffle();
 
     //! Part of the game state.
-    void BeginDraw();
+    virtual void BeginDraw();
 
     //! Part of the game state.
-    void BeginMulligan();
+    virtual void BeginMulligan();
 
     //! Part of the game state.
-    void MainBegin();
+    virtual void MainBegin();
 
     //! Part of the game state.
-    void MainReady();
+    virtual void MainReady();
 
     //! Part of the game state.
-    void MainStartTriggers();
+    virtual void MainStartTriggers();
 
     //! Part of the game state.
-    void MainResource();
+    virtual void MainResource();
 
     //! Part of the game state.
-    void MainDraw();
+    virtual void MainDraw();
 
     //! Part of the game state.
-    void MainStart();
+    virtual void MainStart();
 
     //! Part of the game state.
-    void MainEnd();
+    virtual void MainEnd();
 
     //! Part of the game state.
-    void MainCleanUp();
+    virtual void MainCleanUp();
 
     //! Part of the game state.
-    void MainNext();
+    virtual void MainNext();
 
     //! Part of the game state.
-    void FinalWrapUp();
+    virtual void FinalWrapUp();
 
     //! Part of the game state.
-    void FinalGameOver();
+    virtual void FinalGameOver();
 
     //! Starts the game.
     void StartGame();
