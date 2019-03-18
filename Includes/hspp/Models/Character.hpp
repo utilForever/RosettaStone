@@ -82,7 +82,6 @@ class Character : public Entity
     void TakeHeal(Character& source, std::size_t heal);
 
     std::size_t numAttacked = 0;
-    std::size_t numTurnToUnfreeze = 0;
     std::size_t attack = 0;
     int health = 0;
     int maxHealth = 0;
