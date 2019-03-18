@@ -18,53 +18,6 @@ using namespace Hearthstonepp;
 using namespace PlayerTasks;
 using namespace TestUtils;
 
-class AttackTester
-{
- public:
-    AttackTester()
-    {
-        GameConfig config;
-        config.player1Class = CardClass::WARLOCK;
-        config.player2Class = CardClass::WARRIOR;
-        config.startPlayer = PlayerType::PLAYER1;
-        config.doFillDecks = true;
-        config.skipMulligan = true;
-
-        m_game = new Game(config);
-        m_game->StartGame();
-    }
-
-    ~AttackTester()
-    {
-        delete m_game;
-    }
-
-    std::tuple<Player&, Player&> GetPlayer()
-    {
-        return { m_game->GetPlayer1(), m_game->GetPlayer2() };
-    }
-
-    void Attack(Entity* source, Entity* target, TaskStatus expected,
-                PlayerType playerType)
-    {
-        TaskStatus result;
-
-        if (playerType == PlayerType::PLAYER1)
-        {
-            result = AttackTask(source, target).Run(m_game->GetPlayer1());
-        }
-        else
-        {
-            result = AttackTask(source, target).Run(m_game->GetPlayer2());
-        }
-
-        EXPECT_EQ(result, expected);
-    }
-
- private:
-    Game* m_game = nullptr;
-};
-
 TEST(AttackTask, GetTaskID)
 {
     const AttackTask attack(nullptr, nullptr);
@@ -74,8 +27,18 @@ TEST(AttackTask, GetTaskID)
 
 TEST(AttackTask, Default)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     auto card2 = GenerateMinionCard("minion2", 5, 4);
@@ -89,8 +52,8 @@ TEST(AttackTask, Default)
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
 
-    tester.Attack(player1Field.GetMinion(0), player2.GetHero(),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2.GetHero()));
     EXPECT_EQ(player1Field.GetMinion(0)->health,
               player1Field.GetMinion(0)->maxHealth);
     EXPECT_EQ(
@@ -99,15 +62,15 @@ TEST(AttackTask, Default)
 
     EndTurnTask().Run(player1);
 
-    tester.Attack(player2Field.GetMinion(0), player1Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER2);
+    Task::Run(player2,
+              AttackTask(player2Field.GetMinion(0), player1Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetMinion(0)->health, 1);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 1);
 
     EndTurnTask().Run(player2);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetNumOfMinions(), 0u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
@@ -120,8 +83,8 @@ TEST(AttackTask, Default)
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetMinion(0)->health, 1);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
@@ -133,16 +96,27 @@ TEST(AttackTask, Default)
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetNumOfMinions(), 0u);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 3);
 }
 
 TEST(AttackTask, Weapon)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     player1.GetHero()->weapon = new Weapon();
@@ -156,8 +130,8 @@ TEST(AttackTask, Weapon)
 
     auto& player2Field = player2.GetField();
 
-    tester.Attack(player1.GetHero(), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1.GetHero(), player2Field.GetMinion(0)));
 
     EXPECT_EQ(player1.GetHero()->weapon->durability, 1);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 6);
@@ -165,8 +139,8 @@ TEST(AttackTask, Weapon)
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
 
-    tester.Attack(player1.GetHero(), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1.GetHero(), player2Field.GetMinion(0)));
 
     EXPECT_EQ(player1.GetHero()->HasWeapon(), false);
     EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
@@ -175,34 +149,55 @@ TEST(AttackTask, Weapon)
 
 TEST(AttackTask, Charge)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion1", 1, 10);
-
-    PlayMinionCard(player1, card);
-    EndTurnTask().Run(player1);
-
-    PlayMinionCard(player2, card);
-    EndTurnTask().Run(player2);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
 
+    PlayMinionCard(player1, card);
     player1Field.GetMinion(0)->SetGameTag(GameTag::CHARGE, 1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 1u);
 
-    player1Field.GetMinion(0)->SetGameTag(GameTag::CHARGE, 0);
+    EndTurnTask().Run(player1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+    PlayMinionCard(player2, card);
+
+    Task::Run(player2,
+              AttackTask(player2Field.GetMinion(0), player1Field.GetMinion(0)));
+    EXPECT_EQ(player2Field.GetMinion(0)->numAttacked, 0u);
 }
 
 TEST(AttackTask, Taunt)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     PlayMinionCard(player1, card);
@@ -217,19 +212,32 @@ TEST(AttackTask, Taunt)
 
     player2Field.GetMinion(1)->SetGameTag(GameTag::TAUNT, 1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 10);
 
     player2Field.GetMinion(1)->SetGameTag(GameTag::TAUNT, 0);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
 
 TEST(AttackTask, Stealth)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
@@ -243,21 +251,34 @@ TEST(AttackTask, Stealth)
 
     player2Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 10);
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 1);
     player2Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 0);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetMinion(0)->GetGameTag(GameTag::STEALTH), 0);
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
 
 TEST(AttackTask, Immune)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
@@ -271,16 +292,37 @@ TEST(AttackTask, Immune)
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetMinion(0)->health, 10);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
+
+    EndTurnTask().Run(player1);
+    EndTurnTask().Run(player2);
+
+    player1Field.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 0);
+
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(player2Field.GetMinion(0)->health, 8);
 }
 
 TEST(AttackTask, Windfury)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
@@ -292,28 +334,47 @@ TEST(AttackTask, Windfury)
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 1u);
 
-    player1Field.GetMinion(0)->SetGameTag(GameTag::WINDFURY, 1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 1u);
 
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
+    player1Field.GetMinion(0)->SetGameTag(GameTag::WINDFURY, 1);
+
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 1u);
+
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 2u);
+
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 2u);
 }
 
 TEST(AttackTask, DivineShield)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
@@ -327,27 +388,37 @@ TEST(AttackTask, DivineShield)
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
-    EXPECT_EQ(player1Field.GetMinion(0)->health,
-              player1Field.GetMinion(0)->maxHealth);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(0)->health, 10);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
-
-    player2Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    player2Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
+
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
 
 TEST(AttackTask, Poisonous)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
@@ -361,30 +432,39 @@ TEST(AttackTask, Poisonous)
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
     EndTurnTask().Run(player1);
-
     PlayMinionCard(player2, card);
+    EndTurnTask().Run(player2);
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 0);
     player2Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
 
-    EndTurnTask().Run(player2);
-
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetNumOfMinions(), 0u);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
 
 TEST(AttackTask, Freeze)
 {
-    AttackTester tester;
-    auto [player1, player2] = tester.GetPlayer();
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
@@ -398,14 +478,14 @@ TEST(AttackTask, Freeze)
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::FREEZE, 1);
 
-    tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
     EndTurnTask().Run(player1);
 
-    tester.Attack(player2Field.GetMinion(0), player1Field.GetMinion(0),
-                  TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER2);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
     EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
