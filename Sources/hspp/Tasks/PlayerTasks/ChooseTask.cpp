@@ -33,7 +33,7 @@ TaskStatus ChooseTask::Impl(Player& player)
             break;
         case ChoiceType::GENERAL:
             break;
-        case ChoiceType::INVALID:
+        default:
             throw std::invalid_argument(
                 "ChooseTask::Impl() - Invalid choice type!");
     }
