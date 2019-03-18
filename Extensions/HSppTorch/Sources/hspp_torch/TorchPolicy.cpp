@@ -9,6 +9,11 @@
 
 namespace HSppTorch
 {
+TorchPolicy::TorchPolicy(std::shared_ptr<ModuleBase> module) : m_module(module)
+{
+    // Do nothing
+}
+
 TaskMeta TorchPolicy::RequireMulligan(Player& player)
 {
     TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::MULLIGAN_SUCCESS,
@@ -45,4 +50,4 @@ void TorchPolicy::NotifyOverDraw(const TaskMeta& meta)
 {
     (void)meta;
 }
-}  // namespace Hearthstonepp
+}  // namespace HSppTorch

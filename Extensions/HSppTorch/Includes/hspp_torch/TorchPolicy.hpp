@@ -4,22 +4,31 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_TORCH_POLICY_HPP
-#define HEARTHSTONEPP_TORCH_POLICY_HPP
+#ifndef HSPP_TORCH_TORCH_POLICY_HPP
+#define HSPP_TORCH_TORCH_POLICY_HPP
 
 #include <hspp/Policies/BasicPolicy.hpp>
-#include <torch/torch.h>
+#include <hspp_torch/ModuleBase.hpp>
 
 namespace HSppTorch
 {
 using namespace Hearthstonepp;
 
+//!
+//! \brief TorchPolicy class.
+//!
+//! This class is interface for Hearthstonepp deep learning policy support.
+//!
 class TorchPolicy : public BasicPolicy
 {
  public:
-    TorchPolicy() = default;
+    //! Constructs torch based policy with given \p module.
+    //! \param module The module base for torch deep learning policy.
+    TorchPolicy(std::shared_ptr<ModuleBase> module);
 
  private:
+    torch::nn::ModuleHolder<ModuleBase> m_module;
+
     //! Method for MulliganTask requirement.
     TaskMeta RequireMulligan(Player& player) override;
 
@@ -38,6 +47,6 @@ class TorchPolicy : public BasicPolicy
     //! Method for OverDraw notifying.
     void NotifyOverDraw(const TaskMeta& meta) override;
 };
-}  // namespace Hearthstonepp
+}  // namespace HSppTorch
 
 #endif
