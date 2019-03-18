@@ -4,6 +4,8 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Attack.hpp>
+#include <hspp/Games/Game.hpp>
+#include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp::Generic
 {
@@ -14,6 +16,9 @@ void Attack(Player& player, Character* source, Character* target)
     {
         return;
     }
+
+    // Set game step to MAIN_COMBAT
+    player.GetGame()->step = Step::MAIN_COMBAT;
 
     const std::size_t targetAttack = target->GetAttack();
     const std::size_t sourceAttack = source->GetAttack();
@@ -92,5 +97,8 @@ void Attack(Player& player, Character* source, Character* target)
     {
         target->Destroy();
     }
+
+    // Set game step to MAIN_ACTION
+    player.GetGame()->step = Step::MAIN_ACTION;
 }
 }  // namespace Hearthstonepp::Generic
