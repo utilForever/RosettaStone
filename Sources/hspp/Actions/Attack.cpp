@@ -4,9 +4,6 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Attack.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <hspp/Tasks/SimpleTasks/FreezeTask.hpp>
-#include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
 
 namespace Hearthstonepp::Generic
 {
@@ -24,16 +21,16 @@ void Attack(Player& player, Character* source, Character* target)
     const std::size_t targetDamage = target->TakeDamage(*source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
 
-    // Destroy target if attacker is poisonous
-    if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
-    {
-        SimpleTasks::PoisonousTask(target).Run(player);
-    }
-
     // Freeze target if attacker is freezer
     if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        SimpleTasks::FreezeTask(EntityType::TARGET, target).Run(player);
+        target->SetGameTag(GameTag::FROZEN, 1);
+    }
+
+    // Destroy target if attacker is poisonous
+    if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
+    {
+        target->Destroy();
     }
 
     // Ignore damage from defenders with 0 attack
@@ -43,16 +40,16 @@ void Attack(Player& player, Character* source, Character* target)
             source->TakeDamage(*target, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
-        // Destroy source if defender is poisonous
-        if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
-        {
-            SimpleTasks::PoisonousTask(source).Run(player);
-        }
-
         // Freeze source if defender is freezer
         if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
         {
-            SimpleTasks::FreezeTask(EntityType::SOURCE, source).Run(player);
+            source->SetGameTag(GameTag::FROZEN, 1);
+        }
+
+        // Destroy source if defender is poisonous
+        if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
+        {
+            source->Destroy();
         }
     }
 
@@ -67,12 +64,12 @@ void Attack(Player& player, Character* source, Character* target)
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        hero->weapon->durability -= 1;
+        hero->weapon->durability--;
 
         // Destroy weapon if durability is 0
         if (hero->weapon->durability == 0)
         {
-            SimpleTasks::DestroyTask(EntityType::WEAPON).Run(player);
+            hero->weapon->Destroy();
         }
     }
 
