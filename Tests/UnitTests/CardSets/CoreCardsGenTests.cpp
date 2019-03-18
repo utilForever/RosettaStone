@@ -215,6 +215,9 @@ TEST(CoreCardsGen, EX1_129)
     const auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
 
+    opPlayer.GetHero()->health = 30;
+    int initialOpPlayerHealth = opPlayer.GetHero()->health;
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fan of Knives"));
     const auto card2 = Generic::DrawCard(
@@ -248,4 +251,5 @@ TEST(CoreCardsGen, EX1_129)
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), std::size_t(2));
+    EXPECT_EQ(opPlayer.GetHero()->health, initialOpPlayerHealth);
 }

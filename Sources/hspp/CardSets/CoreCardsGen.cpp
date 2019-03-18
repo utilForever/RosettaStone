@@ -129,7 +129,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     //       Draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 1));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1));
     power.AddPowerTask(new DrawTask(1u));
     cards.emplace("EX1_129", power);
 }
