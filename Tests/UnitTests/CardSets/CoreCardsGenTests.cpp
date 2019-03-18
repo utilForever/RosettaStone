@@ -105,7 +105,7 @@ TEST(CoreCardsGen, CS2_041)
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
 
-    Task::Run(opPlayer, CombatTask(card3, card1));
+    Task::Run(opPlayer, AttackTask(card3, card1));
     EXPECT_EQ(curField.GetMinion(0)->health, 1);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
@@ -181,7 +181,7 @@ TEST(CoreCardsGen, CS1_112)
 
     Task::Run(curPlayer, EndTurnTask());
 
-    Task::Run(curPlayer, CombatTask(card1, card4));
+    Task::Run(curPlayer, AttackTask(card1, card4));
     EXPECT_EQ(curField.GetMinion(0)->health, 4);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
