@@ -11,17 +11,17 @@
 #include <hspp/Games/Game.hpp>
 #include <hspp/Games/GameConfig.hpp>
 #include <hspp/Models/Weapon.hpp>
-#include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
+#include <hspp/Tasks/PlayerTasks/AttackTask.hpp>
 #include <hspp/Tasks/PlayerTasks/EndTurnTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace PlayerTasks;
 using namespace TestUtils;
 
-class CombatTester
+class AttackTester
 {
  public:
-    CombatTester()
+    AttackTester()
     {
         GameConfig config;
         config.player1Class = CardClass::WARLOCK;
@@ -33,7 +33,7 @@ class CombatTester
         m_game->StartGame();
     }
 
-    ~CombatTester()
+    ~AttackTester()
     {
         delete m_game;
     }
@@ -50,11 +50,11 @@ class CombatTester
 
         if (playerType == PlayerType::PLAYER1)
         {
-            result = CombatTask(source, target).Run(m_game->GetPlayer1());
+            result = AttackTask(source, target).Run(m_game->GetPlayer1());
         }
         else
         {
-            result = CombatTask(source, target).Run(m_game->GetPlayer2());
+            result = AttackTask(source, target).Run(m_game->GetPlayer2());
         }
 
         EXPECT_EQ(result, expected);
@@ -64,16 +64,16 @@ class CombatTester
     Game* m_game = nullptr;
 };
 
-TEST(CombatTask, GetTaskID)
+TEST(AttackTask, GetTaskID)
 {
-    const CombatTask combat(nullptr, nullptr);
+    const AttackTask attack(nullptr, nullptr);
 
-    EXPECT_EQ(combat.GetTaskID(), +TaskID::COMBAT);
+    EXPECT_EQ(attack.GetTaskID(), +TaskID::COMBAT);
 }
 
-TEST(CombatTask, Default)
+TEST(AttackTask, Default)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
@@ -138,9 +138,9 @@ TEST(CombatTask, Default)
     EXPECT_EQ(player2Field.GetMinion(0)->health, 3);
 }
 
-TEST(CombatTask, Weapon)
+TEST(AttackTask, Weapon)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -172,9 +172,9 @@ TEST(CombatTask, Weapon)
     EXPECT_EQ(player2Field.GetMinion(0)->health, 2);
 }
 
-TEST(CombatTask, Charge)
+TEST(AttackTask, Charge)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -198,9 +198,9 @@ TEST(CombatTask, Charge)
                   TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 }
 
-TEST(CombatTask, Taunt)
+TEST(AttackTask, Taunt)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -225,9 +225,9 @@ TEST(CombatTask, Taunt)
                   TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
 }
 
-TEST(CombatTask, Stealth)
+TEST(AttackTask, Stealth)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -253,9 +253,9 @@ TEST(CombatTask, Stealth)
     EXPECT_EQ(player1Field.GetMinion(0)->GetGameTag(GameTag::STEALTH), 0);
 }
 
-TEST(CombatTask, Immune)
+TEST(AttackTask, Immune)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -276,9 +276,9 @@ TEST(CombatTask, Immune)
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
 
-TEST(CombatTask, Windfury)
+TEST(AttackTask, Windfury)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -309,9 +309,9 @@ TEST(CombatTask, Windfury)
                   TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 }
 
-TEST(CombatTask, DivineShield)
+TEST(AttackTask, DivineShield)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -343,9 +343,9 @@ TEST(CombatTask, DivineShield)
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
 
-TEST(CombatTask, Poisonous)
+TEST(AttackTask, Poisonous)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -380,9 +380,9 @@ TEST(CombatTask, Poisonous)
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
 
-TEST(CombatTask, Freeze)
+TEST(AttackTask, Freeze)
 {
-    CombatTester tester;
+    AttackTester tester;
     auto [player1, player2] = tester.GetPlayer();
     auto card = GenerateMinionCard("minion", 1, 10);
 
