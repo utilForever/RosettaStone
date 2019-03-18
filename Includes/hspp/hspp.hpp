@@ -67,7 +67,6 @@
 #include <hspp/Tasks/SimpleTasks/HealTask.hpp>
 #include <hspp/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <hspp/Tasks/SimpleTasks/ModifyManaTask.hpp>
-#include <hspp/Tasks/SimpleTasks/PoisonousTask.hpp>
 #include <hspp/Tasks/TaskMeta.hpp>
 #include <hspp/Tasks/TaskStatus.hpp>
 #include <hspp/Tasks/TaskWrapper.hpp>
