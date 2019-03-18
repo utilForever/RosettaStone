@@ -162,25 +162,24 @@ TEST(AttackTask, Charge)
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
 
-    auto card = GenerateMinionCard("minion1", 1, 10);
+    auto card1 = GenerateMinionCard("minion1", 1, 10);
+    auto card2 = GenerateMinionCard("minion1", 1, 10);
+    card2.mechanics.emplace_back(GameTag::CHARGE);
 
     auto& player1Field = player1.GetField();
     auto& player2Field = player2.GetField();
 
-    PlayMinionCard(player1, card);
-    player1Field.GetMinion(0)->SetGameTag(GameTag::CHARGE, 1);
+    PlayMinionCard(player1, card1);
+    PlayMinionCard(player1, card2);
+    PlayMinionCard(player2, card1);
 
     Task::Run(player1,
               AttackTask(player1Field.GetMinion(0), player2Field.GetMinion(0)));
-    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 1u);
+    EXPECT_EQ(player1Field.GetMinion(0)->numAttacked, 0u);
 
-    EndTurnTask().Run(player1);
-
-    PlayMinionCard(player2, card);
-
-    Task::Run(player2,
-              AttackTask(player2Field.GetMinion(0), player1Field.GetMinion(0)));
-    EXPECT_EQ(player2Field.GetMinion(0)->numAttacked, 0u);
+    Task::Run(player1,
+              AttackTask(player1Field.GetMinion(1), player2Field.GetMinion(0)));
+    EXPECT_EQ(player1Field.GetMinion(1)->numAttacked, 1u);
 }
 
 TEST(AttackTask, Taunt)
