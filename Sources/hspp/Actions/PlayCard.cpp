@@ -18,7 +18,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     }
 
     // Verify target is valid
-    if (!Generic::IsValidTarget(source, target))
+    if (!IsValidTarget(source, target))
     {
         return;
     }

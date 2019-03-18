@@ -11,6 +11,7 @@ namespace Hearthstonepp::Generic
 {
 void Attack(Player& player, Character* source, Character* target)
 {
+    // Check source can attack and target is valid
     if (!source->CanAttack() ||
         !source->IsValidCombatTarget(player.GetOpponent(), target))
     {
@@ -20,9 +21,11 @@ void Attack(Player& player, Character* source, Character* target)
     // Set game step to MAIN_COMBAT
     player.GetGame()->step = Step::MAIN_COMBAT;
 
+    // Get attack of source and target
     const std::size_t targetAttack = target->GetAttack();
     const std::size_t sourceAttack = source->GetAttack();
 
+    // Take damage to target
     const std::size_t targetDamage = target->TakeDamage(*source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
 
@@ -41,6 +44,7 @@ void Attack(Player& player, Character* source, Character* target)
     // Ignore damage from defenders with 0 attack
     if (targetAttack > 0)
     {
+        // Take damage to source
         const std::size_t sourceDamage =
             source->TakeDamage(*target, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
@@ -78,8 +82,10 @@ void Attack(Player& player, Character* source, Character* target)
         }
     }
 
+    // Increase the number of attacked
     source->numAttacked++;
 
+    // Check source is exhausted
     if ((source->numAttacked >= 1 &&
          source->GetGameTag(GameTag::WINDFURY) == 0) ||
         (source->numAttacked >= 2 &&
@@ -88,11 +94,11 @@ void Attack(Player& player, Character* source, Character* target)
         source->SetGameTag(GameTag::EXHAUSTED, 1);
     }
 
+    // Destroy source and target
     if (source->isDestroyed)
     {
         source->Destroy();
     }
-
     if (target->isDestroyed)
     {
         target->Destroy();

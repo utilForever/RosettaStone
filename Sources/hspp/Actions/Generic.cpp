@@ -40,7 +40,7 @@ void ChangeManaCrystal(Player& player, int amount, bool fill)
         player.maximumMana = MANA_UPPER_LIMIT;
     }
     // Maximum mana are up to a minimum of 0
-    else if (player.maximumMana + amount < 0)
+    else if (static_cast<int>(player.maximumMana) + amount < 0)
     {
         player.maximumMana = 0;
     }
