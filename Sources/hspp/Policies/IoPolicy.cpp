@@ -28,7 +28,7 @@ TaskMeta IoPolicy::RequirePlayCard(Player& player)
     return TaskMeta();
 }
 
-TaskMeta IoPolicy::RequireCombat(Player& player)
+TaskMeta IoPolicy::RequireAttack(Player& player)
 {
     (void)player;
     return TaskMeta();

@@ -43,7 +43,7 @@ TaskMeta BasicPolicy::RequirePlayCard(Player& player)
     return TaskMeta();
 }
 
-TaskMeta BasicPolicy::RequireCombat(Player& player)
+TaskMeta BasicPolicy::RequireAttack(Player& player)
 {
     (void)player;
     return TaskMeta();

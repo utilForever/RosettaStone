@@ -48,8 +48,8 @@ class BasicPolicy : public IPolicy
     //! Virtual method for PlayCardTask requirement.
     virtual TaskMeta RequirePlayCard(Player& player);
 
-    //! Virtual method for CombatTask requirement.
-    virtual TaskMeta RequireCombat(Player& player);
+    //! Virtual method for AttackTask requirement.
+    virtual TaskMeta RequireAttack(Player& player);
 
     //! Virtual method for OverDraw notifying.
     virtual void NotifyOverDraw(const TaskMeta& meta);
@@ -58,7 +58,7 @@ class BasicPolicy : public IPolicy
         m_require = {
             { TaskID::MULLIGAN, &BasicPolicy::RequireMulligan },
             { TaskID::PLAY_CARD, &BasicPolicy::RequirePlayCard },
-            { TaskID::COMBAT, &BasicPolicy::RequireCombat },
+            { TaskID::ATTACK, &BasicPolicy::RequireAttack },
         };
 
     std::map<TaskID, std::function<void(BasicPolicy&, const TaskMeta&)>>
