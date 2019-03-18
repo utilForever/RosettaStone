@@ -28,6 +28,7 @@ class AttackTester
         config.player2Class = CardClass::WARRIOR;
         config.startPlayer = PlayerType::PLAYER1;
         config.doFillDecks = true;
+        config.skipMulligan = true;
 
         m_game = new Game(config);
         m_game->StartGame();
@@ -68,7 +69,7 @@ TEST(AttackTask, GetTaskID)
 {
     const AttackTask attack(nullptr, nullptr);
 
-    EXPECT_EQ(attack.GetTaskID(), +TaskID::COMBAT);
+    EXPECT_EQ(attack.GetTaskID(), +TaskID::ATTACK);
 }
 
 TEST(AttackTask, Default)
@@ -89,7 +90,7 @@ TEST(AttackTask, Default)
     auto& player2Field = player2.GetField();
 
     tester.Attack(player1Field.GetMinion(0), player2.GetHero(),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->health,
               player1Field.GetMinion(0)->maxHealth);
     EXPECT_EQ(
@@ -99,14 +100,14 @@ TEST(AttackTask, Default)
     EndTurnTask().Run(player1);
 
     tester.Attack(player2Field.GetMinion(0), player1Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER2);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER2);
     EXPECT_EQ(player1Field.GetMinion(0)->health, 1);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 1);
 
     EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 0u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
@@ -120,7 +121,7 @@ TEST(AttackTask, Default)
     EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->health, 1);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
@@ -133,7 +134,7 @@ TEST(AttackTask, Default)
     EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 0u);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 3);
 }
@@ -156,7 +157,7 @@ TEST(AttackTask, Weapon)
     auto& player2Field = player2.GetField();
 
     tester.Attack(player1.GetHero(), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
 
     EXPECT_EQ(player1.GetHero()->weapon->durability, 1);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 6);
@@ -165,7 +166,7 @@ TEST(AttackTask, Weapon)
     EndTurnTask().Run(player2);
 
     tester.Attack(player1.GetHero(), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
 
     EXPECT_EQ(player1.GetHero()->HasWeapon(), false);
     EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
@@ -190,7 +191,7 @@ TEST(AttackTask, Charge)
     player1Field.GetMinion(0)->SetGameTag(GameTag::CHARGE, 1);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
 
     player1Field.GetMinion(0)->SetGameTag(GameTag::CHARGE, 0);
 
@@ -222,7 +223,7 @@ TEST(AttackTask, Taunt)
     player2Field.GetMinion(1)->SetGameTag(GameTag::TAUNT, 0);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
 }
 
 TEST(AttackTask, Stealth)
@@ -249,7 +250,7 @@ TEST(AttackTask, Stealth)
     player2Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 0);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->GetGameTag(GameTag::STEALTH), 0);
 }
 
@@ -271,7 +272,7 @@ TEST(AttackTask, Immune)
     player1Field.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 1);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->health, 10);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
@@ -292,7 +293,7 @@ TEST(AttackTask, Windfury)
     auto& player2Field = player2.GetField();
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 
@@ -302,9 +303,9 @@ TEST(AttackTask, Windfury)
     EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
                   TaskStatus::COMBAT_SOURCE_CANT_ATTACK, PlayerType::PLAYER1);
 }
@@ -327,7 +328,7 @@ TEST(AttackTask, DivineShield)
     player1Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->health,
               player1Field.GetMinion(0)->maxHealth);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
@@ -338,7 +339,7 @@ TEST(AttackTask, DivineShield)
     EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
@@ -361,7 +362,7 @@ TEST(AttackTask, Poisonous)
     player1Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetMinion(0)->health, 9);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 0u);
 
@@ -375,7 +376,7 @@ TEST(AttackTask, Poisonous)
     EndTurnTask().Run(player2);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 0u);
     EXPECT_EQ(player2Field.GetMinion(0)->health, 9);
 }
@@ -398,7 +399,7 @@ TEST(AttackTask, Freeze)
     player1Field.GetMinion(0)->SetGameTag(GameTag::FREEZE, 1);
 
     tester.Attack(player1Field.GetMinion(0), player2Field.GetMinion(0),
-                  TaskStatus::COMBAT_SUCCESS, PlayerType::PLAYER1);
+                  TaskStatus::COMPLETE, PlayerType::PLAYER1);
     EXPECT_EQ(player2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
     EndTurnTask().Run(player1);
