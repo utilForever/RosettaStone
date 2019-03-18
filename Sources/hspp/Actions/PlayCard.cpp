@@ -40,19 +40,19 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     {
         case CardType::MINION:
         {
-            auto minion = dynamic_cast<Minion*>(source);
+            const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos);
             break;
         }
         case CardType::SPELL:
         {
-            auto spell = dynamic_cast<Spell*>(source);
+            const auto spell = dynamic_cast<Spell*>(source);
             PlaySpell(player, spell, target);
             break;
         }
         case CardType::WEAPON:
         {
-            auto weapon = dynamic_cast<Weapon*>(source);
+            const auto weapon = dynamic_cast<Weapon*>(source);
             PlayWeapon(player, weapon, target);
             break;
         }

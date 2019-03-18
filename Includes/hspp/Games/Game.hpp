@@ -53,11 +53,11 @@ class Game
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
-    Player& GetCurrentPlayer();
+    Player& GetCurrentPlayer() const;
 
     //! Returns the opponent player.
     //! \return The opponent player.
-    Player& GetOpponentPlayer();
+    Player& GetOpponentPlayer() const;
 
     //! Gets the next entity identifier.
     //! \return The next entity ID.

@@ -49,12 +49,12 @@ Player& Game::GetPlayer2()
     return m_players[1];
 }
 
-Player& Game::GetCurrentPlayer()
+Player& Game::GetCurrentPlayer() const
 {
     return *m_currentPlayer;
 }
 
-Player& Game::GetOpponentPlayer()
+Player& Game::GetOpponentPlayer() const
 {
     return m_currentPlayer->GetOpponent();
 }
@@ -352,7 +352,7 @@ void Game::StartGame()
     {
         case PlayerType::RANDOM:
         {
-            auto val = Random::get(0, 1);
+            const auto val = Random::get(0, 1);
             m_firstPlayer = &m_players[val];
             break;
         }

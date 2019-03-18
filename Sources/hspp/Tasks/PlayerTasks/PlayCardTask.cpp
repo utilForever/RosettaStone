@@ -16,7 +16,7 @@ PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos)
 
 PlayCardTask PlayCardTask::Minion(Player& player, Entity* source)
 {
-    int fieldPos = static_cast<int>(player.GetField().FindEmptyPos().value());
+    const int fieldPos = static_cast<int>(player.GetField().FindEmptyPos().value());
     return PlayCardTask(source, nullptr, fieldPos);
 }
 
@@ -42,7 +42,7 @@ TaskID PlayCardTask::GetTaskID() const
 
 TaskStatus PlayCardTask::Impl(Player& player)
 {
-    auto target = dynamic_cast<Character*>(m_target);
+    const auto target = dynamic_cast<Character*>(m_target);
     Generic::PlayCard(player, m_source, target, m_fieldPos);
 
     return TaskStatus::COMPLETE;
