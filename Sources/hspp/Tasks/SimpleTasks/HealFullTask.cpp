@@ -22,6 +22,6 @@ TaskStatus HealFullTask::Impl(Player&)
     const auto character = dynamic_cast<Character*>(m_target);
     character->health = character->maxHealth;
 
-    return TaskStatus::HEAL_FULL_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

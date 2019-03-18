@@ -16,8 +16,7 @@ IoPolicy::IoPolicy(std::ostream& out, std::istream& in) : m_out(out), m_in(in)
 
 TaskMeta IoPolicy::RequireMulligan(Player& player)
 {
-    TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::MULLIGAN_SUCCESS,
-                        player.GetID());
+    TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::COMPLETE, player.GetID());
 
     return TaskMeta(trait, SizedPtr<std::size_t>(3));
 }

@@ -42,6 +42,6 @@ TEST(DamageTask, Run)
     DamageTask damage(EntityType::FRIENDS, 1);
     TaskStatus result = damage.Run(player1);
 
-    EXPECT_EQ(result, TaskStatus::DAMAGE_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
 }

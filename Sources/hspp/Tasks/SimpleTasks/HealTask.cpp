@@ -30,6 +30,6 @@ TaskStatus HealTask::Impl(Player& player)
         character->TakeHeal(*character, m_amount);
     }
 
-    return TaskStatus::HEAL_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

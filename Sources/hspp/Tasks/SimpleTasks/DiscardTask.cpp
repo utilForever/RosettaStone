@@ -28,14 +28,14 @@ TaskStatus DiscardTask::Impl(Player& player)
         auto& hand = player.GetHand();
         if (hand.IsEmpty())
         {
-            return TaskStatus::DISCARD_MY_HAND_SUCCESS;
+            return TaskStatus::STOP;
         }
 
         auto idx = Random::get<std::size_t>(0, hand.GetNumOfCards() - 1);
         hand.RemoveCard(*hand.GetCard(idx));
-        return TaskStatus::DISCARD_MY_HAND_SUCCESS;
+        return TaskStatus::COMPLETE;
     }
 
-    return TaskStatus::INVALID;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

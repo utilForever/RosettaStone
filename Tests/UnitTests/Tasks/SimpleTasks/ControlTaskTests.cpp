@@ -48,7 +48,7 @@ TEST(ControlTask, Run)
     control.SetTarget(player2Field.GetMinion(0));
     TaskStatus result = control.Run(player1);
 
-    EXPECT_EQ(result, TaskStatus::CONTROL_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
@@ -59,7 +59,7 @@ TEST(ControlTask, Run)
     control.SetTarget(player2Field.GetMinion(1));
     result = control.Run(player1);
 
-    EXPECT_EQ(result, TaskStatus::CONTROL_FIELD_IS_FULL);
+    EXPECT_EQ(result, TaskStatus::STOP);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 }

@@ -68,6 +68,6 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
 
 TaskStatus IncludeTask::Impl(Player&)
 {
-    return TaskStatus::INCLUDE_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

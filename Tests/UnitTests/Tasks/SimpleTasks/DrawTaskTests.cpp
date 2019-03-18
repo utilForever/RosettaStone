@@ -70,7 +70,7 @@ TEST(DrawTask, Run)
 
     DrawTask draw(3);
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 3u);
 
     for (std::size_t i = 0; i < 3; ++i)
@@ -92,7 +92,7 @@ TEST(DrawTask, RunExhaust)
     DrawTask draw(3);
 
     TaskStatus result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     // Health: 30 - (1 + 2 + 3)
@@ -105,7 +105,7 @@ TEST(DrawTask, RunExhaust)
     p.GetDeck().AddCard(*minion);
 
     result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 1u);
     EXPECT_EQ(p.GetHand().GetCard(0)->card.id, "card1");
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
@@ -149,7 +149,7 @@ TEST(DrawTask, RunOverDraw)
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-        EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
+        EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
         EXPECT_TRUE(burnt.HasObjects());
@@ -164,7 +164,7 @@ TEST(DrawTask, RunOverDraw)
     p.SetPolicy(&policy);
 
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
 }
@@ -204,7 +204,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-        EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
+        EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
         EXPECT_TRUE(burnt.HasObjects());
@@ -219,7 +219,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     p.SetPolicy(&policy);
 
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
     EXPECT_EQ(p.GetHand().GetCard(9)->card.id, "card2");

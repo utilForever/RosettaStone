@@ -39,6 +39,6 @@ TaskStatus DamageTask::Impl(Player& player)
         }
     }
 
-    return TaskStatus::DAMAGE_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

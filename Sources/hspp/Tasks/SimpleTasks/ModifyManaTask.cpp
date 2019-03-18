@@ -65,6 +65,6 @@ TaskStatus ModifyManaTask::Impl(Player& player)
         player.maximumMana = mana;
     }
 
-    return TaskStatus::MODIFY_MANA_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

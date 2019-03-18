@@ -25,6 +25,6 @@ TaskStatus DrawTask::Impl(Player& player)
         Generic::Draw(player, std::nullopt);
     }
 
-    return TaskStatus::DRAW_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks
