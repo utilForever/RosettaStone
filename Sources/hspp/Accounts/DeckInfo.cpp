@@ -45,16 +45,16 @@ std::size_t DeckInfo::GetUniqueNumOfCards() const
 
 std::size_t DeckInfo::GetNumCardInDeck(std::string cardID)
 {
-    const auto cardIer = std::find_if(
+    const auto cardIter = std::find_if(
         m_cards.begin(), m_cards.end(),
         [&cardID](const std::pair<std::string, std::size_t>& elem) {
             return elem.first == cardID;
         });
 
     // A card is in deck
-    if (cardIer != m_cards.end())
+    if (cardIter != m_cards.end())
     {
-        return (*cardIer).second;
+        return (*cardIter).second;
     }
 
     return 0;

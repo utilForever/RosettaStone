@@ -58,6 +58,12 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(player.GetOpponent().GetHero()->weapon);
             }
             break;
+        case EntityType::ENEMY_FIELD:
+            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
+            break;
         default:
             throw std::domain_error(
                 "IncludeTask::GetEntities() - Invalid entity type");
