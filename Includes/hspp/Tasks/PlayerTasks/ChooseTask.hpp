@@ -22,7 +22,7 @@ class ChooseTask : public ITask
  public:
     //! Construct task with given \p choices.
     //! \param choices A container of card to choose.
-    ChooseTask(std::vector<std::size_t> choices);
+    explicit ChooseTask(std::vector<std::size_t> choices);
 
     //! ChooseTask wrapper for mulligan.
     //! \param player The player to run task.
