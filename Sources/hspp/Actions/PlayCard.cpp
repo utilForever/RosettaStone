@@ -66,8 +66,8 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 {
     (void)target;
 
-    // Summon minion
-    minion->Summon(fieldPos);
+    // Add minion to battlefield
+    player.GetField().AddMinion(*minion, fieldPos);
 
     // Apply card mechanics tags
     for (const auto tags : minion->card.mechanics)
