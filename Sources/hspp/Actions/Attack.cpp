@@ -69,7 +69,7 @@ void Attack(Player& player, Character* source, Character* target)
     }
 
     // Remove durability from weapon if hero attack
-    const Hero* hero = dynamic_cast<Hero*>(source);
+    Hero* hero = dynamic_cast<Hero*>(source);
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
@@ -78,7 +78,7 @@ void Attack(Player& player, Character* source, Character* target)
         // Destroy weapon if durability is 0
         if (hero->weapon->durability == 0)
         {
-            hero->weapon->Destroy();
+            hero->RemoveWeapon();
         }
     }
 

@@ -96,6 +96,6 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 {
     (void)target;
 
-    player.GetHero()->weapon = weapon;
+    player.GetHero()->AddWeapon(*weapon);
 }
 }  // namespace Hearthstonepp::Generic
