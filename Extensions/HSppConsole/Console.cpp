@@ -219,15 +219,17 @@ void Console::SimulateGame() const
     IoPolicy policy1(std::cout, std::cin);
     IoPolicy policy2(std::cout, std::cin);
 
-    GameAgent agent(deck1->GetClass(), deck2->GetClass(), &policy1, &policy2);
+    GameConfig config;
+    config.player1Class = deck1->GetClass();
+    config.player2Class = deck2->GetClass();
 
-    Game& game = agent.GetGame();
-    game.GetPlayer1().SetNickname(p1->GetNickname());
-    game.GetPlayer2().SetNickname(p2->GetNickname());
+    GameAgent agent(config, &policy1, &policy2);
+    agent.GetPlayer1().SetNickname(p1->GetNickname());
+    agent.GetPlayer2().SetNickname(p2->GetNickname());
     // game.GetPlayer1().SetDeck(deck1);
     // game.GetPlayer2().SetDeck(deck2);
 
-    agent.Start();
+    agent.StartGame();
 }
 
 void Console::Leave()
