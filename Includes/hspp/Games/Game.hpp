@@ -26,7 +26,7 @@ class Game
 
     //! Constructs account with given \p gameConfig.
     //! \param gameConfig The game config holds all configuration values.
-    Game(GameConfig& gameConfig);
+    explicit Game(GameConfig& gameConfig);
 
     //! Default destructor.
     virtual ~Game() = default;
