@@ -7,85 +7,68 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_HPP
 #define HEARTHSTONEPP_GAME_AGENT_HPP
 
-#include <hspp/Commons/Constants.hpp>
 #include <hspp/Games/Game.hpp>
-#include <hspp/Models/Player.hpp>
-
-#include <array>
-#include <functional>
 
 namespace Hearthstonepp
 {
-struct GameResult
-{
-};
-
 //!
 //! \brief GameAgent class.
 //!
-//! This class manages Hearthstone game and saves information of both players
-//! playing the game. Also, it stores task agent manages the task.
+//! This class is derived from Game class.
 //!
-class GameAgent
+class GameAgent : public Game
 {
  public:
-    //! Constructs game with given \p p1Class, \p p2Class and \p firstPlayer.
-    //! \param p1Class The class of player 1.
-    //! \param p2Class The class of player 2.
+    //! Constructs game agent with given \p gameConfig and policies.
+    //! \param gameConfig The game config holds all configuration values.
     //! \param p1Policy The game playing policy for player1.
     //! \param p2Policy The game playing policy for player2.
-    //! \param firstPlayer The first player who starts turn first.
-    GameAgent(CardClass p1Class, CardClass p2Class, IPolicy* p1Policy,
-              IPolicy* p2Policy, PlayerType firstPlayer = PlayerType::PLAYER1);
+    GameAgent(GameConfig& gameConfig, IPolicy* p1Policy, IPolicy* p2Policy);
 
-    //! Starts the game agent.
-    //! \return The thread that plays the game.
-    GameResult Start();
+    //! Part of the game state.
+    void BeginFirst() override;
 
-    //! Get game structure.
-    //! \return The game structure.
-    Game& GetGame();
+    //! Part of the game state.
+    void BeginShuffle() override;
 
-    //! Get game structure.
-    //! \return The game structure.
-    const Game& GetGame() const;
+    //! Part of the game state.
+    void BeginDraw() override;
 
- private:
-    //! Returns whether the game is over.
-    //! \return true if the game is over, and false otherwise.
-    bool IsGameOver();
+    //! Part of the game state.
+    void BeginMulligan() override;
 
-    //! Processes the begin phase of the game.
-    void BeginPhase();
+    //! Part of the game state.
+    void MainBegin() override;
 
-    //! Processes the main phase of the game.
-    //! \return true if the game is over, and false otherwise.
-    bool MainPhase();
+    //! Part of the game state.
+    void MainReady() override;
 
-    //! Processes the final phase of the game.
-    void FinalPhase();
+    //! Part of the game state.
+    void MainStartTriggers() override;
 
-    //! Prepares to handle the main phase: draw card, modify mana and clear
-    //! attacked characters.
-    void PrepareMainPhase();
+    //! Part of the game state.
+    void MainResource() override;
 
-    //! Processes command in main menu and calls action.
-    //! \return return true if the game is over, and false otherwise.
-    bool ProcessMainMenu();
+    //! Part of the game state.
+    void MainDraw() override;
 
-    //! Plays card such as minion, weapon and spell.
-    void PlayCard();
+    //! Part of the game state.
+    void MainStart() override;
 
-    //! Combats with other minion or hero.
-    void Combat();
+    //! Part of the game state.
+    void MainEnd() override;
 
-    Game* m_game = nullptr;
+    //! Part of the game state.
+    void MainCleanUp() override;
 
-    std::array<std::function<void(GameAgent&)>, GAME_MAIN_MENU_SIZE - 1>
-        m_mainMenuFuncs = {
-            &GameAgent::PlayCard,
-            &GameAgent::Combat,
-        };
+    //! Part of the game state.
+    void MainNext() override;
+
+    //! Part of the game state.
+    void FinalWrapUp() override;
+
+    //! Part of the game state.
+    void FinalGameOver() override;
 };
 }  // namespace Hearthstonepp
 
