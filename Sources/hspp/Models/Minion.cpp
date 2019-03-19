@@ -14,11 +14,6 @@ Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
     // Do nothing
 }
 
-void Minion::Summon(std::size_t pos)
-{
-    GetOwner().GetField().AddMinion(*this, pos);
-}
-
 void Minion::Destroy()
 {
     GetOwner().GetField().RemoveMinion(*this);

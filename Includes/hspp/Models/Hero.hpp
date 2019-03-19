@@ -45,10 +45,6 @@ class Hero : public Character
     //! Move assignment operator.
     Hero& operator=(Hero&& hero) = delete;
 
-    //! Summons minion.
-    //! \param pos The position to summon in battlefield.
-    void Summon(std::size_t pos) override;
-
     //! Destroys hero.
     void Destroy() override;
 

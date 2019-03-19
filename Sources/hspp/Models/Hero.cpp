@@ -19,12 +19,6 @@ Hero::~Hero()
     delete heroPower;
 }
 
-void Hero::Summon(std::size_t pos)
-{
-    (void)pos;
-    // Do nothing
-}
-
 void Hero::Destroy()
 {
     // Do nothing

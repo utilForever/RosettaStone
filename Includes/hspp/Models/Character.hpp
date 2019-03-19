@@ -48,10 +48,6 @@ class Character : public Entity
     //! \return The value of attack.
     virtual size_t GetAttack() const;
 
-    //! Summons character (pure virtual function).
-    //! \param pos The position to summon.
-    virtual void Summon(std::size_t pos) = 0;
-
     //! Destroys character.
     void Destroy() override;
 
