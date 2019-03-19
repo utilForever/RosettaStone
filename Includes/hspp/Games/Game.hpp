@@ -29,7 +29,7 @@ class Game
     Game(GameConfig& gameConfig);
 
     //! Default destructor.
-    ~Game() = default;
+    virtual ~Game() = default;
 
     //! Deleted copy constructor.
     Game(const Game&) = delete;
