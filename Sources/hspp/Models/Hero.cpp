@@ -24,6 +24,11 @@ void Hero::Destroy()
     // Do nothing
 }
 
+void Hero::AddWeapon(Weapon& _weapon)
+{
+    weapon = &_weapon;
+}
+
 bool Hero::HasWeapon() const
 {
     return weapon != nullptr;
