@@ -52,6 +52,9 @@ class Hero : public Character
     //! \param _weapon A weapon card to add.
     void AddWeapon(Weapon& _weapon);
 
+    //! Removes weapon from hero.
+    void RemoveWeapon();
+
     //! Returns the presence of weapon.
     //! \return true if hero has weapon, and false otherwise.
     bool HasWeapon() const;
