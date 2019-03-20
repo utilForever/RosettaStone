@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 //!
 //! \brief HealTask class.
@@ -35,6 +35,6 @@ class HealTask : public ITask
 
     int m_amount = 0;
 };
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks
 
 #endif  // HEARTHSTONEPP_HEAL_TASK_HPP

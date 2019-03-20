@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 //!
 //! \brief EndTurnTask class.
@@ -28,6 +28,6 @@ class EndTurnTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 };
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks
 
 #endif  // HEARTHSTONEPP_END_TURN_TASK_HPP

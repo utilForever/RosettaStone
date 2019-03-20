@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Power;
 
@@ -90,6 +90,6 @@ class Card
     std::size_t maxAllowedInDeck = 0;
     bool isCollectible = false;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CARD_HPP

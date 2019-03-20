@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //! The operator to change mana.
 enum class ManaOperator
@@ -57,6 +57,6 @@ class ModifyManaTask : public ITask
     std::size_t m_num;
 };
 }  // namespace SimpleTasks
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_MODIFY_MANA_TASK_HPP

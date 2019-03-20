@@ -7,7 +7,7 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Weapon.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
@@ -20,4 +20,4 @@ void Weapon::Destroy()
     GetOwner().GetHero()->weapon = nullptr;
     delete this;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

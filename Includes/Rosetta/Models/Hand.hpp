@@ -12,7 +12,7 @@
 
 #include <array>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Hand class.
@@ -79,6 +79,6 @@ class Hand
     std::array<Entity*, HAND_SIZE> m_cards{};
     std::size_t m_numCard = 0;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_HAND_HPP

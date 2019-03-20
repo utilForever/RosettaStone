@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 //!
 //! \brief DamageTask class.
@@ -35,6 +35,6 @@ class DamageTask : public ITask
 
     std::size_t m_damage = 0;
 };
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks
 
 #endif  // HEARTHSTONEPP_DAMAGE_TASK_HPP

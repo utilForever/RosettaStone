@@ -11,7 +11,7 @@
 #include <Rosetta/Tasks/TaskMeta.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief ITask class.
@@ -116,6 +116,6 @@ std::vector<TaskStatus> RunMulti(Player& player, TaskType&&... task)
     return metas;
 }
 }  // namespace Task
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_TASKS_HPP

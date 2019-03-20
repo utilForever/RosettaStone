@@ -7,7 +7,7 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Graveyard.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Graveyard::Graveyard()
 {
@@ -28,4 +28,4 @@ void Graveyard::AddCard(Entity& card)
 {
     m_cards.emplace_back(&card);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

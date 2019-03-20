@@ -7,7 +7,7 @@
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 Entity* Draw(Player& player, std::optional<Entity> card)
 {
@@ -52,4 +52,4 @@ Entity* DrawCard(Player& player, Card&& card)
 
     return entity;
 }
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic

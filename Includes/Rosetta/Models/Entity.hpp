@@ -11,7 +11,7 @@
 
 #include <map>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Card;
 class Game;
@@ -93,6 +93,6 @@ class Entity
     //! Releases dynamic allocated resources.
     void FreeMemory();
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_ENTITY_HPP

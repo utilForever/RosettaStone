@@ -16,7 +16,7 @@
 
 using Random = effolkronium::random_static;
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
@@ -372,4 +372,4 @@ void Game::StartGame()
     nextStep = Step::BEGIN_FIRST;
     GameManager::ProcessNextStep(*this, nextStep);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

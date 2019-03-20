@@ -33,7 +33,7 @@ namespace filesystem = std::filesystem;
 namespace filesystem = std::experimental::filesystem;
 #endif
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 void Console::SignIn()
 {
@@ -700,4 +700,4 @@ std::vector<std::string> Console::SplitString(
 
     return tokens;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

@@ -10,7 +10,7 @@
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Game class.
@@ -132,6 +132,6 @@ class Game
     Player* m_firstPlayer = nullptr;
     Player* m_currentPlayer = nullptr;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_GAME_HPP

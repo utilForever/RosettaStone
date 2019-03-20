@@ -13,7 +13,7 @@
 
 #include <any>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief TaskMetaTrait class.
@@ -158,6 +158,6 @@ class TaskMeta : public TaskMetaTrait
  private:
     std::any m_object;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_TASK_META_HPP

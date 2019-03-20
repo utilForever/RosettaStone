@@ -10,7 +10,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 //!
 //! \brief ChooseTask class.
@@ -42,6 +42,6 @@ class ChooseTask : public ITask
 
     std::vector<std::size_t> m_choices;
 };
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks
 
 #endif  // HEARTHSTONEPP_CHOOSE_TASK_HPP

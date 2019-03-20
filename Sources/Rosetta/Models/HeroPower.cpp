@@ -6,7 +6,7 @@
 
 #include <Rosetta/Models/HeroPower.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 HeroPower::HeroPower(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
@@ -17,4 +17,4 @@ void HeroPower::Destroy()
 {
     // Do nothing
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

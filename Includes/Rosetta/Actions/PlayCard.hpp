@@ -11,7 +11,7 @@
 #include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Models/Weapon.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 //! Plays a card from player's hand.
 //! \param player The player to play card.
@@ -40,6 +40,6 @@ void PlaySpell(Player& player, Spell* spell, Character* target = nullptr);
 //! \param weapon A pointer to weapon card to play.
 //! \param target A target of the character to receive power.
 void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic
 
 #endif  // HEARTHSTONEPP_PLAY_CARD_HPP

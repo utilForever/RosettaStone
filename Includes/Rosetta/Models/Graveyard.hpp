@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Graveyard class.
@@ -42,6 +42,6 @@ class Graveyard
 
     std::vector<Entity*> m_cards;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_GRAVEYARD_HPP

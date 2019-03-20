@@ -6,7 +6,7 @@
 
 #include <Rosetta/Models/Spell.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Spell::Spell(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
@@ -17,4 +17,4 @@ void Spell::Destroy()
 {
     // Do nothing
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

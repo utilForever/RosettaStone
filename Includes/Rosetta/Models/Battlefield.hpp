@@ -13,7 +13,7 @@
 
 #include <array>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Battlefield class.
@@ -75,6 +75,6 @@ class Battlefield
 
     std::array<Character*, FIELD_SIZE> m_minions{};
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_BATTLEFIELD_HPP

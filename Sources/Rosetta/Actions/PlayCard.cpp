@@ -7,7 +7,7 @@
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
@@ -98,4 +98,4 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 
     player.GetHero()->AddWeapon(*weapon);
 }
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic

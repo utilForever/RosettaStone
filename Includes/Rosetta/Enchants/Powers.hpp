@@ -12,7 +12,7 @@
 #include <map>
 #include <string>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Powers class.
@@ -52,6 +52,6 @@ class Powers
 
     std::map<std::string, Power> m_powers;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_POWERS_HPP

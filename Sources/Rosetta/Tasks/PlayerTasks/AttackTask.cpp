@@ -6,7 +6,7 @@
 #include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 AttackTask::AttackTask(Entity* source, Entity* target) : ITask(source, target)
 {
@@ -25,4 +25,4 @@ TaskStatus AttackTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks

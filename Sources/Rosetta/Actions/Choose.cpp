@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
 {
@@ -91,4 +91,4 @@ void CreateChoice(Player& player, ChoiceType type, ChoiceAction action,
     choice.choices = choices;
     player.choice = choice;
 }
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic

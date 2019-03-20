@@ -7,7 +7,7 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 TaskID EndTurnTask::GetTaskID() const
 {
@@ -21,4 +21,4 @@ TaskStatus EndTurnTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks

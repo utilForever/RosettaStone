@@ -14,9 +14,9 @@
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 
-using namespace Hearthstonepp::SimpleTasks;
+using namespace RosettaStone::SimpleTasks;
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 void CoreCardsGen::AddHeroes(std::map<std::string, Power>& cards)
 {
@@ -265,4 +265,4 @@ void CoreCardsGen::AddAll(std::map<std::string, Power>& cards)
     AddNeutral(cards);
     AddNeutralNonCollect(cards);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

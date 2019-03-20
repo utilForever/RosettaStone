@@ -6,7 +6,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 HealTask::HealTask(EntityType entityType, int amount)
     : ITask(entityType), m_amount(amount)
@@ -32,4 +32,4 @@ TaskStatus HealTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks

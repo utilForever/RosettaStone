@@ -6,7 +6,7 @@
 
 #include <Rosetta/Enchants/Power.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 std::vector<ITask*>& Power::GetPowerTask()
 {
@@ -32,4 +32,4 @@ void Power::AddEnchant(Enchant&& enchant)
 {
     m_enchant = std::move(enchant);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

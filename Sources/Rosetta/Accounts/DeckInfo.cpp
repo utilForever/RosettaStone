@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <iostream>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 DeckInfo::DeckInfo() : m_name("Empty")
 {
@@ -165,4 +165,4 @@ bool DeckInfo::DeleteCard(std::string cardID, std::size_t numCardToDelete)
 
     return false;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

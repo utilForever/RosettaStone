@@ -8,13 +8,13 @@
 
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 //! Source character attacks target character.
 //! \param player An owner of source character.
 //! \param source A pointer to source character.
 //! \param target A pointer to target character.
 void Attack(Player& player, Character* source, Character* target);
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic
 
 #endif  // HEARTHSTONEPP_ATTACK_HPP

@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Hand::Hand()
 {
@@ -104,4 +104,4 @@ void Hand::SwapCard(Entity& card1, Entity& card2)
 
     std::swap(m_cards[card1Pos], m_cards[card2Pos]);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

@@ -8,7 +8,7 @@
 
 #include <fstream>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 void CardLoader::Load(std::vector<Card>& cards)
 {
@@ -151,4 +151,4 @@ void CardLoader::Load(std::vector<Card>& cards)
 
     cardFile.close();
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

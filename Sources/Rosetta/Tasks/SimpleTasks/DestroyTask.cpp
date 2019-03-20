@@ -6,7 +6,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 DestroyTask::DestroyTask(EntityType entityType) : ITask(entityType)
 {
@@ -30,4 +30,4 @@ TaskStatus DestroyTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks

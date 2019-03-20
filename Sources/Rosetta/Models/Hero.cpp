@@ -7,7 +7,7 @@
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Hero::Hero(Player& _owner, Card& _card) : Character(_owner, _card)
 {
@@ -53,4 +53,4 @@ std::size_t Hero::GetAttack() const
 {
     return HasWeapon() ? attack + weapon->attack : attack;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

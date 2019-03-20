@@ -99,7 +99,7 @@ inline std::tuple<size_t, size_t> ParseValueRangeFromString(
     return std::make_tuple(minValue, maxValue);
 }
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Console
 {
@@ -176,6 +176,6 @@ class Console
 
     AccountInfo* m_account = nullptr;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CONSOLE_HPP

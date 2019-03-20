@@ -9,7 +9,7 @@
 #include <iostream>
 #include <utility>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 AccountInfo::AccountInfo()
     : m_email("anonymous@gmail.com"), m_nickname("Anonymous")
@@ -78,4 +78,4 @@ bool AccountInfo::DeleteDeck(std::size_t idx)
     m_decks.erase(m_decks.begin() + idx);
     return true;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

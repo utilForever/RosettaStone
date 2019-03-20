@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 //!
 //! \brief AttackTask class.
@@ -33,6 +33,6 @@ class AttackTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 };
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks
 
 #endif  // HEARTHSTONEPP_ATTACK_TASK_HPP

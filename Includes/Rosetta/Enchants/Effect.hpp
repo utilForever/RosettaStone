@@ -8,7 +8,7 @@
 
 #include <Rosetta/Enums/CardEnums.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Character;
 
@@ -48,6 +48,6 @@ class Effect
     EffectOperator m_effectOperator = EffectOperator::SET;
     int m_value = 0;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_EFFECT_HPP

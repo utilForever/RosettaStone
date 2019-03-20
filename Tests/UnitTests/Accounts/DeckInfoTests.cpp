@@ -10,7 +10,7 @@
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Accounts/DeckInfo.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 TEST(DeckInfo, Constructors)
 {

@@ -6,7 +6,7 @@
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos)
     : ITask(source, target), m_fieldPos(fieldPos)
@@ -47,4 +47,4 @@ TaskStatus PlayCardTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks

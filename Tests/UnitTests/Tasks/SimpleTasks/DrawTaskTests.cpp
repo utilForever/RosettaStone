@@ -12,7 +12,7 @@
 #include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace SimpleTasks;
 
 class DrawTestPolicy : public BasicPolicy

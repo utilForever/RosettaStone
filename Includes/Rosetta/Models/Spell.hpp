@@ -9,7 +9,7 @@
 
 #include <Rosetta/Models/Entity.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Spell class.
@@ -45,6 +45,6 @@ class Spell : public Entity
     //! Destroys spell.
     void Destroy() override;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_SPELL_HPP

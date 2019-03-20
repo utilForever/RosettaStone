@@ -7,7 +7,7 @@
 
 #include <algorithm>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 ModifyManaTask::ModifyManaTask(ManaOperator numMode, ManaType manaMode,
                                std::size_t num)
@@ -67,4 +67,4 @@ TaskStatus ModifyManaTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks

@@ -7,7 +7,7 @@
 #include <Rosetta/Enchants/Powers.hpp>
 #include <Rosetta/Loaders/PowerLoader.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 void PowerLoader::Load(std::vector<Card>& cards)
 {
@@ -16,4 +16,4 @@ void PowerLoader::Load(std::vector<Card>& cards)
         card.power = Powers::GetInstance().FindPowerByCardID(card.id);
     }
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

@@ -8,7 +8,7 @@
 
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 //! Adds card to hand.
 //! \param player The player to add card to hand.
@@ -25,6 +25,6 @@ void RemoveCardFromHand(Player& player, Entity* entity);
 //! \param amount A value indicating how much to change mana crystal.
 //! \param fill true if mana crystal is filled, and false otherwise.
 void ChangeManaCrystal(Player& player, int amount, bool fill);
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic
 
 #endif  // HEARTHSTONEPP_GENERIC_HPP

@@ -9,7 +9,7 @@
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/PowerLoader.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Cards::Cards()
 {
@@ -286,4 +286,4 @@ Card Cards::GetDefaultHeroPower(CardClass cardClass)
             return Card();
     }
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

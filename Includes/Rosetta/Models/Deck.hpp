@@ -12,7 +12,7 @@
 
 #include <array>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Deck class.
@@ -66,6 +66,6 @@ class Deck
     std::array<Entity*, MAX_DECK_SIZE> m_cards{};
     std::size_t m_numCard = 0;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_DECK_HPP

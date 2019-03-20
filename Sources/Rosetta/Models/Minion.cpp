@@ -7,7 +7,7 @@
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
 {
@@ -19,4 +19,4 @@ void Minion::Destroy()
     GetOwner().GetField().RemoveMinion(*this);
     GetOwner().GetGraveyard().AddCard(*this);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

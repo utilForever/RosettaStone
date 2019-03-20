@@ -6,7 +6,7 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 ChooseTask::ChooseTask(std::vector<std::size_t> choices) : m_choices(choices)
 {
@@ -40,4 +40,4 @@ TaskStatus ChooseTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks

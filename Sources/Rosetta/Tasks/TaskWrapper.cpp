@@ -6,7 +6,7 @@
 
 #include <Rosetta/Tasks/TaskWrapper.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 DoBothPlayer::DoBothPlayer(ITask&& task) : m_task(task)
 {
@@ -65,4 +65,4 @@ TaskStatus DoUntil::Impl(Player& player)
 
     return status;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

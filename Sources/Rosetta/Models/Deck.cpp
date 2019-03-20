@@ -10,7 +10,7 @@
 
 using Random = effolkronium::random_static;
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Deck::Deck()
 {
@@ -81,4 +81,4 @@ void Deck::Shuffle()
 {
     Random::shuffle(m_cards.begin(), m_cards.begin() + m_numCard);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

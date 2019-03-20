@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Search filter structure.
@@ -144,6 +144,6 @@ class Cards
 
     std::vector<Card> m_cards;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CARDS_HPP

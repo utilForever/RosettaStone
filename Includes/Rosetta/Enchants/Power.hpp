@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class ITask;
 class Enchant;
@@ -47,6 +47,6 @@ class Power
     std::vector<ITask*> m_powerTask;
     Enchant m_enchant;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_POWER_HPP

@@ -6,7 +6,7 @@
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 bool IsValidTarget(Entity* source, Entity* target)
 {
@@ -35,4 +35,4 @@ bool IsValidTarget(Entity* source, Entity* target)
 
     return true;
 }
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic

@@ -9,7 +9,7 @@
 
 using Random = effolkronium::random_static;
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
 {
@@ -38,4 +38,4 @@ TaskStatus DiscardTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks

@@ -12,7 +12,7 @@
 
 #include <string>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief DeckInfo class.
@@ -85,6 +85,6 @@ class DeckInfo
     std::size_t m_numOfCards = 0;
     std::vector<std::pair<std::string, std::size_t>> m_cards;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_DECK_INFO_HPP

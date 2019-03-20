@@ -8,7 +8,7 @@
 
 #include <Rosetta/Models/Entity.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 //! Draws a card in the deck.
 //! \param player The player to add card to the hand.
@@ -21,6 +21,6 @@ Entity* Draw(Player& player, std::optional<Entity> cardToDraw = std::nullopt);
 //! \param card A card to draw to the hand.
 //! \return A dynamic allocated entity object.
 Entity* DrawCard(Player& player, Card&& card);
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic
 
 #endif  // HEARTHSTONEPP_DRAW_HPP

@@ -9,7 +9,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //! The action type of choice.
 enum class ChoiceAction
@@ -30,6 +30,6 @@ struct Choice
 
     std::vector<std::size_t> choices;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CHOICE_HPP

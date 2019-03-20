@@ -11,7 +11,7 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Tasks/TaskMeta.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 namespace TestUtils
 {

@@ -6,7 +6,7 @@
 
 #include <Rosetta/Policies/BasicPolicy.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 TaskMeta BasicPolicy::Next(const Game& game)
 {
@@ -53,4 +53,4 @@ void BasicPolicy::NotifyOverDraw(const TaskMeta& meta)
 {
     (void)meta;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

@@ -6,7 +6,7 @@
 
 #include <Rosetta/Games/GameAgent.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 GameAgent::GameAgent(GameConfig& gameConfig, IPolicy* p1Policy,
                      IPolicy* p2Policy)
@@ -90,4 +90,4 @@ void GameAgent::FinalGameOver()
 {
     // Do nothing
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

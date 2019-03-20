@@ -9,7 +9,7 @@
 
 #include <Rosetta/Games/Game.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief GameAgent class.
@@ -70,6 +70,6 @@ class GameAgent : public Game
     //! Part of the game state.
     void FinalGameOver() override;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_GAME_AGENT_HPP

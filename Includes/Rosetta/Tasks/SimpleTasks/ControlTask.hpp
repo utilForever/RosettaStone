@@ -9,7 +9,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 //!
 //! \brief ControlTask class.
@@ -33,6 +33,6 @@ class ControlTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 };
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks
 
 #endif  // HEARTHSTONEPP_CONTROL_TASK_HPP

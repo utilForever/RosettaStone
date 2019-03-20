@@ -11,7 +11,7 @@
 
 #include <array>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief GameConfig struct.
@@ -37,6 +37,6 @@ struct GameConfig
     bool doShuffle = true;
     bool skipMulligan = true;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_GAME_CONFIG_HPP

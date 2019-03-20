@@ -9,7 +9,7 @@
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Player::Player() : m_id(USER_INVALID)
 {
@@ -116,4 +116,4 @@ void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
     m_hero->heroPower = dynamic_cast<HeroPower*>(
         Entity::GetFromCard(*this, std::move(powerCard)));
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

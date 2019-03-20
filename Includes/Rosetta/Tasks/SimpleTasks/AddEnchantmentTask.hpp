@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 //!
 //! \brief AddEnchantmentTask class.
@@ -35,6 +35,6 @@ class AddEnchantmentTask : public ITask
 
     std::string m_cardID;
 };
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks
 
 #endif  // HEARTHSTONEPP_ADD_ENCHANTMENT_TASK_HPP

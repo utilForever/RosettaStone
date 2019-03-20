@@ -9,7 +9,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 //!
 //! \brief IncludeTask class.
@@ -44,6 +44,6 @@ class IncludeTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 };
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks
 
 #endif  // HEARTHSTONEPP_INCLUDE_TASK_HPP

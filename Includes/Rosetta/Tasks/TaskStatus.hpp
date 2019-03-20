@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_TASK_STATUS_HPP
 #define HEARTHSTONEPP_TASK_STATUS_HPP
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 using status_t = unsigned int;
 
@@ -20,6 +20,6 @@ enum class TaskStatus : status_t
 
     NUM_TASK_STATUS
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_TASK_STATUS_HPP

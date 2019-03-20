@@ -9,7 +9,7 @@
 
 #include <cstddef>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //! Hearthstone++ version.
 constexpr float VERSION = 0.3f;
@@ -64,6 +64,6 @@ enum class PlayerType
 //! The number of menus in main phase.
 //! \note We will refactor it soon.
 constexpr std::size_t GAME_MAIN_MENU_SIZE = 3;
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CONSTANTS_HPP

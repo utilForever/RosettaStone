@@ -10,7 +10,7 @@
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief GameManager class.
@@ -23,6 +23,6 @@ class GameManager
     //! Invokes method when a state is changed.
     static void ProcessNextStep(Game& game, Step step);
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_GAME_MANAGER_HPP

@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Character;
 
@@ -42,6 +42,6 @@ class Enchant
  private:
     std::vector<Effect> m_effects;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_ENCHANT_HPP

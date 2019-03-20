@@ -10,7 +10,7 @@
 #include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Tasks/TaskMeta.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Game;
 
@@ -42,6 +42,6 @@ class IPolicy
     //! \param meta The serialized data.
     virtual void Notify(const TaskMeta& meta) = 0;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_POLICY_HPP

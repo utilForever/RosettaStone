@@ -6,7 +6,7 @@
 
 #include <Rosetta/Enchants/Enchant.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Enchant::Enchant(Effect& effect)
 {
@@ -25,4 +25,4 @@ void Enchant::ActivateTo(Character* character)
         effect.Apply(character);
     }
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

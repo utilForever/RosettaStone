@@ -11,7 +11,7 @@
 
 #include <random>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace TestUtils;
 
 TEST(TaskMeta, TraitConstructors)

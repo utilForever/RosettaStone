@@ -8,7 +8,7 @@
 
 #include <Rosetta/Enchants/Effect.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Effects class.
@@ -39,6 +39,6 @@ class Effects
     inline static Effect Stealth =
         Effect(GameTag::STEALTH, EffectOperator::SET, 1);
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_EFFECTS_HPP

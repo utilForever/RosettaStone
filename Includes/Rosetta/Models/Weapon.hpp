@@ -9,7 +9,7 @@
 
 #include <Rosetta/Models/Entity.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Weapon class.
@@ -50,6 +50,6 @@ class Weapon : public Entity
     std::size_t attack = 0;
     std::size_t durability = 0;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_WEAPON_HPP

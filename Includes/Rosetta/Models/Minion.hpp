@@ -9,7 +9,7 @@
 
 #include <Rosetta/Models/Character.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Minion class.
@@ -45,6 +45,6 @@ class Minion : public Character
     //! Destroys minion.
     void Destroy() override;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_MINION_HPP

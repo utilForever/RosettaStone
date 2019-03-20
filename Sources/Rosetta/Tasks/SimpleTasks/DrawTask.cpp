@@ -6,7 +6,7 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 DrawTask::DrawTask(std::size_t num) : m_num(num)
 {
@@ -27,4 +27,4 @@ TaskStatus DrawTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks

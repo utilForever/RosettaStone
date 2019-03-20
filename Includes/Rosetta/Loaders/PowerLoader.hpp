@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief PowerLoader class.
@@ -25,6 +25,6 @@ class PowerLoader
     //! \param cards Data storage to store added cards with power.
     static void Load(std::vector<Card>& cards);
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_POWER_LOADER_HPP

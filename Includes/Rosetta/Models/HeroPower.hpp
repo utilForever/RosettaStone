@@ -9,7 +9,7 @@
 
 #include <Rosetta/Models/Entity.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief HeroPower class.
@@ -45,6 +45,6 @@ class HeroPower : public Entity
     //! Destroys hero power.
     void Destroy() override;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_HERO_POWER_HPP

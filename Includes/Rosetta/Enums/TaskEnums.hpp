@@ -16,7 +16,7 @@
 
 #include <better-enums/enum.h>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //! \brief An enumerator for identifying each task.
 #ifndef HEARTHSTONEPP_DOXYGEN
@@ -71,6 +71,6 @@ enum class EntityType
     ENEMY_FIELD
 };
 #endif
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_TASK_ENUMS_HPP

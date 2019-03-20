@@ -6,7 +6,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
                                        EntityType entityType)
@@ -33,4 +33,4 @@ TaskStatus AddEnchantmentTask::Impl(Player&)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks

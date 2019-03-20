@@ -16,7 +16,7 @@
 
 #include <better-enums/enum.h>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 #ifndef HEARTHSTONEPP_DOXYGEN
 BETTER_ENUM(BlockType, int, ATTACK = 1, JOUST = 2, POWER = 3, SCRIPT = 4,
@@ -4394,6 +4394,6 @@ BETTER_ENUM(ZodiacYear, int, INVALID = -1, PRE_STANDARD = 0, KRAKEN = 1,
 BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3, GRAVEYARD = 4,
             REMOVEDFROMGAME = 5, SETASIDE = 6, SECRET = 7)
 #endif
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CARD_ENUMS_HPP

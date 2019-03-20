@@ -6,7 +6,7 @@
 
 #include "Console.hpp"
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 int main()
 {

@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Battlefield::Battlefield()
 {
@@ -100,4 +100,4 @@ void Battlefield::RemoveMinion(Minion& minion)
         *iter = nullptr;
     }
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

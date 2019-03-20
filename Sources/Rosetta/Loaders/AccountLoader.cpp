@@ -24,7 +24,7 @@ namespace filesystem = std::filesystem;
 namespace filesystem = std::experimental::filesystem;
 #endif
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 AccountInfo* AccountLoader::Load(std::string email) const
 {
@@ -142,4 +142,4 @@ void AccountLoader::Save(AccountInfo* account) const
 
     playerFile.close();
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

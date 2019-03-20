@@ -12,7 +12,7 @@
 
 #include <functional>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 TestTask::TestTask(TaskID id, std::function<TaskStatus(Player&)>&& impl)
     : m_id(id), m_impl(std::move(impl))

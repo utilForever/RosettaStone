@@ -9,7 +9,7 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 TEST(Card, Constructer)
 {

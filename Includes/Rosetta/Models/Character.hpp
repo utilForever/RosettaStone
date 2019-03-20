@@ -8,7 +8,7 @@
 
 #include <Rosetta/Models/Entity.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Player;
 
@@ -82,6 +82,6 @@ class Character : public Entity
     int health = 0;
     int maxHealth = 0;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CHARACTER_HPP

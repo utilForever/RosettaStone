@@ -18,7 +18,7 @@
 
 #include <string>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 class Game;
 class IPolicy;
@@ -149,6 +149,6 @@ class Player
     IPolicy* m_policy = nullptr;
     Player* m_opponent = nullptr;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_PLAYER_HPP

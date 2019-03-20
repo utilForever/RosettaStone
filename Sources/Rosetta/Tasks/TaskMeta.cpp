@@ -6,7 +6,7 @@
 
 #include <Rosetta/Tasks/TaskMeta.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 TaskMetaTrait::TaskMetaTrait(TaskID id) : m_id(id)
 {
@@ -102,4 +102,4 @@ bool TaskMeta::HasObjects() const
 {
     return m_object.has_value();
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

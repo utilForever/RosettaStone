@@ -11,7 +11,7 @@
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Weapon.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief Hero class.
@@ -68,6 +68,6 @@ class Hero : public Character
 
     std::size_t fatigue = 0;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_HERO_HPP

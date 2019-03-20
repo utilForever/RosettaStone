@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <iostream>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 void Card::Initialize()
 {
@@ -44,4 +44,4 @@ void Card::ShowInfo() const
     std::cout << "CardType: " << cardType._to_string() << '\n';
     std::cout << "Race: " << race._to_string() << '\n';
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

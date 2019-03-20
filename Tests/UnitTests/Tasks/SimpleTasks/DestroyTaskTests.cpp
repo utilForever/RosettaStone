@@ -12,7 +12,7 @@
 #include <Rosetta/Models/Weapon.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 

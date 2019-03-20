@@ -8,7 +8,7 @@
 
 #include <stdexcept>
 
-namespace Hearthstonepp::SimpleTasks
+namespace RosettaStone::SimpleTasks
 {
 TaskID IncludeTask::GetTaskID() const
 {
@@ -76,4 +76,4 @@ TaskStatus IncludeTask::Impl(Player&)
 {
     return TaskStatus::COMPLETE;
 }
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace RosettaStone::SimpleTasks

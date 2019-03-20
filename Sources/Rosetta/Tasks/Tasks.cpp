@@ -6,7 +6,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 ITask::ITask(EntityType entityType) : m_entityType(entityType)
 {
@@ -44,4 +44,4 @@ TaskStatus ITask::Run(Player& player)
 {
     return Impl(player);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

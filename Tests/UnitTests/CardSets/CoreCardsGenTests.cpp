@@ -9,7 +9,7 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 

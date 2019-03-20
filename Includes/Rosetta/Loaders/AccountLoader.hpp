@@ -11,7 +11,7 @@
 
 #include <json/json.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief AccountLoader class.
@@ -30,6 +30,6 @@ class AccountLoader
     //! \param account A pointer to account instance that stores information.
     void Save(AccountInfo* account) const;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_ACCOUNT_LOADER_HPP

@@ -14,7 +14,7 @@
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace TestUtils;
 

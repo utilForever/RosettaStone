@@ -7,7 +7,7 @@
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/Enchants/Powers.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Powers::Powers()
 {
@@ -35,4 +35,4 @@ Power Powers::FindPowerByCardID(const std::string& cardID)
 
     return Power();
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

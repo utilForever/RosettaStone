@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::PlayerTasks
+namespace RosettaStone::PlayerTasks
 {
 //!
 //! \brief PlayCardTask class.
@@ -63,6 +63,6 @@ class PlayCardTask : public ITask
 
     int m_fieldPos = -1;
 };
-}  // namespace Hearthstonepp::PlayerTasks
+}  // namespace RosettaStone::PlayerTasks
 
 #endif  // HEARTHSTONEPP_PLAY_CARD_TASK_HPP

@@ -8,9 +8,9 @@
 
 #include <Rosetta/Models/Entity.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 bool IsValidTarget(Entity* source, Entity* target);
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic
 
 #endif  // HEARTHSTONEPP_TARGETING_HPP

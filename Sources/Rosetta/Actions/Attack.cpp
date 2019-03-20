@@ -7,7 +7,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Player.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 void Attack(Player& player, Character* source, Character* target)
 {
@@ -107,4 +107,4 @@ void Attack(Player& player, Character* source, Character* target)
     // Set game step to MAIN_ACTION
     player.GetGame()->step = Step::MAIN_ACTION;
 }
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic

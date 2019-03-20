@@ -11,7 +11,7 @@
 
 #include <vector>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief AccountInfo class.
@@ -75,6 +75,6 @@ class AccountInfo
     std::string m_nickname;
     std::vector<DeckInfo*> m_decks;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_ACCOUNT_INFO_HPP

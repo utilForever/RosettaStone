@@ -9,7 +9,7 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
 {
@@ -140,4 +140,4 @@ void Entity::FreeMemory()
 {
     m_gameTags.clear();
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

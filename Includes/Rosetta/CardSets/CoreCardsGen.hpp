@@ -11,7 +11,7 @@
 #include <map>
 #include <string>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief CoreCardsGen class.
@@ -113,6 +113,6 @@ class CoreCardsGen
     //! \param cards Data storage to store added cards with power.
     static void AddAll(std::map<std::string, Power>& cards);
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_CORE_CARDS_GEN_HPP

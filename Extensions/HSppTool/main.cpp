@@ -27,7 +27,7 @@ namespace filesystem = std::filesystem;
 namespace filesystem = std::experimental::filesystem;
 #endif
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 inline std::string ToString(const clara::Opt& opt)
 {

@@ -6,7 +6,7 @@
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Models/Character.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     : m_gameTag(gameTag), m_effectOperator(effectOperator), m_value(value)
@@ -41,4 +41,4 @@ void Effect::Apply(Character* character, bool isOneTurnEffect) const
             throw std::invalid_argument("Invalid effect operator!");
     }
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

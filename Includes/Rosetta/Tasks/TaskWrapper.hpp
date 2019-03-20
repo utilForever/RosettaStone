@@ -11,7 +11,7 @@
 
 #include <functional>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief DoBothPlayer class.
@@ -70,6 +70,6 @@ class DoUntil : public ITask
     ITask& m_task;
     std::function<bool(TaskStatus)> m_condition;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_TASK_WRAPPER_HPP

@@ -7,7 +7,7 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Policies/IoPolicy.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 IoPolicy::IoPolicy(std::ostream& out, std::istream& in) : m_out(out), m_in(in)
 {
@@ -39,4 +39,4 @@ void IoPolicy::NotifyOverDraw(const TaskMeta& meta)
     (void)m_out;
     (void)meta;
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

@@ -10,7 +10,7 @@
 
 #include <algorithm>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
@@ -154,4 +154,4 @@ void Character::TakeHeal(Character& source, std::size_t heal)
 
     health = std::min(health + static_cast<int>(heal), maxHealth);
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

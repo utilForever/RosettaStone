@@ -6,7 +6,7 @@
 
 #include <Rosetta/Games/GameManager.hpp>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 void GameManager::ProcessNextStep(Game& game, Step step)
 {
@@ -79,4 +79,4 @@ void GameManager::ProcessNextStep(Game& game, Step step)
             break;
     }
 }
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone

@@ -14,7 +14,7 @@
 
 #include <functional>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 class TestTask : public ITask
 {

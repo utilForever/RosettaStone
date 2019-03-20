@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief IoPolicy class.
@@ -42,6 +42,6 @@ class IoPolicy : public BasicPolicy
     std::ostream& m_out;
     std::istream& m_in;
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_IO_POLICY_HPP

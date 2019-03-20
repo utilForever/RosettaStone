@@ -12,7 +12,7 @@
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace PlayerTasks;
 
 TEST(Game, Mulligan)

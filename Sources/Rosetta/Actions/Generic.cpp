@@ -6,7 +6,7 @@
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 
-namespace Hearthstonepp::Generic
+namespace RosettaStone::Generic
 {
 void AddCardToHand(Player& player, Entity* entity)
 {
@@ -54,4 +54,4 @@ void ChangeManaCrystal(Player& player, int amount, bool fill)
         player.maximumMana += amount;
     }
 }
-}  // namespace Hearthstonepp::Generic
+}  // namespace RosettaStone::Generic

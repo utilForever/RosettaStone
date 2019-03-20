@@ -11,7 +11,7 @@
 
 #include <functional>
 
-namespace Hearthstonepp
+namespace RosettaStone
 {
 //!
 //! \brief BasicPolicy class.
@@ -66,6 +66,6 @@ class BasicPolicy : public IPolicy
             { TaskID::OVERDRAW, &BasicPolicy::NotifyOverDraw },
         };
 };
-}  // namespace Hearthstonepp
+}  // namespace RosettaStone
 
 #endif  // HEARTHSTONEPP_BASIC_POLICY_HPP
