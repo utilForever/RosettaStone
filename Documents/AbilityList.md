@@ -1,4 +1,4 @@
-# Hearthstone++ ability list
+# RosettaStone ability list
 
 - [Keywords](#keywords)
 - [Other abilities](#other-abilities)

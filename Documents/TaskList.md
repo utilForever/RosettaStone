@@ -1,4 +1,4 @@
-# Hearthstone++ task list
+# RosettaStone task list
 
 - [Basic tasks](#basic-tasks)
 - [Power tasks](#power-tasks)

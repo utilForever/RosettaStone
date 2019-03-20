@@ -1,4 +1,4 @@
-# Hearthstone++ card list
+# RosettaStone card list
 
 * [Basic card list](#basic)
 * [Classic card list](#classic)
