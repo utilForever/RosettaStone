@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_ACCOUNT_INFO_HPP
 #define HEARTHSTONEPP_ACCOUNT_INFO_HPP
 
-#include <hspp/Accounts/DeckInfo.hpp>
+#include <Rosetta/Accounts/DeckInfo.hpp>
 
 #include <vector>
 

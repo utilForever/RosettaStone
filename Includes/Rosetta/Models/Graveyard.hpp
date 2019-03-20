@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_GRAVEYARD_HPP
 #define HEARTHSTONEPP_GRAVEYARD_HPP
 
-#include <hspp/Models/Entity.hpp>
+#include <Rosetta/Models/Entity.hpp>
 
 #include <vector>
 

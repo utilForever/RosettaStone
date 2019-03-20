@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_EFFECT_HPP
 #define HEARTHSTONEPP_EFFECT_HPP
 
-#include <hspp/Enums/CardEnums.hpp>
+#include <Rosetta/Enums/CardEnums.hpp>
 
 namespace Hearthstonepp
 {

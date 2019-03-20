@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_MINION_HPP
 #define HEARTHSTONEPP_MINION_HPP
 
-#include <hspp/Models/Character.hpp>
+#include <Rosetta/Models/Character.hpp>
 
 namespace Hearthstonepp
 {

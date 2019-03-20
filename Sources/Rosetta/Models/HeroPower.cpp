@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Models/HeroPower.hpp>
+#include <Rosetta/Models/HeroPower.hpp>
 
 namespace Hearthstonepp
 {

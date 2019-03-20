@@ -6,8 +6,8 @@
 #ifndef HEARTHSTONEPP_GAME_CONFIG_HPP
 #define HEARTHSTONEPP_GAME_CONFIG_HPP
 
-#include <hspp/Cards/Card.hpp>
-#include <hspp/Commons/Constants.hpp>
+#include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Commons/Constants.hpp>
 
 #include <array>
 

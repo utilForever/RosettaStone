@@ -11,7 +11,7 @@
 #define HEARTHSTONEPP_EXPAND_LARGE_ENUMS
 #else  // _MSC_VER
 #undef BETTER_ENUMS_MACRO_FILE
-#define BETTER_ENUMS_MACRO_FILE "hspp/Commons/EnumMacros.hpp"
+#define BETTER_ENUMS_MACRO_FILE "Rosetta/Commons/EnumMacros.hpp"
 #endif  // _MSC_VER
 
 #include <better-enums/enum.h>

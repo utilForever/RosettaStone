@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Models/Minion.hpp>
-#include <hspp/Models/Player.hpp>
+#include <Rosetta/Models/Minion.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 namespace Hearthstonepp
 {

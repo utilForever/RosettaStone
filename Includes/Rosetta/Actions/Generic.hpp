@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_GENERIC_HPP
 #define HEARTHSTONEPP_GENERIC_HPP
 
-#include <hspp/Models/Player.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 namespace Hearthstonepp::Generic
 {

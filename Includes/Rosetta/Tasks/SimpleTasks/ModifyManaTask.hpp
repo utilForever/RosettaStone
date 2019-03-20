@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_MODIFY_MANA_TASK_HPP
 #define HEARTHSTONEPP_MODIFY_MANA_TASK_HPP
 
-#include <hspp/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp
 {

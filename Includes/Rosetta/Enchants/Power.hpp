@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_POWER_HPP
 #define HEARTHSTONEPP_POWER_HPP
 
-#include <hspp/Enchants/Enchant.hpp>
+#include <Rosetta/Enchants/Enchant.hpp>
 
 #include <vector>
 

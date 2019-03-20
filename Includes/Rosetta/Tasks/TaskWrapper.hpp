@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_TASK_WRAPPER_HPP
 #define HEARTHSTONEPP_TASK_WRAPPER_HPP
 
-#include <hspp/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/Tasks.hpp>
 
 #include <functional>
 

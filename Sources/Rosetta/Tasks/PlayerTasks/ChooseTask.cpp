@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/Actions/Choose.hpp>
-#include <hspp/Tasks/PlayerTasks/ChooseTask.hpp>
+#include <Rosetta/Actions/Choose.hpp>
+#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
 namespace Hearthstonepp::PlayerTasks
 {

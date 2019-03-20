@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Models/Battlefield.hpp>
+#include <Rosetta/Models/Battlefield.hpp>
 
 #include <algorithm>
 

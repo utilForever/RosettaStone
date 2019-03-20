@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_ACCOUNT_LOADER_HPP
 #define HEARTHSTONEPP_ACCOUNT_LOADER_HPP
 
-#include <hspp/Accounts/AccountInfo.hpp>
+#include <Rosetta/Accounts/AccountInfo.hpp>
 
 #include <json/json.hpp>
 

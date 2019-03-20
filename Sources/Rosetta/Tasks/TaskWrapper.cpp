@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Tasks/TaskWrapper.hpp>
+#include <Rosetta/Tasks/TaskWrapper.hpp>
 
 namespace Hearthstonepp
 {

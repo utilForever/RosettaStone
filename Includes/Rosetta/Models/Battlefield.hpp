@@ -7,9 +7,9 @@
 #ifndef HEARTHSTONEPP_BATTLEFIELD_HPP
 #define HEARTHSTONEPP_BATTLEFIELD_HPP
 
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/Character.hpp>
-#include <hspp/Models/Minion.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Models/Character.hpp>
+#include <Rosetta/Models/Minion.hpp>
 
 #include <array>
 

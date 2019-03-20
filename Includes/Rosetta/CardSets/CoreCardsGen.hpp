@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_CORE_CARDS_GEN_HPP
 #define HEARTHSTONEPP_CORE_CARDS_GEN_HPP
 
-#include <hspp/Enchants/Power.hpp>
+#include <Rosetta/Enchants/Power.hpp>
 
 #include <map>
 #include <string>

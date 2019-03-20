@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Commons/Utils.hpp>
-#include <hspp/Policies/IoPolicy.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Policies/IoPolicy.hpp>
 
 namespace Hearthstonepp
 {

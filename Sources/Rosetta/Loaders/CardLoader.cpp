@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Loaders/CardLoader.hpp>
+#include <Rosetta/Loaders/CardLoader.hpp>
 
 #include <fstream>
 

@@ -6,9 +6,9 @@
 #ifndef HEARTHSTONEPP_CHOOSE_HPP
 #define HEARTHSTONEPP_CHOOSE_HPP
 
-#include <hspp/Enums/CardEnums.hpp>
-#include <hspp/Models/Choice.hpp>
-#include <hspp/Models/Player.hpp>
+#include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Models/Choice.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 namespace Hearthstonepp::Generic
 {

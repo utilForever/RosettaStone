@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_ENCHANT_HPP
 #define HEARTHSTONEPP_ENCHANT_HPP
 
-#include <hspp/Enchants/Effect.hpp>
+#include <Rosetta/Enchants/Effect.hpp>
 
 #include <vector>
 

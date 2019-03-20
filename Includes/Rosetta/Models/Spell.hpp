@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_SPELL_HPP
 #define HEARTHSTONEPP_SPELL_HPP
 
-#include <hspp/Models/Entity.hpp>
+#include <Rosetta/Models/Entity.hpp>
 
 namespace Hearthstonepp
 {

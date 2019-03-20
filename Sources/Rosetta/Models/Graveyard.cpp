@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/Graveyard.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Models/Graveyard.hpp>
 
 namespace Hearthstonepp
 {

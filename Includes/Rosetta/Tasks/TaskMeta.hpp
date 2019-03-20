@@ -7,9 +7,9 @@
 #ifndef HEARTHSTONEPP_TASK_META_HPP
 #define HEARTHSTONEPP_TASK_META_HPP
 
-#include <hspp/Enums/TaskEnums.hpp>
-#include <hspp/Models/Player.hpp>
-#include <hspp/Tasks/TaskStatus.hpp>
+#include <Rosetta/Enums/TaskEnums.hpp>
+#include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/TaskStatus.hpp>
 
 #include <any>
 

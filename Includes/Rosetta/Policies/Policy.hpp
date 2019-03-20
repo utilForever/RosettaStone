@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_POLICY_HPP
 #define HEARTHSTONEPP_POLICY_HPP
 
-#include <hspp/Enums/TaskEnums.hpp>
-#include <hspp/Tasks/TaskMeta.hpp>
+#include <Rosetta/Enums/TaskEnums.hpp>
+#include <Rosetta/Tasks/TaskMeta.hpp>
 
 namespace Hearthstonepp
 {

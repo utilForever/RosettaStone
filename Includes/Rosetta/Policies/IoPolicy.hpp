@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_IO_POLICY_HPP
 #define HEARTHSTONEPP_IO_POLICY_HPP
 
-#include <hspp/Policies/BasicPolicy.hpp>
+#include <Rosetta/Policies/BasicPolicy.hpp>
 
 #include <iostream>
 

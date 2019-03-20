@@ -7,9 +7,9 @@
 #ifndef HEARTHSTONEPP_HERO_HPP
 #define HEARTHSTONEPP_HERO_HPP
 
-#include <hspp/Models/Character.hpp>
-#include <hspp/Models/HeroPower.hpp>
-#include <hspp/Models/Weapon.hpp>
+#include <Rosetta/Models/Character.hpp>
+#include <Rosetta/Models/HeroPower.hpp>
+#include <Rosetta/Models/Weapon.hpp>
 
 namespace Hearthstonepp
 {

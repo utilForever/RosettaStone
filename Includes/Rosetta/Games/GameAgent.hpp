@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_GAME_AGENT_HPP
 #define HEARTHSTONEPP_GAME_AGENT_HPP
 
-#include <hspp/Games/Game.hpp>
+#include <Rosetta/Games/Game.hpp>
 
 namespace Hearthstonepp
 {

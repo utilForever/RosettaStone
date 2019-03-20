@@ -3,16 +3,16 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <hspp/CardSets/CoreCardsGen.hpp>
-#include <hspp/Enchants/Effects.hpp>
-#include <hspp/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DiscardTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
-#include <hspp/Tasks/SimpleTasks/HealFullTask.hpp>
-#include <hspp/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/Enchants/Effects.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 
 using namespace Hearthstonepp::SimpleTasks;
 

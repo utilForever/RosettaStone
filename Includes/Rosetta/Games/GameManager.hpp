@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_GAME_MANAGER_HPP
 #define HEARTHSTONEPP_GAME_MANAGER_HPP
 
-#include <hspp/Enums/CardEnums.hpp>
-#include <hspp/Games/Game.hpp>
+#include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Games/Game.hpp>
 
 namespace Hearthstonepp
 {

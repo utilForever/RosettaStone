@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_HERO_POWER_HPP
 #define HEARTHSTONEPP_HERO_POWER_HPP
 
-#include <hspp/Models/Entity.hpp>
+#include <Rosetta/Models/Entity.hpp>
 
 namespace Hearthstonepp
 {

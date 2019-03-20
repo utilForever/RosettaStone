@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_CHOOSE_TASK_HPP
 #define HEARTHSTONEPP_CHOOSE_TASK_HPP
 
-#include <hspp/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/Tasks.hpp>
 
 #include <vector>
 

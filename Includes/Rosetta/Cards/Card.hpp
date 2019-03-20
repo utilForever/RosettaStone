@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_CARD_HPP
 #define HEARTHSTONEPP_CARD_HPP
 
-#include <hspp/Enchants/Power.hpp>
-#include <hspp/Enums/CardEnums.hpp>
+#include <Rosetta/Enchants/Power.hpp>
+#include <Rosetta/Enums/CardEnums.hpp>
 
 #include <map>
 #include <optional>

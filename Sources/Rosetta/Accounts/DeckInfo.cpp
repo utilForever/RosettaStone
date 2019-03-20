@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Accounts/DeckInfo.hpp>
-#include <hspp/Cards/Cards.hpp>
+#include <Rosetta/Accounts/DeckInfo.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 
 #include <algorithm>
 #include <iostream>

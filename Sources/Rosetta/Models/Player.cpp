@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Games/GameAgent.hpp>
-#include <hspp/Models/HeroPower.hpp>
-#include <hspp/Models/Player.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Games/GameAgent.hpp>
+#include <Rosetta/Models/HeroPower.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 namespace Hearthstonepp
 {

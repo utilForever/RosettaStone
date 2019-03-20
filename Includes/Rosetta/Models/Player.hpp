@@ -7,14 +7,14 @@
 #ifndef HEARTHSTONEPP_PLAYER_HPP
 #define HEARTHSTONEPP_PLAYER_HPP
 
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/Battlefield.hpp>
-#include <hspp/Models/Choice.hpp>
-#include <hspp/Models/Deck.hpp>
-#include <hspp/Models/Entity.hpp>
-#include <hspp/Models/Graveyard.hpp>
-#include <hspp/Models/Hand.hpp>
-#include <hspp/Models/Hero.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Models/Battlefield.hpp>
+#include <Rosetta/Models/Choice.hpp>
+#include <Rosetta/Models/Deck.hpp>
+#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Graveyard.hpp>
+#include <Rosetta/Models/Hand.hpp>
+#include <Rosetta/Models/Hero.hpp>
 
 #include <string>
 

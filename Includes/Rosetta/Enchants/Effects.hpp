@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_EFFECTS_HPP
 #define HEARTHSTONEPP_EFFECTS_HPP
 
-#include <hspp/Enchants/Effect.hpp>
+#include <Rosetta/Enchants/Effect.hpp>
 
 namespace Hearthstonepp
 {

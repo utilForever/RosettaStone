@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_END_TURN_TASK_HPP
 #define HEARTHSTONEPP_END_TURN_TASK_HPP
 
-#include <hspp/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::PlayerTasks
 {

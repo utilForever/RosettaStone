@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_DECK_INFO_HPP
 #define HEARTHSTONEPP_DECK_INFO_HPP
 
-#include <hspp/Cards/Card.hpp>
-#include <hspp/Enums/CardEnums.hpp>
+#include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Enums/CardEnums.hpp>
 
 #include <string>
 

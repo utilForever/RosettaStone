@@ -7,9 +7,9 @@
 #ifndef HEARTHSTONEPP_TASKS_HPP
 #define HEARTHSTONEPP_TASKS_HPP
 
-#include <hspp/Models/Player.hpp>
-#include <hspp/Tasks/TaskMeta.hpp>
-#include <hspp/Tasks/TaskStatus.hpp>
+#include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/TaskMeta.hpp>
+#include <Rosetta/Tasks/TaskStatus.hpp>
 
 namespace Hearthstonepp
 {

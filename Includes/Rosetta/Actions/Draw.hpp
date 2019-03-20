@@ -6,7 +6,7 @@
 #ifndef HEARTHSTONEPP_DRAW_HPP
 #define HEARTHSTONEPP_DRAW_HPP
 
-#include <hspp/Models/Entity.hpp>
+#include <Rosetta/Models/Entity.hpp>
 
 namespace Hearthstonepp::Generic
 {

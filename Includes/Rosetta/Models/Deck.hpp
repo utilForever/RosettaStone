@@ -7,8 +7,8 @@
 #ifndef HEARTHSTONEPP_DECK_HPP
 #define HEARTHSTONEPP_DECK_HPP
 
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/Entity.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Models/Entity.hpp>
 
 #include <array>
 

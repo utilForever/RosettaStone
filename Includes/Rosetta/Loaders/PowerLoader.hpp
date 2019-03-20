@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_POWER_LOADER_HPP
 #define HEARTHSTONEPP_POWER_LOADER_HPP
 
-#include <hspp/Cards/Card.hpp>
+#include <Rosetta/Cards/Card.hpp>
 
 #include <vector>
 

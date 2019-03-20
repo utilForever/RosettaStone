@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Commons/Macros.hpp>
-#include <hspp/Loaders/AccountLoader.hpp>
+#include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Loaders/AccountLoader.hpp>
 
 #if defined(HEARTHSTONEPP_WINDOWS)
 #include <filesystem>

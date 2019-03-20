@@ -6,10 +6,10 @@
 #ifndef HEARTHSTONEPP_PLAY_CARD_HPP
 #define HEARTHSTONEPP_PLAY_CARD_HPP
 
-#include <hspp/Models/Minion.hpp>
-#include <hspp/Models/Player.hpp>
-#include <hspp/Models/Spell.hpp>
-#include <hspp/Models/Weapon.hpp>
+#include <Rosetta/Models/Minion.hpp>
+#include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Models/Spell.hpp>
+#include <Rosetta/Models/Weapon.hpp>
 
 namespace Hearthstonepp::Generic
 {

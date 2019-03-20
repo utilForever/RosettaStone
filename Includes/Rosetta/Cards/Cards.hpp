@@ -7,7 +7,7 @@
 #ifndef HEARTHSTONEPP_CARDS_HPP
 #define HEARTHSTONEPP_CARDS_HPP
 
-#include <hspp/Cards/Card.hpp>
+#include <Rosetta/Cards/Card.hpp>
 
 #include <vector>
 
