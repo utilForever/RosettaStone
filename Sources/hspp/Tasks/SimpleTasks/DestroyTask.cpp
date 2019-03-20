@@ -28,6 +28,6 @@ TaskStatus DestroyTask::Impl(Player& player)
         entity->Destroy();
     }
 
-    return TaskStatus::DESTROY_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

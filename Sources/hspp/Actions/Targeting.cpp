@@ -4,7 +4,7 @@
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <hspp/Actions/Targeting.hpp>
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 
 namespace Hearthstonepp::Generic
 {

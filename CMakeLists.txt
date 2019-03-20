@@ -21,6 +21,7 @@ include_directories(Includes)
 include_directories(Libraries)
 include_directories(Libraries/googletest/googletest/include)
 include_directories(Libraries/Clara/include)
+include_directories(Libraries/random/include)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)

@@ -48,14 +48,6 @@ class Character : public Entity
     //! \return The value of attack.
     virtual size_t GetAttack() const;
 
-    //! Sets the value of attack.
-    //! \param attack the value of attack.
-    void SetAttack(std::size_t attack);
-
-    //! Summons character (pure virtual function).
-    //! \param pos The position to summon.
-    virtual void Summon(std::size_t pos) = 0;
-
     //! Destroys character.
     void Destroy() override;
 
@@ -85,13 +77,10 @@ class Character : public Entity
     //! \param heal The value of heal.
     void TakeHeal(Character& source, std::size_t heal);
 
-    std::size_t attackableCount = 0;
-    std::size_t numTurnToUnfreeze = 0;
+    std::size_t numAttacked = 0;
+    std::size_t attack = 0;
     int health = 0;
     int maxHealth = 0;
-
- protected:
-    std::size_t m_attack = 0;
 };
 }  // namespace Hearthstonepp
 

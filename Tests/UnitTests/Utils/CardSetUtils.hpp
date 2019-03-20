@@ -9,12 +9,12 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Models/Game.hpp>
-#include <hspp/Models/GameAgent.hpp>
-#include <hspp/Tasks/PlayerTasks/CombatTask.hpp>
+#include <hspp/Games/Game.hpp>
+#include <hspp/Games/GameAgent.hpp>
+#include <hspp/Tasks/PlayerTasks/AttackTask.hpp>
+#include <hspp/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
-#include <hspp/Tasks/SimpleTasks/InitAttackCountTask.hpp>
 
 #include <future>
 

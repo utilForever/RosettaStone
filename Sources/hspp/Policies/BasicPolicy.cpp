@@ -37,25 +37,13 @@ TaskMeta BasicPolicy::RequireMulligan(Player& player)
     return TaskMeta();
 }
 
-TaskMeta BasicPolicy::RequirePlaySpell(Player& player)
-{
-    (void)player;
-    return TaskMeta();
-}
-
 TaskMeta BasicPolicy::RequirePlayCard(Player& player)
 {
     (void)player;
     return TaskMeta();
 }
 
-TaskMeta BasicPolicy::RequirePlayMinion(Player& player)
-{
-    (void)player;
-    return TaskMeta();
-}
-
-TaskMeta BasicPolicy::RequireCombat(Player& player)
+TaskMeta BasicPolicy::RequireAttack(Player& player)
 {
     (void)player;
     return TaskMeta();

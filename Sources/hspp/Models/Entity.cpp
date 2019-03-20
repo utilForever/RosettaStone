@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <hspp/Games/Game.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Player.hpp>
 #include <hspp/Models/Spell.hpp>
@@ -128,6 +129,9 @@ Entity* Entity::GetFromCard(Player& player, Card&& card)
             throw std::invalid_argument(
                 "Generic::DrawCard() - Invalid card type!");
     }
+
+    // Set entity ID
+    result->id = player.GetGame()->GetNextID();
 
     return result;
 }

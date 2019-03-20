@@ -11,35 +11,12 @@ namespace Hearthstonepp
 {
 Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
 {
-    CheckAbilities();
-}
-
-void Minion::Summon(std::size_t pos)
-{
-    GetOwner().GetField().AddMinion(*this, pos);
+    // Do nothing
 }
 
 void Minion::Destroy()
 {
     GetOwner().GetField().RemoveMinion(*this);
-}
-
-void Minion::SetGameTag(GameTag tag, int value)
-{
-    Character::SetGameTag(tag, value);
-
-    CheckAbilities();
-}
-
-void Minion::CheckAbilities()
-{
-    if (m_gameTags[GameTag::CHARGE] == 1 && attackableCount == 0)
-    {
-        attackableCount = 1;
-    }
-    else if (m_gameTags[GameTag::WINDFURY] == 1 && attackableCount == 1)
-    {
-        attackableCount = 2;
-    }
+    GetOwner().GetGraveyard().AddCard(*this);
 }
 }  // namespace Hearthstonepp

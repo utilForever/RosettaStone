@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Commons/Constants.hpp>
-#include <hspp/Models/GameAgent.hpp>
+#include <hspp/Games/GameAgent.hpp>
 #include <hspp/Models/HeroPower.hpp>
 #include <hspp/Models/Player.hpp>
 
@@ -87,26 +87,6 @@ Hand& Player::GetHand()
 Hero* Player::GetHero() const
 {
     return m_hero;
-}
-
-std::size_t Player::GetAvailableMana() const
-{
-    return m_availableMana;
-}
-
-void Player::SetAvailableMana(std::size_t mana)
-{
-    m_availableMana = mana;
-}
-
-std::size_t Player::GetMaximumMana() const
-{
-    return m_maximumMana;
-}
-
-void Player::SetMaximumMana(std::size_t mana)
-{
-    m_maximumMana = mana;
 }
 
 IPolicy& Player::GetPolicy() const

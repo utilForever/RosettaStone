@@ -3,24 +3,25 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_POISONOUS_TASK_HPP
-#define HEARTHSTONEPP_POISONOUS_TASK_HPP
+#ifndef HEARTHSTONEPP_ATTACK_TASK_HPP
+#define HEARTHSTONEPP_ATTACK_TASK_HPP
 
 #include <hspp/Tasks/Tasks.hpp>
 
-namespace Hearthstonepp::SimpleTasks
+namespace Hearthstonepp::PlayerTasks
 {
 //!
-//! \brief PoisonousTask class.
+//! \brief AttackTask class.
 //!
-//! This class represents the task for dealing with poisonous ability in combat.
+//! This class represents the task for attacking target.
 //!
-class PoisonousTask : public ITask
+class AttackTask : public ITask
 {
  public:
-    //! Constructs task with given \p target.
-    //! \param target A pointer to attacked character.
-    PoisonousTask(Character* target);
+    //! Construct task with given \p source and \p target.
+    //! \param source A pointer to source character.
+    //! \param target A pointer to target character.
+    AttackTask(Entity* source, Entity* target);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,6 +33,6 @@ class PoisonousTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 };
-}  // namespace Hearthstonepp::SimpleTasks
+}  // namespace Hearthstonepp::PlayerTasks
 
-#endif  // HEARTHSTONEPP_POISONOUS_TASK_HPP
+#endif  // HEARTHSTONEPP_ATTACK_TASK_HPP

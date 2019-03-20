@@ -7,7 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Models/Game.hpp>
+#include <hspp/Games/Game.hpp>
 #include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
 
 using namespace Hearthstonepp;
@@ -22,7 +22,10 @@ TEST(ControlTask, GetTaskID)
 
 TEST(ControlTask, Run)
 {
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
 
@@ -45,7 +48,7 @@ TEST(ControlTask, Run)
     control.SetTarget(player2Field.GetMinion(0));
     TaskStatus result = control.Run(player1);
 
-    EXPECT_EQ(result, TaskStatus::CONTROL_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
@@ -56,7 +59,7 @@ TEST(ControlTask, Run)
     control.SetTarget(player2Field.GetMinion(1));
     result = control.Run(player1);
 
-    EXPECT_EQ(result, TaskStatus::CONTROL_FIELD_IS_FULL);
+    EXPECT_EQ(result, TaskStatus::STOP);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 }

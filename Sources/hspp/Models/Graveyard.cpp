@@ -23,4 +23,9 @@ void Graveyard::SetOwner(Player& owner)
 {
     m_owner = &owner;
 }
+
+void Graveyard::AddCard(Entity& card)
+{
+    m_cards.emplace_back(&card);
+}
 }  // namespace Hearthstonepp

@@ -31,7 +31,7 @@ TaskMetaTrait GenerateRandomTrait()
     std::default_random_engine gen(rd());
 
     const auto sizeTaskID = static_cast<int>(TaskID::_size());
-    const auto sizeTaskStatus = static_cast<int>(TaskStatus::GAME_END);
+    const auto sizeTaskStatus = static_cast<int>(TaskStatus::NUM_TASK_STATUS);
 
     const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
     const auto taskStatus = static_cast<TaskStatus>(gen() % sizeTaskStatus);

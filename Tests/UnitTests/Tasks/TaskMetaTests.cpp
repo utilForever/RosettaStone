@@ -20,7 +20,7 @@ TEST(TaskMeta, TraitConstructors)
     std::default_random_engine gen(rd());
 
     const int sizeTaskID = static_cast<int>(TaskID::_size());
-    const int sizeTaskStatus = static_cast<int>(TaskStatus::GAME_END);
+    const int sizeTaskStatus = static_cast<int>(TaskStatus::NUM_TASK_STATUS);
 
     const TaskID randID = TaskID::_from_integral(gen() % sizeTaskID);
     const auto randMeta = static_cast<TaskStatus>(gen() % sizeTaskStatus);

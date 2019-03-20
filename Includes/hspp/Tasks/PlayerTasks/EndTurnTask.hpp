@@ -3,26 +3,21 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_PLAY_WEAPON_TASK_HPP
-#define HEARTHSTONEPP_PLAY_WEAPON_TASK_HPP
+#ifndef HEARTHSTONEPP_END_TURN_TASK_HPP
+#define HEARTHSTONEPP_END_TURN_TASK_HPP
 
 #include <hspp/Tasks/Tasks.hpp>
 
 namespace Hearthstonepp::PlayerTasks
 {
 //!
-//! \brief PlayWeaponTask class.
+//! \brief EndTurnTask class.
 //!
-//! This class represents the task for playing weapon.
-//! It equips the weapon to hero.
+//! This class represents the task for ending current player's turn.
 //!
-class PlayWeaponTask : public ITask
+class EndTurnTask : public ITask
 {
  public:
-    //! Constructs task with given \p entity.
-    //! \param entity The weapon to equip.
-    PlayWeaponTask(Entity* entity);
-
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
@@ -32,9 +27,7 @@ class PlayWeaponTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
-
-    Entity* m_entity = nullptr;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 
-#endif  // HEARTHSTONEPP_PLAY_WEAPON_TASK_HPP
+#endif  // HEARTHSTONEPP_END_TURN_TASK_HPP

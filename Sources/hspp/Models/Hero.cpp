@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <hspp/Models/Hero.hpp>
+#include <hspp/Models/Player.hpp>
 
 namespace Hearthstonepp
 {
@@ -19,15 +20,28 @@ Hero::~Hero()
     delete heroPower;
 }
 
-void Hero::Summon(std::size_t pos)
-{
-    (void)pos;
-    // Do nothing
-}
-
 void Hero::Destroy()
 {
     // Do nothing
+}
+
+void Hero::AddWeapon(Weapon& _weapon)
+{
+    RemoveWeapon();
+
+    weapon = &_weapon;
+}
+
+void Hero::RemoveWeapon()
+{
+    if (!HasWeapon())
+    {
+        return;
+    }
+
+    GetOwner().GetGraveyard().AddCard(*weapon);
+
+    weapon = nullptr;
 }
 
 bool Hero::HasWeapon() const
@@ -37,6 +51,6 @@ bool Hero::HasWeapon() const
 
 std::size_t Hero::GetAttack() const
 {
-    return weapon != nullptr ? m_attack + weapon->GetAttack() : m_attack;
+    return HasWeapon() ? attack + weapon->attack : attack;
 }
 }  // namespace Hearthstonepp

@@ -146,9 +146,19 @@ enum class CardType
 };
 #endif
 
+//! \brief An enumerator for identifying the set of the card.
 #ifndef HEARTHSTONEPP_DOXYGEN
 BETTER_ENUM(ChoiceType, int, INVALID = 0, MULLIGAN = 1, GENERAL = 2)
+#else
+enum class ChoiceType
+{
+    INVALID = 0,
+    MULLIGAN = 1,
+    GENERAL = 2
+};
+#endif
 
+#ifndef HEARTHSTONEPP_DOXYGEN
 BETTER_ENUM(DeckType, int, CLIENT_ONLY_DECK = -1, UNKNOWN_DECK_TYPE = 0,
             NORMAL_DECK = 1, AI_DECK = 2, DRAFT_DECK = 4, PRECON_DECK = 5,
             TAVERN_BRAWL_DECK = 6, FSG_BRAWL_DECK = 7,

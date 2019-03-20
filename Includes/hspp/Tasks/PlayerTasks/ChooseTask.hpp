@@ -3,28 +3,32 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_PLAY_MINION_TASK_HPP
-#define HEARTHSTONEPP_PLAY_MINION_TASK_HPP
+#ifndef HEARTHSTONEPP_CHOOSE_TASK_HPP
+#define HEARTHSTONEPP_CHOOSE_TASK_HPP
 
 #include <hspp/Tasks/Tasks.hpp>
+
+#include <vector>
 
 namespace Hearthstonepp::PlayerTasks
 {
 //!
-//! \brief PlayMinionTask class.
+//! \brief ChooseTask class.
 //!
-//! This class represents the task for playing minion.
-//! It summons minion and processes power.
+//! This class represents the task for choosing cards.
 //!
-class PlayMinionTask : public ITask
+class ChooseTask : public ITask
 {
  public:
-    //! Constructs task with given \p source, \p fieldPos and \p target.
+    //! Construct task with given \p choices.
+    //! \param choices A container of card to choose.
+    explicit ChooseTask(std::vector<std::size_t> choices);
+
+    //! ChooseTask wrapper for mulligan.
+    //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.
-    //! \param fieldPos A value indicating where to place card.
-    //! \param target A target of the card to receive power.
-    PlayMinionTask(Entity* source = nullptr, int fieldPos = -1,
-                   Entity* target = nullptr);
+    //! \return Generated PlayCardTask for intended purpose.
+    static ChooseTask Mulligan(Player& player, std::vector<std::size_t> choices);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -36,8 +40,8 @@ class PlayMinionTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    int m_fieldPos = -1;
+    std::vector<std::size_t> m_choices;
 };
 }  // namespace Hearthstonepp::PlayerTasks
 
-#endif  // HEARTHSTONEPP_PLAY_MINION_TASK_HPP
+#endif  // HEARTHSTONEPP_CHOOSE_TASK_HPP

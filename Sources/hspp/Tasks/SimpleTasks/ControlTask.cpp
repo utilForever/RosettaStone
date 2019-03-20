@@ -38,14 +38,14 @@ TaskStatus ControlTask::Impl(Player& player)
             std::numeric_limits<std::size_t>::max());
         if (opMinionPos == std::numeric_limits<std::size_t>::max())
         {
-            return TaskStatus::CONTROL_INVALID_TARGET;
+            return TaskStatus::STOP;
         }
 
         const auto myMinionPos = myField.FindEmptyPos().value_or(
             std::numeric_limits<std::size_t>::max());
         if (myMinionPos == std::numeric_limits<std::size_t>::max())
         {
-            return TaskStatus::CONTROL_FIELD_IS_FULL;
+            return TaskStatus::STOP;
         }
 
         const auto minionClone = new Minion(*minion);
@@ -53,6 +53,6 @@ TaskStatus ControlTask::Impl(Player& player)
         opField.RemoveMinion(*minion);
     }
 
-    return TaskStatus::CONTROL_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

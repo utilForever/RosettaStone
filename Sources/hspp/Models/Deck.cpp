@@ -6,8 +6,9 @@
 
 #include <hspp/Models/Deck.hpp>
 
-#include <algorithm>
-#include <random>
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace Hearthstonepp
 {
@@ -78,9 +79,6 @@ Entity& Deck::RemoveCard(Entity& card)
 
 void Deck::Shuffle()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    std::shuffle(m_cards.begin(), m_cards.end(), gen);
+    Random::shuffle(m_cards.begin(), m_cards.begin() + m_numCard);
 }
 }  // namespace Hearthstonepp

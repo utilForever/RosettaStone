@@ -68,6 +68,11 @@ class Hand
     //! \param card The card to remove from hand.
     void RemoveCard(Entity& card);
 
+	//! Swaps two cards in hand.
+	//! \param card1 First card to swap.
+	//! \param card2 Second card to swap.
+    void SwapCard(Entity& card1, Entity& card2);
+
  private:
     Player* m_owner = nullptr;
 

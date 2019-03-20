@@ -26,12 +26,12 @@ TaskStatus ModifyManaTask::Impl(Player& player)
     const auto getMana = [](Player& p, ManaType mode) -> std::size_t {
         if (mode == ManaType::AVAILABLE)
         {
-            return p.GetAvailableMana();
+            return p.currentMana;
         }
 
         if (mode == ManaType::MAXIMUM)
         {
-            return p.GetMaximumMana();
+            return p.maximumMana;
         }
 
         throw std::runtime_error("ModifyMana: Invalid mana mode");
@@ -57,14 +57,14 @@ TaskStatus ModifyManaTask::Impl(Player& player)
 
     if (m_manaMode == ManaType::AVAILABLE)
     {
-        player.SetAvailableMana(mana);
+        player.currentMana = mana;
     }
 
     if (m_manaMode == ManaType::MAXIMUM)
     {
-        player.SetMaximumMana(mana);
+        player.maximumMana = mana;
     }
 
-    return TaskStatus::MODIFY_MANA_SUCCESS;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

@@ -85,6 +85,11 @@ std::optional<std::size_t> Battlefield::FindEmptyPos() const
 void Battlefield::AddMinion(Minion& minion, std::size_t pos)
 {
     m_minions.at(pos) = &minion;
+
+    if (minion.GetGameTag(GameTag::CHARGE) != 1)
+    {
+        minion.SetGameTag(GameTag::EXHAUSTED, 1);
+    }
 }
 
 void Battlefield::RemoveMinion(Minion& minion)

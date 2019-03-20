@@ -15,37 +15,49 @@ using namespace SimpleTasks;
 
 TEST(CoreCardsGen, EX1_066)
 {
-    Game game(CardClass::WARRIOR, CardClass::ROGUE, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+
+    Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
+    Task::Run(curPlayer, PlayCardTask::Weapon(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
 
-    Task::Run(opPlayer, PlayCardTask(card2));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), false);
 }
 
 TEST(CoreCardsGen, EX1_306)
 {
-    Game game(CardClass::WARLOCK, CardClass::WARRIOR, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+
+    Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Succubus"));
@@ -56,23 +68,29 @@ TEST(CoreCardsGen, EX1_306)
     Generic::DrawCard(opPlayer,
                       Cards::GetInstance().FindCardByName("Fiery War Axe"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 0u);
 
-    Task::Run(opPlayer, PlayCardTask(card2));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 1u);
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
 }
 
 TEST(CoreCardsGen, CS2_041)
 {
-    Game game(CardClass::SHAMAN, CardClass::ROGUE, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+
+    Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
 
     auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
@@ -84,47 +102,60 @@ TEST(CoreCardsGen, CS2_041)
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
-    Task::Run(opPlayer, PlayCardTask(card3));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
 
-    Task::Run(opPlayer, CombatTask(card3, card1));
+    Task::Run(opPlayer, AttackTask(card3, card1));
     EXPECT_EQ(curField.GetMinion(0)->health, 1);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
-    Task::Run(curPlayer, PlayCardTask(card2, -1, card1));
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card1));
     EXPECT_EQ(curField.GetMinion(0)->health, 2);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
 }
 
 TEST(CoreCardsGen, CS2_088)
 {
-    Game game(CardClass::DRUID, CardClass::PALADIN, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+
+    Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
     opPlayer.GetHero()->health = 24;
 
     const auto card1 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Guardian of Kings"));
 
-    Task::Run(opPlayer, PlayCardTask(card1));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card1));
     EXPECT_EQ(opPlayer.GetHero()->maxHealth, opPlayer.GetHero()->health);
 }
 
 TEST(CoreCardsGen, CS1_112)
 {
-    Game game(CardClass::PRIEST, CardClass::PALADIN, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
     curPlayer.GetHero()->health = 26;
 
     auto& curField = curPlayer.GetField();
@@ -141,20 +172,21 @@ TEST(CoreCardsGen, CS1_112)
     const auto card5 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Worgen Infiltrator"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
-    curPlayer.SetAvailableMana(10);
-    Task::Run(curPlayer, PlayCardTask(card2));
-    curPlayer.SetAvailableMana(10);
-    Task::Run(opPlayer, PlayCardTask(card4));
-    Task::Run(opPlayer, PlayCardTask(card5));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    curPlayer.currentMana = 10;
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    curPlayer.currentMana = 10;
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
 
-    Task::Run(curPlayer, InitAttackCountTask());
+    Task::Run(curPlayer, EndTurnTask());
+    Task::Run(opPlayer, EndTurnTask());
 
-    Task::Run(curPlayer, CombatTask(card1, card4));
+    Task::Run(curPlayer, AttackTask(card1, card4));
     EXPECT_EQ(curField.GetMinion(0)->health, 4);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
-    Task::Run(curPlayer, PlayCardTask(card3));
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card3));
     EXPECT_EQ(curPlayer.GetHero()->health, 28);
     EXPECT_EQ(opPlayer.GetHero()->health, 28);
     EXPECT_EQ(curField.GetMinion(0)->health, 5);
@@ -164,14 +196,20 @@ TEST(CoreCardsGen, CS1_112)
 
 TEST(CoreCardsGen, CS1_113)
 {
-    Game game(CardClass::PRIEST, CardClass::PALADIN, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+
+    Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
 
     const auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
@@ -185,38 +223,43 @@ TEST(CoreCardsGen, CS1_113)
     const auto card4 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
 
-    Task::Run(curPlayer, PlayCardTask(card1));
-    curPlayer.SetAvailableMana(10);
-    Task::Run(opPlayer, PlayCardTask(card2));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    curPlayer.currentMana = 10;
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
-    Task::Run(curPlayer, PlayCardTask(card3, -1, card2));
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card2));
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
-    opPlayer.SetAvailableMana(10);
-    auto result =
-        Task::Run(opPlayer, PlayCardTask(card4, -1, curPlayer.GetHero()));
-    EXPECT_EQ(result, TaskStatus::PLAY_CARD_INVALID_TARGET);
+    opPlayer.currentMana = 10;
+    auto curHero = curPlayer.GetHero();
+    Task::Run(opPlayer, PlayCardTask::SpellTarget(curPlayer, card4, curHero));
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
 }
 
 TEST(CoreCardsGen, EX1_129)
 {
-    Game game(CardClass::ROGUE, CardClass::PALADIN, PlayerType::PLAYER1);
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.SetMaximumMana(10);
-    curPlayer.SetAvailableMana(10);
-    opPlayer.SetMaximumMana(10);
-    opPlayer.SetAvailableMana(10);
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+    opPlayer.GetHero()->health = 30;
 
     const auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
-
-    opPlayer.GetHero()->health = 30;
-    int initialOpPlayerHealth = opPlayer.GetHero()->health;
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fan of Knives"));
@@ -229,27 +272,20 @@ TEST(CoreCardsGen, EX1_129)
     const auto card5 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Entity* entity1 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
-    curPlayer.GetDeck().AddCard(*entity1);
-
-    Entity* entity2 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
-    curPlayer.GetDeck().AddCard(*entity2);
-
-    Task::Run(opPlayer, PlayCardTask(card3));
-    Task::Run(opPlayer, PlayCardTask(card4));
-    Task::Run(opPlayer, PlayCardTask(card5));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
 
     EXPECT_EQ(curField.GetNumOfMinions(), 0u);
     EXPECT_EQ(opField.GetNumOfMinions(), 3u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
 
-    Task::Run(curPlayer, PlayCardTask(card1));
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
-    Task::Run(curPlayer, PlayCardTask(card2));
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
-
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), std::size_t(2));
-    EXPECT_EQ(opPlayer.GetHero()->health, initialOpPlayerHealth);
+    EXPECT_EQ(opPlayer.GetHero()->health, 30);
 }

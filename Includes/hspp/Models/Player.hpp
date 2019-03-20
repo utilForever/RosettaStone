@@ -9,6 +9,7 @@
 
 #include <hspp/Commons/Constants.hpp>
 #include <hspp/Models/Battlefield.hpp>
+#include <hspp/Models/Choice.hpp>
 #include <hspp/Models/Deck.hpp>
 #include <hspp/Models/Entity.hpp>
 #include <hspp/Models/Graveyard.hpp>
@@ -104,22 +105,6 @@ class Player
     //! \return Player's hero.
     Hero* GetHero() const;
 
-    //! Returns available mana that player has.
-    //! \return Available mana that player has.
-    std::size_t GetAvailableMana() const;
-
-    //! Sets available mana that player has.
-    //! \param mana Available mana that player has.
-    void SetAvailableMana(std::size_t mana);
-
-    //! Returns maximum mana that player has.
-    //! \return Maximum mana that player has.
-    std::size_t GetMaximumMana() const;
-
-    //! Sets maximum mana that player has.
-    //! \param mana Maximum mana that player has.
-    void SetMaximumMana(std::size_t mana);
-
     //! Returns game playing policy of current player.
     //! \return The policy of current player.
     IPolicy& GetPolicy() const;
@@ -141,6 +126,13 @@ class Player
     //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
 
+    PlayState playState = PlayState::INVALID;
+    Mulligan mulliganState = Mulligan::INVALID;
+    std::optional<Choice> choice = std::nullopt;
+
+    std::size_t currentMana = 0;
+    std::size_t maximumMana = 0;
+
  private:
     std::string m_nickname;
     PlayerType m_playerType = PlayerType::PLAYER1;
@@ -152,9 +144,6 @@ class Player
     Hand m_hand;
 
     Hero* m_hero = nullptr;
-
-    std::size_t m_availableMana = 0;
-    std::size_t m_maximumMana = 0;
 
     Game* m_game = nullptr;
     IPolicy* m_policy = nullptr;

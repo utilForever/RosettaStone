@@ -5,7 +5,9 @@
 
 #include <hspp/Tasks/SimpleTasks/DiscardTask.hpp>
 
-#include <random>
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace Hearthstonepp::SimpleTasks
 {
@@ -23,29 +25,17 @@ TaskStatus DiscardTask::Impl(Player& player)
 {
     if (m_entityType == +EntityType::HAND)
     {
-        if (player.GetHand().IsEmpty())
+        auto& hand = player.GetHand();
+        if (hand.IsEmpty())
         {
-            return TaskStatus::DISCARD_MY_HAND_SUCCESS;
+            return TaskStatus::STOP;
         }
 
-        std::random_device rd;
-        // ReSharper disable once CppLocalVariableMayBeConst
-        // NOTE: 'const' occurs compile error on Linux and macOS
-        std::uniform_int_distribution<std::size_t> dist(
-            0, player.GetHand().GetNumOfCards() - 1);
-
-        const std::size_t discardIdx = dist(rd);
-
-        // Card Hand Index Verification
-        if (discardIdx >= player.GetHand().GetNumOfCards())
-        {
-            return TaskStatus::DISCARD_IDX_OUT_OF_RANGE;
-        }
-
-        player.GetHand().RemoveCard(*player.GetHand().GetCard(discardIdx));
-        return TaskStatus::DISCARD_MY_HAND_SUCCESS;
+        auto idx = Random::get<std::size_t>(0, hand.GetNumOfCards() - 1);
+        hand.RemoveCard(*hand.GetCard(idx));
+        return TaskStatus::COMPLETE;
     }
 
-    return TaskStatus::INVALID;
+    return TaskStatus::COMPLETE;
 }
 }  // namespace Hearthstonepp::SimpleTasks

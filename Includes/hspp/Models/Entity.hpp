@@ -79,6 +79,9 @@ class Entity
     static Entity* GetFromCard(Player& player, Card&& card);
 
     Card card;
+
+    std::size_t id = 0;
+
     bool isDestroyed = false;
 
  protected:
