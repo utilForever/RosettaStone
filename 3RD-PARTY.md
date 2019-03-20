@@ -1,4 +1,4 @@
-Hearthstone++ is based on part of Sabberstone's code.
+RosettaStone is based on part of Sabberstone's code.
 
 SabberStone, Hearthstone Simulator in C# .NET Core
 Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
@@ -14,7 +14,7 @@ GNU Affero General Public License for more details.
 
 -----------------------------------------------------------------------------
 
-Hearthstone++ uses better-enums for enum to/from string conversion.
+RosettaStone uses better-enums for enum to/from string conversion.
 
 Copyright (c) 2012-2016, Anton Bachin
 All rights reserved.
@@ -76,7 +76,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -----------------------------------------------------------------------------
 
-Hearthstone++ uses Clara for command line parser.
+RosettaStone uses Clara for command line parser.
 
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -104,7 +104,7 @@ DEALINGS IN THE SOFTWARE.
 
 -----------------------------------------------------------------------------
 
-Hearthstone++ uses Google Test for testing.
+RosettaStone uses Google Test for testing.
 
 Copyright 2008, Google Inc.
 All rights reserved.
@@ -137,7 +137,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -----------------------------------------------------------------------------
 
-Hearthstone++ uses json for JSON parsing.
+RosettaStone uses json for JSON parsing.
 
 Copyright (c) 2013-2017 Niels Lohmann
 
@@ -161,7 +161,7 @@ SOFTWARE.
 
 -----------------------------------------------------------------------------
 
-Hearthstone++ uses CodeCoverage.cmake for code coverage.
+RosettaStone uses CodeCoverage.cmake for code coverage.
 
 MIT License
 
@@ -175,7 +175,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 -----------------------------------------------------------------------------
 
-Hearthstone++ uses doxygen-bootstrapped for custom Doxygen styling.
+RosettaStone uses doxygen-bootstrapped for custom Doxygen styling.
 
 Apache License
                            Version 2.0, January 2004
