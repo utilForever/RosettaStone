@@ -10,7 +10,7 @@
 
 namespace Hearthstonepp::Generic
 {
-void ChoiceMulligan(Player& player, std::vector<std::size_t>& choices)
+void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
 {
     // Block it if player tries to mulligan in a non-mulligan choice
     if (player.choice.value().choiceType != +ChoiceType::MULLIGAN)
@@ -76,7 +76,7 @@ void ChoiceMulligan(Player& player, std::vector<std::size_t>& choices)
 }
 
 void CreateChoice(Player& player, ChoiceType type, ChoiceAction action,
-                  std::vector<std::size_t>& choices)
+                  const std::vector<std::size_t>& choices)
 {
     // Block it if choice is exist
     if (player.choice != std::nullopt)
