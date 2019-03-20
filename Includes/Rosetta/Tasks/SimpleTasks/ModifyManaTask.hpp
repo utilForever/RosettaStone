@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_MODIFY_MANA_TASK_HPP
-#define HEARTHSTONEPP_MODIFY_MANA_TASK_HPP
+#ifndef ROSETTASTONE_MODIFY_MANA_TASK_HPP
+#define ROSETTASTONE_MODIFY_MANA_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
@@ -59,4 +59,4 @@ class ModifyManaTask : public ITask
 }  // namespace SimpleTasks
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_MODIFY_MANA_TASK_HPP
+#endif  // ROSETTASTONE_MODIFY_MANA_TASK_HPP

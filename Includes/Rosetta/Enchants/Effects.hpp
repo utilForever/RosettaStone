@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_EFFECTS_HPP
-#define HEARTHSTONEPP_EFFECTS_HPP
+#ifndef ROSETTASTONE_EFFECTS_HPP
+#define ROSETTASTONE_EFFECTS_HPP
 
 #include <Rosetta/Enchants/Effect.hpp>
 
@@ -41,4 +41,4 @@ class Effects
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_EFFECTS_HPP
+#endif  // ROSETTASTONE_EFFECTS_HPP

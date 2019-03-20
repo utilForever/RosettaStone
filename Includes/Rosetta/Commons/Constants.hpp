@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CONSTANTS_HPP
-#define HEARTHSTONEPP_CONSTANTS_HPP
+#ifndef ROSETTASTONE_CONSTANTS_HPP
+#define ROSETTASTONE_CONSTANTS_HPP
 
 #include <cstddef>
 
@@ -66,4 +66,4 @@ enum class PlayerType
 constexpr std::size_t GAME_MAIN_MENU_SIZE = 3;
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_CONSTANTS_HPP
+#endif  // ROSETTASTONE_CONSTANTS_HPP

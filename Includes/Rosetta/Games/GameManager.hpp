@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_GAME_MANAGER_HPP
-#define HEARTHSTONEPP_GAME_MANAGER_HPP
+#ifndef ROSETTASTONE_GAME_MANAGER_HPP
+#define ROSETTASTONE_GAME_MANAGER_HPP
 
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -25,4 +25,4 @@ class GameManager
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_GAME_MANAGER_HPP
+#endif  // ROSETTASTONE_GAME_MANAGER_HPP

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CONSOLE_HPP
-#define HEARTHSTONEPP_CONSOLE_HPP
+#ifndef ROSETTASTONE_CONSOLE_HPP
+#define ROSETTASTONE_CONSOLE_HPP
 
 #include <Rosetta/Accounts/AccountInfo.hpp>
 #include <Rosetta/Accounts/DeckInfo.hpp>
@@ -178,4 +178,4 @@ class Console
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_CONSOLE_HPP
+#endif  // ROSETTASTONE_CONSOLE_HPP

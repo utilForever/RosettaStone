@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_PLAYER_HPP
-#define HEARTHSTONEPP_PLAYER_HPP
+#ifndef ROSETTASTONE_PLAYER_HPP
+#define ROSETTASTONE_PLAYER_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
@@ -151,4 +151,4 @@ class Player
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_PLAYER_HPP
+#endif  // ROSETTASTONE_PLAYER_HPP

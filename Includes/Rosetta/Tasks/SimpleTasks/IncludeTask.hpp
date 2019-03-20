@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_INCLUDE_TASK_HPP
-#define HEARTHSTONEPP_INCLUDE_TASK_HPP
+#ifndef ROSETTASTONE_INCLUDE_TASK_HPP
+#define ROSETTASTONE_INCLUDE_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
@@ -46,4 +46,4 @@ class IncludeTask : public ITask
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // HEARTHSTONEPP_INCLUDE_TASK_HPP
+#endif  // ROSETTASTONE_INCLUDE_TASK_HPP

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_MINION_HPP
-#define HEARTHSTONEPP_MINION_HPP
+#ifndef ROSETTASTONE_MINION_HPP
+#define ROSETTASTONE_MINION_HPP
 
 #include <Rosetta/Models/Character.hpp>
 
@@ -47,4 +47,4 @@ class Minion : public Character
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_MINION_HPP
+#endif  // ROSETTASTONE_MINION_HPP

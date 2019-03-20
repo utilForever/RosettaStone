@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_BASIC_POLICY_HPP
-#define HEARTHSTONEPP_BASIC_POLICY_HPP
+#ifndef ROSETTASTONE_BASIC_POLICY_HPP
+#define ROSETTASTONE_BASIC_POLICY_HPP
 
 #include <Rosetta/Policies/Policy.hpp>
 
@@ -68,4 +68,4 @@ class BasicPolicy : public IPolicy
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_BASIC_POLICY_HPP
+#endif  // ROSETTASTONE_BASIC_POLICY_HPP

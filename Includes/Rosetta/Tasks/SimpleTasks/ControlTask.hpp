@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CONTROL_TASK_HPP
-#define HEARTHSTONEPP_CONTROL_TASK_HPP
+#ifndef ROSETTASTONE_CONTROL_TASK_HPP
+#define ROSETTASTONE_CONTROL_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
@@ -35,4 +35,4 @@ class ControlTask : public ITask
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // HEARTHSTONEPP_CONTROL_TASK_HPP
+#endif  // ROSETTASTONE_CONTROL_TASK_HPP

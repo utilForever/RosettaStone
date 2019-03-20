@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_GENERIC_HPP
-#define HEARTHSTONEPP_GENERIC_HPP
+#ifndef ROSETTASTONE_GENERIC_HPP
+#define ROSETTASTONE_GENERIC_HPP
 
 #include <Rosetta/Models/Player.hpp>
 
@@ -27,4 +27,4 @@ void RemoveCardFromHand(Player& player, Entity* entity);
 void ChangeManaCrystal(Player& player, int amount, bool fill);
 }  // namespace RosettaStone::Generic
 
-#endif  // HEARTHSTONEPP_GENERIC_HPP
+#endif  // ROSETTASTONE_GENERIC_HPP

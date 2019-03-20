@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_ACCOUNT_INFO_HPP
-#define HEARTHSTONEPP_ACCOUNT_INFO_HPP
+#ifndef ROSETTASTONE_ACCOUNT_INFO_HPP
+#define ROSETTASTONE_ACCOUNT_INFO_HPP
 
 #include <Rosetta/Accounts/DeckInfo.hpp>
 
@@ -77,4 +77,4 @@ class AccountInfo
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_ACCOUNT_INFO_HPP
+#endif  // ROSETTASTONE_ACCOUNT_INFO_HPP

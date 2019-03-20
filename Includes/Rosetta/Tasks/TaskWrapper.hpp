@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_TASK_WRAPPER_HPP
-#define HEARTHSTONEPP_TASK_WRAPPER_HPP
+#ifndef ROSETTASTONE_TASK_WRAPPER_HPP
+#define ROSETTASTONE_TASK_WRAPPER_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
@@ -72,4 +72,4 @@ class DoUntil : public ITask
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_TASK_WRAPPER_HPP
+#endif  // ROSETTASTONE_TASK_WRAPPER_HPP

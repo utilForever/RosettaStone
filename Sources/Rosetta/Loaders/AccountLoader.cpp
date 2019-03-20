@@ -7,20 +7,20 @@
 #include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(ROSETTASTONE_WINDOWS)
 #include <filesystem>
-#elif defined(HEARTHSTONEPP_LINUX)
+#elif defined(ROSETTASTONE_LINUX)
 #include <experimental/filesystem>
-#elif defined(HEARTHSTONEPP_MACOSX)
+#elif defined(ROSETTASTONE_MACOSX)
 #include <stdlib.h>
 #endif
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(ROSETTASTONE_WINDOWS)
 namespace filesystem = std::filesystem;
-#elif defined(HEARTHSTONEPP_LINUX)
+#elif defined(ROSETTASTONE_LINUX)
 namespace filesystem = std::experimental::filesystem;
 #endif
 
@@ -86,9 +86,9 @@ AccountInfo* AccountLoader::Load(std::string email) const
 void AccountLoader::Save(AccountInfo* account) const
 {
     // Store account data to JSON file
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+#if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
     filesystem::create_directory("Datas");
-#elif defined(HEARTHSTONEPP_MACOSX)
+#elif defined(ROSETTASTONE_MACOSX)
     system("mkdir Datas");
 #endif
     std::ofstream playerFile("Datas/" + account->GetEmail() + ".json");

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_SPELL_HPP
-#define HEARTHSTONEPP_SPELL_HPP
+#ifndef ROSETTASTONE_SPELL_HPP
+#define ROSETTASTONE_SPELL_HPP
 
 #include <Rosetta/Models/Entity.hpp>
 
@@ -47,4 +47,4 @@ class Spell : public Entity
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_SPELL_HPP
+#endif  // ROSETTASTONE_SPELL_HPP

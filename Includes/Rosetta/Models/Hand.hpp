@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_HAND_HPP
-#define HEARTHSTONEPP_HAND_HPP
+#ifndef ROSETTASTONE_HAND_HPP
+#define ROSETTASTONE_HAND_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Entity.hpp>
@@ -81,4 +81,4 @@ class Hand
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_HAND_HPP
+#endif  // ROSETTASTONE_HAND_HPP

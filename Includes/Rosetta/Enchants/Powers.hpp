@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_POWERS_HPP
-#define HEARTHSTONEPP_POWERS_HPP
+#ifndef ROSETTASTONE_POWERS_HPP
+#define ROSETTASTONE_POWERS_HPP
 
 #include <Rosetta/Enchants/Power.hpp>
 
@@ -54,4 +54,4 @@ class Powers
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_POWERS_HPP
+#endif  // ROSETTASTONE_POWERS_HPP

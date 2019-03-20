@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_WEAPON_HPP
-#define HEARTHSTONEPP_WEAPON_HPP
+#ifndef ROSETTASTONE_WEAPON_HPP
+#define ROSETTASTONE_WEAPON_HPP
 
 #include <Rosetta/Models/Entity.hpp>
 
@@ -52,4 +52,4 @@ class Weapon : public Entity
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_WEAPON_HPP
+#endif  // ROSETTASTONE_WEAPON_HPP

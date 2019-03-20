@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CARD_SET_UTILS_HPP
-#define HEARTHSTONEPP_CARD_SET_UTILS_HPP
+#ifndef ROSETTASTONE_CARD_SET_UTILS_HPP
+#define ROSETTASTONE_CARD_SET_UTILS_HPP
 
 #include "gtest/gtest.h"
 
@@ -18,4 +18,4 @@
 
 #include <future>
 
-#endif  // HEARTHSTONEPP_CARD_SET_UTILS_H
+#endif  // ROSETTASTONE_CARD_SET_UTILS_H

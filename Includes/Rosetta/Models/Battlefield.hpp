@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_BATTLEFIELD_HPP
-#define HEARTHSTONEPP_BATTLEFIELD_HPP
+#ifndef ROSETTASTONE_BATTLEFIELD_HPP
+#define ROSETTASTONE_BATTLEFIELD_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Character.hpp>
@@ -77,4 +77,4 @@ class Battlefield
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_BATTLEFIELD_HPP
+#endif  // ROSETTASTONE_BATTLEFIELD_HPP

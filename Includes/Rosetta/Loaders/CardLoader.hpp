@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CARD_LOADER_HPP
-#define HEARTHSTONEPP_CARD_LOADER_HPP
+#ifndef ROSETTASTONE_CARD_LOADER_HPP
+#define ROSETTASTONE_CARD_LOADER_HPP
 
 #include <Rosetta/Cards/Card.hpp>
 
@@ -29,4 +29,4 @@ class CardLoader
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_CARD_LOADER_HPP
+#endif  // ROSETTASTONE_CARD_LOADER_HPP

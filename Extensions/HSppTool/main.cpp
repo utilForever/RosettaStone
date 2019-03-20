@@ -10,9 +10,9 @@
 #include <better-enums/enum.h>
 #include <clara.hpp>
 
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(ROSETTASTONE_WINDOWS)
 #include <filesystem>
-#elif defined(HEARTHSTONEPP_LINUX)
+#elif defined(ROSETTASTONE_LINUX)
 #include <experimental/filesystem>
 #endif
 #include <fstream>
@@ -21,9 +21,9 @@
 #include <string>
 #include <vector>
 
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(ROSETTASTONE_WINDOWS)
 namespace filesystem = std::filesystem;
-#elif defined(HEARTHSTONEPP_LINUX)
+#elif defined(ROSETTASTONE_LINUX)
 namespace filesystem = std::experimental::filesystem;
 #endif
 
@@ -47,7 +47,7 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
 {
     std::vector<GameTag> result;
 
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+#if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
     std::map<std::string, GameTag> abilityStrMap = {
         { "Adapt", GameTag::ADAPT },
         { "Charge", GameTag::CHARGE },
@@ -96,7 +96,7 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
             }
         }
     }
-#elif defined(HEARTHSTONEPP_MACOSX)
+#elif defined(ROSETTASTONE_MACOSX)
     std::cerr
         << "CheckAbilityImpl skip: apple-clang doesn't support <filesystem>\n";
     exit(EXIT_FAILURE);
@@ -177,7 +177,7 @@ inline std::vector<Card> QueryCardSetList(const std::string& projectPath,
 inline bool CheckCardImpl(const std::string& path, std::vector<Card>& cards,
                           const std::string& id)
 {
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+#if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
     auto iter = std::find_if(cards.begin(), cards.end(),
                              [&id](const Card& c) { return c.id == id; });
     if (iter != cards.end())
@@ -214,7 +214,7 @@ inline bool CheckCardImpl(const std::string& path, std::vector<Card>& cards,
             }
         }
     }
-#elif defined(HEARTHSTONEPP_MACOSX)
+#elif defined(ROSETTASTONE_MACOSX)
     std::cerr
         << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
     exit(EXIT_FAILURE);

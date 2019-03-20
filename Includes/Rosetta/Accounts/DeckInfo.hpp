@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_DECK_INFO_HPP
-#define HEARTHSTONEPP_DECK_INFO_HPP
+#ifndef ROSETTASTONE_DECK_INFO_HPP
+#define ROSETTASTONE_DECK_INFO_HPP
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
@@ -87,4 +87,4 @@ class DeckInfo
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_DECK_INFO_HPP
+#endif  // ROSETTASTONE_DECK_INFO_HPP

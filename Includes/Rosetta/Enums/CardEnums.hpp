@@ -4,11 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CARD_ENUMS_HPP
-#define HEARTHSTONEPP_CARD_ENUMS_HPP
+#ifndef ROSETTASTONE_CARD_ENUMS_HPP
+#define ROSETTASTONE_CARD_ENUMS_HPP
 
 #ifdef _MSC_VER
-#define HEARTHSTONEPP_EXPAND_LARGE_ENUMS
+#define ROSETTASTONE_EXPAND_LARGE_ENUMS
 #else  // _MSC_VER
 #undef BETTER_ENUMS_MACRO_FILE
 #define BETTER_ENUMS_MACRO_FILE "Rosetta/Commons/EnumMacros.hpp"
@@ -18,7 +18,7 @@
 
 namespace RosettaStone
 {
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(BlockType, int, ATTACK = 1, JOUST = 2, POWER = 3, SCRIPT = 4,
             TRIGGER = 5, DEATHS = 6, PLAY = 7, FATIGUE = 8, RITUAL = 9,
             REVEAL_CARD = 10, GAME_RESET = 11, ACTION = 99)
@@ -49,7 +49,7 @@ BETTER_ENUM(BrawlType, int, UNKNOWN = 0, TAVERN_BRAWL = 1,
 #endif
 
 //! \brief An enumerator for identifying the class of the card.
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(CardClass, int, INVALID = 0, DEATHKNIGHT = 1, DRUID = 2, HUNTER = 3,
             MAGE = 4, PALADIN = 5, PRIEST = 6, ROGUE = 7, SHAMAN = 8,
             WARLOCK = 9, WARRIOR = 10, DREAM = 11, NEUTRAL = 12, WHIZBANG = 13)
@@ -74,7 +74,7 @@ enum class CardClass
 #endif
 
 //! \brief An enumerator for identifying the set of the card.
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(CardSet, int, ALL = -1, INVALID = 0, TEST_TEMPORARY = 1, CORE = 2,
             EXPERT1 = 3, HOF = 4, MISSIONS = 5, DEMO = 6, NONE = 7, CHEAT = 8,
             BLANK = 9, DEBUG_SP = 10, PROMO = 11, NAXX = 12, GVG = 13, BRM = 14,
@@ -125,7 +125,7 @@ enum class CardSet
 #endif
 
 //! \brief An enumerator for identifying the type of the card.
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(CardType, int, INVALID = 0, GAME = 1, PLAYER = 2, HERO = 3,
             MINION = 4, SPELL = 5, ENCHANTMENT = 6, WEAPON = 7, ITEM = 8,
             TOKEN = 9, HERO_POWER = 10)
@@ -147,7 +147,7 @@ enum class CardType
 #endif
 
 //! \brief An enumerator for identifying the set of the card.
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(ChoiceType, int, INVALID = 0, MULLIGAN = 1, GENERAL = 2)
 #else
 enum class ChoiceType
@@ -158,7 +158,7 @@ enum class ChoiceType
 };
 #endif
 
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(DeckType, int, CLIENT_ONLY_DECK = -1, UNKNOWN_DECK_TYPE = 0,
             NORMAL_DECK = 1, AI_DECK = 2, DRAFT_DECK = 4, PRECON_DECK = 5,
             TAVERN_BRAWL_DECK = 6, FSG_BRAWL_DECK = 7,
@@ -175,8 +175,8 @@ BETTER_ENUM(FormatType, int, UNKNOWN = 0, WILD = 1, STANDARD = 2)
 #endif
 
 //! \brief An enumerator for identifying the game tag of the card.
-#if !defined(HEARTHSTONEPP_EXPAND_LARGE_ENUMS) && \
-    !defined(HEARTHSTONEPP_DOXYGEN)
+#if !defined(ROSETTASTONE_EXPAND_LARGE_ENUMS) && \
+    !defined(ROSETTASTONE_DOXYGEN)
 BETTER_ENUM(
     GameTag, int, INVALID = 0, TAG_SCRIPT_DATA_NUM_1 = 2,
     TAG_SCRIPT_DATA_NUM_2 = 3, TAG_SCRIPT_DATA_ENT_1 = 4,
@@ -315,7 +315,7 @@ BETTER_ENUM(
     MOUSE_OVER_CARD_APPEARANCE = 1142, IS_ADVENTURE_SCENARIO = 1172,
     InvisibleDeathrattle = 335, ImmuneToSpellpower = 349,
     AttackVisualType = 251, DevState = 268, GrantCharge = 355, HealTarget = 361)
-#elif defined(HEARTHSTONEPP_DOXYGEN)
+#elif defined(ROSETTASTONE_DOXYGEN)
 enum class GameTag
 {
     INVALID = 0,
@@ -3299,7 +3299,7 @@ std::basic_istream<Char, Traits>& operator>>(
 }
 #endif
 
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(GameType, int, UNKNOWN = 0, VS_AI = 1, VS_FRIEND = 2, TUTORIAL = 4,
             ARENA = 5, TEST_AI_VS_AI = 6, RANKED = 7, CASUAL = 8,
             TAVERNBRAWL = 16, TB_1P_VS_AI = 17, TB_2P_COOP = 18,
@@ -3334,8 +3334,8 @@ BETTER_ENUM(OptionType, int, PASS = 1, END_TURN = 2, POWER = 3)
 #endif
 
 //! \brief An enumerator for identifying the play requirement of the card.
-#if !defined(HEARTHSTONEPP_EXPAND_LARGE_ENUMS) && \
-    !defined(HEARTHSTONEPP_DOXYGEN)
+#if !defined(ROSETTASTONE_EXPAND_LARGE_ENUMS) && \
+    !defined(ROSETTASTONE_DOXYGEN)
 BETTER_ENUM(
     PlayReq, int, INVALID = -1, REQ_MINION_TARGET = 1, REQ_FRIENDLY_TARGET = 2,
     REQ_ENEMY_TARGET = 3, REQ_DAMAGED_TARGET = 4, REQ_MAX_SECRETS = 5,
@@ -3381,7 +3381,7 @@ BETTER_ENUM(
     REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN = 80,
     REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_SPELLS_PLAYED_THIS_TURN = 81,
     REQ_FRIENDLY_MINION_OF_RACE_IN_HAND = 82)
-#elif defined(HEARTHSTONEPP_DOXYGEN)
+#elif defined(ROSETTASTONE_DOXYGEN)
 enum class PlayReq
 {
     INVALID = -1,
@@ -4278,7 +4278,7 @@ std::basic_istream<Char, Traits>& operator>>(
 }
 #endif
 
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(PlayState, int, INVALID = 0, PLAYING = 1, WINNING = 2, LOSING = 3,
             WON = 4, LOST = 5, TIED = 6, DISCONNECTED = 7, CONCEDED = 8)
 
@@ -4289,7 +4289,7 @@ BETTER_ENUM(PowerType, int, FULL_ENTITY = 1, SHOW_ENTITY = 2, HIDE_ENTITY = 3,
 #endif
 
 //! \brief An enumerator for identifying the race of the card.
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(Race, int, INVALID = 0, BLOODELF = 1, DRAENEI = 2, DWARF = 3,
             GNOME = 4, GOBLIN = 5, HUMAN = 6, NIGHTELF = 7, ORC = 8, TAUREN = 9,
             TROLL = 10, UNDEAD = 11, WORGEN = 12, GOBLIN2 = 13, MURLOC = 14,
@@ -4332,7 +4332,7 @@ enum class Race
 #endif
 
 //! \brief An enumerator for identifying the rarity of the card.
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(Rarity, int, INVALID = 0, COMMON = 1, FREE = 2, RARE = 3, EPIC = 4,
             LEGENDARY = 5, UNKNOWN_6 = 6)
 #else
@@ -4348,12 +4348,12 @@ enum class Rarity
 };
 #endif
 
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(State, int, INVALID = 0, LOADING = 1, RUNNING = 2, COMPLETE = 3)
 #endif
 
 //! \brief An enumerator for indicating the game state.
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(Step, int, INVALID = 0, BEGIN_FIRST = 1, BEGIN_SHUFFLE = 2,
             BEGIN_DRAW = 3, BEGIN_MULLIGAN = 4, MAIN_BEGIN = 5, MAIN_READY = 6,
             MAIN_RESOURCE = 7, MAIN_DRAW = 8, MAIN_START = 9, MAIN_ACTION = 10,
@@ -4383,7 +4383,7 @@ enum class Step
 };
 #endif
 
-#ifndef HEARTHSTONEPP_DOXYGEN
+#ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(Type, int, LOCSTRING = -2, UNKNOWN = 0, BOOL = 1, NUMBER = 2,
             COUNTER = 3, ENTITY = 4, PLAYER = 5, TEAM = 6,
             ENTITY_DEFINITION = 7, STRING = 8)
@@ -4396,4 +4396,4 @@ BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3, GRAVEYARD = 4,
 #endif
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_CARD_ENUMS_HPP
+#endif  // ROSETTASTONE_CARD_ENUMS_HPP

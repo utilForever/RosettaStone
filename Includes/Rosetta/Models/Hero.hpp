@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_HERO_HPP
-#define HEARTHSTONEPP_HERO_HPP
+#ifndef ROSETTASTONE_HERO_HPP
+#define ROSETTASTONE_HERO_HPP
 
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
@@ -70,4 +70,4 @@ class Hero : public Character
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_HERO_HPP
+#endif  // ROSETTASTONE_HERO_HPP

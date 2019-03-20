@@ -16,20 +16,20 @@
 #include <Rosetta/Policies/IoPolicy.hpp>
 
 #include <cctype>
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(ROSETTASTONE_WINDOWS)
 #include <filesystem>
-#elif defined(HEARTHSTONEPP_LINUX)
+#elif defined(ROSETTASTONE_LINUX)
 #include <experimental/filesystem>
-#elif defined(HEARTHSTONEPP_MACOSX)
+#elif defined(ROSETTASTONE_MACOSX)
 #include <sys/stat.h>
 #endif
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 
-#if defined(HEARTHSTONEPP_WINDOWS)
+#if defined(ROSETTASTONE_WINDOWS)
 namespace filesystem = std::filesystem;
-#elif defined(HEARTHSTONEPP_LINUX)
+#elif defined(ROSETTASTONE_LINUX)
 namespace filesystem = std::experimental::filesystem;
 #endif
 
@@ -51,7 +51,7 @@ void Console::SignIn()
             break;
         }
 
-#ifndef HEARTHSTONEPP_MACOSX
+#ifndef ROSETTASTONE_MACOSX
         if (!filesystem::exists("Datas/" + accountID + ".json"))
 #else
         struct stat buf;
@@ -90,9 +90,9 @@ void Console::SignUp()
         std::string accountID;
         std::cin >> accountID;
 
-#if defined(HEARTHSTONEPP_WINDOWS) || defined(HEARTHSTONEPP_LINUX)
+#if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
         if (filesystem::exists("Datas/" + accountID + ".json"))
-#elif defined(HEARTHSTONEPP_MACOSX)
+#elif defined(ROSETTASTONE_MACOSX)
         struct stat buf;
         std::string path = "Datas/" + accountID + ".json";
         if (stat(path.c_str(), &buf) == 0)

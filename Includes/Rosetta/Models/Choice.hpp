@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CHOICE_HPP
-#define HEARTHSTONEPP_CHOICE_HPP
+#ifndef ROSETTASTONE_CHOICE_HPP
+#define ROSETTASTONE_CHOICE_HPP
 
 #include <vector>
 
@@ -32,4 +32,4 @@ struct Choice
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_CHOICE_HPP
+#endif  // ROSETTASTONE_CHOICE_HPP

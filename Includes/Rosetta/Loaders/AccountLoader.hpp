@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_ACCOUNT_LOADER_HPP
-#define HEARTHSTONEPP_ACCOUNT_LOADER_HPP
+#ifndef ROSETTASTONE_ACCOUNT_LOADER_HPP
+#define ROSETTASTONE_ACCOUNT_LOADER_HPP
 
 #include <Rosetta/Accounts/AccountInfo.hpp>
 
@@ -32,4 +32,4 @@ class AccountLoader
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_ACCOUNT_LOADER_HPP
+#endif  // ROSETTASTONE_ACCOUNT_LOADER_HPP

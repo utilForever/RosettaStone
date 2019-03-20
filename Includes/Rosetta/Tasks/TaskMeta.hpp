@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_TASK_META_HPP
-#define HEARTHSTONEPP_TASK_META_HPP
+#ifndef ROSETTASTONE_TASK_META_HPP
+#define ROSETTASTONE_TASK_META_HPP
 
 #include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -160,4 +160,4 @@ class TaskMeta : public TaskMetaTrait
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_TASK_META_HPP
+#endif  // ROSETTASTONE_TASK_META_HPP

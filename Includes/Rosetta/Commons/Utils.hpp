@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_UTILS_HPP
-#define HEARTHSTONEPP_UTILS_HPP
+#ifndef ROSETTASTONE_UTILS_HPP
+#define ROSETTASTONE_UTILS_HPP
 
 #include <cstddef>
 
@@ -282,4 +282,4 @@ class SizedPtr
     T* m_ptr;
 };
 
-#endif  // HEARTHSTONEPP_UTILS_HPP
+#endif  // ROSETTASTONE_UTILS_HPP

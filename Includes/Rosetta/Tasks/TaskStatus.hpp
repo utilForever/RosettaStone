@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_TASK_STATUS_HPP
-#define HEARTHSTONEPP_TASK_STATUS_HPP
+#ifndef ROSETTASTONE_TASK_STATUS_HPP
+#define ROSETTASTONE_TASK_STATUS_HPP
 
 namespace RosettaStone
 {
@@ -22,4 +22,4 @@ enum class TaskStatus : status_t
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_TASK_STATUS_HPP
+#endif  // ROSETTASTONE_TASK_STATUS_HPP

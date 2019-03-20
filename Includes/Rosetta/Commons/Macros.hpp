@@ -4,18 +4,18 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_MACROS_HPP
-#define HEARTHSTONEPP_MACROS_HPP
+#ifndef ROSETTASTONE_MACROS_HPP
+#define ROSETTASTONE_MACROS_HPP
 
 #if defined(_WIN32) || defined(_WIN64)
-#define HEARTHSTONEPP_WINDOWS
+#define ROSETTASTONE_WINDOWS
 #elif defined(__APPLE__)
-#define HEARTHSTONEPP_APPLE
-#ifndef HEARTHSTONEPP_IOS
-#define HEARTHSTONEPP_MACOSX
+#define ROSETTASTONE_APPLE
+#ifndef ROSETTASTONE_IOS
+#define ROSETTASTONE_MACOSX
 #endif
 #elif defined(linux) || defined(__linux__)
-#define HEARTHSTONEPP_LINUX
+#define ROSETTASTONE_LINUX
 #endif
 
-#endif  // HEARTHSTONEPP_MACROS_HPP
+#endif  // ROSETTASTONE_MACROS_HPP

@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_DECK_HPP
-#define HEARTHSTONEPP_DECK_HPP
+#ifndef ROSETTASTONE_DECK_HPP
+#define ROSETTASTONE_DECK_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Entity.hpp>
@@ -68,4 +68,4 @@ class Deck
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_DECK_HPP
+#endif  // ROSETTASTONE_DECK_HPP

@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_CHOOSE_HPP
-#define HEARTHSTONEPP_CHOOSE_HPP
+#ifndef ROSETTASTONE_CHOOSE_HPP
+#define ROSETTASTONE_CHOOSE_HPP
 
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Models/Choice.hpp>
@@ -26,4 +26,4 @@ void CreateChoice(Player& player, ChoiceType type, ChoiceAction action,
                   const std::vector<std::size_t>& choices);
 }  // namespace RosettaStone::Generic
 
-#endif  // HEARTHSTONEPP_DRAW_HPP
+#endif  // ROSETTASTONE_DRAW_HPP

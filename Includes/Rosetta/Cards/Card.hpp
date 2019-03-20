@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CARD_HPP
-#define HEARTHSTONEPP_CARD_HPP
+#ifndef ROSETTASTONE_CARD_HPP
+#define ROSETTASTONE_CARD_HPP
 
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
@@ -92,4 +92,4 @@ class Card
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_CARD_HPP
+#endif  // ROSETTASTONE_CARD_HPP

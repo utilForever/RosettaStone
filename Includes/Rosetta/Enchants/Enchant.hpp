@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_ENCHANT_HPP
-#define HEARTHSTONEPP_ENCHANT_HPP
+#ifndef ROSETTASTONE_ENCHANT_HPP
+#define ROSETTASTONE_ENCHANT_HPP
 
 #include <Rosetta/Enchants/Effect.hpp>
 
@@ -44,4 +44,4 @@ class Enchant
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_ENCHANT_HPP
+#endif  // ROSETTASTONE_ENCHANT_HPP

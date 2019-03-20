@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_GRAVEYARD_HPP
-#define HEARTHSTONEPP_GRAVEYARD_HPP
+#ifndef ROSETTASTONE_GRAVEYARD_HPP
+#define ROSETTASTONE_GRAVEYARD_HPP
 
 #include <Rosetta/Models/Entity.hpp>
 
@@ -44,4 +44,4 @@ class Graveyard
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_GRAVEYARD_HPP
+#endif  // ROSETTASTONE_GRAVEYARD_HPP

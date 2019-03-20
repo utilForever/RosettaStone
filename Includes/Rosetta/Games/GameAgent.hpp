@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_GAME_AGENT_HPP
-#define HEARTHSTONEPP_GAME_AGENT_HPP
+#ifndef ROSETTASTONE_GAME_AGENT_HPP
+#define ROSETTASTONE_GAME_AGENT_HPP
 
 #include <Rosetta/Games/Game.hpp>
 
@@ -72,4 +72,4 @@ class GameAgent : public Game
 };
 }  // namespace RosettaStone
 
-#endif  // HEARTHSTONEPP_GAME_AGENT_HPP
+#endif  // ROSETTASTONE_GAME_AGENT_HPP

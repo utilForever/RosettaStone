@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef HEARTHSTONEPP_PLAY_CARD_HPP
-#define HEARTHSTONEPP_PLAY_CARD_HPP
+#ifndef ROSETTASTONE_PLAY_CARD_HPP
+#define ROSETTASTONE_PLAY_CARD_HPP
 
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -42,4 +42,4 @@ void PlaySpell(Player& player, Spell* spell, Character* target = nullptr);
 void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
 }  // namespace RosettaStone::Generic
 
-#endif  // HEARTHSTONEPP_PLAY_CARD_HPP
+#endif  // ROSETTASTONE_PLAY_CARD_HPP
