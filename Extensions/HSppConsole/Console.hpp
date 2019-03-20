@@ -7,11 +7,11 @@
 #ifndef HEARTHSTONEPP_CONSOLE_HPP
 #define HEARTHSTONEPP_CONSOLE_HPP
 
-#include <hspp/Accounts/AccountInfo.hpp>
-#include <hspp/Accounts/DeckInfo.hpp>
-#include <hspp/Cards/Cards.hpp>
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Commons/Macros.hpp>
+#include <Rosetta/Accounts/AccountInfo.hpp>
+#include <Rosetta/Accounts/DeckInfo.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Commons/Macros.hpp>
 
 #include <clara.hpp>
 

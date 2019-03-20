@@ -6,14 +6,14 @@
 
 #include "Console.hpp"
 
-#include <hspp/Cards/Card.hpp>
-#include <hspp/Cards/Cards.hpp>
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Commons/Utils.hpp>
-#include <hspp/Games/GameAgent.hpp>
-#include <hspp/Loaders/AccountLoader.hpp>
-#include <hspp/Loaders/CardLoader.hpp>
-#include <hspp/Policies/IoPolicy.hpp>
+#include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Games/GameAgent.hpp>
+#include <Rosetta/Loaders/AccountLoader.hpp>
+#include <Rosetta/Loaders/CardLoader.hpp>
+#include <Rosetta/Policies/IoPolicy.hpp>
 
 #include <cctype>
 #if defined(HEARTHSTONEPP_WINDOWS)

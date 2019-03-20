@@ -1,5 +1,5 @@
 # Target name
-set(target HSppConsole)
+set(target RosettaConsole)
 
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
@@ -37,10 +37,10 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     target_link_libraries(${target}
         PRIVATE
         ${DEFAULT_LINKER_OPTIONS}
-        Hearthstonepp)
+        RosettaStone)
 else()
     target_link_libraries(${target}
         PRIVATE
         ${DEFAULT_LINKER_OPTIONS}
-        Hearthstonepp)
+        RosettaStone)
 endif()

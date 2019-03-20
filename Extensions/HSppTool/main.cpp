@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Cards/Cards.hpp>
-#include <hspp/Commons/Macros.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Macros.hpp>
 
 #include <better-enums/enum.h>
 #include <clara.hpp>
