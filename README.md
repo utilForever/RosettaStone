@@ -97,7 +97,7 @@ MSBuild RosettaStone.sln /p:Configuration=Release
 Now run console simulator:
 
 ```
-bin/HSppConsole
+bin/RosettaConsole
 ```
 
 To run GUI simulator, please check out [RosettaStone GUI](https://www.github.com/utilforever/RosettaStone-GUI).
