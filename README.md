@@ -143,11 +143,11 @@ The class is licensed under the [Affero GPLv3 License](https://opensource.org/li
 
 Hearthstone++ is based on part of Sabberstone's code
 
-Copyright (c) 2017-2018 SabberStone Team, darkfriend77 & rnilva
+Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 
 Hearthstone++, Hearthstone simulator using C++ with some reinforcement learning
 
-Copyright (C) 2017-2018 Hearthstone++ Team
+Copyright (C) 2017-2019 Hearthstone++ Team
 
 - [Chris Ohk](http://www.github.com/utilForever)
 - [Youngjoong Kim](https://github.com/revsic)
