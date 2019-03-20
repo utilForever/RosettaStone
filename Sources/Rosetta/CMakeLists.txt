@@ -1,5 +1,5 @@
 # Target name
-set(target Hearthstonepp)
+set(target RosettaStone)
 
 # Define
 set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../..)
@@ -12,7 +12,7 @@ include_directories(
 
 # Sources
 file(GLOB header_dir
-    ${root_dir}/Includes/hspp)
+    ${root_dir}/Includes/Rosetta)
 
 file(GLOB_RECURSE headers
     ${header_dir}/*.hpp)
@@ -21,19 +21,19 @@ file(GLOB_RECURSE sources
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # Custom-build event
-set(hearthstonepp_header_gen_py ${root_dir}/Scripts/header_gen.py)
+set(rosettastone_header_gen_py ${root_dir}/Scripts/header_gen.py)
 add_custom_command(
-    COMMAND python ${hearthstonepp_header_gen_py}
+    COMMAND python ${rosettastone_header_gen_py}
     DEPENDS ${headers}
-    OUTPUT ${root_dir}/Includes/hspp.hpp
+    OUTPUT ${root_dir}/Includes/RosettaStone.hpp
 )
-add_custom_target(hearthstonepp_header_gen_py ALL
-    DEPENDS ${root_dir}/Includes/hspp.hpp)
+add_custom_target(rosettastone_header_gen_py ALL
+    DEPENDS ${root_dir}/Includes/RosettaStone.hpp)
 
 # Build library
 add_library(${target}
     ${sources})
-add_dependencies(${target} hearthstonepp_header_gen_py)
+add_dependencies(${target} rosettastone_header_gen_py)
 
 # Project options
 set_target_properties(${target}
