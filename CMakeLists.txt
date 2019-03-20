@@ -50,8 +50,8 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
-add_subdirectory(Extensions/HSppConsole)
-add_subdirectory(Extensions/HSppTool)
+add_subdirectory(Extensions/RosettaConsole)
+add_subdirectory(Extensions/RosettaTool)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
