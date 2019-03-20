@@ -6,11 +6,11 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Cards.hpp>
-#include <hspp/Commons/Utils.hpp>
-#include <hspp/Games/Game.hpp>
-#include <hspp/Policies/BasicPolicy.hpp>
-#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Policies/BasicPolicy.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace SimpleTasks;

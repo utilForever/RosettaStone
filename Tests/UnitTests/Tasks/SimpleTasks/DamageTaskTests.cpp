@@ -7,8 +7,8 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Games/Game.hpp>
-#include <hspp/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace SimpleTasks;

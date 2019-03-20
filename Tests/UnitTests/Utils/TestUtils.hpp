@@ -7,9 +7,9 @@
 #ifndef UNIT_TESTS_TEST_UTILS_HPP
 #define UNIT_TESTS_TEST_UTILS_HPP
 
-#include <hspp/Cards/Card.hpp>
-#include <hspp/Commons/Utils.hpp>
-#include <hspp/Tasks/TaskMeta.hpp>
+#include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Tasks/TaskMeta.hpp>
 
 using namespace Hearthstonepp;
 

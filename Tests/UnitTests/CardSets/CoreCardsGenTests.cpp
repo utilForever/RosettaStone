@@ -6,8 +6,8 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-#include <hspp/Actions/Draw.hpp>
-#include <hspp/Cards/Cards.hpp>
+#include <Rosetta/Actions/Draw.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 
 using namespace Hearthstonepp;
 using namespace PlayerTasks;

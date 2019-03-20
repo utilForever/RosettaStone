@@ -7,7 +7,7 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Commons/Utils.hpp>
+#include <Rosetta/Commons/Utils.hpp>
 
 #include <random>
 

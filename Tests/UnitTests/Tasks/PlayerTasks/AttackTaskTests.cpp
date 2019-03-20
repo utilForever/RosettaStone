@@ -7,12 +7,12 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Commons/Constants.hpp>
-#include <hspp/Games/Game.hpp>
-#include <hspp/Games/GameConfig.hpp>
-#include <hspp/Models/Weapon.hpp>
-#include <hspp/Tasks/PlayerTasks/AttackTask.hpp>
-#include <hspp/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Games/GameConfig.hpp>
+#include <Rosetta/Models/Weapon.hpp>
+#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 
 using namespace Hearthstonepp;
 using namespace PlayerTasks;
