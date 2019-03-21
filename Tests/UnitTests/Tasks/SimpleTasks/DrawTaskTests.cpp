@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -6,13 +6,13 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Cards.hpp>
-#include <hspp/Commons/Utils.hpp>
-#include <hspp/Games/Game.hpp>
-#include <hspp/Policies/BasicPolicy.hpp>
-#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Policies/BasicPolicy.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace SimpleTasks;
 
 class DrawTestPolicy : public BasicPolicy

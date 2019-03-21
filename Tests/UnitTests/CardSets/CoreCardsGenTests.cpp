@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -6,10 +6,10 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-#include <hspp/Actions/Draw.hpp>
-#include <hspp/Cards/Cards.hpp>
+#include <Rosetta/Actions/Draw.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 

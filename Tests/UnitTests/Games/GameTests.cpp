@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -7,12 +7,12 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Games/Game.hpp>
-#include <hspp/Games/GameConfig.hpp>
-#include <hspp/Games/GameManager.hpp>
-#include <hspp/Tasks/PlayerTasks/ChooseTask.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Games/GameConfig.hpp>
+#include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace PlayerTasks;
 
 TEST(Game, Mulligan)

@@ -1,21 +1,21 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HEARTHSTONEPP_CARD_SET_UTILS_HPP
-#define HEARTHSTONEPP_CARD_SET_UTILS_HPP
+#ifndef ROSETTASTONE_CARD_SET_UTILS_HPP
+#define ROSETTASTONE_CARD_SET_UTILS_HPP
 
 #include "gtest/gtest.h"
 
-#include <hspp/Games/Game.hpp>
-#include <hspp/Games/GameAgent.hpp>
-#include <hspp/Tasks/PlayerTasks/AttackTask.hpp>
-#include <hspp/Tasks/PlayerTasks/EndTurnTask.hpp>
-#include <hspp/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Games/GameAgent.hpp>
+#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 
 #include <future>
 
-#endif  // HEARTHSTONEPP_CARD_SET_UTILS_H
+#endif  // ROSETTASTONE_CARD_SET_UTILS_H

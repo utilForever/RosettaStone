@@ -24,20 +24,20 @@
 
 ### Step 1: Fork
 
-Fork the project [on GitHub](https://github.com/utilForever/Hearthstone++) and clone your fork
+Fork the project [on GitHub](https://github.com/utilForever/RosettaStone) and clone your fork
 locally.
 
 ```
-$ git clone git@github.com:username/Hearthstonepp.git
-$ cd Hearthstonepp
-$ git remote add upstream https://github.com/utilForever/Hearthstonepp.git
+$ git clone git@github.com:username/RosettaStone.git
+$ cd RosettaStone
+$ git remote add upstream https://github.com/utilForever/RosettaStone.git
 $ git fetch upstream
 ```
 
 ### Step 2: Build
 
 Build steps and dependencies differ slightly depending on your operating system.
-See these detailed guides on building Hearthstone++ locally:
+See these detailed guides on building RosettaStone locally:
 * [Building on MacOS](./Install.md#building-from-macos)
 * [Building on Ubuntu or Windows Subsystem for Linux (WSL)](./Install.md#building-from-ubuntu-and-windows-subsystem-for-linux-wsl)
 * [Building on Windows](./Install.md#building-from-windows)
@@ -57,7 +57,7 @@ $ git checkout -b my-branch -t upstream/master
 
 ### Step 4: Code
 
-Most pull requests opened against the `utilForever/Hearthstonepp` repository include
+Most pull requests opened against the `utilForever/RosettaStone` repository include
 changes to either the core C/C++ code in the `Includes/` or `Sources/` folders,
 3rd-party libraries in the `Libraries/` folder, console or GUI program in the `Programs/` folder,
 the documentation in `Documents/` or tests in the `Tests/` folder.
@@ -85,7 +85,7 @@ Note that multiple commits often get squashed when they are landed.
 
 #### Commit message guidelines
 
-A good commit message should describe what changed and why. Hearthstone++ project
+A good commit message should describe what changed and why. RosettaStone project
 uses [semantic commit messages](https://conventionalcommits.org/) to streamline
 the release process.
 
@@ -140,7 +140,7 @@ $ git fetch upstream
 $ git rebase upstream/master
 ```
 
-This ensures that your working branch has the latest changes from `utilForever/Hearthstonepp`
+This ensures that your working branch has the latest changes from `utilForever/RosettaStone`
 master.
 
 ### Step 7: Test
@@ -182,7 +182,7 @@ the requirements below.
 
 Bug fixes and new features should include tests and possibly benchmarks.
 
-Contributors guide: https://github.com/utilForever/Hearthstonepp/blob/master/Documents/Contributing.md
+Contributors guide: https://github.com/utilForever/RosettaStone/blob/master/Documents/Contributing.md
 -->
 ```
 
@@ -230,7 +230,7 @@ reviewers should be expected to provide helpful feeback.
 ### Step 11: Landing
 
 In order to land, a pull request needs to be reviewed and approved by
-all Hearthstone++ collaborators and pass CI. After that, if there are no
+all RosettaStone collaborators and pass CI. After that, if there are no
 objections from other contributors, the pull request can be merged.
 
 Congratulations and thanks for your contribution!
@@ -238,7 +238,7 @@ Congratulations and thanks for your contribution!
 ### Continuous Integration Testing
 
 Every pull request is tested on the Continuous Integration (CI) system to
-confirm that it works on Hearthstone++'s supported platforms.
+confirm that it works on RosettaStone's supported platforms.
 
 Ideally, the pull request will pass ("be green") on all of CI's platforms.
 This means that all tests pass and there are no linting errors. However,

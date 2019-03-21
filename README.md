@@ -1,20 +1,20 @@
-# Hearthstone++
+# RosettaStone
 
-<img src="https://github.com/utilForever/Hearthstonepp/blob/master/Medias/Logo.png" width=256 height=256 />
+<img src="https://github.com/utilForever/RosettaStone/blob/master/Medias/Logo.png" width=256 height=256 />
 
-[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/Hearthstonepp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/Hearthstonepp.svg?branch=master)](https://travis-ci.org/utilForever/Hearthstonepp/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/Hearthstonepp?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/Hearthstonepp/branch/master) [![Build Status](https://dev.azure.com/utilforever/Hearthstonepp/_apis/build/status/utilForever.Hearthstonepp)](https://dev.azure.com/utilforever/Hearthstonepp/_build/latest?definitionId=2) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
+[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/RosettaStone.svg?branch=master)](https://travis-ci.org/utilForever/RosettaStone/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/RosettaStone?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/RosettaStone/branch/master) [![Build Status](https://utilforever.visualstudio.com/RosettaStone/_apis/build/status/utilForever.RosettaStone?branchName=master)](https://utilforever.visualstudio.com/RosettaStone/_build/latest?definitionId=7&branchName=master) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
 
-[![codecov](https://codecov.io/gh/utilForever/Hearthstonepp/branch/master/graph/badge.svg)](https://codecov.io/gh/utilForever/Hearthstonepp)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/Hearthstonepp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/Hearthstonepp&amp;utm_campaign=Badge_Grade)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/utilForever/Hearthstonepp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/Hearthstonepp/alerts/)
-[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/Hearthstonepp.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/Hearthstonepp/context:cpp)
-[![CodeFactor](https://www.codefactor.io/repository/github/utilforever/hearthstonepp/badge)](https://www.codefactor.io/repository/github/utilforever/hearthstonepp)
+[![codecov](https://codecov.io/gh/utilForever/RosettaStone/branch/master/graph/badge.svg)](https://codecov.io/gh/utilForever/RosettaStone)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/RosettaStone?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/RosettaStone&amp;utm_campaign=Badge_Grade)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/utilForever/RosettaStone.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/RosettaStone/alerts/)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/RosettaStone.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/RosettaStone/context:cpp)
+[![CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone/badge)](https://www.codefactor.io/repository/github/utilforever/RosettaStone)
 
-Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS (10.14 or later), Ubuntu (18.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build Hearthstone++.
+RosettaStone is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. RosettaStone currently supports macOS (10.14 or later), Ubuntu (18.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build RosettaStone.
 
 ## Related Repositories
 
-- [Hearthstone++ GUI](https://www.github.com/utilforever/Hearthstonepp-GUI)
+- [RosettaStone GUI](https://www.github.com/utilforever/RosettaStone-GUI)
 
 ## Key Features
 
@@ -28,6 +28,24 @@ Hearthstone++ is Hearthstone simulator using C++ with some reinforcement learnin
 - Deck tracker
 - Web simulator
 - Python API
+
+## Roadmap
+
+### 2019
+
+- Implement all original + some expansion cards
+- Fully support console and GUI program
+- Provide RL environment using PyTorch C++ API
+- Support API for another language such as Python
+- Integrate with RealStone, "Real" Hearthstone hardware using Arduino
+
+### 2018
+
+- Implement basic system (game and task)
+- Implement basic console program
+- Implement some original cards
+- Support cross-platform build (Windows/Linux/MacOS)
+- Provide API documentation using doxygen
 
 ## Card Sets
 
@@ -70,8 +88,8 @@ You will need CMake to build the code. If you're using Windows, you need Visual 
 First, clone the code:
 
 ```
-git clone https://github.com/utilForever/Hearthstonepp.git --recursive
-cd Hearthstonepp
+git clone https://github.com/utilForever/RosettaStone.git --recursive
+cd RosettaStone
 ```
 
 ### C++ API
@@ -91,16 +109,16 @@ For Windows:
 mkdir build
 cd build
 cmake .. -G"Visual Studio 15 2017 Win64"
-MSBuild Hearthstonepp.sln /p:Configuration=Release
+MSBuild RosettaStone.sln /p:Configuration=Release
 ```
 
 Now run console simulator:
 
 ```
-bin/HSppConsole
+bin/RosettaConsole
 ```
 
-To run GUI simulator, please check out [Hearthstone++ GUI](https://www.github.com/utilforever/Hearthstonepp-GUI).
+To run GUI simulator, please check out [RosettaStone GUI](https://www.github.com/utilforever/RosettaStone-GUI).
 
 ### More Instructions of Building the Code
 
@@ -108,7 +126,13 @@ To learn how to build, test, and install the SDK, please check out [Install.md](
 
 ## Documentation
 
-All the documentations for the framework can be found from [the project website](https://utilforever.github.io/Hearthstonepp/) incluing the API reference.
+All the documentations for the framework can be found from [the project website](https://utilforever.github.io/RosettaStone/) incluing the API reference.
+
+## Presentation
+
+- [TFCON 2018 Poster Session](https://onoffmix.com/event/144143)
+- [PyCon Korea 2018 Sprint Session](https://archive.pycon.kr/2018/program/sprint/3)
+- NDC 2019 (Coming soon...)
 
 ## How To Contribute
 
@@ -133,7 +157,7 @@ You can contact me via e-mail (utilForever at gmail.com). I am always happy to a
 
 ## Sponsors
 
-[![CppDepend](https://github.com/utilForever/Hearthstonepp/blob/master/Medias/CppDepend.png)](http://www.cppdepend.com)
+[![CppDepend](https://github.com/utilForever/RosettaStone/blob/master/Medias/CppDepend.png)](http://www.cppdepend.com)
 
 ## License
 
@@ -141,13 +165,13 @@ You can contact me via e-mail (utilForever at gmail.com). I am always happy to a
 
 The class is licensed under the [Affero GPLv3 License](https://opensource.org/licenses/AGPL-3.0):
 
-Hearthstone++ is based on part of Sabberstone's code
+RosettaStone is based on part of Sabberstone's code
 
-Copyright (c) 2017-2018 SabberStone Team, darkfriend77 & rnilva
+Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 
-Hearthstone++, Hearthstone simulator using C++ with some reinforcement learning
+RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
-Copyright (C) 2017-2018 Hearthstone++ Team
+Copyright (C) 2017-2019 RosettaStone Team
 
 - [Chris Ohk](http://www.github.com/utilForever)
 - [Youngjoong Kim](https://github.com/revsic)
@@ -156,12 +180,25 @@ Copyright (C) 2017-2018 Hearthstone++ Team
 - [Hyeongchan Kim](https://github.com/kozistr)
 - [Yoohan Park](https://github.com/CreatorSeraph)
 - [Junghyun Choi](https://github.com/junghyun397)
+- [Inwoo Tae](https://github.com/taeInwoo)
+- [Jeongho Park](https://github.com/Park-JeongHo)
 
-Hearthstone++ is free software: you can redistribute it and/or modify
+RealStone, "Real" Hearthstone hardware using Arduino
+
+Copyright (C) 2018-2019 RealStone Team
+
+- Taehyeon Song
+- Doun Lee
+- Yeonsu Jung
+- Suha Cho
+
+RosettaStone is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License.
-Hearthstone++ is distributed in the hope that it will be useful,
+RosettaStone is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
+
+Hearthstone is an interactive game of Blizzard Entertainment, Inc and all rights reserved. Hearthstone is a registered trademark of Blizzard Entertainment, Inc. in the U.S. and/or other countries. This project is not affiliated with Blizzard Entertainment.

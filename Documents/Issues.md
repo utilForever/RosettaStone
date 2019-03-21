@@ -12,7 +12,7 @@ For any issue, there are fundamentally three ways an individual can
 contribute:
 
 1. By opening the issue for discussion: For instance, if you believe that you
-   have uncovered a bug in Hearthstone++, creating a new issue in the this repository issue tracker is the way to report it.
+   have uncovered a bug in RosettaStone, creating a new issue in the this repository issue tracker is the way to report it.
 2. By helping to triage the issue: This can be done either by providing
    supporting details (a test case that demonstrates a bug), or providing
    suggestions on how to address the issue.
@@ -23,19 +23,19 @@ contribute:
 
 ## Asking for General Help
 
-Questions or requests for general help using Hearthstone++
+Questions or requests for general help using RosettaStone
 should be directed to the [Discord chat](https://discord.gg/6R3UueR).
 
 ## Submitting a Bug Report
 
-When opening a new issue in Hearthstone++ issue tracker, users will be
+When opening a new issue in RosettaStone issue tracker, users will be
 presented with a basic template that should be filled in.
 
 ```markdown
 <!--
 Thank you for reporting an issue.
 
-This issue tracker is for bugs and issues found within Hearthstone++.
+This issue tracker is for bugs and issues found within RosettaStone.
 
 Please fill in as much of the template below as you're able.
 
@@ -62,7 +62,7 @@ test case we can use to recreate the problem on our own. If we cannot recreate
 the issue, it becomes impossible for us to fix.
 
 In order to rule out the possibility of bugs introduced by userland code, test
-cases should be limited, as much as possible, to using *only* Hearthstone++ APIs or programs.
+cases should be limited, as much as possible, to using *only* RosettaStone APIs or programs.
 
 See [How to create a Minimal, Complete, and Verifiable example](https://stackoverflow.com/help/mcve).
 
@@ -91,4 +91,4 @@ In the vast majority of cases, issues are resolved by opening a Pull Request.
 The process for opening and reviewing a Pull Request is similar to that of
 opening and triaging issues, but carries with it a necessary review and approval
 workflow that ensures that the proposed changes meet the minimal quality and
-functional guidelines of Hearthstone++ project.
+functional guidelines of RosettaStone project.

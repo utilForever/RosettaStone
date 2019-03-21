@@ -4,8 +4,8 @@ set -e
 
 if [ $# -eq 0 ]
   then
-    docker build -t utilforever/hearthstonepp .
+    docker build -t utilforever/rosettastone .
 else
-    docker build -f $1 -t utilforever/hearthstonepp:$2 .
+    docker build -f $1 -t utilforever/rosettastone:$2 .
 fi
-docker run utilforever/hearthstonepp
+docker run utilforever/rosettastone
