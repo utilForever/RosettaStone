@@ -19,7 +19,7 @@
 * [x] Divine Shield
 * [ ] Echo
 * [x] Freeze
-* [ ] Immune
+* [x] Immune
 * [ ] Inspire
 * [ ] Lifesteal
 * [ ] Magnetic

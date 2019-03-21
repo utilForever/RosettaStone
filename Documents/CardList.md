@@ -110,7 +110,7 @@ CORE | EX1_019 | Shattered Sun Cleric |
 CORE | EX1_025 | Dragonling Mechanic |  
 CORE | EX1_066 | Acidic Swamp Ooze | O
 CORE | EX1_084 | Warsong Commander |  
-CORE | EX1_129 | Fan of Knives |  
+CORE | EX1_129 | Fan of Knives | O
 CORE | EX1_169 | Innervate |  
 CORE | EX1_173 | Starfire |  
 CORE | EX1_244 | Totemic Might |  
