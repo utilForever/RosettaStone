@@ -37,7 +37,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 - Fully support console and GUI program
 - Provide RL environment using PyTorch C++ API
 - Support API for another language such as Python
-- Integrate with Realstone, "real" Hearthstone game using Arduino
+- Integrate with Realstone, "Real" Hearthstone hardware using Arduino
 
 ### 2018
 
@@ -176,6 +176,15 @@ Copyright (C) 2017-2019 RosettaStone Team
 - [Junghyun Choi](https://github.com/junghyun397)
 - [Inwoo Tae](https://github.com/taeInwoo)
 - [Jeongho Park](https://github.com/Park-JeongHo)
+
+Realstone, "Real" Hearthstone hardware using Arduino
+
+Copyright (C) 2018-2019 Realstone Team
+
+- Taehyeon Song
+- Doun Lee
+- Yeonsu Jung
+- Suha Cho
 
 RosettaStone is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
