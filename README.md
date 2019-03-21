@@ -128,6 +128,12 @@ To learn how to build, test, and install the SDK, please check out [Install.md](
 
 All the documentations for the framework can be found from [the project website](https://utilforever.github.io/RosettaStone/) incluing the API reference.
 
+## Presentation
+
+- [TFCON 2018 Poster Session](https://onoffmix.com/event/144143)
+- [PyCon Korea 2018 Sprint Session](https://archive.pycon.kr/2018/program/sprint/3)
+- NDC 2019 (Coming soon...)
+
 ## How To Contribute
 
 Contributions are always welcome, either reporting issues/bugs or forking the repository and then issuing pull requests when you have completed some additional coding that you feel will be beneficial to the main project. If you are interested in contributing in a more dedicated capacity, then please check out [Contributing.md](./Documents/Contributing.md).
