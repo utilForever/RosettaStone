@@ -64,7 +64,7 @@ void BasicCardsGen::AddAll(std::map<std::string, Power*>& cards)
 
 Now you need to add a card to appropriate function depending on the card class. Do you not know what class of card is? Visit [Hearthstone Wiki](https://hearthstone.gamepedia.com/Hearthstone_Wiki) and search by card name. Search results for [Wolfrider](https://hearthstone.gamepedia.com/Wolfrider) are:
 
-<img src = "https://d1u5p3l4wpay3k.cloudfront.net/hearthstone_gamepedia/6/6a/Wolfrider%28174%29_Gold.png?version=0090eebf6442e780166b854676450b01">
+<img src="https://media-hearth.cursecdn.com/avatars/330/147/174.png">
 
 ```
 Wolfrider is a neutral minion card, from the Basic set.
@@ -102,7 +102,7 @@ That's it! Now, it's time to test the card to see if it works.
 
 Some cards such as **CS2_041 ("Ancestral Healing")** require power.
 
-<img src="https://d1u5p3l4wpay3k.cloudfront.net/hearthstone_gamepedia/1/1c/Ancestral_Healing%28216%29_Gold.png?version=261ab29ee760e8865377052d2b414322">
+<img src="https://media-hearth.cursecdn.com/avatars/329/970/216.png">
 
 ```
 Ancestral Healing is a shaman spell card, from the Basic set. It restores a minion to their current maximum Health value and grants it the Taunt ability.
