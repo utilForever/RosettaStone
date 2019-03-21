@@ -29,6 +29,24 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 - Web simulator
 - Python API
 
+## Roadmap
+
+### 2019
+
+- Implement all original + some expansion cards
+- Fully support console and GUI program
+- Provide RL environment using PyTorch C++ API
+- Support API for another language such as Python
+- Integrate with Realstone, "real" Hearthstone game using Arduino
+
+### 2018
+
+- Implement basic system (game and task)
+- Implement basic console program
+- Implement some original cards
+- Support cross-platform build (Windows/Linux/MacOS)
+- Provide API documentation using doxygen
+
 ## Card Sets
 
 ### Basic & Classic
