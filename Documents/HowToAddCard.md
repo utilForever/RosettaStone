@@ -181,30 +181,33 @@ Charge is an ability allowing a minion to attack the same turn it is summoned or
 Therefore, you need to create a scenario to ensure that this ability works properly. An example of a scenario is:
 
 ```
-1. Player 1 draws "Acidic Swamp Ooze" card.
-2. Player 2 draws "Wolfrider" card.
-3. Player 1 plays "Acidic Swap Ooze" card.
-4. Player 2 plays "Wolfrider" card.
-5. Player 2 attacks "Acidic Swamp Ooze" with "Wolfrider".
+1. Current player draws "Acidic Swamp Ooze" card.
+2. Current player plays "Acidic Swap Ooze" card.
+3. Current player ends turn.
+4. Opponent player draws "Wolfrider" card.
+5. Opponent player plays "Wolfrider" card.
+6. Opponent player attacks "Acidic Swamp Ooze" with "Wolfrider".
 ```
 
-It is important to check whether the processing is normal after each operation. For example, after Player 1 draws "Acidic Swamp Ooze" card, you make sure that there is a card in hand and that card is "Acidic Swamp Ooze". In addition, after Player 2 attacks "Acidic Swamp Ooze" with "Wolfrider", you make sure that there are no cards in the field. Let's write test code based on this scenario.
+It is important to check whether the processing is normal after each operation. For example, after current player draws "Acidic Swamp Ooze" card, you make sure that there is a card in hand and that card is "Acidic Swamp Ooze". In addition, after opponent player attacks "Acidic Swamp Ooze" with "Wolfrider", you make sure that there are no cards in the field. Let's write test code based on this scenario.
 
-First, you should configure the scenario environment. `GameAgent` is a class that stores player and deck information. `TaskAgent` is a class that processes various tasks.
+First, you should configure the scenario environment. `Game` is a class that stores player manages game state.
 
 ```C++
-GameAgent agent(
-    Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
-    Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+GameConfig config;
+config.player1Class = CardClass::WARRIOR;
+config.player2Class = CardClass::ROGUE;
+config.startPlayer = PlayerType::PLAYER1;
 
-TaskAgent& taskAgent = agent.GetTaskAgent();
-TestUtils::AutoResponder response(agent);
+Game game(config);
+game.StartGame();
 
-Player& player1 = agent.GetPlayer1();
-Player& player2 = agent.GetPlayer2();
-
-player1.totalMana = agent.GetPlayer1().existMana = 10;
-player2.totalMana = agent.GetPlayer2().existMana = 10;
+Player& curPlayer = game.GetCurrentPlayer();
+Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+curPlayer.maximumMana = 10;
+curPlayer.currentMana = 10;
+opPlayer.maximumMana = 10;
+opPlayer.currentMana = 10;
 ```
 
 Then, you should perform operations according to the scenario and test it.
@@ -212,72 +215,42 @@ Then, you should perform operations according to the scenario and test it.
 ```C++
 TEST(ClassicCardSet, CS2_124)
 {
-    GameAgent agent(
-        Player(new Account("Player 1", ""), new Deck("", CardClass::SHAMAN)),
-        Player(new Account("Player 2", ""), new Deck("", CardClass::MAGE)));
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
 
-    TaskAgent& taskAgent = agent.GetTaskAgent();
-    TestUtils::AutoResponder response(agent);
+    Game game(config);
+    game.StartGame();
 
-    Player& player1 = agent.GetPlayer1();
-    Player& player2 = agent.GetPlayer2();
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
 
-    player1.totalMana = agent.GetPlayer1().existMana = 10;
-    player2.totalMana = agent.GetPlayer2().existMana = 10;
+    // 1. Current player draws "Acidic Swamp Ooze" card.
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
-    // 1. Player 1 draws "Acidic Swamp Ooze" card.
-    agent.RunTask(BasicTasks::DrawCardTask(Cards::GetInstance()->FindCardByName(
-                      "Acidic Swamp Ooze")),
-                  player1, player2);
-    EXPECT_EQ(agent.GetPlayer1().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer1().hand[0]->card->name, "Acidic Swamp Ooze");
+    // 2. Current player plays "Acidic Swap Ooze" card.
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
 
-    // 2. Player 2 draws "Wolfrider" card.
-    agent.RunTask(BasicTasks::DrawCardTask(
-                      Cards::GetInstance()->FindCardByName("Wolfrider")),
-                  player2, player1);
-    EXPECT_EQ(agent.GetPlayer2().hand.size(), static_cast<size_t>(1));
-    EXPECT_EQ(agent.GetPlayer2().hand[0]->card->name, "Wolfrider");
+    // 3. Current player ends turn.
+    Task::Run(curPlayer, EndTurnTask());
 
-    // 3. Player 1 plays "Acidic Swap Ooze" card.
-    auto respAutoMinion = response.AutoMinion(0, 0);
-    MetaData result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player1, player2);
-    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().field[0]->card->name, "Acidic Swamp Ooze");
+    // 4. Opponent player draws "Wolfrider" card.
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    auto [respPlayCard1, respPlayMinion1] = respAutoMinion.get();
-    auto require =
-        TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard1);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_CARD);
+    // 5. Opponent player plays "Wolfrider" card.
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
 
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion1);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_POSITION);
-
-    // 4. Player 2 plays "Wolfrider" card.
-    respAutoMinion = response.AutoMinion(0, 0);
-    result =
-        agent.RunTask(BasicTasks::PlayCardTask(taskAgent), player2, player1);
-    EXPECT_EQ(result, MetaData::PLAY_MINION_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer2().field[0]->card->name, "Wolfrider");
-
-    auto [respPlayCard2, respPlayMinion2] = respAutoMinion.get();
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayCard2);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_CARD);
-
-    require = TaskMeta::ConvertTo<FlatData::RequireTaskMeta>(respPlayMinion2);
-    EXPECT_EQ(TaskID::_from_integral(require->required()),
-              +TaskID::SELECT_POSITION);
-
-    // 5. Player 2 attacks "Acidic Swamp Ooze" with "Wolfrider".
-    auto respAutoTarget = response.Target(1, 1);
-    result = agent.RunTask(BasicTasks::CombatTask(taskAgent), player2, player1);
-    EXPECT_EQ(result, MetaData::COMBAT_SUCCESS);
-    EXPECT_EQ(agent.GetPlayer1().field.size(), static_cast<size_t>(0));
-    EXPECT_EQ(agent.GetPlayer2().field.size(), static_cast<size_t>(0));
+    // 6. Opponent player attacks "Acidic Swamp Ooze" with "Wolfrider".
+    Task::Run(curPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(opPlayer.GetField().GetNumOfMinions(), 0u);
 }
 ```
 
