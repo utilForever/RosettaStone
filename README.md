@@ -156,6 +156,8 @@ Copyright (C) 2017-2019 RosettaStone Team
 - [Hyeongchan Kim](https://github.com/kozistr)
 - [Yoohan Park](https://github.com/CreatorSeraph)
 - [Junghyun Choi](https://github.com/junghyun397)
+- [Inwoo Tae](https://github.com/taeInwoo)
+- [Jeongho Park](https://github.com/Park-JeongHo)
 
 RosettaStone is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
