@@ -1,27 +1,5 @@
 var searchData=
 [
-  ['acts_5flike_5fa_5fspell',['ACTS_LIKE_A_SPELL',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca8ea371aeb3c71c6fef8eaed39cd83c59',1,'Hearthstonepp']]],
-  ['adapt',['ADAPT',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca7222a92f05771d077ca51aa8929ff212',1,'Hearthstonepp']]],
-  ['add',['ADD',['../namespace_hearthstonepp.html#a5fc88dc9cb5501ccd64570055db8d17ea9eeb52badb613229884838847294b90d',1,'Hearthstonepp::ADD()'],['../namespace_hearthstonepp.html#a317b819a81450a8aed662a6fe7a89937a9eeb52badb613229884838847294b90d',1,'Hearthstonepp::ADD()']]],
-  ['add_5fenchantment',['ADD_ENCHANTMENT',['../namespace_hearthstonepp.html#a4d56de0aac7f7ea0ac4ec13423fd246eae495582a6de164136511dca249ae536a',1,'Hearthstonepp::ADD_ENCHANTMENT()'],['../namespace_hearthstonepp.html#a9e14a3d3eb2d4ef08c7c1acff660cd8cae495582a6de164136511dca249ae536a',1,'Hearthstonepp::ADD_ENCHANTMENT()']]],
-  ['add_5fenchantment_5fsuccess',['ADD_ENCHANTMENT_SUCCESS',['../namespace_hearthstonepp.html#a9e14a3d3eb2d4ef08c7c1acff660cd8ca5f460f862d8632389dd8a3e5b5890d7b',1,'Hearthstonepp']]],
-  ['additional_5fplay_5freqs_5f1',['ADDITIONAL_PLAY_REQS_1',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cadf9dc41afcfbb8e53676702195ead213',1,'Hearthstonepp']]],
-  ['additional_5fplay_5freqs_5f2',['ADDITIONAL_PLAY_REQS_2',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca36c64e38f460bd178727d1df37ae470a',1,'Hearthstonepp']]],
-  ['adjacent_5fbuff',['ADJACENT_BUFF',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cab418aa837fdf8ff7891a054cef1efe56',1,'Hearthstonepp']]],
-  ['affected_5fby_5fspell_5fpower',['AFFECTED_BY_SPELL_POWER',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca4174962fa8a03be08902b35cfdccdcac',1,'Hearthstonepp']]],
-  ['ai_5fmust_5fplay',['AI_MUST_PLAY',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cafe348f14bf9611e11c03b8f4c3a9ef81',1,'Hearthstonepp']]],
-  ['ai_5fone_5fshot_5fkill',['AI_ONE_SHOT_KILL',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caf929b62d2a5a59fb2be683c0fc949fec',1,'Hearthstonepp']]],
-  ['all',['ALL',['../namespace_hearthstonepp.html#a8aa03b2bfa1a4b7355f407e250809131a5fb1f955b45e38e31789286a1790398d',1,'Hearthstonepp::ALL()'],['../namespace_hearthstonepp.html#a871012636606827331b75d9e40d16a19a5fb1f955b45e38e31789286a1790398d',1,'Hearthstonepp::ALL()']]],
-  ['all_5fhealing_5fdouble',['ALL_HEALING_DOUBLE',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca1a593c16b6ee11e05c1577526f82ed67',1,'Hearthstonepp']]],
-  ['all_5ftargets_5frandom',['ALL_TARGETS_RANDOM',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caa61feccc5cfcdbcc514e38f4743beb7e',1,'Hearthstonepp']]],
-  ['appear_5ffunctionally_5fdead',['APPEAR_FUNCTIONALLY_DEAD',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca604c161087ecc7e5f76a4a63e1d5a424',1,'Hearthstonepp']]],
-  ['armor',['ARMOR',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca0e4e2cd731d2f8d4f1e5ae8f499630f7',1,'Hearthstonepp']]],
-  ['arms_5fdealing',['ARMS_DEALING',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caf4687b14e4e451191efea751712d39f4',1,'Hearthstonepp']]],
-  ['atk',['ATK',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca96cc5c725ae8f5ccb76056b7d12ed095',1,'Hearthstonepp']]],
-  ['attached',['ATTACHED',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cad2a3b18bc12339a609d6b9f8708ee281',1,'Hearthstonepp']]],
-  ['attackable_5fby_5frush',['ATTACKABLE_BY_RUSH',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca28520e46586562d028d1f79af9a688f0',1,'Hearthstonepp']]],
-  ['attacking',['ATTACKING',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca99cca61d90b4e79f0193e587ba5fbf69',1,'Hearthstonepp']]],
-  ['attackvisualtype',['AttackVisualType',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca26e1ce2c0bc7e4940d294de1ce1012e1',1,'Hearthstonepp']]],
-  ['aura',['AURA',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca205d4b2f04ec6b6684a09c2c5c015d78',1,'Hearthstonepp']]],
-  ['autoattack',['AUTOATTACK',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca89bdf0cb1d6f3ecdf663070230b434c9',1,'Hearthstonepp']]]
+  ['add',['ADD',['../namespace_rosetta_stone.html#a5d4f7b22bc60192fbcb37ebe4511a876a9eeb52badb613229884838847294b90d',1,'RosettaStone::ADD()'],['../namespace_rosetta_stone.html#a5619bd9fbe510ec36e5f17dd7ebd6ceca9eeb52badb613229884838847294b90d',1,'RosettaStone::ADD()']]],
+  ['available',['AVAILABLE',['../namespace_rosetta_stone.html#ab886416e9e398fae6400936dfa6eec97a1588118736b5ecdb1ac20c16428d8ea7',1,'RosettaStone']]]
 ];

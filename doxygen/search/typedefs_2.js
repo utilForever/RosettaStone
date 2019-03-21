@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['status_5ft',['status_t',['../namespace_hearthstonepp.html#a0865e1e2fcd1a645c25f201a29c934d1',1,'Hearthstonepp']]]
+  ['pointer',['pointer',['../class_sized_ptr.html#a7542469f4f92c55750dd857a5408c4b1',1,'SizedPtr']]]
 ];

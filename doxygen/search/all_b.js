@@ -1,18 +1,12 @@
 var searchData=
 [
-  ['last_5faffected_5fby',['LAST_AFFECTED_BY',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caa705058bb06deb44e832774819d9b76a',1,'Hearthstonepp']]],
-  ['last_5fcard_5fplayed',['LAST_CARD_PLAYED',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca93eca7766cb78d571f449491fa3d1d8c',1,'Hearthstonepp']]],
-  ['legendary',['LEGENDARY',['../namespace_hearthstonepp.html#a62f3895cdf5b62c27adb182b11fd93fdacdd0e73cb8dc2aa3bbe7d44a9fb93af0',1,'Hearthstonepp']]],
-  ['lifesteal',['LIFESTEAL',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca7368a3d2b40649fc5d3118ae48137696',1,'Hearthstonepp']]],
-  ['linked_5fentity',['LINKED_ENTITY',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca168552a428826249aff75b96536224bd',1,'Hearthstonepp']]],
-  ['load',['Load',['../class_hearthstonepp_1_1_account_loader.html#a59cb86c9e2424251618be9ee61e0ccd6',1,'Hearthstonepp::AccountLoader::Load()'],['../class_hearthstonepp_1_1_card_loader.html#afdf65c2e07115d3784bac4d0d5f4dbc0',1,'Hearthstonepp::CardLoader::Load()'],['../class_hearthstonepp_1_1_power_loader.html#a86b47a95ffd78eb08c64a5de88f93be3',1,'Hearthstonepp::PowerLoader::Load()']]],
-  ['lock_5fand_5fload',['LOCK_AND_LOAD',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca60b5e2d65725125464ea2c83a90c82f0',1,'Hearthstonepp']]],
-  ['loe',['LOE',['../namespace_hearthstonepp.html#a8aa03b2bfa1a4b7355f407e250809131a1a0b0d88210253f4f003d785caf2a2d3',1,'Hearthstonepp']]],
-  ['loot_5fcard_5f1',['LOOT_CARD_1',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca687924c529a6c305afcef9ad9737c682',1,'Hearthstonepp']]],
-  ['loot_5fcard_5f2',['LOOT_CARD_2',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca295493acabebc5686821231a55b00fe7',1,'Hearthstonepp']]],
-  ['loot_5fcard_5f3',['LOOT_CARD_3',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca4f545a6a09c5a330cc1a0cf983911ee6',1,'Hearthstonepp']]],
-  ['lootapalooza',['LOOTAPALOOZA',['../namespace_hearthstonepp.html#a8aa03b2bfa1a4b7355f407e250809131a72ca27019eff538f7010ce041852a053',1,'Hearthstonepp']]],
-  ['low_5fhealth_5fthreshold',['LOW_HEALTH_THRESHOLD',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caba428ce756501cab50d39ba2fc8bd8a7',1,'Hearthstonepp']]],
-  ['loyalty',['LOYALTY',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca8257de3d9b522c2672c7187ae160c3fe',1,'Hearthstonepp']]],
-  ['lunahighlighthint',['LUNAHIGHLIGHTHINT',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cadd5a481c30b653030983b75cd91b7349',1,'Hearthstonepp']]]
+  ['name',['name',['../class_rosetta_stone_1_1_card.html#a698ab8d38dc62ac8b877c66472e64dd3',1,'RosettaStone::Card::name()'],['../struct_rosetta_stone_1_1_search_filter.html#ac49e0c5ab776cf967563501061203843',1,'RosettaStone::SearchFilter::name()']]],
+  ['next',['Next',['../class_rosetta_stone_1_1_basic_policy.html#a3f063c1d74e6e560f31066bddc20972b',1,'RosettaStone::BasicPolicy::Next()'],['../class_rosetta_stone_1_1_i_policy.html#a45c310dd21a734fc3e8a3f33903a597f',1,'RosettaStone::IPolicy::Next()']]],
+  ['nextstep',['nextStep',['../class_rosetta_stone_1_1_game.html#a77a7e68188073c486db63dd6bbc04014',1,'RosettaStone::Game']]],
+  ['notify',['Notify',['../class_rosetta_stone_1_1_basic_policy.html#aa9624029483adff64673381ac32e036e',1,'RosettaStone::BasicPolicy::Notify()'],['../class_rosetta_stone_1_1_i_policy.html#a1c207939cf0fe22471eef2c977ab4083',1,'RosettaStone::IPolicy::Notify()']]],
+  ['num_5fdraw_5fcards_5fat_5fstart_5ffirst',['NUM_DRAW_CARDS_AT_START_FIRST',['../namespace_rosetta_stone.html#a0eda30f94b55041c71a851c4ecbf1486',1,'RosettaStone']]],
+  ['num_5fdraw_5fcards_5fat_5fstart_5fsecond',['NUM_DRAW_CARDS_AT_START_SECOND',['../namespace_rosetta_stone.html#afb9f395047eff211e80549e626fdeeab',1,'RosettaStone']]],
+  ['num_5fplayer_5fclass',['NUM_PLAYER_CLASS',['../namespace_rosetta_stone.html#ad1e8fed57d47de9a145571d60028e87d',1,'RosettaStone']]],
+  ['num_5ftask_5fstatus',['NUM_TASK_STATUS',['../namespace_rosetta_stone.html#a436923e26ee7b98b0ce66e52c8304d88a6be8e0fd862e48b4f1adc50f03c11fa2',1,'RosettaStone']]],
+  ['numattacked',['numAttacked',['../class_rosetta_stone_1_1_character.html#abce1af4f95bf7b2771a39a1b3badfc57',1,'RosettaStone::Character']]]
 ];

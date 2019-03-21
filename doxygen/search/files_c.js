@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['shuffletask_2eh',['ShuffleTask.h',['../_shuffle_task_8h.html',1,'']]],
-  ['spell_2eh',['Spell.h',['../_spell_8h.html',1,'']]],
-  ['swapplayertask_2eh',['SwapPlayerTask.h',['../_swap_player_task_8h.html',1,'']]],
-  ['syncbuffer_2eh',['SyncBuffer.h',['../_sync_buffer_8h.html',1,'']]]
+  ['targeting_2ehpp',['Targeting.hpp',['../_targeting_8hpp.html',1,'']]],
+  ['taskenums_2ehpp',['TaskEnums.hpp',['../_task_enums_8hpp.html',1,'']]],
+  ['taskmeta_2ehpp',['TaskMeta.hpp',['../_task_meta_8hpp.html',1,'']]],
+  ['tasks_2ehpp',['Tasks.hpp',['../_tasks_8hpp.html',1,'']]],
+  ['taskstatus_2ehpp',['TaskStatus.hpp',['../_task_status_8hpp.html',1,'']]],
+  ['taskwrapper_2ehpp',['TaskWrapper.hpp',['../_task_wrapper_8hpp.html',1,'']]]
 ];

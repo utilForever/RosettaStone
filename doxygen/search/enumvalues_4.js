@@ -1,29 +1,5 @@
 var searchData=
 [
-  ['echo',['ECHO',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cad61484f1331c7f66061e43b859556409',1,'Hearthstonepp']]],
-  ['echoing_5fooze_5fspell',['ECHOING_OOZE_SPELL',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca174ad4cf496bf804fb449fae2c1e2002',1,'Hearthstonepp']]],
-  ['egg',['EGG',['../namespace_hearthstonepp.html#a871012636606827331b75d9e40d16a19a54433ea8a1f7d793404e093f92058989',1,'Hearthstonepp']]],
-  ['electric_5fcharge_5flevel',['ELECTRIC_CHARGE_LEVEL',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca9a6909b486f7cac957a3a603a4bf9b8e',1,'Hearthstonepp']]],
-  ['elemental',['ELEMENTAL',['../namespace_hearthstonepp.html#a871012636606827331b75d9e40d16a19af9c55990ee5893e66c504fc8ca35bf79',1,'Hearthstonepp']]],
-  ['elemental_5fpowered_5fup',['ELEMENTAL_POWERED_UP',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca4150f1919569da0ba0b8bcdd3a138114',1,'Hearthstonepp']]],
-  ['elite',['ELITE',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca1032484f0becd6dbc16d7347dbd0980f',1,'Hearthstonepp']]],
-  ['embrace_5fthe_5fshadow',['EMBRACE_THE_SHADOW',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca34c2c0d3cc1fdd48c1eadcc46852e8a6',1,'Hearthstonepp']]],
-  ['empowered_5ftreasure',['EMPOWERED_TREASURE',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cadf1388a9b1b53c31eb09d508c23e0cf1',1,'Hearthstonepp']]],
-  ['empty',['EMPTY',['../namespace_hearthstonepp.html#adbfdda94bc9567232ab44345890cae0aaba2b45bdc11e2a4a6e86aab2ac693cbb',1,'Hearthstonepp']]],
-  ['enable_5fhealth_5fdisplay',['ENABLE_HEALTH_DISPLAY',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cab16f189c955df7ed5c57aa06f1751abd',1,'Hearthstonepp']]],
-  ['enchantment',['ENCHANTMENT',['../namespace_hearthstonepp.html#a8e9248916b02fd6a186310508601c3dcafb0a3600784262b618eb2774876a10ed',1,'Hearthstonepp']]],
-  ['enchantment_5fbirth_5fvisual',['ENCHANTMENT_BIRTH_VISUAL',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cada343b486e339759a6f072b6e6a19535',1,'Hearthstonepp']]],
-  ['enchantment_5fidle_5fvisual',['ENCHANTMENT_IDLE_VISUAL',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cacc63644d070b14a34c28f3de6a2a28cd',1,'Hearthstonepp']]],
-  ['enchantment_5finvisible',['ENCHANTMENT_INVISIBLE',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caabfa95bc93b8ea119adfa950a89a32e4',1,'Hearthstonepp']]],
-  ['end_5fturn_5fbutton_5falternative_5fappearance',['END_TURN_BUTTON_ALTERNATIVE_APPEARANCE',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca415bbdfdf76a79579d164cfd57693227',1,'Hearthstonepp']]],
-  ['enraged',['ENRAGED',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca6b50ecd5bbbc95d6368ab03d4eb52214',1,'Hearthstonepp']]],
-  ['entity_5fid',['ENTITY_ID',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cadb9686e8a477b0deb7fa2dcf099868a1',1,'Hearthstonepp']]],
-  ['epic',['EPIC',['../namespace_hearthstonepp.html#a62f3895cdf5b62c27adb182b11fd93fdad0aaf413ea3c98b4488b0e80e2c716f1',1,'Hearthstonepp']]],
-  ['evil_5fglow',['EVIL_GLOW',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cab117e21be30484597af18177b777d575',1,'Hearthstonepp']]],
-  ['exhausted',['EXHAUSTED',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40cac30a2ebffd3127f9dc4bb1cff2e29cea',1,'Hearthstonepp']]],
-  ['exist',['EXIST',['../namespace_hearthstonepp.html#afa09e11f28cbc658312c54c94467ebaca1274d697fd046a9fbc83cf151ef286a3',1,'Hearthstonepp']]],
-  ['expert1',['EXPERT1',['../namespace_hearthstonepp.html#a8aa03b2bfa1a4b7355f407e250809131a35aeaa3bd2acced9fb8dec9873ba0344',1,'Hearthstonepp']]],
-  ['extra_5fattacks_5fthis_5fturn',['EXTRA_ATTACKS_THIS_TURN',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca1854ef58bd7ff6d3411a59f645eebcc1',1,'Hearthstonepp']]],
-  ['extra_5fdeathrattles',['EXTRA_DEATHRATTLES',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40caadcecb418a402f2976e8da23d08a7153',1,'Hearthstonepp']]],
-  ['extra_5fturns_5ftaken_5fthis_5fgame',['EXTRA_TURNS_TAKEN_THIS_GAME',['../namespace_hearthstonepp.html#a005b7dcdeb8f208cb4bfdc3b74dbb40ca9f1117e8297a547a26aaf19dc6e01571',1,'Hearthstonepp']]]
+  ['maximum',['MAXIMUM',['../namespace_rosetta_stone.html#ab886416e9e398fae6400936dfa6eec97a115f17a28532bbd6f0f5ec83ed20692a',1,'RosettaStone']]],
+  ['mul',['MUL',['../namespace_rosetta_stone.html#a5d4f7b22bc60192fbcb37ebe4511a876a2cdf52a55876063ec93b7d18bc741f6c',1,'RosettaStone']]]
 ];

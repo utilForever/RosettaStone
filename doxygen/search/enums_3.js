@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handlestatus',['HandleStatus',['../namespace_hearthstonepp.html#a6e7fe8f34dcaf57d9f2e09cccbe891e9',1,'Hearthstonepp']]]
+  ['playertype',['PlayerType',['../namespace_rosetta_stone.html#a796e2d4a4f5f059b277138d61e5e2485',1,'RosettaStone']]]
 ];

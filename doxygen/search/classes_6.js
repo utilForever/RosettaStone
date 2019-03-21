@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['gameagent',['GameAgent',['../class_hearthstonepp_1_1_game_agent.html',1,'Hearthstonepp']]],
-  ['gameendtask',['GameEndTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_game_end_task.html',1,'Hearthstonepp::BasicTasks']]],
-  ['gameendtaskmetabuilder',['GameEndTaskMetaBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_game_end_task_meta_builder.html',1,'Hearthstonepp::FlatData']]],
-  ['gameinterface',['GameInterface',['../class_hearthstonepp_1_1_game_interface.html',1,'Hearthstonepp']]],
-  ['gameresult',['GameResult',['../struct_hearthstonepp_1_1_game_result.html',1,'Hearthstonepp']]],
-  ['gamestatusbuilder',['GameStatusBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_game_status_builder.html',1,'Hearthstonepp::FlatData']]],
-  ['gametagbuilder',['GameTagBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_game_tag_builder.html',1,'Hearthstonepp::FlatData']]]
+  ['hand',['Hand',['../class_rosetta_stone_1_1_hand.html',1,'RosettaStone']]],
+  ['healfulltask',['HealFullTask',['../class_rosetta_stone_1_1_simple_tasks_1_1_heal_full_task.html',1,'RosettaStone::SimpleTasks']]],
+  ['healtask',['HealTask',['../class_rosetta_stone_1_1_simple_tasks_1_1_heal_task.html',1,'RosettaStone::SimpleTasks']]],
+  ['hero',['Hero',['../class_rosetta_stone_1_1_hero.html',1,'RosettaStone']]],
+  ['heropower',['HeroPower',['../class_rosetta_stone_1_1_hero_power.html',1,'RosettaStone']]]
 ];

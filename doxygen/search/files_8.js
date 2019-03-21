@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['initattackcounttask_2eh',['InitAttackCountTask.h',['../_init_attack_count_task_8h.html',1,'']]]
+  ['macros_2ehpp',['Macros.hpp',['../_macros_8hpp.html',1,'']]],
+  ['main_2emd',['main.md',['../main_8md.html',1,'']]],
+  ['minion_2ehpp',['Minion.hpp',['../_minion_8hpp.html',1,'']]],
+  ['modifymanatask_2ehpp',['ModifyManaTask.hpp',['../_modify_mana_task_8hpp.html',1,'']]]
 ];

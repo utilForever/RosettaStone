@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['basiccardsgen_2eh',['BasicCardsGen.h',['../_basic_cards_gen_8h.html',1,'']]],
-  ['brieftask_2eh',['BriefTask.h',['../_brief_task_8h.html',1,'']]]
+  ['basicpolicy_2ehpp',['BasicPolicy.hpp',['../_basic_policy_8hpp.html',1,'']]],
+  ['battlefield_2ehpp',['Battlefield.hpp',['../_battlefield_8hpp.html',1,'']]]
 ];

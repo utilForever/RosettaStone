@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['playerclass',['playerClass',['../struct_hearthstonepp_1_1_search_filter.html#a92a031174c5a2a4f0de46988aaf10daa',1,'Hearthstonepp::SearchFilter']]],
-  ['playrequirements',['playRequirements',['../struct_hearthstonepp_1_1_card.html#a287d1e8127ce9b206393cb33c59244da',1,'Hearthstonepp::Card']]],
-  ['poisonous',['Poisonous',['../class_hearthstonepp_1_1_effects.html#a0ab60dcb59391e22ab61e821e85e3f4c',1,'Hearthstonepp::Effects']]],
-  ['power',['power',['../class_hearthstonepp_1_1_player.html#ae3547d957422e8b2ac6bae71c25f6659',1,'Hearthstonepp::Player::power()'],['../struct_hearthstonepp_1_1_card.html#a4762bb3c5f4b7416e98e020250adf325',1,'Hearthstonepp::Card::power()']]],
-  ['powertask',['powerTask',['../struct_hearthstonepp_1_1_power.html#a1ec38630c6f30240147718d89d4a317f',1,'Hearthstonepp::Power']]]
+  ['player1class',['player1Class',['../struct_rosetta_stone_1_1_game_config.html#ab569fccf071ea995fb39ad1b32fba5ba',1,'RosettaStone::GameConfig']]],
+  ['player1deck',['player1Deck',['../struct_rosetta_stone_1_1_game_config.html#a12af6ed623b75b826bf00c66f8045a8c',1,'RosettaStone::GameConfig']]],
+  ['player2class',['player2Class',['../struct_rosetta_stone_1_1_game_config.html#aee4de680ac0b8a942fad550dc9dcb969',1,'RosettaStone::GameConfig']]],
+  ['player2deck',['player2Deck',['../struct_rosetta_stone_1_1_game_config.html#a99938421a861fa64bbb9d63702819f45',1,'RosettaStone::GameConfig']]],
+  ['playerclass',['playerClass',['../struct_rosetta_stone_1_1_search_filter.html#a97e0eb94775d4b819b0c5432af0b7525',1,'RosettaStone::SearchFilter']]],
+  ['playrequirements',['playRequirements',['../class_rosetta_stone_1_1_card.html#a617c6f7c35a0587785f4b8fa062fb107',1,'RosettaStone::Card']]],
+  ['playstate',['playState',['../class_rosetta_stone_1_1_player.html#a972bda01ca08cc592b8c55d21b9aeb1c',1,'RosettaStone::Player']]],
+  ['poisonous',['Poisonous',['../class_rosetta_stone_1_1_effects.html#a95af6093640dc6c29dbc7a33ae5ba60d',1,'RosettaStone::Effects']]],
+  ['power',['power',['../class_rosetta_stone_1_1_card.html#ada427da8c79d05143a1d0e43ce7ef60c',1,'RosettaStone::Card']]]
 ];

@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['flatbuffers_5ffinal_5fclass',['FLATBUFFERS_FINAL_CLASS',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html',1,'Hearthstonepp::FlatData']]],
-  ['freezetask',['FreezeTask',['../class_hearthstonepp_1_1_power_task_1_1_freeze_task.html',1,'Hearthstonepp::PowerTask']]]
+  ['game',['Game',['../class_rosetta_stone_1_1_game.html',1,'RosettaStone']]],
+  ['gameagent',['GameAgent',['../class_rosetta_stone_1_1_game_agent.html',1,'RosettaStone']]],
+  ['gameconfig',['GameConfig',['../struct_rosetta_stone_1_1_game_config.html',1,'RosettaStone']]],
+  ['gamemanager',['GameManager',['../class_rosetta_stone_1_1_game_manager.html',1,'RosettaStone']]],
+  ['graveyard',['Graveyard',['../class_rosetta_stone_1_1_graveyard.html',1,'RosettaStone']]]
 ];

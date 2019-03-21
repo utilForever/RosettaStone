@@ -1,17 +1,11 @@
 var searchData=
 [
-  ['playcardtask',['PlayCardTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_play_card_task.html#a443e94da13cc5f41aa717349914088e6',1,'Hearthstonepp::BasicTasks::PlayCardTask']]],
-  ['player',['Player',['../class_hearthstonepp_1_1_player.html#a91ee801c746dd7903b66f21368118765',1,'Hearthstonepp::Player']]],
-  ['player1',['player1',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#aee98ad65619c9b0eec4b0b70a3ee8630',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS']]],
-  ['player2',['player2',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#aedc39cc08dbd4c100f63cd0e8f04ca5c',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS']]],
-  ['playersettingbuilder',['PlayerSettingBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_player_setting_builder.html#af091eee0fdaddec95c893a17453dfacf',1,'Hearthstonepp::FlatData::PlayerSettingBuilder']]],
-  ['playersettingtask',['PlayerSettingTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_player_setting_task.html#aedd89db5989f795e01c536e6e4b264bf',1,'Hearthstonepp::BasicTasks::PlayerSettingTask']]],
-  ['playminiontask',['PlayMinionTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_play_minion_task.html#ac1d6f0152084fb531e7340df700b7d5b',1,'Hearthstonepp::BasicTasks::PlayMinionTask']]],
-  ['playrequirements',['playRequirements',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#a1e5f678fc466b11535e8fd6cff018bb3',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS']]],
-  ['playrequirementsbuilder',['PlayRequirementsBuilder',['../struct_hearthstonepp_1_1_flat_data_1_1_play_requirements_builder.html#a35758ab31f6439b8cb02dd6a669ad298',1,'Hearthstonepp::FlatData::PlayRequirementsBuilder']]],
-  ['playspelltask',['PlaySpellTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_play_spell_task.html#a0d8096691fa6f90cf01ab046a791c778',1,'Hearthstonepp::BasicTasks::PlaySpellTask']]],
-  ['playweapontask',['PlayWeaponTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_play_weapon_task.html#a7fa2dde7fdcf7aa5f73a65501f4bd49c',1,'Hearthstonepp::BasicTasks::PlayWeaponTask']]],
-  ['poisonoustask',['PoisonousTask',['../class_hearthstonepp_1_1_power_task_1_1_poisonous_task.html#a254f02954f86e32afc9515c9c039d94f',1,'Hearthstonepp::PowerTask::PoisonousTask']]],
-  ['position',['position',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#aa3668566808d3ba52e3d14cc181fb749',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS::position() const'],['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#aa3668566808d3ba52e3d14cc181fb749',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS::position() const']]],
-  ['powers',['Powers',['../class_hearthstonepp_1_1_powers.html#abc36a6e7322427d07cfa7adf5b39cb48',1,'Hearthstonepp::Powers']]]
+  ['removecard',['RemoveCard',['../class_rosetta_stone_1_1_deck.html#af1d111861575747ce9cb90d7dfdf410f',1,'RosettaStone::Deck::RemoveCard()'],['../class_rosetta_stone_1_1_hand.html#a3c66e30e3ecbca904dfc959887d4295a',1,'RosettaStone::Hand::RemoveCard()']]],
+  ['removecardfromhand',['RemoveCardFromHand',['../namespace_rosetta_stone_1_1_generic.html#aad4a87507e0aa030e14dc4357614b708',1,'RosettaStone::Generic']]],
+  ['removeminion',['RemoveMinion',['../class_rosetta_stone_1_1_battlefield.html#a332265c4461a46674af518ca34f64560',1,'RosettaStone::Battlefield']]],
+  ['removeweapon',['RemoveWeapon',['../class_rosetta_stone_1_1_hero.html#a7497860e32aa5be441dfcf2745ea3843',1,'RosettaStone::Hero']]],
+  ['require',['Require',['../class_rosetta_stone_1_1_basic_policy.html#ac13a514fc3c852adf3a1ffd9991239c7',1,'RosettaStone::BasicPolicy::Require()'],['../class_rosetta_stone_1_1_i_policy.html#aa66033573630c386bb1ded1367c6817e',1,'RosettaStone::IPolicy::Require()']]],
+  ['reset',['Reset',['../class_rosetta_stone_1_1_task_meta.html#aeaa60501093a2dacf50936176b4f6c15',1,'RosettaStone::TaskMeta::Reset()'],['../class_sized_ptr.html#add98f8997bdc0823640d791db6a62917',1,'SizedPtr::reset() noexcept'],['../class_sized_ptr.html#a3cce421fceef1826102b9d2f9d64a713',1,'SizedPtr::reset(T *other, std::size_t size) noexcept']]],
+  ['run',['Run',['../class_rosetta_stone_1_1_i_task.html#a0c2ff4652564b7bd02390c39b4bdae50',1,'RosettaStone::ITask::Run()'],['../namespace_rosetta_stone_1_1_task.html#a73b91bb632f75ae93aaf67173f316568',1,'RosettaStone::Task::Run()']]],
+  ['runmulti',['RunMulti',['../namespace_rosetta_stone_1_1_task.html#a4be6b99b896e7454f148199de8c26f14',1,'RosettaStone::Task']]]
 ];

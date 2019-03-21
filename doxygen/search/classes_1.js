@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['basiccardsgen',['BasicCardsGen',['../class_hearthstonepp_1_1_basic_cards_gen.html',1,'Hearthstonepp']]],
-  ['brieftask',['BriefTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_brief_task.html',1,'Hearthstonepp::BasicTasks']]]
+  ['basicpolicy',['BasicPolicy',['../class_rosetta_stone_1_1_basic_policy.html',1,'RosettaStone']]],
+  ['battlefield',['Battlefield',['../class_rosetta_stone_1_1_battlefield.html',1,'RosettaStone']]]
 ];

@@ -1,8 +1,19 @@
 var searchData=
 [
-  ['maxallowedindeck',['maxAllowedInDeck',['../struct_hearthstonepp_1_1_card.html#ab684ab474b1b6e88e873c3da6c4f80b0',1,'Hearthstonepp::Card']]],
-  ['maxhealth',['maxHealth',['../struct_hearthstonepp_1_1_character.html#ade14e5125b002d5ee0fe49e3e826fd85',1,'Hearthstonepp::Character']]],
-  ['maximum_5fnum_5fcards_5fin_5fdeck',['MAXIMUM_NUM_CARDS_IN_DECK',['../namespace_hearthstonepp.html#a009744422bddc25a4dadaa3acd0f69c3',1,'Hearthstonepp']]],
-  ['mechanic',['mechanic',['../struct_hearthstonepp_1_1_search_filter.html#a19941e2f15f448fa9d77514294f822be',1,'Hearthstonepp::SearchFilter']]],
-  ['mechanics',['mechanics',['../struct_hearthstonepp_1_1_card.html#adfbd9770ed10370075176f445c68fdd7',1,'Hearthstonepp::Card']]]
+  ['m_5fentitytype',['m_entityType',['../class_rosetta_stone_1_1_i_task.html#ae18013ba07425cc7ea0010b244ee4def',1,'RosettaStone::ITask']]],
+  ['m_5fgametags',['m_gameTags',['../class_rosetta_stone_1_1_entity.html#ab8aef2c452342483b9843459c84d7013',1,'RosettaStone::Entity']]],
+  ['m_5fid',['m_id',['../class_rosetta_stone_1_1_task_meta_trait.html#a88df8c66af152b1742a0debb06e38f30',1,'RosettaStone::TaskMetaTrait']]],
+  ['m_5fowner',['m_owner',['../class_rosetta_stone_1_1_entity.html#a25bcd2f957f349da7257321d627a6f40',1,'RosettaStone::Entity']]],
+  ['m_5fsource',['m_source',['../class_rosetta_stone_1_1_i_task.html#ac7e213fd6885f631b9d5ddabbd995ee4',1,'RosettaStone::ITask']]],
+  ['m_5fstatus',['m_status',['../class_rosetta_stone_1_1_task_meta_trait.html#af319e832c552e87a119eb0e22e47a958',1,'RosettaStone::TaskMetaTrait']]],
+  ['m_5ftarget',['m_target',['../class_rosetta_stone_1_1_i_task.html#a2d6ceaefab35a3dbc015ef0dd57ad3db',1,'RosettaStone::ITask']]],
+  ['m_5fuserid',['m_userID',['../class_rosetta_stone_1_1_task_meta_trait.html#aea8b35c6509f6dbfa6eb93d06cc04d43',1,'RosettaStone::TaskMetaTrait']]],
+  ['mana_5fupper_5flimit',['MANA_UPPER_LIMIT',['../namespace_rosetta_stone.html#a4e4e94434160f1402c33a9e9f11abee5',1,'RosettaStone']]],
+  ['max_5fdeck_5fsize',['MAX_DECK_SIZE',['../namespace_rosetta_stone.html#a6c27856c2eb171d08e49366da664063c',1,'RosettaStone']]],
+  ['maxallowedindeck',['maxAllowedInDeck',['../class_rosetta_stone_1_1_card.html#ae98c8742f846d79bd8dd60c8a26e465a',1,'RosettaStone::Card']]],
+  ['maxhealth',['maxHealth',['../class_rosetta_stone_1_1_character.html#aad7122987ca266f3dcc751ed2e9da6cf',1,'RosettaStone::Character']]],
+  ['maximummana',['maximumMana',['../class_rosetta_stone_1_1_player.html#a1a2e7792001e620ae27bf74784329a0a',1,'RosettaStone::Player']]],
+  ['mechanic',['mechanic',['../struct_rosetta_stone_1_1_search_filter.html#a5f5aaddae2ea7dc6a02242be216bc208',1,'RosettaStone::SearchFilter']]],
+  ['mechanics',['mechanics',['../class_rosetta_stone_1_1_card.html#a88d56b43590b9e6e07faab5f8c426197',1,'RosettaStone::Card']]],
+  ['mulliganstate',['mulliganState',['../class_rosetta_stone_1_1_player.html#a99bfeabb35da1ea7960b75547125768c',1,'RosettaStone::Player']]]
 ];

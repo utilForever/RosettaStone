@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['entityvector',['EntityVector',['../namespace_hearthstonepp.html#a47d6a1e3e9181412fe711b0be79bc88e',1,'Hearthstonepp']]]
+  ['iterator',['iterator',['../class_sized_ptr.html#aac41a2e810dba769d31ec1e5f9bbd10c',1,'SizedPtr']]]
 ];

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['effect_2eh',['Effect.h',['../_effect_8h.html',1,'']]],
-  ['effects_2eh',['Effects.h',['../_effects_8h.html',1,'']]],
-  ['enchant_2eh',['Enchant.h',['../_enchant_8h.html',1,'']]],
-  ['enchantment_2eh',['Enchantment.h',['../_enchantment_8h.html',1,'']]],
-  ['entity_2eh',['Entity.h',['../_entity_8h.html',1,'']]],
-  ['enummacros_2eh',['EnumMacros.h',['../_enum_macros_8h.html',1,'']]]
+  ['effect_2ehpp',['Effect.hpp',['../_effect_8hpp.html',1,'']]],
+  ['effects_2ehpp',['Effects.hpp',['../_effects_8hpp.html',1,'']]],
+  ['enchant_2ehpp',['Enchant.hpp',['../_enchant_8hpp.html',1,'']]],
+  ['endturntask_2ehpp',['EndTurnTask.hpp',['../_end_turn_task_8hpp.html',1,'']]],
+  ['entity_2ehpp',['Entity.hpp',['../_entity_8hpp.html',1,'']]],
+  ['enummacros_2ehpp',['EnumMacros.hpp',['../_enum_macros_8hpp.html',1,'']]]
 ];

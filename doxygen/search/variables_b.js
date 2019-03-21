@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['race',['race',['../struct_hearthstonepp_1_1_card.html#a524febaa6bac5dd9bcc031883b4c7909',1,'Hearthstonepp::Card::race()'],['../struct_hearthstonepp_1_1_search_filter.html#af5778a174ce9ba3c5c5e62382768592b',1,'Hearthstonepp::SearchFilter::race()']]],
-  ['rarity',['rarity',['../struct_hearthstonepp_1_1_card.html#af17dfb72e745bb5a77ad1ef462cddf20',1,'Hearthstonepp::Card::rarity()'],['../struct_hearthstonepp_1_1_search_filter.html#ad2691920820b81c33506d80505284901',1,'Hearthstonepp::SearchFilter::rarity()']]]
+  ['race',['race',['../class_rosetta_stone_1_1_card.html#a992073d62b0bb14df74b7796959aaabf',1,'RosettaStone::Card::race()'],['../struct_rosetta_stone_1_1_search_filter.html#a076f47b6d2f81094ca4436bfb6a0b12a',1,'RosettaStone::SearchFilter::race()']]],
+  ['ranked_5fstandard',['RANKED_STANDARD',['../namespace_rosetta_stone.html#af7d27083cfb38d054ea8f63dd747fd44',1,'RosettaStone']]],
+  ['ranked_5fwild',['RANKED_WILD',['../namespace_rosetta_stone.html#a59aee0e668d6c42646601200384a8555',1,'RosettaStone']]],
+  ['rarity',['rarity',['../class_rosetta_stone_1_1_card.html#a6f4a3b142b0911c0e7dcd914ad9ad34e',1,'RosettaStone::Card::rarity()'],['../struct_rosetta_stone_1_1_search_filter.html#a4085f1819d21f2ea2cbf3303405f7c9c',1,'RosettaStone::SearchFilter::rarity()']]]
 ];

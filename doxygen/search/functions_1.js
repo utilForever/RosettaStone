@@ -1,4 +1,11 @@
 var searchData=
 [
-  ['buffer',['buffer',['../struct_hearthstonepp_1_1_flat_data_1_1_f_l_a_t_b_u_f_f_e_r_s___f_i_n_a_l___c_l_a_s_s.html#a5af8f34d65ffe8a7a1c5036efa0f3664',1,'Hearthstonepp::FlatData::FLATBUFFERS_FINAL_CLASS']]]
+  ['basicpolicy',['BasicPolicy',['../class_rosetta_stone_1_1_basic_policy.html#adb6b4b5f6c52e8279d6fb1671f6076be',1,'RosettaStone::BasicPolicy']]],
+  ['battlefield',['Battlefield',['../class_rosetta_stone_1_1_battlefield.html#a82aeb992a2a4312c09f086db446da278',1,'RosettaStone::Battlefield']]],
+  ['begin',['begin',['../class_sized_ptr.html#ad9f8725888b0e79b7effa105bd21e3a5',1,'SizedPtr::begin()'],['../class_sized_ptr.html#a29dd2888fbf4c2a40f76cf0eb0a128b8',1,'SizedPtr::begin() const']]],
+  ['begindraw',['BeginDraw',['../class_rosetta_stone_1_1_game.html#ad6cc6fbbb5bbb4ef3aa69411bbab228c',1,'RosettaStone::Game::BeginDraw()'],['../class_rosetta_stone_1_1_game_agent.html#aafaa7ca2f01bb907ee015127a5000df2',1,'RosettaStone::GameAgent::BeginDraw()']]],
+  ['beginfirst',['BeginFirst',['../class_rosetta_stone_1_1_game.html#a1e1c2a19682047c20e234918441ede17',1,'RosettaStone::Game::BeginFirst()'],['../class_rosetta_stone_1_1_game_agent.html#a5718a6d59b480330621c9b7213610535',1,'RosettaStone::GameAgent::BeginFirst()']]],
+  ['beginmulligan',['BeginMulligan',['../class_rosetta_stone_1_1_game.html#ab56bfd9360a7a0f88fa7ad5cdc1e082e',1,'RosettaStone::Game::BeginMulligan()'],['../class_rosetta_stone_1_1_game_agent.html#af35a770e1a78db1070a27f910b49a177',1,'RosettaStone::GameAgent::BeginMulligan()']]],
+  ['beginshuffle',['BeginShuffle',['../class_rosetta_stone_1_1_game.html#afa78e7f3fa30ce5264157c25108fec03',1,'RosettaStone::Game::BeginShuffle()'],['../class_rosetta_stone_1_1_game_agent.html#a22ed54b159dee908512cb44dc1d0b771',1,'RosettaStone::GameAgent::BeginShuffle()']]],
+  ['better_5fenum',['BETTER_ENUM',['../namespace_rosetta_stone.html#aa29d78bc883396fd0e0ae5ad376ca12c',1,'RosettaStone::BETTER_ENUM(BlockType, int, ATTACK=1, JOUST=2, POWER=3, SCRIPT=4, TRIGGER=5, DEATHS=6, PLAY=7, FATIGUE=8, RITUAL=9, REVEAL_CARD=10, GAME_RESET=11, ACTION=99) BETTER_ENUM(BattleNetGameType'],['../namespace_rosetta_stone.html#ae24528be4210c1b977ec1ffd6495cd04',1,'RosettaStone::BETTER_ENUM(TaskID, int, INVALID, DRAW, OVERDRAW, MODIFY_MANA, DAMAGE, MULLIGAN, PLAY_CARD, ADD_ENCHANTMENT, DESTROY, DISCARD, HEAL_FULL, POISONOUS, FREEZE, HEAL, INCLUDE, CONTROL, END_TURN, CHOOSE, ATTACK)']]]
 ];

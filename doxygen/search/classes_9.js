@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['minion',['Minion',['../struct_hearthstonepp_1_1_minion.html',1,'Hearthstonepp']]],
-  ['modifyhealthtask',['ModifyHealthTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_modify_health_task.html',1,'Hearthstonepp::BasicTasks']]],
-  ['modifymanatask',['ModifyManaTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_modify_mana_task.html',1,'Hearthstonepp::BasicTasks']]],
-  ['mulligantask',['MulliganTask',['../class_hearthstonepp_1_1_basic_tasks_1_1_mulligan_task.html',1,'Hearthstonepp::BasicTasks']]]
+  ['playcardtask',['PlayCardTask',['../class_rosetta_stone_1_1_player_tasks_1_1_play_card_task.html',1,'RosettaStone::PlayerTasks']]],
+  ['player',['Player',['../class_rosetta_stone_1_1_player.html',1,'RosettaStone']]],
+  ['power',['Power',['../class_rosetta_stone_1_1_power.html',1,'RosettaStone']]],
+  ['powerloader',['PowerLoader',['../class_rosetta_stone_1_1_power_loader.html',1,'RosettaStone']]],
+  ['powers',['Powers',['../class_rosetta_stone_1_1_powers.html',1,'RosettaStone']]]
 ];

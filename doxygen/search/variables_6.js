@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['hand',['hand',['../class_hearthstonepp_1_1_player.html#a162b2405019781255ce5163c88a48e8a',1,'Hearthstonepp::Player']]],
-  ['health',['health',['../struct_hearthstonepp_1_1_card.html#ad038996643763e0889a36dffd9919f59',1,'Hearthstonepp::Card::health()'],['../struct_hearthstonepp_1_1_character.html#afe45268c2dcf78c23b2e3e5112cee7ea',1,'Hearthstonepp::Character::health()']]],
-  ['healthmax',['healthMax',['../struct_hearthstonepp_1_1_search_filter.html#a6bb085710103f127813171396397ac83',1,'Hearthstonepp::SearchFilter']]],
-  ['healthmin',['healthMin',['../struct_hearthstonepp_1_1_search_filter.html#a517eaceee17170c6540994cf0b917aeb',1,'Hearthstonepp::SearchFilter']]],
-  ['hero',['hero',['../class_hearthstonepp_1_1_player.html#a0cf8ecee0a72aa53363fad410120dd18',1,'Hearthstonepp::Player']]]
+  ['hand_5fsize',['HAND_SIZE',['../namespace_rosetta_stone.html#a00c89697348716e235d3588b05f42409',1,'RosettaStone']]],
+  ['health',['health',['../class_rosetta_stone_1_1_card.html#ab20d0919d6787bb4a0139ac0e8682b6f',1,'RosettaStone::Card::health()'],['../class_rosetta_stone_1_1_character.html#a3083c06c53b33cab22f14c6c4b1d9597',1,'RosettaStone::Character::health()']]],
+  ['healthmax',['healthMax',['../struct_rosetta_stone_1_1_search_filter.html#a5d82ae5ee362fc5af3c6fa2e7bba94fb',1,'RosettaStone::SearchFilter']]],
+  ['healthmin',['healthMin',['../struct_rosetta_stone_1_1_search_filter.html#a4d79219feea495801132aa4bf1137929',1,'RosettaStone::SearchFilter']]],
+  ['heropower',['heroPower',['../class_rosetta_stone_1_1_hero.html#afeb70c9e3b8a5564db917ce46d1ee938',1,'RosettaStone::Hero']]]
 ];

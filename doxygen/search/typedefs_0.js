@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['byte',['BYTE',['../namespace_hearthstonepp.html#ab63d42c14eda11ba7115d0773f0dc657',1,'Hearthstonepp::BYTE()'],['../namespace_hearthstonepp_1_1_serializer.html#ae1b71da37fe710bb0060bee49643060a',1,'Hearthstonepp::Serializer::BYTE()']]]
+  ['const_5fiterator',['const_iterator',['../class_sized_ptr.html#ace3750085fd1c658132f86ad120baa3a',1,'SizedPtr']]],
+  ['const_5fpointer',['const_pointer',['../class_sized_ptr.html#a83d44b8ade061dbdd44c1f552cd9b825',1,'SizedPtr']]],
+  ['const_5freference',['const_reference',['../class_sized_ptr.html#a9b6e8078c17036324a46230b9ae7e2b9',1,'SizedPtr']]]
 ];
