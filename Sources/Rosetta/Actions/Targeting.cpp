@@ -20,6 +20,7 @@ bool IsValidTarget(Entity* source, Entity* target)
                 {
                     return false;
                 }
+                break;
             }
             case +PlayReq::REQ_ENEMY_TARGET:
             {
@@ -27,6 +28,7 @@ bool IsValidTarget(Entity* source, Entity* target)
                 {
                     return false;
                 }
+                break;
             }
             case +PlayReq::REQ_TARGET_TO_PLAY:
             {
@@ -34,6 +36,7 @@ bool IsValidTarget(Entity* source, Entity* target)
                 {
                     return false;
                 }
+                break;
             }
             default:
                 break;
