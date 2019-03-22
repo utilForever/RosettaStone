@@ -256,9 +256,7 @@ TEST(CoreCardsGen, EX1_129)
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
     opPlayer.currentMana = 10;
-    opPlayer.GetHero()->health = 30;
 
-    const auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
 
     const auto card1 = Generic::DrawCard(
@@ -276,7 +274,6 @@ TEST(CoreCardsGen, EX1_129)
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
 
-    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
     EXPECT_EQ(opField.GetNumOfMinions(), 3u);
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
 
@@ -311,8 +308,7 @@ TEST(CoreCardsGen, DS1_233)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mind Blast"));
 
-    auto opHero = opPlayer.GetHero();
-    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, opHero));
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(opPlayer.GetHero()->health, 25);
 }
 
