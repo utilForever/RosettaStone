@@ -26,7 +26,7 @@ class ChooseTask : public ITask
 
     //! ChooseTask wrapper for mulligan.
     //! \param player The player to run task.
-    //! \param source A pointer to source entity to play card.
+    //! \param choices A container of card to choose.
     //! \return Generated PlayCardTask for intended purpose.
     static ChooseTask Mulligan(Player& player, std::vector<std::size_t> choices);
 
