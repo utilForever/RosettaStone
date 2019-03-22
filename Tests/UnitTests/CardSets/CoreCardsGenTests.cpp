@@ -296,6 +296,7 @@ TEST(CoreCardsGen, DS1_233)
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
 
     Game game(config);
     game.StartGame();
