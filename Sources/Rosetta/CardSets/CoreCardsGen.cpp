@@ -111,7 +111,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new ControlTask(EntityType::TARGET));
     cards.emplace("CS1_113", power);
 
-	// ----------------------------------------- SPELL - PRIEST
+    // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------

@@ -311,7 +311,7 @@ TEST(CoreCardsGen, DS1_233)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mind Blast"));
 
-	auto opHero = opPlayer.GetHero();
+    auto opHero = opPlayer.GetHero();
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, opHero));
     EXPECT_EQ(opPlayer.GetHero()->health, 25);
 }
