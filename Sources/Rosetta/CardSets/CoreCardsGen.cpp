@@ -62,6 +62,16 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     Power power;
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 6));
     cards.emplace("CS2_029", power);
+
+	// ------------------------------------------- SPELL - MAGE
+    // [CS2_025] Arcane Explosion - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to all enemy minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1));
+    cards.emplace("CS2_025", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
