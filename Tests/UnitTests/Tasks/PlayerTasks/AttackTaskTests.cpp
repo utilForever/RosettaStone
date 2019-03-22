@@ -54,7 +54,7 @@ TEST(AttackTask, Default)
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), player2.GetHero()));
     EXPECT_EQ(p1Field.GetMinion(0)->health, p1Field.GetMinion(0)->maxHealth);
-    EXPECT_EQ(player2.GetHero()->health,
+    EXPECT_EQ(static_cast<std::size_t>(player2.GetHero()->health),
               player2.GetHero()->maxHealth - p1Field.GetMinion(0)->GetAttack());
 
     EndTurnTask().Run(player1);
@@ -125,7 +125,7 @@ TEST(AttackTask, Weapon)
 
     Task::Run(player1, AttackTask(player1.GetHero(), p2Field.GetMinion(0)));
 
-    EXPECT_EQ(player1.GetHero()->weapon->durability, 1);
+    EXPECT_EQ(player1.GetHero()->weapon->durability, 1u);
     EXPECT_EQ(p2Field.GetMinion(0)->health, 6);
 
     EndTurnTask().Run(player1);
@@ -134,7 +134,7 @@ TEST(AttackTask, Weapon)
     Task::Run(player1, AttackTask(player1.GetHero(), p2Field.GetMinion(0)));
 
     EXPECT_EQ(player1.GetHero()->HasWeapon(), false);
-    EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
+    EXPECT_EQ(player1.GetHero()->GetAttack(), 0u);
     EXPECT_EQ(p2Field.GetMinion(0)->health, 2);
 }
 
