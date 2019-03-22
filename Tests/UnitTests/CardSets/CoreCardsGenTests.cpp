@@ -307,7 +307,6 @@ TEST(CoreCardsGen, DS1_233)
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
     opPlayer.currentMana = 10;
-    opPlayer.GetHero()->health = 30;
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mind Blast"));
