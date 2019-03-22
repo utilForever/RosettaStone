@@ -50,7 +50,18 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    // ------------------------------------------- SPELL - MAGE
+    // [CS2_029] Fireball - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $6 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    Power power;
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 6));
+    cards.emplace("CS2_029", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)

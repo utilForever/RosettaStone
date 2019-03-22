@@ -315,3 +315,57 @@ TEST(CoreCardsGen, DS1_233)
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, opHero));
     EXPECT_EQ(opPlayer.GetHero()->health, 25);
 }
+
+TEST(CoreCardsGen, CS2_029)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card5));
+    Task::Run(curPlayer, EndTurnTask());
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card6));
+    Task::Run(opPlayer, EndTurnTask());
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card6));
+    EXPECT_EQ(opPlayer.GetField().GetNumOfMinions(), 0u);
+
+    Task::Run(curPlayer,
+              PlayCardTask::SpellTarget(curPlayer, card2, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->health, 24);
+
+    curPlayer.currentMana = 10;
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card5));
+    EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
+
+    Task::Run(curPlayer,
+              PlayCardTask::SpellTarget(curPlayer, card4, curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->health, 24);
+}
