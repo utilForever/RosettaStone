@@ -110,6 +110,16 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new ControlTask(EntityType::TARGET));
     cards.emplace("CS1_113", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [DS1_233] Mind Blast - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $5 damage to the enemy hero.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5));
+    cards.emplace("DS1_233", power);
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)

@@ -46,6 +46,9 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             }
             entities.emplace_back(player.GetOpponent().GetHero());
             break;
+        case EntityType::ENEMY_HERO:
+            entities.emplace_back(player.GetOpponent().GetHero());
+            break;
         case EntityType::WEAPON:
             if (player.GetHero()->weapon != nullptr)
             {
