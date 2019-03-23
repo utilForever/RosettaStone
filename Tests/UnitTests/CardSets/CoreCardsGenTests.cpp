@@ -652,3 +652,31 @@ TEST(CoreCardsGen, EX1_277)
     totalHealth += opPlayer.GetField().GetMinion(0)->health;
     EXPECT_EQ(totalHealth, 31);
 }
+
+TEST(CoreCardsGen, EX1_050)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+
+    const auto card = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Coldlight Oracle"));
+
+    std::size_t initialCurPlayerCardsNum = curPlayer.GetHand().GetNumOfCards();
+    std::size_t initialOpPlayerCardsNum = opPlayer.GetHand().GetNumOfCards();
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card));
+
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), initialCurPlayerCardsNum + 1u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), initialOpPlayerCardsNum + 2u);
+}

@@ -11,6 +11,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
@@ -343,6 +344,20 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     Power power;
     power.AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
     cards.emplace("EX1_066", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_050] Coldlight Oracle - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Each player draws 2 cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(2u));
+    power.AddPowerTask(new DrawOpTask(2u));
+    cards.emplace("EX1_050", power);
 }
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
