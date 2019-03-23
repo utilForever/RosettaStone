@@ -13,6 +13,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -63,7 +64,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 6));
     cards.emplace("CS2_029", power);
 
-	// ------------------------------------------- SPELL - MAGE
+    // ------------------------------------------- SPELL - MAGE
     // [CS2_025] Arcane Explosion - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -191,6 +192,25 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new HealFullTask(EntityType::TARGET));
     power.AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     cards.emplace("CS2_041", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_037] Frost Shock - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to an enemy character and <b>Freeze</b> it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    cards.emplace("CS2_037", power);
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
