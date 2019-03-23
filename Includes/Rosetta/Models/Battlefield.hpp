@@ -74,6 +74,7 @@ class Battlefield
     Player* m_owner = nullptr;
 
     std::array<Character*, FIELD_SIZE> m_minions{};
+    std::size_t m_numMinion = 0;
 };
 }  // namespace RosettaStone
 

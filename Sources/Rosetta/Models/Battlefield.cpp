@@ -27,17 +27,7 @@ void Battlefield::SetOwner(Player& owner)
 
 std::size_t Battlefield::GetNumOfMinions() const
 {
-    std::size_t ret = 0;
-
-    for (auto& minion : m_minions)
-    {
-        if (minion != nullptr)
-        {
-            ++ret;
-        }
-    }
-
-    return ret;
+    return m_numMinion;
 }
 
 Character* Battlefield::GetMinion(std::size_t pos)
@@ -48,13 +38,11 @@ Character* Battlefield::GetMinion(std::size_t pos)
 std::vector<Character*> Battlefield::GetAllMinions()
 {
     std::vector<Character*> ret;
+    ret.reserve(m_numMinion);
 
-    for (auto& minion : m_minions)
+    for (size_t i = 0; i < m_numMinion; ++i)
     {
-        if (minion != nullptr)
-        {
-            ret.emplace_back(minion);
-        }
+        ret.emplace_back(m_minions[i]);
     }
 
     return ret;
@@ -85,6 +73,7 @@ std::optional<std::size_t> Battlefield::FindEmptyPos() const
 void Battlefield::AddMinion(Minion& minion, std::size_t pos)
 {
     m_minions.at(pos) = &minion;
+    ++m_numMinion;
 
     if (minion.GetGameTag(GameTag::CHARGE) != 1)
     {
@@ -94,10 +83,23 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
 
 void Battlefield::RemoveMinion(Minion& minion)
 {
-    const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
-    if (iter != std::end(m_minions))
+    std::size_t idx = 0;
+
+    for (; idx < m_numMinion; ++idx)
     {
-        *iter = nullptr;
+        if (m_minions[idx] == &minion)
+        {
+            m_minions[idx] = nullptr;
+            break;
+        }
     }
+
+    for (; idx < m_numMinion - 1; ++idx)
+    {
+        m_minions[idx] = m_minions[idx + 1];
+        m_minions[idx + 1] = nullptr;
+    }
+
+    --m_numMinion;
 }
 }  // namespace RosettaStone
