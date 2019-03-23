@@ -4,6 +4,10 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+
+using namespace RosettaStone::SimpleTasks;
 
 namespace RosettaStone
 {
@@ -39,7 +43,22 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------------- SPELL - MAGE
+    // [CS2_028] Blizzard - COST:6
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to all enemy minions and <b>Freeze</b> them.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 2));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::ENEMY_FIELD, GameTag::FROZEN, 1));
+    cards.emplace("CS2_028", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
