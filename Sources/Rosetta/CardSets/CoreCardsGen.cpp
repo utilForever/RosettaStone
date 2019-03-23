@@ -11,8 +11,10 @@
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -74,7 +76,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1));
     cards.emplace("CS2_025", power);
 
-	// ------------------------------------------- SPELL - MAGE
+    // ------------------------------------------- SPELL - MAGE
     // [CS2_024] Frostbolt - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -92,7 +94,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     cards.emplace("CS2_024", power);
 
-	// ------------------------------------------- SPELL - MAGE
+    // ------------------------------------------- SPELL - MAGE
     // [CS2_026] Frost Nova - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -116,7 +118,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 4));
     cards.emplace("CS2_032", power);
 
-	// ------------------------------------------- SPELL - MAGE
+    // ------------------------------------------- SPELL - MAGE
     // [CS2_023] Arcane Intellect - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -125,6 +127,21 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DrawTask(2));
     cards.emplace("CS2_023", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [EX1_277] Arcane Missiles - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $3 damage randomly split among all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
+                                         new DamageTask(EntityType::STACK, 1) },
+                                       3));
+    cards.emplace("EX1_277", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
