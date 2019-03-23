@@ -105,6 +105,16 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::ENEMY_FIELD, GameTag::FROZEN, 1));
     cards.emplace("CS2_026", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [CS2_032] Flamestrike - COST:7
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $4 damage to all enemy minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 4));
+    cards.emplace("CS2_032", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
