@@ -16,6 +16,7 @@
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
