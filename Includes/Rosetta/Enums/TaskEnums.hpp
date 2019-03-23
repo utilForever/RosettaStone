@@ -56,7 +56,7 @@ enum class TaskID
 #ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(EntityType, int, EMPTY, SOURCE, TARGET, FRIENDS, ENEMIES, HERO,
             ENEMY_HERO, WEAPON, ENEMY_WEAPON, HAND, ENEMY_HAND, FIELD,
-            ENEMY_FIELD)
+            ENEMY_FIELD, STACK)
 #else
 enum class EntityType
 {
@@ -72,7 +72,8 @@ enum class EntityType
     HAND,
     ENEMY_HAND,
     FIELD,
-    ENEMY_FIELD
+    ENEMY_FIELD,
+    STACK
 };
 #endif
 }  // namespace RosettaStone

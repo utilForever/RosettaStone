@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 #include <stdexcept>
@@ -65,6 +66,9 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             {
                 entities.emplace_back(minion);
             }
+            break;
+        case EntityType::STACK:
+            entities = player.GetGame()->taskStack;
             break;
         default:
             throw std::domain_error(
