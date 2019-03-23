@@ -73,6 +73,24 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1));
     cards.emplace("CS2_025", power);
+
+	// ------------------------------------------- SPELL - MAGE
+    // [CS2_024] Frostbolt - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $3 damage to a_character and <b>Freeze</b> it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    cards.emplace("CS2_024", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
