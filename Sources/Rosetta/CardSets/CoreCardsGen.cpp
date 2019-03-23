@@ -115,6 +115,16 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 4));
     cards.emplace("CS2_032", power);
+
+	// ------------------------------------------- SPELL - MAGE
+    // [CS2_023] Arcane Intellect - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Draw 2 cards.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(2));
+    cards.emplace("CS2_023", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
