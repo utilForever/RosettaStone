@@ -509,3 +509,43 @@ TEST(CoreCardsGen, CS2_024)
     EXPECT_EQ(curPlayer.GetHero()->health, 27);
     EXPECT_EQ(curPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 1);
 }
+
+TEST(CoreCardsGen, CS2_026)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Frost Nova"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(opField.GetMinion(0)->health, 2);
+    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField.GetMinion(1)->health, 1);
+    EXPECT_EQ(opField.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opPlayer.GetHero()->health, 30);
+    EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 0);
+}

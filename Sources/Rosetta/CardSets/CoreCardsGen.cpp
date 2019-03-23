@@ -91,6 +91,20 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     cards.emplace("CS2_024", power);
+
+	// ------------------------------------------- SPELL - MAGE
+    // [CS2_026] Frost Nova - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Freeze</b> all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::ENEMY_FIELD, GameTag::FROZEN, 1));
+    cards.emplace("CS2_026", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
