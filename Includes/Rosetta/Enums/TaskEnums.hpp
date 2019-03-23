@@ -23,7 +23,7 @@ namespace RosettaStone
 BETTER_ENUM(TaskID, int, INVALID, DRAW, OVERDRAW, MODIFY_MANA, DAMAGE, MULLIGAN,
             PLAY_CARD, ADD_ENCHANTMENT, DESTROY, DISCARD, HEAL_FULL, POISONOUS,
             FREEZE, HEAL, INCLUDE, CONTROL, END_TURN, CHOOSE, ATTACK,
-            SET_GAME_TAG, ENQUEUE);
+            SET_GAME_TAG, ENQUEUE, RANDOM);
 #else
 enum class TaskID
 {
@@ -48,6 +48,7 @@ enum class TaskID
     ATTACK,
     SET_GAME_TAG,
     ENQUEUE,
+    RANDOM
 };
 #endif
 
