@@ -22,7 +22,7 @@ TaskStatus DrawTask::Impl(Player& player)
 {
     for (std::size_t i = 0; i < m_num; ++i)
     {
-        Generic::Draw(player, std::nullopt);
+        Generic::Draw(player, nullptr);
     }
 
     return TaskStatus::COMPLETE;

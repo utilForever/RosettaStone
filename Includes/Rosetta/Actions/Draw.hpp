@@ -14,7 +14,7 @@ namespace RosettaStone::Generic
 //! \param player The player to add card to the hand.
 //! \param cardToDraw A card to draw in the deck.
 //! \return A dynamic allocated entity object.
-Entity* Draw(Player& player, std::optional<Entity> cardToDraw = std::nullopt);
+Entity* Draw(Player& player, Entity* cardToDraw = nullptr);
 
 //! Draws a specific card to the hand.
 //! \param player The player to add card to the hand.

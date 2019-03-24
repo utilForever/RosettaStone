@@ -18,6 +18,7 @@
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
@@ -64,6 +65,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>

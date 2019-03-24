@@ -23,20 +23,20 @@ TaskID TransformTask::GetTaskID() const
 
 TaskStatus TransformTask::Impl(Player& player)
 {
-    Card card = Cards::GetInstance().FindCardByID(m_cardID);
-
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& entity : entities)
     {
+        Card card = Cards::GetInstance().FindCardByID(m_cardID);
+
         auto* minion = dynamic_cast<Minion*>(entity);
         if (minion == nullptr)
         {
             return TaskStatus::STOP;
         }
 
-        Generic::TransformMinion(minion->GetOwner(), minion, card);
+        Generic::TransformMinion(minion->GetOwner(), minion, std::move(card));
     }
 
     return TaskStatus::COMPLETE;

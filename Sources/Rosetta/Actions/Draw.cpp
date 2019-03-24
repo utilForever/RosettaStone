@@ -9,7 +9,7 @@
 
 namespace RosettaStone::Generic
 {
-Entity* Draw(Player& player, std::optional<Entity> card)
+Entity* Draw(Player& player, Entity* cardToDraw)
 {
     // Take fatigue damage for player if deck is empty
     if (player.GetDeck().IsEmpty())
@@ -24,9 +24,9 @@ Entity* Draw(Player& player, std::optional<Entity> card)
     Entity* entity;
 
     // Get card to draw
-    if (card.has_value())
+    if (cardToDraw)
     {
-        entity = &player.GetDeck().RemoveCard(card.value());
+        entity = &player.GetDeck().RemoveCard(*cardToDraw);
     }
     else
     {
