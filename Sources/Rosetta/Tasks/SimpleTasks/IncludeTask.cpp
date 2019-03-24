@@ -1,9 +1,9 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-// We are making my contributions/submissions to this project solely in our
-// personal capacity and are not conveying any rights to any intellectual
-// property of any third parties.
-
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 #include <stdexcept>
@@ -29,8 +29,17 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::TARGET:
             entities.emplace_back(target);
             break;
-        case EntityType::HERO:
+        case EntityType::ALL:
+            for (auto& minion : player.GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
             entities.emplace_back(player.GetHero());
+            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
+            entities.emplace_back(player.GetOpponent().GetHero());
             break;
         case EntityType::FRIENDS:
             for (auto& minion : player.GetField().GetAllMinions())
@@ -45,6 +54,9 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player.GetOpponent().GetHero());
+            break;
+        case EntityType::HERO:
+            entities.emplace_back(player.GetHero());
             break;
         case EntityType::ENEMY_HERO:
             entities.emplace_back(player.GetOpponent().GetHero());
@@ -66,6 +78,9 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             {
                 entities.emplace_back(minion);
             }
+            break;
+        case EntityType::STACK:
+            entities = player.GetGame()->taskStack;
             break;
         default:
             throw std::domain_error(

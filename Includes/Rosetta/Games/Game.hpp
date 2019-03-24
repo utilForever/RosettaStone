@@ -120,6 +120,8 @@ class Game
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
+    std::vector<Entity*> taskStack;
+
  private:
     GameConfig m_gameConfig;
 

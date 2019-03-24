@@ -3,24 +3,25 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_CONTROL_TASK_HPP
-#define ROSETTASTONE_CONTROL_TASK_HPP
+#ifndef ROSETTASTONE_ENQUEUE_TASK_HPP
+#define ROSETTASTONE_ENQUEUE_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief ControlTask class.
+//! \brief EnqueueTask class.
 //!
-//! This class represents the task for taking control.
+//! This class represents the task for repeating some tasks.
 //!
-class ControlTask : public ITask
+class EnqueueTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType.
-    //! \param entityType The entity type of target to take control.
-    explicit ControlTask(EntityType entityType);
+    //! Constructs task with given \p tasks and \p num.
+    //! \param tasks A task vector to repeat.
+    //! \param num The number of times to repeat tasks.
+    EnqueueTask(std::vector<ITask*> tasks, int num);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -31,7 +32,10 @@ class ControlTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    std::vector<ITask*> m_tasks;
+    int m_num = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_CONTROL_TASK_HPP
+#endif  // ROSETTASTONE_ENQUEUE_TASK_HPP

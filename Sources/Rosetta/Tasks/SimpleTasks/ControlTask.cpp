@@ -1,8 +1,7 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
-
-// We are making my contributions/submissions to this project solely in our
-// personal capacity and are not conveying any rights to any intellectual
-// property of any third parties.
 
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>

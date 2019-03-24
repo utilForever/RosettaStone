@@ -3,24 +3,25 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_CONTROL_TASK_HPP
-#define ROSETTASTONE_CONTROL_TASK_HPP
+#ifndef ROSETTASTONE_RANDOM_TASK_HPP
+#define ROSETTASTONE_RANDOM_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief ControlTask class.
+//! \brief RandomTask class.
 //!
-//! This class represents the task for taking control.
+//! This class represents the task for picking entities at random.
 //!
-class ControlTask : public ITask
+class RandomTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType.
-    //! \param entityType The entity type of target to take control.
-    explicit ControlTask(EntityType entityType);
+    //! Constructs task with given \p tasks and \p num.
+    //! \param entityType The type of entity.
+    //! \param num The number of entities to pick.
+    RandomTask(EntityType entityType, int num);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -31,7 +32,9 @@ class ControlTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    int m_num = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_CONTROL_TASK_HPP
+#endif  // ROSETTASTONE_RANDOM_TASK_HPP

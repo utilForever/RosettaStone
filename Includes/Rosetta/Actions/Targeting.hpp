@@ -10,6 +10,10 @@
 
 namespace RosettaStone::Generic
 {
+//! Checks the target is valid.
+//! \param source A source entity.
+//! \param target A target entity.
+//! \return true if the target is valid, false otherwise.
 bool IsValidTarget(Entity* source, Entity* target);
 }  // namespace RosettaStone::Generic
 
