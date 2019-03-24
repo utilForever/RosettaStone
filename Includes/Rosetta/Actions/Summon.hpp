@@ -3,8 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_TARGETING_HPP
-#define ROSETTASTONE_TARGETING_HPP
+#ifndef ROSETTASTONE_SUMMON_HPP
+#define ROSETTASTONE_SUMMON_HPP
 
 #include <Rosetta/Models/Minion.hpp>
 
@@ -17,4 +17,4 @@ namespace RosettaStone::Generic
 void Summon(Player& player, Minion* minion, int fieldPos);
 }  // namespace RosettaStone::Generic
 
-#endif  // ROSETTASTONE_TARGETING_HPP
+#endif  // ROSETTASTONE_SUMMON_HPP
