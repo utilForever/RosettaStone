@@ -23,7 +23,7 @@ void AddCardToHand(Player& player, Entity* entity)
 
 void RemoveCardFromHand(Player& player, Entity* entity)
 {
-	// Remove card from hand
+    // Remove card from hand
     player.GetHand().RemoveCard(*entity);
 }
 
@@ -53,5 +53,17 @@ void ChangeManaCrystal(Player& player, int amount, bool fill)
 
         player.maximumMana += amount;
     }
+}
+
+void TransformMinion(Player& player, Minion* oldMinion, Card card)
+{
+    Minion* newMinion =
+        dynamic_cast<Minion*>(Entity::GetFromCard(player, std::move(card)));
+    if (newMinion == nullptr)
+    {
+        return;
+    }
+
+    player.GetField().ReplaceMinion(*oldMinion, *newMinion);
 }
 }  // namespace RosettaStone::Generic
