@@ -12,7 +12,7 @@
 namespace RosettaStone
 {
 //! RosettaStone version.
-constexpr float VERSION = 0.3f;
+constexpr float VERSION = 0.4f;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
