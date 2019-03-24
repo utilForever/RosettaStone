@@ -278,7 +278,7 @@ int main(int argc, char* argv[])
                   clara::Opt(cardSetName, "cardSet")["-c"]["--cardset"](
                       "Export a list of specific expansion cards") |
                   clara::Opt(projectPath, "path")["-p"]["--path"](
-                      "Specify Hearthstone++ project path");
+                      "Specify RosettaStone project path");
 
     auto result = parser.parse(clara::Args(argc, argv));
     if (!result)
