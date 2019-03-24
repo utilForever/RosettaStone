@@ -223,6 +223,24 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("CS2_094", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_371] Hand of Protection - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("EX1_371", power);
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
