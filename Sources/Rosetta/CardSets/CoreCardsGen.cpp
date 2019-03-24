@@ -35,7 +35,20 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CS2_007] Healing Touch - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Restore #8 Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
+    cards.emplace("CS2_007", power);
 }
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
