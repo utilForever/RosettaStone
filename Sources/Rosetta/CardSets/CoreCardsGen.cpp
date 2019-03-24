@@ -17,6 +17,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -144,7 +145,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
                                        3));
     cards.emplace("EX1_277", power);
 
-	// ------------------------------------------- SPELL - MAGE
+    // ------------------------------------------- SPELL - MAGE
     // [CS2_027] Mirror Image - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -159,6 +160,21 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new SummonTask("CS2_mirror", 2));
     cards.emplace("CS2_027", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [CS2_022] Polymorph - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Transform a minion
+    //       into a 1/1 Sheep.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new TransformTask(EntityType::TARGET, "CS2_tk1"));
+    cards.emplace("CS2_022", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
