@@ -107,7 +107,7 @@ inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
 }
 
 inline bool CheckCardImpl(const std::string& path,
-                          std::vector<GameTag> abilityList,
+                          const std::vector<GameTag>& abilityList,
                           const std::string& id)
 {
 #if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
