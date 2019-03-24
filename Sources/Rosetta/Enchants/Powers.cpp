@@ -6,6 +6,7 @@
 
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Powers.hpp>
 
 namespace RosettaStone
@@ -14,6 +15,7 @@ Powers::Powers()
 {
     CoreCardsGen::AddAll(m_powers);
     Expert1CardsGen::AddAll(m_powers);
+    HoFCardsGen::AddAll(m_powers);
 }
 
 Powers::~Powers()
