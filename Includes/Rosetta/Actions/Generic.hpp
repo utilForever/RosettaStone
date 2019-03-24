@@ -25,6 +25,12 @@ void RemoveCardFromHand(Player& player, Entity* entity);
 //! \param amount A value indicating how much to change mana crystal.
 //! \param fill true if mana crystal is filled, and false otherwise.
 void ChangeManaCrystal(Player& player, int amount, bool fill);
+
+//! Transforms a minion to another.
+//! \param player The owner of minion to transform.
+//! \param oldMinion An old minion to transform.
+//! \param card A new card ID to transform.
+void TransformMinion(Player& player, Minion* oldMinion, Card card);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_GENERIC_HPP

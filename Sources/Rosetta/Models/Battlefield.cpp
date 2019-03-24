@@ -25,6 +25,11 @@ void Battlefield::SetOwner(Player& owner)
     m_owner = &owner;
 }
 
+bool Battlefield::IsFull() const
+{
+    return GetNumOfMinions() == FIELD_SIZE;
+}
+
 std::size_t Battlefield::GetNumOfMinions() const
 {
     return m_numMinion;
@@ -101,5 +106,13 @@ void Battlefield::RemoveMinion(Minion& minion)
     }
 
     --m_numMinion;
+}
+
+void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
+{
+    std::size_t pos = FindMinionPos(oldMinion).value();
+    m_minions[pos] = &newMinion;
+
+    delete &oldMinion;
 }
 }  // namespace RosettaStone

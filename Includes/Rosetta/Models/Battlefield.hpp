@@ -40,6 +40,10 @@ class Battlefield
     //! \param owner The owner of battlefield.
     void SetOwner(Player& owner);
 
+    //! Finds out if battlefield is full.
+    //! \return true if battlefield is full, and false otherwise.
+    bool IsFull() const;
+
     //! Returns the number of minions in battlefield.
     //! \return The number of minions in battlefield.
     std::size_t GetNumOfMinions() const;
@@ -69,6 +73,11 @@ class Battlefield
     //! Removes minion from battlefield.
     //! \param minion The minion to remove from battlefield.
     void RemoveMinion(Minion& minion);
+
+    //! Replaces minion with another.
+    //! \param oldMinion An old minion to replace. 
+    //! \param newMinion A new minion to replace.
+    void ReplaceMinion(Minion& oldMinion, Minion& newMinion);
 
  private:
     Player* m_owner = nullptr;
