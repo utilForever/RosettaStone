@@ -56,7 +56,7 @@ enum class TaskID
 
 //! \brief An enumerator for identifying entity type.
 #ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(EntityType, int, EMPTY, SOURCE, TARGET, FRIENDS, ENEMIES, HERO,
+BETTER_ENUM(EntityType, int, EMPTY, SOURCE, TARGET, ALL, FRIENDS, ENEMIES, HERO,
             ENEMY_HERO, WEAPON, ENEMY_WEAPON, HAND, ENEMY_HAND, FIELD,
             ENEMY_FIELD, STACK)
 #else
@@ -65,6 +65,7 @@ enum class EntityType
     EMPTY,
     SOURCE,
     TARGET,
+    ALL,
     FRIENDS,
     ENEMIES,
     HERO,
