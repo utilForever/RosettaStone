@@ -2,6 +2,7 @@
 
 * [Basic card list](#basic)
 * [Classic card list](#classic)
+* [Hall of Fame card list](#hall-of-fame)
 
 ## Basic
 
@@ -385,3 +386,23 @@ EXPERT1 | tt_004 | Flesheating Ghoul |
 EXPERT1 | tt_010 | Spellbender |  
 
 - Progress: 8% (21 of 236 Cards)
+
+## Hall of Fame
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+HOF | CS2_031 | Ice Lance |  
+HOF | EX1_016 | Sylvanas Windrunner |  
+HOF | EX1_050 | Coldlight Oracle | O
+HOF | EX1_062 | Old Murk-Eye |  
+HOF | EX1_112 | Gelbin Mekkatorque |  
+HOF | EX1_128 | Conceal |  
+HOF | EX1_284 | Azure Drake |  
+HOF | EX1_295 | Ice Block |  
+HOF | EX1_298 | Ragnaros the Firelord |  
+HOF | EX1_316 | Power Overwhelming |  
+HOF | EX1_620 | Molten Giant |  
+HOF | NEW1_016 | Captain's Parrot |  
+HOF | PRO_001 | Elite Tauren Chieftain |  
+
+- Progress: 7% (1 of 13 Cards)
