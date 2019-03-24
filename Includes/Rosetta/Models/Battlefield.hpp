@@ -74,6 +74,11 @@ class Battlefield
     //! \param minion The minion to remove from battlefield.
     void RemoveMinion(Minion& minion);
 
+    //! Replaces minion with another.
+    //! \param oldMinion An old minion to replace. 
+    //! \param newMinion A new minion to replace.
+    void ReplaceMinion(Minion& oldMinion, Minion& newMinion);
+
  private:
     Player* m_owner = nullptr;
 

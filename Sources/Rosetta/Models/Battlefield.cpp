@@ -107,4 +107,12 @@ void Battlefield::RemoveMinion(Minion& minion)
 
     --m_numMinion;
 }
+
+void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
+{
+    std::size_t pos = FindMinionPos(oldMinion).value();
+    m_minions[pos] = &newMinion;
+
+    delete &oldMinion;
+}
 }  // namespace RosettaStone
