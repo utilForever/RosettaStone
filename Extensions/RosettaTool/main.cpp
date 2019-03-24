@@ -161,11 +161,6 @@ inline bool CheckCardImpl(const std::string& path,
 
         fileInput.close();
     }
-#elif defined(ROSETTASTONE_MACOSX)
-    std::cerr
-        << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
-    exit(EXIT_FAILURE);
-#endif
 
     Card card = Cards::GetInstance().FindCardByID(id);
 
@@ -185,14 +180,14 @@ inline bool CheckCardImpl(const std::string& path,
                           card.cardType == +CardType::WEAPON))
     {
         // Excludes cards that its power doesn't appear in ability
-        if (std::find(excludeCardList.begin(), excludeCardList.end(),
-                      card.id) != excludeCardList.end())
-        {
-            return false;
-        }
-
-        return true;
+        return std::find(excludeCardList.begin(), excludeCardList.end(),
+                         card.id) == excludeCardList.end();
     }
+#elif defined(ROSETTASTONE_MACOSX)
+    std::cerr
+        << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
+    exit(EXIT_FAILURE);
+#endif
 
     return false;
 }
