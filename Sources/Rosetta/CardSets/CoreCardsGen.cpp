@@ -445,7 +445,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DiscardTask(EntityType::HAND));
     cards.emplace("EX1_306", power);
 
-	// ---------------------------------------- SPELL - WARLOCK
+    // ---------------------------------------- SPELL - WARLOCK
     // [CS2_062] Hellfire - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -454,6 +454,21 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ALL, 3));
     cards.emplace("CS2_062", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CS2_057] Shadow Bolt - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $4 damage
+    //       to a minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 4));
+    cards.emplace("CS2_057", power);
 }
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
