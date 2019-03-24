@@ -184,6 +184,8 @@ void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -193,9 +195,19 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power power;
+    power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::HERO, 6));
     cards.emplace("CS2_088", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS2_093] Consecration - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to all enemies.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
+    cards.emplace("CS2_093", power);
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
@@ -245,7 +257,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5));
     cards.emplace("DS1_233", power);
 
-	// ----------------------------------------- SPELL - PRIEST
+    // ----------------------------------------- SPELL - PRIEST
     // [CS1_130] Holy Smite - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
