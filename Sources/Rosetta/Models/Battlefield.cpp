@@ -25,6 +25,11 @@ void Battlefield::SetOwner(Player& owner)
     m_owner = &owner;
 }
 
+bool Battlefield::IsFull() const
+{
+    return GetNumOfMinions() == FIELD_SIZE;
+}
+
 std::size_t Battlefield::GetNumOfMinions() const
 {
     return m_numMinion;

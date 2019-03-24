@@ -40,6 +40,10 @@ class Battlefield
     //! \param owner The owner of battlefield.
     void SetOwner(Player& owner);
 
+    //! Finds out if battlefield is full.
+    //! \return true if battlefield is full, and false otherwise.
+    bool IsFull() const;
+
     //! Returns the number of minions in battlefield.
     //! \return The number of minions in battlefield.
     std::size_t GetNumOfMinions() const;
