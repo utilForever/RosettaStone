@@ -15,7 +15,7 @@ DrawOpTask::DrawOpTask(std::size_t num) : m_num(num)
 
 TaskID DrawOpTask::GetTaskID() const
 {
-    return TaskID::DRAWOP;
+    return TaskID::DRAW_OP;
 }
 
 TaskStatus DrawOpTask::Impl(Player& player)
