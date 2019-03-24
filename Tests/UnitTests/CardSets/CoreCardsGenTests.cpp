@@ -1040,3 +1040,54 @@ TEST(CoreCardsGen, CS2_007)
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card3));
     EXPECT_EQ(opField.GetMinion(0)->health, 7);
 }
+
+TEST(CoreCardsGen, CS2_062)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hellfire"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetNumOfMinions(), 2u);
+    Task::Run(curPlayer, EndTurnTask());
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
+    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+    Task::Run(opPlayer, EndTurnTask());
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHero()->health, 27);
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(curField.GetMinion(0)->health, 4);
+    EXPECT_EQ(opPlayer.GetHero()->health, 27);
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(opField.GetMinion(0)->health, 4);
+}

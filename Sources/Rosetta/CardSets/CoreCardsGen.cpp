@@ -430,6 +430,8 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
     // - Faction: Horde, Set: Core, Rarity: Free
@@ -439,9 +441,19 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power power;
+    power.ClearData();
     power.AddPowerTask(new DiscardTask(EntityType::HAND));
     cards.emplace("EX1_306", power);
+
+	// ---------------------------------------- SPELL - WARLOCK
+    // [CS2_062] Hellfire - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $3 damage to all characters.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ALL, 3));
+    cards.emplace("CS2_062", power);
 }
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
