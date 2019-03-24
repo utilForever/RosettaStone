@@ -45,7 +45,20 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [DS1_185] Arcane Shot - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    cards.emplace("DS1_185", power);
 }
 
 void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
@@ -241,6 +254,19 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
     cards.emplace("EX1_371", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS2_089] Holy Light - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Restore #6 Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 6));
+    cards.emplace("CS2_089", power);
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
