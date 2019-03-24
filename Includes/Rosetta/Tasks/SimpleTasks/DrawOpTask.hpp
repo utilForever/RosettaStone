@@ -21,7 +21,7 @@ class DrawOpTask : public ITask
  public:
     //! Constructs task with given \p agent and \p num.
     //! \param num The number of cards to draw.
-    DrawOpTask(std::size_t num);
+    explicit DrawOpTask(std::size_t num);
 
     //! Returns task ID.
     //! \return Task ID.
