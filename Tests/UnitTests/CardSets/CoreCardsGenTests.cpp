@@ -652,3 +652,52 @@ TEST(CoreCardsGen, EX1_277)
     totalHealth += opPlayer.GetField().GetMinion(0)->health;
     EXPECT_EQ(totalHealth, 31);
 }
+
+TEST(CoreCardsGen, CS2_027)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mirror Image"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mirror Image"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mirror Image"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mirror Image"));
+
+    auto& curField = curPlayer.GetField();
+    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curField.GetNumOfMinions(), 2u);
+    EXPECT_EQ(curField.GetMinion(0)->attack, 0u);
+    EXPECT_EQ(curField.GetMinion(0)->health, 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField.GetMinion(1)->attack, 0u);
+    EXPECT_EQ(curField.GetMinion(1)->health, 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::TAUNT), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
+    EXPECT_EQ(curField.GetNumOfMinions(), 4u);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card3));
+    EXPECT_EQ(curField.GetNumOfMinions(), 6u);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card4));
+    EXPECT_EQ(curField.GetNumOfMinions(), 7u);
+}

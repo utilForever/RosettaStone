@@ -16,6 +16,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -142,6 +143,22 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
                                          new DamageTask(EntityType::STACK, 1) },
                                        3));
     cards.emplace("EX1_277", power);
+
+	// ------------------------------------------- SPELL - MAGE
+    // [CS2_027] Mirror Image - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Summon two 0/2 minions with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("CS2_mirror", 2));
+    cards.emplace("CS2_027", power);
 }
 
 void CoreCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
