@@ -11,7 +11,7 @@
 
 namespace RosettaStone
 {
-//! Hearthstone++ version.
+//! RosettaStone version.
 constexpr float VERSION = 0.3f;
 
 //! The number of player class.

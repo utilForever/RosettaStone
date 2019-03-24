@@ -414,7 +414,7 @@ void Console::DeleteCardInDeck(size_t deckIndex) const
 
 int Console::Login()
 {
-    std::cout << "    Welcome to Hearthstone++ Ver " << VERSION << '\n';
+    std::cout << "    Welcome to RosettaStone Ver " << VERSION << '\n';
 
     ShowMenu(m_loginMenuStr);
     const size_t selectedNum = InputMenuNum("Select: ", LOGIN_MENU_SIZE);
@@ -512,7 +512,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
 
     // Split commands by whitespace and quote
     std::istringstream iss(cmd);
-    std::vector<std::string> cmdTokens{ "Hearthstone++" };
+    std::vector<std::string> cmdTokens{ "RosettaStone" };
     std::string cmdToken;
 
     while (iss >> std::quoted(cmdToken))
