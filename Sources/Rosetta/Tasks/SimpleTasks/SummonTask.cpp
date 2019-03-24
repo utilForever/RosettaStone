@@ -10,7 +10,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(std::string cardID, int num) : m_cardID(cardID), m_num(num)
+SummonTask::SummonTask(std::string cardID, int num)
+    : m_cardID(cardID), m_num(num)
 {
     // Do nothing
 }
@@ -31,7 +32,7 @@ TaskStatus SummonTask::Impl(Player& player)
 
         Card card = Cards::GetInstance().FindCardByID(m_cardID);
         Entity* minion = Entity::GetFromCard(player, std::move(card));
-        int fieldPos =
+        const int fieldPos =
             static_cast<int>(player.GetField().FindEmptyPos().value());
         Generic::Summon(player, dynamic_cast<Minion*>(minion), fieldPos);
     }
