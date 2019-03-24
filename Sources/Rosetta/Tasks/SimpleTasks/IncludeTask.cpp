@@ -29,8 +29,17 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::TARGET:
             entities.emplace_back(target);
             break;
-        case EntityType::HERO:
+        case EntityType::ALL:
+            for (auto& minion : player.GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
             entities.emplace_back(player.GetHero());
+            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
+            entities.emplace_back(player.GetOpponent().GetHero());
             break;
         case EntityType::FRIENDS:
             for (auto& minion : player.GetField().GetAllMinions())
@@ -45,6 +54,9 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player.GetOpponent().GetHero());
+            break;
+        case EntityType::HERO:
+            entities.emplace_back(player.GetHero());
             break;
         case EntityType::ENEMY_HERO:
             entities.emplace_back(player.GetOpponent().GetHero());
