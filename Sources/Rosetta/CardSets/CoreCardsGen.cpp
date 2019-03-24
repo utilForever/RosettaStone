@@ -208,6 +208,21 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
     cards.emplace("CS2_093", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS2_094] Hammer of Wrath - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $3 damage.
+    //       Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("CS2_094", power);
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)

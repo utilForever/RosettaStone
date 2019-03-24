@@ -837,3 +837,36 @@ TEST(CoreCardsGen, CS2_093)
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetMinion(0)->health, 5);
 }
+
+TEST(CoreCardsGen, CS2_094)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hammer of Wrath"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    EXPECT_EQ(opField.GetMinion(0)->health, 4);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+}
