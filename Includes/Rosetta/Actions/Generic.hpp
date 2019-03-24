@@ -30,7 +30,7 @@ void ChangeManaCrystal(Player& player, int amount, bool fill);
 //! \param player The owner of minion to transform.
 //! \param oldMinion An old minion to transform.
 //! \param card A new card ID to transform.
-void TransformMinion(Player& player, Minion* oldMinion, Card card);
+void TransformMinion(Player& player, Minion* oldMinion, Card&& card);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_GENERIC_HPP

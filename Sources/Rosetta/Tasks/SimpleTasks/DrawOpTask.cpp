@@ -22,7 +22,7 @@ TaskStatus DrawOpTask::Impl(Player& player)
 {
     for (std::size_t i = 0; i < m_num; ++i)
     {
-        Generic::Draw(player.GetOpponent(), std::nullopt);
+        Generic::Draw(player.GetOpponent(), nullptr);
     }
 
     return TaskStatus::COMPLETE;

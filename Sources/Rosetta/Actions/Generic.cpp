@@ -55,7 +55,7 @@ void ChangeManaCrystal(Player& player, int amount, bool fill)
     }
 }
 
-void TransformMinion(Player& player, Minion* oldMinion, Card card)
+void TransformMinion(Player& player, Minion* oldMinion, Card&& card)
 {
     Minion* newMinion =
         dynamic_cast<Minion*>(Entity::GetFromCard(player, std::move(card)));
