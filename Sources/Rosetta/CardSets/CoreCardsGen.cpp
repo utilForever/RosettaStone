@@ -244,6 +244,19 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5));
     cards.emplace("DS1_233", power);
+
+	// ----------------------------------------- SPELL - PRIEST
+    // [CS1_130] Holy Smite - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    cards.emplace("CS1_130", power);
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
