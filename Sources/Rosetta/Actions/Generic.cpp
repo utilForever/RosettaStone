@@ -8,6 +8,17 @@
 
 namespace RosettaStone::Generic
 {
+void TakeDamageToCharacter(Entity* source, Character* target, int amount,
+                           bool isSpellDamage)
+{
+    if (isSpellDamage)
+    {
+        amount += static_cast<int>(source->GetOwner().currentSpellPower);
+    }
+
+    target->TakeDamage(*source, amount);
+}
+
 void AddCardToHand(Player& player, Entity* entity)
 {
     // Add card to graveyard if hand is full
