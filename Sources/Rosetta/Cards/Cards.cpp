@@ -191,19 +191,19 @@ std::vector<Card> Cards::FindCardByHealth(std::size_t minVal,
     return result;
 }
 
-std::vector<Card> Cards::FindCardBySpellDamage(std::size_t minVal,
-                                               std::size_t maxVal)
+std::vector<Card> Cards::FindCardBySpellPower(std::size_t minVal,
+                                              std::size_t maxVal)
 {
     std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (!card.spellDamage)
+        if (!card.spellPower)
         {
             continue;
         }
 
-        if (*card.spellDamage >= minVal && *card.spellDamage <= maxVal)
+        if (*card.spellPower >= minVal && *card.spellPower <= maxVal)
         {
             result.emplace_back(card);
         }

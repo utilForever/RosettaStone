@@ -76,7 +76,7 @@ class Card
 
     std::optional<std::size_t> attack;
     std::optional<std::size_t> health;
-    std::optional<std::size_t> spellDamage;
+    std::optional<std::size_t> spellPower;
     std::optional<std::size_t> durability;
 
     std::size_t cost = 0;
