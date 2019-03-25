@@ -83,7 +83,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     cards.emplace("DS1_185", power);
 }
 
@@ -133,7 +133,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     cards.emplace("CS2_024", power);
@@ -145,7 +145,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // Text: Deal $1 damage to all enemy minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1, true));
     cards.emplace("CS2_025", power);
 
     // ------------------------------------------- SPELL - MAGE
@@ -188,7 +188,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 6));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 6, true));
     cards.emplace("CS2_029", power);
 
     // ------------------------------------------- SPELL - MAGE
@@ -198,7 +198,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // Text: Deal $4 damage to all enemy minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 4));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 4, true));
     cards.emplace("CS2_032", power);
 
     // ------------------------------------------ MINION - MAGE
@@ -226,7 +226,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
                                          new DamageTask(EntityType::STACK, 1) },
-                                       3));
+                                       3, true));
     cards.emplace("EX1_277", power);
 }
 
@@ -283,7 +283,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // Text: Deal $2 damage to all enemies.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2, true));
     cards.emplace("CS2_093", power);
 
     // ---------------------------------------- SPELL - PALADIN
@@ -297,7 +297,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("CS2_094", power);
 
@@ -337,7 +337,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     //       Restore #2 Health to all friendly characters.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2, true));
     power.AddPowerTask(new HealTask(EntityType::FRIENDS, 2));
     cards.emplace("CS1_112", power);
 
@@ -367,7 +367,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     cards.emplace("CS1_130", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -377,7 +377,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // Text: Deal $5 damage to the enemy hero.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
     cards.emplace("DS1_233", power);
 }
 
@@ -398,7 +398,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     //       Draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_129", power);
 
@@ -437,7 +437,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     cards.emplace("CS2_037", power);
@@ -497,7 +497,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 4));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 4, true));
     cards.emplace("CS2_057", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -507,7 +507,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // Text: Deal $3 damage to all characters.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ALL, 3));
+    power.AddPowerTask(new DamageTask(EntityType::ALL, 3, true));
     cards.emplace("CS2_062", power);
 
     // --------------------------------------- MINION - WARLOCK
