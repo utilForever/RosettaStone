@@ -114,7 +114,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
     return targets;
 }
 
-std::size_t Character::TakeDamage(Character& source, std::size_t damage)
+std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
 {
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
