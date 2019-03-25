@@ -79,6 +79,7 @@ class Character : public Entity
 
     std::size_t numAttacked = 0;
     std::size_t attack = 0;
+    std::size_t spellPower = 0;
     int health = 0;
     int maxHealth = 0;
 };
