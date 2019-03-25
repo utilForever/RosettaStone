@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Models/Battlefield.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <algorithm>
 
@@ -114,5 +115,23 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
     m_minions[pos] = &newMinion;
 
     delete &oldMinion;
+}
+
+void Battlefield::ActivateAura(Minion& minion)
+{
+    int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    if (spellPower > 0)
+    {
+        minion.GetOwner().currentSpellPower += spellPower;
+    }
+}
+
+void Battlefield::RemoveAura(Minion& minion)
+{
+    int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    if (minion.GetOwner().currentSpellPower > 0 && spellPower > 0)
+    {
+        minion.GetOwner().currentSpellPower -= spellPower;
+    }
 }
 }  // namespace RosettaStone
