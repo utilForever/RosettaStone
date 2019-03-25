@@ -132,7 +132,7 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.attack =
             (attack != -1) ? std::optional<std::size_t>(attack) : std::nullopt;
         card.health =
-            (health != -1) ? std::optional<std::size_t>(health) : std::nullopt;
+            (health != -1) ? std::optional<int>(health) : std::nullopt;
         card.durability = (durability != -1)
                               ? std::optional<std::size_t>(durability)
                               : std::nullopt;

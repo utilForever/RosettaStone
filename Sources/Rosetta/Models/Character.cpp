@@ -16,9 +16,9 @@ Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
     if (!card.id.empty())
     {
-        attack = card.attack ? *card.attack : 0;
-        spellPower = card.spellPower ? *card.spellPower : 0;
-        health = card.health ? static_cast<int>(*card.health) : 0;
+        attack = card.attack.value_or(0);
+        spellPower = card.spellPower.value_or(0);
+        health = card.health.value_or(0);
         maxHealth = health;
     }
 }

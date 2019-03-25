@@ -46,8 +46,7 @@ TaskMeta GenerateRandomTaskMeta()
     return TaskMeta(GenerateRandomTrait(), GenerateRandomBuffer());
 }
 
-Card GenerateMinionCard(std::string&& id, std::size_t attack,
-                        std::size_t health)
+Card GenerateMinionCard(std::string&& id, std::size_t attack, int health)
 {
     Card card;
     card.cardType = CardType::MINION;
