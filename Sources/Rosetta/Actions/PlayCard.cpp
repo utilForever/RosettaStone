@@ -78,6 +78,11 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     // Process power tasks
     for (auto& power : minion->card.power.GetPowerTask())
     {
+        if (power == nullptr)
+        {
+            continue;
+        }
+
         power->Run(player);
     }
 }
