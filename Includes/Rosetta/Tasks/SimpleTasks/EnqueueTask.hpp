@@ -21,7 +21,8 @@ class EnqueueTask : public ITask
     //! Constructs task with given \p tasks and \p num.
     //! \param tasks A task vector to repeat.
     //! \param num The number of times to repeat tasks.
-    EnqueueTask(std::vector<ITask*> tasks, int num);
+    //! \param isSpellDamage true if it is spell damage, and false otherwise.
+    EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage = false);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -35,6 +36,7 @@ class EnqueueTask : public ITask
 
     std::vector<ITask*> m_tasks;
     int m_num = 0;
+    bool m_isSpellDamage = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 
