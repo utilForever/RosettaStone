@@ -21,7 +21,9 @@ class DamageTask : public ITask
     //! Constructs task with given \p character and \p damage.
     //! \param entityType The entity type of target to take damage.
     //! \param damage A value indicating how much to take.
-    DamageTask(EntityType entityType, std::size_t damage);
+    //! \param isSpellDamage true if it is spell damage, and false otherwise.
+    DamageTask(EntityType entityType, std::size_t damage,
+               bool isSpellDamage = false);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,6 +36,7 @@ class DamageTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     std::size_t m_damage = 0;
+    bool m_isSpellDamage = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

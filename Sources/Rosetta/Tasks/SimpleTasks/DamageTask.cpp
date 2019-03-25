@@ -3,14 +3,16 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-DamageTask::DamageTask(EntityType entityType, std::size_t damage)
-    : ITask(entityType), m_damage(damage)
+DamageTask::DamageTask(EntityType entityType, std::size_t damage,
+                       bool isSpellDamage)
+    : ITask(entityType), m_damage(damage), m_isSpellDamage(isSpellDamage)
 {
     // Do nothing
 }
@@ -28,7 +30,8 @@ TaskStatus DamageTask::Impl(Player& player)
     for (auto& entity : entities)
     {
         auto character = dynamic_cast<Character*>(entity);
-        character->TakeDamage(*character, m_damage);
+        Generic::TakeDamageToCharacter(
+            m_source, character, static_cast<int>(m_damage), m_isSpellDamage);
     }
 
     for (auto& entity : entities)
