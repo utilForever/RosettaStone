@@ -92,6 +92,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
     // Process power tasks
     for (auto& powerTask : spell->card.power.GetPowerTask())
     {
+        powerTask->SetSource(spell);
         powerTask->SetTarget(target);
         powerTask->Run(player);
     }
