@@ -170,8 +170,7 @@ std::vector<Card> Cards::FindCardByAttack(std::size_t minVal,
     return result;
 }
 
-std::vector<Card> Cards::FindCardByHealth(std::size_t minVal,
-                                          std::size_t maxVal)
+std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
 {
     std::vector<Card> result;
 

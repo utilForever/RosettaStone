@@ -111,7 +111,7 @@ class Cards
     //! \param minVal The minimum health value of the card.
     //! \param maxVal The maximum health value of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByHealth(std::size_t minVal, std::size_t maxVal);
+    std::vector<Card> FindCardByHealth(int minVal, int maxVal);
 
     //! Returns a list of cards whose spell power is between \p minVal and \p maxVal.
     //! \param minVal The minimum spell power value of the card.
