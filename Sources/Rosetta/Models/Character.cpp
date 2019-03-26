@@ -137,7 +137,7 @@ std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
     {
         if (minion != nullptr)
         {
-            minion->isDestroyed = true;
+            minion->Destroy();
         }
     }
 
