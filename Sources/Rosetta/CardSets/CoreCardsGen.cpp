@@ -694,6 +694,32 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_131", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
+    // - Faction: Horde, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_142", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
+    // - Faction: Alliance, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_155", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -791,6 +817,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_187", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_197", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -831,6 +870,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
     cards.emplace("EX1_066", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_582", power);
 }
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)

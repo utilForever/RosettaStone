@@ -395,6 +395,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_405", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +5</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - SPELLPOWER = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_563", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
