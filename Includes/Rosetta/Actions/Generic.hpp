@@ -10,6 +10,14 @@
 
 namespace RosettaStone::Generic
 {
+//! Takes damage to target character.
+//! \param source An entity to give damage.
+//! \param target A character to take damage.
+//! \param amount A value indicating how much to take damage.
+//! \param isSpellDamage true if it is spell damage, and false otherwise.
+void TakeDamageToCharacter(Entity* source, Character* target, int amount,
+                           bool isSpellDamage);
+
 //! Adds card to hand.
 //! \param player The player to add card to hand.
 //! \param entity A card to add.

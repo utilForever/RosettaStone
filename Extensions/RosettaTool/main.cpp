@@ -43,91 +43,10 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline std::vector<GameTag> CheckAbilityImpl(const std::string& path)
-{
-    std::vector<GameTag> result;
-
-#if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
-    std::map<std::string, GameTag> abilityStrMap = {
-        { "Adapt", GameTag::ADAPT },
-        { "Charge", GameTag::CHARGE },
-        { "DivineShield", GameTag::DIVINE_SHIELD },
-        { "Freeze", GameTag::FREEZE },
-        { "Poisonous", GameTag::POISONOUS },
-        { "Stealth", GameTag::STEALTH },
-        { "Taunt", GameTag::TAUNT },
-        { "Windfury", GameTag::WINDFURY },
-        { "Immune", GameTag::IMMUNE },
-    };
-
-    const filesystem::path p(
-        path + "/Tests/UnitTests/Tasks/PlayerTasks/AttackTaskTests.cpp");
-
-    if (!filesystem::exists(p))
-    {
-        std::cerr << p << " does not exist\n";
-        exit(EXIT_FAILURE);
-    }
-
-    if (!filesystem::is_regular_file(p))
-    {
-        std::cerr << p << " exists, but is not regular file\n";
-        exit(EXIT_FAILURE);
-    }
-
-    std::ifstream abilityFile;
-    abilityFile.open(p.string());
-
-    if (!abilityFile.is_open())
-    {
-        std::cerr << p << " couldn't open\n";
-        exit(EXIT_FAILURE);
-    }
-
-    std::string line;
-    while (std::getline(abilityFile, line))
-    {
-        for (auto& ability : abilityStrMap)
-        {
-            std::string sentence = "TEST(AttackTask, " + ability.first + ")";
-            if (line.find(sentence, 0) != std::string::npos)
-            {
-                result.emplace_back(ability.second);
-                break;
-            }
-        }
-    }
-#elif defined(ROSETTASTONE_MACOSX)
-    std::cerr
-        << "CheckAbilityImpl skip: apple-clang doesn't support <filesystem>\n";
-    exit(EXIT_FAILURE);
-#endif
-
-    return result;
-}
-
-inline bool CheckCardImpl(const std::string& path,
-                          const std::vector<GameTag>& abilityList,
-                          const std::string& id)
+inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {
 #if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
-    // Excludes this cards because it has power that doesn't appear in ability
-    // EX1_508: Grimscale Oracle (CORE)
-    // CS2_146: Southsea Deckhand (EXPERT1)
-    // DS1_188: Gladiator's Longbow (EXPERT1)
-    // EX1_105: Mountain Giant (EXPERT1)
-    // EX1_335: Lightspawn (EXPERT1)
-    // EX1_350: Prophet Velen (EXPERT1)
-    // EX1_411: Gorehowl (EXPERT1)
-    // EX1_560: Nozdormu (EXPERT1)
-    // EX1_586: Sea Giant (EXPERT1)
-    // NEW1_022: Dread Corsair (EXPERT1)
-    std::vector<std::string> excludeCardList = {
-        "EX1_508", "CS2_146", "DS1_188", "EX1_105", "EX1_335",
-        "EX1_350", "EX1_411", "EX1_560", "EX1_586", "NEW1_022",
-    };
-
-    const filesystem::path p(path + "/Tests/UnitTests/CardSets");
+    const filesystem::path p(path + "/Sources/Rosetta/CardSets");
 
     if (!filesystem::exists(p))
     {
@@ -160,28 +79,6 @@ inline bool CheckCardImpl(const std::string& path,
         }
 
         fileInput.close();
-    }
-
-    Card card = Cards::GetInstance().FindCardByID(id);
-
-    bool isAbilityImpl = true;
-    for (auto& mechanic : card.mechanics)
-    {
-        if (std::find(abilityList.begin(), abilityList.end(), mechanic) ==
-            abilityList.end())
-        {
-            isAbilityImpl = false;
-            break;
-        }
-    }
-
-    // Counts minion and weapon card only
-    if (isAbilityImpl && (card.cardType == +CardType::MINION ||
-                          card.cardType == +CardType::WEAPON))
-    {
-        // Excludes cards that its power doesn't appear in ability
-        return std::find(excludeCardList.begin(), excludeCardList.end(),
-                         card.id) == excludeCardList.end();
     }
 #elif defined(ROSETTASTONE_MACOSX)
     std::cerr
@@ -226,8 +123,6 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         outputFile << "Set | ID | Name | Implemented\n";
         outputFile << ":---: | :---: | :---: | :---:\n";
 
-        std::vector<GameTag> abilityList = CheckAbilityImpl(projectPath);
-
         for (auto& card : cards)
         {
             std::string mechanicStr;
@@ -236,8 +131,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
                 mechanicStr += mechanic._to_string();
             }
 
-            const bool isImplemented =
-                CheckCardImpl(projectPath, abilityList, card.id);
+            const bool isImplemented = CheckCardImpl(projectPath, card.id);
             if (isImplemented)
             {
                 impledCardNum++;

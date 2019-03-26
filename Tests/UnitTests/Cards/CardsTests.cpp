@@ -268,8 +268,8 @@ TEST(Cards, FindCardBySpellDamage)
 {
     Cards& instance = Cards::GetInstance();
 
-    std::vector<Card> cards1 = instance.FindCardBySpellDamage(1, 1);
-    std::vector<Card> cards2 = instance.FindCardBySpellDamage(2, 1);
+    std::vector<Card> cards1 = instance.FindCardBySpellPower(1, 1);
+    std::vector<Card> cards2 = instance.FindCardBySpellPower(2, 1);
 
     EXPECT_FALSE(cards1.empty());
     EXPECT_TRUE(cards2.empty());

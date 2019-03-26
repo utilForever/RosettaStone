@@ -4,7 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <algorithm>
 
@@ -84,10 +86,16 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
     {
         minion.SetGameTag(GameTag::EXHAUSTED, 1);
     }
+
+    minion.orderOfPlay = minion.GetOwner().GetGame()->GetNextOOP();
+
+    ActivateAura(minion);
 }
 
 void Battlefield::RemoveMinion(Minion& minion)
 {
+    RemoveAura(minion);
+
     std::size_t idx = 0;
 
     for (; idx < m_numMinion; ++idx)
@@ -113,6 +121,27 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
     std::size_t pos = FindMinionPos(oldMinion).value();
     m_minions[pos] = &newMinion;
 
+    RemoveAura(oldMinion);
     delete &oldMinion;
+
+    ActivateAura(newMinion);
+}
+
+void Battlefield::ActivateAura(Minion& minion)
+{
+    int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    if (spellPower > 0)
+    {
+        minion.GetOwner().currentSpellPower += spellPower;
+    }
+}
+
+void Battlefield::RemoveAura(Minion& minion)
+{
+    int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    if (minion.GetOwner().currentSpellPower > 0 && spellPower > 0)
+    {
+        minion.GetOwner().currentSpellPower -= spellPower;
+    }
 }
 }  // namespace RosettaStone

@@ -17,8 +17,14 @@
 * DamageTask
 * DestroyTask
 * DiscardTask
+* DrawOpTask
 * DrawTask
+* EnqueueTask
 * HealFullTask
 * HealTask
 * IncludeTask
 * ModifyManaTask
+* RandomTask
+* SetGameTagTask
+* SummonTask
+* TransformTask

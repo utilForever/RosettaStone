@@ -83,9 +83,9 @@ void CardLoader::Load(std::vector<Card>& cards)
         const int health =
             cardData["health"].is_null() ? -1 : cardData["health"].get<int>();
 
-        const int spellDamage = cardData["spellDamage"].is_null()
-                                    ? -1
-                                    : cardData["spellDamage"].get<int>();
+        const int spellPower = cardData["spellDamage"].is_null()
+                                   ? -1
+                                   : cardData["spellDamage"].get<int>();
 
         const int durability = cardData["durability"].is_null()
                                    ? -1
@@ -132,13 +132,13 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.attack =
             (attack != -1) ? std::optional<std::size_t>(attack) : std::nullopt;
         card.health =
-            (health != -1) ? std::optional<std::size_t>(health) : std::nullopt;
+            (health != -1) ? std::optional<int>(health) : std::nullopt;
         card.durability = (durability != -1)
                               ? std::optional<std::size_t>(durability)
                               : std::nullopt;
-        card.spellDamage = (spellDamage != -1)
-                               ? std::optional<std::size_t>(spellDamage)
-                               : std::nullopt;
+        card.spellPower = (spellPower != -1)
+                              ? std::optional<std::size_t>(spellPower)
+                              : std::nullopt;
 
         card.cost = cost;
         card.mechanics = mechanics;

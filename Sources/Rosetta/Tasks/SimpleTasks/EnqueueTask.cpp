@@ -7,8 +7,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-EnqueueTask::EnqueueTask(std::vector<ITask*> tasks, int num)
-    : m_tasks(tasks), m_num(num)
+EnqueueTask::EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage)
+    : m_tasks(tasks), m_num(num), m_isSpellDamage(isSpellDamage)
 {
     // Do nothing
 }
@@ -20,7 +20,9 @@ TaskID EnqueueTask::GetTaskID() const
 
 TaskStatus EnqueueTask::Impl(Player& player)
 {
-    for (int i = 0; i < m_num; ++i)
+    int times = m_isSpellDamage ? m_num + player.currentSpellPower : m_num;
+
+    for (int i = 0; i < times; ++i)
     {
         for (auto& task : m_tasks)
         {

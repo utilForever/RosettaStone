@@ -133,6 +133,8 @@ class Player
     std::size_t currentMana = 0;
     std::size_t maximumMana = 0;
 
+    int currentSpellPower = 0;
+
  private:
     std::string m_nickname;
     PlayerType m_playerType = PlayerType::PLAYER1;

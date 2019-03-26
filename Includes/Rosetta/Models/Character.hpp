@@ -48,9 +48,6 @@ class Character : public Entity
     //! \return The value of attack.
     virtual size_t GetAttack() const;
 
-    //! Destroys character.
-    void Destroy() override;
-
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack() const;
@@ -67,10 +64,10 @@ class Character : public Entity
     static std::vector<Character*> GetValidCombatTargets(Player& opponent);
 
     //! Takes damage from a certain other entity.
-    //! \param source The character to take damage.
+    //! \param source An entity to give damage.
     //! \param damage The value of damage.
     //! \return Final damage taking into account ability.
-    size_t TakeDamage(Character& source, std::size_t damage);
+    size_t TakeDamage(Entity& source, std::size_t damage);
 
     //! Gets healed by a certain other entity.
     //! \param source The character to get heal.
@@ -79,6 +76,7 @@ class Character : public Entity
 
     std::size_t numAttacked = 0;
     std::size_t attack = 0;
+    std::size_t spellPower = 0;
     int health = 0;
     int maxHealth = 0;
 };

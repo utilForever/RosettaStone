@@ -111,14 +111,14 @@ class Cards
     //! \param minVal The minimum health value of the card.
     //! \param maxVal The maximum health value of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByHealth(std::size_t minVal, std::size_t maxVal);
+    std::vector<Card> FindCardByHealth(int minVal, int maxVal);
 
-    //! Returns a list of cards whose damage is between \p minVal and \p maxVal.
-    //! \param minVal The minimum spell damage value of the card.
-    //! \param maxVal The maximum spell damage value of the card.
+    //! Returns a list of cards whose spell power is between \p minVal and \p maxVal.
+    //! \param minVal The minimum spell power value of the card.
+    //! \param maxVal The maximum spell power value of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardBySpellDamage(std::size_t minVal,
-                                            std::size_t maxVal);
+    std::vector<Card> FindCardBySpellPower(std::size_t minVal,
+                                           std::size_t maxVal);
 
     //! Returns a list of cards that has \p mechanics.
     //! \param mechanics The mechanics of the card.

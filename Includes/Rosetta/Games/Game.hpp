@@ -10,6 +10,8 @@
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <map>
+
 namespace RosettaStone
 {
 //!
@@ -115,12 +117,16 @@ class Game
     //! Starts the game.
     void StartGame();
 
+    //! Processes destroy.
+    void ProcessDestroy();
+
     State state = State::INVALID;
 
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
     std::vector<Entity*> taskStack;
+    std::map<std::size_t, Minion*> deadMinions;
 
  private:
     GameConfig m_gameConfig;

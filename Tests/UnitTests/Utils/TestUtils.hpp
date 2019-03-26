@@ -21,8 +21,7 @@ TaskMetaTrait GenerateRandomTrait();
 
 TaskMeta GenerateRandomTaskMeta();
 
-Card GenerateMinionCard(std::string&& id, std::size_t attack,
-                        std::size_t health);
+Card GenerateMinionCard(std::string&& id, std::size_t attack, int health);
 
 void PlayMinionCard(Player& player, Card& card);
 

@@ -7,8 +7,10 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Tasks/Tasks.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -371,5 +373,47 @@ void Game::StartGame()
     // Set next step
     nextStep = Step::BEGIN_FIRST;
     GameManager::ProcessNextStep(*this, nextStep);
+}
+
+void Game::ProcessDestroy()
+{
+    // Destroy weapons
+    if (GetPlayer1().GetHero()->weapon != nullptr &&
+        GetPlayer1().GetHero()->weapon->isDestroyed == true)
+    {
+        GetPlayer1().GetHero()->RemoveWeapon();
+    }
+    if (GetPlayer2().GetHero()->weapon != nullptr &&
+        GetPlayer2().GetHero()->weapon->isDestroyed == true)
+    {
+        GetPlayer2().GetHero()->RemoveWeapon();
+    }
+
+    // Destroy minions
+    if (deadMinions.size() > 0)
+    {
+        for (auto& deadMinion : deadMinions)
+        {
+            Minion* minion = deadMinion.second;
+
+            // Process deathrattle tasks
+            for (auto& power : minion->card.power.GetDeathrattleTask())
+            {
+                if (power == nullptr)
+                {
+                    continue;
+                }
+
+                power->Run(minion->GetOwner());
+            }
+
+            // Remove minion from battlefield
+            minion->GetOwner().GetField().RemoveMinion(*minion);
+            // Add minion to graveyard
+            minion->GetOwner().GetGraveyard().AddCard(*minion);
+        }
+
+        deadMinions.clear();
+    }
 }
 }  // namespace RosettaStone

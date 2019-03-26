@@ -80,6 +80,9 @@ class Battlefield
     void ReplaceMinion(Minion& oldMinion, Minion& newMinion);
 
  private:
+    void ActivateAura(Minion& minion);
+    void RemoveAura(Minion& minion);
+
     Player* m_owner = nullptr;
 
     std::array<Character*, FIELD_SIZE> m_minions{};

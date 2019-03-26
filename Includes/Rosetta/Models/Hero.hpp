@@ -45,9 +45,6 @@ class Hero : public Character
     //! Move assignment operator.
     Hero& operator=(Hero&& hero) = delete;
 
-    //! Destroys hero.
-    void Destroy() override;
-
     //! Adds weapon to hero.
     //! \param _weapon A weapon card to add.
     void AddWeapon(Weapon& _weapon);

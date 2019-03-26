@@ -101,7 +101,7 @@ void Entity::SetGameTag(GameTag tag, int value)
 
 void Entity::Destroy()
 {
-    // Do nothing
+    isDestroyed = true;
 }
 
 Entity* Entity::GetFromCard(Player& player, Card&& card)

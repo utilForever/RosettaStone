@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 
@@ -16,7 +17,8 @@ Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
 
 void Minion::Destroy()
 {
-    GetOwner().GetField().RemoveMinion(*this);
-    GetOwner().GetGraveyard().AddCard(*this);
+    Entity::Destroy();
+
+    GetOwner().GetGame()->deadMinions.emplace(orderOfPlay, this);
 }
 }  // namespace RosettaStone
