@@ -5,6 +5,7 @@
 
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -248,6 +249,22 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_010", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
+    // - Fac: neutral, Set: expert1, Rarity: legendary
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    //       <b>Deathrattle:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - SPELLPOWER = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new DrawTask(1));
+    cards.emplace("EX1_012", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
