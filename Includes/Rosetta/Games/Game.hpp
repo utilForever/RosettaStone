@@ -10,6 +10,8 @@
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <map>
+
 namespace RosettaStone
 {
 //!
@@ -121,6 +123,7 @@ class Game
     Step nextStep = Step::INVALID;
 
     std::vector<Entity*> taskStack;
+    std::map<std::size_t, Minion*> deadMinions;
 
  private:
     GameConfig m_gameConfig;
