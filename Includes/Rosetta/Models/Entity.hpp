@@ -81,6 +81,7 @@ class Entity
     Card card;
 
     std::size_t id = 0;
+    std::size_t orderOfPlay = 0;
 
     bool isDestroyed = false;
 
