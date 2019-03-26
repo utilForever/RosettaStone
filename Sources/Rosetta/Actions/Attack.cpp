@@ -94,15 +94,7 @@ void Attack(Player& player, Character* source, Character* target)
         source->SetGameTag(GameTag::EXHAUSTED, 1);
     }
 
-    // Destroy source and target
-    if (source->isDestroyed)
-    {
-        source->Destroy();
-    }
-    if (target->isDestroyed)
-    {
-        target->Destroy();
-    }
+    player.GetGame()->ProcessDestroy();
 
     // Set game step to MAIN_ACTION
     player.GetGame()->step = Step::MAIN_ACTION;

@@ -5,6 +5,7 @@
 
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::Generic
@@ -85,6 +86,8 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 
         power->Run(player);
     }
+
+    player.GetGame()->ProcessDestroy();
 }
 
 void PlaySpell(Player& player, Spell* spell, Character* target)
@@ -96,6 +99,8 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
         powerTask->SetTarget(target);
         powerTask->Run(player);
     }
+
+    player.GetGame()->ProcessDestroy();
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
