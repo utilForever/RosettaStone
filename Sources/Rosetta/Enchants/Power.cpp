@@ -18,9 +18,15 @@ std::vector<ITask*>& Power::GetPowerTask()
     return m_powerTask;
 }
 
+std::vector<ITask*>& Power::GetDeathrattleTask()
+{
+    return m_deathrattleTask;
+}
+
 void Power::ClearData()
 {
     m_powerTask.clear();
+    m_deathrattleTask.clear();
 }
 
 void Power::AddEnchant(Enchant&& enchant)
@@ -31,5 +37,10 @@ void Power::AddEnchant(Enchant&& enchant)
 void Power::AddPowerTask(ITask* task)
 {
     m_powerTask.emplace_back(task);
+}
+
+void Power::AddDeathrattleTask(ITask* task)
+{
+    m_deathrattleTask.emplace_back(task);
 }
 }  // namespace RosettaStone
