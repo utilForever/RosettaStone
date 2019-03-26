@@ -24,28 +24,29 @@ class Enchant;
 class Power
 {
  public:
-    //! Returns a list of power tasks.
-    //! \return A list of power tasks.
-    std::vector<ITask*>& GetPowerTask();
-
     //! Returns enchant.
     //! \return A reference to enchant.
     Enchant& GetEnchant();
 
+    //! Returns a list of power tasks.
+    //! \return A list of power tasks.
+    std::vector<ITask*>& GetPowerTask();
+
     //! Clears power task and enchant.
     void ClearData();
-
-    //! Adds power task to a list of power tasks.
-    //! \param task A pointer to power task.
-    void AddPowerTask(ITask* task);
 
     //! Adds enchant.
     //! \param enchant An enchant to add.
     void AddEnchant(Enchant&& enchant);
 
+    //! Adds power task to a list of power tasks.
+    //! \param task A pointer to power task.
+    void AddPowerTask(ITask* task);
+
  private:
-    std::vector<ITask*> m_powerTask;
     Enchant m_enchant;
+
+    std::vector<ITask*> m_powerTask;
 };
 }  // namespace RosettaStone
 

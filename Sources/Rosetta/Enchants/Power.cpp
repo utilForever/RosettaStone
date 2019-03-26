@@ -8,14 +8,14 @@
 
 namespace RosettaStone
 {
-std::vector<ITask*>& Power::GetPowerTask()
-{
-    return m_powerTask;
-}
-
 Enchant& Power::GetEnchant()
 {
     return m_enchant;
+}
+
+std::vector<ITask*>& Power::GetPowerTask()
+{
+    return m_powerTask;
 }
 
 void Power::ClearData()
@@ -23,13 +23,13 @@ void Power::ClearData()
     m_powerTask.clear();
 }
 
-void Power::AddPowerTask(ITask* task)
-{
-    m_powerTask.emplace_back(task);
-}
-
 void Power::AddEnchant(Enchant&& enchant)
 {
     m_enchant = std::move(enchant);
+}
+
+void Power::AddPowerTask(ITask* task)
+{
+    m_powerTask.emplace_back(task);
 }
 }  // namespace RosettaStone
