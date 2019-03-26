@@ -85,10 +85,14 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
     {
         minion.SetGameTag(GameTag::EXHAUSTED, 1);
     }
+
+    ActivateAura(minion);
 }
 
 void Battlefield::RemoveMinion(Minion& minion)
 {
+    RemoveAura(minion);
+
     std::size_t idx = 0;
 
     for (; idx < m_numMinion; ++idx)
@@ -114,7 +118,10 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
     std::size_t pos = FindMinionPos(oldMinion).value();
     m_minions[pos] = &newMinion;
 
+    RemoveAura(oldMinion);
     delete &oldMinion;
+
+    ActivateAura(newMinion);
 }
 
 void Battlefield::ActivateAura(Minion& minion)
