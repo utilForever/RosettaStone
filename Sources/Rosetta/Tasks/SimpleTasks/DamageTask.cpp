@@ -34,14 +34,6 @@ TaskStatus DamageTask::Impl(Player& player)
             m_source, character, static_cast<int>(m_damage), m_isSpellDamage);
     }
 
-    for (auto& entity : entities)
-    {
-        if (entity->isDestroyed)
-        {
-            entity->Destroy();
-        }
-    }
-
     return TaskStatus::COMPLETE;
 }
 }  // namespace RosettaStone::SimpleTasks
