@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Player.hpp>
 
@@ -85,6 +86,8 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
     {
         minion.SetGameTag(GameTag::EXHAUSTED, 1);
     }
+
+    minion.orderOfPlay = minion.GetOwner().GetGame()->GetNextOOP();
 
     ActivateAura(minion);
 }
