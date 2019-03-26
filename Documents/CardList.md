@@ -73,10 +73,10 @@ CORE | CS2_125 | Ironfur Grizzly | O
 CORE | CS2_127 | Silverback Patriarch | O
 CORE | CS2_131 | Stormwind Knight | O
 CORE | CS2_141 | Ironforge Rifleman |  
-CORE | CS2_142 | Kobold Geomancer |  
+CORE | CS2_142 | Kobold Geomancer | O
 CORE | CS2_147 | Gnomish Inventor |  
 CORE | CS2_150 | Stormpike Commando |  
-CORE | CS2_155 | Archmage |  
+CORE | CS2_155 | Archmage | O
 CORE | CS2_162 | Lord of the Arena | O
 CORE | CS2_168 | Murloc Raider | O
 CORE | CS2_171 | Stonetusk Boar | O
@@ -88,7 +88,7 @@ CORE | CS2_186 | War Golem | O
 CORE | CS2_187 | Booty Bay Bodyguard | O
 CORE | CS2_189 | Elven Archer |  
 CORE | CS2_196 | Razorfen Hunter |  
-CORE | CS2_197 | Ogre Magi |  
+CORE | CS2_197 | Ogre Magi | O
 CORE | CS2_200 | Boulderfist Ogre | O
 CORE | CS2_201 | Core Hound | O
 CORE | CS2_213 | Reckless Rocketeer | O
@@ -132,7 +132,7 @@ CORE | EX1_508 | Grimscale Oracle |
 CORE | EX1_539 | Kill Command |  
 CORE | EX1_565 | Flametongue Totem |  
 CORE | EX1_581 | Sap |  
-CORE | EX1_582 | Dalaran Mage |  
+CORE | EX1_582 | Dalaran Mage | O
 CORE | EX1_587 | Windspeaker |  
 CORE | EX1_593 | Nightblade |  
 CORE | EX1_606 | Shield Block |  
@@ -142,7 +142,7 @@ CORE | NEW1_004 | Vanish |
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 42% (56 of 133 Cards)
+- Progress: 45% (60 of 133 Cards)
 
 ## Classic
 
@@ -178,7 +178,7 @@ EXPERT1 | EX1_007 | Acolyte of Pain |
 EXPERT1 | EX1_008 | Argent Squire | O
 EXPERT1 | EX1_009 | Angry Chicken |  
 EXPERT1 | EX1_010 | Worgen Infiltrator | O
-EXPERT1 | EX1_012 | Bloodmage Thalnos |  
+EXPERT1 | EX1_012 | Bloodmage Thalnos | O
 EXPERT1 | EX1_014 | King Mukla |  
 EXPERT1 | EX1_017 | Jungle Panther | O
 EXPERT1 | EX1_020 | Scarlet Crusader | O
@@ -321,7 +321,7 @@ EXPERT1 | EX1_559 | Archmage Antonidas |
 EXPERT1 | EX1_560 | Nozdormu |  
 EXPERT1 | EX1_561 | Alexstrasza |  
 EXPERT1 | EX1_562 | Onyxia |  
-EXPERT1 | EX1_563 | Malygos |  
+EXPERT1 | EX1_563 | Malygos | O
 EXPERT1 | EX1_564 | Faceless Manipulator |  
 EXPERT1 | EX1_567 | Doomhammer |  
 EXPERT1 | EX1_570 | Bite |  
@@ -385,7 +385,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 8% (21 of 236 Cards)
+- Progress: 9% (23 of 236 Cards)
 
 ## Hall of Fame
 

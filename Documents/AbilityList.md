@@ -8,13 +8,13 @@
 ## Keywords
 
 * [ ] Adapt
-* [ ] Battlecry
+* [x] Battlecry
 * [x] Charge
 * [ ] Choose One
 * [ ] Choose Twice
 * [ ] Combo
 * [ ] Counter
-* [ ] Deathrattle
+* [x] Deathrattle
 * [ ] Discover
 * [x] Divine Shield
 * [ ] Echo
@@ -35,7 +35,7 @@
 * [ ] Silence
 * [ ] Start of Game
 * [x] Stealth
-* [ ] Spell Damage
+* [x] Spell Damage
 * [x] Taunt
 * [x] Windfury
 
@@ -44,12 +44,12 @@
 * [ ] Can't attack
 * [ ] Can't attack heroes
 * [ ] Card draw effect
-* [ ] Cast spell
+* [x] Cast spell
 * [ ] Copy
 * [ ] Deal damage
 * [x] Destroy
 * [ ] Disable Hero Power
-* [ ] Discard
+* [x] Discard
 * [ ] Elusive
 * [ ] Enchant
 * [ ] Enrage
@@ -59,7 +59,7 @@
 * [ ] Generate
 * [ ] Increment attribute
 * [ ] Joust
-* [ ] Mind control effect
+* [x] Mind control effect
 * [ ] Modify cost
 * [ ] Multiply attribute
 * [ ] No Durability loss
@@ -76,7 +76,7 @@
 * [ ] Shuffle into deck
 * [ ] Spend mana
 * [x] Summon
-* [ ] Transform
+* [x] Transform
 * [ ] Transform in hand
 * [ ] Unlimited attacks
 
