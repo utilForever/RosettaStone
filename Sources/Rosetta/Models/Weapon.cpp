@@ -15,9 +15,8 @@ Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
     durability = _card.durability ? *_card.durability : 0;
 }
 
-void Weapon::Destroy()
+Weapon::~Weapon()
 {
     GetOwner().GetHero()->weapon = nullptr;
-    delete this;
 }
 }  // namespace RosettaStone

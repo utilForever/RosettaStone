@@ -29,8 +29,8 @@ class Weapon : public Entity
     //! \param _card A reference to the card.
     Weapon(Player& _owner, Card& _card);
 
-    //! Default destructor.
-    virtual ~Weapon() = default;
+    //! Destructor.
+    virtual ~Weapon();
 
     //! Default copy constructor.
     Weapon(const Weapon& weapon) = default;
@@ -43,9 +43,6 @@ class Weapon : public Entity
 
     //! Default move assignment operator.
     Weapon& operator=(Weapon&& weapon) = default;
-    
-    //! Destroys weapon.
-    void Destroy() override;
 
     std::size_t attack = 0;
     std::size_t durability = 0;
