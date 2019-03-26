@@ -117,6 +117,9 @@ class Game
     //! Starts the game.
     void StartGame();
 
+    //! Processes destroy.
+    void ProcessDestroy();
+
     State state = State::INVALID;
 
     Step step = Step::INVALID;
