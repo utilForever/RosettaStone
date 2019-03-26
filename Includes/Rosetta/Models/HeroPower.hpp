@@ -41,9 +41,6 @@ class HeroPower : public Entity
 
     //! Default move assignment operator.
     HeroPower& operator=(HeroPower&& power) = default;
-
-    //! Destroys hero power.
-    void Destroy() override;
 };
 }  // namespace RosettaStone
 

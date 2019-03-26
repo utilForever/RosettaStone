@@ -48,9 +48,6 @@ class Character : public Entity
     //! \return The value of attack.
     virtual size_t GetAttack() const;
 
-    //! Destroys character.
-    void Destroy() override;
-
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack() const;

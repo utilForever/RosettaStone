@@ -28,11 +28,6 @@ std::size_t Character::GetAttack() const
     return attack;
 }
 
-void Character::Destroy()
-{
-    // Do nothing
-}
-
 bool Character::CanAttack() const
 {
     // If the value of attack is 0, returns false

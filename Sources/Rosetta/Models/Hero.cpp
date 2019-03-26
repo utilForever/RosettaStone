@@ -20,11 +20,6 @@ Hero::~Hero()
     delete heroPower;
 }
 
-void Hero::Destroy()
-{
-    // Do nothing
-}
-
 void Hero::AddWeapon(Weapon& _weapon)
 {
     RemoveWeapon();

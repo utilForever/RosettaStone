@@ -12,9 +12,4 @@ Spell::Spell(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
     // Do nothing
 }
-
-void Spell::Destroy()
-{
-    // Do nothing
-}
 }  // namespace RosettaStone
