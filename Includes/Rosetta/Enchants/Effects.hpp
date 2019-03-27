@@ -18,6 +18,12 @@ namespace RosettaStone
 class Effects
 {
  public:
+    //! Creates effect that increases attack by \p n.
+    static Effect AttackN(int n)
+    {
+        return Effect(GameTag::ATK, EffectOperator::ADD, n);
+    }
+
     //! A minion ability which forces the opposing player to direct any melee
     //! attacks toward enemy targets with this ability.
     inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
