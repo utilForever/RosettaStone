@@ -4,6 +4,8 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Enchants/Aura.hpp>
+#include <Rosetta/Models/Battlefield.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 namespace RosettaStone
 {
@@ -11,5 +13,23 @@ Aura::Aura(std::string&& enchantmentID, AuraType type)
     : m_enchantmentID(enchantmentID), m_type(type)
 {
     // Do nothing
+}
+
+void Aura::Activate(Entity& owner)
+{
+    switch (m_type)
+    {
+        case AuraType::FIELD_EXCEPT_SOURCE:
+        {
+            for (auto& minion : owner.GetOwner().GetField().GetAllMinions())
+            {
+                if (minion == &owner)
+                {
+                    continue;
+                }
+            }
+            break;
+        }
+    }
 }
 }  // namespace RosettaStone

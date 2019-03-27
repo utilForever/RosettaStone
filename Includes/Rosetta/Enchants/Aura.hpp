@@ -10,6 +10,8 @@
 
 namespace RosettaStone
 {
+class Entity;
+
 //! Aura types. Indicates the range of auras.
 enum class AuraType
 {
@@ -35,6 +37,10 @@ class Aura
     //! \param enchantmentID The enchantment card ID.
     //! \param type The type of aura.
     Aura(std::string&& enchantmentID, AuraType type);
+
+    //! Activates aura.
+    //! \param owner An owner of aura.
+    void Activate(Entity& owner);
 
  private:
     std::string m_enchantmentID;
