@@ -10,6 +10,7 @@
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
 
 #include <effolkronium/random.hpp>
@@ -140,6 +141,19 @@ void Game::BeginMulligan()
                           ChoiceAction::HAND, p1HandIDs);
     Generic::CreateChoice(GetPlayer2(), ChoiceType::MULLIGAN,
                           ChoiceAction::HAND, p2HandIDs);
+
+    Player& player1 = GetPlayer1();
+    TaskMeta p1Choice = player1.GetPolicy().Require(player1, TaskID::MULLIGAN);
+    Generic::ChoiceMulligan(player1,
+                            p1Choice.GetObject<std::vector<std::size_t>>());
+
+    Player& player2 = GetPlayer2();
+    TaskMeta p2Choice = player2.GetPolicy().Require(player2, TaskID::MULLIGAN);
+    Generic::ChoiceMulligan(player2,
+                            p2Choice.GetObject<std::vector<std::size_t>>());
+
+    nextStep = Step::MAIN_BEGIN;
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::MainBegin()
