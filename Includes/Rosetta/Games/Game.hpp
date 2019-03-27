@@ -31,7 +31,7 @@ class Game
     explicit Game(GameConfig& gameConfig);
 
     //! Default destructor.
-    virtual ~Game() = default;
+    ~Game() = default;
 
     //! Deleted copy constructor.
     Game(const Game&) = delete;
@@ -70,49 +70,49 @@ class Game
     std::size_t GetNextOOP();
 
     //! Part of the game state.
-    virtual void BeginFirst();
+    void BeginFirst();
 
     //! Part of the game state.
-    virtual void BeginShuffle();
+    void BeginShuffle();
 
     //! Part of the game state.
-    virtual void BeginDraw();
+    void BeginDraw();
 
     //! Part of the game state.
-    virtual void BeginMulligan();
+    void BeginMulligan();
 
     //! Part of the game state.
-    virtual void MainBegin();
+    void MainBegin();
 
     //! Part of the game state.
-    virtual void MainReady();
+    void MainReady();
 
     //! Part of the game state.
-    virtual void MainStartTriggers();
+    void MainStartTriggers();
 
     //! Part of the game state.
-    virtual void MainResource();
+    void MainResource();
 
     //! Part of the game state.
-    virtual void MainDraw();
+    void MainDraw();
 
     //! Part of the game state.
-    virtual void MainStart();
+    void MainStart();
 
     //! Part of the game state.
-    virtual void MainEnd();
+    void MainEnd();
 
     //! Part of the game state.
-    virtual void MainCleanUp();
+    void MainCleanUp();
 
     //! Part of the game state.
-    virtual void MainNext();
+    void MainNext();
 
     //! Part of the game state.
-    virtual void FinalWrapUp();
+    void FinalWrapUp();
 
     //! Part of the game state.
-    virtual void FinalGameOver();
+    void FinalGameOver();
 
     //! Starts the game.
     void StartGame();
