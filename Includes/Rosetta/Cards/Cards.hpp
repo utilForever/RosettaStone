@@ -58,82 +58,85 @@ class Cards
 
     //! Returns a list of all cards.
     //! \return A list of all cards.
-    const std::vector<Card>& GetAllCards() const;
+    static const std::vector<Card>& GetAllCards();
 
     //! Returns a card that matches \p id.
     //! \param id The ID of the card.
     //! \return A card that matches \p id.
-    Card FindCardByID(const std::string& id);
+    static Card FindCardByID(const std::string& id);
 
     //! Returns a list of cards that matches \p rarity.
     //! \param rarity The rarity of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByRarity(Rarity rarity);
+    static std::vector<Card> FindCardByRarity(Rarity rarity);
 
     //! Returns a list of cards that matches \p cardClass.
     //! \param cardClass The class of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByClass(CardClass cardClass);
+    static std::vector<Card> FindCardByClass(CardClass cardClass);
 
     //! Returns a list of cards that matches \p cardSet.
     //! \param cardSet The set of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardBySet(CardSet cardSet);
+    static std::vector<Card> FindCardBySet(CardSet cardSet);
 
     //! Returns a list of cards that matches \p cardType.
     //! \param cardType The type of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByType(CardType cardType);
+    static std::vector<Card> FindCardByType(CardType cardType);
 
     //! Returns a list of cards that matches \p race.
     //! \param race The race of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByRace(Race race);
+    static std::vector<Card> FindCardByRace(Race race);
 
     //! Returns a card that matches \p name.
     //! \param name The name of the card.
     //! \return A card that matches condition.
-    Card FindCardByName(const std::string& name);
+    static Card FindCardByName(const std::string& name);
 
     //! Returns a list of cards whose cost is between \p minVal and \p maxVal.
     //! \param minVal The minimum cost value of the card.
     //! \param maxVal The maximum cost value of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByCost(std::size_t minVal, std::size_t maxVal);
+    static std::vector<Card> FindCardByCost(std::size_t minVal,
+                                            std::size_t maxVal);
 
     //! Returns a list of cards whose attack is between \p minVal and \p maxVal.
     //! \param minVal The minimum attack value of the card.
     //! \param maxVal The maximum attack value of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByAttack(std::size_t minVal, std::size_t maxVal);
+    static std::vector<Card> FindCardByAttack(std::size_t minVal,
+                                              std::size_t maxVal);
 
     //! Returns a list of cards whose health is between \p minVal and \p maxVal.
     //! \param minVal The minimum health value of the card.
     //! \param maxVal The maximum health value of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByHealth(int minVal, int maxVal);
+    static std::vector<Card> FindCardByHealth(int minVal, int maxVal);
 
     //! Returns a list of cards whose spell power is between \p minVal and \p maxVal.
     //! \param minVal The minimum spell power value of the card.
     //! \param maxVal The maximum spell power value of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardBySpellPower(std::size_t minVal,
-                                           std::size_t maxVal);
+    static std::vector<Card> FindCardBySpellPower(std::size_t minVal,
+                                                  std::size_t maxVal);
 
     //! Returns a list of cards that has \p mechanics.
     //! \param mechanics The mechanics of the card.
     //! \return A list of cards that matches condition.
-    std::vector<Card> FindCardByMechanics(std::vector<GameTag> mechanics);
+    static std::vector<Card> FindCardByMechanics(
+        std::vector<GameTag> mechanics);
 
     //! Returns a hero card that matches \p cardClass.
     //! \param cardClass The class of the card.
     //! \return A hero card that matches condition.
-    Card GetHeroCard(CardClass cardClass);
+    static Card GetHeroCard(CardClass cardClass);
 
     //! Returns a default hero power card that matches \p cardClass.
     //! \param cardClass The class of the card.
     //! \return A default hero power card that matches condition.
-    Card GetDefaultHeroPower(CardClass cardClass);
+    static Card GetDefaultHeroPower(CardClass cardClass);
 
  private:
     //! Constructor: Loads card data.
@@ -142,7 +145,7 @@ class Cards
     //! Destructor: Releases card data.
     ~Cards();
 
-    std::vector<Card> m_cards;
+    static std::vector<Card> m_cards;
 };
 }  // namespace RosettaStone
 

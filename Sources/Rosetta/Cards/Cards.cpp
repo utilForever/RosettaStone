@@ -11,6 +11,8 @@
 
 namespace RosettaStone
 {
+std::vector<Card> Cards::m_cards;
+
 Cards::Cards()
 {
     CardLoader::Load(m_cards);
@@ -28,7 +30,7 @@ Cards& Cards::GetInstance()
     return instance;
 }
 
-const std::vector<Card>& Cards::GetAllCards() const
+const std::vector<Card>& Cards::GetAllCards()
 {
     return m_cards;
 }
