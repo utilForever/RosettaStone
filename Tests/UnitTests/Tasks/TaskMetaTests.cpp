@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -7,11 +7,11 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Tasks/TaskMeta.hpp>
+#include <Rosetta/Tasks/TaskMeta.hpp>
 
 #include <random>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace TestUtils;
 
 TEST(TaskMeta, TraitConstructors)
@@ -20,7 +20,7 @@ TEST(TaskMeta, TraitConstructors)
     std::default_random_engine gen(rd());
 
     const int sizeTaskID = static_cast<int>(TaskID::_size());
-    const int sizeTaskStatus = static_cast<int>(TaskStatus::GAME_END);
+    const int sizeTaskStatus = static_cast<int>(TaskStatus::NUM_TASK_STATUS);
 
     const TaskID randID = TaskID::_from_integral(gen() % sizeTaskID);
     const auto randMeta = static_cast<TaskStatus>(gen() % sizeTaskStatus);

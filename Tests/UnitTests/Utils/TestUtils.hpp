@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -7,11 +7,11 @@
 #ifndef UNIT_TESTS_TEST_UTILS_HPP
 #define UNIT_TESTS_TEST_UTILS_HPP
 
-#include <hspp/Cards/Card.hpp>
-#include <hspp/Commons/Utils.hpp>
-#include <hspp/Tasks/TaskMeta.hpp>
+#include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Tasks/TaskMeta.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 namespace TestUtils
 {
@@ -21,8 +21,7 @@ TaskMetaTrait GenerateRandomTrait();
 
 TaskMeta GenerateRandomTaskMeta();
 
-Card GenerateMinionCard(std::string&& id, std::size_t attack,
-                        std::size_t health);
+Card GenerateMinionCard(std::string&& id, std::size_t attack, int health);
 
 void PlayMinionCard(Player& player, Card& card);
 

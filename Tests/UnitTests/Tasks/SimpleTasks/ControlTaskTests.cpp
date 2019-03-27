@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -7,10 +7,10 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Models/Game.hpp>
-#include <hspp/Tasks/SimpleTasks/ControlTask.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
@@ -22,7 +22,10 @@ TEST(ControlTask, GetTaskID)
 
 TEST(ControlTask, Run)
 {
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
 
@@ -45,18 +48,18 @@ TEST(ControlTask, Run)
     control.SetTarget(player2Field.GetMinion(0));
     TaskStatus result = control.Run(player1);
 
-    EXPECT_EQ(result, TaskStatus::CONTROL_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
     // Check controlled minion has valid data
-    EXPECT_EQ(player1Field.GetMinion(6)->GetAttack(), 1);
+    EXPECT_EQ(player1Field.GetMinion(6)->GetAttack(), 1u);
     EXPECT_EQ(player1Field.GetMinion(6)->health, 1);
 
     control.SetTarget(player2Field.GetMinion(1));
     result = control.Run(player1);
 
-    EXPECT_EQ(result, TaskStatus::CONTROL_FIELD_IS_FULL);
+    EXPECT_EQ(result, TaskStatus::STOP);
     EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 }

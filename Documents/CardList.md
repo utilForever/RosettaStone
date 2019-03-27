@@ -1,41 +1,44 @@
-# Hearthstone++ card list
+# RosettaStone card list
 
 * [Basic card list](#basic)
 * [Classic card list](#classic)
+* [Hall of Fame card list](#hall-of-fame)
+
+## Basic
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 CORE | CS1_042 | Goldshire Footman | O
 CORE | CS1_112 | Holy Nova | O
 CORE | CS1_113 | Mind Control | O
-CORE | CS1_130 | Holy Smite |  
+CORE | CS1_130 | Holy Smite | O
 CORE | CS2_003 | Mind Vision |  
 CORE | CS2_004 | Power Word: Shield |  
 CORE | CS2_005 | Claw |  
-CORE | CS2_007 | Healing Touch |  
+CORE | CS2_007 | Healing Touch | O
 CORE | CS2_008 | Moonfire |  
 CORE | CS2_009 | Mark of the Wild |  
 CORE | CS2_011 | Savage Roar |  
 CORE | CS2_012 | Swipe |  
 CORE | CS2_013 | Wild Growth |  
-CORE | CS2_022 | Polymorph |  
-CORE | CS2_023 | Arcane Intellect |  
-CORE | CS2_024 | Frostbolt |  
-CORE | CS2_025 | Arcane Explosion |  
-CORE | CS2_026 | Frost Nova |  
-CORE | CS2_027 | Mirror Image |  
-CORE | CS2_029 | Fireball |  
-CORE | CS2_032 | Flamestrike |  
+CORE | CS2_022 | Polymorph | O
+CORE | CS2_023 | Arcane Intellect | O
+CORE | CS2_024 | Frostbolt | O
+CORE | CS2_025 | Arcane Explosion | O
+CORE | CS2_026 | Frost Nova | O
+CORE | CS2_027 | Mirror Image | O
+CORE | CS2_029 | Fireball | O
+CORE | CS2_032 | Flamestrike | O
 CORE | CS2_033 | Water Elemental | O
-CORE | CS2_037 | Frost Shock |  
+CORE | CS2_037 | Frost Shock | O
 CORE | CS2_039 | Windfury |  
 CORE | CS2_041 | Ancestral Healing | O
 CORE | CS2_042 | Fire Elemental |  
 CORE | CS2_045 | Rockbiter Weapon |  
 CORE | CS2_046 | Bloodlust |  
-CORE | CS2_057 | Shadow Bolt |  
+CORE | CS2_057 | Shadow Bolt | O
 CORE | CS2_061 | Drain Life |  
-CORE | CS2_062 | Hellfire |  
+CORE | CS2_062 | Hellfire | O
 CORE | CS2_063 | Corruption |  
 CORE | CS2_064 | Dread Infernal |  
 CORE | CS2_065 | Voidwalker | O
@@ -48,11 +51,11 @@ CORE | CS2_080 | Assassin's Blade | O
 CORE | CS2_084 | Hunter's Mark |  
 CORE | CS2_087 | Blessing of Might |  
 CORE | CS2_088 | Guardian of Kings | O
-CORE | CS2_089 | Holy Light |  
+CORE | CS2_089 | Holy Light | O
 CORE | CS2_091 | Light's Justice | O
 CORE | CS2_092 | Blessing of Kings |  
-CORE | CS2_093 | Consecration |  
-CORE | CS2_094 | Hammer of Wrath |  
+CORE | CS2_093 | Consecration | O
+CORE | CS2_094 | Hammer of Wrath | O
 CORE | CS2_097 | Truesilver Champion |  
 CORE | CS2_103 | Charge |  
 CORE | CS2_105 | Heroic Strike |  
@@ -70,10 +73,10 @@ CORE | CS2_125 | Ironfur Grizzly | O
 CORE | CS2_127 | Silverback Patriarch | O
 CORE | CS2_131 | Stormwind Knight | O
 CORE | CS2_141 | Ironforge Rifleman |  
-CORE | CS2_142 | Kobold Geomancer |  
+CORE | CS2_142 | Kobold Geomancer | O
 CORE | CS2_147 | Gnomish Inventor |  
 CORE | CS2_150 | Stormpike Commando |  
-CORE | CS2_155 | Archmage |  
+CORE | CS2_155 | Archmage | O
 CORE | CS2_162 | Lord of the Arena | O
 CORE | CS2_168 | Murloc Raider | O
 CORE | CS2_171 | Stonetusk Boar | O
@@ -85,7 +88,7 @@ CORE | CS2_186 | War Golem | O
 CORE | CS2_187 | Booty Bay Bodyguard | O
 CORE | CS2_189 | Elven Archer |  
 CORE | CS2_196 | Razorfen Hunter |  
-CORE | CS2_197 | Ogre Magi |  
+CORE | CS2_197 | Ogre Magi | O
 CORE | CS2_200 | Boulderfist Ogre | O
 CORE | CS2_201 | Core Hound | O
 CORE | CS2_213 | Reckless Rocketeer | O
@@ -102,26 +105,26 @@ CORE | DS1_175 | Timber Wolf |
 CORE | DS1_178 | Tundra Rhino |  
 CORE | DS1_183 | Multi-Shot |  
 CORE | DS1_184 | Tracking |  
-CORE | DS1_185 | Arcane Shot |  
-CORE | DS1_233 | Mind Blast |  
+CORE | DS1_185 | Arcane Shot | O
+CORE | DS1_233 | Mind Blast | O
 CORE | EX1_011 | Voodoo Doctor |  
 CORE | EX1_015 | Novice Engineer |  
 CORE | EX1_019 | Shattered Sun Cleric |  
 CORE | EX1_025 | Dragonling Mechanic |  
 CORE | EX1_066 | Acidic Swamp Ooze | O
 CORE | EX1_084 | Warsong Commander |  
-CORE | EX1_129 | Fan of Knives |  
+CORE | EX1_129 | Fan of Knives | O
 CORE | EX1_169 | Innervate |  
 CORE | EX1_173 | Starfire |  
 CORE | EX1_244 | Totemic Might |  
 CORE | EX1_246 | Hex |  
-CORE | EX1_277 | Arcane Missiles |  
+CORE | EX1_277 | Arcane Missiles | O
 CORE | EX1_278 | Shiv |  
 CORE | EX1_302 | Mortal Coil |  
 CORE | EX1_306 | Succubus | O
 CORE | EX1_308 | Soulfire |  
 CORE | EX1_360 | Humility |  
-CORE | EX1_371 | Hand of Protection |  
+CORE | EX1_371 | Hand of Protection | O
 CORE | EX1_399 | Gurubashi Berserker |  
 CORE | EX1_400 | Whirlwind |  
 CORE | EX1_506 | Murloc Tidehunter |  
@@ -129,7 +132,7 @@ CORE | EX1_508 | Grimscale Oracle |
 CORE | EX1_539 | Kill Command |  
 CORE | EX1_565 | Flametongue Totem |  
 CORE | EX1_581 | Sap |  
-CORE | EX1_582 | Dalaran Mage |  
+CORE | EX1_582 | Dalaran Mage | O
 CORE | EX1_587 | Windspeaker |  
 CORE | EX1_593 | Nightblade |  
 CORE | EX1_606 | Shield Block |  
@@ -139,7 +142,7 @@ CORE | NEW1_004 | Vanish |
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 26% (35 of 133 Cards)
+- Progress: 45% (60 of 133 Cards)
 
 ## Classic
 
@@ -147,7 +150,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 EXPERT1 | CS1_069 | Fen Creeper | O
 EXPERT1 | CS1_129 | Inner Fire |  
-EXPERT1 | CS2_028 | Blizzard |  
+EXPERT1 | CS2_028 | Blizzard | O
 EXPERT1 | CS2_038 | Ancestral Spirit |  
 EXPERT1 | CS2_053 | Far Sight |  
 EXPERT1 | CS2_059 | Blood Imp |  
@@ -175,7 +178,7 @@ EXPERT1 | EX1_007 | Acolyte of Pain |
 EXPERT1 | EX1_008 | Argent Squire | O
 EXPERT1 | EX1_009 | Angry Chicken |  
 EXPERT1 | EX1_010 | Worgen Infiltrator | O
-EXPERT1 | EX1_012 | Bloodmage Thalnos |  
+EXPERT1 | EX1_012 | Bloodmage Thalnos | O
 EXPERT1 | EX1_014 | King Mukla |  
 EXPERT1 | EX1_017 | Jungle Panther | O
 EXPERT1 | EX1_020 | Scarlet Crusader | O
@@ -318,7 +321,7 @@ EXPERT1 | EX1_559 | Archmage Antonidas |
 EXPERT1 | EX1_560 | Nozdormu |  
 EXPERT1 | EX1_561 | Alexstrasza |  
 EXPERT1 | EX1_562 | Onyxia |  
-EXPERT1 | EX1_563 | Malygos |  
+EXPERT1 | EX1_563 | Malygos | O
 EXPERT1 | EX1_564 | Faceless Manipulator |  
 EXPERT1 | EX1_567 | Doomhammer |  
 EXPERT1 | EX1_570 | Bite |  
@@ -382,4 +385,24 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 8% (20 of 236 Cards)
+- Progress: 9% (23 of 236 Cards)
+
+## Hall of Fame
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+HOF | CS2_031 | Ice Lance |  
+HOF | EX1_016 | Sylvanas Windrunner |  
+HOF | EX1_050 | Coldlight Oracle | O
+HOF | EX1_062 | Old Murk-Eye |  
+HOF | EX1_112 | Gelbin Mekkatorque |  
+HOF | EX1_128 | Conceal |  
+HOF | EX1_284 | Azure Drake |  
+HOF | EX1_295 | Ice Block |  
+HOF | EX1_298 | Ragnaros the Firelord |  
+HOF | EX1_316 | Power Overwhelming |  
+HOF | EX1_620 | Molten Giant |  
+HOF | NEW1_016 | Captain's Parrot |  
+HOF | PRO_001 | Elite Tauren Chieftain |  
+
+- Progress: 7% (1 of 13 Cards)

@@ -1,23 +1,23 @@
-# Contributing to Hearthstone++
+# Contributing to RosettaStone
 
-Contributions to Hearthstone++ include code, documentation, answering user questions and so on.
+Contributions to RosettaStone include code, documentation, answering user questions and so on.
 
-Hearthstone++ project welcomes all contributions from anyone willing to work in
+RosettaStone project welcomes all contributions from anyone willing to work in
 good faith with other contributors and the community. No contribution is too
 small and all contributions are valued.
 
-This guide explains the process for contributing to the Hearthstone++ project code and describes what to expect at each step.
+This guide explains the process for contributing to the RosettaStone project code and describes what to expect at each step.
 
 ## [Code of Conduct](./CodeOfConduct.md)
 
-Hearthstone++ project has a
+RosettaStone project has a
 [Code of Conduct](./CodeOfConduct.md)
 that *all* contributors are expected to follow. This code describes the
 *minimum* behavior expectations for all contributors.
 
 ## [Issues](./Issues.md)
 
-Issues in Hearthstone++ are the primary means by which bug reports and
+Issues in RosettaStone are the primary means by which bug reports and
 general discussions are made.
 
 * [How to Contribute in Issues](./Issues.md#how-to-contribute-in-issues)
@@ -29,7 +29,7 @@ general discussions are made.
 ## [Pull Requests](./PullRequests.md)
 
 Pull Requests are the way concrete changes are made to the code, documentation,
-dependencies, and tools contained in the Hearthstone++.
+dependencies, and tools contained in the RosettaStone.
 
 * [Setting up your local environment](./PullRequests.md#setting-up-your-local-environment)
 * [Making Changes](./PullRequests.md#making-changes)

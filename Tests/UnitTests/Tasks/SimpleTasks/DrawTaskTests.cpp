@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -6,13 +6,13 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Cards.hpp>
-#include <hspp/Commons/Utils.hpp>
-#include <hspp/Models/Game.hpp>
-#include <hspp/Policies/BasicPolicy.hpp>
-#include <hspp/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Policies/BasicPolicy.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 using namespace SimpleTasks;
 
 class DrawTestPolicy : public BasicPolicy
@@ -45,7 +45,10 @@ TEST(DrawTask, Run)
     std::vector<Card> cards;
     std::vector<Entity*> minions;
 
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
@@ -67,7 +70,7 @@ TEST(DrawTask, Run)
 
     DrawTask draw(3);
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 3u);
 
     for (std::size_t i = 0; i < 3; ++i)
@@ -79,14 +82,17 @@ TEST(DrawTask, Run)
 
 TEST(DrawTask, RunExhaust)
 {
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
 
     DrawTask draw(3);
 
     TaskStatus result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     // Health: 30 - (1 + 2 + 3)
@@ -99,7 +105,7 @@ TEST(DrawTask, RunExhaust)
     p.GetDeck().AddCard(*minion);
 
     result = draw.Run(game.GetPlayer1());
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 1u);
     EXPECT_EQ(p.GetHand().GetCard(0)->card.id, "card1");
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
@@ -112,7 +118,10 @@ TEST(DrawTask, RunOverDraw)
     std::vector<Card> cards;
     std::vector<Entity*> minions;
 
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
@@ -140,7 +149,7 @@ TEST(DrawTask, RunOverDraw)
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-        EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
+        EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
         EXPECT_TRUE(burnt.HasObjects());
@@ -155,7 +164,7 @@ TEST(DrawTask, RunOverDraw)
     p.SetPolicy(&policy);
 
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
 }
@@ -165,7 +174,10 @@ TEST(DrawTask, RunExhaustOverdraw)
     std::vector<Card> cards;
     std::vector<Minion*> minions;
 
-    Game game(CardClass::ROGUE, CardClass::DRUID, PlayerType::PLAYER1);
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
@@ -192,7 +204,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
-        EXPECT_EQ(burnt.GetStatus(), TaskStatus::DRAW_OVERDRAW);
+        EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
         EXPECT_TRUE(burnt.HasObjects());
@@ -207,7 +219,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     p.SetPolicy(&policy);
 
     TaskStatus result = draw.Run(p);
-    EXPECT_EQ(result, TaskStatus::DRAW_SUCCESS);
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 10u);
     EXPECT_EQ(p.GetHand().GetCard(9)->card.id, "card2");

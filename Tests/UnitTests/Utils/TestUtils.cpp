@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -31,7 +31,7 @@ TaskMetaTrait GenerateRandomTrait()
     std::default_random_engine gen(rd());
 
     const auto sizeTaskID = static_cast<int>(TaskID::_size());
-    const auto sizeTaskStatus = static_cast<int>(TaskStatus::GAME_END);
+    const auto sizeTaskStatus = static_cast<int>(TaskStatus::NUM_TASK_STATUS);
 
     const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
     const auto taskStatus = static_cast<TaskStatus>(gen() % sizeTaskStatus);
@@ -46,8 +46,7 @@ TaskMeta GenerateRandomTaskMeta()
     return TaskMeta(GenerateRandomTrait(), GenerateRandomBuffer());
 }
 
-Card GenerateMinionCard(std::string&& id, std::size_t attack,
-                        std::size_t health)
+Card GenerateMinionCard(std::string&& id, std::size_t attack, int health)
 {
     Card card;
     card.cardType = CardType::MINION;

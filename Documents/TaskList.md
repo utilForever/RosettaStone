@@ -1,34 +1,30 @@
-# Hearthstone++ task list
+# RosettaStone task list
 
-- [Basic tasks](#basic-tasks)
-- [Power tasks](#power-tasks)
+- [Player tasks](#player-tasks)
+- [Simple tasks](#simple-tasks)
+
+## Player tasks
+
+* AttackTask
+* ChooseTask
+* EndTurnTask
+* PlayCardTask
 
 ## Basic tasks
 
-* BriefTask 
-* CombatTask
-* DestroyMinionTask
-* DestroyTask
-* DestroyWeaponTask
-* DrawTask
-* GameEndTask
-* InitAttackCountTask
-* ModifyHealthTask
-* ModifyManaTask
-* MulliganTask
-* PlayCardTask
-* PlayerSettingTask
-* PlayMinionTask
-* PlaySpellTask
-* PlayWeaponTask
-* ShuffleTask
-* SwapPlayerTask
-
-## Power tasks
-
 * AddEnchantmentTask
+* ControlTask
+* DamageTask
+* DestroyTask
 * DiscardTask
-* FreezeTask
+* DrawOpTask
+* DrawTask
+* EnqueueTask
 * HealFullTask
 * HealTask
-* PoisonousTask
+* IncludeTask
+* ModifyManaTask
+* RandomTask
+* SetGameTagTask
+* SummonTask
+* TransformTask

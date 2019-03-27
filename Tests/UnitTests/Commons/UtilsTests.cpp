@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -7,14 +7,14 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
-#include <hspp/Commons/Utils.hpp>
+#include <Rosetta/Commons/Utils.hpp>
 
 #include <random>
 
 TEST(SizedPtr, Constructor)
 {
     SizedPtr<int> defaultCtor;
-    EXPECT_EQ(defaultCtor.size(), 0);
+    EXPECT_EQ(defaultCtor.size(), 0u);
     EXPECT_EQ(defaultCtor.get(), nullptr);
 
     constexpr std::size_t size = 255;
@@ -57,11 +57,11 @@ TEST(SizedPtr, Constructor)
 TEST(SizedPtr, Reset)
 {
     SizedPtr<int> sizedPtr = TestUtils::GenerateRandomBuffer();
-    EXPECT_NE(sizedPtr.size(), 0);
+    EXPECT_NE(sizedPtr.size(), 0u);
     EXPECT_NE(sizedPtr, nullptr);
 
     sizedPtr.reset();
-    EXPECT_EQ(sizedPtr.size(), 0);
+    EXPECT_EQ(sizedPtr.size(), 0u);
     EXPECT_EQ(sizedPtr, nullptr);
 
     constexpr std::size_t size = 10;

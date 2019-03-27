@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.8.2 FATAL_ERROR)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Builds/CMake")
 
 # Declare project
-project(Hearthstonepp)
+project(RosettaStone)
 
 # Set output directories
 set(DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
@@ -21,6 +21,7 @@ include_directories(Includes)
 include_directories(Libraries)
 include_directories(Libraries/googletest/googletest/include)
 include_directories(Libraries/Clara/include)
+include_directories(Libraries/random/include)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)
@@ -47,11 +48,10 @@ add_subdirectory(Libraries/googletest EXCLUDE_FROM_ALL)
 cmake_policy(SET CMP0063 NEW)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
-add_subdirectory(Sources/hspp)
+add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
-add_subdirectory(Extensions/HSppConsole)
-add_subdirectory(Extensions/HSppTool)
-add_subdirectory(Extensions/HSppTorch)
+add_subdirectory(Extensions/RosettaConsole)
+add_subdirectory(Extensions/RosettaTool)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading

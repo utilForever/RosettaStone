@@ -11,12 +11,12 @@ dir_name = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe(
 
 
 def main():
-    include_dir = os.path.join(dir_name, "../Includes/hspp")
+    include_dir = os.path.join(dir_name, "../Includes/Rosetta")
 
     file_names = utils.get_all_files(include_dir, ["*.hpp"])
     file_names.sort()
 
-    header = os.path.join(dir_name, "../Includes/hspp/hspp.hpp")
+    header = os.path.join(dir_name, "../Includes/Rosetta/RosettaStone.hpp")
     header_tmp = header + ".tmp"
     with open(header_tmp, "w") as header_file:
         header_file.write("""// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
@@ -25,12 +25,12 @@ def main():
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.\n
 """)
-        header_file.write("#ifndef HEARTHSTONEPP_HSPP_HPP\n")
-        header_file.write("#define HEARTHSTONEPP_HSPP_HPP\n\n")
+        header_file.write("#ifndef ROSSETASTONE_ROSETTA_HPP\n")
+        header_file.write("#define ROSSETASTONE_ROSETTA_HPP\n\n")
         for filename in file_names:
-            line = "#include <hspp/%s>\n" % filename
+            line = "#include <Rosetta/%s>\n" % filename
             header_file.write(line)
-        header_file.write("\n#endif  // HEARTHSTONEPP_HSPP_HPP\n")
+        header_file.write("\n#endif  // ROSSETASTONE_ROSETTA_HPP\n")
 
     if not filecmp.cmp(header, header_tmp):
         shutil.move(header_tmp, header)

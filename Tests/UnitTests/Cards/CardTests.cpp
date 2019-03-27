@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -6,10 +6,10 @@
 
 #include "gtest/gtest.h"
 
-#include <hspp/Cards/Card.hpp>
-#include <hspp/Enums/CardEnums.hpp>
+#include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Enums/CardEnums.hpp>
 
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 TEST(Card, Constructer)
 {

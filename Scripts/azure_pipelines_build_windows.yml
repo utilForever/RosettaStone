@@ -8,7 +8,7 @@ steps:
       cmake .. -G "Visual Studio 15 2017 Win64"
   - task: VSBuild@1
     inputs:
-      solution: 'D:\a\1\s\build\Hearthstonepp.sln'
+      solution: 'D:\a\1\s\build\RosettaStone.sln'
       configuration: Release
       platform: x64
   - script: |
