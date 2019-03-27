@@ -5,6 +5,7 @@
 
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
@@ -642,6 +643,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_121", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_122] Raid Leader - COST:3 [ATK:2/HP:2]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your other minions have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("CS2_122e", AuraType::FIELD_EXCEPT_SOURCE));
+    cards.emplace("CS2_122", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
     // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -887,7 +901,16 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS2_122e] Enhanced (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Raid Leader is granting this minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_122e"));
+    cards.emplace("CS2_122e", power);
 }
 
 void CoreCardsGen::AddAll(std::map<std::string, Power>& cards)
