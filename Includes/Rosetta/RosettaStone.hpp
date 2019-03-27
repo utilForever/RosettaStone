@@ -25,6 +25,7 @@
 #include <Rosetta/Commons/EnumMacros.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
