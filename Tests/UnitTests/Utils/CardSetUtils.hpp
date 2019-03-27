@@ -10,7 +10,6 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameAgent.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
