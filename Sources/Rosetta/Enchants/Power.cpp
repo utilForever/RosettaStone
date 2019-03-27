@@ -8,6 +8,11 @@
 
 namespace RosettaStone
 {
+Aura& Power::GetAura()
+{
+    return m_aura;
+}
+
 Enchant& Power::GetEnchant()
 {
     return m_enchant;
@@ -27,6 +32,11 @@ void Power::ClearData()
 {
     m_powerTask.clear();
     m_deathrattleTask.clear();
+}
+
+void Power::AddAura(Aura&& aura)
+{
+    m_aura = std::move(aura);
 }
 
 void Power::AddEnchant(Enchant&& enchant)

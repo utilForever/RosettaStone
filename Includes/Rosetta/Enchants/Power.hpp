@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_POWER_HPP
 #define ROSETTASTONE_POWER_HPP
 
+#include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 
 #include <vector>
@@ -14,6 +15,7 @@
 namespace RosettaStone
 {
 class ITask;
+class Aura;
 class Enchant;
 
 //!
@@ -24,6 +26,9 @@ class Enchant;
 class Power
 {
  public:
+    //! Returns aura.
+    Aura& GetAura();
+
     //! Returns enchant.
     //! \return A reference to enchant.
     Enchant& GetEnchant();
@@ -39,6 +44,10 @@ class Power
     //! Clears power task and enchant.
     void ClearData();
 
+    //! Adds aura.
+    //! \param aura An aura to add.
+    void AddAura(Aura&& aura);
+
     //! Adds enchant.
     //! \param enchant An enchant to add.
     void AddEnchant(Enchant&& enchant);
@@ -48,10 +57,11 @@ class Power
     void AddPowerTask(ITask* task);
 
     //! Adds deathrattle task.
-    //! \param taks A pointer to deathrattle task.
+    //! \param task A pointer to deathrattle task.
     void AddDeathrattleTask(ITask* task);
 
  private:
+    Aura m_aura;
     Enchant m_enchant;
 
     std::vector<ITask*> m_powerTask;
