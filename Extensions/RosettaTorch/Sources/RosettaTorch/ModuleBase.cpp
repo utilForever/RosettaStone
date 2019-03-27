@@ -4,18 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HSPP_TORCH_MODULE_BASE_HPP
-#define HSPP_TORCH_MODULE_BASE_HPP
+#include <RosettaTorch/ModuleBase.hpp>
 
-#include <torch/torch.h>
-
-namespace HSppTorch
+namespace RosettaTorch
 {
-class ModuleBase : public torch::nn::Module
-{
- public:
- private:
-};
-}  // namespace HSppTorch
-
-#endif
+}

@@ -4,15 +4,15 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef HSPP_TORCH_TORCH_POLICY_HPP
-#define HSPP_TORCH_TORCH_POLICY_HPP
+#ifndef ROSETTASTONE_TORCH_TORCH_POLICY_HPP
+#define ROSETTASTONE_TORCH_TORCH_POLICY_HPP
 
-#include <hspp/Policies/BasicPolicy.hpp>
-#include <hspp_torch/ModuleBase.hpp>
+#include <Rosetta/Policies/BasicPolicy.hpp>
+#include <RosettaTorch/ModuleBase.hpp>
 
-namespace HSppTorch
+namespace RosettaTorch
 {
-using namespace Hearthstonepp;
+using namespace RosettaStone;
 
 //!
 //! \brief TorchPolicy class.
@@ -32,17 +32,11 @@ class TorchPolicy : public BasicPolicy
     //! Method for MulliganTask requirement.
     TaskMeta RequireMulligan(Player& player) override;
 
-    //! Method for PlaySpellTask requirement.
-    TaskMeta RequirePlaySpell(Player& player) override;
-
     //! Method for PlayCardTask requirement.
     TaskMeta RequirePlayCard(Player& player) override;
 
-    //! Method for PlayMinionTask requirement.
-    TaskMeta RequirePlayMinion(Player& player) override;
-
     //! Method for CombatTask requirement.
-    TaskMeta RequireCombat(Player& player) override;
+    TaskMeta RequireAttack(Player& player) override;
 
     //! Method for OverDraw notifying.
     void NotifyOverDraw(const TaskMeta& meta) override;

@@ -4,10 +4,10 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <hspp/Commons/Utils.hpp>
-#include <hspp_torch/TorchPolicy.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+#include <RosettaTorch/TorchPolicy.hpp>
 
-namespace HSppTorch
+namespace RosettaTorch
 {
 TorchPolicy::TorchPolicy(std::shared_ptr<ModuleBase> module) : m_module(module)
 {
@@ -16,16 +16,10 @@ TorchPolicy::TorchPolicy(std::shared_ptr<ModuleBase> module) : m_module(module)
 
 TaskMeta TorchPolicy::RequireMulligan(Player& player)
 {
-    TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::MULLIGAN_SUCCESS,
+    TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::COMPLETE,
                         player.GetID());
 
     return TaskMeta(trait, SizedPtr<std::size_t>());
-}
-
-TaskMeta TorchPolicy::RequirePlaySpell(Player& player)
-{
-    (void)player;
-    return TaskMeta();
 }
 
 TaskMeta TorchPolicy::RequirePlayCard(Player& player)
@@ -34,13 +28,7 @@ TaskMeta TorchPolicy::RequirePlayCard(Player& player)
     return TaskMeta();
 }
 
-TaskMeta TorchPolicy::RequirePlayMinion(Player& player)
-{
-    (void)player;
-    return TaskMeta();
-}
-
-TaskMeta TorchPolicy::RequireCombat(Player& player)
+TaskMeta TorchPolicy::RequireAttack(Player& player)
 {
     (void)player;
     return TaskMeta();
