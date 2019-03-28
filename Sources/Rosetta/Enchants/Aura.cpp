@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Enchants/Aura.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Player.hpp>
 
@@ -17,17 +18,13 @@ Aura::Aura(std::string&& enchantmentID, AuraType type)
 
 void Aura::Activate(Entity& owner)
 {
+    owner.GetOwner().GetGame()->auras.emplace_back(this);
+
     switch (m_type)
     {
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : owner.GetOwner().GetField().GetAllMinions())
-            {
-                if (minion == &owner)
-                {
-                    continue;
-                }
-            }
+            owner.GetOwner().GetField().AddAura(this);
             break;
         }
     }
