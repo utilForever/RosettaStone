@@ -377,6 +377,8 @@ void Game::StartGame()
 
 void Game::ProcessDestroyAndUpdateAura()
 {
+    UpdateAura();
+
     // Destroy weapons
     if (GetPlayer1().GetHero()->weapon != nullptr &&
         GetPlayer1().GetHero()->weapon->isDestroyed == true)
@@ -414,6 +416,16 @@ void Game::ProcessDestroyAndUpdateAura()
         }
 
         deadMinions.clear();
+    }
+
+    UpdateAura();
+}
+
+void Game::UpdateAura()
+{
+    for (std::size_t i = auras.size(); i >= 0; --i)
+    {
+        auras[i]->Update();
     }
 }
 }  // namespace RosettaStone

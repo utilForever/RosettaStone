@@ -120,11 +120,15 @@ class Game
     //! Processes destroy and updates aura.
     void ProcessDestroyAndUpdateAura();
 
+    //! Updates aura.
+    void UpdateAura();
+
     State state = State::INVALID;
 
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
+    std::vector<Aura*> auras;
     std::vector<Entity*> taskStack;
     std::map<std::size_t, Minion*> deadMinions;
 
