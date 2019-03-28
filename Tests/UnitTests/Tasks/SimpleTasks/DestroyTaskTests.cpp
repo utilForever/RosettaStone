@@ -41,7 +41,7 @@ TEST(DestroyTask, Run)
     DestroyTask task1(EntityType::SOURCE);
     task1.SetSource(player1.GetField().GetMinion(0));
     TaskStatus result = task1.Run(player1);
-    game.ProcessDestroy();
+    game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
@@ -54,7 +54,7 @@ TEST(DestroyTask, Run)
     DestroyTask task2(EntityType::TARGET);
     task2.SetTarget(player2.GetField().GetMinion(0));
     TaskStatus result2 = task2.Run(player1);
-    game.ProcessDestroy();
+    game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result2, TaskStatus::COMPLETE);
     EXPECT_EQ(player2.GetField().GetNumOfMinions(), 0u);
@@ -66,7 +66,7 @@ TEST(DestroyTask, Run)
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);
     TaskStatus result3 = task3.Run(player1);
-    game.ProcessDestroy();
+    game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result3, TaskStatus::COMPLETE);
     EXPECT_EQ(player2.GetHero()->HasWeapon(), false);

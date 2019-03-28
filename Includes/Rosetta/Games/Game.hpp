@@ -117,8 +117,8 @@ class Game
     //! Starts the game.
     void StartGame();
 
-    //! Processes destroy.
-    void ProcessDestroy();
+    //! Processes destroy and updates aura.
+    void ProcessDestroyAndUpdateAura();
 
     State state = State::INVALID;
 

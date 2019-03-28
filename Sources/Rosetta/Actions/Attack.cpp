@@ -94,7 +94,7 @@ void Attack(Player& player, Character* source, Character* target)
         source->SetGameTag(GameTag::EXHAUSTED, 1);
     }
 
-    player.GetGame()->ProcessDestroy();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 
     // Set game step to MAIN_ACTION
     player.GetGame()->step = Step::MAIN_ACTION;

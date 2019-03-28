@@ -87,7 +87,7 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
         power->Run(player);
     }
 
-    player.GetGame()->ProcessDestroy();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlaySpell(Player& player, Spell* spell, Character* target)
@@ -100,7 +100,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
         powerTask->Run(player);
     }
 
-    player.GetGame()->ProcessDestroy();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)

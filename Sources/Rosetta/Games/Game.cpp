@@ -375,7 +375,7 @@ void Game::StartGame()
     GameManager::ProcessNextStep(*this, nextStep);
 }
 
-void Game::ProcessDestroy()
+void Game::ProcessDestroyAndUpdateAura()
 {
     // Destroy weapons
     if (GetPlayer1().GetHero()->weapon != nullptr &&
