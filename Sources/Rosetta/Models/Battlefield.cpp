@@ -127,6 +127,11 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
     ActivateAura(newMinion);
 }
 
+void Battlefield::AddAura(Aura* aura)
+{
+    m_auras.emplace_back(aura);
+}
+
 void Battlefield::ActivateAura(Minion& minion)
 {
     if (minion.card.power.GetAura().has_value())

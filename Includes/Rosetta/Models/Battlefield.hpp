@@ -79,6 +79,9 @@ class Battlefield
     //! \param newMinion A new minion to replace.
     void ReplaceMinion(Minion& oldMinion, Minion& newMinion);
 
+    //! Adds aura.
+    void AddAura(Aura* aura);
+
  private:
     void ActivateAura(Minion& minion);
     void RemoveAura(Minion& minion);
@@ -87,6 +90,8 @@ class Battlefield
 
     std::array<Character*, FIELD_SIZE> m_minions{};
     std::size_t m_numMinion = 0;
+
+    std::vector<Aura*> m_auras;
 };
 }  // namespace RosettaStone
 
