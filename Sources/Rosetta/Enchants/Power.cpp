@@ -8,7 +8,7 @@
 
 namespace RosettaStone
 {
-Aura& Power::GetAura()
+std::optional<Aura>& Power::GetAura()
 {
     return m_aura;
 }

@@ -10,6 +10,7 @@
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 
+#include <optional>
 #include <vector>
 
 namespace RosettaStone
@@ -27,7 +28,7 @@ class Power
 {
  public:
     //! Returns aura.
-    Aura& GetAura();
+    std::optional<Aura>& GetAura();
 
     //! Returns enchant.
     //! \return A reference to enchant.
@@ -61,7 +62,7 @@ class Power
     void AddDeathrattleTask(ITask* task);
 
  private:
-    Aura m_aura;
+    std::optional<Aura> m_aura = std::nullopt;
     Enchant m_enchant;
 
     std::vector<ITask*> m_powerTask;
