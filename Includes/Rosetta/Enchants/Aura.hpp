@@ -42,6 +42,9 @@ class Aura
     //! \param owner An owner of aura.
     void Activate(Entity& owner);
 
+    //! Updates aura.
+    void Update();
+
  private:
     std::string m_enchantmentID;
     AuraType m_type = AuraType::INVALID;

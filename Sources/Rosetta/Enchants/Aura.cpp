@@ -29,4 +29,15 @@ void Aura::Activate(Entity& owner)
         }
     }
 }
+
+void Aura::Update()
+{
+    switch (m_type)
+    {
+        case AuraType::FIELD_EXCEPT_SOURCE:
+        {
+            
+        }
+    }
+}
 }  // namespace RosettaStone
