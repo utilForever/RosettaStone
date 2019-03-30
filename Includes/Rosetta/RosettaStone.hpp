@@ -26,6 +26,7 @@
 #include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Aura.hpp>
+#include <Rosetta/Enchants/AuraEffects.hpp>
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
