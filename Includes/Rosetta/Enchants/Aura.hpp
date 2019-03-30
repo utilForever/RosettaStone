@@ -52,6 +52,9 @@ class Aura
     //! Updates aura to apply the effect to recently modified entities.
     void Update();
 
+    //! Apply aura's effect(s) to target character.
+    void Apply(Character* character);
+
  private:
     std::string m_enchantmentID;
     AuraType m_type = AuraType::INVALID;

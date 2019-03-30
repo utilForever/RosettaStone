@@ -53,8 +53,22 @@ void Aura::Update()
     {
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-
+            for (auto& minion : m_owner->GetOwner().GetField().GetAllMinions())
+            {
+                if (minion != m_owner)
+                {
+                    Apply(minion);
+                }
+            }
         }
+    }
+}
+
+void Aura::Apply(Character* character)
+{
+    for (auto& effect : m_effects)
+    {
+        effect.Apply(character->auraEffects);
     }
 }
 }  // namespace RosettaStone
