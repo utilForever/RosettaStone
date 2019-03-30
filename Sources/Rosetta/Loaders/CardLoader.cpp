@@ -106,9 +106,8 @@ void CardLoader::Load(std::vector<Card>& cards)
         for (auto iter = cardData["playRequirements"].begin();
              iter != cardData["playRequirements"].end(); ++iter)
         {
-            playRequirements.try_emplace(
-                PlayReq::_from_string(iter.key().c_str()),
-                iter.value().get<int>());
+            playRequirements.try_emplace(StrToEnum<PlayReq>(iter.key().c_str()),
+                                         iter.value().get<int>());
         }
 
         std::vector<std::string> entourages;

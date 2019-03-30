@@ -14,7 +14,7 @@ bool IsValidTarget(Entity* source, Entity* target)
     {
         switch (requirement.first)
         {
-            case +PlayReq::REQ_MINION_TARGET:
+            case PlayReq::REQ_MINION_TARGET:
             {
                 if (dynamic_cast<Minion*>(target) == nullptr)
                 {
@@ -22,7 +22,7 @@ bool IsValidTarget(Entity* source, Entity* target)
                 }
                 break;
             }
-            case +PlayReq::REQ_ENEMY_TARGET:
+            case PlayReq::REQ_ENEMY_TARGET:
             {
                 if (&target->GetOwner() == &source->GetOwner())
                 {
@@ -30,7 +30,7 @@ bool IsValidTarget(Entity* source, Entity* target)
                 }
                 break;
             }
-            case +PlayReq::REQ_TARGET_TO_PLAY:
+            case PlayReq::REQ_TARGET_TO_PLAY:
             {
                 if (dynamic_cast<Character*>(target) == nullptr)
                 {
