@@ -62,9 +62,8 @@ void CardLoader::Load(std::vector<Card>& cards)
                       cardData["type"].get<std::string>().c_str());
         const Race race =
             cardData["race"].is_null()
-                ? +Race::INVALID
-                : Race::_from_string(
-                      cardData["race"].get<std::string>().c_str());
+                ? Race::INVALID
+                : StrToEnum<Race>(cardData["race"].get<std::string>().c_str());
 
         const std::string name = cardData["name"].is_null()
                                      ? ""
