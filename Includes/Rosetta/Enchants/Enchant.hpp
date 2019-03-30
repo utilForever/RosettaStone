@@ -39,8 +39,7 @@ class Enchant
     //! \param character The character to which enchant is activated.
     void ActivateTo(Character* character);
 
- private:
-    std::vector<Effect> m_effects;
+    std::vector<Effect> effects;    
 };
 }  // namespace RosettaStone
 
