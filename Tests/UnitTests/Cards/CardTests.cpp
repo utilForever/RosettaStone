@@ -70,5 +70,5 @@ TEST(Card, HasMechanic)
     card.cost = 1;
     card.Initialize();
 
-    EXPECT_EQ(false, card.HasMechanic(+GameTag::ADAPT));
+    EXPECT_EQ(false, card.HasMechanic(GameTag::ADAPT));
 }

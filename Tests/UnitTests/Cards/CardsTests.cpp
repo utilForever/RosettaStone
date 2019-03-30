@@ -210,7 +210,7 @@ TEST(Cards, FindCardByMechanics)
     auto cardTags = cards1.front().mechanics;
 
     EXPECT_TRUE(std::find(cardTags.begin(), cardTags.end(),
-                          +GameTag::CANT_ATTACK) != cardTags.end());
+                          GameTag::CANT_ATTACK) != cardTags.end());
     EXPECT_TRUE(cards2.empty());
 }
 

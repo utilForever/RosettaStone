@@ -598,9 +598,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     const Race race = Race::_from_string_nothrow(strRace.c_str())
                           ? Race::_from_string(strRace.c_str())
                           : Race::_from_string("INVALID");
-    const GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
-                                 ? GameTag::_from_string(strMechanics.c_str())
-                                 : GameTag::_from_string("INVALID");
+    const GameTag mechanic = StrToEnum<GameTag>(strMechanics.c_str());
 
     auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto [minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
@@ -662,7 +660,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
             filter.attackMin <= card.attack && filter.attackMax >= card.attack;
         bool healthCondition =
             filter.healthMin <= card.health && filter.healthMax >= card.health;
-        bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
+        bool mechanicsCondition = (filter.mechanic == GameTag::INVALID ||
                                    card.HasMechanic(filter.mechanic));
         const bool isMatched =
             AllCondIsTrue(rarityCondition, classCondition, typeCondition,

@@ -99,7 +99,7 @@ void CardLoader::Load(std::vector<Card>& cards)
         for (auto& mechanic : cardData["mechanics"])
         {
             mechanics.emplace_back(
-                GameTag::_from_string(mechanic.get<std::string>().c_str()));
+                StrToEnum<GameTag>(mechanic.get<std::string>().c_str()));
         }
 
         std::map<PlayReq, int> playRequirements;
