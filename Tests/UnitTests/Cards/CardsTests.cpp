@@ -149,10 +149,10 @@ TEST(Cards, FindCardByRace)
 {
     Cards& instance = Cards::GetInstance();
 
-    std::vector<Card> cards = instance.FindCardByRace(+Race::INVALID);
+    std::vector<Card> cards = instance.FindCardByRace(Race::INVALID);
 
     EXPECT_FALSE(cards.empty());
-    EXPECT_NO_THROW(instance.FindCardByRace(+Race::ALL));
+    EXPECT_NO_THROW(instance.FindCardByRace(Race::ALL));
 }
 
 TEST(Cards, FindCardByName)

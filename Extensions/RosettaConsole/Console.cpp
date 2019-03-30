@@ -595,9 +595,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         CardType::_from_string_nothrow(strCardType.c_str())
             ? CardType::_from_string(strCardType.c_str())
             : CardType::_from_string("INVALID");
-    const Race race = Race::_from_string_nothrow(strRace.c_str())
-                          ? Race::_from_string(strRace.c_str())
-                          : Race::_from_string("INVALID");
+    const Race race = StrToEnum<Race>(strRace.c_str());
     const GameTag mechanic = StrToEnum<GameTag>(strMechanics.c_str());
 
     auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
@@ -651,7 +649,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
         bool typeCondition = (filter.cardType == +CardType::INVALID ||
                               filter.cardType == card.cardType);
         bool raceCondition =
-            (filter.race == +Race::INVALID || filter.race == card.race);
+            (filter.race == Race::INVALID || filter.race == card.race);
         bool nameCondition = (filter.name.empty() ||
                               card.name.find(filter.name) != std::string::npos);
         bool costCondition =

@@ -218,47 +218,20 @@ BETTER_ENUM(PowerType, int, FULL_ENTITY = 1, SHOW_ENTITY = 2, HIDE_ENTITY = 3,
 #endif
 
 //! \brief An enumerator for identifying the race of the card.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(Race, int, INVALID = 0, BLOODELF = 1, DRAENEI = 2, DWARF = 3,
-            GNOME = 4, GOBLIN = 5, HUMAN = 6, NIGHTELF = 7, ORC = 8, TAUREN = 9,
-            TROLL = 10, UNDEAD = 11, WORGEN = 12, GOBLIN2 = 13, MURLOC = 14,
-            DEMON = 15, SCOURGE = 16, MECHANICAL = 17, ELEMENTAL = 18,
-            OGRE = 19, BEAST = 20, PET = 20, TOTEM = 21, NERUBIAN = 22,
-            PIRATE = 23, DRAGON = 24, BLANK = 25, ALL = 26, EGG = 38)
-#else
 enum class Race
 {
-    INVALID = 0,
-    BLOODELF = 1,
-    DRAENEI = 2,
-    DWARF = 3,
-    GNOME = 4,
-    GOBLIN = 5,
-    HUMAN = 6,
-    NIGHTELF = 7,
-    ORC = 8,
-    TAUREN = 9,
-    TROLL = 10,
-    UNDEAD = 11,
-    WORGEN = 12,
-    GOBLIN2 = 13,
-    MURLOC = 14,
-    DEMON = 15,
-    SCOURGE = 16,
-    MECHANICAL = 17,
-    ELEMENTAL = 18,
-    OGRE = 19,
-    BEAST = 20,
-    PET = 20,
-    TOTEM = 21,
-    NERUBIAN = 22,
-    PIRATE = 23,
-    DRAGON = 24,
-    BLANK = 25,
-    ALL = 26,
-    EGG = 38
+#define X(a) a,
+#include "Race.def"
+#undef X
+    RaceCount
 };
-#endif
+
+constexpr const char* RACE_STR[] = {
+#define X(a) #a,
+#include "Race.def"
+#undef X
+    nullptr
+};
 
 //! \brief An enumerator for identifying the rarity of the card.
 #ifndef ROSETTASTONE_DOXYGEN
@@ -353,6 +326,7 @@ const char* EnumToStr(T);
 ENUM_AND_STR(CardSet, CARD_SET_STR)
 ENUM_AND_STR(GameTag, GAME_TAG_STR)
 ENUM_AND_STR(PlayReq, PLAY_REQ_STR)
+ENUM_AND_STR(Race, RACE_STR)
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_CARD_ENUMS_HPP
