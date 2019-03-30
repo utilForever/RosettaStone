@@ -76,55 +76,20 @@ enum class CardClass
 #endif
 
 //! \brief An enumerator for identifying the set of the card.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(CardSet, int, ALL = -1, INVALID = 0, TEST_TEMPORARY = 1, CORE = 2,
-            EXPERT1 = 3, HOF = 4, MISSIONS = 5, DEMO = 6, NONE = 7, CHEAT = 8,
-            BLANK = 9, DEBUG_SP = 10, PROMO = 11, NAXX = 12, GVG = 13, BRM = 14,
-            TGT = 15, CREDITS = 16, HERO_SKINS = 17, TB = 18, SLUSH = 19,
-            LOE = 20, OG = 21, OG_RESERVE = 22, KARA = 23, KARA_RESERVE = 24,
-            GANGS = 25, GANGS_RESERVE = 26, UNGORO = 27, ICECROWN = 1001,
-            LOOTAPALOOZA = 1004, GILNEAS = 1125, BOOMSDAY = 1127, TROLL = 1129,
-            TAVERNS_OF_TIME = 1143)
-#else
 enum class CardSet
 {
-    ALL = -1,
-    INVALID = 0,
-    TEST_TEMPORARY = 1,
-    CORE = 2,
-    EXPERT1 = 3,
-    HOF = 4,
-    MISSIONS = 5,
-    DEMO = 6,
-    NONE = 7,
-    CHEAT = 8,
-    BLANK = 9,
-    DEBUG_SP = 10,
-    PROMO = 11,
-    NAXX = 12,
-    GVG = 13,
-    BRM = 14,
-    TGT = 15,
-    CREDITS = 16,
-    HERO_SKINS = 17,
-    TB = 18,
-    SLUSH = 19,
-    LOE = 20,
-    OG = 21,
-    OG_RESERVE = 22,
-    KARA = 23,
-    KARA_RESERVE = 24,
-    GANGS = 25,
-    GANGS_RESERVE = 26,
-    UNGORO = 27,
-    ICECROWN = 1001,
-    LOOTAPALOOZA = 1004,
-    GILNEAS = 1125,
-    BOOMSDAY = 1127,
-    TROLL = 1129,
-    TAVERNS_OF_TIME = 1143
+#define X(a) a,
+#include "CardSet.def"
+#undef X
+    CardSetCount
 };
-#endif
+
+constexpr const char* CARD_SET_STR[] = {
+#define X(a) #a,
+#include "CardSet.def"
+#undef X
+    nullptr
+};
 
 //! \brief An enumerator for identifying the type of the card.
 #ifndef ROSETTASTONE_DOXYGEN
@@ -218,6 +183,7 @@ const char* EnumToStr(T);
     STR2ENUM(TYPE, ARRAY)         \
     ENUM2STR(TYPE, ARRAY)
 
+ENUM_AND_STR(CardSet, CARD_SET_STR)
 ENUM_AND_STR(GameTag, GAME_TAG_STR)
 
 #ifndef ROSETTASTONE_DOXYGEN

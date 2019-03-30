@@ -108,7 +108,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
             cards.end());
 
         // Excludes 9 hero cards from CardSet::CORE
-        if (cardSet == +CardSet::CORE)
+        if (cardSet == CardSet::CORE)
         {
             cards.erase(std::remove_if(cards.begin(), cards.end(),
                                        [](const Card& c) {
@@ -137,9 +137,9 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
                 impledCardNum++;
             }
 
-            outputFile << card.cardSet._to_string() << " | " << card.id << " | "
-                       << card.name << " | " << (isImplemented ? 'O' : ' ')
-                       << '\n';
+            outputFile << EnumToStr<CardSet>(card.cardSet) << " | " << card.id
+                       << " | " << card.name << " | "
+                       << (isImplemented ? 'O' : ' ') << '\n';
         }
 
         // Adds the number of card that implemented by ability
@@ -201,15 +201,12 @@ int main(int argc, char* argv[])
     }
     else if (!cardSetName.empty())
     {
-        const auto convertedCardSet =
-            CardSet::_from_string_nothrow(cardSetName.c_str());
-        if (!convertedCardSet)
+        cardSet = StrToEnum<CardSet>(cardSetName.c_str());
+        if (cardSet == CardSet::INVALID)
         {
             std::cerr << "Invalid card set name: " << cardSetName << '\n';
             exit(EXIT_FAILURE);
         }
-
-        cardSet = *convertedCardSet;
     }
 
     ExportFile(projectPath, cardSet);

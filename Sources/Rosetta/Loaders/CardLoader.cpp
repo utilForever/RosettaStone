@@ -47,8 +47,8 @@ void CardLoader::Load(std::vector<Card>& cards)
                       cardData["faction"].get<std::string>().c_str());
         const CardSet cardSet =
             cardData["set"].is_null()
-                ? +CardSet::NONE
-                : CardSet::_from_string(
+                ? CardSet::NONE
+                : StrToEnum<CardSet>(
                       cardData["set"].get<std::string>().c_str());
         const CardClass cardClass =
             cardData["cardClass"].is_null()

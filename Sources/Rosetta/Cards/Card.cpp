@@ -39,7 +39,7 @@ void Card::ShowInfo() const
     std::cout << "Text: " << text.c_str() << '\n';
     std::cout << "Rarity: " << rarity._to_string() << '\n';
     std::cout << "Faction: " << faction._to_string() << '\n';
-    std::cout << "CardSet: " << cardSet._to_string() << '\n';
+    std::cout << "CardSet: " << EnumToStr<CardSet>(cardSet) << '\n';
     std::cout << "CardClass: " << cardClass._to_string() << '\n';
     std::cout << "CardType: " << cardType._to_string() << '\n';
     std::cout << "Race: " << race._to_string() << '\n';
