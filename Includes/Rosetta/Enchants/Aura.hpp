@@ -57,6 +57,7 @@ class Aura
     AuraType m_type = AuraType::INVALID;
 
     Entity* m_owner = nullptr;
+    std::vector<Effect> m_effects;
 };
 }  // namespace RosettaStone
 

@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
@@ -26,13 +27,21 @@ Aura::Aura(Aura& prototype, Entity& owner)
 
 void Aura::Activate(Entity& owner)
 {
-    owner.GetOwner().GetGame()->auras.emplace_back(this);
+    if (m_effects.empty())
+    {
+        Card card = Cards::FindCardByID(m_enchantmentID);
+        m_effects = card.power.GetEnchant().effects;
+    }
+
+    Aura* instance = new Aura(*this, owner);
+
+    owner.GetOwner().GetGame()->auras.emplace_back(instance);
 
     switch (m_type)
     {
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            owner.GetOwner().GetField().AddAura(this);
+            owner.GetOwner().GetField().AddAura(instance);
             break;
         }
     }
