@@ -6,6 +6,8 @@
 #ifndef ROSETTASTONE_AURA_HPP
 #define ROSETTASTONE_AURA_HPP
 
+#include <Rosetta/Enchants/Enchant.hpp>
+
 #include <string>
 
 namespace RosettaStone
@@ -33,21 +35,28 @@ class Aura
     //! Default constructor.
     Aura() = default;
 
-    //! Constructs enchant with given \p enchantmentID and \p type.
+    //! Constructs aura with given \p enchantmentID and \p type.
     //! \param enchantmentID The enchantment card ID.
     //! \param type The type of aura.
     Aura(std::string&& enchantmentID, AuraType type);
+
+    //! Constructs aura with given \p prototype and \p owner.
+    //! \param prototype An aura for prototype.
+    //! \param owner An owner of aura.
+    Aura(Aura& prototype, Entity& owner);
 
     //! Activates aura.
     //! \param owner An owner of aura.
     void Activate(Entity& owner);
 
-    //! Updates aura.
+    //! Updates aura to apply the effect to recently modified entities.
     void Update();
 
  private:
     std::string m_enchantmentID;
     AuraType m_type = AuraType::INVALID;
+
+    Entity* m_owner = nullptr;
 };
 }  // namespace RosettaStone
 

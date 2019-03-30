@@ -16,6 +16,14 @@ Aura::Aura(std::string&& enchantmentID, AuraType type)
     // Do nothing
 }
 
+Aura::Aura(Aura& prototype, Entity& owner)
+    : m_enchantmentID(prototype.m_enchantmentID),
+      m_type(prototype.m_type),
+      m_owner(&owner)
+{
+    // Do nothing
+}
+
 void Aura::Activate(Entity& owner)
 {
     owner.GetOwner().GetGame()->auras.emplace_back(this);
@@ -36,7 +44,7 @@ void Aura::Update()
     {
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            
+
         }
     }
 }
