@@ -14,8 +14,6 @@
 #define BETTER_ENUMS_MACRO_FILE "Rosetta/Commons/EnumMacros.hpp"
 #endif  // _MSC_VER
 
-#include <Rosetta/Commons/Utils.hpp>
-
 #include <better-enums/enum.h>
 
 namespace RosettaStone
@@ -81,14 +79,12 @@ enum class CardSet
 #define X(a) a,
 #include "CardSet.def"
 #undef X
-    CardSetCount
 };
 
-constexpr const char* CARD_SET_STR[] = {
+const std::string CARD_SET_STR[] = {
 #define X(a) #a,
 #include "CardSet.def"
 #undef X
-    nullptr
 };
 
 //! \brief An enumerator for identifying the type of the card.
@@ -147,14 +143,12 @@ enum class GameTag
 #define X(a) a,
 #include "GameTag.def"
 #undef X
-    GameTagCount
 };
 
-constexpr const char* GAME_TAG_STR[] = {
+const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
 #include "GameTag.def"
 #undef X
-    nullptr
 };
 
 #ifndef ROSETTASTONE_DOXYGEN
@@ -197,14 +191,12 @@ enum class PlayReq
 #define X(a) a,
 #include "PlayReq.def"
 #undef X
-    PlayReqCount
 };
 
-constexpr const char* PLAY_REQ_STR[] = {
+const std::string PLAY_REQ_STR[] = {
 #define X(a) #a,
 #include "PlayReq.def"
 #undef X
-    nullptr
 };
 
 #ifndef ROSETTASTONE_DOXYGEN
@@ -223,14 +215,12 @@ enum class Race
 #define X(a) a,
 #include "Race.def"
 #undef X
-    RaceCount
 };
 
-constexpr const char* RACE_STR[] = {
+const std::string RACE_STR[] = {
 #define X(a) #a,
 #include "Race.def"
 #undef X
-    nullptr
 };
 
 //! \brief An enumerator for identifying the rarity of the card.
@@ -298,23 +288,28 @@ BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3, GRAVEYARD = 4,
 #endif
 
 template <class T>
-T StrToEnum(const char*);
+T StrToEnum(std::string);
 template <class T>
-const char* EnumToStr(T);
+std::string EnumToStr(T);
 
-#define STR2ENUM(TYPE, ARRAY)                                        \
-    template <>                                                      \
-    inline TYPE StrToEnum<TYPE>(const char* str)                     \
-    {                                                                \
-        for (int i = 0; i < (sizeof(ARRAY) / sizeof(ARRAY[0])); i++) \
-            if (!strcmp(ARRAY[i], str))                              \
-                return TYPE(i);                                      \
-        return TYPE(0);                                              \
+#define STR2ENUM(TYPE, ARRAY)                                                \
+    template <>                                                              \
+    inline TYPE StrToEnum<TYPE>(std::string str)                             \
+    {                                                                        \
+        for (std::size_t i = 0; i < (sizeof(ARRAY) / sizeof(ARRAY[0])); ++i) \
+        {                                                                    \
+            if (ARRAY[i] == str)                                             \
+            {                                                                \
+                return TYPE(i);                                              \
+            }                                                                \
+        }                                                                    \
+                                                                             \
+        return TYPE(0);                                                      \
     }
 
 #define ENUM2STR(TYPE, ARRAY)                  \
     template <>                                \
-    inline const char* EnumToStr<TYPE>(TYPE v) \
+    inline std::string EnumToStr<TYPE>(TYPE v) \
     {                                          \
         return ARRAY[static_cast<int>(v)];     \
     }
