@@ -58,7 +58,7 @@ class Hero : public Character
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    size_t GetAttack() const override;
+    int GetAttack() override;
 
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
