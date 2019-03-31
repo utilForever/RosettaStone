@@ -13,9 +13,9 @@ Enchant::Enchant(Effect& effect)
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(std::vector<Effect>& effects)
+Enchant::Enchant(std::vector<Effect>& _effects)
 {
-    effects = effects;
+    effects = _effects;
 }
 
 void Enchant::ActivateTo(Character* character)
