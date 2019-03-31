@@ -46,11 +46,15 @@ class Character : public Entity
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    virtual size_t GetAttack() const;
+    virtual int GetAttack();
+
+    //! Sets the value of attack.
+    //! \param attack The value of attack.
+    void SetAttack(int attack);
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
-    bool CanAttack() const;
+    bool CanAttack();
 
     //! Returns whether the target is valid in combat.
     //! \param opponent The opponent player.
@@ -75,7 +79,6 @@ class Character : public Entity
     void TakeHeal(Character& source, std::size_t heal);
 
     std::size_t numAttacked = 0;
-    std::size_t attack = 0;
     std::size_t spellPower = 0;
     int health = 0;
     int maxHealth = 0;

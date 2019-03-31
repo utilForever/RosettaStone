@@ -16,19 +16,23 @@ Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
     if (!card.id.empty())
     {
-        attack = card.attack.value_or(0);
         spellPower = card.spellPower.value_or(0);
         health = card.health.value_or(0);
         maxHealth = health;
     }
 }
 
-std::size_t Character::GetAttack() const
+int Character::GetAttack()
 {
-    return attack;
+    return GetGameTag(GameTag::ATK);
 }
 
-bool Character::CanAttack() const
+void Character::SetAttack(int attack)
+{
+    SetGameTag(GameTag::ATK, attack);
+}
+
+bool Character::CanAttack()
 {
     // If the value of attack is 0, returns false
     if (GetAttack() == 0)
