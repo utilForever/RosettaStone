@@ -30,6 +30,7 @@ std::vector<ITask*>& Power::GetDeathrattleTask()
 
 void Power::ClearData()
 {
+    m_aura.reset();
     m_powerTask.clear();
     m_deathrattleTask.clear();
 }
