@@ -61,4 +61,24 @@ void Effect::Apply(AuraEffects& auraEffects)
             throw std::invalid_argument("Invalid effect operator!");
     }
 }
+
+void Effect::Remove(AuraEffects& auraEffects)
+{
+    const int prevValue = auraEffects.GetGameTag(m_gameTag);
+
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
+            break;
+        case EffectOperator::SUB:
+            auraEffects.SetGameTag(m_gameTag, prevValue + m_value);
+            break;
+        case EffectOperator::SET:
+            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
+            break;
+        default:
+            throw std::invalid_argument("Invalid effect operator!");
+    }
+}
 }  // namespace RosettaStone
