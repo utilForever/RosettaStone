@@ -48,10 +48,10 @@ class Card
     //! Initializes card data.
     void Initialize();
 
-    //! Finds out if this card has \p mechanic.
-    //! \param mechanic The mechanic of card.
-    //! \return true if this card has \p mechanic, and false otherwise.
-    bool HasMechanic(GameTag mechanic) const;
+    //! Finds out if this card has game tag.
+    //! \param gameTag The game tag of card.
+    //! \return true if this card has game tag, and false otherwise.
+    bool HasGameTag(GameTag gameTag) const;
 
     //! Returns the number of cards that can be inserted into the deck.
     //! \return The number of cards that can be inserted into the deck.
@@ -74,14 +74,13 @@ class Card
     std::string name;
     std::string text;
 
-    std::optional<std::size_t> attack;
     std::optional<int> health;
     std::optional<std::size_t> spellPower;
     std::optional<std::size_t> durability;
 
     std::size_t cost = 0;
 
-    std::vector<GameTag> mechanics;
+    std::map<GameTag, int> gameTags;
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 

@@ -16,10 +16,9 @@ void Card::Initialize()
     maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
 }
 
-bool Card::HasMechanic(GameTag mechanic) const
+bool Card::HasGameTag(GameTag gameTag) const
 {
-    return std::find(mechanics.begin(), mechanics.end(), mechanic) !=
-           mechanics.end();
+    return gameTags.find(gameTag) != gameTags.end();
 }
 
 std::size_t Card::GetMaxAllowedInDeck() const
