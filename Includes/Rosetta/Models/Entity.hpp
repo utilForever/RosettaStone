@@ -15,7 +15,6 @@ namespace RosettaStone
 {
 class Card;
 class Game;
-class GameTag;
 class Player;
 
 //!

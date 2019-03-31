@@ -13,9 +13,9 @@ namespace RosettaStone
 {
 Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
 {
-    for (auto& mechanic : _card.mechanics)
+    for (auto& gameTag : _card.gameTags)
     {
-        Entity::SetGameTag(mechanic, 1);
+        Entity::SetGameTag(gameTag.first, gameTag.second);
     }
 }
 
