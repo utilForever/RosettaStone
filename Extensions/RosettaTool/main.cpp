@@ -125,10 +125,10 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
 
         for (auto& card : cards)
         {
-            std::string mechanicStr;
-            for (auto& mechanic : card.mechanics)
+            std::string gameTagStr;
+            for (auto& gameTag : card.gameTags)
             {
-                mechanicStr += EnumToStr<GameTag>(mechanic);
+                gameTagStr += EnumToStr<GameTag>(gameTag.first);
             }
 
             const bool isImplemented = CheckCardImpl(projectPath, card.id);

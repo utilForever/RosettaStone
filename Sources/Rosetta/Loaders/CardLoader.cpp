@@ -77,7 +77,7 @@ void CardLoader::Load(std::vector<Card>& cards)
                                      : cardData["collectible"].get<bool>();
 
         const int attack =
-            cardData["attack"].is_null() ? -1 : cardData["attack"].get<int>();
+            cardData["attack"].is_null() ? 0 : cardData["attack"].get<int>();
 
         const int health =
             cardData["health"].is_null() ? -1 : cardData["health"].get<int>();
@@ -94,11 +94,11 @@ void CardLoader::Load(std::vector<Card>& cards)
                                      ? 0
                                      : cardData["cost"].get<std::size_t>();
 
-        std::vector<GameTag> mechanics;
+        std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])
         {
-            mechanics.emplace_back(
-                StrToEnum<GameTag>(mechanic.get<std::string>().c_str()));
+            gameTags.emplace(
+                StrToEnum<GameTag>(mechanic.get<std::string>().c_str()), 1);
         }
 
         std::map<PlayReq, int> playRequirements;
@@ -127,8 +127,6 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.text = text;
         card.isCollectible = collectible;
 
-        card.attack =
-            (attack != -1) ? std::optional<std::size_t>(attack) : std::nullopt;
         card.health =
             (health != -1) ? std::optional<int>(health) : std::nullopt;
         card.durability = (durability != -1)
@@ -139,9 +137,12 @@ void CardLoader::Load(std::vector<Card>& cards)
                               : std::nullopt;
 
         card.cost = cost;
-        card.mechanics = mechanics;
+        card.gameTags = gameTags;
         card.playRequirements = playRequirements;
         card.entourages = entourages;
+
+        card.gameTags[GameTag::ATK] = attack;
+
         card.Initialize();
 
         cards.emplace_back(card);

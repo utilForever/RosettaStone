@@ -531,7 +531,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     // Parse command
     bool showHelp = false;
     std::string strName, strRarity, strPlayerClass, strCardType;
-    std::string strRace, strMechanics, strCost, strAttack, strHealth;
+    std::string strRace, strGameTag, strCost, strAttack, strHealth;
     bool isValid = true, isFinish = false;
 
     // Parsing
@@ -564,7 +564,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
             "remaining survivability of the character"
             "(You can search for an exact value such as 3 or a range of values "
             "like 3-4.)") |
-        clara::Opt(strMechanics, "mechanic")["-m"]["--mechanic"](
+        clara::Opt(strGameTag, "mechanic")["-m"]["--mechanic"](
             "describes the total effect of playing that card or special "
             "effects or powers additional to the basic functions of the card") |
         clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
@@ -596,7 +596,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
             ? CardType::_from_string(strCardType.c_str())
             : CardType::_from_string("INVALID");
     const Race race = StrToEnum<Race>(strRace.c_str());
-    const GameTag mechanic = StrToEnum<GameTag>(strMechanics.c_str());
+    const GameTag gameTag = StrToEnum<GameTag>(strGameTag.c_str());
 
     auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto [minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
@@ -614,7 +614,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     filter.attackMax = maxAttack;
     filter.healthMin = minHealth;
     filter.healthMax = maxHealth;
-    filter.mechanic = mechanic;
+    filter.gameTag = gameTag;
 
     return std::make_tuple(filter, isValid, isFinish);
 }
@@ -655,11 +655,12 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
         bool costCondition =
             filter.costMin <= card.cost && filter.costMax >= card.cost;
         bool attackCondition =
-            filter.attackMin <= card.attack && filter.attackMax >= card.attack;
+            filter.attackMin <= card.gameTags.at(GameTag::ATK) &&
+            filter.attackMax >= card.gameTags.at(GameTag::ATK);
         bool healthCondition =
             filter.healthMin <= card.health && filter.healthMax >= card.health;
-        bool mechanicsCondition = (filter.mechanic == GameTag::INVALID ||
-                                   card.HasMechanic(filter.mechanic));
+        bool mechanicsCondition = (filter.gameTag == GameTag::INVALID ||
+                                   card.HasGameTag(filter.gameTag));
         const bool isMatched =
             AllCondIsTrue(rarityCondition, classCondition, typeCondition,
                           raceCondition, nameCondition, costCondition,

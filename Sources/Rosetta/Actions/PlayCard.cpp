@@ -71,9 +71,9 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     player.GetField().AddMinion(*minion, fieldPos);
 
     // Apply card mechanics tags
-    for (const auto tags : minion->card.mechanics)
+    for (const auto tags : minion->card.gameTags)
     {
-        minion->SetGameTag(tags, 1);
+        minion->SetGameTag(tags.first, tags.second);
     }
 
     // Process power tasks
