@@ -24,7 +24,7 @@ struct SearchFilter
     CardClass playerClass = CardClass::INVALID;
     CardType cardType = CardType::INVALID;
     Race race = Race::INVALID;
-    GameTag mechanic = GameTag::INVALID;
+    GameTag gameTag = GameTag::INVALID;
 
     std::string name;
     size_t costMin = 0, costMax = 0;
@@ -122,11 +122,10 @@ class Cards
     static std::vector<Card> FindCardBySpellPower(std::size_t minVal,
                                                   std::size_t maxVal);
 
-    //! Returns a list of cards that has \p mechanics.
-    //! \param mechanics The mechanics of the card.
+    //! Returns a list of cards that has \p gameTags.
+    //! \param gameTags A list of game tag of the card.
     //! \return A list of cards that matches condition.
-    static std::vector<Card> FindCardByMechanics(
-        std::vector<GameTag> mechanics);
+    static std::vector<Card> FindCardByGameTag(std::vector<GameTag> gameTags);
 
     //! Returns a hero card that matches \p cardClass.
     //! \param cardClass The class of the card.
