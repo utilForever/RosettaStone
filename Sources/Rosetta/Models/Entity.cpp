@@ -91,7 +91,7 @@ int Entity::GetGameTag(GameTag tag) const
         return 0;
     }
 
-    return m_gameTags.at(tag);
+    return m_gameTags.at(tag) + auraEffects.GetGameTag(tag);
 }
 
 void Entity::SetGameTag(GameTag tag, int value)

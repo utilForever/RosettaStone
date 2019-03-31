@@ -8,6 +8,7 @@
 #define ROSETTASTONE_ENTITY_HPP
 
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Enchants/AuraEffects.hpp>
 
 #include <map>
 
@@ -78,6 +79,8 @@ class Entity
     static Entity* GetFromCard(Player& player, Card&& card);
 
     Card card;
+    AuraEffects auraEffects;
+    Aura* onGoingEffect = nullptr;
 
     std::size_t id = 0;
     std::size_t orderOfPlay = 0;
