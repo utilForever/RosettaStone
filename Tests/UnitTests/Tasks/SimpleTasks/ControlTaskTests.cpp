@@ -53,7 +53,7 @@ TEST(ControlTask, Run)
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
     // Check controlled minion has valid data
-    EXPECT_EQ(player1Field.GetMinion(6)->GetAttack(), 1u);
+    EXPECT_EQ(player1Field.GetMinion(6)->GetAttack(), 1);
     EXPECT_EQ(player1Field.GetMinion(6)->health, 1);
 
     control.SetTarget(player2Field.GetMinion(1));

@@ -197,7 +197,7 @@ TEST(Cards, FindCardByHealth)
     EXPECT_TRUE(cards2.empty());
 }
 
-TEST(Cards, FindCardByMechanics)
+TEST(Cards, FindCardByGameTag)
 {
     Cards& instance = Cards::GetInstance();
 
@@ -205,12 +205,11 @@ TEST(Cards, FindCardByMechanics)
     const std::vector<GameTag> tags2;
     tags1.emplace_back(GameTag::CANT_ATTACK);
 
-    std::vector<Card> cards1 = instance.FindCardByMechanics(tags1);
-    std::vector<Card> cards2 = instance.FindCardByMechanics(tags2);
-    auto cardTags = cards1.front().mechanics;
+    std::vector<Card> cards1 = instance.FindCardByGameTag(tags1);
+    std::vector<Card> cards2 = instance.FindCardByGameTag(tags2);
+    auto gameTags = cards1.front().gameTags;
 
-    EXPECT_TRUE(std::find(cardTags.begin(), cardTags.end(),
-                          GameTag::CANT_ATTACK) != cardTags.end());
+    EXPECT_TRUE(gameTags.find(GameTag::CANT_ATTACK) != gameTags.end());
     EXPECT_TRUE(cards2.empty());
 }
 

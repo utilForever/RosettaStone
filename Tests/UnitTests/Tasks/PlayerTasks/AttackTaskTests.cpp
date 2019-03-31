@@ -84,7 +84,7 @@ TEST(AttackTask, Default)
 
     auto card5 = GenerateMinionCard("minion5", 5, 4);
 
-    p1Field.GetMinion(0)->attack = 1;
+    p1Field.GetMinion(0)->SetAttack(1);
     PlayMinionCard(player2, card5);
 
     EndTurnTask().Run(player1);
@@ -113,7 +113,7 @@ TEST(AttackTask, Weapon)
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     player1.GetHero()->weapon = new Weapon();
-    player1.GetHero()->weapon->attack = 4;
+    player1.GetHero()->weapon->SetAttack(4);
     player1.GetHero()->weapon->durability = 2;
     player1.GetHero()->weapon->SetOwner(player1);
     EndTurnTask().Run(player1);
@@ -134,7 +134,7 @@ TEST(AttackTask, Weapon)
     Task::Run(player1, AttackTask(player1.GetHero(), p2Field.GetMinion(0)));
 
     EXPECT_EQ(player1.GetHero()->HasWeapon(), false);
-    EXPECT_EQ(player1.GetHero()->GetAttack(), 0u);
+    EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
     EXPECT_EQ(p2Field.GetMinion(0)->health, 2);
 }
 
@@ -155,7 +155,7 @@ TEST(AttackTask, Charge)
 
     auto card1 = GenerateMinionCard("minion1", 1, 10);
     auto card2 = GenerateMinionCard("minion1", 1, 10);
-    card2.mechanics.emplace_back(GameTag::CHARGE);
+    card2.gameTags[GameTag::CHARGE] = 1;
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();

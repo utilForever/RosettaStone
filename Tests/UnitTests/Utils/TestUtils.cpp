@@ -46,13 +46,13 @@ TaskMeta GenerateRandomTaskMeta()
     return TaskMeta(GenerateRandomTrait(), GenerateRandomBuffer());
 }
 
-Card GenerateMinionCard(std::string&& id, std::size_t attack, int health)
+Card GenerateMinionCard(std::string&& id, int attack, int health)
 {
     Card card;
     card.cardType = CardType::MINION;
 
     card.id = std::move(id);
-    card.attack = attack;
+    card.gameTags[GameTag::ATK] = attack;
     card.health = health;
 
     return card;
@@ -86,12 +86,11 @@ void ExpectCardEqual(const Card& card1, const Card& card2)
     EXPECT_EQ(card1.text, card2.text);
     EXPECT_EQ(card1.isCollectible, card2.isCollectible);
     EXPECT_EQ(card1.cost, card2.cost);
-    EXPECT_EQ(card1.mechanics, card2.mechanics);
+    EXPECT_EQ(card1.gameTags, card2.gameTags);
     EXPECT_EQ(card1.playRequirements, card2.playRequirements);
     EXPECT_EQ(card1.entourages, card2.entourages);
     EXPECT_EQ(card1.maxAllowedInDeck, card2.maxAllowedInDeck);
 
-    EXPECT_EQ(card1.attack, card2.attack);
     EXPECT_EQ(card1.health, card2.health);
 
     EXPECT_EQ(card1.durability, card2.durability);

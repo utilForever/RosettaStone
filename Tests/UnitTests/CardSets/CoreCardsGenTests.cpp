@@ -685,10 +685,10 @@ TEST(CoreCardsGen, CS2_027)
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
-    EXPECT_EQ(curField.GetMinion(0)->attack, 0u);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 0);
     EXPECT_EQ(curField.GetMinion(0)->health, 2);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
-    EXPECT_EQ(curField.GetMinion(1)->attack, 0u);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 0);
     EXPECT_EQ(curField.GetMinion(1)->health, 2);
     EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::TAUNT), 1);
 
@@ -740,12 +740,12 @@ TEST(CoreCardsGen, CS2_022)
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(curField.GetMinion(0)->attack, 1u);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
     EXPECT_EQ(curField.GetMinion(0)->health, 1);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card4));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(opField.GetMinion(0)->attack, 1u);
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 1);
     EXPECT_EQ(opField.GetMinion(0)->health, 1);
 }
 
@@ -1148,7 +1148,7 @@ TEST(CoreCardsGen, CS2_122)
     opPlayer.currentMana = 10;
 
     auto& curField = curPlayer.GetField();
-    
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Raid Leader"));
     const auto card2 = Generic::DrawCard(
@@ -1157,14 +1157,14 @@ TEST(CoreCardsGen, CS2_122)
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
-    EXPECT_EQ(curField.GetMinion(0)->attack, 6);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    EXPECT_EQ(curField.GetMinion(0)->attack, 7);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 7);
 
     Task::Run(curPlayer, EndTurnTask());
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
     Task::Run(opPlayer, AttackTask(card3, card1));
-    EXPECT_EQ(curField.GetMinion(0)->attack, 6);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
 }
