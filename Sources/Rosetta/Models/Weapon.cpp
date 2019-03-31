@@ -11,12 +11,21 @@ namespace RosettaStone
 {
 Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
-    attack = _card.attack ? *_card.attack : 0;
     durability = _card.durability ? *_card.durability : 0;
 }
 
 Weapon::~Weapon()
 {
     GetOwner().GetHero()->weapon = nullptr;
+}
+
+int Weapon::GetAttack()
+{
+    return GetGameTag(GameTag::ATK);
+}
+
+void Weapon::SetAttack(int attack)
+{
+    SetGameTag(GameTag::ATK, attack);
 }
 }  // namespace RosettaStone
