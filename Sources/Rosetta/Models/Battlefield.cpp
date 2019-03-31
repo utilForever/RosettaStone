@@ -114,6 +114,11 @@ void Battlefield::RemoveMinion(Minion& minion)
     }
 
     --m_numMinion;
+
+    for (auto& aura : auras)
+    {
+        aura->RemoveEntity(minion);
+    }
 }
 
 void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
@@ -125,11 +130,6 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
     delete &oldMinion;
 
     ActivateAura(newMinion);
-}
-
-void Battlefield::AddAura(Aura* aura)
-{
-    m_auras.emplace_back(aura);
 }
 
 void Battlefield::ActivateAura(Minion& minion)
@@ -148,6 +148,11 @@ void Battlefield::ActivateAura(Minion& minion)
 
 void Battlefield::RemoveAura(Minion& minion)
 {
+    if (minion.onGoingEffect != nullptr)
+    {
+        minion.onGoingEffect->Remove();
+    }
+
     int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
     if (minion.GetOwner().currentSpellPower > 0 && spellPower > 0)
     {
