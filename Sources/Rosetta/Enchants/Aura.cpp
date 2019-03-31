@@ -20,7 +20,9 @@ Aura::Aura(std::string&& enchantmentID, AuraType type)
 Aura::Aura(Aura& prototype, Entity& owner)
     : m_enchantmentID(prototype.m_enchantmentID),
       m_type(prototype.m_type),
-      m_owner(&owner)
+      m_owner(&owner),
+      m_effects(prototype.m_effects),
+      m_turnOn(prototype.m_turnOn)
 {
     // Do nothing
 }
@@ -36,39 +38,112 @@ void Aura::Activate(Entity& owner)
     Aura* instance = new Aura(*this, owner);
 
     owner.GetOwner().GetGame()->auras.emplace_back(instance);
+    owner.onGoingEffect = instance;
 
-    switch (m_type)
-    {
-        case AuraType::FIELD_EXCEPT_SOURCE:
-        {
-            owner.GetOwner().GetField().AddAura(instance);
-            break;
-        }
-    }
+    instance->AddToField();
 }
 
 void Aura::Update()
 {
+    if (!m_toBeUpdated)
+    {
+        return;
+    }
+
+    UpdateInternal();
+}
+
+void Aura::Remove()
+{
+    m_turnOn = false;
+    m_toBeUpdated = true;
+    m_owner->onGoingEffect = nullptr;
+}
+
+void Aura::RemoveEntity(Entity& entity)
+{
+    if (&entity == m_owner)
+    {
+        Remove();
+    }
+    else
+    {
+        auto iter =
+            std::find(m_appliedEntities.begin(), m_appliedEntities.end(), &entity);
+        m_appliedEntities.erase(iter);
+    }
+}
+
+void Aura::Apply(Entity& entity)
+{
+    for (auto& effect : m_effects)
+    {
+        effect.Apply(entity.auraEffects);
+    }
+
+    m_appliedEntities.emplace_back(&entity);
+}
+
+void Aura::AddToField()
+{
+    switch (m_type)
+    {
+        case AuraType::FIELD_EXCEPT_SOURCE:
+            m_owner->GetOwner().GetField().auras.emplace_back(this);
+            break;
+    }
+}
+
+void Aura::UpdateInternal()
+{
+    if (m_turnOn)
+    {
+        switch (m_type)
+        {
+            case AuraType::FIELD_EXCEPT_SOURCE:
+            {
+                for (auto& minion :
+                     m_owner->GetOwner().GetField().GetAllMinions())
+                {
+                    if (minion != m_owner)
+                    {
+                        Apply(*minion);
+                    }
+                }
+            }
+        }
+
+        m_toBeUpdated = false;
+    }
+    else
+    {
+        RemoveInternal();
+    }
+}
+
+void Aura::RemoveInternal()
+{
     switch (m_type)
     {
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : m_owner->GetOwner().GetField().GetAllMinions())
-            {
-                if (minion != m_owner)
-                {
-                    Apply(minion);
-                }
-            }
+            auto auras = m_owner->GetOwner().GetField().auras;
+            auto iter = std::find(auras.begin(), auras.end(), this);
+            auras.erase(iter);
+            break;
         }
     }
-}
 
-void Aura::Apply(Character* character)
-{
-    for (auto& effect : m_effects)
+    for (auto& entity : m_appliedEntities)
     {
-        effect.Apply(character->auraEffects);
+        for (auto& effect : m_effects)
+        {
+            effect.Remove(entity->auraEffects);
+        }
     }
+
+    auto auras = m_owner->GetOwner().GetGame()->auras;
+    auto iter = std::find(auras.begin(), auras.end(), this);
+    auras.erase(iter);
 }
 }  // namespace RosettaStone

@@ -45,22 +45,43 @@ class Aura
     //! \param owner An owner of aura.
     Aura(Aura& prototype, Entity& owner);
 
-    //! Activates aura.
+    //! Activates aura to battlefield.
     //! \param owner An owner of aura.
     void Activate(Entity& owner);
 
     //! Updates aura to apply the effect to recently modified entities.
     void Update();
 
-    //! Apply aura's effect(s) to target character.
-    void Apply(Character* character);
+    //! Removes aura to disapply the effect to recently modified entities.
+    void Remove();
+
+    //! Removes entity to update a list of entities.
+    //! \param entity An entity to remove.
+    void RemoveEntity(Entity& entity);
+
+    //! Apply aura's effect(s) to target entity.
+    //! \param entity An entity to apply aura's effect(s).
+    void Apply(Entity& entity);
 
  private:
+    //! Adds aura to battlefield.
+    void AddToField();
+
+    //! Internal method of Update().
+    void UpdateInternal();
+
+    //! Internal method of Remove().
+    void RemoveInternal();
+
     std::string m_enchantmentID;
     AuraType m_type = AuraType::INVALID;
 
     Entity* m_owner = nullptr;
     std::vector<Effect> m_effects;
+    std::vector<Entity*> m_appliedEntities;
+
+    bool m_turnOn = true;
+    bool m_toBeUpdated = true;
 };
 }  // namespace RosettaStone
 
