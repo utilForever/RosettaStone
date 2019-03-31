@@ -423,7 +423,13 @@ void Game::ProcessDestroyAndUpdateAura()
 
 void Game::UpdateAura()
 {
-    for (std::size_t i = auras.size(); i >= 0; --i)
+    int auraSize = static_cast<int>(auras.size());
+    if (auraSize == 0)
+    {
+        return;
+    }
+
+    for (int i = auraSize - 1; i >= 0; --i)
     {
         auras[i]->Update();
     }
