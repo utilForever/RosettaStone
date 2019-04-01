@@ -10,10 +10,17 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
+
+struct MulliganTestPolicy : BasicPolicy {
+    TaskMeta RequireMulligan(Player& player) override {
+        return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN), std::vector<size_t>());
+    }
+};
 
 TEST(Game, Mulligan)
 {
@@ -23,6 +30,7 @@ TEST(Game, Mulligan)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = false;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -30,11 +38,10 @@ TEST(Game, Mulligan)
     auto& curPlayer = game.GetCurrentPlayer();
     auto& opPlayer = game.GetOpponentPlayer();
 
-    Task::Run(curPlayer,
-              ChooseTask::Mulligan(curPlayer, std::vector<std::size_t>()));
-    Task::Run(opPlayer,
-              ChooseTask::Mulligan(opPlayer, std::vector<std::size_t>()));
+    MulliganTestPolicy policy;
+    curPlayer.SetPolicy(&policy);
+    opPlayer.SetPolicy(&policy);
 
-    game.nextStep = Step::MAIN_BEGIN;
+    game.nextStep = Step::BEGIN_MULLIGAN;
     GameManager::ProcessNextStep(game, game.nextStep);
 }
