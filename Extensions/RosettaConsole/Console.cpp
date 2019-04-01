@@ -595,8 +595,8 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         CardType::_from_string_nothrow(strCardType.c_str())
             ? CardType::_from_string(strCardType.c_str())
             : CardType::_from_string("INVALID");
-    const Race race = StrToEnum<Race>(strRace.c_str());
-    const GameTag gameTag = StrToEnum<GameTag>(strGameTag.c_str());
+    const Race race = StrToEnum<Race>(strRace);
+    const GameTag gameTag = StrToEnum<GameTag>(strGameTag);
 
     auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto [minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
@@ -610,8 +610,8 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     filter.name = strName;
     filter.costMin = minCost;
     filter.costMax = maxCost;
-    filter.attackMin = minAttack;
-    filter.attackMax = maxAttack;
+    filter.attackMin = static_cast<int>(minAttack);
+    filter.attackMax = static_cast<int>(maxAttack);
     filter.healthMin = minHealth;
     filter.healthMax = maxHealth;
     filter.gameTag = gameTag;
@@ -623,7 +623,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
     std::vector<Card> result;
 
-    for (auto& card : Cards::GetInstance().GetAllCards())
+    for (auto& card : Cards::GetAllCards())
     {
         if (!card.isCollectible)
         {

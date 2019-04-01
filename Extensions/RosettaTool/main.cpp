@@ -7,7 +7,6 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 
-#include <better-enums/enum.h>
 #include <clara.hpp>
 
 #if defined(ROSETTASTONE_WINDOWS)
@@ -94,7 +93,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
     std::ofstream outputFile("result.md");
     if (outputFile)
     {
-        auto cards = Cards::GetInstance().FindCardBySet(cardSet);
+        auto cards = Cards::FindCardBySet(cardSet);
         if (cards.empty())
         {
             std::cerr << "Your search did not generate any hits.\n";
@@ -143,7 +142,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         }
 
         // Adds the number of card that implemented by ability
-        const size_t implPercent = static_cast<size_t>(
+        const auto implPercent = static_cast<size_t>(
             static_cast<double>(impledCardNum) / allCardNum * 100);
         outputFile << '\n';
         outputFile << "- Progress: " << implPercent << "% (" << impledCardNum
@@ -201,7 +200,7 @@ int main(int argc, char* argv[])
     }
     else if (!cardSetName.empty())
     {
-        cardSet = StrToEnum<CardSet>(cardSetName.c_str());
+        cardSet = StrToEnum<CardSet>(cardSetName);
         if (cardSet == CardSet::INVALID)
         {
             std::cerr << "Invalid card set name: " << cardSetName << '\n';
