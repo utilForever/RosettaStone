@@ -514,6 +514,16 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3));
     cards.emplace("CS2_075", power);
+
+	// ----------------------------------------- SPELL - SHAMAN
+    // [CS2_077] Sprint - COST:7
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Draw 4 cards.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(4));
+    cards.emplace("CS2_077", power);
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)

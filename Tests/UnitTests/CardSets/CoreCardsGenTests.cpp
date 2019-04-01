@@ -1304,3 +1304,29 @@ TEST(CoreCardsGen, CS2_075)
 
     EXPECT_EQ(opPlayer.GetHero()->health, 27);
 }
+
+TEST(CoreCardsGen, CS2_077)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Sprint"));
+
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 8u);
+}
