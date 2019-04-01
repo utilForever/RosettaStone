@@ -491,6 +491,19 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
     power.AddPowerTask(new HealTask(EntityType::HERO, 2));
     cards.emplace("CS2_061", power);
+
+    // ----------------------------------------- MINION - SHAMAN
+    // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 1 damage to ALL other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ALL, 1));
+    cards.emplace("CS2_064", power);
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)

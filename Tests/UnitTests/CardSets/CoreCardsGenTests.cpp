@@ -1240,3 +1240,41 @@ TEST(CoreCardsGen, CS2_061)
     EXPECT_EQ(curField.GetMinion(0)->health, 5);
     EXPECT_EQ(opHero->health, 22);
 }
+
+TEST(CoreCardsGen, CS2_064)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dread Infernal"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+
+    Task::Run(curPlayer, EndTurnTask());
+
+	auto curHero = curPlayer.GetHero();
+    auto opHero = opPlayer.GetHero();
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    EXPECT_EQ(opHero->health, 29);
+    EXPECT_EQ(curHero->health, 29);
+    EXPECT_EQ(curField.GetMinion(0)->health, 6);
+}
