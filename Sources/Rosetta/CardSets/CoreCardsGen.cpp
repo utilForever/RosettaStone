@@ -413,6 +413,26 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_080", power);
+
+    // ----------------------------------------- SPELL - ROGUE
+    // [CS2_075] Sinister Strike - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $3 damage to the enemy hero.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3));
+    cards.emplace("CS2_075", power);
+
+    // ----------------------------------------- SPELL - ROGUE
+    // [CS2_077] Sprint - COST:7
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Draw 4 cards.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(4));
+    cards.emplace("CS2_077", power);
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
@@ -504,26 +524,6 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ALL, 1));
     cards.emplace("CS2_064", power);
-
-	// ----------------------------------------- SPELL - SHAMAN
-    // [CS2_075] Sinister Strike - COST:1
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal $3 damage to the enemy hero.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3));
-    cards.emplace("CS2_075", power);
-
-	// ----------------------------------------- SPELL - SHAMAN
-    // [CS2_077] Sprint - COST:7
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Draw 4 cards.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DrawTask(4));
-    cards.emplace("CS2_077", power);
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
