@@ -421,7 +421,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     // Text: Deal $3 damage to the enemy hero.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3, true));
     cards.emplace("CS2_075", power);
 
     // ----------------------------------------- SPELL - ROGUE
