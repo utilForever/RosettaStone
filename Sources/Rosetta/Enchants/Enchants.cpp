@@ -12,13 +12,13 @@
 
 namespace RosettaStone
 {
-Enchant Enchants::GetEnchantFromText(std::string cardID)
+Enchant Enchants::GetEnchantFromText(const std::string& cardID)
 {
     std::vector<Effect> effects;
 
     static std::regex attackRegex("\\+([[:digit:]]+) Attack");
 
-    std::string text = Cards::FindCardByID(cardID).text;
+    const std::string text = Cards::FindCardByID(cardID).text;
     std::smatch values;
 
     if (std::regex_search(text, values, attackRegex))

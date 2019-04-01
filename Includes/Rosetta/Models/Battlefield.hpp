@@ -82,8 +82,8 @@ class Battlefield
     std::vector<Aura*> auras;
 
  private:
-    void ActivateAura(Minion& minion);
-    void RemoveAura(Minion& minion);
+    static void ActivateAura(Minion& minion);
+    static void RemoveAura(Minion& minion);
 
     Player* m_owner = nullptr;
 

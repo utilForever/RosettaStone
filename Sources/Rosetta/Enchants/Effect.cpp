@@ -42,7 +42,7 @@ void Effect::Apply(Character* character, bool isOneTurnEffect) const
     }
 }
 
-void Effect::Apply(AuraEffects& auraEffects)
+void Effect::Apply(AuraEffects& auraEffects) const
 {
     const int prevValue = auraEffects.GetGameTag(m_gameTag);
 
@@ -62,7 +62,7 @@ void Effect::Apply(AuraEffects& auraEffects)
     }
 }
 
-void Effect::Remove(AuraEffects& auraEffects)
+void Effect::Remove(AuraEffects& auraEffects) const 
 {
     const int prevValue = auraEffects.GetGameTag(m_gameTag);
 

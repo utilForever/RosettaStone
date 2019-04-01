@@ -23,7 +23,7 @@ class Enchants
     //! Creates enchant from card's text.
     //! \param cardID A card's ID.
     //! \return A newly created enchant from card's text.
-    static Enchant GetEnchantFromText(std::string cardID);
+    static Enchant GetEnchantFromText(const std::string& cardID);
 };
 }  // namespace RosettaStone
 

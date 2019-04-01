@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Tasks/TaskMeta.hpp>
+#include <utility>
 
 namespace RosettaStone
 {
@@ -62,13 +63,7 @@ TaskMeta::TaskMeta(const TaskMetaTrait& trait) : TaskMetaTrait(trait)
 }
 
 TaskMeta::TaskMeta(const TaskMetaTrait& trait, std::any object)
-    : TaskMetaTrait(trait), m_object(object)
-{
-    // Do nothing
-}
-
-TaskMeta::TaskMeta(const TaskMeta& meta)
-    : TaskMetaTrait(meta), m_object(meta.m_object)
+    : TaskMetaTrait(trait), m_object(std::move(object))
 {
     // Do nothing
 }
@@ -77,13 +72,6 @@ TaskMeta::TaskMeta(TaskMeta&& meta) noexcept
     : TaskMetaTrait(meta), m_object(std::move(meta.m_object))
 {
     // Do nothing
-}
-
-TaskMeta& TaskMeta::operator=(const TaskMeta& meta)
-{
-    TaskMetaTrait::operator=(meta);
-    m_object = meta.m_object;
-    return *this;
 }
 
 TaskMeta& TaskMeta::operator=(TaskMeta&& meta) noexcept

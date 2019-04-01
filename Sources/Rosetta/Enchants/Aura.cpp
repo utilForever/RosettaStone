@@ -68,8 +68,8 @@ void Aura::RemoveEntity(Entity& entity)
     }
     else
     {
-        auto iter =
-            std::find(m_appliedEntities.begin(), m_appliedEntities.end(), &entity);
+        const auto iter = std::find(m_appliedEntities.begin(),
+                              m_appliedEntities.end(), &entity);
         m_appliedEntities.erase(iter);
     }
 }
@@ -91,6 +91,9 @@ void Aura::AddToField()
         case AuraType::FIELD_EXCEPT_SOURCE:
             m_owner->GetOwner().GetField().auras.emplace_back(this);
             break;
+        default:
+            throw std::invalid_argument(
+                "Aura::AddToField() - Invalid aura type!");
     }
 }
 
@@ -110,7 +113,11 @@ void Aura::UpdateInternal()
                         Apply(*minion);
                     }
                 }
+                break;
             }
+            default:
+                throw std::invalid_argument(
+                    "Aura::UpdateInternal() - Invalid aura type!");
         }
 
         m_toBeUpdated = false;
@@ -128,10 +135,13 @@ void Aura::RemoveInternal()
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
             auto auras = m_owner->GetOwner().GetField().auras;
-            auto iter = std::find(auras.begin(), auras.end(), this);
+            const auto iter = std::find(auras.begin(), auras.end(), this);
             auras.erase(iter);
             break;
         }
+        default:
+            throw std::invalid_argument(
+                "Aura::RemoveInternal() - Invalid aura type!");
     }
 
     for (auto& entity : m_appliedEntities)
@@ -143,7 +153,7 @@ void Aura::RemoveInternal()
     }
 
     auto auras = m_owner->GetOwner().GetGame()->auras;
-    auto iter = std::find(auras.begin(), auras.end(), this);
+    const auto iter = std::find(auras.begin(), auras.end(), this);
     auras.erase(iter);
 }
 }  // namespace RosettaStone

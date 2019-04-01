@@ -151,12 +151,8 @@ std::vector<Card> Cards::FindCardByCost(std::size_t minVal, std::size_t maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByAttack(std::size_t minVal,
-                                          std::size_t maxVal)
+std::vector<Card> Cards::FindCardByAttack(int minVal, int maxVal)
 {
-    (void)minVal;
-    (void)maxVal;
-
     std::vector<Card> result;
 
     for (auto card : m_cards)

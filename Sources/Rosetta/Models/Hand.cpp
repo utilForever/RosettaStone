@@ -99,8 +99,8 @@ void Hand::RemoveCard(Entity& card)
 
 void Hand::SwapCard(Entity& card1, Entity& card2)
 {
-    std::size_t card1Pos = FindCardPos(card1).value();
-    std::size_t card2Pos = FindCardPos(card2).value();
+    const std::size_t card1Pos = FindCardPos(card1).value();
+    const std::size_t card2Pos = FindCardPos(card2).value();
 
     std::swap(m_cards[card1Pos], m_cards[card2Pos]);
 }

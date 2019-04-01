@@ -30,11 +30,11 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
     // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(gameConfig.player1Class),
-        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player1Class));
+        Cards::GetHeroCard(gameConfig.player1Class),
+        Cards::GetDefaultHeroPower(gameConfig.player1Class));
     GetPlayer2().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(gameConfig.player2Class),
-        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player2Class));
+        Cards::GetHeroCard(gameConfig.player2Class),
+        Cards::GetDefaultHeroPower(gameConfig.player2Class));
 
     // Set opponent player
     GetPlayer1().SetOpponent(&GetPlayer2());
@@ -107,7 +107,7 @@ void Game::BeginDraw()
             Generic::Draw(p);
 
             // Give "The Coin" card to second player
-            Card coin = Cards::GetInstance().FindCardByID("GAME_005");
+            Card coin = Cards::FindCardByID("GAME_005");
             p.GetHand().AddCard(*Entity::GetFromCard(p, std::move(coin)));
         }
     }
@@ -335,7 +335,7 @@ void Game::StartGame()
         {
             for (auto& cardID : m_gameConfig.fillCardIDs)
             {
-                Card card = Cards::GetInstance().FindCardByID(cardID);
+                Card card = Cards::FindCardByID(cardID);
                 Entity* entity = Entity::GetFromCard(p, std::move(card));
                 p.GetDeck().AddCard(*entity);
             }
@@ -381,18 +381,18 @@ void Game::ProcessDestroyAndUpdateAura()
 
     // Destroy weapons
     if (GetPlayer1().GetHero()->weapon != nullptr &&
-        GetPlayer1().GetHero()->weapon->isDestroyed == true)
+        GetPlayer1().GetHero()->weapon->isDestroyed)
     {
         GetPlayer1().GetHero()->RemoveWeapon();
     }
     if (GetPlayer2().GetHero()->weapon != nullptr &&
-        GetPlayer2().GetHero()->weapon->isDestroyed == true)
+        GetPlayer2().GetHero()->weapon->isDestroyed)
     {
         GetPlayer2().GetHero()->RemoveWeapon();
     }
 
     // Destroy minions
-    if (deadMinions.size() > 0)
+    if (!deadMinions.empty())
     {
         for (auto& deadMinion : deadMinions)
         {
@@ -423,7 +423,7 @@ void Game::ProcessDestroyAndUpdateAura()
 
 void Game::UpdateAura()
 {
-    int auraSize = static_cast<int>(auras.size());
+    const int auraSize = static_cast<int>(auras.size());
     if (auraSize == 0)
     {
         return;

@@ -16,7 +16,7 @@ TaskMeta BasicPolicy::Next(const Game& game)
 
 TaskMeta BasicPolicy::Require(Player& player, TaskID id)
 {
-    if (auto iter = m_require.find(id); iter != m_require.end())
+    if (const auto iter = m_require.find(id); iter != m_require.end())
     {
         return iter->second(*this, player);
     }
@@ -25,7 +25,7 @@ TaskMeta BasicPolicy::Require(Player& player, TaskID id)
 
 void BasicPolicy::Notify(const TaskMeta& meta)
 {
-    if (auto iter = m_notify.find(meta.GetID()); iter != m_notify.end())
+    if (const auto iter = m_notify.find(meta.GetID()); iter != m_notify.end())
     {
         return iter->second(*this, meta);
     }

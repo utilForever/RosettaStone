@@ -31,7 +31,7 @@ TaskStatus DiscardTask::Impl(Player& player)
             return TaskStatus::STOP;
         }
 
-        auto idx = Random::get<std::size_t>(0, hand.GetNumOfCards() - 1);
+        const auto idx = Random::get<std::size_t>(0, hand.GetNumOfCards() - 1);
         hand.RemoveCard(*hand.GetCard(idx));
         return TaskStatus::COMPLETE;
     }

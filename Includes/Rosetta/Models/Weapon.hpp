@@ -46,7 +46,7 @@ class Weapon : public Entity
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    int GetAttack();
+    int GetAttack() const;
 
     //! Sets the value of attack.
     //! \param attack The value of attack.

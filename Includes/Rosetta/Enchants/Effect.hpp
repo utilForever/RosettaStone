@@ -46,11 +46,11 @@ class Effect
 
     //! Applies this effect to the target as an aura effect.
     //! \param auraEffects The aura effect.
-    void Apply(AuraEffects& auraEffects);
+    void Apply(AuraEffects& auraEffects) const;
 
     //! Remove this aura effect from the target entity.
     //! \param auraEffects The aura effect.
-    void Remove(AuraEffects& auraEffects);
+    void Remove(AuraEffects& auraEffects) const;
 
  private:
     GameTag m_gameTag = GameTag::INVALID;

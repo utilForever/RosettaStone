@@ -48,8 +48,7 @@ void CardLoader::Load(std::vector<Card>& cards)
         const CardSet cardSet =
             cardData["set"].is_null()
                 ? CardSet::NONE
-                : StrToEnum<CardSet>(
-                      cardData["set"].get<std::string>().c_str());
+                : StrToEnum<CardSet>(cardData["set"].get<std::string>());
         const CardClass cardClass =
             cardData["cardClass"].is_null()
                 ? +CardClass::NEUTRAL
@@ -63,7 +62,7 @@ void CardLoader::Load(std::vector<Card>& cards)
         const Race race =
             cardData["race"].is_null()
                 ? Race::INVALID
-                : StrToEnum<Race>(cardData["race"].get<std::string>().c_str());
+                : StrToEnum<Race>(cardData["race"].get<std::string>());
 
         const std::string name = cardData["name"].is_null()
                                      ? ""
@@ -97,15 +96,15 @@ void CardLoader::Load(std::vector<Card>& cards)
         std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])
         {
-            gameTags.emplace(
-                StrToEnum<GameTag>(mechanic.get<std::string>().c_str()), 1);
+            gameTags.emplace(StrToEnum<GameTag>(mechanic.get<std::string>()),
+                             1);
         }
 
         std::map<PlayReq, int> playRequirements;
         for (auto iter = cardData["playRequirements"].begin();
              iter != cardData["playRequirements"].end(); ++iter)
         {
-            playRequirements.try_emplace(StrToEnum<PlayReq>(iter.key().c_str()),
+            playRequirements.try_emplace(StrToEnum<PlayReq>(iter.key()),
                                          iter.value().get<int>());
         }
 

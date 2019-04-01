@@ -19,7 +19,7 @@ Weapon::~Weapon()
     GetOwner().GetHero()->weapon = nullptr;
 }
 
-int Weapon::GetAttack()
+int Weapon::GetAttack() const
 {
     return GetGameTag(GameTag::ATK);
 }

@@ -106,8 +106,7 @@ class Cards
     //! \param minVal The minimum attack value of the card.
     //! \param maxVal The maximum attack value of the card.
     //! \return A list of cards that matches condition.
-    static std::vector<Card> FindCardByAttack(std::size_t minVal,
-                                              std::size_t maxVal);
+    static std::vector<Card> FindCardByAttack(int minVal, int maxVal);
 
     //! Returns a list of cards whose health is between \p minVal and \p maxVal.
     //! \param minVal The minimum health value of the card.

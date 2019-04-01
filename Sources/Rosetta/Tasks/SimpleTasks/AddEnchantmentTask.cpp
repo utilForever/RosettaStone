@@ -22,13 +22,13 @@ TaskID AddEnchantmentTask::GetTaskID() const
 
 TaskStatus AddEnchantmentTask::Impl(Player&)
 {
-    Card enchantmentCard = Cards::GetInstance().FindCardByID(m_cardID);
+    Card enchantmentCard = Cards::FindCardByID(m_cardID);
     if (enchantmentCard.id.empty())
     {
         return TaskStatus::STOP;
     }
 
-    Power power = Cards::GetInstance().FindCardByID(m_cardID).power;
+    Power power = Cards::FindCardByID(m_cardID).power;
     power.GetEnchant().ActivateTo(dynamic_cast<Character*>(m_target));
 
     return TaskStatus::COMPLETE;
