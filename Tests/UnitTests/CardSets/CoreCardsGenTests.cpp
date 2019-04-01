@@ -1278,3 +1278,29 @@ TEST(CoreCardsGen, CS2_064)
     EXPECT_EQ(curHero->health, 29);
     EXPECT_EQ(curField.GetMinion(0)->health, 6);
 }
+
+TEST(CoreCardsGen, CS2_075)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Sinister Strike"));
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+
+    EXPECT_EQ(opPlayer.GetHero()->health, 27);
+}
