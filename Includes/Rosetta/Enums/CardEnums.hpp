@@ -16,6 +16,8 @@
 
 #include <better-enums/enum.h>
 
+#include <string>
+
 namespace RosettaStone
 {
 #ifndef ROSETTASTONE_DOXYGEN
