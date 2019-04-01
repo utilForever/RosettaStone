@@ -76,7 +76,9 @@ void Game::BeginFirst()
 {
     // Set next step
     nextStep = Step::BEGIN_SHUFFLE;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::BeginShuffle()
@@ -90,7 +92,9 @@ void Game::BeginShuffle()
 
     // Set next step
     nextStep = Step::BEGIN_DRAW;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::BeginDraw()
@@ -116,7 +120,10 @@ void Game::BeginDraw()
     // Set next step
     nextStep =
         m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
-    GameManager::ProcessNextStep(*this, nextStep);
+
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::BeginMulligan()
@@ -153,14 +160,18 @@ void Game::BeginMulligan()
                             p2Choice.GetObject<std::vector<std::size_t>>());
 
     nextStep = Step::MAIN_BEGIN;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainBegin()
 {
     // Set next step
     nextStep = Step::MAIN_READY;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainReady()
@@ -196,14 +207,18 @@ void Game::MainReady()
 
     // Set next step
     nextStep = Step::MAIN_START_TRIGGERS;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainStartTriggers()
 {
     // Set next step
     nextStep = Step::MAIN_RESOURCE;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainResource()
@@ -218,7 +233,9 @@ void Game::MainResource()
 
     // Set next step
     nextStep = Step::MAIN_DRAW;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainDraw()
@@ -228,21 +245,27 @@ void Game::MainDraw()
 
     // Set next step
     nextStep = Step::MAIN_START;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainStart()
 {
     // Set next step
     nextStep = Step::MAIN_ACTION;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainEnd()
 {
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainCleanUp()
@@ -269,7 +292,9 @@ void Game::MainCleanUp()
 
     // Set next step
     nextStep = Step::MAIN_NEXT;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainNext()
@@ -282,7 +307,9 @@ void Game::MainNext()
 
     // Set next step
     nextStep = Step::MAIN_READY;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::FinalWrapUp()
@@ -300,7 +327,9 @@ void Game::FinalWrapUp()
 
     // Set next step
     nextStep = Step::FINAL_GAMEOVER;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::FinalGameOver()
@@ -386,7 +415,9 @@ void Game::StartGame()
 
     // Set next step
     nextStep = Step::BEGIN_FIRST;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun) {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::ProcessDestroy()
