@@ -9,6 +9,8 @@
 #include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone
 {
 Aura::Aura(std::string&& enchantmentID, AuraType type)
