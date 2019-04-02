@@ -8,6 +8,12 @@
 
 namespace RosettaStone
 {
+Enchant::Enchant(GameTag gameTag, EffectOperator effectOperator, int value)
+{
+    Effect effect(gameTag, effectOperator, value);
+    effects.emplace_back(effect);
+}
+
 Enchant::Enchant(Effect& effect)
 {
     effects.emplace_back(effect);

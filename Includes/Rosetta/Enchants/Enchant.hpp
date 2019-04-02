@@ -27,6 +27,12 @@ class Enchant
     //! Default constructor.
     Enchant() = default;
 
+    //! Constructs enchant with given \p gameTag, \p effectOperator and \p value.
+    //! \param gameTag The game tag of the card.
+    //! \param effectOperator The effect operator to change card value.
+    //! \param value The value to change.
+    Enchant(GameTag gameTag, EffectOperator effectOperator, int value);
+
     //! Constructs enchant with given \p effect.
     //! \param effect The effect of the card.
     Enchant(Effect& effect);
@@ -39,7 +45,7 @@ class Enchant
     //! \param character The character to which enchant is activated.
     void ActivateTo(Character* character);
 
-    std::vector<Effect> effects;    
+    std::vector<Effect> effects;
 };
 }  // namespace RosettaStone
 
