@@ -546,7 +546,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     power.AddPowerTask(new HealTask(EntityType::HERO, 2));
     cards.emplace("CS2_061", power);
 
