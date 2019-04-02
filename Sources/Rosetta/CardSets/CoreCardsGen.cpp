@@ -392,16 +392,24 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     Power power;
 
     // ------------------------------------------ SPELL - ROGUE
-    // [EX1_129] Fan of Knives - COST:3
+    // [CS2_075] Sinister Strike - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage to all enemy minions.
-    //       Draw a card.
+    // Text: Deal $3 damage to the enemy hero.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1, true));
-    power.AddPowerTask(new DrawTask(1));
-    cards.emplace("EX1_129", power);
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3, true));
+    cards.emplace("CS2_075", power);
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [CS2_077] Sprint - COST:7
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Draw 4 cards.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(4));
+    cards.emplace("CS2_077", power);
 
     // ----------------------------------------- WEAPON - ROGUE
     // [CS2_080] Assassin's Blade - COST:5 [ATK:3/HP:0]
@@ -414,25 +422,17 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_080", power);
 
-    // ----------------------------------------- SPELL - ROGUE
-    // [CS2_075] Sinister Strike - COST:1
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_129] Fan of Knives - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage to the enemy hero.
+    // Text: Deal $1 damage to all enemy minions.
+    //       Draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3, true));
-    cards.emplace("CS2_075", power);
-
-    // ----------------------------------------- SPELL - ROGUE
-    // [CS2_077] Sprint - COST:7
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Draw 4 cards.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DrawTask(4));
-    cards.emplace("CS2_077", power);
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 1, true));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("EX1_129", power);
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
@@ -494,36 +494,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    //power.ClearData();
-    //power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
-    //cards.emplace("CS2_042", power);
-
-    // ----------------------------------------- SPELL - SHAMAN
-    // [CS2_061] Drain Life - COST:3
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal $2 damage. Restore #2 Health to your hero.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
-    power.AddPowerTask(new HealTask(EntityType::HERO, 2));
-    cards.emplace("CS2_061", power);
-
-    // ----------------------------------------- MINION - SHAMAN
-    // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage to ALL other characters.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ALL, 1));
-    cards.emplace("CS2_064", power);
+    // power.ClearData();
+    // power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    // cards.emplace("CS2_042", power);
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
@@ -564,6 +537,20 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     cards.emplace("CS2_057", power);
 
     // ---------------------------------------- SPELL - WARLOCK
+    // [CS2_061] Drain Life - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage. Restore #2 Health to your hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    power.AddPowerTask(new HealTask(EntityType::HERO, 2));
+    cards.emplace("CS2_061", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
     // [CS2_062] Hellfire - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -572,6 +559,19 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ALL, 3, true));
     cards.emplace("CS2_062", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
+    // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 1 damage to ALL other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ALL, 1));
+    cards.emplace("CS2_064", power);
 
     // --------------------------------------- MINION - WARLOCK
     // [CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
@@ -782,7 +782,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_142", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
