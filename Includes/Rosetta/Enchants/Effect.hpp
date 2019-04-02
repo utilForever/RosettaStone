@@ -34,7 +34,7 @@ class Effect
     Effect() = default;
 
     //! Constructs effect with given \p gameTag, \p effectOperator and \p value.
-    //! \param gameTag The mechanics of the card.
+    //! \param gameTag The game tag of the card.
     //! \param effectOperator The effect operator to change card value.
     //! \param value The value to change.
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
