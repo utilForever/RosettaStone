@@ -32,7 +32,7 @@ class Power
 
     //! Returns enchant.
     //! \return A reference to enchant.
-    Enchant& GetEnchant();
+    std::optional<Enchant>& GetEnchant();
 
     //! Returns a list of power tasks.
     //! \return A list of power tasks.
@@ -63,7 +63,7 @@ class Power
 
  private:
     std::optional<Aura> m_aura = std::nullopt;
-    Enchant m_enchant;
+    std::optional<Enchant> m_enchant = std::nullopt;
 
     std::vector<ITask*> m_powerTask;
     std::vector<ITask*> m_deathrattleTask;

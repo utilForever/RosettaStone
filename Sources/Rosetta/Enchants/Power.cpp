@@ -13,7 +13,7 @@ std::optional<Aura>& Power::GetAura()
     return m_aura;
 }
 
-Enchant& Power::GetEnchant()
+std::optional<Enchant>& Power::GetEnchant()
 {
     return m_enchant;
 }
@@ -31,6 +31,7 @@ std::vector<ITask*>& Power::GetDeathrattleTask()
 void Power::ClearData()
 {
     m_aura.reset();
+    m_enchant.reset();
     m_powerTask.clear();
     m_deathrattleTask.clear();
 }
