@@ -1207,7 +1207,7 @@ TEST(CoreCardsGen, CS2_061)
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
 
@@ -1245,7 +1245,7 @@ TEST(CoreCardsGen, CS2_064)
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
 
@@ -1267,6 +1267,7 @@ TEST(CoreCardsGen, CS2_064)
         opPlayer, Cards::GetInstance().FindCardByName("Dread Infernal"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->health, 7);
 
     Task::Run(curPlayer, EndTurnTask());
 
@@ -1301,7 +1302,6 @@ TEST(CoreCardsGen, CS2_075)
         curPlayer, Cards::GetInstance().FindCardByName("Sinister Strike"));
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-
     EXPECT_EQ(opPlayer.GetHero()->health, 27);
 }
 
@@ -1325,8 +1325,8 @@ TEST(CoreCardsGen, CS2_077)
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Sprint"));
-
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 8u);
 }
@@ -1334,7 +1334,7 @@ TEST(CoreCardsGen, CS2_077)
 TEST(CoreCardsGen, CS2_147)
 {
     GameConfig config;
-    config.player1Class = CardClass::SHAMAN;
+    config.player1Class = CardClass::ROGUE;
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -1351,8 +1351,8 @@ TEST(CoreCardsGen, CS2_147)
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Gnomish Inventor"));
-
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
 }
