@@ -77,14 +77,16 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     }
 
     // Process power tasks
-    for (auto& power : minion->card.power.GetPowerTask())
+    for (auto& powerTask : minion->card.power.GetPowerTask())
     {
-        if (power == nullptr)
+        if (powerTask == nullptr)
         {
             continue;
         }
 
-        power->Run(player);
+        powerTask->SetSource(minion);
+        powerTask->SetTarget(target);
+        powerTask->Run(player);
     }
 
     player.GetGame()->ProcessDestroyAndUpdateAura();
