@@ -29,7 +29,11 @@ TaskStatus AddEnchantmentTask::Impl(Player&)
     }
 
     Power power = Cards::FindCardByID(m_cardID).power;
-    power.GetEnchant().ActivateTo(dynamic_cast<Character*>(m_target));
+    if (power.GetEnchant().has_value())
+    {
+        power.GetEnchant().value().ActivateTo(
+            dynamic_cast<Character*>(m_target));
+    }
 
     return TaskStatus::COMPLETE;
 }

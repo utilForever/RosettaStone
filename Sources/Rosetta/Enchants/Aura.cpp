@@ -34,7 +34,7 @@ void Aura::Activate(Entity& owner)
     if (m_effects.empty())
     {
         Card card = Cards::FindCardByID(m_enchantmentID);
-        m_effects = card.power.GetEnchant().effects;
+        m_effects = card.power.GetEnchant().value().effects;
     }
 
     Aura* instance = new Aura(*this, owner);
