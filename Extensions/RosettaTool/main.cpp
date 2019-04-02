@@ -93,7 +93,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
     std::ofstream outputFile("result.md");
     if (outputFile)
     {
-        auto cards = Cards::FindCardBySet(cardSet);
+        auto cards = Cards::GetInstance().FindCardBySet(cardSet);
         if (cards.empty())
         {
             std::cerr << "Your search did not generate any hits.\n";
