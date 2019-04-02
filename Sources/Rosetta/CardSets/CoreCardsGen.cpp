@@ -75,6 +75,20 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     Power power;
 
     // ----------------------------------------- SPELL - HUNTER
+    // [CS2_084] Hunter's Mark - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Change a minion's Health to 1.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_084e", EntityType::TARGET));
+    cards.emplace("CS2_084", power);
+
+    // ----------------------------------------- SPELL - HUNTER
     // [DS1_185] Arcane Shot - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -90,12 +104,23 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [CS2_084e] Hunter's Mark (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: This minion has 1 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant(GameTag::HEALTH, EffectOperator::SET, 1));
+    cards.emplace("CS2_084e", power);
 }
 
 void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
 {
     Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [CS2_022] Polymorph - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
