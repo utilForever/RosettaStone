@@ -483,20 +483,21 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
     cards.emplace("CS2_041", power);
 
-    // ----------------------------------------- MINION - SHAMAN
+    // ---------------------------------------- MINION - SHAMAN
     // [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Race: Elemental, Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 3 damage.
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // power.ClearData();
-    // power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
-    // cards.emplace("CS2_042", power);
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    cards.emplace("CS2_042", power);
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
