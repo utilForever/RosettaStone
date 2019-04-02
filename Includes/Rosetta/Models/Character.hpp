@@ -52,6 +52,22 @@ class Character : public Entity
     //! \param attack The value of attack.
     void SetAttack(int attack);
 
+    //! Returns the value of health.
+    //! \return The value of health.
+    int GetHealth();
+
+    //! Sets the value of health.
+    //! \param health The value of health.
+    void SetHealth(int health);
+
+    //! Returns the value of base health.
+    //! \return The value of base health.
+    int GetBaseHealth();
+
+    //! Sets the value of base health.
+    //! \param baseHealth The value of base health.
+    void SetBaseHealth(int baseHealth);
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack();
@@ -80,8 +96,6 @@ class Character : public Entity
 
     std::size_t numAttacked = 0;
     std::size_t spellPower = 0;
-    int health = 0;
-    int maxHealth = 0;
 };
 }  // namespace RosettaStone
 

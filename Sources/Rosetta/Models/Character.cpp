@@ -16,8 +16,6 @@ Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
     if (!card.id.empty())
     {
         spellPower = card.spellPower.value_or(0);
-        health = card.health.value_or(0);
-        maxHealth = health;
     }
 }
 
@@ -29,6 +27,32 @@ int Character::GetAttack()
 void Character::SetAttack(int attack)
 {
     SetGameTag(GameTag::ATK, attack);
+}
+
+int Character::GetHealth()
+{
+    return GetGameTag(GameTag::HEALTH) - GetGameTag(GameTag::DAMAGE);
+}
+
+void Character::SetHealth(int health)
+{
+    if (health == 0)
+    {
+        Destroy();
+    }
+
+    SetGameTag(GameTag::HEALTH, health);
+    SetGameTag(GameTag::DAMAGE, 0);
+}
+
+int Character::GetBaseHealth()
+{
+    return GetGameTag(GameTag::HEALTH);
+}
+
+void Character::SetBaseHealth(int baseHealth)
+{
+    SetGameTag(GameTag::HEALTH, baseHealth);
 }
 
 bool Character::CanAttack()
