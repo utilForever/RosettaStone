@@ -427,6 +427,21 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     cards.emplace("CS2_075", power);
 
     // ------------------------------------------ SPELL - ROGUE
+    // [CS2_076] Assassinate - COST:5
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Destroy an enemy minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("CS2_076", power);
+
+    // ------------------------------------------ SPELL - ROGUE
     // [CS2_077] Sprint - COST:7
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
