@@ -76,7 +76,8 @@ void Game::BeginFirst()
 {
     // Set next step
     nextStep = Step::BEGIN_SHUFFLE;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -92,7 +93,8 @@ void Game::BeginShuffle()
 
     // Set next step
     nextStep = Step::BEGIN_DRAW;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -121,7 +123,8 @@ void Game::BeginDraw()
     nextStep =
         m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
 
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -160,7 +163,8 @@ void Game::BeginMulligan()
                             p2Choice.GetObject<std::vector<std::size_t>>());
 
     nextStep = Step::MAIN_BEGIN;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -169,7 +173,8 @@ void Game::MainBegin()
 {
     // Set next step
     nextStep = Step::MAIN_READY;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -207,7 +212,8 @@ void Game::MainReady()
 
     // Set next step
     nextStep = Step::MAIN_START_TRIGGERS;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -216,7 +222,8 @@ void Game::MainStartTriggers()
 {
     // Set next step
     nextStep = Step::MAIN_RESOURCE;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -233,7 +240,8 @@ void Game::MainResource()
 
     // Set next step
     nextStep = Step::MAIN_DRAW;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -245,7 +253,8 @@ void Game::MainDraw()
 
     // Set next step
     nextStep = Step::MAIN_START;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -254,16 +263,22 @@ void Game::MainStart()
 {
     // Set next step
     nextStep = Step::MAIN_ACTION;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
+}
+
+void Game::MainAction()
+{
 }
 
 void Game::MainEnd()
 {
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -292,7 +307,8 @@ void Game::MainCleanUp()
 
     // Set next step
     nextStep = Step::MAIN_NEXT;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -307,7 +323,8 @@ void Game::MainNext()
 
     // Set next step
     nextStep = Step::MAIN_READY;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -327,7 +344,8 @@ void Game::FinalWrapUp()
 
     // Set next step
     nextStep = Step::FINAL_GAMEOVER;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
@@ -415,7 +433,8 @@ void Game::StartGame()
 
     // Set next step
     nextStep = Step::BEGIN_FIRST;
-    if (m_gameConfig.autoRun) {
+    if (m_gameConfig.autoRun)
+    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }

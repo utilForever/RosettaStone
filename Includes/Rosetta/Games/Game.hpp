@@ -100,6 +100,9 @@ class Game
     void MainStart();
 
     //! Part of the game state.
+    void MainAction();
+
+    //! Part of the game state.
     void MainEnd();
 
     //! Part of the game state.
