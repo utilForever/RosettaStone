@@ -52,6 +52,14 @@ class Character : public Entity
     //! \param attack The value of attack.
     void SetAttack(int attack);
 
+    //! Returns the value of damage.
+    //! \return The value of damage.
+    int GetDamage();
+
+    //! Sets the value of damage.
+    //! \param damage The value of damage.
+    void SetDamage(int damage);
+
     //! Returns the value of health.
     //! \return The value of health.
     int GetHealth();

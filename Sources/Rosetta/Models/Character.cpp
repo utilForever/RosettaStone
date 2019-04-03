@@ -29,6 +29,21 @@ void Character::SetAttack(int attack)
     SetGameTag(GameTag::ATK, attack);
 }
 
+int Character::GetDamage()
+{
+    return GetGameTag(GameTag::DAMAGE);
+}
+
+void Character::SetDamage(int damage)
+{
+    if (GetGameTag(GameTag::HEALTH) <= damage)
+    {
+        Destroy();
+    }
+
+    SetGameTag(GameTag::DAMAGE, damage);
+}
+
 int Character::GetHealth()
 {
     return GetGameTag(GameTag::HEALTH) - GetGameTag(GameTag::DAMAGE);
