@@ -179,12 +179,14 @@ std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
 
     for (auto card : m_cards)
     {
-        if (!card.health)
+        if (!(card.cardType == +CardType::MINION) &&
+            !(card.cardType == +CardType::HERO))
         {
             continue;
         }
 
-        if (*card.health >= minVal && *card.health <= maxVal)
+        if (card.gameTags.at(GameTag::HEALTH) >= minVal &&
+            card.gameTags.at(GameTag::HEALTH) <= maxVal)
         {
             result.emplace_back(card);
         }

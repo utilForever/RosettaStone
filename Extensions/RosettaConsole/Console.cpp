@@ -658,7 +658,8 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
             filter.attackMin <= card.gameTags.at(GameTag::ATK) &&
             filter.attackMax >= card.gameTags.at(GameTag::ATK);
         bool healthCondition =
-            filter.healthMin <= card.health && filter.healthMax >= card.health;
+            filter.healthMin <= card.gameTags.at(GameTag::HEALTH) &&
+            filter.healthMax >= card.gameTags.at(GameTag::HEALTH);
         bool mechanicsCondition = (filter.gameTag == GameTag::INVALID ||
                                    card.HasGameTag(filter.gameTag));
         const bool isMatched =

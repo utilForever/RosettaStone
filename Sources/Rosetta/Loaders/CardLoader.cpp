@@ -126,8 +126,6 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.text = text;
         card.isCollectible = collectible;
 
-        card.health =
-            (health != -1) ? std::optional<int>(health) : std::nullopt;
         card.durability = (durability != -1)
                               ? std::optional<std::size_t>(durability)
                               : std::nullopt;
@@ -141,6 +139,8 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.entourages = entourages;
 
         card.gameTags[GameTag::ATK] = attack;
+        card.gameTags[GameTag::DAMAGE] = 0;
+        card.gameTags[GameTag::HEALTH] = health;
 
         card.Initialize();
 
