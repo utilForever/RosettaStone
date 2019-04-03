@@ -10,11 +10,29 @@
 
 namespace RosettaStone::Generic
 {
-//! Checks the target is valid.
+//! Determines a source needs a target.
 //! \param source A source entity.
-//! \param target A target entity.
-//! \return true if the target is valid, false otherwise.
+//! \return true if a source needs a target, false otherwise.
+bool IsSourceNeedsTarget(Entity* source);
+
+//! Determines whether the specified character is a valid target.
+//! \param source A source entity.
+//! \param target The specified target.
+//! \return true if the specified target is valid, false otherwise.
 bool IsValidTarget(Entity* source, Entity* target);
+
+//! Gets the valid play targets.
+//! This method defaults to targeting in the context of spells/hero powers
+//! \param source A source entity.
+//! \return A list of valid play targets.
+std::vector<Character*> GetValidTargets(Entity* source);
+
+//! Calculates if a target is valid by testing the game state for each hardcoded
+//! requirement.
+//! \param source A source entity.
+//! \param target The proposed target.
+//! \return true if the proposed target is valid, false otherwise.
+bool CheckRequirements(Entity* source, Entity* target);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_TARGETING_HPP
