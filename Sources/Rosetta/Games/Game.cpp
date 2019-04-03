@@ -7,11 +7,14 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -271,6 +274,69 @@ void Game::MainStart()
 
 void Game::MainAction()
 {
+    auto& player = GetCurrentPlayer();
+
+    TaskMeta next = player.GetPolicy().Next(*this);
+    if (next.GetID() == +TaskID::END_TURN)
+    {
+        nextStep = Step::MAIN_END;
+        if (m_gameConfig.autoRun)
+        {
+            GameManager::ProcessNextStep(*this, nextStep);
+        }
+        return;
+    }
+
+    TaskMeta req = player.GetPolicy().Require(player, next.GetID());
+    SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
+    switch (next.GetID())
+    {
+        case TaskID::ATTACK:
+        {
+            Entity* source = list[0];
+            Entity* target = list[1];
+            Task::Run(player, PlayerTasks::AttackTask(source, target));
+            break;
+        }
+        case TaskID::PLAY_CARD:
+        {
+            Entity* source = list[0];
+            switch (source->card.cardType)
+            {
+                case CardType::MINION:
+                    Task::Run(player, PlayerTasks::PlayCardTask::Minion(player, source));
+                    break;
+                case CardType::SPELL:
+                    if (list.size() == 1)
+                    {
+                        Task::Run(player, PlayerTasks::PlayCardTask::Spell(player, source));
+                    }
+                    else
+                    {
+                        Entity* target = list[1];
+                        Task::Run(player, PlayerTasks::PlayCardTask::SpellTarget(
+                                              player, source, target));
+                    }
+                    break;
+                case CardType::WEAPON:
+                    Task::Run(player, PlayerTasks::PlayCardTask::Weapon(player, source));
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            throw std::invalid_argument(
+                "Game::MainAction() - Invalid task type!");
+    }
+
+    nextStep = Step::MAIN_ACTION;
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+    return;
 }
 
 void Game::MainEnd()
