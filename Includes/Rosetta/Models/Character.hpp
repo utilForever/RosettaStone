@@ -95,12 +95,12 @@ class Character : public Entity
     //! \param source An entity to give damage.
     //! \param damage The value of damage.
     //! \return Final damage taking into account ability.
-    size_t TakeDamage(Entity& source, std::size_t damage);
+    int TakeDamage(Entity& source, int damage);
 
     //! Gets healed by a certain other entity.
     //! \param source The character to get heal.
     //! \param heal The value of heal.
-    void TakeHeal(Character& source, std::size_t heal);
+    void TakeHeal(Character& source, int heal);
 
     std::size_t numAttacked = 0;
     std::size_t spellPower = 0;
