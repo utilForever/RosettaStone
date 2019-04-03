@@ -77,7 +77,7 @@ TEST(DamageTask, SpellPower)
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     for (std::size_t i = 0; i < 5; ++i)
     {
-        EXPECT_EQ(player1.GetField().GetMinion(i)->health, 4);
+        EXPECT_EQ(player1.GetField().GetMinion(i)->GetHealth(), 4);
     }
 
     player1.currentSpellPower = 1;
@@ -90,6 +90,6 @@ TEST(DamageTask, SpellPower)
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     for (std::size_t i = 0; i < 5; ++i)
     {
-        EXPECT_EQ(player1.GetField().GetMinion(i)->health, 2);
+        EXPECT_EQ(player1.GetField().GetMinion(i)->GetHealth(), 2);
     }
 }

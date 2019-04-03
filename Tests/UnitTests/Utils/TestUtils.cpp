@@ -53,7 +53,8 @@ Card GenerateMinionCard(std::string&& id, int attack, int health)
 
     card.id = std::move(id);
     card.gameTags[GameTag::ATK] = attack;
-    card.health = health;
+    card.gameTags[GameTag::DAMAGE] = 0;
+    card.gameTags[GameTag::HEALTH] = health;
 
     return card;
 }
@@ -91,7 +92,9 @@ void ExpectCardEqual(const Card& card1, const Card& card2)
     EXPECT_EQ(card1.entourages, card2.entourages);
     EXPECT_EQ(card1.maxAllowedInDeck, card2.maxAllowedInDeck);
 
-    EXPECT_EQ(card1.health, card2.health);
+    EXPECT_EQ(card1.gameTags.at(GameTag::ATK), card2.gameTags.at(GameTag::ATK));
+    EXPECT_EQ(card1.gameTags.at(GameTag::HEALTH),
+              card2.gameTags.at(GameTag::HEALTH));
 
     EXPECT_EQ(card1.durability, card2.durability);
 }

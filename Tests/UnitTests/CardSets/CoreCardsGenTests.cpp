@@ -106,11 +106,11 @@ TEST(CoreCardsGen, CS2_041)
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
 
     Task::Run(opPlayer, AttackTask(card3, card1));
-    EXPECT_EQ(curField.GetMinion(0)->health, 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card1));
-    EXPECT_EQ(curField.GetMinion(0)->health, 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 2);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
 }
 
@@ -130,13 +130,14 @@ TEST(CoreCardsGen, CS2_088)
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
     opPlayer.currentMana = 10;
-    opPlayer.GetHero()->health = 24;
+    opPlayer.GetHero()->SetHealth(24);
 
     const auto card1 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Guardian of Kings"));
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card1));
-    EXPECT_EQ(opPlayer.GetHero()->maxHealth, opPlayer.GetHero()->health);
+    EXPECT_EQ(opPlayer.GetHero()->GetBaseHealth(),
+              opPlayer.GetHero()->GetHealth());
 }
 
 TEST(CoreCardsGen, CS1_112)
@@ -156,7 +157,7 @@ TEST(CoreCardsGen, CS1_112)
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
     opPlayer.currentMana = 10;
-    curPlayer.GetHero()->health = 26;
+    curPlayer.GetHero()->SetDamage(4);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -183,14 +184,14 @@ TEST(CoreCardsGen, CS1_112)
     Task::Run(opPlayer, EndTurnTask());
 
     Task::Run(curPlayer, AttackTask(card1, card4));
-    EXPECT_EQ(curField.GetMinion(0)->health, 4);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card3));
-    EXPECT_EQ(curPlayer.GetHero()->health, 28);
-    EXPECT_EQ(opPlayer.GetHero()->health, 28);
-    EXPECT_EQ(curField.GetMinion(0)->health, 5);
-    EXPECT_EQ(curField.GetMinion(1)->health, 7);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 7);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 }
 
@@ -284,7 +285,7 @@ TEST(CoreCardsGen, EX1_129)
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(opPlayer.GetHero()->health, 30);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 }
 
 TEST(CoreCardsGen, DS1_233)
@@ -309,7 +310,7 @@ TEST(CoreCardsGen, DS1_233)
         curPlayer, Cards::GetInstance().FindCardByName("Mind Blast"));
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-    EXPECT_EQ(opPlayer.GetHero()->health, 25);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
 }
 
 TEST(CoreCardsGen, CS2_029)
@@ -354,7 +355,7 @@ TEST(CoreCardsGen, CS2_029)
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card2, opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->health, 24);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
 
     curPlayer.currentMana = 10;
 
@@ -363,7 +364,7 @@ TEST(CoreCardsGen, CS2_029)
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card4, curPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->health, 24);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 24);
 }
 
 TEST(CoreCardsGen, CS2_025)
@@ -407,7 +408,7 @@ TEST(CoreCardsGen, CS2_025)
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(opPlayer.GetHero()->health, 30);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 }
 
 TEST(CoreCardsGen, CS2_037)
@@ -444,7 +445,7 @@ TEST(CoreCardsGen, CS2_037)
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 1);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card4));
@@ -495,18 +496,18 @@ TEST(CoreCardsGen, CS2_024)
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card2, opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->health, 27);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 1);
 
     curPlayer.currentMana = 10;
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card5));
-    EXPECT_EQ(curField.GetMinion(0)->health, 4);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card4, curPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->health, 27);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
     EXPECT_EQ(curPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 1);
 }
 
@@ -542,11 +543,11 @@ TEST(CoreCardsGen, CS2_026)
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-    EXPECT_EQ(opField.GetMinion(0)->health, 2);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(opField.GetMinion(1)->health, 1);
+    EXPECT_EQ(opField.GetMinion(1)->GetHealth(), 1);
     EXPECT_EQ(opField.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(opPlayer.GetHero()->health, 30);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 0);
 }
 
@@ -583,7 +584,7 @@ TEST(CoreCardsGen, CS2_032)
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(opField.GetMinion(0)->health, 3);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 3);
 }
 
 TEST(CoreCardsGen, CS2_023)
@@ -638,18 +639,18 @@ TEST(CoreCardsGen, EX1_277)
         opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
-    int totalHealth = opPlayer.GetHero()->health;
-    totalHealth += opPlayer.GetField().GetMinion(0)->health;
+    int totalHealth = opPlayer.GetHero()->GetHealth();
+    totalHealth += opPlayer.GetField().GetMinion(0)->GetHealth();
     EXPECT_EQ(totalHealth, 37);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-    totalHealth = opPlayer.GetHero()->health;
-    totalHealth += opPlayer.GetField().GetMinion(0)->health;
+    totalHealth = opPlayer.GetHero()->GetHealth();
+    totalHealth += opPlayer.GetField().GetMinion(0)->GetHealth();
     EXPECT_EQ(totalHealth, 34);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
-    totalHealth = opPlayer.GetHero()->health;
-    totalHealth += opPlayer.GetField().GetMinion(0)->health;
+    totalHealth = opPlayer.GetHero()->GetHealth();
+    totalHealth += opPlayer.GetField().GetMinion(0)->GetHealth();
     EXPECT_EQ(totalHealth, 31);
 }
 
@@ -686,10 +687,10 @@ TEST(CoreCardsGen, CS2_027)
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 0);
-    EXPECT_EQ(curField.GetMinion(0)->health, 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 2);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
     EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 0);
-    EXPECT_EQ(curField.GetMinion(1)->health, 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 2);
     EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::TAUNT), 1);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
@@ -741,12 +742,12 @@ TEST(CoreCardsGen, CS2_022)
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
-    EXPECT_EQ(curField.GetMinion(0)->health, 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card4));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 1);
-    EXPECT_EQ(opField.GetMinion(0)->health, 1);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
 }
 
 TEST(CoreCardsGen, CS1_130)
@@ -787,18 +788,18 @@ TEST(CoreCardsGen, CS1_130)
     Task::Run(opPlayer, EndTurnTask());
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card6));
-    EXPECT_EQ(opPlayer.GetField().GetMinion(0)->health, 5);
+    EXPECT_EQ(opPlayer.GetField().GetMinion(0)->GetHealth(), 5);
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card2, opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->health, 28);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card5));
     EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card4, curPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->health, 28);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
 }
 
 TEST(CoreCardsGen, CS2_093)
@@ -833,9 +834,9 @@ TEST(CoreCardsGen, CS2_093)
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-    EXPECT_EQ(opPlayer.GetHero()->health, 28);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(opField.GetMinion(0)->health, 5);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 }
 
 TEST(CoreCardsGen, CS2_094)
@@ -867,7 +868,7 @@ TEST(CoreCardsGen, CS2_094)
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
-    EXPECT_EQ(opField.GetMinion(0)->health, 4);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
 }
 
@@ -899,15 +900,15 @@ TEST(CoreCardsGen, EX1_371)
         opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 1);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::DIVINE_SHIELD), 0);
 }
 
@@ -938,16 +939,16 @@ TEST(CoreCardsGen, CS2_089)
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
 
-    curPlayer.GetHero()->health = 15;
+    curPlayer.GetHero()->SetDamage(15);
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
-    opField.GetMinion(0)->health = 1;
+    opField.GetMinion(0)->SetDamage(6);
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card1, curPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->health, 21);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 21);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
 }
 
 TEST(CoreCardsGen, DS1_185)
@@ -992,14 +993,14 @@ TEST(CoreCardsGen, DS1_185)
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card2, opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->health, 28);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card5));
     EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card4, curPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->health, 28);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
 }
 
 TEST(CoreCardsGen, CS2_007)
@@ -1029,16 +1030,16 @@ TEST(CoreCardsGen, CS2_007)
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
 
-    curPlayer.GetHero()->health = 15;
+    curPlayer.GetHero()->SetDamage(15);
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
-    opField.GetMinion(0)->health = 1;
+    opField.GetMinion(0)->SetDamage(6);
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card1, curPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->health, 23);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 23);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
 }
 
 TEST(CoreCardsGen, CS2_062)
@@ -1084,12 +1085,12 @@ TEST(CoreCardsGen, CS2_062)
     Task::Run(opPlayer, EndTurnTask());
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-    EXPECT_EQ(curPlayer.GetHero()->health, 27);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(curField.GetMinion(0)->health, 4);
-    EXPECT_EQ(opPlayer.GetHero()->health, 27);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(opField.GetMinion(0)->health, 4);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 4);
 }
 
 TEST(CoreCardsGen, CS2_057)
@@ -1122,11 +1123,11 @@ TEST(CoreCardsGen, CS2_057)
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 3);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 3);
 
     Task::Run(curPlayer,
               PlayCardTask::SpellTarget(curPlayer, card2, opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->health, 30);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 }
 
 TEST(CoreCardsGen, CS2_122)
@@ -1198,18 +1199,18 @@ TEST(CoreCardsGen, CS2_042)
 
     Task::Run(curPlayer,
               PlayCardTask::MinionTarget(curPlayer, card1, opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->health, 27);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
 
     Task::Run(curPlayer, EndTurnTask());
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
-    EXPECT_EQ(opField.GetMinion(0)->health, 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
 
     Task::Run(opPlayer, EndTurnTask());
 
     Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card2,
                                                     opField.GetMinion(0)));
-    EXPECT_EQ(opField.GetMinion(0)->health, 4);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 4);
 }
 
 TEST(CoreCardsGen, CS2_061)
@@ -1238,16 +1239,16 @@ TEST(CoreCardsGen, CS2_061)
         opPlayer, Cards::GetInstance().FindCardByName("Drain Life"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    EXPECT_EQ(curField.GetMinion(0)->health, 7);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 7);
 
     Task::Run(curPlayer, EndTurnTask());
 
     auto opHero = opPlayer.GetHero();
-    opHero->health = 20;
+    opHero->SetDamage(10);
 
     Task::Run(opPlayer, PlayCardTask::SpellTarget(opPlayer, card2, card1));
-    EXPECT_EQ(curField.GetMinion(0)->health, 5);
-    EXPECT_EQ(opHero->health, 22);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
+    EXPECT_EQ(opHero->GetHealth(), 22);
 }
 
 TEST(CoreCardsGen, CS2_064)
@@ -1276,7 +1277,7 @@ TEST(CoreCardsGen, CS2_064)
         opPlayer, Cards::GetInstance().FindCardByName("Dread Infernal"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    EXPECT_EQ(curField.GetMinion(0)->health, 7);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 7);
 
     Task::Run(curPlayer, EndTurnTask());
 
@@ -1284,9 +1285,9 @@ TEST(CoreCardsGen, CS2_064)
     auto opHero = opPlayer.GetHero();
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
-    EXPECT_EQ(opHero->health, 29);
-    EXPECT_EQ(curHero->health, 29);
-    EXPECT_EQ(curField.GetMinion(0)->health, 6);
+    EXPECT_EQ(opHero->GetHealth(), 29);
+    EXPECT_EQ(curHero->GetHealth(), 29);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6);
 }
 
 TEST(CoreCardsGen, CS2_075)
@@ -1311,7 +1312,7 @@ TEST(CoreCardsGen, CS2_075)
         curPlayer, Cards::GetInstance().FindCardByName("Sinister Strike"));
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-    EXPECT_EQ(opPlayer.GetHero()->health, 27);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
 }
 
 TEST(CoreCardsGen, CS2_077)
@@ -1392,10 +1393,10 @@ TEST(CoreCardsGen, CS2_084)
         opPlayer, Cards::GetInstance().FindCardByName("Hunter's Mark"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    EXPECT_EQ(curField.GetMinion(0)->health, 7);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 7);
 
     Task::Run(curPlayer, EndTurnTask());
 
     Task::Run(opPlayer, PlayCardTask::SpellTarget(opPlayer, card2, card1));
-    EXPECT_EQ(curField.GetMinion(0)->health, 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
 }

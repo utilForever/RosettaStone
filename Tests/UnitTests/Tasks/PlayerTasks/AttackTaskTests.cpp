@@ -53,15 +53,17 @@ TEST(AttackTask, Default)
     auto& p2Field = player2.GetField();
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), player2.GetHero()));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, p1Field.GetMinion(0)->maxHealth);
-    EXPECT_EQ(static_cast<std::size_t>(player2.GetHero()->health),
-              player2.GetHero()->maxHealth - p1Field.GetMinion(0)->GetAttack());
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(),
+              p1Field.GetMinion(0)->GetBaseHealth());
+    EXPECT_EQ(
+        static_cast<std::size_t>(player2.GetHero()->GetHealth()),
+        player2.GetHero()->GetBaseHealth() - p1Field.GetMinion(0)->GetAttack());
 
     EndTurnTask().Run(player1);
 
     Task::Run(player2, AttackTask(p2Field.GetMinion(0), p1Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 1);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 1);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 1);
 
     EndTurnTask().Run(player2);
 
@@ -79,7 +81,7 @@ TEST(AttackTask, Default)
     EndTurnTask().Run(player2);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 1);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 1);
     EXPECT_EQ(p2Field.GetNumOfMinions(), 0u);
 
     auto card5 = GenerateMinionCard("minion5", 5, 4);
@@ -92,7 +94,7 @@ TEST(AttackTask, Default)
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetNumOfMinions(), 0u);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 3);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 3);
 }
 
 TEST(AttackTask, Weapon)
@@ -126,7 +128,7 @@ TEST(AttackTask, Weapon)
     Task::Run(player1, AttackTask(player1.GetHero(), p2Field.GetMinion(0)));
 
     EXPECT_EQ(player1.GetHero()->weapon->durability, 1u);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 6);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 6);
 
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
@@ -135,7 +137,7 @@ TEST(AttackTask, Weapon)
 
     EXPECT_EQ(player1.GetHero()->HasWeapon(), false);
     EXPECT_EQ(player1.GetHero()->GetAttack(), 0);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 2);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 2);
 }
 
 TEST(AttackTask, Charge)
@@ -201,12 +203,12 @@ TEST(AttackTask, Taunt)
     p2Field.GetMinion(1)->SetGameTag(GameTag::TAUNT, 1);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 10);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 10);
 
     p2Field.GetMinion(1)->SetGameTag(GameTag::TAUNT, 0);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 }
 
 TEST(AttackTask, Stealth)
@@ -238,14 +240,14 @@ TEST(AttackTask, Stealth)
     p2Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 1);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 10);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 10);
 
     p1Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 1);
     p2Field.GetMinion(0)->SetGameTag(GameTag::STEALTH, 0);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetMinion(0)->GetGameTag(GameTag::STEALTH), 0);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 }
 
 TEST(AttackTask, Immune)
@@ -277,8 +279,8 @@ TEST(AttackTask, Immune)
     p1Field.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 1);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 10);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 10);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
@@ -286,8 +288,8 @@ TEST(AttackTask, Immune)
     p1Field.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 0);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 9);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 8);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 9);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 8);
 }
 
 TEST(AttackTask, Windfury)
@@ -366,8 +368,8 @@ TEST(AttackTask, DivineShield)
     p1Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 10);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 10);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 
     EndTurnTask().Run(player1);
     EndTurnTask().Run(player2);
@@ -375,8 +377,8 @@ TEST(AttackTask, DivineShield)
     p2Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 9);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 9);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 }
 
 TEST(AttackTask, Poisonous)
@@ -408,7 +410,7 @@ TEST(AttackTask, Poisonous)
     p1Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 9);
     EXPECT_EQ(p2Field.GetNumOfMinions(), 0u);
 
     EndTurnTask().Run(player1);
@@ -420,7 +422,7 @@ TEST(AttackTask, Poisonous)
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetNumOfMinions(), 0u);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 }
 
 TEST(AttackTask, Freeze)
@@ -457,6 +459,6 @@ TEST(AttackTask, Freeze)
     EndTurnTask().Run(player1);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->health, 9);
-    EXPECT_EQ(p2Field.GetMinion(0)->health, 9);
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 9);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 }
