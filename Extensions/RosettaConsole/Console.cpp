@@ -612,8 +612,8 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     filter.costMax = maxCost;
     filter.attackMin = static_cast<int>(minAttack);
     filter.attackMax = static_cast<int>(maxAttack);
-    filter.healthMin = minHealth;
-    filter.healthMax = maxHealth;
+    filter.healthMin = static_cast<int>(minHealth);
+    filter.healthMax = static_cast<int>(maxHealth);
     filter.gameTag = gameTag;
 
     return std::make_tuple(filter, isValid, isFinish);
