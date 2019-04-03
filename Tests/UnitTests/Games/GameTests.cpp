@@ -17,7 +17,7 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 
 struct MulliganTestPolicy : BasicPolicy {
-    TaskMeta RequireMulligan(Player& player) override {
+    TaskMeta RequireMulligan(Player&) override {
         return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN), std::vector<size_t>());
     }
 };
