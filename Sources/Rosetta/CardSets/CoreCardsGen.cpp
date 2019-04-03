@@ -855,6 +855,23 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_147", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2]
+    // - Faction: Alliance, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 2 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    cards.emplace("CS2_150", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
