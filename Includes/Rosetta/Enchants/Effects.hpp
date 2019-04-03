@@ -37,7 +37,7 @@ class Effects
         Effect(GameTag::DIVINE_SHIELD, EffectOperator::SET, 1);
 
     //! An ability which allows a character to attack twice per turn.
-    inline static Effect WindFury =
+    inline static Effect Windfury =
         Effect(GameTag::WINDFURY, EffectOperator::SET, 1);
 
     //! A minion ability which prevents that minion from being the target of

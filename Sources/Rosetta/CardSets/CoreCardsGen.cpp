@@ -489,6 +489,24 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("CS2_037", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_039] Windfury - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion <b>Windfury</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::WINDFURY, 1));
+    cards.emplace("CS2_039", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------

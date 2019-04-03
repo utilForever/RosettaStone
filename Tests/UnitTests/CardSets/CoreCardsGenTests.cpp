@@ -1400,3 +1400,47 @@ TEST(CoreCardsGen, CS2_084)
     Task::Run(opPlayer, PlayCardTask::SpellTarget(opPlayer, card2, card1));
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
 }
+
+TEST(CoreCardsGen, CS2_039)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Windfury"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 0);
+
+    Task::Run(curPlayer, EndTurnTask());
+    Task::Run(opPlayer, EndTurnTask());
+
+    Task::Run(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::EXHAUSTED), 1);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::EXHAUSTED), 0);
+
+    Task::Run(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 18);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::EXHAUSTED), 1);
+}
