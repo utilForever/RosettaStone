@@ -64,6 +64,7 @@ TEST(Expert1CardsGen, EX1_012)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
