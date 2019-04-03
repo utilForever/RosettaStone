@@ -74,7 +74,6 @@ class Card
     std::string name;
     std::string text;
 
-    std::optional<int> health;
     std::optional<std::size_t> spellPower;
     std::optional<std::size_t> durability;
 
