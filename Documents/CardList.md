@@ -31,24 +31,24 @@ CORE | CS2_029 | Fireball | O
 CORE | CS2_032 | Flamestrike | O
 CORE | CS2_033 | Water Elemental | O
 CORE | CS2_037 | Frost Shock | O
-CORE | CS2_039 | Windfury |  
+CORE | CS2_039 | Windfury | O
 CORE | CS2_041 | Ancestral Healing | O
-CORE | CS2_042 | Fire Elemental |  
+CORE | CS2_042 | Fire Elemental | O
 CORE | CS2_045 | Rockbiter Weapon |  
 CORE | CS2_046 | Bloodlust |  
 CORE | CS2_057 | Shadow Bolt | O
-CORE | CS2_061 | Drain Life |  
+CORE | CS2_061 | Drain Life | O
 CORE | CS2_062 | Hellfire | O
 CORE | CS2_063 | Corruption |  
-CORE | CS2_064 | Dread Infernal |  
+CORE | CS2_064 | Dread Infernal | O
 CORE | CS2_065 | Voidwalker | O
 CORE | CS2_072 | Backstab |  
 CORE | CS2_074 | Deadly Poison |  
-CORE | CS2_075 | Sinister Strike |  
-CORE | CS2_076 | Assassinate |  
-CORE | CS2_077 | Sprint |  
+CORE | CS2_075 | Sinister Strike | O
+CORE | CS2_076 | Assassinate | O
+CORE | CS2_077 | Sprint | O
 CORE | CS2_080 | Assassin's Blade | O
-CORE | CS2_084 | Hunter's Mark |  
+CORE | CS2_084 | Hunter's Mark | O
 CORE | CS2_087 | Blessing of Might |  
 CORE | CS2_088 | Guardian of Kings | O
 CORE | CS2_089 | Holy Light | O
@@ -67,15 +67,15 @@ CORE | CS2_118 | Magma Rager | O
 CORE | CS2_119 | Oasis Snapjaw | O
 CORE | CS2_120 | River Crocolisk | O
 CORE | CS2_121 | Frostwolf Grunt | O
-CORE | CS2_122 | Raid Leader |  
+CORE | CS2_122 | Raid Leader | O
 CORE | CS2_124 | Wolfrider | O
 CORE | CS2_125 | Ironfur Grizzly | O
 CORE | CS2_127 | Silverback Patriarch | O
 CORE | CS2_131 | Stormwind Knight | O
 CORE | CS2_141 | Ironforge Rifleman |  
 CORE | CS2_142 | Kobold Geomancer | O
-CORE | CS2_147 | Gnomish Inventor |  
-CORE | CS2_150 | Stormpike Commando |  
+CORE | CS2_147 | Gnomish Inventor | O
+CORE | CS2_150 | Stormpike Commando | O
 CORE | CS2_155 | Archmage | O
 CORE | CS2_162 | Lord of the Arena | O
 CORE | CS2_168 | Murloc Raider | O
@@ -142,7 +142,7 @@ CORE | NEW1_004 | Vanish |
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 45% (60 of 133 Cards)
+- Progress: 53% (71 of 133 Cards)
 
 ## Classic
 
