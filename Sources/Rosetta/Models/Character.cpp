@@ -151,7 +151,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
     return targets;
 }
 
-std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
+int Character::TakeDamage(Entity& source, int damage)
 {
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
@@ -162,7 +162,7 @@ std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
         hero->fatigue = damage;
     }
 
-    if (GetGameTag(GameTag::DIVINE_SHIELD) == 1)
+    if (minion != nullptr && GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
         SetGameTag(GameTag::DIVINE_SHIELD, 0);
         return 0;
@@ -173,23 +173,21 @@ std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
         return 0;
     }
 
-    health -= static_cast<int>(damage);
-
-    if (health <= 0)
-    {
-        if (minion != nullptr)
-        {
-            minion->Destroy();
-        }
-    }
+    SetDamage(GetDamage() + damage);
 
     return damage;
 }
 
-void Character::TakeHeal(Character& source, std::size_t heal)
+void Character::TakeHeal(Character& source, int heal)
 {
     (void)source;
 
-    health = std::min(health + static_cast<int>(heal), maxHealth);
+    if (GetDamage() == 0)
+    {
+        return;
+    }
+
+    int amount = GetDamage() > heal ? heal : GetDamage();
+    SetDamage(GetDamage() - amount);
 }
 }  // namespace RosettaStone
