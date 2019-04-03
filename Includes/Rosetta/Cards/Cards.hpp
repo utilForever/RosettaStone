@@ -29,7 +29,7 @@ struct SearchFilter
     std::string name;
     size_t costMin = 0, costMax = 0;
     int attackMin = 0, attackMax = 0;
-    size_t healthMin = 0, healthMax = 0;
+    int healthMin = 0, healthMax = 0;
 };
 
 //!
