@@ -33,6 +33,7 @@ TEST(AttackTask, Default)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -103,6 +104,7 @@ TEST(AttackTask, Weapon)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -146,6 +148,7 @@ TEST(AttackTask, Charge)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -179,6 +182,7 @@ TEST(AttackTask, Taunt)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -217,6 +221,7 @@ TEST(AttackTask, Stealth)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -256,6 +261,7 @@ TEST(AttackTask, Immune)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -298,6 +304,7 @@ TEST(AttackTask, Windfury)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -345,6 +352,7 @@ TEST(AttackTask, DivineShield)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -387,6 +395,7 @@ TEST(AttackTask, Poisonous)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -431,6 +440,7 @@ TEST(AttackTask, Freeze)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();

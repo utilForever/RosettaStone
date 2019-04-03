@@ -20,6 +20,7 @@ TEST(HoFCardsGen, EX1_050)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
