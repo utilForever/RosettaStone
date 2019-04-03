@@ -551,4 +551,13 @@ void Game::ProcessDestroy()
         deadMinions.clear();
     }
 }
+
+void Game::ProcessUntil(Step step)
+{
+    m_gameConfig.autoRun = false;
+    while (nextStep != step)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
 }  // namespace RosettaStone

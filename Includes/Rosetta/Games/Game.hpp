@@ -123,6 +123,9 @@ class Game
     //! Processes destroy.
     void ProcessDestroy();
 
+    //! Process game until given step arriving.
+    void ProcessUntil(Step step);
+
     State state = State::INVALID;
 
     Step step = Step::INVALID;
