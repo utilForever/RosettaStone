@@ -178,7 +178,12 @@ int Character::TakeDamage(Entity& source, int damage)
     return damage;
 }
 
-void Character::TakeHeal(Character& source, int heal)
+void Character::TakeFullHeal(Entity& source)
+{
+    TakeHeal(source, GetDamage());
+}
+
+void Character::TakeHeal(Entity& source, int heal)
 {
     (void)source;
 

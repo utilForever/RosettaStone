@@ -97,10 +97,14 @@ class Character : public Entity
     //! \return Final damage taking into account ability.
     int TakeDamage(Entity& source, int damage);
 
-    //! Gets healed by a certain other entity.
-    //! \param source The character to get heal.
+    //! Takes heal up all taken damage.
+    //! \param source An entity to give full heal.
+    void TakeFullHeal(Entity& source);
+
+    //! Takes heal a specified amount of health.
+    //! \param source An entity to give heal.
     //! \param heal The value of heal.
-    void TakeHeal(Character& source, int heal);
+    void TakeHeal(Entity& source, int heal);
 
     std::size_t numAttacked = 0;
     std::size_t spellPower = 0;
