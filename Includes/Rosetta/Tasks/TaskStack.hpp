@@ -13,6 +13,8 @@ namespace RosettaStone
 struct TaskStack
 {
     std::vector<Entity*> entities;
+
+    bool flag = true;
 };
 }  // namespace RosettaStone
 
