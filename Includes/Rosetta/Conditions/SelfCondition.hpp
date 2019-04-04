@@ -32,7 +32,7 @@ class SelfCondition
     //! Evaluates condition using checking function.
     //! \param entity An owner entity.
     //! \return true if the condition is satisfied, false otherwise.
-    bool Evaluate(Entity* entity);
+    bool Evaluate(Entity* entity) const;
 
  private:
     std::function<bool(Entity*)> m_func;

@@ -5,10 +5,12 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <utility>
 
 namespace RosettaStone
 {
-SelfCondition::SelfCondition(std::function<bool(Entity*)> func) : m_func(func)
+SelfCondition::SelfCondition(std::function<bool(Entity*)> func)
+    : m_func(std::move(func))
 {
     // Do nothing
 }
@@ -28,7 +30,7 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     });
 }
 
-bool SelfCondition::Evaluate(Entity* entity)
+bool SelfCondition::Evaluate(Entity* entity) const
 {
     return m_func(entity);
 }
