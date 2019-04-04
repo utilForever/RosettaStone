@@ -96,7 +96,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::STACK:
-            entities = player.GetGame()->taskStack;
+            entities = player.GetGame()->taskStack.entities;
             break;
         default:
             throw std::domain_error(

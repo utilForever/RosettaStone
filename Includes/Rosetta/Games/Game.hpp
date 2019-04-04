@@ -9,6 +9,7 @@
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/TaskStack.hpp>
 
 #include <map>
 
@@ -128,8 +129,9 @@ class Game
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
+    TaskStack taskStack;
+
     std::vector<Aura*> auras;
-    std::vector<Entity*> taskStack;
     std::map<std::size_t, Minion*> deadMinions;
 
  private:
