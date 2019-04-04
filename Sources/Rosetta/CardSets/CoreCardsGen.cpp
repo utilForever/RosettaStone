@@ -690,6 +690,16 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_112", power);
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_400] Whirlwind - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to all minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ALL_MINIONS, 1, true));
+    cards.emplace("EX1_400", power);
+
     // --------------------------------------- MINION - WARRIOR
     // [NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3]
     // - Set: Core, Rarity: Free

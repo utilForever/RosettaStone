@@ -1523,3 +1523,60 @@ TEST(CoreCardsGen, CS2_150)
     Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card2, card3));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 }
+
+TEST(CoreCardsGen, EX1_400)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Whirlwind"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 7);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+
+    Task::Run(curPlayer, EndTurnTask());
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
+    EXPECT_EQ(opField.GetMinion(1)->GetHealth(), 1);
+
+    Task::Run(opPlayer, EndTurnTask());
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 6);
+}
