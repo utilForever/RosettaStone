@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_CONDITION_TASK_HPP
 #define ROSETTASTONE_CONDITION_TASK_HPP
 
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
@@ -20,7 +21,9 @@ class ConditionTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type to check condition.
-    explicit ConditionTask(EntityType entityType);
+    //! \param selfConditions A container of self condition.
+    explicit ConditionTask(EntityType entityType,
+                           std::vector<SelfCondition> selfConditions);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -31,6 +34,8 @@ class ConditionTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    std::vector<SelfCondition> m_selfConditions;
 };
 }  // namespace RosettaStone::SimpleTasks
 
