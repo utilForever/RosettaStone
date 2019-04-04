@@ -6,6 +6,8 @@
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone::Generic
 {
 //! A list of play requirements that needs a target.
