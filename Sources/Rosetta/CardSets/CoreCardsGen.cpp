@@ -741,6 +741,20 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     cards.emplace("CS2_112", power);
 
     // ---------------------------------------- SPELL - WARRIOR
+    // [CS2_114] Cleave - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to two random enemy minions.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
+    cards.emplace("CS2_114", power);
+
+    // ---------------------------------------- SPELL - WARRIOR
     // [EX1_400] Whirlwind - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
