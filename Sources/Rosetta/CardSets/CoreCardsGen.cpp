@@ -452,6 +452,21 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     Power power;
 
     // ------------------------------------------ SPELL - ROGUE
+    // [CS2_072] Backstab - COST:0
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to an undamaged minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_UNDAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
+    cards.emplace("CS2_072", power);
+
+    // ------------------------------------------ SPELL - ROGUE
     // [CS2_075] Sinister Strike - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
