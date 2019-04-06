@@ -14,6 +14,8 @@ struct TaskStack
 {
     std::vector<Entity*> entities;
 
+    Entity* source = nullptr;
+    Entity* target = nullptr;
     bool flag = true;
 };
 }  // namespace RosettaStone
