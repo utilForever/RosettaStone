@@ -17,7 +17,7 @@ SelfCondition::SelfCondition(std::function<bool(Entity*)> func)
 
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
-    return SelfCondition([&](Entity* entity) -> bool {
+    return SelfCondition([=](Entity* entity) -> bool {
         for (auto& minion : entity->GetOwner().GetField().GetAllMinions())
         {
             if (minion->card.race == race)
