@@ -86,7 +86,7 @@ std::vector<Character*> GetValidTargets(Entity* source)
     }
 
     auto game = source->GetOwner().GetGame();
-    
+
     // Check play requirements for player's hero
     if (CheckRequirements(source, game->GetPlayer1().GetHero()))
     {
@@ -116,7 +116,7 @@ std::vector<Character*> GetValidTargets(Entity* source)
     return ret;
 }
 
-bool CheckRequirements(Entity* source, Entity* target)
+bool CheckRequirements(Entity* source, Character* target)
 {
     for (auto& requirement : source->card.playRequirements)
     {
@@ -141,6 +141,14 @@ bool CheckRequirements(Entity* source, Entity* target)
             case PlayReq::REQ_NONSELF_TARGET:
             {
                 if (source == target)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_UNDAMAGED_TARGET:
+            {
+                if (target->GetDamage() > 0)
                 {
                     return false;
                 }

@@ -32,7 +32,7 @@ std::vector<Character*> GetValidTargets(Entity* source);
 //! \param source A source entity.
 //! \param target The proposed target.
 //! \return true if the proposed target is valid, false otherwise.
-bool CheckRequirements(Entity* source, Entity* target);
+bool CheckRequirements(Entity* source, Character* target);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_TARGETING_HPP
