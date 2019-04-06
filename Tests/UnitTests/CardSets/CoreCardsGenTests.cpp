@@ -1708,3 +1708,47 @@ TEST(CoreCardsGen, CS2_072)
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 }
+
+TEST(CoreCardsGen, DS1_055)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Darkscale Healer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Argent Squire"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card4));
+    curField.GetMinion(0)->SetDamage(5);
+    curField.GetMinion(2)->SetDamage(1);
+
+    Task::Run(curPlayer, EndTurnTask());
+    Task::Run(opPlayer, EndTurnTask());
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
+}

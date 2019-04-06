@@ -1084,6 +1084,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_213", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::FRIENDS, 2));
+    cards.emplace("DS1_055", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
