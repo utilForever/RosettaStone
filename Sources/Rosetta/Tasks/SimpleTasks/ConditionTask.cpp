@@ -35,6 +35,9 @@ TaskStatus ConditionTask::Impl(Player& player)
     {
         flag = flag && condition.Evaluate(m_source);
     }
+
+    player.GetGame()->taskStack.source = m_source;
+    player.GetGame()->taskStack.target = m_target;
     player.GetGame()->taskStack.flag = flag;
 
     return TaskStatus::COMPLETE;
