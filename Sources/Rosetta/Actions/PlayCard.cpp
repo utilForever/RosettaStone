@@ -18,8 +18,8 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
         return;
     }
 
-    // Verify target is valid
-    if (!IsValidTarget(source, target))
+    // Check if we can play this card and the target is valid
+    if (!IsPlayableByCardReq(source) || !IsValidTarget(source, target))
     {
         return;
     }
