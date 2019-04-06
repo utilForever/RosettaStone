@@ -111,4 +111,31 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 
     player.GetHero()->AddWeapon(*weapon);
 }
+
+bool IsPlayableByCardReq(Entity* source)
+{
+    for (auto& requirement : source->card.playRequirements)
+    {
+        switch (requirement.first)
+        {
+            case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
+            {
+                auto& opField = source->GetOwner().GetOpponent().GetField();
+                if (opField.GetNumOfMinions() < requirement.second)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_MINION_TARGET:
+            case PlayReq::REQ_ENEMY_TARGET:
+            case PlayReq::REQ_NONSELF_TARGET:
+                break;
+            default:
+                break;
+        }
+    }
+
+    return true;
+}
 }  // namespace RosettaStone::Generic
