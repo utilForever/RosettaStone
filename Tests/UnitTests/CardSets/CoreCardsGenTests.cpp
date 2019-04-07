@@ -1959,3 +1959,35 @@ TEST(CoreCardsGen, EX1_278)
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 }
+
+TEST(CoreCardsGen, CS2_087)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Blessing of Might"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
+}

@@ -300,6 +300,20 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
     Power power;
 
+    // ---------------------------------------- SPELL - PALADIN
+    // [CS2_087] Blessing of Might - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion +3 Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_087e", EntityType::TARGET));
+    cards.emplace("CS2_087", power);
+
     // --------------------------------------- MINION - PALADIN
     // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -383,7 +397,17 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [CS2_087e] Blessing of Might (*) - COST:0
+    // - Faction: Neutral, Set: Core,
+    // --------------------------------------------------------
+    // Text: +3 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_087e"));
+    cards.emplace("CS2_087e", power);
 }
 
 void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
