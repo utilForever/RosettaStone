@@ -62,8 +62,15 @@ void Effect::Apply(AuraEffects& auraEffects) const
     }
 }
 
-void Effect::Remove(AuraEffects& auraEffects) const 
+void Effect::Remove(AuraEffects& auraEffects) const
 {
+    if (m_gameTag == GameTag::HEALTH && m_effectOperator == EffectOperator::ADD)
+    {
+        auto owner = dynamic_cast<Character*>(auraEffects.GetOwner());
+        int prevDamage = owner->GetDamage();
+        owner->SetDamage(prevDamage - m_value);
+    }
+
     const int prevValue = auraEffects.GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
