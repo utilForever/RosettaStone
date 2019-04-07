@@ -18,6 +18,12 @@ SummonTask::SummonTask(std::string cardID, int num)
     // Do nothing
 }
 
+SummonTask::SummonTask(std::string cardID, SummonSide side)
+    : m_cardID(std::move(cardID)), m_side(side)
+{
+    // Do nothing
+}
+
 TaskID SummonTask::GetTaskID() const
 {
     return TaskID::SUMMON;
