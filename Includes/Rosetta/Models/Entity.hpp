@@ -79,7 +79,7 @@ class Entity
     static Entity* GetFromCard(Player& player, Card&& card);
 
     Card card;
-    AuraEffects auraEffects;
+    AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
 
     std::size_t id = 0;

@@ -80,7 +80,7 @@ void Aura::Apply(Entity& entity)
 {
     for (auto& effect : m_effects)
     {
-        effect.Apply(entity.auraEffects);
+        effect.Apply(*entity.auraEffects);
     }
 
     m_appliedEntities.emplace_back(&entity);
@@ -150,7 +150,7 @@ void Aura::RemoveInternal()
     {
         for (auto& effect : m_effects)
         {
-            effect.Remove(entity->auraEffects);
+            effect.Remove(*entity->auraEffects);
         }
     }
 

@@ -13,6 +13,8 @@ namespace RosettaStone
 {
 Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
 {
+    auraEffects = new AuraEffects(this);
+
     for (auto& gameTag : _card.gameTags)
     {
         Entity::SetGameTag(gameTag.first, gameTag.second);
@@ -25,6 +27,9 @@ Entity::Entity(const Entity& ent) : m_owner(ent.m_owner)
 
     card = ent.card;
     m_owner = ent.m_owner;
+
+    auraEffects = ent.auraEffects;
+    onGoingEffect = ent.onGoingEffect;
     m_gameTags = ent.m_gameTags;
 }
 
@@ -34,6 +39,9 @@ Entity::Entity(Entity&& ent) noexcept : m_owner(ent.m_owner)
 
     card = ent.card;
     m_owner = ent.m_owner;
+
+    auraEffects = ent.auraEffects;
+    onGoingEffect = ent.onGoingEffect;
     m_gameTags = ent.m_gameTags;
 }
 
@@ -53,6 +61,9 @@ Entity& Entity::operator=(const Entity& ent)
 
     card = ent.card;
     m_owner = ent.m_owner;
+
+    auraEffects = ent.auraEffects;
+    onGoingEffect = ent.onGoingEffect;
     m_gameTags = ent.m_gameTags;
 
     return *this;
@@ -69,6 +80,9 @@ Entity& Entity::operator=(Entity&& ent) noexcept
 
     card = ent.card;
     m_owner = ent.m_owner;
+
+    auraEffects = ent.auraEffects;
+    onGoingEffect = ent.onGoingEffect;
     m_gameTags = ent.m_gameTags;
 
     return *this;
@@ -91,7 +105,12 @@ int Entity::GetGameTag(GameTag tag) const
         return 0;
     }
 
-    return m_gameTags.at(tag) + auraEffects.GetGameTag(tag);
+    if (auraEffects != nullptr)
+    {
+        return m_gameTags.at(tag) + auraEffects->GetGameTag(tag);
+    }
+
+    return m_gameTags.at(tag);
 }
 
 void Entity::SetGameTag(GameTag tag, int value)
@@ -138,6 +157,9 @@ Entity* Entity::GetFromCard(Player& player, Card&& card)
 
 void Entity::FreeMemory()
 {
+    delete auraEffects;
+    delete onGoingEffect;
+
     m_gameTags.clear();
 }
 }  // namespace RosettaStone
