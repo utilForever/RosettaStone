@@ -19,6 +19,7 @@ TEST(CoreCardsGen, EX1_066)
     config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
 
     Game game(config);
     game.StartGame();
@@ -48,6 +49,7 @@ TEST(CoreCardsGen, EX1_306)
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
 
     Game game(config);
     game.StartGame();
@@ -61,18 +63,14 @@ TEST(CoreCardsGen, EX1_306)
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Succubus"));
-    Generic::DrawCard(curPlayer,
-                      Cards::GetInstance().FindCardByName("Stonetusk Boar"));
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
-    Generic::DrawCard(opPlayer,
-                      Cards::GetInstance().FindCardByName("Fiery War Axe"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 0u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 3u);
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 5u);
 }
 
 TEST(CoreCardsGen, CS2_041)
@@ -81,6 +79,7 @@ TEST(CoreCardsGen, CS2_041)
     config.player1Class = CardClass::SHAMAN;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
 
     Game game(config);
     game.StartGame();
@@ -120,6 +119,7 @@ TEST(CoreCardsGen, CS2_088)
     config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
 
     Game game(config);
     game.StartGame();
@@ -201,6 +201,7 @@ TEST(CoreCardsGen, CS1_113)
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
 
     Game game(config);
     game.StartGame();
@@ -237,7 +238,7 @@ TEST(CoreCardsGen, CS1_113)
     opPlayer.currentMana = 10;
     auto curHero = curPlayer.GetHero();
     Task::Run(opPlayer, PlayCardTask::SpellTarget(curPlayer, card4, curHero));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 2u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
 }
 
 TEST(CoreCardsGen, EX1_129)
