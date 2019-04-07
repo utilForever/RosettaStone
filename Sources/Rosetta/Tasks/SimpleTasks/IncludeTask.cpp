@@ -73,6 +73,12 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(player.GetOpponent().GetHero()->weapon);
             }
             break;
+        case EntityType::HAND:
+            for (auto& card : player.GetHand().GetAllCards())
+            {
+                entities.emplace_back(card);
+            }
+            break;
         case EntityType::ALL_MINIONS:
             for (auto& minion : player.GetField().GetAllMinions())
             {
