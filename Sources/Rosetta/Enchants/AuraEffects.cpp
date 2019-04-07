@@ -7,6 +7,16 @@
 
 namespace RosettaStone
 {
+AuraEffects::AuraEffects(Entity* owner) : m_owner(owner)
+{
+    // Do nothing
+}
+
+Entity* AuraEffects::GetOwner() const
+{
+    return m_owner;
+}
+
 int AuraEffects::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())

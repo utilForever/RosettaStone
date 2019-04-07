@@ -12,6 +12,8 @@
 
 namespace RosettaStone
 {
+class Entity;
+
 //!
 //! \brief AuraEffects class.
 //!
@@ -21,6 +23,14 @@ namespace RosettaStone
 class AuraEffects
 {
  public:
+    //! Constructs aura effects with given \p owner.
+    //! \param owner The owner of aura effects.
+    AuraEffects(Entity* owner);
+
+    //! Returns the owner of aura effects.
+    //! \return The owner of aura effects.
+    Entity* GetOwner() const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -29,9 +39,11 @@ class AuraEffects
     //! Sets game tag to the card.
     //! \param tag The game tag to indicate ability or condition.
     //! \param value The value to set for game tag.
-    virtual void SetGameTag(GameTag tag, int value);
+    void SetGameTag(GameTag tag, int value);
 
-private:
+ private:
+    Entity* m_owner = nullptr;
+
     std::map<GameTag, int> m_gameTags;
 };
 }  // namespace RosettaStone
