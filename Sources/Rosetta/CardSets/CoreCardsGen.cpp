@@ -730,6 +730,22 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::HAND, 1));
     power.AddPowerTask(new DiscardTask(EntityType::STACK));
     cards.emplace("EX1_306", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_308] Soulfire - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $4 damage.
+    //       Discard a random card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 4));
+    power.AddPowerTask(new RandomTask(EntityType::HAND, 1));
+    power.AddPowerTask(new DiscardTask(EntityType::STACK));
+    cards.emplace("EX1_308", power);
 }
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
