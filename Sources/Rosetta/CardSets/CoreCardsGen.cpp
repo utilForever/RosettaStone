@@ -646,6 +646,23 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
     cards.emplace("CS2_042", power);
 
+    // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_246] Hex - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new TransformTask(EntityType::TARGET, "hexfrog"));
+    cards.emplace("EX1_246", power);
+
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
     // - Faction: Neutral, Set: core, Rarity: free
@@ -1274,6 +1291,19 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_122e"));
     cards.emplace("CS2_122e", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("hexfrog", power);
 }
 
 void CoreCardsGen::AddAll(std::map<std::string, Power>& cards)

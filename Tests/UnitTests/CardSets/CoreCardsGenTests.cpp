@@ -2055,3 +2055,52 @@ TEST(CoreCardsGen, CS2_189)
     Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
 }
+
+TEST(CoreCardsGen, EX1_246)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hex"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hex"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    Task::Run(curPlayer, EndTurnTask());
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    Task::Run(opPlayer, EndTurnTask());
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 0);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card4));
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 0);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
+}
