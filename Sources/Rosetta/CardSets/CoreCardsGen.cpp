@@ -1227,6 +1227,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_213", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6]
+    // - Faction: Alliance, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your other minions have +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("CS2_222o", AuraType::FIELD_EXCEPT_SOURCE));
+    cards.emplace("CS2_222", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1291,6 +1304,16 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_122e"));
     cards.emplace("CS2_122e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS2_222o] Might of Stormwind (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Has +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_222o"));
+    cards.emplace("CS2_222o", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]
