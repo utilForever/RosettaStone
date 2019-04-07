@@ -53,6 +53,7 @@ TEST(CoreCardsGen, EX1_306)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -154,6 +155,7 @@ TEST(CoreCardsGen, CS1_112)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
