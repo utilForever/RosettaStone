@@ -727,7 +727,8 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DiscardTask(EntityType::HAND));
+    power.AddPowerTask(new RandomTask(EntityType::HAND, 1));
+    power.AddPowerTask(new DiscardTask(EntityType::STACK));
     cards.emplace("EX1_306", power);
 }
 
