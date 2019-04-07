@@ -981,6 +981,23 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_131", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
+    // - Faction: Alliance, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 1 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
+    cards.emplace("CS2_141", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
     // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
