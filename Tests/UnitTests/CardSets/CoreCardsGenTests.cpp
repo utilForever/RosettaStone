@@ -1828,3 +1828,46 @@ TEST(CoreCardsGen, EX1_593)
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
 }
+
+TEST(CoreCardsGen, EX1_587)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Windspeaker"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 0);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 0);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 0);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4u);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 1);
+}

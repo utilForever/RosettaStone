@@ -606,6 +606,28 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
     cards.emplace("CS2_042", power);
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: core, Rarity: free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion <b>Windfury</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::WINDFURY, 1));
+    cards.emplace("EX1_587", power);
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
@@ -1136,7 +1158,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_582", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_593] Nightblade - COST:5 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
