@@ -130,6 +130,12 @@ bool CheckRequirements(Entity* source, Character* target)
                 }
                 break;
             }
+            case PlayReq::REQ_FRIENDLY_TARGET:
+                if (&target->GetOwner() != &source->GetOwner())
+                {
+                    return false;
+                }
+                break;
             case PlayReq::REQ_ENEMY_TARGET:
             {
                 if (&target->GetOwner() == &source->GetOwner())
