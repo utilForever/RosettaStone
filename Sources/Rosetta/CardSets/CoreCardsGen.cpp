@@ -1135,6 +1135,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_582", power);
+
+	// --------------------------------------- MINION - NEUTRAL
+    // [EX1_593] Nightblade - COST:5 [ATK:4/HP:4]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry: </b>Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3));
+    cards.emplace("EX1_593", power);
 }
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)

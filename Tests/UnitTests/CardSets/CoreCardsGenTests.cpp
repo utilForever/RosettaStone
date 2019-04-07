@@ -1803,3 +1803,28 @@ TEST(CoreCardsGen, CS2_114)
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
     EXPECT_EQ(opField.GetMinion(1)->GetHealth(), 5);
 }
+
+TEST(CoreCardsGen, EX1_593)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Nightblade"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
+}
