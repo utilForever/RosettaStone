@@ -7,11 +7,13 @@
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::SimpleTasks
 {
 ConditionTask::ConditionTask(EntityType entityType,
                              std::vector<SelfCondition> selfConditions)
-    : ITask(entityType), m_selfConditions(selfConditions)
+    : ITask(entityType), m_selfConditions(std::move(selfConditions))
 {
     // Do nothing
 }
