@@ -552,10 +552,10 @@ void Game::ProcessDestroy()
     }
 }
 
-void Game::ProcessUntil(Step step)
+void Game::ProcessUntil(Step untilStep)
 {
     m_gameConfig.autoRun = false;
-    while (nextStep != step)
+    while (nextStep != untilStep)
     {
         GameManager::ProcessNextStep(*this, nextStep);
     }
