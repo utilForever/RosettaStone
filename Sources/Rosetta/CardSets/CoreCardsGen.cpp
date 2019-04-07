@@ -1151,6 +1151,23 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_187", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
+    // - Faction: Horde, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 1 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
+    cards.emplace("CS2_189", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------

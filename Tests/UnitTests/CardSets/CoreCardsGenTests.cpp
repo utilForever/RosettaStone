@@ -2023,3 +2023,35 @@ TEST(CoreCardsGen, CS2_141)
     Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
 }
+
+TEST(CoreCardsGen, CS2_189)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Elven Archer"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
+}
