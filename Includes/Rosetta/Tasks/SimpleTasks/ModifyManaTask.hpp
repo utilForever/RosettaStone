@@ -8,25 +8,23 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace RosettaStone
+namespace RosettaStone::SimpleTasks
 {
 //! The operator to change mana.
 enum class ManaOperator
 {
-    ADD = 0,  //!< Add mana.
-    SUB = 1,  //!< Subtract mana.
-    SET = 2,  //!< Set mana.
+    ADD,  //!< Add mana.
+    SUB,  //!< Subtract mana.
+    SET   //!< Set mana.
 };
 
 //! The type to change mana.
 enum class ManaType
 {
-    AVAILABLE = 0,  //!< Available mana.
-    MAXIMUM = 1,    //!< Maximum mana.
+    AVAILABLE,  //!< Available mana.
+    MAXIMUM     //!< Maximum mana.
 };
 
-namespace SimpleTasks
-{
 //!
 //! \brief ModifyManaTask class.
 //!
@@ -56,7 +54,6 @@ class ModifyManaTask : public ITask
     ManaType m_manaMode;
     std::size_t m_num;
 };
-}  // namespace SimpleTasks
-}  // namespace RosettaStone
+}  // namespace RosettaStone::SimpleTasks
 
 #endif  // ROSETTASTONE_MODIFY_MANA_TASK_HPP
