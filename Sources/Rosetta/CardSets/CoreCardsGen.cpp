@@ -523,6 +523,21 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 1, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_129", power);
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_278] Shiv - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $1 damage.
+    //       Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("EX1_278", power);
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
