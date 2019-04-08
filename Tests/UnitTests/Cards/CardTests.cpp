@@ -44,7 +44,7 @@ TEST(Card, Constructer)
     EXPECT_NO_THROW(card1.ShowBriefInfo());
     EXPECT_NO_THROW(card1.ShowInfo());
     EXPECT_EQ("cardTest1", card1.id);
-    EXPECT_EQ(+Rarity::COMMON, card1.rarity);
+    EXPECT_EQ(Rarity::COMMON, card1.rarity);
     EXPECT_EQ(CardClass::NEUTRAL, card1.cardClass);
     EXPECT_EQ(CardType::MINION, card1.cardType);
     EXPECT_EQ(Race::DRAGON, card1.race);

@@ -37,14 +37,12 @@ void CardLoader::Load(std::vector<Card>& cards)
 
         const Rarity rarity =
             cardData["rarity"].is_null()
-                ? +Rarity::FREE
-                : Rarity::_from_string(
-                      cardData["rarity"].get<std::string>().c_str());
+                ? Rarity::FREE
+                : StrToEnum<Rarity>(cardData["rarity"].get<std::string>());
         const Faction faction =
             cardData["faction"].is_null()
-                ? +Faction::NEUTRAL
-                : Faction::_from_string(
-                      cardData["faction"].get<std::string>().c_str());
+                ? Faction::NEUTRAL
+                : StrToEnum<Faction>(cardData["faction"].get<std::string>());
         const CardSet cardSet =
             cardData["set"].is_null()
                 ? CardSet::NONE

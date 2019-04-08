@@ -583,9 +583,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         isValid = false;
     }
 
-    const Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
-                              ? Rarity::_from_string(strRarity.c_str())
-                              : Rarity::_from_string("INVALID");
+    const Rarity rarity = StrToEnum<Rarity>(strRarity);
     const CardClass playerClass = StrToEnum<CardClass>(strPlayerClass);
     const CardType cardType = StrToEnum<CardType>(strCardType);
     const Race race = StrToEnum<Race>(strRace);
@@ -624,7 +622,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
         }
 
         bool rarityCondition =
-            (filter.rarity == +Rarity::INVALID || filter.rarity == card.rarity);
+            (filter.rarity == Rarity::INVALID || filter.rarity == card.rarity);
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to

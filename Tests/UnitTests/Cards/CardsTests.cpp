@@ -32,19 +32,19 @@ TEST(Cards, FindCardByRarity)
 {
     Cards& instance = Cards::GetInstance();
 
-    std::vector<Card> cards1 = instance.FindCardByRarity(+Rarity::COMMON);
-    std::vector<Card> cards2 = instance.FindCardByRarity(+Rarity::RARE);
-    std::vector<Card> cards3 = instance.FindCardByRarity(+Rarity::EPIC);
-    std::vector<Card> cards4 = instance.FindCardByRarity(+Rarity::LEGENDARY);
-    std::vector<Card> cards5 = instance.FindCardByRarity(+Rarity::FREE);
-    std::vector<Card> cards6 = instance.FindCardByRarity(+Rarity::INVALID);
-    std::vector<Card> cards7 = instance.FindCardByRarity(+Rarity::UNKNOWN_6);
+    std::vector<Card> cards1 = instance.FindCardByRarity(Rarity::COMMON);
+    std::vector<Card> cards2 = instance.FindCardByRarity(Rarity::RARE);
+    std::vector<Card> cards3 = instance.FindCardByRarity(Rarity::EPIC);
+    std::vector<Card> cards4 = instance.FindCardByRarity(Rarity::LEGENDARY);
+    std::vector<Card> cards5 = instance.FindCardByRarity(Rarity::FREE);
+    std::vector<Card> cards6 = instance.FindCardByRarity(Rarity::INVALID);
+    std::vector<Card> cards7 = instance.FindCardByRarity(Rarity::UNKNOWN_6);
 
-    EXPECT_EQ(+Rarity::COMMON, cards1.front().rarity);
-    EXPECT_EQ(+Rarity::RARE, cards2.front().rarity);
-    EXPECT_EQ(+Rarity::EPIC, cards3.front().rarity);
-    EXPECT_EQ(+Rarity::LEGENDARY, cards4.front().rarity);
-    EXPECT_EQ(+Rarity::FREE, cards5.front().rarity);
+    EXPECT_EQ(Rarity::COMMON, cards1.front().rarity);
+    EXPECT_EQ(Rarity::RARE, cards2.front().rarity);
+    EXPECT_EQ(Rarity::EPIC, cards3.front().rarity);
+    EXPECT_EQ(Rarity::LEGENDARY, cards4.front().rarity);
+    EXPECT_EQ(Rarity::FREE, cards5.front().rarity);
     EXPECT_TRUE(cards6.empty());
     EXPECT_TRUE(cards7.empty());
 }

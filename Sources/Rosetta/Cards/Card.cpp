@@ -13,7 +13,7 @@ namespace RosettaStone
 {
 void Card::Initialize()
 {
-    maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
+    maxAllowedInDeck = (rarity == Rarity::LEGENDARY) ? 1 : 2;
 }
 
 bool Card::HasGameTag(GameTag gameTag) const
@@ -36,8 +36,8 @@ void Card::ShowInfo() const
     std::cout << "ID: " << id.c_str() << '\n';
     std::cout << "Name: " << name.c_str() << '\n';
     std::cout << "Text: " << text.c_str() << '\n';
-    std::cout << "Rarity: " << rarity._to_string() << '\n';
-    std::cout << "Faction: " << faction._to_string() << '\n';
+    std::cout << "Rarity: " << EnumToStr<Rarity>(rarity) << '\n';
+    std::cout << "Faction: " << EnumToStr<Faction>(faction) << '\n';
     std::cout << "CardSet: " << EnumToStr<CardSet>(cardSet) << '\n';
     std::cout << "CardClass: " << EnumToStr<CardClass>(cardClass) << '\n';
     std::cout << "CardType: " << EnumToStr<CardType>(cardType) << '\n';
