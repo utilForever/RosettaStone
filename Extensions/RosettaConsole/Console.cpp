@@ -259,8 +259,7 @@ void Console::CreateDeck()
     ShowMenu(m_playerClassStr);
     const size_t selectedClassNum =
         InputMenuNum("What's your player class? ", NUM_PLAYER_CLASS);
-    const CardClass deckClass =
-        CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
+    const CardClass deckClass = static_cast<CardClass>(selectedClassNum + 1);
 
     m_account->CreateDeck(name, deckClass);
 
@@ -587,14 +586,8 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     const Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
                               ? Rarity::_from_string(strRarity.c_str())
                               : Rarity::_from_string("INVALID");
-    const CardClass playerClass =
-        CardClass::_from_string_nothrow(strPlayerClass.c_str())
-            ? CardClass::_from_string(strPlayerClass.c_str())
-            : CardClass::_from_string("INVALID");
-    const CardType cardType =
-        CardType::_from_string_nothrow(strCardType.c_str())
-            ? CardType::_from_string(strCardType.c_str())
-            : CardType::_from_string("INVALID");
+    const CardClass playerClass = StrToEnum<CardClass>(strPlayerClass);
+    const CardType cardType = StrToEnum<CardType>(strCardType);
     const Race race = StrToEnum<Race>(strRace);
     const GameTag gameTag = StrToEnum<GameTag>(strGameTag);
 
@@ -639,14 +632,14 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
             classCondition = (card.cardClass == m_deckClass ||
-                              card.cardClass == +CardClass::NEUTRAL);
+                              card.cardClass == CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
-            classCondition = (filter.playerClass == +CardClass::INVALID ||
+            classCondition = (filter.playerClass == CardClass::INVALID ||
                               filter.playerClass == card.cardClass);
         }
-        bool typeCondition = (filter.cardType == +CardType::INVALID ||
+        bool typeCondition = (filter.cardType == CardType::INVALID ||
                               filter.cardType == card.cardType);
         bool raceCondition =
             (filter.race == Race::INVALID || filter.race == card.race);

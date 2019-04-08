@@ -45,8 +45,8 @@ TEST(Card, Constructer)
     EXPECT_NO_THROW(card1.ShowInfo());
     EXPECT_EQ("cardTest1", card1.id);
     EXPECT_EQ(+Rarity::COMMON, card1.rarity);
-    EXPECT_EQ(+CardClass::NEUTRAL, card1.cardClass);
-    EXPECT_EQ(+CardType::MINION, card1.cardType);
+    EXPECT_EQ(CardClass::NEUTRAL, card1.cardClass);
+    EXPECT_EQ(CardType::MINION, card1.cardType);
     EXPECT_EQ(Race::DRAGON, card1.race);
     EXPECT_EQ(1, static_cast<int>(card1.cost));
     EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));

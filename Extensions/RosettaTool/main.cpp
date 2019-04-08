@@ -111,7 +111,7 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         {
             cards.erase(std::remove_if(cards.begin(), cards.end(),
                                        [](const Card& c) {
-                                           return c.cardType == +CardType::HERO;
+                                           return c.cardType == CardType::HERO;
                                        }),
                         cards.end());
         }

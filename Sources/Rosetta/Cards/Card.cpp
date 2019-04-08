@@ -39,8 +39,8 @@ void Card::ShowInfo() const
     std::cout << "Rarity: " << rarity._to_string() << '\n';
     std::cout << "Faction: " << faction._to_string() << '\n';
     std::cout << "CardSet: " << EnumToStr<CardSet>(cardSet) << '\n';
-    std::cout << "CardClass: " << cardClass._to_string() << '\n';
-    std::cout << "CardType: " << cardType._to_string() << '\n';
+    std::cout << "CardClass: " << EnumToStr<CardClass>(cardClass) << '\n';
+    std::cout << "CardType: " << EnumToStr<CardType>(cardType) << '\n';
     std::cout << "Race: " << EnumToStr<Race>(race) << '\n';
 }
 }  // namespace RosettaStone

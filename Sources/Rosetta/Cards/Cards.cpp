@@ -157,8 +157,8 @@ std::vector<Card> Cards::FindCardByAttack(int minVal, int maxVal)
 
     for (auto card : m_cards)
     {
-        if (!(card.cardType == +CardType::MINION) &&
-            !(card.cardType == +CardType::WEAPON))
+        if (!(card.cardType == CardType::MINION) &&
+            !(card.cardType == CardType::WEAPON))
         {
             continue;
         }
@@ -179,8 +179,8 @@ std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
 
     for (auto card : m_cards)
     {
-        if (!(card.cardType == +CardType::MINION) &&
-            !(card.cardType == +CardType::HERO))
+        if (!(card.cardType == CardType::MINION) &&
+            !(card.cardType == CardType::HERO))
         {
             continue;
         }

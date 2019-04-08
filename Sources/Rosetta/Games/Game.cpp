@@ -309,7 +309,7 @@ void Game::StartGame()
     // Set up decks
     for (auto& card : m_gameConfig.player1Deck)
     {
-        if (card.cardType == +CardType::INVALID)
+        if (card.cardType == CardType::INVALID)
         {
             continue;
         }
@@ -319,7 +319,7 @@ void Game::StartGame()
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
-        if (card.cardType == +CardType::INVALID)
+        if (card.cardType == CardType::INVALID)
         {
             continue;
         }

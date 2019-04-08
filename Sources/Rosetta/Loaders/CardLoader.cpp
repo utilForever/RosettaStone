@@ -51,14 +51,13 @@ void CardLoader::Load(std::vector<Card>& cards)
                 : StrToEnum<CardSet>(cardData["set"].get<std::string>());
         const CardClass cardClass =
             cardData["cardClass"].is_null()
-                ? +CardClass::NEUTRAL
-                : CardClass::_from_string(
-                      cardData["cardClass"].get<std::string>().c_str());
+                ? CardClass::NEUTRAL
+                : StrToEnum<CardClass>(
+                      cardData["cardClass"].get<std::string>());
         const CardType cardType =
             cardData["type"].is_null()
-                ? +CardType::INVALID
-                : CardType::_from_string(
-                      cardData["type"].get<std::string>().c_str());
+                ? CardType::INVALID
+                : StrToEnum<CardType>(cardData["type"].get<std::string>());
         const Race race =
             cardData["race"].is_null()
                 ? Race::INVALID
