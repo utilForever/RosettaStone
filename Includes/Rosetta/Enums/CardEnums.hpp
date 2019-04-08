@@ -62,26 +62,21 @@ const std::string CARD_TYPE_STR[] = {
 #undef X
 };
 
-//! \brief An enumerator for identifying the set of the card.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(ChoiceType, int, INVALID = 0, MULLIGAN = 1, GENERAL = 2)
-#else
+//! \brief An enumerator for identifying the choice type of the card.
 enum class ChoiceType
 {
-    INVALID = 0,
-    MULLIGAN = 1,
-    GENERAL = 2
+    INVALID,
+    MULLIGAN,
+    GENERAL
 };
-#endif
 
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(DungeonRewardOption, int, INVALID = 0, LOOT = 1, TREASURE = 2)
-
-BETTER_ENUM(EnchantmentVisual, int, INVALID = 0, POSITIVE = 1, NEGATIVE = 2,
-            NEUTRAL = 3)
-
-BETTER_ENUM(FormatType, int, UNKNOWN = 0, WILD = 1, STANDARD = 2)
-#endif
+//! \brief An enumerator for identifying the format type of the card.
+enum class FormatType
+{
+    UNKNOWN,
+    WILD,
+    STANDARD
+};
 
 //! \brief An enumerator for identifying the faction of the card.
 enum class Faction
@@ -111,14 +106,37 @@ const std::string GAME_TAG_STR[] = {
 #undef X
 };
 
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(Locale, int, UNKNOWN = -1, enUS = 0, enGB = 1, frFR = 2, deDE = 3,
-            koKR = 4, esES = 5, esMX = 6, ruRU = 7, zhTW = 8, zhCN = 9,
-            itIT = 10, ptBR = 11, plPL = 12, ptPT = 13, jaJP = 14, thTH = 15)
+//! \brief An enumerator for identifying the locale of the card.
+enum class Locale
+{
+    UNKNOWN,
+    enUS,
+    enGB,
+    frFR,
+    deDE,
+    koKR,
+    esES,
+    esMX,
+    ruRU,
+    zhTW,
+    zhCN,
+    itIT,
+    ptBR,
+    plPL,
+    ptPT,
+    jaJP,
+    thTH
+};
 
-BETTER_ENUM(Mulligan, int, INVALID = 0, INPUT = 1, DEALING = 2, WAITING = 3,
-            DONE = 4)
-#endif
+//! \brief An enumerator for identifying the mulligan state.
+enum class Mulligan
+{
+    INVALID,
+    INPUT,
+    DEALING,
+    WAITING,
+    DONE
+};
 
 //! \brief An enumerator for identifying the play requirement of the card.
 enum class PlayReq
@@ -134,10 +152,19 @@ const std::string PLAY_REQ_STR[] = {
 #undef X
 };
 
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(PlayState, int, INVALID = 0, PLAYING = 1, WINNING = 2, LOSING = 3,
-            WON = 4, LOST = 5, TIED = 6, DISCONNECTED = 7, CONCEDED = 8)
-#endif
+//! \brief An enumerator for identifying the play state.
+enum class PlayState
+{
+    INVALID,
+    PLAYING,
+    WINNING,
+    LOSING,
+    WON,
+    LOST,
+    TIED,
+    DISCONNECTED,
+    CONCEDED
+};
 
 //! \brief An enumerator for identifying the race of the card.
 enum class Race
@@ -167,45 +194,37 @@ const std::string RARITY_STR[] = {
 #undef X
 };
 
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(State, int, INVALID = 0, LOADING = 1, RUNNING = 2, COMPLETE = 3)
-#endif
+//! \brief An enumerator for indicating the state of the card.
+enum class State
+{
+    INVALID,
+    LOADING,
+    RUNNING,
+    COMPLETE
+};
 
-//! \brief An enumerator for indicating the game state.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(Step, int, INVALID = 0, BEGIN_FIRST = 1, BEGIN_SHUFFLE = 2,
-            BEGIN_DRAW = 3, BEGIN_MULLIGAN = 4, MAIN_BEGIN = 5, MAIN_READY = 6,
-            MAIN_RESOURCE = 7, MAIN_DRAW = 8, MAIN_START = 9, MAIN_ACTION = 10,
-            MAIN_COMBAT = 11, MAIN_END = 12, MAIN_NEXT = 13, FINAL_WRAPUP = 14,
-            FINAL_GAMEOVER = 15, MAIN_CLEANUP = 16, MAIN_START_TRIGGERS = 17)
-#else
+//! \brief An enumerator for indicating the game step.
 enum class Step
 {
-    INVALID = 0,
-    BEGIN_FIRST = 1,
-    BEGIN_SHUFFLE = 2,
-    BEGIN_DRAW = 3,
-    BEGIN_MULLIGAN = 4,
-    MAIN_BEGIN = 5,
-    MAIN_READY = 6,
-    MAIN_RESOURCE = 7,
-    MAIN_DRAW = 8,
-    MAIN_START = 9,
-    MAIN_ACTION = 10,
-    MAIN_COMBAT = 11,
-    MAIN_END = 12,
-    MAIN_NEXT = 13,
-    FINAL_WRAPUP = 14,
-    FINAL_GAMEOVER = 15,
-    MAIN_CLEANUP = 16,
-    MAIN_START_TRIGGERS = 17
+    INVALID,
+    BEGIN_FIRST,
+    BEGIN_SHUFFLE,
+    BEGIN_DRAW,
+    BEGIN_MULLIGAN,
+    MAIN_BEGIN,
+    MAIN_READY,
+    MAIN_RESOURCE,
+    MAIN_DRAW,
+    MAIN_START,
+    MAIN_ACTION,
+    MAIN_COMBAT,
+    MAIN_END,
+    MAIN_NEXT,
+    FINAL_WRAPUP,
+    FINAL_GAMEOVER,
+    MAIN_CLEANUP,
+    MAIN_START_TRIGGERS
 };
-#endif
-
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3, GRAVEYARD = 4,
-            REMOVEDFROMGAME = 5, SETASIDE = 6, SECRET = 7)
-#endif
 
 template <class T>
 T StrToEnum(std::string);
