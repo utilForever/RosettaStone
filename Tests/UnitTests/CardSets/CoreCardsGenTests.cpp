@@ -2201,3 +2201,29 @@ TEST(CoreCardsGen, EX1_011)
     Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card2, card3));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
 }
+
+TEST(CoreCardsGen, EX1_015)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Novice Engineer"));
+
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+}

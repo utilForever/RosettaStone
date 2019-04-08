@@ -1269,6 +1269,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_011", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_015] Novice Engineer - COST:2 [ATK:1/HP:1]
+    // - Faction: Alliance, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("EX1_015", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
