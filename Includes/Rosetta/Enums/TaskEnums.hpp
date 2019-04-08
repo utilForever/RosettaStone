@@ -7,15 +7,6 @@
 #ifndef ROSETTASTONE_TASK_ENUMS_HPP
 #define ROSETTASTONE_TASK_ENUMS_HPP
 
-#ifdef _MSC_VER
-#define ROSETTASTONE_EXPAND_LARGE_ENUMS
-#else  // _MSC_VER
-#undef BETTER_ENUMS_MACRO_FILE
-#define BETTER_ENUMS_MACRO_FILE "Rosetta/Commons/EnumMacros.hpp"
-#endif  // _MSC_VER
-
-#include <better-enums/enum.h>
-
 namespace RosettaStone
 {
 //! \brief An enumerator for identifying each task.
