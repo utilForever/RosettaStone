@@ -31,6 +31,8 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
+    (void)m_side;
+
     for (int i = 0; i < m_num; ++i)
     {
         if (player.GetField().IsFull())
