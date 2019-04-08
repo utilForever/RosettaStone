@@ -19,16 +19,16 @@ TEST(TaskMeta, TraitConstructors)
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    const int sizeTaskID = static_cast<int>(TaskID::_size());
+    const int sizeTaskID = static_cast<int>(TaskID::NUM_TASK_ID);
     const int sizeTaskStatus = static_cast<int>(TaskStatus::NUM_TASK_STATUS);
 
-    const TaskID randID = TaskID::_from_integral(gen() % sizeTaskID);
+    const TaskID randID = static_cast<TaskID>(gen() % sizeTaskID);
     const auto randMeta = static_cast<TaskStatus>(gen() % sizeTaskStatus);
     const std::size_t randUser = gen() % 2;
 
     // Empty Trait Test
     TaskMetaTrait empty;
-    EXPECT_EQ(empty.GetID(), +TaskID::INVALID);
+    EXPECT_EQ(empty.GetID(), TaskID::INVALID);
     EXPECT_EQ(empty.GetStatus(), TaskStatus::INVALID);
     EXPECT_EQ(empty.GetUserID(), TaskMetaTrait::USER_INVALID);
 
@@ -64,7 +64,7 @@ TEST(TaskMeta, Constructors)
 
     // Empty Constructor
     TaskMeta meta;
-    EXPECT_EQ(meta.GetID(), +TaskID::INVALID);
+    EXPECT_EQ(meta.GetID(), TaskID::INVALID);
     EXPECT_EQ(meta.GetStatus(), TaskStatus::INVALID);
     EXPECT_EQ(meta.GetUserID(), TaskMeta::USER_INVALID);
     EXPECT_FALSE(meta.HasObjects());

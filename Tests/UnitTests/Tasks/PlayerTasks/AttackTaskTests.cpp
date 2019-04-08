@@ -22,7 +22,7 @@ TEST(AttackTask, GetTaskID)
 {
     const AttackTask attack(nullptr, nullptr);
 
-    EXPECT_EQ(attack.GetTaskID(), +TaskID::ATTACK);
+    EXPECT_EQ(attack.GetTaskID(), TaskID::ATTACK);
 }
 
 TEST(AttackTask, Default)

@@ -30,10 +30,10 @@ TaskMetaTrait GenerateRandomTrait()
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    const auto sizeTaskID = static_cast<int>(TaskID::_size());
+    const auto sizeTaskID = static_cast<int>(TaskID::NUM_TASK_ID);
     const auto sizeTaskStatus = static_cast<int>(TaskStatus::NUM_TASK_STATUS);
 
-    const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
+    const TaskID taskID = static_cast<TaskID>(gen() % sizeTaskID);
     const auto taskStatus = static_cast<TaskStatus>(gen() % sizeTaskStatus);
     const std::size_t userID = gen() % 2;
 

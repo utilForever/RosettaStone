@@ -37,7 +37,7 @@ class DrawTestPolicy : public BasicPolicy
 TEST(DrawTask, GetTaskID)
 {
     const DrawTask draw(1);
-    EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
+    EXPECT_EQ(draw.GetTaskID(), TaskID::DRAW);
 }
 
 TEST(DrawTask, Run)
@@ -148,7 +148,7 @@ TEST(DrawTask, RunOverDraw)
     DrawTask draw(3);
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
-        EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+        EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
         EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
@@ -203,7 +203,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     DrawTask draw(4);
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
-        EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+        EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
         EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
