@@ -105,6 +105,20 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     cards.emplace("CS2_084", power);
 
     // ----------------------------------------- SPELL - HUNTER
+    // [DS1_183] Multi-Shot - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $3 damage to two random enemy minions.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 3, true));
+    cards.emplace("DS1_183", power);
+
+    // ----------------------------------------- SPELL - HUNTER
     // [DS1_185] Arcane Shot - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------

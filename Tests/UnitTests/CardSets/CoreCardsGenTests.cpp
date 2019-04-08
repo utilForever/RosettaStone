@@ -2202,11 +2202,11 @@ TEST(CoreCardsGen, EX1_011)
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
 }
 
-TEST(CoreCardsGen, EX1_015)
+TEST(CoreCardsGen, DS1_183)
 {
     GameConfig config;
-    config.player1Class = CardClass::PALADIN;
-    config.player2Class = CardClass::WARRIOR;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
 
@@ -2220,10 +2220,42 @@ TEST(CoreCardsGen, EX1_015)
     opPlayer.maximumMana = 10;
     opPlayer.currentMana = 10;
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Novice Engineer"));
+    auto& opField = opPlayer.GetField();
 
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Multi-Shot"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dalaran Mage"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dalaran Mage"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dalaran Mage"));
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    int totalHealth = opField.GetMinion(0)->GetHealth();
+    EXPECT_EQ(totalHealth, 4);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(totalHealth, 4);
+
+    Task::Run(curPlayer, EndTurnTask());
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    totalHealth += opPlayer.GetField().GetMinion(1)->GetHealth();
+    EXPECT_EQ(totalHealth, 8);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    totalHealth += opPlayer.GetField().GetMinion(2)->GetHealth();
+    EXPECT_EQ(totalHealth, 12);
+
+    Task::Run(opPlayer, EndTurnTask());
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+    EXPECT_EQ(opField.GetNumOfMinions(), 3u);
+    totalHealth = opField.GetMinion(0)->GetHealth();
+    totalHealth += opPlayer.GetField().GetMinion(1)->GetHealth();
+    totalHealth += opPlayer.GetField().GetMinion(2)->GetHealth();
+    EXPECT_EQ(totalHealth, 6);
 }
