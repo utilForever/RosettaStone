@@ -276,8 +276,8 @@ void Game::FinalWrapUp()
     // Set game states according by result
     for (auto& p : m_players)
     {
-        if (p.playState == +PlayState::LOSING ||
-            p.playState == +PlayState::CONCEDED)
+        if (p.playState == PlayState::LOSING ||
+            p.playState == PlayState::CONCEDED)
         {
             p.playState = PlayState::LOST;
             p.GetOpponent().playState = PlayState::WON;
