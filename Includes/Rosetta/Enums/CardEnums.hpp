@@ -21,29 +21,18 @@
 namespace RosettaStone
 {
 //! \brief An enumerator for identifying the class of the card.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(CardClass, int, INVALID = 0, DEATHKNIGHT = 1, DRUID = 2, HUNTER = 3,
-            MAGE = 4, PALADIN = 5, PRIEST = 6, ROGUE = 7, SHAMAN = 8,
-            WARLOCK = 9, WARRIOR = 10, DREAM = 11, NEUTRAL = 12, WHIZBANG = 13)
-#else
 enum class CardClass
 {
-    INVALID = 0,
-    DEATHKNIGHT = 1,
-    DRUID = 2,
-    HUNTER = 3,
-    MAGE = 4,
-    PALADIN = 5,
-    PRIEST = 6,
-    ROGUE = 7,
-    SHAMAN = 8,
-    WARLOCK = 9,
-    WARRIOR = 10,
-    DREAM = 11,
-    NEUTRAL = 12,
-    WHIZBANG = 13
+#define X(a) a,
+#include "CardClass.def"
+#undef X
 };
-#endif
+
+const std::string CARD_CLASS_STR[] = {
+#define X(a) #a,
+#include "CardClass.def"
+#undef X
+};
 
 //! \brief An enumerator for identifying the set of the card.
 enum class CardSet
@@ -60,26 +49,18 @@ const std::string CARD_SET_STR[] = {
 };
 
 //! \brief An enumerator for identifying the type of the card.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(CardType, int, INVALID = 0, GAME = 1, PLAYER = 2, HERO = 3,
-            MINION = 4, SPELL = 5, ENCHANTMENT = 6, WEAPON = 7, ITEM = 8,
-            TOKEN = 9, HERO_POWER = 10)
-#else
 enum class CardType
 {
-    INVALID = 0,
-    GAME = 1,
-    PLAYER = 2,
-    HERO = 3,
-    MINION = 4,
-    SPELL = 5,
-    ENCHANTMENT = 6,
-    WEAPON = 7,
-    ITEM = 8,
-    TOKEN = 9,
-    HERO_POWER = 10
+#define X(a) a,
+#include "CardType.def"
+#undef X
 };
-#endif
+
+const std::string CARD_TYPE_STR[] = {
+#define X(a) #a,
+#include "CardType.def"
+#undef X
+};
 
 //! \brief An enumerator for identifying the set of the card.
 #ifndef ROSETTASTONE_DOXYGEN
@@ -94,11 +75,6 @@ enum class ChoiceType
 #endif
 
 #ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(DeckType, int, CLIENT_ONLY_DECK = -1, UNKNOWN_DECK_TYPE = 0,
-            NORMAL_DECK = 1, AI_DECK = 2, DRAFT_DECK = 4, PRECON_DECK = 5,
-            TAVERN_BRAWL_DECK = 6, FSG_BRAWL_DECK = 7,
-            FRIENDLY_TOURNAMENT_DECK = 8, HIDDEN_DECK = 1000)
-
 BETTER_ENUM(DungeonRewardOption, int, INVALID = 0, LOOT = 1, TREASURE = 2)
 
 BETTER_ENUM(EnchantmentVisual, int, INVALID = 0, POSITIVE = 1, NEGATIVE = 2,
@@ -253,7 +229,9 @@ std::string EnumToStr(T);
     STR2ENUM(TYPE, ARRAY)         \
     ENUM2STR(TYPE, ARRAY)
 
+ENUM_AND_STR(CardClass, CARD_CLASS_STR)
 ENUM_AND_STR(CardSet, CARD_SET_STR)
+ENUM_AND_STR(CardType, CARD_TYPE_STR)
 ENUM_AND_STR(GameTag, GAME_TAG_STR)
 ENUM_AND_STR(PlayReq, PLAY_REQ_STR)
 ENUM_AND_STR(Race, RACE_STR)
