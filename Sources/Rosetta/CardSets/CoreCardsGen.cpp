@@ -79,6 +79,21 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
     cards.emplace("CS2_232", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_173] Starfire - COST:6
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $5 damage.
+    //       Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("EX1_173", power);
 }
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
