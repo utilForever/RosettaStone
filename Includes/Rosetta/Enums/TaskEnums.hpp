@@ -19,12 +19,6 @@
 namespace RosettaStone
 {
 //! \brief An enumerator for identifying each task.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(TaskID, int, INVALID, DRAW, DRAW_OP, OVERDRAW, MODIFY_MANA, DAMAGE,
-            MULLIGAN, PLAY_CARD, ADD_ENCHANTMENT, DESTROY, DISCARD, HEAL_FULL,
-            POISONOUS, FREEZE, HEAL, INCLUDE, CONTROL, END_TURN, CHOOSE, ATTACK,
-            SET_GAME_TAG, ENQUEUE, RANDOM, SUMMON, TRANSFORM, CONDITION, FLAG);
-#else
 enum class TaskID
 {
     INVALID,
@@ -54,15 +48,11 @@ enum class TaskID
     TRANSFORM,
     CONDITION,
     FLAG,
+
+    NUM_TASK_ID
 };
-#endif
 
 //! \brief An enumerator for identifying entity type.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(EntityType, int, EMPTY, SOURCE, TARGET, ALL, FRIENDS, ENEMIES, HERO,
-            ENEMY_HERO, WEAPON, ENEMY_WEAPON, HAND, ENEMY_HAND, ALL_MINIONS,
-            MINIONS, ENEMY_MINIONS, STACK)
-#else
 enum class EntityType
 {
     EMPTY,
@@ -82,7 +72,6 @@ enum class EntityType
     ENEMY_MINIONS,
     STACK
 };
-#endif
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_TASK_ENUMS_HPP
