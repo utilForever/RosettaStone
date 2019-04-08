@@ -7,15 +7,6 @@
 #ifndef ROSETTASTONE_CARD_ENUMS_HPP
 #define ROSETTASTONE_CARD_ENUMS_HPP
 
-#ifdef _MSC_VER
-#define ROSETTASTONE_EXPAND_LARGE_ENUMS
-#else  // _MSC_VER
-#undef BETTER_ENUMS_MACRO_FILE
-#define BETTER_ENUMS_MACRO_FILE "Rosetta/Commons/EnumMacros.hpp"
-#endif  // _MSC_VER
-
-#include <better-enums/enum.h>
-
 #include <string>
 
 namespace RosettaStone
@@ -62,22 +53,6 @@ const std::string CARD_TYPE_STR[] = {
 #undef X
 };
 
-//! \brief An enumerator for identifying the choice type of the card.
-enum class ChoiceType
-{
-    INVALID,
-    MULLIGAN,
-    GENERAL
-};
-
-//! \brief An enumerator for identifying the format type of the card.
-enum class FormatType
-{
-    UNKNOWN,
-    WILD,
-    STANDARD
-};
-
 //! \brief An enumerator for identifying the faction of the card.
 enum class Faction
 {
@@ -103,6 +78,48 @@ enum class GameTag
 const std::string GAME_TAG_STR[] = {
 #define X(a) #a,
 #include "GameTag.def"
+#undef X
+};
+
+//! \brief An enumerator for identifying the play requirement of the card.
+enum class PlayReq
+{
+#define X(a) a,
+#include "PlayReq.def"
+#undef X
+};
+
+const std::string PLAY_REQ_STR[] = {
+#define X(a) #a,
+#include "PlayReq.def"
+#undef X
+};
+
+//! \brief An enumerator for identifying the race of the card.
+enum class Race
+{
+#define X(a) a,
+#include "Race.def"
+#undef X
+};
+
+const std::string RACE_STR[] = {
+#define X(a) #a,
+#include "Race.def"
+#undef X
+};
+
+//! \brief An enumerator for identifying the rarity of the card.
+enum class Rarity
+{
+#define X(a) a,
+#include "Rarity.def"
+#undef X
+};
+
+const std::string RARITY_STR[] = {
+#define X(a) #a,
+#include "Rarity.def"
 #undef X
 };
 
@@ -138,18 +155,20 @@ enum class Mulligan
     DONE
 };
 
-//! \brief An enumerator for identifying the play requirement of the card.
-enum class PlayReq
+//! \brief An enumerator for identifying the choice type of the card.
+enum class ChoiceType
 {
-#define X(a) a,
-#include "PlayReq.def"
-#undef X
+    INVALID,
+    MULLIGAN,
+    GENERAL
 };
 
-const std::string PLAY_REQ_STR[] = {
-#define X(a) #a,
-#include "PlayReq.def"
-#undef X
+//! \brief An enumerator for identifying the format type of the card.
+enum class FormatType
+{
+    UNKNOWN,
+    WILD,
+    STANDARD
 };
 
 //! \brief An enumerator for identifying the play state.
@@ -164,34 +183,6 @@ enum class PlayState
     TIED,
     DISCONNECTED,
     CONCEDED
-};
-
-//! \brief An enumerator for identifying the race of the card.
-enum class Race
-{
-#define X(a) a,
-#include "Race.def"
-#undef X
-};
-
-const std::string RACE_STR[] = {
-#define X(a) #a,
-#include "Race.def"
-#undef X
-};
-
-//! \brief An enumerator for identifying the rarity of the card.
-enum class Rarity
-{
-#define X(a) a,
-#include "Rarity.def"
-#undef X
-};
-
-const std::string RARITY_STR[] = {
-#define X(a) #a,
-#include "Rarity.def"
-#undef X
 };
 
 //! \brief An enumerator for indicating the state of the card.
