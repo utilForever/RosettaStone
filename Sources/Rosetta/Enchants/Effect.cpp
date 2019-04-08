@@ -6,6 +6,8 @@
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Models/Character.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone
 {
 Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
