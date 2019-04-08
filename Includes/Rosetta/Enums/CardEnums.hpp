@@ -80,10 +80,22 @@ BETTER_ENUM(DungeonRewardOption, int, INVALID = 0, LOOT = 1, TREASURE = 2)
 BETTER_ENUM(EnchantmentVisual, int, INVALID = 0, POSITIVE = 1, NEGATIVE = 2,
             NEUTRAL = 3)
 
-BETTER_ENUM(Faction, int, INVALID = 0, HORDE = 1, ALLIANCE = 2, NEUTRAL = 3)
-
 BETTER_ENUM(FormatType, int, UNKNOWN = 0, WILD = 1, STANDARD = 2)
 #endif
+
+//! \brief An enumerator for identifying the faction of the card.
+enum class Faction
+{
+#define X(a) a,
+#include "Faction.def"
+#undef X
+};
+
+const std::string FACTION_STR[] = {
+#define X(a) #a,
+#include "Faction.def"
+#undef X
+};
 
 //! \brief An enumerator for identifying the game tag of the card.
 enum class GameTag
@@ -142,21 +154,18 @@ const std::string RACE_STR[] = {
 };
 
 //! \brief An enumerator for identifying the rarity of the card.
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(Rarity, int, INVALID = 0, COMMON = 1, FREE = 2, RARE = 3, EPIC = 4,
-            LEGENDARY = 5, UNKNOWN_6 = 6)
-#else
 enum class Rarity
 {
-    INVALID = 0,
-    COMMON = 1,
-    FREE = 2,
-    RARE = 3,
-    EPIC = 4,
-    LEGENDARY = 5,
-    UNKNOWN_6 = 6
+#define X(a) a,
+#include "Rarity.def"
+#undef X
 };
-#endif
+
+const std::string RARITY_STR[] = {
+#define X(a) #a,
+#include "Rarity.def"
+#undef X
+};
 
 #ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(State, int, INVALID = 0, LOADING = 1, RUNNING = 2, COMPLETE = 3)
@@ -232,9 +241,11 @@ std::string EnumToStr(T);
 ENUM_AND_STR(CardClass, CARD_CLASS_STR)
 ENUM_AND_STR(CardSet, CARD_SET_STR)
 ENUM_AND_STR(CardType, CARD_TYPE_STR)
+ENUM_AND_STR(Faction, FACTION_STR)
 ENUM_AND_STR(GameTag, GAME_TAG_STR)
 ENUM_AND_STR(PlayReq, PLAY_REQ_STR)
 ENUM_AND_STR(Race, RACE_STR)
+ENUM_AND_STR(Rarity, RARITY_STR)
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_CARD_ENUMS_HPP
