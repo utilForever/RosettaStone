@@ -20,36 +20,6 @@
 
 namespace RosettaStone
 {
-#ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(BlockType, int, ATTACK = 1, JOUST = 2, POWER = 3, SCRIPT = 4,
-            TRIGGER = 5, DEATHS = 6, PLAY = 7, FATIGUE = 8, RITUAL = 9,
-            REVEAL_CARD = 10, GAME_RESET = 11, ACTION = 99)
-
-BETTER_ENUM(BattleNetGameType, int, UNKNOWN = 0, FRIENDS = 1,
-            RANKED_STANDARD = 2, ARENA = 3, VS_AI = 4, TUTORIAL = 5, ASYNC = 6,
-            CASUAL_STANDARD_NEWBIE = 9, CASUAL_STANDARD_NORMAL = 10, TEST1 = 11,
-            TEST2 = 12, TEST3 = 13, TAVERNBRAWL_PVP = 16,
-            TAVERNBRAWL_1P_VERSUS_AI = 17, TAVERNBRAWL_2P_COOP = 18,
-            RANKED_WILD = 30, CASUAL_WILD = 31, FSG_BRAWL_VS_FRIEND = 40,
-            FSG_BRAWL_PVP = 41, FSG_BRAWL_1P_VERSUS_AI = 42,
-            FSG_BRAWL_2P_COOP = 43, BGT_RANKED_STANDARD_NEW_PLAYER = 45)
-
-BETTER_ENUM(BattleNetRegion, int, UNINITIALIZED = -1, UNKNOWN = 0, US = 1,
-            EU = 2, KR = 3, TW = 4, CN = 5, LIVE_VERIFICATION = 40,
-            PTR_LOC = 41)
-
-BETTER_ENUM(Booster, int, INVALID = 0, CLASSIC = 1, GOBLINS_VS_GNOMES = 9,
-            THE_GRAND_TOURNAMENT = 10, OLD_GODS = 11, FIRST_PURCHASE_OLD = 17,
-            SIGNUP_INCENTIVE = 18, MEAN_STREETS = 19, UNGORO = 20,
-            FROZEN_THRONE = 21, GOLDEN_CLASSIC_PACK = 23,
-            KOBOLDS_AND_CATACOMBS = 30, WITCHWOOD = 31,
-            THE_BOOMSDAY_PROJECT = 38, MAMMOTH_BUNDLE = 41,
-            FIRST_PURCHASE = 181)
-
-BETTER_ENUM(BrawlType, int, UNKNOWN = 0, TAVERN_BRAWL = 1,
-            FIRESIDE_GATHERING = 2, COUNT = 3)
-#endif
-
 //! \brief An enumerator for identifying the class of the card.
 #ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(CardClass, int, INVALID = 0, DEATHKNIGHT = 1, DRUID = 2, HUNTER = 3,
@@ -154,37 +124,12 @@ const std::string GAME_TAG_STR[] = {
 };
 
 #ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(GameType, int, UNKNOWN = 0, VS_AI = 1, VS_FRIEND = 2, TUTORIAL = 4,
-            ARENA = 5, TEST_AI_VS_AI = 6, RANKED = 7, CASUAL = 8,
-            TAVERNBRAWL = 16, TB_1P_VS_AI = 17, TB_2P_COOP = 18,
-            FSG_BRAWL_VS_FRIEND = 19, FSG_BRAWL = 20, FSG_BRAWL_1P_VS_AI = 21,
-            FSG_BRAWL_2P_COOP = 22, GT_TOURNAMENT = 23)
-
-BETTER_ENUM(GoldRewardState, int, INVALID = 0, ELIGIBLE = 1,
-            WRONG_GAME_TYPE = 2, ALREADY_CAPPED = 3, BAD_RATING = 4,
-            SHORT_GAME = 5, SHORT_GAME_BY_TIME = 5, OVER_CAIS = 6)
-
 BETTER_ENUM(Locale, int, UNKNOWN = -1, enUS = 0, enGB = 1, frFR = 2, deDE = 3,
             koKR = 4, esES = 5, esMX = 6, ruRU = 7, zhTW = 8, zhCN = 9,
             itIT = 10, ptBR = 11, plPL = 12, ptPT = 13, jaJP = 14, thTH = 15)
 
-BETTER_ENUM(MetaDataType, int, TARGET = 0, DAMAGE = 1, HEALING = 2, JOUST = 3,
-            CLIENT_HISTORY = 4, SHOW_BIG_CARD = 5, EFFECT_TIMING = 6,
-            HISTORY_TARGET = 7, OVERRIDE_HISTORY = 8,
-            HISTORY_TARGET_DONT_DUPLICATE_UNTIL_END = 9,
-            BEGIN_ARTIFICIAL_HISTORY_TILE = 10,
-            BEGIN_ARTIFICIAL_HISTORY_TRIGGER_TILE = 11,
-            END_ARTIFICIAL_HISTORY_TILE = 12, START_DRAW = 13, BURNED_CARD = 14,
-            EFFECT_SELECTION = 15, BEGIN_LISTENING_FOR_TURN_EVENTS = 16,
-            HOLD_DRAWN_CARD = 17)
-
 BETTER_ENUM(Mulligan, int, INVALID = 0, INPUT = 1, DEALING = 2, WAITING = 3,
             DONE = 4)
-
-BETTER_ENUM(MultiClassGroup, int, INVALID = 0, GRIMY_GOONS = 1, JADE_LOTUS = 2,
-            KABAL = 3)
-
-BETTER_ENUM(OptionType, int, PASS = 1, END_TURN = 2, POWER = 3)
 #endif
 
 //! \brief An enumerator for identifying the play requirement of the card.
@@ -204,11 +149,6 @@ const std::string PLAY_REQ_STR[] = {
 #ifndef ROSETTASTONE_DOXYGEN
 BETTER_ENUM(PlayState, int, INVALID = 0, PLAYING = 1, WINNING = 2, LOSING = 3,
             WON = 4, LOST = 5, TIED = 6, DISCONNECTED = 7, CONCEDED = 8)
-
-BETTER_ENUM(PowerType, int, FULL_ENTITY = 1, SHOW_ENTITY = 2, HIDE_ENTITY = 3,
-            TAG_CHANGE = 4, BLOCK_START = 5, ACTION_START = 5, BLOCK_END = 6,
-            ACTION_END = 6, CREATE_GAME = 7, META_DATA = 8, CHANGE_ENTITY = 9,
-            RESET_GAME = 10)
 #endif
 
 //! \brief An enumerator for identifying the race of the card.
@@ -278,13 +218,6 @@ enum class Step
 #endif
 
 #ifndef ROSETTASTONE_DOXYGEN
-BETTER_ENUM(Type, int, LOCSTRING = -2, UNKNOWN = 0, BOOL = 1, NUMBER = 2,
-            COUNTER = 3, ENTITY = 4, PLAYER = 5, TEAM = 6,
-            ENTITY_DEFINITION = 7, STRING = 8)
-
-BETTER_ENUM(ZodiacYear, int, INVALID = -1, PRE_STANDARD = 0, KRAKEN = 1,
-            MAMMOTH = 2, RAVEN = 3)
-
 BETTER_ENUM(Zone, int, INVALID = 0, PLAY = 1, DECK = 2, HAND = 3, GRAVEYARD = 4,
             REMOVEDFROMGAME = 5, SETASIDE = 6, SECRET = 7)
 #endif
