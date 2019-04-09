@@ -47,6 +47,30 @@ class Card
     //! Initializes card data.
     void Initialize();
 
+    //! Returns the value of card class.
+    //! \return The value of card class.
+    CardClass GetCardClass() const;
+
+    //! Returns the value of card set.
+    //! \return The value of card set.
+    CardSet GetCardSet() const;
+
+    //! Returns the value of card type.
+    //! \return The value of card type.
+    CardType GetCardType() const;
+
+    //! Returns the value of faction.
+    //! \return The value of faction.
+    Faction GetFaction() const;
+
+    //! Returns the value of race.
+    //! \return The value of race.
+    Race GetRace() const;
+
+    //! Returns the value of rarity.
+    //! \return The value of rarity.
+    Rarity GetRarity() const;
+
     //! Finds out if this card has game tag.
     //! \param gameTag The game tag of card.
     //! \return true if this card has game tag, and false otherwise.
@@ -61,13 +85,6 @@ class Card
 
     //! Prints card information.
     virtual void ShowInfo() const;
-
-    Rarity rarity = Rarity::INVALID;
-    Faction faction = Faction::INVALID;
-    CardSet cardSet = CardSet::INVALID;
-    CardClass cardClass = CardClass::INVALID;
-    CardType cardType = CardType::INVALID;
-    Race race = Race::INVALID;
 
     std::string id;
     std::string name;
