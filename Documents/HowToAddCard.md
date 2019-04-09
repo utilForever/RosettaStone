@@ -20,12 +20,12 @@ Let's assume that you have selected the **CS2_124 ("Wolfrider")** card.
 
 ## Step 2: Add card to CardSets
 
-The next thing to do is to add selected card to the card set. There are C++ source files for each card set in `Sources/CardSets`. Card `CS2_124` that you will add is a basic card set. This card should be added to `BasicCardsGen.cpp`.
+The next thing to do is to add selected card to the card set. There are C++ source files for each card set in `Sources/CardSets`. Card `CS2_124` that you will add is a basic card set. This card should be added to `CoreCardsGen.cpp`.
 
-The main code for `BasicCardsGen.cpp` is as follows.
+The main code for `CoreCardsGen.cpp` is as follows.
 
 ```C++
-void BasicCardsGen::AddAll(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddAll(std::map<std::string, Power*>& cards)
 {
     AddHeroes(cards);
     AddHeroPowers(cards);
@@ -77,7 +77,7 @@ So you can add a card to the `AddNeutral` function.
 Wolfrider is a minion with the **Charge** ability. [Charge](https://hearthstone.gamepedia.com/Charge) is an ability allowing a minion to attack the same turn it is summoned or brought under a new player's control. The default abilities such as **Charge**, **Windfury** are saved as GameTag when parsing card data, so you don't need to add power separately. Therefore, you can add a card like this:
 
 ```C++
-void BasicCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
 {
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
@@ -111,7 +111,7 @@ Ancestral Healing is a shaman spell card, from the Basic set. It restores a mini
 This card has two powers: One is the power to restore current maximum health, and the other is the power to grant the Taunt ability. Also, this card is a shaman spell card. So you can add a card to the `AddShaman` function.
 
 ```C++
-void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
 {
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
@@ -138,7 +138,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, Power*>& cards)
 Meanwhile, The power to grant the Taunt ability is the enchantment of Ancestral Healing. This enchantment is called **CS2_041e ("Ancestral Infusion")**. Since this card can't be collected, add it to `ShamanNonCollect` function.
 
 ```C++
-void BasicCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 {
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
