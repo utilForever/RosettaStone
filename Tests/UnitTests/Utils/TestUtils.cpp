@@ -49,7 +49,7 @@ TaskMeta GenerateRandomTaskMeta()
 Card GenerateMinionCard(std::string&& id, int attack, int health)
 {
     Card card;
-    card.cardType = CardType::MINION;
+    card.gameTags[GameTag::CARDTYPE] = static_cast<int>(CardType::MINION);
 
     card.id = std::move(id);
     card.gameTags[GameTag::ATK] = attack;
@@ -77,28 +77,26 @@ void PlayMinionCard(Player& player, Card& card)
 void ExpectCardEqual(const Card& card1, const Card& card2)
 {
     EXPECT_EQ(card1.id, card2.id);
-    EXPECT_EQ(card1.rarity, card2.rarity);
-    EXPECT_EQ(card1.faction, card2.faction);
-    EXPECT_EQ(card1.cardSet, card2.cardSet);
-    EXPECT_EQ(card1.cardClass, card2.cardClass);
-    EXPECT_EQ(card1.cardType, card2.cardType);
-    EXPECT_EQ(card1.race, card2.race);
     EXPECT_EQ(card1.name, card2.name);
     EXPECT_EQ(card1.text, card2.text);
+    EXPECT_EQ(card1.GetCardClass(), card2.GetCardClass());
+    EXPECT_EQ(card1.GetCardSet(), card2.GetCardSet());
+    EXPECT_EQ(card1.GetCardType(), card2.GetCardType());
+    EXPECT_EQ(card1.GetFaction(), card2.GetFaction());
+    EXPECT_EQ(card1.GetRace(), card2.GetRace());
+    EXPECT_EQ(card1.GetRarity(), card2.GetRarity());
     EXPECT_EQ(card1.gameTags.at(GameTag::COLLECTIBLE),
               card2.gameTags.at(GameTag::COLLECTIBLE));
     EXPECT_EQ(card1.gameTags.at(GameTag::COST),
               card2.gameTags.at(GameTag::COST));
+    EXPECT_EQ(card1.gameTags.at(GameTag::ATK), card2.gameTags.at(GameTag::ATK));
+    EXPECT_EQ(card1.gameTags.at(GameTag::HEALTH),
+              card2.gameTags.at(GameTag::HEALTH));
+    EXPECT_EQ(card1.gameTags.at(GameTag::DURABILITY),
+              card2.gameTags.at(GameTag::DURABILITY));
     EXPECT_EQ(card1.gameTags, card2.gameTags);
     EXPECT_EQ(card1.playRequirements, card2.playRequirements);
     EXPECT_EQ(card1.entourages, card2.entourages);
     EXPECT_EQ(card1.maxAllowedInDeck, card2.maxAllowedInDeck);
-
-    EXPECT_EQ(card1.gameTags.at(GameTag::ATK), card2.gameTags.at(GameTag::ATK));
-    EXPECT_EQ(card1.gameTags.at(GameTag::HEALTH),
-              card2.gameTags.at(GameTag::HEALTH));
-
-    EXPECT_EQ(card1.gameTags.at(GameTag::DURABILITY),
-              card2.gameTags.at(GameTag::DURABILITY));
 }
 }  // namespace TestUtils

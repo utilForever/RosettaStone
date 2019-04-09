@@ -137,7 +137,7 @@ Entity* Entity::GetFromCard(Player& player, Card&& card)
 {
     Entity* result;
 
-    switch (card.cardType)
+    switch (card.GetCardType())
     {
         case CardType::HERO:
             result = new Hero(player, card);

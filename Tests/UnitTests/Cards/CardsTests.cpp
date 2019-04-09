@@ -40,12 +40,12 @@ TEST(Cards, FindCardByRarity)
     std::vector<Card> cards6 = instance.FindCardByRarity(Rarity::INVALID);
     std::vector<Card> cards7 = instance.FindCardByRarity(Rarity::UNKNOWN_6);
 
-    EXPECT_EQ(Rarity::COMMON, cards1.front().rarity);
-    EXPECT_EQ(Rarity::RARE, cards2.front().rarity);
-    EXPECT_EQ(Rarity::EPIC, cards3.front().rarity);
-    EXPECT_EQ(Rarity::LEGENDARY, cards4.front().rarity);
-    EXPECT_EQ(Rarity::FREE, cards5.front().rarity);
-    EXPECT_TRUE(cards6.empty());
+    EXPECT_EQ(Rarity::COMMON, cards1.front().GetRarity());
+    EXPECT_EQ(Rarity::RARE, cards2.front().GetRarity());
+    EXPECT_EQ(Rarity::EPIC, cards3.front().GetRarity());
+    EXPECT_EQ(Rarity::LEGENDARY, cards4.front().GetRarity());
+    EXPECT_EQ(Rarity::FREE, cards5.front().GetRarity());
+    EXPECT_EQ(Rarity::INVALID, cards6.front().GetRarity());
     EXPECT_TRUE(cards7.empty());
 }
 
@@ -63,15 +63,15 @@ TEST(Cards, FindCardByClass)
     std::vector<Card> cards8 = instance.FindCardByClass(CardClass::PRIEST);
     std::vector<Card> cards9 = instance.FindCardByClass(CardClass::INVALID);
 
-    EXPECT_EQ(CardClass::DEATHKNIGHT, cards1.front().cardClass);
-    EXPECT_EQ(CardClass::DREAM, cards2.front().cardClass);
-    EXPECT_EQ(CardClass::DRUID, cards3.front().cardClass);
-    EXPECT_EQ(CardClass::HUNTER, cards4.front().cardClass);
-    EXPECT_EQ(CardClass::MAGE, cards5.front().cardClass);
-    EXPECT_EQ(CardClass::NEUTRAL, cards6.front().cardClass);
-    EXPECT_EQ(CardClass::PALADIN, cards7.front().cardClass);
-    EXPECT_EQ(CardClass::PRIEST, cards8.front().cardClass);
-    EXPECT_TRUE(cards9.empty());
+    EXPECT_EQ(CardClass::DEATHKNIGHT, cards1.front().GetCardClass());
+    EXPECT_EQ(CardClass::DREAM, cards2.front().GetCardClass());
+    EXPECT_EQ(CardClass::DRUID, cards3.front().GetCardClass());
+    EXPECT_EQ(CardClass::HUNTER, cards4.front().GetCardClass());
+    EXPECT_EQ(CardClass::MAGE, cards5.front().GetCardClass());
+    EXPECT_EQ(CardClass::NEUTRAL, cards6.front().GetCardClass());
+    EXPECT_EQ(CardClass::PALADIN, cards7.front().GetCardClass());
+    EXPECT_EQ(CardClass::PRIEST, cards8.front().GetCardClass());
+    EXPECT_EQ(CardClass::INVALID, cards9.front().GetCardClass());
 }
 
 TEST(Cards, FindCardBySet)
@@ -96,22 +96,22 @@ TEST(Cards, FindCardBySet)
     std::vector<Card> cards16 = instance.FindCardBySet(CardSet::BOOMSDAY);
     std::vector<Card> cards17 = instance.FindCardBySet(CardSet::INVALID);
 
-    EXPECT_EQ(CardSet::CORE, cards1.front().cardSet);
-    EXPECT_EQ(CardSet::EXPERT1, cards2.front().cardSet);
-    EXPECT_EQ(CardSet::HOF, cards3.front().cardSet);
-    EXPECT_EQ(CardSet::NAXX, cards4.front().cardSet);
-    EXPECT_EQ(CardSet::GVG, cards5.front().cardSet);
-    EXPECT_EQ(CardSet::BRM, cards6.front().cardSet);
-    EXPECT_EQ(CardSet::TGT, cards7.front().cardSet);
-    EXPECT_EQ(CardSet::LOE, cards8.front().cardSet);
-    EXPECT_EQ(CardSet::OG, cards9.front().cardSet);
-    EXPECT_EQ(CardSet::KARA, cards10.front().cardSet);
-    EXPECT_EQ(CardSet::GANGS, cards11.front().cardSet);
-    EXPECT_EQ(CardSet::UNGORO, cards12.front().cardSet);
-    EXPECT_EQ(CardSet::ICECROWN, cards13.front().cardSet);
-    EXPECT_EQ(CardSet::LOOTAPALOOZA, cards14.front().cardSet);
-    EXPECT_EQ(CardSet::GILNEAS, cards15.front().cardSet);
-    EXPECT_EQ(CardSet::BOOMSDAY, cards16.front().cardSet);
+    EXPECT_EQ(CardSet::CORE, cards1.front().GetCardSet());
+    EXPECT_EQ(CardSet::EXPERT1, cards2.front().GetCardSet());
+    EXPECT_EQ(CardSet::HOF, cards3.front().GetCardSet());
+    EXPECT_EQ(CardSet::NAXX, cards4.front().GetCardSet());
+    EXPECT_EQ(CardSet::GVG, cards5.front().GetCardSet());
+    EXPECT_EQ(CardSet::BRM, cards6.front().GetCardSet());
+    EXPECT_EQ(CardSet::TGT, cards7.front().GetCardSet());
+    EXPECT_EQ(CardSet::LOE, cards8.front().GetCardSet());
+    EXPECT_EQ(CardSet::OG, cards9.front().GetCardSet());
+    EXPECT_EQ(CardSet::KARA, cards10.front().GetCardSet());
+    EXPECT_EQ(CardSet::GANGS, cards11.front().GetCardSet());
+    EXPECT_EQ(CardSet::UNGORO, cards12.front().GetCardSet());
+    EXPECT_EQ(CardSet::ICECROWN, cards13.front().GetCardSet());
+    EXPECT_EQ(CardSet::LOOTAPALOOZA, cards14.front().GetCardSet());
+    EXPECT_EQ(CardSet::GILNEAS, cards15.front().GetCardSet());
+    EXPECT_EQ(CardSet::BOOMSDAY, cards16.front().GetCardSet());
     EXPECT_TRUE(cards17.empty());
 }
 
@@ -131,12 +131,12 @@ TEST(Cards, FindCardByType)
     std::vector<Card> cards10 = instance.FindCardByType(CardType::TOKEN);
     std::vector<Card> cards11 = instance.FindCardByType(CardType::INVALID);
 
-    EXPECT_EQ(CardType::WEAPON, cards1.front().cardType);
-    EXPECT_EQ(CardType::HERO, cards3.front().cardType);
-    EXPECT_EQ(CardType::HERO_POWER, cards4.front().cardType);
-    EXPECT_EQ(CardType::ENCHANTMENT, cards5.front().cardType);
-    EXPECT_EQ(CardType::MINION, cards7.front().cardType);
-    EXPECT_EQ(CardType::SPELL, cards9.front().cardType);
+    EXPECT_EQ(CardType::WEAPON, cards1.front().GetCardType());
+    EXPECT_EQ(CardType::HERO, cards3.front().GetCardType());
+    EXPECT_EQ(CardType::HERO_POWER, cards4.front().GetCardType());
+    EXPECT_EQ(CardType::ENCHANTMENT, cards5.front().GetCardType());
+    EXPECT_EQ(CardType::MINION, cards7.front().GetCardType());
+    EXPECT_EQ(CardType::SPELL, cards9.front().GetCardType());
     EXPECT_TRUE(cards2.empty());
     EXPECT_TRUE(cards6.empty());
     EXPECT_TRUE(cards8.empty());

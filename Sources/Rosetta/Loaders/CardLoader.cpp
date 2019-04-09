@@ -35,32 +35,6 @@ void CardLoader::Load(std::vector<Card>& cards)
             continue;
         }
 
-        const Rarity rarity =
-            cardData["rarity"].is_null()
-                ? Rarity::FREE
-                : StrToEnum<Rarity>(cardData["rarity"].get<std::string>());
-        const Faction faction =
-            cardData["faction"].is_null()
-                ? Faction::NEUTRAL
-                : StrToEnum<Faction>(cardData["faction"].get<std::string>());
-        const CardSet cardSet =
-            cardData["set"].is_null()
-                ? CardSet::NONE
-                : StrToEnum<CardSet>(cardData["set"].get<std::string>());
-        const CardClass cardClass =
-            cardData["cardClass"].is_null()
-                ? CardClass::NEUTRAL
-                : StrToEnum<CardClass>(
-                      cardData["cardClass"].get<std::string>());
-        const CardType cardType =
-            cardData["type"].is_null()
-                ? CardType::INVALID
-                : StrToEnum<CardType>(cardData["type"].get<std::string>());
-        const Race race =
-            cardData["race"].is_null()
-                ? Race::INVALID
-                : StrToEnum<Race>(cardData["race"].get<std::string>());
-
         const std::string name = cardData["name"].is_null()
                                      ? ""
                                      : cardData["name"].get<std::string>();
@@ -68,26 +42,46 @@ void CardLoader::Load(std::vector<Card>& cards)
                                      ? ""
                                      : cardData["text"].get<std::string>();
 
+        const int attack =
+            cardData["attack"].is_null() ? 0 : cardData["attack"].get<int>();
+        const int cardRace = cardData["race"].is_null()
+                                 ? 0
+                                 : static_cast<int>(StrToEnum<Race>(
+                                       cardData["race"].get<std::string>()));
+        const int cardSet = cardData["set"].is_null()
+                                ? 1
+                                : static_cast<int>(StrToEnum<CardSet>(
+                                      cardData["set"].get<std::string>()));
+        const int cardType = cardData["type"].is_null()
+                                 ? 0
+                                 : static_cast<int>(StrToEnum<CardType>(
+                                       cardData["type"].get<std::string>()));
+        const int cardClass =
+            cardData["cardClass"].is_null()
+                ? 0
+                : static_cast<int>(StrToEnum<CardClass>(
+                      cardData["cardClass"].get<std::string>()));
         const int collectible = cardData["collectible"].is_null()
                                     ? 0
                                     : cardData["collectible"].get<int>();
-
-        const int attack =
-            cardData["attack"].is_null() ? 0 : cardData["attack"].get<int>();
-
-        const int health =
-            cardData["health"].is_null() ? 0 : cardData["health"].get<int>();
-
-        const int spellPower = cardData["spellDamage"].is_null()
-                                   ? 0
-                                   : cardData["spellDamage"].get<int>();
-
+        const int cost =
+            cardData["cost"].is_null() ? 0 : cardData["cost"].get<int>();
         const int durability = cardData["durability"].is_null()
                                    ? 0
                                    : cardData["durability"].get<int>();
-
-        const int cost =
-            cardData["cost"].is_null() ? 0 : cardData["cost"].get<int>();
+        const int faction = cardData["faction"].is_null()
+                                ? 0
+                                : static_cast<int>(StrToEnum<Faction>(
+                                      cardData["faction"].get<std::string>()));
+        const int health =
+            cardData["health"].is_null() ? 0 : cardData["health"].get<int>();
+        const int rarity = cardData["rarity"].is_null()
+                               ? 0
+                               : static_cast<int>(StrToEnum<Rarity>(
+                                     cardData["rarity"].get<std::string>()));
+        const int spellPower = cardData["spellDamage"].is_null()
+                                   ? 0
+                                   : cardData["spellDamage"].get<int>();
 
         std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])
@@ -112,12 +106,6 @@ void CardLoader::Load(std::vector<Card>& cards)
 
         Card card;
         card.id = id;
-        card.rarity = rarity;
-        card.faction = faction;
-        card.cardSet = cardSet;
-        card.cardClass = cardClass;
-        card.cardType = cardType;
-        card.race = race;
         card.name = name;
         card.text = text;
 
@@ -126,11 +114,17 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.entourages = entourages;
 
         card.gameTags[GameTag::ATK] = attack;
+        card.gameTags[GameTag::CARDRACE] = cardRace;
+        card.gameTags[GameTag::CARD_SET] = cardSet;
+        card.gameTags[GameTag::CARDTYPE] = cardType;
+        card.gameTags[GameTag::CLASS] = cardClass;
         card.gameTags[GameTag::COLLECTIBLE] = collectible;
         card.gameTags[GameTag::COST] = cost;
         card.gameTags[GameTag::DAMAGE] = 0;
         card.gameTags[GameTag::DURABILITY] = durability;
+        card.gameTags[GameTag::FACTION] = faction;
         card.gameTags[GameTag::HEALTH] = health;
+        card.gameTags[GameTag::RARITY] = rarity;
         card.gameTags[GameTag::SPELLPOWER] = spellPower;
 
         card.Initialize();

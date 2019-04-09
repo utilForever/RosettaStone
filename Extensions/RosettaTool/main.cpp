@@ -113,7 +113,8 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         {
             cards.erase(std::remove_if(cards.begin(), cards.end(),
                                        [](const Card& c) {
-                                           return c.cardType == CardType::HERO;
+                                           return c.GetCardType() ==
+                                                  CardType::HERO;
                                        }),
                         cards.end());
         }
@@ -138,8 +139,8 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
                 impledCardNum++;
             }
 
-            outputFile << EnumToStr<CardSet>(card.cardSet) << " | " << card.id
-                       << " | " << card.name << " | "
+            outputFile << EnumToStr<CardSet>(card.GetCardSet()) << " | "
+                       << card.id << " | " << card.name << " | "
                        << (isImplemented ? 'O' : ' ') << '\n';
         }
 

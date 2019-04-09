@@ -622,26 +622,26 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
             continue;
         }
 
-        bool rarityCondition =
-            (filter.rarity == Rarity::INVALID || filter.rarity == card.rarity);
+        bool rarityCondition = (filter.rarity == Rarity::INVALID ||
+                                filter.rarity == card.GetRarity());
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to
         // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            classCondition = (card.cardClass == m_deckClass ||
-                              card.cardClass == CardClass::NEUTRAL);
+            classCondition = (card.GetCardClass() == m_deckClass ||
+                              card.GetCardClass() == CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
             classCondition = (filter.playerClass == CardClass::INVALID ||
-                              filter.playerClass == card.cardClass);
+                              filter.playerClass == card.GetCardClass());
         }
         bool typeCondition = (filter.cardType == CardType::INVALID ||
-                              filter.cardType == card.cardType);
+                              filter.cardType == card.GetCardType());
         bool raceCondition =
-            (filter.race == Race::INVALID || filter.race == card.race);
+            (filter.race == Race::INVALID || filter.race == card.GetRace());
         bool nameCondition = (filter.name.empty() ||
                               card.name.find(filter.name) != std::string::npos);
         bool costCondition =

@@ -37,7 +37,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     source->SetOwner(player);
 
     // Pass to sub-logic
-    switch (source->card.cardType)
+    switch (source->card.GetCardType())
     {
         case CardType::MINION:
         {

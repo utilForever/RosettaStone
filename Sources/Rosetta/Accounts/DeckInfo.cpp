@@ -106,7 +106,7 @@ bool DeckInfo::AddCard(std::string cardID, std::size_t numCardToAdd)
 {
     Card card = Cards::GetInstance().FindCardByID(cardID);
 
-    const CardClass cardClass = card.cardClass;
+    const CardClass cardClass = card.GetCardClass();
     if ((cardClass != GetClass() && cardClass != CardClass::NEUTRAL) ||
         card.GetMaxAllowedInDeck() < numCardToAdd)
     {

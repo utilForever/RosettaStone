@@ -54,7 +54,7 @@ std::vector<Card> Cards::FindCardByRarity(Rarity rarity)
 
     for (auto card : m_cards)
     {
-        if (card.rarity == rarity)
+        if (card.GetRarity() == rarity)
         {
             result.emplace_back(card);
         }
@@ -69,7 +69,7 @@ std::vector<Card> Cards::FindCardByClass(CardClass cardClass)
 
     for (auto card : m_cards)
     {
-        if (card.cardClass == cardClass)
+        if (card.GetCardClass() == cardClass)
         {
             result.emplace_back(card);
         }
@@ -84,7 +84,7 @@ std::vector<Card> Cards::FindCardBySet(CardSet cardSet)
 
     for (auto card : m_cards)
     {
-        if (card.cardSet == cardSet)
+        if (card.GetCardSet() == cardSet)
         {
             result.emplace_back(card);
         }
@@ -99,7 +99,7 @@ std::vector<Card> Cards::FindCardByType(CardType cardType)
 
     for (auto card : m_cards)
     {
-        if (card.cardType == cardType)
+        if (card.GetCardType() == cardType)
         {
             result.emplace_back(card);
         }
@@ -114,7 +114,7 @@ std::vector<Card> Cards::FindCardByRace(Race race)
 
     for (auto card : m_cards)
     {
-        if (card.race == race)
+        if (card.GetRace() == race)
         {
             result.emplace_back(card);
         }
@@ -158,8 +158,8 @@ std::vector<Card> Cards::FindCardByAttack(int minVal, int maxVal)
 
     for (auto card : m_cards)
     {
-        if (!(card.cardType == CardType::MINION) &&
-            !(card.cardType == CardType::WEAPON))
+        if (!(card.GetCardType() == CardType::MINION) &&
+            !(card.GetCardType() == CardType::WEAPON))
         {
             continue;
         }
@@ -180,8 +180,8 @@ std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
 
     for (auto card : m_cards)
     {
-        if (!(card.cardType == CardType::MINION) &&
-            !(card.cardType == CardType::HERO))
+        if (!(card.GetCardType() == CardType::MINION) &&
+            !(card.GetCardType() == CardType::HERO))
         {
             continue;
         }
