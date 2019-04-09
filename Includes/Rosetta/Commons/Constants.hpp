@@ -33,8 +33,11 @@ constexpr std::size_t NUM_DRAW_CARDS_AT_START_FIRST = 3;
 //! The number of cards that the player going second will be given.
 constexpr std::size_t NUM_DRAW_CARDS_AT_START_SECOND = 4;
 
+//! The minimum number of available/maximum mana.
+constexpr int MANA_LOWER_LIMIT = 0;
+
 //! The maximum number of available/maximum mana.
-constexpr std::size_t MANA_UPPER_LIMIT = 10;
+constexpr int MANA_UPPER_LIMIT = 10;
 
 //! The maximum number of cards in your hand.
 constexpr std::size_t HAND_SIZE = 10;
