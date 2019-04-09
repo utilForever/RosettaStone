@@ -6,7 +6,6 @@
 
 #include <Rosetta/Cards/Card.hpp>
 
-#include <algorithm>
 #include <iostream>
 
 namespace RosettaStone

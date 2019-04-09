@@ -11,7 +11,6 @@
 #include <Rosetta/Enums/CardEnums.hpp>
 
 #include <map>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -73,11 +72,6 @@ class Card
     std::string id;
     std::string name;
     std::string text;
-
-    std::optional<std::size_t> spellPower;
-    std::optional<std::size_t> durability;
-
-    std::size_t cost = 0;
 
     std::map<GameTag, int> gameTags;
     std::map<PlayReq, int> playRequirements;
