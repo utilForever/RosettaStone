@@ -69,6 +69,14 @@ class Entity
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
+    //! Returns the value of cost.
+    //! \return The value of cost.
+    int GetCost() const;
+
+    //! Sets the value of cost.
+    //! \param cost The value of cost.
+    void SetCost(int cost);
+
     //! Destroys character.
     virtual void Destroy();
 

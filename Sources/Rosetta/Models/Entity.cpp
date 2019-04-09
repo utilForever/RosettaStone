@@ -118,6 +118,16 @@ void Entity::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
+int Entity::GetCost() const
+{
+    return GetGameTag(GameTag::COST);
+}
+
+void Entity::SetCost(int cost)
+{
+    SetGameTag(GameTag::COST, cost);
+}
+
 void Entity::Destroy()
 {
     isDestroyed = true;
