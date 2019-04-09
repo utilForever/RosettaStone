@@ -37,8 +37,8 @@ class ModifyManaTask : public ITask
     //! \param numMode A value that specifies the operation of \p num.
     //! \param manaMode A value that specifies whether the modified mana is
     //! one-time or permanent.
-    //! \param num A value indicating how much to modify mana.
-    ModifyManaTask(ManaOperator numMode, ManaType manaMode, std::size_t num);
+    //! \param amount A value indicating how much to modify mana.
+    ModifyManaTask(ManaOperator numMode, ManaType manaMode, int amount);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -52,7 +52,7 @@ class ModifyManaTask : public ITask
 
     ManaOperator m_numMode;
     ManaType m_manaMode;
-    std::size_t m_num;
+    int m_amount;
 };
 }  // namespace RosettaStone::SimpleTasks
 

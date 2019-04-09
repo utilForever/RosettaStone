@@ -130,8 +130,8 @@ class Player
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
 
-    std::size_t currentMana = 0;
-    std::size_t maximumMana = 0;
+    int currentMana = 0;
+    int maximumMana = 0;
 
     int currentSpellPower = 0;
 
