@@ -16,7 +16,7 @@ Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
     // Do nothing
 }
 
-int Character::GetAttack()
+int Character::GetAttack() const
 {
     return GetGameTag(GameTag::ATK);
 }
@@ -26,7 +26,7 @@ void Character::SetAttack(int attack)
     SetGameTag(GameTag::ATK, attack);
 }
 
-int Character::GetDamage()
+int Character::GetDamage() const
 {
     return GetGameTag(GameTag::DAMAGE);
 }
@@ -41,7 +41,7 @@ void Character::SetDamage(int damage)
     SetGameTag(GameTag::DAMAGE, damage);
 }
 
-int Character::GetHealth()
+int Character::GetHealth() const
 {
     return GetGameTag(GameTag::HEALTH) - GetGameTag(GameTag::DAMAGE);
 }
@@ -57,7 +57,7 @@ void Character::SetHealth(int health)
     SetGameTag(GameTag::DAMAGE, 0);
 }
 
-int Character::GetBaseHealth()
+int Character::GetBaseHealth() const
 {
     return GetGameTag(GameTag::HEALTH);
 }

@@ -44,7 +44,7 @@ bool Hero::HasWeapon() const
     return weapon != nullptr;
 }
 
-int Hero::GetAttack()
+int Hero::GetAttack() const
 {
     return HasWeapon() ? Character::GetAttack() + weapon->GetAttack()
                        : Character::GetAttack();

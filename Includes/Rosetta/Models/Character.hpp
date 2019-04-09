@@ -46,7 +46,7 @@ class Character : public Entity
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    virtual int GetAttack();
+    virtual int GetAttack() const;
 
     //! Sets the value of attack.
     //! \param attack The value of attack.
@@ -54,7 +54,7 @@ class Character : public Entity
 
     //! Returns the value of damage.
     //! \return The value of damage.
-    int GetDamage();
+    int GetDamage() const;
 
     //! Sets the value of damage.
     //! \param damage The value of damage.
@@ -62,7 +62,7 @@ class Character : public Entity
 
     //! Returns the value of health.
     //! \return The value of health.
-    int GetHealth();
+    int GetHealth() const;
 
     //! Sets the value of health.
     //! \param health The value of health.
@@ -70,7 +70,7 @@ class Character : public Entity
 
     //! Returns the value of base health.
     //! \return The value of base health.
-    int GetBaseHealth();
+    int GetBaseHealth() const;
 
     //! Sets the value of base health.
     //! \param baseHealth The value of base health.
