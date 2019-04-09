@@ -52,7 +52,7 @@ TaskStatus ModifyManaTask::Impl(Player& player)
     }
 
     // Clamps a mana cost to a given range (min:0 ~ max:10)
-    mana = std::clamp(mana, 0, 10);
+    mana = std::clamp(mana, MANA_LOWER_LIMIT, MANA_UPPER_LIMIT);
 
     if (m_manaMode == ManaType::AVAILABLE)
     {
