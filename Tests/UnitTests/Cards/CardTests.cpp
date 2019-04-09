@@ -24,7 +24,7 @@ TEST(Card, Constructer)
     card1.name = "card1";
     card1.text = "this is test card1";
     card1.isCollectible = true;
-    card1.cost = 1;
+    card1.gameTags[GameTag::COST] = 1;
     card1.Initialize();
 
     Card card2;
@@ -38,7 +38,7 @@ TEST(Card, Constructer)
     card2.name = "card2";
     card2.text = "this is test card2";
     card2.isCollectible = true;
-    card2.cost = 1;
+    card2.gameTags[GameTag::COST] = 1;
     card2.Initialize();
 
     EXPECT_NO_THROW(card1.ShowBriefInfo());
@@ -48,7 +48,7 @@ TEST(Card, Constructer)
     EXPECT_EQ(CardClass::NEUTRAL, card1.cardClass);
     EXPECT_EQ(CardType::MINION, card1.cardType);
     EXPECT_EQ(Race::DRAGON, card1.race);
-    EXPECT_EQ(1, static_cast<int>(card1.cost));
+    EXPECT_EQ(1, card1.gameTags.at(GameTag::COST));
     EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
     EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
     EXPECT_EQ(true, card1.isCollectible);
@@ -67,7 +67,7 @@ TEST(Card, HasMechanic)
     card.name = "card1";
     card.text = "this is test card1";
     card.isCollectible = true;
-    card.cost = 1;
+    card.gameTags[GameTag::COST] = 1;
     card.Initialize();
 
     EXPECT_EQ(false, card.HasGameTag(GameTag::ADAPT));

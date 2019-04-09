@@ -72,10 +72,11 @@ void Attack(Player& player, Character* source, Character* target)
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        hero->weapon->durability--;
+        int prevValue = hero->weapon->GetDurability();
+        hero->weapon->SetDurability(prevValue - 1);
 
         // Destroy weapon if durability is 0
-        if (hero->weapon->durability == 0)
+        if (hero->weapon->GetDurability() == 0)
         {
             hero->RemoveWeapon();
         }

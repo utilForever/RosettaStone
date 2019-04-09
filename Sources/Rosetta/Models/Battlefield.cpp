@@ -139,7 +139,7 @@ void Battlefield::ActivateAura(Minion& minion)
         minion.card.power.GetAura().value().Activate(minion);
     }
 
-    const int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    const int spellPower = minion.GetSpellPower();
     if (spellPower > 0)
     {
         minion.GetOwner().currentSpellPower += spellPower;
@@ -153,7 +153,7 @@ void Battlefield::RemoveAura(Minion& minion)
         minion.onGoingEffect->Remove();
     }
 
-    const int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    const int spellPower = minion.GetSpellPower();
     if (minion.GetOwner().currentSpellPower > 0 && spellPower > 0)
     {
         minion.GetOwner().currentSpellPower -= spellPower;

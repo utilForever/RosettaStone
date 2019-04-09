@@ -27,7 +27,7 @@ struct SearchFilter
     GameTag gameTag = GameTag::INVALID;
 
     std::string name;
-    size_t costMin = 0, costMax = 0;
+    int costMin = 0, costMax = 0;
     int attackMin = 0, attackMax = 0;
     int healthMin = 0, healthMax = 0;
 };
@@ -99,8 +99,7 @@ class Cards
     //! \param minVal The minimum cost value of the card.
     //! \param maxVal The maximum cost value of the card.
     //! \return A list of cards that matches condition.
-    static std::vector<Card> FindCardByCost(std::size_t minVal,
-                                            std::size_t maxVal);
+    static std::vector<Card> FindCardByCost(int minVal, int maxVal);
 
     //! Returns a list of cards whose attack is between \p minVal and \p maxVal.
     //! \param minVal The minimum attack value of the card.
@@ -118,8 +117,7 @@ class Cards
     //! \param minVal The minimum spell power value of the card.
     //! \param maxVal The maximum spell power value of the card.
     //! \return A list of cards that matches condition.
-    static std::vector<Card> FindCardBySpellPower(std::size_t minVal,
-                                                  std::size_t maxVal);
+    static std::vector<Card> FindCardBySpellPower(int minVal, int maxVal);
 
     //! Returns a list of cards that has \p gameTags.
     //! \param gameTags A list of game tag of the card.

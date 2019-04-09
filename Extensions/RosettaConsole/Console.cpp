@@ -9,6 +9,7 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Games/GameAgent.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
@@ -601,10 +602,10 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     filter.name = strName;
     filter.costMin = minCost;
     filter.costMax = maxCost;
-    filter.attackMin = static_cast<int>(minAttack);
-    filter.attackMax = static_cast<int>(maxAttack);
-    filter.healthMin = static_cast<int>(minHealth);
-    filter.healthMax = static_cast<int>(maxHealth);
+    filter.attackMin = minAttack;
+    filter.attackMax = maxAttack;
+    filter.healthMin = minHealth;
+    filter.healthMax = maxHealth;
     filter.gameTag = gameTag;
 
     return std::make_tuple(filter, isValid, isFinish);
@@ -644,7 +645,8 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
         bool nameCondition = (filter.name.empty() ||
                               card.name.find(filter.name) != std::string::npos);
         bool costCondition =
-            filter.costMin <= card.cost && filter.costMax >= card.cost;
+            filter.costMin <= card.gameTags.at(GameTag::COST) &&
+            filter.costMax >= card.gameTags.at(GameTag::COST);
         bool attackCondition =
             filter.attackMin <= card.gameTags.at(GameTag::ATK) &&
             filter.attackMax >= card.gameTags.at(GameTag::ATK);

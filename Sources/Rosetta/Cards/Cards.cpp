@@ -136,13 +136,14 @@ Card Cards::FindCardByName(const std::string& name)
     return Card();
 }
 
-std::vector<Card> Cards::FindCardByCost(std::size_t minVal, std::size_t maxVal)
+std::vector<Card> Cards::FindCardByCost(int minVal, int maxVal)
 {
     std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (card.cost >= minVal && card.cost <= maxVal)
+        if (card.gameTags.at(GameTag::COST) >= minVal &&
+            card.gameTags.at(GameTag::COST) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -195,19 +196,14 @@ std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardBySpellPower(std::size_t minVal,
-                                              std::size_t maxVal)
+std::vector<Card> Cards::FindCardBySpellPower(int minVal, int maxVal)
 {
     std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (!card.spellPower)
-        {
-            continue;
-        }
-
-        if (*card.spellPower >= minVal && *card.spellPower <= maxVal)
+        if (card.gameTags.at(GameTag::SPELLPOWER) >= minVal &&
+            card.gameTags.at(GameTag::SPELLPOWER) <= maxVal)
         {
             result.emplace_back(card);
         }

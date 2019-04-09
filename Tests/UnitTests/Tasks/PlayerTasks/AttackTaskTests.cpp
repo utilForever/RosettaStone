@@ -116,7 +116,7 @@ TEST(AttackTask, Weapon)
 
     player1.GetHero()->weapon = new Weapon();
     player1.GetHero()->weapon->SetAttack(4);
-    player1.GetHero()->weapon->durability = 2;
+    player1.GetHero()->weapon->SetDurability(2);
     player1.GetHero()->weapon->SetOwner(player1);
     EndTurnTask().Run(player1);
 
@@ -127,7 +127,7 @@ TEST(AttackTask, Weapon)
 
     Task::Run(player1, AttackTask(player1.GetHero(), p2Field.GetMinion(0)));
 
-    EXPECT_EQ(player1.GetHero()->weapon->durability, 1u);
+    EXPECT_EQ(player1.GetHero()->weapon->GetDurability(), 1);
     EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 6);
 
     EndTurnTask().Run(player1);

@@ -76,19 +76,18 @@ void CardLoader::Load(std::vector<Card>& cards)
             cardData["attack"].is_null() ? 0 : cardData["attack"].get<int>();
 
         const int health =
-            cardData["health"].is_null() ? -1 : cardData["health"].get<int>();
+            cardData["health"].is_null() ? 0 : cardData["health"].get<int>();
 
         const int spellPower = cardData["spellDamage"].is_null()
-                                   ? -1
+                                   ? 0
                                    : cardData["spellDamage"].get<int>();
 
         const int durability = cardData["durability"].is_null()
-                                   ? -1
+                                   ? 0
                                    : cardData["durability"].get<int>();
 
-        const std::size_t cost = cardData["cost"].is_null()
-                                     ? 0
-                                     : cardData["cost"].get<std::size_t>();
+        const int cost =
+            cardData["cost"].is_null() ? 0 : cardData["cost"].get<int>();
 
         std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])
@@ -123,21 +122,16 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.text = text;
         card.isCollectible = collectible;
 
-        card.durability = (durability != -1)
-                              ? std::optional<std::size_t>(durability)
-                              : std::nullopt;
-        card.spellPower = (spellPower != -1)
-                              ? std::optional<std::size_t>(spellPower)
-                              : std::nullopt;
-
-        card.cost = cost;
         card.gameTags = gameTags;
         card.playRequirements = playRequirements;
         card.entourages = entourages;
 
         card.gameTags[GameTag::ATK] = attack;
+        card.gameTags[GameTag::COST] = cost;
         card.gameTags[GameTag::DAMAGE] = 0;
+        card.gameTags[GameTag::DURABILITY] = durability;
         card.gameTags[GameTag::HEALTH] = health;
+        card.gameTags[GameTag::SPELLPOWER] = spellPower;
 
         card.Initialize();
 
