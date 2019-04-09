@@ -76,6 +76,14 @@ class Character : public Entity
     //! \param baseHealth The value of base health.
     void SetBaseHealth(int baseHealth);
 
+    //! Returns the value of spell power.
+    //! \return The value of spell power.
+    int GetSpellPower();
+
+    //! Sets the value of spell power.
+    //! \param spellPower The value of spell power.
+    void SetSpellPower(int spellPower);
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack();
@@ -107,7 +115,6 @@ class Character : public Entity
     void TakeHeal(Entity& source, int heal);
 
     std::size_t numAttacked = 0;
-    std::size_t spellPower = 0;
 };
 }  // namespace RosettaStone
 

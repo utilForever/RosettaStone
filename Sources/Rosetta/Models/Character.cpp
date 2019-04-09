@@ -13,10 +13,7 @@ namespace RosettaStone
 {
 Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
-    if (!card.id.empty())
-    {
-        spellPower = card.spellPower.value_or(0);
-    }
+    // Do nothing
 }
 
 int Character::GetAttack()
@@ -68,6 +65,16 @@ int Character::GetBaseHealth()
 void Character::SetBaseHealth(int baseHealth)
 {
     SetGameTag(GameTag::HEALTH, baseHealth);
+}
+
+int Character::GetSpellPower()
+{
+    return GetGameTag(GameTag::SPELLPOWER);
+}
+
+void Character::SetSpellPower(int spellPower)
+{
+    SetGameTag(GameTag::SPELLPOWER, spellPower);
 }
 
 bool Character::CanAttack()
