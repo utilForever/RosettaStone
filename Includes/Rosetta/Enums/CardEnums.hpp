@@ -218,13 +218,13 @@ enum class Step
 };
 
 template <class T>
-T StrToEnum(std::string);
+T StrToEnum(const std::string_view&);
 template <class T>
 std::string EnumToStr(T);
 
 #define STR2ENUM(TYPE, ARRAY)                                                \
     template <>                                                              \
-    inline TYPE StrToEnum<TYPE>(std::string str)                             \
+    inline TYPE StrToEnum<TYPE>(const std::string_view& str)                 \
     {                                                                        \
         for (std::size_t i = 0; i < (sizeof(ARRAY) / sizeof(ARRAY[0])); ++i) \
         {                                                                    \

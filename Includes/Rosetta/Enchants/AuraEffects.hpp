@@ -25,7 +25,7 @@ class AuraEffects
  public:
     //! Constructs aura effects with given \p owner.
     //! \param owner The owner of aura effects.
-    AuraEffects(Entity* owner);
+    explicit AuraEffects(Entity* owner);
 
     //! Returns the owner of aura effects.
     //! \return The owner of aura effects.

@@ -24,7 +24,7 @@ class SelfCondition
  public:
     //! Constructs task with given \p func.
     //! \param func The function to check condition.
-    SelfCondition(std::function<bool(Entity*)> func);
+    explicit SelfCondition(std::function<bool(Entity*)> func);
 
     //! SelfCondition wrapper for checking race in battlefield.
     static SelfCondition IsControllingRace(Race race);
