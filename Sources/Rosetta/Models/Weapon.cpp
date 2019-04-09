@@ -11,7 +11,7 @@ namespace RosettaStone
 {
 Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
-    durability = _card.durability ? *_card.durability : 0;
+    // Do nothing
 }
 
 Weapon::~Weapon()
@@ -27,5 +27,15 @@ int Weapon::GetAttack() const
 void Weapon::SetAttack(int attack)
 {
     SetGameTag(GameTag::ATK, attack);
+}
+
+int Weapon::GetDurability() const
+{
+    return GetGameTag(GameTag::DURABILITY);
+}
+
+void Weapon::SetDurability(int durability)
+{
+    SetGameTag(GameTag::DURABILITY, durability);
 }
 }  // namespace RosettaStone

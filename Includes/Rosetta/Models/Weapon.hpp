@@ -52,7 +52,13 @@ class Weapon : public Entity
     //! \param attack The value of attack.
     void SetAttack(int attack);
 
-    std::size_t durability = 0;
+    //! Returns the value of durability.
+    //! \return The value of durability.
+    int GetDurability() const;
+
+    //! Sets the value of durability.
+    //! \param durability The value of durability.
+    void SetDurability(int durability);
 };
 }  // namespace RosettaStone
 
