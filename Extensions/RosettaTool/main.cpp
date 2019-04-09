@@ -103,7 +103,9 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         // Excludes cards that is not collectible
         cards.erase(
             std::remove_if(cards.begin(), cards.end(),
-                           [](const Card& c) { return !c.isCollectible; }),
+                           [](const Card& c) {
+                               return c.gameTags.at(GameTag::COLLECTIBLE) == 0;
+                           }),
             cards.end());
 
         // Excludes 9 hero cards from CardSet::CORE

@@ -68,9 +68,9 @@ void CardLoader::Load(std::vector<Card>& cards)
                                      ? ""
                                      : cardData["text"].get<std::string>();
 
-        const bool collectible = cardData["collectible"].is_null()
-                                     ? false
-                                     : cardData["collectible"].get<bool>();
+        const int collectible = cardData["collectible"].is_null()
+                                    ? 0
+                                    : cardData["collectible"].get<int>();
 
         const int attack =
             cardData["attack"].is_null() ? 0 : cardData["attack"].get<int>();
@@ -120,13 +120,13 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.race = race;
         card.name = name;
         card.text = text;
-        card.isCollectible = collectible;
 
         card.gameTags = gameTags;
         card.playRequirements = playRequirements;
         card.entourages = entourages;
 
         card.gameTags[GameTag::ATK] = attack;
+        card.gameTags[GameTag::COLLECTIBLE] = collectible;
         card.gameTags[GameTag::COST] = cost;
         card.gameTags[GameTag::DAMAGE] = 0;
         card.gameTags[GameTag::DURABILITY] = durability;

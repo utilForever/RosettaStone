@@ -80,7 +80,6 @@ class Card
     Power power;
 
     std::size_t maxAllowedInDeck = 0;
-    bool isCollectible = false;
 };
 }  // namespace RosettaStone
 

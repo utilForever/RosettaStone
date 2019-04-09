@@ -617,7 +617,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 
     for (auto& card : Cards::GetAllCards())
     {
-        if (!card.isCollectible)
+        if (card.gameTags.at(GameTag::COLLECTIBLE) == 0)
         {
             continue;
         }

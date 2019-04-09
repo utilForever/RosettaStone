@@ -23,7 +23,7 @@ TEST(Card, Constructer)
     card1.race = Race::DRAGON;
     card1.name = "card1";
     card1.text = "this is test card1";
-    card1.isCollectible = true;
+    card1.gameTags[GameTag::COLLECTIBLE] = 1;
     card1.gameTags[GameTag::COST] = 1;
     card1.Initialize();
 
@@ -37,7 +37,7 @@ TEST(Card, Constructer)
     card2.race = Race::DRAGON;
     card2.name = "card2";
     card2.text = "this is test card2";
-    card2.isCollectible = true;
+    card2.gameTags[GameTag::COLLECTIBLE] = 1;
     card2.gameTags[GameTag::COST] = 1;
     card2.Initialize();
 
@@ -51,7 +51,7 @@ TEST(Card, Constructer)
     EXPECT_EQ(1, card1.gameTags.at(GameTag::COST));
     EXPECT_EQ(2, static_cast<int>(card1.GetMaxAllowedInDeck()));
     EXPECT_EQ(1, static_cast<int>(card2.GetMaxAllowedInDeck()));
-    EXPECT_EQ(true, card1.isCollectible);
+    EXPECT_EQ(1, card1.gameTags.at(GameTag::COLLECTIBLE));
 }
 
 TEST(Card, HasMechanic)
@@ -66,7 +66,7 @@ TEST(Card, HasMechanic)
     card.race = Race::DRAGON;
     card.name = "card1";
     card.text = "this is test card1";
-    card.isCollectible = true;
+    card.gameTags[GameTag::COLLECTIBLE] = true;
     card.gameTags[GameTag::COST] = 1;
     card.Initialize();
 

@@ -85,7 +85,8 @@ void ExpectCardEqual(const Card& card1, const Card& card2)
     EXPECT_EQ(card1.race, card2.race);
     EXPECT_EQ(card1.name, card2.name);
     EXPECT_EQ(card1.text, card2.text);
-    EXPECT_EQ(card1.isCollectible, card2.isCollectible);
+    EXPECT_EQ(card1.gameTags.at(GameTag::COLLECTIBLE),
+              card2.gameTags.at(GameTag::COLLECTIBLE));
     EXPECT_EQ(card1.gameTags.at(GameTag::COST),
               card2.gameTags.at(GameTag::COST));
     EXPECT_EQ(card1.gameTags, card2.gameTags);
