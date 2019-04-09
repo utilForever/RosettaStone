@@ -16,7 +16,7 @@ CORE | CS2_003 | Mind Vision |
 CORE | CS2_004 | Power Word: Shield |  
 CORE | CS2_005 | Claw |  
 CORE | CS2_007 | Healing Touch | O
-CORE | CS2_008 | Moonfire |  
+CORE | CS2_008 | Moonfire | O
 CORE | CS2_009 | Mark of the Wild |  
 CORE | CS2_011 | Savage Roar |  
 CORE | CS2_012 | Swipe |  
@@ -42,14 +42,14 @@ CORE | CS2_062 | Hellfire | O
 CORE | CS2_063 | Corruption |  
 CORE | CS2_064 | Dread Infernal | O
 CORE | CS2_065 | Voidwalker | O
-CORE | CS2_072 | Backstab |  
+CORE | CS2_072 | Backstab | O
 CORE | CS2_074 | Deadly Poison |  
 CORE | CS2_075 | Sinister Strike | O
 CORE | CS2_076 | Assassinate | O
 CORE | CS2_077 | Sprint | O
 CORE | CS2_080 | Assassin's Blade | O
 CORE | CS2_084 | Hunter's Mark | O
-CORE | CS2_087 | Blessing of Might |  
+CORE | CS2_087 | Blessing of Might | O
 CORE | CS2_088 | Guardian of Kings | O
 CORE | CS2_089 | Holy Light | O
 CORE | CS2_091 | Light's Justice | O
@@ -62,7 +62,7 @@ CORE | CS2_105 | Heroic Strike |
 CORE | CS2_106 | Fiery War Axe | O
 CORE | CS2_108 | Execute |  
 CORE | CS2_112 | Arcanite Reaper | O
-CORE | CS2_114 | Cleave |  
+CORE | CS2_114 | Cleave | O
 CORE | CS2_118 | Magma Rager | O
 CORE | CS2_119 | Oasis Snapjaw | O
 CORE | CS2_120 | River Crocolisk | O
@@ -72,7 +72,7 @@ CORE | CS2_124 | Wolfrider | O
 CORE | CS2_125 | Ironfur Grizzly | O
 CORE | CS2_127 | Silverback Patriarch | O
 CORE | CS2_131 | Stormwind Knight | O
-CORE | CS2_141 | Ironforge Rifleman |  
+CORE | CS2_141 | Ironforge Rifleman | O
 CORE | CS2_142 | Kobold Geomancer | O
 CORE | CS2_147 | Gnomish Inventor | O
 CORE | CS2_150 | Stormpike Commando | O
@@ -86,55 +86,55 @@ CORE | CS2_179 | Sen'jin Shieldmasta | O
 CORE | CS2_182 | Chillwind Yeti | O
 CORE | CS2_186 | War Golem | O
 CORE | CS2_187 | Booty Bay Bodyguard | O
-CORE | CS2_189 | Elven Archer |  
+CORE | CS2_189 | Elven Archer | O
 CORE | CS2_196 | Razorfen Hunter |  
 CORE | CS2_197 | Ogre Magi | O
 CORE | CS2_200 | Boulderfist Ogre | O
 CORE | CS2_201 | Core Hound | O
 CORE | CS2_213 | Reckless Rocketeer | O
-CORE | CS2_222 | Stormwind Champion |  
+CORE | CS2_222 | Stormwind Champion | O
 CORE | CS2_226 | Frostwolf Warlord |  
 CORE | CS2_232 | Ironbark Protector | O
 CORE | CS2_234 | Shadow Word: Pain |  
 CORE | CS2_235 | Northshire Cleric |  
 CORE | CS2_236 | Divine Spirit |  
 CORE | CS2_237 | Starving Buzzard |  
-CORE | DS1_055 | Darkscale Healer |  
+CORE | DS1_055 | Darkscale Healer | O
 CORE | DS1_070 | Houndmaster |  
 CORE | DS1_175 | Timber Wolf |  
 CORE | DS1_178 | Tundra Rhino |  
-CORE | DS1_183 | Multi-Shot |  
+CORE | DS1_183 | Multi-Shot | O
 CORE | DS1_184 | Tracking |  
 CORE | DS1_185 | Arcane Shot | O
 CORE | DS1_233 | Mind Blast | O
-CORE | EX1_011 | Voodoo Doctor |  
-CORE | EX1_015 | Novice Engineer |  
+CORE | EX1_011 | Voodoo Doctor | O
+CORE | EX1_015 | Novice Engineer | O
 CORE | EX1_019 | Shattered Sun Cleric |  
 CORE | EX1_025 | Dragonling Mechanic |  
 CORE | EX1_066 | Acidic Swamp Ooze | O
 CORE | EX1_084 | Warsong Commander |  
 CORE | EX1_129 | Fan of Knives | O
 CORE | EX1_169 | Innervate |  
-CORE | EX1_173 | Starfire |  
+CORE | EX1_173 | Starfire | O
 CORE | EX1_244 | Totemic Might |  
-CORE | EX1_246 | Hex |  
+CORE | EX1_246 | Hex | O
 CORE | EX1_277 | Arcane Missiles | O
-CORE | EX1_278 | Shiv |  
+CORE | EX1_278 | Shiv | O
 CORE | EX1_302 | Mortal Coil |  
 CORE | EX1_306 | Succubus | O
-CORE | EX1_308 | Soulfire |  
+CORE | EX1_308 | Soulfire | O
 CORE | EX1_360 | Humility |  
 CORE | EX1_371 | Hand of Protection | O
 CORE | EX1_399 | Gurubashi Berserker |  
-CORE | EX1_400 | Whirlwind |  
+CORE | EX1_400 | Whirlwind | O
 CORE | EX1_506 | Murloc Tidehunter |  
 CORE | EX1_508 | Grimscale Oracle |  
-CORE | EX1_539 | Kill Command |  
+CORE | EX1_539 | Kill Command | O
 CORE | EX1_565 | Flametongue Totem |  
 CORE | EX1_581 | Sap |  
 CORE | EX1_582 | Dalaran Mage | O
-CORE | EX1_587 | Windspeaker |  
-CORE | EX1_593 | Nightblade |  
+CORE | EX1_587 | Windspeaker | O
+CORE | EX1_593 | Nightblade | O
 CORE | EX1_606 | Shield Block |  
 CORE | EX1_622 | Shadow Word: Death |  
 CORE | NEW1_003 | Sacrificial Pact |  
@@ -142,7 +142,7 @@ CORE | NEW1_004 | Vanish |
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 53% (71 of 133 Cards)
+- Progress: 67% (90 of 133 Cards)
 
 ## Classic
 
