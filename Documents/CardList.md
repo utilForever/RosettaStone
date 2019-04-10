@@ -392,7 +392,7 @@ EXPERT1 | tt_010 | Spellbender |
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 HOF | CS2_031 | Ice Lance |  
-HOF | EX1_016 | Sylvanas Windrunner |  
+HOF | EX1_016 | Sylvanas Windrunner | O
 HOF | EX1_050 | Coldlight Oracle | O
 HOF | EX1_062 | Old Murk-Eye |  
 HOF | EX1_112 | Gelbin Mekkatorque |  
