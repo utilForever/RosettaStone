@@ -13,6 +13,12 @@ namespace RosettaStone
 {
 class RandomPolicy : public BasicPolicy
 {
+ public:
+    //! Gets next behavior from given \p game.
+    //! \param game The current game status.
+    //! \return The behavior serialized as TaskMeta.
+    TaskMeta Next(const Game& game) override;
+
  private:
     //! Virtual method for MulliganTask requirement.
     TaskMeta RequireMulligan(Player& player) override;

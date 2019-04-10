@@ -10,6 +10,11 @@
 
 namespace RosettaStone
 {
+TaskMeta RandomPolicy::Next(const Game& game)
+{
+    return TaskMeta();
+}
+
 TaskMeta RandomPolicy::RequireMulligan(Player& player)
 {
     using Random = effolkronium::random_static;
