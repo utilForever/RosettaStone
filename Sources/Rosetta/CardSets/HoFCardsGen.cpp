@@ -6,6 +6,7 @@
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -126,6 +127,19 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(2));
     power.AddPowerTask(new DrawOpTask(2));
     cards.emplace("EX1_050", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_016] Sylvanas Windrunner - COST:6
+    // - Faction: Neutral, Set: Classic, Rarity: legendary
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Take control of a random enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new ControlTask(EntityType::ENEMY_FIELD));
+    cards.emplace("EX1_016", power);
 }
 
 void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
