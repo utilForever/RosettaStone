@@ -11,9 +11,17 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief RandomPolicy class.
+//!
+//! This class implement IPolicy for random selection.
+//!
 class RandomPolicy : public BasicPolicy
 {
  public:
+   //! Default constructor.
+   RandomPolicy() = default;
+
     //! Gets next behavior from given \p game.
     //! \param game The current game status.
     //! \return The behavior serialized as TaskMeta.
