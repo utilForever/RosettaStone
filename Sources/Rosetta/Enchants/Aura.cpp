@@ -70,8 +70,8 @@ void Aura::RemoveEntity(Entity& entity)
     }
     else
     {
-        const auto iter = std::find(m_appliedEntities.begin(),
-                              m_appliedEntities.end(), &entity);
+        const auto iter = std::find(m_appliedEntities.cbegin(),
+                                    m_appliedEntities.cend(), &entity);
         m_appliedEntities.erase(iter);
     }
 }
