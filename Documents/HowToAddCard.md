@@ -22,6 +22,9 @@ Let's assume that you have selected the **CS2_124 ("Wolfrider")** card.
 
 The next thing to do is to add selected card to the card set. There are C++ source files for each card set in `Sources/CardSets`. Card `CS2_124` that you will add is a basic card set. This card should be added to `CoreCardsGen.cpp`.
 
+if you select EXPERT1 set card, use `Expert1CardsGen.cpp`.
+or if you select HOF set card, use `HOFCardsGen.cpp`.
+
 The main code for `CoreCardsGen.cpp` is as follows.
 
 ```C++
