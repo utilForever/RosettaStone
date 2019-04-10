@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Policies/BasicPolicy.hpp>
 
 namespace RosettaStone
@@ -11,7 +12,7 @@ namespace RosettaStone
 TaskMeta BasicPolicy::Next(const Game& game)
 {
     (void)game;
-    return TaskMeta();
+    return TaskMeta({ TaskID::END_TURN });
 }
 
 TaskMeta BasicPolicy::Require(Player& player, TaskID id)
@@ -27,26 +28,26 @@ void BasicPolicy::Notify(const TaskMeta& meta)
 {
     if (auto iter = m_notify.find(meta.GetID()); iter != m_notify.end())
     {
-        return iter->second(*this, meta);
+        iter->second(*this, meta);
     }
 }
 
 TaskMeta BasicPolicy::RequireMulligan(Player& player)
 {
     (void)player;
-    return TaskMeta();
+    return TaskMeta(TaskMetaTrait(), std::vector<std::size_t>());
 }
 
 TaskMeta BasicPolicy::RequirePlayCard(Player& player)
 {
     (void)player;
-    return TaskMeta();
+    return TaskMeta(TaskMetaTrait(), SizedPtr<Entity*>());
 }
 
 TaskMeta BasicPolicy::RequireAttack(Player& player)
 {
     (void)player;
-    return TaskMeta();
+    return TaskMeta(TaskMetaTrait(), SizedPtr<Entity*>());
 }
 
 void BasicPolicy::NotifyOverDraw(const TaskMeta& meta)
