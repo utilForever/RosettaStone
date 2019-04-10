@@ -187,7 +187,10 @@ TEST(CoreCardsGen, CS1_112)
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
 
     Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
     Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(curPlayer, AttackTask(card1, card4));
     EXPECT_EQ(curField.GetMinion(0)->health, 4);
@@ -211,6 +214,7 @@ TEST(CoreCardsGen, CS1_113)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -258,6 +262,7 @@ TEST(CoreCardsGen, EX1_129)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -613,6 +618,7 @@ TEST(CoreCardsGen, CS2_023)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -871,6 +877,7 @@ TEST(CoreCardsGen, CS2_094)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -1079,6 +1086,7 @@ TEST(CoreCardsGen, CS2_062)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -1105,11 +1113,13 @@ TEST(CoreCardsGen, CS2_062)
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
     Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHero()->health, 27);
