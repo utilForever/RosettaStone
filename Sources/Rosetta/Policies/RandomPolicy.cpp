@@ -4,6 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Policies/RandomPolicy.hpp>
 
 #include <effolkronium/random.hpp>
@@ -12,7 +14,22 @@ namespace RosettaStone
 {
 TaskMeta RandomPolicy::Next(const Game& game)
 {
-    return TaskMeta();
+    using Random = effolkronium::random_static;
+
+    std::vector<TaskID> list = { TaskID::END_TURN };
+
+    Player& player = game.GetCurrentPlayer();
+    if (player.GetHand().GetNumOfCards() > 0)
+    {
+        list.push_back(TaskID::PLAY_CARD);
+    }
+
+    if (player.GetField().GetNumOfMinions() > 0)
+    {
+        list.push_back(TaskID::ATTACK);
+    }
+
+    return TaskMeta(TaskMetaTrait(*Random::get(list)));
 }
 
 TaskMeta RandomPolicy::RequireMulligan(Player& player)
@@ -33,13 +50,107 @@ TaskMeta RandomPolicy::RequireMulligan(Player& player)
 
 TaskMeta RandomPolicy::RequirePlayCard(Player& player)
 {
-    (void)player;
-    return TaskMeta();
+    using Random = effolkronium::random_static;
+
+    std::vector<std::tuple<Entity*, Entity*>> possible;
+    bool summonAvailable = player.GetField().FindEmptyPos() != std::nullopt;
+
+    for (Entity* entity : player.GetHand().GetAllCards())
+    {
+        if (entity->card.cost > player.currentMana)
+        {
+            continue;
+        }
+
+        switch (entity->card.cardType)
+        {
+            case CardType::MINION:
+                if (summonAvailable)
+                {
+                    possible.emplace_back(std::make_tuple(entity, nullptr));
+                }
+                break;
+            case CardType::SPELL:
+                // TODO: Add possible spell lists to vector `possible`.
+                break;
+            case CardType::WEAPON:
+                possible.emplace_back(std::make_tuple(entity, nullptr));
+                break;
+            default:
+                break;
+        }
+    }
+
+    if (possible.empty())
+    {
+        return TaskMeta({ TaskID::PLAY_CARD }, SizedPtr<Entity*>());
+    }
+    else
+    {
+        auto [source, target] = *Random::get(possible);
+
+        SizedPtr<Entity*> ptr;
+        if (target != nullptr)
+        {
+            ptr = SizedPtr<Entity*>(2);
+            ptr[0] = source;
+            ptr[1] = target;
+        }
+        else
+        {
+            ptr = SizedPtr<Entity*>(1);
+            ptr[0] = source;
+        }
+
+        return TaskMeta({ TaskID::PLAY_CARD }, std::move(ptr));
+    }
 }
 
 TaskMeta RandomPolicy::RequireAttack(Player& player)
 {
-    (void)player;
-    return TaskMeta();
+    using Random = effolkronium::random_static;
+
+    Player& other = player.GetOpponent();
+
+    std::vector<Character*> sources = player.GetField().GetAllMinions();
+    sources.push_back(player.GetHero());
+
+    std::vector<std::tuple<Character*, Character*>> possible;
+    for (Character* source : sources)
+    {
+        if (!source->CanAttack())
+        {
+            continue;
+        }
+
+        Hero* hero = other.GetHero();
+        if (source->IsValidCombatTarget(other, hero))
+        {
+            possible.emplace_back(std::make_tuple(source, hero));
+        }
+
+        for (Character* target : other.GetField().GetAllMinions())
+        {
+            if (source->IsValidCombatTarget(other, target))
+            {
+                possible.emplace_back(std::make_tuple(source, target));
+            }
+        }
+    }
+
+    if (possible.empty())
+    {
+        return TaskMeta({ TaskID::ATTACK }, SizedPtr<Entity*>());
+    }
+    else
+    {
+        auto [source, target] = *Random::get(possible);
+
+        SizedPtr<Entity*> ptr(2);
+        ptr[0] = source;
+        ptr[1] = target;
+
+        return TaskMeta({ TaskID::ATTACK }, std::move(ptr));
+    }
 }
 }  // namespace RosettaStone
