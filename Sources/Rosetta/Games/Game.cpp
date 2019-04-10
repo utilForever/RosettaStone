@@ -293,13 +293,21 @@ void Game::MainAction()
     {
         case TaskID::ATTACK:
         {
-            Entity* source = list[0];
-            Entity* target = list[1];
-            Task::Run(player, PlayerTasks::AttackTask(source, target));
+            if (list.size() >= 2)
+            {
+                Entity* source = list[0];
+                Entity* target = list[1];
+                Task::Run(player, PlayerTasks::AttackTask(source, target));
+            }
             break;
         }
         case TaskID::PLAY_CARD:
         {
+            if (list.size() < 1)
+            {
+                break;
+            }
+
             Entity* source = list[0];
             switch (source->card.cardType)
             {
