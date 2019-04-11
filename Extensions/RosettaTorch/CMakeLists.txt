@@ -47,7 +47,7 @@ target_compile_definitions(${target}
 )
 
 # Add external library
-include(External/libtorch.cmake)
+include(${external_dir}/libtorch.cmake)
 
 # Link libraries
 target_link_libraries(${target}
