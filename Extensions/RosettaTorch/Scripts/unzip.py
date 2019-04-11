@@ -2,12 +2,12 @@ import sys
 import zipfile
 
 def main(argv):
-    input = argv[1]
+    input_ = argv[1]
     output = argv[2]
 
-    with zipfile.ZipFile(input) as f:
+    with zipfile.ZipFile(input_) as f:
         f.extractall(output)
-    
+
     return 0
 
 if __name__ == '__main__':
