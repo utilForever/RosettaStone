@@ -7,6 +7,7 @@
 #define ROSETTASTONE_AVAILABLE_ACTIONS_HPP
 
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Enums/TaskEnums.hpp>
 
 namespace RosettaStone::Generic
 {
@@ -17,12 +18,23 @@ struct ActionEncode
 
     size_t numTarget;
     Entity* target[4];
+
+    ActionEncode(TaskID taskID = TaskID::INVALID, Entity* source = nullptr, size_t numTarget = 0)
+        : taskID(taskID),
+          source(source),
+          numTarget(numTarget),
+          target{
+              nullptr,
+          }
+    {
+        // Do nothing.
+    }
 };
 
 std::vector<ActionEncode> AvailableActions(const Game& game)
 {
     return std::vector<ActionEncode>();
 }
-}
+}  // namespace RosettaStone::Generic
 
 #endif
