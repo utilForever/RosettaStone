@@ -157,7 +157,7 @@ void Game::BeginMulligan()
     Player& player1 = GetPlayer1();
     // Request mulligan choices to policy.
     TaskMeta p1Choice = player1.GetPolicy().Require(player1, TaskID::MULLIGAN);
-    
+
     // Get mulligan choices from policy.
     Generic::ChoiceMulligan(player1,
                             p1Choice.GetObject<std::vector<std::size_t>>());
