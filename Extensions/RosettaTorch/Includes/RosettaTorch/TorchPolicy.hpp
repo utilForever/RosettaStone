@@ -48,7 +48,7 @@ struct ActionEncoder
     /////////////////////////////////////////////
     static constexpr size_t NumSource = 1;
 
-    static constexpr size_t NumTarget = 4;
+    static constexpr size_t NumTarget = Generic::ActionEncode::NumTarget;
 
     /////////////////////////////////////////////
     static constexpr size_t ActionTensorSize =
@@ -86,7 +86,8 @@ class TorchPolicy : public BasicPolicy
     //! Convert ActionEncode to TaskMeta.
     TaskMeta ActionToTaskMeta() const;
 
-    TaskMeta Inference(const Game& game, const std::vector<Generic::ActionEncode>& actions);
+    TaskMeta Inference(const Game& game,
+                       const std::vector<Generic::ActionEncode>& actions);
 
     //! Method for MulliganTask requirement.
     TaskMeta RequireMulligan(Player& player) override;

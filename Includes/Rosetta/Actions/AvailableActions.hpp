@@ -6,20 +6,23 @@
 #ifndef ROSETTASTONE_AVAILABLE_ACTIONS_HPP
 #define ROSETTASTONE_AVAILABLE_ACTIONS_HPP
 
-#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
+#include <Rosetta/Games/Game.hpp>
 
 namespace RosettaStone::Generic
 {
 struct ActionEncode
 {
+    static constexpr size_t NumTarget = 4;
+
     TaskID taskID;
     Entity* source;
 
     size_t numTarget;
-    Entity* target[4];
+    Entity* target[NumTarget];
 
-    ActionEncode(TaskID taskID = TaskID::INVALID, Entity* source = nullptr, size_t numTarget = 0)
+    ActionEncode(TaskID taskID = TaskID::INVALID, Entity* source = nullptr,
+                 size_t numTarget = 0)
         : taskID(taskID),
           source(source),
           numTarget(numTarget),
