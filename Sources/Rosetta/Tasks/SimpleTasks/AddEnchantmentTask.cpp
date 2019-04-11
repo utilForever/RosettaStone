@@ -5,6 +5,7 @@
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -20,7 +21,7 @@ TaskID AddEnchantmentTask::GetTaskID() const
     return TaskID::ADD_ENCHANTMENT;
 }
 
-TaskStatus AddEnchantmentTask::Impl(Player&)
+TaskStatus AddEnchantmentTask::Impl(Player& player)
 {
     Card enchantmentCard = Cards::FindCardByID(m_cardID);
     if (enchantmentCard.id.empty())
@@ -31,8 +32,14 @@ TaskStatus AddEnchantmentTask::Impl(Player&)
     Power power = Cards::FindCardByID(m_cardID).power;
     if (power.GetEnchant().has_value())
     {
-        power.GetEnchant().value().ActivateTo(
-            dynamic_cast<Character*>(m_target));
+        auto entities =
+            IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+
+        for (auto& entity : entities)
+        {
+            power.GetEnchant().value().ActivateTo(
+                dynamic_cast<Character*>(entity));
+        }
     }
 
     return TaskStatus::COMPLETE;
