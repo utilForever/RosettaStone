@@ -3,8 +3,8 @@
 #
 
 # Set warnings as errors flag
-option(HEARTHSTONEPP_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
-if(HEARTHSTONEPP_WARNINGS_AS_ERRORS)
+option(ROSETTASTONE_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
+if(ROSETTASTONE_WARNINGS_AS_ERRORS)
 	if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		set(WARN_AS_ERROR_FLAGS	"/WX")
 	else()
