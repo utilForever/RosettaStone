@@ -14,7 +14,7 @@ include_directories(
 
 # Sources
 file(GLOB header_dir
-    ${CMAKE_CURRENT_SOURCE_DIR}/Includes/hspp_torch)
+    ${CMAKE_CURRENT_SOURCE_DIR}/Includes/RosettaTorch)
 
 file(GLOB_RECURSE headers
     ${header_dir}/Includes/*.hpp)
@@ -54,7 +54,7 @@ target_link_libraries(${target}
         PRIVATE
         ${DEFAULT_LINKER_OPTIONS}
         ${TORCH_LIBRARIES}
-        Hearthstonepp)
+        RosettaStone)
 
 # Install
 install(TARGETS ${target} DESTINATION lib)
