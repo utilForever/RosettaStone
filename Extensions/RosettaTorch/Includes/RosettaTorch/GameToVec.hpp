@@ -7,10 +7,14 @@
 #ifndef ROSETTASTONE_TORCH_GAME_TO_VEC_HPP
 #define ROSETTASTONE_TORCH_GAME_TO_VEC_HPP
 
+#include <Rosetta/Games/Game.hpp>
+
 #include <torch/torch.h>
 
 namespace RosettaTorch
 {
+using namespace RosettaStone;
+
 //!
 //! \brief ActionEncoder struct.
 //!
