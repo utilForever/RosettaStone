@@ -58,20 +58,20 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
                  minion != nullptr)
         {
             // If entity is on the field of current player.
-            if (auto pos = player.GetField().FindMinionPos(*minion);
-                pos.has_value())
+            if (auto fieldPos = player.GetField().FindMinionPos(*minion);
+                fieldPos.has_value())
             {
                 tensor[start + CurrentFieldOffset] = 1;
-                tensor[start + TargetPlaceSize + pos.value()] = 1;
+                tensor[start + TargetPlaceSize + fieldPos.value()] = 1;
             }
             // If entity is on the field of other player.
-            else if (auto pos =
+            else if (auto opFieldPos =
                          game.GetOpponentPlayer().GetField().FindMinionPos(
                              *minion);
-                     pos.has_value())
+                     opFieldPos.has_value())
             {
                 tensor[start + OpponentFieldOffset] = 1;
-                tensor[start + TargetPlaceSize + pos.value()] = 1;
+                tensor[start + TargetPlaceSize + opFieldPos.value()] = 1;
             }
         }
     };
