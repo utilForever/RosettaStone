@@ -125,7 +125,6 @@ void Game::BeginDraw()
     // Set next step
     nextStep =
         m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
-
     if (m_gameConfig.autoRun)
     {
         GameManager::ProcessNextStep(*this, nextStep);
@@ -156,12 +155,18 @@ void Game::BeginMulligan()
                           ChoiceAction::HAND, p2HandIDs);
 
     Player& player1 = GetPlayer1();
+    // Request mulligan choices to policy.
     TaskMeta p1Choice = player1.GetPolicy().Require(player1, TaskID::MULLIGAN);
+    
+    // Get mulligan choices from policy.
     Generic::ChoiceMulligan(player1,
                             p1Choice.GetObject<std::vector<std::size_t>>());
 
     Player& player2 = GetPlayer2();
+    // Request mulligan choices to policy.
     TaskMeta p2Choice = player2.GetPolicy().Require(player2, TaskID::MULLIGAN);
+
+    // Get mulligan choices from policy.
     Generic::ChoiceMulligan(player2,
                             p2Choice.GetObject<std::vector<std::size_t>>());
 
