@@ -2445,3 +2445,55 @@ TEST(CoreCardsGen, EX1_173)
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
 }
+
+TEST(CoreCardsGen, CS2_046)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodlust"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 9);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 6);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+}

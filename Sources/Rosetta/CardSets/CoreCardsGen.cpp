@@ -676,6 +676,16 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("CS2_042", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_046] Bloodlust - COST:5
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your minions +3 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_046e", EntityType::MINIONS));
+    cards.emplace("CS2_046", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [EX1_246] Hex - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -731,6 +741,19 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchant(Effects::Taunt));
     cards.emplace("CS2_041e", power);
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_046e] Bloodlust (*) - COST:0
+    // - Set: core,
+    // --------------------------------------------------------
+    // Text: +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_046e"));
+    cards.emplace("CS2_046e", power);
 }
 
 void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
