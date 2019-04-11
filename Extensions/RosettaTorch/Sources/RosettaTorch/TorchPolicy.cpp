@@ -27,6 +27,7 @@ TaskMeta TorchPolicy::Next(const Game& game)
 
 TaskMeta TorchPolicy::ActionToTaskMeta() const
 {
+    // Make requirement from selected action.
     SizedPtr<Entity*> entities(m_action.numTarget);
     for (size_t i = 0; i < m_action.numTarget; ++i)
     {
@@ -38,20 +39,24 @@ TaskMeta TorchPolicy::ActionToTaskMeta() const
 TaskMeta TorchPolicy::Inference(
     const Game& game, const std::vector<Generic::ActionEncode>& actions)
 {
+    // Generate context vector
     torch::Tensor context = m_gameToVec->GenerateTensor(game);
     torch::Tensor actionTensor =
         torch::empty({ static_cast<long long>(actions.size()),
                        ActionEncoder::ActionTensorSize },
                      torch::kInt8);
 
+    // Convert ActionEncode to torch::Tensor
     for (size_t i = 0; i < actions.size(); ++i)
     {
         actionTensor[i] = ActionEncoder::ActionToTensor(game, actions[i]);
     }
 
+    // Inference
     torch::Tensor result = m_module->forward(actionTensor, context);
     size_t idx = result.argmax().item<size_t>();
 
+    // Store source and targets for future requirement.
     m_action = actions[idx];
     return TaskMeta(TaskMetaTrait(m_action.taskID));
 }
@@ -60,6 +65,7 @@ TaskMeta TorchPolicy::RequireMulligan(Player& player)
 {
     std::vector<Generic::ActionEncode> actions;
 
+    // Generate mulligan action.
     Hand& hand = player.GetHand();
     for (size_t i = 0; i < hand.GetNumOfCards(); ++i)
     {
