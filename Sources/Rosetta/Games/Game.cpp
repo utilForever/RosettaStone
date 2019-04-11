@@ -280,9 +280,12 @@ void Game::MainStart()
 void Game::MainAction()
 {
     auto& player = GetCurrentPlayer();
+
+    // If game end.
     if (player.GetHero()->health <= 0 ||
         player.GetOpponent().GetHero()->health <= 0)
     {
+        // Set losing user.
         if (player.GetHero()->health <= 0)
         {
             player.playState = PlayState::LOSING;
@@ -300,7 +303,9 @@ void Game::MainAction()
         return;
     }
 
+    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
     TaskMeta next = player.GetPolicy().Next(*this);
+    // If turn end.
     if (next.GetID() == +TaskID::END_TURN)
     {
         nextStep = Step::MAIN_END;
@@ -311,10 +316,12 @@ void Game::MainAction()
         return;
     }
 
+    // Get requirements for proper action.
     TaskMeta req = player.GetPolicy().Require(player, next.GetID());
     SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
     switch (next.GetID())
     {
+        // Attack target
         case TaskID::ATTACK:
         {
             if (list.size() >= 2)
@@ -325,8 +332,10 @@ void Game::MainAction()
             }
             break;
         }
+        // Play card
         case TaskID::PLAY_CARD:
         {
+            // If requirement doesn't satisfy
             if (list.size() < 1)
             {
                 break;
@@ -335,10 +344,12 @@ void Game::MainAction()
             Entity* source = list[0];
             switch (source->card.cardType)
             {
+                // Summon minion
                 case CardType::MINION:
                     Task::Run(player, PlayerTasks::PlayCardTask::Minion(
                                           player, source));
                     break;
+                // Cast spell
                 case CardType::SPELL:
                     if (list.size() == 1)
                     {
@@ -353,6 +364,7 @@ void Game::MainAction()
                                       player, source, target));
                     }
                     break;
+                // Use weapon
                 case CardType::WEAPON:
                     Task::Run(player, PlayerTasks::PlayCardTask::Weapon(
                                           player, source));
