@@ -42,8 +42,8 @@ TaskMeta TorchPolicy::Inference(
     // Generate context vector
     torch::Tensor context = m_gameToVec->GenerateTensor(game);
     torch::Tensor actionTensor =
-        torch::empty({ static_cast<long long>(actions.size()),
-                       ActionEncoder::ActionTensorSize },
+        torch::empty({ static_cast<int>(actions.size()),
+                       static_cast<int>(ActionEncoder::ActionTensorSize) },
                      torch::kInt8);
 
     // Convert ActionEncode to torch::Tensor
