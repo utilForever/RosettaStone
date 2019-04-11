@@ -64,6 +64,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Expansions
 
+- 0% Rise of Shadows (0 of 135 cards)
 - 0% Rastakhan's Rumble (0 of 135 Cards)
 - 0% The Boomsday Project (0 of 135 Cards)
 - 0% The Witchwood (0 of 135 Cards)

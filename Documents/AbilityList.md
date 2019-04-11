@@ -37,6 +37,7 @@
 * [x] Stealth
 * [x] Spell Damage
 * [x] Taunt
+* [ ] Twinspell
 * [x] Windfury
 
 ## Other abilities
