@@ -290,7 +290,7 @@ void Game::MainAction()
         else
         {
             player.GetOpponent().playState = PlayState::LOSING;
-		}
+        }
 
         nextStep = Step::FINAL_WRAPUP;
         if (m_gameConfig.autoRun)
