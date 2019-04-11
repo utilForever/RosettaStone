@@ -10,7 +10,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/Utils.hpp>
-#include <Rosetta/Games/GameAgent.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Policies/IoPolicy.hpp>
@@ -223,13 +223,16 @@ void Console::SimulateGame() const
     config.player1Class = deck1->GetClass();
     config.player2Class = deck2->GetClass();
 
-    GameAgent agent(config, &policy1, &policy2);
-    agent.GetPlayer1().SetNickname(p1->GetNickname());
-    agent.GetPlayer2().SetNickname(p2->GetNickname());
+    Game game(config);
+    game.GetPlayer1().SetNickname(p1->GetNickname());
+    game.GetPlayer2().SetNickname(p2->GetNickname());
+
+    game.GetPlayer1().SetPolicy(&policy1);
+    game.GetPlayer2().SetPolicy(&policy2);
     // game.GetPlayer1().SetDeck(deck1);
     // game.GetPlayer2().SetDeck(deck2);
 
-    agent.StartGame();
+    game.StartGame();
 }
 
 void Console::Leave()
