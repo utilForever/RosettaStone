@@ -64,6 +64,27 @@ void Effect::Apply(AuraEffects& auraEffects) const
     }
 }
 
+void Effect::Remove(Character* character) const
+{
+    const int prevValue = character->GetGameTag(m_gameTag);
+
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+            character->SetGameTag(m_gameTag, prevValue - m_value);
+            break;
+        case EffectOperator::SUB:
+            character->SetGameTag(
+                m_gameTag, character->card.gameTags.at(m_gameTag) + m_value);
+            break;
+        case EffectOperator::SET:
+            character->SetGameTag(m_gameTag, 0);
+            break;
+        default:
+            throw std::invalid_argument("Invalid effect operator!");
+    }
+}
+
 void Effect::Remove(AuraEffects& auraEffects) const
 {
     if (m_gameTag == GameTag::HEALTH && m_effectOperator == EffectOperator::ADD)

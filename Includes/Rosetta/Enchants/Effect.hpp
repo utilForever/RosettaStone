@@ -48,7 +48,11 @@ class Effect
     //! \param auraEffects The aura effect.
     void Apply(AuraEffects& auraEffects) const;
 
-    //! Remove this aura effect from the target entity.
+    //! Removes this aura effect from the target entity.
+    //! \param character The character to which effect is removed.
+    void Remove(Character* character) const;
+
+    //! Removes this aura effect from the target entity.
     //! \param auraEffects The aura effect.
     void Remove(AuraEffects& auraEffects) const;
 
