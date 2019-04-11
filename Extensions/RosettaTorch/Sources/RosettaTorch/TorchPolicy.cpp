@@ -72,11 +72,13 @@ TaskMeta TorchPolicy::RequireMulligan(Player& player)
 
 TaskMeta TorchPolicy::RequirePlayCard(Player& player)
 {
+    (void)player;
     return ActionToTaskMeta();
 }
 
 TaskMeta TorchPolicy::RequireAttack(Player& player)
 {
+    (void)player;
     return ActionToTaskMeta();
 }
 }  // namespace RosettaTorch
