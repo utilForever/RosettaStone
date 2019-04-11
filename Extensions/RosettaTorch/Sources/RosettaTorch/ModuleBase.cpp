@@ -10,6 +10,8 @@ namespace RosettaTorch
 {
 torch::Tensor forward(torch::Tensor available, torch::Tensor context)
 {
+    (void)available;
+    (void)context;
     return torch::Tensor();
 }
 }  // namespace RosettaTorch

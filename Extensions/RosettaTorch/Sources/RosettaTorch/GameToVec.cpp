@@ -10,6 +10,7 @@ namespace RosettaTorch
 {
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
 {
+    (void)game;
     return torch::Tensor();
 }
 }  // namespace RosettaTorch
