@@ -26,7 +26,8 @@ class ModuleBase : public torch::nn::Module
     //! \param available The availbale actions.
     //! \param context The game context encoded by GameToVec.
     //! \return The probability to make decision based on available actions.
-    virtual torch::Tensor forward(torch::Tensor available, torch::Tensor context);
+    virtual torch::Tensor forward(torch::Tensor available,
+                                  torch::Tensor context);
 };
 }  // namespace RosettaTorch
 
