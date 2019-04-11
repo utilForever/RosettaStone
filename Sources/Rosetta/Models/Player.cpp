@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Games/GameAgent.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
 

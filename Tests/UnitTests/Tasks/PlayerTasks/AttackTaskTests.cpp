@@ -33,9 +33,11 @@ TEST(AttackTask, Default)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -45,9 +47,11 @@ TEST(AttackTask, Default)
 
     PlayMinionCard(player1, card1);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card2);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -60,12 +64,14 @@ TEST(AttackTask, Default)
         player2.GetHero()->GetBaseHealth() - p1Field.GetMinion(0)->GetAttack());
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(player2, AttackTask(p2Field.GetMinion(0), p1Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 1);
     EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 1);
 
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetNumOfMinions(), 0u);
@@ -78,7 +84,9 @@ TEST(AttackTask, Default)
     PlayMinionCard(player2, card4);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 1);
@@ -90,7 +98,9 @@ TEST(AttackTask, Default)
     PlayMinionCard(player2, card5);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetNumOfMinions(), 0u);
@@ -105,9 +115,11 @@ TEST(AttackTask, Weapon)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -119,9 +131,11 @@ TEST(AttackTask, Weapon)
     player1.GetHero()->weapon->SetDurability(2);
     player1.GetHero()->weapon->SetOwner(player1);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p2Field = player2.GetField();
 
@@ -131,7 +145,9 @@ TEST(AttackTask, Weapon)
     EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 6);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(player1, AttackTask(player1.GetHero(), p2Field.GetMinion(0)));
 
@@ -148,9 +164,11 @@ TEST(AttackTask, Charge)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -181,9 +199,11 @@ TEST(AttackTask, Taunt)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -192,10 +212,12 @@ TEST(AttackTask, Taunt)
 
     PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -219,9 +241,11 @@ TEST(AttackTask, Stealth)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -230,9 +254,11 @@ TEST(AttackTask, Stealth)
 
     PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -258,9 +284,11 @@ TEST(AttackTask, Immune)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -269,9 +297,11 @@ TEST(AttackTask, Immune)
 
     PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -283,7 +313,9 @@ TEST(AttackTask, Immune)
     EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     p1Field.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 0);
 
@@ -300,9 +332,11 @@ TEST(AttackTask, Windfury)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -311,9 +345,11 @@ TEST(AttackTask, Windfury)
 
     PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -325,7 +361,9 @@ TEST(AttackTask, Windfury)
     EXPECT_EQ(p1Field.GetMinion(0)->numAttacked, 1u);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     p1Field.GetMinion(0)->SetGameTag(GameTag::WINDFURY, 1);
 
@@ -347,9 +385,11 @@ TEST(AttackTask, DivineShield)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -358,9 +398,11 @@ TEST(AttackTask, DivineShield)
 
     PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -372,7 +414,9 @@ TEST(AttackTask, DivineShield)
     EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     p2Field.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
@@ -389,9 +433,11 @@ TEST(AttackTask, Poisonous)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -400,9 +446,11 @@ TEST(AttackTask, Poisonous)
 
     PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -414,8 +462,11 @@ TEST(AttackTask, Poisonous)
     EXPECT_EQ(p2Field.GetNumOfMinions(), 0u);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
+
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     p1Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 0);
     p2Field.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
@@ -433,9 +484,11 @@ TEST(AttackTask, Freeze)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.skipMulligan = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -444,9 +497,11 @@ TEST(AttackTask, Freeze)
 
     PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
 
     auto& p1Field = player1.GetField();
     auto& p2Field = player2.GetField();
@@ -457,6 +512,7 @@ TEST(AttackTask, Freeze)
     EXPECT_EQ(p2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
     EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(player1, AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 9);

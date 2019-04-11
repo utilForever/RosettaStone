@@ -36,7 +36,6 @@
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Games/GameAgent.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
@@ -58,6 +57,7 @@
 #include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Policies/IoPolicy.hpp>
 #include <Rosetta/Policies/Policy.hpp>
+#include <Rosetta/Policies/RandomPolicy.hpp>
 #include <Rosetta/RosettaStone.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>

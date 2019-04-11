@@ -14,6 +14,12 @@ IoPolicy::IoPolicy(std::ostream& out, std::istream& in) : m_out(out), m_in(in)
     // Do nothing
 }
 
+TaskMeta IoPolicy::Next(const Game& game)
+{
+    (void)game;
+    return TaskMeta();
+}
+
 TaskMeta IoPolicy::RequireMulligan(Player& player)
 {
     const TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::COMPLETE, player.GetID());
