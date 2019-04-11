@@ -19,8 +19,8 @@ namespace RosettaStone
 class RandomPolicy : public BasicPolicy
 {
  public:
-   //! Default constructor.
-   RandomPolicy() = default;
+    //! Default constructor.
+    RandomPolicy() = default;
 
     //! Gets next behavior from given \p game.
     //! \param game The current game status.
