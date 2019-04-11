@@ -36,6 +36,7 @@ struct ActionEncode
 
 std::vector<ActionEncode> AvailableActions(const Game& game)
 {
+    (void)game;
     return std::vector<ActionEncode>();
 }
 }  // namespace RosettaStone::Generic
