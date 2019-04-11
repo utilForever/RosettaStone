@@ -53,7 +53,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
     using Random = effolkronium::random_static;
 
     std::vector<std::tuple<Entity*, Entity*>> possible;
-    bool summonAvailable = player.GetField().FindEmptyPos() != std::nullopt;
+    bool summonAvailable = !player.GetField().IsFull();
 
     for (Entity* entity : player.GetHand().GetAllCards())
     {
