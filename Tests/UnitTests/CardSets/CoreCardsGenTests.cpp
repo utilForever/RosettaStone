@@ -19,6 +19,7 @@ TEST(CoreCardsGen, EX1_066)
     config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -48,9 +49,11 @@ TEST(CoreCardsGen, EX1_306)
     config.player1Class = CardClass::WARLOCK;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -81,6 +84,7 @@ TEST(CoreCardsGen, CS2_041)
     config.player1Class = CardClass::SHAMAN;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -120,6 +124,7 @@ TEST(CoreCardsGen, CS2_088)
     config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -146,9 +151,11 @@ TEST(CoreCardsGen, CS1_112)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -180,7 +187,10 @@ TEST(CoreCardsGen, CS1_112)
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
 
     Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
     Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(curPlayer, AttackTask(card1, card4));
     EXPECT_EQ(curField.GetMinion(0)->health, 4);
@@ -200,9 +210,11 @@ TEST(CoreCardsGen, CS1_113)
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -246,9 +258,11 @@ TEST(CoreCardsGen, EX1_129)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -294,6 +308,7 @@ TEST(CoreCardsGen, DS1_233)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -319,6 +334,7 @@ TEST(CoreCardsGen, CS2_029)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -373,6 +389,7 @@ TEST(CoreCardsGen, CS2_025)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -417,6 +434,7 @@ TEST(CoreCardsGen, CS2_037)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -458,6 +476,7 @@ TEST(CoreCardsGen, CS2_024)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -517,6 +536,7 @@ TEST(CoreCardsGen, CS2_026)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -557,6 +577,7 @@ TEST(CoreCardsGen, CS2_032)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -593,9 +614,11 @@ TEST(CoreCardsGen, CS2_023)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -619,6 +642,7 @@ TEST(CoreCardsGen, EX1_277)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -660,6 +684,7 @@ TEST(CoreCardsGen, CS2_027)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -709,6 +734,7 @@ TEST(CoreCardsGen, CS2_022)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -756,6 +782,7 @@ TEST(CoreCardsGen, CS1_130)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -808,6 +835,7 @@ TEST(CoreCardsGen, CS2_093)
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -845,9 +873,11 @@ TEST(CoreCardsGen, CS2_094)
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -878,6 +908,7 @@ TEST(CoreCardsGen, EX1_371)
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -918,6 +949,7 @@ TEST(CoreCardsGen, CS2_089)
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -957,6 +989,7 @@ TEST(CoreCardsGen, DS1_185)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -1009,6 +1042,7 @@ TEST(CoreCardsGen, CS2_007)
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -1048,9 +1082,11 @@ TEST(CoreCardsGen, CS2_062)
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -1077,11 +1113,13 @@ TEST(CoreCardsGen, CS2_062)
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
     Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHero()->health, 27);
@@ -1099,6 +1137,7 @@ TEST(CoreCardsGen, CS2_057)
     config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();

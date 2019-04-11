@@ -20,6 +20,7 @@ TEST(Expert1CardsGen, CS2_028)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -59,9 +60,11 @@ TEST(Expert1CardsGen, EX1_012)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();

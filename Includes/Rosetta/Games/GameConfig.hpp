@@ -36,6 +36,7 @@ struct GameConfig
     bool doFillDecks = false;
     bool doShuffle = true;
     bool skipMulligan = true;
+    bool autoRun = true;
 };
 }  // namespace RosettaStone
 
