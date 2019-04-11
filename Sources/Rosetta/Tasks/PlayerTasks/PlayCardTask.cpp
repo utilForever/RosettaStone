@@ -16,8 +16,17 @@ PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos)
 
 PlayCardTask PlayCardTask::Minion(Player& player, Entity* source)
 {
-    const int fieldPos = static_cast<int>(player.GetField().FindEmptyPos().value());
+    const int fieldPos =
+        static_cast<int>(player.GetField().FindEmptyPos().value());
     return PlayCardTask(source, nullptr, fieldPos);
+}
+
+PlayCardTask PlayCardTask::MinionTarget(Player& player, Entity* source,
+                                        Entity* target)
+{
+    const int fieldPos =
+        static_cast<int>(player.GetField().FindEmptyPos().value());
+    return PlayCardTask(source, target, fieldPos);
 }
 
 PlayCardTask PlayCardTask::Spell(Player&, Entity* source)

@@ -11,7 +11,6 @@
 #include <Rosetta/Accounts/DeckInfo.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Commons/Macros.hpp>
 
 #include <clara.hpp>
 
@@ -63,22 +62,22 @@ inline std::string ToString(const clara::Parser& p)
     return oss.str();
 }
 
-inline std::tuple<size_t, size_t> ParseValueRangeFromString(
-    const std::string& str, bool& isValid)
+inline std::tuple<int, int> ParseValueRangeFromString(const std::string& str,
+                                                      bool& isValid)
 {
     const std::regex reValueRange("([[:digit:]]+)(-[[:digit:]]+)?");
     std::smatch values;
 
-    size_t minValue = 0, maxValue = std::numeric_limits<size_t>::max();
+    int minValue = 0, maxValue = std::numeric_limits<int>::max();
     if (!str.empty())
     {
         if (std::regex_match(str, values, reValueRange))
         {
-            minValue = static_cast<size_t>(std::atoi(values[1].str().c_str()));
+            minValue = std::atoi(values[1].str().c_str());
             if (values[2].matched)
             {
                 std::string truncatedStr = values[2].str().substr(1);
-                maxValue = static_cast<size_t>(std::atoi(truncatedStr.c_str()));
+                maxValue = std::atoi(truncatedStr.c_str());
             }
             else
             {

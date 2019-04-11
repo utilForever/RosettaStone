@@ -13,21 +13,21 @@ namespace RosettaStone::Generic
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
     // Verify mana is sufficient
-    if (source->card.cost > player.currentMana)
+    if (source->GetCost() > player.currentMana)
     {
         return;
     }
 
-    // Verify target is valid
-    if (!IsValidTarget(source, target))
+    // Check if we can play this card and the target is valid
+    if (!IsPlayableByCardReq(source) || !IsValidTarget(source, target))
     {
         return;
     }
 
     // Spend mana to play cards
-    if (source->card.cost > 0)
+    if (source->GetCost() > 0)
     {
-        player.currentMana -= source->card.cost;
+        player.currentMana -= source->GetCost();
     }
 
     // Erase from player's hand
@@ -37,7 +37,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     source->SetOwner(player);
 
     // Pass to sub-logic
-    switch (source->card.cardType)
+    switch (source->card.GetCardType())
     {
         case CardType::MINION:
         {
@@ -71,23 +71,25 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     player.GetField().AddMinion(*minion, fieldPos);
 
     // Apply card mechanics tags
-    for (const auto tags : minion->card.mechanics)
+    for (const auto tags : minion->card.gameTags)
     {
-        minion->SetGameTag(tags, 1);
+        minion->SetGameTag(tags.first, tags.second);
     }
 
     // Process power tasks
-    for (auto& power : minion->card.power.GetPowerTask())
+    for (auto& powerTask : minion->card.power.GetPowerTask())
     {
-        if (power == nullptr)
+        if (powerTask == nullptr)
         {
             continue;
         }
 
-        power->Run(player);
+        powerTask->SetSource(minion);
+        powerTask->SetTarget(target);
+        powerTask->Run(player);
     }
 
-    player.GetGame()->ProcessDestroy();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlaySpell(Player& player, Spell* spell, Character* target)
@@ -100,7 +102,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
         powerTask->Run(player);
     }
 
-    player.GetGame()->ProcessDestroy();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
@@ -108,5 +110,33 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     (void)target;
 
     player.GetHero()->AddWeapon(*weapon);
+}
+
+bool IsPlayableByCardReq(Entity* source)
+{
+    for (auto& requirement : source->card.playRequirements)
+    {
+        switch (requirement.first)
+        {
+            case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
+            {
+                auto& opField = source->GetOwner().GetOpponent().GetField();
+                if (static_cast<int>(opField.GetNumOfMinions()) <
+                    requirement.second)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_MINION_TARGET:
+            case PlayReq::REQ_ENEMY_TARGET:
+            case PlayReq::REQ_NONSELF_TARGET:
+                break;
+            default:
+                break;
+        }
+    }
+
+    return true;
 }
 }  // namespace RosettaStone::Generic

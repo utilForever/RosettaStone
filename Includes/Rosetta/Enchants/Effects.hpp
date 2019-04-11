@@ -18,6 +18,18 @@ namespace RosettaStone
 class Effects
 {
  public:
+    //! Creates effect that increases attack by \p n.
+    static Effect AttackN(int n)
+    {
+        return Effect(GameTag::ATK, EffectOperator::ADD, n);
+    }
+
+    //! Creates effect that increases health by \p n.
+    static Effect HealthN(int n)
+    {
+        return Effect(GameTag::HEALTH, EffectOperator::ADD, n);
+    }
+
     //! A minion ability which forces the opposing player to direct any melee
     //! attacks toward enemy targets with this ability.
     inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
@@ -31,7 +43,7 @@ class Effects
         Effect(GameTag::DIVINE_SHIELD, EffectOperator::SET, 1);
 
     //! An ability which allows a character to attack twice per turn.
-    inline static Effect WindFury =
+    inline static Effect Windfury =
         Effect(GameTag::WINDFURY, EffectOperator::SET, 1);
 
     //! A minion ability which prevents that minion from being the target of

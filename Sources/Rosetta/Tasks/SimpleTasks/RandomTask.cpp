@@ -29,15 +29,15 @@ TaskStatus RandomTask::Impl(Player& player)
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    player.GetGame()->taskStack.clear();
+    player.GetGame()->taskStack.entities.clear();
 
-    for (int i = 0; i < m_num && entities.size() > 0; ++i)
+    for (int i = 0; i < m_num && !entities.empty(); ++i)
     {
-        auto idx = Random::get<std::size_t>(0, entities.size() - 1);
+        const auto idx = Random::get<std::size_t>(0, entities.size() - 1);
 
         Entity* entity = entities.at(idx);
         entities.erase(entities.begin() + idx);
-        player.GetGame()->taskStack.emplace_back(entity);
+        player.GetGame()->taskStack.entities.emplace_back(entity);
     }
 
     return TaskStatus::COMPLETE;

@@ -14,7 +14,7 @@ Entity* Draw(Player& player, Entity* cardToDraw)
     // Take fatigue damage for player if deck is empty
     if (player.GetDeck().IsEmpty())
     {
-        const std::size_t fatigueDamage =
+        int fatigueDamage =
             player.GetHero()->fatigue == 0 ? 1 : player.GetHero()->fatigue + 1;
         player.GetHero()->TakeDamage(*player.GetHero(), fatigueDamage);
 

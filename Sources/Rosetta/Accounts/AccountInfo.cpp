@@ -64,7 +64,7 @@ void AccountInfo::ShowDeckList() const
 
 bool AccountInfo::CreateDeck(std::string name, CardClass deckClass)
 {
-    if (deckClass == +CardClass::INVALID)
+    if (deckClass == CardClass::INVALID)
     {
         return false;
     }

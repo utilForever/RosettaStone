@@ -114,11 +114,16 @@ void Battlefield::RemoveMinion(Minion& minion)
     }
 
     --m_numMinion;
+
+    for (auto& aura : auras)
+    {
+        aura->RemoveEntity(minion);
+    }
 }
 
 void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
 {
-    std::size_t pos = FindMinionPos(oldMinion).value();
+    const std::size_t pos = FindMinionPos(oldMinion).value();
     m_minions[pos] = &newMinion;
 
     RemoveAura(oldMinion);
@@ -129,7 +134,12 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
 
 void Battlefield::ActivateAura(Minion& minion)
 {
-    int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    if (minion.card.power.GetAura().has_value())
+    {
+        minion.card.power.GetAura().value().Activate(minion);
+    }
+
+    const int spellPower = minion.GetSpellPower();
     if (spellPower > 0)
     {
         minion.GetOwner().currentSpellPower += spellPower;
@@ -138,7 +148,12 @@ void Battlefield::ActivateAura(Minion& minion)
 
 void Battlefield::RemoveAura(Minion& minion)
 {
-    int spellPower = minion.GetGameTag(GameTag::SPELLPOWER);
+    if (minion.onGoingEffect != nullptr)
+    {
+        minion.onGoingEffect->Remove();
+    }
+
+    const int spellPower = minion.GetSpellPower();
     if (minion.GetOwner().currentSpellPower > 0 && spellPower > 0)
     {
         minion.GetOwner().currentSpellPower -= spellPower;

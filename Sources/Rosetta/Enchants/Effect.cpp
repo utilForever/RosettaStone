@@ -6,6 +6,8 @@
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Models/Character.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone
 {
 Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
@@ -36,6 +38,53 @@ void Effect::Apply(Character* character, bool isOneTurnEffect) const
             break;
         case EffectOperator::SET:
             character->SetGameTag(m_gameTag, m_value);
+            break;
+        default:
+            throw std::invalid_argument("Invalid effect operator!");
+    }
+}
+
+void Effect::Apply(AuraEffects& auraEffects) const
+{
+    const int prevValue = auraEffects.GetGameTag(m_gameTag);
+
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+            auraEffects.SetGameTag(m_gameTag, prevValue + m_value);
+            break;
+        case EffectOperator::SUB:
+            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
+            break;
+        case EffectOperator::SET:
+            auraEffects.SetGameTag(m_gameTag, m_value);
+            break;
+        default:
+            throw std::invalid_argument("Invalid effect operator!");
+    }
+}
+
+void Effect::Remove(AuraEffects& auraEffects) const
+{
+    if (m_gameTag == GameTag::HEALTH && m_effectOperator == EffectOperator::ADD)
+    {
+        auto owner = dynamic_cast<Character*>(auraEffects.GetOwner());
+        int prevDamage = owner->GetDamage();
+        owner->SetDamage(prevDamage - m_value);
+    }
+
+    const int prevValue = auraEffects.GetGameTag(m_gameTag);
+
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
+            break;
+        case EffectOperator::SUB:
+            auraEffects.SetGameTag(m_gameTag, prevValue + m_value);
+            break;
+        case EffectOperator::SET:
+            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
             break;
         default:
             throw std::invalid_argument("Invalid effect operator!");

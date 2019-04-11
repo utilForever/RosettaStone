@@ -92,7 +92,7 @@ class TaskMetaTrait
 //! \brief TaskMeta class.
 //!
 //! This class manages task array as buffer.
-//! Also, it provides conversion methods to/from flatbuffers type.
+//! Also, it provides conversion methods to/from any type.
 //!
 class TaskMeta : public TaskMetaTrait
 {
@@ -113,13 +113,13 @@ class TaskMeta : public TaskMetaTrait
     ~TaskMeta() = default;
 
     //! Copy constructor.
-    TaskMeta(const TaskMeta&);
+    TaskMeta(const TaskMeta&) = default;
 
     //! Move constructor.
     TaskMeta(TaskMeta&& meta) noexcept;
 
     //! Copy assignment operator.
-    TaskMeta& operator=(const TaskMeta&);
+    TaskMeta& operator=(const TaskMeta&) = default;
 
     //! Move assignment operator.
     TaskMeta& operator=(TaskMeta&& meta) noexcept;

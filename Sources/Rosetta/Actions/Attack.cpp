@@ -22,11 +22,11 @@ void Attack(Player& player, Character* source, Character* target)
     player.GetGame()->step = Step::MAIN_COMBAT;
 
     // Get attack of source and target
-    const std::size_t targetAttack = target->GetAttack();
-    const std::size_t sourceAttack = source->GetAttack();
+    const int targetAttack = target->GetAttack();
+    const int sourceAttack = source->GetAttack();
 
     // Take damage to target
-    const std::size_t targetDamage = target->TakeDamage(*source, sourceAttack);
+    const int targetDamage = target->TakeDamage(*source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
 
     // Freeze target if attacker is freezer
@@ -45,8 +45,7 @@ void Attack(Player& player, Character* source, Character* target)
     if (targetAttack > 0)
     {
         // Take damage to source
-        const std::size_t sourceDamage =
-            source->TakeDamage(*target, targetAttack);
+        const int sourceDamage = source->TakeDamage(*target, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
         // Freeze source if defender is freezer
@@ -73,10 +72,11 @@ void Attack(Player& player, Character* source, Character* target)
     if (hero != nullptr && hero->weapon != nullptr &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
-        hero->weapon->durability--;
+        int prevValue = hero->weapon->GetDurability();
+        hero->weapon->SetDurability(prevValue - 1);
 
         // Destroy weapon if durability is 0
-        if (hero->weapon->durability == 0)
+        if (hero->weapon->GetDurability() == 0)
         {
             hero->RemoveWeapon();
         }
@@ -94,7 +94,8 @@ void Attack(Player& player, Character* source, Character* target)
         source->SetGameTag(GameTag::EXHAUSTED, 1);
     }
 
-    player.GetGame()->ProcessDestroy();
+    // Process destroy and update aura
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 
     // Set game step to MAIN_ACTION
     player.GetGame()->step = Step::MAIN_ACTION;

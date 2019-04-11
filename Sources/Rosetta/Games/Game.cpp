@@ -34,11 +34,11 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
     // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(gameConfig.player1Class),
-        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player1Class));
+        Cards::GetHeroCard(gameConfig.player1Class),
+        Cards::GetDefaultHeroPower(gameConfig.player1Class));
     GetPlayer2().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(gameConfig.player2Class),
-        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player2Class));
+        Cards::GetHeroCard(gameConfig.player2Class),
+        Cards::GetDefaultHeroPower(gameConfig.player2Class));
 
     // Set opponent player
     GetPlayer1().SetOpponent(&GetPlayer2());
@@ -117,7 +117,7 @@ void Game::BeginDraw()
             Generic::Draw(p);
 
             // Give "The Coin" card to second player
-            Card coin = Cards::GetInstance().FindCardByID("GAME_005");
+            Card coin = Cards::FindCardByID("GAME_005");
             p.GetHand().AddCard(*Entity::GetFromCard(p, std::move(coin)));
         }
     }
@@ -282,11 +282,11 @@ void Game::MainAction()
     auto& player = GetCurrentPlayer();
 
     // If game end.
-    if (player.GetHero()->health <= 0 ||
-        player.GetOpponent().GetHero()->health <= 0)
+    if (player.GetHero()->GetHealth() <= 0 ||
+        player.GetOpponent().GetHero()->GetHealth() <= 0)
     {
         // Set losing user.
-        if (player.GetHero()->health <= 0)
+        if (player.GetHero()->GetHealth() <= 0)
         {
             player.playState = PlayState::LOSING;
         }
@@ -303,10 +303,11 @@ void Game::MainAction()
         return;
     }
 
-    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
+    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK,
+    // TaskID::PLAY_CARD
     TaskMeta next = player.GetPolicy().Next(*this);
     // If turn end.
-    if (next.GetID() == +TaskID::END_TURN)
+    if (next.GetID() == TaskID::END_TURN)
     {
         nextStep = Step::MAIN_END;
         if (m_gameConfig.autoRun)
@@ -342,7 +343,7 @@ void Game::MainAction()
             }
 
             Entity* source = list[0];
-            switch (source->card.cardType)
+            switch (source->card.GetCardType())
             {
                 // Summon minion
                 case CardType::MINION:
@@ -449,8 +450,8 @@ void Game::FinalWrapUp()
     // Set game states according by result
     for (auto& p : m_players)
     {
-        if (p.playState == +PlayState::LOSING ||
-            p.playState == +PlayState::CONCEDED)
+        if (p.playState == PlayState::LOSING ||
+            p.playState == PlayState::CONCEDED)
         {
             p.playState = PlayState::LOST;
             p.GetOpponent().playState = PlayState::WON;
@@ -485,7 +486,7 @@ void Game::StartGame()
     // Set up decks
     for (auto& card : m_gameConfig.player1Deck)
     {
-        if (card.cardType == +CardType::INVALID)
+        if (card.id.empty())
         {
             continue;
         }
@@ -495,7 +496,7 @@ void Game::StartGame()
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
-        if (card.cardType == +CardType::INVALID)
+        if (card.id.empty())
         {
             continue;
         }
@@ -511,7 +512,7 @@ void Game::StartGame()
         {
             for (auto& cardID : m_gameConfig.fillCardIDs)
             {
-                Card card = Cards::GetInstance().FindCardByID(cardID);
+                Card card = Cards::FindCardByID(cardID);
                 Entity* entity = Entity::GetFromCard(p, std::move(card));
                 p.GetDeck().AddCard(*entity);
             }
@@ -554,22 +555,24 @@ void Game::StartGame()
     }
 }
 
-void Game::ProcessDestroy()
+void Game::ProcessDestroyAndUpdateAura()
 {
+    UpdateAura();
+
     // Destroy weapons
     if (GetPlayer1().GetHero()->weapon != nullptr &&
-        GetPlayer1().GetHero()->weapon->isDestroyed == true)
+        GetPlayer1().GetHero()->weapon->isDestroyed)
     {
         GetPlayer1().GetHero()->RemoveWeapon();
     }
     if (GetPlayer2().GetHero()->weapon != nullptr &&
-        GetPlayer2().GetHero()->weapon->isDestroyed == true)
+        GetPlayer2().GetHero()->weapon->isDestroyed)
     {
         GetPlayer2().GetHero()->RemoveWeapon();
     }
 
     // Destroy minions
-    if (deadMinions.size() > 0)
+    if (!deadMinions.empty())
     {
         for (auto& deadMinion : deadMinions)
         {
@@ -593,6 +596,22 @@ void Game::ProcessDestroy()
         }
 
         deadMinions.clear();
+    }
+
+    UpdateAura();
+}
+
+void Game::UpdateAura()
+{
+    const int auraSize = static_cast<int>(auras.size());
+    if (auraSize == 0)
+    {
+        return;
+    }
+
+    for (int i = auraSize - 1; i >= 0; --i)
+    {
+        auras[i]->Update();
     }
 }
 
