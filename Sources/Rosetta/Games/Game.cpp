@@ -280,6 +280,25 @@ void Game::MainStart()
 void Game::MainAction()
 {
     auto& player = GetCurrentPlayer();
+    if (player.GetHero()->health <= 0 ||
+        player.GetOpponent().GetHero()->health <= 0)
+    {
+        if (player.GetHero()->health <= 0)
+        {
+            player.playState = PlayState::LOSING;
+        }
+        else
+        {
+            player.GetOpponent().playState = PlayState::LOSING;
+		}
+
+        nextStep = Step::FINAL_WRAPUP;
+        if (m_gameConfig.autoRun)
+        {
+            GameManager::ProcessNextStep(*this, nextStep);
+        }
+        return;
+    }
 
     TaskMeta next = player.GetPolicy().Next(*this);
     if (next.GetID() == +TaskID::END_TURN)

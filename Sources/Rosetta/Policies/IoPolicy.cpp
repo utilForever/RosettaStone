@@ -16,6 +16,7 @@ IoPolicy::IoPolicy(std::ostream& out, std::istream& in) : m_out(out), m_in(in)
 
 TaskMeta IoPolicy::Next(const Game& game)
 {
+    (void)game;
     return TaskMeta();
 }
 
