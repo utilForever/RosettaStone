@@ -52,8 +52,8 @@ AccountInfo* AccountLoader::Load(std::string email) const
         {
             for (auto& deck : j["decks"])
             {
-                const CardClass deckClass = CardClass::_from_string(
-                    deck["class"].get<std::string>().c_str());
+                const CardClass deckClass =
+                    StrToEnum<CardClass>(deck["class"].get<std::string>());
                 const std::string deckName = deck["name"].get<std::string>();
 
                 DeckInfo* d = new DeckInfo(deckName, deckClass);
@@ -110,8 +110,8 @@ void AccountLoader::Save(AccountInfo* account) const
              ++deckIdx)
         {
             j["decks"].emplace_back(nlohmann::json::object(
-                { { "class",
-                    account->GetDeck(deckIdx)->GetClass()._to_string() },
+                { { "class", EnumToStr<CardClass>(
+                                 account->GetDeck(deckIdx)->GetClass()) },
                   { "name", account->GetDeck(deckIdx)->GetName() },
                   { "cards", nlohmann::json::array() } }));
 

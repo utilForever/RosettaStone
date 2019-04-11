@@ -58,12 +58,12 @@ class Hero : public Character
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    size_t GetAttack() const override;
+    int GetAttack() const override;
 
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
 
-    std::size_t fatigue = 0;
+    int fatigue = 0;
 };
 }  // namespace RosettaStone
 

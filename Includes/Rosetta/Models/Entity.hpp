@@ -8,6 +8,7 @@
 #define ROSETTASTONE_ENTITY_HPP
 
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Enchants/AuraEffects.hpp>
 
 #include <map>
 
@@ -15,7 +16,6 @@ namespace RosettaStone
 {
 class Card;
 class Game;
-class GameTag;
 class Player;
 
 //!
@@ -69,6 +69,14 @@ class Entity
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
+    //! Returns the value of cost.
+    //! \return The value of cost.
+    int GetCost() const;
+
+    //! Sets the value of cost.
+    //! \param cost The value of cost.
+    void SetCost(int cost);
+
     //! Destroys character.
     virtual void Destroy();
 
@@ -79,6 +87,8 @@ class Entity
     static Entity* GetFromCard(Player& player, Card&& card);
 
     Card card;
+    AuraEffects* auraEffects = nullptr;
+    Aura* onGoingEffect = nullptr;
 
     std::size_t id = 0;
     std::size_t orderOfPlay = 0;

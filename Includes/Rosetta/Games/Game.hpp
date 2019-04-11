@@ -9,6 +9,7 @@
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/TaskStack.hpp>
 
 #include <map>
 
@@ -31,7 +32,7 @@ class Game
     explicit Game(GameConfig& gameConfig);
 
     //! Default destructor.
-    virtual ~Game() = default;
+    ~Game() = default;
 
     //! Deleted copy constructor.
     Game(const Game&) = delete;
@@ -70,62 +71,73 @@ class Game
     std::size_t GetNextOOP();
 
     //! Part of the game state.
-    virtual void BeginFirst();
+    void BeginFirst();
 
     //! Part of the game state.
-    virtual void BeginShuffle();
+    void BeginShuffle();
 
     //! Part of the game state.
-    virtual void BeginDraw();
+    void BeginDraw();
 
     //! Part of the game state.
-    virtual void BeginMulligan();
+    void BeginMulligan();
 
     //! Part of the game state.
-    virtual void MainBegin();
+    void MainBegin();
 
     //! Part of the game state.
-    virtual void MainReady();
+    void MainReady();
 
     //! Part of the game state.
-    virtual void MainStartTriggers();
+    void MainStartTriggers();
 
     //! Part of the game state.
-    virtual void MainResource();
+    void MainResource();
 
     //! Part of the game state.
-    virtual void MainDraw();
+    void MainDraw();
 
     //! Part of the game state.
-    virtual void MainStart();
+    void MainStart();
 
     //! Part of the game state.
-    virtual void MainEnd();
+    void MainAction();
 
     //! Part of the game state.
-    virtual void MainCleanUp();
+    void MainEnd();
 
     //! Part of the game state.
-    virtual void MainNext();
+    void MainCleanUp();
 
     //! Part of the game state.
-    virtual void FinalWrapUp();
+    void MainNext();
 
     //! Part of the game state.
-    virtual void FinalGameOver();
+    void FinalWrapUp();
+
+    //! Part of the game state.
+    void FinalGameOver();
 
     //! Starts the game.
     void StartGame();
 
-    //! Processes destroy.
-    void ProcessDestroy();
+    //! Processes destroy and updates aura.
+    void ProcessDestroyAndUpdateAura();
+
+    //! Updates aura.
+    void UpdateAura();
+
+    //! Process game until given step arriving.
+    void ProcessUntil(Step step);
 
     State state = State::INVALID;
 
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
-    std::vector<Entity*> taskStack;
+    TaskStack taskStack;
+
+    std::vector<Aura*> auras;
     std::map<std::size_t, Minion*> deadMinions;
 
  private:

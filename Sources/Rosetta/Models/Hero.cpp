@@ -44,8 +44,9 @@ bool Hero::HasWeapon() const
     return weapon != nullptr;
 }
 
-std::size_t Hero::GetAttack() const
+int Hero::GetAttack() const
 {
-    return HasWeapon() ? attack + weapon->attack : attack;
+    return HasWeapon() ? Character::GetAttack() + weapon->GetAttack()
+                       : Character::GetAttack();
 }
 }  // namespace RosettaStone

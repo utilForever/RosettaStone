@@ -29,7 +29,7 @@ TaskStatus DamageTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        auto character = dynamic_cast<Character*>(entity);
+        const auto character = dynamic_cast<Character*>(entity);
         Generic::TakeDamageToCharacter(
             m_source, character, static_cast<int>(m_damage), m_isSpellDamage);
     }

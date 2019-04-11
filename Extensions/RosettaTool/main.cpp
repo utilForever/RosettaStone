@@ -7,7 +7,6 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 
-#include <better-enums/enum.h>
 #include <clara.hpp>
 
 #if defined(ROSETTASTONE_WINDOWS)
@@ -104,15 +103,18 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         // Excludes cards that is not collectible
         cards.erase(
             std::remove_if(cards.begin(), cards.end(),
-                           [](const Card& c) { return !c.isCollectible; }),
+                           [](const Card& c) {
+                               return c.gameTags.at(GameTag::COLLECTIBLE) == 0;
+                           }),
             cards.end());
 
         // Excludes 9 hero cards from CardSet::CORE
-        if (cardSet == +CardSet::CORE)
+        if (cardSet == CardSet::CORE)
         {
             cards.erase(std::remove_if(cards.begin(), cards.end(),
                                        [](const Card& c) {
-                                           return c.cardType == +CardType::HERO;
+                                           return c.GetCardType() ==
+                                                  CardType::HERO;
                                        }),
                         cards.end());
         }
@@ -125,10 +127,10 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
 
         for (auto& card : cards)
         {
-            std::string mechanicStr;
-            for (auto& mechanic : card.mechanics)
+            std::string gameTagStr;
+            for (auto& gameTag : card.gameTags)
             {
-                mechanicStr += mechanic._to_string();
+                gameTagStr += EnumToStr<GameTag>(gameTag.first);
             }
 
             const bool isImplemented = CheckCardImpl(projectPath, card.id);
@@ -137,13 +139,13 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
                 impledCardNum++;
             }
 
-            outputFile << card.cardSet._to_string() << " | " << card.id << " | "
-                       << card.name << " | " << (isImplemented ? 'O' : ' ')
-                       << '\n';
+            outputFile << EnumToStr<CardSet>(card.GetCardSet()) << " | "
+                       << card.id << " | " << card.name << " | "
+                       << (isImplemented ? 'O' : ' ') << '\n';
         }
 
         // Adds the number of card that implemented by ability
-        const size_t implPercent = static_cast<size_t>(
+        const auto implPercent = static_cast<size_t>(
             static_cast<double>(impledCardNum) / allCardNum * 100);
         outputFile << '\n';
         outputFile << "- Progress: " << implPercent << "% (" << impledCardNum
@@ -201,15 +203,12 @@ int main(int argc, char* argv[])
     }
     else if (!cardSetName.empty())
     {
-        const auto convertedCardSet =
-            CardSet::_from_string_nothrow(cardSetName.c_str());
-        if (!convertedCardSet)
+        cardSet = StrToEnum<CardSet>(cardSetName);
+        if (cardSet == CardSet::INVALID)
         {
             std::cerr << "Invalid card set name: " << cardSetName << '\n';
             exit(EXIT_FAILURE);
         }
-
-        cardSet = *convertedCardSet;
     }
 
     ExportFile(projectPath, cardSet);

@@ -11,7 +11,6 @@
 #include <Rosetta/Enums/CardEnums.hpp>
 
 #include <map>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -48,10 +47,34 @@ class Card
     //! Initializes card data.
     void Initialize();
 
-    //! Finds out if this card has \p mechanic.
-    //! \param mechanic The mechanic of card.
-    //! \return true if this card has \p mechanic, and false otherwise.
-    bool HasMechanic(GameTag mechanic) const;
+    //! Returns the value of card class.
+    //! \return The value of card class.
+    CardClass GetCardClass() const;
+
+    //! Returns the value of card set.
+    //! \return The value of card set.
+    CardSet GetCardSet() const;
+
+    //! Returns the value of card type.
+    //! \return The value of card type.
+    CardType GetCardType() const;
+
+    //! Returns the value of faction.
+    //! \return The value of faction.
+    Faction GetFaction() const;
+
+    //! Returns the value of race.
+    //! \return The value of race.
+    Race GetRace() const;
+
+    //! Returns the value of rarity.
+    //! \return The value of rarity.
+    Rarity GetRarity() const;
+
+    //! Finds out if this card has game tag.
+    //! \param gameTag The game tag of card.
+    //! \return true if this card has game tag, and false otherwise.
+    bool HasGameTag(GameTag gameTag) const;
 
     //! Returns the number of cards that can be inserted into the deck.
     //! \return The number of cards that can be inserted into the deck.
@@ -63,32 +86,17 @@ class Card
     //! Prints card information.
     virtual void ShowInfo() const;
 
-    Rarity rarity = Rarity::INVALID;
-    Faction faction = Faction::INVALID;
-    CardSet cardSet = CardSet::INVALID;
-    CardClass cardClass = CardClass::INVALID;
-    CardType cardType = CardType::INVALID;
-    Race race = Race::INVALID;
-
     std::string id;
     std::string name;
     std::string text;
 
-    std::optional<std::size_t> attack;
-    std::optional<int> health;
-    std::optional<std::size_t> spellPower;
-    std::optional<std::size_t> durability;
-
-    std::size_t cost = 0;
-
-    std::vector<GameTag> mechanics;
+    std::map<GameTag, int> gameTags;
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
     Power power;
 
     std::size_t maxAllowedInDeck = 0;
-    bool isCollectible = false;
 };
 }  // namespace RosettaStone
 

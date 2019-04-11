@@ -14,5 +14,5 @@ using namespace SimpleTasks;
 TEST(DrawOpTask, GetTaskID)
 {
     const DrawOpTask drawOp(1);
-    EXPECT_EQ(drawOp.GetTaskID(), +TaskID::DRAW_OP);
+    EXPECT_EQ(drawOp.GetTaskID(), TaskID::DRAW_OP);
 }

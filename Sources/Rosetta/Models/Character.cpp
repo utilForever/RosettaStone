@@ -3,7 +3,6 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Games/GameAgent.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -14,21 +13,71 @@ namespace RosettaStone
 {
 Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
-    if (!card.id.empty())
-    {
-        attack = card.attack.value_or(0);
-        spellPower = card.spellPower.value_or(0);
-        health = card.health.value_or(0);
-        maxHealth = health;
-    }
+    // Do nothing
 }
 
-std::size_t Character::GetAttack() const
+int Character::GetAttack() const
 {
-    return attack;
+    return GetGameTag(GameTag::ATK);
 }
 
-bool Character::CanAttack() const
+void Character::SetAttack(int attack)
+{
+    SetGameTag(GameTag::ATK, attack);
+}
+
+int Character::GetDamage() const
+{
+    return GetGameTag(GameTag::DAMAGE);
+}
+
+void Character::SetDamage(int damage)
+{
+    if (GetGameTag(GameTag::HEALTH) <= damage)
+    {
+        Destroy();
+    }
+
+    SetGameTag(GameTag::DAMAGE, damage);
+}
+
+int Character::GetHealth() const
+{
+    return GetGameTag(GameTag::HEALTH) - GetGameTag(GameTag::DAMAGE);
+}
+
+void Character::SetHealth(int health)
+{
+    if (health == 0)
+    {
+        Destroy();
+    }
+
+    SetGameTag(GameTag::HEALTH, health);
+    SetGameTag(GameTag::DAMAGE, 0);
+}
+
+int Character::GetBaseHealth() const
+{
+    return GetGameTag(GameTag::HEALTH);
+}
+
+void Character::SetBaseHealth(int baseHealth)
+{
+    SetGameTag(GameTag::HEALTH, baseHealth);
+}
+
+int Character::GetSpellPower()
+{
+    return GetGameTag(GameTag::SPELLPOWER);
+}
+
+void Character::SetSpellPower(int spellPower)
+{
+    SetGameTag(GameTag::SPELLPOWER, spellPower);
+}
+
+bool Character::CanAttack()
 {
     // If the value of attack is 0, returns false
     if (GetAttack() == 0)
@@ -109,7 +158,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
     return targets;
 }
 
-std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
+int Character::TakeDamage(Entity& source, int damage)
 {
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
@@ -120,7 +169,7 @@ std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
         hero->fatigue = damage;
     }
 
-    if (GetGameTag(GameTag::DIVINE_SHIELD) == 1)
+    if (minion != nullptr && GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
         SetGameTag(GameTag::DIVINE_SHIELD, 0);
         return 0;
@@ -131,23 +180,26 @@ std::size_t Character::TakeDamage(Entity& source, std::size_t damage)
         return 0;
     }
 
-    health -= static_cast<int>(damage);
-
-    if (health <= 0)
-    {
-        if (minion != nullptr)
-        {
-            minion->Destroy();
-        }
-    }
+    SetDamage(GetDamage() + damage);
 
     return damage;
 }
 
-void Character::TakeHeal(Character& source, std::size_t heal)
+void Character::TakeFullHeal(Entity& source)
+{
+    TakeHeal(source, GetDamage());
+}
+
+void Character::TakeHeal(Entity& source, int heal)
 {
     (void)source;
 
-    health = std::min(health + static_cast<int>(heal), maxHealth);
+    if (GetDamage() == 0)
+    {
+        return;
+    }
+
+    int amount = GetDamage() > heal ? heal : GetDamage();
+    SetDamage(GetDamage() - amount);
 }
 }  // namespace RosettaStone

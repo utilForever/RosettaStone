@@ -13,6 +13,7 @@
 ## Basic tasks
 
 * AddEnchantmentTask
+* ConditionTask
 * ControlTask
 * DamageTask
 * DestroyTask
@@ -20,6 +21,7 @@
 * DrawOpTask
 * DrawTask
 * EnqueueTask
+* FlagTask
 * HealFullTask
 * HealTask
 * IncludeTask

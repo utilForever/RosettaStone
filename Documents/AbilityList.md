@@ -37,27 +37,28 @@
 * [x] Stealth
 * [x] Spell Damage
 * [x] Taunt
+* [ ] Twinspell
 * [x] Windfury
 
 ## Other abilities
 
 * [ ] Can't attack
 * [ ] Can't attack heroes
-* [ ] Card draw effect
+* [x] Card draw effect
 * [x] Cast spell
 * [ ] Copy
-* [ ] Deal damage
+* [x] Deal damage
 * [x] Destroy
 * [ ] Disable Hero Power
 * [x] Discard
 * [ ] Elusive
-* [ ] Enchant
+* [x] Enchant
 * [ ] Enrage
 * [ ] Equip
 * [ ] Forgetful
 * [ ] Gain Armor
 * [ ] Generate
-* [ ] Increment attribute
+* [x] Increment attribute
 * [ ] Joust
 * [x] Mind control effect
 * [ ] Modify cost
@@ -67,14 +68,14 @@
 * [ ] Playerbound
 * [ ] Put into battlefield
 * [ ] Put into hand
-* [ ] Refresh Mana
+* [x] Refresh Mana
 * [ ] Remove from deck
 * [ ] Replace
-* [ ] Restore Health
+* [x] Restore Health
 * [ ] Return
-* [ ] Set attribute
+* [x] Set attribute
 * [ ] Shuffle into deck
-* [ ] Spend mana
+* [x] Spend mana
 * [x] Summon
 * [x] Transform
 * [ ] Transform in hand
@@ -82,7 +83,7 @@
 
 ## Types of ability
 
-* [ ] Area of effect
+* [x] Area of effect
 * [ ] In-hand effect
 * [ ] On-discard effect
 * [ ] On-draw effect

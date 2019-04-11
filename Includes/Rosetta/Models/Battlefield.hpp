@@ -79,9 +79,11 @@ class Battlefield
     //! \param newMinion A new minion to replace.
     void ReplaceMinion(Minion& oldMinion, Minion& newMinion);
 
+    std::vector<Aura*> auras;
+
  private:
-    void ActivateAura(Minion& minion);
-    void RemoveAura(Minion& minion);
+    static void ActivateAura(Minion& minion);
+    static void RemoveAura(Minion& minion);
 
     Player* m_owner = nullptr;
 

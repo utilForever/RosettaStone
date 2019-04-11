@@ -10,8 +10,8 @@
 namespace RosettaStone::SimpleTasks
 {
 ModifyManaTask::ModifyManaTask(ManaOperator numMode, ManaType manaMode,
-                               std::size_t num)
-    : m_numMode(numMode), m_manaMode(manaMode), m_num(num)
+                               int amount)
+    : m_numMode(numMode), m_manaMode(manaMode), m_amount(amount)
 {
     // Do nothing
 }
@@ -23,7 +23,7 @@ TaskID ModifyManaTask::GetTaskID() const
 
 TaskStatus ModifyManaTask::Impl(Player& player)
 {
-    const auto getMana = [](Player& p, ManaType mode) -> std::size_t {
+    const auto getMana = [](Player& p, ManaType mode) -> int {
         if (mode == ManaType::AVAILABLE)
         {
             return p.currentMana;
@@ -37,23 +37,22 @@ TaskStatus ModifyManaTask::Impl(Player& player)
         throw std::runtime_error("ModifyMana: Invalid mana mode");
     };
 
-    std::size_t mana = getMana(player, m_manaMode);
+    int mana = getMana(player, m_manaMode);
     switch (m_numMode)
     {
         case ManaOperator::ADD:
-            mana += m_num;
+            mana += m_amount;
             break;
         case ManaOperator::SUB:
-            mana = (mana <= m_num) ? 0 : (mana - m_num);
+            mana = (mana <= m_amount) ? 0 : (mana - m_amount);
             break;
         case ManaOperator::SET:
-            mana = m_num;
+            mana = m_amount;
             break;
     }
 
     // Clamps a mana cost to a given range (min:0 ~ max:10)
-    mana = std::clamp(mana, static_cast<std::size_t>(0),
-                      static_cast<std::size_t>(10));
+    mana = std::clamp(mana, MANA_LOWER_LIMIT, MANA_UPPER_LIMIT);
 
     if (m_manaMode == ManaType::AVAILABLE)
     {

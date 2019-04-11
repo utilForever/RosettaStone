@@ -8,10 +8,18 @@
 #include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::SimpleTasks
 {
 SummonTask::SummonTask(std::string cardID, int num)
-    : m_cardID(cardID), m_num(num)
+    : m_cardID(std::move(cardID)), m_num(num)
+{
+    // Do nothing
+}
+
+SummonTask::SummonTask(std::string cardID, SummonSide side)
+    : m_cardID(std::move(cardID)), m_side(side)
 {
     // Do nothing
 }
@@ -23,6 +31,8 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
+    (void)m_side;
+
     for (int i = 0; i < m_num; ++i)
     {
         if (player.GetField().IsFull())
@@ -30,7 +40,7 @@ TaskStatus SummonTask::Impl(Player& player)
             return TaskStatus::STOP;
         }
 
-        Card card = Cards::GetInstance().FindCardByID(m_cardID);
+        Card card = Cards::FindCardByID(m_cardID);
         Entity* minion = Entity::GetFromCard(player, std::move(card));
         const int fieldPos =
             static_cast<int>(player.GetField().FindEmptyPos().value());

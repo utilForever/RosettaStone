@@ -70,9 +70,9 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_FIELD, 2, true));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 2, true));
     power.AddPowerTask(
-        new SetGameTagTask(EntityType::ENEMY_FIELD, GameTag::FROZEN, 1));
+        new SetGameTagTask(EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
     cards.emplace("CS2_028", power);
 }
 

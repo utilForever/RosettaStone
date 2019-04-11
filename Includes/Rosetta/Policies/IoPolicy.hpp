@@ -26,6 +26,11 @@ class IoPolicy : public BasicPolicy
     //! \param in Basic input stream.
     IoPolicy(std::ostream& out, std::istream& in);
 
+    //! Gets next behavior from given \p game.
+    //! \param game The current game status.
+    //! \return The behavior serialized as TaskMeta.
+    TaskMeta Next(const Game& game) override;
+
  private:
     //! Method for MulliganTask requirement.
     TaskMeta RequireMulligan(Player& player) override;

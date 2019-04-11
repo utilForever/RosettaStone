@@ -54,8 +54,8 @@ class BasicPolicy : public IPolicy
     //! Virtual method for OverDraw notifying.
     virtual void NotifyOverDraw(const TaskMeta& meta);
 
-    std::map<TaskID, std::function<TaskMeta(BasicPolicy&, Player&)>>
-        m_require = {
+    std::map<TaskID, std::function<TaskMeta(BasicPolicy&, Player&)>> m_require =
+        {
             { TaskID::MULLIGAN, &BasicPolicy::RequireMulligan },
             { TaskID::PLAY_CARD, &BasicPolicy::RequirePlayCard },
             { TaskID::ATTACK, &BasicPolicy::RequireAttack },

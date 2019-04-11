@@ -9,8 +9,9 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/Utils.hpp>
-#include <Rosetta/Games/GameAgent.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Policies/IoPolicy.hpp>
@@ -223,13 +224,16 @@ void Console::SimulateGame() const
     config.player1Class = deck1->GetClass();
     config.player2Class = deck2->GetClass();
 
-    GameAgent agent(config, &policy1, &policy2);
-    agent.GetPlayer1().SetNickname(p1->GetNickname());
-    agent.GetPlayer2().SetNickname(p2->GetNickname());
+    Game game(config);
+    game.GetPlayer1().SetNickname(p1->GetNickname());
+    game.GetPlayer2().SetNickname(p2->GetNickname());
+
+    game.GetPlayer1().SetPolicy(&policy1);
+    game.GetPlayer2().SetPolicy(&policy2);
     // game.GetPlayer1().SetDeck(deck1);
     // game.GetPlayer2().SetDeck(deck2);
 
-    agent.StartGame();
+    game.StartGame();
 }
 
 void Console::Leave()
@@ -259,8 +263,7 @@ void Console::CreateDeck()
     ShowMenu(m_playerClassStr);
     const size_t selectedClassNum =
         InputMenuNum("What's your player class? ", NUM_PLAYER_CLASS);
-    const CardClass deckClass =
-        CardClass::_from_integral(static_cast<int>(selectedClassNum + 1));
+    const CardClass deckClass = static_cast<CardClass>(selectedClassNum + 1);
 
     m_account->CreateDeck(name, deckClass);
 
@@ -531,7 +534,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     // Parse command
     bool showHelp = false;
     std::string strName, strRarity, strPlayerClass, strCardType;
-    std::string strRace, strMechanics, strCost, strAttack, strHealth;
+    std::string strRace, strGameTag, strCost, strAttack, strHealth;
     bool isValid = true, isFinish = false;
 
     // Parsing
@@ -564,7 +567,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
             "remaining survivability of the character"
             "(You can search for an exact value such as 3 or a range of values "
             "like 3-4.)") |
-        clara::Opt(strMechanics, "mechanic")["-m"]["--mechanic"](
+        clara::Opt(strGameTag, "mechanic")["-m"]["--mechanic"](
             "describes the total effect of playing that card or special "
             "effects or powers additional to the basic functions of the card") |
         clara::Opt(isFinish, "isFinish")["-f"]["--finish"]("finish the search");
@@ -584,23 +587,11 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
         isValid = false;
     }
 
-    const Rarity rarity = Rarity::_from_string_nothrow(strRarity.c_str())
-                              ? Rarity::_from_string(strRarity.c_str())
-                              : Rarity::_from_string("INVALID");
-    const CardClass playerClass =
-        CardClass::_from_string_nothrow(strPlayerClass.c_str())
-            ? CardClass::_from_string(strPlayerClass.c_str())
-            : CardClass::_from_string("INVALID");
-    const CardType cardType =
-        CardType::_from_string_nothrow(strCardType.c_str())
-            ? CardType::_from_string(strCardType.c_str())
-            : CardType::_from_string("INVALID");
-    const Race race = Race::_from_string_nothrow(strRace.c_str())
-                          ? Race::_from_string(strRace.c_str())
-                          : Race::_from_string("INVALID");
-    const GameTag mechanic = GameTag::_from_string_nothrow(strMechanics.c_str())
-                                 ? GameTag::_from_string(strMechanics.c_str())
-                                 : GameTag::_from_string("INVALID");
+    const Rarity rarity = StrToEnum<Rarity>(strRarity);
+    const CardClass playerClass = StrToEnum<CardClass>(strPlayerClass);
+    const CardType cardType = StrToEnum<CardType>(strCardType);
+    const Race race = StrToEnum<Race>(strRace);
+    const GameTag gameTag = StrToEnum<GameTag>(strGameTag);
 
     auto [minCost, maxCost] = ParseValueRangeFromString(strCost, isValid);
     auto [minAttack, maxAttack] = ParseValueRangeFromString(strAttack, isValid);
@@ -618,7 +609,7 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     filter.attackMax = maxAttack;
     filter.healthMin = minHealth;
     filter.healthMax = maxHealth;
-    filter.mechanic = mechanic;
+    filter.gameTag = gameTag;
 
     return std::make_tuple(filter, isValid, isFinish);
 }
@@ -627,43 +618,46 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
     std::vector<Card> result;
 
-    for (auto& card : Cards::GetInstance().GetAllCards())
+    for (auto& card : Cards::GetAllCards())
     {
-        if (!card.isCollectible)
+        if (card.gameTags.at(GameTag::COLLECTIBLE) == 0)
         {
             continue;
         }
 
-        bool rarityCondition =
-            (filter.rarity == +Rarity::INVALID || filter.rarity == card.rarity);
+        bool rarityCondition = (filter.rarity == Rarity::INVALID ||
+                                filter.rarity == card.GetRarity());
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to
         // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            classCondition = (card.cardClass == m_deckClass ||
-                              card.cardClass == +CardClass::NEUTRAL);
+            classCondition = (card.GetCardClass() == m_deckClass ||
+                              card.GetCardClass() == CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
-            classCondition = (filter.playerClass == +CardClass::INVALID ||
-                              filter.playerClass == card.cardClass);
+            classCondition = (filter.playerClass == CardClass::INVALID ||
+                              filter.playerClass == card.GetCardClass());
         }
-        bool typeCondition = (filter.cardType == +CardType::INVALID ||
-                              filter.cardType == card.cardType);
+        bool typeCondition = (filter.cardType == CardType::INVALID ||
+                              filter.cardType == card.GetCardType());
         bool raceCondition =
-            (filter.race == +Race::INVALID || filter.race == card.race);
+            (filter.race == Race::INVALID || filter.race == card.GetRace());
         bool nameCondition = (filter.name.empty() ||
                               card.name.find(filter.name) != std::string::npos);
         bool costCondition =
-            filter.costMin <= card.cost && filter.costMax >= card.cost;
+            filter.costMin <= card.gameTags.at(GameTag::COST) &&
+            filter.costMax >= card.gameTags.at(GameTag::COST);
         bool attackCondition =
-            filter.attackMin <= card.attack && filter.attackMax >= card.attack;
+            filter.attackMin <= card.gameTags.at(GameTag::ATK) &&
+            filter.attackMax >= card.gameTags.at(GameTag::ATK);
         bool healthCondition =
-            filter.healthMin <= card.health && filter.healthMax >= card.health;
-        bool mechanicsCondition = (filter.mechanic == +GameTag::INVALID ||
-                                   card.HasMechanic(filter.mechanic));
+            filter.healthMin <= card.gameTags.at(GameTag::HEALTH) &&
+            filter.healthMax >= card.gameTags.at(GameTag::HEALTH);
+        bool mechanicsCondition = (filter.gameTag == GameTag::INVALID ||
+                                   card.HasGameTag(filter.gameTag));
         const bool isMatched =
             AllCondIsTrue(rarityCondition, classCondition, typeCondition,
                           raceCondition, nameCondition, costCondition,

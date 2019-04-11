@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -23,17 +24,13 @@ TaskID DiscardTask::GetTaskID() const
 
 TaskStatus DiscardTask::Impl(Player& player)
 {
-    if (m_entityType == +EntityType::HAND)
-    {
-        auto& hand = player.GetHand();
-        if (hand.IsEmpty())
-        {
-            return TaskStatus::STOP;
-        }
+    auto entities =
+        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-        auto idx = Random::get<std::size_t>(0, hand.GetNumOfCards() - 1);
-        hand.RemoveCard(*hand.GetCard(idx));
-        return TaskStatus::COMPLETE;
+    for (auto& entity : entities)
+    {
+        player.GetHand().RemoveCard(*entity);
+        player.GetGraveyard().AddCard(*entity);
     }
 
     return TaskStatus::COMPLETE;

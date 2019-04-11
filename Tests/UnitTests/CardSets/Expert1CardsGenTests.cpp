@@ -20,6 +20,7 @@ TEST(Expert1CardsGen, CS2_028)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
@@ -46,9 +47,9 @@ TEST(Expert1CardsGen, CS2_028)
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(opField.GetMinion(0)->health, 5);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(opPlayer.GetHero()->health, 30);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 0);
 }
 
@@ -59,9 +60,11 @@ TEST(Expert1CardsGen, EX1_012)
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -93,7 +96,7 @@ TEST(Expert1CardsGen, EX1_012)
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(opField.GetMinion(0)->health, 4);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
     Task::Run(curPlayer, EndTurnTask());

@@ -7,9 +7,13 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Policies/Policy.hpp>
+#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
 
 #include <effolkronium/random.hpp>
@@ -30,11 +34,11 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 
     // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(gameConfig.player1Class),
-        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player1Class));
+        Cards::GetHeroCard(gameConfig.player1Class),
+        Cards::GetDefaultHeroPower(gameConfig.player1Class));
     GetPlayer2().AddHeroAndPower(
-        Cards::GetInstance().GetHeroCard(gameConfig.player2Class),
-        Cards::GetInstance().GetDefaultHeroPower(gameConfig.player2Class));
+        Cards::GetHeroCard(gameConfig.player2Class),
+        Cards::GetDefaultHeroPower(gameConfig.player2Class));
 
     // Set opponent player
     GetPlayer1().SetOpponent(&GetPlayer2());
@@ -75,7 +79,10 @@ void Game::BeginFirst()
 {
     // Set next step
     nextStep = Step::BEGIN_SHUFFLE;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::BeginShuffle()
@@ -89,7 +96,10 @@ void Game::BeginShuffle()
 
     // Set next step
     nextStep = Step::BEGIN_DRAW;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::BeginDraw()
@@ -107,7 +117,7 @@ void Game::BeginDraw()
             Generic::Draw(p);
 
             // Give "The Coin" card to second player
-            Card coin = Cards::GetInstance().FindCardByID("GAME_005");
+            Card coin = Cards::FindCardByID("GAME_005");
             p.GetHand().AddCard(*Entity::GetFromCard(p, std::move(coin)));
         }
     }
@@ -115,7 +125,10 @@ void Game::BeginDraw()
     // Set next step
     nextStep =
         m_gameConfig.skipMulligan ? Step::MAIN_BEGIN : Step::BEGIN_MULLIGAN;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::BeginMulligan()
@@ -140,13 +153,38 @@ void Game::BeginMulligan()
                           ChoiceAction::HAND, p1HandIDs);
     Generic::CreateChoice(GetPlayer2(), ChoiceType::MULLIGAN,
                           ChoiceAction::HAND, p2HandIDs);
+
+    Player& player1 = GetPlayer1();
+    // Request mulligan choices to policy.
+    TaskMeta p1Choice = player1.GetPolicy().Require(player1, TaskID::MULLIGAN);
+
+    // Get mulligan choices from policy.
+    Generic::ChoiceMulligan(player1,
+                            p1Choice.GetObject<std::vector<std::size_t>>());
+
+    Player& player2 = GetPlayer2();
+    // Request mulligan choices to policy.
+    TaskMeta p2Choice = player2.GetPolicy().Require(player2, TaskID::MULLIGAN);
+
+    // Get mulligan choices from policy.
+    Generic::ChoiceMulligan(player2,
+                            p2Choice.GetObject<std::vector<std::size_t>>());
+
+    nextStep = Step::MAIN_BEGIN;
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainBegin()
 {
     // Set next step
     nextStep = Step::MAIN_READY;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainReady()
@@ -182,14 +220,20 @@ void Game::MainReady()
 
     // Set next step
     nextStep = Step::MAIN_START_TRIGGERS;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainStartTriggers()
 {
     // Set next step
     nextStep = Step::MAIN_RESOURCE;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainResource()
@@ -204,7 +248,10 @@ void Game::MainResource()
 
     // Set next step
     nextStep = Step::MAIN_DRAW;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainDraw()
@@ -214,21 +261,142 @@ void Game::MainDraw()
 
     // Set next step
     nextStep = Step::MAIN_START;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainStart()
 {
     // Set next step
     nextStep = Step::MAIN_ACTION;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
+
+void Game::MainAction()
+{
+    auto& player = GetCurrentPlayer();
+
+    // If game end.
+    if (player.GetHero()->GetHealth() <= 0 ||
+        player.GetOpponent().GetHero()->GetHealth() <= 0)
+    {
+        // Set losing user.
+        if (player.GetHero()->GetHealth() <= 0)
+        {
+            player.playState = PlayState::LOSING;
+        }
+        else
+        {
+            player.GetOpponent().playState = PlayState::LOSING;
+        }
+
+        nextStep = Step::FINAL_WRAPUP;
+        if (m_gameConfig.autoRun)
+        {
+            GameManager::ProcessNextStep(*this, nextStep);
+        }
+        return;
+    }
+
+    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK,
+    // TaskID::PLAY_CARD
+    TaskMeta next = player.GetPolicy().Next(*this);
+    // If turn end.
+    if (next.GetID() == TaskID::END_TURN)
+    {
+        nextStep = Step::MAIN_END;
+        if (m_gameConfig.autoRun)
+        {
+            GameManager::ProcessNextStep(*this, nextStep);
+        }
+        return;
+    }
+
+    // Get requirements for proper action.
+    TaskMeta req = player.GetPolicy().Require(player, next.GetID());
+    SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
+    switch (next.GetID())
+    {
+        // Attack target
+        case TaskID::ATTACK:
+        {
+            if (list.size() >= 2)
+            {
+                Entity* source = list[0];
+                Entity* target = list[1];
+                Task::Run(player, PlayerTasks::AttackTask(source, target));
+            }
+            break;
+        }
+        // Play card
+        case TaskID::PLAY_CARD:
+        {
+            // If requirement doesn't satisfy
+            if (list.size() < 1)
+            {
+                break;
+            }
+
+            Entity* source = list[0];
+            switch (source->card.GetCardType())
+            {
+                // Summon minion
+                case CardType::MINION:
+                    Task::Run(player, PlayerTasks::PlayCardTask::Minion(
+                                          player, source));
+                    break;
+                // Cast spell
+                case CardType::SPELL:
+                    if (list.size() == 1)
+                    {
+                        Task::Run(player, PlayerTasks::PlayCardTask::Spell(
+                                              player, source));
+                    }
+                    else
+                    {
+                        Entity* target = list[1];
+                        Task::Run(player,
+                                  PlayerTasks::PlayCardTask::SpellTarget(
+                                      player, source, target));
+                    }
+                    break;
+                // Use weapon
+                case CardType::WEAPON:
+                    Task::Run(player, PlayerTasks::PlayCardTask::Weapon(
+                                          player, source));
+                    break;
+                default:
+                    throw std::invalid_argument(
+                        "Game::MainAction() - Invalid card type!");
+            }
+            break;
+        }
+        default:
+            throw std::invalid_argument(
+                "Game::MainAction() - Invalid task type!");
+    }
+
+    nextStep = Step::MAIN_ACTION;
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+    return;
 }
 
 void Game::MainEnd()
 {
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainCleanUp()
@@ -255,7 +423,10 @@ void Game::MainCleanUp()
 
     // Set next step
     nextStep = Step::MAIN_NEXT;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::MainNext()
@@ -268,7 +439,10 @@ void Game::MainNext()
 
     // Set next step
     nextStep = Step::MAIN_READY;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::FinalWrapUp()
@@ -276,8 +450,8 @@ void Game::FinalWrapUp()
     // Set game states according by result
     for (auto& p : m_players)
     {
-        if (p.playState == +PlayState::LOSING ||
-            p.playState == +PlayState::CONCEDED)
+        if (p.playState == PlayState::LOSING ||
+            p.playState == PlayState::CONCEDED)
         {
             p.playState = PlayState::LOST;
             p.GetOpponent().playState = PlayState::WON;
@@ -286,7 +460,10 @@ void Game::FinalWrapUp()
 
     // Set next step
     nextStep = Step::FINAL_GAMEOVER;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
 void Game::FinalGameOver()
@@ -309,7 +486,7 @@ void Game::StartGame()
     // Set up decks
     for (auto& card : m_gameConfig.player1Deck)
     {
-        if (card.cardType == +CardType::INVALID)
+        if (card.id.empty())
         {
             continue;
         }
@@ -319,7 +496,7 @@ void Game::StartGame()
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
-        if (card.cardType == +CardType::INVALID)
+        if (card.id.empty())
         {
             continue;
         }
@@ -335,7 +512,7 @@ void Game::StartGame()
         {
             for (auto& cardID : m_gameConfig.fillCardIDs)
             {
-                Card card = Cards::GetInstance().FindCardByID(cardID);
+                Card card = Cards::FindCardByID(cardID);
                 Entity* entity = Entity::GetFromCard(p, std::move(card));
                 p.GetDeck().AddCard(*entity);
             }
@@ -372,25 +549,30 @@ void Game::StartGame()
 
     // Set next step
     nextStep = Step::BEGIN_FIRST;
-    GameManager::ProcessNextStep(*this, nextStep);
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
 }
 
-void Game::ProcessDestroy()
+void Game::ProcessDestroyAndUpdateAura()
 {
+    UpdateAura();
+
     // Destroy weapons
     if (GetPlayer1().GetHero()->weapon != nullptr &&
-        GetPlayer1().GetHero()->weapon->isDestroyed == true)
+        GetPlayer1().GetHero()->weapon->isDestroyed)
     {
         GetPlayer1().GetHero()->RemoveWeapon();
     }
     if (GetPlayer2().GetHero()->weapon != nullptr &&
-        GetPlayer2().GetHero()->weapon->isDestroyed == true)
+        GetPlayer2().GetHero()->weapon->isDestroyed)
     {
         GetPlayer2().GetHero()->RemoveWeapon();
     }
 
     // Destroy minions
-    if (deadMinions.size() > 0)
+    if (!deadMinions.empty())
     {
         for (auto& deadMinion : deadMinions)
         {
@@ -414,6 +596,31 @@ void Game::ProcessDestroy()
         }
 
         deadMinions.clear();
+    }
+
+    UpdateAura();
+}
+
+void Game::UpdateAura()
+{
+    const int auraSize = static_cast<int>(auras.size());
+    if (auraSize == 0)
+    {
+        return;
+    }
+
+    for (int i = auraSize - 1; i >= 0; --i)
+    {
+        auras[i]->Update();
+    }
+}
+
+void Game::ProcessUntil(Step untilStep)
+{
+    m_gameConfig.autoRun = false;
+    while (nextStep != untilStep)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
     }
 }
 }  // namespace RosettaStone

@@ -37,7 +37,7 @@ class DrawTestPolicy : public BasicPolicy
 TEST(DrawTask, GetTaskID)
 {
     const DrawTask draw(1);
-    EXPECT_EQ(draw.GetTaskID(), +TaskID::DRAW);
+    EXPECT_EQ(draw.GetTaskID(), TaskID::DRAW);
 }
 
 TEST(DrawTask, Run)
@@ -96,7 +96,7 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p.GetHand().GetNumOfCards(), 0u);
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     // Health: 30 - (1 + 2 + 3)
-    EXPECT_EQ(p.GetHero()->health, 24);
+    EXPECT_EQ(p.GetHero()->GetHealth(), 24);
 
     Card card;
     card.id = "card1";
@@ -110,7 +110,7 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p.GetHand().GetCard(0)->card.id, "card1");
     EXPECT_EQ(p.GetDeck().GetNumOfCards(), 0u);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
-    EXPECT_EQ(p.GetHero()->health, 15);
+    EXPECT_EQ(p.GetHero()->GetHealth(), 15);
 }
 
 TEST(DrawTask, RunOverDraw)
@@ -148,7 +148,7 @@ TEST(DrawTask, RunOverDraw)
     DrawTask draw(3);
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
-        EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+        EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
         EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 
@@ -203,7 +203,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     DrawTask draw(4);
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
-        EXPECT_EQ(burnt.GetID(), +TaskID::OVERDRAW);
+        EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
         EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
         EXPECT_EQ(burnt.GetUserID(), p.GetID());
 

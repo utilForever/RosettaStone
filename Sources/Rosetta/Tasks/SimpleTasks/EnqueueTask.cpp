@@ -20,7 +20,8 @@ TaskID EnqueueTask::GetTaskID() const
 
 TaskStatus EnqueueTask::Impl(Player& player)
 {
-    int times = m_isSpellDamage ? m_num + player.currentSpellPower : m_num;
+    const int times =
+        m_isSpellDamage ? m_num + player.currentSpellPower : m_num;
 
     for (int i = 0; i < times; ++i)
     {

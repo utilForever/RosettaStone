@@ -41,7 +41,7 @@ class Powers
     //! Returns a pointer to card that matches \p cardID.
     //! \param cardID The ID of the card.
     //! \return A pointer to card that matches \p cardID.
-    Power FindPowerByCardID(const std::string& cardID);
+    static Power FindPowerByCardID(const std::string& cardID);
 
  private:
     //! Constructor: Loads power data.
@@ -50,7 +50,7 @@ class Powers
     //! Destructor: Releases power data.
     ~Powers();
 
-    std::map<std::string, Power> m_powers;
+    static std::map<std::string, Power> m_powers;
 };
 }  // namespace RosettaStone
 

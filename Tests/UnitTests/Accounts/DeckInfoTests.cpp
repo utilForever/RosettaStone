@@ -6,9 +6,9 @@
 
 #include "gtest/gtest.h"
 
+#include <Rosetta/Accounts/DeckInfo.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Accounts/DeckInfo.hpp>
 
 using namespace RosettaStone;
 
@@ -16,21 +16,21 @@ TEST(DeckInfo, Constructors)
 {
     DeckInfo deck1;
     EXPECT_EQ("Empty", deck1.GetName());
-    EXPECT_EQ(+CardClass::INVALID, deck1.GetClass());
+    EXPECT_EQ(CardClass::INVALID, deck1.GetClass());
     EXPECT_EQ(0u, deck1.GetNumOfCards());
 
     DeckInfo deck2("Ice Magician", CardClass::MAGE);
     EXPECT_EQ("Ice Magician", deck2.GetName());
-    EXPECT_EQ(+CardClass::MAGE, deck2.GetClass());
+    EXPECT_EQ(CardClass::MAGE, deck2.GetClass());
     EXPECT_EQ(0u, deck2.GetNumOfCards());
 }
 
 TEST(DeckInfo, CardControl)
 {
     std::vector<Card> druidCards =
-        Cards::GetInstance().FindCardByClass(+CardClass::DRUID);
+        Cards::GetInstance().FindCardByClass(CardClass::DRUID);
     std::vector<Card> mageCards =
-        Cards::GetInstance().FindCardByClass(+CardClass::MAGE);
+        Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
     DeckInfo deck("Ice Magician", CardClass::MAGE);
     EXPECT_NO_THROW(deck.ShowCardList());
@@ -53,7 +53,7 @@ TEST(DeckInfo, CardControl)
 TEST(DeckInfo, GetNumCardInDeck)
 {
     std::vector<Card> mageCards =
-        Cards::GetInstance().FindCardByClass(+CardClass::MAGE);
+        Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
     DeckInfo deck("Ice Magician", CardClass::MAGE);
     deck.AddCard(mageCards.at(0).id, 1);
@@ -65,7 +65,7 @@ TEST(DeckInfo, GetNumCardInDeck)
 TEST(DeckInfo, GetPrimitiveDeck)
 {
     std::vector<Card> mageCards =
-        Cards::GetInstance().FindCardByClass(+CardClass::MAGE);
+        Cards::GetInstance().FindCardByClass(CardClass::MAGE);
 
     DeckInfo deck("Ice Magician", CardClass::MAGE);
     deck.AddCard(mageCards.at(0).id, 1);

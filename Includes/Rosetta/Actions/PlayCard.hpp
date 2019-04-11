@@ -40,6 +40,13 @@ void PlaySpell(Player& player, Spell* spell, Character* target = nullptr);
 //! \param weapon A pointer to weapon card to play.
 //! \param target A target of the character to receive power.
 void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
+
+//! Gets a value indicating whether this entity is playable by card
+//! requirements. Static requirements are checked.
+//! \param source A pointer to source entity to play card.
+//! \return true if source entity is playable by card requirements, false
+//! otherwise.
+bool IsPlayableByCardReq(Entity* source);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_PLAY_CARD_HPP
