@@ -403,6 +403,16 @@ void Game::MainCleanUp()
 {
     auto& curPlayer = GetCurrentPlayer();
 
+    // Remove one-turn effects
+    for (auto& effectPair : oneTurnEffects)
+    {
+        Character* character = effectPair.first;
+        Effect* effect = effectPair.second;
+
+        effect->Remove(character);
+    }
+    oneTurnEffects.clear();
+
     // Unfreeze all characters they control that are Frozen, don't have
     // summoning sickness (or do have Charge) and have not attacked that turn
     // Hero

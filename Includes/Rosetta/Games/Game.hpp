@@ -138,6 +138,7 @@ class Game
     TaskStack taskStack;
 
     std::vector<Aura*> auras;
+    std::vector<std::pair<Character*, Effect*>> oneTurnEffects;
     std::map<std::size_t, Minion*> deadMinions;
 
  private:
