@@ -17,7 +17,7 @@ using namespace TestUtils;
 TEST(ControlTask, GetTaskID)
 {
     const ControlTask control(EntityType::TARGET);
-    EXPECT_EQ(control.GetTaskID(), +TaskID::CONTROL);
+    EXPECT_EQ(control.GetTaskID(), TaskID::CONTROL);
 }
 
 TEST(ControlTask, Run)
@@ -53,8 +53,8 @@ TEST(ControlTask, Run)
     EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
 
     // Check controlled minion has valid data
-    EXPECT_EQ(player1Field.GetMinion(6)->GetAttack(), 1u);
-    EXPECT_EQ(player1Field.GetMinion(6)->health, 1);
+    EXPECT_EQ(player1Field.GetMinion(6)->GetAttack(), 1);
+    EXPECT_EQ(player1Field.GetMinion(6)->GetHealth(), 1);
 
     control.SetTarget(player2Field.GetMinion(1));
     result = control.Run(player1);

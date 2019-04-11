@@ -10,6 +10,17 @@
 
 namespace RosettaStone::SimpleTasks
 {
+//! The side of summoned minion.
+enum class SummonSide
+{
+    DEFAULT,        //!< Summoning on the last position on the right side.
+    LEFT,           //!< Summoning left of the minion.
+    RIGHT,          //!< Summoning right of the minion.
+    DEATHRATTLE,    //!< Summoning at the last position of the source.
+    NUMBER,         //!< Summoning at a given position in the stack number.
+    SPELL           //!< Summoning by spell, currently like default.
+};
+
 //!
 //! \brief SummonTask class.
 //!
@@ -23,6 +34,12 @@ class SummonTask : public ITask
     //! \param num The number of minions to summon.
     explicit SummonTask(std::string cardID, int num);
 
+    //! Constructs task with given \p cardID and \p side.
+    //! \param cardID The card ID to summon.
+    //! \param side The side of summoned minion.
+    explicit SummonTask(std::string cardID,
+                        SummonSide side = SummonSide::DEFAULT);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
@@ -34,7 +51,8 @@ class SummonTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     std::string m_cardID;
-    int m_num = 0;
+    int m_num = 1;
+    SummonSide m_side = SummonSide::DEFAULT;
 };
 }  // namespace RosettaStone::SimpleTasks
 

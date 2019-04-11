@@ -22,12 +22,15 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Commons/EnumMacros.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Conditions/SelfCondition.hpp>
+#include <Rosetta/Enchants/Aura.hpp>
+#include <Rosetta/Enchants/AuraEffects.hpp>
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enchants/Powers.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
@@ -61,6 +64,7 @@
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
@@ -68,6 +72,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -77,6 +82,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/TaskMeta.hpp>
+#include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
 #include <Rosetta/Tasks/TaskWrapper.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>

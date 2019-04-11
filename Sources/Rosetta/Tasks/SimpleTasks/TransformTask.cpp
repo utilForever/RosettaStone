@@ -8,10 +8,12 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::SimpleTasks
 {
 TransformTask::TransformTask(EntityType entityType, std::string cardID)
-    : ITask(entityType), m_cardID(cardID)
+    : ITask(entityType), m_cardID(std::move(cardID))
 {
     // Do nothing
 }
@@ -28,7 +30,7 @@ TaskStatus TransformTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        Card card = Cards::GetInstance().FindCardByID(m_cardID);
+        Card card = Cards::FindCardByID(m_cardID);
 
         auto* minion = dynamic_cast<Minion*>(entity);
         if (minion == nullptr)

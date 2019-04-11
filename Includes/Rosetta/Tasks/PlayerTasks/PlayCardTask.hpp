@@ -31,6 +31,14 @@ class PlayCardTask : public ITask
     //! \return Generated PlayCardTask for intended purpose.
     static PlayCardTask Minion(Player& player, Entity* source);
 
+    //! PlayCardTask wrapper for minion.
+    //! \param player The player to run task.
+    //! \param source A pointer to source entity to play card.
+    //! \param target A pointer to target entity to receive power.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask MinionTarget(Player& player, Entity* source,
+                                     Entity* target);
+
     //! PlayCardTask wrapper for spell without target.
     //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.

@@ -13,7 +13,7 @@ namespace RosettaStone::Generic
 void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
 {
     // Block it if player tries to mulligan in a non-mulligan choice
-    if (player.choice.value().choiceType != +ChoiceType::MULLIGAN)
+    if (player.choice.value().choiceType != ChoiceType::MULLIGAN)
     {
         return;
     }

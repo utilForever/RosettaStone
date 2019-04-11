@@ -11,6 +11,7 @@
 namespace RosettaStone
 {
 class Character;
+class AuraEffects;
 
 //! Effect operator to change card value such as attack and health.
 enum class EffectOperator
@@ -33,15 +34,23 @@ class Effect
     Effect() = default;
 
     //! Constructs effect with given \p gameTag, \p effectOperator and \p value.
-    //! \param gameTag The mechanics of the card.
+    //! \param gameTag The game tag of the card.
     //! \param effectOperator The effect operator to change card value.
     //! \param value The value to change.
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
-    //! Apply effect to \p character.
+    //! Applies this effect to the target entity.
     //! \param character The character to which effect is applied.
     //! \param isOneTurnEffect Whether effect lasts only one turn.
     void Apply(Character* character, bool isOneTurnEffect = false) const;
+
+    //! Applies this effect to the target as an aura effect.
+    //! \param auraEffects The aura effect.
+    void Apply(AuraEffects& auraEffects) const;
+
+    //! Remove this aura effect from the target entity.
+    //! \param auraEffects The aura effect.
+    void Remove(AuraEffects& auraEffects) const;
 
  private:
     GameTag m_gameTag = GameTag::INVALID;

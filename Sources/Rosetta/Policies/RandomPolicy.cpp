@@ -57,12 +57,12 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
 
     for (Entity* entity : player.GetHand().GetAllCards())
     {
-        if (entity->card.cost > player.currentMana)
+        if (entity->GetCost() > player.currentMana)
         {
             continue;
         }
 
-        switch (entity->card.cardType)
+        switch (entity->card.GetCardType())
         {
             case CardType::MINION:
                 if (summonAvailable)

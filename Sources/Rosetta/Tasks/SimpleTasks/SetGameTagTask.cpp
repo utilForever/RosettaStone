@@ -27,6 +27,17 @@ TaskStatus SetGameTagTask::Impl(Player& player)
     for (auto& entity : entities)
     {
         entity->SetGameTag(m_gameTag, m_amount);
+
+        // Process windfury
+        if (m_gameTag == GameTag::WINDFURY && m_amount == 1)
+        {
+            auto m = dynamic_cast<Minion*>(entity);
+            if (m != nullptr && m->numAttacked == 1 &&
+                m->GetGameTag(GameTag::EXHAUSTED) == 1)
+            {
+                m->SetGameTag(GameTag::EXHAUSTED, 0);
+            }
+        }
     }
 
     return TaskStatus::COMPLETE;

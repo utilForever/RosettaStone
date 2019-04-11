@@ -8,25 +8,23 @@
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
-namespace RosettaStone
+namespace RosettaStone::SimpleTasks
 {
 //! The operator to change mana.
 enum class ManaOperator
 {
-    ADD = 0,  //!< Add mana.
-    SUB = 1,  //!< Subtract mana.
-    SET = 2,  //!< Set mana.
+    ADD,  //!< Add mana.
+    SUB,  //!< Subtract mana.
+    SET   //!< Set mana.
 };
 
 //! The type to change mana.
 enum class ManaType
 {
-    AVAILABLE = 0,  //!< Available mana.
-    MAXIMUM = 1,    //!< Maximum mana.
+    AVAILABLE,  //!< Available mana.
+    MAXIMUM     //!< Maximum mana.
 };
 
-namespace SimpleTasks
-{
 //!
 //! \brief ModifyManaTask class.
 //!
@@ -39,8 +37,8 @@ class ModifyManaTask : public ITask
     //! \param numMode A value that specifies the operation of \p num.
     //! \param manaMode A value that specifies whether the modified mana is
     //! one-time or permanent.
-    //! \param num A value indicating how much to modify mana.
-    ModifyManaTask(ManaOperator numMode, ManaType manaMode, std::size_t num);
+    //! \param amount A value indicating how much to modify mana.
+    ModifyManaTask(ManaOperator numMode, ManaType manaMode, int amount);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -54,9 +52,8 @@ class ModifyManaTask : public ITask
 
     ManaOperator m_numMode;
     ManaType m_manaMode;
-    std::size_t m_num;
+    int m_amount;
 };
-}  // namespace SimpleTasks
-}  // namespace RosettaStone
+}  // namespace RosettaStone::SimpleTasks
 
 #endif  // ROSETTASTONE_MODIFY_MANA_TASK_HPP

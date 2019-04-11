@@ -11,6 +11,8 @@
 
 namespace RosettaStone
 {
+std::map<std::string, Power> Powers::m_powers;
+
 Powers::Powers()
 {
     CoreCardsGen::AddAll(m_powers);

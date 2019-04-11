@@ -8,19 +8,25 @@
 
 namespace RosettaStone
 {
-Enchant::Enchant(Effect& effect)
+Enchant::Enchant(GameTag gameTag, EffectOperator effectOperator, int value)
 {
-    m_effects.emplace_back(effect);
+    Effect effect(gameTag, effectOperator, value);
+    effects.emplace_back(effect);
 }
 
-Enchant::Enchant(std::vector<Effect>& effects)
+Enchant::Enchant(Effect& effect)
 {
-    m_effects = effects;
+    effects.emplace_back(effect);
+}
+
+Enchant::Enchant(std::vector<Effect>& _effects)
+{
+    effects = _effects;
 }
 
 void Enchant::ActivateTo(Character* character)
 {
-    for (auto& effect : m_effects)
+    for (auto& effect : effects)
     {
         effect.Apply(character);
     }

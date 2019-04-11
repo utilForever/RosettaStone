@@ -11,6 +11,8 @@
 
 namespace RosettaStone
 {
+std::vector<Card> Cards::m_cards;
+
 Cards::Cards()
 {
     CardLoader::Load(m_cards);
@@ -28,7 +30,7 @@ Cards& Cards::GetInstance()
     return instance;
 }
 
-const std::vector<Card>& Cards::GetAllCards() const
+const std::vector<Card>& Cards::GetAllCards()
 {
     return m_cards;
 }
@@ -52,7 +54,7 @@ std::vector<Card> Cards::FindCardByRarity(Rarity rarity)
 
     for (auto card : m_cards)
     {
-        if (card.rarity == rarity)
+        if (card.GetRarity() == rarity)
         {
             result.emplace_back(card);
         }
@@ -67,7 +69,7 @@ std::vector<Card> Cards::FindCardByClass(CardClass cardClass)
 
     for (auto card : m_cards)
     {
-        if (card.cardClass == cardClass)
+        if (card.GetCardClass() == cardClass)
         {
             result.emplace_back(card);
         }
@@ -82,7 +84,7 @@ std::vector<Card> Cards::FindCardBySet(CardSet cardSet)
 
     for (auto card : m_cards)
     {
-        if (card.cardSet == cardSet)
+        if (card.GetCardSet() == cardSet)
         {
             result.emplace_back(card);
         }
@@ -97,7 +99,7 @@ std::vector<Card> Cards::FindCardByType(CardType cardType)
 
     for (auto card : m_cards)
     {
-        if (card.cardType == cardType)
+        if (card.GetCardType() == cardType)
         {
             result.emplace_back(card);
         }
@@ -112,7 +114,7 @@ std::vector<Card> Cards::FindCardByRace(Race race)
 
     for (auto card : m_cards)
     {
-        if (card.race == race)
+        if (card.GetRace() == race)
         {
             result.emplace_back(card);
         }
@@ -134,13 +136,14 @@ Card Cards::FindCardByName(const std::string& name)
     return Card();
 }
 
-std::vector<Card> Cards::FindCardByCost(std::size_t minVal, std::size_t maxVal)
+std::vector<Card> Cards::FindCardByCost(int minVal, int maxVal)
 {
     std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (card.cost >= minVal && card.cost <= maxVal)
+        if (card.gameTags.at(GameTag::COST) >= minVal &&
+            card.gameTags.at(GameTag::COST) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -149,19 +152,20 @@ std::vector<Card> Cards::FindCardByCost(std::size_t minVal, std::size_t maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByAttack(std::size_t minVal,
-                                          std::size_t maxVal)
+std::vector<Card> Cards::FindCardByAttack(int minVal, int maxVal)
 {
     std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (!card.attack)
+        if (!(card.GetCardType() == CardType::MINION) &&
+            !(card.GetCardType() == CardType::WEAPON))
         {
             continue;
         }
 
-        if (*card.attack >= minVal && *card.attack <= maxVal)
+        if (card.gameTags.at(GameTag::ATK) >= minVal &&
+            card.gameTags.at(GameTag::ATK) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -176,12 +180,14 @@ std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
 
     for (auto card : m_cards)
     {
-        if (!card.health)
+        if (!(card.GetCardType() == CardType::MINION) &&
+            !(card.GetCardType() == CardType::HERO))
         {
             continue;
         }
 
-        if (*card.health >= minVal && *card.health <= maxVal)
+        if (card.gameTags.at(GameTag::HEALTH) >= minVal &&
+            card.gameTags.at(GameTag::HEALTH) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -190,19 +196,14 @@ std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardBySpellPower(std::size_t minVal,
-                                              std::size_t maxVal)
+std::vector<Card> Cards::FindCardBySpellPower(int minVal, int maxVal)
 {
     std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        if (!card.spellPower)
-        {
-            continue;
-        }
-
-        if (*card.spellPower >= minVal && *card.spellPower <= maxVal)
+        if (card.gameTags.at(GameTag::SPELLPOWER) >= minVal &&
+            card.gameTags.at(GameTag::SPELLPOWER) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -211,18 +212,17 @@ std::vector<Card> Cards::FindCardBySpellPower(std::size_t minVal,
     return result;
 }
 
-std::vector<Card> Cards::FindCardByMechanics(std::vector<GameTag> mechanics)
+std::vector<Card> Cards::FindCardByGameTag(std::vector<GameTag> gameTags)
 {
     std::vector<Card> result;
 
     for (auto card : m_cards)
     {
-        auto mechanicsInCard = card.mechanics;
+        auto cardGameTags = card.gameTags;
 
-        for (const auto mechanic : mechanics)
+        for (const auto gameTag : gameTags)
         {
-            if (std::find(mechanicsInCard.begin(), mechanicsInCard.end(),
-                          mechanic) != mechanicsInCard.end())
+            if (cardGameTags.find(gameTag) != cardGameTags.end())
             {
                 result.emplace_back(card);
             }

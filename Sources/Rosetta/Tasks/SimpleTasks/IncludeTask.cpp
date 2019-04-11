@@ -73,14 +73,36 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(player.GetOpponent().GetHero()->weapon);
             }
             break;
-        case EntityType::ENEMY_FIELD:
+        case EntityType::HAND:
+            for (auto& card : player.GetHand().GetAllCards())
+            {
+                entities.emplace_back(card);
+            }
+            break;
+        case EntityType::ALL_MINIONS:
+            for (auto& minion : player.GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
+            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
+            break;
+        case EntityType::MINIONS:
+            for (auto& minion : player.GetField().GetAllMinions())
+            {
+                entities.emplace_back(minion);
+            }
+            break;
+        case EntityType::ENEMY_MINIONS:
             for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::STACK:
-            entities = player.GetGame()->taskStack;
+            entities = player.GetGame()->taskStack.entities;
             break;
         default:
             throw std::domain_error(

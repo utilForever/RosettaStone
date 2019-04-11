@@ -44,8 +44,21 @@ class Weapon : public Entity
     //! Default move assignment operator.
     Weapon& operator=(Weapon&& weapon) = default;
 
-    std::size_t attack = 0;
-    std::size_t durability = 0;
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    int GetAttack() const;
+
+    //! Sets the value of attack.
+    //! \param attack The value of attack.
+    void SetAttack(int attack);
+
+    //! Returns the value of durability.
+    //! \return The value of durability.
+    int GetDurability() const;
+
+    //! Sets the value of durability.
+    //! \param durability The value of durability.
+    void SetDurability(int durability);
 };
 }  // namespace RosettaStone
 

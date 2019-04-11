@@ -30,10 +30,10 @@ TaskMetaTrait GenerateRandomTrait()
     std::random_device rd;
     std::default_random_engine gen(rd());
 
-    const auto sizeTaskID = static_cast<int>(TaskID::_size());
+    const auto sizeTaskID = static_cast<int>(TaskID::NUM_TASK_ID);
     const auto sizeTaskStatus = static_cast<int>(TaskStatus::NUM_TASK_STATUS);
 
-    const TaskID taskID = TaskID::_from_integral(gen() % sizeTaskID);
+    const TaskID taskID = static_cast<TaskID>(gen() % sizeTaskID);
     const auto taskStatus = static_cast<TaskStatus>(gen() % sizeTaskStatus);
     const std::size_t userID = gen() % 2;
 
@@ -46,14 +46,15 @@ TaskMeta GenerateRandomTaskMeta()
     return TaskMeta(GenerateRandomTrait(), GenerateRandomBuffer());
 }
 
-Card GenerateMinionCard(std::string&& id, std::size_t attack, int health)
+Card GenerateMinionCard(std::string&& id, int attack, int health)
 {
     Card card;
-    card.cardType = CardType::MINION;
+    card.gameTags[GameTag::CARDTYPE] = static_cast<int>(CardType::MINION);
 
     card.id = std::move(id);
-    card.attack = attack;
-    card.health = health;
+    card.gameTags[GameTag::ATK] = attack;
+    card.gameTags[GameTag::DAMAGE] = 0;
+    card.gameTags[GameTag::HEALTH] = health;
 
     return card;
 }
@@ -76,24 +77,26 @@ void PlayMinionCard(Player& player, Card& card)
 void ExpectCardEqual(const Card& card1, const Card& card2)
 {
     EXPECT_EQ(card1.id, card2.id);
-    EXPECT_EQ(card1.rarity, card2.rarity);
-    EXPECT_EQ(card1.faction, card2.faction);
-    EXPECT_EQ(card1.cardSet, card2.cardSet);
-    EXPECT_EQ(card1.cardClass, card2.cardClass);
-    EXPECT_EQ(card1.cardType, card2.cardType);
-    EXPECT_EQ(card1.race, card2.race);
     EXPECT_EQ(card1.name, card2.name);
     EXPECT_EQ(card1.text, card2.text);
-    EXPECT_EQ(card1.isCollectible, card2.isCollectible);
-    EXPECT_EQ(card1.cost, card2.cost);
-    EXPECT_EQ(card1.mechanics, card2.mechanics);
+    EXPECT_EQ(card1.GetCardClass(), card2.GetCardClass());
+    EXPECT_EQ(card1.GetCardSet(), card2.GetCardSet());
+    EXPECT_EQ(card1.GetCardType(), card2.GetCardType());
+    EXPECT_EQ(card1.GetFaction(), card2.GetFaction());
+    EXPECT_EQ(card1.GetRace(), card2.GetRace());
+    EXPECT_EQ(card1.GetRarity(), card2.GetRarity());
+    EXPECT_EQ(card1.gameTags.at(GameTag::COLLECTIBLE),
+              card2.gameTags.at(GameTag::COLLECTIBLE));
+    EXPECT_EQ(card1.gameTags.at(GameTag::COST),
+              card2.gameTags.at(GameTag::COST));
+    EXPECT_EQ(card1.gameTags.at(GameTag::ATK), card2.gameTags.at(GameTag::ATK));
+    EXPECT_EQ(card1.gameTags.at(GameTag::HEALTH),
+              card2.gameTags.at(GameTag::HEALTH));
+    EXPECT_EQ(card1.gameTags.at(GameTag::DURABILITY),
+              card2.gameTags.at(GameTag::DURABILITY));
+    EXPECT_EQ(card1.gameTags, card2.gameTags);
     EXPECT_EQ(card1.playRequirements, card2.playRequirements);
     EXPECT_EQ(card1.entourages, card2.entourages);
     EXPECT_EQ(card1.maxAllowedInDeck, card2.maxAllowedInDeck);
-
-    EXPECT_EQ(card1.attack, card2.attack);
-    EXPECT_EQ(card1.health, card2.health);
-
-    EXPECT_EQ(card1.durability, card2.durability);
 }
 }  // namespace TestUtils

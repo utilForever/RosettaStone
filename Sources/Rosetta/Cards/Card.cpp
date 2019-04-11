@@ -6,20 +6,48 @@
 
 #include <Rosetta/Cards/Card.hpp>
 
-#include <algorithm>
 #include <iostream>
 
 namespace RosettaStone
 {
 void Card::Initialize()
 {
-    maxAllowedInDeck = (rarity == +Rarity::LEGENDARY) ? 1 : 2;
+    maxAllowedInDeck = (GetRarity() == Rarity::LEGENDARY) ? 1 : 2;
 }
 
-bool Card::HasMechanic(GameTag mechanic) const
+CardClass Card::GetCardClass() const
 {
-    return std::find(mechanics.begin(), mechanics.end(), mechanic) !=
-           mechanics.end();
+    return static_cast<CardClass>(gameTags.at(GameTag::CLASS));
+}
+
+CardSet Card::GetCardSet() const
+{
+    return static_cast<CardSet>(gameTags.at(GameTag::CARD_SET));
+}
+
+CardType Card::GetCardType() const
+{
+    return static_cast<CardType>(gameTags.at(GameTag::CARDTYPE));
+}
+
+Faction Card::GetFaction() const
+{
+    return static_cast<Faction>(gameTags.at(GameTag::FACTION));
+}
+
+Race Card::GetRace() const
+{
+    return static_cast<Race>(gameTags.at(GameTag::CARDRACE));
+}
+
+Rarity Card::GetRarity() const
+{
+    return static_cast<Rarity>(gameTags.at(GameTag::RARITY));
+}
+
+bool Card::HasGameTag(GameTag gameTag) const
+{
+    return gameTags.find(gameTag) != gameTags.end();
 }
 
 std::size_t Card::GetMaxAllowedInDeck() const
@@ -37,11 +65,11 @@ void Card::ShowInfo() const
     std::cout << "ID: " << id.c_str() << '\n';
     std::cout << "Name: " << name.c_str() << '\n';
     std::cout << "Text: " << text.c_str() << '\n';
-    std::cout << "Rarity: " << rarity._to_string() << '\n';
-    std::cout << "Faction: " << faction._to_string() << '\n';
-    std::cout << "CardSet: " << cardSet._to_string() << '\n';
-    std::cout << "CardClass: " << cardClass._to_string() << '\n';
-    std::cout << "CardType: " << cardType._to_string() << '\n';
-    std::cout << "Race: " << race._to_string() << '\n';
+    std::cout << "Rarity: " << EnumToStr<Rarity>(GetRarity()) << '\n';
+    std::cout << "Faction: " << EnumToStr<Faction>(GetFaction()) << '\n';
+    std::cout << "CardSet: " << EnumToStr<CardSet>(GetCardSet()) << '\n';
+    std::cout << "CardClass: " << EnumToStr<CardClass>(GetCardClass()) << '\n';
+    std::cout << "CardType: " << EnumToStr<CardType>(GetCardType()) << '\n';
+    std::cout << "Race: " << EnumToStr<Race>(GetRace()) << '\n';
 }
 }  // namespace RosettaStone

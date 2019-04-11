@@ -46,11 +46,47 @@ class Character : public Entity
 
     //! Returns the value of attack.
     //! \return The value of attack.
-    virtual size_t GetAttack() const;
+    virtual int GetAttack() const;
+
+    //! Sets the value of attack.
+    //! \param attack The value of attack.
+    void SetAttack(int attack);
+
+    //! Returns the value of damage.
+    //! \return The value of damage.
+    int GetDamage() const;
+
+    //! Sets the value of damage.
+    //! \param damage The value of damage.
+    void SetDamage(int damage);
+
+    //! Returns the value of health.
+    //! \return The value of health.
+    int GetHealth() const;
+
+    //! Sets the value of health.
+    //! \param health The value of health.
+    void SetHealth(int health);
+
+    //! Returns the value of base health.
+    //! \return The value of base health.
+    int GetBaseHealth() const;
+
+    //! Sets the value of base health.
+    //! \param baseHealth The value of base health.
+    void SetBaseHealth(int baseHealth);
+
+    //! Returns the value of spell power.
+    //! \return The value of spell power.
+    int GetSpellPower();
+
+    //! Sets the value of spell power.
+    //! \param spellPower The value of spell power.
+    void SetSpellPower(int spellPower);
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
-    bool CanAttack() const;
+    bool CanAttack();
 
     //! Returns whether the target is valid in combat.
     //! \param opponent The opponent player.
@@ -67,18 +103,18 @@ class Character : public Entity
     //! \param source An entity to give damage.
     //! \param damage The value of damage.
     //! \return Final damage taking into account ability.
-    size_t TakeDamage(Entity& source, std::size_t damage);
+    int TakeDamage(Entity& source, int damage);
 
-    //! Gets healed by a certain other entity.
-    //! \param source The character to get heal.
+    //! Takes heal up all taken damage.
+    //! \param source An entity to give full heal.
+    void TakeFullHeal(Entity& source);
+
+    //! Takes heal a specified amount of health.
+    //! \param source An entity to give heal.
     //! \param heal The value of heal.
-    void TakeHeal(Character& source, std::size_t heal);
+    void TakeHeal(Entity& source, int heal);
 
     std::size_t numAttacked = 0;
-    std::size_t attack = 0;
-    std::size_t spellPower = 0;
-    int health = 0;
-    int maxHealth = 0;
 };
 }  // namespace RosettaStone
 
