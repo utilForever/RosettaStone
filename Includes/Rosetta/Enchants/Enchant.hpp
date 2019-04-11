@@ -39,13 +39,15 @@ class Enchant
 
     //! Constructs enchant with given \p effects.
     //! \param effects A list of effect.
-    Enchant(std::vector<Effect>& effects);
+    //! \param isOneTurnEffect A flag that sets whether this is one-turn effect.
+    Enchant(std::vector<Effect>& effects, bool isOneTurnEffect);
 
     //! Activates enchant to \p character.
     //! \param character The character to which enchant is activated.
     void ActivateTo(Character* character);
 
     std::vector<Effect> effects;
+    bool isOneTurnEffect = false;
 };
 }  // namespace RosettaStone
 

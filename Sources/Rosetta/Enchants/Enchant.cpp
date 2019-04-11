@@ -19,16 +19,17 @@ Enchant::Enchant(Effect& effect)
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(std::vector<Effect>& _effects)
+Enchant::Enchant(std::vector<Effect>& _effects, bool _isOneTurnEffect)
+    : effects(_effects), isOneTurnEffect(_isOneTurnEffect)
 {
-    effects = _effects;
+    // Do nothing
 }
 
 void Enchant::ActivateTo(Character* character)
 {
     for (auto& effect : effects)
     {
-        effect.Apply(character);
+        effect.Apply(character, isOneTurnEffect);
     }
 }
 }  // namespace RosettaStone
