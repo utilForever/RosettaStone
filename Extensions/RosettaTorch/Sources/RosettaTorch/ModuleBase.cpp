@@ -8,8 +8,8 @@
 
 namespace RosettaTorch
 {
-torch::tensor forward(torch::Tensor available, torch::tensor context)
+torch::Tensor forward(torch::Tensor available, torch::Tensor context)
 {
-    return torch::tensor();
+    return torch::Tensor();
 }
 }  // namespace RosettaTorch
