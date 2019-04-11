@@ -282,11 +282,11 @@ void Game::MainAction()
     auto& player = GetCurrentPlayer();
 
     // If game end.
-    if (player.GetHero()->health <= 0 ||
-        player.GetOpponent().GetHero()->health <= 0)
+    if (player.GetHero()->GetHealth() <= 0 ||
+        player.GetOpponent().GetHero()->GetHealth() <= 0)
     {
         // Set losing user.
-        if (player.GetHero()->health <= 0)
+        if (player.GetHero()->GetHealth() <= 0)
         {
             player.playState = PlayState::LOSING;
         }
@@ -303,10 +303,11 @@ void Game::MainAction()
         return;
     }
 
-    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
+    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK,
+    // TaskID::PLAY_CARD
     TaskMeta next = player.GetPolicy().Next(*this);
     // If turn end.
-    if (next.GetID() == +TaskID::END_TURN)
+    if (next.GetID() == TaskID::END_TURN)
     {
         nextStep = Step::MAIN_END;
         if (m_gameConfig.autoRun)
@@ -342,7 +343,7 @@ void Game::MainAction()
             }
 
             Entity* source = list[0];
-            switch (source->card.cardType)
+            switch (source->card.GetCardType())
             {
                 // Summon minion
                 case CardType::MINION:
