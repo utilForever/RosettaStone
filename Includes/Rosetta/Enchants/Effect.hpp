@@ -42,7 +42,7 @@ class Effect
     //! Applies this effect to the target entity.
     //! \param character The character to which effect is applied.
     //! \param isOneTurnEffect Whether effect lasts only one turn.
-    void Apply(Character* character, bool isOneTurnEffect = false) const;
+    void Apply(Character* character, bool isOneTurnEffect = false);
 
     //! Applies this effect to the target as an aura effect.
     //! \param auraEffects The aura effect.

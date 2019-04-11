@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Enchants/Effect.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Character.hpp>
 
 #include <stdexcept>
@@ -16,11 +17,13 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     // Do nothing
 }
 
-void Effect::Apply(Character* character, bool isOneTurnEffect) const
+void Effect::Apply(Character* character, bool isOneTurnEffect)
 {
+    auto& oneTurnEffects = character->GetOwner().GetGame()->oneTurnEffects;
+
     if (isOneTurnEffect)
     {
-        // TODO: Process one turn effect
+        oneTurnEffects.emplace_back(std::make_pair(character, this));
     }
 
     const int prevValue = character->GetGameTag(m_gameTag);
