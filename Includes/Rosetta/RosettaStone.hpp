@@ -33,8 +33,10 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enchants/Powers.hpp>
+#include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
+#include <Rosetta/Enums/TriggerEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
