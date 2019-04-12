@@ -410,6 +410,7 @@ void Game::MainCleanUp()
         Effect* effect = effectPair.second;
 
         effect->Remove(character);
+        delete effect;
     }
     oneTurnEffects.clear();
 

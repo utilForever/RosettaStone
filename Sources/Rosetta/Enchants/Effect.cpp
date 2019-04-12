@@ -23,7 +23,8 @@ void Effect::Apply(Character* character, bool isOneTurnEffect)
 
     if (isOneTurnEffect)
     {
-        oneTurnEffects.emplace_back(std::make_pair(character, this));
+        oneTurnEffects.emplace_back(
+            std::make_pair(character, new Effect(*this)));
     }
 
     const int prevValue = character->GetGameTag(m_gameTag);
