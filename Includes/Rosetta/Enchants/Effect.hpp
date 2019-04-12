@@ -39,6 +39,9 @@ class Effect
     //! \param value The value to change.
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
+    //! Default copy constructor.
+    Effect(const Effect& effect) = default;
+
     //! Applies this effect to the target entity.
     //! \param character The character to which effect is applied.
     //! \param isOneTurnEffect Whether effect lasts only one turn.
