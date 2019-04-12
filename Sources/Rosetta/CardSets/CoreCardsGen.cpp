@@ -799,6 +799,21 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::ALL, 3, true));
     cards.emplace("CS2_062", power);
 
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CS2_063] Corruption - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Choose an enemy minion. At the start of your turn, destroy it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_063e", EntityType::TARGET));
+    cards.emplace("CS2_063", power);
+
     // --------------------------------------- MINION - WARLOCK
     // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
     // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
@@ -858,7 +873,17 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [CS2_063e] Corruption (*) - COST:0
+    // - Set: core,
+    // --------------------------------------------------------
+    // Text: At the start of the corrupting player's turn, destroy this minion.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_063e", power);
 }
 
 void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
