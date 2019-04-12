@@ -882,7 +882,8 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     // Text: At the start of the corrupting player's turn, destroy this minion.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(nullptr);
+    power.AddTrigger(Trigger(TriggerType::TURN_START));
+    power.GetTrigger().value().singleTask = new DestroyTask(EntityType::TARGET);
     cards.emplace("CS2_063e", power);
 }
 
