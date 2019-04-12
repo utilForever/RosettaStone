@@ -134,6 +134,11 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
 
 void Battlefield::ActivateAura(Minion& minion)
 {
+    if (minion.card.power.GetTrigger().has_value())
+    {
+        minion.card.power.GetTrigger().value().Activate(minion);
+    }
+
     if (minion.card.power.GetAura().has_value())
     {
         minion.card.power.GetAura().value().Activate(minion);
