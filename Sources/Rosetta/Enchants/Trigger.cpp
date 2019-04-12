@@ -11,4 +11,9 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 {
     // Do nothing
 }
+
+void Trigger::Activate(Entity& owner)
+{
+    (void)owner;
+}
 }  // namespace RosettaStone

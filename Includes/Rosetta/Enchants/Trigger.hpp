@@ -10,6 +10,9 @@
 
 namespace RosettaStone
 {
+class Entity;
+class ITask;
+
 //!
 //! \brief Trigger class.
 //!
@@ -22,6 +25,12 @@ class Trigger
     //! Constructs trigger with given \p type.
     //! \param type The trigger type.
     Trigger(TriggerType type);
+
+    //! Activates trigger to battlefield.
+    //! \param owner An owner of trigger.
+    void Activate(Entity& owner);
+
+    ITask* singleTask = nullptr;
 
  private:
     TriggerType m_triggerType = TriggerType::NONE;
