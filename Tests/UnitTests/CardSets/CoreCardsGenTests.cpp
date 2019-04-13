@@ -2497,3 +2497,44 @@ TEST(CoreCardsGen, CS2_046)
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
     EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
 }
+
+TEST(CoreCardsGen, CS2_063)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Corruption"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+}
