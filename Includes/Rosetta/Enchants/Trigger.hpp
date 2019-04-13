@@ -26,14 +26,32 @@ class Trigger
     //! \param type The trigger type.
     Trigger(TriggerType type);
 
-    //! Activates trigger to battlefield.
+    //! Constructs trigger with given \p prototype and \p owner.
+    //! \param prototype An trigger for prototype.
     //! \param owner An owner of trigger.
-    void Activate(Entity& owner);
+    Trigger(Trigger& prototype, Entity& owner);
+
+    //! Activates trigger to battlefield.
+    //! \param source An source of trigger.
+    void Activate(Entity& source);
+
+    //! Removes this object from game and unsubscribe from the related event.
+    void Remove();
 
     ITask* singleTask = nullptr;
 
  private:
+    //! Processes trigger to apply the effect.
+    //! \param source A pointer to source of trigger.
+    void Process(Entity* source);
+
+    //! Internal method of Process().
+    //! \param source A pointer to source of trigger.
+    void ProcessInternal(Entity* source);
+
     TriggerType m_triggerType = TriggerType::NONE;
+
+    Entity* m_owner = nullptr;
 };
 }  // namespace RosettaStone
 
