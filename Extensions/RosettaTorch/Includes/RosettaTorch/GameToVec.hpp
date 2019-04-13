@@ -30,6 +30,15 @@ class GameToVec
     //! \param game The game context.
     //! \return The encoded torch tensor from \p game.
     virtual torch::Tensor GenerateTensor(const Game& game);
+	
+    /////////////////////////////////////////////
+    static constexpr size_t AbilityVectorSize = 16;
+	static constexpr size_t CardVectorSize = 
+		3 + AbilityVectorSize;
+
+    /////////////////////////////////////////////
+    static constexpr size_t GameVectorSize = 
+		3 + 24 * CardVectorSize;
 };
 }  // namespace RosettaTorch
 
