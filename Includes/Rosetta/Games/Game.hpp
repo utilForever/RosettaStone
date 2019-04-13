@@ -8,9 +8,11 @@
 
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
+#include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 
+#include <deque>
 #include <map>
 
 namespace RosettaStone
@@ -136,12 +138,17 @@ class Game
     Step nextStep = Step::INVALID;
 
     TaskStack taskStack;
+    TriggerManager triggerManager;
+    std::deque<ITask*> taskQueue;
 
     std::vector<Aura*> auras;
     std::vector<std::pair<Character*, Effect*>> oneTurnEffects;
     std::map<std::size_t, Minion*> deadMinions;
 
  private:
+    // Processes task queue.
+    void ProcessTasks();
+
     GameConfig m_gameConfig;
 
     std::array<Player, 2> m_players;

@@ -228,6 +228,10 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
+    triggerManager.OnStartTurnTrigger(nullptr);
+    ProcessTasks();
+    ProcessDestroyAndUpdateAura();
+
     // Set next step
     nextStep = Step::MAIN_RESOURCE;
     if (m_gameConfig.autoRun)
@@ -632,6 +636,17 @@ void Game::ProcessUntil(Step untilStep)
     while (nextStep != untilStep)
     {
         GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
+
+void Game::ProcessTasks()
+{
+    while (!taskQueue.empty())
+    {
+        ITask* task = taskQueue.front();
+        task->Run(GetCurrentPlayer());
+
+        taskQueue.pop_front();
     }
 }
 }  // namespace RosettaStone
