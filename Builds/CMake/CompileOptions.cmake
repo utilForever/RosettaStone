@@ -3,7 +3,7 @@
 #
 
 # Set warnings as errors flag
-option(ROSETTASTONE_WARNINGS_AS_ERRORS "Treat all warnings as errors" OFF)
+option(ROSETTASTONE_WARNINGS_AS_ERRORS "Treat all warnings as errors" ON)
 if(ROSETTASTONE_WARNINGS_AS_ERRORS)
 	if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		set(WARN_AS_ERROR_FLAGS	"/WX")
@@ -78,10 +78,19 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/W4           # -> warning level 3
 		${WARN_AS_ERROR_FLAGS}
 
-		# /wd4251     # -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2'
+		/wd4251       # -> disable warning: 'identifier': class 'type' needs to have dll-interface to be used by clients of class 'type2' (caused by Torch)
 		# /wd4592     # -> disable warning: 'identifier': symbol will be dynamically initialized (implementation limitation)
 		# /wd4201     # -> disable warning: nonstandard extension used: nameless struct/union (caused by GLM)
-		# /wd4127     # -> disable warning: conditional expression is constant (caused by Qt)
+		/wd4127       # -> disable warning: conditional expression is constant (caused by Torch)
+		/wd4275		  # -> disable warning: non dll-interface class 'std::exception' used as base for dll-interface class 'c10::Error' (caused by Torch)
+		/wd4244       # -> disable warning: 'argument': conversion from 'int' to 'float', possible loss of data (caused by Torch)
+		/wd4100       # -> disable warning: 'other': unreferenced formal parameter (caused by Torch)
+		/wd4267       # -> disable warning: 'return': conversion from 'size_t' to 'uint32_t', possible loss of data (cased by Torch)
+		/wd4522       # -> disable warning: 'at::Tensor': multiple assignment operators specified (caused by Torch)
+		/wd4996       # -> disable warning: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead (caused by Torch)
+		/wd4458       # -> disable warning: declaration of 'pyobj' hides class member (caused by Torch)
+		/wd4305       # -> disable warning: 'initializing': truncation from 'double' to 'float' (caused by Torch)
+		/wd4018       # -> disable warning: '>': signed/unsigned mismatch (caused by Torch)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
