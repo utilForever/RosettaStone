@@ -96,6 +96,11 @@ void Battlefield::RemoveMinion(Minion& minion)
 {
     RemoveAura(minion);
 
+    if (minion.activatedTrigger != nullptr)
+    {
+        minion.activatedTrigger->Remove();
+    }
+
     std::size_t idx = 0;
 
     for (; idx < m_numMinion; ++idx)
