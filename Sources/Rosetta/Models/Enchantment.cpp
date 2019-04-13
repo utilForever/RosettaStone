@@ -6,6 +6,8 @@
 
 #include <Rosetta/Models/Enchantment.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone
 {
 Enchantment::Enchantment(Player& _owner, Card& _card, Entity* target)
