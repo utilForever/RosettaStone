@@ -102,6 +102,8 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
         powerTask->Run(player);
     }
 
+    player.GetGraveyard().AddCard(*spell);
+
     player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
