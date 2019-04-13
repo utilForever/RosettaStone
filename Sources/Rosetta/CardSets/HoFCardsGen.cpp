@@ -6,6 +6,8 @@
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -93,7 +95,22 @@ void HoFCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+    
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
+    // - Race: Demon, Set: HoF, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::HAND, 2));
+    power.AddPowerTask(new DiscardTask(EntityType::STACK));
+    cards.emplace("EX1_310", power);
 }
 
 void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
