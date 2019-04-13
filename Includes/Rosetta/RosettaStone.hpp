@@ -48,6 +48,7 @@
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Deck.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Graveyard.hpp>
 #include <Rosetta/Models/Hand.hpp>
