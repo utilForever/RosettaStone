@@ -24,7 +24,7 @@ TaskMeta IoPolicy::RequireMulligan(Player& player)
 {
     const TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::COMPLETE, player.GetID());
 
-    return TaskMeta(trait, SizedPtr<std::size_t>(3));
+    return TaskMeta(trait, SizedPtr<std::size_t>());
 }
 
 TaskMeta IoPolicy::RequirePlayCard(Player& player)
