@@ -38,6 +38,12 @@ GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
     CardVectorTable->weight.set_requires_grad(false);
 }
 
+torch::Tensor GameToVec::AbilityToTensor(const Card& card)
+{
+    (void)card;
+    return;
+}
+
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
 {
     // vector shape : [1 + 1 + 1 + n * 7 + n * 7 + n * 10 = 3 + n * 24]
@@ -61,10 +67,6 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     // each card's abilities are represented as a vector which has m
     // dimensionality. it includes, ... vector shape : [m]
-
-    // Or
-    // each card has a unique vector, which has a size of n, pre-generated.
-
     torch::Tensor tensor = torch::empty(GameVectorSize, torch::kFloat32);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -74,7 +76,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     tensor[0] =
         static_cast<float>(oppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
 
-    // Write number of opp player's cards, normalized, on the deck.
+    // Write number of opponent player's cards, normalized, on the deck.
     tensor[1] =
         static_cast<float>(oppPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
