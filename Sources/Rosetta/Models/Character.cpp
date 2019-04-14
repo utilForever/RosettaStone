@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -201,5 +202,8 @@ void Character::TakeHeal(Entity& source, int heal)
 
     int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
+
+    GetOwner().GetGame()->triggerManager.OnHealTrigger(nullptr, this);
+    GetOwner().GetGame()->ProcessTasks();
 }
 }  // namespace RosettaStone
