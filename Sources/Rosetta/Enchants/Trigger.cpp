@@ -36,7 +36,8 @@ void Trigger::Activate(Entity& source)
     {
         case TriggerType::TURN_START:
             game->triggerManager.startTurnTrigger =
-                std::bind(&Trigger::Process, instance, std::placeholders::_1);
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
             break;
         default:
             throw std::invalid_argument(
@@ -63,13 +64,15 @@ void Trigger::Remove()
     delete m_owner->activatedTrigger;
 }
 
-void Trigger::Process(Entity* source)
+void Trigger::Process(Player* player, Entity* source)
 {
-    ProcessInternal(source);
+    ProcessInternal(player, source);
 }
 
-void Trigger::ProcessInternal(Entity* source)
+void Trigger::ProcessInternal(Player* player, Entity* source)
 {
+    (void)player;
+
     singleTask->SetSource(m_owner);
 
     if (source != nullptr)
