@@ -37,7 +37,7 @@ GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
     CardVectorTable->weight.set_requires_grad(false);
 }
 
-torch::Tensor GameToVec::CardToTensor(const Card& card)
+torch::Tensor GameToVec::CardToTensor(const Entity* entity)
 {
     torch::Tensor CardVector = torch::empty(CardVectorSize, torch::kFloat32);
     return CardVector;
@@ -90,7 +90,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
         size_t i = 0;
         for (; i < NumOfMinions; ++i)
         {
-           tensor[start + i] = CardToTensor(field.GetMinion[i]);
+           tensor[start + i] = CardToTensor(field.GetMinion(i));
         }
 
         for (; i < FIELD_SIZE; ++i)
@@ -106,7 +106,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
         size_t i = 0;
         for (; i < NumOfCards; ++i)
         {
-            tensor[start + i] = CardToTensor(hand.GetCard[i]);
+            tensor[start + i] = CardToTensor(hand.GetCard(i));
         }
 
         for (; i < HAND_SIZE; ++i)
