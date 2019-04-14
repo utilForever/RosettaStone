@@ -123,6 +123,9 @@ class Game
     //! Starts the game.
     void StartGame();
 
+    // Processes task queue.
+    void ProcessTasks();
+
     //! Processes destroy and updates aura.
     void ProcessDestroyAndUpdateAura();
 
@@ -146,9 +149,6 @@ class Game
     std::map<std::size_t, Minion*> deadMinions;
 
  private:
-    // Processes task queue.
-    void ProcessTasks();
-
     GameConfig m_gameConfig;
 
     std::array<Player, 2> m_players;
