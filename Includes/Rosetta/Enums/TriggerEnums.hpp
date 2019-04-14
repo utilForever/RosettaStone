@@ -20,7 +20,7 @@ enum class TriggerType
 //! \brief An enumerator for identifying trigger source.
 enum class TriggerSource
 {
-    INVALID,
+    NONE,
     ALL_MINIONS,
 };
 
