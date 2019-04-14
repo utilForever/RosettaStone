@@ -485,6 +485,22 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("CS1_130", power);
 
     // ----------------------------------------- SPELL - PRIEST
+    // [CS2_004] Power Word: Shield - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion +2 Health.
+    //       Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_004e", EntityType::TARGET));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("CS2_004", power);
+
+    // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -497,7 +513,17 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS2_004e] Power Word: Shield (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_004e"));
+    cards.emplace("CS2_004e", power);
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
