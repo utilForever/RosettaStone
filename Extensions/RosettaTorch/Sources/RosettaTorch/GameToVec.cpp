@@ -34,16 +34,16 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     // vector shape : [m]
     torch::Tensor tensor = torch::empty(GameVectorSize, torch::kFloat32);
 
-	Player& curPlayer = game.GetCurrentPlayer();
+    Player& curPlayer = game.GetCurrentPlayer();
     Player& oppPlayer = game.GetOpponentPlayer();
 
-	// Write number of opponent player's cards, normalized, on hand.
-	tensor[0] = static_cast<float>(oppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
+    // Write number of opponent player's cards, normalized, on hand.
+    tensor[0] = static_cast<float>(oppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
 
-	// Write number of opp player's cards normalized.
+    // Write number of opp player's cards normalized.
     tensor[1] = static_cast<float>(oppPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
-	// Write number of current player's cards normalized.
+    // Write number of current player's cards normalized.
     tensor[2] = static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
     return tensor;
