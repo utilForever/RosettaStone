@@ -12,6 +12,7 @@
 namespace RosettaStone
 {
 class Entity;
+class Player;
 
 //!
 //! \brief TriggerManager class.
@@ -21,9 +22,9 @@ class Entity;
 class TriggerManager
 {
  public:
-    void OnStartTurnTrigger(Entity* sender);
+    void OnStartTurnTrigger(Player* player, Entity* sender);
 
-    std::function<void(Entity*)> startTurnTrigger;
+    std::function<void(Player*, Entity*)> startTurnTrigger;
 };
 }  // namespace RosettaStone
 

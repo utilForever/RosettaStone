@@ -8,11 +8,11 @@
 
 namespace RosettaStone
 {
-void TriggerManager::OnStartTurnTrigger(Entity* sender)
+void TriggerManager::OnStartTurnTrigger(Player* player, Entity* sender)
 {
     if (startTurnTrigger != nullptr)
     {
-        startTurnTrigger(sender);
+        startTurnTrigger(player, sender);
     }
 }
 }  // namespace RosettaStone
