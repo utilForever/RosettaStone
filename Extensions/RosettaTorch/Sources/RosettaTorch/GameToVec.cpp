@@ -41,7 +41,7 @@ GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
 torch::Tensor GameToVec::AbilityToTensor(const Card& card)
 {
     (void)card;
-    return;
+    return torch::Tensor();
 }
 
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
