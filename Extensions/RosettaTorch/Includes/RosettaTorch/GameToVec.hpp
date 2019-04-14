@@ -23,13 +23,13 @@ using namespace RosettaStone;
 class GameToVec
 {
  public:
-    //! Constructs embedding tables with given \p seed
-    // \param seed The seed used when the embedding tables are generated.
+    //! Constructs the embedding table with given \p seed
+    // \param seed The seed used when the embedding table is generated.
     GameToVec(size_t seed = 1337);
 
-    //! Constructs embedding tables with given \p seed, weigths
-    // \param seed The seed used when the embedding tables are generated.
-    // \param weight The weight used when the embedding tables are initialized.
+    //! Constructs the embedding table with given \p seed, weigths
+    // \param seed The seed used when the embedding table is generated.
+    // \param weight The weight used when the embedding table is initialized.
     GameToVec(size_t seed, torch::Tensor weight);
 
     //! Default virtual destructor.
@@ -53,7 +53,7 @@ class GameToVec
     size_t m_seed;
 
     //! embedding table for the card
-    torch::nn::Embedding CardVectorTable;
+    torch::nn::Embedding CardVectorTable = nullptr;
 };
 }  // namespace RosettaTorch
 
