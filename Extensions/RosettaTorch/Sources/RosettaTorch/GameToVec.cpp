@@ -8,6 +8,12 @@
 
 namespace RosettaTorch
 {
+GameToVec::GameToVec(size_t seed) : m_seed(seed)
+{
+    // reproducibility
+    torch::manual_seed(static_cast<uint64_t>(seed));
+}
+
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
 {
     // vector shape : [1 + 1 + 1 + n * 7 + n * 7 + n * 10 = 3 + n * 24]
@@ -37,13 +43,13 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& oppPlayer = game.GetOpponentPlayer();
 
-    // Write number of opponent player's cards, normalized, on hand.
+    // Write number of opponent player's cards, normalized, on the hand.
     tensor[0] = static_cast<float>(oppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
 
-    // Write number of opp player's cards normalized.
+    // Write number of opp player's cards, normalized, on the deck.
     tensor[1] = static_cast<float>(oppPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
-    // Write number of current player's cards normalized.
+    // Write number of current player's cards, normalized, on the deck.
     tensor[2] = static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
     return tensor;

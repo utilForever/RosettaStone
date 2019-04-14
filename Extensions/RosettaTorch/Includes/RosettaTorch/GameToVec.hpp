@@ -23,6 +23,10 @@ using namespace RosettaStone;
 class GameToVec
 {
  public:
+    //! Constructs embedding tables with given \p seed
+    // \param seed The seed used when the embedding tables are generated.
+    GameToVec(size_t seed = 13371337);
+
     //! Default virtual destructor.
     virtual ~GameToVec() = default;
 
@@ -39,6 +43,9 @@ class GameToVec
     /////////////////////////////////////////////
     static constexpr size_t GameVectorSize =
         3 + 24 * CardVectorSize;
+
+ private:
+    size_t m_seed;
 };
 }  // namespace RosettaTorch
 
