@@ -17,10 +17,17 @@ enum class TriggerType
     HEAL,        //!< The effect will be triggered when characters are healed.
 };
 
+//! \brief An enumerator for identifying trigger source.
+enum class TriggerSource
+{
+    INVALID,
+    ALL_MINIONS,
+};
+
 //! \brief An enumerator for identifying sequence type.
 enum class SequenceType
 {
-    NONE,  //!< The effect has nothing.
+    NONE,
 };
 }  // namespace RosettaStone
 
