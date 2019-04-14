@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <RosettaTorch/GameToVec.hpp>
 
 namespace RosettaTorch
@@ -11,7 +12,29 @@ namespace RosettaTorch
 GameToVec::GameToVec(size_t seed) : m_seed(seed)
 {
     // reproducibility
-    torch::manual_seed(static_cast<uint64_t>(seed));
+    torch::manual_seed(static_cast<uint64_t>(m_seed));
+
+    // Generates the embedding lookup table for the card
+    size_t NumOfCards = Cards::GetInstance().GetAllCards().size();
+
+    CardVectorTable = torch::nn::Embedding(NumOfCards, CardVectorSize);
+    CardVectorTable->weight = torch::randn(
+        {NumOfCards, CardVectorSize}, torch::kFloat32
+    );
+    CardVectorTable->weight.requires_grad = false;
+}
+
+GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
+{
+    // reproducibility
+    torch::manual_seed(static_cast<uint64_t>(m_seed));
+
+    // Generates the embedding lookup table for the card
+    size_t NumOfCards = Cards::GetInstance().GetAllCards().size();
+
+    CardVectorTable = torch::nn::Embedding(NumOfCards, CardVectorSize);
+    CardVectorTable->weight = weight;
+    CardVectorTable->weight.requires_grad = false;
 }
 
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
@@ -20,9 +43,9 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     // # 1      : number of opponent player's cards on hand.
     // # 1      : number of opponent player's left cards at deck.
     // # 1      : number of current player's left cards at deck.
-    // # n * 7  : opponent player's representation vectors of card at the deck. 
+    // # n * 7  : opponent player's representation vectors of card at the deck.
     //            each card has a dimensionality of n.
-    // # n * 7  : current player's representation vectors of card at the deck. 
+    // # n * 7  : current player's representation vectors of card at the deck.
     //            each card has a dimensionality of n.
     // # n * 10 : current player's representation vectors of card in the hand.
     //            each card has a dimensionality of n.
@@ -35,22 +58,28 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     // # 1 : health
     // # m : ability
 
-    // each card's abilities are represented as a vector which has m dimensionality.
-    // it includes, ...
-    // vector shape : [m]
+    // each card's abilities are represented as a vector which has m
+    // dimensionality. it includes, ... vector shape : [m]
+
+    // Or
+    // each card has a unique vector, which has a size of n, pre-generated.
+
     torch::Tensor tensor = torch::empty(GameVectorSize, torch::kFloat32);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& oppPlayer = game.GetOpponentPlayer();
 
     // Write number of opponent player's cards, normalized, on the hand.
-    tensor[0] = static_cast<float>(oppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
+    tensor[0] =
+        static_cast<float>(oppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
 
     // Write number of opp player's cards, normalized, on the deck.
-    tensor[1] = static_cast<float>(oppPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
+    tensor[1] =
+        static_cast<float>(oppPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
     // Write number of current player's cards, normalized, on the deck.
-    tensor[2] = static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
+    tensor[2] =
+        static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
     return tensor;
 }

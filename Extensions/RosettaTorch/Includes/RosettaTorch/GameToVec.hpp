@@ -25,7 +25,12 @@ class GameToVec
  public:
     //! Constructs embedding tables with given \p seed
     // \param seed The seed used when the embedding tables are generated.
-    GameToVec(size_t seed = 13371337);
+    GameToVec(size_t seed = 1337);
+
+    //! Constructs embedding tables with given \p seed, weigths
+    // \param seed The seed used when the embedding tables are generated.
+    // \param weight The weight used when the embedding tables are initialized.
+    GameToVec(size_t seed, torch::Tensor weight);
 
     //! Default virtual destructor.
     virtual ~GameToVec() = default;
@@ -36,7 +41,7 @@ class GameToVec
     virtual torch::Tensor GenerateTensor(const Game& game);
 
     /////////////////////////////////////////////
-    static constexpr size_t AbilityVectorSize = 16;
+    static constexpr size_t AbilityVectorSize = 8;
     static constexpr size_t CardVectorSize =
         3 + AbilityVectorSize;
 
@@ -46,6 +51,9 @@ class GameToVec
 
  private:
     size_t m_seed;
+
+    //! embedding table for the card
+    torch::nn::Embedding CardVectorTable;
 };
 }  // namespace RosettaTorch
 
