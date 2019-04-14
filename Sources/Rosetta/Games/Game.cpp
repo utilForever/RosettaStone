@@ -232,7 +232,7 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
-    triggerManager.OnStartTurnTrigger(nullptr);
+    triggerManager.OnStartTurnTrigger(&GetCurrentPlayer(), nullptr);
     ProcessTasks();
     ProcessDestroyAndUpdateAura();
 
