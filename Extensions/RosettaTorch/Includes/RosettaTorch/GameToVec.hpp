@@ -35,10 +35,10 @@ class GameToVec
     //! Default virtual destructor.
     virtual ~GameToVec() = default;
 
-    //! Generates torch tensor from the card abilities
+    //! Generates torch tensor from the card
     //! \param card The card context.
     //! \return The encoded torch tensor from \p card.
-    virtual torch::Tensor AbilityToTensor(const Card& card);
+    virtual torch::Tensor CardToTensor(const Card& card);
 
     //! Generates torch tensor from game context.
     //! \param game The game context.
