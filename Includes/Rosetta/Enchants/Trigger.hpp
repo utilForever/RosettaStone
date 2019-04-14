@@ -39,6 +39,8 @@ class Trigger
     //! Removes this object from game and unsubscribe from the related event.
     void Remove();
 
+    TriggerSource triggerSource = TriggerSource::NONE;
+
     ITask* singleTask = nullptr;
 
  private:

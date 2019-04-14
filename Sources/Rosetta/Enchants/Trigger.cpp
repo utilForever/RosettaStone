@@ -18,7 +18,8 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 }
 
 Trigger::Trigger(Trigger& prototype, Entity& owner)
-    : singleTask(prototype.singleTask),
+    : triggerSource(prototype.triggerSource),
+      singleTask(prototype.singleTask),
       m_triggerType(prototype.m_triggerType),
       m_sequenceType(prototype.m_sequenceType),
       m_owner(&owner)
@@ -53,10 +54,8 @@ void Trigger::Remove()
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
-        {
             game->triggerManager.startTurnTrigger = nullptr;
             break;
-        }
         default:
             throw std::invalid_argument(
                 "Trigger::Remove() - Invalid trigger type!");
