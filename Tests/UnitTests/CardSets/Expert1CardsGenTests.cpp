@@ -103,7 +103,7 @@ TEST(Expert1CardsGen, EX1_012)
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
     Task::Run(opPlayer, AttackTask(card5, card1));
-    EXPECT_EQ(curField.GetNumOfMinions(), 0);
+    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
     EXPECT_EQ(curPlayer.currentSpellPower, 0);
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
 }

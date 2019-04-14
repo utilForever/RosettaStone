@@ -1814,11 +1814,11 @@ TEST(CoreCardsGen, CS2_072)
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 }
 
