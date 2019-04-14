@@ -14,12 +14,13 @@ enum class TriggerType
 {
     NONE,        //!< The effect has nothing.
     TURN_START,  //!< The effect will be triggered at the start of turn.
+    HEAL,        //!< The effect will be triggered when characters are healed.
 };
 
 //! \brief An enumerator for identifying sequence type.
 enum class SequenceType
 {
-    NONE,        //!< The effect has nothing.
+    NONE,  //!< The effect has nothing.
 };
 }  // namespace RosettaStone
 
