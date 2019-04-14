@@ -21,7 +21,7 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
     CardVectorTable->weight = torch::randn(
         {NumOfCards, CardVectorSize}, torch::kFloat32
     );
-    CardVectorTable->weight.requires_grad = false;
+    CardVectorTable->weight.set_requires_grad(false);
 }
 
 GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
@@ -34,7 +34,7 @@ GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
 
     CardVectorTable = torch::nn::Embedding(NumOfCards, CardVectorSize);
     CardVectorTable->weight = weight;
-    CardVectorTable->weight.requires_grad = false;
+    CardVectorTable->weight.set_requires_grad(false);
 }
 
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
