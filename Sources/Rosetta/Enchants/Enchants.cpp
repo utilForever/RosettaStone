@@ -19,6 +19,7 @@ Enchant Enchants::GetEnchantFromText(const std::string& cardID)
 
     static std::regex attackHealthRegex("\\+([[:digit:]]+)/\\+([[:digit:]]+)");
     static std::regex attackRegex("\\+([[:digit:]]+) Attack");
+    static std::regex healthRegex("\\+([[:digit:]]+) Health");
 
     const std::string text = Cards::FindCardByID(cardID).text;
     std::smatch values;
@@ -31,6 +32,10 @@ Enchant Enchants::GetEnchantFromText(const std::string& cardID)
     else if (std::regex_search(text, values, attackRegex))
     {
         effects.emplace_back(Effects::AttackN(std::stoi(values[1].str())));
+    }
+    else if (std::regex_search(text, values, healthRegex))
+    {
+        effects.emplace_back(Effects::HealthN(std::stoi(values[1].str())));
     }
 
     if (text.find("this turn") != std::string::npos)
