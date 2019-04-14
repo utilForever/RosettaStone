@@ -43,14 +43,18 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
 
     Character* character = dynamic_cast<Character*>(entity);
 
+    auto cost = static_cast<float>(character->GetCost());
+    auto attack = static_cast<float>(character->GetAttack());
+    auto health = static_cast<float>(character->GetHealth());
+
     // Write cost of the card
-    CardVector[0] = static_cast<float>(character->GetCost()) / 10;
+    CardVector[0] = cost / 10;
 
     // Write attack of the card
-    CardVector[1] = static_cast<float>(character->GetAttack()) / INT32_MAX;
+    CardVector[1] = (attack >= CLIP_NORM) ? 1. : attack / CLIP_NORM;
 
     // Write health of the card
-    CardVector[2] = static_cast<float>(character->GetHealth()) / INT32_MAX;
+    CardVector[2] = (health >= CLIP_NORM) ? 1. : health / CLIP_NORM;
 
     return CardVector;
 }

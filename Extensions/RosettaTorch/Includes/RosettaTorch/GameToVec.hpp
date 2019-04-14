@@ -46,6 +46,9 @@ class GameToVec
     virtual torch::Tensor GenerateTensor(const Game& game);
 
     /////////////////////////////////////////////
+    static constexpr size_t CLIP_NORM = 64;
+
+    /////////////////////////////////////////////
     static constexpr size_t CardMetaSize = 3;
     static constexpr size_t AbilityVectorSize = 8;
     static constexpr size_t CardVectorSize =
