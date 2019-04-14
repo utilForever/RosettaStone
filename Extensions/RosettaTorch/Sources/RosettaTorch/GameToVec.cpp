@@ -37,9 +37,10 @@ GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
     CardVectorTable->weight.set_requires_grad(false);
 }
 
-torch::Tensor GameToVec::CardToTensor(const Entity* entity)
+torch::Tensor GameToVec::CardToTensor(Entity* entity)
 {
     torch::Tensor CardVector = torch::empty(CardVectorSize, torch::kFloat32);
+
     return CardVector;
 }
 

@@ -38,7 +38,7 @@ class GameToVec
     //! Generates torch tensor from the entity
     //! \param entity The card context.
     //! \return The encoded torch tensor from \p entity.
-    virtual torch::Tensor CardToTensor(const Entity* entity);
+    virtual torch::Tensor CardToTensor(Entity* entity);
 
     //! Generates torch tensor from game context.
     //! \param game The game context.
