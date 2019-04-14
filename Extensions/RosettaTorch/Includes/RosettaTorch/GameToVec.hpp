@@ -41,13 +41,15 @@ class GameToVec
     virtual torch::Tensor GenerateTensor(const Game& game);
 
     /////////////////////////////////////////////
+    static constexpr size_t CardMetaSize = 3;
     static constexpr size_t AbilityVectorSize = 8;
     static constexpr size_t CardVectorSize =
-        3 + AbilityVectorSize;
+        CardMetaSize + AbilityVectorSize;
 
     /////////////////////////////////////////////
+    static constexpr size_t PlayerMetaSize = 3;
     static constexpr size_t GameVectorSize =
-        3 + 24 * CardVectorSize;
+        PlayerMetaSize + (CardVectorSize * (HAND_SIZE + 2 * FIELD_SIZE));
 
  private:
     size_t m_seed;
