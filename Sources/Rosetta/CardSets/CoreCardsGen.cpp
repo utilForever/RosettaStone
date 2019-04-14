@@ -500,6 +500,18 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("CS2_004", power);
 
+    // ---------------------------------------- MINION - PRIEST
+    // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever a minion is healed, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::HEAL));
+    power.GetTrigger().value().triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger().value().singleTask = new DrawTask(1);
+    cards.emplace("CS2_235", power);
+
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free

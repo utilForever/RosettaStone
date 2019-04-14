@@ -2575,3 +2575,48 @@ TEST(CoreCardsGen, CS2_004)
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 9);
 }
+
+TEST(CoreCardsGen, CS2_235)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+    curPlayer.GetHero()->SetDamage(6);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Voodoo Doctor"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Voodoo Doctor"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card2,
+                                                    curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 26);
+
+    curField.GetMinion(0)->SetDamage(2);
+    
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card3, card1));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
+}
