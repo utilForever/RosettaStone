@@ -19,9 +19,8 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
 
     CardVectorTable = torch::nn::Embedding(NumOfCards, CardVectorSize);
     CardVectorTable->weight = torch::randn(
-        {static_cast<int>(NumOfCards), static_cast<int>(CardVectorSize)}, 
-        torch::kFloat32
-    );
+        { static_cast<int>(NumOfCards), static_cast<int>(CardVectorSize) },
+        torch::kFloat32);
     CardVectorTable->weight.set_requires_grad(false);
 }
 
@@ -38,10 +37,10 @@ GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
     CardVectorTable->weight.set_requires_grad(false);
 }
 
-torch::Tensor GameToVec::AbilityToTensor(const Card& card)
+torch::Tensor GameToVec::CardToTensor(const Card& card)
 {
-    (void)card;
-    return torch::Tensor();
+    torch::Tensor CardVector = torch::empty(CardVectorSize, torch::kFloat32);
+    return CardVector;
 }
 
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
@@ -83,6 +82,47 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     // Write number of current player's cards, normalized, on the deck.
     tensor[2] =
         static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
+
+    auto field_write = [&](size_t start, Player& player) {
+        auto field = player.GetField();
+        size_t NumOfMinions = field.GetNumOfMinions();
+
+        size_t i = 0;
+        for (; i < NumOfMinions; ++i)
+        {
+           tensor[start + i] = CardToTensor(field.GetMinion[i]);
+        }
+
+        for (; i < FIELD_SIZE; ++i)
+        {
+            tensor[start + i] = torch::zeros(CardVectorSize);
+        }
+    };
+
+    auto hand_write = [&](size_t start, Player& player) {
+        auto hand = player.GetHand();
+        size_t NumOfCards = hand.GetNumOfCards();
+
+        size_t i = 0;
+        for (; i < NumOfCards; ++i)
+        {
+            tensor[start + i] = CardToTensor(hand.GetCard[i]);
+        }
+
+        for (; i < HAND_SIZE; ++i)
+        {
+            tensor[start + i] = torch::zeros(CardVectorSize);
+        }
+    };
+
+    // Write opponent player's field cards
+    field_write(PlayerMetaSize, oppPlayer);
+
+    // Write current player's field cards
+    field_write(PlayerMetaSize + 1 * FIELD_SIZE, curPlayer);
+
+    // Write current player's hand cards
+    hand_write(PlayerMetaSize + 2 * FIELD_SIZE, curPlayer);
 
     return tensor;
 }
