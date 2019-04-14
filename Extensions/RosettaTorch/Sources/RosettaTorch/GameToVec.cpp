@@ -19,7 +19,8 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
 
     CardVectorTable = torch::nn::Embedding(NumOfCards, CardVectorSize);
     CardVectorTable->weight = torch::randn(
-        {NumOfCards, CardVectorSize}, torch::kFloat32
+        {static_cast<int>(NumOfCards), static_cast<int>(CardVectorSize)}, 
+        torch::kFloat32
     );
     CardVectorTable->weight.set_requires_grad(false);
 }
