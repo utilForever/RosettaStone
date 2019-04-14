@@ -8,6 +8,14 @@
 
 namespace RosettaStone
 {
+void TriggerManager::OnHealTrigger(Player* player, Entity* sender)
+{
+    if (healTrigger != nullptr)
+    {
+        healTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnStartTurnTrigger(Player* player, Entity* sender)
 {
     if (startTurnTrigger != nullptr)
