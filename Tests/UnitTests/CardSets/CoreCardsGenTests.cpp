@@ -2529,12 +2529,13 @@ TEST(CoreCardsGen, CS2_063)
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
     Task::Run(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
     Task::Run(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 }
