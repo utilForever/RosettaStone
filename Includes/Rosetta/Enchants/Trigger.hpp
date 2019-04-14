@@ -52,7 +52,15 @@ class Trigger
     //! \param source A pointer to source of trigger.
     void ProcessInternal(Player* player, Entity* source);
 
+    //! Validates triggers related to the current sequence at once before the
+    //! sequence starts.
+    //! \param player A pointer to player.
+    //! \param source A pointer to source of trigger.
+    void Validate(Player* player, Entity* source);
+
     TriggerType m_triggerType = TriggerType::NONE;
+    SequenceType m_sequenceType = SequenceType::NONE;
+    bool m_isValidated = false;
 
     Entity* m_owner = nullptr;
 };

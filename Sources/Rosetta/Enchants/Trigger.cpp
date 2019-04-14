@@ -14,12 +14,13 @@ namespace RosettaStone
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
 {
-    // Do nothing
+    m_sequenceType = SequenceType::NONE;
 }
 
 Trigger::Trigger(Trigger& prototype, Entity& owner)
     : singleTask(prototype.singleTask),
       m_triggerType(prototype.m_triggerType),
+      m_sequenceType(prototype.m_sequenceType),
       m_owner(&owner)
 {
     // Do nothing
@@ -66,12 +67,24 @@ void Trigger::Remove()
 
 void Trigger::Process(Player* player, Entity* source)
 {
+    if (m_sequenceType == SequenceType::NONE)
+    {
+        Validate(player, source);
+    }
+
+    if (!m_isValidated)
+    {
+        return;
+    }
+
     ProcessInternal(player, source);
 }
 
 void Trigger::ProcessInternal(Player* player, Entity* source)
 {
     (void)player;
+
+    m_isValidated = false;
 
     singleTask->SetSource(m_owner);
 
@@ -93,5 +106,27 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
     }
 
     m_owner->GetOwner().GetGame()->taskQueue.push_back(singleTask);
+
+    m_isValidated = false;
+}
+
+void Trigger::Validate(Player* player, Entity* source)
+{
+    (void)source;
+
+    switch (m_triggerType)
+    {
+        case TriggerType::TURN_START:
+            if (player != &m_owner->GetOwner())
+            {
+                return;
+            }
+            break;
+        default:
+            throw std::invalid_argument(
+                "Trigger::Validate() - Invalid trigger type!");
+    }
+
+    m_isValidated = true;
 }
 }  // namespace RosettaStone
