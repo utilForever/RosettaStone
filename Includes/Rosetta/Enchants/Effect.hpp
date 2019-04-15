@@ -39,6 +39,18 @@ class Effect
     //! \param value The value to change.
     Effect(GameTag gameTag, EffectOperator effectOperator, int value);
 
+    //! Default copy constructor.
+    Effect(const Effect& effect) = default;
+
+    //! Default move constructor;
+    Effect(Effect&& effect) = default;
+
+    //! Default copy assignment operator.
+    Effect& operator=(const Effect& effect) = default;
+
+    //! Default move assignment operator.
+    Effect& operator=(Effect&& effect) = default;
+
     //! Applies this effect to the target entity.
     //! \param character The character to which effect is applied.
     //! \param isOneTurnEffect Whether effect lasts only one turn.
@@ -48,7 +60,11 @@ class Effect
     //! \param auraEffects The aura effect.
     void Apply(AuraEffects& auraEffects) const;
 
-    //! Remove this aura effect from the target entity.
+    //! Removes this aura effect from the target entity.
+    //! \param character The character to which effect is removed.
+    void Remove(Character* character) const;
+
+    //! Removes this aura effect from the target entity.
     //! \param auraEffects The aura effect.
     void Remove(AuraEffects& auraEffects) const;
 

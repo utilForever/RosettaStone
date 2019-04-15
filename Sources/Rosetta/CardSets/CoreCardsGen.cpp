@@ -67,6 +67,21 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     cards.emplace("CS2_008", power);
 
+    // ------------------------------------------ SPELL - DRUID
+    // [CS2_012] Swipe - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $4 damage to an enemy and $1 damage to all other enemies.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 4, true));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMIES_NOTARGET, 1, true));
+    cards.emplace("CS2_012", power);
+
     // ----------------------------------------- MINION - DRUID
     // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
     // - Faction: neutral, Set: Core, Rarity: Free
@@ -381,6 +396,20 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     cards.emplace("CS2_091", power);
 
     // ---------------------------------------- SPELL - PALADIN
+    // [CS2_092] Blessing of Kings - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_092e", EntityType::TARGET));
+    cards.emplace("CS2_092", power);
+
+    // ---------------------------------------- SPELL - PALADIN
     // [CS2_093] Consecration - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -404,6 +433,20 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("CS2_094", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_360] Humility - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Change a minion's Attack to 1.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_360e", EntityType::TARGET));
+    cards.emplace("EX1_360", power);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_371] Hand of Protection - COST:1
@@ -437,6 +480,26 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_087e"));
     cards.emplace("CS2_087e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [CS2_092e] Blessing of Kings (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +4/+4.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_092e"));
+    cards.emplace("CS2_092e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_360e] Humility (*) - COST:0
+    // - Faction: Neutral, Set: Core,
+    // --------------------------------------------------------
+    // Text: Attack has been changed to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant(GameTag::ATK, EffectOperator::SET, 1));
+    cards.emplace("EX1_360e", power);
 }
 
 void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
@@ -485,6 +548,49 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("CS1_130", power);
 
     // ----------------------------------------- SPELL - PRIEST
+    // [CS2_004] Power Word: Shield - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion +2 Health.
+    //       Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_004e", EntityType::TARGET));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("CS2_004", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS2_234] Shadow Word: Pain - COST:2
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Destroy a minion with 3 or less Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_MAX_ATTACK = 3
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("CS2_234", power);
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever a minion is healed, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::HEAL));
+    power.GetTrigger().value().triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger().value().singleTask = new DrawTask(1);
+    cards.emplace("CS2_235", power);
+
+    // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -493,11 +599,36 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
     cards.emplace("DS1_233", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_622] Shadow Word: Death - COST:3
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Destroy a minion with 5 or more Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("EX1_622", power);
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS2_004e] Power Word: Shield (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_004e"));
+    cards.emplace("CS2_004e", power);
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
@@ -676,6 +807,16 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("CS2_042", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_046] Bloodlust - COST:5
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your minions +3 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_046e", EntityType::MINIONS));
+    cards.emplace("CS2_046", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [EX1_246] Hex - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -731,6 +872,19 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchant(Effects::Taunt));
     cards.emplace("CS2_041e", power);
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_046e] Bloodlust (*) - COST:0
+    // - Set: core,
+    // --------------------------------------------------------
+    // Text: +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_046e"));
+    cards.emplace("CS2_046e", power);
 }
 
 void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
@@ -775,6 +929,21 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ALL, 3, true));
     cards.emplace("CS2_062", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [CS2_063] Corruption - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Choose an enemy minion. At the start of your turn, destroy it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_063e", EntityType::TARGET));
+    cards.emplace("CS2_063", power);
 
     // --------------------------------------- MINION - WARLOCK
     // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
@@ -835,7 +1004,18 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [CS2_063e] Corruption (*) - COST:0
+    // - Set: core,
+    // --------------------------------------------------------
+    // Text: At the start of the corrupting player's turn, destroy this minion.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_START));
+    power.GetTrigger().value().singleTask = new DestroyTask(EntityType::TARGET);
+    cards.emplace("CS2_063e", power);
 }
 
 void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
@@ -1214,6 +1394,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_189", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
+    // - Faction: Horde, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 1/1 Boar.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("CS2_boar"));
+    cards.emplace("CS2_196", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1372,6 +1565,22 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_222o"));
     cards.emplace("CS2_222o", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_boar] Boar (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_boar", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_tk1] Sheep (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_tk1", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]

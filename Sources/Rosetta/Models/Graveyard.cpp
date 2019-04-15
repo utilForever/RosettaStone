@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Graveyard.hpp>
 
 namespace RosettaStone
@@ -27,5 +28,11 @@ void Graveyard::SetOwner(Player& owner)
 void Graveyard::AddCard(Entity& card)
 {
     m_cards.emplace_back(&card);
+
+    int enchantSize = static_cast<int>(card.appliedEnchantments.size());
+    for (int i = enchantSize - 1; i >= 0; --i)
+    {
+        card.appliedEnchantments[i]->Remove();
+    }
 }
 }  // namespace RosettaStone

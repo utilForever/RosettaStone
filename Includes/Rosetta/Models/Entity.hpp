@@ -15,6 +15,7 @@
 namespace RosettaStone
 {
 class Card;
+class Enchantment;
 class Game;
 class Player;
 
@@ -89,6 +90,8 @@ class Entity
     Card card;
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
+    Trigger* activatedTrigger = nullptr;
+    std::vector<Enchantment*> appliedEnchantments;
 
     std::size_t id = 0;
     std::size_t orderOfPlay = 0;

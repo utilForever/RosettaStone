@@ -9,6 +9,7 @@
 
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Enchants/Trigger.hpp>
 
 #include <optional>
 #include <vector>
@@ -34,6 +35,10 @@ class Power
     //! \return A reference to enchant.
     std::optional<Enchant>& GetEnchant();
 
+    //! Returns trigger.
+    //! \return A reference to trigger.
+    std::optional<Trigger>& GetTrigger();
+
     //! Returns a list of power tasks.
     //! \return A list of power tasks.
     std::vector<ITask*>& GetPowerTask();
@@ -53,6 +58,10 @@ class Power
     //! \param enchant An enchant to add.
     void AddEnchant(Enchant&& enchant);
 
+    //! Adds trigger.
+    //! \param trigger An trigger to add.
+    void AddTrigger(Trigger&& trigger);
+
     //! Adds power task.
     //! \param task A pointer to power task.
     void AddPowerTask(ITask* task);
@@ -64,6 +73,7 @@ class Power
  private:
     std::optional<Aura> m_aura = std::nullopt;
     std::optional<Enchant> m_enchant = std::nullopt;
+    std::optional<Trigger> m_trigger = std::nullopt;
 
     std::vector<ITask*> m_powerTask;
     std::vector<ITask*> m_deathrattleTask;

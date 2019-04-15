@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Enchants/Effect.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Character.hpp>
 
 #include <stdexcept>
@@ -18,9 +19,12 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
 
 void Effect::Apply(Character* character, bool isOneTurnEffect) const
 {
+    auto& oneTurnEffects = character->GetOwner().GetGame()->oneTurnEffects;
+
     if (isOneTurnEffect)
     {
-        // TODO: Process one turn effect
+        oneTurnEffects.emplace_back(
+            std::make_pair(character, new Effect(*this)));
     }
 
     const int prevValue = character->GetGameTag(m_gameTag);
@@ -58,6 +62,27 @@ void Effect::Apply(AuraEffects& auraEffects) const
             break;
         case EffectOperator::SET:
             auraEffects.SetGameTag(m_gameTag, m_value);
+            break;
+        default:
+            throw std::invalid_argument("Invalid effect operator!");
+    }
+}
+
+void Effect::Remove(Character* character) const
+{
+    const int prevValue = character->GetGameTag(m_gameTag);
+
+    switch (m_effectOperator)
+    {
+        case EffectOperator::ADD:
+            character->SetGameTag(m_gameTag, prevValue - m_value);
+            break;
+        case EffectOperator::SUB:
+            character->SetGameTag(
+                m_gameTag, character->card.gameTags.at(m_gameTag) + m_value);
+            break;
+        case EffectOperator::SET:
+            character->SetGameTag(m_gameTag, 0);
             break;
         default:
             throw std::invalid_argument("Invalid effect operator!");

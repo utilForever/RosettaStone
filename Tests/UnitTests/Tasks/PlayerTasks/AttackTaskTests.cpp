@@ -60,7 +60,7 @@ TEST(AttackTask, Default)
     EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(),
               p1Field.GetMinion(0)->GetBaseHealth());
     EXPECT_EQ(
-        static_cast<std::size_t>(player2.GetHero()->GetHealth()),
+        player2.GetHero()->GetHealth(),
         player2.GetHero()->GetBaseHealth() - p1Field.GetMinion(0)->GetAttack());
 
     EndTurnTask().Run(player1);

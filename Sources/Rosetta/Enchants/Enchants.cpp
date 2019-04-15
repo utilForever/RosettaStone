@@ -15,9 +15,11 @@ namespace RosettaStone
 Enchant Enchants::GetEnchantFromText(const std::string& cardID)
 {
     std::vector<Effect> effects;
+    bool isOneTurn = false;
 
     static std::regex attackHealthRegex("\\+([[:digit:]]+)/\\+([[:digit:]]+)");
     static std::regex attackRegex("\\+([[:digit:]]+) Attack");
+    static std::regex healthRegex("\\+([[:digit:]]+) Health");
 
     const std::string text = Cards::FindCardByID(cardID).text;
     std::smatch values;
@@ -31,7 +33,16 @@ Enchant Enchants::GetEnchantFromText(const std::string& cardID)
     {
         effects.emplace_back(Effects::AttackN(std::stoi(values[1].str())));
     }
+    else if (std::regex_search(text, values, healthRegex))
+    {
+        effects.emplace_back(Effects::HealthN(std::stoi(values[1].str())));
+    }
 
-    return Enchant(effects);
+    if (text.find("this turn") != std::string::npos)
+    {
+        isOneTurn = true;
+    }
+
+    return Enchant(effects, isOneTurn);
 }
 }  // namespace RosettaStone

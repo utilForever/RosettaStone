@@ -32,6 +32,10 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
         p.SetGame(this);
     }
 
+    // Set player type
+    GetPlayer1().SetPlayerType(PlayerType::PLAYER1);
+    GetPlayer2().SetPlayerType(PlayerType::PLAYER2);
+
     // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
         Cards::GetHeroCard(gameConfig.player1Class),
@@ -228,6 +232,10 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
+    triggerManager.OnStartTurnTrigger(&GetCurrentPlayer(), nullptr);
+    ProcessTasks();
+    ProcessDestroyAndUpdateAura();
+
     // Set next step
     nextStep = Step::MAIN_RESOURCE;
     if (m_gameConfig.autoRun)
@@ -402,6 +410,17 @@ void Game::MainEnd()
 void Game::MainCleanUp()
 {
     auto& curPlayer = GetCurrentPlayer();
+
+    // Remove one-turn effects
+    for (auto& effectPair : oneTurnEffects)
+    {
+        Character* character = effectPair.first;
+        Effect* effect = effectPair.second;
+
+        effect->Remove(character);
+        delete effect;
+    }
+    oneTurnEffects.clear();
 
     // Unfreeze all characters they control that are Frozen, don't have
     // summoning sickness (or do have Charge) and have not attacked that turn
@@ -621,6 +640,17 @@ void Game::ProcessUntil(Step untilStep)
     while (nextStep != untilStep)
     {
         GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
+
+void Game::ProcessTasks()
+{
+    while (!taskQueue.empty())
+    {
+        ITask* task = taskQueue.front();
+        task->Run(GetCurrentPlayer());
+
+        taskQueue.pop_front();
     }
 }
 }  // namespace RosettaStone

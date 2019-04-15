@@ -52,6 +52,7 @@ enum class EntityType
     ALL,
     FRIENDS,
     ENEMIES,
+    ENEMIES_NOTARGET,
     HERO,
     ENEMY_HERO,
     WEAPON,

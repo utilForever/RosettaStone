@@ -77,6 +77,11 @@ void Hand::AddCard(Entity& card)
 
 void Hand::RemoveCard(Entity& card)
 {
+    if (card.activatedTrigger != nullptr)
+    {
+        card.activatedTrigger->Remove();
+    }
+
     std::size_t idx = 0;
 
     for (; idx < m_numCard; ++idx)

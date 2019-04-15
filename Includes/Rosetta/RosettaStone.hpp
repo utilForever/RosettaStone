@@ -34,11 +34,14 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enchants/Powers.hpp>
+#include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
+#include <Rosetta/Enums/TriggerEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/PowerLoader.hpp>
@@ -46,6 +49,7 @@
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Deck.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Graveyard.hpp>
 #include <Rosetta/Models/Hand.hpp>
