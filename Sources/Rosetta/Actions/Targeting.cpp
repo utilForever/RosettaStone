@@ -120,7 +120,10 @@ bool CheckRequirements(Entity* source, Character* target)
 {
     for (auto& requirement : source->card.playRequirements)
     {
-        switch (requirement.first)
+        PlayReq req = requirement.first;
+        int param = requirement.second;
+
+        switch (req)
         {
             case PlayReq::REQ_MINION_TARGET:
             {
@@ -147,6 +150,14 @@ bool CheckRequirements(Entity* source, Character* target)
             case PlayReq::REQ_NONSELF_TARGET:
             {
                 if (source == target)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_TARGET_MIN_ATTACK:
+            {
+                if (target->GetAttack() < param)
                 {
                     return false;
                 }
