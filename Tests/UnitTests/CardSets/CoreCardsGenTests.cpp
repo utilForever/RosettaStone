@@ -2352,7 +2352,7 @@ TEST(CoreCardsGen, EX1_011)
 TEST(CoreCardsGen, DS1_183)
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -2414,7 +2414,7 @@ TEST(CoreCardsGen, DS1_183)
 TEST(CoreCardsGen, EX1_173)
 {
     GameConfig config;
-    config.player1Class = CardClass::PALADIN;
+    config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -2715,4 +2715,38 @@ TEST(CoreCardsGen, CS2_234)
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+}
+
+TEST(CoreCardsGen, EX1_360)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Humility"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 6);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 1);
 }

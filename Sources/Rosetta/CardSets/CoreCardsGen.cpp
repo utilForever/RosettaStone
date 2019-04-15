@@ -406,6 +406,20 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     cards.emplace("CS2_094", power);
 
     // ---------------------------------------- SPELL - PALADIN
+    // [EX1_360] Humility - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Change a minion's Attack to 1.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_360e", EntityType::TARGET));
+    cards.emplace("EX1_360", power);
+
+    // ---------------------------------------- SPELL - PALADIN
     // [EX1_371] Hand of Protection - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -437,6 +451,16 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_087e"));
     cards.emplace("CS2_087e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_360e] Humility (*) - COST:0
+    // - Faction: Neutral, Set: Core,
+    // --------------------------------------------------------
+    // Text: Attack has been changed to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant(GameTag::ATK, EffectOperator::SET, 1));
+    cards.emplace("EX1_360e", power);
 }
 
 void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
