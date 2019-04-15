@@ -67,6 +67,21 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     cards.emplace("CS2_008", power);
 
+    // ------------------------------------------ SPELL - DRUID
+    // [CS2_012] Swipe - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $4 damage to an enemy and $1 damage to all other enemies.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 4, true));
+    power.AddPowerTask(new DamageTask(EntityType::ENEMIES_NOTARGET, 1, true));
+    cards.emplace("CS2_012", power);
+
     // ----------------------------------------- MINION - DRUID
     // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
     // - Faction: neutral, Set: Core, Rarity: Free
