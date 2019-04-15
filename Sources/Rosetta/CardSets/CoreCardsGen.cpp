@@ -381,6 +381,20 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     cards.emplace("CS2_091", power);
 
     // ---------------------------------------- SPELL - PALADIN
+    // [CS2_092] Blessing of Kings - COST:4
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_092e", EntityType::TARGET));
+    cards.emplace("CS2_092", power);
+
+    // ---------------------------------------- SPELL - PALADIN
     // [CS2_093] Consecration - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -451,6 +465,16 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_087e"));
     cards.emplace("CS2_087e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [CS2_092e] Blessing of Kings (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +4/+4.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_092e"));
+    cards.emplace("CS2_092e", power);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_360e] Humility (*) - COST:0

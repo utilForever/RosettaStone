@@ -2717,7 +2717,7 @@ TEST(CoreCardsGen, CS2_234)
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 }
 
-TEST(CoreCardsGen, EX1_360)
+TEST(CoreCardsGen, CS2_092)
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2737,16 +2737,18 @@ TEST(CoreCardsGen, EX1_360)
     opPlayer.maximumMana = 10;
     opPlayer.currentMana = 10;
 
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetField();
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Humility"));
+        curPlayer, Cards::GetInstance().FindCardByName("Blessing of Kings"));
     const auto card2 = Generic::DrawCard(
-        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
-    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 6);
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
 
-    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
-    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 1);
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 7);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
 }
