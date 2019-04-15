@@ -25,7 +25,7 @@ class Trigger
  public:
     //! Constructs trigger with given \p type.
     //! \param type The trigger type.
-    Trigger(TriggerType type);
+    explicit Trigger(TriggerType type);
 
     //! Constructs trigger with given \p prototype and \p owner.
     //! \param prototype An trigger for prototype.
