@@ -1,10 +1,10 @@
 jobs:
-- job: Windows (VS 2017)
+- job: Windows_VS2017
   pool:
     vmImage: 'vs2017-win2016'
   steps:
   - template: Scripts/azure_pipelines_build_windows.yml
-- job: Windows (VS 2019)
+- job: Windows_VS2019
   pool:
     vmImage: 'windows-2019'
   steps:
