@@ -500,6 +500,21 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("CS2_004", power);
 
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS2_234] Shadow Word: Pain - COST:2
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Destroy a minion with 3 or less Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_MAX_ATTACK = 3
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("CS2_234", power);
+
     // ---------------------------------------- MINION - PRIEST
     // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
     // - Set: Core, Rarity: Free
