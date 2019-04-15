@@ -521,6 +521,21 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
     cards.emplace("DS1_233", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_622] Shadow Word: Death - COST:3
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Destroy a minion with 5 or more Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("EX1_622", power);
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
