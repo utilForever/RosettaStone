@@ -385,7 +385,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 9% (23 of 236 Cards)
+- Progress: 9% (23 of 237 Cards)
 
 ## Hall of Fame
 
@@ -397,12 +397,21 @@ HOF | EX1_050 | Coldlight Oracle | O
 HOF | EX1_062 | Old Murk-Eye |  
 HOF | EX1_112 | Gelbin Mekkatorque |  
 HOF | EX1_128 | Conceal |  
+HOF | EX1_161 | Naturalize |  
 HOF | EX1_284 | Azure Drake |  
 HOF | EX1_295 | Ice Block |  
 HOF | EX1_298 | Ragnaros the Firelord |  
+HOF | EX1_310 | Doomguard | O
 HOF | EX1_316 | Power Overwhelming |  
+HOF | EX1_349 | Divine Favor |  
 HOF | EX1_620 | Molten Giant |  
+HOF | GIL_130 | Gloom Stag |  
+HOF | GIL_530 | Murkspark Eel |  
+HOF | GIL_692 | Genn Greymane |  
+HOF | GIL_826 | Baku the Mooneater |  
+HOF | GIL_837 | Glitter Moth |  
+HOF | GIL_838 | Black Cat |  
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 7% (1 of 13 Cards)
+- Progress: 9% (2 of 22 Cards)
