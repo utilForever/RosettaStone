@@ -2752,3 +2752,35 @@ TEST(CoreCardsGen, CS2_092)
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 7);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
 }
+
+TEST(CoreCardsGen, CS2_196)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Razorfen Hunter"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+}

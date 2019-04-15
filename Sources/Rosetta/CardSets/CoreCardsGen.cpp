@@ -1379,6 +1379,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_189", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
+    // - Faction: Horde, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 1/1 Boar.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("CS2_boar"));
+    cards.emplace("CS2_196", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1537,6 +1550,22 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_222o"));
     cards.emplace("CS2_222o", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_boar] Boar (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_boar", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_tk1] Sheep (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_tk1", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]
