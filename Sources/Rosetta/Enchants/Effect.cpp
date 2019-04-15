@@ -17,7 +17,7 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     // Do nothing
 }
 
-void Effect::Apply(Character* character, bool isOneTurnEffect)
+void Effect::Apply(Character* character, bool isOneTurnEffect) const
 {
     auto& oneTurnEffects = character->GetOwner().GetGame()->oneTurnEffects;
 

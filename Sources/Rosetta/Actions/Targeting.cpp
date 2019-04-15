@@ -120,8 +120,8 @@ bool CheckRequirements(Entity* source, Character* target)
 {
     for (auto& requirement : source->card.playRequirements)
     {
-        PlayReq req = requirement.first;
-        int param = requirement.second;
+        const PlayReq req = requirement.first;
+        const int param = requirement.second;
 
         switch (req)
         {
