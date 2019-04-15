@@ -42,6 +42,15 @@ class Effect
     //! Default copy constructor.
     Effect(const Effect& effect) = default;
 
+    //! Default move constructor;
+    Effect(Effect&& effect) = default;
+
+    //! Default copy assignment operator.
+    Effect& operator=(const Effect& effect) = default;
+
+    //! Default move assignment operator.
+    Effect& operator=(Effect&& effect) = default;
+
     //! Applies this effect to the target entity.
     //! \param character The character to which effect is applied.
     //! \param isOneTurnEffect Whether effect lasts only one turn.
