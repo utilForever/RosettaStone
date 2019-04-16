@@ -44,7 +44,7 @@ $( document ).ready(function() {
 
     $("div.ah").addClass("btn btn-default");
     $("span.mlabels").addClass("pull-right");
-    $("table.mlabels").css("width", "100%")
+    $("table.mlabels").css("width", "100%");
     $("td.mlabels-right").addClass("pull-right");
 
     $("div.ttc").addClass("panel panel-primary");
@@ -176,7 +176,7 @@ $( document ).ready(function() {
 
   searchBox.DOMPopupSearchResultsWindow = function() {
     return document.getElementById("search-results-window");
-  }
+  };
 
   function update_search_results_window() {
     $('#search-results-window').removeClass('panel-default panel-success panel-warning panel-danger')
