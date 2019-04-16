@@ -220,7 +220,7 @@ enum class Step
 template <class T>
 T StrToEnum(const std::string_view&);
 template <class T>
-std::string EnumToStr(T);
+std::string_view EnumToStr(T);
 
 #define STR2ENUM(TYPE, ARRAY)                                                \
     template <>                                                              \
@@ -237,11 +237,11 @@ std::string EnumToStr(T);
         return TYPE(0);                                                      \
     }
 
-#define ENUM2STR(TYPE, ARRAY)                  \
-    template <>                                \
-    inline std::string EnumToStr<TYPE>(TYPE v) \
-    {                                          \
-        return ARRAY[static_cast<int>(v)];     \
+#define ENUM2STR(TYPE, ARRAY)                       \
+    template <>                                     \
+    inline std::string_view EnumToStr<TYPE>(TYPE v) \
+    {                                               \
+        return ARRAY[static_cast<int>(v)];          \
     }
 
 #define ENUM_AND_STR(TYPE, ARRAY) \
