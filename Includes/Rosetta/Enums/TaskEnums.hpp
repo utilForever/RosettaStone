@@ -39,6 +39,7 @@ enum class TaskID
     TRANSFORM,
     CONDITION,
     FLAG,
+    ARMOR,
 
     NUM_TASK_ID
 };
