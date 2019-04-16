@@ -26,10 +26,10 @@ TaskStatus ReturnHandTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        Generic::RemoveMinionFromField(m_target->GetOwner(),
+        Generic::RemoveMinionFromField(entity->GetOwner(),
                                        dynamic_cast<Minion*>(entity));
         entity->Reset();
-        Generic::AddCardToHand(m_target->GetOwner(), entity);
+        Generic::AddCardToHand(entity->GetOwner(), entity);
     }
 
     return TaskStatus::COMPLETE;
