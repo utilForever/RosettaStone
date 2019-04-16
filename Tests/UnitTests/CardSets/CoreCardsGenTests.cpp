@@ -3033,3 +3033,37 @@ TEST(CoreCardsGen, EX1_025)
     EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 2);
     EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
 }
+
+TEST(CoreCardsGen, CS2_013)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 9;
+    curPlayer.currentMana = 9;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wild Growth"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wild Growth"));
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curPlayer.currentMana, 6);
+    EXPECT_EQ(curPlayer.maximumMana, 10);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
+    EXPECT_EQ(curPlayer.currentMana, 3);
+    EXPECT_EQ(curPlayer.maximumMana, 10);
+}
