@@ -38,6 +38,12 @@ void RemoveCardFromHand(Player& player, Entity* entity)
     player.GetHand().RemoveCard(*entity);
 }
 
+void RemoveMinionFromField(Player& player, Minion* minion)
+{
+    // Remove card from field
+    player.GetField().RemoveMinion(*minion);
+}
+
 void ChangeManaCrystal(Player& player, int amount, bool fill)
 {
     // Available and maximum mana are up to a maximum of 10
