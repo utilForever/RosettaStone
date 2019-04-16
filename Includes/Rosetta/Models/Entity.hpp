@@ -52,6 +52,10 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
+    //! Resets all game tag values that where changed after creation.
+    //! Any enchants and trigger is removed.
+    virtual void Reset();
+
     //! Returns the owner of character.
     //! \return The owner of character.
     Player& GetOwner() const;

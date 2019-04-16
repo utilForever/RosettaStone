@@ -15,6 +15,27 @@ Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
     // Do nothing
 }
 
+void Minion::Reset()
+{
+    Entity::Reset();
+
+    if (onGoingEffect != nullptr)
+    {
+        onGoingEffect->Remove();
+    }
+
+    if (isDestroyed)
+    {
+        auto iter = m_owner->GetGame()->deadMinions.find(orderOfPlay);
+        if (iter != m_owner->GetGame()->deadMinions.end())
+        {
+            m_owner->GetGame()->deadMinions.erase(iter);
+        }
+
+        isDestroyed = false;
+    }
+}
+
 void Minion::Destroy()
 {
     Entity::Destroy();

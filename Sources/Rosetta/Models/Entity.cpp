@@ -88,6 +88,22 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
+void Entity::Reset()
+{
+    SetGameTag(GameTag::DAMAGE, 0);
+    SetGameTag(GameTag::EXHAUSTED, 0);
+    SetGameTag(GameTag::ATK, 0);
+    SetGameTag(GameTag::HEALTH, 0);
+    SetGameTag(GameTag::COST, 0);
+    SetGameTag(GameTag::TAUNT, 0);
+    SetGameTag(GameTag::FROZEN, 0);
+    SetGameTag(GameTag::CHARGE, 0);
+    SetGameTag(GameTag::WINDFURY, 0);
+    SetGameTag(GameTag::DIVINE_SHIELD, 0);
+    SetGameTag(GameTag::STEALTH, 0);
+    SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, 0);
+}
+
 Player& Entity::GetOwner() const
 {
     return *m_owner;
