@@ -50,7 +50,7 @@ class Enchantment : public Entity
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
     //! \return The resulting enchantment entity.
-    static Enchantment* GetInstance(Player& player, Card card, Entity* target);
+    static Enchantment* GetInstance(Player& player, Card& card, Entity* target);
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.
