@@ -2904,3 +2904,56 @@ TEST(CoreCardsGen, NEW1_003)
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
 }
+
+TEST(CoreCardsGen, EX1_581)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Sap"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Blessing of Kings"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    Task::Run(opPlayer, PlayCardTask::SpellTarget(opPlayer, card3, card4));
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card4));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 3);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
+}
