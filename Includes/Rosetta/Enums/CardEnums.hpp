@@ -8,6 +8,7 @@
 #define ROSETTASTONE_CARD_ENUMS_HPP
 
 #include <string>
+#include <string_view>
 
 namespace RosettaStone
 {
