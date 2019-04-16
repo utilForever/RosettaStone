@@ -20,6 +20,22 @@ Hero::~Hero()
     delete heroPower;
 }
 
+int Hero::GetAttack() const
+{
+    return HasWeapon() ? Character::GetAttack() + weapon->GetAttack()
+                       : Character::GetAttack();
+}
+
+int Hero::GetArmor() const
+{
+    return GetGameTag(GameTag::ARMOR);
+}
+
+void Hero::SetArmor(int armor)
+{
+    SetGameTag(GameTag::ARMOR, armor);
+}
+
 void Hero::AddWeapon(Weapon& _weapon)
 {
     RemoveWeapon();
@@ -44,19 +60,8 @@ bool Hero::HasWeapon() const
     return weapon != nullptr;
 }
 
-int Hero::GetAttack() const
+void Hero::GainArmor(int amount)
 {
-    return HasWeapon() ? Character::GetAttack() + weapon->GetAttack()
-                       : Character::GetAttack();
-}
-
-int Hero::GetArmor() const
-{
-    return GetGameTag(GameTag::ARMOR);
-}
-
-void Hero::SetArmor(int armor)
-{
-    SetGameTag(GameTag::ARMOR, armor);
+    SetArmor(GetArmor() + amount);
 }
 }  // namespace RosettaStone
