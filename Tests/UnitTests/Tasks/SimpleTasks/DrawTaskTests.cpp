@@ -150,7 +150,7 @@ TEST(DrawTask, RunOverDraw)
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
         EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
-        EXPECT_EQ(burnt.GetUserID(), p.GetID());
+        EXPECT_EQ(burnt.GetUserID(), p.playerID);
 
         EXPECT_TRUE(burnt.HasObjects());
 
@@ -205,7 +205,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
         EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
-        EXPECT_EQ(burnt.GetUserID(), p.GetID());
+        EXPECT_EQ(burnt.GetUserID(), p.playerID);
 
         EXPECT_TRUE(burnt.HasObjects());
 

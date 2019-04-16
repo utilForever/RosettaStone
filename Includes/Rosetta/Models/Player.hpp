@@ -53,30 +53,6 @@ class Player
     //! Move assignment operator.
     Player& operator=(Player&& p) = delete;
 
-    //! Returns player nickname.
-    //! \return player nickname.
-    std::string GetNickname() const;
-
-    //! Sets player nickname.
-    //! \param nickname player nickname.
-    void SetNickname(std::string nickname);
-
-    //! Returns player type.
-    //! \return Player type.
-    PlayerType GetPlayerType() const;
-
-    //! Sets player type.
-    //! \param type Player type.
-    void SetPlayerType(PlayerType type);
-
-    //! Returns player ID.
-    //! \return Player ID.
-    std::size_t GetID() const;
-
-    //! Sets player ID.
-    //! \param id Player ID.
-    void SetID(std::size_t id);
-
     //! Returns a pointer to game.
     //! \return A pointer to game.
     Game* GetGame() const;
@@ -126,6 +102,10 @@ class Player
     //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
 
+    std::string nickname;
+    PlayerType playerType = PlayerType::PLAYER1;
+    std::size_t playerID = 0;
+
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
@@ -136,10 +116,6 @@ class Player
     int currentSpellPower = 0;
 
  private:
-    std::string m_nickname;
-    PlayerType m_playerType = PlayerType::PLAYER1;
-    std::size_t m_id = 0;
-
     Battlefield m_field;
     Deck m_deck;
     Graveyard m_graveyard;

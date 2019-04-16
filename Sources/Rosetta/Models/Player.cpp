@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-Player::Player() : m_id(USER_INVALID)
+Player::Player() : playerID(USER_INVALID)
 {
     m_field.SetOwner(*this);
     m_deck.SetOwner(*this);
@@ -21,36 +21,6 @@ Player::Player() : m_id(USER_INVALID)
 Player::~Player()
 {
     delete m_hero;
-}
-
-std::string Player::GetNickname() const
-{
-    return m_nickname;
-}
-
-void Player::SetNickname(std::string nickname)
-{
-    m_nickname = nickname;
-}
-
-PlayerType Player::GetPlayerType() const
-{
-    return m_playerType;
-}
-
-void Player::SetPlayerType(PlayerType type)
-{
-    m_playerType = type;
-}
-
-std::size_t Player::GetID() const
-{
-    return m_id;
-}
-
-void Player::SetID(std::size_t id)
-{
-    m_id = id;
 }
 
 Game* Player::GetGame() const

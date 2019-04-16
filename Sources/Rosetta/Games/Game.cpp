@@ -33,8 +33,8 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
     }
 
     // Set player type
-    GetPlayer1().SetPlayerType(PlayerType::PLAYER1);
-    GetPlayer2().SetPlayerType(PlayerType::PLAYER2);
+    GetPlayer1().playerType = PlayerType::PLAYER1;
+    GetPlayer2().playerType = PlayerType::PLAYER2;
 
     // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
