@@ -1001,6 +1001,21 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::HAND, 1));
     power.AddPowerTask(new DiscardTask(EntityType::STACK));
     cards.emplace("EX1_308", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [NEW1_003] Sacrificial Pact - COST:0
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Destroy a Demon. Restore #5 Health to your hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_WITH_RACE = 15
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    power.AddPowerTask(new HealTask(EntityType::HERO, 5));
+    cards.emplace("NEW1_003", power);
 }
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
