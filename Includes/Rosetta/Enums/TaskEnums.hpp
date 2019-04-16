@@ -40,6 +40,7 @@ enum class TaskID
     CONDITION,
     FLAG,
     ARMOR,
+    RETURN_HAND,
 
     NUM_TASK_ID
 };
