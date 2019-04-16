@@ -8,7 +8,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-DrawOpTask::DrawOpTask(std::size_t num) : m_num(num)
+DrawOpTask::DrawOpTask(int amount) : m_amount(amount)
 {
     // Do nothing
 }
@@ -20,7 +20,7 @@ TaskID DrawOpTask::GetTaskID() const
 
 TaskStatus DrawOpTask::Impl(Player& player)
 {
-    for (std::size_t i = 0; i < m_num; ++i)
+    for (int i = 0; i < m_amount; ++i)
     {
         Generic::Draw(player.GetOpponent(), nullptr);
     }
