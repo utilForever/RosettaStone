@@ -82,7 +82,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/ModifyManaTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
