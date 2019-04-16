@@ -739,6 +739,16 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
     cards.emplace("EX1_581", power);
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [NEW1_004] Vanish - COST:6
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Return all minions to their owner's hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ReturnHandTask(EntityType::ALL_MINIONS));
+    cards.emplace("NEW1_004", power);
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
