@@ -60,6 +60,14 @@ class Hero : public Character
     //! \return The value of attack.
     int GetAttack() const override;
 
+    //! Returns the value of armor.
+    //! \return The value of armor.
+    int GetArmor() const;
+
+    //! Sets the value of armor.
+    //! \param armor The value of armor.
+    void SetArmor(int armor);
+
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
 

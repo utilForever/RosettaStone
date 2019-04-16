@@ -49,4 +49,14 @@ int Hero::GetAttack() const
     return HasWeapon() ? Character::GetAttack() + weapon->GetAttack()
                        : Character::GetAttack();
 }
+
+int Hero::GetArmor() const
+{
+    return GetGameTag(GameTag::ARMOR);
+}
+
+void Hero::SetArmor(int armor)
+{
+    SetGameTag(GameTag::ARMOR, armor);
+}
 }  // namespace RosettaStone
