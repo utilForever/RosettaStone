@@ -1558,6 +1558,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_015", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
+    // - Faction: Alliance, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 2/1 Mechanical Dragonling.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("EX1_025t"));
+    cards.emplace("EX1_025", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1635,6 +1648,14 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_tk1", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_025t] Mechanical Dragonling (*) - COST:1 [ATK:2/HP:1]
+    // - Race: Mechanical, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_025t", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]

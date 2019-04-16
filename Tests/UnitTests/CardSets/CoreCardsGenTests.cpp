@@ -3002,3 +3002,34 @@ TEST(CoreCardsGen, NEW1_004)
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 }
+
+TEST(CoreCardsGen, EX1_025)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    curPlayer.maximumMana = 10;
+    curPlayer.currentMana = 10;
+    opPlayer.maximumMana = 10;
+    opPlayer.currentMana = 10;
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Dragonling Mechanic"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetNumOfMinions(), 2u);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+}
