@@ -110,7 +110,7 @@ CORE | DS1_233 | Mind Blast | O
 CORE | EX1_011 | Voodoo Doctor | O
 CORE | EX1_015 | Novice Engineer | O
 CORE | EX1_019 | Shattered Sun Cleric |  
-CORE | EX1_025 | Dragonling Mechanic |  
+CORE | EX1_025 | Dragonling Mechanic | O
 CORE | EX1_066 | Acidic Swamp Ooze | O
 CORE | EX1_084 | Warsong Commander |  
 CORE | EX1_129 | Fan of Knives | O
@@ -131,18 +131,18 @@ CORE | EX1_506 | Murloc Tidehunter |
 CORE | EX1_508 | Grimscale Oracle |  
 CORE | EX1_539 | Kill Command | O
 CORE | EX1_565 | Flametongue Totem |  
-CORE | EX1_581 | Sap |  
+CORE | EX1_581 | Sap | O
 CORE | EX1_582 | Dalaran Mage | O
 CORE | EX1_587 | Windspeaker | O
 CORE | EX1_593 | Nightblade | O
-CORE | EX1_606 | Shield Block |  
+CORE | EX1_606 | Shield Block | O
 CORE | EX1_622 | Shadow Word: Death | O
-CORE | NEW1_003 | Sacrificial Pact |  
-CORE | NEW1_004 | Vanish |  
+CORE | NEW1_003 | Sacrificial Pact | O
+CORE | NEW1_004 | Vanish | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 75% (100 of 133 Cards)
+- Progress: 78% (105 of 133 Cards)
 
 ## Classic
 
