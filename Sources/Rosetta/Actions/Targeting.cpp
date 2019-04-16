@@ -163,6 +163,14 @@ bool CheckRequirements(Entity* source, Character* target)
                 }
                 break;
             }
+            case PlayReq::REQ_TARGET_WITH_RACE:
+            {
+                if (target->card.GetRace() != static_cast<Race>(param))
+                {
+                    return false;
+                }
+                break;
+            }
             case PlayReq::REQ_TARGET_MIN_ATTACK:
             {
                 if (target->GetAttack() < param)
