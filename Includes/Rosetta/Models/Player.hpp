@@ -95,10 +95,7 @@ class Player
     std::optional<Choice> choice = std::nullopt;
 
     IPolicy* policy = nullptr;
-    Player* opponent = nullptr;    
-
-    int currentMana = 0;
-    int maximumMana = 0;
+    Player* opponent = nullptr;
 
     int currentSpellPower = 0;
 
