@@ -48,7 +48,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     auto health = static_cast<float>(character->GetHealth());
 
     // Write cost of the card
-    CardVector[0] = cost / 10;
+    CardVector[0] = cost / MANA_UPPER_LIMIT;
 
     // Write attack of the card
     CardVector[1] = (attack >= CLIP_NORM) ? 1. : attack / CLIP_NORM;
