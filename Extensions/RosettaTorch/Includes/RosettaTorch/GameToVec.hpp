@@ -27,11 +27,6 @@ class GameToVec
     // \param seed The seed used when the embedding table is generated.
     GameToVec(size_t seed = 1337);
 
-    //! Constructs the embedding table with given \p seed, weigths
-    // \param seed The seed used when the embedding table is generated.
-    // \param weight The weight used when the embedding table is initialized.
-    GameToVec(size_t seed, torch::Tensor weight);
-
     //! Default virtual destructor.
     virtual ~GameToVec() = default;
 
@@ -49,8 +44,22 @@ class GameToVec
     static constexpr size_t CLIP_NORM = 64;
 
     /////////////////////////////////////////////
+    static constexpr size_t AuraVectorSize = 4;
+    static constexpr size_t AuraIndexSize = 4;
+
+    static constexpr size_t EnchantVectorSize = 4;
+    static constexpr size_t EnchantIndexSize = 4;
+
+    static constexpr size_t DeathrattleVectorSize = 4;
+    static constexpr size_t DeathrattleIndexSize = 4;
+
+    static constexpr size_t PowerVectorSize = 4;
+    static constexpr size_t PowerIndexSize = 4;
+
+    /////////////////////////////////////////////
     static constexpr size_t CardMetaSize = 3;
-    static constexpr size_t AbilityVectorSize = 8;
+    static constexpr size_t AbilityVectorSize = 
+        AuraVectorSize + EnchantVectorSize + DeathrattleVectorSize + PowerVectorSize;
     static constexpr size_t CardVectorSize =
         CardMetaSize + AbilityVectorSize;
 
@@ -63,7 +72,10 @@ class GameToVec
     size_t m_seed;
 
     //! embedding table for the card
-    torch::nn::Embedding CardVectorTable = nullptr;
+    torch::nn::Embedding AuraEmbeddingTable = nullptr;
+    torch::nn::Embedding EnchantEmbeddingTable = nullptr;
+    torch::nn::Embedding DeathrattleEmbeddingTable = nullptr;
+    torch::nn::Embedding PowerEmbeddingTable = nullptr;
 };
 }  // namespace RosettaTorch
 

@@ -11,30 +11,30 @@ namespace RosettaTorch
 {
 GameToVec::GameToVec(size_t seed) : m_seed(seed)
 {
-    // reproducibility
+    // Reproducibility
     torch::manual_seed(static_cast<uint64_t>(m_seed));
 
-    // Generates the embedding lookup table for the card
-    size_t NumOfCards = Cards::GetInstance().GetAllCards().size();
+    // Making embedding tables for the task
+    auto make_table = [&](torch::nn::Embedding embedding, size_t idx_size, size_t vec_size) {
+        embedding = torch::nn::Embedding(idx_size, vec_size);
+        embedding->weight = torch::randn(
+            { static_cast<int>(idx_size), static_cast<int>(vec_size) },
+            torch::kFloat32
+        );
+        embedding->weight.set_requires_grad(false);
+    };
 
-    CardVectorTable = torch::nn::Embedding(NumOfCards, CardVectorSize);
-    CardVectorTable->weight = torch::randn(
-        { static_cast<int>(NumOfCards), static_cast<int>(CardVectorSize) },
-        torch::kFloat32);
-    CardVectorTable->weight.set_requires_grad(false);
-}
+    // Generates an embedding table for the Aura task
+    make_table(AuraEmbeddingTable, AuraIndexSize, AuraVectorSize);
 
-GameToVec::GameToVec(size_t seed, torch::Tensor weight) : m_seed(seed)
-{
-    // reproducibility
-    torch::manual_seed(static_cast<uint64_t>(m_seed));
+    // Generates an embedding table for the Enchant task
+    make_table(EnchantEmbeddingTable, EnchantIndexSize, EnchantVectorSize);
 
-    // Generates the embedding lookup table for the card
-    size_t NumOfCards = Cards::GetInstance().GetAllCards().size();
+    // Generates an embedding table for the Deathrattle task
+    make_table(DeathrattleEmbeddingTable, DeathrattleIndexSize, DeathrattleVectorSize);
 
-    CardVectorTable = torch::nn::Embedding(NumOfCards, CardVectorSize);
-    CardVectorTable->weight = weight;
-    CardVectorTable->weight.set_requires_grad(false);
+    // Generates an embedding table for the Power task
+    make_table(PowerEmbeddingTable, PowerIndexSize, PowerVectorSize);
 }
 
 torch::Tensor GameToVec::CardToTensor(Entity* entity)
@@ -78,7 +78,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     // # 1 : cost
     // # 1 : attack
     // # 1 : health
-    // # m : ability
+    // # m : tasks
 
     // each card's abilities are represented as a vector which has m
     // dimensionality. it includes, ... vector shape : [m]
