@@ -11,7 +11,7 @@
 
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card& _card) : card(_card), owner(&_owner)
+Entity::Entity(Player& _owner, Card& _card) : owner(&_owner), card(_card)
 {
     auraEffects = new AuraEffects(this);
 
