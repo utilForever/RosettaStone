@@ -122,7 +122,7 @@ bool IsPlayableByCardReq(Entity* source)
         {
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                auto& opField = source->GetOwner().GetOpponent().GetField();
+                auto& opField = source->GetOwner().opponent->GetField();
                 if (static_cast<int>(opField.GetNumOfMinions()) <
                     requirement.second)
                 {

@@ -26,7 +26,7 @@ TEST(Expert1CardsGen, CS2_028)
     game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -67,7 +67,7 @@ TEST(Expert1CardsGen, EX1_012)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;

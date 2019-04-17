@@ -228,8 +228,8 @@ void Console::SimulateGame() const
     game.GetPlayer1().nickname = p1->GetNickname();
     game.GetPlayer2().nickname = p2->GetNickname();
 
-    game.GetPlayer1().SetPolicy(&policy1);
-    game.GetPlayer2().SetPolicy(&policy2);
+    game.GetPlayer1().policy = &policy1;
+    game.GetPlayer2().policy = &policy2;
     // game.GetPlayer1().SetDeck(deck1);
     // game.GetPlayer2().SetDeck(deck2);
 

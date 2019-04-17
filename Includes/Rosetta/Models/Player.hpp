@@ -81,22 +81,6 @@ class Player
     //! \return Player's hero.
     Hero* GetHero() const;
 
-    //! Returns game playing policy of current player.
-    //! \return The policy of current player.
-    IPolicy& GetPolicy() const;
-
-    //! Sets game playing policy for current player.
-    //! \param policy Policy for playing game.
-    void SetPolicy(IPolicy* policy);
-
-    //! Returns the opponent player.
-    //! \return The opponent player.
-    Player& GetOpponent() const;
-
-    //! Sets the opponent player.
-    //! \param player The opponent player.
-    void SetOpponent(Player* player);
-
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
@@ -110,6 +94,9 @@ class Player
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
 
+    IPolicy* policy = nullptr;
+    Player* opponent = nullptr;    
+
     int currentMana = 0;
     int maximumMana = 0;
 
@@ -122,10 +109,7 @@ class Player
     Hand m_hand;
 
     Hero* m_hero = nullptr;
-
     Game* m_game = nullptr;
-    IPolicy* m_policy = nullptr;
-    Player* m_opponent = nullptr;
 };
 }  // namespace RosettaStone
 

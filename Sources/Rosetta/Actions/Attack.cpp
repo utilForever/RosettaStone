@@ -13,7 +13,7 @@ void Attack(Player& player, Character* source, Character* target)
 {
     // Check source can attack and target is valid
     if (!source->CanAttack() ||
-        !source->IsValidCombatTarget(player.GetOpponent(), target))
+        !source->IsValidCombatTarget(*player.opponent, target))
     {
         return;
     }

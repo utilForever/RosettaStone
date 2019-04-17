@@ -161,7 +161,7 @@ TEST(DrawTask, RunOverDraw)
                       id + static_cast<char>(2 - i + 0x30));
         }
     });
-    p.SetPolicy(&policy);
+    p.policy = &policy;
 
     TaskStatus result = draw.Run(p);
     EXPECT_EQ(result, TaskStatus::COMPLETE);
@@ -216,7 +216,7 @@ TEST(DrawTask, RunExhaustOverdraw)
                       id + static_cast<char>(2 - i + 0x30));
         }
     });
-    p.SetPolicy(&policy);
+    p.policy = &policy;
 
     TaskStatus result = draw.Run(p);
     EXPECT_EQ(result, TaskStatus::COMPLETE);

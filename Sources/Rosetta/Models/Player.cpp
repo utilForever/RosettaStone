@@ -4,7 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
 
@@ -56,26 +55,6 @@ Hand& Player::GetHand()
 Hero* Player::GetHero() const
 {
     return m_hero;
-}
-
-IPolicy& Player::GetPolicy() const
-{
-    return *m_policy;
-}
-
-void Player::SetPolicy(IPolicy* policy)
-{
-    m_policy = policy;
-}
-
-Player& Player::GetOpponent() const
-{
-    return *m_opponent;
-}
-
-void Player::SetOpponent(Player* player)
-{
-    m_opponent = player;
 }
 
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)

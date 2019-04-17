@@ -27,7 +27,7 @@ TEST(CoreCardsGen, EX1_066)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -59,7 +59,7 @@ TEST(CoreCardsGen, EX1_306)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -91,7 +91,7 @@ TEST(CoreCardsGen, CS2_041)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -133,7 +133,7 @@ TEST(CoreCardsGen, CS2_088)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -162,7 +162,7 @@ TEST(CoreCardsGen, CS1_112)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -222,7 +222,7 @@ TEST(CoreCardsGen, CS1_113)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -270,7 +270,7 @@ TEST(CoreCardsGen, EX1_129)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -320,7 +320,7 @@ TEST(CoreCardsGen, DS1_233)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -347,7 +347,7 @@ TEST(CoreCardsGen, CS2_029)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -405,7 +405,7 @@ TEST(CoreCardsGen, CS2_025)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -451,7 +451,7 @@ TEST(CoreCardsGen, CS2_037)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -494,7 +494,7 @@ TEST(CoreCardsGen, CS2_024)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -557,7 +557,7 @@ TEST(CoreCardsGen, CS2_026)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -599,7 +599,7 @@ TEST(CoreCardsGen, CS2_032)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -637,7 +637,7 @@ TEST(CoreCardsGen, CS2_023)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -665,7 +665,7 @@ TEST(CoreCardsGen, EX1_277)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -708,7 +708,7 @@ TEST(CoreCardsGen, CS2_027)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -759,7 +759,7 @@ TEST(CoreCardsGen, CS2_022)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -810,7 +810,7 @@ TEST(CoreCardsGen, CS1_130)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -866,7 +866,7 @@ TEST(CoreCardsGen, CS2_093)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -905,7 +905,7 @@ TEST(CoreCardsGen, CS2_094)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -940,7 +940,7 @@ TEST(CoreCardsGen, EX1_371)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -982,7 +982,7 @@ TEST(CoreCardsGen, CS2_089)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1023,7 +1023,7 @@ TEST(CoreCardsGen, DS1_185)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1079,7 +1079,7 @@ TEST(CoreCardsGen, CS2_007)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1120,7 +1120,7 @@ TEST(CoreCardsGen, CS2_062)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1175,7 +1175,7 @@ TEST(CoreCardsGen, CS2_057)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1214,7 +1214,7 @@ TEST(CoreCardsGen, CS2_122)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1257,7 +1257,7 @@ TEST(CoreCardsGen, CS2_042)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1303,7 +1303,7 @@ TEST(CoreCardsGen, CS2_061)
     game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1344,7 +1344,7 @@ TEST(CoreCardsGen, CS2_064)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1386,7 +1386,7 @@ TEST(CoreCardsGen, CS2_075)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1413,7 +1413,7 @@ TEST(CoreCardsGen, CS2_077)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1441,7 +1441,7 @@ TEST(CoreCardsGen, CS2_147)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1469,7 +1469,7 @@ TEST(CoreCardsGen, CS2_084)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1506,7 +1506,7 @@ TEST(CoreCardsGen, CS2_039)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1554,7 +1554,7 @@ TEST(CoreCardsGen, CS2_076)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1593,7 +1593,7 @@ TEST(CoreCardsGen, CS2_150)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1639,7 +1639,7 @@ TEST(CoreCardsGen, EX1_400)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1700,7 +1700,7 @@ TEST(CoreCardsGen, EX1_539)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1737,7 +1737,7 @@ TEST(CoreCardsGen, CS2_008)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1796,7 +1796,7 @@ TEST(CoreCardsGen, CS2_072)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1836,7 +1836,7 @@ TEST(CoreCardsGen, DS1_055)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1884,7 +1884,7 @@ TEST(CoreCardsGen, CS2_114)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1941,7 +1941,7 @@ TEST(CoreCardsGen, EX1_593)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -1968,7 +1968,7 @@ TEST(CoreCardsGen, EX1_587)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2013,7 +2013,7 @@ TEST(CoreCardsGen, EX1_308)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2057,7 +2057,7 @@ TEST(CoreCardsGen, EX1_278)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2104,7 +2104,7 @@ TEST(CoreCardsGen, CS2_087)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2138,7 +2138,7 @@ TEST(CoreCardsGen, CS2_141)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2172,7 +2172,7 @@ TEST(CoreCardsGen, CS2_189)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2206,7 +2206,7 @@ TEST(CoreCardsGen, EX1_246)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2259,7 +2259,7 @@ TEST(CoreCardsGen, CS2_222)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2322,7 +2322,7 @@ TEST(CoreCardsGen, EX1_011)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2363,7 +2363,7 @@ TEST(CoreCardsGen, DS1_183)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2425,7 +2425,7 @@ TEST(CoreCardsGen, EX1_173)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2460,7 +2460,7 @@ TEST(CoreCardsGen, CS2_046)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2512,7 +2512,7 @@ TEST(CoreCardsGen, CS2_063)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2554,7 +2554,7 @@ TEST(CoreCardsGen, CS2_004)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2590,7 +2590,7 @@ TEST(CoreCardsGen, CS2_235)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2635,7 +2635,7 @@ TEST(CoreCardsGen, EX1_622)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2683,7 +2683,7 @@ TEST(CoreCardsGen, CS2_234)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2731,7 +2731,7 @@ TEST(CoreCardsGen, CS2_092)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2767,7 +2767,7 @@ TEST(CoreCardsGen, CS2_196)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2799,7 +2799,7 @@ TEST(CoreCardsGen, CS2_012)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2847,7 +2847,7 @@ TEST(CoreCardsGen, EX1_606)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2876,7 +2876,7 @@ TEST(CoreCardsGen, NEW1_003)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2919,7 +2919,7 @@ TEST(CoreCardsGen, EX1_581)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -2972,7 +2972,7 @@ TEST(CoreCardsGen, NEW1_004)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -3017,7 +3017,7 @@ TEST(CoreCardsGen, EX1_025)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -3048,7 +3048,7 @@ TEST(CoreCardsGen, CS2_013)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 9;
     curPlayer.currentMana = 9;
     opPlayer.maximumMana = 10;

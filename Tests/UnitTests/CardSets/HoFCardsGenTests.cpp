@@ -27,7 +27,7 @@ TEST(HoFCardsGen, EX1_050)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;
@@ -56,7 +56,7 @@ TEST(HoFCardsGen, EX1_310)
     game.ProcessUntil(Step::MAIN_START);
     
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.maximumMana = 10;
     curPlayer.currentMana = 10;
     opPlayer.maximumMana = 10;

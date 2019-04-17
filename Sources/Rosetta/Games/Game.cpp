@@ -45,8 +45,8 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Cards::GetDefaultHeroPower(gameConfig.player2Class));
 
     // Set opponent player
-    GetPlayer1().SetOpponent(&GetPlayer2());
-    GetPlayer2().SetOpponent(&GetPlayer1());
+    GetPlayer1().opponent = &GetPlayer2();
+    GetPlayer2().opponent = &GetPlayer1();
 }
 
 Player& Game::GetPlayer1()
@@ -66,7 +66,7 @@ Player& Game::GetCurrentPlayer() const
 
 Player& Game::GetOpponentPlayer() const
 {
-    return m_currentPlayer->GetOpponent();
+    return *m_currentPlayer->opponent;
 }
 
 std::size_t Game::GetNextID()
@@ -160,7 +160,7 @@ void Game::BeginMulligan()
 
     Player& player1 = GetPlayer1();
     // Request mulligan choices to policy.
-    TaskMeta p1Choice = player1.GetPolicy().Require(player1, TaskID::MULLIGAN);
+    TaskMeta p1Choice = player1.policy->Require(player1, TaskID::MULLIGAN);
 
     // Get mulligan choices from policy.
     Generic::ChoiceMulligan(player1,
@@ -168,7 +168,7 @@ void Game::BeginMulligan()
 
     Player& player2 = GetPlayer2();
     // Request mulligan choices to policy.
-    TaskMeta p2Choice = player2.GetPolicy().Require(player2, TaskID::MULLIGAN);
+    TaskMeta p2Choice = player2.policy->Require(player2, TaskID::MULLIGAN);
 
     // Get mulligan choices from policy.
     Generic::ChoiceMulligan(player2,
@@ -291,7 +291,7 @@ void Game::MainAction()
 
     // If game end.
     if (player.GetHero()->GetHealth() <= 0 ||
-        player.GetOpponent().GetHero()->GetHealth() <= 0)
+        player.opponent->GetHero()->GetHealth() <= 0)
     {
         // Set losing user.
         if (player.GetHero()->GetHealth() <= 0)
@@ -300,7 +300,7 @@ void Game::MainAction()
         }
         else
         {
-            player.GetOpponent().playState = PlayState::LOSING;
+            player.opponent->playState = PlayState::LOSING;
         }
 
         nextStep = Step::FINAL_WRAPUP;
@@ -313,7 +313,7 @@ void Game::MainAction()
 
     // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK,
     // TaskID::PLAY_CARD
-    TaskMeta next = player.GetPolicy().Next(*this);
+    TaskMeta next = player.policy->Next(*this);
     // If turn end.
     if (next.GetID() == TaskID::END_TURN)
     {
@@ -326,7 +326,7 @@ void Game::MainAction()
     }
 
     // Get requirements for proper action.
-    TaskMeta req = player.GetPolicy().Require(player, next.GetID());
+    TaskMeta req = player.policy->Require(player, next.GetID());
     SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
     switch (next.GetID())
     {
@@ -451,7 +451,7 @@ void Game::MainCleanUp()
 void Game::MainNext()
 {
     // Set player for next turn
-    m_currentPlayer = &m_currentPlayer->GetOpponent();
+    m_currentPlayer = m_currentPlayer->opponent;
 
     // Count next turn
     m_turn++;
@@ -473,7 +473,7 @@ void Game::FinalWrapUp()
             p.playState == PlayState::CONCEDED)
         {
             p.playState = PlayState::LOST;
-            p.GetOpponent().playState = PlayState::WON;
+            p.opponent->playState = PlayState::WON;
         }
     }
 
