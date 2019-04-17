@@ -26,10 +26,10 @@ void Minion::Reset()
 
     if (isDestroyed)
     {
-        auto iter = m_owner->GetGame()->deadMinions.find(orderOfPlay);
-        if (iter != m_owner->GetGame()->deadMinions.end())
+        auto iter = owner->GetGame()->deadMinions.find(orderOfPlay);
+        if (iter != owner->GetGame()->deadMinions.end())
         {
-            m_owner->GetGame()->deadMinions.erase(iter);
+            owner->GetGame()->deadMinions.erase(iter);
         }
 
         isDestroyed = false;
@@ -40,6 +40,6 @@ void Minion::Destroy()
 {
     Entity::Destroy();
 
-    GetOwner().GetGame()->deadMinions.emplace(orderOfPlay, this);
+    owner->GetGame()->deadMinions.emplace(orderOfPlay, this);
 }
 }  // namespace RosettaStone

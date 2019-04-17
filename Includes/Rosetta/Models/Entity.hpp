@@ -56,14 +56,6 @@ class Entity
     //! Any enchants and trigger is removed.
     virtual void Reset();
 
-    //! Returns the owner of character.
-    //! \return The owner of character.
-    Player& GetOwner() const;
-
-    //! Sets the owner of character.
-    //! \param owner The owner of character.
-    void SetOwner(Player& owner);
-
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -91,7 +83,9 @@ class Entity
     //! \return A pointer to entity that is allocated dynamically.
     static Entity* GetFromCard(Player& player, Card&& card);
 
+    Player* owner = nullptr;
     Card card;
+
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
@@ -103,8 +97,6 @@ class Entity
     bool isDestroyed = false;
 
  protected:
-    Player* m_owner = nullptr;
-
     std::map<GameTag, int> m_gameTags;
 
  private:

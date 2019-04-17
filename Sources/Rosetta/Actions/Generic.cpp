@@ -13,7 +13,7 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 {
     if (isSpellDamage)
     {
-        amount += static_cast<int>(source->GetOwner().currentSpellPower);
+        amount += static_cast<int>(source->owner->currentSpellPower);
     }
 
     target->TakeDamage(*source, amount);

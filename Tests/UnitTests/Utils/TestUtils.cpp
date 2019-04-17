@@ -70,7 +70,7 @@ void PlayMinionCard(Player& player, Card& card)
     if (minionPos != std::numeric_limits<std::size_t>::max())
     {
         playerField.AddMinion(*minion, minionPos);
-        playerField.GetMinion(minionPos)->SetOwner(player);
+        playerField.GetMinion(minionPos)->owner = &player;
     }
 }
 

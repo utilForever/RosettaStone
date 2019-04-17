@@ -38,7 +38,7 @@ TaskStatus TransformTask::Impl(Player& player)
             return TaskStatus::STOP;
         }
 
-        Generic::TransformMinion(minion->GetOwner(), minion, std::move(card));
+        Generic::TransformMinion(*minion->owner, minion, std::move(card));
     }
 
     return TaskStatus::COMPLETE;

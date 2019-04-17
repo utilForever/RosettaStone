@@ -87,7 +87,7 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
         minion.SetGameTag(GameTag::EXHAUSTED, 1);
     }
 
-    minion.orderOfPlay = minion.GetOwner().GetGame()->GetNextOOP();
+    minion.orderOfPlay = minion.owner->GetGame()->GetNextOOP();
 
     ActivateAura(minion);
 }
@@ -152,7 +152,7 @@ void Battlefield::ActivateAura(Minion& minion)
     const int spellPower = minion.GetSpellPower();
     if (spellPower > 0)
     {
-        minion.GetOwner().currentSpellPower += spellPower;
+        minion.owner->currentSpellPower += spellPower;
     }
 }
 
@@ -164,9 +164,9 @@ void Battlefield::RemoveAura(Minion& minion)
     }
 
     const int spellPower = minion.GetSpellPower();
-    if (minion.GetOwner().currentSpellPower > 0 && spellPower > 0)
+    if (minion.owner->currentSpellPower > 0 && spellPower > 0)
     {
-        minion.GetOwner().currentSpellPower -= spellPower;
+        minion.owner->currentSpellPower -= spellPower;
     }
 }
 }  // namespace RosettaStone

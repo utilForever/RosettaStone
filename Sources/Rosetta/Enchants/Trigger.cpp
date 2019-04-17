@@ -30,7 +30,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
 void Trigger::Activate(Entity& source)
 {
     Trigger* instance = new Trigger(*this, source);
-    Game* game = source.GetOwner().GetGame();
+    Game* game = source.owner->GetGame();
 
     source.activatedTrigger = instance;
 
@@ -54,7 +54,7 @@ void Trigger::Activate(Entity& source)
 
 void Trigger::Remove()
 {
-    Game* game = m_owner->GetOwner().GetGame();
+    Game* game = m_owner->owner->GetGame();
 
     switch (m_triggerType)
     {
@@ -112,7 +112,7 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
         }
     }
 
-    m_owner->GetOwner().GetGame()->taskQueue.push_back(singleTask);
+    m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
 
     m_isValidated = false;
 }
@@ -139,7 +139,7 @@ void Trigger::Validate(Player* player, Entity* source)
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
-            if (player != &m_owner->GetOwner())
+            if (player != m_owner->owner)
             {
                 return;
             }

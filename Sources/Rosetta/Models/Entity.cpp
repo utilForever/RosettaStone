@@ -11,7 +11,7 @@
 
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
+Entity::Entity(Player& _owner, Card& _card) : card(_card), owner(&_owner)
 {
     auraEffects = new AuraEffects(this);
 
@@ -21,24 +21,24 @@ Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
     }
 }
 
-Entity::Entity(const Entity& ent) : m_owner(ent.m_owner)
+Entity::Entity(const Entity& ent)
 {
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
     m_gameTags = ent.m_gameTags;
 }
 
-Entity::Entity(Entity&& ent) noexcept : m_owner(ent.m_owner)
+Entity::Entity(Entity&& ent) noexcept
 {
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
@@ -59,8 +59,8 @@ Entity& Entity::operator=(const Entity& ent)
 
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
@@ -78,8 +78,8 @@ Entity& Entity::operator=(Entity&& ent) noexcept
 
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
@@ -102,16 +102,6 @@ void Entity::Reset()
     SetGameTag(GameTag::DIVINE_SHIELD, 0);
     SetGameTag(GameTag::STEALTH, 0);
     SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, 0);
-}
-
-Player& Entity::GetOwner() const
-{
-    return *m_owner;
-}
-
-void Entity::SetOwner(Player& owner)
-{
-    m_owner = &owner;
 }
 
 int Entity::GetGameTag(GameTag tag) const

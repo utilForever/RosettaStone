@@ -34,7 +34,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     player.GetHand().RemoveCard(*source);
 
     // Set card's owner
-    source->SetOwner(player);
+    source->owner = &player;
 
     // Pass to sub-logic
     switch (source->card.GetCardType())
@@ -122,7 +122,7 @@ bool IsPlayableByCardReq(Entity* source)
         {
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                auto& opField = source->GetOwner().opponent->GetField();
+                auto& opField = source->owner->opponent->GetField();
                 if (static_cast<int>(opField.GetNumOfMinions()) <
                     requirement.second)
                 {

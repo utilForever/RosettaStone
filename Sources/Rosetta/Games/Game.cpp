@@ -605,13 +605,13 @@ void Game::ProcessDestroyAndUpdateAura()
                     continue;
                 }
 
-                power->Run(minion->GetOwner());
+                power->Run(*minion->owner);
             }
 
             // Remove minion from battlefield
-            minion->GetOwner().GetField().RemoveMinion(*minion);
+            minion->owner->GetField().RemoveMinion(*minion);
             // Add minion to graveyard
-            minion->GetOwner().GetGraveyard().AddCard(*minion);
+            minion->owner->GetGraveyard().AddCard(*minion);
         }
 
         deadMinions.clear();

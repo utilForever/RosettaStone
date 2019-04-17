@@ -39,7 +39,7 @@ void Aura::Activate(Entity& owner)
 
     Aura* instance = new Aura(*this, owner);
 
-    owner.GetOwner().GetGame()->auras.emplace_back(instance);
+    owner.owner->GetGame()->auras.emplace_back(instance);
     owner.onGoingEffect = instance;
 
     instance->AddToField();
@@ -91,7 +91,7 @@ void Aura::AddToField()
     switch (m_type)
     {
         case AuraType::FIELD_EXCEPT_SOURCE:
-            m_owner->GetOwner().GetField().auras.emplace_back(this);
+            m_owner->owner->GetField().auras.emplace_back(this);
             break;
         default:
             throw std::invalid_argument(
@@ -107,8 +107,7 @@ void Aura::UpdateInternal()
         {
             case AuraType::FIELD_EXCEPT_SOURCE:
             {
-                for (auto& minion :
-                     m_owner->GetOwner().GetField().GetAllMinions())
+                for (auto& minion : m_owner->owner->GetField().GetAllMinions())
                 {
                     if (minion != m_owner)
                     {
@@ -136,7 +135,7 @@ void Aura::RemoveInternal()
     {
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            auto auras = m_owner->GetOwner().GetField().auras;
+            auto auras = m_owner->owner->GetField().auras;
             const auto iter = std::find(auras.begin(), auras.end(), this);
             auras.erase(iter);
             break;
@@ -154,7 +153,7 @@ void Aura::RemoveInternal()
         }
     }
 
-    auto auras = m_owner->GetOwner().GetGame()->auras;
+    auto auras = m_owner->owner->GetGame()->auras;
     const auto iter = std::find(auras.begin(), auras.end(), this);
     auras.erase(iter);
 }

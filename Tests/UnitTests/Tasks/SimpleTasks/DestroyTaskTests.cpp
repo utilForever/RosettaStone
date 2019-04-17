@@ -35,7 +35,7 @@ TEST(DestroyTask, Run)
 
     // Destroy Source Minion
     auto minion1 = new Minion(player1, card);
-    minion1->SetOwner(player1);
+    minion1->owner = &player1;
     player1.GetField().AddMinion(*minion1, 0);
 
     DestroyTask task1(EntityType::SOURCE);
@@ -48,7 +48,7 @@ TEST(DestroyTask, Run)
 
     // Destroy Target Minion
     auto minion2 = new Minion(player2, card);
-    minion2->SetOwner(player2);
+    minion2->owner = &player2;
     player2.GetField().AddMinion(*minion2, 0);
 
     DestroyTask task2(EntityType::TARGET);
@@ -62,7 +62,7 @@ TEST(DestroyTask, Run)
     // Destroy Target Weapon
     Card weaponCard;
     player2.GetHero()->weapon = new Weapon(player2, weaponCard);
-    player2.GetHero()->weapon->SetOwner(player2);
+    player2.GetHero()->weapon->owner = &player2;
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);
     TaskStatus result3 = task3.Run(player1);
