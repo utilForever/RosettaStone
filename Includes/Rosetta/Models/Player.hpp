@@ -91,6 +91,30 @@ class Player
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
+    //! Returns total amount of mana available.
+    //! \return Total amount of mana available.
+    int GetTotalMana() const;
+
+    //! Sets total amount of mana available.
+    //! \param value Total amount of mana available.
+    void SetTotalMana(int value);
+
+    //! Returns amount of mana used.
+    //! \return Amount of mana used.
+    int GetUsedMana() const;
+
+    //! Sets amount of mana used.
+    //! \param value Amount of mana used.
+    void SetUsedMana(int value);
+
+    //! Returns additional mana gained during this turn.
+    //! \return additional mana gained during this turn.
+    int GetTemporaryMana() const;
+
+    //! Sets additional mana gained during this turn.
+    //! \param value additional mana gained during this turn.
+    void SetTemporaryMana(int value);
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.

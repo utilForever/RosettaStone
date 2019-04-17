@@ -72,6 +72,36 @@ void Entity::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
+int Player::GetTotalMana() const
+{
+    return GetGameTag(GameTag::RESOURCES);
+}
+
+void Player::SetTotalMana(int value)
+{
+    SetGameTag(GameTag::RESOURCES, value);
+}
+
+int Player::GetUsedMana() const
+{
+    return GetGameTag(GameTag::RESOURCES_USED);
+}
+
+void Player::SetUsedMana(int value)
+{
+    SetGameTag(GameTag::RESOURCES_USED, value);
+}
+
+int Player::GetTemporaryMana() const
+{
+    return GetGameTag(GameTag::TEMP_RESOURCES);
+}
+
+void Player::SetTemporaryMana(int value)
+{
+    SetGameTag(GameTag::TEMP_RESOURCES, value);
+}
+
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
     m_hero =
