@@ -81,6 +81,16 @@ class Player
     //! \return Player's hero.
     Hero* GetHero() const;
 
+    //! Returns the value of game tag.
+    //! \param tag The game tag of card.
+    //! \return The value of game tag.
+    int GetGameTag(GameTag tag) const;
+
+    //! Sets game tag to the card.
+    //! \param tag The game tag to indicate ability or condition.
+    //! \param value The value to set for game tag.
+    virtual void SetGameTag(GameTag tag, int value);
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
@@ -107,6 +117,8 @@ class Player
 
     Hero* m_hero = nullptr;
     Game* m_game = nullptr;
+
+    std::map<GameTag, int> m_gameTags;
 };
 }  // namespace RosettaStone
 
