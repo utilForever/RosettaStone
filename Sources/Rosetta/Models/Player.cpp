@@ -57,7 +57,7 @@ Hero* Player::GetHero() const
     return m_hero;
 }
 
-int Entity::GetGameTag(GameTag tag) const
+int Player::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())
     {
@@ -67,7 +67,7 @@ int Entity::GetGameTag(GameTag tag) const
     return m_gameTags.at(tag);
 }
 
-void Entity::SetGameTag(GameTag tag, int value)
+void Player::SetGameTag(GameTag tag, int value)
 {
     m_gameTags.insert_or_assign(tag, value);
 }
