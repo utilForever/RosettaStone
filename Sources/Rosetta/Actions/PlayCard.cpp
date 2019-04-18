@@ -12,6 +12,12 @@ namespace RosettaStone::Generic
 {
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
+    // Check battlefield is full
+    if (dynamic_cast<Minion*>(source) != nullptr && player.GetField().IsFull())
+    {
+        return;
+    }
+
     // Check if we can play this card and the target is valid
     if (!IsPlayableByPlayer(player, source) || !IsPlayableByCardReq(source) ||
         !IsValidTarget(source, target))
