@@ -41,7 +41,16 @@ void PlaySpell(Player& player, Spell* spell, Character* target = nullptr);
 //! \param target A target of the character to receive power.
 void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
 
-//! Gets a value indicating whether this entity is playable by card
+//! Gets a value indicating whether source entity is playable by player. Dynamic
+//! requirements are checked, eg: If a spell costs health instead of mana, this
+//! method will return false if the health cost would be higher than the
+//! available health.
+//! \param player The player to play card.
+//! \param source A pointer to source entity to play card.
+//! \return true if source entity is playable by player, false otherwise.
+bool IsPlayableByPlayer(Player& player, Entity* source);
+
+//! Gets a value indicating whether source entity is playable by card
 //! requirements. Static requirements are checked.
 //! \param source A pointer to source entity to play card.
 //! \return true if source entity is playable by card requirements, false

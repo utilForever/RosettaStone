@@ -12,14 +12,9 @@ namespace RosettaStone::Generic
 {
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
-    // Verify mana is sufficient
-    if (source->GetCost() > player.GetRemainingMana())
-    {
-        return;
-    }
-
     // Check if we can play this card and the target is valid
-    if (!IsPlayableByCardReq(source) || !IsValidTarget(source, target))
+    if (!IsPlayableByPlayer(player, source) || !IsPlayableByCardReq(source) ||
+        !IsValidTarget(source, target))
     {
         return;
     }
@@ -112,6 +107,29 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     (void)target;
 
     player.GetHero()->AddWeapon(*weapon);
+}
+
+bool IsPlayableByPlayer(Player& player, Entity* source)
+{
+    // Verify mana is sufficient
+    if (source->GetCost() > player.GetRemainingMana())
+    {
+        return false;
+    }
+
+    // Check if player is on turn
+    if (&player != &player.GetGame()->GetCurrentPlayer())
+    {
+        return false;
+    }
+
+    // Check if entity is in hand to be played
+    if (player.GetHand().FindCardPos(*source) == std::nullopt)
+    {
+        return false;
+    }
+
+    return true;
 }
 
 bool IsPlayableByCardReq(Entity* source)
