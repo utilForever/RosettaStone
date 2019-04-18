@@ -102,6 +102,11 @@ void Player::SetTemporaryMana(int value)
     SetGameTag(GameTag::TEMP_RESOURCES, value);
 }
 
+int Player::GetRemainingMana() const
+{
+    return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
+}
+
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
     m_hero =

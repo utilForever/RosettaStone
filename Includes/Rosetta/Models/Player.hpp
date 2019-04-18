@@ -115,6 +115,11 @@ class Player
     //! \param value additional mana gained during this turn.
     void SetTemporaryMana(int value);
 
+    //! Returns the amount of mana available to actually use after calculating
+    //! all resource factors.
+    //! \return The amount of mana available to actually use.
+    int GetRemainingMana() const;
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
