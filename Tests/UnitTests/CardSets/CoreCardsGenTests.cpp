@@ -28,10 +28,10 @@ TEST(CoreCardsGen, EX1_066)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
@@ -60,10 +60,10 @@ TEST(CoreCardsGen, EX1_306)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Succubus"));
@@ -92,10 +92,10 @@ TEST(CoreCardsGen, CS2_041)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
@@ -134,10 +134,10 @@ TEST(CoreCardsGen, CS2_088)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
     opPlayer.GetHero()->SetHealth(24);
 
     const auto card1 = Generic::DrawCard(
@@ -163,10 +163,10 @@ TEST(CoreCardsGen, CS1_112)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(4);
 
     auto& curField = curPlayer.GetField();
@@ -184,9 +184,9 @@ TEST(CoreCardsGen, CS1_112)
         opPlayer, Cards::GetInstance().FindCardByName("Worgen Infiltrator"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    curPlayer.currentMana = 10;
+    curPlayer.SetUsedMana(0);
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
-    curPlayer.currentMana = 10;
+    curPlayer.SetUsedMana(0);
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
 
@@ -223,10 +223,10 @@ TEST(CoreCardsGen, CS1_113)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto& curField = curPlayer.GetField();
     const auto& opField = opPlayer.GetField();
@@ -241,7 +241,7 @@ TEST(CoreCardsGen, CS1_113)
         opPlayer, Cards::GetInstance().FindCardByName("Mind Control"));
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
-    curPlayer.currentMana = 10;
+    curPlayer.SetUsedMana(0);
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
@@ -250,7 +250,7 @@ TEST(CoreCardsGen, CS1_113)
     EXPECT_EQ(curField.GetNumOfMinions(), 2u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
-    opPlayer.currentMana = 10;
+    opPlayer.SetUsedMana(0);
     auto curHero = curPlayer.GetHero();
     Task::Run(opPlayer, PlayCardTask::SpellTarget(curPlayer, card4, curHero));
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
@@ -271,10 +271,10 @@ TEST(CoreCardsGen, EX1_129)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto& opField = opPlayer.GetField();
 
@@ -321,10 +321,10 @@ TEST(CoreCardsGen, DS1_233)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mind Blast"));
@@ -348,10 +348,10 @@ TEST(CoreCardsGen, CS2_029)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
@@ -381,7 +381,7 @@ TEST(CoreCardsGen, CS2_029)
               PlayCardTask::SpellTarget(curPlayer, card2, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
 
-    curPlayer.currentMana = 10;
+    curPlayer.SetUsedMana(0);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card5));
     EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
@@ -406,10 +406,10 @@ TEST(CoreCardsGen, CS2_025)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto& opField = opPlayer.GetField();
 
@@ -452,10 +452,10 @@ TEST(CoreCardsGen, CS2_037)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -495,10 +495,10 @@ TEST(CoreCardsGen, CS2_024)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Frostbolt"));
@@ -531,7 +531,7 @@ TEST(CoreCardsGen, CS2_024)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 1);
 
-    curPlayer.currentMana = 10;
+    curPlayer.SetUsedMana(0);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, card5));
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
@@ -558,10 +558,10 @@ TEST(CoreCardsGen, CS2_026)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -600,10 +600,10 @@ TEST(CoreCardsGen, CS2_032)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -638,10 +638,10 @@ TEST(CoreCardsGen, CS2_023)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Arcane Intellect"));
@@ -666,10 +666,10 @@ TEST(CoreCardsGen, EX1_277)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Arcane Missiles"));
@@ -709,10 +709,10 @@ TEST(CoreCardsGen, CS2_027)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mirror Image"));
@@ -760,10 +760,10 @@ TEST(CoreCardsGen, CS2_022)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -811,10 +811,10 @@ TEST(CoreCardsGen, CS1_130)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Holy Smite"));
@@ -867,10 +867,10 @@ TEST(CoreCardsGen, CS2_093)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -906,10 +906,10 @@ TEST(CoreCardsGen, CS2_094)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -941,10 +941,10 @@ TEST(CoreCardsGen, EX1_371)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -983,10 +983,10 @@ TEST(CoreCardsGen, CS2_089)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1024,10 +1024,10 @@ TEST(CoreCardsGen, DS1_185)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Arcane Shot"));
@@ -1080,10 +1080,10 @@ TEST(CoreCardsGen, CS2_007)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1121,10 +1121,10 @@ TEST(CoreCardsGen, CS2_062)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -1176,10 +1176,10 @@ TEST(CoreCardsGen, CS2_057)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1215,10 +1215,10 @@ TEST(CoreCardsGen, CS2_122)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -1258,10 +1258,10 @@ TEST(CoreCardsGen, CS2_042)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1304,10 +1304,10 @@ TEST(CoreCardsGen, CS2_061)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -1345,10 +1345,10 @@ TEST(CoreCardsGen, CS2_064)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -1387,10 +1387,10 @@ TEST(CoreCardsGen, CS2_075)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Sinister Strike"));
@@ -1414,10 +1414,10 @@ TEST(CoreCardsGen, CS2_077)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Sprint"));
@@ -1442,10 +1442,10 @@ TEST(CoreCardsGen, CS2_147)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Gnomish Inventor"));
@@ -1470,10 +1470,10 @@ TEST(CoreCardsGen, CS2_084)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -1507,10 +1507,10 @@ TEST(CoreCardsGen, CS2_039)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -1555,10 +1555,10 @@ TEST(CoreCardsGen, CS2_076)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1594,10 +1594,10 @@ TEST(CoreCardsGen, CS2_150)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1640,10 +1640,10 @@ TEST(CoreCardsGen, EX1_400)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -1701,10 +1701,10 @@ TEST(CoreCardsGen, EX1_539)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Kill Command"));
@@ -1738,10 +1738,10 @@ TEST(CoreCardsGen, CS2_008)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -1797,10 +1797,10 @@ TEST(CoreCardsGen, CS2_072)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1837,10 +1837,10 @@ TEST(CoreCardsGen, DS1_055)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -1885,10 +1885,10 @@ TEST(CoreCardsGen, CS2_114)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -1942,10 +1942,10 @@ TEST(CoreCardsGen, EX1_593)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Nightblade"));
@@ -1969,10 +1969,10 @@ TEST(CoreCardsGen, EX1_587)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -2014,10 +2014,10 @@ TEST(CoreCardsGen, EX1_308)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2058,10 +2058,10 @@ TEST(CoreCardsGen, EX1_278)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2105,10 +2105,10 @@ TEST(CoreCardsGen, CS2_087)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -2139,10 +2139,10 @@ TEST(CoreCardsGen, CS2_141)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2173,10 +2173,10 @@ TEST(CoreCardsGen, CS2_189)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2207,10 +2207,10 @@ TEST(CoreCardsGen, EX1_246)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -2260,10 +2260,10 @@ TEST(CoreCardsGen, CS2_222)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -2323,10 +2323,10 @@ TEST(CoreCardsGen, EX1_011)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(6);
 
     auto& opField = opPlayer.GetField();
@@ -2364,10 +2364,10 @@ TEST(CoreCardsGen, DS1_183)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2426,10 +2426,10 @@ TEST(CoreCardsGen, EX1_173)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2461,10 +2461,10 @@ TEST(CoreCardsGen, CS2_046)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -2513,10 +2513,10 @@ TEST(CoreCardsGen, CS2_063)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2555,10 +2555,10 @@ TEST(CoreCardsGen, CS2_004)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -2591,10 +2591,10 @@ TEST(CoreCardsGen, CS2_235)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(6);
 
     auto& curField = curPlayer.GetField();
@@ -2636,10 +2636,10 @@ TEST(CoreCardsGen, EX1_622)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2684,10 +2684,10 @@ TEST(CoreCardsGen, CS2_234)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2732,10 +2732,10 @@ TEST(CoreCardsGen, CS2_092)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -2768,10 +2768,10 @@ TEST(CoreCardsGen, CS2_196)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -2800,10 +2800,10 @@ TEST(CoreCardsGen, CS2_012)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -2848,10 +2848,10 @@ TEST(CoreCardsGen, EX1_606)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetArmor(3);
 
     const auto card1 = Generic::DrawCard(
@@ -2877,10 +2877,10 @@ TEST(CoreCardsGen, NEW1_003)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(8);
 
     auto& curField = curPlayer.GetField();
@@ -2920,10 +2920,10 @@ TEST(CoreCardsGen, EX1_581)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -2973,10 +2973,10 @@ TEST(CoreCardsGen, NEW1_004)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -3018,10 +3018,10 @@ TEST(CoreCardsGen, EX1_025)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
 
@@ -3049,10 +3049,10 @@ TEST(CoreCardsGen, CS2_013)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 9;
-    curPlayer.currentMana = 9;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(9);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Wild Growth"));
@@ -3060,10 +3060,10 @@ TEST(CoreCardsGen, CS2_013)
         curPlayer, Cards::GetInstance().FindCardByName("Wild Growth"));
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
-    EXPECT_EQ(curPlayer.currentMana, 6);
-    EXPECT_EQ(curPlayer.maximumMana, 10);
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 6);
+    EXPECT_EQ(curPlayer.GetTotalMana(), 10);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
-    EXPECT_EQ(curPlayer.currentMana, 3);
-    EXPECT_EQ(curPlayer.maximumMana, 10);
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 3);
+    EXPECT_EQ(curPlayer.GetTotalMana(), 10);
 }

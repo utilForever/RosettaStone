@@ -57,7 +57,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
 
     for (Entity* entity : player.GetHand().GetAllCards())
     {
-        if (entity->GetCost() > player.currentMana)
+        if (entity->GetCost() > player.GetRemainingMana())
         {
             continue;
         }

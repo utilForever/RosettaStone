@@ -47,28 +47,29 @@ void RemoveMinionFromField(Player& player, Minion* minion)
 void ChangeManaCrystal(Player& player, int amount, bool fill)
 {
     // Available and maximum mana are up to a maximum of 10
-    if (player.maximumMana + amount > MANA_UPPER_LIMIT)
+    if (player.GetTotalMana() + amount > MANA_UPPER_LIMIT)
     {
-        if (fill)
+        if (!fill)
         {
-            player.currentMana += (MANA_UPPER_LIMIT - player.maximumMana);
+            player.SetUsedMana(player.GetUsedMana() + MANA_UPPER_LIMIT -
+                               player.GetTotalMana());
         }
 
-        player.maximumMana = MANA_UPPER_LIMIT;
+        player.SetTotalMana(MANA_UPPER_LIMIT);
     }
     // Maximum mana are up to a minimum of 0
-    else if (static_cast<int>(player.maximumMana) + amount < 0)
+    else if (player.GetTotalMana() + amount < 0)
     {
-        player.maximumMana = 0;
+        player.SetTotalMana(0);
     }
     else
     {
-        if (fill)
+        if (!fill)
         {
-            player.currentMana += amount;
+            player.SetUsedMana(player.GetUsedMana() + amount);
         }
 
-        player.maximumMana += amount;
+        player.SetTotalMana(player.GetTotalMana() + amount);
     }
 }
 

@@ -28,10 +28,10 @@ TEST(HoFCardsGen, EX1_050)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     const auto card = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Coldlight Oracle"));
@@ -57,10 +57,10 @@ TEST(HoFCardsGen, EX1_310)
     
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
     
     const auto card1 = Generic::DrawCard(
                                          curPlayer, Cards::GetInstance().FindCardByName("Doomguard"));

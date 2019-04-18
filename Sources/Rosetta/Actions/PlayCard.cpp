@@ -13,7 +13,7 @@ namespace RosettaStone::Generic
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
     // Verify mana is sufficient
-    if (source->GetCost() > player.currentMana)
+    if (source->GetCost() > player.GetRemainingMana())
     {
         return;
     }
@@ -27,7 +27,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
-        player.currentMana -= source->GetCost();
+        player.SetUsedMana(player.GetUsedMana() + source->GetCost());
     }
 
     // Erase from player's hand

@@ -27,10 +27,10 @@ TEST(Expert1CardsGen, CS2_028)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -68,10 +68,10 @@ TEST(Expert1CardsGen, EX1_012)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();

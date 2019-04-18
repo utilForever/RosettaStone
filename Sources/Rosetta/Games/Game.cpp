@@ -251,8 +251,10 @@ void Game::MainResource()
     // Add mana crystal to current player
     Generic::ChangeManaCrystal(curPlayer, 1, false);
 
-    // Reset current mana
-    curPlayer.currentMana = curPlayer.maximumMana;
+    // Clear used mana
+    curPlayer.SetUsedMana(0);
+    // Remove temporary mana
+    curPlayer.SetTemporaryMana(0);
 
     // Set next step
     nextStep = Step::MAIN_DRAW;
