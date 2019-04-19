@@ -28,7 +28,9 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
-        player.SetUsedMana(player.GetUsedMana() + source->GetCost());
+        int tempUsed = std::min(player.GetTemporaryMana(), source->GetCost());
+        player.SetTemporaryMana(player.GetTemporaryMana() - tempUsed);
+        player.SetUsedMana(player.GetUsedMana() + source->GetCost() - tempUsed);
     }
 
     // Erase from player's hand
