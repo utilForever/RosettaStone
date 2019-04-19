@@ -41,6 +41,7 @@ enum class TaskID
     FLAG,
     ARMOR,
     RETURN_HAND,
+    TEMP_MANA,
 
     NUM_TASK_ID
 };
