@@ -33,7 +33,6 @@ class TempManaTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     int m_amount;
-    bool m_fill;
 };
 }  // namespace RosettaStone::SimpleTasks
 
