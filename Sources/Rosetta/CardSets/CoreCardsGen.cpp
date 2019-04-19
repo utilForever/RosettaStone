@@ -24,6 +24,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -107,6 +108,16 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
     cards.emplace("CS2_232", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_169] Innervate - COST:0
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new TempManaTask(1));
+    cards.emplace("EX1_169", power);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_173] Starfire - COST:6
