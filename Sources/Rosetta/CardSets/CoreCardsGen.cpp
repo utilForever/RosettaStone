@@ -33,7 +33,106 @@ namespace RosettaStone
 {
 void CoreCardsGen::AddHeroes(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- HERO - WARRIOR
+    // [HERO_01] Garrosh Hellscream - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 725
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_01", power);
+
+    // ------------------------------------------ HERO - SHAMAN
+    // [HERO_02] Thrall - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 687
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_02", power);
+
+    // ------------------------------------------- HERO - ROGUE
+    // [HERO_03] Valeera Sanguinar - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 730
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_03", power);
+
+    // ----------------------------------------- HERO - PALADIN
+    // [HERO_04] Uther Lightbringer - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 472
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_04", power);
+
+    // ------------------------------------------ HERO - HUNTER
+    // [HERO_05] Rexxar - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 229
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_05", power);
+
+    // ------------------------------------------- HERO - DRUID
+    // [HERO_06] Malfurion Stormrage - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 1123
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_06", power);
+
+    // ----------------------------------------- HERO - WARLOCK
+    // [HERO_07] Gul'dan - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 300
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_07", power);
+
+    // -------------------------------------------- HERO - MAGE
+    // [HERO_08] Jaina Proudmoore - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 807
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_08", power);
+
+    // ------------------------------------------ HERO - PRIEST
+    // [HERO_09] Anduin Wrynn - COST:0 [ATK:0/HP:30]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - HERO_POWER = 479
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("HERO_09", power);
 }
 
 void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
