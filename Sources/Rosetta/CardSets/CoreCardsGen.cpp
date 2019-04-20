@@ -171,6 +171,24 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     cards.emplace("CS2_008", power);
 
     // ------------------------------------------ SPELL - DRUID
+    // [CS2_009] Mark of the Wild - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a minion <b>Taunt</b> and +2/+2.<i>
+    //       (+2 Attack/+2 Health)</i>
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_009e", EntityType::TARGET));
+    cards.emplace("CS2_009", power);
+
+    // ------------------------------------------ SPELL - DRUID
     // [CS2_012] Swipe - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -236,7 +254,17 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS2_009e] Mark of the Wild (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +2/+2 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_009e"));
+    cards.emplace("CS2_009e", power);
 }
 
 void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
