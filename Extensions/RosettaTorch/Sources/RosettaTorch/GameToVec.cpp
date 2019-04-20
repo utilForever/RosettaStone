@@ -56,6 +56,56 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     // Write health of the card
     CardVector[2] = (health >= CLIP_NORM) ? 1. : health / CLIP_NORM;
 
+    auto AuraToVector = [&](std::optional<Aura> aura) -> torch::Tensor { 
+        return torch::Tensor();
+    };
+
+    auto EnchantToVector = [&](std::optional<Enchant> enchant) -> torch::Tensor {
+        return torch::Tensor();
+    };
+
+    auto DeathrattleToVector = [&](std::vector<ITask*> deathrattle) -> torch::Tensor { 
+        return torch::Tensor();
+    };
+
+    auto PowerToVector = [&](std::vector<ITask*> power) -> torch::Tensor { 
+        return torch::Tensor();
+    };
+
+    auto write_vector = [&](size_t start_idx, size_t vec_size, torch::Tensor tensor) { 
+        for (size_t i = start_idx; i < start_idx + vec_size; ++i)
+        {
+            CardVector[i] = tensor[i];
+        }
+    };
+
+    auto ability = character->card.power;
+
+    auto aura = ability.GetAura();
+    auto enchant = ability.GetEnchant();
+    auto deathrattle = ability.GetDeathrattleTask();
+    auto power = ability.GetPowerTask();
+
+    // Write AuraVector
+    auto aura_vector = AuraToVector(aura);
+    write_vector(3,
+        AuraVectorSize, aura_vector);
+
+    // Write EnchantVector
+    auto enchant_vector = EnchantToVector(enchant);
+    write_vector(3 + AuraVectorSize,
+        EnchantVectorSize, enchant_vector);
+
+    // Write DeathrattleVector
+    auto deathrattle_vector = DeathrattleToVector(deathrattle);
+    write_vector(3 + AuraVectorSize + EnchantVectorSize,
+        DeathrattleVectorSize, deathrattle_vector);
+
+    // Write PowerVector
+    auto power_vector = PowerToVector(power);
+    write_vector(3 + AuraVectorSize + EnchantVectorSize + DeathrattleVectorSize,
+        PowerVectorSize, power_vector);
+
     return CardVector;
 }
 
