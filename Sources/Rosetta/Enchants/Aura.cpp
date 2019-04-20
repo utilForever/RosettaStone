@@ -90,6 +90,7 @@ void Aura::AddToField()
 {
     switch (m_type)
     {
+        case AuraType::ADJACENT:
         case AuraType::FIELD_EXCEPT_SOURCE:
             m_owner->owner->GetField().auras.emplace_back(this);
             break;
@@ -105,6 +106,59 @@ void Aura::UpdateInternal()
     {
         switch (m_type)
         {
+            case AuraType::ADJACENT:
+            {
+                auto minion = dynamic_cast<Minion*>(m_owner);
+                auto& field = m_owner->owner->GetField();
+                int pos =
+                    static_cast<int>(field.FindMinionPos(*minion).value());
+
+                const int entitySize =
+                    static_cast<int>(m_appliedEntities.size());
+                for (int i = entitySize - 1; i >= 0; --i)
+                {
+                    Entity* entity = m_appliedEntities[i];
+                    int fieldPos = static_cast<int>(
+                        field.FindMinionPos(*dynamic_cast<Minion*>(entity))
+                            .value());
+
+                    if (std::abs(pos - fieldPos) == 1)
+                    {
+                        continue;
+                    }
+
+                    for (auto& effect : m_effects)
+                    {
+                        effect.Remove(*entity->auraEffects);
+                    }
+
+                    auto iter = std::find(m_appliedEntities.begin(),
+                                          m_appliedEntities.end(), entity);
+                    if (iter != m_appliedEntities.end())
+                    {
+                        m_appliedEntities.erase(iter);
+                    }
+                }
+
+                if (pos > 0)
+                {
+                    auto leftMinion = field.GetMinion(pos - 1);
+                    if (leftMinion != nullptr)
+                    {
+                        Apply(*leftMinion);
+                    }
+                }
+                if (pos < FIELD_SIZE - 1)
+                {
+                    auto rightMinion = field.GetMinion(pos + 1);
+                    if (rightMinion != nullptr)
+                    {
+                        Apply(*rightMinion);
+                    }
+                }
+
+                break;
+            }
             case AuraType::FIELD_EXCEPT_SOURCE:
             {
                 for (auto& minion : m_owner->owner->GetField().GetAllMinions())
@@ -133,6 +187,7 @@ void Aura::RemoveInternal()
 {
     switch (m_type)
     {
+        case AuraType::ADJACENT:
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
             auto auras = m_owner->owner->GetField().auras;

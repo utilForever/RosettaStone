@@ -17,7 +17,9 @@ class Entity;
 //! Aura types. Indicates the range of auras.
 enum class AuraType
 {
-    INVALID,             //!< Invalid type.
+    INVALID,   //!< Invalid type.
+    ADJACENT,  //!< This type of aura affects the minions adjacent to the source
+               //!< of the aura.
     FIELD_EXCEPT_SOURCE  //!< This type of aura affects all friendly minions
                          //!< except the source of the aura.
 };
