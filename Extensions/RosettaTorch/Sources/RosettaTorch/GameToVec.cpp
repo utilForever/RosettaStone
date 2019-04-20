@@ -50,7 +50,8 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
     {
         auto effect_game_tag = effects[i].GetGameTag();
         auto effect_op = effects[i].GetEffectOperator();
-        auto effect_value = effects[i].GetValue();
+        // For preventing division by zero exception
+        auto effect_value = static_cast<float>(effects[i].GetValue()) + 1;
 
         // Getting index of the game tag
         std::vector<GameTag>::iterator game_tag_it =
@@ -70,8 +71,9 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
                              effect_game_op_tag_idx));
 
         // Noramlize the value and multiple to the embedding vector
-        effect_value =
-            (effect_value >= CLIP_NORM) ? 1. : effect_value / CLIP_NORM;
+        effect_value = (effect_value >= CLIP_EFFECT_NORM)
+                           ? 1.
+                           : effect_value / CLIP_EFFECT_NORM;
 
         EffectVectors[i] = EffectEmbeddingTable(index) / effect_value;
     }
@@ -97,10 +99,10 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     CardVector[0] = cost / MANA_UPPER_LIMIT;
 
     // Write attack of the card
-    CardVector[1] = (attack >= CLIP_NORM) ? 1. : attack / CLIP_NORM;
+    CardVector[1] = (attack >= CLIP_CARD_NORM) ? 1. : attack / CLIP_CARD_NORM;
 
     // Write health of the card
-    CardVector[2] = (health >= CLIP_NORM) ? 1. : health / CLIP_NORM;
+    CardVector[2] = (health >= CLIP_CARD_NORM) ? 1. : health / CLIP_CARD_NORM;
 
     auto AuraToVector = [&](std::optional<Aura> aura) -> torch::Tensor { 
         if (!aura.has_value())

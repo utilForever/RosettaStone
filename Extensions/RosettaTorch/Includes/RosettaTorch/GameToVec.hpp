@@ -46,7 +46,8 @@ class GameToVec
     virtual torch::Tensor GenerateTensor(const Game& game);
 
     /////////////////////////////////////////////
-    static constexpr size_t CLIP_NORM = 64;
+    static constexpr size_t CLIP_CARD_NORM = 64;
+    static constexpr size_t CLIP_EFFECT_NORM = 8;
 
     /////////////////////////////////////////////
     std::vector<GameTag> EffectGameTag = {
