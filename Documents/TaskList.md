@@ -26,9 +26,10 @@
 * HealFullTask
 * HealTask
 * IncludeTask
-* ModifyManaTask
+* ManaCrystalTask
 * RandomTask
 * ReturnHandTask
 * SetGameTagTask
 * SummonTask
+* TempManaTask
 * TransformTask
