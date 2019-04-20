@@ -158,4 +158,19 @@ void Aura::RemoveInternal()
     const auto iter = std::find(auras.begin(), auras.end(), this);
     auras.erase(iter);
 }
+
+AuraType Aura::GetAuraType()
+{
+    return m_type;
+}
+
+std::vector<Effect> Aura::GetEffects()
+{
+    return m_effects;
+}
+
+std::vector<Entity*> Aura::GetAppliedEntities()
+{
+    return m_appliedEntities;
+}
 }  // namespace RosettaStone
