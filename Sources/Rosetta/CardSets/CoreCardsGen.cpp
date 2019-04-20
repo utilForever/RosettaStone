@@ -200,6 +200,16 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     cards.emplace("CS2_009", power);
 
     // ------------------------------------------ SPELL - DRUID
+    // [CS2_011] Savage Roar - COST:3
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your characters +2 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_011o", EntityType::FRIENDS));
+    cards.emplace("CS2_011", power);
+
+    // ------------------------------------------ SPELL - DRUID
     // [CS2_012] Swipe - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -289,6 +299,19 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_009e"));
     cards.emplace("CS2_009e", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS2_011o] Savage Roar (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_011o"));
+    cards.emplace("CS2_011o", power);
 }
 
 void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
