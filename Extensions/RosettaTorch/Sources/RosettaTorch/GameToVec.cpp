@@ -24,6 +24,9 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
         embedding->weight.set_requires_grad(false);
     };
 
+    // Generates an embedding table for the Effect task
+    make_table(EffectEmbeddingTable, EffectIndexSize, EffectVectorSize);
+
     // Generates an embedding table for the Aura task
     make_table(AuraEmbeddingTable, AuraIndexSize, AuraVectorSize);
 
@@ -35,6 +38,11 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
 
     // Generates an embedding table for the Power task
     make_table(PowerEmbeddingTable, PowerIndexSize, PowerVectorSize);
+}
+
+torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
+{
+    return torch::Tensor();
 }
 
 torch::Tensor GameToVec::CardToTensor(Entity* entity)
@@ -57,11 +65,27 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     CardVector[2] = (health >= CLIP_NORM) ? 1. : health / CLIP_NORM;
 
     auto AuraToVector = [&](std::optional<Aura> aura) -> torch::Tensor { 
+        if (!aura.has_value())
+        {
+            return torch::zeros(AuraVectorSize);
+        }
+
+        auto effects_vector = std::nullopt;
+
         return torch::Tensor();
     };
 
     auto EnchantToVector = [&](std::optional<Enchant> enchant) -> torch::Tensor {
-        return torch::Tensor();
+        if (!enchant.has_value())
+        {
+            return torch::zeros(EnchantVectorSize);
+        }
+
+        auto effects_vector = EffectsToTensor(enchant->effects);
+
+        auto enchant_vector = effects_vector;
+
+        return enchant_vector;
     };
 
     auto DeathrattleToVector = [&](std::vector<ITask*> deathrattle) -> torch::Tensor { 

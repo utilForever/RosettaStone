@@ -30,6 +30,11 @@ class GameToVec
     //! Default virtual destructor.
     virtual ~GameToVec() = default;
 
+    //! Generates torch tensor from the effects
+    //! \param effects The card effects.
+    //! \return The encoded torch tensor from \p effects.
+    virtual torch::Tensor EffectsToTensor(std::vector<Effect> effects);
+
     //! Generates torch tensor from the entity
     //! \param entity The card context.
     //! \return The encoded torch tensor from \p entity.
@@ -44,6 +49,19 @@ class GameToVec
     static constexpr size_t CLIP_NORM = 64;
 
     /////////////////////////////////////////////
+    // Effect::GameTag (total 8 tags)
+    // GameTag::INVALID, GameTag::ATK, GameTag::HEALTH
+    // GameTag::TAUNT, GameTag::POISONOUS, GameTag::DIVINE_SHIELD
+    // GameTag::WINDFURY, GameTag::STEALTH
+    // EffectOperator (total 4 operations)
+    // EffectOperator::ADD, EffectOperator::SUB
+    // EffectOperator::MUL, EffectOperator::SET
+    static constexpr size_t EffectVectorSize = 4;
+    static constexpr size_t EffectGameTagSize = 8;
+    static constexpr size_t EffectOperationSize = 4;
+    static constexpr size_t EffectIndexSize = 
+        EffectGameTagSize * EffectOperationSize;
+
     static constexpr size_t AuraVectorSize = 4;
     static constexpr size_t AuraIndexSize = 4;
 
@@ -72,6 +90,7 @@ class GameToVec
     size_t m_seed;
 
     //! embedding table for the card
+    torch::nn::Embedding EffectEmbeddingTable = nullptr;
     torch::nn::Embedding AuraEmbeddingTable = nullptr;
     torch::nn::Embedding EnchantEmbeddingTable = nullptr;
     torch::nn::Embedding DeathrattleEmbeddingTable = nullptr;
