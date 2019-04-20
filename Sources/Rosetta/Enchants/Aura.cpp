@@ -90,7 +90,7 @@ void Aura::RemoveEntity(Entity& entity)
 
 void Aura::Apply(Entity& entity)
 {
-    auto iter =
+    const auto iter =
         std::find(m_appliedEntities.begin(), m_appliedEntities.end(), &entity);
     if (iter != m_appliedEntities.end())
     {
@@ -132,9 +132,9 @@ void Aura::UpdateInternal()
         {
             case AuraType::ADJACENT:
             {
-                auto minion = dynamic_cast<Minion*>(m_owner);
+                const auto minion = dynamic_cast<Minion*>(m_owner);
                 auto& field = m_owner->owner->GetField();
-                int pos =
+                const int pos =
                     static_cast<int>(field.FindMinionPos(*minion).value());
 
                 const int entitySize =
@@ -142,7 +142,7 @@ void Aura::UpdateInternal()
                 for (int i = entitySize - 1; i >= 0; --i)
                 {
                     Entity* entity = m_appliedEntities[i];
-                    int fieldPos = static_cast<int>(
+                    const int fieldPos = static_cast<int>(
                         field.FindMinionPos(*dynamic_cast<Minion*>(entity))
                             .value());
 
@@ -166,15 +166,15 @@ void Aura::UpdateInternal()
 
                 if (pos > 0)
                 {
-                    auto leftMinion = field.GetMinion(pos - 1);
+                    const auto leftMinion = field.GetMinion(pos - 1);
                     if (leftMinion != nullptr)
                     {
                         Apply(*leftMinion);
                     }
                 }
-                if (pos < FIELD_SIZE - 1)
+                if (pos < static_cast<int>(FIELD_SIZE - 1))
                 {
-                    auto rightMinion = field.GetMinion(pos + 1);
+                    const auto rightMinion = field.GetMinion(pos + 1);
                     if (rightMinion != nullptr)
                     {
                         Apply(*rightMinion);
