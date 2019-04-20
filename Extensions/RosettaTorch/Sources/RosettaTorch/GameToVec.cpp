@@ -31,7 +31,7 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
     make_table(AuraEmbeddingTable, AuraIndexSize, AuraVectorSize);
 
     // Generates an embedding table for the Enchant task
-    make_table(EnchantEmbeddingTable, EnchantIndexSize, EnchantVectorSize);
+    // make_table(EnchantEmbeddingTable, EnchantIndexSize, EnchantVectorSize);
 
     // Generates an embedding table for the Deathrattle task
     make_table(DeathrattleEmbeddingTable, DeathrattleIndexSize, DeathrattleVectorSize);
@@ -117,11 +117,10 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
             return torch::zeros(EnchantVectorSize);
         }
 
+        // Enchant only has the 'Effect' task
         auto effects_vector = EffectsToTensor(enchant->effects);
 
-        auto enchant_vector = effects_vector;
-
-        return enchant_vector;
+        return effects_vector;
     };
 
     auto DeathrattleToVector = [&](std::vector<ITask*> deathrattle) -> torch::Tensor { 
