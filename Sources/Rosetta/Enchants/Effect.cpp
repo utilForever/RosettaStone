@@ -90,4 +90,19 @@ void Effect::Remove(AuraEffects& auraEffects) const
             throw std::invalid_argument("Invalid effect operator!");
     }
 }
+
+EffectOperator Effect::GetEffectOperator()
+{
+    return m_effectOperator;
+}
+
+GameTag Effect::GetGameTag()
+{
+    return m_gameTag;
+}
+
+int Effect::GetValue()
+{
+    return m_value;
+}
 }  // namespace RosettaStone

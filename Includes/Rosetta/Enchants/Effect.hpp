@@ -52,6 +52,15 @@ class Effect
     //! \param auraEffects The aura effect.
     void Remove(AuraEffects& auraEffects) const;
 
+    //! Get m_gameTag
+    GameTag GetGameTag();
+
+    //! Get m_effectOperator
+    EffectOperator GetEffectOperator();
+
+    //! Get m_value
+    int GetValue();
+
  private:
     GameTag m_gameTag = GameTag::INVALID;
     EffectOperator m_effectOperator = EffectOperator::SET;
