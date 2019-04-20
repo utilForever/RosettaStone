@@ -3629,3 +3629,53 @@ TEST(CoreCardsGen, CS2_105)
 
     EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 3);
 }
+
+TEST(CoreCardsGen, CS2_108)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Execute"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+
+    Task::Run(curPlayer, AttackTask(card2, card3));
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+}

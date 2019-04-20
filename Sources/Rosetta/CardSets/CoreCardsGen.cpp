@@ -1305,6 +1305,22 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_106", power);
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS2_108] Execute - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Destroy a damaged enemy minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("CS2_108", power);
+
     // --------------------------------------- WEAPON - WARRIOR
     // [CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0]
     // - Faction: Neutral, Set: Core, Rarity: Free
