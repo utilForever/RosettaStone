@@ -42,7 +42,45 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
 
 torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
 {
-    return torch::Tensor();
+    torch::Tensor EffectVectors = torch::zeros(
+        { static_cast<int>(effects.size()), static_cast<int>(EffectVectorSize) }
+    );
+
+    for (size_t i = 0; i < effects.size(); ++i)
+    {
+        auto effect_game_tag = effects[i].GetGameTag();
+        auto effect_op = effects[i].GetEffectOperator();
+        auto effect_value = effects[i].GetValue();
+
+        // Getting index of the game tag
+        std::vector<GameTag>::iterator game_tag_it =
+            std::find(EffectGameTag.begin(), EffectGameTag.end(), effect_game_tag);
+        auto effect_game_tag_idx =
+            std::distance(EffectGameTag.begin(), game_tag_it);
+
+        // Getting index of the effect operator
+        std::vector<EffectOperator>::iterator game_op_it = std::find(
+            EffectOperatorTag.begin(), EffectOperatorTag.end(), effect_op);
+        auto effect_game_op_tag_idx =
+            std::distance(EffectOperatorTag.begin(), game_op_it);
+
+        torch::Tensor index = torch::zeros((1), torch::kInt8);
+        index.add(
+            static_cast<int>(EffectOperationTagSize * effect_game_tag_idx +
+                             effect_game_op_tag_idx));
+
+        // Noramlize the value and multiple to the embedding vector
+        effect_value =
+            (effect_value >= CLIP_NORM) ? 1. : effect_value / CLIP_NORM;
+
+        EffectVectors[i] = EffectEmbeddingTable(index) / effect_value;
+    }
+    
+    // Average all vectors (effects)
+    auto EffectVector = torch::mean(EffectVectors);
+
+    // excepted (4,) Tensor
+    return EffectVector;
 }
 
 torch::Tensor GameToVec::CardToTensor(Entity* entity)
@@ -69,8 +107,6 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         {
             return torch::zeros(AuraVectorSize);
         }
-
-        auto effects_vector = std::nullopt;
 
         return torch::Tensor();
     };

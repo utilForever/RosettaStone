@@ -49,18 +49,20 @@ class GameToVec
     static constexpr size_t CLIP_NORM = 64;
 
     /////////////////////////////////////////////
-    // Effect::GameTag (total 8 tags)
-    // GameTag::INVALID, GameTag::ATK, GameTag::HEALTH
-    // GameTag::TAUNT, GameTag::POISONOUS, GameTag::DIVINE_SHIELD
-    // GameTag::WINDFURY, GameTag::STEALTH
-    // EffectOperator (total 4 operations)
-    // EffectOperator::ADD, EffectOperator::SUB
-    // EffectOperator::MUL, EffectOperator::SET
+    std::vector<GameTag> EffectGameTag = {
+        GameTag::INVALID,  GameTag::ATK,       GameTag::HEALTH,
+        GameTag::TAUNT,    GameTag::POISONOUS, GameTag::DIVINE_SHIELD,
+        GameTag::WINDFURY, GameTag::STEALTH
+    };
+    std::vector<EffectOperator> EffectOperatorTag = {
+        EffectOperator::ADD, EffectOperator::MUL,
+        EffectOperator::SET, EffectOperator::SUB
+    };
     static constexpr size_t EffectVectorSize = 4;
     static constexpr size_t EffectGameTagSize = 8;
-    static constexpr size_t EffectOperationSize = 4;
+    static constexpr size_t EffectOperationTagSize = 4;
     static constexpr size_t EffectIndexSize = 
-        EffectGameTagSize * EffectOperationSize;
+        EffectGameTagSize * EffectOperationTagSize;
 
     static constexpr size_t AuraVectorSize = 4;
     static constexpr size_t AuraIndexSize = 4;
