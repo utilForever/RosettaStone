@@ -3573,3 +3573,59 @@ TEST(CoreCardsGen, EX1_565)
     EXPECT_EQ(curField.GetMinion(5)->GetAttack(), 2);
     EXPECT_EQ(curField.GetMinion(5)->GetHealth(), 3);
 }
+
+TEST(CoreCardsGen, CS2_105)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Heroic Strike"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Heroic Strike"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 4);
+
+    Task::Run(curPlayer, AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Weapon(curPlayer, card3));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 3);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 7);
+
+    Task::Run(curPlayer, AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 19);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 3);
+}

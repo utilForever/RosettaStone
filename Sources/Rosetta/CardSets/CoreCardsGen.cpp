@@ -1284,6 +1284,16 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
 {
     Power power;
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS2_105] Heroic Strike - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your hero +4 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_105e", EntityType::HERO));
+    cards.emplace("CS2_105", power);
+
     // --------------------------------------- WEAPON - WARRIOR
     // [CS2_106] Fiery War Axe - COST:3 [ATK:3/HP:0]
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -1358,7 +1368,20 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [CS2_105e] Heroic Strike (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +4 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_105e"));
+    cards.emplace("CS2_105e", power);
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
