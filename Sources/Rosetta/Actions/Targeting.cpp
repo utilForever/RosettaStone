@@ -147,6 +147,14 @@ bool CheckRequirements(Entity* source, Character* target)
                 }
                 break;
             }
+            case PlayReq::REQ_DAMAGED_TARGET:
+            {
+                if (target->GetDamage() == 0)
+                {
+                    return false;
+                }
+                break;
+            }
             case PlayReq::REQ_TARGET_MAX_ATTACK:
             {
                 if (target->GetAttack() > param)
