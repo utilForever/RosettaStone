@@ -1057,6 +1057,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("EX1_246", power);
 
     // ---------------------------------------- MINION - SHAMAN
+    // [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
+    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Adjacent minions have +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ADJACENT_BUFF = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("EX1_565o", AuraType::ADJACENT));
+    cards.emplace("EX1_565", power);
+
+    // ---------------------------------------- MINION - SHAMAN
     // [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
     // - Faction: Neutral, Set: core, Rarity: free
     // --------------------------------------------------------
@@ -1108,6 +1122,16 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_046e"));
     cards.emplace("CS2_046e", power);
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [EX1_565o] Flametongue (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +2 Attack from Flametongue Totem.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_565o"));
+    cards.emplace("EX1_565o", power);
 }
 
 void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
