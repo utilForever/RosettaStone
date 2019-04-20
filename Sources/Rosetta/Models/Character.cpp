@@ -203,7 +203,7 @@ void Character::TakeHeal(Entity& source, int heal)
     int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
-    GetOwner().GetGame()->triggerManager.OnHealTrigger(nullptr, this);
-    GetOwner().GetGame()->ProcessTasks();
+    owner->GetGame()->triggerManager.OnHealTrigger(nullptr, this);
+    owner->GetGame()->ProcessTasks();
 }
 }  // namespace RosettaStone

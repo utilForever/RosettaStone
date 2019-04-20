@@ -41,8 +41,8 @@ TEST(Game, Mulligan)
     auto& opPlayer = game.GetOpponentPlayer();
 
     MulliganTestPolicy policy;
-    curPlayer.SetPolicy(&policy);
-    opPlayer.SetPolicy(&policy);
+    curPlayer.policy = &policy;
+    opPlayer.policy = &policy;
 
     game.nextStep = Step::BEGIN_MULLIGAN;
     GameManager::ProcessNextStep(game, game.nextStep);

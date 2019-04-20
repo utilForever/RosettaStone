@@ -53,30 +53,6 @@ class Player
     //! Move assignment operator.
     Player& operator=(Player&& p) = delete;
 
-    //! Returns player nickname.
-    //! \return player nickname.
-    std::string GetNickname() const;
-
-    //! Sets player nickname.
-    //! \param nickname player nickname.
-    void SetNickname(std::string nickname);
-
-    //! Returns player type.
-    //! \return Player type.
-    PlayerType GetPlayerType() const;
-
-    //! Sets player type.
-    //! \param type Player type.
-    void SetPlayerType(PlayerType type);
-
-    //! Returns player ID.
-    //! \return Player ID.
-    std::size_t GetID() const;
-
-    //! Sets player ID.
-    //! \param id Player ID.
-    void SetID(std::size_t id);
-
     //! Returns a pointer to game.
     //! \return A pointer to game.
     Game* GetGame() const;
@@ -105,51 +81,73 @@ class Player
     //! \return Player's hero.
     Hero* GetHero() const;
 
-    //! Returns game playing policy of current player.
-    //! \return The policy of current player.
-    IPolicy& GetPolicy() const;
+    //! Returns the value of game tag.
+    //! \param tag The game tag of card.
+    //! \return The value of game tag.
+    int GetGameTag(GameTag tag) const;
 
-    //! Sets game playing policy for current player.
-    //! \param policy Policy for playing game.
-    void SetPolicy(IPolicy* policy);
+    //! Sets game tag to the card.
+    //! \param tag The game tag to indicate ability or condition.
+    //! \param value The value to set for game tag.
+    void SetGameTag(GameTag tag, int value);
 
-    //! Returns the opponent player.
-    //! \return The opponent player.
-    Player& GetOpponent() const;
+    //! Returns total amount of mana available.
+    //! \return Total amount of mana available.
+    int GetTotalMana() const;
 
-    //! Sets the opponent player.
-    //! \param player The opponent player.
-    void SetOpponent(Player* player);
+    //! Sets total amount of mana available.
+    //! \param value Total amount of mana available.
+    void SetTotalMana(int value);
+
+    //! Returns amount of mana used.
+    //! \return Amount of mana used.
+    int GetUsedMana() const;
+
+    //! Sets amount of mana used.
+    //! \param value Amount of mana used.
+    void SetUsedMana(int value);
+
+    //! Returns additional mana gained during this turn.
+    //! \return additional mana gained during this turn.
+    int GetTemporaryMana() const;
+
+    //! Sets additional mana gained during this turn.
+    //! \param value additional mana gained during this turn.
+    void SetTemporaryMana(int value);
+
+    //! Returns the amount of mana available to actually use after calculating
+    //! all resource factors.
+    //! \return The amount of mana available to actually use.
+    int GetRemainingMana() const;
 
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
     void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
 
+    std::string nickname;
+    PlayerType playerType = PlayerType::PLAYER1;
+    std::size_t playerID = 0;
+
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
 
-    int currentMana = 0;
-    int maximumMana = 0;
+    IPolicy* policy = nullptr;
+    Player* opponent = nullptr;
 
     int currentSpellPower = 0;
 
  private:
-    std::string m_nickname;
-    PlayerType m_playerType = PlayerType::PLAYER1;
-    std::size_t m_id = 0;
-
     Battlefield m_field;
     Deck m_deck;
     Graveyard m_graveyard;
     Hand m_hand;
 
     Hero* m_hero = nullptr;
-
     Game* m_game = nullptr;
-    IPolicy* m_policy = nullptr;
-    Player* m_opponent = nullptr;
+
+    std::map<GameTag, int> m_gameTags;
 };
 }  // namespace RosettaStone
 

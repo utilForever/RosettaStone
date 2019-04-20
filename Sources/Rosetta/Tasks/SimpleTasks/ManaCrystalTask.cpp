@@ -3,27 +3,25 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Actions/Draw.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-DrawTask::DrawTask(int amount) : m_amount(amount)
+ManaCrystalTask::ManaCrystalTask(int amount, bool fill)
+    : m_amount(amount), m_fill(fill)
 {
     // Do nothing
 }
 
-TaskID DrawTask::GetTaskID() const
+TaskID ManaCrystalTask::GetTaskID() const
 {
-    return TaskID::DRAW;
+    return TaskID::MANA_CRYSTAL;
 }
 
-TaskStatus DrawTask::Impl(Player& player)
+TaskStatus ManaCrystalTask::Impl(Player& player)
 {
-    for (int i = 0; i < m_amount; ++i)
-    {
-        Generic::Draw(player, nullptr);
-    }
+    Generic::ChangeManaCrystal(player, m_amount, m_fill);
 
     return TaskStatus::COMPLETE;
 }

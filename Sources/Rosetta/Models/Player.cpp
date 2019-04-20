@@ -4,13 +4,12 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
 
 namespace RosettaStone
 {
-Player::Player() : m_id(USER_INVALID)
+Player::Player() : playerID(USER_INVALID)
 {
     m_field.SetOwner(*this);
     m_deck.SetOwner(*this);
@@ -21,36 +20,6 @@ Player::Player() : m_id(USER_INVALID)
 Player::~Player()
 {
     delete m_hero;
-}
-
-std::string Player::GetNickname() const
-{
-    return m_nickname;
-}
-
-void Player::SetNickname(std::string nickname)
-{
-    m_nickname = nickname;
-}
-
-PlayerType Player::GetPlayerType() const
-{
-    return m_playerType;
-}
-
-void Player::SetPlayerType(PlayerType type)
-{
-    m_playerType = type;
-}
-
-std::size_t Player::GetID() const
-{
-    return m_id;
-}
-
-void Player::SetID(std::size_t id)
-{
-    m_id = id;
 }
 
 Game* Player::GetGame() const
@@ -88,24 +57,54 @@ Hero* Player::GetHero() const
     return m_hero;
 }
 
-IPolicy& Player::GetPolicy() const
+int Player::GetGameTag(GameTag tag) const
 {
-    return *m_policy;
+    if (m_gameTags.find(tag) == m_gameTags.end())
+    {
+        return 0;
+    }
+
+    return m_gameTags.at(tag);
 }
 
-void Player::SetPolicy(IPolicy* policy)
+void Player::SetGameTag(GameTag tag, int value)
 {
-    m_policy = policy;
+    m_gameTags.insert_or_assign(tag, value);
 }
 
-Player& Player::GetOpponent() const
+int Player::GetTotalMana() const
 {
-    return *m_opponent;
+    return GetGameTag(GameTag::RESOURCES);
 }
 
-void Player::SetOpponent(Player* player)
+void Player::SetTotalMana(int value)
 {
-    m_opponent = player;
+    SetGameTag(GameTag::RESOURCES, value);
+}
+
+int Player::GetUsedMana() const
+{
+    return GetGameTag(GameTag::RESOURCES_USED);
+}
+
+void Player::SetUsedMana(int value)
+{
+    SetGameTag(GameTag::RESOURCES_USED, value);
+}
+
+int Player::GetTemporaryMana() const
+{
+    return GetGameTag(GameTag::TEMP_RESOURCES);
+}
+
+void Player::SetTemporaryMana(int value)
+{
+    SetGameTag(GameTag::TEMP_RESOURCES, value);
+}
+
+int Player::GetRemainingMana() const
+{
+    return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
 }
 
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)

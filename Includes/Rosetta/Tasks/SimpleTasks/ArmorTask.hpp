@@ -3,24 +3,24 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_DRAW_TASK_HPP
-#define ROSETTASTONE_DRAW_TASK_HPP
+#ifndef ROSETTASTONE_ARMOR_TASK_HPP
+#define ROSETTASTONE_ARMOR_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief DrawTask class.
+//! \brief ArmorTask class.
 //!
-//! This class represents the task for drawing card(s) from deck at random.
+//! This class represents the task for gaining armor to hero.
 //!
-class DrawTask : public ITask
+class ArmorTask : public ITask
 {
  public:
     //! Constructs task with given \p amount.
-    //! \param amount The amount to draw card.
-    DrawTask(int amount);
+    //! \param amount The amount to gain armor.
+    explicit ArmorTask(int amount);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,8 +32,8 @@ class DrawTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    int m_amount = 0;
+    int m_amount;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_DRAW_TASK_HPP
+#endif  // ROSETTASTONE_ARMOR_TASK_HPP

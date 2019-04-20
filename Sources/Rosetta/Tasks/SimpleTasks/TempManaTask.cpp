@@ -1,0 +1,34 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+#include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
+
+namespace RosettaStone::SimpleTasks
+{
+TempManaTask::TempManaTask(int amount) : m_amount(amount)
+{
+    // Do nothing
+}
+
+TaskID TempManaTask::GetTaskID() const
+{
+    return TaskID::TEMP_MANA;
+}
+
+TaskStatus TempManaTask::Impl(Player& player)
+{
+    if (player.GetRemainingMana() + m_amount > MANA_UPPER_LIMIT)
+    {
+        player.SetTemporaryMana(player.GetTemporaryMana() +
+                                (MANA_UPPER_LIMIT - player.GetRemainingMana()));
+    }
+    else
+    {
+        player.SetTemporaryMana(player.GetTemporaryMana() + m_amount);
+    }
+
+    return TaskStatus::COMPLETE;
+}
+}  // namespace RosettaStone::SimpleTasks

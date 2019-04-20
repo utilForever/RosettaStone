@@ -129,7 +129,7 @@ TEST(AttackTask, Weapon)
     player1.GetHero()->weapon = new Weapon();
     player1.GetHero()->weapon->SetAttack(4);
     player1.GetHero()->weapon->SetDurability(2);
-    player1.GetHero()->weapon->SetOwner(player1);
+    player1.GetHero()->weapon->owner = &player1;
     EndTurnTask().Run(player1);
     game.ProcessUntil(Step::MAIN_START);
 

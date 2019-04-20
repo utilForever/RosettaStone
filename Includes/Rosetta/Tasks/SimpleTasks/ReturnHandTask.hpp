@@ -3,24 +3,24 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_DRAW_TASK_HPP
-#define ROSETTASTONE_DRAW_TASK_HPP
+#ifndef ROSETTASTONE_RETURN_HAND_TASK_HPP
+#define ROSETTASTONE_RETURN_HAND_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief DrawTask class.
+//! \brief ReturnHandTask class.
 //!
-//! This class represents the task for drawing card(s) from deck at random.
+//! This class represents the task for returning minion to player's hand.
 //!
-class DrawTask : public ITask
+class ReturnHandTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount.
-    //! \param amount The amount to draw card.
-    DrawTask(int amount);
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target to return to hand.
+    explicit ReturnHandTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -31,9 +31,7 @@ class DrawTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
-
-    int m_amount = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_DRAW_TASK_HPP
+#endif  // ROSETTASTONE_RETURN_HAND_TASK_HPP

@@ -12,14 +12,15 @@ namespace RosettaStone::Generic
 {
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
-    // Verify mana is sufficient
-    if (source->GetCost() > player.currentMana)
+    // Check battlefield is full
+    if (dynamic_cast<Minion*>(source) != nullptr && player.GetField().IsFull())
     {
         return;
     }
 
     // Check if we can play this card and the target is valid
-    if (!IsPlayableByCardReq(source) || !IsValidTarget(source, target))
+    if (!IsPlayableByPlayer(player, source) || !IsPlayableByCardReq(source) ||
+        !IsValidTarget(source, target))
     {
         return;
     }
@@ -27,14 +28,16 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
-        player.currentMana -= source->GetCost();
+        int tempUsed = std::min(player.GetTemporaryMana(), source->GetCost());
+        player.SetTemporaryMana(player.GetTemporaryMana() - tempUsed);
+        player.SetUsedMana(player.GetUsedMana() + source->GetCost() - tempUsed);
     }
 
     // Erase from player's hand
     player.GetHand().RemoveCard(*source);
 
     // Set card's owner
-    source->SetOwner(player);
+    source->owner = &player;
 
     // Pass to sub-logic
     switch (source->card.GetCardType())
@@ -114,6 +117,29 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     player.GetHero()->AddWeapon(*weapon);
 }
 
+bool IsPlayableByPlayer(Player& player, Entity* source)
+{
+    // Verify mana is sufficient
+    if (source->GetCost() > player.GetRemainingMana())
+    {
+        return false;
+    }
+
+    // Check if player is on turn
+    if (&player != &player.GetGame()->GetCurrentPlayer())
+    {
+        return false;
+    }
+
+    // Check if entity is in hand to be played
+    if (player.GetHand().FindCardPos(*source) == std::nullopt)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 bool IsPlayableByCardReq(Entity* source)
 {
     for (auto& requirement : source->card.playRequirements)
@@ -122,7 +148,7 @@ bool IsPlayableByCardReq(Entity* source)
         {
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                auto& opField = source->GetOwner().GetOpponent().GetField();
+                auto& opField = source->owner->opponent->GetField();
                 if (static_cast<int>(opField.GetNumOfMinions()) <
                     requirement.second)
                 {

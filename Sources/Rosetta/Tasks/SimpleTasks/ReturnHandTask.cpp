@@ -4,41 +4,32 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Generic.hpp>
-#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
-
-#include <utility>
+#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-TransformTask::TransformTask(EntityType entityType, std::string cardID)
-    : ITask(entityType), m_cardID(std::move(cardID))
+ReturnHandTask::ReturnHandTask(EntityType entityType) : ITask(entityType)
 {
     // Do nothing
 }
 
-TaskID TransformTask::GetTaskID() const
+TaskID ReturnHandTask::GetTaskID() const
 {
-    return TaskID::TRANSFORM;
+    return TaskID::RETURN_HAND;
 }
 
-TaskStatus TransformTask::Impl(Player& player)
+TaskStatus ReturnHandTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& entity : entities)
     {
-        Card card = Cards::FindCardByID(m_cardID);
-
-        auto* minion = dynamic_cast<Minion*>(entity);
-        if (minion == nullptr)
-        {
-            return TaskStatus::STOP;
-        }
-
-        Generic::TransformMinion(*minion->owner, minion, std::move(card));
+        Generic::RemoveMinionFromField(*entity->owner,
+                                       dynamic_cast<Minion*>(entity));
+        entity->Reset();
+        Generic::AddCardToHand(*entity->owner, entity);
     }
 
     return TaskStatus::COMPLETE;

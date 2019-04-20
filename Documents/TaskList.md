@@ -13,6 +13,7 @@
 ## Basic tasks
 
 * AddEnchantmentTask
+* ArmorTask
 * ConditionTask
 * ControlTask
 * DamageTask
@@ -25,8 +26,10 @@
 * HealFullTask
 * HealTask
 * IncludeTask
-* ModifyManaTask
+* ManaCrystalTask
 * RandomTask
+* ReturnHandTask
 * SetGameTagTask
 * SummonTask
+* TempManaTask
 * TransformTask

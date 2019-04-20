@@ -16,7 +16,7 @@ Enchantment::Enchantment(Player& _owner, Card& _card, Entity* target)
     // Do nothing
 }
 
-Enchantment* Enchantment::GetInstance(Player& player, Card card, Entity* target)
+Enchantment* Enchantment::GetInstance(Player& player, Card& card, Entity* target)
 {
     Enchantment* instance = new Enchantment(player, card, target);
 

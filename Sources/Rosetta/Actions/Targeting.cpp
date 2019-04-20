@@ -85,7 +85,7 @@ std::vector<Character*> GetValidTargets(Entity* source)
         return ret;
     }
 
-    auto game = source->GetOwner().GetGame();
+    auto game = source->owner->GetGame();
 
     // Check play requirements for player's hero
     if (CheckRequirements(source, game->GetPlayer1().GetHero()))
@@ -134,14 +134,22 @@ bool CheckRequirements(Entity* source, Character* target)
                 break;
             }
             case PlayReq::REQ_FRIENDLY_TARGET:
-                if (&target->GetOwner() != &source->GetOwner())
+                if (target->owner != source->owner)
                 {
                     return false;
                 }
                 break;
             case PlayReq::REQ_ENEMY_TARGET:
             {
-                if (&target->GetOwner() == &source->GetOwner())
+                if (target->owner == source->owner)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_DAMAGED_TARGET:
+            {
+                if (target->GetDamage() == 0)
                 {
                     return false;
                 }
@@ -158,6 +166,14 @@ bool CheckRequirements(Entity* source, Character* target)
             case PlayReq::REQ_NONSELF_TARGET:
             {
                 if (source == target)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_TARGET_WITH_RACE:
+            {
+                if (target->card.GetRace() != static_cast<Race>(param))
                 {
                     return false;
                 }

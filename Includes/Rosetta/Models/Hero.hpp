@@ -45,6 +45,18 @@ class Hero : public Character
     //! Move assignment operator.
     Hero& operator=(Hero&& hero) = delete;
 
+    //! Returns the value of attack.
+    //! \return The value of attack.
+    int GetAttack() const override;
+
+    //! Returns the value of armor.
+    //! \return The value of armor.
+    int GetArmor() const;
+
+    //! Sets the value of armor.
+    //! \param armor The value of armor.
+    void SetArmor(int armor);
+
     //! Adds weapon to hero.
     //! \param _weapon A weapon card to add.
     void AddWeapon(Weapon& _weapon);
@@ -56,9 +68,9 @@ class Hero : public Character
     //! \return true if hero has weapon, and false otherwise.
     bool HasWeapon() const;
 
-    //! Returns the value of attack.
-    //! \return The value of attack.
-    int GetAttack() const override;
+    //! Gains armor to hero.
+    //! \p amount The amount to gain armor.
+    void GainArmor(int amount);
 
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;

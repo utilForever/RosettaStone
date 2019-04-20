@@ -16,7 +16,7 @@ Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
 
 Weapon::~Weapon()
 {
-    GetOwner().GetHero()->weapon = nullptr;
+    owner->GetHero()->weapon = nullptr;
 }
 
 int Weapon::GetAttack() const

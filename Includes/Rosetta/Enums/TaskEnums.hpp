@@ -16,7 +16,7 @@ enum class TaskID
     DRAW,
     DRAW_OP,
     OVERDRAW,
-    MODIFY_MANA,
+    MANA_CRYSTAL,
     DAMAGE,
     MULLIGAN,
     PLAY_CARD,
@@ -39,6 +39,9 @@ enum class TaskID
     TRANSFORM,
     CONDITION,
     FLAG,
+    ARMOR,
+    RETURN_HAND,
+    TEMP_MANA,
 
     NUM_TASK_ID
 };

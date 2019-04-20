@@ -14,13 +14,13 @@ CORE | CS1_113 | Mind Control | O
 CORE | CS1_130 | Holy Smite | O
 CORE | CS2_003 | Mind Vision |  
 CORE | CS2_004 | Power Word: Shield | O
-CORE | CS2_005 | Claw |  
+CORE | CS2_005 | Claw | O
 CORE | CS2_007 | Healing Touch | O
 CORE | CS2_008 | Moonfire | O
-CORE | CS2_009 | Mark of the Wild |  
-CORE | CS2_011 | Savage Roar |  
+CORE | CS2_009 | Mark of the Wild | O
+CORE | CS2_011 | Savage Roar | O
 CORE | CS2_012 | Swipe | O
-CORE | CS2_013 | Wild Growth |  
+CORE | CS2_013 | Wild Growth | O
 CORE | CS2_022 | Polymorph | O
 CORE | CS2_023 | Arcane Intellect | O
 CORE | CS2_024 | Frostbolt | O
@@ -34,7 +34,7 @@ CORE | CS2_037 | Frost Shock | O
 CORE | CS2_039 | Windfury | O
 CORE | CS2_041 | Ancestral Healing | O
 CORE | CS2_042 | Fire Elemental | O
-CORE | CS2_045 | Rockbiter Weapon |  
+CORE | CS2_045 | Rockbiter Weapon | O
 CORE | CS2_046 | Bloodlust | O
 CORE | CS2_057 | Shadow Bolt | O
 CORE | CS2_061 | Drain Life | O
@@ -58,9 +58,9 @@ CORE | CS2_093 | Consecration | O
 CORE | CS2_094 | Hammer of Wrath | O
 CORE | CS2_097 | Truesilver Champion |  
 CORE | CS2_103 | Charge |  
-CORE | CS2_105 | Heroic Strike |  
+CORE | CS2_105 | Heroic Strike | O
 CORE | CS2_106 | Fiery War Axe | O
-CORE | CS2_108 | Execute |  
+CORE | CS2_108 | Execute | O
 CORE | CS2_112 | Arcanite Reaper | O
 CORE | CS2_114 | Cleave | O
 CORE | CS2_118 | Magma Rager | O
@@ -110,11 +110,11 @@ CORE | DS1_233 | Mind Blast | O
 CORE | EX1_011 | Voodoo Doctor | O
 CORE | EX1_015 | Novice Engineer | O
 CORE | EX1_019 | Shattered Sun Cleric |  
-CORE | EX1_025 | Dragonling Mechanic |  
+CORE | EX1_025 | Dragonling Mechanic | O
 CORE | EX1_066 | Acidic Swamp Ooze | O
 CORE | EX1_084 | Warsong Commander |  
 CORE | EX1_129 | Fan of Knives | O
-CORE | EX1_169 | Innervate |  
+CORE | EX1_169 | Innervate | O
 CORE | EX1_173 | Starfire | O
 CORE | EX1_244 | Totemic Might |  
 CORE | EX1_246 | Hex | O
@@ -130,19 +130,19 @@ CORE | EX1_400 | Whirlwind | O
 CORE | EX1_506 | Murloc Tidehunter |  
 CORE | EX1_508 | Grimscale Oracle |  
 CORE | EX1_539 | Kill Command | O
-CORE | EX1_565 | Flametongue Totem |  
-CORE | EX1_581 | Sap |  
+CORE | EX1_565 | Flametongue Totem | O
+CORE | EX1_581 | Sap | O
 CORE | EX1_582 | Dalaran Mage | O
 CORE | EX1_587 | Windspeaker | O
 CORE | EX1_593 | Nightblade | O
-CORE | EX1_606 | Shield Block |  
+CORE | EX1_606 | Shield Block | O
 CORE | EX1_622 | Shadow Word: Death | O
-CORE | NEW1_003 | Sacrificial Pact |  
-CORE | NEW1_004 | Vanish |  
+CORE | NEW1_003 | Sacrificial Pact | O
+CORE | NEW1_004 | Vanish | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 75% (100 of 133 Cards)
+- Progress: 85% (114 of 133 Cards)
 
 ## Classic
 

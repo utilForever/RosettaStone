@@ -19,7 +19,7 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
 
 void Effect::Apply(Character* character, bool isOneTurnEffect) const
 {
-    auto& oneTurnEffects = character->GetOwner().GetGame()->oneTurnEffects;
+    auto& oneTurnEffects = character->owner->GetGame()->oneTurnEffects;
 
     if (isOneTurnEffect)
     {
