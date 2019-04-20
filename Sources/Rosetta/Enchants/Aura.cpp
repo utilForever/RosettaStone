@@ -29,6 +29,11 @@ Aura::Aura(Aura& prototype, Entity& owner)
     // Do nothing
 }
 
+void Aura::SetToBeUpdated(bool value)
+{
+    m_toBeUpdated = value;
+}
+
 void Aura::Activate(Entity& owner)
 {
     if (m_effects.empty())

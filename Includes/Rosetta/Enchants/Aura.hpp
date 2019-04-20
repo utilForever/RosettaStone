@@ -47,6 +47,10 @@ class Aura
     //! \param owner An owner of aura.
     Aura(Aura& prototype, Entity& owner);
 
+    //! Sets aura to be updated.
+    //! \param value An value to be updated.
+    void SetToBeUpdated(bool value);
+
     //! Activates aura to battlefield.
     //! \param owner An owner of aura.
     void Activate(Entity& owner);
