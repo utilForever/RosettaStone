@@ -38,6 +38,11 @@ Enchant Enchants::GetEnchantFromText(const std::string& cardID)
         effects.emplace_back(Effects::HealthN(std::stoi(values[1].str())));
     }
 
+    if (text.find("<b>Taunt</b>") != std::string::npos)
+    {
+        effects.emplace_back(Effects::Taunt);
+    }
+
     if (text.find("this turn") != std::string::npos)
     {
         isOneTurn = true;
