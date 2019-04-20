@@ -87,6 +87,11 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
         minion.SetGameTag(GameTag::EXHAUSTED, 1);
     }
 
+    for (auto& aura : auras)
+    {
+        aura->SetToBeUpdated(true);
+    }
+
     minion.orderOfPlay = minion.owner->GetGame()->GetNextOOP();
 
     ActivateAura(minion);
@@ -119,6 +124,11 @@ void Battlefield::RemoveMinion(Minion& minion)
     }
 
     --m_numMinion;
+
+    for (auto& aura : auras)
+    {
+        aura->SetToBeUpdated(true);
+    }
 
     for (auto& aura : auras)
     {
