@@ -1030,6 +1030,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("CS2_042", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_045] Rockbiter Weapon - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a friendly character +3 Attack this turn.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_045e", EntityType::TARGET));
+    cards.emplace("CS2_045", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [CS2_046] Bloodlust - COST:5
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1109,6 +1123,19 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchant(Effects::Taunt));
     cards.emplace("CS2_041e", power);
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_045e] Rockbiter Weapon (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: This character has +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_045e"));
+    cards.emplace("CS2_045e", power);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_046e] Bloodlust (*) - COST:0
