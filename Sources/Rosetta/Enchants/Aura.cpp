@@ -70,14 +70,33 @@ void Aura::RemoveEntity(Entity& entity)
     }
     else
     {
+        if (m_appliedEntities.empty())
+        {
+            return;
+        }
         const auto iter = std::find(m_appliedEntities.cbegin(),
                                     m_appliedEntities.cend(), &entity);
-        m_appliedEntities.erase(iter);
+        if (iter != m_appliedEntities.end())
+        {
+            m_appliedEntities.erase(iter);
+        }
     }
 }
 
 void Aura::Apply(Entity& entity)
 {
+    auto iter =
+        std::find(m_appliedEntities.begin(), m_appliedEntities.end(), &entity);
+    if (iter != m_appliedEntities.end())
+    {
+        for (auto& effect : m_effects)
+        {
+            effect.Remove(*entity.auraEffects);
+        }
+
+        m_appliedEntities.erase(iter);
+    }
+
     for (auto& effect : m_effects)
     {
         effect.Apply(*entity.auraEffects);
