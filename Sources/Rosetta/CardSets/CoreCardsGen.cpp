@@ -145,6 +145,17 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     Power power;
 
     // ------------------------------------------ SPELL - DRUID
+    // [CS2_005] Claw - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ArmorTask(2));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_005o", EntityType::HERO));
+    cards.emplace("CS2_005", power);
+
+    // ------------------------------------------ SPELL - DRUID
     // [CS2_007] Healing Touch - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -255,6 +266,19 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS2_005o] Claw (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_005o"));
+    cards.emplace("CS2_005o", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_009e] Mark of the Wild (*) - COST:0

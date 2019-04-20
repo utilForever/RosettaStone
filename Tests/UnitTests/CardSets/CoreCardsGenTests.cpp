@@ -3363,7 +3363,7 @@ TEST(CoreCardsGen, CS2_009)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(9);
+    curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
@@ -3384,4 +3384,41 @@ TEST(CoreCardsGen, CS2_009)
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 1);
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 5);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
+}
+
+TEST(CoreCardsGen, CS2_005)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Claw"));
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 2);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 2);
+
+    Task::Run(curPlayer, AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 2);
 }
