@@ -42,6 +42,7 @@ enum class TaskID
     ARMOR,
     RETURN_HAND,
     TEMP_MANA,
+    WEAPON,
 
     NUM_TASK_ID
 };
