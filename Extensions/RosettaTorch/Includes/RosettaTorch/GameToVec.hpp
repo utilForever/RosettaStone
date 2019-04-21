@@ -65,11 +65,9 @@ class GameToVec
     static constexpr size_t EffectIndexSize = 
         EffectGameTagSize * EffectOperationTagSize;
 
-    static constexpr size_t AuraVectorSize = 4;
-    static constexpr size_t AuraIndexSize = 4;
+    static constexpr size_t AuraVectorSize = 5;
 
     static constexpr size_t EnchantVectorSize = 4;
-    // static constexpr size_t EnchantIndexSize = 4;
 
     static constexpr size_t DeathrattleVectorSize = 4;
     static constexpr size_t DeathrattleIndexSize = 4;
@@ -94,8 +92,6 @@ class GameToVec
 
     //! embedding table for the card
     torch::nn::Embedding EffectEmbeddingTable = nullptr;
-    torch::nn::Embedding AuraEmbeddingTable = nullptr;
-    // torch::nn::Embedding EnchantEmbeddingTable = nullptr;
     torch::nn::Embedding DeathrattleEmbeddingTable = nullptr;
     torch::nn::Embedding PowerEmbeddingTable = nullptr;
 };

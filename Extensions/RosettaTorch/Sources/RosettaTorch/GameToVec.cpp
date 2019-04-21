@@ -27,12 +27,6 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
     // Generates an embedding table for the Effect task
     make_table(EffectEmbeddingTable, EffectIndexSize, EffectVectorSize);
 
-    // Generates an embedding table for the Aura task
-    make_table(AuraEmbeddingTable, AuraIndexSize, AuraVectorSize);
-
-    // Generates an embedding table for the Enchant task
-    // make_table(EnchantEmbeddingTable, EnchantIndexSize, EnchantVectorSize);
-
     // Generates an embedding table for the Deathrattle task
     make_table(DeathrattleEmbeddingTable, DeathrattleIndexSize, DeathrattleVectorSize);
 
@@ -70,7 +64,7 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
             static_cast<int>(EffectOperationTagSize * effect_game_tag_idx +
                              effect_game_op_tag_idx));
 
-        // Noramlize the value and multiple to the embedding vector
+        // Normalize the value and multiple to the embedding vector
         effect_value = (effect_value >= CLIP_EFFECT_NORM)
                            ? 1.
                            : effect_value / CLIP_EFFECT_NORM;
@@ -110,7 +104,20 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
             return torch::zeros(AuraVectorSize);
         }
 
-        return torch::Tensor();
+        torch::Tensor aura_vector = torch::empty(AuraVectorSize, torch::kFloat32);
+
+        auto type = aura->GetAuraType();
+        auto effects = aura->GetEffects();
+
+        aura_vector[0] = static_cast<float>(type);
+
+        auto effect_vector = EffectsToTensor(effects);
+        for (size_t i = 0; i < EffectVectorSize; ++i)
+        {
+            aura_vector[1 + i] = effect_vector[i];
+        }
+
+        return aura_vector;
     };
 
     auto EnchantToVector = [&](std::optional<Enchant> enchant) -> torch::Tensor {
@@ -133,7 +140,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         return torch::Tensor();
     };
 
-    auto write_vector = [&](size_t start_idx, size_t vec_size, torch::Tensor tensor) { 
+    auto write_vector = [&](size_t start_idx, size_t vec_size, torch::Tensor tensor) {
         for (size_t i = start_idx; i < start_idx + vec_size; ++i)
         {
             CardVector[i] = tensor[i];
