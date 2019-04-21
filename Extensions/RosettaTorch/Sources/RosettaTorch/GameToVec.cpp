@@ -109,7 +109,7 @@ torch::Tensor GameToVec::TasksToTensor(std::vector<ITask*> tasks)
     // Average all vectors (tasks)
     auto task_vector = torch::mean(task_vectors);
 
-    // excepted (4,) Tensor
+    // excepted (8,) Tensor
     return task_vector;
 }
 
@@ -219,9 +219,9 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     // each card is represented as a vector which has n dimensionality.
     // it includes, cost, attack, health, ability.
     // vector shape : [1 + 1 + 1 + 25 = n = 28]
-    // # 1 : cost
-    // # 1 : attack
-    // # 1 : health
+    // # 1  : cost
+    // # 1  : attack
+    // # 1  : health
     // # 25 : ability
 
     // each card's abilities are represented as a vector which has m
