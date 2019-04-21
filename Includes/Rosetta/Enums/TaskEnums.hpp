@@ -43,6 +43,7 @@ enum class TaskID
     RETURN_HAND,
     TEMP_MANA,
     WEAPON,
+    FUNC_NUMBER,
 
     NUM_TASK_ID
 };
