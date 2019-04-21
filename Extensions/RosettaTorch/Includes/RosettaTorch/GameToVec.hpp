@@ -53,6 +53,18 @@ class GameToVec
     //! \return The encoded torch tensor from \p game.
     virtual torch::Tensor GenerateTensor(const Game& game);
 
+    //! Gets Effect Embedding Table.
+    //! \return The embedding table torch tensor.
+    torch::nn::Embedding GetEffectEmbeddingTable();
+
+    //! Gets Entity Type Embedding Table.
+    //! \return The embedding table torch tensor.
+    torch::nn::Embedding GetEntityTypeEmbeddingTable();
+
+    //! Gets Task Id Embedding Table.
+    //! \return The embedding table torch tensor.
+    torch::nn::Embedding GetTaskIdEmbeddingTable();
+
     /////////////////////////////////////////////
     static constexpr size_t CLIP_CARD_NORM = 64;
     static constexpr size_t CLIP_EFFECT_NORM = 8;

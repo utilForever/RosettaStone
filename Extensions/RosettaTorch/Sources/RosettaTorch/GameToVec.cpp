@@ -318,4 +318,19 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     return tensor;
 }
+
+torch::nn::Embedding GameToVec::GetEffectEmbeddingTable()
+{
+    return EffectEmbeddingTable;
+}
+
+torch::nn::Embedding GameToVec::GetEntityTypeEmbeddingTable()
+{
+    return EntityTypeEmbeddingTable;
+}
+
+torch::nn::Embedding GameToVec::GetTaskIdEmbeddingTable()
+{
+    return TaskIdEmbeddingTable;
+}
 }  // namespace RosettaTorch
