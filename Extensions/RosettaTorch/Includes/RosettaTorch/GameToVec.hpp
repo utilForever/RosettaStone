@@ -23,9 +23,12 @@ using namespace RosettaStone;
 class GameToVec
 {
  public:
-    //! Constructs the embedding table with given \p seed
+    //! Constructs the embedding tables.
+    GameToVec();
+
+    //! Constructs the embedding tables with given \p seed
     // \param seed The seed used when the embedding table is generated.
-    GameToVec(size_t seed = 1337);
+    GameToVec(const size_t seed);
 
     //! Default virtual destructor.
     virtual ~GameToVec() = default;

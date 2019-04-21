@@ -10,7 +10,34 @@
 
 namespace RosettaTorch
 {
-GameToVec::GameToVec(size_t seed) : m_seed(seed)
+GameToVec::GameToVec()
+{
+    // Reproducibility
+    m_seed = 1337u;
+    torch::manual_seed(static_cast<uint64_t>(m_seed));
+
+    // Making embedding tables for the task
+    auto make_table = [&](torch::nn::Embedding embedding, size_t idx_size,
+                          size_t vec_size) {
+        embedding = torch::nn::Embedding(idx_size, vec_size);
+        embedding->weight = torch::randn(
+            { static_cast<int>(idx_size), static_cast<int>(vec_size) },
+            torch::kFloat32);
+        embedding->weight.set_requires_grad(false);
+    };
+
+    // Generates an embedding table for the Effect task
+    make_table(EffectEmbeddingTable, EffectIndexSize, EffectVectorSize);
+
+    // Generates an embedding table for the TaskId
+    make_table(TaskIdEmbeddingTable, TaskIdIndexSize, TaskIdVectorSize);
+
+    // Generates an embedding table for the EntityType
+    make_table(EntityTypeEmbeddingTable, EntityTypeIndexSize,
+               EntityTypeVectorSize);
+}
+
+GameToVec::GameToVec(const size_t seed) : m_seed(seed)
 {
     // Reproducibility
     torch::manual_seed(static_cast<uint64_t>(m_seed));
