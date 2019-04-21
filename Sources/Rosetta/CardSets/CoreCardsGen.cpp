@@ -17,6 +17,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
@@ -26,6 +27,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -137,7 +139,128 @@ void CoreCardsGen::AddHeroes(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------ HERO_POWER - PRIEST
+    // [CS1h_001] Lesser Heal (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Restore #2 Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 2));
+    cards.emplace("CS1h_001", power);
+
+    // ------------------------------------- HERO_POWER - DRUID
+    // [CS2_017] Shapeshift (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       +1 Attack this turn.    +1 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_170o", EntityType::HERO));
+    power.AddPowerTask(new ArmorTask(1));
+    cards.emplace("CS2_170", power);
+
+    // -------------------------------------- HERO_POWER - MAGE
+    // [CS2_034] Fireblast (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Deal $1 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, false));
+    cards.emplace("CS2_034", power);
+
+    // ------------------------------------ HERO_POWER - SHAMAN
+    // [CS2_049] Totemic Call (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Summon a random Totem.
+    // --------------------------------------------------------
+    // Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new FuncNumberTask([](Player& player) { (void)player; }));
+    cards.emplace("CS2_049", power);
+
+    // ----------------------------------- HERO_POWER - WARLOCK
+    // [CS2_056] Life Tap (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Draw a card and take $2 damage.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::HERO, 2, false));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("CS2_056", power);
+
+    // ------------------------------------- HERO_POWER - ROGUE
+    // [CS2_083b] Dagger Mastery (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Equip a 1/2 Dagger.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new WeaponTask("CS2_082"));
+    cards.emplace("CS2_083b", power);
+
+    // ----------------------------------- HERO_POWER - PALADIN
+    // [CS2_101] Reinforce (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Summon a 1/1 Silver Hand Recruit.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("CS2_101t", SummonSide::DEFAULT));
+    cards.emplace("CS2_101", power);
+
+    // ----------------------------------- HERO_POWER - WARRIOR
+    // [CS2_102] Armor Up! (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Gain 2 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ArmorTask(2));
+    cards.emplace("CS2_102", power);
+
+    // ------------------------------------ HERO_POWER - HUNTER
+    // [DS1h_292] Steady Shot (*) - COST:2
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Deal $2 damage to the enemy hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_STEADY_SHOT = 0
+    // - REQ_MINION_OR_ENEMY_HERO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
+    cards.emplace("DS1h_292", power);
 }
 
 void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
@@ -312,6 +435,19 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_011o"));
     cards.emplace("CS2_011o", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS2_017o] Claws (*) - COST:0
+    // - Set: Core,
+    // --------------------------------------------------------
+    // Text: Your hero has +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_170o"));
+    cards.emplace("CS2_017o", power);
 }
 
 void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
@@ -689,6 +825,14 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_092e"));
     cards.emplace("CS2_092e", power);
 
+    // --------------------------------------- MINION - PALADIN
+    // [CS2_101t] Silver Hand Recruit (*) - COST:1 [ATK:1/HP:1]
+    // - Set: core, Rarity: free
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_101t", power);
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_360e] Humility (*) - COST:0
     // - Faction: Neutral, Set: Core,
@@ -949,7 +1093,18 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- WEAPON - ROGUE
+    // [CS2_082] Wicked Knife (*) - COST:1 [ATK:1/HP:0]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_082", power);
 }
 
 void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
