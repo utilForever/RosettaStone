@@ -74,8 +74,12 @@ class GameToVec
 
     static constexpr size_t EnchantVectorSize = 4;
 
-    static constexpr size_t TaskVectorSize = 4;
-    static constexpr size_t TaskIndexSize = 8;
+    static constexpr size_t EntityTypeVectorSize = 4;
+    static constexpr size_t EntityTypeIndexSize = 16;
+    static constexpr size_t TaskIdVectorSize = 4;
+    static constexpr size_t TaskIdIndexSize = 27;
+    static constexpr size_t TaskVectorSize = 
+        EntityTypeVectorSize + TaskIdVectorSize;
 
     /////////////////////////////////////////////
     static constexpr size_t CardMetaSize = 3;
@@ -94,7 +98,8 @@ class GameToVec
 
     //! embedding table for the card
     torch::nn::Embedding EffectEmbeddingTable = nullptr;
-    torch::nn::Embedding TaskEmbeddingTable = nullptr;
+    torch::nn::Embedding EntityTypeEmbeddingTable = nullptr;
+    torch::nn::Embedding TaskIdEmbeddingTable = nullptr;
 };
 }  // namespace RosettaTorch
 

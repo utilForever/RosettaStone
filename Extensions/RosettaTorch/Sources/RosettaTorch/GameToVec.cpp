@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Tasks/Tasks.hpp>
 #include <RosettaTorch/GameToVec.hpp>
 
 namespace RosettaTorch
@@ -27,8 +28,11 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
     // Generates an embedding table for the Effect task
     make_table(EffectEmbeddingTable, EffectIndexSize, EffectVectorSize);
 
-    // Generates an embedding table for the Task
-    make_table(TaskEmbeddingTable, TaskIndexSize, TaskVectorSize);
+    // Generates an embedding table for the TaskId
+    make_table(TaskIdEmbeddingTable, TaskIdIndexSize, TaskIdVectorSize);
+
+    // Generates an embedding table for the EntityType
+    make_table(EntityTypeEmbeddingTable, EntityTypeIndexSize, EntityTypeVectorSize);
 }
 
 torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
@@ -84,7 +88,22 @@ torch::Tensor GameToVec::TasksToTensor(std::vector<ITask*> tasks)
 
     for (size_t i = 0; i < tasks.size(); ++i)
     {
-        ;
+        auto task_id = tasks[i]->GetTaskID();
+        auto entity_type = tasks[i]->GetEntityType();
+
+        torch::Tensor task_id_index = torch::zeros((1), torch::kInt8);
+        task_id_index.add(static_cast<int>(task_id));
+
+        torch::Tensor entity_index = torch::zeros((1), torch::kInt8);
+        entity_index.add(static_cast<int>(entity_type));
+
+        auto task_id_embed = TaskIdEmbeddingTable(task_id_index);
+        auto entity_type_embed = EntityTypeEmbeddingTable(entity_index);
+
+        // Concatenating two vectors
+        auto embeddings = torch::cat({task_id_embed, entity_type_embed});
+
+        task_vectors[i] = embeddings;
     }
 
     // Average all vectors (tasks)
@@ -186,7 +205,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
 
 torch::Tensor GameToVec::GenerateTensor(const Game& game)
 {
-    // vector shape : [1 + 1 + 1 + n * 7 + n * 7 + n * 10 = 3 + n * 24]
+    // vector shape : [1 + 1 + 1 + n * 7 + n * 7 + n * 10 = 3 + n * 24 = 675]
     // # 1      : number of opponent player's cards on hand.
     // # 1      : number of opponent player's left cards at deck.
     // # 1      : number of current player's left cards at deck.
@@ -199,19 +218,19 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     // each card is represented as a vector which has n dimensionality.
     // it includes, cost, attack, health, ability.
-    // vector shape : [1 + 1 + 1 + m = n]
+    // vector shape : [1 + 1 + 1 + 25 = n = 28]
     // # 1 : cost
     // # 1 : attack
     // # 1 : health
-    // # m : tasks
+    // # 25 : ability
 
     // each card's abilities are represented as a vector which has m
     // dimensionality. it includes, ... vector shape : [m]
-    // vector shape : [5 + 4 + x + x = m]
+    // vector shape : [5 + 4 + 8 + 8 = m = 25]
     // # 5 : Aura Vector
     // # 4 : Enchant Vector
-    // # x : Deathrattle Vector
-    // # x : Power Vector
+    // # 8 : Deathrattle Vector
+    // # 8 : Power Vector
     torch::Tensor tensor = torch::empty(GameVectorSize, torch::kFloat32);
 
     Player& curPlayer = game.GetCurrentPlayer();
