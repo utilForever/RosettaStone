@@ -35,6 +35,11 @@ class GameToVec
     //! \return The encoded torch tensor from \p effects.
     virtual torch::Tensor EffectsToTensor(std::vector<Effect> effects);
 
+    //! Generates torch tensor from the tasks
+    //! \param tasks The card tasks
+    //! \return The encoded torch tensor from \p tasks.
+    virtual torch::Tensor TasksToTensor(std::vector<ITask*> tasks);
+
     //! Generates torch tensor from the entity
     //! \param entity The card context.
     //! \return The encoded torch tensor from \p entity.
@@ -69,16 +74,13 @@ class GameToVec
 
     static constexpr size_t EnchantVectorSize = 4;
 
-    static constexpr size_t DeathrattleVectorSize = 4;
-    static constexpr size_t DeathrattleIndexSize = 4;
-
-    static constexpr size_t PowerVectorSize = 4;
-    static constexpr size_t PowerIndexSize = 4;
+    static constexpr size_t TaskVectorSize = 4;
+    static constexpr size_t TaskIndexSize = 8;
 
     /////////////////////////////////////////////
     static constexpr size_t CardMetaSize = 3;
     static constexpr size_t AbilityVectorSize = 
-        AuraVectorSize + EnchantVectorSize + DeathrattleVectorSize + PowerVectorSize;
+        AuraVectorSize + EnchantVectorSize + TaskVectorSize + TaskVectorSize;
     static constexpr size_t CardVectorSize =
         CardMetaSize + AbilityVectorSize;
 
@@ -92,8 +94,7 @@ class GameToVec
 
     //! embedding table for the card
     torch::nn::Embedding EffectEmbeddingTable = nullptr;
-    torch::nn::Embedding DeathrattleEmbeddingTable = nullptr;
-    torch::nn::Embedding PowerEmbeddingTable = nullptr;
+    torch::nn::Embedding TaskEmbeddingTable = nullptr;
 };
 }  // namespace RosettaTorch
 

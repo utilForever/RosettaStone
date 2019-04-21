@@ -27,11 +27,8 @@ GameToVec::GameToVec(size_t seed) : m_seed(seed)
     // Generates an embedding table for the Effect task
     make_table(EffectEmbeddingTable, EffectIndexSize, EffectVectorSize);
 
-    // Generates an embedding table for the Deathrattle task
-    make_table(DeathrattleEmbeddingTable, DeathrattleIndexSize, DeathrattleVectorSize);
-
-    // Generates an embedding table for the Power task
-    make_table(PowerEmbeddingTable, PowerIndexSize, PowerVectorSize);
+    // Generates an embedding table for the Task
+    make_table(TaskEmbeddingTable, TaskIndexSize, TaskVectorSize);
 }
 
 torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
@@ -77,6 +74,24 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
 
     // excepted (4,) Tensor
     return EffectVector;
+}
+
+torch::Tensor GameToVec::TasksToTensor(std::vector<ITask*> tasks)
+{
+    torch::Tensor task_vectors = torch::empty(
+        { static_cast<int>(tasks.size()), static_cast<int>(TaskVectorSize) }
+    );
+
+    for (size_t i = 0; i < tasks.size(); ++i)
+    {
+        ;
+    }
+
+    // Average all vectors (tasks)
+    auto task_vector = torch::mean(task_vectors);
+
+    // excepted (4,) Tensor
+    return task_vector;
 }
 
 torch::Tensor GameToVec::CardToTensor(Entity* entity)
@@ -132,14 +147,6 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         return effects_vector;
     };
 
-    auto DeathrattleToVector = [&](std::vector<ITask*> deathrattle) -> torch::Tensor { 
-        return torch::Tensor();
-    };
-
-    auto PowerToVector = [&](std::vector<ITask*> power) -> torch::Tensor { 
-        return torch::Tensor();
-    };
-
     auto write_vector = [&](size_t start_idx, size_t vec_size, torch::Tensor tensor) {
         for (size_t i = start_idx; i < start_idx + vec_size; ++i)
         {
@@ -165,14 +172,14 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         EnchantVectorSize, enchant_vector);
 
     // Write DeathrattleVector
-    auto deathrattle_vector = DeathrattleToVector(deathrattle);
+    auto deathrattle_vector = TasksToTensor(deathrattle);
     write_vector(3 + AuraVectorSize + EnchantVectorSize,
-        DeathrattleVectorSize, deathrattle_vector);
+        TaskVectorSize, deathrattle_vector);
 
     // Write PowerVector
-    auto power_vector = PowerToVector(power);
-    write_vector(3 + AuraVectorSize + EnchantVectorSize + DeathrattleVectorSize,
-        PowerVectorSize, power_vector);
+    auto power_vector = TasksToTensor(power);
+    write_vector(3 + AuraVectorSize + EnchantVectorSize + TaskVectorSize,
+        TaskVectorSize, power_vector);
 
     return CardVector;
 }
@@ -200,6 +207,11 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     // each card's abilities are represented as a vector which has m
     // dimensionality. it includes, ... vector shape : [m]
+    // vector shape : [5 + 4 + x + x = m]
+    // # 5 : Aura Vector
+    // # 4 : Enchant Vector
+    // # x : Deathrattle Vector
+    // # x : Power Vector
     torch::Tensor tensor = torch::empty(GameVectorSize, torch::kFloat32);
 
     Player& curPlayer = game.GetCurrentPlayer();
