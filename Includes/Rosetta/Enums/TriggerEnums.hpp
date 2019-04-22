@@ -14,6 +14,7 @@ enum class TriggerType
 {
     NONE,        //!< The effect has nothing.
     TURN_START,  //!< The effect will be triggered at the start of turn.
+    TURN_END,    //!< The effect will be triggered at the end of turn.
     HEAL,        //!< The effect will be triggered when characters are healed.
 };
 
