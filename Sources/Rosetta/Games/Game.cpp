@@ -401,6 +401,10 @@ void Game::MainAction()
 
 void Game::MainEnd()
 {
+    triggerManager.OnEndTurnTrigger(&GetCurrentPlayer(), nullptr);
+    ProcessTasks();
+    ProcessDestroyAndUpdateAura();
+
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
     if (m_gameConfig.autoRun)
