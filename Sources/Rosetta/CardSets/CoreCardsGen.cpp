@@ -1342,6 +1342,40 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_046e"));
     cards.emplace("CS2_046e", power);
 
+    // ---------------------------------------- MINION - SHAMAN
+    // [CS2_050] Searing Totem (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_050", power);
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CS2_051] Stoneclaw Totem (*) - COST:1 [ATK:0/HP:2]
+    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_051", power);
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CS2_052] Wrath of Air Totem (*) - COST:1 [ATK:0/HP:2]
+    // - Race: Totem, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_052", power);
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [EX1_565o] Flametongue (*) - COST:0
     // - Set: Core,
@@ -1351,6 +1385,18 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_565o"));
     cards.emplace("EX1_565o", power);
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [NEW1_009] Healing Totem (*) - COST:1 [ATK:0/HP:2]
+    // - Race: Totem, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: At the end of your turn, restore 1 Health to all friendly minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().singleTask =
+        new HealTask(EntityType::MINIONS, 1);
+    cards.emplace("NEW1_009", power);
 }
 
 void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
