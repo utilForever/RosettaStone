@@ -44,6 +44,7 @@ enum class TaskID
     TEMP_MANA,
     WEAPON,
     FUNC_NUMBER,
+    HERO_POWER,
 
     NUM_TASK_ID
 };
