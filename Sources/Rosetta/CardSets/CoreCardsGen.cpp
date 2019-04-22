@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
@@ -28,6 +29,10 @@
 #include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -195,8 +200,40 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new FuncNumberTask([](Player& player) { (void)player; }));
+    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
+        auto minions = entity->owner->GetField().GetAllMinions();
+        std::vector<Card> totemCards;
+        totemCards.reserve(4);
+
+        for (const auto& id : entity->card.entourages)
+        {
+            bool exist = false;
+            for (auto minion : minions)
+            {
+                if (id == minion->card.id)
+                {
+                    exist = true;
+                    break;
+                }
+            }
+
+            if (!exist)
+            {
+                totemCards.emplace_back(Cards::GetInstance().FindCardByID(id));
+            }
+        }
+
+        if (totemCards.empty())
+        {
+            return;
+        }
+
+        const auto idx = Random::get<int>(0, totemCards.size() - 1);
+        Entity* totem =
+            Entity::GetFromCard(*entity->owner, std::move(totemCards[idx]));
+        const auto pos = entity->owner->GetField().FindEmptyPos().value();
+        entity->owner->GetField().AddMinion(*dynamic_cast<Minion*>(totem), pos);
+    }));
     cards.emplace("CS2_049", power);
 
     // ----------------------------------- HERO_POWER - WARLOCK

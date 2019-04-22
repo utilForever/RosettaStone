@@ -159,6 +159,44 @@ TEST(CoreCardsGen, CS2_049)
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    Task::Run(curPlayer, HeroPowerTask());
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, HeroPowerTask());
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, HeroPowerTask());
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, HeroPowerTask());
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, HeroPowerTask());
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, HeroPowerTask());
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, HeroPowerTask());
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, HeroPowerTask());
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField.GetNumOfMinions(), 4u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 4u);
 }
 
 TEST(CoreCardsGen, CS2_056)
