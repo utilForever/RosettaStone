@@ -176,14 +176,23 @@ int Character::TakeDamage(Entity& source, int damage)
         return 0;
     }
 
+    const int armor = (hero != nullptr) ? hero->GetArmor() : 0;
+    const int amount =
+        (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
+
     if (GetGameTag(GameTag::IMMUNE) == 1)
     {
         return 0;
     }
 
-    SetDamage(GetDamage() + damage);
+    if (armor > 0)
+    {
+        hero->SetArmor(armor < damage ? 0 : armor - damage);
+    }
 
-    return damage;
+    SetDamage(GetDamage() + amount);
+
+    return amount;
 }
 
 void Character::TakeFullHeal(Entity& source)
