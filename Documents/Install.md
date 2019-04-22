@@ -11,6 +11,12 @@ git submodule init
 git submodule update
 ```
 
+Or, you can download by typing
+```
+git clone https://github.com/utilForever/RosettaStone.git --recursive
+
+```
+
 To build the code, a compiler that supports C++17 is required. Platform-specific build instructions are described below.
 
 ### Building from macOS
