@@ -22,7 +22,7 @@ class FuncNumberTask : public ITask
  public:
     //! Constructs task with given \p cardID.
     //! \param func A function to execute.
-    explicit FuncNumberTask(std::function<void(Player&)> func);
+    explicit FuncNumberTask(std::function<void(Entity*)> func);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,7 +34,7 @@ class FuncNumberTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::function<void(Player&)> m_func;
+    std::function<void(Entity*)> m_func;
 };
 }  // namespace RosettaStone::SimpleTasks
 

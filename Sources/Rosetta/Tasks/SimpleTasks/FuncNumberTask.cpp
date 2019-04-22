@@ -8,7 +8,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FuncNumberTask::FuncNumberTask(std::function<void(Player&)> func)
+FuncNumberTask::FuncNumberTask(std::function<void(Entity*)> func)
     : m_func(std::move(func))
 {
     // Do nothing
@@ -19,11 +19,11 @@ TaskID FuncNumberTask::GetTaskID() const
     return TaskID::FUNC_NUMBER;
 }
 
-TaskStatus FuncNumberTask::Impl(Player& player)
+TaskStatus FuncNumberTask::Impl(Player&)
 {
     if (m_func != nullptr)
     {
-        m_func(player);
+        m_func(m_source);
     }
 
     return TaskStatus::COMPLETE;
