@@ -74,6 +74,14 @@ class Entity
     //! \param cost The value of cost.
     void SetCost(int cost);
 
+    //! Returns the value of exhausted.
+    //! \return The value of exhausted.
+    bool GetExhausted() const;
+
+    //! Sets the value of exhausted.
+    //! \param exhausted The value of exhausted.
+    void SetExhausted(bool exhausted);
+
     //! Destroys character.
     virtual void Destroy();
 
