@@ -13,7 +13,7 @@ git submodule update
 
 Or, you can simply clone the clode by adding --recursive option.
 ```
-git clone https://github.com/utilForever/RosettaStone.git -recursive
+git clone https://github.com/utilForever/RosettaStone.git --recursive
 ```
 
 To build the code, a compiler that supports C++17 is required. Platform-specific build instructions are described below.
