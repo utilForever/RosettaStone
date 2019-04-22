@@ -13,6 +13,131 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+TEST(CoreCardsGen, CS1h_001)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, HeroPowerTask(curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 29);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, HeroPowerTask(curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
+}
+
+TEST(CoreCardsGen, CS2_017)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card1));
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 0);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 3);
+
+    Task::Run(curPlayer, HeroPowerTask());
+
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 1);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 1);
+
+    Task::Run(curPlayer, AttackTask(curPlayer.GetHero(), card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 1);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 0);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 0);
+}
+
+TEST(CoreCardsGen, CS2_034)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card1));
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 3);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
+}
+
 TEST(CoreCardsGen, EX1_066)
 {
     GameConfig config;
@@ -1650,15 +1775,15 @@ TEST(CoreCardsGen, CS2_039)
 
     Task::Run(curPlayer, AttackTask(card1, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
-    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::EXHAUSTED), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetExhausted(), true);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card1));
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 1);
-    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::EXHAUSTED), 0);
+    EXPECT_EQ(curField.GetMinion(0)->GetExhausted(), false);
 
     Task::Run(curPlayer, AttackTask(card1, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 18);
-    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::EXHAUSTED), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetExhausted(), true);
 }
 
 TEST(CoreCardsGen, CS2_076)
