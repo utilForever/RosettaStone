@@ -163,9 +163,9 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     //       +1 Attack this turn.    +1 Armor.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("CS2_170o", EntityType::HERO));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_017o", EntityType::HERO));
     power.AddPowerTask(new ArmorTask(1));
-    cards.emplace("CS2_170", power);
+    cards.emplace("CS2_017", power);
 
     // -------------------------------------- HERO_POWER - MAGE
     // [CS2_034] Fireblast (*) - COST:2
@@ -446,7 +446,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_170o"));
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_017o"));
     cards.emplace("CS2_017o", power);
 }
 
