@@ -93,7 +93,7 @@ bool Character::CanAttack()
     }
 
     // If the character is exhausted, returns false
-    if (GetGameTag(GameTag::EXHAUSTED) == 1)
+    if (GetExhausted())
     {
         return false;
     }

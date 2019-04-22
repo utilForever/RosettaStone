@@ -84,7 +84,7 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
 
     if (minion.GetGameTag(GameTag::CHARGE) != 1)
     {
-        minion.SetGameTag(GameTag::EXHAUSTED, 1);
+        minion.SetExhausted(true);
     }
 
     for (auto& aura : auras)

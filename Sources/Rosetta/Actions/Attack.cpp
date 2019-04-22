@@ -91,7 +91,7 @@ void Attack(Player& player, Character* source, Character* target)
         (source->numAttacked >= 2 &&
          source->GetGameTag(GameTag::WINDFURY) == 1))
     {
-        source->SetGameTag(GameTag::EXHAUSTED, 1);
+        source->SetExhausted(true);
     }
 
     // Process destroy and update aura

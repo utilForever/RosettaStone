@@ -208,18 +208,18 @@ void Game::MainReady()
     // Reset exhaust for current player
     auto& curPlayer = GetCurrentPlayer();
     // Hero
-    curPlayer.GetHero()->SetGameTag(GameTag::EXHAUSTED, 0);
+    curPlayer.GetHero()->SetExhausted(false);
     // Weapon
     if (curPlayer.GetHero()->weapon != nullptr)
     {
-        curPlayer.GetHero()->weapon->SetGameTag(GameTag::EXHAUSTED, 0);
+        curPlayer.GetHero()->weapon->SetExhausted(false);
     }
     // Hero power
-    curPlayer.GetHero()->heroPower->SetGameTag(GameTag::EXHAUSTED, 0);
+    curPlayer.GetHero()->heroPower->SetExhausted(false);
     // Field
     for (auto& m : curPlayer.GetField().GetAllMinions())
     {
-        m->SetGameTag(GameTag::EXHAUSTED, 0);
+        m->SetExhausted(false);
     }
 
     // Set next step
@@ -436,7 +436,7 @@ void Game::MainCleanUp()
     for (auto& m : curPlayer.GetField().GetAllMinions())
     {
         if (m->GetGameTag(GameTag::FROZEN) == 1 && m->numAttacked == 0 &&
-            m->GetGameTag(GameTag::EXHAUSTED) == 0)
+            !m->GetExhausted())
         {
             m->SetGameTag(GameTag::FROZEN, 0);
         }
