@@ -43,6 +43,8 @@ class Trigger
 
     ITask* singleTask = nullptr;
 
+    bool fastExecution = false;
+
  private:
     //! Processes trigger to apply the effect.
     //! \param player A pointer to player.

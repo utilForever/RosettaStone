@@ -14,12 +14,20 @@ namespace RosettaStone
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
 {
-    m_sequenceType = SequenceType::NONE;
+    switch (type)
+    {
+        case TriggerType::TURN_END:
+            fastExecution = true;
+            break;
+        default:
+            m_sequenceType = SequenceType::NONE;
+    }
 }
 
 Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
       singleTask(prototype.singleTask),
+      fastExecution(prototype.fastExecution),
       m_triggerType(prototype.m_triggerType),
       m_sequenceType(prototype.m_sequenceType),
       m_owner(&owner)
@@ -38,6 +46,11 @@ void Trigger::Activate(Entity& source)
     {
         case TriggerType::TURN_START:
             game->triggerManager.startTurnTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
+        case TriggerType::TURN_END:
+            game->triggerManager.endTurnTrigger =
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
@@ -60,6 +73,9 @@ void Trigger::Remove()
     {
         case TriggerType::TURN_START:
             game->triggerManager.startTurnTrigger = nullptr;
+            break;
+        case TriggerType::TURN_END:
+            game->triggerManager.endTurnTrigger = nullptr;
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;
@@ -112,7 +128,14 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
         }
     }
 
-    m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
+    if (fastExecution)
+    {
+        singleTask->Run(*player);
+    }
+    else
+    {
+        m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
+    }
 
     m_isValidated = false;
 }
@@ -139,6 +162,12 @@ void Trigger::Validate(Player* player, Entity* source)
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
+            if (player != m_owner->owner)
+            {
+                return;
+            }
+            break;
+        case TriggerType::TURN_END:
             if (player != m_owner->owner)
             {
                 return;
