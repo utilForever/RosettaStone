@@ -132,7 +132,8 @@ bool IsPlayableByPlayer(Player& player, Entity* source)
     }
 
     // Check if entity is in hand to be played
-    if (player.GetHand().FindCardPos(*source) == std::nullopt)
+    if (dynamic_cast<HeroPower*>(source) == nullptr &&
+        player.GetHand().FindCardPos(*source) == std::nullopt)
     {
         return false;
     }
