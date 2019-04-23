@@ -145,7 +145,7 @@ class Game
     std::deque<ITask*> taskQueue;
 
     std::vector<Aura*> auras;
-    std::vector<std::pair<Character*, Effect*>> oneTurnEffects;
+    std::vector<std::pair<Entity*, Effect*>> oneTurnEffects;
     std::map<std::size_t, Minion*> deadMinions;
 
  private:

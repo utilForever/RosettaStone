@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-class Character;
+class Entity;
 class AuraEffects;
 
 //! Effect operator to change card value such as attack and health.
@@ -52,17 +52,17 @@ class Effect
     Effect& operator=(Effect&& effect) = default;
 
     //! Applies this effect to the target entity.
-    //! \param character The character to which effect is applied.
+    //! \param entity An entity to which effect is applied.
     //! \param isOneTurnEffect Whether effect lasts only one turn.
-    void Apply(Character* character, bool isOneTurnEffect = false) const;
+    void Apply(Entity* entity, bool isOneTurnEffect = false) const;
 
     //! Applies this effect to the target as an aura effect.
     //! \param auraEffects The aura effect.
     void Apply(AuraEffects& auraEffects) const;
 
     //! Removes this aura effect from the target entity.
-    //! \param character The character to which effect is removed.
-    void Remove(Character* character) const;
+    //! \param entity An entity to which effect is removed.
+    void Remove(Entity* entity) const;
 
     //! Removes this aura effect from the target entity.
     //! \param auraEffects The aura effect.

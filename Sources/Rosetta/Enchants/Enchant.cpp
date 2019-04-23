@@ -25,11 +25,11 @@ Enchant::Enchant(std::vector<Effect>& _effects, bool _isOneTurnEffect)
     // Do nothing
 }
 
-void Enchant::ActivateTo(Character* character)
+void Enchant::ActivateTo(Entity* entity)
 {
     for (auto& effect : effects)
     {
-        effect.Apply(character, isOneTurnEffect);
+        effect.Apply(entity, isOneTurnEffect);
     }
 }
 }  // namespace RosettaStone

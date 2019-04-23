@@ -51,8 +51,7 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
         if (power.GetEnchant().has_value())
         {
-            power.GetEnchant().value().ActivateTo(
-                dynamic_cast<Character*>(entity));
+            power.GetEnchant().value().ActivateTo(entity);
         }
     }
 

@@ -13,7 +13,7 @@
 
 namespace RosettaStone
 {
-class Character;
+class Entity;
 
 //!
 //! \brief Enchant class.
@@ -42,9 +42,9 @@ class Enchant
     //! \param isOneTurnEffect A flag that sets whether this is one-turn effect.
     Enchant(std::vector<Effect>& effects, bool isOneTurnEffect);
 
-    //! Activates enchant to \p character.
-    //! \param character The character to which enchant is activated.
-    void ActivateTo(Character* character);
+    //! Activates enchant to \p entity.
+    //! \param entity An entity to which enchant is activated.
+    void ActivateTo(Entity* entity);
 
     std::vector<Effect> effects;
     bool isOneTurnEffect = false;

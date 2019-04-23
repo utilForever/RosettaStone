@@ -420,10 +420,10 @@ void Game::MainCleanUp()
     // Remove one-turn effects
     for (auto& effectPair : oneTurnEffects)
     {
-        Character* character = effectPair.first;
+        Entity* entity = effectPair.first;
         Effect* effect = effectPair.second;
 
-        effect->Remove(character);
+        effect->Remove(entity);
         delete effect;
     }
     oneTurnEffects.clear();

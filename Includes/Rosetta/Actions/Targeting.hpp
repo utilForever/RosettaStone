@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_TARGETING_HPP
 #define ROSETTASTONE_TARGETING_HPP
 
+#include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Entity.hpp>
 
 namespace RosettaStone::Generic
