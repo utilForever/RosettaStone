@@ -441,7 +441,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_005o] Claw (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +2 Attack this turn.
     // --------------------------------------------------------
@@ -454,7 +454,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_009e] Mark of the Wild (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -464,7 +464,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_011o] Savage Roar (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +2 Attack this turn.
     // --------------------------------------------------------
@@ -477,7 +477,7 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_017o] Claws (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: Your hero has +1 Attack this turn.
     // --------------------------------------------------------
@@ -560,7 +560,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [CS2_084e] Hunter's Mark (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: This minion has 1 Health.
     // --------------------------------------------------------
@@ -856,7 +856,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [CS2_092e] Blessing of Kings (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
@@ -866,7 +866,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - PALADIN
     // [CS2_101t] Silver Hand Recruit (*) - COST:1 [ATK:1/HP:1]
-    // - Set: core, Rarity: free
+    // - Set: Core, Rarity: Free
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -1015,7 +1015,7 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [CS2_004e] Power Word: Shield (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
@@ -1319,7 +1319,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: Taunt.
     // --------------------------------------------------------
@@ -1332,7 +1332,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_045e] Rockbiter Weapon (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: This character has +3 Attack this turn.
     // --------------------------------------------------------
@@ -1345,7 +1345,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_046e] Bloodlust (*) - COST:0
-    // - Set: core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +3 Attack this turn.
     // --------------------------------------------------------
@@ -1392,7 +1392,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [EX1_565o] Flametongue (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +2 Attack from Flametongue Totem.
     // --------------------------------------------------------
@@ -1549,7 +1549,7 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [CS2_063e] Corruption (*) - COST:0
-    // - Set: core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: At the start of the corrupting player's turn, destroy this minion.
     // --------------------------------------------------------
@@ -1667,7 +1667,7 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS2_105e] Heroic Strike (*) - COST:0
-    // - Set: Core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: +4 Attack this turn.
     // --------------------------------------------------------
@@ -2151,6 +2151,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_122e] Enhanced (*) - COST:0
     // - Set: Core
