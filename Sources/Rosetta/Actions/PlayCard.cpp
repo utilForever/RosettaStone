@@ -147,6 +147,12 @@ bool IsPlayableByCardReq(Entity* source)
     {
         switch (requirement.first)
         {
+            case PlayReq::REQ_WEAPON_EQUIPPED:
+                if (!source->owner->GetHero()->HasWeapon())
+                {
+                    return false;
+                }
+                break;
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
                 auto& opField = source->owner->opponent->GetField();
