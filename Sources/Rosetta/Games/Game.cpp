@@ -654,9 +654,9 @@ void Game::ProcessTasks()
     while (!taskQueue.empty())
     {
         ITask* task = taskQueue.front();
-        task->Run(GetCurrentPlayer());
-
         taskQueue.pop_front();
+
+        task->Run(GetCurrentPlayer());
     }
 }
 }  // namespace RosettaStone
