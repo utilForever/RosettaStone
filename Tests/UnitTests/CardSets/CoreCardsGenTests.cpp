@@ -4083,3 +4083,38 @@ TEST(CoreCardsGen, CS2_074)
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 3);
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
 }
+
+TEST(CoreCardsGen, CS2_097)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetDamage(4);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Truesilver Champion"));
+
+    Task::Run(curPlayer, PlayCardTask::Weapon(curPlayer, card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 26);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 4);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+
+    Task::Run(curPlayer, AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
+}
