@@ -100,6 +100,11 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
     // Process power tasks
     for (auto& powerTask : spell->card.power.GetPowerTask())
     {
+        if (powerTask == nullptr)
+        {
+            continue;
+        }
+
         powerTask->SetSource(spell);
         powerTask->SetTarget(target);
         powerTask->Run(player);
@@ -112,7 +117,30 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 {
-    (void)target;
+    // Process trigger
+    if (weapon->card.power.GetTrigger().has_value())
+    {
+        weapon->card.power.GetTrigger().value().Activate(*weapon);
+    }
+
+    // Process aura
+    if (weapon->card.power.GetAura().has_value())
+    {
+        weapon->card.power.GetAura().value().Activate(*weapon);
+    }
+
+    // Process power tasks
+    for (auto& powerTask : weapon->card.power.GetPowerTask())
+    {
+        if (powerTask == nullptr)
+        {
+            continue;
+        }
+
+        powerTask->SetSource(weapon);
+        powerTask->SetTarget(target);
+        powerTask->Run(player);
+    }
 
     player.GetHero()->AddWeapon(*weapon);
 }
