@@ -59,6 +59,11 @@ void Trigger::Activate(Entity& source)
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
+        case TriggerType::ATTACK:
+            game->triggerManager.attackTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
         default:
             throw std::invalid_argument(
                 "Trigger::Activate() - Invalid trigger type!");
@@ -79,6 +84,9 @@ void Trigger::Remove()
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;
+            break;
+        case TriggerType::ATTACK:
+            game->triggerManager.attackTrigger = nullptr;
             break;
         default:
             throw std::invalid_argument(
@@ -148,6 +156,13 @@ void Trigger::Validate(Player* player, Entity* source)
     {
         case TriggerSource::NONE:
             break;
+        case TriggerSource::HERO:
+            if (dynamic_cast<Hero*>(source) == nullptr ||
+                source->owner != m_owner->owner)
+            {
+                return;
+            }
+            break;
         case TriggerSource::ALL_MINIONS:
             if (dynamic_cast<Minion*>(source) == nullptr)
             {
@@ -174,6 +189,7 @@ void Trigger::Validate(Player* player, Entity* source)
             }
             break;
         case TriggerType::HEAL:
+        case TriggerType::ATTACK:
             break;
         default:
             throw std::invalid_argument(
