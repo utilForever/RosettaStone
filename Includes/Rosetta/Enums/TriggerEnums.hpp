@@ -16,12 +16,14 @@ enum class TriggerType
     TURN_START,  //!< The effect will be triggered at the start of turn.
     TURN_END,    //!< The effect will be triggered at the end of turn.
     HEAL,        //!< The effect will be triggered when characters are healed.
+    ATTACK,      //!< The effect will be triggered when characters attack.
 };
 
 //! \brief An enumerator for identifying trigger source.
 enum class TriggerSource
 {
     NONE,
+    HERO,
     ALL_MINIONS,
 };
 
