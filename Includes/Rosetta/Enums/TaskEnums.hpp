@@ -45,6 +45,7 @@ enum class TaskID
     WEAPON,
     FUNC_NUMBER,
     HERO_POWER,
+    COPY,
 
     NUM_TASK_ID
 };
