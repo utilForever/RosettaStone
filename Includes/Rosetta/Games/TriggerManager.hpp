@@ -28,9 +28,12 @@ class TriggerManager
 
     void OnHealTrigger(Player* player, Entity* sender);
 
+    void OnAttackTrigger(Player* player, Entity* sender);
+
     std::function<void(Player*, Entity*)> startTurnTrigger;
     std::function<void(Player*, Entity*)> endTurnTrigger;
     std::function<void(Player*, Entity*)> healTrigger;
+    std::function<void(Player*, Entity*)> attackTrigger;
 };
 }  // namespace RosettaStone
 

@@ -31,4 +31,12 @@ void TriggerManager::OnHealTrigger(Player* player, Entity* sender)
         healTrigger(player, sender);
     }
 }
+
+void TriggerManager::OnAttackTrigger(Player* player, Entity* sender)
+{
+    if (attackTrigger != nullptr)
+    {
+        attackTrigger(player, sender);
+    }
+}
 }  // namespace RosettaStone
