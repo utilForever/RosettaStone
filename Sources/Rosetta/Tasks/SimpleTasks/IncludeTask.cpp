@@ -102,6 +102,12 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(card);
             }
             break;
+        case EntityType::ENEMY_HAND:
+            for (auto& card : player.opponent->GetHand().GetAllCards())
+            {
+                entities.emplace_back(card);
+            }
+            break;
         case EntityType::ALL_MINIONS:
             for (auto& minion : player.GetField().GetAllMinions())
             {
