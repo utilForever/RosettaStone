@@ -1044,6 +1044,19 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     cards.emplace("CS2_072", power);
 
     // ------------------------------------------ SPELL - ROGUE
+    // [CS2_074] Deadly Poison - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your weapon +2 Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_074e", EntityType::WEAPON));
+    cards.emplace("CS2_074", power);
+
+    // ------------------------------------------ SPELL - ROGUE
     // [CS2_075] Sinister Strike - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -2151,6 +2164,16 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS2_074e] Deadly Poison (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_074e"));
+    cards.emplace("CS2_074e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_122e] Enhanced (*) - COST:0
