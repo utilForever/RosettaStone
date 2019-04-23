@@ -4003,3 +4003,42 @@ TEST(CoreCardsGen, CS2_045)
     EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
 }
+
+TEST(CoreCardsGen, CS2_003)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mind Vision"));
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    auto gainedCard = curPlayer.GetHand().GetCard(4);
+
+    bool flag = false;
+    for (auto& card : opPlayer.GetHand().GetAllCards())
+    {
+        if (card->id == gainedCard->id)
+        {
+            flag = true;
+            break;
+        }
+    }
+
+    EXPECT_TRUE(flag);
+}

@@ -9,9 +9,11 @@
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
@@ -925,6 +927,18 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     cards.emplace("CS1_130", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS2_003] Mind Vision - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Put a copy of a random card in your opponent's hand into your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_HAND, 1));
+    power.AddPowerTask(new CopyTask(EntityType::STACK, 1));
+    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    cards.emplace("CS2_003", power);
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_004] Power Word: Shield - COST:1
