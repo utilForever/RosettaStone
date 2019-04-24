@@ -40,6 +40,14 @@ void Effect::Apply(Entity* entity, bool isOneTurnEffect) const
             entity->SetGameTag(m_gameTag, prevValue * m_value);
             break;
         case EffectOperator::SET:
+            if (m_gameTag == GameTag::CHARGE)
+            {
+                if (entity->GetExhausted() &&
+                    entity->GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 0)
+                {
+                    entity->SetExhausted(false);
+                }
+            }
             entity->SetGameTag(m_gameTag, m_value);
             break;
         default:
