@@ -19,6 +19,11 @@ Enchant::Enchant(Effect& effect)
     effects.emplace_back(effect);
 }
 
+Enchant::Enchant(std::initializer_list<Effect> _effects) : effects(_effects)
+{
+    // Do nothing
+}
+
 Enchant::Enchant(std::vector<Effect>& _effects, bool _isOneTurnEffect)
     : effects(_effects), isOneTurnEffect(_isOneTurnEffect)
 {

@@ -37,6 +37,10 @@ class Enchant
     //! \param effect The effect of the card.
     Enchant(Effect& effect);
 
+    //! Constructs enchant with given \p _effects.
+    //! \param _effects A list of effect.
+	Enchant(std::initializer_list<Effect> _effects);
+
     //! Constructs enchant with given \p effects.
     //! \param effects A list of effect.
     //! \param isOneTurnEffect A flag that sets whether this is one-turn effect.
