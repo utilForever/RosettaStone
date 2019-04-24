@@ -27,7 +27,8 @@ class Enchant
     //! Default constructor.
     Enchant() = default;
 
-    //! Constructs enchant with given \p gameTag, \p effectOperator and \p value.
+    //! Constructs enchant with given \p gameTag, \p effectOperator and
+    //! \p value.
     //! \param gameTag The game tag of the card.
     //! \param effectOperator The effect operator to change card value.
     //! \param value The value to change.
@@ -37,20 +38,23 @@ class Enchant
     //! \param effect The effect of the card.
     Enchant(Effect& effect);
 
-    //! Constructs enchant with given \p _effects.
+    //! Constructs enchant with given \p _effects, \p _useScriptTag and
+    //! \p _isOneTurnEffect.
     //! \param _effects A list of effect.
-	Enchant(std::initializer_list<Effect> _effects);
-
-    //! Constructs enchant with given \p effects.
-    //! \param effects A list of effect.
-    //! \param isOneTurnEffect A flag that sets whether this is one-turn effect.
-    Enchant(std::vector<Effect>& effects, bool isOneTurnEffect);
+    //! \param _useScriptTag A flag to use script tag.
+    //! \param _isOneTurnEffect A flag whether this is one-turn effect.
+    Enchant(std::vector<Effect> _effects, bool _useScriptTag = false,
+            bool _isOneTurnEffect = false);
 
     //! Activates enchant to \p entity.
     //! \param entity An entity to which enchant is activated.
-    void ActivateTo(Entity* entity);
+    //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
+    void ActivateTo(Entity* entity, int num1, int num2);
 
     std::vector<Effect> effects;
+
+    bool useScriptTag = false;
     bool isOneTurnEffect = false;
 };
 }  // namespace RosettaStone
