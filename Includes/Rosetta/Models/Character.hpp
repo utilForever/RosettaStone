@@ -84,6 +84,14 @@ class Character : public Entity
     //! \param spellPower The value of spell power.
     void SetSpellPower(int spellPower);
 
+    //! Returns the number of attacks at this turn.
+    //! \return The number of attacks at this turn.
+    int GetNumAttacksThisTurn() const;
+
+    //! Gets the number of attacks at this turn.
+    //! \param amount The number of attacks at this turn.
+    void SetNumAttacksThisTurn(int amount);
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack();
@@ -113,8 +121,6 @@ class Character : public Entity
     //! \param source An entity to give heal.
     //! \param heal The value of heal.
     void TakeHeal(Entity& source, int heal);
-
-    std::size_t numAttacked = 0;
 };
 }  // namespace RosettaStone
 

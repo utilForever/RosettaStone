@@ -78,6 +78,16 @@ void Character::SetSpellPower(int spellPower)
     SetGameTag(GameTag::SPELLPOWER, spellPower);
 }
 
+int Character::GetNumAttacksThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN);
+}
+
+void Character::SetNumAttacksThisTurn(int amount)
+{
+    SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, amount);
+}
+
 bool Character::CanAttack()
 {
     // If the value of attack is 0, returns false
