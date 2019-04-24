@@ -30,8 +30,14 @@ class Effects
         return Effect(GameTag::HEALTH, EffectOperator::ADD, n);
     }
 
-    //! A minion ability which forces the opposing player to direct any melee
-    //! attacks toward enemy targets with this ability.
+    //! Creates effect that increases attack and health by \p n.
+    static std::vector<Effect> AttackHealthN(int n)
+    {
+        return { AttackN(n), HealthN(n) };
+    }
+
+    //! A minion ability which forces the opposing player to direct any
+    //! melee attacks toward enemy targets with this ability.
     inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
 
     //! A minion ability that causes any minion damaged by them to be destroyed.
