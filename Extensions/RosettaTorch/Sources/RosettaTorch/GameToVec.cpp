@@ -27,13 +27,13 @@ GameToVec::GameToVec()
     };
 
     // Generates an embedding table for the Effect task
-    make_table(EffectEmbeddingTable, EffectIndexSize, EffectVectorSize);
+    make_table(m_effectEmbeddingTable, EffectIndexSize, EffectVectorSize);
 
     // Generates an embedding table for the TaskId
-    make_table(TaskIdEmbeddingTable, TaskIdIndexSize, TaskIdVectorSize);
+    make_table(m_taskIDEmbeddingTable, TaskIdIndexSize, TaskIdVectorSize);
 
     // Generates an embedding table for the EntityType
-    make_table(EntityTypeEmbeddingTable, EntityTypeIndexSize,
+    make_table(m_entityTypeEmbeddingTable, EntityTypeIndexSize,
                EntityTypeVectorSize);
 }
 
@@ -53,13 +53,13 @@ GameToVec::GameToVec(const std::size_t seed) : m_seed(seed)
     };
 
     // Generates an embedding table for the Effect task
-    make_table(EffectEmbeddingTable, EffectIndexSize, EffectVectorSize);
+    make_table(m_effectEmbeddingTable, EffectIndexSize, EffectVectorSize);
 
     // Generates an embedding table for the TaskId
-    make_table(TaskIdEmbeddingTable, TaskIdIndexSize, TaskIdVectorSize);
+    make_table(m_taskIDEmbeddingTable, TaskIdIndexSize, TaskIdVectorSize);
 
     // Generates an embedding table for the EntityType
-    make_table(EntityTypeEmbeddingTable, EntityTypeIndexSize,
+    make_table(m_entityTypeEmbeddingTable, EntityTypeIndexSize,
                EntityTypeVectorSize);
 }
 
@@ -71,34 +71,34 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
 
     for (std::size_t i = 0; i < effects.size(); ++i)
     {
-        auto effect_game_tag = effects[i].GetGameTag();
-        auto effect_op = effects[i].GetEffectOperator();
+        auto EffectGameTag_ = effects[i].GetGameTag();
+        auto EffectOp = effects[i].GetEffectOperator();
         // For preventing division by zero exception
-        auto effect_value = static_cast<float>(effects[i].GetValue()) + 1;
+        auto EffectValue = static_cast<float>(effects[i].GetValue()) + 1;
 
         // Getting index of the game tag
-        std::vector<GameTag>::iterator game_tag_it = std::find(
-            EffectGameTag.begin(), EffectGameTag.end(), effect_game_tag);
-        auto effect_game_tag_idx =
-            std::distance(EffectGameTag.begin(), game_tag_it);
+        std::vector<GameTag>::iterator GameTagIter = std::find(
+            EffectGameTag.begin(), EffectGameTag.end(), EffectGameTag_);
+        auto EffectGameTagIdx =
+            std::distance(EffectGameTag.begin(), GameTagIter);
 
         // Getting index of the effect operator
-        std::vector<EffectOperator>::iterator game_op_it = std::find(
-            EffectOperatorTag.begin(), EffectOperatorTag.end(), effect_op);
-        auto effect_game_op_tag_idx =
-            std::distance(EffectOperatorTag.begin(), game_op_it);
+        std::vector<EffectOperator>::iterator GameOpIter = std::find(
+            EffectOperatorTag.begin(), EffectOperatorTag.end(), EffectOp);
+        auto EffectGameOpTagIdx =
+            std::distance(EffectOperatorTag.begin(), GameOpIter);
 
         torch::Tensor index = torch::zeros((1), torch::kInt8);
         index.add(
-            static_cast<int>(EffectOperationTagSize * effect_game_tag_idx +
-                             effect_game_op_tag_idx));
+            static_cast<int>(EffectOperationTagSize * EffectGameTagIdx +
+                             EffectGameOpTagIdx));
 
         // Normalize the value and multiple to the embedding vector
-        effect_value = (effect_value >= CLIP_EFFECT_NORM)
+        EffectValue = (EffectValue >= CLIP_EFFECT_NORM)
                            ? 1.
-                           : effect_value / CLIP_EFFECT_NORM;
+                           : EffectValue / CLIP_EFFECT_NORM;
 
-        EffectVectors[i] = EffectEmbeddingTable(index) / effect_value;
+        EffectVectors[i] = m_effectEmbeddingTable(index) / EffectValue;
     }
 
     // Average all vectors (effects)
@@ -110,7 +110,7 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
 
 torch::Tensor GameToVec::TasksToTensor(std::vector<ITask*> tasks)
 {
-    torch::Tensor task_vectors = torch::empty(
+    torch::Tensor TaskVectors = torch::empty(
         { static_cast<int>(tasks.size()), static_cast<int>(TaskVectorSize) });
 
     for (std::size_t i = 0; i < tasks.size(); ++i)
@@ -118,26 +118,26 @@ torch::Tensor GameToVec::TasksToTensor(std::vector<ITask*> tasks)
         auto task_id = tasks[i]->GetTaskID();
         auto entity_type = tasks[i]->GetEntityType();
 
-        torch::Tensor task_id_index = torch::zeros((1), torch::kInt8);
-        task_id_index.add(static_cast<int>(task_id));
+        torch::Tensor TaskIDIndex = torch::zeros((1), torch::kInt8);
+        TaskIDIndex.add(static_cast<int>(task_id));
 
-        torch::Tensor entity_index = torch::zeros((1), torch::kInt8);
-        entity_index.add(static_cast<int>(entity_type));
+        torch::Tensor EntityIndex = torch::zeros((1), torch::kInt8);
+        EntityIndex.add(static_cast<int>(entity_type));
 
-        auto task_id_embed = TaskIdEmbeddingTable(task_id_index);
-        auto entity_type_embed = EntityTypeEmbeddingTable(entity_index);
+        auto TaskIDEmbed = m_taskIDEmbeddingTable(TaskIDIndex);
+        auto EntityTypeEmbed = m_entityTypeEmbeddingTable(EntityIndex);
 
         // Concatenating two vectors
-        auto embeddings = torch::cat({ task_id_embed, entity_type_embed });
+        auto Embeddings = torch::cat({ TaskIDEmbed, EntityTypeEmbed });
 
-        task_vectors[i] = embeddings;
+        TaskVectors[i] = Embeddings;
     }
 
     // Average all vectors (tasks)
-    auto task_vector = torch::mean(task_vectors);
+    auto TaskVector = torch::mean(TaskVectors);
 
     // excepted (8,) Tensor
-    return task_vector;
+    return TaskVector;
 }
 
 torch::Tensor GameToVec::CardToTensor(Entity* entity)
@@ -211,22 +211,22 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     auto power = ability.GetPowerTask();
 
     // Write AuraVector
-    auto aura_vector = AuraToVector(aura);
-    write_vector(3, AuraVectorSize, aura_vector);
+    auto AuraVector = AuraToVector(aura);
+    write_vector(3, AuraVectorSize, AuraVector);
 
     // Write EnchantVector
-    auto enchant_vector = EnchantToVector(enchant);
-    write_vector(3 + AuraVectorSize, EnchantVectorSize, enchant_vector);
+    auto EnchantVector = EnchantToVector(enchant);
+    write_vector(3 + AuraVectorSize, EnchantVectorSize, EnchantVector);
 
     // Write DeathrattleVector
-    auto deathrattle_vector = TasksToTensor(deathrattle);
+    auto DeathrattleVector = TasksToTensor(deathrattle);
     write_vector(3 + AuraVectorSize + EnchantVectorSize, TaskVectorSize,
-                 deathrattle_vector);
+                 DeathrattleVector);
 
     // Write PowerVector
-    auto power_vector = TasksToTensor(power);
+    auto PowerVector = TasksToTensor(power);
     write_vector(3 + AuraVectorSize + EnchantVectorSize + TaskVectorSize,
-                 TaskVectorSize, power_vector);
+                 TaskVectorSize, PowerVector);
 
     return CardVector;
 }
@@ -261,20 +261,20 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     // # 8 : Power Vector
     torch::Tensor tensor = torch::empty(GameVectorSize, torch::kFloat32);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& oppPlayer = game.GetOpponentPlayer();
+    Player& CurPlayer = game.GetCurrentPlayer();
+    Player& OppPlayer = game.GetOpponentPlayer();
 
     // Write number of opponent player's cards, normalized, on the hand.
     tensor[0] =
-        static_cast<float>(oppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
+        static_cast<float>(OppPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
 
     // Write number of opponent player's cards, normalized, on the deck.
     tensor[1] =
-        static_cast<float>(oppPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
+        static_cast<float>(OppPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
     // Write number of current player's cards, normalized, on the deck.
     tensor[2] =
-        static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
+        static_cast<float>(CurPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
     auto field_write = [&](std::size_t start, Player& player) {
         auto field = player.GetField();
@@ -309,29 +309,29 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     };
 
     // Write opponent player's field cards
-    field_write(PlayerMetaSize, oppPlayer);
+    field_write(PlayerMetaSize, OppPlayer);
 
     // Write current player's field cards
-    field_write(PlayerMetaSize + 1 * FIELD_SIZE, curPlayer);
+    field_write(PlayerMetaSize + 1 * FIELD_SIZE, CurPlayer);
 
     // Write current player's hand cards
-    hand_write(PlayerMetaSize + 2 * FIELD_SIZE, curPlayer);
+    hand_write(PlayerMetaSize + 2 * FIELD_SIZE, CurPlayer);
 
     return tensor;
 }
 
 torch::nn::Embedding GameToVec::GetEffectEmbeddingTable()
 {
-    return EffectEmbeddingTable;
+    return m_effectEmbeddingTable;
 }
 
 torch::nn::Embedding GameToVec::GetEntityTypeEmbeddingTable()
 {
-    return EntityTypeEmbeddingTable;
+    return m_entityTypeEmbeddingTable;
 }
 
 torch::nn::Embedding GameToVec::GetTaskIdEmbeddingTable()
 {
-    return TaskIdEmbeddingTable;
+    return m_taskIDEmbeddingTable;
 }
 }  // namespace RosettaTorch

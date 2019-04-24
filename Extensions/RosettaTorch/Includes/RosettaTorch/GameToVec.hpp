@@ -112,9 +112,9 @@ class GameToVec
     std::size_t m_seed;
 
     //! embedding table for the card
-    torch::nn::Embedding EffectEmbeddingTable = nullptr;
-    torch::nn::Embedding EntityTypeEmbeddingTable = nullptr;
-    torch::nn::Embedding TaskIdEmbeddingTable = nullptr;
+    torch::nn::Embedding m_effectEmbeddingTable = nullptr;
+    torch::nn::Embedding m_entityTypeEmbeddingTable = nullptr;
+    torch::nn::Embedding m_taskIDEmbeddingTable = nullptr;
 };
 }  // namespace RosettaTorch
 
