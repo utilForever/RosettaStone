@@ -28,6 +28,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
       singleTask(prototype.singleTask),
       fastExecution(prototype.fastExecution),
+      removeAfterTriggered(prototype.removeAfterTriggered),
       m_triggerType(prototype.m_triggerType),
       m_sequenceType(prototype.m_sequenceType),
       m_owner(&owner)
@@ -116,6 +117,11 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
     (void)player;
 
     m_isValidated = false;
+
+    if (removeAfterTriggered)
+    {
+        Remove();
+    }
 
     singleTask->SetSource(m_owner);
 

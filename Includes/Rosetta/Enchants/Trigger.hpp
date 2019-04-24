@@ -44,6 +44,7 @@ class Trigger
     ITask* singleTask = nullptr;
 
     bool fastExecution = false;
+    bool removeAfterTriggered = false;
 
  private:
     //! Processes trigger to apply the effect.
