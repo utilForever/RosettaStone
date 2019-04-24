@@ -70,6 +70,7 @@ enum class EntityType
     ENEMY_HAND,
     ALL_MINIONS,
     MINIONS,
+    MINIONS_NOSOURCE,
     ENEMY_MINIONS,
     STACK
 };
