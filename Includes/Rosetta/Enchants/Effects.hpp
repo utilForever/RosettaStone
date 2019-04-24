@@ -46,6 +46,11 @@ class Effects
     inline static Effect Windfury =
         Effect(GameTag::WINDFURY, EffectOperator::SET, 1);
 
+    //! An ability allowing a minion to attack the same turn it is summoned or
+    //! brought under a new player's control.
+    inline static Effect Charge =
+        Effect(GameTag::CHARGE, EffectOperator::SET, 1);
+
     //! A minion ability which prevents that minion from being the target of
     //! enemy attacks, spells and effects until they attack.
     inline static Effect Stealth =
