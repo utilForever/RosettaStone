@@ -130,7 +130,7 @@ bool Character::IsValidCombatTarget(Player& opponent, Character* target) const
              hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
 }
 
-std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
+std::vector<Character*> Character::GetValidCombatTargets(Player& opponent) const
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;
@@ -159,7 +159,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
         return targetsHaveTaunt;
     }
 
-    if (opponent.GetHero()->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
+    if (GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
         opponent.GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
         opponent.GetHero()->GetGameTag(GameTag::STEALTH) == 0)
     {

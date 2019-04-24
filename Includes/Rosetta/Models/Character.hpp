@@ -105,7 +105,7 @@ class Character : public Entity
     //! Returns a list of valid target in combat.
     //! \param opponent The opponent player.
     //! \return A list of pointer to valid target.
-    static std::vector<Character*> GetValidCombatTargets(Player& opponent);
+    std::vector<Character*> GetValidCombatTargets(Player& opponent) const;
 
     //! Takes damage from a certain other entity.
     //! \param source An entity to give damage.
