@@ -47,6 +47,7 @@ enum class TaskID
     HERO_POWER,
     COPY,
     ADD_STACK_TO,
+    COUNT,
 
     NUM_TASK_ID
 };
