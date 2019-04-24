@@ -68,6 +68,11 @@ class Effect
     //! \param auraEffects The aura effect.
     void Remove(AuraEffects& auraEffects) const;
 
+    //! Creates a new Effect having changed amount of \p newValue.
+    //! \param newValue A value to change.
+    //! \return A new Effect having changed amount.
+    Effect ChangeValue(int newValue) const;
+
  private:
     GameTag m_gameTag = GameTag::INVALID;
     EffectOperator m_effectOperator = EffectOperator::SET;
