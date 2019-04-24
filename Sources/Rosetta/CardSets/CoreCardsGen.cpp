@@ -1592,6 +1592,25 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     Power power;
 
     // ---------------------------------------- SPELL - WARRIOR
+    // [CS2_103] Charge - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give a friendly minion <b>Charge</b>. It can't attack heroes this
+    // turn.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_103e2", EntityType::TARGET));
+    cards.emplace("CS2_103", power);
+
+    // ---------------------------------------- SPELL - WARRIOR
     // [CS2_105] Heroic Strike - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1692,6 +1711,22 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
 void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [CS2_103e2] Charge (*) - COST:0
+    // - Set: core,
+    // --------------------------------------------------------
+    // Text: Has <b>Charge</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        Enchant({ Effects::Charge, Effect(GameTag::CANNOT_ATTACK_HEROES,
+                                          EffectOperator::SET, 1) }));
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().singleTask = new SetGameTagTask(
+        EntityType::TARGET, GameTag::CANNOT_ATTACK_HEROES, 0);
+    power.GetTrigger().value().removeAfterTriggered = true;
+    cards.emplace("CS2_103e2", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS2_105e] Heroic Strike (*) - COST:0

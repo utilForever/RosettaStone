@@ -4118,3 +4118,68 @@ TEST(CoreCardsGen, CS2_097)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
 }
+
+TEST(CoreCardsGen, CS2_103)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Charge"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dalaran Mage"));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 0);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CANNOT_ATTACK_HEROES),
+              0);
+
+    Task::Run(curPlayer, AttackTask(card2, card3));
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CANNOT_ATTACK_HEROES),
+              1);
+
+    Task::Run(curPlayer, AttackTask(card2, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+
+    Task::Run(curPlayer, AttackTask(card2, card3));
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CANNOT_ATTACK_HEROES),
+              0);
+}
