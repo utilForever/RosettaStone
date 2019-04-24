@@ -197,11 +197,11 @@ void Game::MainReady()
     for (auto& p : m_players)
     {
         // Hero
-        p.GetHero()->numAttacked = 0;
+        p.GetHero()->SetNumAttacksThisTurn(0);
         // Field
         for (auto& m : p.GetField().GetAllMinions())
         {
-            m->numAttacked = 0;
+            m->SetNumAttacksThisTurn(0);
         }
     }
 
@@ -432,15 +432,15 @@ void Game::MainCleanUp()
     // summoning sickness (or do have Charge) and have not attacked that turn
     // Hero
     if (curPlayer.GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
-        curPlayer.GetHero()->numAttacked == 0)
+        curPlayer.GetHero()->GetNumAttacksThisTurn() == 0)
     {
         curPlayer.GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
     for (auto& m : curPlayer.GetField().GetAllMinions())
     {
-        if (m->GetGameTag(GameTag::FROZEN) == 1 && m->numAttacked == 0 &&
-            !m->GetExhausted())
+        if (m->GetGameTag(GameTag::FROZEN) == 1 &&
+            m->GetNumAttacksThisTurn() == 0 && !m->GetExhausted())
         {
             m->SetGameTag(GameTag::FROZEN, 0);
         }

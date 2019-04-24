@@ -87,12 +87,12 @@ void Attack(Player& player, Character* source, Character* target)
     }
 
     // Increase the number of attacked
-    source->numAttacked++;
+    source->SetNumAttacksThisTurn(source->GetNumAttacksThisTurn() + 1);
 
     // Check source is exhausted
-    if ((source->numAttacked >= 1 &&
+    if ((source->GetNumAttacksThisTurn() >= 1 &&
          source->GetGameTag(GameTag::WINDFURY) == 0) ||
-        (source->numAttacked >= 2 &&
+        (source->GetNumAttacksThisTurn() >= 2 &&
          source->GetGameTag(GameTag::WINDFURY) == 1))
     {
         source->SetExhausted(true);

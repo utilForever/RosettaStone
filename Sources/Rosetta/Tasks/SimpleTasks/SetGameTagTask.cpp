@@ -32,7 +32,7 @@ TaskStatus SetGameTagTask::Impl(Player& player)
         if (m_gameTag == GameTag::WINDFURY && m_amount == 1)
         {
             auto m = dynamic_cast<Minion*>(entity);
-            if (m != nullptr && m->numAttacked == 1 &&
+            if (m != nullptr && m->GetNumAttacksThisTurn() == 1 &&
                 m->GetExhausted())
             {
                 m->SetExhausted(false);
