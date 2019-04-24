@@ -14,6 +14,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
@@ -2116,6 +2117,21 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddAura(Aura("CS2_222o", AuraType::FIELD_EXCEPT_SOURCE));
     cards.emplace("CS2_222", power);
 
+	// --------------------------------------- MINION - NEUTRAL
+    // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
+    // - Faction: Horde, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the
+    // battlefield.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new CountTask(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_226e", EntityType::SOURCE));
+    cards.emplace("CS2_226", power);
+
     // --------------------------------------- MINION - NEUTRAL
     // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -2244,6 +2260,16 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_222o"));
     cards.emplace("CS2_222o", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS2_226e] Frostwolf Banner (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::move(Enchants::AddAttackHealthScriptTag));
+    cards.emplace("CS2_226e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_boar] Boar (*) - COST:1 [ATK:1/HP:1]
