@@ -63,13 +63,16 @@ class Aura
     //! \param entity An entity to apply aura's effect(s).
     void Apply(Entity& entity);
 
-    //! Get m_type
+    //! Get m_type.
+    //! \return The type of aura.
     AuraType GetAuraType();
 
-    //! Get m_effects
+    //! Get m_effects.
+    //! \return The effect of aura.
     std::vector<Effect> GetEffects();
 
-    //! Get m_appliedEntities
+    //! Get m_appliedEntities.
+    //! \return The applied entities affected by the aura.
     std::vector<Entity*> GetAppliedEntities();
 
  private:
