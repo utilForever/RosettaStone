@@ -54,11 +54,11 @@ class GameToVec
     virtual torch::Tensor GenerateTensor(const Game& game);
 
     //! Gets Effect Embedding Table.
-    //! \return The embedding table torch tensor.
+    //! Returns entity type embedding table.
     torch::nn::Embedding GetEffectEmbeddingTable();
 
     //! Gets Entity Type Embedding Table.
-    //! \return The embedding table torch tensor.
+    //! Returns task ID embedding table.
     torch::nn::Embedding GetEntityTypeEmbeddingTable();
 
     //! Gets Task Id Embedding Table.
@@ -111,7 +111,7 @@ class GameToVec
  private:
     std::size_t m_seed;
 
-    //! embedding table for the card
+    //! Embedding table for the card
     torch::nn::Embedding m_effectEmbeddingTable = nullptr;
     torch::nn::Embedding m_entityTypeEmbeddingTable = nullptr;
     torch::nn::Embedding m_taskIDEmbeddingTable = nullptr;
