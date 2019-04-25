@@ -20,7 +20,7 @@ class AddStackToTask : public ITask
  public:
     //! Constructs task with given \p entityType and \p amount.
     //! \param entityType The type of entity to add.
-    AddStackToTask(EntityType entityType);
+    explicit AddStackToTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.

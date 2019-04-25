@@ -52,7 +52,7 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
         if (power.GetEnchant().has_value())
         {
-            const auto taskStack = player.GetGame()->taskStack;
+            const auto& taskStack = player.GetGame()->taskStack;
             power.GetEnchant().value().ActivateTo(entity, taskStack.num,
                                                   taskStack.num1);
         }
