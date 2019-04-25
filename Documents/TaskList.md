@@ -13,9 +13,12 @@
 ## Basic tasks
 
 * AddEnchantmentTask
+* AddStackToTask
 * ArmorTask
 * ConditionTask
 * ControlTask
+* CopyTask
+* CountTask
 * DamageTask
 * DestroyTask
 * DiscardTask
@@ -23,8 +26,10 @@
 * DrawTask
 * EnqueueTask
 * FlagTask
+* FuncNumberTask
 * HealFullTask
 * HealTask
+* HeroPowerTask
 * IncludeTask
 * ManaCrystalTask
 * RandomTask
@@ -33,3 +38,4 @@
 * SummonTask
 * TempManaTask
 * TransformTask
+* WeaponTask
