@@ -53,12 +53,15 @@ class Effect
     void Remove(AuraEffects& auraEffects) const;
 
     //! Get m_gameTag
+    //! \return The value of game tag
     GameTag GetGameTag();
 
     //! Get m_effectOperator
+    //! \return The effect operator
     EffectOperator GetEffectOperator();
 
     //! Get m_value
+    //! \return The value of m_value
     int GetValue();
 
  private:
