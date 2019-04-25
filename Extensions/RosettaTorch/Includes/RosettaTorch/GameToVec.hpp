@@ -26,24 +26,24 @@ class GameToVec
     //! Constructs the embedding tables.
     GameToVec();
 
-    //! Constructs the embedding tables with given \p seed
-    // \param seed The seed used when the embedding table is generated.
+    //! Constructs the embedding tables with given \p seed.
+    //! \param seed The seed used when the embedding table is generated.
     explicit GameToVec(std::size_t seed);
 
     //! Default virtual destructor.
     virtual ~GameToVec() = default;
 
-    //! Generates torch tensor from the effects
+    //! Generates torch tensor from the effects.
     //! \param effects The card effects.
     //! \return The encoded torch tensor from \p effects.
     virtual torch::Tensor EffectsToTensor(std::vector<Effect> effects);
 
-    //! Generates torch tensor from the tasks
-    //! \param tasks The card tasks
+    //! Generates torch tensor from the tasks.
+    //! \param tasks The card tasks.
     //! \return The encoded torch tensor from \p tasks.
     virtual torch::Tensor TasksToTensor(std::vector<ITask*> tasks);
 
-    //! Generates torch tensor from the entity
+    //! Generates torch tensor from the entity.
     //! \param entity The card context.
     //! \return The encoded torch tensor from \p entity.
     virtual torch::Tensor CardToTensor(Entity* entity);
