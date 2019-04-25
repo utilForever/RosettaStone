@@ -116,11 +116,6 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
 {
     m_isValidated = false;
 
-    if (removeAfterTriggered)
-    {
-        Remove();
-    }
-
     singleTask->SetSource(m_owner);
 
     if (source != nullptr)
@@ -147,6 +142,11 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
     else
     {
         m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
+    }
+
+    if (removeAfterTriggered)
+    {
+        Remove();
     }
 
     m_isValidated = false;
