@@ -34,15 +34,6 @@ TaskStatus CountTask::Impl(Player& player)
         case 1:
             player.GetGame()->taskStack.num1 = count;
             break;
-        case 2:
-            player.GetGame()->taskStack.num2 = count;
-            break;
-        case 3:
-            player.GetGame()->taskStack.num3 = count;
-            break;
-        case 4:
-            player.GetGame()->taskStack.num4 = count;
-            break;
         default:
             throw std::invalid_argument(
                 "CountTask::Impl() - Invalid number index");
