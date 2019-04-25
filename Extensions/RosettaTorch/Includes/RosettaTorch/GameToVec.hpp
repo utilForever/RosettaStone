@@ -65,11 +65,9 @@ class GameToVec
     //! \return The embedding table torch tensor.
     torch::nn::Embedding GetTaskIdEmbeddingTable();
 
-    /////////////////////////////////////////////
     static constexpr size_t CLIP_CARD_NORM = 64;
     static constexpr size_t CLIP_EFFECT_NORM = 8;
 
-    /////////////////////////////////////////////
     std::vector<GameTag> EffectGameTag = {
         GameTag::INVALID,  GameTag::ATK,       GameTag::HEALTH,
         GameTag::TAUNT,    GameTag::POISONOUS, GameTag::DIVINE_SHIELD,
@@ -96,14 +94,12 @@ class GameToVec
     static constexpr std::size_t TaskVectorSize =
         EntityTypeVectorSize + TaskIdVectorSize;
 
-    /////////////////////////////////////////////
     static constexpr std::size_t CardMetaSize = 3;
     static constexpr std::size_t AbilityVectorSize =
         AuraVectorSize + EnchantVectorSize + TaskVectorSize + TaskVectorSize;
     static constexpr std::size_t CardVectorSize =
         CardMetaSize + AbilityVectorSize;
 
-    /////////////////////////////////////////////
     static constexpr std::size_t PlayerMetaSize = 3;
     static constexpr std::size_t GameVectorSize =
         PlayerMetaSize + (CardVectorSize * (HAND_SIZE + 2 * FIELD_SIZE));
