@@ -52,16 +52,16 @@ class Effect
     //! \param auraEffects The aura effect.
     void Remove(AuraEffects& auraEffects) const;
 
-    //! Get m_gameTag
-    //! \return The value of game tag
+    //! Get m_gameTag.
+    //! \return The value of game tag.
     GameTag GetGameTag();
 
-    //! Get m_effectOperator
-    //! \return The effect operator
+    //! Get m_effectOperator.
+    //! \return The effect operator.
     EffectOperator GetEffectOperator();
 
-    //! Get m_value
-    //! \return The value of m_value
+    //! Get m_value.
+    //! \return The value of m_value.
     int GetValue();
 
  private:
