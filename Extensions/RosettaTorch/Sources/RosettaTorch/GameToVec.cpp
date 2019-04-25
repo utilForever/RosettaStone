@@ -210,20 +210,20 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     auto deathrattle = ability.GetDeathrattleTask();
     auto power = ability.GetPowerTask();
 
-    // Write AuraVector
+    // Write aura vector
     auto AuraVector = AuraToVector(aura);
     WriteVector(3, AuraVectorSize, AuraVector);
 
-    // Write EnchantVector
+    // Write enchant vector
     auto EnchantVector = EnchantToVector(enchant);
     WriteVector(3 + AuraVectorSize, EnchantVectorSize, EnchantVector);
 
-    // Write DeathrattleVector
+    // Write deathrattle vector
     auto DeathrattleVector = TasksToTensor(deathrattle);
     WriteVector(3 + AuraVectorSize + EnchantVectorSize, TaskVectorSize,
                  DeathrattleVector);
 
-    // Write PowerVector
+    // Write power vector
     auto PowerVector = TasksToTensor(power);
     WriteVector(3 + AuraVectorSize + EnchantVectorSize + TaskVectorSize,
                  TaskVectorSize, PowerVector);
