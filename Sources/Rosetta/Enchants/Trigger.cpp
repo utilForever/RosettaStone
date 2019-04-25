@@ -114,8 +114,6 @@ void Trigger::Process(Player* player, Entity* source)
 
 void Trigger::ProcessInternal(Player* player, Entity* source)
 {
-    (void)player;
-
     m_isValidated = false;
 
     if (removeAfterTriggered)
