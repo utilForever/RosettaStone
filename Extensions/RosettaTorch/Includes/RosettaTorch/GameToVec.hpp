@@ -55,7 +55,7 @@ class GameToVec
 
     //! Returns the effect embedding table.
     //! \return The effect embedding table.
-    torch::nn::Embedding GetEffectEmbeddingTable();
+    torch::nn::Embedding GetEffectEmbeddingTable() const;
 
     //! Returns the entity type embedding table.
     //! \return The entity type embedding table.
@@ -63,7 +63,7 @@ class GameToVec
 
     //! Returns The task ID embedding table.
     //! \return The task ID embedding table.
-    torch::nn::Embedding GetTaskIDEmbeddingTable();
+    torch::nn::Embedding GetTaskIDEmbeddingTable() const;
 
     static constexpr size_t CLIP_CARD_NORM = 64;
     static constexpr size_t CLIP_EFFECT_NORM = 8;

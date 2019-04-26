@@ -17,8 +17,8 @@ GameToVec::GameToVec()
     torch::manual_seed(static_cast<uint64_t>(m_seed));
 
     // Making embedding tables for the task
-    auto MakeTable = [&](torch::nn::Embedding embedding, std::size_t idxSize,
-                         std::size_t vecSize) {
+    const auto MakeTable = [&](torch::nn::Embedding embedding,
+                               std::size_t idxSize, std::size_t vecSize) {
         embedding = torch::nn::Embedding(idxSize, vecSize);
         embedding->weight = torch::randn(
             { static_cast<int>(idxSize), static_cast<int>(vecSize) },
@@ -43,8 +43,8 @@ GameToVec::GameToVec(const std::size_t seed) : m_seed(seed)
     torch::manual_seed(static_cast<uint64_t>(m_seed));
 
     // Making embedding tables for the task
-    auto MakeTable = [&](torch::nn::Embedding embedding, std::size_t idxSize,
-                         std::size_t vecSize) {
+    const auto MakeTable = [&](torch::nn::Embedding embedding,
+                               std::size_t idxSize, std::size_t vecSize) {
         embedding = torch::nn::Embedding(idxSize, vecSize);
         embedding->weight = torch::randn(
             { static_cast<int>(idxSize), static_cast<int>(vecSize) },
@@ -65,7 +65,7 @@ GameToVec::GameToVec(const std::size_t seed) : m_seed(seed)
 
 torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
 {
-    torch::Tensor effectVectors =
+    const torch::Tensor effectVectors =
         torch::zeros({ static_cast<int>(effects.size()),
                        static_cast<int>(EffectVectorSize) });
 
@@ -77,15 +77,15 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
         auto effectValue = static_cast<float>(effects[i].GetValue()) + 1;
 
         // Getting index of the game tag
-        std::vector<GameTag>::iterator gameTagIter = std::find(
-            EffectGameTag.begin(), EffectGameTag.end(), effectGameTag);
-        auto effectGameTagIdx =
+        const auto gameTagIter = std::find(EffectGameTag.begin(),
+                                           EffectGameTag.end(), effectGameTag);
+        const auto effectGameTagIdx =
             std::distance(EffectGameTag.begin(), gameTagIter);
 
         // Getting index of the effect operator
-        std::vector<EffectOperator>::iterator gameOpIter = std::find(
-            EffectOperatorTag.begin(), EffectOperatorTag.end(), effectOp);
-        auto effectGameOpTagIdx =
+        const auto gameOpIter = std::find(EffectOperatorTag.begin(),
+                                          EffectOperatorTag.end(), effectOp);
+        const auto effectGameOpTagIdx =
             std::distance(EffectOperatorTag.begin(), gameOpIter);
 
         torch::Tensor idx = torch::zeros((1), torch::kInt8);
@@ -109,7 +109,7 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
 
 torch::Tensor GameToVec::TasksToTensor(std::vector<ITask*> tasks)
 {
-    torch::Tensor taskVectors = torch::empty(
+    const torch::Tensor taskVectors = torch::empty(
         { static_cast<int>(tasks.size()), static_cast<int>(TaskVectorSize) });
 
     for (std::size_t i = 0; i < tasks.size(); ++i)
@@ -123,11 +123,11 @@ torch::Tensor GameToVec::TasksToTensor(std::vector<ITask*> tasks)
         torch::Tensor entityIndex = torch::zeros((1), torch::kInt8);
         entityIndex.add(static_cast<int>(entityType));
 
-        auto taskIDEmbed = m_taskIDEmbeddingTable(taskIDIndex);
-        auto entityTypeEmbed = m_entityTypeEmbeddingTable(entityIndex);
+        const auto taskIDEmbed = m_taskIDEmbeddingTable(taskIDIndex);
+        const auto entityTypeEmbed = m_entityTypeEmbeddingTable(entityIndex);
 
         // Concatenating two vectors
-        auto embeddings = torch::cat({ taskIDEmbed, entityTypeEmbed });
+        const auto embeddings = torch::cat({ taskIDEmbed, entityTypeEmbed });
 
         taskVectors[i] = embeddings;
     }
@@ -143,7 +143,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
 {
     torch::Tensor cardVector = torch::empty(CardVectorSize, torch::kFloat32);
 
-    Character* character = dynamic_cast<Character*>(entity);
+    auto* character = dynamic_cast<Character*>(entity);
 
     auto cost = static_cast<float>(character->GetCost());
     auto attack = static_cast<float>(character->GetAttack());
@@ -168,11 +168,11 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
             torch::empty(AuraVectorSize, torch::kFloat32);
 
         auto type = aura->GetAuraType();
-        auto effects = aura->GetEffects();
+        const auto effects = aura->GetEffects();
 
         auraVector[0] = static_cast<float>(type);
 
-        auto effectVector = EffectsToTensor(effects);
+        const auto effectVector = EffectsToTensor(effects);
         for (size_t i = 0; i < EffectVectorSize; ++i)
         {
             auraVector[1 + i] = effectVector[i];
@@ -195,7 +195,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     };
 
     auto WriteVector = [&](size_t startIdx, size_t vecSize,
-                           torch::Tensor tensor) {
+                           const torch::Tensor& tensor) {
         for (size_t i = startIdx; i < startIdx + vecSize; ++i)
         {
             cardVector[i] = tensor[i];
@@ -275,9 +275,9 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     tensor[2] =
         static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
 
-    auto FieldWrite = [&](std::size_t start, Player& player) {
+    const auto FieldWrite = [&](std::size_t start, Player& player) {
         auto field = player.GetField();
-        std::size_t numOfMinions = field.GetNumOfMinions();
+        const std::size_t numOfMinions = field.GetNumOfMinions();
 
         std::size_t i = 0;
         for (; i < numOfMinions; ++i)
@@ -291,9 +291,9 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
         }
     };
 
-    auto HandWrite = [&](std::size_t start, Player& player) {
+    const auto HandWrite = [&](std::size_t start, Player& player) {
         auto hand = player.GetHand();
-        std::size_t numOfCards = hand.GetNumOfCards();
+        const std::size_t numOfCards = hand.GetNumOfCards();
 
         std::size_t i = 0;
         for (; i < numOfCards; ++i)
@@ -319,7 +319,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     return tensor;
 }
 
-torch::nn::Embedding GameToVec::GetEffectEmbeddingTable()
+torch::nn::Embedding GameToVec::GetEffectEmbeddingTable() const
 {
     return m_effectEmbeddingTable;
 }
@@ -329,7 +329,7 @@ torch::nn::Embedding GameToVec::GetEntityTypeEmbeddingTable()
     return m_entityTypeEmbeddingTable;
 }
 
-torch::nn::Embedding GameToVec::GetTaskIDEmbeddingTable()
+torch::nn::Embedding GameToVec::GetTaskIDEmbeddingTable() const
 {
     return m_taskIDEmbeddingTable;
 }
