@@ -102,6 +102,12 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(card);
             }
             break;
+        case EntityType::ENEMY_HAND:
+            for (auto& card : player.opponent->GetHand().GetAllCards())
+            {
+                entities.emplace_back(card);
+            }
+            break;
         case EntityType::ALL_MINIONS:
             for (auto& minion : player.GetField().GetAllMinions())
             {
@@ -118,6 +124,17 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::MINIONS_NOSOURCE:
+            for (auto& minion : player.GetField().GetAllMinions())
+            {
+                if (source == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            break;
         case EntityType::ENEMY_MINIONS:
             for (auto& minion : player.opponent->GetField().GetAllMinions())
             {
@@ -128,7 +145,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             entities = player.GetGame()->taskStack.entities;
             break;
         default:
-            throw std::domain_error(
+            throw std::invalid_argument(
                 "IncludeTask::GetEntities() - Invalid entity type");
     }
 

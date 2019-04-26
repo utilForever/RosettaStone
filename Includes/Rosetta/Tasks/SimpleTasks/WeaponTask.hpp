@@ -3,25 +3,24 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_RANDOM_TASK_HPP
-#define ROSETTASTONE_RANDOM_TASK_HPP
+#ifndef ROSETTASTONE_WEAPON_TASK_HPP
+#define ROSETTASTONE_WEAPON_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief RandomTask class.
+//! \brief WeaponTask class.
 //!
-//! This class represents the task for picking entities at random.
+//! This class represents the task for equipping weapon.
 //!
-class RandomTask : public ITask
+class WeaponTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p num.
-    //! \param entityType The type of entity.
-    //! \param num The number of entities to pick.
-    RandomTask(EntityType entityType, int num);
+    //! Constructs task with given \p cardID.
+    //! \param cardID The card ID of weapon to equip.
+    explicit WeaponTask(std::string&& cardID);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,8 +32,8 @@ class RandomTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    int m_num = 0;
+    std::string m_cardID;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_RANDOM_TASK_HPP
+#endif  // ROSETTASTONE_WEAPON_TASK_HPP

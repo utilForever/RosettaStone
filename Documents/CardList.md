@@ -12,7 +12,7 @@ CORE | CS1_042 | Goldshire Footman | O
 CORE | CS1_112 | Holy Nova | O
 CORE | CS1_113 | Mind Control | O
 CORE | CS1_130 | Holy Smite | O
-CORE | CS2_003 | Mind Vision |  
+CORE | CS2_003 | Mind Vision | O
 CORE | CS2_004 | Power Word: Shield | O
 CORE | CS2_005 | Claw | O
 CORE | CS2_007 | Healing Touch | O
@@ -43,7 +43,7 @@ CORE | CS2_063 | Corruption | O
 CORE | CS2_064 | Dread Infernal | O
 CORE | CS2_065 | Voidwalker | O
 CORE | CS2_072 | Backstab | O
-CORE | CS2_074 | Deadly Poison |  
+CORE | CS2_074 | Deadly Poison | O
 CORE | CS2_075 | Sinister Strike | O
 CORE | CS2_076 | Assassinate | O
 CORE | CS2_077 | Sprint | O
@@ -56,8 +56,8 @@ CORE | CS2_091 | Light's Justice | O
 CORE | CS2_092 | Blessing of Kings | O
 CORE | CS2_093 | Consecration | O
 CORE | CS2_094 | Hammer of Wrath | O
-CORE | CS2_097 | Truesilver Champion |  
-CORE | CS2_103 | Charge |  
+CORE | CS2_097 | Truesilver Champion | O
+CORE | CS2_103 | Charge | O
 CORE | CS2_105 | Heroic Strike | O
 CORE | CS2_106 | Fiery War Axe | O
 CORE | CS2_108 | Execute | O
@@ -93,7 +93,7 @@ CORE | CS2_200 | Boulderfist Ogre | O
 CORE | CS2_201 | Core Hound | O
 CORE | CS2_213 | Reckless Rocketeer | O
 CORE | CS2_222 | Stormwind Champion | O
-CORE | CS2_226 | Frostwolf Warlord |  
+CORE | CS2_226 | Frostwolf Warlord | O
 CORE | CS2_232 | Ironbark Protector | O
 CORE | CS2_234 | Shadow Word: Pain | O
 CORE | CS2_235 | Northshire Cleric | O
@@ -142,7 +142,7 @@ CORE | NEW1_004 | Vanish | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion |  
 
-- Progress: 85% (114 of 133 Cards)
+- Progress: 89% (119 of 133 Cards)
 
 ## Classic
 

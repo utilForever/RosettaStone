@@ -197,29 +197,29 @@ void Game::MainReady()
     for (auto& p : m_players)
     {
         // Hero
-        p.GetHero()->numAttacked = 0;
+        p.GetHero()->SetNumAttacksThisTurn(0);
         // Field
         for (auto& m : p.GetField().GetAllMinions())
         {
-            m->numAttacked = 0;
+            m->SetNumAttacksThisTurn(0);
         }
     }
 
     // Reset exhaust for current player
     auto& curPlayer = GetCurrentPlayer();
     // Hero
-    curPlayer.GetHero()->SetGameTag(GameTag::EXHAUSTED, 0);
+    curPlayer.GetHero()->SetExhausted(false);
     // Weapon
     if (curPlayer.GetHero()->weapon != nullptr)
     {
-        curPlayer.GetHero()->weapon->SetGameTag(GameTag::EXHAUSTED, 0);
+        curPlayer.GetHero()->weapon->SetExhausted(false);
     }
     // Hero power
-    curPlayer.GetHero()->heroPower->SetGameTag(GameTag::EXHAUSTED, 0);
+    curPlayer.GetHero()->heroPower->SetExhausted(false);
     // Field
     for (auto& m : curPlayer.GetField().GetAllMinions())
     {
-        m->SetGameTag(GameTag::EXHAUSTED, 0);
+        m->SetExhausted(false);
     }
 
     // Set next step
@@ -401,6 +401,10 @@ void Game::MainAction()
 
 void Game::MainEnd()
 {
+    triggerManager.OnEndTurnTrigger(&GetCurrentPlayer(), nullptr);
+    ProcessTasks();
+    ProcessDestroyAndUpdateAura();
+
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
     if (m_gameConfig.autoRun)
@@ -416,10 +420,10 @@ void Game::MainCleanUp()
     // Remove one-turn effects
     for (auto& effectPair : oneTurnEffects)
     {
-        Character* character = effectPair.first;
+        Entity* entity = effectPair.first;
         Effect* effect = effectPair.second;
 
-        effect->Remove(character);
+        effect->Remove(entity);
         delete effect;
     }
     oneTurnEffects.clear();
@@ -428,15 +432,15 @@ void Game::MainCleanUp()
     // summoning sickness (or do have Charge) and have not attacked that turn
     // Hero
     if (curPlayer.GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
-        curPlayer.GetHero()->numAttacked == 0)
+        curPlayer.GetHero()->GetNumAttacksThisTurn() == 0)
     {
         curPlayer.GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
     for (auto& m : curPlayer.GetField().GetAllMinions())
     {
-        if (m->GetGameTag(GameTag::FROZEN) == 1 && m->numAttacked == 0 &&
-            m->GetGameTag(GameTag::EXHAUSTED) == 0)
+        if (m->GetGameTag(GameTag::FROZEN) == 1 &&
+            m->GetNumAttacksThisTurn() == 0 && !m->GetExhausted())
         {
             m->SetGameTag(GameTag::FROZEN, 0);
         }
@@ -650,9 +654,9 @@ void Game::ProcessTasks()
     while (!taskQueue.empty())
     {
         ITask* task = taskQueue.front();
-        task->Run(GetCurrentPlayer());
-
         taskQueue.pop_front();
+
+        task->Run(GetCurrentPlayer());
     }
 }
 }  // namespace RosettaStone

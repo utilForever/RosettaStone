@@ -3,25 +3,25 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_RANDOM_TASK_HPP
-#define ROSETTASTONE_RANDOM_TASK_HPP
+#ifndef ROSETTASTONE_COPY_TASK_HPP
+#define ROSETTASTONE_COPY_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief RandomTask class.
+//! \brief CopyTask class.
 //!
-//! This class represents the task for picking entities at random.
+//! This class represents the task for copying entities.
 //!
-class RandomTask : public ITask
+class CopyTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p num.
+    //! Constructs task with given \p entityType and \p amount.
     //! \param entityType The type of entity.
-    //! \param num The number of entities to pick.
-    RandomTask(EntityType entityType, int num);
+    //! \param amount The number of entities to copy.
+    CopyTask(EntityType entityType, int amount);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,8 +33,8 @@ class RandomTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    int m_num = 0;
+    int m_amount = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_RANDOM_TASK_HPP
+#endif  // ROSETTASTONE_COPY_TASK_HPP

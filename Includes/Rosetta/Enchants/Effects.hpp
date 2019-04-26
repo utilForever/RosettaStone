@@ -30,8 +30,14 @@ class Effects
         return Effect(GameTag::HEALTH, EffectOperator::ADD, n);
     }
 
-    //! A minion ability which forces the opposing player to direct any melee
-    //! attacks toward enemy targets with this ability.
+    //! Creates effect that increases attack and health by \p n.
+    static std::vector<Effect> AttackHealthN(int n)
+    {
+        return { AttackN(n), HealthN(n) };
+    }
+
+    //! A minion ability which forces the opposing player to direct any
+    //! melee attacks toward enemy targets with this ability.
     inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
 
     //! A minion ability that causes any minion damaged by them to be destroyed.
@@ -45,6 +51,11 @@ class Effects
     //! An ability which allows a character to attack twice per turn.
     inline static Effect Windfury =
         Effect(GameTag::WINDFURY, EffectOperator::SET, 1);
+
+    //! An ability allowing a minion to attack the same turn it is summoned or
+    //! brought under a new player's control.
+    inline static Effect Charge =
+        Effect(GameTag::CHARGE, EffectOperator::SET, 1);
 
     //! A minion ability which prevents that minion from being the target of
     //! enemy attacks, spells and effects until they attack.

@@ -42,6 +42,12 @@ enum class TaskID
     ARMOR,
     RETURN_HAND,
     TEMP_MANA,
+    WEAPON,
+    FUNC_NUMBER,
+    HERO_POWER,
+    COPY,
+    ADD_STACK_TO,
+    COUNT,
 
     NUM_TASK_ID
 };
@@ -64,6 +70,7 @@ enum class EntityType
     ENEMY_HAND,
     ALL_MINIONS,
     MINIONS,
+    MINIONS_NOSOURCE,
     ENEMY_MINIONS,
     STACK
 };

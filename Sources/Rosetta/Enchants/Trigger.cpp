@@ -14,12 +14,21 @@ namespace RosettaStone
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
 {
-    m_sequenceType = SequenceType::NONE;
+    switch (type)
+    {
+        case TriggerType::TURN_END:
+            fastExecution = true;
+            break;
+        default:
+            m_sequenceType = SequenceType::NONE;
+    }
 }
 
 Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
       singleTask(prototype.singleTask),
+      fastExecution(prototype.fastExecution),
+      removeAfterTriggered(prototype.removeAfterTriggered),
       m_triggerType(prototype.m_triggerType),
       m_sequenceType(prototype.m_sequenceType),
       m_owner(&owner)
@@ -41,8 +50,18 @@ void Trigger::Activate(Entity& source)
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
+        case TriggerType::TURN_END:
+            game->triggerManager.endTurnTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
+        case TriggerType::ATTACK:
+            game->triggerManager.attackTrigger =
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
@@ -61,8 +80,14 @@ void Trigger::Remove()
         case TriggerType::TURN_START:
             game->triggerManager.startTurnTrigger = nullptr;
             break;
+        case TriggerType::TURN_END:
+            game->triggerManager.endTurnTrigger = nullptr;
+            break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;
+            break;
+        case TriggerType::ATTACK:
+            game->triggerManager.attackTrigger = nullptr;
             break;
         default:
             throw std::invalid_argument(
@@ -89,8 +114,6 @@ void Trigger::Process(Player* player, Entity* source)
 
 void Trigger::ProcessInternal(Player* player, Entity* source)
 {
-    (void)player;
-
     m_isValidated = false;
 
     singleTask->SetSource(m_owner);
@@ -112,7 +135,19 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
         }
     }
 
-    m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
+    if (fastExecution)
+    {
+        singleTask->Run(*player);
+    }
+    else
+    {
+        m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
+    }
+
+    if (removeAfterTriggered)
+    {
+        Remove();
+    }
 
     m_isValidated = false;
 }
@@ -124,6 +159,13 @@ void Trigger::Validate(Player* player, Entity* source)
     switch (triggerSource)
     {
         case TriggerSource::NONE:
+            break;
+        case TriggerSource::HERO:
+            if (dynamic_cast<Hero*>(source) == nullptr ||
+                source->owner != m_owner->owner)
+            {
+                return;
+            }
             break;
         case TriggerSource::ALL_MINIONS:
             if (dynamic_cast<Minion*>(source) == nullptr)
@@ -144,7 +186,14 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerType::TURN_END:
+            if (player != m_owner->owner)
+            {
+                return;
+            }
+            break;
         case TriggerType::HEAL:
+        case TriggerType::ATTACK:
             break;
         default:
             throw std::invalid_argument(

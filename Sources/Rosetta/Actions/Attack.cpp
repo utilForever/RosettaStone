@@ -18,6 +18,10 @@ void Attack(Player& player, Character* source, Character* target)
         return;
     }
 
+    // Activate attack trigger
+    player.GetGame()->triggerManager.OnAttackTrigger(&player, source);
+    player.GetGame()->ProcessTasks();
+
     // Set game step to MAIN_COMBAT
     player.GetGame()->step = Step::MAIN_COMBAT;
 
@@ -83,15 +87,15 @@ void Attack(Player& player, Character* source, Character* target)
     }
 
     // Increase the number of attacked
-    source->numAttacked++;
+    source->SetNumAttacksThisTurn(source->GetNumAttacksThisTurn() + 1);
 
     // Check source is exhausted
-    if ((source->numAttacked >= 1 &&
+    if ((source->GetNumAttacksThisTurn() >= 1 &&
          source->GetGameTag(GameTag::WINDFURY) == 0) ||
-        (source->numAttacked >= 2 &&
+        (source->GetNumAttacksThisTurn() >= 2 &&
          source->GetGameTag(GameTag::WINDFURY) == 1))
     {
-        source->SetGameTag(GameTag::EXHAUSTED, 1);
+        source->SetExhausted(true);
     }
 
     // Process destroy and update aura

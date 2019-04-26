@@ -8,6 +8,22 @@
 
 namespace RosettaStone
 {
+void TriggerManager::OnStartTurnTrigger(Player* player, Entity* sender)
+{
+    if (startTurnTrigger != nullptr)
+    {
+        startTurnTrigger(player, sender);
+    }
+}
+
+void TriggerManager::OnEndTurnTrigger(Player* player, Entity* sender)
+{
+    if (endTurnTrigger != nullptr)
+    {
+        endTurnTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnHealTrigger(Player* player, Entity* sender)
 {
     if (healTrigger != nullptr)
@@ -16,11 +32,11 @@ void TriggerManager::OnHealTrigger(Player* player, Entity* sender)
     }
 }
 
-void TriggerManager::OnStartTurnTrigger(Player* player, Entity* sender)
+void TriggerManager::OnAttackTrigger(Player* player, Entity* sender)
 {
-    if (startTurnTrigger != nullptr)
+    if (attackTrigger != nullptr)
     {
-        startTurnTrigger(player, sender);
+        attackTrigger(player, sender);
     }
 }
 }  // namespace RosettaStone

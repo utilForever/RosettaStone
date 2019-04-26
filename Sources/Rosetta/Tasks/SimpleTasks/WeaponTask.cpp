@@ -1,0 +1,41 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+#include <Rosetta/Actions/PlayCard.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+
+namespace RosettaStone::SimpleTasks
+{
+WeaponTask::WeaponTask(std::string&& cardID) : m_cardID(cardID)
+{
+    // Do nothing
+}
+
+TaskID WeaponTask::GetTaskID() const
+{
+    return TaskID::WEAPON;
+}
+
+TaskStatus WeaponTask::Impl(Player& player)
+{
+    Card weaponCard = Cards::FindCardByID(m_cardID);
+    if (weaponCard.id.empty())
+    {
+        return TaskStatus::STOP;
+    }
+
+    if (player.GetHero()->HasWeapon())
+    {
+        player.GetHero()->weapon->Destroy();
+    }
+
+    const auto weapon = dynamic_cast<Weapon*>(
+        Entity::GetFromCard(player, std::move(weaponCard)));
+    Generic::PlayWeapon(player, weapon, nullptr);
+
+    return TaskStatus::COMPLETE;
+}
+}  // namespace RosettaStone::SimpleTasks

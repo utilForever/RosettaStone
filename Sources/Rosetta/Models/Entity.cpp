@@ -134,6 +134,16 @@ void Entity::SetCost(int cost)
     SetGameTag(GameTag::COST, cost);
 }
 
+bool Entity::GetExhausted() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::EXHAUSTED));
+}
+
+void Entity::SetExhausted(bool exhausted)
+{
+    SetGameTag(GameTag::EXHAUSTED, static_cast<int>(exhausted));
+}
+
 void Entity::Destroy()
 {
     isDestroyed = true;

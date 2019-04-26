@@ -17,31 +17,38 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     // Do nothing
 }
 
-void Effect::Apply(Character* character, bool isOneTurnEffect) const
+void Effect::Apply(Entity* entity, bool isOneTurnEffect) const
 {
-    auto& oneTurnEffects = character->owner->GetGame()->oneTurnEffects;
+    auto& oneTurnEffects = entity->owner->GetGame()->oneTurnEffects;
 
     if (isOneTurnEffect)
     {
-        oneTurnEffects.emplace_back(
-            std::make_pair(character, new Effect(*this)));
+        oneTurnEffects.emplace_back(std::make_pair(entity, new Effect(*this)));
     }
 
-    const int prevValue = character->GetGameTag(m_gameTag);
+    const int prevValue = entity->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            character->SetGameTag(m_gameTag, prevValue + m_value);
+            entity->SetGameTag(m_gameTag, prevValue + m_value);
             break;
         case EffectOperator::SUB:
-            character->SetGameTag(m_gameTag, prevValue - m_value);
+            entity->SetGameTag(m_gameTag, prevValue - m_value);
             break;
         case EffectOperator::MUL:
-            character->SetGameTag(m_gameTag, prevValue * m_value);
+            entity->SetGameTag(m_gameTag, prevValue * m_value);
             break;
         case EffectOperator::SET:
-            character->SetGameTag(m_gameTag, m_value);
+            if (m_gameTag == GameTag::CHARGE)
+            {
+                if (entity->GetExhausted() &&
+                    entity->GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 0)
+                {
+                    entity->SetExhausted(false);
+                }
+            }
+            entity->SetGameTag(m_gameTag, m_value);
             break;
         default:
             throw std::invalid_argument("Invalid effect operator!");
@@ -68,21 +75,21 @@ void Effect::Apply(AuraEffects& auraEffects) const
     }
 }
 
-void Effect::Remove(Character* character) const
+void Effect::Remove(Entity* entity) const
 {
-    const int prevValue = character->GetGameTag(m_gameTag);
+    const int prevValue = entity->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            character->SetGameTag(m_gameTag, prevValue - m_value);
+            entity->SetGameTag(m_gameTag, prevValue - m_value);
             break;
         case EffectOperator::SUB:
-            character->SetGameTag(
-                m_gameTag, character->card.gameTags.at(m_gameTag) + m_value);
+            entity->SetGameTag(m_gameTag,
+                               entity->card.gameTags.at(m_gameTag) + m_value);
             break;
         case EffectOperator::SET:
-            character->SetGameTag(m_gameTag, 0);
+            entity->SetGameTag(m_gameTag, 0);
             break;
         default:
             throw std::invalid_argument("Invalid effect operator!");
@@ -114,5 +121,10 @@ void Effect::Remove(AuraEffects& auraEffects) const
         default:
             throw std::invalid_argument("Invalid effect operator!");
     }
+}
+
+Effect Effect::ChangeValue(int newValue) const
+{
+    return Effect(m_gameTag, m_effectOperator, newValue);
 }
 }  // namespace RosettaStone

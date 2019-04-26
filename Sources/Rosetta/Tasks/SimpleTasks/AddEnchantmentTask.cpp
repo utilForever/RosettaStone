@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -36,7 +37,7 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        auto enchantment =
+        const auto enchantment =
             Enchantment::GetInstance(player, enchantmentCard, entity);
 
         if (power.GetAura().has_value())
@@ -51,8 +52,9 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
         if (power.GetEnchant().has_value())
         {
-            power.GetEnchant().value().ActivateTo(
-                dynamic_cast<Character*>(entity));
+            const auto& taskStack = player.GetGame()->taskStack;
+            power.GetEnchant().value().ActivateTo(entity, taskStack.num,
+                                                  taskStack.num1);
         }
     }
 

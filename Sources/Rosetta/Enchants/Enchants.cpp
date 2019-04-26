@@ -48,6 +48,6 @@ Enchant Enchants::GetEnchantFromText(const std::string& cardID)
         isOneTurn = true;
     }
 
-    return Enchant(effects, isOneTurn);
+    return Enchant(effects, false, isOneTurn);
 }
 }  // namespace RosettaStone

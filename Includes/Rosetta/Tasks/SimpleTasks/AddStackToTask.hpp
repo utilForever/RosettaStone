@@ -3,25 +3,24 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_RANDOM_TASK_HPP
-#define ROSETTASTONE_RANDOM_TASK_HPP
+#ifndef ROSETTASTONE_ADD_STACK_TO_TASK_HPP
+#define ROSETTASTONE_ADD_STACK_TO_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief RandomTask class.
+//! \brief AddStackToTask class.
 //!
-//! This class represents the task for picking entities at random.
+//! This class represents the task for adding stack to something.
 //!
-class RandomTask : public ITask
+class AddStackToTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p num.
-    //! \param entityType The type of entity.
-    //! \param num The number of entities to pick.
-    RandomTask(EntityType entityType, int num);
+    //! Constructs task with given \p entityType and \p amount.
+    //! \param entityType The type of entity to add.
+    explicit AddStackToTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,9 +31,7 @@ class RandomTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
-
-    int m_num = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_RANDOM_TASK_HPP
+#endif  // ROSETTASTONE_ADD_STACK_TO_TASK_HPP

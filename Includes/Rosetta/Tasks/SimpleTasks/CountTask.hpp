@@ -3,25 +3,25 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_RANDOM_TASK_HPP
-#define ROSETTASTONE_RANDOM_TASK_HPP
+#ifndef ROSETTASTONE_COUNT_TASK_HPP
+#define ROSETTASTONE_COUNT_TASK_HPP
 
 #include <Rosetta/Tasks/Tasks.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief RandomTask class.
+//! \brief CountTask class.
 //!
-//! This class represents the task for picking entities at random.
+//! This class represents the task for counting entities.
 //!
-class RandomTask : public ITask
+class CountTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p num.
+    //! Constructs task with given \p entityType and \p numIndex.
     //! \param entityType The type of entity.
-    //! \param num The number of entities to pick.
-    RandomTask(EntityType entityType, int num);
+    //! \param numIndex An index of number.
+    CountTask(EntityType entityType, int numIndex = 0);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,8 +33,8 @@ class RandomTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    int m_num = 0;
+    int m_numIndex = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_RANDOM_TASK_HPP
+#endif  // ROSETTASTONE_COUNT_TASK_HPP
