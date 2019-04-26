@@ -84,10 +84,15 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
 
     if (minion.GetGameTag(GameTag::CHARGE) != 1)
     {
-        minion.SetGameTag(GameTag::EXHAUSTED, 1);
+        minion.SetExhausted(true);
     }
 
-    minion.orderOfPlay = minion.GetOwner().GetGame()->GetNextOOP();
+    for (auto& aura : auras)
+    {
+        aura->SetToBeUpdated(true);
+    }
+
+    minion.orderOfPlay = minion.owner->GetGame()->GetNextOOP();
 
     ActivateAura(minion);
 }
@@ -95,6 +100,11 @@ void Battlefield::AddMinion(Minion& minion, std::size_t pos)
 void Battlefield::RemoveMinion(Minion& minion)
 {
     RemoveAura(minion);
+
+    if (minion.activatedTrigger != nullptr)
+    {
+        minion.activatedTrigger->Remove();
+    }
 
     std::size_t idx = 0;
 
@@ -117,6 +127,11 @@ void Battlefield::RemoveMinion(Minion& minion)
 
     for (auto& aura : auras)
     {
+        aura->SetToBeUpdated(true);
+    }
+
+    for (auto& aura : auras)
+    {
         aura->RemoveEntity(minion);
     }
 }
@@ -134,6 +149,11 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
 
 void Battlefield::ActivateAura(Minion& minion)
 {
+    if (minion.card.power.GetTrigger().has_value())
+    {
+        minion.card.power.GetTrigger().value().Activate(minion);
+    }
+
     if (minion.card.power.GetAura().has_value())
     {
         minion.card.power.GetAura().value().Activate(minion);
@@ -142,7 +162,7 @@ void Battlefield::ActivateAura(Minion& minion)
     const int spellPower = minion.GetSpellPower();
     if (spellPower > 0)
     {
-        minion.GetOwner().currentSpellPower += spellPower;
+        minion.owner->currentSpellPower += spellPower;
     }
 }
 
@@ -154,9 +174,9 @@ void Battlefield::RemoveAura(Minion& minion)
     }
 
     const int spellPower = minion.GetSpellPower();
-    if (minion.GetOwner().currentSpellPower > 0 && spellPower > 0)
+    if (minion.owner->currentSpellPower > 0 && spellPower > 0)
     {
-        minion.GetOwner().currentSpellPower -= spellPower;
+        minion.owner->currentSpellPower -= spellPower;
     }
 }
 }  // namespace RosettaStone

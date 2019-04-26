@@ -18,6 +18,11 @@ std::optional<Enchant>& Power::GetEnchant()
     return m_enchant;
 }
 
+std::optional<Trigger>& Power::GetTrigger()
+{
+    return m_trigger;
+}
+
 std::vector<ITask*>& Power::GetPowerTask()
 {
     return m_powerTask;
@@ -32,6 +37,7 @@ void Power::ClearData()
 {
     m_aura.reset();
     m_enchant.reset();
+    m_trigger.reset();
     m_powerTask.clear();
     m_deathrattleTask.clear();
 }
@@ -44,6 +50,11 @@ void Power::AddAura(Aura&& aura)
 void Power::AddEnchant(Enchant&& enchant)
 {
     m_enchant = std::move(enchant);
+}
+
+void Power::AddTrigger(Trigger&& trigger)
+{
+    m_trigger = std::move(trigger);
 }
 
 void Power::AddPowerTask(ITask* task)

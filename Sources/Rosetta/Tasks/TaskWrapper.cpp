@@ -21,7 +21,7 @@ TaskID DoBothPlayer::GetTaskID() const
 TaskStatus DoBothPlayer::Impl(Player& player)
 {
     const TaskStatus status1 = m_task.Run(player);
-    const TaskStatus status2 = m_task.Run(player.GetOpponent());
+    const TaskStatus status2 = m_task.Run(*player.opponent);
 
     if (status1 == status2)
     {

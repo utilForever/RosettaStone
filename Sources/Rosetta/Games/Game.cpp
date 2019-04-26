@@ -32,6 +32,10 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
         p.SetGame(this);
     }
 
+    // Set player type
+    GetPlayer1().playerType = PlayerType::PLAYER1;
+    GetPlayer2().playerType = PlayerType::PLAYER2;
+
     // Add hero and hero power
     GetPlayer1().AddHeroAndPower(
         Cards::GetHeroCard(gameConfig.player1Class),
@@ -41,8 +45,8 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
         Cards::GetDefaultHeroPower(gameConfig.player2Class));
 
     // Set opponent player
-    GetPlayer1().SetOpponent(&GetPlayer2());
-    GetPlayer2().SetOpponent(&GetPlayer1());
+    GetPlayer1().opponent = &GetPlayer2();
+    GetPlayer2().opponent = &GetPlayer1();
 }
 
 Player& Game::GetPlayer1()
@@ -62,7 +66,7 @@ Player& Game::GetCurrentPlayer() const
 
 Player& Game::GetOpponentPlayer() const
 {
-    return m_currentPlayer->GetOpponent();
+    return *m_currentPlayer->opponent;
 }
 
 std::size_t Game::GetNextID()
@@ -156,7 +160,7 @@ void Game::BeginMulligan()
 
     Player& player1 = GetPlayer1();
     // Request mulligan choices to policy.
-    TaskMeta p1Choice = player1.GetPolicy().Require(player1, TaskID::MULLIGAN);
+    TaskMeta p1Choice = player1.policy->Require(player1, TaskID::MULLIGAN);
 
     // Get mulligan choices from policy.
     Generic::ChoiceMulligan(player1,
@@ -164,7 +168,7 @@ void Game::BeginMulligan()
 
     Player& player2 = GetPlayer2();
     // Request mulligan choices to policy.
-    TaskMeta p2Choice = player2.GetPolicy().Require(player2, TaskID::MULLIGAN);
+    TaskMeta p2Choice = player2.policy->Require(player2, TaskID::MULLIGAN);
 
     // Get mulligan choices from policy.
     Generic::ChoiceMulligan(player2,
@@ -193,29 +197,29 @@ void Game::MainReady()
     for (auto& p : m_players)
     {
         // Hero
-        p.GetHero()->numAttacked = 0;
+        p.GetHero()->SetNumAttacksThisTurn(0);
         // Field
         for (auto& m : p.GetField().GetAllMinions())
         {
-            m->numAttacked = 0;
+            m->SetNumAttacksThisTurn(0);
         }
     }
 
     // Reset exhaust for current player
     auto& curPlayer = GetCurrentPlayer();
     // Hero
-    curPlayer.GetHero()->SetGameTag(GameTag::EXHAUSTED, 0);
+    curPlayer.GetHero()->SetExhausted(false);
     // Weapon
     if (curPlayer.GetHero()->weapon != nullptr)
     {
-        curPlayer.GetHero()->weapon->SetGameTag(GameTag::EXHAUSTED, 0);
+        curPlayer.GetHero()->weapon->SetExhausted(false);
     }
     // Hero power
-    curPlayer.GetHero()->heroPower->SetGameTag(GameTag::EXHAUSTED, 0);
+    curPlayer.GetHero()->heroPower->SetExhausted(false);
     // Field
     for (auto& m : curPlayer.GetField().GetAllMinions())
     {
-        m->SetGameTag(GameTag::EXHAUSTED, 0);
+        m->SetExhausted(false);
     }
 
     // Set next step
@@ -228,6 +232,10 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
+    triggerManager.OnStartTurnTrigger(&GetCurrentPlayer(), nullptr);
+    ProcessTasks();
+    ProcessDestroyAndUpdateAura();
+
     // Set next step
     nextStep = Step::MAIN_RESOURCE;
     if (m_gameConfig.autoRun)
@@ -243,8 +251,10 @@ void Game::MainResource()
     // Add mana crystal to current player
     Generic::ChangeManaCrystal(curPlayer, 1, false);
 
-    // Reset current mana
-    curPlayer.currentMana = curPlayer.maximumMana;
+    // Clear used mana
+    curPlayer.SetUsedMana(0);
+    // Remove temporary mana
+    curPlayer.SetTemporaryMana(0);
 
     // Set next step
     nextStep = Step::MAIN_DRAW;
@@ -283,7 +293,7 @@ void Game::MainAction()
 
     // If game end.
     if (player.GetHero()->GetHealth() <= 0 ||
-        player.GetOpponent().GetHero()->GetHealth() <= 0)
+        player.opponent->GetHero()->GetHealth() <= 0)
     {
         // Set losing user.
         if (player.GetHero()->GetHealth() <= 0)
@@ -292,7 +302,7 @@ void Game::MainAction()
         }
         else
         {
-            player.GetOpponent().playState = PlayState::LOSING;
+            player.opponent->playState = PlayState::LOSING;
         }
 
         nextStep = Step::FINAL_WRAPUP;
@@ -305,7 +315,7 @@ void Game::MainAction()
 
     // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK,
     // TaskID::PLAY_CARD
-    TaskMeta next = player.GetPolicy().Next(*this);
+    TaskMeta next = player.policy->Next(*this);
     // If turn end.
     if (next.GetID() == TaskID::END_TURN)
     {
@@ -318,7 +328,7 @@ void Game::MainAction()
     }
 
     // Get requirements for proper action.
-    TaskMeta req = player.GetPolicy().Require(player, next.GetID());
+    TaskMeta req = player.policy->Require(player, next.GetID());
     SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
     switch (next.GetID())
     {
@@ -391,6 +401,10 @@ void Game::MainAction()
 
 void Game::MainEnd()
 {
+    triggerManager.OnEndTurnTrigger(&GetCurrentPlayer(), nullptr);
+    ProcessTasks();
+    ProcessDestroyAndUpdateAura();
+
     // Set next step
     nextStep = Step::MAIN_CLEANUP;
     if (m_gameConfig.autoRun)
@@ -403,19 +417,30 @@ void Game::MainCleanUp()
 {
     auto& curPlayer = GetCurrentPlayer();
 
+    // Remove one-turn effects
+    for (auto& effectPair : oneTurnEffects)
+    {
+        Entity* entity = effectPair.first;
+        Effect* effect = effectPair.second;
+
+        effect->Remove(entity);
+        delete effect;
+    }
+    oneTurnEffects.clear();
+
     // Unfreeze all characters they control that are Frozen, don't have
     // summoning sickness (or do have Charge) and have not attacked that turn
     // Hero
     if (curPlayer.GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
-        curPlayer.GetHero()->numAttacked == 0)
+        curPlayer.GetHero()->GetNumAttacksThisTurn() == 0)
     {
         curPlayer.GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
     for (auto& m : curPlayer.GetField().GetAllMinions())
     {
-        if (m->GetGameTag(GameTag::FROZEN) == 1 && m->numAttacked == 0 &&
-            m->GetGameTag(GameTag::EXHAUSTED) == 0)
+        if (m->GetGameTag(GameTag::FROZEN) == 1 &&
+            m->GetNumAttacksThisTurn() == 0 && !m->GetExhausted())
         {
             m->SetGameTag(GameTag::FROZEN, 0);
         }
@@ -432,7 +457,7 @@ void Game::MainCleanUp()
 void Game::MainNext()
 {
     // Set player for next turn
-    m_currentPlayer = &m_currentPlayer->GetOpponent();
+    m_currentPlayer = m_currentPlayer->opponent;
 
     // Count next turn
     m_turn++;
@@ -454,7 +479,7 @@ void Game::FinalWrapUp()
             p.playState == PlayState::CONCEDED)
         {
             p.playState = PlayState::LOST;
-            p.GetOpponent().playState = PlayState::WON;
+            p.opponent->playState = PlayState::WON;
         }
     }
 
@@ -586,13 +611,13 @@ void Game::ProcessDestroyAndUpdateAura()
                     continue;
                 }
 
-                power->Run(minion->GetOwner());
+                power->Run(*minion->owner);
             }
 
             // Remove minion from battlefield
-            minion->GetOwner().GetField().RemoveMinion(*minion);
+            minion->owner->GetField().RemoveMinion(*minion);
             // Add minion to graveyard
-            minion->GetOwner().GetGraveyard().AddCard(*minion);
+            minion->owner->GetGraveyard().AddCard(*minion);
         }
 
         deadMinions.clear();
@@ -621,6 +646,17 @@ void Game::ProcessUntil(Step untilStep)
     while (nextStep != untilStep)
     {
         GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
+
+void Game::ProcessTasks()
+{
+    while (!taskQueue.empty())
+    {
+        ITask* task = taskQueue.front();
+        taskQueue.pop_front();
+
+        task->Run(GetCurrentPlayer());
     }
 }
 }  // namespace RosettaStone

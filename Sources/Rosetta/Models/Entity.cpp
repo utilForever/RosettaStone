@@ -11,7 +11,7 @@
 
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
+Entity::Entity(Player& _owner, Card& _card) : owner(&_owner), card(_card)
 {
     auraEffects = new AuraEffects(this);
 
@@ -21,24 +21,24 @@ Entity::Entity(Player& _owner, Card& _card) : card(_card), m_owner(&_owner)
     }
 }
 
-Entity::Entity(const Entity& ent) : m_owner(ent.m_owner)
+Entity::Entity(const Entity& ent)
 {
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
     m_gameTags = ent.m_gameTags;
 }
 
-Entity::Entity(Entity&& ent) noexcept : m_owner(ent.m_owner)
+Entity::Entity(Entity&& ent) noexcept
 {
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
@@ -59,8 +59,8 @@ Entity& Entity::operator=(const Entity& ent)
 
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
@@ -78,8 +78,8 @@ Entity& Entity::operator=(Entity&& ent) noexcept
 
     FreeMemory();
 
+    owner = ent.owner;
     card = ent.card;
-    m_owner = ent.m_owner;
 
     auraEffects = ent.auraEffects;
     onGoingEffect = ent.onGoingEffect;
@@ -88,14 +88,20 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
-Player& Entity::GetOwner() const
+void Entity::Reset()
 {
-    return *m_owner;
-}
-
-void Entity::SetOwner(Player& owner)
-{
-    m_owner = &owner;
+    SetGameTag(GameTag::DAMAGE, 0);
+    SetGameTag(GameTag::EXHAUSTED, 0);
+    SetGameTag(GameTag::ATK, 0);
+    SetGameTag(GameTag::HEALTH, 0);
+    SetGameTag(GameTag::COST, 0);
+    SetGameTag(GameTag::TAUNT, 0);
+    SetGameTag(GameTag::FROZEN, 0);
+    SetGameTag(GameTag::CHARGE, 0);
+    SetGameTag(GameTag::WINDFURY, 0);
+    SetGameTag(GameTag::DIVINE_SHIELD, 0);
+    SetGameTag(GameTag::STEALTH, 0);
+    SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, 0);
 }
 
 int Entity::GetGameTag(GameTag tag) const
@@ -126,6 +132,16 @@ int Entity::GetCost() const
 void Entity::SetCost(int cost)
 {
     SetGameTag(GameTag::COST, cost);
+}
+
+bool Entity::GetExhausted() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::EXHAUSTED));
+}
+
+void Entity::SetExhausted(bool exhausted)
+{
+    SetGameTag(GameTag::EXHAUSTED, static_cast<int>(exhausted));
 }
 
 void Entity::Destroy()

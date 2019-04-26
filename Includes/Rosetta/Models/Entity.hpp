@@ -15,6 +15,7 @@
 namespace RosettaStone
 {
 class Card;
+class Enchantment;
 class Game;
 class Player;
 
@@ -51,13 +52,9 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
-    //! Returns the owner of character.
-    //! \return The owner of character.
-    Player& GetOwner() const;
-
-    //! Sets the owner of character.
-    //! \param owner The owner of character.
-    void SetOwner(Player& owner);
+    //! Resets all game tag values that where changed after creation.
+    //! Any enchants and trigger is removed.
+    virtual void Reset();
 
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
@@ -77,6 +74,14 @@ class Entity
     //! \param cost The value of cost.
     void SetCost(int cost);
 
+    //! Returns the value of exhausted.
+    //! \return The value of exhausted.
+    bool GetExhausted() const;
+
+    //! Sets the value of exhausted.
+    //! \param exhausted The value of exhausted.
+    void SetExhausted(bool exhausted);
+
     //! Destroys character.
     virtual void Destroy();
 
@@ -86,9 +91,13 @@ class Entity
     //! \return A pointer to entity that is allocated dynamically.
     static Entity* GetFromCard(Player& player, Card&& card);
 
+    Player* owner = nullptr;
     Card card;
+
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
+    Trigger* activatedTrigger = nullptr;
+    std::vector<Enchantment*> appliedEnchantments;
 
     std::size_t id = 0;
     std::size_t orderOfPlay = 0;
@@ -96,8 +105,6 @@ class Entity
     bool isDestroyed = false;
 
  protected:
-    Player* m_owner = nullptr;
-
     std::map<GameTag, int> m_gameTags;
 
  private:

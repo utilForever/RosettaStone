@@ -12,14 +12,15 @@ namespace RosettaStone::Generic
 {
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
-    // Verify mana is sufficient
-    if (source->GetCost() > player.currentMana)
+    // Check battlefield is full
+    if (dynamic_cast<Minion*>(source) != nullptr && player.GetField().IsFull())
     {
         return;
     }
 
     // Check if we can play this card and the target is valid
-    if (!IsPlayableByCardReq(source) || !IsValidTarget(source, target))
+    if (!IsPlayableByPlayer(player, source) || !IsPlayableByCardReq(source) ||
+        !IsValidTarget(source, target))
     {
         return;
     }
@@ -27,14 +28,16 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
-        player.currentMana -= source->GetCost();
+        int tempUsed = std::min(player.GetTemporaryMana(), source->GetCost());
+        player.SetTemporaryMana(player.GetTemporaryMana() - tempUsed);
+        player.SetUsedMana(player.GetUsedMana() + source->GetCost() - tempUsed);
     }
 
     // Erase from player's hand
     player.GetHand().RemoveCard(*source);
 
     // Set card's owner
-    source->SetOwner(player);
+    source->owner = &player;
 
     // Pass to sub-logic
     switch (source->card.GetCardType())
@@ -97,19 +100,73 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
     // Process power tasks
     for (auto& powerTask : spell->card.power.GetPowerTask())
     {
+        if (powerTask == nullptr)
+        {
+            continue;
+        }
+
         powerTask->SetSource(spell);
         powerTask->SetTarget(target);
         powerTask->Run(player);
     }
+
+    player.GetGraveyard().AddCard(*spell);
 
     player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 {
-    (void)target;
+    // Process trigger
+    if (weapon->card.power.GetTrigger().has_value())
+    {
+        weapon->card.power.GetTrigger().value().Activate(*weapon);
+    }
+
+    // Process aura
+    if (weapon->card.power.GetAura().has_value())
+    {
+        weapon->card.power.GetAura().value().Activate(*weapon);
+    }
+
+    // Process power tasks
+    for (auto& powerTask : weapon->card.power.GetPowerTask())
+    {
+        if (powerTask == nullptr)
+        {
+            continue;
+        }
+
+        powerTask->SetSource(weapon);
+        powerTask->SetTarget(target);
+        powerTask->Run(player);
+    }
 
     player.GetHero()->AddWeapon(*weapon);
+}
+
+bool IsPlayableByPlayer(Player& player, Entity* source)
+{
+    // Verify mana is sufficient
+    if (source->GetCost() > player.GetRemainingMana())
+    {
+        return false;
+    }
+
+    // Check if player is on turn
+    if (&player != &player.GetGame()->GetCurrentPlayer())
+    {
+        return false;
+    }
+
+    // Check if entity is in hand to be played
+    if (dynamic_cast<HeroPower*>(source) == nullptr &&
+        player.GetHand().FindCardPos(*source) == std::nullopt)
+    {
+        return false;
+    }
+
+    return true;
 }
 
 bool IsPlayableByCardReq(Entity* source)
@@ -118,9 +175,15 @@ bool IsPlayableByCardReq(Entity* source)
     {
         switch (requirement.first)
         {
+            case PlayReq::REQ_WEAPON_EQUIPPED:
+                if (!source->owner->GetHero()->HasWeapon())
+                {
+                    return false;
+                }
+                break;
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                auto& opField = source->GetOwner().GetOpponent().GetField();
+                auto& opField = source->owner->opponent->GetField();
                 if (static_cast<int>(opField.GetNumOfMinions()) <
                     requirement.second)
                 {

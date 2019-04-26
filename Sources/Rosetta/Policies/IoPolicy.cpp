@@ -22,7 +22,8 @@ TaskMeta IoPolicy::Next(const Game& game)
 
 TaskMeta IoPolicy::RequireMulligan(Player& player)
 {
-    const TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::COMPLETE, player.GetID());
+    const TaskMetaTrait trait(TaskID::MULLIGAN, TaskStatus::COMPLETE,
+                              player.playerID);
 
     return TaskMeta(trait, SizedPtr<std::size_t>());
 }

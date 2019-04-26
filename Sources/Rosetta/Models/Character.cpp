@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -77,6 +78,16 @@ void Character::SetSpellPower(int spellPower)
     SetGameTag(GameTag::SPELLPOWER, spellPower);
 }
 
+int Character::GetNumAttacksThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN);
+}
+
+void Character::SetNumAttacksThisTurn(int amount)
+{
+    SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, amount);
+}
+
 bool Character::CanAttack()
 {
     // If the value of attack is 0, returns false
@@ -92,7 +103,7 @@ bool Character::CanAttack()
     }
 
     // If the character is exhausted, returns false
-    if (GetGameTag(GameTag::EXHAUSTED) == 1)
+    if (GetExhausted())
     {
         return false;
     }
@@ -119,7 +130,7 @@ bool Character::IsValidCombatTarget(Player& opponent, Character* target) const
              hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
 }
 
-std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
+std::vector<Character*> Character::GetValidCombatTargets(Player& opponent) const
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;
@@ -148,7 +159,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent)
         return targetsHaveTaunt;
     }
 
-    if (opponent.GetHero()->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
+    if (GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
         opponent.GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
         opponent.GetHero()->GetGameTag(GameTag::STEALTH) == 0)
     {
@@ -175,14 +186,23 @@ int Character::TakeDamage(Entity& source, int damage)
         return 0;
     }
 
+    const int armor = (hero != nullptr) ? hero->GetArmor() : 0;
+    const int amount =
+        (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
+
     if (GetGameTag(GameTag::IMMUNE) == 1)
     {
         return 0;
     }
 
-    SetDamage(GetDamage() + damage);
+    if (armor > 0)
+    {
+        hero->SetArmor(armor < damage ? 0 : armor - damage);
+    }
 
-    return damage;
+    SetDamage(GetDamage() + amount);
+
+    return amount;
 }
 
 void Character::TakeFullHeal(Entity& source)
@@ -201,5 +221,8 @@ void Character::TakeHeal(Entity& source, int heal)
 
     int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
+
+    owner->GetGame()->triggerManager.OnHealTrigger(nullptr, this);
+    owner->GetGame()->ProcessTasks();
 }
 }  // namespace RosettaStone

@@ -41,8 +41,8 @@ TEST(Policies, RandomPolicy)
     Game game(config);
 
     RandomPolicy policy;
-    game.GetPlayer1().SetPolicy(&policy);
-    game.GetPlayer2().SetPolicy(&policy);
+    game.GetPlayer1().policy = &policy;
+    game.GetPlayer2().policy = &policy;
 
     game.StartGame();
 }

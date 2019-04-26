@@ -57,7 +57,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
 
     for (Entity* entity : player.GetHand().GetAllCards())
     {
-        if (entity->GetCost() > player.currentMana)
+        if (entity->GetCost() > player.GetRemainingMana())
         {
             continue;
         }
@@ -110,7 +110,7 @@ TaskMeta RandomPolicy::RequireAttack(Player& player)
 {
     using Random = effolkronium::random_static;
 
-    Player& other = player.GetOpponent();
+    Player& other = *player.opponent;
 
     std::vector<Character*> sources = player.GetField().GetAllMinions();
     sources.push_back(player.GetHero());

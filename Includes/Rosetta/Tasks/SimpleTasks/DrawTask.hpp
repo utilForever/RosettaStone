@@ -18,9 +18,9 @@ namespace RosettaStone::SimpleTasks
 class DrawTask : public ITask
 {
  public:
-    //! Constructs task with given \p agent and \p num.
-    //! \param num The number of cards to draw.
-    DrawTask(std::size_t num);
+    //! Constructs task with given \p amount.
+    //! \param amount The amount to draw card.
+    DrawTask(int amount);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -32,7 +32,7 @@ class DrawTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::size_t m_num = 0;
+    int m_amount = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 

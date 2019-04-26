@@ -26,11 +26,11 @@ TEST(Expert1CardsGen, CS2_028)
     game.StartGame();
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& opField = opPlayer.GetField();
 
@@ -41,9 +41,15 @@ TEST(Expert1CardsGen, CS2_028)
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
@@ -67,11 +73,11 @@ TEST(Expert1CardsGen, EX1_012)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetField();
     auto& opField = opPlayer.GetField();
@@ -87,9 +93,15 @@ TEST(Expert1CardsGen, EX1_012)
     const auto card5 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(curPlayer.currentSpellPower, 1);
@@ -100,10 +112,11 @@ TEST(Expert1CardsGen, EX1_012)
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
     Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
     Task::Run(opPlayer, AttackTask(card5, card1));
-    EXPECT_EQ(curField.GetNumOfMinions(), 0);
+    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
     EXPECT_EQ(curPlayer.currentSpellPower, 0);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
 }

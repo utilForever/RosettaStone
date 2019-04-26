@@ -18,7 +18,7 @@ namespace RosettaStone::SimpleTasks
 class RandomTask : public ITask
 {
  public:
-    //! Constructs task with given \p tasks and \p num.
+    //! Constructs task with given \p entityType and \p num.
     //! \param entityType The type of entity.
     //! \param num The number of entities to pick.
     RandomTask(EntityType entityType, int num);

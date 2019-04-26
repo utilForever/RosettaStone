@@ -17,7 +17,9 @@ class Entity;
 //! Aura types. Indicates the range of auras.
 enum class AuraType
 {
-    INVALID,             //!< Invalid type.
+    INVALID,   //!< Invalid type.
+    ADJACENT,  //!< This type of aura affects the minions adjacent to the source
+               //!< of the aura.
     FIELD_EXCEPT_SOURCE  //!< This type of aura affects all friendly minions
                          //!< except the source of the aura.
 };
@@ -44,6 +46,10 @@ class Aura
     //! \param prototype An aura for prototype.
     //! \param owner An owner of aura.
     Aura(Aura& prototype, Entity& owner);
+
+    //! Sets aura to be updated.
+    //! \param value An value to be updated.
+    void SetToBeUpdated(bool value);
 
     //! Activates aura to battlefield.
     //! \param owner An owner of aura.

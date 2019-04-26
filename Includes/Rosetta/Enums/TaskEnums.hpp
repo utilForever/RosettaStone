@@ -16,7 +16,7 @@ enum class TaskID
     DRAW,
     DRAW_OP,
     OVERDRAW,
-    MODIFY_MANA,
+    MANA_CRYSTAL,
     DAMAGE,
     MULLIGAN,
     PLAY_CARD,
@@ -39,6 +39,15 @@ enum class TaskID
     TRANSFORM,
     CONDITION,
     FLAG,
+    ARMOR,
+    RETURN_HAND,
+    TEMP_MANA,
+    WEAPON,
+    FUNC_NUMBER,
+    HERO_POWER,
+    COPY,
+    ADD_STACK_TO,
+    COUNT,
 
     NUM_TASK_ID
 };
@@ -52,6 +61,7 @@ enum class EntityType
     ALL,
     FRIENDS,
     ENEMIES,
+    ENEMIES_NOTARGET,
     HERO,
     ENEMY_HERO,
     WEAPON,
@@ -60,6 +70,7 @@ enum class EntityType
     ENEMY_HAND,
     ALL_MINIONS,
     MINIONS,
+    MINIONS_NOSOURCE,
     ENEMY_MINIONS,
     STACK
 };

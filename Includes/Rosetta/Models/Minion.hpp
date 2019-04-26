@@ -42,6 +42,10 @@ class Minion : public Character
     //! Default move assignment operator.
     Minion& operator=(Minion&& minion) = default;
 
+    //! Resets all game tag values that where changed after creation.
+    //! Any enchants and trigger is removed.
+    void Reset() override;
+
     //! Destroys minion.
     void Destroy() override;
 };

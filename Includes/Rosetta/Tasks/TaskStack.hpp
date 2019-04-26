@@ -16,6 +16,10 @@ struct TaskStack
 
     Entity* source = nullptr;
     Entity* target = nullptr;
+
+    int num = 0;
+    int num1 = 0;
+
     bool flag = true;
 };
 }  // namespace RosettaStone

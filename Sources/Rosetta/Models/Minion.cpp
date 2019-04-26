@@ -15,10 +15,31 @@ Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
     // Do nothing
 }
 
+void Minion::Reset()
+{
+    Entity::Reset();
+
+    if (onGoingEffect != nullptr)
+    {
+        onGoingEffect->Remove();
+    }
+
+    if (isDestroyed)
+    {
+        auto iter = owner->GetGame()->deadMinions.find(orderOfPlay);
+        if (iter != owner->GetGame()->deadMinions.end())
+        {
+            owner->GetGame()->deadMinions.erase(iter);
+        }
+
+        isDestroyed = false;
+    }
+}
+
 void Minion::Destroy()
 {
     Entity::Destroy();
 
-    GetOwner().GetGame()->deadMinions.emplace(orderOfPlay, this);
+    owner->GetGame()->deadMinions.emplace(orderOfPlay, this);
 }
 }  // namespace RosettaStone

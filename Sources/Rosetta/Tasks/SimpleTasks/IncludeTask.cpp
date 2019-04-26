@@ -35,11 +35,11 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player.GetHero());
-            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            for (auto& minion : player.opponent->GetField().GetAllMinions())
             {
                 entities.emplace_back(minion);
             }
-            entities.emplace_back(player.GetOpponent().GetHero());
+            entities.emplace_back(player.opponent->GetHero());
             break;
         case EntityType::FRIENDS:
             for (auto& minion : player.GetField().GetAllMinions())
@@ -49,17 +49,40 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(player.GetHero());
             break;
         case EntityType::ENEMIES:
-            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            for (auto& minion : player.opponent->GetField().GetAllMinions())
             {
                 entities.emplace_back(minion);
             }
-            entities.emplace_back(player.GetOpponent().GetHero());
+            entities.emplace_back(player.opponent->GetHero());
+            break;
+        case EntityType::ENEMIES_NOTARGET:
+            if (target == player.opponent->GetHero())
+            {
+                for (auto& minion : player.opponent->GetField().GetAllMinions())
+                {
+                    entities.emplace_back(minion);
+                }
+            }
+            else
+            {
+                for (auto& minion : player.opponent->GetField().GetAllMinions())
+                {
+                    if (target == minion)
+                    {
+                        continue;
+                    }
+
+                    entities.emplace_back(minion);
+                }
+
+                entities.emplace_back(player.opponent->GetHero());
+            }
             break;
         case EntityType::HERO:
             entities.emplace_back(player.GetHero());
             break;
         case EntityType::ENEMY_HERO:
-            entities.emplace_back(player.GetOpponent().GetHero());
+            entities.emplace_back(player.opponent->GetHero());
             break;
         case EntityType::WEAPON:
             if (player.GetHero()->weapon != nullptr)
@@ -68,13 +91,19 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ENEMY_WEAPON:
-            if (player.GetOpponent().GetHero()->weapon != nullptr)
+            if (player.opponent->GetHero()->weapon != nullptr)
             {
-                entities.emplace_back(player.GetOpponent().GetHero()->weapon);
+                entities.emplace_back(player.opponent->GetHero()->weapon);
             }
             break;
         case EntityType::HAND:
             for (auto& card : player.GetHand().GetAllCards())
+            {
+                entities.emplace_back(card);
+            }
+            break;
+        case EntityType::ENEMY_HAND:
+            for (auto& card : player.opponent->GetHand().GetAllCards())
             {
                 entities.emplace_back(card);
             }
@@ -84,7 +113,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             {
                 entities.emplace_back(minion);
             }
-            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            for (auto& minion : player.opponent->GetField().GetAllMinions())
             {
                 entities.emplace_back(minion);
             }
@@ -95,8 +124,19 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::MINIONS_NOSOURCE:
+            for (auto& minion : player.GetField().GetAllMinions())
+            {
+                if (source == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            break;
         case EntityType::ENEMY_MINIONS:
-            for (auto& minion : player.GetOpponent().GetField().GetAllMinions())
+            for (auto& minion : player.opponent->GetField().GetAllMinions())
             {
                 entities.emplace_back(minion);
             }
@@ -105,7 +145,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             entities = player.GetGame()->taskStack.entities;
             break;
         default:
-            throw std::domain_error(
+            throw std::invalid_argument(
                 "IncludeTask::GetEntities() - Invalid entity type");
     }
 
