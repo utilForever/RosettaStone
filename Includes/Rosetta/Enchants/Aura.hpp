@@ -69,6 +69,18 @@ class Aura
     //! \param entity An entity to apply aura's effect(s).
     void Apply(Entity& entity);
 
+    //! Returns the type of aura.
+    //! \return The type of aura.
+    AuraType GetAuraType();
+
+    //! Returns the effect of aura.
+    //! \return The effect of aura.
+    std::vector<Effect> GetEffects();
+
+    //! Returns the applied entities affected by the aura.
+    //! \return The applied entities affected by the aura.
+    std::vector<Entity*> GetAppliedEntities();
+
  private:
     //! Adds aura to battlefield.
     void AddToField();

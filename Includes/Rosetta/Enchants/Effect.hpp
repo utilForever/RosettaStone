@@ -67,11 +67,23 @@ class Effect
     //! Removes this aura effect from the target entity.
     //! \param auraEffects The aura effect.
     void Remove(AuraEffects& auraEffects) const;
-
+  
     //! Creates a new Effect having changed amount of \p newValue.
     //! \param newValue A value to change.
     //! \return A new Effect having changed amount.
-    Effect ChangeValue(int newValue) const;
+    Effect ChangeValue(int newValue) const;  
+
+    //! Returns the value of game tag.
+    //! \return The value of game tag.
+    GameTag GetGameTag();
+
+    //! Returns the effect operator.
+    //! \return The effect operator.
+    EffectOperator GetEffectOperator();
+
+    //! Returns the value of effect.
+    //! \return The value of effect.
+    int GetValue();
 
  private:
     GameTag m_gameTag = GameTag::INVALID;
