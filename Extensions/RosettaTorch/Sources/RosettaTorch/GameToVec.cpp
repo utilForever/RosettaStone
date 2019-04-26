@@ -17,11 +17,11 @@ GameToVec::GameToVec()
     torch::manual_seed(static_cast<uint64_t>(m_seed));
 
     // Making embedding tables for the task
-    auto MakeTable = [&](torch::nn::Embedding embedding, std::size_t idx_size,
-                         std::size_t vec_size) {
-        embedding = torch::nn::Embedding(idx_size, vec_size);
+    auto MakeTable = [&](torch::nn::Embedding embedding, std::size_t idxSize,
+                         std::size_t vecSize) {
+        embedding = torch::nn::Embedding(idxSize, vecSize);
         embedding->weight = torch::randn(
-            { static_cast<int>(idx_size), static_cast<int>(vec_size) },
+            { static_cast<int>(idxSize), static_cast<int>(vecSize) },
             torch::kFloat32);
         embedding->weight.set_requires_grad(false);
     };
@@ -34,7 +34,7 @@ GameToVec::GameToVec()
 
     // Generates an embedding table for the EntityType
     MakeTable(m_entityTypeEmbeddingTable, EntityTypeIndexSize,
-               EntityTypeVectorSize);
+              EntityTypeVectorSize);
 }
 
 GameToVec::GameToVec(const std::size_t seed) : m_seed(seed)
@@ -43,11 +43,11 @@ GameToVec::GameToVec(const std::size_t seed) : m_seed(seed)
     torch::manual_seed(static_cast<uint64_t>(m_seed));
 
     // Making embedding tables for the task
-    auto MakeTable = [&](torch::nn::Embedding embedding, std::size_t idx_size,
-                         std::size_t vec_size) {
-        embedding = torch::nn::Embedding(idx_size, vec_size);
+    auto MakeTable = [&](torch::nn::Embedding embedding, std::size_t idxSize,
+                         std::size_t vecSize) {
+        embedding = torch::nn::Embedding(idxSize, vecSize);
         embedding->weight = torch::randn(
-            { static_cast<int>(idx_size), static_cast<int>(vec_size) },
+            { static_cast<int>(idxSize), static_cast<int>(vecSize) },
             torch::kFloat32);
         embedding->weight.set_requires_grad(false);
     };
@@ -60,7 +60,7 @@ GameToVec::GameToVec(const std::size_t seed) : m_seed(seed)
 
     // Generates an embedding table for the EntityType
     MakeTable(m_entityTypeEmbeddingTable, EntityTypeIndexSize,
-               EntityTypeVectorSize);
+              EntityTypeVectorSize);
 }
 
 torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
@@ -89,14 +89,13 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
             std::distance(EffectOperatorTag.begin(), gameOpIter);
 
         torch::Tensor idx = torch::zeros((1), torch::kInt8);
-        idx.add(
-            static_cast<int>(EffectOperationTagSize * effectGameTagIdx +
-                             effectGameOpTagIdx));
+        idx.add(static_cast<int>(EffectOperationTagSize * effectGameTagIdx +
+                                 effectGameOpTagIdx));
 
         // Normalize the value and multiple to the embedding vector
         effectValue = (effectValue >= CLIP_EFFECT_NORM)
-                           ? 1.
-                           : effectValue / CLIP_EFFECT_NORM;
+                          ? 1.
+                          : effectValue / CLIP_EFFECT_NORM;
 
         effectVectors[i] = m_effectEmbeddingTable(idx) / effectValue;
     }
@@ -195,9 +194,9 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         return effectsVector;
     };
 
-    auto WriteVector = [&](size_t start_idx, size_t vec_size,
-                            torch::Tensor tensor) {
-        for (size_t i = start_idx; i < start_idx + vec_size; ++i)
+    auto WriteVector = [&](size_t startIdx, size_t vecSize,
+                           torch::Tensor tensor) {
+        for (size_t i = startIdx; i < startIdx + vecSize; ++i)
         {
             cardVector[i] = tensor[i];
         }
@@ -211,22 +210,22 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     auto power = ability.GetPowerTask();
 
     // Write aura vector
-    auto AuraVector = AuraToVector(aura);
-    WriteVector(3, AuraVectorSize, AuraVector);
+    auto auraVector = AuraToVector(aura);
+    WriteVector(3, AuraVectorSize, auraVector);
 
     // Write enchant vector
-    auto EnchantVector = EnchantToVector(enchant);
-    WriteVector(3 + AuraVectorSize, EnchantVectorSize, EnchantVector);
+    auto enchantVector = EnchantToVector(enchant);
+    WriteVector(3 + AuraVectorSize, EnchantVectorSize, enchantVector);
 
     // Write deathrattle vector
-    auto DeathrattleVector = TasksToTensor(deathrattle);
+    auto deathrattleVector = TasksToTensor(deathrattle);
     WriteVector(3 + AuraVectorSize + EnchantVectorSize, TaskVectorSize,
-                 DeathrattleVector);
+                deathrattleVector);
 
     // Write power vector
-    auto PowerVector = TasksToTensor(power);
+    auto powerVector = TasksToTensor(power);
     WriteVector(3 + AuraVectorSize + EnchantVectorSize + TaskVectorSize,
-                 TaskVectorSize, PowerVector);
+                TaskVectorSize, powerVector);
 
     return cardVector;
 }
@@ -330,7 +329,7 @@ torch::nn::Embedding GameToVec::GetEntityTypeEmbeddingTable()
     return m_entityTypeEmbeddingTable;
 }
 
-torch::nn::Embedding GameToVec::GetTaskIdEmbeddingTable()
+torch::nn::Embedding GameToVec::GetTaskIDEmbeddingTable()
 {
     return m_taskIDEmbeddingTable;
 }
