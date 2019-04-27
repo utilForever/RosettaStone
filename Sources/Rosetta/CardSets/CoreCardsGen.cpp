@@ -510,6 +510,19 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("CS2_084e", EntityType::TARGET));
     cards.emplace("CS2_084", power);
 
+    // ---------------------------------------- MINION - HUNTER
+    // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2]
+    // - Race: Beast, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever you summon a Beast, draw a card.
+    // --------------------------------------------------------
+    //power.ClearData();
+    //power.AddTrigger(Trigger(TriggerType::SUMMON));
+    //power.GetTrigger().value().triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    //power.GetTrigger().condition = SelfCondition::IsRace(Race::BEAST);
+    //power.GetTrigger().value().singleTask = new HealTask(EntityType::HERO, 2);
+    //cards.emplace("CS2_237", power);
+
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_183] Multi-Shot - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
