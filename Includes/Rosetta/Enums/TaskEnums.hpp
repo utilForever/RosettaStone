@@ -49,6 +49,7 @@ enum class TaskID
     COPY,
     ADD_STACK_TO,
     COUNT,
+    MATH_SUB,
 
     NUM_TASK_ID
 };
