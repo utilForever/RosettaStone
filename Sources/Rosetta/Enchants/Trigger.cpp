@@ -65,6 +65,10 @@ void Trigger::Activate(Entity& source)
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
+        case TriggerType::SUMMON:
+            game->triggerManager.summonTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
         default:
             throw std::invalid_argument(
                 "Trigger::Activate() - Invalid trigger type!");
@@ -88,6 +92,9 @@ void Trigger::Remove()
             break;
         case TriggerType::ATTACK:
             game->triggerManager.attackTrigger = nullptr;
+            break;
+        case TriggerType::SUMMON:
+            game->triggerManager.summonTrigger = nullptr;
             break;
         default:
             throw std::invalid_argument(
@@ -181,13 +188,14 @@ void Trigger::Validate(Player* player, Entity* source)
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
+        case TriggerType::TURN_END:
             if (player != m_owner->owner)
             {
                 return;
             }
             break;
-        case TriggerType::TURN_END:
-            if (player != m_owner->owner)
+        case TriggerType::SUMMON:
+            if (source == m_owner)
             {
                 return;
             }
