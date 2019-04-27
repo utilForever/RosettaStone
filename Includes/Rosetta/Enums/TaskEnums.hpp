@@ -32,6 +32,7 @@ enum class TaskID
     END_TURN,
     CHOOSE,
     ATTACK,
+    GET_GAME_TAG,
     SET_GAME_TAG,
     ENQUEUE,
     RANDOM,
