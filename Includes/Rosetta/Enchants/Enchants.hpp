@@ -21,6 +21,10 @@ namespace RosettaStone
 class Enchants
 {
  public:
+    //! Enchant that adds health and uses script tag.
+    inline static Enchant AddHealthScriptTag =
+        Enchant(Effects::HealthN(0), true);
+
     //! Enchant that adds attack/health and uses script tag.
     inline static Enchant AddAttackHealthScriptTag =
         Enchant(Effects::AttackHealthN(0), true);
