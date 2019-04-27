@@ -22,9 +22,11 @@
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
@@ -1000,6 +1002,22 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("CS2_235", power);
 
     // ----------------------------------------- SPELL - PRIEST
+    // [CS2_236] Divine Spirit - COST:2
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Double a minion's Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(new MathSubTask(EntityType::TARGET, GameTag::DAMAGE));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_236e", EntityType::TARGET));
+    cards.emplace("CS2_236", power);
+
+    // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1038,6 +1056,16 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_004e"));
     cards.emplace("CS2_004e", power);
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS2_236e] Divine Spirit (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This minion has double Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::move(Enchants::AddHealthScriptTag));
+    cards.emplace("CS2_236e", power);
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
@@ -2117,7 +2145,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddAura(Aura("CS2_222o", AuraType::FIELD_EXCEPT_SOURCE));
     cards.emplace("CS2_222", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
     // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
