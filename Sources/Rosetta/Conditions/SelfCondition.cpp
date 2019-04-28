@@ -15,6 +15,18 @@ SelfCondition::SelfCondition(std::function<bool(Entity*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsRace(Race race)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        if (entity->card.GetRace() == race)
+        {
+            return true;
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
     return SelfCondition([=](Entity* entity) -> bool {

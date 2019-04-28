@@ -26,7 +26,13 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Entity*)> func);
 
-    //! SelfCondition wrapper for checking race in battlefield.
+    //! SelfCondition wrapper for checking race of entity is \p race.
+    //! \param race The race for checking.
+    static SelfCondition IsRace(Race race);
+
+    //! SelfCondition wrapper for checking there is an entity with a \p race in
+    //! battlefield.
+    //! \param race The race for checking.
     static SelfCondition IsControllingRace(Race race);
 
     //! Evaluates condition using checking function.
