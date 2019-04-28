@@ -580,9 +580,29 @@ void Game::StartGame()
     }
 }
 
+void Game::ProcessTasks()
+{
+    while (!taskQueue.empty())
+    {
+        ITask* task = taskQueue.front();
+        taskQueue.pop_front();
+
+        task->Run(GetCurrentPlayer());
+    }
+}
+
 void Game::ProcessDestroyAndUpdateAura()
 {
     UpdateAura();
+
+    // Process summoned minions
+    if (triggerManager.summonTrigger != nullptr)
+    {
+        for (auto& minion : summonedMinions)
+        {
+            triggerManager.OnSummonTrigger(&GetCurrentPlayer(), minion);
+        }
+    }
 
     // Destroy weapons
     if (GetPlayer1().GetHero()->weapon != nullptr &&
@@ -646,17 +666,6 @@ void Game::ProcessUntil(Step untilStep)
     while (nextStep != untilStep)
     {
         GameManager::ProcessNextStep(*this, nextStep);
-    }
-}
-
-void Game::ProcessTasks()
-{
-    while (!taskQueue.empty())
-    {
-        ITask* task = taskQueue.front();
-        taskQueue.pop_front();
-
-        task->Run(GetCurrentPlayer());
     }
 }
 }  // namespace RosettaStone

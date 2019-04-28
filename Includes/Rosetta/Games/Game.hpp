@@ -146,6 +146,7 @@ class Game
 
     std::vector<Aura*> auras;
     std::vector<std::pair<Entity*, Effect*>> oneTurnEffects;
+    std::vector<Minion*> summonedMinions;
     std::map<std::size_t, Minion*> deadMinions;
 
  private:
