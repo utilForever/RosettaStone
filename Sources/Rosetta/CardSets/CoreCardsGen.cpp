@@ -516,12 +516,13 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     // Text: Whenever you summon a Beast, draw a card.
     // --------------------------------------------------------
-    //power.ClearData();
-    //power.AddTrigger(Trigger(TriggerType::SUMMON));
-    //power.GetTrigger().value().triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
-    //power.GetTrigger().condition = SelfCondition::IsRace(Race::BEAST);
-    //power.GetTrigger().value().singleTask = new HealTask(EntityType::HERO, 2);
-    //cards.emplace("CS2_237", power);
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::SUMMON));
+    power.GetTrigger().value().triggerSource =
+        TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger().value().condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    power.GetTrigger().value().singleTask = new DrawTask(1);
+    cards.emplace("CS2_237", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_183] Multi-Shot - COST:4
