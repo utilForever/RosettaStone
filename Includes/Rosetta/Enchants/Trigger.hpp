@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_TRIGGER_HPP
 #define ROSETTASTONE_TRIGGER_HPP
 
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
 
 namespace RosettaStone
@@ -42,6 +43,7 @@ class Trigger
     TriggerSource triggerSource = TriggerSource::NONE;
 
     ITask* singleTask = nullptr;
+    SelfCondition* condition = nullptr;
 
     bool fastExecution = false;
     bool removeAfterTriggered = false;

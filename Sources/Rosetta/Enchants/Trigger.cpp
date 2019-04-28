@@ -27,6 +27,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
       singleTask(prototype.singleTask),
+      condition(prototype.condition),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
       m_triggerType(prototype.m_triggerType),
@@ -69,6 +70,7 @@ void Trigger::Activate(Entity& source)
             game->triggerManager.summonTrigger =
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
+            break;
         default:
             throw std::invalid_argument(
                 "Trigger::Activate() - Invalid trigger type!");
@@ -161,8 +163,6 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
 
 void Trigger::Validate(Player* player, Entity* source)
 {
-    (void)source;
-
     switch (triggerSource)
     {
         case TriggerSource::NONE:
@@ -206,6 +206,17 @@ void Trigger::Validate(Player* player, Entity* source)
         default:
             throw std::invalid_argument(
                 "Trigger::Validate() - Invalid trigger type!");
+    }
+
+    if (condition != nullptr)
+    {
+        bool res = (source != nullptr) ? condition->Evaluate(source)
+                                       : condition->Evaluate(m_owner);
+
+        if (!res)
+        {
+            return;
+        }
     }
 
     m_isValidated = true;
