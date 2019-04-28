@@ -7,6 +7,7 @@
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Player.hpp>
 
 #include <algorithm>
@@ -37,9 +38,10 @@ void Aura::SetToBeUpdated(bool value)
 
 void Aura::Activate(Entity& owner)
 {
+    Card card = Cards::FindCardByID(m_enchantmentID);
+
     if (m_effects.empty())
     {
-        Card card = Cards::FindCardByID(m_enchantmentID);
         m_effects = card.power.GetEnchant().value().effects;
     }
 
@@ -49,6 +51,47 @@ void Aura::Activate(Entity& owner)
     owner.onGoingEffect = instance;
 
     instance->AddToField();
+
+    switch (m_type)
+    {
+        case AuraType::FIELD_EXCEPT_SOURCE:
+        {
+            const auto ownerMinion = dynamic_cast<Minion*>(&owner);
+            if (ownerMinion == nullptr)
+            {
+                break;
+            }
+            if (!owner.owner->GetField()
+                     .FindMinionPos(*ownerMinion)
+                     .has_value())
+            {
+                break;
+            }
+
+            for (auto& minion : owner.owner->GetField().GetAllMinions())
+            {
+                if (minion == &owner)
+                {
+                    continue;
+                }
+
+                if (condition == nullptr || condition->Evaluate(minion))
+                {
+                    if (card.power.GetTrigger().has_value())
+                    {
+                        const auto enchantment = Enchantment::GetInstance(
+                            *owner.owner, card, minion);
+                        card.power.GetTrigger().value().Activate(*enchantment);
+                    }
+                }
+
+                instance->m_tempList.emplace_back(minion);
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 void Aura::Update()
@@ -139,6 +182,16 @@ void Aura::UpdateInternal()
 {
     if (m_turnOn)
     {
+        if (!m_tempList.empty())
+        {
+            for (auto& temp : m_tempList)
+            {
+                Apply(*temp);
+            }
+
+            m_tempList.clear();
+        }
+
         switch (m_type)
         {
             case AuraType::ADJACENT:

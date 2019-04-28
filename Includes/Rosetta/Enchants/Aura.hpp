@@ -100,6 +100,7 @@ class Aura
     Entity* m_owner = nullptr;
     std::vector<Effect> m_effects;
     std::vector<Entity*> m_appliedEntities;
+    std::vector<Entity*> m_tempList;
 
     bool m_turnOn = true;
     bool m_toBeUpdated = true;
