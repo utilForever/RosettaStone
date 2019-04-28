@@ -66,19 +66,13 @@ std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
     return std::nullopt;
 }
 
-std::optional<std::size_t> Battlefield::FindEmptyPos() const
+void Battlefield::AddMinion(Minion& minion, int pos)
 {
-    const auto iter = std::find(m_minions.begin(), m_minions.end(), nullptr);
-    if (iter != std::end(m_minions))
+    if (pos < 0)
     {
-        return std::distance(std::begin(m_minions), iter);
+        pos = m_numMinion;
     }
 
-    return std::nullopt;
-}
-
-void Battlefield::AddMinion(Minion& minion, std::size_t pos)
-{
     m_minions.at(pos) = &minion;
     ++m_numMinion;
 
