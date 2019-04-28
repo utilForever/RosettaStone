@@ -4370,3 +4370,71 @@ TEST(CoreCardsGen, DS1_070)
     EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 4);
     EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::TAUNT), 1);
 }
+
+TEST(CoreCardsGen, DS1_175)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Timber Wolf"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Timber Wolf"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Starving Buzzard"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card4));
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 5);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
+    EXPECT_EQ(curField.GetMinion(3)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(3)->GetHealth(), 1);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
+    Task::Run(opPlayer, AttackTask(card5, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
+}

@@ -544,6 +544,21 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("DS1_070o", EntityType::TARGET));
     cards.emplace("DS1_070", power);
 
+    // ---------------------------------------- MINION - HUNTER
+    // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your other Beasts have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("DS1_175o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    cards.emplace("DS1_175", power);
+
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_183] Multi-Shot - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -614,6 +629,16 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DS1_070o"));
     cards.emplace("DS1_070o", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [DS1_175o] Furious Howl (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +1 Attack from Timber Wolf.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DS1_175o"));
+    cards.emplace("DS1_175o", power);
 }
 
 void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
