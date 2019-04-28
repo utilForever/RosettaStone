@@ -236,8 +236,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
         Entity* totem =
             Entity::GetFromCard(*entity->owner, std::move(totemCards[idx]));
-        const auto pos = entity->owner->GetField().FindEmptyPos().value();
-        entity->owner->GetField().AddMinion(*dynamic_cast<Minion*>(totem), pos);
+        entity->owner->GetField().AddMinion(*dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
 
