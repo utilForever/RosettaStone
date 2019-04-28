@@ -20,7 +20,8 @@ Aura::Aura(std::string&& enchantmentID, AuraType type)
 }
 
 Aura::Aura(Aura& prototype, Entity& owner)
-    : m_enchantmentID(prototype.m_enchantmentID),
+    : condition(prototype.condition),
+      m_enchantmentID(prototype.m_enchantmentID),
       m_type(prototype.m_type),
       m_owner(&owner),
       m_effects(prototype.m_effects),
@@ -94,12 +95,22 @@ void Aura::Apply(Entity& entity)
         std::find(m_appliedEntities.begin(), m_appliedEntities.end(), &entity);
     if (iter != m_appliedEntities.end())
     {
+        if (condition != nullptr && condition->Evaluate(&entity))
+        {
+            return;
+        }
+
         for (auto& effect : m_effects)
         {
             effect.Remove(*entity.auraEffects);
         }
 
         m_appliedEntities.erase(iter);
+    }
+
+    if (condition != nullptr && !condition->Evaluate(&entity))
+    {
+        return;
     }
 
     for (auto& effect : m_effects)

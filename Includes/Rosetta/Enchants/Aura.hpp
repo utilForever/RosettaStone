@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_AURA_HPP
 #define ROSETTASTONE_AURA_HPP
 
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 
 #include <string>
@@ -80,6 +81,8 @@ class Aura
     //! Returns the applied entities affected by the aura.
     //! \return The applied entities affected by the aura.
     std::vector<Entity*> GetAppliedEntities();
+
+    SelfCondition* condition = nullptr;
 
  private:
     //! Adds aura to battlefield.
