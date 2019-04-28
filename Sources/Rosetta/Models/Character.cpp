@@ -39,7 +39,7 @@ void Character::SetDamage(int damage)
         Destroy();
     }
 
-    SetGameTag(GameTag::DAMAGE, damage);
+    SetGameTag(GameTag::DAMAGE, damage < 0 ? 0 : damage);
 }
 
 int Character::GetHealth() const
