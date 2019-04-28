@@ -180,6 +180,13 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerSource::MINIONS_EXCEPT_SELF:
+            if (dynamic_cast<Minion*>(source) == nullptr ||
+                source->owner != m_owner->owner || source == m_owner)
+            {
+                return;
+            }
+            break;
         default:
             throw std::invalid_argument(
                 "Trigger::Validate() - Invalid source trigger!");
