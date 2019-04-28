@@ -523,6 +523,27 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.GetTrigger().value().singleTask = new DrawTask(1);
     cards.emplace("CS2_237", power);
 
+    // ---------------------------------------- MINION - HUNTER
+    // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("DS1_070o", EntityType::TARGET));
+    cards.emplace("DS1_070", power);
+
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_183] Multi-Shot - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -583,6 +604,16 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchant(GameTag::HEALTH, EffectOperator::SET, 1));
     cards.emplace("CS2_084e", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [DS1_070o] Master's Presence (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2/+2 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DS1_070o"));
+    cards.emplace("DS1_070o", power);
 }
 
 void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
