@@ -41,10 +41,29 @@ TaskStatus SummonTask::Impl(Player& player)
         }
 
         Card card = Cards::FindCardByID(m_cardID);
-        Entity* minion = Entity::GetFromCard(player, std::move(card));
-        const int fieldPos =
-            static_cast<int>(player.GetField().FindEmptyPos().value());
-        Generic::Summon(player, dynamic_cast<Minion*>(minion), fieldPos);
+        Entity* summonEntity = Entity::GetFromCard(player, std::move(card));
+        if (summonEntity == nullptr)
+        {
+            return TaskStatus::STOP;
+        }
+        const auto summonMinion = dynamic_cast<Minion*>(summonEntity);
+        if (summonMinion == nullptr)
+        {
+            return TaskStatus::STOP;
+        }
+
+        int summonPos;
+        switch (m_side)
+        {
+            case SummonSide::DEFAULT:
+                summonPos = -1;
+                break;
+            default:
+                throw std::invalid_argument(
+                    "SummonTask::Impl() - Invalid summon side");
+        }
+
+        Generic::Summon(player, summonMinion, summonPos);
     }
 
     return TaskStatus::COMPLETE;
