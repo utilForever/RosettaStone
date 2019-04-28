@@ -59,6 +59,53 @@ TEST(Expert1CardsGen, CS2_028)
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 0);
 }
 
+TEST(Expert1CardsGen, CS2_117)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetDamage(10);
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Earthen Ring Farseer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Earthen Ring Farseer"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    opField.GetMinion(0)->SetDamage(1);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1,
+                                                    curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 23);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card2, card3));
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
+}
+
 TEST(Expert1CardsGen, EX1_012)
 {
     GameConfig config;
