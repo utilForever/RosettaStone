@@ -108,6 +108,11 @@ int Entity::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())
     {
+        if (auraEffects != nullptr)
+        {
+            return auraEffects->GetGameTag(tag);
+        }
+
         return 0;
     }
 
