@@ -54,20 +54,26 @@ void Aura::Activate(Entity& owner)
 
     switch (m_type)
     {
+        case AuraType::FIELD:
+        {
+            for (auto& minion : owner.owner->GetField().GetAllMinions())
+            {
+                if (condition == nullptr || condition->Evaluate(minion))
+                {
+                    if (card.power.GetTrigger().has_value())
+                    {
+                        const auto enchantment = Enchantment::GetInstance(
+                            *owner.owner, card, minion);
+                        card.power.GetTrigger().value().Activate(*enchantment);
+                    }
+                }
+
+                instance->m_tempList.emplace_back(minion);
+            }
+            break;
+        }
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            const auto ownerMinion = dynamic_cast<Minion*>(&owner);
-            if (ownerMinion == nullptr)
-            {
-                break;
-            }
-            if (!owner.owner->GetField()
-                     .FindMinionPos(*ownerMinion)
-                     .has_value())
-            {
-                break;
-            }
-
             for (auto& minion : owner.owner->GetField().GetAllMinions())
             {
                 if (minion == &owner)
@@ -169,6 +175,7 @@ void Aura::AddToField()
     switch (m_type)
     {
         case AuraType::ADJACENT:
+        case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
             m_owner->owner->GetField().auras.emplace_back(this);
             break;
@@ -247,6 +254,12 @@ void Aura::UpdateInternal()
 
                 break;
             }
+            case AuraType::FIELD:
+                for (auto& minion : m_owner->owner->GetField().GetAllMinions())
+                {
+                    Apply(*minion);
+                }
+                break;
             case AuraType::FIELD_EXCEPT_SOURCE:
             {
                 for (auto& minion : m_owner->owner->GetField().GetAllMinions())
@@ -276,6 +289,7 @@ void Aura::RemoveInternal()
     switch (m_type)
     {
         case AuraType::ADJACENT:
+        case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
             auto auras = m_owner->owner->GetField().auras;

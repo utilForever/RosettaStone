@@ -21,6 +21,7 @@ enum class AuraType
     INVALID,   //!< Invalid type.
     ADJACENT,  //!< This type of aura affects the minions adjacent to the source
                //!< of the aura.
+    FIELD,     //!< This type of aura affects all friendly minions.
     FIELD_EXCEPT_SOURCE  //!< This type of aura affects all friendly minions
                          //!< except the source of the aura.
 };
