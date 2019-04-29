@@ -21,6 +21,11 @@ ChooseTask ChooseTask::Mulligan(Player&, std::vector<std::size_t> choices)
     return ChooseTask(std::move(choices));
 }
 
+ChooseTask ChooseTask::Pick(Player&, std::size_t choice)
+{
+    return ChooseTask({ choice });
+}
+
 TaskID ChooseTask::GetTaskID() const
 {
     return TaskID::CHOOSE;
