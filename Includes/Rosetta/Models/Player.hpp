@@ -136,6 +136,8 @@ class Player
     IPolicy* policy = nullptr;
     Player* opponent = nullptr;
 
+    std::vector<Entity*> setaside;
+
     int currentSpellPower = 0;
 
  private:
