@@ -6,16 +6,19 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::PlayerTasks
 {
-ChooseTask::ChooseTask(std::vector<std::size_t> choices) : m_choices(choices)
+ChooseTask::ChooseTask(std::vector<std::size_t> choices)
+    : m_choices(std::move(choices))
 {
     // Do nothing
 }
 
 ChooseTask ChooseTask::Mulligan(Player&, std::vector<std::size_t> choices)
 {
-    return ChooseTask(choices);
+    return ChooseTask(std::move(choices));
 }
 
 TaskID ChooseTask::GetTaskID() const
