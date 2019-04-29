@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
@@ -591,6 +592,36 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 3, true));
     cards.emplace("DS1_183", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [DS1_184] Tracking - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Look at the top 3 cards of your deck. Draw one and discard
+    // the others.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
+        Deck& deck = entity->owner->GetDeck();
+        if (deck.IsEmpty())
+        {
+            return;
+        }
+
+        std::vector<std::size_t> ids;
+        ids.reserve(3);
+
+        for (int i = 0; i < 3 && deck.GetNumOfCards() != 0; ++i)
+        {
+            Entity* card = deck.GetTopCard();
+            deck.RemoveCard(*card);
+            ids.emplace_back(card->id);
+        }
+
+        Generic::CreateChoice(*entity->owner, ChoiceType::GENERAL,
+                              ChoiceAction::HAND, ids);
+    }));
+    cards.emplace("DS1_184", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_185] Arcane Shot - COST:1
