@@ -4438,3 +4438,51 @@ TEST(CoreCardsGen, DS1_175)
     EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
     EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
 }
+
+TEST(CoreCardsGen, DS1_178)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tundra Rhino"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Timber Wolf"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Starving Buzzard"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 0);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::CHARGE), 1);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetGameTag(GameTag::CHARGE), 1);
+}

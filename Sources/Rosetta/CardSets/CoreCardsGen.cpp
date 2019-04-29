@@ -519,7 +519,8 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddTrigger(Trigger(TriggerType::SUMMON));
     power.GetTrigger().value().triggerSource =
         TriggerSource::MINIONS_EXCEPT_SELF;
-    power.GetTrigger().value().condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    power.GetTrigger().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
     power.GetTrigger().value().singleTask = new DrawTask(1);
     cards.emplace("CS2_237", power);
 
@@ -558,6 +559,24 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
     cards.emplace("DS1_175", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your Beasts have <b>Charge</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("DS1_178e", AuraType::FIELD));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    cards.emplace("DS1_178", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_183] Multi-Shot - COST:4
@@ -639,6 +658,16 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DS1_175o"));
     cards.emplace("DS1_175o", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [DS1_178e] Charge (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Tundra Rhino grants <b>Charge</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DS1_178e"));
+    cards.emplace("DS1_178e", power);
 }
 
 void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
