@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Choose.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
 #include <utility>
@@ -40,6 +41,12 @@ TaskStatus ChooseTask::Impl(Player& player)
             player.mulliganState = Mulligan::DONE;
             break;
         case ChoiceType::GENERAL:
+            if (!Generic::ChoicePick(player, m_choices[0]))
+            {
+                return TaskStatus::STOP;
+            }
+            player.GetGame()->ProcessTasks();
+            player.GetGame()->ProcessDestroyAndUpdateAura();
             break;
         default:
             throw std::invalid_argument(
