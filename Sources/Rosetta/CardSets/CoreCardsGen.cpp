@@ -616,6 +616,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
             Entity* card = deck.GetTopCard();
             deck.RemoveCard(*card);
             ids.emplace_back(card->id);
+            entity->owner->setaside.emplace_back(card);
         }
 
         Generic::CreateChoice(*entity->owner, ChoiceType::GENERAL,

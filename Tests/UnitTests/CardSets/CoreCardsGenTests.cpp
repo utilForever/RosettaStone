@@ -4486,3 +4486,39 @@ TEST(CoreCardsGen, DS1_178)
     EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::CHARGE), 1);
     EXPECT_EQ(curField.GetMinion(2)->GetGameTag(GameTag::CHARGE), 1);
 }
+
+TEST(CoreCardsGen, DS1_184)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tracking"));
+
+    EXPECT_EQ(curPlayer.GetDeck().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_TRUE(curPlayer.choice.has_value());
+    EXPECT_EQ(curPlayer.choice.value().choices.size(), 3u);
+
+    Task::Run(curPlayer,
+              ChooseTask::Pick(curPlayer, curPlayer.choice.value().choices[0]));
+    EXPECT_EQ(curPlayer.GetDeck().GetNumOfCards(), 2u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+}
