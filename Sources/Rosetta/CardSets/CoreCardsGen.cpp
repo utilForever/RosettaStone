@@ -1831,6 +1831,25 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     cards.emplace("CS2_114", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your <b>Charge</b> minions have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("EX1_084e", AuraType::FIELD));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
+    power.GetAura().value().restless = true;
+    cards.emplace("EX1_084", power);
+
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_400] Whirlwind - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -1899,6 +1918,16 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_105e"));
     cards.emplace("CS2_105e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_084e] Charge (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Warsong Commander is granting this minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_084e"));
+    cards.emplace("EX1_084e", power);
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
