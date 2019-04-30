@@ -84,6 +84,7 @@ class Aura
     std::vector<Entity*> GetAppliedEntities();
 
     SelfCondition* condition = nullptr;
+    bool restless = false;
 
  private:
     //! Adds aura to battlefield.
