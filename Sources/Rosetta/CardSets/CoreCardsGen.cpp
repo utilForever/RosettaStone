@@ -1707,6 +1707,23 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_065", power);
 
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_302] Mortal Coil - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to a minion. If that kills it, draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
+    power.AddPowerTask(new FlagTask(true, new DrawTask(1)));
+    cards.emplace("EX1_302", power);
+
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
     // - Faction: Horde, Set: Core, Rarity: Free
