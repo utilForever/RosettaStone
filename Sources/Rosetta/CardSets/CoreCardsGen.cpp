@@ -2286,7 +2286,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("CS2_boar"));
+    power.AddPowerTask(new SummonTask("CS2_boar", SummonSide::RIGHT));
     cards.emplace("CS2_196", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2429,7 +2429,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("EX1_025t"));
+    power.AddPowerTask(new SummonTask("EX1_025t", SummonSide::RIGHT));
     cards.emplace("EX1_025", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2457,6 +2457,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetTrigger().value().singleTask =
         new AddEnchantmentTask("EX1_399e", EntityType::SOURCE);
     cards.emplace("EX1_399", power);
+
+	// --------------------------------------- MINION - NEUTRAL
+    // [EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
+    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("EX1_506a", SummonSide::RIGHT));
+    cards.emplace("EX1_506", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
@@ -2563,7 +2576,15 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_025t", power);
 
-	// ---------------------------------- ENCHANTMENT - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_506a] Murloc Scout (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_506a", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_399e] Berserking (*) - COST:0
     // - Set: Core
     // --------------------------------------------------------
