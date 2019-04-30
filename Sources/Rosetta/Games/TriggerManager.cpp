@@ -47,4 +47,12 @@ void TriggerManager::OnSummonTrigger(Player* player, Entity* sender)
         summonTrigger(player, sender);
     }
 }
+
+void TriggerManager::OnTakeDamageTrigger(Player* player, Entity* sender)
+{
+    if (takeDamageTrigger != nullptr)
+    {
+        takeDamageTrigger(player, sender);
+    }
+}
 }  // namespace RosettaStone
