@@ -73,7 +73,21 @@ void Battlefield::AddMinion(Minion& minion, int pos)
         pos = m_numMinion;
     }
 
-    m_minions.at(pos) = &minion;
+    if (static_cast<std::size_t>(pos) == m_numMinion)
+    {
+        m_minions.at(pos) = &minion;
+    }
+    else
+    {
+        const int minionSize = static_cast<int>(m_numMinion);
+        for (int i = minionSize - 1; i >= pos; --i)
+        {
+            m_minions[i + 1] = m_minions[i];
+        }
+
+        m_minions.at(pos) = &minion;
+    }
+
     ++m_numMinion;
 
     if (minion.GetGameTag(GameTag::CHARGE) != 1)
