@@ -50,6 +50,7 @@ enum class TaskID
     ADD_STACK_TO,
     COUNT,
     MATH_SUB,
+    FILTER_STACK,
 
     NUM_TASK_ID
 };
