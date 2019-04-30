@@ -33,9 +33,13 @@ TaskStatus ConditionTask::Impl(Player& player)
     }
 
     bool flag = true;
-    for (auto& condition : m_selfConditions)
+
+    for (auto& entity : entities)
     {
-        flag = flag && condition.Evaluate(m_source);
+        for (auto& condition : m_selfConditions)
+        {
+            flag = flag && condition.Evaluate(entity);
+        }
     }
 
     player.GetGame()->taskStack.source = m_source;
