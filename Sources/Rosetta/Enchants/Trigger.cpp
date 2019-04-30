@@ -175,6 +175,12 @@ void Trigger::Validate(Player* player, Entity* source)
     {
         case TriggerSource::NONE:
             break;
+        case TriggerSource::SELF:
+            if (source != m_owner)
+            {
+                return;
+            }
+            break;
         case TriggerSource::HERO:
             if (dynamic_cast<Hero*>(source) == nullptr ||
                 source->owner != m_owner->owner)

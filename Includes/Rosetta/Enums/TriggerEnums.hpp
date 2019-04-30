@@ -26,6 +26,7 @@ enum class TriggerType
 enum class TriggerSource
 {
     NONE,
+    SELF,
     HERO,
     ALL_MINIONS,
     MINIONS_EXCEPT_SELF,
