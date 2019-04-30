@@ -7,6 +7,7 @@
 #define ROSETTASTONE_SELF_CONDITION_HPP
 
 #include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Enums/GameEnums.hpp>
 
 #include <functional>
 
@@ -28,12 +29,23 @@ class SelfCondition
 
     //! SelfCondition wrapper for checking race of entity is \p race.
     //! \param race The race for checking.
+    //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRace(Race race);
 
     //! SelfCondition wrapper for checking there is an entity with a \p race in
     //! battlefield.
     //! \param race The race for checking.
+    //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
+
+    //! SelfCondition wrapper for checking there is an entity that satisfies
+    //! condition with \p tag, \p value and \p relaSign.
+    //! \param tag A game tag to check condition.
+    //! \param value A value to check condition.
+    //! \param relaSign A comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsTagValue(GameTag tag, int value,
+                                    RelaSign relaSign = RelaSign::EQ);
 
     //! Evaluates condition using checking function.
     //! \param entity An owner entity.

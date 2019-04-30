@@ -42,6 +42,17 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
+                                        RelaSign relaSign)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return (relaSign == RelaSign::EQ && entity->GetGameTag(tag) == value) ||
+               (relaSign == RelaSign::GEQ &&
+                entity->GetGameTag(tag) >= value) ||
+               (relaSign == RelaSign::LEQ && entity->GetGameTag(tag) <= value);
+    });
+}
+
 bool SelfCondition::Evaluate(Entity* entity) const
 {
     return m_func(entity);
