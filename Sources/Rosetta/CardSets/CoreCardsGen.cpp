@@ -2333,6 +2333,24 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_015", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_019e", EntityType::TARGET));
+    cards.emplace("EX1_019", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -2444,6 +2462,16 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_tk1", power);
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_019e] Cleric's Blessing (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_019e"));
+    cards.emplace("EX1_019e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_025t] Mechanical Dragonling (*) - COST:1 [ATK:2/HP:1]

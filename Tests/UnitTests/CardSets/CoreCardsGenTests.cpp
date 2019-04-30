@@ -4522,3 +4522,39 @@ TEST(CoreCardsGen, DS1_184)
     EXPECT_EQ(curPlayer.GetDeck().GetNumOfCards(), 2u);
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
 }
+
+TEST(CoreCardsGen, EX1_019)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shattered Sun Cleric"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ironfur Grizzly"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
+}
