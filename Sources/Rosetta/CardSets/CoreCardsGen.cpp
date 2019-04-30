@@ -2446,6 +2446,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_066", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, gain +3 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger().value().triggerSource = TriggerSource::SELF;
+    power.GetTrigger().value().singleTask =
+        new AddEnchantmentTask("EX1_399e", EntityType::SOURCE);
+    cards.emplace("EX1_399", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -2549,6 +2562,16 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_025t", power);
+
+	// ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_399e] Berserking (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This minion has increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Effects::AttackN(3));
+    cards.emplace("EX1_399e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]
