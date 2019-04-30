@@ -223,6 +223,7 @@ void Trigger::Validate(Player* player, Entity* source)
             break;
         case TriggerType::HEAL:
         case TriggerType::ATTACK:
+        case TriggerType::TAKE_DAMAGE:
             break;
         default:
             throw std::invalid_argument(
