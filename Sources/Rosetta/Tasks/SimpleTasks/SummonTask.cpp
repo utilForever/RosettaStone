@@ -5,6 +5,7 @@
 
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -31,8 +32,6 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
-    (void)m_side;
-
     for (int i = 0; i < m_num; ++i)
     {
         if (player.GetField().IsFull())
@@ -58,6 +57,22 @@ TaskStatus SummonTask::Impl(Player& player)
             case SummonSide::DEFAULT:
                 summonPos = -1;
                 break;
+            case SummonSide::RIGHT:
+            {
+                auto field = m_source->owner->GetField();
+                const auto minion = dynamic_cast<Minion*>(m_source);
+                auto fieldPos = field.FindMinionPos(*minion);
+
+                if (fieldPos.has_value())
+                {
+                    summonPos = static_cast<int>(fieldPos.value()) + 1;
+                }
+                else
+                {
+                    summonPos = -1;
+                }
+                break;
+            }
             default:
                 throw std::invalid_argument(
                     "SummonTask::Impl() - Invalid summon side");
