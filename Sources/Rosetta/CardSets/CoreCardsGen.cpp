@@ -21,6 +21,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
@@ -1447,6 +1448,18 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("CS2_046", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_244] Totemic Might - COST:0
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your Totems +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FilterStackTask(EntityType::MINIONS,
+                                           SelfCondition::IsRace(Race::TOTEM)));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_244e", EntityType::STACK));
+    cards.emplace("EX1_244", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [EX1_246] Hex - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1576,6 +1589,16 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_052", power);
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [EX1_244e] Totemic Might (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_244e"));
+    cards.emplace("EX1_244e", power);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [EX1_565o] Flametongue (*) - COST:0

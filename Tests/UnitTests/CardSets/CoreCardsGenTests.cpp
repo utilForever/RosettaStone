@@ -4603,3 +4603,51 @@ TEST(CoreCardsGen, EX1_084)
     EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
     EXPECT_EQ(curField.GetMinion(3)->GetAttack(), 2);
 }
+
+TEST(CoreCardsGen, EX1_244)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Totemic Might"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, HeroPowerTask());
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, HeroPowerTask());
+    int totem1Health = curField.GetMinion(0)->GetHealth();
+    int totem2Health = curField.GetMinion(1)->GetHealth();
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), totem1Health + 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), totem2Health + 2);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 1);
+}
