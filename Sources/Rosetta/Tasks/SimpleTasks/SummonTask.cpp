@@ -39,12 +39,22 @@ TaskStatus SummonTask::Impl(Player& player)
             return TaskStatus::STOP;
         }
 
-        Card card = Cards::FindCardByID(m_cardID);
-        Entity* summonEntity = Entity::GetFromCard(player, std::move(card));
+        Entity* summonEntity = nullptr;
+        if (!m_cardID.empty())
+        {
+            Card card = Cards::FindCardByID(m_cardID);
+            summonEntity = Entity::GetFromCard(player, std::move(card));
+        }
+        else if (!player.GetGame()->taskStack.entities.empty())
+        {
+            summonEntity = player.GetGame()->taskStack.entities[0];
+        }
+
         if (summonEntity == nullptr)
         {
             return TaskStatus::STOP;
         }
+
         const auto summonMinion = dynamic_cast<Minion*>(summonEntity);
         if (summonMinion == nullptr)
         {
