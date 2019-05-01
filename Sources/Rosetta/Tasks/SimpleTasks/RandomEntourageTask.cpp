@@ -26,6 +26,8 @@ TaskID RandomEntourageTask::GetTaskID() const
 
 TaskStatus RandomEntourageTask::Impl(Player& player)
 {
+    (void)m_isOpponent;
+
     if (m_source == nullptr || m_source->card.entourages.empty())
     {
         return TaskStatus::STOP;
