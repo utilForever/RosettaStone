@@ -31,7 +31,7 @@ class MathSubTask : public ITask
 
     //! Constructs task with given \p amount.
     //! \param amount A value to subtract.
-    MathSubTask(int amount);
+    explicit MathSubTask(int amount);
 
     //! Returns task ID.
     //! \return Task ID.
