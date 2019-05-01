@@ -51,6 +51,7 @@ enum class TaskID
     COUNT,
     MATH_SUB,
     FILTER_STACK,
+    RANDOM_ENTOURAGE,
 
     NUM_TASK_ID
 };
