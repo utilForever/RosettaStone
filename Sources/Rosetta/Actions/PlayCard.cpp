@@ -68,8 +68,6 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 
 void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 {
-    (void)target;
-
     // Add minion to battlefield
     player.GetField().AddMinion(*minion, fieldPos);
 
@@ -78,6 +76,10 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     {
         minion->SetGameTag(tags.first, tags.second);
     }
+
+    // Process summon trigger
+    player.GetGame()->triggerManager.OnSummonTrigger(&player, minion);
+    player.GetGame()->ProcessTasks();
 
     // Process power tasks
     for (auto& powerTask : minion->card.power.GetPowerTask())
@@ -175,6 +177,12 @@ bool IsPlayableByCardReq(Entity* source)
     {
         switch (requirement.first)
         {
+            case PlayReq::REQ_NUM_MINION_SLOTS:
+                if (source->owner->GetField().IsFull())
+                {
+                    return false;
+                }
+                break;
             case PlayReq::REQ_WEAPON_EQUIPPED:
                 if (!source->owner->GetHero()->HasWeapon())
                 {

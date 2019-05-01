@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_TRIGGER_HPP
 #define ROSETTASTONE_TRIGGER_HPP
 
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
 
 namespace RosettaStone
@@ -37,11 +38,12 @@ class Trigger
     void Activate(Entity& source);
 
     //! Removes this object from game and unsubscribe from the related event.
-    void Remove();
+    void Remove() const;
 
     TriggerSource triggerSource = TriggerSource::NONE;
 
     ITask* singleTask = nullptr;
+    SelfCondition* condition = nullptr;
 
     bool fastExecution = false;
     bool removeAfterTriggered = false;

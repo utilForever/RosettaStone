@@ -27,6 +27,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
       singleTask(prototype.singleTask),
+      condition(prototype.condition),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
       m_triggerType(prototype.m_triggerType),
@@ -38,7 +39,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
 
 void Trigger::Activate(Entity& source)
 {
-    Trigger* instance = new Trigger(*this, source);
+    auto* instance = new Trigger(*this, source);
     Game* game = source.owner->GetGame();
 
     source.activatedTrigger = instance;
@@ -65,13 +66,23 @@ void Trigger::Activate(Entity& source)
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
+        case TriggerType::SUMMON:
+            game->triggerManager.summonTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
+        case TriggerType::TAKE_DAMAGE:
+            game->triggerManager.takeDamageTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
         default:
             throw std::invalid_argument(
                 "Trigger::Activate() - Invalid trigger type!");
     }
 }
 
-void Trigger::Remove()
+void Trigger::Remove() const
 {
     Game* game = m_owner->owner->GetGame();
 
@@ -88,6 +99,12 @@ void Trigger::Remove()
             break;
         case TriggerType::ATTACK:
             game->triggerManager.attackTrigger = nullptr;
+            break;
+        case TriggerType::SUMMON:
+            game->triggerManager.summonTrigger = nullptr;
+            break;
+        case TriggerType::TAKE_DAMAGE:
+            game->triggerManager.takeDamageTrigger = nullptr;
             break;
         default:
             throw std::invalid_argument(
@@ -124,7 +141,7 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
     }
     else
     {
-        auto enchantment = dynamic_cast<Enchantment*>(m_owner);
+        const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
         if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
         {
             singleTask->SetTarget(enchantment->GetTarget());
@@ -154,11 +171,15 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
 
 void Trigger::Validate(Player* player, Entity* source)
 {
-    (void)source;
-
     switch (triggerSource)
     {
         case TriggerSource::NONE:
+            break;
+        case TriggerSource::SELF:
+            if (source != m_owner)
+            {
+                return;
+            }
             break;
         case TriggerSource::HERO:
             if (dynamic_cast<Hero*>(source) == nullptr ||
@@ -173,6 +194,13 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerSource::MINIONS_EXCEPT_SELF:
+            if (dynamic_cast<Minion*>(source) == nullptr ||
+                source->owner != m_owner->owner || source == m_owner)
+            {
+                return;
+            }
+            break;
         default:
             throw std::invalid_argument(
                 "Trigger::Validate() - Invalid source trigger!");
@@ -181,23 +209,36 @@ void Trigger::Validate(Player* player, Entity* source)
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
-            if (player != m_owner->owner)
-            {
-                return;
-            }
-            break;
         case TriggerType::TURN_END:
             if (player != m_owner->owner)
             {
                 return;
             }
             break;
+        case TriggerType::SUMMON:
+            if (source == m_owner)
+            {
+                return;
+            }
+            break;
         case TriggerType::HEAL:
         case TriggerType::ATTACK:
+        case TriggerType::TAKE_DAMAGE:
             break;
         default:
             throw std::invalid_argument(
                 "Trigger::Validate() - Invalid trigger type!");
+    }
+
+    if (condition != nullptr)
+    {
+        const bool res = (source != nullptr) ? condition->Evaluate(source)
+                                             : condition->Evaluate(m_owner);
+
+        if (!res)
+        {
+            return;
+        }
     }
 
     m_isValidated = true;

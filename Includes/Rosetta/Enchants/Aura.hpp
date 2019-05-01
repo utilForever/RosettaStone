@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_AURA_HPP
 #define ROSETTASTONE_AURA_HPP
 
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 
 #include <string>
@@ -20,6 +21,7 @@ enum class AuraType
     INVALID,   //!< Invalid type.
     ADJACENT,  //!< This type of aura affects the minions adjacent to the source
                //!< of the aura.
+    FIELD,     //!< This type of aura affects all friendly minions.
     FIELD_EXCEPT_SOURCE  //!< This type of aura affects all friendly minions
                          //!< except the source of the aura.
 };
@@ -71,15 +73,18 @@ class Aura
 
     //! Returns the type of aura.
     //! \return The type of aura.
-    AuraType GetAuraType();
+    AuraType GetAuraType() const;
 
     //! Returns the effect of aura.
     //! \return The effect of aura.
-    std::vector<Effect> GetEffects();
+    std::vector<Effect> GetEffects() const;
 
     //! Returns the applied entities affected by the aura.
     //! \return The applied entities affected by the aura.
-    std::vector<Entity*> GetAppliedEntities();
+    std::vector<Entity*> GetAppliedEntities() const;
+
+    SelfCondition* condition = nullptr;
+    bool restless = false;
 
  private:
     //! Adds aura to battlefield.
@@ -97,6 +102,7 @@ class Aura
     Entity* m_owner = nullptr;
     std::vector<Effect> m_effects;
     std::vector<Entity*> m_appliedEntities;
+    std::vector<Entity*> m_tempList;
 
     bool m_turnOn = true;
     bool m_toBeUpdated = true;

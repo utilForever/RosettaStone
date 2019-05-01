@@ -20,17 +20,17 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
 
     // Block it if player tries to mulligan a card that doesn't exist
     Choice& choice = player.choice.value();
-    for (const auto choosedID : choices)
+    for (const auto chooseID : choices)
     {
-        if (std::find(choice.choices.begin(), choice.choices.end(),
-                      choosedID) == choice.choices.end())
+        if (std::find(choice.choices.begin(), choice.choices.end(), chooseID) ==
+            choice.choices.end())
         {
             return;
         }
     }
 
     // Process mulligan by choice action
-    switch (player.choice.value().choiceAction)
+    switch (choice.choiceAction)
     {
         case ChoiceAction::HAND:
         {
@@ -56,10 +56,10 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             for (const auto& entity : mulliganList)
             {
                 Entity& newCard = deck.RemoveCard(*deck.GetTopCard());
-                Generic::AddCardToHand(player, &newCard);
+                AddCardToHand(player, &newCard);
                 hand.SwapCard(*entity, newCard);
 
-                Generic::RemoveCardFromHand(player, entity);
+                RemoveCardFromHand(player, entity);
                 deck.AddCard(*entity);
                 deck.Shuffle();
             }
@@ -73,6 +73,56 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             throw std::invalid_argument(
                 "ChoiceMulligan() - Invalid choice action!");
     }
+}
+
+bool ChoicePick(Player& player, std::size_t choice)
+{
+    // Block it if player tries to pick in a non-general choice
+    if (player.choice.value().choiceType != ChoiceType::GENERAL)
+    {
+        return false;
+    }
+
+    // Block it if player tries to pick a card that doesn't exist
+    if (std::find(player.choice.value().choices.begin(),
+                  player.choice.value().choices.end(),
+                  choice) == player.choice.value().choices.end())
+    {
+        return false;
+    }
+
+    // Find picked card using entity ID
+    Entity* entity = nullptr;
+    for (auto& card : player.setaside)
+    {
+        if (card->id == choice)
+        {
+            entity = card;
+            break;
+        }
+    }
+
+    // Block it if player tries to pick a card that doesn't exist
+    if (entity == nullptr)
+    {
+        return false;
+    }
+
+    // Process pick by choice action
+    switch (player.choice.value().choiceAction)
+    {
+        case ChoiceAction::HAND:
+        {
+            AddCardToHand(player, entity);
+            player.setaside.clear();
+            break;
+        }
+        default:
+            throw std::invalid_argument(
+                "ChoiceMulligan() - Invalid choice action!");
+    }
+
+    return true;
 }
 
 void CreateChoice(Player& player, ChoiceType type, ChoiceAction action,

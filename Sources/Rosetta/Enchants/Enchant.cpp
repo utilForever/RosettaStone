@@ -21,6 +21,14 @@ Enchant::Enchant(Effect& effect)
     effects.emplace_back(effect);
 }
 
+Enchant::Enchant(Effect&& effect, bool _useScriptTag,
+                 bool _isOneTurnEffect)
+    : useScriptTag(_useScriptTag),
+      isOneTurnEffect(_isOneTurnEffect)
+{
+    effects.emplace_back(effect);
+}
+
 Enchant::Enchant(std::vector<Effect> _effects, bool _useScriptTag,
                  bool _isOneTurnEffect)
     : effects(std::move(_effects)),

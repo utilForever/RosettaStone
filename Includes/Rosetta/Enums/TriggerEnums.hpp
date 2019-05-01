@@ -17,14 +17,19 @@ enum class TriggerType
     TURN_END,    //!< The effect will be triggered at the end of turn.
     HEAL,        //!< The effect will be triggered when characters are healed.
     ATTACK,      //!< The effect will be triggered when characters attack.
+    SUMMON,      //!< The effect will be triggered whenever a minion is summoned.
+    TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
+                  //!< deals damages.
 };
 
 //! \brief An enumerator for identifying trigger source.
 enum class TriggerSource
 {
     NONE,
+    SELF,
     HERO,
     ALL_MINIONS,
+    MINIONS_EXCEPT_SELF,
 };
 
 //! \brief An enumerator for identifying sequence type.

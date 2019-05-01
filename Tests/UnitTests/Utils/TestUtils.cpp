@@ -64,14 +64,10 @@ void PlayMinionCard(Player& player, Card& card)
     Battlefield& playerField = player.GetField();
 
     const auto minion = new Minion(player, card);
-    const auto minionPos = playerField.FindEmptyPos().value_or(
-        std::numeric_limits<std::size_t>::max());
+    playerField.AddMinion(*minion);
 
-    if (minionPos != std::numeric_limits<std::size_t>::max())
-    {
-        playerField.AddMinion(*minion, minionPos);
-        playerField.GetMinion(minionPos)->owner = &player;
-    }
+    const std::size_t pos = playerField.FindMinionPos(*minion).value();
+    playerField.GetMinion(pos)->owner = &player;
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

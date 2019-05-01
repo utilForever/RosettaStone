@@ -7,6 +7,7 @@
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Player.hpp>
 
 #include <algorithm>
@@ -20,7 +21,9 @@ Aura::Aura(std::string&& enchantmentID, AuraType type)
 }
 
 Aura::Aura(Aura& prototype, Entity& owner)
-    : m_enchantmentID(prototype.m_enchantmentID),
+    : condition(prototype.condition),
+      restless(prototype.restless),
+      m_enchantmentID(prototype.m_enchantmentID),
       m_type(prototype.m_type),
       m_owner(&owner),
       m_effects(prototype.m_effects),
@@ -36,9 +39,10 @@ void Aura::SetToBeUpdated(bool value)
 
 void Aura::Activate(Entity& owner)
 {
+    Card card = Cards::FindCardByID(m_enchantmentID);
+
     if (m_effects.empty())
     {
-        Card card = Cards::FindCardByID(m_enchantmentID);
         m_effects = card.power.GetEnchant().value().effects;
     }
 
@@ -48,6 +52,53 @@ void Aura::Activate(Entity& owner)
     owner.onGoingEffect = instance;
 
     instance->AddToField();
+
+    switch (m_type)
+    {
+        case AuraType::FIELD:
+        {
+            for (auto& minion : owner.owner->GetField().GetAllMinions())
+            {
+                if (condition == nullptr || condition->Evaluate(minion))
+                {
+                    if (card.power.GetTrigger().has_value())
+                    {
+                        const auto enchantment = Enchantment::GetInstance(
+                            *owner.owner, card, minion);
+                        card.power.GetTrigger().value().Activate(*enchantment);
+                    }
+                }
+
+                instance->m_tempList.emplace_back(minion);
+            }
+            break;
+        }
+        case AuraType::FIELD_EXCEPT_SOURCE:
+        {
+            for (auto& minion : owner.owner->GetField().GetAllMinions())
+            {
+                if (minion == &owner)
+                {
+                    continue;
+                }
+
+                if (condition == nullptr || condition->Evaluate(minion))
+                {
+                    if (card.power.GetTrigger().has_value())
+                    {
+                        const auto enchantment = Enchantment::GetInstance(
+                            *owner.owner, card, minion);
+                        card.power.GetTrigger().value().Activate(*enchantment);
+                    }
+                }
+
+                instance->m_tempList.emplace_back(minion);
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 void Aura::Update()
@@ -94,12 +145,22 @@ void Aura::Apply(Entity& entity)
         std::find(m_appliedEntities.begin(), m_appliedEntities.end(), &entity);
     if (iter != m_appliedEntities.end())
     {
+        if (!restless || (condition != nullptr && condition->Evaluate(&entity)))
+        {
+            return;
+        }
+
         for (auto& effect : m_effects)
         {
             effect.Remove(*entity.auraEffects);
         }
 
         m_appliedEntities.erase(iter);
+    }
+
+    if (condition != nullptr && !condition->Evaluate(&entity))
+    {
+        return;
     }
 
     for (auto& effect : m_effects)
@@ -115,6 +176,7 @@ void Aura::AddToField()
     switch (m_type)
     {
         case AuraType::ADJACENT:
+        case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
             m_owner->owner->GetField().auras.emplace_back(this);
             break;
@@ -128,6 +190,16 @@ void Aura::UpdateInternal()
 {
     if (m_turnOn)
     {
+        if (!m_tempList.empty())
+        {
+            for (auto& temp : m_tempList)
+            {
+                Apply(*temp);
+            }
+
+            m_tempList.clear();
+        }
+
         switch (m_type)
         {
             case AuraType::ADJACENT:
@@ -183,6 +255,12 @@ void Aura::UpdateInternal()
 
                 break;
             }
+            case AuraType::FIELD:
+                for (auto& minion : m_owner->owner->GetField().GetAllMinions())
+                {
+                    Apply(*minion);
+                }
+                break;
             case AuraType::FIELD_EXCEPT_SOURCE:
             {
                 for (auto& minion : m_owner->owner->GetField().GetAllMinions())
@@ -199,7 +277,10 @@ void Aura::UpdateInternal()
                     "Aura::UpdateInternal() - Invalid aura type!");
         }
 
-        m_toBeUpdated = false;
+        if (!restless)
+        {
+            m_toBeUpdated = false;
+        }
     }
     else
     {
@@ -212,6 +293,7 @@ void Aura::RemoveInternal()
     switch (m_type)
     {
         case AuraType::ADJACENT:
+        case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
             auto auras = m_owner->owner->GetField().auras;
@@ -237,17 +319,17 @@ void Aura::RemoveInternal()
     auras.erase(iter);
 }
 
-AuraType Aura::GetAuraType()
+AuraType Aura::GetAuraType() const
 {
     return m_type;
 }
 
-std::vector<Effect> Aura::GetEffects()
+std::vector<Effect> Aura::GetEffects() const
 {
     return m_effects;
 }
 
-std::vector<Entity*> Aura::GetAppliedEntities()
+std::vector<Entity*> Aura::GetAppliedEntities() const
 {
     return m_appliedEntities;
 }

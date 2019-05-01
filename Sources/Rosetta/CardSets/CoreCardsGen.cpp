@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
@@ -20,11 +21,15 @@
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
@@ -234,8 +239,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
         Entity* totem =
             Entity::GetFromCard(*entity->owner, std::move(totemCards[idx]));
-        const auto pos = entity->owner->GetField().FindEmptyPos().value();
-        entity->owner->GetField().AddMinion(*dynamic_cast<Minion*>(totem), pos);
+        entity->owner->GetField().AddMinion(*dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
 
@@ -508,6 +512,75 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("CS2_084e", EntityType::TARGET));
     cards.emplace("CS2_084", power);
 
+    // ---------------------------------------- MINION - HUNTER
+    // [CS2_237] Starving Buzzard - COST:5 [ATK:3/HP:2]
+    // - Race: Beast, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever you summon a Beast, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::SUMMON));
+    power.GetTrigger().value().triggerSource =
+        TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    power.GetTrigger().value().singleTask = new DrawTask(1);
+    cards.emplace("CS2_237", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("DS1_070o", EntityType::TARGET));
+    cards.emplace("DS1_070", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your other Beasts have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("DS1_175o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    cards.emplace("DS1_175", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
+    // - Race: Beast, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your Beasts have <b>Charge</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("DS1_178e", AuraType::FIELD));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    cards.emplace("DS1_178", power);
+
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_183] Multi-Shot - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -521,6 +594,37 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 3, true));
     cards.emplace("DS1_183", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [DS1_184] Tracking - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Look at the top 3 cards of your deck. Draw one and discard
+    // the others.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
+        Deck& deck = entity->owner->GetDeck();
+        if (deck.IsEmpty())
+        {
+            return;
+        }
+
+        std::vector<std::size_t> ids;
+        ids.reserve(3);
+
+        for (int i = 0; i < 3 && deck.GetNumOfCards() != 0; ++i)
+        {
+            Entity* card = deck.GetTopCard();
+            deck.RemoveCard(*card);
+            ids.emplace_back(card->id);
+            entity->owner->setaside.emplace_back(card);
+        }
+
+        Generic::CreateChoice(*entity->owner, ChoiceType::GENERAL,
+                              ChoiceAction::HAND, ids);
+    }));
+    cards.emplace("DS1_184", power);
 
     // ----------------------------------------- SPELL - HUNTER
     // [DS1_185] Arcane Shot - COST:1
@@ -553,6 +657,22 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new FlagTask(false, new DamageTask(EntityType::TARGET, 3, true)));
     cards.emplace("EX1_539", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [NEW1_031] Animal Companion - COST:3
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Summon a random Beast Companion.
+    // --------------------------------------------------------
+    // Entourage: NEW1_032, NEW1_033, NEW1_034
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomEntourageTask());
+    power.AddPowerTask(new SummonTask());
+    cards.emplace("NEW1_031", power);
 }
 
 void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
@@ -568,6 +688,85 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchant(GameTag::HEALTH, EffectOperator::SET, 1));
     cards.emplace("CS2_084e", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [DS1_070o] Master's Presence (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2/+2 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DS1_070o"));
+    cards.emplace("DS1_070o", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [DS1_175o] Furious Howl (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +1 Attack from Timber Wolf.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DS1_175o"));
+    cards.emplace("DS1_175o", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [DS1_178e] Charge (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Tundra Rhino grants <b>Charge</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DS1_178e"));
+    cards.emplace("DS1_178e", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [NEW1_032] Misha (*) - COST:3 [ATK:4/HP:4]
+    // - Race: Beast, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_032", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [NEW1_033] Leokk (*) - COST:3 [ATK:2/HP:4]
+    // - Race: Beast, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your other minions have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("NEW1_033o", AuraType::FIELD_EXCEPT_SOURCE));
+    cards.emplace("NEW1_033", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [NEW1_033o] Eye In The Sky (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Leokk is granting this minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_033o"));
+    cards.emplace("NEW1_033o", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [NEW1_034] Huffer (*) - COST:3 [ATK:4/HP:2]
+    // - Race: Beast, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_034", power);
 }
 
 void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
@@ -1000,6 +1199,22 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("CS2_235", power);
 
     // ----------------------------------------- SPELL - PRIEST
+    // [CS2_236] Divine Spirit - COST:2
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Double a minion's Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(new MathSubTask(EntityType::TARGET, GameTag::DAMAGE));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_236e", EntityType::TARGET));
+    cards.emplace("CS2_236", power);
+
+    // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1038,6 +1253,16 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_004e"));
     cards.emplace("CS2_004e", power);
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS2_236e] Divine Spirit (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This minion has double Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::move(Enchants::AddHealthScriptTag));
+    cards.emplace("CS2_236e", power);
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
@@ -1289,6 +1514,18 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("CS2_046", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_244] Totemic Might - COST:0
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Give your Totems +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FilterStackTask(EntityType::MINIONS,
+                                           SelfCondition::IsRace(Race::TOTEM)));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_244e", EntityType::STACK));
+    cards.emplace("EX1_244", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [EX1_246] Hex - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1420,6 +1657,16 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     cards.emplace("CS2_052", power);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [EX1_244e] Totemic Might (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_244e"));
+    cards.emplace("EX1_244e", power);
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
     // [EX1_565o] Flametongue (*) - COST:0
     // - Set: Core
     // --------------------------------------------------------
@@ -1525,6 +1772,23 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_065", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_302] Mortal Coil - COST:1
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to a minion. If that kills it, draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
+    power.AddPowerTask(new FlagTask(true, new DrawTask(1)));
+    cards.emplace("EX1_302", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
@@ -1673,6 +1937,25 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     cards.emplace("CS2_114", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your <b>Charge</b> minions have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("EX1_084e", AuraType::FIELD));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
+    power.GetAura().value().restless = true;
+    cards.emplace("EX1_084", power);
+
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_400] Whirlwind - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -1741,6 +2024,16 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_105e"));
     cards.emplace("CS2_105e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_084e] Charge (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Warsong Commander is granting this minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_084e"));
+    cards.emplace("EX1_084e", power);
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
@@ -2059,7 +2352,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("CS2_boar"));
+    power.AddPowerTask(new SummonTask("CS2_boar", SummonSide::RIGHT));
     cards.emplace("CS2_196", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2117,7 +2410,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddAura(Aura("CS2_222o", AuraType::FIELD_EXCEPT_SOURCE));
     cards.emplace("CS2_222", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
     // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -2175,6 +2468,24 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_015", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_019e", EntityType::TARGET));
+    cards.emplace("EX1_019", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
     // - Faction: Alliance, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -2184,7 +2495,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SummonTask("EX1_025t"));
+    power.AddPowerTask(new SummonTask("EX1_025t", SummonSide::RIGHT));
     cards.emplace("EX1_025", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2199,6 +2510,44 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::ENEMY_WEAPON));
     cards.emplace("EX1_066", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7]
+    // - Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, gain +3 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger().value().triggerSource = TriggerSource::SELF;
+    power.GetTrigger().value().singleTask =
+        new AddEnchantmentTask("EX1_399e", EntityType::SOURCE);
+    cards.emplace("EX1_399", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
+    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("EX1_506a", SummonSide::RIGHT));
+    cards.emplace("EX1_506", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
+    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your other Murlocs have +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("EX1_508o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    cards.emplace("EX1_508", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
@@ -2287,6 +2636,16 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_tk1", power);
 
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_019e] Cleric's Blessing (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_019e"));
+    cards.emplace("EX1_019e", power);
+
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_025t] Mechanical Dragonling (*) - COST:1 [ATK:2/HP:1]
     // - Race: Mechanical, Faction: Neutral, Set: Core, Rarity: Common
@@ -2294,6 +2653,34 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_025t", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_506a] Murloc Scout (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_506a", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_508o] Mlarggragllabl! (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This Murloc has +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_508o"));
+    cards.emplace("EX1_508o", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_399e] Berserking (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This minion has increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Effects::AttackN(3));
+    cards.emplace("EX1_399e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [hexfrog] Frog (*) - COST:0 [ATK:0/HP:1]

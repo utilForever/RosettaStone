@@ -11,5 +11,9 @@ namespace RosettaStone::Generic
 void Summon(Player& player, Minion* minion, int fieldPos)
 {
     player.GetField().AddMinion(*minion, fieldPos);
+
+    player.GetGame()->UpdateAura();
+
+    player.GetGame()->summonedMinions.emplace_back(minion);
 }
 }  // namespace RosettaStone::Generic

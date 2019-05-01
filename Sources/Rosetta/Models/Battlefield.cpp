@@ -55,7 +55,7 @@ std::vector<Character*> Battlefield::GetAllMinions()
     return ret;
 }
 
-std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
+std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion) const
 {
     const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
     if (iter != std::end(m_minions))
@@ -66,20 +66,28 @@ std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
     return std::nullopt;
 }
 
-std::optional<std::size_t> Battlefield::FindEmptyPos() const
+void Battlefield::AddMinion(Minion& minion, int pos)
 {
-    const auto iter = std::find(m_minions.begin(), m_minions.end(), nullptr);
-    if (iter != std::end(m_minions))
+    if (pos < 0)
     {
-        return std::distance(std::begin(m_minions), iter);
+        pos = m_numMinion;
     }
 
-    return std::nullopt;
-}
+    if (static_cast<std::size_t>(pos) == m_numMinion)
+    {
+        m_minions.at(pos) = &minion;
+    }
+    else
+    {
+        const int minionSize = static_cast<int>(m_numMinion);
+        for (int i = minionSize - 1; i >= pos; --i)
+        {
+            m_minions[i + 1] = m_minions[i];
+        }
 
-void Battlefield::AddMinion(Minion& minion, std::size_t pos)
-{
-    m_minions.at(pos) = &minion;
+        m_minions.at(pos) = &minion;
+    }
+
     ++m_numMinion;
 
     if (minion.GetGameTag(GameTag::CHARGE) != 1)

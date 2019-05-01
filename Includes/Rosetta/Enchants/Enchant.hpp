@@ -38,6 +38,14 @@ class Enchant
     //! \param effect The effect of the card.
     Enchant(Effect& effect);
 
+    //! Constructs enchant with given \p _effect, \p _useScriptTag and
+    //! \p _isOneTurnEffect.
+    //! \param effect The effect of the card.
+    //! \param _useScriptTag A flag to use script tag.
+    //! \param _isOneTurnEffect A flag whether this is one-turn effect.
+    Enchant(Effect&& effect, bool _useScriptTag = false,
+            bool _isOneTurnEffect = false);
+
     //! Constructs enchant with given \p _effects, \p _useScriptTag and
     //! \p _isOneTurnEffect.
     //! \param _effects A list of effect.

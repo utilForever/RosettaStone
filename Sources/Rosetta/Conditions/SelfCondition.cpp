@@ -15,6 +15,18 @@ SelfCondition::SelfCondition(std::function<bool(Entity*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsDead()
+{
+    return SelfCondition(
+        [=](Entity* entity) -> bool { return entity->isDestroyed; });
+}
+
+SelfCondition SelfCondition::IsRace(Race race)
+{
+    return SelfCondition(
+        [=](Entity* entity) -> bool { return entity->card.GetRace() == race; });
+}
+
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
     return SelfCondition([=](Entity* entity) -> bool {
@@ -27,6 +39,17 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
         }
 
         return false;
+    });
+}
+
+SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
+                                        RelaSign relaSign)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return (relaSign == RelaSign::EQ && entity->GetGameTag(tag) == value) ||
+               (relaSign == RelaSign::GEQ &&
+                entity->GetGameTag(tag) >= value) ||
+               (relaSign == RelaSign::LEQ && entity->GetGameTag(tag) <= value);
     });
 }
 

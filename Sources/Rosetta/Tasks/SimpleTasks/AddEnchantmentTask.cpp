@@ -33,7 +33,7 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    Power power = Cards::FindCardByID(m_cardID).power;
+    Power power = enchantmentCard.power;
 
     for (auto& entity : entities)
     {

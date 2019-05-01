@@ -33,22 +33,14 @@ TaskStatus ControlTask::Impl(Player& player)
             continue;
         }
 
-        const auto opMinionPos = opField.FindMinionPos(*minion).value_or(
-            std::numeric_limits<std::size_t>::max());
-        if (opMinionPos == std::numeric_limits<std::size_t>::max())
+        if (myField.IsFull())
         {
-            return TaskStatus::STOP;
-        }
-
-        const auto myMinionPos = myField.FindEmptyPos().value_or(
-            std::numeric_limits<std::size_t>::max());
-        if (myMinionPos == std::numeric_limits<std::size_t>::max())
-        {
-            return TaskStatus::STOP;
+            entity->Destroy();
+            continue;
         }
 
         const auto minionClone = new Minion(*minion);
-        myField.AddMinion(*minionClone, myMinionPos);
+        myField.AddMinion(*minionClone);
         opField.RemoveMinion(*minion);
     }
 

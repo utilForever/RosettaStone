@@ -30,6 +30,12 @@ class ChooseTask : public ITask
     //! \return Generated PlayCardTask for intended purpose.
     static ChooseTask Mulligan(Player& player, std::vector<std::size_t> choices);
 
+    //! ChooseTask wrapper for pick.
+    //! \param player The player to run task.
+    //! \param choice A card to choose.
+    //! \return Generated PlayCardTask for intended purpose.
+    static ChooseTask Pick(Player& player, std::size_t choice);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;

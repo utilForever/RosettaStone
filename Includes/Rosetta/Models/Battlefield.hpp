@@ -59,16 +59,12 @@ class Battlefield
 
     //! Returns the position of minion in battlefield.
     //! \return The position of minion in battlefield.
-    std::optional<std::size_t> FindMinionPos(Minion& minion);
-
-    //! Returns The empty position in battlefield.
-    //! \return The empty position in battlefield.
-    std::optional<std::size_t> FindEmptyPos() const;
+    std::optional<std::size_t> FindMinionPos(Minion& minion) const;
 
     //! Adds minion to battlefield.
     //! \param minion The minion to add to battlefield.
     //! \param pos The position of minion in battlefield.
-    void AddMinion(Minion& minion, std::size_t pos);
+    void AddMinion(Minion& minion, int pos = -1);
 
     //! Removes minion from battlefield.
     //! \param minion The minion to remove from battlefield.

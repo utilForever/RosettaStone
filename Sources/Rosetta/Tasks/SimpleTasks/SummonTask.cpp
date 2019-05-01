@@ -5,6 +5,7 @@
 
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -31,8 +32,6 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
-    (void)m_side;
-
     for (int i = 0; i < m_num; ++i)
     {
         if (player.GetField().IsFull())
@@ -40,11 +39,56 @@ TaskStatus SummonTask::Impl(Player& player)
             return TaskStatus::STOP;
         }
 
-        Card card = Cards::FindCardByID(m_cardID);
-        Entity* minion = Entity::GetFromCard(player, std::move(card));
-        const int fieldPos =
-            static_cast<int>(player.GetField().FindEmptyPos().value());
-        Generic::Summon(player, dynamic_cast<Minion*>(minion), fieldPos);
+        Entity* summonEntity = nullptr;
+        if (!m_cardID.empty())
+        {
+            Card card = Cards::FindCardByID(m_cardID);
+            summonEntity = Entity::GetFromCard(player, std::move(card));
+        }
+        else if (!player.GetGame()->taskStack.entities.empty())
+        {
+            summonEntity = player.GetGame()->taskStack.entities[0];
+        }
+
+        if (summonEntity == nullptr)
+        {
+            return TaskStatus::STOP;
+        }
+
+        const auto summonMinion = dynamic_cast<Minion*>(summonEntity);
+        if (summonMinion == nullptr)
+        {
+            return TaskStatus::STOP;
+        }
+
+        int summonPos;
+        switch (m_side)
+        {
+            case SummonSide::DEFAULT:
+                summonPos = -1;
+                break;
+            case SummonSide::RIGHT:
+            {
+                auto field = m_source->owner->GetField();
+                const auto minion = dynamic_cast<Minion*>(m_source);
+                const auto fieldPos = field.FindMinionPos(*minion);
+
+                if (fieldPos.has_value())
+                {
+                    summonPos = static_cast<int>(fieldPos.value()) + 1;
+                }
+                else
+                {
+                    summonPos = -1;
+                }
+                break;
+            }
+            default:
+                throw std::invalid_argument(
+                    "SummonTask::Impl() - Invalid summon side");
+        }
+
+        Generic::Summon(player, summonMinion, summonPos);
     }
 
     return TaskStatus::COMPLETE;

@@ -75,15 +75,15 @@ class Effect
 
     //! Returns the value of game tag.
     //! \return The value of game tag.
-    GameTag GetGameTag();
+    GameTag GetGameTag() const;
 
     //! Returns the effect operator.
     //! \return The effect operator.
-    EffectOperator GetEffectOperator();
+    EffectOperator GetEffectOperator() const;
 
     //! Returns the value of effect.
     //! \return The value of effect.
-    int GetValue();
+    int GetValue() const;
 
  private:
     GameTag m_gameTag = GameTag::INVALID;

@@ -4231,3 +4231,664 @@ TEST(CoreCardsGen, CS2_226)
     EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 6);
     EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 6);
 }
+
+TEST(CoreCardsGen, CS2_236)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Divine Spirit"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 7);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    Task::Run(opPlayer, AttackTask(card3, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 8);
+}
+
+TEST(CoreCardsGen, CS2_237)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Starving Buzzard"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ironfur Grizzly"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+}
+
+TEST(CoreCardsGen, DS1_070)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Houndmaster"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Starving Buzzard"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 0);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 5);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 4);
+    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::TAUNT), 1);
+}
+
+TEST(CoreCardsGen, DS1_175)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Timber Wolf"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Timber Wolf"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Starving Buzzard"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card4));
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 5);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
+    EXPECT_EQ(curField.GetMinion(3)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(3)->GetHealth(), 1);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
+    Task::Run(opPlayer, AttackTask(card5, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 2);
+}
+
+TEST(CoreCardsGen, DS1_178)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tundra Rhino"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Timber Wolf"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Starving Buzzard"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 0);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::CHARGE), 1);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetGameTag(GameTag::CHARGE), 1);
+}
+
+TEST(CoreCardsGen, DS1_184)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tracking"));
+
+    EXPECT_EQ(curPlayer.GetDeck().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_TRUE(curPlayer.choice.has_value());
+    EXPECT_EQ(curPlayer.choice.value().choices.size(), 3u);
+
+    Task::Run(curPlayer,
+              ChooseTask::Pick(curPlayer, curPlayer.choice.value().choices[0]));
+    EXPECT_EQ(curPlayer.GetDeck().GetNumOfCards(), 2u);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+}
+
+TEST(CoreCardsGen, EX1_019)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shattered Sun Cleric"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ironfur Grizzly"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
+
+    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
+}
+
+TEST(CoreCardsGen, EX1_084)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Warsong Commander"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 3);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card4));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(3)->GetAttack(), 2);
+}
+
+TEST(CoreCardsGen, EX1_244)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Totemic Might"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, HeroPowerTask());
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, HeroPowerTask());
+    int totem1Health = curField.GetMinion(0)->GetHealth();
+    int totem2Health = curField.GetMinion(1)->GetHealth();
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), totem1Health + 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), totem2Health + 2);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 1);
+}
+
+TEST(CoreCardsGen, EX1_302)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mortal Coil"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mortal Coil"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+}
+
+TEST(CoreCardsGen, EX1_399)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Gurubashi Berserker"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 2);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 5);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 8);
+}
+
+TEST(CoreCardsGen, EX1_506)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Tidehunter"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetNumOfMinions(), 2u);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+}
+
+TEST(CoreCardsGen, EX1_508)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Grimscale Oracle"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Grimscale Oracle"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card3));
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card4));
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 1);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(3)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(3)->GetHealth(), 1);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
+    Task::Run(opPlayer, AttackTask(card5, card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 1);
+    EXPECT_EQ(curField.GetMinion(2)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(2)->GetHealth(), 1);
+}
+
+TEST(CoreCardsGen, NEW1_031)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Animal Companion"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Animal Companion"));
+
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
+
+    if (curField.GetMinion(0)->card.name == "Leokk")
+    {
+        EXPECT_EQ(curField.GetMinion(1)->card.gameTags[GameTag::ATK] + 1,
+                  curField.GetMinion(1)->GetAttack());
+    }
+
+    if (curField.GetMinion(1)->card.name == "Leokk")
+    {
+        EXPECT_EQ(curField.GetMinion(0)->card.gameTags[GameTag::ATK] + 1,
+                  curField.GetMinion(0)->GetAttack());
+    }
+
+    if (curField.GetMinion(0)->card.name != "Leokk" &&
+        curField.GetMinion(1)->card.name != "Leokk")
+    {
+        EXPECT_EQ(curField.GetMinion(0)->card.gameTags[GameTag::ATK],
+                  curField.GetMinion(0)->GetAttack());
+        EXPECT_EQ(curField.GetMinion(1)->card.gameTags[GameTag::ATK],
+                  curField.GetMinion(1)->GetAttack());
+    }
+}

@@ -37,7 +37,7 @@ class SummonTask : public ITask
     //! Constructs task with given \p cardID and \p side.
     //! \param cardID The card ID to summon.
     //! \param side The side of summoned minion.
-    explicit SummonTask(std::string cardID,
+    explicit SummonTask(std::string cardID = "",
                         SummonSide side = SummonSide::DEFAULT);
 
     //! Returns task ID.
