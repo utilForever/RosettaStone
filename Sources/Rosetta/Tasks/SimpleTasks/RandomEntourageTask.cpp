@@ -31,7 +31,7 @@ TaskStatus RandomEntourageTask::Impl(Player& player)
         return TaskStatus::STOP;
     }
 
-    if (m_count > m_source->card.entourages.size())
+    if (m_count > static_cast<int>(m_source->card.entourages.size()))
     {
         return TaskStatus::STOP;
     }
