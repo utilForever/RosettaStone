@@ -319,17 +319,17 @@ void Aura::RemoveInternal()
     auras.erase(iter);
 }
 
-AuraType Aura::GetAuraType()
+AuraType Aura::GetAuraType() const
 {
     return m_type;
 }
 
-std::vector<Effect> Aura::GetEffects()
+std::vector<Effect> Aura::GetEffects() const
 {
     return m_effects;
 }
 
-std::vector<Entity*> Aura::GetAppliedEntities()
+std::vector<Entity*> Aura::GetAppliedEntities() const
 {
     return m_appliedEntities;
 }

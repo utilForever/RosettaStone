@@ -39,7 +39,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
 
 void Trigger::Activate(Entity& source)
 {
-    Trigger* instance = new Trigger(*this, source);
+    auto* instance = new Trigger(*this, source);
     Game* game = source.owner->GetGame();
 
     source.activatedTrigger = instance;
@@ -82,7 +82,7 @@ void Trigger::Activate(Entity& source)
     }
 }
 
-void Trigger::Remove()
+void Trigger::Remove() const
 {
     Game* game = m_owner->owner->GetGame();
 
@@ -141,7 +141,7 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
     }
     else
     {
-        auto enchantment = dynamic_cast<Enchantment*>(m_owner);
+        const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
         if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
         {
             singleTask->SetTarget(enchantment->GetTarget());
@@ -232,8 +232,8 @@ void Trigger::Validate(Player* player, Entity* source)
 
     if (condition != nullptr)
     {
-        bool res = (source != nullptr) ? condition->Evaluate(source)
-                                       : condition->Evaluate(m_owner);
+        const bool res = (source != nullptr) ? condition->Evaluate(source)
+                                             : condition->Evaluate(m_owner);
 
         if (!res)
         {

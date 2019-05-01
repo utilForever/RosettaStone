@@ -55,7 +55,7 @@ std::vector<Character*> Battlefield::GetAllMinions()
     return ret;
 }
 
-std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion)
+std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion) const
 {
     const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
     if (iter != std::end(m_minions))

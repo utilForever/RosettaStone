@@ -54,7 +54,7 @@ void Power::AddEnchant(Enchant&& enchant)
 
 void Power::AddTrigger(Trigger&& trigger)
 {
-    m_trigger = std::move(trigger);
+    m_trigger = trigger;
 }
 
 void Power::AddPowerTask(ITask* task)

@@ -38,7 +38,7 @@ class Trigger
     void Activate(Entity& source);
 
     //! Removes this object from game and unsubscribe from the related event.
-    void Remove();
+    void Remove() const;
 
     TriggerSource triggerSource = TriggerSource::NONE;
 

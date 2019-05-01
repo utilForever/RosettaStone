@@ -101,7 +101,7 @@ void Effect::Remove(AuraEffects& auraEffects) const
     if (m_gameTag == GameTag::HEALTH && m_effectOperator == EffectOperator::ADD)
     {
         auto owner = dynamic_cast<Character*>(auraEffects.GetOwner());
-        int prevDamage = owner->GetDamage();
+        const int prevDamage = owner->GetDamage();
         owner->SetDamage(prevDamage - m_value);
     }
 
@@ -128,17 +128,17 @@ Effect Effect::ChangeValue(int newValue) const
     return Effect(m_gameTag, m_effectOperator, newValue);
 }
 
-EffectOperator Effect::GetEffectOperator()
+EffectOperator Effect::GetEffectOperator() const
 {
     return m_effectOperator;
 }
 
-GameTag Effect::GetGameTag()
+GameTag Effect::GetGameTag() const
 {
     return m_gameTag;
 }
 
-int Effect::GetValue()
+int Effect::GetValue() const
 {
     return m_value;
 }

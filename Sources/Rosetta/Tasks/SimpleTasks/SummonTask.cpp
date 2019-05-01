@@ -71,7 +71,7 @@ TaskStatus SummonTask::Impl(Player& player)
             {
                 auto field = m_source->owner->GetField();
                 const auto minion = dynamic_cast<Minion*>(m_source);
-                auto fieldPos = field.FindMinionPos(*minion);
+                const auto fieldPos = field.FindMinionPos(*minion);
 
                 if (fieldPos.has_value())
                 {

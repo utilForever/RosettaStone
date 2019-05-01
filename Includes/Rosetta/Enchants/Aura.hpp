@@ -73,15 +73,15 @@ class Aura
 
     //! Returns the type of aura.
     //! \return The type of aura.
-    AuraType GetAuraType();
+    AuraType GetAuraType() const;
 
     //! Returns the effect of aura.
     //! \return The effect of aura.
-    std::vector<Effect> GetEffects();
+    std::vector<Effect> GetEffects() const;
 
     //! Returns the applied entities affected by the aura.
     //! \return The applied entities affected by the aura.
-    std::vector<Entity*> GetAppliedEntities();
+    std::vector<Entity*> GetAppliedEntities() const;
 
     SelfCondition* condition = nullptr;
     bool restless = false;
