@@ -53,10 +53,10 @@
 * [x] Discard
 * [ ] Elusive
 * [x] Enchant
-* [ ] Enrage
+* [x] Enrage
 * [ ] Equip
 * [ ] Forgetful
-* [ ] Gain Armor
+* [x] Gain Armor
 * [ ] Generate
 * [x] Increment attribute
 * [ ] Joust
@@ -72,7 +72,7 @@
 * [ ] Remove from deck
 * [ ] Replace
 * [x] Restore Health
-* [ ] Return
+* [x] Return
 * [x] Set attribute
 * [ ] Shuffle into deck
 * [x] Spend mana
@@ -87,11 +87,11 @@
 * [ ] In-hand effect
 * [ ] On-discard effect
 * [ ] On-draw effect
-* [ ] Ongoing effect
+* [x] Ongoing effect
 * [ ] Positional effect
-* [ ] Random effect
+* [x] Random effect
 * [ ] Removal
-* [ ] Triggered effect
+* [x] Triggered effect
 
 ## Boss and Tavern Brawl abilities
 

@@ -97,38 +97,38 @@ CORE | CS2_226 | Frostwolf Warlord | O
 CORE | CS2_232 | Ironbark Protector | O
 CORE | CS2_234 | Shadow Word: Pain | O
 CORE | CS2_235 | Northshire Cleric | O
-CORE | CS2_236 | Divine Spirit |  
-CORE | CS2_237 | Starving Buzzard |  
+CORE | CS2_236 | Divine Spirit | O
+CORE | CS2_237 | Starving Buzzard | O
 CORE | DS1_055 | Darkscale Healer | O
-CORE | DS1_070 | Houndmaster |  
-CORE | DS1_175 | Timber Wolf |  
-CORE | DS1_178 | Tundra Rhino |  
+CORE | DS1_070 | Houndmaster | O
+CORE | DS1_175 | Timber Wolf | O
+CORE | DS1_178 | Tundra Rhino | O
 CORE | DS1_183 | Multi-Shot | O
-CORE | DS1_184 | Tracking |  
+CORE | DS1_184 | Tracking | O
 CORE | DS1_185 | Arcane Shot | O
 CORE | DS1_233 | Mind Blast | O
 CORE | EX1_011 | Voodoo Doctor | O
 CORE | EX1_015 | Novice Engineer | O
-CORE | EX1_019 | Shattered Sun Cleric |  
+CORE | EX1_019 | Shattered Sun Cleric | O
 CORE | EX1_025 | Dragonling Mechanic | O
 CORE | EX1_066 | Acidic Swamp Ooze | O
-CORE | EX1_084 | Warsong Commander |  
+CORE | EX1_084 | Warsong Commander | O
 CORE | EX1_129 | Fan of Knives | O
 CORE | EX1_169 | Innervate | O
 CORE | EX1_173 | Starfire | O
-CORE | EX1_244 | Totemic Might |  
+CORE | EX1_244 | Totemic Might | O
 CORE | EX1_246 | Hex | O
 CORE | EX1_277 | Arcane Missiles | O
 CORE | EX1_278 | Shiv | O
-CORE | EX1_302 | Mortal Coil |  
+CORE | EX1_302 | Mortal Coil | O
 CORE | EX1_306 | Succubus | O
 CORE | EX1_308 | Soulfire | O
 CORE | EX1_360 | Humility | O
 CORE | EX1_371 | Hand of Protection | O
-CORE | EX1_399 | Gurubashi Berserker |  
+CORE | EX1_399 | Gurubashi Berserker | O
 CORE | EX1_400 | Whirlwind | O
-CORE | EX1_506 | Murloc Tidehunter |  
-CORE | EX1_508 | Grimscale Oracle |  
+CORE | EX1_506 | Murloc Tidehunter | O
+CORE | EX1_508 | Grimscale Oracle | O
 CORE | EX1_539 | Kill Command | O
 CORE | EX1_565 | Flametongue Totem | O
 CORE | EX1_581 | Sap | O
@@ -140,9 +140,9 @@ CORE | EX1_622 | Shadow Word: Death | O
 CORE | NEW1_003 | Sacrificial Pact | O
 CORE | NEW1_004 | Vanish | O
 CORE | NEW1_011 | Kor'kron Elite | O
-CORE | NEW1_031 | Animal Companion |  
+CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 89% (119 of 133 Cards)
+- Progress: 100% (133 of 133 Cards)
 
 ## Classic
 
