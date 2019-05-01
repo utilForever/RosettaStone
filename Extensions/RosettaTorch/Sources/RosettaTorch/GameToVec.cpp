@@ -158,7 +158,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     // Write health of the card
     cardVector[2] = (health >= CLIP_CARD_NORM) ? 1. : health / CLIP_CARD_NORM;
 
-    auto AuraToVector = [&](std::optional<Aura> aura) -> torch::Tensor {
+    auto AuraToVector = [&](std::optional<Aura>& aura) -> torch::Tensor {
         if (!aura.has_value())
         {
             return torch::zeros(AuraVectorSize);
