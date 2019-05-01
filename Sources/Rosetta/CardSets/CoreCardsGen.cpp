@@ -29,6 +29,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
@@ -656,6 +657,22 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new FlagTask(false, new DamageTask(EntityType::TARGET, 3, true)));
     cards.emplace("EX1_539", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [NEW1_031] Animal Companion - COST:3
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Summon a random Beast Companion.
+    // --------------------------------------------------------
+    // Entourage: NEW1_032, NEW1_033, NEW1_034
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomEntourageTask());
+    power.AddPowerTask(new SummonTask());
+    cards.emplace("NEW1_031", power);
 }
 
 void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
@@ -701,6 +718,55 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DS1_178e"));
     cards.emplace("DS1_178e", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [NEW1_032] Misha (*) - COST:3 [ATK:4/HP:4]
+    // - Race: Beast, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_032", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [NEW1_033] Leokk (*) - COST:3 [ATK:2/HP:4]
+    // - Race: Beast, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your other minions have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("NEW1_033o", AuraType::FIELD_EXCEPT_SOURCE));
+    cards.emplace("NEW1_033", power);
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [NEW1_033o] Eye In The Sky (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: Leokk is granting this minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_033o"));
+    cards.emplace("NEW1_033o", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [NEW1_034] Huffer (*) - COST:3 [ATK:4/HP:2]
+    // - Race: Beast, Set: Core, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_034", power);
 }
 
 void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
@@ -2458,7 +2524,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new AddEnchantmentTask("EX1_399e", EntityType::SOURCE);
     cards.emplace("EX1_399", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
     // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -2470,6 +2536,18 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new SummonTask("EX1_506a", SummonSide::RIGHT));
     cards.emplace("EX1_506", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
+    // - Race: Murloc, Faction: Neutral, Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Your other Murlocs have +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("EX1_508o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    cards.emplace("EX1_508", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
@@ -2583,6 +2661,16 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_506a", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_508o] Mlarggragllabl! (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This Murloc has +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_508o"));
+    cards.emplace("EX1_508o", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_399e] Berserking (*) - COST:0
