@@ -129,11 +129,15 @@ To learn how to build, test, and install the SDK, please check out [Install.md](
 
 All the documentations for the framework can be found from [the project website](https://utilforever.github.io/RosettaStone/) incluing the API reference.
 
-## Presentation
+## Presentations
 
-- [TFCON 2018 Poster Session](https://onoffmix.com/event/144143)
-- [PyCon Korea 2018 Sprint Session](https://archive.pycon.kr/2018/program/sprint/3)
-- NDC 2019 (Coming soon...)
+* [TFCON 2018 Poster Session](./Medias/Presentations/TFCON%202018%20-%20Hearthstone%2B%2B%2C%20Hearthstone%20Simulator%20with%20Reinforcement%20Learning.pdf)
+* [NDC 2019](./Medias/Presentations/NDC%202019%20-%20Development%20Process%20of%20Hearthstone%20Reinforcement%20Learning%20Environment%20(Korean).pdf)
+
+## Sprints
+
+* [PyCon Korea 2018 Sprint Session](https://archive.pycon.kr/2018/program/sprint/3)
+* [Sprint Seoul - April 2019](https://sprintseoul.org/)
 
 ## How To Contribute
 
