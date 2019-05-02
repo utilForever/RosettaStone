@@ -1,6 +1,6 @@
 # RosettaStone
 
-<img src="https://github.com/utilForever/RosettaStone/blob/master/Medias/Logo.png" width=256 height=256 />
+<img src="https://github.com/utilForever/RosettaStone/blob/master/Medias/Logos/Logo.png" width=256 height=256 />
 
 [![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/master/LICENSE) [![Build Status](https://travis-ci.org/utilForever/RosettaStone.svg?branch=master)](https://travis-ci.org/utilForever/RosettaStone/branches) [![Build status](https://ci.appveyor.com/api/projects/status/github/utilForever/RosettaStone?branch=master&svg=true)](https://ci.appveyor.com/project/utilForever/RosettaStone/branch/master) [![Build Status](https://utilforever.visualstudio.com/RosettaStone/_apis/build/status/utilForever.RosettaStone?branchName=master)](https://utilforever.visualstudio.com/RosettaStone/_build/latest?definitionId=7&branchName=master) [![Discord](https://img.shields.io/discord/483192043737186335.svg)](https://discord.gg/6R3UueR)
 
@@ -158,7 +158,7 @@ You can contact me via e-mail (utilForever at gmail.com). I am always happy to a
 
 ## Sponsors
 
-[![CppDepend](https://github.com/utilForever/RosettaStone/blob/master/Medias/CppDepend.png)](http://www.cppdepend.com)
+[![CppDepend](https://github.com/utilForever/RosettaStone/blob/master/Medias/Logos/CppDepend.png)](http://www.cppdepend.com)
 
 ## License
 
