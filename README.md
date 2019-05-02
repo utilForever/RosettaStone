@@ -14,73 +14,73 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ## Related Repositories
 
-- [RosettaStone GUI](https://www.github.com/utilforever/RosettaStone-GUI)
+  * [RosettaStone GUI](https://www.github.com/utilforever/RosettaStone-GUI)
 
 ## Key Features
 
-- Support C++17 based Hearthstone library
-- Provide console and GUI simulator
+  * Support C++17 based Hearthstone library
+  * Provide console and GUI simulator
 
 ## To-do Features
 
-- Upgrade "The Innkeeper" to smart
-- Recommend top-tier decks
-- Deck tracker
-- Web simulator
-- Python API
+  * Upgrade "The Innkeeper" to smart
+  * Recommend top-tier decks
+  * Deck tracker
+  * Web simulator
+  * Python API
 
 ## Roadmap
 
 ### 2019
 
-- Implement all original + some expansion cards
-- Fully support console and GUI program
-- Provide RL environment using PyTorch C++ API
-- Support API for another language such as Python
-- Integrate with RealStone, "Real" Hearthstone hardware using Arduino
+  * Implement all original + some expansion cards
+  * Fully support console and GUI program
+  * Provide RL environment using PyTorch C++ API
+  * Support API for another language such as Python
+  * Integrate with RealStone, "Real" Hearthstone hardware using Arduino
 
 ### 2018
 
-- Implement basic system (game and task)
-- Implement basic console program
-- Implement some original cards
-- Support cross-platform build (Windows/Linux/MacOS)
-- Provide API documentation using doxygen
+  * Implement basic system (game and task)
+  * Implement basic console program
+  * Implement some original cards
+  * Support cross-platform build (Windows/Linux/MacOS)
+  * Provide API documentation using doxygen
 
 ## Cards Implementation
 
 ### Basic & Classic
 
-- **100% Basic (133 of 133 Cards)**
-- 9% Classic (23 of 237 Cards)
-- 9% Hall of Fame (2 of 22 Cards)
+  * **100% Basic (133 of 133 Cards)**
+  * 9% Classic (23 of 237 Cards)
+  * 9% Hall of Fame (2 of 22 Cards)
 
 ### Adventures
 
-- 0% One Night in Karazhan (0 of 45 Cards)
-- 0% The League of Explorers (0 of 45 Cards)
-- 0% Blackrock Mountain (0 of 31 Cards)
-- 0% Curse of Naxxramas (0 of 30 Cards)
+  * 0% One Night in Karazhan (0 of 45 Cards)
+  * 0% The League of Explorers (0 of 45 Cards)
+  * 0% Blackrock Mountain (0 of 31 Cards)
+  * 0% Curse of Naxxramas (0 of 30 Cards)
 
 ### Expansions
 
-- 0% Rise of Shadows (0 of 135 cards)
-- 0% Rastakhan's Rumble (0 of 135 Cards)
-- 0% The Boomsday Project (0 of 135 Cards)
-- 0% The Witchwood (0 of 135 Cards)
-- 0% Kobolds & Catacombs (0 of 135 Cards)
-- 0% Knights of the Frozen Throne (0 of 135 Cards)
-- 0% Journey to Un'Goro (0 of 135 Cards)
-- 0% Mean Streets of Gadgetzan (0 of 132 Cards)
-- 0% Whispers of the Old Gods (0 of 134 Cards)
-- 0% The Grand Tournament (0 of 132 Cards)
-- 0% Goblins vs Gnomes (0 of 123 Cards)
+  * 0% Rise of Shadows (0 of 135 cards)
+  * 0% Rastakhan's Rumble (0 of 135 Cards)
+  * 0% The Boomsday Project (0 of 135 Cards)
+  * 0% The Witchwood (0 of 135 Cards)
+  * 0% Kobolds & Catacombs (0 of 135 Cards)
+  * 0% Knights of the Frozen Throne (0 of 135 Cards)
+  * 0% Journey to Un'Goro (0 of 135 Cards)
+  * 0% Mean Streets of Gadgetzan (0 of 132 Cards)
+  * 0% Whispers of the Old Gods (0 of 134 Cards)
+  * 0% The Grand Tournament (0 of 132 Cards)
+  * 0% Goblins vs Gnomes (0 of 123 Cards)
 
 ## Implementation List
 
-- [Ability list](./Documents/AbilityList.md)
-- [Card list](./Documents/CardList.md)
-- [Task list](./Documents/TaskList.md)
+  * [Ability list](./Documents/AbilityList.md)
+  * [Card list](./Documents/CardList.md)
+  * [Task list](./Documents/TaskList.md)
 
 ## Quick Start
 
@@ -131,13 +131,21 @@ All the documentations for the framework can be found from [the project website]
 
 ## Presentations
 
-* [TFCON 2018 Poster Session](./Medias/Presentations/TFCON%202018%20-%20Hearthstone%2B%2B%2C%20Hearthstone%20Simulator%20with%20Reinforcement%20Learning.pdf)
-* [NDC 2019](./Medias/Presentations/NDC%202019%20-%20Development%20Process%20of%20Hearthstone%20Reinforcement%20Learning%20Environment%20(Korean).pdf)
+  * [TFCON 2018 Poster Session](./Medias/Presentations/TFCON%202018%20-%20Hearthstone%2B%2B%2C%20Hearthstone%20Simulator%20with%20Reinforcement%20Learning.pdf)
+  * [NDC 2019](./Medias/Presentations/NDC%202019%20-%20Development%20Process%20of%20Hearthstone%20Reinforcement%20Learning%20Environment%20(Korean).pdf)
 
 ## Sprints
 
-* [PyCon Korea 2018 Sprint Session](https://archive.pycon.kr/2018/program/sprint/3)
-* [Sprint Seoul - April 2019](https://sprintseoul.org/)
+  * [PyCon Korea 2018 Sprint Session](https://archive.pycon.kr/2018/program/sprint/3)
+  * [Sprint Seoul - April 2019](https://sprintseoul.org/)
+
+## Articles
+
+  * NDC 2019
+    * [[NDC2019] 하스스톤을 위한 '알파고'를 만들 수는 없을까? - 인벤](http://www.inven.co.kr/webzine/news/?news=219330&site=hs)
+    * [[NDC 19] '알파고' 같은 하스스톤 인공지능을 만들기 위한 험난한 여정 - 디스이즈게임](http://www.thisisgame.com/webzine/gameevent/nboard/227/?n=93644)
+    * [[NDC2019 #11] 넥슨 프로그래머의 ‘하스스톤’ A·I 제작기 - 경향게임스](http://www.khgames.co.kr/news/articleView.html?idxno=118028)
+    * [[NDC 2019] 넥슨 프로그래머의 ‘하스스톤’ AI 도전기 - OSEN](http://www.osen.co.kr/article/G1111130399)
 
 ## How To Contribute
 
@@ -178,32 +186,25 @@ RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
 Copyright (C) 2017-2019 RosettaStone Team
 
-- [Chris Ohk](http://www.github.com/utilForever)
-- [Youngjoong Kim](https://github.com/revsic)
-- [Seunghyun Jeon](https://github.com/FuZer)
-- [Sunghyun Kim](https://github.com/devArtoria)
-- [Hyeongchan Kim](https://github.com/kozistr)
-- [Yoohan Park](https://github.com/CreatorSeraph)
-- [Junghyun Choi](https://github.com/junghyun397)
-- [Inwoo Tae](https://github.com/taeInwoo)
-- [Jeongho Park](https://github.com/Park-JeongHo)
+  * [Chris Ohk](http://www.github.com/utilForever)
+  * [Youngjoong Kim](https://github.com/revsic)
+  * [Seunghyun Jeon](https://github.com/FuZer)
+  * [Sunghyun Kim](https://github.com/devArtoria)
+  * [Hyeongchan Kim](https://github.com/kozistr)
+  * [Yoohan Park](https://github.com/CreatorSeraph)
+  * [Junghyun Choi](https://github.com/junghyun397)
+  * [Inwoo Tae](https://github.com/taeInwoo)
+  * [Jeongho Park](https://github.com/Park-JeongHo)
 
 RealStone, "Real" Hearthstone hardware using Arduino
 
 Copyright (C) 2018-2019 RealStone Team
 
-- Taehyeon Song
-- Doun Lee
-- Yeonsu Jung
-- Suha Cho
+  * Taehyeon Song
+  * Doun Lee
+  * Yeonsu Jung
+  * Suha Cho
 
-RosettaStone is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License.
-RosettaStone is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
+RosettaStone is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License. RosettaStone is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 
 Hearthstone is an interactive game of Blizzard Entertainment, Inc and all rights reserved. Hearthstone is a registered trademark of Blizzard Entertainment, Inc. in the U.S. and/or other countries. This project is not affiliated with Blizzard Entertainment.
