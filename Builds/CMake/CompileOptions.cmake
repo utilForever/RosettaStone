@@ -92,6 +92,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/wd4305       # -> disable warning: 'initializing': truncation from 'double' to 'float' (caused by Torch)
 		/wd4018       # -> disable warning: '>': signed/unsigned mismatch (caused by Torch)
 		/wd4273       # -> disable warning: 'torch::jit::tracer::addInputs': inconsistent dll linkage (caused by Torch)
+		/wd4819       # -> disable warning: The file contains a character that cannot be represented in the current code page (949) (caused by pybind11)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
