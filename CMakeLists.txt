@@ -22,6 +22,7 @@ include_directories(Libraries)
 include_directories(Libraries/googletest/googletest/include)
 include_directories(Libraries/Clara/include)
 include_directories(Libraries/random/include)
+include_directories(Libraries/pybind11/include)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)
@@ -48,11 +49,13 @@ add_subdirectory(Libraries/googletest EXCLUDE_FROM_ALL)
 cmake_policy(SET CMP0063 NEW)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+add_subdirectory(Libraries/pybind11)
 add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
 add_subdirectory(Extensions/RosettaTorch)
+add_subdirectory(Extensions/RosettaPython)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
