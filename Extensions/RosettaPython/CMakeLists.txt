@@ -2,12 +2,11 @@
 set(target RosettaPython)
 
 # Define
-set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../..)
+set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
 # Sources
 file(GLOB_RECURSE sources
-		${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/Extensions/RosettaPython/Sources/*.cpp)
+		${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # Add Pybind11 module
 pybind11_add_module(${target} ${sources})
