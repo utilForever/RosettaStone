@@ -121,9 +121,18 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 		-std=c++1z
 	)
 endif ()
+
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wno-int-in-bool-context
+	)
+endif ()
+
+# Prevent "no matching function for call to 'operator delete'" error
+# https://github.com/pybind/pybind11/issues/1604
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
+		-fsized-deallocation
 	)
 endif ()
 
