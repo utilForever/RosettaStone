@@ -8,3 +8,6 @@
 [submodule "Libraries/random"]
 	path = Libraries/random
 	url = https://github.com/effolkronium/random
+[submodule "Libraries/pybind11"]
+	path = Libraries/pybind11
+	url = https://github.com/pybind/pybind11
