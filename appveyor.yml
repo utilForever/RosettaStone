@@ -20,6 +20,8 @@ install:
   - git submodule update --init
   - ps: |
       $env:CMAKE_GENERATOR = "Visual Studio 15 2017 Win64"
+      $env:PYTHON = "36-x64"
+      $env:PATH = "C:\Python$env:PYTHON\;C:\Python$env:PYTHON\Scripts\;$env:PATH"
 
 before_build:
   - md C:\RosettaStone\build
