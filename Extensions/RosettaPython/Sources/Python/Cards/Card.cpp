@@ -8,6 +8,7 @@
 #include <Rosetta/Cards/Card.hpp>
 
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 
 using namespace RosettaStone;
 
@@ -16,6 +17,8 @@ void AddCard(pybind11::module& m)
     pybind11::class_<Card>(
         static_cast<pybind11::handle>(m), "Card",
         R"pbdoc(This class stores card information such as attack, health and cost.)pbdoc")
+        .def("__init__", [](Card& instance) { new (&instance) Card(); },
+             R"pbdoc(Constructs Card class.)pbdoc")
         .def_readwrite("id", &Card::id, R"pbdoc(ID of the card.)pbdoc")
         .def_readwrite("name", &Card::name, R"pbdoc(Name of the card.)pbdoc")
         .def_readwrite("text", &Card::text, R"pbdoc(Text of the card.)pbdoc")
@@ -27,5 +30,27 @@ void AddCard(pybind11::module& m)
                        R"pbdoc(Entourages of the card.)pbdoc")
         .def_readwrite("power", &Card::power, R"pbdoc(Power of the card.)pbdoc")
         .def_readwrite("maxAllowedInDeck", &Card::maxAllowedInDeck,
-                       "Maximum of card in deck.)pbdoc");
+                       "Maximum of card in deck.)pbdoc")
+        .def("initialize", &Card::Initialize,
+             R"pbdoc(Initializes card data.)pbdoc")
+        .def("card_class", &Card::GetCardClass,
+             R"pbdoc(Returns the value of card class.)pbdoc")
+        .def("card_set", &Card::GetCardSet,
+             R"pbdoc(Returns the value of card set.)pbdoc")
+        .def("card_type", &Card::GetCardType,
+             R"pbdoc(Returns the value of card set.)pbdoc")
+        .def("faction", &Card::GetFaction,
+             R"pbdoc(Returns the value of faction.)pbdoc")
+        .def("race", &Card::GetRace, R"pbdoc(Returns the value of race.)pbdoc")
+        .def("rarity", &Card::GetRarity,
+             R"pbdoc(Returns the value of rarity.)pbdoc")
+        .def("has_game_tag", &Card::HasGameTag,
+             R"pbdoc(Finds out if this card has game tag.
+
+             true if this card has game tag, and false otherwise.
+
+             Parameters
+             ----------
+             - game_tag : The game tag of card.)pbdoc",
+             pybind11::arg("game_tag"));
 }
