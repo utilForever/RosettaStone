@@ -54,7 +54,7 @@ class CMakeBuild(build_ext):
         else:
             cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
             num_jobs = env.get('NUM_JOBS', multiprocessing.cpu_count())
-            build_args += ['--', '-j%s' % str(num_jobs), 'RosettaPython']
+            build_args += ['--', '-j%s' % str(num_jobs), 'pyRosetta']
 
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
                                                               self.distribution.get_version())
@@ -67,13 +67,13 @@ class CMakeBuild(build_ext):
 
 
 setup(
-    name='RosettaPython',
+    name='pyRosetta',
     version='0.1',
     author='Chris Ohk',
     author_email='utilforever@gmail.com',
     description='Hearthstone simulator with some reinforcement learning',
     long_description='',
-    ext_modules=[CMakeExtension('RosettaPython')],
+    ext_modules=[CMakeExtension('pyRosetta')],
     
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
