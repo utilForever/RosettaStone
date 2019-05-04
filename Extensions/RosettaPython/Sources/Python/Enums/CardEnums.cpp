@@ -4,19 +4,18 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Python/Cards/Card.hpp>
 #include <Python/Enums/CardEnums.hpp>
+#include <Rosetta/Enums/CardEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
-PYBIND11_MODULE(pyRosetta, m)
+using namespace RosettaStone;
+
+void AddCardEnums(pybind11::module& m)
 {
-    m.doc() =
-        R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
-
-    // Cards
-    AddCard(m);
-
-    // Enums
-    AddCardEnums(m);
+    pybind11::enum_<GameTag>(m, "GameTag")
+#define X(a) .value(#a, GameTag::a)
+#include "Rosetta/Enums/GameTag.def"
+#undef X
+        ;
 }

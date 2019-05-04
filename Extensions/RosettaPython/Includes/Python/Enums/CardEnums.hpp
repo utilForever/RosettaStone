@@ -4,19 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Python/Cards/Card.hpp>
-#include <Python/Enums/CardEnums.hpp>
+#ifndef ROSETTASTONE_PYTHON_CARD_ENUMS_HPP
+#define ROSETTASTONE_PYTHON_CARD_ENUMS_HPP
 
 #include <pybind11/pybind11.h>
 
-PYBIND11_MODULE(pyRosetta, m)
-{
-    m.doc() =
-        R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
+void AddCardEnums(pybind11::module& m);
 
-    // Cards
-    AddCard(m);
-
-    // Enums
-    AddCardEnums(m);
-}
+#endif  // ROSETTASTONE_PYTHON_CARD_ENUMS_HPP
