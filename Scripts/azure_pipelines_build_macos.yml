@@ -16,3 +16,7 @@ steps:
     cmake ..
     make -j 8
     bin/UnitTests
+    cd ..
+    pip install --user -r requirements.txt
+    pip install --user .
+    pytest ./Tests/PythonTests
