@@ -22,14 +22,14 @@ void AddCard(pybind11::module& m)
         .def_readwrite("id", &Card::id, R"pbdoc(ID of the card.)pbdoc")
         .def_readwrite("name", &Card::name, R"pbdoc(Name of the card.)pbdoc")
         .def_readwrite("text", &Card::text, R"pbdoc(Text of the card.)pbdoc")
-        .def_readwrite("gameTags", &Card::gameTags,
+        .def_readwrite("game_tags", &Card::gameTags,
                        R"pbdoc(Game tags of the card.)pbdoc")
-        .def_readwrite("playReqs", &Card::playRequirements,
+        .def_readwrite("play_reqs", &Card::playRequirements,
                        R"pbdoc(Play requirements of the card.)pbdoc")
         .def_readwrite("entourages", &Card::entourages,
                        R"pbdoc(Entourages of the card.)pbdoc")
         .def_readwrite("power", &Card::power, R"pbdoc(Power of the card.)pbdoc")
-        .def_readwrite("maxAllowedInDeck", &Card::maxAllowedInDeck,
+        .def_readwrite("max_allowed_in_deck", &Card::maxAllowedInDeck,
                        "Maximum of card in deck.)pbdoc")
         .def("initialize", &Card::Initialize,
              R"pbdoc(Initializes card data.)pbdoc")
