@@ -8,6 +8,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -206,6 +207,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 3));
     cards.emplace("CS2_117", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a 2/2 Squire.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("CS2_152", SummonSide::RIGHT));
+    cards.emplace("CS2_151", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5]
@@ -447,7 +461,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_152] Squire (*) - COST:1 [ATK:2/HP:2]
+    // - Faction: Alliance, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_152", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)

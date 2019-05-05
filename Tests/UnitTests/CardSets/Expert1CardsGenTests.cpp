@@ -59,6 +59,38 @@ TEST(Expert1CardsGen, CS2_028)
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 0);
 }
 
+TEST(Expert1CardsGen, CS2_151)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Silver Hand Knight"));
+
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 4);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
+    EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 2);
+    EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 2);
+}
+
 TEST(Expert1CardsGen, CS2_117)
 {
     GameConfig config;
