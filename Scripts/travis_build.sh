@@ -15,7 +15,7 @@ if [[ "$unamestr" == 'Darwin' ]]; then
     echo "Disabling pip test for macOS"
 else
     cd ..
-    pip install --user -r requirements.txt
-    pip install --user .
-    pytest ./Tests/PythonTests
+    pip3 install --user -r requirements.txt
+    pip3 install --user .
+    python3 -m pytest ./Tests/PythonTests
 fi

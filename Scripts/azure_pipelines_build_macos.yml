@@ -17,6 +17,6 @@ steps:
     make -j 8
     bin/UnitTests
     cd ..
-    pip install --user -r requirements.txt
-    pip install --user .
-    pytest ./Tests/PythonTests
+    pip3 install --user -r requirements.txt
+    pip3 install --user .
+    python3 -m pytest ./Tests/PythonTests
