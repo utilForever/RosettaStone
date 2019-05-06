@@ -19,3 +19,10 @@ RUN cmake .. && \
     make -j "$(nproc)" && \
     make install && \
     bin/UnitTests
+
+WORKDIR /app/ENV3
+RUN pip3 install -r ../requirements.txt && \
+    pip3 install .. && \
+    python3 -m pytest ../Tests/PythonTests/
+
+WORKDIR /

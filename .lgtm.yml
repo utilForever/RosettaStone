@@ -10,7 +10,7 @@ extraction:
         - cd _lgtm_build_dir
         - make
   python:
-    python_setup: 
+    python_setup:
       version: 3
 
 path_classifiers:

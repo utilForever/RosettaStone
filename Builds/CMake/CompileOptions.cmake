@@ -92,6 +92,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/wd4305       # -> disable warning: 'initializing': truncation from 'double' to 'float' (caused by Torch)
 		/wd4018       # -> disable warning: '>': signed/unsigned mismatch (caused by Torch)
 		/wd4273       # -> disable warning: 'torch::jit::tracer::addInputs': inconsistent dll linkage (caused by Torch)
+		/wd4819       # -> disable warning: The file contains a character that cannot be represented in the current code page (949) (caused by pybind11)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
@@ -113,14 +114,25 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wall
 		-Wno-missing-braces
+		-Wno-register			# -> disable warning: ISO c++1z does not allow 'register' storage class specifier [-wregister] (caused by pybind11/python2.7)
+        -Wno-error=register		# -> disable warning: ISO c++1z does not allow 'register' storage class specifier [-wregister] (caused by pybind11/python2.7)
 
 		${WARN_AS_ERROR_FLAGS}
 		-std=c++1z
 	)
 endif ()
+
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
 		-Wno-int-in-bool-context
+	)
+endif ()
+
+# Prevent "no matching function for call to 'operator delete'" error
+# https://github.com/pybind/pybind11/issues/1604
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+	set(DEFAULT_COMPILE_OPTIONS ${DEFAULT_COMPILE_OPTIONS}
+		-fsized-deallocation
 	)
 endif ()
 
