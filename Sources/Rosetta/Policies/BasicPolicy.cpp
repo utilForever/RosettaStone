@@ -21,7 +21,7 @@ TaskMeta BasicPolicy::Require(Player& player, TaskID id)
     {
         return iter->second(*this, player);
     }
-    return TaskMeta(id);
+    return TaskMeta(TaskMetaTrait(id));
 }
 
 void BasicPolicy::Notify(const TaskMeta& meta)

@@ -53,7 +53,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
     using Random = effolkronium::random_static;
 
     std::vector<std::tuple<Entity*, Entity*>> possible;
-    bool summonAvailable = !player.GetField().IsFull();
+    const bool summonAvailable = !player.GetField().IsFull();
 
     for (Entity* entity : player.GetHand().GetAllCards())
     {
@@ -83,7 +83,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
 
     if (possible.empty())
     {
-        return TaskMeta({ TaskID::PLAY_CARD }, SizedPtr<Entity*>());
+        return TaskMeta(TaskMetaTrait(TaskID::PLAY_CARD), SizedPtr<Entity*>());
     }
     else
     {
@@ -102,7 +102,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
             ptr[0] = source;
         }
 
-        return TaskMeta({ TaskID::PLAY_CARD }, std::move(ptr));
+        return TaskMeta(TaskMetaTrait(TaskID::PLAY_CARD), std::move(ptr));
     }
 }
 
@@ -140,7 +140,7 @@ TaskMeta RandomPolicy::RequireAttack(Player& player)
 
     if (possible.empty())
     {
-        return TaskMeta({ TaskID::ATTACK }, SizedPtr<Entity*>());
+        return TaskMeta(TaskMetaTrait(TaskID::ATTACK), SizedPtr<Entity*>());
     }
     else
     {
@@ -150,7 +150,7 @@ TaskMeta RandomPolicy::RequireAttack(Player& player)
         ptr[0] = source;
         ptr[1] = target;
 
-        return TaskMeta({ TaskID::ATTACK }, std::move(ptr));
+        return TaskMeta(TaskMetaTrait(TaskID::ATTACK), std::move(ptr));
     }
 }
 }  // namespace RosettaStone
