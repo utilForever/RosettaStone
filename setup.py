@@ -74,7 +74,6 @@ setup(
     description='Hearthstone simulator with some reinforcement learning',
     long_description='',
     ext_modules=[CMakeExtension('pyRosetta')],
-    
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
 )
