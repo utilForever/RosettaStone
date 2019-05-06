@@ -10,7 +10,7 @@ cmake ..
 make
 bin/UnitTests
 
-unamestr=`uname`
+unamestr=$(uname)
 if [[ "$unamestr" == 'Darwin' ]]; then
     echo "Disabling pip test for macOS"
 else
