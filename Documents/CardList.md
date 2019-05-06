@@ -156,9 +156,9 @@ EXPERT1 | CS2_053 | Far Sight |
 EXPERT1 | CS2_059 | Blood Imp |  
 EXPERT1 | CS2_073 | Cold Blood |  
 EXPERT1 | CS2_104 | Rampage |  
-EXPERT1 | CS2_117 | Earthen Ring Farseer |  
+EXPERT1 | CS2_117 | Earthen Ring Farseer | O
 EXPERT1 | CS2_146 | Southsea Deckhand |  
-EXPERT1 | CS2_151 | Silver Hand Knight |  
+EXPERT1 | CS2_151 | Silver Hand Knight | O
 EXPERT1 | CS2_161 | Ravenholdt Assassin | O
 EXPERT1 | CS2_169 | Young Dragonhawk | O
 EXPERT1 | CS2_181 | Injured Blademaster |  
@@ -231,13 +231,16 @@ EXPERT1 | EX1_154 | Wrath |
 EXPERT1 | EX1_155 | Mark of Nature |  
 EXPERT1 | EX1_158 | Soul of the Forest |  
 EXPERT1 | EX1_160 | Power of the Wild |  
-EXPERT1 | EX1_161 | Naturalize |  
 EXPERT1 | EX1_162 | Dire Wolf Alpha |  
 EXPERT1 | EX1_164 | Nourish |  
 EXPERT1 | EX1_165 | Druid of the Claw |  
 EXPERT1 | EX1_166 | Keeper of the Grove |  
 EXPERT1 | EX1_170 | Emperor Cobra | O
 EXPERT1 | EX1_178 | Ancient of War |  
+EXPERT1 | EX1_179 | Icicle |  
+EXPERT1 | EX1_180 | Tome of Intellect |  
+EXPERT1 | EX1_181 | Call of the Void |  
+EXPERT1 | EX1_182 | Pilfer |  
 EXPERT1 | EX1_238 | Lightning Bolt |  
 EXPERT1 | EX1_241 | Lava Burst |  
 EXPERT1 | EX1_243 | Dust Devil |  
@@ -260,7 +263,6 @@ EXPERT1 | EX1_301 | Felguard |
 EXPERT1 | EX1_303 | Shadowflame |  
 EXPERT1 | EX1_304 | Void Terror |  
 EXPERT1 | EX1_309 | Siphon Soul |  
-EXPERT1 | EX1_310 | Doomguard |  
 EXPERT1 | EX1_312 | Twisting Nether |  
 EXPERT1 | EX1_313 | Pit Lord |  
 EXPERT1 | EX1_315 | Summoning Portal |  
@@ -274,7 +276,6 @@ EXPERT1 | EX1_335 | Lightspawn |
 EXPERT1 | EX1_339 | Thoughtsteal |  
 EXPERT1 | EX1_341 | Lightwell |  
 EXPERT1 | EX1_345 | Mindgames |  
-EXPERT1 | EX1_349 | Divine Favor |  
 EXPERT1 | EX1_350 | Prophet Velen |  
 EXPERT1 | EX1_354 | Lay on Hands |  
 EXPERT1 | EX1_355 | Blessed Champion |  
@@ -385,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 9% (23 of 237 Cards)
+- Progress: 10% (25 of 237 Cards)
 
 ## Hall of Fame
 
