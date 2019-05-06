@@ -50,13 +50,11 @@ add_subdirectory(Libraries/googletest EXCLUDE_FROM_ALL)
 cmake_policy(SET CMP0063 NEW)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
-add_subdirectory(Libraries/pybind11)
 add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
 add_subdirectory(Extensions/RosettaTorch)
-add_subdirectory(Extensions/RosettaPython)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
@@ -65,3 +63,9 @@ if (CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_COMPILER_IS_GNUCXX AND BUILD_COVERA
     include(CodeCoverage)
     setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
 endif()
+
+add_subdirectory(Libraries/pybind11)
+if (BUILD_FROM_PIP)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+endif()
+add_subdirectory(Extensions/RosettaPython)
