@@ -82,15 +82,19 @@ Wolfrider is a minion with the **Charge** ability. [Charge](https://hearthstone.
 ```C++
 void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
-    // - Set: core, Rarity: free
+    // - Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
     cards.emplace("CS2_124", nullptr);
 }
 ```
@@ -145,7 +149,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
 {
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
-    // - Set: core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: Taunt.
     // --------------------------------------------------------
@@ -169,7 +173,7 @@ Test file has the following structure:
 ```C++
 #include <Utils/CardSetUtils.h>
 
-TEST(BasicCardSet, CS2_124)
+TEST(CoreCardsGen, CS2_124)
 {
     ...
 }
@@ -216,7 +220,7 @@ opPlayer.currentMana = 10;
 Then, you should perform operations according to the scenario and test it.
 
 ```C++
-TEST(ClassicCardSet, CS2_124)
+TEST(CoreCardsGen, CS2_124)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -225,6 +229,7 @@ TEST(ClassicCardSet, CS2_124)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);    
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
@@ -242,6 +247,7 @@ TEST(ClassicCardSet, CS2_124)
 
     // 3. Current player ends turn.
     Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
 
     // 4. Opponent player draws "Wolfrider" card.
     const auto card2 = Generic::DrawCard(
@@ -265,10 +271,10 @@ When you have finished writing test code, compile and build it. And you have to 
 
 ...
 
-[----------] 1 tests from BasicCardSet
-[ RUN      ] BasicCardSet.CS2_124
-[       OK ] BasicCardSet.CS2_124 (0 ms)
-[----------] 1 tests from BasicCardSet (0 ms total)
+[----------] 1 tests from CoreCardsGen
+[ RUN      ] CoreCardsGen.CS2_124
+[       OK ] CoreCardsGen.CS2_124 (0 ms)
+[----------] 1 tests from CoreCardsGen (0 ms total)
 
 ...
 
