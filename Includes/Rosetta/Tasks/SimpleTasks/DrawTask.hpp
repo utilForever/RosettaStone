@@ -20,7 +20,7 @@ class DrawTask : public ITask
  public:
     //! Constructs task with given \p amount.
     //! \param amount The amount to draw card.
-    DrawTask(int amount);
+    explicit DrawTask(int amount);
 
     //! Returns task ID.
     //! \return Task ID.

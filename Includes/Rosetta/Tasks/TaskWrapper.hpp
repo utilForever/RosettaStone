@@ -23,7 +23,7 @@ class DoBothPlayer : public ITask
  public:
     //! Constructs task with given \p task.
     //! \param task The task that applies to both players.
-    DoBothPlayer(ITask&& task);
+    explicit DoBothPlayer(ITask&& task);
 
     //! Returns task ID.
     //! \return Task ID.
