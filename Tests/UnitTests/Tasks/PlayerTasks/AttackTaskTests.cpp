@@ -496,9 +496,11 @@ TEST(AttackTask, Freeze)
     auto card = GenerateMinionCard("minion", 1, 10);
 
     PlayMinionCard(player1, card);
+    PlayMinionCard(player1, card);
     EndTurnTask().Run(player1);
     game.ProcessUntil(Step::MAIN_START);
 
+    PlayMinionCard(player2, card);
     PlayMinionCard(player2, card);
     EndTurnTask().Run(player2);
     game.ProcessUntil(Step::MAIN_START);
@@ -507,14 +509,29 @@ TEST(AttackTask, Freeze)
     auto& p2Field = player2.GetField();
 
     p1Field.GetMinion(0)->SetGameTag(GameTag::FREEZE, 1);
+    p2Field.GetMinion(1)->SetGameTag(GameTag::FREEZE, 1);
 
     game.Process(AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
     EXPECT_EQ(p2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
+    game.Process(AttackTask(p1Field.GetMinion(1), p2Field.GetMinion(1)));
+    EXPECT_EQ(p1Field.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
+
     EndTurnTask().Run(player1);
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(AttackTask(p1Field.GetMinion(0), p2Field.GetMinion(0)));
-    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 9);
-    EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 9);
+    EXPECT_EQ(p1Field.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
+
+    EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(p1Field.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
+
+    EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(p1Field.GetMinion(1)->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(p2Field.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
 }
