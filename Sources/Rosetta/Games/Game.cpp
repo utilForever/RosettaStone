@@ -313,10 +313,11 @@ void Game::MainAction()
         return;
     }
 
-    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK,
-    // TaskID::PLAY_CARD
-    TaskMeta next = player.policy->Next(*this);
-    // If turn end.
+    // Get next action as TaskID
+    // ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
+    const TaskMeta next = player.policy->Next(*this);
+
+    // If player ends turn
     if (next.GetID() == TaskID::END_TURN)
     {
         nextStep = Step::MAIN_END;
@@ -327,7 +328,7 @@ void Game::MainAction()
         return;
     }
 
-    // Get requirements for proper action.
+    // Get requirements for proper action
     TaskMeta req = player.policy->Require(player, next.GetID());
     SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
     switch (next.GetID())
@@ -396,7 +397,6 @@ void Game::MainAction()
     {
         GameManager::ProcessNextStep(*this, nextStep);
     }
-    return;
 }
 
 void Game::MainEnd()
@@ -657,6 +657,38 @@ void Game::UpdateAura()
     for (int i = auraSize - 1; i >= 0; --i)
     {
         auras[i]->Update();
+    }
+}
+
+void Game::Process(ITask&& task)
+{
+    // Process task
+    Task::Run(GetCurrentPlayer(), std::move(task));
+
+    // Check hero of two players is destroyed
+    if (GetPlayer1().GetHero()->isDestroyed)
+    {
+        if (GetPlayer2().GetHero()->isDestroyed)
+        {
+            GetPlayer1().playState = PlayState::TIED;
+            GetPlayer2().playState = PlayState::TIED;
+        }
+        else
+        {
+            GetPlayer1().playState = PlayState::LOSING;
+        }
+
+        // Set next step
+        nextStep = Step::FINAL_WRAPUP;
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+    else if (GetPlayer2().GetHero()->isDestroyed)
+    {
+        GetPlayer2().playState = PlayState::LOSING;
+
+        // Set next step
+        nextStep = Step::FINAL_WRAPUP;
+        GameManager::ProcessNextStep(*this, nextStep);
     }
 }
 

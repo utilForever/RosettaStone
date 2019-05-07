@@ -132,7 +132,12 @@ class Game
     //! Updates aura.
     void UpdateAura();
 
+    //! Process the specified task.
+    //! \param task The game task to execute.
+    void Process(ITask&& task);
+
     //! Process game until given step arriving.
+    //! \param step The game step to process until arrival.
     void ProcessUntil(Step step);
 
     State state = State::INVALID;
