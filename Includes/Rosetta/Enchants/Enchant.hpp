@@ -36,7 +36,7 @@ class Enchant
 
     //! Constructs enchant with given \p effect.
     //! \param effect The effect of the card.
-    Enchant(Effect& effect);
+    explicit Enchant(Effect& effect);
 
     //! Constructs enchant with given \p _effect, \p _useScriptTag and
     //! \p _isOneTurnEffect.

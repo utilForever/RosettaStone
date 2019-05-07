@@ -18,8 +18,9 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ## Key Features
 
-  * Support C++17 based Hearthstone library
-  * Provide console and GUI simulator
+  * C++17 based Hearthstone library
+  * Console and GUI simulator program
+  * C++ and Python API
 
 ## To-do Features
 
@@ -27,7 +28,6 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * Recommend top-tier decks
   * Deck tracker
   * Web simulator
-  * Python API
 
 ## Roadmap
 
@@ -52,7 +52,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 ### Basic & Classic
 
   * **100% Basic (133 of 133 Cards)**
-  * 9% Classic (23 of 237 Cards)
+  * 10% Classic (25 of 237 Cards)
   * 9% Hall of Fame (2 of 22 Cards)
 
 ### Adventures
@@ -93,6 +93,16 @@ git clone https://github.com/utilForever/RosettaStone.git --recursive
 cd RosettaStone
 ```
 
+### Python API
+
+Build and install the packagae by running
+
+```
+pip install -U .
+```
+
+**NOTE**: We are making Python API and related examples.
+
 ### C++ API
 
 For macOS or Linux or Windows Subsystem for Linux (WSL):
@@ -119,7 +129,21 @@ Now run console simulator:
 bin/RosettaConsole
 ```
 
-To run GUI simulator, please check out [RosettaStone GUI](https://www.github.com/utilforever/RosettaStone-GUI).
+**NOTE**: To run GUI simulator, please check out [RosettaStone GUI](https://www.github.com/utilforever/RosettaStone-GUI).
+
+### Docker
+
+```
+docker pull utilforever/rosettastone:latest
+```
+
+Now run console simulator:
+
+```
+docker run -it utilforever/rosettastone
+[inside docker container]
+/app/build/bin/RosettaConsole
+```
 
 ### More Instructions of Building the Code
 

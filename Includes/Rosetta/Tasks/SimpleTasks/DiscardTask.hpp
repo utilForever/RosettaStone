@@ -20,7 +20,7 @@ class DiscardTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type of target to discard card(s).
-    DiscardTask(EntityType entityType);
+    explicit DiscardTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.

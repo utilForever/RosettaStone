@@ -26,7 +26,7 @@ RosettaStone supports OS X 10.14 Mojave or higher. Also, Xcode 10.2 or higher an
 brew install cmake
 ```
 
-Once CMake is installed, build the code by running
+Once CMake and Python is installed, build the code by running
 
 ```
 mkdir build
@@ -50,7 +50,7 @@ It should show all the tests are passing.
 RosettaStone supports Ubuntu 18.04 or higher. Using `apt-get`, install required tools and libraries by running,
 
 ```
-sudo apt-get install build-essential cmake
+sudo apt-get install build-essential python3-dev python3-pip cmake
 ```
 
 This will install GNU compilers and CMake. Once installed, build the code by running
@@ -74,7 +74,7 @@ It should show all the tests are passing.
 
 ### Building from Windows
 
-To build the code on Windows, CMake and Visual Studio 2017 (or higher) is required. Windows' version of CMake is available from [this website](https://cmake.org/). To install Visual Studio, the community edition of the tool can be downloaded from [Visual Studio Community 2017](https://www.Visualstudio.com/en-us/products/Visual-studio-community-vs.aspx).
+To build the code on Windows, CMake and Visual Studio 2017 (or higher) is required. Windows' version of CMake is available from [this website](https://cmake.org/). To install Visual Studio, the community edition of the tool can be downloaded from [Visual Studio Community 2017](https://www.Visualstudio.com/en-us/products/Visual-studio-community-vs.aspx). You can also use Visual Studio 2019.
 
 Once everything is installed, run the following commands:
 
@@ -146,6 +146,61 @@ cmake .. -G"Visual Studio 15 2017 Win64" -DCMAKE_INSTALL_PREFIX=_INSTALL_PATH_
 
 Then, build `INSTALL` project under `RosettaStone.sln`. This will install the header files and the static library `RosettaStone.lib` under `_INSTALL_PATH_`.
 
+### Installing Python SDK
+
+To install the Python SDK, `pyRosetta`, run the following command from the project root directory (where `setup.py` lives):
+
+```
+pip install -U .
+```
+
+> You can also use `virtualenv` to isolate the SDK installation. Check out [the virtualenv documentation](https://virtualenv.pypa.io/en/stable/) for more details.
+
+To run the test/example scripts, install other Python dependencies as follows:
+
+```
+pip install -r requirements.txt
+```
+
+Once installed, try running the unit test to see if the module is installed correctly:
+
+```
+pytest ./Tests/PythonTests
+```
+
+The tests should pass.
+
+### Using Docker
+
+You can also use pre-built docker image by pulling the latest version from Docker Hub:
+
+```
+docker pull utilforever/rosettastone
+```
+
+Run a container and see if it can import `pyRosetta` module and the unit test passes:
+
+```
+docker run -it utilforever/rosettastone
+python import -c "pyRosetta"
+
+docker run utilforever/rosettastone /app/build/bin/UnitTests
+```
+
+You can also build the image from the source as well. From the root directory of this codebase, run:
+
+```
+docker build -t utilforever/rosettastone .
+```
+
 ### Coding Style
 
 RosettaStone uses clang-format. Checkout [`.clang-format`](./../.clang-format) file for the style guideline.
+
+### Continuous Integration
+
+The build quality is tracked by [Travis CI](https://travis-ci.org/utilForever/RosettaStone) for Linux and Mac. For Windows, [AppVeyor](https://ci.appveyor.com/project/utilForever/RosettaStone) is used. Recently, we added [Azure Pipelines](https://utilforever.visualstudio.com/RosettaStone/_build) for Linux, Mac and Windows. Any pull requests must pass all the builds.
+
+### Code Quality
+
+The code quality is tracked by [Codacy](https://app.codacy.com/project/utilForever/RosettaStone/dashboard), [LGTM](https://lgtm.com/projects/g/utilForever/RosettaStone) and [CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone). Any pull requests must pass all the code quality tools.

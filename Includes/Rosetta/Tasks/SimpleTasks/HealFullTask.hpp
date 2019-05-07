@@ -20,7 +20,7 @@ class HealFullTask : public ITask
  public:
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type of target to heal.
-    HealFullTask(EntityType entityType);
+    explicit HealFullTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.

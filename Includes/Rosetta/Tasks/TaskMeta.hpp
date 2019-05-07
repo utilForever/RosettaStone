@@ -31,7 +31,7 @@ class TaskMetaTrait
 
     //! Constructs task meta trait with given \p id.
     //! \param id The task ID.
-    TaskMetaTrait(TaskID id);
+    explicit TaskMetaTrait(TaskID id);
 
     //! Constructs task meta trait with given \p id and \p status.
     //! \param id The task ID.
@@ -102,7 +102,7 @@ class TaskMeta : public TaskMetaTrait
 
     //! Constructs task meta with given \p trait.
     //! \param trait An instance of base class that stores default meta data.
-    TaskMeta(const TaskMetaTrait& trait);
+    explicit TaskMeta(const TaskMetaTrait& trait);
 
     //! Constructs task meta with given \p trait and \p object.
     //! \param trait An instance of base class that stores default meta data.
