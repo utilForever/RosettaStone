@@ -19,13 +19,13 @@ coverage:
   # our code references these areas also means we need to tell codecov itself to
   # ignore them from the stats.
   ignore:
-  - .*/Documents/.*
-  - .*/Extensions/.*
-  - .*/Libraries/.*
-  - .*/Medias/.*
-  - .*/Resources/.*
-  - .*/Scripts/.*
-  - .*/Tests/.*
+  - 'Documents'
+  - 'Extensions'
+  - 'Libraries'
+  - 'Medias'
+  - 'Resources'
+  - 'Scripts'
+  - 'Tests'
 
 comment:
   layout: "header, diff, changes, uncovered"
