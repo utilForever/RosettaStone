@@ -485,10 +485,7 @@ void Game::FinalWrapUp()
 
     // Set next step
     nextStep = Step::FINAL_GAMEOVER;
-    if (m_gameConfig.autoRun)
-    {
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::FinalGameOver()
