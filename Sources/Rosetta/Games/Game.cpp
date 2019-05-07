@@ -21,6 +21,7 @@
 #include <algorithm>
 
 using Random = effolkronium::random_static;
+using namespace RosettaStone::PlayerTasks;
 
 namespace RosettaStone
 {
@@ -340,7 +341,7 @@ void Game::MainAction()
             {
                 Entity* source = list[0];
                 Entity* target = list[1];
-                Task::Run(player, PlayerTasks::AttackTask(source, target));
+                Process(AttackTask(source, target));
             }
             break;
         }
@@ -358,28 +359,24 @@ void Game::MainAction()
             {
                 // Summon minion
                 case CardType::MINION:
-                    Task::Run(player, PlayerTasks::PlayCardTask::Minion(
-                                          player, source));
+                    Process(PlayCardTask::Minion(player, source));
                     break;
                 // Cast spell
                 case CardType::SPELL:
                     if (list.size() == 1)
                     {
-                        Task::Run(player, PlayerTasks::PlayCardTask::Spell(
-                                              player, source));
+                        Process(PlayCardTask::Spell(player, source));
                     }
                     else
                     {
                         Entity* target = list[1];
-                        Task::Run(player,
-                                  PlayerTasks::PlayCardTask::SpellTarget(
-                                      player, source, target));
+                        Process(
+                            PlayCardTask::SpellTarget(player, source, target));
                     }
                     break;
                 // Use weapon
                 case CardType::WEAPON:
-                    Task::Run(player, PlayerTasks::PlayCardTask::Weapon(
-                                          player, source));
+                    Process(PlayCardTask::Weapon(player, source));
                     break;
                 default:
                     throw std::invalid_argument(

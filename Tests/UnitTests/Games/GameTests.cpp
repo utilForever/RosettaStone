@@ -75,7 +75,7 @@ TEST(Game, GameOver)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(PlayCardTask::Minion(curPlayer, card1));
     game.Process(AttackTask(card1, opPlayer.GetHero()));
 
     EXPECT_EQ(game.state, State::COMPLETE);

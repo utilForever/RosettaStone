@@ -37,7 +37,7 @@ TEST(HoFCardsGen, EX1_050)
         curPlayer, Cards::GetInstance().FindCardByName("Coldlight Oracle"));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
 
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card));
+    game.Process(PlayCardTask::Minion(curPlayer, card));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
 }
@@ -67,15 +67,15 @@ TEST(HoFCardsGen, EX1_310)
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 2u);
 
-    Task::Run(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    game.Process(AttackTask(card1, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    game.Process(PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
 }

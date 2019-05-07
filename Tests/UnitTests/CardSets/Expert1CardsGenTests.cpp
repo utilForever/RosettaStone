@@ -41,31 +41,31 @@ TEST(Expert1CardsGen, CS2_028)
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    game.Process(PlayCardTask::Minion(opPlayer, card2));
+    game.Process(PlayCardTask::Minion(opPlayer, card3));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    game.Process(PlayCardTask::Spell(curPlayer, card1));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 0);
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, AttackTask(card2, curPlayer.GetHero()));
+    game.Process(AttackTask(card2, curPlayer.GetHero()));
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
@@ -96,7 +96,7 @@ TEST(Expert1CardsGen, CS2_151)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Silver Hand Knight"));
 
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 4);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 2);
@@ -133,20 +133,20 @@ TEST(Expert1CardsGen, CS2_117)
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    game.Process(PlayCardTask::Minion(opPlayer, card3));
     opField.GetMinion(0)->SetDamage(1);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1,
-                                                    curPlayer.GetHero()));
+    game.Process(
+        PlayCardTask::MinionTarget(curPlayer, card1, curPlayer.GetHero()));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 23);
 
-    Task::Run(curPlayer, PlayCardTask::MinionTarget(curPlayer, card2, card3));
+    game.Process(PlayCardTask::MinionTarget(curPlayer, card2, card3));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
 }
 
@@ -184,29 +184,29 @@ TEST(Expert1CardsGen, EX1_012)
     const auto card5 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card3));
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    game.Process(PlayCardTask::Minion(opPlayer, card3));
+    game.Process(PlayCardTask::Minion(opPlayer, card4));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(PlayCardTask::Minion(curPlayer, card1));
     EXPECT_EQ(curPlayer.currentSpellPower, 1);
 
-    Task::Run(curPlayer, PlayCardTask::Spell(curPlayer, card2));
+    game.Process(PlayCardTask::Spell(curPlayer, card2));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card5));
-    Task::Run(opPlayer, AttackTask(card5, card1));
+    game.Process(PlayCardTask::Minion(opPlayer, card5));
+    game.Process(AttackTask(card5, card1));
     EXPECT_EQ(curField.GetNumOfMinions(), 0u);
     EXPECT_EQ(curPlayer.currentSpellPower, 0);
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
