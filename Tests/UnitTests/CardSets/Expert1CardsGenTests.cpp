@@ -57,6 +57,18 @@ TEST(Expert1CardsGen, CS2_028)
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
     EXPECT_EQ(opPlayer.GetHero()->GetGameTag(GameTag::FROZEN), 0);
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, AttackTask(card2, curPlayer.GetHero()));
+    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
 }
 
 TEST(Expert1CardsGen, CS2_151)
