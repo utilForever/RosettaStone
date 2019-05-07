@@ -13,36 +13,17 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-TEST(HoFCardsGen, EX1_050)
-{
-    GameConfig config;
-    config.player1Class = CardClass::ROGUE;
-    config.player2Class = CardClass::PALADIN;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.StartGame();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-
-    const auto card = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Coldlight Oracle"));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
-
-    game.Process(PlayCardTask::Minion(curPlayer, card));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
-}
-
-TEST(HoFCardsGen, EX1_310)
+// --------------------------------------- MINION - WARLOCK
+// [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
+// - Race: Demon, Set: HoF, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(WarlockHoFTest, EX1_310_Doomguard)
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -78,4 +59,42 @@ TEST(HoFCardsGen, EX1_310)
 
     game.Process(PlayCardTask::Minion(opPlayer, card2));
     EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_050] Coldlight Oracle - COST:3
+// - Faction: Neutral, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Each player draws 2 cards.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralHoFTest, EX1_050_ColdlightOracle)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Coldlight Oracle"));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+
+    game.Process(PlayCardTask::Minion(curPlayer, card));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
 }
