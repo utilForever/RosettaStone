@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Policies/RandomPolicy.hpp>
@@ -53,7 +54,6 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
     using Random = effolkronium::random_static;
 
     std::vector<std::tuple<Entity*, Entity*>> possible;
-    const bool summonAvailable = !player.GetField().IsFull();
 
     for (Entity* entity : player.GetHand().GetAllCards())
     {
@@ -62,22 +62,26 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
             continue;
         }
 
-        switch (entity->card.GetCardType())
+        if (entity->card.GetCardType() == CardType::MINION &&
+            player.GetField().IsFull())
         {
-            case CardType::MINION:
-                if (summonAvailable)
-                {
-                    possible.emplace_back(std::make_tuple(entity, nullptr));
-                }
-                break;
-            case CardType::SPELL:
-                possible.emplace_back(std::make_tuple(entity, nullptr));
-                break;
-            case CardType::WEAPON:
-                possible.emplace_back(std::make_tuple(entity, nullptr));
-                break;
-            default:
-                break;
+            continue;
+        }
+
+        if (Generic::IsSourceNeedsTarget(entity))
+        {
+            std::vector<Character*> targets = Generic::GetValidTargets(entity);
+            if (targets.empty())
+            {
+                continue;
+            }
+
+            auto target = *Random::get(targets);
+            possible.emplace_back(std::make_tuple(entity, target));
+        }
+        else
+        {
+            possible.emplace_back(std::make_tuple(entity, nullptr));
         }
     }
 
@@ -85,25 +89,23 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
     {
         return TaskMeta(TaskMetaTrait(TaskID::PLAY_CARD), SizedPtr<Entity*>());
     }
+
+    auto [source, target] = *Random::get(possible);
+    SizedPtr<Entity*> ptr;
+
+    if (target != nullptr)
+    {
+        ptr = SizedPtr<Entity*>(2);
+        ptr[0] = source;
+        ptr[1] = target;
+    }
     else
     {
-        auto [source, target] = *Random::get(possible);
-
-        SizedPtr<Entity*> ptr;
-        if (target != nullptr)
-        {
-            ptr = SizedPtr<Entity*>(2);
-            ptr[0] = source;
-            ptr[1] = target;
-        }
-        else
-        {
-            ptr = SizedPtr<Entity*>(1);
-            ptr[0] = source;
-        }
-
-        return TaskMeta(TaskMetaTrait(TaskID::PLAY_CARD), std::move(ptr));
+        ptr = SizedPtr<Entity*>(1);
+        ptr[0] = source;
     }
+
+    return TaskMeta(TaskMetaTrait(TaskID::PLAY_CARD), std::move(ptr));
 }
 
 TaskMeta RandomPolicy::RequireAttack(Player& player)
