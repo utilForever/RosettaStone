@@ -292,28 +292,6 @@ void Game::MainAction()
 {
     auto& player = GetCurrentPlayer();
 
-    // If game end.
-    if (player.GetHero()->GetHealth() <= 0 ||
-        player.opponent->GetHero()->GetHealth() <= 0)
-    {
-        // Set losing user.
-        if (player.GetHero()->GetHealth() <= 0)
-        {
-            player.playState = PlayState::LOSING;
-        }
-        else
-        {
-            player.opponent->playState = PlayState::LOSING;
-        }
-
-        nextStep = Step::FINAL_WRAPUP;
-        if (m_gameConfig.autoRun)
-        {
-            GameManager::ProcessNextStep(*this, nextStep);
-        }
-        return;
-    }
-
     // Get next action as TaskID
     // ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
     const TaskMeta next = player.policy->Next(*this);
@@ -387,12 +365,6 @@ void Game::MainAction()
         default:
             throw std::invalid_argument(
                 "Game::MainAction() - Invalid task type!");
-    }
-
-    nextStep = Step::MAIN_ACTION;
-    if (m_gameConfig.autoRun)
-    {
-        GameManager::ProcessNextStep(*this, nextStep);
     }
 }
 
