@@ -9,6 +9,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
+#include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/RandomPolicy.hpp>
 
 using namespace RosettaStone;
@@ -19,7 +20,9 @@ TEST(Policies, RandomPolicy)
     config.player1Class = CardClass::ROGUE;
     config.player2Class = CardClass::PALADIN;
     config.startPlayer = PlayerType::RANDOM;
-    config.doShuffle = false;
+    config.doFillDecks = false;
+    config.skipMulligan = false;
+    config.autoRun = false;
 
     std::array<std::string, START_DECK_SIZE> deck = {
         "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
@@ -45,4 +48,7 @@ TEST(Policies, RandomPolicy)
     game.GetPlayer2().policy = &policy;
 
     game.StartGame();
+
+    game.nextStep = Step::BEGIN_MULLIGAN;
+    GameManager::ProcessNextStep(game, game.nextStep);
 }
