@@ -89,7 +89,7 @@ TEST(Game, GameOver_Player2Won)
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER1;
+    config.startPlayer = PlayerType::PLAYER2;
     config.doFillDecks = true;
     config.autoRun = false;
 
@@ -103,20 +103,17 @@ TEST(Game, GameOver_Player2Won)
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
-    curPlayer.GetHero()->SetDamage(29);
+    opPlayer.GetHero()->SetDamage(29);
 
     const auto card1 = Generic::DrawCard(
-        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    game.Process(EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
-
-    game.Process(PlayCardTask::Minion(opPlayer, card1));
-    game.Process(AttackTask(card1, curPlayer.GetHero()));
+    game.Process(PlayCardTask::Minion(curPlayer, card1));
+    game.Process(AttackTask(card1, opPlayer.GetHero()));
 
     EXPECT_EQ(game.state, State::COMPLETE);
-    EXPECT_EQ(curPlayer.playState, PlayState::LOST);
-    EXPECT_EQ(opPlayer.playState, PlayState::WON);
+    EXPECT_EQ(curPlayer.playState, PlayState::WON);
+    EXPECT_EQ(opPlayer.playState, PlayState::LOST);
 }
 
 TEST(Game, GameOver_Tied)
