@@ -14,6 +14,7 @@
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 
 using namespace RosettaStone;
@@ -51,7 +52,7 @@ TEST(Game, Mulligan)
     GameManager::ProcessNextStep(game, game.nextStep);
 }
 
-TEST(Game, GameOver)
+TEST(Game, GameOver_Player1Won)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -81,4 +82,71 @@ TEST(Game, GameOver)
     EXPECT_EQ(game.state, State::COMPLETE);
     EXPECT_EQ(curPlayer.playState, PlayState::WON);
     EXPECT_EQ(opPlayer.playState, PlayState::LOST);
+}
+
+TEST(Game, GameOver_Player2Won)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetDamage(29);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(PlayCardTask::Minion(opPlayer, card1));
+    game.Process(AttackTask(card1, curPlayer.GetHero()));
+
+    EXPECT_EQ(game.state, State::COMPLETE);
+    EXPECT_EQ(curPlayer.playState, PlayState::LOST);
+    EXPECT_EQ(opPlayer.playState, PlayState::WON);
+}
+
+TEST(Game, GameOver_Tied)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetDamage(29);
+    opPlayer.GetHero()->SetDamage(29);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hellfire"));
+
+    game.Process(PlayCardTask::Spell(curPlayer, card1));
+
+    EXPECT_EQ(game.state, State::COMPLETE);
+    EXPECT_EQ(curPlayer.playState, PlayState::TIED);
+    EXPECT_EQ(opPlayer.playState, PlayState::TIED);
 }
