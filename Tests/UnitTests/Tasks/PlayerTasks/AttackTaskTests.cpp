@@ -57,11 +57,8 @@ TEST(AttackTask, Default)
     auto& p2Field = player2.GetField();
 
     game.Process(AttackTask(p1Field.GetMinion(0), player2.GetHero()));
-    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(),
-              p1Field.GetMinion(0)->GetBaseHealth());
-    EXPECT_EQ(
-        player2.GetHero()->GetHealth(),
-        player2.GetHero()->GetBaseHealth() - p1Field.GetMinion(0)->GetAttack());
+    EXPECT_EQ(p1Field.GetMinion(0)->GetHealth(), 6);
+    EXPECT_EQ(player2.GetHero()->GetHealth(), 27);
 
     EndTurnTask().Run(player1);
     game.ProcessUntil(Step::MAIN_START);
@@ -176,7 +173,7 @@ TEST(AttackTask, ZeroAttack)
     auto card = GenerateMinionCard("minion1", 0, 6);
 
     PlayMinionCard(player1, card);
-    
+
     EndTurnTask().Run(player1);
     game.ProcessUntil(Step::MAIN_START);
 

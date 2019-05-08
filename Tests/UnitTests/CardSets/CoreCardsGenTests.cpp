@@ -2155,8 +2155,7 @@ TEST(PaladinCoreTest, CS2_088_GuardianOfKings)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(PlayCardTask::Minion(opPlayer, card1));
-    EXPECT_EQ(opPlayer.GetHero()->GetBaseHealth(),
-              opPlayer.GetHero()->GetHealth());
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 }
 
 // ---------------------------------------- SPELL - PALADIN
