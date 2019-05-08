@@ -58,17 +58,7 @@ void Character::SetHealth(int health)
     SetGameTag(GameTag::DAMAGE, 0);
 }
 
-int Character::GetBaseHealth() const
-{
-    return GetGameTag(GameTag::HEALTH);
-}
-
-void Character::SetBaseHealth(int baseHealth)
-{
-    SetGameTag(GameTag::HEALTH, baseHealth);
-}
-
-int Character::GetSpellPower()
+int Character::GetSpellPower() const
 {
     return GetGameTag(GameTag::SPELLPOWER);
 }
@@ -88,7 +78,7 @@ void Character::SetNumAttacksThisTurn(int amount)
     SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, amount);
 }
 
-bool Character::CanAttack()
+bool Character::CanAttack() const
 {
     // If the value of attack is 0, returns false
     if (GetAttack() == 0)
@@ -223,7 +213,7 @@ void Character::TakeHeal(Entity& source, int heal)
         return;
     }
 
-    int amount = GetDamage() > heal ? heal : GetDamage();
+    const int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
     owner->GetGame()->triggerManager.OnHealTrigger(nullptr, this);
