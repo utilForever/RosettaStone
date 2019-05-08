@@ -156,6 +156,39 @@ TEST(AttackTask, Weapon)
     EXPECT_EQ(p2Field.GetMinion(0)->GetHealth(), 2);
 }
 
+TEST(AttackTask, ZeroAttack)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
+    auto card = GenerateMinionCard("minion1", 0, 6);
+
+    PlayMinionCard(player1, card);
+    
+    EndTurnTask().Run(player1);
+    game.ProcessUntil(Step::MAIN_START);
+
+    EndTurnTask().Run(player2);
+    game.ProcessUntil(Step::MAIN_START);
+
+    auto& p1Field = player1.GetField();
+
+    game.Process(AttackTask(p1Field.GetMinion(0), player2.GetHero()));
+    EXPECT_EQ(player2.GetHero()->GetHealth(), 30);
+}
+
 TEST(AttackTask, Charge)
 {
     GameConfig config;
