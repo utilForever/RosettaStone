@@ -14,7 +14,6 @@
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 
 using namespace RosettaStone;
