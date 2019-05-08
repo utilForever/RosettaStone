@@ -71,7 +71,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
                 }
                 break;
             case CardType::SPELL:
-                // TODO: Add possible spell lists to vector `possible`.
+                possible.emplace_back(std::make_tuple(entity, nullptr));
                 break;
             case CardType::WEAPON:
                 possible.emplace_back(std::make_tuple(entity, nullptr));
