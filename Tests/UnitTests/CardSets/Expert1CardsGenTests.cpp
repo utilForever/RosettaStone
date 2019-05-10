@@ -199,3 +199,42 @@ TEST(Expert1CardsGen, EX1_012)
     EXPECT_EQ(curPlayer.currentSpellPower, 0);
     EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
 }
+
+TEST(Expert1CardsGen, CS1_129)
+{
+//  set environment PRIEST vs PALADIN 
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));    
+
+//     1. summon Monion "Northshire Cleric" to cur player field
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
+//     2. play spell "Inner Fire" to "Northshire Cleric"
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
+    // assert - "Northshire Cleric" Atk equals Health
+    EXPECT_EQ(curField.GetNumOfMinions(),1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth() , curField.GetMinion(0)->GetAttack());
+}
