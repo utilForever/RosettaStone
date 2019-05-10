@@ -223,8 +223,6 @@ TEST(Expert1CardsGen, CS1_129)
     
 
     auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
-    
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
     const auto card2 = Generic::DrawCard(

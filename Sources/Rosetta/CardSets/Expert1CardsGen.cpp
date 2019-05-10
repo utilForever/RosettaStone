@@ -121,7 +121,6 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new MathSubTask(EntityType::TARGET, GameTag::DAMAGE));
     power.AddPowerTask(new AddEnchantmentTask("CS1_129e", EntityType::TARGET));
     cards.emplace("CS1_129", power);
-    
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
@@ -136,8 +135,6 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(std::move(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
-
-
 }
 
 void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
