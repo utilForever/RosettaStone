@@ -158,28 +158,6 @@ void Game::BeginMulligan()
                           ChoiceAction::HAND, p1HandIDs);
     Generic::CreateChoice(GetPlayer2(), ChoiceType::MULLIGAN,
                           ChoiceAction::HAND, p2HandIDs);
-
-    Player& player1 = GetPlayer1();
-    // Request mulligan choices to policy.
-    TaskMeta p1Choice = player1.policy->Require(player1, TaskID::MULLIGAN);
-
-    // Get mulligan choices from policy.
-    Generic::ChoiceMulligan(player1,
-                            p1Choice.GetObject<std::vector<std::size_t>>());
-
-    Player& player2 = GetPlayer2();
-    // Request mulligan choices to policy.
-    TaskMeta p2Choice = player2.policy->Require(player2, TaskID::MULLIGAN);
-
-    // Get mulligan choices from policy.
-    Generic::ChoiceMulligan(player2,
-                            p2Choice.GetObject<std::vector<std::size_t>>());
-
-    nextStep = Step::MAIN_BEGIN;
-    if (m_gameConfig.autoRun)
-    {
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
 }
 
 void Game::MainBegin()
@@ -290,82 +268,7 @@ void Game::MainStart()
 
 void Game::MainAction()
 {
-    auto& player = GetCurrentPlayer();
 
-    // Get next action as TaskID
-    // ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
-    const TaskMeta next = player.policy->Next(*this);
-
-    // If player ends turn
-    if (next.GetID() == TaskID::END_TURN)
-    {
-        nextStep = Step::MAIN_END;
-        if (m_gameConfig.autoRun)
-        {
-            GameManager::ProcessNextStep(*this, nextStep);
-        }
-        return;
-    }
-
-    // Get requirements for proper action
-    TaskMeta req = player.policy->Require(player, next.GetID());
-    SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
-    switch (next.GetID())
-    {
-        // Attack target
-        case TaskID::ATTACK:
-        {
-            if (list.size() >= 2)
-            {
-                Entity* source = list[0];
-                Entity* target = list[1];
-                Process(AttackTask(source, target));
-            }
-            break;
-        }
-        // Play card
-        case TaskID::PLAY_CARD:
-        {
-            // If requirement doesn't satisfy
-            if (list.size() < 1)
-            {
-                break;
-            }
-
-            Entity* source = list[0];
-            switch (source->card.GetCardType())
-            {
-                // Summon minion
-                case CardType::MINION:
-                    Process(PlayCardTask::Minion(player, source));
-                    break;
-                // Cast spell
-                case CardType::SPELL:
-                    if (list.size() == 1)
-                    {
-                        Process(PlayCardTask::Spell(player, source));
-                    }
-                    else
-                    {
-                        Entity* target = list[1];
-                        Process(
-                            PlayCardTask::SpellTarget(player, source, target));
-                    }
-                    break;
-                // Use weapon
-                case CardType::WEAPON:
-                    Process(PlayCardTask::Weapon(player, source));
-                    break;
-                default:
-                    throw std::invalid_argument(
-                        "Game::MainAction() - Invalid card type!");
-            }
-            break;
-        }
-        default:
-            throw std::invalid_argument(
-                "Game::MainAction() - Invalid task type!");
-    }
 }
 
 void Game::MainEnd()
