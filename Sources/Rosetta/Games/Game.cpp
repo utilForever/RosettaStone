@@ -531,31 +531,7 @@ void Game::Process(Player& player, ITask* task)
     // Process task
     Task::Run(player, task);
 
-    // Check hero of two players is destroyed
-    if (GetPlayer1().GetHero()->isDestroyed)
-    {
-        if (GetPlayer2().GetHero()->isDestroyed)
-        {
-            GetPlayer1().playState = PlayState::TIED;
-            GetPlayer2().playState = PlayState::TIED;
-        }
-        else
-        {
-            GetPlayer1().playState = PlayState::LOSING;
-        }
-
-        // Set next step
-        nextStep = Step::FINAL_WRAPUP;
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
-    else if (GetPlayer2().GetHero()->isDestroyed)
-    {
-        GetPlayer2().playState = PlayState::LOSING;
-
-        // Set next step
-        nextStep = Step::FINAL_WRAPUP;
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
+    CheckGameOver();
 }
 
 void Game::Process(Player& player, ITask&& task)
@@ -563,6 +539,20 @@ void Game::Process(Player& player, ITask&& task)
     // Process task
     Task::Run(player, std::move(task));
 
+    CheckGameOver();
+}
+
+void Game::ProcessUntil(Step untilStep)
+{
+    m_gameConfig.autoRun = false;
+    while (nextStep != untilStep)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
+
+void Game::CheckGameOver()
+{
     // Check hero of two players is destroyed
     if (GetPlayer1().GetHero()->isDestroyed)
     {
@@ -586,15 +576,6 @@ void Game::Process(Player& player, ITask&& task)
 
         // Set next step
         nextStep = Step::FINAL_WRAPUP;
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
-}
-
-void Game::ProcessUntil(Step untilStep)
-{
-    m_gameConfig.autoRun = false;
-    while (nextStep != untilStep)
-    {
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }

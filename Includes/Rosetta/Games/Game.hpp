@@ -161,6 +161,9 @@ class Game
     std::map<std::size_t, Minion*> deadMinions;
 
  private:
+    //! Checks whether the game is over.
+    void CheckGameOver();
+
     GameConfig m_gameConfig;
 
     std::array<Player, 2> m_players;
