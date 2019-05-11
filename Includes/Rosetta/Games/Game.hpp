@@ -133,8 +133,9 @@ class Game
     void UpdateAura();
 
     //! Process the specified task.
+    //! \param player A player to run task.
     //! \param task The game task to execute.
-    void Process(ITask&& task);
+    void Process(Player& player, ITask&& task);
 
     //! Process game until given step arriving.
     //! \param step The game step to process until arrival.

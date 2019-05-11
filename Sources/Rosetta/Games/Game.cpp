@@ -529,10 +529,10 @@ void Game::UpdateAura()
     }
 }
 
-void Game::Process(ITask&& task)
+void Game::Process(Player& player, ITask&& task)
 {
     // Process task
-    Task::Run(GetCurrentPlayer(), std::move(task));
+    Task::Run(player, std::move(task));
 
     // Check hero of two players is destroyed
     if (GetPlayer1().GetHero()->isDestroyed)
