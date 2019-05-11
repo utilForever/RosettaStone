@@ -20,6 +20,7 @@ TaskMeta BasicPolicy::Require(Player& player, TaskID id)
     {
         return iter->second(*this, player);
     }
+
     return TaskMeta(TaskMetaTrait(id));
 }
 
@@ -51,8 +52,8 @@ TaskMeta BasicPolicy::RequireEndTurn(Player&)
     return TaskMeta(TaskMetaTrait(TaskID::END_TURN), SizedPtr<Entity*>());
 }
 
-void BasicPolicy::NotifyOverDraw(const TaskMeta& meta)
+void BasicPolicy::NotifyOverDraw(const TaskMeta&)
 {
-    (void)meta;
+    // Do nothing
 }
 }  // namespace RosettaStone
