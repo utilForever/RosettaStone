@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 
@@ -16,8 +17,10 @@ TaskID EndTurnTask::GetTaskID() const
 
 TaskStatus EndTurnTask::Impl(Player& player)
 {
-    player.GetGame()->step = Step::MAIN_END;
-    player.GetGame()->MainEnd();
+    auto game = player.GetGame();
+
+    game->nextStep = Step::MAIN_END;
+    GameManager::ProcessNextStep(*game, game->nextStep);
 
     return TaskStatus::COMPLETE;
 }
