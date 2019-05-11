@@ -118,84 +118,8 @@ TEST(RandomPolicy, Mulligan)
         while (game.state != State::COMPLETE)
         {
             auto& player = game.GetCurrentPlayer();
-
-            // Get next action as TaskID
-            // ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
-            const TaskMeta next = player.policy->Next(game);
-
-            // Get requirements for proper action
-            TaskMeta req = player.policy->Require(player, next.GetID());
-            SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
-            switch (next.GetID())
-            {
-                // Attack target
-                case TaskID::ATTACK:
-                {
-                    if (list.size() >= 2)
-                    {
-                        Entity* source = list[0];
-                        Entity* target = list[1];
-                        game.Process(player,
-                                     PlayerTasks::AttackTask(source, target));
-                    }
-                    break;
-                }
-                // Play card
-                case TaskID::PLAY_CARD:
-                {
-                    // If requirement doesn't satisfy
-                    if (list.size() < 1)
-                    {
-                        break;
-                    }
-
-                    Entity* source = list[0];
-                    switch (source->card.GetCardType())
-                    {
-                        // Summon minion
-                        case CardType::MINION:
-                            game.Process(
-                                player,
-                                PlayerTasks::PlayCardTask::Minion(source));
-                            break;
-                        // Cast spell
-                        case CardType::SPELL:
-                            if (list.size() == 1)
-                            {
-                                game.Process(
-                                    player,
-                                    PlayerTasks::PlayCardTask::Spell(source));
-                            }
-                            else
-                            {
-                                Entity* target = list[1];
-                                game.Process(
-                                    player,
-                                    PlayerTasks::PlayCardTask::SpellTarget(
-                                        source, target));
-                            }
-                            break;
-                        // Use weapon
-                        case CardType::WEAPON:
-                            game.Process(
-                                player,
-                                PlayerTasks::PlayCardTask::Weapon(source));
-                            break;
-                        default:
-                            throw std::invalid_argument(
-                                "Game::MainAction() - Invalid card type!");
-                    }
-                    break;
-                }
-                case TaskID::END_TURN:
-                {
-                    game.Process(player, PlayerTasks::EndTurnTask());
-                    break;
-                }
-                default:
-                    throw std::invalid_argument(
-                        "Game::MainAction() - Invalid task type!");
-            }
+            ITask* nextAction = player.GetNextAction();
+            game.Process(player, nextAction);
         }
 
         EXPECT_EQ(game.state, State::COMPLETE);
