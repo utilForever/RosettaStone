@@ -7,13 +7,10 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
-#include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
 
 #include <effolkronium/random.hpp>
@@ -268,7 +265,7 @@ void Game::MainStart()
 
 void Game::MainAction()
 {
-
+    // Do nothing
 }
 
 void Game::MainEnd()
@@ -526,6 +523,38 @@ void Game::UpdateAura()
     for (int i = auraSize - 1; i >= 0; --i)
     {
         auras[i]->Update();
+    }
+}
+
+void Game::Process(Player& player, ITask* task)
+{
+    // Process task
+    Task::Run(player, task);
+
+    // Check hero of two players is destroyed
+    if (GetPlayer1().GetHero()->isDestroyed)
+    {
+        if (GetPlayer2().GetHero()->isDestroyed)
+        {
+            GetPlayer1().playState = PlayState::TIED;
+            GetPlayer2().playState = PlayState::TIED;
+        }
+        else
+        {
+            GetPlayer1().playState = PlayState::LOSING;
+        }
+
+        // Set next step
+        nextStep = Step::FINAL_WRAPUP;
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+    else if (GetPlayer2().GetHero()->isDestroyed)
+    {
+        GetPlayer2().playState = PlayState::LOSING;
+
+        // Set next step
+        nextStep = Step::FINAL_WRAPUP;
+        GameManager::ProcessNextStep(*this, nextStep);
     }
 }
 

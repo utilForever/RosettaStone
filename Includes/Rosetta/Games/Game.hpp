@@ -135,6 +135,11 @@ class Game
     //! Process the specified task.
     //! \param player A player to run task.
     //! \param task The game task to execute.
+    void Process(Player& player, ITask* task);
+
+    //! Process the specified task.
+    //! \param player A player to run task.
+    //! \param task The game task to execute.
     void Process(Player& player, ITask&& task);
 
     //! Process game until given step arriving.
