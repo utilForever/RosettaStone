@@ -68,14 +68,14 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(opPlayer, card2));
-    game.Process(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
@@ -188,18 +188,17 @@ TEST(NeutralExpert1Test, CS2_117_EarthenRingFarseer)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(opPlayer, card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
     opField.GetMinion(0)->SetDamage(1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayCardTask::MinionTarget(curPlayer, card1,
-                                                       curPlayer.GetHero()));
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, curPlayer.GetHero()));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 23);
 
-    game.Process(curPlayer,
-                 PlayCardTask::MinionTarget(curPlayer, card2, card3));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
 }
 
@@ -237,7 +236,7 @@ TEST(NeutralExpert1Test, CS2_151_SilverHandKnight)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Silver Hand Knight"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 4);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 2);
@@ -358,17 +357,17 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(opPlayer, card3));
-    game.Process(opPlayer, PlayCardTask::Minion(opPlayer, card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curPlayer.currentSpellPower, 1);
 
-    game.Process(curPlayer, PlayCardTask::Spell(curPlayer, card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 4);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
@@ -376,7 +375,7 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(opPlayer, card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, AttackTask(card5, card1));
     EXPECT_EQ(curField.GetNumOfMinions(), 0u);
     EXPECT_EQ(curPlayer.currentSpellPower, 0);

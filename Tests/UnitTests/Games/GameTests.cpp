@@ -75,7 +75,7 @@ TEST(Game, GameOver_Player1Won)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
 
     EXPECT_EQ(game.state, State::COMPLETE);
@@ -107,7 +107,7 @@ TEST(Game, GameOver_Player2Won)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
 
     EXPECT_EQ(game.state, State::COMPLETE);
@@ -140,7 +140,7 @@ TEST(Game, GameOver_Tied)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Hellfire"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(curPlayer, card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
 
     EXPECT_EQ(game.state, State::COMPLETE);
     EXPECT_EQ(curPlayer.playState, PlayState::TIED);
