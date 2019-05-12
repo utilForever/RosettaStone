@@ -7,14 +7,10 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Policies/RandomPolicy.hpp>
-#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 
 using namespace RosettaStone;
 
@@ -91,36 +87,7 @@ TEST(RandomPolicy, Mulligan)
         game.GetPlayer1().policy = &policy;
         game.GetPlayer2().policy = &policy;
 
-        game.StartGame();
-
-        Player& player1 = game.GetPlayer1();
-        // Request mulligan choices to policy.
-        TaskMeta p1Choice = player1.policy->Require(player1, TaskID::MULLIGAN);
-
-        // Get mulligan choices from policy.
-        game.Process(
-            player1,
-            PlayerTasks::ChooseTask::Mulligan(
-                player1, p1Choice.GetObject<std::vector<std::size_t>>()));
-
-        Player& player2 = game.GetPlayer2();
-        // Request mulligan choices to policy.
-        TaskMeta p2Choice = player2.policy->Require(player2, TaskID::MULLIGAN);
-
-        // Get mulligan choices from policy.
-        game.Process(
-            player2,
-            PlayerTasks::ChooseTask::Mulligan(
-                player2, p2Choice.GetObject<std::vector<std::size_t>>()));
-
-        game.MainReady();
-
-        while (game.state != State::COMPLETE)
-        {
-            auto& player = game.GetCurrentPlayer();
-            ITask* nextAction = player.GetNextAction();
-            game.Process(player, nextAction);
-        }
+        game.PlayPolicy();
 
         EXPECT_EQ(game.state, State::COMPLETE);
     }
