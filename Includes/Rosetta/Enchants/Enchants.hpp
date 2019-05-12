@@ -30,7 +30,7 @@ class Enchants
     
     //! Enchant that set attack and uses script tag.
     inline static Enchant SetAttackScriptTag =
-        Enchant(Effect(GameTag::ATK, EffectOperator::SET, 0),true);
+        Enchant(Effect(GameTag::ATK, EffectOperator::SET, 0), true);
     //! Enchant that set health and uses script tag.
     inline static Enchant SetHealthScriptTag =
         Enchant(Effect(GameTag::HEALTH, EffectOperator::SET, 0), true);

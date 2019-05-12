@@ -3,22 +3,21 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/CardSets/Expert1CardsGen.hpp>
-#include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
-
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -106,6 +105,7 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
 {
     Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_129] Inner Fire - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -126,6 +126,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+    
     // ----------------------------------------- ENCHANTMENT - PRIEST
     // [CS1_129e] Inner Fire - COST:0
     // - Set: Expert1

@@ -202,7 +202,6 @@ TEST(Expert1CardsGen, EX1_012)
 
 TEST(Expert1CardsGen, CS1_129)
 {
-//  set environment PRIEST vs PALADIN 
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::PALADIN;
@@ -221,18 +220,33 @@ TEST(Expert1CardsGen, CS1_129)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
     
-
     auto& curField = curPlayer.GetField();
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
     const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));    
+        curPlayer, Cards::GetInstance().FindCardByName("Divine Spirit"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));     
 
-//     1. summon Monion "Northshire Cleric" to cur player field
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card2));
-//     2. play spell "Inner Fire" to "Northshire Cleric"
-    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, card2));
-    // assert - "Northshire Cleric" Atk equals Health
-    EXPECT_EQ(curField.GetNumOfMinions(),1);
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth() , curField.GetMinion(0)->GetAttack());
+    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card5));
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card1, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6u);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+
+    curField.GetMinion(0)->SetDamage(1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5u);
+
+    Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card4, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
 }
