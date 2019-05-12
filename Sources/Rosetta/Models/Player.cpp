@@ -6,6 +6,11 @@
 
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Policies/Policy.hpp>
+#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include "Rosetta/Commons/Utils.hpp"
+#include "Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp"
 
 namespace RosettaStone
 {
@@ -107,11 +112,68 @@ int Player::GetRemainingMana() const
     return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
 }
 
+ITask* Player::GetNextAction()
+{
+    ITask* ret;
+
+    do
+    {
+        // Get next action as TaskID
+        // ex) TaskID::END_TURN, TaskID::ATTACK, TaskID::PLAY_CARD
+        TaskMeta next = policy->Next(*m_game);
+        // Get requirements for proper action
+        TaskMeta req = policy->Require(*this, next.GetID());
+
+        ret = GetTaskByAction(next, req);
+    } while (ret == nullptr);
+
+    return ret;
+}
+
 void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
 {
     m_hero =
         dynamic_cast<Hero*>(Entity::GetFromCard(*this, std::move(heroCard)));
     m_hero->heroPower = dynamic_cast<HeroPower*>(
         Entity::GetFromCard(*this, std::move(powerCard)));
+}
+
+ITask* Player::GetTaskByAction(TaskMeta& next, TaskMeta& req)
+{
+    SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
+
+    switch (next.GetID())
+    {
+        case TaskID::ATTACK:
+        {
+            if (list.size() >= 2)
+            {
+                Entity* source = list[0];
+                Entity* target = list[1];
+                return new PlayerTasks::AttackTask(source, target);
+            }
+
+            return nullptr;
+        }
+        case TaskID::PLAY_CARD:
+        {
+            // If requirement doesn't satisfy
+            if (list.size() < 1)
+            {
+                return nullptr;
+            }
+
+            Entity* source = list[0];
+            Entity* target = list.size() >= 2 ? list[1] : nullptr;
+
+            return new PlayerTasks::PlayCardTask(source, target);
+        }
+        case TaskID::END_TURN:
+        {
+            return new PlayerTasks::EndTurnTask();
+        }
+        default:
+            return nullptr;
+    }
 }
 }  // namespace RosettaStone

@@ -22,6 +22,7 @@ namespace RosettaStone
 {
 class Game;
 class IPolicy;
+class TaskMeta;
 
 //!
 //! \brief Player class.
@@ -120,6 +121,10 @@ class Player
     //! \return The amount of mana available to actually use.
     int GetRemainingMana() const;
 
+    //! Returns the next action of policy.
+    //! \return A task to run that is determined by policy.
+    ITask* GetNextAction();
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
@@ -141,6 +146,12 @@ class Player
     int currentSpellPower = 0;
 
  private:
+    // Returns a task that is selected by action.
+    //! \param next A next action selected by policy.
+    //! \param req A requirement for action.
+    //! \return A task that is selected by action.
+    static ITask* GetTaskByAction(TaskMeta& next, TaskMeta& req);
+
     Battlefield m_field;
     Deck m_deck;
     Graveyard m_graveyard;

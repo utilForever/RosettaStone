@@ -68,17 +68,9 @@ class Character : public Entity
     //! \param health The value of health.
     void SetHealth(int health);
 
-    //! Returns the value of base health.
-    //! \return The value of base health.
-    int GetBaseHealth() const;
-
-    //! Sets the value of base health.
-    //! \param baseHealth The value of base health.
-    void SetBaseHealth(int baseHealth);
-
     //! Returns the value of spell power.
     //! \return The value of spell power.
-    int GetSpellPower();
+    int GetSpellPower() const;
 
     //! Sets the value of spell power.
     //! \param spellPower The value of spell power.
@@ -94,7 +86,7 @@ class Character : public Entity
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
-    bool CanAttack();
+    bool CanAttack() const;
 
     //! Returns whether the target is valid in combat.
     //! \param opponent The opponent player.

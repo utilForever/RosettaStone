@@ -132,8 +132,22 @@ class Game
     //! Updates aura.
     void UpdateAura();
 
+    //! Process the specified task.
+    //! \param player A player to run task.
+    //! \param task The game task to execute.
+    void Process(Player& player, ITask* task);
+
+    //! Process the specified task.
+    //! \param player A player to run task.
+    //! \param task The game task to execute.
+    void Process(Player& player, ITask&& task);
+
     //! Process game until given step arriving.
+    //! \param step The game step to process until arrival.
     void ProcessUntil(Step step);
+
+    //! Plays policy based game.
+    void PlayPolicy();
 
     State state = State::INVALID;
 
@@ -150,6 +164,9 @@ class Game
     std::map<std::size_t, Minion*> deadMinions;
 
  private:
+    //! Checks whether the game is over.
+    void CheckGameOver();
+
     GameConfig m_gameConfig;
 
     std::array<Player, 2> m_players;

@@ -7,13 +7,11 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/Policy.hpp>
-#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/Tasks/Tasks.hpp>
 
 #include <effolkronium/random.hpp>
@@ -21,6 +19,7 @@
 #include <algorithm>
 
 using Random = effolkronium::random_static;
+using namespace RosettaStone::PlayerTasks;
 
 namespace RosettaStone
 {
@@ -157,28 +156,6 @@ void Game::BeginMulligan()
                           ChoiceAction::HAND, p1HandIDs);
     Generic::CreateChoice(GetPlayer2(), ChoiceType::MULLIGAN,
                           ChoiceAction::HAND, p2HandIDs);
-
-    Player& player1 = GetPlayer1();
-    // Request mulligan choices to policy.
-    TaskMeta p1Choice = player1.policy->Require(player1, TaskID::MULLIGAN);
-
-    // Get mulligan choices from policy.
-    Generic::ChoiceMulligan(player1,
-                            p1Choice.GetObject<std::vector<std::size_t>>());
-
-    Player& player2 = GetPlayer2();
-    // Request mulligan choices to policy.
-    TaskMeta p2Choice = player2.policy->Require(player2, TaskID::MULLIGAN);
-
-    // Get mulligan choices from policy.
-    Generic::ChoiceMulligan(player2,
-                            p2Choice.GetObject<std::vector<std::size_t>>());
-
-    nextStep = Step::MAIN_BEGIN;
-    if (m_gameConfig.autoRun)
-    {
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
 }
 
 void Game::MainBegin()
@@ -289,114 +266,7 @@ void Game::MainStart()
 
 void Game::MainAction()
 {
-    auto& player = GetCurrentPlayer();
-
-    // If game end.
-    if (player.GetHero()->GetHealth() <= 0 ||
-        player.opponent->GetHero()->GetHealth() <= 0)
-    {
-        // Set losing user.
-        if (player.GetHero()->GetHealth() <= 0)
-        {
-            player.playState = PlayState::LOSING;
-        }
-        else
-        {
-            player.opponent->playState = PlayState::LOSING;
-        }
-
-        nextStep = Step::FINAL_WRAPUP;
-        if (m_gameConfig.autoRun)
-        {
-            GameManager::ProcessNextStep(*this, nextStep);
-        }
-        return;
-    }
-
-    // Get next action as TaskID, ex) TaskID::END_TURN, TaskID::ATTACK,
-    // TaskID::PLAY_CARD
-    TaskMeta next = player.policy->Next(*this);
-    // If turn end.
-    if (next.GetID() == TaskID::END_TURN)
-    {
-        nextStep = Step::MAIN_END;
-        if (m_gameConfig.autoRun)
-        {
-            GameManager::ProcessNextStep(*this, nextStep);
-        }
-        return;
-    }
-
-    // Get requirements for proper action.
-    TaskMeta req = player.policy->Require(player, next.GetID());
-    SizedPtr<Entity*> list = req.GetObject<SizedPtr<Entity*>>();
-    switch (next.GetID())
-    {
-        // Attack target
-        case TaskID::ATTACK:
-        {
-            if (list.size() >= 2)
-            {
-                Entity* source = list[0];
-                Entity* target = list[1];
-                Task::Run(player, PlayerTasks::AttackTask(source, target));
-            }
-            break;
-        }
-        // Play card
-        case TaskID::PLAY_CARD:
-        {
-            // If requirement doesn't satisfy
-            if (list.size() < 1)
-            {
-                break;
-            }
-
-            Entity* source = list[0];
-            switch (source->card.GetCardType())
-            {
-                // Summon minion
-                case CardType::MINION:
-                    Task::Run(player, PlayerTasks::PlayCardTask::Minion(
-                                          player, source));
-                    break;
-                // Cast spell
-                case CardType::SPELL:
-                    if (list.size() == 1)
-                    {
-                        Task::Run(player, PlayerTasks::PlayCardTask::Spell(
-                                              player, source));
-                    }
-                    else
-                    {
-                        Entity* target = list[1];
-                        Task::Run(player,
-                                  PlayerTasks::PlayCardTask::SpellTarget(
-                                      player, source, target));
-                    }
-                    break;
-                // Use weapon
-                case CardType::WEAPON:
-                    Task::Run(player, PlayerTasks::PlayCardTask::Weapon(
-                                          player, source));
-                    break;
-                default:
-                    throw std::invalid_argument(
-                        "Game::MainAction() - Invalid card type!");
-            }
-            break;
-        }
-        default:
-            throw std::invalid_argument(
-                "Game::MainAction() - Invalid task type!");
-    }
-
-    nextStep = Step::MAIN_ACTION;
-    if (m_gameConfig.autoRun)
-    {
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
-    return;
+    // Do nothing
 }
 
 void Game::MainEnd()
@@ -485,10 +355,7 @@ void Game::FinalWrapUp()
 
     // Set next step
     nextStep = Step::FINAL_GAMEOVER;
-    if (m_gameConfig.autoRun)
-    {
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
+    GameManager::ProcessNextStep(*this, nextStep);
 }
 
 void Game::FinalGameOver()
@@ -660,11 +527,88 @@ void Game::UpdateAura()
     }
 }
 
+void Game::Process(Player& player, ITask* task)
+{
+    // Process task
+    Task::Run(player, task);
+
+    CheckGameOver();
+}
+
+void Game::Process(Player& player, ITask&& task)
+{
+    // Process task
+    Task::Run(player, std::move(task));
+
+    CheckGameOver();
+}
+
 void Game::ProcessUntil(Step untilStep)
 {
     m_gameConfig.autoRun = false;
     while (nextStep != untilStep)
     {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
+
+void Game::PlayPolicy()
+{
+    StartGame();
+
+    Player& player1 = GetPlayer1();
+    // Request mulligan choices to policy.
+    TaskMeta p1Choice = player1.policy->Require(player1, TaskID::MULLIGAN);
+
+    // Get mulligan choices from policy.
+    Process(player1,
+            PlayerTasks::ChooseTask::Mulligan(
+                player1, p1Choice.GetObject<std::vector<std::size_t>>()));
+
+    Player& player2 = GetPlayer2();
+    // Request mulligan choices to policy.
+    TaskMeta p2Choice = player2.policy->Require(player2, TaskID::MULLIGAN);
+
+    // Get mulligan choices from policy.
+    Process(player2,
+            PlayerTasks::ChooseTask::Mulligan(
+                player2, p2Choice.GetObject<std::vector<std::size_t>>()));
+
+    MainReady();
+
+    while (state != State::COMPLETE)
+    {
+        auto& player = GetCurrentPlayer();
+        ITask* nextAction = player.GetNextAction();
+        Process(player, nextAction);
+    }
+}
+
+void Game::CheckGameOver()
+{
+    // Check hero of two players is destroyed
+    if (GetPlayer1().GetHero()->isDestroyed)
+    {
+        if (GetPlayer2().GetHero()->isDestroyed)
+        {
+            GetPlayer1().playState = PlayState::TIED;
+            GetPlayer2().playState = PlayState::TIED;
+        }
+        else
+        {
+            GetPlayer1().playState = PlayState::LOSING;
+        }
+
+        // Set next step
+        nextStep = Step::FINAL_WRAPUP;
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+    else if (GetPlayer2().GetHero()->isDestroyed)
+    {
+        GetPlayer2().playState = PlayState::LOSING;
+
+        // Set next step
+        nextStep = Step::FINAL_WRAPUP;
         GameManager::ProcessNextStep(*this, nextStep);
     }
 }
