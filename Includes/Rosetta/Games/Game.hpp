@@ -146,6 +146,9 @@ class Game
     //! \param step The game step to process until arrival.
     void ProcessUntil(Step step);
 
+    //! Plays policy based game.
+    void PlayPolicy();
+
     State state = State::INVALID;
 
     Step step = Step::INVALID;
