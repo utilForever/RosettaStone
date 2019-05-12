@@ -239,13 +239,13 @@ TEST(Expert1CardsGen, CS1_129)
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card2, curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6u);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card3, curField.GetMinion(0)));
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
 
     curField.GetMinion(0)->SetDamage(1);
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5u);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
 
     Task::Run(curPlayer, PlayCardTask::SpellTarget(curPlayer, card4, curField.GetMinion(0)));
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
