@@ -411,7 +411,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
+    power.AddPowerTask(nullptr);
     cards.emplace("CS2_232", power);
 
     // ------------------------------------------ SPELL - DRUID
@@ -1061,7 +1061,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [CS2_087e] Blessing of Might (*) - COST:0
-    // - Faction: Neutral, Set: Core,
+    // - Faction: Neutral, Set: Core
     // --------------------------------------------------------
     // Text: +3 Attack.
     // --------------------------------------------------------
@@ -1089,7 +1089,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_360e] Humility (*) - COST:0
-    // - Faction: Neutral, Set: Core,
+    // - Faction: Neutral, Set: Core
     // --------------------------------------------------------
     // Text: Attack has been changed to 1.
     // --------------------------------------------------------
@@ -1998,7 +1998,7 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS2_103e2] Charge (*) - COST:0
-    // - Set: core,
+    // - Set: Core
     // --------------------------------------------------------
     // Text: Has <b>Charge</b>.
     // --------------------------------------------------------

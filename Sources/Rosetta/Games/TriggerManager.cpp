@@ -8,7 +8,7 @@
 
 namespace RosettaStone
 {
-void TriggerManager::OnStartTurnTrigger(Player* player, Entity* sender)
+void TriggerManager::OnStartTurnTrigger(Player* player, Entity* sender) const
 {
     if (startTurnTrigger != nullptr)
     {
@@ -16,7 +16,7 @@ void TriggerManager::OnStartTurnTrigger(Player* player, Entity* sender)
     }
 }
 
-void TriggerManager::OnEndTurnTrigger(Player* player, Entity* sender)
+void TriggerManager::OnEndTurnTrigger(Player* player, Entity* sender) const
 {
     if (endTurnTrigger != nullptr)
     {
@@ -24,7 +24,7 @@ void TriggerManager::OnEndTurnTrigger(Player* player, Entity* sender)
     }
 }
 
-void TriggerManager::OnHealTrigger(Player* player, Entity* sender)
+void TriggerManager::OnHealTrigger(Player* player, Entity* sender) const
 {
     if (healTrigger != nullptr)
     {
@@ -32,7 +32,7 @@ void TriggerManager::OnHealTrigger(Player* player, Entity* sender)
     }
 }
 
-void TriggerManager::OnAttackTrigger(Player* player, Entity* sender)
+void TriggerManager::OnAttackTrigger(Player* player, Entity* sender) const
 {
     if (attackTrigger != nullptr)
     {
@@ -40,7 +40,7 @@ void TriggerManager::OnAttackTrigger(Player* player, Entity* sender)
     }
 }
 
-void TriggerManager::OnSummonTrigger(Player* player, Entity* sender)
+void TriggerManager::OnSummonTrigger(Player* player, Entity* sender) const
 {
     if (summonTrigger != nullptr)
     {
@@ -48,7 +48,7 @@ void TriggerManager::OnSummonTrigger(Player* player, Entity* sender)
     }
 }
 
-void TriggerManager::OnTakeDamageTrigger(Player* player, Entity* sender)
+void TriggerManager::OnTakeDamageTrigger(Player* player, Entity* sender) const
 {
     if (takeDamageTrigger != nullptr)
     {

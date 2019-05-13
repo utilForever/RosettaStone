@@ -9,9 +9,8 @@
 
 namespace RosettaStone
 {
-TaskMeta BasicPolicy::Next(const Game& game)
+TaskMeta BasicPolicy::Next(const Game&)
 {
-    (void)game;
     return TaskMeta(TaskMetaTrait{ TaskID::END_TURN });
 }
 
@@ -21,6 +20,7 @@ TaskMeta BasicPolicy::Require(Player& player, TaskID id)
     {
         return iter->second(*this, player);
     }
+
     return TaskMeta(TaskMetaTrait(id));
 }
 
@@ -32,26 +32,28 @@ void BasicPolicy::Notify(const TaskMeta& meta)
     }
 }
 
-TaskMeta BasicPolicy::RequireMulligan(Player& player)
+TaskMeta BasicPolicy::RequireMulligan(Player&)
 {
-    (void)player;
     return TaskMeta(TaskMetaTrait(), std::vector<std::size_t>());
 }
 
-TaskMeta BasicPolicy::RequirePlayCard(Player& player)
+TaskMeta BasicPolicy::RequirePlayCard(Player&)
 {
-    (void)player;
     return TaskMeta(TaskMetaTrait(), SizedPtr<Entity*>());
 }
 
-TaskMeta BasicPolicy::RequireAttack(Player& player)
+TaskMeta BasicPolicy::RequireAttack(Player&)
 {
-    (void)player;
     return TaskMeta(TaskMetaTrait(), SizedPtr<Entity*>());
 }
 
-void BasicPolicy::NotifyOverDraw(const TaskMeta& meta)
+TaskMeta BasicPolicy::RequireEndTurn(Player&)
 {
-    (void)meta;
+    return TaskMeta(TaskMetaTrait(TaskID::END_TURN), SizedPtr<Entity*>());
+}
+
+void BasicPolicy::NotifyOverDraw(const TaskMeta&)
+{
+    // Do nothing
 }
 }  // namespace RosettaStone
