@@ -618,7 +618,7 @@ std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
     std::vector<Card> result;
 
-    for (auto& card : Cards::GetAllCards())
+    for (auto& card : Cards::GetInstance().GetAllCards())
     {
         if (card.gameTags.at(GameTag::COLLECTIBLE) == 0)
         {

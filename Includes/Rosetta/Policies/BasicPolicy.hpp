@@ -51,15 +51,17 @@ class BasicPolicy : public IPolicy
     //! Virtual method for AttackTask requirement.
     virtual TaskMeta RequireAttack(Player& player);
 
+    //! Virtual method for EndTurnTask requirement.
+    virtual TaskMeta RequireEndTurn(Player& player);
+
     //! Virtual method for OverDraw notifying.
     virtual void NotifyOverDraw(const TaskMeta& meta);
 
-    std::map<TaskID, std::function<TaskMeta(BasicPolicy&, Player&)>> m_require =
-        {
-            { TaskID::MULLIGAN, &BasicPolicy::RequireMulligan },
-            { TaskID::PLAY_CARD, &BasicPolicy::RequirePlayCard },
-            { TaskID::ATTACK, &BasicPolicy::RequireAttack },
-        };
+    std::map<TaskID, std::function<TaskMeta(BasicPolicy&, Player&)>>
+        m_require = { { TaskID::MULLIGAN, &BasicPolicy::RequireMulligan },
+                      { TaskID::PLAY_CARD, &BasicPolicy::RequirePlayCard },
+                      { TaskID::ATTACK, &BasicPolicy::RequireAttack },
+                      { TaskID::END_TURN, &BasicPolicy::RequireEndTurn } };
 
     std::map<TaskID, std::function<void(BasicPolicy&, const TaskMeta&)>>
         m_notify = {

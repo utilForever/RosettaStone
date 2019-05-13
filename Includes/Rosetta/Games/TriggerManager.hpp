@@ -22,17 +22,35 @@ class Player;
 class TriggerManager
 {
  public:
-    void OnStartTurnTrigger(Player* player, Entity* sender);
+    //! Callback for trigger when player's turn is started.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnStartTurnTrigger(Player* player, Entity* sender) const;
 
-    void OnEndTurnTrigger(Player* player, Entity* sender);
+    //! Callback for trigger when player's turn is ended.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnEndTurnTrigger(Player* player, Entity* sender) const;
 
-    void OnHealTrigger(Player* player, Entity* sender);
+    //! Callback for trigger when entity is healed.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnHealTrigger(Player* player, Entity* sender) const;
 
-    void OnAttackTrigger(Player* player, Entity* sender);
+    //! Callback for trigger when entity attacks target.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnAttackTrigger(Player* player, Entity* sender) const;
 
-    void OnSummonTrigger(Player* player, Entity* sender);
+    //! Callback for trigger when entity is summoned.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnSummonTrigger(Player* player, Entity* sender) const;
 
-    void OnTakeDamageTrigger(Player* player, Entity* sender);
+    //! Callback for trigger when entity is taken damage.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnTakeDamageTrigger(Player* player, Entity* sender) const;
 
     std::function<void(Player*, Entity*)> startTurnTrigger;
     std::function<void(Player*, Entity*)> endTurnTrigger;

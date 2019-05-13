@@ -98,6 +98,15 @@ namespace Task
 //! \param player The player to run task.
 //! \param task The task to run.
 //! \return The result of task processing.
+inline TaskStatus Run(Player& player, ITask* task)
+{
+    return task->Run(player);
+}
+
+//! Calls Impl method and returns meta data.
+//! \param player The player to run task.
+//! \param task The task to run.
+//! \return The result of task processing.
 inline TaskStatus Run(Player& player, ITask&& task)
 {
     return task.Run(player);

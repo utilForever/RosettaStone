@@ -14,28 +14,27 @@ PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos)
     // Do nothing
 }
 
-PlayCardTask PlayCardTask::Minion(Player&, Entity* source)
+PlayCardTask PlayCardTask::Minion(Entity* source)
 {
     return PlayCardTask(source, nullptr, -1);
 }
 
-PlayCardTask PlayCardTask::MinionTarget(Player&, Entity* source,
-                                        Entity* target)
+PlayCardTask PlayCardTask::MinionTarget(Entity* source, Entity* target)
 {
     return PlayCardTask(source, target, -1);
 }
 
-PlayCardTask PlayCardTask::Spell(Player&, Entity* source)
+PlayCardTask PlayCardTask::Spell(Entity* source)
 {
     return PlayCardTask(source, nullptr);
 }
 
-PlayCardTask PlayCardTask::SpellTarget(Player&, Entity* source, Entity* target)
+PlayCardTask PlayCardTask::SpellTarget(Entity* source, Entity* target)
 {
     return PlayCardTask(source, target);
 }
 
-PlayCardTask PlayCardTask::Weapon(Player&, Entity* source)
+PlayCardTask PlayCardTask::Weapon(Entity* source)
 {
     return PlayCardTask(source, nullptr);
 }

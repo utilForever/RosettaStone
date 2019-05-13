@@ -26,38 +26,31 @@ class PlayCardTask : public ITask
     PlayCardTask(Entity* source, Entity* target = nullptr, int fieldPos = -1);
 
     //! PlayCardTask wrapper for minion without target and field position.
-    //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask Minion(Player& player, Entity* source);
+    static PlayCardTask Minion(Entity* source);
 
     //! PlayCardTask wrapper for minion.
-    //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.
     //! \param target A pointer to target entity to receive power.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask MinionTarget(Player& player, Entity* source,
-                                     Entity* target);
+    static PlayCardTask MinionTarget(Entity* source, Entity* target);
 
     //! PlayCardTask wrapper for spell without target.
-    //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask Spell(Player& player, Entity* source);
+    static PlayCardTask Spell(Entity* source);
 
     //! PlayCardTask wrapper for spell.
-    //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.
     //! \param target A pointer to target entity to receive power.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask SpellTarget(Player& player, Entity* source,
-                                    Entity* target);
+    static PlayCardTask SpellTarget(Entity* source, Entity* target);
 
     //! PlayCardTask wrapper for weapon without target.
-    //! \param player The player to run task.
     //! \param source A pointer to source entity to play card.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask Weapon(Player& player, Entity* source);
+    static PlayCardTask Weapon(Entity* source);
 
     //! Returns task ID.
     //! \return Task ID.
