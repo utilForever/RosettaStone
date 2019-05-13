@@ -13,16 +13,20 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(std::string cardID, int num)
-    : m_cardID(std::move(cardID)), m_num(num)
+SummonTask::SummonTask(SummonSide side, std::optional<Card> card, int amount)
+    : m_card(std::move(card)), m_side(side), m_amount(amount)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(std::string cardID, SummonSide side)
-    : m_cardID(std::move(cardID)), m_side(side)
+SummonTask::SummonTask(std::string cardID, int amount) : m_amount(amount)
 {
-    // Do nothing
+    m_card = Cards::FindCardByID(cardID);
+}
+
+SummonTask::SummonTask(std::string cardID, SummonSide side) : m_side(side)
+{
+    m_card = Cards::FindCardByID(cardID);
 }
 
 TaskID SummonTask::GetTaskID() const
@@ -32,7 +36,7 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
-    for (int i = 0; i < m_num; ++i)
+    for (int i = 0; i < m_amount; ++i)
     {
         if (player.GetField().IsFull())
         {
@@ -40,10 +44,10 @@ TaskStatus SummonTask::Impl(Player& player)
         }
 
         Entity* summonEntity = nullptr;
-        if (!m_cardID.empty())
+        if (m_card.has_value())
         {
-            Card card = Cards::FindCardByID(m_cardID);
-            summonEntity = Entity::GetFromCard(player, std::move(card));
+            summonEntity =
+                Entity::GetFromCard(player, std::move(m_card.value()));
         }
         else if (!player.GetGame()->taskStack.entities.empty())
         {

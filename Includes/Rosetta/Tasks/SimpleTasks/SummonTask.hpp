@@ -13,12 +13,12 @@ namespace RosettaStone::SimpleTasks
 //! The side of summoned minion.
 enum class SummonSide
 {
-    DEFAULT,        //!< Summoning on the last position on the right side.
-    LEFT,           //!< Summoning left of the minion.
-    RIGHT,          //!< Summoning right of the minion.
-    DEATHRATTLE,    //!< Summoning at the last position of the source.
-    NUMBER,         //!< Summoning at a given position in the stack number.
-    SPELL           //!< Summoning by spell, currently like default.
+    DEFAULT,      //!< Summoning on the last position on the right side.
+    LEFT,         //!< Summoning left of the minion.
+    RIGHT,        //!< Summoning right of the minion.
+    DEATHRATTLE,  //!< Summoning at the last position of the source.
+    NUMBER,       //!< Summoning at a given position in the stack number.
+    SPELL         //!< Summoning by spell, currently like default.
 };
 
 //!
@@ -29,15 +29,20 @@ enum class SummonSide
 class SummonTask : public ITask
 {
  public:
-    //! Constructs task with given \p cardID and \p num.
+    //! Constructs task with given \p side, \p card and \p amount.
+    explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
+                        std::optional<Card> card = std::nullopt,
+                        int amount = 1);
+
+    //! Constructs task with given \p cardID and \p amount.
     //! \param cardID The card ID to summon.
-    //! \param num The number of minions to summon.
-    explicit SummonTask(std::string cardID, int num);
+    //! \param amount The number of minions to summon.
+    explicit SummonTask(std::string cardID, int amount);
 
     //! Constructs task with given \p cardID and \p side.
     //! \param cardID The card ID to summon.
     //! \param side The side of summoned minion.
-    explicit SummonTask(std::string cardID = "",
+    explicit SummonTask(std::string cardID,
                         SummonSide side = SummonSide::DEFAULT);
 
     //! Returns task ID.
@@ -50,9 +55,9 @@ class SummonTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::string m_cardID;
-    int m_num = 1;
+    std::optional<Card> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;
+    int m_amount = 1;
 };
 }  // namespace RosettaStone::SimpleTasks
 
