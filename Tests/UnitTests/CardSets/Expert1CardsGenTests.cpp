@@ -95,6 +95,68 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [CS1_129] Inner Fire - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Change a minion's Attack to be equal to its Health.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(Expert1CardsGen, CS1_129_InnerFire)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    
+    auto& curField = curPlayer.GetField();
+  
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Divine Spirit"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));     
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+
+    curField.GetMinion(0)->SetDamage(1);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
