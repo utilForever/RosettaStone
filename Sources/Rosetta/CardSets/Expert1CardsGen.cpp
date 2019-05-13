@@ -3,12 +3,10 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
-#include <Rosetta/Conditions/SelfCondition.hpp>
-#include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
@@ -125,7 +123,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
-    
+
     // ----------------------------------------- ENCHANTMENT - PRIEST
     // [CS1_129e] Inner Fire - COST:0
     // - Set: Expert1
@@ -166,6 +164,23 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
 {
     Power power;
 
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_038] Ancestral Spirit - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give a minion "<b>Deathrattle:</b> Resummon this minion."
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_038e", EntityType::TARGET));
+    cards.emplace("CS2_038", power);
+
     // ---------------------------------------- MINION - SHAMAN
     // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
     // - Race: Elemental, Set: Expert1, Rarity: Legendary
@@ -186,7 +201,17 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_038e] Ancestral Spirit (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Resummon this minion.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, 1));
+    power.AddDeathrattleTask(new SummonTask(SummonSide::DEATHRATTLE));
 }
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)

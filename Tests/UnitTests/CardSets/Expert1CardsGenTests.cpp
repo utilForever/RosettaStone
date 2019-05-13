@@ -124,9 +124,9 @@ TEST(Expert1CardsGen, CS1_129_InnerFire)
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
-    
+
     auto& curField = curPlayer.GetField();
-  
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
     const auto card2 = Generic::DrawCard(
@@ -136,25 +136,32 @@ TEST(Expert1CardsGen, CS1_129_InnerFire)
     const auto card4 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
     const auto card5 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));     
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card5));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(),
+              curField.GetMinion(0)->GetAttack());
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(),
+              curField.GetMinion(0)->GetAttack());
 
     curField.GetMinion(0)->SetDamage(1);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(),
+              curField.GetMinion(0)->GetAttack());
 }
 
 // ----------------------------------------- MINION - ROGUE
@@ -171,6 +178,61 @@ TEST(Expert1CardsGen, CS1_129_InnerFire)
 TEST(RogueExpert1Test, EX1_522_PatientAssassin)
 {
     // Do nothing
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [CS2_038] Ancestral Spirit - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give a minion "<b>Deathrattle:</b> Resummon this minion."
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ancestral Spirit"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, AttackTask(card3, card1));
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 2);
 }
 
 // ---------------------------------------- MINION - SHAMAN
