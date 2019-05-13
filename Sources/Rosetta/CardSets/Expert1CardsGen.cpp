@@ -282,6 +282,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_169", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_188o", EntityType::TARGET));
+    cards.emplace("CS2_188", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_231] Wisp - COST:0 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -504,6 +519,19 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_152", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS2_188o] Inspired (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_188o"));
+    cards.emplace("CS2_188o", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)

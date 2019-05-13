@@ -334,6 +334,72 @@ TEST(NeutralExpert1Test, CS2_169_YoungDragonhawk)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
+// - Faction: Alliance, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(Expert1CardsGen, CS2_188_AbusiveSergeant)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Abusive Sergeant"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Abusive Sergeant"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 5);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card4));
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
+    EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CS2_231] Wisp - COST:0 [ATK:1/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
