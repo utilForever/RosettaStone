@@ -44,37 +44,29 @@ void Trigger::Activate(Entity& source)
 
     source.activatedTrigger = instance;
 
+	auto& triggerFunc = [instance](Player* p, Entity* e) {
+        instance->Process(p, e);
+    };
+
     switch (m_triggerType)
     {
         case TriggerType::TURN_START:
-            game->triggerManager.startTurnTrigger =
-                std::bind(&Trigger::Process, instance, std::placeholders::_1,
-                          std::placeholders::_2);
+            game->triggerManager.startTurnTrigger = std::move(triggerFunc);
             break;
         case TriggerType::TURN_END:
-            game->triggerManager.endTurnTrigger =
-                std::bind(&Trigger::Process, instance, std::placeholders::_1,
-                          std::placeholders::_2);
+            game->triggerManager.endTurnTrigger = std::move(triggerFunc);
             break;
         case TriggerType::HEAL:
-            game->triggerManager.healTrigger =
-                std::bind(&Trigger::Process, instance, std::placeholders::_1,
-                          std::placeholders::_2);
+            game->triggerManager.healTrigger = std::move(triggerFunc);
             break;
         case TriggerType::ATTACK:
-            game->triggerManager.attackTrigger =
-                std::bind(&Trigger::Process, instance, std::placeholders::_1,
-                          std::placeholders::_2);
+            game->triggerManager.attackTrigger = std::move(triggerFunc);
             break;
         case TriggerType::SUMMON:
-            game->triggerManager.summonTrigger =
-                std::bind(&Trigger::Process, instance, std::placeholders::_1,
-                          std::placeholders::_2);
+            game->triggerManager.summonTrigger = std::move(triggerFunc);
             break;
         case TriggerType::TAKE_DAMAGE:
-            game->triggerManager.takeDamageTrigger =
-                std::bind(&Trigger::Process, instance, std::placeholders::_1,
-                          std::placeholders::_2);
+            game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
             break;
         default:
             throw std::invalid_argument(
