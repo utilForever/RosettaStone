@@ -21,6 +21,7 @@ enum class TaskID
     MULLIGAN,
     PLAY_CARD,
     ADD_ENCHANTMENT,
+    REMOVE_ENCHANTMENT,
     DESTROY,
     DISCARD,
     HEAL_FULL,
