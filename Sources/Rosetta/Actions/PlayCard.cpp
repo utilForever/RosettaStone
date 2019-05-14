@@ -77,6 +77,11 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
         minion->SetGameTag(tags.first, tags.second);
     }
 
+    // Process play card trigger
+    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, minion);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
+
     // Process summon trigger
     player.GetGame()->triggerManager.OnSummonTrigger(&player, minion);
     player.GetGame()->ProcessTasks();
@@ -99,6 +104,11 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 
 void PlaySpell(Player& player, Spell* spell, Character* target)
 {
+    // Process play card trigger
+    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, spell);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
+
     // Process power tasks
     for (auto& powerTask : spell->card.power.GetPowerTask())
     {
@@ -119,6 +129,11 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 {
+    // Process play card trigger
+    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, weapon);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
+
     // Process trigger
     if (weapon->card.power.GetTrigger().has_value())
     {
