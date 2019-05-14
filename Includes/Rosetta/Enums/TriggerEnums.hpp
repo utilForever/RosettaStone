@@ -31,6 +31,7 @@ enum class TriggerSource
     HERO,
     ALL_MINIONS,
     MINIONS_EXCEPT_SELF,
+    ENCHANTMENT_TARGET,
 };
 
 //! \brief An enumerator for identifying sequence type.

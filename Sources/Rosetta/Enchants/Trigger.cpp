@@ -212,6 +212,16 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerSource::ENCHANTMENT_TARGET:
+        {
+            const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
+            if (enchantment == nullptr ||
+                enchantment->GetTarget()->id != source->id)
+            {
+                return;
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "Trigger::Validate() - Invalid source trigger!");
