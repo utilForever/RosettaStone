@@ -16,6 +16,9 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 {
     switch (type)
     {
+        case TriggerType::PLAY_CARD:
+            m_sequenceType = SequenceType::PLAY_CARD;
+            break;
         case TriggerType::TURN_END:
             fastExecution = true;
             break;
@@ -56,6 +59,11 @@ void Trigger::Activate(Entity& source)
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
+        case TriggerType::PLAY_CARD:
+            game->triggerManager.playCardTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger =
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
@@ -93,6 +101,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::TURN_END:
             game->triggerManager.endTurnTrigger = nullptr;
+            break;
+        case TriggerType::PLAY_CARD:
+            game->triggerManager.playCardTrigger = nullptr;
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;
@@ -215,6 +226,7 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerType::PLAY_CARD:
         case TriggerType::SUMMON:
             if (source == m_owner)
             {
