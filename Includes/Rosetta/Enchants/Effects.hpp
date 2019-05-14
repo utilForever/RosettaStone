@@ -36,6 +36,12 @@ class Effects
         return { AttackN(n), HealthN(n) };
     }
 
+    //! Creates effect that reduces cost by \p n.
+    static Effect ReduceCost(int n)
+    {
+        return Effect(GameTag::COST, EffectOperator::SUB, n);
+    }
+
     //! A minion ability which forces the opposing player to direct any
     //! melee attacks toward enemy targets with this ability.
     inline static Effect Taunt = Effect(GameTag::TAUNT, EffectOperator::SET, 1);
