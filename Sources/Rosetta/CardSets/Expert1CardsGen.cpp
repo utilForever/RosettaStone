@@ -141,6 +141,24 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
 {
     Power power;
 
+    // ------------------------------------------ SPELL - ROGUE
+    // [CS2_073] Cold Blood - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a minion +2 Attack. <b>Combo:</b> +4 Attack instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_073e", EntityType::TARGET));
+    power.AddComboTask(new AddEnchantmentTask("CS2_073e2", EntityType::TARGET));
+    cards.emplace("CS2_073", power);
+
     // ----------------------------------------- MINION - ROGUE
     // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
@@ -159,7 +177,27 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [CS2_073e] Cold Blood (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e"));
+    cards.emplace("CS2_073e", power);
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [CS2_073e2] Cold Blood (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +4 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e2"));
+    cards.emplace("CS2_073e2", power);
 }
 
 void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
