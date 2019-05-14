@@ -235,6 +235,45 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 2);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [CS2_053] Far Sight - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Draw a card. That card costs (3) less.
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, CS2_053_FarSight)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHand();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Far Sight"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+
+    Entity* drawCard = curPlayer.GetHand().GetCard(curHand.GetNumOfCards() - 1);
+    int cost = drawCard->card.gameTags[GameTag::COST] - 3;
+    EXPECT_EQ(cost < 0 ? 0 : cost, drawCard->GetCost());
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
 // - Race: Elemental, Set: Expert1, Rarity: Legendary

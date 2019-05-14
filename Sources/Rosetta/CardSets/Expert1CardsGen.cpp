@@ -13,6 +13,7 @@
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -181,6 +182,17 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("CS2_038e", EntityType::TARGET));
     cards.emplace("CS2_038", power);
 
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CS2_053] Far Sight - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Draw a card. That card costs (3) less.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(1, true));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_053e", EntityType::STACK));
+    cards.emplace("CS2_053", power);
+
     // ---------------------------------------- MINION - SHAMAN
     // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
     // - Race: Elemental, Set: Expert1, Rarity: Legendary
@@ -212,6 +224,23 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, 1));
     power.AddDeathrattleTask(new SummonTask(SummonSide::DEATHRATTLE));
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CS2_053e] Far Sight (*) - COST:0
+    // - Set: expert1,
+    // --------------------------------------------------------
+    // Text: One of your cards costs (3) less.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        Enchant({ Effects::ReduceCost(3), Effect(GameTag::DISPLAYED_CREATOR,
+                                                 EffectOperator::SET, 1) }));
+    power.AddTrigger(Trigger(TriggerType::PLAY_CARD));
+    power.GetTrigger().value().triggerSource =
+        TriggerSource::ENCHANTMENT_TARGET;
+    power.GetTrigger().value().singleTask = new RemoveEnchantmentTask();
+    power.GetTrigger().value().removeAfterTriggered = true;
+    cards.emplace("CS2_053e", power);
 }
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
