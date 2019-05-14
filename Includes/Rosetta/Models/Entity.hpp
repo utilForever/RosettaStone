@@ -82,6 +82,10 @@ class Entity
     //! \param exhausted The value of exhausted.
     void SetExhausted(bool exhausted);
 
+    //! Returns whether this entity has combo.
+    //! \return Whether this entity has combo.
+    bool HasCombo() const;
+
     //! Destroys character.
     virtual void Destroy();
 

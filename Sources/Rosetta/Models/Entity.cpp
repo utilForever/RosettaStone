@@ -153,6 +153,11 @@ void Entity::SetExhausted(bool exhausted)
     SetGameTag(GameTag::EXHAUSTED, static_cast<int>(exhausted));
 }
 
+bool Entity::HasCombo() const
+{
+    return GetGameTag(GameTag::COMBO) == 1;
+}
+
 void Entity::Destroy()
 {
     isDestroyed = true;
