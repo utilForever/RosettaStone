@@ -238,7 +238,7 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.AddTrigger(Trigger(TriggerType::PLAY_CARD));
     power.GetTrigger().value().triggerSource =
         TriggerSource::ENCHANTMENT_TARGET;
-    power.GetTrigger().value().singleTask = new RemoveEnchantmentTask();
+    power.GetTrigger().value().tasks = { new RemoveEnchantmentTask() };
     power.GetTrigger().value().removeAfterTriggered = true;
     cards.emplace("CS2_053e", power);
 }
