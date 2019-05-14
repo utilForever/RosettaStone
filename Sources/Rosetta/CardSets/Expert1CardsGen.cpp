@@ -1,12 +1,20 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/Conditions/SelfCondition.hpp>
+#include <Rosetta/Enchants/Effects.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -95,12 +103,38 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CS1_129] Inner Fire - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Change a minion's Attack to be equal to its Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(new MathSubTask(EntityType::TARGET, GameTag::DAMAGE));
+    power.AddPowerTask(new AddEnchantmentTask("CS1_129e", EntityType::TARGET));
+    cards.emplace("CS1_129", power);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+    
+    // ----------------------------------------- ENCHANTMENT - PRIEST
+    // [CS1_129e] Inner Fire - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Change a minion's Attack to be equal to its Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::move(Enchants::SetAttackScriptTag));
+    cards.emplace("CS1_129e", power);
 }
 
 void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
@@ -246,6 +280,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_169", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_188o", EntityType::TARGET));
+    cards.emplace("CS2_188", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_231] Wisp - COST:0 [ATK:1/HP:1]
@@ -470,6 +519,19 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_152", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [CS2_188o] Inspired (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_188o"));
+    cards.emplace("CS2_188o", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
