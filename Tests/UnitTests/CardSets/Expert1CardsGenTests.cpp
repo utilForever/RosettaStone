@@ -292,6 +292,61 @@ TEST(ShamanExpert1Test, NEW1_010_AlAkirTheWindlord)
     // Do nothing
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1]
+// - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>. At the end of your turn,
+//       give another random friendly minion +1 Health.
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, CS2_059_BloodImp)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Blood Imp"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    int totalHealth = curField.GetMinion(1)->GetHealth();
+    totalHealth += curField.GetMinion(2)->GetHealth();
+    EXPECT_EQ(totalHealth, 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    totalHealth = curField.GetMinion(1)->GetHealth();
+    totalHealth += curField.GetMinion(2)->GetHealth();
+    EXPECT_EQ(totalHealth, 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6]
 // - Faction: Alliance, Set: Expert1, Rarity: Common

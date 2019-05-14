@@ -13,6 +13,7 @@
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
@@ -245,12 +246,40 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1]
+    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>. At the end of your turn,
+    //       give another random friendly minion +1 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = {
+        new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
+        new AddEnchantmentTask("CS2_059o", EntityType::STACK)
+    };
+    cards.emplace("CS2_059", power);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [CS2_059o] Blood Pact (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Effects::HealthN(1));
+    cards.emplace("CS2_059o", power);
 }
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
