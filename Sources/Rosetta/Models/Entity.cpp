@@ -106,22 +106,26 @@ void Entity::Reset()
 
 int Entity::GetGameTag(GameTag tag) const
 {
+    int value = 0;
+
     if (m_gameTags.find(tag) == m_gameTags.end())
     {
         if (auraEffects != nullptr)
         {
-            return auraEffects->GetGameTag(tag);
+            value += auraEffects->GetGameTag(tag);
         }
-
-        return 0;
     }
-
-    if (auraEffects != nullptr)
+    else
     {
-        return m_gameTags.at(tag) + auraEffects->GetGameTag(tag);
+        value += m_gameTags.at(tag);
+
+        if (auraEffects != nullptr)
+        {
+            value += auraEffects->GetGameTag(tag);
+        }
     }
 
-    return m_gameTags.at(tag);
+    return value > 0 ? value : 0;
 }
 
 void Entity::SetGameTag(GameTag tag, int value)
