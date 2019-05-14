@@ -44,7 +44,7 @@ void Trigger::Activate(Entity& source)
 
     source.activatedTrigger = instance;
 
-	auto triggerFunc = [instance](Player* p, Entity* e) {
+    auto triggerFunc = [instance](Player* p, Entity* e) {
         instance->Process(p, e);
     };
 
