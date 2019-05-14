@@ -42,7 +42,7 @@ class Trigger
 
     TriggerSource triggerSource = TriggerSource::NONE;
 
-    ITask* singleTask = nullptr;
+    std::vector<ITask*> tasks;
     SelfCondition* condition = nullptr;
 
     bool fastExecution = false;

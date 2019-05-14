@@ -29,7 +29,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 
 Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
-      singleTask(prototype.singleTask),
+      tasks(prototype.tasks),
       condition(prototype.condition),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
@@ -144,37 +144,40 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
 {
     m_isValidated = false;
 
-    singleTask->SetSource(m_owner);
+    for (auto& task : tasks)
+    {
+        task->SetSource(m_owner);
 
-    if (source != nullptr)
-    {
-        singleTask->SetTarget(source);
-    }
-    else
-    {
-        const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
-        if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
+        if (source != nullptr)
         {
-            singleTask->SetTarget(enchantment->GetTarget());
+            task->SetTarget(source);
         }
         else
         {
-            singleTask->SetTarget(nullptr);
+            const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
+            if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
+            {
+                task->SetTarget(enchantment->GetTarget());
+            }
+            else
+            {
+                task->SetTarget(nullptr);
+            }
         }
-    }
 
-    if (fastExecution)
-    {
-        singleTask->Run(*player);
-    }
-    else
-    {
-        m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
-    }
+        if (fastExecution)
+        {
+            task->Run(*player);
+        }
+        else
+        {
+            m_owner->owner->GetGame()->taskQueue.push_back(task);
+        }
 
-    if (removeAfterTriggered)
-    {
-        Remove();
+        if (removeAfterTriggered)
+        {
+            Remove();
+        }
     }
 
     m_isValidated = false;
