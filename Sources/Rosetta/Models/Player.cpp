@@ -117,6 +117,16 @@ void Player::SetOverloadOwed(int amount)
     SetGameTag(GameTag::OVERLOAD_OWED, amount);
 }
 
+int Player::GetOverloadLocked() const
+{
+    return GetGameTag(GameTag::OVERLOAD_LOCKED);
+}
+
+void Player::SetOverloadLocked(int amount)
+{
+    SetGameTag(GameTag::OVERLOAD_LOCKED, amount);
+}
+
 int Player::GetRemainingMana() const
 {
     return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
