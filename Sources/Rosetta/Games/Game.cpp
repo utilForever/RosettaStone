@@ -199,6 +199,9 @@ void Game::MainReady()
         m->SetExhausted(false);
     }
 
+    // Reset combo active
+    curPlayer.SetComboActive(false);
+
     // Set next step
     nextStep = Step::MAIN_START_TRIGGERS;
     if (m_gameConfig.autoRun)
