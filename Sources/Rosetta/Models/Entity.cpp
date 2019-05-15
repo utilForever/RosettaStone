@@ -158,6 +158,16 @@ bool Entity::HasCombo() const
     return GetGameTag(GameTag::COMBO) == 1;
 }
 
+bool Entity::HasOverload() const
+{
+    return GetGameTag(GameTag::OVERLOAD) > 0;
+}
+
+int Entity::GetOverload() const
+{
+    return GetGameTag(GameTag::OVERLOAD);
+}
+
 void Entity::Destroy()
 {
     isDestroyed = true;

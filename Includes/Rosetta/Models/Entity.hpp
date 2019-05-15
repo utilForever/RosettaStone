@@ -86,6 +86,14 @@ class Entity
     //! \return Whether this entity has combo.
     bool HasCombo() const;
 
+    //! Returns whether this entity has overload.
+    //! \return Whether this entity has overload.
+    bool HasOverload() const;
+
+    //! Returns the value of overload.
+    //! \return The value of overload.
+    int GetOverload() const;
+
     //! Destroys character.
     virtual void Destroy();
 
