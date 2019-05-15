@@ -121,6 +121,14 @@ class Player
     //! \return The amount of mana available to actually use.
     int GetRemainingMana() const;
 
+    //! Returns whether combo is active.
+    //! \return Whether combo is active.
+    bool IsComboActive() const;
+
+    //! Sets the value of combo active.
+    //! \param isActive Whether combo is active.
+    void SetComboActive(bool isActive);
+
     //! Returns the next action of policy.
     //! \return A task to run that is determined by policy.
     ITask* GetNextAction();

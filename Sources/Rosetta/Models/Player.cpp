@@ -112,6 +112,16 @@ int Player::GetRemainingMana() const
     return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
 }
 
+bool Player::IsComboActive() const
+{
+    return GetGameTag(GameTag::COMBO_ACTIVE) == 1;
+}
+
+void Player::SetComboActive(bool isActive)
+{
+    SetGameTag(GameTag::COMBO_ACTIVE, isActive ? 1 : 0);
+}
+
 ITask* Player::GetNextAction()
 {
     ITask* ret;
