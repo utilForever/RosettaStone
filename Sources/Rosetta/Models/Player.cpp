@@ -82,9 +82,9 @@ int Player::GetTotalMana() const
     return GetGameTag(GameTag::RESOURCES);
 }
 
-void Player::SetTotalMana(int value)
+void Player::SetTotalMana(int amount)
 {
-    SetGameTag(GameTag::RESOURCES, value);
+    SetGameTag(GameTag::RESOURCES, amount);
 }
 
 int Player::GetUsedMana() const
@@ -92,9 +92,9 @@ int Player::GetUsedMana() const
     return GetGameTag(GameTag::RESOURCES_USED);
 }
 
-void Player::SetUsedMana(int value)
+void Player::SetUsedMana(int amount)
 {
-    SetGameTag(GameTag::RESOURCES_USED, value);
+    SetGameTag(GameTag::RESOURCES_USED, amount);
 }
 
 int Player::GetTemporaryMana() const
@@ -102,9 +102,9 @@ int Player::GetTemporaryMana() const
     return GetGameTag(GameTag::TEMP_RESOURCES);
 }
 
-void Player::SetTemporaryMana(int value)
+void Player::SetTemporaryMana(int amount)
 {
-    SetGameTag(GameTag::TEMP_RESOURCES, value);
+    SetGameTag(GameTag::TEMP_RESOURCES, amount);
 }
 
 int Player::GetRemainingMana() const

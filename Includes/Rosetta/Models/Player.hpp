@@ -97,24 +97,24 @@ class Player
     int GetTotalMana() const;
 
     //! Sets total amount of mana available.
-    //! \param value Total amount of mana available.
-    void SetTotalMana(int value);
+    //! \param amount Total amount of mana available.
+    void SetTotalMana(int amount);
 
     //! Returns amount of mana used.
     //! \return Amount of mana used.
     int GetUsedMana() const;
 
     //! Sets amount of mana used.
-    //! \param value Amount of mana used.
-    void SetUsedMana(int value);
+    //! \param amount Amount of mana used.
+    void SetUsedMana(int amount);
 
     //! Returns additional mana gained during this turn.
     //! \return additional mana gained during this turn.
     int GetTemporaryMana() const;
 
     //! Sets additional mana gained during this turn.
-    //! \param value additional mana gained during this turn.
-    void SetTemporaryMana(int value);
+    //! \param amount additional mana gained during this turn.
+    void SetTemporaryMana(int amount);
 
     //! Returns the amount of mana available to actually use after calculating
     //! all resource factors.
