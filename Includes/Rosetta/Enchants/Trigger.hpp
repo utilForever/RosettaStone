@@ -9,6 +9,8 @@
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
 
+#include <vector>
+
 namespace RosettaStone
 {
 class Entity;
