@@ -129,7 +129,8 @@ void Player::SetOverloadLocked(int amount)
 
 int Player::GetRemainingMana() const
 {
-    return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
+    return GetTotalMana() + GetTemporaryMana() -
+           (GetUsedMana() + GetOverloadLocked());
 }
 
 bool Player::IsComboActive() const

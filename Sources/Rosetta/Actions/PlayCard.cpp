@@ -25,6 +25,13 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
         return;
     }
 
+    // Check card has overload
+    if (source->HasOverload())
+    {
+        const int amount = source->GetOverload();
+        player.SetOverloadOwed(player.GetOverloadOwed() + amount);
+    }
+
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {

@@ -236,6 +236,10 @@ void Game::MainResource()
     // Remove temporary mana
     curPlayer.SetTemporaryMana(0);
 
+    // Process overload
+    curPlayer.SetOverloadLocked(curPlayer.GetOverloadOwed());
+    curPlayer.SetOverloadOwed(0);
+
     // Set next step
     nextStep = Step::MAIN_DRAW;
     if (m_gameConfig.autoRun)
