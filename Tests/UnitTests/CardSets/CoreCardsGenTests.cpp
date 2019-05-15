@@ -266,11 +266,11 @@ TEST(HeroPowersCoreTest, CS2_056_LifeTap)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4u);
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5);
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
 }
 
