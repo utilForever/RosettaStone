@@ -116,6 +116,14 @@ class Player
     //! \param amount additional mana gained during this turn.
     void SetTemporaryMana(int amount);
 
+    //! Returns amount of mana which will be locked during the next turn.
+    //! \return Amount of mana which will be locked during the next turn.
+    int GetOverloadOwed() const;
+
+    //! Sets amount of mana which will be locked during the next turn.
+    //! \param amount Amount of mana which will be locked during the next turn.
+    void SetOverloadOwed(int amount);
+
     //! Returns the amount of mana available to actually use after calculating
     //! all resource factors.
     //! \return The amount of mana available to actually use.

@@ -107,6 +107,16 @@ void Player::SetTemporaryMana(int amount)
     SetGameTag(GameTag::TEMP_RESOURCES, amount);
 }
 
+int Player::GetOverloadOwed() const
+{
+    return GetGameTag(GameTag::OVERLOAD_OWED);
+}
+
+void Player::SetOverloadOwed(int amount)
+{
+    SetGameTag(GameTag::OVERLOAD_OWED, amount);
+}
+
 int Player::GetRemainingMana() const
 {
     return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
