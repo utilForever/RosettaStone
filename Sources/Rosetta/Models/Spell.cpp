@@ -13,6 +13,11 @@ Spell::Spell(Player& _owner, Card& _card) : Entity(_owner, _card)
     // Do nothing
 }
 
+bool Spell::IsSecret() const
+{
+    return GetGameTag(GameTag::SECRET) == 1;
+}
+
 bool Spell::IsCountered() const
 {
     return GetGameTag(GameTag::CANT_PLAY) == 1;
