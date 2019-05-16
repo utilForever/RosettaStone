@@ -107,5 +107,6 @@
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
 #include <Rosetta/Tasks/TaskWrapper.hpp>
+#include <Rosetta/Zones/IZone.hpp>
 
 #endif  // ROSSETASTONE_ROSETTA_HPP
