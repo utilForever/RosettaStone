@@ -53,6 +53,7 @@ enum class TaskID
     MATH_SUB,
     FILTER_STACK,
     RANDOM_ENTOURAGE,
+    MOVE_TO_GRAVEYARD,
 
     NUM_TASK_ID
 };
