@@ -13,6 +13,7 @@
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
@@ -84,6 +85,28 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new SetGameTagTask(EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
     cards.emplace("CS2_028", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [EX1_287] Counterspell - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - COUNTER = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger().value().tasks = {
+        new SetGameTagTask(EntityType::TARGET, GameTag::CANT_PLAY, 1),
+        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+        new MoveToGraveyardTask(EntityType::SOURCE)
+    };
+    power.GetTrigger().value().fastExecution = true;
+    cards.emplace("EX1_287", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)

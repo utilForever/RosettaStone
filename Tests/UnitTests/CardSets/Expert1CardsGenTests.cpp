@@ -95,6 +95,55 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [EX1_287] Counterspell - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+// RefTag:
+// - COUNTER = 1
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_287_Counterspell)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Counterspell"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Lightning Bolt"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
+    EXPECT_EQ(opPlayer.GetRemainingMana(), 9);
+    EXPECT_EQ(opPlayer.GetOverloadOwed(), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_129] Inner Fire - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
