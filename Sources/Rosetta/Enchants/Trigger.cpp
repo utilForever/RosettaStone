@@ -64,6 +64,11 @@ void Trigger::Activate(Entity& source)
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
                           std::placeholders::_2);
             break;
+        case TriggerType::CAST_SPELL:
+            game->triggerManager.castSpellTrigger =
+                std::bind(&Trigger::Process, instance, std::placeholders::_1,
+                          std::placeholders::_2);
+            break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger =
                 std::bind(&Trigger::Process, instance, std::placeholders::_1,
@@ -104,6 +109,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = nullptr;
+            break;
+        case TriggerType::CAST_SPELL:
+            game->triggerManager.castSpellTrigger = nullptr;
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;
@@ -246,6 +254,7 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerType::CAST_SPELL:
         case TriggerType::HEAL:
         case TriggerType::ATTACK:
         case TriggerType::TAKE_DAMAGE:

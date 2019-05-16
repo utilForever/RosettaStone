@@ -16,6 +16,8 @@ enum class TriggerType
     TURN_START,  //!< The effect will be triggered at the start of turn.
     TURN_END,    //!< The effect will be triggered at the end of turn.
     PLAY_CARD,   //!< The effect will be triggered when a player plays a card.
+    CAST_SPELL,  //!< The effect will be triggered when a player plays a Spell
+                 //!< card.
     HEAL,        //!< The effect will be triggered when characters are healed.
     ATTACK,      //!< The effect will be triggered when characters attack.
     SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
