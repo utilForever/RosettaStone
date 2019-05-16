@@ -134,44 +134,79 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 
 void PlaySpell(Player& player, Spell* spell, Character* target)
 {
+    // Process cast spell trigger
+    player.GetGame()->triggerManager.OnCastSpellTrigger(&player, spell);
+
     // Process play card trigger
     player.GetGame()->triggerManager.OnPlayCardTrigger(&player, spell);
     player.GetGame()->ProcessTasks();
     player.GetGame()->ProcessDestroyAndUpdateAura();
 
-    // Process power or combo tasks
-    if (spell->HasCombo() && player.IsComboActive())
+    // Check spell is countered
+    if (spell->IsCountered())
     {
-        for (auto& comboTask : spell->card.power.GetComboTask())
-        {
-            if (comboTask == nullptr)
-            {
-                continue;
-            }
-
-            comboTask->SetSource(spell);
-            comboTask->SetTarget(target);
-            comboTask->Run(player);
-        }
+        player.GetGraveyard().AddCard(*spell);
     }
     else
     {
-        for (auto& powerTask : spell->card.power.GetPowerTask())
+        if (spell->IsSecret())
         {
-            if (powerTask == nullptr)
+            // Process trigger
+            if (spell->card.power.GetTrigger().has_value())
             {
-                continue;
+                spell->card.power.GetTrigger().value().Activate(*spell);
             }
 
-            powerTask->SetSource(spell);
-            powerTask->SetTarget(target);
-            powerTask->Run(player);
+            spell->SetExhausted(true);
+        }
+        else
+        {
+            // Process trigger
+            if (spell->card.power.GetTrigger().has_value())
+            {
+                spell->card.power.GetTrigger().value().Activate(*spell);
+            }
+
+            // Process aura
+            if (spell->card.power.GetAura().has_value())
+            {
+                spell->card.power.GetAura().value().Activate(*spell);
+            }
+
+            // Process power or combo tasks
+            if (spell->HasCombo() && player.IsComboActive())
+            {
+                for (auto& comboTask : spell->card.power.GetComboTask())
+                {
+                    if (comboTask == nullptr)
+                    {
+                        continue;
+                    }
+
+                    comboTask->SetSource(spell);
+                    comboTask->SetTarget(target);
+                    comboTask->Run(player);
+                }
+            }
+            else
+            {
+                for (auto& powerTask : spell->card.power.GetPowerTask())
+                {
+                    if (powerTask == nullptr)
+                    {
+                        continue;
+                    }
+
+                    powerTask->SetSource(spell);
+                    powerTask->SetTarget(target);
+                    powerTask->Run(player);
+                }
+            }
+
+            player.GetGraveyard().AddCard(*spell);
+            player.GetGame()->ProcessDestroyAndUpdateAura();
         }
     }
-
-    player.GetGraveyard().AddCard(*spell);
-
-    player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
