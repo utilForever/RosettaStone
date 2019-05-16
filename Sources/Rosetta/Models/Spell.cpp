@@ -12,4 +12,9 @@ Spell::Spell(Player& _owner, Card& _card) : Entity(_owner, _card)
 {
     // Do nothing
 }
+
+bool Spell::IsCountered() const
+{
+    return GetGameTag(GameTag::CANT_PLAY) == 1;
+}
 }  // namespace RosettaStone

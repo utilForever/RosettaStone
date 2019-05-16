@@ -41,6 +41,10 @@ class Spell : public Entity
 
     //! Default move assignment operator.
     Spell& operator=(Spell&& spell) = default;
+
+    //! Returns whether spell is countered.
+    //! \return Whether spell is countered.
+    bool IsCountered() const;
 };
 }  // namespace RosettaStone
 
