@@ -6,7 +6,7 @@
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 #include <stdexcept>
 

@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 #include <RosettaTorch/GameToVec.hpp>
 
 namespace RosettaTorch

@@ -7,7 +7,7 @@
 #define ROSETTASTONE_CONDITION_TASK_HPP
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {

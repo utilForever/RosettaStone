@@ -65,6 +65,7 @@
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Policies/RandomPolicy.hpp>
 #include <Rosetta/RosettaStone.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
@@ -106,6 +107,5 @@
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
 #include <Rosetta/Tasks/TaskWrapper.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
 
 #endif  // ROSSETASTONE_ROSETTA_HPP

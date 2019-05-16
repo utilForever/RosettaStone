@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_RANDOM_TASK_HPP
 #define ROSETTASTONE_RANDOM_TASK_HPP
 
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {

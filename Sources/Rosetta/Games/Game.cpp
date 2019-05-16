@@ -12,7 +12,7 @@
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 #include <effolkronium/random.hpp>
 

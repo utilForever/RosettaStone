@@ -9,8 +9,8 @@
 
 #include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
 
 #include <functional>
 
