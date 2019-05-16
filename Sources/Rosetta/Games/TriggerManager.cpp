@@ -32,6 +32,14 @@ void TriggerManager::OnPlayCardTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnCastSpellTrigger(Player* player, Entity* sender) const
+{
+    if (castSpellTrigger != nullptr)
+    {
+        castSpellTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnHealTrigger(Player* player, Entity* sender) const
 {
     if (healTrigger != nullptr)
