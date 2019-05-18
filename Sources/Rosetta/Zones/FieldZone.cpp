@@ -5,44 +5,44 @@
 // property of any third parties.
 
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
 
 namespace RosettaStone
 {
-Battlefield::Battlefield()
+FieldZone::FieldZone()
 {
     m_minions.fill(nullptr);
 }
 
-Player& Battlefield::GetOwner() const
+Player& FieldZone::GetOwner() const
 {
     return *m_owner;
 }
 
-void Battlefield::SetOwner(Player& owner)
+void FieldZone::SetOwner(Player& owner)
 {
     m_owner = &owner;
 }
 
-bool Battlefield::IsFull() const
+bool FieldZone::IsFull() const
 {
     return GetNumOfMinions() == FIELD_SIZE;
 }
 
-std::size_t Battlefield::GetNumOfMinions() const
+std::size_t FieldZone::GetNumOfMinions() const
 {
     return m_numMinion;
 }
 
-Character* Battlefield::GetMinion(std::size_t pos)
+Character* FieldZone::GetMinion(std::size_t pos)
 {
     return m_minions.at(pos);
 }
 
-std::vector<Character*> Battlefield::GetAllMinions()
+std::vector<Character*> FieldZone::GetAllMinions()
 {
     std::vector<Character*> ret;
     ret.reserve(m_numMinion);
@@ -55,7 +55,7 @@ std::vector<Character*> Battlefield::GetAllMinions()
     return ret;
 }
 
-std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion) const
+std::optional<std::size_t> FieldZone::FindMinionPos(Minion& minion) const
 {
     const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
     if (iter != std::end(m_minions))
@@ -66,7 +66,7 @@ std::optional<std::size_t> Battlefield::FindMinionPos(Minion& minion) const
     return std::nullopt;
 }
 
-void Battlefield::AddMinion(Minion& minion, int pos)
+void FieldZone::AddMinion(Minion& minion, int pos)
 {
     if (pos < 0)
     {
@@ -105,7 +105,7 @@ void Battlefield::AddMinion(Minion& minion, int pos)
     ActivateAura(minion);
 }
 
-void Battlefield::RemoveMinion(Minion& minion)
+void FieldZone::RemoveMinion(Minion& minion)
 {
     RemoveAura(minion);
 
@@ -144,7 +144,7 @@ void Battlefield::RemoveMinion(Minion& minion)
     }
 }
 
-void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
+void FieldZone::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
 {
     const std::size_t pos = FindMinionPos(oldMinion).value();
     m_minions[pos] = &newMinion;
@@ -155,7 +155,7 @@ void Battlefield::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
     ActivateAura(newMinion);
 }
 
-void Battlefield::ActivateAura(Minion& minion)
+void FieldZone::ActivateAura(Minion& minion)
 {
     if (minion.card.power.GetTrigger().has_value())
     {
@@ -174,7 +174,7 @@ void Battlefield::ActivateAura(Minion& minion)
     }
 }
 
-void Battlefield::RemoveAura(Minion& minion)
+void FieldZone::RemoveAura(Minion& minion)
 {
     if (minion.onGoingEffect != nullptr)
     {

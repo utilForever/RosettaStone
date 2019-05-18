@@ -4,28 +4,29 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_HAND_HPP
-#define ROSETTASTONE_HAND_HPP
+#ifndef ROSETTASTONE_HAND_ZONE_HPP
+#define ROSETTASTONE_HAND_ZONE_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Zones/Zone.hpp>
 
 #include <array>
 
 namespace RosettaStone
 {
 //!
-//! \brief Hand class.
+//! \brief HandZone class.
 //!
 //! This class is where each player keeps the cards currently available to
 //! them. The player can see their hand face-up at the bottom of the screen,
 //! while the opponent's hand is shown face-down at the top of the screen.
 //!
-class Hand
+class HandZone : public PositioningZone<Entity*>
 {
  public:
     //! Default constructor.
-    Hand();
+    HandZone();
 
     //! Returns the owner of hand.
     //! \return The owner of hand.
@@ -81,4 +82,4 @@ class Hand
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_HAND_HPP
+#endif  // ROSETTASTONE_HAND_ZONE_HPP

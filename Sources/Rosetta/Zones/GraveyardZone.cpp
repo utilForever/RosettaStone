@@ -6,26 +6,26 @@
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
-#include <Rosetta/Models/Graveyard.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 
 namespace RosettaStone
 {
-Graveyard::Graveyard()
+GraveyardZone::GraveyardZone()
 {
     m_cards.reserve(START_DECK_SIZE);
 }
 
-Player& Graveyard::GetOwner() const
+Player& GraveyardZone::GetOwner() const
 {
     return *m_owner;
 }
 
-void Graveyard::SetOwner(Player& owner)
+void GraveyardZone::SetOwner(Player& owner)
 {
     m_owner = &owner;
 }
 
-void Graveyard::AddCard(Entity& card)
+void GraveyardZone::AddCard(Entity& card)
 {
     m_cards.emplace_back(&card);
 

@@ -4,26 +4,27 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_GRAVEYARD_HPP
-#define ROSETTASTONE_GRAVEYARD_HPP
+#ifndef ROSETTASTONE_GRAVEYARD_ZONE_HPP
+#define ROSETTASTONE_GRAVEYARD_ZONE_HPP
 
 #include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Zones/Zone.hpp>
 
 #include <vector>
 
 namespace RosettaStone
 {
 //!
-//! \brief Graveyard class.
+//! \brief GraveyardZone class.
 //!
 //! This class is where the cards that are no longer used in the game.
 //! Discarded cards and spell cards, after their activation, go directly to it.
 //!
-class Graveyard
+class GraveyardZone : public UnlimitedZone
 {
  public:
     //! Default constructor.
-    Graveyard();
+    GraveyardZone();
 
     //! Returns the owner of graveyard.
     //! \return The owner of graveyard.
@@ -44,4 +45,4 @@ class Graveyard
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_GRAVEYARD_HPP
+#endif  // ROSETTASTONE_GRAVEYARD_ZONE_HPP

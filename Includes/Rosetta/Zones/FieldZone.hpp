@@ -4,19 +4,20 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_BATTLEFIELD_HPP
-#define ROSETTASTONE_BATTLEFIELD_HPP
+#ifndef ROSETTASTONE_FIELD_ZONE_HPP
+#define ROSETTASTONE_FIELD_ZONE_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
+#include <Rosetta/Zones/Zone.hpp>
 
 #include <array>
 
 namespace RosettaStone
 {
 //!
-//! \brief Battlefield class.
+//! \brief FieldZone class.
 //!
 //! This class is where the action takes place, representing the board on which
 //! each game is played out. Around the battlefield are various important UI
@@ -26,11 +27,11 @@ namespace RosettaStone
 //! battlefield selection. Battlefields are chosen at random and are independent
 //! of the heroes chosen by players or used by the Innkeeper.
 //!
-class Battlefield
+class FieldZone : public PositioningZone<Minion*>
 {
  public:
     //! Default constructor.
-    Battlefield();
+    FieldZone();
 
     //! Returns the owner of battlefield.
     //! \return The owner of battlefield.
@@ -71,7 +72,7 @@ class Battlefield
     void RemoveMinion(Minion& minion);
 
     //! Replaces minion with another.
-    //! \param oldMinion An old minion to replace. 
+    //! \param oldMinion An old minion to replace.
     //! \param newMinion A new minion to replace.
     void ReplaceMinion(Minion& oldMinion, Minion& newMinion);
 
@@ -88,4 +89,4 @@ class Battlefield
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_BATTLEFIELD_HPP
+#endif  // ROSETTASTONE_FIELD_ZONE_HPP

@@ -4,29 +4,30 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_DECK_HPP
-#define ROSETTASTONE_DECK_HPP
+#ifndef ROSETTASTONE_DECK_ZONE_HPP
+#define ROSETTASTONE_DECK_ZONE_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Zones/Zone.hpp>
 
 #include <array>
 
 namespace RosettaStone
 {
 //!
-//! \brief Deck class.
+//! \brief DeckZone class.
 //!
 //! This class stores a deck. A deck is a collection of exactly 30 cards
 //! assembled before a match, as well as the zone which players draw cards from
 //! (and sometimes add cards to) during game play. Each deck is tied to a
 //! specific class.
 //!
-class Deck
+class DeckZone : public LimitedZone<Entity*>
 {
  public:
     //! Default constructor.
-    Deck();
+    DeckZone();
 
     //! Returns the owner of deck.
     //! \return The owner of deck.
@@ -68,4 +69,4 @@ class Deck
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_DECK_HPP
+#endif  // ROSETTASTONE_DECK_ZONE_HPP

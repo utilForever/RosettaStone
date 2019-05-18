@@ -46,14 +46,10 @@
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/PowerLoader.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
-#include <Rosetta/Models/Deck.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Entity.hpp>
-#include <Rosetta/Models/Graveyard.hpp>
-#include <Rosetta/Models/Hand.hpp>
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Minion.hpp>
@@ -107,6 +103,11 @@
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
 #include <Rosetta/Tasks/TaskWrapper.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/IZone.hpp>
+#include <Rosetta/Zones/Zone.hpp>
 
 #endif  // ROSSETASTONE_ROSETTA_HPP

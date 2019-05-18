@@ -4,48 +4,48 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Models/Hand.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 #include <algorithm>
 
 namespace RosettaStone
 {
-Hand::Hand()
+HandZone::HandZone()
 {
     m_cards.fill(nullptr);
 }
 
-Player& Hand::GetOwner() const
+Player& HandZone::GetOwner() const
 {
     return *m_owner;
 }
 
-void Hand::SetOwner(Player& owner)
+void HandZone::SetOwner(Player& owner)
 {
     m_owner = &owner;
 }
 
-bool Hand::IsFull() const
+bool HandZone::IsFull() const
 {
     return GetNumOfCards() == HAND_SIZE;
 }
 
-bool Hand::IsEmpty() const
+bool HandZone::IsEmpty() const
 {
     return GetNumOfCards() == 0;
 }
 
-std::size_t Hand::GetNumOfCards() const
+std::size_t HandZone::GetNumOfCards() const
 {
     return m_numCard;
 }
 
-Entity* Hand::GetCard(std::size_t pos)
+Entity* HandZone::GetCard(std::size_t pos)
 {
     return m_cards.at(pos);
 }
 
-std::vector<Entity*> Hand::GetAllCards()
+std::vector<Entity*> HandZone::GetAllCards()
 {
     std::vector<Entity*> ret;
     ret.reserve(m_numCard);
@@ -58,7 +58,7 @@ std::vector<Entity*> Hand::GetAllCards()
     return ret;
 }
 
-std::optional<std::size_t> Hand::FindCardPos(Entity& card)
+std::optional<std::size_t> HandZone::FindCardPos(Entity& card)
 {
     const auto iter = std::find(m_cards.begin(), m_cards.end(), &card);
     if (iter != std::end(m_cards))
@@ -69,13 +69,13 @@ std::optional<std::size_t> Hand::FindCardPos(Entity& card)
     return std::nullopt;
 }
 
-void Hand::AddCard(Entity& card)
+void HandZone::AddCard(Entity& card)
 {
     m_cards.at(m_numCard) = &card;
     ++m_numCard;
 }
 
-void Hand::RemoveCard(Entity& card)
+void HandZone::RemoveCard(Entity& card)
 {
     if (card.activatedTrigger != nullptr)
     {
@@ -102,7 +102,7 @@ void Hand::RemoveCard(Entity& card)
     --m_numCard;
 }
 
-void Hand::SwapCard(Entity& card1, Entity& card2)
+void HandZone::SwapCard(Entity& card1, Entity& card2)
 {
     const std::size_t card1Pos = FindCardPos(card1).value();
     const std::size_t card2Pos = FindCardPos(card2).value();
