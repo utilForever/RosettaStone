@@ -218,8 +218,8 @@ enum class Step
     MAIN_START_TRIGGERS
 };
 
-//! \brief An enumerator for indicating the game zone.
-enum class Zone
+//! \brief An enumerator for indicating the type of zone.
+enum class ZoneType
 {
     INVALID,
     PLAY,
