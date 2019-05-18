@@ -308,6 +308,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_169", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
+    // - Race: Beast, Faction: Horde, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
+    // --------------------------------------------------------
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::SOURCE, 4, false));
+    cards.emplace("CS2_181", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------

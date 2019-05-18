@@ -106,7 +106,7 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(ExpertCardGen, CS1_104_Rampage)
+TEST(WarriorExpert1Test, CS1_104_Rampage)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -155,7 +155,7 @@ TEST(ExpertCardGen, CS1_104_Rampage)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(Expert1CardsGen, CS1_129_InnerFire)
+TEST(PriestExpert1Test, CS1_129_InnerFire)
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -381,6 +381,42 @@ TEST(NeutralExpert1Test, CS2_161_RavenholdtAssassin)
 TEST(NeutralExpert1Test, CS2_169_YoungDragonhawk)
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
+// - Race: Beast, Faction: Horde, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
+// --------------------------------------------------------
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, CS2_181_InjuredBlademaster)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Injured Blademaster"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL
