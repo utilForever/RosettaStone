@@ -4,22 +4,22 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include "Rosetta/Commons/Utils.hpp"
-#include "Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp"
 
 namespace RosettaStone
 {
 Player::Player() : playerID(USER_INVALID)
 {
-    m_field.SetOwner(*this);
-    m_deck.SetOwner(*this);
-    m_graveyard.SetOwner(*this);
-    m_hand.SetOwner(*this);
+    m_deckZone.SetOwner(*this);
+    m_fieldZone.SetOwner(*this);
+    m_graveyardZone.SetOwner(*this);
+    m_handZone.SetOwner(*this);
 }
 
 Player::~Player()
@@ -37,24 +37,24 @@ void Player::SetGame(Game* game)
     m_game = game;
 }
 
-Battlefield& Player::GetField()
+FieldZone& Player::GetFieldZone()
 {
-    return m_field;
+    return m_fieldZone;
 }
 
-Deck& Player::GetDeck()
+DeckZone& Player::GetDeckZone()
 {
-    return m_deck;
+    return m_deckZone;
 }
 
-Graveyard& Player::GetGraveyard()
+GraveyardZone& Player::GetGraveyardZone()
 {
-    return m_graveyard;
+    return m_graveyardZone;
 }
 
-Hand& Player::GetHand()
+HandZone& Player::GetHandZone()
 {
-    return m_hand;
+    return m_handZone;
 }
 
 Hero* Player::GetHero() const

@@ -8,13 +8,13 @@
 #define ROSETTASTONE_PLAYER_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Choice.hpp>
-#include <Rosetta/Models/Deck.hpp>
 #include <Rosetta/Models/Entity.hpp>
-#include <Rosetta/Models/Graveyard.hpp>
-#include <Rosetta/Models/Hand.hpp>
 #include <Rosetta/Models/Hero.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 #include <string>
 
@@ -62,21 +62,21 @@ class Player
     //! \param game A pointer to game.
     void SetGame(Game* game);
 
-    //! Returns player's battlefield.
-    //! \return Player's battlefield.
-    Battlefield& GetField();
+    //! Returns player's field zone.
+    //! \return Player's field zone.
+    FieldZone& GetFieldZone();
 
-    //! Returns player's deck.
-    //! \return Player's deck.
-    Deck& GetDeck();
+    //! Returns player's deck zone.
+    //! \return Player's deck zone.
+    DeckZone& GetDeckZone();
 
-    //! Returns player's graveyard.
-    //! \return Player's graveyard.
-    Graveyard& GetGraveyard();
+    //! Returns player's graveyard zone.
+    //! \return Player's graveyard zone.
+    GraveyardZone& GetGraveyardZone();
 
-    //! Returns player's hand.
-    //! \return Player's hand.
-    Hand& GetHand();
+    //! Returns player's hand zone.
+    //! \return Player's hand zone.
+    HandZone& GetHandZone();
 
     //! Returns player's hero.
     //! \return Player's hero.
@@ -176,10 +176,10 @@ class Player
     //! \return A task that is selected by action.
     static ITask* GetTaskByAction(TaskMeta& next, TaskMeta& req);
 
-    Battlefield m_field;
-    Deck m_deck;
-    Graveyard m_graveyard;
-    Hand m_hand;
+    DeckZone m_deckZone;
+    FieldZone m_fieldZone;
+    GraveyardZone m_graveyardZone;
+    HandZone m_handZone;
 
     Hero* m_hero = nullptr;
     Game* m_game = nullptr;
