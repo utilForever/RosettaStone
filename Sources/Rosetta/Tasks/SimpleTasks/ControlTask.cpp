@@ -22,8 +22,8 @@ TaskStatus ControlTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    auto& myField = player.GetField();
-    auto& opField = player.opponent->GetField();
+    auto& myField = player.GetFieldZone();
+    auto& opField = player.opponent->GetFieldZone();
 
     for (auto& entity : entities)
     {

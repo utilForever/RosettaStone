@@ -265,18 +265,18 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     // Write number of opponent player's cards, normalized, on the hand.
     tensor[0] =
-        static_cast<float>(opPlayer.GetHand().GetNumOfCards()) / HAND_SIZE;
+        static_cast<float>(opPlayer.GetHandZone().GetNumOfCards()) / HAND_SIZE;
 
     // Write number of opponent player's cards, normalized, on the deck.
-    tensor[1] =
-        static_cast<float>(opPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
+    tensor[1] = static_cast<float>(opPlayer.GetDeckZone().GetNumOfCards()) /
+                MAX_DECK_SIZE;
 
     // Write number of current player's cards, normalized, on the deck.
-    tensor[2] =
-        static_cast<float>(curPlayer.GetDeck().GetNumOfCards()) / MAX_DECK_SIZE;
+    tensor[2] = static_cast<float>(curPlayer.GetDeckZone().GetNumOfCards()) /
+                MAX_DECK_SIZE;
 
     const auto FieldWrite = [&](std::size_t start, Player& player) {
-        auto field = player.GetField();
+        auto field = player.GetFieldZone();
         const std::size_t numOfMinions = field.GetNumOfMinions();
 
         std::size_t i = 0;
@@ -292,7 +292,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     };
 
     const auto HandWrite = [&](std::size_t start, Player& player) {
-        auto hand = player.GetHand();
+        auto hand = player.GetHandZone();
         const std::size_t numOfCards = hand.GetNumOfCards();
 
         std::size_t i = 0;

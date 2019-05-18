@@ -48,7 +48,8 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
         Player& player = game.GetCurrentPlayer();
 
         // If entity is on the hand of current player.
-        if (auto pos = player.GetHand().FindCardPos(*entity); pos.has_value())
+        if (auto pos = player.GetHandZone().FindCardPos(*entity);
+            pos.has_value())
         {
             tensor[start + CurrentHandOffset] = 1;
             tensor[start + TargetPlaceSize + pos.value()] = 1;
@@ -58,7 +59,7 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
                  minion != nullptr)
         {
             // If entity is on the field of current player.
-            if (auto fieldPos = player.GetField().FindMinionPos(*minion);
+            if (auto fieldPos = player.GetFieldZone().FindMinionPos(*minion);
                 fieldPos.has_value())
             {
                 tensor[start + CurrentFieldOffset] = 1;
@@ -66,7 +67,7 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
             }
             // If entity is on the field of other player.
             else if (auto opFieldPos =
-                         game.GetOpponentPlayer().GetField().FindMinionPos(
+                         game.GetOpponentPlayer().GetFieldZone().FindMinionPos(
                              *minion);
                      opFieldPos.has_value())
             {

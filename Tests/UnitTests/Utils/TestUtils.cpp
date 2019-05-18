@@ -61,7 +61,7 @@ Card GenerateMinionCard(std::string&& id, int attack, int health)
 
 void PlayMinionCard(Player& player, Card& card)
 {
-    Battlefield& playerField = player.GetField();
+    FieldZone& playerField = player.GetFieldZone();
 
     const auto minion = new Minion(player, card);
     playerField.AddMinion(*minion);

@@ -11,8 +11,8 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/Policy.hpp>
-#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -93,8 +93,8 @@ void Game::BeginShuffle()
     // Shuffle cards in deck
     if (m_gameConfig.doShuffle)
     {
-        GetPlayer1().GetDeck().Shuffle();
-        GetPlayer2().GetDeck().Shuffle();
+        GetPlayer1().GetDeckZone().Shuffle();
+        GetPlayer2().GetDeckZone().Shuffle();
     }
 
     // Set next step
@@ -121,7 +121,7 @@ void Game::BeginDraw()
 
             // Give "The Coin" card to second player
             Card coin = Cards::FindCardByID("GAME_005");
-            p.GetHand().AddCard(*Entity::GetFromCard(p, std::move(coin)));
+            p.GetHandZone().AddCard(*Entity::GetFromCard(p, std::move(coin)));
         }
     }
 
@@ -142,11 +142,11 @@ void Game::BeginMulligan()
 
     // Collect cards that can redraw
     std::vector<std::size_t> p1HandIDs, p2HandIDs;
-    for (auto& entity : GetPlayer1().GetHand().GetAllCards())
+    for (auto& entity : GetPlayer1().GetHandZone().GetAllCards())
     {
         p1HandIDs.emplace_back(entity->id);
     }
-    for (auto& entity : GetPlayer2().GetHand().GetAllCards())
+    for (auto& entity : GetPlayer2().GetHandZone().GetAllCards())
     {
         p2HandIDs.emplace_back(entity->id);
     }
@@ -176,7 +176,7 @@ void Game::MainReady()
         // Hero
         p.GetHero()->SetNumAttacksThisTurn(0);
         // Field
-        for (auto& m : p.GetField().GetAllMinions())
+        for (auto& m : p.GetFieldZone().GetAllMinions())
         {
             m->SetNumAttacksThisTurn(0);
         }
@@ -194,7 +194,7 @@ void Game::MainReady()
     // Hero power
     curPlayer.GetHero()->heroPower->SetExhausted(false);
     // Field
-    for (auto& m : curPlayer.GetField().GetAllMinions())
+    for (auto& m : curPlayer.GetFieldZone().GetAllMinions())
     {
         m->SetExhausted(false);
     }
@@ -314,7 +314,7 @@ void Game::MainCleanUp()
         curPlayer.GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
-    for (auto& m : curPlayer.GetField().GetAllMinions())
+    for (auto& m : curPlayer.GetFieldZone().GetAllMinions())
     {
         if (m->GetGameTag(GameTag::FROZEN) == 1 &&
             m->GetNumAttacksThisTurn() == 0 && !m->GetExhausted())
@@ -391,7 +391,7 @@ void Game::StartGame()
         }
 
         Entity* entity = Entity::GetFromCard(GetPlayer1(), std::move(card));
-        GetPlayer1().GetDeck().AddCard(*entity);
+        GetPlayer1().GetDeckZone().AddCard(*entity);
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
@@ -401,7 +401,7 @@ void Game::StartGame()
         }
 
         Entity* entity = Entity::GetFromCard(GetPlayer2(), std::move(card));
-        GetPlayer2().GetDeck().AddCard(*entity);
+        GetPlayer2().GetDeckZone().AddCard(*entity);
     }
 
     // Fill cards to deck
@@ -413,7 +413,7 @@ void Game::StartGame()
             {
                 Card card = Cards::FindCardByID(cardID);
                 Entity* entity = Entity::GetFromCard(p, std::move(card));
-                p.GetDeck().AddCard(*entity);
+                p.GetDeckZone().AddCard(*entity);
             }
         }
     }
@@ -509,9 +509,9 @@ void Game::ProcessDestroyAndUpdateAura()
             }
 
             // Remove minion from battlefield
-            minion->owner->GetField().RemoveMinion(*minion);
+            minion->owner->GetFieldZone().RemoveMinion(*minion);
             // Add minion to graveyard
-            minion->owner->GetGraveyard().AddCard(*minion);
+            minion->owner->GetGraveyardZone().AddCard(*minion);
         }
 
         deadMinions.clear();

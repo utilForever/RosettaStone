@@ -84,7 +84,7 @@ TEST(HeroPowersCoreTest, CS2_017_Shapeshift)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
@@ -148,7 +148,7 @@ TEST(HeroPowersCoreTest, CS2_034_Fireblast)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
@@ -200,8 +200,8 @@ TEST(HeroPowersCoreTest, CS2_049_TotemicCall)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     game.Process(curPlayer, HeroPowerTask());
     game.Process(curPlayer, EndTurnTask());
@@ -266,11 +266,11 @@ TEST(HeroPowersCoreTest, CS2_056_LifeTap)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 4);
 
     game.Process(curPlayer, HeroPowerTask());
 
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5);
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
 }
 
@@ -344,7 +344,7 @@ TEST(HeroPowersCoreTest, CS2_101_Reinforce)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     game.Process(curPlayer, HeroPowerTask());
 
@@ -496,7 +496,7 @@ TEST(DruidCoreTest, CS2_007_HealingTouch)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Healing Touch"));
@@ -553,8 +553,8 @@ TEST(DruidCoreTest, CS2_008_Moonfire)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Moonfire"));
@@ -633,7 +633,7 @@ TEST(DruidCoreTest, CS2_009_MarkOfTheWild)
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 0);
@@ -672,7 +672,7 @@ TEST(DruidCoreTest, CS2_011_SavageRoar)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Savage Roar"));
@@ -730,7 +730,7 @@ TEST(DruidCoreTest, CS2_012_Swipe)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Swipe"));
@@ -906,7 +906,7 @@ TEST(DruidCoreTest, EX1_173_Starfire)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Starfire"));
@@ -924,7 +924,7 @@ TEST(DruidCoreTest, EX1_173_Starfire)
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -957,7 +957,7 @@ TEST(HunterCoreTest, CS2_084_HuntersMark)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
@@ -1016,10 +1016,10 @@ TEST(HunterCoreTest, CS2_237_StarvingBuzzard)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 }
 
 // ---------------------------------------- MINION - HUNTER
@@ -1059,7 +1059,7 @@ TEST(HunterCoreTest, DS1_070_Houndmaster)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Houndmaster"));
@@ -1078,13 +1078,13 @@ TEST(HunterCoreTest, DS1_070_Houndmaster)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 3);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::TAUNT), 0);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetMinion(1)->GetAttack(), 5);
     EXPECT_EQ(curField.GetMinion(1)->GetHealth(), 4);
     EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::TAUNT), 1);
@@ -1119,7 +1119,7 @@ TEST(HunterCoreTest, DS1_175_TimberWolf)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Timber Wolf"));
@@ -1199,7 +1199,7 @@ TEST(HunterCoreTest, DS1_178_TundraRhino)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Tundra Rhino"));
@@ -1256,7 +1256,7 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Multi-Shot"));
@@ -1278,18 +1278,18 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(totalHealth, 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    totalHealth += opPlayer.GetField().GetMinion(1)->GetHealth();
+    totalHealth += opPlayer.GetFieldZone().GetMinion(1)->GetHealth();
     EXPECT_EQ(totalHealth, 8);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    totalHealth += opPlayer.GetField().GetMinion(2)->GetHealth();
+    totalHealth += opPlayer.GetFieldZone().GetMinion(2)->GetHealth();
     EXPECT_EQ(totalHealth, 12);
 
     game.Process(opPlayer, EndTurnTask());
@@ -1299,8 +1299,8 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
     EXPECT_EQ(opField.GetNumOfMinions(), 3u);
     totalHealth = opField.GetMinion(0)->GetHealth();
-    totalHealth += opPlayer.GetField().GetMinion(1)->GetHealth();
-    totalHealth += opPlayer.GetField().GetMinion(2)->GetHealth();
+    totalHealth += opPlayer.GetFieldZone().GetMinion(1)->GetHealth();
+    totalHealth += opPlayer.GetFieldZone().GetMinion(2)->GetHealth();
     EXPECT_EQ(totalHealth, 6);
 }
 
@@ -1334,8 +1334,8 @@ TEST(HunterCoreTest, DS1_184_Tracking)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Tracking"));
 
-    EXPECT_EQ(curPlayer.GetDeck().GetNumOfCards(), 5u);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetDeckZone().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_TRUE(curPlayer.choice.has_value());
@@ -1344,8 +1344,8 @@ TEST(HunterCoreTest, DS1_184_Tracking)
     game.Process(
         curPlayer,
         ChooseTask::Pick(curPlayer, curPlayer.choice.value().choices[0]));
-    EXPECT_EQ(curPlayer.GetDeck().GetNumOfCards(), 2u);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetDeckZone().GetNumOfCards(), 2u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 }
 
 // ----------------------------------------- SPELL - HUNTER
@@ -1401,14 +1401,14 @@ TEST(HunterCoreTest, DS1_185_ArcaneShot)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opPlayer.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(opPlayer.GetFieldZone().GetNumOfMinions(), 0u);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetNumOfMinions(), 0u);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer.GetHero()));
@@ -1493,7 +1493,7 @@ TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Animal Companion"));
@@ -1556,8 +1556,8 @@ TEST(MageCoreTest, CS2_022_Polymorph)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Polymorph"));
@@ -1617,10 +1617,10 @@ TEST(MageCoreTest, CS2_023_ArcaneIntellect)
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Arcane Intellect"));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1668,7 +1668,7 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
     const auto card6 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     game.Process(curPlayer, PlayCardTask::Minion(card5));
 
@@ -1681,7 +1681,7 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opPlayer.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(opPlayer.GetFieldZone().GetNumOfMinions(), 0u);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
@@ -1730,7 +1730,7 @@ TEST(MageCoreTest, CS2_025_ArcaneExplosion)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    const auto& opField = opPlayer.GetField();
+    const auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Arcane Explosion"));
@@ -1791,7 +1791,7 @@ TEST(MageCoreTest, CS2_026_FrostNova)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Frost Nova"));
@@ -1860,7 +1860,7 @@ TEST(MageCoreTest, CS2_027_MirrorImage)
     const auto card4 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mirror Image"));
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
     EXPECT_EQ(curField.GetNumOfMinions(), 0u);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
@@ -1935,7 +1935,7 @@ TEST(MageCoreTest, CS2_029_Fireball)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opPlayer.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(opPlayer.GetFieldZone().GetNumOfMinions(), 0u);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
@@ -1948,7 +1948,7 @@ TEST(MageCoreTest, CS2_029_Fireball)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetNumOfMinions(), 0u);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer.GetHero()));
@@ -1981,7 +1981,7 @@ TEST(MageCoreTest, CS2_032_Flamestrike)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Flamestrike"));
@@ -2060,7 +2060,7 @@ TEST(MageCoreTest, EX1_277_ArcaneMissiles)
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     int totalHealth = opPlayer.GetHero()->GetHealth();
-    totalHealth += opPlayer.GetField().GetMinion(0)->GetHealth();
+    totalHealth += opPlayer.GetFieldZone().GetMinion(0)->GetHealth();
     EXPECT_EQ(totalHealth, 37);
 
     game.Process(opPlayer, EndTurnTask());
@@ -2068,12 +2068,12 @@ TEST(MageCoreTest, EX1_277_ArcaneMissiles)
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     totalHealth = opPlayer.GetHero()->GetHealth();
-    totalHealth += opPlayer.GetField().GetMinion(0)->GetHealth();
+    totalHealth += opPlayer.GetFieldZone().GetMinion(0)->GetHealth();
     EXPECT_EQ(totalHealth, 34);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     totalHealth = opPlayer.GetHero()->GetHealth();
-    totalHealth += opPlayer.GetField().GetMinion(0)->GetHealth();
+    totalHealth += opPlayer.GetFieldZone().GetMinion(0)->GetHealth();
     EXPECT_EQ(totalHealth, 31);
 }
 
@@ -2107,7 +2107,7 @@ TEST(PaladinCoreTest, CS2_087_BlessingOfMight)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Blessing of Might"));
@@ -2190,7 +2190,7 @@ TEST(PaladinCoreTest, CS2_089_HolyLight)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Holy Light"));
@@ -2260,7 +2260,7 @@ TEST(PaladinCoreTest, CS2_092_BlessingOfKings)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Blessing of Kings"));
@@ -2302,7 +2302,7 @@ TEST(PaladinCoreTest, CS2_093_Consecration)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Consecration"));
@@ -2357,7 +2357,7 @@ TEST(PaladinCoreTest, CS2_094_HammerOfWrath)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Hammer of Wrath"));
@@ -2368,14 +2368,14 @@ TEST(PaladinCoreTest, CS2_094_HammerOfWrath)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 4);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 }
 
 // --------------------------------------- WEAPON - PALADIN
@@ -2453,7 +2453,7 @@ TEST(PaladinCoreTest, EX1_360_Humility)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Humility"));
@@ -2506,7 +2506,7 @@ TEST(PaladinCoreTest, EX1_371_HandOfProtection)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Hand of Protection"));
@@ -2562,8 +2562,8 @@ TEST(PriestCoreTest, CS1_112_HolyNova)
     opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(4);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
@@ -2640,8 +2640,8 @@ TEST(PriestCoreTest, CS1_113_MindControl)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    const auto& curField = curPlayer.GetField();
-    const auto& opField = opPlayer.GetField();
+    const auto& curField = curPlayer.GetFieldZone();
+    const auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windfury Harpy"));
@@ -2673,7 +2673,7 @@ TEST(PriestCoreTest, CS1_113_MindControl)
 
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 8u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 8u);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -2729,14 +2729,14 @@ TEST(PriestCoreTest, CS1_130_HolySmite)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(opPlayer.GetField().GetMinion(0)->GetHealth(), 5);
+    EXPECT_EQ(opPlayer.GetFieldZone().GetMinion(0)->GetHealth(), 5);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
-    EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetNumOfMinions(), 0u);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer.GetHero()));
@@ -2773,10 +2773,10 @@ TEST(PriestCoreTest, CS2_003_MindVision)
         curPlayer, Cards::GetInstance().FindCardByName("Mind Vision"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    const auto gainedCard = curPlayer.GetHand().GetCard(4);
+    const auto gainedCard = curPlayer.GetHandZone().GetCard(4);
 
     bool flag = false;
-    for (auto& card : opPlayer.GetHand().GetAllCards())
+    for (auto& card : opPlayer.GetHandZone().GetAllCards())
     {
         if (card->id == gainedCard->id)
         {
@@ -2819,7 +2819,7 @@ TEST(PriestCoreTest, CS2_004_PowerWordShield)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Power Word: Shield"));
@@ -2827,11 +2827,11 @@ TEST(PriestCoreTest, CS2_004_PowerWordShield)
         curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 7);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 9);
 }
 
@@ -2866,7 +2866,7 @@ TEST(PriestCoreTest, CS2_234_ShadowWordPain)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Shadow Word: Pain"));
@@ -2889,14 +2889,14 @@ TEST(PriestCoreTest, CS2_234_ShadowWordPain)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 }
 
@@ -2927,7 +2927,7 @@ TEST(PriestCoreTest, CS2_235_NorthshireCleric)
     opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(6);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
@@ -2937,17 +2937,17 @@ TEST(PriestCoreTest, CS2_235_NorthshireCleric)
         curPlayer, Cards::GetInstance().FindCardByName("Voodoo Doctor"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card2, curPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 26);
 
     curField.GetMinion(0)->SetDamage(2);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
 }
 
@@ -2981,7 +2981,7 @@ TEST(PriestCoreTest, CS2_236_DivineSpirit)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Divine Spirit"));
@@ -3071,7 +3071,7 @@ TEST(PriestCoreTest, EX1_622_ShadowWordDeath)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Shadow Word: Death"));
@@ -3094,14 +3094,14 @@ TEST(PriestCoreTest, EX1_622_ShadowWordDeath)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 }
 
@@ -3136,7 +3136,7 @@ TEST(RogueCoreTest, CS2_072_Backstab)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Backstab"));
@@ -3154,11 +3154,11 @@ TEST(RogueCoreTest, CS2_072_Backstab)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 }
 
@@ -3195,7 +3195,7 @@ TEST(RogueCoreTest, CS2_074_DeadlyPoison)
         curPlayer, Cards::GetInstance().FindCardByName("Deadly Poison"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(curPlayer, HeroPowerTask());
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 1);
@@ -3276,7 +3276,7 @@ TEST(RogueCoreTest, CS2_076_Assassinate)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Assassinate"));
@@ -3294,10 +3294,10 @@ TEST(RogueCoreTest, CS2_076_Assassinate)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 }
 
@@ -3329,10 +3329,10 @@ TEST(RogueCoreTest, CS2_077_Sprint)
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Sprint"));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 8u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 8u);
 }
 
 // ----------------------------------------- WEAPON - ROGUE
@@ -3374,7 +3374,7 @@ TEST(RogueCoreTest, EX1_129_FanOfKnives)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    const auto& opField = opPlayer.GetField();
+    const auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fan of Knives"));
@@ -3395,17 +3395,17 @@ TEST(RogueCoreTest, EX1_129_FanOfKnives)
     game.Process(opPlayer, PlayCardTask::Minion(card5));
 
     EXPECT_EQ(opField.GetNumOfMinions(), 3u);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 7u);
     EXPECT_EQ(opField.GetNumOfMinions(), 2u);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 7u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 }
@@ -3440,7 +3440,7 @@ TEST(RogueCoreTest, EX1_278_Shiv)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Shiv"));
@@ -3461,7 +3461,7 @@ TEST(RogueCoreTest, EX1_278_Shiv)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 8u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 8u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
@@ -3469,7 +3469,7 @@ TEST(RogueCoreTest, EX1_278_Shiv)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 7u);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 }
 
@@ -3504,8 +3504,8 @@ TEST(RogueCoreTest, EX1_581_Sap)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Sap"));
@@ -3518,7 +3518,7 @@ TEST(RogueCoreTest, EX1_581_Sap)
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
 
     game.Process(curPlayer, EndTurnTask());
@@ -3526,7 +3526,7 @@ TEST(RogueCoreTest, EX1_581_Sap)
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card4));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 7);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
 
@@ -3534,14 +3534,14 @@ TEST(RogueCoreTest, EX1_581_Sap)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 7u);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 7u);
     EXPECT_EQ(opField.GetMinion(0)->GetAttack(), 3);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
 }
@@ -3572,8 +3572,8 @@ TEST(RogueCoreTest, NEW1_004_Vanish)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Vanish"));
@@ -3583,23 +3583,23 @@ TEST(RogueCoreTest, NEW1_004_Vanish)
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(curField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 7u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 }
 
@@ -3636,7 +3636,7 @@ TEST(ShamanCoreTest, CS2_037_FrostShock)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Frost Shock"));
@@ -3698,7 +3698,7 @@ TEST(ShamanCoreTest, CS2_039_Windfury)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
@@ -3762,8 +3762,8 @@ TEST(ShamanCoreTest, CS2_041_AncestralHealing)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    const auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    const auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
@@ -3822,7 +3822,7 @@ TEST(ShamanCoreTest, CS2_042_FireElemental)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fire Elemental"));
@@ -3879,7 +3879,7 @@ TEST(ShamanCoreTest, CS2_045_RockbiterWeapon)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Rockbiter Weapon"));
@@ -3932,7 +3932,7 @@ TEST(ShamanCoreTest, CS2_046_Bloodlust)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Bloodlust"));
@@ -3990,7 +3990,7 @@ TEST(ShamanCoreTest, EX1_244_TotemicMight)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Totemic Might"));
@@ -4051,8 +4051,8 @@ TEST(ShamanCoreTest, EX1_246_Hex)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Hex"));
@@ -4116,7 +4116,7 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Flametongue Totem"));
@@ -4236,8 +4236,8 @@ TEST(ShamanCoreTest, EX1_587_Windspeaker)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Windspeaker"));
@@ -4259,11 +4259,11 @@ TEST(ShamanCoreTest, EX1_587_Windspeaker)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 0);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::WINDFURY), 1);
 }
 
@@ -4298,7 +4298,7 @@ TEST(WarlockCoreTest, CS2_057_ShadowBolt)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Shadow Bolt"));
@@ -4351,7 +4351,7 @@ TEST(WarlockCoreTest, CS2_061_DrainLife)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
@@ -4397,8 +4397,8 @@ TEST(WarlockCoreTest, CS2_062_Hellfire)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Hellfire"));
@@ -4465,7 +4465,7 @@ TEST(WarlockCoreTest, CS2_063_Corruption)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Corruption"));
@@ -4524,7 +4524,7 @@ TEST(WarlockCoreTest, CS2_064_DreadInfernal)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
@@ -4587,7 +4587,7 @@ TEST(WarlockCoreTest, EX1_302_MortalCoil)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mortal Coil"));
@@ -4605,11 +4605,11 @@ TEST(WarlockCoreTest, EX1_302_MortalCoil)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 }
 
@@ -4648,13 +4648,13 @@ TEST(WarlockCoreTest, EX1_306_Succubus)
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 3u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 3u);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 6u);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
@@ -4687,7 +4687,7 @@ TEST(WarlockCoreTest, EX1_308_Soulfire)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Soulfire"));
@@ -4698,14 +4698,14 @@ TEST(WarlockCoreTest, EX1_308_Soulfire)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(opField.GetNumOfMinions(), 1u);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 4u);
     EXPECT_EQ(opField.GetNumOfMinions(), 0u);
 
     const auto card3 = Generic::DrawCard(
@@ -4713,7 +4713,7 @@ TEST(WarlockCoreTest, EX1_308_Soulfire)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 3u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 3u);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
 }
 
@@ -4748,7 +4748,7 @@ TEST(WarlockCoreTest, NEW1_003_SacrificialPact)
     opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(8);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Sacrificial Pact"));
@@ -4805,8 +4805,8 @@ TEST(WarriorCoreTest, CS2_103_Charge)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Charge"));
@@ -4958,7 +4958,7 @@ TEST(WarriorCoreTest, CS2_108_Execute)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Execute"));
@@ -5026,7 +5026,7 @@ TEST(WarriorCoreTest, CS2_114_Cleave)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Cleave"));
@@ -5045,7 +5045,7 @@ TEST(WarriorCoreTest, CS2_114_Cleave)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
@@ -5058,7 +5058,7 @@ TEST(WarriorCoreTest, CS2_114_Cleave)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
     EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
     EXPECT_EQ(opField.GetMinion(1)->GetHealth(), 5);
 }
@@ -5095,7 +5095,7 @@ TEST(WarriorCoreTest, EX1_084_WarsongCommander)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
@@ -5146,8 +5146,8 @@ TEST(WarriorCoreTest, EX1_400_Whirlwind)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Whirlwind"));
@@ -5219,7 +5219,7 @@ TEST(WarriorCoreTest, EX1_606_ShieldBlock)
         curPlayer, Cards::GetInstance().FindCardByName("Shield Block"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
     EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 8);
 }
 
@@ -5321,7 +5321,7 @@ TEST(NeutralCoreTest, CS2_122_RaidLeader)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Raid Leader"));
@@ -5433,7 +5433,7 @@ TEST(NeutralCoreTest, CS2_141_IronforgeRifleman)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Ironforge Rifleman"));
@@ -5498,10 +5498,10 @@ TEST(NeutralCoreTest, CS2_147_GnomishInventor)
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Gnomish Inventor"));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5537,7 +5537,7 @@ TEST(NeutralCoreTest, CS2_150_StormpikeCommando)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Stormpike Commando"));
@@ -5716,7 +5716,7 @@ TEST(NeutralCoreTest, CS2_189_ElvenArcher)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Elven Archer"));
@@ -5765,7 +5765,7 @@ TEST(NeutralCoreTest, CS2_196_RazorfenHunter)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Razorfen Hunter"));
@@ -5852,8 +5852,8 @@ TEST(NeutralCoreTest, CS2_222_StormwindChampion)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Stormwind Champion"));
@@ -5926,7 +5926,7 @@ TEST(NeutralCoreTest, CS2_226_FrostwolfWarlord)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Frostwolf Warlord"));
@@ -5983,7 +5983,7 @@ TEST(NeutralCoreTest, DS1_055_DarkscaleHealer)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Darkscale Healer"));
@@ -6045,7 +6045,7 @@ TEST(NeutralCoreTest, EX1_011_VoodooDoctor)
     opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(6);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Voodoo Doctor"));
@@ -6102,10 +6102,10 @@ TEST(NeutralCoreTest, EX1_015_NoviceEngineer)
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Novice Engineer"));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6142,7 +6142,7 @@ TEST(NeutralCoreTest, EX1_019_ShatteredSunCleric)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Shattered Sun Cleric"));
@@ -6187,7 +6187,7 @@ TEST(NeutralCoreTest, EX1_025_DragonlingMechanic)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Dragonling Mechanic"));
@@ -6268,7 +6268,7 @@ TEST(NeutralCoreTest, EX1_399_GurubashiBerserker)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Gurubashi Berserker"));
@@ -6321,7 +6321,7 @@ TEST(NeutralCoreTest, EX1_506_MurlocTidehunter)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Murloc Tidehunter"));
@@ -6358,7 +6358,7 @@ TEST(NeutralCoreTest, EX1_508_GrimscaleOracle)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Grimscale Oracle"));

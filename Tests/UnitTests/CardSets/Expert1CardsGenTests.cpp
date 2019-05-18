@@ -56,7 +56,7 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Blizzard"));
@@ -174,7 +174,7 @@ TEST(Expert1CardsGen, CS1_129_InnerFire)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
@@ -246,7 +246,7 @@ TEST(RogueExpert1Test, CS2_073_ColdBlood)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Cold Blood"));
@@ -322,7 +322,7 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Ancestral Spirit"));
@@ -370,15 +370,15 @@ TEST(ShamanExpert1Test, CS2_053_FarSight)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curHand = curPlayer.GetHand();
+    auto& curHand = curPlayer.GetHandZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Far Sight"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curHand.GetNumOfCards(), 5u);
 
-    Entity* drawCard = curPlayer.GetHand().GetCard(curHand.GetNumOfCards() - 1);
+    Entity* drawCard = curHand.GetCard(curHand.GetNumOfCards() - 1);
     int cost = drawCard->card.gameTags[GameTag::COST] - 3;
     EXPECT_EQ(cost < 0 ? 0 : cost, drawCard->GetCost());
 }
@@ -539,7 +539,7 @@ TEST(WarlockExpert1Test, CS2_059_BloodImp)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Blood Imp"));
@@ -611,7 +611,7 @@ TEST(NeutralExpert1Test, CS2_117_EarthenRingFarseer)
     opPlayer.SetUsedMana(0);
     curPlayer.GetHero()->SetDamage(10);
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Earthen Ring Farseer"));
@@ -666,7 +666,7 @@ TEST(NeutralExpert1Test, CS2_151_SilverHandKnight)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Silver Hand Knight"));
@@ -737,8 +737,8 @@ TEST(Expert1CardsGen, CS2_188_AbusiveSergeant)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Abusive Sergeant"));
@@ -841,8 +841,8 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
@@ -880,7 +880,7 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     game.Process(opPlayer, AttackTask(card5, card1));
     EXPECT_EQ(curField.GetNumOfMinions(), 0u);
     EXPECT_EQ(curPlayer.currentSpellPower, 0);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
 }
 
 // --------------------------------------- MINION - NEUTRAL

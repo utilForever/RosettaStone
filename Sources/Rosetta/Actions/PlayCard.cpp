@@ -13,7 +13,8 @@ namespace RosettaStone::Generic
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
     // Check battlefield is full
-    if (dynamic_cast<Minion*>(source) != nullptr && player.GetField().IsFull())
+    if (dynamic_cast<Minion*>(source) != nullptr &&
+        player.GetFieldZone().IsFull())
     {
         return;
     }
@@ -41,7 +42,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     }
 
     // Erase from player's hand
-    player.GetHand().RemoveCard(*source);
+    player.GetHandZone().RemoveCard(*source);
 
     // Set card's owner
     source->owner = &player;
@@ -82,7 +83,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 {
     // Add minion to battlefield
-    player.GetField().AddMinion(*minion, fieldPos);
+    player.GetFieldZone().AddMinion(*minion, fieldPos);
 
     // Apply card mechanics tags
     for (const auto tags : minion->card.gameTags)
@@ -145,7 +146,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
     // Check spell is countered
     if (spell->IsCountered())
     {
-        player.GetGraveyard().AddCard(*spell);
+        player.GetGraveyardZone().AddCard(*spell);
     }
     else
     {
@@ -203,7 +204,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
                 }
             }
 
-            player.GetGraveyard().AddCard(*spell);
+            player.GetGraveyardZone().AddCard(*spell);
             player.GetGame()->ProcessDestroyAndUpdateAura();
         }
     }
@@ -260,7 +261,7 @@ bool IsPlayableByPlayer(Player& player, Entity* source)
 
     // Check if entity is in hand to be played
     if (dynamic_cast<HeroPower*>(source) == nullptr &&
-        player.GetHand().FindCardPos(*source) == std::nullopt)
+        player.GetHandZone().FindCardPos(*source) == std::nullopt)
     {
         return false;
     }
@@ -275,7 +276,7 @@ bool IsPlayableByCardReq(Entity* source)
         switch (requirement.first)
         {
             case PlayReq::REQ_NUM_MINION_SLOTS:
-                if (source->owner->GetField().IsFull())
+                if (source->owner->GetFieldZone().IsFull())
                 {
                     return false;
                 }
@@ -288,7 +289,7 @@ bool IsPlayableByCardReq(Entity* source)
                 break;
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                auto& opField = source->owner->opponent->GetField();
+                auto& opField = source->owner->opponent->GetFieldZone();
                 if (static_cast<int>(opField.GetNumOfMinions()) <
                     requirement.second)
                 {

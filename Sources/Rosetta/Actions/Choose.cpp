@@ -37,8 +37,8 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             // Process mulligan state
             player.mulliganState = Mulligan::DEALING;
 
-            auto& hand = player.GetHand();
-            auto& deck = player.GetDeck();
+            auto& hand = player.GetHandZone();
+            auto& deck = player.GetDeckZone();
 
             // Collect cards to redraw
             std::vector<Entity*> mulliganList;

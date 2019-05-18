@@ -49,7 +49,7 @@ TEST(WarlockHoFTest, EX1_310_Doomguard)
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 2u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 2u);
 
     game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
@@ -58,7 +58,7 @@ TEST(WarlockHoFTest, EX1_310_Doomguard)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 6u);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -92,9 +92,9 @@ TEST(NeutralHoFTest, EX1_050_ColdlightOracle)
 
     const auto card = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Coldlight Oracle"));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 5u);
 
     game.Process(curPlayer, PlayCardTask::Minion(card));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetNumOfCards(), 6u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetNumOfCards(), 7u);
 }

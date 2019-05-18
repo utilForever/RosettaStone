@@ -126,7 +126,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent) const
     std::vector<Character*> targets;
     std::vector<Character*> targetsHaveTaunt;
 
-    for (auto& minion : opponent.GetField().GetAllMinions())
+    for (auto& minion : opponent.GetFieldZone().GetAllMinions())
     {
         if (minion->GetGameTag(GameTag::STEALTH) == 0)
         {

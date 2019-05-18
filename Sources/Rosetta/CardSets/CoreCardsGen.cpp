@@ -209,7 +209,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        auto minions = entity->owner->GetField().GetAllMinions();
+        auto minions = entity->owner->GetFieldZone().GetAllMinions();
         std::vector<Card> totemCards;
         totemCards.reserve(4);
 
@@ -239,7 +239,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
         Entity* totem =
             Entity::GetFromCard(*entity->owner, std::move(totemCards[idx]));
-        entity->owner->GetField().AddMinion(*dynamic_cast<Minion*>(totem));
+        entity->owner->GetFieldZone().AddMinion(*dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
 
@@ -604,7 +604,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        Deck& deck = entity->owner->GetDeck();
+        DeckZone& deck = entity->owner->GetDeckZone();
         if (deck.IsEmpty())
         {
             return;

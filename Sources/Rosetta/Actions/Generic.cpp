@@ -22,26 +22,26 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 void AddCardToHand(Player& player, Entity* entity)
 {
     // Add card to graveyard if hand is full
-    if (player.GetHand().IsFull())
+    if (player.GetHandZone().IsFull())
     {
-        player.GetGraveyard().AddCard(*entity);
+        player.GetGraveyardZone().AddCard(*entity);
         return;
     }
 
     // Add card to hand
-    player.GetHand().AddCard(*entity);
+    player.GetHandZone().AddCard(*entity);
 }
 
 void RemoveCardFromHand(Player& player, Entity* entity)
 {
     // Remove card from hand
-    player.GetHand().RemoveCard(*entity);
+    player.GetHandZone().RemoveCard(*entity);
 }
 
 void RemoveMinionFromField(Player& player, Minion* minion)
 {
     // Remove card from field
-    player.GetField().RemoveMinion(*minion);
+    player.GetFieldZone().RemoveMinion(*minion);
 }
 
 void ChangeManaCrystal(Player& player, int amount, bool fill)
@@ -82,6 +82,6 @@ void TransformMinion(Player& player, Minion* oldMinion, Card&& card)
         return;
     }
 
-    player.GetField().ReplaceMinion(*oldMinion, *newMinion);
+    player.GetFieldZone().ReplaceMinion(*oldMinion, *newMinion);
 }
 }  // namespace RosettaStone::Generic

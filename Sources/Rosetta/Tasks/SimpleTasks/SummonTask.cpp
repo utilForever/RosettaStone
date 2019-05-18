@@ -6,8 +6,8 @@
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <utility>
 
@@ -38,7 +38,7 @@ TaskStatus SummonTask::Impl(Player& player)
 {
     for (int i = 0; i < m_amount; ++i)
     {
-        if (player.GetField().IsFull())
+        if (player.GetFieldZone().IsFull())
         {
             return TaskStatus::STOP;
         }
@@ -73,7 +73,7 @@ TaskStatus SummonTask::Impl(Player& player)
                 break;
             case SummonSide::RIGHT:
             {
-                auto field = m_source->owner->GetField();
+                auto field = m_source->owner->GetFieldZone();
                 const auto minion = dynamic_cast<Minion*>(m_source);
                 const auto fieldPos = field.FindMinionPos(*minion);
 

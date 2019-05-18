@@ -66,7 +66,7 @@ TaskMeta TorchPolicy::RequireMulligan(Player& player)
     std::vector<Generic::ActionEncode> actions;
 
     // Generate mulligan action.
-    Hand& hand = player.GetHand();
+    HandZone& hand = player.GetHandZone();
     for (size_t i = 0; i < hand.GetNumOfCards(); ++i)
     {
         actions.emplace_back(TaskID::MULLIGAN, hand.GetCard(i));

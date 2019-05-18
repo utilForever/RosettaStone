@@ -29,8 +29,8 @@ TEST(ControlTask, Run)
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
 
-    auto& player1Field = player1.GetField();
-    auto& player2Field = player2.GetField();
+    auto& player1Field = player1.GetFieldZone();
+    auto& player2Field = player2.GetFieldZone();
 
     std::vector<Card> cards;
     cards.reserve(5);

@@ -42,8 +42,8 @@ TEST(AttackTask, Default)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     auto card2 = GenerateMinionCard("minion2", 5, 4);
@@ -130,7 +130,7 @@ TEST(AttackTask, Weapon)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -184,7 +184,7 @@ TEST(AttackTask, ZeroAttack)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion1", 0, 6);
 
@@ -218,8 +218,8 @@ TEST(AttackTask, Charge)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card1 = GenerateMinionCard("minion1", 1, 10);
     auto card2 = GenerateMinionCard("minion1", 1, 10);
@@ -255,8 +255,8 @@ TEST(AttackTask, Taunt)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -301,8 +301,8 @@ TEST(AttackTask, Stealth)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -348,8 +348,8 @@ TEST(AttackTask, Immune)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -401,8 +401,8 @@ TEST(AttackTask, Windfury)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -462,8 +462,8 @@ TEST(AttackTask, DivineShield)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -515,8 +515,8 @@ TEST(AttackTask, Poisonous)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -571,8 +571,8 @@ TEST(AttackTask, Freeze)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
