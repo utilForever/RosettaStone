@@ -35,14 +35,14 @@ class IZone
     virtual Entity& Remove(Entity& entity) = 0;
 
     //! Returns the type of zone.
-    Zone GetType() const
+    ZoneType GetType() const
     {
         return m_type;
     }
 
  protected:
     //! Gets the kind of zone.
-    Zone m_type = Zone::INVALID;
+    ZoneType m_type = ZoneType::INVALID;
 };
 }  // namespace RosettaStone
 
