@@ -409,6 +409,74 @@ TEST(NeutralExpert1Test, CS2_231_Wisp)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
+// - Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_MIN_ATTACK = 7
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_005_BigGameHunter)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Big Game Hunter"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Core Hound"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
 // - Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
