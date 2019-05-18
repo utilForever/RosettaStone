@@ -201,12 +201,38 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- SPELL - WARRIOR
+    // [CS1_104] Rampage - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a Damaged Minion +3/+3
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_DAMAGED_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
+    cards.emplace("CS2_104", power);
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- ENCHANTMENT - WARRIOR
+    // [CS1_104e] Rampage - COST:0
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: +3/+3
+    // --------------------------------------------------------
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
+    cards.emplace("CS2_104e", power);
 }
 
 void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)

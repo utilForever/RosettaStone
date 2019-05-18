@@ -95,6 +95,56 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
 }
 
+// ----------------------------------------- SPELL - WARRIOR
+// [CS1_104] Rampage - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a Damaged Minion +3/+3
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_DAMAGED_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(ExpertCardGen, CS1_104_Rampage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    
+    auto& curField = curPlayer.GetField();
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Rampage"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Rampage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
+
+    curField.GetMinion(0)->SetDamage(1);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 9);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_129] Inner Fire - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
