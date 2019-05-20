@@ -42,6 +42,14 @@ class Minion : public Character
     //! Default move assignment operator.
     Minion& operator=(Minion&& minion) = default;
 
+    //! Returns the value of last board position.
+    //! \return The value of last board position.
+    int GetLastBoardPos() const;
+
+    //! Sets the value of last board position.
+    //! \param value The value of last board position.
+    void SetLastBoardPos(int value);
+
     //! Resets all game tag values that where changed after creation.
     //! Any enchants and trigger is removed.
     void Reset() override;
