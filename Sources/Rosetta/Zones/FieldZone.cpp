@@ -8,91 +8,26 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
-#include <algorithm>
-
 namespace RosettaStone
 {
-FieldZone::FieldZone()
+FieldZone::FieldZone(Player* player) : PositioningZone(FIELD_SIZE)
 {
-    m_minions.fill(nullptr);
+    m_owner = player;
+    m_type = ZoneType::PLAY;
 }
 
-Player& FieldZone::GetOwner() const
+std::vector<Minion*> FieldZone::GetAll()
 {
-    return *m_owner;
+    return PositioningZone::GetAll();
 }
 
-void FieldZone::SetOwner(Player& owner)
+void FieldZone::Add(Entity& entity, int zonePos)
 {
-    m_owner = &owner;
-}
+    PositioningZone::Add(entity, zonePos);
 
-bool FieldZone::IsFull() const
-{
-    return GetNumOfMinions() == FIELD_SIZE;
-}
-
-std::size_t FieldZone::GetNumOfMinions() const
-{
-    return m_numMinion;
-}
-
-Character* FieldZone::GetMinion(std::size_t pos)
-{
-    return m_minions.at(pos);
-}
-
-std::vector<Character*> FieldZone::GetAllMinions()
-{
-    std::vector<Character*> ret;
-    ret.reserve(m_numMinion);
-
-    for (size_t i = 0; i < m_numMinion; ++i)
+    if (entity.GetGameTag(GameTag::CHARGE) != 1)
     {
-        ret.emplace_back(m_minions[i]);
-    }
-
-    return ret;
-}
-
-std::optional<std::size_t> FieldZone::FindMinionPos(Minion& minion) const
-{
-    const auto iter = std::find(m_minions.begin(), m_minions.end(), &minion);
-    if (iter != std::end(m_minions))
-    {
-        return std::distance(std::begin(m_minions), iter);
-    }
-
-    return std::nullopt;
-}
-
-void FieldZone::AddMinion(Minion& minion, int pos)
-{
-    if (pos < 0)
-    {
-        pos = m_numMinion;
-    }
-
-    if (static_cast<std::size_t>(pos) == m_numMinion)
-    {
-        m_minions.at(pos) = &minion;
-    }
-    else
-    {
-        const int minionSize = static_cast<int>(m_numMinion);
-        for (int i = minionSize - 1; i >= pos; --i)
-        {
-            m_minions[i + 1] = m_minions[i];
-        }
-
-        m_minions.at(pos) = &minion;
-    }
-
-    ++m_numMinion;
-
-    if (minion.GetGameTag(GameTag::CHARGE) != 1)
-    {
-        minion.SetExhausted(true);
+        entity.SetExhausted(true);
     }
 
     for (auto& aura : auras)
@@ -100,91 +35,72 @@ void FieldZone::AddMinion(Minion& minion, int pos)
         aura->SetToBeUpdated(true);
     }
 
-    minion.orderOfPlay = minion.owner->GetGame()->GetNextOOP();
+    entity.orderOfPlay = entity.owner->GetGame()->GetNextOOP();
 
-    ActivateAura(minion);
+    ActivateAura(entity);
 }
 
-void FieldZone::RemoveMinion(Minion& minion)
+Entity& FieldZone::Remove(Entity& entity)
 {
-    RemoveAura(minion);
+    RemoveAura(entity);
 
-    if (minion.activatedTrigger != nullptr)
+    return PositioningZone::Remove(entity);
+}
+
+void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
+{
+    const int pos = oldEntity.zonePos;
+    m_entities[pos] = dynamic_cast<Minion*>(&newEntity);
+    newEntity.zonePos = pos;
+    newEntity.SetZoneType(m_type);
+    newEntity.zone = this;
+
+    // Remove old entity
+    RemoveAura(oldEntity);
+    for (auto& aura : auras)
     {
-        minion.activatedTrigger->Remove();
+        aura->RemoveEntity(oldEntity);
     }
 
-    std::size_t idx = 0;
-
-    for (; idx < m_numMinion; ++idx)
-    {
-        if (m_minions[idx] == &minion)
-        {
-            m_minions[idx] = nullptr;
-            break;
-        }
-    }
-
-    for (; idx < m_numMinion - 1; ++idx)
-    {
-        m_minions[idx] = m_minions[idx + 1];
-        m_minions[idx + 1] = nullptr;
-    }
-
-    --m_numMinion;
-
+    // Add new entity
+    newEntity.orderOfPlay = newEntity.owner->GetGame()->GetNextOOP();
+    ActivateAura(newEntity);
     for (auto& aura : auras)
     {
         aura->SetToBeUpdated(true);
     }
-
-    for (auto& aura : auras)
-    {
-        aura->RemoveEntity(minion);
-    }
 }
 
-void FieldZone::ReplaceMinion(Minion& oldMinion, Minion& newMinion)
+void FieldZone::ActivateAura(Entity& entity)
 {
-    const std::size_t pos = FindMinionPos(oldMinion).value();
-    m_minions[pos] = &newMinion;
-
-    RemoveAura(oldMinion);
-    delete &oldMinion;
-
-    ActivateAura(newMinion);
-}
-
-void FieldZone::ActivateAura(Minion& minion)
-{
-    if (minion.card.power.GetTrigger().has_value())
+    if (entity.card.power.GetTrigger().has_value())
     {
-        minion.card.power.GetTrigger().value().Activate(minion);
+        entity.card.power.GetTrigger().value().Activate(entity);
     }
 
-    if (minion.card.power.GetAura().has_value())
+    if (entity.card.power.GetAura().has_value())
     {
-        minion.card.power.GetAura().value().Activate(minion);
+        entity.card.power.GetAura().value().Activate(entity);
     }
 
-    const int spellPower = minion.GetSpellPower();
+    const int spellPower = entity.GetGameTag(GameTag::SPELLPOWER);
     if (spellPower > 0)
     {
-        minion.owner->currentSpellPower += spellPower;
+        entity.owner->currentSpellPower += spellPower;
     }
 }
 
-void FieldZone::RemoveAura(Minion& minion)
+void FieldZone::RemoveAura(Entity& entity)
 {
-    if (minion.onGoingEffect != nullptr)
+    if (entity.onGoingEffect != nullptr)
     {
-        minion.onGoingEffect->Remove();
+        entity.onGoingEffect->Remove();
     }
 
-    const int spellPower = minion.GetSpellPower();
-    if (minion.owner->currentSpellPower > 0 && spellPower > 0)
+    const int spellPower = entity.GetGameTag(GameTag::SPELLPOWER);
+    if (entity.owner->currentSpellPower > 0 && spellPower > 0)
     {
-        minion.owner->currentSpellPower -= spellPower;
+        entity.owner->currentSpellPower -= spellPower;
     }
 }
 }  // namespace RosettaStone

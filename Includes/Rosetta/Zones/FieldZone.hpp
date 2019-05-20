@@ -12,8 +12,6 @@
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Zones/Zone.hpp>
 
-#include <array>
-
 namespace RosettaStone
 {
 //!
@@ -27,65 +25,34 @@ namespace RosettaStone
 //! battlefield selection. Battlefields are chosen at random and are independent
 //! of the heroes chosen by players or used by the Innkeeper.
 //!
-class FieldZone : public PositioningZone<Minion*>
+class FieldZone : public PositioningZone<Minion>
 {
  public:
     //! Default constructor.
-    FieldZone();
+    FieldZone(Player* player);
 
-    //! Returns the owner of battlefield.
-    //! \return The owner of battlefield.
-    Player& GetOwner() const;
+    //! Returns all entities in board zone.
+    //! \return A list of entity in board zone.
+    std::vector<Minion*> GetAll() override;
 
-    //! Sets the owner of battlefield.
-    //! \param owner The owner of battlefield.
-    void SetOwner(Player& owner);
+    //! Adds the specified entity into this zone, at the given position.
+    //! \param entity The entity.
+    //! \param zonePos The zone position.
+    void Add(Entity& entity, int zonePos = -1) override;
 
-    //! Finds out if battlefield is full.
-    //! \return true if battlefield is full, and false otherwise.
-    bool IsFull() const;
-
-    //! Returns the number of minions in battlefield.
-    //! \return The number of minions in battlefield.
-    std::size_t GetNumOfMinions() const;
-
-    //! Returns minion in battlefield.
-    //! \param pos The position of minion in battlefield.
-    //! \return A minion in battlefield at \p pos.
-    Character* GetMinion(std::size_t pos);
-
-    //! Returns all minions in battlefield.
-    //! \return A list of minions in battlefield.
-    std::vector<Character*> GetAllMinions();
-
-    //! Returns the position of minion in battlefield.
-    //! \return The position of minion in battlefield.
-    std::optional<std::size_t> FindMinionPos(Minion& minion) const;
-
-    //! Adds minion to battlefield.
-    //! \param minion The minion to add to battlefield.
-    //! \param pos The position of minion in battlefield.
-    void AddMinion(Minion& minion, int pos = -1);
-
-    //! Removes minion from battlefield.
-    //! \param minion The minion to remove from battlefield.
-    void RemoveMinion(Minion& minion);
+    //! Removes the specified entity from this zone.
+    //! \param entity The entity.
+    //! \return The entity.
+    Entity& Remove(Entity& entity) override;
 
     //! Replaces minion with another.
-    //! \param oldMinion An old minion to replace.
-    //! \param newMinion A new minion to replace.
-    void ReplaceMinion(Minion& oldMinion, Minion& newMinion);
-
-    std::vector<Aura*> auras;
+    //! \param oldEntity The entity to be replaced.
+    //! \param newEntity The new entity.
+    void Replace(Entity& oldEntity, Entity& newEntity);
 
  private:
-    static void ActivateAura(Minion& minion);
-    static void RemoveAura(Minion& minion);
-
-    Player* m_owner = nullptr;
-
-    std::array<Character*, FIELD_SIZE> m_minions{};
-    std::size_t m_numMinion = 0;
+    static void ActivateAura(Entity& entity);
+    static void RemoveAura(Entity& entity);
 };
 }  // namespace RosettaStone
 
