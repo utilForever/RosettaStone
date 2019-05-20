@@ -54,6 +54,26 @@ class Zone : public IZone
     //! \param zonePos The zone position.
     virtual void MoveTo(T& entity, int zonePos = -1) = 0;
 
+    //! Swaps the positions of both entities in this zone.
+    //! Both entities must be contained by this zone.
+    //! \param oldEntity The one entity.
+    //! \param newEntity The other entity.
+    void Swap(T& oldEntity, T& newEntity)
+    {
+        if (oldEntity.zone->GetType() != newEntity.zone->GetType())
+        {
+            throw std::logic_error(
+                "Swap not possible because of zone mismatch");
+        }
+
+        int oldPos = oldEntity.zonePos;
+        int newPos = newEntity.zonePos;
+        newEntity.zonePos = oldPos;
+        oldEntity.zonePos = newPos;
+        m_entities[newPos] = &oldEntity;
+        m_entities[oldPos] = &newEntity;
+    }
+
     //! Returns the number of entities in this zone.
     //! \return The number of entities in this zone.
     virtual int GetCount() const = 0;
