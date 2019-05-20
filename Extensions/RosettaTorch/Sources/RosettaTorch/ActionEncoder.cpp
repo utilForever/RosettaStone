@@ -17,7 +17,7 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
     // [TARGET: [...] #4]
     torch::Tensor tensor = torch::empty(ActionTensorSize, torch::kInt8);
 
-    // Write ont-hot encoded TaskID.
+    // Write ont-hot encoded TaskID
     for (size_t i = 0; i < TaskIDSize; ++i)
     {
         if (action.taskID == TaskIDs[i])
@@ -45,45 +45,39 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
             return;
         }
 
-        Player& player = game.GetCurrentPlayer();
-
-        // If entity is on the hand of current player.
-        if (auto pos = player.GetHandZone().FindCardPos(*entity);
-            pos.has_value())
+        // If entity is on the hand of current player
+        if (entity->zone->GetType() == ZoneType::HAND)
         {
             tensor[start + CurrentHandOffset] = 1;
-            tensor[start + TargetPlaceSize + pos.value()] = 1;
+            tensor[start + TargetPlaceSize + entity->zonePos] = 1;
         }
-        // If entity is minion.
-        else if (Minion* minion = dynamic_cast<Minion*>(entity);
-                 minion != nullptr)
+        // If entity is on the board of current player
+        else if (entity->zone->GetType() == ZoneType::PLAY)
         {
-            // If entity is on the field of current player.
-            if (auto fieldPos = player.GetFieldZone().FindMinionPos(*minion);
-                fieldPos.has_value())
+            // If entity is on the field of current player
+            if (entity->owner == &game.GetCurrentPlayer())
             {
                 tensor[start + CurrentFieldOffset] = 1;
-                tensor[start + TargetPlaceSize + fieldPos.value()] = 1;
+                tensor[start + TargetPlaceSize + entity->zonePos] = 1;
             }
-            // If entity is on the field of other player.
-            else if (auto opFieldPos =
-                         game.GetOpponentPlayer().GetFieldZone().FindMinionPos(
-                             *minion);
-                     opFieldPos.has_value())
+            // If entity is on the field of other player
+            else if (entity->owner == &game.GetOpponentPlayer())
             {
                 tensor[start + OpponentFieldOffset] = 1;
-                tensor[start + TargetPlaceSize + opFieldPos.value()] = 1;
+                tensor[start + TargetPlaceSize + entity->zonePos] = 1;
             }
         }
     };
 
-    // Write source.
+    // Write source
     write(TaskIDSize, action.source);
-    // Write target.
+
+    // Write target
     for (size_t i = 0; i < NumTarget; ++i)
     {
         write(TaskIDSize + (i + 1) * EntityEncodeSize, action.target[i]);
     }
+
     return tensor;
 }
 }  // namespace RosettaTorch

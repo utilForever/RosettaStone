@@ -26,7 +26,7 @@ TaskStatus MoveToGraveyardTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        player.GetGraveyardZone().AddCard(*entity);
+        entity->owner->GetGraveyardZone().Add(*entity);
     }
 
     return TaskStatus::COMPLETE;

@@ -26,7 +26,7 @@ Entity* Draw(Player& player, Entity* cardToDraw)
     // Get card to draw
     if (cardToDraw)
     {
-        entity = &player.GetDeckZone().RemoveCard(*cardToDraw);
+        entity = &player.GetDeckZone().Remove(*cardToDraw);
     }
     else
     {
@@ -36,7 +36,7 @@ Entity* Draw(Player& player, Entity* cardToDraw)
             return nullptr;
         }
 
-        entity = &player.GetDeckZone().RemoveCard(*topCard);
+        entity = &player.GetDeckZone().Remove(*topCard);
     }
 
     // Add card to hand

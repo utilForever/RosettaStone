@@ -64,10 +64,8 @@ void PlayMinionCard(Player& player, Card& card)
     FieldZone& playerField = player.GetFieldZone();
 
     const auto minion = new Minion(player, card);
-    playerField.AddMinion(*minion);
-
-    const std::size_t pos = playerField.FindMinionPos(*minion).value();
-    playerField.GetMinion(pos)->owner = &player;
+    playerField.Add(*minion);
+    playerField[minion->zonePos]->owner = &player;
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

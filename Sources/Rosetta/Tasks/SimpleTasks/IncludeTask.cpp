@@ -30,26 +30,26 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(target);
             break;
         case EntityType::ALL:
-            for (auto& minion : player.GetFieldZone().GetAllMinions())
+            for (auto& minion : player.GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player.GetHero());
-            for (auto& minion : player.opponent->GetFieldZone().GetAllMinions())
+            for (auto& minion : player.opponent->GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player.opponent->GetHero());
             break;
         case EntityType::FRIENDS:
-            for (auto& minion : player.GetFieldZone().GetAllMinions())
+            for (auto& minion : player.GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player.GetHero());
             break;
         case EntityType::ENEMIES:
-            for (auto& minion : player.opponent->GetFieldZone().GetAllMinions())
+            for (auto& minion : player.opponent->GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }
@@ -58,16 +58,14 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMIES_NOTARGET:
             if (target == player.opponent->GetHero())
             {
-                for (auto& minion :
-                     player.opponent->GetFieldZone().GetAllMinions())
+                for (auto& minion : player.opponent->GetFieldZone().GetAll())
                 {
                     entities.emplace_back(minion);
                 }
             }
             else
             {
-                for (auto& minion :
-                     player.opponent->GetFieldZone().GetAllMinions())
+                for (auto& minion : player.opponent->GetFieldZone().GetAll())
                 {
                     if (target == minion)
                     {
@@ -99,35 +97,35 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::HAND:
-            for (auto& card : player.GetHandZone().GetAllCards())
+            for (auto& card : player.GetHandZone().GetAll())
             {
                 entities.emplace_back(card);
             }
             break;
         case EntityType::ENEMY_HAND:
-            for (auto& card : player.opponent->GetHandZone().GetAllCards())
+            for (auto& card : player.opponent->GetHandZone().GetAll())
             {
                 entities.emplace_back(card);
             }
             break;
         case EntityType::ALL_MINIONS:
-            for (auto& minion : player.GetFieldZone().GetAllMinions())
+            for (auto& minion : player.GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }
-            for (auto& minion : player.opponent->GetFieldZone().GetAllMinions())
+            for (auto& minion : player.opponent->GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::MINIONS:
-            for (auto& minion : player.GetFieldZone().GetAllMinions())
+            for (auto& minion : player.GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::MINIONS_NOSOURCE:
-            for (auto& minion : player.GetFieldZone().GetAllMinions())
+            for (auto& minion : player.GetFieldZone().GetAll())
             {
                 if (source == minion)
                 {
@@ -138,7 +136,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ENEMY_MINIONS:
-            for (auto& minion : player.opponent->GetFieldZone().GetAllMinions())
+            for (auto& minion : player.opponent->GetFieldZone().GetAll())
             {
                 entities.emplace_back(minion);
             }

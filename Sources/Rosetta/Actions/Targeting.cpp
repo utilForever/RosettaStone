@@ -98,14 +98,14 @@ std::vector<Character*> GetValidTargets(Entity* source)
     }
 
     // Check play requirements for player's minions
-    for (auto& minion : game->GetPlayer1().GetFieldZone().GetAllMinions())
+    for (auto& minion : game->GetPlayer1().GetFieldZone().GetAll())
     {
         if (CheckRequirements(source, minion))
         {
             ret.emplace_back(minion);
         }
     }
-    for (auto& minion : game->GetPlayer2().GetFieldZone().GetAllMinions())
+    for (auto& minion : game->GetPlayer2().GetFieldZone().GetAll())
     {
         if (CheckRequirements(source, minion))
         {

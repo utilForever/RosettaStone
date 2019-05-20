@@ -45,7 +45,7 @@ TEST(DamageTask, Run)
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1.GetFieldZone().GetNumOfMinions(), 0u);
+    EXPECT_EQ(player1.GetFieldZone().GetCount(), 0);
 }
 
 TEST(DamageTask, SpellPower)
@@ -68,26 +68,26 @@ TEST(DamageTask, SpellPower)
     }
 
     DamageTask damage1(EntityType::FRIENDS, 1, true);
-    damage1.SetSource(player1.GetFieldZone().GetMinion(0));
+    damage1.SetSource(player1.GetFieldZone()[0]);
     TaskStatus result = damage1.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     for (std::size_t i = 0; i < 5; ++i)
     {
-        EXPECT_EQ(player1.GetFieldZone().GetMinion(i)->GetHealth(), 4);
+        EXPECT_EQ(player1.GetFieldZone()[i]->GetHealth(), 4);
     }
 
     player1.currentSpellPower = 1;
 
     DamageTask damage2(EntityType::FRIENDS, 1, true);
-    damage2.SetSource(player1.GetFieldZone().GetMinion(0));
+    damage2.SetSource(player1.GetFieldZone()[0]);
     result = damage2.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     for (std::size_t i = 0; i < 5; ++i)
     {
-        EXPECT_EQ(player1.GetFieldZone().GetMinion(i)->GetHealth(), 2);
+        EXPECT_EQ(player1.GetFieldZone()[i]->GetHealth(), 2);
     }
 }

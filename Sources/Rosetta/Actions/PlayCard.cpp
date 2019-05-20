@@ -42,7 +42,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     }
 
     // Erase from player's hand
-    player.GetHandZone().RemoveCard(*source);
+    player.GetHandZone().Remove(*source);
 
     // Set card's owner
     source->owner = &player;
@@ -83,7 +83,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 {
     // Add minion to battlefield
-    player.GetFieldZone().AddMinion(*minion, fieldPos);
+    player.GetFieldZone().Add(*minion, fieldPos);
 
     // Apply card mechanics tags
     for (const auto tags : minion->card.gameTags)
@@ -146,7 +146,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
     // Check spell is countered
     if (spell->IsCountered())
     {
-        player.GetGraveyardZone().AddCard(*spell);
+        player.GetGraveyardZone().Add(*spell);
     }
     else
     {
@@ -204,7 +204,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
                 }
             }
 
-            player.GetGraveyardZone().AddCard(*spell);
+            player.GetGraveyardZone().Add(*spell);
             player.GetGame()->ProcessDestroyAndUpdateAura();
         }
     }
@@ -261,7 +261,7 @@ bool IsPlayableByPlayer(Player& player, Entity* source)
 
     // Check if entity is in hand to be played
     if (dynamic_cast<HeroPower*>(source) == nullptr &&
-        player.GetHandZone().FindCardPos(*source) == std::nullopt)
+        source->zone != &player.GetHandZone())
     {
         return false;
     }
@@ -290,8 +290,7 @@ bool IsPlayableByCardReq(Entity* source)
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
                 auto& opField = source->owner->opponent->GetFieldZone();
-                if (static_cast<int>(opField.GetNumOfMinions()) <
-                    requirement.second)
+                if (opField.GetCount() < requirement.second)
                 {
                     return false;
                 }

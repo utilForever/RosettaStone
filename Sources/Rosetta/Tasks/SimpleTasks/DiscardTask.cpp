@@ -29,8 +29,8 @@ TaskStatus DiscardTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        player.GetHandZone().RemoveCard(*entity);
-        player.GetGraveyardZone().AddCard(*entity);
+        player.GetHandZone().Remove(*entity);
+        player.GetGraveyardZone().Add(*entity);
     }
 
     return TaskStatus::COMPLETE;

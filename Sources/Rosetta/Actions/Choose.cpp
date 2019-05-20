@@ -42,7 +42,7 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
 
             // Collect cards to redraw
             std::vector<Entity*> mulliganList;
-            for (const auto entity : hand.GetAllCards())
+            for (const auto entity : hand.GetAll())
             {
                 const bool isExist = std::find(choices.begin(), choices.end(),
                                                entity->id) == choices.end();
@@ -55,12 +55,12 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             // Process redraw
             for (const auto& entity : mulliganList)
             {
-                Entity& newCard = deck.RemoveCard(*deck.GetTopCard());
+                Entity& newCard = deck.Remove(*deck.GetTopCard());
                 AddCardToHand(player, &newCard);
-                hand.SwapCard(*entity, newCard);
+                hand.Swap(*entity, newCard);
 
                 RemoveCardFromHand(player, entity);
-                deck.AddCard(*entity);
+                deck.Add(*entity);
                 deck.Shuffle();
             }
 

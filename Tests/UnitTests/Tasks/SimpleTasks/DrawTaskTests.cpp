@@ -65,17 +65,17 @@ TEST(DrawTask, Run)
     const std::string id = "card";
     for (char i = '0'; i < '3'; ++i)
     {
-        p.GetDeckZone().AddCard(*Generate(id + i));
+        p.GetDeckZone().Add(*Generate(id + i));
     }
 
     DrawTask draw(3);
     TaskStatus result = draw.Run(p);
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(p.GetHandZone().GetNumOfCards(), 3u);
+    EXPECT_EQ(p.GetHandZone().GetCount(), 3);
 
     for (std::size_t i = 0; i < 3; ++i)
     {
-        EXPECT_EQ(p.GetHandZone().GetCard(i)->card.id,
+        EXPECT_EQ(p.GetHandZone()[i]->card.id,
                   id + static_cast<char>(2 - i + 0x30));
     }
 }
@@ -87,14 +87,14 @@ TEST(DrawTask, RunExhaust)
     Game game(config);
 
     Player& p = game.GetPlayer1();
-    EXPECT_EQ(p.GetDeckZone().GetNumOfCards(), 0u);
+    EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
 
     DrawTask draw(3);
 
     TaskStatus result = draw.Run(game.GetPlayer1());
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(p.GetHandZone().GetNumOfCards(), 0u);
-    EXPECT_EQ(p.GetDeckZone().GetNumOfCards(), 0u);
+    EXPECT_EQ(p.GetHandZone().GetCount(), 0);
+    EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     // Health: 30 - (1 + 2 + 3)
     EXPECT_EQ(p.GetHero()->GetHealth(), 24);
 
@@ -102,13 +102,13 @@ TEST(DrawTask, RunExhaust)
     card.id = "card1";
 
     auto minion = new Minion(p, card);
-    p.GetDeckZone().AddCard(*minion);
+    p.GetDeckZone().Add(*minion);
 
     result = draw.Run(game.GetPlayer1());
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(p.GetHandZone().GetNumOfCards(), 1u);
-    EXPECT_EQ(p.GetHandZone().GetCard(0)->card.id, "card1");
-    EXPECT_EQ(p.GetDeckZone().GetNumOfCards(), 0u);
+    EXPECT_EQ(p.GetHandZone().GetCount(), 1);
+    EXPECT_EQ(p.GetHandZone()[0]->card.id, "card1");
+    EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
     EXPECT_EQ(p.GetHero()->GetHealth(), 15);
 }
@@ -138,11 +138,11 @@ TEST(DrawTask, RunOverDraw)
     const std::string id = "card";
     for (char i = '0'; i <= '2'; ++i)
     {
-        p.GetDeckZone().AddCard(*Generate(id + i));
+        p.GetDeckZone().Add(*Generate(id + i));
     }
     for (char i = '0'; i <= '9'; ++i)
     {
-        p.GetHandZone().AddCard(*Generate(id + i));
+        p.GetHandZone().Add(*Generate(id + i));
     }
 
     DrawTask draw(3);
@@ -165,8 +165,8 @@ TEST(DrawTask, RunOverDraw)
 
     TaskStatus result = draw.Run(p);
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(p.GetDeckZone().GetNumOfCards(), 0u);
-    EXPECT_EQ(p.GetHandZone().GetNumOfCards(), 10u);
+    EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
+    EXPECT_EQ(p.GetHandZone().GetCount(), 10);
 }
 
 TEST(DrawTask, RunExhaustOverdraw)
@@ -193,11 +193,11 @@ TEST(DrawTask, RunExhaustOverdraw)
     const std::string id = "card";
     for (char i = '0'; i <= '2'; ++i)
     {
-        p.GetDeckZone().AddCard(*Generate(id + i));
+        p.GetDeckZone().Add(*Generate(id + i));
     }
     for (char i = '0'; i <= '8'; ++i)
     {
-        p.GetHandZone().AddCard(*Generate(id + i));
+        p.GetHandZone().Add(*Generate(id + i));
     }
 
     DrawTask draw(4);
@@ -220,7 +220,7 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     TaskStatus result = draw.Run(p);
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(p.GetDeckZone().GetNumOfCards(), 0u);
-    EXPECT_EQ(p.GetHandZone().GetNumOfCards(), 10u);
-    EXPECT_EQ(p.GetHandZone().GetCard(9)->card.id, "card2");
+    EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
+    EXPECT_EQ(p.GetHandZone().GetCount(), 10);
+    EXPECT_EQ(p.GetHandZone()[9]->card.id, "card2");
 }

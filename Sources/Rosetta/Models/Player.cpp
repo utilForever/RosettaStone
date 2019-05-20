@@ -16,14 +16,19 @@ namespace RosettaStone
 {
 Player::Player() : playerID(USER_INVALID)
 {
-    m_deckZone.SetOwner(*this);
-    m_fieldZone.SetOwner(*this);
-    m_graveyardZone.SetOwner(*this);
-    m_handZone.SetOwner(*this);
+    m_deckZone = new DeckZone(this);
+    m_fieldZone = new FieldZone(this);
+    m_graveyardZone = new GraveyardZone(this);
+    m_handZone = new HandZone(this);
 }
 
 Player::~Player()
 {
+    delete m_handZone;
+    delete m_graveyardZone;
+    delete m_fieldZone;
+    delete m_deckZone;
+
     delete m_hero;
 }
 
@@ -37,24 +42,24 @@ void Player::SetGame(Game* game)
     m_game = game;
 }
 
-FieldZone& Player::GetFieldZone()
+FieldZone& Player::GetFieldZone() const
 {
-    return m_fieldZone;
+    return *m_fieldZone;
 }
 
-DeckZone& Player::GetDeckZone()
+DeckZone& Player::GetDeckZone() const
 {
-    return m_deckZone;
+    return *m_deckZone;
 }
 
-GraveyardZone& Player::GetGraveyardZone()
+GraveyardZone& Player::GetGraveyardZone() const
 {
-    return m_graveyardZone;
+    return *m_graveyardZone;
 }
 
-HandZone& Player::GetHandZone()
+HandZone& Player::GetHandZone() const
 {
-    return m_handZone;
+    return *m_handZone;
 }
 
 Hero* Player::GetHero() const

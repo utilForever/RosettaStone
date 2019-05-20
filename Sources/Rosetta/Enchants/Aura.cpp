@@ -57,7 +57,7 @@ void Aura::Activate(Entity& owner)
     {
         case AuraType::FIELD:
         {
-            for (auto& minion : owner.owner->GetFieldZone().GetAllMinions())
+            for (auto& minion : owner.owner->GetFieldZone().GetAll())
             {
                 if (condition == nullptr || condition->Evaluate(minion))
                 {
@@ -75,7 +75,7 @@ void Aura::Activate(Entity& owner)
         }
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : owner.owner->GetFieldZone().GetAllMinions())
+            for (auto& minion : owner.owner->GetFieldZone().GetAll())
             {
                 if (minion == &owner)
                 {
@@ -206,19 +206,15 @@ void Aura::UpdateInternal()
             {
                 const auto minion = dynamic_cast<Minion*>(m_owner);
                 auto& field = m_owner->owner->GetFieldZone();
-                const int pos =
-                    static_cast<int>(field.FindMinionPos(*minion).value());
 
                 const int entitySize =
                     static_cast<int>(m_appliedEntities.size());
                 for (int i = entitySize - 1; i >= 0; --i)
                 {
                     Entity* entity = m_appliedEntities[i];
-                    const int fieldPos = static_cast<int>(
-                        field.FindMinionPos(*dynamic_cast<Minion*>(entity))
-                            .value());
 
-                    if (std::abs(pos - fieldPos) == 1)
+                    if (m_owner->zone == entity->zone &&
+                        std::abs(minion->zonePos - entity->zonePos) == 1)
                     {
                         continue;
                     }
@@ -236,17 +232,17 @@ void Aura::UpdateInternal()
                     }
                 }
 
-                if (pos > 0)
+                if (minion->zonePos > 0)
                 {
-                    const auto leftMinion = field.GetMinion(pos - 1);
+                    const auto leftMinion = field[minion->zonePos - 1];
                     if (leftMinion != nullptr)
                     {
                         Apply(*leftMinion);
                     }
                 }
-                if (pos < static_cast<int>(FIELD_SIZE - 1))
+                if (minion->zonePos < static_cast<int>(FIELD_SIZE - 1))
                 {
-                    const auto rightMinion = field.GetMinion(pos + 1);
+                    const auto rightMinion = field[minion->zonePos + 1];
                     if (rightMinion != nullptr)
                     {
                         Apply(*rightMinion);
@@ -256,16 +252,14 @@ void Aura::UpdateInternal()
                 break;
             }
             case AuraType::FIELD:
-                for (auto& minion :
-                     m_owner->owner->GetFieldZone().GetAllMinions())
+                for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
                 {
                     Apply(*minion);
                 }
                 break;
             case AuraType::FIELD_EXCEPT_SOURCE:
             {
-                for (auto& minion :
-                     m_owner->owner->GetFieldZone().GetAllMinions())
+                for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
                 {
                     if (minion != m_owner)
                     {

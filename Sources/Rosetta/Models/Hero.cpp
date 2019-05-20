@@ -50,7 +50,7 @@ void Hero::RemoveWeapon()
         return;
     }
 
-    owner->GetGraveyardZone().AddCard(*weapon);
+    owner->GetGraveyardZone().Add(*weapon);
 
     weapon = nullptr;
 }

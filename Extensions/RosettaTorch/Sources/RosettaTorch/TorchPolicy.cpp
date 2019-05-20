@@ -67,9 +67,9 @@ TaskMeta TorchPolicy::RequireMulligan(Player& player)
 
     // Generate mulligan action.
     HandZone& hand = player.GetHandZone();
-    for (size_t i = 0; i < hand.GetNumOfCards(); ++i)
+    for (size_t i = 0; i < hand.GetCount(); ++i)
     {
-        actions.emplace_back(TaskID::MULLIGAN, hand.GetCard(i));
+        actions.emplace_back(TaskID::MULLIGAN, hand[i]);
     }
 
     // TODO : Multiple Mulligan

@@ -64,19 +64,19 @@ class Player
 
     //! Returns player's field zone.
     //! \return Player's field zone.
-    FieldZone& GetFieldZone();
+    FieldZone& GetFieldZone() const;
 
     //! Returns player's deck zone.
     //! \return Player's deck zone.
-    DeckZone& GetDeckZone();
+    DeckZone& GetDeckZone() const;
 
     //! Returns player's graveyard zone.
     //! \return Player's graveyard zone.
-    GraveyardZone& GetGraveyardZone();
+    GraveyardZone& GetGraveyardZone() const;
 
     //! Returns player's hand zone.
     //! \return Player's hand zone.
-    HandZone& GetHandZone();
+    HandZone& GetHandZone() const;
 
     //! Returns player's hero.
     //! \return Player's hero.
@@ -176,10 +176,10 @@ class Player
     //! \return A task that is selected by action.
     static ITask* GetTaskByAction(TaskMeta& next, TaskMeta& req);
 
-    DeckZone m_deckZone;
-    FieldZone m_fieldZone;
-    GraveyardZone m_graveyardZone;
-    HandZone m_handZone;
+    DeckZone* m_deckZone = nullptr;
+    FieldZone* m_fieldZone = nullptr;
+    GraveyardZone* m_graveyardZone = nullptr;
+    HandZone* m_handZone = nullptr;
 
     Hero* m_hero = nullptr;
     Game* m_game = nullptr;

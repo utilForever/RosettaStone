@@ -20,12 +20,12 @@ TaskMeta RandomPolicy::Next(const Game& game)
     std::vector<TaskID> list = { TaskID::END_TURN };
 
     Player& player = game.GetCurrentPlayer();
-    if (player.GetHandZone().GetNumOfCards() > 0)
+    if (player.GetHandZone().GetCount() > 0)
     {
         list.push_back(TaskID::PLAY_CARD);
     }
 
-    if (player.GetFieldZone().GetNumOfMinions() > 0)
+    if (player.GetFieldZone().GetCount() > 0)
     {
         list.push_back(TaskID::ATTACK);
     }
@@ -55,7 +55,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
 
     std::vector<std::tuple<Entity*, Entity*>> possible;
 
-    for (Entity* entity : player.GetHandZone().GetAllCards())
+    for (Entity* entity : player.GetHandZone().GetAll())
     {
         if (entity->GetCost() > player.GetRemainingMana())
         {
@@ -114,11 +114,15 @@ TaskMeta RandomPolicy::RequireAttack(Player& player)
 
     Player& other = *player.opponent;
 
-    std::vector<Character*> sources = player.GetFieldZone().GetAllMinions();
+    std::vector<Character*> sources;
+    for (auto* minion : player.GetFieldZone().GetAll())
+    {
+        sources.emplace_back(minion);
+    }
     sources.push_back(player.GetHero());
 
     std::vector<std::tuple<Character*, Character*>> possible;
-    for (Character* source : sources)
+    for (auto* source : sources)
     {
         if (!source->CanAttack())
         {
@@ -131,7 +135,7 @@ TaskMeta RandomPolicy::RequireAttack(Player& player)
             possible.emplace_back(std::make_tuple(source, hero));
         }
 
-        for (Character* target : other.GetFieldZone().GetAllMinions())
+        for (Character* target : other.GetFieldZone().GetAll())
         {
             if (source->IsValidCombatTarget(other, target))
             {

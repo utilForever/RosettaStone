@@ -42,8 +42,8 @@ TaskStatus ControlTask::Impl(Player& player)
         const auto minionClone = new Minion(*minion);
         minionClone->owner = &player;
 
-        myField.AddMinion(*minionClone);
-        opField.RemoveMinion(*minion);
+        myField.Add(*minionClone);
+        opField.Remove(*minion);
     }
 
     return TaskStatus::COMPLETE;

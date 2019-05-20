@@ -73,17 +73,14 @@ TaskStatus SummonTask::Impl(Player& player)
                 break;
             case SummonSide::RIGHT:
             {
-                auto field = m_source->owner->GetFieldZone();
-                const auto minion = dynamic_cast<Minion*>(m_source);
-                const auto fieldPos = field.FindMinionPos(*minion);
-
-                if (fieldPos.has_value())
+                if (m_source->zone->GetType() == ZoneType::PLAY)
                 {
-                    summonPos = static_cast<int>(fieldPos.value()) + 1;
+                    summonPos = m_source->zonePos + 1;
                 }
                 else
                 {
-                    summonPos = -1;
+                    summonPos =
+                        dynamic_cast<Minion*>(m_source)->GetLastBoardPos();
                 }
                 break;
             }

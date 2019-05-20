@@ -145,9 +145,9 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
 
     auto* character = dynamic_cast<Character*>(entity);
 
-    auto cost = static_cast<float>(character->GetCost());
-    auto attack = static_cast<float>(character->GetAttack());
-    auto health = static_cast<float>(character->GetHealth());
+    const auto cost = static_cast<float>(character->GetCost());
+    const auto attack = static_cast<float>(character->GetAttack());
+    const auto health = static_cast<float>(character->GetHealth());
 
     // Write cost of the card
     cardVector[0] = cost / MANA_UPPER_LIMIT;
@@ -158,7 +158,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     // Write health of the card
     cardVector[2] = (health >= CLIP_CARD_NORM) ? 1. : health / CLIP_CARD_NORM;
 
-    auto AuraToVector = [&](std::optional<Aura>& aura) -> torch::Tensor {
+    const auto AuraToVector = [&](std::optional<Aura>& aura) -> torch::Tensor {
         if (!aura.has_value())
         {
             return torch::zeros(AuraVectorSize);
@@ -181,7 +181,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         return auraVector;
     };
 
-    auto EnchantToVector =
+    const auto EnchantToVector =
         [&](std::optional<Enchant> enchant) -> torch::Tensor {
         if (!enchant.has_value())
         {
@@ -194,8 +194,8 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         return effectsVector;
     };
 
-    auto WriteVector = [&](size_t startIdx, size_t vecSize,
-                           const torch::Tensor& tensor) {
+    const auto WriteVector = [&](size_t startIdx, size_t vecSize,
+                                 const torch::Tensor& tensor) {
         for (size_t i = startIdx; i < startIdx + vecSize; ++i)
         {
             cardVector[i] = tensor[i];
@@ -205,25 +205,25 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     auto ability = character->card.power;
 
     auto aura = ability.GetAura();
-    auto enchant = ability.GetEnchant();
-    auto deathrattle = ability.GetDeathrattleTask();
-    auto power = ability.GetPowerTask();
+    const auto enchant = ability.GetEnchant();
+    const auto deathrattle = ability.GetDeathrattleTask();
+    const auto power = ability.GetPowerTask();
 
     // Write aura vector
-    auto auraVector = AuraToVector(aura);
+    const auto auraVector = AuraToVector(aura);
     WriteVector(3, AuraVectorSize, auraVector);
 
     // Write enchant vector
-    auto enchantVector = EnchantToVector(enchant);
+    const auto enchantVector = EnchantToVector(enchant);
     WriteVector(3 + AuraVectorSize, EnchantVectorSize, enchantVector);
 
     // Write deathrattle vector
-    auto deathrattleVector = TasksToTensor(deathrattle);
+    const auto deathrattleVector = TasksToTensor(deathrattle);
     WriteVector(3 + AuraVectorSize + EnchantVectorSize, TaskVectorSize,
                 deathrattleVector);
 
     // Write power vector
-    auto powerVector = TasksToTensor(power);
+    const auto powerVector = TasksToTensor(power);
     WriteVector(3 + AuraVectorSize + EnchantVectorSize + TaskVectorSize,
                 TaskVectorSize, powerVector);
 
@@ -265,24 +265,24 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     // Write number of opponent player's cards, normalized, on the hand.
     tensor[0] =
-        static_cast<float>(opPlayer.GetHandZone().GetNumOfCards()) / HAND_SIZE;
+        static_cast<float>(opPlayer.GetHandZone().GetCount()) / HAND_SIZE;
 
     // Write number of opponent player's cards, normalized, on the deck.
-    tensor[1] = static_cast<float>(opPlayer.GetDeckZone().GetNumOfCards()) /
-                MAX_DECK_SIZE;
+    tensor[1] =
+        static_cast<float>(opPlayer.GetDeckZone().GetCount()) / MAX_DECK_SIZE;
 
     // Write number of current player's cards, normalized, on the deck.
-    tensor[2] = static_cast<float>(curPlayer.GetDeckZone().GetNumOfCards()) /
-                MAX_DECK_SIZE;
+    tensor[2] =
+        static_cast<float>(curPlayer.GetDeckZone().GetCount()) / MAX_DECK_SIZE;
 
     const auto FieldWrite = [&](std::size_t start, Player& player) {
         auto field = player.GetFieldZone();
-        const std::size_t numOfMinions = field.GetNumOfMinions();
+        const int numOfMinions = field.GetCount();
 
-        std::size_t i = 0;
+        int i = 0;
         for (; i < numOfMinions; ++i)
         {
-            tensor[start + i] = CardToTensor(field.GetMinion(i));
+            tensor[start + i] = CardToTensor(field[i]);
         }
 
         for (; i < FIELD_SIZE; ++i)
@@ -293,12 +293,12 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     const auto HandWrite = [&](std::size_t start, Player& player) {
         auto hand = player.GetHandZone();
-        const std::size_t numOfCards = hand.GetNumOfCards();
+        const std::size_t numOfCards = hand.GetCount();
 
         std::size_t i = 0;
         for (; i < numOfCards; ++i)
         {
-            tensor[start + i] = CardToTensor(hand.GetCard(i));
+            tensor[start + i] = CardToTensor(hand[i]);
         }
 
         for (; i < HAND_SIZE; ++i)
