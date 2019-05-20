@@ -4,35 +4,25 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 
 namespace RosettaStone
 {
-GraveyardZone::GraveyardZone()
+GraveyardZone::GraveyardZone(Player* player)
 {
-    m_cards.reserve(START_DECK_SIZE);
+    m_owner = player;
+    m_type = ZoneType::GRAVEYARD;
 }
 
-Player& GraveyardZone::GetOwner() const
+void GraveyardZone::Add(Entity& entity, int zonePos)
 {
-    return *m_owner;
-}
+    UnlimitedZone::Add(entity, zonePos);
 
-void GraveyardZone::SetOwner(Player& owner)
-{
-    m_owner = &owner;
-}
-
-void GraveyardZone::AddCard(Entity& card)
-{
-    m_cards.emplace_back(&card);
-
-    int enchantSize = static_cast<int>(card.appliedEnchantments.size());
+    const int enchantSize = static_cast<int>(entity.appliedEnchantments.size());
     for (int i = enchantSize - 1; i >= 0; --i)
     {
-        card.appliedEnchantments[i]->Remove();
+        entity.appliedEnchantments[i]->Remove();
     }
 }
 }  // namespace RosettaStone

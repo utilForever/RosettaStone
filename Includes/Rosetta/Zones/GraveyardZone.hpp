@@ -10,8 +10,6 @@
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Zones/Zone.hpp>
 
-#include <vector>
-
 namespace RosettaStone
 {
 //!
@@ -24,24 +22,12 @@ class GraveyardZone : public UnlimitedZone
 {
  public:
     //! Default constructor.
-    GraveyardZone();
+    GraveyardZone(Player* player);
 
-    //! Returns the owner of graveyard.
-    //! \return The owner of graveyard.
-    Player& GetOwner() const;
-
-    //! Sets the owner of graveyard.
-    //! \param owner The owner of graveyard.
-    void SetOwner(Player& owner);
-
-    //! Adds a card to graveyard.
-    //! \param card The card to add to graveyard.
-    void AddCard(Entity& card);
-
- private:
-    Player* m_owner = nullptr;
-
-    std::vector<Entity*> m_cards;
+    //! Adds the specified entity into this zone, at the given position.
+    //! \param entity The entity.
+    //! \param zonePos The zone position.
+    void Add(Entity& entity, int zonePos = -1) override;
 };
 }  // namespace RosettaStone
 
