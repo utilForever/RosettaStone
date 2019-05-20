@@ -9,6 +9,7 @@
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
+#include <Rosetta/Zones/IZone.hpp>
 
 #include <map>
 
@@ -66,6 +67,14 @@ class Entity
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
+    //! Returns the value of zone type.
+    //! \return The value of zone type.
+    ZoneType GetZoneType() const;
+
+    //! Sets the value of zone type.
+    //! \param type The value of zone type.
+    void SetZoneType(ZoneType type);
+
     //! Returns the value of cost.
     //! \return The value of cost.
     int GetCost() const;
@@ -105,6 +114,9 @@ class Entity
 
     Player* owner = nullptr;
     Card card;
+
+    IZone* zone = nullptr;
+    int zonePos = -1;
 
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;

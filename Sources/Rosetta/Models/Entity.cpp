@@ -133,6 +133,16 @@ void Entity::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
+ZoneType Entity::GetZoneType() const
+{
+    return static_cast<ZoneType>(GetGameTag(GameTag::ZONE));
+}
+
+void Entity::SetZoneType(ZoneType type)
+{
+    SetGameTag(GameTag::ZONE, static_cast<int>(type));
+}
+
 int Entity::GetCost() const
 {
     return GetGameTag(GameTag::COST);
