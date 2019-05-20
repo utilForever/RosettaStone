@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -12,73 +13,29 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone
 {
-DeckZone::DeckZone()
+DeckZone::DeckZone(Player* player) : LimitedZone(MAX_DECK_SIZE)
 {
-    m_cards.fill(nullptr);
-}
-
-Player& DeckZone::GetOwner() const
-{
-    return *m_owner;
-}
-
-void DeckZone::SetOwner(Player& owner)
-{
-    m_owner = &owner;
-}
-
-bool DeckZone::IsEmpty() const
-{
-    return GetNumOfCards() == 0;
-}
-
-std::size_t DeckZone::GetNumOfCards() const
-{
-    return m_numCard;
+    m_owner = player;
+    m_type = ZoneType::DECK;
 }
 
 Entity* DeckZone::GetTopCard() const
 {
-    if (IsEmpty())
-    {
-        return nullptr;
-    }
-
-    return m_cards[m_numCard - 1];
+    return m_entities[m_count - 1];
 }
 
-void DeckZone::AddCard(Entity& card)
+void DeckZone::Add(Entity& entity, int zonePos)
 {
-    m_cards.at(m_numCard) = &card;
-    ++m_numCard;
-}
+    LimitedZone::Add(entity, zonePos);
 
-Entity& DeckZone::RemoveCard(Entity& card)
-{
-    std::size_t idx = 0;
-
-    for (; idx < m_numCard; ++idx)
+    if (entity.card.power.GetTrigger().has_value())
     {
-        if (m_cards[idx] == &card)
-        {
-            m_cards[idx] = nullptr;
-            break;
-        }
+        entity.card.power.GetTrigger().value().Activate(entity);
     }
-
-    for (; idx < m_numCard - 1; ++idx)
-    {
-        m_cards[idx] = m_cards[idx + 1];
-        m_cards[idx + 1] = nullptr;
-    }
-
-    --m_numCard;
-
-    return card;
 }
 
 void DeckZone::Shuffle()
 {
-    Random::shuffle(m_cards.begin(), m_cards.begin() + m_numCard);
+    Random::shuffle(m_entities.begin(), m_entities.begin() + m_count);
 }
 }  // namespace RosettaStone
