@@ -4,109 +4,37 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
-
-#include <algorithm>
 
 namespace RosettaStone
 {
-HandZone::HandZone()
+HandZone::HandZone(Player* player) : PositioningZone(HAND_SIZE)
 {
-    m_cards.fill(nullptr);
+    m_owner = player;
+    m_type = ZoneType::HAND;
 }
 
-Player& HandZone::GetOwner() const
+void HandZone::Add(Entity& entity, int zonePos)
 {
-    return *m_owner;
-}
+    PositioningZone::Add(entity, zonePos);
 
-void HandZone::SetOwner(Player& owner)
-{
-    m_owner = &owner;
-}
-
-bool HandZone::IsFull() const
-{
-    return GetNumOfCards() == HAND_SIZE;
-}
-
-bool HandZone::IsEmpty() const
-{
-    return GetNumOfCards() == 0;
-}
-
-std::size_t HandZone::GetNumOfCards() const
-{
-    return m_numCard;
-}
-
-Entity* HandZone::GetCard(std::size_t pos)
-{
-    return m_cards.at(pos);
-}
-
-std::vector<Entity*> HandZone::GetAllCards()
-{
-    std::vector<Entity*> ret;
-    ret.reserve(m_numCard);
-
-    for (size_t i = 0; i < m_numCard; ++i)
+    if (entity.card.power.GetTrigger().has_value())
     {
-        ret.emplace_back(m_cards[i]);
+        entity.card.power.GetTrigger().value().Activate(entity);
     }
-
-    return ret;
 }
 
-std::optional<std::size_t> HandZone::FindCardPos(Entity& card)
+Entity& HandZone::Remove(Entity& entity)
 {
-    const auto iter = std::find(m_cards.begin(), m_cards.end(), &card);
-    if (iter != std::end(m_cards))
+    for (auto* enchant : entity.appliedEnchantments)
     {
-        return std::distance(std::begin(m_cards), iter);
-    }
-
-    return std::nullopt;
-}
-
-void HandZone::AddCard(Entity& card)
-{
-    m_cards.at(m_numCard) = &card;
-    ++m_numCard;
-}
-
-void HandZone::RemoveCard(Entity& card)
-{
-    if (card.activatedTrigger != nullptr)
-    {
-        card.activatedTrigger->Remove();
-    }
-
-    std::size_t idx = 0;
-
-    for (; idx < m_numCard; ++idx)
-    {
-        if (m_cards[idx] == &card)
+        if (enchant->activatedTrigger != nullptr)
         {
-            m_cards[idx] = nullptr;
-            break;
+            enchant->activatedTrigger->Remove();
         }
     }
 
-    for (; idx < m_numCard - 1; ++idx)
-    {
-        m_cards[idx] = m_cards[idx + 1];
-        m_cards[idx + 1] = nullptr;
-    }
-
-    --m_numCard;
-}
-
-void HandZone::SwapCard(Entity& card1, Entity& card2)
-{
-    const std::size_t card1Pos = FindCardPos(card1).value();
-    const std::size_t card2Pos = FindCardPos(card2).value();
-
-    std::swap(m_cards[card1Pos], m_cards[card2Pos]);
+    return PositioningZone::Remove(entity);
 }
 }  // namespace RosettaStone

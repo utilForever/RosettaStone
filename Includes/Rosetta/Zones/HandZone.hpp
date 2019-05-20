@@ -22,63 +22,21 @@ namespace RosettaStone
 //! them. The player can see their hand face-up at the bottom of the screen,
 //! while the opponent's hand is shown face-down at the top of the screen.
 //!
-class HandZone : public PositioningZone<Entity*>
+class HandZone : public PositioningZone<Entity>
 {
  public:
     //! Default constructor.
-    HandZone();
+    HandZone(Player* player);
 
-    //! Returns the owner of hand.
-    //! \return The owner of hand.
-    Player& GetOwner() const;
+    //! Adds the specified entity into this zone, at the given position.
+    //! \param entity The entity.
+    //! \param zonePos The zone position.
+    void Add(Entity& entity, int zonePos = -1) override;
 
-    //! Sets the owner of hand.
-    //! \param owner The owner of hand.
-    void SetOwner(Player& owner);
-
-    //! Finds out if hand is full.
-    //! \return true if hand is full, and false otherwise.
-    bool IsFull() const;
-
-    //! Finds out if hand is empty.
-    //! \return true if hand is empty, and false otherwise.
-    bool IsEmpty() const;
-
-    //! Returns the number of cards in hand.
-    //! \return The number of cards in hand.
-    std::size_t GetNumOfCards() const;
-
-    //! Returns card in hand.
-    //! \param pos The position of card in hand.
-    //! \return A card in hand at \p pos.
-    Entity* GetCard(std::size_t pos);
-
-    //! Returns all cards in hand.
-    //! \return A list of cards in hand.
-    std::vector<Entity*> GetAllCards();
-
-    //! Returns the position of card in hand.
-    //! \return The position of card in hand.
-    std::optional<std::size_t> FindCardPos(Entity& card);
-
-    //! Adds a card to hand.
-    //! \param card The card to add to hand.
-    void AddCard(Entity& card);
-
-    //! Removes a card from hand.
-    //! \param card The card to remove from hand.
-    void RemoveCard(Entity& card);
-
-	//! Swaps two cards in hand.
-	//! \param card1 First card to swap.
-	//! \param card2 Second card to swap.
-    void SwapCard(Entity& card1, Entity& card2);
-
- private:
-    Player* m_owner = nullptr;
-
-    std::array<Entity*, HAND_SIZE> m_cards{};
-    std::size_t m_numCard = 0;
+    //! Removes the specified entity from this zone.
+    //! \param entity The entity.
+    //! \return The entity.
+    Entity& Remove(Entity& entity) override;
 };
 }  // namespace RosettaStone
 
