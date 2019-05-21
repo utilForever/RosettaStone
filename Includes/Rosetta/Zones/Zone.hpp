@@ -154,7 +154,7 @@ template <typename T>
 class LimitedZone : public Zone<T>
 {
  public:
-    LimitedZone(int size) : Zone(size), m_maxSize(size)
+    LimitedZone(int size) : Zone<T>(size), m_maxSize(size)
     {
         // Do nothing
     }
