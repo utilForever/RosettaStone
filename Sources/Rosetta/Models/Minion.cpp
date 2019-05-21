@@ -10,7 +10,8 @@
 
 namespace RosettaStone
 {
-Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
+Minion::Minion(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Character(_owner, _card, tags)
 {
     // Do nothing
 }

@@ -24,10 +24,11 @@ class Character : public Entity
     //! Default constructor.
     Character() = default;
 
-    //! Constructs character with given \p _owner and \p _card.
-    //! \param _owner An owner of the card.
-    //! \param _card A reference to the card.
-    Character(Player& _owner, Card& _card);
+    //! Constructs character with given \p _owner, \p _card and \p tags.
+    //! \param _owner The owner of the card.
+    //! \param _card The card.
+    //! \param tags The game tags.
+    Character(Player& _owner, Card& _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     virtual ~Character() = default;

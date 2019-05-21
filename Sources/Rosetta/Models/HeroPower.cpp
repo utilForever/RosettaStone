@@ -8,7 +8,8 @@
 
 namespace RosettaStone
 {
-HeroPower::HeroPower(Player& _owner, Card& _card) : Entity(_owner, _card)
+HeroPower::HeroPower(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Entity(_owner, _card, tags)
 {
     // Do nothing
 }

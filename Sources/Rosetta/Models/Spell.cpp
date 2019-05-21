@@ -8,7 +8,8 @@
 
 namespace RosettaStone
 {
-Spell::Spell(Player& _owner, Card& _card) : Entity(_owner, _card)
+Spell::Spell(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Entity(_owner, _card, tags)
 {
     // Do nothing
 }

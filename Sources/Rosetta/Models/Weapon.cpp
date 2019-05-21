@@ -9,7 +9,8 @@
 
 namespace RosettaStone
 {
-Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
+Weapon::Weapon(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Entity(_owner, _card, tags)
 {
     // Do nothing
 }
