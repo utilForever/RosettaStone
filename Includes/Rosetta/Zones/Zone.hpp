@@ -172,7 +172,7 @@ class LimitedZone : public Zone<T>
                 "Can't add an opponent's entity to own zones");
         }
 
-        MoveTo((T&)(entity), zonePos < 0 ? m_count : zonePos);
+        MoveTo(static_cast<T&>(entity), zonePos < 0 ? m_count : zonePos);
     }
 
     Entity& Remove(Entity& entity) override
