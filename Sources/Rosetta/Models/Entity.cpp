@@ -9,16 +9,20 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card& _card) : owner(&_owner), card(_card)
+Entity::Entity(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : owner(&_owner), card(_card), m_gameTags(std::move(tags))
 {
-    auraEffects = new AuraEffects(this);
-
     for (auto& gameTag : _card.gameTags)
     {
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
+
+    id = tags[GameTag::ENTITY_ID];
+    auraEffects = new AuraEffects(this);
 }
 
 Entity::Entity(const Entity& ent)
@@ -183,34 +187,44 @@ void Entity::Destroy()
     isDestroyed = true;
 }
 
-Entity* Entity::GetFromCard(Player& player, Card&& card)
+Entity* Entity::GetFromCard(Player& player, Card&& card,
+                            std::optional<std::map<GameTag, int>> cardTags,
+                            IZone* zone, int id)
 {
+    std::map<GameTag, int> tags;
+    if (cardTags.has_value())
+    {
+        tags = cardTags.value();
+    }
+
+    tags[GameTag::ENTITY_ID] = id > 0 ? id : player.GetGame()->GetNextID();
+    tags[GameTag::CONTROLLER] = player.playerID;
+    tags[GameTag::ZONE] =
+        zone != nullptr ? static_cast<int>(zone->GetType()) : 0;
+
     Entity* result;
 
     switch (card.GetCardType())
     {
         case CardType::HERO:
-            result = new Hero(player, card);
+            result = new Hero(player, card, tags);
             break;
         case CardType::HERO_POWER:
-            result = new HeroPower(player, card);
+            result = new HeroPower(player, card, tags);
             break;
         case CardType::MINION:
-            result = new Minion(player, card);
+            result = new Minion(player, card, tags);
             break;
         case CardType::SPELL:
-            result = new Spell(player, card);
+            result = new Spell(player, card, tags);
             break;
         case CardType::WEAPON:
-            result = new Weapon(player, card);
+            result = new Weapon(player, card, tags);
             break;
         default:
             throw std::invalid_argument(
                 "Generic::DrawCard() - Invalid card type!");
     }
-
-    // Set entity ID
-    result->id = player.GetGame()->GetNextID();
 
     return result;
 }
