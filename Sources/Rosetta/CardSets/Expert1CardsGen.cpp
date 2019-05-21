@@ -192,7 +192,30 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_312] Twisting Nether - COST:8
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Destroy all minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS));
+    cards.emplace("EX1_312", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
+    // - Race: Demon, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 5 damage to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::HERO, 5));
+    cards.emplace("EX1_313", power);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)

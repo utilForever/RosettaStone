@@ -694,6 +694,114 @@ TEST(NeutralExpert1Test, EX1_170_EmperorCobra)
     // Do nothing
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [EX1_312] Twisting Nether - COST:8
+// - Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Destroy all minions.
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_312_TwistingNether)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Twisting Nether"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Voidwalker"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curField.GetNumOfMinions(), 2u);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 7u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
+    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
+    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
+// - Race: Demon, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 5 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_313_PitLord)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Pit Lord"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
