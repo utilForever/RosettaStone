@@ -6,10 +6,12 @@
 
 #include <Rosetta/Models/HeroPower.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
 HeroPower::HeroPower(Player& _owner, Card& _card, std::map<GameTag, int> tags)
-    : Entity(_owner, _card, tags)
+    : Entity(_owner, _card, std::move(tags))
 {
     // Do nothing
 }

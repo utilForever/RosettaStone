@@ -9,12 +9,13 @@
 #include <Rosetta/Models/Player.hpp>
 
 #include <algorithm>
+#include <utility>
 
 namespace RosettaStone
 {
 Enchantment::Enchantment(Player& _owner, Card& _card,
                          std::map<GameTag, int> tags, Entity* target)
-    : Entity(_owner, _card, tags), m_target(target)
+    : Entity(_owner, _card, std::move(tags)), m_target(target)
 {
     // Do nothing
 }

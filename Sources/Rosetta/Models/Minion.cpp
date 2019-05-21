@@ -8,10 +8,12 @@
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
 Minion::Minion(Player& _owner, Card& _card, std::map<GameTag, int> tags)
-    : Character(_owner, _card, tags)
+    : Character(_owner, _card, std::move(tags))
 {
     // Do nothing
 }
