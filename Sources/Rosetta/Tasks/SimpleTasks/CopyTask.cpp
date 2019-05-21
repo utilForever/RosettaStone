@@ -5,11 +5,16 @@
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
+#include "Rosetta/Cards/Cards.hpp"
 
 namespace RosettaStone::SimpleTasks
 {
-CopyTask::CopyTask(EntityType entityType, int amount)
-    : ITask(entityType), m_amount(amount)
+CopyTask::CopyTask(EntityType entityType, int amount, bool isOpposite,
+                   ZoneType zoneType)
+    : ITask(entityType),
+      m_amount(amount),
+      m_isOpposite(isOpposite),
+      m_zoneType(zoneType)
 {
     // Do nothing
 }
@@ -26,14 +31,38 @@ TaskStatus CopyTask::Impl(Player& player)
     switch (m_entityType)
     {
         case EntityType::STACK:
+        {
+            IZone* zone = m_isOpposite ? GetZone(*player.opponent, m_zoneType)
+                                       : GetZone(player, m_zoneType);
+
             for (auto& entity : player.GetGame()->taskStack.entities)
             {
+                if (zone != nullptr && zone->IsFull())
+                {
+                    break;
+                }
+
                 for (int i = 0; i < m_amount; ++i)
                 {
-                    result.emplace_back(entity);
+                    if (zone != nullptr && zone->IsFull())
+                    {
+                        break;
+                    }
+
+                    auto card =
+                        Cards::GetInstance().FindCardByID(entity->card.id);
+
+                    result.emplace_back(
+                        m_isOpposite
+                            ? Entity::GetFromCard(*player.opponent,
+                                                  std::move(card), std::nullopt,
+                                                  zone)
+                            : Entity::GetFromCard(player, std::move(card),
+                                                  std::nullopt, zone));
                 }
             }
             break;
+        }
         default:
             throw std::invalid_argument(
                 "CopyTask::Impl() - Invalid entity type");
@@ -42,5 +71,27 @@ TaskStatus CopyTask::Impl(Player& player)
     player.GetGame()->taskStack.entities = result;
 
     return TaskStatus::COMPLETE;
+}
+
+IZone* CopyTask::GetZone(Player& player, ZoneType zoneType)
+{
+    switch (zoneType)
+    {
+        case ZoneType::PLAY:
+            return &player.GetFieldZone();
+        case ZoneType::DECK:
+            return &player.GetDeckZone();
+        case ZoneType::HAND:
+            return &player.GetHandZone();
+        case ZoneType::GRAVEYARD:
+            return &player.GetGraveyardZone();
+        case ZoneType::INVALID:
+        case ZoneType::REMOVEDFROMGAME:
+        case ZoneType::SETASIDE:
+        case ZoneType::SECRET:
+            return nullptr;
+    }
+
+    return nullptr;
 }
 }  // namespace RosettaStone::SimpleTasks

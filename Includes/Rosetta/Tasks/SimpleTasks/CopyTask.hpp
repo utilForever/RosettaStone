@@ -21,7 +21,10 @@ class CopyTask : public ITask
     //! Constructs task with given \p entityType and \p amount.
     //! \param entityType The type of entity.
     //! \param amount The number of entities to copy.
-    CopyTask(EntityType entityType, int amount);
+    //! \param isOpposite Whether an owner of entity is opposite player.
+    //! \param zoneType The type of zone.
+    CopyTask(EntityType entityType, int amount, bool isOpposite = false,
+             ZoneType zoneType = ZoneType::INVALID);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,7 +36,15 @@ class CopyTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Returns the zone corresponding to the zone type.
+    //! \param player An owner of zone.
+    //! \param zoneType The type of zone.
+    //! \return The zone corresponding to the zone type.
+    IZone* GetZone(Player& player, ZoneType zoneType);
+
     int m_amount = 0;
+    bool m_isOpposite = false;
+    ZoneType m_zoneType = ZoneType::INVALID;
 };
 }  // namespace RosettaStone::SimpleTasks
 
