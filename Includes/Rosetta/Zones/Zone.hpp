@@ -87,7 +87,7 @@ class Zone : public IZone
 
     //! Returns a value indicating whether this zone is full.
     //! \return true if this zone is full, false otherwise.
-    virtual bool IsFull() const = 0;
+    bool IsFull() const override = 0;
 
  protected:
     std::vector<T*> m_entities;

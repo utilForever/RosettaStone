@@ -40,6 +40,10 @@ class IZone
         return m_type;
     }
 
+    //! Returns a value indicating whether this zone is full.
+    //! \return true if this zone is full, false otherwise.
+    virtual bool IsFull() const = 0;
+
  protected:
     //! Gets the kind of zone.
     ZoneType m_type = ZoneType::INVALID;
