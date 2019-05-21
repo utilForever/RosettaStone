@@ -56,8 +56,9 @@ TEST(DrawTask, Run)
 
         Card card = cards.back();
         card.id = std::move(id);
+        const std::map<GameTag, int> tags;
 
-        minions.emplace_back(new Minion(p, card));
+        minions.emplace_back(new Minion(p, card, tags));
 
         return minions.back();
     };
@@ -100,8 +101,9 @@ TEST(DrawTask, RunExhaust)
 
     Card card;
     card.id = "card1";
+    const std::map<GameTag, int> tags;
 
-    auto minion = new Minion(p, card);
+    const auto minion = new Minion(p, card, tags);
     p.GetDeckZone().Add(*minion);
 
     result = draw.Run(game.GetPlayer1());
@@ -129,8 +131,9 @@ TEST(DrawTask, RunOverDraw)
 
         Card card = cards.back();
         card.id = std::move(id);
+        const std::map<GameTag, int> tags;
 
-        minions.emplace_back(new Minion(p, card));
+        minions.emplace_back(new Minion(p, card, tags));
 
         return minions.back();
     };
@@ -185,8 +188,9 @@ TEST(DrawTask, RunExhaustOverdraw)
 
         Card card = cards.back();
         card.id = std::move(id);
+        const std::map<GameTag, int> tags;
 
-        minions.emplace_back(new Minion(p, card));
+        minions.emplace_back(new Minion(p, card, tags));
         return minions.back();
     };
 

@@ -62,8 +62,9 @@ Card GenerateMinionCard(std::string&& id, int attack, int health)
 void PlayMinionCard(Player& player, Card& card)
 {
     FieldZone& playerField = player.GetFieldZone();
+    const std::map<GameTag, int> tags;
 
-    const auto minion = new Minion(player, card);
+    const auto minion = new Minion(player, card, tags);
     playerField.Add(*minion);
     playerField[minion->zonePos]->owner = &player;
 }
