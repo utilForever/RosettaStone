@@ -158,6 +158,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
                 spell->card.power.GetTrigger().value().Activate(*spell);
             }
 
+            player.GetSecretZone().Add(*spell);
             spell->SetExhausted(true);
         }
         else
