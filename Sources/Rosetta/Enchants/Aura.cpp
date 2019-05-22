@@ -204,7 +204,7 @@ void Aura::UpdateInternal()
         {
             case AuraType::ADJACENT:
             {
-                const auto minion = dynamic_cast<Minion*>(m_owner);
+                const int pos = m_owner->zonePos;
                 auto& field = m_owner->owner->GetFieldZone();
 
                 const int entitySize =
@@ -214,7 +214,7 @@ void Aura::UpdateInternal()
                     Entity* entity = m_appliedEntities[i];
 
                     if (m_owner->zone == entity->zone &&
-                        std::abs(minion->zonePos - entity->zonePos) == 1)
+                        std::abs(pos - entity->zonePos) == 1)
                     {
                         continue;
                     }
@@ -232,21 +232,14 @@ void Aura::UpdateInternal()
                     }
                 }
 
-                if (minion->zonePos > 0)
+                if (pos > 0)
                 {
-                    const auto leftMinion = field[minion->zonePos - 1];
-                    if (leftMinion != nullptr)
-                    {
-                        Apply(*leftMinion);
-                    }
+                    Apply(*field[pos - 1]);
                 }
-                if (minion->zonePos < static_cast<int>(FIELD_SIZE - 1))
+                if (pos < m_owner->owner->GetFieldZone().GetCount() - 1 &&
+                    m_owner->owner->GetFieldZone().GetCount() > pos)
                 {
-                    const auto rightMinion = field[minion->zonePos + 1];
-                    if (rightMinion != nullptr)
-                    {
-                        Apply(*rightMinion);
-                    }
+                    Apply(*field[pos + 1]);
                 }
 
                 break;
