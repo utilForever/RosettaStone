@@ -279,7 +279,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
         auto field = player.GetFieldZone();
         const int numOfMinions = field.GetCount();
 
-        std::size_t i = 0;
+        int i = 0;
         for (; i < numOfMinions; ++i)
         {
             tensor[start + i] = CardToTensor(field[i]);
@@ -293,9 +293,9 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     const auto HandWrite = [&](std::size_t start, Player& player) {
         auto hand = player.GetHandZone();
-        const std::size_t numOfCards = hand.GetCount();
+        const int numOfCards = hand.GetCount();
 
-        std::size_t i = 0;
+        int i = 0;
         for (; i < numOfCards; ++i)
         {
             tensor[start + i] = CardToTensor(hand[i]);
