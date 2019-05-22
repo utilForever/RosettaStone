@@ -104,8 +104,8 @@ bool ChoicePick(Player& player, std::size_t choice)
     {
         case ChoiceAction::HAND:
         {
-            AddCardToHand(player, entity);
             player.GetSetasideZone().Remove(*entity);
+            AddCardToHand(player, entity);
             break;
         }
         default:
