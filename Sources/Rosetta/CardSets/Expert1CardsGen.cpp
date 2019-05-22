@@ -10,6 +10,7 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
@@ -191,7 +192,30 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_312] Twisting Nether - COST:8
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Destroy all minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS));
+    cards.emplace("EX1_312", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
+    // - Race: Demon, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 5 damage to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::HERO, 5));
+    cards.emplace("EX1_313", power);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
@@ -340,6 +364,24 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_231", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 7
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("EX1_005", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
