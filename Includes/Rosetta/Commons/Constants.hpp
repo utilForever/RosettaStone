@@ -40,6 +40,9 @@ constexpr int MANA_UPPER_LIMIT = 10;
 //! The maximum number of cards in your hand.
 constexpr int HAND_SIZE = 10;
 
+//! The maximum number of secrets in secret zone.
+constexpr int MAX_SECERT_SIZE = 5;
+
 // NOTE: 0 means my hero, 1 ~ 7 means my minion in field
 //       8 means opponent hero, 9 ~ 15 means opponent minion in field.
 //! The index of my hero for targeting when player is played card.
