@@ -108,6 +108,7 @@
 #include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/IZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 #include <Rosetta/Zones/Zone.hpp>
 
