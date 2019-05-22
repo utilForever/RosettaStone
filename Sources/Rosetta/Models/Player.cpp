@@ -20,10 +20,12 @@ Player::Player() : playerID(USER_INVALID)
     m_fieldZone = new FieldZone(this);
     m_graveyardZone = new GraveyardZone(this);
     m_handZone = new HandZone(this);
+    m_setasideZone = new SetasideZone(this);
 }
 
 Player::~Player()
 {
+    delete m_setasideZone;
     delete m_handZone;
     delete m_graveyardZone;
     delete m_fieldZone;
@@ -60,6 +62,11 @@ GraveyardZone& Player::GetGraveyardZone() const
 HandZone& Player::GetHandZone() const
 {
     return *m_handZone;
+}
+
+SetasideZone& Player::GetSetasideZone() const
+{
+    return *m_setasideZone;
 }
 
 Hero* Player::GetHero() const

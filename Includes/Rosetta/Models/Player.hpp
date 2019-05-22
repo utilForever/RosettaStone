@@ -15,6 +15,7 @@
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <string>
 
@@ -77,6 +78,10 @@ class Player
     //! Returns player's hand zone.
     //! \return Player's hand zone.
     HandZone& GetHandZone() const;
+
+    //! Returns player's setaside zone.
+    //! \return Player's setaside zone.
+    SetasideZone& GetSetasideZone() const;
 
     //! Returns player's hero.
     //! \return Player's hero.
@@ -165,8 +170,6 @@ class Player
     IPolicy* policy = nullptr;
     Player* opponent = nullptr;
 
-    std::vector<Entity*> setaside;
-
     int currentSpellPower = 0;
 
  private:
@@ -180,6 +183,7 @@ class Player
     FieldZone* m_fieldZone = nullptr;
     GraveyardZone* m_graveyardZone = nullptr;
     HandZone* m_handZone = nullptr;
+    SetasideZone* m_setasideZone = nullptr;
 
     Hero* m_hero = nullptr;
     Game* m_game = nullptr;
