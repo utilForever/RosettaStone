@@ -265,7 +265,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
 
     // Write number of opponent player's cards, normalized, on the hand.
     tensor[0] =
-        static_cast<float>(opPlayer.GetHandZone().GetCount()) / HAND_SIZE;
+        static_cast<float>(opPlayer.GetHandZone().GetCount()) / MAX_HAND_SIZE;
 
     // Write number of opponent player's cards, normalized, on the deck.
     tensor[1] =
@@ -285,7 +285,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
             tensor[start + i] = CardToTensor(field[i]);
         }
 
-        for (; i < FIELD_SIZE; ++i)
+        for (; i < MAX_FIELD_SIZE; ++i)
         {
             tensor[start + i] = torch::zeros(CardVectorSize);
         }
@@ -301,7 +301,7 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
             tensor[start + i] = CardToTensor(hand[i]);
         }
 
-        for (; i < HAND_SIZE; ++i)
+        for (; i < MAX_HAND_SIZE; ++i)
         {
             tensor[start + i] = torch::zeros(CardVectorSize);
         }
@@ -311,10 +311,10 @@ torch::Tensor GameToVec::GenerateTensor(const Game& game)
     FieldWrite(PlayerMetaSize, opPlayer);
 
     // Write current player's field cards
-    FieldWrite(PlayerMetaSize + 1 * FIELD_SIZE, curPlayer);
+    FieldWrite(PlayerMetaSize + 1 * MAX_FIELD_SIZE, curPlayer);
 
     // Write current player's hand cards
-    HandWrite(PlayerMetaSize + 2 * FIELD_SIZE, curPlayer);
+    HandWrite(PlayerMetaSize + 2 * MAX_FIELD_SIZE, curPlayer);
 
     return tensor;
 }

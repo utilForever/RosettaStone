@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-FieldZone::FieldZone(Player* player) : PositioningZone(FIELD_SIZE)
+FieldZone::FieldZone(Player* player) : PositioningZone(MAX_FIELD_SIZE)
 {
     m_owner = player;
     m_type = ZoneType::PLAY;

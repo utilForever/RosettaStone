@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-HandZone::HandZone(Player* player) : PositioningZone(HAND_SIZE)
+HandZone::HandZone(Player* player) : PositioningZone(MAX_HAND_SIZE)
 {
     m_owner = player;
     m_type = ZoneType::HAND;
