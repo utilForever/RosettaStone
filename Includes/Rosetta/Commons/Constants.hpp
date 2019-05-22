@@ -23,7 +23,7 @@ constexpr int START_DECK_SIZE = 30;
 constexpr int MAX_DECK_SIZE = 60;
 
 //! The maximum number of minions that can be placed in the field.
-constexpr int FIELD_SIZE = 7;
+constexpr int MAX_FIELD_SIZE = 7;
 
 //! The number of cards that the player going first will be given.
 constexpr int NUM_DRAW_CARDS_AT_START_FIRST = 3;
@@ -38,24 +38,10 @@ constexpr int MANA_LOWER_LIMIT = 0;
 constexpr int MANA_UPPER_LIMIT = 10;
 
 //! The maximum number of cards in your hand.
-constexpr int HAND_SIZE = 10;
+constexpr int MAX_HAND_SIZE = 10;
 
 //! The maximum number of secrets in secret zone.
 constexpr int MAX_SECERT_SIZE = 5;
-
-// NOTE: 0 means my hero, 1 ~ 7 means my minion in field
-//       8 means opponent hero, 9 ~ 15 means opponent minion in field.
-//! The index of my hero for targeting when player is played card.
-constexpr int INDEX_MY_HERO = 0;
-
-//! The index of my minion for targeting when player is played card.
-constexpr int INDEX_MY_MINION = INDEX_MY_HERO + 1;
-
-//! The index of opponent hero for targeting when player is played card.
-constexpr int INDEX_OPPONENT_HERO = INDEX_MY_MINION + FIELD_SIZE;
-
-//! The index of opponent minion for targeting when player is played card.
-constexpr int INDEX_OPPONENT_MINION = INDEX_OPPONENT_HERO + 1;
 
 //! Enumeration that represents the player.
 enum class PlayerType
