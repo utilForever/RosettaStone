@@ -85,10 +85,12 @@ IZone* CopyTask::GetZone(Player& player, ZoneType zoneType)
             return &player.GetHandZone();
         case ZoneType::GRAVEYARD:
             return &player.GetGraveyardZone();
+        case ZoneType::SETASIDE:
+            return &player.GetSetasideZone();
+        case ZoneType::SECRET:
+            return &player.GetSecretZone();
         case ZoneType::INVALID:
         case ZoneType::REMOVEDFROMGAME:
-        case ZoneType::SETASIDE:
-        case ZoneType::SECRET:
             return nullptr;
     }
 
