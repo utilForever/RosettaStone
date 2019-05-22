@@ -91,17 +91,8 @@ bool ChoicePick(Player& player, std::size_t choice)
         return false;
     }
 
-    // Find picked card using entity ID
-    Entity* entity = nullptr;
-    for (auto& card : player.setaside)
-    {
-        if (card->id == choice)
-        {
-            entity = card;
-            break;
-        }
-    }
-
+    // Get picked card using entity ID
+    Entity* entity = player.GetSetasideZone().GetEntity(choice);
     // Block it if player tries to pick a card that doesn't exist
     if (entity == nullptr)
     {
@@ -114,7 +105,7 @@ bool ChoicePick(Player& player, std::size_t choice)
         case ChoiceAction::HAND:
         {
             AddCardToHand(player, entity);
-            player.setaside.clear();
+            player.GetSetasideZone().Remove(*entity);
             break;
         }
         default:
