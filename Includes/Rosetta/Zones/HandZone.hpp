@@ -7,11 +7,8 @@
 #ifndef ROSETTASTONE_HAND_ZONE_HPP
 #define ROSETTASTONE_HAND_ZONE_HPP
 
-#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Zones/Zone.hpp>
-
-#include <array>
 
 namespace RosettaStone
 {

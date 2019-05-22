@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
