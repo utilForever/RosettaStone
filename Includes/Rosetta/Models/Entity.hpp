@@ -130,8 +130,8 @@ class Entity
     Trigger* activatedTrigger = nullptr;
     std::vector<Enchantment*> appliedEnchantments;
 
-    std::size_t id = 0;
-    std::size_t orderOfPlay = 0;
+    int id = 0;
+    int orderOfPlay = 0;
 
     bool isDestroyed = false;
 
