@@ -15,6 +15,7 @@
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 #include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <string>
@@ -78,6 +79,10 @@ class Player
     //! Returns player's hand zone.
     //! \return Player's hand zone.
     HandZone& GetHandZone() const;
+
+    //! Returns player's secret zone.
+    //! \return player's secret zone.
+    SecretZone& GetSecretZone() const;
 
     //! Returns player's setaside zone.
     //! \return Player's setaside zone.
@@ -183,6 +188,7 @@ class Player
     FieldZone* m_fieldZone = nullptr;
     GraveyardZone* m_graveyardZone = nullptr;
     HandZone* m_handZone = nullptr;
+    SecretZone* m_secretZone = nullptr;
     SetasideZone* m_setasideZone = nullptr;
 
     Hero* m_hero = nullptr;

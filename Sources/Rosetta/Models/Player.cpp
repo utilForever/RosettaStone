@@ -64,6 +64,11 @@ HandZone& Player::GetHandZone() const
     return *m_handZone;
 }
 
+SecretZone& Player::GetSecretZone() const
+{
+    return *m_secretZone;
+}
+
 SetasideZone& Player::GetSetasideZone() const
 {
     return *m_setasideZone;
