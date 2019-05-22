@@ -20,12 +20,14 @@ Player::Player() : playerID(USER_INVALID)
     m_fieldZone = new FieldZone(this);
     m_graveyardZone = new GraveyardZone(this);
     m_handZone = new HandZone(this);
+    m_secretZone = new SecretZone(this);
     m_setasideZone = new SetasideZone(this);
 }
 
 Player::~Player()
 {
     delete m_setasideZone;
+    delete m_secretZone;
     delete m_handZone;
     delete m_graveyardZone;
     delete m_fieldZone;
