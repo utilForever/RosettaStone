@@ -52,7 +52,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 ### Basic & Classic
 
   * **100% Basic (133 of 133 Cards)**
-  * 16% Classic (40 of 237 Cards)
+  * 17% Classic (41 of 237 Cards)
   * 13% Hall of Fame (3 of 22 Cards)
 
 ### Adventures

@@ -222,7 +222,7 @@ EXPERT1 | EX1_130 | Noble Sacrifice |
 EXPERT1 | EX1_131 | Defias Ringleader |  
 EXPERT1 | EX1_132 | Eye for an Eye |  
 EXPERT1 | EX1_133 | Perdition's Blade |  
-EXPERT1 | EX1_134 | SI:7 Agent |  
+EXPERT1 | EX1_134 | SI:7 Agent | O
 EXPERT1 | EX1_136 | Redemption |  
 EXPERT1 | EX1_137 | Headcrack |  
 EXPERT1 | EX1_144 | Shadowstep |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 16% (40 of 237 Cards)
+- Progress: 17% (41 of 237 Cards)
 
 ## Hall of Fame
 
