@@ -186,6 +186,23 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddComboTask(new AddEnchantmentTask("CS2_073e2", EntityType::TARGET));
     cards.emplace("CS2_073", power);
 
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_124] Eviscerate - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal $2 damage. <b>Combo:</b> Deal $4 damage instead. @spelldmg
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
+    power.AddComboTask(new DamageTask(EntityType::TARGET, 4, true));
+    cards.emplace("EX1_124", power);
+
     // ----------------------------------------- MINION - ROGUE
     // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
