@@ -21,7 +21,7 @@ class SecretZone : public LimitedZone<Spell>
 {
  public:
     //! Default constructor.
-    SecretZone(Player* player);
+    explicit SecretZone(Player* player);
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

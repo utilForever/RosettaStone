@@ -23,7 +23,7 @@ class HandZone : public PositioningZone<Entity>
 {
  public:
     //! Default constructor.
-    HandZone(Player* player);
+    explicit HandZone(Player* player);
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

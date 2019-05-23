@@ -24,7 +24,7 @@ class SetasideZone : public UnlimitedZone
 {
  public:
     //! Default constructor.
-    SetasideZone(Player* player);
+    explicit SetasideZone(Player* player);
 
     //! Returns The entity that has ID.
     //! \param id The ID of entity.

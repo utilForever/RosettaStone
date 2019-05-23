@@ -7,8 +7,6 @@
 #ifndef ROSETTASTONE_FIELD_ZONE_HPP
 #define ROSETTASTONE_FIELD_ZONE_HPP
 
-#include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Zones/Zone.hpp>
 
@@ -29,7 +27,7 @@ class FieldZone : public PositioningZone<Minion>
 {
  public:
     //! Default constructor.
-    FieldZone(Player* player);
+    explicit FieldZone(Player* player);
 
     //! Returns all entities in board zone.
     //! \return A list of entity in board zone.

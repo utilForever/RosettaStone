@@ -22,7 +22,7 @@ class GraveyardZone : public UnlimitedZone
 {
  public:
     //! Default constructor.
-    GraveyardZone(Player* player);
+    explicit GraveyardZone(Player* player);
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

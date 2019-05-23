@@ -24,7 +24,7 @@ class DeckZone : public LimitedZone<Entity>
 {
  public:
     //! Default constructor.
-    DeckZone(Player* player);
+    explicit DeckZone(Player* player);
 
     //! Returns the top card from deck.
     //! \return The top card of deck.
