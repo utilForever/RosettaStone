@@ -363,6 +363,52 @@ TEST(RogueExpert1Test, EX1_124_Eviscerate)
 }
 
 // ----------------------------------------- MINION - ROGUE
+// [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Deal 2 damage.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_FOR_COMBO = 0
+// --------------------------------------------------------
+TEST(RogueExpert1Test, EX1_134_SI7Agent)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("SI:7 Agent"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("SI:7 Agent"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
+}
+
+// ----------------------------------------- MINION - ROGUE
 // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

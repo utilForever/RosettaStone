@@ -204,6 +204,22 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     cards.emplace("EX1_124", power);
 
     // ----------------------------------------- MINION - ROGUE
+    // [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Deal 2 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(new DamageTask(EntityType::TARGET, 2));
+    cards.emplace("EX1_134", power);
+
+    // ----------------------------------------- MINION - ROGUE
     // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
