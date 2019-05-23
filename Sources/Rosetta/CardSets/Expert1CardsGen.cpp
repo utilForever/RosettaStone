@@ -7,6 +7,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -93,7 +94,17 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_621] Circle of Healing - COST:0
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Restore #4 Health to ALL minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
+    cards.emplace("EX1_621", power);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
