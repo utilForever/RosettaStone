@@ -59,7 +59,7 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
                 AddCardToHand(player, &newCard);
                 hand.Swap(*entity, newCard);
 
-                RemoveCardFromHand(player, entity);
+                hand.Remove(*entity);
                 deck.Add(*entity);
                 deck.Shuffle();
             }

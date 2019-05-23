@@ -26,8 +26,7 @@ TaskStatus ReturnHandTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        Generic::RemoveMinionFromField(*entity->owner,
-                                       dynamic_cast<Minion*>(entity));
+        (*entity->owner).GetFieldZone().Remove(*entity);
         entity->Reset();
         Generic::AddCardToHand(*entity->owner, entity);
     }

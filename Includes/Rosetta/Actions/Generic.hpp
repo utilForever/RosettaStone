@@ -23,16 +23,6 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 //! \param entity A card to add.
 void AddCardToHand(Player& player, Entity* entity);
 
-//! Removes card from hand.
-//! \param player The player to remove card from hand.
-//! \param entity A card to remove.
-void RemoveCardFromHand(Player& player, Entity* entity);
-
-//! Removes minion from battlefield.
-//! \param player The player to remove minion from battlefield.
-//! \param minion A minion to remove.
-void RemoveMinionFromField(Player& player, Minion* minion);
-
 //! Changes mana crystal of the player.
 //! \param player The player to change mana crystal.
 //! \param amount A value indicating how much to change mana crystal.
