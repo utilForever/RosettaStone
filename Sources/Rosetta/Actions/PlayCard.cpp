@@ -105,11 +105,6 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     {
         for (auto& comboTask : minion->card.power.GetComboTask())
         {
-            if (comboTask == nullptr)
-            {
-                continue;
-            }
-
             comboTask->SetSource(minion);
             comboTask->SetTarget(target);
             comboTask->Run(player);
@@ -180,11 +175,6 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
             {
                 for (auto& comboTask : spell->card.power.GetComboTask())
                 {
-                    if (comboTask == nullptr)
-                    {
-                        continue;
-                    }
-
                     comboTask->SetSource(spell);
                     comboTask->SetTarget(target);
                     comboTask->Run(player);
@@ -194,11 +184,6 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
             {
                 for (auto& powerTask : spell->card.power.GetPowerTask())
                 {
-                    if (powerTask == nullptr)
-                    {
-                        continue;
-                    }
-
                     powerTask->SetSource(spell);
                     powerTask->SetTarget(target);
                     powerTask->Run(player);

@@ -41,11 +41,6 @@ TaskStatus DrawTask::Impl(Player& player)
 
         for (auto& card : cards)
         {
-            if (card == nullptr)
-            {
-                continue;
-            }
-
             player.GetGame()->taskStack.entities.emplace_back(card);
         }
     }
