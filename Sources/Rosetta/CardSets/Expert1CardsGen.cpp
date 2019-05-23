@@ -4,10 +4,14 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Conditions/SelfCondition.hpp>
+#include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
@@ -360,6 +364,29 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
         new AddEnchantmentTask("CS2_059o", EntityType::STACK)
     };
     cards.emplace("CS2_059", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_312] Twisting Nether - COST:8
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Destroy all minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS));
+    cards.emplace("EX1_312", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
+    // - Race: Demon, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 5 damage to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::HERO, 5));
+    cards.emplace("EX1_313", power);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
@@ -379,12 +406,37 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS2_104] Rampage - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a damaged minion +3/+3.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
+    cards.emplace("CS2_104", power);
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [CS2_104e] Rampage (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +3/+3.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
+    cards.emplace("CS2_104e", power);
 }
 
 void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
@@ -460,6 +512,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_169", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
+    // - Faction: Horde, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::SOURCE, 4, false));
+    cards.emplace("CS2_181", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -481,6 +546,24 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_231", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 7
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("EX1_005", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
