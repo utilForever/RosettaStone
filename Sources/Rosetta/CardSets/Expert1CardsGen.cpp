@@ -3,8 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
@@ -126,7 +126,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
-    
+
     // ----------------------------------------- ENCHANTMENT - PRIEST
     // [CS1_129e] Inner Fire - COST:0
     // - Set: Expert1
@@ -227,16 +227,16 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
 {
     Power power;
 
-    // ----------------------------------------- SPELL - WARRIOR
-    // [CS1_104] Rampage - COST:2
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS2_104] Rampage - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give a Damaged Minion +3/+3
+    // Text: Give a damaged minion +3/+3.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_DAMAGED_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
@@ -247,12 +247,11 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
 
-    // ----------------------------------------- ENCHANTMENT - WARRIOR
-    // [CS1_104e] Rampage - COST:0
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [CS2_104e] Rampage (*) - COST:0
+    // - Set: Expert1
     // --------------------------------------------------------
-    // Text: +3/+3
-    // --------------------------------------------------------
+    // Text: +3/+3.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
@@ -333,10 +332,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
-    // - Race: Beast, Faction: Horde, Set: Expert1, Rarity: Rare
+    // - Faction: Horde, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
     // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::SOURCE, 4, false));
