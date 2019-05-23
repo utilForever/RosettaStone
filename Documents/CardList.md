@@ -149,20 +149,20 @@ CORE | NEW1_031 | Animal Companion | O
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 EXPERT1 | CS1_069 | Fen Creeper | O
-EXPERT1 | CS1_129 | Inner Fire |  
+EXPERT1 | CS1_129 | Inner Fire | O
 EXPERT1 | CS2_028 | Blizzard | O
-EXPERT1 | CS2_038 | Ancestral Spirit |  
-EXPERT1 | CS2_053 | Far Sight |  
-EXPERT1 | CS2_059 | Blood Imp |  
-EXPERT1 | CS2_073 | Cold Blood |  
-EXPERT1 | CS2_104 | Rampage |  
+EXPERT1 | CS2_038 | Ancestral Spirit | O
+EXPERT1 | CS2_053 | Far Sight | O
+EXPERT1 | CS2_059 | Blood Imp | O
+EXPERT1 | CS2_073 | Cold Blood | O
+EXPERT1 | CS2_104 | Rampage | O
 EXPERT1 | CS2_117 | Earthen Ring Farseer | O
 EXPERT1 | CS2_146 | Southsea Deckhand |  
 EXPERT1 | CS2_151 | Silver Hand Knight | O
 EXPERT1 | CS2_161 | Ravenholdt Assassin | O
 EXPERT1 | CS2_169 | Young Dragonhawk | O
-EXPERT1 | CS2_181 | Injured Blademaster |  
-EXPERT1 | CS2_188 | Abusive Sergeant |  
+EXPERT1 | CS2_181 | Injured Blademaster | O
+EXPERT1 | CS2_188 | Abusive Sergeant | O
 EXPERT1 | CS2_203 | Ironbeak Owl |  
 EXPERT1 | CS2_221 | Spiteful Smith |  
 EXPERT1 | CS2_227 | Venture Co. Mercenary |  
@@ -172,7 +172,7 @@ EXPERT1 | DS1_188 | Gladiator's Longbow |
 EXPERT1 | EX1_001 | Lightwarden |  
 EXPERT1 | EX1_002 | The Black Knight |  
 EXPERT1 | EX1_004 | Young Priestess |  
-EXPERT1 | EX1_005 | Big Game Hunter |  
+EXPERT1 | EX1_005 | Big Game Hunter | O
 EXPERT1 | EX1_006 | Alarm-o-Bot |  
 EXPERT1 | EX1_007 | Acolyte of Pain |  
 EXPERT1 | EX1_008 | Argent Squire | O
@@ -216,7 +216,7 @@ EXPERT1 | EX1_103 | Coldlight Seer |
 EXPERT1 | EX1_105 | Mountain Giant |  
 EXPERT1 | EX1_110 | Cairne Bloodhoof |  
 EXPERT1 | EX1_116 | Leeroy Jenkins |  
-EXPERT1 | EX1_124 | Eviscerate |  
+EXPERT1 | EX1_124 | Eviscerate | O
 EXPERT1 | EX1_126 | Betrayal |  
 EXPERT1 | EX1_130 | Noble Sacrifice |  
 EXPERT1 | EX1_131 | Defias Ringleader |  
@@ -241,8 +241,8 @@ EXPERT1 | EX1_179 | Icicle |
 EXPERT1 | EX1_180 | Tome of Intellect |  
 EXPERT1 | EX1_181 | Call of the Void |  
 EXPERT1 | EX1_182 | Pilfer |  
-EXPERT1 | EX1_238 | Lightning Bolt |  
-EXPERT1 | EX1_241 | Lava Burst |  
+EXPERT1 | EX1_238 | Lightning Bolt | O
+EXPERT1 | EX1_241 | Lava Burst | O
 EXPERT1 | EX1_243 | Dust Devil |  
 EXPERT1 | EX1_245 | Earth Shock |  
 EXPERT1 | EX1_247 | Stormforged Axe |  
@@ -256,15 +256,15 @@ EXPERT1 | EX1_274 | Ethereal Arcanist |
 EXPERT1 | EX1_275 | Cone of Cold |  
 EXPERT1 | EX1_279 | Pyroblast |  
 EXPERT1 | EX1_283 | Frost Elemental |  
-EXPERT1 | EX1_287 | Counterspell |  
+EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier |  
 EXPERT1 | EX1_294 | Mirror Entity |  
 EXPERT1 | EX1_301 | Felguard |  
 EXPERT1 | EX1_303 | Shadowflame |  
 EXPERT1 | EX1_304 | Void Terror |  
 EXPERT1 | EX1_309 | Siphon Soul |  
-EXPERT1 | EX1_312 | Twisting Nether |  
-EXPERT1 | EX1_313 | Pit Lord |  
+EXPERT1 | EX1_312 | Twisting Nether | O
+EXPERT1 | EX1_313 | Pit Lord | O
 EXPERT1 | EX1_315 | Summoning Portal |  
 EXPERT1 | EX1_317 | Sense Demons |  
 EXPERT1 | EX1_319 | Flame Imp |  
@@ -386,14 +386,14 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 10% (25 of 237 Cards)
+- Progress: 16% (40 of 237 Cards)
 
 ## Hall of Fame
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 HOF | CS2_031 | Ice Lance |  
-HOF | EX1_016 | Sylvanas Windrunner |  
+HOF | EX1_016 | Sylvanas Windrunner | O
 HOF | EX1_050 | Coldlight Oracle | O
 HOF | EX1_062 | Old Murk-Eye |  
 HOF | EX1_112 | Gelbin Mekkatorque |  
@@ -415,4 +415,4 @@ HOF | GIL_838 | Black Cat |
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 9% (2 of 22 Cards)
+- Progress: 13% (3 of 22 Cards)

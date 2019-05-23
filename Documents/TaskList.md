@@ -8,6 +8,7 @@
 * AttackTask
 * ChooseTask
 * EndTurnTask
+* HeroPowerTask
 * PlayCardTask
 
 ## Basic tasks
@@ -31,12 +32,13 @@
 * GetGameTagTask
 * HealFullTask
 * HealTask
-* HeroPowerTask
 * IncludeTask
 * ManaCrystalTask
 * MathSubTask
-* RandomTask
+* MoveToGraveyardTask
 * RandomEntourageTask
+* RandomTask
+* RemoveEnchantmentTask
 * ReturnHandTask
 * SetGameTagTask
 * SummonTask
