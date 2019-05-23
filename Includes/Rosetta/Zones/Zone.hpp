@@ -260,7 +260,8 @@ class LimitedZone : public Zone<T>
 
         for (int i = 0; i < m_count; ++i)
         {
-            if (Zone<T>::m_entities[i] == nullptr)
+            if (Zone<T>::m_entities[i] == nullptr ||
+                static_cast<bool>(Zone<T>::m_entities[i]->isDestroyed))
             {
                 continue;
             }
