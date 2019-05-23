@@ -36,12 +36,6 @@ class CopyTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    //! Returns the zone corresponding to the zone type.
-    //! \param player An owner of zone.
-    //! \param zoneType The type of zone.
-    //! \return The zone corresponding to the zone type.
-    IZone* GetZone(Player& player, ZoneType zoneType);
-
     int m_amount = 0;
     bool m_isOpposite = false;
     ZoneType m_zoneType = ZoneType::INVALID;

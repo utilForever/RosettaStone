@@ -44,6 +44,12 @@ void ChangeManaCrystal(Player& player, int amount, bool fill);
 //! \param oldMinion An old minion to transform.
 //! \param card A new card ID to transform.
 void TransformMinion(Player& player, Minion* oldMinion, Card&& card);
+
+//! Returns the zone corresponding to the zone type.
+//! \param player An owner of zone.
+//! \param zoneType The type of zone.
+//! \return The zone corresponding to the zone type.
+IZone* GetZone(Player& player, ZoneType zoneType);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_GENERIC_HPP

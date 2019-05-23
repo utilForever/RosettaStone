@@ -3,9 +3,10 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
-#include "Rosetta/Cards/Cards.hpp"
 
 namespace RosettaStone::SimpleTasks
 {
@@ -32,8 +33,9 @@ TaskStatus CopyTask::Impl(Player& player)
     {
         case EntityType::STACK:
         {
-            IZone* zone = m_isOpposite ? GetZone(*player.opponent, m_zoneType)
-                                       : GetZone(player, m_zoneType);
+            IZone* zone = m_isOpposite
+                              ? Generic::GetZone(*player.opponent, m_zoneType)
+                              : Generic::GetZone(player, m_zoneType);
 
             for (auto& entity : player.GetGame()->taskStack.entities)
             {
@@ -71,29 +73,5 @@ TaskStatus CopyTask::Impl(Player& player)
     player.GetGame()->taskStack.entities = result;
 
     return TaskStatus::COMPLETE;
-}
-
-IZone* CopyTask::GetZone(Player& player, ZoneType zoneType)
-{
-    switch (zoneType)
-    {
-        case ZoneType::PLAY:
-            return &player.GetFieldZone();
-        case ZoneType::DECK:
-            return &player.GetDeckZone();
-        case ZoneType::HAND:
-            return &player.GetHandZone();
-        case ZoneType::GRAVEYARD:
-            return &player.GetGraveyardZone();
-        case ZoneType::SETASIDE:
-            return &player.GetSetasideZone();
-        case ZoneType::SECRET:
-            return &player.GetSecretZone();
-        case ZoneType::INVALID:
-        case ZoneType::REMOVEDFROMGAME:
-            return nullptr;
-    }
-
-    return nullptr;
 }
 }  // namespace RosettaStone::SimpleTasks

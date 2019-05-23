@@ -84,4 +84,28 @@ void TransformMinion(Player& player, Minion* oldMinion, Card&& card)
 
     player.GetFieldZone().Replace(*oldMinion, *newMinion);
 }
+
+IZone* GetZone(Player& player, ZoneType zoneType)
+{
+    switch (zoneType)
+    {
+        case ZoneType::PLAY:
+            return &player.GetFieldZone();
+        case ZoneType::DECK:
+            return &player.GetDeckZone();
+        case ZoneType::HAND:
+            return &player.GetHandZone();
+        case ZoneType::GRAVEYARD:
+            return &player.GetGraveyardZone();
+        case ZoneType::SETASIDE:
+            return &player.GetSetasideZone();
+        case ZoneType::SECRET:
+            return &player.GetSecretZone();
+        case ZoneType::INVALID:
+        case ZoneType::REMOVEDFROMGAME:
+            return nullptr;
+    }
+
+    return nullptr;
+}
 }  // namespace RosettaStone::Generic
