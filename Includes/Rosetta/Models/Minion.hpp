@@ -29,7 +29,7 @@ class Minion : public Character
     Minion(Player& _owner, Card& _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
-    virtual ~Minion() = default;
+    ~Minion() = default;
 
     //! Default copy constructor.
     Minion(const Minion& minion) = default;
