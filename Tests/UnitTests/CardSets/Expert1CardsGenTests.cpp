@@ -95,6 +95,57 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [CS2_104] Rampage - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a damaged minion +3/+3.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_DAMAGED_TARGET = 0
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, CS2_104_Rampage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Rampage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 6);
+
+    curField.GetMinion(0)->SetDamage(1);
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetAttack(), 9);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 9);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_129] Inner Fire - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -105,7 +156,7 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(Expert1CardsGen, CS1_129_InnerFire)
+TEST(PriestExpert1Test, CS1_129_InnerFire)
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
@@ -124,9 +175,9 @@ TEST(Expert1CardsGen, CS1_129_InnerFire)
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
-    
+
     auto& curField = curPlayer.GetField();
-  
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
     const auto card2 = Generic::DrawCard(
@@ -136,25 +187,32 @@ TEST(Expert1CardsGen, CS1_129_InnerFire)
     const auto card4 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Inner Fire"));
     const auto card5 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));     
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card5));
     EXPECT_EQ(curField.GetNumOfMinions(), 1u);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(),
+              curField.GetMinion(0)->GetAttack());
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, curField.GetMinion(0)));
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(),
+              curField.GetMinion(0)->GetAttack());
 
     curField.GetMinion(0)->SetDamage(1);
     EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), curField.GetMinion(0)->GetAttack());
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, curField.GetMinion(0)));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(),
+              curField.GetMinion(0)->GetAttack());
 }
 
 // ----------------------------------------- MINION - ROGUE
@@ -331,6 +389,44 @@ TEST(NeutralExpert1Test, CS2_161_RavenholdtAssassin)
 TEST(NeutralExpert1Test, CS2_169_YoungDragonhawk)
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
+// - Faction: Horde, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, CS2_181_InjuredBlademaster)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetField();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Injured Blademaster"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL
