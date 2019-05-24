@@ -58,14 +58,14 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
             if (entity->owner == &game.GetCurrentPlayer())
             {
                 tensor[start + CurrentFieldOffset] = 1;
-                tensor[start + TargetPlaceSize + entity->zonePos] = 1;
             }
             // If entity is on the field of other player
-            else if (entity->owner == &game.GetOpponentPlayer())
+            else
             {
                 tensor[start + OpponentFieldOffset] = 1;
-                tensor[start + TargetPlaceSize + entity->zonePos] = 1;
             }
+
+            tensor[start + TargetPlaceSize + entity->zonePos] = 1;
         }
     };
 
