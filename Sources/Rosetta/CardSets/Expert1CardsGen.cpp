@@ -152,7 +152,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Restore #4 Health to ALL minions.
+    // Text: Restore #4 Health to ALL minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
