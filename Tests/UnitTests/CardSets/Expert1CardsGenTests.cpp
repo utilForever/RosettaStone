@@ -1227,7 +1227,7 @@ TEST(NeutralExpert1Test, EX1_067_ArgentCommander)
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_096] Loot Hoarder	 - COST:2 [ATK:2/HP:1]
+// [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Draw a card.
@@ -1255,8 +1255,8 @@ TEST(NeutralExpert1Test, EX1_096_LootHoarder)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Loot Hoarder"));
@@ -1264,33 +1264,33 @@ TEST(NeutralExpert1Test, EX1_096_LootHoarder)
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4u);
-    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
+    EXPECT_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
-    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+    EXPECT_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, AttackTask(card2, card1));
-    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 5u);
-    EXPECT_EQ(opPlayer.GetHand().GetNumOfCards(), 6u);
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opField.GetCount(), 0);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_097] Abomination - COST:5 [ATK:4/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Taunt</b>.
-//       <b>Deathrattle:</b> Deal 2 damage to ALL characters.
+// Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 2
+//       damage to ALL characters.
 // --------------------------------------------------------
 // GameTag:
-// - DEATHRATTLE = 1
 // - TAUNT = 1
+// - DEATHRATTLE = 1
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, EX1_097_Abomination)
 {
@@ -1312,8 +1312,8 @@ TEST(NeutralExpert1Test, EX1_097_Abomination)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Abomination"));
@@ -1332,36 +1332,36 @@ TEST(NeutralExpert1Test, EX1_097_Abomination)
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField.GetNumOfMinions(), 2u);
+    EXPECT_EQ(curField.GetCount(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::Minion(card5));
-    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+    EXPECT_EQ(opField.GetCount(), 2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField.GetNumOfMinions(), 3u);
+    EXPECT_EQ(curField.GetCount(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card6));
     game.Process(opPlayer, PlayCardTask::Minion(card7));
-    EXPECT_EQ(opField.GetNumOfMinions(), 4u);
+    EXPECT_EQ(opField.GetCount(), 4);
 
     game.Process(opPlayer, AttackTask(card6, card1));
     game.Process(opPlayer, AttackTask(card7, card1));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
-    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 5);
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
-    EXPECT_EQ(opField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 5);
+    EXPECT_EQ(opField.GetCount(), 1);
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL
