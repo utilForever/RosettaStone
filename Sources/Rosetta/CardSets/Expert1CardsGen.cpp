@@ -1,4 +1,4 @@
-// This code is based on Sabberstone project.
+﻿// This code is based on Sabberstone project.
 // Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
@@ -147,6 +147,16 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new MathSubTask(EntityType::TARGET, GameTag::DAMAGE));
     power.AddPowerTask(new AddEnchantmentTask("CS1_129e", EntityType::TARGET));
     cards.emplace("CS1_129", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_621] Circle of Healing - COST:0
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Restore #4 Health to ALL minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
+    cards.emplace("EX1_621", power);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
