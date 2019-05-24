@@ -218,6 +218,19 @@ enum class Step
     MAIN_START_TRIGGERS
 };
 
+//! \brief An enumerator for indicating the type of zone.
+enum class ZoneType
+{
+    INVALID,
+    PLAY,
+    DECK,
+    HAND,
+    GRAVEYARD,
+    REMOVEDFROMGAME,
+    SETASIDE,
+    SECRET
+};
+
 template <class T>
 T StrToEnum(const std::string_view&);
 template <class T>

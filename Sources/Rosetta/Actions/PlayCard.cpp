@@ -6,14 +6,15 @@
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::Generic
 {
 void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
 {
     // Check battlefield is full
-    if (dynamic_cast<Minion*>(source) != nullptr && player.GetField().IsFull())
+    if (dynamic_cast<Minion*>(source) != nullptr &&
+        player.GetFieldZone().IsFull())
     {
         return;
     }
@@ -25,6 +26,13 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
         return;
     }
 
+    // Check card has overload
+    if (source->HasOverload())
+    {
+        const int amount = source->GetOverload();
+        player.SetOverloadOwed(player.GetOverloadOwed() + amount);
+    }
+
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
@@ -34,7 +42,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     }
 
     // Erase from player's hand
-    player.GetHand().RemoveCard(*source);
+    player.GetHandZone().Remove(*source);
 
     // Set card's owner
     source->owner = &player;
@@ -64,12 +72,18 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
             throw std::invalid_argument(
                 "Generic::PlayCard() - Invalid card type!");
     }
+
+    // Set combo active to true
+    if (!player.IsComboActive())
+    {
+        player.SetComboActive(true);
+    }
 }
 
 void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 {
     // Add minion to battlefield
-    player.GetField().AddMinion(*minion, fieldPos);
+    player.GetFieldZone().Add(*minion, fieldPos);
 
     // Apply card mechanics tags
     for (const auto tags : minion->card.gameTags)
@@ -77,21 +91,38 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
         minion->SetGameTag(tags.first, tags.second);
     }
 
+    // Process play card trigger
+    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, minion);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
+
     // Process summon trigger
     player.GetGame()->triggerManager.OnSummonTrigger(&player, minion);
     player.GetGame()->ProcessTasks();
 
-    // Process power tasks
-    for (auto& powerTask : minion->card.power.GetPowerTask())
+    // Process power or combo tasks
+    if (minion->HasCombo() && player.IsComboActive())
     {
-        if (powerTask == nullptr)
+        for (auto& comboTask : minion->card.power.GetComboTask())
         {
-            continue;
+            comboTask->SetSource(minion);
+            comboTask->SetTarget(target);
+            comboTask->Run(player);
         }
+    }
+    else
+    {
+        for (auto& powerTask : minion->card.power.GetPowerTask())
+        {
+            if (powerTask == nullptr)
+            {
+                continue;
+            }
 
-        powerTask->SetSource(minion);
-        powerTask->SetTarget(target);
-        powerTask->Run(player);
+            powerTask->SetSource(minion);
+            powerTask->SetTarget(target);
+            powerTask->Run(player);
+        }
     }
 
     player.GetGame()->ProcessDestroyAndUpdateAura();
@@ -99,26 +130,79 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
 
 void PlaySpell(Player& player, Spell* spell, Character* target)
 {
-    // Process power tasks
-    for (auto& powerTask : spell->card.power.GetPowerTask())
-    {
-        if (powerTask == nullptr)
-        {
-            continue;
-        }
+    // Process cast spell trigger
+    player.GetGame()->triggerManager.OnCastSpellTrigger(&player, spell);
 
-        powerTask->SetSource(spell);
-        powerTask->SetTarget(target);
-        powerTask->Run(player);
-    }
-
-    player.GetGraveyard().AddCard(*spell);
-
+    // Process play card trigger
+    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, spell);
+    player.GetGame()->ProcessTasks();
     player.GetGame()->ProcessDestroyAndUpdateAura();
+
+    // Check spell is countered
+    if (spell->IsCountered())
+    {
+        player.GetGraveyardZone().Add(*spell);
+    }
+    else
+    {
+        if (spell->IsSecret())
+        {
+            // Process trigger
+            if (spell->card.power.GetTrigger().has_value())
+            {
+                spell->card.power.GetTrigger().value().Activate(*spell);
+            }
+
+            player.GetSecretZone().Add(*spell);
+            spell->SetExhausted(true);
+        }
+        else
+        {
+            // Process trigger
+            if (spell->card.power.GetTrigger().has_value())
+            {
+                spell->card.power.GetTrigger().value().Activate(*spell);
+            }
+
+            // Process aura
+            if (spell->card.power.GetAura().has_value())
+            {
+                spell->card.power.GetAura().value().Activate(*spell);
+            }
+
+            // Process power or combo tasks
+            if (spell->HasCombo() && player.IsComboActive())
+            {
+                for (auto& comboTask : spell->card.power.GetComboTask())
+                {
+                    comboTask->SetSource(spell);
+                    comboTask->SetTarget(target);
+                    comboTask->Run(player);
+                }
+            }
+            else
+            {
+                for (auto& powerTask : spell->card.power.GetPowerTask())
+                {
+                    powerTask->SetSource(spell);
+                    powerTask->SetTarget(target);
+                    powerTask->Run(player);
+                }
+            }
+
+            player.GetGraveyardZone().Add(*spell);
+            player.GetGame()->ProcessDestroyAndUpdateAura();
+        }
+    }
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 {
+    // Process play card trigger
+    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, weapon);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
+
     // Process trigger
     if (weapon->card.power.GetTrigger().has_value())
     {
@@ -163,7 +247,7 @@ bool IsPlayableByPlayer(Player& player, Entity* source)
 
     // Check if entity is in hand to be played
     if (dynamic_cast<HeroPower*>(source) == nullptr &&
-        player.GetHand().FindCardPos(*source) == std::nullopt)
+        source->zone != &player.GetHandZone())
     {
         return false;
     }
@@ -178,7 +262,7 @@ bool IsPlayableByCardReq(Entity* source)
         switch (requirement.first)
         {
             case PlayReq::REQ_NUM_MINION_SLOTS:
-                if (source->owner->GetField().IsFull())
+                if (source->owner->GetFieldZone().IsFull())
                 {
                     return false;
                 }
@@ -191,9 +275,8 @@ bool IsPlayableByCardReq(Entity* source)
                 break;
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                auto& opField = source->owner->opponent->GetField();
-                if (static_cast<int>(opField.GetNumOfMinions()) <
-                    requirement.second)
+                auto& opField = source->owner->opponent->GetFieldZone();
+                if (opField.GetCount() < requirement.second)
                 {
                     return false;
                 }

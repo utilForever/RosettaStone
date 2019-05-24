@@ -22,26 +22,14 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 void AddCardToHand(Player& player, Entity* entity)
 {
     // Add card to graveyard if hand is full
-    if (player.GetHand().IsFull())
+    if (player.GetHandZone().IsFull())
     {
-        player.GetGraveyard().AddCard(*entity);
+        player.GetGraveyardZone().Add(*entity);
         return;
     }
 
     // Add card to hand
-    player.GetHand().AddCard(*entity);
-}
-
-void RemoveCardFromHand(Player& player, Entity* entity)
-{
-    // Remove card from hand
-    player.GetHand().RemoveCard(*entity);
-}
-
-void RemoveMinionFromField(Player& player, Minion* minion)
-{
-    // Remove card from field
-    player.GetField().RemoveMinion(*minion);
+    player.GetHandZone().Add(*entity);
 }
 
 void ChangeManaCrystal(Player& player, int amount, bool fill)
@@ -82,6 +70,30 @@ void TransformMinion(Player& player, Minion* oldMinion, Card&& card)
         return;
     }
 
-    player.GetField().ReplaceMinion(*oldMinion, *newMinion);
+    player.GetFieldZone().Replace(*oldMinion, *newMinion);
+}
+
+IZone* GetZone(Player& player, ZoneType zoneType)
+{
+    switch (zoneType)
+    {
+        case ZoneType::PLAY:
+            return &player.GetFieldZone();
+        case ZoneType::DECK:
+            return &player.GetDeckZone();
+        case ZoneType::HAND:
+            return &player.GetHandZone();
+        case ZoneType::GRAVEYARD:
+            return &player.GetGraveyardZone();
+        case ZoneType::SETASIDE:
+            return &player.GetSetasideZone();
+        case ZoneType::SECRET:
+            return &player.GetSecretZone();
+        case ZoneType::INVALID:
+        case ZoneType::REMOVEDFROMGAME:
+            return nullptr;
+    }
+
+    return nullptr;
 }
 }  // namespace RosettaStone::Generic

@@ -9,6 +9,8 @@
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
 
+#include <vector>
+
 namespace RosettaStone
 {
 class Entity;
@@ -42,7 +44,7 @@ class Trigger
 
     TriggerSource triggerSource = TriggerSource::NONE;
 
-    ITask* singleTask = nullptr;
+    std::vector<ITask*> tasks;
     SelfCondition* condition = nullptr;
 
     bool fastExecution = false;

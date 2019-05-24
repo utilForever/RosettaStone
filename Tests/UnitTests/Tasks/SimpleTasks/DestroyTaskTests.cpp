@@ -32,36 +32,37 @@ TEST(DestroyTask, Run)
     Player& player2 = game.GetPlayer2();
 
     auto card = GenerateMinionCard("minion1", 1, 1);
+    const std::map<GameTag, int> tags;
 
     // Destroy Source Minion
-    auto minion1 = new Minion(player1, card);
+    const auto minion1 = new Minion(player1, card, tags);
     minion1->owner = &player1;
-    player1.GetField().AddMinion(*minion1, 0);
+    player1.GetFieldZone().Add(*minion1, 0);
 
     DestroyTask task1(EntityType::SOURCE);
-    task1.SetSource(player1.GetField().GetMinion(0));
+    task1.SetSource(player1.GetFieldZone()[0]);
     TaskStatus result = task1.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(player1.GetFieldZone().GetCount(), 0);
 
     // Destroy Target Minion
-    auto minion2 = new Minion(player2, card);
+    const auto minion2 = new Minion(player2, card, tags);
     minion2->owner = &player2;
-    player2.GetField().AddMinion(*minion2, 0);
+    player2.GetFieldZone().Add(*minion2, 0);
 
     DestroyTask task2(EntityType::TARGET);
-    task2.SetTarget(player2.GetField().GetMinion(0));
+    task2.SetTarget(player2.GetFieldZone()[0]);
     TaskStatus result2 = task2.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result2, TaskStatus::COMPLETE);
-    EXPECT_EQ(player2.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(player2.GetFieldZone().GetCount(), 0);
 
     // Destroy Target Weapon
     Card weaponCard;
-    player2.GetHero()->weapon = new Weapon(player2, weaponCard);
+    player2.GetHero()->weapon = new Weapon(player2, weaponCard, tags);
     player2.GetHero()->weapon->owner = &player2;
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);

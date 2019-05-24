@@ -37,12 +37,12 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             // Process mulligan state
             player.mulliganState = Mulligan::DEALING;
 
-            auto& hand = player.GetHand();
-            auto& deck = player.GetDeck();
+            auto& hand = player.GetHandZone();
+            auto& deck = player.GetDeckZone();
 
             // Collect cards to redraw
             std::vector<Entity*> mulliganList;
-            for (const auto entity : hand.GetAllCards())
+            for (const auto entity : hand.GetAll())
             {
                 const bool isExist = std::find(choices.begin(), choices.end(),
                                                entity->id) == choices.end();
@@ -55,12 +55,12 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             // Process redraw
             for (const auto& entity : mulliganList)
             {
-                Entity& newCard = deck.RemoveCard(*deck.GetTopCard());
+                Entity& newCard = deck.Remove(*deck.GetTopCard());
                 AddCardToHand(player, &newCard);
-                hand.SwapCard(*entity, newCard);
+                hand.Swap(*entity, newCard);
 
-                RemoveCardFromHand(player, entity);
-                deck.AddCard(*entity);
+                hand.Remove(*entity);
+                deck.Add(*entity);
                 deck.Shuffle();
             }
 
@@ -91,17 +91,8 @@ bool ChoicePick(Player& player, std::size_t choice)
         return false;
     }
 
-    // Find picked card using entity ID
-    Entity* entity = nullptr;
-    for (auto& card : player.setaside)
-    {
-        if (card->id == choice)
-        {
-            entity = card;
-            break;
-        }
-    }
-
+    // Get picked card using entity ID
+    Entity* entity = player.GetSetasideZone().GetEntity(choice);
     // Block it if player tries to pick a card that doesn't exist
     if (entity == nullptr)
     {
@@ -113,8 +104,8 @@ bool ChoicePick(Player& player, std::size_t choice)
     {
         case ChoiceAction::HAND:
         {
+            player.GetSetasideZone().Remove(*entity);
             AddCardToHand(player, entity);
-            player.setaside.clear();
             break;
         }
         default:

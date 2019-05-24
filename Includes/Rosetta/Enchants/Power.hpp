@@ -47,6 +47,10 @@ class Power
     //! \return A list of deathrattle tasks.
     std::vector<ITask*>& GetDeathrattleTask();
 
+    //! Returns a list of combo tasks.
+    //! \return A list of combo tasks.
+    std::vector<ITask*>& GetComboTask();
+
     //! Clears power task and enchant.
     void ClearData();
 
@@ -70,6 +74,10 @@ class Power
     //! \param task A pointer to deathrattle task.
     void AddDeathrattleTask(ITask* task);
 
+    //! Adds combo task.
+    //! \param task A pointer to combo task.
+    void AddComboTask(ITask* task);
+
  private:
     std::optional<Aura> m_aura = std::nullopt;
     std::optional<Enchant> m_enchant = std::nullopt;
@@ -77,6 +85,7 @@ class Power
 
     std::vector<ITask*> m_powerTask;
     std::vector<ITask*> m_deathrattleTask;
+    std::vector<ITask*> m_comboTask;
 };
 }  // namespace RosettaStone
 

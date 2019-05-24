@@ -22,10 +22,11 @@ class HeroPower : public Entity
     //! Default constructor.
     HeroPower() = default;
 
-    //! Constructs hero power with given \p _owner and \p _card.
-    //! \param _owner An owner of the card.
-    //! \param _card A reference to the card.
-    HeroPower(Player& _owner, Card& _card);
+    //! Constructs hero power with given \p _owner, \p _card and \p tags.
+    //! \param _owner The owner of the card.
+    //! \param _card The card.
+    //! \param tags The game tags.
+    HeroPower(Player& _owner, Card& _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~HeroPower() = default;

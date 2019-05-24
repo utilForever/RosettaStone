@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_DRAW_TASK_HPP
 #define ROSETTASTONE_DRAW_TASK_HPP
 
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -18,9 +18,10 @@ namespace RosettaStone::SimpleTasks
 class DrawTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount.
+    //! Constructs task with given \p amount and \p toStack.
     //! \param amount The amount to draw card.
-    explicit DrawTask(int amount);
+    //! \param toStack A flag to store card to stack.
+    explicit DrawTask(int amount, bool toStack = false);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,6 +34,7 @@ class DrawTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     int m_amount = 0;
+    bool m_toStack = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

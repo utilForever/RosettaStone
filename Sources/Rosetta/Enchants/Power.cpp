@@ -33,6 +33,11 @@ std::vector<ITask*>& Power::GetDeathrattleTask()
     return m_deathrattleTask;
 }
 
+std::vector<ITask*>& Power::GetComboTask()
+{
+    return m_comboTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();
@@ -40,6 +45,7 @@ void Power::ClearData()
     m_trigger.reset();
     m_powerTask.clear();
     m_deathrattleTask.clear();
+    m_comboTask.clear();
 }
 
 void Power::AddAura(Aura&& aura)
@@ -65,5 +71,10 @@ void Power::AddPowerTask(ITask* task)
 void Power::AddDeathrattleTask(ITask* task)
 {
     m_deathrattleTask.emplace_back(task);
+}
+
+void Power::AddComboTask(ITask* task)
+{
+    m_comboTask.emplace_back(task);
 }
 }  // namespace RosettaStone

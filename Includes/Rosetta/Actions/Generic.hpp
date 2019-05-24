@@ -23,16 +23,6 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 //! \param entity A card to add.
 void AddCardToHand(Player& player, Entity* entity);
 
-//! Removes card from hand.
-//! \param player The player to remove card from hand.
-//! \param entity A card to remove.
-void RemoveCardFromHand(Player& player, Entity* entity);
-
-//! Removes minion from battlefield.
-//! \param player The player to remove minion from battlefield.
-//! \param minion A minion to remove.
-void RemoveMinionFromField(Player& player, Minion* minion);
-
 //! Changes mana crystal of the player.
 //! \param player The player to change mana crystal.
 //! \param amount A value indicating how much to change mana crystal.
@@ -44,6 +34,12 @@ void ChangeManaCrystal(Player& player, int amount, bool fill);
 //! \param oldMinion An old minion to transform.
 //! \param card A new card ID to transform.
 void TransformMinion(Player& player, Minion* oldMinion, Card&& card);
+
+//! Returns the zone corresponding to the zone type.
+//! \param player An owner of zone.
+//! \param zoneType The type of zone.
+//! \return The zone corresponding to the zone type.
+IZone* GetZone(Player& player, ZoneType zoneType);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_GENERIC_HPP

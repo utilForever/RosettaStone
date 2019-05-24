@@ -46,14 +46,10 @@
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/PowerLoader.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
-#include <Rosetta/Models/Deck.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Entity.hpp>
-#include <Rosetta/Models/Graveyard.hpp>
-#include <Rosetta/Models/Hand.hpp>
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Minion.hpp>
@@ -65,6 +61,7 @@
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Policies/RandomPolicy.hpp>
 #include <Rosetta/RosettaStone.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
@@ -92,8 +89,10 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
@@ -104,6 +103,13 @@
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
 #include <Rosetta/Tasks/TaskWrapper.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/IZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
+#include <Rosetta/Zones/Zone.hpp>
 
 #endif  // ROSSETASTONE_ROSETTA_HPP

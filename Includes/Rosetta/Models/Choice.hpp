@@ -7,6 +7,8 @@
 #ifndef ROSETTASTONE_CHOICE_HPP
 #define ROSETTASTONE_CHOICE_HPP
 
+#include <Rosetta/Enums/CardEnums.hpp>
+
 #include <vector>
 
 namespace RosettaStone

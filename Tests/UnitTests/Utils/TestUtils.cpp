@@ -61,13 +61,12 @@ Card GenerateMinionCard(std::string&& id, int attack, int health)
 
 void PlayMinionCard(Player& player, Card& card)
 {
-    Battlefield& playerField = player.GetField();
+    FieldZone& playerField = player.GetFieldZone();
+    const std::map<GameTag, int> tags;
 
-    const auto minion = new Minion(player, card);
-    playerField.AddMinion(*minion);
-
-    const std::size_t pos = playerField.FindMinionPos(*minion).value();
-    playerField.GetMinion(pos)->owner = &player;
+    const auto minion = new Minion(player, card, tags);
+    playerField.Add(*minion);
+    playerField[minion->zonePos]->owner = &player;
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_TASK_WRAPPER_HPP
 #define ROSETTASTONE_TASK_WRAPPER_HPP
 
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 #include <functional>
 

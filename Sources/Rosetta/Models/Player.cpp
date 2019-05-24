@@ -4,26 +4,35 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
-#include "Rosetta/Commons/Utils.hpp"
-#include "Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp"
 
 namespace RosettaStone
 {
 Player::Player() : playerID(USER_INVALID)
 {
-    m_field.SetOwner(*this);
-    m_deck.SetOwner(*this);
-    m_graveyard.SetOwner(*this);
-    m_hand.SetOwner(*this);
+    m_deckZone = new DeckZone(this);
+    m_fieldZone = new FieldZone(this);
+    m_graveyardZone = new GraveyardZone(this);
+    m_handZone = new HandZone(this);
+    m_secretZone = new SecretZone(this);
+    m_setasideZone = new SetasideZone(this);
 }
 
 Player::~Player()
 {
+    delete m_setasideZone;
+    delete m_secretZone;
+    delete m_handZone;
+    delete m_graveyardZone;
+    delete m_fieldZone;
+    delete m_deckZone;
+
     delete m_hero;
 }
 
@@ -37,24 +46,34 @@ void Player::SetGame(Game* game)
     m_game = game;
 }
 
-Battlefield& Player::GetField()
+FieldZone& Player::GetFieldZone() const
 {
-    return m_field;
+    return *m_fieldZone;
 }
 
-Deck& Player::GetDeck()
+DeckZone& Player::GetDeckZone() const
 {
-    return m_deck;
+    return *m_deckZone;
 }
 
-Graveyard& Player::GetGraveyard()
+GraveyardZone& Player::GetGraveyardZone() const
 {
-    return m_graveyard;
+    return *m_graveyardZone;
 }
 
-Hand& Player::GetHand()
+HandZone& Player::GetHandZone() const
 {
-    return m_hand;
+    return *m_handZone;
+}
+
+SecretZone& Player::GetSecretZone() const
+{
+    return *m_secretZone;
+}
+
+SetasideZone& Player::GetSetasideZone() const
+{
+    return *m_setasideZone;
 }
 
 Hero* Player::GetHero() const
@@ -82,9 +101,9 @@ int Player::GetTotalMana() const
     return GetGameTag(GameTag::RESOURCES);
 }
 
-void Player::SetTotalMana(int value)
+void Player::SetTotalMana(int amount)
 {
-    SetGameTag(GameTag::RESOURCES, value);
+    SetGameTag(GameTag::RESOURCES, amount);
 }
 
 int Player::GetUsedMana() const
@@ -92,9 +111,9 @@ int Player::GetUsedMana() const
     return GetGameTag(GameTag::RESOURCES_USED);
 }
 
-void Player::SetUsedMana(int value)
+void Player::SetUsedMana(int amount)
 {
-    SetGameTag(GameTag::RESOURCES_USED, value);
+    SetGameTag(GameTag::RESOURCES_USED, amount);
 }
 
 int Player::GetTemporaryMana() const
@@ -102,14 +121,45 @@ int Player::GetTemporaryMana() const
     return GetGameTag(GameTag::TEMP_RESOURCES);
 }
 
-void Player::SetTemporaryMana(int value)
+void Player::SetTemporaryMana(int amount)
 {
-    SetGameTag(GameTag::TEMP_RESOURCES, value);
+    SetGameTag(GameTag::TEMP_RESOURCES, amount);
+}
+
+int Player::GetOverloadOwed() const
+{
+    return GetGameTag(GameTag::OVERLOAD_OWED);
+}
+
+void Player::SetOverloadOwed(int amount)
+{
+    SetGameTag(GameTag::OVERLOAD_OWED, amount);
+}
+
+int Player::GetOverloadLocked() const
+{
+    return GetGameTag(GameTag::OVERLOAD_LOCKED);
+}
+
+void Player::SetOverloadLocked(int amount)
+{
+    SetGameTag(GameTag::OVERLOAD_LOCKED, amount);
 }
 
 int Player::GetRemainingMana() const
 {
-    return GetTotalMana() + GetTemporaryMana() - GetUsedMana();
+    return GetTotalMana() + GetTemporaryMana() -
+           (GetUsedMana() + GetOverloadLocked());
+}
+
+bool Player::IsComboActive() const
+{
+    return GetGameTag(GameTag::COMBO_ACTIVE) == 1;
+}
+
+void Player::SetComboActive(bool isActive)
+{
+    SetGameTag(GameTag::COMBO_ACTIVE, isActive ? 1 : 0);
 }
 
 ITask* Player::GetNextAction()

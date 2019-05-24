@@ -8,13 +8,15 @@
 #define ROSETTASTONE_PLAYER_HPP
 
 #include <Rosetta/Commons/Constants.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Choice.hpp>
-#include <Rosetta/Models/Deck.hpp>
 #include <Rosetta/Models/Entity.hpp>
-#include <Rosetta/Models/Graveyard.hpp>
-#include <Rosetta/Models/Hand.hpp>
 #include <Rosetta/Models/Hero.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <string>
 
@@ -62,21 +64,29 @@ class Player
     //! \param game A pointer to game.
     void SetGame(Game* game);
 
-    //! Returns player's battlefield.
-    //! \return Player's battlefield.
-    Battlefield& GetField();
+    //! Returns player's field zone.
+    //! \return Player's field zone.
+    FieldZone& GetFieldZone() const;
 
-    //! Returns player's deck.
-    //! \return Player's deck.
-    Deck& GetDeck();
+    //! Returns player's deck zone.
+    //! \return Player's deck zone.
+    DeckZone& GetDeckZone() const;
 
-    //! Returns player's graveyard.
-    //! \return Player's graveyard.
-    Graveyard& GetGraveyard();
+    //! Returns player's graveyard zone.
+    //! \return Player's graveyard zone.
+    GraveyardZone& GetGraveyardZone() const;
 
-    //! Returns player's hand.
-    //! \return Player's hand.
-    Hand& GetHand();
+    //! Returns player's hand zone.
+    //! \return Player's hand zone.
+    HandZone& GetHandZone() const;
+
+    //! Returns player's secret zone.
+    //! \return player's secret zone.
+    SecretZone& GetSecretZone() const;
+
+    //! Returns player's setaside zone.
+    //! \return Player's setaside zone.
+    SetasideZone& GetSetasideZone() const;
 
     //! Returns player's hero.
     //! \return Player's hero.
@@ -97,29 +107,53 @@ class Player
     int GetTotalMana() const;
 
     //! Sets total amount of mana available.
-    //! \param value Total amount of mana available.
-    void SetTotalMana(int value);
+    //! \param amount Total amount of mana available.
+    void SetTotalMana(int amount);
 
     //! Returns amount of mana used.
     //! \return Amount of mana used.
     int GetUsedMana() const;
 
     //! Sets amount of mana used.
-    //! \param value Amount of mana used.
-    void SetUsedMana(int value);
+    //! \param amount Amount of mana used.
+    void SetUsedMana(int amount);
 
     //! Returns additional mana gained during this turn.
     //! \return additional mana gained during this turn.
     int GetTemporaryMana() const;
 
     //! Sets additional mana gained during this turn.
-    //! \param value additional mana gained during this turn.
-    void SetTemporaryMana(int value);
+    //! \param amount additional mana gained during this turn.
+    void SetTemporaryMana(int amount);
+
+    //! Returns amount of mana which will be locked during the next turn.
+    //! \return Amount of mana which will be locked during the next turn.
+    int GetOverloadOwed() const;
+
+    //! Sets amount of mana which will be locked during the next turn.
+    //! \param amount Amount of mana which will be locked during the next turn.
+    void SetOverloadOwed(int amount);
+
+    //! Returns amount of mana locked this turn.
+    //! \return amount of mana locked this turn.
+    int GetOverloadLocked() const;
+
+    //! Sets amount of mana locked this turn.
+    //! \param amount Amount of mana locked this turn.
+    void SetOverloadLocked(int amount);
 
     //! Returns the amount of mana available to actually use after calculating
     //! all resource factors.
     //! \return The amount of mana available to actually use.
     int GetRemainingMana() const;
+
+    //! Returns whether combo is active.
+    //! \return Whether combo is active.
+    bool IsComboActive() const;
+
+    //! Sets the value of combo active.
+    //! \param isActive Whether combo is active.
+    void SetComboActive(bool isActive);
 
     //! Returns the next action of policy.
     //! \return A task to run that is determined by policy.
@@ -141,8 +175,6 @@ class Player
     IPolicy* policy = nullptr;
     Player* opponent = nullptr;
 
-    std::vector<Entity*> setaside;
-
     int currentSpellPower = 0;
 
  private:
@@ -152,10 +184,12 @@ class Player
     //! \return A task that is selected by action.
     static ITask* GetTaskByAction(TaskMeta& next, TaskMeta& req);
 
-    Battlefield m_field;
-    Deck m_deck;
-    Graveyard m_graveyard;
-    Hand m_hand;
+    DeckZone* m_deckZone = nullptr;
+    FieldZone* m_fieldZone = nullptr;
+    GraveyardZone* m_graveyardZone = nullptr;
+    HandZone* m_handZone = nullptr;
+    SecretZone* m_secretZone = nullptr;
+    SetasideZone* m_setasideZone = nullptr;
 
     Hero* m_hero = nullptr;
     Game* m_game = nullptr;
