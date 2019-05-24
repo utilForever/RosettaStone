@@ -22,13 +22,14 @@ class Minion : public Character
     //! Default constructor.
     Minion() = default;
 
-    //! Constructs minion with given \p _owner and \p _card.
-    //! \param _owner An owner of the card.
-    //! \param _card A reference to the card.
-    Minion(Player& _owner, Card& _card);
+    //! Constructs minion with given \p _owner, \p _card and \p tags.
+    //! \param _owner The owner of the card.
+    //! \param _card The card.
+    //! \param tags The game tags.
+    Minion(Player& _owner, Card& _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
-    virtual ~Minion() = default;
+    ~Minion() = default;
 
     //! Default copy constructor.
     Minion(const Minion& minion) = default;
@@ -41,6 +42,14 @@ class Minion : public Character
 
     //! Default move assignment operator.
     Minion& operator=(Minion&& minion) = default;
+
+    //! Returns the value of last board position.
+    //! \return The value of last board position.
+    int GetLastBoardPos() const;
+
+    //! Sets the value of last board position.
+    //! \param value The value of last board position.
+    void SetLastBoardPos(int value);
 
     //! Resets all game tag values that where changed after creation.
     //! Any enchants and trigger is removed.

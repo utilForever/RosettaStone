@@ -29,8 +29,8 @@ TEST(ControlTask, Run)
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
 
-    auto& player1Field = player1.GetField();
-    auto& player2Field = player2.GetField();
+    auto& player1Field = player1.GetFieldZone();
+    auto& player2Field = player2.GetFieldZone();
 
     std::vector<Card> cards;
     cards.reserve(5);
@@ -45,21 +45,21 @@ TEST(ControlTask, Run)
     }
 
     ControlTask control(EntityType::TARGET);
-    control.SetTarget(player2Field.GetMinion(0));
+    control.SetTarget(player2Field[0]);
     TaskStatus result = control.Run(player1);
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
-    EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
+    EXPECT_EQ(player1Field.GetCount(), 7);
+    EXPECT_EQ(player2Field.GetCount(), 5);
 
     // Check controlled minion has valid data
-    EXPECT_EQ(player1Field.GetMinion(6)->GetAttack(), 1);
-    EXPECT_EQ(player1Field.GetMinion(6)->GetHealth(), 1);
+    EXPECT_EQ(player1Field[6]->GetAttack(), 1);
+    EXPECT_EQ(player1Field[6]->GetHealth(), 1);
 
-    control.SetTarget(player2Field.GetMinion(1));
+    control.SetTarget(player2Field[1]);
     result = control.Run(player1);
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1Field.GetNumOfMinions(), 7u);
-    EXPECT_EQ(player2Field.GetNumOfMinions(), 5u);
+    EXPECT_EQ(player1Field.GetCount(), 7);
+    EXPECT_EQ(player2Field.GetCount(), 5);
 }

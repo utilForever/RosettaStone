@@ -6,7 +6,7 @@
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 #include <stdexcept>
 
@@ -16,6 +16,9 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 {
     switch (type)
     {
+        case TriggerType::PLAY_CARD:
+            m_sequenceType = SequenceType::PLAY_CARD;
+            break;
         case TriggerType::TURN_END:
             fastExecution = true;
             break;
@@ -26,7 +29,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
 
 Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
-      singleTask(prototype.singleTask),
+      tasks(prototype.tasks),
       condition(prototype.condition),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
@@ -55,6 +58,12 @@ void Trigger::Activate(Entity& source)
             break;
         case TriggerType::TURN_END:
             game->triggerManager.endTurnTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::PLAY_CARD:
+            game->triggerManager.playCardTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::CAST_SPELL:
+            game->triggerManager.castSpellTrigger = std::move(triggerFunc);
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = std::move(triggerFunc);
@@ -85,6 +94,12 @@ void Trigger::Remove() const
             break;
         case TriggerType::TURN_END:
             game->triggerManager.endTurnTrigger = nullptr;
+            break;
+        case TriggerType::PLAY_CARD:
+            game->triggerManager.playCardTrigger = nullptr;
+            break;
+        case TriggerType::CAST_SPELL:
+            game->triggerManager.castSpellTrigger = nullptr;
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;
@@ -125,37 +140,40 @@ void Trigger::ProcessInternal(Player* player, Entity* source)
 {
     m_isValidated = false;
 
-    singleTask->SetSource(m_owner);
+    for (auto& task : tasks)
+    {
+        task->SetSource(m_owner);
 
-    if (source != nullptr)
-    {
-        singleTask->SetTarget(source);
-    }
-    else
-    {
-        const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
-        if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
+        if (source != nullptr)
         {
-            singleTask->SetTarget(enchantment->GetTarget());
+            task->SetTarget(source);
         }
         else
         {
-            singleTask->SetTarget(nullptr);
+            const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
+            if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
+            {
+                task->SetTarget(enchantment->GetTarget());
+            }
+            else
+            {
+                task->SetTarget(nullptr);
+            }
         }
-    }
 
-    if (fastExecution)
-    {
-        singleTask->Run(*player);
-    }
-    else
-    {
-        m_owner->owner->GetGame()->taskQueue.push_back(singleTask);
-    }
+        if (fastExecution)
+        {
+            task->Run(*player);
+        }
+        else
+        {
+            m_owner->owner->GetGame()->taskQueue.push_back(task);
+        }
 
-    if (removeAfterTriggered)
-    {
-        Remove();
+        if (removeAfterTriggered)
+        {
+            Remove();
+        }
     }
 
     m_isValidated = false;
@@ -193,6 +211,16 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerSource::ENCHANTMENT_TARGET:
+        {
+            const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
+            if (enchantment == nullptr ||
+                enchantment->GetTarget()->id != source->id)
+            {
+                return;
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "Trigger::Validate() - Invalid source trigger!");
@@ -207,12 +235,14 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerType::PLAY_CARD:
         case TriggerType::SUMMON:
             if (source == m_owner)
             {
                 return;
             }
             break;
+        case TriggerType::CAST_SPELL:
         case TriggerType::HEAL:
         case TriggerType::ATTACK:
         case TriggerType::TAKE_DAMAGE:

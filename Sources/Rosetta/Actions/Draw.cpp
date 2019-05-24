@@ -12,9 +12,9 @@ namespace RosettaStone::Generic
 Entity* Draw(Player& player, Entity* cardToDraw)
 {
     // Take fatigue damage for player if deck is empty
-    if (player.GetDeck().IsEmpty())
+    if (player.GetDeckZone().IsEmpty())
     {
-        int fatigueDamage =
+        const int fatigueDamage =
             player.GetHero()->fatigue == 0 ? 1 : player.GetHero()->fatigue + 1;
         player.GetHero()->TakeDamage(*player.GetHero(), fatigueDamage);
 
@@ -26,21 +26,21 @@ Entity* Draw(Player& player, Entity* cardToDraw)
     // Get card to draw
     if (cardToDraw)
     {
-        entity = &player.GetDeck().RemoveCard(*cardToDraw);
+        entity = &player.GetDeckZone().Remove(*cardToDraw);
     }
     else
     {
-        Entity* topCard = player.GetDeck().GetTopCard();
+        Entity* topCard = player.GetDeckZone().GetTopCard();
         if (topCard == nullptr)
         {
             return nullptr;
         }
 
-        entity = &player.GetDeck().RemoveCard(*topCard);
+        entity = &player.GetDeckZone().Remove(*topCard);
     }
 
     // Add card to hand
-	AddCardToHand(player, entity);
+    AddCardToHand(player, entity);
 
     return entity;
 }

@@ -82,6 +82,9 @@ void CardLoader::Load(std::vector<Card>& cards)
         const int spellPower = cardData["spellDamage"].is_null()
                                    ? 0
                                    : cardData["spellDamage"].get<int>();
+        const int overload = cardData["overload"].is_null()
+                                 ? 0
+                                 : cardData["overload"].get<int>();
 
         std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])
@@ -126,6 +129,7 @@ void CardLoader::Load(std::vector<Card>& cards)
         card.gameTags[GameTag::HEALTH] = health;
         card.gameTags[GameTag::RARITY] = rarity;
         card.gameTags[GameTag::SPELLPOWER] = spellPower;
+        card.gameTags[GameTag::OVERLOAD] = overload;
 
         card.Initialize();
 

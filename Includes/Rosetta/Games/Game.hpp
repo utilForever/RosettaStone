@@ -129,6 +129,9 @@ class Game
     //! Processes destroy and updates aura.
     void ProcessDestroyAndUpdateAura();
 
+    //! Processes graveyard.
+    void ProcessGraveyard();
+
     //! Updates aura.
     void UpdateAura();
 

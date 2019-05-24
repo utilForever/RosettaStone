@@ -4,10 +4,11 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -96,7 +97,7 @@ void HoFCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 void HoFCardsGen::AddWarlock(std::map<std::string, Power>& cards)
 {
     Power power;
-    
+
     // --------------------------------------- MINION - WARLOCK
     // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
     // - Race: Demon, Set: HoF, Rarity: Rare
@@ -130,8 +131,27 @@ void HoFCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_050] Coldlight Oracle - COST:3
+    // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
+    // - Set: HoF, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Take
+    //       control of a random
+    //       enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
+    power.AddDeathrattleTask(new ControlTask(EntityType::STACK));
+    cards.emplace("EX1_016", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Each player draws 2 cards.
@@ -139,7 +159,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    Power power;
+    power.ClearData();
     power.AddPowerTask(new DrawTask(2));
     power.AddPowerTask(new DrawOpTask(2));
     cards.emplace("EX1_050", power);

@@ -12,7 +12,7 @@
 * [x] Charge
 * [ ] Choose One
 * [ ] Choose Twice
-* [ ] Combo
+* [x] Combo
 * [ ] Counter
 * [x] Deathrattle
 * [ ] Discover
@@ -25,13 +25,13 @@
 * [ ] Magnetic
 * [ ] Mega-Windfury
 * [ ] Overkill
-* [ ] Overload
+* [x] Overload
 * [ ] Passive
 * [x] Poisonous
 * [ ] Quest
 * [ ] Recruit
 * [ ] Rush
-* [ ] Secret
+* [x] Secret
 * [ ] Silence
 * [ ] Start of Game
 * [x] Stealth

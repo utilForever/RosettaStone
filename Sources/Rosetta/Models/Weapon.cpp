@@ -7,9 +7,12 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Weapon.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
-Weapon::Weapon(Player& _owner, Card& _card) : Entity(_owner, _card)
+Weapon::Weapon(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Entity(_owner, _card, std::move(tags))
 {
     // Do nothing
 }

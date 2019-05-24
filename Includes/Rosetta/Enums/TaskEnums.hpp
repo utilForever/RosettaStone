@@ -21,6 +21,7 @@ enum class TaskID
     MULLIGAN,
     PLAY_CARD,
     ADD_ENCHANTMENT,
+    REMOVE_ENCHANTMENT,
     DESTROY,
     DISCARD,
     HEAL_FULL,
@@ -52,6 +53,7 @@ enum class TaskID
     MATH_SUB,
     FILTER_STACK,
     RANDOM_ENTOURAGE,
+    MOVE_TO_GRAVEYARD,
 
     NUM_TASK_ID
 };

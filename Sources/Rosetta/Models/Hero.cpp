@@ -7,9 +7,12 @@
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
-Hero::Hero(Player& _owner, Card& _card) : Character(_owner, _card)
+Hero::Hero(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Character(_owner, _card, std::move(tags))
 {
     // Do nothing
 }
@@ -50,7 +53,7 @@ void Hero::RemoveWeapon()
         return;
     }
 
-    owner->GetGraveyard().AddCard(*weapon);
+    owner->GetGraveyardZone().Add(*weapon);
 
     weapon = nullptr;
 }

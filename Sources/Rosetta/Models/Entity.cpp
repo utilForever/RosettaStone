@@ -9,16 +9,20 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card& _card) : owner(&_owner), card(_card)
+Entity::Entity(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : owner(&_owner), card(_card), m_gameTags(std::move(tags))
 {
-    auraEffects = new AuraEffects(this);
-
     for (auto& gameTag : _card.gameTags)
     {
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
+
+    id = tags[GameTag::ENTITY_ID];
+    auraEffects = new AuraEffects(this);
 }
 
 Entity::Entity(const Entity& ent)
@@ -106,27 +110,41 @@ void Entity::Reset()
 
 int Entity::GetGameTag(GameTag tag) const
 {
+    int value = 0;
+
     if (m_gameTags.find(tag) == m_gameTags.end())
     {
         if (auraEffects != nullptr)
         {
-            return auraEffects->GetGameTag(tag);
+            value += auraEffects->GetGameTag(tag);
         }
-
-        return 0;
     }
-
-    if (auraEffects != nullptr)
+    else
     {
-        return m_gameTags.at(tag) + auraEffects->GetGameTag(tag);
+        value += m_gameTags.at(tag);
+
+        if (auraEffects != nullptr)
+        {
+            value += auraEffects->GetGameTag(tag);
+        }
     }
 
-    return m_gameTags.at(tag);
+    return value > 0 ? value : 0;
 }
 
 void Entity::SetGameTag(GameTag tag, int value)
 {
     m_gameTags.insert_or_assign(tag, value);
+}
+
+ZoneType Entity::GetZoneType() const
+{
+    return static_cast<ZoneType>(GetGameTag(GameTag::ZONE));
+}
+
+void Entity::SetZoneType(ZoneType type)
+{
+    SetGameTag(GameTag::ZONE, static_cast<int>(type));
 }
 
 int Entity::GetCost() const
@@ -149,39 +167,64 @@ void Entity::SetExhausted(bool exhausted)
     SetGameTag(GameTag::EXHAUSTED, static_cast<int>(exhausted));
 }
 
+bool Entity::HasCombo() const
+{
+    return GetGameTag(GameTag::COMBO) == 1;
+}
+
+bool Entity::HasOverload() const
+{
+    return GetGameTag(GameTag::OVERLOAD) > 0;
+}
+
+int Entity::GetOverload() const
+{
+    return GetGameTag(GameTag::OVERLOAD);
+}
+
 void Entity::Destroy()
 {
     isDestroyed = true;
 }
 
-Entity* Entity::GetFromCard(Player& player, Card&& card)
+Entity* Entity::GetFromCard(Player& player, Card&& card,
+                            std::optional<std::map<GameTag, int>> cardTags,
+                            IZone* zone, int id)
 {
+    std::map<GameTag, int> tags;
+    if (cardTags.has_value())
+    {
+        tags = cardTags.value();
+    }
+
+    tags[GameTag::ENTITY_ID] = id > 0 ? id : player.GetGame()->GetNextID();
+    tags[GameTag::CONTROLLER] = player.playerID;
+    tags[GameTag::ZONE] =
+        zone != nullptr ? static_cast<int>(zone->GetType()) : 0;
+
     Entity* result;
 
     switch (card.GetCardType())
     {
         case CardType::HERO:
-            result = new Hero(player, card);
+            result = new Hero(player, card, tags);
             break;
         case CardType::HERO_POWER:
-            result = new HeroPower(player, card);
+            result = new HeroPower(player, card, tags);
             break;
         case CardType::MINION:
-            result = new Minion(player, card);
+            result = new Minion(player, card, tags);
             break;
         case CardType::SPELL:
-            result = new Spell(player, card);
+            result = new Spell(player, card, tags);
             break;
         case CardType::WEAPON:
-            result = new Weapon(player, card);
+            result = new Weapon(player, card, tags);
             break;
         default:
             throw std::invalid_argument(
                 "Generic::DrawCard() - Invalid card type!");
     }
-
-    // Set entity ID
-    result->id = player.GetGame()->GetNextID();
 
     return result;
 }

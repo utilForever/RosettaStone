@@ -102,7 +102,8 @@ class GameToVec
 
     static constexpr std::size_t PlayerMetaSize = 3;
     static constexpr std::size_t GameVectorSize =
-        PlayerMetaSize + (CardVectorSize * (HAND_SIZE + 2 * FIELD_SIZE));
+        PlayerMetaSize +
+        (CardVectorSize * (MAX_HAND_SIZE + 2 * MAX_FIELD_SIZE));
 
  private:
     std::size_t m_seed;

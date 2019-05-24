@@ -30,7 +30,7 @@ SelfCondition SelfCondition::IsRace(Race race)
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
     return SelfCondition([=](Entity* entity) -> bool {
-        for (auto& minion : entity->owner->GetField().GetAllMinions())
+        for (auto& minion : entity->owner->GetFieldZone().GetAll())
         {
             if (minion->card.GetRace() == race)
             {

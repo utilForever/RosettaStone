@@ -25,10 +25,11 @@ class Hero : public Character
     //! Default constructor.
     Hero() = default;
 
-    //! Constructs hero with given \p _owner and \p _card.
-    //! \param _owner An owner of the card.
-    //! \param _card A reference to the card.
-    Hero(Player& _owner, Card& _card);
+    //! Constructs hero with given \p _owner, \p _card and \p tags.
+    //! \param _owner The owner of the card.
+    //! \param _card The card.
+    //! \param tags The game tags.
+    Hero(Player& _owner, Card& _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Hero();
