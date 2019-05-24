@@ -749,6 +749,34 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_067", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new DrawTask(1));
+    cards.emplace("EX1_096", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_097] Abomination - COST:5 [ATK:4/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 2
+    //       damage to ALL characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new DamageTask(EntityType::ALL, 2));
+    cards.emplace("EX1_097", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
