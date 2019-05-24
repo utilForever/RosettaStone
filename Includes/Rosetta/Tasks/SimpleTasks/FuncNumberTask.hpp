@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_FUNC_NUMBER_TASK_HPP
 #define ROSETTASTONE_FUNC_NUMBER_TASK_HPP
 
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 #include <functional>
 

@@ -24,11 +24,13 @@ class Enchantment : public Entity
     //! Default constructor.
     Enchantment() = default;
 
-    //! Constructs enchantment with given \p _owner, \p _card and \p target.
-    //! \param _owner An owner of the card.
-    //! \param _card A reference to the card.
+    //! Constructs enchantment with given \p _owner, \p _card, \p tags and \p target.
+    //! \param _owner The owner of the card.
+    //! \param _card The card.
+    //! \param tags The game tags.
     //! \param target A target of enchantment.
-    Enchantment(Player& _owner, Card& _card, Entity* target);
+    Enchantment(Player& _owner, Card& _card, std::map<GameTag, int> tags,
+                Entity* target);
 
     //! Default destructor.
     ~Enchantment() = default;

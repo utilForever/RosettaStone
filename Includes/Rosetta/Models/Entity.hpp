@@ -9,6 +9,7 @@
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
+#include <Rosetta/Zones/IZone.hpp>
 
 #include <map>
 
@@ -32,10 +33,11 @@ class Entity
     //! Default constructor.
     Entity() = default;
 
-    //! Constructs entity with given \p _owner and \p _card.
-    //! \param _owner An owner of the card.
-    //! \param _card A reference to the card.
-    Entity(Player& _owner, Card& _card);
+    //! Constructs entity with given \p _owner, \p _card and \p tags.
+    //! \param _owner The owner of the card.
+    //! \param _card The card.
+    //! \param tags The game tags.
+    Entity(Player& _owner, Card& _card, std::map<GameTag, int> tags);
 
     //! Destructor.
     virtual ~Entity();
@@ -66,6 +68,14 @@ class Entity
     //! \param value The value to set for game tag.
     virtual void SetGameTag(GameTag tag, int value);
 
+    //! Returns the value of zone type.
+    //! \return The value of zone type.
+    ZoneType GetZoneType() const;
+
+    //! Sets the value of zone type.
+    //! \param type The value of zone type.
+    void SetZoneType(ZoneType type);
+
     //! Returns the value of cost.
     //! \return The value of cost.
     int GetCost() const;
@@ -82,25 +92,46 @@ class Entity
     //! \param exhausted The value of exhausted.
     void SetExhausted(bool exhausted);
 
+    //! Returns whether this entity has combo.
+    //! \return Whether this entity has combo.
+    bool HasCombo() const;
+
+    //! Returns whether this entity has overload.
+    //! \return Whether this entity has overload.
+    bool HasOverload() const;
+
+    //! Returns the value of overload.
+    //! \return The value of overload.
+    int GetOverload() const;
+
     //! Destroys character.
     virtual void Destroy();
 
-    //! Creates entity from the card.
-    //! \param player A player to get the card.
-    //! \param card A card to draw.
+    //! Builds a new entity that can be added to a game.
+    //! \param player An owner of the entity.
+    //! \param card The card from which the entity must be derived.
+    //! \param cardTags The tags preset of card for the entity.
+    //! \param zone The zone in which the entity must spawn.
+    //! \param id An entity ID to assign to the newly created entity.
     //! \return A pointer to entity that is allocated dynamically.
-    static Entity* GetFromCard(Player& player, Card&& card);
+    static Entity* GetFromCard(
+        Player& player, Card&& card,
+        std::optional<std::map<GameTag, int>> cardTags = std::nullopt,
+        IZone* zone = nullptr, int id = -1);
 
     Player* owner = nullptr;
     Card card;
+
+    IZone* zone = nullptr;
+    int zonePos = -1;
 
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
     std::vector<Enchantment*> appliedEnchantments;
 
-    std::size_t id = 0;
-    std::size_t orderOfPlay = 0;
+    int id = 0;
+    int orderOfPlay = 0;
 
     bool isDestroyed = false;
 

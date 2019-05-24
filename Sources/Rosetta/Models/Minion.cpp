@@ -8,11 +8,24 @@
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 
+#include <utility>
+
 namespace RosettaStone
 {
-Minion::Minion(Player& _owner, Card& _card) : Character(_owner, _card)
+Minion::Minion(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Character(_owner, _card, std::move(tags))
 {
     // Do nothing
+}
+
+int Minion::GetLastBoardPos() const
+{
+    return GetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND);
+}
+
+void Minion::SetLastBoardPos(int value)
+{
+    SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, value);
 }
 
 void Minion::Reset()

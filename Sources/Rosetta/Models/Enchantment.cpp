@@ -4,21 +4,31 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <algorithm>
+#include <utility>
 
 namespace RosettaStone
 {
-Enchantment::Enchantment(Player& _owner, Card& _card, Entity* target)
-    : Entity(_owner, _card), m_target(target)
+Enchantment::Enchantment(Player& _owner, Card& _card,
+                         std::map<GameTag, int> tags, Entity* target)
+    : Entity(_owner, _card, std::move(tags)), m_target(target)
 {
     // Do nothing
 }
 
-Enchantment* Enchantment::GetInstance(Player& player, Card& card, Entity* target)
+Enchantment* Enchantment::GetInstance(Player& player, Card& card,
+                                      Entity* target)
 {
-    Enchantment* instance = new Enchantment(player, card, target);
+    std::map<GameTag, int> tags;
+    tags[GameTag::ENTITY_ID] = player.GetGame()->GetNextID();
+    tags[GameTag::CONTROLLER] = player.playerID;
+    tags[GameTag::ZONE] = static_cast<int>(ZoneType::SETASIDE);
+
+    Enchantment* instance = new Enchantment(player, card, tags, target);
 
     target->appliedEnchantments.emplace_back(instance);
 

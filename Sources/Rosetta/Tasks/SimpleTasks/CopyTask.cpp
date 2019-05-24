@@ -3,13 +3,19 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-CopyTask::CopyTask(EntityType entityType, int amount)
-    : ITask(entityType), m_amount(amount)
+CopyTask::CopyTask(EntityType entityType, int amount, bool isOpposite,
+                   ZoneType zoneType)
+    : ITask(entityType),
+      m_amount(amount),
+      m_isOpposite(isOpposite),
+      m_zoneType(zoneType)
 {
     // Do nothing
 }
@@ -26,14 +32,39 @@ TaskStatus CopyTask::Impl(Player& player)
     switch (m_entityType)
     {
         case EntityType::STACK:
+        {
+            IZone* zone = m_isOpposite
+                              ? Generic::GetZone(*player.opponent, m_zoneType)
+                              : Generic::GetZone(player, m_zoneType);
+
             for (auto& entity : player.GetGame()->taskStack.entities)
             {
+                if (zone != nullptr && zone->IsFull())
+                {
+                    break;
+                }
+
                 for (int i = 0; i < m_amount; ++i)
                 {
-                    result.emplace_back(entity);
+                    if (zone != nullptr && zone->IsFull())
+                    {
+                        break;
+                    }
+
+                    auto card =
+                        Cards::GetInstance().FindCardByID(entity->card.id);
+
+                    result.emplace_back(
+                        m_isOpposite
+                            ? Entity::GetFromCard(*player.opponent,
+                                                  std::move(card), std::nullopt,
+                                                  zone)
+                            : Entity::GetFromCard(player, std::move(card),
+                                                  std::nullopt, zone));
                 }
             }
             break;
+        }
         default:
             throw std::invalid_argument(
                 "CopyTask::Impl() - Invalid entity type");

@@ -12,7 +12,8 @@
 
 namespace RosettaStone
 {
-Character::Character(Player& _owner, Card& _card) : Entity(_owner, _card)
+Character::Character(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+    : Entity(_owner, _card, tags)
 {
     // Do nothing
 }
@@ -126,7 +127,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent) const
     std::vector<Character*> targets;
     std::vector<Character*> targetsHaveTaunt;
 
-    for (auto& minion : opponent.GetField().GetAllMinions())
+    for (auto& minion : opponent.GetFieldZone().GetAll())
     {
         if (minion->GetGameTag(GameTag::STEALTH) == 0)
         {

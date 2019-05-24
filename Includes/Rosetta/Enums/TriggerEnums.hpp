@@ -15,9 +15,12 @@ enum class TriggerType
     NONE,        //!< The effect has nothing.
     TURN_START,  //!< The effect will be triggered at the start of turn.
     TURN_END,    //!< The effect will be triggered at the end of turn.
+    PLAY_CARD,   //!< The effect will be triggered when a player plays a card.
+    CAST_SPELL,  //!< The effect will be triggered when a player plays a Spell
+                 //!< card.
     HEAL,        //!< The effect will be triggered when characters are healed.
     ATTACK,      //!< The effect will be triggered when characters attack.
-    SUMMON,      //!< The effect will be triggered whenever a minion is summoned.
+    SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
     TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages.
 };
@@ -30,12 +33,14 @@ enum class TriggerSource
     HERO,
     ALL_MINIONS,
     MINIONS_EXCEPT_SELF,
+    ENCHANTMENT_TARGET,
 };
 
 //! \brief An enumerator for identifying sequence type.
 enum class SequenceType
 {
     NONE,
+    PLAY_CARD,
 };
 }  // namespace RosettaStone
 

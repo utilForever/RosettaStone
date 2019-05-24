@@ -24,6 +24,22 @@ void TriggerManager::OnEndTurnTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnPlayCardTrigger(Player* player, Entity* sender) const
+{
+    if (playCardTrigger != nullptr)
+    {
+        playCardTrigger(player, sender);
+    }
+}
+
+void TriggerManager::OnCastSpellTrigger(Player* player, Entity* sender) const
+{
+    if (castSpellTrigger != nullptr)
+    {
+        castSpellTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnHealTrigger(Player* player, Entity* sender) const
 {
     if (healTrigger != nullptr)

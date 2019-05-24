@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_CHOOSE_TASK_HPP
 #define ROSETTASTONE_CHOOSE_TASK_HPP
 
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 #include <vector>
 

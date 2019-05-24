@@ -42,8 +42,8 @@ TEST(AttackTask, Default)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     auto card2 = GenerateMinionCard("minion2", 5, 4);
@@ -58,26 +58,23 @@ TEST(AttackTask, Default)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opPlayer.GetHero()));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 6);
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer,
-                 AttackTask(opField.GetMinion(0), curField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 1);
+    game.Process(opPlayer, AttackTask(opField[0], curField[0]));
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opField.GetCount(), 0);
 
     auto card3 = GenerateMinionCard("minion3", 5, 6);
     auto card4 = GenerateMinionCard("minion4", 5, 4);
@@ -91,14 +88,13 @@ TEST(AttackTask, Default)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1);
-    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    EXPECT_EQ(opField.GetCount(), 0);
 
     auto card5 = GenerateMinionCard("minion5", 5, 4);
 
-    curField.GetMinion(0)->SetAttack(1);
+    curField[0]->SetAttack(1);
     PlayMinionCard(opPlayer, card5);
 
     game.Process(curPlayer, EndTurnTask());
@@ -107,10 +103,9 @@ TEST(AttackTask, Default)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 3);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
 }
 
 TEST(AttackTask, Weapon)
@@ -130,7 +125,7 @@ TEST(AttackTask, Weapon)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& opField = opPlayer.GetField();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -147,11 +142,10 @@ TEST(AttackTask, Weapon)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curPlayer.GetHero(), opField.GetMinion(0)));
+    game.Process(curPlayer, AttackTask(curPlayer.GetHero(), opField[0]));
 
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 6);
+    EXPECT_EQ(opField[0]->GetHealth(), 6);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -159,12 +153,11 @@ TEST(AttackTask, Weapon)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curPlayer.GetHero(), opField.GetMinion(0)));
+    game.Process(curPlayer, AttackTask(curPlayer.GetHero(), opField[0]));
 
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), false);
     EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 2);
+    EXPECT_EQ(opField[0]->GetHealth(), 2);
 }
 
 TEST(AttackTask, ZeroAttack)
@@ -184,7 +177,7 @@ TEST(AttackTask, ZeroAttack)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion1", 0, 6);
 
@@ -196,8 +189,7 @@ TEST(AttackTask, ZeroAttack)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opPlayer.GetHero()));
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 }
 
@@ -218,8 +210,8 @@ TEST(AttackTask, Charge)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card1 = GenerateMinionCard("minion1", 1, 10);
     auto card2 = GenerateMinionCard("minion1", 1, 10);
@@ -229,13 +221,11 @@ TEST(AttackTask, Charge)
     PlayMinionCard(curPlayer, card2);
     PlayMinionCard(opPlayer, card1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetNumAttacksThisTurn(), 0);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(1), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(1)->GetNumAttacksThisTurn(), 1);
+    game.Process(curPlayer, AttackTask(curField[1], opField[0]));
+    EXPECT_EQ(curField[1]->GetNumAttacksThisTurn(), 1);
 }
 
 TEST(AttackTask, Taunt)
@@ -255,8 +245,8 @@ TEST(AttackTask, Taunt)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -271,17 +261,15 @@ TEST(AttackTask, Taunt)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    opField.GetMinion(1)->SetGameTag(GameTag::TAUNT, 1);
+    opField[1]->SetGameTag(GameTag::TAUNT, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 10);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(opField[0]->GetHealth(), 10);
 
-    opField.GetMinion(1)->SetGameTag(GameTag::TAUNT, 0);
+    opField[1]->SetGameTag(GameTag::TAUNT, 0);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 9);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(opField[0]->GetHealth(), 9);
 }
 
 TEST(AttackTask, Stealth)
@@ -301,8 +289,8 @@ TEST(AttackTask, Stealth)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -316,19 +304,17 @@ TEST(AttackTask, Stealth)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    opField.GetMinion(0)->SetGameTag(GameTag::STEALTH, 1);
+    opField[0]->SetGameTag(GameTag::STEALTH, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 10);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(opField[0]->GetHealth(), 10);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::STEALTH, 1);
-    opField.GetMinion(0)->SetGameTag(GameTag::STEALTH, 0);
+    curField[0]->SetGameTag(GameTag::STEALTH, 1);
+    opField[0]->SetGameTag(GameTag::STEALTH, 0);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetGameTag(GameTag::STEALTH), 0);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 9);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::STEALTH), 0);
+    EXPECT_EQ(opField[0]->GetHealth(), 9);
 }
 
 TEST(AttackTask, Immune)
@@ -348,8 +334,8 @@ TEST(AttackTask, Immune)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -363,12 +349,11 @@ TEST(AttackTask, Immune)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 1);
+    curField[0]->SetGameTag(GameTag::IMMUNE, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 10);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 9);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetHealth(), 10);
+    EXPECT_EQ(opField[0]->GetHealth(), 9);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -376,12 +361,11 @@ TEST(AttackTask, Immune)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::IMMUNE, 0);
+    curField[0]->SetGameTag(GameTag::IMMUNE, 0);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 9);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 8);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
+    EXPECT_EQ(opField[0]->GetHealth(), 8);
 }
 
 TEST(AttackTask, Windfury)
@@ -401,8 +385,8 @@ TEST(AttackTask, Windfury)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -416,13 +400,11 @@ TEST(AttackTask, Windfury)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetNumAttacksThisTurn(), 1);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetNumAttacksThisTurn(), 1);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -430,19 +412,16 @@ TEST(AttackTask, Windfury)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::WINDFURY, 1);
+    curField[0]->SetGameTag(GameTag::WINDFURY, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetNumAttacksThisTurn(), 1);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetNumAttacksThisTurn(), 2);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetNumAttacksThisTurn(), 2);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 2);
 }
 
 TEST(AttackTask, DivineShield)
@@ -462,8 +441,8 @@ TEST(AttackTask, DivineShield)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -477,12 +456,11 @@ TEST(AttackTask, DivineShield)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
+    curField[0]->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 10);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 9);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetHealth(), 10);
+    EXPECT_EQ(opField[0]->GetHealth(), 9);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -490,12 +468,11 @@ TEST(AttackTask, DivineShield)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    opField.GetMinion(0)->SetGameTag(GameTag::DIVINE_SHIELD, 1);
+    opField[0]->SetGameTag(GameTag::DIVINE_SHIELD, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 9);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 9);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
+    EXPECT_EQ(opField[0]->GetHealth(), 9);
 }
 
 TEST(AttackTask, Poisonous)
@@ -515,8 +492,8 @@ TEST(AttackTask, Poisonous)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -530,12 +507,11 @@ TEST(AttackTask, Poisonous)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
+    curField[0]->SetGameTag(GameTag::POISONOUS, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 9);
-    EXPECT_EQ(opField.GetNumOfMinions(), 0u);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
+    EXPECT_EQ(opField.GetCount(), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -545,13 +521,12 @@ TEST(AttackTask, Poisonous)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 0);
-    opField.GetMinion(0)->SetGameTag(GameTag::POISONOUS, 1);
+    curField[0]->SetGameTag(GameTag::POISONOUS, 0);
+    opField[0]->SetGameTag(GameTag::POISONOUS, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(curField.GetNumOfMinions(), 0u);
-    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 9);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opField[0]->GetHealth(), 9);
 }
 
 TEST(AttackTask, Freeze)
@@ -571,8 +546,8 @@ TEST(AttackTask, Freeze)
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetField();
-    auto& opField = opPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -588,32 +563,30 @@ TEST(AttackTask, Freeze)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    curField.GetMinion(0)->SetGameTag(GameTag::FREEZE, 1);
-    opField.GetMinion(1)->SetGameTag(GameTag::FREEZE, 1);
+    curField[0]->SetGameTag(GameTag::FREEZE, 1);
+    opField[1]->SetGameTag(GameTag::FREEZE, 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(0), opField.GetMinion(0)));
-    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
+    game.Process(curPlayer, AttackTask(curField[0], opField[0]));
+    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
 
-    game.Process(curPlayer,
-                 AttackTask(curField.GetMinion(1), opField.GetMinion(1)));
-    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
+    game.Process(curPlayer, AttackTask(curField[1], opField[1]));
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField.GetMinion(1)->GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(opField.GetMinion(0)->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 0);
 }

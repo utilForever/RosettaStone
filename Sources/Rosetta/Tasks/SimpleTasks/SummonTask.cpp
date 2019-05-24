@@ -6,23 +6,27 @@
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <utility>
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(std::string cardID, int num)
-    : m_cardID(std::move(cardID)), m_num(num)
+SummonTask::SummonTask(SummonSide side, std::optional<Card> card, int amount)
+    : m_card(std::move(card)), m_side(side), m_amount(amount)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(std::string cardID, SummonSide side)
-    : m_cardID(std::move(cardID)), m_side(side)
+SummonTask::SummonTask(std::string cardID, int amount) : m_amount(amount)
 {
-    // Do nothing
+    m_card = Cards::FindCardByID(cardID);
+}
+
+SummonTask::SummonTask(std::string cardID, SummonSide side) : m_side(side)
+{
+    m_card = Cards::FindCardByID(cardID);
 }
 
 TaskID SummonTask::GetTaskID() const
@@ -32,18 +36,18 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
-    for (int i = 0; i < m_num; ++i)
+    for (int i = 0; i < m_amount; ++i)
     {
-        if (player.GetField().IsFull())
+        if (player.GetFieldZone().IsFull())
         {
             return TaskStatus::STOP;
         }
 
         Entity* summonEntity = nullptr;
-        if (!m_cardID.empty())
+        if (m_card.has_value())
         {
-            Card card = Cards::FindCardByID(m_cardID);
-            summonEntity = Entity::GetFromCard(player, std::move(card));
+            summonEntity =
+                Entity::GetFromCard(player, std::move(m_card.value()));
         }
         else if (!player.GetGame()->taskStack.entities.empty())
         {
@@ -69,17 +73,14 @@ TaskStatus SummonTask::Impl(Player& player)
                 break;
             case SummonSide::RIGHT:
             {
-                auto field = m_source->owner->GetField();
-                const auto minion = dynamic_cast<Minion*>(m_source);
-                const auto fieldPos = field.FindMinionPos(*minion);
-
-                if (fieldPos.has_value())
+                if (m_source->zone->GetType() == ZoneType::PLAY)
                 {
-                    summonPos = static_cast<int>(fieldPos.value()) + 1;
+                    summonPos = m_source->zonePos + 1;
                 }
                 else
                 {
-                    summonPos = -1;
+                    summonPos =
+                        dynamic_cast<Minion*>(m_source)->GetLastBoardPos();
                 }
                 break;
             }

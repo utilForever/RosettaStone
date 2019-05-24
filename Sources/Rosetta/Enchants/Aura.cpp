@@ -6,9 +6,9 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Battlefield.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
 
@@ -57,7 +57,7 @@ void Aura::Activate(Entity& owner)
     {
         case AuraType::FIELD:
         {
-            for (auto& minion : owner.owner->GetField().GetAllMinions())
+            for (auto& minion : owner.owner->GetFieldZone().GetAll())
             {
                 if (condition == nullptr || condition->Evaluate(minion))
                 {
@@ -75,7 +75,7 @@ void Aura::Activate(Entity& owner)
         }
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : owner.owner->GetField().GetAllMinions())
+            for (auto& minion : owner.owner->GetFieldZone().GetAll())
             {
                 if (minion == &owner)
                 {
@@ -178,7 +178,7 @@ void Aura::AddToField()
         case AuraType::ADJACENT:
         case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
-            m_owner->owner->GetField().auras.emplace_back(this);
+            m_owner->owner->GetFieldZone().auras.emplace_back(this);
             break;
         default:
             throw std::invalid_argument(
@@ -204,21 +204,17 @@ void Aura::UpdateInternal()
         {
             case AuraType::ADJACENT:
             {
-                const auto minion = dynamic_cast<Minion*>(m_owner);
-                auto& field = m_owner->owner->GetField();
-                const int pos =
-                    static_cast<int>(field.FindMinionPos(*minion).value());
+                const int pos = m_owner->zonePos;
+                auto& field = m_owner->owner->GetFieldZone();
 
                 const int entitySize =
                     static_cast<int>(m_appliedEntities.size());
                 for (int i = entitySize - 1; i >= 0; --i)
                 {
                     Entity* entity = m_appliedEntities[i];
-                    const int fieldPos = static_cast<int>(
-                        field.FindMinionPos(*dynamic_cast<Minion*>(entity))
-                            .value());
 
-                    if (std::abs(pos - fieldPos) == 1)
+                    if (m_owner->zone == entity->zone &&
+                        std::abs(pos - entity->zonePos) == 1)
                     {
                         continue;
                     }
@@ -238,32 +234,25 @@ void Aura::UpdateInternal()
 
                 if (pos > 0)
                 {
-                    const auto leftMinion = field.GetMinion(pos - 1);
-                    if (leftMinion != nullptr)
-                    {
-                        Apply(*leftMinion);
-                    }
+                    Apply(*field[pos - 1]);
                 }
-                if (pos < static_cast<int>(FIELD_SIZE - 1))
+                if (pos < m_owner->owner->GetFieldZone().GetCount() - 1 &&
+                    m_owner->owner->GetFieldZone().GetCount() > pos)
                 {
-                    const auto rightMinion = field.GetMinion(pos + 1);
-                    if (rightMinion != nullptr)
-                    {
-                        Apply(*rightMinion);
-                    }
+                    Apply(*field[pos + 1]);
                 }
 
                 break;
             }
             case AuraType::FIELD:
-                for (auto& minion : m_owner->owner->GetField().GetAllMinions())
+                for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
                 {
                     Apply(*minion);
                 }
                 break;
             case AuraType::FIELD_EXCEPT_SOURCE:
             {
-                for (auto& minion : m_owner->owner->GetField().GetAllMinions())
+                for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
                 {
                     if (minion != m_owner)
                     {
@@ -296,7 +285,7 @@ void Aura::RemoveInternal()
         case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            auto auras = m_owner->owner->GetField().auras;
+            auto auras = m_owner->owner->GetFieldZone().auras;
             const auto iter = std::find(auras.begin(), auras.end(), this);
             auras.erase(iter);
             break;

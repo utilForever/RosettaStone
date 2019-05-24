@@ -4,8 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_TASKS_HPP
-#define ROSETTASTONE_TASKS_HPP
+#ifndef ROSETTASTONE_ITASK_HPP
+#define ROSETTASTONE_ITASK_HPP
 
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/TaskMeta.hpp>
@@ -127,4 +127,4 @@ std::vector<TaskStatus> RunMulti(Player& player, TaskType&&... task)
 }  // namespace Task
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_TASKS_HPP
+#endif  // ROSETTASTONE_ITASK_HPP

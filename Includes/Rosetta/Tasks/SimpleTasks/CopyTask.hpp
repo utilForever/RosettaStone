@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_COPY_TASK_HPP
 #define ROSETTASTONE_COPY_TASK_HPP
 
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -21,7 +21,10 @@ class CopyTask : public ITask
     //! Constructs task with given \p entityType and \p amount.
     //! \param entityType The type of entity.
     //! \param amount The number of entities to copy.
-    CopyTask(EntityType entityType, int amount);
+    //! \param isOpposite Whether an owner of entity is opposite player.
+    //! \param zoneType The type of zone.
+    CopyTask(EntityType entityType, int amount, bool isOpposite = false,
+             ZoneType zoneType = ZoneType::INVALID);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,6 +37,8 @@ class CopyTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     int m_amount = 0;
+    bool m_isOpposite = false;
+    ZoneType m_zoneType = ZoneType::INVALID;
 };
 }  // namespace RosettaStone::SimpleTasks
 
