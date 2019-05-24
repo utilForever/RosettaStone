@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -939,4 +939,74 @@ TEST(NeutralExpert1Test, EX1_405_Shieldbearer)
 TEST(NeutralExpert1Test, EX1_563_Malygos)
 {
     // Do nothing
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [EX1_621] Circle of Healing - COST:0
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Restore #4 Health to ALL minions.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_621_CircleOfHealing)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+	Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+	Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+	auto& curField = curPlayer.GetField();
+    auto& opField = opPlayer.GetField();
+
+	const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Circle of Healing"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, PlayCardTask::Minion(card4));
+    Task::Run(opPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(opField.GetNumOfMinions(), 2u);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Minion(card1));
+    Task::Run(curPlayer, PlayCardTask::Minion(card3));
+
+    Task::Run(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(opPlayer, AttackTask(card5, card3));
+    Task::Run(opPlayer, AttackTask(card4, card1));
+    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 4);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 6);
+
+    Task::Run(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    Task::Run(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 7);
+    EXPECT_EQ(opField.GetMinion(0)->GetHealth(), 7);
 }
