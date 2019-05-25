@@ -13,7 +13,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(SummonSide side, std::optional<Card> card, int amount)
+SummonTask::SummonTask(SummonSide side, const std::optional<Card>& card,
+                       int amount)
     : m_card(std::move(card)), m_side(side), m_amount(amount)
 {
     // Do nothing
