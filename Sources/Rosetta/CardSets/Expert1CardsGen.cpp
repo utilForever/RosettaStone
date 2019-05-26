@@ -22,7 +22,6 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
