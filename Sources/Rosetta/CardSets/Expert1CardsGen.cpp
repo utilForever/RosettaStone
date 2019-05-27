@@ -838,6 +838,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_563", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
+    cards.emplace("EX1_046", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
@@ -864,6 +879,19 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_188o"));
     cards.emplace("CS2_188o", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_046e] Tempered (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
+    cards.emplace("EX1_046e", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
