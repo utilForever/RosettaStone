@@ -1435,6 +1435,63 @@ TEST(NeutralExpert1Test, EX1_097_Abomination)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
+// - Race: Mechanical, - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn, deal 2 damage to a random enemy.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_102_Demolisher)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Demolisher"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dalaran Mage"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dalaran Mage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    int totalHealth = opField[0]->GetHealth();
+    totalHealth += opField[1]->GetHealth();
+    totalHealth += opPlayer.GetHero()->GetHealth();
+    EXPECT_EQ(totalHealth, 38);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    totalHealth = opField[0]->GetHealth();
+    totalHealth += opField[1]->GetHealth();
+    totalHealth += opPlayer.GetHero()->GetHealth();
+    EXPECT_EQ(totalHealth, 36);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
