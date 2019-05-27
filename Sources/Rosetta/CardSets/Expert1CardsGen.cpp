@@ -787,6 +787,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_097", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
+    // - Race: Mechanical, - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the start of your turn, deal 2 damage to a random enemy.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_START));
+    power.GetTrigger().value().tasks = {
+        new RandomTask(EntityType::ENEMIES, 1),
+        new DamageTask(EntityType::STACK, 2) };
+    cards.emplace("EX1_102", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
