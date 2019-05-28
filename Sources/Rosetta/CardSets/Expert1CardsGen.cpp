@@ -214,6 +214,19 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     cards.emplace("EX1_124", power);
 
     // ----------------------------------------- MINION - ROGUE
+    // [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Summon a 2/1 Defias Bandit.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(new SummonTask("EX1_131t", SummonSide::RIGHT));
+    cards.emplace("EX1_131", power);
+
+    // ----------------------------------------- MINION - ROGUE
     // [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -268,6 +281,14 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e2"));
     cards.emplace("CS2_073e2", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_131t] Defias Bandit (*) - COST:1 [ATK:2/HP:1]
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_131t", power);
 }
 
 void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
@@ -335,6 +356,24 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     cards.emplace("EX1_241", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_251] Forked Lightning - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to 2 random enemy minions. <b>Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
+    cards.emplace("EX1_251", power);
 
     // ---------------------------------------- MINION - SHAMAN
     // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
