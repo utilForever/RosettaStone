@@ -94,7 +94,7 @@ bool Character::CanAttack() const
     }
 
     // If the character is exhausted, returns false
-    if (GetExhausted())
+    if (IsExhausted())
     {
         return false;
     }

@@ -317,7 +317,7 @@ void Game::MainCleanUp()
     for (auto& m : curPlayer.GetFieldZone().GetAll())
     {
         if (m->GetGameTag(GameTag::FROZEN) == 1 &&
-            m->GetNumAttacksThisTurn() == 0 && !m->GetExhausted())
+            m->GetNumAttacksThisTurn() == 0 && !m->IsExhausted())
         {
             m->SetGameTag(GameTag::FROZEN, 0);
         }
