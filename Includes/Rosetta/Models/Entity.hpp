@@ -86,7 +86,7 @@ class Entity
 
     //! Returns the value of exhausted.
     //! \return The value of exhausted.
-    bool GetExhausted() const;
+    bool IsExhausted() const;
 
     //! Sets the value of exhausted.
     //! \param exhausted The value of exhausted.

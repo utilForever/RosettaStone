@@ -157,9 +157,9 @@ void Entity::SetCost(int cost)
     SetGameTag(GameTag::COST, cost);
 }
 
-bool Entity::GetExhausted() const
+bool Entity::IsExhausted() const
 {
-    return static_cast<bool>(GetGameTag(GameTag::EXHAUSTED));
+    return GetGameTag(GameTag::EXHAUSTED) == 1;
 }
 
 void Entity::SetExhausted(bool exhausted)
