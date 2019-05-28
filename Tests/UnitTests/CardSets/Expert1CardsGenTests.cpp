@@ -1312,8 +1312,8 @@ TEST(NeutralExpert1Test, EX1_043_TwilightDrake)
         curPlayer, Cards::GetInstance().FindCardByName("Twilight Drake"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4u);
-    EXPECT_EQ(curField.GetCount(), 1u);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
+    EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 1 + 4);
 }
 
