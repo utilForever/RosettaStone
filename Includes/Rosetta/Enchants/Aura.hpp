@@ -39,10 +39,15 @@ class Aura
     //! Default constructor.
     Aura() = default;
 
-    //! Constructs aura with given \p enchantmentID and \p type.
-    //! \param enchantmentID The enchantment card ID.
+    //! Constructs aura with given \p type and \p effects.
     //! \param type The type of aura.
-    Aura(std::string&& enchantmentID, AuraType type);
+    //! \param effects A list of effect.
+    Aura(AuraType type, std::vector<Effect> effects);
+
+    //! Constructs aura with given \p type and \p enchantmentID.
+    //! \param type The type of aura.
+    //! \param enchantmentID The enchantment card ID.
+    Aura(AuraType type, std::string&& enchantmentID);
 
     //! Constructs aura with given \p prototype and \p owner.
     //! \param prototype An aura for prototype.
@@ -53,14 +58,14 @@ class Aura
     //! \param value An value to be updated.
     void SetToBeUpdated(bool value);
 
-    //! Activates aura to battlefield.
+    //! Create new Aura instance to the owner's game.
     //! \param owner An owner of aura.
     void Activate(Entity& owner);
 
-    //! Updates aura to apply the effect to recently modified entities.
+    //! Updates this effect to apply the effect to recently modified entities.
     void Update();
 
-    //! Removes aura to disapply the effect to recently modified entities.
+    //! Removes this effect from the game to stop affecting entities.
     void Remove();
 
     //! Removes entity to update a list of entities.
@@ -96,8 +101,8 @@ class Aura
     //! Internal method of Remove().
     void RemoveInternal();
 
-    std::string m_enchantmentID;
     AuraType m_type = AuraType::INVALID;
+    std::string m_enchantmentID;
 
     Entity* m_owner = nullptr;
     std::vector<Effect> m_effects;

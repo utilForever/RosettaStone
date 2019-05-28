@@ -11,11 +11,18 @@
 #include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
+#include <utility>
 
 namespace RosettaStone
 {
-Aura::Aura(std::string&& enchantmentID, AuraType type)
-    : m_enchantmentID(enchantmentID), m_type(type)
+Aura::Aura(AuraType type, std::vector<Effect> effects)
+    : m_type(type), m_effects(std::move(effects))
+{
+    // Do nothing
+}
+
+Aura::Aura(AuraType type, std::string&& enchantmentID)
+    : m_type(type), m_enchantmentID(enchantmentID)
 {
     // Do nothing
 }
@@ -23,8 +30,8 @@ Aura::Aura(std::string&& enchantmentID, AuraType type)
 Aura::Aura(Aura& prototype, Entity& owner)
     : condition(prototype.condition),
       restless(prototype.restless),
-      m_enchantmentID(prototype.m_enchantmentID),
       m_type(prototype.m_type),
+      m_enchantmentID(prototype.m_enchantmentID),
       m_owner(&owner),
       m_effects(prototype.m_effects),
       m_turnOn(prototype.m_turnOn)
@@ -46,7 +53,7 @@ void Aura::Activate(Entity& owner)
         m_effects = card.power.GetEnchant().value().effects;
     }
 
-    Aura* instance = new Aura(*this, owner);
+    auto instance = new Aura(*this, owner);
 
     owner.owner->GetGame()->auras.emplace_back(instance);
     owner.onGoingEffect = instance;
