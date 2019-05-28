@@ -54,6 +54,7 @@ enum class TaskID
     FILTER_STACK,
     RANDOM_ENTOURAGE,
     MOVE_TO_GRAVEYARD,
+    ADD_AURA_EFFECT,
 
     NUM_TASK_ID
 };
