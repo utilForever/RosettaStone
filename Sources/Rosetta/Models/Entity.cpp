@@ -94,18 +94,18 @@ Entity& Entity::operator=(Entity&& ent) noexcept
 
 void Entity::Reset()
 {
-    SetGameTag(GameTag::DAMAGE, 0);
-    SetGameTag(GameTag::EXHAUSTED, 0);
-    SetGameTag(GameTag::ATK, 0);
-    SetGameTag(GameTag::HEALTH, 0);
-    SetGameTag(GameTag::COST, 0);
-    SetGameTag(GameTag::TAUNT, 0);
-    SetGameTag(GameTag::FROZEN, 0);
-    SetGameTag(GameTag::CHARGE, 0);
-    SetGameTag(GameTag::WINDFURY, 0);
-    SetGameTag(GameTag::DIVINE_SHIELD, 0);
-    SetGameTag(GameTag::STEALTH, 0);
-    SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, 0);
+    m_gameTags.erase(GameTag::DAMAGE);
+    m_gameTags.erase(GameTag::EXHAUSTED);
+    m_gameTags.erase(GameTag::ATK);
+    m_gameTags.erase(GameTag::HEALTH);
+    m_gameTags.erase(GameTag::COST);
+    m_gameTags.erase(GameTag::TAUNT);
+    m_gameTags.erase(GameTag::FROZEN);
+    m_gameTags.erase(GameTag::CHARGE);
+    m_gameTags.erase(GameTag::WINDFURY);
+    m_gameTags.erase(GameTag::DIVINE_SHIELD);
+    m_gameTags.erase(GameTag::STEALTH);
+    m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
 }
 
 int Entity::GetGameTag(GameTag tag) const
