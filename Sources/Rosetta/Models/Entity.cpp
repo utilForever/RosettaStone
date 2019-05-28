@@ -112,8 +112,15 @@ int Entity::GetGameTag(GameTag tag) const
 {
     int value = 0;
 
-    if (m_gameTags.find(tag) == m_gameTags.end())
+    const auto entityVal = m_gameTags.find(tag);
+    if (entityVal == m_gameTags.end())
     {
+        const auto cardVal = card.gameTags.find(tag);
+        if (cardVal != card.gameTags.end())
+        {
+            value = cardVal->second;
+        }
+
         if (auraEffects != nullptr)
         {
             value += auraEffects->GetGameTag(tag);
@@ -121,7 +128,7 @@ int Entity::GetGameTag(GameTag tag) const
     }
     else
     {
-        value += m_gameTags.at(tag);
+        value += entityVal->second;
 
         if (auraEffects != nullptr)
         {
