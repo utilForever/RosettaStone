@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_GET_HAND_CARDS_NUM_HPP
 #define ROSETTASTONE_GET_HAND_CARDS_NUM_HPP
 
-#include <Rosetta/Tasks/Tasks.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {

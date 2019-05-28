@@ -1306,15 +1306,15 @@ TEST(NeutralExpert1Test, EX1_043_TwilightDrake)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-    auto& curField = curPlayer.GetField();
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Twilight Drake"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curPlayer.GetHand().GetNumOfCards(), 4u);
-    EXPECT_EQ(curField.GetNumOfMinions(), 1u);
-    EXPECT_EQ(curField.GetMinion(0)->GetHealth(), 1 + 4);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4u);
+    EXPECT_EQ(curField.GetCount(), 1u);
+    EXPECT_EQ(curField[0]->GetHealth(), 1 + 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL

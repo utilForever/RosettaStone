@@ -917,6 +917,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
     cards.emplace("EX1_046e", power);
+    
     // [EX1_043e] Hour of Twilight (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------

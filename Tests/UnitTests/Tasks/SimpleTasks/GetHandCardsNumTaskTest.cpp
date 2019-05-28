@@ -54,11 +54,11 @@ TEST(GetHandCardsNumTask, Run)
     GetHandCardsNumTask task1(EntityType::HAND);
     TaskStatus result1 = task1.Run(player1);
     EXPECT_EQ(result1, TaskStatus::COMPLETE);
-    EXPECT_EQ((int)player1.GetHand().GetNumOfCards(), player1.GetGame()->taskStack.num);
+    EXPECT_EQ((int)player1.GetHandZone().GetCount(), player1.GetGame()->taskStack.num);
 
     GetHandCardsNumTask task2(EntityType::ENEMY_HAND);
     TaskStatus result2 = task2.Run(player1);
     EXPECT_EQ(result2, TaskStatus::COMPLETE);
-    EXPECT_EQ((int)player1.opponent->GetHand().GetNumOfCards(), player1.GetGame()->taskStack.num);
+    EXPECT_EQ((int)player1.opponent->GetHandZone().GetCount(), player1.GetGame()->taskStack.num);
 }
 

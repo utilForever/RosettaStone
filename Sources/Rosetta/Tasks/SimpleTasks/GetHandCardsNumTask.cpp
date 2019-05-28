@@ -24,9 +24,9 @@ TaskStatus GetHandCardsNumTask::Impl(Player& player)
 {
     int cardsnum = 0;
     if(m_entityType == EntityType::HAND)
-        cardsnum = (int)player.GetHand().GetNumOfCards();
+        cardsnum = (int)player.GetHandZone().GetCount();
     else if(m_entityType == EntityType::ENEMY_HAND)
-        cardsnum = (int)player.opponent->GetHand().GetNumOfCards();
+        cardsnum = (int)player.opponent->GetHandZone().GetCount();
     else
         throw std::invalid_argument(
             "GetHandCardsNumTask::Impl() - Invalid entity type (should HAND | ENEMY_HAND)");
