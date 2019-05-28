@@ -188,7 +188,7 @@ EXPERT1 | EX1_028 | Stranglethorn Tiger | O
 EXPERT1 | EX1_029 | Leper Gnome |  
 EXPERT1 | EX1_032 | Sunwalker | O
 EXPERT1 | EX1_033 | Windfury Harpy | O
-EXPERT1 | EX1_043 | Twilight Drake |  
+EXPERT1 | EX1_043 | Twilight Drake | O 
 EXPERT1 | EX1_044 | Questing Adventurer |  
 EXPERT1 | EX1_045 | Ancient Watcher |  
 EXPERT1 | EX1_046 | Dark Iron Dwarf |  

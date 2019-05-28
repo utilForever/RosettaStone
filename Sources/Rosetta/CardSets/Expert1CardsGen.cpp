@@ -924,7 +924,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::move(Enchant(Effect(GameTag::HEALTH, EffectOperator::ADD, 0), true)));
+    power.AddEnchant(Enchant(Effect(GameTag::HEALTH, EffectOperator::ADD, 0), true));
     cards.emplace("EX1_043e", power);
 }
 

@@ -30,6 +30,7 @@
 * FlagTask
 * FuncNumberTask
 * GetGameTagTask
+* GetHandCardsNumTask
 * HealFullTask
 * HealTask
 * IncludeTask
