@@ -3,8 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
@@ -15,6 +15,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetHandCardsNumTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
@@ -744,6 +745,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_033", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain +1 Health for each card in your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetHandCardsNumTask(EntityType::HAND));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_043e", EntityType::SOURCE));
+    cards.emplace("EX1_043", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -905,6 +917,14 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
     cards.emplace("EX1_046e", power);
+    // [EX1_043e] Hour of Twilight (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::move(Enchant(Effect(GameTag::HEALTH, EffectOperator::ADD, 0), true)));
+    cards.emplace("EX1_043e", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
