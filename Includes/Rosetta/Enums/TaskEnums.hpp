@@ -33,6 +33,7 @@ enum class TaskID
     CHOOSE,
     ATTACK,
     GET_GAME_TAG,
+    GET_HAND_CARDS_NUM,
     SET_GAME_TAG,
     ENQUEUE,
     RANDOM,
