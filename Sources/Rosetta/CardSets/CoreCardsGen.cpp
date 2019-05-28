@@ -558,7 +558,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("DS1_175o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.AddAura(Aura(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
     power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
     cards.emplace("DS1_175", power);
@@ -576,7 +576,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("DS1_178e", AuraType::FIELD));
+    power.AddAura(Aura(AuraType::FIELD, "DS1_178e"));
     power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
     cards.emplace("DS1_178", power);
@@ -742,7 +742,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("NEW1_033o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.AddAura(Aura(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_033o"));
     cards.emplace("NEW1_033", power);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
@@ -1553,7 +1553,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("EX1_565o", AuraType::ADJACENT));
+    power.AddAura(Aura(AuraType::ADJACENT, "EX1_565o"));
     cards.emplace("EX1_565", power);
 
     // ---------------------------------------- MINION - SHAMAN
@@ -1949,7 +1949,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("EX1_084e", AuraType::FIELD));
+    power.AddAura(Aura(AuraType::FIELD, "EX1_084e"));
     power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
     power.GetAura().value().restless = true;
@@ -2099,7 +2099,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("CS2_122e", AuraType::FIELD_EXCEPT_SOURCE));
+    power.AddAura(Aura(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
     cards.emplace("CS2_122", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2406,7 +2406,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("CS2_222o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.AddAura(Aura(AuraType::FIELD_EXCEPT_SOURCE, "CS2_222o"));
     cards.emplace("CS2_222", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2543,7 +2543,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: Your other Murlocs have +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("EX1_508o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.AddAura(Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
     power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
     cards.emplace("EX1_508", power);
