@@ -329,4 +329,62 @@ std::vector<Entity*> Aura::GetAppliedEntities() const
 {
     return m_appliedEntities;
 }
+
+AdaptiveEffect::AdaptiveEffect(SelfCondition* _condition,
+                               std::vector<GameTag> tags)
+    : Aura(AuraType::ADAPTIVE, std::vector<Effect>{}),
+      m_tags(std::move(tags)),
+      m_isSwitching(true)
+{
+    condition = _condition;
+    m_lastValues.reserve(m_tags.size());
+}
+
+void AdaptiveEffect::Activate(Entity& owner)
+{
+    auto instance = new AdaptiveEffect(*this, owner);
+
+    owner.owner->GetGame()->auras.emplace_back(instance);
+    owner.onGoingEffect = instance;
+}
+
+void AdaptiveEffect::Update()
+{
+    if (m_isSwitching)
+    {
+        for (std::size_t i = 0; i < m_tags.size(); ++i)
+        {
+            const int val = condition->Evaluate(m_owner) ? 1 : 0;
+            if (m_lastValues[i] == val)
+            {
+                continue;
+            }
+
+            Effect(m_tags[i], EffectOperator::SET, val).Apply(m_owner);
+            m_lastValues[i] = val;
+        }
+    }
+}
+
+void AdaptiveEffect::Remove()
+{
+    m_owner->onGoingEffect = nullptr;
+    auto auras = m_owner->owner->GetFieldZone().auras;
+    const auto iter = std::find(auras.begin(), auras.end(), this);
+    auras.erase(iter);
+}
+
+AdaptiveEffect::AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner)
+    : Aura(prototype, owner)
+{
+    if (prototype.m_isSwitching)
+    {
+        condition = prototype.condition;
+        m_tags = prototype.m_tags;
+        m_lastValues = prototype.m_lastValues;
+        m_isSwitching = true;
+
+        return;
+    }
+}
 }  // namespace RosettaStone

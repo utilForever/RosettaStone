@@ -22,8 +22,9 @@ enum class AuraType
     ADJACENT,  //!< This type of aura affects the minions adjacent to the source
                //!< of the aura.
     FIELD,     //!< This type of aura affects all friendly minions.
-    FIELD_EXCEPT_SOURCE  //!< This type of aura affects all friendly minions
-                         //!< except the source of the aura.
+    FIELD_EXCEPT_SOURCE,  //!< This type of aura affects all friendly minions
+                          //!< except the source of the aura.
+    ADAPTIVE  //!< This type of aura is influenced by other factors in game.
 };
 
 //!
@@ -113,6 +114,43 @@ class Aura
 
     bool m_turnOn = true;
     bool m_toBeUpdated = true;
+};
+
+//!
+//! \brief AdaptiveEffect class.
+//!
+//! Effects of this kind of Auras are influenced by other factors in game, in
+//! real time. e.g. Lightspawn, Southsea Deckhand.
+//!
+class AdaptiveEffect : public Aura
+{
+ public:
+    //! Defines a kind of effects in which the given tags are boolean and
+    //! determined by a specific condition. (e.g. Southsea Deckhand)
+    //! \param _condition A specific condition.
+    //! \param tags The given tags.
+    AdaptiveEffect(SelfCondition* _condition, std::vector<GameTag> tags);
+
+    //! Create new Aura instance to the owner's game.
+    //! \param owner An owner of adaptive effect.
+    void Activate(Entity& owner) override;
+
+    //! Updates this effect to apply the effect to recently modified entities.
+    void Update() override;
+
+    //! Removes this effect from the game to stop affecting entities.
+    void Remove() override;
+
+ private:
+    //! Constructs adaptive effect with given \p prototype and \p owner.
+    //! \param prototype An adaptive effect for prototype.
+    //! \param owner An owner of adaptive effect.
+    AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner);
+
+    std::vector<GameTag> m_tags;
+    std::vector<int> m_lastValues;
+
+    bool m_isSwitching = false;
 };
 }  // namespace RosettaStone
 
