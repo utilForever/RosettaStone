@@ -50,6 +50,9 @@ class Aura
     //! \param enchantmentID The enchantment card ID.
     Aura(AuraType type, std::string&& enchantmentID);
 
+    //! Default virtual destructor.
+    virtual ~Aura() = default;
+
     //! Sets aura to be updated.
     //! \param value An value to be updated.
     void SetToBeUpdated(bool value);
