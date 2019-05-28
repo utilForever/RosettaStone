@@ -49,24 +49,19 @@ class Aura
     //! \param enchantmentID The enchantment card ID.
     Aura(AuraType type, std::string&& enchantmentID);
 
-    //! Constructs aura with given \p prototype and \p owner.
-    //! \param prototype An aura for prototype.
-    //! \param owner An owner of aura.
-    Aura(Aura& prototype, Entity& owner);
-
     //! Sets aura to be updated.
     //! \param value An value to be updated.
     void SetToBeUpdated(bool value);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of aura.
-    void Activate(Entity& owner);
+    virtual void Activate(Entity& owner);
 
     //! Updates this effect to apply the effect to recently modified entities.
-    void Update();
+    virtual void Update();
 
     //! Removes this effect from the game to stop affecting entities.
-    void Remove();
+    virtual void Remove();
 
     //! Removes entity to update a list of entities.
     //! \param entity An entity to remove.
@@ -91,6 +86,14 @@ class Aura
     SelfCondition* condition = nullptr;
     bool restless = false;
 
+ protected:
+    //! Constructs aura with given \p prototype and \p owner.
+    //! \param prototype An aura for prototype.
+    //! \param owner An owner of aura.
+    Aura(Aura& prototype, Entity& owner);
+
+    Entity* m_owner = nullptr;
+
  private:
     //! Adds aura to battlefield.
     void AddToField();
@@ -104,7 +107,6 @@ class Aura
     AuraType m_type = AuraType::INVALID;
     std::string m_enchantmentID;
 
-    Entity* m_owner = nullptr;
     std::vector<Effect> m_effects;
     std::vector<Entity*> m_appliedEntities;
     std::vector<Entity*> m_tempList;

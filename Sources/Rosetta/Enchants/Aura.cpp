@@ -27,18 +27,6 @@ Aura::Aura(AuraType type, std::string&& enchantmentID)
     // Do nothing
 }
 
-Aura::Aura(Aura& prototype, Entity& owner)
-    : condition(prototype.condition),
-      restless(prototype.restless),
-      m_type(prototype.m_type),
-      m_enchantmentID(prototype.m_enchantmentID),
-      m_owner(&owner),
-      m_effects(prototype.m_effects),
-      m_turnOn(prototype.m_turnOn)
-{
-    // Do nothing
-}
-
 void Aura::SetToBeUpdated(bool value)
 {
     m_toBeUpdated = value;
@@ -176,6 +164,18 @@ void Aura::Apply(Entity& entity)
     }
 
     m_appliedEntities.emplace_back(&entity);
+}
+
+Aura::Aura(Aura& prototype, Entity& owner)
+    : condition(prototype.condition),
+      restless(prototype.restless),
+      m_owner(&owner),
+      m_type(prototype.m_type),
+      m_enchantmentID(prototype.m_enchantmentID),
+      m_effects(prototype.m_effects),
+      m_turnOn(prototype.m_turnOn)
+{
+    // Do nothing
 }
 
 void Aura::AddToField()
