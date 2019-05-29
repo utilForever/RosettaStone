@@ -905,6 +905,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
     cards.emplace("EX1_046", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn, deal 2 damage to ALL other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = { new DamageTask(EntityType::ALL_NOSOURCE, 2) };
+    cards.emplace("EX1_249", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
