@@ -1749,6 +1749,7 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
+
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 5);
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
@@ -1758,10 +1759,12 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
+
     EXPECT_EQ(opField.GetCount(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
+
     EXPECT_EQ(curField[0]->GetHealth(), 5);
     EXPECT_EQ(opField.GetCount(), 1);
     EXPECT_EQ(opField[0]->GetHealth(), 5);
