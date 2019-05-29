@@ -534,6 +534,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_117", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
+    // - Race: Pirate, Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Has <b>Charge</b> while you have a weapon equipped.
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        new AdaptiveEffect(new SelfCondition(SelfCondition::IsWeaponEquipped()),
+                           { GameTag::CHARGE }));
+    cards.emplace("CS2_146", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------

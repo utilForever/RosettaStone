@@ -945,6 +945,60 @@ TEST(NeutralExpert1Test, CS2_117_EarthenRingFarseer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
+// - Race: Pirate, Faction: Alliance, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Has <b>Charge</b> while you have a weapon equipped.
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, CS2_146_SouthseaDeckhand)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Southsea Deckhand"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowstep"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    EXPECT_EQ(card1->GetZoneType(), ZoneType::HAND);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField[0]->IsExhausted(), false);
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
 // - Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
