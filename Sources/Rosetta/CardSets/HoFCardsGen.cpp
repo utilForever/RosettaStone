@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
@@ -167,7 +168,17 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_027e] Yarrr! (*) - COST:0
+    // - Set: HoF
+    // --------------------------------------------------------
+    // Text: Southsea Captain is granting +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_027e"));
+    cards.emplace("NEW1_027e", power);
 }
 
 void HoFCardsGen::AddAll(std::map<std::string, Power>& cards)

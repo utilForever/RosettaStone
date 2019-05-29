@@ -831,6 +831,64 @@ TEST(ShamanExpert1Test, EX1_241_LavaBurst)
 }
 
 // ----------------------------------------- SPELL - SHAMAN
+// [EX1_248] Feral Spirit - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>. <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_248_FeralSpirit)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Feral Spirit"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField[1]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 8);
+    EXPECT_EQ(curPlayer.GetOverloadOwed(), 0);
+    EXPECT_EQ(curPlayer.GetOverloadLocked(), 2);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
 // [EX1_251] Forked Lightning - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
@@ -1981,4 +2039,143 @@ TEST(Expert1CardsGen, EX1_046_DarkIronDwarf)
 
     EXPECT_EQ(curField[0]->GetAttack(), 3);
     EXPECT_EQ(opField[0]->GetAttack(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: At the start of your turn, destroy ALL minions.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Doomsayer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Kor'kron Elite"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Water Elemental"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
+    EXPECT_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+    EXPECT_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+    EXPECT_EQ(opField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
+// - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your other Pirates have +1/+1.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_027_SouthseaCaptain)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Southsea Captain"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Southsea Captain"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shieldbearer"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Southsea Captain"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Southsea Captain"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField[1]->GetAttack(), 0);
+    EXPECT_EQ(curField[1]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    EXPECT_EQ(curField[2]->GetAttack(), 4);
+    EXPECT_EQ(curField[2]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+    EXPECT_EQ(curField[1]->GetAttack(), 0);
+    EXPECT_EQ(curField[1]->GetHealth(), 4);
+    EXPECT_EQ(curField[2]->GetAttack(), 5);
+    EXPECT_EQ(curField[2]->GetHealth(), 5);
+    EXPECT_EQ(curField[3]->GetAttack(), 5);
+    EXPECT_EQ(curField[3]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+    EXPECT_EQ(curField[1]->GetAttack(), 0);
+    EXPECT_EQ(curField[1]->GetHealth(), 4);
+    EXPECT_EQ(curField[2]->GetAttack(), 5);
+    EXPECT_EQ(curField[2]->GetHealth(), 5);
+    EXPECT_EQ(curField[3]->GetAttack(), 5);
+    EXPECT_EQ(curField[3]->GetHealth(), 5);
 }

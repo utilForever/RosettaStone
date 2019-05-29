@@ -371,6 +371,23 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("EX1_241", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_248] Feral Spirit - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>. <b>Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("EX1_tk11", 2));
+    cards.emplace("EX1_248", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [EX1_251] Forked Lightning - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -436,6 +453,19 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.GetTrigger().value().tasks = { new RemoveEnchantmentTask() };
     power.GetTrigger().value().removeAfterTriggered = true;
     cards.emplace("CS2_053e", power);
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [EX1_tk11] Spirit Wolf (*) - COST:2 [ATK:2/HP:3]
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk11", power);
 }
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
@@ -931,6 +961,30 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddDeathrattleTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
     cards.emplace("EX1_029", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: At the start of your turn, destroy ALL minions.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_START));
+    power.GetTrigger().value().tasks = {
+        new DestroyTask(EntityType::ALL_MINIONS) };
+    cards.emplace("NEW1_021", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
+    // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Your other Pirates have +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(Aura("NEW1_027e", AuraType::FIELD_EXCEPT_SOURCE));
+    power.GetAura().value().condition =
+        new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
+    cards.emplace("NEW1_027", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
