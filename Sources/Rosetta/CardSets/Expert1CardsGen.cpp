@@ -783,6 +783,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_033", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
+    cards.emplace("EX1_046", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -833,9 +848,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger(TriggerType::TURN_START));
-    power.GetTrigger().value().tasks = {
-        new RandomTask(EntityType::ENEMIES, 1),
-        new DamageTask(EntityType::STACK, 2) };
+    power.GetTrigger().value().tasks = { new RandomTask(EntityType::ENEMIES, 1),
+                                         new DamageTask(EntityType::STACK, 2) };
     cards.emplace("EX1_102", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -850,6 +864,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_170", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn, deal 2 damage to ALL other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = { new DamageTask(
+        EntityType::ALL_NOSOURCE, 2) };
+    cards.emplace("EX1_249", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
@@ -890,35 +919,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_563", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
-    // - Faction: Alliance, Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
-    cards.emplace("EX1_046", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
-    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: At the end of your turn, deal 2 damage to ALL other characters.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::TURN_END));
-    power.GetTrigger().value().tasks = { new DamageTask(EntityType::ALL_NOSOURCE, 2) };
-    cards.emplace("EX1_249", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
