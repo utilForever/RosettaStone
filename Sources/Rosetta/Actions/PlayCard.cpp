@@ -148,9 +148,9 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
         if (spell->IsSecret())
         {
             // Process trigger
-            if (spell->card.power.GetTrigger().has_value())
+            if (spell->card.power.GetTrigger())
             {
-                spell->card.power.GetTrigger().value().Activate(*spell);
+                spell->card.power.GetTrigger()->Activate(*spell);
             }
 
             player.GetSecretZone().Add(*spell);
@@ -159,15 +159,15 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
         else
         {
             // Process trigger
-            if (spell->card.power.GetTrigger().has_value())
+            if (spell->card.power.GetTrigger())
             {
-                spell->card.power.GetTrigger().value().Activate(*spell);
+                spell->card.power.GetTrigger()->Activate(*spell);
             }
 
             // Process aura
-            if (spell->card.power.GetAura().has_value())
+            if (spell->card.power.GetAura())
             {
-                spell->card.power.GetAura().value().Activate(*spell);
+                spell->card.power.GetAura()->Activate(*spell);
             }
 
             // Process power or combo tasks
@@ -200,19 +200,17 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 {
     // Process play card trigger
     player.GetGame()->triggerManager.OnPlayCardTrigger(&player, weapon);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->ProcessDestroyAndUpdateAura();
 
     // Process trigger
-    if (weapon->card.power.GetTrigger().has_value())
+    if (weapon->card.power.GetTrigger())
     {
-        weapon->card.power.GetTrigger().value().Activate(*weapon);
+        weapon->card.power.GetTrigger()->Activate(*weapon);
     }
 
     // Process aura
-    if (weapon->card.power.GetAura().has_value())
+    if (weapon->card.power.GetAura())
     {
-        weapon->card.power.GetAura().value().Activate(*weapon);
+        weapon->card.power.GetAura()->Activate(*weapon);
     }
 
     // Process power tasks
@@ -229,6 +227,8 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     }
 
     player.GetHero()->AddWeapon(*weapon);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 bool IsPlayableByPlayer(Player& player, Entity* source)

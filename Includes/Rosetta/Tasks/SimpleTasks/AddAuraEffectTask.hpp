@@ -21,7 +21,7 @@ class AddAuraEffectTask : public ITask
     //! Constructs task with given \p effect and \p entityType.
     //! \param effect The aura effect to apply.
     //! \param entityType The entity type of target to apply.
-    AddAuraEffectTask(Effect effect, EntityType entityType);
+    AddAuraEffectTask(Effect* effect, EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,7 +33,7 @@ class AddAuraEffectTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    Effect m_effect;
+    Effect* m_effect = nullptr;
 };
 }  // namespace RosettaStone::SimpleTasks
 

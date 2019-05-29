@@ -15,7 +15,7 @@
 
 namespace RosettaStone
 {
-Aura::Aura(AuraType type, std::vector<Effect> effects)
+Aura::Aura(AuraType type, std::vector<Effect*> effects)
     : m_type(type), m_effects(std::move(effects))
 {
     // Do nothing
@@ -38,7 +38,7 @@ void Aura::Activate(Entity& owner)
 
     if (m_effects.empty())
     {
-        m_effects = card.power.GetEnchant().value().effects;
+        m_effects = card.power.GetEnchant()->effects;
     }
 
     auto instance = new Aura(*this, owner);
@@ -56,11 +56,11 @@ void Aura::Activate(Entity& owner)
             {
                 if (condition == nullptr || condition->Evaluate(minion))
                 {
-                    if (card.power.GetTrigger().has_value())
+                    if (card.power.GetTrigger())
                     {
                         const auto enchantment = Enchantment::GetInstance(
                             *owner.owner, card, minion);
-                        card.power.GetTrigger().value().Activate(*enchantment);
+                        card.power.GetTrigger()->Activate(*enchantment);
                     }
                 }
 
@@ -79,11 +79,11 @@ void Aura::Activate(Entity& owner)
 
                 if (condition == nullptr || condition->Evaluate(minion))
                 {
-                    if (card.power.GetTrigger().has_value())
+                    if (card.power.GetTrigger())
                     {
                         const auto enchantment = Enchantment::GetInstance(
                             *owner.owner, card, minion);
-                        card.power.GetTrigger().value().Activate(*enchantment);
+                        card.power.GetTrigger()->Activate(*enchantment);
                     }
                 }
 
@@ -147,7 +147,7 @@ void Aura::Apply(Entity& entity)
 
         for (auto& effect : m_effects)
         {
-            effect.Remove(*entity.auraEffects);
+            effect->Remove(*entity.auraEffects);
         }
 
         m_appliedEntities.erase(iter);
@@ -160,7 +160,7 @@ void Aura::Apply(Entity& entity)
 
     for (auto& effect : m_effects)
     {
-        effect.Apply(*entity.auraEffects);
+        effect->Apply(*entity.auraEffects);
     }
 
     m_appliedEntities.emplace_back(&entity);
@@ -228,7 +228,7 @@ void Aura::UpdateInternal()
 
                     for (auto& effect : m_effects)
                     {
-                        effect.Remove(*entity->auraEffects);
+                        effect->Remove(*entity->auraEffects);
                     }
 
                     auto iter = std::find(m_appliedEntities.begin(),
@@ -306,7 +306,7 @@ void Aura::RemoveInternal()
     {
         for (auto& effect : m_effects)
         {
-            effect.Remove(*entity->auraEffects);
+            effect->Remove(*entity->auraEffects);
         }
     }
 
@@ -320,7 +320,7 @@ AuraType Aura::GetAuraType() const
     return m_type;
 }
 
-std::vector<Effect> Aura::GetEffects() const
+std::vector<Effect*> Aura::GetEffects() const
 {
     return m_effects;
 }
@@ -332,7 +332,7 @@ std::vector<Entity*> Aura::GetAppliedEntities() const
 
 AdaptiveEffect::AdaptiveEffect(SelfCondition* _condition,
                                std::vector<GameTag> tags)
-    : Aura(AuraType::ADAPTIVE, std::vector<Effect>{}),
+    : Aura(AuraType::ADAPTIVE, std::vector<Effect*>{}),
       m_tags(std::move(tags)),
       m_isSwitching(true)
 {

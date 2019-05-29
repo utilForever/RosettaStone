@@ -21,6 +21,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -104,13 +105,13 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // - COUNTER = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger().value().tasks = {
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->tasks = {
         new SetGameTagTask(EntityType::TARGET, GameTag::CANT_PLAY, 1),
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
         new MoveToGraveyardTask(EntityType::SOURCE)
     };
-    power.GetTrigger().value().fastExecution = true;
+    power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_287", power);
 }
 
@@ -171,7 +172,7 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     // Text: Change a minion's Attack to be equal to its Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::move(Enchants::SetAttackScriptTag));
+    power.AddEnchant(new Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
 }
 
@@ -393,14 +394,13 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // Text: One of your cards costs (3) less.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(
-        Enchant({ Effects::ReduceCost(3), Effect(GameTag::DISPLAYED_CREATOR,
-                                                 EffectOperator::SET, 1) }));
-    power.AddTrigger(Trigger(TriggerType::PLAY_CARD));
-    power.GetTrigger().value().triggerSource =
-        TriggerSource::ENCHANTMENT_TARGET;
-    power.GetTrigger().value().tasks = { new RemoveEnchantmentTask() };
-    power.GetTrigger().value().removeAfterTriggered = true;
+    power.AddEnchant(new Enchant(std::vector<Effect*>{
+        Effects::ReduceCost(3),
+        new Effect(GameTag::DISPLAYED_CREATOR, EffectOperator::SET, 1) }));
+    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    power.GetTrigger()->removeAfterTriggered = true;
     cards.emplace("CS2_053e", power);
 }
 
@@ -419,8 +419,8 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - STEALTH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::TURN_END));
-    power.GetTrigger().value().tasks = {
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
         new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
         new AddEnchantmentTask("CS2_059o", EntityType::STACK)
     };
@@ -461,7 +461,7 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(Effects::HealthN(1));
+    power.AddEnchant(new Enchant(Effects::HealthN(1)));
     cards.emplace("CS2_059o", power);
 }
 

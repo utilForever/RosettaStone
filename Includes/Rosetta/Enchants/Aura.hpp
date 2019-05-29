@@ -43,7 +43,7 @@ class Aura
     //! Constructs aura with given \p type and \p effects.
     //! \param type The type of aura.
     //! \param effects A list of effect.
-    Aura(AuraType type, std::vector<Effect> effects);
+    Aura(AuraType type, std::vector<Effect*> effects);
 
     //! Constructs aura with given \p type and \p enchantmentID.
     //! \param type The type of aura.
@@ -81,7 +81,7 @@ class Aura
 
     //! Returns the effect of aura.
     //! \return The effect of aura.
-    std::vector<Effect> GetEffects() const;
+    std::vector<Effect*> GetEffects() const;
 
     //! Returns the applied entities affected by the aura.
     //! \return The applied entities affected by the aura.
@@ -111,7 +111,7 @@ class Aura
     AuraType m_type = AuraType::INVALID;
     std::string m_enchantmentID;
 
-    std::vector<Effect> m_effects;
+    std::vector<Effect*> m_effects;
     std::vector<Entity*> m_appliedEntities;
     std::vector<Entity*> m_tempList;
 
