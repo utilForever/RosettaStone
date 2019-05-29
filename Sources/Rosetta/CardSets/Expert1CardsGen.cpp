@@ -91,6 +91,19 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     cards.emplace("CS2_028", power);
 
     // ------------------------------------------- SPELL - MAGE
+    // [EX1_279] Pyroblast - COST:10
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal $10 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 10, true));
+    cards.emplace("EX1_279", power);
+
+    // ------------------------------------------- SPELL - MAGE
     // [EX1_287] Counterspell - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -111,19 +124,6 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     };
     power.GetTrigger().value().fastExecution = true;
     cards.emplace("EX1_287", power);
-
-    // ------------------------------------------- SPELL - MAGE
-    // [EX1_279] Pyroblast - COST:10
-    // - Faction: Neutral, Set: Expert1, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Deal $10 damage.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 10, true));
-    cards.emplace("EX1_279", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)

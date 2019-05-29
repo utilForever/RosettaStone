@@ -169,7 +169,7 @@ TEST(MageExpert1Test, EX1_279_Pyroblast)
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
     EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 0);
 
-	game.Process(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, EndTurnTask());
