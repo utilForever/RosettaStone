@@ -334,10 +334,10 @@ AdaptiveEffect::AdaptiveEffect(SelfCondition* _condition,
                                std::vector<GameTag> tags)
     : Aura(AuraType::ADAPTIVE, std::vector<Effect*>{}),
       m_tags(std::move(tags)),
+      m_lastValues(std::vector(m_tags.size(), 0)),
       m_isSwitching(true)
 {
     condition = _condition;
-    m_lastValues.reserve(m_tags.size());
 }
 
 void AdaptiveEffect::Activate(Entity& owner)
@@ -369,7 +369,7 @@ void AdaptiveEffect::Update()
 void AdaptiveEffect::Remove()
 {
     m_owner->onGoingEffect = nullptr;
-    auto auras = m_owner->owner->GetFieldZone().auras;
+    auto& auras = m_owner->owner->GetGame()->auras;
     const auto iter = std::find(auras.begin(), auras.end(), this);
     auras.erase(iter);
 }
