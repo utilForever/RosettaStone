@@ -1886,7 +1886,7 @@ TEST(Expert1CardsGen, EX1_029_LeperGnome)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Leper Gnome"));
     const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
 
