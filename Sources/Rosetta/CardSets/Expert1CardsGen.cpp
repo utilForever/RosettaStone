@@ -918,6 +918,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
     cards.emplace("EX1_046", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
+    cards.emplace("EX1_029", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
