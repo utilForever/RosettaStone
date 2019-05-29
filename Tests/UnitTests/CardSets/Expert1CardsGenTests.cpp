@@ -1856,7 +1856,7 @@ TEST(Expert1CardsGen, EX1_046_DarkIronDwarf)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
-// - Faction: Neutral, Set: TB, Rarity: Common
+// - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.
 // --------------------------------------------------------
