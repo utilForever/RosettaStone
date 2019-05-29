@@ -1853,3 +1853,47 @@ TEST(Expert1CardsGen, EX1_046_DarkIronDwarf)
     EXPECT_EQ(curField[0]->GetAttack(), 3);
     EXPECT_EQ(opField[0]->GetAttack(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
+// - Faction: Neutral, Set: TB, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(Expert1CardsGen, EX1_029_LeperGnome)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Leper Gnome"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
+}
