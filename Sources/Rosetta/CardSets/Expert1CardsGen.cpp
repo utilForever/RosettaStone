@@ -490,7 +490,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     };
     cards.emplace("CS2_059", power);
 
-	// ---------------------------------------- SPELL - WARLOCK
+    // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
