@@ -92,22 +92,6 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
-void Entity::Reset()
-{
-    m_gameTags.erase(GameTag::DAMAGE);
-    m_gameTags.erase(GameTag::EXHAUSTED);
-    m_gameTags.erase(GameTag::ATK);
-    m_gameTags.erase(GameTag::HEALTH);
-    m_gameTags.erase(GameTag::COST);
-    m_gameTags.erase(GameTag::TAUNT);
-    m_gameTags.erase(GameTag::FROZEN);
-    m_gameTags.erase(GameTag::CHARGE);
-    m_gameTags.erase(GameTag::WINDFURY);
-    m_gameTags.erase(GameTag::DIVINE_SHIELD);
-    m_gameTags.erase(GameTag::STEALTH);
-    m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
-}
-
 int Entity::GetGameTag(GameTag tag) const
 {
     int value = 0;
@@ -187,6 +171,27 @@ bool Entity::HasOverload() const
 int Entity::GetOverload() const
 {
     return GetGameTag(GameTag::OVERLOAD);
+}
+
+bool Entity::HasDeathrattle() const
+{
+    return GetGameTag(GameTag::DEATHRATTLE) == 1;
+}
+
+void Entity::Reset()
+{
+    m_gameTags.erase(GameTag::DAMAGE);
+    m_gameTags.erase(GameTag::EXHAUSTED);
+    m_gameTags.erase(GameTag::ATK);
+    m_gameTags.erase(GameTag::HEALTH);
+    m_gameTags.erase(GameTag::COST);
+    m_gameTags.erase(GameTag::TAUNT);
+    m_gameTags.erase(GameTag::FROZEN);
+    m_gameTags.erase(GameTag::CHARGE);
+    m_gameTags.erase(GameTag::WINDFURY);
+    m_gameTags.erase(GameTag::DIVINE_SHIELD);
+    m_gameTags.erase(GameTag::STEALTH);
+    m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
 }
 
 void Entity::Destroy()

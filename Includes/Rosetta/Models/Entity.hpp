@@ -54,10 +54,6 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
-    //! Resets all game tag values that where changed after creation.
-    //! Any enchants and trigger is removed.
-    virtual void Reset();
-
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -104,7 +100,15 @@ class Entity
     //! \return The value of overload.
     int GetOverload() const;
 
-    //! Destroys character.
+    //! Returns whether this entity has deathrattle power.
+    //! \return Whether this entity has deathrattle power.
+    bool HasDeathrattle() const;
+
+    //! Resets all game tag values that where changed after creation.
+    //! Any enchants and trigger is removed.
+    virtual void Reset();
+
+    //! Destroys entity.
     virtual void Destroy();
 
     //! Builds a new entity that can be added to a game.
