@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -92,50 +93,43 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     }
 
     // Process play card trigger
+    player.GetGame()->taskQueue.StartEvent();
     player.GetGame()->triggerManager.OnPlayCardTrigger(&player, minion);
     player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
     player.GetGame()->ProcessDestroyAndUpdateAura();
 
     // Process summon trigger
+    player.GetGame()->taskQueue.StartEvent();
     player.GetGame()->triggerManager.OnSummonTrigger(&player, minion);
     player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 
     // Process power or combo tasks
+    player.GetGame()->taskQueue.StartEvent();
     if (minion->HasCombo() && player.IsComboActive())
     {
-        for (auto& comboTask : minion->card.power.GetComboTask())
-        {
-            comboTask->SetSource(minion);
-            comboTask->SetTarget(target);
-            comboTask->Run(player);
-        }
+        minion->ActivateTask(PowerType::COMBO, target);
     }
     else
     {
-        for (auto& powerTask : minion->card.power.GetPowerTask())
-        {
-            if (powerTask == nullptr)
-            {
-                continue;
-            }
-
-            powerTask->SetSource(minion);
-            powerTask->SetTarget(target);
-            powerTask->Run(player);
-        }
+        minion->ActivateTask(PowerType::POWER, target);
     }
-
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
     player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlaySpell(Player& player, Spell* spell, Character* target)
 {
     // Process cast spell trigger
+    player.GetGame()->taskQueue.StartEvent();
     player.GetGame()->triggerManager.OnCastSpellTrigger(&player, spell);
 
     // Process play card trigger
     player.GetGame()->triggerManager.OnPlayCardTrigger(&player, spell);
     player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
     player.GetGame()->ProcessDestroyAndUpdateAura();
 
     // Check spell is countered
@@ -145,54 +139,8 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
     }
     else
     {
-        if (spell->IsSecret())
-        {
-            // Process trigger
-            if (spell->card.power.GetTrigger())
-            {
-                spell->card.power.GetTrigger()->Activate(*spell);
-            }
-
-            player.GetSecretZone().Add(*spell);
-            spell->SetExhausted(true);
-        }
-        else
-        {
-            // Process trigger
-            if (spell->card.power.GetTrigger())
-            {
-                spell->card.power.GetTrigger()->Activate(*spell);
-            }
-
-            // Process aura
-            if (spell->card.power.GetAura())
-            {
-                spell->card.power.GetAura()->Activate(*spell);
-            }
-
-            // Process power or combo tasks
-            if (spell->HasCombo() && player.IsComboActive())
-            {
-                for (auto& comboTask : spell->card.power.GetComboTask())
-                {
-                    comboTask->SetSource(spell);
-                    comboTask->SetTarget(target);
-                    comboTask->Run(player);
-                }
-            }
-            else
-            {
-                for (auto& powerTask : spell->card.power.GetPowerTask())
-                {
-                    powerTask->SetSource(spell);
-                    powerTask->SetTarget(target);
-                    powerTask->Run(player);
-                }
-            }
-
-            player.GetGraveyardZone().Add(*spell);
-            player.GetGame()->ProcessDestroyAndUpdateAura();
-        }
+        CastSpell(player, spell, target);
+        player.GetGame()->ProcessDestroyAndUpdateAura();
     }
 }
 
@@ -214,20 +162,15 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     }
 
     // Process power tasks
-    for (auto& powerTask : weapon->card.power.GetPowerTask())
-    {
-        if (powerTask == nullptr)
-        {
-            continue;
-        }
+    player.GetGame()->taskQueue.StartEvent();
+    weapon->ActivateTask(PowerType::POWER, target);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 
-        powerTask->SetSource(weapon);
-        powerTask->SetTarget(target);
-        powerTask->Run(player);
-    }
-
+    player.GetGame()->taskQueue.StartEvent();
     player.GetHero()->AddWeapon(*weapon);
     player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
     player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 

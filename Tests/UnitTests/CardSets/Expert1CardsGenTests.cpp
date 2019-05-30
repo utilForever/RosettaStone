@@ -296,32 +296,32 @@ TEST(PriestExpert1Test, EX1_621_CircleOfHealing)
     const auto card5 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, PlayCardTask::Minion(card4));
-    Task::Run(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
     EXPECT_EQ(opField.GetCount(), 2);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(curPlayer, PlayCardTask::Minion(card1));
-    Task::Run(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, AttackTask(card5, card3));
-    Task::Run(opPlayer, AttackTask(card4, card1));
+    game.Process(opPlayer, AttackTask(card5, card3));
+    game.Process(opPlayer, AttackTask(card4, card1));
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 4);
     EXPECT_EQ(opField[0]->GetHealth(), 6);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(curField[0]->GetHealth(), 7);
     EXPECT_EQ(opField[0]->GetHealth(), 7);
 }
@@ -527,7 +527,7 @@ TEST(RogueExpert1Test, EX1_144_Shadowstep)
     EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 1);
     EXPECT_EQ(card4->GetCost(), 1);
 
-    Task::Run(curPlayer, AttackTask(card4, opPlayer.GetHero()));
+    game.Process(curPlayer, AttackTask(card4, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 29);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
@@ -538,7 +538,7 @@ TEST(RogueExpert1Test, EX1_144_Shadowstep)
     game.Process(curPlayer, PlayCardTask::Minion(card4));
     EXPECT_EQ(dynamic_cast<Minion*>(card4)->CanAttack(), true);
 
-    Task::Run(curPlayer, AttackTask(card4, opPlayer.GetHero()));
+    game.Process(curPlayer, AttackTask(card4, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 
     EXPECT_EQ(curPlayer.IsComboActive(), true);

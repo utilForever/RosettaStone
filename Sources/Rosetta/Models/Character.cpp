@@ -194,8 +194,10 @@ int Character::TakeDamage(Entity& source, int damage)
     SetDamage(GetDamage() + amount);
 
     // Process damage triggers
+    owner->GetGame()->taskQueue.StartEvent();
     owner->GetGame()->triggerManager.OnTakeDamageTrigger(owner, this);
     owner->GetGame()->ProcessTasks();
+    owner->GetGame()->taskQueue.EndEvent();
 
     return amount;
 }
@@ -217,7 +219,9 @@ void Character::TakeHeal(Entity& source, int heal)
     const int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
+    owner->GetGame()->taskQueue.StartEvent();
     owner->GetGame()->triggerManager.OnHealTrigger(nullptr, this);
     owner->GetGame()->ProcessTasks();
+    owner->GetGame()->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone

@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
@@ -29,8 +30,13 @@ TaskStatus DiscardTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
+        player.GetGame()->taskQueue.StartEvent();
+
         player.GetHandZone().Remove(*entity);
         player.GetGraveyardZone().Add(*entity);
+
+        player.GetGame()->ProcessTasks();
+        player.GetGame()->taskQueue.EndEvent();
     }
 
     return TaskStatus::COMPLETE;
