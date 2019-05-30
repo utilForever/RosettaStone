@@ -9,6 +9,7 @@
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
+#include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Zones/IZone.hpp>
 
 #include <map>
@@ -110,6 +111,11 @@ class Entity
 
     //! Destroys entity.
     virtual void Destroy();
+
+    //! Activates the task.
+    //! \param type The type of power.
+    //! \param target The target.
+    void ActivateTask(PowerType type, Entity* target = nullptr);
 
     //! Builds a new entity that can be added to a game.
     //! \param player An owner of the entity.

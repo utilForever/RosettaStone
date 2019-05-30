@@ -199,6 +199,37 @@ void Entity::Destroy()
     isDestroyed = true;
 }
 
+void Entity::ActivateTask(PowerType type, Entity* target)
+{
+    std::vector<ITask*> tasks;
+    switch (type)
+    {
+        case PowerType::POWER:
+            tasks = card.power.GetPowerTask();
+            break;
+        case PowerType::DEATHRATTLE:
+            tasks = card.power.GetDeathrattleTask();
+            break;
+        case PowerType::COMBO:
+            tasks = card.power.GetComboTask();
+            break;
+    }
+
+    if (tasks.empty() || tasks[0] == nullptr)
+    {
+        return;
+    }
+
+    for (auto& task : tasks)
+    {
+        task->SetPlayer(owner);
+        task->SetSource(this);
+        task->SetTarget(target);
+
+        owner->GetGame()->taskQueue.Enqueue(task);
+    }
+}
+
 Entity* Entity::GetFromCard(Player& player, Card&& card,
                             std::optional<std::map<GameTag, int>> cardTags,
                             IZone* zone, int id)
