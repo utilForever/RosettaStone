@@ -11,6 +11,7 @@
 #include <Rosetta/Accounts/DeckInfo.hpp>
 #include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Actions/AvailableActions.hpp>
+#include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
