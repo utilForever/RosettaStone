@@ -103,7 +103,6 @@
 #include <Rosetta/Tasks/TaskMeta.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
-#include <Rosetta/Tasks/TaskWrapper.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
