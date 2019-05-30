@@ -1825,6 +1825,53 @@ TEST(NeutralExpert1Test, EX1_170_EmperorCobra)
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [EX1_309] Siphon Soul - COST:6
+// - Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy a minion. Restore #3 Health to your hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_309_SiphonSoul)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetDamage(8);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Siphon Soul"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Voidwalker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 22);
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 25);
+    EXPECT_EQ(curField.GetCount(), 0);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [EX1_312] Twisting Nether - COST:8
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

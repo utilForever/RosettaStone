@@ -490,6 +490,21 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     };
     cards.emplace("CS2_059", power);
 
+	// ---------------------------------------- SPELL - WARLOCK
+    // [EX1_309] Siphon Soul - COST:6
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Destroy a minion. Restore #3 Health to your hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    power.AddPowerTask(new HealTask(EntityType::HERO, 3));
+    cards.emplace("EX1_309", power);
+
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_312] Twisting Nether - COST:8
     // - Set: Expert1, Rarity: Epic
