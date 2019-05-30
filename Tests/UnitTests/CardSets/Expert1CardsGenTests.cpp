@@ -144,6 +144,87 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
     EXPECT_EQ(opPlayer.GetOverloadOwed(), 1);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
+//       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// _ DIVINE SHIELD = 1
+// - TAUNT = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_383_TirionFordring)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tirion Fordring"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), false);
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(opPlayer, AttackTask(card3, card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, AttackTask(card4, card1));
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 5);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 3);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [CS2_104] Rampage - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common

@@ -24,6 +24,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -122,12 +123,41 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // --------------------------------------- MINION - PALADIN
+    // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
+    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // _ DIVINE SHIELD = 1
+    // - TAUNT = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new WeaponTask("EX1_383t"));
+    cards.emplace("EX1_383", power);
 }
 
 void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // --------------------------------------- WEAPON - PALADIN
+    // [EX1_383t] Ashbringer (*) - COST:5 [ATK:5/HP:0]
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DURABILITY = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_383t", power);
 }
 
 void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
