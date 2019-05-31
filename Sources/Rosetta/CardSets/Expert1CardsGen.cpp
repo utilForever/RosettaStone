@@ -170,7 +170,7 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     // Text: Change a minion's Attack to be equal to its Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::move(Enchants::SetAttackScriptTag));
+    power.AddEnchant(Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
 }
 
@@ -910,7 +910,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::move(Enchants::AddHealthScriptTag));
+    power.AddEnchant(Enchant(Enchants::AddHealthScriptTag));
     cards.emplace("EX1_043e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL

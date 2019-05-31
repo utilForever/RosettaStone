@@ -1261,7 +1261,7 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     // Text: This minion has double Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::move(Enchants::AddHealthScriptTag));
+    power.AddEnchant(Enchant(Enchants::AddHealthScriptTag));
     cards.emplace("CS2_236e", power);
 }
 
@@ -2616,7 +2616,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased stats.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::move(Enchants::AddAttackHealthScriptTag));
+    power.AddEnchant(Enchant(Enchants::AddAttackHealthScriptTag));
     cards.emplace("CS2_226e", power);
 
     // --------------------------------------- MINION - NEUTRAL
