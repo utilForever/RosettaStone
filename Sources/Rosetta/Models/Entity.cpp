@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -258,6 +259,7 @@ Entity* Entity::GetFromCard(Player& player, Card&& card,
             result = new Hero(player, card, tags);
             break;
         case CardType::HERO_POWER:
+            tags[GameTag::ZONE] = static_cast<int>(ZoneType::PLAY);
             result = new HeroPower(player, card, tags);
             break;
         case CardType::MINION:
@@ -272,6 +274,19 @@ Entity* Entity::GetFromCard(Player& player, Card&& card,
         default:
             throw std::invalid_argument(
                 "Generic::DrawCard() - Invalid card type!");
+    }
+
+    if (result->HasChooseOne())
+    {
+        delete result->chooseOneCard[0];
+        delete result->chooseOneCard[1];
+
+        result->chooseOneCard[0] =
+            GetFromCard(player, Cards::FindCardByID(result->card.id + "a"),
+                        std::nullopt, &player.GetSetasideZone());
+        result->chooseOneCard[1] =
+            GetFromCard(player, Cards::FindCardByID(result->card.id + "b"),
+                        std::nullopt, &player.GetSetasideZone());
     }
 
     return result;

@@ -12,6 +12,7 @@
 #include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Zones/IZone.hpp>
 
+#include <array>
 #include <map>
 
 namespace RosettaStone
@@ -142,6 +143,8 @@ class Entity
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
+
+    std::array<Entity*, 2> chooseOneCard{};
     std::vector<Enchantment*> appliedEnchantments;
 
     int id = 0;
