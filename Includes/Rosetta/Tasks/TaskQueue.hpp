@@ -24,10 +24,6 @@ class TaskQueue
     //! Default constructor.
     TaskQueue() = default;
 
-    //! Constructs task queue with given \p game.
-    //! \param game The game.
-    TaskQueue(Game* game);
-
     //! Returns the current queue.
     //! \return The current queue.
     std::queue<ITask*>& GetCurrentQueue();
@@ -54,7 +50,6 @@ class TaskQueue
     std::stack<std::queue<ITask*>> m_eventStack;
     std::queue<ITask*> m_baseQueue;
 
-    Game* m_game = nullptr;
     ITask* m_currentTask = nullptr;
 
     bool m_eventFlag = false;

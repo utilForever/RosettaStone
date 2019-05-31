@@ -3,16 +3,10 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
 
 namespace RosettaStone
 {
-TaskQueue::TaskQueue(Game* game) : m_game(game)
-{
-    // Do nothing
-}
-
 std::queue<ITask*>& TaskQueue::GetCurrentQueue()
 {
     return m_eventStack.empty() ? m_baseQueue : m_eventStack.top();

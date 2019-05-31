@@ -25,8 +25,6 @@ namespace RosettaStone
 {
 Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
-    taskQueue = TaskQueue(this);
-
     // Set game to player
     for (auto& p : m_players)
     {
