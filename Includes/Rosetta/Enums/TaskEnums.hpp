@@ -65,6 +65,7 @@ enum class EntityType
     SOURCE,
     TARGET,
     ALL,
+    ALL_NOSOURCE,
     FRIENDS,
     ENEMIES,
     ENEMIES_NOTARGET,
