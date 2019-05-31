@@ -8,17 +8,17 @@
 
 namespace RosettaStone
 {
-Aura* Power::GetAura()
+std::optional<Aura>& Power::GetAura()
 {
     return m_aura;
 }
 
-Enchant* Power::GetEnchant()
+std::optional<Enchant>& Power::GetEnchant()
 {
     return m_enchant;
 }
 
-Trigger* Power::GetTrigger()
+std::optional<Trigger>& Power::GetTrigger()
 {
     return m_trigger;
 }
@@ -40,25 +40,25 @@ std::vector<ITask*>& Power::GetComboTask()
 
 void Power::ClearData()
 {
-    m_aura = nullptr;
-    m_enchant = nullptr;
-    m_trigger = nullptr;
+    m_aura.reset();
+    m_enchant.reset();
+    m_trigger.reset();
     m_powerTask.clear();
     m_deathrattleTask.clear();
     m_comboTask.clear();
 }
 
-void Power::AddAura(Aura* aura)
+void Power::AddAura(Aura&& aura)
 {
-    m_aura = aura;
+    m_aura = std::move(aura);
 }
 
-void Power::AddEnchant(Enchant* enchant)
+void Power::AddEnchant(Enchant&& enchant)
 {
-    m_enchant = enchant;
+    m_enchant = std::move(enchant);
 }
 
-void Power::AddTrigger(Trigger* trigger)
+void Power::AddTrigger(Trigger&& trigger)
 {
     m_trigger = trigger;
 }

@@ -9,7 +9,6 @@
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
-#include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Zones/IZone.hpp>
 
 #include <map>
@@ -55,6 +54,10 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
+    //! Resets all game tag values that where changed after creation.
+    //! Any enchants and trigger is removed.
+    virtual void Reset();
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -83,7 +86,7 @@ class Entity
 
     //! Returns the value of exhausted.
     //! \return The value of exhausted.
-    bool IsExhausted() const;
+    bool GetExhausted() const;
 
     //! Sets the value of exhausted.
     //! \param exhausted The value of exhausted.
@@ -101,25 +104,8 @@ class Entity
     //! \return The value of overload.
     int GetOverload() const;
 
-    //! Returns whether this entity has deathrattle power.
-    //! \return Whether this entity has deathrattle power.
-    bool HasDeathrattle() const;
-
-    //! Returns whether this entity has to choose one.
-    //! \return Whether this entity has to choose one.
-    bool HasChooseOne() const;
-
-    //! Resets all game tag values that where changed after creation.
-    //! Any enchants and trigger is removed.
-    virtual void Reset();
-
-    //! Destroys entity.
+    //! Destroys character.
     virtual void Destroy();
-
-    //! Activates the task.
-    //! \param type The type of power.
-    //! \param target The target.
-    void ActivateTask(PowerType type, Entity* target = nullptr);
 
     //! Builds a new entity that can be added to a game.
     //! \param player An owner of the entity.

@@ -63,21 +63,18 @@ class ITask
     //! \return Entity type.
     EntityType GetEntityType() const;
 
-    //! Sets the player.
-    //! \param player The player to run task.
-    void SetPlayer(Player* player);
-
     //! Sets the source.
-    //! \param source The source.
+    //! \param source A pointer to the source.
     void SetSource(Entity* source);
 
     //! Sets the target.
-    //! \param target The target.
+    //! \param target A pointer to the target.
     void SetTarget(Entity* target);
 
     //! Calls Impl method and returns meta data.
+    //! \param player The player to run task.
     //! \return The result of task processing.
-    TaskStatus Run();
+    TaskStatus Run(Player& player);
 
     //! Returns task ID (pure virtual).
     //! \return Task ID.
@@ -85,7 +82,6 @@ class ITask
 
  protected:
     EntityType m_entityType = EntityType::EMPTY;
-    Player* m_player = nullptr;
     Entity* m_source = nullptr;
     Entity* m_target = nullptr;
 
@@ -99,30 +95,33 @@ class ITask
 namespace Task
 {
 //! Calls Impl method and returns meta data.
+//! \param player The player to run task.
 //! \param task The task to run.
 //! \return The result of task processing.
-inline TaskStatus Run(ITask* task)
+inline TaskStatus Run(Player& player, ITask* task)
 {
-    return task->Run();
+    return task->Run(player);
 }
 
 //! Calls Impl method and returns meta data.
+//! \param player The player to run task.
 //! \param task The task to run.
 //! \return The result of task processing.
-inline TaskStatus Run(ITask&& task)
+inline TaskStatus Run(Player& player, ITask&& task)
 {
-    return task.Run();
+    return task.Run(player);
 }
 
 //! Runs multiple Tasks.
+//! \param player The player to run task.
 //! \param task Packed multiple tasks.
 template <typename... TaskType>
-std::vector<TaskStatus> RunMulti(TaskType&&... task)
+std::vector<TaskStatus> RunMulti(Player& player, TaskType&&... task)
 {
     std::vector<TaskStatus> metas;
     metas.reserve(sizeof...(task));
 
-    (..., metas.push_back(task.Run()));
+    (..., metas.push_back(task.Run(player)));
     return metas;
 }
 }  // namespace Task

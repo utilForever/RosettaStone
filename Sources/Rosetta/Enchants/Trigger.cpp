@@ -133,16 +133,15 @@ void Trigger::Process(Player* player, Entity* source)
         return;
     }
 
-    ProcessInternal(source);
+    ProcessInternal(player, source);
 }
 
-void Trigger::ProcessInternal(Entity* source)
+void Trigger::ProcessInternal(Player* player, Entity* source)
 {
     m_isValidated = false;
 
     for (auto& task : tasks)
     {
-        task->SetPlayer(m_owner->owner);
         task->SetSource(m_owner);
 
         if (source != nullptr)
@@ -164,11 +163,11 @@ void Trigger::ProcessInternal(Entity* source)
 
         if (fastExecution)
         {
-            task->Run();
+            task->Run(*player);
         }
         else
         {
-            m_owner->owner->GetGame()->taskQueue.Enqueue(task);
+            m_owner->owner->GetGame()->taskQueue.push_back(task);
         }
 
         if (removeAfterTriggered)

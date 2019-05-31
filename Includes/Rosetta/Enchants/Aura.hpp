@@ -22,9 +22,8 @@ enum class AuraType
     ADJACENT,  //!< This type of aura affects the minions adjacent to the source
                //!< of the aura.
     FIELD,     //!< This type of aura affects all friendly minions.
-    FIELD_EXCEPT_SOURCE,  //!< This type of aura affects all friendly minions
-                          //!< except the source of the aura.
-    ADAPTIVE  //!< This type of aura is influenced by other factors in game.
+    FIELD_EXCEPT_SOURCE  //!< This type of aura affects all friendly minions
+                         //!< except the source of the aura.
 };
 
 //!
@@ -40,32 +39,29 @@ class Aura
     //! Default constructor.
     Aura() = default;
 
-    //! Constructs aura with given \p type and \p effects.
-    //! \param type The type of aura.
-    //! \param effects A list of effect.
-    Aura(AuraType type, std::vector<Effect*> effects);
-
-    //! Constructs aura with given \p type and \p enchantmentID.
-    //! \param type The type of aura.
+    //! Constructs aura with given \p enchantmentID and \p type.
     //! \param enchantmentID The enchantment card ID.
-    Aura(AuraType type, std::string&& enchantmentID);
+    //! \param type The type of aura.
+    Aura(std::string&& enchantmentID, AuraType type);
 
-    //! Default virtual destructor.
-    virtual ~Aura() = default;
+    //! Constructs aura with given \p prototype and \p owner.
+    //! \param prototype An aura for prototype.
+    //! \param owner An owner of aura.
+    Aura(Aura& prototype, Entity& owner);
 
     //! Sets aura to be updated.
     //! \param value An value to be updated.
     void SetToBeUpdated(bool value);
 
-    //! Create new Aura instance to the owner's game.
+    //! Activates aura to battlefield.
     //! \param owner An owner of aura.
-    virtual void Activate(Entity& owner);
+    void Activate(Entity& owner);
 
-    //! Updates this effect to apply the effect to recently modified entities.
-    virtual void Update();
+    //! Updates aura to apply the effect to recently modified entities.
+    void Update();
 
-    //! Removes this effect from the game to stop affecting entities.
-    virtual void Remove();
+    //! Removes aura to disapply the effect to recently modified entities.
+    void Remove();
 
     //! Removes entity to update a list of entities.
     //! \param entity An entity to remove.
@@ -81,7 +77,7 @@ class Aura
 
     //! Returns the effect of aura.
     //! \return The effect of aura.
-    std::vector<Effect*> GetEffects() const;
+    std::vector<Effect> GetEffects() const;
 
     //! Returns the applied entities affected by the aura.
     //! \return The applied entities affected by the aura.
@@ -89,14 +85,6 @@ class Aura
 
     SelfCondition* condition = nullptr;
     bool restless = false;
-
- protected:
-    //! Constructs aura with given \p prototype and \p owner.
-    //! \param prototype An aura for prototype.
-    //! \param owner An owner of aura.
-    Aura(Aura& prototype, Entity& owner);
-
-    Entity* m_owner = nullptr;
 
  private:
     //! Adds aura to battlefield.
@@ -108,52 +96,16 @@ class Aura
     //! Internal method of Remove().
     void RemoveInternal();
 
-    AuraType m_type = AuraType::INVALID;
     std::string m_enchantmentID;
+    AuraType m_type = AuraType::INVALID;
 
-    std::vector<Effect*> m_effects;
+    Entity* m_owner = nullptr;
+    std::vector<Effect> m_effects;
     std::vector<Entity*> m_appliedEntities;
     std::vector<Entity*> m_tempList;
 
     bool m_turnOn = true;
     bool m_toBeUpdated = true;
-};
-
-//!
-//! \brief AdaptiveEffect class.
-//!
-//! Effects of this kind of Auras are influenced by other factors in game, in
-//! real time. e.g. Lightspawn, Southsea Deckhand.
-//!
-class AdaptiveEffect : public Aura
-{
- public:
-    //! Defines a kind of effects in which the given tags are boolean and
-    //! determined by a specific condition. (e.g. Southsea Deckhand)
-    //! \param _condition A specific condition.
-    //! \param tags The given tags.
-    AdaptiveEffect(SelfCondition* _condition, std::vector<GameTag> tags);
-
-    //! Create new Aura instance to the owner's game.
-    //! \param owner An owner of adaptive effect.
-    void Activate(Entity& owner) override;
-
-    //! Updates this effect to apply the effect to recently modified entities.
-    void Update() override;
-
-    //! Removes this effect from the game to stop affecting entities.
-    void Remove() override;
-
- private:
-    //! Constructs adaptive effect with given \p prototype and \p owner.
-    //! \param prototype An adaptive effect for prototype.
-    //! \param owner An owner of adaptive effect.
-    AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner);
-
-    std::vector<GameTag> m_tags;
-    std::vector<int> m_lastValues;
-
-    bool m_isSwitching = false;
 };
 }  // namespace RosettaStone
 

@@ -41,9 +41,7 @@ TEST(DamageTask, Run)
     }
 
     DamageTask damage(EntityType::FRIENDS, 1);
-    damage.SetPlayer(&player1);
-
-    TaskStatus result = damage.Run();
+    TaskStatus result = damage.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
@@ -70,10 +68,8 @@ TEST(DamageTask, SpellPower)
     }
 
     DamageTask damage1(EntityType::FRIENDS, 1, true);
-    damage1.SetPlayer(&player1);
     damage1.SetSource(player1.GetFieldZone()[0]);
-
-    TaskStatus result = damage1.Run();
+    TaskStatus result = damage1.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
@@ -85,10 +81,8 @@ TEST(DamageTask, SpellPower)
     player1.currentSpellPower = 1;
 
     DamageTask damage2(EntityType::FRIENDS, 1, true);
-    damage2.SetPlayer(&player1);
     damage2.SetSource(player1.GetFieldZone()[0]);
-
-    result = damage2.Run();
+    result = damage2.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);

@@ -160,9 +160,6 @@ void Game::BeginMulligan()
 
 void Game::MainBegin()
 {
-    // Process tasks
-    ProcessTasks();
-
     // Set next step
     nextStep = Step::MAIN_READY;
     if (m_gameConfig.autoRun)
@@ -281,10 +278,8 @@ void Game::MainAction()
 
 void Game::MainEnd()
 {
-    taskQueue.StartEvent();
     triggerManager.OnEndTurnTrigger(&GetCurrentPlayer(), nullptr);
     ProcessTasks();
-    taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
 
     // Set next step
@@ -322,7 +317,7 @@ void Game::MainCleanUp()
     for (auto& m : curPlayer.GetFieldZone().GetAll())
     {
         if (m->GetGameTag(GameTag::FROZEN) == 1 &&
-            m->GetNumAttacksThisTurn() == 0 && !m->IsExhausted())
+            m->GetNumAttacksThisTurn() == 0 && !m->GetExhausted())
         {
             m->SetGameTag(GameTag::FROZEN, 0);
         }
@@ -461,9 +456,12 @@ void Game::StartGame()
 
 void Game::ProcessTasks()
 {
-    while (!taskQueue.IsEmpty())
+    while (!taskQueue.empty())
     {
-        taskQueue.Process();
+        ITask* task = taskQueue.front();
+        taskQueue.pop_front();
+
+        task->Run(GetCurrentPlayer());
     }
 }
 
@@ -474,22 +472,17 @@ void Game::ProcessDestroyAndUpdateAura()
     // Process summoned minions
     if (triggerManager.summonTrigger != nullptr)
     {
-        taskQueue.StartEvent();
         for (auto& minion : summonedMinions)
         {
             triggerManager.OnSummonTrigger(&GetCurrentPlayer(), minion);
         }
-        ProcessTasks();
-        taskQueue.EndEvent();
     }
 
-    taskQueue.StartEvent();
     do
     {
         ProcessGraveyard();
         ProcessTasks();
     } while (!deadMinions.empty());
-    taskQueue.EndEvent();
 
     UpdateAura();
 }
@@ -520,9 +513,14 @@ void Game::ProcessGraveyard()
             minion->zone->Remove(*minion);
 
             // Process deathrattle tasks
-            if (minion->HasDeathrattle())
+            for (auto& power : minion->card.power.GetDeathrattleTask())
             {
-                minion->ActivateTask(PowerType::DEATHRATTLE);
+                if (power == nullptr)
+                {
+                    continue;
+                }
+
+                power->Run(*minion->owner);
             }
 
             // Add minion to graveyard
@@ -552,8 +550,7 @@ void Game::UpdateAura()
 void Game::Process(Player& player, ITask* task)
 {
     // Process task
-    task->SetPlayer(&player);
-    Task::Run(task);
+    Task::Run(player, task);
 
     CheckGameOver();
 }
@@ -561,8 +558,7 @@ void Game::Process(Player& player, ITask* task)
 void Game::Process(Player& player, ITask&& task)
 {
     // Process task
-    task.SetPlayer(&player);
-    Task::Run(std::move(task));
+    Task::Run(player, std::move(task));
 
     CheckGameOver();
 }

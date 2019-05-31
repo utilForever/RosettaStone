@@ -519,11 +519,12 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // Text: Whenever you summon a Beast, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
-    power.GetTrigger()->condition =
+    power.AddTrigger(Trigger(TriggerType::SUMMON));
+    power.GetTrigger().value().triggerSource =
+        TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
-    power.GetTrigger()->tasks = { new DrawTask(1) };
+    power.GetTrigger().value().tasks = { new DrawTask(1) };
     cards.emplace("CS2_237", power);
 
     // ---------------------------------------- MINION - HUNTER
@@ -557,8 +558,8 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
-    power.GetAura()->condition =
+    power.AddAura(Aura("DS1_175o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
     cards.emplace("DS1_175", power);
 
@@ -575,8 +576,8 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD, "DS1_178e"));
-    power.GetAura()->condition =
+    power.AddAura(Aura("DS1_178e", AuraType::FIELD));
+    power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::BEAST));
     cards.emplace("DS1_178", power);
 
@@ -685,7 +686,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     // Text: This minion has 1 Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(GameTag::HEALTH, EffectOperator::SET, 1));
+    power.AddEnchant(Enchant(GameTag::HEALTH, EffectOperator::SET, 1));
     cards.emplace("CS2_084e", power);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
@@ -741,7 +742,7 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_033o"));
+    power.AddAura(Aura("NEW1_033o", AuraType::FIELD_EXCEPT_SOURCE));
     cards.emplace("NEW1_033", power);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
@@ -1016,9 +1017,9 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // - DURABILITY = 2
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { new HealTask(EntityType::HERO, 2) };
+    power.AddTrigger(Trigger(TriggerType::ATTACK));
+    power.GetTrigger().value().triggerSource = TriggerSource::HERO;
+    power.GetTrigger().value().tasks = { new HealTask(EntityType::HERO, 2) };
     cards.emplace("CS2_097", power);
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1093,7 +1094,7 @@ void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     // Text: Attack has been changed to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(GameTag::ATK, EffectOperator::SET, 1));
+    power.AddEnchant(Enchant(GameTag::ATK, EffectOperator::SET, 1));
     cards.emplace("EX1_360e", power);
 }
 
@@ -1192,9 +1193,9 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // Text: Whenever a minion is healed, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::HEAL));
-    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
-    power.GetTrigger()->tasks = { new DrawTask(1) };
+    power.AddTrigger(Trigger(TriggerType::HEAL));
+    power.GetTrigger().value().triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger().value().tasks = { new DrawTask(1) };
     cards.emplace("CS2_235", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -1260,7 +1261,7 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     // Text: This minion has double Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Enchants::AddHealthScriptTag));
+    power.AddEnchant(Enchant(Enchants::AddHealthScriptTag));
     cards.emplace("CS2_236e", power);
 }
 
@@ -1552,7 +1553,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::ADJACENT, "EX1_565o"));
+    power.AddAura(Aura("EX1_565o", AuraType::ADJACENT));
     cards.emplace("EX1_565", power);
 
     // ---------------------------------------- MINION - SHAMAN
@@ -1592,7 +1593,7 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Effects::Taunt));
+    power.AddEnchant(Enchant(Effects::Taunt));
     cards.emplace("CS2_041e", power);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
@@ -1682,8 +1683,8 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // Text: At the end of your turn, restore 1 Health to all friendly minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { new HealTask(EntityType::MINIONS, 1) };
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = { new HealTask(EntityType::MINIONS, 1) };
     cards.emplace("NEW1_009", power);
 }
 
@@ -1845,8 +1846,8 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     // Text: At the start of the corrupting player's turn, destroy this minion.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
+    power.AddTrigger(Trigger(TriggerType::TURN_START));
+    power.GetTrigger().value().tasks = { new DestroyTask(EntityType::TARGET) };
     cards.emplace("CS2_063e", power);
 }
 
@@ -1948,10 +1949,10 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD, "EX1_084e"));
-    power.GetAura()->condition =
+    power.AddAura(Aura("EX1_084e", AuraType::FIELD));
+    power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
-    power.GetAura()->restless = true;
+    power.GetAura().value().restless = true;
     cards.emplace("EX1_084", power);
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -2001,13 +2002,13 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     // Text: Has <b>Charge</b>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(std::vector<Effect*>{
-        Effects::Charge,
-        new Effect(GameTag::CANNOT_ATTACK_HEROES, EffectOperator::SET, 1) }));
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { new SetGameTagTask(
+    power.AddEnchant(
+        Enchant({ Effects::Charge, Effect(GameTag::CANNOT_ATTACK_HEROES,
+                                          EffectOperator::SET, 1) }));
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = { new SetGameTagTask(
         EntityType::TARGET, GameTag::CANNOT_ATTACK_HEROES, 0) };
-    power.GetTrigger()->removeAfterTriggered = true;
+    power.GetTrigger().value().removeAfterTriggered = true;
     cards.emplace("CS2_103e2", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
@@ -2098,7 +2099,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
+    power.AddAura(Aura("CS2_122e", AuraType::FIELD_EXCEPT_SOURCE));
     cards.emplace("CS2_122", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2405,7 +2406,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "CS2_222o"));
+    power.AddAura(Aura("CS2_222o", AuraType::FIELD_EXCEPT_SOURCE));
     cards.emplace("CS2_222", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2516,10 +2517,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: Whenever this minion takes damage, gain +3 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_399e",
-                                                         EntityType::SOURCE) };
+    power.AddTrigger(Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger().value().triggerSource = TriggerSource::SELF;
+    power.GetTrigger().value().tasks = { new AddEnchantmentTask(
+        "EX1_399e", EntityType::SOURCE) };
     cards.emplace("EX1_399", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2542,8 +2543,8 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: Your other Murlocs have +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
-    power.GetAura()->condition =
+    power.AddAura(Aura("EX1_508o", AuraType::FIELD_EXCEPT_SOURCE));
+    power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
     cards.emplace("EX1_508", power);
 
@@ -2615,7 +2616,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased stats.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Enchants::AddAttackHealthScriptTag));
+    power.AddEnchant(Enchant(Enchants::AddAttackHealthScriptTag));
     cards.emplace("CS2_226e", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2677,7 +2678,7 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: This minion has increased Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Effects::AttackN(3)));
+    power.AddEnchant(Effects::AttackN(3));
     cards.emplace("EX1_399e", power);
 
     // --------------------------------------- MINION - NEUTRAL

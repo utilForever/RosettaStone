@@ -169,7 +169,7 @@ std::optional<Card> Console::SearchCard() const
             {
                 const size_t selectedCardIndex =
                     InputMenuNum("Select: ", cardIdx);
-                return result.at(selectedCardIndex - 1);
+                return result.at(selectedCardIndex);
             }
         }
     }

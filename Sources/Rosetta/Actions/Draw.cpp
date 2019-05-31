@@ -21,10 +21,23 @@ Entity* Draw(Player& player, Entity* cardToDraw)
         return nullptr;
     }
 
+    Entity* entity;
+
     // Get card to draw
-    Entity* entity = &player.GetDeckZone().Remove(
-        cardToDraw != nullptr ? *cardToDraw
-                              : *player.GetDeckZone().GetTopCard());
+    if (cardToDraw)
+    {
+        entity = &player.GetDeckZone().Remove(*cardToDraw);
+    }
+    else
+    {
+        Entity* topCard = player.GetDeckZone().GetTopCard();
+        if (topCard == nullptr)
+        {
+            return nullptr;
+        }
+
+        entity = &player.GetDeckZone().Remove(*topCard);
+    }
 
     // Add card to hand
     AddCardToHand(player, entity);

@@ -29,15 +29,15 @@ class Power
 {
  public:
     //! Returns aura.
-    Aura* GetAura();
+    std::optional<Aura>& GetAura();
 
     //! Returns enchant.
     //! \return A reference to enchant.
-    Enchant* GetEnchant();
+    std::optional<Enchant>& GetEnchant();
 
     //! Returns trigger.
     //! \return A reference to trigger.
-    Trigger* GetTrigger();
+    std::optional<Trigger>& GetTrigger();
 
     //! Returns a list of power tasks.
     //! \return A list of power tasks.
@@ -56,15 +56,15 @@ class Power
 
     //! Adds aura.
     //! \param aura An aura to add.
-    void AddAura(Aura* aura);
+    void AddAura(Aura&& aura);
 
     //! Adds enchant.
     //! \param enchant An enchant to add.
-    void AddEnchant(Enchant* enchant);
+    void AddEnchant(Enchant&& enchant);
 
     //! Adds trigger.
     //! \param trigger An trigger to add.
-    void AddTrigger(Trigger* trigger);
+    void AddTrigger(Trigger&& trigger);
 
     //! Adds power task.
     //! \param task A pointer to power task.
@@ -79,9 +79,9 @@ class Power
     void AddComboTask(ITask* task);
 
  private:
-    Aura* m_aura = nullptr;
-    Enchant* m_enchant = nullptr;
-    Trigger* m_trigger = nullptr;
+    std::optional<Aura> m_aura = std::nullopt;
+    std::optional<Enchant> m_enchant = std::nullopt;
+    std::optional<Trigger> m_trigger = std::nullopt;
 
     std::vector<ITask*> m_powerTask;
     std::vector<ITask*> m_deathrattleTask;

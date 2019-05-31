@@ -7,7 +7,6 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
-#include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
@@ -21,10 +20,8 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -42,60 +39,12 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
 {
-    Power power;
-
-    // ------------------------------------------ SPELL - DRUID
-    // [EX1_154] Wrath - COST:2
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Choose One -</b>
-    //       Deal $3 damage to a minion; or $1 damage
-    //       and draw a card.
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHOOSE_ONE = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_154", power);
+    (void)cards;
 }
 
 void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 {
-    Power power;
-
-    // ------------------------------------------ SPELL - DRUID
-    // [EX1_154a] Wrath (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
-    // --------------------------------------------------------
-    // Text: Deal $3 damage to a minion.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3, true));
-    cards.emplace("EX1_154a", power);
-
-    // ------------------------------------------ SPELL - DRUID
-    // [EX1_154b] Wrath (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
-    // --------------------------------------------------------
-    // Text: Deal $1 damage to a minion. Draw a card.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
-    power.AddPowerTask(new DrawTask(1));
-    cards.emplace("EX1_154b", power);
+    (void)cards;
 }
 
 void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
@@ -167,13 +116,13 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // - COUNTER = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger()->tasks = {
+    power.AddTrigger(Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger().value().tasks = {
         new SetGameTagTask(EntityType::TARGET, GameTag::CANT_PLAY, 1),
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
         new MoveToGraveyardTask(EntityType::SOURCE)
     };
-    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger().value().fastExecution = true;
     cards.emplace("EX1_287", power);
 }
 
@@ -184,41 +133,12 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
-    Power power;
-
-    // --------------------------------------- MINION - PALADIN
-    // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
-    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
-    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // _ DIVINE SHIELD = 1
-    // - TAUNT = 1
-    // - DEATHRATTLE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(new WeaponTask("EX1_383t"));
-    cards.emplace("EX1_383", power);
+    (void)cards;
 }
 
 void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 {
-    Power power;
-
-    // --------------------------------------- WEAPON - PALADIN
-    // [EX1_383t] Ashbringer (*) - COST:5 [ATK:5/HP:0]
-    // - Faction: Neutral, Set: Expert1
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - DURABILITY = 3
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_383t", power);
+    (void)cards;
 }
 
 void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
@@ -263,7 +183,7 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     // Text: Change a minion's Attack to be equal to its Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Enchants::SetAttackScriptTag));
+    power.AddEnchant(Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
 }
 
@@ -334,23 +254,6 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddComboTask(new DamageTask(EntityType::TARGET, 2));
     cards.emplace("EX1_134", power);
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [EX1_144] Shadowstep - COST:0
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Return a friendly minion to your hand. It costs (2) less.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
-    power.AddPowerTask(
-        new AddAuraEffectTask(Effects::ReduceCost(2), EntityType::TARGET));
-    cards.emplace("EX1_144", power);
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
@@ -542,13 +445,14 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // Text: One of your cards costs (3) less.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(std::vector<Effect*>{
-        Effects::ReduceCost(3),
-        new Effect(GameTag::DISPLAYED_CREATOR, EffectOperator::SET, 1) }));
-    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
-    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
-    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
-    power.GetTrigger()->removeAfterTriggered = true;
+    power.AddEnchant(
+        Enchant({ Effects::ReduceCost(3), Effect(GameTag::DISPLAYED_CREATOR,
+                                                 EffectOperator::SET, 1) }));
+    power.AddTrigger(Trigger(TriggerType::PLAY_CARD));
+    power.GetTrigger().value().triggerSource =
+        TriggerSource::ENCHANTMENT_TARGET;
+    power.GetTrigger().value().tasks = { new RemoveEnchantmentTask() };
+    power.GetTrigger().value().removeAfterTriggered = true;
     cards.emplace("CS2_053e", power);
 
     // ---------------------------------------- MINION - SHAMAN
@@ -580,8 +484,8 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - STEALTH = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = {
         new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
         new AddEnchantmentTask("CS2_059o", EntityType::STACK)
     };
@@ -637,7 +541,7 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Effects::HealthN(1)));
+    power.AddEnchant(Effects::HealthN(1));
     cards.emplace("CS2_059o", power);
 }
 
@@ -708,21 +612,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::TARGET, 3));
     cards.emplace("CS2_117", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
-    // - Race: Pirate, Faction: Alliance, Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Has <b>Charge</b> while you have a weapon equipped.
-    // --------------------------------------------------------
-    // RefTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
-        new AdaptiveEffect(new SelfCondition(SelfCondition::IsWeaponEquipped()),
-                           { GameTag::CHARGE }));
-    cards.emplace("CS2_146", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
@@ -1170,7 +1059,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Enchants::AddHealthScriptTag));
+    power.AddEnchant(Enchant(Enchants::AddHealthScriptTag));
     cards.emplace("EX1_043e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL

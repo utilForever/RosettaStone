@@ -30,11 +30,6 @@ EntityType ITask::GetEntityType() const
     return m_entityType;
 }
 
-void ITask::SetPlayer(Player* player)
-{
-    m_player = player;
-}
-
 void ITask::SetSource(Entity* source)
 {
     m_source = source;
@@ -45,8 +40,8 @@ void ITask::SetTarget(Entity* target)
     m_target = target;
 }
 
-TaskStatus ITask::Run()
+TaskStatus ITask::Run(Player& player)
 {
-    return Impl(*m_player);
+    return Impl(player);
 }
 }  // namespace RosettaStone

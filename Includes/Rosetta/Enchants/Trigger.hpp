@@ -57,8 +57,9 @@ class Trigger
     void Process(Player* player, Entity* source);
 
     //! Internal method of Process().
+    //! \param player A pointer to player.
     //! \param source A pointer to source of trigger.
-    void ProcessInternal(Entity* source);
+    void ProcessInternal(Player* player, Entity* source);
 
     //! Validates triggers related to the current sequence at once before the
     //! sequence starts.

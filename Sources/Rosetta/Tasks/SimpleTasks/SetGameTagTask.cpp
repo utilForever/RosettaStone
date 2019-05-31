@@ -33,7 +33,7 @@ TaskStatus SetGameTagTask::Impl(Player& player)
         {
             auto m = dynamic_cast<Minion*>(entity);
             if (m != nullptr && m->GetNumAttacksThisTurn() == 1 &&
-                m->IsExhausted())
+                m->GetExhausted())
             {
                 m->SetExhausted(false);
             }

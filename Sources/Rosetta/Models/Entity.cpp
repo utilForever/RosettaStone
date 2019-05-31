@@ -92,19 +92,28 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
+void Entity::Reset()
+{
+    SetGameTag(GameTag::DAMAGE, 0);
+    SetGameTag(GameTag::EXHAUSTED, 0);
+    SetGameTag(GameTag::ATK, 0);
+    SetGameTag(GameTag::HEALTH, 0);
+    SetGameTag(GameTag::COST, 0);
+    SetGameTag(GameTag::TAUNT, 0);
+    SetGameTag(GameTag::FROZEN, 0);
+    SetGameTag(GameTag::CHARGE, 0);
+    SetGameTag(GameTag::WINDFURY, 0);
+    SetGameTag(GameTag::DIVINE_SHIELD, 0);
+    SetGameTag(GameTag::STEALTH, 0);
+    SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, 0);
+}
+
 int Entity::GetGameTag(GameTag tag) const
 {
     int value = 0;
 
-    const auto entityVal = m_gameTags.find(tag);
-    if (entityVal == m_gameTags.end())
+    if (m_gameTags.find(tag) == m_gameTags.end())
     {
-        const auto cardVal = card.gameTags.find(tag);
-        if (cardVal != card.gameTags.end())
-        {
-            value = cardVal->second;
-        }
-
         if (auraEffects != nullptr)
         {
             value += auraEffects->GetGameTag(tag);
@@ -112,7 +121,7 @@ int Entity::GetGameTag(GameTag tag) const
     }
     else
     {
-        value += entityVal->second;
+        value += m_gameTags.at(tag);
 
         if (auraEffects != nullptr)
         {
@@ -148,9 +157,9 @@ void Entity::SetCost(int cost)
     SetGameTag(GameTag::COST, cost);
 }
 
-bool Entity::IsExhausted() const
+bool Entity::GetExhausted() const
 {
-    return GetGameTag(GameTag::EXHAUSTED) == 1;
+    return static_cast<bool>(GetGameTag(GameTag::EXHAUSTED));
 }
 
 void Entity::SetExhausted(bool exhausted)
@@ -173,66 +182,9 @@ int Entity::GetOverload() const
     return GetGameTag(GameTag::OVERLOAD);
 }
 
-bool Entity::HasDeathrattle() const
-{
-    return GetGameTag(GameTag::DEATHRATTLE) == 1;
-}
-
-bool Entity::HasChooseOne() const
-{
-    return GetGameTag(GameTag::CHOOSE_ONE) == 1;
-}
-
-void Entity::Reset()
-{
-    m_gameTags.erase(GameTag::DAMAGE);
-    m_gameTags.erase(GameTag::EXHAUSTED);
-    m_gameTags.erase(GameTag::ATK);
-    m_gameTags.erase(GameTag::HEALTH);
-    m_gameTags.erase(GameTag::COST);
-    m_gameTags.erase(GameTag::TAUNT);
-    m_gameTags.erase(GameTag::FROZEN);
-    m_gameTags.erase(GameTag::CHARGE);
-    m_gameTags.erase(GameTag::WINDFURY);
-    m_gameTags.erase(GameTag::DIVINE_SHIELD);
-    m_gameTags.erase(GameTag::STEALTH);
-    m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
-}
-
 void Entity::Destroy()
 {
     isDestroyed = true;
-}
-
-void Entity::ActivateTask(PowerType type, Entity* target)
-{
-    std::vector<ITask*> tasks;
-    switch (type)
-    {
-        case PowerType::POWER:
-            tasks = card.power.GetPowerTask();
-            break;
-        case PowerType::DEATHRATTLE:
-            tasks = card.power.GetDeathrattleTask();
-            break;
-        case PowerType::COMBO:
-            tasks = card.power.GetComboTask();
-            break;
-    }
-
-    if (tasks.empty() || tasks[0] == nullptr)
-    {
-        return;
-    }
-
-    for (auto& task : tasks)
-    {
-        task->SetPlayer(owner);
-        task->SetSource(this);
-        task->SetTarget(target);
-
-        owner->GetGame()->taskQueue.Enqueue(task);
-    }
 }
 
 Entity* Entity::GetFromCard(Player& player, Card&& card,

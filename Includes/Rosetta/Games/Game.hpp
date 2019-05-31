@@ -10,9 +10,9 @@
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Models/Player.hpp>
-#include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 
+#include <deque>
 #include <map>
 
 namespace RosettaStone
@@ -157,9 +157,9 @@ class Game
     Step step = Step::INVALID;
     Step nextStep = Step::INVALID;
 
-    TaskQueue taskQueue;
     TaskStack taskStack;
     TriggerManager triggerManager;
+    std::deque<ITask*> taskQueue;
 
     std::vector<Aura*> auras;
     std::vector<std::pair<Entity*, Effect*>> oneTurnEffects;

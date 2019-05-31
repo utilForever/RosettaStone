@@ -12,17 +12,24 @@ namespace RosettaStone
 {
 Enchant::Enchant(GameTag gameTag, EffectOperator effectOperator, int value)
 {
-    auto effect = new Effect(gameTag, effectOperator, value);
+    Effect effect(gameTag, effectOperator, value);
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(Effect* effect, bool _useScriptTag, bool _isOneTurnEffect)
-    : useScriptTag(_useScriptTag), isOneTurnEffect(_isOneTurnEffect)
+Enchant::Enchant(Effect& effect)
 {
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(std::vector<Effect*> _effects, bool _useScriptTag,
+Enchant::Enchant(Effect&& effect, bool _useScriptTag,
+                 bool _isOneTurnEffect)
+    : useScriptTag(_useScriptTag),
+      isOneTurnEffect(_isOneTurnEffect)
+{
+    effects.emplace_back(effect);
+}
+
+Enchant::Enchant(std::vector<Effect> _effects, bool _useScriptTag,
                  bool _isOneTurnEffect)
     : effects(std::move(_effects)),
       useScriptTag(_useScriptTag),
@@ -37,12 +44,12 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
     {
         for (auto& effect : effects)
         {
-            effect->Apply(entity, isOneTurnEffect);
+            effect.Apply(entity, isOneTurnEffect);
         }
     }
     else
     {
-        effects[0]->ChangeValue(num1).Apply(entity, isOneTurnEffect);
+        effects[0].ChangeValue(num1).Apply(entity, isOneTurnEffect);
 
         if (effects.size() != 2)
         {
@@ -51,11 +58,11 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
 
         if (num2 > 0)
         {
-            effects[1]->ChangeValue(num2).Apply(entity, isOneTurnEffect);
+            effects[1].ChangeValue(num2).Apply(entity, isOneTurnEffect);
         }
         else
         {
-            effects[1]->ChangeValue(num1).Apply(entity, isOneTurnEffect);
+            effects[1].ChangeValue(num1).Apply(entity, isOneTurnEffect);
         }
     }
 }

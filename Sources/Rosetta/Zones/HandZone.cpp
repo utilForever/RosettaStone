@@ -20,9 +20,9 @@ void HandZone::Add(Entity& entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
 
-    if (entity.card.power.GetTrigger())
+    if (entity.card.power.GetTrigger().has_value())
     {
-        entity.card.power.GetTrigger()->Activate(entity);
+        entity.card.power.GetTrigger().value().Activate(entity);
     }
 }
 

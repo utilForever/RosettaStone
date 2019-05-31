@@ -40,10 +40,8 @@ TEST(DestroyTask, Run)
     player1.GetFieldZone().Add(*minion1, 0);
 
     DestroyTask task1(EntityType::SOURCE);
-    task1.SetPlayer(&player1);
     task1.SetSource(player1.GetFieldZone()[0]);
-
-    TaskStatus result = task1.Run();
+    TaskStatus result = task1.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
@@ -55,10 +53,8 @@ TEST(DestroyTask, Run)
     player2.GetFieldZone().Add(*minion2, 0);
 
     DestroyTask task2(EntityType::TARGET);
-    task2.SetPlayer(&player1);
     task2.SetTarget(player2.GetFieldZone()[0]);
-
-    TaskStatus result2 = task2.Run();
+    TaskStatus result2 = task2.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result2, TaskStatus::COMPLETE);
@@ -70,9 +66,7 @@ TEST(DestroyTask, Run)
     player2.GetHero()->weapon->owner = &player2;
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);
-    task3.SetPlayer(&player1);
-
-    TaskStatus result3 = task3.Run();
+    TaskStatus result3 = task3.Run(player1);
     game.ProcessDestroyAndUpdateAura();
 
     EXPECT_EQ(result3, TaskStatus::COMPLETE);

@@ -3715,15 +3715,15 @@ TEST(ShamanCoreTest, CS2_039_Windfury)
 
     game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
-    EXPECT_EQ(curField[0]->IsExhausted(), true);
+    EXPECT_EQ(curField[0]->GetExhausted(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
     EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
-    EXPECT_EQ(curField[0]->IsExhausted(), false);
+    EXPECT_EQ(curField[0]->GetExhausted(), false);
 
     game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 18);
-    EXPECT_EQ(curField[0]->IsExhausted(), true);
+    EXPECT_EQ(curField[0]->GetExhausted(), true);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
