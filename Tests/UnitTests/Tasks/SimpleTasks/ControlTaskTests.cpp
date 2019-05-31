@@ -45,8 +45,9 @@ TEST(ControlTask, Run)
     }
 
     ControlTask control(EntityType::TARGET);
+    control.SetPlayer(&player1);
     control.SetTarget(player2Field[0]);
-    TaskStatus result = control.Run(player1);
+    TaskStatus result = control.Run();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(player1Field.GetCount(), 7);
@@ -56,8 +57,9 @@ TEST(ControlTask, Run)
     EXPECT_EQ(player1Field[6]->GetAttack(), 1);
     EXPECT_EQ(player1Field[6]->GetHealth(), 1);
 
+    control.SetPlayer(&player1);
     control.SetTarget(player2Field[1]);
-    result = control.Run(player1);
+    result = control.Run();
 
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(player1Field.GetCount(), 7);

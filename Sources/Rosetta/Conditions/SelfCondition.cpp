@@ -21,6 +21,13 @@ SelfCondition SelfCondition::IsDead()
         [=](Entity* entity) -> bool { return entity->isDestroyed; });
 }
 
+SelfCondition SelfCondition::IsWeaponEquipped()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->owner->GetHero()->HasWeapon();
+    });
+}
+
 SelfCondition SelfCondition::IsRace(Race race)
 {
     return SelfCondition(

@@ -36,7 +36,7 @@ class GameToVec
     //! Generates torch tensor from the effects.
     //! \param effects The card effects.
     //! \return The encoded torch tensor from \p effects.
-    virtual torch::Tensor EffectsToTensor(std::vector<Effect> effects);
+    virtual torch::Tensor EffectsToTensor(std::vector<Effect*> effects);
 
     //! Generates torch tensor from a list of card task.
     //! \param tasks The card tasks.

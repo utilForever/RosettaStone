@@ -229,6 +229,87 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
     EXPECT_EQ(opPlayer.GetOverloadOwed(), 1);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
+//       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// _ DIVINE SHIELD = 1
+// - TAUNT = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_383_TirionFordring)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tirion Fordring"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), false);
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(opPlayer, AttackTask(card3, card1));
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, AttackTask(card4, card1));
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 5);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 3);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [CS2_104] Rampage - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -381,32 +462,32 @@ TEST(PriestExpert1Test, EX1_621_CircleOfHealing)
     const auto card5 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, PlayCardTask::Minion(card4));
-    Task::Run(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
     EXPECT_EQ(opField.GetCount(), 2);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(curPlayer, PlayCardTask::Minion(card1));
-    Task::Run(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
 
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(opPlayer, AttackTask(card5, card3));
-    Task::Run(opPlayer, AttackTask(card4, card1));
+    game.Process(opPlayer, AttackTask(card5, card3));
+    game.Process(opPlayer, AttackTask(card4, card1));
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 4);
     EXPECT_EQ(opField[0]->GetHealth(), 6);
 
-    Task::Run(opPlayer, EndTurnTask());
+    game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    Task::Run(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(curField[0]->GetHealth(), 7);
     EXPECT_EQ(opField[0]->GetHealth(), 7);
 }
@@ -610,6 +691,108 @@ TEST(RogueExpert1Test, EX1_134_SI7Agent)
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [EX1_144] Shadowstep - COST:0
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Return a friendly minion to your hand. It costs (2) less.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+TEST(RogueExpert1Test, EX1_144_Shadowstep)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowstep"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowstep"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowstep"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("SI:7 Agent"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("SI:7 Agent"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 9);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 1);
+    EXPECT_EQ(card4->GetCost(), 1);
+
+    game.Process(curPlayer, AttackTask(card4, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 9);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 0);
+    EXPECT_EQ(card4->GetCost(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(dynamic_cast<Minion*>(card4)->CanAttack(), true);
+
+    game.Process(curPlayer, AttackTask(card4, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
+
+    EXPECT_EQ(curPlayer.IsComboActive(), true);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card5, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card5));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 7);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 1);
+    EXPECT_EQ(card5->GetCost(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card5, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.IsComboActive(), false);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card6, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 2);
+    EXPECT_EQ(card6->GetCost(), 1);
+
+    EXPECT_EQ(curPlayer.IsComboActive(), true);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card6, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 22);
 }
 
 // ----------------------------------------- MINION - ROGUE
@@ -1115,6 +1298,60 @@ TEST(NeutralExpert1Test, CS2_117_EarthenRingFarseer)
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
     EXPECT_EQ(opField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
+// - Race: Pirate, Faction: Alliance, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Has <b>Charge</b> while you have a weapon equipped.
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, CS2_146_SouthseaDeckhand)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Southsea Deckhand"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowstep"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    EXPECT_EQ(card1->GetZoneType(), ZoneType::HAND);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    EXPECT_EQ(curField[0]->IsExhausted(), false);
+    EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL

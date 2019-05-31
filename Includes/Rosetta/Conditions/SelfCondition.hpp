@@ -31,6 +31,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
 
+    //! SelfCondition wrapper for checking an hero equips weapon.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsWeaponEquipped();
+
     //! SelfCondition wrapper for checking race of entity is \p race.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.

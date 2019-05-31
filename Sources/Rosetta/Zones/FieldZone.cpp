@@ -73,14 +73,14 @@ void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
 
 void FieldZone::ActivateAura(Entity& entity)
 {
-    if (entity.card.power.GetTrigger().has_value())
+    if (entity.card.power.GetTrigger())
     {
-        entity.card.power.GetTrigger().value().Activate(entity);
+        entity.card.power.GetTrigger()->Activate(entity);
     }
 
-    if (entity.card.power.GetAura().has_value())
+    if (entity.card.power.GetAura())
     {
-        entity.card.power.GetAura().value().Activate(entity);
+        entity.card.power.GetAura()->Activate(entity);
     }
 
     const int spellPower = entity.GetGameTag(GameTag::SPELLPOWER);

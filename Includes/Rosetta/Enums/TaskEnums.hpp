@@ -9,6 +9,14 @@
 
 namespace RosettaStone
 {
+//! \breif An enumerator for identifying power type.
+enum class PowerType
+{
+    POWER,
+    DEATHRATTLE,
+    COMBO
+};
+
 //! \brief An enumerator for identifying each task.
 enum class TaskID
 {
@@ -54,6 +62,7 @@ enum class TaskID
     FILTER_STACK,
     RANDOM_ENTOURAGE,
     MOVE_TO_GRAVEYARD,
+    ADD_AURA_EFFECT,
 
     NUM_TASK_ID
 };

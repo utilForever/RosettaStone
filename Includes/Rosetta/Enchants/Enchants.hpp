@@ -22,18 +22,18 @@ class Enchants
 {
  public:
     //! Enchant that adds attack and uses script tag.
-    inline static Enchant AddAttackScriptTag = 
+    inline static Enchant AddAttackScriptTag =
         Enchant(Effects::AttackN(0), true);
     //! Enchant that adds health and uses script tag.
     inline static Enchant AddHealthScriptTag =
         Enchant(Effects::HealthN(0), true);
-    
+
     //! Enchant that set attack and uses script tag.
     inline static Enchant SetAttackScriptTag =
-        Enchant(Effect(GameTag::ATK, EffectOperator::SET, 0), true);
+        Enchant(new Effect(GameTag::ATK, EffectOperator::SET, 0), true);
     //! Enchant that set health and uses script tag.
     inline static Enchant SetHealthScriptTag =
-        Enchant(Effect(GameTag::HEALTH, EffectOperator::SET, 0), true);
+        Enchant(new Effect(GameTag::HEALTH, EffectOperator::SET, 0), true);
 
     //! Enchant that adds attack/health and uses script tag.
     inline static Enchant AddAttackHealthScriptTag =
@@ -42,7 +42,7 @@ class Enchants
     //! Creates enchant from card's text.
     //! \param cardID A card's ID.
     //! \return A newly created enchant from card's text.
-    static Enchant GetEnchantFromText(const std::string& cardID);
+    static Enchant* GetEnchantFromText(const std::string& cardID);
 };
 }  // namespace RosettaStone
 
