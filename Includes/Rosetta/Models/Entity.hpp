@@ -105,6 +105,10 @@ class Entity
     //! \return Whether this entity has deathrattle power.
     bool HasDeathrattle() const;
 
+    //! Returns whether this entity has to choose one.
+    //! \return Whether this entity has to choose one.
+    bool HasChooseOne() const;
+
     //! Resets all game tag values that where changed after creation.
     //! Any enchants and trigger is removed.
     virtual void Reset();

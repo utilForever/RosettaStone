@@ -178,6 +178,11 @@ bool Entity::HasDeathrattle() const
     return GetGameTag(GameTag::DEATHRATTLE) == 1;
 }
 
+bool Entity::HasChooseOne() const
+{
+    return GetGameTag(GameTag::CHOOSE_ONE) == 1;
+}
+
 void Entity::Reset()
 {
     m_gameTags.erase(GameTag::DAMAGE);
