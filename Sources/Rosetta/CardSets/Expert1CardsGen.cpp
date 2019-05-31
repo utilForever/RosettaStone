@@ -1040,9 +1040,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: At the start of your turn, deal 2 damage to a random enemy.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::TURN_START));
-    power.GetTrigger().value().tasks = { new RandomTask(EntityType::ENEMIES, 1),
-                                         new DamageTask(EntityType::STACK, 2) };
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { new RandomTask(EntityType::ENEMIES, 1),
+                                  new DamageTask(EntityType::STACK, 2) };
     cards.emplace("EX1_102", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1068,9 +1068,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::TURN_END));
-    power.GetTrigger().value().tasks = { new DamageTask(
-        EntityType::ALL_NOSOURCE, 2) };
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new DamageTask(EntityType::ALL_NOSOURCE, 2) };
     cards.emplace("EX1_249", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1120,9 +1119,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: At the start of your turn, destroy ALL minions.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::TURN_START));
-    power.GetTrigger().value().tasks = { new DestroyTask(
-        EntityType::ALL_MINIONS) };
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { new DestroyTask(EntityType::ALL_MINIONS) };
     cards.emplace("NEW1_021", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1132,8 +1130,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: Your other Pirates have +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(Aura("NEW1_027e", AuraType::FIELD_EXCEPT_SOURCE));
-    power.GetAura().value().condition =
+    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
+    power.GetAura()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     cards.emplace("NEW1_027", power);
 }
