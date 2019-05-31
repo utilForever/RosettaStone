@@ -205,8 +205,17 @@ void Entity::Destroy()
     isDestroyed = true;
 }
 
-void Entity::ActivateTask(PowerType type, Entity* target)
+void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
 {
+    if (HasChooseOne())
+    {
+        if (chooseOne > 0)
+        {
+            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne);
+            return;
+        }
+    }
+
     std::vector<ITask*> tasks;
     switch (type)
     {

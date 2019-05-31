@@ -120,7 +120,8 @@ class Entity
     //! Activates the task.
     //! \param type The type of power.
     //! \param target The target.
-    void ActivateTask(PowerType type, Entity* target = nullptr);
+    //! \param chooseOne The index of chosen card from two cards.
+    void ActivateTask(PowerType type, Entity* target = nullptr, int chooseOne = 0);
 
     //! Builds a new entity that can be added to a game.
     //! \param player An owner of the entity.
