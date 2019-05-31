@@ -15,7 +15,8 @@ namespace RosettaStone::Generic
 //! \param player The player to cast spell.
 //! \param spell The spell to cast.
 //! \param target The target of spell.
-void CastSpell(Player& player, Spell* spell, Character* target);
+//! \param chooseOne The index of chosen card from two cards.
+void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_CAST_SPELL_HPP

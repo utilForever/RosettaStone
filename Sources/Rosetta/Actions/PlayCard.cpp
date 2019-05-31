@@ -11,7 +11,8 @@
 
 namespace RosettaStone::Generic
 {
-void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
+void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
+              int chooseOne)
 {
     // Check battlefield is full
     if (dynamic_cast<Minion*>(source) != nullptr &&
@@ -54,13 +55,13 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
         case CardType::MINION:
         {
             const auto minion = dynamic_cast<Minion*>(source);
-            PlayMinion(player, minion, target, fieldPos);
+            PlayMinion(player, minion, target, fieldPos, chooseOne);
             break;
         }
         case CardType::SPELL:
         {
             const auto spell = dynamic_cast<Spell*>(source);
-            PlaySpell(player, spell, target);
+            PlaySpell(player, spell, target, chooseOne);
             break;
         }
         case CardType::WEAPON:
@@ -81,7 +82,8 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos)
     }
 }
 
-void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
+void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
+                int chooseOne)
 {
     // Add minion to battlefield
     player.GetFieldZone().Add(*minion, fieldPos);
@@ -113,14 +115,14 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos)
     }
     else
     {
-        minion->ActivateTask(PowerType::POWER, target);
+        minion->ActivateTask(PowerType::POWER, target, chooseOne);
     }
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
     player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
-void PlaySpell(Player& player, Spell* spell, Character* target)
+void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)
 {
     // Process cast spell trigger
     player.GetGame()->taskQueue.StartEvent();
@@ -139,7 +141,7 @@ void PlaySpell(Player& player, Spell* spell, Character* target)
     }
     else
     {
-        CastSpell(player, spell, target);
+        CastSpell(player, spell, target, chooseOne);
         player.GetGame()->ProcessDestroyAndUpdateAura();
     }
 }

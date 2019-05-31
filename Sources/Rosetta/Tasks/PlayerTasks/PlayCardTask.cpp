@@ -8,30 +8,32 @@
 
 namespace RosettaStone::PlayerTasks
 {
-PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos)
-    : ITask(source, target), m_fieldPos(fieldPos)
+PlayCardTask::PlayCardTask(Entity* source, Entity* target, int fieldPos,
+                           int chooseOne)
+    : ITask(source, target), m_fieldPos(fieldPos), m_chooseOne(chooseOne)
 {
     // Do nothing
 }
 
-PlayCardTask PlayCardTask::Minion(Entity* source)
+PlayCardTask PlayCardTask::Minion(Entity* source, int chooseOne)
 {
-    return PlayCardTask(source, nullptr, -1);
+    return PlayCardTask(source, nullptr, -1, chooseOne);
 }
 
-PlayCardTask PlayCardTask::MinionTarget(Entity* source, Entity* target)
+PlayCardTask PlayCardTask::MinionTarget(Entity* source, Entity* target, int chooseOne)
 {
-    return PlayCardTask(source, target, -1);
+    return PlayCardTask(source, target, -1, chooseOne);
 }
 
-PlayCardTask PlayCardTask::Spell(Entity* source)
+PlayCardTask PlayCardTask::Spell(Entity* source, int chooseOne)
 {
-    return PlayCardTask(source, nullptr);
+    return PlayCardTask(source, nullptr, -1, chooseOne);
 }
 
-PlayCardTask PlayCardTask::SpellTarget(Entity* source, Entity* target)
+PlayCardTask PlayCardTask::SpellTarget(Entity* source, Entity* target,
+                                       int chooseOne)
 {
-    return PlayCardTask(source, target);
+    return PlayCardTask(source, target, -1, chooseOne);
 }
 
 PlayCardTask PlayCardTask::Weapon(Entity* source)
@@ -47,7 +49,7 @@ TaskID PlayCardTask::GetTaskID() const
 TaskStatus PlayCardTask::Impl(Player& player)
 {
     const auto target = dynamic_cast<Character*>(m_target);
-    Generic::PlayCard(player, m_source, target, m_fieldPos);
+    Generic::PlayCard(player, m_source, target, m_fieldPos, m_chooseOne);
 
     return TaskStatus::COMPLETE;
 }

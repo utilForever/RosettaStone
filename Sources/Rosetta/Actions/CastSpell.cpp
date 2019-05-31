@@ -10,7 +10,7 @@
 
 namespace RosettaStone::Generic
 {
-void CastSpell(Player& player, Spell* spell, Character* target)
+void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
 {
     player.GetGame()->taskQueue.StartEvent();
 
@@ -46,7 +46,7 @@ void CastSpell(Player& player, Spell* spell, Character* target)
         }
         else
         {
-            spell->ActivateTask(PowerType::POWER, target);
+            spell->ActivateTask(PowerType::POWER, target, chooseOne);
         }
 
         player.GetGraveyardZone().Add(*spell);
