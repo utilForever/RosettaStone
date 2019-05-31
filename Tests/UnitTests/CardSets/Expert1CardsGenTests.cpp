@@ -13,6 +13,68 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------ SPELL - DRUID
+// [EX1_154] Wrath - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b>
+//       Deal $3 damage to a minion; or $1 damage
+//       and draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_154_Wrath)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wrath"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wrath"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3, 1));
+    EXPECT_EQ(opField[0]->GetHealth(), 4);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
+    
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3, 2));
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -48,6 +110,7 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
 
     Game game(config);
     game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
