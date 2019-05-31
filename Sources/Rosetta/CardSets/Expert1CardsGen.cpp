@@ -374,7 +374,8 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     // [EX1_248] Feral Spirit - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>. <b>Overload:</b> (2)
+    // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
+    //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 2
@@ -811,7 +812,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_028", power);
-  
+
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -823,7 +824,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
-    cards.emplace("EX1_029", power);  
+    cards.emplace("EX1_029", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
@@ -1009,8 +1010,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger(TriggerType::TURN_START));
-    power.GetTrigger().value().tasks = {
-        new DestroyTask(EntityType::ALL_MINIONS) };
+    power.GetTrigger().value().tasks = { new DestroyTask(
+        EntityType::ALL_MINIONS) };
     cards.emplace("NEW1_021", power);
 
     // --------------------------------------- MINION - NEUTRAL
