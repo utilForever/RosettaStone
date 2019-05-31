@@ -91,6 +91,19 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     cards.emplace("CS2_028", power);
 
     // ------------------------------------------- SPELL - MAGE
+    // [EX1_279] Pyroblast - COST:10
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal $10 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 10, true));
+    cards.emplace("EX1_279", power);
+
+    // ------------------------------------------- SPELL - MAGE
     // [EX1_287] Counterspell - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -111,19 +124,6 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     };
     power.GetTrigger().value().fastExecution = true;
     cards.emplace("EX1_287", power);
-
-    // ------------------------------------------- SPELL - MAGE
-    // [EX1_279] Pyroblast - COST:10
-    // - Faction: Neutral, Set: Expert1, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Deal $10 damage.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 10, true));
-    cards.emplace("EX1_279", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
@@ -811,6 +811,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_028", power);
+  
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
+    cards.emplace("EX1_029", power);  
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
@@ -839,6 +852,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_033", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
+    cards.emplace("EX1_046", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
@@ -891,9 +919,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger(TriggerType::TURN_START));
-    power.GetTrigger().value().tasks = {
-        new RandomTask(EntityType::ENEMIES, 1),
-        new DamageTask(EntityType::STACK, 2) };
+    power.GetTrigger().value().tasks = { new RandomTask(EntityType::ENEMIES, 1),
+                                         new DamageTask(EntityType::STACK, 2) };
     cards.emplace("EX1_102", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -908,6 +935,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_170", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn, deal 2 damage to ALL other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = { new DamageTask(
+        EntityType::ALL_NOSOURCE, 2) };
+    cards.emplace("EX1_249", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
@@ -948,34 +990,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_563", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
-    // - Faction: Alliance, Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
-    cards.emplace("EX1_046", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Deal 2 damage to the enemy hero.
-    // --------------------------------------------------------
-    // GameTag:
-    // - DEATHRATTLE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
-    cards.emplace("EX1_029", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
