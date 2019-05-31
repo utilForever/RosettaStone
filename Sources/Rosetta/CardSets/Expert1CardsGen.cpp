@@ -3,9 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
-#include <Rosetta/Conditions/SelfCondition.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -756,6 +755,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_043", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
+    cards.emplace("EX1_046", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -806,9 +820,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger(TriggerType::TURN_START));
-    power.GetTrigger().value().tasks = {
-        new RandomTask(EntityType::ENEMIES, 1),
-        new DamageTask(EntityType::STACK, 2) };
+    power.GetTrigger().value().tasks = { new RandomTask(EntityType::ENEMIES, 1),
+                                         new DamageTask(EntityType::STACK, 2) };
     cards.emplace("EX1_102", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -863,21 +876,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_563", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
-    // - Faction: Alliance, Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_046e", EntityType::TARGET));
-    cards.emplace("EX1_046", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
@@ -906,6 +904,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     cards.emplace("CS2_188o", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_043e] Hour of Twilight (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::move(Enchants::AddHealthScriptTag));
+    cards.emplace("EX1_043e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_046e] Tempered (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
@@ -917,15 +925,6 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
     cards.emplace("EX1_046e", power);
-    
-    // [EX1_043e] Hour of Twilight (*) - COST:0
-    // - Set: Expert1
-    // --------------------------------------------------------
-    // Text: Increased Health.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchant(Effect(GameTag::HEALTH, EffectOperator::ADD, 0), true));
-    cards.emplace("EX1_043e", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
