@@ -5,11 +5,11 @@
 
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
@@ -183,7 +183,7 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     // Text: Change a minion's Attack to be equal to its Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::move(Enchants::SetAttackScriptTag));
+    power.AddEnchant(Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
 }
 
@@ -374,7 +374,8 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     // [EX1_248] Feral Spirit - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>. <b>Overload:</b> (2)
+    // Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
+    //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 2
@@ -811,7 +812,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_028", power);
-  
+
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -823,7 +824,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(new DamageTask(EntityType::ENEMY_HERO, 2, false));
-    cards.emplace("EX1_029", power);  
+    cards.emplace("EX1_029", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
@@ -852,6 +853,16 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_033", power);
+
+    // [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain +1 Health for each card in your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new CountTask(EntityType::HAND));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_043e", EntityType::SOURCE));
+    cards.emplace("EX1_043", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
@@ -999,8 +1010,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger(TriggerType::TURN_START));
-    power.GetTrigger().value().tasks = {
-        new DestroyTask(EntityType::ALL_MINIONS) };
+    power.GetTrigger().value().tasks = { new DestroyTask(
+        EntityType::ALL_MINIONS) };
     cards.emplace("NEW1_021", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1040,6 +1051,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_188o"));
     cards.emplace("CS2_188o", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_043e] Hour of Twilight (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchant(Enchants::AddHealthScriptTag));
+    cards.emplace("EX1_043e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_046e] Tempered (*) - COST:0
