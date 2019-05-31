@@ -9,12 +9,12 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/GetHandCardsNumTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
@@ -750,7 +750,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: <b>Battlecry:</b> Gain +1 Health for each card in your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetHandCardsNumTask(EntityType::HAND));
+    power.AddPowerTask(new CountTask(EntityType::HAND));
     power.AddPowerTask(new AddEnchantmentTask("EX1_043e", EntityType::SOURCE));
     cards.emplace("EX1_043", power);
 
