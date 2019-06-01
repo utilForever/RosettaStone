@@ -63,6 +63,7 @@ enum class TaskID
     RANDOM_ENTOURAGE,
     MOVE_TO_GRAVEYARD,
     ADD_AURA_EFFECT,
+    SILENCE,
 
     NUM_TASK_ID
 };
