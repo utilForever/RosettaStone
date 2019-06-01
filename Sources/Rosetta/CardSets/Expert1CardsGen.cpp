@@ -23,6 +23,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
@@ -790,6 +791,26 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_188o", EntityType::TARGET));
     cards.emplace("CS2_188", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1]
+    // - Race: Beast, Faction: Horde, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    cards.emplace("CS2_203", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_231] Wisp - COST:0 [ATK:1/HP:1]

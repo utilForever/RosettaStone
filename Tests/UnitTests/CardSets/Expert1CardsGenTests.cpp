@@ -1535,7 +1535,7 @@ TEST(NeutralExpert1Test, CS2_181_InjuredBlademaster)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(Expert1CardsGen, CS2_188_AbusiveSergeant)
+TEST(NeutralExpert1Test, CS2_188_AbusiveSergeant)
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
@@ -1588,6 +1588,73 @@ TEST(Expert1CardsGen, CS2_188_AbusiveSergeant)
 
     EXPECT_EQ(curField[0]->GetAttack(), 3);
     EXPECT_EQ(opField[0]->GetAttack(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1]
+// - Race: Beast, Faction: Horde, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, CS2_203_IronbeakOwl)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ironbeak Owl"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ironbeak Owl"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Leper Gnome"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    EXPECT_EQ(curField[0]->HasDeathrattle(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField[0]->GetSpellPower(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card4));
+    EXPECT_EQ(opField[0]->GetSpellPower(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -1947,7 +2014,7 @@ TEST(NeutralExpert1Test, EX1_043_TwilightDrake)
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
-TEST(Expert1CardsGen, EX1_046_DarkIronDwarf)
+TEST(NeutralExpert1Test, EX1_046_DarkIronDwarf)
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
