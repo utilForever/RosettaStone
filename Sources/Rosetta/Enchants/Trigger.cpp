@@ -285,6 +285,14 @@ void Trigger::Validate(Player* player, Entity* source)
             }
             break;
         }
+        case TriggerSource::FRIENDLY:
+        {
+            if (source->owner != m_owner->owner)
+            {
+                return;
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "Trigger::Validate() - Invalid source trigger!");
