@@ -31,6 +31,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
 
+    //! SelfCondition wrapper for checking an entity is undamaged.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsUndamaged();
+
     //! SelfCondition wrapper for checking an hero equips weapon.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeaponEquipped();
