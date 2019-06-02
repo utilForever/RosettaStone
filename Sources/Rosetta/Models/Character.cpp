@@ -188,8 +188,16 @@ int Character::TakeDamage(Entity& source, int damage)
     }
 
     const int armor = (hero != nullptr) ? hero->GetArmor() : 0;
-    const int amount =
+    int amount =
         (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
+
+    SetPreDamage(amount);
+
+    if (preDamageTrigger != nullptr)
+    {
+        preDamageTrigger(owner, this);
+        amount = GetPreDamage();
+    }
 
     if (GetGameTag(GameTag::IMMUNE) == 1)
     {
@@ -202,6 +210,7 @@ int Character::TakeDamage(Entity& source, int damage)
     }
 
     SetDamage(GetDamage() + amount);
+    SetPreDamage(0);
 
     // Process damage triggers
     owner->GetGame()->taskQueue.StartEvent();

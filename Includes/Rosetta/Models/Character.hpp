@@ -122,6 +122,8 @@ class Character : public Entity
     //! \param source An entity to give heal.
     //! \param heal The value of heal.
     void TakeHeal(Entity& source, int heal);
+
+    std::function<void(Player*, Entity*)> preDamageTrigger;
 };
 }  // namespace RosettaStone
 
