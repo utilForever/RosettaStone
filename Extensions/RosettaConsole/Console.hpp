@@ -109,6 +109,7 @@ class Console
     int ManageDeck();
     void SimulateGame() const;
     void Leave();
+    void SaveDeck();
 
     void CreateDeck();
     void ModifyDeck();
