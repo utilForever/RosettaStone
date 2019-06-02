@@ -69,7 +69,7 @@ TEST(DruidExpert1Test, EX1_154_Wrath)
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3, 1));
     EXPECT_EQ(opField[0]->GetHealth(), 4);
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
-    
+
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3, 2));
     EXPECT_EQ(opField[0]->GetHealth(), 3);
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
@@ -1655,6 +1655,55 @@ TEST(NeutralExpert1Test, CS2_203_IronbeakOwl)
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card4));
     EXPECT_EQ(opField[0]->GetSpellPower(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS2_221] Spiteful Smith - COST:5 [ATK:4/HP:6]
+// - Faction: Horde, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Enrage:</b> Your weapon has +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, CS2_221_SpitefulSmith)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Spiteful Smith"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ironbeak Owl"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 3);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card2, card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
