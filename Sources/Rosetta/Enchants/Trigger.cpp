@@ -74,6 +74,34 @@ void Trigger::Activate(Entity& source)
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::PREDAMAGE:
+            switch (triggerSource)
+            {
+                case TriggerSource::HERO:
+                {
+                    source.owner->GetHero()->preDamageTrigger =
+                        std::move(triggerFunc);
+                    break;
+                }
+                case TriggerSource::SELF:
+                {
+                    auto minion = dynamic_cast<Minion*>(&source);
+                    minion->preDamageTrigger = std::move(triggerFunc);
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment =
+                        dynamic_cast<Enchantment*>(&source);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
+                    minion->preDamageTrigger = std::move(triggerFunc);
+                    break;
+                }
+                default:
+                    break;
+            }
+            break;
         case TriggerType::TAKE_DAMAGE:
             game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
             break;
@@ -110,6 +138,32 @@ void Trigger::Remove() const
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = nullptr;
             break;
+        case TriggerType::PREDAMAGE:
+            switch (triggerSource)
+            {
+                case TriggerSource::HERO:
+                {
+                    m_owner->owner->GetHero()->preDamageTrigger = nullptr;
+                    break;
+                }
+                case TriggerSource::SELF:
+                {
+                    auto minion = dynamic_cast<Minion*>(m_owner);
+                    minion->preDamageTrigger = nullptr;
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment =
+                        dynamic_cast<Enchantment*>(m_owner);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
+                    minion->preDamageTrigger = nullptr;
+                    break;
+                }
+                default:
+                    break;
+            }
         case TriggerType::TAKE_DAMAGE:
             game->triggerManager.takeDamageTrigger = nullptr;
             break;
@@ -246,6 +300,7 @@ void Trigger::Validate(Player* player, Entity* source)
         case TriggerType::CAST_SPELL:
         case TriggerType::HEAL:
         case TriggerType::ATTACK:
+        case TriggerType::PREDAMAGE:
         case TriggerType::TAKE_DAMAGE:
             break;
         default:

@@ -21,6 +21,9 @@ enum class TriggerType
     HEAL,        //!< The effect will be triggered when characters are healed.
     ATTACK,      //!< The effect will be triggered when characters attack.
     SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
+    PREDAMAGE,  //!< Effect will be triggered when a character gets predamage.
+                //!< This event happens just before the character is actually
+                //!< damaged.
     TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages.
 };
