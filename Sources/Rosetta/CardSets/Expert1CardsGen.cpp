@@ -20,6 +20,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -171,6 +172,24 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
     cards.emplace("EX1_621", power);
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_623e", EntityType::TARGET));
+    cards.emplace("EX1_623", power);
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_624] Holy Fire - COST:6
     // - Faction: Priest, Set: Expert1, Rarity: Rare
@@ -199,6 +218,16 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_623e] Infusion (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +3 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_623e"));
+    cards.emplace("EX1_623e", power);
 }
 
 void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
@@ -283,6 +312,23 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_522", power);
+
+    // ----------------------------------------- MINION - ROGUE
+    // [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Return a minion to its owner's hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(new ReturnHandTask(EntityType::TARGET));
+    cards.emplace("NEW1_005", power);
 }
 
 void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
