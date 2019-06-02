@@ -20,6 +20,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -170,6 +171,38 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
     cards.emplace("EX1_621", power);
+
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_623e", EntityType::TARGET));
+    cards.emplace("EX1_623", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_624] Holy Fire - COST:6
+    // - Faction: Priest, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal $5 damage. Restore #5 Health to your hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    power.AddPowerTask(new HealTask(EntityType::HERO, 5));
+    cards.emplace("EX1_624", power);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
@@ -185,6 +218,16 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [EX1_623e] Infusion (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +3 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_623e"));
+    cards.emplace("EX1_623e", power);
 }
 
 void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
@@ -269,6 +312,23 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_522", power);
+
+    // ----------------------------------------- MINION - ROGUE
+    // [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Return a minion to its owner's hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(new ReturnHandTask(EntityType::TARGET));
+    cards.emplace("NEW1_005", power);
 }
 
 void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
@@ -563,6 +623,21 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
     cards.emplace("CS2_104", power);
+
+    // ----------------------------------------- SPELL - WARRIOR
+    // [EX1_607] Inner Rage - COST:0
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to a minion and give it +2 Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_607e", EntityType::TARGET));
+    cards.emplace("EX1_607", power);
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
@@ -578,6 +653,16 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
     cards.emplace("CS2_104e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_607e] Inner Rage (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_607e"));
+    cards.emplace("EX1_607e", power);
 }
 
 void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
@@ -894,6 +979,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_067", power);
 
+    // ---------------------------------------- MINION - NEUTRAL
+    // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger().value().triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger().value().tasks = { new DrawTask(1) };
+    cards.emplace("EX1_095", power);
+
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -1025,6 +1122,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     cards.emplace("NEW1_027", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       give another random friendly minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = {
+        new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
+        new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
+    };
+    cards.emplace("NEW1_037", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
@@ -1074,6 +1186,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
     cards.emplace("EX1_046e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [NEW1_037e] Equipped (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Effects::AttackN(1));
+    cards.emplace("NEW1_037e", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
