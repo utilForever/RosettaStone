@@ -64,6 +64,7 @@ enum class TaskID
     MOVE_TO_GRAVEYARD,
     ADD_AURA_EFFECT,
     SILENCE,
+    DAMAGE_NUMBER,
 
     NUM_TASK_ID
 };
