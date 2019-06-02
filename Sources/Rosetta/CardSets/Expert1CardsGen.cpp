@@ -577,6 +577,21 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
     cards.emplace("CS2_104", power);
+
+    // ----------------------------------------- SPELL - WARRIOR
+    // [EX1_607] Inner Rage - COST:0
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal $1 damage to a minion and give it +2 Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_607e", EntityType::TARGET));
+    cards.emplace("EX1_607", power);
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
@@ -592,6 +607,16 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
     cards.emplace("CS2_104e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_607e] Inner Rage (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_607e"));
+    cards.emplace("EX1_607e", power);
 }
 
 void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
@@ -719,6 +744,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     cards.emplace("EX1_005", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger().value().triggerSource = TriggerSource::SELF;
+    power.GetTrigger().value().tasks = { new DrawTask(1) };
+    cards.emplace("EX1_007", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
@@ -1051,6 +1088,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetAura().value().condition =
         new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     cards.emplace("NEW1_027", power);
+
+	// --------------------------------------- MINION - NEUTRAL
+    // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, give another random friendly minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::TURN_END));
+    power.GetTrigger().value().tasks = {
+        new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
+        new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
+    };
+    cards.emplace("NEW1_037", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
@@ -1100,6 +1151,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
     cards.emplace("EX1_046e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [NEW1_037e] Equipped (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Effects::AttackN(1));
+    cards.emplace("NEW1_037e", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)

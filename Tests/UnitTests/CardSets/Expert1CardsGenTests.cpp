@@ -279,6 +279,52 @@ TEST(WarriorExpert1Test, CS2_104_Rampage)
     EXPECT_EQ(curField[0]->GetHealth(), 9);
 }
 
+// ----------------------------------------- SPELL - WARRIOR
+// [EX1_607] Inner Rage - COST:0
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal $1 damage to a minion and give it +2 Attack.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_607_InnerRage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Inner Rage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    EXPECT_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 8);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_129] Inner Fire - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -1407,6 +1453,52 @@ TEST(NeutralExpert1Test, EX1_005_BigGameHunter)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever this minion takes damage, draw a card.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_007_AcolyteofPain)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acolyte of Pain"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
 // - Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
@@ -2424,4 +2516,54 @@ TEST(NeutralExpert1Test, NEW1_027_SouthseaCaptain)
     EXPECT_EQ(curField[2]->GetHealth(), 5);
     EXPECT_EQ(curField[3]->GetAttack(), 5);
     EXPECT_EQ(curField[3]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
+// - Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, give another random friendly minion +1 Attack.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_037_MasterSwordsmith)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Master Swordsmith"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    int totalAttack = curField[1]->GetAttack();
+    totalAttack += curField[2]->GetAttack();
+    EXPECT_EQ(totalAttack, 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    totalAttack = curField[1]->GetAttack();
+    totalAttack += curField[2]->GetAttack();
+    EXPECT_EQ(totalAttack, 7);
 }
