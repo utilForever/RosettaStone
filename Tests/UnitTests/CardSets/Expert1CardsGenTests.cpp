@@ -411,6 +411,45 @@ TEST(PriestExpert1Test, EX1_621_CircleOfHealing)
     EXPECT_EQ(opField[0]->GetHealth(), 7);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [EX1_624] Holy Fire - COST:6
+// - Faction: Priest, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal $5 damage. Restore #5 Health to your hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_624_HolyFire)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetDamage(8);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Holy Fire"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_073] Cold Blood - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -1791,6 +1830,60 @@ TEST(Expert1CardsGen, EX1_046_DarkIronDwarf)
 TEST(NeutralExpert1Test, EX1_067_ArgentCommander)
 {
     // Do nothing
+}
+
+// ---------------------------------------- MINION - NEUTRAL
+// [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you cast a spell, draw a card.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_095_GadgetzanAuctioneer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Gadgetzan Auctioneer"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Pyroblast"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Lightning Bolt"));
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 7);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL

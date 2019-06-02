@@ -171,6 +171,20 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
     cards.emplace("EX1_621", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_624] Holy Fire - COST:6
+    // - Faction: Priest, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal $5 damage. Restore #5 Health to your hero.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
+    power.AddPowerTask(new HealTask(EntityType::HERO, 5));
+    cards.emplace("EX1_624", power);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
@@ -911,6 +925,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_067", power);
+
+    // ---------------------------------------- MINION - NEUTRAL
+    // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger().value().triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger().value().tasks = { new DrawTask(1) };
+    cards.emplace("EX1_095", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
