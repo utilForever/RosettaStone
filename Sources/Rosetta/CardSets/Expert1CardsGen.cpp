@@ -181,7 +181,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, false));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     power.AddPowerTask(new HealTask(EntityType::HERO, 5));
     cards.emplace("EX1_624", power);
 }
@@ -916,8 +916,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger().value().triggerSource =
-        TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger().value().triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger().value().tasks = { new DrawTask(1) };
     cards.emplace("EX1_095", power);
 
