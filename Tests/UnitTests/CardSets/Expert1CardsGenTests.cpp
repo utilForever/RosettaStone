@@ -2514,6 +2514,7 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
+
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
@@ -2642,6 +2643,7 @@ TEST(NeutralExpert1Test, NEW1_037_MasterSwordsmith)
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
+
     totalAttack = curField[1]->GetAttack();
     totalAttack += curField[2]->GetAttack();
     EXPECT_EQ(totalAttack, 7);

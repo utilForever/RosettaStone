@@ -1123,11 +1123,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     cards.emplace("NEW1_027", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: At the end of your turn, give another random friendly minion +1 Attack.
+    // Text: At the end of your turn,
+    //       give another random friendly minion +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(Trigger(TriggerType::TURN_END));
