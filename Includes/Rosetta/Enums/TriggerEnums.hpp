@@ -18,6 +18,7 @@ enum class TriggerType
     PLAY_CARD,   //!< The effect will be triggered when a player plays a card.
     CAST_SPELL,  //!< The effect will be triggered when a player plays a Spell
                  //!< card.
+    AFTER_CAST,  //!< The effect will be triggered after a spell is played.
     HEAL,        //!< The effect will be triggered when characters are healed.
     ATTACK,      //!< The effect will be triggered when characters attack.
     SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
@@ -44,6 +45,7 @@ enum class SequenceType
 {
     NONE,
     PLAY_CARD,
+    PLAY_SPELL
 };
 }  // namespace RosettaStone
 

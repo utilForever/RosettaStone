@@ -19,6 +19,10 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
         case TriggerType::PLAY_CARD:
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
+        case TriggerType::CAST_SPELL:
+        case TriggerType::AFTER_CAST:
+            m_sequenceType = SequenceType::PLAY_SPELL;
+            break;
         case TriggerType::TURN_END:
             fastExecution = true;
             break;
@@ -64,6 +68,9 @@ void Trigger::Activate(Entity* source)
             break;
         case TriggerType::CAST_SPELL:
             game->triggerManager.castSpellTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::AFTER_CAST:
+            game->triggerManager.afterCastTrigger = std::move(triggerFunc);
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = std::move(triggerFunc);
@@ -127,6 +134,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::CAST_SPELL:
             game->triggerManager.castSpellTrigger = nullptr;
+            break;
+        case TriggerType::AFTER_CAST:
+            game->triggerManager.afterCastTrigger = nullptr;
             break;
         case TriggerType::HEAL:
             game->triggerManager.healTrigger = nullptr;
@@ -297,6 +307,7 @@ void Trigger::Validate(Player* player, Entity* source)
             }
             break;
         case TriggerType::CAST_SPELL:
+        case TriggerType::AFTER_CAST:
         case TriggerType::HEAL:
         case TriggerType::ATTACK:
         case TriggerType::PREDAMAGE:
