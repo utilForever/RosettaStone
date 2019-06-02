@@ -40,12 +40,12 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     // Do nothing
 }
 
-void Trigger::Activate(Entity& source)
+void Trigger::Activate(Entity* source)
 {
-    auto* instance = new Trigger(*this, source);
-    Game* game = source.owner->GetGame();
+    auto* instance = new Trigger(*this, *source);
+    Game* game = source->owner->GetGame();
 
-    source.activatedTrigger = instance;
+    source->activatedTrigger = instance;
 
     auto triggerFunc = [instance](Player* p, Entity* e) {
         instance->Process(p, e);
@@ -79,20 +79,19 @@ void Trigger::Activate(Entity& source)
             {
                 case TriggerSource::HERO:
                 {
-                    source.owner->GetHero()->preDamageTrigger =
+                    source->owner->GetHero()->preDamageTrigger =
                         std::move(triggerFunc);
                     break;
                 }
                 case TriggerSource::SELF:
                 {
-                    auto minion = dynamic_cast<Minion*>(&source);
+                    auto minion = dynamic_cast<Minion*>(source);
                     minion->preDamageTrigger = std::move(triggerFunc);
                     break;
                 }
                 case TriggerSource::ENCHANTMENT_TARGET:
                 {
-                    const auto enchantment =
-                        dynamic_cast<Enchantment*>(&source);
+                    const auto enchantment = dynamic_cast<Enchantment*>(source);
                     auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->preDamageTrigger = std::move(triggerFunc);

@@ -37,7 +37,7 @@ class Trigger
 
     //! Activates trigger to battlefield.
     //! \param source An source of trigger.
-    void Activate(Entity& source);
+    void Activate(Entity* source);
 
     //! Removes this object from game and unsubscribe from the related event.
     void Remove() const;
