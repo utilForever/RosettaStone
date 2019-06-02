@@ -20,6 +20,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 
@@ -269,6 +270,23 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_522", power);
+
+    // ----------------------------------------- MINION - ROGUE
+    // [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Combo:</b> Return a minion to its owner's hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(new ReturnHandTask(EntityType::TARGET));
+    cards.emplace("NEW1_005", power);
 }
 
 void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
