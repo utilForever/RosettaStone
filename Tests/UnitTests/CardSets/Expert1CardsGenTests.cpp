@@ -1707,6 +1707,51 @@ TEST(NeutralExpert1Test, CS2_221_SpitefulSmith)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6]
+// - Faction: Horde, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Your minions cost (3) more.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, CS2_227_VentureCoMercenary)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::GetInstance().FindCardByName("Venture Co. Mercenary"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ironbeak Owl"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Malygos"));
+
+    EXPECT_EQ(card2->GetCost(), 3);
+    EXPECT_EQ(card3->GetCost(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card2->GetCost(), 6);
+    EXPECT_EQ(card3->GetCost(), 12);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CS2_231] Wisp - COST:0 [ATK:1/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

@@ -827,6 +827,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_221", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6]
+    // - Faction: Horde, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your minions cost (3) more.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(
+        AuraType::HAND, { new Effect(GameTag::COST, EffectOperator::ADD, 3) }));
+    power.GetAura()->condition = new SelfCondition(SelfCondition::IsMinion());
+    cards.emplace("CS2_227", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CS2_231] Wisp - COST:0 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
