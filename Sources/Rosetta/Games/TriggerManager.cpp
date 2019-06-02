@@ -40,6 +40,14 @@ void TriggerManager::OnCastSpellTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnAfterCastTrigger(Player* player, Entity* sender) const
+{
+    if (afterCastTrigger != nullptr)
+    {
+        afterCastTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnHealTrigger(Player* player, Entity* sender) const
 {
     if (healTrigger != nullptr)
