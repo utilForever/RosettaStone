@@ -19,11 +19,14 @@ class Entity;
 enum class AuraType
 {
     INVALID,   //!< Invalid type.
+    SELF,      //!< This type of aura only affects the source of the aura.
     ADJACENT,  //!< This type of aura affects the minions adjacent to the source
                //!< of the aura.
     FIELD,     //!< This type of aura affects all friendly minions.
     FIELD_EXCEPT_SOURCE,  //!< This type of aura affects all friendly minions
                           //!< except the source of the aura.
+    WEAPON,   //!< This type of aura affects the weapon of the source's
+              //!< controller.
     ADAPTIVE  //!< This type of aura is influenced by other factors in game.
 };
 
@@ -59,7 +62,7 @@ class Aura
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of aura.
-    virtual void Activate(Entity& owner);
+    virtual void Activate(Entity* owner);
 
     //! Updates this effect to apply the effect to recently modified entities.
     virtual void Update();
@@ -69,11 +72,11 @@ class Aura
 
     //! Removes entity to update a list of entities.
     //! \param entity An entity to remove.
-    void RemoveEntity(Entity& entity);
+    void RemoveEntity(Entity* entity);
 
     //! Apply aura's effect(s) to target entity.
     //! \param entity An entity to apply aura's effect(s).
-    void Apply(Entity& entity);
+    void Apply(Entity* entity);
 
     //! Returns the type of aura.
     //! \return The type of aura.
@@ -96,7 +99,12 @@ class Aura
     //! \param owner An owner of aura.
     Aura(Aura& prototype, Entity& owner);
 
+    AuraType m_type = AuraType::INVALID;
     Entity* m_owner = nullptr;
+
+    std::vector<Effect*> m_effects;
+
+    bool m_turnOn = true;
 
  private:
     //! Adds aura to battlefield.
@@ -108,14 +116,11 @@ class Aura
     //! Internal method of Remove().
     void RemoveInternal();
 
-    AuraType m_type = AuraType::INVALID;
     std::string m_enchantmentID;
 
-    std::vector<Effect*> m_effects;
     std::vector<Entity*> m_appliedEntities;
     std::vector<Entity*> m_tempList;
 
-    bool m_turnOn = true;
     bool m_toBeUpdated = true;
 };
 
@@ -128,15 +133,14 @@ class Aura
 class AdaptiveEffect : public Aura
 {
  public:
-    //! Defines a kind of effects in which the given tags are boolean and
-    //! determined by a specific condition. (e.g. Southsea Deckhand)
-    //! \param _condition A specific condition.
+    //! Constructs adaptive effect with given \p _condition and \p tags.
+    //! \param _condition The specific condition.
     //! \param tags The given tags.
     AdaptiveEffect(SelfCondition* _condition, std::vector<GameTag> tags);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive effect.
-    void Activate(Entity& owner) override;
+    void Activate(Entity* owner) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
     void Update() override;
@@ -154,6 +158,39 @@ class AdaptiveEffect : public Aura
     std::vector<int> m_lastValues;
 
     bool m_isSwitching = false;
+};
+
+//!
+//! \brief EnrageEffect class.
+//!
+//! Enrage is the informal name for a minion ability where the stated effect
+//! becomes active only when the minion is damaged. If the minion regains
+//! undamaged status, either through healing or a forced resetting of its
+//! maximum Health, the Enrage effect will be canceled.
+//!
+class EnrageEffect : public Aura
+{
+ public:
+    //! Constructs enrage effect with given \p type and \p effects.
+    //! \param type The type of aura.
+    //! \param effects A list of effect.
+    EnrageEffect(AuraType type, std::vector<Effect*> effects);
+
+    //! Create new Aura instance to the owner's game.
+    //! \param owner An owner of enrage effect.
+    void Activate(Entity* owner) override;
+
+    //! Updates this effect to apply the effect to recently modified entities.
+    void Update() override;
+
+ private:
+    //! Constructs enrage effect with given \p prototype and \p owner.
+    //! \param prototype An enrage effect for prototype.
+    //! \param owner An owner of adaptive effect.
+    EnrageEffect(EnrageEffect& prototype, Entity& owner);
+
+    Entity* m_target = nullptr;
+    bool m_enraged = false;
 };
 }  // namespace RosettaStone
 

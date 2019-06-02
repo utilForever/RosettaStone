@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
@@ -32,7 +33,7 @@ void Aura::SetToBeUpdated(bool value)
     m_toBeUpdated = value;
 }
 
-void Aura::Activate(Entity& owner)
+void Aura::Activate(Entity* owner)
 {
     Card card = Cards::FindCardByID(m_enchantmentID);
 
@@ -41,10 +42,10 @@ void Aura::Activate(Entity& owner)
         m_effects = card.power.GetEnchant()->effects;
     }
 
-    auto instance = new Aura(*this, owner);
+    auto instance = new Aura(*this, *owner);
 
-    owner.owner->GetGame()->auras.emplace_back(instance);
-    owner.onGoingEffect = instance;
+    owner->owner->GetGame()->auras.emplace_back(instance);
+    owner->onGoingEffect = instance;
 
     instance->AddToField();
 
@@ -52,15 +53,15 @@ void Aura::Activate(Entity& owner)
     {
         case AuraType::FIELD:
         {
-            for (auto& minion : owner.owner->GetFieldZone().GetAll())
+            for (auto& minion : owner->owner->GetFieldZone().GetAll())
             {
                 if (condition == nullptr || condition->Evaluate(minion))
                 {
                     if (card.power.GetTrigger())
                     {
                         const auto enchantment = Enchantment::GetInstance(
-                            *owner.owner, card, minion);
-                        card.power.GetTrigger()->Activate(*enchantment);
+                            *owner->owner, card, minion);
+                        card.power.GetTrigger()->Activate(enchantment);
                     }
                 }
 
@@ -70,9 +71,9 @@ void Aura::Activate(Entity& owner)
         }
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : owner.owner->GetFieldZone().GetAll())
+            for (auto& minion : owner->owner->GetFieldZone().GetAll())
             {
-                if (minion == &owner)
+                if (minion == owner)
                 {
                     continue;
                 }
@@ -82,8 +83,8 @@ void Aura::Activate(Entity& owner)
                     if (card.power.GetTrigger())
                     {
                         const auto enchantment = Enchantment::GetInstance(
-                            *owner.owner, card, minion);
-                        card.power.GetTrigger()->Activate(*enchantment);
+                            *owner->owner, card, minion);
+                        card.power.GetTrigger()->Activate(enchantment);
                     }
                 }
 
@@ -113,9 +114,9 @@ void Aura::Remove()
     m_owner->onGoingEffect = nullptr;
 }
 
-void Aura::RemoveEntity(Entity& entity)
+void Aura::RemoveEntity(Entity* entity)
 {
-    if (&entity == m_owner)
+    if (entity == m_owner)
     {
         Remove();
     }
@@ -126,7 +127,7 @@ void Aura::RemoveEntity(Entity& entity)
             return;
         }
         const auto iter = std::find(m_appliedEntities.cbegin(),
-                                    m_appliedEntities.cend(), &entity);
+                                    m_appliedEntities.cend(), entity);
         if (iter != m_appliedEntities.end())
         {
             m_appliedEntities.erase(iter);
@@ -134,46 +135,46 @@ void Aura::RemoveEntity(Entity& entity)
     }
 }
 
-void Aura::Apply(Entity& entity)
+void Aura::Apply(Entity* entity)
 {
     const auto iter =
-        std::find(m_appliedEntities.begin(), m_appliedEntities.end(), &entity);
+        std::find(m_appliedEntities.begin(), m_appliedEntities.end(), entity);
     if (iter != m_appliedEntities.end())
     {
-        if (!restless || (condition != nullptr && condition->Evaluate(&entity)))
+        if (!restless || (condition != nullptr && condition->Evaluate(entity)))
         {
             return;
         }
 
         for (auto& effect : m_effects)
         {
-            effect->Remove(*entity.auraEffects);
+            effect->Remove(*entity->auraEffects);
         }
 
         m_appliedEntities.erase(iter);
     }
 
-    if (condition != nullptr && !condition->Evaluate(&entity))
+    if (condition != nullptr && !condition->Evaluate(entity))
     {
         return;
     }
 
     for (auto& effect : m_effects)
     {
-        effect->Apply(*entity.auraEffects);
+        effect->Apply(*entity->auraEffects);
     }
 
-    m_appliedEntities.emplace_back(&entity);
+    m_appliedEntities.emplace_back(entity);
 }
 
 Aura::Aura(Aura& prototype, Entity& owner)
     : condition(prototype.condition),
       restless(prototype.restless),
-      m_owner(&owner),
       m_type(prototype.m_type),
-      m_enchantmentID(prototype.m_enchantmentID),
+      m_owner(&owner),
       m_effects(prototype.m_effects),
-      m_turnOn(prototype.m_turnOn)
+      m_turnOn(prototype.m_turnOn),
+      m_enchantmentID(prototype.m_enchantmentID)
 {
     // Do nothing
 }
@@ -201,7 +202,7 @@ void Aura::UpdateInternal()
         {
             for (auto& temp : m_tempList)
             {
-                Apply(*temp);
+                Apply(temp);
             }
 
             m_tempList.clear();
@@ -241,12 +242,12 @@ void Aura::UpdateInternal()
 
                 if (pos > 0)
                 {
-                    Apply(*field[pos - 1]);
+                    Apply(field[pos - 1]);
                 }
                 if (pos < m_owner->owner->GetFieldZone().GetCount() - 1 &&
                     m_owner->owner->GetFieldZone().GetCount() > pos)
                 {
-                    Apply(*field[pos + 1]);
+                    Apply(field[pos + 1]);
                 }
 
                 break;
@@ -254,7 +255,7 @@ void Aura::UpdateInternal()
             case AuraType::FIELD:
                 for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
                 {
-                    Apply(*minion);
+                    Apply(minion);
                 }
                 break;
             case AuraType::FIELD_EXCEPT_SOURCE:
@@ -263,7 +264,7 @@ void Aura::UpdateInternal()
                 {
                     if (minion != m_owner)
                     {
-                        Apply(*minion);
+                        Apply(minion);
                     }
                 }
                 break;
@@ -340,12 +341,12 @@ AdaptiveEffect::AdaptiveEffect(SelfCondition* _condition,
     condition = _condition;
 }
 
-void AdaptiveEffect::Activate(Entity& owner)
+void AdaptiveEffect::Activate(Entity* owner)
 {
-    auto instance = new AdaptiveEffect(*this, owner);
+    auto instance = new AdaptiveEffect(*this, *owner);
 
-    owner.owner->GetGame()->auras.emplace_back(instance);
-    owner.onGoingEffect = instance;
+    owner->owner->GetGame()->auras.emplace_back(instance);
+    owner->onGoingEffect = instance;
 }
 
 void AdaptiveEffect::Update()
@@ -385,6 +386,109 @@ AdaptiveEffect::AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner)
         m_isSwitching = true;
 
         return;
+    }
+}
+
+EnrageEffect::EnrageEffect(AuraType type, std::vector<Effect*> effects)
+    : Aura(type, std::move(effects))
+{
+    // Do nothing
+}
+
+void EnrageEffect::Activate(Entity* owner)
+{
+    const auto enchantment = dynamic_cast<Enchantment*>(owner);
+    if (enchantment)
+    {
+        owner = nullptr;
+        owner = enchantment->GetTarget();
+    }
+
+    auto instance = new EnrageEffect(*this, *owner);
+    owner->owner->GetGame()->auras.emplace_back(instance);
+    owner->onGoingEffect = instance;
+}
+
+void EnrageEffect::Update()
+{
+    auto minion = dynamic_cast<Minion*>(m_owner);
+
+    if (m_type == AuraType::WEAPON)
+    {
+        m_target = minion->owner->GetHero()->weapon;
+    }
+
+    if (!m_turnOn)
+    {
+        EraseIf(m_owner->owner->GetGame()->auras,
+                [this](Aura* aura) { return aura == this; });
+
+        if (!m_enraged)
+        {
+            return;
+        }
+
+        if (m_target != nullptr)
+        {
+            for (auto& effect : m_effects)
+            {
+                effect->Remove(*m_target->auraEffects);
+            }
+        }
+    }
+
+    if (!m_enraged)
+    {
+        if (minion->GetDamage() == 0)
+        {
+            return;
+        }
+
+        if (m_target != nullptr)
+        {
+            for (auto& effect : m_effects)
+            {
+                effect->Apply(*m_target->auraEffects);
+            }
+        }
+
+        m_enraged = true;
+    }
+    else
+    {
+        if (minion->GetDamage() != 0)
+        {
+            return;
+        }
+
+        if (m_target != nullptr)
+        {
+            for (auto& effect : m_effects)
+            {
+                effect->Remove(*m_target->auraEffects);
+            }
+        }
+
+        m_enraged = false;
+    }
+}
+
+EnrageEffect::EnrageEffect(EnrageEffect& prototype, Entity& owner)
+    : Aura(prototype, owner)
+{
+    m_enraged = prototype.m_enraged;
+    restless = true;
+
+    switch (m_type)
+    {
+        case AuraType::SELF:
+            m_target = &owner;
+            break;
+        case AuraType::WEAPON:
+            m_target = owner.owner->GetHero()->weapon;
+            break;
+        default:
+            break;
     }
 }
 }  // namespace RosettaStone
