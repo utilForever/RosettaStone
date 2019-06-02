@@ -42,12 +42,12 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
         if (power.GetAura())
         {
-            power.GetAura()->Activate(*enchantment);
+            power.GetAura()->Activate(enchantment);
         }
 
         if (power.GetTrigger())
         {
-            power.GetTrigger()->Activate(*enchantment);
+            power.GetTrigger()->Activate(enchantment);
         }
 
         if (power.GetEnchant())

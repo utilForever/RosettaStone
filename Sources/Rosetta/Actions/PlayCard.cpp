@@ -154,13 +154,13 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     // Process trigger
     if (weapon->card.power.GetTrigger())
     {
-        weapon->card.power.GetTrigger()->Activate(*weapon);
+        weapon->card.power.GetTrigger()->Activate(weapon);
     }
 
     // Process aura
     if (weapon->card.power.GetAura())
     {
-        weapon->card.power.GetAura()->Activate(*weapon);
+        weapon->card.power.GetAura()->Activate(weapon);
     }
 
     // Process power tasks

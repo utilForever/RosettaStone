@@ -22,7 +22,7 @@ void HandZone::Add(Entity& entity, int zonePos)
 
     if (entity.card.power.GetTrigger())
     {
-        entity.card.power.GetTrigger()->Activate(entity);
+        entity.card.power.GetTrigger()->Activate(&entity);
     }
 }
 

@@ -337,7 +337,7 @@ class PositioningZone : public LimitedZone<T>
 
         for (std::size_t i = 0; i < auras.size(); ++i)
         {
-            auras[i]->RemoveEntity(entity);
+            auras[i]->RemoveEntity(&entity);
         }
 
         return entity;
