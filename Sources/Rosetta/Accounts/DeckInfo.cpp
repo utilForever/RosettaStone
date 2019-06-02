@@ -149,15 +149,24 @@ bool DeckInfo::DeleteCard(std::string cardID, std::size_t numCardToDelete)
     if (cardIter != m_cards.end())
     {
         // Remove a given number of cards from deck
+
+        /*
         (*cardIter).second = std::min((*cardIter).second - numCardToDelete,
                                       static_cast<std::size_t>(0u));
-        m_numOfCards = std::min(m_numOfCards - numCardToDelete,
+									  */
+        (*cardIter).second = (*cardIter).second - numCardToDelete;
+
+        /*
+		m_numOfCards = std::min(m_numOfCards - numCardToDelete,
                                 static_cast<std::size_t>(0u));
+								*/						
+        m_numOfCards = m_numOfCards - numCardToDelete;
 
         // If the number of cards is less than 0, remove card from deck
         if ((*cardIter).second <= 0)
         {
             m_cards.erase(cardIter);
+            std::cout << "Ä«µå »èÁ¦µÊ";
         }
 
         return true;
