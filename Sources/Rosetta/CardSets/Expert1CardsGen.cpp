@@ -746,18 +746,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_005", power);
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
-    // - Set: Expert1, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger().value().triggerSource = TriggerSource::SELF;
-    power.GetTrigger().value().tasks = { new DrawTask(1) };
-    cards.emplace("EX1_007", power);
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
