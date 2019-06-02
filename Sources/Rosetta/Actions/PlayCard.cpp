@@ -144,6 +144,12 @@ void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)
         CastSpell(player, spell, target, chooseOne);
         player.GetGame()->ProcessDestroyAndUpdateAura();
     }
+
+    // Process after cast trigger
+    player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnAfterCastTrigger(&player, spell);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
