@@ -188,6 +188,9 @@ void Aura::AddToField()
         case AuraType::FIELD_EXCEPT_SOURCE:
             m_owner->owner->GetFieldZone().auras.emplace_back(this);
             break;
+        case AuraType::HAND:
+            m_owner->owner->GetHandZone().auras.emplace_back(this);
+            break;
         default:
             throw std::invalid_argument(
                 "Aura::AddToField() - Invalid aura type!");
@@ -269,6 +272,14 @@ void Aura::UpdateInternal()
                 }
                 break;
             }
+            case AuraType::HAND:
+            {
+                for (auto& card : m_owner->owner->GetHandZone().GetAll())
+                {
+                    Apply(card);
+                }
+                break;
+            }
             default:
                 throw std::invalid_argument(
                     "Aura::UpdateInternal() - Invalid aura type!");
@@ -293,9 +304,14 @@ void Aura::RemoveInternal()
         case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            auto auras = m_owner->owner->GetFieldZone().auras;
-            const auto iter = std::find(auras.begin(), auras.end(), this);
-            auras.erase(iter);
+            EraseIf(m_owner->owner->GetFieldZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            break;
+        }
+        case AuraType::HAND:
+        {
+            EraseIf(m_owner->owner->GetHandZone().auras,
+                    [this](Aura* aura) { return aura == this; });
             break;
         }
         default:

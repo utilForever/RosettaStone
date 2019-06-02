@@ -27,6 +27,8 @@ enum class AuraType
                           //!< except the source of the aura.
     WEAPON,   //!< This type of aura affects the weapon of the source's
               //!< controller.
+    HAND,     //!< This type of aura affects all entities in the hand of the
+              //!< source's controller.
     ADAPTIVE  //!< This type of aura is influenced by other factors in game.
 };
 
