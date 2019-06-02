@@ -28,6 +28,16 @@ void Character::SetAttack(int attack)
     SetGameTag(GameTag::ATK, attack);
 }
 
+int Character::GetPreDamage() const
+{
+    return GetGameTag(GameTag::PREDAMAGE);
+}
+
+void Character::SetPreDamage(int preDamage)
+{
+    SetGameTag(GameTag::PREDAMAGE, preDamage);
+}
+
 int Character::GetDamage() const
 {
     return GetGameTag(GameTag::DAMAGE);
