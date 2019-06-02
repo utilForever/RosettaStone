@@ -1182,6 +1182,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_563", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you cast a spell, deal 1 damage to ALL minions.
+    // --------------------------------------------------------
+    power.AddTrigger(new Trigger(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new DamageTask(EntityType::ALL_MINIONS, 1) };
+    cards.emplace("NEW1_020", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
