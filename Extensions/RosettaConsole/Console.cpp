@@ -169,7 +169,7 @@ std::optional<Card> Console::SearchCard() const
             {
                 const size_t selectedCardIndex =
                     InputMenuNum("Select: ", cardIdx);
-                return result.at(selectedCardIndex);
+                return result.at(selectedCardIndex - 1);
             }
         }
     }
@@ -238,16 +238,21 @@ void Console::SimulateGame() const
 
 void Console::Leave()
 {
-    AccountLoader loader;
-    loader.Save(m_account);
+    SaveDeck();
 
-    if (m_account != nullptr)
+	if (m_account != nullptr)
     {
         delete m_account;
         m_account = nullptr;
     }
 
     std::cout << "You have been successfully signed out. Have a nice day!\n";
+}
+
+void Console::SaveDeck()
+{
+    AccountLoader loader;
+    loader.Save(m_account);
 }
 
 void Console::CreateDeck()
@@ -309,7 +314,7 @@ void Console::DeleteDeck() const
     const size_t selectedDeck =
         InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
-    m_account->DeleteDeck(selectedDeck);
+    m_account->DeleteDeck(selectedDeck - 1);
 }
 
 int Console::OperateDeck(size_t deckIndex)
@@ -376,6 +381,14 @@ void Console::AddCardInDeck(size_t deckIndex)
             deck->AddCard(card.id, numCardToAdd);
             break;
         }
+    }
+
+	if (deck->GetNumOfCards() == START_DECK_SIZE)
+    {
+        std::cout << "The deck " << deck->GetName() << " is full of cards.\n";
+        std::cout << "Save a deck \n";
+        SaveDeck();
+        return;
     }
 }
 
