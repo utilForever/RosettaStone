@@ -12,6 +12,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
@@ -290,6 +291,24 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("CS2_073e", EntityType::TARGET));
     power.AddComboTask(new AddEnchantmentTask("CS2_073e2", EntityType::TARGET));
     cards.emplace("CS2_073", power);
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [CS2_233] Blade Flurry - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Destroy your weapon and deal its damage to all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(new DamageNumberTask(EntityType::ENEMY_MINIONS, true));
+    power.AddPowerTask(new DestroyTask(EntityType::WEAPON));
+    cards.emplace("CS2_233", power);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_124] Eviscerate - COST:2

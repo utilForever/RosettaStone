@@ -616,6 +616,85 @@ TEST(RogueExpert1Test, CS2_073_ColdBlood)
 }
 
 // ------------------------------------------ SPELL - ROGUE
+// [CS2_233] Blade Flurry - COST:4
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy your weapon and deal its damage to all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_WEAPON_EQUIPPED = 0
+// --------------------------------------------------------
+TEST(RogueExpert1Test, CS2_233_BladeFlurry)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Leper Gnome"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Malygos"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Blade Flurry"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Blade Flurry"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Dalaran Mage"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    game.Process(opPlayer, HeroPowerTask());
+    EXPECT_EQ(opPlayer.GetHero()->HasWeapon(), true);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(opPlayer.GetHero()->HasWeapon(), false);
+    EXPECT_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, HeroPowerTask());
+    EXPECT_EQ(opPlayer.GetHero()->HasWeapon(), true);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    EXPECT_EQ(opPlayer.GetHero()->HasWeapon(), false);
+    EXPECT_EQ(curField[0]->GetHealth(), 10);
+}
+
+// ------------------------------------------ SPELL - ROGUE
 // [EX1_124] Eviscerate - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
