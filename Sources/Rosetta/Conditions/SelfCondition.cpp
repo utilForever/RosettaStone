@@ -62,6 +62,13 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsMinion()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return dynamic_cast<Minion*>(entity) != nullptr;
+    });
+}
+
 SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
                                         RelaSign relaSign)
 {

@@ -45,10 +45,14 @@ class SelfCondition
     static SelfCondition IsRace(Race race);
 
     //! SelfCondition wrapper for checking there is an entity with a \p race in
-    //! battlefield.
+    //! field zone.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
+
+    //! SelfCondition wrapper for checking an entity is minion.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsMinion();
 
     //! SelfCondition wrapper for checking there is an entity that satisfies
     //! condition with \p tag, \p value and \p relaSign.
