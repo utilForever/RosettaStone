@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
@@ -54,6 +55,11 @@ void Trigger::Activate(Entity* source)
     auto triggerFunc = [instance](Player* p, Entity* e) {
         instance->Process(p, e);
     };
+
+    if (m_sequenceType != SequenceType::NONE)
+    {
+        source->owner->GetGame()->triggers.emplace_back(instance);
+    }
 
     switch (m_triggerType)
     {
@@ -179,6 +185,12 @@ void Trigger::Remove() const
         default:
             throw std::invalid_argument(
                 "Trigger::Remove() - Invalid trigger type!");
+    }
+
+    if (m_sequenceType != SequenceType::NONE)
+    {
+        EraseIf(game->triggers,
+                [this](Trigger* trigger) { return trigger == this; });
     }
 
     delete m_owner->activatedTrigger;
