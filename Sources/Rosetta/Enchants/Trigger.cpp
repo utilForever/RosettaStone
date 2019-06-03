@@ -196,6 +196,17 @@ void Trigger::Remove() const
     delete m_owner->activatedTrigger;
 }
 
+void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
+{
+    for (auto& trigger : game->triggers)
+    {
+        if (trigger->m_sequenceType == type)
+        {
+            trigger->Validate(&game->GetCurrentPlayer(), source);
+        }
+    }
+}
+
 void Trigger::Process(Player* player, Entity* source)
 {
     if (m_sequenceType == SequenceType::NONE)

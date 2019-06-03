@@ -13,6 +13,7 @@
 
 namespace RosettaStone
 {
+class Game;
 class Entity;
 class Player;
 class ITask;
@@ -41,6 +42,13 @@ class Trigger
 
     //! Removes this object from game and unsubscribe from the related event.
     void Remove() const;
+
+    //! Checks triggers related to the current Sequence at once before sequence
+    //! starts.
+    //! \param game The game.
+    //! \param source The source entity.
+    //! \param type The sequence type.
+    static void ValidateTriggers(Game* game, Entity* source, SequenceType type);
 
     TriggerSource triggerSource = TriggerSource::NONE;
 
