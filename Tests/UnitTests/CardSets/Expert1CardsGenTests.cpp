@@ -642,11 +642,11 @@ TEST(PriestExpert1Test, EX1_623_TempleEnforcer)
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    Task::Run(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
     EXPECT_EQ(curField[0]->GetAttack(), 3);
     EXPECT_EQ(curField[0]->GetHealth(), 1);
 
-    Task::Run(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
     EXPECT_EQ(curField[0]->GetAttack(), 3);
     EXPECT_EQ(curField[0]->GetHealth(), 4);
 }
@@ -2118,6 +2118,49 @@ TEST(NeutralExpert1Test, EX1_005_BigGameHunter)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever this minion takes damage, draw a card.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_007_AcolyteOfPain)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acolyte of Pain"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
 // - Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
@@ -3126,7 +3169,6 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);

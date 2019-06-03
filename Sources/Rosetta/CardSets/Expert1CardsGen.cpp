@@ -971,6 +971,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_005", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { new DrawTask(1) };
+    cards.emplace("EX1_007", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1165,9 +1177,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: Whenever you cast a spell, draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger().value().triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger().value().tasks = { new DrawTask(1) };
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new DrawTask(1) };
     cards.emplace("EX1_095", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1319,8 +1331,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     //       give another random friendly minion +1 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(Trigger(TriggerType::TURN_END));
-    power.GetTrigger().value().tasks = {
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
         new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
         new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
     };
@@ -1392,7 +1404,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(Effects::AttackN(1));
+    power.AddEnchant(new Enchant(Effects::AttackN(1)));
     cards.emplace("NEW1_037e", power);
 }
 
