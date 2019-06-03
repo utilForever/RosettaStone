@@ -49,6 +49,10 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
     // Set card's owner
     source->owner = &player;
 
+    // Validate play card trigger
+    Trigger::ValidateTriggers(player.GetGame(), source,
+                              SequenceType::PLAY_CARD);
+
     // Pass to sub-logic
     switch (source->card.GetCardType())
     {
@@ -124,6 +128,10 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
 
 void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)
 {
+    // Validate play spell trigger
+    Trigger::ValidateTriggers(player.GetGame(), spell,
+                              SequenceType::PLAY_SPELL);
+
     // Process cast spell trigger
     player.GetGame()->taskQueue.StartEvent();
     player.GetGame()->triggerManager.OnCastSpellTrigger(&player, spell);
@@ -150,6 +158,8 @@ void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)
     player.GetGame()->triggerManager.OnAfterCastTrigger(&player, spell);
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
+
+    player.GetGame()->ProcessDestroyAndUpdateAura();
 }
 
 void PlayWeapon(Player& player, Weapon* weapon, Character* target)
