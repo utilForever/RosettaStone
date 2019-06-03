@@ -70,7 +70,9 @@ TEST(DrawTask, Run)
     }
 
     DrawTask draw(3);
-    TaskStatus result = draw.Run(p);
+    draw.SetPlayer(&p);
+
+    TaskStatus result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHandZone().GetCount(), 3);
 
@@ -91,8 +93,9 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
 
     DrawTask draw(3);
+    draw.SetPlayer(&game.GetPlayer1());
 
-    TaskStatus result = draw.Run(game.GetPlayer1());
+    TaskStatus result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHandZone().GetCount(), 0);
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
@@ -106,7 +109,7 @@ TEST(DrawTask, RunExhaust)
     const auto minion = new Minion(p, card, tags);
     p.GetDeckZone().Add(*minion);
 
-    result = draw.Run(game.GetPlayer1());
+    result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHandZone().GetCount(), 1);
     EXPECT_EQ(p.GetHandZone()[0]->card.id, "card1");
@@ -149,6 +152,7 @@ TEST(DrawTask, RunOverDraw)
     }
 
     DrawTask draw(3);
+    draw.SetPlayer(&p);
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
@@ -166,7 +170,7 @@ TEST(DrawTask, RunOverDraw)
     });
     p.policy = &policy;
 
-    TaskStatus result = draw.Run(p);
+    TaskStatus result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     EXPECT_EQ(p.GetHandZone().GetCount(), 10);
@@ -205,6 +209,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     }
 
     DrawTask draw(4);
+    draw.SetPlayer(&p);
 
     DrawTestPolicy policy([&](const TaskMeta& burnt) {
         EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
@@ -222,7 +227,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     });
     p.policy = &policy;
 
-    TaskStatus result = draw.Run(p);
+    TaskStatus result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     EXPECT_EQ(p.GetHandZone().GetCount(), 10);

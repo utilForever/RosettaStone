@@ -3,40 +3,35 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
-
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
+#include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
+SilenceTask::SilenceTask(EntityType entityType) : ITask(entityType)
 {
     // Do nothing
 }
 
-TaskID DiscardTask::GetTaskID() const
+TaskID SilenceTask::GetTaskID() const
 {
-    return TaskID::DISCARD;
+    return TaskID::SILENCE;
 }
 
-TaskStatus DiscardTask::Impl(Player& player)
+TaskStatus SilenceTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& entity : entities)
     {
-        player.GetGame()->taskQueue.StartEvent();
+        auto minion = dynamic_cast<Minion*>(entity);
+        if (!minion)
+        {
+            continue;
+        }
 
-        player.GetHandZone().Remove(*entity);
-        player.GetGraveyardZone().Add(*entity);
-
-        player.GetGame()->ProcessTasks();
-        player.GetGame()->taskQueue.EndEvent();
+        minion->Silence();
     }
 
     return TaskStatus::COMPLETE;

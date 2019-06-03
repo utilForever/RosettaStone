@@ -26,9 +26,10 @@ TaskStatus FlagTask::Impl(Player& player)
         return TaskStatus::COMPLETE;
     }
 
+    m_toDoTask->SetPlayer(&player);
     m_toDoTask->SetSource(player.GetGame()->taskStack.source);
     m_toDoTask->SetTarget(player.GetGame()->taskStack.target);
 
-    return m_toDoTask->Run(player);
+    return m_toDoTask->Run();
 }
 }  // namespace RosettaStone::SimpleTasks

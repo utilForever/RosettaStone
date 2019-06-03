@@ -21,6 +21,26 @@ SelfCondition SelfCondition::IsDead()
         [=](Entity* entity) -> bool { return entity->isDestroyed; });
 }
 
+SelfCondition SelfCondition::IsUndamaged()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        const auto character = dynamic_cast<Character*>(entity);
+        if (!character)
+        {
+            return false;
+        }
+
+        return character->GetDamage() == 0;
+    });
+}
+
+SelfCondition SelfCondition::IsWeaponEquipped()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->owner->GetHero()->HasWeapon();
+    });
+}
+
 SelfCondition SelfCondition::IsRace(Race race)
 {
     return SelfCondition(
@@ -39,6 +59,13 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
         }
 
         return false;
+    });
+}
+
+SelfCondition SelfCondition::IsMinion()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return dynamic_cast<Minion*>(entity) != nullptr;
     });
 }
 

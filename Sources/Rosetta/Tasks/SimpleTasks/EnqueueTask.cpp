@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 
 namespace RosettaStone::SimpleTasks
@@ -27,7 +28,11 @@ TaskStatus EnqueueTask::Impl(Player& player)
     {
         for (auto& task : m_tasks)
         {
-            task->Run(player);
+            task->SetPlayer(&player);
+            task->SetSource(m_source);
+            task->SetTarget(m_target);
+
+            player.GetGame()->taskQueue.Enqueue(task);
         }
     }
 

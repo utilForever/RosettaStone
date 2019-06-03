@@ -3,40 +3,29 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
-
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
+AddAuraEffectTask::AddAuraEffectTask(Effect* effect, EntityType entityType)
+    : ITask(entityType), m_effect(effect)
 {
     // Do nothing
 }
 
-TaskID DiscardTask::GetTaskID() const
+TaskID AddAuraEffectTask::GetTaskID() const
 {
-    return TaskID::DISCARD;
+    return TaskID::ADD_AURA_EFFECT;
 }
 
-TaskStatus DiscardTask::Impl(Player& player)
+TaskStatus AddAuraEffectTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-
     for (auto& entity : entities)
     {
-        player.GetGame()->taskQueue.StartEvent();
-
-        player.GetHandZone().Remove(*entity);
-        player.GetGraveyardZone().Add(*entity);
-
-        player.GetGame()->ProcessTasks();
-        player.GetGame()->taskQueue.EndEvent();
+        m_effect->Apply(*entity->auraEffects);
     }
 
     return TaskStatus::COMPLETE;

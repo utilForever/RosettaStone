@@ -19,8 +19,10 @@ void Attack(Player& player, Character* source, Character* target)
     }
 
     // Activate attack trigger
+    player.GetGame()->taskQueue.StartEvent();
     player.GetGame()->triggerManager.OnAttackTrigger(&player, source);
     player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 
     // Set game step to MAIN_COMBAT
     player.GetGame()->step = Step::MAIN_COMBAT;

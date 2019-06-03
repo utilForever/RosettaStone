@@ -3,40 +3,35 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
-
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
+DamageNumberTask::DamageNumberTask(EntityType entityType, bool isSpellDamage)
+    : ITask(entityType), m_isSpellDamage(isSpellDamage)
 {
     // Do nothing
 }
 
-TaskID DiscardTask::GetTaskID() const
+TaskID DamageNumberTask::GetTaskID() const
 {
-    return TaskID::DISCARD;
+    return TaskID::DAMAGE_NUMBER;
 }
 
-TaskStatus DiscardTask::Impl(Player& player)
+TaskStatus DamageNumberTask::Impl(Player& player)
 {
+    const int damage = m_source->owner->GetGame()->taskStack.num;
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& entity : entities)
     {
-        player.GetGame()->taskQueue.StartEvent();
-
-        player.GetHandZone().Remove(*entity);
-        player.GetGraveyardZone().Add(*entity);
-
-        player.GetGame()->ProcessTasks();
-        player.GetGame()->taskQueue.EndEvent();
+        const auto character = dynamic_cast<Character*>(entity);
+        Generic::TakeDamageToCharacter(m_source, character, damage,
+                                       m_isSpellDamage);
     }
 
     return TaskStatus::COMPLETE;
