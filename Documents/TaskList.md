@@ -13,6 +13,7 @@
 
 ## Basic tasks
 
+* AddAuraEffectTask
 * AddEnchantmentTask
 * AddStackToTask
 * ArmorTask
@@ -20,6 +21,7 @@
 * ControlTask
 * CopyTask
 * CountTask
+* DamageNumberTask
 * DamageTask
 * DestroyTask
 * DiscardTask
@@ -41,6 +43,7 @@
 * RemoveEnchantmentTask
 * ReturnHandTask
 * SetGameTagTask
+* SilenceTask
 * SummonTask
 * TempManaTask
 * TransformTask

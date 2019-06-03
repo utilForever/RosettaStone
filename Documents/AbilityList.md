@@ -10,7 +10,7 @@
 * [ ] Adapt
 * [x] Battlecry
 * [x] Charge
-* [ ] Choose One
+* [x] Choose One
 * [ ] Choose Twice
 * [x] Combo
 * [ ] Counter
@@ -32,7 +32,7 @@
 * [ ] Recruit
 * [ ] Rush
 * [x] Secret
-* [ ] Silence
+* [x] Silence
 * [ ] Start of Game
 * [x] Stealth
 * [x] Spell Damage
