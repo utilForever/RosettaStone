@@ -13,10 +13,10 @@ using namespace RosettaStone;
 
 TEST(Cards, GetAllCards)
 {
-    const std::vector<Card> cards1 = Cards::GetInstance().GetAllCards();
+    const std::vector<Card> cards = Cards::GetInstance().GetAllCards();
 
-    ASSERT_FALSE(cards1.empty());
-    EXPECT_EQ(cards1.size(), 6086u);
+    ASSERT_FALSE(cards.empty());
+    EXPECT_EQ(cards.size(), 6717u);
 }
 
 TEST(Cards, FindCardByID)
