@@ -67,6 +67,11 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnTakeDamageTrigger(Player* player, Entity* sender) const;
 
+    //! Callback for trigger when entity is targeted.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnTargetTrigger(Player* player, Entity* sender) const;
+
     std::function<void(Player*, Entity*)> startTurnTrigger;
     std::function<void(Player*, Entity*)> endTurnTrigger;
     std::function<void(Player*, Entity*)> playCardTrigger;
@@ -76,6 +81,7 @@ class TriggerManager
     std::function<void(Player*, Entity*)> attackTrigger;
     std::function<void(Player*, Entity*)> summonTrigger;
     std::function<void(Player*, Entity*)> takeDamageTrigger;
+    std::function<void(Player*, Entity*)> targetTrigger;
 };
 }  // namespace RosettaStone
 
