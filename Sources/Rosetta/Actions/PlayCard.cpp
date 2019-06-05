@@ -49,6 +49,13 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
     // Set card's owner
     source->owner = &player;
 
+    // Validate target trigger
+    if (target != nullptr)
+    {
+        Trigger::ValidateTriggers(player.GetGame(), source,
+                                  SequenceType::TARGET);
+    }
+
     // Validate play card trigger
     Trigger::ValidateTriggers(player.GetGame(), source,
                               SequenceType::PLAY_CARD);
@@ -111,6 +118,15 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
 
+    // Process target trigger
+    if (target != nullptr)
+    {
+        player.GetGame()->taskQueue.StartEvent();
+        player.GetGame()->triggerManager.OnTargetTrigger(&player, minion);
+        player.GetGame()->ProcessTasks();
+        player.GetGame()->taskQueue.EndEvent();
+    }
+
     // Process power or combo tasks
     player.GetGame()->taskQueue.StartEvent();
     if (minion->HasCombo() && player.IsComboActive())
@@ -149,6 +165,15 @@ void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)
     }
     else
     {
+        // Process target trigger
+        if (target != nullptr)
+        {
+            player.GetGame()->taskQueue.StartEvent();
+            player.GetGame()->triggerManager.OnTargetTrigger(&player, spell);
+            player.GetGame()->ProcessTasks();
+            player.GetGame()->taskQueue.EndEvent();
+        }
+
         CastSpell(player, spell, target, chooseOne);
         player.GetGame()->ProcessDestroyAndUpdateAura();
     }
@@ -177,6 +202,15 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     if (weapon->card.power.GetAura())
     {
         weapon->card.power.GetAura()->Activate(weapon);
+    }
+
+    // Process target trigger
+    if (target != nullptr)
+    {
+        player.GetGame()->taskQueue.StartEvent();
+        player.GetGame()->triggerManager.OnTargetTrigger(&player, weapon);
+        player.GetGame()->ProcessTasks();
+        player.GetGame()->taskQueue.EndEvent();
     }
 
     // Process power tasks

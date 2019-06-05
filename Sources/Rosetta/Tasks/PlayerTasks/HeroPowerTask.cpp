@@ -39,6 +39,17 @@ TaskStatus HeroPowerTask::Impl(Player& player)
         player.SetUsedMana(player.GetUsedMana() + power->GetCost() - tempUsed);
     }
 
+    // Process target trigger
+    if (m_target != nullptr)
+    {
+        Trigger::ValidateTriggers(player.GetGame(), power,
+                                  SequenceType::TARGET);
+        player.GetGame()->taskQueue.StartEvent();
+        player.GetGame()->triggerManager.OnTargetTrigger(&player, power);
+        player.GetGame()->ProcessTasks();
+        player.GetGame()->taskQueue.EndEvent();
+    }
+
     // Process power tasks
     player.GetGame()->taskQueue.StartEvent();
     power->ActivateTask(PowerType::POWER, m_target);

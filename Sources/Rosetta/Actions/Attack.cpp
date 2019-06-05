@@ -18,9 +18,18 @@ void Attack(Player& player, Character* source, Character* target)
         return;
     }
 
-    // Activate attack trigger
+    // Process attack trigger
     player.GetGame()->taskQueue.StartEvent();
     player.GetGame()->triggerManager.OnAttackTrigger(&player, source);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
+
+    // Validate target trigger
+    Trigger::ValidateTriggers(player.GetGame(), source, SequenceType::TARGET);
+
+    // Process target trigger
+    player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnTargetTrigger(&player, source);
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
 
