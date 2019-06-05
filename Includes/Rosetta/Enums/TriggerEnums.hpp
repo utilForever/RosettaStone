@@ -21,12 +21,14 @@ enum class TriggerType
     AFTER_CAST,  //!< The effect will be triggered after a spell is played.
     HEAL,        //!< The effect will be triggered when characters are healed.
     ATTACK,      //!< The effect will be triggered when characters attack.
-    SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
+    SUMMON,     //!< The effect will be triggered whenever a minion is summoned.
     PREDAMAGE,  //!< Effect will be triggered when a character gets predamage.
                 //!< This event happens just before the character is actually
                 //!< damaged.
     TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages.
+    TARGET  //!< The effect will be triggered when a card is targeted by an
+            //!< attacking minion or a played card.
 };
 
 //! \brief An enumerator for identifying trigger source.
@@ -46,7 +48,8 @@ enum class SequenceType
 {
     NONE,
     PLAY_CARD,
-    PLAY_SPELL
+    PLAY_SPELL,
+    TARGET
 };
 }  // namespace RosettaStone
 
