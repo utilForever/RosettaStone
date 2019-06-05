@@ -123,6 +123,7 @@ class Character : public Entity
     //! \param heal The value of heal.
     void TakeHeal(Entity& source, int heal);
 
+    std::function<void(Player*, Entity*)> afterAttackTrigger;
     std::function<void(Player*, Entity*)> preDamageTrigger;
 };
 }  // namespace RosettaStone
