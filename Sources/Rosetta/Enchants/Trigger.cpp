@@ -24,6 +24,9 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
         case TriggerType::AFTER_CAST:
             m_sequenceType = SequenceType::PLAY_SPELL;
             break;
+        case TriggerType::TARGET:
+            m_sequenceType = SequenceType::TARGET;
+            break;
         case TriggerType::TURN_END:
             fastExecution = true;
             break;
@@ -117,6 +120,9 @@ void Trigger::Activate(Entity* source)
         case TriggerType::TAKE_DAMAGE:
             game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::TARGET:
+            game->triggerManager.targetTrigger = std::move(triggerFunc);
+            break;
         default:
             throw std::invalid_argument(
                 "Trigger::Activate() - Invalid trigger type!");
@@ -181,6 +187,9 @@ void Trigger::Remove() const
             }
         case TriggerType::TAKE_DAMAGE:
             game->triggerManager.takeDamageTrigger = nullptr;
+            break;
+        case TriggerType::TARGET:
+            game->triggerManager.targetTrigger = nullptr;
             break;
         default:
             throw std::invalid_argument(
