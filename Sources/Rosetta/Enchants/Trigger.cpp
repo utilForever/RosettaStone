@@ -87,6 +87,33 @@ void Trigger::Activate(Entity* source)
         case TriggerType::ATTACK:
             game->triggerManager.attackTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::AFTER_ATTACK:
+            switch (triggerSource)
+            {
+                case TriggerSource::HERO:
+                {
+                    source->owner->GetHero()->afterAttackTrigger =
+                        std::move(triggerFunc);
+                    break;
+                }
+                case TriggerSource::SELF:
+                {
+                    auto minion = dynamic_cast<Minion*>(source);
+                    minion->afterAttackTrigger = std::move(triggerFunc);
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment = dynamic_cast<Enchantment*>(source);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
+                    minion->afterAttackTrigger = std::move(triggerFunc);
+                    break;
+                }
+                default:
+                    break;
+            }
+            break;
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = std::move(triggerFunc);
             break;
@@ -156,6 +183,32 @@ void Trigger::Remove() const
         case TriggerType::ATTACK:
             game->triggerManager.attackTrigger = nullptr;
             break;
+        case TriggerType::AFTER_ATTACK:
+            switch (triggerSource)
+            {
+                case TriggerSource::HERO:
+                {
+                    m_owner->owner->GetHero()->afterAttackTrigger = nullptr;
+                    break;
+                }
+                case TriggerSource::SELF:
+                {
+                    auto minion = dynamic_cast<Minion*>(m_owner);
+                    minion->afterAttackTrigger = nullptr;
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment =
+                        dynamic_cast<Enchantment*>(m_owner);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
+                    minion->afterAttackTrigger = nullptr;
+                    break;
+                }
+                default:
+                    break;
+            }
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = nullptr;
             break;
@@ -346,16 +399,8 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
-        case TriggerType::CAST_SPELL:
-        case TriggerType::AFTER_CAST:
-        case TriggerType::HEAL:
-        case TriggerType::ATTACK:
-        case TriggerType::PREDAMAGE:
-        case TriggerType::TAKE_DAMAGE:
-            break;
         default:
-            throw std::invalid_argument(
-                "Trigger::Validate() - Invalid trigger type!");
+            break;
     }
 
     if (condition != nullptr)
