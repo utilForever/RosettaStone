@@ -109,6 +109,15 @@ void Attack(Player& player, Character* source, Character* target)
         source->SetExhausted(true);
     }
 
+    // Process after attack trigger
+    player.GetGame()->taskQueue.StartEvent();
+    if (source->afterAttackTrigger != nullptr)
+    {
+        source->afterAttackTrigger(&player, source);
+    }
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
+
     // Process destroy and update aura
     player.GetGame()->ProcessDestroyAndUpdateAura();
 
