@@ -105,6 +105,25 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
 {
     Power power;
 
+    // ---------------------------------------- WEAPON - HUNTER
+    // [DS1_188] Gladiator's Longbow - COST:7 [ATK:5/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Your hero is <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("DS1_188e",
+                                                         EntityType::HERO) };
+    cards.emplace("DS1_188", power);
+
     // ---------------------------------------- MINION - HUNTER
     // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -122,7 +141,18 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+	// ----------------------------------- ENCHANTMENT - HUNTER
+    // [DS1_188e] Gladiator's Longbow enchantment (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::Immune));
+    power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    cards.emplace("DS1_188e", power);
 }
 
 void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)

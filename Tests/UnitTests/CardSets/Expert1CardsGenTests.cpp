@@ -75,6 +75,60 @@ TEST(DruidExpert1Test, EX1_154_Wrath)
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [DS1_188] Gladiator's Longbow - COST:7 [ATK:5/HP:0]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your hero is <b>Immune</b> while attacking.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, DS1_188_GladiatorsLongbow)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Gladiator's Longbow"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 5);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(curPlayer.GetHero(), card2));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
+    EXPECT_EQ(curPlayer.GetHero()->GetGameTag(GameTag::IMMUNE), 0);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
