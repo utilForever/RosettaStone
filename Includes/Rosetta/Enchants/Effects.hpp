@@ -68,6 +68,12 @@ class Effects
     //! enemy attacks, spells and effects until they attack.
     inline static Effect* Stealth =
         new Effect(GameTag::STEALTH, EffectOperator::SET, 1);
+
+    //! An ability that prevents characters from receiving any damage, and
+    //! prevents the opponent from specifically targeting them with any type of
+    //! action. 
+    inline static Effect* Immune =
+        new Effect(GameTag::IMMUNE, EffectOperator::SET, 1);
 };
 }  // namespace RosettaStone
 
