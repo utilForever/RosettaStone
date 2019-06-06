@@ -2211,6 +2211,60 @@ TEST(NeutralExpert1Test, EX1_002_TheBlackKnight)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
+// - Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, give another random
+//       friendly minion +1 Health.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_004_YoungPriestess)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Young Priestess"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Young Priestess"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    int totalHealth = curField[0]->GetHealth();
+    totalHealth += curField[1]->GetHealth();
+    totalHealth += curField[2]->GetHealth();
+    EXPECT_EQ(totalHealth, 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    totalHealth = curField[0]->GetHealth();
+    totalHealth += curField[1]->GetHealth();
+    totalHealth += curField[2]->GetHealth();
+    EXPECT_EQ(totalHealth, 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

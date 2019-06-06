@@ -1018,11 +1018,26 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_002", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, give another random
+    //       friendly minion +1 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
+        new AddEnchantmentTask("EX1_004e", EntityType::STACK)
+    };
+    cards.emplace("EX1_004", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
     // - Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy a minion with 7 or more
-    // Attack.
+    // Text: <b>Battlecry:</b> Destroy a minion
+    //       with 7 or more Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1449,6 +1464,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new OngoingEnchant({ Effects::AttackN(2) }));
     cards.emplace("EX1_001e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_004e] Elune's Grace (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::HealthN(2)));
+    cards.emplace("EX1_004e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_043e] Hour of Twilight (*) - COST:0
