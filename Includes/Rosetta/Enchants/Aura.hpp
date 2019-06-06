@@ -8,6 +8,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Enchants/IAura.hpp>
 
 #include <string>
 
@@ -39,7 +40,7 @@ enum class AuraType
 //! entities attack, cost and so on. Aura must be activated first to affect
 //! entities.
 //!
-class Aura
+class Aura : public IAura
 {
  public:
     //! Default constructor.
@@ -67,10 +68,10 @@ class Aura
     virtual void Activate(Entity* owner);
 
     //! Updates this effect to apply the effect to recently modified entities.
-    virtual void Update();
+    void Update() override;
 
     //! Removes this effect from the game to stop affecting entities.
-    virtual void Remove();
+    void Remove() override;
 
     //! Removes entity to update a list of entities.
     //! \param entity An entity to remove.
