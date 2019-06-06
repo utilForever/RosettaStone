@@ -139,6 +139,16 @@ void Entity::SetZoneType(ZoneType type)
     SetGameTag(GameTag::ZONE, static_cast<int>(type));
 }
 
+int Entity::GetZonePosition() const
+{
+    return GetGameTag(GameTag::ZONE_POSITION) - 1;
+}
+
+void Entity::SetZonePosition(int value)
+{
+    SetGameTag(GameTag::ZONE_POSITION, value + 1);
+}
+
 int Entity::GetCost() const
 {
     return GetGameTag(GameTag::COST);

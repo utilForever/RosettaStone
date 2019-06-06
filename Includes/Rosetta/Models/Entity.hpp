@@ -74,6 +74,14 @@ class Entity
     //! \param type The value of zone type.
     void SetZoneType(ZoneType type);
 
+    //! Returns the value of zone position.
+    //! \return The value of zone position.
+    int GetZonePosition() const;
+
+    //! Sets the value of zone position.
+    //! \param value The value of zone position.
+    void SetZonePosition(int value);
+
     //! Returns the value of cost.
     //! \return The value of cost.
     int GetCost() const;
@@ -139,7 +147,6 @@ class Entity
     Card card;
 
     IZone* zone = nullptr;
-    int zonePos = -1;
 
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
