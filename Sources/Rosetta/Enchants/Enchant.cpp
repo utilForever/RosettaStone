@@ -4,7 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <utility>
 
@@ -58,5 +62,36 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
             effects[1]->ChangeValue(num1).Apply(entity, isOneTurnEffect);
         }
     }
+}
+
+OngoingEnchant::OngoingEnchant(std::vector<Effect*> _effects,
+                               bool _useScriptTag, bool _isOneTurnEffect)
+    : Enchant(std::move(_effects), _useScriptTag, _isOneTurnEffect)
+{
+    // Do nothing
+}
+
+void OngoingEnchant::Update()
+{
+    if (!m_toBeUpdated)
+    {
+        return;
+    }
+
+    const int delta = m_count - m_lastCount;
+    for (int i = 0; i < delta; ++i)
+    {
+        ActivateTo(m_target);
+    }
+
+    m_lastCount = m_count;
+    m_toBeUpdated = false;
+}
+
+void OngoingEnchant::Remove()
+{
+    m_target->onGoingEffect = nullptr;
+    EraseIf(m_target->owner->GetGame()->auras,
+            [this](IAura* aura) { return aura == this; });
 }
 }  // namespace RosettaStone

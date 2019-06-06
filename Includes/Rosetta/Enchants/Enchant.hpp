@@ -8,6 +8,7 @@
 #define ROSETTASTONE_ENCHANT_HPP
 
 #include <Rosetta/Enchants/Effect.hpp>
+#include <Rosetta/Enchants/IAura.hpp>
 
 #include <vector>
 
@@ -54,12 +55,46 @@ class Enchant
     //! \param entity An entity to which enchant is activated.
     //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
-    void ActivateTo(Entity* entity, int num1, int num2);
+    virtual void ActivateTo(Entity* entity, int num1 = 0, int num2 = -1);
 
     std::vector<Effect*> effects;
 
     bool useScriptTag = false;
     bool isOneTurnEffect = false;
+};
+
+//!
+//! \brief OngoingEnchant class.
+//!
+//! This class is implementation of a kind of enchantment that its effect
+//! gradually grows due to a trigger.
+//! OngoingEnchant is narrowly used when the source of the trigger and the
+//! target of the Enchantment is identical. (e.g. Mana Wyrm)
+//!
+class OngoingEnchant : public Enchant, IAura
+{
+ public:
+    //! Constructs ongoing enchant with given \p _effects, \p _useScriptTag and
+    //! \p _isOneTurnEffect.
+    //! \param _effects A list of effect.
+    //! \param _useScriptTag A flag to use script tag.
+    //! \param _isOneTurnEffect A flag whether this is one-turn effect.
+    OngoingEnchant(std::vector<Effect*> _effects, bool _useScriptTag = false,
+                   bool _isOneTurnEffect = false);
+
+    //! Updates this effect to apply the effect to recently modified entities.
+    void Update() override;
+
+    //! Removes this effect from the game to stop affecting entities.
+    void Remove() override;
+
+ private:
+    Entity* m_target = nullptr;
+
+    int m_count = 1;
+    int m_lastCount = 1;
+
+    bool m_toBeUpdated = false;
 };
 }  // namespace RosettaStone
 
