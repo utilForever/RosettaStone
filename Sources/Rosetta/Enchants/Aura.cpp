@@ -215,7 +215,7 @@ void Aura::UpdateInternal()
         {
             case AuraType::ADJACENT:
             {
-                const int pos = m_owner->zonePos;
+                const int pos = m_owner->GetZonePosition();
                 auto& field = m_owner->owner->GetFieldZone();
 
                 const int entitySize =
@@ -225,7 +225,7 @@ void Aura::UpdateInternal()
                     Entity* entity = m_appliedEntities[i];
 
                     if (m_owner->zone == entity->zone &&
-                        std::abs(pos - entity->zonePos) == 1)
+                        std::abs(pos - entity->GetZonePosition()) == 1)
                     {
                         continue;
                     }

@@ -66,7 +66,7 @@ void PlayMinionCard(Player& player, Card& card)
 
     const auto minion = new Minion(player, card, tags);
     playerField.Add(*minion);
-    playerField[minion->zonePos]->owner = &player;
+    playerField[minion->GetZonePosition()]->owner = &player;
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

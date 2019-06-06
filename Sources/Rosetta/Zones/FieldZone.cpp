@@ -49,9 +49,9 @@ Entity& FieldZone::Remove(Entity& entity)
 
 void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
 {
-    const int pos = oldEntity.zonePos;
+    const int pos = oldEntity.GetZonePosition();
     m_entities[pos] = dynamic_cast<Minion*>(&newEntity);
-    newEntity.zonePos = pos;
+    newEntity.SetZonePosition(pos);
     newEntity.SetZoneType(m_type);
     newEntity.zone = this;
 

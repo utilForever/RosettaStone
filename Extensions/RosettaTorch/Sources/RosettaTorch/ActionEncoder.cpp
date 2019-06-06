@@ -49,7 +49,7 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
         if (entity->zone->GetType() == ZoneType::HAND)
         {
             tensor[start + CurrentHandOffset] = 1;
-            tensor[start + TargetPlaceSize + entity->zonePos] = 1;
+            tensor[start + TargetPlaceSize + entity->GetZonePosition()] = 1;
         }
         // If entity is on the board of current player
         else if (entity->zone->GetType() == ZoneType::PLAY)
@@ -65,7 +65,7 @@ torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
                 tensor[start + OpponentFieldOffset] = 1;
             }
 
-            tensor[start + TargetPlaceSize + entity->zonePos] = 1;
+            tensor[start + TargetPlaceSize + entity->GetZonePosition()] = 1;
         }
     };
 

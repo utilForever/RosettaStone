@@ -76,7 +76,7 @@ TaskStatus SummonTask::Impl(Player& player)
             {
                 if (m_source->zone->GetType() == ZoneType::PLAY)
                 {
-                    summonPos = m_source->zonePos + 1;
+                    summonPos = m_source->GetZonePosition() + 1;
                 }
                 else
                 {

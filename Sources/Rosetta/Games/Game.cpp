@@ -516,7 +516,7 @@ void Game::ProcessGraveyard()
             Minion* minion = deadMinion.second;
 
             // Remove minion from battlefield
-            minion->SetLastBoardPos(minion->zonePos);
+            minion->SetLastBoardPos(minion->GetZonePosition());
             minion->zone->Remove(*minion);
 
             // Process deathrattle tasks

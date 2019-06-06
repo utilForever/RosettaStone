@@ -66,10 +66,10 @@ class Zone : public IZone
                 "Swap not possible because of zone mismatch");
         }
 
-        int oldPos = oldEntity.zonePos;
-        int newPos = newEntity.zonePos;
-        newEntity.zonePos = oldPos;
-        oldEntity.zonePos = newPos;
+        int oldPos = oldEntity.GetZonePosition();
+        int newPos = newEntity.GetZonePosition();
+        newEntity.SetZonePosition(oldPos);
+        oldEntity.SetZonePosition(newPos);
         m_entities[newPos] = &oldEntity;
         m_entities[oldPos] = &newEntity;
     }
@@ -355,7 +355,7 @@ class PositioningZone : public LimitedZone<T>
 
         for (int i = LimitedZone<T>::m_count - 1; i >= zonePos; --i)
         {
-            dynamic_cast<Entity*>(LimitedZone<T>::m_entities[i])->zonePos = i;
+            dynamic_cast<Entity*>(LimitedZone<T>::m_entities[i])->SetZonePosition(i);
         }
 
         for (std::size_t i = 0; i < auras.size(); ++i)
