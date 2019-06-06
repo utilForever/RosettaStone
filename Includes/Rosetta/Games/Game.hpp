@@ -161,7 +161,7 @@ class Game
     TaskStack taskStack;
     TriggerManager triggerManager;
 
-    std::vector<Aura*> auras;
+    std::vector<IAura*> auras;
     std::vector<Trigger*> triggers;
     std::vector<std::pair<Entity*, Effect*>> oneTurnEffects;
     std::vector<Minion*> summonedMinions;
