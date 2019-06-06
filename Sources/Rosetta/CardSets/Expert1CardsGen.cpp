@@ -995,6 +995,29 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_001", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_002] The Black Knight - COST:6 [ATK:4/HP:5]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy an enemy minion with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_MUST_TARGET_TAUNTER = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("EX1_002", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
     // - Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
