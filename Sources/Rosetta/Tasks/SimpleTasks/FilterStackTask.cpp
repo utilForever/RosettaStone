@@ -26,23 +26,21 @@ TaskID FilterStackTask::GetTaskID() const
 
 TaskStatus FilterStackTask::Impl(Player& player)
 {
-    std::vector<Entity*> result;
-
-    auto entities =
-        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-
-    for (auto& entity : entities)
+    if (m_selfCondition != nullptr)
     {
-        if (m_selfCondition != nullptr)
+        std::vector<Entity*> filtered;
+        filtered.reserve(player.GetGame()->taskStack.entities.size());
+
+        for (auto& entity : player.GetGame()->taskStack.entities)
         {
             if (m_selfCondition->Evaluate(entity))
             {
-                result.emplace_back(entity);
+                filtered.emplace_back(entity);
             }
         }
-    }
 
-    player.GetGame()->taskStack.entities = result;
+        player.GetGame()->taskStack.entities = filtered;
+    }
 
     return TaskStatus::COMPLETE;
 }
