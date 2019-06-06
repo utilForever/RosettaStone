@@ -437,7 +437,7 @@ void EnrageEffect::Update()
     if (!m_turnOn)
     {
         EraseIf(m_owner->owner->GetGame()->auras,
-                [this](Aura* aura) { return aura == this; });
+                [this](IAura* aura) { return aura == this; });
 
         if (!m_enraged)
         {
