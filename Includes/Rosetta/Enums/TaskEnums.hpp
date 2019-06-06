@@ -50,6 +50,7 @@ enum class TaskID
     CONDITION,
     FLAG,
     ARMOR,
+    REMOVE_HAND,
     RETURN_HAND,
     TEMP_MANA,
     WEAPON,
