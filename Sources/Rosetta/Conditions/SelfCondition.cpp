@@ -69,6 +69,21 @@ SelfCondition SelfCondition::IsMinion()
     });
 }
 
+SelfCondition SelfCondition::HasMinionInHand()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        for (auto& card : entity->owner->GetHandZone().GetAll())
+        {
+            if (dynamic_cast<Minion*>(card) != nullptr)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
                                         RelaSign relaSign)
 {

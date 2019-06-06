@@ -54,6 +54,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMinion();
 
+    //! SelfCondition wrapper for checking the player has minion in hand.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasMinionInHand();
+
     //! SelfCondition wrapper for checking there is an entity that satisfies
     //! condition with \p tag, \p value and \p relaSign.
     //! \param tag A game tag to check condition.
