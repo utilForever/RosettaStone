@@ -19,10 +19,9 @@ namespace RosettaStone::SimpleTasks
 class FilterStackTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p selfCondition.
-    //! \param entityType The entity type of target to filter.
+    //! Constructs task with given \p selfCondition.
     //! \param selfCondition A self condition to filter.
-    FilterStackTask(EntityType entityType, SelfCondition selfCondition);
+    FilterStackTask(SelfCondition selfCondition);
 
     //! Returns task ID.
     //! \return Task ID.

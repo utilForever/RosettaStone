@@ -11,10 +11,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FilterStackTask::FilterStackTask(EntityType entityType,
-                                 SelfCondition selfCondition)
-    : ITask(entityType),
-      m_selfCondition(new SelfCondition(std::move(selfCondition)))
+FilterStackTask::FilterStackTask(SelfCondition selfCondition)
+    : m_selfCondition(new SelfCondition(std::move(selfCondition)))
 {
     // Do nothing
 }
