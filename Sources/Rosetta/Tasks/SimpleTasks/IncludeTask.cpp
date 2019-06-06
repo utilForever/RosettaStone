@@ -10,6 +10,11 @@
 
 namespace RosettaStone::SimpleTasks
 {
+IncludeTask::IncludeTask(EntityType entityType) : ITask(entityType)
+{
+    // Do nothing
+}
+
 TaskID IncludeTask::GetTaskID() const
 {
     return TaskID::INCLUDE;
@@ -172,8 +177,11 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
     return entities;
 }
 
-TaskStatus IncludeTask::Impl(Player&)
+TaskStatus IncludeTask::Impl(Player& player)
 {
+    const auto entities = GetEntities(m_entityType, player, m_source, m_target);
+    player.GetGame()->taskStack.entities = entities;
+
     return TaskStatus::COMPLETE;
 }
 }  // namespace RosettaStone::SimpleTasks

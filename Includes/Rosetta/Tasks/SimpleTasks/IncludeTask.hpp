@@ -19,8 +19,9 @@ namespace RosettaStone::SimpleTasks
 class IncludeTask : public ITask
 {
  public:
-    //! Default constructor.
-    IncludeTask() = default;
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target to include.
+    explicit IncludeTask(EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.
