@@ -143,7 +143,7 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
 
-	// ----------------------------------- ENCHANTMENT - HUNTER
+    // ----------------------------------- ENCHANTMENT - HUNTER
     // [DS1_188e] Gladiator's Longbow enchantment (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
@@ -983,10 +983,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("CS2_231", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_001] Lightwarden - COST:1 [ATK:1/HP:2]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a character is healed, gain +2 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::HEAL));
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_001e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_001", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
     // - Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
+    // Text: <b>Battlecry:</b> Destroy a minion with 7 or more
+    // Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1403,6 +1416,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddAura(new EnrageEffect(AuraType::WEAPON, { Effects::AttackN(2) }));
     cards.emplace("CS2_221e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_001e] Warded (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant({ Effects::AttackN(2) }));
+    cards.emplace("EX1_001e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_043e] Hour of Twilight (*) - COST:0
