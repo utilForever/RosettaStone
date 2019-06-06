@@ -16,13 +16,16 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
@@ -1050,6 +1053,29 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     cards.emplace("EX1_005", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3]
+    // - Race: Mechanical, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the start of your turn,
+    //       swap this minion with a
+    //       random one in your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::HasMinionInHand());
+    power.GetTrigger()->tasks = {
+        new IncludeTask(EntityType::HAND),
+        new FilterStackTask(SelfCondition::IsMinion()),
+        new RandomTask(EntityType::STACK, 1),
+        new RemoveHandTask(EntityType::STACK),
+        new GetGameTagTask(EntityType::SOURCE, GameTag::ZONE_POSITION),
+        new ReturnHandTask(EntityType::SOURCE),
+        new SummonTask(SummonSide::NUMBER)
+    };
+    cards.emplace("EX1_006", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]

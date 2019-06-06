@@ -2333,6 +2333,62 @@ TEST(NeutralExpert1Test, EX1_005_BigGameHunter)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3]
+// - Race: Mechanical, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       swap this minion with a
+//       random one in your hand.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_006_AlarmOBot)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Alarm-o-Bot"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Loot Hoarder"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Acolyte of Pain"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->card.name, "Alarm-o-Bot");
+    EXPECT_EQ(curField[1]->card.name, "Loot Hoarder");
+    EXPECT_EQ(card3->zone->GetType(), ZoneType::HAND);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curHand.GetCount(), 1);
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curHand[0]->card.name, "Alarm-o-Bot");
+    EXPECT_EQ(curField[0]->card.name, "Acolyte of Pain");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
