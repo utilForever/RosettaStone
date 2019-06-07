@@ -1103,6 +1103,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_008", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_009] Angry Chicken - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Enrage:</b> +5 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_009e")));
+    cards.emplace("EX1_009", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1500,6 +1513,19 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::HealthN(2)));
     cards.emplace("EX1_004e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_009e] Enraged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +5 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(5) }));
+    cards.emplace("EX1_009e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_043e] Hour of Twilight (*) - COST:0
