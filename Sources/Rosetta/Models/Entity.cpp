@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -92,28 +93,19 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
-void Entity::Reset()
-{
-    SetGameTag(GameTag::DAMAGE, 0);
-    SetGameTag(GameTag::EXHAUSTED, 0);
-    SetGameTag(GameTag::ATK, 0);
-    SetGameTag(GameTag::HEALTH, 0);
-    SetGameTag(GameTag::COST, 0);
-    SetGameTag(GameTag::TAUNT, 0);
-    SetGameTag(GameTag::FROZEN, 0);
-    SetGameTag(GameTag::CHARGE, 0);
-    SetGameTag(GameTag::WINDFURY, 0);
-    SetGameTag(GameTag::DIVINE_SHIELD, 0);
-    SetGameTag(GameTag::STEALTH, 0);
-    SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, 0);
-}
-
 int Entity::GetGameTag(GameTag tag) const
 {
     int value = 0;
 
-    if (m_gameTags.find(tag) == m_gameTags.end())
+    const auto entityVal = m_gameTags.find(tag);
+    if (entityVal == m_gameTags.end())
     {
+        const auto cardVal = card.gameTags.find(tag);
+        if (cardVal != card.gameTags.end())
+        {
+            value = cardVal->second;
+        }
+
         if (auraEffects != nullptr)
         {
             value += auraEffects->GetGameTag(tag);
@@ -121,7 +113,7 @@ int Entity::GetGameTag(GameTag tag) const
     }
     else
     {
-        value += m_gameTags.at(tag);
+        value += entityVal->second;
 
         if (auraEffects != nullptr)
         {
@@ -147,6 +139,16 @@ void Entity::SetZoneType(ZoneType type)
     SetGameTag(GameTag::ZONE, static_cast<int>(type));
 }
 
+int Entity::GetZonePosition() const
+{
+    return GetGameTag(GameTag::ZONE_POSITION) - 1;
+}
+
+void Entity::SetZonePosition(int value)
+{
+    SetGameTag(GameTag::ZONE_POSITION, value + 1);
+}
+
 int Entity::GetCost() const
 {
     return GetGameTag(GameTag::COST);
@@ -157,9 +159,9 @@ void Entity::SetCost(int cost)
     SetGameTag(GameTag::COST, cost);
 }
 
-bool Entity::GetExhausted() const
+bool Entity::IsExhausted() const
 {
-    return static_cast<bool>(GetGameTag(GameTag::EXHAUSTED));
+    return GetGameTag(GameTag::EXHAUSTED) == 1;
 }
 
 void Entity::SetExhausted(bool exhausted)
@@ -182,9 +184,75 @@ int Entity::GetOverload() const
     return GetGameTag(GameTag::OVERLOAD);
 }
 
+bool Entity::HasDeathrattle() const
+{
+    return GetGameTag(GameTag::DEATHRATTLE) == 1;
+}
+
+bool Entity::HasChooseOne() const
+{
+    return GetGameTag(GameTag::CHOOSE_ONE) == 1;
+}
+
+void Entity::Reset()
+{
+    m_gameTags.erase(GameTag::DAMAGE);
+    m_gameTags.erase(GameTag::EXHAUSTED);
+    m_gameTags.erase(GameTag::ATK);
+    m_gameTags.erase(GameTag::HEALTH);
+    m_gameTags.erase(GameTag::COST);
+    m_gameTags.erase(GameTag::TAUNT);
+    m_gameTags.erase(GameTag::FROZEN);
+    m_gameTags.erase(GameTag::CHARGE);
+    m_gameTags.erase(GameTag::WINDFURY);
+    m_gameTags.erase(GameTag::DIVINE_SHIELD);
+    m_gameTags.erase(GameTag::STEALTH);
+    m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
+}
+
 void Entity::Destroy()
 {
     isDestroyed = true;
+}
+
+void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
+{
+    if (HasChooseOne())
+    {
+        if (chooseOne > 0)
+        {
+            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne);
+            return;
+        }
+    }
+
+    std::vector<ITask*> tasks;
+    switch (type)
+    {
+        case PowerType::POWER:
+            tasks = card.power.GetPowerTask();
+            break;
+        case PowerType::DEATHRATTLE:
+            tasks = card.power.GetDeathrattleTask();
+            break;
+        case PowerType::COMBO:
+            tasks = card.power.GetComboTask();
+            break;
+    }
+
+    if (tasks.empty() || tasks[0] == nullptr)
+    {
+        return;
+    }
+
+    for (auto& task : tasks)
+    {
+        task->SetPlayer(owner);
+        task->SetSource(this);
+        task->SetTarget(target);
+
+        owner->GetGame()->taskQueue.Enqueue(task);
+    }
 }
 
 Entity* Entity::GetFromCard(Player& player, Card&& card,
@@ -210,6 +278,7 @@ Entity* Entity::GetFromCard(Player& player, Card&& card,
             result = new Hero(player, card, tags);
             break;
         case CardType::HERO_POWER:
+            tags[GameTag::ZONE] = static_cast<int>(ZoneType::PLAY);
             result = new HeroPower(player, card, tags);
             break;
         case CardType::MINION:
@@ -224,6 +293,19 @@ Entity* Entity::GetFromCard(Player& player, Card&& card,
         default:
             throw std::invalid_argument(
                 "Generic::DrawCard() - Invalid card type!");
+    }
+
+    if (result->HasChooseOne())
+    {
+        delete result->chooseOneCard[0];
+        delete result->chooseOneCard[1];
+
+        result->chooseOneCard[0] =
+            GetFromCard(player, Cards::FindCardByID(result->card.id + "a"),
+                        std::nullopt, &player.GetSetasideZone());
+        result->chooseOneCard[1] =
+            GetFromCard(player, Cards::FindCardByID(result->card.id + "b"),
+                        std::nullopt, &player.GetSetasideZone());
     }
 
     return result;

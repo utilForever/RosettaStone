@@ -39,17 +39,26 @@ TaskStatus HeroPowerTask::Impl(Player& player)
         player.SetUsedMana(player.GetUsedMana() + power->GetCost() - tempUsed);
     }
 
-    // Process power tasks
-    for (auto& powerTask : power->card.power.GetPowerTask())
+    // Process target trigger
+    if (m_target != nullptr)
     {
-        powerTask->SetSource(power);
-        powerTask->SetTarget(m_target);
-        powerTask->Run(player);
+        Trigger::ValidateTriggers(player.GetGame(), power,
+                                  SequenceType::TARGET);
+        player.GetGame()->taskQueue.StartEvent();
+        player.GetGame()->triggerManager.OnTargetTrigger(&player, power);
+        player.GetGame()->ProcessTasks();
+        player.GetGame()->taskQueue.EndEvent();
     }
 
-    power->SetExhausted(true);
+    // Process power tasks
+    player.GetGame()->taskQueue.StartEvent();
+    power->ActivateTask(PowerType::POWER, m_target);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 
     player.GetGame()->ProcessDestroyAndUpdateAura();
+
+    power->SetExhausted(true);
 
     return TaskStatus::COMPLETE;
 }

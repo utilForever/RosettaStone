@@ -40,6 +40,14 @@ void TriggerManager::OnCastSpellTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnAfterCastTrigger(Player* player, Entity* sender) const
+{
+    if (afterCastTrigger != nullptr)
+    {
+        afterCastTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnHealTrigger(Player* player, Entity* sender) const
 {
     if (healTrigger != nullptr)
@@ -69,6 +77,14 @@ void TriggerManager::OnTakeDamageTrigger(Player* player, Entity* sender) const
     if (takeDamageTrigger != nullptr)
     {
         takeDamageTrigger(player, sender);
+    }
+}
+
+void TriggerManager::OnTargetTrigger(Player* player, Entity* sender) const
+{
+    if (targetTrigger != nullptr)
+    {
+        targetTrigger(player, sender);
     }
 }
 }  // namespace RosettaStone

@@ -42,7 +42,7 @@ void Effect::Apply(Entity* entity, bool isOneTurnEffect) const
         case EffectOperator::SET:
             if (m_gameTag == GameTag::CHARGE)
             {
-                if (entity->GetExhausted() &&
+                if (entity->IsExhausted() &&
                     entity->GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 0)
                 {
                     entity->SetExhausted(false);

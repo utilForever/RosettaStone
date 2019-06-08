@@ -28,6 +28,16 @@ void Character::SetAttack(int attack)
     SetGameTag(GameTag::ATK, attack);
 }
 
+int Character::GetPreDamage() const
+{
+    return GetGameTag(GameTag::PREDAMAGE);
+}
+
+void Character::SetPreDamage(int preDamage)
+{
+    SetGameTag(GameTag::PREDAMAGE, preDamage);
+}
+
 int Character::GetDamage() const
 {
     return GetGameTag(GameTag::DAMAGE);
@@ -94,7 +104,7 @@ bool Character::CanAttack() const
     }
 
     // If the character is exhausted, returns false
-    if (GetExhausted())
+    if (IsExhausted())
     {
         return false;
     }
@@ -178,8 +188,16 @@ int Character::TakeDamage(Entity& source, int damage)
     }
 
     const int armor = (hero != nullptr) ? hero->GetArmor() : 0;
-    const int amount =
+    int amount =
         (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
+
+    SetPreDamage(amount);
+
+    if (preDamageTrigger != nullptr)
+    {
+        preDamageTrigger(owner, this);
+        amount = GetPreDamage();
+    }
 
     if (GetGameTag(GameTag::IMMUNE) == 1)
     {
@@ -192,10 +210,13 @@ int Character::TakeDamage(Entity& source, int damage)
     }
 
     SetDamage(GetDamage() + amount);
+    SetPreDamage(0);
 
     // Process damage triggers
+    owner->GetGame()->taskQueue.StartEvent();
     owner->GetGame()->triggerManager.OnTakeDamageTrigger(owner, this);
     owner->GetGame()->ProcessTasks();
+    owner->GetGame()->taskQueue.EndEvent();
 
     return amount;
 }
@@ -217,7 +238,9 @@ void Character::TakeHeal(Entity& source, int heal)
     const int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
-    owner->GetGame()->triggerManager.OnHealTrigger(nullptr, this);
+    owner->GetGame()->taskQueue.StartEvent();
+    owner->GetGame()->triggerManager.OnHealTrigger(owner, this);
     owner->GetGame()->ProcessTasks();
+    owner->GetGame()->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone

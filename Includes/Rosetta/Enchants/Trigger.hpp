@@ -13,6 +13,7 @@
 
 namespace RosettaStone
 {
+class Game;
 class Entity;
 class Player;
 class ITask;
@@ -37,10 +38,17 @@ class Trigger
 
     //! Activates trigger to battlefield.
     //! \param source An source of trigger.
-    void Activate(Entity& source);
+    void Activate(Entity* source);
 
     //! Removes this object from game and unsubscribe from the related event.
     void Remove() const;
+
+    //! Checks triggers related to the current Sequence at once before sequence
+    //! starts.
+    //! \param game The game.
+    //! \param source The source entity.
+    //! \param type The sequence type.
+    static void ValidateTriggers(Game* game, Entity* source, SequenceType type);
 
     TriggerSource triggerSource = TriggerSource::NONE;
 
@@ -57,9 +65,8 @@ class Trigger
     void Process(Player* player, Entity* source);
 
     //! Internal method of Process().
-    //! \param player A pointer to player.
     //! \param source A pointer to source of trigger.
-    void ProcessInternal(Player* player, Entity* source);
+    void ProcessInternal(Entity* source);
 
     //! Validates triggers related to the current sequence at once before the
     //! sequence starts.

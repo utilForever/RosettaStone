@@ -49,9 +49,9 @@ Entity& FieldZone::Remove(Entity& entity)
 
 void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
 {
-    const int pos = oldEntity.zonePos;
+    const int pos = oldEntity.GetZonePosition();
     m_entities[pos] = dynamic_cast<Minion*>(&newEntity);
-    newEntity.zonePos = pos;
+    newEntity.SetZonePosition(pos);
     newEntity.SetZoneType(m_type);
     newEntity.zone = this;
 
@@ -59,7 +59,7 @@ void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
     RemoveAura(oldEntity);
     for (auto& aura : auras)
     {
-        aura->RemoveEntity(oldEntity);
+        aura->RemoveEntity(&oldEntity);
     }
 
     // Add new entity
@@ -73,14 +73,14 @@ void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
 
 void FieldZone::ActivateAura(Entity& entity)
 {
-    if (entity.card.power.GetTrigger().has_value())
+    if (entity.card.power.GetTrigger())
     {
-        entity.card.power.GetTrigger().value().Activate(entity);
+        entity.card.power.GetTrigger()->Activate(&entity);
     }
 
-    if (entity.card.power.GetAura().has_value())
+    if (entity.card.power.GetAura())
     {
-        entity.card.power.GetAura().value().Activate(entity);
+        entity.card.power.GetAura()->Activate(&entity);
     }
 
     const int spellPower = entity.GetGameTag(GameTag::SPELLPOWER);

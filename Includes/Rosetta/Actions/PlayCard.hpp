@@ -18,22 +18,26 @@ namespace RosettaStone::Generic
 //! \param source A pointer to source entity to play card.
 //! \param target A target of the character to receive power.
 //! \param fieldPos A value indicating where to place card.
+//! \param chooseOne The index of chosen card from two cards.
 void PlayCard(Player& player, Entity* source, Character* target = nullptr,
-              int fieldPos = -1);
+              int fieldPos = -1, int chooseOne = 0);
 
 //! Plays a minion card from player's hand.
 //! \param player The player to play minion card.
 //! \param minion A pointer to minion card to play.
 //! \param target A target of the character to receive power.
 //! \param fieldPos A value indicating where to place card.
+//! \param chooseOne The index of chosen card from two cards.
 void PlayMinion(Player& player, Minion* minion, Character* target = nullptr,
-                int fieldPos = -1);
+                int fieldPos = -1, int chooseOne = 0);
 
 //! Plays a spell card from player's hand.
 //! \param player The player to play spell card.
 //! \param spell A pointer to spell card to play.
 //! \param target A target of the character to receive power.
-void PlaySpell(Player& player, Spell* spell, Character* target = nullptr);
+//! \param chooseOne The index of chosen card from two cards.
+void PlaySpell(Player& player, Spell* spell, Character* target = nullptr,
+               int chooseOne = 0);
 
 //! Plays a weapon card from player's hand.
 //! \param player The player to play weapon card.

@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/Player.hpp>
 
@@ -44,6 +45,15 @@ void Hero::AddWeapon(Weapon& _weapon)
     RemoveWeapon();
 
     weapon = &_weapon;
+    weapon->orderOfPlay = owner->GetGame()->GetNextOOP();
+    weapon->SetZoneType(ZoneType::PLAY);
+    weapon->SetZonePosition(0);
+
+    if (weapon->GetGameTag(GameTag::WINDFURY) == 1 && IsExhausted() &&
+        GetNumAttacksThisTurn() == 1)
+    {
+        SetExhausted(false);
+    }
 }
 
 void Hero::RemoveWeapon()

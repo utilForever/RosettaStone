@@ -195,6 +195,13 @@ bool CheckRequirements(Entity* source, Character* target)
                 }
                 break;
             }
+            case PlayReq::REQ_MUST_TARGET_TAUNTER:
+                if (dynamic_cast<Minion*>(target) == nullptr ||
+                    target->GetGameTag(GameTag::TAUNT) == 0)
+                {
+                    return false;
+                }
+                break;
             case PlayReq::REQ_TARGET_TO_PLAY:
             case PlayReq::REQ_TARGET_IF_AVAILABLE:
                 break;

@@ -53,6 +53,14 @@ class Character : public Entity
     //! \param attack The value of attack.
     void SetAttack(int attack);
 
+    //! Returns the value of pre-damage.
+    //! \return The value of pre-damage.
+    int GetPreDamage() const;
+
+    //! Sets the value of pre-damage.
+    //! \param preDamage The value of pre-damage.
+    void SetPreDamage(int preDamage);
+
     //! Returns the value of damage.
     //! \return The value of damage.
     int GetDamage() const;
@@ -114,6 +122,9 @@ class Character : public Entity
     //! \param source An entity to give heal.
     //! \param heal The value of heal.
     void TakeHeal(Entity& source, int heal);
+
+    std::function<void(Player*, Entity*)> afterAttackTrigger;
+    std::function<void(Player*, Entity*)> preDamageTrigger;
 };
 }  // namespace RosettaStone
 

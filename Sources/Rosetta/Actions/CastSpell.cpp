@@ -1,0 +1,58 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+#include <Rosetta/Actions/CastSpell.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/ITask.hpp>
+
+namespace RosettaStone::Generic
+{
+void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
+{
+    player.GetGame()->taskQueue.StartEvent();
+
+    if (spell->IsSecret())
+    {
+        // Process trigger
+        if (spell->card.power.GetTrigger())
+        {
+            spell->card.power.GetTrigger()->Activate(spell);
+        }
+
+        player.GetSecretZone().Add(*spell);
+        spell->SetExhausted(true);
+    }
+    else
+    {
+        // Process trigger
+        if (spell->card.power.GetTrigger())
+        {
+            spell->card.power.GetTrigger()->Activate(spell);
+        }
+
+        // Process aura
+        if (spell->card.power.GetAura())
+        {
+            spell->card.power.GetAura()->Activate(spell);
+        }
+
+        // Process power or combo tasks
+        if (spell->HasCombo() && player.IsComboActive())
+        {
+            spell->ActivateTask(PowerType::COMBO, target);
+        }
+        else
+        {
+            spell->ActivateTask(PowerType::POWER, target, chooseOne);
+        }
+
+        player.GetGraveyardZone().Add(*spell);
+    }
+
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
+}
+}  // namespace RosettaStone::Generic

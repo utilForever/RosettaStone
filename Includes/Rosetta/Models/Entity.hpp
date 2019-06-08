@@ -9,8 +9,10 @@
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
+#include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Zones/IZone.hpp>
 
+#include <array>
 #include <map>
 
 namespace RosettaStone
@@ -54,10 +56,6 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
-    //! Resets all game tag values that where changed after creation.
-    //! Any enchants and trigger is removed.
-    virtual void Reset();
-
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -76,6 +74,14 @@ class Entity
     //! \param type The value of zone type.
     void SetZoneType(ZoneType type);
 
+    //! Returns the value of zone position.
+    //! \return The value of zone position.
+    int GetZonePosition() const;
+
+    //! Sets the value of zone position.
+    //! \param value The value of zone position.
+    void SetZonePosition(int value);
+
     //! Returns the value of cost.
     //! \return The value of cost.
     int GetCost() const;
@@ -86,7 +92,7 @@ class Entity
 
     //! Returns the value of exhausted.
     //! \return The value of exhausted.
-    bool GetExhausted() const;
+    bool IsExhausted() const;
 
     //! Sets the value of exhausted.
     //! \param exhausted The value of exhausted.
@@ -104,8 +110,26 @@ class Entity
     //! \return The value of overload.
     int GetOverload() const;
 
-    //! Destroys character.
+    //! Returns whether this entity has deathrattle power.
+    //! \return Whether this entity has deathrattle power.
+    bool HasDeathrattle() const;
+
+    //! Returns whether this entity has to choose one.
+    //! \return Whether this entity has to choose one.
+    bool HasChooseOne() const;
+
+    //! Resets all game tag values that where changed after creation.
+    //! Any enchants and trigger is removed.
+    virtual void Reset();
+
+    //! Destroys entity.
     virtual void Destroy();
+
+    //! Activates the task.
+    //! \param type The type of power.
+    //! \param target The target.
+    //! \param chooseOne The index of chosen card from two cards.
+    void ActivateTask(PowerType type, Entity* target = nullptr, int chooseOne = 0);
 
     //! Builds a new entity that can be added to a game.
     //! \param player An owner of the entity.
@@ -123,11 +147,12 @@ class Entity
     Card card;
 
     IZone* zone = nullptr;
-    int zonePos = -1;
 
     AuraEffects* auraEffects = nullptr;
     Aura* onGoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
+
+    std::array<Entity*, 2> chooseOneCard{};
     std::vector<Enchantment*> appliedEnchantments;
 
     int id = 0;

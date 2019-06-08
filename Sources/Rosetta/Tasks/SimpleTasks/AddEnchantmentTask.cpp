@@ -40,21 +40,21 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
         const auto enchantment =
             Enchantment::GetInstance(player, enchantmentCard, entity);
 
-        if (power.GetAura().has_value())
+        if (power.GetAura())
         {
-            power.GetAura().value().Activate(*enchantment);
+            power.GetAura()->Activate(enchantment);
         }
 
-        if (power.GetTrigger().has_value())
+        if (power.GetTrigger())
         {
-            power.GetTrigger().value().Activate(*enchantment);
+            power.GetTrigger()->Activate(enchantment);
         }
 
-        if (power.GetEnchant().has_value())
+        if (power.GetEnchant())
         {
             const auto& taskStack = player.GetGame()->taskStack;
-            power.GetEnchant().value().ActivateTo(entity, taskStack.num,
-                                                  taskStack.num1);
+            power.GetEnchant()->ActivateTo(entity, taskStack.num,
+                                           taskStack.num1);
         }
     }
 

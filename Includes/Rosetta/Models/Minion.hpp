@@ -51,6 +51,9 @@ class Minion : public Character
     //! \param value The value of last board position.
     void SetLastBoardPos(int value);
 
+    //! Disables all special effects on this minion.
+    void Silence();
+
     //! Resets all game tag values that where changed after creation.
     //! Any enchants and trigger is removed.
     void Reset() override;

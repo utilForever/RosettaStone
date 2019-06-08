@@ -28,9 +28,9 @@ void DeckZone::Add(Entity& entity, int zonePos)
 {
     LimitedZone::Add(entity, zonePos);
 
-    if (entity.card.power.GetTrigger().has_value())
+    if (entity.card.power.GetTrigger())
     {
-        entity.card.power.GetTrigger().value().Activate(entity);
+        entity.card.power.GetTrigger()->Activate(&entity);
     }
 }
 

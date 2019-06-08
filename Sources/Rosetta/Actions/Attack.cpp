@@ -18,9 +18,20 @@ void Attack(Player& player, Character* source, Character* target)
         return;
     }
 
-    // Activate attack trigger
+    // Process attack trigger
+    player.GetGame()->taskQueue.StartEvent();
     player.GetGame()->triggerManager.OnAttackTrigger(&player, source);
     player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
+
+    // Validate target trigger
+    Trigger::ValidateTriggers(player.GetGame(), source, SequenceType::TARGET);
+
+    // Process target trigger
+    player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnTargetTrigger(&player, source);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 
     // Set game step to MAIN_COMBAT
     player.GetGame()->step = Step::MAIN_COMBAT;
@@ -97,6 +108,15 @@ void Attack(Player& player, Character* source, Character* target)
     {
         source->SetExhausted(true);
     }
+
+    // Process after attack trigger
+    player.GetGame()->taskQueue.StartEvent();
+    if (source->afterAttackTrigger != nullptr)
+    {
+        source->afterAttackTrigger(&player, source);
+    }
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 
     // Process destroy and update aura
     player.GetGame()->ProcessDestroyAndUpdateAura();

@@ -21,10 +21,9 @@ bin/UnitTests
 lcov --gcov-tool /usr/bin/gcov-7 -c -d Tests/UnitTests -o test.info
 lcov --gcov-tool /usr/bin/gcov-7 -a base.info -a test.info -o coverage.info
 lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '/usr/*' -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Extensions/*' -o coverage.info
+lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Includes/*' -o coverage.info
 lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Libraries/*' -o coverage.info
-lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Programs/*' -o coverage.info
-lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Tests/*' -o coverage.info
-lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Tools/*' -o coverage.info
 lcov --gcov-tool /usr/bin/gcov-7 -l coverage.info
 
 curl -s https://codecov.io/bash > .codecov

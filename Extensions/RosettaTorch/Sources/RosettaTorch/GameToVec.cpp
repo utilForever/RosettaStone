@@ -63,7 +63,7 @@ GameToVec::GameToVec(const std::size_t seed) : m_seed(seed)
               EntityTypeVectorSize);
 }
 
-torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
+torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect*> effects)
 {
     const torch::Tensor effectVectors =
         torch::zeros({ static_cast<int>(effects.size()),
@@ -71,10 +71,10 @@ torch::Tensor GameToVec::EffectsToTensor(std::vector<Effect> effects)
 
     for (std::size_t i = 0; i < effects.size(); ++i)
     {
-        auto effectGameTag = effects[i].GetGameTag();
-        auto effectOp = effects[i].GetEffectOperator();
+        auto effectGameTag = effects[i]->GetGameTag();
+        auto effectOp = effects[i]->GetEffectOperator();
         // For preventing division by zero exception
-        auto effectValue = static_cast<float>(effects[i].GetValue()) + 1;
+        auto effectValue = static_cast<float>(effects[i]->GetValue()) + 1;
 
         // Getting index of the game tag
         const auto gameTagIter = std::find(EffectGameTag.begin(),
@@ -158,8 +158,8 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     // Write health of the card
     cardVector[2] = (health >= CLIP_CARD_NORM) ? 1. : health / CLIP_CARD_NORM;
 
-    const auto AuraToVector = [&](std::optional<Aura>& aura) -> torch::Tensor {
-        if (!aura.has_value())
+    const auto AuraToVector = [&](Aura* aura) -> torch::Tensor {
+        if (!aura)
         {
             return torch::zeros(AuraVectorSize);
         }
@@ -182,8 +182,8 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     };
 
     const auto EnchantToVector =
-        [&](std::optional<Enchant> enchant) -> torch::Tensor {
-        if (!enchant.has_value())
+        [&](Enchant* enchant) -> torch::Tensor {
+        if (!enchant)
         {
             return torch::zeros(EnchantVectorSize);
         }

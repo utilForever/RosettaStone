@@ -160,6 +160,9 @@ void Game::BeginMulligan()
 
 void Game::MainBegin()
 {
+    // Process tasks
+    ProcessTasks();
+
     // Set next step
     nextStep = Step::MAIN_READY;
     if (m_gameConfig.autoRun)
@@ -278,8 +281,10 @@ void Game::MainAction()
 
 void Game::MainEnd()
 {
+    taskQueue.StartEvent();
     triggerManager.OnEndTurnTrigger(&GetCurrentPlayer(), nullptr);
     ProcessTasks();
+    taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
 
     // Set next step
@@ -317,7 +322,7 @@ void Game::MainCleanUp()
     for (auto& m : curPlayer.GetFieldZone().GetAll())
     {
         if (m->GetGameTag(GameTag::FROZEN) == 1 &&
-            m->GetNumAttacksThisTurn() == 0 && !m->GetExhausted())
+            m->GetNumAttacksThisTurn() == 0 && !m->IsExhausted())
         {
             m->SetGameTag(GameTag::FROZEN, 0);
         }
@@ -456,12 +461,9 @@ void Game::StartGame()
 
 void Game::ProcessTasks()
 {
-    while (!taskQueue.empty())
+    while (!taskQueue.IsEmpty())
     {
-        ITask* task = taskQueue.front();
-        taskQueue.pop_front();
-
-        task->Run(GetCurrentPlayer());
+        taskQueue.Process();
     }
 }
 
@@ -472,17 +474,22 @@ void Game::ProcessDestroyAndUpdateAura()
     // Process summoned minions
     if (triggerManager.summonTrigger != nullptr)
     {
+        taskQueue.StartEvent();
         for (auto& minion : summonedMinions)
         {
             triggerManager.OnSummonTrigger(&GetCurrentPlayer(), minion);
         }
+        ProcessTasks();
+        taskQueue.EndEvent();
     }
 
+    taskQueue.StartEvent();
     do
     {
         ProcessGraveyard();
         ProcessTasks();
     } while (!deadMinions.empty());
+    taskQueue.EndEvent();
 
     UpdateAura();
 }
@@ -509,18 +516,13 @@ void Game::ProcessGraveyard()
             Minion* minion = deadMinion.second;
 
             // Remove minion from battlefield
-            minion->SetLastBoardPos(minion->zonePos);
+            minion->SetLastBoardPos(minion->GetZonePosition());
             minion->zone->Remove(*minion);
 
             // Process deathrattle tasks
-            for (auto& power : minion->card.power.GetDeathrattleTask())
+            if (minion->HasDeathrattle())
             {
-                if (power == nullptr)
-                {
-                    continue;
-                }
-
-                power->Run(*minion->owner);
+                minion->ActivateTask(PowerType::DEATHRATTLE);
             }
 
             // Add minion to graveyard
@@ -550,7 +552,8 @@ void Game::UpdateAura()
 void Game::Process(Player& player, ITask* task)
 {
     // Process task
-    Task::Run(player, task);
+    task->SetPlayer(&player);
+    Task::Run(task);
 
     CheckGameOver();
 }
@@ -558,7 +561,8 @@ void Game::Process(Player& player, ITask* task)
 void Game::Process(Player& player, ITask&& task)
 {
     // Process task
-    Task::Run(player, std::move(task));
+    task.SetPlayer(&player);
+    Task::Run(std::move(task));
 
     CheckGameOver();
 }
