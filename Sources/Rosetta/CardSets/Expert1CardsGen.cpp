@@ -1276,6 +1276,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_043", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_044] Questing Adventurer - COST:3 [ATK:2/HP:2]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you play a card, gain +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_044e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_044", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1575,6 +1588,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Enchants::AddHealthScriptTag));
     cards.emplace("EX1_043e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_044e] Level Up! (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack and Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant(Effects::AttackHealthN(1)));
+    cards.emplace("EX1_044e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_046e] Tempered (*) - COST:0
