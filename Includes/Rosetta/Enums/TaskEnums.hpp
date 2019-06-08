@@ -27,6 +27,7 @@ enum class TaskID
     MANA_CRYSTAL,
     DAMAGE,
     MULLIGAN,
+    ADD_CARD,
     PLAY_CARD,
     ADD_ENCHANTMENT,
     REMOVE_ENCHANTMENT,
