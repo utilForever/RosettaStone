@@ -2854,6 +2854,20 @@ TEST(NeutralExpert1Test, EX1_044_QuestingAdventurer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5]
+// - Faction: Alliance, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Can't attack.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_045_AncientWatcher)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
 // - Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

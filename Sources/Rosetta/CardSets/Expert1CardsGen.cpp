@@ -1289,6 +1289,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_044", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Can't attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_ATTACK = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_045", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
     // - Faction: Alliance, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
