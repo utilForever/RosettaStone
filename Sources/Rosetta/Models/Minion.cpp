@@ -31,7 +31,7 @@ void Minion::SetLastBoardPos(int value)
 }
 
 void Minion::Silence()
-    {
+{
     SetGameTag(GameTag::TAUNT, 0);
     SetGameTag(GameTag::FROZEN, 0);
     SetGameTag(GameTag::ENRAGED, 0);
@@ -46,6 +46,7 @@ void Minion::Silence()
     SetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS, 0);
     SetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS, 0);
     SetGameTag(GameTag::IMMUNE, 0);
+    SetGameTag(GameTag::CANT_ATTACK, 0);
 
     const int spellPower = GetGameTag(GameTag::SPELLPOWER);
     if (spellPower > 0)
