@@ -54,7 +54,6 @@ TEST(DruidExpert1Test, EX1_570_Bite)
     game.ProcessUntil(Step::MAIN_START);
     
     EXPECT_EQ(expectATK-4 , curPlayer.GetHero()->GetAttack());
-    
 }
 
 // ---------------------------------------- MINION - HUNTER
