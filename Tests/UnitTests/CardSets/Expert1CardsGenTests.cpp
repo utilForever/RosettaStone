@@ -13,6 +13,50 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------- SPELL - DRUID
+// [EX1_570] Bite - COST:4
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give your hero +4 Attack this turn. Gain 4 Armor.
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_570_Bite)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bite"));
+    
+    int expectArmor = curPlayer.GetHero()->GetArmor()+4;
+    int expectATK = curPlayer.GetHero()->GetAttack()+4;
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    
+    EXPECT_EQ(expectArmor, curPlayer.GetHero()->GetArmor());
+    EXPECT_EQ(expectATK, curPlayer.GetHero()->GetAttack());
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    EXPECT_EQ(expectATK-4 , curPlayer.GetHero()->GetAttack());
+    
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -959,6 +1003,56 @@ TEST(ShamanExpert1Test, EX1_251_ForkedLightning)
     EXPECT_EQ(curPlayer.GetRemainingMana(), 9);
     EXPECT_EQ(curPlayer.GetOverloadOwed(), 2);
     EXPECT_EQ(curPlayer.GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 8);
+    EXPECT_EQ(curPlayer.GetOverloadOwed(), 0);
+    EXPECT_EQ(curPlayer.GetOverloadLocked(), 2);
+}
+
+// ---------------------------------------- WEAPON - SHAMAN
+// [EX1_567]Doomhammer - COST:5 [ATK:2/HP:0]
+// - Faction: Neutral, Set: Core, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Windfury, Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 8
+// - OVERLOAD = 1
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_567_Doomhammer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Doomhammer"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 2);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 8);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetGameTag(GameTag::WINDFURY),1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -2192,6 +2286,70 @@ TEST(NeutralExpert1Test, EX1_405_Shieldbearer)
 TEST(NeutralExpert1Test, EX1_563_Malygos)
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Choose a minion and become a copy of it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Faceless Manipulator"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Faceless Manipulator"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));    
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));    
+    EXPECT_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, curField[0]));
+    EXPECT_EQ(curField[0]->GetAttack() , curField[1]->GetAttack());
+    EXPECT_EQ(curField[0]->GetHealth() , curField[1]->GetHealth());
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opField[0]));
+    EXPECT_EQ(opField[0]->GetAttack() , curField[2]->GetAttack());
+    EXPECT_EQ(opField[0]->GetHealth() , curField[2]->GetHealth());
 }
 
 // --------------------------------------- MINION - NEUTRAL
