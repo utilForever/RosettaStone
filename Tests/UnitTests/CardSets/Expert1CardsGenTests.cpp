@@ -2510,7 +2510,7 @@ TEST(NeutralExpert1Test, EX1_010_WorgenInfiltrator)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
-// - Fac: neutral, Set: expert1, Rarity: legendary
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
 //       <b>Deathrattle:</b> Draw a card.
@@ -2580,6 +2580,62 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(curPlayer.currentSpellPower, 0);
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
+// - Race: Beast, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your opponent 2 Bananas.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_014_KingMukla)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("King Mukla"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    auto& opHand = opPlayer.GetHandZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(opHand.GetCount(), 4);
+    EXPECT_EQ(opHand[2]->card.name, "Bananas");
+    EXPECT_EQ(opHand[3]->card.name, "Bananas");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(opField[0]->GetAttack(), 3);
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card2));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card2));
+    EXPECT_EQ(opField[0]->GetAttack(), 5);
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL

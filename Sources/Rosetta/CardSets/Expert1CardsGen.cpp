@@ -9,6 +9,7 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/Triggers.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
@@ -1145,6 +1146,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_012", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
+    // - Race: Beast, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your opponent 2 Bananas.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddCardTask(EntityType::ENEMY_HAND, "EX1_014t", 2));
+    cards.emplace("EX1_014", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
     // - Race: Beast, Faction: Horde, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1526,6 +1541,30 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(5) }));
     cards.emplace("EX1_009e", power);
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [EX1_014t] Bananas (*) - COST:1
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Give a minion +1/+1.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_014te", EntityType::TARGET));
+    cards.emplace("EX1_014t", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_014te] Bananas (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Has +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_014te"));
+    cards.emplace("EX1_014te", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_043e] Hour of Twilight (*) - COST:0
