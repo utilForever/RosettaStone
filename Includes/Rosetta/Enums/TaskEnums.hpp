@@ -47,6 +47,7 @@ enum class TaskID
     RANDOM,
     SUMMON,
     TRANSFORM,
+    TRANSFORM_COPY,
     CONDITION,
     FLAG,
     ARMOR,
