@@ -3005,8 +3005,8 @@ TEST(NeutralExpert1Test, EX1_048_Spellbreaker)
 // [EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
 // - Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Return a friendly minion from the battlefield
-//       to your hand.
+// Text: <b>Battlecry:</b> Return a friendly minion
+//       from the battlefield to your hand.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -3107,6 +3107,60 @@ TEST(NeutralExpert1Test, EX1_055_ManaAddict)
     game.ProcessUntil(Step::MAIN_START);
 
     EXPECT_EQ(curField[0]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_057] Ancient Brewmaster - COST:4 [ATK:5/HP:4]
+// - Faction: Alliance, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Return a friendly minion
+//       from the battlefield to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_057_AncientBrewmaster)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ancient Brewmaster"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("SI:7 Agent"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 1);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 28);
 }
 
 // --------------------------------------- MINION - NEUTRAL
