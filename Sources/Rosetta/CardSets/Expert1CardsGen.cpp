@@ -31,7 +31,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -51,7 +51,7 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
 {
     Power power;
-    
+
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154] Wrath - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -86,7 +86,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
-    
+
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154a] Wrath (*) - COST:0
     // - Faction: Neutral, Set: Expert1
@@ -1447,9 +1447,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - REQ_NONSELF_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new TransformTask(EntityType::TARGET, "EX1_564"));
+    power.AddPowerTask(new TransformCopyTask());
     cards.emplace("EX1_564", power);
-    
+
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
