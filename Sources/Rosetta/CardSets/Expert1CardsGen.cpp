@@ -1358,6 +1358,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_049", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, gain +2 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_055o",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_055", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -1665,6 +1678,19 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
     cards.emplace("EX1_046e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_055o] Empowered (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Mana Addict has increased Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant({ Effects::AttackN(2) }, false, true));
+    cards.emplace("EX1_055o", power);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [NEW1_037e] Equipped (*) - COST:0

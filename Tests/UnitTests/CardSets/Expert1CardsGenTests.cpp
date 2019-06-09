@@ -3056,6 +3056,60 @@ TEST(NeutralExpert1Test, EX1_049_YouthfulBrewmaster)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
+// - Faction: Alliance, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you cast a spell, gain +2 Attack this turn.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_055_ManaAddict)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mana Addict"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer.GetHero()));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 18);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
