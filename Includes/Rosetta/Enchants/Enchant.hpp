@@ -28,6 +28,9 @@ class Enchant
     //! Default constructor.
     Enchant() = default;
 
+    //! Default destructor.
+    virtual ~Enchant() = default;
+
     //! Constructs enchant with given \p gameTag, \p effectOperator and
     //! \p value.
     //! \param gameTag The game tag of the card.
