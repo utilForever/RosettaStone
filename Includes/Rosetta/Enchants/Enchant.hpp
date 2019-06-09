@@ -88,6 +88,10 @@ class OngoingEnchant : public Enchant, IAura
     //! Removes this effect from the game to stop affecting entities.
     void Remove() override;
 
+    //! Clones aura effect to \p clone.
+    //! \param clone The entity to clone aura effect.
+    void Clone(Entity* clone) override;
+
  private:
     Entity* m_target = nullptr;
 

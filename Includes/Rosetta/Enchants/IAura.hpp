@@ -25,6 +25,10 @@ class IAura
 
     //! Removes this effect from the game to stop affecting entities.
     virtual void Remove() = 0;
+
+    //! Clones aura effect to \p clone.
+    //! \param clone The entity to clone aura effect.
+    virtual void Clone(Entity* clone) = 0;
 };
 }  // namespace RosettaStone
 
