@@ -1338,6 +1338,26 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_048", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Return a friendly minion from the battlefield
+    //       to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
+    cards.emplace("EX1_049", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
