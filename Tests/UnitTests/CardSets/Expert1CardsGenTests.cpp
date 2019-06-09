@@ -3407,7 +3407,7 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
@@ -3431,29 +3431,36 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Faceless Manipulator"));
     const auto card3 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
+        opPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
     const auto card4 = Generic::DrawCard(
-        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+        opPlayer, Cards::GetInstance().FindCardByName("Shattered Sun Cleric"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opField.GetCount(), 1);
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opField[0]->GetAttack(), 1);
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card4, card3));
+    EXPECT_EQ(opField[0]->GetAttack(), 2);
+    EXPECT_EQ(opField[0]->GetHealth(), 4);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, curField[0]));
-    EXPECT_EQ(curField[0]->GetAttack(), curField[1]->GetAttack());
-    EXPECT_EQ(curField[0]->GetHealth(), curField[1]->GetHealth());
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
+    EXPECT_EQ(curField[1]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetHealth(), 4);
 
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opField[0]));
-    EXPECT_EQ(opField[0]->GetAttack(), curField[2]->GetAttack());
-    EXPECT_EQ(opField[0]->GetHealth(), curField[2]->GetHealth());
+    curField[1]->SetDamage(1);
+
+    game.Process(curPlayer, HeroPowerTask(curField[1]));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
