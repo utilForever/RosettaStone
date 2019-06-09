@@ -153,7 +153,7 @@ class Entity
     IZone* zone = nullptr;
 
     AuraEffects* auraEffects = nullptr;
-    Aura* onGoingEffect = nullptr;
+    IAura* onGoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
 
     std::array<Entity*, 2> chooseOneCard{};
