@@ -94,4 +94,15 @@ void OngoingEnchant::Remove()
     EraseIf(m_target->owner->GetGame()->auras,
             [this](IAura* aura) { return aura == this; });
 }
+
+void OngoingEnchant::Clone(Entity* clone)
+{
+    IAura* copy = new OngoingEnchant(effects);
+    auto ongoingCopy = dynamic_cast<OngoingEnchant*>(copy);
+    ongoingCopy->m_target = clone;
+    ongoingCopy->isOneTurnEffect = isOneTurnEffect;
+
+    clone->onGoingEffect = copy;
+    ongoingCopy->m_target->owner->GetGame()->auras.emplace_back(copy);
+}
 }  // namespace RosettaStone

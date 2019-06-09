@@ -93,6 +93,11 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
+std::map<GameTag, int> Entity::GetGameTags() const
+{
+    return m_gameTags;
+}
+
 int Entity::GetGameTag(GameTag tag) const
 {
     int value = 0;

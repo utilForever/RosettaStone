@@ -11,6 +11,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
@@ -31,6 +32,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -69,6 +71,17 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_154", power);
+
+    // ------------------------------------------- SPELL - DRUID
+    // [EX1_570] Bite - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_570e", EntityType::HERO));
+    power.AddPowerTask(new ArmorTask(4));
+    cards.emplace("EX1_570", power);
 }
 
 void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
@@ -103,6 +116,16 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_154b", power);
+
+    // ----------------------------------------- ENCHANTMENT - DRUID
+    // [EX1_570e] Bite - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +4 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
+    cards.emplace("EX1_570e", power);
 }
 
 void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
@@ -616,6 +639,22 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     cards.emplace("EX1_251", power);
+
+    // ---------------------------------------- WEAPON - SHAMAN
+    // [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Windfury, Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 8
+    // - WINDFURY = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_567", power);
 
     // ---------------------------------------- MINION - SHAMAN
     // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
@@ -1525,6 +1564,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_563", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Choose a minion and become a copy of it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new TransformCopyTask());
+    cards.emplace("EX1_564", power);
+
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------

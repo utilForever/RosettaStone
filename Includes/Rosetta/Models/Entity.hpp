@@ -56,6 +56,10 @@ class Entity
     //! Move assignment operator.
     Entity& operator=(Entity&& ent) noexcept;
 
+    //! Returns a list of game tag.
+    //! \return A list of game tag.
+    std::map<GameTag, int> GetGameTags() const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
@@ -149,7 +153,7 @@ class Entity
     IZone* zone = nullptr;
 
     AuraEffects* auraEffects = nullptr;
-    Aura* onGoingEffect = nullptr;
+    IAura* onGoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
 
     std::array<Entity*, 2> chooseOneCard{};

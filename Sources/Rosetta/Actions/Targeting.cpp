@@ -42,8 +42,8 @@ bool IsValidTarget(Entity* source, Entity* target)
     // Get valid play targets
     auto targetList = GetValidTargets(source);
 
-    // Return if source needs a target, but target is null and list is empty
-    if (IsSourceNeedsTarget(source) && target == nullptr && targetList.empty())
+    // Return if source needs a target, but target is null and list is not empty
+    if (IsSourceNeedsTarget(source) && target == nullptr && !targetList.empty())
     {
         return false;
     }
