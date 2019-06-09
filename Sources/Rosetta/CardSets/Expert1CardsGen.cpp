@@ -51,17 +51,6 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
 {
     Power power;
-
-    // ------------------------------------------- SPELL - DRUID
-    // [EX1_570] Bite - COST:4
-    // - Faction: Neutral, Set: Expert1, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new ArmorTask(4));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_570e", EntityType::HERO));
-    cards.emplace("EX1_570", power);
     
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154] Wrath - COST:2
@@ -81,21 +70,22 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_154", power);
+
+    // ------------------------------------------- SPELL - DRUID
+    // [EX1_570] Bite - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_570e", EntityType::HERO));
+    power.AddPowerTask(new ArmorTask(4));
+    cards.emplace("EX1_570", power);
 }
 
 void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
-
-    // ----------------------------------------- ENCHANTMENT - DRUID
-    // [EX1_570e] Bite - COST:0
-    // - Set: Expert1
-    // --------------------------------------------------------
-    // Text: +4 Attack this turn.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
-    cards.emplace("EX1_570e", power);
     
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154a] Wrath (*) - COST:0
@@ -125,6 +115,16 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_154b", power);
+
+    // ----------------------------------------- ENCHANTMENT - DRUID
+    // [EX1_570e] Bite - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +4 Attack this turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
+    cards.emplace("EX1_570e", power);
 }
 
 void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
@@ -640,15 +640,16 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("EX1_251", power);
 
     // ---------------------------------------- WEAPON - SHAMAN
-    // [EX1_567]Doomhammer - COST:5 [ATK:2/HP:0]
-    // - Faction: Neutral, Set: Core, Rarity: Epic
+    // [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Windfury, Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 8
-    // - OVERLOAD = 1
     // - WINDFURY = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);

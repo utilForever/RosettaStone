@@ -13,50 +13,6 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-// ------------------------------------------- SPELL - DRUID
-// [EX1_570] Bite - COST:4
-// - Faction: Neutral, Set: Expert1, Rarity: Rare
-// --------------------------------------------------------
-// Text: Give your hero +4 Attack this turn. Gain 4 Armor.
-// --------------------------------------------------------
-TEST(DruidExpert1Test, EX1_570_Bite)
-{
-    GameConfig config;
-    config.player1Class = CardClass::DRUID;
-    config.player2Class = CardClass::PALADIN;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.StartGame();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-    
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Bite"));
-    
-    int expectArmor = curPlayer.GetHero()->GetArmor()+4;
-    int expectATK = curPlayer.GetHero()->GetAttack()+4;
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    
-    EXPECT_EQ(expectArmor, curPlayer.GetHero()->GetArmor());
-    EXPECT_EQ(expectATK, curPlayer.GetHero()->GetAttack());
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
-    
-    EXPECT_EQ(expectATK-4 , curPlayer.GetHero()->GetAttack());
-}
-
 // ------------------------------------------ SPELL - DRUID
 // [EX1_154] Wrath - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -117,6 +73,50 @@ TEST(DruidExpert1Test, EX1_154_Wrath)
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3, 2));
     EXPECT_EQ(opField[0]->GetHealth(), 3);
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
+}
+
+// ------------------------------------------- SPELL - DRUID
+// [EX1_570] Bite - COST:4
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give your hero +4 Attack this turn. Gain 4 Armor.
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_570_Bite)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bite"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 4);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 5);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
+    EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 5);
 }
 
 // ---------------------------------------- WEAPON - HUNTER
@@ -1605,15 +1605,16 @@ TEST(ShamanExpert1Test, EX1_251_ForkedLightning)
 }
 
 // ---------------------------------------- WEAPON - SHAMAN
-// [EX1_567]Doomhammer - COST:5 [ATK:2/HP:0]
-// - Faction: Neutral, Set: Core, Rarity: Epic
+// [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: <b>Windfury, Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 8
-// - OVERLOAD = 1
 // - WINDFURY = 1
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
 // --------------------------------------------------------
 TEST(ShamanExpert1Test, EX1_567_Doomhammer)
 {
@@ -1641,7 +1642,7 @@ TEST(ShamanExpert1Test, EX1_567_Doomhammer)
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 2);
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 8);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetGameTag(GameTag::WINDFURY),1);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetGameTag(GameTag::WINDFURY), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -3434,25 +3435,25 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
     const auto card4 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card3));    
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
     EXPECT_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card4));    
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
     EXPECT_EQ(opField.GetCount(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, curField[0]));
-    EXPECT_EQ(curField[0]->GetAttack() , curField[1]->GetAttack());
-    EXPECT_EQ(curField[0]->GetHealth() , curField[1]->GetHealth());
+    EXPECT_EQ(curField[0]->GetAttack(), curField[1]->GetAttack());
+    EXPECT_EQ(curField[0]->GetHealth(), curField[1]->GetHealth());
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opField[0]));
-    EXPECT_EQ(opField[0]->GetAttack() , curField[2]->GetAttack());
-    EXPECT_EQ(opField[0]->GetHealth() , curField[2]->GetHealth());
+    EXPECT_EQ(opField[0]->GetAttack(), curField[2]->GetAttack());
+    EXPECT_EQ(opField[0]->GetHealth(), curField[2]->GetHealth());
 }
 
 // --------------------------------------- MINION - NEUTRAL
