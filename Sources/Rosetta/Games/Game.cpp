@@ -176,13 +176,17 @@ void Game::MainReady()
     // Reset the number of attacked
     for (auto& p : m_players)
     {
-        // Hero
-        p.GetHero()->SetNumAttacksThisTurn(0);
         // Field
         for (auto& m : p.GetFieldZone().GetAll())
         {
             m->SetNumAttacksThisTurn(0);
         }
+
+        // Hero
+        p.GetHero()->SetNumAttacksThisTurn(0);
+
+        // Player
+        p.SetNumMinionsPlayedThisTurn(0);
     }
 
     // Reset exhaust for current player

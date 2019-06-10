@@ -96,7 +96,10 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
 void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
                 int chooseOne)
 {
-    // Add minion to battlefield
+    const int numMinionsPlayedThisTurn = player.GetNumMinionsPlayedThisTurn();
+    player.SetNumMinionsPlayedThisTurn(numMinionsPlayedThisTurn + 1);
+
+    // Add minion to field zone
     player.GetFieldZone().Add(*minion, fieldPos);
 
     // Apply card mechanics tags
