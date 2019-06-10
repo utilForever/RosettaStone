@@ -28,16 +28,20 @@ class Enchants
     inline static Enchant AddHealthScriptTag =
         Enchant(Effects::HealthN(0), true);
 
-    //! Enchant that set attack and uses script tag.
+    //! Enchant that sets attack and uses script tag.
     inline static Enchant SetAttackScriptTag =
         Enchant(new Effect(GameTag::ATK, EffectOperator::SET, 0), true);
-    //! Enchant that set health and uses script tag.
+    //! Enchant that sets health and uses script tag.
     inline static Enchant SetHealthScriptTag =
         Enchant(new Effect(GameTag::HEALTH, EffectOperator::SET, 0), true);
 
     //! Enchant that adds attack/health and uses script tag.
     inline static Enchant AddAttackHealthScriptTag =
         Enchant(Effects::AttackHealthN(0), true);
+
+    //! Enchant that sets attack/health and uses script tag.
+    inline static Enchant SetAttackHealthScriptTag =
+        Enchant(Effects::SetAttackHealth(0), true);
 
     //! Creates enchant from card's text.
     //! \param cardID A card's ID.
