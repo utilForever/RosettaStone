@@ -36,6 +36,24 @@ class Effects
         return { AttackN(n), HealthN(n) };
     }
 
+    //! Creates effect that sets attack to \p n.
+    static Effect* SetAttack(int n)
+    {
+        return new Effect(GameTag::ATK, EffectOperator::SET, n);
+    }
+
+    //! Creates effect that sets max health to \p n.
+    static Effect* SetMaxHealth(int n)
+    {
+        return new Effect(GameTag::HEALTH, EffectOperator::SET, n);
+    }
+
+    //! Creates effect that sets attack and health to \p n.
+    static std::vector<Effect*> SetAttackHealth(int n)
+    {
+        return { SetAttack(n), SetMaxHealth(n) };
+    }
+
     //! Creates effect that reduces cost by \p n.
     static Effect* ReduceCost(int n)
     {
@@ -71,7 +89,7 @@ class Effects
 
     //! An ability that prevents characters from receiving any damage, and
     //! prevents the opponent from specifically targeting them with any type of
-    //! action. 
+    //! action.
     inline static Effect* Immune =
         new Effect(GameTag::IMMUNE, EffectOperator::SET, 1);
 };
