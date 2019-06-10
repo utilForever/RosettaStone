@@ -68,6 +68,7 @@ enum class TaskID
     ADD_AURA_EFFECT,
     SILENCE,
     DAMAGE_NUMBER,
+    SWAP_ATTACK_HEALTH,
 
     NUM_TASK_ID
 };
