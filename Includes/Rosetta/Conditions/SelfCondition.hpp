@@ -68,7 +68,7 @@ class SelfCondition
                                     RelaSign relaSign = RelaSign::EQ);
 
     //! Evaluates condition using checking function.
-    //! \param entity An owner entity.
+    //! \param entity The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
     bool Evaluate(Entity* entity) const;
 

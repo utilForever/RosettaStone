@@ -5,6 +5,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
+
 #include <utility>
 
 namespace RosettaStone
