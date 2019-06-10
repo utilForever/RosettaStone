@@ -26,6 +26,7 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/Utils.hpp>
+#include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
