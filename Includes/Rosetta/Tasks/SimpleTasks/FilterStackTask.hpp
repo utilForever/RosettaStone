@@ -6,6 +6,8 @@
 #ifndef ROSETTASTONE_FILTER_STACK_TASK_HPP
 #define ROSETTASTONE_FILTER_STACK_TASK_HPP
 
+#include <Rosetta/Conditions/RelaCondition.hpp>
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
@@ -23,6 +25,11 @@ class FilterStackTask : public ITask
     //! \param selfCondition A self condition to filter.
     FilterStackTask(SelfCondition selfCondition);
 
+    //! Constructs task with given \p type and \p relaCondition.
+    //! \param type The entity type of target to filter.
+    //! \param relaCondition A relation condition to filter.
+    FilterStackTask(EntityType type, RelaCondition relaCondition);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
@@ -34,6 +41,7 @@ class FilterStackTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     SelfCondition* m_selfCondition = nullptr;
+    RelaCondition* m_relaCondition = nullptr;
 };
 }  // namespace RosettaStone::SimpleTasks
 

@@ -17,6 +17,12 @@ FilterStackTask::FilterStackTask(SelfCondition selfCondition)
     // Do nothing
 }
 
+FilterStackTask::FilterStackTask(EntityType type, RelaCondition relaCondition)
+    : ITask(type), m_relaCondition(new RelaCondition(std::move(relaCondition)))
+{
+    // Do nothing
+}
+
 TaskID FilterStackTask::GetTaskID() const
 {
     return TaskID::FILTER_STACK;
@@ -24,6 +30,29 @@ TaskID FilterStackTask::GetTaskID() const
 
 TaskStatus FilterStackTask::Impl(Player& player)
 {
+    if (m_relaCondition != nullptr)
+    {
+        auto entities =
+            IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+        if (entities.size() != 1)
+        {
+            return TaskStatus::STOP;
+        }
+
+        std::vector<Entity*> filtered;
+        filtered.reserve(entities.size());
+
+        for (auto& entity : player.GetGame()->taskStack.entities)
+        {
+            if (m_relaCondition->Evaluate(entities[0], entity))
+            {
+                filtered.emplace_back(entity);
+            }
+        }
+
+        player.GetGame()->taskStack.entities = filtered;
+    }
+
     if (m_selfCondition != nullptr)
     {
         std::vector<Entity*> filtered;
