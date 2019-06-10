@@ -32,6 +32,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
@@ -1450,6 +1451,24 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_058", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Swap the Attack and Health of a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new SwapAttackHealthTask(EntityType::TARGET, "EX1_059e"));
+    cards.emplace("EX1_059", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -1784,6 +1803,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new OngoingEnchant({ Effects::AttackN(2) }, false, true));
     cards.emplace("EX1_055o", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_059e] Experiments! (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Attack and Health have been swapped by Crazed Alchemist.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::SetAttackHealthScriptTag));
+    cards.emplace("EX1_059e", power);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [NEW1_037e] Equipped (*) - COST:0
