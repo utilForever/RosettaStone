@@ -1430,6 +1430,26 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_057", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_058] Sunfury Protector - COST:2 [ATK:2/HP:3]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give adjacent minions <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
+    power.AddPowerTask(
+        new FilterStackTask(EntityType::SOURCE, RelaCondition::IsSideBySide()));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::STACK, GameTag::TAUNT, 1));
+    cards.emplace("EX1_058", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
