@@ -58,6 +58,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();
 
+    //! SelfCondition wrapper for checking the number of minion that played this turn.
+    //! \param num The number of minion for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition MinionsPlayedThisTurn(int num);
+
     //! SelfCondition wrapper for checking there is an entity that satisfies
     //! condition with \p tag, \p value and \p relaSign.
     //! \param tag A game tag to check condition.

@@ -85,6 +85,13 @@ SelfCondition SelfCondition::HasMinionInHand()
     });
 }
 
+SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->owner->GetNumMinionsPlayedThisTurn() == num;
+    });
+}
+
 SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
                                         RelaSign relaSign)
 {
