@@ -1483,6 +1483,22 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_067", power);
 
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_076] Pint-Sized Summoner - COST:2 [ATK:2/HP:2]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: The first minion you play each turn costs (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(1) }));
+    power.GetAura()->condition =
+        new SelfCondition(SelfCondition::MinionsPlayedThisTurn(0));
+    power.GetAura()->restless = true;
+    cards.emplace("EX1_076", power);
+
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
