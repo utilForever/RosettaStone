@@ -155,6 +155,14 @@ class Player
     //! \param isActive Whether combo is active.
     void SetComboActive(bool isActive);
 
+    //! Returns the number of minions that played this turn.
+    //! \return The number of minions that played this turn.
+    int GetNumMinionsPlayedThisTurn() const;
+
+    //! Sets the number of minions that played this turn.
+    //! \param value The number of minions that played this turn.
+    void SetNumMinionsPlayedThisTurn(int value);
+
     //! Returns the next action of policy.
     //! \return A task to run that is determined by policy.
     ITask* GetNextAction();
