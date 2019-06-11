@@ -27,15 +27,19 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Entity*)> func);
 
-    //! SelfCondition wrapper for checking an entity is destroyed.
+    //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
 
-    //! SelfCondition wrapper for checking an entity is undamaged.
+    //! SelfCondition wrapper for checking the field is full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFieldFull();
+
+    //! SelfCondition wrapper for checking the entity is undamaged.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUndamaged();
 
-    //! SelfCondition wrapper for checking an hero equips weapon.
+    //! SelfCondition wrapper for checking the hero equips weapon.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeaponEquipped();
 
@@ -44,17 +48,17 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsRace(Race race);
 
-    //! SelfCondition wrapper for checking there is an entity with a \p race in
+    //! SelfCondition wrapper for checking there is the entity with \p race in
     //! field zone.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
 
-    //! SelfCondition wrapper for checking an entity is minion.
+    //! SelfCondition wrapper for checking the entity is minion.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMinion();
 
-    //! SelfCondition wrapper for checking an entity is secret.
+    //! SelfCondition wrapper for checking the entity is secret.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSecret();
 
@@ -67,11 +71,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition MinionsPlayedThisTurn(int num);
 
-    //! SelfCondition wrapper for checking there is an entity that satisfies
+    //! SelfCondition wrapper for checking there is the entity that satisfies
     //! condition with \p tag, \p value and \p relaSign.
-    //! \param tag A game tag to check condition.
-    //! \param value A value to check condition.
-    //! \param relaSign A comparer to check condition.
+    //! \param tag The game tag to check condition.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsTagValue(GameTag tag, int value,
                                     RelaSign relaSign = RelaSign::EQ);
