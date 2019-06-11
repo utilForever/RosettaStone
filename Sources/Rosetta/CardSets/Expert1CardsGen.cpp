@@ -12,6 +12,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
@@ -20,6 +21,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
@@ -35,6 +37,7 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -1535,6 +1538,26 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
                         3, false));
     cards.emplace("EX1_082", power);
 
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3]
+    // - Faction: Alliance, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: [x]<b>Battlecry:</b> Transform another random minion
+    //       into a 5/5 Devilsaur or a 1/1 Squirrel.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    power.AddPowerTask(new ChanceTask(true));
+    power.AddPowerTask(
+        new FlagTask(true, new TransformTask(EntityType::STACK, "EX1_tk28")));
+    power.AddPowerTask(
+        new FlagTask(false, new TransformTask(EntityType::STACK, "EX1_tk29")));
+    cards.emplace("EX1_083", power);
+
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1875,6 +1898,22 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new OngoingEnchant({ Effects::AttackHealthN(1) }));
     cards.emplace("EX1_080o", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_tk28] Squirrel (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk28", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_tk29] Devilsaur (*) - COST:5 [ATK:5/HP:5]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk29", power);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [NEW1_037e] Equipped (*) - COST:0
