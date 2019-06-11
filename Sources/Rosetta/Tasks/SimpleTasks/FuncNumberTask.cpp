@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+
 #include <utility>
 
 namespace RosettaStone::SimpleTasks

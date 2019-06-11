@@ -13,15 +13,15 @@
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief WeaponTask class.
+//! \brief FuncNumberTask class.
 //!
 //! This class represents the task for executing specific function.
 //!
 class FuncNumberTask : public ITask
 {
  public:
-    //! Constructs task with given \p cardID.
-    //! \param func A function to execute.
+    //! Constructs task with given \p func.
+    //! \param func The function to execute.
     explicit FuncNumberTask(std::function<void(Entity*)> func);
 
     //! Returns task ID.
