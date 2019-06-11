@@ -1305,6 +1305,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_033", power);
 
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
     // - Faction: Alliance, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -1498,6 +1499,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new SelfCondition(SelfCondition::MinionsPlayedThisTurn(0));
     power.GetAura()->restless = true;
     cards.emplace("EX1_076", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_080] Secretkeeper - COST:1 [ATK:1/HP:2]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever a <b>Secret</b> is played, gain +1/+1.
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsSecret());
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_080o",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_080", power);
 
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
@@ -1829,6 +1847,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Enchants::SetAttackHealthScriptTag));
     cards.emplace("EX1_059e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_080o] Keeping Secrets (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant({ Effects::AttackHealthN(1) }));
+    cards.emplace("EX1_080o", power);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [NEW1_037e] Equipped (*) - COST:0
