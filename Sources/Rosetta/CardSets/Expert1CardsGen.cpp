@@ -13,6 +13,8 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
@@ -22,6 +24,7 @@
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
@@ -1557,6 +1560,29 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new FlagTask(false, new TransformTask(EntityType::STACK, "EX1_tk29")));
     cards.emplace("EX1_083", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If your opponent has 4 or
+    //       more minions, take control of one at random.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(
+        new FuncEntityTask([=](const std::vector<Entity*>& entities) {
+            return entities.size() > 3 ? entities : std::vector<Entity*>{};
+        }));
+    power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
+    power.AddPowerTask(new ConditionTask(EntityType::SOURCE,
+                                         { SelfCondition::IsFieldFull() }));
+    power.AddPowerTask(new FlagTask(true, new DestroyTask(EntityType::STACK)));
+    power.AddPowerTask(new FlagTask(false, new ControlTask(EntityType::STACK)));
+    cards.emplace("EX1_085", power);
 
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
