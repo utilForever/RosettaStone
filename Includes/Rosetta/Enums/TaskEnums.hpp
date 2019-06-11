@@ -92,6 +92,7 @@ enum class EntityType
     HAND,
     ENEMY_HAND,
     ALL_MINIONS,
+    ALL_MINIONS_NOSOURCE,
     MINIONS,
     MINIONS_NOSOURCE,
     ENEMY_MINIONS,
