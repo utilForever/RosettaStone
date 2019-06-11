@@ -56,6 +56,7 @@ enum class TaskID
     RETURN_HAND,
     TEMP_MANA,
     WEAPON,
+    FUNC_ENTITY,
     FUNC_NUMBER,
     HERO_POWER,
     COPY,
