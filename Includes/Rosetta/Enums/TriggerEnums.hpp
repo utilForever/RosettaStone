@@ -45,6 +45,15 @@ enum class TriggerSource
     FRIENDLY,
 };
 
+//! \brief An enumerator for identifying trigger activation.
+enum class TriggerActivation
+{
+    PLAY,
+    HAND,
+    DECK,
+    HAND_OR_PLAY
+};
+
 //! \brief An enumerator for identifying sequence type.
 enum class SequenceType
 {
