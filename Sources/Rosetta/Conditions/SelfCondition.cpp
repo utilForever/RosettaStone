@@ -70,6 +70,14 @@ SelfCondition SelfCondition::IsMinion()
     });
 }
 
+SelfCondition SelfCondition::IsSecret()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return dynamic_cast<Spell*>(entity) != nullptr &&
+               entity->GetGameTag(GameTag::SECRET) == 1;
+    });
+}
+
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Entity* entity) -> bool {

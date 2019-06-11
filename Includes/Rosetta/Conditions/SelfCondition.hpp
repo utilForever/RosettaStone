@@ -54,6 +54,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMinion();
 
+    //! SelfCondition wrapper for checking an entity is secret.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsSecret();
+
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();
