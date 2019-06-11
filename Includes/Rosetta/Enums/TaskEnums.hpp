@@ -69,6 +69,7 @@ enum class TaskID
     SILENCE,
     DAMAGE_NUMBER,
     SWAP_ATTACK_HEALTH,
+    CHANCE,
 
     NUM_TASK_ID
 };
