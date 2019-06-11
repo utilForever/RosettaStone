@@ -41,15 +41,29 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       condition(prototype.condition),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
+      m_owner(&owner),
       m_triggerType(prototype.m_triggerType),
-      m_sequenceType(prototype.m_sequenceType),
-      m_owner(&owner)
+      m_triggerActivation(prototype.m_triggerActivation),
+      m_sequenceType(prototype.m_sequenceType)
 {
     // Do nothing
 }
 
-void Trigger::Activate(Entity* source)
+void Trigger::Activate(Entity* source, TriggerActivation activation, bool cloning)
 {
+    if (!cloning && activation != m_triggerActivation)
+    {
+        if (m_triggerActivation != TriggerActivation::HAND_OR_PLAY)
+        {
+            return;
+        }
+
+        if (activation == TriggerActivation::DECK)
+        {
+            return;
+        }
+    }
+
     auto* instance = new Trigger(*this, *source);
     Game* game = source->owner->GetGame();
 

@@ -32,13 +32,17 @@ class Trigger
     explicit Trigger(TriggerType type);
 
     //! Constructs trigger with given \p prototype and \p owner.
-    //! \param prototype An trigger for prototype.
-    //! \param owner An owner of trigger.
+    //! \param prototype The trigger for prototype.
+    //! \param owner The owner of trigger.
     Trigger(Trigger& prototype, Entity& owner);
 
     //! Activates trigger to battlefield.
-    //! \param source An source of trigger.
-    void Activate(Entity* source);
+    //! \param source The source of trigger.
+    //! \param activation The activation of trigger.
+    //! \param cloning The flag to indicate it is cloned.
+    void Activate(Entity* source,
+                  TriggerActivation activation = TriggerActivation::PLAY,
+                  bool cloning = false);
 
     //! Removes this object from game and unsubscribe from the related event.
     void Remove() const;
@@ -60,25 +64,27 @@ class Trigger
 
  private:
     //! Processes trigger to apply the effect.
-    //! \param player A pointer to player.
-    //! \param source A pointer to source of trigger.
+    //! \param player The player.
+    //! \param source The source of trigger.
     void Process(Player* player, Entity* source);
 
     //! Internal method of Process().
-    //! \param source A pointer to source of trigger.
+    //! \param source The source of trigger.
     void ProcessInternal(Entity* source);
 
     //! Validates triggers related to the current sequence at once before the
     //! sequence starts.
-    //! \param player A pointer to player.
-    //! \param source A pointer to source of trigger.
+    //! \param player The player.
+    //! \param source The source of trigger.
     void Validate(Player* player, Entity* source);
 
-    TriggerType m_triggerType = TriggerType::NONE;
-    SequenceType m_sequenceType = SequenceType::NONE;
-    bool m_isValidated = false;
-
     Entity* m_owner = nullptr;
+
+    TriggerType m_triggerType = TriggerType::NONE;
+    TriggerActivation m_triggerActivation = TriggerActivation::PLAY;
+    SequenceType m_sequenceType = SequenceType::NONE;
+
+    bool m_isValidated = false;
 };
 }  // namespace RosettaStone
 
