@@ -13,43 +13,6 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-TEST(NeutralExpert1Test, EX1_080_Secretkeeper)
-{
-    GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::WARLOCK;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.StartGame();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-
-    auto& curField = curPlayer.GetFieldZone();
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Secretkeeper"));
-    const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Counterspell"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 1);
-    EXPECT_EQ(curField[0]->GetHealth(), 2);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curField[0]->GetAttack(), 2);
-    EXPECT_EQ(curField[0]->GetHealth(), 3);
-}
-
-
 // ------------------------------------------ SPELL - DRUID
 // [EX1_154] Wrath - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -3484,6 +3447,100 @@ TEST(NeutralExpert1Test, EX1_076_PintSizedSummoner)
 // RefTag:
 // - SECRET = 1
 // --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_080_Secretkeeper)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Secretkeeper"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Counterspell"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]
+// - Faction: Alliance, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 3 damage randomly split
+//       between all other characters.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_082_MadBomber)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mad Bomber"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    int health = curPlayer.GetHero()->GetHealth();
+    health += opPlayer.GetHero()->GetHealth();
+    health += curField[0]->GetHealth();
+    health += opField[0]->GetHealth();
+    EXPECT_EQ(health, 71);
+}
 
 // ---------------------------------------- MINION - NEUTRAL
 // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]

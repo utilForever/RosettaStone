@@ -18,6 +18,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
@@ -1516,6 +1517,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_080o",
                                                          EntityType::SOURCE) };
     cards.emplace("EX1_080", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]
+    // - Faction: Alliance, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 3 damage randomly split
+    //       between all other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new EnqueueTask({ new RandomTask(EntityType::ALL_NOSOURCE, 1),
+                          new DamageTask(EntityType::STACK, 1) },
+                        3, false));
+    cards.emplace("EX1_082", power);
 
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
