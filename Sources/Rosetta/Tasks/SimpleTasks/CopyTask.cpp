@@ -31,6 +31,26 @@ TaskStatus CopyTask::Impl(Player& player)
 
     switch (m_entityType)
     {
+        case EntityType::TARGET:
+        {
+            if (m_target == nullptr)
+            {
+                return TaskStatus::STOP;
+            }
+
+            for (int i = 0; i < m_amount; ++i)
+            {
+                auto card =
+                    Cards::GetInstance().FindCardByID(m_target->card.id);
+
+                result.emplace_back(
+                    m_isOpposite
+                        ? Entity::GetFromCard(*m_target->owner->opponent,
+                                              std::move(card))
+                        : Entity::GetFromCard(player, std::move(card)));
+            }
+        }
+        break;
         case EntityType::STACK:
         {
             IZone* zone = m_isOpposite
