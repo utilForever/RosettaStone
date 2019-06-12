@@ -1617,6 +1617,25 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new ManaCrystalTask(1, false, true));
     cards.emplace("EX1_089", power);
 
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_093] Defender of Argus - COST:4 [ATK:2/HP:3]
+    // - Faction: Alliance, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
+    power.AddPowerTask(
+        new FilterStackTask(EntityType::SOURCE, RelaCondition::IsSideBySide()));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_093e", EntityType::STACK));
+    cards.emplace("EX1_093", power);
+
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1957,6 +1976,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new OngoingEnchant({ Effects::AttackHealthN(1) }));
     cards.emplace("EX1_080o", power);
+
+	// ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_093e] Hand of Argus (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +1/+1 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_093e"));
+    cards.emplace("EX1_093e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_tk28] Squirrel (*) - COST:1 [ATK:1/HP:1]
