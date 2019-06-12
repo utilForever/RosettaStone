@@ -26,7 +26,7 @@ TaskStatus AddStackToTask::Impl(Player& player)
         case EntityType::HAND:
             for (auto& entity : player.GetGame()->taskStack.entities)
             {
-                Generic::AddCardToHand(player, entity);
+                Generic::AddCardToHand(*entity->owner, entity);
             }
             break;
         default:
