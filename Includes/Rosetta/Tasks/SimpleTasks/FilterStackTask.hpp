@@ -23,7 +23,7 @@ class FilterStackTask : public ITask
  public:
     //! Constructs task with given \p selfCondition.
     //! \param selfCondition A self condition to filter.
-    FilterStackTask(SelfCondition selfCondition);
+    explicit FilterStackTask(SelfCondition selfCondition);
 
     //! Constructs task with given \p type and \p relaCondition.
     //! \param type The entity type of target to filter.
