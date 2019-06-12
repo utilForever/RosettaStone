@@ -11,6 +11,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
@@ -1677,6 +1678,22 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_097", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Whenever a player casts a spell, put a copy
+    //       into the other player’s hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->tasks = { new CopyTask(EntityType::TARGET, 1, true),
+                                  new AddStackToTask(EntityType::HAND) };
+    cards.emplace("EX1_100", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
     // - Race: Mechanical, - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -1977,7 +1994,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.AddEnchant(new OngoingEnchant({ Effects::AttackHealthN(1) }));
     cards.emplace("EX1_080o", power);
 
-	// ---------------------------------- ENCHANTMENT - NEUTRAL
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_093e] Hand of Argus (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------

@@ -4042,6 +4042,58 @@ TEST(NeutralExpert1Test, EX1_097_Abomination)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever a player casts a spell, put a copy
+//       into the other player’s hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Lorewalker Cho"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer.GetHero()));
+    EXPECT_EQ(curHand[0]->card.name, "Fireball");
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curHand[1]->card.name, "Blizzard");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
 // - Race: Mechanical, - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
