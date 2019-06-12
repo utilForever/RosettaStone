@@ -331,6 +331,23 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("EX1_091", power);
 
     // ----------------------------------------- SPELL - PRIEST
+    // [EX1_332] Silence - COST:0
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    cards.emplace("EX1_332", power);
+
+    // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
