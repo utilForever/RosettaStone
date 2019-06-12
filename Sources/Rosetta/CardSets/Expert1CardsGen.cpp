@@ -42,6 +42,7 @@
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include "Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp"
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -1583,6 +1584,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new FlagTask(true, new DestroyTask(EntityType::STACK)));
     power.AddPowerTask(new FlagTask(false, new ControlTask(EntityType::STACK)));
     cards.emplace("EX1_085", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your opponent a Mana Crystal.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ManaCrystalTask(1, false, true));
+    cards.emplace("EX1_089", power);
 
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]

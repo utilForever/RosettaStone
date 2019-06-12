@@ -3678,6 +3678,44 @@ TEST(NeutralExpert1Test, EX1_085_MindControlTech)
     EXPECT_EQ(opField.GetCount(), 3);
 }
 
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your opponent a Mana Crystal.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_089_ArcaneGolem)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(3);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(3);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Arcane Golem"));
+
+    EXPECT_EQ(opPlayer.GetTotalMana(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(opPlayer.GetTotalMana(), 4);
+}
+
 // ---------------------------------------- MINION - NEUTRAL
 // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -3713,6 +3751,7 @@ TEST(NeutralExpert1Test, EX1_095_GadgetzanAuctioneer)
 
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
+
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
@@ -3726,6 +3765,7 @@ TEST(NeutralExpert1Test, EX1_095_GadgetzanAuctioneer)
 
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 7);
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card3, curPlayer.GetHero()));
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
