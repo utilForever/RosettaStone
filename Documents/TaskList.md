@@ -14,9 +14,11 @@
 ## Basic tasks
 
 * AddAuraEffectTask
+* AddCardTask
 * AddEnchantmentTask
 * AddStackToTask
 * ArmorTask
+* ChanceTask
 * ConditionTask
 * ControlTask
 * CopyTask
@@ -30,6 +32,7 @@
 * EnqueueTask
 * FilterStackTask
 * FlagTask
+* FuncEntityTask
 * FuncNumberTask
 * GetGameTagTask
 * HealFullTask
@@ -41,10 +44,13 @@
 * RandomEntourageTask
 * RandomTask
 * RemoveEnchantmentTask
+* RemoveHandTask
 * ReturnHandTask
 * SetGameTagTask
 * SilenceTask
 * SummonTask
+* SwapAttackHealthTask
 * TempManaTask
+* TransformCopyTask
 * TransformTask
 * WeaponTask
