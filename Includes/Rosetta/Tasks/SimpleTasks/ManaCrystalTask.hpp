@@ -18,10 +18,12 @@ namespace RosettaStone::SimpleTasks
 class ManaCrystalTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount and \p fill.
+    //! Constructs task with given \p amount, \p fill and \p isOpponent.
     //! \param amount A value indicating how much to change mana crystal.
     //! \param fill true if mana crystal is filled, and false otherwise.
-    explicit ManaCrystalTask(int amount, bool fill);
+    //! \param isOpponent true if opponent player is given mana crystal, and
+    //! false otherwise.
+    explicit ManaCrystalTask(int amount, bool fill, bool isOpponent = false);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,8 +35,9 @@ class ManaCrystalTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    int m_amount;
-    bool m_fill;
+    int m_amount = 0;
+    bool m_fill = false;
+    bool m_isOpponent = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

@@ -8,8 +8,8 @@
 
 namespace RosettaStone::SimpleTasks
 {
-ManaCrystalTask::ManaCrystalTask(int amount, bool fill)
-    : m_amount(amount), m_fill(fill)
+ManaCrystalTask::ManaCrystalTask(int amount, bool fill, bool isOpponent)
+    : m_amount(amount), m_fill(fill), m_isOpponent(isOpponent)
 {
     // Do nothing
 }
@@ -21,7 +21,14 @@ TaskID ManaCrystalTask::GetTaskID() const
 
 TaskStatus ManaCrystalTask::Impl(Player& player)
 {
-    Generic::ChangeManaCrystal(player, m_amount, m_fill);
+    if (m_isOpponent)
+    {
+        Generic::ChangeManaCrystal(*player.opponent, m_amount, m_fill);
+    }
+    else
+    {
+        Generic::ChangeManaCrystal(player, m_amount, m_fill);
+    }
 
     return TaskStatus::COMPLETE;
 }
