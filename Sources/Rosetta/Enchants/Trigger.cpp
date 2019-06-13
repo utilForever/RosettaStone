@@ -57,11 +57,6 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
         {
             return;
         }
-
-        if (activation == TriggerActivation::DECK)
-        {
-            return;
-        }
     }
 
     auto* instance = new Trigger(*this, *source);
@@ -110,20 +105,6 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
                         std::move(triggerFunc);
                     break;
                 }
-                case TriggerSource::SELF:
-                {
-                    auto minion = dynamic_cast<Minion*>(source);
-                    minion->afterAttackTrigger = std::move(triggerFunc);
-                    break;
-                }
-                case TriggerSource::ENCHANTMENT_TARGET:
-                {
-                    const auto enchantment = dynamic_cast<Enchantment*>(source);
-                    auto minion =
-                        dynamic_cast<Minion*>(enchantment->GetTarget());
-                    minion->afterAttackTrigger = std::move(triggerFunc);
-                    break;
-                }
                 default:
                     break;
             }
@@ -134,23 +115,9 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
-                case TriggerSource::HERO:
-                {
-                    source->owner->GetHero()->preDamageTrigger =
-                        std::move(triggerFunc);
-                    break;
-                }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(source);
-                    minion->preDamageTrigger = std::move(triggerFunc);
-                    break;
-                }
-                case TriggerSource::ENCHANTMENT_TARGET:
-                {
-                    const auto enchantment = dynamic_cast<Enchantment*>(source);
-                    auto minion =
-                        dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->preDamageTrigger = std::move(triggerFunc);
                     break;
                 }
@@ -205,21 +172,6 @@ void Trigger::Remove() const
                     m_owner->owner->GetHero()->afterAttackTrigger = nullptr;
                     break;
                 }
-                case TriggerSource::SELF:
-                {
-                    auto minion = dynamic_cast<Minion*>(m_owner);
-                    minion->afterAttackTrigger = nullptr;
-                    break;
-                }
-                case TriggerSource::ENCHANTMENT_TARGET:
-                {
-                    const auto enchantment =
-                        dynamic_cast<Enchantment*>(m_owner);
-                    auto minion =
-                        dynamic_cast<Minion*>(enchantment->GetTarget());
-                    minion->afterAttackTrigger = nullptr;
-                    break;
-                }
                 default:
                     break;
             }
@@ -229,23 +181,9 @@ void Trigger::Remove() const
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
-                case TriggerSource::HERO:
-                {
-                    m_owner->owner->GetHero()->preDamageTrigger = nullptr;
-                    break;
-                }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(m_owner);
-                    minion->preDamageTrigger = nullptr;
-                    break;
-                }
-                case TriggerSource::ENCHANTMENT_TARGET:
-                {
-                    const auto enchantment =
-                        dynamic_cast<Enchantment*>(m_owner);
-                    auto minion =
-                        dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->preDamageTrigger = nullptr;
                     break;
                 }
