@@ -1895,7 +1895,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: Increased Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant({ Effects::AttackN(2) }));
+    power.AddEnchant(new Enchant(Effects::AttackN(2)));
     cards.emplace("EX1_001e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -1988,7 +1988,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant({ Effects::AttackN(2) }, false, true));
+    power.AddEnchant(new Enchant(Effects::AttackN(2), false, true));
     cards.emplace("EX1_055o", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
