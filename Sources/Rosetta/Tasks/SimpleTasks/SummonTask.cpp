@@ -76,7 +76,7 @@ TaskStatus SummonTask::Impl(Player& player)
             {
                 if (m_source->zone->GetType() == ZoneType::PLAY)
                 {
-                    summonPos = m_source->zonePos + 1;
+                    summonPos = m_source->GetZonePosition() + 1;
                 }
                 else
                 {
@@ -85,6 +85,9 @@ TaskStatus SummonTask::Impl(Player& player)
                 }
                 break;
             }
+            case SummonSide::NUMBER:
+                summonPos = m_source->owner->GetGame()->taskStack.num - 1;
+                break;
             default:
                 throw std::invalid_argument(
                     "SummonTask::Impl() - Invalid summon side");

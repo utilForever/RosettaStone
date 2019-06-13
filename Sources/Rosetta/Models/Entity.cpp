@@ -93,6 +93,11 @@ Entity& Entity::operator=(Entity&& ent) noexcept
     return *this;
 }
 
+std::map<GameTag, int> Entity::GetGameTags() const
+{
+    return m_gameTags;
+}
+
 int Entity::GetGameTag(GameTag tag) const
 {
     int value = 0;
@@ -137,6 +142,16 @@ ZoneType Entity::GetZoneType() const
 void Entity::SetZoneType(ZoneType type)
 {
     SetGameTag(GameTag::ZONE, static_cast<int>(type));
+}
+
+int Entity::GetZonePosition() const
+{
+    return GetGameTag(GameTag::ZONE_POSITION) - 1;
+}
+
+void Entity::SetZonePosition(int value)
+{
+    SetGameTag(GameTag::ZONE_POSITION, value + 1);
 }
 
 int Entity::GetCost() const

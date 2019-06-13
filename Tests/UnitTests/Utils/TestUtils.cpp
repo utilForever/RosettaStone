@@ -7,6 +7,8 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
+#include <Rosetta/Models/Enchantment.hpp>
+
 #include <random>
 
 namespace TestUtils
@@ -59,14 +61,33 @@ Card GenerateMinionCard(std::string&& id, int attack, int health)
     return card;
 }
 
+Card GenerateEnchantmentCard(std::string&& id)
+{
+    Card card;
+    card.gameTags[GameTag::CARDTYPE] = static_cast<int>(CardType::ENCHANTMENT);
+
+    card.id = std::move(id);
+
+    return card;
+}
+
 void PlayMinionCard(Player& player, Card& card)
 {
-    FieldZone& playerField = player.GetFieldZone();
+    FieldZone& fieldZone = player.GetFieldZone();
     const std::map<GameTag, int> tags;
 
     const auto minion = new Minion(player, card, tags);
-    playerField.Add(*minion);
-    playerField[minion->zonePos]->owner = &player;
+    fieldZone.Add(*minion);
+    fieldZone[minion->GetZonePosition()]->owner = &player;
+}
+
+void PlayEnchantmentCard(Player& player, Card& card, Entity* target)
+{
+    GraveyardZone& graveyardZone = player.GetGraveyardZone();
+    const std::map<GameTag, int> tags;
+
+    const auto enchantment = new Enchantment(player, card, tags, target);
+    graveyardZone.Add(*enchantment);
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

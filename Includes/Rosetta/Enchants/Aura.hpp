@@ -8,6 +8,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Enchants/IAura.hpp>
 
 #include <string>
 
@@ -39,7 +40,7 @@ enum class AuraType
 //! entities attack, cost and so on. Aura must be activated first to affect
 //! entities.
 //!
-class Aura
+class Aura : public IAura
 {
  public:
     //! Default constructor.
@@ -64,13 +65,18 @@ class Aura
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of aura.
-    virtual void Activate(Entity* owner);
+    //! \param cloning The flag to indicate it is cloned.
+    virtual void Activate(Entity* owner, bool cloning = false);
 
     //! Updates this effect to apply the effect to recently modified entities.
-    virtual void Update();
+    void Update() override;
 
     //! Removes this effect from the game to stop affecting entities.
-    virtual void Remove();
+    void Remove() override;
+
+    //! Clones aura effect to \p clone.
+    //! \param clone The entity to clone aura effect.
+    void Clone(Entity* clone) override;
 
     //! Removes entity to update a list of entities.
     //! \param entity An entity to remove.
@@ -142,13 +148,18 @@ class AdaptiveEffect : public Aura
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive effect.
-    void Activate(Entity* owner) override;
+    //! \param cloning The flag to indicate it is cloned.
+    void Activate(Entity* owner, bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
     void Update() override;
 
     //! Removes this effect from the game to stop affecting entities.
     void Remove() override;
+
+    //! Clones aura effect to \p clone.
+    //! \param clone The entity to clone aura effect.
+    void Clone(Entity* clone) override;
 
  private:
     //! Constructs adaptive effect with given \p prototype and \p owner.
@@ -180,10 +191,15 @@ class EnrageEffect : public Aura
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
-    void Activate(Entity* owner) override;
+    //! \param cloning The flag to indicate it is cloned.
+    void Activate(Entity* owner, bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
     void Update() override;
+
+    //! Clones aura effect to \p clone.
+    //! \param clone The entity to clone aura effect.
+    void Clone(Entity* clone) override;
 
  private:
     //! Constructs enrage effect with given \p prototype and \p owner.

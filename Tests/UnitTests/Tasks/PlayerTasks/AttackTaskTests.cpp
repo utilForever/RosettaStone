@@ -590,3 +590,42 @@ TEST(AttackTask, Freeze)
     EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 0);
     EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 0);
 }
+
+TEST(AttackTask, Silence)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.skipMulligan = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    auto card = GenerateMinionCard("minion", 1, 10);
+
+    PlayMinionCard(curPlayer, card);
+    curField[0]->SetGameTag(GameTag::CANT_ATTACK, 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+
+    curField[0]->Silence();
+
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 29);
+}

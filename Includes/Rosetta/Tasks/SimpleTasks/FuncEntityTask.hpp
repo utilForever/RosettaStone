@@ -3,8 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_FUNC_NUMBER_TASK_HPP
-#define ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#ifndef ROSETTASTONE_FUNC_ENTITY_TASK_HPP
+#define ROSETTASTONE_FUNC_ENTITY_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
 
@@ -13,16 +13,18 @@
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief FuncNumberTask class.
+//! \brief FuncEntityTask class.
 //!
-//! This class represents the task for executing specific function.
+//! This class represents the task for executing specific function and storing
+//! result to entities.
 //!
-class FuncNumberTask : public ITask
+class FuncEntityTask : public ITask
 {
  public:
-    //! Constructs task with given \p func.
+    //! Constructs task with given \p cardID.
     //! \param func The function to execute.
-    explicit FuncNumberTask(std::function<void(Entity*)> func);
+    explicit FuncEntityTask(
+        std::function<std::vector<Entity*>(std::vector<Entity*>)> func);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,8 +36,8 @@ class FuncNumberTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::function<void(Entity*)> m_func;
+    std::function<std::vector<Entity*>(std::vector<Entity*>)> m_func;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#endif  // ROSETTASTONE_FUNC_ENTITY_TASK_HPP

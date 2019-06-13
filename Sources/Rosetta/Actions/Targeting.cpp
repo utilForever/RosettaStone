@@ -42,8 +42,8 @@ bool IsValidTarget(Entity* source, Entity* target)
     // Get valid play targets
     auto targetList = GetValidTargets(source);
 
-    // Return if source needs a target, but target is null and list is empty
-    if (IsSourceNeedsTarget(source) && target == nullptr && targetList.empty())
+    // Return if source needs a target, but target is null and list is not empty
+    if (IsSourceNeedsTarget(source) && target == nullptr && !targetList.empty())
     {
         return false;
     }
@@ -195,6 +195,13 @@ bool CheckRequirements(Entity* source, Character* target)
                 }
                 break;
             }
+            case PlayReq::REQ_MUST_TARGET_TAUNTER:
+                if (dynamic_cast<Minion*>(target) == nullptr ||
+                    target->GetGameTag(GameTag::TAUNT) == 0)
+                {
+                    return false;
+                }
+                break;
             case PlayReq::REQ_TARGET_TO_PLAY:
             case PlayReq::REQ_TARGET_IF_AVAILABLE:
                 break;

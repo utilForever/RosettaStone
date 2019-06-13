@@ -11,10 +11,14 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FilterStackTask::FilterStackTask(EntityType entityType,
-                                 SelfCondition selfCondition)
-    : ITask(entityType),
-      m_selfCondition(new SelfCondition(std::move(selfCondition)))
+FilterStackTask::FilterStackTask(SelfCondition selfCondition)
+    : m_selfCondition(new SelfCondition(std::move(selfCondition)))
+{
+    // Do nothing
+}
+
+FilterStackTask::FilterStackTask(EntityType type, RelaCondition relaCondition)
+    : ITask(type), m_relaCondition(new RelaCondition(std::move(relaCondition)))
 {
     // Do nothing
 }
@@ -26,23 +30,44 @@ TaskID FilterStackTask::GetTaskID() const
 
 TaskStatus FilterStackTask::Impl(Player& player)
 {
-    std::vector<Entity*> result;
-
-    auto entities =
-        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-
-    for (auto& entity : entities)
+    if (m_relaCondition != nullptr)
     {
-        if (m_selfCondition != nullptr)
+        auto entities =
+            IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+        if (entities.size() != 1)
+        {
+            return TaskStatus::STOP;
+        }
+
+        std::vector<Entity*> filtered;
+        filtered.reserve(entities.size());
+
+        for (auto& entity : player.GetGame()->taskStack.entities)
+        {
+            if (m_relaCondition->Evaluate(entities[0], entity))
+            {
+                filtered.emplace_back(entity);
+            }
+        }
+
+        player.GetGame()->taskStack.entities = filtered;
+    }
+
+    if (m_selfCondition != nullptr)
+    {
+        std::vector<Entity*> filtered;
+        filtered.reserve(player.GetGame()->taskStack.entities.size());
+
+        for (auto& entity : player.GetGame()->taskStack.entities)
         {
             if (m_selfCondition->Evaluate(entity))
             {
-                result.emplace_back(entity);
+                filtered.emplace_back(entity);
             }
         }
-    }
 
-    player.GetGame()->taskStack.entities = result;
+        player.GetGame()->taskStack.entities = filtered;
+    }
 
     return TaskStatus::COMPLETE;
 }

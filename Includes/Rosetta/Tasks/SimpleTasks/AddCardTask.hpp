@@ -3,26 +3,27 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_FUNC_NUMBER_TASK_HPP
-#define ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#ifndef ROSETTASTONE_ADD_CARD_TASK_HPP
+#define ROSETTASTONE_ADD_CARD_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
-
-#include <functional>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief FuncNumberTask class.
+//! \brief AddCardTask class.
 //!
-//! This class represents the task for executing specific function.
+//! This class represents the task for adding card(s).
 //!
-class FuncNumberTask : public ITask
+class AddCardTask : public ITask
 {
  public:
-    //! Constructs task with given \p func.
-    //! \param func The function to execute.
-    explicit FuncNumberTask(std::function<void(Entity*)> func);
+    //! Constructs task with given \p entityType, \p cardID and \p amount.
+    //! \param entityType The entity type of target to add card(s).
+    //! \param cardID The ID of card to add.
+    //! \param amount The number of card to add.
+    explicit AddCardTask(EntityType entityType, std::string cardID,
+                         int amount = 1);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,8 +35,9 @@ class FuncNumberTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::function<void(Entity*)> m_func;
+    std::string m_cardID;
+    int m_amount = 1;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#endif  // ROSETTASTONE_ADD_CARD_TASK_HPP

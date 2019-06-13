@@ -4,7 +4,11 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <utility>
 

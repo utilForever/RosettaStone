@@ -239,7 +239,7 @@ void Character::TakeHeal(Entity& source, int heal)
     SetDamage(GetDamage() - amount);
 
     owner->GetGame()->taskQueue.StartEvent();
-    owner->GetGame()->triggerManager.OnHealTrigger(nullptr, this);
+    owner->GetGame()->triggerManager.OnHealTrigger(owner, this);
     owner->GetGame()->ProcessTasks();
     owner->GetGame()->taskQueue.EndEvent();
 }

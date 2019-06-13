@@ -3,26 +3,24 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_FUNC_NUMBER_TASK_HPP
-#define ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#ifndef ROSETTASTONE_TRANSFORM_COPY_TASK_HPP
+#define ROSETTASTONE_TRANSFORM_COPY_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
-
-#include <functional>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief FuncNumberTask class.
+//! \brief TransformCopyTask class.
 //!
-//! This class represents the task for executing specific function.
+//! This class represents the task for transforming minion to another and coping
+//! data such as attack/health, enchantment and so on.
 //!
-class FuncNumberTask : public ITask
+class TransformCopyTask : public ITask
 {
  public:
-    //! Constructs task with given \p func.
-    //! \param func The function to execute.
-    explicit FuncNumberTask(std::function<void(Entity*)> func);
+    //! Default constructor.
+    TransformCopyTask() = default;
 
     //! Returns task ID.
     //! \return Task ID.
@@ -33,9 +31,7 @@ class FuncNumberTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
-
-    std::function<void(Entity*)> m_func;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#endif  // ROSETTASTONE_TRANSFORM_COPY_TASK_HPP

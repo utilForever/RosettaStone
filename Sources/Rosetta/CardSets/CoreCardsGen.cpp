@@ -27,6 +27,7 @@
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealFullTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
@@ -1519,8 +1520,8 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // Text: Give your Totems +2 Health.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FilterStackTask(EntityType::MINIONS,
-                                           SelfCondition::IsRace(Race::TOTEM)));
+    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
+    power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::TOTEM)));
     power.AddPowerTask(new AddEnchantmentTask("EX1_244e", EntityType::STACK));
     cards.emplace("EX1_244", power);
 

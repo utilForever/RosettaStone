@@ -1,0 +1,47 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+#include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
+
+#include <utility>
+
+namespace RosettaStone::SimpleTasks
+{
+AddCardTask::AddCardTask(EntityType entityType, std::string cardID, int amount)
+    : ITask(entityType), m_cardID(cardID), m_amount(amount)
+{
+    // Do nothing
+}
+
+TaskID AddCardTask::GetTaskID() const
+{
+    return TaskID::ADD_CARD;
+}
+
+TaskStatus AddCardTask::Impl(Player& player)
+{
+    std::vector<Entity*> entities;
+
+    switch (m_entityType)
+    {
+        case EntityType::ENEMY_HAND:
+            for (int i = 0; i < m_amount; ++i)
+            {
+                Card card = Cards::GetInstance().FindCardByID(m_cardID);
+                Generic::AddCardToHand(
+                    *player.opponent,
+                    Entity::GetFromCard(*player.opponent, std::move(card)));
+            }
+            break;
+        default:
+            throw std::invalid_argument(
+                "AddCardTask::Impl() - Invalid entity type");
+    }
+
+    return TaskStatus::COMPLETE;
+}
+}  // namespace RosettaStone::SimpleTasks

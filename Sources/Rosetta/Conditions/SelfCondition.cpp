@@ -5,6 +5,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
+
 #include <utility>
 
 namespace RosettaStone
@@ -19,6 +20,13 @@ SelfCondition SelfCondition::IsDead()
 {
     return SelfCondition(
         [=](Entity* entity) -> bool { return entity->isDestroyed; });
+}
+
+SelfCondition SelfCondition::IsFieldFull()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->owner->GetFieldZone().IsFull();
+    });
 }
 
 SelfCondition SelfCondition::IsUndamaged()
@@ -66,6 +74,36 @@ SelfCondition SelfCondition::IsMinion()
 {
     return SelfCondition([=](Entity* entity) -> bool {
         return dynamic_cast<Minion*>(entity) != nullptr;
+    });
+}
+
+SelfCondition SelfCondition::IsSecret()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return dynamic_cast<Spell*>(entity) != nullptr &&
+               entity->GetGameTag(GameTag::SECRET) == 1;
+    });
+}
+
+SelfCondition SelfCondition::HasMinionInHand()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        for (auto& card : entity->owner->GetHandZone().GetAll())
+        {
+            if (dynamic_cast<Minion*>(card) != nullptr)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->owner->GetNumMinionsPlayedThisTurn() == num;
     });
 }
 

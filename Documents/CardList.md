@@ -168,18 +168,18 @@ EXPERT1 | CS2_221 | Spiteful Smith | O
 EXPERT1 | CS2_227 | Venture Co. Mercenary | O
 EXPERT1 | CS2_231 | Wisp | O
 EXPERT1 | CS2_233 | Blade Flurry | O
-EXPERT1 | DS1_188 | Gladiator's Longbow |  
-EXPERT1 | EX1_001 | Lightwarden |  
-EXPERT1 | EX1_002 | The Black Knight |  
-EXPERT1 | EX1_004 | Young Priestess |  
+EXPERT1 | DS1_188 | Gladiator's Longbow | O
+EXPERT1 | EX1_001 | Lightwarden | O
+EXPERT1 | EX1_002 | The Black Knight | O
+EXPERT1 | EX1_004 | Young Priestess | O
 EXPERT1 | EX1_005 | Big Game Hunter | O
-EXPERT1 | EX1_006 | Alarm-o-Bot |  
+EXPERT1 | EX1_006 | Alarm-o-Bot | O
 EXPERT1 | EX1_007 | Acolyte of Pain | O
 EXPERT1 | EX1_008 | Argent Squire | O
-EXPERT1 | EX1_009 | Angry Chicken |  
+EXPERT1 | EX1_009 | Angry Chicken | O
 EXPERT1 | EX1_010 | Worgen Infiltrator | O
 EXPERT1 | EX1_012 | Bloodmage Thalnos | O
-EXPERT1 | EX1_014 | King Mukla |  
+EXPERT1 | EX1_014 | King Mukla | O
 EXPERT1 | EX1_017 | Jungle Panther | O
 EXPERT1 | EX1_020 | Scarlet Crusader | O
 EXPERT1 | EX1_021 | Thrallmar Farseer | O
@@ -189,28 +189,28 @@ EXPERT1 | EX1_029 | Leper Gnome | O
 EXPERT1 | EX1_032 | Sunwalker | O
 EXPERT1 | EX1_033 | Windfury Harpy | O
 EXPERT1 | EX1_043 | Twilight Drake | O
-EXPERT1 | EX1_044 | Questing Adventurer |  
-EXPERT1 | EX1_045 | Ancient Watcher |  
+EXPERT1 | EX1_044 | Questing Adventurer | O
+EXPERT1 | EX1_045 | Ancient Watcher | O
 EXPERT1 | EX1_046 | Dark Iron Dwarf | O
-EXPERT1 | EX1_048 | Spellbreaker |  
-EXPERT1 | EX1_049 | Youthful Brewmaster |  
-EXPERT1 | EX1_055 | Mana Addict |  
-EXPERT1 | EX1_057 | Ancient Brewmaster |  
-EXPERT1 | EX1_058 | Sunfury Protector |  
-EXPERT1 | EX1_059 | Crazed Alchemist |  
+EXPERT1 | EX1_048 | Spellbreaker | O
+EXPERT1 | EX1_049 | Youthful Brewmaster | O
+EXPERT1 | EX1_055 | Mana Addict | O
+EXPERT1 | EX1_057 | Ancient Brewmaster | O
+EXPERT1 | EX1_058 | Sunfury Protector | O
+EXPERT1 | EX1_059 | Crazed Alchemist | O
 EXPERT1 | EX1_067 | Argent Commander | O
-EXPERT1 | EX1_076 | Pint-Sized Summoner |  
-EXPERT1 | EX1_080 | Secretkeeper |  
-EXPERT1 | EX1_082 | Mad Bomber |  
-EXPERT1 | EX1_083 | Tinkmaster Overspark |  
-EXPERT1 | EX1_085 | Mind Control Tech |  
-EXPERT1 | EX1_089 | Arcane Golem |  
-EXPERT1 | EX1_091 | Cabal Shadow Priest |  
-EXPERT1 | EX1_093 | Defender of Argus |  
+EXPERT1 | EX1_076 | Pint-Sized Summoner | O
+EXPERT1 | EX1_080 | Secretkeeper | O
+EXPERT1 | EX1_082 | Mad Bomber | O
+EXPERT1 | EX1_083 | Tinkmaster Overspark | O
+EXPERT1 | EX1_085 | Mind Control Tech | O
+EXPERT1 | EX1_089 | Arcane Golem | O
+EXPERT1 | EX1_091 | Cabal Shadow Priest | O
+EXPERT1 | EX1_093 | Defender of Argus | O
 EXPERT1 | EX1_095 | Gadgetzan Auctioneer | O
 EXPERT1 | EX1_096 | Loot Hoarder | O
 EXPERT1 | EX1_097 | Abomination | O
-EXPERT1 | EX1_100 | Lorewalker Cho |  
+EXPERT1 | EX1_100 | Lorewalker Cho | O
 EXPERT1 | EX1_102 | Demolisher | O
 EXPERT1 | EX1_103 | Coldlight Seer |  
 EXPERT1 | EX1_105 | Mountain Giant |  
@@ -270,7 +270,7 @@ EXPERT1 | EX1_317 | Sense Demons |
 EXPERT1 | EX1_319 | Flame Imp |  
 EXPERT1 | EX1_320 | Bane of Doom |  
 EXPERT1 | EX1_323 | Lord Jaraxxus |  
-EXPERT1 | EX1_332 | Silence |  
+EXPERT1 | EX1_332 | Silence | O
 EXPERT1 | EX1_334 | Shadow Madness |  
 EXPERT1 | EX1_335 | Lightspawn |  
 EXPERT1 | EX1_339 | Thoughtsteal |  
@@ -323,9 +323,9 @@ EXPERT1 | EX1_560 | Nozdormu |
 EXPERT1 | EX1_561 | Alexstrasza |  
 EXPERT1 | EX1_562 | Onyxia |  
 EXPERT1 | EX1_563 | Malygos | O
-EXPERT1 | EX1_564 | Faceless Manipulator |  
-EXPERT1 | EX1_567 | Doomhammer |  
-EXPERT1 | EX1_570 | Bite |  
+EXPERT1 | EX1_564 | Faceless Manipulator | O
+EXPERT1 | EX1_567 | Doomhammer | O
+EXPERT1 | EX1_570 | Bite | O
 EXPERT1 | EX1_571 | Force of Nature |  
 EXPERT1 | EX1_572 | Ysera |  
 EXPERT1 | EX1_573 | Cenarius |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 30% (72 of 237 Cards)
+- Progress: 42% (100 of 237 Cards)
 
 ## Hall of Fame
 

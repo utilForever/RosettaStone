@@ -3,28 +3,31 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncEntityTask.hpp>
 
 #include <utility>
 
 namespace RosettaStone::SimpleTasks
 {
-FuncNumberTask::FuncNumberTask(std::function<void(Entity*)> func)
+FuncEntityTask::FuncEntityTask(
+    std::function<std::vector<Entity*>(std::vector<Entity*>)> func)
     : m_func(std::move(func))
 {
     // Do nothing
 }
 
-TaskID FuncNumberTask::GetTaskID() const
+TaskID FuncEntityTask::GetTaskID() const
 {
-    return TaskID::FUNC_NUMBER;
+    return TaskID::FUNC_ENTITY;
 }
 
-TaskStatus FuncNumberTask::Impl(Player&)
+TaskStatus FuncEntityTask::Impl(Player& player)
 {
     if (m_func != nullptr)
     {
-        m_func(m_source);
+        player.GetGame()->taskStack.entities =
+            m_func(player.GetGame()->taskStack.entities);
     }
 
     return TaskStatus::COMPLETE;

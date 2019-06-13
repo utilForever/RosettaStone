@@ -3,26 +3,26 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_FUNC_NUMBER_TASK_HPP
-#define ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#ifndef ROSETTASTONE_SWAP_ATTACK_HEALTH_TASK_HPP
+#define ROSETTASTONE_SWAP_ATTACK_HEALTH_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
-
-#include <functional>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief FuncNumberTask class.
+//! \brief SwapAttackHealthTask class.
 //!
-//! This class represents the task for executing specific function.
+//! This class represents the task for swapping attack and health of entity.
 //!
-class FuncNumberTask : public ITask
+class SwapAttackHealthTask : public ITask
 {
  public:
-    //! Constructs task with given \p func.
-    //! \param func The function to execute.
-    explicit FuncNumberTask(std::function<void(Entity*)> func);
+    //! Constructs task with given \p entityType, \p cardID .
+    //! \param entityType The entity type of target to swap.
+    //! \param enchantmentID The ID of enchantment card.
+    explicit SwapAttackHealthTask(EntityType entityType,
+                                  std::string enchantmentID);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,8 +34,8 @@ class FuncNumberTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::function<void(Entity*)> m_func;
+    std::string m_enchantmentID;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_FUNC_NUMBER_TASK_HPP
+#endif  // ROSETTASTONE_SWAP_ATTACK_HEALTH_TASK_HPP

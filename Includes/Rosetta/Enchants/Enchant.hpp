@@ -8,6 +8,7 @@
 #define ROSETTASTONE_ENCHANT_HPP
 
 #include <Rosetta/Enchants/Effect.hpp>
+#include <Rosetta/Enchants/IAura.hpp>
 
 #include <vector>
 
@@ -26,6 +27,9 @@ class Enchant
  public:
     //! Default constructor.
     Enchant() = default;
+
+    //! Default destructor.
+    virtual ~Enchant() = default;
 
     //! Constructs enchant with given \p gameTag, \p effectOperator and
     //! \p value.
@@ -54,7 +58,7 @@ class Enchant
     //! \param entity An entity to which enchant is activated.
     //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
-    void ActivateTo(Entity* entity, int num1, int num2);
+    virtual void ActivateTo(Entity* entity, int num1 = 0, int num2 = -1);
 
     std::vector<Effect*> effects;
 

@@ -33,7 +33,7 @@ void Aura::SetToBeUpdated(bool value)
     m_toBeUpdated = value;
 }
 
-void Aura::Activate(Entity* owner)
+void Aura::Activate(Entity* owner, bool cloning)
 {
     Card card = Cards::FindCardByID(m_enchantmentID);
 
@@ -47,7 +47,15 @@ void Aura::Activate(Entity* owner)
     owner->owner->GetGame()->auras.emplace_back(instance);
     owner->onGoingEffect = instance;
 
-    instance->AddToField();
+    if (!cloning)
+    {
+        instance->AddToField();
+    }
+
+    if (cloning)
+    {
+        return;
+    }
 
     switch (m_type)
     {
@@ -135,6 +143,12 @@ void Aura::RemoveEntity(Entity* entity)
     }
 }
 
+void Aura::Clone(Entity* clone)
+{
+    Activate(clone, true);
+    dynamic_cast<Aura*>(clone->onGoingEffect)->SetToBeUpdated(m_toBeUpdated);
+}
+
 void Aura::Apply(Entity* entity)
 {
     const auto iter =
@@ -215,7 +229,7 @@ void Aura::UpdateInternal()
         {
             case AuraType::ADJACENT:
             {
-                const int pos = m_owner->zonePos;
+                const int pos = m_owner->GetZonePosition();
                 auto& field = m_owner->owner->GetFieldZone();
 
                 const int entitySize =
@@ -225,7 +239,7 @@ void Aura::UpdateInternal()
                     Entity* entity = m_appliedEntities[i];
 
                     if (m_owner->zone == entity->zone &&
-                        std::abs(pos - entity->zonePos) == 1)
+                        std::abs(pos - entity->GetZonePosition()) == 1)
                     {
                         continue;
                     }
@@ -357,7 +371,7 @@ AdaptiveEffect::AdaptiveEffect(SelfCondition* _condition,
     condition = _condition;
 }
 
-void AdaptiveEffect::Activate(Entity* owner)
+void AdaptiveEffect::Activate(Entity* owner, bool)
 {
     auto instance = new AdaptiveEffect(*this, *owner);
 
@@ -391,6 +405,11 @@ void AdaptiveEffect::Remove()
     auras.erase(iter);
 }
 
+void AdaptiveEffect::Clone(Entity* clone)
+{
+    Activate(clone);
+}
+
 AdaptiveEffect::AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner)
     : Aura(prototype, owner)
 {
@@ -411,7 +430,7 @@ EnrageEffect::EnrageEffect(AuraType type, std::vector<Effect*> effects)
     // Do nothing
 }
 
-void EnrageEffect::Activate(Entity* owner)
+void EnrageEffect::Activate(Entity* owner, bool)
 {
     const auto enchantment = dynamic_cast<Enchantment*>(owner);
     if (enchantment)
@@ -427,7 +446,7 @@ void EnrageEffect::Activate(Entity* owner)
 
 void EnrageEffect::Update()
 {
-    auto minion = dynamic_cast<Minion*>(m_owner);
+    const auto minion = dynamic_cast<Minion*>(m_owner);
 
     if (m_type == AuraType::WEAPON)
     {
@@ -437,7 +456,7 @@ void EnrageEffect::Update()
     if (!m_turnOn)
     {
         EraseIf(m_owner->owner->GetGame()->auras,
-                [this](Aura* aura) { return aura == this; });
+                [this](IAura* aura) { return aura == this; });
 
         if (!m_enraged)
         {
@@ -487,6 +506,11 @@ void EnrageEffect::Update()
 
         m_enraged = false;
     }
+}
+
+void EnrageEffect::Clone(Entity* clone)
+{
+    Activate(clone, true);
 }
 
 EnrageEffect::EnrageEffect(EnrageEffect& prototype, Entity& owner)

@@ -30,7 +30,8 @@ void DeckZone::Add(Entity& entity, int zonePos)
 
     if (entity.card.power.GetTrigger())
     {
-        entity.card.power.GetTrigger()->Activate(&entity);
+        entity.card.power.GetTrigger()->Activate(&entity,
+                                                 TriggerActivation::DECK);
     }
 }
 

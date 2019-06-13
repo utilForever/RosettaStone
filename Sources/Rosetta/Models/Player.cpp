@@ -162,6 +162,16 @@ void Player::SetComboActive(bool isActive)
     SetGameTag(GameTag::COMBO_ACTIVE, isActive ? 1 : 0);
 }
 
+int Player::GetNumMinionsPlayedThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_MINIONS_PLAYED_THIS_TURN);
+}
+
+void Player::SetNumMinionsPlayedThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_MINIONS_PLAYED_THIS_TURN, value);
+}
+
 ITask* Player::GetNextAction()
 {
     ITask* ret;
