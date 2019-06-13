@@ -9,8 +9,6 @@
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
-#include <stdexcept>
-
 namespace RosettaStone
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
@@ -105,6 +103,20 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
                         std::move(triggerFunc);
                     break;
                 }
+                case TriggerSource::SELF:
+                {
+                    auto minion = dynamic_cast<Minion*>(source);
+                    minion->afterAttackTrigger = std::move(triggerFunc);
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment = dynamic_cast<Enchantment*>(source);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
+                    minion->afterAttackTrigger = std::move(triggerFunc);
+                    break;
+                }
                 default:
                     break;
             }
@@ -115,9 +127,23 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
+                case TriggerSource::HERO:
+                {
+                    source->owner->GetHero()->preDamageTrigger =
+                        std::move(triggerFunc);
+                    break;
+                }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(source);
+                    minion->preDamageTrigger = std::move(triggerFunc);
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment = dynamic_cast<Enchantment*>(source);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->preDamageTrigger = std::move(triggerFunc);
                     break;
                 }
@@ -132,8 +158,7 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
             game->triggerManager.targetTrigger = std::move(triggerFunc);
             break;
         default:
-            throw std::invalid_argument(
-                "Trigger::Activate() - Invalid trigger type!");
+            break;
     }
 }
 
@@ -172,6 +197,21 @@ void Trigger::Remove() const
                     m_owner->owner->GetHero()->afterAttackTrigger = nullptr;
                     break;
                 }
+                case TriggerSource::SELF:
+                {
+                    auto minion = dynamic_cast<Minion*>(m_owner);
+                    minion->afterAttackTrigger = nullptr;
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment =
+                        dynamic_cast<Enchantment*>(m_owner);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
+                    minion->afterAttackTrigger = nullptr;
+                    break;
+                }
                 default:
                     break;
             }
@@ -181,9 +221,23 @@ void Trigger::Remove() const
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
+                case TriggerSource::HERO:
+                {
+                    m_owner->owner->GetHero()->preDamageTrigger = nullptr;
+                    break;
+                }
                 case TriggerSource::SELF:
                 {
                     auto minion = dynamic_cast<Minion*>(m_owner);
+                    minion->preDamageTrigger = nullptr;
+                    break;
+                }
+                case TriggerSource::ENCHANTMENT_TARGET:
+                {
+                    const auto enchantment =
+                        dynamic_cast<Enchantment*>(m_owner);
+                    auto minion =
+                        dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->preDamageTrigger = nullptr;
                     break;
                 }
@@ -197,8 +251,7 @@ void Trigger::Remove() const
             game->triggerManager.targetTrigger = nullptr;
             break;
         default:
-            throw std::invalid_argument(
-                "Trigger::Remove() - Invalid trigger type!");
+            break;
     }
 
     if (m_sequenceType != SequenceType::NONE)
@@ -331,8 +384,7 @@ void Trigger::Validate(Player* player, Entity* source)
             break;
         }
         default:
-            throw std::invalid_argument(
-                "Trigger::Validate() - Invalid source trigger!");
+            break;
     }
 
     switch (m_triggerType)
