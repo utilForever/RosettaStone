@@ -63,46 +63,4 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
         }
     }
 }
-
-OngoingEnchant::OngoingEnchant(std::vector<Effect*> _effects,
-                               bool _useScriptTag, bool _isOneTurnEffect)
-    : Enchant(std::move(_effects), _useScriptTag, _isOneTurnEffect)
-{
-    // Do nothing
-}
-
-void OngoingEnchant::Update()
-{
-    if (!m_toBeUpdated)
-    {
-        return;
-    }
-
-    const int delta = m_count - m_lastCount;
-    for (int i = 0; i < delta; ++i)
-    {
-        ActivateTo(m_target);
-    }
-
-    m_lastCount = m_count;
-    m_toBeUpdated = false;
-}
-
-void OngoingEnchant::Remove()
-{
-    m_target->onGoingEffect = nullptr;
-    EraseIf(m_target->owner->GetGame()->auras,
-            [this](IAura* aura) { return aura == this; });
-}
-
-void OngoingEnchant::Clone(Entity* clone)
-{
-    IAura* copy = new OngoingEnchant(effects);
-    auto ongoingCopy = dynamic_cast<OngoingEnchant*>(copy);
-    ongoingCopy->m_target = clone;
-    ongoingCopy->isOneTurnEffect = isOneTurnEffect;
-
-    clone->onGoingEffect = copy;
-    ongoingCopy->m_target->owner->GetGame()->auras.emplace_back(copy);
-}
 }  // namespace RosettaStone
