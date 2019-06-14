@@ -13,7 +13,7 @@ matrix:
         sonarcloud:
           organization: "utilforever-github"
           token:
-            secure: "JZM7ZH0E2p8CSU6sXxJ6Z0IujyHrqBHo4G+stlA/yWcLVjPsc5ub0ewYMloVj9DE4AlORahKLR8ZZeXT4i4pmI8SEQhzKmNjjYKG2wArqydyFoDzoP/cyTZFHhrO9cVL3/lkBkYt3ILTjuR7GgbU0utUFjhZpG/tJnMVkB1LenvM04ZN5DLr4k1H8OaXmFlsGN/llARmdyTmgMqInTu7qlD/uZIQOlwt1LudeWLCVlZMcbn/pJW0Oo26LU5fxgca/sEf5UeegjesQ/H8ZHZAaiKKIwQc6oJtptPtFNxXDqS68ReksfFv3v47JHUm4OiSFQXwSogw31UgAUXancYo4s9LzB/Y/cxlH0QhcUQ2jqmKRkjq1KmOIGJLeQT2JElSElrL7NxMM9NYneIALUvC7ef9RY5KVaYYV5zEaQ6qCCKVQayCPoqXrqAQ7ZKmNZ77vVX53ve7e03wVIWUeOjifDnHtK7Veg58bn5AwOpJmGS8Pd4cQXOehhniyx9iX0WSm/2/cyR6585TlR/v+V29uGW+jlwty8TJXdhYO/MjjhwsY1VKkGp+ySB5U6CpyB+nQSlprzqhYC/rt+RKctmsiPw4CAk3cLQqQYOV0+4yKr+lVKMQdRpZ1ZM3+9v6fPc15IVve7HtvZ1vN15nRuy+pWrEiu1m9PFWiggweOm1Y8c="                
+            secure: "JZM7ZH0E2p8CSU6sXxJ6Z0IujyHrqBHo4G+stlA/yWcLVjPsc5ub0ewYMloVj9DE4AlORahKLR8ZZeXT4i4pmI8SEQhzKmNjjYKG2wArqydyFoDzoP/cyTZFHhrO9cVL3/lkBkYt3ILTjuR7GgbU0utUFjhZpG/tJnMVkB1LenvM04ZN5DLr4k1H8OaXmFlsGN/llARmdyTmgMqInTu7qlD/uZIQOlwt1LudeWLCVlZMcbn/pJW0Oo26LU5fxgca/sEf5UeegjesQ/H8ZHZAaiKKIwQc6oJtptPtFNxXDqS68ReksfFv3v47JHUm4OiSFQXwSogw31UgAUXancYo4s9LzB/Y/cxlH0QhcUQ2jqmKRkjq1KmOIGJLeQT2JElSElrL7NxMM9NYneIALUvC7ef9RY5KVaYYV5zEaQ6qCCKVQayCPoqXrqAQ7ZKmNZ77vVX53ve7e03wVIWUeOjifDnHtK7Veg58bn5AwOpJmGS8Pd4cQXOehhniyx9iX0WSm/2/cyR6585TlR/v+V29uGW+jlwty8TJXdhYO/MjjhwsY1VKkGp+ySB5U6CpyB+nQSlprzqhYC/rt+RKctmsiPw4CAk3cLQqQYOV0+4yKr+lVKMQdRpZ1ZM3+9v6fPc15IVve7HtvZ1vN15nRuy+pWrEiu1m9PFWiggweOm1Y8c="
       dist: xenial
       sudo: required
       compiler: gcc
