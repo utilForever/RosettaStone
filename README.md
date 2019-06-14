@@ -10,6 +10,8 @@
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/RosettaStone.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/RosettaStone/context:cpp)
 [![CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone/badge)](https://www.codefactor.io/repository/github/utilforever/RosettaStone)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=alert_status)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=ncloc)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=RosettaStone) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=security_rating)](https://sonarcloud.io/dashboard?id=RosettaStone)
+
 RosettaStone is Hearthstone simulator using C++ with some reinforcement learning. The code is built on C++17 and can be compiled with commonly available compilers such as g++, clang++, or Microsoft Visual Studio. RosettaStone currently supports macOS (10.14 or later), Ubuntu (18.04 or later), Windows (Visual Studio 2017 or later), and Windows Subsystem for Linux (WSL). Other untested platforms that support C++17 also should be able to build RosettaStone.
 
 ## Related Repositories
