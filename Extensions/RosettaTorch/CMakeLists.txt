@@ -14,7 +14,7 @@ include_directories(
 
 # Sources
 file(GLOB header_dir
-    ${CMAKE_CURRENT_SOURCE_DIR}/Includes/RosettaTorch)
+    ${CMAKE_CURRENT_SOURCE_DIR}/Includes)
 
 file(GLOB_RECURSE headers
     ${header_dir}/Includes/*.hpp)
