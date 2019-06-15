@@ -26,10 +26,9 @@ lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Includes/*' -o coverage.inf
 lcov --gcov-tool /usr/bin/gcov-7 -r coverage.info '*/Libraries/*' -o coverage.info
 lcov --gcov-tool /usr/bin/gcov-7 -l coverage.info
 
-cd ..
-sonar-scanner
-
-cd build
 curl -s https://codecov.io/bash > .codecov
 chmod +x .codecov
 ./.codecov
+
+cd ..
+sonar-scanner
