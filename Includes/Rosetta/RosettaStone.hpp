@@ -25,6 +25,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Commons/SpinLocks.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
