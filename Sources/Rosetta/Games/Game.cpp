@@ -68,6 +68,11 @@ Player& Game::GetOpponentPlayer() const
     return *m_currentPlayer->opponent;
 }
 
+int Game::GetTurn() const
+{
+    return m_turn;
+}
+
 std::size_t Game::GetNextID()
 {
     return m_entityID++;

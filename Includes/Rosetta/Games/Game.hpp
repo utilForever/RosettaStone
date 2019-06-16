@@ -64,6 +64,10 @@ class Game
     //! \return The opponent player.
     Player& GetOpponentPlayer() const;
 
+    //! Gets the turn of game.
+    //! \return The turn of game.
+    int GetTurn() const;
+
     //! Gets the next entity identifier.
     //! \return The next entity ID.
     std::size_t GetNextID();
