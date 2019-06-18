@@ -136,6 +136,30 @@ Hero* BoardRefView::GetOpponentHero() const
     }
 }
 
+HeroPower* BoardRefView::GetHeroPower(PlayerType type) const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetHero()->heroPower;
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetHero()->heroPower;
+    }
+}
+
+Weapon* BoardRefView::GetWeapon(PlayerType type) const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetHero()->weapon;
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetHero()->weapon;
+    }
+}
+
 std::vector<Entity*> BoardRefView::GetHandCards() const
 {
     if (m_type == PlayerType::PLAYER1)
