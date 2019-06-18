@@ -112,4 +112,27 @@ int BoardRefView::GetRemainingMana(PlayerType type) const
         return m_game.GetPlayer2().GetRemainingMana();
     }
 }
+
+Hero* BoardRefView::GetHero() const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetHero();
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetHero();
+    }
+}
+Hero* BoardRefView::GetOpponentHero() const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer2().GetHero();
+    }
+    else
+    {
+        return m_game.GetPlayer1().GetHero();
+    }
+}
 }  // namespace RosettaStone

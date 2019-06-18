@@ -34,6 +34,9 @@ class BoardRefView
     int GetOverloadLocked(PlayerType type) const;
     int GetRemainingMana(PlayerType type) const;
 
+    Hero* GetHero() const;
+    Hero* GetOpponentHero() const;
+
  private:
     Game& m_game;
     PlayerType m_type;
