@@ -10,6 +10,8 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 
+#include <stdexcept>
+
 using namespace RosettaStone;
 
 namespace RosettaTorch::MCTS
@@ -17,8 +19,57 @@ namespace RosettaTorch::MCTS
 class StateValue
 {
  public:
-    float GetValue(PlayerType type) const;
-    void SetValue(PlayerType type, PlayState state);
+    float GetValue(PlayerType type) const
+    {
+        if (type == PlayerType::PLAYER1)
+        {
+            return m_value;
+        }
+
+        return -m_value;
+    }
+
+    void SetValue(PlayerType type, PlayState state)
+    {
+        if (type == PlayerType::PLAYER1)
+        {
+            if (state == PlayState::WON)
+            {
+                m_value = 1.0f;
+            }
+            else if (state == PlayState::LOST)
+            {
+                m_value = -1.0f;
+            }
+            else if (state == PlayState::TIED)
+            {
+                m_value = 0.0f;
+            }
+            else
+            {
+                throw std::invalid_argument("Invalid play state!");
+            }
+        }
+        else if (type == PlayerType::PLAYER2)
+        {
+            if (state == PlayState::WON)
+            {
+                m_value = -1.0f;
+            }
+            else if (state == PlayState::LOST)
+            {
+                m_value = 1.0f;
+            }
+            else if (state == PlayState::TIED)
+            {
+                m_value = 0.0f;
+            }
+            else
+            {
+                throw std::invalid_argument("Invalid play state!");
+            }
+        }
+    }
 
  private:
     float m_value = 0.0f;
