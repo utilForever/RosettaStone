@@ -14,7 +14,6 @@ namespace RosettaStone
 //!
 //! \brief BoardRefView class.
 //!
-//! This class is an simple implementation of board reference view.
 //! It is based on peter1591's hearthstone-ai repository.
 //! References: https://github.com/peter1591/hearthstone-ai
 //!
@@ -26,6 +25,14 @@ class BoardRefView
     PlayerType GetType() const;
     int GetTurn() const;
     Player& GetCurrentPlayer() const;
+
+    int GetFatigueDamage(PlayerType type) const;
+    int GetTotalMana(PlayerType type) const;
+    int GetUsedMana(PlayerType type) const;
+    int GetTemporaryMana(PlayerType type) const;
+    int GetOverloadOwed(PlayerType type) const;
+    int GetOverloadLocked(PlayerType type) const;
+    int GetRemainingMana(PlayerType type) const;
 
  private:
     Game& m_game;
