@@ -37,6 +37,10 @@ class BoardRefView
     Hero* GetHero() const;
     Hero* GetOpponentHero() const;
 
+    std::vector<Entity*> GetHandCards() const;
+    std::vector<Entity*> GetOpponentHandCards() const;
+    int GetOpponentHandCardCount() const;
+
  private:
     Game& m_game;
     PlayerType m_type;

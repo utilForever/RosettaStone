@@ -135,4 +135,56 @@ Hero* BoardRefView::GetOpponentHero() const
         return m_game.GetPlayer1().GetHero();
     }
 }
+
+std::vector<Entity*> BoardRefView::GetHandCards() const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetHandZone().GetAll();
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetHandZone().GetAll();
+    }
+}
+
+std::vector<Entity*> BoardRefView::GetOpponentHandCards() const
+{
+    std::vector<Entity*> result;
+
+    if (m_type == PlayerType::PLAYER1)
+    {
+        result = m_game.GetPlayer2().GetHandZone().GetAll();
+    }
+    else
+    {
+        result = m_game.GetPlayer1().GetHandZone().GetAll();
+    }
+
+    for (auto& entity : result)
+    {
+        if (entity->card.id == "GAME_005")
+        {
+            // The Coin. This also reveals to opponent.
+        }
+        else
+        {
+            entity->card.id = "INVALID";
+        }
+    }
+
+    return result;
+}
+
+int BoardRefView::GetOpponentHandCardCount() const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer2().GetHandZone().GetCount();
+    }
+    else
+    {
+        return m_game.GetPlayer1().GetHandZone().GetCount();
+    }
+}
 }  // namespace RosettaStone
