@@ -4,6 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+// It is based on peter1591's hearthstone-ai repository.
+// References: https://github.com/peter1591/hearthstone-ai
+
 #include <Rosetta/Views/BoardRefView.hpp>
 
 namespace RosettaStone

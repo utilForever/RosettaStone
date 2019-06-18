@@ -4,6 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+// It is based on peter1591's hearthstone-ai repository.
+// References: https://github.com/peter1591/hearthstone-ai
+
 #ifndef ROSETTASTONE_BOARD_REF_VIEW_HPP
 #define ROSETTASTONE_BOARD_REF_VIEW_HPP
 
@@ -13,9 +16,6 @@ namespace RosettaStone
 {
 //!
 //! \brief BoardRefView class.
-//!
-//! It is based on peter1591's hearthstone-ai repository.
-//! References: https://github.com/peter1591/hearthstone-ai
 //!
 class BoardRefView
 {
