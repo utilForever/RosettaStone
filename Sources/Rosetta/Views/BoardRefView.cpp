@@ -235,4 +235,28 @@ int BoardRefView::GetDeckCardCount(PlayerType type) const
         return m_game.GetPlayer2().GetDeckZone().GetCount();
     }
 }
+
+bool BoardRefView::IsHeroAttackable(PlayerType type) const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetHero()->CanAttack();
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetHero()->CanAttack();
+    }
+}
+
+bool BoardRefView::IsMinionAttackable(PlayerType type, int idx) const
+{
+    if (m_type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetFieldZone()[idx]->CanAttack();
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetFieldZone()[idx]->CanAttack();
+    }
+}
 }  // namespace RosettaStone

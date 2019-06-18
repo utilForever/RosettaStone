@@ -47,6 +47,9 @@ class BoardRefView
 
     int GetDeckCardCount(PlayerType type) const;
 
+    bool IsHeroAttackable(PlayerType type) const;
+    bool IsMinionAttackable(PlayerType type, int idx) const;
+
  private:
     Game& m_game;
     PlayerType m_type;
