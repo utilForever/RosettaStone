@@ -138,7 +138,7 @@ Hero* BoardRefView::GetOpponentHero() const
 
 HeroPower* BoardRefView::GetHeroPower(PlayerType type) const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (type == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero()->heroPower;
     }
@@ -150,7 +150,7 @@ HeroPower* BoardRefView::GetHeroPower(PlayerType type) const
 
 Weapon* BoardRefView::GetWeapon(PlayerType type) const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (type == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero()->weapon;
     }
@@ -238,7 +238,7 @@ int BoardRefView::GetDeckCardCount(PlayerType type) const
 
 bool BoardRefView::IsHeroAttackable(PlayerType type) const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (type == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero()->CanAttack();
     }
@@ -250,7 +250,7 @@ bool BoardRefView::IsHeroAttackable(PlayerType type) const
 
 bool BoardRefView::IsMinionAttackable(PlayerType type, int idx) const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (type == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetFieldZone()[idx]->CanAttack();
     }
