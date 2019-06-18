@@ -41,6 +41,10 @@ class BoardRefView
     std::vector<Entity*> GetOpponentHandCards() const;
     int GetOpponentHandCardCount() const;
 
+    std::vector<Minion*> GetMinions(PlayerType type) const;
+
+    int GetDeckCardCount(PlayerType type) const;
+
  private:
     Game& m_game;
     PlayerType m_type;

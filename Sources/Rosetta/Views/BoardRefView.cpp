@@ -187,4 +187,28 @@ int BoardRefView::GetOpponentHandCardCount() const
         return m_game.GetPlayer1().GetHandZone().GetCount();
     }
 }
+
+std::vector<Minion*> BoardRefView::GetMinions(PlayerType type) const
+{
+    if (type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetFieldZone().GetAll();
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetFieldZone().GetAll();
+    }
+}
+
+int BoardRefView::GetDeckCardCount(PlayerType type) const
+{
+    if (type == PlayerType::PLAYER1)
+    {
+        return m_game.GetPlayer1().GetDeckZone().GetCount();
+    }
+    else
+    {
+        return m_game.GetPlayer2().GetDeckZone().GetCount();
+    }
+}
 }  // namespace RosettaStone
