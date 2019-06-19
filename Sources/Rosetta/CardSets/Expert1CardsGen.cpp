@@ -1723,6 +1723,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_102", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
+    // - Race: Murloc, - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your other Murlocs +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::MURLOC)));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_103e", EntityType::STACK));
+    cards.emplace("EX1_103", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -2020,6 +2032,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_093e"));
     cards.emplace("EX1_093e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_103e] Mrghlglhal (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2 Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_103e"));
+    cards.emplace("EX1_103e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_tk28] Squirrel (*) - COST:1 [ATK:1/HP:1]
