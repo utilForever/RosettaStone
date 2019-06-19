@@ -4274,7 +4274,6 @@ TEST(NeutralExpert1Test, EX1_103_ColdlightSeer)
     EXPECT_EQ(curField[2]->GetHealth(), 1);
     EXPECT_EQ(curField[3]->GetHealth(), 3);
     EXPECT_EQ(opField[0]->GetHealth(), 1);
-
 }
 
 // --------------------------------------- MINION - NEUTRAL
