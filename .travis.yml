@@ -2,7 +2,7 @@ language: cpp
 
 matrix:
   include:
-    - name: Test Ubuntu 16.04 + gcc-7 + codecov + sonarcloud
+    - name: Test Ubuntu 16.04 + gcc-7 + codecov + (sonarcloud)
       os: linux
       addons:
         apt:
@@ -20,7 +20,12 @@ matrix:
       env:
         - BUILD_TYPE=Debug
       script:
-        - sh Scripts/travis_build_codecov.sh
+        - if [[ -n "${TRAVIS_PULL_REQUEST_SLUG}" && "${TRAVIS_PULL_REQUEST_SLUG}" != "${TRAVIS_REPO_SLUG}" ]]; then
+            echo "The pull request from ${TRAVIS_PULL_REQUEST_SLUG} is an EXTERNAL pull request. Skip sonar analysis.";
+            sh Scripts/travis_build_codecov.sh
+          else
+            sh Scripts/travis_build_codecov_sonar.sh
+          fi
     - name: Test Docker based on Ubuntu 18.04 LTS + gcc
       os: linux
       dist: trusty

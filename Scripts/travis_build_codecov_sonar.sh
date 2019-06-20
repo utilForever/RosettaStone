@@ -14,7 +14,7 @@ sudo apt-get install -yq gcovr ggcov lcov curl
 
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
+build-wrapper-linux-x86-64 --out-dir ../bw-output cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
 make UnitTests
 lcov --gcov-tool /usr/bin/gcov-7 -c -i -d Tests/UnitTests -o base.info
 bin/UnitTests
@@ -29,3 +29,6 @@ lcov --gcov-tool /usr/bin/gcov-7 -l coverage.info
 curl -s https://codecov.io/bash > .codecov
 chmod +x .codecov
 ./.codecov
+
+cd ..
+sonar-scanner
