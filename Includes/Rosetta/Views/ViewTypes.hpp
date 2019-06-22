@@ -16,7 +16,6 @@ struct Hero
     int attack;
     int health;
     int armor;
-
     bool isStealth;
     bool isImmune;
 
@@ -29,7 +28,6 @@ struct Hero
         attack = hero.GetAttack();
         health = hero.GetHealth();
         armor = hero.GetArmor();
-
         isStealth = (hero.GetGameTag(GameTag::STEALTH) == 1);
         isImmune = (hero.GetGameTag(GameTag::IMMUNE) == 1);
     }
@@ -88,7 +86,6 @@ struct MyHero : public Hero
         {
             return false;
         }
-
         if (attackable != rhs.attackable)
         {
             return false;
@@ -133,6 +130,62 @@ struct HeroPower
     }
 
     bool operator!=(const HeroPower& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
+
+struct Weapon
+{
+    std::string cardID;
+    int attack;
+    int durability;
+    bool isEquipped;
+
+    constexpr static int changeID = 1;
+
+    void Fill(const RosettaStone::Weapon& weapon)
+    {
+        cardID = weapon.card.id;
+        attack = weapon.GetAttack();
+        durability = weapon.GetDurability();
+        isEquipped = true;
+    }
+
+    void Invalidate()
+    {
+        isEquipped = false;
+    }
+
+    bool operator==(const Weapon& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        if (isEquipped != rhs.isEquipped)
+        {
+            return false;
+        }
+
+        if (isEquipped)
+        {
+            if (cardID != rhs.cardID)
+            {
+                return false;
+            }
+            if (attack != rhs.attack)
+            {
+                return false;
+            }
+            if (durability != rhs.durability)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool operator!=(const Weapon& rhs) const
     {
         return !(*this == rhs);
     }
