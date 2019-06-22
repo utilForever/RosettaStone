@@ -102,6 +102,41 @@ struct MyHero : public Hero
         return !(*this == rhs);
     }
 };
+
+struct HeroPower
+{
+    std::string cardID;
+    bool isExhausted;
+
+    constexpr static int changeID = 1;
+
+    void Fill(RosettaStone::HeroPower& power)
+    {
+        cardID = power.card.id;
+        isExhausted = power.IsExhausted();
+    }
+
+    bool operator==(const HeroPower& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        if (cardID != rhs.cardID)
+        {
+            return false;
+        }
+        if (isExhausted != rhs.isExhausted)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool operator!=(const HeroPower& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
 }  // namespace RosettaStone::ViewTypes
 
 #endif  // ROSETTASTONE_VIEW_TYPES_HPP
