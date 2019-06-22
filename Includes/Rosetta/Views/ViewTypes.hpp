@@ -67,6 +67,41 @@ struct Hero
         return !(*this == rhs);
     }
 };
+
+struct MyHero : public Hero
+{
+    bool attackable;
+
+    constexpr static int changeID = 1;
+
+    void Fill(const RosettaStone::Hero& hero, bool _attackable)
+    {
+        Hero::Fill(hero);
+        attackable = _attackable;
+    }
+
+    bool operator==(const MyHero& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        if (Hero::operator!=(rhs))
+        {
+            return false;
+        }
+
+        if (attackable != rhs.attackable)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool operator!=(const MyHero& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
 }  // namespace RosettaStone::ViewTypes
 
 #endif  // ROSETTASTONE_VIEW_TYPES_HPP
