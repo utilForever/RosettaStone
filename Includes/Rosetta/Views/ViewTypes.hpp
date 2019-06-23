@@ -346,6 +346,56 @@ struct MyMinion : public Minion
         return !(*this == rhs);
     }
 };
+
+using Minions = std::vector<Minion>;
+using MyMinions = std::vector<MyMinion>;
+
+struct MyHandCard
+{
+    std::string cardID;
+    int cost;
+    int attack;
+    int health;
+
+    constexpr static int changeID = 1;
+
+    void Fill(RosettaStone::Entity& entity)
+    {
+        cardID = entity.card.id;
+        cost = entity.GetCost();
+        attack = entity.GetGameTag(GameTag::ATK);
+        health = entity.GetGameTag(GameTag::HEALTH);
+    }
+
+    bool operator==(const MyHandCard& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        if (cardID != rhs.cardID)
+        {
+            return false;
+        }
+        if (cost != rhs.cost)
+        {
+            return false;
+        }
+        if (attack != rhs.attack)
+        {
+            return false;
+        }
+        if (health != rhs.health)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool operator!=(const MyHandCard& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
 }  // namespace RosettaStone::ViewTypes
 
 #endif  // ROSETTASTONE_VIEW_TYPES_HPP
