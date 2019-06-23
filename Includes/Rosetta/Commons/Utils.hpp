@@ -8,6 +8,7 @@
 #define ROSETTASTONE_UTILS_HPP
 
 #include <cstddef>
+#include <functional>
 
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
