@@ -16,11 +16,11 @@ namespace RosettaStone::ViewTypes
 {
 struct Hero
 {
-    int attack;
-    int health;
-    int armor;
-    bool isStealth;
-    bool isImmune;
+    int attack = 0;
+    int health = 0;
+    int armor = 0;
+    bool isStealth = false;
+    bool isImmune = false;
 
     constexpr static int changeID = 2;
 
@@ -71,7 +71,7 @@ struct Hero
 
 struct MyHero : public Hero
 {
-    bool attackable;
+    bool attackable = false;
 
     constexpr static int changeID = 1;
 
@@ -106,7 +106,7 @@ struct MyHero : public Hero
 struct HeroPower
 {
     std::string cardID;
-    bool isExhausted;
+    bool isExhausted = false;
 
     constexpr static int changeID = 1;
 
@@ -141,9 +141,9 @@ struct HeroPower
 struct Weapon
 {
     std::string cardID;
-    int attack;
-    int durability;
-    bool isEquipped;
+    int attack = 0;
+    int durability = 0;
+    bool isEquipped = false;
 
     constexpr static int changeID = 1;
 
@@ -196,10 +196,10 @@ struct Weapon
 
 struct ManaCrystal
 {
-    int remaining;
-    int total;
-    int overloadOwed;
-    int overloadLocked;
+    int remaining = 0;
+    int total = 0;
+    int overloadOwed = 0;
+    int overloadLocked = 0;
 
     constexpr static int changeID = 1;
 
@@ -244,13 +244,13 @@ struct ManaCrystal
 struct Minion
 {
     std::string cardID;
-    int attack;
-    int health;
-    bool isSilenced;
-    bool hasTaunt;
-    bool cantAttackHero;
-    bool isStealth;
-    bool isImmune;
+    int attack = 0;
+    int health = 0;
+    bool isSilenced = false;
+    bool hasTaunt = false;
+    bool cantAttackHero = false;
+    bool isStealth = false;
+    bool isImmune = false;
 
     constexpr static int changeID = 3;
 
@@ -308,6 +308,40 @@ struct Minion
     }
 
     bool operator!=(const Minion& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
+
+struct MyMinion : public Minion
+{
+    bool attackable = false;
+
+    constexpr static int changeID = 1;
+
+    void Fill(const RosettaStone::Minion& minion, bool _attackable)
+    {
+        Minion::Fill(minion);
+        attackable = _attackable;
+    }
+
+    bool operator==(const MyMinion& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        if (Minion::operator!=(rhs))
+        {
+            return false;
+        }
+        if (attackable != rhs.attackable)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool operator!=(const MyMinion& rhs) const
     {
         return !(*this == rhs);
     }
