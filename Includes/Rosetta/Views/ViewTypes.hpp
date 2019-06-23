@@ -445,12 +445,11 @@ struct Deck
 
 namespace std
 {
-using namespace RosettaStone::ViewTypes;
-
 template <>
-struct hash<Hero>
+struct hash<RosettaStone::ViewTypes::Hero>
 {
-    std::size_t operator()(const Hero& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::Hero& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 2);
 
@@ -466,13 +465,14 @@ struct hash<Hero>
 };
 
 template <>
-struct hash<MyHero>
+struct hash<RosettaStone::ViewTypes::MyHero>
 {
-    std::size_t operator()(const MyHero& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::MyHero& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
 
-        std::size_t result = std::hash<Hero>()(rhs);
+        std::size_t result = std::hash<RosettaStone::ViewTypes::Hero>()(rhs);
         CombineHash(result, rhs.attackable);
 
         return result;
@@ -480,9 +480,10 @@ struct hash<MyHero>
 };
 
 template <>
-struct hash<HeroPower>
+struct hash<RosettaStone::ViewTypes::HeroPower>
 {
-    std::size_t operator()(const HeroPower& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::HeroPower& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
 
@@ -495,9 +496,10 @@ struct hash<HeroPower>
 };
 
 template <>
-struct hash<Weapon>
+struct hash<RosettaStone::ViewTypes::Weapon>
 {
-    std::size_t operator()(const Weapon& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::Weapon& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
 
@@ -516,9 +518,10 @@ struct hash<Weapon>
 };
 
 template <>
-struct hash<ManaCrystal>
+struct hash<RosettaStone::ViewTypes::ManaCrystal>
 {
-    std::size_t operator()(const ManaCrystal& rhs) const noexcept
+    std::size_t operator()(
+        const RosettaStone::ViewTypes::ManaCrystal& rhs) const noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
 
@@ -533,9 +536,10 @@ struct hash<ManaCrystal>
 };
 
 template <>
-struct hash<Minion>
+struct hash<RosettaStone::ViewTypes::Minion>
 {
-    std::size_t operator()(const Minion& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::Minion& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 3);
 
@@ -554,13 +558,14 @@ struct hash<Minion>
 };
 
 template <>
-struct hash<MyMinion>
+struct hash<RosettaStone::ViewTypes::MyMinion>
 {
-    std::size_t operator()(const MyMinion& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::MyMinion& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
 
-        std::size_t result = std::hash<Minion>()(rhs);
+        std::size_t result = std::hash<RosettaStone::ViewTypes::Minion>()(rhs);
         CombineHash(result, rhs.attackable);
 
         return result;
@@ -568,9 +573,10 @@ struct hash<MyMinion>
 };
 
 template <>
-struct hash<Minions>
+struct hash<RosettaStone::ViewTypes::Minions>
 {
-    std::size_t operator()(const Minions& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::Minions& rhs) const
+        noexcept
     {
         std::size_t result = 0;
 
@@ -584,9 +590,10 @@ struct hash<Minions>
 };
 
 template <>
-struct hash<MyMinions>
+struct hash<RosettaStone::ViewTypes::MyMinions>
 {
-    std::size_t operator()(const MyMinions& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::MyMinions& rhs) const
+        noexcept
     {
         std::size_t result = 0;
 
@@ -600,9 +607,10 @@ struct hash<MyMinions>
 };
 
 template <>
-struct hash<MyHandCard>
+struct hash<RosettaStone::ViewTypes::MyHandCard>
 {
-    std::size_t operator()(const MyHandCard& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::MyHandCard& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
 
@@ -617,9 +625,10 @@ struct hash<MyHandCard>
 };
 
 template <>
-struct hash<OpHandCard>
+struct hash<RosettaStone::ViewTypes::OpHandCard>
 {
-    std::size_t operator()([[maybe_unused]] const OpHandCard& rhs) const
+    std::size_t operator()([
+        [maybe_unused]] const RosettaStone::ViewTypes::OpHandCard& rhs) const
         noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
@@ -629,9 +638,9 @@ struct hash<OpHandCard>
 };
 
 template <>
-struct hash<MyHand>
+struct hash<RosettaStone::ViewTypes::MyHand>
 {
-    std::size_t operator()(const MyHand& rhs) const
+    std::size_t operator()(const RosettaStone::ViewTypes::MyHand& rhs) const
         noexcept
     {
         std::size_t result = 0;
@@ -646,9 +655,10 @@ struct hash<MyHand>
 };
 
 template <>
-struct hash<OpHand>
+struct hash<RosettaStone::ViewTypes::OpHand>
 {
-    std::size_t operator()(const OpHand& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::OpHand& rhs) const
+        noexcept
     {
         std::size_t result = 0;
 
@@ -662,9 +672,10 @@ struct hash<OpHand>
 };
 
 template <>
-struct hash<Deck>
+struct hash<RosettaStone::ViewTypes::Deck>
 {
-    std::size_t operator()(const Deck& rhs) const noexcept
+    std::size_t operator()(const RosettaStone::ViewTypes::Deck& rhs) const
+        noexcept
     {
         static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
 
