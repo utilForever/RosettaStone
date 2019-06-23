@@ -20,7 +20,7 @@ namespace RosettaStone
 class BoardRefView
 {
  public:
-    BoardRefView(Game& game, PlayerType type);
+    BoardRefView(const Game& game, PlayerType type);
 
     int GetTurn() const;
     PlayerType GetPlayerType() const;
@@ -51,7 +51,7 @@ class BoardRefView
     bool IsMinionAttackable(PlayerType type, int idx) const;
 
  private:
-    Game& m_game;
+    const Game& m_game;
     PlayerType m_playerType;
 };
 }  // namespace RosettaStone

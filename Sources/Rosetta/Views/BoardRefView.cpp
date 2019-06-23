@@ -11,7 +11,7 @@
 
 namespace RosettaStone
 {
-BoardRefView::BoardRefView(Game& game, PlayerType type)
+BoardRefView::BoardRefView(const Game& game, PlayerType type)
     : m_game(game), m_playerType(type)
 {
     // Do nothing
