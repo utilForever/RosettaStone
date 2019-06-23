@@ -18,8 +18,26 @@ namespace Policy
 
 namespace Configs
 {
-    constexpr int CREDIT_GRANULARITY = 100;
-}
+constexpr int CREDIT_GRANULARITY = 100;
+
+namespace UpdaterPolicy
+{
+struct TreeUpdate
+{
+    // Do nothing
+};
+struct LinearUpdate
+{
+    // Do nothing
+};
+}  // namespace UpdaterPolicy
+
+using UpdatePolicy = UpdaterPolicy::TreeUpdate;
+
+static constexpr bool RECORD_LEADING_NODES =
+    std::is_same_v<UpdatePolicy, UpdaterPolicy::TreeUpdate>;
+
+}  // namespace Configs
 }  // namespace RosettaTorch::MCTS
 
 #endif  // ROSETTASTONE_TORCH_MCTS_CONFIGS_HPP
