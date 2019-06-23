@@ -416,6 +416,30 @@ struct OpHandCard
 
 using MyHand = std::vector<MyHandCard>;
 using OpHand = std::vector<OpHandCard>;
+
+struct Deck
+{
+    int count;
+
+    constexpr static int changeID = 1;
+
+    void Fill(int _count)
+    {
+        count = _count;
+    }
+
+    bool operator==(const Deck& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        return count == rhs.count;
+    }
+
+    bool operator!=(const Deck& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
 }  // namespace RosettaStone::ViewTypes
 
 #endif  // ROSETTASTONE_VIEW_TYPES_HPP
