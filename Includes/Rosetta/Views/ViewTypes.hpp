@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_VIEW_TYPES_HPP
 #define ROSETTASTONE_VIEW_TYPES_HPP
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
@@ -353,9 +354,9 @@ using MyMinions = std::vector<MyMinion>;
 struct MyHandCard
 {
     std::string cardID;
-    int cost;
-    int attack;
-    int health;
+    int cost = 0;
+    int attack = 0;
+    int health = 0;
 
     constexpr static int changeID = 1;
 
@@ -419,7 +420,7 @@ using OpHand = std::vector<OpHandCard>;
 
 struct Deck
 {
-    int count;
+    int count = 0;
 
     constexpr static int changeID = 1;
 
@@ -441,5 +442,238 @@ struct Deck
     }
 };
 }  // namespace RosettaStone::ViewTypes
+
+namespace std
+{
+using namespace RosettaStone::ViewTypes;
+
+template <>
+struct hash<Hero>
+{
+    std::size_t operator()(const Hero& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 2);
+
+        std::size_t result = 0;
+        CombineHash(result, rhs.attack);
+        CombineHash(result, rhs.health);
+        CombineHash(result, rhs.armor);
+        CombineHash(result, rhs.isStealth);
+        CombineHash(result, rhs.isImmune);
+
+        return result;
+    }
+};
+
+template <>
+struct hash<MyHero>
+{
+    std::size_t operator()(const MyHero& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        std::size_t result = std::hash<Hero>()(rhs);
+        CombineHash(result, rhs.attackable);
+
+        return result;
+    }
+};
+
+template <>
+struct hash<HeroPower>
+{
+    std::size_t operator()(const HeroPower& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        std::size_t result = 0;
+        CombineHash(result, rhs.cardID);
+        CombineHash(result, rhs.isExhausted);
+
+        return result;
+    }
+};
+
+template <>
+struct hash<Weapon>
+{
+    std::size_t operator()(const Weapon& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        std::size_t result = 0;
+        CombineHash(result, rhs.isEquipped);
+
+        if (rhs.isEquipped)
+        {
+            CombineHash(result, rhs.cardID);
+            CombineHash(result, rhs.attack);
+            CombineHash(result, rhs.durability);
+        }
+
+        return result;
+    }
+};
+
+template <>
+struct hash<ManaCrystal>
+{
+    std::size_t operator()(const ManaCrystal& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        std::size_t result = 0;
+        CombineHash(result, rhs.remaining);
+        CombineHash(result, rhs.total);
+        CombineHash(result, rhs.overloadOwed);
+        CombineHash(result, rhs.overloadLocked);
+
+        return result;
+    }
+};
+
+template <>
+struct hash<Minion>
+{
+    std::size_t operator()(const Minion& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 3);
+
+        std::size_t result = 0;
+        CombineHash(result, rhs.cardID);
+        CombineHash(result, rhs.attack);
+        CombineHash(result, rhs.health);
+        CombineHash(result, rhs.isSilenced);
+        CombineHash(result, rhs.hasTaunt);
+        CombineHash(result, rhs.cantAttackHero);
+        CombineHash(result, rhs.isStealth);
+        CombineHash(result, rhs.isImmune);
+
+        return result;
+    }
+};
+
+template <>
+struct hash<MyMinion>
+{
+    std::size_t operator()(const MyMinion& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        std::size_t result = std::hash<Minion>()(rhs);
+        CombineHash(result, rhs.attackable);
+
+        return result;
+    }
+};
+
+template <>
+struct hash<Minions>
+{
+    std::size_t operator()(const Minions& rhs) const noexcept
+    {
+        std::size_t result = 0;
+
+        for (const auto& minion : rhs)
+        {
+            CombineHash(result, minion);
+        }
+
+        return result;
+    }
+};
+
+template <>
+struct hash<MyMinions>
+{
+    std::size_t operator()(const MyMinions& rhs) const noexcept
+    {
+        std::size_t result = 0;
+
+        for (const auto& minion : rhs)
+        {
+            CombineHash(result, minion);
+        }
+
+        return result;
+    }
+};
+
+template <>
+struct hash<MyHandCard>
+{
+    std::size_t operator()(const MyHandCard& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        std::size_t result = 0;
+        CombineHash(result, rhs.cardID);
+        CombineHash(result, rhs.cost);
+        CombineHash(result, rhs.attack);
+        CombineHash(result, rhs.health);
+
+        return result;
+    }
+};
+
+template <>
+struct hash<OpHandCard>
+{
+    std::size_t operator()([[maybe_unused]] const OpHandCard& rhs) const
+        noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        return 0;
+    }
+};
+
+template <>
+struct hash<MyHand>
+{
+    std::size_t operator()(const MyHand& rhs) const
+        noexcept
+    {
+        std::size_t result = 0;
+
+        for (const auto& entity : rhs)
+        {
+            CombineHash(result, entity);
+        }
+
+        return result;
+    }
+};
+
+template <>
+struct hash<OpHand>
+{
+    std::size_t operator()(const OpHand& rhs) const noexcept
+    {
+        std::size_t result = 0;
+
+        for (const auto& entity : rhs)
+        {
+            CombineHash(result, entity);
+        }
+
+        return result;
+    }
+};
+
+template <>
+struct hash<Deck>
+{
+    std::size_t operator()(const Deck& rhs) const noexcept
+    {
+        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
+
+        std::size_t result = 0;
+        CombineHash(result, rhs.count);
+
+        return result;
+    }
+};
+}  // namespace std
 
 #endif  // ROSETTASTONE_VIEW_TYPES_HPP
