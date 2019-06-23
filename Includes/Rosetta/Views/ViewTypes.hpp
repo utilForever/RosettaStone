@@ -8,6 +8,9 @@
 #define ROSETTASTONE_VIEW_TYPES_HPP
 
 #include <Rosetta/Models/Hero.hpp>
+#include <Rosetta/Models/HeroPower.hpp>
+#include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Models/Weapon.hpp>
 
 namespace RosettaStone::ViewTypes
 {
@@ -186,6 +189,53 @@ struct Weapon
     }
 
     bool operator!=(const Weapon& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
+
+struct ManaCrystal
+{
+    int remaining;
+    int total;
+    int overloadOwed;
+    int overloadLocked;
+
+    constexpr static int changeID = 1;
+
+    void Fill(const RosettaStone::Player& player)
+    {
+        remaining = player.GetRemainingMana();
+        total = player.GetTotalMana();
+        overloadOwed = player.GetOverloadOwed();
+        overloadLocked = player.GetOverloadLocked();
+    }
+
+    bool operator==(const ManaCrystal& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        if (remaining != rhs.remaining)
+        {
+            return false;
+        }
+        if (total != rhs.total)
+        {
+            return false;
+        }
+        if (overloadOwed != rhs.overloadOwed)
+        {
+            return false;
+        }
+        if (overloadLocked != rhs.overloadLocked)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool operator!=(const ManaCrystal& rhs) const
     {
         return !(*this == rhs);
     }
