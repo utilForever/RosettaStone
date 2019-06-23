@@ -54,7 +54,17 @@ Player& Game::GetPlayer1()
     return m_players[0];
 }
 
+const Player& Game::GetPlayer1() const
+{
+    return m_players[0];
+}
+
 Player& Game::GetPlayer2()
+{
+    return m_players[1];
+}
+
+const Player& Game::GetPlayer2() const
 {
     return m_players[1];
 }
@@ -618,7 +628,7 @@ void Game::PlayPolicy()
     }
 }
 
-ReducedBoardView Game::CreateView()
+ReducedBoardView Game::CreateView() const
 {
     if (m_currentPlayer->playerType == PlayerType::PLAYER1)
     {
