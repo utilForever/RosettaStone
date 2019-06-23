@@ -22,8 +22,8 @@ class BoardRefView
  public:
     BoardRefView(Game& game, PlayerType type);
 
-    PlayerType GetType() const;
     int GetTurn() const;
+    PlayerType GetPlayerType() const;
     Player& GetCurrentPlayer() const;
 
     int GetFatigueDamage(PlayerType type) const;
@@ -52,7 +52,7 @@ class BoardRefView
 
  private:
     Game& m_game;
-    PlayerType m_type;
+    PlayerType m_playerType;
 };
 }  // namespace RosettaStone
 

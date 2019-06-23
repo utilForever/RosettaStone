@@ -12,19 +12,19 @@
 namespace RosettaStone
 {
 BoardRefView::BoardRefView(Game& game, PlayerType type)
-    : m_game(game), m_type(type)
+    : m_game(game), m_playerType(type)
 {
     // Do nothing
-}
-
-PlayerType BoardRefView::GetType() const
-{
-    return m_type;
 }
 
 int BoardRefView::GetTurn() const
 {
     return m_game.GetTurn();
+}
+
+PlayerType BoardRefView::GetPlayerType() const
+{
+    return m_playerType;
 }
 
 Player& BoardRefView::GetCurrentPlayer() const
@@ -118,7 +118,7 @@ int BoardRefView::GetRemainingMana(PlayerType type) const
 
 Hero* BoardRefView::GetHero() const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (m_playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero();
     }
@@ -129,7 +129,7 @@ Hero* BoardRefView::GetHero() const
 }
 Hero* BoardRefView::GetOpponentHero() const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (m_playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer2().GetHero();
     }
@@ -165,7 +165,7 @@ Weapon* BoardRefView::GetWeapon(PlayerType type) const
 
 std::vector<Entity*> BoardRefView::GetHandCards() const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (m_playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHandZone().GetAll();
     }
@@ -179,7 +179,7 @@ std::vector<Entity*> BoardRefView::GetOpponentHandCards() const
 {
     std::vector<Entity*> result;
 
-    if (m_type == PlayerType::PLAYER1)
+    if (m_playerType == PlayerType::PLAYER1)
     {
         result = m_game.GetPlayer2().GetHandZone().GetAll();
     }
@@ -205,7 +205,7 @@ std::vector<Entity*> BoardRefView::GetOpponentHandCards() const
 
 int BoardRefView::GetOpponentHandCardCount() const
 {
-    if (m_type == PlayerType::PLAYER1)
+    if (m_playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer2().GetHandZone().GetCount();
     }
