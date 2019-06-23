@@ -12,6 +12,7 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
+#include <Rosetta/Views/ReducedBoardView.hpp>
 
 #include <map>
 
@@ -155,6 +156,10 @@ class Game
 
     //! Plays policy based game.
     void PlayPolicy();
+
+    //! Creates board view.
+    //! \return The reduced board view.
+    ReducedBoardView CreateView();
 
     State state = State::INVALID;
 

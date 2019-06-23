@@ -13,6 +13,7 @@
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
+#include <Rosetta/Views/BoardRefView.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -614,6 +615,18 @@ void Game::PlayPolicy()
         auto& player = GetCurrentPlayer();
         ITask* nextAction = player.GetNextAction();
         Process(player, nextAction);
+    }
+}
+
+ReducedBoardView Game::CreateView()
+{
+    if (m_currentPlayer->playerType == PlayerType::PLAYER1)
+    {
+        return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER1));
+    }
+    else
+    {
+        return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER2));
     }
 }
 
