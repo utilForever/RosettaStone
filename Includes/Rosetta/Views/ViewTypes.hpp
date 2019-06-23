@@ -240,6 +240,78 @@ struct ManaCrystal
         return !(*this == rhs);
     }
 };
+
+struct Minion
+{
+    std::string cardID;
+    int attack;
+    int health;
+    bool isSilenced;
+    bool hasTaunt;
+    bool cantAttackHero;
+    bool isStealth;
+    bool isImmune;
+
+    constexpr static int changeID = 3;
+
+    void Fill(const RosettaStone::Minion& minion)
+    {
+        cardID = minion.card.id;
+        attack = minion.GetAttack();
+        health = minion.GetHealth();
+        isSilenced = (minion.GetGameTag(GameTag::SILENCED) == 1);
+        hasTaunt = (minion.GetGameTag(GameTag::TAUNT) == 1);
+        cantAttackHero =
+            (minion.GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
+        isStealth = (minion.GetGameTag(GameTag::STEALTH) == 1);
+        isImmune = (minion.GetGameTag(GameTag::IMMUNE) == 1);
+    }
+
+    bool operator==(const Minion& rhs) const
+    {
+        static_assert(changeID == 3);
+
+        if (cardID != rhs.cardID)
+        {
+            return false;
+        }
+        if (attack != rhs.attack)
+        {
+            return false;
+        }
+        if (health != rhs.health)
+        {
+            return false;
+        }
+        if (isSilenced != rhs.isSilenced)
+        {
+            return false;
+        }
+        if (hasTaunt != rhs.hasTaunt)
+        {
+            return false;
+        }
+        if (cantAttackHero != rhs.cantAttackHero)
+        {
+            return false;
+        }
+        if (isStealth != rhs.isStealth)
+        {
+            return false;
+        }
+        if (isImmune != rhs.isImmune)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool operator!=(const Minion& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
 }  // namespace RosettaStone::ViewTypes
 
 #endif  // ROSETTASTONE_VIEW_TYPES_HPP
