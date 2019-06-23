@@ -396,6 +396,26 @@ struct MyHandCard
         return !(*this == rhs);
     }
 };
+
+struct OpHandCard
+{
+    constexpr static int changeID = 1;
+
+    bool operator==([[maybe_unused]] const OpHandCard& rhs) const
+    {
+        static_assert(changeID == 1);
+
+        return true;
+    }
+
+    bool operator!=(const OpHandCard& rhs) const
+    {
+        return !(*this == rhs);
+    }
+};
+
+using MyHand = std::vector<MyHandCard>;
+using OpHand = std::vector<OpHandCard>;
 }  // namespace RosettaStone::ViewTypes
 
 #endif  // ROSETTASTONE_VIEW_TYPES_HPP
