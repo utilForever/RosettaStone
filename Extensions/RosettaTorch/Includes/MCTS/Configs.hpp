@@ -14,12 +14,18 @@ namespace RosettaTorch::MCTS
 {
 namespace Policy
 {
+class StageController;
+class CreditPolicy;
+class RandomByMt19937;
+
+namespace Selection
+{
+class UCBPolicy;
 }
+}  // namespace Policy
 
 namespace Configs
 {
-constexpr int CREDIT_GRANULARITY = 100;
-
 namespace UpdaterPolicy
 {
 struct TreeUpdate
@@ -32,8 +38,15 @@ struct LinearUpdate
 };
 }  // namespace UpdaterPolicy
 
+using StageController = Policy::StageController;
+using CreditPolicy = Policy::CreditPolicy;
 using UpdatePolicy = UpdaterPolicy::TreeUpdate;
 
+using SelectionPhaseRandomActionPolicy = Policy::RandomByMt19937;
+using SelectionPhaseSelectActionPolicy = Policy::Selection::UCBPolicy;
+
+static constexpr int CREDIT_GRANULARITY = 100;
+static constexpr int VIRTUAL_LOSS = 3;
 static constexpr bool RECORD_LEADING_NODES =
     std::is_same_v<UpdatePolicy, UpdaterPolicy::TreeUpdate>;
 
