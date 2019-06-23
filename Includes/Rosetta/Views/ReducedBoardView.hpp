@@ -10,11 +10,12 @@
 #ifndef ROSETTASTONE_REDUCED_BOARD_VIEW_HPP
 #define ROSETTASTONE_REDUCED_BOARD_VIEW_HPP
 
-#include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Views/ViewTypes.hpp>
 
 namespace RosettaStone
 {
+class BoardRefView;
+
 //!
 //! \brief ReducedBoardView class.
 //!

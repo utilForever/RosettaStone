@@ -7,6 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
 
 namespace RosettaStone
@@ -217,12 +218,14 @@ const ViewTypes::Deck& ReducedBoardView::GetOpDeck() const
 
 namespace std
 {
+using namespace RosettaStone;
+
 template <>
-struct hash<RosettaStone::ReducedBoardView>
+struct hash<ReducedBoardView>
 {
-    std::size_t operator()(const RosettaStone::ReducedBoardView& rhs) const
+    std::size_t operator()(const ReducedBoardView& rhs) const noexcept
     {
-        static_assert(RosettaStone::ReducedBoardView::changeID == 3);
+        static_assert(ReducedBoardView::changeID == 3);
 
         std::size_t result = 0;
         CombineHash(result, rhs.m_turn);
