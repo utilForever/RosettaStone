@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 #define ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 
-#include "../Configs.hpp"
+#include "MCTS/Configs.hpp"
 
 #include <atomic>
 #include <cassert>
@@ -53,9 +53,9 @@ class EdgeAddon
 
     void AddCredit(float score, int repeat_times = 1)
     {
-        const int totalIncrement = Configs::CREDIT_GRANULARITY;
+        const int totalIncrement = CREDIT_GRANULARITY;
         const int creditIncrement =
-            static_cast<int>(score * Configs::CREDIT_GRANULARITY);
+            static_cast<int>(score * CREDIT_GRANULARITY);
 
         assert(creditIncrement >= -totalIncrement);
         assert(creditIncrement <= totalIncrement);

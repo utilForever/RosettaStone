@@ -10,6 +10,13 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_NODE_ADDON_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_NODE_ADDON_HPP
 
+#include "MCTS/Selection/BoardNodeMap.hpp"
+
+#include <Rosetta/Commons/SpinLocks.hpp>
+#include <Rosetta/Commons/Utils.hpp>
+
+#include <mutex>
+
 namespace RosettaTorch::MCTS
 {
 //!
@@ -110,8 +117,7 @@ struct TreeNodeAddon
     };
 
     BoardNodeMap boardNodeMap;
-    std::conditional_t<Configs::RECORD_LEADING_NODES, LeadingNodes, Dummy>
-        leadingNodes;
+    std::conditional_t<RECORD_LEADING_NODES, LeadingNodes, Dummy> leadingNodes;
 };
 }  // namespace RosettaTorch::MCTS
 

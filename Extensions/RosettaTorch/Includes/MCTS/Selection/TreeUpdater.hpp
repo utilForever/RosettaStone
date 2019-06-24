@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_UPDATER_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_UPDATER_HPP
 
-#include "../Configs.hpp"
+#include "MCTS/Configs.hpp"
 #include "TraversedNodeInfo.hpp"
 
 #include <queue>
@@ -30,10 +30,7 @@ class TreeUpdater
 
     template <class RetType = void>
     auto Update(const std::vector<TraversedNodeInfo>& nodes, float credit)
-        -> std::enable_if_t<
-            std::is_same_v<Configs::UpdaterPolicy,
-                           Configs::UpdaterPolicy::LinearUpdate>,
-            RetType>
+        -> std::enable_if_t<std::is_same_v<UpdatePolicy, LinearUpdate>, RetType>
     {
         for (const auto& item : nodes)
         {
@@ -51,9 +48,7 @@ class TreeUpdater
 
     template <class RetType = void>
     auto Update(const std::vector<TraversedNodeInfo>& nodes, float credit)
-        -> std::enable_if_t<std::is_same_v<Configs::UpdaterPolicy,
-                                           Configs::UpdaterPolicy::TreeUpdate>,
-                            RetType>
+        -> std::enable_if_t<std::is_same_v<UpdatePolicy, TreeUpdate>, RetType>
     {
         if (nodes.empty())
         {
@@ -78,9 +73,7 @@ class TreeUpdater
     template <class RetType = void>
     auto TreeLikeUpdateWinRate(TreeNode* startNode, EdgeAddon* startEdge,
                                float credit)
-        -> std::enable_if_t<std::is_same_v<Configs::UpdaterPolicy,
-                                           Configs::UpdaterPolicy::TreeUpdate>,
-                            RetType>
+        -> std::enable_if_t<std::is_same_v<UpdatePolicy, TreeUpdate>, RetType>
     {
         assert(startNode);
 

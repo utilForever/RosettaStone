@@ -10,9 +10,9 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TRAVERSED_NODES_INFO_HPP
 #define ROSETTASTONE_TORCH_MCTS_TRAVERSED_NODES_INFO_HPP
 
-#include "BoardNodeMap.hpp"
-#include "TraversedNodeInfo.hpp"
-#include "TreeUpdater.hpp"
+#include "MCTS/Selection/BoardNodeMap.hpp"
+#include "MCTS/Selection/TraversedNodeInfo.hpp"
+#include "MCTS/Selection/TreeUpdater.hpp"
 
 #include <Rosetta/Games/Game.hpp>
 
@@ -131,10 +131,10 @@ class TraversedNodesInfo
         {
             if (path.edgeAddon)
             {
-                if constexpr (Configs::VIRTUAL_LOSS != 0)
+                if constexpr (VIRTUAL_LOSS != 0)
                 {
-                    static_assert(Configs::VIRTUAL_LOSS > 0);
-                    path.edgeAddon->AddCredit(1.0, Configs::VIRTUAL_LOSS);
+                    static_assert(VIRTUAL_LOSS > 0);
+                    path.edgeAddon->AddCredit(1.0, VIRTUAL_LOSS);
                     assert(path.edgeAddon->GetAverageCredit() >= -1.0);
                     assert(path.edgeAddon->GetAverageCredit() <= 1.0);
                 }
@@ -163,10 +163,10 @@ class TraversedNodesInfo
         {
             edgeAddon->AddChosenTimes(1);
 
-            if constexpr (Configs::VIRTUAL_LOSS != 0)
+            if constexpr (VIRTUAL_LOSS != 0)
             {
-                static_assert(Configs::VIRTUAL_LOSS > 0);
-                edgeAddon->AddCredit(0.0, Configs::VIRTUAL_LOSS);
+                static_assert(VIRTUAL_LOSS > 0);
+                edgeAddon->AddCredit(0.0, VIRTUAL_LOSS);
             }
         }
 
@@ -182,14 +182,14 @@ class TraversedNodesInfo
     auto AddLeadingNodes([[maybe_unused]] TreeNode* node,
                          [[maybe_unused]] EdgeAddon* edgeAddon,
                          [[maybe_unused]] TreeNode* childNode)
-        -> std::enable_if_t<!Configs::RECORD_LEADING_NODES, Dummy>
+        -> std::enable_if_t<!RECORD_LEADING_NODES, Dummy>
     {
         return;
     }
     template <class Dummy = void>
     auto AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon,
                          TreeNode* childNode)
-        -> std::enable_if_t<Configs::RECORD_LEADING_NODES, Dummy>
+        -> std::enable_if_t<RECORD_LEADING_NODES, Dummy>
     {
         if (!childNode)
         {

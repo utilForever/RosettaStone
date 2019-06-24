@@ -10,11 +10,20 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_NODE_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_NODE_HPP
 
-#include "EdgeAddon.hpp"
-#include "TreeNodeAddon.hpp"
+#include "MCTS/Selection/EdgeAddon.hpp"
+#include "MCTS/Selection/TreeNodeAddon.hpp"
+
+#include <Rosetta/Commons/SpinLocks.hpp>
+
+#include <memory>
+#include <shared_mutex>
+#include <tuple>
+#include <unordered_map>
 
 namespace RosettaTorch::MCTS
 {
+struct TreeNode;
+
 //!
 //! \brief ChildNodeMap class.
 //!

@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_IMPL_HPP
 #define ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_IMPL_HPP
 
-#include "BoardNodeMap.hpp"
-#include "TreeNode.hpp"
+#include "MCTS/Selection/BoardNodeMap.hpp"
+#include "MCTS/Selection/TreeNode.hpp"
 
 #include <memory>
 #include <shared_mutex>
