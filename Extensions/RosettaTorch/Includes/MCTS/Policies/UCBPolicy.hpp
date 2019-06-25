@@ -10,10 +10,10 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 
+#include <MCTS/Policies/IPolicy.hpp>
 #include <MCTS/Selection/EdgeAddon.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
-#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionType.hpp>
 
 #include <array>
@@ -22,39 +22,50 @@
 
 namespace RosettaTorch::MCTS
 {
-class UCBPolicy
+class UCBPolicy : public IPolicy
 {
  public:
     constexpr static double EXPLORE_WEIGHT = 0.2;
 
+    UCBPolicy(const ChildNodeMap& children) : m_children(children)
+    {
+        // Do nothing
+    }
+
     int SelectChoice(RosettaStone::ActionType actionType,
-                     ChoiceIterator choiceIterator)
+                     std::vector<int> choices) override
     {
         constexpr size_t MAX_CHOICES = 16;
-        std::array<ChoiceIterator::Item, MAX_CHOICES> choices{};
-        size_t choicesSize = 0;
+        std::array<std::pair<int, const EdgeAddon*>, MAX_CHOICES> choiceArray;
+        size_t choicesIdx = 0;
 
         // Phase 1: get total chosen times, and record to 'choices'
         std::int64_t totalChosenTimes = 0;
-        for (choiceIterator.Begin(); !choiceIterator.IsEnd();
-             choiceIterator.StepNext())
+        for (size_t i = 0; i < choices.size(); ++i)
         {
-            choiceIterator.Get(choices[choicesSize]);
-            auto& item = choices[choicesSize];
-            int choice = item.choice;
-            auto edgeAddon = item.edgeAddon;
+            choiceArray[choicesIdx].first = choices[i];
+            choiceArray[choicesIdx].second = GetEdgeAddon(i);
+
+            auto& item = choiceArray[choicesIdx];
+            const int choice = item.first;
+            const auto edgeAddon = item.second;
 
             if (!edgeAddon)
-                return choice;  // force select
+            {
+                // Force select
+                return choice;
+            }
 
-            auto chosenTimes = edgeAddon->GetChosenTimes();
+            const auto chosenTimes = edgeAddon->GetChosenTimes();
             if (chosenTimes == 0)
             {
-                return choice;  // force select
+                // Force select
+                return choice;
             }
+
             if (edgeAddon->GetTotal() == 0)
             {
-                // a node is created (from another thread),
+                // A node is created (from another thread),
                 // but is not yet updated from that thread
                 // in this case, we just force select that choice
                 return choice;
@@ -63,60 +74,72 @@ class UCBPolicy
             assert(chosenTimes > 0);
             totalChosenTimes += chosenTimes;
 
-            assert(choicesSize < MAX_CHOICES);
-            ++choicesSize;
+            assert(choicesIdx < MAX_CHOICES);
+            ++choicesIdx;
         }
 
         assert(totalChosenTimes > 0);
 
         // Phase 2: use UCB to make a choice
-        auto getScore = [totalChosenTimes](
-                             engine::ActionType action_type, size_t choice_idx,
-                             size_t choice_count,
-                             ChoiceIterator::Item const& item) {
-            double explore_weight = kExploreWeight;
-            if (action_type == engine::ActionType::kMainAction)
+        const auto getScore = [totalChosenTimes](
+                                  RosettaStone::ActionType actionType,
+                                  size_t choiceIdx, size_t choiceCount,
+                                  const EdgeAddon* edgeAddon) {
+            double exploreWeight = EXPLORE_WEIGHT;
+
+            if (actionType == RosettaStone::ActionType::MAIN_ACTION)
             {
-                if (choice_idx == choice_count - 1)
+                if (choiceIdx == choiceCount - 1)
                 {
-                    // do not choose end-turn action
-                    // this is a simple mimic to policy network as in AlphaZero
-                    explore_weight *= 0.1;
+                    // Do not choose end-turn action
+                    // This is a simple mimic to policy network as in AlphaZero
+                    exploreWeight *= 0.1;
                 }
             }
 
-            double exploit_score = item.edge_addon->GetAverageCredit();
-            assert(exploit_score >= -1.0);
-            assert(exploit_score <= 1.0);
+            const double exploitScore = edgeAddon->GetAverageCredit();
+            assert(exploitScore >= -1.0);
+            assert(exploitScore <= 1.0);
 
-            auto chosen_times = item.edge_addon->GetChosenTimes();
-            // in case another thread visited it
-            if (chosen_times > totalChosenTimes)
-                chosen_times = totalChosenTimes;
-            double explore_score =
-                std::sqrt(std::log((double)totalChosenTimes) / chosen_times);
+            auto chosenTimes = edgeAddon->GetChosenTimes();
+            // In case another thread visited it
+            if (chosenTimes > totalChosenTimes)
+            {
+                chosenTimes = totalChosenTimes;
+            }
 
-            return exploit_score + explore_weight * explore_score;
+            const double exploreScore = std::sqrt(
+                std::log(static_cast<double>(totalChosenTimes)) / chosenTimes);
+
+            return exploitScore + exploreWeight * exploreScore;
         };
 
-        assert(choicesSize > 0);
+        assert(choicesIdx > 0);
 
-        size_t best_choice = 0;
-        double best_score = -std::numeric_limits<double>::infinity();
+        size_t bestChoice = 0;
+        double bestScore = -std::numeric_limits<double>::infinity();
 
-        for (size_t idx = 0; idx < choicesSize; ++idx)
+        for (size_t idx = 0; idx < choicesIdx; ++idx)
         {
-            double score =
-                getScore(action_type, idx, choicesSize, choices[idx]);
-            if (score > best_score)
+            const double score =
+                getScore(actionType, idx, choicesIdx, choiceArray[idx].second);
+            if (score > bestScore)
             {
-                best_choice = idx;
-                best_score = score;
+                bestChoice = idx;
+                bestScore = score;
             }
         }
 
-        return (int)choices[best_choice].choice;
+        return choiceArray[bestChoice].first;
     }
+
+ private:
+    const EdgeAddon* GetEdgeAddon(int choice) const
+    {
+        return m_children.Get(choice).first;
+    }
+
+    const ChildNodeMap& m_children;
 };
 }  // namespace RosettaTorch::MCTS
 
