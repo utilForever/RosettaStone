@@ -91,8 +91,6 @@ class TraversedNodesInfo
             m_currentNode->children.GetOrCreateRedirectNode(m_pendingChoice);
         const bool newNodeCreated = std::get<0>(childResult);
         const auto edgeAddon = std::get<1>(childResult);
-        const auto node = std::get<2>(childResult);
-        assert(node == nullptr);
 
         if (newNodeCreated)
         {
