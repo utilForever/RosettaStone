@@ -12,8 +12,9 @@
 
 namespace RosettaStone
 {
-class ActionType
+enum class ActionType
 {
+    MAIN_ACTION
 };
 }  // namespace RosettaStone
 
