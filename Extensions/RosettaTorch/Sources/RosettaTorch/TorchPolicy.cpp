@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <MCTS/Selection/Selection.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <RosettaTorch/ActionEncoder.hpp>
 #include <RosettaTorch/TorchPolicy.hpp>

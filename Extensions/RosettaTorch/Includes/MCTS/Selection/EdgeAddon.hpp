@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 #define ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 
-#include "MCTS/Configs.hpp"
+#include <MCTS/Configs.hpp>
 
 #include <atomic>
 #include <cassert>

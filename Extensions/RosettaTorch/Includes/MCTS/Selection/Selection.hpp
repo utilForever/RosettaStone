@@ -10,11 +10,11 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_SELECTION_HPP
 #define ROSETTASTONE_TORCH_MCTS_SELECTION_HPP
 
-#include "MCTS/Configs.hpp"
-#include "MCTS/Policies/UCBPolicy.hpp"
-#include "MCTS/Selection/TraversedNodesInfo.hpp"
-#include "MCTS/Selection/TreeNode.hpp"
-#include "MCTS/Types.hpp"
+#include <MCTS/Configs.hpp>
+#include <MCTS/Policies/UCBPolicy.hpp>
+#include <MCTS/Selection/TraversedNodesInfo.hpp>
+#include <MCTS/Selection/TreeNode.hpp>
+#include <MCTS/Types.hpp>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionType.hpp>

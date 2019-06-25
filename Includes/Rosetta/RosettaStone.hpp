@@ -9,6 +9,8 @@
 
 #include <Rosetta/Accounts/AccountInfo.hpp>
 #include <Rosetta/Accounts/DeckInfo.hpp>
+#include <Rosetta/Actions/ActionChoices.hpp>
+#include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>

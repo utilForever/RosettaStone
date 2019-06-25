@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_NODE_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_NODE_HPP
 
-#include "MCTS/Selection/EdgeAddon.hpp"
-#include "MCTS/Selection/TreeNodeAddon.hpp"
+#include <MCTS/Selection/EdgeAddon.hpp>
+#include <MCTS/Selection/TreeNodeAddon.hpp>
 
 #include <Rosetta/Commons/SpinLocks.hpp>
 

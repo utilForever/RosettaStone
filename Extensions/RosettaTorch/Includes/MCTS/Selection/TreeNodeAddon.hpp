@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_NODE_ADDON_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_NODE_ADDON_HPP
 
-#include "MCTS/Selection/BoardNodeMap.hpp"
+#include <MCTS/Selection/BoardNodeMap.hpp>
 
 #include <Rosetta/Commons/SpinLocks.hpp>
 #include <Rosetta/Commons/Utils.hpp>

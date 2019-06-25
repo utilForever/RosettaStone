@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TRAVERSED_NODE_INFO_HPP
 #define ROSETTASTONE_TORCH_MCTS_TRAVERSED_NODE_INFO_HPP
 
-#include "MCTS/Selection/TreeNode.hpp"
+#include <MCTS/Selection/TreeNode.hpp>
 
 namespace RosettaTorch::MCTS
 {

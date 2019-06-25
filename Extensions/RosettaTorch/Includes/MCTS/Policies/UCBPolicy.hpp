@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 
-#include "MCTS/Selection/EdgeAddon.hpp"
-#include "MCTS/Selection/TreeNode.hpp"
+#include <MCTS/Selection/EdgeAddon.hpp>
+#include <MCTS/Selection/TreeNode.hpp>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionType.hpp>
