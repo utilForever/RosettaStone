@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 
-#include <MCTS/Policies/IPolicy.hpp>
+#include <MCTS/Policies/ISelectionPolicy.hpp>
 #include <MCTS/Selection/EdgeAddon.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
@@ -22,7 +22,7 @@
 
 namespace RosettaTorch::MCTS
 {
-class UCBPolicy : public IPolicy
+class UCBPolicy : public ISelectionPolicy
 {
  public:
     constexpr static double EXPLORE_WEIGHT = 0.2;

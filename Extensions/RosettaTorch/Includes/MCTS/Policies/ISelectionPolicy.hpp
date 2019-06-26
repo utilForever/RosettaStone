@@ -7,8 +7,8 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_TORCH_MCTS_IPOLICY_HPP
-#define ROSETTASTONE_TORCH_MCTS_IPOLICY_HPP
+#ifndef ROSETTASTONE_TORCH_MCTS_ISELECTION_POLICY_HPP
+#define ROSETTASTONE_TORCH_MCTS_ISELECTION_POLICY_HPP
 
 #include <Rosetta/Actions/ActionType.hpp>
 
@@ -17,16 +17,16 @@
 namespace RosettaTorch::MCTS
 {
 //!
-//! \brief IPolicy class.
+//! \brief ISelectionPolicy class.
 //!
-class IPolicy
+class ISelectionPolicy
 {
  public:
-    virtual ~IPolicy() = default;
+    virtual ~ISelectionPolicy() = default;
 
     virtual int SelectChoice(RosettaStone::ActionType actionType,
                              const std::vector<int>& choices) = 0;
 };
 }  // namespace RosettaTorch::MCTS
 
-#endif  // ROSETTASTONE_TORCH_MCTS_IPOLICY_HPP
+#endif  // ROSETTASTONE_TORCH_MCTS_ISELECTION_POLICY_HPP

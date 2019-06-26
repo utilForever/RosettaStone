@@ -135,7 +135,7 @@ class Selection
     bool m_boardChanged;
     BoardNodeMap* m_redirectNodeMap;
     TraversedNodesInfo m_path;
-    IPolicy* m_policy = nullptr;
+    ISelectionPolicy* m_policy = nullptr;
 };
 }  // namespace RosettaTorch::MCTS
 
