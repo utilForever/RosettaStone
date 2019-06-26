@@ -215,39 +215,3 @@ const ViewTypes::Deck& ReducedBoardView::GetOpDeck() const
     return m_opDeck;
 }
 }  // namespace RosettaStone
-
-namespace std
-{
-using namespace RosettaStone;
-
-template <>
-struct hash<ReducedBoardView>
-{
-    std::size_t operator()(const ReducedBoardView& rhs) const noexcept
-    {
-        static_assert(ReducedBoardView::changeID == 3);
-
-        std::size_t result = 0;
-        CombineHash(result, rhs.m_turn);
-        CombineHash(result, static_cast<int>(rhs.m_playerType));
-
-        CombineHash(result, rhs.m_myHero);
-        CombineHash(result, rhs.m_myHeroPower);
-        CombineHash(result, rhs.m_myWeapon);
-        CombineHash(result, rhs.m_myManaCrystal);
-        CombineHash(result, rhs.m_myMinions);
-        CombineHash(result, rhs.m_myHand);
-        CombineHash(result, rhs.m_myDeck);
-
-        CombineHash(result, rhs.m_opHero);
-        CombineHash(result, rhs.m_opHeroPower);
-        CombineHash(result, rhs.m_opWeapon);
-        CombineHash(result, rhs.m_opManaCrystal);
-        CombineHash(result, rhs.m_opMinions);
-        CombineHash(result, rhs.m_opHand);
-        CombineHash(result, rhs.m_opDeck);
-
-        return result;
-    }
-};
-}  // namespace std
