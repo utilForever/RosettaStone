@@ -23,7 +23,7 @@ class SpinLock
  public:
     SpinLock() = default;
 
-    void Lock()
+    void lock()
     {
         while (m_flag.test_and_set(std::memory_order_acquire))
         {
@@ -31,7 +31,7 @@ class SpinLock
         }
     }
 
-    void Unlock()
+    void unlock()
     {
         m_flag.clear(std::memory_order_release);
     }
@@ -55,50 +55,50 @@ class SharedSpinLock
         // Do nothing
     }
 
-    void Lock()
+    void lock()
     {
         while (true)
         {
-            m_lock.Lock();
+            m_lock.lock();
             if (!m_writer && m_readers == 0)
             {
                 break;
             }
-            m_lock.Unlock();
+            m_lock.unlock();
         }
 
         m_writer = true;
-        m_lock.Unlock();
+        m_lock.unlock();
     }
 
-    void Unlock()
+    void unlock()
     {
-        m_lock.Lock();
+        m_lock.lock();
         m_writer = false;
-        m_lock.Unlock();
+        m_lock.unlock();
     }
 
-    void LockShared()
+    void lock_shared()
     {
         while (true)
         {
-            m_lock.Lock();
+            m_lock.lock();
             if (!m_writer)
             {
                 break;
             }
-            m_lock.Unlock();
+            m_lock.unlock();
         }
 
         ++m_readers;
-        m_lock.Unlock();
+        m_lock.unlock();
     }
 
-    void UnlockShared()
+    void unlock_shared()
     {
-        m_lock.Lock();
+        m_lock.lock();
         --m_readers;
-        m_lock.Unlock();
+        m_lock.unlock();
     }
 
  private:
