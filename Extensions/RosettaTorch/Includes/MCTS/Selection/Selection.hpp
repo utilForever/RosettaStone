@@ -16,7 +16,6 @@
 #include <MCTS/Selection/TreeNode.hpp>
 #include <MCTS/Types.hpp>
 
-#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionType.hpp>
 
 namespace RosettaTorch::MCTS
@@ -28,7 +27,10 @@ class Selection
 {
  public:
     Selection(TreeNode& tree)
-        : m_root(tree), m_boardChanged(false), m_redirectNodeMap(nullptr)
+        : m_root(tree),
+          m_boardChanged(false),
+          m_redirectNodeMap(nullptr),
+          m_policy(new UCBPolicy())
     {
         // Do nothing
     }
@@ -67,9 +69,9 @@ class Selection
     }
 
     int ChooseAction(RosettaStone::ActionType actionType,
-                     RosettaStone::ActionChoices& choices)
+                     const std::vector<int>& choices)
     {
-        assert(!choices.Empty());
+        assert(!choices.empty());
 
         if (m_path.HasCurrentNodeMadeChoice())
         {
@@ -77,11 +79,14 @@ class Selection
             assert(!m_path.HasCurrentNodeMadeChoice());
         }
 
+        // For UCB policy
         TreeNode* currentNode = m_path.GetCurrentNode();
-        int nextChoice = m_policy.SelectChoice(
-            actionType, ChoiceIterator(choices, currentNode->children));
+        dynamic_cast<UCBPolicy*>(m_policy)->SetChildNode(currentNode->children);
 
-        assert(nextChoice >= 0);  // should report a valid action
+        const int nextChoice = m_policy->SelectChoice(actionType, choices);
+
+        // Should report a valid action
+        assert(nextChoice >= 0);
         m_path.MakeChoiceForCurrentNode(nextChoice);
 
         return nextChoice;
@@ -129,7 +134,7 @@ class Selection
     bool m_boardChanged;
     BoardNodeMap* m_redirectNodeMap;
     TraversedNodesInfo m_path;
-    SelectionPhaseSelectActionPolicy m_policy;
+    IPolicy* m_policy = nullptr;
 };
 }  // namespace RosettaTorch::MCTS
 
