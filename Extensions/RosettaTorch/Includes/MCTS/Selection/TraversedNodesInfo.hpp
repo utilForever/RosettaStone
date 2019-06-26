@@ -170,7 +170,7 @@ class TraversedNodesInfo
 
         AddLeadingNodes(node, edgeAddon, nextNode);
 
-        m_path.emplace_back(node, choice, edgeAddon);
+        m_path.emplace_back(node, edgeAddon, choice);
 
         m_currentNode = nextNode;
         m_pendingChoice = -1;
