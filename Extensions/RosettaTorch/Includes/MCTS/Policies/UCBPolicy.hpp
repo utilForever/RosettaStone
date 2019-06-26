@@ -27,13 +27,13 @@ class UCBPolicy : public IPolicy
  public:
     constexpr static double EXPLORE_WEIGHT = 0.2;
 
-    UCBPolicy(const ChildNodeMap& children) : m_children(children)
+    void SetChildNode(ChildNodeMap& children)
     {
-        // Do nothing
+        m_children = &children;
     }
 
     int SelectChoice(RosettaStone::ActionType actionType,
-                     std::vector<int> choices) override
+                     const std::vector<int>& choices) override
     {
         constexpr size_t MAX_CHOICES = 16;
         std::array<std::pair<int, const EdgeAddon*>, MAX_CHOICES> choiceArray;
@@ -136,10 +136,10 @@ class UCBPolicy : public IPolicy
  private:
     const EdgeAddon* GetEdgeAddon(int choice) const
     {
-        return m_children.Get(choice).first;
+        return m_children->Get(choice).first;
     }
 
-    const ChildNodeMap& m_children;
+    const ChildNodeMap* m_children = nullptr;
 };
 }  // namespace RosettaTorch::MCTS
 

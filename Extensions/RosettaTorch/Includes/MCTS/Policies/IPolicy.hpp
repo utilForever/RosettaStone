@@ -25,7 +25,7 @@ class IPolicy
     virtual ~IPolicy() = default;
 
     virtual int SelectChoice(RosettaStone::ActionType actionType,
-                             std::vector<int> choices) = 0;
+                             const std::vector<int>& choices) = 0;
 };
 }  // namespace RosettaTorch::MCTS
 
