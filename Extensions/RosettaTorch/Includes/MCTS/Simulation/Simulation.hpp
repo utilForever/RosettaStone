@@ -34,15 +34,12 @@ class Simulation
         return false;
     }
 
-    void StartAction(const Game& game,
-                     engine::ValidActionAnalyzer const& action_analyzer)
+    void StartAction(const Game& game) const
     {
-        select_.StartAction(board, action_analyzer);
+        m_policy->StartAction(game);
     }
 
-    int ChooseAction(const Game& game,
-                     engine::ValidActionAnalyzer const& action_analyzer,
-                     ActionType actionType, const std::vector<int>& choices)
+    int ChooseAction(const Game& game, ActionType actionType, const std::vector<int>& choices)
     {
         assert(!choices.empty());
 

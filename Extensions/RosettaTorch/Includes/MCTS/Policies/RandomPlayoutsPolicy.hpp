@@ -27,6 +27,10 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
     {
         return true;
     }
+
+    void StartAction(const RosettaStone::Game& game) override
+    {
+    }
 };
 }  // namespace RosettaTorch::MCTS
 
