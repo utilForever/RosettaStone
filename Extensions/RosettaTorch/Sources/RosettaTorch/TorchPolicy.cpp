@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <MCTS/Selection/Selection.hpp>
+#include <MCTS/Simulation/Simulation.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <RosettaTorch/ActionEncoder.hpp>
 #include <RosettaTorch/TorchPolicy.hpp>

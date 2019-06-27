@@ -10,6 +10,10 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_ISIMULATION_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_ISIMULATION_POLICY_HPP
 
+#include <MCTS/Types.hpp>
+
+#include <Rosetta/Games/Game.hpp>
+
 namespace RosettaTorch::MCTS
 {
 //!
@@ -22,7 +26,7 @@ class ISimulationPolicy
 
     virtual bool IsEnableCutoff() = 0;
 
-    virtual bool GetCutoffResult(const Game& game, StateValue& stateValue) = 0;
+    virtual bool GetCutoffResult(const RosettaStone::Game& game, StateValue& stateValue) = 0;
 };
 }  // namespace RosettaTorch::MCTS
 
