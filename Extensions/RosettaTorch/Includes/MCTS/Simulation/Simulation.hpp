@@ -39,7 +39,8 @@ class Simulation
         m_policy->StartAction(game);
     }
 
-    int ChooseAction(const Game& game, ActionType actionType, const std::vector<int>& choices)
+    int ChooseAction(const Game& game, ActionType actionType,
+                     const std::vector<int>& choices) const
     {
         assert(!choices.empty());
 
@@ -48,9 +49,7 @@ class Simulation
             return 0;
         }
 
-        int choice =
-            m_policy->GetChoice(board, action_analyzer, action_type,
-                              policy::simulation::ChoiceGetter(choices));
+        const int choice = m_policy->GetChoice(game, actionType, choices);
         // Always return a valid choice
         assert(choice >= 0);
 

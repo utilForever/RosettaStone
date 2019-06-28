@@ -26,9 +26,14 @@ class ISimulationPolicy
 
     virtual bool IsEnableCutoff() = 0;
 
-    virtual bool GetCutoffResult(const RosettaStone::Game& game, StateValue& stateValue) = 0;
+    virtual bool GetCutoffResult(const RosettaStone::Game& game,
+                                 StateValue& stateValue) = 0;
 
     virtual void StartAction(const RosettaStone::Game& game) = 0;
+
+    virtual int GetChoice(const RosettaStone::Game& game,
+                          RosettaStone::ActionType actionType,
+                          const std::vector<int>& choices) = 0;
 };
 }  // namespace RosettaTorch::MCTS
 

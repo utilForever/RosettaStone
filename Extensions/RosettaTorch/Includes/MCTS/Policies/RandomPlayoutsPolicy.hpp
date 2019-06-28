@@ -31,6 +31,13 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
     void StartAction(const RosettaStone::Game& game) override
     {
     }
+
+    int GetChoice(const RosettaStone::Game& game,
+                  RosettaStone::ActionType actionType,
+                  const std::vector<int>& choices) override
+    {
+        return 0;
+    }
 };
 }  // namespace RosettaTorch::MCTS
 
