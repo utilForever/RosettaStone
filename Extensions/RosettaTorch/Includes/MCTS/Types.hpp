@@ -32,45 +32,23 @@ class StateValue
         return -m_value;
     }
 
-    void SetValue(PlayerType type, PlayState state)
+    void SetValue(PlayState state)
     {
-        if (type == PlayerType::PLAYER1)
+        if (state == PlayState::WON)
         {
-            if (state == PlayState::WON)
-            {
-                m_value = 1.0f;
-            }
-            else if (state == PlayState::LOST)
-            {
-                m_value = -1.0f;
-            }
-            else if (state == PlayState::TIED)
-            {
-                m_value = 0.0f;
-            }
-            else
-            {
-                throw std::invalid_argument("Invalid play state!");
-            }
+            m_value = 1.0f;
         }
-        else if (type == PlayerType::PLAYER2)
+        else if (state == PlayState::LOST)
         {
-            if (state == PlayState::WON)
-            {
-                m_value = -1.0f;
-            }
-            else if (state == PlayState::LOST)
-            {
-                m_value = 1.0f;
-            }
-            else if (state == PlayState::TIED)
-            {
-                m_value = 0.0f;
-            }
-            else
-            {
-                throw std::invalid_argument("Invalid play state!");
-            }
+            m_value = -1.0f;
+        }
+        else if (state == PlayState::TIED)
+        {
+            m_value = 0.0f;
+        }
+        else
+        {
+            throw std::invalid_argument("Invalid play state!");
         }
     }
 
