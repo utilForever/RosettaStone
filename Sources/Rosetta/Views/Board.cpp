@@ -17,7 +17,7 @@ Board::Board(Game& game, PlayerType playerType)
     // Do nothing
 }
 
-void Board::RefCopyFrom(const Board& rhs)
+void Board::RefCopyFrom(const Board& rhs) const
 {
     m_game.RefCopyFrom(rhs.m_game);
 }
@@ -41,21 +41,6 @@ ReducedBoardView Board::CreateView() const
     else
     {
         return ReducedBoardView(BoardRefView(m_game, PlayerType::PLAYER2));
-    }
-}
-
-template <class Functor>
-auto Board::ApplyWithPlayerStateView(Functor&& functor) const
-{
-    if (m_playerType == PlayerType::PLAYER1)
-    {
-        return functor(
-            ReducedBoardView(BoardRefView(m_game, PlayerType::PLAYER1)));
-    }
-    else
-    {
-        return functor(
-            ReducedBoardView(BoardRefView(m_game, PlayerType::PLAYER2)));
     }
 }
 
