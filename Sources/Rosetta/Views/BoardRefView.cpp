@@ -262,4 +262,15 @@ bool BoardRefView::IsMinionAttackable(PlayerType type, int idx) const
         return m_game.GetPlayer2().GetFieldZone()[idx]->CanAttack();
     }
 }
+
+CurrentPlayerBoardRefView::CurrentPlayerBoardRefView(const Game& game)
+    : m_game(game)
+{
+    // Do nothing
+}
+
+Player& CurrentPlayerBoardRefView::GetCurrentPlayer() const
+{
+    return m_game.GetCurrentPlayer();
+}
 }  // namespace RosettaStone

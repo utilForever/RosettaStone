@@ -54,6 +54,36 @@ class BoardRefView
     const Game& m_game;
     PlayerType m_playerType;
 };
+
+//!
+//! \brief CurrentPlayerBoardRefView class.
+//!
+class CurrentPlayerBoardRefView
+{
+ public:
+    CurrentPlayerBoardRefView(const Game& game);
+
+    Player& GetCurrentPlayer() const;
+
+    template <typename Functor>
+    static void ApplyWithCurrentPlayerStateView(const Game& game,
+                                                Functor&& functor)
+    {
+        const PlayerType playerType = game.GetCurrentPlayer().playerType;
+
+        if (playerType == PlayerType::PLAYER1)
+        {
+            functor(BoardRefView(game, PlayerType::PLAYER1));
+        }
+        else
+        {
+            functor(BoardRefView(game, PlayerType::PLAYER2));
+        }
+    }
+
+ private:
+    const Game& m_game;
+};
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_BOARD_REF_VIEW_HPP
