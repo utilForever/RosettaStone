@@ -12,7 +12,7 @@
 
 #include <MCTS/Types.hpp>
 
-#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
 {
@@ -27,10 +27,10 @@ class CreditPolicy
     //! If the first player has 100% to loss, the credit should be -1.0.
     //! If the first player has 50% to win, the credit should be 0.0.
     //! The credit value should be in range [-1.0, 1.0].
-    static float GetCredit(const RosettaStone::Game& game,
+    static float GetCredit(const Board& board,
                            StateValue stateValue)
     {
-        auto& player = game.GetCurrentPlayer();
+        auto& player = board.GetCurrentPlayer();
         return stateValue.GetValue(player.playerType);
     }
 };

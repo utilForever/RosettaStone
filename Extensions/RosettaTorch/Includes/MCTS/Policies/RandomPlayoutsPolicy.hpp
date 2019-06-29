@@ -22,18 +22,16 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
         return true;
     }
 
-    bool GetCutoffResult(const RosettaStone::Game& game,
-                         StateValue& stateValue) override
+    bool GetCutoffResult(const Board& board, StateValue& stateValue) override
     {
         return true;
     }
 
-    void StartAction(const RosettaStone::Game& game) override
+    void StartAction(const Board& board) override
     {
     }
 
-    int GetChoice(const RosettaStone::Game& game,
-                  RosettaStone::ActionType actionType,
+    int GetChoice(const Board& board, ActionType actionType,
                   const std::vector<int>& choices) override
     {
         return 0;

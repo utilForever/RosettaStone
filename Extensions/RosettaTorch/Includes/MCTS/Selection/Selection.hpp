@@ -51,11 +51,11 @@ class Selection
         m_redirectNodeMap = nullptr;
     }
 
-    void StartAction(const RosettaStone::Game& game)
+    void StartAction(const Board& board)
     {
         if (m_boardChanged)
         {
-            m_path.JumpToNode(game);
+            m_path.JumpToNode(board);
             m_boardChanged = false;
         }
 
@@ -69,8 +69,7 @@ class Selection
         }
     }
 
-    int ChooseAction(RosettaStone::ActionType actionType,
-                     const std::vector<int>& choices)
+    int ChooseAction(ActionType actionType, const std::vector<int>& choices)
     {
         assert(!choices.empty());
 
@@ -93,8 +92,7 @@ class Selection
         return nextChoice;
     }
 
-    bool FinishAction(const RosettaStone::Game& game,
-                      RosettaStone::PlayState result)
+    bool FinishAction(const Board& board, PlayState result)
     {
         assert(m_path.HasCurrentNodeMadeChoice());
 
@@ -102,7 +100,7 @@ class Selection
         // This flatten tree structure, and effectively forgot the history
         // (Note that history here referring to the parent nodes of this node)
         assert(m_redirectNodeMap);
-        m_path.ConstructRedirectNode(m_redirectNodeMap, game, result);
+        m_path.ConstructRedirectNode(m_redirectNodeMap, board, result);
 
         bool switchToSimulation = false;
         if (result == PlayState::PLAYING)
@@ -115,7 +113,7 @@ class Selection
         return switchToSimulation;
     }
 
-    void ApplyOthersActions([[maybe_unused]] const RosettaStone::Game& game)
+    void ApplyOthersActions([[maybe_unused]] const Board& board)
     {
         m_boardChanged = true;
 
@@ -124,9 +122,9 @@ class Selection
         m_redirectNodeMap = nullptr;
     }
 
-    void FinishIteration(const RosettaStone::Game& game, StateValue stateValue)
+    void FinishIteration(const Board& board, StateValue stateValue)
     {
-        const float credit = CreditPolicy::GetCredit(game, stateValue);
+        const float credit = CreditPolicy::GetCredit(board, stateValue);
         m_path.Update(credit);
     }
 

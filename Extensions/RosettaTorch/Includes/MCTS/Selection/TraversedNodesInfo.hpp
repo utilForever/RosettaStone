@@ -14,8 +14,6 @@
 #include <MCTS/Selection/TraversedNodeInfo.hpp>
 #include <MCTS/Selection/TreeUpdater.hpp>
 
-#include <Rosetta/Games/Game.hpp>
-
 #include <memory>
 #include <vector>
 
@@ -81,8 +79,7 @@ class TraversedNodesInfo
     }
 
     void ConstructRedirectNode(BoardNodeMap* redirectNodeMap,
-                               const RosettaStone::Game& game,
-                               RosettaStone::PlayState result)
+                               const Board& board, PlayState result)
     {
         assert(m_currentNode);
         assert(m_pendingChoice >= 0);
@@ -97,7 +94,7 @@ class TraversedNodesInfo
             m_newNodeCreated = true;
         }
 
-        if (result != RosettaStone::PlayState::PLAYING)
+        if (result != PlayState::PLAYING)
         {
             // Don't need to construct a node for leaf nodes.
             // We only need the edge to record win-rate, which is already
@@ -108,18 +105,18 @@ class TraversedNodesInfo
         else
         {
             TreeNode* nextNode =
-                redirectNodeMap->GetOrCreateNode(game, &m_newNodeCreated);
+                redirectNodeMap->GetOrCreateNode(board, &m_newNodeCreated);
             assert(nextNode);
             AddPathNode(m_currentNode, m_pendingChoice, edgeAddon, nextNode);
         }
     }
 
-    void JumpToNode(const RosettaStone::Game& game)
+    void JumpToNode(const Board& board)
     {
         assert(m_currentNode);
         assert(m_pendingChoice < 0);
         TreeNode* nextNode =
-            m_currentNode->addon.boardNodeMap.GetOrCreateNode(game);
+            m_currentNode->addon.boardNodeMap.GetOrCreateNode(board);
         AddPathNode(m_currentNode, -1, nullptr, nextNode);
     }
 

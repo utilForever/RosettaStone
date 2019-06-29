@@ -49,26 +49,26 @@ class SOMCTS
         // Do nothing
     }
 
-    bool PerformAction(const RosettaStone::Game& game, StateValue& stateValue)
+    bool PerformAction(const Board& board, StateValue& stateValue)
     {
         PlayState result{};
 
         if (m_stage == Stage::SIMULATION)
         {
-            if (m_simulationStage.CutoffCheck(game, stateValue))
+            if (m_simulationStage.CutoffCheck(board, stateValue))
             {
                 return true;
             }
 
-            m_simulationStage.StartAction(game);
+            m_simulationStage.StartAction(board);
         }
         else
         {
             assert(m_stage == Stage::SELECTION);
 
-            m_selectionStage.StartAction(game);
+            m_selectionStage.StartAction(board);
 
-            if (m_selectionStage.FinishAction(game, result))
+            if (m_selectionStage.FinishAction(board, result))
             {
                 m_stage = Stage::SIMULATION;
             }
@@ -83,7 +83,7 @@ class SOMCTS
         return false;
     }
 
-    void ApplyOthersActions(const RosettaStone::Game& game)
+    void ApplyOthersActions(const Board& board)
     {
         if (m_stage == Stage::SIMULATION)
         {
@@ -91,15 +91,15 @@ class SOMCTS
         }
 
         assert(m_stage == Stage::SELECTION);
-        m_selectionStage.ApplyOthersActions(game);
+        m_selectionStage.ApplyOthersActions(board);
     }
 
-    void FinishIteration(const RosettaStone::Game& game, StateValue stateValue)
+    void FinishIteration(const Board& board, StateValue stateValue)
     {
-        m_selectionStage.FinishIteration(game, stateValue);
+        m_selectionStage.FinishIteration(board, stateValue);
     }
 
-    int ChooseAction(const RosettaStone::Game& game,
+    int ChooseAction(const RosettaStone::Board& board,
                      RosettaStone::ActionType actionType,
                      std::vector<int>& choices)
     {
@@ -117,7 +117,7 @@ class SOMCTS
             assert(m_stage == Stage::SIMULATION);
 
             const int choice =
-                m_simulationStage.ChooseAction(game, actionType, choices);
+                m_simulationStage.ChooseAction(board, actionType, choices);
             assert(choice >= 0);
             return choice;
         }

@@ -25,22 +25,22 @@ class Simulation
         // Do nothing
     }
 
-    bool CutoffCheck(const Game& game, StateValue& stateValue) const
+    bool CutoffCheck(const Board& board, StateValue& stateValue) const
     {
         if (m_policy->IsEnableCutoff())
         {
-            return m_policy->GetCutoffResult(game, stateValue);
+            return m_policy->GetCutoffResult(board, stateValue);
         }
 
         return false;
     }
 
-    void StartAction(const Game& game) const
+    void StartAction(const Board& board) const
     {
-        m_policy->StartAction(game);
+        m_policy->StartAction(board);
     }
 
-    int ChooseAction(const Game& game, ActionType actionType,
+    int ChooseAction(const Board& board, ActionType actionType,
                      const std::vector<int>& choices) const
     {
         assert(!choices.empty());
@@ -50,7 +50,7 @@ class Simulation
             return 0;
         }
 
-        const int choice = m_policy->GetChoice(game, actionType, choices);
+        const int choice = m_policy->GetChoice(board, actionType, choices);
         // Always return a valid choice
         assert(choice >= 0);
 

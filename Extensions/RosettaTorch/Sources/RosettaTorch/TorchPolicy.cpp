@@ -4,6 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <MCTS/MOMCTS.hpp>
+#include <MCTS/SOMCTS.hpp>
 #include <MCTS/Selection/Selection.hpp>
 #include <MCTS/Simulation/Simulation.hpp>
 #include <Rosetta/Commons/Utils.hpp>
