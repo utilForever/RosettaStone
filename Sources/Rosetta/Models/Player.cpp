@@ -36,6 +36,34 @@ Player::~Player()
     delete m_hero;
 }
 
+void Player::RefCopy(const Player& rhs)
+{
+    nickname = rhs.nickname;
+    playerType = rhs.playerType;
+    playerID = rhs.playerID;
+
+    playState = rhs.playState;
+    mulliganState = rhs.mulliganState;
+    choice = rhs.choice;
+
+    policy = rhs.policy;
+    opponent = rhs.opponent;
+
+    currentSpellPower = rhs.currentSpellPower;
+
+    m_deckZone = rhs.m_deckZone;
+    m_fieldZone = rhs.m_fieldZone;
+    m_graveyardZone = rhs.m_graveyardZone;
+    m_handZone = rhs.m_handZone;
+    m_secretZone = rhs.m_secretZone;
+    m_setasideZone = rhs.m_setasideZone;
+
+    m_hero = rhs.m_hero;
+    m_game = rhs.m_game;
+
+    m_gameTags = rhs.m_gameTags;
+}
+
 Game* Player::GetGame() const
 {
     return m_game;

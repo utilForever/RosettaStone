@@ -56,6 +56,10 @@ class Player
     //! Move assignment operator.
     Player& operator=(Player&& p) = delete;
 
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
+    void RefCopy(const Player& rhs);
+
     //! Returns a pointer to game.
     //! \return A pointer to game.
     Game* GetGame() const;
