@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_PLAYER_CONTROLLER_HPP
 #define ROSETTASTONE_TORCH_MCTS_PLAYER_CONTROLLER_HPP
 
-#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
 {
@@ -89,8 +89,7 @@ class PlayerController
 
     auto GetPlayerView(Player player)
     {
-        return 0;
-        //return RosettaStone::Board(m_game, player.GetPlayerType());
+        return RosettaStone::Board(*m_game, player.GetPlayerType());
     }
 
  private:
