@@ -49,6 +49,10 @@ class Game
     //! Deleted move assignment operator.
     Game& operator=(Game&&) = delete;
 
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
+    void RefCopyFrom(const Game& rhs);
+
     //! Returns the first player.
     //! \return The first player.
     Player& GetPlayer1();

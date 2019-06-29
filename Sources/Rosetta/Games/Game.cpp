@@ -49,6 +49,36 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
     GetPlayer2().opponent = &GetPlayer1();
 }
 
+void Game::RefCopyFrom(const Game& rhs)
+{
+    state = rhs.state;
+
+    step = rhs.step;
+    nextStep = rhs.nextStep;
+
+    taskQueue = rhs.taskQueue;
+    taskStack = rhs.taskStack;
+    triggerManager = rhs.triggerManager;
+
+    auras = rhs.auras;
+    triggers = rhs.triggers;
+    oneTurnEffects = rhs.oneTurnEffects;
+    summonedMinions = rhs.summonedMinions;
+    deadMinions = rhs.deadMinions;
+
+    m_gameConfig = rhs.m_gameConfig;
+
+    m_players[0].RefCopy(rhs.m_players[0]);
+    m_players[1].RefCopy(rhs.m_players[1]);
+    m_turn = rhs.m_turn;
+
+    m_entityID = rhs.m_entityID;
+    m_oopIndex = rhs.m_oopIndex;
+
+    m_firstPlayer = rhs.m_firstPlayer;
+    m_currentPlayer = rhs.m_currentPlayer;
+}
+
 Player& Game::GetPlayer1()
 {
     return m_players[0];
