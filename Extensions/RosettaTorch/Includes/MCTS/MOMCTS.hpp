@@ -72,7 +72,7 @@ class MOMCTS
 
             GetSOMCTS(player.Opposite())
                 .ApplyOthersActions(
-                    m_playerController.GetSideView(player.Opposite()));
+                    m_playerController.GetPlayerView(player.Opposite()));
         }
     }
 
