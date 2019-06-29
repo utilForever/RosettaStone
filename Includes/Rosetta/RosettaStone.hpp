@@ -119,6 +119,7 @@
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
+#include <Rosetta/Views/Board.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
 #include <Rosetta/Views/ViewTypes.hpp>
