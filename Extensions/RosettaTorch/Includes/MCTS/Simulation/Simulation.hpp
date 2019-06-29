@@ -19,6 +19,7 @@ namespace RosettaTorch::MCTS
 //!
 class Simulation
 {
+ public:
     Simulation() : m_policy(new RandomPlayoutsPolicy())
     {
         // Do nothing
