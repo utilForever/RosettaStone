@@ -51,7 +51,7 @@ class SOMCTS
 
     bool PerformAction(const Board& board, StateValue& stateValue)
     {
-        PlayState result{};
+        PlayState result;
 
         if (m_stage == Stage::SIMULATION)
         {
@@ -61,12 +61,14 @@ class SOMCTS
             }
 
             m_simulationStage.StartAction(board);
+
+            result = board.ApplyAction();
         }
         else
         {
-            assert(m_stage == Stage::SELECTION);
-
             m_selectionStage.StartAction(board);
+
+            result = board.ApplyAction();
 
             if (m_selectionStage.FinishAction(board, result))
             {
@@ -100,8 +102,8 @@ class SOMCTS
         m_selectionStage.FinishIteration(board, stateValue);
     }
 
-    int ChooseAction(const RosettaStone::Board& board,
-                     RosettaStone::ActionType actionType,
+    int ChooseAction(const Board& board,
+                     ActionType actionType,
                      std::vector<int>& choices)
     {
         assert(!choices.empty());
