@@ -153,7 +153,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
-    // - Faction: Neutral, Set: Core, Rarity: Free
+    // - Faction: Neutral, Set: HoF, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Each player draws 2 cards.
     // --------------------------------------------------------
