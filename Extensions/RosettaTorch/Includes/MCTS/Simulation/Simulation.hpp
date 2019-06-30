@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 #define ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 
+#include <MCTS/Policies/ISimulationPolicy.hpp>
 #include <MCTS/Policies/RandomPlayoutsPolicy.hpp>
 
 namespace RosettaTorch::MCTS

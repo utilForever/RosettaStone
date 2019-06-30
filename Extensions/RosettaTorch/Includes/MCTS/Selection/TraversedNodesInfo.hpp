@@ -11,6 +11,7 @@
 #define ROSETTASTONE_TORCH_MCTS_TRAVERSED_NODES_INFO_HPP
 
 #include <MCTS/Selection/BoardNodeMap.hpp>
+#include <MCTS/Selection/BoardNodeMap-Impl.hpp>
 #include <MCTS/Selection/TraversedNodeInfo.hpp>
 #include <MCTS/Selection/TreeUpdater.hpp>
 

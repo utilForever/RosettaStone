@@ -19,13 +19,13 @@
 
 namespace RosettaTorch::MCTS
 {
-inline TreeNode* BoardNodeMap::GetOrCreateNode(const RosettaStone::Game& game,
+inline TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
                                                bool* newNodeCreated)
 {
-    const auto boardView = game.CreateView();
+    const auto boardView = board.CreateView();
 
     {
-        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mutex);
+        std::shared_lock<SharedSpinLock> lock(m_mutex);
 
         if (m_map)
         {
@@ -38,7 +38,7 @@ inline TreeNode* BoardNodeMap::GetOrCreateNode(const RosettaStone::Game& game,
     }
 
     {
-        std::lock_guard<RosettaStone::SharedSpinLock> lock(m_mutex);
+        std::lock_guard<SharedSpinLock> lock(m_mutex);
         auto& item = GetLockedMap()[boardView];
         if (!item)
         {
