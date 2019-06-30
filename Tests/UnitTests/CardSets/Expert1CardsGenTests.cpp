@@ -4358,6 +4358,48 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 26);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
 }
+// ---------------------------------------- SPELL - WARLOCK
+// [EX1_181] Call of the Void - COST:1
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Add a random Demon to your hand.
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_181_CallOfTheVoid)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("EX1_181"));
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+
+    const auto& hand = curPlayer.GetHandZone().GetAll();
+    const auto target = hand.at(hand.size() - 1);
+    
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    EXPECT_EQ(target->card.GetRace(), Race::DEMON);
+}
+
 
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_309] Siphon Soul - COST:6

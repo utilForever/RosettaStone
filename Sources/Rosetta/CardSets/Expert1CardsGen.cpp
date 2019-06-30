@@ -33,6 +33,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -785,6 +786,18 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
         new AddEnchantmentTask("CS2_059o", EntityType::STACK)
     };
     cards.emplace("CS2_059", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_181] Call of the Void - COST:1
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Add a random Demon to your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomCardTask(
+        CardType::MINION, CardClass::WARLOCK, Race::DEMON));
+    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    cards.emplace("EX1_181", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
