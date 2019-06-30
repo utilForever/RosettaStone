@@ -14,6 +14,8 @@
 #include <MCTS/Selection/TreeNode.hpp>
 #include <MCTS/Simulation/Simulation.hpp>
 
+#include <Rosetta/Actions/ActionParams.hpp>
+
 namespace RosettaTorch::MCTS
 {
 //!
@@ -133,9 +135,10 @@ class SOMCTS
         SIMULATION
     };
 
+    ActionParams m_actionParams;
     Stage m_stage;
     Selection m_selectionStage;
-    Simulation m_simulationStage{};
+    Simulation m_simulationStage;
 };
 }  // namespace RosettaTorch::MCTS
 
