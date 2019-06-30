@@ -29,10 +29,8 @@ class MOMCTS
         // Do nothing
     }
 
-    template <typename... StartArgs>
-    void Iterate(StartArgs&&... startArgs)
+    void Iterate()
     {
-        m_playerController.StartEpisode(std::forward<StartArgs>(startArgs)...);
         m_player1.StartIteration();
         m_player2.StartIteration();
 

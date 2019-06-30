@@ -76,12 +76,6 @@ class PlayerController
         RosettaStone::PlayerType m_playerType;
     };
 
-    template <class StartBoardGetter>
-    void StartEpisode(StartBoardGetter&& startBoardGetter)
-    {
-        // Do nothing
-    }
-
     Player GetActionForPlayer()
     {
         return Player(m_game->GetCurrentPlayer().playerType);
