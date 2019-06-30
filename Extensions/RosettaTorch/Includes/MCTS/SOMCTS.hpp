@@ -74,7 +74,8 @@ class SOMCTS
             }
         }
 
-        if (result != PlayState::PLAYING)
+        if (result == PlayState::WON || result == PlayState::LOST ||
+            result == PlayState::TIED)
         {
             stateValue.SetValue(result);
             return true;
