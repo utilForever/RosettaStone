@@ -164,6 +164,21 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(2));
     power.AddPowerTask(new DrawOpTask(2));
     cards.emplace("EX1_050", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
+    // - Set: HoF, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    //       <b>Battlecry:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("EX1_284", power);
 }
 
 void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)

@@ -156,3 +156,59 @@ TEST(NeutralHoFTest, EX1_050_ColdlightOracle)
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 7);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
+// - Set: HoF, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+//       <b>Battlecry:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralHoFTest, EX1_284_AzureDrake)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Azure Drake"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Archmage"));
+
+    auto curHandCount = curPlayer.GetHandZone().GetCount();
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), curHandCount);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 1);
+    EXPECT_EQ(opPlayer.GetFieldZone().GetCount(), 0);
+}
