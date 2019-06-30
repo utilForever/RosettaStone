@@ -4840,6 +4840,68 @@ TEST(NeutralExpert1Test, NEW1_027_SouthseaCaptain)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
+// - Race: Dragon, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_030_Deathwing)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Deathwing"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 1);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 0);
+
+    EXPECT_EQ(opPlayer.GetFieldZone().GetCount(), 0);
+    EXPECT_NE(opPlayer.GetHandZone().GetCount(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------

@@ -1863,6 +1863,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
     };
     cards.emplace("NEW1_037", power);
+    
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
+    // - Race: Dragon, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(new RemoveHandTask(EntityType::HAND));
+    cards.emplace("NEW1_030", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
