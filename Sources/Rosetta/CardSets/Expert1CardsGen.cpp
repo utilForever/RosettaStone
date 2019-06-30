@@ -2059,7 +2059,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_tk29", power);
 
-    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
