@@ -10,6 +10,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -27,7 +28,22 @@ void HoFCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddDruid(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_161] Naturalize - COST:1
+    // - Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    power.AddPowerTask(new DrawOpTask(2));
+    cards.emplace("EX1_161", power);
 }
 
 void HoFCardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)

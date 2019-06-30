@@ -13,6 +13,53 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------ SPELL - DRUID
+// [EX1_161] Naturalize - COST:1
+// - Set: HoF, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(DruidHoFTest, EX1_161_Naturalize)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Naturalize"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    const auto curHandCount = curPlayer.GetHandZone().GetCount();
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), curHandCount + 3);
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 0);
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
 // - Race: Demon, Set: HoF, Rarity: Rare
