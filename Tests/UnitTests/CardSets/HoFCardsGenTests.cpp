@@ -108,6 +108,68 @@ TEST(WarlockHoFTest, EX1_310_Doomguard)
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [EX1_316] Power Overwhelming - COST:1
+// - Set: HoF, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(WarlockHoFTest, EX1_316_PowerOverwhelming)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Power Overwhelming"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Goldshire Footman"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("King Mukla"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    game.Process(curPlayer, AttackTask(card2, card3));
+
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    EXPECT_EQ(opPlayer.GetFieldZone().GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
 // - Set: HoF, Rarity: Legendary

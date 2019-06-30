@@ -11,6 +11,8 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -34,7 +36,8 @@ void HoFCardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_161] Naturalize - COST:1
     // - Set: HoF, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+    // Text: Destroy a minion.
+    //       Your opponent draws 2 cards.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINION_TARGET = 0
@@ -129,11 +132,43 @@ void HoFCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::HAND, 2));
     power.AddPowerTask(new DiscardTask(EntityType::STACK));
     cards.emplace("EX1_310", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_316] Power Overwhelming - COST:1
+    // - Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_316e", EntityType::TARGET));
+    cards.emplace("EX1_316", power);
 }
 
 void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [EX1_316e] Power Overwhelming - COST:0
+    // - Set: HoF
+    // --------------------------------------------------------
+    // Text: This minion has +4/+4, but will die a horrible death at the end of the turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 0
+    // - TRIGGER_VISUAL = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackHealthN(4)));
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new DestroyTask(
+                                        EntityType::TARGET) };
+    cards.emplace("EX1_316e", power);
 }
 
 void HoFCardsGen::AddWarrior(std::map<std::string, Power>& cards)
