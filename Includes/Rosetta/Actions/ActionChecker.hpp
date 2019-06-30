@@ -7,14 +7,22 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_ACTION_CHOICES_HPP
-#define ROSETTASTONE_ACTION_CHOICES_HPP
+#ifndef ROSETTASTONE_ACTION_CHECKER_HPP
+#define ROSETTASTONE_ACTION_CHECKER_HPP
+
+#include <Rosetta/Games/Game.hpp>
 
 namespace RosettaStone
 {
-class ActionChoices
+//!
+//! \brief ActionChecker class.
+//!
+class ActionChecker
 {
+ public:
+ private:
+    const Game& m_game;
 };
-}  // namespace RosettaStoneqkr
+}  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_ACTION_CHOICES_HPP
+#endif  // ROSETTASTONE_ACTION_CHECKER_HPP
