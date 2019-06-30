@@ -11,11 +11,14 @@
 #define ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_HPP
 
 #include <Rosetta/Commons/SpinLocks.hpp>
+#include <Rosetta/Views/Board.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
 
 #include <memory>
 #include <shared_mutex>
 #include <unordered_map>
+
+using namespace RosettaStone;
 
 namespace RosettaTorch::MCTS
 {
