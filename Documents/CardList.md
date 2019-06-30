@@ -399,7 +399,7 @@ HOF | EX1_062 | Old Murk-Eye |
 HOF | EX1_112 | Gelbin Mekkatorque |  
 HOF | EX1_128 | Conceal |  
 HOF | EX1_161 | Naturalize |  
-HOF | EX1_284 | Azure Drake |  
+HOF | EX1_284 | Azure Drake | O
 HOF | EX1_295 | Ice Block |  
 HOF | EX1_298 | Ragnaros the Firelord |  
 HOF | EX1_310 | Doomguard | O
@@ -415,4 +415,4 @@ HOF | GIL_838 | Black Cat |
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 13% (3 of 22 Cards)
+- Progress: 18% (4 of 22 Cards)
