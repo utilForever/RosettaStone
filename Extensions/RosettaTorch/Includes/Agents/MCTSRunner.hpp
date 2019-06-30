@@ -14,6 +14,8 @@
 #include <MCTS/MOMCTS.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
+#include <thread>
+
 namespace RosettaTorch::Agents
 {
 class MCTSRunner
