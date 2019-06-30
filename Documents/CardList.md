@@ -403,7 +403,7 @@ HOF | EX1_284 | Azure Drake | O
 HOF | EX1_295 | Ice Block |  
 HOF | EX1_298 | Ragnaros the Firelord |  
 HOF | EX1_310 | Doomguard | O
-HOF | EX1_316 | Power Overwhelming |  
+HOF | EX1_316 | Power Overwhelming | O
 HOF | EX1_349 | Divine Favor |  
 HOF | EX1_620 | Molten Giant |  
 HOF | GIL_130 | Gloom Stag |  
@@ -415,4 +415,4 @@ HOF | GIL_838 | Black Cat |
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 23% (5 of 22 Cards)
+- Progress: 27% (6 of 22 Cards)
