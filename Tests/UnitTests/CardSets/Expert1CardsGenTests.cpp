@@ -394,12 +394,12 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
 // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
+// Text: <b>Divine Shield</b>, <b>Taunt</b>
 //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
-// _ DIVINE SHIELD = 1
+// - DIVINE_SHIELD = 1
 // - TAUNT = 1
 // - DEATHRATTLE = 1
 // --------------------------------------------------------

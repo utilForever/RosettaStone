@@ -264,7 +264,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // _ DIVINE SHIELD = 1
+    // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
