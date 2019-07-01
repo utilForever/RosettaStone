@@ -63,15 +63,24 @@ TEST(RandomCardTask, Run)
         {
             if (target->card.GetCardType() != CardType::MINION &&
                 target->card.GetCardType() != CardType::SPELL)
+            {
                 EXPECT_EQ(target->card.GetCardType(), CardType::INVALID);
+            }
         }
         else
+        {
             EXPECT_EQ(target->card.GetCardType(), cardType);
+        }
 
-        if (cardClass != CardClass::INVALID)    
+        if (cardClass != CardClass::INVALID)   
+        { 
             EXPECT_EQ(target->card.GetCardClass(), cardClass);
+        }
+
         if (cardRace != Race::INVALID) 
+        {
             EXPECT_EQ(target->card.GetRace(), cardRace);
+        }
     };
 
     const std::string id = "card";
