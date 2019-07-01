@@ -1,7 +1,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Actions/Generic.hpp>
-
+#include <iostream>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 
 #include <effolkronium/random.hpp>
@@ -24,11 +24,25 @@ TaskID RandomCardTask::GetTaskID() const
 TaskStatus RandomCardTask::Impl(Player& player)
 {
     const auto allCards = Cards::GetInstance().GetAllCards();
-    const auto filtered = new std::vector<RosettaStone::Card>();
+    auto filtered = new std::vector<RosettaStone::Card>();
 
+    switch (m_cardType)
+    {
+        case CardType::MINION:
+        case CardType::SPELL:
+        case CardType::INVALID:
+            break;
+        default:
+            throw std::invalid_argument(
+                "RandomCardTask::Impl() - Invalid card type!");
+    }
+    
     for (auto card : allCards)
     {
-        if (card.GetCardType() == m_cardType && card.GetCardClass() == m_cardClass && card.GetRace() == m_cardRace)
+        if (((m_cardType == CardType::INVALID && m_cardType == CardType::MINION
+                && m_cardType == CardType::SPELL || m_cardType == card.GetCardType())) &&
+             (m_cardClass == CardClass::INVALID || m_cardClass == card.GetCardClass()) &&
+             (m_cardRace == Race::INVALID || m_cardRace == card.GetRace()))
         {
             filtered->emplace_back(card);
         }
@@ -38,10 +52,10 @@ TaskStatus RandomCardTask::Impl(Player& player)
     {
         return TaskStatus::STOP;
     }
-
+    
     const auto idx = Random::get<std::size_t>(0, filtered->size() - 1);
-    auto card = filtered->at(idx);
-
+    Card& card = filtered->at(idx);
+    
     Entity* entity = Entity::GetFromCard(player, std::move(card));
     
     player.GetGame()->taskStack.entities.clear();

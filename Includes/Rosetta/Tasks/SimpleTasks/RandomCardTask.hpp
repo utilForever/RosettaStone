@@ -17,7 +17,8 @@ class RandomCardTask : public ITask
     //! \param cardType The type of card.
     //! \param cardClass The class of card.
     //! \param cardRace The race of card.
-    RandomCardTask(CardType cardType, CardClass cardClass, Race cardRace = Race::INVALID);
+    RandomCardTask(CardType cardType = CardType::INVALID,
+                   CardClass cardClass = CardClass::INVALID, Race cardRace = Race::INVALID);
 
     //! Returns task ID.
     //! \return Task ID.

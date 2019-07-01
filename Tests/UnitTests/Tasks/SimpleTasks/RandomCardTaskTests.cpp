@@ -40,10 +40,10 @@ TEST(RandomCardTask, GetTaskID)
 
 TEST(RandomCardTask, Run)
 {
-    const auto Check = [](std::string id, CardType cardType, CardClass cardClass, Race cardRace = Race::INVALID) {
+    const auto Check = [](std::string id, CardType cardType = CardType::INVALID,
+                        CardClass cardClass = CardClass::INVALID, Race cardRace = Race::INVALID) {
         GameConfig config;
-        config.player1Class = cardClass;
-        config.player2Class = cardClass;
+        config.player1Class = CardClass::WARLOCK;
         config.startPlayer = PlayerType::PLAYER1;
         config.doFillDecks = true;
         config.autoRun = false;
@@ -53,25 +53,28 @@ TEST(RandomCardTask, Run)
         game.StartGame();
         game.ProcessUntil(Step::MAIN_START);
 
-        auto rct = RandomCardTask(cardType, cardClass, cardRace);
-        rct.SetPlayer(&p);
-        auto result = Task::Run(&rct);
-        EXPECT_EQ(result, TaskStatus::COMPLETE);
-
-        auto ast = AddStackToTask(EntityType::HAND);
-        ast.SetPlayer(&p);
-        result = Task::Run(&ast);
-        EXPECT_EQ(result, TaskStatus::COMPLETE);
+        game.Process(p, new RandomCardTask(cardType, cardClass, cardRace));
+        game.Process(p, new AddStackToTask(EntityType::HAND));
 
         const auto hand = p.GetHandZone().GetAll();
         const auto target = hand.at(hand.size() - 1);
 
-        EXPECT_EQ(target->card.GetCardType(), cardType);
-        EXPECT_EQ(target->card.GetCardClass(), cardClass);
-        EXPECT_EQ(target->card.GetRace(), cardRace);
+        if (cardType == CardType::INVALID)
+        {
+            if (target->card.GetCardType() != CardType::MINION &&
+                target->card.GetCardType() != CardType::SPELL)
+                EXPECT_EQ(target->card.GetCardType(), CardType::INVALID);
+        }
+        else
+            EXPECT_EQ(target->card.GetCardType(), cardType);
+
+        if (cardClass != CardClass::INVALID)    
+            EXPECT_EQ(target->card.GetCardClass(), cardClass);
+        if (cardRace != Race::INVALID) 
+            EXPECT_EQ(target->card.GetRace(), cardRace);
     };
 
-    const std::string id = "card_";
+    const std::string id = "card";
     const std::vector<CardClass> classes {
         CardClass::DRUID, CardClass::HUNTER, CardClass::MAGE, CardClass::PALADIN,
         CardClass::PRIEST, CardClass::ROGUE, CardClass::SHAMAN, CardClass::WARLOCK, CardClass::WARRIOR};
@@ -79,7 +82,13 @@ TEST(RandomCardTask, Run)
     int n = 0;
     for (auto iter : classes)
     {
-        Check(id + std::to_string(++n), CardType::MINION, iter);
-        Check(id + std::to_string(++n), CardType::SPELL, iter);
+        Check(id + std::to_string(n), CardType::MINION, iter);
+        ++n;
+        Check(id + std::to_string(n), CardType::SPELL, iter);
+        ++n;
     }
+    Check(id + std::to_string(n), CardType::MINION, CardClass::NEUTRAL); ++n;
+    Check(id + std::to_string(n), CardType::MINION); ++n;
+    Check(id + std::to_string(n), CardType::SPELL); ++n;
+    Check(id + std::to_string(n)); ++n;
 }
