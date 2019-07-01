@@ -24,7 +24,7 @@ TaskID RandomCardTask::GetTaskID() const
 TaskStatus RandomCardTask::Impl(Player& player)
 {
     const auto allCards = Cards::GetInstance().GetAllCards();
-    auto filtered = new std::vector<RosettaStone::Card>();
+    std::vector<RosettaStone::Card> filtered;
 
     switch (m_cardType)
     {
@@ -44,23 +44,23 @@ TaskStatus RandomCardTask::Impl(Player& player)
              (m_cardClass == CardClass::INVALID || m_cardClass == card.GetCardClass()) &&
              (m_cardRace == Race::INVALID || m_cardRace == card.GetRace()))
         {
-            filtered->emplace_back(card);
+            filtered.emplace_back(card);
         }
     }
 
-    if (filtered->empty())
+    if (filtered.empty())
     {
         return TaskStatus::STOP;
     }
     
-    const auto idx = Random::get<std::size_t>(0, filtered->size() - 1);
-    Card& card = filtered->at(idx);
+    const auto idx = Random::get<std::size_t>(0, filtered.size() - 1);
+    Card& card = filtered.at(idx);
     
     Entity* entity = Entity::GetFromCard(player, std::move(card));
     
     player.GetGame()->taskStack.entities.clear();
     player.GetGame()->taskStack.entities.emplace_back(entity);
-    
+
     return TaskStatus::COMPLETE;
 }
 }  // namespace RosettaStone::SimpleTasks
