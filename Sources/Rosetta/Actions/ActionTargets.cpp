@@ -16,18 +16,21 @@ ActionTargets::ActionTargets()
     Invalidate();
 }
 
-void ActionTargets::Analyze(const ActionParams& params)
+void ActionTargets::Analyze(const ActionChecker& checker)
 {
     Invalidate();
 
-    Fill(PlayerType::PLAYER1, params);
-    Fill(PlayerType::PLAYER2, params);
+    Fill(PlayerType::PLAYER1, checker);
+    Fill(PlayerType::PLAYER2, checker);
 }
 
-void ActionTargets::Fill(PlayerType playerType, const ActionParams& params)
+void ActionTargets::Fill(PlayerType playerType, const ActionChecker& checker)
 {
-    (void)playerType;
-    (void)params;
+    //m_targets[0] = checker.GetHero(playerType);
+
+    //checker.ForEachMinion(playerType, [&](Minion* minion) {
+
+    //});
 }
 
 void ActionTargets::Invalidate()

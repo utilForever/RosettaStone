@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_ACTION_TARGETS_HPP
 #define ROSETTASTONE_ACTION_TARGETS_HPP
 
-#include <Rosetta/Actions/ActionParams.hpp>
+#include <Rosetta/Actions/ActionChecker.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Player.hpp>
 
@@ -26,10 +26,10 @@ class ActionTargets
  public:
     ActionTargets();
 
-    void Analyze(const ActionParams& params);
+    void Analyze(const ActionChecker& checker);
 
  private:
-    void Fill(PlayerType playerType, const ActionParams& params);
+    void Fill(PlayerType playerType, const ActionChecker& checker);
 
     void Invalidate();
 
