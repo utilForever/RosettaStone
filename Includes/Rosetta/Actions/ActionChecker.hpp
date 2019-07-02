@@ -20,6 +20,33 @@ namespace RosettaStone
 class ActionChecker
 {
  public:
+    ActionChecker(const Game& game) : m_game(game)
+    {
+        // Do nothing
+    }
+
+    Hero* GetHero(PlayerType playerType) const
+    {
+        const auto hero = (playerType == PlayerType::PLAYER1)
+                              ? m_game.GetPlayer1().GetHero()
+                              : m_game.GetPlayer2().GetHero();
+
+        return hero;
+    }
+
+    template <class Functor>
+    void ForEachMinion(PlayerType playerType, Functor&& functor) const
+    {
+        auto& fieldZone = (playerType == PlayerType::PLAYER1)
+                              ? m_game.GetPlayer1().GetFieldZone()
+                              : m_game.GetPlayer2().GetFieldZone();
+
+        for (auto& minion : fieldZone.GetAll())
+        {
+            functor(minion);
+        }
+    }
+
  private:
     const Game& m_game;
 };
