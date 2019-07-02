@@ -7,23 +7,28 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_ACTION_CHECKER_HPP
-#define ROSETTASTONE_ACTION_CHECKER_HPP
+#ifndef ROSETTASTONE_ACTION_VALID_CHECKER_HPP
+#define ROSETTASTONE_ACTION_VALID_CHECKER_HPP
 
+#include <Rosetta/Actions/ActionTargets.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 
 namespace RosettaStone
 {
 //!
-//! \brief ActionChecker class.
+//! \brief ActionValidChecker class.
 //!
-class ActionChecker
+class ActionValidChecker
 {
  public:
-    ActionChecker(const Game& game) : m_game(game)
+    ActionValidChecker(const Game& game) : m_game(game)
     {
         // Do nothing
     }
+
+    void Check(const Game& game);
+    void Check()
 
     Hero* GetHero(PlayerType playerType) const
     {
@@ -48,8 +53,15 @@ class ActionChecker
     }
 
  private:
+    std::array<MainOpType, 4> m_opMap;
+    size_t m_opMapSize = 0;
+
+    std::vector<int> m_attacks;
+    std::vector<int> m_playableCards;
+    ActionTargets m_actionTargets;
+
     const Game& m_game;
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_ACTION_CHECKER_HPP
+#endif  // ROSETTASTONE_ACTION_VALID_CHECKER_HPP
