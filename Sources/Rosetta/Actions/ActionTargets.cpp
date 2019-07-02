@@ -26,11 +26,26 @@ void ActionTargets::Analyze(const ActionChecker& checker)
 
 void ActionTargets::Fill(PlayerType playerType, const ActionChecker& checker)
 {
-    //m_targets[0] = checker.GetHero(playerType);
+    if (playerType == PlayerType::PLAYER1)
+    {
+        m_targets[0] = checker.GetHero(playerType);
 
-    //checker.ForEachMinion(playerType, [&](Minion* minion) {
+        int minionIdx = 1;
+        checker.ForEachMinion(playerType, [&](Minion* minion) {
+            m_targets[minionIdx] = minion;
+            ++minionIdx;
+        });
+    }
+    else
+    {
+        m_targets[8] = checker.GetHero(playerType);
 
-    //});
+        int minionIdx = 9;
+        checker.ForEachMinion(playerType, [&](Minion* minion) {
+            m_targets[minionIdx] = minion;
+            ++minionIdx;
+        });
+    }
 }
 
 void ActionTargets::Invalidate()

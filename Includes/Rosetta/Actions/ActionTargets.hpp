@@ -10,7 +10,6 @@
 #ifndef ROSETTASTONE_ACTION_TARGETS_HPP
 #define ROSETTASTONE_ACTION_TARGETS_HPP
 
-#include <Rosetta/Actions/ActionChecker.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Player.hpp>
 
@@ -18,6 +17,8 @@
 
 namespace RosettaStone
 {
+class ActionChecker;
+
 //!
 //! \brief ActionTargets class.
 //!
