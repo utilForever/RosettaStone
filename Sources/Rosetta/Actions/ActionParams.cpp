@@ -7,25 +7,17 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_ACTION_PARAMS_HPP
-#define ROSETTASTONE_ACTION_PARAMS_HPP
-
-#include <Rosetta/Actions/ActionChecker.hpp>
+#include <Rosetta/Actions/ActionParams.hpp>
 
 namespace RosettaStone
 {
-//!
-//! \brief ActionParams class.
-//!
-class ActionParams
+void ActionParams::Initialize(const Game& game)
 {
- public:
-    void Initialize(const Game& game);
-    void Initialize(const ActionChecker& checker);
+    m_checker.Check(game);
+}
 
- private:
-    ActionChecker m_checker;
-};
+void ActionParams::Initialize(const ActionChecker& checker)
+{
+    m_checker.Check(checker);
+}
 }  // namespace RosettaStone
-
-#endif  // ROSETTASTONE_ACTION_PARAMS_HPP
