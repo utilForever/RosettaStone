@@ -256,6 +256,20 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
     Power power;
 
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_354] Lay on Hands - COST:8
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Restore #8 Health. Draw 3 cards.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
+    power.AddPowerTask(new DrawTask(3));
+    cards.emplace("EX1_354", power);
+
     // --------------------------------------- MINION - PALADIN
     // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary

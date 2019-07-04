@@ -390,6 +390,48 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
     EXPECT_EQ(opPlayer.GetOverloadOwed(), 1);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [EX1_354] Lay on Hands - COST:8
+// - Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Restore #8 Health. Draw 3 cards.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_354_LayOnHands)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    curPlayer.GetHero()->SetDamage(9);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Lay on Hands"));
+
+    auto p1HandCount = curPlayer.GetHandZone().GetCount();
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curPlayer.GetHero()));
+    
+    EXPECT_EQ(p1HandCount + 2, curPlayer.GetHandZone().GetCount());
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 29);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -853,7 +895,6 @@ TEST(PriestExpert1Test, EX1_341_Lightwell)
         curPlayer, Cards::GetInstance().FindCardByName("Lightwell"));
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
-
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
