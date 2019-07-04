@@ -272,6 +272,16 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddDeathrattleTask(new WeaponTask("EX1_383t"));
     cards.emplace("EX1_383", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_619] Equality - COST:4
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Change the Health of ALL minions to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_619e", EntityType::ALL_MINIONS));
+    cards.emplace("EX1_619", power);
 }
 
 void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
@@ -289,6 +299,16 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_383t", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_619e] Equality - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Health changed to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(GameTag::HEALTH, EffectOperator::SET, 1));
+    cards.emplace("EX1_619e", power);
 }
 
 void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)

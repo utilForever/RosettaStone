@@ -471,6 +471,58 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [EX1_619] Equality - COST:4
+// - Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Change the Health of ALL minions to 1.
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_619_Equality)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tirion Fordring"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Tirion Fordring"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Equality"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::HEALTH), 1);
+    EXPECT_EQ(opField[0]->GetGameTag(GameTag::HEALTH), 1);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [CS2_104] Rampage - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
