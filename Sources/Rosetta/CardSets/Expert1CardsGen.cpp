@@ -389,6 +389,20 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     power.AddPowerTask(new HealTask(EntityType::HERO, 5));
     cards.emplace("EX1_624", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_626] Mass Dispel - COST:4
+    // - Faction: Priest, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> all enemy minions. Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SilenceTask(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("EX1_626", power);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)

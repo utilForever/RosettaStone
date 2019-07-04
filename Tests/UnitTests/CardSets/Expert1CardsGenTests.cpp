@@ -922,6 +922,70 @@ TEST(PriestExpert1Test, EX1_624_HolyFire)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [EX1_626] Mass Dispel - COST:4
+// - Faction: Priest, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Silence</b> all enemy minions. Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_626_MassDispel)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mass Dispel"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    auto p1HandCount = curPlayer.GetHandZone().GetCount();
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    EXPECT_EQ(p1HandCount, curPlayer.GetHandZone().GetCount());
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    auto p2HandCount = opPlayer.GetHandZone().GetCount();
+
+    game.Process(opPlayer, PlayerTasks::AttackTask(card3, card2));
+    
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), p1HandCount + 1);
+    EXPECT_EQ(opPlayer.GetHandZone().GetCount(), p2HandCount);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_073] Cold Blood - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
