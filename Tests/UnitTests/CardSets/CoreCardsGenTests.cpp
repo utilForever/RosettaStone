@@ -1503,8 +1503,8 @@ TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     game.Process(curPlayer, PlayCardTask::Spell(card2));
 
-    int left = (curField[1]->card.name) == "Leokk" ? 1 : 0;
-    int right = (curField[0]->card.name) == "Leokk" ? 1 : 0;
+    int left = (curField[1]->card.name == "Leokk") ? 1 : 0;
+    int right = (curField[0]->card.name == "Leokk") ? 1 : 0;
     EXPECT_EQ(curField[0]->card.gameTags[GameTag::ATK] + left,
                   curField[0]->GetAttack());
     EXPECT_EQ(curField[1]->card.gameTags[GameTag::ATK] + right,
