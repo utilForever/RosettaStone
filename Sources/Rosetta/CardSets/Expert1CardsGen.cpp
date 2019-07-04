@@ -368,6 +368,22 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     cards.emplace("EX1_332", power);
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
+    // -  Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the start of your turn, restore #3 Health to a damaged friendly character.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        new HealTask(EntityType::FRIENDS, 3)
+    };
+    cards.emplace("EX1_341", power);
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common

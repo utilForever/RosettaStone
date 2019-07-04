@@ -815,6 +815,67 @@ TEST(PriestExpert1Test, EX1_332_Silence)
     EXPECT_EQ(opField[0]->GetSpellPower(), 0);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
+// -  Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn, restore #3 Health to a damaged friendly character.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_341_Lightwell)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    curPlayer.GetHero()->SetDamage(4);
+
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Lightwell"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Northshire Cleric"));
+
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    curField[0]->SetDamage(4);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+
+    auto p1HandCount = curPlayer.GetHandZone().GetCount();
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), p1HandCount + 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 29);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_621] Circle of Healing - COST:0
 // - Set: Expert1, Rarity: Common
