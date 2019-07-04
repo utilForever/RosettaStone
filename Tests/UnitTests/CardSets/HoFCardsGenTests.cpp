@@ -13,6 +13,77 @@ using namespace RosettaStone;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ------------------------------------------- SPELL - MAGE
+// [CS2_031] Ice Lance - COST:1
+// - Set: HoF, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(MageHoFTest, CS2_031_IceLance)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ice Lance"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ice Lance"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ice Lance"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ice Lance"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ancient Watcher"));
+    const auto card7 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ancient Watcher"));    
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card6));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card7));
+
+    EXPECT_EQ(card6->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(card7->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 0);
+    EXPECT_EQ(card7->GetGameTag(GameTag::DAMAGE), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card6));
+    
+    EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 4);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card7));
+
+    EXPECT_EQ(card7->isDestroyed, true);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [EX1_161] Naturalize - COST:1
 // - Set: HoF, Rarity: Common

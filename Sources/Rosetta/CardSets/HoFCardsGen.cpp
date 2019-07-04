@@ -5,14 +5,17 @@
 
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-
+#include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -66,7 +69,40 @@ void HoFCardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddMage(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------------- SPELL - MAGE
+    // [CS2_031] Ice Lance - COST:1
+    // - Set: HoF, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4
+    // damage instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    std::vector<SelfCondition> conditions;
+    SelfCondition condition([](Entity* entity) -> bool {
+        if (entity->GetGameTag(GameTag::FROZEN) == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    });
+    conditions.emplace_back(condition);
+    power.AddPowerTask(new ConditionTask(EntityType::TARGET, conditions));
+    power.AddPowerTask(
+        new FlagTask(true, new DamageTask(EntityType::TARGET, 4, true)));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    cards.emplace("CS2_031", power);
 }
 
 void HoFCardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
@@ -137,7 +173,8 @@ void HoFCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [EX1_316] Power Overwhelming - COST:1
     // - Set: HoF, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
+    // Text: Give a friendly minion +4/+4 until end of turn. Then, it dies.
+    // Horribly.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_FRIENDLY_TARGET = 0
@@ -157,7 +194,8 @@ void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     // [EX1_316e] Power Overwhelming - COST:0
     // - Set: HoF
     // --------------------------------------------------------
-    // Text: This minion has +4/+4, but will die a horrible death at the end of the turn.
+    // Text: This minion has +4/+4, but will die a horrible death at the end of
+    // the turn.
     // --------------------------------------------------------
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 0
@@ -166,8 +204,7 @@ void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackHealthN(4)));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { new DestroyTask(
-                                        EntityType::TARGET) };
+    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
     cards.emplace("EX1_316e", power);
 }
 
