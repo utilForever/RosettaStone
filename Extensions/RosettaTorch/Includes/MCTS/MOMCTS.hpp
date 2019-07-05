@@ -29,8 +29,9 @@ class MOMCTS
         // Do nothing
     }
 
-    void Iterate()
+    void Iterate(const Game& game)
     {
+        m_playerController.SetGame(game);
         m_player1.StartIteration();
         m_player2.StartIteration();
 
