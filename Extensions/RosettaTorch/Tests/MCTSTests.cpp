@@ -28,14 +28,13 @@ void Run(Agents::MCTSRunner* controller, int secs)
     config.autoRun = true;
 
     Game game(config);
-    game.StartGame();
 
     auto& s = std::cout;
 
     s << "Running for " << secs << " seconds with " << g_config.threads
-      << " threads ";
+      << " threads " << std::endl;
 
-    //const auto start = std::chrono::steady_clock::now();
+    // const auto start = std::chrono::steady_clock::now();
     std::chrono::steady_clock::time_point runUntil =
         std::chrono::steady_clock::now() + std::chrono::seconds(secs);
 
@@ -59,8 +58,9 @@ void Run(Agents::MCTSRunner* controller, int secs)
         return true;
     };
 
-    //auto startIter = controller->GetStatistic().GetSuccededIterates();
-    controller->Run(BoardRefView(game, game.GetCurrentPlayer().playerType));
+    // auto startIter = controller->GetStatistic().GetSuccededIterates();
+    controller->Run(game);
+    // controller->Run(BoardRefView(game, game.GetCurrentPlayer().playerType));
     while (true)
     {
         if (!continueChecker())
@@ -72,19 +72,20 @@ void Run(Agents::MCTSRunner* controller, int secs)
     }
     controller->NotifyStop();
     controller->WaitUntilStopped();
-    //auto endIter = controller->GetStatistic().GetSuccededIterates();
+    // auto endIter = controller->GetStatistic().GetSuccededIterates();
 
     s << std::endl;
-    //s << "Done iterations: " << (endIter - startIter) << std::endl;
-    //s << "====== Statistics =====" << std::endl;
-    //controller->GetStatistic().GetDebugMessage();
+    // s << "Done iterations: " << (endIter - startIter) << std::endl;
+    // s << "====== Statistics =====" << std::endl;
+    // controller->GetStatistic().GetDebugMessage();
 
-    //auto now = std::chrono::steady_clock::now();
-    //auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now - start)
+    // auto now = std::chrono::steady_clock::now();
+    // auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now -
+    // start)
     //              .count();
-    //auto speed = static_cast<double>(endIter - startIter) / ms * 1000;
-    //s << "Iterations per second: " << speed << std::endl;
-    //s << std::endl;
+    // auto speed = static_cast<double>(endIter - startIter) / ms * 1000;
+    // s << "Iterations per second: " << speed << std::endl;
+    // s << std::endl;
 }
 
 bool CheckRun(const std::string& cmdLine, Agents::MCTSRunner* controller)

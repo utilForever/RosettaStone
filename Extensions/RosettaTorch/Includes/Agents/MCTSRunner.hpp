@@ -31,14 +31,14 @@ class MCTSRunner
         WaitUntilStopped();
     }
 
-    void Run(const BoardRefView& game)
+    void Run(const Game& game)
     {
         assert(m_threads.empty());
         m_stopFlag = false;
 
         for (int i = 0; i < m_config.threads; ++i)
         {
-            m_threads.emplace_back([this, game]() {
+            m_threads.emplace_back([this, &game]() {
                 // engine::view::BoardView board_view;
                 // engine::view::board_view::UnknownCardsInfo first_unknown;
                 // engine::view::board_view::UnknownCardsInfo second_unknown;
@@ -78,7 +78,7 @@ class MCTSRunner
                 {
                 //    int sample_seed = get_next_selection_seed();
                 //    selection_rand.seed(sample_seed);
-                    mcts.Iterate();
+                    mcts.Iterate(game);
                 //        [&]() { return state_getter(selection_rand); });
 
                 //    statistic_.IterateSucceeded();
