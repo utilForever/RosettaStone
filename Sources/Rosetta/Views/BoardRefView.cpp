@@ -273,4 +273,9 @@ Player& CurrentPlayerBoardRefView::GetCurrentPlayer() const
 {
     return m_game.GetCurrentPlayer();
 }
+
+ActionValidGetter CurrentPlayerBoardRefView::GetActionValidGetter() const
+{
+    return ActionValidGetter(m_game);
+}
 }  // namespace RosettaStone

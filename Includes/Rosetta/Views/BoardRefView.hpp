@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_BOARD_REF_VIEW_HPP
 #define ROSETTASTONE_BOARD_REF_VIEW_HPP
 
+#include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Games/Game.hpp>
 
 namespace RosettaStone
@@ -64,6 +65,8 @@ class CurrentPlayerBoardRefView
     CurrentPlayerBoardRefView(const Game& game);
 
     Player& GetCurrentPlayer() const;
+
+    ActionValidGetter GetActionValidGetter() const;
 
     template <typename Functor>
     static void ApplyWithCurrentPlayerStateView(const Game& game,
