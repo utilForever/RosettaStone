@@ -27,6 +27,9 @@ class SecretZone : public LimitedZone<Spell>
     //! \param entity The entity.
     //! \param zonePos The zone position.
     void Add(Entity& entity, int zonePos = -1) override;
+
+    //! Returns whether the secret card exists in this zone.
+    bool Exist(Entity& entity);
 };
 }  // namespace RosettaStone
 
