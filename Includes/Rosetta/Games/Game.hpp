@@ -18,6 +18,8 @@
 
 namespace RosettaStone
 {
+class ActionParams;
+
 //!
 //! \brief Game class.
 //!
@@ -168,6 +170,10 @@ class Game
 
     //! Plays policy based game.
     void PlayPolicy();
+
+    //! Performs selected action.
+    //! \result The play state of the game.
+    PlayState PerformAction(ActionParams& params);
 
     //! Creates board view.
     //! \return The reduced board view.

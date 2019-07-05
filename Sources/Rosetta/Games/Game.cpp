@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
@@ -18,6 +19,11 @@
 #include <effolkronium/random.hpp>
 
 #include <algorithm>
+#include "Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp"
+#include "Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp"
+#include "Rosetta/Actions/Targeting.hpp"
+#include "Rosetta/Tasks/PlayerTasks/AttackTask.hpp"
+#include "Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp"
 
 using Random = effolkronium::random_static;
 using namespace RosettaStone::PlayerTasks;
@@ -656,6 +662,54 @@ void Game::PlayPolicy()
         ITask* nextAction = player.GetNextAction();
         Process(player, nextAction);
     }
+}
+
+PlayState Game::PerformAction(ActionParams& params)
+{
+    ITask* task;
+    const auto mainOp = params.ChooseMainOp();
+
+    switch (mainOp)
+    {
+        case MainOpType::PLAY_CARD:
+        {
+            Entity* card = params.ChooseHandCard();
+            Character* target = params.GetSpecifiedTarget(Generic::GetValidTargets(card));
+            const int totalMinions =
+                GetCurrentPlayer().GetFieldZone().GetCount();
+            const int fieldPos = params.GetMinionPutLocation(totalMinions);
+            const int totalChoices = card->GetGameTag(GameTag::CHOOSE_ONE) == 1 ? 2 : 0;
+            const int chooseOne = params.ChooseOne(totalChoices);
+            task = new PlayCardTask(card, target, fieldPos, chooseOne);
+            break;
+        }
+        case MainOpType::ATTACK:
+        {
+            Character* source = params.GetAttacker();
+            Character* target =
+                params.GetSpecifiedTarget(Generic::GetValidTargets(source));
+            task = new AttackTask(source, target);
+            break;
+        }
+        case MainOpType::USE_HERO_POWER:
+        {
+            Hero* hero = GetCurrentPlayer().GetHero();
+            Character* target =
+                params.GetSpecifiedTarget(Generic::GetValidTargets(hero));
+            task = new HeroPowerTask(target);
+            break;
+        }
+        case MainOpType::END_TURN:
+        {
+            task = new EndTurnTask();
+            break;
+        }
+        default:
+            return PlayState::INVALID;
+    }
+
+    Process(GetCurrentPlayer(), task);
+    return PlayState::PLAYING;
 }
 
 ReducedBoardView Game::CreateView() const
