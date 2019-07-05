@@ -8,7 +8,7 @@
 
 #include <Rosetta/Tasks/ITask.hpp>
 
-namespace RosettaStone::SimpleTasks
+namespace RosettaStone::PlayerTasks
 {
 //!
 //! \brief WeaponTask class.

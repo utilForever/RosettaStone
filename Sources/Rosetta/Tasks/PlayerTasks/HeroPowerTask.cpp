@@ -8,7 +8,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
 
-namespace RosettaStone::SimpleTasks
+namespace RosettaStone::PlayerTasks
 {
 HeroPowerTask::HeroPowerTask(Entity* target) : ITask(nullptr, target)
 {
@@ -27,6 +27,11 @@ TaskStatus HeroPowerTask::Impl(Player& player)
     if (!Generic::IsPlayableByPlayer(player, power) ||
         !Generic::IsPlayableByCardReq(power) ||
         !Generic::IsValidTarget(power, m_target))
+    {
+        return TaskStatus::STOP;
+    }
+
+    if (power->IsExhausted())
     {
         return TaskStatus::STOP;
     }
