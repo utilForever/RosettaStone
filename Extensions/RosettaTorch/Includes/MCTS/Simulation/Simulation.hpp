@@ -13,6 +13,8 @@
 #include <MCTS/Policies/ISimulationPolicy.hpp>
 #include <MCTS/Policies/RandomPlayoutsPolicy.hpp>
 
+#include <Rosetta/Actions/ActionValidChecker.hpp>
+
 namespace RosettaTorch::MCTS
 {
 //!
@@ -36,12 +38,14 @@ class Simulation
         return false;
     }
 
-    void StartAction(const Board& board) const
+    void StartAction(const Board& board,
+                     const ActionValidChecker& checker) const
     {
-        m_policy->StartAction(board);
+        m_policy->StartAction(board, checker);
     }
 
-    int ChooseAction(const Board& board, ActionType actionType,
+    int ChooseAction(const Board& board, ActionValidChecker checker,
+                     ActionType actionType,
                      const std::vector<int>& choices) const
     {
         assert(!choices.empty());
@@ -51,7 +55,8 @@ class Simulation
             return 0;
         }
 
-        const int choice = m_policy->GetChoice(board, actionType, choices);
+        const int choice =
+            m_policy->GetChoice(board, checker, actionType, choices);
         // Always return a valid choice
         assert(choice >= 0);
 
