@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_BOARD_HPP
 #define ROSETTASTONE_BOARD_HPP
 
+#include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 
@@ -31,9 +32,9 @@ class Board
 
     ReducedBoardView CreateView() const;
 
-    auto GetCurrentPlayerStateRefView() const;
+    CurrentPlayerBoardRefView GetCurrentPlayerStateRefView() const;
 
-    PlayState ApplyAction() const;
+    PlayState ApplyAction(ActionParams& params) const;
 
     const Game& RevealHiddenInformationForSimulation() const;
 

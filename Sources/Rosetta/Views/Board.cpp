@@ -44,7 +44,7 @@ ReducedBoardView Board::CreateView() const
     }
 }
 
-auto Board::GetCurrentPlayerStateRefView() const
+CurrentPlayerBoardRefView Board::GetCurrentPlayerStateRefView() const
 {
     if (m_game.GetCurrentPlayer().playerType != m_playerType)
     {
@@ -54,9 +54,9 @@ auto Board::GetCurrentPlayerStateRefView() const
     return CurrentPlayerBoardRefView(m_game);
 }
 
-PlayState Board::ApplyAction() const
+PlayState Board::ApplyAction(ActionParams& params) const
 {
-    return PlayState::PLAYING;
+    return m_game.PerformAction(params);
 }
 
 const Game& Board::RevealHiddenInformationForSimulation() const
