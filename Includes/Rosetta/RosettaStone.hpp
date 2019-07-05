@@ -13,6 +13,7 @@
 #include <Rosetta/Actions/ActionTargets.hpp>
 #include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
+#include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>
