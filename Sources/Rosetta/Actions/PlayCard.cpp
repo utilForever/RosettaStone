@@ -280,6 +280,41 @@ bool IsPlayableByCardReq(Entity* source)
                 }
                 break;
             }
+            case PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
+            {
+                auto& curField = source->owner->GetFieldZone();
+                auto& entourages = source->card.entourages;
+                size_t entourageCount = 0;
+
+                for (auto& minion : curField.GetAll())
+                {
+                    for (auto& entourage : entourages)
+                    {
+                        if (minion->card.id == entourage)
+                        {
+                            ++entourageCount;
+                        }
+                    }
+                }
+
+                if (entourageCount == entourages.size())
+                {
+                    return false;
+                }
+
+                break;
+            }
+            case PlayReq::REQ_MINIMUM_TOTAL_MINIONS:
+            {
+                const int fieldCount =
+                    source->owner->GetFieldZone().GetCount() +
+                    source->owner->opponent->GetFieldZone().GetCount();
+                if (fieldCount < requirement.second)
+                {
+                    return false;
+                }
+                break;
+            }
             case PlayReq::REQ_MINION_TARGET:
             case PlayReq::REQ_ENEMY_TARGET:
             case PlayReq::REQ_NONSELF_TARGET:
