@@ -27,7 +27,9 @@ class SOMCTS
 {
  public:
     explicit SOMCTS(TreeNode& tree)
-        : m_stage(Stage::SELECTION), m_selectionStage(tree)
+        : m_actionParams(*this),
+          m_stage(Stage::SELECTION),
+          m_selectionStage(tree)
     {
         // Do nothing
     }
@@ -55,6 +57,8 @@ class SOMCTS
     {
         PlayState result;
 
+        m_actionParams.Initialize(board);
+
         if (m_stage == Stage::SIMULATION)
         {
             if (m_simulationStage.CutoffCheck(board, stateValue))
@@ -62,15 +66,15 @@ class SOMCTS
                 return true;
             }
 
-            m_simulationStage.StartAction(board);
+            m_simulationStage.StartAction(board, m_actionParams.GetChecker());
 
-            result = board.ApplyAction();
+            result = board.ApplyAction(m_actionParams);
         }
         else
         {
             m_selectionStage.StartAction(board);
 
-            result = board.ApplyAction();
+            result = board.ApplyAction(m_actionParams);
 
             if (m_selectionStage.FinishAction(board, result))
             {
@@ -104,8 +108,7 @@ class SOMCTS
         m_selectionStage.FinishIteration(board, stateValue);
     }
 
-    int ChooseAction(const Board& board,
-                     ActionType actionType,
+    int ChooseAction(const Board& board, ActionType actionType,
                      std::vector<int>& choices)
     {
         assert(!choices.empty());
@@ -121,8 +124,8 @@ class SOMCTS
         {
             assert(m_stage == Stage::SIMULATION);
 
-            const int choice =
-                m_simulationStage.ChooseAction(board, actionType, choices);
+            const int choice = m_simulationStage.ChooseAction(
+                board, m_actionParams.GetChecker(), actionType, choices);
             assert(choice >= 0);
             return choice;
         }
@@ -133,6 +136,42 @@ class SOMCTS
     {
         SELECTION,
         SIMULATION
+    };
+
+    class ActionParams : public RosettaStone::ActionParams
+    {
+     public:
+        ActionParams(SOMCTS& callback) : m_board(nullptr), m_callback(callback)
+        {
+            // Do nothing
+        }
+
+        ActionParams(const ActionParams&) = delete;
+        ActionParams& operator=(const ActionParams&) = delete;
+
+        void Initialize(const Board& board)
+        {
+            m_board = &board;
+            RosettaStone::ActionParams::Initialize(
+                m_board->GetCurrentPlayerStateRefView().GetActionValidGetter());
+        }
+
+        int GetNumber(ActionType actionType, std::vector<int>& choices) final
+        {
+            if (actionType != ActionType::MAIN_ACTION)
+            {
+                if (choices.size() == 1)
+                {
+                    return choices[0];
+                }
+            }
+
+            return m_callback.ChooseAction(*m_board, actionType, choices);
+        }
+
+     private:
+        const Board* m_board;
+        SOMCTS& m_callback;
     };
 
     ActionParams m_actionParams;
