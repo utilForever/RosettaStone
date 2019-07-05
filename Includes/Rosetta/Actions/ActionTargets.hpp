@@ -17,7 +17,7 @@
 
 namespace RosettaStone
 {
-class ActionChecker;
+class ActionValidGetter;
 
 //!
 //! \brief ActionTargets class.
@@ -27,10 +27,10 @@ class ActionTargets
  public:
     ActionTargets();
 
-    void Analyze(const ActionChecker& checker);
+    void Analyze(const ActionValidGetter& getter);
 
  private:
-    void Fill(PlayerType playerType, const ActionChecker& checker);
+    void Fill(PlayerType playerType, const ActionValidGetter& getter);
 
     void Invalidate();
 

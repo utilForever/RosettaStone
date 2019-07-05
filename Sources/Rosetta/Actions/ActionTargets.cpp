@@ -8,6 +8,7 @@
 // References: https://github.com/peter1591/hearthstone-ai
 
 #include <Rosetta/Actions/ActionTargets.hpp>
+#include <Rosetta/Actions/ActionValidGetter.hpp>
 
 namespace RosettaStone
 {
@@ -16,32 +17,32 @@ ActionTargets::ActionTargets()
     Invalidate();
 }
 
-void ActionTargets::Analyze(const ActionChecker& checker)
+void ActionTargets::Analyze(const ActionValidGetter& getter)
 {
     Invalidate();
 
-    Fill(PlayerType::PLAYER1, checker);
-    Fill(PlayerType::PLAYER2, checker);
+    Fill(PlayerType::PLAYER1, getter);
+    Fill(PlayerType::PLAYER2, getter);
 }
 
-void ActionTargets::Fill(PlayerType playerType, const ActionChecker& checker)
+void ActionTargets::Fill(PlayerType playerType, const ActionValidGetter& getter)
 {
     if (playerType == PlayerType::PLAYER1)
     {
-        m_targets[0] = checker.GetHero(playerType);
+        m_targets[0] = getter.GetHero(playerType);
 
         int minionIdx = 1;
-        checker.ForEachMinion(playerType, [&](Minion* minion) {
+        getter.ForEachMinion(playerType, [&](Minion* minion) {
             m_targets[minionIdx] = minion;
             ++minionIdx;
         });
     }
     else
     {
-        m_targets[8] = checker.GetHero(playerType);
+        m_targets[8] = getter.GetHero(playerType);
 
         int minionIdx = 9;
-        checker.ForEachMinion(playerType, [&](Minion* minion) {
+        getter.ForEachMinion(playerType, [&](Minion* minion) {
             m_targets[minionIdx] = minion;
             ++minionIdx;
         });
