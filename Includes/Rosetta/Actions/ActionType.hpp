@@ -14,7 +14,12 @@ namespace RosettaStone
 {
 enum class ActionType
 {
-    MAIN_ACTION
+    MAIN_ACTION,
+    CHOOSE_HAND_CARD,
+    CHOOSE_ATTACKER,
+    CHOOSE_MINION_PUT_LOCATION,
+    CHOOSE_TARGET,
+    CHOOSE_ONE
 };
 }  // namespace RosettaStone
 
