@@ -12,6 +12,7 @@
 
 #include <MCTS/Types.hpp>
 
+#include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
@@ -29,9 +30,11 @@ class ISimulationPolicy
     virtual bool GetCutoffResult(const Board& board,
                                  StateValue& stateValue) = 0;
 
-    virtual void StartAction(const Board& board) = 0;
+    virtual void StartAction(const Board& board,
+                             const ActionValidChecker& checker) = 0;
 
-    virtual int GetChoice(const Board& board, ActionType actionType,
+    virtual int GetChoice(const Board& board, const ActionValidChecker& checker,
+                          ActionType actionType,
                           const std::vector<int>& choices) = 0;
 };
 }  // namespace RosettaTorch::MCTS

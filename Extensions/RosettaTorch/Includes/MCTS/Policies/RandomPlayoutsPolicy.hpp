@@ -12,6 +12,10 @@
 
 #include <MCTS/Policies/ISimulationPolicy.hpp>
 
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
+
 namespace RosettaTorch::MCTS
 {
 class RandomPlayoutsPolicy : public ISimulationPolicy
@@ -22,19 +26,29 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
         return true;
     }
 
-    bool GetCutoffResult(const Board& board, StateValue& stateValue) override
+    bool GetCutoffResult([[maybe_unused]] const Board& board,
+                         [[maybe_unused]] StateValue& stateValue) override
     {
         return true;
     }
 
-    void StartAction(const Board& board) override
+    void StartAction(
+        [[maybe_unused]] const Board& board,
+        [[maybe_unused]] const ActionValidChecker& checker) override
     {
+        // Do nothing
     }
 
-    int GetChoice(const Board& board, ActionType actionType,
+    int GetChoice([[maybe_unused]] const Board& board,
+                  [[maybe_unused]] const ActionValidChecker& checker,
+                  [[maybe_unused]] ActionType actionType,
                   const std::vector<int>& choices) override
     {
-        return 0;
+        const size_t count = choices.size();
+        const auto randIdx = Random::get<size_t>(0, count - 1);
+        const int result = choices[randIdx];
+
+        return result;
     }
 };
 }  // namespace RosettaTorch::MCTS
