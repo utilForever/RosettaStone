@@ -10,7 +10,8 @@
 #ifndef ROSETTASTONE_ACTION_PARAMS_HPP
 #define ROSETTASTONE_ACTION_PARAMS_HPP
 
-#include <Rosetta/Actions/ActionChecker.hpp>
+#include <Rosetta/Actions/ActionType.hpp>
+#include <Rosetta/Actions/ActionValidChecker.hpp>
 
 namespace RosettaStone
 {
@@ -20,11 +21,31 @@ namespace RosettaStone
 class ActionParams
 {
  public:
+    virtual ~ActionParams() = default;
+
     void Initialize(const Game& game);
-    void Initialize(const ActionChecker& checker);
+    void Initialize(const ActionValidGetter& getter);
+
+    const ActionValidChecker& GetChecker() const;
+
+    MainOpType ChooseMainOp();
+
+    int GetMinionPutLocation(int minions);
+
+    Character* GetSpecifiedTarget(const std::vector<Character*>& targets);
+
+    int ChooseOne(int choices);
+
+    Entity* ChooseHandCard();
+
+    Character* GetAttacker();
+
+    virtual int GetNumber(ActionType actionType, std::vector<int>& choices) = 0;
 
  private:
-    ActionChecker m_checker;
+    int GetNumber(ActionType actionType, int exclusiveMax);
+
+    ActionValidChecker m_checker;
 };
 }  // namespace RosettaStone
 

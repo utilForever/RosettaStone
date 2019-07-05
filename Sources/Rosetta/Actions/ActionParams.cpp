@@ -16,8 +16,72 @@ void ActionParams::Initialize(const Game& game)
     m_checker.Check(game);
 }
 
-void ActionParams::Initialize(const ActionChecker& checker)
+void ActionParams::Initialize(const ActionValidGetter& getter)
 {
-    m_checker.Check(checker);
+    m_checker.Check(getter);
+}
+
+const ActionValidChecker& ActionParams::GetChecker() const
+{
+    return m_checker;
+}
+
+MainOpType ActionParams::ChooseMainOp()
+{
+    const auto mainOpsCount = m_checker.GetMainActionsCount();
+    const auto& mainOps = m_checker.GetMainActions();
+    const int mainOpIdx = GetNumber(ActionType::MAIN_ACTION, mainOpsCount);
+
+    return mainOps[mainOpIdx];
+}
+
+int ActionParams::GetMinionPutLocation(int minions)
+{
+    const int idx =
+        GetNumber(ActionType::CHOOSE_MINION_PUT_LOCATION, minions + 1);
+    return idx;
+}
+
+Character* ActionParams::GetSpecifiedTarget(
+    const std::vector<Character*>& targets)
+{
+    if (targets.empty())
+    {
+        return nullptr;
+    }
+
+    const int size = static_cast<int>(targets.size());
+    const int idx = GetNumber(ActionType::CHOOSE_TARGET, size);
+    return targets[idx];
+}
+
+int ActionParams::ChooseOne(int choices)
+{
+    const int val = GetNumber(ActionType::CHOOSE_ONE, choices);
+    return val;
+}
+
+Entity* ActionParams::ChooseHandCard()
+{
+    const auto& playableCards = m_checker.GetPlayableCards();
+    const int idx = GetNumber(ActionType::CHOOSE_HAND_CARD,
+                              static_cast<int>(playableCards.size()));
+    return playableCards[idx];
+}
+
+Character* ActionParams::GetAttacker()
+{
+    const auto& attackers = m_checker.GetAttackers();
+    const int idx = GetNumber(ActionType::CHOOSE_ATTACKER,
+                              static_cast<int>(attackers.size()));
+    return attackers[idx];
+}
+
+int ActionParams::GetNumber(ActionType actionType, int exclusiveMax)
+{
+    std::vector<int> choices;
+    choices.reserve(exclusiveMax);
+
+    return GetNumber(actionType, choices);
 }
 }  // namespace RosettaStone
