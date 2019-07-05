@@ -432,6 +432,46 @@ TEST(PaladinExpert1Test, EX1_354_LayOnHands)
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 29);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [EX1_355] Blessed Champion - COST:5
+// - Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Double a minion's Attack
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Blessed Champion"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tirion Fordring"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    curPlayer.SetUsedMana(0);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    auto& curField = curPlayer.GetFieldZone();
+    EXPECT_EQ(curField[0]->GetAttack(), 12);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary

@@ -270,6 +270,21 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(3));
     cards.emplace("EX1_354", power);
 
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_355] Blessed Champion - COST:5
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Double a minion's Attack
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::ATK));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_355e", EntityType::TARGET));
+    cards.emplace("EX1_355", power);
+
     // --------------------------------------- MINION - PALADIN
     // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -313,6 +328,16 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_383t", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_355e] Blessed Champion - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text : This minion's Attack has been doubled.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::AddAttackScriptTag));
+    cards.emplace("EX1_355e", power);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_619e] Equality - COST:0
