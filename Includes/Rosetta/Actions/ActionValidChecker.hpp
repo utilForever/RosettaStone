@@ -22,45 +22,23 @@ namespace RosettaStone
 class ActionValidChecker
 {
  public:
-    ActionValidChecker(const Game& game) : m_game(game)
-    {
-        // Do nothing
-    }
+    void Reset();
 
     void Check(const Game& game);
-    void Check()
+    void Check(const ActionValidGetter& getter);
 
-    Hero* GetHero(PlayerType playerType) const
-    {
-        const auto hero = (playerType == PlayerType::PLAYER1)
-                              ? m_game.GetPlayer1().GetHero()
-                              : m_game.GetPlayer2().GetHero();
-
-        return hero;
-    }
-
-    template <class Functor>
-    void ForEachMinion(PlayerType playerType, Functor&& functor) const
-    {
-        auto& fieldZone = (playerType == PlayerType::PLAYER1)
-                              ? m_game.GetPlayer1().GetFieldZone()
-                              : m_game.GetPlayer2().GetFieldZone();
-
-        for (auto& minion : fieldZone.GetAll())
-        {
-            functor(minion);
-        }
-    }
+    const std::array<MainOpType, 4>& GetMainActions() const;
+    int GetMainActionsCount() const;
+    const std::vector<Entity*>& GetPlayableCards() const;
+    const std::vector<Character*>& GetAttackers() const;
 
  private:
-    std::array<MainOpType, 4> m_opMap;
+    std::array<MainOpType, 4> m_opMap = {};
     size_t m_opMapSize = 0;
 
-    std::vector<int> m_attacks;
-    std::vector<int> m_playableCards;
+    std::vector<Character*> m_attackers;
+    std::vector<Entity*> m_playableCards;
     ActionTargets m_actionTargets;
-
-    const Game& m_game;
 };
 }  // namespace RosettaStone
 
