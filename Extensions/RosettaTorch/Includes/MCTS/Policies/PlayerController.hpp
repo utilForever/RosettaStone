@@ -86,6 +86,12 @@ class PlayerController
         return RosettaStone::Board(*m_game, player.GetPlayerType());
     }
 
+    void SetGame(const RosettaStone::Game& game)
+    {
+        m_game = &const_cast<RosettaStone::Game&>(game);
+        m_game->StartGame();
+    }
+
  private:
     RosettaStone::Game* m_game = nullptr;
 };
