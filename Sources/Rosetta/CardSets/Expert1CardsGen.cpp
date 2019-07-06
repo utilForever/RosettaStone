@@ -1848,21 +1848,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetAura()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     cards.emplace("NEW1_027", power);
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
-    // - Set: Expert1, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: At the end of your turn,
-    //       give another random friendly minion +1 Attack.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
-        new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
-        new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
-    };
-    cards.emplace("NEW1_037", power);
     
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
@@ -1878,6 +1863,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS_NOSOURCE));
     power.AddPowerTask(new RemoveHandTask(EntityType::HAND));
     cards.emplace("NEW1_030", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       give another random friendly minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        new RandomTask(EntityType::MINIONS_NOSOURCE, 1),
+        new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
+    };
+    cards.emplace("NEW1_037", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
