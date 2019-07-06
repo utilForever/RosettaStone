@@ -7,23 +7,23 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 
 #include <effolkronium/random.hpp>
 
 #include <algorithm>
-#include "Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp"
-#include "Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp"
-#include "Rosetta/Actions/Targeting.hpp"
-#include "Rosetta/Tasks/PlayerTasks/AttackTask.hpp"
-#include "Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp"
 
 using Random = effolkronium::random_static;
 using namespace RosettaStone::PlayerTasks;
@@ -605,22 +605,22 @@ void Game::UpdateAura()
     }
 }
 
-void Game::Process(Player& player, ITask* task)
+PlayState Game::Process(Player& player, ITask* task)
 {
     // Process task
     task->SetPlayer(&player);
     Task::Run(task);
 
-    CheckGameOver();
+    return CheckGameOver();
 }
 
-void Game::Process(Player& player, ITask&& task)
+PlayState Game::Process(Player& player, ITask&& task)
 {
     // Process task
     task.SetPlayer(&player);
     Task::Run(std::move(task));
 
-    CheckGameOver();
+    return CheckGameOver();
 }
 
 void Game::ProcessUntil(Step untilStep)
@@ -708,8 +708,7 @@ PlayState Game::PerformAction(ActionParams& params)
             return PlayState::INVALID;
     }
 
-    Process(GetCurrentPlayer(), task);
-    return PlayState::PLAYING;
+    return Process(GetCurrentPlayer(), task);
 }
 
 ReducedBoardView Game::CreateView() const
@@ -724,7 +723,7 @@ ReducedBoardView Game::CreateView() const
     }
 }
 
-void Game::CheckGameOver()
+PlayState Game::CheckGameOver()
 {
     // Check hero of two players is destroyed
     if (GetPlayer1().GetHero()->isDestroyed)
@@ -751,5 +750,7 @@ void Game::CheckGameOver()
         nextStep = Step::FINAL_WRAPUP;
         GameManager::ProcessNextStep(*this, nextStep);
     }
+
+    return GetCurrentPlayer().playState;
 }
 }  // namespace RosettaStone
