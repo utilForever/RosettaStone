@@ -41,39 +41,13 @@ void Attack(Player& player, Character* source, Character* target)
     const int sourceAttack = source->GetAttack();
 
     // Take damage to target
-    const int targetDamage = target->TakeDamage(*source, sourceAttack);
-    const bool isTargetDamaged = targetDamage > 0;
-
-    // Freeze target if attacker is freezer
-    if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
-    {
-        target->SetGameTag(GameTag::FROZEN, 1);
-    }
-
-    // Destroy target if attacker is poisonous
-    if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
-    {
-        target->Destroy();
-    }
+    target->TakeDamage(*source, sourceAttack);
 
     // Ignore damage from defenders with 0 attack
     if (targetAttack > 0)
     {
         // Take damage to source
-        const int sourceDamage = source->TakeDamage(*target, targetAttack);
-        const bool isSourceDamaged = sourceDamage > 0;
-
-        // Freeze source if defender is freezer
-        if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
-        {
-            source->SetGameTag(GameTag::FROZEN, 1);
-        }
-
-        // Destroy source if defender is poisonous
-        if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
-        {
-            source->Destroy();
-        }
+        source->TakeDamage(*target, targetAttack);
     }
 
     // Remove stealth ability if attacker has it
