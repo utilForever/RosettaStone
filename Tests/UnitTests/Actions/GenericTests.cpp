@@ -57,26 +57,42 @@ TEST(Generic, ChoiceMulligan)
     game.StartGame();
     game.ProcessUntil(Step::MAIN_START);
 
-    std::vector<std::size_t> p1Choices, p2Choices;
+    std::vector<std::size_t> curChoices, opChoices;
     
     auto p1Hand = game.GetCurrentPlayer().GetHandZone().GetAll();
     auto p2Hand = game.GetCurrentPlayer().opponent->GetHandZone().GetAll();
 
     for (auto card : p1Hand)
     {
-        p1Choices.push_back(card->id);
+        curChoices.push_back(card->id);
     }
     for (auto card : p2Hand)
     {
-        p2Choices.push_back(card->id);
+        opChoices.push_back(card->id);
     }
-    Choice p1, p2;
-    p1.choiceAction = ChoiceAction::HAND;
-    p1.choices = p1Choices;
-    p1.choiceType = ChoiceType::MULLIGAN;
-    p2.choiceAction = ChoiceAction::HAND;
-    p2.choices = p2Choices;
-    p2.choiceType = ChoiceType::MULLIGAN;
-    game.GetCurrentPlayer().choice = p1;
-    game.GetCurrentPlayer().opponent->choice = p2;
+
+    Choice curChoice, opChoice;
+
+    curChoice.choiceAction = ChoiceAction::HAND;
+    curChoice.choices = curChoices;
+    curChoice.choiceType = ChoiceType::MULLIGAN;
+
+    opChoice.choiceAction = ChoiceAction::HAND;
+    opChoice.choices = opChoices;
+    opChoice.choiceType = ChoiceType::MULLIGAN;
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    curPlayer.choice = curChoice;
+    opPlayer.choice = opChoice;
+
+    int curHandCount = curPlayer.GetHandZone().GetCount();
+    int opHandCount = opPlayer.GetHandZone().GetCount();
+
+    Generic::ChoiceMulligan(curPlayer, curChoices);
+    Generic::ChoiceMulligan(opPlayer, opChoices);
+
+    EXPECT_EQ(curHandCount, curPlayer.GetHandZone().GetCount());
+    EXPECT_EQ(opHandCount, opPlayer.GetHandZone().GetCount());
 }

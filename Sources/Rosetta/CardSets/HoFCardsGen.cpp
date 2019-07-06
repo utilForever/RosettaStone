@@ -202,7 +202,7 @@ void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     // - TRIGGER_VISUAL = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Effects::AttackHealthN(4)));
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_316e"));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
     cards.emplace("EX1_316e", power);

@@ -117,7 +117,7 @@ TEST(DruidHoFTest, EX1_161_Naturalize)
     const auto card1 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Naturalize"));
     const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
 
@@ -127,7 +127,7 @@ TEST(DruidHoFTest, EX1_161_Naturalize)
     const auto curHandCount = curPlayer.GetHandZone().GetCount();
     game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
 
-    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), curHandCount + 3);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), curHandCount + 2);
     EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 0);
 }
 
@@ -384,6 +384,7 @@ TEST(NeutralHoFTest, EX1_284_AzureDrake)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
+    
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
