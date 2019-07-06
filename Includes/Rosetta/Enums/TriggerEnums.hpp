@@ -28,9 +28,11 @@ enum class TriggerType
                 //!< This event happens just before the character is actually
                 //!< damaged.
     TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
-                  //!< deals damages.
-    TARGET  //!< The effect will be triggered when a card is targeted by an
+                  //!< deals damages to source.
+    TARGET, //!< The effect will be triggered when a card is targeted by an
             //!< attacking minion or a played card.
+    GIVE_DAMAGE,  //!< The effect will be triggered when a spell or a character
+                  //!< deals damages to target.
 };
 
 //! \brief An enumerator for identifying trigger source.

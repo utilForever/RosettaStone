@@ -212,7 +212,13 @@ int Character::TakeDamage(Entity& source, int damage)
     SetDamage(GetDamage() + amount);
     SetPreDamage(0);
 
-    // Process damage triggers
+    // Process give damage triggers
+    if (minion != nullptr && minion->giveDamageTrigger != nullptr)
+    {
+        minion->giveDamageTrigger(owner, &source);
+    }
+
+    // Process task damage triggers
     owner->GetGame()->taskQueue.StartEvent();
     owner->GetGame()->triggerManager.OnTakeDamageTrigger(owner, this);
     owner->GetGame()->ProcessTasks();
