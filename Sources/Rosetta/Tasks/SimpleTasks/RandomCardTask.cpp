@@ -39,8 +39,9 @@ TaskStatus RandomCardTask::Impl(Player& player)
     
     for (auto card : allCards)
     {
-        if (((m_cardType == CardType::INVALID && m_cardType == CardType::MINION && m_cardType == CardType::SPELL)
-                || m_cardType == card.GetCardType()) &&
+        if ((
+            (m_cardType == CardType::INVALID && (card.GetCardType() == CardType::MINION || card.GetCardType() == CardType::SPELL))
+            || m_cardType == card.GetCardType()) &&
              (m_cardClass == CardClass::INVALID || m_cardClass == card.GetCardClass()) &&
              (m_cardRace == Race::INVALID || m_cardRace == card.GetRace()))
         {
