@@ -674,13 +674,34 @@ PlayState Game::PerformAction(ActionParams& params)
         case MainOpType::PLAY_CARD:
         {
             Entity* card = params.ChooseHandCard();
-            Character* target = params.GetSpecifiedTarget(Generic::GetValidTargets(card));
+            Character* target =
+                params.GetSpecifiedTarget(Generic::GetValidTargets(card));
             const int totalMinions =
                 GetCurrentPlayer().GetFieldZone().GetCount();
             const int fieldPos = params.GetMinionPutLocation(totalMinions);
-            const int totalChoices = card->GetGameTag(GameTag::CHOOSE_ONE) == 1 ? 2 : 0;
-            //const int chooseOne = params.ChooseOne(totalChoices);
-            task = new PlayCardTask(card, target, fieldPos/*, chooseOne*/);
+            int chooseOne = 0;
+            if (card->HasChooseOne())
+            {
+                const size_t card1ID =
+                    std::hash<std::string>{}(card->chooseOneCard[0]->card.id);
+                const size_t card2ID =
+                    std::hash<std::string>{}(card->chooseOneCard[1]->card.id);
+
+                std::vector<size_t> cardIDs;
+                cardIDs.emplace_back(card1ID);
+                cardIDs.emplace_back(card2ID);
+
+                const size_t chooseCardID = params.ChooseOne(cardIDs);
+                if (chooseCardID == card1ID)
+                {
+                    chooseOne = 1;
+                }
+                else
+                {
+                    chooseOne = 2;
+                }
+            }
+            task = new PlayCardTask(card, target, fieldPos, chooseOne);
             break;
         }
         case MainOpType::ATTACK:
