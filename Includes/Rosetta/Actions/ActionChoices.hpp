@@ -206,9 +206,9 @@ class ActionChoices
                           m_item);
     }
 
-    bool Empty() const
+    bool IsEmpty() const
     {
-        return std::visit([&](auto&& item) { return item.Empty(); }, m_item);
+        return std::visit([&](auto&& item) { return item.IsEmpty(); }, m_item);
     }
 
     int Size() const
