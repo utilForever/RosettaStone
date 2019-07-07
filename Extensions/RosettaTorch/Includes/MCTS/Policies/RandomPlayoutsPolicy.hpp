@@ -23,7 +23,7 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
  public:
     bool IsEnableCutoff() override
     {
-        return true;
+        return false;
     }
 
     bool GetCutoffResult([[maybe_unused]] const Board& board,
