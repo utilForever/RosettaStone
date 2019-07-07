@@ -679,8 +679,8 @@ PlayState Game::PerformAction(ActionParams& params)
                 GetCurrentPlayer().GetFieldZone().GetCount();
             const int fieldPos = params.GetMinionPutLocation(totalMinions);
             const int totalChoices = card->GetGameTag(GameTag::CHOOSE_ONE) == 1 ? 2 : 0;
-            const int chooseOne = params.ChooseOne(totalChoices);
-            task = new PlayCardTask(card, target, fieldPos, chooseOne);
+            //const int chooseOne = params.ChooseOne(totalChoices);
+            task = new PlayCardTask(card, target, fieldPos/*, chooseOne*/);
             break;
         }
         case MainOpType::ATTACK:
