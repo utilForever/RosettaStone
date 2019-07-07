@@ -7,6 +7,7 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 
@@ -41,4 +42,57 @@ TEST(Generic, GetZone)
               Generic::GetZone(curPlayer, ZoneType::SETASIDE));
     EXPECT_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::INVALID));
     EXPECT_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::REMOVEDFROMGAME));
+}
+
+TEST(Generic, ChoiceMulligan)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    std::vector<std::size_t> curChoices, opChoices;
+    
+    auto p1Hand = game.GetCurrentPlayer().GetHandZone().GetAll();
+    auto p2Hand = game.GetCurrentPlayer().opponent->GetHandZone().GetAll();
+
+    for (auto card : p1Hand)
+    {
+        curChoices.push_back(card->id);
+    }
+    for (auto card : p2Hand)
+    {
+        opChoices.push_back(card->id);
+    }
+
+    Choice curChoice, opChoice;
+
+    curChoice.choiceAction = ChoiceAction::HAND;
+    curChoice.choices = curChoices;
+    curChoice.choiceType = ChoiceType::MULLIGAN;
+
+    opChoice.choiceAction = ChoiceAction::HAND;
+    opChoice.choices = opChoices;
+    opChoice.choiceType = ChoiceType::MULLIGAN;
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    curPlayer.choice = curChoice;
+    opPlayer.choice = opChoice;
+
+    int curHandCount = curPlayer.GetHandZone().GetCount();
+    int opHandCount = opPlayer.GetHandZone().GetCount();
+
+    Generic::ChoiceMulligan(curPlayer, curChoices);
+    Generic::ChoiceMulligan(opPlayer, opChoices);
+
+    EXPECT_EQ(curHandCount, curPlayer.GetHandZone().GetCount());
+    EXPECT_EQ(opHandCount, opPlayer.GetHandZone().GetCount());
 }

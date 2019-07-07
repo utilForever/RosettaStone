@@ -264,7 +264,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // _ DIVINE SHIELD = 1
+    // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
@@ -1848,6 +1848,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetAura()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     cards.emplace("NEW1_027", power);
+    
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
+    // - Race: Dragon, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(new RemoveHandTask(EntityType::HAND));
+    cards.emplace("NEW1_030", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
@@ -2059,7 +2074,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_tk29", power);
 
-    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------

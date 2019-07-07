@@ -1503,25 +1503,13 @@ TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     game.Process(curPlayer, PlayCardTask::Spell(card2));
 
-    if (curField[0]->card.name == "Leokk")
-    {
-        EXPECT_EQ(curField[1]->card.gameTags[GameTag::ATK] + 1,
-                  curField[1]->GetAttack());
-    }
-
-    if (curField[1]->card.name == "Leokk")
-    {
-        EXPECT_EQ(curField[0]->card.gameTags[GameTag::ATK] + 1,
+    int isLeokk1 = (curField[0]->card.name == "Leokk") ? 1 : 0;
+    int isLeokk2 = (curField[1]->card.name == "Leokk") ? 1 : 0;
+    
+    EXPECT_EQ(curField[0]->card.gameTags[GameTag::ATK] + isLeokk2,
                   curField[0]->GetAttack());
-    }
-
-    if (curField[0]->card.name != "Leokk" && curField[1]->card.name != "Leokk")
-    {
-        EXPECT_EQ(curField[0]->card.gameTags[GameTag::ATK],
-                  curField[0]->GetAttack());
-        EXPECT_EQ(curField[1]->card.gameTags[GameTag::ATK],
+    EXPECT_EQ(curField[1]->card.gameTags[GameTag::ATK] + isLeokk1,
                   curField[1]->GetAttack());
-    }
 }
 
 // ------------------------------------------- SPELL - MAGE

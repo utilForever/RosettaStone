@@ -394,12 +394,12 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
 // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
+// Text: <b>Divine Shield</b>, <b>Taunt</b>
 //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
-// _ DIVINE SHIELD = 1
+// - DIVINE_SHIELD = 1
 // - TAUNT = 1
 // - DEATHRATTLE = 1
 // --------------------------------------------------------
@@ -4837,6 +4837,68 @@ TEST(NeutralExpert1Test, NEW1_027_SouthseaCaptain)
     EXPECT_EQ(curField[2]->GetHealth(), 5);
     EXPECT_EQ(curField[3]->GetAttack(), 5);
     EXPECT_EQ(curField[3]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
+// - Race: Dragon, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_030_Deathwing)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Deathwing"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curPlayer.GetFieldZone().GetCount(), 1);
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 0);
+
+    EXPECT_EQ(opPlayer.GetFieldZone().GetCount(), 0);
+    EXPECT_NE(opPlayer.GetHandZone().GetCount(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL
