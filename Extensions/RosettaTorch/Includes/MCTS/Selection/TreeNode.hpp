@@ -52,14 +52,14 @@ class ChildNodeMap
 
     bool HasChild(int choice) const
     {
-        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
+        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
 
         return (m_map.find(choice) != m_map.end());
     }
 
     std::pair<EdgeAddon const*, TreeNode*> Get(int choice) const
     {
-        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
+        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
 
         const auto it = m_map.find(choice);
         if (it == m_map.end())
@@ -75,7 +75,7 @@ class ChildNodeMap
     template <typename Functor>
     void ForEach(Functor&& functor) const
     {
-        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
+        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
 
         for (auto const& kv : m_map)
         {
@@ -89,7 +89,7 @@ class ChildNodeMap
     template <typename Functor>
     void ForEach(Functor&& functor)
     {
-        std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
+        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
 
         for (auto& kv : m_map)
         {
@@ -106,7 +106,7 @@ class ChildNodeMap
         int choice, CreateFunctor&& createChildFunctor)
     {
         {
-            std::shared_lock<RosettaStone::SharedSpinLock> lock(m_mapMutex);
+            std::shared_lock<SharedSpinLock> lock(m_mapMutex);
 
             auto it = m_map.find(choice);
             if (it != m_map.end())
@@ -116,7 +116,7 @@ class ChildNodeMap
         }
 
         {
-            std::lock_guard<RosettaStone::SharedSpinLock> writeLock(m_mapMutex);
+            std::lock_guard<SharedSpinLock> writeLock(m_mapMutex);
 
             auto it = m_map.find(choice);
             if (it != m_map.end())
@@ -137,7 +137,7 @@ class ChildNodeMap
         std::unique_ptr<TreeNode> node;
     };
 
-    mutable RosettaStone::SharedSpinLock m_mapMutex;
+    mutable SharedSpinLock m_mapMutex;
     std::unordered_map<int, ChildType> m_map;
 };
 
