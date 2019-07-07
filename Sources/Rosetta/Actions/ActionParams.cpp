@@ -7,6 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionParams.hpp>
 
 namespace RosettaStone
@@ -31,7 +32,6 @@ MainOpType ActionParams::ChooseMainOp()
     const auto mainOpsCount = m_checker.GetMainActionsCount();
     const auto& mainOps = m_checker.GetMainActions();
     const int mainOpIdx = GetNumber(ActionType::MAIN_ACTION, mainOpsCount);
-
     return mainOps[mainOpIdx];
 }
 
@@ -55,8 +55,9 @@ Character* ActionParams::GetSpecifiedTarget(
     return targets[idx];
 }
 
-int ActionParams::ChooseOne(int choices)
+int ActionParams::ChooseOne(const std::vector<int>& cards)
 {
+    ActionChoices choices(cards);
     const int val = GetNumber(ActionType::CHOOSE_ONE, choices);
     return val;
 }
@@ -79,9 +80,7 @@ Character* ActionParams::GetAttacker()
 
 int ActionParams::GetNumber(ActionType actionType, int exclusiveMax)
 {
-    std::vector<int> choices;
-    choices.reserve(exclusiveMax);
-
+    ActionChoices choices(exclusiveMax);
     return GetNumber(actionType, choices);
 }
 }  // namespace RosettaStone

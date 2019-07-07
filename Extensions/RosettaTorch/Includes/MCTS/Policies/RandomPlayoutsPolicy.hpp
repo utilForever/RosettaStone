@@ -42,11 +42,11 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
     int GetChoice([[maybe_unused]] const Board& board,
                   [[maybe_unused]] const ActionValidChecker& checker,
                   [[maybe_unused]] ActionType actionType,
-                  const std::vector<int>& choices) override
+                  const ChoiceGetter& getter) override
     {
-        const size_t count = choices.size();
+        const size_t count = getter.Size();
         const auto randIdx = Random::get<size_t>(0, count - 1);
-        const int result = choices[randIdx];
+        const int result = getter.Get(randIdx);
 
         return result;
     }

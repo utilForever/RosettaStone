@@ -17,6 +17,7 @@
 #include <MCTS/Selection/TreeNode.hpp>
 #include <MCTS/Types.hpp>
 
+#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionType.hpp>
 
 namespace RosettaTorch::MCTS
@@ -69,9 +70,9 @@ class Selection
         }
     }
 
-    int ChooseAction(ActionType actionType, const std::vector<int>& choices)
+    int ChooseAction(ActionType actionType, ActionChoices& choices)
     {
-        assert(!choices.empty());
+        assert(!choices.IsEmpty());
 
         if (m_path.HasCurrentNodeMadeChoice())
         {
@@ -83,7 +84,8 @@ class Selection
         TreeNode* currentNode = m_path.GetCurrentNode();
         dynamic_cast<UCBPolicy*>(m_policy)->SetChildNode(currentNode->children);
 
-        const int nextChoice = m_policy->SelectChoice(actionType, choices);
+        const int nextChoice = m_policy->SelectChoice(
+            actionType, ChoiceIterator(choices, currentNode->children));
 
         // Should report a valid action
         assert(nextChoice >= 0);

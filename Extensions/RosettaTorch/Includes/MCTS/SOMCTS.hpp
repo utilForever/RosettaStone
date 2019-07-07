@@ -14,6 +14,7 @@
 #include <MCTS/Selection/TreeNode.hpp>
 #include <MCTS/Simulation/Simulation.hpp>
 
+#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionParams.hpp>
 
 namespace RosettaTorch::MCTS
@@ -109,9 +110,9 @@ class SOMCTS
     }
 
     int ChooseAction(const Board& board, ActionType actionType,
-                     std::vector<int>& choices)
+                     ActionChoices& choices)
     {
-        assert(!choices.empty());
+        assert(!choices.IsEmpty());
 
         if (m_stage == Stage::SELECTION)
         {
@@ -156,13 +157,13 @@ class SOMCTS
                 m_board->GetCurrentPlayerStateRefView().GetActionValidGetter());
         }
 
-        int GetNumber(ActionType actionType, std::vector<int>& choices) final
+        int GetNumber(ActionType actionType, ActionChoices& choices) final
         {
             if (actionType != ActionType::MAIN_ACTION)
             {
-                if (choices.size() == 1)
+                if (choices.Size() == 1)
                 {
-                    return choices[0];
+                    return choices.Get(0);
                 }
             }
 

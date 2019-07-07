@@ -45,18 +45,18 @@ class Simulation
     }
 
     int ChooseAction(const Board& board, ActionValidChecker checker,
-                     ActionType actionType,
-                     const std::vector<int>& choices) const
+                     ActionType actionType, const ActionChoices& choices) const
     {
-        assert(!choices.empty());
+        assert(!choices.IsEmpty());
 
-        if (choices.size() == 1)
+        const int choiceSize = choices.Size();
+        if (choiceSize == 1)
         {
             return 0;
         }
 
-        const int choice =
-            m_policy->GetChoice(board, checker, actionType, choices);
+        const int choice = m_policy->GetChoice(board, checker, actionType,
+                                               ChoiceGetter(choiceSize));
         // Always return a valid choice
         assert(choice >= 0);
 

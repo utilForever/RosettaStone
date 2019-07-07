@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_ACTION_PARAMS_HPP
 #define ROSETTASTONE_ACTION_PARAMS_HPP
 
+#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 
@@ -34,13 +35,13 @@ class ActionParams
 
     Character* GetSpecifiedTarget(const std::vector<Character*>& targets);
 
-    int ChooseOne(int choices);
+    int ChooseOne(const std::vector<int>& cards);
 
     Entity* ChooseHandCard();
 
     Character* GetAttacker();
 
-    virtual int GetNumber(ActionType actionType, std::vector<int>& choices) = 0;
+    virtual int GetNumber(ActionType actionType, ActionChoices& choices) = 0;
 
  private:
     int GetNumber(ActionType actionType, int exclusiveMax);

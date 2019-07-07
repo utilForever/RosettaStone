@@ -18,6 +18,43 @@
 namespace RosettaTorch::MCTS
 {
 //!
+//! \brief ChoiceGetter class.
+//!
+class ChoiceGetter
+{
+ public:
+    ChoiceGetter(int choices) : m_choices(choices)
+    {
+        // Do nothing
+    }
+
+    size_t Size() const
+    {
+        return static_cast<size_t>(m_choices);
+    }
+
+    int Get(size_t idx) const
+    {
+        return static_cast<int>(idx);
+    }
+
+    template <typename Functor>
+    void ForEachChoice(Functor&& functor) const
+    {
+        for (int i = 0; i < m_choices; ++i)
+        {
+            if (!functor(i))
+            {
+                return;
+            }
+        }
+    }
+
+ private:
+    int m_choices;
+};
+
+//!
 //! \brief ISimulationPolicy class.
 //!
 class ISimulationPolicy
@@ -35,7 +72,7 @@ class ISimulationPolicy
 
     virtual int GetChoice(const Board& board, const ActionValidChecker& checker,
                           ActionType actionType,
-                          const std::vector<int>& choices) = 0;
+                          const ChoiceGetter& getter) = 0;
 };
 }  // namespace RosettaTorch::MCTS
 

@@ -32,23 +32,20 @@ class UCBPolicy : public ISelectionPolicy
         m_children = &children;
     }
 
-    int SelectChoice(RosettaStone::ActionType actionType,
-                     const std::vector<int>& choices) override
+    int SelectChoice(ActionType actionType, ChoiceIterator choiceIter) override
     {
         constexpr size_t MAX_CHOICES = 16;
-        std::array<std::pair<int, const EdgeAddon*>, MAX_CHOICES> choiceArray;
+        std::array<ChoiceIterator::Item, MAX_CHOICES> choices{};
         size_t choicesIdx = 0;
 
         // Phase 1: get total chosen times, and record to 'choices'
         std::int64_t totalChosenTimes = 0;
-        for (size_t i = 0; i < choices.size(); ++i)
+        for (choiceIter.Begin(); !choiceIter.IsEnd(); choiceIter.StepNext())
         {
-            choiceArray[choicesIdx].first = choices[i];
-            choiceArray[choicesIdx].second = GetEdgeAddon(i);
-
-            auto& item = choiceArray[choicesIdx];
-            const int choice = item.first;
-            const auto edgeAddon = item.second;
+            choiceIter.Get(choices[choicesIdx]);
+            auto& item = choices[choicesIdx];
+            const int choice = item.choice;
+            const auto edgeAddon = item.edgeAddon;
 
             if (!edgeAddon)
             {
@@ -84,7 +81,7 @@ class UCBPolicy : public ISelectionPolicy
         const auto getScore = [totalChosenTimes](
                                   RosettaStone::ActionType actionType,
                                   size_t choiceIdx, size_t choiceCount,
-                                  const EdgeAddon* edgeAddon) {
+                                  const ChoiceIterator::Item& item) {
             double exploreWeight = EXPLORE_WEIGHT;
 
             if (actionType == RosettaStone::ActionType::MAIN_ACTION)
@@ -97,11 +94,11 @@ class UCBPolicy : public ISelectionPolicy
                 }
             }
 
-            const double exploitScore = edgeAddon->GetAverageCredit();
+            const double exploitScore = item.edgeAddon->GetAverageCredit();
             assert(exploitScore >= -1.0);
             assert(exploitScore <= 1.0);
 
-            auto chosenTimes = edgeAddon->GetChosenTimes();
+            auto chosenTimes = item.edgeAddon->GetChosenTimes();
             // In case another thread visited it
             if (chosenTimes > totalChosenTimes)
             {
@@ -122,7 +119,7 @@ class UCBPolicy : public ISelectionPolicy
         for (size_t idx = 0; idx < choicesIdx; ++idx)
         {
             const double score =
-                getScore(actionType, idx, choicesIdx, choiceArray[idx].second);
+                getScore(actionType, idx, choicesIdx, choices[idx]);
             if (score > bestScore)
             {
                 bestChoice = idx;
@@ -130,7 +127,7 @@ class UCBPolicy : public ISelectionPolicy
             }
         }
 
-        return choiceArray[bestChoice].first;
+        return choices[bestChoice].choice;
     }
 
  private:
