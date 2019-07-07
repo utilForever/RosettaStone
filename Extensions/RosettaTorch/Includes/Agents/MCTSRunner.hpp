@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_AGENTS_MCTS_RUNNER_HPP
 #define ROSETTASTONE_TORCH_AGENTS_MCTS_RUNNER_HPP
 
+#include <MCTS/Statistics.h>
 #include <Agents/MCTSConfig.hpp>
 #include <MCTS/MOMCTS.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
@@ -41,7 +42,7 @@ class MCTSRunner
         for (int i = 0; i < m_config.threads; ++i)
         {
             m_threads.emplace_back([this]() {
-                MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree);
+                MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics);
 
                 while (!m_stopFlag.load())
                 {
@@ -67,18 +68,25 @@ class MCTSRunner
 
                     for (size_t j = 0; j < START_DECK_SIZE; ++j)
                     {
-                        config.player1Deck[j] =
-                            Cards::GetInstance().FindCardByID(deck[j]);
-                        config.player2Deck[j] =
-                            Cards::GetInstance().FindCardByID(deck[j]);
+                        config.player1Deck[j] = Cards::FindCardByID(deck[j]);
+                        config.player2Deck[j] = Cards::FindCardByID(deck[j]);
                     }
 
-                    Game game(config);
-                    mcts.Iterate(game);
-                    // statistic_.IterateSucceeded();
+                    while (!m_stopFlag.load())
+                    {
+                        Game game(config);
+                        mcts.Iterate(game);
+
+                        m_statistics.IterateSucceeded();
+                    }
                 }
             });
         }
+    }
+
+    const MCTS::Statistics<>& GetStatistics() const
+    {
+        return m_statistics;
     }
 
     auto GetRootNode(PlayerType playerType) const
@@ -117,6 +125,7 @@ class MCTSRunner
 
     MCTS::TreeNode m_p1Tree;
     MCTS::TreeNode m_p2Tree;
+    MCTS::Statistics<> m_statistics;
 
     std::atomic_bool m_stopFlag;
 };

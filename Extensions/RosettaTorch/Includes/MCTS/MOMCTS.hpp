@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MOMCTS_HPP
 #define ROSETTASTONE_TORCH_MOMCTS_HPP
 
+#include <MCTS/Statistics.h>
 #include <MCTS/Policies/PlayerController.hpp>
 #include <MCTS/SOMCTS.hpp>
 
@@ -23,8 +24,8 @@ namespace RosettaTorch::MCTS
 class MOMCTS
 {
  public:
-    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree)
-        : m_player1(p1Tree), m_player2(p2Tree)
+    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics)
+        : m_player1(p1Tree, statistics), m_player2(p2Tree, statistics)
     {
         // Do nothing
     }

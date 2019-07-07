@@ -33,6 +33,7 @@ using UpdatePolicy = TreeUpdate;
 using SelectionPhaseRandomActionPolicy = RandomByMt19937;
 using SelectionPhaseSelectActionPolicy = UCBPolicy;
 
+constexpr static bool ENABLE_STATISTICS = true;
 constexpr static int CREDIT_GRANULARITY = 100;
 constexpr static int VIRTUAL_LOSS = 3;
 constexpr static bool RECORD_LEADING_NODES =

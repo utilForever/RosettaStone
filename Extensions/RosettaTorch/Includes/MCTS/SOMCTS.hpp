@@ -27,10 +27,11 @@ namespace RosettaTorch::MCTS
 class SOMCTS
 {
  public:
-    explicit SOMCTS(TreeNode& tree)
+    explicit SOMCTS(TreeNode& tree, Statistics<>& statistics)
         : m_actionParams(*this),
           m_stage(Stage::SELECTION),
-          m_selectionStage(tree)
+          m_selectionStage(tree),
+          m_statistics(statistics)
     {
         // Do nothing
     }
@@ -70,12 +71,18 @@ class SOMCTS
             m_simulationStage.StartAction(board, m_actionParams.GetChecker());
 
             result = board.ApplyAction(m_actionParams);
+
+			constexpr bool isSimulation = true;
+            m_statistics.ApplyActionSucceeded(isSimulation);
         }
         else
         {
             m_selectionStage.StartAction(board);
 
             result = board.ApplyAction(m_actionParams);
+
+			constexpr bool isSimulation = false;
+            m_statistics.ApplyActionSucceeded(isSimulation);
 
             if (m_selectionStage.FinishAction(board, result))
             {
@@ -179,6 +186,7 @@ class SOMCTS
     Stage m_stage;
     Selection m_selectionStage;
     Simulation m_simulationStage;
+    Statistics<>& m_statistics;
 };
 }  // namespace RosettaTorch::MCTS
 
