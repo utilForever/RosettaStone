@@ -14,6 +14,8 @@
 #include <MCTS/MOMCTS.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
+#include <Rosetta/Cards/Cards.hpp>
+
 #include <thread>
 
 namespace RosettaTorch::Agents
@@ -31,14 +33,15 @@ class MCTSRunner
         WaitUntilStopped();
     }
 
-    void Run(const Game& game)
+    void Run()
     {
         assert(m_threads.empty());
         m_stopFlag = false;
 
         for (int i = 0; i < m_config.threads; ++i)
         {
-            m_threads.emplace_back([this, &game]() {
+            m_threads.emplace_back([this]() {
+
                 // engine::view::BoardView board_view;
                 // engine::view::board_view::UnknownCardsInfo first_unknown;
                 // engine::view::board_view::UnknownCardsInfo second_unknown;
@@ -76,6 +79,35 @@ class MCTSRunner
 
                 while (!m_stopFlag.load())
                 {
+                    GameConfig config;
+                    config.player1Class = CardClass::PRIEST;
+                    config.player2Class = CardClass::MAGE;
+                    config.startPlayer = PlayerType::PLAYER1;
+                    config.doShuffle = false;
+                    config.doFillDecks = false;
+                    config.skipMulligan = true;
+                    config.autoRun = true;
+
+                    std::array<std::string, START_DECK_SIZE> deck = {
+                        "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
+                        "CS1_113", "CS1_113", "CS1_130", "CS1_130",  // 2
+                        "CS2_007", "CS2_007", "CS2_022", "CS2_022",  // 3
+                        "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
+                        "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
+                        "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
+                        "CS2_032", "CS2_032", "CS2_033", "CS2_033",  // 7
+                        "CS2_037", "CS2_037"
+                    };
+
+                    for (size_t j = 0; j < START_DECK_SIZE; ++j)
+                    {
+                        config.player1Deck[j] =
+                            Cards::GetInstance().FindCardByID(deck[j]);
+                        config.player2Deck[j] =
+                            Cards::GetInstance().FindCardByID(deck[j]);
+                    }
+
+                    Game game(config);
                 //    int sample_seed = get_next_selection_seed();
                 //    selection_rand.seed(sample_seed);
                     mcts.Iterate(game);

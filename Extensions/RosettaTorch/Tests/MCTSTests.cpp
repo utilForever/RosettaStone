@@ -9,8 +9,6 @@
 
 #include <MCTS/InteractiveShell.hpp>
 
-#include <Rosetta/Cards/Cards.hpp>
-
 #include <iostream>
 #include <sstream>
 
@@ -20,15 +18,6 @@ static Agents::MCTSConfig g_config;
 
 void Run(Agents::MCTSRunner* controller, int secs)
 {
-    GameConfig config;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = true;
-
-    Game game(config);
-
     auto& s = std::cout;
 
     s << "Running for " << secs << " seconds with " << g_config.threads
@@ -59,7 +48,7 @@ void Run(Agents::MCTSRunner* controller, int secs)
     };
 
     // auto startIter = controller->GetStatistic().GetSuccededIterates();
-    controller->Run(game);
+    controller->Run();
     // controller->Run(BoardRefView(game, game.GetCurrentPlayer().playerType));
     while (true)
     {
