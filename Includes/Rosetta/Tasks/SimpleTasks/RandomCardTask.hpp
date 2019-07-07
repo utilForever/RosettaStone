@@ -17,16 +17,25 @@ class RandomCardTask : public ITask
     //! \param cardType The type of card.
     //! \param cardClass The class of card.
     //! \param cardRace The race of card.
-    RandomCardTask(CardType cardType = CardType::INVALID,
-                   CardClass cardClass = CardClass::INVALID, Race cardRace = Race::INVALID);
+    RandomCardTask(CardType cardType,
+                   CardClass cardClass = CardClass::INVALID,
+                   Race cardRace = Race::INVALID);
+
+    //! Constructs task with given \p cardTypes, \p cardClasses and \p races.
+    //! \param cardType The type of card.
+    //! \param cardClass The class of card.
+    //! \param cardRace The race of card.
+    RandomCardTask(std::vector<CardType> cardTypes,
+                   std::vector<CardClass> cardClasses = std::vector<CardClass>(),
+                   std::vector<Race> cardRaces = std::vector<Race>());
 
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
 
-    const CardType m_cardType;
-    const CardClass m_cardClass;
-    const Race m_cardRace;
+    std::vector<CardType> m_cardTypes;
+    std::vector<CardClass> m_cardClasses;
+    std::vector<Race> m_cardRaces;
 
  private:
     //! Processes task logic internally and returns meta data.
