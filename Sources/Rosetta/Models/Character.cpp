@@ -214,10 +214,10 @@ int Character::TakeDamage(Entity& source, int damage)
 
     // Process give damage triggers
     auto sourceMinion = dynamic_cast<Minion*>(&source);
-    if (sourceMinion != nullptr && sourceMinion->giveDamageTrigger != nullptr)
+    if (sourceMinion != nullptr && sourceMinion->dealDamageTrigger != nullptr)
     {
         owner->GetGame()->taskQueue.StartEvent();
-        sourceMinion->giveDamageTrigger(owner->opponent, this);
+        sourceMinion->dealDamageTrigger(owner->opponent, this);
         owner->GetGame()->ProcessTasks();
         owner->GetGame()->taskQueue.EndEvent();
     }

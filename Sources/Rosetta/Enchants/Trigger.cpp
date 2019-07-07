@@ -157,10 +157,10 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = std::move(triggerFunc);
             break;
-        case TriggerType::GIVE_DAMAGE:
+        case TriggerType::DEAL_DAMAGE:
         {
             auto minion = dynamic_cast<Minion*>(source);
-            minion->giveDamageTrigger = std::move(triggerFunc);
+            minion->dealDamageTrigger = std::move(triggerFunc);
             break;
         }
         default:
@@ -256,10 +256,10 @@ void Trigger::Remove() const
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = nullptr;
             break;
-        case TriggerType::GIVE_DAMAGE:
+        case TriggerType::DEAL_DAMAGE:
         {
             auto minion = dynamic_cast<Minion*>(m_owner);
-            minion->giveDamageTrigger = nullptr;
+            minion->dealDamageTrigger = nullptr;
             break;
         }
         default:

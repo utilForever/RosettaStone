@@ -639,7 +639,7 @@ TEST(Trigger, GiveDamage)
     auto& curField = curPlayer.GetFieldZone();
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::GIVE_DAMAGE));
+    card1.power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, card1);

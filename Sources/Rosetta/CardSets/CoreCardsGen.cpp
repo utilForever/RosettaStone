@@ -889,7 +889,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::GIVE_DAMAGE));
+    power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
     power.GetTrigger()->tasks = {
         new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1) };
     cards.emplace("CS2_033", power);

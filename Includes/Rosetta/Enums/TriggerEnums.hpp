@@ -31,7 +31,7 @@ enum class TriggerType
                   //!< deals damages to source.
     TARGET, //!< The effect will be triggered when a card is targeted by an
             //!< attacking minion or a played card.
-    GIVE_DAMAGE,  //!< The effect will be triggered when a spell or a character
+    DEAL_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages to target.
 };
 

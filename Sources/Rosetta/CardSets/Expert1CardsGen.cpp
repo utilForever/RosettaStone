@@ -640,7 +640,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     // - POISONOUS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::GIVE_DAMAGE));
+    power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
     power.GetTrigger()->tasks = {
         new DestroyTask(EntityType::TARGET)
     };
@@ -1869,7 +1869,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - POISONOUS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::GIVE_DAMAGE));
+    power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
     power.GetTrigger()->tasks = {
         new DestroyTask(EntityType::TARGET)
     };
