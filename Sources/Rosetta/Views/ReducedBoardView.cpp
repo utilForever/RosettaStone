@@ -46,7 +46,7 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& board)
     m_opHero.Fill(*board.GetOpponentHero());
     m_opHeroPower.Fill(*board.GetHeroPower(opPlayerType));
     m_opWeapon.Invalidate();
-    if (board.GetWeapon(m_playerType) != nullptr)
+    if (board.GetWeapon(opPlayerType) != nullptr)
     {
         m_opWeapon.Fill(*board.GetWeapon(opPlayerType));
     }
