@@ -35,9 +35,9 @@ MainOpType ActionParams::ChooseMainOp()
     return mainOps[mainOpIdx];
 }
 
-int ActionParams::GetMinionPutLocation(int minions)
+size_t ActionParams::GetMinionPutLocation(int minions)
 {
-    const int idx =
+    const size_t idx =
         GetNumber(ActionType::CHOOSE_MINION_PUT_LOCATION, minions + 1);
     return idx;
 }
@@ -51,34 +51,33 @@ Character* ActionParams::GetSpecifiedTarget(
     }
 
     const int size = static_cast<int>(targets.size());
-    const int idx = GetNumber(ActionType::CHOOSE_TARGET, size);
+    const size_t idx = GetNumber(ActionType::CHOOSE_TARGET, size);
     return targets[idx];
 }
 
-int ActionParams::ChooseOne(const std::vector<int>& cards)
+size_t ActionParams::ChooseOne(const std::vector<size_t>& cards)
 {
     ActionChoices choices(cards);
-    const int val = GetNumber(ActionType::CHOOSE_ONE, choices);
+    const size_t val = GetNumber(ActionType::CHOOSE_ONE, choices);
     return val;
 }
 
 Entity* ActionParams::ChooseHandCard()
 {
     const auto& playableCards = m_checker.GetPlayableCards();
-    const int idx = GetNumber(ActionType::CHOOSE_HAND_CARD,
-                              static_cast<int>(playableCards.size()));
+    const size_t idx =
+        GetNumber(ActionType::CHOOSE_HAND_CARD, playableCards.size());
     return playableCards[idx];
 }
 
 Character* ActionParams::GetAttacker()
 {
     const auto& attackers = m_checker.GetAttackers();
-    const int idx = GetNumber(ActionType::CHOOSE_ATTACKER,
-                              static_cast<int>(attackers.size()));
+    const size_t idx = GetNumber(ActionType::CHOOSE_ATTACKER, attackers.size());
     return attackers[idx];
 }
 
-int ActionParams::GetNumber(ActionType actionType, int exclusiveMax)
+size_t ActionParams::GetNumber(ActionType actionType, size_t exclusiveMax)
 {
     ActionChoices choices(exclusiveMax);
     return GetNumber(actionType, choices);

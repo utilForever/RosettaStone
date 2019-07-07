@@ -26,7 +26,7 @@ class ActionChoices
     class InvalidChoice
     {
      public:
-        int Get([[maybe_unused]] size_t idx) const
+        size_t Get([[maybe_unused]] size_t idx) const
         {
             throw std::exception();
         }
@@ -36,7 +36,7 @@ class ActionChoices
             throw std::exception();
         }
 
-        int Size() const
+        size_t Size() const
         {
             throw std::exception();
         }
@@ -46,7 +46,7 @@ class ActionChoices
             throw std::exception();
         }
 
-        int Get() const
+        size_t Get() const
         {
             throw std::exception();
         }
@@ -65,15 +65,15 @@ class ActionChoices
     class ChooseFromZeroToExclusiveMax
     {
      public:
-        ChooseFromZeroToExclusiveMax(int exclusiveMax)
+        ChooseFromZeroToExclusiveMax(size_t exclusiveMax)
             : m_exclusiveMax(exclusiveMax), m_iter(0)
         {
             // Do nothing
         }
 
-        int Get(size_t idx) const
+        size_t Get(size_t idx) const
         {
-            assert(static_cast<int>(idx) < m_exclusiveMax);
+            assert(idx < m_exclusiveMax);
             return static_cast<int>(idx);
         }
 
@@ -82,7 +82,7 @@ class ActionChoices
             return m_exclusiveMax <= 0;
         }
 
-        int Size() const
+        size_t Size() const
         {
             return m_exclusiveMax;
         }
@@ -92,7 +92,7 @@ class ActionChoices
             m_iter = 0;
         }
 
-        int Get() const
+        size_t Get() const
         {
             return m_iter;
         }
@@ -108,23 +108,23 @@ class ActionChoices
         }
 
      private:
-        int m_exclusiveMax;
-        int m_iter;
+        size_t m_exclusiveMax;
+        size_t m_iter;
     };
 
     class ChooseFromCardIDs
     {
      public:
-        ChooseFromCardIDs(std::vector<int> cardIDs)
+        ChooseFromCardIDs(std::vector<size_t> cardIDs)
             : m_cardIDs(std::move(cardIDs))
         {
             // Do nothing
         }
 
-        int Get(size_t idx) const
+        size_t Get(size_t idx) const
         {
             assert(idx < m_cardIDs.size());
-            return static_cast<int>(m_cardIDs[idx]);
+            return m_cardIDs[idx];
         }
 
         bool IsEmpty() const
@@ -132,7 +132,7 @@ class ActionChoices
             return m_cardIDs.empty();
         }
 
-        int Size() const
+        size_t Size() const
         {
             return m_cardIDs.size();
         }
@@ -142,9 +142,9 @@ class ActionChoices
             m_iter = m_cardIDs.begin();
         }
 
-        int Get() const
+        size_t Get() const
         {
-            return static_cast<int>(*m_iter);
+            return *m_iter;
         }
 
         void StepNext()
@@ -158,8 +158,8 @@ class ActionChoices
         }
 
      private:
-        std::vector<int> m_cardIDs;
-        std::vector<int>::const_iterator m_iter;
+        std::vector<size_t> m_cardIDs;
+        std::vector<size_t>::const_iterator m_iter;
     };
 
     ActionChoices() : m_item(InvalidChoice())
@@ -200,7 +200,7 @@ class ActionChoices
         return m_item.index();
     }
 
-    int Get(size_t idx) const
+    size_t Get(size_t idx) const
     {
         return std::visit([&](auto&& item) -> int { return item.Get(idx); },
                           m_item);
@@ -211,7 +211,7 @@ class ActionChoices
         return std::visit([&](auto&& item) { return item.IsEmpty(); }, m_item);
     }
 
-    int Size() const
+    size_t Size() const
     {
         return std::visit([&](auto&& item) { return item.Size(); }, m_item);
     }
@@ -221,7 +221,7 @@ class ActionChoices
         return std::visit([&](auto&& item) { return item.Begin(); }, m_item);
     }
 
-    int Get() const
+    size_t Get() const
     {
         return std::visit([&](auto&& item) { return item.Get(); }, m_item);
     }

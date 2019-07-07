@@ -157,7 +157,7 @@ class SOMCTS
                 m_board->GetCurrentPlayerStateRefView().GetActionValidGetter());
         }
 
-        int GetNumber(ActionType actionType, ActionChoices& choices) final
+        size_t GetNumber(ActionType actionType, ActionChoices& choices) final
         {
             if (actionType != ActionType::MAIN_ACTION)
             {
