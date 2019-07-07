@@ -24,8 +24,14 @@ TEST(DamageTask, GetTaskID)
 TEST(DamageTask, Run)
 {
     GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
     Game game(config);
+    game.StartGame();
 
     Player& player1 = game.GetPlayer1();
 
@@ -53,8 +59,14 @@ TEST(DamageTask, Run)
 TEST(DamageTask, SpellPower)
 {
     GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
     Game game(config);
+    game.StartGame();
 
     Player& player1 = game.GetPlayer1();
 
