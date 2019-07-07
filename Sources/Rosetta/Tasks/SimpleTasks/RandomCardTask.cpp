@@ -43,7 +43,6 @@ TaskStatus RandomCardTask::Impl(Player& player)
     const bool passRaceCheck = (m_cardRaces.empty() || m_cardRaces[0] == Race::INVALID);
 
     auto filter = [&](const Card& card) -> bool{
-        
         if (card.gameTags.at(GameTag::COLLECTIBLE) != 1)
         {
             return false;
