@@ -37,8 +37,8 @@ class Selection
         // Do nothing
     }
 
-    Selection(Selection const&) = delete;
-    Selection& operator=(Selection const&) = delete;
+    Selection(const Selection&) = delete;
+    Selection& operator=(const Selection&) = delete;
 
     auto GetRootNode() const
     {
@@ -85,7 +85,6 @@ class Selection
             assert(!m_path.HasCurrentNodeMadeChoice());
         }
 
-        // For UCB policy
         TreeNode* currentNode = m_path.GetCurrentNode();
         assert(currentNode->addon.consistencyChecker.SetAndCheck(actionType,
                                                                  choices));
