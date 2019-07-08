@@ -32,15 +32,15 @@ class StateValue
         return -m_value;
     }
 
-    void SetValue(PlayState state)
+    void SetValue(PlayerType type, PlayState state)
     {
         if (state == PlayState::WON)
         {
-            m_value = 1.0f;
+            m_value = (type == PlayerType::PLAYER1 ? 1.0f : -1.0f);
         }
         else if (state == PlayState::LOST)
         {
-            m_value = -1.0f;
+            m_value = (type == PlayerType::PLAYER1 ? -1.0f : 1.0f);
         }
         else if (state == PlayState::TIED)
         {

@@ -30,8 +30,7 @@ class CreditPolicy
     static float GetCredit(const Board& board,
                            StateValue stateValue)
     {
-        auto& player = board.GetCurrentPlayer();
-        return stateValue.GetValue(player.playerType);
+        return stateValue.GetValue(board.GetViewType());
     }
 };
 }  // namespace RosettaTorch::MCTS

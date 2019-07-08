@@ -72,7 +72,7 @@ class SOMCTS
 
             result = board.ApplyAction(m_actionParams);
 
-			constexpr bool isSimulation = true;
+            constexpr bool isSimulation = true;
             m_statistics.ApplyActionSucceeded(isSimulation);
         }
         else
@@ -81,7 +81,7 @@ class SOMCTS
 
             result = board.ApplyAction(m_actionParams);
 
-			constexpr bool isSimulation = false;
+            constexpr bool isSimulation = false;
             m_statistics.ApplyActionSucceeded(isSimulation);
 
             if (m_selectionStage.FinishAction(board, result))
@@ -90,10 +90,9 @@ class SOMCTS
             }
         }
 
-        if (result == PlayState::WON || result == PlayState::LOST ||
-            result == PlayState::TIED)
+        if (result != PlayState::PLAYING)
         {
-            stateValue.SetValue(result);
+            stateValue.SetValue(board.GetViewType(), result);
             return true;
         }
 
