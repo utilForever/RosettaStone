@@ -51,7 +51,7 @@ class EdgeAddon
         return ret;
     }
 
-    void AddCredit(float score, int repeat_times = 1)
+    void AddCredit(float score, int repeatTimes = 1)
     {
         const int totalIncrement = CREDIT_GRANULARITY;
         const int creditIncrement =
@@ -62,8 +62,8 @@ class EdgeAddon
 
         // These two fields are not updated in an atomic operation. But this
         // should be fine...
-        m_total += totalIncrement * repeat_times;
-        m_credit += creditIncrement * repeat_times;
+        m_total += totalIncrement * repeatTimes;
+        m_credit += creditIncrement * repeatTimes;
     }
 
     auto GetTotal() const
