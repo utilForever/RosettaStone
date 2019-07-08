@@ -14,6 +14,7 @@
 #include <MCTS/Selection/TraversedNodeInfo.hpp>
 
 #include <queue>
+#include <unordered_set>
 
 namespace RosettaTorch::MCTS
 {
@@ -55,6 +56,17 @@ class TreeUpdater
             return;
         }
 
+#ifndef NDEBUG
+        m_shouldVisits.clear();
+        for (auto const& item : nodes)
+        {
+            if (item.edgeAddon)
+            {
+                m_shouldVisits.insert(item.edgeAddon);
+            }
+        }
+#endif
+
         for (auto it = nodes.crbegin(); it != nodes.crend(); ++it)
         {
             if (!it->edgeAddon)
@@ -65,6 +77,10 @@ class TreeUpdater
             TreeLikeUpdateWinRate(it->node, it->edgeAddon, credit);
             break;
         }
+
+#ifndef NDEBUG
+        assert(m_shouldVisits.empty());
+#endif
 
         return;
     }
@@ -88,6 +104,9 @@ class TreeUpdater
 
             if (edgeAddon)
             {
+#ifndef NDEBUG
+                m_shouldVisits.erase(edgeAddon);
+#endif
                 edgeAddon->AddCredit(credit);
             }
 
@@ -109,6 +128,10 @@ class TreeUpdater
     };
 
     std::queue<Item> m_bfs;
+
+#ifndef NDEBUG
+    std::unordered_set<EdgeAddon*> m_shouldVisits;
+#endif
 };
 }  // namespace RosettaTorch::MCTS
 
