@@ -14,6 +14,7 @@ namespace RosettaStone
 {
 enum class ActionType
 {
+    INVALID,
     MAIN_ACTION,
     CHOOSE_HAND_CARD,
     CHOOSE_ATTACKER,
