@@ -62,6 +62,11 @@ class Selection
 
         auto currentNode = m_path.GetCurrentNode();
         assert(currentNode);
+        assert(currentNode->addon.consistencyChecker.CheckActionType(
+            ActionType::MAIN_ACTION));
+        (void)board;
+        assert(currentNode->addon.consistencyChecker.CheckBoard(
+            board.CreateView()));
 
         if (m_redirectNodeMap == nullptr)
         {
@@ -82,7 +87,8 @@ class Selection
 
         // For UCB policy
         TreeNode* currentNode = m_path.GetCurrentNode();
-        dynamic_cast<UCBPolicy*>(m_policy)->SetChildNode(currentNode->children);
+        assert(currentNode->addon.consistencyChecker.SetAndCheck(actionType,
+                                                                 choices));
 
         const int nextChoice = m_policy->SelectChoice(
             actionType, ChoiceIterator(choices, currentNode->children));

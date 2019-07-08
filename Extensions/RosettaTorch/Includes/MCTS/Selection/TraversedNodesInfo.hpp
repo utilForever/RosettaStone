@@ -112,6 +112,8 @@ class TraversedNodesInfo
             TreeNode* nextNode =
                 redirectNodeMap->GetOrCreateNode(board, &m_newNodeCreated);
             assert(nextNode);
+            assert(nextNode->addon.consistencyChecker.CheckActionType(
+                ActionType::MAIN_ACTION));
             AddPathNode(m_currentNode, m_pendingChoice, edgeAddon, nextNode);
         }
     }
