@@ -16,7 +16,6 @@ struct MCTSConfig
 {
     MCTSConfig()
         : threads(1),
-          treeSamples(10),
           iterationsPerAction(10000),
           callbackInterval(1000),
           actionFollowTemperature(0.0)
@@ -25,7 +24,6 @@ struct MCTSConfig
     }
 
     int threads;
-    int treeSamples;
 
     int iterationsPerAction;
     int callbackInterval;

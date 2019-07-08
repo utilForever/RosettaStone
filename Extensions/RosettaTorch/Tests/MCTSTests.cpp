@@ -104,7 +104,6 @@ int main()
     Cards::GetInstance();
 
     g_config.threads = 1;
-    g_config.treeSamples = 10;
 
     Agents::MCTSRunner controller(g_config);
     MCTS::InteractiveShell handler(&controller);

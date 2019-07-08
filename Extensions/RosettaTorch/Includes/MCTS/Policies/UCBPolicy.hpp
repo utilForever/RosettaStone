@@ -27,11 +27,6 @@ class UCBPolicy : public ISelectionPolicy
  public:
     constexpr static double EXPLORE_WEIGHT = 0.2;
 
-    void SetChildNode(ChildNodeMap& children)
-    {
-        m_children = &children;
-    }
-
     int SelectChoice(ActionType actionType, ChoiceIterator choiceIter) override
     {
         constexpr size_t MAX_CHOICES = 16;
@@ -79,12 +74,12 @@ class UCBPolicy : public ISelectionPolicy
 
         // Phase 2: use UCB to make a choice
         const auto getScore = [totalChosenTimes](
-                                  RosettaStone::ActionType actionType,
-                                  size_t choiceIdx, size_t choiceCount,
+                                  ActionType actionType, size_t choiceIdx,
+                                  size_t choiceCount,
                                   const ChoiceIterator::Item& item) {
             double exploreWeight = EXPLORE_WEIGHT;
 
-            if (actionType == RosettaStone::ActionType::MAIN_ACTION)
+            if (actionType == ActionType::MAIN_ACTION)
             {
                 if (choiceIdx == choiceCount - 1)
                 {
@@ -129,14 +124,6 @@ class UCBPolicy : public ISelectionPolicy
 
         return choices[bestChoice].choice;
     }
-
- private:
-    const EdgeAddon* GetEdgeAddon(int choice) const
-    {
-        return m_children->Get(choice).first;
-    }
-
-    const ChildNodeMap* m_children = nullptr;
 };
 }  // namespace RosettaTorch::MCTS
 
