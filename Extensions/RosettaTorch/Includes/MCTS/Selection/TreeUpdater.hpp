@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_UPDATER_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_UPDATER_HPP
 
-#include <MCTS/Configs.hpp>
+#include <MCTS/Constants.hpp>
 #include <MCTS/Selection/TraversedNodeInfo.hpp>
 
 #include <queue>

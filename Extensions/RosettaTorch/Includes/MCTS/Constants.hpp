@@ -7,8 +7,8 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_TORCH_MCTS_CONFIGS_HPP
-#define ROSETTASTONE_TORCH_MCTS_CONFIGS_HPP
+#ifndef ROSETTASTONE_TORCH_MCTS_CONSTANTS_HPP
+#define ROSETTASTONE_TORCH_MCTS_CONSTANTS_HPP
 
 #include <type_traits>
 
@@ -33,4 +33,4 @@ constexpr static bool RECORD_LEADING_NODES =
 
 }  // namespace RosettaTorch::MCTS
 
-#endif  // ROSETTASTONE_TORCH_MCTS_CONFIGS_HPP
+#endif  // ROSETTASTONE_TORCH_MCTS_CONSTANTS_HPP

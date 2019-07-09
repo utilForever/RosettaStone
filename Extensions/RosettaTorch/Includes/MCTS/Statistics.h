@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_STATISTICS_HPP
 #define ROSETTASTONE_TORCH_MCTS_STATISTICS_HPP
 
-#include <MCTS/Configs.hpp>
+#include <MCTS/Constants.hpp>
 
 #include <atomic>
 #include <sstream>
