@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUTS_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUTS_POLICY_HPP
 
-#include <MCTS/Policies/ISimulationPolicy.hpp>
+#include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
 
 #include <effolkronium/random.hpp>
 

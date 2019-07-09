@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 
-#include <MCTS/Policies/ISelectionPolicy.hpp>
+#include <MCTS/Policies/Selection/ISelectionPolicy.hpp>
 #include <MCTS/Selection/EdgeAddon.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
