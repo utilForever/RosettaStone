@@ -1,5 +1,5 @@
 # Target name
-set(target TorchTests)
+set(target MCTSTests)
 
 # Includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
