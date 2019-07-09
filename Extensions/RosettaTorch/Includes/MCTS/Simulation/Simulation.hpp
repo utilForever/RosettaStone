@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 #define ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 
-#include <MCTS/Policies/ISimulationPolicy.hpp>
-#include <MCTS/Policies/RandomPlayoutsPolicy.hpp>
+#include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
+#include <MCTS/Policies/Simulation/RandomPlayoutsPolicy.hpp>
 
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 
