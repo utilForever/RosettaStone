@@ -11,6 +11,7 @@
 #define ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 
 #include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
+#include <MCTS/Policies/Simulation/RandomCutoffPolicy.hpp>
 #include <MCTS/Policies/Simulation/RandomPlayoutsPolicy.hpp>
 
 #include <Rosetta/Actions/ActionValidChecker.hpp>
