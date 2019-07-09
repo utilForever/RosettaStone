@@ -11,6 +11,7 @@
 #define ROSETTASTONE_TORCH_MCTS_SELECTION_HPP
 
 #include <MCTS/Policies/CreditPolicy.hpp>
+#include <MCTS/Policies/Selection/RandomPolicy.hpp>
 #include <MCTS/Policies/Selection/UCBPolicy.hpp>
 #include <MCTS/Policies/StageController.hpp>
 #include <MCTS/Selection/TraversedNodesInfo.hpp>
