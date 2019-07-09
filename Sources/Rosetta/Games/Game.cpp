@@ -707,16 +707,16 @@ PlayState Game::PerformAction(ActionParams& params)
         case MainOpType::ATTACK:
         {
             Character* source = params.GetAttacker();
-            Character* target =
-                params.GetSpecifiedTarget(Generic::GetValidTargets(source));
+            Character* target = params.GetSpecifiedTarget(
+                source->GetValidCombatTargets(*GetCurrentPlayer().opponent));
             task = new AttackTask(source, target);
             break;
         }
         case MainOpType::USE_HERO_POWER:
         {
             Hero* hero = GetCurrentPlayer().GetHero();
-            Character* target =
-                params.GetSpecifiedTarget(Generic::GetValidTargets(hero));
+            Character* target = params.GetSpecifiedTarget(
+                Generic::GetValidTargets(hero->heroPower));
             task = new HeroPowerTask(target);
             break;
         }
