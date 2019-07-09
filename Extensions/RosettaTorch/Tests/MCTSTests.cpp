@@ -49,8 +49,9 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
         return true;
     };
 
-    auto startIter = controller->GetStatistics().GetSuccededIterates();
+    const auto startIter = controller->GetStatistics().GetSuccededIterates();
     controller->Run();
+
     while (true)
     {
         if (!continueChecker())
@@ -60,19 +61,21 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
 
         std::this_thread::sleep_for(std::chrono::microseconds(100));
     }
+
     controller->NotifyStop();
     controller->WaitUntilStopped();
-    auto endIter = controller->GetStatistics().GetSuccededIterates();
+    const auto endIter = controller->GetStatistics().GetSuccededIterates();
 
     s << std::endl;
     s << "Done iterations: " << (endIter - startIter) << std::endl;
     s << "====== Statistics =====" << std::endl;
     s << controller->GetStatistics().GetDebugMessage();
 
-    auto now = std::chrono::steady_clock::now();
-    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now - start)
-                  .count();
-    auto speed = static_cast<double>(endIter - startIter) / ms * 1000;
+    const auto now = std::chrono::steady_clock::now();
+    const auto ms =
+        std::chrono::duration_cast<std::chrono::milliseconds>(now - start)
+            .count();
+    const auto speed = static_cast<double>(endIter - startIter) / ms * 1000;
     s << "Iterations per second: " << speed << std::endl;
     s << std::endl;
 }
@@ -100,8 +103,6 @@ void CheckRun(const std::string& cmdLine, Agents::MCTSRunner* controller)
 int main()
 {
     Cards::GetInstance();
-
-    g_config.threads = 1;
 
     Agents::MCTSRunner controller(g_config);
 
