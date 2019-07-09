@@ -14,11 +14,6 @@
 
 namespace RosettaTorch::MCTS
 {
-class StageController;
-class CreditPolicy;
-class RandomByMt19937;
-class UCBPolicy;
-
 struct TreeUpdate
 {
     // Do nothing
@@ -28,16 +23,13 @@ struct LinearUpdate
     // Do nothing
 };
 
-using UpdatePolicy = TreeUpdate;
-
-using SelectionPhaseRandomActionPolicy = RandomByMt19937;
-using SelectionPhaseSelectActionPolicy = UCBPolicy;
+using UpdaterPolicy = TreeUpdate;
 
 constexpr static bool ENABLE_STATISTICS = true;
 constexpr static int CREDIT_GRANULARITY = 100;
 constexpr static int VIRTUAL_LOSS = 3;
 constexpr static bool RECORD_LEADING_NODES =
-    std::is_same_v<UpdatePolicy, TreeUpdate>;
+    std::is_same_v<UpdaterPolicy, TreeUpdate>;
 
 }  // namespace RosettaTorch::MCTS
 

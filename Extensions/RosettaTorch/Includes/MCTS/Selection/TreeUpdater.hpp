@@ -31,7 +31,7 @@ class TreeUpdater
 
     template <class RetType = void>
     auto Update(const std::vector<TraversedNodeInfo>& nodes, float credit)
-        -> std::enable_if_t<std::is_same_v<UpdatePolicy, LinearUpdate>, RetType>
+        -> std::enable_if_t<std::is_same_v<UpdaterPolicy, LinearUpdate>, RetType>
     {
         for (const auto& item : nodes)
         {
@@ -49,7 +49,7 @@ class TreeUpdater
 
     template <class RetType = void>
     auto Update(const std::vector<TraversedNodeInfo>& nodes, float credit)
-        -> std::enable_if_t<std::is_same_v<UpdatePolicy, TreeUpdate>, RetType>
+        -> std::enable_if_t<std::is_same_v<UpdaterPolicy, TreeUpdate>, RetType>
     {
         if (nodes.empty())
         {
@@ -89,7 +89,7 @@ class TreeUpdater
     template <class RetType = void>
     auto TreeLikeUpdateWinRate(TreeNode* startNode, EdgeAddon* startEdge,
                                float credit)
-        -> std::enable_if_t<std::is_same_v<UpdatePolicy, TreeUpdate>, RetType>
+        -> std::enable_if_t<std::is_same_v<UpdaterPolicy, TreeUpdate>, RetType>
     {
         assert(startNode);
 
