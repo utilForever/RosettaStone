@@ -40,4 +40,4 @@ class RandomPolicy : public ISelectionPolicy
 };
 }  // namespace RosettaTorch::MCTS
 
-#endif  // ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
+#endif  // ROSETTASTONE_TORCH_MCTS_RANDOM_POLICY_HPP

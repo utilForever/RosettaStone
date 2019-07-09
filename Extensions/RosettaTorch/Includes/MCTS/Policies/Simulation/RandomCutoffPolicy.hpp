@@ -61,4 +61,4 @@ class RandomCutoffPolicy : public ISimulationPolicy
 };
 }  // namespace RosettaTorch::MCTS
 
-#endif  // ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUTS_POLICY_HPP
+#endif  // ROSETTASTONE_TORCH_MCTS_RANDOM_CUTOFF_POLICY_HPP
