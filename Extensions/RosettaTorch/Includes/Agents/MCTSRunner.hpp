@@ -24,22 +24,17 @@ namespace RosettaTorch::Agents
 class MCTSRunner
 {
  public:
-    MCTSRunner(const MCTSConfig& config) : m_config(config), m_stopFlag(false)
-    {
-        // Do nothing
-    }
-
     ~MCTSRunner()
     {
         WaitUntilStopped();
     }
 
-    void Run()
+    void Run(MCTSConfig& config)
     {
         assert(m_threads.empty());
         m_stopFlag = false;
 
-        for (int i = 0; i < m_config.threads; ++i)
+        for (int i = 0; i < config.threads; ++i)
         {
             m_threads.emplace_back([this]() {
                 MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics);
@@ -117,14 +112,13 @@ class MCTSRunner
     }
 
  private:
-    MCTSConfig m_config;
     std::vector<std::thread> m_threads;
 
     MCTS::TreeNode m_p1Tree;
     MCTS::TreeNode m_p2Tree;
     MCTS::Statistics<> m_statistics;
 
-    std::atomic_bool m_stopFlag;
+    std::atomic_bool m_stopFlag = false;
 };
 }  // namespace RosettaTorch::Agents
 
