@@ -7,7 +7,8 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <MCTS/InteractiveShell.hpp>
+#include <Agents/MCTSConfig.hpp>
+#include <Agents/MCTSRunner.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -16,7 +17,8 @@ using namespace RosettaTorch;
 
 static Agents::MCTSConfig g_config;
 
-void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller, int secs)
+void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
+         int secs)
 {
     auto& s = std::cout;
 
@@ -75,7 +77,7 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller, int s
     s << std::endl;
 }
 
-bool CheckRun(const std::string& cmdLine, Agents::MCTSRunner* controller)
+void CheckRun(const std::string& cmdLine, Agents::MCTSRunner* controller)
 {
     std::stringstream ss(cmdLine);
 
@@ -85,7 +87,6 @@ bool CheckRun(const std::string& cmdLine, Agents::MCTSRunner* controller)
     if (cmd == "t" || cmd == "threads")
     {
         ss >> g_config.threads;
-        return true;
     }
 
     if (cmd == "s" || cmd == "start")
@@ -93,10 +94,7 @@ bool CheckRun(const std::string& cmdLine, Agents::MCTSRunner* controller)
         int secs = 0;
         ss >> secs;
         Run(g_config, controller, secs);
-        return true;
     }
-
-    return false;
 }
 
 int main()
@@ -106,8 +104,6 @@ int main()
     g_config.threads = 1;
 
     Agents::MCTSRunner controller(g_config);
-    MCTS::InteractiveShell handler(&controller);
-    handler.SetConfig(g_config);
 
     while (std::cin)
     {
@@ -121,12 +117,6 @@ int main()
             break;
         }
 
-        if (CheckRun(cmdline, &controller))
-        {
-            continue;
-        }
-
-        std::istringstream iss(cmdline);
-        handler.DoCommand(iss, std::cout);
+        CheckRun(cmdline, &controller);
     }
 }
