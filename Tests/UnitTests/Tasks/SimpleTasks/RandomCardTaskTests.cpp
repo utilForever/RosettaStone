@@ -53,8 +53,15 @@ const auto Check = [](std::string id, std::vector<CardType> cardTypes,
     game.StartGame();
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(p, new RandomCardTask(cardTypes, cardClasses, cardRaces));
-    game.Process(p, new AddStackToTask(EntityType::HAND));
+    {
+        SCOPED_TRACE("process RandomCardTask");
+        game.Process(p, new RandomCardTask(cardTypes, cardClasses, cardRaces));
+    }
+
+    {
+        SCOPED_TRACE("process AddStackToTask");
+        game.Process(p, new AddStackToTask(EntityType::HAND));
+    }
 
     const auto hand = p.GetHandZone().GetAll();
     const auto target = hand.at(hand.size() - 1);
