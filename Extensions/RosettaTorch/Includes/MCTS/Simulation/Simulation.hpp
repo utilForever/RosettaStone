@@ -32,7 +32,8 @@ class Simulation
     {
         if (m_policy->IsEnableCutoff())
         {
-            return m_policy->GetCutoffResult(board, stateValue);
+            return m_policy->GetCutoffResult(board, stateValue) !=
+                   PlayState::PLAYING;
         }
 
         return false;

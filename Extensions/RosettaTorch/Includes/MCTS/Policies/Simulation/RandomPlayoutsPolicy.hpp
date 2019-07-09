@@ -26,10 +26,10 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
         return false;
     }
 
-    bool GetCutoffResult([[maybe_unused]] const Board& board,
-                         [[maybe_unused]] StateValue& stateValue) override
+    PlayState GetCutoffResult([[maybe_unused]] const Board& board,
+                              [[maybe_unused]] StateValue& stateValue) override
     {
-        return true;
+        return PlayState::PLAYING;
     }
 
     void StartAction(

@@ -64,8 +64,8 @@ class ISimulationPolicy
 
     virtual bool IsEnableCutoff() = 0;
 
-    virtual bool GetCutoffResult(const Board& board,
-                                 StateValue& stateValue) = 0;
+    virtual PlayState GetCutoffResult(const Board& board,
+                                      StateValue& stateValue) = 0;
 
     virtual void StartAction(const Board& board,
                              const ActionValidChecker& checker) = 0;
