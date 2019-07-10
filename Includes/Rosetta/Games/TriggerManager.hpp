@@ -62,6 +62,11 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnSummonTrigger(Player* player, Entity* sender) const;
 
+    //! Callback for trigger when entity deals damage.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnDealDamageTrigger(Player* player, Entity* sender) const;
+
     //! Callback for trigger when entity is taken damage.
     //! \param player A player to execute trigger.
     //! \param sender An entity that is the source of trigger.
@@ -80,6 +85,7 @@ class TriggerManager
     std::function<void(Player*, Entity*)> healTrigger;
     std::function<void(Player*, Entity*)> attackTrigger;
     std::function<void(Player*, Entity*)> summonTrigger;
+    std::function<void(Player*, Entity*)> dealDamageTrigger;
     std::function<void(Player*, Entity*)> takeDamageTrigger;
     std::function<void(Player*, Entity*)> targetTrigger;
 };

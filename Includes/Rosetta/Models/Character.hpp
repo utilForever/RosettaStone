@@ -125,7 +125,6 @@ class Character : public Entity
 
     std::function<void(Player*, Entity*)> afterAttackTrigger;
     std::function<void(Player*, Entity*)> preDamageTrigger;
-    std::function<void(Player*, Entity*)> dealDamageTrigger;
 };
 }  // namespace RosettaStone
 

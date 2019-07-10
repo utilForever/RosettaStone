@@ -424,6 +424,69 @@ TEST(Trigger, Summon)
     game.ProcessDestroyAndUpdateAura();
 }
 
+TEST(Trigger, DealDamage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    auto card1 = GenerateMinionCard("minion1", 3, 6);
+    card1.power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
+    card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+
+    PlayMinionCard(curPlayer, card1);
+
+    curField[0]->Destroy();
+    game.ProcessDestroyAndUpdateAura();
+}
+
+TEST(Trigger, TakeDamage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    auto card1 = GenerateMinionCard("minion1", 3, 6);
+    card1.power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+
+    PlayMinionCard(curPlayer, card1);
+
+    curField[0]->Destroy();
+    game.ProcessDestroyAndUpdateAura();
+}
+
 TEST(Trigger, Predamage_None)
 {
     GameConfig config;
@@ -554,37 +617,6 @@ TEST(Trigger, Predamage_EnchantmentTarget)
     game.ProcessDestroyAndUpdateAura();
 }
 
-TEST(Trigger, TakeDamage)
-{
-    GameConfig config;
-    config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::WARLOCK;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.StartGame();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-
-    auto& curField = curPlayer.GetFieldZone();
-
-    auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
-
-    PlayMinionCard(curPlayer, card1);
-
-    curField[0]->Destroy();
-    game.ProcessDestroyAndUpdateAura();
-}
-
 TEST(Trigger, Target)
 {
     GameConfig config;
@@ -609,38 +641,6 @@ TEST(Trigger, Target)
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::TARGET));
-
-    PlayMinionCard(curPlayer, card1);
-
-    curField[0]->Destroy();
-    game.ProcessDestroyAndUpdateAura();
-}
-
-TEST(Trigger, GiveDamage)
-{
-    GameConfig config;
-    config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::WARLOCK;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.StartGame();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-
-    auto& curField = curPlayer.GetFieldZone();
-
-    auto card1 = GenerateMinionCard("minion1", 3, 6);
-    card1.power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
-    card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
     PlayMinionCard(curPlayer, card1);
 

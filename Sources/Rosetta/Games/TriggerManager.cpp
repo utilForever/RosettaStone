@@ -72,6 +72,14 @@ void TriggerManager::OnSummonTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnDealDamageTrigger(Player* player, Entity* sender) const
+{
+    if (dealDamageTrigger != nullptr)
+    {
+        dealDamageTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnTakeDamageTrigger(Player* player, Entity* sender) const
 {
     if (takeDamageTrigger != nullptr)
