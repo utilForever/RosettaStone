@@ -86,9 +86,9 @@ class PlayerController
         return RosettaStone::Board(*m_game, player.GetPlayerType());
     }
 
-    void SetGame(const RosettaStone::Game& game)
+    void StartGame(RosettaStone::GameConfig&& config)
     {
-        m_game = &const_cast<RosettaStone::Game&>(game);
+        m_game = new RosettaStone::Game(config);
         m_game->StartGame();
     }
 

@@ -67,8 +67,7 @@ class MCTSRunner
 
                 while (!m_stopFlag.load())
                 {
-                    Game game(config);
-                    mcts.Iterate(game);
+                    mcts.Iterate(config);
 
                     m_statistics.IterateSucceeded();
                 }
