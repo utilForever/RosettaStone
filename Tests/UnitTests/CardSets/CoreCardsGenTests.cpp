@@ -2041,12 +2041,12 @@ TEST(MageCoreTest, CS2_033_WaterElemental)
 
     game.Process(curPlayer, AttackTask(card1, card2));
 
-    EXPECT_EQ(opField.GetCount(), 1);
     EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(opField.GetAll()[0]->GetDamage(), 3);
-    EXPECT_EQ(curField.GetAll()[0]->GetDamage(), 4);
-    EXPECT_EQ(opField.GetAll()[0]->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(curField.GetAll()[0]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(opField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
 }
 
 // ------------------------------------------- SPELL - MAGE
