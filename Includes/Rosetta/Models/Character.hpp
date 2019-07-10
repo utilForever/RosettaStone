@@ -28,7 +28,7 @@ class Character : public Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Character(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Character(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     virtual ~Character() = default;

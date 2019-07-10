@@ -31,10 +31,10 @@ TaskStatus AddCardTask::Impl(Player& player)
         case EntityType::ENEMY_HAND:
             for (int i = 0; i < m_amount; ++i)
             {
-                Card card = Cards::GetInstance().FindCardByID(m_cardID);
+                Card* card = Cards::GetInstance().FindCardByID(m_cardID);
                 Generic::AddCardToHand(
                     *player.opponent,
-                    Entity::GetFromCard(*player.opponent, std::move(card)));
+                    Entity::GetFromCard(*player.opponent, card));
             }
             break;
         default:

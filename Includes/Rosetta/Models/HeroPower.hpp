@@ -26,7 +26,7 @@ class HeroPower : public Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    HeroPower(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    HeroPower(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~HeroPower() = default;

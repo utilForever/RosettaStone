@@ -17,9 +17,9 @@ void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
     if (spell->IsSecret())
     {
         // Process trigger
-        if (spell->card.power.GetTrigger())
+        if (spell->card->power.GetTrigger())
         {
-            spell->card.power.GetTrigger()->Activate(spell);
+            spell->card->power.GetTrigger()->Activate(spell);
         }
 
         player.GetSecretZone().Add(*spell);
@@ -28,15 +28,15 @@ void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
     else
     {
         // Process trigger
-        if (spell->card.power.GetTrigger())
+        if (spell->card->power.GetTrigger())
         {
-            spell->card.power.GetTrigger()->Activate(spell);
+            spell->card->power.GetTrigger()->Activate(spell);
         }
 
         // Process aura
-        if (spell->card.power.GetAura())
+        if (spell->card->power.GetAura())
         {
-            spell->card.power.GetAura()->Activate(spell);
+            spell->card->power.GetAura()->Activate(spell);
         }
 
         // Process power or combo tasks

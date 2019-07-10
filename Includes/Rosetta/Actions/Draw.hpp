@@ -20,7 +20,7 @@ Entity* Draw(Player& player, Entity* cardToDraw = nullptr);
 //! \param player The player to add card to the hand.
 //! \param card A card to draw to the hand.
 //! \return A dynamic allocated entity object.
-Entity* DrawCard(Player& player, Card&& card);
+Entity* DrawCard(Player& player, Card* card);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_DRAW_HPP

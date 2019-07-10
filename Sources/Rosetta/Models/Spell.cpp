@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-Spell::Spell(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+Spell::Spell(Player& _owner, Card* _card, std::map<GameTag, int> tags)
     : Entity(_owner, _card, std::move(tags))
 {
     // Do nothing

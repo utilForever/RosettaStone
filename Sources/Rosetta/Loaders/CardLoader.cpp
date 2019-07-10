@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-void CardLoader::Load(std::vector<Card>& cards)
+void CardLoader::Load(std::vector<Card*>& cards)
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -107,31 +107,31 @@ void CardLoader::Load(std::vector<Card>& cards)
             entourages.emplace_back(entourage.get<std::string>());
         }
 
-        Card card;
-        card.id = id;
-        card.name = name;
-        card.text = text;
+        Card* card = new Card();
+        card->id = id;
+        card->name = name;
+        card->text = text;
 
-        card.gameTags = gameTags;
-        card.playRequirements = playRequirements;
-        card.entourages = entourages;
+        card->gameTags = gameTags;
+        card->playRequirements = playRequirements;
+        card->entourages = entourages;
 
-        card.gameTags[GameTag::ATK] = attack;
-        card.gameTags[GameTag::CARDRACE] = cardRace;
-        card.gameTags[GameTag::CARD_SET] = cardSet;
-        card.gameTags[GameTag::CARDTYPE] = cardType;
-        card.gameTags[GameTag::CLASS] = cardClass;
-        card.gameTags[GameTag::COLLECTIBLE] = collectible;
-        card.gameTags[GameTag::COST] = cost;
-        card.gameTags[GameTag::DAMAGE] = 0;
-        card.gameTags[GameTag::DURABILITY] = durability;
-        card.gameTags[GameTag::FACTION] = faction;
-        card.gameTags[GameTag::HEALTH] = health;
-        card.gameTags[GameTag::RARITY] = rarity;
-        card.gameTags[GameTag::SPELLPOWER] = spellPower;
-        card.gameTags[GameTag::OVERLOAD] = overload;
+        card->gameTags[GameTag::ATK] = attack;
+        card->gameTags[GameTag::CARDRACE] = cardRace;
+        card->gameTags[GameTag::CARD_SET] = cardSet;
+        card->gameTags[GameTag::CARDTYPE] = cardType;
+        card->gameTags[GameTag::CLASS] = cardClass;
+        card->gameTags[GameTag::COLLECTIBLE] = collectible;
+        card->gameTags[GameTag::COST] = cost;
+        card->gameTags[GameTag::DAMAGE] = 0;
+        card->gameTags[GameTag::DURABILITY] = durability;
+        card->gameTags[GameTag::FACTION] = faction;
+        card->gameTags[GameTag::HEALTH] = health;
+        card->gameTags[GameTag::RARITY] = rarity;
+        card->gameTags[GameTag::SPELLPOWER] = spellPower;
+        card->gameTags[GameTag::OVERLOAD] = overload;
 
-        card.Initialize();
+        card->Initialize();
 
         cards.emplace_back(card);
     }

@@ -190,13 +190,13 @@ std::vector<Entity*> BoardRefView::GetOpponentHandCards() const
 
     for (auto& entity : result)
     {
-        if (entity->card.id == "GAME_005")
+        if (entity->card->id == "GAME_005")
         {
             // The Coin. This also reveals to opponent.
         }
         else
         {
-            entity->card.id = "INVALID";
+            entity->card->id = "INVALID";
         }
     }
 

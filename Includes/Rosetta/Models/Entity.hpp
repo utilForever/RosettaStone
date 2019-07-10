@@ -39,7 +39,7 @@ class Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Entity(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Destructor.
     virtual ~Entity();
@@ -143,12 +143,12 @@ class Entity
     //! \param id An entity ID to assign to the newly created entity.
     //! \return A pointer to entity that is allocated dynamically.
     static Entity* GetFromCard(
-        Player& player, Card&& card,
+        Player& player, Card* card,
         std::optional<std::map<GameTag, int>> cardTags = std::nullopt,
         IZone* zone = nullptr, int id = -1);
 
     Player* owner = nullptr;
-    Card card;
+    Card* card;
 
     IZone* zone = nullptr;
 

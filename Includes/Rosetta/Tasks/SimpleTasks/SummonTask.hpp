@@ -31,7 +31,7 @@ class SummonTask : public ITask
  public:
     //! Constructs task with given \p side, \p card and \p amount.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
-                        const std::optional<Card>& card = std::nullopt,
+                        const std::optional<Card*>& card = std::nullopt,
                         int amount = 1);
 
     //! Constructs task with given \p cardID and \p amount.
@@ -55,7 +55,7 @@ class SummonTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::optional<Card> m_card = std::nullopt;
+    std::optional<Card*> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;
     int m_amount = 1;
 };

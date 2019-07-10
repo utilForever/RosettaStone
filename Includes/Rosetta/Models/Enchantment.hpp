@@ -29,7 +29,7 @@ class Enchantment : public Entity
     //! \param _card The card.
     //! \param tags The game tags.
     //! \param target A target of enchantment.
-    Enchantment(Player& _owner, Card& _card, std::map<GameTag, int> tags,
+    Enchantment(Player& _owner, Card* _card, std::map<GameTag, int> tags,
                 Entity* target);
 
     //! Default destructor.
@@ -52,7 +52,7 @@ class Enchantment : public Entity
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
     //! \return The resulting enchantment entity.
-    static Enchantment* GetInstance(Player& player, Card& card, Entity* target);
+    static Enchantment* GetInstance(Player& player, Card* card, Entity* target);
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.

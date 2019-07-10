@@ -107,7 +107,7 @@ bool ActionValidGetter::CanUseHeroPower() const
 
 bool ActionValidGetter::IsPlayable(Entity* entity) const
 {
-    if (entity->card.GetCardType() == CardType::MINION)
+    if (entity->card->GetCardType() == CardType::MINION)
     {
         if (m_game.GetCurrentPlayer().GetFieldZone().IsFull())
         {
@@ -115,7 +115,7 @@ bool ActionValidGetter::IsPlayable(Entity* entity) const
         }
     }
 
-    if (entity->card.HasGameTag(GameTag::SECRET))
+    if (entity->card->HasGameTag(GameTag::SECRET))
     {
         if (m_game.GetCurrentPlayer().GetSecretZone().Exist(*entity))
         {

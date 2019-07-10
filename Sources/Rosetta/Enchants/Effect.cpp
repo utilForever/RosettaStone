@@ -86,7 +86,7 @@ void Effect::Remove(Entity* entity) const
             break;
         case EffectOperator::SUB:
             entity->SetGameTag(m_gameTag,
-                               entity->card.gameTags.at(m_gameTag) + m_value);
+                               entity->card->gameTags.at(m_gameTag) + m_value);
             break;
         case EffectOperator::SET:
             entity->SetGameTag(m_gameTag, 0);

@@ -30,7 +30,7 @@ TaskStatus TransformTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        Card card = Cards::FindCardByID(m_cardID);
+        Card* card = Cards::FindCardByID(m_cardID);
 
         auto* minion = dynamic_cast<Minion*>(entity);
         if (minion == nullptr)
@@ -38,7 +38,7 @@ TaskStatus TransformTask::Impl(Player& player)
             return TaskStatus::STOP;
         }
 
-        Generic::TransformMinion(*minion->owner, minion, std::move(card));
+        Generic::TransformMinion(*minion->owner, minion, card);
     }
 
     return TaskStatus::COMPLETE;

@@ -14,10 +14,10 @@
 
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+Entity::Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags)
     : owner(&_owner), card(_card), m_gameTags(std::move(tags))
 {
-    for (auto& gameTag : _card.gameTags)
+    for (auto& gameTag : _card->gameTags)
     {
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
@@ -105,8 +105,8 @@ int Entity::GetGameTag(GameTag tag) const
     const auto entityVal = m_gameTags.find(tag);
     if (entityVal == m_gameTags.end())
     {
-        const auto cardVal = card.gameTags.find(tag);
-        if (cardVal != card.gameTags.end())
+        const auto cardVal = card->gameTags.find(tag);
+        if (cardVal != card->gameTags.end())
         {
             value = cardVal->second;
         }
@@ -235,13 +235,13 @@ void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
     switch (type)
     {
         case PowerType::POWER:
-            tasks = card.power.GetPowerTask();
+            tasks = card->power.GetPowerTask();
             break;
         case PowerType::DEATHRATTLE:
-            tasks = card.power.GetDeathrattleTask();
+            tasks = card->power.GetDeathrattleTask();
             break;
         case PowerType::COMBO:
-            tasks = card.power.GetComboTask();
+            tasks = card->power.GetComboTask();
             break;
     }
 
@@ -260,7 +260,7 @@ void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
     }
 }
 
-Entity* Entity::GetFromCard(Player& player, Card&& card,
+Entity* Entity::GetFromCard(Player& player, Card* card,
                             std::optional<std::map<GameTag, int>> cardTags,
                             IZone* zone, int id)
 {
@@ -277,7 +277,7 @@ Entity* Entity::GetFromCard(Player& player, Card&& card,
 
     Entity* result;
 
-    switch (card.GetCardType())
+    switch (card->GetCardType())
     {
         case CardType::HERO:
             result = new Hero(player, card, tags);
@@ -306,10 +306,10 @@ Entity* Entity::GetFromCard(Player& player, Card&& card,
         delete result->chooseOneCard[1];
 
         result->chooseOneCard[0] =
-            GetFromCard(player, Cards::FindCardByID(result->card.id + "a"),
+            GetFromCard(player, Cards::FindCardByID(result->card->id + "a"),
                         std::nullopt, &player.GetSetasideZone());
         result->chooseOneCard[1] =
-            GetFromCard(player, Cards::FindCardByID(result->card.id + "b"),
+            GetFromCard(player, Cards::FindCardByID(result->card->id + "b"),
                         std::nullopt, &player.GetSetasideZone());
     }
 

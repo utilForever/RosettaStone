@@ -113,7 +113,7 @@ struct HeroPower
 
     void Fill(RosettaStone::HeroPower& power)
     {
-        cardID = power.card.id;
+        cardID = power.card->id;
         isExhausted = power.IsExhausted();
     }
 
@@ -150,7 +150,7 @@ struct Weapon
 
     void Fill(const RosettaStone::Weapon& weapon)
     {
-        cardID = weapon.card.id;
+        cardID = weapon.card->id;
         attack = weapon.GetAttack();
         durability = weapon.GetDurability();
         isEquipped = true;
@@ -257,7 +257,7 @@ struct Minion
 
     void Fill(const RosettaStone::Minion& minion)
     {
-        cardID = minion.card.id;
+        cardID = minion.card->id;
         attack = minion.GetAttack();
         health = minion.GetHealth();
         isSilenced = (minion.GetGameTag(GameTag::SILENCED) == 1);
@@ -362,7 +362,7 @@ struct MyHandCard
 
     void Fill(RosettaStone::Entity& entity)
     {
-        cardID = entity.card.id;
+        cardID = entity.card->id;
         cost = entity.GetCost();
         attack = entity.GetGameTag(GameTag::ATK);
         health = entity.GetGameTag(GameTag::HEALTH);

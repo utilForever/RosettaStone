@@ -41,7 +41,7 @@ TaskStatus CopyTask::Impl(Player& player)
             for (int i = 0; i < m_amount; ++i)
             {
                 auto card =
-                    Cards::GetInstance().FindCardByID(m_target->card.id);
+                    Cards::GetInstance().FindCardByID(m_target->card->id);
 
                 result.emplace_back(
                     m_isOpposite
@@ -72,7 +72,7 @@ TaskStatus CopyTask::Impl(Player& player)
                     }
 
                     auto card =
-                        Cards::GetInstance().FindCardByID(entity->card.id);
+                        Cards::GetInstance().FindCardByID(entity->card->id);
 
                     result.emplace_back(
                         m_isOpposite

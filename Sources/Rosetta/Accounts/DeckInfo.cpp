@@ -60,13 +60,13 @@ std::size_t DeckInfo::GetNumCardInDeck(std::string cardID)
     return 0;
 }
 
-std::vector<Card> DeckInfo::GetPrimitiveDeck() const
+std::vector<Card*> DeckInfo::GetPrimitiveDeck() const
 {
-    std::vector<Card> deck;
+    std::vector<Card*> deck;
 
     for (const auto& [id, num] : m_cards)
     {
-        Card card = Cards::GetInstance().FindCardByID(id);
+        Card* card = Cards::GetInstance().FindCardByID(id);
 
         for (std::size_t i = 0; i < num; ++i)
         {
@@ -88,14 +88,14 @@ void DeckInfo::ShowCardList() const
 
     for (auto& cardInfo : m_cards)
     {
-        Card card = Cards::GetInstance().FindCardByID(cardInfo.first);
-        if (card.id.empty())
+        Card* card = Cards::GetInstance().FindCardByID(cardInfo.first);
+        if (card->id.empty())
         {
             continue;
         }
 
         std::cout << idx << ". ";
-        card.ShowBriefInfo();
+        card->ShowBriefInfo();
         std::cout << "(" << cardInfo.second << " card(s))\n";
 
         idx++;
@@ -104,11 +104,11 @@ void DeckInfo::ShowCardList() const
 
 bool DeckInfo::AddCard(std::string cardID, std::size_t numCardToAdd)
 {
-    Card card = Cards::GetInstance().FindCardByID(cardID);
+    Card* card = Cards::GetInstance().FindCardByID(cardID);
 
-    const CardClass cardClass = card.GetCardClass();
+    const CardClass cardClass = card->GetCardClass();
     if ((cardClass != GetClass() && cardClass != CardClass::NEUTRAL) ||
-        card.GetMaxAllowedInDeck() < numCardToAdd)
+        card->GetMaxAllowedInDeck() < numCardToAdd)
     {
         return false;
     }
@@ -122,7 +122,7 @@ bool DeckInfo::AddCard(std::string cardID, std::size_t numCardToAdd)
     // A card is in deck
     if (cardIter != m_cards.end())
     {
-        if (card.GetMaxAllowedInDeck() < (*cardIter).second + numCardToAdd)
+        if (card->GetMaxAllowedInDeck() < (*cardIter).second + numCardToAdd)
             return false;
 
         (*cardIter).second += numCardToAdd;
