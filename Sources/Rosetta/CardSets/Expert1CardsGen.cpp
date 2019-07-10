@@ -369,7 +369,7 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     // Text: Health changed to 1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(GameTag::HEALTH, EffectOperator::SET, 1));
+    power.AddEnchant(new Enchant(Effects::SetMaxHealth(1)));
     cards.emplace("EX1_619e", power);
 }
 
