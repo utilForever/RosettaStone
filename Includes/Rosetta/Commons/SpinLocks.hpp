@@ -8,6 +8,7 @@
 #define ROSETTASTONE_SPIN_LOCK_HPP
 
 #include <atomic>
+#include <thread>
 
 namespace RosettaStone
 {
@@ -28,6 +29,7 @@ class SpinLock
         while (m_flag.test_and_set(std::memory_order_acquire))
         {
             // Spin
+            std::this_thread::yield();
         }
     }
 
