@@ -457,9 +457,11 @@ TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-
+    Player& opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Blessed Champion"));
@@ -467,9 +469,14 @@ TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
         curPlayer, Cards::GetInstance().FindCardByName("Tirion Fordring"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    curPlayer.SetUsedMana(0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    auto& curField = curPlayer.GetFieldZone();
     EXPECT_EQ(curField[0]->GetAttack(), 12);
 }
 
@@ -505,7 +512,6 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
 

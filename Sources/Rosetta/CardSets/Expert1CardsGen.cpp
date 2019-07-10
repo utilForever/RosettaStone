@@ -281,7 +281,6 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::ATK));
     power.AddPowerTask(new AddEnchantmentTask("EX1_355e", EntityType::TARGET));
     cards.emplace("EX1_355", power);
 
@@ -348,7 +347,7 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     // Text: This minion's Attack has been doubled.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Enchants::AddAttackScriptTag));
+    power.AddEnchant(new Enchant(GameTag::ATK, EffectOperator::MUL, 2));
     cards.emplace("EX1_355e", power);
 
     // --------------------------------------- WEAPON - PALADIN
