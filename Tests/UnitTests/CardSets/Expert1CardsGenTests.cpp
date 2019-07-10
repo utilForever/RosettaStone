@@ -392,9 +392,9 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
 
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_354] Lay on Hands - COST:8
-// - Set: Expert1, Rarity: Epic
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Restore #8 Health. Draw 3 cards.
+// Text: Restore #8 Health. Draw 3 cards.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -426,8 +426,9 @@ TEST(PaladinExpert1Test, EX1_354_LayOnHands)
 
     auto p1HandCount = curPlayer.GetHandZone().GetCount();
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curPlayer.GetHero()));
-    
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer.GetHero()));
+
     EXPECT_EQ(p1HandCount + 2, curPlayer.GetHandZone().GetCount());
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 29);
 }
@@ -436,11 +437,11 @@ TEST(PaladinExpert1Test, EX1_354_LayOnHands)
 // [EX1_355] Blessed Champion - COST:5
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Double a minion's Attack
+// Text: Double a minion's Attack.
 // --------------------------------------------------------
 // PlayReq:
-// - REQ_MINION_TARGET = 0
 // - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
 TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
 {
@@ -474,7 +475,7 @@ TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
 
 // --------------------------------------- MINION - PALADIN
 // [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
-// - Set: Expert1, Rarity: Common
+// - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
 // --------------------------------------------------------
@@ -482,10 +483,13 @@ TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
 // - BATTLECRY = 1
 // --------------------------------------------------------
 // PlayReq:
-// - REQ_FRIENDLY_TARGET = 0
-// - REQ_MINION_TARGET = 0
-// - REQ_NONSELF_TARGET = 0
 // - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
 // --------------------------------------------------------
 TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
 {
@@ -601,7 +605,7 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
 
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_619] Equality - COST:4
-// - Set: Expert1, Rarity: Rare
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Change the Health of ALL minions to 1.
 // --------------------------------------------------------
@@ -945,12 +949,10 @@ TEST(PriestExpert1Test, EX1_332_Silence)
 
 // ---------------------------------------- MINION - PRIEST
 // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
-// -  Set: Expert1, Rarity: Rare
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the start of your turn, restore #3 Health to a damaged friendly character.
-// --------------------------------------------------------
-// GameTag:
-// - TRIGGER_VISUAL = 1
+// Text: At the start of your turn, restore 3 Health
+//       to a damaged friendly character.
 // --------------------------------------------------------
 TEST(PriestExpert1Test, EX1_341_Lightwell)
 {
@@ -1164,7 +1166,7 @@ TEST(PriestExpert1Test, EX1_624_HolyFire)
 
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_626] Mass Dispel - COST:4
-// - Faction: Priest, Set: Expert1, Rarity: Rare
+// - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Silence</b> all enemy minions. Draw a card.
 // --------------------------------------------------------
@@ -1214,14 +1216,14 @@ TEST(PriestExpert1Test, EX1_626_MassDispel)
     game.Process(curPlayer, PlayCardTask::Spell(card1));
 
     EXPECT_EQ(p1HandCount, curPlayer.GetHandZone().GetCount());
-    
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     auto p2HandCount = opPlayer.GetHandZone().GetCount();
 
     game.Process(opPlayer, PlayerTasks::AttackTask(card3, card2));
-    
+
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), p1HandCount + 1);
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), p2HandCount);
 }
@@ -4555,9 +4557,12 @@ TEST(NeutralExpert1Test, EX1_102_Demolisher)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
-// - Race: Murloc, - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give your other Murlocs +2 Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, EX1_103_ColdlightSeer)
 {
@@ -4769,11 +4774,10 @@ TEST(WarlockExpert1Test, EX1_181_CallOfTheVoid)
 
     const auto& hand = curPlayer.GetHandZone().GetAll();
     const auto target = hand.at(hand.size() - 1);
-    
+
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
     EXPECT_EQ(target->card.GetRace(), Race::DEMON);
 }
-
 
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_309] Siphon Soul - COST:6

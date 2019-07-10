@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -15,9 +15,10 @@ using namespace SimpleTasks;
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_031] Ice Lance - COST:1
-// - Set: HoF, Rarity: Common
+// - Faction: Neutral, Set: HoF, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead.
+// Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>,
+//       deal $4 damage instead.
 // --------------------------------------------------------
 // GameTag:
 // - FREEZE = 1
@@ -58,8 +59,8 @@ TEST(MageHoFTest, CS2_031_IceLance)
     const auto card6 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Ancient Watcher"));
     const auto card7 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Ancient Watcher"));    
-    
+        curPlayer, Cards::GetInstance().FindCardByName("Ancient Watcher"));
+
     game.Process(curPlayer, PlayCardTask::Minion(card6));
     game.Process(curPlayer, PlayCardTask::Minion(card7));
 
@@ -75,7 +76,7 @@ TEST(MageHoFTest, CS2_031_IceLance)
     EXPECT_EQ(card7->GetGameTag(GameTag::DAMAGE), 0);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card6));
-    
+
     EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 4);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
@@ -86,13 +87,14 @@ TEST(MageHoFTest, CS2_031_IceLance)
 
 // ------------------------------------------ SPELL - DRUID
 // [EX1_161] Naturalize - COST:1
-// - Set: HoF, Rarity: Common
+// - Faction: Neutral, Set: HoF, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+// Text: Destroy a minion.
+//       Your opponent draws 2 cards.
 // --------------------------------------------------------
 // PlayReq:
-// - REQ_MINION_TARGET = 0
 // - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
 TEST(DruidHoFTest, EX1_161_Naturalize)
 {
@@ -181,14 +183,15 @@ TEST(WarlockHoFTest, EX1_310_Doomguard)
 
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_316] Power Overwhelming - COST:1
-// - Set: HoF, Rarity: Common
+// - Faction: Neutral, Set: HoF, Rarity: Common
 // --------------------------------------------------------
-// Text: Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
+// Text: Give a friendly minion +4/+4 until end of turn.
+//       Then, it dies. Horribly.
 // --------------------------------------------------------
 // PlayReq:
-// - REQ_FRIENDLY_TARGET = 0
-// - REQ_MINION_TARGET = 0
 // - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
 // --------------------------------------------------------
 TEST(WarlockHoFTest, EX1_316_PowerOverwhelming)
 {
@@ -220,7 +223,7 @@ TEST(WarlockHoFTest, EX1_316_PowerOverwhelming)
         opPlayer, Cards::GetInstance().FindCardByName("King Mukla"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
@@ -339,7 +342,7 @@ TEST(NeutralHoFTest, EX1_050_ColdlightOracle)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
-// - Set: HoF, Rarity: Rare
+// - Race: Dragon, Faction: Neutral, Set: HoF, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
 //       <b>Battlecry:</b> Draw a card.
@@ -384,7 +387,7 @@ TEST(NeutralHoFTest, EX1_284_AzureDrake)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
