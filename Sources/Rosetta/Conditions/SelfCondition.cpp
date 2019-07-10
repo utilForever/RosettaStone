@@ -98,6 +98,19 @@ SelfCondition SelfCondition::IsSecret()
     });
 }
 
+SelfCondition SelfCondition::IsFrozen()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        const auto character = dynamic_cast<Character*>(entity);
+        if (!character)
+        {
+            return false;
+        }
+
+        return character->GetGameTag(GameTag::FROZEN) == 1;
+    });
+}
+
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Entity* entity) -> bool {
