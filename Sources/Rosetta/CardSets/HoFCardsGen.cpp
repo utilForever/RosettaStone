@@ -85,23 +85,12 @@ void HoFCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    std::vector<SelfCondition> conditions;
-    SelfCondition condition([](Entity* entity) -> bool {
-        if (entity->GetGameTag(GameTag::FROZEN) == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    });
-    conditions.emplace_back(condition);
-    power.AddPowerTask(new ConditionTask(EntityType::TARGET, conditions));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsFrozen() }));
     power.AddPowerTask(
         new FlagTask(true, new DamageTask(EntityType::TARGET, 4, true)));
-    power.AddPowerTask(
-        new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    power.AddPowerTask(new FlagTask(
+        false, new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1)));
     cards.emplace("CS2_031", power);
 }
 
