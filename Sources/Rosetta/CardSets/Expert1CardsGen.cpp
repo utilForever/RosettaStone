@@ -908,7 +908,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        new RandomCardTask(CardType::MINION, CardClass::WARLOCK, Race::DEMON));
+        new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON));
     power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("EX1_181", power);
 
