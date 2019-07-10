@@ -24,15 +24,14 @@ enum class TriggerType
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
                    //!< ended.
     SUMMON,     //!< The effect will be triggered whenever a minion is summoned.
-    PREDAMAGE,  //!< Effect will be triggered when a character gets predamage.
-                //!< This event happens just before the character is actually
-                //!< damaged.
+    DEAL_DAMAGE,  //!< The effect will be triggered when a character is damaged.
     TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages to source.
-    TARGET, //!< The effect will be triggered when a card is targeted by an
-            //!< attacking minion or a played card.
-    DEAL_DAMAGE,  //!< The effect will be triggered when a spell or a character
-                  //!< deals damages to target.
+    PREDAMAGE,    //!< Effect will be triggered when a character gets predamage.
+                  //!< This event happens just before the character is actually
+                  //!< damaged.
+    TARGET,  //!< The effect will be triggered when a card is targeted by an
+             //!< attacking minion or a played card.
 };
 
 //! \brief An enumerator for identifying trigger source.
