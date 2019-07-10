@@ -440,7 +440,11 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { new HealTask(EntityType::FRIENDS, 3) };
+    power.GetTrigger()->tasks = {
+        new IncludeTask(EntityType::FRIENDS),
+        new FilterStackTask(SelfCondition::IsDamaged()),
+        new RandomTask(EntityType::STACK, 1), new HealTask(EntityType::STACK, 3)
+    };
     cards.emplace("EX1_341", power);
 
     // ----------------------------------------- SPELL - PRIEST

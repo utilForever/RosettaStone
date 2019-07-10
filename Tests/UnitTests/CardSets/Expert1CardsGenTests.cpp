@@ -969,9 +969,6 @@ TEST(PriestExpert1Test, EX1_341_Lightwell)
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
-
-    curPlayer.GetHero()->SetDamage(4);
-
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -993,16 +990,13 @@ TEST(PriestExpert1Test, EX1_341_Lightwell)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curField[0]->GetHealth(), 1);
-
-    auto p1HandCount = curPlayer.GetHandZone().GetCount();
+    const auto p1HandCount = curPlayer.GetHandZone().GetCount();
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), p1HandCount + 2);
     EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 29);
 }
 
 // ----------------------------------------- SPELL - PRIEST
