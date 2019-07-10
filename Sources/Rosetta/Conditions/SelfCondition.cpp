@@ -29,6 +29,19 @@ SelfCondition SelfCondition::IsFieldFull()
     });
 }
 
+SelfCondition SelfCondition::IsDamaged()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        const auto character = dynamic_cast<Character*>(entity);
+        if (!character)
+        {
+            return false;
+        }
+
+        return character->GetDamage() > 0;
+    });
+}
+
 SelfCondition SelfCondition::IsUndamaged()
 {
     return SelfCondition([=](Entity* entity) -> bool {

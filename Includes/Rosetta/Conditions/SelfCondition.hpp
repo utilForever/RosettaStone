@@ -35,6 +35,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
 
+    //! SelfCondition wrapper for checking the entity is damaged.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDamaged();
+
     //! SelfCondition wrapper for checking the entity is undamaged.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUndamaged();
