@@ -172,8 +172,8 @@ void Game::BeginDraw()
             Generic::Draw(p);
 
             // Give "The Coin" card to second player
-            Card coin = Cards::FindCardByID("GAME_005");
-            p.GetHandZone().Add(*Entity::GetFromCard(p, std::move(coin)));
+            Card* coin = Cards::FindCardByID("GAME_005");
+            p.GetHandZone().Add(*Entity::GetFromCard(p, coin));
         }
     }
 
@@ -451,7 +451,7 @@ void Game::StartGame()
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), std::move(card));
+        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card);
         GetPlayer1().GetDeckZone().Add(*entity);
     }
     for (auto& card : m_gameConfig.player2Deck)
@@ -461,7 +461,7 @@ void Game::StartGame()
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), std::move(card));
+        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card);
         GetPlayer2().GetDeckZone().Add(*entity);
     }
 
@@ -472,8 +472,8 @@ void Game::StartGame()
         {
             for (auto& cardID : m_gameConfig.fillCardIDs)
             {
-                Card card = Cards::FindCardByID(cardID);
-                Entity* entity = Entity::GetFromCard(p, std::move(card));
+                Card* card = Cards::FindCardByID(cardID);
+                Entity* entity = Entity::GetFromCard(p, card);
                 p.GetDeckZone().Add(*entity);
             }
         }
@@ -683,9 +683,9 @@ PlayState Game::PerformAction(ActionParams& params)
             if (card->HasChooseOne())
             {
                 const size_t card1ID =
-                    std::hash<std::string>{}(card->chooseOneCard[0]->card.id);
+                    std::hash<std::string>{}(card->chooseOneCard[0]->card->id);
                 const size_t card2ID =
-                    std::hash<std::string>{}(card->chooseOneCard[1]->card.id);
+                    std::hash<std::string>{}(card->chooseOneCard[1]->card->id);
 
                 std::vector<size_t> cardIDs;
                 cardIDs.emplace_back(card1ID);

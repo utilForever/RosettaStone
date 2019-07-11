@@ -25,15 +25,15 @@ TaskID AddEnchantmentTask::GetTaskID() const
 
 TaskStatus AddEnchantmentTask::Impl(Player& player)
 {
-    Card enchantmentCard = Cards::FindCardByID(m_cardID);
-    if (enchantmentCard.id.empty())
+    Card* enchantmentCard = Cards::FindCardByID(m_cardID);
+    if (enchantmentCard->id.empty())
     {
         return TaskStatus::STOP;
     }
 
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    Power power = enchantmentCard.power;
+    Power power = enchantmentCard->power;
 
     for (auto& entity : entities)
     {

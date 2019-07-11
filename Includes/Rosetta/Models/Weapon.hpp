@@ -28,7 +28,7 @@ class Weapon : public Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Weapon(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Weapon(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Destructor.
     virtual ~Weapon();

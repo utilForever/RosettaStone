@@ -61,13 +61,14 @@ class MCTSRunner
 
                 for (size_t j = 0; j < START_DECK_SIZE; ++j)
                 {
-                    config.player1Deck[j] = Cards::FindCardByID(deck[j]);
-                    config.player2Deck[j] = Cards::FindCardByID(deck[j]);
+                    config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
+                    config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
                 }
 
                 while (!m_stopFlag.load())
                 {
-                    mcts.Iterate(config);
+                    Game game(config);
+                    mcts.Iterate(game);
 
                     m_statistics.IterateSucceeded();
                 }

@@ -29,7 +29,7 @@ class Hero : public Character
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Hero(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Hero(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Hero();

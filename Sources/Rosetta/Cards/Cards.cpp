@@ -11,7 +11,9 @@
 
 namespace RosettaStone
 {
-std::vector<Card> Cards::m_cards;
+
+Card emptyCard;
+std::vector<Card*> Cards::m_cards;
 
 Cards::Cards()
 {
@@ -21,6 +23,11 @@ Cards::Cards()
 
 Cards::~Cards()
 {
+    for (Card* card : m_cards)
+    {
+        delete card;
+    }
+
     m_cards.clear();
 }
 
@@ -30,31 +37,31 @@ Cards& Cards::GetInstance()
     return instance;
 }
 
-const std::vector<Card>& Cards::GetAllCards()
+const std::vector<Card*>& Cards::GetAllCards()
 {
     return m_cards;
 }
 
-Card Cards::FindCardByID(const std::string& id)
+Card* Cards::FindCardByID(const std::string& id)
 {
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.id == id)
+        if (card->id == id)
         {
             return card;
         }
     }
 
-    return Card();
+    return &emptyCard;
 }
 
-std::vector<Card> Cards::FindCardByRarity(Rarity rarity)
+std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.GetRarity() == rarity)
+        if (card->GetRarity() == rarity)
         {
             result.emplace_back(card);
         }
@@ -63,13 +70,13 @@ std::vector<Card> Cards::FindCardByRarity(Rarity rarity)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByClass(CardClass cardClass)
+std::vector<Card*> Cards::FindCardByClass(CardClass cardClass)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.GetCardClass() == cardClass)
+        if (card->GetCardClass() == cardClass)
         {
             result.emplace_back(card);
         }
@@ -78,13 +85,13 @@ std::vector<Card> Cards::FindCardByClass(CardClass cardClass)
     return result;
 }
 
-std::vector<Card> Cards::FindCardBySet(CardSet cardSet)
+std::vector<Card*> Cards::FindCardBySet(CardSet cardSet)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.GetCardSet() == cardSet)
+        if (card->GetCardSet() == cardSet)
         {
             result.emplace_back(card);
         }
@@ -93,13 +100,13 @@ std::vector<Card> Cards::FindCardBySet(CardSet cardSet)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByType(CardType cardType)
+std::vector<Card*> Cards::FindCardByType(CardType cardType)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.GetCardType() == cardType)
+        if (card->GetCardType() == cardType)
         {
             result.emplace_back(card);
         }
@@ -108,13 +115,13 @@ std::vector<Card> Cards::FindCardByType(CardType cardType)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByRace(Race race)
+std::vector<Card*> Cards::FindCardByRace(Race race)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.GetRace() == race)
+        if (card->GetRace() == race)
         {
             result.emplace_back(card);
         }
@@ -123,27 +130,27 @@ std::vector<Card> Cards::FindCardByRace(Race race)
     return result;
 }
 
-Card Cards::FindCardByName(const std::string& name)
+Card* Cards::FindCardByName(const std::string& name)
 {
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.name == name)
+        if (card->name == name)
         {
             return card;
         }
     }
 
-    return Card();
+    return &emptyCard;
 }
 
-std::vector<Card> Cards::FindCardByCost(int minVal, int maxVal)
+std::vector<Card*> Cards::FindCardByCost(int minVal, int maxVal)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.gameTags.at(GameTag::COST) >= minVal &&
-            card.gameTags.at(GameTag::COST) <= maxVal)
+        if (card->gameTags.at(GameTag::COST) >= minVal &&
+            card->gameTags.at(GameTag::COST) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -152,20 +159,20 @@ std::vector<Card> Cards::FindCardByCost(int minVal, int maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByAttack(int minVal, int maxVal)
+std::vector<Card*> Cards::FindCardByAttack(int minVal, int maxVal)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (!(card.GetCardType() == CardType::MINION) &&
-            !(card.GetCardType() == CardType::WEAPON))
+        if (!(card->GetCardType() == CardType::MINION) &&
+            !(card->GetCardType() == CardType::WEAPON))
         {
             continue;
         }
 
-        if (card.gameTags.at(GameTag::ATK) >= minVal &&
-            card.gameTags.at(GameTag::ATK) <= maxVal)
+        if (card->gameTags.at(GameTag::ATK) >= minVal &&
+            card->gameTags.at(GameTag::ATK) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -174,20 +181,20 @@ std::vector<Card> Cards::FindCardByAttack(int minVal, int maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
+std::vector<Card*> Cards::FindCardByHealth(int minVal, int maxVal)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (!(card.GetCardType() == CardType::MINION) &&
-            !(card.GetCardType() == CardType::HERO))
+        if (!(card->GetCardType() == CardType::MINION) &&
+            !(card->GetCardType() == CardType::HERO))
         {
             continue;
         }
 
-        if (card.gameTags.at(GameTag::HEALTH) >= minVal &&
-            card.gameTags.at(GameTag::HEALTH) <= maxVal)
+        if (card->gameTags.at(GameTag::HEALTH) >= minVal &&
+            card->gameTags.at(GameTag::HEALTH) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -196,14 +203,14 @@ std::vector<Card> Cards::FindCardByHealth(int minVal, int maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardBySpellPower(int minVal, int maxVal)
+std::vector<Card*> Cards::FindCardBySpellPower(int minVal, int maxVal)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (Card* card : m_cards)
     {
-        if (card.gameTags.at(GameTag::SPELLPOWER) >= minVal &&
-            card.gameTags.at(GameTag::SPELLPOWER) <= maxVal)
+        if (card->gameTags.at(GameTag::SPELLPOWER) >= minVal &&
+            card->gameTags.at(GameTag::SPELLPOWER) <= maxVal)
         {
             result.emplace_back(card);
         }
@@ -212,13 +219,13 @@ std::vector<Card> Cards::FindCardBySpellPower(int minVal, int maxVal)
     return result;
 }
 
-std::vector<Card> Cards::FindCardByGameTag(std::vector<GameTag> gameTags)
+std::vector<Card*> Cards::FindCardByGameTag(std::vector<GameTag> gameTags)
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto card : m_cards)
+    for (auto& card : m_cards)
     {
-        auto cardGameTags = card.gameTags;
+        auto cardGameTags = card->gameTags;
 
         for (const auto gameTag : gameTags)
         {
@@ -232,7 +239,7 @@ std::vector<Card> Cards::FindCardByGameTag(std::vector<GameTag> gameTags)
     return result;
 }
 
-Card Cards::GetHeroCard(CardClass cardClass)
+Card* Cards::GetHeroCard(CardClass cardClass)
 {
     switch (cardClass)
     {
@@ -255,11 +262,11 @@ Card Cards::GetHeroCard(CardClass cardClass)
         case CardClass::WARRIOR:
             return FindCardByID("HERO_01");
         default:
-            return Card();
+            return &emptyCard;
     }
 }
 
-Card Cards::GetDefaultHeroPower(CardClass cardClass)
+Card* Cards::GetDefaultHeroPower(CardClass cardClass)
 {
     switch (cardClass)
     {
@@ -282,7 +289,7 @@ Card Cards::GetDefaultHeroPower(CardClass cardClass)
         case CardClass::WARRIOR:
             return FindCardByID("CS2_102");
         default:
-            return Card();
+            return &emptyCard;
     }
 }
 }  // namespace RosettaStone

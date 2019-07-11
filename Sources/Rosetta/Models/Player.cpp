@@ -218,12 +218,12 @@ ITask* Player::GetNextAction()
     return ret;
 }
 
-void Player::AddHeroAndPower(Card&& heroCard, Card&& powerCard)
+void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
     m_hero =
-        dynamic_cast<Hero*>(Entity::GetFromCard(*this, std::move(heroCard)));
+        dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
     m_hero->heroPower = dynamic_cast<HeroPower*>(
-        Entity::GetFromCard(*this, std::move(powerCard)));
+        Entity::GetFromCard(*this, powerCard));
 }
 
 ITask* Player::GetTaskByAction(TaskMeta& next, TaskMeta& req)

@@ -24,7 +24,7 @@ constexpr std::array<PlayReq, 8> NEEDS_TARGET_LIST = {
 
 bool IsSourceNeedsTarget(Entity* source)
 {
-    for (auto& requirement : source->card.playRequirements)
+    for (auto& requirement : source->card->playRequirements)
     {
         auto iter = std::find(NEEDS_TARGET_LIST.begin(),
                               NEEDS_TARGET_LIST.end(), requirement.first);
@@ -50,7 +50,7 @@ bool IsValidTarget(Entity* source, Entity* target)
 
     // Check source must require a target
     bool requiresTarget = false;
-    for (auto& requirement : source->card.playRequirements)
+    for (auto& requirement : source->card->playRequirements)
     {
         if (requirement.first == PlayReq::REQ_TARGET_TO_PLAY)
         {
@@ -118,7 +118,7 @@ std::vector<Character*> GetValidTargets(Entity* source)
 
 bool CheckRequirements(Entity* source, Character* target)
 {
-    for (auto& requirement : source->card.playRequirements)
+    for (auto& requirement : source->card->playRequirements)
     {
         const PlayReq req = requirement.first;
         const int param = requirement.second;
@@ -173,7 +173,7 @@ bool CheckRequirements(Entity* source, Character* target)
             }
             case PlayReq::REQ_TARGET_WITH_RACE:
             {
-                if (target->card.GetRace() != static_cast<Race>(param))
+                if (target->card->GetRace() != static_cast<Race>(param))
                 {
                     return false;
                 }

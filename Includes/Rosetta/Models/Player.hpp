@@ -174,7 +174,7 @@ class Player
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
-    void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
+    void AddHeroAndPower(Card* heroCard, Card* powerCard);
 
     std::string nickname;
     PlayerType playerType = PlayerType::PLAYER1;

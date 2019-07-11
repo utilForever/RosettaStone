@@ -41,13 +41,12 @@ TaskStatus CopyTask::Impl(Player& player)
             for (int i = 0; i < m_amount; ++i)
             {
                 auto card =
-                    Cards::GetInstance().FindCardByID(m_target->card.id);
+                    Cards::GetInstance().FindCardByID(m_target->card->id);
 
                 result.emplace_back(
                     m_isOpposite
-                        ? Entity::GetFromCard(*m_target->owner->opponent,
-                                              std::move(card))
-                        : Entity::GetFromCard(player, std::move(card)));
+                        ? Entity::GetFromCard(*m_target->owner->opponent, card)
+                        : Entity::GetFromCard(player, card));
             }
         }
         break;
@@ -72,15 +71,14 @@ TaskStatus CopyTask::Impl(Player& player)
                     }
 
                     auto card =
-                        Cards::GetInstance().FindCardByID(entity->card.id);
+                        Cards::GetInstance().FindCardByID(entity->card->id);
 
                     result.emplace_back(
                         m_isOpposite
-                            ? Entity::GetFromCard(*player.opponent,
-                                                  std::move(card), std::nullopt,
-                                                  zone)
-                            : Entity::GetFromCard(player, std::move(card),
-                                                  std::nullopt, zone));
+                            ? Entity::GetFromCard(*player.opponent, card,
+                                                  std::nullopt, zone)
+                            : Entity::GetFromCard(player, card, std::nullopt,
+                                                  zone));
                 }
             }
             break;

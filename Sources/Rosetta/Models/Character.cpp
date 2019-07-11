@@ -12,7 +12,7 @@
 
 namespace RosettaStone
 {
-Character::Character(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+Character::Character(Player& _owner, Card* _card, std::map<GameTag, int> tags)
     : Entity(_owner, _card, tags)
 {
     // Do nothing

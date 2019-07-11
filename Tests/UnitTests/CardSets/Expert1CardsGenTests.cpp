@@ -1485,7 +1485,7 @@ TEST(ShamanExpert1Test, CS2_053_FarSight)
     EXPECT_EQ(curHand.GetCount(), 5);
 
     Entity* drawCard = curHand[curHand.GetCount() - 1];
-    int cost = drawCard->card.gameTags[GameTag::COST] - 3;
+    int cost = drawCard->card->gameTags[GameTag::COST] - 3;
     EXPECT_EQ(cost < 0 ? 0 : cost, drawCard->GetCost());
 }
 
@@ -2601,8 +2601,8 @@ TEST(NeutralExpert1Test, EX1_006_AlarmOBot)
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->card.name, "Alarm-o-Bot");
-    EXPECT_EQ(curField[1]->card.name, "Loot Hoarder");
+    EXPECT_EQ(curField[0]->card->name, "Alarm-o-Bot");
+    EXPECT_EQ(curField[1]->card->name, "Loot Hoarder");
     EXPECT_EQ(card3->zone->GetType(), ZoneType::HAND);
 
     game.Process(curPlayer, EndTurnTask());
@@ -2613,8 +2613,8 @@ TEST(NeutralExpert1Test, EX1_006_AlarmOBot)
 
     EXPECT_EQ(curHand.GetCount(), 1);
     EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(curHand[0]->card.name, "Alarm-o-Bot");
-    EXPECT_EQ(curField[0]->card.name, "Acolyte of Pain");
+    EXPECT_EQ(curHand[0]->card->name, "Alarm-o-Bot");
+    EXPECT_EQ(curField[0]->card->name, "Acolyte of Pain");
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -2851,8 +2851,8 @@ TEST(NeutralExpert1Test, EX1_014_KingMukla)
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(opHand.GetCount(), 4);
-    EXPECT_EQ(opHand[2]->card.name, "Bananas");
-    EXPECT_EQ(opHand[3]->card.name, "Bananas");
+    EXPECT_EQ(opHand[2]->card->name, "Bananas");
+    EXPECT_EQ(opHand[3]->card->name, "Bananas");
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -3720,8 +3720,8 @@ TEST(NeutralExpert1Test, EX1_083_TinkmasterOverspark)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_TRUE(curField[0]->card.id == "EX1_tk28" ||
-                curField[0]->card.id == "EX1_tk29");
+    EXPECT_TRUE(curField[0]->card->id == "EX1_tk28" ||
+                curField[0]->card->id == "EX1_tk29");
     EXPECT_TRUE(curField[0]->GetAttack() == 1 || curField[0]->GetAttack() == 5);
     EXPECT_TRUE(curField[0]->GetHealth() == 1 || curField[0]->GetHealth() == 5);
 }
@@ -4151,10 +4151,10 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
 
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card2, curPlayer.GetHero()));
-    EXPECT_EQ(curHand[0]->card.name, "Fireball");
+    EXPECT_EQ(curHand[0]->card->name, "Fireball");
 
     game.Process(opPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curHand[1]->card.name, "Blizzard");
+    EXPECT_EQ(curHand[1]->card->name, "Blizzard");
 }
 
 // --------------------------------------- MINION - NEUTRAL

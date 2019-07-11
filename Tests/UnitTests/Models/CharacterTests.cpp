@@ -31,7 +31,7 @@ TEST(Character, Health)
     auto& curField = curPlayer.GetFieldZone();
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
     EXPECT_EQ(curField[0]->GetHealth(), 6);
 
     curField[0]->SetDamage(2);
@@ -63,7 +63,7 @@ TEST(Character, SpellPower)
     auto& curField = curPlayer.GetFieldZone();
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
     EXPECT_EQ(curField[0]->GetSpellPower(), 0);
 
     curField[0]->SetSpellPower(4);

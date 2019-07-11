@@ -211,15 +211,15 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
         auto minions = entity->owner->GetFieldZone().GetAll();
-        std::vector<Card> totemCards;
+        std::vector<Card*> totemCards;
         totemCards.reserve(4);
 
-        for (const auto& id : entity->card.entourages)
+        for (const auto& id : entity->card->entourages)
         {
             bool exist = false;
             for (auto minion : minions)
             {
-                if (id == minion->card.id)
+                if (id == minion->card->id)
                 {
                     exist = true;
                     break;
@@ -239,7 +239,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
         Entity* totem =
-            Entity::GetFromCard(*entity->owner, std::move(totemCards[idx]));
+            Entity::GetFromCard(*entity->owner, totemCards[idx]);
         entity->owner->GetFieldZone().Add(*dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);

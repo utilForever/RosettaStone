@@ -27,7 +27,7 @@ TaskStatus TransformCopyTask::Impl(Player& player)
         return TaskStatus::STOP;
     }
 
-    const auto copy = Entity::GetFromCard(player, Card(m_target->card), {});
+    const auto copy = Entity::GetFromCard(player, m_target->card, {});
     IAura* aura = target->onGoingEffect;
 
     source->owner->GetFieldZone().Replace(*source, *copy);

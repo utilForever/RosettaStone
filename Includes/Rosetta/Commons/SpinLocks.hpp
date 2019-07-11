@@ -28,7 +28,6 @@ class SpinLock
     {
         while (m_flag.test_and_set(std::memory_order_acquire))
         {
-            // Spin
             std::this_thread::yield();
         }
     }

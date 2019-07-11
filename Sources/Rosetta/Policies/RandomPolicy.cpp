@@ -62,7 +62,7 @@ TaskMeta RandomPolicy::RequirePlayCard(Player& player)
             continue;
         }
 
-        if (entity->card.GetCardType() == CardType::MINION &&
+        if (entity->card->GetCardType() == CardType::MINION &&
             player.GetFieldZone().IsFull())
         {
             continue;

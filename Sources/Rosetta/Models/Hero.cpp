@@ -12,7 +12,7 @@
 
 namespace RosettaStone
 {
-Hero::Hero(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+Hero::Hero(Player& _owner, Card* _card, std::map<GameTag, int> tags)
     : Character(_owner, _card, std::move(tags))
 {
     // Do nothing

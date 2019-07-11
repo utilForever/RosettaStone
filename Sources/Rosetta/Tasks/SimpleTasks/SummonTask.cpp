@@ -13,9 +13,9 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(SummonSide side, const std::optional<Card>& card,
+SummonTask::SummonTask(SummonSide side, const std::optional<Card*>& card,
                        int amount)
-    : m_card(std::move(card)), m_side(side), m_amount(amount)
+    : m_card(card), m_side(side), m_amount(amount)
 {
     // Do nothing
 }
@@ -47,8 +47,7 @@ TaskStatus SummonTask::Impl(Player& player)
         Entity* summonEntity = nullptr;
         if (m_card.has_value())
         {
-            summonEntity =
-                Entity::GetFromCard(player, std::move(m_card.value()));
+            summonEntity = Entity::GetFromCard(player, m_card.value());
         }
         else if (!player.GetGame()->taskStack.entities.empty())
         {

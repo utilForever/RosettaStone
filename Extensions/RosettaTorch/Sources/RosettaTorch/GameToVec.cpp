@@ -202,7 +202,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
         }
     };
 
-    auto ability = character->card.power;
+    auto ability = character->card->power;
 
     auto aura = ability.GetAura();
     const auto enchant = ability.GetEnchant();
