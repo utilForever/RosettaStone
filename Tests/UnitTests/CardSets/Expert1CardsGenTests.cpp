@@ -4737,6 +4737,68 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 26);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
+// - Race: Elemental, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Freeze</b> a character.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_283_FrostElemental)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Frost Elemental"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fen Creeper"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fen Creeper"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card1, card2));
+
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, AttackTask(card1, card3));
+
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::DAMAGE), 5);
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 0);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_181] Call of the Void - COST:1
 // - Set: Expert1, Rarity: Common

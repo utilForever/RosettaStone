@@ -1891,6 +1891,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_249", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
+    // - Race: Elemental, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Freeze</b> a character.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    cards.emplace("EX1_283", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
