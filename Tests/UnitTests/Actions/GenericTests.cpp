@@ -64,16 +64,7 @@ TEST(Generic, ChoiceMulligan)
     
     auto curHand = curPlayer.GetHandZone().GetAll();
     auto opHand = opPlayer.GetHandZone().GetAll();
-
-    for (auto card : curHand)
-    {
-        curChoices.push_back(card->id);
-    }
-    for (auto card : opHand)
-    {
-        opChoices.push_back(card->id);
-    }
-
+    
     Choice curChoice, opChoice;
 
     curChoice.choiceAction = ChoiceAction::HAND;
