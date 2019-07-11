@@ -35,6 +35,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
 
+    //! SelfCondition wrapper for checking the entity is damaged.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDamaged();
+
     //! SelfCondition wrapper for checking the entity is undamaged.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUndamaged();
@@ -61,6 +65,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the entity is secret.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSecret();
+
+    //! SelfCondition wrapper for checking the entity is frozen.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFrozen();
 
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.

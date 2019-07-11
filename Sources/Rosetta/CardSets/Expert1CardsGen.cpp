@@ -32,6 +32,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
@@ -255,6 +256,57 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
 {
     Power power;
 
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_354] Lay on Hands - COST:8
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Restore #8 Health. Draw 3 cards.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::TARGET, 8));
+    power.AddPowerTask(new DrawTask(3));
+    cards.emplace("EX1_354", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_355] Blessed Champion - COST:5
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Double a minion's Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_355e", EntityType::TARGET));
+    cards.emplace("EX1_355", power);
+
+    // --------------------------------------- MINION - PALADIN
+    // [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("EX1_362", power);
+
     // --------------------------------------- MINION - PALADIN
     // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -271,11 +323,32 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddDeathrattleTask(new WeaponTask("EX1_383t"));
     cards.emplace("EX1_383", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_619] Equality - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Change the Health of ALL minions to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_619e", EntityType::ALL_MINIONS));
+    cards.emplace("EX1_619", power);
 }
 
 void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_355e] Blessed Champion (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion's Attack has been doubled.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(GameTag::ATK, EffectOperator::MUL, 2));
+    cards.emplace("EX1_355e", power);
 
     // --------------------------------------- WEAPON - PALADIN
     // [EX1_383t] Ashbringer (*) - COST:5 [ATK:5/HP:0]
@@ -288,6 +361,16 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_383t", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_619e] Equality (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Health changed to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::SetMaxHealth(1)));
+    cards.emplace("EX1_619e", power);
 }
 
 void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
@@ -347,6 +430,22 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new SilenceTask(EntityType::TARGET));
     cards.emplace("EX1_332", power);
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the start of your turn, restore 3 Health
+    //       to a damaged friendly character.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        new IncludeTask(EntityType::FRIENDS),
+        new FilterStackTask(SelfCondition::IsDamaged()),
+        new RandomTask(EntityType::STACK, 1), new HealTask(EntityType::STACK, 3)
+    };
+    cards.emplace("EX1_341", power);
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
@@ -388,6 +487,20 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     power.AddPowerTask(new HealTask(EntityType::HERO, 5));
     cards.emplace("EX1_624", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_626] Mass Dispel - COST:4
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> all enemy minions. Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SilenceTask(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("EX1_626", power);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
@@ -785,6 +898,18 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
         new AddEnchantmentTask("CS2_059o", EntityType::STACK)
     };
     cards.emplace("CS2_059", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_181] Call of the Void - COST:1
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Add a random Demon to your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON));
+    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    cards.emplace("EX1_181", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
@@ -1724,13 +1849,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
-    // - Race: Murloc, - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your other Murlocs +2 Health.
     // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::MURLOC)));
+    power.AddPowerTask(
+        new FilterStackTask(SelfCondition::IsRace(Race::MURLOC)));
     power.AddPowerTask(new AddEnchantmentTask("EX1_103e", EntityType::STACK));
     cards.emplace("EX1_103", power);
 
@@ -1760,6 +1889,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
     power.GetTrigger()->tasks = { new DamageTask(EntityType::ALL_NOSOURCE, 2) };
     cards.emplace("EX1_249", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
+    // - Race: Elemental, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Freeze</b> a character.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    cards.emplace("EX1_283", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
@@ -1848,7 +1990,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetAura()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
     cards.emplace("NEW1_027", power);
-    
+
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
     // - Race: Dragon, Set: Expert1, Rarity: Legendary

@@ -46,6 +46,7 @@ enum class TaskID
     SET_GAME_TAG,
     ENQUEUE,
     RANDOM,
+    RANDOM_CARD,
     SUMMON,
     TRANSFORM,
     TRANSFORM_COPY,

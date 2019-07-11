@@ -57,20 +57,14 @@ TEST(Generic, ChoiceMulligan)
     game.StartGame();
     game.ProcessUntil(Step::MAIN_START);
 
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
     std::vector<std::size_t> curChoices, opChoices;
     
-    auto p1Hand = game.GetCurrentPlayer().GetHandZone().GetAll();
-    auto p2Hand = game.GetCurrentPlayer().opponent->GetHandZone().GetAll();
-
-    for (auto card : p1Hand)
-    {
-        curChoices.push_back(card->id);
-    }
-    for (auto card : p2Hand)
-    {
-        opChoices.push_back(card->id);
-    }
-
+    auto curHand = curPlayer.GetHandZone().GetAll();
+    auto opHand = opPlayer.GetHandZone().GetAll();
+    
     Choice curChoice, opChoice;
 
     curChoice.choiceAction = ChoiceAction::HAND;
@@ -80,9 +74,6 @@ TEST(Generic, ChoiceMulligan)
     opChoice.choiceAction = ChoiceAction::HAND;
     opChoice.choices = opChoices;
     opChoice.choiceType = ChoiceType::MULLIGAN;
-
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
 
     curPlayer.choice = curChoice;
     opPlayer.choice = opChoice;
@@ -95,4 +86,7 @@ TEST(Generic, ChoiceMulligan)
 
     EXPECT_EQ(curHandCount, curPlayer.GetHandZone().GetCount());
     EXPECT_EQ(opHandCount, opPlayer.GetHandZone().GetCount());
+
+    EXPECT_EQ(curPlayer.choice, std::nullopt);
+    EXPECT_EQ(opPlayer.choice, std::nullopt);
 }

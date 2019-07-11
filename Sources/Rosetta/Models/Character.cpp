@@ -215,6 +215,7 @@ int Character::TakeDamage(Entity& source, int damage)
     // Process damage triggers
     owner->GetGame()->taskQueue.StartEvent();
     owner->GetGame()->triggerManager.OnTakeDamageTrigger(owner, this);
+    owner->GetGame()->triggerManager.OnDealDamageTrigger(owner->opponent, &source);
     owner->GetGame()->ProcessTasks();
     owner->GetGame()->taskQueue.EndEvent();
 

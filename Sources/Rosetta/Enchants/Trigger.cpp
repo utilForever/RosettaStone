@@ -47,7 +47,8 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     // Do nothing
 }
 
-void Trigger::Activate(Entity* source, TriggerActivation activation, bool cloning)
+void Trigger::Activate(Entity* source, TriggerActivation activation,
+                       bool cloning)
 {
     if (!cloning && activation != m_triggerActivation)
     {
@@ -124,6 +125,12 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::DEAL_DAMAGE:
+            game->triggerManager.dealDamageTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::TAKE_DAMAGE:
+            game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
+            break;
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
@@ -150,9 +157,6 @@ void Trigger::Activate(Entity* source, TriggerActivation activation, bool clonin
                 default:
                     break;
             }
-            break;
-        case TriggerType::TAKE_DAMAGE:
-            game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
             break;
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = std::move(triggerFunc);
@@ -218,6 +222,12 @@ void Trigger::Remove() const
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = nullptr;
             break;
+        case TriggerType::DEAL_DAMAGE:
+            game->triggerManager.dealDamageTrigger = nullptr;
+            break;
+        case TriggerType::TAKE_DAMAGE:
+            game->triggerManager.takeDamageTrigger = nullptr;
+            break;
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
@@ -244,9 +254,6 @@ void Trigger::Remove() const
                 default:
                     break;
             }
-        case TriggerType::TAKE_DAMAGE:
-            game->triggerManager.takeDamageTrigger = nullptr;
-            break;
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = nullptr;
             break;

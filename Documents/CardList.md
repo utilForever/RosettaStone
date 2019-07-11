@@ -212,7 +212,7 @@ EXPERT1 | EX1_096 | Loot Hoarder | O
 EXPERT1 | EX1_097 | Abomination | O
 EXPERT1 | EX1_100 | Lorewalker Cho | O
 EXPERT1 | EX1_102 | Demolisher | O
-EXPERT1 | EX1_103 | Coldlight Seer |  
+EXPERT1 | EX1_103 | Coldlight Seer | O
 EXPERT1 | EX1_105 | Mountain Giant |  
 EXPERT1 | EX1_110 | Cairne Bloodhoof |  
 EXPERT1 | EX1_116 | Leeroy Jenkins |  
@@ -255,7 +255,7 @@ EXPERT1 | EX1_259 | Lightning Storm |
 EXPERT1 | EX1_274 | Ethereal Arcanist |  
 EXPERT1 | EX1_275 | Cone of Cold |  
 EXPERT1 | EX1_279 | Pyroblast | O
-EXPERT1 | EX1_283 | Frost Elemental |  
+EXPERT1 | EX1_283 | Frost Elemental | O
 EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier |  
 EXPERT1 | EX1_294 | Mirror Entity |  
@@ -274,12 +274,12 @@ EXPERT1 | EX1_332 | Silence | O
 EXPERT1 | EX1_334 | Shadow Madness |  
 EXPERT1 | EX1_335 | Lightspawn |  
 EXPERT1 | EX1_339 | Thoughtsteal |  
-EXPERT1 | EX1_341 | Lightwell |  
+EXPERT1 | EX1_341 | Lightwell | O
 EXPERT1 | EX1_345 | Mindgames |  
 EXPERT1 | EX1_350 | Prophet Velen |  
-EXPERT1 | EX1_354 | Lay on Hands |  
-EXPERT1 | EX1_355 | Blessed Champion |  
-EXPERT1 | EX1_362 | Argent Protector |  
+EXPERT1 | EX1_354 | Lay on Hands | O
+EXPERT1 | EX1_355 | Blessed Champion | O
+EXPERT1 | EX1_362 | Argent Protector | O
 EXPERT1 | EX1_363 | Blessing of Wisdom |  
 EXPERT1 | EX1_365 | Holy Wrath |  
 EXPERT1 | EX1_366 | Sword of Justice |  
@@ -353,12 +353,12 @@ EXPERT1 | EX1_613 | Edwin VanCleef |
 EXPERT1 | EX1_614 | Illidan Stormrage |  
 EXPERT1 | EX1_616 | Mana Wraith |  
 EXPERT1 | EX1_617 | Deadly Shot |  
-EXPERT1 | EX1_619 | Equality |  
+EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
 EXPERT1 | EX1_624 | Holy Fire | O
 EXPERT1 | EX1_625 | Shadowform |  
-EXPERT1 | EX1_626 | Mass Dispel |  
+EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall |  
 EXPERT1 | NEW1_008 | Ancient of Lore |  
@@ -386,13 +386,13 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 43% (101 of 237 Cards)
+- Progress: 46% (108 of 237 Cards)
 
 ## Hall of Fame
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-HOF | CS2_031 | Ice Lance |  
+HOF | CS2_031 | Ice Lance | O
 HOF | EX1_016 | Sylvanas Windrunner | O
 HOF | EX1_050 | Coldlight Oracle | O
 HOF | EX1_062 | Old Murk-Eye |  
@@ -415,4 +415,4 @@ HOF | GIL_838 | Black Cat |
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 27% (6 of 22 Cards)
+- Progress: 32% (7 of 22 Cards)

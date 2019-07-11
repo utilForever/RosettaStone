@@ -43,6 +43,7 @@
 * MoveToGraveyardTask
 * RandomEntourageTask
 * RandomTask
+* RandomCardTask
 * RemoveEnchantmentTask
 * RemoveHandTask
 * ReturnHandTask
