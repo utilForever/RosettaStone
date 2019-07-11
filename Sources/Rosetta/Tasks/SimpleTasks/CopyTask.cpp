@@ -45,9 +45,8 @@ TaskStatus CopyTask::Impl(Player& player)
 
                 result.emplace_back(
                     m_isOpposite
-                        ? Entity::GetFromCard(*m_target->owner->opponent,
-                                              std::move(card))
-                        : Entity::GetFromCard(player, std::move(card)));
+                        ? Entity::GetFromCard(*m_target->owner->opponent, card)
+                        : Entity::GetFromCard(player, card));
             }
         }
         break;
@@ -76,11 +75,10 @@ TaskStatus CopyTask::Impl(Player& player)
 
                     result.emplace_back(
                         m_isOpposite
-                            ? Entity::GetFromCard(*player.opponent,
-                                                  std::move(card), std::nullopt,
-                                                  zone)
-                            : Entity::GetFromCard(player, std::move(card),
-                                                  std::nullopt, zone));
+                            ? Entity::GetFromCard(*player.opponent, card,
+                                                  std::nullopt, zone)
+                            : Entity::GetFromCard(player, card, std::nullopt,
+                                                  zone));
                 }
             }
             break;

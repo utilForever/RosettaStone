@@ -47,8 +47,7 @@ TaskStatus SummonTask::Impl(Player& player)
         Entity* summonEntity = nullptr;
         if (m_card.has_value())
         {
-            summonEntity =
-                Entity::GetFromCard(player, std::move(m_card.value()));
+            summonEntity = Entity::GetFromCard(player, m_card.value());
         }
         else if (!player.GetGame()->taskStack.entities.empty())
         {

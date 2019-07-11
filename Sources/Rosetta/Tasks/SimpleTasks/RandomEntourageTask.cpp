@@ -47,8 +47,7 @@ TaskStatus RandomEntourageTask::Impl(Player& player)
         auto entourageCard =
             Cards::GetInstance().FindCardByID(m_source->card->entourages[idx]);
 
-        Entity* entourageEntity =
-            Entity::GetFromCard(player, std::move(entourageCard));
+        Entity* entourageEntity = Entity::GetFromCard(player, entourageCard);
         player.GetGame()->taskStack.entities.emplace_back(entourageEntity);
     }
 
