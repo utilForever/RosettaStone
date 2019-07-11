@@ -1958,6 +1958,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new TransformCopyTask());
     cards.emplace("EX1_564", power);
 
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
