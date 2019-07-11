@@ -5430,3 +5430,54 @@ TEST(NeutralExpert1Test, NEW1_037_MasterSwordsmith)
     totalAttack += curField[2]->GetAttack();
     EXPECT_EQ(totalAttack, 7);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
+// - Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the end of your turn,
+//       summon a 2/2 Gnoll with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_040_Hogger)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hogger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curField.GetAll()[1]->card.id, "NEW1_040t");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField.GetCount(), 2);
+}

@@ -2021,6 +2021,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
     };
     cards.emplace("NEW1_037", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       summon a 2/2 Gnoll with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        new SummonTask("NEW1_040t", SummonSide::RIGHT)
+    };
+    cards.emplace("NEW1_040", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
@@ -2226,6 +2243,17 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackN(1)));
     cards.emplace("NEW1_037e", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_040t] Gnoll (*) - COST:2 [ATK:2/HP:2]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_040t", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
