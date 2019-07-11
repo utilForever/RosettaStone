@@ -93,6 +93,12 @@ void CardLoader::Load(std::vector<Card>& cards)
                              1);
         }
 
+        // NOTE: Erase invalid mechanics 'FREEZE' of Frost Elemental (EX1_283)
+        if (name == "Frost Elemental")
+        {
+            gameTags[GameTag::FREEZE] = 0;
+        }
+
         std::map<PlayReq, int> playRequirements;
         for (auto iter = cardData["playRequirements"].begin();
              iter != cardData["playRequirements"].end(); ++iter)
