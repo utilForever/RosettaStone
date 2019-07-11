@@ -48,12 +48,10 @@ inline TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
             {
                 *newNodeCreated = true;
             }
-
-            return item.get();
         }
-    }
 
-    return nullptr;
+        return item.get();
+    }
 }
 }  // namespace RosettaTorch::MCTS
 
