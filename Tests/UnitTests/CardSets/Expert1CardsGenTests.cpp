@@ -5481,3 +5481,74 @@ TEST(NeutralExpert1Test, NEW1_040_Hogger)
 
     EXPECT_EQ(curField.GetCount(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
+// - Race: Beast, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a random enemy minion
+//       with 2 or less Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_041_StampedingKodo)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Stampeding Kodo"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Stampeding Kodo"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Stampeding Kodo"));
+    
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Voidwalker"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("River Crocolisk"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodfen Raptor"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+
+    EXPECT_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curField.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField.GetAll()[0]->card.name, "Bloodfen Raptor");
+
+    opPlayer.SetUsedMana(0);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    EXPECT_EQ(curField.GetCount(), 1);
+}

@@ -2038,6 +2038,24 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new SummonTask("NEW1_040t", SummonSide::RIGHT)
     };
     cards.emplace("NEW1_040", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
+    // - Race: Beast, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a random enemy minion
+    //       with 2 or less Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(
+        new FilterStackTask(SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)));
+    power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
+    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    cards.emplace("NEW1_041", power);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
