@@ -255,7 +255,7 @@ EXPERT1 | EX1_259 | Lightning Storm |
 EXPERT1 | EX1_274 | Ethereal Arcanist |  
 EXPERT1 | EX1_275 | Cone of Cold |  
 EXPERT1 | EX1_279 | Pyroblast | O
-EXPERT1 | EX1_283 | Frost Elemental |  
+EXPERT1 | EX1_283 | Frost Elemental | O
 EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier |  
 EXPERT1 | EX1_294 | Mirror Entity |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo |
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 44% (107 of 237 Cards)
+- Progress: 46% (108 of 237 Cards)
 
 ## Hall of Fame
 
