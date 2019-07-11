@@ -43,7 +43,7 @@ TEST(DamageTask, Run)
     {
         const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
-        PlayMinionCard(player1, cards[i]);
+        PlayMinionCard(player1, &cards[i]);
     }
 
     DamageTask damage(EntityType::FRIENDS, 1);
@@ -78,7 +78,7 @@ TEST(DamageTask, SpellPower)
     {
         const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(GenerateMinionCard(name + id, 1, 5));
-        PlayMinionCard(player1, cards[i]);
+        PlayMinionCard(player1, &cards[i]);
     }
 
     DamageTask damage1(EntityType::FRIENDS, 1, true);

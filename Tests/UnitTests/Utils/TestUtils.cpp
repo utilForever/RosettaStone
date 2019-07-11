@@ -71,7 +71,7 @@ Card GenerateEnchantmentCard(std::string&& id)
     return card;
 }
 
-void PlayMinionCard(Player& player, Card& card)
+void PlayMinionCard(Player& player, Card* card)
 {
     FieldZone& fieldZone = player.GetFieldZone();
     const std::map<GameTag, int> tags;
@@ -81,7 +81,7 @@ void PlayMinionCard(Player& player, Card& card)
     fieldZone[minion->GetZonePosition()]->owner = &player;
 }
 
-void PlayEnchantmentCard(Player& player, Card& card, Entity* target)
+void PlayEnchantmentCard(Player& player, Card* card, Entity* target)
 {
     GraveyardZone& graveyardZone = player.GetGraveyardZone();
     const std::map<GameTag, int> tags;

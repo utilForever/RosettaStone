@@ -40,8 +40,8 @@ TEST(ControlTask, Run)
     {
         const auto id = static_cast<char>(i + 0x30);
         cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
-        PlayMinionCard(player1, cards[i]);
-        PlayMinionCard(player2, cards[i]);
+        PlayMinionCard(player1, &cards[i]);
+        PlayMinionCard(player2, &cards[i]);
     }
 
     ControlTask control(EntityType::TARGET);

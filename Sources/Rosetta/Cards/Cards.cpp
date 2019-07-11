@@ -11,6 +11,8 @@
 
 namespace RosettaStone
 {
+
+Card emptyCard;
 std::vector<Card*> Cards::m_cards;
 
 Cards::Cards()
@@ -50,7 +52,7 @@ Card* Cards::FindCardByID(const std::string& id)
         }
     }
 
-    return nullptr;
+    return &emptyCard;
 }
 
 std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
@@ -138,7 +140,7 @@ Card* Cards::FindCardByName(const std::string& name)
         }
     }
 
-    return nullptr;
+    return &emptyCard;
 }
 
 std::vector<Card*> Cards::FindCardByCost(int minVal, int maxVal)
@@ -260,7 +262,7 @@ Card* Cards::GetHeroCard(CardClass cardClass)
         case CardClass::WARRIOR:
             return FindCardByID("HERO_01");
         default:
-            return nullptr;
+            return &emptyCard;
     }
 }
 
@@ -287,7 +289,7 @@ Card* Cards::GetDefaultHeroPower(CardClass cardClass)
         case CardClass::WARRIOR:
             return FindCardByID("CS2_102");
         default:
-            return nullptr;
+            return &emptyCard;
     }
 }
 }  // namespace RosettaStone

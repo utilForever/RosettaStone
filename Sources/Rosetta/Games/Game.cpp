@@ -444,24 +444,24 @@ void Game::StartGame()
     }
 
     // Set up decks
-    for (auto* card : m_gameConfig.player1Deck)
+    for (auto& card : m_gameConfig.player1Deck)
     {
-        if (card->id.empty())
+        if (card.id.empty())
         {
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), card);
+        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card);
         GetPlayer1().GetDeckZone().Add(*entity);
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
-        if (card->id.empty())
+        if (card.id.empty())
         {
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), std::move(card));
+        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card);
         GetPlayer2().GetDeckZone().Add(*entity);
     }
 

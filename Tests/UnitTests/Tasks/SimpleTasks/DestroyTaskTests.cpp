@@ -41,7 +41,7 @@ TEST(DestroyTask, Run)
     const std::map<GameTag, int> tags;
 
     // Destroy Source Minion
-    const auto minion1 = new Minion(player1, card, tags);
+    const auto minion1 = new Minion(player1, &card, tags);
     minion1->owner = &player1;
     player1.GetFieldZone().Add(*minion1, 0);
 
@@ -56,7 +56,7 @@ TEST(DestroyTask, Run)
     EXPECT_EQ(player1.GetFieldZone().GetCount(), 0);
 
     // Destroy Target Minion
-    const auto minion2 = new Minion(player2, card, tags);
+    const auto minion2 = new Minion(player2, &card, tags);
     minion2->owner = &player2;
     player2.GetFieldZone().Add(*minion2, 0);
 
@@ -72,7 +72,7 @@ TEST(DestroyTask, Run)
 
     // Destroy Target Weapon
     Card weaponCard;
-    player2.GetHero()->weapon = new Weapon(player2, weaponCard, tags);
+    player2.GetHero()->weapon = new Weapon(player2, &weaponCard, tags);
     player2.GetHero()->weapon->owner = &player2;
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);

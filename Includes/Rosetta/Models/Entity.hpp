@@ -148,7 +148,7 @@ class Entity
         IZone* zone = nullptr, int id = -1);
 
     Player* owner = nullptr;
-    Card* card;
+    Card* card = nullptr;
 
     IZone* zone = nullptr;
 
