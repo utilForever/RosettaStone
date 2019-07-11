@@ -103,8 +103,8 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         // Excludes cards that is not collectible
         cards.erase(
             std::remove_if(cards.begin(), cards.end(),
-                           [](const Card& c) {
-                               return c.gameTags.at(GameTag::COLLECTIBLE) == 0;
+                           [](const Card* c) {
+                               return c->gameTags.at(GameTag::COLLECTIBLE) == 0;
                            }),
             cards.end());
 
@@ -112,8 +112,8 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         if (cardSet == CardSet::CORE)
         {
             cards.erase(std::remove_if(cards.begin(), cards.end(),
-                                       [](const Card& c) {
-                                           return c.GetCardType() ==
+                                       [](const Card* c) {
+                                           return c->GetCardType() ==
                                                   CardType::HERO;
                                        }),
                         cards.end());
@@ -128,19 +128,19 @@ inline void ExportFile(const std::string& projectPath, CardSet cardSet)
         for (auto& card : cards)
         {
             std::string gameTagStr;
-            for (auto& gameTag : card.gameTags)
+            for (auto& gameTag : card->gameTags)
             {
                 gameTagStr += EnumToStr<GameTag>(gameTag.first);
             }
 
-            const bool isImplemented = CheckCardImpl(projectPath, card.id);
+            const bool isImplemented = CheckCardImpl(projectPath, card->id);
             if (isImplemented)
             {
                 impledCardNum++;
             }
 
-            outputFile << EnumToStr<CardSet>(card.GetCardSet()) << " | "
-                       << card.id << " | " << card.name << " | "
+            outputFile << EnumToStr<CardSet>(card->GetCardSet()) << " | "
+                       << card->id << " | " << card->name << " | "
                        << (isImplemented ? 'O' : ' ') << '\n';
         }
 

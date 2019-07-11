@@ -30,9 +30,9 @@ class MOMCTS
         // Do nothing
     }
 
-    void Iterate(GameConfig config)
+    void Iterate(const Game& game)
     {
-        m_playerController.StartGame(std::move(config));
+        m_playerController.SetGame(game);
         m_player1.StartIteration();
         m_player2.StartIteration();
 

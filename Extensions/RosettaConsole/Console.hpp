@@ -105,7 +105,7 @@ class Console
  public:
     void SignIn();
     void SignUp();
-    std::optional<Card> SearchCard() const;
+    std::optional<Card*> SearchCard() const;
     int ManageDeck();
     void SimulateGame() const;
     void Leave();
@@ -137,7 +137,7 @@ class Console
 
     std::tuple<SearchFilter, bool, bool> InputAndParseSearchCommand(
         const std::string& commandStr) const;
-    std::vector<Card> ProcessSearchCommand(SearchFilter& filter) const;
+    std::vector<Card*> ProcessSearchCommand(SearchFilter& filter) const;
 
     std::vector<std::string> SplitString(std::string str,
                                          const std::string& delimiter) const;
