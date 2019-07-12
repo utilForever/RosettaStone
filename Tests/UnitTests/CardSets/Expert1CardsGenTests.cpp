@@ -266,6 +266,73 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
     EXPECT_EQ(card8->GetGameTag(GameTag::DAMAGE), 0);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [EX1_617] Deadly Shot - COST:3
+// - Set: EXPERT1, Rarity: Common
+// --------------------------------------------------------
+// Text: Destroy a random enemy minion.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, EX1_617_DeadlyShot)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card0 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Deadly Shot"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Deadly Shot"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Deadly Shot"));
+
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card0));
+    game.Process(opPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curField.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    opPlayer.SetUsedMana(0);
+    
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curField.GetCount(), 0);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [CS2_028] Blizzard - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare

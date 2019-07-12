@@ -196,6 +196,20 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.GetTrigger()->removeAfterTriggered = true;
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_609", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_617] Deadly Shot - COST:3
+    // - Set: EXPERT1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Destroy a random enemy minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    cards.emplace("EX1_617", power);
 }
 
 void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
