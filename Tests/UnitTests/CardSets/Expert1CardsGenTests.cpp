@@ -379,6 +379,8 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
         curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Lightning Bolt"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Lightning Bolt"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
 
@@ -397,6 +399,66 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
     EXPECT_EQ(opPlayer.GetRemainingMana(), 9);
     EXPECT_EQ(opPlayer.GetOverloadOwed(), 1);
+    
+    game.Process(opPlayer,
+                PlayCardTask::SpellTarget(card4, curPlayer.GetHero()));
+    
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you cast a spell, gain +1 Attack.
+// --------------------------------------------------------
+TEST(MageExpert1Test, NEW1_012_ManaWyrm)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("NEW1_012"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Lightning Bolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer,
+                PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
+
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer.GetHero()));
+    
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
 }
 
 // ---------------------------------------- SPELL - PALADIN

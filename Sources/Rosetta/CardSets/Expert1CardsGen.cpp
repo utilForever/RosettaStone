@@ -246,11 +246,35 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     };
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_287", power);
+
+    // ------------------------------------------ MINION - MAGE
+    // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, gain +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        new AddEnchantmentTask("NEW1_012o", EntityType::SOURCE)
+    };
+    cards.emplace("NEW1_012", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [NEW1_012o] Mana Gorged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackN(1)));
+    cards.emplace("NEW1_012o", power);
 }
 
 void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
