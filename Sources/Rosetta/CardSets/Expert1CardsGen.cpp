@@ -174,6 +174,28 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_543", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_609] Snipe - COST:2
+    // - Set: EXPERT1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> After your opponent
+    //       plays a minion, deal $4 damage to it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMIES;
+    power.GetTrigger()->tasks = {
+        new DamageTask(EntityType::TARGET, 4, true),
+        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+        new MoveToGraveyardTask(EntityType::SOURCE)
+    };
+    power.GetTrigger()->removeAfterTriggered = true;
+    power.GetTrigger()->fastExecution = true;
+    cards.emplace("EX1_609", power);
 }
 
 void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)

@@ -188,6 +188,84 @@ TEST(HunterExpert1Test, EX1_543_KingKrush)
     // Do nothing
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [EX1_609] Snipe - COST:2
+// - Set: EXPERT1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent
+//       plays a minion, deal $4 damage to it.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, EX1_609_Snipe)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Snipe"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Snipe"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+    const auto card8 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    EXPECT_EQ(card4->GetGameTag(GameTag::DAMAGE), 0);
+    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 4);
+    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+
+    EXPECT_TRUE(card7->isDestroyed);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card8));
+
+    EXPECT_EQ(card8->GetGameTag(GameTag::DAMAGE), 0);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [CS2_028] Blizzard - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
