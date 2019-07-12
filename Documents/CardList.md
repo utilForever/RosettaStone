@@ -352,7 +352,7 @@ EXPERT1 | EX1_612 | Kirin Tor Mage |
 EXPERT1 | EX1_613 | Edwin VanCleef |  
 EXPERT1 | EX1_614 | Illidan Stormrage |  
 EXPERT1 | EX1_616 | Mana Wraith |  
-EXPERT1 | EX1_617 | Deadly Shot |  
+EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 46% (112 of 237 Cards)
+- Progress: 46% (113 of 237 Cards)
 
 ## Hall of Fame
 
