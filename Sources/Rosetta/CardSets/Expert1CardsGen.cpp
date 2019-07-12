@@ -238,6 +238,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMIES;
     power.GetTrigger()->tasks = {
         new SetGameTagTask(EntityType::TARGET, GameTag::CANT_PLAY, 1),
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
