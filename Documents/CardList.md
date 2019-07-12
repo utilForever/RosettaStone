@@ -363,7 +363,7 @@ EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall |  
 EXPERT1 | NEW1_008 | Ancient of Lore |  
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
-EXPERT1 | NEW1_012 | Mana Wyrm |  
+EXPERT1 | NEW1_012 | Mana Wyrm | O
 EXPERT1 | NEW1_014 | Master of Disguise |  
 EXPERT1 | NEW1_017 | Hungry Crab |  
 EXPERT1 | NEW1_018 | Bloodsail Raider |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 46% (109 of 237 Cards)
+- Progress: 46% (111 of 237 Cards)
 
 ## Hall of Fame
 
