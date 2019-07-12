@@ -35,8 +35,8 @@ void DeckZone::Add(Entity& entity, int zonePos)
     }
 }
 
-void DeckZone::Shuffle()
+void DeckZone::Shuffle() const
 {
-    Random::shuffle(m_entities.begin(), m_entities.begin() + m_count);
+    Random::shuffle(m_entities, m_entities + m_count);
 }
 }  // namespace RosettaStone

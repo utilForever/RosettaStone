@@ -29,7 +29,7 @@ class SecretZone : public LimitedZone<Spell>
     void Add(Entity& entity, int zonePos = -1) override;
 
     //! Returns whether the secret card exists in this zone.
-    bool Exist(Entity& entity);
+    bool Exist(Entity& entity) const;
 };
 }  // namespace RosettaStone
 

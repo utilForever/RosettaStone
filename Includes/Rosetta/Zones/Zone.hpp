@@ -26,19 +26,6 @@ class Zone : public IZone
     //! Default constructor.
     Zone() = default;
 
-    //! Constructor with given \p size.
-    //! \param size The size of container that stores entities.
-    Zone(int size) : m_entities(size)
-    {
-        // Do nothing
-    }
-
-    //! Operator overloading for operator[].
-    T* operator[](int zonePos)
-    {
-        return m_entities[zonePos];
-    }
-
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
@@ -53,26 +40,6 @@ class Zone : public IZone
     //! \param entity The entity.
     //! \param zonePos The zone position.
     virtual void MoveTo(T& entity, int zonePos = -1) = 0;
-
-    //! Swaps the positions of both entities in this zone.
-    //! Both entities must be contained by this zone.
-    //! \param oldEntity The one entity.
-    //! \param newEntity The other entity.
-    void Swap(T& oldEntity, T& newEntity)
-    {
-        if (oldEntity.zone->GetType() != newEntity.zone->GetType())
-        {
-            throw std::logic_error(
-                "Swap not possible because of zone mismatch");
-        }
-
-        int oldPos = oldEntity.GetZonePosition();
-        int newPos = newEntity.GetZonePosition();
-        newEntity.SetZonePosition(oldPos);
-        oldEntity.SetZonePosition(newPos);
-        m_entities[newPos] = &oldEntity;
-        m_entities[oldPos] = &newEntity;
-    }
 
     //! Returns the number of entities in this zone.
     //! \return The number of entities in this zone.
@@ -90,7 +57,6 @@ class Zone : public IZone
     bool IsFull() const override = 0;
 
  protected:
-    std::vector<T*> m_entities;
     Player* m_owner = nullptr;
 };  // namespace RosettaStone
 
@@ -143,6 +109,9 @@ class UnlimitedZone : public Zone<Entity>
     {
         return false;
     }
+
+ protected:
+    std::vector<Entity*> m_entities;
 };
 
 //!
@@ -154,9 +123,20 @@ template <typename T>
 class LimitedZone : public Zone<T>
 {
  public:
-    explicit LimitedZone(int size) : Zone<T>(size), m_maxSize(size)
+    explicit LimitedZone(int size) : m_maxSize(size)
     {
-        // Do nothing
+        m_entities = new T*[m_maxSize];
+
+        for (int i = 0; i < m_maxSize; ++i)
+        {
+            m_entities[i] = nullptr;
+        }
+    }
+
+    //! Operator overloading for operator[]
+    T* operator[](int zonePos)
+    {
+        return m_entities[zonePos];
     }
 
     void Add(Entity& entity, int zonePos = -1) override
@@ -177,7 +157,7 @@ class LimitedZone : public Zone<T>
 
     Entity& Remove(Entity& entity) override
     {
-        if (entity.zone == nullptr || entity.zone->GetType() != Zone<T>::m_type)
+        if (entity.zone != this)
         {
             throw std::logic_error("Couldn't remove entity from zone.");
         }
@@ -185,22 +165,22 @@ class LimitedZone : public Zone<T>
         int pos;
         for (pos = m_count - 1; pos >= 0; --pos)
         {
-            if (&entity == dynamic_cast<Entity*>(Zone<T>::m_entities[pos]))
+            if (&entity == dynamic_cast<Entity*>(m_entities[pos]))
             {
                 break;
             }
         }
 
-        --m_count;
-
-        if (pos < m_count)
+        if (pos < --m_count)
         {
-            std::copy(Zone<T>::m_entities.begin() + pos + 1,
-                      Zone<T>::m_entities.end(),
-                      Zone<T>::m_entities.begin() + pos);
+            for (int i = pos + 1; i < m_maxSize; ++i)
+            {
+                m_entities[i - 1] = m_entities[i];
+            }
+
+            m_entities[m_maxSize - 1] = nullptr;
         }
 
-        Zone<T>::m_entities[m_count] = nullptr;
         entity.zone = nullptr;
 
         if (entity.activatedTrigger != nullptr)
@@ -218,23 +198,18 @@ class LimitedZone : public Zone<T>
             return;
         }
 
-        if (zonePos < 0)
+        if (zonePos < 0 || zonePos == m_count)
         {
-            zonePos = m_count;
-        }
-
-        if (zonePos == m_count)
-        {
-            Zone<T>::m_entities[zonePos] = &entity;
+            m_entities[m_count] = &entity;
         }
         else
         {
             for (int i = m_count - 1; i >= zonePos; --i)
             {
-                Zone<T>::m_entities[i + 1] = Zone<T>::m_entities[i];
+                m_entities[i + 1] = m_entities[i];
             }
 
-            Zone<T>::m_entities[zonePos] = &entity;
+            m_entities[zonePos] = &entity;
         }
 
         ++m_count;
@@ -260,19 +235,21 @@ class LimitedZone : public Zone<T>
 
         for (int i = 0; i < m_count; ++i)
         {
-            if (Zone<T>::m_entities[i] == nullptr ||
-                static_cast<bool>(Zone<T>::m_entities[i]->isDestroyed))
+            if (m_entities[i] == nullptr ||
+                static_cast<bool>(m_entities[i]->isDestroyed))
             {
                 continue;
             }
 
-            result.emplace_back(Zone<T>::m_entities[i]);
+            result.emplace_back(m_entities[i]);
         }
 
         return result;
     }
 
  protected:
+    T** m_entities;
+
     int m_count = 0;
     int m_maxSize = 0;
 };
@@ -301,33 +278,29 @@ class PositioningZone : public LimitedZone<T>
 
     Entity& Remove(Entity& entity) override
     {
-        if (entity.zone == nullptr ||
-            entity.zone->GetType() != LimitedZone<T>::m_type)
+        if (entity.zone != this)
         {
             throw std::logic_error("Couldn't remove entity from zone.");
         }
 
-        int pos;
-        for (pos = LimitedZone<T>::m_count - 1; pos >= 0; --pos)
+        const int pos = entity.GetZonePosition();
+        int count = LimitedZone<T>::m_count;
+
+        if (pos < --count)
         {
-            if (&entity == dynamic_cast<Entity*>(Zone<T>::m_entities[pos]))
+            for (int i = pos + 1; i < LimitedZone<T>::m_maxSize; ++i)
             {
-                break;
+                LimitedZone<T>::m_entities[i - 1] =
+                    LimitedZone<T>::m_entities[i];
             }
+
+            LimitedZone<T>::m_entities[LimitedZone<T>::m_maxSize - 1] = nullptr;
         }
 
-        --LimitedZone<T>::m_count;
-
-        if (pos < LimitedZone<T>::m_count)
-        {
-            std::copy(LimitedZone<T>::m_entities.begin() + pos + 1,
-                      LimitedZone<T>::m_entities.end(),
-                      LimitedZone<T>::m_entities.begin() + pos);
-        }
+        LimitedZone<T>::m_count = count;
 
         Reposition(pos);
 
-        Zone<T>::m_entities[LimitedZone<T>::m_count] = nullptr;
         entity.zone = nullptr;
 
         if (entity.activatedTrigger != nullptr)
@@ -343,6 +316,26 @@ class PositioningZone : public LimitedZone<T>
         return entity;
     }
 
+    //! Swaps the positions of both entities in this zone.
+    //! Both entities must be contained by this zone.
+    //! \param oldEntity The one entity.
+    //! \param newEntity The other entity.
+    void Swap(T& oldEntity, T& newEntity)
+    {
+        if (oldEntity.zone->GetType() != newEntity.zone->GetType())
+        {
+            throw std::logic_error(
+                "Swap not possible because of zone mismatch");
+        }
+
+        int oldPos = oldEntity.GetZonePosition();
+        int newPos = newEntity.GetZonePosition();
+        newEntity.SetZonePosition(oldPos);
+        oldEntity.SetZonePosition(newPos);
+        LimitedZone<T>::m_entities[newPos] = &oldEntity;
+        LimitedZone<T>::m_entities[oldPos] = &newEntity;
+    }
+
     std::vector<Aura*> auras;
 
  private:
@@ -350,12 +343,16 @@ class PositioningZone : public LimitedZone<T>
     {
         if (zonePos < 0)
         {
-            zonePos = LimitedZone<T>::m_count - 1;
+            dynamic_cast<Entity*>(
+                LimitedZone<T>::m_entities[LimitedZone<T>::m_count - 1])
+                ->SetZonePosition(LimitedZone<T>::m_count - 1);
+            return;
         }
 
         for (int i = LimitedZone<T>::m_count - 1; i >= zonePos; --i)
         {
-            dynamic_cast<Entity*>(LimitedZone<T>::m_entities[i])->SetZonePosition(i);
+            dynamic_cast<Entity*>(LimitedZone<T>::m_entities[i])
+                ->SetZonePosition(i);
         }
 
         for (std::size_t i = 0; i < auras.size(); ++i)
