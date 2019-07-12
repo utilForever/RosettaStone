@@ -451,7 +451,8 @@ void Game::StartGame()
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card);
+        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
+                                             &GetPlayer1().GetDeckZone());
         GetPlayer1().GetDeckZone().Add(*entity);
     }
     for (auto& card : m_gameConfig.player2Deck)
@@ -461,7 +462,8 @@ void Game::StartGame()
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card);
+        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
+                                             &GetPlayer2().GetDeckZone());
         GetPlayer2().GetDeckZone().Add(*entity);
     }
 
