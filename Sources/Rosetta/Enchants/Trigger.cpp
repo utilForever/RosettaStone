@@ -330,11 +330,11 @@ void Trigger::ProcessInternal(Entity* source)
         {
             m_owner->owner->GetGame()->taskQueue.Enqueue(task);
         }
+    }
 
-        if (removeAfterTriggered)
-        {
-            Remove();
-        }
+    if (removeAfterTriggered)
+    {
+        Remove();
     }
 
     m_isValidated = false;
