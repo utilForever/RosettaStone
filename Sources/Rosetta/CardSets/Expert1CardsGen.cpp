@@ -244,6 +244,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
         new MoveToGraveyardTask(EntityType::SOURCE)
     };
+    power.GetTrigger()->removeAfterTriggered = true;
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_287", power);
 
