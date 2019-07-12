@@ -390,6 +390,12 @@ void Trigger::Validate(Player* player, Entity* source)
             }
             break;
         }
+        case TriggerSource::ENEMIES:
+             if (source->owner == m_owner->owner)
+            {
+                return;
+            }
+            break;
         default:
             break;
     }

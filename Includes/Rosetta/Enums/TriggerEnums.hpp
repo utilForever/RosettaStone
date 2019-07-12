@@ -44,6 +44,7 @@ enum class TriggerSource
     MINIONS_EXCEPT_SELF,
     ENCHANTMENT_TARGET,
     FRIENDLY,
+    ENEMIES,
 };
 
 //! \brief An enumerator for identifying trigger activation.
