@@ -2021,6 +2021,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_564", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_583] Priestess of Elune- COST:6 [ATK:5/HP:4]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Restore #4 Health to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::HERO, 4));
+    cards.emplace("EX1_583", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------

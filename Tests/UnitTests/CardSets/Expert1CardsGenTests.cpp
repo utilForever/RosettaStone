@@ -5324,6 +5324,60 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_583] Priestess of Elune- COST:6 [ATK:5/HP:4]
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Restore #4 Health to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_583_PriestessOfElune)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Priestess of Elune"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    curPlayer.GetHero()->SetDamage(5);
+    opPlayer.GetHero()->SetDamage(5);
+    curField[0]->SetDamage(4);
+
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 25);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 29);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
