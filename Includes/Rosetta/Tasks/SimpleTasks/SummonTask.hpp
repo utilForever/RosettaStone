@@ -32,18 +32,18 @@ class SummonTask : public ITask
     //! Constructs task with given \p side, \p card and \p amount.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
                         const std::optional<Card>& card = std::nullopt,
-                        int amount = 1);
+                        int amount = 1, bool toOpponent = false);
 
     //! Constructs task with given \p cardID and \p amount.
     //! \param cardID The card ID to summon.
     //! \param amount The number of minions to summon.
-    explicit SummonTask(std::string cardID, int amount);
+    explicit SummonTask(std::string cardID, int amount, bool toOpponent = false);
 
     //! Constructs task with given \p cardID and \p side.
     //! \param cardID The card ID to summon.
     //! \param side The side of summoned minion.
     explicit SummonTask(std::string cardID,
-                        SummonSide side = SummonSide::DEFAULT);
+                        SummonSide side = SummonSide::DEFAULT, bool toOpponent = false);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -58,6 +58,7 @@ class SummonTask : public ITask
     std::optional<Card> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;
     int m_amount = 1;
+    bool m_toOpponent = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

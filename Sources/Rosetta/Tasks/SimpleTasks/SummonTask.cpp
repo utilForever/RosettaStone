@@ -14,18 +14,18 @@
 namespace RosettaStone::SimpleTasks
 {
 SummonTask::SummonTask(SummonSide side, const std::optional<Card>& card,
-                       int amount)
-    : m_card(std::move(card)), m_side(side), m_amount(amount)
+                       int amount, bool toOpponent)
+    : m_card(std::move(card)), m_side(side), m_amount(amount), m_toOpponent(toOpponent)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(std::string cardID, int amount) : m_amount(amount)
+SummonTask::SummonTask(std::string cardID, int amount, bool toOpponent) : m_amount(amount), m_toOpponent(toOpponent)
 {
     m_card = Cards::FindCardByID(cardID);
 }
 
-SummonTask::SummonTask(std::string cardID, SummonSide side) : m_side(side)
+SummonTask::SummonTask(std::string cardID, SummonSide side, bool toOpponent) : m_side(side), m_toOpponent(toOpponent)
 {
     m_card = Cards::FindCardByID(cardID);
 }
@@ -37,9 +37,10 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
+    Player * summoner = m_toOpponent ? player.opponent : &player;
     for (int i = 0; i < m_amount; ++i)
     {
-        if (player.GetFieldZone().IsFull())
+        if (summoner->GetFieldZone().IsFull())
         {
             return TaskStatus::STOP;
         }
@@ -48,11 +49,11 @@ TaskStatus SummonTask::Impl(Player& player)
         if (m_card.has_value())
         {
             summonEntity =
-                Entity::GetFromCard(player, std::move(m_card.value()));
+                Entity::GetFromCard(*summoner, std::move(m_card.value()));
         }
-        else if (!player.GetGame()->taskStack.entities.empty())
+        else if (!summoner->GetGame()->taskStack.entities.empty())
         {
-            summonEntity = player.GetGame()->taskStack.entities[0];
+            summonEntity = summoner->GetGame()->taskStack.entities[0];
         }
 
         if (summonEntity == nullptr)
@@ -93,7 +94,7 @@ TaskStatus SummonTask::Impl(Player& player)
                     "SummonTask::Impl() - Invalid summon side");
         }
 
-        Generic::Summon(player, summonMinion, summonPos);
+        Generic::Summon(*summoner, summonMinion, summonPos);
     }
 
     return TaskStatus::COMPLETE;

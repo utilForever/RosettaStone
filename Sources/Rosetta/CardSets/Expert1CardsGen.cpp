@@ -1864,6 +1864,33 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_103", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new SummonTask("EX1_110t"));
+    cards.emplace("EX1_110", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
+    // - Faction: Alliance, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.    
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("EX1_116t", 2, true));
+    cards.emplace("EX1_116", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -1957,6 +1984,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new TransformCopyTask());
     cards.emplace("EX1_564", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent
+    // --------------------------------------------------------
+    // PlayReq:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new SummonTask("EX1_finkle", 1, true));
+    cards.emplace("EX1_577", power);
 
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
@@ -2199,6 +2239,36 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_103e"));
     cards.emplace("EX1_103e", power);
+
+    // ---------------------------------- MINION - NEUTRAL
+    // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_110t", power);
+
+    // ---------------------------------- MINION - NEUTRAL
+    // [EX1_116t] Whelp (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_116t", power);
+    
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_finkle] Finkle Einhorn (*) - COST:3 [ATK:3/HP:3]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_finkle", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_tk28] Squirrel (*) - COST:1 [ATK:1/HP:1]

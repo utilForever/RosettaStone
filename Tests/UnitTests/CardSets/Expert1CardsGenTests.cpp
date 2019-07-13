@@ -4621,6 +4621,99 @@ TEST(NeutralExpert1Test, EX1_103_ColdlightSeer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Cairne Bloodhoof"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    curField[0]->SetDamage(4);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
+// - Faction: Alliance, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.    
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_116_LeeroyJenkins)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Leeroy Jenkins"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(opField.GetCount(), 2);
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
+    EXPECT_EQ(opField[0]->GetAttack(), 1);
+    EXPECT_EQ(opField[1]->GetHealth(), 1);
+    EXPECT_EQ(opField[1]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
@@ -5105,6 +5198,56 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
 TEST(NeutralExpert1Test, EX1_563_Malygos)
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
+// - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent
+// --------------------------------------------------------
+// PlayReq:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_577_TheBeast)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("The Beast"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    curField[0]->SetHealth(1);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    opField[0]->SetHealth(99);
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(opField.GetCount(), 2);
+    EXPECT_EQ(opField[1]->GetHealth(), 3);
+    EXPECT_EQ(opField[1]->GetAttack(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL
