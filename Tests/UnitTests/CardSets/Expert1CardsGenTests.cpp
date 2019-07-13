@@ -1986,25 +1986,47 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
     opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Ancestral Spirit"));
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
     const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
+        opPlayer, Cards::GetInstance().FindCardByName("Ancestral Spirit"));
     const auto card3 = Generic::DrawCard(
-        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("River Crocolisk"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
-    game.Process(opPlayer, AttackTask(card3, card1));
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[0]->GetHealth(), 2);
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    EXPECT_EQ(opField[0]->card.name, "Murloc Raider");
+    EXPECT_EQ(opField[1]->card.name, "River Crocolisk");
+    EXPECT_EQ(opField[2]->card.name, "Murloc Raider");
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
+
+    EXPECT_TRUE(opField[1]->HasDeathrattle());
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(card1, card4));
+
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opField.GetCount(), 3);
+    
+    EXPECT_EQ(opField[1]->card.name, "River Crocolisk");
+    
+    EXPECT_FALSE(opField[1]->HasDeathrattle());
 }
 
 // ----------------------------------------- SPELL - SHAMAN
