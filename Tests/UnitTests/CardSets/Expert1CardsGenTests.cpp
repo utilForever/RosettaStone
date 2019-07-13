@@ -4650,7 +4650,6 @@ TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
     opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Cairne Bloodhoof"));
@@ -4664,6 +4663,8 @@ TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, card1));
+
+    EXPECT_TRUE(card1->isDestroyed);
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetAttack(), 4);
     EXPECT_EQ(curField[0]->GetHealth(), 5);
@@ -5245,6 +5246,7 @@ TEST(NeutralExpert1Test, EX1_577_TheBeast)
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     opField[0]->SetHealth(99);
     game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_TRUE(card1->isDestroyed);
     EXPECT_EQ(opField.GetCount(), 2);
     EXPECT_EQ(opField[1]->GetHealth(), 3);
     EXPECT_EQ(opField[1]->GetAttack(), 3);
