@@ -5238,6 +5238,21 @@ TEST(NeutralExpert1Test, EX1_405_Shieldbearer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Spell Damage +5</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - SPELLPOWER = 5
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_563_Malygos)
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
@@ -5306,21 +5321,6 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
 
     game.Process(curPlayer, HeroPowerTask(curField[1]));
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
-}
-
-// --------------------------------------- MINION - NEUTRAL
-// [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
-// - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
-// --------------------------------------------------------
-// Text: <b>Spell Damage +5</b>
-// --------------------------------------------------------
-// GameTag:
-// - ELITE = 1
-// - SPELLPOWER = 5
-// --------------------------------------------------------
-TEST(NeutralExpert1Test, EX1_563_Malygos)
-{
-    // Do nothing
 }
 
 // --------------------------------------- MINION - NEUTRAL
