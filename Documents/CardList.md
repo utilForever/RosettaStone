@@ -315,7 +315,7 @@ EXPERT1 | EX1_543 | King Krush | O
 EXPERT1 | EX1_544 | Flare |  
 EXPERT1 | EX1_549 | Bestial Wrath |  
 EXPERT1 | EX1_554 | Snake Trap |  
-EXPERT1 | EX1_556 | Harvest Golem |  
+EXPERT1 | EX1_556 | Harvest Golem | O 
 EXPERT1 | EX1_557 | Nat Pagle |  
 EXPERT1 | EX1_558 | Harrison Jones |  
 EXPERT1 | EX1_559 | Archmage Antonidas |  
@@ -332,7 +332,7 @@ EXPERT1 | EX1_573 | Cenarius |
 EXPERT1 | EX1_575 | Mana Tide Totem |  
 EXPERT1 | EX1_577 | The Beast |  
 EXPERT1 | EX1_578 | Savagery |  
-EXPERT1 | EX1_583 | Priestess of Elune |  
+EXPERT1 | EX1_583 | Priestess of Elune | O
 EXPERT1 | EX1_584 | Ancient Mage |  
 EXPERT1 | EX1_586 | Sea Giant |  
 EXPERT1 | EX1_590 | Blood Knight |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 46% (113 of 237 Cards)
+- Progress: 46% (115 of 237 Cards)
 
 ## Hall of Fame
 
