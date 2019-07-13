@@ -1992,6 +1992,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_405", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
+    // - Race: Mechanical, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 2/1 Damaged Golem.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new SummonTask("skele21", SummonSide::RIGHT));
+    cards.emplace("EX1_556", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -2347,6 +2360,14 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("NEW1_040t", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [skele21] Damaged Golem - COST:1 [ATK:2/HP:1]
+    // - Race: Mechanical, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("skele21", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
