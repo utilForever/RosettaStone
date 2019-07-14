@@ -906,8 +906,9 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // Text: <b>Deathrattle:</b> Resummon this minion.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, 1));
-    power.AddDeathrattleTask(new SummonTask(SummonSide::DEATHRATTLE));
+    power.AddDeathrattleTask(new CopyTask(EntityType::TARGET, 1));
+    power.AddDeathrattleTask(new SummonTask(SummonSide::RIGHT));
+    cards.emplace("CS2_038e", power);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_053e] Far Sight (*) - COST:0

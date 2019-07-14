@@ -1968,8 +1968,8 @@ TEST(RogueExpert1Test, NEW1_005_Kidnapper)
 TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
 {
     GameConfig config;
-    config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::WARRIOR;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::SHAMAN;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
@@ -2014,7 +2014,7 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
 
-    EXPECT_TRUE(opField[1]->HasDeathrattle());
+    EXPECT_EQ(opField[1]->appliedEnchantments.size(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -4715,6 +4715,7 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
     opPlayer.SetUsedMana(0);
 
     auto& curHand = curPlayer.GetHandZone();
+    auto& opHand = opPlayer.GetHandZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Lorewalker Cho"));
@@ -4722,6 +4723,8 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
         opPlayer, Cards::GetInstance().FindCardByName("Fireball"));
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Blizzard"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Inner Rage"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
 
@@ -4734,6 +4737,13 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
 
     game.Process(opPlayer, PlayCardTask::Spell(card3));
     EXPECT_EQ(curHand[1]->card.name, "Blizzard");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card1));
+
+    EXPECT_EQ(opHand[1]->card.name, "Inner Rage");
 }
 
 // --------------------------------------- MINION - NEUTRAL
