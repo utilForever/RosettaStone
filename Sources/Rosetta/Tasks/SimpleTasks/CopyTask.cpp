@@ -7,7 +7,8 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
-
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <iostream>
 namespace RosettaStone::SimpleTasks
 {
 CopyTask::CopyTask(EntityType entityType, int amount, bool isOpposite,
@@ -29,68 +30,39 @@ TaskStatus CopyTask::Impl(Player& player)
 {
     std::vector<Entity*> result;
 
-    switch (m_entityType)
+    Player* owner = (m_isOpposite) ? player.opponent : &player;
+    IZone* zone = Generic::GetZone(*owner, m_zoneType);
+
+    auto entities = IncludeTask::GetEntities(m_entityType, *owner, m_source, m_target);
+
+    if (entities.empty())
     {
-        case EntityType::TARGET:
-        {
-            if (m_target == nullptr)
-            {
-                return TaskStatus::STOP;
-            }
-
-            for (int i = 0; i < m_amount; ++i)
-            {
-                auto card =
-                    Cards::GetInstance().FindCardByID(m_target->card.id);
-
-                result.emplace_back(
-                    m_isOpposite
-                        ? Entity::GetFromCard(*m_target->owner->opponent,
-                                              std::move(card))
-                        : Entity::GetFromCard(player, std::move(card)));
-            }
-        }
-        break;
-        case EntityType::STACK:
-        {
-            IZone* zone = m_isOpposite
-                              ? Generic::GetZone(*player.opponent, m_zoneType)
-                              : Generic::GetZone(player, m_zoneType);
-
-            for (auto& entity : player.GetGame()->taskStack.entities)
-            {
-                if (zone != nullptr && zone->IsFull())
-                {
-                    break;
-                }
-
-                for (int i = 0; i < m_amount; ++i)
-                {
-                    if (zone != nullptr && zone->IsFull())
-                    {
-                        break;
-                    }
-
-                    auto card =
-                        Cards::GetInstance().FindCardByID(entity->card.id);
-
-                    result.emplace_back(
-                        m_isOpposite
-                            ? Entity::GetFromCard(*player.opponent,
-                                                  std::move(card), std::nullopt,
-                                                  zone)
-                            : Entity::GetFromCard(player, std::move(card),
-                                                  std::nullopt, zone));
-                }
-            }
-            break;
-        }
-        default:
-            throw std::invalid_argument(
-                "CopyTask::Impl() - Invalid entity type");
+        return TaskStatus::STOP;
     }
 
-    player.GetGame()->taskStack.entities = result;
+    if (zone != nullptr && zone->IsFull())
+    {
+        return TaskStatus::STOP;
+    }
+
+    if (m_amount < 1 || (m_amount != 1 && entities.size() != 1))
+    {
+        return TaskStatus::STOP;
+    }
+
+    for (int i = 0; i < m_amount; ++i)
+    {
+        for (auto& entity : entities)
+        {
+            Card card = 
+                Cards::GetInstance().FindCardByID(entity->card.id);
+            result.emplace_back(Entity::GetFromCard(
+                player, std::move(card), std::nullopt, zone
+            ));
+        }
+    }
+    
+    owner->GetGame()->taskStack.entities = result;
 
     return TaskStatus::COMPLETE;
 }
