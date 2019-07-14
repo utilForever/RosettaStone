@@ -6,6 +6,7 @@
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
@@ -37,6 +38,8 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
+    Entity* posBase;
+
     for (int i = 0; i < m_amount; ++i)
     {
         if (player.GetFieldZone().IsFull())
@@ -65,6 +68,17 @@ TaskStatus SummonTask::Impl(Player& player)
         {
             return TaskStatus::STOP;
         }
+        
+        const auto enchant =  dynamic_cast<Enchantment*>(m_source);
+        if (enchant != nullptr && enchant->GetTarget() != nullptr)
+        {
+            posBase = enchant->GetTarget();
+        }
+        else
+        {
+            posBase = m_source;
+        }
+        
 
         int summonPos;
         switch (m_side)
@@ -74,20 +88,21 @@ TaskStatus SummonTask::Impl(Player& player)
                 break;
             case SummonSide::RIGHT:
             {
-                if (m_source->zone->GetType() == ZoneType::PLAY)
+                if (posBase->zone->GetType() == ZoneType::PLAY)
                 {
-                    summonPos = m_source->GetZonePosition() + 1;
+                    summonPos = posBase->GetZonePosition() + 1;
                 }
                 else
                 {
                     summonPos =
-                        dynamic_cast<Minion*>(m_source)->GetLastBoardPos();
+                        dynamic_cast<Minion*>(posBase)->GetLastBoardPos();
                 }
                 break;
             }
             case SummonSide::NUMBER:
-                summonPos = m_source->owner->GetGame()->taskStack.num - 1;
+                summonPos = posBase->owner->GetGame()->taskStack.num - 1;
                 break;
+            
             default:
                 throw std::invalid_argument(
                     "SummonTask::Impl() - Invalid summon side");
