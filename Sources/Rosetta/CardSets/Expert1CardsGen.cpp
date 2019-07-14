@@ -2047,6 +2047,25 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new HealTask(EntityType::HERO, 4));
     cards.emplace("EX1_583", power);
 
+    // ---- ----------------------------------- MINION - NEUTRAL
+    // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you summon a minion,
+    //       deal 1 damage to a random enemy.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        new RandomTask(EntityType::ENEMIES, 1),
+        new DamageTask(EntityType::STACK, 1)
+    };
+    cards.emplace("NEW1_019", power);
+
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
