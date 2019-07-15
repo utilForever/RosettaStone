@@ -974,6 +974,21 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("EX1_181", power);
 
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_301] Felguard - COST:3 [ATK:3/HP:5]
+    // - Race: Demon, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Destroy one of your Mana Crystals.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ManaCrystalTask(-1, false));
+    cards.emplace("EX1_301", power);
+    
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
     // - Set: Expert1, Rarity: Rare

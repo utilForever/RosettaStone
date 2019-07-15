@@ -5086,6 +5086,55 @@ TEST(WarlockExpert1Test, EX1_181_CallOfTheVoid)
     EXPECT_EQ(curHand[4]->card.GetRace(), Race::DEMON);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [EX1_301] Felguard - COST:3 [ATK:3/HP:5]
+// - Race: Demon, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Destroy one of your Mana Crystals.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_301_Felguard)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Felguard"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Felguard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curPlayer.GetTotalMana(), 9);
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 7);
+    EXPECT_EQ(opPlayer.GetTotalMana(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    EXPECT_EQ(curPlayer.GetTotalMana(), 8);
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 4);
+    EXPECT_EQ(opPlayer.GetTotalMana(), 10);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_309] Siphon Soul - COST:6
 // - Set: Expert1, Rarity: Rare
