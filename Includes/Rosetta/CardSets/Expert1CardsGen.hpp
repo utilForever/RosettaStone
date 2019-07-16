@@ -109,6 +109,14 @@ class Expert1CardsGen
     //! \param cards Data storage to store added cards with power.
     static void AddNeutralNonCollect(std::map<std::string, Power>& cards);
 
+    //! Adds dream cards that are collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
+    static void AddDream(std::map<std::string, Power>& cards);
+
+    //! Adds Adds cards that are not collectible to \p cards.
+    //! \param cards Data storage to store added cards with power.
+    static void AddDreamNonCollect(std::map<std::string, Power>& cards);
+
     //! Adds all cards to \p cards.
     //! \param cards Data storage to store added cards with power.
     static void AddAll(std::map<std::string, Power>& cards);
