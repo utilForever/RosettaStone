@@ -6,6 +6,7 @@
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
 
+#include <string>
 #include <utility>
 
 namespace RosettaStone
@@ -138,9 +139,15 @@ SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
 {
     return SelfCondition([=](Entity* entity) -> bool {
         return (relaSign == RelaSign::EQ && entity->GetGameTag(tag) == value) ||
-               (relaSign == RelaSign::GEQ &&
-                entity->GetGameTag(tag) >= value) ||
+               (relaSign == RelaSign::GEQ && entity->GetGameTag(tag) >= value) ||
                (relaSign == RelaSign::LEQ && entity->GetGameTag(tag) <= value);
+    });
+}
+
+SelfCondition SelfCondition::IsName(std::string name, bool isEqual)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return !((entity->card.name == name) ^ isEqual);
     });
 }
 
