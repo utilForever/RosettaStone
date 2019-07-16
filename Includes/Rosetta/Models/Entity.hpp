@@ -44,17 +44,17 @@ class Entity
     //! Destructor.
     virtual ~Entity();
 
-    //! Copy constructor.
-    Entity(const Entity& ent);
+    //! Deleted copy constructor.
+    Entity(const Entity&) = delete;
 
-    //! Move constructor.
-    Entity(Entity&& ent) noexcept;
+    //! Deleted copy assignment operator.
+    Entity& operator=(const Entity&) = delete;
 
-    //! Copy assignment operator.
-    Entity& operator=(const Entity& ent);
+    //! Deleted move constructor.
+    Entity(Entity&&) noexcept = delete;
 
-    //! Move assignment operator.
-    Entity& operator=(Entity&& ent) noexcept;
+    //! Deleted move assignment operator.
+    Entity& operator=(Entity&&) noexcept = delete;
 
     //! Returns a list of game tag.
     //! \return A list of game tag.
@@ -133,7 +133,8 @@ class Entity
     //! \param type The type of power.
     //! \param target The target.
     //! \param chooseOne The index of chosen card from two cards.
-    void ActivateTask(PowerType type, Entity* target = nullptr, int chooseOne = 0);
+    void ActivateTask(PowerType type, Entity* target = nullptr,
+                      int chooseOne = 0);
 
     //! Builds a new entity that can be added to a game.
     //! \param player An owner of the entity.
@@ -166,10 +167,6 @@ class Entity
 
  protected:
     std::map<GameTag, int> m_gameTags;
-
- private:
-    //! Releases dynamic allocated resources.
-    void FreeMemory();
 };
 }  // namespace RosettaStone
 

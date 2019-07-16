@@ -26,71 +26,12 @@ Entity::Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags)
     auraEffects = new AuraEffects(this);
 }
 
-Entity::Entity(const Entity& ent)
-{
-    FreeMemory();
-
-    owner = ent.owner;
-    card = ent.card;
-
-    auraEffects = ent.auraEffects;
-    onGoingEffect = ent.onGoingEffect;
-    m_gameTags = ent.m_gameTags;
-}
-
-Entity::Entity(Entity&& ent) noexcept
-{
-    FreeMemory();
-
-    owner = ent.owner;
-    card = ent.card;
-
-    auraEffects = ent.auraEffects;
-    onGoingEffect = ent.onGoingEffect;
-    m_gameTags = ent.m_gameTags;
-}
-
 Entity::~Entity()
 {
-    FreeMemory();
-}
+    delete auraEffects;
+    delete onGoingEffect;
 
-Entity& Entity::operator=(const Entity& ent)
-{
-    if (this == &ent)
-    {
-        return *this;
-    }
-
-    FreeMemory();
-
-    owner = ent.owner;
-    card = ent.card;
-
-    auraEffects = ent.auraEffects;
-    onGoingEffect = ent.onGoingEffect;
-    m_gameTags = ent.m_gameTags;
-
-    return *this;
-}
-
-Entity& Entity::operator=(Entity&& ent) noexcept
-{
-    if (this == &ent)
-    {
-        return *this;
-    }
-
-    FreeMemory();
-
-    owner = ent.owner;
-    card = ent.card;
-
-    auraEffects = ent.auraEffects;
-    onGoingEffect = ent.onGoingEffect;
-    m_gameTags = ent.m_gameTags;
-
-    return *this;
+    m_gameTags.clear();
 }
 
 std::map<GameTag, int> Entity::GetGameTags() const
@@ -319,13 +260,5 @@ Entity* Entity::GetFromCard(Player& player, Card* card,
     }
 
     return result;
-}
-
-void Entity::FreeMemory()
-{
-    delete auraEffects;
-    delete onGoingEffect;
-
-    m_gameTags.clear();
 }
 }  // namespace RosettaStone
