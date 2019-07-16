@@ -22,6 +22,11 @@ TaskID FuncEntityTask::GetTaskID() const
     return TaskID::FUNC_ENTITY;
 }
 
+ITask* FuncEntityTask::CloneImpl()
+{
+    return new FuncEntityTask(m_func);
+}
+
 TaskStatus FuncEntityTask::Impl(Player& player)
 {
     if (m_func != nullptr)

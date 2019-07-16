@@ -19,6 +19,11 @@ TaskID ReturnHandTask::GetTaskID() const
     return TaskID::RETURN_HAND;
 }
 
+ITask* ReturnHandTask::CloneImpl()
+{
+    return new ReturnHandTask(m_entityType);
+}
+
 TaskStatus ReturnHandTask::Impl(Player& player)
 {
     auto entities =

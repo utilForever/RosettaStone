@@ -19,6 +19,11 @@ TaskID FlagTask::GetTaskID() const
     return TaskID::FLAG;
 }
 
+ITask* FlagTask::CloneImpl()
+{
+    return new FlagTask(m_flag, m_toDoTask);
+}
+
 TaskStatus FlagTask::Impl(Player& player)
 {
     if (player.GetGame()->taskStack.flag != m_flag)

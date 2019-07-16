@@ -13,6 +13,11 @@ TaskID TransformCopyTask::GetTaskID() const
     return TaskID::TRANSFORM_COPY;
 }
 
+ITask* TransformCopyTask::CloneImpl()
+{
+    return new TransformCopyTask();
+}
+
 TaskStatus TransformCopyTask::Impl(Player& player)
 {
     const auto target = dynamic_cast<Minion*>(m_target);

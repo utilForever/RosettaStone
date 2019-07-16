@@ -21,11 +21,16 @@ class AddEnchantmentTask : public ITask
     //! Constructs task with given \p cardID and \p entityType.
     //! \param cardID The card ID of enchantment to play.
     //! \param entityType The entity type of target to grant.
-    AddEnchantmentTask(std::string&& cardID, EntityType entityType);
+    AddEnchantmentTask(std::string cardID, EntityType entityType);
 
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
+
+    //! Returns Clone Of Object (pure virtual).
+    //! \returns clone of object.
+    //! \this uses for thread safe. not to access same task in multiple threads
+    ITask* CloneImpl() override;;
 
  private:
     //! Processes task logic internally and returns meta data.

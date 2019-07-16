@@ -25,6 +25,11 @@ TaskID CopyTask::GetTaskID() const
     return TaskID::COPY;
 }
 
+ITask* CopyTask::CloneImpl()
+{
+    return new CopyTask(m_entityType, m_amount, m_isOpposite, m_zoneType);
+}
+
 TaskStatus CopyTask::Impl(Player& player)
 {
     std::vector<Entity*> result;

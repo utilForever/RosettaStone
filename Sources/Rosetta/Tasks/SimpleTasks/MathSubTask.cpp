@@ -21,6 +21,11 @@ MathSubTask::MathSubTask(EntityType entityType, GameTag tag)
     // Do nothing
 }
 
+ITask* MathSubTask::CloneImpl()
+{
+    return new MathSubTask(m_entityType, m_gameTag, m_amount);
+}
+
 MathSubTask::MathSubTask(int amount) : m_amount(amount)
 {
     // Do nothing

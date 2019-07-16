@@ -23,6 +23,11 @@ TaskID DiscardTask::GetTaskID() const
     return TaskID::DISCARD;
 }
 
+ITask* DiscardTask::CloneImpl()
+{
+    return new DiscardTask(m_entityType);
+}
+
 TaskStatus DiscardTask::Impl(Player& player)
 {
     auto entities =

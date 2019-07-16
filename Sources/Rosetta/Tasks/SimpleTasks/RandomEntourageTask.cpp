@@ -24,6 +24,11 @@ TaskID RandomEntourageTask::GetTaskID() const
     return TaskID::RANDOM_ENTOURAGE;
 }
 
+ITask* RandomEntourageTask::CloneImpl()
+{
+    return new RandomEntourageTask(m_count, m_isOpponent);
+}
+
 TaskStatus RandomEntourageTask::Impl(Player& player)
 {
     (void)m_isOpponent;

@@ -82,6 +82,20 @@ class ITask
     //! Returns task ID (pure virtual).
     //! \return Task ID.
     virtual TaskID GetTaskID() const = 0;
+    
+    //! Return cloned object
+    //! This will be used for solving multithreading issues
+    //! Not to access same elements at same time.
+    ITask* Clone();
+
+    //! Check its freeable object
+    //! This will be used for solving multithreading issues, or leak issues
+    //! You'll need to free it if its cloned. or cause its memory leak.
+    bool IsFreeable() const;
+
+    //! Set as freeable object
+    //! See IsFreeable method for more informations
+    void SetFreeable();
 
  protected:
     EntityType m_entityType = EntityType::EMPTY;
@@ -89,11 +103,16 @@ class ITask
     Entity* m_source = nullptr;
     Entity* m_target = nullptr;
 
+    bool m_isFreeable = false;
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
     virtual TaskStatus Impl(Player& player) = 0;
+
+    //! Returns internally cloned object
+    virtual ITask* CloneImpl() = 0;
 };
 
 namespace Task

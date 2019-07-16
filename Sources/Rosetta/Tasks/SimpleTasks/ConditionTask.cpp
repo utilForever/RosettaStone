@@ -23,6 +23,11 @@ TaskID ConditionTask::GetTaskID() const
     return TaskID::CONDITION;
 }
 
+ITask* ConditionTask::CloneImpl()
+{
+    return new ConditionTask(m_entityType, m_selfConditions);
+}
+
 TaskStatus ConditionTask::Impl(Player& player)
 {
     auto entities =

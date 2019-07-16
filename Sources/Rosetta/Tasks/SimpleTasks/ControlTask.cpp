@@ -18,6 +18,11 @@ TaskID ControlTask::GetTaskID() const
     return TaskID::CONTROL;
 }
 
+ITask* ControlTask::CloneImpl()
+{
+    return new ControlTask(m_entityType);
+}
+
 TaskStatus ControlTask::Impl(Player& player)
 {
     auto entities =

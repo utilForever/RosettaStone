@@ -9,7 +9,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-WeaponTask::WeaponTask(std::string&& cardID) : m_cardID(cardID)
+WeaponTask::WeaponTask(std::string cardID) : m_cardID(std::move(cardID))
 {
     // Do nothing
 }
@@ -17,6 +17,11 @@ WeaponTask::WeaponTask(std::string&& cardID) : m_cardID(cardID)
 TaskID WeaponTask::GetTaskID() const
 {
     return TaskID::WEAPON;
+}
+
+ITask* WeaponTask::CloneImpl()
+{
+    return new WeaponTask(m_cardID);
 }
 
 TaskStatus WeaponTask::Impl(Player& player)

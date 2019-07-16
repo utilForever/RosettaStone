@@ -18,6 +18,11 @@ TaskID DestroyTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
+ITask* DestroyTask::CloneImpl()
+{
+    return new DestroyTask(m_entityType);
+}
+
 TaskStatus DestroyTask::Impl(Player& player)
 {
     auto entities =

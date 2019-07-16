@@ -11,9 +11,9 @@
 
 namespace RosettaStone::SimpleTasks
 {
-AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
+AddEnchantmentTask::AddEnchantmentTask(std::string cardID,
                                        EntityType entityType)
-    : ITask(entityType), m_cardID(cardID)
+    : ITask(entityType), m_cardID(std::move(cardID))
 {
     // Do nothing
 }
@@ -21,6 +21,11 @@ AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
 TaskID AddEnchantmentTask::GetTaskID() const
 {
     return TaskID::ADD_ENCHANTMENT;
+}
+
+ITask* AddEnchantmentTask::CloneImpl()
+{
+    return new AddEnchantmentTask(m_cardID, m_entityType);
 }
 
 TaskStatus AddEnchantmentTask::Impl(Player& player)

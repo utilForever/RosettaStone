@@ -22,6 +22,11 @@ TaskID ChanceTask::GetTaskID() const
     return TaskID::CHANCE;
 }
 
+ITask* ChanceTask::CloneImpl()
+{
+    return new ChanceTask(m_useFlag);
+}
+
 TaskStatus ChanceTask::Impl(Player& player)
 {
     const auto num = Random::get<int>(0, 1);

@@ -18,6 +18,11 @@ TaskID DrawOpTask::GetTaskID() const
     return TaskID::DRAW_OP;
 }
 
+ITask* DrawOpTask::CloneImpl()
+{
+    return new DrawOpTask(m_amount);
+}
+
 TaskStatus DrawOpTask::Impl(Player& player)
 {
     for (int i = 0; i < m_amount; ++i)

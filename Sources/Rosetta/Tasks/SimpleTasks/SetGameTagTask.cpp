@@ -19,6 +19,11 @@ TaskID SetGameTagTask::GetTaskID() const
     return TaskID::SET_GAME_TAG;
 }
 
+ITask* SetGameTagTask::CloneImpl()
+{
+    return new SetGameTagTask(m_entityType, m_gameTag, m_amount);
+}
+
 TaskStatus SetGameTagTask::Impl(Player& player)
 {
     auto entities =
