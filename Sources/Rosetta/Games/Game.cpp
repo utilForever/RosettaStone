@@ -613,6 +613,11 @@ PlayState Game::Process(Player& player, ITask* task)
     task->SetPlayer(&player);
     Task::Run(task);
 
+    if (task->IsFreeable())
+    {
+        delete task;
+    }
+
     return CheckGameOver();
 }
 
@@ -731,6 +736,7 @@ PlayState Game::PerformAction(ActionParams& params)
             return PlayState::INVALID;
     }
 
+    task->SetFreeable();
     return Process(GetCurrentPlayer(), task);
 }
 

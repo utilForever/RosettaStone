@@ -15,6 +15,11 @@ TaskID EndTurnTask::GetTaskID() const
     return TaskID::END_TURN;
 }
 
+ITask* EndTurnTask::CloneImpl()
+{
+    return new EndTurnTask();
+}
+
 TaskStatus EndTurnTask::Impl(Player& player)
 {
     auto game = player.GetGame();

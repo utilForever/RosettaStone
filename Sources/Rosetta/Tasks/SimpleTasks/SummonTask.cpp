@@ -30,6 +30,11 @@ SummonTask::SummonTask(std::string cardID, SummonSide side) : m_side(side)
     m_card = Cards::FindCardByID(cardID);
 }
 
+ITask* SummonTask::CloneImpl()
+{
+    return new SummonTask(m_side, m_card, m_amount);
+}
+
 TaskID SummonTask::GetTaskID() const
 {
     return TaskID::SUMMON;

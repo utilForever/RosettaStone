@@ -19,6 +19,11 @@ TaskID RemoveHandTask::GetTaskID() const
     return TaskID::REMOVE_HAND;
 }
 
+ITask* RemoveHandTask::CloneImpl()
+{
+    return new RemoveHandTask(m_entityType);
+}
+
 TaskStatus RemoveHandTask::Impl(Player& player)
 {
     auto entities =

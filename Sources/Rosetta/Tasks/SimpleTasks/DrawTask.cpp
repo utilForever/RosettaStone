@@ -20,6 +20,11 @@ TaskID DrawTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
+ITask* DrawTask::CloneImpl()
+{
+    return new DrawTask(m_amount, m_toStack);
+}
+
 TaskStatus DrawTask::Impl(Player& player)
 {
     std::vector<Entity*> cards;

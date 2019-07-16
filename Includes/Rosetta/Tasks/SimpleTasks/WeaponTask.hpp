@@ -20,11 +20,16 @@ class WeaponTask : public ITask
  public:
     //! Constructs task with given \p cardID.
     //! \param cardID The card ID of weapon to equip.
-    explicit WeaponTask(std::string&& cardID);
+    explicit WeaponTask(std::string cardID);
 
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
+
+    //! Returns Clone Of Object (pure virtual).
+    //! \returns clone of object.
+    //! \this uses for thread safe. not to access same task in multiple threads
+    ITask* CloneImpl() override;;
 
  private:
     //! Processes task logic internally and returns meta data.

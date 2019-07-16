@@ -32,6 +32,11 @@ TaskID ChooseTask::GetTaskID() const
     return TaskID::CHOOSE;
 }
 
+ITask* ChooseTask::CloneImpl()
+{
+    return new ChooseTask(m_choices);
+}
+
 TaskStatus ChooseTask::Impl(Player& player)
 {
     switch (player.choice.value().choiceType)

@@ -22,6 +22,11 @@ TaskID AddCardTask::GetTaskID() const
     return TaskID::ADD_CARD;
 }
 
+ITask* AddCardTask::CloneImpl()
+{
+    return new AddCardTask(m_entityType, m_cardID, m_amount);
+}
+
 TaskStatus AddCardTask::Impl(Player& player)
 {
     std::vector<Entity*> entities;

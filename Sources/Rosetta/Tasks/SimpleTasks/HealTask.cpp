@@ -19,6 +19,11 @@ TaskID HealTask::GetTaskID() const
     return TaskID::HEAL;
 }
 
+ITask* HealTask::CloneImpl()
+{
+    return new HealTask(m_entityType, m_amount);
+}
+
 TaskStatus HealTask::Impl(Player& player)
 {
     auto entities =

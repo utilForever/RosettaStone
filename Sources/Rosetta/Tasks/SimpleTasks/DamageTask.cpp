@@ -22,6 +22,11 @@ TaskID DamageTask::GetTaskID() const
     return TaskID::DAMAGE;
 }
 
+ITask* DamageTask::CloneImpl()
+{
+    return new DamageTask(m_entityType, m_damage, m_isSpellDamage);
+}
+
 TaskStatus DamageTask::Impl(Player& player)
 {
     auto entities =

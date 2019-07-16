@@ -23,6 +23,11 @@ TaskID TransformTask::GetTaskID() const
     return TaskID::TRANSFORM;
 }
 
+ITask* TransformTask::CloneImpl()
+{
+    return new TransformTask(m_entityType, m_cardID);
+}
+
 TaskStatus TransformTask::Impl(Player& player)
 {
     auto entities =

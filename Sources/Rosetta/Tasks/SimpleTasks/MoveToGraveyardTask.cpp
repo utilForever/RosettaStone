@@ -19,6 +19,11 @@ TaskID MoveToGraveyardTask::GetTaskID() const
     return TaskID::MOVE_TO_GRAVEYARD;
 }
 
+ITask* MoveToGraveyardTask::CloneImpl()
+{
+    return new MoveToGraveyardTask(m_entityType);
+}
+
 TaskStatus MoveToGraveyardTask::Impl(Player& player)
 {
     auto entities =

@@ -17,6 +17,11 @@ TaskID TempManaTask::GetTaskID() const
     return TaskID::TEMP_MANA;
 }
 
+ITask* TempManaTask::CloneImpl()
+{
+    return new TempManaTask(m_amount);
+}
+
 TaskStatus TempManaTask::Impl(Player& player)
 {
     if (player.GetRemainingMana() + m_amount > MANA_UPPER_LIMIT)

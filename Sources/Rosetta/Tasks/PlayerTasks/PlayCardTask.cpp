@@ -46,6 +46,11 @@ TaskID PlayCardTask::GetTaskID() const
     return TaskID::PLAY_CARD;
 }
 
+ITask* PlayCardTask::CloneImpl()
+{
+    return new PlayCardTask(m_source, m_target, m_fieldPos, m_chooseOne);
+}
+
 TaskStatus PlayCardTask::Impl(Player& player)
 {
     const auto target = dynamic_cast<Character*>(m_target);

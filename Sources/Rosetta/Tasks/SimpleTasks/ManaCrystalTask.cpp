@@ -19,6 +19,11 @@ TaskID ManaCrystalTask::GetTaskID() const
     return TaskID::MANA_CRYSTAL;
 }
 
+ITask* ManaCrystalTask::CloneImpl()
+{
+    return new ManaCrystalTask(m_amount, m_fill, m_isOpponent);
+}
+
 TaskStatus ManaCrystalTask::Impl(Player& player)
 {
     if (m_isOpponent)

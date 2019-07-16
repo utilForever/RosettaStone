@@ -21,6 +21,11 @@ TaskID DamageNumberTask::GetTaskID() const
     return TaskID::DAMAGE_NUMBER;
 }
 
+ITask* DamageNumberTask::CloneImpl()
+{
+    return new DamageNumberTask(m_entityType, m_isSpellDamage);
+}
+
 TaskStatus DamageNumberTask::Impl(Player& player)
 {
     const int damage = m_source->owner->GetGame()->taskStack.num;

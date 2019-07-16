@@ -19,6 +19,11 @@ TaskID EnqueueTask::GetTaskID() const
     return TaskID::ENQUEUE;
 }
 
+ITask* EnqueueTask::CloneImpl()
+{
+    return new EnqueueTask(m_tasks, m_num, m_isSpellDamage);
+}
+
 TaskStatus EnqueueTask::Impl(Player& player)
 {
     const int times =

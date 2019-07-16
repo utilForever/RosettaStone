@@ -18,6 +18,11 @@ TaskID SilenceTask::GetTaskID() const
     return TaskID::SILENCE;
 }
 
+ITask* SilenceTask::CloneImpl()
+{
+    return new SilenceTask(m_entityType);
+}
+
 TaskStatus SilenceTask::Impl(Player& player)
 {
     auto entities =

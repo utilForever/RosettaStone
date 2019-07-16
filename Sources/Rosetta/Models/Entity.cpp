@@ -255,11 +255,13 @@ void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
 
     for (auto& task : tasks)
     {
-        task->SetPlayer(owner);
-        task->SetSource(this);
-        task->SetTarget(target);
+        ITask* clonedTask = task->Clone();
 
-        owner->GetGame()->taskQueue.Enqueue(task);
+        clonedTask->SetPlayer(owner);
+        clonedTask->SetSource(this);
+        clonedTask->SetTarget(target);
+
+        owner->GetGame()->taskQueue.Enqueue(clonedTask);
     }
 }
 

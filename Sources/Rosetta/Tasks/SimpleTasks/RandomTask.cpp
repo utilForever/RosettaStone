@@ -24,6 +24,11 @@ TaskID RandomTask::GetTaskID() const
     return TaskID::RANDOM;
 }
 
+ITask* RandomTask::CloneImpl()
+{
+    return new RandomTask(m_entityType, m_num);
+}
+
 TaskStatus RandomTask::Impl(Player& player)
 {
     auto entities =

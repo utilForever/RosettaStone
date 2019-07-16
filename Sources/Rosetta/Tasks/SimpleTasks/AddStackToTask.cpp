@@ -19,6 +19,11 @@ TaskID AddStackToTask::GetTaskID() const
     return TaskID::ADD_STACK_TO;
 }
 
+ITask* AddStackToTask::CloneImpl()
+{
+    return new AddStackToTask(m_entityType);
+}
+
 TaskStatus AddStackToTask::Impl(Player& player)
 {
     switch (m_entityType)
