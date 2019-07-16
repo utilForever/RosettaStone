@@ -33,6 +33,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
@@ -2050,6 +2051,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_564", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_572] Ysera - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn, add a Dream Card to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomEntourageTask(1));
+    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    cards.emplace("EX1_572", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_583] Priestess of Elune- COST:6 [ATK:5/HP:4]
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -2405,6 +2421,94 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     cards.emplace("skele21", power);
 }
 
+void Expert1CardsGen::AddDream(std::map<std::string, Power>& cards)
+{
+    (void)cards;
+}
+
+void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, Power>& cards)
+{
+    Power power;
+
+    // ----------------------------------------- MINION - DREAM
+    // [DREAM_01] Laughing Sister - COST:3 [ATK:3/HP:5]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_TARGETED_BY_SPELLS = 1
+    // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DREAM_01", power);
+
+    // ------------------------------------------ SPELL - DREAM
+    // [DREAM_02] Ysera Awakens - COST:2
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deal $5 damage to all characters except Ysera.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::ALL));
+    power.AddPowerTask(
+        new FilterStackTask(SelfCondition::IsName("Ysera", false)));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 5, true));
+    cards.emplace("DREAM_02", power);
+
+    // ----------------------------------------- MINION - DREAM
+    // [DREAM_03] Emerald Drake - COST:4 [ATK:7/HP:6]
+    // - Race: Dragon, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DREAM_03", power);
+
+    // ------------------------------------------ SPELL - DREAM
+    // [DREAM_04] Dream - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Return a minion to its owner's hand.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
+    cards.emplace("DREAM_04", power);
+
+    // ------------------------------------------ SPELL - DREAM
+    // [DREAM_05] Nightmare - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Give a minion +5/+5.
+    //       At the start of your next turn, destroy it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("DREAM_05e", EntityType::TARGET));
+    cards.emplace("DREAM_05", power);
+
+    // ------------------------------------ ENCHANTMENT - DREAM
+    // [DREAM_05e] Nightmare (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has +5/+5, but will be destroyed soon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DREAM_05e"));
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
+    cards.emplace("DREAM_05e", power);
+}
+
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
 {
     AddHeroes(cards);
@@ -2439,5 +2543,8 @@ void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
 
     AddNeutral(cards);
     AddNeutralNonCollect(cards);
+
+    AddDream(cards);
+    AddDreamNonCollect(cards);
 }
 }  // namespace RosettaStone

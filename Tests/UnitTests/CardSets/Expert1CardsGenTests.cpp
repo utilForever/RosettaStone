@@ -5461,6 +5461,54 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_572] Ysera - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the end of your turn, add a Dream Card to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_572_Ysera)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ysera"));
+
+    auto& curHand = curPlayer.GetHandZone();
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    EXPECT_EQ(curHand.GetCount(), 5);
+
+    const Card& dreamCard = curHand.GetAll()[4]->card;
+    Card yseraCard = Cards::GetInstance().FindCardByName("Ysera");
+    auto& entourages = yseraCard.entourages;
+
+    EXPECT_TRUE(std::find(
+        entourages.begin(), entourages.end(), dreamCard.id) != entourages.end())
+        << "dreamCard's name: " << dreamCard.name << std::endl;
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_583] Priestess of Elune- COST:6 [ATK:5/HP:4]
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
@@ -6027,4 +6075,226 @@ TEST(NeutralExpert1Test, NEW1_041_StampedingKodo)
     game.Process(opPlayer, PlayCardTask::Minion(card3));
 
     EXPECT_EQ(curField.GetCount(), 1);
+}
+
+// ----------------------------------------- MINION - DREAM
+// [DREAM_01] Laughing Sister - COST:3 [ATK:3/HP:5]
+// - Set: Expert1
+// --------------------------------------------------------
+// GameTag:
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// --------------------------------------------------------
+TEST(DreamExpert1Test, DREAM_01_LaughingSister)
+{
+    // Do nothing
+}
+
+// ------------------------------------------ SPELL - DREAM
+// [DREAM_02] Ysera Awakens - COST:2
+// - Set: Expert1
+// --------------------------------------------------------
+// Text: Deal $5 damage to all characters except Ysera.
+// --------------------------------------------------------
+TEST(DreamExpert1Test, DREAM_02_YseraAwakens)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ysera Awakens"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ysera"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fen Creeper"));
+    
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ysera"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Fen Creeper"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    curPlayer.SetUsedMana(0);
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    opPlayer.SetUsedMana(0);
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 25);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+
+    EXPECT_EQ(card2->GetGameTag(GameTag::DAMAGE), 0);
+    EXPECT_EQ(card4->GetGameTag(GameTag::DAMAGE), 0);
+ 
+    EXPECT_EQ(card3->GetGameTag(GameTag::DAMAGE), 5);
+    EXPECT_EQ(card5->GetGameTag(GameTag::DAMAGE), 5);
+}
+
+// ----------------------------------------- MINION - DREAM
+// [DREAM_03] Emerald Drake - COST:4 [ATK:7/HP:6]
+// - Race: Dragon, Set: Expert1
+// --------------------------------------------------------
+TEST(DreamExpert1Test, DREAM_03_EmeraldDrake)
+{
+    // Do nothing
+}
+
+// ------------------------------------------ SPELL - DREAM
+// [DREAM_04] Dream - COST:0
+// - Set: Expert1
+// --------------------------------------------------------
+// Text: Return a minion to its owner's hand.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(DreamExpert1Test, DREAM_04_Dream)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    auto& curHand = curPlayer.GetHandZone();
+    auto& opHand = opPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByID("DREAM_04"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByID("DREAM_04"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(opField.GetCount(), 1);
+
+    const int curHandCount = curHand.GetCount();
+    const int opHandCount = opHand.GetCount();
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
+
+    EXPECT_EQ(curHand.GetCount(), curHandCount);
+    EXPECT_EQ(opHand.GetCount(), opHandCount);
+
+    EXPECT_EQ(opHand[opHandCount - 1]->card.name, "Magma Rager");
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
+
+    EXPECT_EQ(curHand.GetCount(), curHandCount + 1);
+    EXPECT_EQ(opHand.GetCount(), opHandCount - 1);
+
+    EXPECT_EQ(curHand[curHandCount]->card.name, "Magma Rager");
+}
+
+// ------------------------------------------ SPELL - DREAM
+// [DREAM_05] Nightmare - COST:0
+// - Set: Expert1
+// --------------------------------------------------------
+// Text: Give a minion +5/+5.
+//       At the start of your next turn, destroy it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(DreamExpert1Test, DREAM_05_Nightmare)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Nightmare"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);   
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
+
+    EXPECT_FALSE(curField[0]->appliedEnchantments.empty());
+
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    EXPECT_EQ(curField[0]->GetAttack(), 10);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);   
+
+    EXPECT_EQ(curField.GetCount(), 0);
 }
