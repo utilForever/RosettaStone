@@ -239,7 +239,7 @@ EXPERT1 | EX1_170 | Emperor Cobra | O
 EXPERT1 | EX1_178 | Ancient of War |  
 EXPERT1 | EX1_179 | Icicle |  
 EXPERT1 | EX1_180 | Tome of Intellect |  
-EXPERT1 | EX1_181 | Call of the Void |  
+EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer |  
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 49% (118 of 237 Cards)
+- Progress: 50% (119 of 237 Cards)
 
 ## Hall of Fame
 
