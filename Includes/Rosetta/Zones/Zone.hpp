@@ -26,6 +26,9 @@ class Zone : public IZone
     //! Default constructor.
     Zone() = default;
 
+    //! Default virtual destructor.
+    virtual ~Zone() = default;
+
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
@@ -68,6 +71,16 @@ class Zone : public IZone
 class UnlimitedZone : public Zone<Entity>
 {
  public:
+    ~UnlimitedZone()
+    {
+        for (auto& entity : m_entities)
+        {
+            delete entity;
+        }
+
+        m_entities.clear();
+    }
+
     void Add(Entity& entity, int zonePos = -1) override
     {
         if (entity.owner != m_owner)
@@ -131,6 +144,16 @@ class LimitedZone : public Zone<T>
         {
             m_entities[i] = nullptr;
         }
+    }
+
+    ~LimitedZone()
+    {
+        for (int i = 0; i < m_count; ++i)
+        {
+            delete m_entities[i];
+        }
+
+        delete[] m_entities;
     }
 
     //! Operator overloading for operator[]
