@@ -31,6 +31,7 @@ TaskStatus MoveToGraveyardTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
+        entity->zone->Remove(*entity);
         entity->owner->GetGraveyardZone().Add(*entity);
     }
 
