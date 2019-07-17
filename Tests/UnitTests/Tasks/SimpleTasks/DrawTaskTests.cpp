@@ -121,8 +121,6 @@ TEST(DrawTask, RunExhaust)
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
     EXPECT_EQ(p.GetHero()->GetHealth(), 15);
-
-    delete minion;
 }
 
 TEST(DrawTask, RunOverDraw)
