@@ -35,16 +35,16 @@ class Hero : public Character
     ~Hero();
 
     //! Deleted copy constructor.
-    Hero(const Hero& hero) = delete;
+    Hero(const Hero&) = delete;
+
+    //! Deleted copy assignment operator.
+    Hero& operator=(const Hero&) = delete;
 
     //! Deleted move constructor.
-    Hero(Hero&& hero) = delete;
+    Hero(Hero&&) noexcept = delete;
 
-    //! Copy assignment operator.
-    Hero& operator=(const Hero& hero) = delete;
-
-    //! Move assignment operator.
-    Hero& operator=(Hero&& hero) = delete;
+    //! Deleted move assignment operator.
+    Hero& operator=(Hero&&) noexcept = delete;
 
     //! Returns the value of attack.
     //! \return The value of attack.

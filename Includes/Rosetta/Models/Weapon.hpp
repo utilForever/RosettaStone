@@ -31,19 +31,19 @@ class Weapon : public Entity
     Weapon(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Destructor.
-    virtual ~Weapon();
+    ~Weapon();
 
-    //! Default copy constructor.
-    Weapon(const Weapon& weapon) = default;
+    //! Deleted copy constructor.
+    Weapon(const Weapon&) = delete;
 
-    //! Default move constructor.
-    Weapon(Weapon&& weapon) = default;
+    //! Deleted copy assignment operator.
+    Weapon& operator=(const Weapon&) = delete;
 
-    //! Default copy assignment operator.
-    Weapon& operator=(const Weapon& weapon) = default;
+    //! Deleted move constructor.
+    Weapon(Weapon&&) noexcept = delete;
 
-    //! Default move assignment operator.
-    Weapon& operator=(Weapon&& weapon) = default;
+    //! Deleted move assignment operator.
+    Weapon& operator=(Weapon&&) noexcept = delete;
 
     //! Returns the value of attack.
     //! \return The value of attack.

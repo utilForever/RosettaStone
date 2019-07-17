@@ -31,17 +31,17 @@ class Minion : public Character
     //! Default destructor.
     ~Minion() = default;
 
-    //! Default copy constructor.
-    Minion(const Minion& minion) = default;
+    //! Deleted copy constructor.
+    Minion(const Minion&) = delete;
 
-    //! Default move constructor.
-    Minion(Minion&& minion) = default;
+    //! Deleted copy assignment operator.
+    Minion& operator=(const Minion&) = delete;
 
-    //! Default copy assignment operator.
-    Minion& operator=(const Minion& minion) = default;
+    //! Deleted move constructor.
+    Minion(Minion&&) noexcept = delete;
 
-    //! Default move assignment operator.
-    Minion& operator=(Minion&& minion) = default;
+    //! Deleted move assignment operator.
+    Minion& operator=(Minion&&) noexcept = delete;
 
     //! Returns the value of last board position.
     //! \return The value of last board position.

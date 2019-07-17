@@ -24,7 +24,8 @@ class Enchantment : public Entity
     //! Default constructor.
     Enchantment() = default;
 
-    //! Constructs enchantment with given \p _owner, \p _card, \p tags and \p target.
+    //! Constructs enchantment with given \p _owner, \p _card, \p tags
+    //! and \p target.
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
@@ -35,17 +36,17 @@ class Enchantment : public Entity
     //! Default destructor.
     ~Enchantment() = default;
 
-    //! Default copy constructor.
-    Enchantment(const Enchantment& spell) = default;
+    //! Deleted copy constructor.
+    Enchantment(const Enchantment&) = delete;
 
-    //! Default move constructor.
-    Enchantment(Enchantment&& spell) = default;
+    //! Deleted copy assignment operator.
+    Enchantment& operator=(const Enchantment&) = delete;
 
-    //! Default copy assignment operator.
-    Enchantment& operator=(const Enchantment& spell) = default;
+    //! Deleted move constructor.
+    Enchantment(Enchantment&&) noexcept = delete;
 
-    //! Default move assignment operator.
-    Enchantment& operator=(Enchantment&& spell) = default;
+    //! Deleted move assignment operator.
+    Enchantment& operator=(Enchantment&&) noexcept = delete;
 
     //! Creates and adds a new Enchantment to the given player's game.
     //! \param player The controller of the enchantment.
