@@ -53,7 +53,7 @@ TaskStatus ITask::Run()
 ITask* ITask::Clone()
 {
     ITask* clonedTask = CloneImpl();
-    clonedTask->SetFreeable();
+    clonedTask->EnableFreeable();
 
     clonedTask->m_entityType = m_entityType;
     clonedTask->m_player = m_player;
@@ -68,7 +68,7 @@ bool ITask::IsFreeable() const
     return m_isFreeable;
 }
 
-void ITask::SetFreeable()
+void ITask::EnableFreeable()
 {
     m_isFreeable = true;
 }
