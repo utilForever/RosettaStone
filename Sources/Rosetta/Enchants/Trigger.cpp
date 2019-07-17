@@ -47,7 +47,8 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     // Do nothing
 }
 
-void Trigger::Activate(Entity* source, TriggerActivation activation, bool cloning)
+void Trigger::Activate(Entity* source, TriggerActivation activation,
+                       bool cloning)
 {
     if (!cloning && activation != m_triggerActivation)
     {
@@ -254,13 +255,13 @@ void Trigger::Remove() const
             break;
     }
 
+    m_owner->activatedTrigger = nullptr;
+
     if (m_sequenceType != SequenceType::NONE)
     {
         EraseIf(game->triggers,
                 [this](Trigger* trigger) { return trigger == this; });
     }
-
-    delete m_owner->activatedTrigger;
 }
 
 void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
@@ -293,6 +294,11 @@ void Trigger::ProcessInternal(Entity* source)
 {
     m_isValidated = false;
 
+    if (removeAfterTriggered)
+    {
+        Remove();
+    }
+
     for (auto& task : tasks)
     {
         task->SetPlayer(m_owner->owner);
@@ -322,11 +328,6 @@ void Trigger::ProcessInternal(Entity* source)
         else
         {
             m_owner->owner->GetGame()->taskQueue.Enqueue(task);
-        }
-
-        if (removeAfterTriggered)
-        {
-            Remove();
         }
     }
 
