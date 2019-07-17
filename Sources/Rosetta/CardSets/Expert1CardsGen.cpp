@@ -249,6 +249,24 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     cards.emplace("CS2_028", power);
 
     // ------------------------------------------- SPELL - MAGE
+    // [EX1_179] Icicle - COST:2
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to a minion.
+    //       If it's <b>Frozen</b>, draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
+    power.AddPowerTask(new ConditionTask(EntityType::TARGET,
+                                        { SelfCondition::IsFrozen() }));
+    power.AddPowerTask(new FlagTask(true, new DrawTask(1)));
+    cards.emplace("EX1_179", power);
+
+    // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------

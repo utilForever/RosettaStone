@@ -402,6 +402,73 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [EX1_179] Icicle - COST:2
+// - Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal $2 damage to a minion.
+//       If it's <b>Frozen</b>, draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_179_Icicle)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    auto& opHand = opPlayer.GetHandZone();
+    
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Icicle"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Icicle"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ice Lance"));
+
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    int opHandCount = opHand.GetCount();
+    
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card4));
+    
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+    EXPECT_EQ(opHand.GetCount(), opHandCount - 1);
+    opHandCount = opHand.GetCount();
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card4));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
+    
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opHand.GetCount(), opHandCount - 1);
+}
+
+
+// ------------------------------------------- SPELL - MAGE
 // [EX1_279] Pyroblast - COST:10
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
