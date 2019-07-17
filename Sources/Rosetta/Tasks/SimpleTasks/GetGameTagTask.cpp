@@ -24,11 +24,6 @@ TaskID GetGameTagTask::GetTaskID() const
     return TaskID::GET_GAME_TAG;
 }
 
-ITask* GetGameTagTask::CloneImpl()
-{
-    return new GetGameTagTask(m_entityType, m_gameTag, m_entityIndex, m_numIndex);
-}
-
 TaskStatus GetGameTagTask::Impl(Player& player)
 {
     auto entities =
@@ -58,5 +53,11 @@ TaskStatus GetGameTagTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* GetGameTagTask::CloneImpl()
+{
+    return new GetGameTagTask(m_entityType, m_gameTag, m_entityIndex,
+                              m_numIndex);
 }
 }  // namespace RosettaStone::SimpleTasks

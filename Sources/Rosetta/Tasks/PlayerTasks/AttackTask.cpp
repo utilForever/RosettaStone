@@ -18,16 +18,16 @@ TaskID AttackTask::GetTaskID() const
     return TaskID::ATTACK;
 }
 
-ITask* AttackTask::CloneImpl()
-{
-    return new AttackTask(m_source, m_target);
-}
-
 TaskStatus AttackTask::Impl(Player& player)
 {
     Generic::Attack(player, dynamic_cast<Character*>(m_source),
                     dynamic_cast<Character*>(m_target));
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* AttackTask::CloneImpl()
+{
+    return new AttackTask(m_source, m_target);
 }
 }  // namespace RosettaStone::PlayerTasks

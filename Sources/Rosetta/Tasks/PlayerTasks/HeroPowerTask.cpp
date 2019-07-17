@@ -20,11 +20,6 @@ TaskID HeroPowerTask::GetTaskID() const
     return TaskID::HERO_POWER;
 }
 
-ITask* HeroPowerTask::CloneImpl()
-{
-    return new HeroPowerTask(m_target);
-}
-
 TaskStatus HeroPowerTask::Impl(Player& player)
 {
     HeroPower* power = player.GetHero()->heroPower;
@@ -72,4 +67,9 @@ TaskStatus HeroPowerTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-}  // namespace RosettaStone::SimpleTasks
+
+ITask* HeroPowerTask::CloneImpl()
+{
+    return new HeroPowerTask(m_target);
+}
+}  // namespace RosettaStone::PlayerTasks

@@ -19,11 +19,6 @@ TaskID AddAuraEffectTask::GetTaskID() const
     return TaskID::ADD_AURA_EFFECT;
 }
 
-ITask* AddAuraEffectTask::CloneImpl()
-{
-    return new AddAuraEffectTask(m_effect, m_entityType);
-}
-
 TaskStatus AddAuraEffectTask::Impl(Player& player)
 {
     auto entities =
@@ -34,5 +29,10 @@ TaskStatus AddAuraEffectTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* AddAuraEffectTask::CloneImpl()
+{
+    return new AddAuraEffectTask(m_effect, m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

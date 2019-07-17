@@ -22,11 +22,6 @@ TaskID AddCardTask::GetTaskID() const
     return TaskID::ADD_CARD;
 }
 
-ITask* AddCardTask::CloneImpl()
-{
-    return new AddCardTask(m_entityType, m_cardID, m_amount);
-}
-
 TaskStatus AddCardTask::Impl(Player& player)
 {
     std::vector<Entity*> entities;
@@ -34,6 +29,7 @@ TaskStatus AddCardTask::Impl(Player& player)
     switch (m_entityType)
     {
         case EntityType::ENEMY_HAND:
+        {
             for (int i = 0; i < m_amount; ++i)
             {
                 Card* card = Cards::GetInstance().FindCardByID(m_cardID);
@@ -42,11 +38,17 @@ TaskStatus AddCardTask::Impl(Player& player)
                     Entity::GetFromCard(*player.opponent, card));
             }
             break;
+        }
         default:
             throw std::invalid_argument(
                 "AddCardTask::Impl() - Invalid entity type");
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* AddCardTask::CloneImpl()
+{
+    return new AddCardTask(m_entityType, m_cardID, m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

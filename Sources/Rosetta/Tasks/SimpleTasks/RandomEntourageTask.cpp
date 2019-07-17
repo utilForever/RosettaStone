@@ -24,11 +24,6 @@ TaskID RandomEntourageTask::GetTaskID() const
     return TaskID::RANDOM_ENTOURAGE;
 }
 
-ITask* RandomEntourageTask::CloneImpl()
-{
-    return new RandomEntourageTask(m_count, m_isOpponent);
-}
-
 TaskStatus RandomEntourageTask::Impl(Player& player)
 {
     (void)m_isOpponent;
@@ -49,7 +44,7 @@ TaskStatus RandomEntourageTask::Impl(Player& player)
     {
         const auto idx =
             Random::get<std::size_t>(0, m_source->card->entourages.size() - 1);
-        auto entourageCard =
+        const auto entourageCard =
             Cards::GetInstance().FindCardByID(m_source->card->entourages[idx]);
 
         Entity* entourageEntity = Entity::GetFromCard(player, entourageCard);
@@ -57,5 +52,10 @@ TaskStatus RandomEntourageTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* RandomEntourageTask::CloneImpl()
+{
+    return new RandomEntourageTask(m_count, m_isOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -20,11 +20,6 @@ TaskID CountTask::GetTaskID() const
     return TaskID::COUNT;
 }
 
-ITask* CountTask::CloneImpl()
-{
-    return new CountTask(m_entityType, m_numIndex);
-}
-
 TaskStatus CountTask::Impl(Player& player)
 {
     const auto entities =
@@ -44,5 +39,10 @@ TaskStatus CountTask::Impl(Player& player)
                 "CountTask::Impl() - Invalid number index");
     }
     return TaskStatus::COMPLETE;
+}
+
+ITask* CountTask::CloneImpl()
+{
+    return new CountTask(m_entityType, m_numIndex);
 }
 }  // namespace RosettaStone::SimpleTasks

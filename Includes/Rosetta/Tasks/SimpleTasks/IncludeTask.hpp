@@ -38,16 +38,15 @@ class IncludeTask : public ITask
                                             Entity* source = nullptr,
                                             Entity* target = nullptr);
 
-    //! Returns Clone Of Object (pure virtual).
-    //! \returns clone of object.
-    //! \this uses for thread safe. not to access same task in multiple threads
-    ITask* CloneImpl() override;;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
 };
 }  // namespace RosettaStone::SimpleTasks
 

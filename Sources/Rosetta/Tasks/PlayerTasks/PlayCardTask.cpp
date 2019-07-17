@@ -20,7 +20,8 @@ PlayCardTask PlayCardTask::Minion(Entity* source, int chooseOne)
     return PlayCardTask(source, nullptr, -1, chooseOne);
 }
 
-PlayCardTask PlayCardTask::MinionTarget(Entity* source, Entity* target, int chooseOne)
+PlayCardTask PlayCardTask::MinionTarget(Entity* source, Entity* target,
+                                        int chooseOne)
 {
     return PlayCardTask(source, target, -1, chooseOne);
 }
@@ -46,16 +47,16 @@ TaskID PlayCardTask::GetTaskID() const
     return TaskID::PLAY_CARD;
 }
 
-ITask* PlayCardTask::CloneImpl()
-{
-    return new PlayCardTask(m_source, m_target, m_fieldPos, m_chooseOne);
-}
-
 TaskStatus PlayCardTask::Impl(Player& player)
 {
     const auto target = dynamic_cast<Character*>(m_target);
     Generic::PlayCard(player, m_source, target, m_fieldPos, m_chooseOne);
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* PlayCardTask::CloneImpl()
+{
+    return new PlayCardTask(m_source, m_target, m_fieldPos, m_chooseOne);
 }
 }  // namespace RosettaStone::PlayerTasks

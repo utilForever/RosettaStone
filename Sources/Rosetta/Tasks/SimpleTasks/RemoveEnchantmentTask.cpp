@@ -13,11 +13,6 @@ TaskID RemoveEnchantmentTask::GetTaskID() const
     return TaskID::REMOVE_ENCHANTMENT;
 }
 
-ITask* RemoveEnchantmentTask::CloneImpl()
-{
-    return new RemoveEnchantmentTask();
-}
-
 TaskStatus RemoveEnchantmentTask::Impl(Player&)
 {
     auto enchantment = dynamic_cast<Enchantment*>(m_source);
@@ -37,5 +32,10 @@ TaskStatus RemoveEnchantmentTask::Impl(Player&)
     enchantment->Remove();
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* RemoveEnchantmentTask::CloneImpl()
+{
+    return new RemoveEnchantmentTask();
 }
 }  // namespace RosettaStone::SimpleTasks

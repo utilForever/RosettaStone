@@ -19,11 +19,6 @@ TaskID RemoveHandTask::GetTaskID() const
     return TaskID::REMOVE_HAND;
 }
 
-ITask* RemoveHandTask::CloneImpl()
-{
-    return new RemoveHandTask(m_entityType);
-}
-
 TaskStatus RemoveHandTask::Impl(Player& player)
 {
     auto entities =
@@ -42,5 +37,10 @@ TaskStatus RemoveHandTask::Impl(Player& player)
     player.GetGame()->taskStack.entities = list;
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* RemoveHandTask::CloneImpl()
+{
+    return new RemoveHandTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

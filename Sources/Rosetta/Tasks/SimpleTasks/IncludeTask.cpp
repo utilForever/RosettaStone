@@ -20,11 +20,6 @@ TaskID IncludeTask::GetTaskID() const
     return TaskID::INCLUDE;
 }
 
-ITask* IncludeTask::CloneImpl()
-{
-    return new IncludeTask(m_entityType);
-}
-
 std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                                               Player& player, Entity* source,
                                               Entity* target)
@@ -208,5 +203,10 @@ TaskStatus IncludeTask::Impl(Player& player)
     player.GetGame()->taskStack.entities = entities;
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* IncludeTask::CloneImpl()
+{
+    return new IncludeTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

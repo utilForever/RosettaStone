@@ -18,11 +18,6 @@ TaskID DestroyTask::GetTaskID() const
     return TaskID::DESTROY;
 }
 
-ITask* DestroyTask::CloneImpl()
-{
-    return new DestroyTask(m_entityType);
-}
-
 TaskStatus DestroyTask::Impl(Player& player)
 {
     auto entities =
@@ -34,5 +29,10 @@ TaskStatus DestroyTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* DestroyTask::CloneImpl()
+{
+    return new DestroyTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

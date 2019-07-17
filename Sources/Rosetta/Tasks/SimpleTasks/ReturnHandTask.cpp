@@ -19,11 +19,6 @@ TaskID ReturnHandTask::GetTaskID() const
     return TaskID::RETURN_HAND;
 }
 
-ITask* ReturnHandTask::CloneImpl()
-{
-    return new ReturnHandTask(m_entityType);
-}
-
 TaskStatus ReturnHandTask::Impl(Player& player)
 {
     auto entities =
@@ -37,5 +32,10 @@ TaskStatus ReturnHandTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* ReturnHandTask::CloneImpl()
+{
+    return new ReturnHandTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

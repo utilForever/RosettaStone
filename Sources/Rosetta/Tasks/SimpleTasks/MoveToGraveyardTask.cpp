@@ -19,11 +19,6 @@ TaskID MoveToGraveyardTask::GetTaskID() const
     return TaskID::MOVE_TO_GRAVEYARD;
 }
 
-ITask* MoveToGraveyardTask::CloneImpl()
-{
-    return new MoveToGraveyardTask(m_entityType);
-}
-
 TaskStatus MoveToGraveyardTask::Impl(Player& player)
 {
     auto entities =
@@ -36,5 +31,10 @@ TaskStatus MoveToGraveyardTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* MoveToGraveyardTask::CloneImpl()
+{
+    return new MoveToGraveyardTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

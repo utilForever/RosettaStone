@@ -18,11 +18,6 @@ TaskID SilenceTask::GetTaskID() const
     return TaskID::SILENCE;
 }
 
-ITask* SilenceTask::CloneImpl()
-{
-    return new SilenceTask(m_entityType);
-}
-
 TaskStatus SilenceTask::Impl(Player& player)
 {
     auto entities =
@@ -40,5 +35,10 @@ TaskStatus SilenceTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* SilenceTask::CloneImpl()
+{
+    return new SilenceTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

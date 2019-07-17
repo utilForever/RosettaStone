@@ -28,16 +28,15 @@ class SwapAttackHealthTask : public ITask
     //! \return Task ID.
     TaskID GetTaskID() const override;
 
-    //! Returns Clone Of Object (pure virtual).
-    //! \returns clone of object.
-    //! \this uses for thread safe. not to access same task in multiple threads
-    ITask* CloneImpl() override;;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
 
     std::string m_enchantmentID;
 };

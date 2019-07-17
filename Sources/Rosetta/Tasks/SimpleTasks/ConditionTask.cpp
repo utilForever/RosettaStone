@@ -23,11 +23,6 @@ TaskID ConditionTask::GetTaskID() const
     return TaskID::CONDITION;
 }
 
-ITask* ConditionTask::CloneImpl()
-{
-    return new ConditionTask(m_entityType, m_selfConditions);
-}
-
 TaskStatus ConditionTask::Impl(Player& player)
 {
     auto entities =
@@ -52,5 +47,10 @@ TaskStatus ConditionTask::Impl(Player& player)
     player.GetGame()->taskStack.flag = flag;
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* ConditionTask::CloneImpl()
+{
+    return new ConditionTask(m_entityType, m_selfConditions);
 }
 }  // namespace RosettaStone::SimpleTasks

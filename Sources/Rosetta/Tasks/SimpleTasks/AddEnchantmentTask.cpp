@@ -23,11 +23,6 @@ TaskID AddEnchantmentTask::GetTaskID() const
     return TaskID::ADD_ENCHANTMENT;
 }
 
-ITask* AddEnchantmentTask::CloneImpl()
-{
-    return new AddEnchantmentTask(m_cardID, m_entityType);
-}
-
 TaskStatus AddEnchantmentTask::Impl(Player& player)
 {
     Card* enchantmentCard = Cards::FindCardByID(m_cardID);
@@ -64,5 +59,10 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* AddEnchantmentTask::CloneImpl()
+{
+    return new AddEnchantmentTask(m_cardID, m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

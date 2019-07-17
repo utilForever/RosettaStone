@@ -25,11 +25,6 @@ TaskID CopyTask::GetTaskID() const
     return TaskID::COPY;
 }
 
-ITask* CopyTask::CloneImpl()
-{
-    return new CopyTask(m_entityType, m_amount, m_isOpposite, m_zoneType);
-}
-
 TaskStatus CopyTask::Impl(Player& player)
 {
     std::vector<Entity*> result;
@@ -45,7 +40,7 @@ TaskStatus CopyTask::Impl(Player& player)
 
             for (int i = 0; i < m_amount; ++i)
             {
-                auto card =
+                const auto card =
                     Cards::GetInstance().FindCardByID(m_target->card->id);
 
                 result.emplace_back(
@@ -53,8 +48,9 @@ TaskStatus CopyTask::Impl(Player& player)
                         ? Entity::GetFromCard(*m_target->owner->opponent, card)
                         : Entity::GetFromCard(player, card));
             }
+
+            break;
         }
-        break;
         case EntityType::STACK:
         {
             IZone* zone = m_isOpposite
@@ -75,7 +71,7 @@ TaskStatus CopyTask::Impl(Player& player)
                         break;
                     }
 
-                    auto card =
+                    const auto card =
                         Cards::GetInstance().FindCardByID(entity->card->id);
 
                     result.emplace_back(
@@ -96,5 +92,10 @@ TaskStatus CopyTask::Impl(Player& player)
     player.GetGame()->taskStack.entities = result;
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* CopyTask::CloneImpl()
+{
+    return new CopyTask(m_entityType, m_amount, m_isOpposite, m_zoneType);
 }
 }  // namespace RosettaStone::SimpleTasks

@@ -20,11 +20,6 @@ TaskID FuncNumberTask::GetTaskID() const
     return TaskID::FUNC_NUMBER;
 }
 
-ITask* FuncNumberTask::CloneImpl()
-{
-    return new FuncNumberTask(m_func);
-}
-
 TaskStatus FuncNumberTask::Impl(Player&)
 {
     if (m_func != nullptr)
@@ -33,5 +28,10 @@ TaskStatus FuncNumberTask::Impl(Player&)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* FuncNumberTask::CloneImpl()
+{
+    return new FuncNumberTask(m_func);
 }
 }  // namespace RosettaStone::SimpleTasks

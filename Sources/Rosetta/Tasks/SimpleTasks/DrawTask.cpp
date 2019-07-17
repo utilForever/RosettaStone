@@ -20,11 +20,6 @@ TaskID DrawTask::GetTaskID() const
     return TaskID::DRAW;
 }
 
-ITask* DrawTask::CloneImpl()
-{
-    return new DrawTask(m_amount, m_toStack);
-}
-
 TaskStatus DrawTask::Impl(Player& player)
 {
     std::vector<Entity*> cards;
@@ -51,5 +46,10 @@ TaskStatus DrawTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* DrawTask::CloneImpl()
+{
+    return new DrawTask(m_amount, m_toStack);
 }
 }  // namespace RosettaStone::SimpleTasks

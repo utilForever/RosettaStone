@@ -33,9 +33,8 @@ class FlagTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-     //! Returns Clone Of Object (pure virtual).
-    //! \returns clone of object.
-    //! \this uses for thread safe. not to access same task in multiple threads
+    //! Internal method of Clone().
+    //! \return The cloned task.
     ITask* CloneImpl() override;
 
     bool m_flag = true;

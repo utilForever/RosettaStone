@@ -19,26 +19,28 @@ TaskID AddStackToTask::GetTaskID() const
     return TaskID::ADD_STACK_TO;
 }
 
-ITask* AddStackToTask::CloneImpl()
-{
-    return new AddStackToTask(m_entityType);
-}
-
 TaskStatus AddStackToTask::Impl(Player& player)
 {
     switch (m_entityType)
     {
         case EntityType::HAND:
+        {
             for (auto& entity : player.GetGame()->taskStack.entities)
             {
                 Generic::AddCardToHand(*entity->owner, entity);
             }
             break;
+        }
         default:
             throw std::invalid_argument(
                 "AddStackToTask::Impl() - Invalid entity type");
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* AddStackToTask::CloneImpl()
+{
+    return new AddStackToTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

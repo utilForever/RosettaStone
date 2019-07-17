@@ -19,11 +19,6 @@ TaskID WeaponTask::GetTaskID() const
     return TaskID::WEAPON;
 }
 
-ITask* WeaponTask::CloneImpl()
-{
-    return new WeaponTask(m_cardID);
-}
-
 TaskStatus WeaponTask::Impl(Player& player)
 {
     Card* weaponCard = Cards::FindCardByID(m_cardID);
@@ -37,10 +32,15 @@ TaskStatus WeaponTask::Impl(Player& player)
         player.GetHero()->weapon->Destroy();
     }
 
-    const auto weapon = dynamic_cast<Weapon*>(
-        Entity::GetFromCard(player, weaponCard));
+    const auto weapon =
+        dynamic_cast<Weapon*>(Entity::GetFromCard(player, weaponCard));
     Generic::PlayWeapon(player, weapon, nullptr);
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* WeaponTask::CloneImpl()
+{
+    return new WeaponTask(m_cardID);
 }
 }  // namespace RosettaStone::SimpleTasks

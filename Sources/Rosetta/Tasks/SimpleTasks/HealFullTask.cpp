@@ -18,11 +18,6 @@ TaskID HealFullTask::GetTaskID() const
     return TaskID::HEAL_FULL;
 }
 
-ITask* HealFullTask::CloneImpl()
-{
-    return new HealFullTask(m_entityType);
-}
-
 TaskStatus HealFullTask::Impl(Player& player)
 {
     auto entities =
@@ -35,5 +30,10 @@ TaskStatus HealFullTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* HealFullTask::CloneImpl()
+{
+    return new HealFullTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

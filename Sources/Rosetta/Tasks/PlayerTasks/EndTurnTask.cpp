@@ -15,11 +15,6 @@ TaskID EndTurnTask::GetTaskID() const
     return TaskID::END_TURN;
 }
 
-ITask* EndTurnTask::CloneImpl()
-{
-    return new EndTurnTask();
-}
-
 TaskStatus EndTurnTask::Impl(Player& player)
 {
     auto game = player.GetGame();
@@ -28,5 +23,10 @@ TaskStatus EndTurnTask::Impl(Player& player)
     GameManager::ProcessNextStep(*game, game->nextStep);
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* EndTurnTask::CloneImpl()
+{
+    return new EndTurnTask();
 }
 }  // namespace RosettaStone::PlayerTasks
