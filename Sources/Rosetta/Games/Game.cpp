@@ -736,7 +736,7 @@ PlayState Game::PerformAction(ActionParams& params)
             return PlayState::INVALID;
     }
 
-    task->SetFreeable();
+    task->EnableFreeable();
     return Process(GetCurrentPlayer(), task);
 }
 
