@@ -1515,7 +1515,8 @@ TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
                   curField[0]->GetAttack());
     }
 
-    if (curField[0]->card->name != "Leokk" && curField[1]->card->name != "Leokk")
+    if (curField[0]->card->name != "Leokk" &&
+        curField[1]->card->name != "Leokk")
     {
         EXPECT_EQ(curField[0]->card->gameTags[GameTag::ATK],
                   curField[0]->GetAttack());
@@ -4772,8 +4773,8 @@ TEST(WarlockCoreTest, NEW1_003_SacrificialPact)
 // [CS2_103] Charge - COST:1
 // - Faction: Neutral, Set: Core, Rarity: Free
 // --------------------------------------------------------
-// Text: Give a friendly minion <b>Charge</b>. It can't attack heroes this
-// turn.
+// Text: Give a friendly minion <b>Charge</b>.
+//       It can't attack heroes this turn.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0

@@ -1859,8 +1859,8 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // [CS2_103] Charge - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give a friendly minion <b>Charge</b>. It can't attack heroes this
-    // turn.
+    // Text: Give a friendly minion <b>Charge</b>.
+    //       It can't attack heroes this turn.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
