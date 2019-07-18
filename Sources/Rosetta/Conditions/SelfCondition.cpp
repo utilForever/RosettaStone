@@ -144,7 +144,7 @@ SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
     });
 }
 
-SelfCondition SelfCondition::IsName(std::string name, bool isEqual)
+SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
 {
     return SelfCondition([=](Entity* entity) -> bool {
         return !((entity->card.name == name) ^ isEqual);
