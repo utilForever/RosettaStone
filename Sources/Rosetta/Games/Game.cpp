@@ -10,7 +10,6 @@
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
-#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
@@ -528,11 +527,6 @@ void Game::ProcessGraveyard()
             if (minion->HasDeathrattle())
             {
                 minion->ActivateTask(PowerType::DEATHRATTLE);
-            }
-            
-            for (Enchantment* enchant : minion->appliedEnchantments)
-            {
-                enchant->ActivateTask(PowerType::DEATHRATTLE, minion);
             }
 
             // Add minion to graveyard
