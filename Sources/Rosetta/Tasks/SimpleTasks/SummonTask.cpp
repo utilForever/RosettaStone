@@ -14,19 +14,19 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(SummonSide side, const std::optional<Card>& card,
-                       int amount)
+SummonTask::SummonTask(SummonSide side, std::optional<Card> card, int amount)
     : m_card(std::move(card)), m_side(side), m_amount(amount)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(std::string cardID, int amount) : m_amount(amount)
+SummonTask::SummonTask(const std::string& cardID, int amount) : m_amount(amount)
 {
     m_card = Cards::FindCardByID(cardID);
 }
 
-SummonTask::SummonTask(std::string cardID, SummonSide side) : m_side(side)
+SummonTask::SummonTask(const std::string& cardID, SummonSide side)
+    : m_side(side)
 {
     m_card = Cards::FindCardByID(cardID);
 }
@@ -38,8 +38,6 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
-    Entity* posBase;
-
     for (int i = 0; i < m_amount; ++i)
     {
         if (player.GetFieldZone().IsFull())
@@ -68,41 +66,51 @@ TaskStatus SummonTask::Impl(Player& player)
         {
             return TaskStatus::STOP;
         }
-        
-        const auto enchant =  dynamic_cast<Enchantment*>(m_source);
-        if (enchant != nullptr && enchant->GetTarget() != nullptr)
-        {
-            posBase = enchant->GetTarget();
-        }
-        else
-        {
-            posBase = m_source;
-        }
-        
 
         int summonPos;
         switch (m_side)
         {
             case SummonSide::DEFAULT:
+            {
                 summonPos = -1;
                 break;
+            }
             case SummonSide::RIGHT:
             {
-                if (posBase->zone->GetType() == ZoneType::PLAY)
+                if (m_source->zone->GetType() == ZoneType::PLAY)
                 {
-                    summonPos = posBase->GetZonePosition() + 1;
+                    summonPos = m_source->GetZonePosition() + 1;
                 }
                 else
                 {
                     summonPos =
-                        dynamic_cast<Minion*>(posBase)->GetLastBoardPos();
+                        dynamic_cast<Minion*>(m_source)->GetLastBoardPos();
+                }
+                break;
+            }
+            case SummonSide::DEATHRATTLE:
+            {
+                if (const auto m = dynamic_cast<Minion*>(m_source))
+                {
+                    summonPos = m->GetLastBoardPos();
+                }
+                else if (const auto e = dynamic_cast<Enchantment*>(m_source))
+                {
+                    summonPos = dynamic_cast<Minion*>(e->GetTarget())
+                                    ->GetLastBoardPos();
+                }
+                else
+                {
+                    throw std::invalid_argument(
+                        "SummonTask::Impl() - Invalid summon side");
                 }
                 break;
             }
             case SummonSide::NUMBER:
-                summonPos = posBase->owner->GetGame()->taskStack.num - 1;
+            {
+                summonPos = m_source->owner->GetGame()->taskStack.num - 1;
                 break;
-            
+            }
             default:
                 throw std::invalid_argument(
                     "SummonTask::Impl() - Invalid summon side");

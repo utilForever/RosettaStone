@@ -31,18 +31,18 @@ class SummonTask : public ITask
  public:
     //! Constructs task with given \p side, \p card and \p amount.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
-                        const std::optional<Card>& card = std::nullopt,
+                        std::optional<Card> card = std::nullopt,
                         int amount = 1);
 
     //! Constructs task with given \p cardID and \p amount.
     //! \param cardID The card ID to summon.
     //! \param amount The number of minions to summon.
-    explicit SummonTask(std::string cardID, int amount);
+    explicit SummonTask(const std::string& cardID, int amount);
 
     //! Constructs task with given \p cardID and \p side.
     //! \param cardID The card ID to summon.
     //! \param side The side of summoned minion.
-    explicit SummonTask(std::string cardID,
+    explicit SummonTask(const std::string& cardID,
                         SummonSide side = SummonSide::DEFAULT);
 
     //! Returns task ID.
