@@ -178,10 +178,10 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_609] Snipe - COST:2
-    // - Set: EXPERT1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Secret:</b> After your opponent
-    //       plays a minion, deal $4 damage to it.
+    // Text: <b>Secret:</b> After your opponent plays a minion,
+    //       deal $4 damage to it.
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1
@@ -189,11 +189,10 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMIES;
-    power.GetTrigger()->tasks = {
-        new DamageTask(EntityType::TARGET, 4, true),
-        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
-        new MoveToGraveyardTask(EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = { new DamageTask(EntityType::TARGET, 4, true),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
     power.GetTrigger()->removeAfterTriggered = true;
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_609", power);
@@ -261,8 +260,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(new ConditionTask(EntityType::TARGET,
-                                        { SelfCondition::IsFrozen() }));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsFrozen() }));
     power.AddPowerTask(new FlagTask(true, new DrawTask(1)));
     cards.emplace("EX1_179", power);
 
@@ -312,9 +311,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = {
-        new AddEnchantmentTask("NEW1_012o", EntityType::SOURCE)
-    };
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("NEW1_012o",
+                                                         EntityType::SOURCE) };
     cards.emplace("NEW1_012", power);
 }
 
@@ -1007,7 +1005,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new ManaCrystalTask(-1, false));
     cards.emplace("EX1_301", power);
-    
+
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
     // - Set: Expert1, Rarity: Rare
@@ -1997,7 +1995,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     cards.emplace("EX1_283", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2109,10 +2108,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = {
-        new RandomTask(EntityType::ENEMIES, 1),
-        new DamageTask(EntityType::STACK, 1)
-    };
+    power.GetTrigger()->tasks = { new RandomTask(EntityType::ENEMIES, 1),
+                                  new DamageTask(EntityType::STACK, 1) };
     cards.emplace("NEW1_019", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2191,9 +2188,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
-        new SummonTask("NEW1_040t", SummonSide::RIGHT)
-    };
+    power.GetTrigger()->tasks = { new SummonTask("NEW1_040t",
+                                                 SummonSide::RIGHT) };
     cards.emplace("NEW1_040", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2208,8 +2204,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(
-        new FilterStackTask(SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)));
+    power.AddPowerTask(new FilterStackTask(
+        SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)));
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("NEW1_041", power);
@@ -2439,11 +2435,6 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     cards.emplace("skele21", power);
 }
 
-void Expert1CardsGen::AddDream(std::map<std::string, Power>& cards)
-{
-    (void)cards;
-}
-
 void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
@@ -2562,7 +2553,6 @@ void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
     AddNeutral(cards);
     AddNeutralNonCollect(cards);
 
-    AddDream(cards);
     AddDreamNonCollect(cards);
 }
 }  // namespace RosettaStone
