@@ -926,7 +926,7 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // Text: <b>Deathrattle:</b> Resummon this minion.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, 1));
+    power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, ZoneType::PLAY));
     power.AddDeathrattleTask(new SummonTask(SummonSide::DEATHRATTLE));
     cards.emplace("CS2_038e", power);
 
@@ -1922,14 +1922,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Whenever a player casts a spell, put a copy
-    //       into the other player’s hand.
+    //       into the other player's hand.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger()->tasks = { new CopyTask(EntityType::TARGET, 1, true),
+    power.GetTrigger()->tasks = { new CopyTask(EntityType::TARGET,
+                                               ZoneType::HAND),
                                   new AddStackToTask(EntityType::HAND) };
     cards.emplace("EX1_100", power);
 
