@@ -2083,8 +2083,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomEntourageTask(1));
-    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new RandomEntourageTask(1),
+                                  new AddStackToTask(EntityType::HAND) };
     cards.emplace("EX1_572", power);
 
     // --------------------------------------- MINION - NEUTRAL
