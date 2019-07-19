@@ -2263,7 +2263,6 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("DREAM_05e"));
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
-    power.GetTrigger()->fastExecution = true;
     power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
     cards.emplace("DREAM_05e", power);
 
