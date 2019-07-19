@@ -2039,7 +2039,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new SummonTask("skele21", SummonSide::RIGHT));
+    power.AddDeathrattleTask(
+        new SummonTask("skele21", SummonSide::DEATHRATTLE));
     cards.emplace("EX1_556", power);
 
     // --------------------------------------- MINION - NEUTRAL
