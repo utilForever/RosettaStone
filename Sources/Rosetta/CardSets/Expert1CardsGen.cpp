@@ -2115,9 +2115,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { new RandomTask(EntityType::ENEMIES, 1),
+    power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->tasks = { new IncludeTask(EntityType::ENEMIES),
+                                  new FilterStackTask(
+                                      SelfCondition::IsNotDead()),
+                                  new RandomTask(EntityType::STACK, 1),
                                   new DamageTask(EntityType::STACK, 1) };
     cards.emplace("NEW1_019", power);
 
@@ -2222,7 +2225,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("NEW1_041", power);
 }
-
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
