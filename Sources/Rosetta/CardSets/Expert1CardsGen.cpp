@@ -187,14 +187,15 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(TriggerType::SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMIES;
-    power.GetTrigger()->tasks = { new DamageTask(EntityType::TARGET, 4, true),
-                                  new SetGameTagTask(EntityType::SOURCE,
-                                                     GameTag::REVEALED, 1),
-                                  new MoveToGraveyardTask(EntityType::SOURCE) };
-    power.GetTrigger()->removeAfterTriggered = true;
-    power.GetTrigger()->fastExecution = true;
+    power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsNotDead() }),
+        new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true),
+                             new SetGameTagTask(EntityType::SOURCE,
+                                                GameTag::REVEALED, 1),
+                             new MoveToGraveyardTask(EntityType::SOURCE) })
+    };
     cards.emplace("EX1_609", power);
 
     // ----------------------------------------- SPELL - HUNTER
@@ -265,7 +266,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     power.AddPowerTask(
         new ConditionTask(EntityType::TARGET, { SelfCondition::IsFrozen() }));
-    power.AddPowerTask(new FlagTask(true, new DrawTask(1)));
+    power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     cards.emplace("EX1_179", power);
 
     // ------------------------------------------- SPELL - MAGE
@@ -295,13 +296,12 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMIES;
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
     power.GetTrigger()->tasks = {
         new SetGameTagTask(EntityType::TARGET, GameTag::CANT_PLAY, 1),
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
         new MoveToGraveyardTask(EntityType::SOURCE)
     };
-    power.GetTrigger()->removeAfterTriggered = true;
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_287", power);
 
@@ -1816,10 +1816,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ALL_MINIONS_NOSOURCE, 1));
     power.AddPowerTask(new ChanceTask(true));
-    power.AddPowerTask(
-        new FlagTask(true, new TransformTask(EntityType::STACK, "EX1_tk28")));
-    power.AddPowerTask(
-        new FlagTask(false, new TransformTask(EntityType::STACK, "EX1_tk29")));
+    power.AddPowerTask(new FlagTask(
+        true, { new TransformTask(EntityType::STACK, "EX1_tk28") }));
+    power.AddPowerTask(new FlagTask(
+        false, { new TransformTask(EntityType::STACK, "EX1_tk29") }));
     cards.emplace("EX1_083", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1841,8 +1841,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
     power.AddPowerTask(new ConditionTask(EntityType::SOURCE,
                                          { SelfCondition::IsFieldFull() }));
-    power.AddPowerTask(new FlagTask(true, new DestroyTask(EntityType::STACK)));
-    power.AddPowerTask(new FlagTask(false, new ControlTask(EntityType::STACK)));
+    power.AddPowerTask(
+        new FlagTask(true, { new DestroyTask(EntityType::STACK) }));
+    power.AddPowerTask(
+        new FlagTask(false, { new ControlTask(EntityType::STACK) }));
     cards.emplace("EX1_085", power);
 
     // --------------------------------------- MINION - NEUTRAL

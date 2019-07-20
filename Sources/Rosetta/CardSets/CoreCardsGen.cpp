@@ -653,9 +653,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new ConditionTask(
         EntityType::SOURCE, { SelfCondition::IsControllingRace(Race::BEAST) }));
     power.AddPowerTask(
-        new FlagTask(true, new DamageTask(EntityType::TARGET, 5, true)));
+        new FlagTask(true, { new DamageTask(EntityType::TARGET, 5, true) }));
     power.AddPowerTask(
-        new FlagTask(false, new DamageTask(EntityType::TARGET, 3, true)));
+        new FlagTask(false, { new DamageTask(EntityType::TARGET, 3, true) }));
     cards.emplace("EX1_539", power);
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1786,7 +1786,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(
         new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
-    power.AddPowerTask(new FlagTask(true, new DrawTask(1)));
+    power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
     cards.emplace("EX1_302", power);
 
     // --------------------------------------- MINION - NEUTRAL
