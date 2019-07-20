@@ -4792,7 +4792,7 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
-    EXPECT_EQ(opHand[2]->card.name, "Fireball");
+    EXPECT_EQ(opHand[3]->card.name, "Fireball");
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
