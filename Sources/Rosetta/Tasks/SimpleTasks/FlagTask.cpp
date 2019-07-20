@@ -6,10 +6,12 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::SimpleTasks
 {
-FlagTask::FlagTask(bool flag, ITask* toDoTask)
-    : m_flag(flag), m_toDoTask(toDoTask)
+FlagTask::FlagTask(bool flag, std::vector<ITask*> toDoTasks)
+    : m_flag(flag), m_toDoTasks(std::move(toDoTasks))
 {
     // Do nothing
 }
@@ -26,10 +28,15 @@ TaskStatus FlagTask::Impl(Player& player)
         return TaskStatus::COMPLETE;
     }
 
-    m_toDoTask->SetPlayer(&player);
-    m_toDoTask->SetSource(player.GetGame()->taskStack.source);
-    m_toDoTask->SetTarget(player.GetGame()->taskStack.target);
+    for (auto& task : m_toDoTasks)
+    {
+        task->SetPlayer(&player);
+        task->SetSource(player.GetGame()->taskStack.source);
+        task->SetTarget(player.GetGame()->taskStack.target);
 
-    return m_toDoTask->Run();
+        task->Run();
+    }
+
+    return TaskStatus::COMPLETE;
 }
 }  // namespace RosettaStone::SimpleTasks
