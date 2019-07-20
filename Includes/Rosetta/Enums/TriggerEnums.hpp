@@ -24,6 +24,7 @@ enum class TriggerType
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
                    //!< ended.
     SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
+    AFTER_SUMMON,  //!< The effect will be triggered after a minion is summoned.
     AFTER_PLAY_MINION,  //!< The effect will be triggered after a minion is
                         //!< played.
     DEAL_DAMAGE,  //!< The effect will be triggered when a character is damaged.

@@ -132,6 +132,9 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::AFTER_SUMMON:
+            game->triggerManager.afterSummonTrigger = std::move(triggerFunc);
+            break;
         case TriggerType::DEAL_DAMAGE:
             game->triggerManager.dealDamageTrigger = std::move(triggerFunc);
             break;
@@ -231,6 +234,9 @@ void Trigger::Remove() const
             }
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = nullptr;
+            break;
+        case TriggerType::AFTER_SUMMON:
+            game->triggerManager.afterSummonTrigger = nullptr;
             break;
         case TriggerType::DEAL_DAMAGE:
             game->triggerManager.dealDamageTrigger = nullptr;
@@ -431,6 +437,7 @@ void Trigger::Validate(Player* player, Entity* source)
             break;
         case TriggerType::PLAY_CARD:
         case TriggerType::SUMMON:
+        case TriggerType::AFTER_SUMMON:
             if (source == m_owner)
             {
                 return;
