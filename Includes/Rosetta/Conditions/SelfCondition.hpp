@@ -31,6 +31,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
 
+    //! SelfCondition wrapper for checking the entity is not destroyed.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotDead();
+
     //! SelfCondition wrapper for checking the field is full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();

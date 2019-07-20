@@ -23,6 +23,12 @@ SelfCondition SelfCondition::IsDead()
         [=](Entity* entity) -> bool { return entity->isDestroyed; });
 }
 
+SelfCondition SelfCondition::IsNotDead()
+{
+    return SelfCondition(
+        [=](Entity* entity) -> bool { return !entity->isDestroyed; });
+}
+
 SelfCondition SelfCondition::IsFieldFull()
 {
     return SelfCondition([=](Entity* entity) -> bool {
