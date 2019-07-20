@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_CONDITION_TASK_HPP
 #define ROSETTASTONE_CONDITION_TASK_HPP
 
+#include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
@@ -19,11 +20,17 @@ namespace RosettaStone::SimpleTasks
 class ConditionTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType.
+    //! Constructs task with given \p entityType and \p selfConditions.
     //! \param entityType The entity type to check condition.
     //! \param selfConditions A container of self condition.
     explicit ConditionTask(EntityType entityType,
                            std::vector<SelfCondition> selfConditions);
+
+    //! Constructs task with given \p entityType and \p relaConditions.
+    //! \param entityType The entity type to check condition.
+    //! \param relaConditions A container of relation condition.
+    explicit ConditionTask(EntityType entityType,
+                           std::vector<RelaCondition> relaConditions);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -36,6 +43,7 @@ class ConditionTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     std::vector<SelfCondition> m_selfConditions;
+    std::vector<RelaCondition> m_relaConditions;
 };
 }  // namespace RosettaStone::SimpleTasks
 
