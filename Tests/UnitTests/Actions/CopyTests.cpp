@@ -37,14 +37,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetDeckZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::HAND);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+
+        delete enchantment;
+        delete entity;
     }
 
     // Case 1-2: Hand -> Play
@@ -52,14 +57,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetHandZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::PLAY);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 1-3: Deck -> Play
@@ -67,14 +77,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetDeckZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::PLAY);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-1: Play -> Hand
@@ -82,14 +97,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetFieldZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::HAND);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-2: Hand -> Deck
@@ -97,14 +117,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetHandZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::DECK);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-3: Play -> Deck
@@ -112,14 +137,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetFieldZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::DECK);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-4: Play -> Graveyard
@@ -127,15 +157,20 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetFieldZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity =
             Generic::Copy(curPlayer, entity, ZoneType::GRAVEYARD);
         EXPECT_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-5: Hand -> Graveyard
@@ -143,15 +178,20 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetHandZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity =
             Generic::Copy(curPlayer, entity, ZoneType::GRAVEYARD);
         EXPECT_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-6: Deck -> Graveyard
@@ -159,15 +199,20 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetDeckZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity =
             Generic::Copy(curPlayer, entity, ZoneType::GRAVEYARD);
         EXPECT_NE(copiedEntity->GetZoneType(), ZoneType::GRAVEYARD);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-7: Graveyard -> Play
@@ -175,15 +220,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetGraveyardZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
-        auto copiedEntity =
-            Generic::Copy(curPlayer, entity, ZoneType::PLAY);
+        auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::PLAY);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::PLAY);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-8: Graveyard -> Hand
@@ -191,14 +240,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetGraveyardZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::HAND);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 2-9: Graveyard -> Deck
@@ -206,14 +260,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetGraveyardZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::DECK);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::DECK);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 3-1: sourceZone equals targetZone
@@ -221,14 +280,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetHandZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
         auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::HAND);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::HAND);
+
+        delete entity;
+        delete enchantment;
     }
 
     // Case 3-2: targetZone is setaside
@@ -236,13 +300,19 @@ TEST(Copy, Copy)
         Entity* entity = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByName("Ysera"),
             std::nullopt, &curPlayer.GetHandZone());
+
         Enchantment* enchantment =
             new Enchantment(curPlayer, card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
+
         entity->appliedEnchantments.emplace_back(enchantment);
 
-        auto copiedEntity = Generic::Copy(curPlayer, entity, ZoneType::SETASIDE);
+        auto copiedEntity =
+            Generic::Copy(curPlayer, entity, ZoneType::SETASIDE);
         EXPECT_EQ(copiedEntity->GetZoneType(), ZoneType::SETASIDE);
+
+        delete entity;
+        delete enchantment;
     }
 }
