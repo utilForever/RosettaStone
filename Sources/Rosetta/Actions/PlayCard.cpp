@@ -154,6 +154,12 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
     player.GetGame()->triggerManager.OnAfterPlayMinionTrigger(&player, minion);
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
+
+    // Process after summon trigger
+    player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnAfterSummonTrigger(&player, minion);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 }
 
 void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)
