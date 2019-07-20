@@ -226,7 +226,6 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
         curPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
     const auto card5 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
-
     const auto card6 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
     const auto card7 = Generic::DrawCard(
@@ -258,11 +257,9 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card7));
-
     EXPECT_TRUE(card7->isDestroyed);
 
     game.Process(opPlayer, PlayCardTask::Minion(card8));
-
     EXPECT_EQ(card8->GetGameTag(GameTag::DAMAGE), 0);
 }
 
