@@ -1931,9 +1931,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger()->tasks = { new CopyTask(EntityType::TARGET,
-                                               ZoneType::HAND),
-                                  new AddStackToTask(EntityType::HAND) };
+    power.GetTrigger()->tasks = {
+        new ConditionTask(EntityType::TARGET, { RelaCondition::IsFriendly() }),
+        new FlagTask(true, { new CopyTask(EntityType::TARGET, ZoneType::HAND, 1,
+                                          false, true) }),
+        new FlagTask(false,
+                     { new CopyTask(EntityType::TARGET, ZoneType::HAND) })
+    };
     cards.emplace("EX1_100", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2482,7 +2486,7 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, Power>& cards)
     cards.emplace("DREAM_01", power);
 
     // ------------------------------------------ SPELL - DREAM
-    // [DREAM_02] Ysera Awakens - COST:2
+    // [DREAM_02] Ysera Awakens (*) - COST:2
     // - Set: Expert1
     // --------------------------------------------------------
     // Text: Deal $5 damage to all characters except Ysera.
