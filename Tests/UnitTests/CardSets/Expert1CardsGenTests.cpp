@@ -5672,21 +5672,17 @@ TEST(NeutralExpert1Test, NEW1_019_KnifeJuggler)
         opPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 29);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 30);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 29);
-
     EXPECT_EQ(curField[0]->GetHealth(), 2);
     EXPECT_EQ(opField[0]->GetHealth(), 5);
 
@@ -5694,7 +5690,6 @@ TEST(NeutralExpert1Test, NEW1_019_KnifeJuggler)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-
     EXPECT_TRUE((opPlayer.GetHero()->GetHealth() == 28) ^
                 (opField[0]->GetHealth() == 4));
 }
