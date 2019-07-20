@@ -32,6 +32,15 @@ void TriggerManager::OnPlayCardTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnAfterPlayMinionTrigger(Player* player,
+                                              Entity* sender) const
+{
+    if (afterPlayMinionTrigger != nullptr)
+    {
+        afterPlayMinionTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnCastSpellTrigger(Player* player, Entity* sender) const
 {
     if (castSpellTrigger != nullptr)

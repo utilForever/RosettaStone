@@ -37,6 +37,11 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnPlayCardTrigger(Player* player, Entity* sender) const;
 
+    //! Callback for trigger after player plays a minion.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnAfterPlayMinionTrigger(Player* player, Entity* sender) const;
+
     //! Callback for trigger when player plays a spell card.
     //! \param player A player to execute trigger.
     //! \param sender An entity that is the source of trigger.
@@ -80,6 +85,7 @@ class TriggerManager
     std::function<void(Player*, Entity*)> startTurnTrigger;
     std::function<void(Player*, Entity*)> endTurnTrigger;
     std::function<void(Player*, Entity*)> playCardTrigger;
+    std::function<void(Player*, Entity*)> afterPlayMinionTrigger;
     std::function<void(Player*, Entity*)> castSpellTrigger;
     std::function<void(Player*, Entity*)> afterCastTrigger;
     std::function<void(Player*, Entity*)> healTrigger;
