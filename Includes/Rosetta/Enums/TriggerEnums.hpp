@@ -23,7 +23,9 @@ enum class TriggerType
     ATTACK,        //!< The effect will be triggered when characters attack.
     AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
                    //!< ended.
-    SUMMON,     //!< The effect will be triggered whenever a minion is summoned.
+    SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
+    AFTER_PLAY_MINION,  //!< The effect will be triggered after a minion is
+                        //!< played.
     DEAL_DAMAGE,  //!< The effect will be triggered when a character is damaged.
     TAKE_DAMAGE,  //!< The effect will be triggered when a spell or a character
                   //!< deals damages to source.
@@ -41,10 +43,11 @@ enum class TriggerSource
     SELF,
     HERO,
     ALL_MINIONS,
+    ENEMY_MINIONS,
     MINIONS_EXCEPT_SELF,
     ENCHANTMENT_TARGET,
+    ENEMY_SPELLS,
     FRIENDLY,
-    ENEMIES,
 };
 
 //! \brief An enumerator for identifying trigger activation.
@@ -61,6 +64,7 @@ enum class SequenceType
 {
     NONE,
     PLAY_CARD,
+    PLAY_MINION,
     PLAY_SPELL,
     TARGET
 };

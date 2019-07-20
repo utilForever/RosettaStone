@@ -18,6 +18,9 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
         case TriggerType::PLAY_CARD:
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
+        case TriggerType::AFTER_PLAY_MINION:
+            m_sequenceType = SequenceType::PLAY_MINION;
+            break;
         case TriggerType::CAST_SPELL:
         case TriggerType::AFTER_CAST:
             m_sequenceType = SequenceType::PLAY_SPELL;
@@ -82,6 +85,10 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::AFTER_PLAY_MINION:
+            game->triggerManager.afterPlayMinionTrigger =
+                std::move(triggerFunc);
             break;
         case TriggerType::CAST_SPELL:
             game->triggerManager.castSpellTrigger = std::move(triggerFunc);
@@ -180,6 +187,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = nullptr;
+            break;
+        case TriggerType::AFTER_PLAY_MINION:
+            game->triggerManager.afterPlayMinionTrigger = nullptr;
             break;
         case TriggerType::CAST_SPELL:
             game->triggerManager.castSpellTrigger = nullptr;
@@ -365,6 +375,13 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerSource::ENEMY_MINIONS:
+            if (dynamic_cast<Minion*>(source) == nullptr ||
+                source->owner == m_owner->owner)
+            {
+                return;
+            }
+            break;
         case TriggerSource::MINIONS_EXCEPT_SELF:
             if (dynamic_cast<Minion*>(source) == nullptr ||
                 source->owner != m_owner->owner || source == m_owner)
@@ -382,6 +399,15 @@ void Trigger::Validate(Player* player, Entity* source)
             }
             break;
         }
+        case TriggerSource::ENEMY_SPELLS:
+        {
+            if (dynamic_cast<Spell*>(source) == nullptr ||
+                source->owner == m_owner->owner)
+            {
+                return;
+            }
+            break;
+        }
         case TriggerSource::FRIENDLY:
         {
             if (source->owner != m_owner->owner)
@@ -390,12 +416,6 @@ void Trigger::Validate(Player* player, Entity* source)
             }
             break;
         }
-        case TriggerSource::ENEMIES:
-             if (source->owner == m_owner->owner)
-            {
-                return;
-            }
-            break;
         default:
             break;
     }
