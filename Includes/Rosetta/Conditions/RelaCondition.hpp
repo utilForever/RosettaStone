@@ -25,7 +25,11 @@ class RelaCondition
     //! \param func The function to check condition.
     explicit RelaCondition(std::function<bool(Entity*, Entity*)> func);
 
-    //! RelaCondition wrapper for checking an entity is positioned side by side.
+    //! RelaCondition wrapper for checking the entity is friendly.
+    //! \return Generated RelaCondition for intended purpose.
+    static RelaCondition IsFriendly();
+
+    //! RelaCondition wrapper for checking the entity is positioned side by side.
     //! \return Generated RelaCondition for intended purpose.
     static RelaCondition IsSideBySide();
 
