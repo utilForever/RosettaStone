@@ -16,6 +16,11 @@
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/Views/Board.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
@@ -27,6 +32,73 @@ struct MulliganTestPolicy : BasicPolicy
         return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN), std::vector<size_t>());
     }
 };
+
+class TestActionParams : public ActionParams
+{
+ public:
+    TestActionParams() = default;
+
+    TestActionParams(const TestActionParams&) = delete;
+    TestActionParams& operator=(const TestActionParams&) = delete;
+
+    void Initialize(const Board& board)
+    {
+        m_board = &board;
+        ActionParams::Initialize(
+            m_board->GetCurrentPlayerStateRefView().GetActionValidGetter());
+    }
+
+    size_t GetNumber(ActionType actionType, ActionChoices& choices) final
+    {
+        if (actionType != ActionType::MAIN_ACTION)
+        {
+            if (choices.Size() == 1)
+            {
+                return choices.Get(0);
+            }
+        }
+
+        const size_t count = choices.Size();
+        const auto randIdx = Random::get<size_t>(0, count - 1);
+        const int result = static_cast<int>(randIdx);
+
+        return result;
+    }
+
+ private:
+    const Board* m_board = nullptr;
+};
+
+TEST(Game, RefCopyFrom)
+{
+    GameConfig config1;
+    config1.player1Class = CardClass::WARRIOR;
+    config1.player2Class = CardClass::ROGUE;
+    config1.startPlayer = PlayerType::PLAYER1;
+    config1.doFillDecks = true;
+    config1.autoRun = true;
+
+    GameConfig config2;
+    config2.player1Class = CardClass::MAGE;
+    config2.player2Class = CardClass::HUNTER;
+    config2.startPlayer = PlayerType::PLAYER2;
+    config2.doFillDecks = true;
+    config2.autoRun = false;
+
+    Game* game1 = new Game(config1);
+    game1->step = Step::BEGIN_DRAW;
+    game1->nextStep = Step::MAIN_ACTION;
+
+    Game* game2 = new Game(config2);
+    game2->step = Step::FINAL_WRAPUP;
+    game2->nextStep = Step::MAIN_COMBAT;
+
+    game1->RefCopyFrom(*game2);
+    EXPECT_EQ(game1->step, Step::FINAL_WRAPUP);
+    EXPECT_EQ(game1->nextStep, Step::MAIN_COMBAT);
+
+    delete game1;
+}
 
 TEST(Game, GetPlayer)
 {
@@ -193,4 +265,53 @@ TEST(Game, GameOver_Tied)
     EXPECT_EQ(game.state, State::COMPLETE);
     EXPECT_EQ(curPlayer.playState, PlayState::TIED);
     EXPECT_EQ(opPlayer.playState, PlayState::TIED);
+}
+
+TEST(Game, PerformAction)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doShuffle = false;
+    config.doFillDecks = false;
+    config.skipMulligan = true;
+    config.autoRun = true;
+
+    std::array<std::string, START_DECK_SIZE> deck = {
+        "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
+        "CS1_113", "CS1_113", "EX1_154", "EX1_154",  // 2
+        "CS2_007", "CS2_007", "CS2_022", "CS2_022",  // 3
+        "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
+        "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
+        "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
+        "CS2_032", "CS2_032", "CS2_033", "CS2_033",  // 7
+        "CS2_037", "CS2_037"
+    };
+
+    for (size_t j = 0; j < START_DECK_SIZE; ++j)
+    {
+        config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
+        config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
+    }
+
+    Game game(config);
+    game.StartGame();
+    game.MainReady();
+
+    while (game.state != State::COMPLETE)
+    {
+        TestActionParams params;
+        Board board(game, game.GetCurrentPlayer().playerType);
+
+        params.Initialize(board);
+
+        game.PerformAction(params);
+    }
+
+    EXPECT_EQ(game.state, State::COMPLETE);
+    EXPECT_TRUE(game.GetPlayer1().playState == PlayState::WON ||
+                game.GetPlayer1().playState == PlayState::LOST);
+    EXPECT_TRUE(game.GetPlayer2().playState == PlayState::WON ||
+                game.GetPlayer2().playState == PlayState::LOST);
 }
