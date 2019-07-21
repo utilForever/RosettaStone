@@ -31,9 +31,17 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
 
+    //! SelfCondition wrapper for checking the entity is not destroyed.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotDead();
+
     //! SelfCondition wrapper for checking the field is full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
+
+    //! SelfCondition wrapper for checking the entity is damaged.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsDamaged();
 
     //! SelfCondition wrapper for checking the entity is undamaged.
     //! \return Generated SelfCondition for intended purpose.
@@ -62,6 +70,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSecret();
 
+    //! SelfCondition wrapper for checking the entity is frozen.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFrozen();
+
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();
@@ -79,6 +91,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsTagValue(GameTag tag, int value,
                                     RelaSign relaSign = RelaSign::EQ);
+
+    //! SelfCondition wrapper for checking the name of entity equals \p name.
+    //! \param name The name of card to check condition.
+    //! \param isEqual The flag to indicate the condition for equality.
+    static SelfCondition IsName(const std::string& name, bool isEqual = true);
 
     //! Evaluates condition using checking function.
     //! \param entity The owner entity.

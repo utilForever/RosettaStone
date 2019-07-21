@@ -6,6 +6,7 @@
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
@@ -13,19 +14,25 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(SummonSide side, const std::optional<Card*>& card,
-                       int amount)
-    : m_card(card), m_side(side), m_amount(amount)
+SummonTask::SummonTask(SummonSide side, std::optional<Card*> card, int amount,
+                       bool toOpposite)
+    : m_card(std::move(card)),
+      m_side(side),
+      m_amount(amount),
+      m_toOpposite(toOpposite)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(std::string cardID, int amount) : m_amount(amount)
+SummonTask::SummonTask(const std::string& cardID, int amount, bool toOpposite)
+    : m_amount(amount), m_toOpposite(toOpposite)
 {
     m_card = Cards::FindCardByID(cardID);
 }
 
-SummonTask::SummonTask(std::string cardID, SummonSide side) : m_side(side)
+SummonTask::SummonTask(const std::string& cardID, SummonSide side,
+                       bool toOpposite)
+    : m_side(side), m_toOpposite(toOpposite)
 {
     m_card = Cards::FindCardByID(cardID);
 }
@@ -37,9 +44,11 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
+    Player* summoner = m_toOpposite ? player.opponent : &player;
+
     for (int i = 0; i < m_amount; ++i)
     {
-        if (player.GetFieldZone().IsFull())
+        if (summoner->GetFieldZone().IsFull())
         {
             return TaskStatus::STOP;
         }
@@ -47,11 +56,12 @@ TaskStatus SummonTask::Impl(Player& player)
         Entity* summonEntity = nullptr;
         if (m_card.has_value())
         {
-            summonEntity = Entity::GetFromCard(player, m_card.value());
+            summonEntity =
+                Entity::GetFromCard(*summoner, m_card.value());
         }
-        else if (!player.GetGame()->taskStack.entities.empty())
+        else if (!summoner->GetGame()->taskStack.entities.empty())
         {
-            summonEntity = player.GetGame()->taskStack.entities[0];
+            summonEntity = summoner->GetGame()->taskStack.entities[0];
         }
 
         if (summonEntity == nullptr)
@@ -69,8 +79,10 @@ TaskStatus SummonTask::Impl(Player& player)
         switch (m_side)
         {
             case SummonSide::DEFAULT:
+            {
                 summonPos = -1;
                 break;
+            }
             case SummonSide::RIGHT:
             {
                 if (m_source->zone->GetType() == ZoneType::PLAY)
@@ -84,15 +96,35 @@ TaskStatus SummonTask::Impl(Player& player)
                 }
                 break;
             }
+            case SummonSide::DEATHRATTLE:
+            {
+                if (const auto m = dynamic_cast<Minion*>(m_source))
+                {
+                    summonPos = m->GetLastBoardPos();
+                }
+                else if (const auto e = dynamic_cast<Enchantment*>(m_source))
+                {
+                    summonPos = dynamic_cast<Minion*>(e->GetTarget())
+                                    ->GetLastBoardPos();
+                }
+                else
+                {
+                    throw std::invalid_argument(
+                        "SummonTask::Impl() - Invalid summon side");
+                }
+                break;
+            }
             case SummonSide::NUMBER:
+            {
                 summonPos = m_source->owner->GetGame()->taskStack.num - 1;
                 break;
+            }
             default:
                 throw std::invalid_argument(
                     "SummonTask::Impl() - Invalid summon side");
         }
 
-        Generic::Summon(player, summonMinion, summonPos);
+        Generic::Summon(*summoner, summonMinion, summonPos);
     }
 
     return TaskStatus::COMPLETE;

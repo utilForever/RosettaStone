@@ -32,6 +32,15 @@ void TriggerManager::OnPlayCardTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnAfterPlayMinionTrigger(Player* player,
+                                              Entity* sender) const
+{
+    if (afterPlayMinionTrigger != nullptr)
+    {
+        afterPlayMinionTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnCastSpellTrigger(Player* player, Entity* sender) const
 {
     if (castSpellTrigger != nullptr)
@@ -69,6 +78,22 @@ void TriggerManager::OnSummonTrigger(Player* player, Entity* sender) const
     if (summonTrigger != nullptr)
     {
         summonTrigger(player, sender);
+    }
+}
+
+void TriggerManager::OnAfterSummonTrigger(Player* player, Entity* sender) const
+{
+    if (afterSummonTrigger != nullptr)
+    {
+        afterSummonTrigger(player, sender);
+    }
+}
+
+void TriggerManager::OnDealDamageTrigger(Player* player, Entity* sender) const
+{
+    if (dealDamageTrigger != nullptr)
+    {
+        dealDamageTrigger(player, sender);
     }
 }
 

@@ -7,10 +7,64 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 
 using namespace RosettaStone;
+
+TEST(Generic, ShuffleIntoDeck)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Entity* coinCard = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByID("GAME_005"), std::nullopt,
+        &curPlayer.GetHandZone());
+
+    Generic::ShuffleIntoDeck(curPlayer, coinCard);
+    EXPECT_EQ(curPlayer.GetDeckZone().GetCount(), 1);
+    EXPECT_EQ(curPlayer.GetDeckZone()[0]->card.id, "GAME_005");
+}
+
+TEST(Generic, ShuffleIntoDeck_Full)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Entity* coinCard = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByID("GAME_005"), std::nullopt,
+        &curPlayer.GetHandZone());
+
+    for (size_t i = 0; i < MAX_DECK_SIZE; ++i)
+    {
+        Entity* tempCard = Entity::GetFromCard(
+            curPlayer, Cards::GetInstance().FindCardByID("GAME_005"),
+            std::nullopt, &curPlayer.GetHandZone());
+        curPlayer.GetDeckZone().Add(*tempCard);
+    }
+
+    Generic::ShuffleIntoDeck(curPlayer, coinCard);
+    EXPECT_EQ(curPlayer.GetDeckZone().GetCount(), MAX_DECK_SIZE);
+}
 
 TEST(Generic, GetZone)
 {

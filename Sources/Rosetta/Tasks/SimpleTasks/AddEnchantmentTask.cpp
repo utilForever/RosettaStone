@@ -56,6 +56,11 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
             power.GetEnchant()->ActivateTo(entity, taskStack.num,
                                            taskStack.num1);
         }
+
+        if (!power.GetDeathrattleTask().empty())
+        {
+            m_target->SetGameTag(GameTag::DEATHRATTLE, 1);
+        }
     }
 
     return TaskStatus::COMPLETE;

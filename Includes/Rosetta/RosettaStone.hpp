@@ -19,6 +19,7 @@
 #include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Choose.hpp>
+#include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
@@ -107,6 +108,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>

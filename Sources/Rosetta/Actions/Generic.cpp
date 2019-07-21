@@ -32,6 +32,19 @@ void AddCardToHand(Player& player, Entity* entity)
     player.GetHandZone().Add(*entity);
 }
 
+void ShuffleIntoDeck(Player& player, Entity* entity)
+{
+    // Add card to graveyard if deck is full
+    if (player.GetDeckZone().IsFull())
+    {
+        return;
+    }
+
+    // Add card into deck and shuffle it
+    player.GetDeckZone().Add(*entity);
+    player.GetDeckZone().Shuffle();
+}
+
 void ChangeManaCrystal(Player& player, int amount, bool fill)
 {
     // Available and maximum mana are up to a maximum of 10

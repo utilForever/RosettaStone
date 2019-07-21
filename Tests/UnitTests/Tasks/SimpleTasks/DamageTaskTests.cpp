@@ -49,6 +49,10 @@ TEST(DamageTask, Run)
     DamageTask damage(EntityType::FRIENDS, 1);
     damage.SetPlayer(&player1);
 
+    Entity tempEntity;
+
+    damage.SetSource(&tempEntity);
+
     TaskStatus result = damage.Run();
     game.ProcessDestroyAndUpdateAura();
 

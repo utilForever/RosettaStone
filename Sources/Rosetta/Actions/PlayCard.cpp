@@ -96,6 +96,10 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
 void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
                 int chooseOne)
 {
+    // Validate play minion trigger
+    Trigger::ValidateTriggers(player.GetGame(), minion,
+                              SequenceType::PLAY_MINION);
+
     const int numMinionsPlayedThisTurn = player.GetNumMinionsPlayedThisTurn();
     player.SetNumMinionsPlayedThisTurn(numMinionsPlayedThisTurn + 1);
 
@@ -142,7 +146,20 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
     }
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
+
     player.GetGame()->ProcessDestroyAndUpdateAura();
+
+    // Process after play minion trigger
+    player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnAfterPlayMinionTrigger(&player, minion);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
+
+    // Process after summon trigger
+    player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnAfterSummonTrigger(&player, minion);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 }
 
 void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)

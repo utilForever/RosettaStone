@@ -23,6 +23,11 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 //! \param entity A card to add.
 void AddCardToHand(Player& player, Entity* entity);
 
+//! Shuffles card into deck.
+//! \param player The player to shuffle card into deck.
+//! \param entity A card to shuffle into deck.
+void ShuffleIntoDeck(Player& player, Entity* entity);
+
 //! Changes mana crystal of the player.
 //! \param player The player to change mana crystal.
 //! \param amount A value indicating how much to change mana crystal.

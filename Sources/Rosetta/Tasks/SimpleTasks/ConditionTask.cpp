@@ -18,6 +18,13 @@ ConditionTask::ConditionTask(EntityType entityType,
     // Do nothing
 }
 
+ConditionTask::ConditionTask(EntityType entityType,
+                             std::vector<RelaCondition> relaConditions)
+    : ITask(entityType), m_relaConditions(std::move(relaConditions))
+{
+    // Do nothing
+}
+
 TaskID ConditionTask::GetTaskID() const
 {
     return TaskID::CONDITION;
@@ -39,6 +46,11 @@ TaskStatus ConditionTask::Impl(Player& player)
         for (auto& condition : m_selfConditions)
         {
             flag = flag && condition.Evaluate(entity);
+        }
+
+        for (auto& condition : m_relaConditions)
+        {
+            flag = flag && condition.Evaluate(m_source, entity);
         }
     }
 

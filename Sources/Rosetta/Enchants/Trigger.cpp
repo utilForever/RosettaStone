@@ -18,6 +18,9 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
         case TriggerType::PLAY_CARD:
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
+        case TriggerType::AFTER_PLAY_MINION:
+            m_sequenceType = SequenceType::PLAY_MINION;
+            break;
         case TriggerType::CAST_SPELL:
         case TriggerType::AFTER_CAST:
             m_sequenceType = SequenceType::PLAY_SPELL;
@@ -83,6 +86,10 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::AFTER_PLAY_MINION:
+            game->triggerManager.afterPlayMinionTrigger =
+                std::move(triggerFunc);
+            break;
         case TriggerType::CAST_SPELL:
             game->triggerManager.castSpellTrigger = std::move(triggerFunc);
             break;
@@ -125,6 +132,15 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::AFTER_SUMMON:
+            game->triggerManager.afterSummonTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::DEAL_DAMAGE:
+            game->triggerManager.dealDamageTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::TAKE_DAMAGE:
+            game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
+            break;
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
@@ -152,9 +168,6 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
                     break;
             }
             break;
-        case TriggerType::TAKE_DAMAGE:
-            game->triggerManager.takeDamageTrigger = std::move(triggerFunc);
-            break;
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = std::move(triggerFunc);
             break;
@@ -177,6 +190,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = nullptr;
+            break;
+        case TriggerType::AFTER_PLAY_MINION:
+            game->triggerManager.afterPlayMinionTrigger = nullptr;
             break;
         case TriggerType::CAST_SPELL:
             game->triggerManager.castSpellTrigger = nullptr;
@@ -219,6 +235,15 @@ void Trigger::Remove() const
         case TriggerType::SUMMON:
             game->triggerManager.summonTrigger = nullptr;
             break;
+        case TriggerType::AFTER_SUMMON:
+            game->triggerManager.afterSummonTrigger = nullptr;
+            break;
+        case TriggerType::DEAL_DAMAGE:
+            game->triggerManager.dealDamageTrigger = nullptr;
+            break;
+        case TriggerType::TAKE_DAMAGE:
+            game->triggerManager.takeDamageTrigger = nullptr;
+            break;
         case TriggerType::PREDAMAGE:
             switch (triggerSource)
             {
@@ -245,9 +270,6 @@ void Trigger::Remove() const
                 default:
                     break;
             }
-        case TriggerType::TAKE_DAMAGE:
-            game->triggerManager.takeDamageTrigger = nullptr;
-            break;
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = nullptr;
             break;
@@ -359,6 +381,13 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerSource::ENEMY_MINIONS:
+            if (dynamic_cast<Minion*>(source) == nullptr ||
+                source->owner == m_owner->owner)
+            {
+                return;
+            }
+            break;
         case TriggerSource::MINIONS_EXCEPT_SELF:
             if (dynamic_cast<Minion*>(source) == nullptr ||
                 source->owner != m_owner->owner || source == m_owner)
@@ -371,6 +400,15 @@ void Trigger::Validate(Player* player, Entity* source)
             const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
             if (enchantment == nullptr ||
                 enchantment->GetTarget()->id != source->id)
+            {
+                return;
+            }
+            break;
+        }
+        case TriggerSource::ENEMY_SPELLS:
+        {
+            if (dynamic_cast<Spell*>(source) == nullptr ||
+                source->owner == m_owner->owner)
             {
                 return;
             }
@@ -399,6 +437,7 @@ void Trigger::Validate(Player* player, Entity* source)
             break;
         case TriggerType::PLAY_CARD:
         case TriggerType::SUMMON:
+        case TriggerType::AFTER_SUMMON:
             if (source == m_owner)
             {
                 return;

@@ -42,13 +42,25 @@ Entity* Enchantment::GetTarget() const
 
 void Enchantment::Remove()
 {
+    if (!card.power.GetDeathrattleTask().empty())
+    {
+        for (auto& power : card.power.GetDeathrattleTask())
+        {
+            power->SetPlayer(m_target->owner);
+            power->SetSource(m_target);
+            power->SetTarget(this);
+
+            owner->GetGame()->taskQueue.Enqueue(power);
+        }
+    }
+
     if (activatedTrigger != nullptr)
     {
         activatedTrigger->Remove();
     }
 
-    auto iter = std::find(m_target->appliedEnchantments.begin(),
-                          m_target->appliedEnchantments.end(), this);
+    const auto iter = std::find(m_target->appliedEnchantments.begin(),
+                                m_target->appliedEnchantments.end(), this);
     if (iter != m_target->appliedEnchantments.end())
     {
         m_target->appliedEnchantments.erase(iter);

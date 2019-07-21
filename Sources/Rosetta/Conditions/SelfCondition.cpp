@@ -6,6 +6,7 @@
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
 
+#include <string>
 #include <utility>
 
 namespace RosettaStone
@@ -22,10 +23,29 @@ SelfCondition SelfCondition::IsDead()
         [=](Entity* entity) -> bool { return entity->isDestroyed; });
 }
 
+SelfCondition SelfCondition::IsNotDead()
+{
+    return SelfCondition(
+        [=](Entity* entity) -> bool { return !entity->isDestroyed; });
+}
+
 SelfCondition SelfCondition::IsFieldFull()
 {
     return SelfCondition([=](Entity* entity) -> bool {
         return entity->owner->GetFieldZone().IsFull();
+    });
+}
+
+SelfCondition SelfCondition::IsDamaged()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        const auto character = dynamic_cast<Character*>(entity);
+        if (!character)
+        {
+            return false;
+        }
+
+        return character->GetDamage() > 0;
     });
 }
 
@@ -85,6 +105,19 @@ SelfCondition SelfCondition::IsSecret()
     });
 }
 
+SelfCondition SelfCondition::IsFrozen()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        const auto character = dynamic_cast<Character*>(entity);
+        if (!character)
+        {
+            return false;
+        }
+
+        return character->GetGameTag(GameTag::FROZEN) == 1;
+    });
+}
+
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([=](Entity* entity) -> bool {
@@ -112,9 +145,15 @@ SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
 {
     return SelfCondition([=](Entity* entity) -> bool {
         return (relaSign == RelaSign::EQ && entity->GetGameTag(tag) == value) ||
-               (relaSign == RelaSign::GEQ &&
-                entity->GetGameTag(tag) >= value) ||
+               (relaSign == RelaSign::GEQ && entity->GetGameTag(tag) >= value) ||
                (relaSign == RelaSign::LEQ && entity->GetGameTag(tag) <= value);
+    });
+}
+
+SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return !((entity->card.name == name) ^ isEqual);
     });
 }
 
