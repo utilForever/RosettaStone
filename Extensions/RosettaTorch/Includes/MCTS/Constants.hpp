@@ -26,8 +26,8 @@ struct LinearUpdate
 using UpdaterPolicy = TreeUpdate;
 
 constexpr static bool ENABLE_STATISTICS = true;
-constexpr static int CREDIT_GRANULARITY = 100;
-constexpr static int VIRTUAL_LOSS = 3;
+constexpr static short CREDIT_GRANULARITY = 100;
+constexpr static short VIRTUAL_LOSS = 3;
 constexpr static bool RECORD_LEADING_NODES =
     std::is_same_v<UpdaterPolicy, TreeUpdate>;
 
