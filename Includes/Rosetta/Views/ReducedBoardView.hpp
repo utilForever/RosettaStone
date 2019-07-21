@@ -60,8 +60,6 @@ class ReducedBoardView
     const ViewTypes::Deck& GetOpDeck() const;
 
  private:
-    constexpr static int changeID = 3;
-
     int m_turn;
     PlayerType m_playerType;
 
@@ -92,8 +90,6 @@ struct hash<ReducedBoardView>
 {
     std::size_t operator()(const ReducedBoardView& rhs) const noexcept
     {
-        static_assert(ReducedBoardView::changeID == 3);
-
         std::size_t result = 0;
         CombineHash(result, rhs.m_turn);
         CombineHash(result, static_cast<int>(rhs.m_playerType));

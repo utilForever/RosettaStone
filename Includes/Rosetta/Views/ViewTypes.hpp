@@ -23,12 +23,8 @@ struct Hero
     bool isStealth = false;
     bool isImmune = false;
 
-    constexpr static int changeID = 2;
-
     void Fill(const RosettaStone::Hero& hero)
     {
-        static_assert(changeID == 2);
-
         attack = hero.GetAttack();
         health = hero.GetHealth();
         armor = hero.GetArmor();
@@ -38,8 +34,6 @@ struct Hero
 
     bool operator==(const Hero& rhs) const
     {
-        static_assert(changeID == 2);
-
         if (attack != rhs.attack)
         {
             return false;
@@ -74,8 +68,6 @@ struct MyHero : public Hero
 {
     bool attackable = false;
 
-    constexpr static int changeID = 1;
-
     void Fill(const RosettaStone::Hero& hero, bool _attackable)
     {
         Hero::Fill(hero);
@@ -84,8 +76,6 @@ struct MyHero : public Hero
 
     bool operator==(const MyHero& rhs) const
     {
-        static_assert(changeID == 1);
-
         if (Hero::operator!=(rhs))
         {
             return false;
@@ -109,8 +99,6 @@ struct HeroPower
     std::string cardID;
     bool isExhausted = false;
 
-    constexpr static int changeID = 1;
-
     void Fill(RosettaStone::HeroPower& power)
     {
         cardID = power.card->id;
@@ -119,8 +107,6 @@ struct HeroPower
 
     bool operator==(const HeroPower& rhs) const
     {
-        static_assert(changeID == 1);
-
         if (cardID != rhs.cardID)
         {
             return false;
@@ -146,8 +132,6 @@ struct Weapon
     int durability = 0;
     bool isEquipped = false;
 
-    constexpr static int changeID = 1;
-
     void Fill(const RosettaStone::Weapon& weapon)
     {
         cardID = weapon.card->id;
@@ -163,8 +147,6 @@ struct Weapon
 
     bool operator==(const Weapon& rhs) const
     {
-        static_assert(changeID == 1);
-
         if (isEquipped != rhs.isEquipped)
         {
             return false;
@@ -202,8 +184,6 @@ struct ManaCrystal
     int overloadOwed = 0;
     int overloadLocked = 0;
 
-    constexpr static int changeID = 1;
-
     void Fill(const RosettaStone::Player& player)
     {
         remaining = player.GetRemainingMana();
@@ -214,8 +194,6 @@ struct ManaCrystal
 
     bool operator==(const ManaCrystal& rhs) const
     {
-        static_assert(changeID == 1);
-
         if (remaining != rhs.remaining)
         {
             return false;
@@ -253,8 +231,6 @@ struct Minion
     bool isStealth = false;
     bool isImmune = false;
 
-    constexpr static int changeID = 3;
-
     void Fill(const RosettaStone::Minion& minion)
     {
         cardID = minion.card->id;
@@ -270,8 +246,6 @@ struct Minion
 
     bool operator==(const Minion& rhs) const
     {
-        static_assert(changeID == 3);
-
         if (cardID != rhs.cardID)
         {
             return false;
@@ -318,8 +292,6 @@ struct MyMinion : public Minion
 {
     bool attackable = false;
 
-    constexpr static int changeID = 1;
-
     void Fill(const RosettaStone::Minion& minion, bool _attackable)
     {
         Minion::Fill(minion);
@@ -328,8 +300,6 @@ struct MyMinion : public Minion
 
     bool operator==(const MyMinion& rhs) const
     {
-        static_assert(changeID == 1);
-
         if (Minion::operator!=(rhs))
         {
             return false;
@@ -358,8 +328,6 @@ struct MyHandCard
     int attack = 0;
     int health = 0;
 
-    constexpr static int changeID = 1;
-
     void Fill(RosettaStone::Entity& entity)
     {
         cardID = entity.card->id;
@@ -370,8 +338,6 @@ struct MyHandCard
 
     bool operator==(const MyHandCard& rhs) const
     {
-        static_assert(changeID == 1);
-
         if (cardID != rhs.cardID)
         {
             return false;
@@ -400,12 +366,8 @@ struct MyHandCard
 
 struct OpHandCard
 {
-    constexpr static int changeID = 1;
-
     bool operator==([[maybe_unused]] const OpHandCard& rhs) const
     {
-        static_assert(changeID == 1);
-
         return true;
     }
 
@@ -422,8 +384,6 @@ struct Deck
 {
     int count = 0;
 
-    constexpr static int changeID = 1;
-
     void Fill(int _count)
     {
         count = _count;
@@ -431,8 +391,6 @@ struct Deck
 
     bool operator==(const Deck& rhs) const
     {
-        static_assert(changeID == 1);
-
         return count == rhs.count;
     }
 
@@ -451,8 +409,6 @@ struct hash<RosettaStone::ViewTypes::Hero>
     std::size_t operator()(const RosettaStone::ViewTypes::Hero& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 2);
-
         std::size_t result = 0;
         CombineHash(result, rhs.attack);
         CombineHash(result, rhs.health);
@@ -470,8 +426,6 @@ struct hash<RosettaStone::ViewTypes::MyHero>
     std::size_t operator()(const RosettaStone::ViewTypes::MyHero& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         std::size_t result = std::hash<RosettaStone::ViewTypes::Hero>()(rhs);
         CombineHash(result, rhs.attackable);
 
@@ -485,8 +439,6 @@ struct hash<RosettaStone::ViewTypes::HeroPower>
     std::size_t operator()(const RosettaStone::ViewTypes::HeroPower& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         std::size_t result = 0;
         CombineHash(result, rhs.cardID);
         CombineHash(result, rhs.isExhausted);
@@ -501,8 +453,6 @@ struct hash<RosettaStone::ViewTypes::Weapon>
     std::size_t operator()(const RosettaStone::ViewTypes::Weapon& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         std::size_t result = 0;
         CombineHash(result, rhs.isEquipped);
 
@@ -523,8 +473,6 @@ struct hash<RosettaStone::ViewTypes::ManaCrystal>
     std::size_t operator()(
         const RosettaStone::ViewTypes::ManaCrystal& rhs) const noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         std::size_t result = 0;
         CombineHash(result, rhs.remaining);
         CombineHash(result, rhs.total);
@@ -541,8 +489,6 @@ struct hash<RosettaStone::ViewTypes::Minion>
     std::size_t operator()(const RosettaStone::ViewTypes::Minion& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 3);
-
         std::size_t result = 0;
         CombineHash(result, rhs.cardID);
         CombineHash(result, rhs.attack);
@@ -563,8 +509,6 @@ struct hash<RosettaStone::ViewTypes::MyMinion>
     std::size_t operator()(const RosettaStone::ViewTypes::MyMinion& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         std::size_t result = std::hash<RosettaStone::ViewTypes::Minion>()(rhs);
         CombineHash(result, rhs.attackable);
 
@@ -612,8 +556,6 @@ struct hash<RosettaStone::ViewTypes::MyHandCard>
     std::size_t operator()(const RosettaStone::ViewTypes::MyHandCard& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         std::size_t result = 0;
         CombineHash(result, rhs.cardID);
         CombineHash(result, rhs.cost);
@@ -631,8 +573,6 @@ struct hash<RosettaStone::ViewTypes::OpHandCard>
         [maybe_unused]] const RosettaStone::ViewTypes::OpHandCard& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         return 0;
     }
 };
@@ -677,8 +617,6 @@ struct hash<RosettaStone::ViewTypes::Deck>
     std::size_t operator()(const RosettaStone::ViewTypes::Deck& rhs) const
         noexcept
     {
-        static_assert(std::decay_t<decltype(rhs)>::changeID == 1);
-
         std::size_t result = 0;
         CombineHash(result, rhs.count);
 

@@ -68,8 +68,6 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& board)
 
 bool ReducedBoardView::operator==(const ReducedBoardView& rhs) const
 {
-    static_assert(changeID == 3);
-
     if (m_turn != rhs.m_turn)
     {
         return false;
