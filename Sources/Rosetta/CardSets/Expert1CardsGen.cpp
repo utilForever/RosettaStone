@@ -33,6 +33,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
@@ -174,6 +175,42 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_543", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_609] Snipe - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> After your opponent plays a minion,
+    //       deal $4 damage to it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsNotDead() }),
+        new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true),
+                             new SetGameTagTask(EntityType::SOURCE,
+                                                GameTag::REVEALED, 1),
+                             new MoveToGraveyardTask(EntityType::SOURCE) })
+    };
+    cards.emplace("EX1_609", power);
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [EX1_617] Deadly Shot - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Destroy a random enemy minion.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    cards.emplace("EX1_617", power);
 }
 
 void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
@@ -212,6 +249,27 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     cards.emplace("CS2_028", power);
 
     // ------------------------------------------- SPELL - MAGE
+    // [EX1_179] Icicle - COST:2
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to a minion.
+    //       If it's <b>Frozen</b>, draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsFrozen() }));
+    power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
+    cards.emplace("EX1_179", power);
+
+    // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -238,6 +296,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
     power.GetTrigger()->tasks = {
         new SetGameTagTask(EntityType::TARGET, GameTag::CANT_PLAY, 1),
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
@@ -245,11 +304,34 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     };
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_287", power);
+
+    // ------------------------------------------ MINION - MAGE
+    // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, gain +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("NEW1_012o",
+                                                         EntityType::SOURCE) };
+    cards.emplace("NEW1_012", power);
 }
 
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [NEW1_012o] Mana Gorged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackN(1)));
+    cards.emplace("NEW1_012o", power);
 }
 
 void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
@@ -844,8 +926,9 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // Text: <b>Deathrattle:</b> Resummon this minion.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, 1));
+    power.AddDeathrattleTask(new CopyTask(EntityType::SOURCE, ZoneType::PLAY));
     power.AddDeathrattleTask(new SummonTask(SummonSide::DEATHRATTLE));
+    cards.emplace("CS2_038e", power);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_053e] Far Sight (*) - COST:0
@@ -910,6 +993,21 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
         new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON));
     power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("EX1_181", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_301] Felguard - COST:3 [ATK:3/HP:5]
+    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Destroy one of your Mana Crystals.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ManaCrystalTask(-1, false));
+    cards.emplace("EX1_301", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
@@ -1718,10 +1816,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ALL_MINIONS_NOSOURCE, 1));
     power.AddPowerTask(new ChanceTask(true));
-    power.AddPowerTask(
-        new FlagTask(true, new TransformTask(EntityType::STACK, "EX1_tk28")));
-    power.AddPowerTask(
-        new FlagTask(false, new TransformTask(EntityType::STACK, "EX1_tk29")));
+    power.AddPowerTask(new FlagTask(
+        true, { new TransformTask(EntityType::STACK, "EX1_tk28") }));
+    power.AddPowerTask(new FlagTask(
+        false, { new TransformTask(EntityType::STACK, "EX1_tk29") }));
     cards.emplace("EX1_083", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1743,8 +1841,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
     power.AddPowerTask(new ConditionTask(EntityType::SOURCE,
                                          { SelfCondition::IsFieldFull() }));
-    power.AddPowerTask(new FlagTask(true, new DestroyTask(EntityType::STACK)));
-    power.AddPowerTask(new FlagTask(false, new ControlTask(EntityType::STACK)));
+    power.AddPowerTask(
+        new FlagTask(true, { new DestroyTask(EntityType::STACK) }));
+    power.AddPowerTask(
+        new FlagTask(false, { new ControlTask(EntityType::STACK) }));
     cards.emplace("EX1_085", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1824,15 +1924,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Whenever a player casts a spell, put a copy
-    //       into the other player’s hand.
+    //       into the other player's hand.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
-    power.GetTrigger()->tasks = { new CopyTask(EntityType::TARGET, 1, true),
-                                  new AddStackToTask(EntityType::HAND) };
+    power.GetTrigger()->tasks = {
+        new ConditionTask(EntityType::TARGET, { RelaCondition::IsFriendly() }),
+        new FlagTask(true, { new CopyTask(EntityType::TARGET, ZoneType::HAND, 1,
+                                          false, true) }),
+        new FlagTask(false,
+                     { new CopyTask(EntityType::TARGET, ZoneType::HAND) })
+    };
     cards.emplace("EX1_100", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1927,7 +2032,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1));
     cards.emplace("EX1_283", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -1955,6 +2061,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_405", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
+    // - Race: Mechanical, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 2/1 Damaged Golem.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        new SummonTask("skele21", SummonSide::DEATHRATTLE));
+    cards.emplace("EX1_556", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
@@ -1985,6 +2105,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new TransformCopyTask());
     cards.emplace("EX1_564", power);
 
+    // --------------------------------------- MINION - NEUTRAL  
+    // [EX1_572] Ysera - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn, add a Dream Card to your hand.
+    // --------------------------------------------------------
+    // Entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new RandomEntourageTask(1),
+                                  new AddStackToTask(EntityType::HAND) };
+    cards.emplace("EX1_572", power);
+  
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -1996,8 +2133,42 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(new SummonTask("EX1_finkle", 1, true));
-    cards.emplace("EX1_577", power);
+    cards.emplace("EX1_577", power); 
 
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Restore 4 Health to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::HERO, 4));
+    cards.emplace("EX1_583", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you summon a minion,
+    //       deal 1 damage to a random enemy.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->tasks = { new IncludeTask(EntityType::ENEMIES),
+                                  new FilterStackTask(
+                                      SelfCondition::IsNotDead()),
+                                  new RandomTask(EntityType::STACK, 1),
+                                  new DamageTask(EntityType::STACK, 1) };
+    cards.emplace("NEW1_019", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -2060,8 +2231,44 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new AddEnchantmentTask("NEW1_037e", EntityType::STACK)
     };
     cards.emplace("NEW1_037", power);
-}
 
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       summon a 2/2 Gnoll with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new SummonTask("NEW1_040t",
+                                                 SummonSide::RIGHT) };
+    cards.emplace("NEW1_040", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
+    // - Race: Beast, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a random enemy minion
+    //       with 2 or less Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(new FilterStackTask(
+        SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)));
+    power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
+    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    cards.emplace("NEW1_041", power);
+}
 void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
@@ -2096,6 +2303,18 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddAura(new EnrageEffect(AuraType::WEAPON, { Effects::AttackN(2) }));
     cards.emplace("CS2_221e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [DREAM_05e] Nightmare (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has +5/+5, but will be destroyed soon.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("DREAM_05e"));
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { new DestroyTask(EntityType::TARGET) };
+    cards.emplace("DREAM_05e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_001e] Warded (*) - COST:0
@@ -2295,6 +2514,95 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::AttackN(1)));
     cards.emplace("NEW1_037e", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_040t] Gnoll (*) - COST:2 [ATK:2/HP:2]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_040t", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [skele21] Damaged Golem (*) - COST:1 [ATK:2/HP:1]
+    // - Race: Mechanical, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("skele21", power);
+}
+
+void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, Power>& cards)
+{
+    Power power;
+
+    // ----------------------------------------- MINION - DREAM
+    // [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Can't be targeted by spells or Hero Powers.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_TARGETED_BY_SPELLS = 1
+    // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DREAM_01", power);
+
+    // ------------------------------------------ SPELL - DREAM
+    // [DREAM_02] Ysera Awakens (*) - COST:2
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deal $5 damage to all characters except Ysera.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::ALL));
+    power.AddPowerTask(
+        new FilterStackTask(SelfCondition::IsName("Ysera", false)));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 5, true));
+    cards.emplace("DREAM_02", power);
+
+    // ----------------------------------------- MINION - DREAM
+    // [DREAM_03] Emerald Drake (*) - COST:4 [ATK:7/HP:6]
+    // - Race: Dragon, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DREAM_03", power);
+
+    // ------------------------------------------ SPELL - DREAM
+    // [DREAM_04] Dream (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Return a minion to its owner's hand.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
+    cards.emplace("DREAM_04", power);
+
+    // ------------------------------------------ SPELL - DREAM
+    // [DREAM_05] Nightmare (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Give a minion +5/+5. At the start of your next turn, destroy it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("DREAM_05e", EntityType::TARGET));
+    cards.emplace("DREAM_05", power);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
@@ -2331,5 +2639,7 @@ void Expert1CardsGen::AddAll(std::map<std::string, Power>& cards)
 
     AddNeutral(cards);
     AddNeutralNonCollect(cards);
+
+    AddDreamNonCollect(cards);
 }
 }  // namespace RosettaStone

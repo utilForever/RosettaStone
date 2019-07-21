@@ -20,8 +20,8 @@ class FlagTask : public ITask
  public:
     //! Constructs task with given \p flag and \p toDoTask.
     //! \param flag A flag to check previous task results.
-    //! \param toDoTask The task to run depending on flag.
-    explicit FlagTask(bool flag, ITask* toDoTask);
+    //! \param toDoTasks A list of tasks to run depending on flag.
+    explicit FlagTask(bool flag, std::vector<ITask*> toDoTasks);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -34,7 +34,7 @@ class FlagTask : public ITask
     TaskStatus Impl(Player& player) override;
 
     bool m_flag = true;
-    ITask* m_toDoTask = nullptr;
+    std::vector<ITask*> m_toDoTasks;
 };
 }  // namespace RosettaStone::SimpleTasks
 

@@ -237,9 +237,9 @@ EXPERT1 | EX1_165 | Druid of the Claw |
 EXPERT1 | EX1_166 | Keeper of the Grove |  
 EXPERT1 | EX1_170 | Emperor Cobra | O
 EXPERT1 | EX1_178 | Ancient of War |  
-EXPERT1 | EX1_179 | Icicle |  
+EXPERT1 | EX1_179 | Icicle | O
 EXPERT1 | EX1_180 | Tome of Intellect |  
-EXPERT1 | EX1_181 | Call of the Void |  
+EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer |  
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
@@ -259,7 +259,7 @@ EXPERT1 | EX1_283 | Frost Elemental | O
 EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier |  
 EXPERT1 | EX1_294 | Mirror Entity |  
-EXPERT1 | EX1_301 | Felguard |  
+EXPERT1 | EX1_301 | Felguard | O
 EXPERT1 | EX1_303 | Shadowflame |  
 EXPERT1 | EX1_304 | Void Terror |  
 EXPERT1 | EX1_309 | Siphon Soul | O
@@ -315,7 +315,7 @@ EXPERT1 | EX1_543 | King Krush | O
 EXPERT1 | EX1_544 | Flare |  
 EXPERT1 | EX1_549 | Bestial Wrath |  
 EXPERT1 | EX1_554 | Snake Trap |  
-EXPERT1 | EX1_556 | Harvest Golem |  
+EXPERT1 | EX1_556 | Harvest Golem | O 
 EXPERT1 | EX1_557 | Nat Pagle |  
 EXPERT1 | EX1_558 | Harrison Jones |  
 EXPERT1 | EX1_559 | Archmage Antonidas |  
@@ -327,12 +327,12 @@ EXPERT1 | EX1_564 | Faceless Manipulator | O
 EXPERT1 | EX1_567 | Doomhammer | O
 EXPERT1 | EX1_570 | Bite | O
 EXPERT1 | EX1_571 | Force of Nature |  
-EXPERT1 | EX1_572 | Ysera |  
+EXPERT1 | EX1_572 | Ysera | O
 EXPERT1 | EX1_573 | Cenarius |  
 EXPERT1 | EX1_575 | Mana Tide Totem |  
 EXPERT1 | EX1_577 | The Beast |  
 EXPERT1 | EX1_578 | Savagery |  
-EXPERT1 | EX1_583 | Priestess of Elune |  
+EXPERT1 | EX1_583 | Priestess of Elune | O
 EXPERT1 | EX1_584 | Ancient Mage |  
 EXPERT1 | EX1_586 | Sea Giant |  
 EXPERT1 | EX1_590 | Blood Knight |  
@@ -345,14 +345,14 @@ EXPERT1 | EX1_603 | Cruel Taskmaster |
 EXPERT1 | EX1_604 | Frothing Berserker |  
 EXPERT1 | EX1_607 | Inner Rage | O
 EXPERT1 | EX1_608 | Sorcerer's Apprentice |  
-EXPERT1 | EX1_609 | Snipe |  
+EXPERT1 | EX1_609 | Snipe | O
 EXPERT1 | EX1_610 | Explosive Trap |  
 EXPERT1 | EX1_611 | Freezing Trap |  
 EXPERT1 | EX1_612 | Kirin Tor Mage |  
 EXPERT1 | EX1_613 | Edwin VanCleef |  
 EXPERT1 | EX1_614 | Illidan Stormrage |  
 EXPERT1 | EX1_616 | Mana Wraith |  
-EXPERT1 | EX1_617 | Deadly Shot |  
+EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
@@ -363,11 +363,11 @@ EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall |  
 EXPERT1 | NEW1_008 | Ancient of Lore |  
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
-EXPERT1 | NEW1_012 | Mana Wyrm |  
+EXPERT1 | NEW1_012 | Mana Wyrm | O
 EXPERT1 | NEW1_014 | Master of Disguise |  
 EXPERT1 | NEW1_017 | Hungry Crab |  
 EXPERT1 | NEW1_018 | Bloodsail Raider |  
-EXPERT1 | NEW1_019 | Knife Juggler |  
+EXPERT1 | NEW1_019 | Knife Juggler | O
 EXPERT1 | NEW1_020 | Wild Pyromancer | O
 EXPERT1 | NEW1_021 | Doomsayer | O
 EXPERT1 | NEW1_022 | Dread Corsair |  
@@ -381,12 +381,12 @@ EXPERT1 | NEW1_030 | Deathwing | O
 EXPERT1 | NEW1_036 | Commanding Shout |  
 EXPERT1 | NEW1_037 | Master Swordsmith | O
 EXPERT1 | NEW1_038 | Gruul |  
-EXPERT1 | NEW1_040 | Hogger |  
-EXPERT1 | NEW1_041 | Stampeding Kodo |  
+EXPERT1 | NEW1_040 | Hogger | O
+EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 46% (108 of 237 Cards)
+- Progress: 50% (120 of 237 Cards)
 
 ## Hall of Fame
 

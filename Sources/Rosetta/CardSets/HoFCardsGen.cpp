@@ -88,9 +88,9 @@ void HoFCardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new ConditionTask(EntityType::TARGET, { SelfCondition::IsFrozen() }));
     power.AddPowerTask(
-        new FlagTask(true, new DamageTask(EntityType::TARGET, 4, true)));
+        new FlagTask(true, { new DamageTask(EntityType::TARGET, 4, true) }));
     power.AddPowerTask(new FlagTask(
-        false, new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1)));
+        false, { new SetGameTagTask(EntityType::TARGET, GameTag::FROZEN, 1) }));
     cards.emplace("CS2_031", power);
 }
 

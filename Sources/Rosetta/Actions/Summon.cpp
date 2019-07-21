@@ -15,5 +15,11 @@ void Summon(Player& player, Minion* minion, int fieldPos)
     player.GetGame()->UpdateAura();
 
     player.GetGame()->summonedMinions.emplace_back(minion);
+
+    // Process after summon trigger
+    player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnAfterSummonTrigger(&player, minion);
+    player.GetGame()->ProcessTasks();
+    player.GetGame()->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone::Generic

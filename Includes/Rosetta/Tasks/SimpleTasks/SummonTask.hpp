@@ -29,20 +29,26 @@ enum class SummonSide
 class SummonTask : public ITask
 {
  public:
-    //! Constructs task with given \p side, \p card and \p amount.
+    //! Constructs task with given \p side, \p card, \p amount and \p toOpponent.
+    //! \param side The side of summoned minion.
+    //! \param card The card to summon.
+    //! \param amount The number of minions to summon.
+    //! \param toOpposite The flag that indicates the owner of copied entity.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
-                        const std::optional<Card>& card = std::nullopt,
+                        std::optional<Card> card = std::nullopt,
                         int amount = 1, bool toOpponent = false);
 
-    //! Constructs task with given \p cardID and \p amount.
+    //! Constructs task with given \p cardID, \p amount and \p toOpponent.
     //! \param cardID The card ID to summon.
     //! \param amount The number of minions to summon.
-    explicit SummonTask(std::string cardID, int amount, bool toOpponent = false);
+    //! \param toOpposite The flag that indicates the owner of copied entity.
+    explicit SummonTask(const std::string& cardID, int amount, bool toOpponent = false);
 
-    //! Constructs task with given \p cardID and \p side.
+    //! Constructs task with given \p cardID, \p side and \p toOpponent.
     //! \param cardID The card ID to summon.
     //! \param side The side of summoned minion.
-    explicit SummonTask(std::string cardID,
+    //! \param toOpposite The flag that indicates the owner of copied entity.
+    explicit SummonTask(const std::string& cardID,
                         SummonSide side = SummonSide::DEFAULT, bool toOpponent = false);
 
     //! Returns task ID.
