@@ -14,19 +14,25 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(SummonSide side, std::optional<Card> card, int amount)
-    : m_card(std::move(card)), m_side(side), m_amount(amount)
+SummonTask::SummonTask(SummonSide side, std::optional<Card> card, int amount,
+                       bool toOpposite)
+    : m_card(std::move(card)),
+      m_side(side),
+      m_amount(amount),
+      m_toOpposite(toOpposite)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(const std::string& cardID, int amount) : m_amount(amount)
+SummonTask::SummonTask(const std::string& cardID, int amount, bool toOpposite)
+    : m_amount(amount), m_toOpposite(toOpposite)
 {
     m_card = Cards::FindCardByID(cardID);
 }
 
-SummonTask::SummonTask(const std::string& cardID, SummonSide side)
-    : m_side(side)
+SummonTask::SummonTask(const std::string& cardID, SummonSide side,
+                       bool toOpposite)
+    : m_side(side), m_toOpposite(toOpposite)
 {
     m_card = Cards::FindCardByID(cardID);
 }
@@ -38,9 +44,11 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
+    Player* summoner = m_toOpposite ? player.opponent : &player;
+
     for (int i = 0; i < m_amount; ++i)
     {
-        if (player.GetFieldZone().IsFull())
+        if (summoner->GetFieldZone().IsFull())
         {
             return TaskStatus::STOP;
         }
@@ -49,11 +57,11 @@ TaskStatus SummonTask::Impl(Player& player)
         if (m_card.has_value())
         {
             summonEntity =
-                Entity::GetFromCard(player, std::move(m_card.value()));
+                Entity::GetFromCard(*summoner, std::move(m_card.value()));
         }
-        else if (!player.GetGame()->taskStack.entities.empty())
+        else if (!summoner->GetGame()->taskStack.entities.empty())
         {
-            summonEntity = player.GetGame()->taskStack.entities[0];
+            summonEntity = summoner->GetGame()->taskStack.entities[0];
         }
 
         if (summonEntity == nullptr)
@@ -116,7 +124,7 @@ TaskStatus SummonTask::Impl(Player& player)
                     "SummonTask::Impl() - Invalid summon side");
         }
 
-        Generic::Summon(player, summonMinion, summonPos);
+        Generic::Summon(*summoner, summonMinion, summonPos);
     }
 
     return TaskStatus::COMPLETE;
