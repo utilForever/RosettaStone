@@ -16,6 +16,13 @@ RelaCondition::RelaCondition(std::function<bool(Entity*, Entity*)> func)
     // Do nothing
 }
 
+RelaCondition RelaCondition::IsFriendly()
+{
+    return RelaCondition([=](Entity* me, Entity* other) -> bool {
+        return me->owner == other->owner;
+    });
+}
+
 RelaCondition RelaCondition::IsSideBySide()
 {
     return RelaCondition([=](Entity* me, Entity* other) -> bool {

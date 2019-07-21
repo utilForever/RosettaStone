@@ -7,11 +7,64 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Actions/Generic.hpp>
-#include <Rosetta/Actions/Choose.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
 
 using namespace RosettaStone;
+
+TEST(Generic, ShuffleIntoDeck)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Entity* coinCard = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByID("GAME_005"), std::nullopt,
+        &curPlayer.GetHandZone());
+
+    Generic::ShuffleIntoDeck(curPlayer, coinCard);
+    EXPECT_EQ(curPlayer.GetDeckZone().GetCount(), 1);
+    EXPECT_EQ(curPlayer.GetDeckZone()[0]->card.id, "GAME_005");
+}
+
+TEST(Generic, ShuffleIntoDeck_Full)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Entity* coinCard = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByID("GAME_005"), std::nullopt,
+        &curPlayer.GetHandZone());
+
+    for (size_t i = 0; i < MAX_DECK_SIZE; ++i)
+    {
+        Entity* tempCard = Entity::GetFromCard(
+            curPlayer, Cards::GetInstance().FindCardByID("GAME_005"),
+            std::nullopt, &curPlayer.GetHandZone());
+        curPlayer.GetDeckZone().Add(*tempCard);
+    }
+
+    Generic::ShuffleIntoDeck(curPlayer, coinCard);
+    EXPECT_EQ(curPlayer.GetDeckZone().GetCount(), MAX_DECK_SIZE);
+}
 
 TEST(Generic, GetZone)
 {
@@ -42,51 +95,4 @@ TEST(Generic, GetZone)
               Generic::GetZone(curPlayer, ZoneType::SETASIDE));
     EXPECT_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::INVALID));
     EXPECT_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::REMOVEDFROMGAME));
-}
-
-TEST(Generic, ChoiceMulligan)
-{
-    GameConfig config;
-    config.player1Class = CardClass::ROGUE;
-    config.player2Class = CardClass::PALADIN;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.StartGame();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-
-    std::vector<std::size_t> curChoices, opChoices;
-    
-    auto curHand = curPlayer.GetHandZone().GetAll();
-    auto opHand = opPlayer.GetHandZone().GetAll();
-    
-    Choice curChoice, opChoice;
-
-    curChoice.choiceAction = ChoiceAction::HAND;
-    curChoice.choices = curChoices;
-    curChoice.choiceType = ChoiceType::MULLIGAN;
-
-    opChoice.choiceAction = ChoiceAction::HAND;
-    opChoice.choices = opChoices;
-    opChoice.choiceType = ChoiceType::MULLIGAN;
-
-    curPlayer.choice = curChoice;
-    opPlayer.choice = opChoice;
-
-    int curHandCount = curPlayer.GetHandZone().GetCount();
-    int opHandCount = opPlayer.GetHandZone().GetCount();
-
-    Generic::ChoiceMulligan(curPlayer, curChoices);
-    Generic::ChoiceMulligan(opPlayer, opChoices);
-
-    EXPECT_EQ(curHandCount, curPlayer.GetHandZone().GetCount());
-    EXPECT_EQ(opHandCount, opPlayer.GetHandZone().GetCount());
-
-    EXPECT_EQ(curPlayer.choice, std::nullopt);
-    EXPECT_EQ(opPlayer.choice, std::nullopt);
 }
