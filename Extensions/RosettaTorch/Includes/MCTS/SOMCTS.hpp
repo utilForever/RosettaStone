@@ -148,7 +148,8 @@ class SOMCTS
     class ActionParams : public RosettaStone::ActionParams
     {
      public:
-        ActionParams(SOMCTS& callback) : m_board(nullptr), m_callback(callback)
+        explicit ActionParams(SOMCTS& callback)
+            : m_board(nullptr), m_callback(callback)
         {
             // Do nothing
         }

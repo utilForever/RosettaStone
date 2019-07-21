@@ -22,7 +22,7 @@ namespace RosettaStone
 class ActionValidGetter
 {
  public:
-    ActionValidGetter(const Game& game);
+    explicit ActionValidGetter(const Game& game);
 
     Hero* GetHero(PlayerType playerType) const;
 

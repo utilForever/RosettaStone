@@ -29,7 +29,7 @@ namespace RosettaTorch::MCTS
 class Selection
 {
  public:
-    Selection(TreeNode& tree)
+    explicit Selection(TreeNode& tree)
         : m_root(tree),
           m_boardChanged(false),
           m_redirectNodeMap(nullptr),

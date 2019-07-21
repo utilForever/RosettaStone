@@ -23,7 +23,7 @@ namespace RosettaTorch::MCTS
 class ChoiceGetter
 {
  public:
-    ChoiceGetter(int choices) : m_choices(choices)
+    explicit ChoiceGetter(int choices) : m_choices(choices)
     {
         // Do nothing
     }
