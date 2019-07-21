@@ -4928,11 +4928,12 @@ TEST(NeutralExpert1Test, EX1_103_ColdlightSeer)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
-// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof
+// Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof.
 // --------------------------------------------------------
 // GameTag:
+// - ELITE = 1
 // - DEATHRATTLE = 1
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
@@ -4964,12 +4965,12 @@ TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     curField[0]->SetDamage(4);
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, card1));
-
     EXPECT_TRUE(card1->isDestroyed);
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetAttack(), 4);
@@ -4980,9 +4981,11 @@ TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
 // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
 // - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.    
+// Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps
+//       for your opponent.
 // --------------------------------------------------------
 // GameTag:
+// - ELITE = 1
 // - CHARGE = 1
 // - BATTLECRY = 1
 // --------------------------------------------------------
@@ -5012,7 +5015,6 @@ TEST(NeutralExpert1Test, EX1_116_LeeroyJenkins)
         curPlayer, Cards::GetInstance().FindCardByName("Leeroy Jenkins"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-
     EXPECT_EQ(opField.GetCount(), 2);
     EXPECT_EQ(opField[0]->GetHealth(), 1);
     EXPECT_EQ(opField[0]->GetAttack(), 1);
@@ -5778,9 +5780,10 @@ TEST(NeutralExpert1Test, NEW1_019_KnifeJuggler)
 // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent
+// Text: <b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.
 // --------------------------------------------------------
-// PlayReq:
+// GameTag:
+// - ELITE = 1
 // - DEATHRATTLE = 1
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, EX1_577_TheBeast)
@@ -5813,11 +5816,13 @@ TEST(NeutralExpert1Test, EX1_577_TheBeast)
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     curField[0]->SetHealth(1);
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     opField[0]->SetHealth(99);
+
     game.Process(opPlayer, AttackTask(card2, card1));
     EXPECT_TRUE(card1->isDestroyed);
     EXPECT_EQ(opField.GetCount(), 2);
