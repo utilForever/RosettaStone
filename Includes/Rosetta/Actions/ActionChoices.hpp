@@ -11,7 +11,6 @@
 #define ROSETTASTONE_ACTION_CHOICES_HPP
 
 #include <cassert>
-#include <utility>
 #include <variant>
 #include <vector>
 
@@ -115,8 +114,8 @@ class ActionChoices
     class ChooseFromCardIDs
     {
      public:
-        explicit ChooseFromCardIDs(std::vector<size_t> cardIDs)
-            : m_cardIDs(std::move(cardIDs))
+        explicit ChooseFromCardIDs(const std::vector<size_t>& cardIDs)
+            : m_cardIDs(cardIDs)
         {
             // Do nothing
         }
@@ -173,8 +172,8 @@ class ActionChoices
         // Do nothing
     }
 
-    explicit ActionChoices(std::vector<size_t> cardIDs)
-        : m_item(ChooseFromCardIDs(std::move(cardIDs)))
+    explicit ActionChoices(const std::vector<size_t>& cardIDs)
+        : m_item(ChooseFromCardIDs(cardIDs))
     {
         // Do nothing
     }
