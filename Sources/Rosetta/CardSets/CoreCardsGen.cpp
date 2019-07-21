@@ -1152,7 +1152,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_HAND, 1));
     power.AddPowerTask(new CopyTask(EntityType::STACK, ZoneType::HAND));
-    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("CS2_003", power);
 
     // ----------------------------------------- SPELL - PRIEST
