@@ -42,9 +42,9 @@ Entity* Enchantment::GetTarget() const
 
 void Enchantment::Remove()
 {
-    if (!card.power.GetDeathrattleTask().empty())
+    if (!card->power.GetDeathrattleTask().empty())
     {
-        for (auto& power : card.power.GetDeathrattleTask())
+        for (auto& power : card->power.GetDeathrattleTask())
         {
             power->SetPlayer(m_target->owner);
             power->SetSource(m_target);

@@ -612,8 +612,8 @@ TEST(Trigger, Predamage_EnchantmentTarget)
     card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
 
-    PlayMinionCard(curPlayer, card2);
-    PlayEnchantmentCard(curPlayer, card1, curField[0]);
+    PlayMinionCard(curPlayer, &card2);
+    PlayEnchantmentCard(curPlayer, &card1, curField[0]);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();

@@ -2074,9 +2074,9 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
     game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayCardTask::Minion(card5));
 
-    EXPECT_EQ(opField[0]->card.name, "Murloc Raider");
-    EXPECT_EQ(opField[1]->card.name, "River Crocolisk");
-    EXPECT_EQ(opField[2]->card.name, "Murloc Raider");
+    EXPECT_EQ(opField[0]->card->name, "Murloc Raider");
+    EXPECT_EQ(opField[1]->card->name, "River Crocolisk");
+    EXPECT_EQ(opField[2]->card->name, "Murloc Raider");
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
     EXPECT_EQ(opField[1]->appliedEnchantments.size(), 1);
@@ -2087,7 +2087,7 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
     game.Process(curPlayer, AttackTask(card1, card4));
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(opField.GetCount(), 3);
-    EXPECT_EQ(opField[1]->card.name, "River Crocolisk");
+    EXPECT_EQ(opField[1]->card->name, "River Crocolisk");
     EXPECT_FALSE(opField[1]->HasDeathrattle());
 }
 
@@ -4792,16 +4792,16 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
-    EXPECT_EQ(opHand[3]->card.name, "Fireball");
+    EXPECT_EQ(opHand[3]->card->name, "Fireball");
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curHand[0]->card.name, "Blizzard");
+    EXPECT_EQ(curHand[0]->card->name, "Blizzard");
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
-    EXPECT_EQ(curHand[1]->card.name, "Inner Rage");
+    EXPECT_EQ(curHand[1]->card->name, "Inner Rage");
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5237,7 +5237,7 @@ TEST(WarlockExpert1Test, EX1_181_CallOfTheVoid)
     game.Process(curPlayer, PlayCardTask::Spell(card1));
 
     EXPECT_EQ(curHand.GetCount(), 5);
-    EXPECT_EQ(curHand[4]->card.GetRace(), Race::DEMON);
+    EXPECT_EQ(curHand[4]->card->GetRace(), Race::DEMON);
 }
 
 // --------------------------------------- MINION - WARLOCK
@@ -5513,9 +5513,9 @@ TEST(NeutralExpert1Test, EX1_556_HarvestGolem)
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField[0]->card.name, "Magma Rager");
-    EXPECT_EQ(curField[1]->card.name, "Harvest Golem");
-    EXPECT_EQ(curField[2]->card.name, "Magma Rager");
+    EXPECT_EQ(curField[0]->card->name, "Magma Rager");
+    EXPECT_EQ(curField[1]->card->name, "Harvest Golem");
+    EXPECT_EQ(curField[2]->card->name, "Magma Rager");
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -5525,7 +5525,7 @@ TEST(NeutralExpert1Test, EX1_556_HarvestGolem)
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card2));
     EXPECT_EQ(curField.GetCount(), 3);
-    EXPECT_EQ(curField[1]->card.name, "Damaged Golem");
+    EXPECT_EQ(curField[1]->card->name, "Damaged Golem");
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -5658,11 +5658,11 @@ TEST(NeutralExpert1Test, EX1_572_Ysera)
 
     EXPECT_EQ(curHand.GetCount(), 5);
 
-    const Card& dreamCard = curHand[4]->card;
-    const Card& yseraCard = Cards::GetInstance().FindCardByName("Ysera");
-    auto& entourages = yseraCard.entourages;
-    EXPECT_TRUE(std::find(entourages.begin(), entourages.end(), dreamCard.id) !=
-                entourages.end());
+    const Card* dreamCard = curHand[4]->card;
+    const Card* yseraCard = Cards::GetInstance().FindCardByName("Ysera");
+    auto& entourages = yseraCard->entourages;
+    EXPECT_TRUE(std::find(entourages.begin(), entourages.end(),
+                          dreamCard->id) != entourages.end());
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6199,7 +6199,7 @@ TEST(NeutralExpert1Test, NEW1_040_Hogger)
     game.ProcessUntil(Step::MAIN_START);
 
     EXPECT_EQ(curField.GetCount(), 2);
-    EXPECT_EQ(curField.GetAll()[1]->card.id, "NEW1_040t");
+    EXPECT_EQ(curField.GetAll()[1]->card->id, "NEW1_040t");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -6265,7 +6265,7 @@ TEST(NeutralExpert1Test, NEW1_041_StampedingKodo)
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField.GetAll()[0]->card.name, "Bloodfen Raptor");
+    EXPECT_EQ(curField.GetAll()[0]->card->name, "Bloodfen Raptor");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -6429,12 +6429,12 @@ TEST(DreamExpert1Test, DREAM_04_Dream)
     game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card3));
     EXPECT_EQ(curHand.GetCount(), 4);
     EXPECT_EQ(opHand.GetCount(), 8);
-    EXPECT_EQ(opHand[7]->card.name, "Magma Rager");
+    EXPECT_EQ(opHand[7]->card->name, "Magma Rager");
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
     EXPECT_EQ(curHand.GetCount(), 5);
     EXPECT_EQ(opHand.GetCount(), 7);
-    EXPECT_EQ(curHand[4]->card.name, "Magma Rager");
+    EXPECT_EQ(curHand[4]->card->name, "Magma Rager");
 }
 
 // ------------------------------------------ SPELL - DREAM

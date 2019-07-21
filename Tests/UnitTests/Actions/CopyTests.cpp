@@ -39,7 +39,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetDeckZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -59,7 +59,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetHandZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -79,7 +79,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetDeckZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -99,7 +99,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetFieldZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -119,7 +119,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetHandZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -139,7 +139,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetFieldZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -159,7 +159,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetFieldZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -180,7 +180,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetHandZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -201,7 +201,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetDeckZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -222,7 +222,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetGraveyardZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -242,7 +242,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetGraveyardZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -262,7 +262,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetGraveyardZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -282,7 +282,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetHandZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -302,7 +302,7 @@ TEST(Copy, Copy)
             std::nullopt, &curPlayer.GetHandZone());
 
         Enchantment* enchantment =
-            new Enchantment(curPlayer, card, tags, entity);
+            new Enchantment(curPlayer, &card, tags, entity);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
