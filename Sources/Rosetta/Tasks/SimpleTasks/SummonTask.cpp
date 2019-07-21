@@ -14,19 +14,25 @@
 
 namespace RosettaStone::SimpleTasks
 {
-SummonTask::SummonTask(SummonSide side, std::optional<Card> card,
-                       int amount, bool toOpponent)
-    : m_card(std::move(card)), m_side(side), m_amount(amount), m_toOpponent(toOpponent)
+SummonTask::SummonTask(SummonSide side, std::optional<Card> card, int amount,
+                       bool toOpposite)
+    : m_card(std::move(card)),
+      m_side(side),
+      m_amount(amount),
+      m_toOpposite(toOpposite)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(const std::string& cardID, int amount, bool toOpponent) : m_amount(amount), m_toOpponent(toOpponent)
+SummonTask::SummonTask(const std::string& cardID, int amount, bool toOpposite)
+    : m_amount(amount), m_toOpposite(toOpposite)
 {
     m_card = Cards::FindCardByID(cardID);
 }
 
-SummonTask::SummonTask(const std::string& cardID, SummonSide side, bool toOpponent) : m_side(side), m_toOpponent(toOpponent)
+SummonTask::SummonTask(const std::string& cardID, SummonSide side,
+                       bool toOpposite)
+    : m_side(side), m_toOpposite(toOpposite)
 {
     m_card = Cards::FindCardByID(cardID);
 }
@@ -38,8 +44,8 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
-    Player* summoner = m_toOpponent ? player.opponent : &player;
-  
+    Player* summoner = m_toOpposite ? player.opponent : &player;
+
     for (int i = 0; i < m_amount; ++i)
     {
         if (summoner->GetFieldZone().IsFull())
