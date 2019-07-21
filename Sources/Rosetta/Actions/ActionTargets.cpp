@@ -33,8 +33,7 @@ void ActionTargets::Fill(PlayerType playerType, const ActionValidGetter& getter)
 
         int minionIdx = 1;
         getter.ForEachMinion(playerType, [&](Minion* minion) {
-            m_targets[minionIdx] = minion;
-            ++minionIdx;
+            m_targets[minionIdx++] = minion;
         });
     }
     else
@@ -43,8 +42,7 @@ void ActionTargets::Fill(PlayerType playerType, const ActionValidGetter& getter)
 
         int minionIdx = 9;
         getter.ForEachMinion(playerType, [&](Minion* minion) {
-            m_targets[minionIdx] = minion;
-            ++minionIdx;
+            m_targets[minionIdx++] = minion;
         });
     }
 }

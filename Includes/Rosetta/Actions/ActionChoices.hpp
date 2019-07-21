@@ -65,7 +65,7 @@ class ActionChoices
     class ChooseFromZeroToExclusiveMax
     {
      public:
-        ChooseFromZeroToExclusiveMax(size_t exclusiveMax)
+        explicit ChooseFromZeroToExclusiveMax(size_t exclusiveMax)
             : m_exclusiveMax(exclusiveMax), m_iter(0)
         {
             // Do nothing
@@ -115,7 +115,7 @@ class ActionChoices
     class ChooseFromCardIDs
     {
      public:
-        ChooseFromCardIDs(std::vector<size_t> cardIDs)
+        explicit ChooseFromCardIDs(std::vector<size_t> cardIDs)
             : m_cardIDs(std::move(cardIDs))
         {
             // Do nothing
@@ -167,13 +167,14 @@ class ActionChoices
         // Do nothing
     }
 
-    explicit ActionChoices(const ChooseFromZeroToExclusiveMax& val)
-        : m_item(val)
+    explicit ActionChoices(size_t exclusiveMax)
+        : m_item(ChooseFromZeroToExclusiveMax(exclusiveMax))
     {
         // Do nothing
     }
 
-    explicit ActionChoices(const ChooseFromCardIDs& val) : m_item(val)
+    explicit ActionChoices(std::vector<size_t> cardIDs)
+        : m_item(ChooseFromCardIDs(std::move(cardIDs)))
     {
         // Do nothing
     }

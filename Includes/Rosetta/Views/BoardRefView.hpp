@@ -62,7 +62,7 @@ class BoardRefView
 class CurrentPlayerBoardRefView
 {
  public:
-    CurrentPlayerBoardRefView(const Game& game);
+    explicit CurrentPlayerBoardRefView(const Game& game);
 
     Player& GetCurrentPlayer() const;
 

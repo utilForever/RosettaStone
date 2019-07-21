@@ -29,7 +29,7 @@ class ReducedBoardView
     friend std::hash<ReducedBoardView>;
 
  public:
-    ReducedBoardView(const BoardRefView& board);
+    explicit ReducedBoardView(const BoardRefView& board);
 
     ReducedBoardView(const ReducedBoardView&) = default;
     ReducedBoardView(ReducedBoardView&&) = default;

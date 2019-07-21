@@ -29,6 +29,12 @@ class Simulation
         // Do nothing
     }
 
+    Simulation(const Simulation&) = delete;
+    Simulation& operator=(const Simulation&) noexcept = delete;
+
+    Simulation(Simulation&&) = delete;
+    Simulation& operator=(Simulation&&) noexcept = delete;
+
     bool CutoffCheck(const Board& board, StateValue& stateValue) const
     {
         if (m_policy->IsEnableCutoff())

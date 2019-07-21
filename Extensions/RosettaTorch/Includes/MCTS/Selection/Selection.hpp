@@ -39,7 +39,10 @@ class Selection
     }
 
     Selection(const Selection&) = delete;
-    Selection& operator=(const Selection&) = delete;
+    Selection& operator=(const Selection&) noexcept = delete;
+
+    Selection(Selection&&) = delete;
+    Selection& operator=(Selection&&) noexcept = delete;
 
     auto GetRootNode() const
     {
