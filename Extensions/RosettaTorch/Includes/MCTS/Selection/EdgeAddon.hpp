@@ -62,8 +62,8 @@ class EdgeAddon
 
         // These two fields are not updated in an atomic operation. But this
         // should be fine...
-        m_total += totalIncrement * repeatTimes;
-        m_credit += creditIncrement * repeatTimes;
+        m_total += static_cast<std::int64_t>(totalIncrement * repeatTimes);
+        m_credit += static_cast<std::int64_t>(creditIncrement * repeatTimes);
     }
 
     auto GetTotal() const
