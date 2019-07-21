@@ -14,6 +14,7 @@
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 
 using namespace RosettaStone;
@@ -26,6 +27,53 @@ struct MulliganTestPolicy : BasicPolicy
         return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN), std::vector<size_t>());
     }
 };
+
+TEST(Game, GetPlayer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    const Game game(config);
+
+    const Player& player1 = game.GetPlayer1();
+    EXPECT_EQ(player1.playerType, PlayerType::PLAYER1);
+
+    const Player& player2 = game.GetPlayer2();
+    EXPECT_EQ(player2.playerType, PlayerType::PLAYER2);
+}
+
+TEST(Game, GetTurn)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    auto& curPlayer = game.GetCurrentPlayer();
+    auto& opPlayer = game.GetOpponentPlayer();
+
+    EXPECT_EQ(game.GetTurn(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(game.GetTurn(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(game.GetTurn(), 3);
+}
 
 TEST(Game, Mulligan)
 {
