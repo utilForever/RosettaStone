@@ -10,16 +10,11 @@
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
-#include <utility>
-
 namespace RosettaStone::SimpleTasks
 {
 SummonTask::SummonTask(SummonSide side, std::optional<Card*> card, int amount,
                        bool toOpposite)
-    : m_card(std::move(card)),
-      m_side(side),
-      m_amount(amount),
-      m_toOpposite(toOpposite)
+    : m_card(card), m_side(side), m_amount(amount), m_toOpposite(toOpposite)
 {
     // Do nothing
 }
@@ -56,8 +51,7 @@ TaskStatus SummonTask::Impl(Player& player)
         Entity* summonEntity = nullptr;
         if (m_card.has_value())
         {
-            summonEntity =
-                Entity::GetFromCard(*summoner, m_card.value());
+            summonEntity = Entity::GetFromCard(*summoner, m_card.value());
         }
         else if (!summoner->GetGame()->taskStack.entities.empty())
         {
@@ -132,6 +126,6 @@ TaskStatus SummonTask::Impl(Player& player)
 
 ITask* SummonTask::CloneImpl()
 {
-    return new SummonTask(m_side, m_card, m_amount);
+    return new SummonTask(m_side, m_card, m_amount, m_toOpposite);
 }
 }  // namespace RosettaStone::SimpleTasks
