@@ -51,19 +51,19 @@ class EdgeAddon
         return ret;
     }
 
-    void AddCredit(float score, short repeatTimes = 1)
+    void AddCredit(float score, int repeatTimes = 1)
     {
-        const short totalIncrement = CREDIT_GRANULARITY;
-        const short creditIncrement =
-            static_cast<short>(score * CREDIT_GRANULARITY);
+        const int totalIncrement = CREDIT_GRANULARITY;
+        const int creditIncrement =
+            static_cast<int>(score * CREDIT_GRANULARITY);
 
         assert(creditIncrement >= -totalIncrement);
         assert(creditIncrement <= totalIncrement);
 
         // These two fields are not updated in an atomic operation. But this
         // should be fine...
-        m_total += totalIncrement * repeatTimes;
-        m_credit += creditIncrement * repeatTimes;
+        m_total += static_cast<std::int64_t>(totalIncrement * repeatTimes);
+        m_credit += static_cast<std::int64_t>(creditIncrement * repeatTimes);
     }
 
     auto GetTotal() const
