@@ -1744,6 +1744,66 @@ TEST(RogueExpert1Test, EX1_131_DefiasRingleader)
     EXPECT_EQ(curField[2]->GetHealth(), 1);
 }
 
+// ----------------------------------------- WEAPON - ROGUE
+// [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage. <b>Combo:</b> Deal 2 instead.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - BATTLECRY = 1
+// - COMBO = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST(RogueExpert1Test, EX1_133_PerditionsBlade)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Perdition's Blade"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Perdition's Blade"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("SI:7 Agent"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::MinionTarget(card3, curPlayer.GetHero()));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::WeaponTarget(card1, card3));
+    EXPECT_EQ(opField.GetCount(), 1);
+    EXPECT_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::WeaponTarget(card2, card3));
+    EXPECT_EQ(opField.GetCount(), 0);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
