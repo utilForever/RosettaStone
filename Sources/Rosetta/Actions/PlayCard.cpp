@@ -235,7 +235,14 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 
     // Process power tasks
     player.GetGame()->taskQueue.StartEvent();
-    weapon->ActivateTask(PowerType::POWER, target);
+    if (weapon->HasCombo() && player.IsComboActive())
+    {
+        weapon->ActivateTask(PowerType::COMBO, target);
+    }
+    else
+    {
+        weapon->ActivateTask(PowerType::POWER, target);
+    }
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
 
