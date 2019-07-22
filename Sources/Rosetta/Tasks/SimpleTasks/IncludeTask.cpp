@@ -7,10 +7,13 @@
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 #include <stdexcept>
+#include <utility>
 
 namespace RosettaStone::SimpleTasks
 {
-IncludeTask::IncludeTask(EntityType entityType) : ITask(entityType)
+IncludeTask::IncludeTask(EntityType entityType,
+                         std::vector<EntityType> excludeTypes)
+    : ITask(entityType), m_excludeTypes(std::move(excludeTypes))
 {
     // Do nothing
 }
@@ -200,13 +203,42 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
 TaskStatus IncludeTask::Impl(Player& player)
 {
     const auto entities = GetEntities(m_entityType, player, m_source, m_target);
-    player.GetGame()->taskStack.entities = entities;
+
+    if (!m_excludeTypes.empty())
+    {
+        std::vector<Entity*> exceptEntities;
+        for (auto& excludeType : m_excludeTypes)
+        {
+            auto temp = GetEntities(excludeType, player, m_source, m_target);
+            exceptEntities.insert(exceptEntities.end(), temp.begin(),
+                                  temp.end());
+        }
+
+        std::vector<Entity*> result = entities;
+        EraseIf(result, [&](Entity* entity) {
+            for (auto& excludeEntity : exceptEntities)
+            {
+                if (entity == excludeEntity)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        player.GetGame()->taskStack.entities = result;
+    }
+    else
+    {
+        player.GetGame()->taskStack.entities = entities;
+    }
 
     return TaskStatus::COMPLETE;
 }
 
 ITask* IncludeTask::CloneImpl()
 {
-    return new IncludeTask(m_entityType);
+    return new IncludeTask(m_entityType, m_excludeTypes);
 }
 }  // namespace RosettaStone::SimpleTasks

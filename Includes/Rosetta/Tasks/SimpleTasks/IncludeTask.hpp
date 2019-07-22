@@ -19,9 +19,13 @@ namespace RosettaStone::SimpleTasks
 class IncludeTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType.
+    //! Constructs task with given \p entityType and \p excludeTypes.
     //! \param entityType The entity type of target to include.
-    explicit IncludeTask(EntityType entityType);
+    //! \param excludeTypes The array of entity type to exclude from included
+    //! entity list.
+    explicit IncludeTask(
+        EntityType entityType,
+        std::vector<EntityType> excludeTypes = std::vector<EntityType>());
 
     //! Returns task ID.
     //! \return Task ID.
@@ -47,6 +51,8 @@ class IncludeTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
+
+    std::vector<EntityType> m_excludeTypes;
 };
 }  // namespace RosettaStone::SimpleTasks
 
