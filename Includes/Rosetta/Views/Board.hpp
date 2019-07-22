@@ -32,7 +32,7 @@ class Board
 
     ReducedBoardView CreateView() const;
 
-    CurrentPlayerBoardRefView GetCurrentPlayerStateRefView() const;
+    CurrentPlayerBoardRefView GetCurPlayerStateRefView() const;
 
     PlayState ApplyAction(ActionParams& params) const;
 

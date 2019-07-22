@@ -46,7 +46,7 @@ ReducedBoardView Board::CreateView() const
     }
 }
 
-CurrentPlayerBoardRefView Board::GetCurrentPlayerStateRefView() const
+CurrentPlayerBoardRefView Board::GetCurPlayerStateRefView() const
 {
     if (m_game.GetCurrentPlayer().playerType != m_playerType)
     {

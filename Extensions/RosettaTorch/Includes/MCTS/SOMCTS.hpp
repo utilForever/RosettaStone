@@ -161,7 +161,7 @@ class SOMCTS
         {
             m_board = &board;
             RosettaStone::ActionParams::Initialize(
-                m_board->GetCurrentPlayerStateRefView().GetActionValidGetter());
+                m_board->GetCurPlayerStateRefView().GetActionValidGetter());
         }
 
         size_t GetNumber(ActionType actionType, ActionChoices& choices) final

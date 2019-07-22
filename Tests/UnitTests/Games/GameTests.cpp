@@ -45,7 +45,7 @@ class TestActionParams : public ActionParams
     {
         m_board = &board;
         ActionParams::Initialize(
-            m_board->GetCurrentPlayerStateRefView().GetActionValidGetter());
+            m_board->GetCurPlayerStateRefView().GetActionValidGetter());
     }
 
     size_t GetNumber(ActionType actionType, ActionChoices& choices) final
