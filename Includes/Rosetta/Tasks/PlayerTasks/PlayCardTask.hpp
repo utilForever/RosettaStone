@@ -60,6 +60,12 @@ class PlayCardTask : public ITask
     //! \return Generated PlayCardTask for intended purpose.
     static PlayCardTask Weapon(Entity* source);
 
+    //! PlayCardTask wrapper for weapon.
+    //! \param source A pointer to source entity to play card.
+    //! \param target A pointer to target entity to receive power.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask WeaponTarget(Entity* source, Entity* target);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
