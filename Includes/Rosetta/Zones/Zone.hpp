@@ -81,6 +81,12 @@ class UnlimitedZone : public Zone<Entity>
         m_entities.clear();
     }
 
+    //! Operator overloading for operator[]
+    Entity* operator[](int zonePos)
+    {
+        return m_entities[zonePos];
+    }
+
     void Add(Entity& entity, int zonePos = -1) override
     {
         if (entity.owner != m_owner)
