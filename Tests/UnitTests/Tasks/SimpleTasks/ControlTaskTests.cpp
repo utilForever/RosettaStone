@@ -20,48 +20,48 @@ TEST(ControlTask, GetTaskID)
     EXPECT_EQ(control.GetTaskID(), TaskID::CONTROL);
 }
 
-//TEST(ControlTask, Run)
-//{
-//    GameConfig config;
-//    config.startPlayer = PlayerType::PLAYER1;
-//    Game game(config);
-//
-//    Player& player1 = game.GetPlayer1();
-//    Player& player2 = game.GetPlayer2();
-//
-//    auto& player1Field = player1.GetFieldZone();
-//    auto& player2Field = player2.GetFieldZone();
-//
-//    std::vector<Card> cards;
-//    cards.reserve(5);
-//
-//    const std::string name = "test";
-//    for (std::size_t i = 0; i < 6; ++i)
-//    {
-//        const auto id = static_cast<char>(i + 0x30);
-//        cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
-//        PlayMinionCard(player1, &cards[i]);
-//        PlayMinionCard(player2, &cards[i]);
-//    }
-//
-//    ControlTask control(EntityType::TARGET);
-//    control.SetPlayer(&player1);
-//    control.SetTarget(player2Field[0]);
-//    TaskStatus result = control.Run();
-//
-//    EXPECT_EQ(result, TaskStatus::COMPLETE);
-//    EXPECT_EQ(player1Field.GetCount(), 7);
-//    EXPECT_EQ(player2Field.GetCount(), 5);
-//
-//    // Check controlled minion has valid data
-//    EXPECT_EQ(player1Field[6]->GetAttack(), 1);
-//    EXPECT_EQ(player1Field[6]->GetHealth(), 1);
-//
-//    control.SetPlayer(&player1);
-//    control.SetTarget(player2Field[1]);
-//    result = control.Run();
-//
-//    EXPECT_EQ(result, TaskStatus::COMPLETE);
-//    EXPECT_EQ(player1Field.GetCount(), 7);
-//    EXPECT_EQ(player2Field.GetCount(), 5);
-//}
+TEST(ControlTask, Run)
+{
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    Game game(config);
+
+    Player& player1 = game.GetPlayer1();
+    Player& player2 = game.GetPlayer2();
+
+    auto& player1Field = player1.GetFieldZone();
+    auto& player2Field = player2.GetFieldZone();
+
+    std::vector<Card> cards;
+    cards.reserve(5);
+
+    const std::string name = "test";
+    for (std::size_t i = 0; i < 6; ++i)
+    {
+        const auto id = static_cast<char>(i + 0x30);
+        cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        PlayMinionCard(player1, &cards[i]);
+        PlayMinionCard(player2, &cards[i]);
+    }
+
+    ControlTask control(EntityType::TARGET);
+    control.SetPlayer(&player1);
+    control.SetTarget(player2Field[0]);
+    TaskStatus result = control.Run();
+
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
+    EXPECT_EQ(player1Field.GetCount(), 7);
+    EXPECT_EQ(player2Field.GetCount(), 5);
+
+    // Check controlled minion has valid data
+    EXPECT_EQ(player1Field[6]->GetAttack(), 1);
+    EXPECT_EQ(player1Field[6]->GetHealth(), 1);
+
+    control.SetPlayer(&player1);
+    control.SetTarget(player2Field[1]);
+    result = control.Run();
+
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
+    EXPECT_EQ(player1Field.GetCount(), 7);
+    EXPECT_EQ(player2Field.GetCount(), 5);
+}
