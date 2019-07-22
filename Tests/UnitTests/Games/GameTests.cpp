@@ -305,8 +305,7 @@ TEST(Game, PerformAction)
         Board board(game, game.GetCurrentPlayer().playerType);
 
         params.Initialize(board);
-
-        game.PerformAction(params);
+        board.ApplyAction(params);
     }
 
     EXPECT_EQ(game.state, State::COMPLETE);
