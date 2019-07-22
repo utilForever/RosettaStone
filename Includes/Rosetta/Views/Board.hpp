@@ -36,7 +36,7 @@ class Board
 
     PlayState ApplyAction(ActionParams& params) const;
 
-    const Game& RevealHiddenInformationForSimulation() const;
+    const Game& RevealInfoForSimulation() const;
 
     template <class Functor>
     auto ApplyWithPlayerStateView(Functor&& functor) const
