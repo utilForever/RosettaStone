@@ -1101,6 +1101,22 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
     cards.emplace("CS2_104", power);
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_407] Brawl - COST:5
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Destroy all minions except one. <i>(chosen randomly)</i>
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_TOTAL_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ALL_MINIONS, 1));
+    power.AddPowerTask(
+        new IncludeTask(EntityType::ALL_MINIONS, { EntityType::STACK }));
+    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    cards.emplace("EX1_407", power);
+
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
