@@ -17,9 +17,11 @@ Board::Board(Game& game, PlayerType playerType)
     // Do nothing
 }
 
-void Board::RefCopyFrom(const Board& rhs) const
+void Board::RefCopyFrom(const Board& rhs)
 {
     m_game.RefCopyFrom(rhs.m_game);
+
+    m_playerType = rhs.m_playerType;
 }
 
 Player& Board::GetCurrentPlayer() const

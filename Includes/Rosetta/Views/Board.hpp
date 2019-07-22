@@ -24,7 +24,7 @@ class Board
  public:
     Board(Game& game, PlayerType playerType);
 
-    void RefCopyFrom(const Board& rhs) const;
+    void RefCopyFrom(const Board& rhs);
 
     Player& GetCurrentPlayer() const;
 
