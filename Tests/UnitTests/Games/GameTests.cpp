@@ -281,7 +281,7 @@ TEST(Game, PerformAction)
     std::array<std::string, START_DECK_SIZE> deck = {
         "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
         "CS1_113", "CS1_113", "EX1_154", "EX1_154",  // 2
-        "CS2_007", "CS2_007", "CS2_022", "CS2_022",  // 3
+        "EX1_154", "EX1_154", "CS2_022", "CS2_022",  // 3
         "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
         "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
         "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
@@ -314,4 +314,27 @@ TEST(Game, PerformAction)
                 game.GetPlayer1().playState == PlayState::LOST);
     EXPECT_TRUE(game.GetPlayer2().playState == PlayState::WON ||
                 game.GetPlayer2().playState == PlayState::LOST);
+}
+
+TEST(Game, CreateView)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    const auto player1View = game.CreateView();
+    EXPECT_EQ(player1View.GetMyHeroPower().cardID, "CS2_102");
+
+    game.Process(game.GetCurrentPlayer(), EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    const auto player2View = game.CreateView();
+    EXPECT_EQ(player2View.GetMyHeroPower().cardID, "CS2_083b");
 }
