@@ -346,9 +346,15 @@ void Console::AddCardInDeck(size_t deckIndex)
     m_deckClass = deck->GetClass();
 
     const Card* card = SearchCard().value_or(nullptr);
+    if (card == nullptr)
+    {
+        std::cout << "Card is NULL value. Try again.\n";
+        return;
+    }
+
     if (card->id.empty())
     {
-        std::cout << " doesn't exist. Try again.\n";
+        std::cout << "The ID of card doesn't exist. Try again.\n";
         return;
     }
 
@@ -645,7 +651,8 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter& filter) const
                               filter.cardType == card->GetCardType());
         bool raceCondition =
             (filter.race == Race::INVALID || filter.race == card->GetRace());
-        bool nameCondition = (filter.name.empty() ||
+        bool nameCondition =
+            (filter.name.empty() ||
              card->name.find(filter.name) != std::string::npos);
         bool costCondition =
             filter.costMin <= card->gameTags.at(GameTag::COST) &&

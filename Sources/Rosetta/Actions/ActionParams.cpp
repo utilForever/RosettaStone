@@ -55,9 +55,9 @@ Character* ActionParams::GetSpecifiedTarget(
     return targets[idx];
 }
 
-size_t ActionParams::ChooseOne(std::vector<size_t> cards)
+size_t ActionParams::ChooseOne(const std::vector<size_t>& cards)
 {
-    ActionChoices choices(std::move(cards));
+    ActionChoices choices(cards);
     const size_t val = GetNumber(ActionType::CHOOSE_ONE, choices);
     return val;
 }

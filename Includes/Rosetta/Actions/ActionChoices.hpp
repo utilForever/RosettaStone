@@ -11,6 +11,7 @@
 #define ROSETTASTONE_ACTION_CHOICES_HPP
 
 #include <cassert>
+#include <stdexcept>
 #include <variant>
 #include <vector>
 
@@ -27,37 +28,39 @@ class ActionChoices
      public:
         size_t Get([[maybe_unused]] size_t idx) const
         {
-            throw std::exception();
+            throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
         }
 
         bool IsEmpty() const
         {
-            throw std::exception();
+            throw std::runtime_error(
+                "ActionChoices::IsEmpty() - Invalid Choice");
         }
 
         size_t Size() const
         {
-            throw std::exception();
+            throw std::runtime_error("ActionChoices::Size() - Invalid Choice");
         }
 
         void Begin()
         {
-            throw std::exception();
+            throw std::runtime_error("ActionChoices::Begin() - Invalid Choice");
         }
 
         size_t Get() const
         {
-            throw std::exception();
+            throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
         }
 
         void StepNext()
         {
-            throw std::exception();
+            throw std::runtime_error(
+                "ActionChoices::StepNext() - Invalid Choice");
         }
 
         bool IsEnd() const
         {
-            throw std::exception();
+            throw std::runtime_error("ActionChoices::IsEnd() - Invalid Choice");
         }
     };
 

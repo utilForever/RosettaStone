@@ -13,6 +13,7 @@
 #include <MCTS/Selection/Selection.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 #include <MCTS/Simulation/Simulation.hpp>
+#include <MCTS/Statistics.hpp>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionParams.hpp>

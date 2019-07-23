@@ -10,10 +10,10 @@
 #ifndef ROSETTASTONE_TORCH_AGENTS_MCTS_RUNNER_HPP
 #define ROSETTASTONE_TORCH_AGENTS_MCTS_RUNNER_HPP
 
-#include <MCTS/Statistics.h>
 #include <Agents/MCTSConfig.hpp>
 #include <MCTS/MOMCTS.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
+#include <MCTS/Statistics.hpp>
 
 #include <Rosetta/Cards/Cards.hpp>
 

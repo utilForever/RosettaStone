@@ -10,9 +10,9 @@
 #ifndef ROSETTASTONE_TORCH_MOMCTS_HPP
 #define ROSETTASTONE_TORCH_MOMCTS_HPP
 
-#include <MCTS/Statistics.h>
 #include <MCTS/Policies/PlayerController.hpp>
 #include <MCTS/SOMCTS.hpp>
+#include <MCTS/Statistics.hpp>
 
 namespace RosettaTorch::MCTS
 {
@@ -30,7 +30,7 @@ class MOMCTS
         // Do nothing
     }
 
-    void Iterate(const Game& game)
+    void Iterate(Game& game)
     {
         m_playerController.SetGame(game);
         m_player1.StartIteration();

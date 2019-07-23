@@ -68,7 +68,6 @@ class Selection
         assert(currentNode);
         assert(currentNode->addon.consistencyChecker.CheckActionType(
             ActionType::MAIN_ACTION));
-        (void)board;
         assert(currentNode->addon.consistencyChecker.CheckBoard(
             board.CreateView()));
 

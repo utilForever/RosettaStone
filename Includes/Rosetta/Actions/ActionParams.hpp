@@ -35,7 +35,7 @@ class ActionParams
 
     Character* GetSpecifiedTarget(const std::vector<Character*>& targets);
 
-    size_t ChooseOne(std::vector<size_t> cards);
+    size_t ChooseOne(const std::vector<size_t>& cards);
 
     Entity* ChooseHandCard();
 

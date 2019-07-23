@@ -64,11 +64,9 @@ class TraversedNodesInfo
         assert(m_currentNode);
         assert(m_pendingChoice >= 0);
 
-        auto result = m_currentNode->children.GetOrCreateNewNode(
-            m_pendingChoice, std::make_unique<TreeNode>());
-        const bool newNodeCreated = std::get<0>(result);
-        const auto edgeAddon = std::get<1>(result);
-        const auto node = std::get<2>(result);
+        const auto& [newNodeCreated, edgeAddon, node] =
+            m_currentNode->children.GetOrCreateNewNode(
+                m_pendingChoice, std::make_unique<TreeNode>());
 
         assert(node);
 
@@ -85,12 +83,8 @@ class TraversedNodesInfo
         assert(m_currentNode);
         assert(m_pendingChoice >= 0);
 
-        auto childResult =
+        const auto& [newNodeCreated, edgeAddon, node] =
             m_currentNode->children.GetOrCreateRedirectNode(m_pendingChoice);
-        const bool newNodeCreated = std::get<0>(childResult);
-        const auto edgeAddon = std::get<1>(childResult);
-        auto node = std::get<2>(childResult);
-        (void)node;
 
         assert(node == nullptr);
 
@@ -187,6 +181,7 @@ class TraversedNodesInfo
     {
         return;
     }
+
     template <class Dummy = void>
     auto AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon,
                          TreeNode* childNode)
