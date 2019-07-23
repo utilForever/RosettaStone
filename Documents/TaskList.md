@@ -41,9 +41,9 @@
 * ManaCrystalTask
 * MathSubTask
 * MoveToGraveyardTask
+* RandomCardTask
 * RandomEntourageTask
 * RandomTask
-* RandomCardTask
 * RemoveEnchantmentTask
 * RemoveHandTask
 * ReturnHandTask

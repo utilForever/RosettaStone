@@ -214,14 +214,14 @@ EXPERT1 | EX1_100 | Lorewalker Cho | O
 EXPERT1 | EX1_102 | Demolisher | O
 EXPERT1 | EX1_103 | Coldlight Seer | O
 EXPERT1 | EX1_105 | Mountain Giant |  
-EXPERT1 | EX1_110 | Cairne Bloodhoof |  
-EXPERT1 | EX1_116 | Leeroy Jenkins |  
+EXPERT1 | EX1_110 | Cairne Bloodhoof | O
+EXPERT1 | EX1_116 | Leeroy Jenkins | O
 EXPERT1 | EX1_124 | Eviscerate | O
 EXPERT1 | EX1_126 | Betrayal |  
 EXPERT1 | EX1_130 | Noble Sacrifice |  
 EXPERT1 | EX1_131 | Defias Ringleader | O
 EXPERT1 | EX1_132 | Eye for an Eye |  
-EXPERT1 | EX1_133 | Perdition's Blade |  
+EXPERT1 | EX1_133 | Perdition's Blade | O
 EXPERT1 | EX1_134 | SI:7 Agent | O
 EXPERT1 | EX1_136 | Redemption |  
 EXPERT1 | EX1_137 | Headcrack |  
@@ -295,7 +295,7 @@ EXPERT1 | EX1_396 | Mogu'shan Warden | O
 EXPERT1 | EX1_398 | Arathi Weaponsmith |  
 EXPERT1 | EX1_402 | Armorsmith |  
 EXPERT1 | EX1_405 | Shieldbearer | O
-EXPERT1 | EX1_407 | Brawl |  
+EXPERT1 | EX1_407 | Brawl | O
 EXPERT1 | EX1_408 | Mortal Strike |  
 EXPERT1 | EX1_409 | Upgrade! |  
 EXPERT1 | EX1_410 | Shield Slam |  
@@ -315,7 +315,7 @@ EXPERT1 | EX1_543 | King Krush | O
 EXPERT1 | EX1_544 | Flare |  
 EXPERT1 | EX1_549 | Bestial Wrath |  
 EXPERT1 | EX1_554 | Snake Trap |  
-EXPERT1 | EX1_556 | Harvest Golem | O 
+EXPERT1 | EX1_556 | Harvest Golem | O
 EXPERT1 | EX1_557 | Nat Pagle |  
 EXPERT1 | EX1_558 | Harrison Jones |  
 EXPERT1 | EX1_559 | Archmage Antonidas |  
@@ -330,7 +330,7 @@ EXPERT1 | EX1_571 | Force of Nature |
 EXPERT1 | EX1_572 | Ysera | O
 EXPERT1 | EX1_573 | Cenarius |  
 EXPERT1 | EX1_575 | Mana Tide Totem |  
-EXPERT1 | EX1_577 | The Beast |  
+EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune | O
 EXPERT1 | EX1_584 | Ancient Mage |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 50% (120 of 237 Cards)
+- Progress: 53% (126 of 237 Cards)
 
 ## Hall of Fame
 
