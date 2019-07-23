@@ -58,7 +58,7 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& board)
 
         m_opMinions.emplace_back(opMinion);
     }
-    for (size_t i = 0; i < board.GetHandCards().size(); ++i)
+    for (size_t i = 0; i < board.GetOpponentHandCards().size(); ++i)
     {
         ViewTypes::OpHandCard opHandCard;
         m_opHand.emplace_back(opHandCard);
