@@ -68,74 +68,17 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& board)
 
 bool ReducedBoardView::operator==(const ReducedBoardView& rhs) const
 {
-    if (m_turn != rhs.m_turn)
-    {
-        return false;
-    }
-    if (m_playerType != rhs.m_playerType)
-    {
-        return false;
-    }
-
-    if (m_myHero != rhs.m_myHero)
-    {
-        return false;
-    }
-    if (m_myHeroPower != rhs.m_myHeroPower)
-    {
-        return false;
-    }
-    if (m_myWeapon != rhs.m_myWeapon)
-    {
-        return false;
-    }
-    if (m_myManaCrystal != rhs.m_myManaCrystal)
-    {
-        return false;
-    }
-    if (m_myMinions != rhs.m_myMinions)
-    {
-        return false;
-    }
-    if (m_myHand != rhs.m_myHand)
-    {
-        return false;
-    }
-    if (m_myDeck != rhs.m_myDeck)
-    {
-        return false;
-    }
-
-    if (m_opHero != rhs.m_opHero)
-    {
-        return false;
-    }
-    if (m_opHeroPower != rhs.m_opHeroPower)
-    {
-        return false;
-    }
-    if (m_opWeapon != rhs.m_opWeapon)
-    {
-        return false;
-    }
-    if (m_opManaCrystal != rhs.m_opManaCrystal)
-    {
-        return false;
-    }
-    if (m_opMinions != rhs.m_opMinions)
-    {
-        return false;
-    }
-    if (m_opHand != rhs.m_opHand)
-    {
-        return false;
-    }
-    if (m_opDeck != rhs.m_opDeck)
-    {
-        return false;
-    }
-
-    return true;
+    return (m_turn == rhs.m_turn) && (m_playerType == rhs.m_playerType) &&
+           (m_myHero == rhs.m_myHero) && (m_myHeroPower == rhs.m_myHeroPower) &&
+           (m_myWeapon == rhs.m_myWeapon) &&
+           (m_myManaCrystal == rhs.m_myManaCrystal) &&
+           (m_myMinions == rhs.m_myMinions) && (m_myHand == rhs.m_myHand) &&
+           (m_myDeck == rhs.m_myDeck) && (m_opHero == rhs.m_opHero) &&
+           (m_opHeroPower == rhs.m_opHeroPower) &&
+           (m_opWeapon == rhs.m_opWeapon) &&
+           (m_opManaCrystal == rhs.m_opManaCrystal) &&
+           (m_opMinions == rhs.m_opMinions) && (m_opHand == rhs.m_opHand) &&
+           (m_opDeck == rhs.m_opDeck);
 }
 
 bool ReducedBoardView::operator!=(const ReducedBoardView& rhs) const
