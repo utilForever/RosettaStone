@@ -41,7 +41,7 @@ class BoardRefView
     Weapon* GetWeapon(PlayerType type) const;
 
     std::vector<Entity*> GetHandCards() const;
-    std::vector<Entity*> GetOpponentHandCards() const;
+    std::vector<std::pair<Entity*, bool>> GetOpponentHandCards() const;
     int GetOpponentHandCardCount() const;
 
     std::vector<Minion*> GetMinions(PlayerType type) const;

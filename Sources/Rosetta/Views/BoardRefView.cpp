@@ -175,28 +175,31 @@ std::vector<Entity*> BoardRefView::GetHandCards() const
     }
 }
 
-std::vector<Entity*> BoardRefView::GetOpponentHandCards() const
+std::vector<std::pair<Entity*, bool>> BoardRefView::GetOpponentHandCards() const
 {
-    std::vector<Entity*> result;
+    std::vector<Entity*> entities;
 
     if (m_playerType == PlayerType::PLAYER1)
     {
-        result = m_game.GetPlayer2().GetHandZone().GetAll();
+        entities = m_game.GetPlayer2().GetHandZone().GetAll();
     }
     else
     {
-        result = m_game.GetPlayer1().GetHandZone().GetAll();
+        entities = m_game.GetPlayer1().GetHandZone().GetAll();
     }
 
-    for (auto& entity : result)
+    std::vector<std::pair<Entity*, bool>> result;
+
+    for (auto& entity : entities)
     {
         if (entity->card->id == "GAME_005")
         {
             // The Coin. This also reveals to opponent.
+            result.emplace_back(std::make_pair(entity, true));
         }
         else
         {
-            entity->card->id = "INVALID";
+            result.emplace_back(std::make_pair(entity, false));
         }
     }
 
