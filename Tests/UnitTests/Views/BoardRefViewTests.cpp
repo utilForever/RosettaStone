@@ -12,6 +12,7 @@
 #include <Rosetta/Views/BoardRefView.hpp>
 
 using namespace RosettaStone;
+using namespace TestUtils;
 
 TEST(BoardRefView, GetFatigueDamage)
 {
@@ -288,27 +289,190 @@ TEST(BoardRefView, GetHandCards)
     EXPECT_EQ(board2.GetHandCards().size(), 5u);
 }
 
-//TEST(BoardRefView, GetOpponentHandCards)
-//{
-//    GameConfig config;
-//    config.player1Class = CardClass::WARRIOR;
-//    config.player2Class = CardClass::ROGUE;
-//    config.startPlayer = PlayerType::PLAYER1;
-//    config.doFillDecks = true;
-//    config.autoRun = false;
-//
-//    Game game(config);
-//    game.StartGame();
-//    game.ProcessUntil(Step::MAIN_START);
-//
-//    Player& curPlayer = game.GetCurrentPlayer();
-//    Player& opPlayer = game.GetOpponentPlayer();
-//
-//    BoardRefView board1(game, curPlayer.playerType);
-//    EXPECT_EQ(board1.GetOpponentHandCards().size(), 5u);
-//    EXPECT_EQ(board1.GetOpponentHandCards().at(0)->card->id, "INVALID");
-//
-//    BoardRefView board2(game, opPlayer.playerType);
-//    EXPECT_EQ(board2.GetOpponentHandCards().size(), 4u);
-//    EXPECT_EQ(board2.GetOpponentHandCards().at(0)->card->id, "INVALID");
-//}
+TEST(BoardRefView, GetOpponentHandCards)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    BoardRefView board1(game, curPlayer.playerType);
+    EXPECT_EQ(board1.GetOpponentHandCards().at(0).second, false);
+
+    BoardRefView board2(game, opPlayer.playerType);
+    EXPECT_EQ(board2.GetOpponentHandCards().at(0).second, false);
+}
+
+TEST(BoardRefView, GetOpponentHandCardCount)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    BoardRefView board1(game, curPlayer.playerType);
+    EXPECT_EQ(board1.GetOpponentHandCardCount(), 5);
+
+    BoardRefView board2(game, opPlayer.playerType);
+    EXPECT_EQ(board2.GetOpponentHandCardCount(), 4);
+}
+
+TEST(BoardRefView, GetMinions)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    std::vector<Card> curCards, opCards;
+    curCards.reserve(5);
+    opCards.reserve(3);
+
+    const std::string name = "test";
+    for (std::size_t i = 0; i < 5; ++i)
+    {
+        const auto id = static_cast<char>(i + 0x30);
+        curCards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        PlayMinionCard(curPlayer, &curCards[i]);
+    }
+    for (std::size_t i = 0; i < 3; ++i)
+    {
+        const auto id = static_cast<char>(i + 0x31);
+        opCards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        PlayMinionCard(opPlayer, &opCards[i]);
+    }
+
+    BoardRefView board(game, game.GetCurrentPlayer().playerType);
+    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER1).size(), 5u);
+    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER1)[0]->card->id, "test0");
+    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER2).size(), 3u);
+    EXPECT_EQ(board.GetMinions(PlayerType::PLAYER2)[0]->card->id, "test1");
+}
+
+TEST(BoardRefView, GetDeckCardCount)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    BoardRefView board(game, game.GetCurrentPlayer().playerType);
+    EXPECT_EQ(board.GetDeckCardCount(PlayerType::PLAYER1), 5);
+    EXPECT_EQ(board.GetDeckCardCount(PlayerType::PLAYER2), 5);
+}
+
+TEST(BoardRefView, IsHeroAttackable)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    curPlayer.GetHero()->SetAttack(4);
+
+    BoardRefView board(game, game.GetCurrentPlayer().playerType);
+    EXPECT_EQ(board.IsHeroAttackable(PlayerType::PLAYER1), true);
+    EXPECT_EQ(board.IsHeroAttackable(PlayerType::PLAYER2), false);
+}
+
+TEST(BoardRefView, IsMinionAttackable)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+
+    std::vector<Card> curCards, opCards;
+    curCards.reserve(5);
+    opCards.reserve(3);
+
+    const std::string name = "test";
+    for (std::size_t i = 0; i < 5; ++i)
+    {
+        const auto id = static_cast<char>(i + 0x30);
+        curCards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        PlayMinionCard(curPlayer, &curCards[i]);
+    }
+    for (std::size_t i = 0; i < 3; ++i)
+    {
+        const auto id = static_cast<char>(i + 0x31);
+        opCards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        PlayMinionCard(opPlayer, &opCards[i]);
+    }
+
+    curPlayer.GetFieldZone()[0]->SetGameTag(GameTag::CHARGE, 1);
+    curPlayer.GetFieldZone()[0]->SetExhausted(false);
+
+    BoardRefView board(game, game.GetCurrentPlayer().playerType);
+    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER1, 0), true);
+    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER1, 1), false);
+    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER2, 0), false);
+    EXPECT_EQ(board.IsMinionAttackable(PlayerType::PLAYER2, 1), false);
+}
+
+TEST(CurrentPlayerBoardRefView, GetCurrentPlayer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    auto curPlayerBoardRefView = CurrentPlayerBoardRefView(game);
+    EXPECT_EQ(curPlayerBoardRefView.GetCurrentPlayer().playerType,
+              PlayerType::PLAYER1);
+}
