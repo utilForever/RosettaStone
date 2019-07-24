@@ -35,11 +35,11 @@ void Aura::SetToBeUpdated(bool value)
 
 void Aura::Activate(Entity* owner, bool cloning)
 {
-    Card card = Cards::FindCardByID(m_enchantmentID);
+    Card* card = Cards::FindCardByID(m_enchantmentID);
 
     if (m_effects.empty())
     {
-        m_effects = card.power.GetEnchant()->effects;
+        m_effects = card->power.GetEnchant()->effects;
     }
 
     auto instance = new Aura(*this, *owner);
@@ -65,11 +65,11 @@ void Aura::Activate(Entity* owner, bool cloning)
             {
                 if (condition == nullptr || condition->Evaluate(minion))
                 {
-                    if (card.power.GetTrigger())
+                    if (card->power.GetTrigger())
                     {
                         const auto enchantment = Enchantment::GetInstance(
                             *owner->owner, card, minion);
-                        card.power.GetTrigger()->Activate(enchantment);
+                        card->power.GetTrigger()->Activate(enchantment);
                     }
                 }
 
@@ -88,11 +88,11 @@ void Aura::Activate(Entity* owner, bool cloning)
 
                 if (condition == nullptr || condition->Evaluate(minion))
                 {
-                    if (card.power.GetTrigger())
+                    if (card->power.GetTrigger())
                     {
                         const auto enchantment = Enchantment::GetInstance(
                             *owner->owner, card, minion);
-                        card.power.GetTrigger()->Activate(enchantment);
+                        card->power.GetTrigger()->Activate(enchantment);
                     }
                 }
 

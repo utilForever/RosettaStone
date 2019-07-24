@@ -37,10 +37,13 @@ TaskStatus ChooseTask::Impl(Player& player)
     switch (player.choice.value().choiceType)
     {
         case ChoiceType::MULLIGAN:
+        {
             Generic::ChoiceMulligan(player, m_choices);
             player.mulliganState = Mulligan::DONE;
             break;
+        }
         case ChoiceType::GENERAL:
+        {
             if (!Generic::ChoicePick(player, m_choices[0]))
             {
                 return TaskStatus::STOP;
@@ -48,11 +51,17 @@ TaskStatus ChooseTask::Impl(Player& player)
             player.GetGame()->ProcessTasks();
             player.GetGame()->ProcessDestroyAndUpdateAura();
             break;
+        }
         default:
             throw std::invalid_argument(
                 "ChooseTask::Impl() - Invalid choice type!");
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* ChooseTask::CloneImpl()
+{
+    return new ChooseTask(m_choices);
 }
 }  // namespace RosettaStone::PlayerTasks

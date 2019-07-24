@@ -48,12 +48,12 @@ TEST(AttackTask, Default)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     auto card2 = GenerateMinionCard("minion2", 5, 4);
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card2);
+    PlayMinionCard(opPlayer, &card2);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -79,8 +79,8 @@ TEST(AttackTask, Default)
     auto card3 = GenerateMinionCard("minion3", 5, 6);
     auto card4 = GenerateMinionCard("minion4", 5, 4);
 
-    PlayMinionCard(curPlayer, card3);
-    PlayMinionCard(opPlayer, card4);
+    PlayMinionCard(curPlayer, &card3);
+    PlayMinionCard(opPlayer, &card4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -95,7 +95,7 @@ TEST(AttackTask, Default)
     auto card5 = GenerateMinionCard("minion5", 5, 4);
 
     curField[0]->SetAttack(1);
-    PlayMinionCard(opPlayer, card5);
+    PlayMinionCard(opPlayer, &card5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -137,7 +137,7 @@ TEST(AttackTask, Weapon)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -181,7 +181,7 @@ TEST(AttackTask, ZeroAttack)
 
     auto card = GenerateMinionCard("minion1", 0, 6);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -217,9 +217,9 @@ TEST(AttackTask, Charge)
     auto card2 = GenerateMinionCard("minion1", 1, 10);
     card2.gameTags[GameTag::CHARGE] = 1;
 
-    PlayMinionCard(curPlayer, card1);
-    PlayMinionCard(curPlayer, card2);
-    PlayMinionCard(opPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
+    PlayMinionCard(curPlayer, &card2);
+    PlayMinionCard(opPlayer, &card1);
 
     game.Process(curPlayer, AttackTask(curField[0], opField[0]));
     EXPECT_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
@@ -250,13 +250,13 @@ TEST(AttackTask, Taunt)
 
     auto card = GenerateMinionCard("minion1", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -294,12 +294,12 @@ TEST(AttackTask, Stealth)
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -339,12 +339,12 @@ TEST(AttackTask, Immune)
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -390,12 +390,12 @@ TEST(AttackTask, Windfury)
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -446,12 +446,12 @@ TEST(AttackTask, DivineShield)
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -497,12 +497,12 @@ TEST(AttackTask, Poisonous)
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -516,7 +516,7 @@ TEST(AttackTask, Poisonous)
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -551,14 +551,14 @@ TEST(AttackTask, Freeze)
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
+    PlayMinionCard(curPlayer, &card);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    PlayMinionCard(opPlayer, card);
-    PlayMinionCard(opPlayer, card);
+    PlayMinionCard(opPlayer, &card);
+    PlayMinionCard(opPlayer, &card);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -612,7 +612,7 @@ TEST(AttackTask, Silence)
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
-    PlayMinionCard(curPlayer, card);
+    PlayMinionCard(curPlayer, &card);
     curField[0]->SetGameTag(GameTag::CANT_ATTACK, 1);
 
     game.Process(curPlayer, EndTurnTask());

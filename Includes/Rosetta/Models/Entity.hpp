@@ -39,22 +39,22 @@ class Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Entity(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Destructor.
     virtual ~Entity();
 
-    //! Copy constructor.
-    Entity(const Entity& ent);
+    //! Deleted copy constructor.
+    Entity(const Entity&) = delete;
 
-    //! Move constructor.
-    Entity(Entity&& ent) noexcept;
+    //! Deleted copy assignment operator.
+    Entity& operator=(const Entity&) = delete;
 
-    //! Copy assignment operator.
-    Entity& operator=(const Entity& ent);
+    //! Deleted move constructor.
+    Entity(Entity&&) noexcept = delete;
 
-    //! Move assignment operator.
-    Entity& operator=(Entity&& ent) noexcept;
+    //! Deleted move assignment operator.
+    Entity& operator=(Entity&&) noexcept = delete;
 
     //! Returns a list of game tag.
     //! \return A list of game tag.
@@ -133,7 +133,8 @@ class Entity
     //! \param type The type of power.
     //! \param target The target.
     //! \param chooseOne The index of chosen card from two cards.
-    void ActivateTask(PowerType type, Entity* target = nullptr, int chooseOne = 0);
+    void ActivateTask(PowerType type, Entity* target = nullptr,
+                      int chooseOne = 0);
 
     //! Builds a new entity that can be added to a game.
     //! \param player An owner of the entity.
@@ -143,12 +144,12 @@ class Entity
     //! \param id An entity ID to assign to the newly created entity.
     //! \return A pointer to entity that is allocated dynamically.
     static Entity* GetFromCard(
-        Player& player, Card&& card,
+        Player& player, Card* card,
         std::optional<std::map<GameTag, int>> cardTags = std::nullopt,
         IZone* zone = nullptr, int id = -1);
 
     Player* owner = nullptr;
-    Card card;
+    Card* card = nullptr;
 
     IZone* zone = nullptr;
 
@@ -166,10 +167,6 @@ class Entity
 
  protected:
     std::map<GameTag, int> m_gameTags;
-
- private:
-    //! Releases dynamic allocated resources.
-    void FreeMemory();
 };
 }  // namespace RosettaStone
 

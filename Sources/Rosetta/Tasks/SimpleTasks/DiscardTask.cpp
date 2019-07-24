@@ -41,4 +41,9 @@ TaskStatus DiscardTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* DiscardTask::CloneImpl()
+{
+    return new DiscardTask(m_entityType);
+}
 }  // namespace RosettaStone::SimpleTasks

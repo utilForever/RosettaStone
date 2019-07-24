@@ -71,8 +71,9 @@ SelfCondition SelfCondition::IsWeaponEquipped()
 
 SelfCondition SelfCondition::IsRace(Race race)
 {
-    return SelfCondition(
-        [=](Entity* entity) -> bool { return entity->card.GetRace() == race; });
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->card->GetRace() == race;
+    });
 }
 
 SelfCondition SelfCondition::IsControllingRace(Race race)
@@ -80,7 +81,7 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     return SelfCondition([=](Entity* entity) -> bool {
         for (auto& minion : entity->owner->GetFieldZone().GetAll())
         {
-            if (minion->card.GetRace() == race)
+            if (minion->card->GetRace() == race)
             {
                 return true;
             }
@@ -145,7 +146,8 @@ SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
 {
     return SelfCondition([=](Entity* entity) -> bool {
         return (relaSign == RelaSign::EQ && entity->GetGameTag(tag) == value) ||
-               (relaSign == RelaSign::GEQ && entity->GetGameTag(tag) >= value) ||
+               (relaSign == RelaSign::GEQ &&
+                entity->GetGameTag(tag) >= value) ||
                (relaSign == RelaSign::LEQ && entity->GetGameTag(tag) <= value);
     });
 }
@@ -153,7 +155,7 @@ SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
 SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
 {
     return SelfCondition([=](Entity* entity) -> bool {
-        return !((entity->card.name == name) ^ isEqual);
+        return !((entity->card->name == name) ^ isEqual);
     });
 }
 

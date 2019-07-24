@@ -21,7 +21,7 @@ Enchant* Enchants::GetEnchantFromText(const std::string& cardID)
     static std::regex attackRegex("\\+([[:digit:]]+) Attack");
     static std::regex healthRegex("\\+([[:digit:]]+) Health");
 
-    const std::string text = Cards::FindCardByID(cardID).text;
+    const std::string text = Cards::FindCardByID(cardID)->text;
     std::smatch values;
 
     if (std::regex_search(text, values, attackHealthRegex))

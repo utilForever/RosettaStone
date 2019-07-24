@@ -54,4 +54,10 @@ TaskStatus GetGameTagTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* GetGameTagTask::CloneImpl()
+{
+    return new GetGameTagTask(m_entityType, m_gameTag, m_entityIndex,
+                              m_numIndex);
+}
 }  // namespace RosettaStone::SimpleTasks

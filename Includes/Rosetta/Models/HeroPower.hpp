@@ -26,22 +26,22 @@ class HeroPower : public Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    HeroPower(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    HeroPower(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~HeroPower() = default;
 
-    //! Default copy constructor.
-    HeroPower(const HeroPower& power) = default;
+    //! Deleted copy constructor.
+    HeroPower(const HeroPower&) = delete;
 
-    //! Default move constructor.
-    HeroPower(HeroPower&& power) = default;
+    //! Deleted copy assignment operator.
+    HeroPower& operator=(const HeroPower&) = delete;
 
-    //! Default copy assignment operator.
-    HeroPower& operator=(const HeroPower& power) = default;
+    //! Deleted move constructor.
+    HeroPower(HeroPower&&) noexcept = delete;
 
-    //! Default move assignment operator.
-    HeroPower& operator=(HeroPower&& power) = default;
+    //! Deleted move assignment operator.
+    HeroPower& operator=(HeroPower&&) noexcept = delete;
 };
 }  // namespace RosettaStone
 

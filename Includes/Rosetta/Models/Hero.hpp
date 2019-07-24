@@ -29,22 +29,22 @@ class Hero : public Character
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Hero(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Hero(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Hero();
 
     //! Deleted copy constructor.
-    Hero(const Hero& hero) = delete;
+    Hero(const Hero&) = delete;
+
+    //! Deleted copy assignment operator.
+    Hero& operator=(const Hero&) = delete;
 
     //! Deleted move constructor.
-    Hero(Hero&& hero) = delete;
+    Hero(Hero&&) noexcept = delete;
 
-    //! Copy assignment operator.
-    Hero& operator=(const Hero& hero) = delete;
-
-    //! Move assignment operator.
-    Hero& operator=(Hero&& hero) = delete;
+    //! Deleted move assignment operator.
+    Hero& operator=(Hero&&) noexcept = delete;
 
     //! Returns the value of attack.
     //! \return The value of attack.

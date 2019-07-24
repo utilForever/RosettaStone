@@ -29,14 +29,15 @@ enum class SummonSide
 class SummonTask : public ITask
 {
  public:
-    //! Constructs task with given \p side, \p card, \p amount and \p toOpponent.
+    //! Constructs task with given \p side, \p card, \p amount
+    //! and \p toOpponent.
     //! \param side The side of summoned minion.
     //! \param card The card to summon.
     //! \param amount The number of minions to summon.
     //! \param toOpposite The flag that indicates the owner of copied entity.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
-                        std::optional<Card> card = std::nullopt, int amount = 1,
-                        bool toOpposite = false);
+                        std::optional<Card*> card = std::nullopt,
+                        int amount = 1, bool toOpposite = false);
 
     //! Constructs task with given \p cardID, \p amount and \p toOpponent.
     //! \param cardID The card ID to summon.
@@ -63,7 +64,11 @@ class SummonTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
-    std::optional<Card> m_card = std::nullopt;
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
+    std::optional<Card*> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;
     int m_amount = 1;
     bool m_toOpposite = false;

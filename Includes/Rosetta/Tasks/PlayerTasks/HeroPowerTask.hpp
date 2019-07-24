@@ -8,12 +8,12 @@
 
 #include <Rosetta/Tasks/ITask.hpp>
 
-namespace RosettaStone::SimpleTasks
+namespace RosettaStone::PlayerTasks
 {
 //!
-//! \brief WeaponTask class.
+//! \brief HeroPowerTask class.
 //!
-//! This class represents the task for equipping weapon.
+//! This class represents the task for playing hero power.
 //!
 class HeroPowerTask : public ITask
 {
@@ -32,8 +32,12 @@ class HeroPowerTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     std::string m_cardID;
 };
-}  // namespace RosettaStone::SimpleTasks
+}  // namespace RosettaStone::PlayerTasks
 
 #endif  // ROSETTASTONE_HERO_POWER_TASK_HPP

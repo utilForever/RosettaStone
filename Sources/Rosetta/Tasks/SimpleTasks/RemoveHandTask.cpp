@@ -38,4 +38,9 @@ TaskStatus RemoveHandTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* RemoveHandTask::CloneImpl()
+{
+    return new RemoveHandTask(m_entityType);
+}
 }  // namespace RosettaStone::SimpleTasks

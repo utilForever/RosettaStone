@@ -42,7 +42,7 @@ TEST(DrawTask, GetTaskID)
 
 TEST(DrawTask, Run)
 {
-    std::vector<Card> cards;
+    std::vector<Card*> cards;
     std::vector<Entity*> minions;
 
     GameConfig config;
@@ -52,10 +52,10 @@ TEST(DrawTask, Run)
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(Card());
+        cards.emplace_back(new Card());
 
-        Card card = cards.back();
-        card.id = std::move(id);
+        Card* card = cards.back();
+        card->id = std::move(id);
         const std::map<GameTag, int> tags;
 
         minions.emplace_back(new Minion(p, card, tags));
@@ -78,8 +78,13 @@ TEST(DrawTask, Run)
 
     for (std::size_t i = 0; i < 3; ++i)
     {
-        EXPECT_EQ(p.GetHandZone()[i]->card.id,
+        EXPECT_EQ(p.GetHandZone()[i]->card->id,
                   id + static_cast<char>(2 - i + 0x30));
+    }
+
+    for (Card* card : cards)
+    {
+        delete card;
     }
 }
 
@@ -106,13 +111,13 @@ TEST(DrawTask, RunExhaust)
     card.id = "card1";
     const std::map<GameTag, int> tags;
 
-    const auto minion = new Minion(p, card, tags);
+    const auto minion = new Minion(p, &card, tags);
     p.GetDeckZone().Add(*minion);
 
     result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetHandZone().GetCount(), 1);
-    EXPECT_EQ(p.GetHandZone()[0]->card.id, "card1");
+    EXPECT_EQ(p.GetHandZone()[0]->card->id, "card1");
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     // Health: 30 - (1 + 2 + 3 + 4 + 5)
     EXPECT_EQ(p.GetHero()->GetHealth(), 15);
@@ -120,7 +125,7 @@ TEST(DrawTask, RunExhaust)
 
 TEST(DrawTask, RunOverDraw)
 {
-    std::vector<Card> cards;
+    std::vector<Card*> cards;
     std::vector<Entity*> minions;
 
     GameConfig config;
@@ -130,10 +135,10 @@ TEST(DrawTask, RunOverDraw)
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(Card());
+        cards.emplace_back(new Card());
 
-        Card card = cards.back();
-        card.id = std::move(id);
+        Card* card = cards.back();
+        card->id = std::move(id);
         const std::map<GameTag, int> tags;
 
         minions.emplace_back(new Minion(p, card, tags));
@@ -164,7 +169,7 @@ TEST(DrawTask, RunOverDraw)
         const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
         for (std::size_t i = 0; i < 3; ++i)
         {
-            EXPECT_EQ(entities[i]->card.id,
+            EXPECT_EQ(entities[i]->card->id,
                       id + static_cast<char>(2 - i + 0x30));
         }
     });
@@ -174,11 +179,16 @@ TEST(DrawTask, RunOverDraw)
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     EXPECT_EQ(p.GetHandZone().GetCount(), 10);
+
+    for (Card* card : cards)
+    {
+        delete card;
+    }
 }
 
 TEST(DrawTask, RunExhaustOverdraw)
 {
-    std::vector<Card> cards;
+    std::vector<Card*> cards;
     std::vector<Minion*> minions;
 
     GameConfig config;
@@ -188,10 +198,10 @@ TEST(DrawTask, RunExhaustOverdraw)
     Player& p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
-        cards.emplace_back(Card());
+        cards.emplace_back(new Card());
 
-        Card card = cards.back();
-        card.id = std::move(id);
+        Card* card = cards.back();
+        card->id = std::move(id);
         const std::map<GameTag, int> tags;
 
         minions.emplace_back(new Minion(p, card, tags));
@@ -221,7 +231,7 @@ TEST(DrawTask, RunExhaustOverdraw)
         const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
         for (std::size_t i = 0; i < 2; ++i)
         {
-            EXPECT_EQ(entities[i]->card.id,
+            EXPECT_EQ(entities[i]->card->id,
                       id + static_cast<char>(2 - i + 0x30));
         }
     });
@@ -231,5 +241,10 @@ TEST(DrawTask, RunExhaustOverdraw)
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
     EXPECT_EQ(p.GetHandZone().GetCount(), 10);
-    EXPECT_EQ(p.GetHandZone()[9]->card.id, "card2");
+    EXPECT_EQ(p.GetHandZone()[9]->card->id, "card2");
+
+    for (Card* card : cards)
+    {
+        delete card;
+    }
 }

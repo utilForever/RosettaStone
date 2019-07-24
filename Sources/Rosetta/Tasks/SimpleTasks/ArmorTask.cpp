@@ -19,8 +19,13 @@ TaskID ArmorTask::GetTaskID() const
 
 TaskStatus ArmorTask::Impl(Player& player)
 {
-    player.GetHero()->GainArmor(m_amount);  
+    player.GetHero()->GainArmor(m_amount);
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* ArmorTask::CloneImpl()
+{
+    return new ArmorTask(m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

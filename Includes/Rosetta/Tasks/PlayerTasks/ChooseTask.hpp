@@ -28,7 +28,8 @@ class ChooseTask : public ITask
     //! \param player The player to run task.
     //! \param choices A container of card to choose.
     //! \return Generated PlayCardTask for intended purpose.
-    static ChooseTask Mulligan(Player& player, std::vector<std::size_t> choices);
+    static ChooseTask Mulligan(Player& player,
+                               std::vector<std::size_t> choices);
 
     //! ChooseTask wrapper for pick.
     //! \param player The player to run task.
@@ -45,6 +46,10 @@ class ChooseTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
 
     std::vector<std::size_t> m_choices;
 };

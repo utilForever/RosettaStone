@@ -2,25 +2,25 @@
 set(target RosettaTorch)
 
 # Defines
-set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-set(script_dir ${CMAKE_CURRENT_SOURCE_DIR}/Scripts)
-set(external_dir ${CMAKE_CURRENT_SOURCE_DIR}/External)
+set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../..)
+set(script_dir ${CMAKE_CURRENT_SOURCE_DIR}/../Scripts)
+set(external_dir ${CMAKE_CURRENT_SOURCE_DIR}/../External)
 set(download_dir ${external_dir}/Downloads)
 
 # Includes
 include_directories(
     ${root_dir}/Includes
-    ${CMAKE_CURRENT_SOURCE_DIR}/Includes)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Includes)
 
 # Sources
 file(GLOB header_dir
-    ${CMAKE_CURRENT_SOURCE_DIR}/Includes/RosettaTorch)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Includes)
 
 file(GLOB_RECURSE headers
     ${header_dir}/Includes/*.hpp)
 
 file(GLOB_RECURSE sources
-    ${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Sources/*.cpp)
 
 # Build library
 add_library(${target}
@@ -43,7 +43,7 @@ target_compile_options(${target}
 )
 target_compile_definitions(${target}
     PRIVATE
-    RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../Resources/"
+    RESOURCES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../../Resources/"
 )
 
 # Add external library

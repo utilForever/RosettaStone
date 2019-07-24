@@ -28,15 +28,15 @@ void DeckZone::Add(Entity& entity, int zonePos)
 {
     LimitedZone::Add(entity, zonePos);
 
-    if (entity.card.power.GetTrigger())
+    if (entity.card->power.GetTrigger())
     {
-        entity.card.power.GetTrigger()->Activate(&entity,
+        entity.card->power.GetTrigger()->Activate(&entity,
                                                  TriggerActivation::DECK);
     }
 }
 
-void DeckZone::Shuffle()
+void DeckZone::Shuffle() const
 {
-    Random::shuffle(m_entities.begin(), m_entities.begin() + m_count);
+    Random::shuffle(m_entities, m_entities + m_count);
 }
 }  // namespace RosettaStone

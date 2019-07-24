@@ -33,4 +33,9 @@ TaskStatus ReturnHandTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* ReturnHandTask::CloneImpl()
+{
+    return new ReturnHandTask(m_entityType);
+}
 }  // namespace RosettaStone::SimpleTasks

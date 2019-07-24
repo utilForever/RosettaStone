@@ -61,7 +61,7 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
                               SequenceType::PLAY_CARD);
 
     // Pass to sub-logic
-    switch (source->card.GetCardType())
+    switch (source->card->GetCardType())
     {
         case CardType::MINION:
         {
@@ -107,7 +107,7 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
     player.GetFieldZone().Add(*minion, fieldPos);
 
     // Apply card mechanics tags
-    for (const auto tags : minion->card.gameTags)
+    for (const auto tags : minion->card->gameTags)
     {
         minion->SetGameTag(tags.first, tags.second);
     }
@@ -213,15 +213,15 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     player.GetGame()->triggerManager.OnPlayCardTrigger(&player, weapon);
 
     // Process trigger
-    if (weapon->card.power.GetTrigger())
+    if (weapon->card->power.GetTrigger())
     {
-        weapon->card.power.GetTrigger()->Activate(weapon);
+        weapon->card->power.GetTrigger()->Activate(weapon);
     }
 
     // Process aura
-    if (weapon->card.power.GetAura())
+    if (weapon->card->power.GetAura())
     {
-        weapon->card.power.GetAura()->Activate(weapon);
+        weapon->card->power.GetAura()->Activate(weapon);
     }
 
     // Process target trigger
@@ -235,7 +235,14 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 
     // Process power tasks
     player.GetGame()->taskQueue.StartEvent();
-    weapon->ActivateTask(PowerType::POWER, target);
+    if (weapon->HasCombo() && player.IsComboActive())
+    {
+        weapon->ActivateTask(PowerType::COMBO, target);
+    }
+    else
+    {
+        weapon->ActivateTask(PowerType::POWER, target);
+    }
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
 
@@ -272,7 +279,7 @@ bool IsPlayableByPlayer(Player& player, Entity* source)
 
 bool IsPlayableByCardReq(Entity* source)
 {
-    for (auto& requirement : source->card.playRequirements)
+    for (auto& requirement : source->card->playRequirements)
     {
         switch (requirement.first)
         {
@@ -292,6 +299,41 @@ bool IsPlayableByCardReq(Entity* source)
             {
                 auto& opField = source->owner->opponent->GetFieldZone();
                 if (opField.GetCount() < requirement.second)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
+            {
+                auto& curField = source->owner->GetFieldZone();
+                auto& entourages = source->card->entourages;
+                size_t entourageCount = 0;
+
+                for (auto& minion : curField.GetAll())
+                {
+                    for (auto& entourage : entourages)
+                    {
+                        if (minion->card->id == entourage)
+                        {
+                            ++entourageCount;
+                        }
+                    }
+                }
+
+                if (entourageCount == entourages.size())
+                {
+                    return false;
+                }
+
+                break;
+            }
+            case PlayReq::REQ_MINIMUM_TOTAL_MINIONS:
+            {
+                const int fieldCount =
+                    source->owner->GetFieldZone().GetCount() +
+                    source->owner->opponent->GetFieldZone().GetCount();
+                if (fieldCount < requirement.second)
                 {
                     return false;
                 }

@@ -21,9 +21,9 @@ TaskStatus RemoveEnchantmentTask::Impl(Player&)
         return TaskStatus::STOP;
     }
 
-    if (enchantment->card.power.GetEnchant() != nullptr)
+    if (enchantment->card->power.GetEnchant() != nullptr)
     {
-        for (auto& effect : enchantment->card.power.GetEnchant()->effects)
+        for (auto& effect : enchantment->card->power.GetEnchant()->effects)
         {
             effect->Remove(m_target);
         }
@@ -32,5 +32,10 @@ TaskStatus RemoveEnchantmentTask::Impl(Player&)
     enchantment->Remove();
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* RemoveEnchantmentTask::CloneImpl()
+{
+    return new RemoveEnchantmentTask();
 }
 }  // namespace RosettaStone::SimpleTasks

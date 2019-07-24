@@ -74,10 +74,10 @@ void ChangeManaCrystal(Player& player, int amount, bool fill)
     }
 }
 
-void TransformMinion(Player& player, Minion* oldMinion, Card&& card)
+void TransformMinion(Player& player, Minion* oldMinion, Card* card)
 {
     const auto newMinion =
-        dynamic_cast<Minion*>(Entity::GetFromCard(player, std::move(card)));
+        dynamic_cast<Minion*>(Entity::GetFromCard(player, card));
     if (newMinion == nullptr)
     {
         return;

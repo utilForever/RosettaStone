@@ -33,6 +33,10 @@ class TransformTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     std::string m_cardID;
 };
 }  // namespace RosettaStone::SimpleTasks

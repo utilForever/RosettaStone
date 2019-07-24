@@ -44,17 +44,21 @@ class Player
     //! Destructor.
     ~Player();
 
-    //! Copy constructor.
-    Player(const Player& p) = delete;
+    //! Deleted copy constructor.
+    Player(const Player&) = delete;
 
-    //! Move constructor.
-    Player(Player&& p) = delete;
+    //! Deleted copy assignment operator.
+    Player& operator=(const Player&) = delete;
 
-    //! Copy assignment operator.
-    Player& operator=(const Player& p) = delete;
+    //! Deleted move constructor.
+    Player(Player&&) noexcept = delete;
 
-    //! Move assignment operator.
-    Player& operator=(Player&& p) = delete;
+    //! Deleted move assignment operator.
+    Player& operator=(Player&&) noexcept = delete;
+
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
+    void RefCopy(const Player& rhs);
 
     //! Returns a pointer to game.
     //! \return A pointer to game.
@@ -170,7 +174,7 @@ class Player
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
-    void AddHeroAndPower(Card&& heroCard, Card&& powerCard);
+    void AddHeroAndPower(Card* heroCard, Card* powerCard);
 
     std::string nickname;
     PlayerType playerType = PlayerType::PLAYER1;

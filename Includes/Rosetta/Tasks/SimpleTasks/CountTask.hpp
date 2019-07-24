@@ -33,6 +33,10 @@ class CountTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     int m_numIndex = 0;
 };
 }  // namespace RosettaStone::SimpleTasks

@@ -19,6 +19,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Includes
 include_directories(Includes)
 include_directories(Extensions/RosettaPython/Includes)
+include_directories(Extensions/RosettaTorch/Includes)
 include_directories(Libraries)
 include_directories(Libraries/googletest/googletest/include)
 include_directories(Libraries/Clara/include)
@@ -54,7 +55,8 @@ add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
-add_subdirectory(Extensions/RosettaTorch)
+add_subdirectory(Extensions/RosettaTorch/Sources)
+add_subdirectory(Extensions/RosettaTorch/Tests)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading

@@ -32,4 +32,9 @@ TaskStatus FuncEntityTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* FuncEntityTask::CloneImpl()
+{
+    return new FuncEntityTask(m_func);
+}
 }  // namespace RosettaStone::SimpleTasks

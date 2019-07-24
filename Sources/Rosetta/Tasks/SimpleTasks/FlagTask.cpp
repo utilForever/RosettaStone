@@ -39,4 +39,9 @@ TaskStatus FlagTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* FlagTask::CloneImpl()
+{
+    return new FlagTask(m_flag, m_toDoTasks);
+}
 }  // namespace RosettaStone::SimpleTasks

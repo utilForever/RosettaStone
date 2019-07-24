@@ -33,6 +33,10 @@ class RandomEntourageTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     int m_count = 1;
     bool m_isOpponent = false;
 };

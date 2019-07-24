@@ -36,7 +36,7 @@ class DeckZone : public LimitedZone<Entity>
     void Add(Entity& entity, int zonePos = -1) override;
 
     //! Shuffles cards in deck.
-    void Shuffle();
+    void Shuffle() const;
 };
 }  // namespace RosettaStone
 

@@ -71,4 +71,19 @@ TaskStatus FilterStackTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* FilterStackTask::CloneImpl()
+{
+    if (m_selfCondition != nullptr)
+    {
+        return new FilterStackTask(*m_selfCondition);
+    }
+
+    if (m_relaCondition != nullptr)
+    {
+        return new FilterStackTask(m_entityType, *m_relaCondition);
+    }
+
+    return nullptr;
+}
 }  // namespace RosettaStone::SimpleTasks

@@ -46,4 +46,9 @@ TaskStatus MathSubTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* MathSubTask::CloneImpl()
+{
+    return new MathSubTask(m_entityType, m_gameTag, m_amount);
+}
 }  // namespace RosettaStone::SimpleTasks

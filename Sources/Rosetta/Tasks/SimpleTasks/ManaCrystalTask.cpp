@@ -32,4 +32,9 @@ TaskStatus ManaCrystalTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* ManaCrystalTask::CloneImpl()
+{
+    return new ManaCrystalTask(m_amount, m_fill, m_isOpponent);
+}
 }  // namespace RosettaStone::SimpleTasks

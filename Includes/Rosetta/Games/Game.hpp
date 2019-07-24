@@ -12,11 +12,14 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
+#include <Rosetta/Views/ReducedBoardView.hpp>
 
 #include <map>
 
 namespace RosettaStone
 {
+class ActionParams;
+
 //!
 //! \brief Game class.
 //!
@@ -48,13 +51,25 @@ class Game
     //! Deleted move assignment operator.
     Game& operator=(Game&&) = delete;
 
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
+    void RefCopyFrom(const Game& rhs);
+
     //! Returns the first player.
     //! \return The first player.
     Player& GetPlayer1();
 
+    //! Returns the first player.
+    //! \return The first player.
+    const Player& GetPlayer1() const;
+
     //! Returns the second player.
     //! \return The second player.
     Player& GetPlayer2();
+
+    //! Returns the second player.
+    //! \return The second player.
+    const Player& GetPlayer2() const;
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
@@ -63,6 +78,10 @@ class Game
     //! Returns the opponent player.
     //! \return The opponent player.
     Player& GetOpponentPlayer() const;
+
+    //! Gets the turn of game.
+    //! \return The turn of game.
+    int GetTurn() const;
 
     //! Gets the next entity identifier.
     //! \return The next entity ID.
@@ -138,12 +157,12 @@ class Game
     //! Process the specified task.
     //! \param player A player to run task.
     //! \param task The game task to execute.
-    void Process(Player& player, ITask* task);
+    PlayState Process(Player& player, ITask* task);
 
     //! Process the specified task.
     //! \param player A player to run task.
     //! \param task The game task to execute.
-    void Process(Player& player, ITask&& task);
+    PlayState Process(Player& player, ITask&& task);
 
     //! Process game until given step arriving.
     //! \param step The game step to process until arrival.
@@ -151,6 +170,14 @@ class Game
 
     //! Plays policy based game.
     void PlayPolicy();
+
+    //! Performs selected action.
+    //! \result The play state of the game.
+    PlayState PerformAction(ActionParams& params);
+
+    //! Creates board view.
+    //! \return The reduced board view.
+    ReducedBoardView CreateView() const;
 
     State state = State::INVALID;
 
@@ -169,7 +196,7 @@ class Game
 
  private:
     //! Checks whether the game is over.
-    void CheckGameOver();
+    PlayState CheckGameOver();
 
     GameConfig m_gameConfig;
 

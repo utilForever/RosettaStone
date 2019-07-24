@@ -32,6 +32,10 @@ class ChanceTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     bool m_useFlag = false;
 };
 }  // namespace RosettaStone::SimpleTasks

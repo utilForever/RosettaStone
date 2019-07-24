@@ -20,7 +20,7 @@ class WeaponTask : public ITask
  public:
     //! Constructs task with given \p cardID.
     //! \param cardID The card ID of weapon to equip.
-    explicit WeaponTask(std::string&& cardID);
+    explicit WeaponTask(std::string cardID);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -31,6 +31,10 @@ class WeaponTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
 
     std::string m_cardID;
 };

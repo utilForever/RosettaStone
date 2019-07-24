@@ -29,4 +29,9 @@ TaskStatus FuncNumberTask::Impl(Player&)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* FuncNumberTask::CloneImpl()
+{
+    return new FuncNumberTask(m_func);
+}
 }  // namespace RosettaStone::SimpleTasks

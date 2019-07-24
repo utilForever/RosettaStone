@@ -28,22 +28,22 @@ class Character : public Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Character(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Character(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
-    virtual ~Character() = default;
+    ~Character() = default;
 
-    //! Default copy constructor.
-    Character(const Character& c) = default;
+    //! Deleted copy constructor.
+    Character(const Character&) = delete;
 
-    //! Default move constructor.
-    Character(Character&& c) = default;
+    //! Deleted copy assignment operator.
+    Character& operator=(const Character&) = delete;
 
-    //! Default copy assignment operator.
-    Character& operator=(const Character& c) = default;
+    //! Deleted move constructor.
+    Character(Character&&) noexcept = delete;
 
-    //! Default move assignment operator.
-    Character& operator=(Character&& c) = default;
+    //! Deleted move assignment operator.
+    Character& operator=(Character&&) noexcept = delete;
 
     //! Returns the value of attack.
     //! \return The value of attack.

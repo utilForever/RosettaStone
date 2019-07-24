@@ -117,7 +117,7 @@ void Console::SignUp()
     }
 }
 
-std::optional<Card> Console::SearchCard() const
+std::optional<Card*> Console::SearchCard() const
 {
     std::cout << "========================================\n";
     std::cout << "              Search Card!              \n";
@@ -147,7 +147,7 @@ std::optional<Card> Console::SearchCard() const
         std::cout << "             Search Result!             \n";
         std::cout << "========================================\n";
 
-        std::vector<Card> result = ProcessSearchCommand(filter);
+        std::vector<Card*> result = ProcessSearchCommand(filter);
         if (result.empty())
         {
             std::cout << "There are no cards matching your search condition.\n";
@@ -156,10 +156,10 @@ std::optional<Card> Console::SearchCard() const
         {
             size_t cardIdx = 1;
 
-            for (auto& card : result)
+            for (Card* card : result)
             {
                 std::cout << cardIdx << ". ";
-                card.ShowBriefInfo();
+                card->ShowBriefInfo();
                 std::cout << '\n';
 
                 cardIdx++;
@@ -174,7 +174,7 @@ std::optional<Card> Console::SearchCard() const
         }
     }
 
-    return {};
+    return std::nullopt;
 }
 
 int Console::ManageDeck()
@@ -345,17 +345,23 @@ void Console::AddCardInDeck(size_t deckIndex)
     m_searchMode = SearchMode::AddCardInDeck;
     m_deckClass = deck->GetClass();
 
-    const Card card = SearchCard().value_or(Card());
-    if (card.id.empty())
+    const Card* card = SearchCard().value_or(nullptr);
+    if (card == nullptr)
     {
-        std::cout << " doesn't exist. Try again.\n";
+        std::cout << "Card is NULL value. Try again.\n";
+        return;
+    }
+
+    if (card->id.empty())
+    {
+        std::cout << "The ID of card doesn't exist. Try again.\n";
         return;
     }
 
     while (true)
     {
         size_t numCardToAddAvailable =
-            card.GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card.id);
+            card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->id);
         if (deck->GetNumOfCards() + numCardToAddAvailable > START_DECK_SIZE)
         {
             numCardToAddAvailable =
@@ -373,7 +379,7 @@ void Console::AddCardInDeck(size_t deckIndex)
         }
         else
         {
-            deck->AddCard(card.id, numCardToAdd);
+            deck->AddCard(card->id, numCardToAdd);
             break;
         }
     }
@@ -614,50 +620,51 @@ std::tuple<SearchFilter, bool, bool> Console::InputAndParseSearchCommand(
     return std::make_tuple(filter, isValid, isFinish);
 }
 
-std::vector<Card> Console::ProcessSearchCommand(SearchFilter& filter) const
+std::vector<Card*> Console::ProcessSearchCommand(SearchFilter& filter) const
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
 
-    for (auto& card : Cards::GetInstance().GetAllCards())
+    for (Card* card : Cards::GetInstance().GetAllCards())
     {
-        if (card.gameTags.at(GameTag::COLLECTIBLE) == 0)
+        if (card->gameTags.at(GameTag::COLLECTIBLE) == 0)
         {
             continue;
         }
 
         bool rarityCondition = (filter.rarity == Rarity::INVALID ||
-                                filter.rarity == card.GetRarity());
+                                filter.rarity == card->GetRarity());
         bool classCondition = false;
 
         // When search mode is adding a card to a deck, the class is fixed to
         // the deck class and the neutral class.
         if (m_searchMode == SearchMode::AddCardInDeck)
         {
-            classCondition = (card.GetCardClass() == m_deckClass ||
-                              card.GetCardClass() == CardClass::NEUTRAL);
+            classCondition = (card->GetCardClass() == m_deckClass ||
+                              card->GetCardClass() == CardClass::NEUTRAL);
         }
         else if (m_searchMode == SearchMode::JustSearch)
         {
             classCondition = (filter.playerClass == CardClass::INVALID ||
-                              filter.playerClass == card.GetCardClass());
+                              filter.playerClass == card->GetCardClass());
         }
         bool typeCondition = (filter.cardType == CardType::INVALID ||
-                              filter.cardType == card.GetCardType());
+                              filter.cardType == card->GetCardType());
         bool raceCondition =
-            (filter.race == Race::INVALID || filter.race == card.GetRace());
-        bool nameCondition = (filter.name.empty() ||
-                              card.name.find(filter.name) != std::string::npos);
+            (filter.race == Race::INVALID || filter.race == card->GetRace());
+        bool nameCondition =
+            (filter.name.empty() ||
+             card->name.find(filter.name) != std::string::npos);
         bool costCondition =
-            filter.costMin <= card.gameTags.at(GameTag::COST) &&
-            filter.costMax >= card.gameTags.at(GameTag::COST);
+            filter.costMin <= card->gameTags.at(GameTag::COST) &&
+            filter.costMax >= card->gameTags.at(GameTag::COST);
         bool attackCondition =
-            filter.attackMin <= card.gameTags.at(GameTag::ATK) &&
-            filter.attackMax >= card.gameTags.at(GameTag::ATK);
+            filter.attackMin <= card->gameTags.at(GameTag::ATK) &&
+            filter.attackMax >= card->gameTags.at(GameTag::ATK);
         bool healthCondition =
-            filter.healthMin <= card.gameTags.at(GameTag::HEALTH) &&
-            filter.healthMax >= card.gameTags.at(GameTag::HEALTH);
+            filter.healthMin <= card->gameTags.at(GameTag::HEALTH) &&
+            filter.healthMax >= card->gameTags.at(GameTag::HEALTH);
         bool mechanicsCondition = (filter.gameTag == GameTag::INVALID ||
-                                   card.HasGameTag(filter.gameTag));
+                                   card->HasGameTag(filter.gameTag));
         const bool isMatched =
             AllCondIsTrue(rarityCondition, classCondition, typeCondition,
                           raceCondition, nameCondition, costCondition,

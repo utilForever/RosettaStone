@@ -24,35 +24,36 @@ class Enchantment : public Entity
     //! Default constructor.
     Enchantment() = default;
 
-    //! Constructs enchantment with given \p _owner, \p _card, \p tags and \p target.
+    //! Constructs enchantment with given \p _owner, \p _card, \p tags
+    //! and \p target.
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
     //! \param target A target of enchantment.
-    Enchantment(Player& _owner, Card& _card, std::map<GameTag, int> tags,
+    Enchantment(Player& _owner, Card* _card, std::map<GameTag, int> tags,
                 Entity* target);
 
     //! Default destructor.
     ~Enchantment() = default;
 
-    //! Default copy constructor.
-    Enchantment(const Enchantment& spell) = default;
+    //! Deleted copy constructor.
+    Enchantment(const Enchantment&) = delete;
 
-    //! Default move constructor.
-    Enchantment(Enchantment&& spell) = default;
+    //! Deleted copy assignment operator.
+    Enchantment& operator=(const Enchantment&) = delete;
 
-    //! Default copy assignment operator.
-    Enchantment& operator=(const Enchantment& spell) = default;
+    //! Deleted move constructor.
+    Enchantment(Enchantment&&) noexcept = delete;
 
-    //! Default move assignment operator.
-    Enchantment& operator=(Enchantment&& spell) = default;
+    //! Deleted move assignment operator.
+    Enchantment& operator=(Enchantment&&) noexcept = delete;
 
     //! Creates and adds a new Enchantment to the given player's game.
     //! \param player The controller of the enchantment.
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
     //! \return The resulting enchantment entity.
-    static Enchantment* GetInstance(Player& player, Card& card, Entity* target);
+    static Enchantment* GetInstance(Player& player, Card* card, Entity* target);
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.

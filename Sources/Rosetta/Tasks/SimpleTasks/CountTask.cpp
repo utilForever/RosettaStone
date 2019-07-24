@@ -40,4 +40,9 @@ TaskStatus CountTask::Impl(Player& player)
     }
     return TaskStatus::COMPLETE;
 }
+
+ITask* CountTask::CloneImpl()
+{
+    return new CountTask(m_entityType, m_numIndex);
+}
 }  // namespace RosettaStone::SimpleTasks

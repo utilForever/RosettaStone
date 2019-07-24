@@ -61,6 +61,18 @@ Card GenerateMinionCard(std::string&& id, int attack, int health)
     return card;
 }
 
+Card GenerateWeaponCard(std::string&& id, int attack, int durability)
+{
+    Card card;
+    card.gameTags[GameTag::CARDTYPE] = static_cast<int>(CardType::WEAPON);
+
+    card.id = std::move(id);
+    card.gameTags[GameTag::ATK] = attack;
+    card.gameTags[GameTag::DURABILITY] = durability;
+
+    return card;
+}
+
 Card GenerateEnchantmentCard(std::string&& id)
 {
     Card card;
@@ -71,7 +83,7 @@ Card GenerateEnchantmentCard(std::string&& id)
     return card;
 }
 
-void PlayMinionCard(Player& player, Card& card)
+void PlayMinionCard(Player& player, Card* card)
 {
     FieldZone& fieldZone = player.GetFieldZone();
     const std::map<GameTag, int> tags;
@@ -81,7 +93,15 @@ void PlayMinionCard(Player& player, Card& card)
     fieldZone[minion->GetZonePosition()]->owner = &player;
 }
 
-void PlayEnchantmentCard(Player& player, Card& card, Entity* target)
+void PlayWeaponCard(Player& player, Card* card)
+{
+    const std::map<GameTag, int> tags;
+
+    const auto weapon = new Weapon(player, card, tags);
+    player.GetHero()->AddWeapon(*weapon);
+}
+
+void PlayEnchantmentCard(Player& player, Card* card, Entity* target)
 {
     GraveyardZone& graveyardZone = player.GetGraveyardZone();
     const std::map<GameTag, int> tags;

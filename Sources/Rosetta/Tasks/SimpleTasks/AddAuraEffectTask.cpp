@@ -30,4 +30,9 @@ TaskStatus AddAuraEffectTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* AddAuraEffectTask::CloneImpl()
+{
+    return new AddAuraEffectTask(m_effect, m_entityType);
+}
 }  // namespace RosettaStone::SimpleTasks

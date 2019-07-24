@@ -3,16 +3,23 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
+#include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/Views/BoardRefView.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -48,12 +55,52 @@ Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
     GetPlayer2().opponent = &GetPlayer1();
 }
 
+void Game::RefCopyFrom(const Game& rhs)
+{
+    state = rhs.state;
+
+    step = rhs.step;
+    nextStep = rhs.nextStep;
+
+    taskQueue = rhs.taskQueue;
+    taskStack = rhs.taskStack;
+    triggerManager = rhs.triggerManager;
+
+    auras = rhs.auras;
+    triggers = rhs.triggers;
+    oneTurnEffects = rhs.oneTurnEffects;
+    summonedMinions = rhs.summonedMinions;
+    deadMinions = rhs.deadMinions;
+
+    m_gameConfig = rhs.m_gameConfig;
+
+    m_players[0].RefCopy(rhs.m_players[0]);
+    m_players[1].RefCopy(rhs.m_players[1]);
+    m_turn = rhs.m_turn;
+
+    m_entityID = rhs.m_entityID;
+    m_oopIndex = rhs.m_oopIndex;
+
+    m_firstPlayer = rhs.m_firstPlayer;
+    m_currentPlayer = rhs.m_currentPlayer;
+}
+
 Player& Game::GetPlayer1()
 {
     return m_players[0];
 }
 
+const Player& Game::GetPlayer1() const
+{
+    return m_players[0];
+}
+
 Player& Game::GetPlayer2()
+{
+    return m_players[1];
+}
+
+const Player& Game::GetPlayer2() const
 {
     return m_players[1];
 }
@@ -66,6 +113,11 @@ Player& Game::GetCurrentPlayer() const
 Player& Game::GetOpponentPlayer() const
 {
     return *m_currentPlayer->opponent;
+}
+
+int Game::GetTurn() const
+{
+    return m_turn;
 }
 
 std::size_t Game::GetNextID()
@@ -120,8 +172,8 @@ void Game::BeginDraw()
             Generic::Draw(p);
 
             // Give "The Coin" card to second player
-            Card coin = Cards::FindCardByID("GAME_005");
-            p.GetHandZone().Add(*Entity::GetFromCard(p, std::move(coin)));
+            Card* coin = Cards::FindCardByID("GAME_005");
+            p.GetHandZone().Add(*Entity::GetFromCard(p, coin));
         }
     }
 
@@ -399,7 +451,8 @@ void Game::StartGame()
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), std::move(card));
+        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
+                                             &GetPlayer1().GetDeckZone());
         GetPlayer1().GetDeckZone().Add(*entity);
     }
     for (auto& card : m_gameConfig.player2Deck)
@@ -409,7 +462,8 @@ void Game::StartGame()
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), std::move(card));
+        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
+                                             &GetPlayer2().GetDeckZone());
         GetPlayer2().GetDeckZone().Add(*entity);
     }
 
@@ -420,8 +474,8 @@ void Game::StartGame()
         {
             for (auto& cardID : m_gameConfig.fillCardIDs)
             {
-                Card card = Cards::FindCardByID(cardID);
-                Entity* entity = Entity::GetFromCard(p, std::move(card));
+                Card* card = Cards::FindCardByID(cardID);
+                Entity* entity = Entity::GetFromCard(p, card);
                 p.GetDeckZone().Add(*entity);
             }
         }
@@ -553,22 +607,27 @@ void Game::UpdateAura()
     }
 }
 
-void Game::Process(Player& player, ITask* task)
+PlayState Game::Process(Player& player, ITask* task)
 {
     // Process task
     task->SetPlayer(&player);
     Task::Run(task);
 
-    CheckGameOver();
+    if (task->IsFreeable())
+    {
+        delete task;
+    }
+
+    return CheckGameOver();
 }
 
-void Game::Process(Player& player, ITask&& task)
+PlayState Game::Process(Player& player, ITask&& task)
 {
     // Process task
     task.SetPlayer(&player);
     Task::Run(std::move(task));
 
-    CheckGameOver();
+    return CheckGameOver();
 }
 
 void Game::ProcessUntil(Step untilStep)
@@ -612,7 +671,86 @@ void Game::PlayPolicy()
     }
 }
 
-void Game::CheckGameOver()
+PlayState Game::PerformAction(ActionParams& params)
+{
+    ITask* task = nullptr;
+    const auto mainOp = params.ChooseMainOp();
+
+    switch (mainOp)
+    {
+        case MainOpType::PLAY_CARD:
+        {
+            Entity* card = params.ChooseHandCard();
+            Character* target =
+                params.GetSpecifiedTarget(Generic::GetValidTargets(card));
+            const int totalMinions =
+                GetCurrentPlayer().GetFieldZone().GetCount();
+            const int fieldPos = params.GetMinionPutLocation(totalMinions);
+            int chooseOne = 0;
+            if (card->HasChooseOne())
+            {
+                const size_t card1ID =
+                    std::hash<std::string>{}(card->chooseOneCard[0]->card->id);
+                const size_t card2ID =
+                    std::hash<std::string>{}(card->chooseOneCard[1]->card->id);
+
+                std::vector<size_t> cardIDs;
+                cardIDs.emplace_back(card1ID);
+                cardIDs.emplace_back(card2ID);
+
+                const size_t chooseCardID = params.ChooseOne(cardIDs);
+                if (chooseCardID == card1ID)
+                {
+                    chooseOne = 1;
+                }
+                else
+                {
+                    chooseOne = 2;
+                }
+            }
+            task = new PlayCardTask(card, target, fieldPos, chooseOne);
+            break;
+        }
+        case MainOpType::ATTACK:
+        {
+            Character* source = params.GetAttacker();
+            Character* target = params.GetSpecifiedTarget(
+                source->GetValidCombatTargets(*GetCurrentPlayer().opponent));
+            task = new AttackTask(source, target);
+            break;
+        }
+        case MainOpType::USE_HERO_POWER:
+        {
+            Hero* hero = GetCurrentPlayer().GetHero();
+            Character* target = params.GetSpecifiedTarget(
+                Generic::GetValidTargets(hero->heroPower));
+            task = new HeroPowerTask(target);
+            break;
+        }
+        case MainOpType::END_TURN:
+        {
+            task = new EndTurnTask();
+            break;
+        }
+    }
+
+    task->EnableFreeable();
+    return Process(GetCurrentPlayer(), task);
+}
+
+ReducedBoardView Game::CreateView() const
+{
+    if (m_currentPlayer->playerType == PlayerType::PLAYER1)
+    {
+        return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER1));
+    }
+    else
+    {
+        return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER2));
+    }
+}
+
+PlayState Game::CheckGameOver()
 {
     // Check hero of two players is destroyed
     if (GetPlayer1().GetHero()->isDestroyed)
@@ -639,5 +777,7 @@ void Game::CheckGameOver()
         nextStep = Step::FINAL_WRAPUP;
         GameManager::ProcessNextStep(*this, nextStep);
     }
+
+    return GetCurrentPlayer().playState;
 }
 }  // namespace RosettaStone

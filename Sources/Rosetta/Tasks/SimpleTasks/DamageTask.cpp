@@ -36,4 +36,9 @@ TaskStatus DamageTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* DamageTask::CloneImpl()
+{
+    return new DamageTask(m_entityType, m_damage, m_isSpellDamage);
+}
 }  // namespace RosettaStone::SimpleTasks

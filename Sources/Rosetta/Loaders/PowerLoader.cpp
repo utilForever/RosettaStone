@@ -9,11 +9,11 @@
 
 namespace RosettaStone
 {
-void PowerLoader::Load(std::vector<Card>& cards)
+void PowerLoader::Load(std::vector<Card*>& cards)
 {
     for (auto& card : cards)
     {
-        card.power = Powers::GetInstance().FindPowerByCardID(card.id);
+        card->power = Powers::GetInstance().FindPowerByCardID(card->id);
     }
 }
 }  // namespace RosettaStone

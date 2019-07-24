@@ -680,6 +680,25 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddComboTask(new SummonTask("EX1_131t", SummonSide::RIGHT));
     cards.emplace("EX1_131", power);
 
+    // ----------------------------------------- WEAPON - ROGUE
+    // [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 1 damage. <b>Combo:</b> Deal 2 instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // - BATTLECRY = 1
+    // - COMBO = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1));
+    power.AddComboTask(new DamageTask(EntityType::TARGET, 2));
+    cards.emplace("EX1_133", power);
+
     // ----------------------------------------- MINION - ROGUE
     // [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1081,6 +1100,22 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_104e", EntityType::TARGET));
     cards.emplace("CS2_104", power);
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_407] Brawl - COST:5
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Destroy all minions except one. <i>(chosen randomly)</i>
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_TOTAL_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ALL_MINIONS, 1));
+    power.AddPowerTask(
+        new IncludeTask(EntityType::ALL_MINIONS, { EntityType::STACK }));
+    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    cards.emplace("EX1_407", power);
 
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0

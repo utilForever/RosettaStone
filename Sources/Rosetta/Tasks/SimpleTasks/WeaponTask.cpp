@@ -9,7 +9,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-WeaponTask::WeaponTask(std::string&& cardID) : m_cardID(cardID)
+WeaponTask::WeaponTask(std::string cardID) : m_cardID(std::move(cardID))
 {
     // Do nothing
 }
@@ -21,8 +21,8 @@ TaskID WeaponTask::GetTaskID() const
 
 TaskStatus WeaponTask::Impl(Player& player)
 {
-    Card weaponCard = Cards::FindCardByID(m_cardID);
-    if (weaponCard.id.empty())
+    Card* weaponCard = Cards::FindCardByID(m_cardID);
+    if (weaponCard->id.empty())
     {
         return TaskStatus::STOP;
     }
@@ -32,10 +32,15 @@ TaskStatus WeaponTask::Impl(Player& player)
         player.GetHero()->weapon->Destroy();
     }
 
-    const auto weapon = dynamic_cast<Weapon*>(
-        Entity::GetFromCard(player, std::move(weaponCard)));
+    const auto weapon =
+        dynamic_cast<Weapon*>(Entity::GetFromCard(player, weaponCard));
     Generic::PlayWeapon(player, weapon, nullptr);
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* WeaponTask::CloneImpl()
+{
+    return new WeaponTask(m_cardID);
 }
 }  // namespace RosettaStone::SimpleTasks

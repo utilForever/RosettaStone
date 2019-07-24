@@ -33,6 +33,10 @@ class RandomTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     int m_num = 0;
 };
 }  // namespace RosettaStone::SimpleTasks

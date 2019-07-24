@@ -31,4 +31,9 @@ TaskStatus TempManaTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* TempManaTask::CloneImpl()
+{
+    return new TempManaTask(m_amount);
+}
 }  // namespace RosettaStone::SimpleTasks

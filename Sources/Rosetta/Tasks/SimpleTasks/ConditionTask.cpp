@@ -60,4 +60,9 @@ TaskStatus ConditionTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* ConditionTask::CloneImpl()
+{
+    return new ConditionTask(m_entityType, m_selfConditions);
+}
 }  // namespace RosettaStone::SimpleTasks

@@ -82,7 +82,7 @@ TaskStatus CopyTask::Impl(Player& player)
                 deathrattle =
                     (m_zoneType == ZoneType::PLAY) &&
                     (enchantment != nullptr) &&
-                    (!enchantment->card.power.GetDeathrattleTask().empty());
+                    (!enchantment->card->power.GetDeathrattleTask().empty());
                 break;
             }
             case EntityType::TARGET:
@@ -92,7 +92,7 @@ TaskStatus CopyTask::Impl(Player& player)
             }
             default:
                 throw std::invalid_argument(
-                    "CopyTask::Impl() - Invalid entity type");                
+                    "CopyTask::Impl() - Invalid entity type");
         }
 
         if (toBeCopied == nullptr)
@@ -128,5 +128,11 @@ TaskStatus CopyTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* CopyTask::CloneImpl()
+{
+    return new CopyTask(m_entityType, m_zoneType, m_amount, m_addToStack,
+                        m_toOpposite);
 }
 }  // namespace RosettaStone::SimpleTasks

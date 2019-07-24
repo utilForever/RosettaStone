@@ -11,7 +11,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-AddEnchantmentTask::AddEnchantmentTask(std::string&& cardID,
+AddEnchantmentTask::AddEnchantmentTask(const std::string& cardID,
                                        EntityType entityType)
     : ITask(entityType), m_cardID(cardID)
 {
@@ -25,15 +25,15 @@ TaskID AddEnchantmentTask::GetTaskID() const
 
 TaskStatus AddEnchantmentTask::Impl(Player& player)
 {
-    Card enchantmentCard = Cards::FindCardByID(m_cardID);
-    if (enchantmentCard.id.empty())
+    Card* enchantmentCard = Cards::FindCardByID(m_cardID);
+    if (enchantmentCard->id.empty())
     {
         return TaskStatus::STOP;
     }
 
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    Power power = enchantmentCard.power;
+    Power power = enchantmentCard->power;
 
     for (auto& entity : entities)
     {
@@ -64,5 +64,10 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* AddEnchantmentTask::CloneImpl()
+{
+    return new AddEnchantmentTask(m_cardID, m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

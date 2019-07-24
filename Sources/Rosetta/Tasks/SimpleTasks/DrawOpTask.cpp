@@ -27,4 +27,9 @@ TaskStatus DrawOpTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* DrawOpTask::CloneImpl()
+{
+    return new DrawOpTask(m_amount);
+}
 }  // namespace RosettaStone::SimpleTasks

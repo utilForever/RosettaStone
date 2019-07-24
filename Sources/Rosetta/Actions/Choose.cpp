@@ -46,7 +46,7 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             {
                 const bool isExist = std::find(choices.begin(), choices.end(),
                                                entity->id) == choices.end();
-                if (isExist && entity->card.id != "GAME_005")
+                if (isExist && entity->card->id != "GAME_005")
                 {
                     mulliganList.push_back(entity);
                 }

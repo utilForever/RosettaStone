@@ -36,4 +36,9 @@ TaskStatus SilenceTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* SilenceTask::CloneImpl()
+{
+    return new SilenceTask(m_entityType);
+}
 }  // namespace RosettaStone::SimpleTasks

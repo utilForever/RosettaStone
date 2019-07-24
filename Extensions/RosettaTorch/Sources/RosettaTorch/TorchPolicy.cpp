@@ -7,6 +7,7 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <RosettaTorch/ActionEncoder.hpp>
 #include <RosettaTorch/TorchPolicy.hpp>
+
 #include <utility>
 
 namespace RosettaTorch

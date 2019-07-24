@@ -27,7 +27,7 @@ TaskStatus ControlTask::Impl(Player& player)
 
     for (auto& entity : entities)
     {
-        const auto minion = dynamic_cast<Minion*>(entity);
+        const auto& minion = dynamic_cast<Minion*>(entity);
         if (minion == nullptr)
         {
             continue;
@@ -39,13 +39,16 @@ TaskStatus ControlTask::Impl(Player& player)
             continue;
         }
 
-        const auto minionClone = new Minion(*minion);
-        minionClone->owner = &player;
-
-        myField.Add(*minionClone);
-        opField.Remove(*minion);
+        auto& removedMinion = opField.Remove(*minion);
+        removedMinion.owner = &player;
+        myField.Add(removedMinion);        
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* ControlTask::CloneImpl()
+{
+    return new ControlTask(m_entityType);
 }
 }  // namespace RosettaStone::SimpleTasks

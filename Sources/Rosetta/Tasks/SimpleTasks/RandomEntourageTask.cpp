@@ -28,12 +28,12 @@ TaskStatus RandomEntourageTask::Impl(Player& player)
 {
     (void)m_isOpponent;
 
-    if (m_source == nullptr || m_source->card.entourages.empty())
+    if (m_source == nullptr || m_source->card->entourages.empty())
     {
         return TaskStatus::STOP;
     }
 
-    if (m_count > static_cast<int>(m_source->card.entourages.size()))
+    if (m_count > static_cast<int>(m_source->card->entourages.size()))
     {
         return TaskStatus::STOP;
     }
@@ -43,15 +43,19 @@ TaskStatus RandomEntourageTask::Impl(Player& player)
     for (int i = 0; i < m_count; ++i)
     {
         const auto idx =
-            Random::get<std::size_t>(0, m_source->card.entourages.size() - 1);
-        auto entourageCard =
-            Cards::GetInstance().FindCardByID(m_source->card.entourages[idx]);
+            Random::get<std::size_t>(0, m_source->card->entourages.size() - 1);
+        const auto entourageCard =
+            Cards::GetInstance().FindCardByID(m_source->card->entourages[idx]);
 
-        Entity* entourageEntity =
-            Entity::GetFromCard(player, std::move(entourageCard));
+        Entity* entourageEntity = Entity::GetFromCard(player, entourageCard);
         player.GetGame()->taskStack.entities.emplace_back(entourageEntity);
     }
 
     return TaskStatus::COMPLETE;
+}
+
+ITask* RandomEntourageTask::CloneImpl()
+{
+    return new RandomEntourageTask(m_count, m_isOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks

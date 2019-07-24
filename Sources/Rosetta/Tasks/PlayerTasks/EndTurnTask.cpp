@@ -24,4 +24,9 @@ TaskStatus EndTurnTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* EndTurnTask::CloneImpl()
+{
+    return new EndTurnTask();
+}
 }  // namespace RosettaStone::PlayerTasks

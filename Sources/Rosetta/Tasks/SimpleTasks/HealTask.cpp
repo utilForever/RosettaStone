@@ -32,4 +32,9 @@ TaskStatus HealTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* HealTask::CloneImpl()
+{
+    return new HealTask(m_entityType, m_amount);
+}
 }  // namespace RosettaStone::SimpleTasks

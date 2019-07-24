@@ -40,7 +40,7 @@ TEST(Trigger, None)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::NONE));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -71,7 +71,7 @@ TEST(Trigger, TurnStart)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::TURN_START));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -102,7 +102,7 @@ TEST(Trigger, TurnEnd)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::TURN_END));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -133,7 +133,7 @@ TEST(Trigger, PlayCard)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -164,7 +164,7 @@ TEST(Trigger, CastSpell)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -195,7 +195,7 @@ TEST(Trigger, AfterCast)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::AFTER_CAST));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -226,7 +226,7 @@ TEST(Trigger, Heal)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::HEAL));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -257,7 +257,7 @@ TEST(Trigger, Attack)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::ATTACK));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -289,7 +289,7 @@ TEST(Trigger, AfterAttack_None)
     card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::NONE;
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -321,7 +321,7 @@ TEST(Trigger, AfterAttack_Hero)
     card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::HERO;
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -353,7 +353,7 @@ TEST(Trigger, AfterAttack_Self)
     card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -380,14 +380,18 @@ TEST(Trigger, AfterAttack_EnchantmentTarget)
     opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetFieldZone();
+    auto& curGraveyard = curPlayer.GetGraveyardZone();
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::AFTER_ATTACK));
     card1.power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
 
-    PlayMinionCard(curPlayer, card2);
-    PlayEnchantmentCard(curPlayer, card1, curField[0]);
+    PlayMinionCard(curPlayer, &card2);
+    PlayEnchantmentCard(curPlayer, &card1, curField[0]);
+
+    curGraveyard[0]->card->power.GetTrigger()->Activate(curGraveyard[0]);
+    curGraveyard[0]->activatedTrigger->Remove();
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -418,7 +422,7 @@ TEST(Trigger, Summon)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::SUMMON));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -450,7 +454,7 @@ TEST(Trigger, DealDamage)
     card1.power.AddTrigger(new Trigger(TriggerType::DEAL_DAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -481,7 +485,7 @@ TEST(Trigger, TakeDamage)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -513,7 +517,7 @@ TEST(Trigger, Predamage_None)
     card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::NONE;
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -540,12 +544,18 @@ TEST(Trigger, Predamage_Hero)
     opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetFieldZone();
+    auto& curGraveyard = curPlayer.GetGraveyardZone();
 
-    auto card1 = GenerateMinionCard("minion1", 3, 6);
+    auto card1 = GenerateEnchantmentCard("enchant1");
+    auto card2 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::HERO;
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card2);
+    PlayEnchantmentCard(curPlayer, &card1, curField[0]);
+
+    curGraveyard[0]->card->power.GetTrigger()->Activate(curGraveyard[0]);
+    curGraveyard[0]->activatedTrigger->Remove();
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -577,7 +587,7 @@ TEST(Trigger, Predamage_Self)
     card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::SELF;
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -604,14 +614,18 @@ TEST(Trigger, Predamage_EnchantmentTarget)
     opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetFieldZone();
+    auto& curGraveyard = curPlayer.GetGraveyardZone();
 
     auto card1 = GenerateEnchantmentCard("enchant1");
     auto card2 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
     card1.power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
 
-    PlayMinionCard(curPlayer, card2);
-    PlayEnchantmentCard(curPlayer, card1, curField[0]);
+    PlayMinionCard(curPlayer, &card2);
+    PlayEnchantmentCard(curPlayer, &card1, curField[0]);
+
+    curGraveyard[0]->card->power.GetTrigger()->Activate(curGraveyard[0]);
+    curGraveyard[0]->activatedTrigger->Remove();
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();
@@ -642,7 +656,7 @@ TEST(Trigger, Target)
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     card1.power.AddTrigger(new Trigger(TriggerType::TARGET));
 
-    PlayMinionCard(curPlayer, card1);
+    PlayMinionCard(curPlayer, &card1);
 
     curField[0]->Destroy();
     game.ProcessDestroyAndUpdateAura();

@@ -9,6 +9,12 @@
 
 #include <Rosetta/Accounts/AccountInfo.hpp>
 #include <Rosetta/Accounts/DeckInfo.hpp>
+#include <Rosetta/Actions/ActionChoices.hpp>
+#include <Rosetta/Actions/ActionParams.hpp>
+#include <Rosetta/Actions/ActionTargets.hpp>
+#include <Rosetta/Actions/ActionType.hpp>
+#include <Rosetta/Actions/ActionValidChecker.hpp>
+#include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>
@@ -26,6 +32,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/Macros.hpp>
+#include <Rosetta/Commons/SpinLocks.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
@@ -40,6 +47,7 @@
 #include <Rosetta/Enchants/Powers.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
 #include <Rosetta/Enchants/Triggers.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Enums/GameEnums.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
@@ -118,6 +126,10 @@
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
+#include <Rosetta/Views/Board.hpp>
+#include <Rosetta/Views/BoardRefView.hpp>
+#include <Rosetta/Views/ReducedBoardView.hpp>
+#include <Rosetta/Views/ViewTypes.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>

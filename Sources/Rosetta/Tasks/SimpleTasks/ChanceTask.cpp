@@ -34,4 +34,9 @@ TaskStatus ChanceTask::Impl(Player& player)
     player.GetGame()->taskStack.flag = (num != 0);
     return TaskStatus::COMPLETE;
 }
+
+ITask* ChanceTask::CloneImpl()
+{
+    return new ChanceTask(m_useFlag);
+}
 }  // namespace RosettaStone::SimpleTasks

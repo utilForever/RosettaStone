@@ -37,6 +37,10 @@ class GetGameTagTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     GameTag m_gameTag = GameTag::INVALID;
     int m_entityIndex = 0;
     int m_numIndex = 0;

@@ -31,6 +31,10 @@ class HealFullTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
 };
 }  // namespace RosettaStone::SimpleTasks
 

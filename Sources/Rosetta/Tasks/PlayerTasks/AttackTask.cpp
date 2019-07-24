@@ -25,4 +25,9 @@ TaskStatus AttackTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* AttackTask::CloneImpl()
+{
+    return new AttackTask(m_source, m_target);
+}
 }  // namespace RosettaStone::PlayerTasks

@@ -33,6 +33,10 @@ class FlagTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     bool m_flag = true;
     std::vector<ITask*> m_toDoTasks;
 };

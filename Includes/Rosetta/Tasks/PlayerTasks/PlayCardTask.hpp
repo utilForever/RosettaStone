@@ -60,6 +60,12 @@ class PlayCardTask : public ITask
     //! \return Generated PlayCardTask for intended purpose.
     static PlayCardTask Weapon(Entity* source);
 
+    //! PlayCardTask wrapper for weapon.
+    //! \param source A pointer to source entity to play card.
+    //! \param target A pointer to target entity to receive power.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask WeaponTarget(Entity* source, Entity* target);
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
@@ -69,6 +75,10 @@ class PlayCardTask : public ITask
     //! \param player The player to run task.
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
 
     int m_fieldPos = -1;
     int m_chooseOne = 0;

@@ -14,7 +14,7 @@
 
 namespace RosettaStone
 {
-Minion::Minion(Player& _owner, Card& _card, std::map<GameTag, int> tags)
+Minion::Minion(Player& _owner, Card* _card, std::map<GameTag, int> tags)
     : Character(_owner, _card, std::move(tags))
 {
     // Do nothing
@@ -75,27 +75,27 @@ void Minion::Silence()
         const auto size = static_cast<int>(appliedEnchantments.size());
         for (int i = size - 1; i >= 0; --i)
         {
-            if (appliedEnchantments[i]->card.power.GetAura() != nullptr)
+            if (appliedEnchantments[i]->card->power.GetAura() != nullptr)
             {
                 appliedEnchantments[i]->Remove();
             }
         }
     }
 
-    SetGameTag(GameTag::ATK, card.gameTags[GameTag::ATK]);
-    if (GetHealth() > card.gameTags[GameTag::HEALTH])
+    SetGameTag(GameTag::ATK, card->gameTags[GameTag::ATK]);
+    if (GetHealth() > card->gameTags[GameTag::HEALTH])
     {
-        SetHealth(card.gameTags[GameTag::HEALTH]);
+        SetHealth(card->gameTags[GameTag::HEALTH]);
     }
     else
     {
-        const int cardBaseHealth = card.gameTags[GameTag::HEALTH];
+        const int cardBaseHealth = card->gameTags[GameTag::HEALTH];
         const int delta = GetGameTag(GameTag::HEALTH) - cardBaseHealth;
         if (delta > 0)
         {
             SetDamage(GetDamage() - delta);
         }
-        SetGameTag(GameTag::HEALTH, card.gameTags[GameTag::HEALTH]);
+        SetGameTag(GameTag::HEALTH, card->gameTags[GameTag::HEALTH]);
     }
 
     SetGameTag(GameTag::SILENCED, 1);

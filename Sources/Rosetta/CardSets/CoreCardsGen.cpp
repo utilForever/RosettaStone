@@ -211,15 +211,15 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
         auto minions = entity->owner->GetFieldZone().GetAll();
-        std::vector<Card> totemCards;
+        std::vector<Card*> totemCards;
         totemCards.reserve(4);
 
-        for (const auto& id : entity->card.entourages)
+        for (const auto& id : entity->card->entourages)
         {
             bool exist = false;
             for (auto minion : minions)
             {
-                if (id == minion->card.id)
+                if (id == minion->card->id)
                 {
                     exist = true;
                     break;
@@ -239,7 +239,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
         Entity* totem =
-            Entity::GetFromCard(*entity->owner, std::move(totemCards[idx]));
+            Entity::GetFromCard(*entity->owner, totemCards[idx]);
         entity->owner->GetFieldZone().Add(*dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
@@ -1152,7 +1152,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_HAND, 1));
     power.AddPowerTask(new CopyTask(EntityType::STACK, ZoneType::HAND));
-    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("CS2_003", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -1859,8 +1858,8 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // [CS2_103] Charge - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give a friendly minion <b>Charge</b>. It can't attack heroes this
-    // turn.
+    // Text: Give a friendly minion <b>Charge</b>.
+    //       It can't attack heroes this turn.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0

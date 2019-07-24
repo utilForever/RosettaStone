@@ -49,4 +49,28 @@ TaskStatus ITask::Run()
 {
     return Impl(*m_player);
 }
+
+ITask* ITask::Clone()
+{
+    ITask* clonedTask = CloneImpl();
+    clonedTask->EnableFreeable();
+
+    clonedTask->m_entityType = m_entityType;
+    clonedTask->m_player = m_player;
+    clonedTask->m_source = m_source;
+    clonedTask->m_target = m_target;
+
+    return clonedTask;
+}
+
+bool ITask::IsFreeable() const
+{
+    return m_isFreeable;
+}
+
+void ITask::EnableFreeable()
+{
+    m_isFreeable = true;
+}
+
 }  // namespace RosettaStone

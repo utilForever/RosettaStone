@@ -33,6 +33,10 @@ class DamageNumberTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     bool m_isSpellDamage = false;
 };
 }  // namespace RosettaStone::SimpleTasks

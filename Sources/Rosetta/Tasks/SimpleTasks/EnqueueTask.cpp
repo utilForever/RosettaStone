@@ -38,4 +38,9 @@ TaskStatus EnqueueTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* EnqueueTask::CloneImpl()
+{
+    return new EnqueueTask(m_tasks, m_num, m_isSpellDamage);
+}
 }  // namespace RosettaStone::SimpleTasks

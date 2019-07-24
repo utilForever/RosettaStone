@@ -13,14 +13,14 @@
 
 namespace RosettaStone
 {
-Enchantment::Enchantment(Player& _owner, Card& _card,
+Enchantment::Enchantment(Player& _owner, Card* _card,
                          std::map<GameTag, int> tags, Entity* target)
     : Entity(_owner, _card, std::move(tags)), m_target(target)
 {
     // Do nothing
 }
 
-Enchantment* Enchantment::GetInstance(Player& player, Card& card,
+Enchantment* Enchantment::GetInstance(Player& player, Card* card,
                                       Entity* target)
 {
     std::map<GameTag, int> tags;
@@ -42,9 +42,9 @@ Entity* Enchantment::GetTarget() const
 
 void Enchantment::Remove()
 {
-    if (!card.power.GetDeathrattleTask().empty())
+    if (!card->power.GetDeathrattleTask().empty())
     {
-        for (auto& power : card.power.GetDeathrattleTask())
+        for (auto& power : card->power.GetDeathrattleTask())
         {
             power->SetPlayer(m_target->owner);
             power->SetSource(m_target);

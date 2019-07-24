@@ -26,22 +26,22 @@ class Spell : public Entity
     //! \param _owner The owner of the card.
     //! \param _card The card.
     //! \param tags The game tags.
-    Spell(Player& _owner, Card& _card, std::map<GameTag, int> tags);
+    Spell(Player& _owner, Card* _card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Spell() = default;
 
-    //! Default copy constructor.
-    Spell(const Spell& spell) = default;
+    //! Deleted copy constructor.
+    Spell(const Spell&) = delete;
 
-    //! Default move constructor.
-    Spell(Spell&& spell) = default;
+    //! Deleted copy assignment operator.
+    Spell& operator=(const Spell&) = delete;
 
-    //! Default copy assignment operator.
-    Spell& operator=(const Spell& spell) = default;
+    //! Deleted move constructor.
+    Spell(Spell&&) noexcept = delete;
 
-    //! Default move assignment operator.
-    Spell& operator=(Spell&& spell) = default;
+    //! Deleted move assignment operator.
+    Spell& operator=(Spell&&) noexcept = delete;
 
     //! Returns whether spell is secret.
     //! \return Whether spell is secret.

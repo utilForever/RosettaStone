@@ -59,6 +59,11 @@ TaskStatus TaskQueue::Process()
 
     const TaskStatus status = currentTask->Run();
 
+    if (currentTask->IsFreeable())
+    {
+        delete currentTask;
+    }
+
     m_currentTask = nullptr;
 
     return status;

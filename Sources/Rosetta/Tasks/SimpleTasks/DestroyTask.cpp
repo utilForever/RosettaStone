@@ -30,4 +30,9 @@ TaskStatus DestroyTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
+
+ITask* DestroyTask::CloneImpl()
+{
+    return new DestroyTask(m_entityType);
+}
 }  // namespace RosettaStone::SimpleTasks

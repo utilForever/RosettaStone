@@ -25,7 +25,7 @@ class CardLoader
  public:
     //! Loads card data from cards.json.
     //! \param cards Data storage to store added cards with power.
-    static void Load(std::vector<Card>& cards);
+    static void Load(std::vector<Card*>& cards);
 };
 }  // namespace RosettaStone
 

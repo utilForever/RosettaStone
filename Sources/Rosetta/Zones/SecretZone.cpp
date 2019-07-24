@@ -22,4 +22,22 @@ void SecretZone::Add(Entity& entity, int zonePos)
 
     entity.orderOfPlay = entity.owner->GetGame()->GetNextOOP();
 }
+
+bool SecretZone::Exist(Entity& entity) const
+{
+    for (int i = 0; i < m_maxSize; ++i)
+    {
+        if (!m_entities[i])
+        {
+            continue;
+        }
+
+        if (entity.card->id == m_entities[i]->card->id)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
 }  // namespace RosettaStone

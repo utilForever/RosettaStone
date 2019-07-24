@@ -8,6 +8,7 @@
 #define ROSETTASTONE_UTILS_HPP
 
 #include <cstddef>
+#include <functional>
 
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
@@ -19,6 +20,18 @@ template <typename T, typename... Others>
 constexpr bool AllCondIsTrue(const T& t, Others const&... args)
 {
     return (t == true) && AllCondIsTrue(args...);
+}
+
+//!
+//! \brief CombineHash function.
+//!
+//! It is based on peter1591's hearthstone-ai repository.
+//! References: https://github.com/peter1591/hearthstone-ai
+//!
+template <typename T>
+void CombineHash(std::size_t& seed, const T& v)
+{
+    seed ^= std::hash<T>()(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
 template <typename ContainerT, typename PredicateT>

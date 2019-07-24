@@ -32,6 +32,10 @@ class TempManaTask : public ITask
     //! \return The result of task processing.
     TaskStatus Impl(Player& player) override;
 
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
+
     int m_amount;
 };
 }  // namespace RosettaStone::SimpleTasks

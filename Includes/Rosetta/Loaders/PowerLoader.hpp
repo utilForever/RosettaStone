@@ -23,7 +23,7 @@ class PowerLoader
  public:
     //! Loads power data from card data generators.
     //! \param cards Data storage to store added cards with power.
-    static void Load(std::vector<Card>& cards);
+    static void Load(std::vector<Card*>& cards);
 };
 }  // namespace RosettaStone
 

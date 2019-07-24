@@ -33,7 +33,7 @@ TEST(Generic, ShuffleIntoDeck)
 
     Generic::ShuffleIntoDeck(curPlayer, coinCard);
     EXPECT_EQ(curPlayer.GetDeckZone().GetCount(), 1);
-    EXPECT_EQ(curPlayer.GetDeckZone()[0]->card.id, "GAME_005");
+    EXPECT_EQ(curPlayer.GetDeckZone()[0]->card->id, "GAME_005");
 }
 
 TEST(Generic, ShuffleIntoDeck_Full)
