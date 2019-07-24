@@ -52,7 +52,7 @@ class Simulation
         m_policy->StartAction(board, checker);
     }
 
-    int ChooseAction(const Board& board, ActionValidChecker checker,
+    int ChooseAction(const Board& board, const ActionValidChecker& checker,
                      ActionType actionType, const ActionChoices& choices) const
     {
         assert(!choices.IsEmpty());
