@@ -1065,6 +1065,28 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::HERO, 5));
     cards.emplace("EX1_313", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
+    // - Race: Demon, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, deal 1 damage to this minion and summon a 1/1 Imp.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        new DamageTask(EntityType::SOURCE, 1),
+        new SummonTask("EX1_598", SummonSide::RIGHT)
+    };
+    cards.emplace("EX1_597", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_597] Imp (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Demon, Set: Expert1, Rarity: Free
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_598", power);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
