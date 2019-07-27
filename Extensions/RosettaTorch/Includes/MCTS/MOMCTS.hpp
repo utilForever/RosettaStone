@@ -24,89 +24,31 @@ namespace RosettaTorch::MCTS
 class MOMCTS
 {
  public:
-    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics)
-        : m_player1(p1Tree, statistics), m_player2(p2Tree, statistics)
-    {
-        // Do nothing
-    }
+    //! Constructs MCTS with given \p p1Tree, \p p2Tree and \p statistics.
+    //! \param p1Tree The tree of player 1.
+    //! \param p2Tree The tree of player 2.
+    //! \param statistics The statistics of MCTS.
+    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics);
 
-    void Iterate(Game& game)
-    {
-        m_playerController.SetGame(game);
-        m_player1.StartIteration();
-        m_player2.StartIteration();
+    //! Iterates the action until game is finished.
+    //! \param game The game context.
+    void Iterate(Game& game);
 
-        while (true)
-        {
-            PlayerController::Player player =
-                m_playerController.GetActionForPlayer();
-
-            GetSOMCTS(player).StartActions();
-
-            bool iterationEnds = false;
-            StateValue stateValue;
-
-            while (m_playerController.GetActionForPlayer() == player)
-            {
-                iterationEnds = GetSOMCTS(player).PerformAction(
-                    m_playerController.GetPlayerView(player), stateValue);
-                if (iterationEnds)
-                {
-                    break;
-                }
-            }
-
-            if (iterationEnds)
-            {
-                m_player1.FinishIteration(
-                    m_playerController.GetPlayerView(
-                        PlayerController::Player::Player1()),
-                    stateValue);
-                m_player2.FinishIteration(
-                    m_playerController.GetPlayerView(
-                        PlayerController::Player::Player2()),
-                    stateValue);
-
-                break;
-            }
-
-            GetSOMCTS(player.Opposite())
-                .ApplyOthersActions(
-                    m_playerController.GetPlayerView(player.Opposite()));
-        }
-    }
-
-    auto GetRootNode(PlayerController::Player player) const
-    {
-        return GetSOMCTS(player).GetRootNode();
-    }
+    //! Returns the root node of the tree.
+    //! \param player The player controller.
+    //! \return The root node of the tree.
+    TreeNode* GetRootNode(PlayerController::Player player) const;
 
  private:
-    SOMCTS& GetSOMCTS(PlayerController::Player player)
-    {
-        if (player.IsPlayer1())
-        {
-            return m_player1;
-        }
-        else
-        {
-            assert(player.IsPlayer2());
-            return m_player2;
-        }
-    }
+    //! Returns the single observer MCTS (non-const).
+    //! \param player The player controller.
+    //! \return The single observer MCTS.
+    SOMCTS& GetSOMCTS(PlayerController::Player player);
 
-    SOMCTS const& GetSOMCTS(PlayerController::Player player) const
-    {
-        if (player.IsPlayer1())
-        {
-            return m_player1;
-        }
-        else
-        {
-            assert(player.IsPlayer2());
-            return m_player2;
-        }
-    }
+    //! Returns the single observer MCTS (const).
+    //! \param player The player controller.
+    //! \return The single observer MCTS.
+    const SOMCTS& GetSOMCTS(PlayerController::Player player) const;
 
     PlayerController m_playerController;
     SOMCTS m_player1;
