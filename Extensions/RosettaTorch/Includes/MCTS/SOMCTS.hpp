@@ -11,7 +11,6 @@
 #define ROSETTASTONE_TORCH_SOMCTS_HPP
 
 #include <MCTS/Selection/Selection.hpp>
-#include <MCTS/Selection/TreeNode.hpp>
 #include <MCTS/Simulation/Simulation.hpp>
 #include <MCTS/Statistics.hpp>
 
@@ -28,155 +27,94 @@ namespace RosettaTorch::MCTS
 class SOMCTS
 {
  public:
-    explicit SOMCTS(TreeNode& tree, Statistics<>& statistics)
-        : m_actionParams(*this),
-          m_stage(Stage::SELECTION),
-          m_selectionStage(tree),
-          m_statistics(statistics)
-    {
-        // Do nothing
-    }
+    //! Constructs MCTS with given \p tree and \p statistics.
+    //! \param tree The tree of player.
+    //! \param statistics The statistics of MCTS.
+    explicit SOMCTS(TreeNode& tree, Statistics<>& statistics);
 
+    //! Deleted copy constructor.
     SOMCTS(const SOMCTS&) = delete;
+
+    //! Deleted move constructor.
+    SOMCTS(SOMCTS&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
     SOMCTS& operator=(const SOMCTS&) = delete;
 
-    auto GetRootNode() const
-    {
-        return m_selectionStage.GetRootNode();
-    }
+    //! Deleted move assignment operator.
+    SOMCTS& operator=(SOMCTS&&) noexcept = delete;
 
-    void StartIteration()
-    {
-        m_selectionStage.StartIteration();
-        m_stage = Stage::SELECTION;
-    }
+    //! Returns the root node of the tree.
+    //! \return The root node of the tree.
+    TreeNode* GetRootNode() const;
 
-    void StartActions()
-    {
-        // Do nothing
-    }
+    //! Starts iteration.
+    void StartIteration();
 
-    bool PerformAction(const Board& board, StateValue& stateValue)
-    {
-        PlayState result;
+    //! Performs appropriate action according to the stage.
+    //! \param board The game board.
+    //! \param stateValue The value of game state.
+    //! \return The flag to indicate that the iteration ends.
+    bool PerformAction(const Board& board, StateValue& stateValue);
 
-        m_actionParams.Initialize(board);
+    //! Applies other actions to the game.
+    //! \param board The game board.
+    void ApplyOthersActions(const Board& board);
 
-        if (m_stage == Stage::SIMULATION)
-        {
-            if (m_simulationStage.CutoffCheck(board, stateValue))
-            {
-                return true;
-            }
+    //! Finishes iteration to update credit.
+    //! \param board The game board.
+    //! \param stateValue The value of game state.
+    void FinishIteration(const Board& board, StateValue stateValue);
 
-            m_simulationStage.StartAction(board, m_actionParams.GetChecker());
-
-            result = board.ApplyAction(m_actionParams);
-
-            constexpr bool isSimulation = true;
-            m_statistics.ApplyActionSucceeded(isSimulation);
-        }
-        else
-        {
-            m_selectionStage.StartAction(board);
-
-            result = board.ApplyAction(m_actionParams);
-
-            constexpr bool isSimulation = false;
-            m_statistics.ApplyActionSucceeded(isSimulation);
-
-            if (m_selectionStage.FinishAction(board, result))
-            {
-                m_stage = Stage::SIMULATION;
-            }
-        }
-
-        if (result != PlayState::PLAYING)
-        {
-            stateValue.SetValue(board.GetViewType(), result);
-            return true;
-        }
-
-        return false;
-    }
-
-    void ApplyOthersActions(const Board& board)
-    {
-        if (m_stage == Stage::SIMULATION)
-        {
-            return;
-        }
-
-        assert(m_stage == Stage::SELECTION);
-        m_selectionStage.ApplyOthersActions(board);
-    }
-
-    void FinishIteration(const Board& board, StateValue stateValue)
-    {
-        m_selectionStage.FinishIteration(board, stateValue);
-    }
-
+    //! Chooses action according to \p board, \p actionType and \p choices.
+    //! \param board The game board.
+    //! \param actionType The type of action.
+    //! \param choices The choices of action.
+    //! \return The index of chosen action.
     int ChooseAction(const Board& board, ActionType actionType,
-                     ActionChoices& choices)
-    {
-        assert(!choices.IsEmpty());
-
-        if (m_stage == Stage::SELECTION)
-        {
-            const int choice =
-                m_selectionStage.ChooseAction(actionType, choices);
-            assert(choice >= 0);
-            return choice;
-        }
-        else
-        {
-            assert(m_stage == Stage::SIMULATION);
-
-            const int choice = m_simulationStage.ChooseAction(
-                board, m_actionParams.GetChecker(), actionType, choices);
-            assert(choice >= 0);
-            return choice;
-        }
-    }
+                     ActionChoices& choices);
 
  private:
+    //! \brief An enumerator for identifying stage.
     enum class Stage
     {
         SELECTION,
         SIMULATION
     };
 
+    //!
+    //! \brief ActionParams class.
+    //!
+    //! This class contains parameters to use when the game performs action.
+    //!
     class ActionParams : public RosettaStone::ActionParams
     {
      public:
-        explicit ActionParams(SOMCTS& callback)
-            : m_board(nullptr), m_callback(callback)
-        {
-            // Do nothing
-        }
+        //! Constructs ActionParams with given \p callback.
+        //! \param callback The SOMCTS.
+        explicit ActionParams(SOMCTS& callback);
 
+        //! Deleted copy constructor.
         ActionParams(const ActionParams&) = delete;
+
+        //! Deleted move constructor.
+        ActionParams(ActionParams&&) noexcept = delete;
+
+        //! Deleted copy assignment operator.
         ActionParams& operator=(const ActionParams&) = delete;
 
-        void Initialize(const Board& board)
-        {
-            m_board = &board;
-            RosettaStone::ActionParams::Initialize(
-                m_board->GetCurPlayerStateRefView().GetActionValidGetter());
-        }
+        //! Deleted move assignment operator.
+        ActionParams& operator=(ActionParams&&) noexcept = delete;
 
-        size_t GetNumber(ActionType actionType, ActionChoices& choices) final
-        {
-            if (actionType != ActionType::MAIN_ACTION)
-            {
-                if (choices.Size() == 1)
-                {
-                    return choices.Get(0);
-                }
-            }
+        //! Initializes action parameters.
+        //! \param board The game board.
+        void Initialize(const Board& board);
 
-            return m_callback.ChooseAction(*m_board, actionType, choices);
-        }
+        //! Returns the number according to \p actionType and \p choices.
+        //! \param actionType The type of action.
+        //! \param choices The choices of action.
+        //! \return The index of chosen action.
+        size_t GetNumber(ActionType actionType, ActionChoices& choices) final;
 
      private:
         const Board* m_board;
