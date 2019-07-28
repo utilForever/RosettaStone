@@ -30,6 +30,18 @@ class MOMCTS
     //! \param statistics The statistics of MCTS.
     MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics);
 
+    //! Deleted copy constructor.
+    MOMCTS(const MOMCTS&) = delete;
+
+    //! Deleted move constructor.
+    MOMCTS(MOMCTS&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
+    MOMCTS& operator=(const MOMCTS&) = delete;
+
+    //! Deleted move assignment operator.
+    MOMCTS& operator=(MOMCTS&&) noexcept = delete;
+
     //! Iterates the action until game is finished.
     //! \param game The game context.
     void Iterate(Game& game);
