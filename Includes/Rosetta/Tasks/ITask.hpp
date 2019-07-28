@@ -90,7 +90,7 @@ class ITask
     ITask* Clone();
 
     //! Checks it is freeable task.
-    //! \return The flag to indicate it is freeable task.
+    //! \return The flag to indicate that it is freeable task.
     //! \note This will be used for solving multi-thread and memory leak issue.
     //! \note You have to free it if it is cloned, otherwise cause leaks memory.
     bool IsFreeable() const;

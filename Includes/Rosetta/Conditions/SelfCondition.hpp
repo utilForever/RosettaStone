@@ -78,7 +78,8 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();
 
-    //! SelfCondition wrapper for checking the number of minion that played this turn.
+    //! SelfCondition wrapper for checking the number of minion
+    //! that played this turn.
     //! \param num The number of minion for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition MinionsPlayedThisTurn(int num);
@@ -94,7 +95,7 @@ class SelfCondition
 
     //! SelfCondition wrapper for checking the name of entity equals \p name.
     //! \param name The name of card to check condition.
-    //! \param isEqual The flag to indicate the condition for equality.
+    //! \param isEqual The flag to indicate that the condition for equality.
     static SelfCondition IsName(const std::string& name, bool isEqual = true);
 
     //! Evaluates condition using checking function.
