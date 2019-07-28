@@ -13,44 +13,30 @@
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 
-#include <stdexcept>
-
 using namespace RosettaStone;
 
 namespace RosettaTorch::MCTS
 {
+//!
+//! \brief StateValue class.
+//!
+//! This class stores value that indicates which player won.
+//! If player 1 won the game, the value is 1.0.
+//! If player 1 lose the game, the value is -1.0.
+//! If player 1 drew the game, the value is 0.0.
+//!
 class StateValue
 {
  public:
-    float GetValue(PlayerType type) const
-    {
-        if (type == PlayerType::PLAYER1)
-        {
-            return m_value;
-        }
+    //! Returns the value that indicates player won.
+    //! \param type The type of the player.
+    //! \return The value that indicates player won.
+    float GetValue(PlayerType type) const;
 
-        return -m_value;
-    }
-
-    void SetValue(PlayerType type, PlayState state)
-    {
-        if (state == PlayState::WON)
-        {
-            m_value = (type == PlayerType::PLAYER1 ? 1.0f : -1.0f);
-        }
-        else if (state == PlayState::LOST)
-        {
-            m_value = (type == PlayerType::PLAYER1 ? -1.0f : 1.0f);
-        }
-        else if (state == PlayState::TIED)
-        {
-            m_value = 0.0f;
-        }
-        else
-        {
-            throw std::invalid_argument("Invalid play state!");
-        }
-    }
+    //! Sets the value that indicates player won.
+    //! \param type The type of the player.
+    //! \param state The play state of the game.
+    void SetValue(PlayerType type, PlayState state);
 
  private:
     float m_value = 0.0f;
