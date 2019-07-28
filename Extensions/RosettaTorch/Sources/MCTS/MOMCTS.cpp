@@ -27,9 +27,6 @@ void MOMCTS::Iterate(Game& game)
     {
         PlayerController::Player player =
             m_playerController.GetActionForPlayer();
-
-        GetSOMCTS(player).StartActions();
-
         bool iterationEnds = false;
         StateValue stateValue;
 
