@@ -1065,6 +1065,25 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::HERO, 5));
     cards.emplace("EX1_313", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_320] Bane of Doom - COST:5
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to a character.
+    //       If that kills it, summon a random Demon.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
+    power.AddPowerTask(new FlagTask(true,
+    { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
+      new SummonTask(SummonSide::DEFAULT) }));
+    cards.emplace("EX1_320", power);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)

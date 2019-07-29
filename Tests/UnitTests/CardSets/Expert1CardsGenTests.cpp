@@ -5568,6 +5568,67 @@ TEST(WarlockExpert1Test, EX1_313_PitLord)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
 }
 
+
+// ---------------------------------------- SPELL - WARLOCK
+// [EX1_320] Bane of Doom - COST:5
+// - Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal $2 damage to a character.
+//       If that kills it, summon a random Demon.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Bane of Doom"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Bane of Doom"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(opField.GetCount(), 0);
+    
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(opField.GetCount(), 1);
+    EXPECT_EQ(opField.GetAll()[0]->card->GetRace(), Race::DEMON);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
