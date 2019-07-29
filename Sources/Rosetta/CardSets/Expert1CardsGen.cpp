@@ -2190,6 +2190,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_583", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give adjacent minions
+    //       <b>Spell Damage +1</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
+    power.AddPowerTask(
+        new FilterStackTask(EntityType::SOURCE, RelaCondition::IsSideBySide()));
+    power.AddPowerTask(new AddEnchantmentTask("EX1_584e", EntityType::STACK));
+    cards.emplace("EX1_584", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -2518,6 +2535,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_116t", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::SpellPowerN(1)));
+    cards.emplace("EX1_584e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_finkle] Finkle Einhorn (*) - COST:3 [ATK:3/HP:3]

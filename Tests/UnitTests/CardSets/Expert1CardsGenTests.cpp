@@ -5838,6 +5838,58 @@ TEST(NeutralExpert1Test, EX1_583_PriestessOfElune)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give adjacent minions
+//       <b>Spell Damage +1</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_584_AncientMage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ancient Mage"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, new PlayCardTask(card1, nullptr, 1, 0));
+
+    EXPECT_EQ(curField[1]->card->name, "Ancient Mage");
+    EXPECT_EQ(curField[0]->GetSpellPower(), 1);
+    EXPECT_EQ(curField[2]->GetSpellPower(), 1);
+    EXPECT_EQ(curField[3]->GetSpellPower(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
