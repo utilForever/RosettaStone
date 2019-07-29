@@ -5847,7 +5847,7 @@ TEST(NeutralExpert1Test, EX1_577_TheBeast)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4]
-// - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Restore 4 Health to your hero.
 // --------------------------------------------------------
@@ -5893,7 +5893,7 @@ TEST(NeutralExpert1Test, EX1_583_PriestessOfElune)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
-// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give adjacent minions
 //       <b>Spell Damage +1</b>.
