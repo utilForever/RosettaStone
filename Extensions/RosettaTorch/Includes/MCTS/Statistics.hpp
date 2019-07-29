@@ -17,10 +17,18 @@
 
 namespace RosettaTorch::MCTS
 {
+//!
+//! \brief Statistics class.
+//!
+//! This class stores statistics data related to MCTS.
+//! It enables only when 'ENABLE_STATISTICS' is set to true.
+//!
 template <bool enabled = ENABLE_STATISTICS>
 class Statistics
 {
  public:
+    //! Writes statistics data that action is succeeded.
+    //! \param isSimulation The flag indicates whether it is simulation mode.
     void ApplyActionSucceeded([[maybe_unused]] bool isSimulation)
     {
         // Do nothing
