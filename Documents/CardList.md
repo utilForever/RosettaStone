@@ -350,7 +350,7 @@ EXPERT1 | EX1_610 | Explosive Trap |
 EXPERT1 | EX1_611 | Freezing Trap |  
 EXPERT1 | EX1_612 | Kirin Tor Mage | O
 EXPERT1 | EX1_613 | Edwin VanCleef |  
-EXPERT1 | EX1_614 | Illidan Stormrage |  
+EXPERT1 | EX1_614 | Illidan Stormrage | O
 EXPERT1 | EX1_616 | Mana Wraith |  
 EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 53% (127 of 237 Cards)
+- Progress: 53% (128 of 237 Cards)
 
 ## Hall of Fame
 
