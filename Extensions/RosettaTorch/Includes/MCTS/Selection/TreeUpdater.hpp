@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_UPDATER_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_UPDATER_HPP
 
-#include <MCTS/Constants.hpp>
+#include <MCTS/Commons/Constants.hpp>
 #include <MCTS/Selection/TraversedNodeInfo.hpp>
 
 #include <queue>
@@ -31,7 +31,8 @@ class TreeUpdater
 
     template <class RetType = void>
     auto Update(const std::vector<TraversedNodeInfo>& nodes, float credit)
-        -> std::enable_if_t<std::is_same_v<UpdaterPolicy, LinearUpdate>, RetType>
+        -> std::enable_if_t<std::is_same_v<UpdaterPolicy, LinearUpdate>,
+                            RetType>
     {
         for (const auto& item : nodes)
         {

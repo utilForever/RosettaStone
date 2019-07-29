@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_ISIMULATION_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_ISIMULATION_POLICY_HPP
 
-#include <MCTS/Types.hpp>
+#include <MCTS/Commons/Types.hpp>
 
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Views/Board.hpp>

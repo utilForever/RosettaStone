@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_CREDIT_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_CREDIT_POLICY_HPP
 
-#include <MCTS/Types.hpp>
+#include <MCTS/Commons/Types.hpp>
 
 #include <Rosetta/Views/Board.hpp>
 
@@ -27,8 +27,7 @@ class CreditPolicy
     //! If the first player has 100% to loss, the credit should be -1.0.
     //! If the first player has 50% to win, the credit should be 0.0.
     //! The credit value should be in range [-1.0, 1.0].
-    static float GetCredit(const Board& board,
-                           StateValue stateValue)
+    static float GetCredit(const Board& board, StateValue stateValue)
     {
         return stateValue.GetValue(board.GetViewType());
     }

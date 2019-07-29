@@ -13,7 +13,7 @@
 #include <Agents/MCTSConfig.hpp>
 #include <MCTS/MOMCTS.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
-#include <MCTS/Statistics.hpp>
+#include <MCTS/Statistics/Statistics.hpp>
 
 #include <Rosetta/Cards/Cards.hpp>
 

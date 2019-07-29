@@ -12,7 +12,7 @@
 
 #include <MCTS/Policies/PlayerController.hpp>
 #include <MCTS/SOMCTS.hpp>
-#include <MCTS/Statistics.hpp>
+#include <MCTS/Statistics/Statistics.hpp>
 
 namespace RosettaTorch::MCTS
 {
