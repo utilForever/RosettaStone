@@ -5890,6 +5890,61 @@ TEST(NeutralExpert1Test, EX1_584_AncientMage)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
+// - Race: Demon, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you play a card,
+//       summon a 2/1 Flame of Azzinoth.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_614_IllidanStormrage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("EX1_614"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Moonfire"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    
+    EXPECT_EQ(curField.GetCount(), 3);
+    EXPECT_EQ(curField[1]->card->name, "Flame of Azzinoth");
+    EXPECT_EQ(curField[2]->card->name, "Wisp");
+    
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    
+    EXPECT_EQ(curField.GetCount(), 4);
+    EXPECT_EQ(curField[1]->card->name, "Flame of Azzinoth");
+    EXPECT_EQ(curField[2]->card->name, "Flame of Azzinoth");
+    EXPECT_EQ(curField[3]->card->name, "Wisp");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------

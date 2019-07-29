@@ -2207,6 +2207,22 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_584", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
+    // - Race: Demon, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Whenever you play a card,
+    //       summon a 2/1 Flame of Azzinoth.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.GetTrigger()->tasks = { new SummonTask("EX1_614t", SummonSide::RIGHT) };
+    cards.emplace("EX1_614", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -2545,6 +2561,14 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::SpellPowerN(1)));
     cards.emplace("EX1_584e", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_614t] Flame of Azzinoth (*) - COST:1 [ATK:2/HP:1]
+    // - Race: Elemental, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_614t", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_finkle] Finkle Einhorn (*) - COST:3 [ATK:3/HP:3]
