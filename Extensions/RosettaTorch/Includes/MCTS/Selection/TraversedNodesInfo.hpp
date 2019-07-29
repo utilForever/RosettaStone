@@ -98,7 +98,7 @@ class TraversedNodesInfo
             // Don't need to construct a node for leaf nodes.
             // We only need the edge to record win-rate, which is already
             // got before.
-            AddPathNode(m_currentNode, m_pendingChoice, edgeAddon, nullptr);
+            AddPathNode(m_currentNode, m_pendingChoice, edgeAddon, node);
         }
         else
         {
