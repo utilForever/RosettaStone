@@ -2533,7 +2533,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_103e"));
     cards.emplace("EX1_103e", power);
 
-    // ---------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -2544,7 +2544,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_110t", power);
 
-    // ---------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_116t] Whelp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
