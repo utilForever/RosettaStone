@@ -229,7 +229,7 @@ EXPERT1 | EX1_144 | Shadowstep | O
 EXPERT1 | EX1_145 | Preparation |  
 EXPERT1 | EX1_154 | Wrath | O
 EXPERT1 | EX1_155 | Mark of Nature |  
-EXPERT1 | EX1_158 | Soul of the Forest |  
+EXPERT1 | EX1_158 | Soul of the Forest | O
 EXPERT1 | EX1_160 | Power of the Wild |  
 EXPERT1 | EX1_162 | Dire Wolf Alpha |  
 EXPERT1 | EX1_164 | Nourish |  
@@ -266,9 +266,9 @@ EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
 EXPERT1 | EX1_315 | Summoning Portal |  
-EXPERT1 | EX1_317 | Sense Demons | O
+EXPERT1 | EX1_317 | Sense Demons | 
 EXPERT1 | EX1_319 | Flame Imp |  
-EXPERT1 | EX1_320 | Bane of Doom |  
+EXPERT1 | EX1_320 | Bane of Doom | O
 EXPERT1 | EX1_323 | Lord Jaraxxus |  
 EXPERT1 | EX1_332 | Silence | O
 EXPERT1 | EX1_334 | Shadow Madness |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 55% (130 of 237 Cards)
+- Progress: 55% (131 of 237 Cards)
 
 ## Hall of Fame
 
