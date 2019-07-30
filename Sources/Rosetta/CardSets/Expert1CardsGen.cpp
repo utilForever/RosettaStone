@@ -83,6 +83,16 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_154", power);
 
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_158] Soul of the Forest - COST:4
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give your minions \"<b>Deathrattle:</b> Summon a 2/2 Treant.\"
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_158e", EntityType::MINIONS));
+    cards.emplace("EX1_158", power);
+
     // ------------------------------------------- SPELL - DRUID
     // [EX1_570] Bite - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -127,6 +137,24 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_154b", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [EX1_158e] Soul of the Forest (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deathrattle: Summon a 2/2 Treant.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(new SummonTask("EX1_158t", SummonSide::DEATHRATTLE));
+    cards.emplace("EX1_158e", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_158t] Treant (*) - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_158t", power);
 
     // ----------------------------------------- ENCHANTMENT - DRUID
     // [EX1_570e] Bite - COST:0

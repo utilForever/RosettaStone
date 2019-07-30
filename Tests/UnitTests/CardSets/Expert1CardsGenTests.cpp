@@ -75,6 +75,81 @@ TEST(DruidExpert1Test, EX1_154_Wrath)
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [EX1_158] Soul of the Forest - COST:4
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your minions \"<b>Deathrattle:</b> Summon a 2/2 Treant.\"
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_158_SoulOfTheForest)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+        
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Soul of the Forest"));
+    
+    // const auto card7 = Generic::DrawCard(
+    //     opPlayer, Cards::GetInstance().FindCardByID("EX1_158"));
+    const auto card8 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Hellfire"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Spell(card7));
+
+    EXPECT_FALSE(opField[0]->appliedEnchantments.empty());
+    EXPECT_FALSE(opField[1]->appliedEnchantments.empty());
+    EXPECT_FALSE(opField[2]->appliedEnchantments.empty());
+    
+    game.Process(opPlayer, PlayCardTask::Spell(card8));
+    
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opField.GetCount(), 3);
+
+    EXPECT_EQ(opField[0]->card->name, "Treant");
+    EXPECT_EQ(opField[1]->card->name, "Treant");
+    EXPECT_EQ(opField[2]->card->name, "Treant");
+}
+
 // ------------------------------------------- SPELL - DRUID
 // [EX1_570] Bite - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
