@@ -1121,6 +1121,24 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     cards.emplace("CS2_104", power);
 
     // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_391] Slam - COST:2
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to a minion. If it survives, draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
+    power.AddPowerTask(new ConditionTask(EntityType::TARGET, {
+        SelfCondition::IsNotDead()
+    }));
+    power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
+    cards.emplace("EX1_391", power);    
+
+    // ---------------------------------------- SPELL - WARRIOR
     // [EX1_407] Brawl - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------

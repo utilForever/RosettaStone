@@ -994,6 +994,67 @@ TEST(WarriorExpert1Test, CS2_104_Rampage)
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [EX1_391] Slam - COST:2
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal $2 damage to a minion. If it survives, draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_391_Slam)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opHand = opPlayer.GetHandZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Slam"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Slam"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    int opHandCount = opHand.GetCount();
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(opHandCount, opHand.GetCount());
+    
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(opHandCount - 1, opHand.GetCount());
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [EX1_407] Brawl - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
