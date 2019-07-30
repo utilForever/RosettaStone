@@ -75,7 +75,7 @@ bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
     return false;
 }
 
-void SOMCTS::ApplyOthersActions(const Board& board)
+void SOMCTS::ApplyOthersActions()
 {
     if (m_stage == Stage::SIMULATION)
     {
@@ -83,7 +83,7 @@ void SOMCTS::ApplyOthersActions(const Board& board)
     }
 
     assert(m_stage == Stage::SELECTION);
-    m_selectionStage.ApplyOthersActions(board);
+    m_selectionStage.ApplyOthersActions();
 }
 
 void SOMCTS::FinishIteration(const Board& board, StateValue stateValue)

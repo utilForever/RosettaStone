@@ -48,7 +48,7 @@ class SOMCTS
     //! \return The root node of the tree.
     TreeNode* GetRootNode() const;
 
-    //! Starts iteration.
+    //! Starts iteration by initializing variables.
     void StartIteration();
 
     //! Performs appropriate action according to the stage.
@@ -58,8 +58,7 @@ class SOMCTS
     bool PerformAction(const Board& board, StateValue& stateValue);
 
     //! Applies other actions to the game.
-    //! \param board The game board.
-    void ApplyOthersActions(const Board& board);
+    void ApplyOthersActions();
 
     //! Finishes iteration to update credit.
     //! \param board The game board.

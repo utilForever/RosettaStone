@@ -52,9 +52,7 @@ void MOMCTS::Iterate(Game& game)
             break;
         }
 
-        GetSOMCTS(player.Opposite())
-            .ApplyOthersActions(
-                m_playerController.GetPlayerView(player.Opposite()));
+        GetSOMCTS(player.Opposite()).ApplyOthersActions();
     }
 }
 
