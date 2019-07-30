@@ -156,7 +156,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_158t", power);
 
-    // ----------------------------------------- ENCHANTMENT - DRUID
+    // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_570e] Bite - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
