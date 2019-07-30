@@ -1110,7 +1110,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
         new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
     power.AddPowerTask(new FlagTask(true,
     { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
-      new SummonTask(SummonSide::DEFAULT) }));
+      new SummonTask(SummonSide::SPELL) }));
     cards.emplace("EX1_320", power);
 }
 
