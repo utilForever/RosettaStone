@@ -284,7 +284,7 @@ EXPERT1 | EX1_363 | Blessing of Wisdom |
 EXPERT1 | EX1_365 | Holy Wrath |  
 EXPERT1 | EX1_366 | Sword of Justice |  
 EXPERT1 | EX1_379 | Repentance |  
-EXPERT1 | EX1_382 | Aldor Peacekeeper |  
+EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
 EXPERT1 | EX1_384 | Avenging Wrath |  
 EXPERT1 | EX1_390 | Tauren Warrior |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 55% (131 of 237 Cards)
+- Progress: 55% (132 of 237 Cards)
 
 ## Hall of Fame
 
