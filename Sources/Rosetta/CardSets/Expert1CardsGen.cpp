@@ -84,6 +84,24 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     cards.emplace("EX1_154", power);
 
     // ------------------------------------------ SPELL - DRUID
+    // [EX1_155] Mark of Nature - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b>
+    //       Give a minion +4 Attack; or +4 Health and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_155", power);
+
+    // ------------------------------------------ SPELL - DRUID
     // [EX1_158] Soul of the Forest - COST:4
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -137,6 +155,54 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_154b", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_155a] Tiger's Fury (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +4 Attack.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_155ae", EntityType::TARGET));
+    cards.emplace("EX1_155a", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_155ae] Mark of Nature (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has +4 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_155ae"));
+    cards.emplace("EX1_155ae", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_155b] Thick Hide (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +4 Health and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_155be", EntityType::TARGET));
+    cards.emplace("EX1_155b", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_155be] Mark of Nature (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has +4 Health and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_155be"));
+    cards.emplace("EX1_155be", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_158e] Soul of the Forest (*) - COST:0
