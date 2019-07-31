@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_AGENTS_MCTS_AGENT_HPP
 #define ROSETTASTONE_TORCH_AGENTS_MCTS_AGENT_HPP
 
+#include <Agents/IAgent.hpp>
 #include <Agents/MCTSConfig.hpp>
 #include <Agents/MCTSRunner.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
@@ -23,6 +24,7 @@ class MCTSAgent
     const MCTS::TreeNode* m_rootNode;
     const MCTS::TreeNode* m_node;
     std::unique_ptr<MCTSRunner> m_controller;
+    IAgent* m_agent;
 };
 }  // namespace RosettaTorch::Agents
 
