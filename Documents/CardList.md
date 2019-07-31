@@ -228,7 +228,7 @@ EXPERT1 | EX1_137 | Headcrack |
 EXPERT1 | EX1_144 | Shadowstep | O
 EXPERT1 | EX1_145 | Preparation |  
 EXPERT1 | EX1_154 | Wrath | O
-EXPERT1 | EX1_155 | Mark of Nature |  
+EXPERT1 | EX1_155 | Mark of Nature | O
 EXPERT1 | EX1_158 | Soul of the Forest | O
 EXPERT1 | EX1_160 | Power of the Wild |  
 EXPERT1 | EX1_162 | Dire Wolf Alpha |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 55% (133 of 237 Cards)
+- Progress: 57% (134 of 237 Cards)
 
 ## Hall of Fame
 
