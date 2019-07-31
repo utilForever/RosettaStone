@@ -50,7 +50,7 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
     };
 
     const auto startIter = controller->GetStatistics().GetSuccededIterates();
-    controller->Run(g_config);
+    controller->Run();
 
     while (true)
     {
@@ -104,7 +104,7 @@ int main()
 {
     Cards::GetInstance();
 
-    Agents::MCTSRunner controller;
+    Agents::MCTSRunner controller(g_config);
 
     while (std::cin)
     {
