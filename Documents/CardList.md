@@ -333,7 +333,7 @@ EXPERT1 | EX1_575 | Mana Tide Totem |
 EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune | O
-EXPERT1 | EX1_584 | Ancient Mage |  
+EXPERT1 | EX1_584 | Ancient Mage | O
 EXPERT1 | EX1_586 | Sea Giant |  
 EXPERT1 | EX1_590 | Blood Knight |  
 EXPERT1 | EX1_591 | Auchenai Soulpriest |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 55% (132 of 237 Cards)
+- Progress: 55% (133 of 237 Cards)
 
 ## Hall of Fame
 
