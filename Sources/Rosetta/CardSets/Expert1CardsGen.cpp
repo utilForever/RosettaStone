@@ -418,6 +418,24 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     cards.emplace("EX1_362", power);
 
     // --------------------------------------- MINION - PALADIN
+    // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_382e", EntityType::TARGET));
+    cards.emplace("EX1_382", power);
+
+    // --------------------------------------- MINION - PALADIN
     // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -459,6 +477,16 @@ void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(GameTag::ATK, EffectOperator::MUL, 2));
     cards.emplace("EX1_355e", power);
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [EX1_382e] Stand Down! (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Attack changed to 1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::SetAttack(1)));
+    cards.emplace("EX1_382e", power);
 
     // --------------------------------------- WEAPON - PALADIN
     // [EX1_383t] Ashbringer (*) - COST:5 [ATK:5/HP:0]

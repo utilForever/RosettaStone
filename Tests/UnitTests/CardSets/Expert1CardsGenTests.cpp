@@ -886,6 +886,57 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
 }
 
 // --------------------------------------- MINION - PALADIN
+// [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_ENEMY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_382_AldorPeacekeeper)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Aldor Peacekeeper"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card2, card1));
+    
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - PALADIN
 // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
