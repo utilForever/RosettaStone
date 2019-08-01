@@ -43,6 +43,7 @@ class MCTSAgent
     MCTSAgent& operator=(MCTSAgent&&) noexcept = delete;
 
     //! Process Think() related methods.
+    //! \param gameConfig The game config.
     void Think(const GameConfig& gameConfig);
 
     //! Returns action according to \p actionType and \p choices.
