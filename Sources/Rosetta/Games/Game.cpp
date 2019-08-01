@@ -30,7 +30,7 @@ using namespace RosettaStone::PlayerTasks;
 
 namespace RosettaStone
 {
-Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
+Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
     // Set game to player
     for (auto& p : m_players)
