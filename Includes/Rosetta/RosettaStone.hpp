@@ -31,6 +31,7 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Commons/DeckString.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/SpinLocks.hpp>
 #include <Rosetta/Commons/Utils.hpp>

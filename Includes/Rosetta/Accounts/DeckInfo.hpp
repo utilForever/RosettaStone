@@ -31,6 +31,11 @@ class DeckInfo
     //! \param deckClass The class of deck.
     DeckInfo(std::string name, CardClass deckClass);
 
+	//! Constructs deck with given \p name and \p deckCode.
+	//! \param name The name of deck.
+	//! \param deckCode Deck code string
+    DeckInfo(std::string name, const std::string& deckCode);
+
     //! Returns the name of deck.
     //! \return The name of deck.
     std::string GetName() const;
