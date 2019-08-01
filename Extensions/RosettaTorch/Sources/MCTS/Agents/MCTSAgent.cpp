@@ -17,12 +17,12 @@ MCTSAgent::MCTSAgent(const MCTSConfig& config, IAgent& agent)
     // Do nothing
 }
 
-void MCTSAgent::Think()
+void MCTSAgent::Think(const GameConfig& gameConfig)
 {
     m_agent.BeforeThink();
 
     m_controller.reset(new MCTSRunner(m_config));
-    m_controller->Run();
+    m_controller->Run(gameConfig);
 
     while (true)
     {
@@ -43,7 +43,7 @@ void MCTSAgent::Think()
 
     m_agent.AfterThink(m_controller->GetStatistics().GetSuccededIterates());
 
-    //m_node = m_controller->GetRootNode();
+    m_node = m_controller->GetRootNode(gameConfig.startPlayer);
     m_rootNode = m_node;
 }
 }  // namespace RosettaTorch::Agents
