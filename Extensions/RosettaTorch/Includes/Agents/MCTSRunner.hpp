@@ -34,45 +34,19 @@ class MCTSRunner
         WaitUntilStopped();
     }
 
-    void Run()
+    void Run(const GameConfig& gameConfig)
     {
         assert(m_threads.empty());
         m_stopFlag = false;
 
         for (int i = 0; i < m_config.threads; ++i)
         {
-            m_threads.emplace_back([this]() {
+            m_threads.emplace_back([this, gameConfig]() {
                 MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics);
-
-                GameConfig config;
-                config.player1Class = CardClass::PRIEST;
-                config.player2Class = CardClass::MAGE;
-                config.startPlayer = PlayerType::PLAYER1;
-                config.doShuffle = false;
-                config.doFillDecks = false;
-                config.skipMulligan = true;
-                config.autoRun = true;
-
-                std::array<std::string, START_DECK_SIZE> deck = {
-                    "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
-                    "CS1_113", "CS1_113", "CS1_130", "CS1_130",  // 2
-                    "CS2_007", "CS2_007", "CS2_022", "CS2_022",  // 3
-                    "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
-                    "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
-                    "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
-                    "CS2_032", "CS2_032", "CS2_033", "CS2_033",  // 7
-                    "CS2_037", "CS2_037"
-                };
-
-                for (size_t j = 0; j < START_DECK_SIZE; ++j)
-                {
-                    config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
-                    config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
-                }
 
                 while (!m_stopFlag.load())
                 {
-                    Game game(config);
+                    Game game(gameConfig);
                     mcts.Iterate(game);
 
                     m_statistics.IterateSucceeded();
