@@ -6,30 +6,27 @@
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/DeckString.hpp>
+#include <Rosetta/Commons/Utils.hpp>
 
-#include <sstream>
+#include <stdexcept>
 
 namespace RosettaStone
 {
-DeckInfo DeckString::ParseFromString(const std::string_view& deckString)
+DeckInfo DeckString::ParseFromString(const std::string& deckString)
 {
-    std::stringstream ss;
-    ss << deckString;
+    std::size_t pos = 0;
+    std::vector<unsigned char> code = Base64Decode(deckString);
 
-    return ParseFromStream(ss);
-}
-
-DeckInfo DeckString::ParseFromStream(std::istream& stream)
-{
     const auto read_varint = [&] {
         int shift = 0, result = 0;
 
         while (true)
         {
-            int ch = stream.get();
-
-            if (ch == '\0')
+            if (pos >= code.size())
                 throw std::runtime_error("Unexpected EOF while reading varint");
+
+            int ch = code[pos];
+            ++pos;
 
             result |= (ch & 0x7f) << shift;
             shift += 7;
@@ -41,8 +38,9 @@ DeckInfo DeckString::ParseFromStream(std::istream& stream)
         return result;
     };
 
-    if (stream.get() != '\0')
+    if (code[pos] != '\0')
         throw std::runtime_error("Invalid deckstring");
+    ++pos;
 
     if (read_varint() != DECKSTRING_VERSION)
         throw std::runtime_error("Version mismatch");
@@ -55,7 +53,11 @@ DeckInfo DeckString::ParseFromStream(std::istream& stream)
     if (num != 1)
         throw std::runtime_error("Heros count must be 1");
 
-    DeckInfo deckInfo("EMPTY", static_cast<CardClass>(read_varint()));
+	Card* hero = Cards::FindCardByDbfId(read_varint());
+    if (hero->GetCardClass() == CardClass::INVALID)
+        throw std::runtime_error("Invalid hero");
+
+    DeckInfo deckInfo("EMPTY", hero->GetCardClass());
 
     // single-copy cards
     num = read_varint();

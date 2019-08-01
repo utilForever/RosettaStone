@@ -9,8 +9,6 @@
 
 #include <Rosetta/Accounts/DeckInfo.hpp>
 
-#include <string_view>
-
 namespace RosettaStone
 {
 class DeckString
@@ -22,11 +20,7 @@ class DeckString
  public:
     //! Parse from string
     //! \param deckString Deck String
-    static DeckInfo ParseFromString(const std::string_view& deckString);
-
-    //! Parse from stream
-    //! \param stream Stream to get deck string
-    static DeckInfo ParseFromStream(std::istream& stream);
+    static DeckInfo ParseFromString(const std::string& deckString);
 };
 }  // namespace RosettaStone
 
