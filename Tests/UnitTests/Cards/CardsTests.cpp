@@ -28,6 +28,13 @@ TEST(Cards, FindCardByID)
     EXPECT_EQ(card2->id, "");
 }
 
+TEST(Cards, FindCardByDbfId){
+    const Card* card = Cards::GetInstance().FindCardByDbfId(559);
+
+	EXPECT_EQ(card->dbfId, 559);
+    EXPECT_EQ(card->id, "EX1_116");
+}
+
 TEST(Cards, FindCardByRarity)
 {
     Cards& instance = Cards::GetInstance();
@@ -53,7 +60,8 @@ TEST(Cards, FindCardByClass)
 {
     Cards& instance = Cards::GetInstance();
 
-    std::vector<Card*> cards1 = instance.FindCardByClass(CardClass::DEATHKNIGHT);
+    std::vector<Card*> cards1 =
+        instance.FindCardByClass(CardClass::DEATHKNIGHT);
     std::vector<Card*> cards2 = instance.FindCardByClass(CardClass::DREAM);
     std::vector<Card*> cards3 = instance.FindCardByClass(CardClass::DRUID);
     std::vector<Card*> cards4 = instance.FindCardByClass(CardClass::HUNTER);

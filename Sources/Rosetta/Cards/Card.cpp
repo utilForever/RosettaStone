@@ -63,6 +63,7 @@ void Card::ShowBriefInfo() const
 void Card::ShowInfo() const
 {
     std::cout << "ID: " << id.c_str() << '\n';
+    std::cout << "dbfId: " << dbfId << '\n';
     std::cout << "Name: " << name.c_str() << '\n';
     std::cout << "Text: " << text.c_str() << '\n';
     std::cout << "Rarity: " << EnumToStr<Rarity>(GetRarity()) << '\n';
