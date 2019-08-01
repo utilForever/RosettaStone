@@ -9,6 +9,7 @@
 
 #include <cstddef>
 #include <functional>
+#include <vector>
 
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
@@ -49,6 +50,8 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
         }
     }
 }
+
+std::vector<unsigned char> Base64Decode(const std::string& src);
 
 //!
 //! \brief SizedPtr class.
