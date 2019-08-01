@@ -39,23 +39,33 @@ DeckInfo DeckString::ParseFromString(const std::string& deckString)
     };
 
     if (code[pos] != '\0')
+    {
         throw std::runtime_error("Invalid deckstring");
+    }
     ++pos;
 
     if (read_varint() != DECKSTRING_VERSION)
+    {
         throw std::runtime_error("Version mismatch");
+    }
 
     FormatType format = static_cast<FormatType>(read_varint());
     if (format != FormatType::STANDARD && format != FormatType::WILD)
+    {
         throw std::runtime_error("Invalid format type");
+    }
 
     int num = read_varint();
     if (num != 1)
+    {
         throw std::runtime_error("Heros count must be 1");
+    }
 
-	Card* hero = Cards::FindCardByDbfId(read_varint());
+    Card* hero = Cards::FindCardByDbfId(read_varint());
     if (hero->GetCardClass() == CardClass::INVALID)
+    {
         throw std::runtime_error("Invalid hero");
+	}
 
     DeckInfo deckInfo("EMPTY", hero->GetCardClass());
 
