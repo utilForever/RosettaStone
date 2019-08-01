@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
 #define ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
 
-#include <Rosetta/Views/BoardRefView.hpp>
+#include <cstdint>
 
 namespace RosettaTorch::Agents
 {
