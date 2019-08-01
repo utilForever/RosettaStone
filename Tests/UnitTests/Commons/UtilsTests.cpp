@@ -11,6 +11,17 @@
 
 #include <random>
 
+TEST(Base64, Decode)
+{
+    auto decoded = Base64Decode("AQIDBA==");
+
+    EXPECT_EQ(decoded.size(), 4u);
+    EXPECT_EQ(decoded[0], 1);
+    EXPECT_EQ(decoded[1], 2);
+    EXPECT_EQ(decoded[2], 3);
+    EXPECT_EQ(decoded[3], 4);
+}
+
 TEST(SizedPtr, Constructor)
 {
     SizedPtr<int> defaultCtor;
