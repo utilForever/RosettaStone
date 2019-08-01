@@ -6,6 +6,8 @@
 
 #include <Rosetta/Commons/Utils.hpp>
 
+#include <memory>
+
 std::vector<unsigned char> Base64Decode(const std::string& src)
 {
     static constexpr int decodeTable[256] = {
@@ -40,12 +42,13 @@ std::vector<unsigned char> Base64Decode(const std::string& src)
     } temp;
 
     std::vector<unsigned char> ret;
+    std::vector<unsigned char> srcTmp(begin(src), end(src));
 
     int blank = 0;
     for (std::size_t i = 0; i < src.size(); i += 4)
     {
-        temp.intCode.e4 = decodeTable[src[i]];
-        temp.intCode.e3 = decodeTable[src[i + 1]];
+        temp.intCode.e4 = decodeTable[srcTmp[i]];
+        temp.intCode.e3 = decodeTable[srcTmp[i + 1]];
 
         if (src[i + 2] == '=')
         {
@@ -54,7 +57,7 @@ std::vector<unsigned char> Base64Decode(const std::string& src)
         }
         else
         {
-            temp.intCode.e2 = decodeTable[src[i + 2]];
+            temp.intCode.e2 = decodeTable[srcTmp[i + 2]];
         }
 
         if (src[i + 3] == '=')
@@ -64,7 +67,7 @@ std::vector<unsigned char> Base64Decode(const std::string& src)
         }
         else
         {
-            temp.intCode.e1 = decodeTable[src[i + 3]];
+            temp.intCode.e1 = decodeTable[srcTmp[i + 3]];
         }
 
         ret.emplace_back(temp.chCode.c3);
