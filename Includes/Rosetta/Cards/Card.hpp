@@ -87,6 +87,7 @@ class Card
     virtual void ShowInfo() const;
 
     std::string id;
+    int dbfId;
     std::string name;
     std::string text;
 

@@ -65,6 +65,11 @@ class Cards
     //! \return A card that matches \p id.
     static Card* FindCardByID(const std::string& id);
 
+	//! Returns a card that matches \p dbfId.
+	//! \param dbfId The dbfId of the card.
+	//! \return A card that matches \p dbfId.
+    static Card* FindCardByDbfId(int dbfId);
+
     //! Returns a list of cards that matches \p rarity.
     //! \param rarity The rarity of the card.
     //! \return A list of cards that matches condition.
