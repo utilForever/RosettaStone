@@ -212,19 +212,20 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("EX1_617", power);
 
-    // --------------------------------------- MINION - HUNTER
+    // ---------------------------------------- MINION - HUNTER
     // [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
     // - Race: Beast, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
     // --------------------------------------------------------
     // GameTag:
-    // - ELITE = 0
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddDeathrattleTask(
-            new SummonTask(SummonSide::DEATHRATTLE, Cards::FindCardByID("EX1_534t"), 2, false));
+        new EnqueueTask({ new SummonTask(SummonSide::DEATHRATTLE,
+                                         Cards::FindCardByID("EX1_534t")) },
+                        2));
     cards.emplace("EX1_534", power);
 }
 
@@ -243,9 +244,9 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
     cards.emplace("DS1_188e", power);
 
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_534t] Hyena - COST:2 [ATK:2/HP:2]
-    // - Race: Beast, Set: Expert1, Rarity: Common
+    // ---------------------------------------- MINION - HUNTER
+    // [EX1_534t] Hyena (*) - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
