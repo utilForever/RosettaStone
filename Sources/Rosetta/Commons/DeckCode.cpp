@@ -12,7 +12,7 @@
 
 namespace RosettaStone
 {
-DeckInfo DeckCode::DecodeDeckCode(const std::string& deckCode)
+DeckInfo DeckCode::Decode(const std::string& deckCode)
 {
     std::size_t pos = 0;
     std::vector<unsigned char> code = DecodeBase64(deckCode);
