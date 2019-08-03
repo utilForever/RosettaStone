@@ -6,30 +6,30 @@
 
 #include "gtest/gtest.h"
 
-#include <Rosetta/Commons/DeckString.hpp>
+#include <Rosetta/Commons/DeckCode.hpp>
 
 using namespace RosettaStone;
 
 TEST(DeckString, ParseFromString)
 {
-    EXPECT_ANY_THROW(DeckString::DecodeDeckCode("AAECAR8I"));
+    EXPECT_ANY_THROW(DeckCode::DecodeDeckCode("AAECAR8I"));
     EXPECT_ANY_THROW(
-        DeckString::DecodeDeckCode("AQECAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
-                                   "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
+        DeckCode::DecodeDeckCode("AQECAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
+                                 "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
     EXPECT_ANY_THROW(
-        DeckString::DecodeDeckCode("AAICAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
-                                   "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
+        DeckCode::DecodeDeckCode("AAICAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
+                                 "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
     EXPECT_ANY_THROW(
-        DeckString::DecodeDeckCode("AAESAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
-                                   "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
+        DeckCode::DecodeDeckCode("AAESAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
+                                 "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
     EXPECT_ANY_THROW(
-        DeckString::DecodeDeckCode("AAECAh8FCMcDhwTJBK4GoIADp4IDm4UD1pkDC54BqAK"
-                                   "1A8UI/gyY8ALv8QL1iQPmlgP5lgO+mAMA"));
+        DeckCode::DecodeDeckCode("AAECAh8FCMcDhwTJBK4GoIADp4IDm4UD1pkDC54BqAK"
+                                 "1A8UI/gyY8ALv8QL1iQPmlgP5lgO+mAMA"));
     EXPECT_ANY_THROW(
-        DeckString::DecodeDeckCode("AAECAQAIxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
-                                   "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
+        DeckCode::DecodeDeckCode("AAECAQAIxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
+                                 "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
 
-    DeckInfo info = DeckString::DecodeDeckCode(
+    DeckInfo info = DeckCode::DecodeDeckCode(
         "AAECAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArUDxQj+DJjwAu/xAvWJA+aWA/"
         "mWA76YAwA=");
 
@@ -55,7 +55,7 @@ TEST(DeckString, ParseFromString)
     EXPECT_EQ(info.GetNumCardInDeck("DAL_378"), 2);   // Unleash the Beast
     EXPECT_EQ(info.GetNumCardInDeck("TRL_065"), 1);   // Zul'jin
 
-    DeckInfo info2 = DeckString::DecodeDeckCode(
+    DeckInfo info2 = DeckCode::DecodeDeckCode(
         "AAECAR8IxwOHBMkErgaggAOnggObhQPWmQMAC54BAqgCArUDAsUIAv4MApjwAgLv8QIC9Y"
         "kDAuaWAwL5lgMCvpgDAg==");
 

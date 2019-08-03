@@ -4,14 +4,14 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_DECK_STRING_HPP
-#define ROSETTASTONE_DECK_STRING_HPP
+#ifndef ROSETTASTONE_DECK_CODE_HPP
+#define ROSETTASTONE_DECK_CODE_HPP
 
 #include <Rosetta/Accounts/DeckInfo.hpp>
 
 namespace RosettaStone
 {
-class DeckString
+class DeckCode
 {
  public:
     //! Decodes a deck code and returns the deck that contains some cards.
@@ -20,4 +20,4 @@ class DeckString
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_DECK_STRING_HPP
+#endif  // ROSETTASTONE_DECK_CODE_HPP

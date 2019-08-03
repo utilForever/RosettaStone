@@ -5,14 +5,14 @@
 // property of any third parties.
 
 #include <Rosetta/Cards/Cards.hpp>
-#include <Rosetta/Commons/DeckString.hpp>
+#include <Rosetta/Commons/DeckCode.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 
 #include <stdexcept>
 
 namespace RosettaStone
 {
-DeckInfo DeckString::DecodeDeckCode(const std::string& deckCode)
+DeckInfo DeckCode::DecodeDeckCode(const std::string& deckCode)
 {
     std::size_t pos = 0;
     std::vector<unsigned char> code = DecodeBase64(deckCode);
