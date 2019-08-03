@@ -307,7 +307,7 @@ EXPERT1 | EX1_509 | Murloc Tidecaller |
 EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena |  
 EXPERT1 | EX1_533 | Misdirection |  
-EXPERT1 | EX1_534 | Savannah Highmane |  
+EXPERT1 | EX1_534 | Savannah Highmane | O
 EXPERT1 | EX1_536 | Eaglehorn Bow |  
 EXPERT1 | EX1_537 | Explosive Shot |  
 EXPERT1 | EX1_538 | Unleash the Hounds |  
