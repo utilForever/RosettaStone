@@ -15,13 +15,13 @@
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
 {
-    return t == true;
+    return static_cast<bool>(t);
 }
 
 template <typename T, typename... Others>
 constexpr bool AllCondIsTrue(const T& t, Others const&... args)
 {
-    return (t == true) && AllCondIsTrue(args...);
+    return (static_cast<bool>(t)) && AllCondIsTrue(args...);
 }
 
 //!
