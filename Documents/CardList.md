@@ -228,8 +228,8 @@ EXPERT1 | EX1_137 | Headcrack |
 EXPERT1 | EX1_144 | Shadowstep | O
 EXPERT1 | EX1_145 | Preparation |  
 EXPERT1 | EX1_154 | Wrath | O
-EXPERT1 | EX1_155 | Mark of Nature |  
-EXPERT1 | EX1_158 | Soul of the Forest |  
+EXPERT1 | EX1_155 | Mark of Nature | O
+EXPERT1 | EX1_158 | Soul of the Forest | O
 EXPERT1 | EX1_160 | Power of the Wild |  
 EXPERT1 | EX1_162 | Dire Wolf Alpha |  
 EXPERT1 | EX1_164 | Nourish |  
@@ -266,9 +266,9 @@ EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
 EXPERT1 | EX1_315 | Summoning Portal |  
-EXPERT1 | EX1_317 | Sense Demons |  
+EXPERT1 | EX1_317 | Sense Demons | 
 EXPERT1 | EX1_319 | Flame Imp |  
-EXPERT1 | EX1_320 | Bane of Doom |  
+EXPERT1 | EX1_320 | Bane of Doom | O
 EXPERT1 | EX1_323 | Lord Jaraxxus |  
 EXPERT1 | EX1_332 | Silence | O
 EXPERT1 | EX1_334 | Shadow Madness |  
@@ -284,11 +284,11 @@ EXPERT1 | EX1_363 | Blessing of Wisdom |
 EXPERT1 | EX1_365 | Holy Wrath |  
 EXPERT1 | EX1_366 | Sword of Justice |  
 EXPERT1 | EX1_379 | Repentance |  
-EXPERT1 | EX1_382 | Aldor Peacekeeper |  
+EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
 EXPERT1 | EX1_384 | Avenging Wrath |  
 EXPERT1 | EX1_390 | Tauren Warrior |  
-EXPERT1 | EX1_391 | Slam |  
+EXPERT1 | EX1_391 | Slam | O
 EXPERT1 | EX1_392 | Battle Rage |  
 EXPERT1 | EX1_393 | Amani Berserker |  
 EXPERT1 | EX1_396 | Mogu'shan Warden | O
@@ -307,7 +307,7 @@ EXPERT1 | EX1_509 | Murloc Tidecaller |
 EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena |  
 EXPERT1 | EX1_533 | Misdirection |  
-EXPERT1 | EX1_534 | Savannah Highmane |  
+EXPERT1 | EX1_534 | Savannah Highmane | O
 EXPERT1 | EX1_536 | Eaglehorn Bow |  
 EXPERT1 | EX1_537 | Explosive Shot |  
 EXPERT1 | EX1_538 | Unleash the Hounds |  
@@ -333,14 +333,14 @@ EXPERT1 | EX1_575 | Mana Tide Totem |
 EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune | O
-EXPERT1 | EX1_584 | Ancient Mage |  
+EXPERT1 | EX1_584 | Ancient Mage | O
 EXPERT1 | EX1_586 | Sea Giant |  
 EXPERT1 | EX1_590 | Blood Knight |  
 EXPERT1 | EX1_591 | Auchenai Soulpriest |  
 EXPERT1 | EX1_594 | Vaporize |  
 EXPERT1 | EX1_595 | Cult Master |  
 EXPERT1 | EX1_596 | Demonfire |  
-EXPERT1 | EX1_597 | Imp Master |  
+EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
 EXPERT1 | EX1_607 | Inner Rage | O
@@ -350,7 +350,7 @@ EXPERT1 | EX1_610 | Explosive Trap |
 EXPERT1 | EX1_611 | Freezing Trap |  
 EXPERT1 | EX1_612 | Kirin Tor Mage |  
 EXPERT1 | EX1_613 | Edwin VanCleef |  
-EXPERT1 | EX1_614 | Illidan Stormrage |  
+EXPERT1 | EX1_614 | Illidan Stormrage | O
 EXPERT1 | EX1_616 | Mana Wraith |  
 EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 53% (126 of 237 Cards)
+- Progress: 56% (135 of 237 Cards)
 
 ## Hall of Fame
 
