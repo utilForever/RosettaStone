@@ -59,7 +59,7 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
         if (!power.GetDeathrattleTask().empty())
         {
-            m_target->SetGameTag(GameTag::DEATHRATTLE, 1);
+            entity->SetGameTag(GameTag::DEATHRATTLE, 1);
         }
     }
 
