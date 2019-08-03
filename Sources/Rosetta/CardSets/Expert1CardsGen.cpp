@@ -87,15 +87,18 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_155] Mark of Nature - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b>
-    //       Give a minion +4 Attack; or +4 Health and <b>Taunt</b>.
+    // Text: <b>Choose One -</b> Give a minion +4 Attack;
+    //       or +4 Health and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -103,9 +106,12 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_158] Soul of the Forest - COST:4
-    // - Set: Expert1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your minions \"<b>Deathrattle:</b> Summon a 2/2 Treant.\"
+    // Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_158e", EntityType::MINIONS));
@@ -172,7 +178,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155ae] Mark of Nature (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: This minion has +4 Attack.
     // --------------------------------------------------------
@@ -196,7 +202,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155be] Mark of Nature (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: This minion has +4 Health and <b>Taunt</b>.
     // --------------------------------------------------------
@@ -206,12 +212,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_158e] Soul of the Forest (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: Deathrattle: Summon a 2/2 Treant.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new SummonTask("EX1_158t", SummonSide::DEATHRATTLE));
+    power.AddDeathrattleTask(new SummonTask("EX1_158t", SummonSide::DEFAULT));
     cards.emplace("EX1_158e", power);
 
     // ----------------------------------------- MINION - DRUID
@@ -487,7 +493,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
+    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1190,10 +1196,10 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_320] Bane of Doom - COST:5
-    // - Set: Expert1, Rarity: Epic
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Deal $2 damage to a character.
-    //       If that kills it, summon a random Demon.
+    // Text: Deal $2 damage to a character. If that kills it,
+    //       summon a random Demon.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1202,9 +1208,10 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     power.AddPowerTask(
         new ConditionTask(EntityType::TARGET, { SelfCondition::IsDead() }));
-    power.AddPowerTask(new FlagTask(true,
-    { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
-      new SummonTask(SummonSide::SPELL) }));
+    power.AddPowerTask(new FlagTask(
+        true,
+        { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
+          new SummonTask(SummonSide::SPELL) }));
     cards.emplace("EX1_320", power);
 }
 
@@ -1244,21 +1251,20 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_391] Slam - COST:2
-    // - Set: Expert1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal $2 damage to a minion. If it survives, draw a card.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
-    power.AddPowerTask(new ConditionTask(EntityType::TARGET, {
-        SelfCondition::IsNotDead()
-    }));
+    power.AddPowerTask(
+        new ConditionTask(EntityType::TARGET, { SelfCondition::IsNotDead() }));
     power.AddPowerTask(new FlagTask(true, { new DrawTask(1) }));
-    cards.emplace("EX1_391", power);    
+    cards.emplace("EX1_391", power);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_407] Brawl - COST:5
@@ -2337,7 +2343,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4]
-    // - Set: Expert1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Restore 4 Health to your hero.
     // --------------------------------------------------------
@@ -2350,13 +2356,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
-    // - Set: Expert1, Rarity: Rare
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give adjacent minions
-    //       <b>Spell Damage +1</b>.
+    // Text: <b>Battlecry:</b> Give adjacent minions <b>Spell Damage +1</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SPELLPOWER = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::MINIONS));
@@ -2367,18 +2375,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
-    // - Race: Demon, Set: Expert1, Rarity: Legendary
+    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Whenever you play a card,
-    //       summon a 2/1 Flame of Azzinoth.
+    // Text: Whenever you play a card, summon a 2/1 Flame of_Azzinoth.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
-    power.GetTrigger()->tasks = { new SummonTask("EX1_614t", SummonSide::RIGHT) };
+    power.GetTrigger()->tasks = { new SummonTask("EX1_614t",
+                                                 SummonSide::RIGHT) };
     cards.emplace("EX1_614", power);
 
     // --------------------------------------- MINION - NEUTRAL
