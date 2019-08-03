@@ -28,13 +28,14 @@ TEST(Cards, FindCardByID)
     EXPECT_EQ(card2->id, "");
 }
 
-TEST(Cards, FindCardByDbfId){
-    const Card* card1 = Cards::GetInstance().FindCardByDbfId(559);
-    const Card* card2 = Cards::GetInstance().FindCardByDbfId(-999);
+TEST(Cards, FindCardByDbfId)
+{
+    const Card* card1 = Cards::GetInstance().FindCardByDbfID(559);
+    const Card* card2 = Cards::GetInstance().FindCardByDbfID(-999);
 
-	EXPECT_EQ(card1->dbfId, 559);
+    EXPECT_EQ(card1->dbfID, 559);
     EXPECT_EQ(card1->id, "EX1_116");
-    EXPECT_EQ(card2->dbfId, 0);
+    EXPECT_EQ(card2->dbfID, 0);
     EXPECT_EQ(card2->id, "");
 }
 

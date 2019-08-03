@@ -38,9 +38,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
         const std::string name = cardData["name"].is_null()
                                      ? ""
                                      : cardData["name"].get<std::string>();
-        const int dbfId = cardData["dbfId"].is_null() 
-									 ? 0 
-									 : cardData["dbfId"].get<int>();
+        const int dbfID =
+            cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
         const std::string text = cardData["text"].is_null()
                                      ? ""
                                      : cardData["text"].get<std::string>();
@@ -118,7 +117,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
         Card* card = new Card();
         card->id = id;
-        card->dbfId = dbfId;
+        card->dbfID = dbfID;
         card->name = name;
         card->text = text;
 

@@ -54,17 +54,17 @@ Card* Cards::FindCardByID(const std::string& id)
     return &emptyCard;
 }
 
-Card* Cards::FindCardByDbfId(int dbfId)
+Card* Cards::FindCardByDbfID(int dbfID)
 {
     for (Card* card : m_cards)
     {
-        if (card->dbfId == dbfId)
+        if (card->dbfID == dbfID)
         {
             return card;
         }
     }
 
-	return &emptyCard;
+    return &emptyCard;
 }
 
 std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
