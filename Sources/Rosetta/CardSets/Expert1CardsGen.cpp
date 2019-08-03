@@ -311,6 +311,22 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 1));
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("EX1_617", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
+    // - Race: Beast, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        new EnqueueTask({ new SummonTask(SummonSide::DEATHRATTLE,
+                                         Cards::FindCardByID("EX1_534t")) },
+                        2));
+    cards.emplace("EX1_534", power);
 }
 
 void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
@@ -327,6 +343,14 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, Power>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
     cards.emplace("DS1_188e", power);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [EX1_534t] Hyena (*) - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_534t", power);
 }
 
 void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
@@ -2374,6 +2398,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_584", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, deal 1 damage to this minion
+    //       and summon a 1/1 Imp.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new DamageTask(EntityType::SOURCE, 1),
+                                  new SummonTask("EX1_598",
+                                                 SummonSide::RIGHT) };
+    cards.emplace("EX1_597", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
     // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -2735,6 +2773,14 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_614t", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_598] Imp (*) - COST:1 [ATK:1/HP:1]
+    // - Race: Demon, Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_598", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_finkle] Finkle Einhorn (*) - COST:3 [ATK:3/HP:3]

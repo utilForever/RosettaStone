@@ -467,6 +467,78 @@ TEST(HunterExpert1Test, EX1_617_DeadlyShot)
     EXPECT_EQ(curField.GetCount(), 0);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
+// - Race: Beast, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST(HunterExpert1Test, EX1_534_SavannahHighmane)
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Stonetusk Boar"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Savannah Highmane"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Loot Hoarder"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[1]->GetAttack(), 6);
+    EXPECT_EQ(curField[1]->GetHealth(), 5);
+
+    curField[1]->SetDamage(4);
+    EXPECT_EQ(curField[1]->GetAttack(), 6);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField[2]->GetAttack(), 2);
+    EXPECT_EQ(curField[2]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, AttackTask(card4, card2));
+    EXPECT_EQ(curField.GetCount(), 4);
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+    EXPECT_EQ(curField[1]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetHealth(), 2);
+    EXPECT_EQ(curField[2]->GetAttack(), 2);
+    EXPECT_EQ(curField[2]->GetHealth(), 2);
+    EXPECT_EQ(curField[3]->GetAttack(), 2);
+    EXPECT_EQ(curField[3]->GetHealth(), 1);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [CS2_028] Blizzard - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -6199,13 +6271,11 @@ TEST(NeutralExpert1Test, EX1_583_PriestessOfElune)
 // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give adjacent minions <b>Spell Damage +1</b>.
+// Text: <b>Battlecry:</b> Give adjacent minions
+//       <b>Spell Damage +1</b>.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
-// --------------------------------------------------------
-// RefTag:
-// - SPELLPOWER = 1
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, EX1_584_AncientMage)
 {
@@ -6247,6 +6317,72 @@ TEST(NeutralExpert1Test, EX1_584_AncientMage)
     EXPECT_EQ(curField[0]->GetSpellPower(), 1);
     EXPECT_EQ(curField[2]->GetSpellPower(), 1);
     EXPECT_EQ(curField[3]->GetSpellPower(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, deal 1 damage to this minion
+//       and summon a 1/1 Imp.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_597_ImpMaster)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    // Summon 5 Wisps
+    for (int i = 0; i < 5; i++)
+    {
+        const auto card = Generic::DrawCard(
+            curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+    }
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Imp Master"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField.GetCount(), 6);
+    EXPECT_EQ(curField[5]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curField[5]->GetHealth(), 4);
+
+    // Deal 3 damage to "Imp Master"
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer.GetFieldZone()[5]));
+    EXPECT_EQ(curField[5]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    // "Imp Master kills" self, and full field make it cannot summon "Imp".
+    EXPECT_EQ(curField.GetCount(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
