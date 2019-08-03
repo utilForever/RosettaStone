@@ -5910,6 +5910,72 @@ TEST(NeutralExpert1Test, EX1_583_PriestessOfElune)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, deal 1 damage to this minion
+//       and summon a 1/1 Imp.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_597_ImpMaster)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    // Summon 5 Wisps
+    for (int i = 0; i < 5; i++)
+    {
+        const auto card = Generic::DrawCard(
+            curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+    }
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Imp Master"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField.GetCount(), 6);
+    EXPECT_EQ(curField[5]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curField[5]->GetHealth(), 4);
+
+    // Deal 3 damage to "Imp Master"
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer.GetFieldZone()[5]));
+    EXPECT_EQ(curField[5]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    // "Imp Master kills" self, and full field make it cannot summon "Imp".
+    EXPECT_EQ(curField.GetCount(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
