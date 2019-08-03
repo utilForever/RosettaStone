@@ -12,12 +12,12 @@
 
 namespace RosettaStone
 {
-DeckInfo DeckString::ParseFromString(const std::string& deckString)
+DeckInfo DeckString::DecodeDeckCode(const std::string& deckCode)
 {
     std::size_t pos = 0;
-    std::vector<unsigned char> code = Base64Decode(deckString);
+    std::vector<unsigned char> code = DecodeBase64(deckCode);
 
-    const auto read_varint = [&] {
+    const auto ReadVarint = [&] {
         int shift = 0, result = 0;
 
         while (true)
@@ -25,14 +25,16 @@ DeckInfo DeckString::ParseFromString(const std::string& deckString)
             if (pos >= code.size())
                 throw std::runtime_error("Unexpected EOF while reading varint");
 
-            int ch = code[pos];
+            const int ch = code[pos];
             ++pos;
 
             result |= (ch & 0x7f) << shift;
             shift += 7;
 
             if ((ch & 0x80) == 0)
+            {
                 break;
+            }
         }
 
         return result;
@@ -40,58 +42,53 @@ DeckInfo DeckString::ParseFromString(const std::string& deckString)
 
     if (code[pos] != '\0')
     {
-        throw std::runtime_error("Invalid deckstring");
+        throw std::runtime_error("Invalid deck code");
     }
     ++pos;
 
-    if (read_varint() != DECKSTRING_VERSION)
-    {
-        throw std::runtime_error("Version mismatch");
-    }
-
-    FormatType format = static_cast<FormatType>(read_varint());
+    const auto format = static_cast<FormatType>(ReadVarint());
     if (format != FormatType::STANDARD && format != FormatType::WILD)
     {
         throw std::runtime_error("Invalid format type");
     }
 
-    int num = read_varint();
+    int num = ReadVarint();
     if (num != 1)
     {
-        throw std::runtime_error("Heros count must be 1");
+        throw std::runtime_error("Hero count must be 1");
     }
 
-    Card* hero = Cards::FindCardByDbfId(read_varint());
+    Card* hero = Cards::FindCardByDbfID(ReadVarint());
     if (hero->GetCardClass() == CardClass::INVALID)
     {
         throw std::runtime_error("Invalid hero");
-	}
+    }
 
     DeckInfo deckInfo("EMPTY", hero->GetCardClass());
 
-    // single-copy cards
-    num = read_varint();
+    // Single-copy cards
+    num = ReadVarint();
     for (int i = 0; i < num; ++i)
     {
-        int card_id = read_varint();
-        deckInfo.AddCard(Cards::FindCardByDbfId(card_id)->id, 1);
+        const int cardID = ReadVarint();
+        deckInfo.AddCard(Cards::FindCardByDbfID(cardID)->id, 1);
     }
 
     // 2-copy cards
-    num = read_varint();
+    num = ReadVarint();
     for (int i = 0; i < num; ++i)
     {
-        int card_id = read_varint();
-        deckInfo.AddCard(Cards::FindCardByDbfId(card_id)->id, 2);
+        const int cardID = ReadVarint();
+        deckInfo.AddCard(Cards::FindCardByDbfID(cardID)->id, 2);
     }
 
     // n-copy cards
-    num = read_varint();
+    num = ReadVarint();
     for (int i = 0; i < num; ++i)
     {
-        int card_id = read_varint();
-        int count = read_varint();
-        deckInfo.AddCard(Cards::FindCardByDbfId(card_id)->id, count);
+        const int cardID = ReadVarint();
+        const int count = ReadVarint();
+        deckInfo.AddCard(Cards::FindCardByDbfID(cardID)->id, count);
     }
 
     return deckInfo;
