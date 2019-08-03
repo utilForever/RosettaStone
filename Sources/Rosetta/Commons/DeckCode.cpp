@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/DeckCode.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 
@@ -45,6 +46,11 @@ DeckInfo DeckCode::Decode(const std::string& deckCode)
         throw std::runtime_error("Invalid deck code");
     }
     ++pos;
+
+    if (ReadVarint() != DECK_CODE_VERSION)
+    {
+        throw std::runtime_error("Version mismatch");
+    }
 
     const auto format = static_cast<FormatType>(ReadVarint());
     if (format != FormatType::STANDARD && format != FormatType::WILD)
