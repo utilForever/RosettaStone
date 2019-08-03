@@ -52,7 +52,7 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
     }
 }
 
-std::vector<unsigned char> Base64Decode(const std::string& src);
+std::vector<unsigned char> DecodeBase64(const std::string& src);
 
 //!
 //! \brief SizedPtr class.

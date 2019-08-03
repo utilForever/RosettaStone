@@ -13,7 +13,7 @@
 
 TEST(Base64, Decode)
 {
-    auto decoded = Base64Decode("AQIDBA==");
+    auto decoded = DecodeBase64("AQIDBA==");
 
     EXPECT_EQ(decoded.size(), 4u);
     EXPECT_EQ(decoded[0], 1);

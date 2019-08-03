@@ -8,7 +8,7 @@
 
 #include <memory>
 
-std::vector<unsigned char> Base64Decode(const std::string& src)
+std::vector<unsigned char> DecodeBase64(const std::string& src)
 {
     static constexpr int decodeTable[256] = {
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
