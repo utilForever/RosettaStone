@@ -10,6 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_CONSTANTS_HPP
 #define ROSETTASTONE_TORCH_MCTS_CONSTANTS_HPP
 
+#include <type_traits>
+
 namespace RosettaTorch::MCTS
 {
 //! Dummy structure for updater policy: TreeUpdate.
