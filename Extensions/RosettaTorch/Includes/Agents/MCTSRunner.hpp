@@ -21,74 +21,39 @@
 
 namespace RosettaTorch::Agents
 {
+//!
+//! \brief MCTSRunner class.
+//!
+//! This class runs multi-thread MCTS with simple statistics.
+//!
 class MCTSRunner
 {
  public:
-    MCTSRunner(const MCTSConfig& config) : m_config(config)
-    {
-        // Do nothing
-    }
+    //! Constructs MCTS runner with given \p config.
+    //! \param config The MCTS config.
+    MCTSRunner(const MCTSConfig& config);
 
-    ~MCTSRunner()
-    {
-        WaitUntilStopped();
-    }
+    //! Destructs MCTS runner.
+    ~MCTSRunner();
 
-    void Run(const GameConfig& gameConfig)
-    {
-        assert(m_threads.empty());
-        m_stopFlag = false;
+    //! Runs MCTS as many threads as you set in config.
+    //! \param gameConfig The game config.
+    void Run(const GameConfig& gameConfig);
 
-        for (int i = 0; i < m_config.threads; ++i)
-        {
-            m_threads.emplace_back([this, gameConfig]() {
-                MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics);
+    //! Returns the statistics of MCTS runner.
+    //! \return The statistics of MCTS runner.
+    const MCTS::Statistics<>& GetStatistics() const;
 
-                while (!m_stopFlag.load())
-                {
-                    Game game(gameConfig);
-                    mcts.Iterate(game);
+    //! Returns the root node of the tree.
+    //! \param playerType The type of player.
+    //! \return The root node of the tree.
+    const MCTS::TreeNode* GetRootNode(PlayerType playerType) const;
 
-                    m_statistics.IterateSucceeded();
-                }
-            });
-        }
-    }
+    //! Notifies threads to stop.
+    void NotifyStop();
 
-    const MCTS::Statistics<>& GetStatistics() const
-    {
-        return m_statistics;
-    }
-
-    auto GetRootNode(PlayerType playerType) const
-    {
-        if (playerType == PlayerType::PLAYER1)
-        {
-            return &m_p1Tree;
-        }
-        else
-        {
-            return &m_p2Tree;
-        }
-    }
-
-    int NotifyStop()
-    {
-        m_stopFlag = true;
-        return 0;
-    }
-
-    void WaitUntilStopped()
-    {
-        NotifyStop();
-
-        for (auto& thread : m_threads)
-        {
-            thread.join();
-        }
-
-        m_threads.clear();
-    }
+    //! Waits until all threads stop.
+    void WaitUntilStopped();
 
  private:
     MCTSConfig m_config;
