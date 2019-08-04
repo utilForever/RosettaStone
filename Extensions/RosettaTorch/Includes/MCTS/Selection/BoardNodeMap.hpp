@@ -14,6 +14,7 @@
 #include <Rosetta/Views/Board.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
 
+#include <functional>
 #include <memory>
 #include <shared_mutex>
 #include <unordered_map>
@@ -43,8 +44,8 @@ class BoardNodeMap
 
     //! Runs \p functor on each element of the map.
     //! \param functor A function to run for each element.
-    template <typename Functor>
-    void ForEach(Functor&& functor) const;
+    void ForEach(
+        const std::function<bool(ReducedBoardView, TreeNode*)>& functor) const;
 
  private:
     //! Returns the map that stores several boards.

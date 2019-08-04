@@ -15,6 +15,7 @@
 
 #include <Rosetta/Commons/SpinLocks.hpp>
 
+#include <functional>
 #include <memory>
 #include <tuple>
 #include <unordered_map>
@@ -67,13 +68,13 @@ class ChildNodeMap
 
     //! Runs \p functor on each child node (const).
     //! \param functor A function to run for each child node.
-    template <typename Functor>
-    void ForEach(Functor&& functor) const;
+    void ForEach(const std::function<bool(int, const EdgeAddon*, TreeNode*)>&
+                     functor) const;
 
     //! Runs \p functor on each child node (non-const).
     //! \param functor A function to run for each child node.
-    template <typename Functor>
-    void ForEach(Functor&& functor);
+    void ForEach(
+        const std::function<bool(int, const EdgeAddon*, TreeNode*)>& functor);
 
  private:
     //! Creates an new child node or returns a child node if it exists.

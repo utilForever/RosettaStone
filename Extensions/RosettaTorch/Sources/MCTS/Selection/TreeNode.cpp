@@ -52,8 +52,8 @@ std::pair<const EdgeAddon*, TreeNode*> ChildNodeMap::Get(int choice) const
     }
 }
 
-template <typename Functor>
-void ChildNodeMap::ForEach(Functor&& functor) const
+void ChildNodeMap::ForEach(
+    const std::function<bool(int, const EdgeAddon*, TreeNode*)>& functor) const
 {
     std::shared_lock<SharedSpinLock> lock(m_mapMutex);
 
@@ -66,8 +66,8 @@ void ChildNodeMap::ForEach(Functor&& functor) const
     }
 }
 
-template <typename Functor>
-void ChildNodeMap::ForEach(Functor&& functor)
+void ChildNodeMap::ForEach(
+    const std::function<bool(int, const EdgeAddon*, TreeNode*)>& functor)
 {
     std::shared_lock<SharedSpinLock> lock(m_mapMutex);
 
