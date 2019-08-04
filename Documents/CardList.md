@@ -307,7 +307,7 @@ EXPERT1 | EX1_509 | Murloc Tidecaller |
 EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena |  
 EXPERT1 | EX1_533 | Misdirection |  
-EXPERT1 | EX1_534 | Savannah Highmane |  
+EXPERT1 | EX1_534 | Savannah Highmane | O
 EXPERT1 | EX1_536 | Eaglehorn Bow |  
 EXPERT1 | EX1_537 | Explosive Shot |  
 EXPERT1 | EX1_538 | Unleash the Hounds |  
@@ -340,7 +340,7 @@ EXPERT1 | EX1_591 | Auchenai Soulpriest |
 EXPERT1 | EX1_594 | Vaporize |  
 EXPERT1 | EX1_595 | Cult Master |  
 EXPERT1 | EX1_596 | Demonfire |  
-EXPERT1 | EX1_597 | Imp Master |  
+EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
 EXPERT1 | EX1_607 | Inner Rage | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 56% (133 of 237 Cards)
+- Progress: 56% (135 of 237 Cards)
 
 ## Hall of Fame
 
