@@ -11,7 +11,6 @@
 
 namespace RosettaStone
 {
-
 Card emptyCard;
 std::vector<Card*> Cards::m_cards;
 
@@ -47,6 +46,19 @@ Card* Cards::FindCardByID(const std::string& id)
     for (Card* card : m_cards)
     {
         if (card->id == id)
+        {
+            return card;
+        }
+    }
+
+    return &emptyCard;
+}
+
+Card* Cards::FindCardByDbfID(int dbfID)
+{
+    for (Card* card : m_cards)
+    {
+        if (card->dbfID == dbfID)
         {
             return card;
         }
