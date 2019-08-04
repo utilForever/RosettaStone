@@ -12,6 +12,11 @@
 
 namespace RosettaTorch::Agents
 {
+//!
+//! \brief MCTSConfig struct.
+//!
+//! This struct holds configuration values to create a new MCTS agent/runner.
+//!
 struct MCTSConfig
 {
     MCTSConfig()
