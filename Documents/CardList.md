@@ -243,7 +243,7 @@ EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer |  
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
-EXPERT1 | EX1_243 | Dust Devil |  
+EXPERT1 | EX1_243 | Dust Devil | O
 EXPERT1 | EX1_245 | Earth Shock |  
 EXPERT1 | EX1_247 | Stormforged Axe |  
 EXPERT1 | EX1_248 | Feral Spirit | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 56% (136 of 237 Cards)
+- Progress: 56% (137 of 237 Cards)
 
 ## Hall of Fame
 
