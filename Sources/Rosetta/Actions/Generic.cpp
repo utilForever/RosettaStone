@@ -50,10 +50,16 @@ void ChangeManaCrystal(Player& player, int amount, bool fill)
     // Available and maximum mana are up to a maximum of 10
     if (player.GetTotalMana() + amount > MANA_UPPER_LIMIT)
     {
+        // Add mana crystal when fill is true
         if (!fill)
         {
             player.SetUsedMana(player.GetUsedMana() + MANA_UPPER_LIMIT -
                                player.GetTotalMana());
+        }
+        else
+        {
+            player.SetUsedMana(player.GetUsedMana() + MANA_UPPER_LIMIT -
+                               player.GetTotalMana() - amount);
         }
 
         player.SetTotalMana(MANA_UPPER_LIMIT);
