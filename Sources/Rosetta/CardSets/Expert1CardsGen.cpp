@@ -1049,6 +1049,21 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     cards.emplace("EX1_241", power);
 
+    // ---------------------------------------- MINION - SHAMAN
+    // [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b>. <b>Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_243", power);
+
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_248] Feral Spirit - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
