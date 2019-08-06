@@ -2851,6 +2851,60 @@ TEST(ShamanExpert1Test, EX1_245_EarthShock)
     EXPECT_EQ(curHand.GetCount(), curHandCount);
 }
 
+// ---------------------------------------- WEAPON - SHAMAN
+// [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// - OVERLOAD = 1
+// - OVERLOAD_OWED = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_247_StormforgedAxe)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Stormforged Axe"));
+    
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 2);
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 3);
+
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 8);
+    EXPECT_EQ(curPlayer.GetOverloadOwed(), 1);
+    EXPECT_EQ(curPlayer.GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 9);
+    EXPECT_EQ(curPlayer.GetOverloadOwed(), 0);
+    EXPECT_EQ(curPlayer.GetOverloadLocked(), 1);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_248] Feral Spirit - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare

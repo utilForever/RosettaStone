@@ -1082,6 +1082,21 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     cards.emplace("EX1_245", power);
 
+    // ---------------------------------------- WEAPON - SHAMAN
+    // [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 3
+    // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_247", power);
+
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_248] Feral Spirit - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
