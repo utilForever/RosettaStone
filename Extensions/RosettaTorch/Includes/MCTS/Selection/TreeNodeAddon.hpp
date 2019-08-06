@@ -11,6 +11,7 @@
 #define ROSETTASTONE_TORCH_MCTS_TREE_NODE_ADDON_HPP
 
 #include <MCTS/Selection/BoardNodeMap.hpp>
+#include <MCTS/Selection/EdgeAddon.hpp>
 
 #include <Rosetta/Commons/SpinLocks.hpp>
 #include <Rosetta/Commons/Utils.hpp>
@@ -22,26 +23,15 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief LeadingNodesItem struct.
 //!
+//! This struct contains tree node and edge addon.
+//!
 struct LeadingNodesItem
 {
-    bool operator==(const LeadingNodesItem& v) const
-    {
-        if (node != v.node)
-        {
-            return false;
-        }
-        if (edgeAddon != v.edgeAddon)
-        {
-            return false;
-        }
+    //! Operator overloading: operator==.
+    bool operator==(const LeadingNodesItem& v) const;
 
-        return true;
-    }
-
-    bool operator!=(const LeadingNodesItem& v) const
-    {
-        return !(*this == v);
-    }
+    //! Operator overloading: operator!=.
+    bool operator!=(const LeadingNodesItem& v) const;
 
     TreeNode* node;
     EdgeAddon* edgeAddon;
@@ -50,6 +40,7 @@ struct LeadingNodesItem
 
 namespace std
 {
+//! \brief Template specialization of std::hash for LeadingNodesItem.
 template <>
 struct hash<RosettaTorch::MCTS::LeadingNodesItem>
 {
