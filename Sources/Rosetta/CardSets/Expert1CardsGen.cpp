@@ -1065,6 +1065,24 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("EX1_243", power);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_245] Earth Shock - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> a minion, then deal $1 damage to it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    cards.emplace("EX1_245", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [EX1_248] Feral Spirit - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------

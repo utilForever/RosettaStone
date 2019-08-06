@@ -2798,6 +2798,60 @@ TEST(ShamanExpert1Test, EX1_243_DustDevil)
 }
 
 // ----------------------------------------- SPELL - SHAMAN
+// [EX1_245] Earth Shock - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Silence</b> a minion, then deal $1 damage to it.
+// --------------------------------------------------------
+// GameTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_245_EarthShock)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Earth Shock"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    const int curHandCount = curHand.GetCount();
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(curHand.GetCount(), curHandCount);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
 // [EX1_248] Feral Spirit - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
