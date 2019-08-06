@@ -117,6 +117,19 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("EX1_158e", EntityType::MINIONS));
     cards.emplace("EX1_158", power);
 
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_164] Nourish - COST:6
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_164", power);
+
     // ------------------------------------------- SPELL - DRUID
     // [EX1_570] Bite - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -227,6 +240,26 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_158t", power);
+    
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_164a] Rampant Growth (*) - COST:6
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Gain 2 Mana Crystals.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ManaCrystalTask(2, true));
+    cards.emplace("EX1_164a", power);
+    
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_164b] Enrich (*) - COST:6
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Draw 3 cards.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(3));
+    cards.emplace("EX1_164b", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_570e] Bite - COST:0

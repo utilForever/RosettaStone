@@ -210,6 +210,67 @@ TEST(DruidExpert1Test, EX1_158_SoulOfTheForest)
     EXPECT_EQ(opField[2]->card->name, "Treant");
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [EX1_164] Nourish - COST:6
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_164_Nourish)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(6);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByID("EX1_164"));    
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    
+    EXPECT_EQ(curPlayer.GetTotalMana(), 8);
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 2);
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
+    
+    EXPECT_EQ(opPlayer.GetTotalMana(), 10);
+    EXPECT_EQ(opPlayer.GetRemainingMana(), 6);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    const int curHandCount = curHand.GetCount();
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    
+    EXPECT_EQ(curHandCount + 2, curHand.GetCount());
+}
+
 // ------------------------------------------- SPELL - DRUID
 // [EX1_570] Bite - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
