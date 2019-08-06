@@ -41,38 +41,25 @@ void Selection::StartAction(const Board& board)
     }
 
     auto currentNode = m_path.GetCurrentNode();
-    assert(currentNode);
-    assert(currentNode->addon.consistencyChecker.CheckActionType(
-        ActionType::MAIN_ACTION));
-    assert(
-        currentNode->addon.consistencyChecker.CheckBoard(board.CreateView()));
 
     if (m_redirectNodeMap == nullptr)
     {
         m_redirectNodeMap = &currentNode->addon.boardNodeMap;
-        assert(m_redirectNodeMap);
     }
 }
 
 int Selection::ChooseAction(ActionType actionType, ActionChoices& choices)
 {
-    assert(!choices.IsEmpty());
-
     if (m_path.HasCurrentNodeMadeChoice())
     {
         m_path.ConstructNode();
-        assert(!m_path.HasCurrentNodeMadeChoice());
     }
 
     TreeNode* currentNode = m_path.GetCurrentNode();
-    assert(
-        currentNode->addon.consistencyChecker.SetAndCheck(actionType, choices));
-
     const int nextChoice = m_policy->SelectChoice(
         actionType, ChoiceIterator(choices, currentNode->children));
 
     // Should report a valid action
-    assert(nextChoice >= 0);
     m_path.MakeChoiceForCurrentNode(nextChoice);
 
     return nextChoice;
@@ -80,12 +67,9 @@ int Selection::ChooseAction(ActionType actionType, ActionChoices& choices)
 
 bool Selection::FinishAction(const Board& board, PlayState result)
 {
-    assert(m_path.HasCurrentNodeMadeChoice());
-
     // We tackle the randomness by using a board node map.
     // This flatten tree structure, and effectively forgot the history
     // (Note that history here referring to the parent nodes of this node)
-    assert(m_redirectNodeMap);
     m_path.ConstructRedirectNode(m_redirectNodeMap, board, result);
 
     bool switchToSimulation = false;
