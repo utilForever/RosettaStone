@@ -2963,6 +2963,61 @@ TEST(ShamanExpert1Test, EX1_248_FeralSpirit)
     EXPECT_EQ(curPlayer.GetOverloadLocked(), 2);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b><b>Overload</b>:</b> (3)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 3
+// - OVERLOAD_OWED = 3
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_250_EarthElemental)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Earth Elemental"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 5);
+    EXPECT_EQ(curPlayer.GetOverloadOwed(), 3);
+    EXPECT_EQ(curPlayer.GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 7);
+    EXPECT_EQ(curPlayer.GetOverloadOwed(), 0);
+    EXPECT_EQ(curPlayer.GetOverloadLocked(), 3);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_251] Forked Lightning - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common

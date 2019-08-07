@@ -1115,6 +1115,22 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new SummonTask("EX1_tk11", 2));
     cards.emplace("EX1_248", power);
 
+    // ---------------------------------------- MINION - SHAMAN
+    // [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b><b>Overload</b>:</b> (3)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 3
+    // - OVERLOAD_OWED = 3
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_250", power);
+
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_251] Forked Lightning - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
