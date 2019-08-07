@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TREE_NODE_ADDON_HPP
 #define ROSETTASTONE_TORCH_MCTS_TREE_NODE_ADDON_HPP
 
+#include <MCTS/Commons/Constants.hpp>
 #include <MCTS/Selection/BoardNodeMap.hpp>
 #include <MCTS/Selection/EdgeAddon.hpp>
 
@@ -28,10 +29,10 @@ namespace RosettaTorch::MCTS
 struct LeadingNodesItem
 {
     //! Operator overloading: operator==.
-    bool operator==(const LeadingNodesItem& v) const;
+    bool operator==(const LeadingNodesItem& rhs) const;
 
     //! Operator overloading: operator!=.
-    bool operator!=(const LeadingNodesItem& v) const;
+    bool operator!=(const LeadingNodesItem& rhs) const;
 
     TreeNode* node;
     EdgeAddon* edgeAddon;
@@ -61,127 +62,40 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief ConsistencyCheckAddons class.
 //!
+//! This class is addon class to check consistency of board and action type.
+//!
 class ConsistencyCheckAddons
 {
  public:
-    bool SetAndCheck(ActionType actionType, ActionChoices const& choices)
-    {
-        std::lock_guard<SpinLock> lock(m_mutex);
+    //! Sets spin lock and checks action type and choices.
+    //! \param actionType The type of action.
+    //! \param choices The choices of action.
+    //! \return The flag indicates action type and choices are consistent.
+    bool SetAndCheck(ActionType actionType, const ActionChoices& choices);
 
-        assert(actionType != ActionType::INVALID);
+    //! Sets spin lock and checks board.
+    //! \param view The reduced board view.
+    //! \return The flag indicates board is consistent.
+    bool SetAndCheckBoard(const ReducedBoardView& view);
 
-        return CheckActionTypeAndChoices(actionType, choices);
-    }
+    //! Sets spin lock and checks board.
+    //! \param view The reduced board view.
+    //! \return The flag indicates board is consistent.
+    bool CheckBoard(const ReducedBoardView& view) const;
 
-    bool SetAndCheckBoard(ReducedBoardView const& newView)
-    {
-        std::lock_guard<SpinLock> lock(m_mutex);
-        return LockedSetAndCheckBoard(newView);
-    }
+    bool CheckActionType(ActionType actionType) const;
 
-    bool CheckBoard(ReducedBoardView const& newView) const
-    {
-        std::lock_guard<SpinLock> lock(m_mutex);
+    ActionType GetActionType() const;
 
-        if (!m_boardView)
-        {
-            return true;
-        }
-
-        return *m_boardView == newView;
-    }
-
-    bool CheckActionType(ActionType actionType) const
-    {
-        std::lock_guard<SpinLock> lock(m_mutex);
-        return LockedCheckActionType(actionType);
-    }
-
-    auto GetActionType() const
-    {
-        std::lock_guard<SpinLock> lock(m_mutex);
-        return m_actionType;
-    }
-
-    auto GetBoard() const
-    {
-        std::lock_guard<SpinLock> lock(m_mutex);
-        return m_boardView.get();
-    }
+    ReducedBoardView* GetBoard() const;
 
  private:
-    bool LockedSetAndCheckBoard(ReducedBoardView const& newView)
-    {
-        if (!m_boardView)
-        {
-            m_boardView.reset(new ReducedBoardView(newView));
-            return true;
-        }
+    bool LockedSetAndCheckBoard(const ReducedBoardView& view);
 
-        return *m_boardView == newView;
-    }
+    bool LockedCheckActionType(ActionType actionType) const;
 
-    bool LockedCheckActionType(ActionType action_type) const
-    {
-        if (m_actionType == ActionType::INVALID)
-            return true;
-        return m_actionType == action_type;
-    }
-
-    bool CheckActionTypeAndChoices(ActionType actionType,
-                                   ActionChoices const& choices)
-    {
-        if (m_actionType == ActionType::INVALID)
-        {
-            m_actionType = actionType;
-            m_actionChoices = choices;
-
-            return true;
-        }
-
-        if (m_actionType != actionType)
-        {
-            return false;
-        }
-
-        if (m_actionChoices.GetIndex() != choices.GetIndex())
-        {
-            return false;
-        }
-
-        if (!m_actionChoices.Compare(choices, [](auto&& lhs, auto&& rhs) {
-                using Type1 = std::decay_t<decltype(lhs)>;
-                using Type2 = std::decay_t<decltype(rhs)>;
-
-                if (!std::is_same_v<Type1, Type2>)
-                {
-                    return false;
-                }
-
-                if (std::is_same_v<Type1, ActionChoices::ChooseFromCardIDs>)
-                {
-                    return true;
-                }
-
-                if (std::is_same_v<Type1,
-                                   ActionChoices::ChooseFromZeroToExclusiveMax>)
-                {
-                    return lhs.Size() == rhs.Size();
-                }
-
-                if (std::is_same_v<Type1, ActionChoices::InvalidChoice>)
-                {
-                    return false;
-                }
-
-                return false;
-            }))
-        {
-            return false;
-        }
-
-        return true;
-    }
+    bool LockedCheckActionTypeAndChoices(ActionType actionType,
+                                         const ActionChoices& choices);
 
     mutable SpinLock m_mutex{};
     std::unique_ptr<ReducedBoardView> m_boardView;
@@ -198,8 +112,6 @@ class LeadingNodes
     void AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon)
     {
         std::lock_guard<SharedSpinLock> lock(m_mutex);
-        assert(node);
-
         for (const auto& item : m_items)
         {
             if (item.node == node && item.edgeAddon == edgeAddon)
