@@ -10,10 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 #define ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 
-#include <MCTS/Commons/Constants.hpp>
-
 #include <atomic>
-#include <cassert>
 #include <cstdint>
 
 namespace RosettaTorch::MCTS

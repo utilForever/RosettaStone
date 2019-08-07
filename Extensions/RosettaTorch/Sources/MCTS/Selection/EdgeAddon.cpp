@@ -7,6 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <MCTS/Commons/Constants.hpp>
 #include <MCTS/Selection/EdgeAddon.hpp>
 
 namespace RosettaTorch::MCTS
