@@ -175,35 +175,20 @@ class ConsistencyCheckAddons
 //!
 //! \brief LeadingNodes class.
 //!
+//! This class represents the lead of the tree node.
+//!
 class LeadingNodes
 {
  public:
-    void AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon)
-    {
-        std::lock_guard<SharedSpinLock> lock(m_mutex);
-        for (const auto& item : m_items)
-        {
-            if (item.node == node && item.edgeAddon == edgeAddon)
-            {
-                return;
-            }
-        }
+    //! Adds the leading node to items.
+    //! \param node A pointer pointing to add the leading node.
+    //! \param edgeAddon The edge addon of the leading node.
+    void AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon);
 
-        m_items.push_back(LeadingNodesItem{ node, edgeAddon });
-    }
-
-    template <class Functor>
-    void ForEachLeadingNode(Functor&& op)
-    {
-        std::shared_lock<SharedSpinLock> lock(m_mutex);
-        for (const auto& item : m_items)
-        {
-            if (!op(item.node, item.edgeAddon))
-            {
-                break;
-            }
-        }
-    }
+    //! Iterates something for each leading node.
+    //! \param functor A function to run for each leading node.
+    void ForEachLeadingNode(
+        const std::function<bool(TreeNode*, EdgeAddon*)>& functor);
 
  private:
     mutable SharedSpinLock m_mutex;

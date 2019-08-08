@@ -74,4 +74,31 @@ bool ConsistencyCheckAddons::CheckBoard(const ReducedBoardView& view)
 
     return *m_boardView == view;
 }
+
+void LeadingNodes::AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon)
+{
+    std::lock_guard<SharedSpinLock> lock(m_mutex);
+    for (const auto& item : m_items)
+    {
+        if (item.node == node && item.edgeAddon == edgeAddon)
+        {
+            return;
+        }
+    }
+
+    m_items.push_back(LeadingNodesItem{ node, edgeAddon });
+}
+
+void LeadingNodes::ForEachLeadingNode(
+    const std::function<bool(TreeNode*, EdgeAddon*)>& functor)
+{
+    std::shared_lock<SharedSpinLock> lock(m_mutex);
+    for (const auto& item : m_items)
+    {
+        if (!functor(item.node, item.edgeAddon))
+        {
+            break;
+        }
+    }
+}
 }  // namespace RosettaTorch::MCTS
