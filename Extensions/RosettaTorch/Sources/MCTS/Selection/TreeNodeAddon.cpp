@@ -54,18 +54,6 @@ ReducedBoardView* ConsistencyCheckAddons::GetBoard() const
     return m_boardView.get();
 }
 
-bool ConsistencyCheckAddons::CheckBoard(
-    const ReducedBoardView& view)
-{
-    if (!m_boardView)
-    {
-        m_boardView.reset(new ReducedBoardView(view));
-        return true;
-    }
-
-    return *m_boardView == view;
-}
-
 bool ConsistencyCheckAddons::CheckActionType(ActionType actionType) const
 {
     if (m_actionType == ActionType::INVALID)
@@ -74,5 +62,16 @@ bool ConsistencyCheckAddons::CheckActionType(ActionType actionType) const
     }
 
     return m_actionType == actionType;
+}
+
+bool ConsistencyCheckAddons::CheckBoard(const ReducedBoardView& view)
+{
+    if (!m_boardView)
+    {
+        m_boardView.reset(new ReducedBoardView(view));
+        return true;
+    }
+
+    return *m_boardView == view;
 }
 }  // namespace RosettaTorch::MCTS

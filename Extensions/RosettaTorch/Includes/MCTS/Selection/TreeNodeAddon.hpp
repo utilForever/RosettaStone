@@ -97,10 +97,15 @@ class ConsistencyCheckAddons
     ReducedBoardView* GetBoard() const;
 
  private:
-    bool CheckBoard(const ReducedBoardView& view);
-
+    //! Checks action type.
+    //! \param actionType The type of action.
+    //! \return The flag indicates action type is consistent.
     bool CheckActionType(ActionType actionType) const;
 
+    //! Checks action type and choices.
+    //! \param actionType The type of action.
+    //! \param choices The choices of action.
+    //! \return The flag indicates action type and choices are consistent.
     bool CheckActionTypeAndChoices(ActionType actionType,
                                    const ActionChoices& choices)
     {
@@ -155,6 +160,11 @@ class ConsistencyCheckAddons
 
         return true;
     }
+
+    //! Checks board.
+    //! \param view The reduced board view.
+    //! \return The flag indicates board is consistent.
+    bool CheckBoard(const ReducedBoardView& view);
 
     mutable SpinLock m_mutex{};
     std::unique_ptr<ReducedBoardView> m_boardView;
