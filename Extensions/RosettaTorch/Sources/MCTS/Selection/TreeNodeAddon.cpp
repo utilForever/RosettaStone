@@ -30,51 +30,6 @@ bool LeadingNodesItem::operator!=(const LeadingNodesItem& rhs) const
     return !(*this == rhs);
 }
 
-bool ConsistencyCheckAddons::LockAndCheckActionType(ActionType actionType) const
-{
-    std::lock_guard<SpinLock> lock(m_mutex);
-    return CheckActionType(actionType);
-}
-
-bool ConsistencyCheckAddons::LockAndCheckBoard(const ReducedBoardView& view)
-{
-    std::lock_guard<SpinLock> lock(m_mutex);
-    return CheckBoard(view);
-}
-
-ActionType ConsistencyCheckAddons::GetActionType() const
-{
-    std::lock_guard<SpinLock> lock(m_mutex);
-    return m_actionType;
-}
-
-ReducedBoardView* ConsistencyCheckAddons::GetBoard() const
-{
-    std::lock_guard<SpinLock> lock(m_mutex);
-    return m_boardView.get();
-}
-
-bool ConsistencyCheckAddons::CheckActionType(ActionType actionType) const
-{
-    if (m_actionType == ActionType::INVALID)
-    {
-        return true;
-    }
-
-    return m_actionType == actionType;
-}
-
-bool ConsistencyCheckAddons::CheckBoard(const ReducedBoardView& view)
-{
-    if (!m_boardView)
-    {
-        m_boardView.reset(new ReducedBoardView(view));
-        return true;
-    }
-
-    return *m_boardView == view;
-}
-
 void LeadingNodes::AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon)
 {
     std::lock_guard<SharedSpinLock> lock(m_mutex);
