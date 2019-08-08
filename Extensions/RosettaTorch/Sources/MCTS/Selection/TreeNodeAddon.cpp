@@ -33,13 +33,13 @@ bool LeadingNodesItem::operator!=(const LeadingNodesItem& rhs) const
 bool ConsistencyCheckAddons::LockAndCheckActionType(ActionType actionType) const
 {
     std::lock_guard<SpinLock> lock(m_mutex);
-    return LockedCheckActionType(actionType);
+    return CheckActionType(actionType);
 }
 
 bool ConsistencyCheckAddons::LockAndCheckBoard(const ReducedBoardView& view)
 {
     std::lock_guard<SpinLock> lock(m_mutex);
-    return LockedSetAndCheckBoard(view);
+    return CheckBoard(view);
 }
 
 ActionType ConsistencyCheckAddons::GetActionType() const
@@ -54,7 +54,7 @@ ReducedBoardView* ConsistencyCheckAddons::GetBoard() const
     return m_boardView.get();
 }
 
-bool ConsistencyCheckAddons::LockedSetAndCheckBoard(
+bool ConsistencyCheckAddons::CheckBoard(
     const ReducedBoardView& view)
 {
     if (!m_boardView)
@@ -66,7 +66,7 @@ bool ConsistencyCheckAddons::LockedSetAndCheckBoard(
     return *m_boardView == view;
 }
 
-bool ConsistencyCheckAddons::LockedCheckActionType(ActionType actionType) const
+bool ConsistencyCheckAddons::CheckActionType(ActionType actionType) const
 {
     if (m_actionType == ActionType::INVALID)
     {
