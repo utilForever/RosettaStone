@@ -61,7 +61,7 @@ int MCTSAgent::GetAction(ActionType actionType, ActionChoices choices)
         }
     }
 
-    if (!m_node->addon.consistencyChecker.CheckActionType(actionType))
+    if (!m_node->addon.consistencyChecker.SetAndCheckActionType(actionType))
     {
         throw std::runtime_error("Action type not match");
     }
