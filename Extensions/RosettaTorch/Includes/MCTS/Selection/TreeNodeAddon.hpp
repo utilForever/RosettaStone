@@ -13,78 +13,15 @@
 #include <MCTS/Commons/Constants.hpp>
 #include <MCTS/Selection/BoardNodeMap.hpp>
 #include <MCTS/Selection/ConsistencyCheckAddon.hpp>
-#include <MCTS/Selection/EdgeAddon.hpp>
-
-#include <Rosetta/Commons/SpinLocks.hpp>
-#include <Rosetta/Commons/Utils.hpp>
-
-#include <mutex>
+#include <MCTS/Selection/LeadingNodes.hpp>
 
 namespace RosettaTorch::MCTS
 {
-//!
-//! \brief LeadingNodesItem struct.
-//!
-//! This struct contains tree node and edge addon.
-//!
-struct LeadingNodesItem
-{
-    //! Operator overloading: operator==.
-    bool operator==(const LeadingNodesItem& rhs) const;
-
-    //! Operator overloading: operator!=.
-    bool operator!=(const LeadingNodesItem& rhs) const;
-
-    TreeNode* node;
-    EdgeAddon* edgeAddon;
-};
-}  // namespace RosettaTorch::MCTS
-
-namespace std
-{
-//! \brief Template specialization of std::hash for LeadingNodesItem.
-template <>
-struct hash<RosettaTorch::MCTS::LeadingNodesItem>
-{
-    std::size_t operator()(
-        const RosettaTorch::MCTS::LeadingNodesItem& rhs) const noexcept
-    {
-        std::size_t result =
-            std::hash<RosettaTorch::MCTS::TreeNode*>()(rhs.node);
-        CombineHash(result, rhs.edgeAddon);
-
-        return result;
-    }
-};
-}  // namespace std
-
-namespace RosettaTorch::MCTS
-{
-//!
-//! \brief LeadingNodes class.
-//!
-//! This class represents the lead of the tree node.
-//!
-class LeadingNodes
-{
- public:
-    //! Adds the leading node to items.
-    //! \param node A pointer pointing to add the leading node.
-    //! \param edgeAddon The edge addon of the leading node.
-    void AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon);
-
-    //! Iterates something for each leading node.
-    //! \param functor A function to run for each leading node.
-    void ForEachLeadingNode(
-        const std::function<bool(TreeNode*, EdgeAddon*)>& functor);
-
- private:
-    mutable SharedSpinLock m_mutex;
-    std::vector<LeadingNodesItem> m_items;
-};
-
 //!
 //! \brief TreeNodeAddon struct.
+//!
+//! This struct contains consistency check addon, board node map and
+//! conditional leading nodes for recording.
 //!
 struct TreeNodeAddon
 {
