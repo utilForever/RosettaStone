@@ -30,35 +30,16 @@ bool LeadingNodesItem::operator!=(const LeadingNodesItem& rhs) const
     return !(*this == rhs);
 }
 
-bool ConsistencyCheckAddons::SetAndCheck(ActionType actionType,
-                                         const ActionChoices& choices)
-{
-    std::lock_guard<SpinLock> lock(m_mutex);
-    return LockedCheckActionTypeAndChoices(actionType, choices);
-}
-
-bool ConsistencyCheckAddons::SetAndCheckBoard(const ReducedBoardView& view)
-{
-    std::lock_guard<SpinLock> lock(m_mutex);
-    return LockedSetAndCheckBoard(view);
-}
-
-bool ConsistencyCheckAddons::CheckBoard(const ReducedBoardView& view) const
-{
-    std::lock_guard<SpinLock> lock(m_mutex);
-
-    if (!m_boardView)
-    {
-        return true;
-    }
-
-    return *m_boardView == view;
-}
-
-bool ConsistencyCheckAddons::CheckActionType(ActionType actionType) const
+bool ConsistencyCheckAddons::LockAndCheckActionType(ActionType actionType) const
 {
     std::lock_guard<SpinLock> lock(m_mutex);
     return LockedCheckActionType(actionType);
+}
+
+bool ConsistencyCheckAddons::LockAndCheckBoard(const ReducedBoardView& view)
+{
+    std::lock_guard<SpinLock> lock(m_mutex);
+    return LockedSetAndCheckBoard(view);
 }
 
 ActionType ConsistencyCheckAddons::GetActionType() const
@@ -93,60 +74,5 @@ bool ConsistencyCheckAddons::LockedCheckActionType(ActionType actionType) const
     }
 
     return m_actionType == actionType;
-}
-
-bool ConsistencyCheckAddons::LockedCheckActionTypeAndChoices(
-    ActionType actionType, const ActionChoices& choices)
-{
-    if (m_actionType == ActionType::INVALID)
-    {
-        m_actionType = actionType;
-        m_actionChoices = choices;
-
-        return true;
-    }
-
-    if (m_actionType != actionType)
-    {
-        return false;
-    }
-
-    if (m_actionChoices.GetIndex() != choices.GetIndex())
-    {
-        return false;
-    }
-
-    if (!m_actionChoices.Compare(choices, [](auto&& lhs, auto&& rhs) {
-            using Type1 = std::decay_t<decltype(lhs)>;
-            using Type2 = std::decay_t<decltype(rhs)>;
-
-            if (!std::is_same_v<Type1, Type2>)
-            {
-                return false;
-            }
-
-            if (std::is_same_v<Type1, ActionChoices::ChooseFromCardIDs>)
-            {
-                return true;
-            }
-
-            //if (std::is_same_v<Type1,
-            //                   ActionChoices::ChooseFromZeroToExclusiveMax>)
-            //{
-            //    return lhs.Size() == rhs.Size();
-            //}
-
-            if (std::is_same_v<Type1, ActionChoices::InvalidChoice>)
-            {
-                return false;
-            }
-
-            return false;
-        }))
-    {
-        return false;
-    }
-
-    return true;
 }
 }  // namespace RosettaTorch::MCTS

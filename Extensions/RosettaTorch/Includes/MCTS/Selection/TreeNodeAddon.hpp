@@ -67,35 +67,94 @@ namespace RosettaTorch::MCTS
 class ConsistencyCheckAddons
 {
  public:
+    //! Sets spin lock and checks action type.
+    //! \param actionType The type of action.
+    //! \return The flag indicates action type is consistent.
+    bool LockAndCheckActionType(ActionType actionType) const;
+
     //! Sets spin lock and checks action type and choices.
     //! \param actionType The type of action.
     //! \param choices The choices of action.
     //! \return The flag indicates action type and choices are consistent.
-    bool SetAndCheck(ActionType actionType, const ActionChoices& choices);
+    bool LockAndCheckActionTypeAndChoices(ActionType actionType,
+                                          const ActionChoices& choices)
+    {
+        std::lock_guard<SpinLock> lock(m_mutex);
+        return CheckActionTypeAndChoices(actionType, choices);
+    }
 
     //! Sets spin lock and checks board.
     //! \param view The reduced board view.
     //! \return The flag indicates board is consistent.
-    bool SetAndCheckBoard(const ReducedBoardView& view);
+    bool LockAndCheckBoard(const ReducedBoardView& view);
 
-    //! Sets spin lock and checks board.
-    //! \param view The reduced board view.
-    //! \return The flag indicates board is consistent.
-    bool CheckBoard(const ReducedBoardView& view) const;
-
-    bool CheckActionType(ActionType actionType) const;
-
+    //! Returns the type of action.
+    //! \return The type of action.
     ActionType GetActionType() const;
 
+    //! Returns the reduced board view.
+    //! \return The reduced board view.
     ReducedBoardView* GetBoard() const;
 
  private:
-    bool LockedSetAndCheckBoard(const ReducedBoardView& view);
+    bool CheckBoard(const ReducedBoardView& view);
 
-    bool LockedCheckActionType(ActionType actionType) const;
+    bool CheckActionType(ActionType actionType) const;
 
-    bool LockedCheckActionTypeAndChoices(ActionType actionType,
-                                         const ActionChoices& choices);
+    bool CheckActionTypeAndChoices(ActionType actionType,
+                                   const ActionChoices& choices)
+    {
+        if (m_actionType == ActionType::INVALID)
+        {
+            m_actionType = actionType;
+            m_actionChoices = choices;
+
+            return true;
+        }
+
+        if (m_actionType != actionType)
+        {
+            return false;
+        }
+
+        if (m_actionChoices.GetIndex() != choices.GetIndex())
+        {
+            return false;
+        }
+
+        if (!m_actionChoices.Compare(choices, [](auto&& lhs, auto&& rhs) {
+                using Type1 = std::decay_t<decltype(lhs)>;
+                using Type2 = std::decay_t<decltype(rhs)>;
+
+                if (!std::is_same_v<Type1, Type2>)
+                {
+                    return false;
+                }
+
+                if (std::is_same_v<Type1, ActionChoices::ChooseFromCardIDs>)
+                {
+                    return true;
+                }
+
+                if (std::is_same_v<Type1,
+                                   ActionChoices::ChooseFromZeroToExclusiveMax>)
+                {
+                    return lhs.Size() == rhs.Size();
+                }
+
+                if (std::is_same_v<Type1, ActionChoices::InvalidChoice>)
+                {
+                    return false;
+                }
+
+                return false;
+            }))
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     mutable SpinLock m_mutex{};
     std::unique_ptr<ReducedBoardView> m_boardView;
