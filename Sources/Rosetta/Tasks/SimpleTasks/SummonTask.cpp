@@ -13,21 +13,21 @@
 namespace RosettaStone::SimpleTasks
 {
 SummonTask::SummonTask(SummonSide side, std::optional<Card*> card, int amount,
-                       bool toOpposite)
-    : m_card(card), m_side(side), m_amount(amount), m_toOpposite(toOpposite)
+                       bool toOpponent)
+    : m_card(card), m_side(side), m_amount(amount), m_toOpponent(toOpponent)
 {
     // Do nothing
 }
 
-SummonTask::SummonTask(const std::string& cardID, int amount, bool toOpposite)
-    : m_amount(amount), m_toOpposite(toOpposite)
+SummonTask::SummonTask(const std::string& cardID, int amount, bool toOpponent)
+    : m_amount(amount), m_toOpponent(toOpponent)
 {
     m_card = Cards::FindCardByID(cardID);
 }
 
 SummonTask::SummonTask(const std::string& cardID, SummonSide side,
-                       bool toOpposite)
-    : m_side(side), m_toOpposite(toOpposite)
+                       bool toOpponent)
+    : m_side(side), m_toOpponent(toOpponent)
 {
     m_card = Cards::FindCardByID(cardID);
 }
@@ -39,7 +39,7 @@ TaskID SummonTask::GetTaskID() const
 
 TaskStatus SummonTask::Impl(Player& player)
 {
-    Player* summoner = m_toOpposite ? player.opponent : &player;
+    Player* summoner = m_toOpponent ? player.opponent : &player;
 
     for (int i = 0; i < m_amount; ++i)
     {
@@ -126,6 +126,6 @@ TaskStatus SummonTask::Impl(Player& player)
 
 ITask* SummonTask::CloneImpl()
 {
-    return new SummonTask(m_side, m_card, m_amount, m_toOpposite);
+    return new SummonTask(m_side, m_card, m_amount, m_toOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks
