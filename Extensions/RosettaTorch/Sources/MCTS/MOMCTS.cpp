@@ -25,15 +25,14 @@ void MOMCTS::Iterate(Game& game)
 
     while (true)
     {
-        PlayerController::Player player =
-            m_playerController.GetActionForPlayer();
+        PlayerController::Player player = m_playerController.GetPlayer();
         bool iterationEnds = false;
         StateValue stateValue;
 
-        while (m_playerController.GetActionForPlayer() == player)
+        while (m_playerController.GetPlayer() == player)
         {
             iterationEnds = GetSOMCTS(player).PerformAction(
-                m_playerController.GetPlayerView(player), stateValue);
+                m_playerController.GetPlayerBoard(player), stateValue);
             if (iterationEnds)
             {
                 break;
@@ -42,17 +41,17 @@ void MOMCTS::Iterate(Game& game)
 
         if (iterationEnds)
         {
-            m_player1.FinishIteration(m_playerController.GetPlayerView(
+            m_player1.FinishIteration(m_playerController.GetPlayerBoard(
                                           PlayerController::Player::Player1()),
                                       stateValue);
-            m_player2.FinishIteration(m_playerController.GetPlayerView(
+            m_player2.FinishIteration(m_playerController.GetPlayerBoard(
                                           PlayerController::Player::Player2()),
                                       stateValue);
 
             break;
         }
 
-        GetSOMCTS(player.Opposite()).ApplyOthersActions();
+        GetSOMCTS(player.Opponent()).ApplyOthersActions();
     }
 }
 
