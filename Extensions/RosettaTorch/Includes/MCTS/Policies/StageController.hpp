@@ -17,25 +17,19 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief StageController class.
 //!
+//! This class contains utility methods for simulation and selection stage.
+//!
 class StageController
 {
  public:
     constexpr static int SWITCH_TO_SIMULATION_UNDER_CHOSEN_TIMES = 1;
 
+    //! Returns the flag indicates stage can switch to simulation.
+    //! \param newNodeCreated The flag indicates whether to create new node.
+    //! \param lastNodeChosenTimes The chosen times of the last node.
+    //! \return The flag indicates stage can switch to simulation.
     static bool SwitchToSimulation(bool newNodeCreated,
-                                   std::int64_t lastNodeChosenTimes)
-    {
-        if (newNodeCreated)
-        {
-            return true;
-        }
-        if (lastNodeChosenTimes < SWITCH_TO_SIMULATION_UNDER_CHOSEN_TIMES)
-        {
-            return true;
-        }
-
-        return false;
-    }
+                                   std::int64_t lastNodeChosenTimes);
 };
 }  // namespace RosettaTorch::MCTS
 
