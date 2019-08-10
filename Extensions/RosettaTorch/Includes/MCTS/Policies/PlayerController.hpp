@@ -10,7 +10,6 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_PLAYER_CONTROLLER_HPP
 #define ROSETTASTONE_TORCH_MCTS_PLAYER_CONTROLLER_HPP
 
-#include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
@@ -18,79 +17,69 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief PlayerController class.
 //!
+//! This class contains Player class for MCTS and related getters and setters.
+//!
 class PlayerController
 {
  public:
+    //!
+    //! \brief PlayerController::Player class.
+    //!
+    //! Note that this class is different from RosettaStone's.
+    //!
     class Player
     {
      public:
-        static constexpr Player Player1()
-        {
-            return Player(RosettaStone::PlayerType::PLAYER1);
-        }
+        //! Constructs player with given \p playerType.
+        //! \param playerType The type of player.
+        explicit Player(RosettaStone::PlayerType playerType);
 
-        static constexpr Player Player2()
-        {
-            return Player(RosettaStone::PlayerType::PLAYER2);
-        }
+        //! Operator overloading: operator==.
+        bool operator==(const Player& rhs) const;
 
-        explicit constexpr Player(RosettaStone::PlayerType playerType)
-            : m_playerType(playerType)
-        {
-            // Do nothing
-        }
+        //! Operator overloading: operator!=.
+        bool operator!=(const Player& rhs) const;
 
-        bool operator==(const Player& rhs) const
-        {
-            return m_playerType == rhs.m_playerType;
-        }
+        //! Returns the player 1.
+        //! \return The player 1.
+        static Player Player1();
 
-        bool operator!=(const Player& rhs) const
-        {
-            return m_playerType != rhs.m_playerType;
-        }
+        //! Returns the player 2.
+        //! \return The player 2.
+        static Player Player2();
 
-        Player Opposite() const
-        {
-            return Player(m_playerType == RosettaStone::PlayerType::PLAYER1
-                              ? RosettaStone::PlayerType::PLAYER2
-                              : RosettaStone::PlayerType::PLAYER1);
-        }
+        //! Returns the opponent player.
+        //! \return The opponent player.
+        Player Opponent() const;
 
-        bool IsPlayer1() const
-        {
-            return m_playerType == RosettaStone::PlayerType::PLAYER1;
-        }
+        //! Returns the flag indicates that this player is player 1.
+        //! \return The flag indicates that this player is player 1.
+        bool IsPlayer1() const;
 
-        bool IsPlayer2() const
-        {
-            return m_playerType == RosettaStone::PlayerType::PLAYER2;
-        }
+        //! Returns the flag indicates that this player is player 2.
+        //! \return The flag indicates that this player is player 2.
+        bool IsPlayer2() const;
 
-        RosettaStone::PlayerType GetPlayerType() const
-        {
-            return m_playerType;
-        }
+        //! Returns the type of player.
+        //! \return The type of player.
+        RosettaStone::PlayerType GetPlayerType() const;
 
      private:
         RosettaStone::PlayerType m_playerType;
     };
 
-    Player GetActionForPlayer()
-    {
-        return Player(m_game->GetCurrentPlayer().playerType);
-    }
+    //! Returns the player.
+    //! \return The player.
+    Player GetPlayer() const;
 
-    auto GetPlayerView(Player player)
-    {
-        return RosettaStone::Board(*m_game, player.GetPlayerType());
-    }
+    //! Returns the board of the player.
+    //! \param player The player to get board.
+    //! \return The board of the player.
+    RosettaStone::Board GetPlayerBoard(Player player) const;
 
-    void SetGame(RosettaStone::Game& game)
-    {
-        m_game = &game;
-        m_game->StartGame();
-    }
+    //! Sets the game to control player.
+    //! \param game The game to control player.
+    void SetGame(RosettaStone::Game& game);
 
  private:
     RosettaStone::Game* m_game = nullptr;
