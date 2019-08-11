@@ -10,7 +10,6 @@
 #ifndef ROSETTASTONE_BOARD_HPP
 #define ROSETTASTONE_BOARD_HPP
 
-#include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 
@@ -36,22 +35,7 @@ class Board
 
     PlayState ApplyAction(ActionParams& params) const;
 
-    const Game& RevealInfoForSimulation() const;
-
-    template <class Functor>
-    auto ApplyWithPlayerStateView(Functor&& functor) const
-    {
-        if (m_playerType == PlayerType::PLAYER1)
-        {
-            return functor(
-                ReducedBoardView(BoardRefView(m_game, PlayerType::PLAYER1)));
-        }
-        else
-        {
-            return functor(
-                ReducedBoardView(BoardRefView(m_game, PlayerType::PLAYER2)));
-        }
-    }
+    const Game& RevealHiddenInfoForSimulation() const;
 
  private:
     Game& m_game;

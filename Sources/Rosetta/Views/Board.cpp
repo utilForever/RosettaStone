@@ -61,7 +61,7 @@ PlayState Board::ApplyAction(ActionParams& params) const
     return m_game.PerformAction(params);
 }
 
-const Game& Board::RevealInfoForSimulation() const
+const Game& Board::RevealHiddenInfoForSimulation() const
 {
     return m_game;
 }
