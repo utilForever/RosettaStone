@@ -9,6 +9,8 @@
 
 #include <MCTS/Policies/Selection/UCBPolicy.hpp>
 
+#include <cmath>
+
 namespace RosettaTorch::MCTS
 {
 int UCBPolicy::SelectChoice(ActionType actionType, ChoiceIterator choiceIter)
