@@ -12,6 +12,7 @@
 
 #include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
 
+#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 
 namespace RosettaTorch::MCTS
