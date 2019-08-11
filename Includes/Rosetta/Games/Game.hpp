@@ -32,7 +32,7 @@ class Game
     //! Deleted default constructor.
     Game() = delete;
 
-    //! Constructs account with given \p gameConfig.
+    //! Constructs game with given \p gameConfig.
     //! \param gameConfig The game config holds all configuration values.
     explicit Game(const GameConfig& gameConfig);
 
