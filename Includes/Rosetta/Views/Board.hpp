@@ -23,10 +23,16 @@ class Board
  public:
     Board(Game& game, PlayerType playerType);
 
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
     void RefCopyFrom(const Board& rhs);
 
+    //! Returns the current player of the game.
+    //! \return The current player of the game.
     Player& GetCurrentPlayer() const;
 
+    //! Returns the view type of the board.
+    //! \return the view type of the board.
     PlayerType GetViewType() const;
 
     ReducedBoardView CreateView() const;
