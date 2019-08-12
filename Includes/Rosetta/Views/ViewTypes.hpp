@@ -15,6 +15,8 @@
 
 namespace RosettaStone::ViewTypes
 {
+//! This struct contains information of hero.
+//! Note that this struct is used for the board view.
 struct Hero
 {
     int attack = 0;
@@ -64,6 +66,9 @@ struct Hero
     }
 };
 
+//! This struct contains information of hero for the current player.
+//! Note that this struct inherits from Hero struct.
+//! Note that this struct is used for the board view.
 struct MyHero : public Hero
 {
     bool attackable = false;
@@ -94,6 +99,8 @@ struct MyHero : public Hero
     }
 };
 
+//! This struct contains information of hero power.
+//! Note that this struct is used for the board view.
 struct HeroPower
 {
     std::string cardID;
@@ -125,6 +132,8 @@ struct HeroPower
     }
 };
 
+//! This struct contains information of weapon.
+//! Note that this struct is used for the board view.
 struct Weapon
 {
     std::string cardID;
@@ -177,6 +186,8 @@ struct Weapon
     }
 };
 
+//! This struct contains information of mana crystal.
+//! Note that this struct is used for the board view.
 struct ManaCrystal
 {
     int remaining = 0;
@@ -220,6 +231,8 @@ struct ManaCrystal
     }
 };
 
+//! This struct contains information of minion.
+//! Note that this struct is used for the board view.
 struct Minion
 {
     std::string cardID;
@@ -288,6 +301,9 @@ struct Minion
     }
 };
 
+//! This struct contains information of minion for the current player.
+//! Note that this struct inherits from Minion struct.
+//! Note that this struct is used for the board view.
 struct MyMinion : public Minion
 {
     bool attackable = false;
@@ -321,6 +337,8 @@ struct MyMinion : public Minion
 using Minions = std::vector<Minion>;
 using MyMinions = std::vector<MyMinion>;
 
+//! This struct contains information of the hand cards for the current player.
+//! Note that this struct is used for the board view.
 struct MyHandCard
 {
     std::string cardID;
@@ -364,6 +382,8 @@ struct MyHandCard
     }
 };
 
+//! This struct contains information of the hand cards for the opponent player.
+//! Note that this struct is used for the board view.
 struct OpHandCard
 {
     bool operator==([[maybe_unused]] const OpHandCard& rhs) const
@@ -403,6 +423,7 @@ struct Deck
 
 namespace std
 {
+//! \brief Template specialization of std::hash for ViewTypes::Hero.
 template <>
 struct hash<RosettaStone::ViewTypes::Hero>
 {
@@ -420,6 +441,7 @@ struct hash<RosettaStone::ViewTypes::Hero>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::MyHero.
 template <>
 struct hash<RosettaStone::ViewTypes::MyHero>
 {
@@ -433,6 +455,7 @@ struct hash<RosettaStone::ViewTypes::MyHero>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::HeroPower.
 template <>
 struct hash<RosettaStone::ViewTypes::HeroPower>
 {
@@ -447,6 +470,7 @@ struct hash<RosettaStone::ViewTypes::HeroPower>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::Weapon.
 template <>
 struct hash<RosettaStone::ViewTypes::Weapon>
 {
@@ -467,6 +491,7 @@ struct hash<RosettaStone::ViewTypes::Weapon>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::ManaCrystal.
 template <>
 struct hash<RosettaStone::ViewTypes::ManaCrystal>
 {
@@ -483,6 +508,7 @@ struct hash<RosettaStone::ViewTypes::ManaCrystal>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::Minion.
 template <>
 struct hash<RosettaStone::ViewTypes::Minion>
 {
@@ -503,6 +529,7 @@ struct hash<RosettaStone::ViewTypes::Minion>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::MyMinion.
 template <>
 struct hash<RosettaStone::ViewTypes::MyMinion>
 {
@@ -516,6 +543,7 @@ struct hash<RosettaStone::ViewTypes::MyMinion>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::Minions.
 template <>
 struct hash<RosettaStone::ViewTypes::Minions>
 {
@@ -533,6 +561,7 @@ struct hash<RosettaStone::ViewTypes::Minions>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::MyMinions.
 template <>
 struct hash<RosettaStone::ViewTypes::MyMinions>
 {
@@ -550,6 +579,7 @@ struct hash<RosettaStone::ViewTypes::MyMinions>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::MyHandCard.
 template <>
 struct hash<RosettaStone::ViewTypes::MyHandCard>
 {
@@ -566,6 +596,7 @@ struct hash<RosettaStone::ViewTypes::MyHandCard>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::OpHandCard.
 template <>
 struct hash<RosettaStone::ViewTypes::OpHandCard>
 {
@@ -577,6 +608,7 @@ struct hash<RosettaStone::ViewTypes::OpHandCard>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::MyHand.
 template <>
 struct hash<RosettaStone::ViewTypes::MyHand>
 {
@@ -594,6 +626,7 @@ struct hash<RosettaStone::ViewTypes::MyHand>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::OpHand.
 template <>
 struct hash<RosettaStone::ViewTypes::OpHand>
 {
@@ -611,6 +644,7 @@ struct hash<RosettaStone::ViewTypes::OpHand>
     }
 };
 
+//! \brief Template specialization of std::hash for ViewTypes::Deck.
 template <>
 struct hash<RosettaStone::ViewTypes::Deck>
 {
