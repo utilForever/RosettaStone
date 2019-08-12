@@ -29,34 +29,90 @@ class ReducedBoardView
     friend std::hash<ReducedBoardView>;
 
  public:
-    explicit ReducedBoardView(const BoardRefView& board);
+    //! Constructs reduced board view with given \p view.
+    //! \param view The board ref view.
+    explicit ReducedBoardView(const BoardRefView& view);
 
+    //! Default copy constructor.
     ReducedBoardView(const ReducedBoardView&) = default;
-    ReducedBoardView(ReducedBoardView&&) = default;
 
+    //! Default move constructor.
+    ReducedBoardView(ReducedBoardView&&) noexcept = default;
+
+    //! Default copy assignment operator.
     ReducedBoardView& operator=(const ReducedBoardView&) = default;
-    ReducedBoardView& operator=(ReducedBoardView&&) = default;
 
+    //! Default move assignment operator.
+    ReducedBoardView& operator=(ReducedBoardView&&) noexcept = default;
+
+    //! Operator overloading: operator==.
     bool operator==(const ReducedBoardView& rhs) const;
+
+    //! Operator overloading: operator!=.
     bool operator!=(const ReducedBoardView& rhs) const;
 
+    //! Returns the current turn of the game.
+    //! \return The current turn of the game.
     int GetTurn() const;
+
+    //! Returns the player type of the view.
+    //! \return the player type of the view.
     PlayerType GetPlayerType() const;
 
+    //! Returns the hero of the current player.
+    //! \return The hero of the current player.
     const ViewTypes::MyHero& GetMyHero() const;
+
+    //! Returns the hero power of the current player.
+    //! \return the hero power of the current player.
     const ViewTypes::HeroPower& GetMyHeroPower() const;
+
+    //! Returns the weapon of the current player.
+    //! \return The weapon of the current player.
     const ViewTypes::Weapon& GetMyWeapon() const;
+
+    //! Returns the mana crystals of the current player.
+    //! \return The mana crystals of the current player.
     const ViewTypes::ManaCrystal& GetMyManaCrystal() const;
+
+    //! Returns a list of minions in the field of the current player.
+    //! \return A list of minions in the field of the current player.
     const ViewTypes::MyMinions& GetMyMinions() const;
+
+    //! Returns a list of cards in the hand of the current player.
+    //! \return A list of cards in the hand of the current player.
     const ViewTypes::MyHand& GetMyHand() const;
+
+    //! Returns a list of cards in the deck of the current player.
+    //! \return A list of cards in the deck of the current player.
     const ViewTypes::Deck& GetMyDeck() const;
 
+    //! Returns the hero of the opponent player.
+    //! \return The hero of the opponent player.
     const ViewTypes::Hero& GetOpHero() const;
+
+    //! Returns the hero power of the opponent player.
+    //! \return the hero power of the opponent player.
     const ViewTypes::HeroPower& GetOpHeroPower() const;
+
+    //! Returns the weapon of the opponent player.
+    //! \return The weapon of the opponent player.
     const ViewTypes::Weapon& GetOpWeapon() const;
+
+    //! Returns the mana crystals of the opponent player.
+    //! \return The mana crystals of the opponent player.
     const ViewTypes::ManaCrystal& GetOpManaCrystal() const;
+
+    //! Returns a list of minions in the field of the opponent player.
+    //! \return A list of minions in the field of the opponent player.
     const ViewTypes::Minions& GetOpMinions() const;
+
+    //! Returns a list of cards in the hand of the opponent player.
+    //! \return A list of cards in the hand of the opponent player.
     const ViewTypes::OpHand& GetOpHand() const;
+
+    //! Returns a list of cards in the deck of the current player.
+    //! \return A list of cards in the deck of the current player.
     const ViewTypes::Deck& GetOpDeck() const;
 
  private:
@@ -85,6 +141,7 @@ namespace std
 {
 using namespace RosettaStone;
 
+//! \brief Template specialization of std::hash for ReducedBoardView.
 template <>
 struct hash<ReducedBoardView>
 {
