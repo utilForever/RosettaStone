@@ -117,8 +117,14 @@ class BoardRefView
     int GetDeckCardCount(PlayerType playerType) const;
 
     //! Returns the flag indicates that whether the hero can attack.
+    //! \param playerType The player type to separate players.
+    //! \return The flag indicates that whether the hero can attack.
     bool IsHeroAttackable(PlayerType playerType) const;
 
+    //! Returns the flag indicates that whether the minion can attack.
+    //! \param playerType The player type to separate players.
+    //! \param idx The index of minion in the field.
+    //! \return The flag indicates that whether the minion can attack.
     bool IsMinionAttackable(PlayerType playerType, int idx) const;
 
  private:
@@ -129,13 +135,21 @@ class BoardRefView
 //!
 //! \brief CurrentPlayerBoardRefView class.
 //!
+//! This class is BoardRefView-like class for the current player.
+//!
 class CurrentPlayerBoardRefView
 {
  public:
+    //! Constructs current player board ref view with given \p game.
+    //! \param game The game context.
     explicit CurrentPlayerBoardRefView(const Game& game);
 
+    //! Returns the current player of the game.
+    //! \return The current player of the game.
     Player& GetCurrentPlayer() const;
 
+    //! Returns the action valid getter.
+    //! \return The action valid getter.
     ActionValidGetter GetActionValidGetter() const;
 
  private:
