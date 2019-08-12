@@ -84,14 +84,14 @@ class BoardRefView
     //! \return The hero of the opponent player.
     Hero* GetOpponentHero() const;
 
-    //! Returns the power of the hero.
+    //! Returns the hero power of the player.
     //! \param playerType The player type to separate players.
-    //! \return The power of the hero.
+    //! \return The hero power of the player.
     HeroPower* GetHeroPower(PlayerType playerType) const;
 
-    //! Returns the weapon of the hero.
+    //! Returns the weapon of the player.
     //! \param playerType The player type to separate players.
-    //! \return The weapon of the hero.
+    //! \return The weapon of the player.
     Weapon* GetWeapon(PlayerType playerType) const;
 
     //! Returns a list of cards in the hand of the current player.
