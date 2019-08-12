@@ -41,39 +41,39 @@ class BoardRefView
     //! \return The current player of the game.
     Player& GetCurrentPlayer() const;
 
-    //! Returns the fatigue damage of the player in the game.
+    //! Returns the fatigue damage of the player in the current status.
     //! \param playerType The player type to separate players.
-    //! \return The fatigue damage of the player in the game.
+    //! \return The fatigue damage of the player in the current status.
     int GetFatigueDamage(PlayerType playerType) const;
 
-    //! Returns the total mana of the player in the game.
+    //! Returns the total mana of the player during this turn.
     //! \param playerType The player type to separate players.
-    //! \return The total mana of the player in the game.
+    //! \return The total mana of the player during this turn.
     int GetTotalMana(PlayerType playerType) const;
 
-    //! Returns the used mana of the player in the game.
+    //! Returns the used mana of the player during this turn.
     //! \param playerType The player type to separate players.
-    //! \return The used mana of the player in the game.
+    //! \return The used mana of the player during this turn.
     int GetUsedMana(PlayerType playerType) const;
 
-    //! Returns the temporary mana of the player in the game.
+    //! Returns the temporary mana of the player during this turn.
     //! \param playerType The player type to separate players.
-    //! \return The temporary mana of the player in the game.
+    //! \return The temporary mana of the player during this turn.
     int GetTemporaryMana(PlayerType playerType) const;
 
-    //! Returns the mana that is overload owed of the player in the game.
+    //! Returns the mana that is overload owed of the player during this turn.
     //! \param playerType The player type to separate players.
-    //! \return The mana that is overload owed of the player in the game.
+    //! \return The mana that is overload owed of the player during this turn.
     int GetOverloadOwed(PlayerType playerType) const;
 
-    //! Returns the mana that is overload locked of the player in the game.
+    //! Returns the mana that is overload locked of the player during this turn.
     //! \param playerType The player type to separate players.
-    //! \return The mana that is overload locked of the player in the game.
+    //! \return The mana that is overload locked of the player during this turn.
     int GetOverloadLocked(PlayerType playerType) const;
 
-    //! Returns the remaining mana of the player in the game.
+    //! Returns the remaining mana of the player during this turn.
     //! \param playerType The player type to separate players.
-    //! \return The remaining mana of the player in the game.
+    //! \return The remaining mana of the player during this turn.
     int GetRemainingMana(PlayerType playerType) const;
 
     //! Returns the hero of the current player.
@@ -84,9 +84,9 @@ class BoardRefView
     //! \return The hero of the opponent player.
     Hero* GetOpponentHero() const;
 
-    //! Returns the remaining mana of the player in the game.
+    //! Returns the power of the hero.
     //! \param playerType The player type to separate players.
-    //! \return The remaining mana of the player in the game.
+    //! \return The power of the hero.
     HeroPower* GetHeroPower(PlayerType playerType) const;
 
     Weapon* GetWeapon(PlayerType playerType) const;
