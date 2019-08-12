@@ -12,7 +12,6 @@
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/ActionTargets.hpp>
-#include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/Attack.hpp>
