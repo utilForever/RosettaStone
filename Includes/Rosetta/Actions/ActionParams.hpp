@@ -11,8 +11,8 @@
 #define ROSETTASTONE_ACTION_PARAMS_HPP
 
 #include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 
 namespace RosettaStone
 {

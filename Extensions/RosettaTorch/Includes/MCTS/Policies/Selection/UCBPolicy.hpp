@@ -12,7 +12,7 @@
 
 #include <MCTS/Policies/Selection/ISelectionPolicy.hpp>
 
-#include <Rosetta/Actions/ActionType.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {

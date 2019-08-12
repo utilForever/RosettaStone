@@ -13,8 +13,8 @@
 #include <MCTS/Selection/BoardNodeMap.hpp>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Commons/SpinLocks.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 
 #include <mutex>
 

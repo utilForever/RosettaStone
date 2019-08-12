@@ -12,8 +12,8 @@
 
 #include <MCTS/Commons/Types.hpp>
 
-#include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Views/Board.hpp>
 
 namespace RosettaTorch::MCTS
