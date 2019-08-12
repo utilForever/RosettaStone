@@ -89,18 +89,34 @@ class BoardRefView
     //! \return The power of the hero.
     HeroPower* GetHeroPower(PlayerType playerType) const;
 
+    //! Returns the weapon of the hero.
+    //! \param playerType The player type to separate players.
+    //! \return The weapon of the hero.
     Weapon* GetWeapon(PlayerType playerType) const;
 
+    //! Returns a list of cards in the hand of the current player.
+    //! \return A list of cards in the hand of the current player.
     std::vector<Entity*> GetHandCards() const;
 
+    //! Returns a list of cards in the hand of the opponent player.
+    //! \return A list of cards in the hand of the opponent player.
     std::vector<std::pair<Entity*, bool>> GetOpponentHandCards() const;
 
+    //! Returns the number of cards in the hand of the opponent player.
+    //! \return The number of cards in the hand of the opponent player.
     int GetOpponentHandCardCount() const;
 
+    //! Returns a list of minions in the field of the player.
+    //! \param playerType The player type to separate players.
+    //! \return A list of minions in the field of the player.
     std::vector<Minion*> GetMinions(PlayerType playerType) const;
 
+    //! Returns the number of cards in the deck of the player.
+    //! \param playerType The player type to separate players.
+    //! \return The number of cards in the deck of the player.
     int GetDeckCardCount(PlayerType playerType) const;
 
+    //! Returns the flag indicates that whether the hero can attack.
     bool IsHeroAttackable(PlayerType playerType) const;
 
     bool IsMinionAttackable(PlayerType playerType, int idx) const;
