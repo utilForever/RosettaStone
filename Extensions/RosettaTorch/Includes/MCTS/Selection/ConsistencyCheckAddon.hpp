@@ -103,7 +103,7 @@ class ConsistencyCheckAddon
                 }
 
                 if (std::is_same_v<Type1,
-                                   ActionChoices::ChooseFromZeroToExclusiveMax>)
+                                   ActionChoices::ChooseFromNumbers>)
                 {
                     return lhs.Size() == rhs.Size();
                 }
