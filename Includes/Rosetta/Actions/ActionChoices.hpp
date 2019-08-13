@@ -27,10 +27,10 @@ namespace RosettaStone
 class ActionChoices
 {
  public:
-    class ChooseFromZeroToExclusiveMax
+    class ChooseFromNumbers
     {
      public:
-        explicit ChooseFromZeroToExclusiveMax(size_t exclusiveMax)
+        explicit ChooseFromNumbers(size_t exclusiveMax)
             : m_exclusiveMax(exclusiveMax), m_iter(0)
         {
             // Do nothing
@@ -133,7 +133,7 @@ class ActionChoices
     }
 
     explicit ActionChoices(size_t exclusiveMax)
-        : m_item(ChooseFromZeroToExclusiveMax(exclusiveMax))
+        : m_item(ChooseFromNumbers(exclusiveMax))
     {
         // Do nothing
     }
@@ -203,7 +203,7 @@ class ActionChoices
     }
 
  private:
-    using ItemType = std::variant<InvalidChoice, ChooseFromZeroToExclusiveMax,
+    using ItemType = std::variant<InvalidChoice, ChooseFromNumbers,
                                   ChooseFromCardIDs>;
 
     ItemType m_item;
