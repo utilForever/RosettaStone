@@ -10,6 +10,8 @@
 #ifndef ROSETTASTONE_ACTION_CHOICES_HPP
 #define ROSETTASTONE_ACTION_CHOICES_HPP
 
+#include <Rosetta/Actions/Choices/InvalidChoice.hpp>
+
 #include <cassert>
 #include <variant>
 #include <vector>
@@ -25,37 +27,6 @@ namespace RosettaStone
 class ActionChoices
 {
  public:
-    //!
-    //! \brief ActionChoices::InvalidChoice class.
-    //!
-    //! This class indicates the choice is invalid.
-    //! Note that all methods will throw exception.
-    //!
-    class InvalidChoice
-    {
-     public:
-        //! Returns the action choice at \p idx.
-        //! \param idx The index of action choices.
-        //! \return The action choice at \p idx.
-        static size_t Get([[maybe_unused]] size_t idx);
-
-        //! Returns the flag indicates that action choices are empty.
-        //! \return The flag indicates that action choices are empty.
-        static bool IsEmpty();
-
-        //! Returns the number of action choices.
-        //! \return The number of action choices.
-        static size_t Size();
-
-        static void Begin();
-
-        static size_t Get();
-
-        static void StepNext();
-
-        static bool IsEnd();
-    };
-
     class ChooseFromZeroToExclusiveMax
     {
      public:

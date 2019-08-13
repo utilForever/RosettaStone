@@ -13,37 +13,37 @@
 
 namespace RosettaStone
 {
-size_t ActionChoices::InvalidChoice::Get([[maybe_unused]] size_t idx)
+size_t InvalidChoice::Get([[maybe_unused]] size_t idx)
 {
     throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
 }
 
-bool ActionChoices::InvalidChoice::IsEmpty()
+bool InvalidChoice::IsEmpty()
 {
     throw std::runtime_error("ActionChoices::IsEmpty() - Invalid Choice");
 }
 
-size_t ActionChoices::InvalidChoice::Size()
+size_t InvalidChoice::Size()
 {
     throw std::runtime_error("ActionChoices::Size() - Invalid Choice");
 }
 
-void ActionChoices::InvalidChoice::Begin()
+void InvalidChoice::Begin()
 {
     throw std::runtime_error("ActionChoices::Begin() - Invalid Choice");
 }
 
-size_t ActionChoices::InvalidChoice::Get()
+size_t InvalidChoice::Get()
 {
     throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
 }
 
-void ActionChoices::InvalidChoice::StepNext()
+void InvalidChoice::StepNext()
 {
     throw std::runtime_error("ActionChoices::StepNext() - Invalid Choice");
 }
 
-bool ActionChoices::InvalidChoice::IsEnd()
+bool InvalidChoice::IsEnd()
 {
     throw std::runtime_error("ActionChoices::IsEnd() - Invalid Choice");
 }

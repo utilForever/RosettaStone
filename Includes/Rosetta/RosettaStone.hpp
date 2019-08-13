@@ -17,6 +17,7 @@
 #include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>
+#include <Rosetta/Actions/Choices/InvalidChoice.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Actions/Draw.hpp>
