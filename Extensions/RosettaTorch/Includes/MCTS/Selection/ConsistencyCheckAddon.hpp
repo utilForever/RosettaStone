@@ -108,7 +108,7 @@ class ConsistencyCheckAddon
                     return lhs.Size() == rhs.Size();
                 }
 
-                if (std::is_same_v<Type1, ActionChoices::InvalidChoice>)
+                if (std::is_same_v<Type1, InvalidChoice>)
                 {
                     return false;
                 }
