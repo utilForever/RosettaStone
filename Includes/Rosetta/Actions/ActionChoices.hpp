@@ -11,7 +11,6 @@
 #define ROSETTASTONE_ACTION_CHOICES_HPP
 
 #include <cassert>
-#include <stdexcept>
 #include <variant>
 #include <vector>
 
@@ -20,48 +19,41 @@ namespace RosettaStone
 //!
 //! \brief ActionChoices class.
 //!
+//! This class contains several choice methods for the action such as
+//! invalid choice, choose from numeric range or a list of card IDs.
+//!
 class ActionChoices
 {
  public:
+    //!
+    //! \brief ActionChoices::InvalidChoice class.
+    //!
+    //! This class indicates the choice is invalid.
+    //! Note that all methods will throw exception.
+    //!
     class InvalidChoice
     {
      public:
-        size_t Get([[maybe_unused]] size_t idx) const
-        {
-            throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
-        }
+        //! Returns the action choice at \p idx.
+        //! \param idx The index of action choices.
+        //! \return The action choice at \p idx.
+        static size_t Get([[maybe_unused]] size_t idx);
 
-        bool IsEmpty() const
-        {
-            throw std::runtime_error(
-                "ActionChoices::IsEmpty() - Invalid Choice");
-        }
+        //! Returns the flag indicates that action choices are empty.
+        //! \return The flag indicates that action choices are empty.
+        static bool IsEmpty();
 
-        size_t Size() const
-        {
-            throw std::runtime_error("ActionChoices::Size() - Invalid Choice");
-        }
+        //! Returns the number of action choices.
+        //! \return The number of action choices.
+        static size_t Size();
 
-        void Begin()
-        {
-            throw std::runtime_error("ActionChoices::Begin() - Invalid Choice");
-        }
+        static void Begin();
 
-        size_t Get() const
-        {
-            throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
-        }
+        static size_t Get();
 
-        void StepNext()
-        {
-            throw std::runtime_error(
-                "ActionChoices::StepNext() - Invalid Choice");
-        }
+        static void StepNext();
 
-        bool IsEnd() const
-        {
-            throw std::runtime_error("ActionChoices::IsEnd() - Invalid Choice");
-        }
+        static bool IsEnd();
     };
 
     class ChooseFromZeroToExclusiveMax
