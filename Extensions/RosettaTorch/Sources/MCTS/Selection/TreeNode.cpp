@@ -9,6 +9,8 @@
 
 #include <MCTS/Selection/TreeNode.hpp>
 
+#include <cassert>
+
 namespace RosettaTorch::MCTS
 {
 const EdgeAddon* ChildNodeMap::GetEdgeAddon(int choice) const
