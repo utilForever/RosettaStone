@@ -28,80 +28,60 @@ namespace RosettaStone
 class ActionChoices
 {
  public:
-    ActionChoices() : m_item(InvalidChoice())
-    {
-        // Do nothing
-    }
+    //! Constructs action choices and initializes item to invalid choice.
+    ActionChoices();
 
-    explicit ActionChoices(size_t exclusiveMax)
-        : m_item(ChooseFromNumbers(exclusiveMax))
-    {
-        // Do nothing
-    }
+    //! Constructs action choices and initializes item to choose from numbers.
+    //! \param max The maximum value of the range.
+    explicit ActionChoices(size_t max);
 
-    explicit ActionChoices(const std::vector<size_t>& cardIDs)
-        : m_item(ChooseFromCardIDs(cardIDs))
-    {
-        // Do nothing
-    }
+    //! Constructs action choices and initializes item to choose from cardIDs.
+    //! \param cardIDs A list of card IDs.
+    explicit ActionChoices(const std::vector<size_t>& cardIDs);
 
+    //! Checks if a variant currently holds a given type.
+    //! \return The flag that indicates whether a variant currently holds
+    //! a given type.
     template <class T>
-    bool CheckType() const
-    {
-        return std::holds_alternative<T>(m_item);
-    }
+    bool CheckType() const;
 
+    //! Compares this object and \p rhs as \p comparator function.
+    //! \param rhs ActionChoices object to compare.
+    //! \param comparator The function to use for comparison.
+    //! \return The result of \p comparator function.
     template <class Comparator>
-    bool Compare(const ActionChoices& rhs, Comparator&& comparator) const
-    {
-        return std::visit(
-            [&](auto&& arg1, auto&& arg2) -> bool {
-                return comparator(std::forward<decltype(arg1)>(arg1),
-                                  std::forward<decltype(arg2)>(arg2));
-            },
-            m_item, rhs.m_item);
-    }
+    bool Compare(const ActionChoices& rhs, Comparator&& comparator) const;
 
-    size_t GetIndex() const
-    {
-        return m_item.index();
-    }
+    //! Returns the zero-based index of the alternative held by the variant.
+    //! \return The zero-based index of the alternative held by the variant.
+    size_t GetIndex() const;
 
-    size_t Get(size_t idx) const
-    {
-        return std::visit([&](auto&& item) -> int { return item.Get(idx); },
-                          m_item);
-    }
+    //! Returns the action choice at \p idx.
+    //! \param idx The index of action choices.
+    //! \return The action choice at \p idx.
+    size_t Get(size_t idx) const;
 
-    bool IsEmpty() const
-    {
-        return std::visit([&](auto&& item) { return item.IsEmpty(); }, m_item);
-    }
+    //! Returns the flag indicates that action choices are empty.
+    //! \return The flag indicates that action choices are empty.
+    bool IsEmpty() const;
 
-    size_t Size() const
-    {
-        return std::visit([&](auto&& item) { return item.Size(); }, m_item);
-    }
+    //! Returns the number of action choices.
+    //! \return The number of action choices.
+    size_t Size() const;
 
-    void Begin()
-    {
-        return std::visit([&](auto&& item) { return item.Begin(); }, m_item);
-    }
+    //! Initializes iterator variable.
+    void Begin();
 
-    size_t Get() const
-    {
-        return std::visit([&](auto&& item) { return item.Get(); }, m_item);
-    }
+    //! Returns the element that iterator variable points to.
+    //! \return The element that iterator variable points to.
+    size_t Get() const;
 
-    void StepNext()
-    {
-        return std::visit([&](auto&& item) { return item.StepNext(); }, m_item);
-    }
+    //! Processes iterator to point to the next element.
+    void StepNext();
 
-    bool IsEnd() const
-    {
-        return std::visit([&](auto&& item) { return item.IsEnd(); }, m_item);
-    }
+    //! Returns the flag indicates that iterator is in the end position.
+    //! \return the flag indicates that iterator is in the end position.
+    bool IsEnd() const;
 
  private:
     using ItemType =
