@@ -119,8 +119,8 @@ void SOMCTS::ActionParams::Initialize(const Board& board)
         m_board->GetCurPlayerStateRefView().GetActionValidGetter());
 }
 
-size_t SOMCTS::ActionParams::GetNumber(ActionType actionType,
-                                       ActionChoices& choices)
+std::size_t SOMCTS::ActionParams::GetNumber(ActionType actionType,
+                                            ActionChoices& choices)
 {
     if (actionType != ActionType::MAIN_ACTION)
     {

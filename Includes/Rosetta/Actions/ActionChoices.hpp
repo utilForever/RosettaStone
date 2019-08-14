@@ -14,6 +14,7 @@
 #include <Rosetta/Actions/Choices/ChooseFromNumbers.hpp>
 #include <Rosetta/Actions/Choices/InvalidChoice.hpp>
 
+#include <cstddef>
 #include <variant>
 #include <vector>
 
@@ -33,11 +34,11 @@ class ActionChoices
 
     //! Constructs action choices and initializes item to choose from numbers.
     //! \param max The maximum value of the range.
-    explicit ActionChoices(size_t max);
+    explicit ActionChoices(std::size_t max);
 
     //! Constructs action choices and initializes item to choose from cardIDs.
     //! \param cardIDs A list of card IDs.
-    explicit ActionChoices(const std::vector<size_t>& cardIDs);
+    explicit ActionChoices(const std::vector<std::size_t>& cardIDs);
 
     //! Checks if a variant currently holds a given type.
     //! \return The flag that indicates whether a variant currently holds
@@ -54,12 +55,12 @@ class ActionChoices
 
     //! Returns the zero-based index of the alternative held by the variant.
     //! \return The zero-based index of the alternative held by the variant.
-    size_t GetIndex() const;
+    std::size_t GetIndex() const;
 
     //! Returns the action choice at \p idx.
     //! \param idx The index of action choices.
     //! \return The action choice at \p idx.
-    size_t Get(size_t idx) const;
+    std::size_t Get(std::size_t idx) const;
 
     //! Returns the flag indicates that action choices are empty.
     //! \return The flag indicates that action choices are empty.
@@ -67,14 +68,14 @@ class ActionChoices
 
     //! Returns the number of action choices.
     //! \return The number of action choices.
-    size_t Size() const;
+    std::size_t Size() const;
 
     //! Initializes iterator variable.
     void Begin();
 
     //! Returns the element that iterator variable points to.
     //! \return The element that iterator variable points to.
-    size_t Get() const;
+    std::size_t Get() const;
 
     //! Processes iterator to point to the next element.
     void StepNext();

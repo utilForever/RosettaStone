@@ -11,13 +11,13 @@
 
 namespace RosettaStone
 {
-ChooseFromCardIDs::ChooseFromCardIDs(const std::vector<size_t>& cardIDs)
+ChooseFromCardIDs::ChooseFromCardIDs(const std::vector<std::size_t>& cardIDs)
     : m_cardIDs(cardIDs)
 {
     // Do nothing
 }
 
-size_t ChooseFromCardIDs::Get(size_t idx) const
+std::size_t ChooseFromCardIDs::Get(std::size_t idx) const
 {
     return m_cardIDs[idx];
 }
@@ -27,7 +27,7 @@ bool ChooseFromCardIDs::IsEmpty() const
     return m_cardIDs.empty();
 }
 
-size_t ChooseFromCardIDs::Size() const
+std::size_t ChooseFromCardIDs::Size() const
 {
     return m_cardIDs.size();
 }
@@ -37,7 +37,7 @@ void ChooseFromCardIDs::Begin()
     m_iter = m_cardIDs.begin();
 }
 
-size_t ChooseFromCardIDs::Get() const
+std::size_t ChooseFromCardIDs::Get() const
 {
     return *m_iter;
 }

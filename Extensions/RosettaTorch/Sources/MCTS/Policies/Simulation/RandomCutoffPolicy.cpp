@@ -47,8 +47,8 @@ int RandomCutoffPolicy::GetChoice(
     [[maybe_unused]] const ActionValidChecker& checker,
     [[maybe_unused]] ActionType actionType, const ChoiceGetter& getter)
 {
-    const size_t count = getter.Size();
-    const auto randIdx = Random::get<size_t>(0, count - 1);
+    const std::size_t count = getter.Size();
+    const auto randIdx = Random::get<std::size_t>(0, count - 1);
     const int result = getter.Get(randIdx);
 
     return result;

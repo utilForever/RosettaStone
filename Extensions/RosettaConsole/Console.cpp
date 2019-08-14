@@ -154,7 +154,7 @@ std::optional<Card*> Console::SearchCard() const
         }
         else
         {
-            size_t cardIdx = 1;
+            std::size_t cardIdx = 1;
 
             for (Card* card : result)
             {
@@ -167,7 +167,7 @@ std::optional<Card*> Console::SearchCard() const
 
             if (m_searchMode == SearchMode::AddCardInDeck)
             {
-                const size_t selectedCardIndex =
+                const std::size_t selectedCardIndex =
                     InputMenuNum("Select: ", cardIdx);
                 return result.at(selectedCardIndex - 1);
             }
@@ -184,7 +184,8 @@ int Console::ManageDeck()
     std::cout << "========================================\n";
 
     ShowMenu(m_manageDeckStr);
-    const size_t selectedNum = InputMenuNum("Select: ", MANAGE_DECK_MENU_SIZE);
+    const std::size_t selectedNum =
+        InputMenuNum("Select: ", MANAGE_DECK_MENU_SIZE);
     bool isFinish = false;
 
     if (selectedNum != MANAGE_DECK_MENU_SIZE)
@@ -261,7 +262,7 @@ void Console::CreateDeck()
     std::cin >> name;
 
     ShowMenu(m_playerClassStr);
-    const size_t selectedClassNum =
+    const std::size_t selectedClassNum =
         InputMenuNum("What's your player class? ", NUM_PLAYER_CLASS);
     const CardClass deckClass = static_cast<CardClass>(selectedClassNum + 1);
 
@@ -285,7 +286,7 @@ void Console::ModifyDeck()
     std::cout << "Input the number to modify your deck.\n";
 
     m_account->ShowDeckList();
-    const size_t selectedDeck =
+    const std::size_t selectedDeck =
         InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
     OperateDeck(selectedDeck);
@@ -306,16 +307,16 @@ void Console::DeleteDeck() const
     std::cout << "Input the number to delete your deck.\n";
 
     m_account->ShowDeckList();
-    const size_t selectedDeck =
+    const std::size_t selectedDeck =
         InputMenuNum("Select: ", m_account->GetNumOfDeck());
 
     m_account->DeleteDeck(selectedDeck);
 }
 
-int Console::OperateDeck(size_t deckIndex)
+int Console::OperateDeck(std::size_t deckIndex)
 {
     ShowMenu(m_deckOperationStr);
-    const size_t selectedOperation =
+    const std::size_t selectedOperation =
         InputMenuNum("What do you want to do? ", CREATE_DECK_MENU_SIZE);
     bool isFinish = false;
 
@@ -331,7 +332,7 @@ int Console::OperateDeck(size_t deckIndex)
     return isFinish ? 0 : OperateDeck(deckIndex);
 }
 
-void Console::AddCardInDeck(size_t deckIndex)
+void Console::AddCardInDeck(std::size_t deckIndex)
 {
     DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
 
@@ -360,7 +361,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
     while (true)
     {
-        size_t numCardToAddAvailable =
+        std::size_t numCardToAddAvailable =
             card->GetMaxAllowedInDeck() - deck->GetNumCardInDeck(card->id);
         if (deck->GetNumOfCards() + numCardToAddAvailable > START_DECK_SIZE)
         {
@@ -370,7 +371,7 @@ void Console::AddCardInDeck(size_t deckIndex)
 
         std::cout << "How many cards to add (0 - " << numCardToAddAvailable
                   << ") ? ";
-        size_t numCardToAdd;
+        std::size_t numCardToAdd;
         std::cin >> numCardToAdd;
 
         if (numCardToAdd > numCardToAddAvailable)
@@ -385,7 +386,7 @@ void Console::AddCardInDeck(size_t deckIndex)
     }
 }
 
-void Console::DeleteCardInDeck(size_t deckIndex) const
+void Console::DeleteCardInDeck(std::size_t deckIndex) const
 {
     DeckInfo* deck = m_account->GetDeck(deckIndex - 1);
 
@@ -396,7 +397,7 @@ void Console::DeleteCardInDeck(size_t deckIndex) const
     }
 
     deck->ShowCardList();
-    const size_t selectedCardIndex =
+    const std::size_t selectedCardIndex =
         InputMenuNum("Select: ", deck->GetUniqueNumOfCards());
     const std::string selectedCardID =
         deck->GetCard(selectedCardIndex - 1).first;
@@ -405,10 +406,11 @@ void Console::DeleteCardInDeck(size_t deckIndex) const
     {
         std::cout << "How many cards to delete (0 - "
                   << deck->GetNumCardInDeck(selectedCardID) << ") ? ";
-        size_t numCardToDelete;
+        std::size_t numCardToDelete;
         std::cin >> numCardToDelete;
 
-        const size_t numCardinDeck = deck->GetNumCardInDeck(selectedCardID);
+        const std::size_t numCardinDeck =
+            deck->GetNumCardInDeck(selectedCardID);
         if (numCardToDelete > numCardinDeck)
         {
             std::cout << "Invalid number! Try again.\n";
@@ -426,7 +428,7 @@ int Console::Login()
     std::cout << "    Welcome to RosettaStone Ver " << VERSION << '\n';
 
     ShowMenu(m_loginMenuStr);
-    const size_t selectedNum = InputMenuNum("Select: ", LOGIN_MENU_SIZE);
+    const std::size_t selectedNum = InputMenuNum("Select: ", LOGIN_MENU_SIZE);
     bool isFinish = false;
 
     if (selectedNum != LOGIN_MENU_SIZE)
@@ -444,7 +446,7 @@ int Console::Login()
 int Console::Main()
 {
     ShowMenu(m_mainMenuStr);
-    const size_t selectedNum = InputMenuNum("Select: ", MAIN_MENU_SIZE);
+    const std::size_t selectedNum = InputMenuNum("Select: ", MAIN_MENU_SIZE);
     bool isFinish = false;
 
     // Set flag that you do not need to return the card.
@@ -472,8 +474,8 @@ void Console::ShowMenu(std::array<std::string, SIZE>& menus)
     std::cout << "========================================\n";
 }
 
-size_t Console::InputMenuNum(const std::string& questionStr,
-                             size_t menuSize) const
+std::size_t Console::InputMenuNum(const std::string& questionStr,
+                                  std::size_t menuSize) const
 {
     while (true)
     {
@@ -481,7 +483,7 @@ size_t Console::InputMenuNum(const std::string& questionStr,
         std::string inputStr;
         std::cin >> inputStr;
 
-        const size_t num = GetInputNum(inputStr);
+        const std::size_t num = GetInputNum(inputStr);
         if (num < 1 || num > menuSize)
         {
             std::cout << "Invalid number! Try again.\n";
@@ -682,7 +684,7 @@ std::vector<Card*> Console::ProcessSearchCommand(SearchFilter& filter) const
 std::vector<std::string> Console::SplitString(
     std::string str, const std::string& delimiter) const
 {
-    size_t pos;
+    std::size_t pos;
     std::vector<std::string> tokens;
 
     // If the number of tokens is 1

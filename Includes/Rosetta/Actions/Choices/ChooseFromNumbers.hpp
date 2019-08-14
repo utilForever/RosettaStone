@@ -10,6 +10,8 @@
 #ifndef ROSETTASTONE_CHOOSE_FROM_NUMBERS_HPP
 #define ROSETTASTONE_CHOOSE_FROM_NUMBERS_HPP
 
+#include <cstddef>
+
 namespace RosettaStone
 {
 //!
@@ -22,12 +24,12 @@ class ChooseFromNumbers
  public:
     //! Constructs choose from numbers with given \p max.
     //! \param max The maximum value of the range.
-    explicit ChooseFromNumbers(size_t max);
+    explicit ChooseFromNumbers(std::size_t max);
 
     //! Returns the action choice at \p idx.
     //! \param idx The index of action choices.
     //! \return The action choice at \p idx.
-    static size_t Get(size_t idx);
+    static std::size_t Get(std::size_t idx);
 
     //! Returns the flag indicates that action choices are empty.
     //! \return The flag indicates that action choices are empty.
@@ -35,14 +37,14 @@ class ChooseFromNumbers
 
     //! Returns the number of action choices.
     //! \return The number of action choices.
-    size_t Size() const;
+    std::size_t Size() const;
 
     //! Initializes iterator variable.
     void Begin();
 
     //! Returns the element that iterator variable points to.
     //! \return The element that iterator variable points to.
-    size_t Get() const;
+    std::size_t Get() const;
 
     //! Processes iterator to point to the next element.
     void StepNext();
@@ -52,8 +54,8 @@ class ChooseFromNumbers
     bool IsEnd() const;
 
  private:
-    size_t m_max;
-    size_t m_iter;
+    std::size_t m_max;
+    std::size_t m_iter;
 };
 }  // namespace RosettaStone
 

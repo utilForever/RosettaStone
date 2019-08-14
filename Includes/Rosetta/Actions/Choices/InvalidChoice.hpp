@@ -10,6 +10,8 @@
 #ifndef ROSETTASTONE_INVALID_ACTION_HPP
 #define ROSETTASTONE_INVALID_ACTION_HPP
 
+#include <cstddef>
+
 namespace RosettaStone
 {
 //!
@@ -24,7 +26,7 @@ class InvalidChoice
     //! Returns the action choice at \p idx.
     //! \param idx The index of action choices.
     //! \return The action choice at \p idx.
-    static size_t Get([[maybe_unused]] size_t idx);
+    static std::size_t Get([[maybe_unused]] std::size_t idx);
 
     //! Returns the flag indicates that action choices are empty.
     //! \return The flag indicates that action choices are empty.
@@ -32,14 +34,14 @@ class InvalidChoice
 
     //! Returns the number of action choices.
     //! \return The number of action choices.
-    static size_t Size();
+    static std::size_t Size();
 
     //! Initializes iterator variable.
     static void Begin();
 
     //! Returns the element that iterator variable points to.
     //! \return The element that iterator variable points to.
-    static size_t Get();
+    static std::size_t Get();
 
     //! Processes iterator to point to the next element.
     static void StepNext();

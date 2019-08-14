@@ -32,12 +32,12 @@ class ChoiceGetter
 
     //! Returns the size of choice.
     //! \return The size of choice.
-    size_t Size() const;
+    std::size_t Size() const;
 
     //! Returns the value of choice at \p idx.
     //! \param idx The index of action choices.
     //! \return The value of choice at \p idx.
-    int Get(size_t idx) const;
+    int Get(std::size_t idx) const;
 
     //! Runs \p functor on each choice of action choices.
     //! \param functor A function to run for each choice.

@@ -113,7 +113,8 @@ class SOMCTS
         //! \param actionType The type of action.
         //! \param choices The choices of action.
         //! \return The index of chosen action.
-        size_t GetNumber(ActionType actionType, ActionChoices& choices) final;
+        std::size_t GetNumber(ActionType actionType,
+                              ActionChoices& choices) final;
 
      private:
         const Board* m_board;

@@ -34,7 +34,7 @@ class ActionValidChecker
 
  private:
     std::array<MainOpType, 4> m_opMap = {};
-    size_t m_opMapSize = 0;
+    std::size_t m_opMapSize = 0;
 
     std::vector<Character*> m_attackers;
     std::vector<Entity*> m_playableCards;

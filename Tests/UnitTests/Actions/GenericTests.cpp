@@ -54,7 +54,7 @@ TEST(Generic, ShuffleIntoDeck_Full)
         curPlayer, Cards::GetInstance().FindCardByID("GAME_005"), std::nullopt,
         &curPlayer.GetHandZone());
 
-    for (size_t i = 0; i < MAX_DECK_SIZE; ++i)
+    for (std::size_t i = 0; i < MAX_DECK_SIZE; ++i)
     {
         Entity* tempCard = Entity::GetFromCard(
             curPlayer, Cards::GetInstance().FindCardByID("GAME_005"),

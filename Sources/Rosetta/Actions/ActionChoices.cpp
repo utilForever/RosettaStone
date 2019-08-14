@@ -16,12 +16,12 @@ ActionChoices::ActionChoices() : m_item(InvalidChoice())
     // Do nothing
 }
 
-ActionChoices::ActionChoices(size_t max) : m_item(ChooseFromNumbers(max))
+ActionChoices::ActionChoices(std::size_t max) : m_item(ChooseFromNumbers(max))
 {
     // Do nothing
 }
 
-ActionChoices::ActionChoices(const std::vector<size_t>& cardIDs)
+ActionChoices::ActionChoices(const std::vector<std::size_t>& cardIDs)
     : m_item(ChooseFromCardIDs(cardIDs))
 {
     // Do nothing
@@ -45,12 +45,12 @@ bool ActionChoices::Compare(const ActionChoices& rhs,
         m_item, rhs.m_item);
 }
 
-size_t ActionChoices::GetIndex() const
+std::size_t ActionChoices::GetIndex() const
 {
     return m_item.index();
 }
 
-size_t ActionChoices::Get(size_t idx) const
+std::size_t ActionChoices::Get(std::size_t idx) const
 {
     return std::visit([&](auto&& item) -> int { return item.Get(idx); },
                       m_item);
@@ -61,7 +61,7 @@ bool ActionChoices::IsEmpty() const
     return std::visit([&](auto&& item) { return item.IsEmpty(); }, m_item);
 }
 
-size_t ActionChoices::Size() const
+std::size_t ActionChoices::Size() const
 {
     return std::visit([&](auto&& item) { return item.Size(); }, m_item);
 }
@@ -71,7 +71,7 @@ void ActionChoices::Begin()
     return std::visit([&](auto&& item) { return item.Begin(); }, m_item);
 }
 
-size_t ActionChoices::Get() const
+std::size_t ActionChoices::Get() const
 {
     return std::visit([&](auto&& item) { return item.Get(); }, m_item);
 }

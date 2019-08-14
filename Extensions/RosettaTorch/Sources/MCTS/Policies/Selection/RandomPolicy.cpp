@@ -18,9 +18,9 @@ namespace RosettaTorch::MCTS
 int RandomPolicy::SelectChoice([[maybe_unused]] ActionType actionType,
                                ChoiceIterator choiceIter)
 {
-    constexpr size_t MAX_CHOICES = 16;
+    constexpr std::size_t MAX_CHOICES = 16;
     std::array<ChoiceIterator::Item, MAX_CHOICES> choices{};
-    size_t choicesIdx = 0;
+    std::size_t choicesIdx = 0;
 
     for (choiceIter.Begin(); !choiceIter.IsEnd(); choiceIter.StepNext())
     {
@@ -28,7 +28,7 @@ int RandomPolicy::SelectChoice([[maybe_unused]] ActionType actionType,
         ++choicesIdx;
     }
 
-    const auto randIdx = Random::get<size_t>(0, choicesIdx - 1);
+    const auto randIdx = Random::get<std::size_t>(0, choicesIdx - 1);
     return choices[randIdx].choice;
 }
 }  // namespace RosettaTorch::MCTS

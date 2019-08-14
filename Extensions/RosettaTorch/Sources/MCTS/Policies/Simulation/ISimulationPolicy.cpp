@@ -16,12 +16,12 @@ ChoiceGetter::ChoiceGetter(int choices) : m_choices(choices)
     // Do nothing
 }
 
-size_t ChoiceGetter::Size() const
+std::size_t ChoiceGetter::Size() const
 {
-    return static_cast<size_t>(m_choices);
+    return static_cast<std::size_t>(m_choices);
 }
 
-int ChoiceGetter::Get(size_t idx) const
+int ChoiceGetter::Get(std::size_t idx) const
 {
     return static_cast<int>(idx);
 }

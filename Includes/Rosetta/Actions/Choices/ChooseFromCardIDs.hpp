@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_CHOOSE_FROM_CARD_IDS_HPP
 #define ROSETTASTONE_CHOOSE_FROM_CARD_IDS_HPP
 
+#include <cstddef>
 #include <vector>
 
 namespace RosettaStone
@@ -24,12 +25,12 @@ class ChooseFromCardIDs
  public:
     //! Constructs choose from card IDs with given \p cardIDs.
     //! \param cardIDs A list of card IDs.
-    explicit ChooseFromCardIDs(const std::vector<size_t>& cardIDs);
+    explicit ChooseFromCardIDs(const std::vector<std::size_t>& cardIDs);
 
     //! Returns the action choice at \p idx.
     //! \param idx The index of action choices.
     //! \return The action choice at \p idx.
-    size_t Get(size_t idx) const;
+    std::size_t Get(std::size_t idx) const;
 
     //! Returns the flag indicates that action choices are empty.
     //! \return The flag indicates that action choices are empty.
@@ -37,14 +38,14 @@ class ChooseFromCardIDs
 
     //! Returns the number of action choices.
     //! \return The number of action choices.
-    size_t Size() const;
+    std::size_t Size() const;
 
     //! Initializes iterator variable.
     void Begin();
 
     //! Returns the element that iterator variable points to.
     //! \return The element that iterator variable points to.
-    size_t Get() const;
+    std::size_t Get() const;
 
     //! Processes iterator to point to the next element.
     void StepNext();
@@ -54,8 +55,8 @@ class ChooseFromCardIDs
     bool IsEnd() const;
 
  private:
-    std::vector<size_t> m_cardIDs;
-    std::vector<size_t>::const_iterator m_iter;
+    std::vector<std::size_t> m_cardIDs;
+    std::vector<std::size_t>::const_iterator m_iter;
 };
 }  // namespace RosettaStone
 

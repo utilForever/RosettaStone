@@ -31,20 +31,21 @@ class ActionParams
 
     MainOpType ChooseMainOp();
 
-    size_t GetMinionPutLocation(int minions);
+    std::size_t GetMinionPutLocation(int minions);
 
     Character* GetSpecifiedTarget(const std::vector<Character*>& targets);
 
-    size_t ChooseOne(const std::vector<size_t>& cards);
+    std::size_t ChooseOne(const std::vector<std::size_t>& cards);
 
     Entity* ChooseHandCard();
 
     Character* GetAttacker();
 
-    virtual size_t GetNumber(ActionType actionType, ActionChoices& choices) = 0;
+    virtual std::size_t GetNumber(ActionType actionType,
+                                  ActionChoices& choices) = 0;
 
  private:
-    size_t GetNumber(ActionType actionType, size_t exclusiveMax);
+    std::size_t GetNumber(ActionType actionType, std::size_t exclusiveMax);
 
     ActionValidChecker m_checker;
 };

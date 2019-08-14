@@ -30,7 +30,8 @@ struct MulliganTestPolicy : BasicPolicy
 {
     TaskMeta RequireMulligan(Player&) override
     {
-        return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN), std::vector<size_t>());
+        return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN),
+                        std::vector<std::size_t>());
     }
 };
 
@@ -49,7 +50,7 @@ class TestActionParams : public ActionParams
             m_board->GetCurPlayerStateRefView().GetActionValidGetter());
     }
 
-    size_t GetNumber(ActionType actionType, ActionChoices& choices) final
+    std::size_t GetNumber(ActionType actionType, ActionChoices& choices) final
     {
         if (actionType != ActionType::MAIN_ACTION)
         {
@@ -59,8 +60,8 @@ class TestActionParams : public ActionParams
             }
         }
 
-        const size_t count = choices.Size();
-        const auto randIdx = Random::get<size_t>(0, count - 1);
+        const std::size_t count = choices.Size();
+        const auto randIdx = Random::get<std::size_t>(0, count - 1);
         const int result = static_cast<int>(randIdx);
 
         return result;
@@ -290,7 +291,7 @@ TEST(Game, PerformAction)
         "CS2_037", "CS2_037"
     };
 
-    for (size_t j = 0; j < START_DECK_SIZE; ++j)
+    for (std::size_t j = 0; j < START_DECK_SIZE; ++j)
     {
         config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
         config.player2Deck[j] = *Cards::FindCardByID(deck[j]);

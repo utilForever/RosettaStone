@@ -11,12 +11,12 @@
 
 namespace RosettaStone
 {
-ChooseFromNumbers::ChooseFromNumbers(size_t max) : m_max(max), m_iter(0)
+ChooseFromNumbers::ChooseFromNumbers(std::size_t max) : m_max(max), m_iter(0)
 {
     // Do nothing
 }
 
-size_t ChooseFromNumbers::Get(size_t idx)
+std::size_t ChooseFromNumbers::Get(std::size_t idx)
 {
     return static_cast<int>(idx);
 }
@@ -26,7 +26,7 @@ bool ChooseFromNumbers::IsEmpty() const
     return m_max <= 0;
 }
 
-size_t ChooseFromNumbers::Size() const
+std::size_t ChooseFromNumbers::Size() const
 {
     return m_max;
 }
@@ -36,7 +36,7 @@ void ChooseFromNumbers::Begin()
     m_iter = 0;
 }
 
-size_t ChooseFromNumbers::Get() const
+std::size_t ChooseFromNumbers::Get() const
 {
     return m_iter;
 }

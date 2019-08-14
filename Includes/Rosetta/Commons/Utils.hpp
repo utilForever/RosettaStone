@@ -62,7 +62,6 @@ class SizedPtr
 {
  public:
     using value_type = T;
-    using size_type = std::size_t;
 
     using reference = T&;
     using const_reference = const T&;
@@ -103,7 +102,7 @@ class SizedPtr
     //! Copy constructor, deep copying buffer.
     SizedPtr(const SizedPtr& ptr) : m_size(ptr.size()), m_ptr(new T[m_size])
     {
-        for (size_t i = 0; i < m_size; ++i)
+        for (std::size_t i = 0; i < m_size; ++i)
         {
             m_ptr[i] = ptr[i];
         }

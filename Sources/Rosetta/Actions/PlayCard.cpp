@@ -308,7 +308,7 @@ bool IsPlayableByCardReq(Entity* source)
             {
                 auto& curField = source->owner->GetFieldZone();
                 auto& entourages = source->card->entourages;
-                size_t entourageCount = 0;
+                std::size_t entourageCount = 0;
 
                 for (auto& minion : curField.GetAll())
                 {
