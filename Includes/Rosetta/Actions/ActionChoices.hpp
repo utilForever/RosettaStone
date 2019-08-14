@@ -51,7 +51,15 @@ class ActionChoices
     //! \param comparator The function to use for comparison.
     //! \return The result of \p comparator function.
     template <class Comparator>
-    bool Compare(const ActionChoices& rhs, Comparator&& comparator) const;
+    bool Compare(const ActionChoices& rhs, Comparator&& comparator) const
+    {
+        return std::visit(
+            [&](auto&& arg1, auto&& arg2) -> bool {
+                return comparator(std::forward<decltype(arg1)>(arg1),
+                                  std::forward<decltype(arg2)>(arg2));
+            },
+            m_item, rhs.m_item);
+    }
 
     //! Returns the zero-based index of the alternative held by the variant.
     //! \return The zero-based index of the alternative held by the variant.

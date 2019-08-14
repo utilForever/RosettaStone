@@ -33,18 +33,6 @@ bool ActionChoices::CheckType() const
     return std::holds_alternative<T>(m_item);
 }
 
-template <class Comparator>
-bool ActionChoices::Compare(const ActionChoices& rhs,
-                            Comparator&& comparator) const
-{
-    return std::visit(
-        [&](auto&& arg1, auto&& arg2) -> bool {
-            return comparator(std::forward<decltype(arg1)>(arg1),
-                              std::forward<decltype(arg2)>(arg2));
-        },
-        m_item, rhs.m_item);
-}
-
 std::size_t ActionChoices::GetIndex() const
 {
     return m_item.index();
