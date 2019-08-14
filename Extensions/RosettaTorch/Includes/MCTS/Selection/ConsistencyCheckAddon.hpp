@@ -97,7 +97,7 @@ class ConsistencyCheckAddon
                     return false;
                 }
 
-                if (std::is_same_v<Type1, ActionChoices::ChooseFromCardIDs>)
+                if (std::is_same_v<Type1, ChooseFromCardIDs>)
                 {
                     return true;
                 }
