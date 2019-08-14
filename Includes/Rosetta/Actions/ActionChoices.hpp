@@ -10,10 +10,10 @@
 #ifndef ROSETTASTONE_ACTION_CHOICES_HPP
 #define ROSETTASTONE_ACTION_CHOICES_HPP
 
+#include <Rosetta/Actions/Choices/ChooseFromCardIDs.hpp>
 #include <Rosetta/Actions/Choices/ChooseFromNumbers.hpp>
 #include <Rosetta/Actions/Choices/InvalidChoice.hpp>
 
-#include <cassert>
 #include <variant>
 #include <vector>
 
@@ -28,56 +28,6 @@ namespace RosettaStone
 class ActionChoices
 {
  public:
-    class ChooseFromCardIDs
-    {
-     public:
-        explicit ChooseFromCardIDs(const std::vector<size_t>& cardIDs)
-            : m_cardIDs(cardIDs)
-        {
-            // Do nothing
-        }
-
-        size_t Get(size_t idx) const
-        {
-            assert(idx < m_cardIDs.size());
-            return m_cardIDs[idx];
-        }
-
-        bool IsEmpty() const
-        {
-            return m_cardIDs.empty();
-        }
-
-        size_t Size() const
-        {
-            return m_cardIDs.size();
-        }
-
-        void Begin()
-        {
-            m_iter = m_cardIDs.begin();
-        }
-
-        size_t Get() const
-        {
-            return *m_iter;
-        }
-
-        void StepNext()
-        {
-            ++m_iter;
-        }
-
-        bool IsEnd() const
-        {
-            return m_iter == m_cardIDs.end();
-        }
-
-     private:
-        std::vector<size_t> m_cardIDs;
-        std::vector<size_t>::const_iterator m_iter;
-    };
-
     ActionChoices() : m_item(InvalidChoice())
     {
         // Do nothing
