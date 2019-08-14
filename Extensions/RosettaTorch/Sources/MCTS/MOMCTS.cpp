@@ -68,7 +68,6 @@ SOMCTS& MOMCTS::GetSOMCTS(PlayerController::Player player)
     }
     else
     {
-        assert(player.IsPlayer2());
         return m_player2;
     }
 }
@@ -81,7 +80,6 @@ const SOMCTS& MOMCTS::GetSOMCTS(PlayerController::Player player) const
     }
     else
     {
-        assert(player.IsPlayer2());
         return m_player2;
     }
 }

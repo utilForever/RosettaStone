@@ -82,7 +82,6 @@ void SOMCTS::ApplyOthersActions()
         return;
     }
 
-    assert(m_stage == Stage::SELECTION);
     m_selectionStage.ApplyOthersActions();
 }
 
@@ -94,21 +93,15 @@ void SOMCTS::FinishIteration(const Board& board, StateValue stateValue)
 int SOMCTS::ChooseAction(const Board& board, ActionType actionType,
                          ActionChoices& choices)
 {
-    assert(!choices.IsEmpty());
-
     if (m_stage == Stage::SELECTION)
     {
         const int choice = m_selectionStage.ChooseAction(actionType, choices);
-        assert(choice >= 0);
         return choice;
     }
     else
     {
-        assert(m_stage == Stage::SIMULATION);
-
         const int choice = m_simulationStage.ChooseAction(
             board, m_actionParams.GetChecker(), actionType, choices);
-        assert(choice >= 0);
         return choice;
     }
 }

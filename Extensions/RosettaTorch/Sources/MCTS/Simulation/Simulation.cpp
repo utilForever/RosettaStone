@@ -40,8 +40,6 @@ int Simulation::ChooseAction(const Board& board,
                              ActionType actionType,
                              const ActionChoices& choices) const
 {
-    assert(!choices.IsEmpty());
-
     const int choiceSize = choices.Size();
     if (choiceSize == 1)
     {
@@ -50,9 +48,6 @@ int Simulation::ChooseAction(const Board& board,
 
     const int choice = m_policy->GetChoice(board, checker, actionType,
                                            ChoiceGetter(choiceSize));
-    // Always return a valid choice
-    assert(choice >= 0);
-
     return choice;
 }
 }  // namespace RosettaTorch::MCTS

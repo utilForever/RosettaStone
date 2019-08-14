@@ -36,7 +36,6 @@ bool ChoiceIterator::IsEnd() const
 void ChoiceIterator::Get(Item& item) const
 {
     item.choice = m_choices.Get();
-    assert(item.choice >= 0);
     item.edgeAddon = m_children.Get(item.choice).first;
 }
 }  // namespace RosettaTorch::MCTS
