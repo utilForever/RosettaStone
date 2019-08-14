@@ -30,26 +30,25 @@ class ActionChoices
     class ChooseFromNumbers
     {
      public:
-        explicit ChooseFromNumbers(size_t exclusiveMax)
-            : m_exclusiveMax(exclusiveMax), m_iter(0)
+        explicit ChooseFromNumbers(size_t max) : m_max(max), m_iter(0)
         {
             // Do nothing
         }
 
         size_t Get(size_t idx) const
         {
-            assert(idx < m_exclusiveMax);
+            assert(idx < m_max);
             return static_cast<int>(idx);
         }
 
         bool IsEmpty() const
         {
-            return m_exclusiveMax <= 0;
+            return m_max <= 0;
         }
 
         size_t Size() const
         {
-            return m_exclusiveMax;
+            return m_max;
         }
 
         void Begin()
@@ -69,11 +68,11 @@ class ActionChoices
 
         bool IsEnd() const
         {
-            return m_iter >= m_exclusiveMax;
+            return m_iter >= m_max;
         }
 
      private:
-        size_t m_exclusiveMax;
+        size_t m_max;
         size_t m_iter;
     };
 
@@ -203,8 +202,8 @@ class ActionChoices
     }
 
  private:
-    using ItemType = std::variant<InvalidChoice, ChooseFromNumbers,
-                                  ChooseFromCardIDs>;
+    using ItemType =
+        std::variant<InvalidChoice, ChooseFromNumbers, ChooseFromCardIDs>;
 
     ItemType m_item;
 };
