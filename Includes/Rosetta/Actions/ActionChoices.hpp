@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_ACTION_CHOICES_HPP
 #define ROSETTASTONE_ACTION_CHOICES_HPP
 
+#include <Rosetta/Actions/Choices/ChooseFromNumbers.hpp>
 #include <Rosetta/Actions/Choices/InvalidChoice.hpp>
 
 #include <cassert>
@@ -27,55 +28,6 @@ namespace RosettaStone
 class ActionChoices
 {
  public:
-    class ChooseFromNumbers
-    {
-     public:
-        explicit ChooseFromNumbers(size_t max) : m_max(max), m_iter(0)
-        {
-            // Do nothing
-        }
-
-        size_t Get(size_t idx) const
-        {
-            assert(idx < m_max);
-            return static_cast<int>(idx);
-        }
-
-        bool IsEmpty() const
-        {
-            return m_max <= 0;
-        }
-
-        size_t Size() const
-        {
-            return m_max;
-        }
-
-        void Begin()
-        {
-            m_iter = 0;
-        }
-
-        size_t Get() const
-        {
-            return m_iter;
-        }
-
-        void StepNext()
-        {
-            ++m_iter;
-        }
-
-        bool IsEnd() const
-        {
-            return m_iter >= m_max;
-        }
-
-     private:
-        size_t m_max;
-        size_t m_iter;
-    };
-
     class ChooseFromCardIDs
     {
      public:
