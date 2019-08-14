@@ -13,7 +13,7 @@
 namespace RosettaStone
 {
 //!
-//! \brief ActionChoices::InvalidChoice class.
+//! \brief InvalidChoice class.
 //!
 //! This class indicates the choice is invalid.
 //! Note that all methods will throw exception.
