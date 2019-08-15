@@ -588,7 +588,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // Text: Deal $3 damage to two random enemy minions.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINIMUM_ENEMY_MINIONS = 2
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));
@@ -1789,7 +1789,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     cards.emplace("EX1_302", power);
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
+    // [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
     // - Faction: Horde, Set: Core, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Discard a random card.
@@ -1928,7 +1928,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // Text: Deal $2 damage to two random enemy minions.
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINIMUM_ENEMY_MINIONS = 2
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));

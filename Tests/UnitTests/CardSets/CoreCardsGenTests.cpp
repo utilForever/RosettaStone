@@ -1234,7 +1234,7 @@ TEST(HunterCoreTest, DS1_178_TundraRhino)
 // Text: Deal $3 damage to two random enemy minions.
 // --------------------------------------------------------
 // PlayReq:
-// - REQ_MINIMUM_ENEMY_MINIONS = 2
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
 // --------------------------------------------------------
 TEST(HunterCoreTest, DS1_183_MultiShot)
 {
@@ -1276,10 +1276,6 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
-    EXPECT_EQ(totalHealth, 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -4643,7 +4639,7 @@ TEST(WarlockCoreTest, EX1_302_MortalCoil)
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_306] Succubus - COST:2 [ATK:4/HP:3]
+// [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
 // - Faction: Horde, Set: Core, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Discard a random card.
@@ -4672,7 +4668,7 @@ TEST(WarlockCoreTest, EX1_306_Succubus)
     opPlayer.SetUsedMana(0);
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Succubus"));
+        curPlayer, Cards::GetInstance().FindCardByName("Felstalker"));
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
@@ -5030,7 +5026,7 @@ TEST(WarriorCoreTest, CS2_112_ArcaniteReaper)
 // Text: Deal $2 damage to two random enemy minions.
 // --------------------------------------------------------
 // PlayReq:
-// - REQ_MINIMUM_ENEMY_MINIONS = 2
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
 // --------------------------------------------------------
 TEST(WarriorCoreTest, CS2_114_Cleave)
 {
@@ -5069,10 +5065,6 @@ TEST(WarriorCoreTest, CS2_114_Cleave)
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
