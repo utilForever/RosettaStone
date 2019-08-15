@@ -7,20 +7,15 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_IMPL_HPP
-#define ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_IMPL_HPP
-
 #include <MCTS/Selection/BoardNodeMap.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
 
-#include <memory>
-#include <shared_mutex>
-#include <unordered_map>
-
 namespace RosettaTorch::MCTS
 {
-inline TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
-                                               bool* newNodeCreated)
+using MapType = std::unordered_map<ReducedBoardView, std::unique_ptr<TreeNode>>;
+
+TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
+                                        bool* newNodeCreated)
 {
     const auto boardView = board.CreateView();
 
@@ -53,6 +48,33 @@ inline TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
         return item.get();
     }
 }
-}  // namespace RosettaTorch::MCTS
 
-#endif  // ROSETTASTONE_TORCH_MCTS_BOARD_NODE_MAP_IMPL_HPP
+void BoardNodeMap::ForEach(
+    const std::function<bool(ReducedBoardView, TreeNode*)>& functor) const
+{
+    std::shared_lock<SharedSpinLock> lock(m_mutex);
+
+    if (!m_map)
+    {
+        return;
+    }
+
+    for (const auto& kv : *m_map)
+    {
+        if (!functor(kv.first, kv.second.get()))
+        {
+            return;
+        }
+    }
+}
+
+MapType& BoardNodeMap::GetLockedMap()
+{
+    if (!m_map)
+    {
+        m_map.reset(new MapType());
+    }
+
+    return *m_map;
+}
+}  // namespace RosettaTorch::MCTS

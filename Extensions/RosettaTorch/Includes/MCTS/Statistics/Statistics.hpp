@@ -10,91 +10,67 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_STATISTICS_HPP
 #define ROSETTASTONE_TORCH_MCTS_STATISTICS_HPP
 
-#include <MCTS/Constants.hpp>
+#include <MCTS/Commons/Constants.hpp>
+#include <MCTS/Statistics/Recorder.hpp>
 
-#include <atomic>
 #include <sstream>
 
 namespace RosettaTorch::MCTS
 {
+//!
+//! \brief Statistics class.
+//!
+//! This class stores statistics data related to MCTS.
+//! It enables only when 'ENABLE_STATISTICS' is set to true.
+//!
 template <bool enabled = ENABLE_STATISTICS>
 class Statistics
 {
  public:
+    //! Writes statistics data that action is succeeded.
+    //! \param isSimulation The flag indicates whether it is simulation mode.
     void ApplyActionSucceeded([[maybe_unused]] bool isSimulation)
     {
         // Do nothing
     }
 
+    //! Returns debug message related to statistics data.
     void GetDebugMessage()
     {
         // Do nothing
     }
 };
 
-class SuccessRateRecorder
-{
- public:
-    SuccessRateRecorder() : m_success(0), m_total(0)
-    {
-        // Do nothing
-    }
-
-    void ReportSuccess()
-    {
-        ++m_success;
-        ++m_total;
-    }
-
-    void ReportFailed()
-    {
-        ++m_total;
-    }
-
-    int GetSuccessCount() const
-    {
-        return m_success;
-    }
-
-    int GetTotalCount() const
-    {
-        return m_total;
-    }
-
-    double GetSuccessRate() const
-    {
-        if (m_total == 0)
-        {
-            return 0.0;
-        }
-
-        return static_cast<double>(m_success) / m_total;
-    }
-
- private:
-    std::atomic<int> m_success;
-    std::atomic<int> m_total;
-};
-
+//!
+//! \brief Statistics<true> class.
+//!
+//! This class is specialized class when 'ENABLE_STATISTICS' is true.
+//!
 template <>
 class Statistics<true>
 {
  public:
+    //! Reports that iteration is succeed.
     void IterateSucceeded()
     {
         m_iter.ReportSuccess();
     }
 
+    //! Reports that iteration is fail.
     void IterateFailed()
     {
-        m_iter.ReportFailed();
+        m_iter.ReportFail();
     }
 
-    auto GetSuccededIterates() const
+    //! Returns the success count of iteration.
+    //! \return The success count of iteration.
+    int GetSuccededIterates() const
     {
         return m_iter.GetSuccessCount();
     }
 
+    //! Writes statistics data that action is succeeded.
+    //! \param isSimulation The flag indicates whether it is simulation mode.
     void ApplyActionSucceeded(bool isSimulation)
     {
         if (isSimulation)
@@ -107,16 +83,19 @@ class Statistics<true>
         }
     }
 
+    //! Reports that selection action is succeed.
     void ApplySelectionActionSucceeded()
     {
         m_selection.ReportSuccess();
     }
 
+    //! Reports that simulation action is succeed.
     void ApplySimulationActionSucceeded()
     {
         m_simulation.ReportSuccess();
     }
 
+    //! Returns debug message related to statistics data.
     std::string GetDebugMessage() const
     {
         std::stringstream ss;
@@ -137,6 +116,9 @@ class Statistics<true>
     }
 
  private:
+    //! Prints success/total count and success rate.
+    //! \p ss The string stream.
+    //! \p rate The success rate recorder object.
     void PrintRate(std::stringstream& ss, const SuccessRateRecorder& rate) const
     {
         ss << rate.GetSuccessCount() << " / " << rate.GetTotalCount() << " ("

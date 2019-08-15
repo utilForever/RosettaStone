@@ -10,8 +10,11 @@
 #ifndef ROSETTASTONE_ACTION_CHOICES_HPP
 #define ROSETTASTONE_ACTION_CHOICES_HPP
 
-#include <cassert>
-#include <stdexcept>
+#include <Rosetta/Actions/Choices/ChooseFromCardIDs.hpp>
+#include <Rosetta/Actions/Choices/ChooseFromNumbers.hpp>
+#include <Rosetta/Actions/Choices/InvalidChoice.hpp>
+
+#include <cstddef>
 #include <variant>
 #include <vector>
 
@@ -20,173 +23,33 @@ namespace RosettaStone
 //!
 //! \brief ActionChoices class.
 //!
+//! This class contains several choice methods for the action such as
+//! invalid choice, choose from numeric range or a list of card IDs.
+//!
 class ActionChoices
 {
  public:
-    class InvalidChoice
-    {
-     public:
-        size_t Get([[maybe_unused]] size_t idx) const
-        {
-            throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
-        }
+    //! Constructs action choices and initializes item to invalid choice.
+    ActionChoices();
 
-        bool IsEmpty() const
-        {
-            throw std::runtime_error(
-                "ActionChoices::IsEmpty() - Invalid Choice");
-        }
+    //! Constructs action choices and initializes item to choose from numbers.
+    //! \param max The maximum value of the range.
+    explicit ActionChoices(std::size_t max);
 
-        size_t Size() const
-        {
-            throw std::runtime_error("ActionChoices::Size() - Invalid Choice");
-        }
+    //! Constructs action choices and initializes item to choose from cardIDs.
+    //! \param cardIDs A list of card IDs.
+    explicit ActionChoices(const std::vector<std::size_t>& cardIDs);
 
-        void Begin()
-        {
-            throw std::runtime_error("ActionChoices::Begin() - Invalid Choice");
-        }
-
-        size_t Get() const
-        {
-            throw std::runtime_error("ActionChoices::Get() - Invalid Choice");
-        }
-
-        void StepNext()
-        {
-            throw std::runtime_error(
-                "ActionChoices::StepNext() - Invalid Choice");
-        }
-
-        bool IsEnd() const
-        {
-            throw std::runtime_error("ActionChoices::IsEnd() - Invalid Choice");
-        }
-    };
-
-    class ChooseFromZeroToExclusiveMax
-    {
-     public:
-        explicit ChooseFromZeroToExclusiveMax(size_t exclusiveMax)
-            : m_exclusiveMax(exclusiveMax), m_iter(0)
-        {
-            // Do nothing
-        }
-
-        size_t Get(size_t idx) const
-        {
-            assert(idx < m_exclusiveMax);
-            return static_cast<int>(idx);
-        }
-
-        bool IsEmpty() const
-        {
-            return m_exclusiveMax <= 0;
-        }
-
-        size_t Size() const
-        {
-            return m_exclusiveMax;
-        }
-
-        void Begin()
-        {
-            m_iter = 0;
-        }
-
-        size_t Get() const
-        {
-            return m_iter;
-        }
-
-        void StepNext()
-        {
-            ++m_iter;
-        }
-
-        bool IsEnd() const
-        {
-            return m_iter >= m_exclusiveMax;
-        }
-
-     private:
-        size_t m_exclusiveMax;
-        size_t m_iter;
-    };
-
-    class ChooseFromCardIDs
-    {
-     public:
-        explicit ChooseFromCardIDs(const std::vector<size_t>& cardIDs)
-            : m_cardIDs(cardIDs)
-        {
-            // Do nothing
-        }
-
-        size_t Get(size_t idx) const
-        {
-            assert(idx < m_cardIDs.size());
-            return m_cardIDs[idx];
-        }
-
-        bool IsEmpty() const
-        {
-            return m_cardIDs.empty();
-        }
-
-        size_t Size() const
-        {
-            return m_cardIDs.size();
-        }
-
-        void Begin()
-        {
-            m_iter = m_cardIDs.begin();
-        }
-
-        size_t Get() const
-        {
-            return *m_iter;
-        }
-
-        void StepNext()
-        {
-            ++m_iter;
-        }
-
-        bool IsEnd() const
-        {
-            return m_iter == m_cardIDs.end();
-        }
-
-     private:
-        std::vector<size_t> m_cardIDs;
-        std::vector<size_t>::const_iterator m_iter;
-    };
-
-    ActionChoices() : m_item(InvalidChoice())
-    {
-        // Do nothing
-    }
-
-    explicit ActionChoices(size_t exclusiveMax)
-        : m_item(ChooseFromZeroToExclusiveMax(exclusiveMax))
-    {
-        // Do nothing
-    }
-
-    explicit ActionChoices(const std::vector<size_t>& cardIDs)
-        : m_item(ChooseFromCardIDs(cardIDs))
-    {
-        // Do nothing
-    }
-
+    //! Checks if a variant currently holds a given type.
+    //! \return The flag that indicates whether a variant currently holds
+    //! a given type.
     template <class T>
-    bool CheckType() const
-    {
-        return std::holds_alternative<T>(m_item);
-    }
+    bool CheckType() const;
 
+    //! Compares this object and \p rhs as \p comparator function.
+    //! \param rhs ActionChoices object to compare.
+    //! \param comparator The function to use for comparison.
+    //! \return The result of \p comparator function.
     template <class Comparator>
     bool Compare(const ActionChoices& rhs, Comparator&& comparator) const
     {
@@ -198,50 +61,40 @@ class ActionChoices
             m_item, rhs.m_item);
     }
 
-    size_t GetIndex() const
-    {
-        return m_item.index();
-    }
+    //! Returns the zero-based index of the alternative held by the variant.
+    //! \return The zero-based index of the alternative held by the variant.
+    std::size_t GetIndex() const;
 
-    size_t Get(size_t idx) const
-    {
-        return std::visit([&](auto&& item) -> int { return item.Get(idx); },
-                          m_item);
-    }
+    //! Returns the action choice at \p idx.
+    //! \param idx The index of action choices.
+    //! \return The action choice at \p idx.
+    std::size_t Get(std::size_t idx) const;
 
-    bool IsEmpty() const
-    {
-        return std::visit([&](auto&& item) { return item.IsEmpty(); }, m_item);
-    }
+    //! Returns the flag indicates that action choices are empty.
+    //! \return The flag indicates that action choices are empty.
+    bool IsEmpty() const;
 
-    size_t Size() const
-    {
-        return std::visit([&](auto&& item) { return item.Size(); }, m_item);
-    }
+    //! Returns the number of action choices.
+    //! \return The number of action choices.
+    std::size_t Size() const;
 
-    void Begin()
-    {
-        return std::visit([&](auto&& item) { return item.Begin(); }, m_item);
-    }
+    //! Initializes iterator variable.
+    void Begin();
 
-    size_t Get() const
-    {
-        return std::visit([&](auto&& item) { return item.Get(); }, m_item);
-    }
+    //! Returns the element that iterator variable points to.
+    //! \return The element that iterator variable points to.
+    std::size_t Get() const;
 
-    void StepNext()
-    {
-        return std::visit([&](auto&& item) { return item.StepNext(); }, m_item);
-    }
+    //! Processes iterator to point to the next element.
+    void StepNext();
 
-    bool IsEnd() const
-    {
-        return std::visit([&](auto&& item) { return item.IsEnd(); }, m_item);
-    }
+    //! Returns the flag indicates that iterator is in the end position.
+    //! \return the flag indicates that iterator is in the end position.
+    bool IsEnd() const;
 
  private:
-    using ItemType = std::variant<InvalidChoice, ChooseFromZeroToExclusiveMax,
-                                  ChooseFromCardIDs>;
+    using ItemType =
+        std::variant<InvalidChoice, ChooseFromNumbers, ChooseFromCardIDs>;
 
     ItemType m_item;
 };

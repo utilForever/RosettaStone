@@ -11,119 +11,30 @@
 #define ROSETTASTONE_TORCH_MCTS_UCB_POLICY_HPP
 
 #include <MCTS/Policies/Selection/ISelectionPolicy.hpp>
-#include <MCTS/Selection/EdgeAddon.hpp>
-#include <MCTS/Selection/TreeNode.hpp>
 
-#include <Rosetta/Actions/ActionType.hpp>
-
-#include <array>
-#include <cmath>
-#include <limits>
+#include <Rosetta/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {
+//!
+//! \brief UCBPolicy class.
+//!
+//! This class is policy class that selects choice using UCB(Upper Confidence
+//! Bound) algorithm. The Upper Confidence Bound algorithm the kind of algorithm
+//! that helps us to perform exploitation and exploration together.
+//! http://www.aionlinecourse.com/tutorial/machine-learning/upper-confidence-bound-%28ucb%29
+//!
 class UCBPolicy : public ISelectionPolicy
 {
  public:
+    //! The value of exploration weight.
     constexpr static double EXPLORE_WEIGHT = 0.2;
 
-    int SelectChoice(ActionType actionType, ChoiceIterator choiceIter) override
-    {
-        constexpr size_t MAX_CHOICES = 16;
-        std::array<ChoiceIterator::Item, MAX_CHOICES> choices{};
-        size_t choicesIdx = 0;
-
-        // Phase 1: get total chosen times, and record to 'choices'
-        std::int64_t totalChosenTimes = 0;
-        for (choiceIter.Begin(); !choiceIter.IsEnd(); choiceIter.StepNext())
-        {
-            choiceIter.Get(choices[choicesIdx]);
-            auto& item = choices[choicesIdx];
-            const int choice = item.choice;
-            const auto edgeAddon = item.edgeAddon;
-
-            if (!edgeAddon)
-            {
-                // Force select
-                return choice;
-            }
-
-            const auto chosenTimes = edgeAddon->GetChosenTimes();
-            if (chosenTimes == 0)
-            {
-                // Force select
-                return choice;
-            }
-
-            if (edgeAddon->GetTotal() == 0)
-            {
-                // A node is created (from another thread),
-                // but is not yet updated from that thread
-                // in this case, we just force select that choice
-                return choice;
-            }
-
-            assert(chosenTimes > 0);
-            totalChosenTimes += chosenTimes;
-
-            assert(choicesIdx < MAX_CHOICES);
-            ++choicesIdx;
-        }
-
-        assert(totalChosenTimes > 0);
-
-        // Phase 2: use UCB to make a choice
-        const auto getScore = [totalChosenTimes](
-                                  ActionType actionType, size_t choiceIdx,
-                                  size_t choiceCount,
-                                  const ChoiceIterator::Item& item) {
-            double exploreWeight = EXPLORE_WEIGHT;
-
-            if (actionType == ActionType::MAIN_ACTION)
-            {
-                if (choiceIdx == choiceCount - 1)
-                {
-                    // Do not choose end-turn action
-                    // This is a simple mimic to policy network as in AlphaZero
-                    exploreWeight *= 0.1;
-                }
-            }
-
-            const double exploitScore = item.edgeAddon->GetAverageCredit();
-            assert(exploitScore >= -1.0);
-            assert(exploitScore <= 1.0);
-
-            auto chosenTimes = item.edgeAddon->GetChosenTimes();
-            // In case another thread visited it
-            if (chosenTimes > totalChosenTimes)
-            {
-                chosenTimes = totalChosenTimes;
-            }
-
-            const double exploreScore = std::sqrt(
-                std::log(static_cast<double>(totalChosenTimes)) / chosenTimes);
-
-            return exploitScore + exploreWeight * exploreScore;
-        };
-
-        assert(choicesIdx > 0);
-
-        size_t bestChoice = 0;
-        double bestScore = -std::numeric_limits<double>::infinity();
-
-        for (size_t idx = 0; idx < choicesIdx; ++idx)
-        {
-            const double score =
-                getScore(actionType, idx, choicesIdx, choices[idx]);
-            if (score > bestScore)
-            {
-                bestChoice = idx;
-                bestScore = score;
-            }
-        }
-
-        return choices[bestChoice].choice;
-    }
+    //! Selects choice according to the policy.
+    //! \param actionType The type of action.
+    //! \param choiceIter An iterator for action choices.
+    //! \return The index of choice.
+    int SelectChoice(ActionType actionType, ChoiceIterator choiceIter) override;
 };
 }  // namespace RosettaTorch::MCTS
 

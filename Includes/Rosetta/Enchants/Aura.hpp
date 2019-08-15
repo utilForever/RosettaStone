@@ -65,7 +65,7 @@ class Aura : public IAura
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of aura.
-    //! \param cloning The flag to indicate it is cloned.
+    //! \param cloning The flag to indicate that it is cloned.
     virtual void Activate(Entity* owner, bool cloning = false);
 
     //! Updates this effect to apply the effect to recently modified entities.
@@ -148,7 +148,7 @@ class AdaptiveEffect : public Aura
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive effect.
-    //! \param cloning The flag to indicate it is cloned.
+    //! \param cloning The flag to indicate that it is cloned.
     void Activate(Entity* owner, bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
@@ -191,7 +191,7 @@ class EnrageEffect : public Aura
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
-    //! \param cloning The flag to indicate it is cloned.
+    //! \param cloning The flag to indicate that it is cloned.
     void Activate(Entity* owner, bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.

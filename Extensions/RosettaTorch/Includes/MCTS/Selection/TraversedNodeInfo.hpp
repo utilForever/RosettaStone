@@ -17,13 +17,16 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief TraversedNodeInfo struct.
 //!
+//! This struct stores traversed node information such as a pointer pointing to
+//! traversed node, the edge addon and the index of the node.
+//!
 struct TraversedNodeInfo
 {
-    TraversedNodeInfo(TreeNode* _node, EdgeAddon* _edgeAddon, int _choice)
-        : node(_node), edgeAddon(_edgeAddon), choice(_choice)
-    {
-        // Do nothing
-    }
+    //! Constructs node info with given \p _node, \p _edgeAddon and \p _choice.
+    //! \param _node A pointer pointing to traversed node.
+    //! \param _edgeAddon The edge addon of the node.
+    //! \param _choice The index of the node.
+    TraversedNodeInfo(TreeNode* _node, EdgeAddon* _edgeAddon, int _choice);
 
     TreeNode* node;
     EdgeAddon* edgeAddon;

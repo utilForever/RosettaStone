@@ -13,7 +13,7 @@
 #include <Agents/MCTSConfig.hpp>
 #include <MCTS/MOMCTS.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
-#include <MCTS/Statistics.hpp>
+#include <MCTS/Statistics/Statistics.hpp>
 
 #include <Rosetta/Cards/Cards.hpp>
 
@@ -21,97 +21,42 @@
 
 namespace RosettaTorch::Agents
 {
+//!
+//! \brief MCTSRunner class.
+//!
+//! This class runs multi-thread MCTS with simple statistics.
+//!
 class MCTSRunner
 {
  public:
-    ~MCTSRunner()
-    {
-        WaitUntilStopped();
-    }
+    //! Constructs MCTS runner with given \p config.
+    //! \param config The MCTS config.
+    explicit MCTSRunner(const MCTSConfig& config);
 
-    void Run(MCTSConfig& config)
-    {
-        assert(m_threads.empty());
-        m_stopFlag = false;
+    //! Destructs MCTS runner.
+    ~MCTSRunner();
 
-        for (int i = 0; i < config.threads; ++i)
-        {
-            m_threads.emplace_back([this]() {
-                MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics);
+    //! Runs MCTS as many threads as you set in config.
+    //! \param gameConfig The game config.
+    void Run(const GameConfig& gameConfig);
 
-                GameConfig config;
-                config.player1Class = CardClass::PRIEST;
-                config.player2Class = CardClass::MAGE;
-                config.startPlayer = PlayerType::PLAYER1;
-                config.doShuffle = false;
-                config.doFillDecks = false;
-                config.skipMulligan = true;
-                config.autoRun = true;
+    //! Returns the statistics of MCTS runner.
+    //! \return The statistics of MCTS runner.
+    const MCTS::Statistics<>& GetStatistics() const;
 
-                std::array<std::string, START_DECK_SIZE> deck = {
-                    "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
-                    "CS1_113", "CS1_113", "CS1_130", "CS1_130",  // 2
-                    "CS2_007", "CS2_007", "CS2_022", "CS2_022",  // 3
-                    "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
-                    "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
-                    "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
-                    "CS2_032", "CS2_032", "CS2_033", "CS2_033",  // 7
-                    "CS2_037", "CS2_037"
-                };
+    //! Returns the root node of the tree.
+    //! \param playerType The type of player.
+    //! \return The root node of the tree.
+    const MCTS::TreeNode* GetRootNode(PlayerType playerType) const;
 
-                for (size_t j = 0; j < START_DECK_SIZE; ++j)
-                {
-                    config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
-                    config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
-                }
+    //! Notifies threads to stop.
+    void NotifyStop();
 
-                while (!m_stopFlag.load())
-                {
-                    Game game(config);
-                    mcts.Iterate(game);
-
-                    m_statistics.IterateSucceeded();
-                }
-            });
-        }
-    }
-
-    const MCTS::Statistics<>& GetStatistics() const
-    {
-        return m_statistics;
-    }
-
-    auto GetRootNode(PlayerType playerType) const
-    {
-        if (playerType == PlayerType::PLAYER1)
-        {
-            return &m_p1Tree;
-        }
-        else
-        {
-            return &m_p2Tree;
-        }
-    }
-
-    int NotifyStop()
-    {
-        m_stopFlag = true;
-        return 0;
-    }
-
-    void WaitUntilStopped()
-    {
-        NotifyStop();
-
-        for (auto& thread : m_threads)
-        {
-            thread.join();
-        }
-
-        m_threads.clear();
-    }
+    //! Waits until all threads stop.
+    void WaitUntilStopped();
 
  private:
+    MCTSConfig m_config;
     std::vector<std::thread> m_threads;
 
     MCTS::TreeNode m_p1Tree;

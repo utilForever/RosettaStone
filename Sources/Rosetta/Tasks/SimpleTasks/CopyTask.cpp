@@ -13,12 +13,12 @@
 namespace RosettaStone::SimpleTasks
 {
 CopyTask::CopyTask(EntityType entityType, ZoneType zoneType, int amount,
-                   bool addToStack, bool toOpposite)
+                   bool addToStack, bool toOpponent)
     : ITask(entityType),
       m_zoneType(zoneType),
       m_amount(amount),
       m_addToStack(addToStack),
-      m_toOpposite(toOpposite)
+      m_toOpponent(toOpponent)
 {
     // Do nothing
 }
@@ -30,7 +30,7 @@ TaskID CopyTask::GetTaskID() const
 
 TaskStatus CopyTask::Impl(Player& player)
 {
-    Player& owner = (m_toOpposite) ? *player.opponent : player;
+    Player& owner = (m_toOpponent) ? *player.opponent : player;
     IZone* targetZone = Generic::GetZone(owner, m_zoneType);
 
     if (targetZone == nullptr || targetZone->IsFull())
@@ -133,6 +133,6 @@ TaskStatus CopyTask::Impl(Player& player)
 ITask* CopyTask::CloneImpl()
 {
     return new CopyTask(m_entityType, m_zoneType, m_amount, m_addToStack,
-                        m_toOpposite);
+                        m_toOpponent);
 }
 }  // namespace RosettaStone::SimpleTasks

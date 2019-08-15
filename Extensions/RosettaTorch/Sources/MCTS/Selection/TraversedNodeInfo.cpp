@@ -7,21 +7,14 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_ACTION_TYPE_HPP
-#define ROSETTASTONE_ACTION_TYPE_HPP
+#include <MCTS/Selection/TraversedNodeInfo.hpp>
 
-namespace RosettaStone
+namespace RosettaTorch::MCTS
 {
-enum class ActionType
+TraversedNodeInfo::TraversedNodeInfo(TreeNode* _node, EdgeAddon* _edgeAddon,
+                                     int _choice)
+    : node(_node), edgeAddon(_edgeAddon), choice(_choice)
 {
-    INVALID,
-    MAIN_ACTION,
-    CHOOSE_HAND_CARD,
-    CHOOSE_ATTACKER,
-    CHOOSE_MINION_PUT_LOCATION,
-    CHOOSE_TARGET,
-    CHOOSE_ONE
-};
-}  // namespace RosettaStone
-
-#endif  // ROSETTASTONE_ACTION_TYPE_HPP
+    // Do nothing
+}
+}  // namespace RosettaTorch::MCTS

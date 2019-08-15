@@ -12,12 +12,14 @@
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/ActionTargets.hpp>
-#include <Rosetta/Actions/ActionType.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/Attack.hpp>
 #include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>
+#include <Rosetta/Actions/Choices/ChooseFromCardIDs.hpp>
+#include <Rosetta/Actions/Choices/ChooseFromNumbers.hpp>
+#include <Rosetta/Actions/Choices/InvalidChoice.hpp>
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Copy.hpp>
 #include <Rosetta/Actions/Draw.hpp>

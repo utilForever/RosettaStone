@@ -28,7 +28,7 @@ Hero* ActionValidGetter::GetHero(PlayerType playerType) const
 }
 
 void ActionValidGetter::ForEachMinion(
-    PlayerType playerType, const std::function<void(Minion*)>& func) const
+    PlayerType playerType, const std::function<void(Minion*)>& functor) const
 {
     auto& fieldZone = (playerType == PlayerType::PLAYER1)
                           ? m_game.GetPlayer1().GetFieldZone()
@@ -36,12 +36,12 @@ void ActionValidGetter::ForEachMinion(
 
     for (auto& minion : fieldZone.GetAll())
     {
-        func(minion);
+        functor(minion);
     }
 }
 
 void ActionValidGetter::ForEachPlayableCard(
-    const std::function<bool(Entity*)>& func) const
+    const std::function<bool(Entity*)>& functor) const
 {
     auto& handZone = m_game.GetCurrentPlayer().GetHandZone();
 
@@ -52,7 +52,7 @@ void ActionValidGetter::ForEachPlayableCard(
             continue;
         }
 
-        if (!func(card))
+        if (!functor(card))
         {
             return;
         }
@@ -60,7 +60,7 @@ void ActionValidGetter::ForEachPlayableCard(
 }
 
 void ActionValidGetter::ForEachAttacker(
-    const std::function<bool(Character*)>& func) const
+    const std::function<bool(Character*)>& functor) const
 {
     auto& fieldZone = m_game.GetCurrentPlayer().GetFieldZone();
 
@@ -71,7 +71,7 @@ void ActionValidGetter::ForEachAttacker(
             continue;
         }
 
-        if (!func(minion))
+        if (!functor(minion))
         {
             return;
         }
@@ -80,7 +80,7 @@ void ActionValidGetter::ForEachAttacker(
     const auto& hero = m_game.GetCurrentPlayer().GetHero();
     if (hero->CanAttack())
     {
-        if (!func(hero))
+        if (!functor(hero))
         {
             return;
         }

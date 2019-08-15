@@ -12,31 +12,22 @@
 
 #include <MCTS/Policies/Selection/ISelectionPolicy.hpp>
 
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
-
 namespace RosettaTorch::MCTS
 {
+//!
+//! \brief RandomPolicy class.
+//!
+//! This class is policy class that selects choice at random.
+//!
 class RandomPolicy : public ISelectionPolicy
 {
  public:
+    //! Selects choice according to the policy.
+    //! \param actionType The type of action.
+    //! \param choiceIter An iterator for action choices.
+    //! \return The index of choice.
     int SelectChoice([[maybe_unused]] ActionType actionType,
-                     ChoiceIterator choiceIter) override
-    {
-        constexpr size_t MAX_CHOICES = 16;
-        std::array<ChoiceIterator::Item, MAX_CHOICES> choices{};
-        size_t choicesIdx = 0;
-
-        for (choiceIter.Begin(); !choiceIter.IsEnd(); choiceIter.StepNext())
-        {
-            choiceIter.Get(choices[choicesIdx]);
-            ++choicesIdx;
-        }
-
-        const auto randIdx = Random::get<size_t>(0, choicesIdx - 1);
-        return choices[randIdx].choice;
-    }
+                     ChoiceIterator choiceIter) override;
 };
 }  // namespace RosettaTorch::MCTS
 

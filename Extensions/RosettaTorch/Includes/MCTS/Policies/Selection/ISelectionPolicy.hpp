@@ -14,12 +14,14 @@
 #include <MCTS/Selection/TreeNode.hpp>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Actions/ActionType.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {
 //!
 //! \brief ChoiceIterator class.
+//!
+//! This class is an iterator for action choices.
 //!
 class ChoiceIterator
 {
@@ -30,33 +32,24 @@ class ChoiceIterator
         const EdgeAddon* edgeAddon;
     };
 
-    ChoiceIterator(ActionChoices& choices, const ChildNodeMap& children)
-        : m_choices(choices), m_children(children)
-    {
-        // Do nothing
-    }
+    //! Constructs choice iterator with given \p choices and \p children.
+    //! \param choices The choices of action.
+    //! \param children A container of child nodes.
+    ChoiceIterator(ActionChoices& choices, const ChildNodeMap& children);
 
-    void Begin() const
-    {
-        m_choices.Begin();
-    }
+    //! Performs the same action as std::begin.
+    void Begin() const;
 
-    void StepNext() const
-    {
-        m_choices.StepNext();
-    }
+    //! Increases iterator to access next item.
+    void StepNext() const;
 
-    bool IsEnd() const
-    {
-        return m_choices.IsEnd();
-    }
+    //! Returns the flag indicates whether the iterator is end.
+    //! \return The flag indicates whether the iterator is end.
+    bool IsEnd() const;
 
-    void Get(Item& item) const
-    {
-        item.choice = m_choices.Get();
-        assert(item.choice >= 0);
-        item.edgeAddon = m_children.Get(item.choice).first;
-    }
+    //! Gets choice and edge addon to \p item.
+    //! \param item The item to get choice and edge addon.
+    void Get(Item& item) const;
 
  private:
     ActionChoices& m_choices;
@@ -66,11 +59,18 @@ class ChoiceIterator
 //!
 //! \brief ISelectionPolicy class.
 //!
+//! This class is policy interface for selection stage.
+//!
 class ISelectionPolicy
 {
  public:
+    //! Default virtual destructor.
     virtual ~ISelectionPolicy() = default;
 
+    //! Selects choice according to the policy.
+    //! \param actionType The type of action.
+    //! \param choiceIter An iterator for action choices.
+    //! \return The index of choice.
     virtual int SelectChoice(ActionType actionType,
                              ChoiceIterator choiceIter) = 0;
 };

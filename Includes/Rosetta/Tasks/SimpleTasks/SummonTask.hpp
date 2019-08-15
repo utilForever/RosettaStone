@@ -34,25 +34,25 @@ class SummonTask : public ITask
     //! \param side The side of summoned minion.
     //! \param card The card to summon.
     //! \param amount The number of minions to summon.
-    //! \param toOpposite The flag that indicates the owner of copied entity.
+    //! \param toOpponent The flag that indicates the owner of copied entity.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
                         std::optional<Card*> card = std::nullopt,
-                        int amount = 1, bool toOpposite = false);
+                        int amount = 1, bool toOpponent = false);
 
     //! Constructs task with given \p cardID, \p amount and \p toOpponent.
     //! \param cardID The card ID to summon.
     //! \param amount The number of minions to summon.
-    //! \param toOpposite The flag that indicates the owner of copied entity.
+    //! \param toOpponent The flag that indicates the owner of copied entity.
     explicit SummonTask(const std::string& cardID, int amount,
-                        bool toOpposite = false);
+                        bool toOpponent = false);
 
     //! Constructs task with given \p cardID, \p side and \p toOpponent.
     //! \param cardID The card ID to summon.
     //! \param side The side of summoned minion.
-    //! \param toOpposite The flag that indicates the owner of copied entity.
+    //! \param toOpponent The flag that indicates the owner of copied entity.
     explicit SummonTask(const std::string& cardID,
                         SummonSide side = SummonSide::DEFAULT,
-                        bool toOpposite = false);
+                        bool toOpponent = false);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -71,7 +71,7 @@ class SummonTask : public ITask
     std::optional<Card*> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;
     int m_amount = 1;
-    bool m_toOpposite = false;
+    bool m_toOpponent = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

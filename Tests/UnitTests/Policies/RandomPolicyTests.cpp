@@ -36,7 +36,7 @@ TEST(RandomPolicy, AutoRun)
         "CS2_037", "CS2_037"
     };
 
-    for (size_t i = 0; i < START_DECK_SIZE; ++i)
+    for (std::size_t i = 0; i < START_DECK_SIZE; ++i)
     {
         config.player1Deck[i] = *Cards::GetInstance().FindCardByID(deck[i]);
         config.player2Deck[i] = *Cards::GetInstance().FindCardByID(deck[i]);
@@ -75,7 +75,7 @@ TEST(RandomPolicy, Mulligan)
             "CS2_037", "CS2_037"
         };
 
-        for (size_t j = 0; j < START_DECK_SIZE; ++j)
+        for (std::size_t j = 0; j < START_DECK_SIZE; ++j)
         {
             config.player1Deck[j] = *Cards::GetInstance().FindCardByID(deck[j]);
             config.player2Deck[j] = *Cards::GetInstance().FindCardByID(deck[j]);
