@@ -78,10 +78,9 @@ Character* ActionParams::GetAttacker()
     return attackers[idx];
 }
 
-std::size_t ActionParams::GetNumber(ActionType actionType,
-                                    std::size_t exclusiveMax)
+std::size_t ActionParams::GetNumber(ActionType actionType, std::size_t max)
 {
-    ActionChoices choices(exclusiveMax);
+    ActionChoices choices(max);
     return GetNumber(actionType, choices);
 }
 }  // namespace RosettaStone
