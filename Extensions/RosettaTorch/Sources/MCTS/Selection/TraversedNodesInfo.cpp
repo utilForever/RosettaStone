@@ -90,13 +90,14 @@ void TraversedNodesInfo::JumpToNode(const Board& board)
 
 void TraversedNodesInfo::Update(float credit)
 {
-    for (const auto& path : m_path)
+    if constexpr (VIRTUAL_LOSS != 0)
     {
-        if (path.edgeAddon)
+        static_assert(VIRTUAL_LOSS > 0);
+
+        for (const auto& path : m_path)
         {
-            if constexpr (VIRTUAL_LOSS != 0)
+            if (path.edgeAddon)
             {
-                static_assert(VIRTUAL_LOSS > 0);
                 path.edgeAddon->AddCredit(1.0, VIRTUAL_LOSS);
             }
         }
