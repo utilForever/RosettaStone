@@ -9,6 +9,7 @@
 
 * [ ] Adapt
 * [x] Battlecry
+* [ ] Casts When Drawn
 * [x] Charge
 * [x] Choose One
 * [ ] Choose Twice
@@ -29,6 +30,7 @@
 * [ ] Passive
 * [x] Poisonous
 * [ ] Quest
+* [ ] Reborn
 * [ ] Recruit
 * [ ] Rush
 * [x] Secret
