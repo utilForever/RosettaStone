@@ -10,12 +10,10 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TRAVERSED_NODES_INFO_HPP
 #define ROSETTASTONE_TORCH_MCTS_TRAVERSED_NODES_INFO_HPP
 
-#include <MCTS/Selection/BoardNodeMap-Impl.hpp>
 #include <MCTS/Selection/BoardNodeMap.hpp>
 #include <MCTS/Selection/TraversedNodeInfo.hpp>
 #include <MCTS/Selection/TreeUpdater.hpp>
 
-#include <memory>
 #include <vector>
 
 namespace RosettaTorch::MCTS
@@ -23,179 +21,98 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief TraversedNodesInfo class.
 //!
+//! This class stores a list of traversed node and contains utility methods such
+//! as construction, update and addition path or leading node.
+//!
 class TraversedNodesInfo
 {
  public:
-    TraversedNodesInfo()
-        : m_newNodeCreated(false), m_currentNode(nullptr), m_pendingChoice(-1)
-    {
-        // Do nothing
-    }
+    //! Constructs traversed nodes info.
+    TraversedNodesInfo();
 
+    //! Deleted copy constructor.
     TraversedNodesInfo(const TraversedNodesInfo&) = delete;
+
+    //! Deleted move constructor.
+    TraversedNodesInfo(TraversedNodesInfo&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
     TraversedNodesInfo& operator=(const TraversedNodesInfo&) = delete;
 
-    void Restart(TreeNode* node)
-    {
-        m_path.clear();
-        m_currentNode = node;
-        assert(m_currentNode);
-        m_newNodeCreated = false;
-        m_pendingChoice = -1;
-    }
+    //! Deleted move assignment operator.
+    TraversedNodesInfo& operator=(TraversedNodesInfo&&) noexcept = delete;
 
-    TreeNode* GetCurrentNode() const
-    {
-        return m_currentNode;
-    }
+    //! Resets variables such as paths and current node.
+    //! \param node The node to reset current node.
+    void Restart(TreeNode* node);
 
-    void MakeChoiceForCurrentNode(int choice)
-    {
-        m_pendingChoice = choice;
-    }
+    //! Returns the current node.
+    //! \return The current node.
+    TreeNode* GetCurrentNode() const;
 
-    bool HasCurrentNodeMadeChoice() const
-    {
-        return m_pendingChoice >= 0;
-    }
+    //! Sets pending choice to \p choice.
+    //! \param choice The choice to set pending choice.
+    void MakeChoiceForCurrentNode(int choice);
 
-    void ConstructNode()
-    {
-        assert(m_currentNode);
-        assert(m_pendingChoice >= 0);
+    //! Returns the current node has pending choice.
+    //! \return The flag indicates that the current node has pending choice.
+    bool HasCurrentNodeMadeChoice() const;
 
-        const auto& [newNodeCreated, edgeAddon, node] =
-            m_currentNode->children.GetOrCreateNewNode(
-                m_pendingChoice, std::make_unique<TreeNode>());
+    //! Constructs new node.
+    void ConstructNode();
 
-        assert(node);
-
-        AddPathNode(m_currentNode, m_pendingChoice, edgeAddon, node);
-        if (newNodeCreated)
-        {
-            m_newNodeCreated = true;
-        }
-    }
-
+    //! Constructs redirect node.
+    //! \param redirectNodeMap The board node map to get the next node.
+    //! \param board The game board.
+    //! \param result The game result.
     void ConstructRedirectNode(BoardNodeMap* redirectNodeMap,
-                               const Board& board, PlayState result)
-    {
-        assert(m_currentNode);
-        assert(m_pendingChoice >= 0);
+                               const Board& board, PlayState result);
 
-        const auto& [newNodeCreated, edgeAddon, node] =
-            m_currentNode->children.GetOrCreateRedirectNode(m_pendingChoice);
+    //! Jumps current node to next node.
+    //! \param board The game board.
+    void JumpToNode(const Board& board);
 
-        assert(node == nullptr);
+    //! Updates traversed node to \p credit.
+    //! \param credit The value that regarding how long ago they were visited.
+    void Update(float credit);
 
-        if (newNodeCreated)
-        {
-            m_newNodeCreated = true;
-        }
+    //! Returns the path of nodes.
+    //! \return The path of nodes.
+    const std::vector<TraversedNodeInfo>& GetPath() const;
 
-        if (result != PlayState::PLAYING)
-        {
-            // Don't need to construct a node for leaf nodes.
-            // We only need the edge to record win-rate, which is already
-            // got before.
-            AddPathNode(m_currentNode, m_pendingChoice, edgeAddon, nullptr);
-        }
-        else
-        {
-            TreeNode* nextNode =
-                redirectNodeMap->GetOrCreateNode(board, &m_newNodeCreated);
-            assert(nextNode);
-            assert(nextNode->addon.consistencyChecker.CheckActionType(
-                ActionType::MAIN_ACTION));
-            AddPathNode(m_currentNode, m_pendingChoice, edgeAddon, nextNode);
-        }
-    }
-
-    void JumpToNode(const Board& board)
-    {
-        assert(m_currentNode);
-        assert(m_pendingChoice < 0);
-        TreeNode* nextNode =
-            m_currentNode->addon.boardNodeMap.GetOrCreateNode(board);
-        AddPathNode(m_currentNode, -1, nullptr, nextNode);
-    }
-
-    void Update(float credit)
-    {
-        for (const auto& path : m_path)
-        {
-            if (path.edgeAddon)
-            {
-                if constexpr (VIRTUAL_LOSS != 0)
-                {
-                    static_assert(VIRTUAL_LOSS > 0);
-                    path.edgeAddon->AddCredit(1.0, VIRTUAL_LOSS);
-                    assert(path.edgeAddon->GetAverageCredit() >= -1.0);
-                    assert(path.edgeAddon->GetAverageCredit() <= 1.0);
-                }
-            }
-        }
-
-        TreeUpdater updater;
-        updater.Update(m_path, credit);
-    }
-
-    const auto& GetPath() const
-    {
-        return m_path;
-    }
-
-    bool HasNewNodeCreated() const
-    {
-        return m_newNodeCreated;
-    }
+    //! Returns the current node is newly created.
+    //! \return The flag indicates that the current node is newly created.
+    bool HasNewNodeCreated() const;
 
  private:
+    //! Adds path nodes and sets the current node to next node.
+    //! \param node A pointer pointing to parent node.
+    //! \param choice The index of the node.
+    //! \param edgeAddon The edge addon of the node.
+    //! \param childNode A pointer pointing to child node.
     void AddPathNode(TreeNode* node, int choice, EdgeAddon* edgeAddon,
-                     TreeNode* nextNode)
-    {
-        if (edgeAddon)
-        {
-            edgeAddon->AddChosenTimes(1);
+                     TreeNode* nextNode);
 
-            if constexpr (VIRTUAL_LOSS != 0)
-            {
-                static_assert(VIRTUAL_LOSS > 0);
-                edgeAddon->AddCredit(0.0, VIRTUAL_LOSS);
-            }
-        }
-
-        AddLeadingNodes(node, edgeAddon, nextNode);
-
-        m_path.emplace_back(node, edgeAddon, choice);
-
-        m_currentNode = nextNode;
-        m_pendingChoice = -1;
-    }
-
+    //! Adds leading nodes that connecting parent and child.
+    //! \param node A pointer pointing to parent node.
+    //! \param edgeAddon The edge addon of the node.
+    //! \param childNode A pointer pointing to child node.
+    //! \return The flag indicates recording leading nodes.
     template <class Dummy = void>
     auto AddLeadingNodes([[maybe_unused]] TreeNode* node,
                          [[maybe_unused]] EdgeAddon* edgeAddon,
                          [[maybe_unused]] TreeNode* childNode)
-        -> std::enable_if_t<!RECORD_LEADING_NODES, Dummy>
-    {
-        return;
-    }
+        -> std::enable_if_t<!RECORD_LEADING_NODES, Dummy>;
 
+    //! Adds leading nodes that connecting parent and child.
+    //! \param node A pointer pointing to parent node.
+    //! \param edgeAddon The edge addon of the node.
+    //! \param childNode A pointer pointing to child node.
+    //! \return The flag indicates recording leading nodes.
     template <class Dummy = void>
     auto AddLeadingNodes(TreeNode* node, EdgeAddon* edgeAddon,
                          TreeNode* childNode)
-        -> std::enable_if_t<RECORD_LEADING_NODES, Dummy>
-    {
-        if (!childNode)
-        {
-            return;
-        }
-
-        childNode->addon.leadingNodes.AddLeadingNodes(node, edgeAddon);
-
-        return;
-    }
+        -> std::enable_if_t<RECORD_LEADING_NODES, Dummy>;
 
     std::vector<TraversedNodeInfo> m_path;
     bool m_newNodeCreated;

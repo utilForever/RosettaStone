@@ -11,9 +11,8 @@
 #define ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 
 #include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
-#include <MCTS/Policies/Simulation/RandomCutoffPolicy.hpp>
-#include <MCTS/Policies/Simulation/RandomPlayoutsPolicy.hpp>
 
+#include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 
 namespace RosettaTorch::MCTS
@@ -21,55 +20,50 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief Simulation class.
 //!
+//! This class starts from the last visited state in the tree, play (simulate)
+//! the game till the end. No nodes are added to the tree in this phase. Actions
+//! for each player are chosen randomly, however, there are extensions of the
+//! MCTS algorithm that introduce heuristics in the simulation. This phase is
+//! also called "Monte-Carlo phase".
+//!
 class Simulation
 {
  public:
-    Simulation() : m_policy(new RandomPlayoutsPolicy())
-    {
-        // Do nothing
-    }
+    //! Constructs simulation with the specified policy.
+    Simulation();
 
+    //! Deleted copy constructor.
     Simulation(const Simulation&) = delete;
-    Simulation& operator=(const Simulation&) noexcept = delete;
 
-    Simulation(Simulation&&) = delete;
+    //! Deleted move constructor.
+    Simulation(Simulation&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
+    Simulation& operator=(const Simulation&) = delete;
+
+    //! Deleted move assignment operator.
     Simulation& operator=(Simulation&&) noexcept = delete;
 
-    bool CutoffCheck(const Board& board, StateValue& stateValue) const
-    {
-        if (m_policy->IsEnableCutoff())
-        {
-            return m_policy->GetCutoffResult(board, stateValue) !=
-                   PlayState::PLAYING;
-        }
+    //! Checks cutoff according to the policy.
+    //! \param board The game board.
+    //! \param stateValue The value of game state.
+    //! \return The flag to indicate that it is cutoff.
+    bool CutoffCheck(const Board& board, StateValue& stateValue) const;
 
-        return false;
-    }
-
+    //! Starts action according to the policy.
+    //! \param board The game board.
+    //! \param checker The action valid checker.
     void StartAction(const Board& board,
-                     const ActionValidChecker& checker) const
-    {
-        m_policy->StartAction(board, checker);
-    }
+                     const ActionValidChecker& checker) const;
 
-    int ChooseAction(const Board& board, ActionValidChecker checker,
-                     ActionType actionType, const ActionChoices& choices) const
-    {
-        assert(!choices.IsEmpty());
-
-        const int choiceSize = choices.Size();
-        if (choiceSize == 1)
-        {
-            return 0;
-        }
-
-        const int choice = m_policy->GetChoice(board, checker, actionType,
-                                               ChoiceGetter(choiceSize));
-        // Always return a valid choice
-        assert(choice >= 0);
-
-        return choice;
-    }
+    //! Chooses action according to the policy.
+    //! \param board The game board.
+    //! \param checker The action valid checker.
+    //! \param actionType The type of action.
+    //! \param choices The choices of action.
+    //! \return The index of chosen action.
+    int ChooseAction(const Board& board, const ActionValidChecker& checker,
+                     ActionType actionType, const ActionChoices& choices) const;
 
  private:
     ISimulationPolicy* m_policy = nullptr;

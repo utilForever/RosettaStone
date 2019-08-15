@@ -30,7 +30,7 @@ using namespace RosettaStone::PlayerTasks;
 
 namespace RosettaStone
 {
-Game::Game(GameConfig& gameConfig) : m_gameConfig(gameConfig)
+Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
     // Set game to player
     for (auto& p : m_players)
@@ -689,16 +689,16 @@ PlayState Game::PerformAction(ActionParams& params)
             int chooseOne = 0;
             if (card->HasChooseOne())
             {
-                const size_t card1ID =
+                const std::size_t card1ID =
                     std::hash<std::string>{}(card->chooseOneCard[0]->card->id);
-                const size_t card2ID =
+                const std::size_t card2ID =
                     std::hash<std::string>{}(card->chooseOneCard[1]->card->id);
 
-                std::vector<size_t> cardIDs;
+                std::vector<std::size_t> cardIDs;
                 cardIDs.emplace_back(card1ID);
                 cardIDs.emplace_back(card2ID);
 
-                const size_t chooseCardID = params.ChooseOne(cardIDs);
+                const std::size_t chooseCardID = params.ChooseOne(cardIDs);
                 if (chooseCardID == card1ID)
                 {
                     chooseOne = 1;

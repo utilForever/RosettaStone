@@ -10,138 +10,76 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_SELECTION_HPP
 #define ROSETTASTONE_TORCH_MCTS_SELECTION_HPP
 
-#include <MCTS/Policies/CreditPolicy.hpp>
-#include <MCTS/Policies/Selection/RandomPolicy.hpp>
-#include <MCTS/Policies/Selection/UCBPolicy.hpp>
-#include <MCTS/Policies/StageController.hpp>
+#include <MCTS/Commons/Types.hpp>
+#include <MCTS/Policies/Selection/ISelectionPolicy.hpp>
 #include <MCTS/Selection/TraversedNodesInfo.hpp>
 #include <MCTS/Selection/TreeNode.hpp>
-#include <MCTS/Types.hpp>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
-#include <Rosetta/Actions/ActionType.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
 
 namespace RosettaTorch::MCTS
 {
 //!
 //! \brief Selection class.
 //!
+//! This class traverses the nodes, that are already stored in the tree.
+//! At each level, the next node is chosen according to the selection policy.
+//!
 class Selection
 {
  public:
-    explicit Selection(TreeNode& tree)
-        : m_root(tree),
-          m_boardChanged(false),
-          m_redirectNodeMap(nullptr),
-          m_policy(new UCBPolicy())
-    {
-        // Do nothing
-    }
+    //! Constructs simulation with the specified policy.
+    //! \param tree The root node of the tree.
+    explicit Selection(TreeNode& tree);
 
+    //! Deleted copy constructor.
     Selection(const Selection&) = delete;
-    Selection& operator=(const Selection&) noexcept = delete;
 
-    Selection(Selection&&) = delete;
+    //! Deleted move constructor.
+    Selection(Selection&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
+    Selection& operator=(const Selection&) = delete;
+
+    //! Deleted move assignment operator.
     Selection& operator=(Selection&&) noexcept = delete;
 
-    auto GetRootNode() const
-    {
-        return &m_root;
-    }
+    //! Returns the root node of the tree.
+    //! \return The root node of the tree.
+    TreeNode* GetRootNode() const;
 
-    void StartIteration()
-    {
-        m_path.Restart(&m_root);
-        m_boardChanged = false;
-        m_redirectNodeMap = nullptr;
-    }
+    //! Starts iteration by initializing variables.
+    void StartIteration();
 
-    void StartAction(const Board& board)
-    {
-        if (m_boardChanged)
-        {
-            m_path.JumpToNode(board);
-            m_boardChanged = false;
-        }
+    //! Starts action by checking board and tree node.
+    //! \param board The game board.
+    void StartAction(const Board& board);
 
-        auto currentNode = m_path.GetCurrentNode();
-        assert(currentNode);
-        assert(currentNode->addon.consistencyChecker.CheckActionType(
-            ActionType::MAIN_ACTION));
-        assert(currentNode->addon.consistencyChecker.CheckBoard(
-            board.CreateView()));
+    //! Chooses action according to the policy.
+    //! \param actionType The type of action.
+    //! \param choices The choices of action.
+    //! \return The index of chosen action.
+    int ChooseAction(ActionType actionType, ActionChoices& choices);
 
-        if (m_redirectNodeMap == nullptr)
-        {
-            m_redirectNodeMap = &currentNode->addon.boardNodeMap;
-            assert(m_redirectNodeMap);
-        }
-    }
+    // Finishes action by constructing redirect node and checking it has to
+    // switch to simulation.
+    //! \param board The game board.
+    //! \param result The game result.
+    bool FinishAction(const Board& board, PlayState result);
 
-    int ChooseAction(ActionType actionType, ActionChoices& choices)
-    {
-        assert(!choices.IsEmpty());
+    //! Applies other actions to the game.
+    void ApplyOthersActions();
 
-        if (m_path.HasCurrentNodeMadeChoice())
-        {
-            m_path.ConstructNode();
-            assert(!m_path.HasCurrentNodeMadeChoice());
-        }
-
-        TreeNode* currentNode = m_path.GetCurrentNode();
-        assert(currentNode->addon.consistencyChecker.SetAndCheck(actionType,
-                                                                 choices));
-
-        const int nextChoice = m_policy->SelectChoice(
-            actionType, ChoiceIterator(choices, currentNode->children));
-
-        // Should report a valid action
-        assert(nextChoice >= 0);
-        m_path.MakeChoiceForCurrentNode(nextChoice);
-
-        return nextChoice;
-    }
-
-    bool FinishAction(const Board& board, PlayState result)
-    {
-        assert(m_path.HasCurrentNodeMadeChoice());
-
-        // We tackle the randomness by using a board node map.
-        // This flatten tree structure, and effectively forgot the history
-        // (Note that history here referring to the parent nodes of this node)
-        assert(m_redirectNodeMap);
-        m_path.ConstructRedirectNode(m_redirectNodeMap, board, result);
-
-        bool switchToSimulation = false;
-        if (result == PlayState::PLAYING)
-        {
-            switchToSimulation = StageController::SwitchToSimulation(
-                m_path.HasNewNodeCreated(),
-                m_path.GetPath().back().edgeAddon->GetChosenTimes());
-        }
-
-        return switchToSimulation;
-    }
-
-    void ApplyOthersActions([[maybe_unused]] const Board& board)
-    {
-        m_boardChanged = true;
-
-        // Preserve the history when any other player performed their actions
-        // So we need another redirect node
-        m_redirectNodeMap = nullptr;
-    }
-
-    void FinishIteration(const Board& board, StateValue stateValue)
-    {
-        const float credit = CreditPolicy::GetCredit(board, stateValue);
-        m_path.Update(credit);
-    }
+    //! Finishes iteration to update credit.
+    //! \param board The game board.
+    //! \param stateValue The value of game state.
+    void FinishIteration(const Board& board, StateValue stateValue);
 
  private:
     TreeNode& m_root;
-    bool m_boardChanged;
-    BoardNodeMap* m_redirectNodeMap;
+    bool m_boardChanged = false;
+    BoardNodeMap* m_redirectNodeMap = nullptr;
     TraversedNodesInfo m_path;
     ISelectionPolicy* m_policy = nullptr;
 };

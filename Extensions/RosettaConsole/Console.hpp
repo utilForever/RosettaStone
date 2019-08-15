@@ -25,7 +25,7 @@ constexpr std::size_t MAIN_MENU_SIZE = 4;
 constexpr std::size_t MANAGE_DECK_MENU_SIZE = 4;
 constexpr std::size_t CREATE_DECK_MENU_SIZE = 3;
 
-inline size_t GetInputNum(const std::string& inputStr)
+inline std::size_t GetInputNum(const std::string& inputStr)
 {
     const auto isNumber = [](const std::string& str) {
         auto iter = str.begin();
@@ -41,7 +41,7 @@ inline size_t GetInputNum(const std::string& inputStr)
 
     if (isNumber(inputStr))
     {
-        const auto inputNum = static_cast<size_t>(std::stoi(inputStr));
+        const auto inputNum = static_cast<std::size_t>(std::stoi(inputStr));
         return inputNum;
     }
 
@@ -114,10 +114,10 @@ class Console
     void ModifyDeck();
     void DeleteDeck() const;
 
-    int OperateDeck(size_t deckIndex);
+    int OperateDeck(std::size_t deckIndex);
 
-    void AddCardInDeck(size_t deckIndex);
-    void DeleteCardInDeck(size_t deckIndex) const;
+    void AddCardInDeck(std::size_t deckIndex);
+    void DeleteCardInDeck(std::size_t deckIndex) const;
 
     int Login();
     int Main();
@@ -132,7 +132,8 @@ class Console
     template <std::size_t SIZE>
     void ShowMenu(std::array<std::string, SIZE>& menus);
 
-    size_t InputMenuNum(const std::string& questionStr, size_t menuSize) const;
+    std::size_t InputMenuNum(const std::string& questionStr,
+                             std::size_t menuSize) const;
     bool InputYesNo(std::string& sentence) const;
 
     std::tuple<SearchFilter, bool, bool> InputAndParseSearchCommand(
@@ -166,7 +167,8 @@ class Console
     std::array<std::string, CREATE_DECK_MENU_SIZE> m_deckOperationStr = {
         "1. Add Card(s)", "2. Delete Card(s)", "3. Back"
     };
-    std::array<std::function<void(Console&, size_t)>, CREATE_DECK_MENU_SIZE - 1>
+    std::array<std::function<void(Console&, std::size_t)>,
+               CREATE_DECK_MENU_SIZE - 1>
         m_deckOperationFuncs = { &Console::AddCardInDeck,
                                  &Console::DeleteCardInDeck };
 

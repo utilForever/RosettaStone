@@ -39,7 +39,7 @@ class Trigger
     //! Activates trigger to battlefield.
     //! \param source The source of trigger.
     //! \param activation The activation of trigger.
-    //! \param cloning The flag to indicate it is cloned.
+    //! \param cloning The flag to indicate that it is cloned.
     void Activate(Entity* source,
                   TriggerActivation activation = TriggerActivation::PLAY,
                   bool cloning = false);

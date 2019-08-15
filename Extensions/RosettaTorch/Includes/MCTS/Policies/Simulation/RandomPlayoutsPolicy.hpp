@@ -12,44 +12,44 @@
 
 #include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
 
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
-
 namespace RosettaTorch::MCTS
 {
+//!
+//! \brief RandomPlayoutsPolicy class.
+//!
+//! This class is policy class that selects choice at random.
+//!
 class RandomPlayoutsPolicy : public ISimulationPolicy
 {
  public:
-    bool IsEnableCutoff() override
-    {
-        return false;
-    }
+    //! Returns the flag indicates whether cutoff is enabled.
+    //! \return The flag indicates whether cutoff is enabled.
+    bool IsEnableCutoff() override;
 
+    //! Returns the result of game according to cutoff.
+    //! \param board The game board.
+    //! \param stateValue The value of game state.
+    //! \return The result of game according to cutoff.
     PlayState GetCutoffResult([[maybe_unused]] const Board& board,
-                              [[maybe_unused]] StateValue& stateValue) override
-    {
-        return PlayState::PLAYING;
-    }
+                              [[maybe_unused]] StateValue& stateValue) override;
 
+    //! Starts action according to the policy.
+    //! \param board The game board.
+    //! \param checker The action valid checker.
     void StartAction(
         [[maybe_unused]] const Board& board,
-        [[maybe_unused]] const ActionValidChecker& checker) override
-    {
-        // Do nothing
-    }
+        [[maybe_unused]] const ActionValidChecker& checker) override;
 
+    //! Returns the choice according to the policy.
+    //! \param board The game board.
+    //! \param checker The action valid checker.
+    //! \param actionType The type of action.
+    //! \param getter The choice getter.
+    //! \return The choice according to the policy.
     int GetChoice([[maybe_unused]] const Board& board,
                   [[maybe_unused]] const ActionValidChecker& checker,
                   [[maybe_unused]] ActionType actionType,
-                  const ChoiceGetter& getter) override
-    {
-        const size_t count = getter.Size();
-        const auto randIdx = Random::get<size_t>(0, count - 1);
-        const int result = getter.Get(randIdx);
-
-        return result;
-    }
+                  const ChoiceGetter& getter) override;
 };
 }  // namespace RosettaTorch::MCTS
 

@@ -71,7 +71,7 @@ TEST(Board, CreateView)
     EXPECT_EQ(reducedBoard2.GetMyHero().armor, 2);
 }
 
-TEST(Board, RevealInfoForSimulation)
+TEST(Board, RevealHiddenInfoForSimulation)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -88,6 +88,6 @@ TEST(Board, RevealInfoForSimulation)
     game.nextStep = Step::MAIN_ACTION;
 
     const Board board(game, game.GetCurrentPlayer().playerType);
-    EXPECT_EQ(game.step, board.RevealInfoForSimulation().step);
-    EXPECT_EQ(game.nextStep, board.RevealInfoForSimulation().nextStep);
+    EXPECT_EQ(game.step, board.RevealHiddenInfoForSimulation().step);
+    EXPECT_EQ(game.nextStep, board.RevealHiddenInfoForSimulation().nextStep);
 }

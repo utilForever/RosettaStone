@@ -11,8 +11,8 @@
 
 namespace RosettaStone
 {
-BoardRefView::BoardRefView(const Game& game, PlayerType type)
-    : m_game(game), m_playerType(type)
+BoardRefView::BoardRefView(const Game& game, PlayerType playerType)
+    : m_game(game), m_playerType(playerType)
 {
     // Do nothing
 }
@@ -32,9 +32,9 @@ Player& BoardRefView::GetCurrentPlayer() const
     return m_game.GetCurrentPlayer();
 }
 
-int BoardRefView::GetFatigueDamage(PlayerType type) const
+int BoardRefView::GetFatigueDamage(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero()->fatigue;
     }
@@ -44,9 +44,9 @@ int BoardRefView::GetFatigueDamage(PlayerType type) const
     }
 }
 
-int BoardRefView::GetTotalMana(PlayerType type) const
+int BoardRefView::GetTotalMana(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetTotalMana();
     }
@@ -56,9 +56,9 @@ int BoardRefView::GetTotalMana(PlayerType type) const
     }
 }
 
-int BoardRefView::GetUsedMana(PlayerType type) const
+int BoardRefView::GetUsedMana(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetUsedMana();
     }
@@ -68,9 +68,9 @@ int BoardRefView::GetUsedMana(PlayerType type) const
     }
 }
 
-int BoardRefView::GetTemporaryMana(PlayerType type) const
+int BoardRefView::GetTemporaryMana(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetTemporaryMana();
     }
@@ -80,9 +80,9 @@ int BoardRefView::GetTemporaryMana(PlayerType type) const
     }
 }
 
-int BoardRefView::GetOverloadOwed(PlayerType type) const
+int BoardRefView::GetOverloadOwed(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetOverloadOwed();
     }
@@ -92,9 +92,9 @@ int BoardRefView::GetOverloadOwed(PlayerType type) const
     }
 }
 
-int BoardRefView::GetOverloadLocked(PlayerType type) const
+int BoardRefView::GetOverloadLocked(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetOverloadLocked();
     }
@@ -104,9 +104,9 @@ int BoardRefView::GetOverloadLocked(PlayerType type) const
     }
 }
 
-int BoardRefView::GetRemainingMana(PlayerType type) const
+int BoardRefView::GetRemainingMana(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetRemainingMana();
     }
@@ -139,9 +139,9 @@ Hero* BoardRefView::GetOpponentHero() const
     }
 }
 
-HeroPower* BoardRefView::GetHeroPower(PlayerType type) const
+HeroPower* BoardRefView::GetHeroPower(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero()->heroPower;
     }
@@ -151,9 +151,9 @@ HeroPower* BoardRefView::GetHeroPower(PlayerType type) const
     }
 }
 
-Weapon* BoardRefView::GetWeapon(PlayerType type) const
+Weapon* BoardRefView::GetWeapon(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero()->weapon;
     }
@@ -218,9 +218,9 @@ int BoardRefView::GetOpponentHandCardCount() const
     }
 }
 
-std::vector<Minion*> BoardRefView::GetMinions(PlayerType type) const
+std::vector<Minion*> BoardRefView::GetMinions(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetFieldZone().GetAll();
     }
@@ -230,9 +230,9 @@ std::vector<Minion*> BoardRefView::GetMinions(PlayerType type) const
     }
 }
 
-int BoardRefView::GetDeckCardCount(PlayerType type) const
+int BoardRefView::GetDeckCardCount(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetDeckZone().GetCount();
     }
@@ -242,9 +242,9 @@ int BoardRefView::GetDeckCardCount(PlayerType type) const
     }
 }
 
-bool BoardRefView::IsHeroAttackable(PlayerType type) const
+bool BoardRefView::IsHeroAttackable(PlayerType playerType) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetHero()->CanAttack();
     }
@@ -254,9 +254,9 @@ bool BoardRefView::IsHeroAttackable(PlayerType type) const
     }
 }
 
-bool BoardRefView::IsMinionAttackable(PlayerType type, int idx) const
+bool BoardRefView::IsMinionAttackable(PlayerType playerType, int idx) const
 {
-    if (type == PlayerType::PLAYER1)
+    if (playerType == PlayerType::PLAYER1)
     {
         return m_game.GetPlayer1().GetFieldZone()[idx]->CanAttack();
     }

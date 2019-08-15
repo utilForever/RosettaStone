@@ -10,7 +10,6 @@
 #ifndef ROSETTASTONE_BOARD_HPP
 #define ROSETTASTONE_BOARD_HPP
 
-#include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 
@@ -19,39 +18,45 @@ namespace RosettaStone
 //!
 //! \brief Board class.
 //!
+//! This class is a base class for creating the reduced board view or returning
+//! the board ref view with method that applies the action.
+//!
 class Board
 {
  public:
+    //! Constructs board with given \p game and \p playerType.
+    //! \param game The game context.
+    //! \param playerType The view type of the board.
     Board(Game& game, PlayerType playerType);
 
+    //! Copies the contents from reference \p rhs.
+    //! \param rhs The source to copy the content.
     void RefCopyFrom(const Board& rhs);
 
+    //! Returns the current player of the game.
+    //! \return The current player of the game.
     Player& GetCurrentPlayer() const;
 
+    //! Returns the view type of the board.
+    //! \return the view type of the board.
     PlayerType GetViewType() const;
 
+    //! Creates the reduced board view for the player type.
+    //! \return The reduced board view that is created for the player type.
     ReducedBoardView CreateView() const;
 
+    //! Returns the board ref view for the current player.
+    //! \return The board ref view for the current player.
     CurrentPlayerBoardRefView GetCurPlayerStateRefView() const;
 
+    //! Applies action with given \p params.
+    //! \param params The parameter for action.
+    //! \result The play state of the game after the action is performed.
     PlayState ApplyAction(ActionParams& params) const;
 
-    const Game& RevealInfoForSimulation() const;
-
-    template <class Functor>
-    auto ApplyWithPlayerStateView(Functor&& functor) const
-    {
-        if (m_playerType == PlayerType::PLAYER1)
-        {
-            return functor(
-                ReducedBoardView(BoardRefView(m_game, PlayerType::PLAYER1)));
-        }
-        else
-        {
-            return functor(
-                ReducedBoardView(BoardRefView(m_game, PlayerType::PLAYER2)));
-        }
-    }
+    //! Returns the game that is revealed hidden info for simulation.
+    //! \return The game that is revealed hidden info for simulation.
+    const Game& RevealHiddenInfoForSimulation() const;
 
  private:
     Game& m_game;

@@ -15,7 +15,7 @@ namespace RosettaStone::Generic
 //! \param player The owner of source entity.
 //! \param source The source entity to copy.
 //! \param targetZone The target zone to copy.
-//! \param deathrattle The flag to indicates whether copy operation via
+//! \param deathrattle The flag to indicate whether copy operation via
 //! deathrattle power.
 Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
              bool deathrattle = false);

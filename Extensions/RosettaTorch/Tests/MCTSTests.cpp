@@ -50,7 +50,34 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
     };
 
     const auto startIter = controller->GetStatistics().GetSuccededIterates();
-    controller->Run(g_config);
+
+    GameConfig gameConfig;
+    gameConfig.player1Class = CardClass::PRIEST;
+    gameConfig.player2Class = CardClass::MAGE;
+    gameConfig.startPlayer = PlayerType::PLAYER1;
+    gameConfig.doShuffle = false;
+    gameConfig.doFillDecks = false;
+    gameConfig.skipMulligan = true;
+    gameConfig.autoRun = true;
+
+    std::array<std::string, START_DECK_SIZE> deck = {
+        "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
+        "CS1_113", "CS1_113", "CS1_130", "CS1_130",  // 2
+        "CS2_007", "CS2_007", "CS2_022", "CS2_022",  // 3
+        "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
+        "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
+        "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
+        "CS2_032", "CS2_032", "CS2_033", "CS2_033",  // 7
+        "CS2_037", "CS2_037"
+    };
+
+    for (size_t j = 0; j < START_DECK_SIZE; ++j)
+    {
+        gameConfig.player1Deck[j] = *Cards::FindCardByID(deck[j]);
+        gameConfig.player2Deck[j] = *Cards::FindCardByID(deck[j]);
+    }
+
+    controller->Run(gameConfig);
 
     while (true)
     {
@@ -64,6 +91,7 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
 
     controller->NotifyStop();
     controller->WaitUntilStopped();
+
     const auto endIter = controller->GetStatistics().GetSuccededIterates();
 
     s << std::endl;
@@ -104,7 +132,7 @@ int main()
 {
     Cards::GetInstance();
 
-    Agents::MCTSRunner controller;
+    Agents::MCTSRunner controller(g_config);
 
     while (std::cin)
     {

@@ -10,10 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 #define ROSETTASTONE_TORCH_MCTS_EDGE_ADDON_HPP
 
-#include <MCTS/Constants.hpp>
-
 #include <atomic>
-#include <cassert>
 #include <cstdint>
 
 namespace RosettaTorch::MCTS
@@ -21,55 +18,34 @@ namespace RosettaTorch::MCTS
 //!
 //! \brief EdgeAddon class.
 //!
+//! This class is addon class that includes utility methods for edge.
+//!
 class EdgeAddon
 {
  public:
-    EdgeAddon() : m_chosenTimes(0), m_credit(0), m_total(0)
-    {
-        // Do nothing
-    }
+    //! Constructs edge addon by initializing variables.
+    EdgeAddon();
 
-    void AddChosenTimes(int v)
-    {
-        m_chosenTimes += v;
-    }
+    //! Adds \p val to chosen times of the edge.
+    //! \param val The value to add to chosen times of the edge.
+    void AddChosenTimes(int val);
 
-    auto GetChosenTimes() const
-    {
-        return m_chosenTimes.load();
-    }
+    //! Returns chosen times of the edge.
+    //! \return Chosen times of the edge.
+    std::int64_t GetChosenTimes() const;
 
-    float GetAverageCredit() const
-    {
-        const auto totalLoad = m_total.load();
-        assert(totalLoad > 0);
+    //! Returns average credit of the edge.
+    //! \return Average credit of the edge.
+    float GetAverageCredit() const;
 
-        const float ret = static_cast<float>(m_credit.load()) / totalLoad;
-        assert(ret >= -1.0);
-        assert(ret <= 1.0);
+    //! Adds \p score to credit of the edge.
+    //! \param score The value to add to credit of the edge.
+    //! \param repeatTimes The value to indicate how many times you want to add.
+    void AddCredit(float score, int repeatTimes = 1);
 
-        return ret;
-    }
-
-    void AddCredit(float score, int repeatTimes = 1)
-    {
-        const int totalIncrement = CREDIT_GRANULARITY;
-        const int creditIncrement =
-            static_cast<int>(score * CREDIT_GRANULARITY);
-
-        assert(creditIncrement >= -totalIncrement);
-        assert(creditIncrement <= totalIncrement);
-
-        // These two fields are not updated in an atomic operation. But this
-        // should be fine...
-        m_total += static_cast<std::int64_t>(totalIncrement * repeatTimes);
-        m_credit += static_cast<std::int64_t>(creditIncrement * repeatTimes);
-    }
-
-    auto GetTotal() const
-    {
-        return m_total.load();
-    }
+    //! Returns total credit of the edge.
+    //! \return Total credit of the edge.
+    std::int64_t GetTotal() const;
 
  private:
     std::atomic<std::int64_t> m_chosenTimes;
