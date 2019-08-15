@@ -12,8 +12,6 @@
 
 #include <Rosetta/Games/Game.hpp>
 
-#include <functional>
-
 namespace RosettaStone
 {
 //!
@@ -37,16 +35,69 @@ class ActionValidGetter
     //! Runs \p functor on each minion of the player.
     //! \param playerType The player type to separate players.
     //! \param functor A function to run for each minion.
-    void ForEachMinion(PlayerType playerType,
-                       const std::function<void(Minion*)>& functor) const;
+    template <typename Functor>
+    void ForEachMinion(PlayerType playerType, Functor&& functor) const
+    {
+        auto& fieldZone = (playerType == PlayerType::PLAYER1)
+                              ? m_game.GetPlayer1().GetFieldZone()
+                              : m_game.GetPlayer2().GetFieldZone();
+
+        for (auto& minion : fieldZone.GetAll())
+        {
+            functor(minion);
+        }
+    }
 
     //! Checks a card is playable and runs \p functor on each playable card.
     //! \param functor A function to run for each playable card.
-    void ForEachPlayableCard(const std::function<bool(Entity*)>& functor) const;
+    template <typename Functor>
+    void ForEachPlayableCard(Functor&& functor) const
+    {
+        auto& handZone = m_game.GetCurrentPlayer().GetHandZone();
+
+        for (auto& card : handZone.GetAll())
+        {
+            if (!IsPlayable(card))
+            {
+                continue;
+            }
+
+            if (!functor(card))
+            {
+                return;
+            }
+        }
+    }
 
     //! Checks a character can attack and runs \p functor on each attacker.
     //! \param functor A function to run for each attacker.
-    void ForEachAttacker(const std::function<bool(Character*)>& functor) const;
+    template <typename Functor>
+    void ForEachAttacker(Functor&& functor) const
+    {
+        auto& fieldZone = m_game.GetCurrentPlayer().GetFieldZone();
+
+        for (auto& minion : fieldZone.GetAll())
+        {
+            if (!minion->CanAttack())
+            {
+                continue;
+            }
+
+            if (!functor(minion))
+            {
+                return;
+            }
+        }
+
+        const auto& hero = m_game.GetCurrentPlayer().GetHero();
+        if (hero->CanAttack())
+        {
+            if (!functor(hero))
+            {
+                return;
+            }
+        }
+    }
 
     //! Returns the flag indicates whether the player can use hero power.
     //! \return the flag indicates whether the player can use hero power.

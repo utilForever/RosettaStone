@@ -73,8 +73,18 @@ class LeadingNodes
 
     //! Iterates something for each leading node.
     //! \param functor A function to run for each leading node.
-    void ForEachLeadingNode(
-        const std::function<bool(TreeNode*, EdgeAddon*)>& functor);
+    template <typename Functor>
+    void ForEachLeadingNode(Functor&& functor)
+    {
+        std::shared_lock<SharedSpinLock> lock(m_mutex);
+        for (const auto& item : m_items)
+        {
+            if (!functor(item.node, item.edgeAddon))
+            {
+                break;
+            }
+        }
+    }
 
  private:
     mutable SharedSpinLock m_mutex;

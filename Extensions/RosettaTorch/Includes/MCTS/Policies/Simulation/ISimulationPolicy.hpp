@@ -41,7 +41,17 @@ class ChoiceGetter
 
     //! Runs \p functor on each choice of action choices.
     //! \param functor A function to run for each choice.
-    void ForEachChoice(const std::function<bool(int)>& functor) const;
+    template <typename Functor>
+    void ForEachChoice(Functor&& functor) const
+    {
+        for (int i = 0; i < m_choices; ++i)
+        {
+            if (!functor(i))
+            {
+                return;
+            }
+        }
+    }
 
  private:
     int m_choices;

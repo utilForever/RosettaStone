@@ -25,15 +25,4 @@ int ChoiceGetter::Get(std::size_t idx) const
 {
     return static_cast<int>(idx);
 }
-
-void ChoiceGetter::ForEachChoice(const std::function<bool(int)>& functor) const
-{
-    for (int i = 0; i < m_choices; ++i)
-    {
-        if (!functor(i))
-        {
-            return;
-        }
-    }
-}
 }  // namespace RosettaTorch::MCTS

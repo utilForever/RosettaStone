@@ -44,8 +44,24 @@ class BoardNodeMap
 
     //! Runs \p functor on each element of the map.
     //! \param functor A function to run for each element.
-    void ForEach(
-        const std::function<bool(ReducedBoardView, TreeNode*)>& functor) const;
+    template <typename Functor>
+    void ForEach(Functor&& functor) const
+    {
+        std::shared_lock<SharedSpinLock> lock(m_mutex);
+
+        if (!m_map)
+        {
+            return;
+        }
+
+        for (const auto& kv : *m_map)
+        {
+            if (!functor(kv.first, kv.second.get()))
+            {
+                return;
+            }
+        }
+    }
 
  private:
     //! Returns the map that stores several boards.
