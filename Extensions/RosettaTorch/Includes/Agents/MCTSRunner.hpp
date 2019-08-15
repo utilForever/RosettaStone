@@ -31,7 +31,7 @@ class MCTSRunner
  public:
     //! Constructs MCTS runner with given \p config.
     //! \param config The MCTS config.
-    MCTSRunner(const MCTSConfig& config);
+    explicit MCTSRunner(const MCTSConfig& config);
 
     //! Destructs MCTS runner.
     ~MCTSRunner();
