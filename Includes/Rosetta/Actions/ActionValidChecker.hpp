@@ -19,17 +19,37 @@ namespace RosettaStone
 //!
 //! \brief ActionValidChecker class.
 //!
+//! This class contains some data such as operation map, attackers,
+//! playable cards and targets. Also, it contains several getters.
+//!
 class ActionValidChecker
 {
  public:
+    //! Resets operation map.
     void Reset();
 
+    //! Checks game data and adds the valid action.
+    //! \param game The game context.
     void Check(const Game& game);
+
+    //! Checks game data and adds the valid action.
+    //! \param getter The action valid getter.
     void Check(const ActionValidGetter& getter);
 
+    //! Returns the available main actions.
+    //! \return The available main actions.
     const std::array<MainOpType, 4>& GetMainActions() const;
+
+    //! Returns the number of available main actions.
+    //! \return The number of available main actions.
     int GetMainActionsCount() const;
+
+    //! Returns a list of cards that is playable.
+    //! \return A list of cards that is playable.
     const std::vector<Entity*>& GetPlayableCards() const;
+
+    //! Returns a list of attackers that can attack.
+    //! \return A list of attackers that can attack.
     const std::vector<Character*>& GetAttackers() const;
 
  private:
