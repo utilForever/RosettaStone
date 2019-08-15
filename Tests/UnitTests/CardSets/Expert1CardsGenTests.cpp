@@ -249,26 +249,21 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
         opPlayer, Cards::GetInstance().FindCardByID("EX1_164"));    
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
-    
     EXPECT_EQ(curPlayer.GetTotalMana(), 8);
     EXPECT_EQ(curPlayer.GetRemainingMana(), 2);
-    
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-    
+
     game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
-    
     EXPECT_EQ(opPlayer.GetTotalMana(), 10);
     EXPECT_EQ(opPlayer.GetRemainingMana(), 6);
-    
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-    
-    const int curHandCount = curHand.GetCount();
 
     game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
-    
-    EXPECT_EQ(curHandCount + 2, curHand.GetCount());
+    EXPECT_EQ(curHand.GetCount(), 8);
 }
 
 // ------------------------------------------- SPELL - DRUID
