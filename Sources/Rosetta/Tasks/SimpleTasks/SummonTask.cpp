@@ -113,6 +113,11 @@ TaskStatus SummonTask::Impl(Player& player)
                 summonPos = m_source->owner->GetGame()->taskStack.num - 1;
                 break;
             }
+            case SummonSide::SPELL:
+            {
+                summonPos = -1;
+                break;
+            }
             default:
                 throw std::invalid_argument(
                     "SummonTask::Impl() - Invalid summon side");

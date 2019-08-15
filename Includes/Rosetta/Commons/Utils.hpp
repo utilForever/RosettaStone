@@ -9,31 +9,36 @@
 
 #include <cstddef>
 #include <functional>
+#include <string>
+#include <vector>
 
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
 {
-    return t == true;
+    return static_cast<bool>(t);
 }
 
 template <typename T, typename... Others>
 constexpr bool AllCondIsTrue(const T& t, Others const&... args)
 {
-    return (t == true) && AllCondIsTrue(args...);
+    return (static_cast<bool>(t)) && AllCondIsTrue(args...);
 }
 
-//!
-//! \brief CombineHash function.
+//! Combines hash function with given \p v.
+//! \param seed The seed value to combine hash function.
+//! \param v The value to pass std::hash.
 //!
 //! It is based on peter1591's hearthstone-ai repository.
 //! References: https://github.com/peter1591/hearthstone-ai
-//!
 template <typename T>
 void CombineHash(std::size_t& seed, const T& v)
 {
     seed ^= std::hash<T>()(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 }
 
+//! Erases item if it is matched predicate.
+//! \param items A container consists of item.
+//! \param predicate The condition to erase item.
 template <typename ContainerT, typename PredicateT>
 void EraseIf(ContainerT& items, const PredicateT& predicate)
 {
@@ -49,6 +54,11 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
         }
     }
 }
+
+//! Decodes Base64 based string.
+//! \param src Base64 based string.
+//! \return A unsigned char type container consists of decoded string.
+std::vector<unsigned char> DecodeBase64(const std::string& src);
 
 //!
 //! \brief SizedPtr class.

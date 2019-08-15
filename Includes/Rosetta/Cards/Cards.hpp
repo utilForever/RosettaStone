@@ -65,6 +65,11 @@ class Cards
     //! \return A card that matches \p id.
     static Card* FindCardByID(const std::string& id);
 
+    //! Returns a card that matches \p dbfID.
+    //! \param dbfID The dbfID of the card.
+    //! \return A card that matches \p dbfID.
+    static Card* FindCardByDbfID(int dbfID);
+
     //! Returns a list of cards that matches \p rarity.
     //! \param rarity The rarity of the card.
     //! \return A list of cards that matches condition.
@@ -113,7 +118,8 @@ class Cards
     //! \return A list of cards that matches condition.
     static std::vector<Card*> FindCardByHealth(int minVal, int maxVal);
 
-    //! Returns a list of cards whose spell power is between \p minVal and \p maxVal.
+    //! Returns a list of cards whose spell power is between
+    //! \p minVal and \p maxVal.
     //! \param minVal The minimum spell power value of the card.
     //! \param maxVal The maximum spell power value of the card.
     //! \return A list of cards that matches condition.

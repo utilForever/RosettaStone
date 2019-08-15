@@ -30,6 +30,12 @@ class Effects
         return new Effect(GameTag::HEALTH, EffectOperator::ADD, n);
     }
 
+    //! Creates effect that increases spell power by \p n.
+    static Effect* SpellPowerN(int n)
+    {
+        return new Effect(GameTag::SPELLPOWER, EffectOperator::ADD, n);
+    }
+
     //! Creates effect that increases attack and health by \p n.
     static std::vector<Effect*> AttackHealthN(int n)
     {

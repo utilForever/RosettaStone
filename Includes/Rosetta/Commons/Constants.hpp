@@ -12,6 +12,9 @@ namespace RosettaStone
 //! RosettaStone version.
 constexpr float VERSION = 0.4f;
 
+//! Deck code version.
+constexpr int DECK_CODE_VERSION = 1;
+
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
 constexpr int NUM_PLAYER_CLASS = 9;
