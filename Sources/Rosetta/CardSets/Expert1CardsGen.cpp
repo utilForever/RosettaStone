@@ -118,6 +118,19 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     cards.emplace("EX1_158", power);
 
     // ------------------------------------------ SPELL - DRUID
+    // [EX1_160] Power of the Wild - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Give your minions +1/+1; or Summon a 3/2
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_160", power);
+
+    // ------------------------------------------ SPELL - DRUID
     // [EX1_164] Nourish - COST:6
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -240,7 +253,48 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_158t", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_160a] Summon a Panther (*) - COST:2
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Summon a 3/2 Panther.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SummonTask("EX1_160t", SummonSide::SPELL));
+    cards.emplace("EX1_160a", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_160b] Leader of the Pack (*) - COST:2
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Give your minions +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_160be", EntityType::MINIONS));
+    cards.emplace("EX1_160b", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [EX1_160be] Leader of the Pack (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_160be"));
+    cards.emplace("EX1_160be", power);
     
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_160t] Panther (*) - COST:2 [ATK:3/HP:2]
+    // - Race: Beast, Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_160t", power);
+
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164a] Rampant Growth (*) - COST:6
     // - Faction: Neutral, Set: Expert1

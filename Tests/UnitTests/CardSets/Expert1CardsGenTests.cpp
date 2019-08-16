@@ -211,6 +211,60 @@ TEST(DruidExpert1Test, EX1_158_SoulOfTheForest)
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [EX1_160] Power of the Wild - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Give your minions +1/+1; or Summon a 3/2
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_160_PowerOfTheWild)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Power of the Wild"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Power of the Wild"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Power of the Wild"));
+    
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_TRUE(opField.IsEmpty());
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, PlayCardTask::Spell(card2, 1));
+    game.Process(opPlayer, PlayCardTask::Spell(card3, 2));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(opField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(opField[0]->GetAttack(), 4);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [EX1_164] Nourish - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
