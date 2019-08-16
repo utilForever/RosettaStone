@@ -232,7 +232,7 @@ EXPERT1 | EX1_155 | Mark of Nature | O
 EXPERT1 | EX1_158 | Soul of the Forest | O
 EXPERT1 | EX1_160 | Power of the Wild |  
 EXPERT1 | EX1_162 | Dire Wolf Alpha |  
-EXPERT1 | EX1_164 | Nourish |  
+EXPERT1 | EX1_164 | Nourish | O 
 EXPERT1 | EX1_165 | Druid of the Claw |  
 EXPERT1 | EX1_166 | Keeper of the Grove |  
 EXPERT1 | EX1_170 | Emperor Cobra | O
@@ -243,12 +243,12 @@ EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer |  
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
-EXPERT1 | EX1_243 | Dust Devil |  
-EXPERT1 | EX1_245 | Earth Shock |  
-EXPERT1 | EX1_247 | Stormforged Axe |  
+EXPERT1 | EX1_243 | Dust Devil | O
+EXPERT1 | EX1_245 | Earth Shock | O
+EXPERT1 | EX1_247 | Stormforged Axe | O
 EXPERT1 | EX1_248 | Feral Spirit | O
 EXPERT1 | EX1_249 | Baron Geddon | O
-EXPERT1 | EX1_250 | Earth Elemental |  
+EXPERT1 | EX1_250 | Earth Elemental | O
 EXPERT1 | EX1_251 | Forked Lightning | O
 EXPERT1 | EX1_258 | Unbound Elemental |  
 EXPERT1 | EX1_259 | Lightning Storm |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 56% (135 of 237 Cards)
+- Progress: 59% (140 of 237 Cards)
 
 ## Hall of Fame
 
