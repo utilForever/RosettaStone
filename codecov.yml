@@ -11,7 +11,7 @@ coverage:
     # Learn more at https://codecov.io/docs#yaml_default_commit_status
     project: true
     patch: true
-    changes: true
+    changes: false
 
   # We don't want statistics for the tests themselves and certainly not for the
   # benchmarks and boost libraries. Note that while we exclude the gcov data for
