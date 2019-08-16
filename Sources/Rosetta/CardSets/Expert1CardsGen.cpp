@@ -2376,6 +2376,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_116", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Adjacent minions have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ADJACENT_BUFF = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::ADJACENT, "EX1_162o"));
+    cards.emplace("EX1_162", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -2906,6 +2920,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_116t", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_162o] Strength of the Pack (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +1 Attack from {0}.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_162o"));
+    cards.emplace("EX1_162o", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
