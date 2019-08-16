@@ -68,13 +68,35 @@ class ChildNodeMap
 
     //! Runs \p functor on each child node (const).
     //! \param functor A function to run for each child node.
-    void ForEach(const std::function<bool(int, const EdgeAddon*, TreeNode*)>&
-                     functor) const;
+    template <typename Functor>
+    void ForEach(Functor&& functor) const
+    {
+        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
+
+        for (const auto& kv : m_map)
+        {
+            if (!functor(kv.first, &kv.second.edgeAddon, kv.second.node.get()))
+            {
+                return;
+            }
+        }
+    }
 
     //! Runs \p functor on each child node (non-const).
     //! \param functor A function to run for each child node.
-    void ForEach(
-        const std::function<bool(int, const EdgeAddon*, TreeNode*)>& functor);
+    template <typename Functor>
+    void ForEach(Functor&& functor)
+    {
+        std::shared_lock<SharedSpinLock> lock(m_mapMutex);
+
+        for (auto& kv : m_map)
+        {
+            if (!functor(kv.first, &kv.second.edgeAddon, kv.second.node.get()))
+            {
+                return;
+            }
+        }
+    }
 
  private:
     //! Creates an new child node or returns a child node if it exists.

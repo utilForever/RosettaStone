@@ -1142,7 +1142,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_MINIMUM_ENEMY_MINIONS = 2
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_MINIONS, 2));

@@ -54,34 +54,6 @@ std::pair<const EdgeAddon*, TreeNode*> ChildNodeMap::Get(int choice) const
     }
 }
 
-void ChildNodeMap::ForEach(
-    const std::function<bool(int, const EdgeAddon*, TreeNode*)>& functor) const
-{
-    std::shared_lock<SharedSpinLock> lock(m_mapMutex);
-
-    for (const auto& kv : m_map)
-    {
-        if (!functor(kv.first, &kv.second.edgeAddon, kv.second.node.get()))
-        {
-            return;
-        }
-    }
-}
-
-void ChildNodeMap::ForEach(
-    const std::function<bool(int, const EdgeAddon*, TreeNode*)>& functor)
-{
-    std::shared_lock<SharedSpinLock> lock(m_mapMutex);
-
-    for (auto& kv : m_map)
-    {
-        if (!functor(kv.first, &kv.second.edgeAddon, kv.second.node.get()))
-        {
-            return;
-        }
-    }
-}
-
 template <class CreateFunctor>
 std::tuple<bool, EdgeAddon*, TreeNode*> ChildNodeMap::GetOrCreate(
     int choice, CreateFunctor&& createChildFunctor)

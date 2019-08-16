@@ -49,25 +49,6 @@ TreeNode* BoardNodeMap::GetOrCreateNode(const Board& board,
     }
 }
 
-void BoardNodeMap::ForEach(
-    const std::function<bool(ReducedBoardView, TreeNode*)>& functor) const
-{
-    std::shared_lock<SharedSpinLock> lock(m_mutex);
-
-    if (!m_map)
-    {
-        return;
-    }
-
-    for (const auto& kv : *m_map)
-    {
-        if (!functor(kv.first, kv.second.get()))
-        {
-            return;
-        }
-    }
-}
-
 MapType& BoardNodeMap::GetLockedMap()
 {
     if (!m_map)

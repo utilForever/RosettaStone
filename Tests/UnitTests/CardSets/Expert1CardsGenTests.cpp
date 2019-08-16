@@ -2908,7 +2908,7 @@ TEST(ShamanExpert1Test, EX1_250_EarthElemental)
 // - OVERLOAD_OWED = 2
 // --------------------------------------------------------
 // PlayReq:
-// - REQ_MINIMUM_ENEMY_MINIONS = 2
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
 // --------------------------------------------------------
 TEST(ShamanExpert1Test, EX1_251_ForkedLightning)
 {
@@ -2947,10 +2947,6 @@ TEST(ShamanExpert1Test, EX1_251_ForkedLightning)
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 6);
-    EXPECT_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);

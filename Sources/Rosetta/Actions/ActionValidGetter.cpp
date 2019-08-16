@@ -27,66 +27,6 @@ Hero* ActionValidGetter::GetHero(PlayerType playerType) const
     return hero;
 }
 
-void ActionValidGetter::ForEachMinion(
-    PlayerType playerType, const std::function<void(Minion*)>& functor) const
-{
-    auto& fieldZone = (playerType == PlayerType::PLAYER1)
-                          ? m_game.GetPlayer1().GetFieldZone()
-                          : m_game.GetPlayer2().GetFieldZone();
-
-    for (auto& minion : fieldZone.GetAll())
-    {
-        functor(minion);
-    }
-}
-
-void ActionValidGetter::ForEachPlayableCard(
-    const std::function<bool(Entity*)>& functor) const
-{
-    auto& handZone = m_game.GetCurrentPlayer().GetHandZone();
-
-    for (auto& card : handZone.GetAll())
-    {
-        if (!IsPlayable(card))
-        {
-            continue;
-        }
-
-        if (!functor(card))
-        {
-            return;
-        }
-    }
-}
-
-void ActionValidGetter::ForEachAttacker(
-    const std::function<bool(Character*)>& functor) const
-{
-    auto& fieldZone = m_game.GetCurrentPlayer().GetFieldZone();
-
-    for (auto& minion : fieldZone.GetAll())
-    {
-        if (!minion->CanAttack())
-        {
-            continue;
-        }
-
-        if (!functor(minion))
-        {
-            return;
-        }
-    }
-
-    const auto& hero = m_game.GetCurrentPlayer().GetHero();
-    if (hero->CanAttack())
-    {
-        if (!functor(hero))
-        {
-            return;
-        }
-    }
-}
-
 bool ActionValidGetter::CanUseHeroPower() const
 {
     auto& heroPower = m_game.GetCurrentPlayer().GetHero()->heroPower;

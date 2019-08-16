@@ -32,16 +32,20 @@ TEST(ControlTask, Run)
     auto& player1Field = player1.GetFieldZone();
     auto& player2Field = player2.GetFieldZone();
 
-    std::vector<Card> cards;
-    cards.reserve(5);
+    std::vector<Card> player1Cards, player2Cards;
+    player1Cards.reserve(6);
+    player2Cards.reserve(6);
 
     const std::string name = "test";
     for (std::size_t i = 0; i < 6; ++i)
     {
         const auto id = static_cast<char>(i + 0x30);
-        cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
-        PlayMinionCard(player1, &cards[i]);
-        PlayMinionCard(player2, &cards[i]);
+
+        player1Cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        PlayMinionCard(player1, &player1Cards[i]);
+
+        player2Cards.emplace_back(GenerateMinionCard(name + id, 1, 1));
+        PlayMinionCard(player2, &player2Cards[i]);
     }
 
     ControlTask control(EntityType::TARGET);

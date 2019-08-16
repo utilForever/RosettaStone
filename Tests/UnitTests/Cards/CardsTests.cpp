@@ -16,7 +16,7 @@ TEST(Cards, GetAllCards)
     const std::vector<Card*> cards = Cards::GetInstance().GetAllCards();
 
     ASSERT_FALSE(cards.empty());
-    EXPECT_EQ(cards.size(), 6717u);
+    EXPECT_EQ(cards.size(), 7047u);
 }
 
 TEST(Cards, FindCardByID)
@@ -49,7 +49,6 @@ TEST(Cards, FindCardByRarity)
     std::vector<Card*> cards4 = instance.FindCardByRarity(Rarity::LEGENDARY);
     std::vector<Card*> cards5 = instance.FindCardByRarity(Rarity::FREE);
     std::vector<Card*> cards6 = instance.FindCardByRarity(Rarity::INVALID);
-    std::vector<Card*> cards7 = instance.FindCardByRarity(Rarity::UNKNOWN_6);
 
     EXPECT_EQ(Rarity::COMMON, cards1.front()->GetRarity());
     EXPECT_EQ(Rarity::RARE, cards2.front()->GetRarity());
@@ -57,7 +56,6 @@ TEST(Cards, FindCardByRarity)
     EXPECT_EQ(Rarity::LEGENDARY, cards4.front()->GetRarity());
     EXPECT_EQ(Rarity::FREE, cards5.front()->GetRarity());
     EXPECT_EQ(Rarity::INVALID, cards6.front()->GetRarity());
-    EXPECT_TRUE(cards7.empty());
 }
 
 TEST(Cards, FindCardByClass)
