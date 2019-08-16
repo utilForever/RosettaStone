@@ -261,7 +261,9 @@ TEST(DruidExpert1Test, EX1_160_PowerOfTheWild)
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(opField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
     EXPECT_EQ(opField[0]->GetAttack(), 4);
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
 }
 
 // ------------------------------------------ SPELL - DRUID
