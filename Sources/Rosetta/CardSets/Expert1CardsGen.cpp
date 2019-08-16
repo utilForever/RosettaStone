@@ -117,6 +117,19 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("EX1_158e", EntityType::MINIONS));
     cards.emplace("EX1_158", power);
 
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_164] Nourish - COST:6
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_164", power);
+
     // ------------------------------------------- SPELL - DRUID
     // [EX1_570] Bite - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -227,6 +240,26 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_158t", power);
+    
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_164a] Rampant Growth (*) - COST:6
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Gain 2 Mana Crystals.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ManaCrystalTask(2, true));
+    cards.emplace("EX1_164a", power);
+    
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_164b] Enrich (*) - COST:6
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Draw 3 cards.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(3));
+    cards.emplace("EX1_164b", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_570e] Bite - COST:0
@@ -1016,6 +1049,54 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     cards.emplace("EX1_241", power);
 
+    // ---------------------------------------- MINION - SHAMAN
+    // [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b>. <b>Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_243", power);
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_245] Earth Shock - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> a minion, then deal $1 damage to it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
+    cards.emplace("EX1_245", power);
+
+    // ---------------------------------------- WEAPON - SHAMAN
+    // [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 3
+    // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_247", power);
+
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_248] Feral Spirit - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1033,6 +1114,22 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new SummonTask("EX1_tk11", 2));
     cards.emplace("EX1_248", power);
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b><b>Overload</b>:</b> (3)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 3
+    // - OVERLOAD_OWED = 3
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_250", power);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_251] Forked Lightning - COST:1

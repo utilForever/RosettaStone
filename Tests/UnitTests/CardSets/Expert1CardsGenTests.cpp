@@ -210,6 +210,62 @@ TEST(DruidExpert1Test, EX1_158_SoulOfTheForest)
     EXPECT_EQ(opField[2]->card->name, "Treant");
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [EX1_164] Nourish - COST:6
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_164_Nourish)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(6);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByID("EX1_164"));    
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    EXPECT_EQ(curPlayer.GetTotalMana(), 8);
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
+    EXPECT_EQ(opPlayer.GetTotalMana(), 10);
+    EXPECT_EQ(opPlayer.GetRemainingMana(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    EXPECT_EQ(curHand.GetCount(), 8);
+}
+
 // ------------------------------------------- SPELL - DRUID
 // [EX1_570] Bite - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -2680,6 +2736,92 @@ TEST(ShamanExpert1Test, EX1_241_LavaBurst)
     EXPECT_EQ(curPlayer.GetOverloadLocked(), 2);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>. <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_243_DustDevil)
+{
+    // Do nothing
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [EX1_245] Earth Shock - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Silence</b> a minion, then deal $1 damage to it.
+// --------------------------------------------------------
+// GameTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_245_EarthShock)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Earth Shock"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    const int curHandCount = curHand.GetCount();
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(curHand.GetCount(), curHandCount);
+}
+
+// ---------------------------------------- WEAPON - SHAMAN
+// [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// - OVERLOAD = 1
+// - OVERLOAD_OWED = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_247_StormforgedAxe)
+{
+    // Do nothing
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_248] Feral Spirit - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -2736,6 +2878,23 @@ TEST(ShamanExpert1Test, EX1_248_FeralSpirit)
     EXPECT_EQ(curPlayer.GetRemainingMana(), 8);
     EXPECT_EQ(curPlayer.GetOverloadOwed(), 0);
     EXPECT_EQ(curPlayer.GetOverloadLocked(), 2);
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b><b>Overload</b>:</b> (3)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 3
+// - OVERLOAD_OWED = 3
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_250_EarthElemental)
+{
+    // Do nothing
 }
 
 // ----------------------------------------- SPELL - SHAMAN
