@@ -365,7 +365,7 @@ AdaptiveEffect::AdaptiveEffect(SelfCondition* _condition,
                                std::vector<GameTag> tags)
     : Aura(AuraType::ADAPTIVE, std::vector<Effect*>{}),
       m_tags(std::move(tags)),
-      m_lastValues(std::vector(m_tags.size(), 0)),
+      m_lastValues(m_tags.size(), 0),
       m_isSwitching(true)
 {
     condition = _condition;
