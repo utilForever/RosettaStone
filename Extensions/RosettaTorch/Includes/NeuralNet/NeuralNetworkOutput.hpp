@@ -10,7 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_HPP
 #define ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_OUTPUT_HPP
 
-#include <NeuralNet/IInputGetter.hpp>
+#include <NeuralNet/NeuralNetworkOutputImpl.hpp>
 
 namespace RosettaTorch::NeuralNet
 {
@@ -43,11 +43,11 @@ class NeuralNetworkOutput
     //! Deleted move assignment operator.
     NeuralNetworkOutput& operator=(NeuralNetworkOutput&&) noexcept = delete;
 
-    //! Adds data to the tensor.
-    //! \param getter The input getter to get the value of the field.
-    void AddData(const IInputGetter* getter);
+    //! Adds data to the vector.
+    //! \param label The value to add to the vector.
+    void AddData(int label);
 
-    //! Clears data of the tensor.
+    //! Clears data of the vector.
     void Clear();
 
  private:
