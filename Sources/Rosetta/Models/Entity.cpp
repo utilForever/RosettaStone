@@ -164,13 +164,14 @@ void Entity::Destroy()
     isDestroyed = true;
 }
 
-void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
+void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne, Entity* chooseBase)
 {
     if (HasChooseOne())
     {
         if (chooseOne > 0)
         {
-            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne);
+            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne,
+                chooseBase == nullptr ? this : chooseBase);
             return;
         }
     }
@@ -199,7 +200,7 @@ void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
         ITask* clonedTask = task->Clone();
 
         clonedTask->SetPlayer(owner);
-        clonedTask->SetSource(this);
+        clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
         clonedTask->SetTarget(target);
 
         owner->GetGame()->taskQueue.Enqueue(clonedTask);
