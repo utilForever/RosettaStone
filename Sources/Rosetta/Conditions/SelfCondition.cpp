@@ -159,6 +159,18 @@ SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
     });
 }
 
+SelfCondition SelfCondition::IsHealthValue(int value, RelaSign relaSign)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return (relaSign == RelaSign::EQ &&
+                entity->owner->GetHero()->GetHealth() == value) ||
+                (relaSign == RelaSign::GEQ &&
+                entity->owner->GetHero()->GetHealth() >= value) ||
+                (relaSign == RelaSign::LEQ &&
+                entity->owner->GetHero()->GetHealth() <= value);
+    });
+}
+
 bool SelfCondition::Evaluate(Entity* entity) const
 {
     return m_func(entity);
