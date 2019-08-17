@@ -7,14 +7,15 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <NeuralNet/InputDataConverter.hpp>
 #include <NeuralNet/NeuralNetworkInputImpl.hpp>
 
 namespace RosettaTorch::NeuralNet
 {
-void NeuralNetworkInputImpl::AddData([[maybe_unused]] const IInputGetter* getter)
+void NeuralNetworkInputImpl::AddData(const IInputGetter* getter)
 {
     torch::Tensor input;
-    // TODO: Implement InputDataConverter
+    InputDataConverter().Convert(getter, input);
     m_input.push_back(input);
 }
 
