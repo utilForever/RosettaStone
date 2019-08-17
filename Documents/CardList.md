@@ -238,7 +238,7 @@ EXPERT1 | EX1_166 | Keeper of the Grove |
 EXPERT1 | EX1_170 | Emperor Cobra | O
 EXPERT1 | EX1_178 | Ancient of War | O 
 EXPERT1 | EX1_179 | Icicle | O
-EXPERT1 | EX1_180 | Tome of Intellect |  
+EXPERT1 | EX1_180 | Tome of Intellect | O 
 EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer |  
 EXPERT1 | EX1_238 | Lightning Bolt | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 60% (143 of 237 Cards)
+- Progress: 60% (144 of 237 Cards)
 
 ## Hall of Fame
 
