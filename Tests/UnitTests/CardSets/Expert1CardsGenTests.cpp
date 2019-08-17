@@ -831,6 +831,42 @@ TEST(MageExpert1Test, EX1_179_Icicle)
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [EX1_180] Tome of Intellect - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Add a random Mage spell to your hand.
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_180_TomeOfIntellect)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tome of Intellect"));
+    
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    EXPECT_EQ(curHand.GetAll().at(4)->card->GetCardClass(), CardClass::MAGE);
+}
+
+// ------------------------------------------- SPELL - MAGE
 // [EX1_279] Pyroblast - COST:10
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
