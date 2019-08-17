@@ -143,6 +143,20 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_164", power);
 
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_178", power);
+
     // ------------------------------------------- SPELL - DRUID
     // [EX1_570] Bite - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -314,6 +328,46 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DrawTask(3));
     cards.emplace("EX1_164b", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_178a] Rooted (*) - COST:7
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +5 Health and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_178ae", EntityType::SOURCE));
+    cards.emplace("EX1_178a", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [EX1_178ae] Rooted (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +5 Health and <b>Taunt</b>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_178ae"));
+    cards.emplace("EX1_178ae", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_178b] Uproot (*) - COST:7
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +5 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_178be", EntityType::SOURCE));
+    cards.emplace("EX1_178b", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [EX1_178be] Uprooted (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: +5 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_178be"));
+    cards.emplace("EX1_178be", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_570e] Bite - COST:0

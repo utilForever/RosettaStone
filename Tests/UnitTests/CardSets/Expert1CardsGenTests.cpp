@@ -322,6 +322,55 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
     EXPECT_EQ(curHand.GetCount(), 8);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_178_AncientOfWar)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ancient of War"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ancient of War"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    EXPECT_EQ(curField[0]->GetHealth(), 10);
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, PlayCardTask::Minion(card2, 2));
+    EXPECT_EQ(opField[0]->GetAttack(), 10);
+}
+
 // ------------------------------------------- SPELL - DRUID
 // [EX1_570] Bite - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
