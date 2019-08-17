@@ -38,7 +38,7 @@ class NeuralNetworkInputImpl
     const auto& GetData() const;
 
  private:
-    std::vector<torch::nn::tensor> m_input;
+    std::vector<torch::Tensor> m_input;
 };
 }  // namespace RosettaTorch::NeuralNet
 
