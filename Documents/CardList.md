@@ -275,7 +275,7 @@ EXPERT1 | EX1_334 | Shadow Madness |
 EXPERT1 | EX1_335 | Lightspawn |  
 EXPERT1 | EX1_339 | Thoughtsteal |  
 EXPERT1 | EX1_341 | Lightwell | O
-EXPERT1 | EX1_345 | Mindgames |  
+EXPERT1 | EX1_345 | Mindgames | O 
 EXPERT1 | EX1_350 | Prophet Velen |  
 EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 60% (144 of 237 Cards)
+- Progress: 60% (145 of 237 Cards)
 
 ## Hall of Fame
 
