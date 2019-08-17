@@ -296,7 +296,7 @@ EXPERT1 | EX1_398 | Arathi Weaponsmith |
 EXPERT1 | EX1_402 | Armorsmith |  
 EXPERT1 | EX1_405 | Shieldbearer | O
 EXPERT1 | EX1_407 | Brawl | O
-EXPERT1 | EX1_408 | Mortal Strike |  
+EXPERT1 | EX1_408 | Mortal Strike | O
 EXPERT1 | EX1_409 | Upgrade! |  
 EXPERT1 | EX1_410 | Shield Slam |  
 EXPERT1 | EX1_411 | Gorehowl |  

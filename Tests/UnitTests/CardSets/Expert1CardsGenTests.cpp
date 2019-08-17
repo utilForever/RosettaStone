@@ -1431,6 +1431,56 @@ TEST(WarriorExpert1Test, EX1_407_Brawl)
     EXPECT_EQ(curField.GetCount() + opField.GetCount(), 1);
 }
 
+TEST(WarriorExpert1Test, EX1_408_MortalStrike)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mortal Strike"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mortal Strike"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curPlayer.GetHero()));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(),24);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(),26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, curPlayer.GetHero()));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(),12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(),20);
+}
+
 // ----------------------------------------- SPELL - WARRIOR
 // [EX1_607] Inner Rage - COST:0
 // - Set: Expert1, Rarity: Common
