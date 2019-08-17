@@ -844,7 +844,7 @@ TEST(MageExpert1Test, EX1_180_TomeOfIntellect)
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
-
+    
     Game game(config);
     game.StartGame();
     game.ProcessUntil(Step::MAIN_START);
@@ -1864,6 +1864,70 @@ TEST(PriestExpert1Test, EX1_341_Lightwell)
 
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), p1HandCount + 2);
     EXPECT_EQ(curField[0]->GetHealth(), 4);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [EX1_345] Mindgames - COST:4
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Put a copy of a random minion from
+//       your opponent's deck into the battlefield.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_345_Mindgames)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player2Deck[i] = *Cards::GetInstance().FindCardByName("Magma Rager");
+    }
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    auto& opDeck = opPlayer.GetDeckZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mindgames"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mindgames"));
+    
+    EXPECT_EQ(opDeck.GetCount(), 1);
+    
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curField[0]->card->name, "Magma Rager");
+    EXPECT_EQ(opDeck.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    EXPECT_EQ(opDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curField[1]->card->name, "Shadow of Nothing");
 }
 
 // ----------------------------------------- SPELL - PRIEST

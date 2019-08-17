@@ -8,6 +8,7 @@
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/Triggers.hpp>
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -26,6 +27,7 @@
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncEntityTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -833,6 +835,32 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("EX1_341", power);
 
     // ----------------------------------------- SPELL - PRIEST
+    // [EX1_345] Mindgames - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Put a copy of a random minion from
+    //       your opponent's deck into the battlefield.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
+        DeckZone& deck = entity->owner->opponent->GetDeckZone();
+        entity->owner->GetGame()->taskStack.entities = deck.GetAll();
+    }));
+    power.AddPowerTask(
+        new FilterStackTask(SelfCondition::IsMinion()));
+    power.AddPowerTask(new CountTask(EntityType::STACK));
+    power.AddPowerTask(new ConditionTask(EntityType::HERO,
+        { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
+    power.AddPowerTask(new FlagTask(true, { new RandomTask(EntityType::STACK, 1),
+        new CopyTask(EntityType::STACK, ZoneType::PLAY)}));
+    power.AddPowerTask(new FlagTask(false,
+        { new SummonTask("EX1_345t", SummonSide::SPELL) }));
+    cards.emplace("EX1_345", power);
+
+    // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -902,6 +930,16 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Enchants::SetAttackScriptTag));
     cards.emplace("CS1_129e", power);
+
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_345t] Shadow of Nothing - COST:0 [ATK:0/HP:1]
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Mindgames whiffed! Your opponent had no minions!
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_345t", power);
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_623e] Infusion (*) - COST:0
