@@ -96,6 +96,7 @@ class SelfCondition
     //! SelfCondition wrapper for checking the name of entity equals \p name.
     //! \param name The name of card to check condition.
     //! \param isEqual The flag to indicate that the condition for equality.
+    //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsName(const std::string& name, bool isEqual = true);
 
     //! SelfCondition wrapper for checking num in taskStack satisfy condition
