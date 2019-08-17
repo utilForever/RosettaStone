@@ -159,6 +159,18 @@ SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
     });
 }
 
+SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
+{
+    return SelfCondition([=](Entity* entity) -> bool{
+        auto& stack = entity->owner->GetGame()->taskStack;
+        auto num = index == 0 ? stack.num : stack.num1;
+
+        return (relaSign == RelaSign::EQ && num == value) ||
+               (relaSign == RelaSign::GEQ && num >= value) ||
+               (relaSign == RelaSign::LEQ && num <= value);
+    });
+}
+
 bool SelfCondition::Evaluate(Entity* entity) const
 {
     return m_func(entity);

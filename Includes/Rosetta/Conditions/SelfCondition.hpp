@@ -98,6 +98,15 @@ class SelfCondition
     //! \param isEqual The flag to indicate that the condition for equality.
     static SelfCondition IsName(const std::string& name, bool isEqual = true);
 
+    //! SelfCondition wrapper for checking num in taskStack satisfy condition
+    //! with \p value and \p relaSign.
+    //! \param value The value to heck condition.
+    //! \param relaSign The comparer to check condition.
+    //! \param index If index is 0, use taskTask.num; If index is 1, use taskTask.num1
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsStackNum(int value, RelaSign relaSign = RelaSign::EQ,
+                                    int index = 0);
+
     //! Evaluates condition using checking function.
     //! \param entity The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
