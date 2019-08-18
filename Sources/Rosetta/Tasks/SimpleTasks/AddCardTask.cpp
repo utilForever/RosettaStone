@@ -33,7 +33,7 @@ TaskStatus AddCardTask::Impl(Player& player)
             for (int i = 0; i < m_amount; ++i)
             {
                 Card* card = Cards::GetInstance().FindCardByID(m_cardID);
-                Generic::AddCardToHand(*player, Entity::GetFromCard(*player, card));
+                Generic::AddCardToHand(player, Entity::GetFromCard(player, card));
             }
         }
         case EntityType::ENEMY_HAND:
