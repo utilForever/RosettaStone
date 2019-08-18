@@ -51,27 +51,27 @@ class CNNModel : public torch::nn::Module
                           torch::Tensor standalone);
 
  private:
-    static constexpr std::size_t hero_in_dim = 1;
-    static constexpr std::size_t hero_out_dim = 1;
+    static constexpr int hero_in_dim = 1;
+    static constexpr int hero_out_dim = 1;
 
-    static constexpr std::size_t minion_in_dim = 7;
-    static constexpr std::size_t minion_out_dim = 3;
+    static constexpr int minion_in_dim = 7;
+    static constexpr int minion_out_dim = 3;
 
-    static constexpr std::size_t minion_count = 7;
+    static constexpr int minion_count = 7;
 
-    static constexpr std::size_t standalone_in_dim = 17;
+    static constexpr int standalone_in_dim = 17;
 
-    static constexpr std::size_t concat_unit =
+    static constexpr int concat_unit =
         2 * hero_out_dim + 2 * minion_count * minion_out_dim +
         standalone_in_dim;
 
-    static constexpr std::size_t fc_unit = 10;
+    static constexpr int fc_unit = 10;
 
     torch::nn::Conv1d heroConv1 = 
-        torch::nn::Conv1d(hero_in_dim, hero_out_dim, 1);
+        torch::nn::Conv1d(torch::nn::Conv1dOptions(hero_in_dim, hero_out_dim, 1));
 
-    torch::nn::Conv1d minionConv1 =
-        torch::nn::Conv1d(minion_in_dim, minion_out_dim, 1);
+    torch::nn::Conv1d minionConv1 = 
+        torch::nn::Conv1d(torch::nn::Conv1dOptions(minion_in_dim, minion_out_dim, 1));
 
     torch::nn::Linear fc1 = torch::nn::Linear(concat_unit, fc_unit);
     torch::nn::Linear fc2 = torch::nn::Linear(fc_unit, 1);

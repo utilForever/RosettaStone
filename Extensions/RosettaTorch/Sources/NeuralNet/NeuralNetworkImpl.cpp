@@ -7,7 +7,6 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <NeuralNet/Models/CNNModel.hpp>
 #include <NeuralNet/NeuralNetworkImpl.hpp>
 
 namespace RosettaTorch::NeuralNet
@@ -15,12 +14,10 @@ namespace RosettaTorch::NeuralNet
 NeuralNetworkImpl::NeuralNetworkImpl()
 {
     m_net = CNNModel();
-    optimizer = torch::optim::Adam(m_net.parameters(), lr);
 }
-NeuralNetworkImpl::NeuralNetworkImpl(torch::nn::Module model)
+NeuralNetworkImpl::NeuralNetworkImpl(CNNModel model)
 {
     m_net = model;
-    optimizer = torch::optim::Adam(m_net.parameters(), lr);
 }
 
 void NeuralNetworkImpl::CreateWithRandomWeights(const std::string& fileName)
@@ -57,14 +54,14 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
                               const NeuralNetworkOutputImpl& output,
                               std::size_t batchSize, std::size_t epochs)
 {
-    const auto xData = input.GetData();
-    const auto yData = output.GetData();
-
-    auto numData = xData.shape[0];  // number of data
+    // const auto xData = input.GetData();
+    // const auto yData = output.GetData();
+    // auto numData = xData.shape[0];  // number of data
+    torch::optim::Adam optimizer(m_net.parameters(), torch::optim::AdamOptions(lr));
 
     for (std::size_t epoch = 0; epoch < epochs; ++epoch)
     {
-        for (std::size_t batchIdx = 0; batchIdx < numData / batchSize;
+        for (std::size_t batchIdx = 0; batchIdx < 0 / batchSize;
              ++batchIdx)
         {
             // Resets gradients
@@ -84,7 +81,7 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
             optimizer.step();
 
             // Saves the model
-            Save("model.pt");
+            Save(modelName);
         }
     }
 }

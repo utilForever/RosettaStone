@@ -12,6 +12,7 @@
 
 #include <NeuralNet/NeuralNetworkInput.hpp>
 #include <NeuralNet/NeuralNetworkOutput.hpp>
+#include <NeuralNet/Models/CNNModel.hpp>
 
 #include <torch/torch.h>
 
@@ -32,7 +33,7 @@ class NeuralNetworkImpl
 
     //! Constructor w/ the given custom model.
     //! \param model The model to use.
-    NeuralNetworkImpl(torch::nn::Module model);
+    NeuralNetworkImpl(CNNModel model);
 
     //! Destructor.
     ~NeuralNetworkImpl() = delete;
@@ -84,12 +85,11 @@ class NeuralNetworkImpl
                  std::vector<double>& results);
 
  private:
-    torch::nn::Module m_net;
+    CNNModel m_net;
     bool m_isRandom = false;
 
     static constexpr double lr = 1e-3;
-
-    torch::optim::Adam optimizer;
+    std::string modelName = "model.pt";
 };
 }  // namespace RosettaTorch::NeuralNet
 

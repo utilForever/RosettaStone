@@ -13,55 +13,59 @@ namespace RosettaTorch::NeuralNet
 {
 CNNModel::CNNModel()
 {
+    register_module("heroConv1", heroConv1);
+    register_module("minionConv1", minionConv1);
+    register_module("fc1", fc1);
+    register_module("fc2", fc2);
 }
 
 torch::Tensor CNNModel::encodeHero(torch::Tensor x)
 {
-    x = x.view((hero_in_dim, 2, 1));
-    x = heroConv1(x);
+    x = x.view({hero_in_dim, 2, 1});
+    x = heroConv1->forward(x);
     x = torch::leaky_relu(x, .2);
-    x = x.view((1, 1, -1));
+    x = x.view({ 1, 1, -1 });
     return x;
 }
 
 torch::Tensor CNNModel::encodeMinion(torch::Tensor x)
 {
-    x = x.view((minion_in_dim, minion_count * 2, 1));
-    x = minionConv1(x);
+    x = x.view({minion_in_dim, minion_count * 2, 1});
+    x = minionConv1->forward(x);
     x = torch::leaky_relu(x, .2);
-    x = x.view((1, 1, -1));
+    x = x.view({1, 1, -1});
     return x;
 }
 
 torch::Tensor CNNModel::encodeStandalone(torch::Tensor x)
 {
-    x = x.view((1, 1, -1));
+    x = x.view({1, 1, -1});
     return x;
 }
 
-torch::Tensor CNNModel::forward(const torch::Tensor hero,
-                                const torch::Tensor minion, 
-    const torch::Tensor standalone)
+torch::Tensor CNNModel::forward(torch::Tensor hero,
+                                torch::Tensor minion, 
+    torch::Tensor standalone)
 {
     // input shape  : (2,), (14,), (1,)
     // output shape : (1,) 
 
     // Encodes the information of heros
-    const auto outHero = CNNModel::encodeHero(hero);
+    auto outHero = encodeHero(hero);
 
     // Encodes the information of minions
-    const auto outMinion = CNNModel::encodeMinion(minion);
+    auto outMinion = encodeMinion(minion);
 
     // Encodes the information of 'standalone'
-    const auto outStandalone = CNNModel::encodeStandalone(standalone);
+    auto outStandalone = encodeStandalone(standalone);
 
     auto concatFeatures =
         torch::cat(( outHero, outMinion, outStandalone ), -1);
 
-    concatFeatures = fc1(concatFeatures);
+    concatFeatures = fc1->forward(concatFeatures);
     concatFeatures = torch::leaky_relu(concatFeatures, .2);
 
-    concatFeatures = fc2(concatFeatures);
+    concatFeatures = fc2->forward(concatFeatures);
     concatFeatures = torch::tanh(concatFeatures);
 
     return concatFeatures;
