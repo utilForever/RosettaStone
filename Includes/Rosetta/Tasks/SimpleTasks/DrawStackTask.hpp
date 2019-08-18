@@ -20,7 +20,7 @@ class DrawStackTask : public ITask
  public:
     //! Constructs task with given \p amount.
     //! \param amount The amount to draw card.
-    explicit DrawStackTask(int amount);
+    explicit DrawStackTask(std::size_t amount);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -36,7 +36,7 @@ class DrawStackTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    int m_amount = 0;
+    std::size_t m_amount = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 

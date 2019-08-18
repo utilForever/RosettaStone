@@ -9,7 +9,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-DrawStackTask::DrawStackTask(int amount)
+DrawStackTask::DrawStackTask(std::size_t amount)
     : m_amount(amount)
 {
     // Do nothing
@@ -23,9 +23,9 @@ TaskID DrawStackTask::GetTaskID() const
 TaskStatus DrawStackTask::Impl(Player& player)
 {
     auto& stack = player.GetGame()->taskStack.entities;
-    const int amount = (m_amount <= stack.size()) ? m_amount : stack.size();
+    const std::size_t amount = (m_amount <= stack.size()) ? m_amount : stack.size();
 
-    for (int i = 0; i < amount; ++i)
+    for (std::size_t i = 0; i < amount; ++i)
     {
         Entity* card = stack.at(i);
         card = Generic::Draw(player, card);
