@@ -42,8 +42,39 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 
 void NeuralNetworkImpl::Train(const NeuralNetworkInput& input,
                               const NeuralNetworkOutput& output,
-                              size_t batchSize, int epoch)
+                              size_t batchSize, int epochs)
 {
+    auto xData = input.GetData();
+    auto yData = output.GetData();
+
+    auto numData = xData.shape[0]; // number of data
+
+    for (std::size_t epoch = 0; epoch < epochs; ++epoch)
+    {
+        for (std::size_t batchIdx = 0; batchIdx < numData / batchSize; ++batchIdx)
+        {
+            // Resets gradients
+            optimizer.zero_grad();
+
+            // Executes the model one the input data 
+            auto prediction = m_net.forward(
+                input[:, batchSize * batchIdx:batchSize * (batchIdx + 1)]);
+
+            // Computes a loss value to judge the prediction of our model
+            auto loss = torch::mse_loss(
+                prediction, 
+                output[:, batchSize * batchIdx:batchSize * (batchIdx + 1)]);
+
+            // Do Back-propagation
+            loss.backward();
+
+            // Updates the parameters
+            optimizer.step();
+
+            // Saves the model
+            torch::save(m_net, "model.pt");
+        }
+    }
 }
 
 std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(

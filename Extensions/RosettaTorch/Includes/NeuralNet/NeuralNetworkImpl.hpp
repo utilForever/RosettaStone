@@ -52,9 +52,9 @@ class NeuralNetworkImpl
     //! \param input The input layer of neural network model.
     //! \param output The output layer of neural network model.
     //! \param batchSize The training batch size.
-    //! \param epoch The number of epochs to train for.
+    //! \param epochs The number of epochs to train for.
     void Train(const NeuralNetworkInput& input,
-               const NeuralNetworkOutput& output, size_t batchSize, int epoch);
+               const NeuralNetworkOutput& output, std::size_t batchSize, int epochs);
 
     //! Verifies neural network model.
     //! \param input The input layer of neural network model.
@@ -76,6 +76,8 @@ class NeuralNetworkImpl
  private:
     std::shared_ptr<torch::nn::Module> m_net = nullptr;
     bool m_isRandom = false;
+
+    torch::optim::Adam optimizer = torch::optim::Adam(m_net.parameters(), 1e-3);
 };
 }  // namespace RosettaTorch::NeuralNet
 
