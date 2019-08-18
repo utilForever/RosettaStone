@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 59% (140 of 237 Cards)
+- Progress: 59% (141 of 237 Cards)
 
 ## Hall of Fame
 
