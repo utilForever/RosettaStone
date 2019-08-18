@@ -69,6 +69,16 @@ void Character::SetHealth(int health)
     SetGameTag(GameTag::DAMAGE, 0);
 }
 
+int Character::GetMaxHealth() const
+{
+    return GetGameTag(GameTag::HEALTH);
+}
+
+void Character::SetMaxHealth(int maxHealth)
+{
+    SetGameTag(GameTag::HEALTH, maxHealth);
+}
+
 int Character::GetSpellPower() const
 {
     return GetGameTag(GameTag::SPELLPOWER);
@@ -215,7 +225,8 @@ int Character::TakeDamage(Entity& source, int damage)
     // Process damage triggers
     owner->GetGame()->taskQueue.StartEvent();
     owner->GetGame()->triggerManager.OnTakeDamageTrigger(owner, this);
-    owner->GetGame()->triggerManager.OnDealDamageTrigger(owner->opponent, &source);
+    owner->GetGame()->triggerManager.OnDealDamageTrigger(owner->opponent,
+                                                         &source);
     owner->GetGame()->ProcessTasks();
     owner->GetGame()->taskQueue.EndEvent();
 
@@ -229,8 +240,6 @@ void Character::TakeFullHeal(Entity& source)
 
 void Character::TakeHeal(Entity& source, int heal)
 {
-    (void)source;
-
     if (GetDamage() == 0)
     {
         return;
