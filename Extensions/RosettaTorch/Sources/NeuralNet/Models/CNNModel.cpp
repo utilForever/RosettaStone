@@ -60,7 +60,7 @@ torch::Tensor CNNModel::forward(torch::Tensor hero,
     auto outStandalone = encodeStandalone(standalone);
 
     auto concatFeatures =
-        torch::cat(( outHero, outMinion, outStandalone ), -1);
+        torch::cat({outHero, outMinion, outStandalone}, -1);
 
     concatFeatures = fc1->forward(concatFeatures);
     concatFeatures = torch::leaky_relu(concatFeatures, .2);
