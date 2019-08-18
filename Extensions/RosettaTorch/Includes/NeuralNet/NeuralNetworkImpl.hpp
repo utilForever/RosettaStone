@@ -61,11 +61,12 @@ class NeuralNetworkImpl
     //! \param batchSize The training batch size.
     //! \param epochs The number of epochs to train for.
     void Train(const NeuralNetworkInputImpl& input,
-               const NeuralNetworkOutputImpl& output, std::size_t batchSize, std::size_t epochs);
+               const NeuralNetworkOutputImpl& output, std::size_t batchSize,
+               std::size_t epochs);
 
     //! Verifies neural network model.
-    //! \param input The input layer of neural network model.
-    //! \param output The output layer of neural network model.
+    //! \param input The input features for the model.
+    //! \param output The output label for the model.
     //! \return The value of correct and total.
     std::pair<uint64_t, uint64_t> Verify(const NeuralNetworkInput& input,
                                          const NeuralNetworkOutput& output);

@@ -46,9 +46,10 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
                               const NeuralNetworkOutputImpl& output,
                               std::size_t batchSize, std::size_t epochs)
 {
-    // const auto xData = input.GetData();
-    // const auto yData = output.GetData();
-    // auto numData = xData.shape[0];  // number of data
+    torch::Tensor xData = input.GetData();
+    torch::Tensor yData = output.GetData();
+    auto numData = xData.size(0);
+
     torch::optim::Adam optimizer(m_net->parameters(), torch::optim::AdamOptions(lr));
 
     for (std::size_t epoch = 0; epoch < epochs; ++epoch)
@@ -86,11 +87,26 @@ std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
 
 double NeuralNetworkImpl::Predict(IInputGetter* input)
 {
+
     return 0.0;
 }
 
 void NeuralNetworkImpl::Predict(const NeuralNetworkInputImpl& input,
                                 std::vector<double>& results)
 {
+    // Loads the pre-trained model
+    Load(modelName, false);
+
+    // Loads the data for testing
+    torch::Tensor data = input.GetData();
+    auto numData = data.size(0);
+
+    // Evaluates w/ the test data
+    for (std::size_t i = 0; i < numData; ++i)
+    {
+        // ! you need to change the parameters, fitted into the model input
+        auto prediction = m_net->forward(data[i], data[i], data[i]);
+        results.push_back(prediction.numel());
+    }
 }
 }  // namespace RosettaTorch::NeuralNet
