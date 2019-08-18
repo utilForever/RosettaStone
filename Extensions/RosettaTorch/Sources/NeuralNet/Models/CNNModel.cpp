@@ -14,4 +14,56 @@ namespace RosettaTorch::NeuralNet
 CNNModel::CNNModel()
 {
 }
+
+torch::Tensor CNNModel::encodeHero(torch::Tensor x)
+{
+    x = x.view(hero_in_dim, 2, 1);
+    x = heroConv1(x);
+    x = torch::leaky_relu(x, .2);
+    x = x.view(1, 1, -1);
+    return x
+}
+
+torch::Tensor CNNModel::encodeMinion(torch::Tensor x)
+{
+    x = x.view(minion_in_dim, minion_count * 2, 1);
+    x = minionConv1(x);
+    x = torch::leaky_relu(x, .2);
+    x = x.view(1, 1, -1);
+    return x
+}
+
+torch::Tensor CNNModel::encodeStandalone(torch::Tensor x)
+{
+    x = x.view(1, 1, -1);
+    return x
+}
+
+torch::Tensor CNNModel::forward(const torch::Tensor hero,
+                                const torch::Tensor minion, 
+    const torch::Tensor standalone)
+{
+    // input shape  : (2,), (14,), (1,)
+    // output shape : (1,) 
+
+    // Encodes the information of heros
+    const auto outHero = CNNModel::encodeHero(hero);
+
+    // Encodes the information of minions
+    const auto outminion = CNNModel::encodeMinion(minion);
+
+    // Encodes the information of 'standalone'
+    const auto outStandalone = CNNModel::encodeStandalone(standalone);
+
+    const auto concatFeatures =
+        torch::cat([ outHero, outMinion, outStandalone ], -1);
+
+    concatFeatures = torch::nn::Linear(concat_unit,fc_unit);
+    concatFeatures = torch::leaky_relu(concatFeatures, .2);
+
+    concatFeatures = torch::nn::Linear(fc_unit, 1);
+    concatFeatures = torch::tanh(concatFeatures);
+
+    return concatFeatures;
+}
 }  // namespace RosettaTorch::NeuralNet
