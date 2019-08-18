@@ -23,6 +23,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
@@ -1473,6 +1474,28 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     cards.emplace("EX1_313", power);
 
     // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_317] Sense Demons - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Draw 2 Demons from your deck.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
+        DeckZone& deck = entity->owner->GetDeckZone();
+        entity->owner->GetGame()->taskStack.entities = deck.GetAll();
+    }));
+    power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::DEMON)));
+    power.AddPowerTask(new CountTask(EntityType::STACK));
+    power.AddPowerTask(new ConditionTask(EntityType::HERO, {
+        SelfCondition::IsStackNum(1, RelaSign::GEQ)
+    }));
+    power.AddPowerTask(new FlagTask(true, { new RandomTask(EntityType::STACK, 2),
+        new DrawStackTask(2)}));
+    power.AddPowerTask(new FlagTask(false,
+        { new AddCardTask(EntityType::HAND, "EX1_317t")}));
+    cards.emplace("EX1_317", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
     // [EX1_320] Bane of Doom - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -1506,6 +1529,17 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::HealthN(1)));
     cards.emplace("CS2_059o", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_317t] Worthless Imp - COST:1 [ATK:1/HP:1]
+    // - Race: Demon, Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <i>You are out of demons!
+    //       At least there are always imps...</i>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_317t", power);
 }
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)

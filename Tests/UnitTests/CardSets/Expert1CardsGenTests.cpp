@@ -6330,6 +6330,59 @@ TEST(WarlockExpert1Test, EX1_313_PitLord)
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [EX1_317] Sense Demons - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 Demons from your deck.
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_317_SenseDemons)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 6; ++i)
+    {
+        config.player1Deck[i] = *Cards::GetInstance().FindCardByName("Blood Imp");
+    }
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+    auto& curDeck = curPlayer.GetDeckZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Sense Demons"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Sense Demons"));
+    
+    EXPECT_EQ(curDeck.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curDeck.GetCount(), 0);
+    EXPECT_EQ(curHand.GetCount(), 7);
+    
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curDeck.GetCount(), 0);
+    EXPECT_EQ(curHand.GetCount(), 7);
+    EXPECT_EQ(curHand.GetAll().at(6)->card->name, "Worthless Imp");   
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [EX1_320] Bane of Doom - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
