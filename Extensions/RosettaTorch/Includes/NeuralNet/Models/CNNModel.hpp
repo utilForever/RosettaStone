@@ -72,6 +72,9 @@ class CNNModel : public torch::nn::Module
 
     torch::nn::Conv1d minionConv1 =
         torch::nn::Conv1d(minion_in_dim, minion_out_dim, 1);
+
+    torch::nn::Linear fc1 = torch::nn::Linear(concat_unit, fc_unit);
+    torch::nn::Linear fc2 = torch::nn::Linear(fc_unit, 1);
 };
 }  // namespace RosettaTorch::NeuralNet
 
