@@ -1405,7 +1405,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
 
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_408] Mortal Strike - COST:4
-    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // --------------------------------------------------------
     // Text: Deal $4 damage. If you have 12 or less Health, deal $6 instead.
