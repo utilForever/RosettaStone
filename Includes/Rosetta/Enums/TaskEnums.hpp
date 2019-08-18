@@ -23,6 +23,7 @@ enum class TaskID
     INVALID,
     DRAW,
     DRAW_OP,
+    DRAW_STACK,
     OVERDRAW,
     MANA_CRYSTAL,
     DAMAGE,
