@@ -7,12 +7,25 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <NeuralNet/Models/CNNModel.hpp>
 #include <NeuralNet/NeuralNetworkImpl.hpp>
 
 namespace RosettaTorch::NeuralNet
 {
+NeuralNetworkImpl::NeuralNetworkImpl()
+{
+    m_net = CNNModel();
+    optimizer = torch::optim::Adam(m_net.parameters(), lr);
+}
+NeuralNetworkImpl::NeuralNetworkImpl(torch::nn::Module model)
+{
+    m_net = model;
+    optimizer = torch::optim::Adam(m_net.parameters(), lr);
+}
+
 void NeuralNetworkImpl::CreateWithRandomWeights(const std::string& fileName)
 {
+    (void)fileName;
 }
 
 void NeuralNetworkImpl::Save(const std::string& fileName) const
@@ -40,30 +53,29 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
     std::remove(tempFile.c_str());
 }
 
-void NeuralNetworkImpl::Train(const NeuralNetworkInput& input,
-                              const NeuralNetworkOutput& output,
-                              size_t batchSize, int epochs)
+void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
+                              const NeuralNetworkOutputImpl& output,
+                              std::size_t batchSize, std::size_t epochs)
 {
-    auto xData = input.GetData();
-    auto yData = output.GetData();
+    const auto xData = input.GetData();
+    const auto yData = output.GetData();
 
-    auto numData = xData.shape[0]; // number of data
+    auto numData = xData.shape[0];  // number of data
 
     for (std::size_t epoch = 0; epoch < epochs; ++epoch)
     {
-        for (std::size_t batchIdx = 0; batchIdx < numData / batchSize; ++batchIdx)
+        for (std::size_t batchIdx = 0; batchIdx < numData / batchSize;
+             ++batchIdx)
         {
             // Resets gradients
             optimizer.zero_grad();
 
-            // Executes the model one the input data 
-            auto prediction = m_net.forward(
-                xData[:, batchSize * batchIdx:batchSize * (batchIdx + 1)]);
+            // Executes the model one the input data
+            auto prediction = m_net.forward(torch::Tensor(), torch::Tensor(),
+                                            torch::Tensor());
 
             // Computes a loss value to judge the prediction of our model
-            auto loss = torch::mse_loss(
-                prediction, 
-                yData[:, batchSize * batchIdx:batchSize * (batchIdx + 1)]);
+            auto loss = torch::mse_loss(prediction, torch::Tensor());
 
             // Do Back-propagation
             loss.backward();

@@ -27,6 +27,16 @@ namespace RosettaTorch::NeuralNet
 class NeuralNetworkImpl
 {
  public:
+    //! Constructor.
+    NeuralNetworkImpl();
+
+    //! Constructor w/ the given custom model.
+    //! \param model The model to use.
+    NeuralNetworkImpl(torch::nn::Module model);
+
+    //! Destructor.
+    ~NeuralNetworkImpl() = delete;
+
     //! Creates neural network model with random weights.
     //! \param fileName The file name of neural network model to save.
     static void CreateWithRandomWeights(const std::string& fileName);
@@ -49,12 +59,12 @@ class NeuralNetworkImpl
     void CopyFrom(const NeuralNetworkImpl& rhs);
 
     //! Trains neural network model.
-    //! \param input The input layer of neural network model.
-    //! \param output The output layer of neural network model.
+    //! \param input The input features for the model.
+    //! \param output The output label for the model.
     //! \param batchSize The training batch size.
     //! \param epochs The number of epochs to train for.
-    void Train(const NeuralNetworkInput& input,
-               const NeuralNetworkOutput& output, std::size_t batchSize, int epochs);
+    void Train(const NeuralNetworkInputImpl& input,
+               const NeuralNetworkOutputImpl& output, std::size_t batchSize, std::size_t epochs);
 
     //! Verifies neural network model.
     //! \param input The input layer of neural network model.
@@ -74,10 +84,12 @@ class NeuralNetworkImpl
                  std::vector<double>& results);
 
  private:
-    std::shared_ptr<torch::nn::Module> m_net = nullptr;
+    torch::nn::Module m_net;
     bool m_isRandom = false;
 
-    torch::optim::Adam optimizer = torch::optim::Adam(m_net.parameters(), 1e-3);
+    static constexpr double lr = 1e-3;
+
+    torch::optim::Adam optimizer;
 };
 }  // namespace RosettaTorch::NeuralNet
 
