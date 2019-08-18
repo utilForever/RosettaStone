@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_HPP
 #define ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_HPP
 
+#include <NeuralNet/NeuralNetworkImpl.hpp>
 #include <NeuralNet/NeuralNetworkInput.hpp>
 #include <NeuralNet/NeuralNetworkOutput.hpp>
 
