@@ -46,9 +46,9 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
                               const NeuralNetworkOutputImpl& output,
                               std::size_t batchSize, std::size_t epochs)
 {
-    torch::Tensor xData = input.GetData();
-    torch::Tensor yData = output.GetData();
-    auto numData = xData.size(0);
+    // auto& xData = input.GetData();
+    // auto& yData = output.GetData();
+    // auto numData = xData.size(0);
 
     torch::optim::Adam optimizer(m_net->parameters(), torch::optim::AdamOptions(lr));
 
@@ -61,10 +61,12 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
             optimizer.zero_grad();
 
             // Executes the model one the input data
+            // ! you need to change the parameters, fitted into the model input
             auto prediction = m_net->forward(torch::Tensor(), torch::Tensor(),
                                              torch::Tensor());
 
             // Computes a loss value to judge the prediction of our model
+            // ! you need to change the parameters, fitted into the model input
             auto loss = torch::mse_loss(prediction, torch::Tensor());
 
             // Do Back-propagation
@@ -98,14 +100,15 @@ void NeuralNetworkImpl::Predict(const NeuralNetworkInputImpl& input,
     Load(modelName, false);
 
     // Loads the data for testing
-    torch::Tensor data = input.GetData();
-    auto numData = data.size(0);
+    // torch::Tensor data = input.GetData();
+    // auto numData = data.size(0);
 
     // Evaluates w/ the test data
-    for (std::size_t i = 0; i < numData; ++i)
+    for (std::size_t i = 0; i < 0; ++i)
     {
         // ! you need to change the parameters, fitted into the model input
-        auto prediction = m_net->forward(data[i], data[i], data[i]);
+        auto prediction =
+            m_net->forward(torch::Tensor(), torch::Tensor(), torch::Tensor());
         results.push_back(prediction.numel());
     }
 }
