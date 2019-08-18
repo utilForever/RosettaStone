@@ -31,10 +31,6 @@ class NeuralNetworkImpl
     //! Constructor.
     NeuralNetworkImpl();
 
-    //! Constructor w/ the given custom model.
-    //! \param model The model to use.
-    NeuralNetworkImpl(CNNModel model);
-
     //! Destructor.
     ~NeuralNetworkImpl() = delete;
 
@@ -85,7 +81,7 @@ class NeuralNetworkImpl
                  std::vector<double>& results);
 
  private:
-    CNNModel m_net;
+    torch::nn::ModuleHolder<CNNModel> m_net;
     bool m_isRandom = false;
 
     static constexpr double lr = 1e-3;

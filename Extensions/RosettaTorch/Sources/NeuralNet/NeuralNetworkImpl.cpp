@@ -9,20 +9,12 @@
 
 #include <NeuralNet/NeuralNetworkImpl.hpp>
 
+#include <torch/torch.h>
+
 namespace RosettaTorch::NeuralNet
 {
-NeuralNetworkImpl::NeuralNetworkImpl()
-{
-    m_net = CNNModel();
-}
-NeuralNetworkImpl::NeuralNetworkImpl(CNNModel model)
-{
-    m_net = model;
-}
-
 void NeuralNetworkImpl::CreateWithRandomWeights(const std::string& fileName)
 {
-    (void)fileName;
 }
 
 void NeuralNetworkImpl::Save(const std::string& fileName) const
@@ -57,7 +49,7 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
     // const auto xData = input.GetData();
     // const auto yData = output.GetData();
     // auto numData = xData.shape[0];  // number of data
-    torch::optim::Adam optimizer(m_net.parameters(), torch::optim::AdamOptions(lr));
+    torch::optim::Adam optimizer(m_net->parameters(), torch::optim::AdamOptions(lr));
 
     for (std::size_t epoch = 0; epoch < epochs; ++epoch)
     {
@@ -68,8 +60,8 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
             optimizer.zero_grad();
 
             // Executes the model one the input data
-            auto prediction = m_net.forward(torch::Tensor(), torch::Tensor(),
-                                            torch::Tensor());
+            auto prediction = m_net->forward(torch::Tensor(), torch::Tensor(),
+                                             torch::Tensor());
 
             // Computes a loss value to judge the prediction of our model
             auto loss = torch::mse_loss(prediction, torch::Tensor());
