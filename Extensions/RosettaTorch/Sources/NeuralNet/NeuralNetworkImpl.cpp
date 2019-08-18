@@ -72,7 +72,7 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInput& input,
             optimizer.step();
 
             // Saves the model
-            torch::save(m_net, "model.pt");
+            Save("model.pt");
         }
     }
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+ // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -21,7 +21,7 @@ torch::Tensor CNNModel::encodeHero(torch::Tensor x)
     x = heroConv1(x);
     x = torch::leaky_relu(x, .2);
     x = x.view(1, 1, -1);
-    return x
+    return x;
 }
 
 torch::Tensor CNNModel::encodeMinion(torch::Tensor x)
@@ -30,13 +30,13 @@ torch::Tensor CNNModel::encodeMinion(torch::Tensor x)
     x = minionConv1(x);
     x = torch::leaky_relu(x, .2);
     x = x.view(1, 1, -1);
-    return x
+    return x;
 }
 
 torch::Tensor CNNModel::encodeStandalone(torch::Tensor x)
 {
     x = x.view(1, 1, -1);
-    return x
+    return x;
 }
 
 torch::Tensor CNNModel::forward(const torch::Tensor hero,
