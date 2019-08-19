@@ -20,19 +20,11 @@ bool RandomCutoffPolicy::IsEnableCutoff()
     return true;
 }
 
-PlayState RandomCutoffPolicy::GetCutoffResult(
+bool RandomCutoffPolicy::GetCutoffResult(
     [[maybe_unused]] const Board& board,
     [[maybe_unused]] StateValue& stateValue)
 {
-    const bool win = (Random::get<int>(0, 1) == 0);
-    if (win)
-    {
-        return PlayState::WON;
-    }
-    else
-    {
-        return PlayState::LOST;
-    }
+    return true;
 }
 
 void RandomCutoffPolicy::StartAction(

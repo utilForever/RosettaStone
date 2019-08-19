@@ -20,11 +20,11 @@ bool RandomPlayoutPolicy::IsEnableCutoff()
     return false;
 }
 
-PlayState RandomPlayoutPolicy::GetCutoffResult(
+bool RandomPlayoutPolicy::GetCutoffResult(
     [[maybe_unused]] const Board& board,
     [[maybe_unused]] StateValue& stateValue)
 {
-    return PlayState::PLAYING;
+    return false;
 }
 
 void RandomPlayoutPolicy::StartAction(

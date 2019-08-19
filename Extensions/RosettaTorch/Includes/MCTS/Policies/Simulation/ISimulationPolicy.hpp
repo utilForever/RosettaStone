@@ -76,8 +76,8 @@ class ISimulationPolicy
     //! \param board The game board.
     //! \param stateValue The value of game state.
     //! \return The result of game according to cutoff.
-    virtual PlayState GetCutoffResult(const Board& board,
-                                      StateValue& stateValue) = 0;
+    virtual bool GetCutoffResult(const Board& board,
+                                 StateValue& stateValue) = 0;
 
     //! Starts action according to the policy.
     //! \param board The game board.

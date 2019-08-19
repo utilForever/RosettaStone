@@ -22,8 +22,7 @@ bool Simulation::CutoffCheck(const Board& board, StateValue& stateValue) const
 {
     if (m_policy->IsEnableCutoff())
     {
-        return m_policy->GetCutoffResult(board, stateValue) !=
-               PlayState::PLAYING;
+        return m_policy->GetCutoffResult(board, stateValue);
     }
 
     return false;

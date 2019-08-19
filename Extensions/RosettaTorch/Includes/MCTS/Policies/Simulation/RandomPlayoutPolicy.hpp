@@ -30,8 +30,8 @@ class RandomPlayoutPolicy : public ISimulationPolicy
     //! \param board The game board.
     //! \param stateValue The value of game state.
     //! \return The result of game according to cutoff.
-    PlayState GetCutoffResult([[maybe_unused]] const Board& board,
-                              [[maybe_unused]] StateValue& stateValue) override;
+    bool GetCutoffResult([[maybe_unused]] const Board& board,
+                         [[maybe_unused]] StateValue& stateValue) override;
 
     //! Starts action according to the policy.
     //! \param board The game board.
