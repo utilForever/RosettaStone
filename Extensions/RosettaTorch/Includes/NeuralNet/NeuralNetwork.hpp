@@ -72,18 +72,20 @@ class NeuralNetwork
     //! \param batchSize The training batch size.
     //! \param epoch The number of epochs to train for.
     void Train(const NeuralNetworkInput& input,
-               const NeuralNetworkOutput& output, size_t batchSize, int epoch);
+               const NeuralNetworkOutput& output, size_t batchSize,
+               int epoch) const;
 
     //! Verifies neural network model.
     //! \param input The input layer of neural network model.
     //! \param output The output layer of neural network model.
     //! \return The value of correct and total.
-    std::pair<uint64_t, uint64_t> Verify(const NeuralNetworkInput& input,
-                                         const NeuralNetworkOutput& output);
+    std::pair<uint64_t, uint64_t> Verify(
+        const NeuralNetworkInput& input,
+        const NeuralNetworkOutput& output) const;
 
     //! Predicts neural network model.
     //! \param input The input getter to convert data type to framework's.
-    double Predict(IInputGetter* input);
+    double Predict(IInputGetter* input) const;
 
     //! Predicts neural network model.
     //! \param input The implementation of neural network input.
@@ -92,7 +94,7 @@ class NeuralNetwork
                  std::vector<double>& results);
 
  private:
-    NeuralNetworkImpl* m_impl;
+    NeuralNetworkImpl* m_impl = nullptr;
 };
 }  // namespace RosettaTorch::NeuralNet
 
