@@ -48,7 +48,7 @@ class GameDataBridge : public IInputGetter
 
  private:
     const RosettaStone::Game* m_game = nullptr;
-    std::vector<int> m_playableCards;
+    std::vector<RosettaStone::Entity*> m_playableCards;
     bool m_canUseHeroPower = false;
 };
 }  // namespace RosettaTorch::NeuralNet

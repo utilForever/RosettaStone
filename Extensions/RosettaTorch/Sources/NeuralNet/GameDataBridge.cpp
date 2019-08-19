@@ -20,8 +20,8 @@ void GameDataBridge::Reset(const RosettaStone::Game& game)
     const RosettaStone::ActionValidGetter getter(*m_game);
 
     m_playableCards.clear();
-    getter.ForEachPlayableCard([this](std::size_t idx) {
-        m_playableCards.push_back(static_cast<int>(idx));
+    getter.ForEachPlayableCard([this](RosettaStone::Entity* card) {
+        m_playableCards.push_back(card);
         return true;
     });
 
@@ -84,7 +84,8 @@ double GameDataBridge::GetSideField(FieldType fieldType, int arg,
             return player.GetHandZone().GetCount();
         case FieldType::HAND_PLAYABLE:
             return (std::find(m_playableCards.begin(), m_playableCards.end(),
-                              arg) != m_playableCards.end());
+                              player.GetHandZone()[arg]) !=
+                    m_playableCards.end());
         case FieldType::HAND_COST:
             return player.GetHandZone()[arg]->GetCost();
         case FieldType::HERO_POWER_PLAYABLE:
