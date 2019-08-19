@@ -13,11 +13,9 @@
 #include <MCTS/Commons/Config.hpp>
 #include <MCTS/Commons/Types.hpp>
 #include <NeuralNet/GameDataBridge.hpp>
-#include <NeuralNet/NeuralNetworkOutput.hpp>
+#include <NeuralNet/NeuralNetwork.hpp>
 
 #include <Rosetta/Views/Board.hpp>
-
-#include <torch/torch.h>
 
 namespace RosettaTorch::MCTS
 {
