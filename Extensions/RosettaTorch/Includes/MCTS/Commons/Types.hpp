@@ -34,6 +34,11 @@ class StateValue
     float GetValue(PlayerType type) const;
 
     //! Sets the value that indicates player won.
+    //! \param valueForCurPlayer The value for current player.
+    //! \param type The type of the player.
+    void SetValue(float valueForCurPlayer, PlayerType type);
+
+    //! Sets the value that indicates player won.
     //! \param type The type of the player.
     //! \param state The play state of the game.
     void SetValue(PlayerType type, PlayState state);

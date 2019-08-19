@@ -23,6 +23,16 @@ float StateValue::GetValue(PlayerType type) const
     return -m_value;
 }
 
+void StateValue::SetValue(float valueForCurPlayer, PlayerType type)
+{
+    m_value = valueForCurPlayer;
+
+    if (type == PlayerType::PLAYER2)
+    {
+        m_value = -m_value;
+    }
+}
+
 void StateValue::SetValue(PlayerType type, PlayState state)
 {
     if (state == PlayState::WON)
