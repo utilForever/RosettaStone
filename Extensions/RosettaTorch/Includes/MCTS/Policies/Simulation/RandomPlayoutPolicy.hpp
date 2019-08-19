@@ -7,19 +7,19 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUTS_POLICY_HPP
-#define ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUTS_POLICY_HPP
+#ifndef ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUT_POLICY_HPP
+#define ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUT_POLICY_HPP
 
 #include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
 
 namespace RosettaTorch::MCTS
 {
 //!
-//! \brief RandomPlayoutsPolicy class.
+//! \brief RandomPlayoutPolicy class.
 //!
 //! This class is policy class that selects choice at random.
 //!
-class RandomPlayoutsPolicy : public ISimulationPolicy
+class RandomPlayoutPolicy : public ISimulationPolicy
 {
  public:
     //! Returns the flag indicates whether cutoff is enabled.
@@ -53,4 +53,4 @@ class RandomPlayoutsPolicy : public ISimulationPolicy
 };
 }  // namespace RosettaTorch::MCTS
 
-#endif  // ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUTS_POLICY_HPP
+#endif  // ROSETTASTONE_TORCH_MCTS_RANDOM_PLAYOUT_POLICY_HPP

@@ -7,7 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#include <MCTS/Policies/Simulation/RandomPlayoutsPolicy.hpp>
+#include <MCTS/Policies/Simulation/RandomPlayoutPolicy.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -15,26 +15,26 @@ using Random = effolkronium::random_static;
 
 namespace RosettaTorch::MCTS
 {
-bool RandomPlayoutsPolicy::IsEnableCutoff()
+bool RandomPlayoutPolicy::IsEnableCutoff()
 {
     return false;
 }
 
-PlayState RandomPlayoutsPolicy::GetCutoffResult(
+PlayState RandomPlayoutPolicy::GetCutoffResult(
     [[maybe_unused]] const Board& board,
     [[maybe_unused]] StateValue& stateValue)
 {
     return PlayState::PLAYING;
 }
 
-void RandomPlayoutsPolicy::StartAction(
+void RandomPlayoutPolicy::StartAction(
     [[maybe_unused]] const Board& board,
     [[maybe_unused]] const ActionValidChecker& checker)
 {
     // Do nothing
 }
 
-int RandomPlayoutsPolicy::GetChoice(
+int RandomPlayoutPolicy::GetChoice(
     [[maybe_unused]] const Board& board,
     [[maybe_unused]] const ActionValidChecker& checker,
     [[maybe_unused]] ActionType actionType, const ChoiceGetter& getter)
