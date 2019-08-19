@@ -15,6 +15,11 @@ using Random = effolkronium::random_static;
 
 namespace RosettaTorch::MCTS
 {
+RandomPlayoutPolicy::RandomPlayoutPolicy([[maybe_unused]] const Config& config)
+{
+    // Do nothing
+}
+
 bool RandomPlayoutPolicy::IsEnableCutoff()
 {
     return false;

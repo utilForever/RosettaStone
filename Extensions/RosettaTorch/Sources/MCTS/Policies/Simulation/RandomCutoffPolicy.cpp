@@ -15,6 +15,11 @@ using Random = effolkronium::random_static;
 
 namespace RosettaTorch::MCTS
 {
+RandomCutoffPolicy::RandomCutoffPolicy([[maybe_unused]] const Config& config)
+{
+    // Do nothing
+}
+
 bool RandomCutoffPolicy::IsEnableCutoff()
 {
     return true;

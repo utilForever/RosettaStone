@@ -11,8 +11,10 @@
 
 namespace RosettaTorch::MCTS
 {
-MOMCTS::MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics)
-    : m_player1(p1Tree, statistics), m_player2(p2Tree, statistics)
+MOMCTS::MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics,
+               const Config& config)
+    : m_player1(p1Tree, statistics, config),
+      m_player2(p2Tree, statistics, config)
 {
     // Do nothing
 }

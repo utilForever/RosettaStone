@@ -28,7 +28,7 @@ void MCTSRunner::Run(const GameConfig& gameConfig)
     for (int i = 0; i < m_config.threads; ++i)
     {
         m_threads.emplace_back([this, gameConfig]() {
-            MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics);
+            MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics, m_config.mcts);
 
             while (!m_stopFlag.load())
             {

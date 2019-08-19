@@ -13,7 +13,8 @@
 
 namespace RosettaTorch::MCTS
 {
-Simulation::Simulation() : m_policy(new RandomPlayoutPolicy())
+Simulation::Simulation(const Config& config)
+    : m_policy(new RandomPlayoutPolicy(config))
 {
     // Do nothing
 }

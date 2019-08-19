@@ -24,11 +24,13 @@ namespace RosettaTorch::MCTS
 class MOMCTS
 {
  public:
-    //! Constructs MCTS with given \p p1Tree, \p p2Tree and \p statistics.
+    //! Constructs MCTS with given \p p1Tree, \p p2Tree, \p statistics and
+    //! \p config.
     //! \param p1Tree The tree of player 1.
     //! \param p2Tree The tree of player 2.
     //! \param statistics The statistics of MCTS.
-    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics);
+    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics,
+           const Config& config);
 
     //! Deleted copy constructor.
     MOMCTS(const MOMCTS&) = delete;
