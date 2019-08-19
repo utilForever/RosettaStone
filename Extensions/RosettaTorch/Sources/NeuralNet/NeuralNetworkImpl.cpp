@@ -50,12 +50,12 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
     // auto& yData = output.GetData();
     // auto numData = xData.size(0);
 
-    torch::optim::Adam optimizer(m_net->parameters(), torch::optim::AdamOptions(lr));
+    torch::optim::Adam optimizer(m_net->parameters(),
+                                 torch::optim::AdamOptions(lr));
 
     for (std::size_t epoch = 0; epoch < epochs; ++epoch)
     {
-        for (std::size_t batchIdx = 0; batchIdx < 0 / batchSize;
-             ++batchIdx)
+        for (std::size_t batchIdx = 0; batchIdx < 0 / batchSize; ++batchIdx)
         {
             // Resets gradients
             optimizer.zero_grad();
@@ -82,14 +82,13 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
 }
 
 std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
-    const NeuralNetworkInput& input, const NeuralNetworkOutput& output)
+    const NeuralNetworkInputImpl& input, const NeuralNetworkOutputImpl& output)
 {
     return { 0, 0 };
 }
 
 double NeuralNetworkImpl::Predict(IInputGetter* input)
 {
-
     return 0.0;
 }
 

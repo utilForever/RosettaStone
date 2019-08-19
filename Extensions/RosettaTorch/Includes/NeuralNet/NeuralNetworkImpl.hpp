@@ -10,9 +10,9 @@
 #ifndef ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_IMPL_HPP
 #define ROSETTASTONE_TORCH_NEURAL_NET_NEURAL_NETWORK_IMPL_HPP
 
+#include <NeuralNet/Models/CNNModel.hpp>
 #include <NeuralNet/NeuralNetworkInput.hpp>
 #include <NeuralNet/NeuralNetworkOutput.hpp>
-#include <NeuralNet/Models/CNNModel.hpp>
 
 #include <torch/torch.h>
 
@@ -28,12 +28,6 @@ namespace RosettaTorch::NeuralNet
 class NeuralNetworkImpl
 {
  public:
-    //! Constructor.
-    NeuralNetworkImpl();
-
-    //! Destructor.
-    ~NeuralNetworkImpl() = delete;
-
     //! Creates neural network model with random weights.
     //! \param fileName The file name of neural network model to save.
     static void CreateWithRandomWeights(const std::string& fileName);
@@ -68,8 +62,8 @@ class NeuralNetworkImpl
     //! \param input The input features for the model.
     //! \param output The output label for the model.
     //! \return The value of correct and total.
-    std::pair<uint64_t, uint64_t> Verify(const NeuralNetworkInput& input,
-                                         const NeuralNetworkOutput& output);
+    std::pair<uint64_t, uint64_t> Verify(const NeuralNetworkInputImpl& input,
+                                         const NeuralNetworkOutputImpl& output);
 
     //! Predicts neural network model.
     //! \param input The input getter to convert data type to framework's.
