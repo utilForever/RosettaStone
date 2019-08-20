@@ -132,6 +132,8 @@ int main()
 {
     Cards::GetInstance();
 
+    g_config.mcts.neuralNetPath = "neural_net_e2e_test";
+
     Agents::MCTSRunner controller(g_config);
 
     while (std::cin)
