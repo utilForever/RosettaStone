@@ -8,13 +8,14 @@
 // References: https://github.com/peter1591/hearthstone-ai
 
 #include <MCTS/Policies/Simulation/RandomCutoffPolicy.hpp>
+#include <MCTS/Policies/Simulation/RandomPlayoutHeuristicEarlyCutoffPolicy.hpp>
 #include <MCTS/Policies/Simulation/RandomPlayoutPolicy.hpp>
 #include <MCTS/Simulation/Simulation.hpp>
 
 namespace RosettaTorch::MCTS
 {
 Simulation::Simulation(const Config& config)
-    : m_policy(new RandomPlayoutPolicy(config))
+    : m_policy(new RandomPlayoutHeuristicEarlyCutoffPolicy(config))
 {
     // Do nothing
 }
