@@ -35,7 +35,7 @@ class NeuralNetworkInputImpl
 
     //! Returns data in the tensor.
     //! \return Data in the tensor.
-    const auto& GetData() const;
+    const std::vector<torch::Tensor>& GetData() const;
 
  private:
     std::vector<torch::Tensor> m_input;

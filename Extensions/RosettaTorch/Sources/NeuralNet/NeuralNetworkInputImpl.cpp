@@ -14,9 +14,11 @@ namespace RosettaTorch::NeuralNet
 {
 void NeuralNetworkInputImpl::AddData(const IInputGetter* getter)
 {
-    torch::Tensor input;
-    InputDataConverter().Convert(getter, input);
-    m_input.push_back(input);
+    torch::Tensor hero, minion, standalone;
+    InputDataConverter().Convert(getter, hero, minion, standalone);
+    m_input.push_back(hero);
+    m_input.push_back(minion);
+    m_input.push_back(standalone);
 }
 
 void NeuralNetworkInputImpl::Clear()
@@ -24,7 +26,7 @@ void NeuralNetworkInputImpl::Clear()
     m_input.clear();
 }
 
-const auto& NeuralNetworkInputImpl::GetData() const
+const std::vector<torch::Tensor>& NeuralNetworkInputImpl::GetData() const
 {
     return m_input;
 }
