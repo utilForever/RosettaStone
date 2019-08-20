@@ -88,10 +88,4 @@ double NeuralNetwork::Predict(IInputGetter* input) const
 {
     return m_impl->Predict(input);
 }
-
-void NeuralNetwork::Predict(const NeuralNetworkInputImpl& input,
-                            std::vector<double>& results)
-{
-    return m_impl->Predict(input, results);
-}
 }  // namespace RosettaTorch::NeuralNet

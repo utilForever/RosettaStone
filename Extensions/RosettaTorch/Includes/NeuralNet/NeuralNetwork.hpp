@@ -15,7 +15,6 @@
 #include <NeuralNet/NeuralNetworkOutput.hpp>
 
 #include <string>
-#include <vector>
 
 namespace RosettaTorch::NeuralNet
 {
@@ -86,12 +85,6 @@ class NeuralNetwork
     //! Predicts neural network model.
     //! \param input The input getter to convert data type to framework's.
     double Predict(IInputGetter* input) const;
-
-    //! Predicts neural network model.
-    //! \param input The implementation of neural network input.
-    //! \param results The result of prediction.
-    void Predict(const NeuralNetworkInputImpl& input,
-                 std::vector<double>& results);
 
  private:
     NeuralNetworkImpl* m_impl = nullptr;
