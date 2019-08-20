@@ -21,25 +21,25 @@ CNNModel::CNNModel()
 
 torch::Tensor CNNModel::encodeHero(torch::Tensor x)
 {
-    x = x.view({hero_in_dim, 2, 1});
-    x = heroConv1->forward(x);
-    x = torch::leaky_relu(x, .2);
-    x = x.view({ 1, 1, -1 });
+    x = x.view({1, hero_in_dim, 2});   // output shape : bs, 1, 2
+    x = heroConv1->forward(x);         // output shape : bs, 1, 2
+    x = torch::leaky_relu(x, .2);      // output shape : bs, 1, 2
+    x = x.view({ x.size(0), -1 });     // output shape : bs, 1 * 2
     return x;
 }
 
 torch::Tensor CNNModel::encodeMinion(torch::Tensor x)
 {
-    x = x.view({minion_in_dim, minion_count * 2, 1});
-    x = minionConv1->forward(x);
-    x = torch::leaky_relu(x, .2);
-    x = x.view({1, 1, -1});
+    x = x.view({1, minion_in_dim, minion_count * 2}); // output shape : bs, 7, 14
+    x = minionConv1->forward(x);                      // output shape : bs, 3, 14
+    x = torch::leaky_relu(x, .2);                     // output shape : bs, 3, 14
+    x = x.view({ x.size(0), -1 });                    // output shape : bs, 3 * 14
     return x;
 }
 
 torch::Tensor CNNModel::encodeStandalone(torch::Tensor x)
 {
-    x = x.view({1, 1, -1});
+    x = x.view({ 1, -1 });  // output shape : bs, 17
     return x;
 }
 
@@ -47,8 +47,8 @@ torch::Tensor CNNModel::forward(torch::Tensor hero,
                                 torch::Tensor minion, 
     torch::Tensor standalone)
 {
-    // input shape  : (2,), (14,), (1,)
-    // output shape : (1,) 
+    // input shape  : (2), (7, 14), (17,)
+    // output shape : (1) 
 
     // Encodes the information of heros
     auto outHero = encodeHero(hero);
