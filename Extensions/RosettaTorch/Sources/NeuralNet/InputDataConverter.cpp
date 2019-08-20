@@ -12,13 +12,14 @@
 namespace RosettaTorch::NeuralNet
 {
 void InputDataConverter::Convert(const IInputGetter* getter,
-                                 torch::Tensor& data)
+                                 torch::Tensor& hero, torch::Tensor& minion,
+                                 torch::Tensor& standalone)
 {
-    GetInputData(getter, data);
+    GetInputData(getter, hero, minion, standalone);
 }
 
 void InputDataConverter::GetInputData(const IInputGetter* getter,
-                                      torch::Tensor& data) const
+                                      torch::Tensor& hero, torch::Tensor& minion, torch::Tensor& standalone) const
 {
     std::vector<float> input1;
     AddHeroData(FieldSide::CURRENT, getter, input1);
@@ -49,7 +50,9 @@ void InputDataConverter::GetInputData(const IInputGetter* getter,
         tensor3[i] = input3[i];
     }
 
-    data = torch::cat({ tensor1, tensor2, tensor3 });
+    hero = tensor1;
+    minion = tensor2;
+    standalone = tensor3;
 }
 
 void InputDataConverter::AddHeroData(FieldSide side, const IInputGetter* getter,

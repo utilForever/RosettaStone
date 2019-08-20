@@ -28,13 +28,14 @@ class InputDataConverter
     //! Converts game data to torch::Tensor.
     //! \param getter The input getter to get the value of the field.
     //! \param data The tensor data to store using conversion.
-    void Convert(const IInputGetter* getter, torch::Tensor& data);
+    void Convert(const IInputGetter* getter, torch::Tensor& hero, torch::Tensor& minion, torch::Tensor& standalone);
 
  private:
     //! Returns the tensor data using conversion.
     //! \param getter The input getter to get the value of the field.
     //! \param data The tensor data to store using conversion.
-    void GetInputData(const IInputGetter* getter, torch::Tensor& data) const;
+    void GetInputData(const IInputGetter* getter, torch::Tensor& hero,
+                      torch::Tensor& minion, torch::Tensor& standalone) const;
 
     //! Adds the hero data to the container.
     //! \param side The side of the field.

@@ -7,9 +7,13 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <NeuralNet/InputDataConverter.hpp>
 #include <NeuralNet/NeuralNetworkImpl.hpp>
 
 #include <torch/torch.h>
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaTorch::NeuralNet
 {
@@ -24,7 +28,7 @@ void NeuralNetworkImpl::Save(const std::string& fileName) const
 
 void NeuralNetworkImpl::Load(const std::string& fileName, bool isRandom)
 {
-    torch::load(m_net, fileName);
+    // torch::load(m_net, fileName);
     m_isRandom = isRandom;
 }
 
@@ -89,26 +93,21 @@ std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
 
 double NeuralNetworkImpl::Predict(IInputGetter* input)
 {
-    return 0.0;
+    torch::Tensor hero, minion, standalone;
+    InputDataConverter().Convert(input, hero, minion, standalone);
+    return Predict(hero, minion, standalone);
 }
 
-void NeuralNetworkImpl::Predict(const NeuralNetworkInputImpl& input,
-                                std::vector<double>& results)
+double NeuralNetworkImpl::Predict(const torch::Tensor& hero,
+                                  const torch::Tensor& minion,
+                                  const torch::Tensor& standalone)
 {
-    // Loads the pre-trained model
-    Load(modelName, false);
-
-    // Loads the data for testing
-    // torch::Tensor data = input.GetData();
-    // auto numData = data.size(0);
-
-    // Evaluates w/ the test data
-    for (std::size_t i = 0; i < 0; ++i)
+    if (m_isRandom)
     {
-        // ! you need to change the parameters, fitted into the model input
-        auto prediction =
-            m_net->forward(torch::Tensor(), torch::Tensor(), torch::Tensor());
-        results.push_back(prediction.numel());
+        return Random::get<double>(-1.0, 1.0);
     }
+
+    auto prediction = m_net->forward(hero, minion, standalone);
+    return prediction[0][0].numel();
 }
 }  // namespace RosettaTorch::NeuralNet

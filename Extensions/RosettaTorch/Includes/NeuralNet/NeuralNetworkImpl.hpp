@@ -67,13 +67,14 @@ class NeuralNetworkImpl
 
     //! Predicts neural network model.
     //! \param input The input getter to convert data type to framework's.
+    //! \return The result of predict.
     double Predict(IInputGetter* input);
 
     //! Predicts neural network model.
-    //! \param input The implementation of neural network input.
-    //! \param results The result of prediction.
-    void Predict(const NeuralNetworkInputImpl& input,
-                 std::vector<double>& results);
+    //! \param data The tensor data of torch.
+    //! \return The result of predict.
+    double Predict(const torch::Tensor& hero, const torch::Tensor& minion,
+                   const torch::Tensor& standalone);
 
  private:
     torch::nn::ModuleHolder<CNNModel> m_net;
