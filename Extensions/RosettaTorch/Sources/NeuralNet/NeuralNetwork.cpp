@@ -72,10 +72,9 @@ void NeuralNetwork::CopyFrom(const NeuralNetwork& rhs)
 }
 
 void NeuralNetwork::Train(const NeuralNetworkInput& input,
-                          const NeuralNetworkOutput& output, size_t batchSize,
-                          int epoch) const
+                          const NeuralNetworkOutput& output, int epoch) const
 {
-    return m_impl->Train(*input.m_impl, *output.m_impl, batchSize, epoch);
+    return m_impl->Train(*input.m_impl, *output.m_impl, epoch);
 }
 
 std::pair<uint64_t, uint64_t> NeuralNetwork::Verify(
