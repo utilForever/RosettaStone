@@ -107,7 +107,7 @@ double NeuralNetworkImpl::Predict(const torch::Tensor& hero,
         return Random::get<double>(-1.0, 1.0);
     }
 
-    auto prediction = m_net->forward(hero, minion, standalone);
-    return prediction[0][0].numel();
+    const auto prediction = m_net->forward(hero, minion, standalone);
+    return prediction[0][0].item<double>();
 }
 }  // namespace RosettaTorch::NeuralNet
