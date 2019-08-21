@@ -1,4 +1,4 @@
- // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -21,19 +21,20 @@ CNNModel::CNNModel()
 
 torch::Tensor CNNModel::encodeHero(torch::Tensor x)
 {
-    x = x.view({1, hero_in_dim, 2});   // output shape : bs, 1, 2
-    x = heroConv1->forward(x);         // output shape : bs, 1, 2
-    x = torch::leaky_relu(x, .2);      // output shape : bs, 1, 2
-    x = x.view({ x.size(0), -1 });     // output shape : bs, 1 * 2
+    x = x.view({ 1, hero_in_dim, 2 });  // output shape : bs, 1, 2
+    x = heroConv1->forward(x);          // output shape : bs, 1, 2
+    x = torch::leaky_relu(x, .2);       // output shape : bs, 1, 2
+    x = x.view({ x.size(0), -1 });      // output shape : bs, 1 * 2
     return x;
 }
 
 torch::Tensor CNNModel::encodeMinion(torch::Tensor x)
 {
-    x = x.view({1, minion_in_dim, minion_count * 2}); // output shape : bs, 7, 14
-    x = minionConv1->forward(x);                      // output shape : bs, 3, 14
-    x = torch::leaky_relu(x, .2);                     // output shape : bs, 3, 14
-    x = x.view({ x.size(0), -1 });                    // output shape : bs, 3 * 14
+    x = x.view(
+        { 1, minion_in_dim, minion_count * 2 });  // output shape : bs, 7, 14
+    x = minionConv1->forward(x);                  // output shape : bs, 3, 14
+    x = torch::leaky_relu(x, .2);                 // output shape : bs, 3, 14
+    x = x.view({ x.size(0), -1 });                // output shape : bs, 3 * 14
     return x;
 }
 
@@ -43,12 +44,11 @@ torch::Tensor CNNModel::encodeStandalone(torch::Tensor x)
     return x;
 }
 
-torch::Tensor CNNModel::forward(torch::Tensor hero,
-                                torch::Tensor minion, 
-    torch::Tensor standalone)
+torch::Tensor CNNModel::forward(torch::Tensor hero, torch::Tensor minion,
+                                torch::Tensor standalone)
 {
     // input shape  : (2), (7, 14), (17,)
-    // output shape : (1) 
+    // output shape : (1)
 
     // Encodes the information of heros
     auto outHero = encodeHero(hero);
@@ -59,8 +59,7 @@ torch::Tensor CNNModel::forward(torch::Tensor hero,
     // Encodes the information of 'standalone'
     auto outStandalone = encodeStandalone(standalone);
 
-    auto concatFeatures =
-        torch::cat({outHero, outMinion, outStandalone}, -1);
+    auto concatFeatures = torch::cat({ outHero, outMinion, outStandalone }, -1);
 
     concatFeatures = fc1->forward(concatFeatures);
     concatFeatures = torch::leaky_relu(concatFeatures, .2);
