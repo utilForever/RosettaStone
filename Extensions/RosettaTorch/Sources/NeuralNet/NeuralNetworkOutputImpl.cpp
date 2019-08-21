@@ -23,7 +23,7 @@ void NeuralNetworkOutputImpl::Clear()
     m_output.clear();
 }
 
-const auto& NeuralNetworkOutputImpl::GetData() const
+const std::vector<std::vector<float>>& NeuralNetworkOutputImpl::GetData() const
 {
     return m_output;
 }

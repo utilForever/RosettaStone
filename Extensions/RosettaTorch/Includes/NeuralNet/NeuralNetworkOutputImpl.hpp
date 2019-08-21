@@ -31,7 +31,7 @@ class NeuralNetworkOutputImpl
 
     //! Returns data in the vector.
     //! \return Data in the vector.
-    const auto& GetData() const;
+    const std::vector<std::vector<float>>& GetData() const;
 
  private:
     std::vector<std::vector<float>> m_output;
