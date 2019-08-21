@@ -35,10 +35,10 @@ class NeuralNetworkInputImpl
 
     //! Returns data in the tensor.
     //! \return Data in the tensor.
-    const std::vector<torch::Tensor>& GetData() const;
+    const std::vector<std::array<torch::Tensor, 3>>& GetData() const;
 
  private:
-    std::vector<torch::Tensor> m_input;
+    std::vector<std::array<torch::Tensor, 3>> m_input;
 };
 }  // namespace RosettaTorch::NeuralNet
 

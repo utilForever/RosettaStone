@@ -16,9 +16,7 @@ void NeuralNetworkInputImpl::AddData(const IInputGetter* getter)
 {
     torch::Tensor hero, minion, standalone;
     InputDataConverter().Convert(getter, hero, minion, standalone);
-    m_input.push_back(hero);
-    m_input.push_back(minion);
-    m_input.push_back(standalone);
+    m_input.push_back({ hero, minion, standalone });
 }
 
 void NeuralNetworkInputImpl::Clear()
@@ -26,7 +24,8 @@ void NeuralNetworkInputImpl::Clear()
     m_input.clear();
 }
 
-const std::vector<torch::Tensor>& NeuralNetworkInputImpl::GetData() const
+const std::vector<std::array<torch::Tensor, 3>>&
+NeuralNetworkInputImpl::GetData() const
 {
     return m_input;
 }
