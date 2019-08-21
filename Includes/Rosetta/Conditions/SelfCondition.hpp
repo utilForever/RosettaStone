@@ -101,7 +101,7 @@ class SelfCondition
 
     //! SelfCondition wrapper for checking num in taskStack satisfy condition
     //! with \p value and \p relaSign.
-    //! \param value The value to heck condition.
+    //! \param value The value to check condition.
     //! \param relaSign The comparer to check condition.
     //! \param index If index is 0, use taskTask.num; If index is 1, use taskTask.num1
     //! \return Generated SelfCondition for intended purpose.
