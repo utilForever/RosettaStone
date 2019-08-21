@@ -48,32 +48,31 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 
 void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
                               const NeuralNetworkOutputImpl& output,
-                              std::size_t batchSize, std::size_t epochs)
+                              std::size_t epochs)
 {
-    // auto& xData = input.GetData();
-    // auto& yData = output.GetData();
-    // auto numData = xData.size(0);
+    const auto& inputData = input.GetData();
+    const auto& outputData = output.GetData();
 
     torch::optim::Adam optimizer(m_net->parameters(),
                                  torch::optim::AdamOptions(lr));
 
     for (std::size_t epoch = 0; epoch < epochs; ++epoch)
     {
-        for (std::size_t batchIdx = 0; batchIdx < 0 / batchSize; ++batchIdx)
+        for (std::size_t idx = 0; idx < inputData.size(); ++idx)
         {
             // Resets gradients
             optimizer.zero_grad();
 
             // Executes the model one the input data
             // ! you need to change the parameters, fitted into the model input
-            auto prediction = m_net->forward(torch::Tensor(), torch::Tensor(),
-                                             torch::Tensor());
+            auto prediction = m_net->forward(
+                inputData[idx][0], inputData[idx][1], inputData[idx][2]);
 
             // Computes a loss value to judge the prediction of our model
             // ! you need to change the parameters, fitted into the model input
-            auto loss = torch::mse_loss(prediction, torch::Tensor());
+            auto loss = torch::mse_loss(prediction, outputData[idx]);
 
-            // Do Back-propagation
+            // Do back-propagation
             loss.backward();
 
             // Updates the parameters
@@ -88,7 +87,25 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
 std::pair<uint64_t, uint64_t> NeuralNetworkImpl::Verify(
     const NeuralNetworkInputImpl& input, const NeuralNetworkOutputImpl& output)
 {
-    return { 0, 0 };
+    const auto& inputData = input.GetData();
+    const auto& outputData = output.GetData();
+
+    std::uint64_t correct = 0, total = inputData.size();
+
+    for (std::size_t idx = 0; idx < inputData.size(); ++idx)
+    {
+        auto result = m_net->forward(inputData[idx][0], inputData[idx][1],
+                                     inputData[idx][2]);
+        bool predictWin = result[0][0].item<double>() > 0.0;
+        bool actualWin = outputData[idx][0] > 0.0;
+
+        if (predictWin == actualWin)
+        {
+            ++correct;
+        }
+    }
+
+    return { correct, total };
 }
 
 double NeuralNetworkImpl::Predict(IInputGetter* input)

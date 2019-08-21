@@ -52,11 +52,9 @@ class NeuralNetworkImpl
     //! Trains neural network model.
     //! \param input The input features for the model.
     //! \param output The output label for the model.
-    //! \param batchSize The training batch size.
     //! \param epochs The number of epochs to train for.
     void Train(const NeuralNetworkInputImpl& input,
-               const NeuralNetworkOutputImpl& output, std::size_t batchSize,
-               std::size_t epochs);
+               const NeuralNetworkOutputImpl& output, std::size_t epochs);
 
     //! Verifies neural network model.
     //! \param input The input features for the model.
@@ -71,7 +69,9 @@ class NeuralNetworkImpl
     double Predict(IInputGetter* input);
 
     //! Predicts neural network model.
-    //! \param data The tensor data of torch.
+    //! \param hero The tensor of hero data.
+    //! \param minion The tensor of minion data.
+    //! \param standalone The tensor of standalone data.
     //! \return The result of predict.
     double Predict(const torch::Tensor& hero, const torch::Tensor& minion,
                    const torch::Tensor& standalone);
