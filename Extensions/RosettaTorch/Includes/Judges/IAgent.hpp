@@ -10,14 +10,16 @@
 #ifndef ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
 #define ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
 
-#include <cstdint>
+#include <Rosetta/Actions/ActionChoices.hpp>
+#include <Rosetta/Enums/ActionEnums.hpp>
+#include <Rosetta/Views/BoardRefView.hpp>
 
-namespace RosettaTorch::Agents
+namespace RosettaTorch::Judges
 {
 //!
 //! \brief IAgent class.
 //!
-//! This class is interface of various agent classes.
+//! This class is interface of Agent class for judgment.
 //! All classes that inherit from it must implement Think() related methods.
 //!
 class IAgent
@@ -26,17 +28,17 @@ class IAgent
     //! Default virtual destructor.
     virtual ~IAgent() = default;
 
-    //! Processes something before calling Think() method.
-    virtual void BeforeThink() = 0;
-
     //! Processes something related to agent.
-    //! \param iteration The number of iteration.
-    virtual void Think(uint64_t iteration) = 0;
+    //! \param view The board ref view for the current player.
+    virtual void Think(RosettaStone::BoardRefView& view) = 0;
 
-    //! Processes something after calling Think() method.
-    //! \param iteration The number of iteration.
-    virtual void AfterThink(uint64_t iteration) = 0;
+    //! Returns action according to \p actionType and \p choices.
+    //! \param actionType The type of action.
+    //! \param choices The choices of action.
+    //! \return The index of chosen action.
+    virtual int GetAction(RosettaStone::ActionType actionType,
+                          RosettaStone::ActionChoices choices) = 0;
 };
-}  // namespace RosettaTorch::Agents
+}  // namespace RosettaTorch::Judges
 
 #endif  // ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
