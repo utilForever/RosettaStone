@@ -25,6 +25,7 @@ enum class MainOpType
 enum class ActionType
 {
     INVALID,
+    RANDOM,
     MAIN_ACTION,
     CHOOSE_HAND_CARD,
     CHOOSE_ATTACKER,
