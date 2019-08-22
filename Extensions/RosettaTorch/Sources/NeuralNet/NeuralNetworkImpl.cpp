@@ -60,6 +60,9 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
     {
         for (std::size_t idx = 0; idx < inputData.size(); ++idx)
         {
+            const auto outData = const_cast<float*>(std::data(outputData[idx]));
+            const auto outDataSize = static_cast<int>(outputData[idx].size());
+
             // Resets gradients
             optimizer.zero_grad();
 
@@ -70,7 +73,8 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
 
             // Computes a loss value to judge the prediction of our model
             // ! you need to change the parameters, fitted into the model input
-            auto loss = torch::mse_loss(prediction, outputData[idx]);
+            auto loss = torch::mse_loss(
+                prediction, torch::from_blob(outData, { 1, outDataSize }));
 
             // Do back-propagation
             loss.backward();
