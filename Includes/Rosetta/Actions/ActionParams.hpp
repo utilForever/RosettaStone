@@ -74,7 +74,7 @@ class ActionParams
     virtual std::size_t GetNumber(ActionType actionType,
                                   ActionChoices& choices) = 0;
 
- private:
+ protected:
     //! Returns the number using \p actionType and \p max.
     //! \param actionType The action type.
     //! \param max The maximum value of the range.
