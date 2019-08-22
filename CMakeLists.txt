@@ -57,6 +57,7 @@ add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
 add_subdirectory(Extensions/RosettaTorch/Sources)
 add_subdirectory(Extensions/RosettaTorch/Tests)
+add_subdirectory(Extensions/RosettaTorch/Utils/GenerateTrainData)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
