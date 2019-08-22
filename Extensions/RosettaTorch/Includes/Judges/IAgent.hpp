@@ -7,8 +7,8 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
-#ifndef ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
-#define ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
+#ifndef ROSETTASTONE_TORCH_JUDGES_IAGENT_HPP
+#define ROSETTASTONE_TORCH_JUDGES_IAGENT_HPP
 
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Enums/ActionEnums.hpp>
@@ -20,7 +20,8 @@ namespace RosettaTorch::Judges
 //! \brief IAgent class.
 //!
 //! This class is interface of Agent class for judgment.
-//! All classes that inherit from it must implement Think() related methods.
+//! All classes that inherit from it must implement Think() and
+//! GetAction() methods.
 //!
 class IAgent
 {
@@ -41,4 +42,4 @@ class IAgent
 };
 }  // namespace RosettaTorch::Judges
 
-#endif  // ROSETTASTONE_TORCH_AGENTS_IAGENT_HPP
+#endif  // ROSETTASTONE_TORCH_JUDGES_IAGENT_HPP
