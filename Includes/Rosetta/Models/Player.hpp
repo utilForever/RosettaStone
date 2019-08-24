@@ -100,6 +100,10 @@ class Player
     //! \return Player's hero power.
     HeroPower& GetHeroPower() const;
 
+    //! Returns player's hero weapon.
+    //! \return Player's hero weapon.
+    Weapon& GetWeapon() const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
