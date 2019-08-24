@@ -96,6 +96,10 @@ class Player
     //! \return Player's hero.
     Hero* GetHero() const;
 
+    //! Returns player's hero power.
+    //! \return Player's hero power.
+    HeroPower& GetHeroPower() const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.

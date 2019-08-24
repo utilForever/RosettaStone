@@ -109,6 +109,11 @@ Hero* Player::GetHero() const
     return m_hero;
 }
 
+HeroPower& Player::GetHeroPower() const
+{
+    return *m_hero->heroPower;
+}
+
 int Player::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())
