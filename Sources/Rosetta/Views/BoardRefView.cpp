@@ -155,11 +155,11 @@ Weapon* BoardRefView::GetWeapon(PlayerType playerType) const
 {
     if (playerType == PlayerType::PLAYER1)
     {
-        return m_game.GetPlayer1().GetHero()->weapon;
+        return &m_game.GetPlayer1().GetWeapon();
     }
     else
     {
-        return m_game.GetPlayer2().GetHero()->weapon;
+        return &m_game.GetPlayer2().GetWeapon();
     }
 }
 

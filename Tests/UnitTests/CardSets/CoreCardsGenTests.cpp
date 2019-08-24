@@ -306,12 +306,12 @@ TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
     game.Process(curPlayer, HeroPowerTask());
 
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 1);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 1);
 }
 
 // ----------------------------------- HERO_POWER - PALADIN
@@ -2439,14 +2439,14 @@ TEST(PaladinCoreTest, CS2_097_TruesilverChampion)
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 26);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 4);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 4);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 1);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -3224,18 +3224,18 @@ TEST(RogueCoreTest, CS2_074_DeadlyPoison)
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
 
     game.Process(curPlayer, HeroPowerTask());
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 1);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 3);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 3);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 3);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 3);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 }
 
 // ------------------------------------------ SPELL - ROGUE

@@ -246,7 +246,7 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
     const auto card3 = Generic::DrawCard(
-        opPlayer, Cards::GetInstance().FindCardByID("EX1_164"));    
+        opPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     EXPECT_EQ(curPlayer.GetTotalMana(), 8);
@@ -348,8 +348,8 @@ TEST(HunterExpert1Test, DS1_188_GladiatorsLongbow)
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 5);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 5);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1191,8 +1191,8 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
     game.Process(opPlayer, AttackTask(card4, card1));
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 5);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 3);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 5);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 3);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
 
     game.Process(opPlayer, EndTurnTask());
@@ -1201,7 +1201,7 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
     game.Process(curPlayer,
                  AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2792,16 +2792,16 @@ TEST(ShamanExpert1Test, EX1_245_EarthShock)
         curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Earth Shock"));
-    
+
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-    
+
     const int curHandCount = curHand.GetCount();
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    
+
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(curHand.GetCount(), curHandCount);
 }
@@ -3012,9 +3012,9 @@ TEST(ShamanExpert1Test, EX1_567_Doomhammer)
         curPlayer, Cards::GetInstance().FindCardByName("Doomhammer"));
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 2);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 8);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetGameTag(GameTag::WINDFURY), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 8);
+    EXPECT_EQ(curPlayer.GetWeapon().GetGameTag(GameTag::WINDFURY), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);

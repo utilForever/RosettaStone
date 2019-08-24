@@ -450,7 +450,7 @@ void EnrageEffect::Update()
 
     if (m_type == AuraType::WEAPON)
     {
-        m_target = minion->owner->GetHero()->weapon;
+        m_target = &minion->owner->GetWeapon();
     }
 
     if (!m_turnOn)
@@ -525,7 +525,7 @@ EnrageEffect::EnrageEffect(EnrageEffect& prototype, Entity& owner)
             m_target = &owner;
             break;
         case AuraType::WEAPON:
-            m_target = owner.owner->GetHero()->weapon;
+            m_target = &owner.owner->GetWeapon();
             break;
         default:
             break;

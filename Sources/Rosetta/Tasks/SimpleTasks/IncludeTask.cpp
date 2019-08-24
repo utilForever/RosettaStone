@@ -113,15 +113,15 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(player.opponent->GetHero());
             break;
         case EntityType::WEAPON:
-            if (player.GetHero()->weapon != nullptr)
+            if (player.GetHero()->HasWeapon())
             {
-                entities.emplace_back(player.GetHero()->weapon);
+                entities.emplace_back(&player.GetWeapon());
             }
             break;
         case EntityType::ENEMY_WEAPON:
-            if (player.opponent->GetHero()->weapon != nullptr)
+            if (player.opponent->GetHero()->HasWeapon())
             {
-                entities.emplace_back(player.opponent->GetHero()->weapon);
+                entities.emplace_back(&player.opponent->GetWeapon());
             }
             break;
         case EntityType::HAND:

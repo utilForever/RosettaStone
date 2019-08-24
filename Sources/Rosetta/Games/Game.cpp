@@ -246,9 +246,9 @@ void Game::MainReady()
     // Hero
     curPlayer.GetHero()->SetExhausted(false);
     // Weapon
-    if (curPlayer.GetHero()->weapon != nullptr)
+    if (curPlayer.GetHero()->HasWeapon())
     {
-        curPlayer.GetHero()->weapon->SetExhausted(false);
+        curPlayer.GetWeapon().SetExhausted(false);
     }
     // Hero power
     curPlayer.GetHeroPower().SetExhausted(false);
@@ -555,13 +555,13 @@ void Game::ProcessDestroyAndUpdateAura()
 void Game::ProcessGraveyard()
 {
     // Destroy weapons
-    if (GetPlayer1().GetHero()->weapon != nullptr &&
-        GetPlayer1().GetHero()->weapon->isDestroyed)
+    if (GetPlayer1().GetHero()->HasWeapon() &&
+        GetPlayer1().GetWeapon().isDestroyed)
     {
         GetPlayer1().GetHero()->RemoveWeapon();
     }
-    if (GetPlayer2().GetHero()->weapon != nullptr &&
-        GetPlayer2().GetHero()->weapon->isDestroyed)
+    if (GetPlayer2().GetHero()->HasWeapon() &&
+        GetPlayer2().GetWeapon().isDestroyed)
     {
         GetPlayer2().GetHero()->RemoveWeapon();
     }
