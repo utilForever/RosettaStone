@@ -244,8 +244,8 @@ TEST(BoardRefView, GetHeroPower)
     game.ProcessUntil(Step::MAIN_START);
 
     BoardRefView board(game, game.GetCurrentPlayer().playerType);
-    EXPECT_EQ(board.GetHeroPower(PlayerType::PLAYER1)->card->id, "CS2_102");
-    EXPECT_EQ(board.GetHeroPower(PlayerType::PLAYER2)->card->id, "CS2_083b");
+    EXPECT_EQ(board.GetHeroPower(PlayerType::PLAYER1).card->id, "CS2_102");
+    EXPECT_EQ(board.GetHeroPower(PlayerType::PLAYER2).card->id, "CS2_083b");
 }
 
 TEST(BoardRefView, GetWeapon)

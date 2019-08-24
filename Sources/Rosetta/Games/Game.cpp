@@ -251,7 +251,7 @@ void Game::MainReady()
         curPlayer.GetHero()->weapon->SetExhausted(false);
     }
     // Hero power
-    curPlayer.GetHero()->heroPower->SetExhausted(false);
+    curPlayer.GetHeroPower().SetExhausted(false);
     // Field
     for (auto& m : curPlayer.GetFieldZone().GetAll())
     {

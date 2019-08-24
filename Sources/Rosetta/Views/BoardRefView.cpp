@@ -139,15 +139,15 @@ Hero* BoardRefView::GetOpponentHero() const
     }
 }
 
-HeroPower* BoardRefView::GetHeroPower(PlayerType playerType) const
+HeroPower& BoardRefView::GetHeroPower(PlayerType playerType) const
 {
     if (playerType == PlayerType::PLAYER1)
     {
-        return m_game.GetPlayer1().GetHero()->heroPower;
+        return m_game.GetPlayer1().GetHeroPower();
     }
     else
     {
-        return m_game.GetPlayer2().GetHero()->heroPower;
+        return m_game.GetPlayer2().GetHeroPower();
     }
 }
 

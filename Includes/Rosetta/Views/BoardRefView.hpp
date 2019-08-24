@@ -87,7 +87,7 @@ class BoardRefView
     //! Returns the hero power of the player.
     //! \param playerType The player type to separate players.
     //! \return The hero power of the player.
-    HeroPower* GetHeroPower(PlayerType playerType) const;
+    HeroPower& GetHeroPower(PlayerType playerType) const;
 
     //! Returns the weapon of the player.
     //! \param playerType The player type to separate players.

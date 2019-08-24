@@ -29,15 +29,15 @@ Hero* ActionValidGetter::GetHero(PlayerType playerType) const
 
 bool ActionValidGetter::CanUseHeroPower() const
 {
-    auto& heroPower = m_game.GetCurrentPlayer().GetHero()->heroPower;
+    auto& heroPower = m_game.GetCurrentPlayer().GetHeroPower();
 
-    if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), heroPower) ||
-        !Generic::IsPlayableByCardReq(heroPower))
+    if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), &heroPower) ||
+        !Generic::IsPlayableByCardReq(&heroPower))
     {
         return false;
     }
 
-    if (heroPower->IsExhausted())
+    if (heroPower.IsExhausted())
     {
         return false;
     }

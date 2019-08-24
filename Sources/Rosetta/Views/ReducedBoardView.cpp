@@ -16,7 +16,7 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& view)
     : m_turn(view.GetTurn()), m_playerType(view.GetPlayerType())
 {
     m_myHero.Fill(*view.GetHero(), view.IsHeroAttackable(m_playerType));
-    m_myHeroPower.Fill(*view.GetHeroPower(m_playerType));
+    m_myHeroPower.Fill(view.GetHeroPower(m_playerType));
     m_myWeapon.Invalidate();
     if (view.GetWeapon(m_playerType) != nullptr)
     {
@@ -44,7 +44,7 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& view)
                                              : PlayerType::PLAYER1);
 
     m_opHero.Fill(*view.GetOpponentHero());
-    m_opHeroPower.Fill(*view.GetHeroPower(opPlayerType));
+    m_opHeroPower.Fill(view.GetHeroPower(opPlayerType));
     m_opWeapon.Invalidate();
     if (view.GetWeapon(opPlayerType) != nullptr)
     {
