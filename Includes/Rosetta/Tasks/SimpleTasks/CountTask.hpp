@@ -39,8 +39,8 @@ class CountTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
+    int m_numIndex;
     std::vector<SelfCondition> m_conditions;
-    int m_numIndex = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
