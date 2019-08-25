@@ -6613,6 +6613,66 @@ TEST(NeutralExpert1Test, EX1_405_Shieldbearer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> Has +3 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// --------------------------------------------------------
+// RefTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_412_RagingWorgen)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Raging Worgen"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Circle of Healing"));
+    
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(curPlayer, PlayerTasks::AttackTask(card1, opPlayer.GetHero()));
+    EXPECT_FALSE(curField[0]->CanAttack());
+
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    EXPECT_TRUE(curField[0]->CanAttack());
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_FALSE(curField[0]->CanAttack());
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
 // - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

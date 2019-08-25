@@ -2649,6 +2649,22 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_405", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b> Has +3 Attack while damaged.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_412e")));
+    cards.emplace("EX1_412", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
     // - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -3183,6 +3199,20 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(3) }));
     cards.emplace("EX1_390e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_412e] Enraged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +1 Attack and <b>Windfury</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new EnrageEffect(AuraType::SELF, {
+        Effects::AttackN(1), Effects::Windfury }));
+    cards.emplace("EX1_412e", power);
     
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_507e] Mrgglaargl! (*) - COST:0
