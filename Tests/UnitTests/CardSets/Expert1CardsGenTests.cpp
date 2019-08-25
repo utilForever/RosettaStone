@@ -7049,6 +7049,7 @@ TEST(NeutralExpert1Test, NEW1_017_HungryCrab)
     
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetAttack(), 3);
     EXPECT_EQ(curField[0]->GetHealth(), 4);    
 }
