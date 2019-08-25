@@ -290,7 +290,7 @@ EXPERT1 | EX1_384 | Avenging Wrath |
 EXPERT1 | EX1_390 | Tauren Warrior |  
 EXPERT1 | EX1_391 | Slam | O
 EXPERT1 | EX1_392 | Battle Rage | O 
-EXPERT1 | EX1_393 | Amani Berserker |  
+EXPERT1 | EX1_393 | Amani Berserker | O 
 EXPERT1 | EX1_396 | Mogu'shan Warden | O
 EXPERT1 | EX1_398 | Arathi Weaponsmith |  
 EXPERT1 | EX1_402 | Armorsmith |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 63% (150 of 237 Cards)
+- Progress: 63% (151 of 237 Cards)
 
 ## Hall of Fame
 
