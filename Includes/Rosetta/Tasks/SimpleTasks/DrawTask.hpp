@@ -23,10 +23,6 @@ class DrawTask : public ITask
     //! \param toStack A flag to store card to stack.
     explicit DrawTask(int amount, bool toStack = false);
 
-    //! Constructs task with given \p toStack.
-    //! \param toStack A flag to store card to stack.
-    explicit DrawTask(bool toStack = false);
-
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
@@ -43,7 +39,6 @@ class DrawTask : public ITask
 
     int m_amount = 0;
     bool m_toStack = false;
-    bool m_stackNum = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

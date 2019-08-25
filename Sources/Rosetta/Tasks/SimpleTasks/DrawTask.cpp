@@ -15,12 +15,6 @@ DrawTask::DrawTask(int amount, bool toStack)
     // Do nothing
 }
 
-DrawTask::DrawTask(bool toStack)
-    : m_toStack(toStack), m_stackNum(true)
-{
-    // Do nothing
-}
-
 TaskID DrawTask::GetTaskID() const
 {
     return TaskID::DRAW;
@@ -30,7 +24,7 @@ TaskStatus DrawTask::Impl(Player& player)
 {
     std::vector<Entity*> cards;
 
-    const int amount = m_stackNum ? player.GetGame()->taskStack.num : m_amount;
+    const int amount = m_amount == 0 ? player.GetGame()->taskStack.num : m_amount;
 
     for (int i = 0; i < amount; ++i)
     {
