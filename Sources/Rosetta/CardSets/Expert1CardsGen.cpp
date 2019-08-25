@@ -2609,6 +2609,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_283", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b> Has +3 Attack while damaged.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_390e")));
+    cards.emplace("EX1_390", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -3156,6 +3170,19 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_162o"));
     cards.emplace("EX1_162o", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_390e] Enraged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +3 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(3) }));
+    cards.emplace("EX1_390e", power);
     
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_507e] Mrgglaargl! (*) - COST:0

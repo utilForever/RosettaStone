@@ -6541,6 +6541,50 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> Has +3 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_390_TaurenWarrior)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tauren Warrior"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
