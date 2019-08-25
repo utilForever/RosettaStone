@@ -7008,6 +7008,52 @@ TEST(NeutralExpert1Test, EX1_614_IllidanStormrage)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
+// - Race: Beast, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a Murloc and gain +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_TARGET_WITH_RACE = 14
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_017_HungryCrab)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByID("NEW1_017"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 4);    
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------

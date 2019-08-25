@@ -2744,6 +2744,24 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_614", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
+    // - Race: Beast, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a Murloc and gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_TARGET_WITH_RACE = 14
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE));
+    cards.emplace("NEW1_017", power);
+    
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -3145,6 +3163,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_tk29", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_017e] Full Belly (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2/+2. Full of Murloc.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_017e"));
+    cards.emplace("NEW1_017e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0
