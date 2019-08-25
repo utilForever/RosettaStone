@@ -6471,6 +6471,76 @@ TEST(NeutralExpert1Test, EX1_405_Shieldbearer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
+// - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your other Murlocs have +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_507_MurlocWarleader)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Warleader"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(opField[0]->GetAttack(), 4);
+    EXPECT_EQ(opField[1]->GetAttack(), 1);
+    EXPECT_EQ(opField[2]->GetAttack(), 3);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(opField[0]->GetAttack(), 2);
+    EXPECT_EQ(opField[1]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
 // - Race: Mechanical, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
