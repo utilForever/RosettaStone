@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_JSON_SERIALIZER_HPP
 #define ROSETTASTONE_JSON_SERIALIZER_HPP
 
+#include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Games/Game.hpp>
 
 #include <json/json.hpp>
@@ -24,6 +25,26 @@ class JSONSerializer
         nlohmann::json obj;
 
         nlohmann::json gameObj = SerializeGame(game);
+
+        obj["current_player_id"] = gameObj["current_player"];
+        obj["turn"] = gameObj["turn"];
+
+        if (game.GetCurrentPlayer().playerType == PlayerType::PLAYER1)
+        {
+            obj["current_player"] = gameObj["player1"];
+            obj["opponent_player"] = gameObj["player2"];
+        }
+        else
+        {
+            obj["current_player"] = gameObj["player2"];
+            obj["opponent_player"] = gameObj["player1"];
+        }
+
+        AddPlayableCardInfo(obj["current_player"]["hand"], game);
+        AddPlayableHeroPowerInfo(obj["current_player"]["hero_power"], game);
+        AddAttackableInfo(obj["current_player"], game);
+
+        return obj;
     }
 
     //! Returns the string that represents the player.
@@ -76,6 +97,7 @@ class JSONSerializer
         obj["deck"] = SerializeDeck(player.GetDeckZone());
         obj["hand"] = SerializeHand(player.GetHandZone());
         obj["minions"] = SerializeField(player.GetFieldZone());
+        obj["secrets"] = SerializeSecrets(player.GetSecretZone());
 
         return obj;
     }
@@ -180,6 +202,21 @@ class JSONSerializer
         return obj;
     }
 
+    //! Serializes the secrets data.
+    //! \param secrets The secrets context.
+    //! \return The serialized secrets data.
+    static nlohmann::json SerializeSecrets(const SecretZone& secrets)
+    {
+        nlohmann::json obj;
+
+        for (const auto& secret : secrets.GetAll())
+        {
+            obj.emplace_back(SerializeSecret(*secret));
+        }
+
+        return obj;
+    }
+
     //! Serializes the hand card data.
     //! \param handCard The hand card context.
     //! \return The serialized hand card data.
@@ -200,7 +237,86 @@ class JSONSerializer
     {
         nlohmann::json obj;
 
+        obj["card_id"] = minion.card->id;
+        obj["cost"] = minion.GetCost();
+        obj["attack"] = minion.GetAttack();
+        obj["health"] = minion.GetHealth();
+        obj["max_health"] = minion.GetMaxHealth();
+        obj["taunt"] = minion.GetGameTag(GameTag::TAUNT);
+        obj["divine_shield"] = minion.GetGameTag(GameTag::DIVINE_SHIELD);
+        obj["stealth"] = minion.GetGameTag(GameTag::STEALTH);
+
         return obj;
+    }
+
+    //! Serializes the secret data.
+    //! \param secret The secret context.
+    //! \return The serialized secret data.
+    static nlohmann::json SerializeSecret(const Spell& secret)
+    {
+        nlohmann::json obj;
+
+        obj["card_id"] = secret.card->id;
+
+        return obj;
+    }
+
+    //! Adds the playable card info.
+    //! \param obj The JSON object to add info.
+    //! \param game The game context.
+    static void AddPlayableCardInfo(nlohmann::json& obj, const Game& game)
+    {
+        for (std::size_t idx = 0; idx < obj.size(); ++idx)
+        {
+            obj[idx]["playable"] = false;
+        }
+
+        const ActionValidGetter getter(game);
+        getter.ForEachPlayableCard([&](Entity* card) {
+            const Player& curPlayer = game.GetCurrentPlayer();
+            const int handIdx = curPlayer.GetHandZone().FindIndex(*card);
+            obj[handIdx]["playable"] = true;
+            return true;
+        });
+    }
+
+    //! Adds the playable hero power info.
+    //! \param obj The JSON object to add info.
+    //! \param game The game context.
+    static void AddPlayableHeroPowerInfo(nlohmann::json& obj, const Game& game)
+    {
+        const ActionValidGetter getter(game);
+        obj["playable"] = getter.CanUseHeroPower();
+    }
+
+    //! Adds the attackable info.
+    //! \param obj The JSON object to add info.
+    //! \param game The game context.
+    static void AddAttackableInfo(nlohmann::json& obj, const Game& game)
+    {
+        for (std::size_t idx = 0; idx < obj["minions"].size(); ++idx)
+        {
+            obj["minions"][idx]["attackable"] = false;
+        }
+        obj["hero"]["attackable"] = false;
+
+        const ActionValidGetter getter(game);
+        getter.ForEachAttacker([&](Character* character) {
+            if (dynamic_cast<Hero*>(character))
+            {
+                obj["hero"]["attackable"] = true;
+            }
+            else
+            {
+                const Player& curPlayer = game.GetCurrentPlayer();
+                const int minionIdx =
+                    curPlayer.GetFieldZone().FindIndex(*character);
+                obj["minions"][minionIdx]["attackable"] = true;
+                return true;
+            }
+
+            return true;
+        });
     }
 };
 }  // namespace RosettaStone
