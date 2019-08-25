@@ -287,7 +287,7 @@ EXPERT1 | EX1_379 | Repentance |
 EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
 EXPERT1 | EX1_384 | Avenging Wrath |  
-EXPERT1 | EX1_390 | Tauren Warrior |  
+EXPERT1 | EX1_390 | Tauren Warrior | O 
 EXPERT1 | EX1_391 | Slam | O
 EXPERT1 | EX1_392 | Battle Rage | O 
 EXPERT1 | EX1_393 | Amani Berserker | O 
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 63% (151 of 237 Cards)
+- Progress: 63% (152 of 237 Cards)
 
 ## Hall of Fame
 
