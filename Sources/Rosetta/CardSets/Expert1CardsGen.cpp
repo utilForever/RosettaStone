@@ -1579,6 +1579,21 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     cards.emplace("EX1_391", power);
 
     // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_392] Battle Rage - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Draw a card for each damaged friendly character.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new CountTask(EntityType::FRIENDS,
+                                     { SelfCondition::IsDamaged() }));
+    power.AddPowerTask(new DrawTask());
+    cards.emplace("EX1_392", power);
+
+    // ---------------------------------------- SPELL - WARRIOR
     // [EX1_407] Brawl - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
