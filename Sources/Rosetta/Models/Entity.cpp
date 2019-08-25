@@ -110,6 +110,16 @@ void Entity::SetCost(int cost)
 
 bool Entity::IsExhausted() const
 {
+    if (GetGameTag(GameTag::WINDFURY) == 1 &&
+        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 1)
+    {
+        return false;
+    }
+    if (GetGameTag(GameTag::CHARGE) == 1 &&
+        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 0)
+    {
+        return false;
+    }
     return GetGameTag(GameTag::EXHAUSTED) == 1;
 }
 
