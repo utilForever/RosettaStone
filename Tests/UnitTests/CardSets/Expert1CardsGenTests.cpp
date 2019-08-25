@@ -1548,18 +1548,22 @@ TEST(WarriorExpert1Test, EX1_392_BattleRage)
         opPlayer, Cards::GetInstance().FindCardByName("Battle Rage"));
     const auto card3 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
     
+
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curHand.GetCount(), 4);
+    EXPECT_EQ(curHand.GetCount(), 5);
     
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
     
     game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
     game.Process(opPlayer, PlayerTasks::HeroPowerTask(card3));
     game.Process(opPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(opField[0]->GetDamage(), 1);
-    EXPECT_EQ(opHand.GetCount(), 6);
+    EXPECT_EQ(opHand.GetCount(), 8);
 }
 
 // --------------------------------------- MINION - WARRIOR
