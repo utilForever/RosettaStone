@@ -673,7 +673,7 @@ void Game::PlayPolicy()
 
 PlayState Game::PerformAction(ActionParams& params)
 {
-    ITask* task = nullptr;
+    ITask* task;
     const auto mainOp = params.ChooseMainOp();
 
     switch (mainOp)
@@ -731,6 +731,10 @@ PlayState Game::PerformAction(ActionParams& params)
         {
             task = new EndTurnTask();
             break;
+        }
+        default:
+        {
+            throw std::runtime_error("Invalid main op type");
         }
     }
 
