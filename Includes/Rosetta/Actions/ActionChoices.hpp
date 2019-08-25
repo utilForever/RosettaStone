@@ -44,7 +44,10 @@ class ActionChoices
     //! \return The flag that indicates whether a variant currently holds
     //! a given type.
     template <class T>
-    bool CheckType() const;
+    bool CheckType() const
+    {
+        return std::holds_alternative<T>(m_item);
+    }
 
     //! Compares this object and \p rhs as \p comparator function.
     //! \param rhs ActionChoices object to compare.
