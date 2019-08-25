@@ -276,6 +276,25 @@ class LimitedZone : public Zone<T>
         return result;
     }
 
+    virtual std::vector<T*> GetAll() const
+    {
+        std::vector<T*> result;
+        result.reserve(m_count);
+
+        for (int i = 0; i < m_count; ++i)
+        {
+            if (m_entities[i] == nullptr ||
+                static_cast<bool>(m_entities[i]->isDestroyed))
+            {
+                continue;
+            }
+
+            result.emplace_back(m_entities[i]);
+        }
+
+        return result;
+    }
+
  protected:
     T** m_entities;
 

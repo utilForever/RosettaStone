@@ -21,6 +21,11 @@ std::vector<Minion*> FieldZone::GetAll()
     return PositioningZone::GetAll();
 }
 
+std::vector<Minion*> FieldZone::GetAll() const
+{
+    return PositioningZone::GetAll();
+}
+
 void FieldZone::Add(Entity& entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
