@@ -1562,6 +1562,48 @@ TEST(WarriorExpert1Test, EX1_392_BattleRage)
     EXPECT_EQ(opHand.GetCount(), 6);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Has +3 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// --------------------------------------------------------
+TEST(Expert1Test, EX1_393_AmaniBerserker)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Amani Berserker"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    EXPECT_EQ(curField[0]->GetDamage(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [EX1_407] Brawl - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic

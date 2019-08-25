@@ -1593,6 +1593,19 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask());
     cards.emplace("EX1_392", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Has +3 Attack while damaged.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_393e")));
+    cards.emplace("EX1_393", power);
+
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_407] Brawl - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
@@ -1638,6 +1651,19 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
     cards.emplace("CS2_104e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_393e] Enraged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +3 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(3) }));
+    cards.emplace("EX1_393e", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_607e] Inner Rage (*) - COST:0
