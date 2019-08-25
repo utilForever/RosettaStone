@@ -15,6 +15,12 @@ CountTask::CountTask(EntityType entityType, int numIndex)
     // Do nothing
 }
 
+CountTask::CountTask(EntityType entityType, std::vector<SelfCondition> conditions, int numIndex)
+    : ITask(entityType), m_conditions(std::move(conditions)), m_numIndex(numIndex)
+{
+    // Do nothing
+}
+
 TaskID CountTask::GetTaskID() const
 {
     return TaskID::COUNT;
@@ -24,7 +30,34 @@ TaskStatus CountTask::Impl(Player& player)
 {
     const auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    const int count = static_cast<int>(entities.size());
+    
+    int count;
+    if (m_conditions.empty())
+    {
+        count = static_cast<int>(entities.size());
+    }
+    else
+    {
+        std::vector<Entity*> filtered;
+        filtered.reserve(entities.size());
+
+        for (auto& entity : entities)
+        {
+            bool flag = true;
+            for (auto& condition : m_conditions)
+            {
+                if (!condition.Evaluate(entity))
+                {
+                    flag = false;
+                }
+            }
+            if (flag)
+            {
+                filtered.push_back(entity);
+            }
+        }
+        count = static_cast<int>(filtered.size());
+    }
 
     switch (m_numIndex)
     {

@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_COUNT_TASK_HPP
 #define ROSETTASTONE_COUNT_TASK_HPP
 
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
@@ -22,6 +23,12 @@ class CountTask : public ITask
     //! \param entityType The type of entity.
     //! \param numIndex An index of number.
     CountTask(EntityType entityType, int numIndex = 0);
+    
+    //! Constructs task with given \p entityType, \p numIndex and \p conditions.
+    //! \param entityType The type of entity.
+    //! \param numIndex An index of number.
+    //! \param conditions SelfConditions to check.
+    CountTask(EntityType entityType, std::vector<SelfCondition> conditions, int numIndex = 0);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -37,6 +44,7 @@ class CountTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
+    std::vector<SelfCondition> m_conditions;
     int m_numIndex = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
