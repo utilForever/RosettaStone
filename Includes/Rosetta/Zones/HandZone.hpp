@@ -34,6 +34,11 @@ class HandZone : public PositioningZone<Entity>
     //! \param entity The entity.
     //! \return The entity.
     Entity& Remove(Entity& entity) override;
+
+    //! Finds the index of the entity.
+    //! \param entity The entity to find.
+    //! \return The index of the entity if it is found, -1 otherwise.
+    int FindIndex(Entity& entity) const;
 };
 }  // namespace RosettaStone
 
