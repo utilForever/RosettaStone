@@ -15,6 +15,7 @@ namespace RosettaStone
 //! \brief An enumerator for identifying main operation type.
 enum class MainOpType
 {
+    INVALID,
     PLAY_CARD,
     ATTACK,
     USE_HERO_POWER,
@@ -33,6 +34,28 @@ enum class ActionType
     CHOOSE_TARGET,
     CHOOSE_ONE
 };
+
+//! Returns the string of the main operation type.
+//! \param op The main operation type.
+//! \return The string of the main operation type.
+inline std::string GetMainOpString(MainOpType op)
+{
+    switch (op)
+    {
+        case MainOpType::INVALID:
+            return "INVALID";
+        case MainOpType::PLAY_CARD:
+            return "PLAY_CARD";
+        case MainOpType::ATTACK:
+            return "ATTACK";
+        case MainOpType::USE_HERO_POWER:
+            return "USE_HERO_POWER";
+        case MainOpType::END_TURN:
+            return "END_TURN";
+        default:
+            return "UNKNOWN";
+    }
+}
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_ACTION_ENUMS_HPP
