@@ -1588,9 +1588,9 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new CountTask(EntityType::FRIENDS,
+    power.AddPowerTask(new CountTask(EntityType::FRIENDS, 0,
                                      { SelfCondition::IsDamaged() }));
-    power.AddPowerTask(new DrawTask());
+    power.AddPowerTask(new DrawTask(0));
     cards.emplace("EX1_392", power);
 
     // --------------------------------------- MINION - WARRIOR
