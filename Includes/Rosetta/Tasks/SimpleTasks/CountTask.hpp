@@ -19,16 +19,11 @@ namespace RosettaStone::SimpleTasks
 class CountTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p numIndex.
-    //! \param entityType The type of entity.
-    //! \param numIndex An index of number.
-    CountTask(EntityType entityType, int numIndex = 0);
-    
     //! Constructs task with given \p entityType, \p numIndex and \p conditions.
     //! \param entityType The type of entity.
     //! \param numIndex An index of number.
     //! \param conditions SelfConditions to check.
-    CountTask(EntityType entityType, std::vector<SelfCondition> conditions, int numIndex = 0);
+    CountTask(EntityType entityType, int numIndex = 0, std::vector<SelfCondition> conditions = {});
 
     //! Returns task ID.
     //! \return Task ID.
