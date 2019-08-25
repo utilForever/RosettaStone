@@ -52,6 +52,11 @@ class FieldZone : public PositioningZone<Minion>
     //! \param newEntity The new entity.
     void Replace(Entity& oldEntity, Entity& newEntity);
 
+    //! Finds the index of the minion.
+    //! \param character The character to find.
+    //! \return The index of the minion if it is found, -1 otherwise.
+    int FindIndex(Character& character) const;
+
  private:
     static void ActivateAura(Entity& entity);
     static void RemoveAura(Entity& entity);

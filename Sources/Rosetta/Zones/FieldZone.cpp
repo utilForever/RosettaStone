@@ -76,6 +76,19 @@ void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
     }
 }
 
+int FieldZone::FindIndex(Character& character) const
+{
+    for (std::size_t idx = 0; idx < MAX_FIELD_SIZE; ++idx)
+    {
+        if (m_entities[idx] == &character)
+        {
+            return idx;
+        }
+    }
+
+    return -1;
+}
+
 void FieldZone::ActivateAura(Entity& entity)
 {
     if (entity.card->power.GetTrigger())
