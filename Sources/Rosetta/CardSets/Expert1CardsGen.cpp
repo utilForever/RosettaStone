@@ -2762,6 +2762,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("NEW1_017", power);
     
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
+    // - Race: Pirate, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain Attack equal to the Attack
+    //       of your weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_018e", EntityType::SOURCE));
+    cards.emplace("NEW1_018", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -3173,6 +3188,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("NEW1_017e"));
     cards.emplace("NEW1_017e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_018e] Treasure Crazed (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::AddAttackScriptTag));
+    cards.emplace("NEW1_018e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0
