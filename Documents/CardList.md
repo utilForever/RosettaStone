@@ -366,7 +366,7 @@ EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm | O
 EXPERT1 | NEW1_014 | Master of Disguise |  
 EXPERT1 | NEW1_017 | Hungry Crab | O 
-EXPERT1 | NEW1_018 | Bloodsail Raider |  
+EXPERT1 | NEW1_018 | Bloodsail Raider | O 
 EXPERT1 | NEW1_019 | Knife Juggler | O
 EXPERT1 | NEW1_020 | Wild Pyromancer | O
 EXPERT1 | NEW1_021 | Doomsayer | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 62% (148 of 237 Cards)
+- Progress: 63% (149 of 237 Cards)
 
 ## Hall of Fame
 
