@@ -316,7 +316,7 @@ EXPERT1 | EX1_544 | Flare |
 EXPERT1 | EX1_549 | Bestial Wrath |  
 EXPERT1 | EX1_554 | Snake Trap |  
 EXPERT1 | EX1_556 | Harvest Golem | O
-EXPERT1 | EX1_557 | Nat Pagle |  
+EXPERT1 | EX1_557 | Nat Pagle | O 
 EXPERT1 | EX1_558 | Harrison Jones |  
 EXPERT1 | EX1_559 | Archmage Antonidas |  
 EXPERT1 | EX1_560 | Nozdormu |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 65% (155 of 237 Cards)
+- Progress: 66% (156 of 237 Cards)
 
 ## Hall of Fame
 
