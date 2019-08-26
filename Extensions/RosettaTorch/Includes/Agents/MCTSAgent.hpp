@@ -32,14 +32,15 @@ class DummyAgentCallback
     DummyAgentCallback() = default;
 
     //! Processes something before calling Think() method.
-    void BeforeThink()
+    void BeforeThink([[maybe_unused]] const BoardRefView& view)
     {
         // Do nothing
     }
 
     //! Processes something related to agent.
     //! \param iteration The number of iteration.
-    void Think([[maybe_unused]] std::uint64_t iteration)
+    void Think([[maybe_unused]] const BoardRefView& view,
+               [[maybe_unused]] std::uint64_t iteration)
     {
         // Do nothing
     }
@@ -84,19 +85,19 @@ class MCTSAgent
     MCTSAgent& operator=(MCTSAgent&&) noexcept = delete;
 
     //! Process Think() related methods.
-    //! \param gameConfig The game config.
-    void Think(const GameConfig& gameConfig)
+    //! \param view The board ref view to set game state.
+    void Think(const BoardRefView& view)
     {
-        m_callback.BeforeThink();
+        m_callback.BeforeThink(view);
 
         m_controller.reset(new MCTSRunner(m_config));
-        m_controller->Run(gameConfig);
+        m_controller->Run(view);
 
         while (true)
         {
             const uint64_t iterations =
                 m_controller->GetStatistics().GetSuccededIterates();
-            m_callback.Think(iterations);
+            m_callback.Think(view, iterations);
 
             if (iterations >=
                 static_cast<uint64_t>(m_config.iterationsPerAction))
@@ -113,7 +114,7 @@ class MCTSAgent
         m_callback.AfterThink(
             m_controller->GetStatistics().GetSuccededIterates());
 
-        m_node = m_controller->GetRootNode(gameConfig.startPlayer);
+        m_node = m_controller->GetRootNode(view.GetCurrentPlayer().playerType);
         m_rootNode = m_node;
     }
 

@@ -21,19 +21,19 @@ MCTSRunner::~MCTSRunner()
     WaitUntilStopped();
 }
 
-void MCTSRunner::Run(const GameConfig& gameConfig)
+void MCTSRunner::Run(const BoardRefView& view)
 {
     m_stopFlag = false;
 
     for (int i = 0; i < m_config.threads; ++i)
     {
-        m_threads.emplace_back([this, gameConfig]() {
+        m_threads.emplace_back([this, view]() {
             MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics, m_config.mcts);
 
             while (!m_stopFlag.load())
             {
-                Game game(gameConfig);
-                mcts.Iterate(game);
+                //Game game(gameConfig);
+                //mcts.Iterate(game);
 
                 m_statistics.IterateSucceeded();
             }

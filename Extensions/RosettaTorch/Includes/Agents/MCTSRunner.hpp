@@ -37,8 +37,8 @@ class MCTSRunner
     ~MCTSRunner();
 
     //! Runs MCTS as many threads as you set in config.
-    //! \param gameConfig The game config.
-    void Run(const GameConfig& gameConfig);
+    //! \param view The board ref view to set game state.
+    void Run(const BoardRefView& view);
 
     //! Returns the statistics of MCTS runner.
     //! \return The statistics of MCTS runner.
