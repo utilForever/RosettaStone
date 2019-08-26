@@ -77,7 +77,9 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
         gameConfig.player2Deck[j] = *Cards::FindCardByID(deck[j]);
     }
 
-    controller->Run(gameConfig);
+    Game game(gameConfig);
+    game.StartGame();
+    controller->Run(BoardRefView(game, game.GetCurrentPlayer().playerType));
 
     while (true)
     {

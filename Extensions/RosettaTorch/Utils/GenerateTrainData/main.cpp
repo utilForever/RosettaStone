@@ -172,7 +172,9 @@ int main(int argc, char* argv[])
         gameConfig.player2Deck[j] = *Cards::FindCardByID(deck[j]);
     }
 
-    judger.Start(gameConfig);
+    Game game(gameConfig);
+    game.StartGame();
+    judger.Start(game);
 
     SaveJSON(recorder.GetJSON());
 
