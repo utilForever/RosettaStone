@@ -30,19 +30,19 @@ class CNNModel : public torch::nn::Module
     //! Encodes the information of two heros.
     //! \param x The tensor that has information of heros.
     //! \return The encoded torch tensor from \p x.
-    torch::Tensor encodeHero(torch::Tensor x);
+    torch::Tensor EncodeHero(torch::Tensor x);
 
     //! Encodes the minions' information from the two fields.
     //! \param x The tensor that has information of minions.
     //! \return The encoded torch tensor from \p x.
-    torch::Tensor encodeMinion(torch::Tensor x);
+    torch::Tensor EncodeMinion(torch::Tensor x);
 
     //! Encodes the standalone information from the field.
     //! \param x The tensor that has information of 'standalone'.
     //! \return The encoded torch tensor from \p x.
-    torch::Tensor encodeStandalone(torch::Tensor x);
+    torch::Tensor EncodeStandalone(torch::Tensor x);
 
-    //! Baseline dnn model.
+    //! The baseline CNN model.
     //! \param hero Inputs of the model.
     //! \param minion Inputs of the model.
     //! \param standalone Inputs of the model.
@@ -51,30 +51,30 @@ class CNNModel : public torch::nn::Module
                           torch::Tensor standalone);
 
  private:
-    static constexpr int hero_in_dim = 1;
-    static constexpr int hero_out_dim = 1;
+    constexpr static int HERO_IN_DIM = 1;
+    constexpr static int HERO_OUT_DIM = 1;
 
-    static constexpr int minion_in_dim = 7;
-    static constexpr int minion_out_dim = 3;
+    constexpr static int MINION_IN_DIM = 7;
+    constexpr static int MINION_OUT_DIM = 3;
 
-    static constexpr int minion_count = 7;
+    constexpr static int MINION_COUNT = 7;
 
-    static constexpr int standalone_in_dim = 17;
+    constexpr static int STANDALONE_IN_DIM = 17;
 
-    static constexpr int concat_unit =
-        2 * hero_out_dim + 2 * minion_count * minion_out_dim +
-        standalone_in_dim;
+    constexpr static int CONCAT_UNIT = 2 * HERO_OUT_DIM +
+                                       2 * MINION_COUNT * MINION_OUT_DIM +
+                                       STANDALONE_IN_DIM;
 
-    static constexpr int fc_unit = 10;
+    constexpr static int FC_UNIT = 10;
 
-    torch::nn::Conv1d heroConv1 = 
-        torch::nn::Conv1d(torch::nn::Conv1dOptions(hero_in_dim, hero_out_dim, 1));
+    torch::nn::Conv1d m_heroConv = torch::nn::Conv1d(
+        torch::nn::Conv1dOptions(HERO_IN_DIM, HERO_OUT_DIM, 1));
 
-    torch::nn::Conv1d minionConv1 = 
-        torch::nn::Conv1d(torch::nn::Conv1dOptions(minion_in_dim, minion_out_dim, 1));
+    torch::nn::Conv1d m_minionConv = torch::nn::Conv1d(
+        torch::nn::Conv1dOptions(MINION_IN_DIM, MINION_OUT_DIM, 1));
 
-    torch::nn::Linear fc1 = torch::nn::Linear(concat_unit, fc_unit);
-    torch::nn::Linear fc2 = torch::nn::Linear(fc_unit, 1);
+    torch::nn::Linear m_fc1 = torch::nn::Linear(CONCAT_UNIT, FC_UNIT);
+    torch::nn::Linear m_fc2 = torch::nn::Linear(FC_UNIT, 1);
 };
 }  // namespace RosettaTorch::NeuralNet
 
