@@ -1622,6 +1622,21 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("EX1_407", power);
 
+    // --------------------------------------- MINION - WARRIOR
+    // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b> Has +6 Attack while damaged.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // - ELITE = 1
+    // - ENRAGED = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_414e")));
+    cards.emplace("EX1_414", power);
+
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
@@ -1664,6 +1679,16 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(3) }));
     cards.emplace("EX1_393e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [EX1_414e] Enraged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +6 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(6) }));
+    cards.emplace("EX1_414e", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_607e] Inner Rage (*) - COST:0

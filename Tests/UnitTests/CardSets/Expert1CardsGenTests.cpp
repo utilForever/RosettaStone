@@ -1674,6 +1674,57 @@ TEST(WarriorExpert1Test, EX1_407_Brawl)
     EXPECT_EQ(curField.GetCount() + opField.GetCount(), 1);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge</b> Has +6 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// - ELITE = 1
+// - ENRAGED = 1
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_414_GrommashHellscream)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Grommash Hellscream"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Circle of Healing"));
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetDamage(), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    EXPECT_EQ(curField[0]->GetDamage(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 10);
+    
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField[0]->GetDamage(), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+}
+
 // ----------------------------------------- SPELL - WARRIOR
 // [EX1_607] Inner Rage - COST:0
 // - Set: Expert1, Rarity: Common
