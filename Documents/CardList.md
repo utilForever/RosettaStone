@@ -301,7 +301,7 @@ EXPERT1 | EX1_409 | Upgrade! |
 EXPERT1 | EX1_410 | Shield Slam |  
 EXPERT1 | EX1_411 | Gorehowl |  
 EXPERT1 | EX1_412 | Raging Worgen | O 
-EXPERT1 | EX1_414 | Grommash Hellscream |  
+EXPERT1 | EX1_414 | Grommash Hellscream | O 
 EXPERT1 | EX1_507 | Murloc Warleader | O 
 EXPERT1 | EX1_509 | Murloc Tidecaller |  
 EXPERT1 | EX1_522 | Patient Assassin | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 65% (153 of 237 Cards)
+- Progress: 65% (154 of 237 Cards)
 
 ## Hall of Fame
 
