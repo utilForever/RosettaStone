@@ -6798,6 +6798,62 @@ TEST(NeutralExpert1Test, EX1_507_MurlocWarleader)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
+// - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you summon a Murloc, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_509_MurlocTidecaller)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Tidecaller"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Tidehunter"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField.GetCount(), 4);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField.GetCount(), 5);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
 // - Race: Mechanical, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

@@ -2705,6 +2705,24 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_507", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
+    // - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you summon a Murloc, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    power.GetTrigger()->tasks =
+        { new AddEnchantmentTask("EX1_509e", EntityType::SOURCE) };
+    cards.emplace("EX1_509", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
     // - Race: Mechanical, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -3248,6 +3266,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_507e"));
     cards.emplace("EX1_507e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_509e] Blarghghl (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackN(1)));
+    cards.emplace("EX1_509e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
