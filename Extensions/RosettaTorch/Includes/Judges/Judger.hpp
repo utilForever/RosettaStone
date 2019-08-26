@@ -125,7 +125,7 @@ class Judger
             }
         }
 
-        m_recorder.End(result);
+        m_recorder.End(game.GetCurrentPlayer().playerType, result);
 
         return result;
     }
