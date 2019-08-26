@@ -2737,6 +2737,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_556", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the start of your turn, you have a 50% chance to
+    //       draw an extra card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_START));
+    power.GetTrigger()->percentage = 0.5f;
+    power.GetTrigger()->tasks = { new DrawTask(1) };
+    cards.emplace("EX1_557", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
