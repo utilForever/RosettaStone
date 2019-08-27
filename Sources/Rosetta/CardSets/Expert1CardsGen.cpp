@@ -170,6 +170,19 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("EX1_570e", EntityType::HERO));
     power.AddPowerTask(new ArmorTask(4));
     cards.emplace("EX1_570", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_571] Force of Nature - COST:5
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Summon three 2/2 Treants.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new EnqueueTask({ new SummonTask("EX1_tk9") }, 3));
+    cards.emplace("EX1_571", power);
 }
 
 void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
@@ -381,6 +394,14 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
     cards.emplace("EX1_570e", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_tk9] Treant (*) - COST:2 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk9", power);
 }
 
 void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
