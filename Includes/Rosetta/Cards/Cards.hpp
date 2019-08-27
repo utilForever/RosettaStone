@@ -143,7 +143,7 @@ class Cards
     //! Returns whether this card is empty.
     //! \param card Card to check
     //! \return whether this card is empty.
-    static bool Cards::IsEmptyCard(Card* card);
+    static bool IsEmptyCard(Card* card);
 
  private:
     //! Constructor: Loads card data.
