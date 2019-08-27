@@ -36,6 +36,11 @@ Cards& Cards::GetInstance()
     return instance;
 }
 
+bool Cards::IsEmptyCard(Card* card)
+{
+    return card == &emptyCard;
+}
+
 const std::vector<Card*>& Cards::GetAllCards()
 {
     return m_cards;
