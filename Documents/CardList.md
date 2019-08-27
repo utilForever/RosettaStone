@@ -357,7 +357,7 @@ EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
 EXPERT1 | EX1_624 | Holy Fire | O
-EXPERT1 | EX1_625 | Shadowform |  
+EXPERT1 | EX1_625 | Shadowform | O 
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 66% (157 of 237 Cards)
+- Progress: 67% (158 of 237 Cards)
 
 ## Hall of Fame
 
