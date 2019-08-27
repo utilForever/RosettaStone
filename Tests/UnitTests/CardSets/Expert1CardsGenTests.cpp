@@ -2298,6 +2298,84 @@ TEST(PriestExpert1Test, EX1_624_HolyFire)
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [EX1_625] Shadowform - COST:3
+// - Faction: Priest, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your Hero Power becomes 'Deal 2 damage'.
+//       If already in Shadowform: 3 damage.
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_625_Shadowform)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    Hero* opHero = opPlayer.GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowform"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowform"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowform"));
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Spike");
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 27);
+    
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 25);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Shatter");
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 22);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 19);
+
+    const HeroPower* heroPower = curPlayer.GetHero()->heroPower;
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curPlayer.GetHero()->heroPower, heroPower);
+    
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 19);
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [EX1_626] Mass Dispel - COST:4
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------

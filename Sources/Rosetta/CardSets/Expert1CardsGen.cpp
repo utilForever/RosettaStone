@@ -14,6 +14,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
@@ -60,7 +61,35 @@ void Expert1CardsGen::AddHeroes(std::map<std::string, Power>& cards)
 
 void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------ HERO_POWER - PRIEST
+    // [EX1_625t] Mind Spike (*) - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Deal $2 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    cards.emplace("EX1_625t", power);
+
+    // ------------------------------------ HERO_POWER - PRIEST
+    // [EX1_625t2] Mind Shatter (*) - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Hero Power</b>
+    //       Deal $3 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 3));
+    cards.emplace("EX1_625t2", power);
 }
 
 void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
@@ -923,6 +952,28 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 5, true));
     power.AddPowerTask(new HealTask(EntityType::HERO, 5));
     cards.emplace("EX1_624", power);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [EX1_625] Shadowform - COST:3
+    // - Faction: Priest, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Your Hero Power becomes 'Deal 2 damage'.
+    //       If already in Shadowform: 3 damage.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
+        auto& stack = entity->owner->GetGame()->taskStack.entities;
+        stack.clear();
+        stack.emplace_back(dynamic_cast<Entity*>(entity->owner->GetHero()->heroPower));
+    }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::STACK, { SelfCondition::IsName("Mind Spike") }));
+    power.AddPowerTask(new FlagTask(true, { new ChangeHeroPowerTask("EX1_625t2") }));
+    power.AddPowerTask(new FlagTask(false, {
+        new ConditionTask(EntityType::STACK, { SelfCondition::IsName("Mind Shatter") }),
+        new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") })
+    }));
+    cards.emplace("EX1_625", power);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_626] Mass Dispel - COST:4
