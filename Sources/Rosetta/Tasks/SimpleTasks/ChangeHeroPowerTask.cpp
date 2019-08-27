@@ -1,0 +1,41 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
+
+namespace RosettaStone::SimpleTasks
+{
+ChangeHeroPowerTask::ChangeHeroPowerTask(const std::string& cardID)
+{
+    m_card = Cards::FindCardByID(cardID);
+}
+
+TaskID ChangeHeroPowerTask::GetTaskID() const
+{
+    return TaskID::CHANGE_HERO_POWER;
+}
+
+TaskStatus ChangeHeroPowerTask::Impl(Player& player)
+{
+    if (Cards::IsEmptyCard(m_card) ||
+        m_card->GetCardType() != CardType::HERO_POWER)
+    {
+        return TaskStatus::STOP;
+    }
+    
+    delete player.GetHero()->heroPower;
+    player.GetHero()->heroPower = 
+        dynamic_cast<HeroPower*>(Entity::GetFromCard(player, m_card));
+    
+    return TaskStatus::COMPLETE;
+}
+
+ITask* ChangeHeroPowerTask::CloneImpl()
+{
+    return new ChangeHeroPowerTask(m_card->id);
+}
+}  // namespace RosettaStone::SimpleTasks

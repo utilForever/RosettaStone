@@ -73,6 +73,7 @@ enum class TaskID
     DAMAGE_NUMBER,
     SWAP_ATTACK_HEALTH,
     CHANCE,
+    CHANGE_HERO_POWER,
 
     NUM_TASK_ID
 };

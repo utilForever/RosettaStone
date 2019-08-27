@@ -1,0 +1,73 @@
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
+// We are making my contributions/submissions to this project solely in our
+// personal capacity and are not conveying any rights to any intellectual
+// property of any third parties.
+
+#include "gtest/gtest.h"
+
+#include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
+
+using namespace RosettaStone;
+using namespace SimpleTasks;
+
+TEST(ChangeHeroPowerTask, GetTaskID)
+{
+    const ChangeHeroPowerTask change("");
+    EXPECT_EQ(change.GetTaskID(), TaskID::CHANGE_HERO_POWER);
+}
+
+TEST(ChangeHeroPowerTask, Run)
+{
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::PRIEST;
+    Game game(config);
+
+    Hero& hero = *game.GetPlayer1().GetHero();
+
+    hero.heroPower->SetExhausted(true);
+    EXPECT_EQ(hero.heroPower->card->id,
+        Cards::GetInstance().GetDefaultHeroPower(CardClass::PRIEST)->id);
+    EXPECT_TRUE(hero.heroPower->IsExhausted());
+
+    ChangeHeroPowerTask change(
+        Cards::GetInstance().GetDefaultHeroPower(CardClass::MAGE)->id);
+    change.SetPlayer(&game.GetPlayer1());
+    
+    TaskStatus result = change.Run();
+    EXPECT_EQ(result, TaskStatus::COMPLETE);
+    EXPECT_EQ(hero.heroPower->card->id,
+        Cards::GetInstance().GetDefaultHeroPower(CardClass::MAGE)->id);
+    EXPECT_FALSE(hero.heroPower->IsExhausted());
+}
+
+TEST(ChangeHeroPowerTask, InvalidCardID)
+{
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::PRIEST;
+    Game game(config);
+
+    ChangeHeroPowerTask change("");
+    change.SetPlayer(&game.GetPlayer1());
+
+    TaskStatus result = change.Run();
+    EXPECT_EQ(result, TaskStatus::STOP);
+}
+
+TEST(ChangeHeroPowerTask, InvalidCardType)
+{
+    GameConfig config;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::PRIEST;
+    Game game(config);
+
+    ChangeHeroPowerTask change("CS2_118");  // Minion
+    change.SetPlayer(&game.GetPlayer1());
+
+    TaskStatus result = change.Run();
+    EXPECT_EQ(result, TaskStatus::STOP);
+}
