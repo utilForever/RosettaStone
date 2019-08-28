@@ -179,6 +179,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
+    // Text: <b>Choose One -</b>+5 Attack; or +5 Health and <b>Taunt</b>.
+    // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
