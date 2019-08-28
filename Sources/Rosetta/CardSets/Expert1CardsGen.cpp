@@ -176,6 +176,24 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     cards.emplace("EX1_164", power);
 
     // ----------------------------------------- MINION - DRUID
+    // [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: [x]<b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>; 
+    //       or a 4/6 with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_165", power);
+
+    // ----------------------------------------- MINION - DRUID
     // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -375,6 +393,52 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DrawTask(3));
     cards.emplace("EX1_164b", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_165a] Cat Form (*) - COST:5 [ATK:4/HP:4]
+    // - Race: Beast, Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new TransformTask(EntityType::SOURCE, "EX1_165t1"));
+    cards.emplace("EX1_165a", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_165b] Bear Form (*) - COST:5 [ATK:4/HP:6]
+    // - Race: Beast, Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new TransformTask(EntityType::SOURCE, "EX1_165t2"));
+    cards.emplace("EX1_165b", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:4/HP:4]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_165t1", power);
+
+    // ----------------------------------------- MINION - DRUID
+    // [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:4/HP:6]
+    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_165t2", power);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_178a] Rooted (*) - COST:7
