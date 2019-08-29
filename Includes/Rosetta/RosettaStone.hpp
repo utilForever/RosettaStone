@@ -59,6 +59,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Games/GameRestorer.hpp>
 #include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
@@ -132,7 +133,9 @@
 #include <Rosetta/Tasks/TaskStatus.hpp>
 #include <Rosetta/Views/Board.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
+#include <Rosetta/Views/BoardView.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
+#include <Rosetta/Views/Types/Player.hpp>
 #include <Rosetta/Views/ViewTypes.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
