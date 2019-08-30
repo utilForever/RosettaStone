@@ -25,6 +25,16 @@ ConditionTask::ConditionTask(EntityType entityType,
     // Do nothing
 }
 
+ConditionTask::ConditionTask(EntityType entityType,
+                             std::vector<SelfCondition> selfConditions,
+                             std::vector<RelaCondition> relaConditions)
+    : ITask(entityType),
+      m_selfConditions(std::move(selfConditions)),
+      m_relaConditions(std::move(relaConditions))
+{
+        // Do nothing
+}
+
 TaskID ConditionTask::GetTaskID() const
 {
     return TaskID::CONDITION;
@@ -63,6 +73,6 @@ TaskStatus ConditionTask::Impl(Player& player)
 
 ITask* ConditionTask::CloneImpl()
 {
-    return new ConditionTask(m_entityType, m_selfConditions);
+    return new ConditionTask(m_entityType, m_selfConditions, m_relaConditions);
 }
 }  // namespace RosettaStone::SimpleTasks

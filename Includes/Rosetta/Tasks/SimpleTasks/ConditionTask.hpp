@@ -32,6 +32,14 @@ class ConditionTask : public ITask
     explicit ConditionTask(EntityType entityType,
                            std::vector<RelaCondition> relaConditions);
 
+    //! Constructs task with given \p entityType and \p selfConditions and \p relaConditions.
+    //! \param entityType The entity type to check condition.
+    //! \param selfConditions A container of self condition.
+    //! \param relaConditions A container of relation condition.
+    explicit ConditionTask(EntityType entityType,
+                           std::vector<SelfCondition> selfConditions,
+                           std::vector<RelaCondition> relaConditions);                           
+
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
