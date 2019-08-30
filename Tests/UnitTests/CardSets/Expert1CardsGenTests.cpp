@@ -1495,6 +1495,57 @@ TEST(WarriorExpert1Test, EX1_408_MortalStrike)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 20);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [EX1_410] Shield Slam - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 1 damage to a minion for each Armor you have.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_410_ShieldSlam)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetArmor(3);
+
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shield Slam"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ironbark Protector"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1,card2));
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
+}
+
 // ----------------------------------------- SPELL - WARRIOR
 // [EX1_607] Inner Rage - COST:0
 // - Set: Expert1, Rarity: Common

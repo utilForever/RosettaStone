@@ -1421,6 +1421,21 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
         new FlagTask(false, { new DamageTask(EntityType::TARGET, 4, true) }));
     cards.emplace("EX1_408", power);
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_410] Shield Slam - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to a minion for each Armor you have.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ARMOR));
+    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    cards.emplace("EX1_410", power);
+
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
