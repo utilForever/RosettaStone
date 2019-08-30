@@ -14,8 +14,8 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
@@ -23,8 +23,8 @@
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawStackTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
@@ -153,7 +153,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_160] Power of the Wild - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Give your minions +1/+1; or Summon a 3/2
+    // Text: <b>Choose One -</b> Give your minions +1/+1;
+    //       or Summon a 3/2 Panther.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -179,7 +180,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: [x]<b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>; 
+    // Text: [x]<b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
     //       or a 4/6 with <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
@@ -353,22 +354,23 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     // Text: Give your minions +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("EX1_160be", EntityType::MINIONS));
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_160be", EntityType::MINIONS));
     cards.emplace("EX1_160b", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_160be] Leader of the Pack (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_160be"));
     cards.emplace("EX1_160be", power);
-    
+
     // ----------------------------------------- MINION - DRUID
     // [EX1_160t] Panther (*) - COST:2 [ATK:3/HP:2]
-    // - Race: Beast, Faction: Neutral, Set: Expert1
+    // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(nullptr);
@@ -966,15 +968,15 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
         DeckZone& deck = entity->owner->opponent->GetDeckZone();
         entity->owner->GetGame()->taskStack.entities = deck.GetAll();
     }));
-    power.AddPowerTask(
-        new FilterStackTask(SelfCondition::IsMinion()));
+    power.AddPowerTask(new FilterStackTask(SelfCondition::IsMinion()));
     power.AddPowerTask(new CountTask(EntityType::STACK));
-    power.AddPowerTask(new ConditionTask(EntityType::HERO,
-        { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
-    power.AddPowerTask(new FlagTask(true, { new RandomTask(EntityType::STACK, 1),
-        new CopyTask(EntityType::STACK, ZoneType::PLAY)}));
-    power.AddPowerTask(new FlagTask(false,
-        { new SummonTask("EX1_345t", SummonSide::SPELL) }));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
+    power.AddPowerTask(new FlagTask(
+        true, { new RandomTask(EntityType::STACK, 1),
+                new CopyTask(EntityType::STACK, ZoneType::PLAY) }));
+    power.AddPowerTask(
+        new FlagTask(false, { new SummonTask("EX1_345t", SummonSide::SPELL) }));
     cards.emplace("EX1_345", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -1030,15 +1032,18 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
         auto& stack = entity->owner->GetGame()->taskStack.entities;
         stack.clear();
-        stack.emplace_back(dynamic_cast<Entity*>(entity->owner->GetHero()->heroPower));
+        stack.emplace_back(
+            dynamic_cast<Entity*>(entity->owner->GetHero()->heroPower));
     }));
     power.AddPowerTask(new ConditionTask(
         EntityType::STACK, { SelfCondition::IsName("Mind Spike") }));
-    power.AddPowerTask(new FlagTask(true, { new ChangeHeroPowerTask("EX1_625t2") }));
-    power.AddPowerTask(new FlagTask(false, {
-        new ConditionTask(EntityType::STACK, { SelfCondition::IsName("Mind Shatter") }),
-        new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") })
-    }));
+    power.AddPowerTask(
+        new FlagTask(true, { new ChangeHeroPowerTask("EX1_625t2") }));
+    power.AddPowerTask(new FlagTask(
+        false,
+        { new ConditionTask(EntityType::STACK,
+                            { SelfCondition::IsName("Mind Shatter") }),
+          new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") }) }));
     cards.emplace("EX1_625", power);
 
     // ----------------------------------------- SPELL - PRIEST
@@ -1624,13 +1629,12 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     }));
     power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::DEMON)));
     power.AddPowerTask(new CountTask(EntityType::STACK));
-    power.AddPowerTask(new ConditionTask(EntityType::HERO, {
-        SelfCondition::IsStackNum(1, RelaSign::GEQ)
-    }));
-    power.AddPowerTask(new FlagTask(true, { new RandomTask(EntityType::STACK, 2),
-        new DrawStackTask(2)}));
-    power.AddPowerTask(new FlagTask(false,
-        { new AddCardTask(EntityType::HAND, "EX1_317t")}));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
+    power.AddPowerTask(new FlagTask(
+        true, { new RandomTask(EntityType::STACK, 2), new DrawStackTask(2) }));
+    power.AddPowerTask(
+        new FlagTask(false, { new AddCardTask(EntityType::HAND, "EX1_317t") }));
     cards.emplace("EX1_317", power);
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -1726,8 +1730,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new CountTask(EntityType::FRIENDS, 0,
-                                     { SelfCondition::IsDamaged() }));
+    power.AddPowerTask(
+        new CountTask(EntityType::FRIENDS, 0, { SelfCondition::IsDamaged() }));
     power.AddPowerTask(new DrawTask(0));
     cards.emplace("EX1_392", power);
 
@@ -1777,7 +1781,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new FlagTask(false, { new DamageTask(EntityType::TARGET, 4, true) }));
     cards.emplace("EX1_408", power);
-  
+
     // --------------------------------------- MINION - WARRIOR
     // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -2874,8 +2878,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
-    power.GetTrigger()->tasks =
-        { new AddEnchantmentTask("EX1_509e", EntityType::SOURCE) };
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_509e",
+                                                         EntityType::SOURCE) };
     cards.emplace("EX1_509", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3047,7 +3051,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     power.AddPowerTask(new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE));
     cards.emplace("NEW1_017", power);
-    
+
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
     // - Race: Pirate, Set: Expert1, Rarity: Common
@@ -3426,10 +3430,10 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF, {
-        Effects::AttackN(1), Effects::Windfury }));
+    power.AddAura(new EnrageEffect(AuraType::SELF,
+                                   { Effects::AttackN(1), Effects::Windfury }));
     cards.emplace("EX1_412e", power);
-    
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_507e] Mrgglaargl! (*) - COST:0
     // - Set: Expert1
