@@ -240,7 +240,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_158t", power);
-    
+
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164a] Rampant Growth (*) - COST:6
     // - Faction: Neutral, Set: Expert1
@@ -250,7 +250,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new ManaCrystalTask(2, true));
     cards.emplace("EX1_164a", power);
-    
+
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164b] Enrich (*) - COST:6
     // - Faction: Neutral, Set: Expert1
@@ -1403,10 +1403,9 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DestroyTask(EntityType::STACK));
     cards.emplace("EX1_407", power);
 
-    // ----------------------------------------- SPELL - WARRIOR
+    // ---------------------------------------- SPELL - WARRIOR
     // [EX1_408] Mortal Strike - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
-    // --------------------------------------------------------
     // --------------------------------------------------------
     // Text: Deal $4 damage. If you have 12 or less Health, deal $6 instead.
     // --------------------------------------------------------
@@ -1414,14 +1413,12 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
+    power.AddPowerTask(new ConditionTask(
+        EntityType::HERO, { SelfCondition::IsHealthValue(12, RelaSign::LEQ) }));
     power.AddPowerTask(
-        new ConditionTask(EntityType::HERO, { SelfCondition::IsHealthValue(12, RelaSign::LEQ) }));
-    power.AddPowerTask(new FlagTask(
-        true,
-        { new DamageTask(EntityType::TARGET, 6, true) }));
-    power.AddPowerTask(new FlagTask(
-        false,
-        { new DamageTask(EntityType::TARGET, 4, true) }));
+        new FlagTask(true, { new DamageTask(EntityType::TARGET, 6, true) }));
+    power.AddPowerTask(
+        new FlagTask(false, { new DamageTask(EntityType::TARGET, 4, true) }));
     cards.emplace("EX1_408", power);
 
     // ----------------------------------------- SPELL - WARRIOR
