@@ -454,7 +454,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_178ae] Rooted (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: +5 Health and <b>Taunt</b>
     // --------------------------------------------------------
@@ -474,7 +474,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_178be] Uprooted (*) - COST:0
-    // - Faction: Neutral, Set: Expert1
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: +5 Attack.
     // --------------------------------------------------------
