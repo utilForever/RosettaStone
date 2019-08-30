@@ -3401,7 +3401,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // [EX1_162o] Strength of the Pack (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: +1 Attack from {0}.
+    // Text: +1 Attack from Dire Wolf Alpha.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_162o"));
