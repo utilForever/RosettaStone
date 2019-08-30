@@ -943,7 +943,7 @@ TEST(MageExpert1Test, EX1_179_Icicle)
 
 // ------------------------------------------- SPELL - MAGE
 // [EX1_180] Tome of Intellect - COST:1
-// - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Add a random Mage spell to your hand.
 // --------------------------------------------------------
@@ -973,8 +973,7 @@ TEST(MageExpert1Test, EX1_180_TomeOfIntellect)
         curPlayer, Cards::GetInstance().FindCardByName("Tome of Intellect"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-
-    EXPECT_EQ(curHand.GetAll().at(4)->card->GetCardClass(), CardClass::MAGE);
+    EXPECT_EQ(curHand[4]->card->GetCardClass(), CardClass::MAGE);
 }
 
 // ------------------------------------------- SPELL - MAGE

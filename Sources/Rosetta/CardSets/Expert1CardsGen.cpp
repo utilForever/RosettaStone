@@ -657,7 +657,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_180] Tome of Intellect - COST:1
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Add a random Mage spell to your hand.
     // --------------------------------------------------------
