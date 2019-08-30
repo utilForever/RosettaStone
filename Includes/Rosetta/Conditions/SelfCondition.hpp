@@ -107,6 +107,13 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsStackNum(int value, RelaSign relaSign = RelaSign::EQ,
                                     int index = 0);
+  
+    //! SelfCondition wrapper for checking the health that satisfies
+    //! condition with \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHealth(int value, RelaSign relaSign);
 
     //! Evaluates condition using checking function.
     //! \param entity The owner entity.

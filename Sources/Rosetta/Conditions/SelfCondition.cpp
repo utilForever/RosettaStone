@@ -170,6 +170,21 @@ SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
                (relaSign == RelaSign::LEQ && num <= value);
     });
 }
+      
+SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        const auto character = dynamic_cast<Character*>(entity);
+        if (character == nullptr)
+        {
+            return false;
+        }
+
+        return (relaSign == RelaSign::EQ && character->GetHealth() == value) ||
+               (relaSign == RelaSign::GEQ && character->GetHealth() >= value) ||
+               (relaSign == RelaSign::LEQ && character->GetHealth() <= value);
+    });
+}
 
 bool SelfCondition::Evaluate(Entity* entity) const
 {

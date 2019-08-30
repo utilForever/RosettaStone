@@ -302,7 +302,7 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
     const auto card3 = Generic::DrawCard(
-        opPlayer, Cards::GetInstance().FindCardByID("EX1_164"));    
+        opPlayer, Cards::GetInstance().FindCardByID("EX1_164"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     EXPECT_EQ(curPlayer.GetTotalMana(), 8);
@@ -1782,6 +1782,70 @@ TEST(WarriorExpert1Test, EX1_407_Brawl)
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(curHand.GetCount(), 0);
     EXPECT_EQ(curField.GetCount() + opField.GetCount(), 1);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [EX1_408] Mortal Strike - COST:4
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal $4 damage. If you have 12 or less Health, deal $6 instead.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_408_MortalStrike)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mortal Strike"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mortal Strike"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer.GetHero()));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 24);
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card4, curPlayer.GetHero()));
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card5, curPlayer.GetHero()));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer.GetHero()));
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 20);
 }
 
 // --------------------------------------- MINION - WARRIOR
@@ -3338,16 +3402,16 @@ TEST(ShamanExpert1Test, EX1_245_EarthShock)
         curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
     const auto card2 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Earth Shock"));
-    
+
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    
+
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
-    
+
     const int curHandCount = curHand.GetCount();
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-    
+
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(curHand.GetCount(), curHandCount);
 }
