@@ -1414,7 +1414,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ConditionTask(
-        EntityType::HERO, { SelfCondition::IsHealthValue(12, RelaSign::LEQ) }));
+        EntityType::HERO, { SelfCondition::IsHealth(12, RelaSign::LEQ) }));
     power.AddPowerTask(
         new FlagTask(true, { new DamageTask(EntityType::TARGET, 6, true) }));
     power.AddPowerTask(

@@ -98,12 +98,12 @@ class SelfCondition
     //! \param isEqual The flag to indicate that the condition for equality.
     static SelfCondition IsName(const std::string& name, bool isEqual = true);
 
-    //! SelfCondition wrapper for checking the player's health that satisfies
+    //! SelfCondition wrapper for checking the health that satisfies
     //! condition with \p value and \p relaSign.
     //! \param value The value to check condition.
     //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition IsHealthValue(int value, RelaSign relaSign = RelaSign::EQ);
+    static SelfCondition IsHealth(int value, RelaSign relaSign);
 
     //! Evaluates condition using checking function.
     //! \param entity The owner entity.

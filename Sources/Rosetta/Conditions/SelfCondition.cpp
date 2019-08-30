@@ -159,15 +159,18 @@ SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
     });
 }
 
-SelfCondition SelfCondition::IsHealthValue(int value, RelaSign relaSign)
+SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 {
     return SelfCondition([=](Entity* entity) -> bool {
-        return (relaSign == RelaSign::EQ &&
-                entity->owner->GetHero()->GetHealth() == value) ||
-                (relaSign == RelaSign::GEQ &&
-                entity->owner->GetHero()->GetHealth() >= value) ||
-                (relaSign == RelaSign::LEQ &&
-                entity->owner->GetHero()->GetHealth() <= value);
+        const auto character = dynamic_cast<Character*>(entity);
+        if (character == nullptr)
+        {
+            return false;
+        }
+
+        return (relaSign == RelaSign::EQ && character->GetHealth() == value) ||
+               (relaSign == RelaSign::GEQ && character->GetHealth() >= value) ||
+               (relaSign == RelaSign::LEQ && character->GetHealth() <= value);
     });
 }
 
