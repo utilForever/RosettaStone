@@ -1620,15 +1620,20 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // Text: Draw 2 Demons from your deck.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new IncludeTask(EntityType::DECK));
-    power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::DEMON)));
-    power.AddPowerTask(new CountTask(EntityType::STACK));
-    power.AddPowerTask(new ConditionTask(
-        EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
-    power.AddPowerTask(new FlagTask(
-        true, { new RandomTask(EntityType::STACK, 2), new DrawStackTask(2) }));
-    power.AddPowerTask(
-        new FlagTask(false, { new AddCardTask(EntityType::HAND, "EX1_317t") }));
+    for (size_t i = 0; i < 2; ++i)
+    {
+        power.AddPowerTask(new IncludeTask(EntityType::DECK));
+        power.AddPowerTask(
+            new FilterStackTask(SelfCondition::IsRace(Race::DEMON)));
+        power.AddPowerTask(new CountTask(EntityType::STACK));
+        power.AddPowerTask(new ConditionTask(
+            EntityType::HERO, { SelfCondition::IsStackNum(1, RelaSign::GEQ) }));
+        power.AddPowerTask(new FlagTask(
+            true,
+            { new RandomTask(EntityType::STACK, 1), new DrawStackTask(1) }));
+        power.AddPowerTask(new FlagTask(
+            false, { new AddCardTask(EntityType::HAND, "EX1_317t") }));
+    }
     cards.emplace("EX1_317", power);
 
     // ---------------------------------------- SPELL - WARLOCK
