@@ -7710,7 +7710,7 @@ TEST(NeutralExpert1Test, NEW1_018_BloodsailRaider)
     auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByID("CS2_106"));
+        curPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Bloodsail Raider"));
     const auto card3 = Generic::DrawCard(
