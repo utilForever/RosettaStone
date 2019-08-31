@@ -95,6 +95,7 @@ enum class EntityType
     ENEMY_WEAPON,
     HAND,
     ENEMY_HAND,
+    DECK,
     ENEMY_DECK,
     ALL_MINIONS,
     ALL_MINIONS_NOSOURCE,
