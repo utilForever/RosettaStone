@@ -1736,7 +1736,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
-    // - Set: Expert1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Has +3 Attack while damaged.
     // --------------------------------------------------------
