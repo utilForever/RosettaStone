@@ -7654,13 +7654,27 @@ TEST(NeutralExpert1Test, NEW1_017_HungryCrab)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
     const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByID("NEW1_017"));
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hungry Crab"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hungry Crab"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
-    EXPECT_EQ(curField.GetCount(), 1);
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
-    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card2));
+    EXPECT_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
+    EXPECT_EQ(curField.GetCount(), 3);
+    EXPECT_EQ(curField[2]->GetAttack(), 3);
+    EXPECT_EQ(curField[2]->GetHealth(), 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL
