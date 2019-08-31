@@ -1166,6 +1166,17 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("EX1_567", power);
 
     // ---------------------------------------- MINION - SHAMAN
+    // [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new DrawTask(1) };
+    cards.emplace("EX1_575", power);
+
+    // ---------------------------------------- MINION - SHAMAN
     // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
     // - Race: Elemental, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------

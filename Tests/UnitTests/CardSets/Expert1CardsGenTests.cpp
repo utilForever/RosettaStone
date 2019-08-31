@@ -6437,6 +6437,45 @@ TEST(NeutralExpert1Test, EX1_572_Ysera)
                           dreamCard->id) != entourages.end());
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, draw a card.
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_575_ManaTideTotem)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mana Tide Totem"));
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
