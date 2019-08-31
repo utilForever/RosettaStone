@@ -6922,9 +6922,9 @@ TEST(NeutralExpert1Test, EX1_405_Shieldbearer)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
-// - Set: Expert1, Rarity: Common
+// - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Taunt</b> Has +3 Attack while damaged.
+// Text: Has +1 Attack and <b>Windfury</b> while damaged.
 // --------------------------------------------------------
 // GameTag:
 // - ENRAGED = 1
@@ -6960,8 +6960,9 @@ TEST(NeutralExpert1Test, EX1_412_RagingWorgen)
         curPlayer, Cards::GetInstance().FindCardByName("Circle of Healing"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(), 3);
     EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -6969,14 +6970,23 @@ TEST(NeutralExpert1Test, EX1_412_RagingWorgen)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayerTasks::AttackTask(card1, opPlayer.GetHero()));
+    game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
     EXPECT_FALSE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(curPlayer, HeroPowerTask(card1));
     EXPECT_TRUE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_FALSE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL

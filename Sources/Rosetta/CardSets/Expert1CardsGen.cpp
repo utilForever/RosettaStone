@@ -2834,9 +2834,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
-    // - Set: Expert1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b> Has +3 Attack while damaged.
+    // Text: Has +1 Attack and <b>Windfury</b> while damaged.
     // --------------------------------------------------------
     // GameTag:
     // - ENRAGED = 1
