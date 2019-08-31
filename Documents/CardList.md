@@ -329,7 +329,7 @@ EXPERT1 | EX1_570 | Bite | O
 EXPERT1 | EX1_571 | Force of Nature |  
 EXPERT1 | EX1_572 | Ysera | O
 EXPERT1 | EX1_573 | Cenarius |  
-EXPERT1 | EX1_575 | Mana Tide Totem |  
+EXPERT1 | EX1_575 | Mana Tide Totem | O 
 EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 60% (143 of 237 Cards)
+- Progress: 61% (144 of 237 Cards)
 
 ## Hall of Fame
 
