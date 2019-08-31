@@ -3047,8 +3047,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - REQ_TARGET_WITH_RACE = 14
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
-    power.AddPowerTask(new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE));
+    power.AddPowerTask(new ConditionTask(
+        EntityType::TARGET, { SelfCondition::IsRace(Race::MURLOC) }));
+    power.AddPowerTask(new FlagTask(
+        true, { new DestroyTask(EntityType::TARGET),
+                new AddEnchantmentTask("NEW1_017e", EntityType::SOURCE) }));
     cards.emplace("NEW1_017", power);
 
     // --------------------------------------- MINION - NEUTRAL
