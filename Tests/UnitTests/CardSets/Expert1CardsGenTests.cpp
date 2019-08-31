@@ -1648,7 +1648,6 @@ TEST(WarriorExpert1Test, EX1_392_BattleRage)
     opPlayer.GetHero()->SetDamage(1);
 
     auto& opField = opPlayer.GetFieldZone();
-
     auto& curHand = curPlayer.GetHandZone();
     auto& opHand = opPlayer.GetHandZone();
 
@@ -1669,7 +1668,7 @@ TEST(WarriorExpert1Test, EX1_392_BattleRage)
 
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     game.Process(opPlayer, PlayCardTask::Minion(card4));
-    game.Process(opPlayer, PlayerTasks::HeroPowerTask(card3));
+    game.Process(opPlayer, HeroPowerTask(card3));
     game.Process(opPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(opField[0]->GetDamage(), 1);
     EXPECT_EQ(opHand.GetCount(), 8);
