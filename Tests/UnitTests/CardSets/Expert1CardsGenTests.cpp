@@ -6750,7 +6750,7 @@ TEST(WarlockExpert1Test, EX1_317_SenseDemons)
     config.skipMulligan = true;
     config.doShuffle = false;
 
-    for (int i = 0; i < 6; ++i)
+    for (int i = 0; i < 7; ++i)
     {
         config.player1Deck[i] =
             *Cards::GetInstance().FindCardByName("Blood Imp");
@@ -6775,16 +6775,15 @@ TEST(WarlockExpert1Test, EX1_317_SenseDemons)
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Sense Demons"));
 
-    EXPECT_EQ(curDeck.GetCount(), 2);
-
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curDeck.GetCount(), 0);
-    EXPECT_EQ(curHand.GetCount(), 7);
+    EXPECT_EQ(curDeck.GetCount(), 1);
+    EXPECT_EQ(curHand[5]->card->name, "Blood Imp");
+    EXPECT_EQ(curHand[6]->card->name, "Blood Imp");
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(curDeck.GetCount(), 0);
-    EXPECT_EQ(curHand.GetCount(), 7);
-    EXPECT_EQ(curHand.GetAll().at(6)->card->name, "Worthless Imp");
+    EXPECT_EQ(curHand[6]->card->name, "Blood Imp");
+    EXPECT_EQ(curHand[7]->card->name, "Worthless Imp");
 }
 
 // ---------------------------------------- SPELL - WARLOCK
