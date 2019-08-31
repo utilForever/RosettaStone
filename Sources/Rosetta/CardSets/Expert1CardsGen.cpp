@@ -1349,6 +1349,16 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::HealthN(1)));
     cards.emplace("CS2_059o", power);
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [EX1_596e] Demonfire (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: This Demon has +2/+2.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackHealthN(2)));
+    cards.emplace("EX1_596e", power);
 }
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
@@ -1435,6 +1445,27 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ARMOR));
     power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
     cards.emplace("EX1_410", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_596] Demonfire - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to a minion. If it’s a friendly Demon,
+    //       give it +2/+2 instead.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - EQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ConditionTask(EntityType::TARGET, 
+        { SelfCondition::IsRace(Race::DEMON)}, 
+        { RelaCondition::IsFriendly()}));
+    power.AddPowerTask(new FlagTask(true,
+        { new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
+    power.AddPowerTask(new FlagTask(false,
+        { new DamageTask(EntityType::TARGET, 2, true) }));
+    cards.emplace("EX1_596", power);
 
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
