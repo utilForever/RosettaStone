@@ -2794,7 +2794,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
-    // - Set: Expert1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b> Has +3 Attack while damaged.
     // --------------------------------------------------------

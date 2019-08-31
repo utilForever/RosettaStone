@@ -6848,7 +6848,7 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
-// - Set: Expert1, Rarity: Common
+// - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b> Has +3 Attack while damaged.
 // --------------------------------------------------------
@@ -6884,10 +6884,12 @@ TEST(NeutralExpert1Test, EX1_390_TaurenWarrior)
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
     EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
+    game.Process(curPlayer, HeroPowerTask(card1));
     EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
     EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
 }
 
 // --------------------------------------- MINION - NEUTRAL
