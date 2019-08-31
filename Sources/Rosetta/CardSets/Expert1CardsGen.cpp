@@ -3437,7 +3437,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // [EX1_507e] Mrgglaargl! (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: +2 Attack fr Attack from Murloc Warleader.
+    // Text: +2 Attack from Murloc Warleader.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_507e"));
