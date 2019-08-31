@@ -339,7 +339,7 @@ EXPERT1 | EX1_590 | Blood Knight |
 EXPERT1 | EX1_591 | Auchenai Soulpriest |  
 EXPERT1 | EX1_594 | Vaporize |  
 EXPERT1 | EX1_595 | Cult Master |  
-EXPERT1 | EX1_596 | Demonfire |  
+EXPERT1 | EX1_596 | Demonfire | O
 EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 60% (142 of 237 Cards)
+- Progress: 60% (143 of 237 Cards)
 
 ## Hall of Fame
 
