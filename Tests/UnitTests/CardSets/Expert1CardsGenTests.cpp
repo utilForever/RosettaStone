@@ -2231,7 +2231,6 @@ TEST(PriestExpert1Test, EX1_345_Mindgames)
     opPlayer.SetUsedMana(0);
 
     auto& curField = curPlayer.GetFieldZone();
-
     auto& opDeck = opPlayer.GetDeckZone();
 
     const auto card1 = Generic::DrawCard(
@@ -2250,6 +2249,7 @@ TEST(PriestExpert1Test, EX1_345_Mindgames)
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
+
     EXPECT_EQ(opDeck.GetCount(), 0);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));

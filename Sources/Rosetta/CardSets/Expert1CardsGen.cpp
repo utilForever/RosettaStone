@@ -964,10 +964,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        DeckZone& deck = entity->owner->opponent->GetDeckZone();
-        entity->owner->GetGame()->taskStack.entities = deck.GetAll();
-    }));
+    power.AddPowerTask(new IncludeTask(EntityType::ENEMY_DECK));
     power.AddPowerTask(new FilterStackTask(SelfCondition::IsMinion()));
     power.AddPowerTask(new CountTask(EntityType::STACK));
     power.AddPowerTask(new ConditionTask(
