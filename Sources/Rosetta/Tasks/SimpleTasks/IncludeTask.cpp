@@ -32,10 +32,16 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
     switch (entityType)
     {
         case EntityType::SOURCE:
-            entities.emplace_back(source);
+            if (source != nullptr)
+            {
+                entities.emplace_back(source);
+            }
             break;
         case EntityType::TARGET:
-            entities.emplace_back(target);
+            if (target != nullptr)
+            {
+                entities.emplace_back(target);
+            }
             break;
         case EntityType::ALL:
             for (auto& minion : player.GetFieldZone().GetAll())
