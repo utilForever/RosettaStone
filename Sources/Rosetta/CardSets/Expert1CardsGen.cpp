@@ -1620,10 +1620,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // Text: Draw 2 Demons from your deck.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        DeckZone& deck = entity->owner->GetDeckZone();
-        entity->owner->GetGame()->taskStack.entities = deck.GetAll();
-    }));
+    power.AddPowerTask(new IncludeTask(EntityType::DECK));
     power.AddPowerTask(new FilterStackTask(SelfCondition::IsRace(Race::DEMON)));
     power.AddPowerTask(new CountTask(EntityType::STACK));
     power.AddPowerTask(new ConditionTask(
