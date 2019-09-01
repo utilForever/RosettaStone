@@ -170,7 +170,7 @@ SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
 {
     return SelfCondition([=](Entity* entity) -> bool {
         auto& stack = entity->owner->GetGame()->taskStack;
-        auto num = index == 0 ? stack.num : stack.num1;
+        const auto num = index == 0 ? stack.num : stack.num1;
 
         return (relaSign == RelaSign::EQ && num == value) ||
                (relaSign == RelaSign::GEQ && num >= value) ||
