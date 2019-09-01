@@ -231,7 +231,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new EnqueueTask({ new SummonTask("EX1_tk9") }, 3));
+    power.AddPowerTask(new SummonTask("EX1_tk9", 3));
     cards.emplace("EX1_571", power);
 }
 
