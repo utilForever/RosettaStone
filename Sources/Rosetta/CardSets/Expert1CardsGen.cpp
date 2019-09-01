@@ -178,9 +178,9 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
-    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: [x]<b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
+    // Text: <b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
     //       or a 4/6 with <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
@@ -398,7 +398,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165a] Cat Form (*) - COST:5 [ATK:4/HP:4]
-    // - Race: Beast, Faction: Neutral, Set: Expert1
+    // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -408,7 +408,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165b] Bear Form (*) - COST:5 [ATK:4/HP:6]
-    // - Race: Beast, Faction: Neutral, Set: Expert1
+    // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -418,7 +418,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:4/HP:4]
-    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -431,7 +431,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:4/HP:6]
-    // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
