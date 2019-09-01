@@ -133,7 +133,7 @@ class Entity
     //! \param type The type of power.
     //! \param target The target.
     //! \param chooseOne The index of chosen card from two cards.
-    //! \parm chooseBase Choose One card.
+    //! \param chooseBase The base card to apply card effect.
     void ActivateTask(PowerType type, Entity* target = nullptr,
                       int chooseOne = 0, Entity* chooseBase = nullptr);
 
