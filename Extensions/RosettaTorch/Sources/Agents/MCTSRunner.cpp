@@ -9,6 +9,8 @@
 
 #include <Agents/MCTSRunner.hpp>
 
+#include <Rosetta/Views/BoardView.hpp>
+
 namespace RosettaTorch::Agents
 {
 MCTSRunner::MCTSRunner(const MCTSConfig& config) : m_config(config)
@@ -21,13 +23,16 @@ MCTSRunner::~MCTSRunner()
     WaitUntilStopped();
 }
 
-void MCTSRunner::Run(const BoardRefView& view)
+void MCTSRunner::Run(const BoardRefView& gameState)
 {
     m_stopFlag = false;
 
     for (int i = 0; i < m_config.threads; ++i)
     {
-        m_threads.emplace_back([this, view]() {
+        m_threads.emplace_back([this, gameState]() {
+            BoardView boardView;
+            boardView.Parse(gameState);
+
             MCTS::MOMCTS mcts(m_p1Tree, m_p2Tree, m_statistics, m_config.mcts);
 
             while (!m_stopFlag.load())
