@@ -140,11 +140,6 @@ class Cards
     //! \return A default hero power card that matches condition.
     static Card* GetDefaultHeroPower(CardClass cardClass);
 
-    //! Returns whether this card is empty.
-    //! \param card Card to check
-    //! \return whether this card is empty.
-    static bool IsEmptyCard(Card* card);
-
  private:
     //! Constructor: Loads card data.
     Cards();

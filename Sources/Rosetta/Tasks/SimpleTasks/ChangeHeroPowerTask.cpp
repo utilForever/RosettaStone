@@ -21,16 +21,10 @@ TaskID ChangeHeroPowerTask::GetTaskID() const
 
 TaskStatus ChangeHeroPowerTask::Impl(Player& player)
 {
-    if (Cards::IsEmptyCard(m_card) ||
-        m_card->GetCardType() != CardType::HERO_POWER)
-    {
-        return TaskStatus::STOP;
-    }
-    
     delete player.GetHero()->heroPower;
-    player.GetHero()->heroPower = 
+    player.GetHero()->heroPower =
         dynamic_cast<HeroPower*>(Entity::GetFromCard(player, m_card));
-    
+
     return TaskStatus::COMPLETE;
 }
 
