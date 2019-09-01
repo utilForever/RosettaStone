@@ -325,9 +325,9 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
 
 // ----------------------------------------- MINION - DRUID
 // [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
-// - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+// - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: [x]<b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
+// Text: <b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
 //       or a 4/6 with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
@@ -360,20 +360,29 @@ TEST(DruidExpert1Test, EX1_165_DruidOfTheClaw)
     auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByID("EX1_165"));
+        curPlayer, Cards::GetInstance().FindCardByName("Druid of the Claw"));
     const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByID("EX1_165"));
+        curPlayer, Cards::GetInstance().FindCardByName("Druid of the Claw"));
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Silence"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
     EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(curField[1]->GetHealth(), 6);
     EXPECT_TRUE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    EXPECT_EQ(curField[1]->GetAttack(), 4);
     EXPECT_EQ(curField[1]->GetHealth(), 6);
+    EXPECT_FALSE(curField[1]->CanAttack());
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    EXPECT_EQ(curField[1]->GetAttack(), 4);
+    EXPECT_EQ(curField[1]->GetHealth(), 6);
+    EXPECT_FALSE(curField[1]->CanAttack());
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
 }
 
 // ----------------------------------------- MINION - DRUID
