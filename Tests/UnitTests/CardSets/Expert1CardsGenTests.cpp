@@ -503,9 +503,9 @@ TEST(DruidExpert1Test, EX1_571_ForceOfNature)
     auto& curField = curPlayer.GetFieldZone();
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByID("EX1_571"));
+        curPlayer, Cards::GetInstance().FindCardByName("Force of Nature"));
     const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByID("EX1_571"));
+        curPlayer, Cards::GetInstance().FindCardByName("Force of Nature"));
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
     const auto card4 = Generic::DrawCard(
@@ -516,6 +516,8 @@ TEST(DruidExpert1Test, EX1_571_ForceOfNature)
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card4));
     game.Process(curPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField.GetCount(), 3);
+
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(curField.GetCount(), 6);
     EXPECT_EQ(curField[3]->card->name, "Treant");
@@ -524,6 +526,7 @@ TEST(DruidExpert1Test, EX1_571_ForceOfNature)
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curField[6]->card->name, "Treant");
 }
 
 // ---------------------------------------- WEAPON - HUNTER
