@@ -43,31 +43,3 @@ TEST(ChangeHeroPowerTask, Run)
         Cards::GetInstance().GetDefaultHeroPower(CardClass::MAGE)->id);
     EXPECT_FALSE(hero.heroPower->IsExhausted());
 }
-
-TEST(ChangeHeroPowerTask, InvalidCardID)
-{
-    GameConfig config;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.player1Class = CardClass::PRIEST;
-    Game game(config);
-
-    ChangeHeroPowerTask change("");
-    change.SetPlayer(&game.GetPlayer1());
-
-    TaskStatus result = change.Run();
-    EXPECT_EQ(result, TaskStatus::STOP);
-}
-
-TEST(ChangeHeroPowerTask, InvalidCardType)
-{
-    GameConfig config;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.player1Class = CardClass::PRIEST;
-    Game game(config);
-
-    ChangeHeroPowerTask change("CS2_118");  // Minion
-    change.SetPlayer(&game.GetPlayer1());
-
-    TaskStatus result = change.Run();
-    EXPECT_EQ(result, TaskStatus::STOP);
-}
