@@ -31,8 +31,8 @@ class NullRecorder
         // Do nothing
     }
 
-    void RecordMainAction([[maybe_unused]] const RosettaStone::Game& game,
-                          [[maybe_unused]] RosettaStone::MainOpType op)
+    void RecordMainAction([[maybe_unused]] const Game& game,
+                          [[maybe_unused]] MainOpType op)
     {
         // Do nothing
     }
@@ -43,15 +43,14 @@ class NullRecorder
         // Do nothing
     }
 
-    void RecordManualAction(
-        [[maybe_unused]] RosettaStone::ActionType actionType,
-        [[maybe_unused]] RosettaStone::ActionChoices actionChoices,
-        [[maybe_unused]] int action)
+    void RecordManualAction([[maybe_unused]] ActionType actionType,
+                            [[maybe_unused]] ActionChoices actionChoices,
+                            [[maybe_unused]] int action)
     {
         // Do nothing
     }
 
-    void End([[maybe_unused]] RosettaStone::PlayState result)
+    void End([[maybe_unused]] PlayState result)
     {
         // Do nothing
     }
@@ -92,19 +91,18 @@ class Judger
         m_second = second;
     }
 
-    RosettaStone::PlayState Start(RosettaStone::Game& game)
+    PlayState Start(Game& game)
     {
         m_recorder.Start();
 
         game.StartGame();
 
-        RosettaStone::PlayState result;
+        PlayState result;
         AgentType* nextAgent = nullptr;
 
         while (true)
         {
-            if (game.GetCurrentPlayer().playerType ==
-                RosettaStone::PlayerType::PLAYER1)
+            if (game.GetCurrentPlayer().playerType == PlayerType::PLAYER1)
             {
                 nextAgent = m_first;
             }
@@ -113,13 +111,13 @@ class Judger
                 nextAgent = m_second;
             }
 
-            nextAgent->Think(RosettaStone::BoardRefView(
-                game, game.GetCurrentPlayer().playerType));
+            nextAgent->Think(
+                BoardRefView(game, game.GetCurrentPlayer().playerType));
 
             m_actionCallback.Initialize(game, nextAgent);
             result = game.PerformAction(m_actionCallback);
 
-            if (result != RosettaStone::PlayState::PLAYING)
+            if (result != PlayState::PLAYING)
             {
                 break;
             }
@@ -131,7 +129,7 @@ class Judger
     }
 
  private:
-    class ActionCallback : public RosettaStone::ActionParams
+    class ActionCallback : public ActionParams
     {
      public:
         ActionCallback(Judger& guide)
@@ -152,7 +150,7 @@ class Judger
         //! Deleted move assignment operator.
         ActionCallback& operator=(ActionCallback&& rhs) noexcept = delete;
 
-        void Initialize(const RosettaStone::Game& game, AgentType* callback)
+        void Initialize(const Game& game, AgentType* callback)
         {
             m_game = &game;
             m_callback = callback;
@@ -160,10 +158,10 @@ class Judger
             ActionParams::Initialize(*m_game);
         }
 
-        std::size_t GetNumber(RosettaStone::ActionType actionType,
-                              RosettaStone::ActionChoices& choices) final
+        std::size_t GetNumber(ActionType actionType,
+                              ActionChoices& choices) final
         {
-            if (actionType == RosettaStone::ActionType::RANDOM)
+            if (actionType == ActionType::RANDOM)
             {
                 int exclusiveMax = choices.Size();
                 auto action = Random::get<std::size_t>(0, exclusiveMax - 1);
@@ -173,7 +171,7 @@ class Judger
 
             int action = m_callback->GetAction(actionType, choices);
 
-            if (actionType == RosettaStone::ActionType::MAIN_ACTION)
+            if (actionType == ActionType::MAIN_ACTION)
             {
                 auto mainOp = m_checker.GetMainActions()[action];
                 m_guide.m_recorder.RecordMainAction(*m_game, mainOp);
@@ -187,7 +185,7 @@ class Judger
      private:
         Judger& m_guide;
         AgentType* m_callback;
-        const RosettaStone::Game* m_game;
+        const Game* m_game;
     };
 
     ActionCallback m_actionCallback;
