@@ -1886,16 +1886,16 @@ TEST(WarriorExpert1Test, EX1_414_GrommashHellscream)
         curPlayer, Cards::GetInstance().FindCardByName("Circle of Healing"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetDamage(), 0);
     EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
-    EXPECT_EQ(curField[0]->GetDamage(), 1);
+    game.Process(curPlayer, HeroPowerTask(card1));
     EXPECT_EQ(curField[0]->GetAttack(), 10);
+    EXPECT_EQ(curField[0]->GetHealth(), 8);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    EXPECT_EQ(curField[0]->GetDamage(), 0);
     EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
 }
 
 // ----------------------------------------- SPELL - WARRIOR
