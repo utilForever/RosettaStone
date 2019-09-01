@@ -22,6 +22,7 @@ enum class TaskID
 {
     INVALID,
     DRAW,
+    DRAW_NUMBER,
     DRAW_OP,
     DRAW_STACK,
     OVERDRAW,
