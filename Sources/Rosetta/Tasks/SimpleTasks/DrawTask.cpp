@@ -24,9 +24,7 @@ TaskStatus DrawTask::Impl(Player& player)
 {
     std::vector<Entity*> cards;
 
-    const int amount = m_amount == 0 ? player.GetGame()->taskStack.num : m_amount;
-
-    for (int i = 0; i < amount; ++i)
+    for (int i = 0; i < m_amount; ++i)
     {
         Entity* card = Generic::Draw(player, nullptr);
         cards.emplace_back(card);
