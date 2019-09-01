@@ -55,9 +55,9 @@ class ReducedBoardView
     //! \return The current turn of the game.
     int GetTurn() const;
 
-    //! Returns the player type of the view.
-    //! \return the player type of the view.
-    PlayerType GetPlayerType() const;
+    //! Returns the side of the view.
+    //! \return the side of the view.
+    PlayerType GetSide() const;
 
     //! Returns the hero of the current player.
     //! \return The hero of the current player.
@@ -117,7 +117,7 @@ class ReducedBoardView
 
  private:
     int m_turn;
-    PlayerType m_playerType;
+    PlayerType m_side;
 
     ViewTypes::MyHero m_myHero;
     ViewTypes::HeroPower m_myHeroPower;
@@ -149,7 +149,7 @@ struct hash<ReducedBoardView>
     {
         std::size_t result = 0;
         CombineHash(result, rhs.m_turn);
-        CombineHash(result, static_cast<int>(rhs.m_playerType));
+        CombineHash(result, static_cast<int>(rhs.m_side));
 
         CombineHash(result, rhs.m_myHero);
         CombineHash(result, rhs.m_myHeroPower);

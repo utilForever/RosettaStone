@@ -13,17 +13,19 @@
 namespace RosettaStone
 {
 ReducedBoardView::ReducedBoardView(const BoardRefView& view)
-    : m_turn(view.GetTurn()), m_playerType(view.GetPlayerType())
+    : m_turn(view.GetTurn()), m_side(view.GetSide())
 {
-    m_myHero.Fill(*view.GetHero(), view.IsHeroAttackable(m_playerType));
-    m_myHeroPower.Fill(view.GetHeroPower(m_playerType));
+    m_myHero.Fill(*view.GetHero(), view.IsHeroAttackable(m_side));
+    m_myHeroPower.Fill(view.GetHeroPower(m_side));
     m_myWeapon.Invalidate();
-    if (view.GetWeapon(m_playerType) != nullptr)
+    if (view.GetWeapon(m_side) != nullptr)
     {
-        m_myWeapon.Fill(*view.GetWeapon(m_playerType));
+        m_myWeapon.Fill(*view.GetWeapon(m_side));
     }
-    m_myManaCrystal.Fill(view.GetCurrentPlayer());
-    for (auto& minion : view.GetMinions(m_playerType))
+    m_myManaCrystal.Fill(
+        view.GetRemainingMana(m_side), view.GetTotalMana(m_side),
+        view.GetOverloadOwed(m_side), view.GetOverloadLocked(m_side));
+    for (auto& minion : view.GetMinions(m_side))
     {
         ViewTypes::MyMinion myMinion;
         myMinion.Fill(*minion, minion->CanAttack());
@@ -37,21 +39,23 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& view)
 
         m_myHand.emplace_back(myHandCard);
     }
-    m_myDeck.Fill(view.GetDeckCardCount(m_playerType));
+    m_myDeck.Fill(view.GetDeckCardCount(m_side));
 
-    const PlayerType opPlayerType =
-        (m_playerType == PlayerType::PLAYER1 ? PlayerType::PLAYER2
-                                             : PlayerType::PLAYER1);
+    const PlayerType opSide =
+        (m_side == PlayerType::PLAYER1 ? PlayerType::PLAYER2
+                                       : PlayerType::PLAYER1);
 
     m_opHero.Fill(*view.GetOpponentHero());
-    m_opHeroPower.Fill(view.GetHeroPower(opPlayerType));
+    m_opHeroPower.Fill(view.GetHeroPower(opSide));
     m_opWeapon.Invalidate();
-    if (view.GetWeapon(opPlayerType) != nullptr)
+    if (view.GetWeapon(opSide) != nullptr)
     {
-        m_opWeapon.Fill(*view.GetWeapon(opPlayerType));
+        m_opWeapon.Fill(*view.GetWeapon(opSide));
     }
-    m_opManaCrystal.Fill(*view.GetCurrentPlayer().opponent);
-    for (auto& minion : view.GetMinions(opPlayerType))
+    m_opManaCrystal.Fill(
+        view.GetRemainingMana(opSide), view.GetTotalMana(opSide),
+        view.GetOverloadOwed(opSide), view.GetOverloadLocked(opSide));
+    for (auto& minion : view.GetMinions(opSide))
     {
         ViewTypes::MyMinion opMinion;
         opMinion.Fill(*minion, minion->CanAttack());
@@ -63,12 +67,12 @@ ReducedBoardView::ReducedBoardView(const BoardRefView& view)
         ViewTypes::OpHandCard opHandCard;
         m_opHand.emplace_back(opHandCard);
     }
-    m_opDeck.Fill(view.GetDeckCardCount(opPlayerType));
+    m_opDeck.Fill(view.GetDeckCardCount(opSide));
 }
 
 bool ReducedBoardView::operator==(const ReducedBoardView& rhs) const
 {
-    return (m_turn == rhs.m_turn) && (m_playerType == rhs.m_playerType) &&
+    return (m_turn == rhs.m_turn) && (m_side == rhs.m_side) &&
            (m_myHero == rhs.m_myHero) && (m_myHeroPower == rhs.m_myHeroPower) &&
            (m_myWeapon == rhs.m_myWeapon) &&
            (m_myManaCrystal == rhs.m_myManaCrystal) &&
@@ -91,9 +95,9 @@ int ReducedBoardView::GetTurn() const
     return m_turn;
 }
 
-PlayerType ReducedBoardView::GetPlayerType() const
+PlayerType ReducedBoardView::GetSide() const
 {
-    return m_playerType;
+    return m_side;
 }
 
 const ViewTypes::MyHero& ReducedBoardView::GetMyHero() const
