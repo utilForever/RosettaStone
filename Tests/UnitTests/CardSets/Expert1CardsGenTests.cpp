@@ -2455,13 +2455,13 @@ TEST(PriestExpert1Test, EX1_625_Shadowform)
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Shadowform"));
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    game.Process(curPlayer, HeroPowerTask(opHero));
     EXPECT_EQ(opHero->GetHealth(), 29);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Spike");
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    game.Process(curPlayer, HeroPowerTask(opHero));
     EXPECT_EQ(opHero->GetHealth(), 27);
 
     game.Process(curPlayer, EndTurnTask());
@@ -2470,13 +2470,13 @@ TEST(PriestExpert1Test, EX1_625_Shadowform)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    game.Process(curPlayer, HeroPowerTask(opHero));
     EXPECT_EQ(opHero->GetHealth(), 25);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Shatter");
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    game.Process(curPlayer, HeroPowerTask(opHero));
     EXPECT_EQ(opHero->GetHealth(), 22);
 
     game.Process(curPlayer, EndTurnTask());
@@ -2485,15 +2485,13 @@ TEST(PriestExpert1Test, EX1_625_Shadowform)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    game.Process(curPlayer, HeroPowerTask(opHero));
     EXPECT_EQ(opHero->GetHealth(), 19);
 
-    const HeroPower* heroPower = curPlayer.GetHero()->heroPower;
-
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curPlayer.GetHero()->heroPower, heroPower);
+    EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Shatter");
 
-    game.Process(curPlayer, PlayerTasks::HeroPowerTask(opHero));
+    game.Process(curPlayer, HeroPowerTask(opHero));
     EXPECT_EQ(opHero->GetHealth(), 19);
 }
 
