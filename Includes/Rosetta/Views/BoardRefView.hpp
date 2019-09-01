@@ -29,17 +29,17 @@ class BoardRefView
     //! \param playerType The player type of the board.
     BoardRefView(const Game& game, PlayerType playerType);
 
+    //! Returns the side of the view.
+    //! \return The side of the view.
+    PlayerType GetSide() const;
+
     //! Returns the current turn of the game.
     //! \return The current turn of the game.
     int GetTurn() const;
 
-    //! Returns the player type of the view.
-    //! \return the player type of the view.
-    PlayerType GetPlayerType() const;
-
     //! Returns the current player of the game.
     //! \return The current player of the game.
-    Player& GetCurrentPlayer() const;
+    PlayerType GetCurrentPlayer() const;
 
     //! Returns the fatigue damage of the player in the current status.
     //! \param playerType The player type to separate players.

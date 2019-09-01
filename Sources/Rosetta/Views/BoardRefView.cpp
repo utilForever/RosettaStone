@@ -17,19 +17,19 @@ BoardRefView::BoardRefView(const Game& game, PlayerType playerType)
     // Do nothing
 }
 
+PlayerType BoardRefView::GetSide() const
+{
+    return m_playerType;
+}
+
 int BoardRefView::GetTurn() const
 {
     return m_game.GetTurn();
 }
 
-PlayerType BoardRefView::GetPlayerType() const
+PlayerType BoardRefView::GetCurrentPlayer() const
 {
-    return m_playerType;
-}
-
-Player& BoardRefView::GetCurrentPlayer() const
-{
-    return m_game.GetCurrentPlayer();
+    return m_game.GetCurrentPlayer().playerType;
 }
 
 int BoardRefView::GetFatigueDamage(PlayerType playerType) const
