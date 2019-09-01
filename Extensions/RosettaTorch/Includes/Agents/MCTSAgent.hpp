@@ -85,19 +85,19 @@ class MCTSAgent
     MCTSAgent& operator=(MCTSAgent&&) noexcept = delete;
 
     //! Process Think() related methods.
-    //! \param view The board ref view to set game state.
-    void Think(const BoardRefView& view)
+    //! \param gameState The board ref view to set game state.
+    void Think(const BoardRefView& gameState)
     {
-        m_callback.BeforeThink(view);
+        m_callback.BeforeThink(gameState);
 
         m_controller.reset(new MCTSRunner(m_config));
-        m_controller->Run(view);
+        m_controller->Run(gameState);
 
         while (true)
         {
             const uint64_t iterations =
                 m_controller->GetStatistics().GetSuccededIterates();
-            m_callback.Think(view, iterations);
+            m_callback.Think(gameState, iterations);
 
             if (iterations >=
                 static_cast<uint64_t>(m_config.iterationsPerAction))
@@ -114,7 +114,7 @@ class MCTSAgent
         m_callback.AfterThink(
             m_controller->GetStatistics().GetSuccededIterates());
 
-        m_node = m_controller->GetRootNode(view.GetCurrentPlayer().playerType);
+        m_node = m_controller->GetRootNode(gameState.GetSide());
         m_rootNode = m_node;
     }
 

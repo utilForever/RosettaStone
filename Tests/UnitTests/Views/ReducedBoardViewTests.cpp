@@ -66,7 +66,7 @@ TEST(ReducedBoardView, All)
     EXPECT_FALSE(reducedBoard1 != reducedBoard2);
 
     EXPECT_EQ(reducedBoard1.GetTurn(), 1);
-    EXPECT_EQ(reducedBoard1.GetPlayerType(), PlayerType::PLAYER1);
+    EXPECT_EQ(reducedBoard1.GetSide(), PlayerType::PLAYER1);
 
     EXPECT_EQ(reducedBoard1.GetMyHero().attack, 3);
     EXPECT_EQ(reducedBoard1.GetMyHeroPower().cardID, "CS2_102");
