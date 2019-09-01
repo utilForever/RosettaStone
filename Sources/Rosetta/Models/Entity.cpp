@@ -174,14 +174,15 @@ void Entity::Destroy()
     isDestroyed = true;
 }
 
-void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne, Entity* chooseBase)
+void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne,
+                          Entity* chooseBase)
 {
     if (HasChooseOne())
     {
         if (chooseOne > 0)
         {
             chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne,
-                chooseBase == nullptr ? this : chooseBase);
+                                                       this);
             return;
         }
     }
