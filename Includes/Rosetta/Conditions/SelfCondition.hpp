@@ -27,6 +27,11 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Entity*)> func);
 
+    //! SelfCondition wrapper for checking the hero power equals \p cardID.
+    //! \param cardID The card ID of hero power.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHeroPowerCard(const std::string& cardID);
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
@@ -96,8 +101,18 @@ class SelfCondition
     //! SelfCondition wrapper for checking the name of entity equals \p name.
     //! \param name The name of card to check condition.
     //! \param isEqual The flag to indicate that the condition for equality.
+    //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsName(const std::string& name, bool isEqual = true);
 
+    //! SelfCondition wrapper for checking num in taskStack satisfy condition
+    //! with \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
+    //! \param index If index is 0, use taskTask.num; If index is 1, use taskTask.num1
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsStackNum(int value, RelaSign relaSign = RelaSign::EQ,
+                                    int index = 0);
+  
     //! SelfCondition wrapper for checking the health that satisfies
     //! condition with \p value and \p relaSign.
     //! \param value The value to check condition.

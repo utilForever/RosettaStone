@@ -32,10 +32,16 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
     switch (entityType)
     {
         case EntityType::SOURCE:
-            entities.emplace_back(source);
+            if (source != nullptr)
+            {
+                entities.emplace_back(source);
+            }
             break;
         case EntityType::TARGET:
-            entities.emplace_back(target);
+            if (target != nullptr)
+            {
+                entities.emplace_back(target);
+            }
             break;
         case EntityType::ALL:
             for (auto& minion : player.GetFieldZone().GetAll())
@@ -132,6 +138,18 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
             break;
         case EntityType::ENEMY_HAND:
             for (auto& card : player.opponent->GetHandZone().GetAll())
+            {
+                entities.emplace_back(card);
+            }
+            break;
+        case EntityType::DECK:
+            for (auto& card : player.GetDeckZone().GetAll())
+            {
+                entities.emplace_back(card);
+            }
+            break;
+        case EntityType::ENEMY_DECK:
+            for (auto& card : player.opponent->GetDeckZone().GetAll())
             {
                 entities.emplace_back(card);
             }

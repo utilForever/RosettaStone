@@ -9,6 +9,10 @@
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
+
 namespace RosettaStone
 {
 Trigger::Trigger(TriggerType type) : m_triggerType(type)
@@ -66,8 +70,11 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
 
     source->activatedTrigger = instance;
 
-    auto triggerFunc = [instance](Player* p, Entity* e) {
-        instance->Process(p, e);
+    auto triggerFunc = [this, instance](Player* p, Entity* e) { 
+        if (percentage == 1.0f || Random::get<float>(0.0f, 1.0f) < percentage)
+        {
+            instance->Process(p, e);
+        }
     };
 
     if (m_sequenceType != SequenceType::NONE)

@@ -3,28 +3,21 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_COUNT_TASK_HPP
-#define ROSETTASTONE_COUNT_TASK_HPP
+#ifndef ROSETTASTONE_DRAW_NUMBER_TASK_HPP
+#define ROSETTASTONE_DRAW_NUMBER_TASK_HPP
 
-#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief CountTask class.
+//! \brief DrawNumberTask class.
 //!
-//! This class represents the task for counting entities.
+//! This class represents the task for drawing card(s) from task stack.
 //!
-class CountTask : public ITask
+class DrawNumberTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType, \p numIndex and \p conditions.
-    //! \param entityType The type of entity.
-    //! \param numIndex An index of number.
-    //! \param conditions SelfConditions to check.
-    CountTask(EntityType entityType, int numIndex = 0, std::vector<SelfCondition> conditions = {});
-
     //! Returns task ID.
     //! \return Task ID.
     TaskID GetTaskID() const override;
@@ -38,10 +31,7 @@ class CountTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
-
-    int m_numIndex;
-    std::vector<SelfCondition> m_conditions;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_COUNT_TASK_HPP
+#endif  // ROSETTASTONE_DRAW_NUMBER_TASK_HPP

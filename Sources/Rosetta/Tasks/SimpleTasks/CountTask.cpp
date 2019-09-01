@@ -9,8 +9,9 @@
 
 namespace RosettaStone::SimpleTasks
 {
-CountTask::CountTask(EntityType entityType, int numIndex)
-    : ITask(entityType), m_numIndex(numIndex)
+
+CountTask::CountTask(EntityType entityType, int numIndex, std::vector<SelfCondition> conditions)
+    : ITask(entityType), m_numIndex(numIndex), m_conditions(std::move(conditions))
 {
     // Do nothing
 }
@@ -24,7 +25,34 @@ TaskStatus CountTask::Impl(Player& player)
 {
     const auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    const int count = static_cast<int>(entities.size());
+    
+    int count;
+    if (m_conditions.empty())
+    {
+        count = static_cast<int>(entities.size());
+    }
+    else
+    {
+        std::vector<Entity*> filtered;
+        filtered.reserve(entities.size());
+
+        for (auto& entity : entities)
+        {
+            bool flag = true;
+            for (auto& condition : m_conditions)
+            {
+                if (!condition.Evaluate(entity))
+                {
+                    flag = false;
+                }
+            }
+            if (flag)
+            {
+                filtered.push_back(entity);
+            }
+        }
+        count = static_cast<int>(filtered.size());
+    }
 
     switch (m_numIndex)
     {
@@ -43,6 +71,6 @@ TaskStatus CountTask::Impl(Player& player)
 
 ITask* CountTask::CloneImpl()
 {
-    return new CountTask(m_entityType, m_numIndex);
+    return new CountTask(m_entityType, m_numIndex, m_conditions);
 }
 }  // namespace RosettaStone::SimpleTasks
