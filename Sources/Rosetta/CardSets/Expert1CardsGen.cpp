@@ -2869,12 +2869,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     // Text: Whenever you summon a Murloc, gain +1 Attack.
     // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
     power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_509e",
