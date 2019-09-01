@@ -10,7 +10,6 @@
 #ifndef ROSETTASTONE_BOARD_VIEW_HPP
 #define ROSETTASTONE_BOARD_VIEW_HPP
 
-#include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Views/Types/Player.hpp>
 
 namespace RosettaStone
@@ -18,14 +17,18 @@ namespace RosettaStone
 //!
 //! \brief BoardView class.
 //!
+//! This class parses game information from board ref view to restore the game.
 //!
 class BoardView
 {
+ public:
+    void Parse(BoardRefView gameState);
+
  private:
     int m_turn;
     PlayerType m_curPlayer;
-    ViewTypes::Player m_player1;
-    ViewTypes::Player m_player2;
+    Views::Types::Player m_player1;
+    Views::Types::Player m_player2;
 };
 }  // namespace RosettaStone
 
