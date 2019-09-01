@@ -65,7 +65,7 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [EX1_625t] Mind Spike (*) - COST:2
-    // - Faction: Neutral, Set: Expert1, Rarity: Free
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: <b>Hero Power</b>
     //       Deal $2 damage.
@@ -79,7 +79,7 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [EX1_625t2] Mind Shatter (*) - COST:2
-    // - Faction: Neutral, Set: Expert1, Rarity: Free
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: <b>Hero Power</b>
     //       Deal $3 damage.
@@ -1026,20 +1026,14 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     //       If already in Shadowform: 3 damage.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        auto& stack = entity->owner->GetGame()->taskStack.entities;
-        stack.clear();
-        stack.emplace_back(
-            dynamic_cast<Entity*>(entity->owner->GetHero()->heroPower));
-    }));
     power.AddPowerTask(new ConditionTask(
-        EntityType::STACK, { SelfCondition::IsName("Mind Spike") }));
+        EntityType::SOURCE, { SelfCondition::IsHeroPowerCard("EX1_625t") }));
     power.AddPowerTask(
         new FlagTask(true, { new ChangeHeroPowerTask("EX1_625t2") }));
     power.AddPowerTask(new FlagTask(
         false,
-        { new ConditionTask(EntityType::STACK,
-                            { SelfCondition::IsName("Mind Shatter") }),
+        { new ConditionTask(EntityType::SOURCE,
+                            { SelfCondition::IsHeroPowerCard("EX1_625t2") }),
           new FlagTask(false, { new ChangeHeroPowerTask("EX1_625t") }) }));
     cards.emplace("EX1_625", power);
 
