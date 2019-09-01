@@ -27,6 +27,11 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Entity*)> func);
 
+    //! SelfCondition wrapper for checking the hero power equals \p cardID.
+    //! \param cardID The card ID of hero power.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHeroPowerCard(const std::string& cardID);
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();

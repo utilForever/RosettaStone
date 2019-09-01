@@ -17,6 +17,13 @@ SelfCondition::SelfCondition(std::function<bool(Entity*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->owner->GetHero()->heroPower->card->id == cardID;
+    });
+}
+
 SelfCondition SelfCondition::IsDead()
 {
     return SelfCondition(
@@ -161,7 +168,7 @@ SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
 
 SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
 {
-    return SelfCondition([=](Entity* entity) -> bool{
+    return SelfCondition([=](Entity* entity) -> bool {
         auto& stack = entity->owner->GetGame()->taskStack;
         auto num = index == 0 ? stack.num : stack.num1;
 
@@ -170,7 +177,7 @@ SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
                (relaSign == RelaSign::LEQ && num <= value);
     });
 }
-      
+
 SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 {
     return SelfCondition([=](Entity* entity) -> bool {
