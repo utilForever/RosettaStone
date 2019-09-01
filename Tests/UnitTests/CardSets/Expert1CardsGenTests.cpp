@@ -7065,9 +7065,6 @@ TEST(NeutralExpert1Test, EX1_507_MurlocWarleader)
 // --------------------------------------------------------
 // Text: Whenever you summon a Murloc, gain +1 Attack.
 // --------------------------------------------------------
-// GameTag:
-// - TRIGGER_VISUAL = 1
-// --------------------------------------------------------
 TEST(NeutralExpert1Test, EX1_509_MurlocTidecaller)
 {
     GameConfig config;
@@ -7098,6 +7095,8 @@ TEST(NeutralExpert1Test, EX1_509_MurlocTidecaller)
         curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
     const auto card4 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Tidehunter"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curField[0]->GetAttack(), 1);
@@ -7106,11 +7105,15 @@ TEST(NeutralExpert1Test, EX1_509_MurlocTidecaller)
     EXPECT_EQ(curField[0]->GetAttack(), 3);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField.GetCount(), 4);
     EXPECT_EQ(curField[0]->GetAttack(), 3);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(curField.GetCount(), 5);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
     EXPECT_EQ(curField[0]->GetAttack(), 3);
 }
 
