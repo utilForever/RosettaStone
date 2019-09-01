@@ -135,6 +135,7 @@
 #include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Views/BoardView.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
+#include <Rosetta/Views/Types/CardInfo.hpp>
 #include <Rosetta/Views/Types/Player.hpp>
 #include <Rosetta/Views/ViewTypes.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
