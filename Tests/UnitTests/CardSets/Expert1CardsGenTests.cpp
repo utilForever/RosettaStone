@@ -211,6 +211,63 @@ TEST(DruidExpert1Test, EX1_158_SoulOfTheForest)
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [EX1_160] Power of the Wild - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Give your minions +1/+1;
+//       or Summon a 3/2 Panther.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_160_PowerOfTheWild)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Power of the Wild"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Power of the Wild"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Power of the Wild"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_TRUE(opField.IsEmpty());
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2, 1));
+    game.Process(opPlayer, PlayCardTask::Spell(card3, 2));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(opField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+    EXPECT_EQ(opField[0]->GetAttack(), 4);
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [EX1_164] Nourish - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
@@ -266,6 +323,119 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
     EXPECT_EQ(curHand.GetCount(), 8);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Transform into a 4/4 with <b>Charge</b>;
+//       or a 4/6 with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_165_DruidOfTheClaw)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Druid of the Claw"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Druid of the Claw"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 4);
+    EXPECT_TRUE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    EXPECT_EQ(curField[1]->GetAttack(), 4);
+    EXPECT_EQ(curField[1]->GetHealth(), 6);
+    EXPECT_FALSE(curField[1]->CanAttack());
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    EXPECT_EQ(curField[1]->GetAttack(), 4);
+    EXPECT_EQ(curField[1]->GetHealth(), 6);
+    EXPECT_FALSE(curField[1]->CanAttack());
+    EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Choose One -</b>+5 Attack; or +5 Health and <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_178_AncientOfWar)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Ancient of War"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ancient of War"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    EXPECT_EQ(curField[0]->GetHealth(), 10);
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2, 2));
+    EXPECT_EQ(opField[0]->GetAttack(), 10);
+}
+
 // ------------------------------------------- SPELL - DRUID
 // [EX1_570] Bite - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -308,6 +478,64 @@ TEST(DruidExpert1Test, EX1_570_Bite)
 
     EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
     EXPECT_EQ(curPlayer.GetHero()->GetArmor(), 5);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [EX1_571] Force of Nature - COST:5
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Summon three 2/2 Treants.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINIONSLOTS = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_571_ForceOfNature)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Force of Nature"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Force of Nature"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curField.GetCount(), 6);
+    EXPECT_EQ(curField[3]->card->name, "Treant");
+    EXPECT_EQ(curField[4]->card->name, "Treant");
+    EXPECT_EQ(curField[5]->card->name, "Treant");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curField[6]->card->name, "Treant");
 }
 
 // ---------------------------------------- WEAPON - HUNTER
@@ -723,6 +951,41 @@ TEST(MageExpert1Test, EX1_179_Icicle)
     EXPECT_EQ(curField[0]->GetHealth(), 1);
     EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 1);
     EXPECT_EQ(opHand.GetCount(), 7);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [EX1_180] Tome of Intellect - COST:1
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Add a random Mage spell to your hand.
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_180_TomeOfIntellect)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tome of Intellect"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curHand[4]->card->GetCardClass(), CardClass::MAGE);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1366,6 +1629,107 @@ TEST(WarriorExpert1Test, EX1_391_Slam)
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [EX1_392] Battle Rage - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw a card for each damaged friendly character.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_392_BattleRage)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetDamage(1);
+    opPlayer.GetHero()->SetDamage(1);
+
+    auto& opField = opPlayer.GetFieldZone();
+    auto& curHand = curPlayer.GetHandZone();
+    auto& opHand = opPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Battle Rage"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Battle Rage"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Chillwind Yeti"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, HeroPowerTask(card3));
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(opField[0]->GetDamage(), 1);
+    EXPECT_EQ(opHand.GetCount(), 8);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Has +3 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// --------------------------------------------------------
+TEST(Expert1Test, EX1_393_AmaniBerserker)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Amani Berserker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [EX1_407] Brawl - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
@@ -1544,6 +1908,57 @@ TEST(WarriorExpert1Test, EX1_410_ShieldSlam)
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1,card2));
     EXPECT_EQ(opField[0]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge</b> Has +6 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// - ELITE = 1
+// - ENRAGED = 1
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_414_GrommashHellscream)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Grommash Hellscream"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Circle of Healing"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 10);
+    EXPECT_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
 }
 
 // ----------------------------------------- SPELL - WARRIOR
@@ -1841,6 +2256,71 @@ TEST(PriestExpert1Test, EX1_341_Lightwell)
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [EX1_345] Mindgames - COST:4
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Put a copy of a random minion from
+//       your opponent's deck into the battlefield.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_345_Mindgames)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player2Deck[i] =
+            *Cards::GetInstance().FindCardByName("Magma Rager");
+    }
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opDeck = opPlayer.GetDeckZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mindgames"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mindgames"));
+
+    EXPECT_EQ(opDeck.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curField[0]->card->name, "Magma Rager");
+    EXPECT_EQ(opDeck.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(opDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curField[1]->card->name, "Shadow of Nothing");
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [EX1_621] Circle of Healing - COST:0
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
@@ -1997,6 +2477,82 @@ TEST(PriestExpert1Test, EX1_624_HolyFire)
                  PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 25);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [EX1_625] Shadowform - COST:3
+// - Faction: Priest, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your Hero Power becomes 'Deal 2 damage'.
+//       If already in Shadowform: 3 damage.
+// --------------------------------------------------------
+TEST(PriestExpert1Test, EX1_625_Shadowform)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    Hero* opHero = opPlayer.GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowform"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowform"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shadowform"));
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Spike");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 25);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Shatter");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 22);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 19);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curPlayer.GetHero()->heroPower->card->name, "Mind Shatter");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    EXPECT_EQ(opHero->GetHealth(), 19);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -5735,6 +6291,90 @@ TEST(NeutralExpert1Test, EX1_116_LeeroyJenkins)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
+// - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Adjacent minions have +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - ADJACENT_BUFF = 1
+// - AURA = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_162_DireWolfAlpha)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Dire Wolf Alpha"));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(curField[2]->GetAttack(), 1);
+    EXPECT_EQ(curField[3]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask(card6, nullptr, 2));
+    EXPECT_EQ(curField[2]->card->name, "Dire Wolf Alpha");
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[1]->GetAttack(), 2);
+    EXPECT_EQ(curField[3]->GetAttack(), 2);
+    EXPECT_EQ(curField[4]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask(card5, nullptr, 3));
+    EXPECT_EQ(curField[1]->GetAttack(), 2);
+    EXPECT_EQ(curField[3]->GetAttack(), 2);
+    EXPECT_EQ(curField[4]->GetAttack(), 1);
+    EXPECT_EQ(card5, curField[3]);
+    EXPECT_EQ(card3, curField[4]);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curField[1]->GetAttack(), 2);
+    EXPECT_EQ(curField[3]->GetAttack(), 2);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card7, card6));
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(curField[2]->GetAttack(), 1);
+    EXPECT_EQ(curField[3]->GetAttack(), 1);
+    EXPECT_EQ(curField[4]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
@@ -6155,6 +6795,59 @@ TEST(WarlockExpert1Test, EX1_313_PitLord)
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [EX1_317] Sense Demons - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 Demons from your deck.
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_317_SenseDemons)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 7; ++i)
+    {
+        config.player1Deck[i] =
+            *Cards::GetInstance().FindCardByName("Blood Imp");
+    }
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+    auto& curDeck = curPlayer.GetDeckZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Sense Demons"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Sense Demons"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curDeck.GetCount(), 1);
+    EXPECT_EQ(curHand[5]->card->name, "Blood Imp");
+    EXPECT_EQ(curHand[6]->card->name, "Blood Imp");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curDeck.GetCount(), 0);
+    EXPECT_EQ(curHand[6]->card->name, "Blood Imp");
+    EXPECT_EQ(curHand[7]->card->name, "Worthless Imp");
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [EX1_320] Bane of Doom - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
@@ -6215,6 +6908,52 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b> Has +3 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_390_TaurenWarrior)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Tauren Warrior"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
@@ -6240,6 +6979,203 @@ TEST(NeutralExpert1Test, EX1_396_MogushanWarden)
 TEST(NeutralExpert1Test, EX1_405_Shieldbearer)
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Has +1 Attack and <b>Windfury</b> while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// --------------------------------------------------------
+// RefTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_412_RagingWorgen)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Raging Worgen"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Circle of Healing"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    EXPECT_FALSE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    EXPECT_TRUE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_FALSE(curField[0]->CanAttack());
+    EXPECT_EQ(curField[0]->GetGameTag(GameTag::WINDFURY), 0);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
+// - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your other Murlocs have +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_507_MurlocWarleader)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Warleader"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(opField[0]->GetAttack(), 4);
+    EXPECT_EQ(opField[1]->GetAttack(), 1);
+    EXPECT_EQ(opField[2]->GetAttack(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[1]->GetAttack(), 1);
+    EXPECT_EQ(opField[0]->GetAttack(), 2);
+    EXPECT_EQ(opField[1]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
+// - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you summon a Murloc, gain +1 Attack.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_509_MurlocTidecaller)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Tidecaller"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Tidehunter"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Magma Rager"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Murloc Tidehunter"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6298,6 +7234,53 @@ TEST(NeutralExpert1Test, EX1_556_HarvestGolem)
     game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card2));
     EXPECT_EQ(curField.GetCount(), 3);
     EXPECT_EQ(curField[1]->card->name, "Damaged Golem");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the start of your turn, you have a 50% chance to
+//       draw an extra card.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_557_NatPagle)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Nat Pagle"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_TRUE(curHand.GetCount() == 5 || curHand.GetCount() == 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -6809,6 +7792,116 @@ TEST(NeutralExpert1Test, EX1_614_IllidanStormrage)
     EXPECT_EQ(curField[1]->card->name, "Flame of Azzinoth");
     EXPECT_EQ(curField[2]->card->name, "Flame of Azzinoth");
     EXPECT_EQ(curField[3]->card->name, "Wisp");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
+// - Race: Beast, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a Murloc and gain +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_TARGET_WITH_RACE = 14
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_017_HungryCrab)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Murloc Raider"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hungry Crab"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Hungry Crab"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 1);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card2));
+    EXPECT_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
+    EXPECT_EQ(curField.GetCount(), 3);
+    EXPECT_EQ(curField[2]->GetAttack(), 3);
+    EXPECT_EQ(curField[2]->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
+// - Race: Pirate, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Gain Attack equal to the Attack
+//       of your weapon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_018_BloodsailRaider)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fiery War Axe"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodsail Raider"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodsail Raider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField[1]->GetAttack(), 5);
+    EXPECT_EQ(curField[1]->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL

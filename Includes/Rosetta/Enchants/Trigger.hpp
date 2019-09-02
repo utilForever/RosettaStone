@@ -59,6 +59,7 @@ class Trigger
     std::vector<ITask*> tasks;
     SelfCondition* condition = nullptr;
 
+    float percentage = 1.0f;
     bool fastExecution = false;
     bool removeAfterTriggered = false;
 
