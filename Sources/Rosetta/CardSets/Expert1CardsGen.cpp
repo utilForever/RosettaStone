@@ -1458,6 +1458,17 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     cards.emplace("EX1_567", power);
 
     // ---------------------------------------- MINION - SHAMAN
+    // [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
+    // - Race: Totem, Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new DrawTask(1) };
+    cards.emplace("EX1_575", power);
+
+    // ---------------------------------------- MINION - SHAMAN
     // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
     // - Race: Elemental, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -1649,6 +1660,27 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
         { new RandomCardTask(CardType::MINION, CardClass::INVALID, Race::DEMON),
           new SummonTask(SummonSide::SPELL) }));
     cards.emplace("EX1_320", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_596] Demonfire - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to a minion. If it’s a friendly Demon,
+    //       give it +2/+2 instead.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ConditionTask(EntityType::TARGET,
+                                         { SelfCondition::IsRace(Race::DEMON) },
+                                         { RelaCondition::IsFriendly() }));
+    power.AddPowerTask(new FlagTask(
+        true, { new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
+    power.AddPowerTask(
+        new FlagTask(false, { new DamageTask(EntityType::TARGET, 2, true) }));
+    cards.emplace("EX1_596", power);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
@@ -1675,6 +1707,16 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_317t", power);
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [EX1_596e] Demonfire (*) - COST:0
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: This Demon has +2/+2.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_596e"));
+    cards.emplace("EX1_596e", power);
 }
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
@@ -1774,6 +1816,24 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(
         new FlagTask(false, { new DamageTask(EntityType::TARGET, 4, true) }));
     cards.emplace("EX1_408", power);
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [EX1_410] Shield Slam - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to a minion for each Armor you have.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::HERO, GameTag::ARMOR));
+    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    cards.emplace("EX1_410", power);
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]

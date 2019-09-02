@@ -298,7 +298,7 @@ EXPERT1 | EX1_405 | Shieldbearer | O
 EXPERT1 | EX1_407 | Brawl | O
 EXPERT1 | EX1_408 | Mortal Strike | O
 EXPERT1 | EX1_409 | Upgrade! |  
-EXPERT1 | EX1_410 | Shield Slam |  
+EXPERT1 | EX1_410 | Shield Slam | O
 EXPERT1 | EX1_411 | Gorehowl |  
 EXPERT1 | EX1_412 | Raging Worgen | O 
 EXPERT1 | EX1_414 | Grommash Hellscream | O 
@@ -329,7 +329,7 @@ EXPERT1 | EX1_570 | Bite | O
 EXPERT1 | EX1_571 | Force of Nature | O 
 EXPERT1 | EX1_572 | Ysera | O
 EXPERT1 | EX1_573 | Cenarius |  
-EXPERT1 | EX1_575 | Mana Tide Totem |  
+EXPERT1 | EX1_575 | Mana Tide Totem | O 
 EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune | O
@@ -339,7 +339,7 @@ EXPERT1 | EX1_590 | Blood Knight |
 EXPERT1 | EX1_591 | Auchenai Soulpriest |  
 EXPERT1 | EX1_594 | Vaporize |  
 EXPERT1 | EX1_595 | Cult Master |  
-EXPERT1 | EX1_596 | Demonfire |  
+EXPERT1 | EX1_596 | Demonfire | O
 EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 68% (160 of 237 Cards)
+- Progress: 68% (163 of 237 Cards)
 
 ## Hall of Fame
 

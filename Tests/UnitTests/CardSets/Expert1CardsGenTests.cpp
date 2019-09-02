@@ -1859,6 +1859,68 @@ TEST(WarriorExpert1Test, EX1_408_MortalStrike)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 20);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [EX1_410] Shield Slam - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 1 damage to a minion for each Armor you have.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(WarriorExpert1Test, EX1_410_ShieldSlam)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+    curPlayer.GetHero()->SetArmor(3);
+
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shield Slam"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shield Slam"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Ironbark Protector"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField[0]->GetHealth(), 8);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -6856,6 +6918,80 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
     EXPECT_EQ(opField[0]->card->GetRace(), Race::DEMON);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [EX1_596] Demonfire - COST:2
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal $2 damage to a minion. If it’s a friendly Demon,
+//       give it +2/+2 instead.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_596_Demonfire)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+    auto& opField = opPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Demonfire"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Demonfire"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Demonfire"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Felguard"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Felguard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    EXPECT_EQ(opField[0]->GetAttack(), 3);
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card5));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card6));
+    EXPECT_EQ(opField[0]->GetAttack(), 3);
+    EXPECT_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    EXPECT_TRUE(opField.IsEmpty());
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
@@ -7367,6 +7503,44 @@ TEST(NeutralExpert1Test, EX1_572_Ysera)
     auto& entourages = yseraCard->entourages;
     EXPECT_TRUE(std::find(entourages.begin(), entourages.end(),
                           dreamCard->id) != entourages.end());
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
+// - Race: Totem, Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, draw a card.
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_575_ManaTideTotem)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mana Tide Totem"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL
