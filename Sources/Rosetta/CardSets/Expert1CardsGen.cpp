@@ -1459,7 +1459,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
-    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Race: Totem, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the end of your turn, draw a card.
     // --------------------------------------------------------
@@ -1669,17 +1669,17 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     //       give it +2/+2 instead.
     // --------------------------------------------------------
     // PlayReq:
-    // - EQ_MINION_TARGET = 0
+    // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new ConditionTask(EntityType::TARGET, 
-        { SelfCondition::IsRace(Race::DEMON)}, 
-        { RelaCondition::IsFriendly()}));
-    power.AddPowerTask(new FlagTask(true,
-        { new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
-    power.AddPowerTask(new FlagTask(false,
-        { new DamageTask(EntityType::TARGET, 2, true) }));
+    power.AddPowerTask(new ConditionTask(EntityType::TARGET,
+                                         { SelfCondition::IsRace(Race::DEMON) },
+                                         { RelaCondition::IsFriendly() }));
+    power.AddPowerTask(new FlagTask(
+        true, { new AddEnchantmentTask("EX1_596e", EntityType::TARGET) }));
+    power.AddPowerTask(
+        new FlagTask(false, { new DamageTask(EntityType::TARGET, 2, true) }));
     cards.emplace("EX1_596", power);
 }
 
@@ -1710,7 +1710,7 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [EX1_596e] Demonfire (*) - COST:0
-    // - Set: Expert1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: This Demon has +2/+2.
     // --------------------------------------------------------
@@ -1822,6 +1822,9 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion for each Armor you have.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINION_TARGET = 0
