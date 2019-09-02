@@ -1715,7 +1715,7 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     // Text: This Demon has +2/+2.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(Effects::AttackHealthN(2)));
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_596e"));
     cards.emplace("EX1_596e", power);
 }
 
