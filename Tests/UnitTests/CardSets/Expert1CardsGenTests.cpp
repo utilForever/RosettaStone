@@ -1898,19 +1898,27 @@ TEST(WarriorExpert1Test, EX1_410_ShieldSlam)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Shield Slam"));
     const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Shield Slam"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card4 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Ironbark Protector"));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(opField.GetCount(), 1);
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(opField[0]->GetHealth(), 8);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
     EXPECT_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    EXPECT_EQ(opField[0]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - WARRIOR
@@ -6949,29 +6957,39 @@ TEST(WarlockExpert1Test, EX1_596_Demonfire)
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Demonfire"));
     const auto card3 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Felguard"));
+        curPlayer, Cards::GetInstance().FindCardByName("Demonfire"));
     const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Felguard"));
+    const auto card6 = Generic::DrawCard(
         opPlayer, Cards::GetInstance().FindCardByName("Felguard"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(curField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card4));
-    EXPECT_EQ(opField.GetCount(), 1);
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    EXPECT_EQ(opField[0]->GetAttack(), 3);
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card5));
     EXPECT_EQ(curField[0]->GetAttack(), 5);
     EXPECT_EQ(curField[0]->GetHealth(), 7);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card6));
     EXPECT_EQ(opField[0]->GetAttack(), 3);
     EXPECT_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    EXPECT_TRUE(opField.IsEmpty());
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -7516,7 +7534,6 @@ TEST(ShamanExpert1Test, EX1_575_ManaTideTotem)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Mana Tide Totem"));
 
-    EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 4);
 
