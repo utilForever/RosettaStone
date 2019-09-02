@@ -1441,6 +1441,23 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     cards.emplace("EX1_251", power);
 
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsTagValue(GameTag::OVERLOAD,1,RelaSign::GEQ));
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_258e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_258", power);
+
     // ---------------------------------------- WEAPON - SHAMAN
     // [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
@@ -1529,6 +1546,16 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_tk11", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_258e] Overloading (*) - COST:0
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackHealthN(1)));
+    cards.emplace("EX1_258e", power);
 }
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)

@@ -6504,6 +6504,63 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_258_UnboundElemental)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Unbound Elemental"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Earth Elemental"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Feral Spirit"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(),2);
+    EXPECT_EQ(curField[0]->GetHealth(),4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetAttack(),3);
+    EXPECT_EQ(curField[0]->GetHealth(),5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curField[0]->GetAttack(),4);
+    EXPECT_EQ(curField[0]->GetHealth(),6);    
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
 // - Race: Elemental, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
