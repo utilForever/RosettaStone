@@ -38,7 +38,7 @@ class ConditionTask : public ITask
     //! \param relaConditions A container of relation condition.
     explicit ConditionTask(EntityType entityType,
                            std::vector<SelfCondition> selfConditions,
-                           std::vector<RelaCondition> relaConditions);                           
+                           std::vector<RelaCondition> relaConditions);
 
     //! Returns task ID.
     //! \return Task ID.

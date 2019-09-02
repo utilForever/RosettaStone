@@ -32,7 +32,7 @@ ConditionTask::ConditionTask(EntityType entityType,
       m_selfConditions(std::move(selfConditions)),
       m_relaConditions(std::move(relaConditions))
 {
-        // Do nothing
+    // Do nothing
 }
 
 TaskID ConditionTask::GetTaskID() const
