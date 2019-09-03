@@ -22,6 +22,16 @@ namespace RosettaStone::Views::Types
 struct Hero
 {
     void Parse(BoardRefView gameState, PlayerType side);
+
+    std::string cardID;
+    int attack;
+    int armor;
+    int damage;
+    int maxHealth;
+    bool isExhausted;
+
+ private:
+    void Parse(RosettaStone::Hero* hero);
 };
 
 //!

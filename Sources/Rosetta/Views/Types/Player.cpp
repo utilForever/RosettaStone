@@ -11,6 +11,28 @@
 
 namespace RosettaStone::Views::Types
 {
+void Hero::Parse(BoardRefView gameState, PlayerType side)
+{
+    if (side == gameState.GetSide())
+    {
+        Parse(gameState.GetHero());
+    }
+    else
+    {
+        Parse(gameState.GetOpponentHero());
+    }
+}
+
+void Hero::Parse(RosettaStone::Hero* hero)
+{
+    cardID = hero->card->id;
+    attack = hero->GetAttack();
+    armor = hero->GetArmor();
+    damage = hero->GetDamage();
+    maxHealth = hero->GetMaxHealth();
+    isExhausted = hero->IsExhausted();
+}
+
 void Player::Parse(BoardRefView gameState, PlayerType side)
 {
     hero.Parse(gameState, side);
@@ -21,4 +43,4 @@ void Player::Parse(BoardRefView gameState, PlayerType side)
     minions.Parse(gameState, side);
     fatigue = gameState.GetFatigueDamage(side);
 }
-}  // namespace RosettaStone::BoardView::Types
+}  // namespace RosettaStone::Views::Types
