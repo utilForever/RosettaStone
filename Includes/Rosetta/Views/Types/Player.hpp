@@ -40,6 +40,9 @@ struct Hero
 struct HeroPower
 {
     void Parse(BoardRefView gameState, PlayerType side);
+
+    std::string cardID;
+    bool isExhausted;
 };
 
 //!

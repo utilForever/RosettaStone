@@ -33,6 +33,12 @@ void Hero::Parse(RosettaStone::Hero* hero)
     isExhausted = hero->IsExhausted();
 }
 
+void HeroPower::Parse(BoardRefView gameState, PlayerType side)
+{
+    cardID = gameState.GetHeroPower(side).card->id;
+    isExhausted = gameState.GetHeroPower(side).IsExhausted();
+}
+
 void Player::Parse(BoardRefView gameState, PlayerType side)
 {
     hero.Parse(gameState, side);
