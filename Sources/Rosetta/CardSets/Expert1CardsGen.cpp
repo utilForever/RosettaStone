@@ -1441,7 +1441,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     cards.emplace("EX1_251", power);
 
-    // --------------------------------------- MINION - NEUTRAL
+    // ---------------------------------------- MINION - SHAMAN
     // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------

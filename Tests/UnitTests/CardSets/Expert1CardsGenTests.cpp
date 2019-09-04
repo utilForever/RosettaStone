@@ -6503,7 +6503,7 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
 }
 
-// --------------------------------------- MINION - NEUTRAL
+// ---------------------------------------- MINION - SHAMAN
 // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
@@ -6512,7 +6512,7 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
 // RefTag:
 // - OVERLOAD = 1
 // --------------------------------------------------------
-TEST(NeutralExpert1Test, EX1_258_UnboundElemental)
+TEST(ShamanExpert1Test, EX1_258_UnboundElemental)
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
