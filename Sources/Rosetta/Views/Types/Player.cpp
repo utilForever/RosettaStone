@@ -27,9 +27,9 @@ void Hero::Parse(RosettaStone::Hero* hero)
 {
     cardID = hero->card->id;
     attack = hero->GetAttack();
-    armor = hero->GetArmor();
-    damage = hero->GetDamage();
+    health = hero->GetHealth();
     maxHealth = hero->GetMaxHealth();
+    armor = hero->GetArmor();
     isExhausted = hero->IsExhausted();
 }
 
@@ -46,6 +46,26 @@ void ManaCrystal::Parse(int remainingMana, int totalMana, int overloadOwedMana,
     total = totalMana;
     overloadOwed = overloadOwedMana;
     overloadLocked = overloadLockedMana;
+}
+
+void Minion::Parse(const RosettaStone::Minion& minion)
+{
+    cardID = minion.card->id;
+    attack = minion.GetAttack();
+    health = minion.GetHealth();
+    maxHealth = minion.GetMaxHealth();
+    spellPower = minion.GetSpellPower();
+    isExhausted = minion.IsExhausted();
+}
+
+void Minions::Parse(BoardRefView gameState, PlayerType side)
+{
+    minions.clear();
+
+    gameState.ForEachMinion(side, [&](RosettaStone::Minion* minion) {
+        minions.emplace_back();
+        minions.back().Parse(*minion);
+    });
 }
 
 void Player::Parse(BoardRefView gameState, PlayerType side)

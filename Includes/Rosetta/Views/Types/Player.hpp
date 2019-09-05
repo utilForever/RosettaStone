@@ -25,9 +25,9 @@ struct Hero
 
     std::string cardID;
     int attack;
-    int armor;
-    int damage;
+    int health;
     int maxHealth;
+    int armor;
     bool isExhausted;
 
  private:
@@ -60,11 +60,28 @@ struct ManaCrystal
 };
 
 //!
+//! \brief Minion struct.
+//!
+struct Minion
+{
+    void Parse(const RosettaStone::Minion& minion);
+
+    std::string cardID;
+    int attack;
+    int health;
+    int maxHealth;
+    int spellPower;
+    bool isExhausted;
+};
+
+//!
 //! \brief Minions struct.
 //!
 struct Minions
 {
     void Parse(BoardRefView gameState, PlayerType side);
+
+    std::vector<Minion> minions;
 };
 
 //!
