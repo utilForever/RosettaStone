@@ -39,6 +39,15 @@ void HeroPower::Parse(BoardRefView gameState, PlayerType side)
     isExhausted = gameState.GetHeroPower(side).IsExhausted();
 }
 
+void ManaCrystal::Parse(int remainingMana, int totalMana, int overloadOwedMana,
+                        int overloadLockedMana)
+{
+    remaining = remainingMana;
+    total = totalMana;
+    overloadOwed = overloadOwedMana;
+    overloadLocked = overloadLockedMana;
+}
+
 void Player::Parse(BoardRefView gameState, PlayerType side)
 {
     hero.Parse(gameState, side);

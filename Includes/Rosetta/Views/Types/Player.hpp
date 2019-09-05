@@ -52,6 +52,11 @@ struct ManaCrystal
 {
     void Parse(int remainingMana, int totalMana, int overloadOwedMana,
                int overloadLockedMana);
+
+    int remaining;
+    int total;
+    int overloadOwed;
+    int overloadLocked;
 };
 
 //!
