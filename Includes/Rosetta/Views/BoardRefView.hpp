@@ -127,6 +127,22 @@ class BoardRefView
     //! \return The flag indicates that whether the minion can attack.
     bool IsMinionAttackable(PlayerType playerType, int idx) const;
 
+    //! Runs \p functor on each minion of the player.
+    //! \param playerType The player type to separate players.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEachMinion(PlayerType playerType, Functor&& functor) const
+    {
+        auto& fieldZone = (playerType == PlayerType::PLAYER1)
+                              ? m_game.GetPlayer1().GetFieldZone()
+                              : m_game.GetPlayer2().GetFieldZone();
+
+        for (auto& minion : fieldZone.GetAll())
+        {
+            functor(minion);
+        }
+    }
+
  private:
     const Game& m_game;
     PlayerType m_playerType;
