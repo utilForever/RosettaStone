@@ -7,6 +7,7 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <Rosetta/Views/Types/UnknownCards.h>
 #include <Rosetta/Views/Types/Player.hpp>
 
 namespace RosettaStone::Views::Types
@@ -77,5 +78,19 @@ void Player::Parse(BoardRefView gameState, PlayerType side)
         gameState.GetOverloadOwed(side), gameState.GetOverloadLocked(side));
     minions.Parse(gameState, side);
     fatigue = gameState.GetFatigueDamage(side);
+
+    deck.clear();
+    for (int i = 0; i < gameState.GetDeckCardCount(side); ++i)
+    {
+        deck.push_back(ParseCardInfo(INVALID_CARD_ID));
+    }
+
+    hand.clear();
+    if (side == gameState.GetSide())
+    {
+    }
+    else
+    {
+    }
 }
 }  // namespace RosettaStone::Views::Types

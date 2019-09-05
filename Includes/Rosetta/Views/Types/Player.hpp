@@ -99,6 +99,9 @@ struct Player
 
     std::vector<CardInfo> hand;
     std::vector<CardInfo> deck;
+
+private:
+    CardInfo ParseCardInfo(std::string cardID);
 };
 }  // namespace RosettaStone::Views::Types
 
