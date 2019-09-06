@@ -18,7 +18,7 @@ constexpr float VERSION = 0.4f;
 constexpr int DECK_CODE_VERSION = 1;
 
 //! Invalid card ID.
-constexpr std::string INVALID_CARD_ID = "INVALID";
+const std::string INVALID_CARD_ID = "INVALID";
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
