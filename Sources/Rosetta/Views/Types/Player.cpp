@@ -88,14 +88,14 @@ void Player::Parse(BoardRefView gameState, PlayerType side)
     hand.clear();
     if (side == gameState.GetSide())
     {
-        gameState.ForEachCurHandCard([&](const Entity& entity) {
-            hand.push_back(ParseCardInfo(entity.card->id));
+        gameState.ForEachCurHandCard([&](const std::string& cardID) {
+            hand.push_back(ParseCardInfo(cardID));
         });
     }
     else
     {
-        gameState.ForEachOpHandCard([&](const Entity& entity) {
-            hand.push_back(ParseCardInfo(entity.card->id));
+        gameState.ForEachOpHandCard([&](const std::string& cardID) {
+            hand.push_back(ParseCardInfo(cardID));
         });
     }
 }

@@ -154,7 +154,7 @@ class BoardRefView
 
         for (auto& entity : handZone.GetAll())
         {
-            functor(*entity);
+            functor(entity->card->id);
         }
     }
 
@@ -169,16 +169,17 @@ class BoardRefView
 
         for (auto& entity : handZone.GetAll())
         {
-            if (entity->card->id == "GAME_005")
+            std::string cardID = entity->card->id;
+            if (cardID == "GAME_005")
             {
                 // Do nothing
             }
             else
             {
-                
+                cardID = INVALID_CARD_ID;
             }
 
-            functor(*entity);
+            functor(cardID);
         }
     }
 
