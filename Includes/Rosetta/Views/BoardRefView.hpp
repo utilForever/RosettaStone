@@ -143,6 +143,21 @@ class BoardRefView
         }
     }
 
+    //! Runs \p functor on each card in the current player's hand.
+    //! \param functor A function to run for each card.
+    template <typename Functor>
+    void ForEachCurHandCard(Functor&& functor) const
+    {
+        auto& handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
+                             ? m_game.GetPlayer1().GetHandZone()
+                             : m_game.GetPlayer2().GetHandZone();
+
+        for (auto& entity : handZone.GetAll())
+        {
+            functor(entity);
+        }
+    }
+
  private:
     const Game& m_game;
     PlayerType m_playerType;
