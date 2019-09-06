@@ -154,7 +154,31 @@ class BoardRefView
 
         for (auto& entity : handZone.GetAll())
         {
-            functor(entity);
+            functor(*entity);
+        }
+    }
+
+    //! Runs \p functor on each card in the opponent player's hand.
+    //! \param functor A function to run for each card.
+    template <typename Functor>
+    void ForEachOpHandCard(Functor&& functor) const
+    {
+        auto& handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
+                             ? m_game.GetPlayer2().GetHandZone()
+                             : m_game.GetPlayer1().GetHandZone();
+
+        for (auto& entity : handZone.GetAll())
+        {
+            if (entity->card->id == "GAME_005")
+            {
+                // Do nothing
+            }
+            else
+            {
+                
+            }
+
+            functor(*entity);
         }
     }
 

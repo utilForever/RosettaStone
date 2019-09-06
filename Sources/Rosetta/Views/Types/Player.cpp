@@ -94,6 +94,9 @@ void Player::Parse(BoardRefView gameState, PlayerType side)
     }
     else
     {
+        gameState.ForEachOpHandCard([&](const Entity& entity) {
+            hand.push_back(ParseCardInfo(entity.card->id));
+        });
     }
 }
 }  // namespace RosettaStone::Views::Types
