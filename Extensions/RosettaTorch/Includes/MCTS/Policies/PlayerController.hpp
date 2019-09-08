@@ -85,7 +85,7 @@ class PlayerController
     }
 
  private:
-    RosettaStone::Game m_game;
+    RosettaStone::Game* m_game = nullptr;
 };
 }  // namespace RosettaTorch::MCTS
 
