@@ -71,6 +71,12 @@ std::tuple<bool, EdgeAddon*, TreeNode*> ChildNodeMap::GetOrCreate(
     {
         std::lock_guard<SharedSpinLock> writeLock(m_mapMutex);
 
+        auto it = m_map.find(choice);
+        if (it != m_map.end())
+        {
+            return { false, &it->second.edgeAddon, it->second.node.get() };
+        }
+
         auto& child = m_map[choice];
         createChildFunctor(child);
 
