@@ -49,6 +49,12 @@ Game::Game()
     m_gameConfig.doShuffle = true;
     m_gameConfig.skipMulligan = true;
     m_gameConfig.autoRun = true;
+
+    state = State::RUNNING;
+    for (auto& p : m_players)
+    {
+        p.playState = PlayState::PLAYING;
+    }
 }
 
 Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
