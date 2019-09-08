@@ -11,6 +11,7 @@
 #define ROSETTASTONE_BOARD_VIEW_HPP
 
 #include <Rosetta/Views/Types/Player.hpp>
+#include <Rosetta/Views/Types/UnknownCards.hpp>
 
 namespace RosettaStone
 {
@@ -22,7 +23,17 @@ namespace RosettaStone
 class BoardView
 {
  public:
-    void Parse(BoardRefView gameState);
+    void Parse(BoardRefView gameState,
+               Views::Types::UnknownCardsInfo& p1Unknown,
+               Views::Types::UnknownCardsInfo& p2Unknown);
+
+    int GetTurn() const;
+
+    PlayerType GetCurrentPlayer() const;
+
+    const Views::Types::Player& GetPlayer1() const;
+
+    const Views::Types::Player& GetPlayer2() const;
 
  private:
     int m_turn;

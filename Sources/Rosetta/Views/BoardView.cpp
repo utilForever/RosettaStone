@@ -12,11 +12,33 @@
 
 namespace RosettaStone
 {
-void BoardView::Parse(BoardRefView gameState)
+void BoardView::Parse(BoardRefView gameState,
+                      Views::Types::UnknownCardsInfo& p1Unknown,
+                      Views::Types::UnknownCardsInfo& p2Unknown)
 {
     m_turn = gameState.GetTurn();
     m_curPlayer = gameState.GetCurrentPlayer();
-    m_player1.Parse(gameState, PlayerType::PLAYER1);
-    m_player2.Parse(gameState, PlayerType::PLAYER2);
+    m_player1.Parse(gameState, PlayerType::PLAYER1, p1Unknown);
+    m_player2.Parse(gameState, PlayerType::PLAYER2, p2Unknown);
+}
+
+int BoardView::GetTurn() const
+{
+    return m_turn;
+}
+
+PlayerType BoardView::GetCurrentPlayer() const
+{
+    return m_curPlayer;
+}
+
+const Views::Types::Player& BoardView::GetPlayer1() const
+{
+    return m_player1;
+}
+
+const Views::Types::Player& BoardView::GetPlayer2() const
+{
+    return m_player2;
 }
 }  // namespace RosettaStone
