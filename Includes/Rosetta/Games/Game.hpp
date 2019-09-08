@@ -29,8 +29,8 @@ class ActionParams;
 class Game
 {
  public:
-    //! Deleted default constructor.
-    Game() = delete;
+    //! Constructor.
+    Game();
 
     //! Constructs game with given \p gameConfig.
     //! \param gameConfig The game config holds all configuration values.
@@ -39,17 +39,17 @@ class Game
     //! Default destructor.
     ~Game() = default;
 
-    //! Deleted copy constructor.
-    Game(const Game&) = delete;
+    //! Default copy constructor.
+    Game(const Game&) = default;
 
-    //! Deleted move constructor.
-    Game(Game&&) = delete;
+    //! Default move constructor.
+    Game(Game&&) noexcept = default;
 
-    //! Deleted copy assignment operator.
-    Game& operator=(const Game&) = delete;
+    //! Default copy assignment operator.
+    Game& operator=(const Game&) = default;
 
-    //! Deleted move assignment operator.
-    Game& operator=(Game&&) = delete;
+    //! Default move assignment operator.
+    Game& operator=(Game&&) noexcept = default;
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
@@ -75,13 +75,21 @@ class Game
     //! \return The player controlling the current turn.
     Player& GetCurrentPlayer() const;
 
+    //! Sets the player controlling the current turn.
+    //! \param type The player type controlling the current turn.
+    void SetCurrentPlayer(PlayerType type);
+
     //! Returns the opponent player.
     //! \return The opponent player.
     Player& GetOpponentPlayer() const;
 
-    //! Gets the turn of game.
-    //! \return The turn of game.
+    //! Gets the turn of the game.
+    //! \return The turn of the game.
     int GetTurn() const;
+
+    //! Sets the turn of the game.
+    //! \param turn The turn of the game.
+    void SetTurn(int turn);
 
     //! Gets the next entity identifier.
     //! \return The next entity ID.

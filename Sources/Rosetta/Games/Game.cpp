@@ -30,6 +30,27 @@ using namespace RosettaStone::PlayerTasks;
 
 namespace RosettaStone
 {
+Game::Game()
+{
+    // Set game to player
+    for (auto& p : m_players)
+    {
+        p.SetGame(this);
+    }
+
+    // Set player type
+    GetPlayer1().playerType = PlayerType::PLAYER1;
+    GetPlayer2().playerType = PlayerType::PLAYER2;
+
+    // Set opponent player
+    GetPlayer1().opponent = &GetPlayer2();
+    GetPlayer2().opponent = &GetPlayer1();
+
+    m_gameConfig.doShuffle = true;
+    m_gameConfig.skipMulligan = true;
+    m_gameConfig.autoRun = true;
+}
+
 Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
 {
     // Set game to player
@@ -110,6 +131,18 @@ Player& Game::GetCurrentPlayer() const
     return *m_currentPlayer;
 }
 
+void Game::SetCurrentPlayer(PlayerType playerType)
+{
+    if (playerType == PlayerType::PLAYER1)
+    {
+        m_currentPlayer = &m_players[0];
+    }
+    else
+    {
+        m_currentPlayer = &m_players[1];
+    }
+}
+
 Player& Game::GetOpponentPlayer() const
 {
     return *m_currentPlayer->opponent;
@@ -118,6 +151,11 @@ Player& Game::GetOpponentPlayer() const
 int Game::GetTurn() const
 {
     return m_turn;
+}
+
+void Game::SetTurn(int turn)
+{
+    m_turn = turn;
 }
 
 std::size_t Game::GetNextID()
