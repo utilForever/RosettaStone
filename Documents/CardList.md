@@ -252,7 +252,7 @@ EXPERT1 | EX1_250 | Earth Elemental | O
 EXPERT1 | EX1_251 | Forked Lightning | O
 EXPERT1 | EX1_258 | Unbound Elemental |  
 EXPERT1 | EX1_259 | Lightning Storm |  
-EXPERT1 | EX1_274 | Ethereal Arcanist |  
+EXPERT1 | EX1_274 | Ethereal Arcanist | O 
 EXPERT1 | EX1_275 | Cone of Cold |  
 EXPERT1 | EX1_279 | Pyroblast | O
 EXPERT1 | EX1_283 | Frost Elemental | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 68% (163 of 237 Cards)
+- Progress: 68% (164 of 237 Cards)
 
 ## Hall of Fame
 
