@@ -61,17 +61,11 @@ RosettaStone::PlayerType PlayerController::Player::GetPlayerType() const
 
 PlayerController::Player PlayerController::GetPlayer() const
 {
-    return Player(m_game->GetCurrentPlayer().playerType);
+    return Player(m_game.GetCurrentPlayer().playerType);
 }
 
 RosettaStone::Board PlayerController::GetPlayerBoard(Player player) const
 {
-    return RosettaStone::Board(*m_game, player.GetPlayerType());
-}
-
-void PlayerController::SetGame(RosettaStone::Game& game)
-{
-    m_game = &game;
-    m_game->StartGame();
+    return RosettaStone::Board(m_game, player.GetPlayerType());
 }
 }  // namespace RosettaTorch::MCTS
