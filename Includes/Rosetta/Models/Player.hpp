@@ -44,17 +44,17 @@ class Player
     //! Destructor.
     ~Player();
 
-    //! Deleted copy constructor.
-    Player(const Player&) = delete;
+    //! Default copy constructor.
+    Player(const Player&) = default;
 
-    //! Deleted copy assignment operator.
-    Player& operator=(const Player&) = delete;
+    //! Default move constructor.
+    Player(Player&&) noexcept = default;
 
-    //! Deleted move constructor.
-    Player(Player&&) noexcept = delete;
+    //! Default copy assignment operator.
+    Player& operator=(const Player&) = default;
 
-    //! Deleted move assignment operator.
-    Player& operator=(Player&&) noexcept = delete;
+    //! Default move assignment operator.
+    Player& operator=(Player&&) noexcept = default;
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
