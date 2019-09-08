@@ -30,11 +30,15 @@ class ActionParams
 
     //! Initializes action params by running ActionValidChecker::Check() method.
     //! \param game The game context.
-    void Initialize(const Game& game);
+    void Initialize(Game& game);
 
     //! Initializes action params by running ActionValidChecker::Check() method.
     //! \param getter The action valid getter.
-    void Initialize(const ActionValidGetter& getter);
+    void Initialize(ActionValidGetter& getter);
+
+    //! Initializes action params by running ActionValidChecker::Check() method.
+    //! \param getter The action valid getter.
+    void Initialize(ActionValidGetter&& getter);
 
     //! Returns the action valid checker.
     //! \return The action valid checker.

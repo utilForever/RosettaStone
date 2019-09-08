@@ -17,12 +17,52 @@ void ActionValidChecker::Reset()
     m_opMapSize = 0;
 }
 
-void ActionValidChecker::Check(const Game& game)
+void ActionValidChecker::Check(Game& game)
 {
-    return Check(ActionValidGetter(game));
+    Check(ActionValidGetter(game));
 }
 
-void ActionValidChecker::Check(const ActionValidGetter& getter)
+void ActionValidChecker::Check(ActionValidGetter& getter)
+{
+    Reset();
+
+    m_actionTargets.Analyze(getter);
+
+    m_playableCards.clear();
+    getter.ForEachPlayableCard([&](Entity* card) {
+        m_playableCards.emplace_back(card);
+        return true;
+    });
+
+    if (!m_playableCards.empty())
+    {
+        m_opMap[m_opMapSize] = MainOpType::PLAY_CARD;
+        ++m_opMapSize;
+    }
+
+    m_attackers.clear();
+    getter.ForEachAttacker([&](Character* character) {
+        m_attackers.emplace_back(character);
+        return true;
+    });
+
+    if (!m_attackers.empty())
+    {
+        m_opMap[m_opMapSize] = MainOpType::ATTACK;
+        ++m_opMapSize;
+    }
+
+    if (getter.CanUseHeroPower())
+    {
+        m_opMap[m_opMapSize] = MainOpType::USE_HERO_POWER;
+        ++m_opMapSize;
+    }
+
+    m_opMap[m_opMapSize] = MainOpType::END_TURN;
+    ++m_opMapSize;
+}
+
+void ActionValidChecker::Check(ActionValidGetter&& getter)
 {
     Reset();
 

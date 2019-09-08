@@ -30,7 +30,7 @@ class TorchPolicy : public BasicPolicy
     //! Gets next behavior from given \p game.
     //! \param game The current game status.
     //! \return The behavior serialized as TaskMeta.
-    TaskMeta Next(const Game& game) override;
+    TaskMeta Next(Game& game) override;
 
  private:
     torch::nn::ModuleHolder<ModuleBase> m_module;
@@ -41,7 +41,7 @@ class TorchPolicy : public BasicPolicy
     //! Convert ActionEncode to TaskMeta.
     TaskMeta ActionToTaskMeta() const;
 
-    TaskMeta Inference(const Game& game,
+    TaskMeta Inference(Game& game,
                        const std::vector<Generic::ActionEncode>& actions);
 
     //! Method for MulliganTask requirement.

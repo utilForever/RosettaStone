@@ -30,11 +30,15 @@ class ActionValidChecker
 
     //! Checks game data and adds the valid action.
     //! \param game The game context.
-    void Check(const Game& game);
+    void Check(Game& game);
 
     //! Checks game data and adds the valid action.
     //! \param getter The action valid getter.
-    void Check(const ActionValidGetter& getter);
+    void Check(ActionValidGetter& getter);
+
+    //! Checks game data and adds the valid action.
+    //! \param getter The action valid getter.
+    void Check(ActionValidGetter&& getter);
 
     //! Returns the available main actions.
     //! \return The available main actions.

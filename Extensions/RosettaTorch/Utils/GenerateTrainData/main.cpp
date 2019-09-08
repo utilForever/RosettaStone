@@ -110,26 +110,26 @@ int main(int argc, char* argv[])
 
     Initialize();
 
-    if (argc != 3)
-    {
-        std::cout << "Usage: " << argv[0] << " (threads)"
-                  << " (iterations)" << std::endl;
-        return EXIT_FAILURE;
-    }
+    //if (argc != 3)
+    //{
+    //    std::cout << "Usage: " << argv[0] << " (threads)"
+    //              << " (iterations)" << std::endl;
+    //    return EXIT_FAILURE;
+    //}
 
     RosettaTorch::Agents::MCTSConfig config;
     config.threads = 1;
     config.iterationsPerAction = 1000;
     config.mcts.neuralNetPath = "neural_net";
 
-    {
-        std::istringstream ss(argv[1]);
-        ss >> config.threads;
-    }
-    {
-        std::istringstream ss(argv[2]);
-        ss >> config.iterationsPerAction;
-    }
+    //{
+    //    std::istringstream ss(argv[1]);
+    //    ss >> config.threads;
+    //}
+    //{
+    //    std::istringstream ss(argv[2]);
+    //    ss >> config.iterationsPerAction;
+    //}
 
     std::cout << "Parameters: " << std::endl;
     std::cout << "\tThreads: " << config.threads << std::endl;

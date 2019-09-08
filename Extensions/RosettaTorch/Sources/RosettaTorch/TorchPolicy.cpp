@@ -19,7 +19,7 @@ TorchPolicy::TorchPolicy(std::shared_ptr<ModuleBase> module,
     // Do nothing
 }
 
-TaskMeta TorchPolicy::Next(const Game& game)
+TaskMeta TorchPolicy::Next(Game& game)
 {
     const std::vector<Generic::ActionEncode> actions =
         Generic::AvailableActions(game);
@@ -38,7 +38,7 @@ TaskMeta TorchPolicy::ActionToTaskMeta() const
 }
 
 TaskMeta TorchPolicy::Inference(
-    const Game& game, const std::vector<Generic::ActionEncode>& actions)
+    Game& game, const std::vector<Generic::ActionEncode>& actions)
 {
     // Generate context vector
     const torch::Tensor context = m_gameToVec->GenerateTensor(game);

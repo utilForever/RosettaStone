@@ -150,7 +150,7 @@ class Judger
         //! Deleted move assignment operator.
         ActionCallback& operator=(ActionCallback&& rhs) noexcept = delete;
 
-        void Initialize(const Game& game, AgentType* callback)
+        void Initialize(Game& game, AgentType* callback)
         {
             m_game = &game;
             m_callback = callback;
@@ -185,7 +185,7 @@ class Judger
      private:
         Judger& m_guide;
         AgentType* m_callback;
-        const Game* m_game;
+        Game* m_game;
     };
 
     ActionCallback m_actionCallback;

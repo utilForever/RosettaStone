@@ -8,7 +8,7 @@
 
 namespace RosettaTorch
 {
-torch::Tensor ActionEncoder::ActionToTensor(const Game& game,
+torch::Tensor ActionEncoder::ActionToTensor(Game& game,
                                             const Generic::ActionEncode& action)
 {
     // vector shape: [4 + 13 * 5 = 69]

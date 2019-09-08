@@ -27,7 +27,7 @@ class BoardRefView
     //! Constructs board with given \p game and \p playerType.
     //! \param game The game context.
     //! \param playerType The player type of the board.
-    BoardRefView(const Game& game, PlayerType playerType);
+    BoardRefView(Game& game, PlayerType playerType);
 
     //! Returns the side of the view.
     //! \return The side of the view.
@@ -184,7 +184,7 @@ class BoardRefView
     }
 
  private:
-    const Game& m_game;
+    Game& m_game;
     PlayerType m_playerType;
 };
 
@@ -198,7 +198,7 @@ class CurrentPlayerBoardRefView
  public:
     //! Constructs current player board ref view with given \p game.
     //! \param game The game context.
-    explicit CurrentPlayerBoardRefView(const Game& game);
+    explicit CurrentPlayerBoardRefView(Game& game);
 
     //! Returns the current player of the game.
     //! \return The current player of the game.
@@ -209,7 +209,7 @@ class CurrentPlayerBoardRefView
     ActionValidGetter GetActionValidGetter() const;
 
  private:
-    const Game& m_game;
+    Game& m_game;
 };
 }  // namespace RosettaStone
 

@@ -21,7 +21,7 @@ StateValue NeuralNetworkStateValue::GetStateValue(const Board& board)
     return GetStateValue(board.RevealHiddenInfoForSimulation());
 }
 
-StateValue NeuralNetworkStateValue::GetStateValue(const Game& game)
+StateValue NeuralNetworkStateValue::GetStateValue(Game& game)
 {
     m_curPlayerViewer.Reset(game);
 

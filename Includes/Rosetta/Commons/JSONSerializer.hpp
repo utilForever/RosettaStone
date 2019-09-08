@@ -20,7 +20,7 @@ class JSONSerializer
     //! Serializes the game data.
     //! \param game The game context.
     //! \return The serialized game data.
-    static nlohmann::json Serialize(const Game& game)
+    static nlohmann::json Serialize(Game& game)
     {
         nlohmann::json obj;
 
@@ -69,7 +69,7 @@ class JSONSerializer
     //! Serializes the game data.
     //! \param game The game context.
     //! \return The serialized game data.
-    static nlohmann::json SerializeGame(const Game& game)
+    static nlohmann::json SerializeGame(Game& game)
     {
         nlohmann::json obj;
 
@@ -267,7 +267,7 @@ class JSONSerializer
     //! Adds the playable card info.
     //! \param obj The JSON object to add info.
     //! \param game The game context.
-    static void AddPlayableCardInfo(nlohmann::json& obj, const Game& game)
+    static void AddPlayableCardInfo(nlohmann::json& obj, Game& game)
     {
         for (std::size_t idx = 0; idx < obj.size(); ++idx)
         {
@@ -286,16 +286,16 @@ class JSONSerializer
     //! Adds the playable hero power info.
     //! \param obj The JSON object to add info.
     //! \param game The game context.
-    static void AddPlayableHeroPowerInfo(nlohmann::json& obj, const Game& game)
+    static void AddPlayableHeroPowerInfo(nlohmann::json& obj, Game& game)
     {
-        const ActionValidGetter getter(game);
+        ActionValidGetter getter(game);
         obj["playable"] = getter.CanUseHeroPower();
     }
 
     //! Adds the attackable info.
     //! \param obj The JSON object to add info.
     //! \param game The game context.
-    static void AddAttackableInfo(nlohmann::json& obj, const Game& game)
+    static void AddAttackableInfo(nlohmann::json& obj, Game& game)
     {
         for (std::size_t idx = 0; idx < obj["minions"].size(); ++idx)
         {

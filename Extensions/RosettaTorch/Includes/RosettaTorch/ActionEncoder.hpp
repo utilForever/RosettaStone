@@ -54,7 +54,7 @@ struct ActionEncoder
         TaskIDSize + EntityEncodeSize * (NumSource + NumTarget);
 
     //! Convert ActionEncode to torch::Tensor.
-    static torch::Tensor ActionToTensor(const Game& game,
+    static torch::Tensor ActionToTensor(Game& game,
                                         const Generic::ActionEncode& action);
 };
 }  // namespace RosettaTorch

@@ -230,7 +230,7 @@ torch::Tensor GameToVec::CardToTensor(Entity* entity)
     return cardVector;
 }
 
-torch::Tensor GameToVec::GenerateTensor(const Game& game)
+torch::Tensor GameToVec::GenerateTensor(Game& game)
 {
     // vector shape : [1 + 1 + 1 + n * 7 + n * 7 + n * 10 = 3 + n * 24 = 675]
     // # 1      : number of opponent player's cards on hand.

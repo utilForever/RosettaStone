@@ -37,7 +37,7 @@ class Recorder
         return m_json;
     }
 
-    void RecordMainAction(const RosettaStone::Game& game,
+    void RecordMainAction(RosettaStone::Game& game,
                           RosettaStone::MainOpType op)
     {
         nlohmann::json obj;

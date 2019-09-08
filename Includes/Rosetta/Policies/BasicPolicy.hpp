@@ -30,7 +30,7 @@ class BasicPolicy : public IPolicy
     //! Gets next behavior from given \p game.
     //! \param game The current game status.
     //! \return The behavior serialized as TaskMeta.
-    TaskMeta Next(const Game& game) override;
+    TaskMeta Next(Game& game) override;
 
     //! Gets proper requirement with given \p player and \p id.
     //! \param player The player who requests the requirement.

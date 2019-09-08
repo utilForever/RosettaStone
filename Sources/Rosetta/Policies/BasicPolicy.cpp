@@ -9,7 +9,7 @@
 
 namespace RosettaStone
 {
-TaskMeta BasicPolicy::Next(const Game&)
+TaskMeta BasicPolicy::Next(Game&)
 {
     return TaskMeta(TaskMetaTrait{ TaskID::END_TURN });
 }

@@ -56,7 +56,7 @@ class Board
 
     //! Returns the game that is revealed hidden info for simulation.
     //! \return The game that is revealed hidden info for simulation.
-    const Game& RevealHiddenInfoForSimulation() const;
+    Game& RevealHiddenInfoForSimulation() const;
 
  private:
     Game& m_game;

@@ -27,7 +27,7 @@ class GameDataBridge : public IInputGetter
  public:
     //! Clears and initializes member variables.
     //! \param game The game context.
-    void Reset(const RosettaStone::Game& game);
+    void Reset(RosettaStone::Game& game);
 
     //! Returns the value of the field.
     //! Note that boolean value is 1 for true, 0 for false.
@@ -47,7 +47,7 @@ class GameDataBridge : public IInputGetter
                         const RosettaStone::Player& player) const;
 
  private:
-    const RosettaStone::Game* m_game = nullptr;
+    RosettaStone::Game* m_game = nullptr;
     std::vector<RosettaStone::Entity*> m_playableCards;
     bool m_canUseHeroPower = false;
 };

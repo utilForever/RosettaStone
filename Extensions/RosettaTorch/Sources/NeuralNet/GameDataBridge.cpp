@@ -13,11 +13,11 @@
 
 namespace RosettaTorch::NeuralNet
 {
-void GameDataBridge::Reset(const RosettaStone::Game& game)
+void GameDataBridge::Reset(RosettaStone::Game& game)
 {
     m_game = &game;
 
-    const RosettaStone::ActionValidGetter getter(*m_game);
+    RosettaStone::ActionValidGetter getter(*m_game);
 
     m_playableCards.clear();
     getter.ForEachPlayableCard([this](RosettaStone::Entity* card) {

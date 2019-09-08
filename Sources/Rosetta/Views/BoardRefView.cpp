@@ -11,7 +11,7 @@
 
 namespace RosettaStone
 {
-BoardRefView::BoardRefView(const Game& game, PlayerType playerType)
+BoardRefView::BoardRefView(Game& game, PlayerType playerType)
     : m_game(game), m_playerType(playerType)
 {
     // Do nothing
@@ -266,8 +266,7 @@ bool BoardRefView::IsMinionAttackable(PlayerType playerType, int idx) const
     }
 }
 
-CurrentPlayerBoardRefView::CurrentPlayerBoardRefView(const Game& game)
-    : m_game(game)
+CurrentPlayerBoardRefView::CurrentPlayerBoardRefView(Game& game) : m_game(game)
 {
     // Do nothing
 }

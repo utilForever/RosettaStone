@@ -51,7 +51,7 @@ class GameToVec
     //! Generates torch tensor from game context.
     //! \param game The game context.
     //! \return The encoded torch tensor from \p game.
-    virtual torch::Tensor GenerateTensor(const Game& game);
+    virtual torch::Tensor GenerateTensor(Game& game);
 
     //! Returns the effect embedding table.
     //! \return The effect embedding table.

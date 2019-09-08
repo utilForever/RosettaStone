@@ -13,7 +13,7 @@
 
 namespace RosettaStone
 {
-ActionValidGetter::ActionValidGetter(const Game& game) : m_game(game)
+ActionValidGetter::ActionValidGetter(Game& game) : m_game(game)
 {
     // Do nothing
 }
@@ -27,7 +27,7 @@ Hero* ActionValidGetter::GetHero(PlayerType playerType) const
     return hero;
 }
 
-bool ActionValidGetter::CanUseHeroPower() const
+bool ActionValidGetter::CanUseHeroPower()
 {
     auto& heroPower = m_game.GetCurrentPlayer().GetHeroPower();
 
