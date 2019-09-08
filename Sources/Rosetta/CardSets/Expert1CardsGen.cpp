@@ -666,6 +666,27 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("EX1_180", power);
 
+    // ------------------------------------------ MINION - MAGE
+    // [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: If you control a <b>Secret</b> at the end of your turn,
+    //       gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsControllingSecret());
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_274e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_274", power);
+
     // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
@@ -719,6 +740,16 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [EX1_274e] Raw Power! (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackHealthN(2)));
+    cards.emplace("EX1_274e", power);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [NEW1_012o] Mana Gorged (*) - COST:0
