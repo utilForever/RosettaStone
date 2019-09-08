@@ -1612,6 +1612,27 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     cards.emplace("EX1_301", power);
 
     // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_303] Shadowflame - COST:4
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Destroy a friendly minion and deal its Attack damage to all enemy
+    // minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::ATK));
+    power.AddPowerTask(new DamageNumberTask(EntityType::ENEMY_MINIONS, true));
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("EX1_303", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
