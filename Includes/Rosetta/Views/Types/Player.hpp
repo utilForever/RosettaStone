@@ -13,6 +13,7 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
 #include <Rosetta/Views/Types/CardInfo.hpp>
+#include <Rosetta/Views/Types/UnknownCards.hpp>
 
 namespace RosettaStone::Views::Types
 {
@@ -50,10 +51,10 @@ struct HeroPower
 //!
 struct ManaCrystal
 {
-    void Parse(int remainingMana, int totalMana, int overloadOwedMana,
+    void Parse(int usedMana, int totalMana, int overloadOwedMana,
                int overloadLockedMana);
 
-    int remaining;
+    int used;
     int total;
     int overloadOwed;
     int overloadLocked;
@@ -89,7 +90,8 @@ struct Minions
 //!
 struct Player
 {
-    void Parse(BoardRefView gameState, PlayerType side);
+    void Parse(BoardRefView gameState, PlayerType side,
+               UnknownCardsInfo& unknownCardsInfo);
 
     Hero hero;
     HeroPower heroPower;
@@ -100,8 +102,27 @@ struct Player
     std::vector<CardInfo> hand;
     std::vector<CardInfo> deck;
 
-private:
-    CardInfo ParseCardInfo(std::string cardID);
+ private:
+    CardInfo ParseCardInfo(const std::string& cardID, int blockID,
+                           UnknownCardsInfo& unknownCardsInfo);
+
+    template <class CardsGetter>
+    std::size_t GetUnknownCardSetID(int blockIdx, CardsGetter&& cardsGetter,
+                                    UnknownCardsInfo& unknownCardsInfo)
+    {
+        auto& setsIndices = unknownCardsInfo.setsIndices;
+        auto iter = setsIndices.find(blockIdx);
+
+        if (iter == setsIndices.end())
+        {
+            std::size_t setIdx =
+                unknownCardsInfo.unknownCardsSets.AddCardsSet(cardsGetter());
+            setsIndices.insert(std::make_pair(blockIdx, setIdx));
+            return setIdx;
+        }
+
+        return iter->second;
+    }
 };
 }  // namespace RosettaStone::Views::Types
 
