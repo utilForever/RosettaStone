@@ -45,8 +45,46 @@ class MOMCTS
     MOMCTS& operator=(MOMCTS&&) noexcept = delete;
 
     //! Iterates the action until game is finished.
-    //! \param game The game context.
-    void Iterate(Game& game);
+    template <class... StartArgs>
+    void Iterate(StartArgs&&... startArgs)
+    {
+        m_playerController.StartEpisode(std::forward<StartArgs>(startArgs)...);
+        m_player1.StartIteration();
+        m_player2.StartIteration();
+
+        while (true)
+        {
+            PlayerController::Player player = m_playerController.GetPlayer();
+            bool iterationEnds = false;
+            StateValue stateValue;
+
+            while (m_playerController.GetPlayer() == player)
+            {
+                iterationEnds = GetSOMCTS(player).PerformAction(
+                    m_playerController.GetPlayerBoard(player), stateValue);
+                if (iterationEnds)
+                {
+                    break;
+                }
+            }
+
+            if (iterationEnds)
+            {
+                m_player1.FinishIteration(
+                    m_playerController.GetPlayerBoard(
+                        PlayerController::Player::Player1()),
+                    stateValue);
+                m_player2.FinishIteration(
+                    m_playerController.GetPlayerBoard(
+                        PlayerController::Player::Player2()),
+                    stateValue);
+
+                break;
+            }
+
+            GetSOMCTS(player.Opponent()).ApplyOthersActions();
+        }
+    }
 
     //! Returns the root node of the tree.
     //! \param player The player controller.

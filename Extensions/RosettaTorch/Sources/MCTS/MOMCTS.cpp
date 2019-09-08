@@ -19,44 +19,6 @@ MOMCTS::MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics,
     // Do nothing
 }
 
-void MOMCTS::Iterate(Game& game)
-{
-    m_playerController.SetGame(game);
-    m_player1.StartIteration();
-    m_player2.StartIteration();
-
-    while (true)
-    {
-        PlayerController::Player player = m_playerController.GetPlayer();
-        bool iterationEnds = false;
-        StateValue stateValue;
-
-        while (m_playerController.GetPlayer() == player)
-        {
-            iterationEnds = GetSOMCTS(player).PerformAction(
-                m_playerController.GetPlayerBoard(player), stateValue);
-            if (iterationEnds)
-            {
-                break;
-            }
-        }
-
-        if (iterationEnds)
-        {
-            m_player1.FinishIteration(m_playerController.GetPlayerBoard(
-                                          PlayerController::Player::Player1()),
-                                      stateValue);
-            m_player2.FinishIteration(m_playerController.GetPlayerBoard(
-                                          PlayerController::Player::Player2()),
-                                      stateValue);
-
-            break;
-        }
-
-        GetSOMCTS(player.Opponent()).ApplyOthersActions();
-    }
-}
-
 TreeNode* MOMCTS::GetRootNode(PlayerController::Player player) const
 {
     return GetSOMCTS(player).GetRootNode();
