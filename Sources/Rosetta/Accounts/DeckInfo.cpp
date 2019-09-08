@@ -165,4 +165,20 @@ bool DeckInfo::DeleteCard(std::string cardID, std::size_t numCardToDelete)
 
     return false;
 }
+
+std::vector<std::string> DeckInfo::GetCardIDs()
+{
+    std::vector<std::string> ret;
+    ret.reserve(m_numOfCards);
+
+    for (const auto& card : m_cards)
+    {
+        for (std::size_t i = 0; i < card.second; ++i)
+        {
+            ret.emplace_back(card.first);
+        }
+    }
+
+    return ret;
+}
 }  // namespace RosettaStone

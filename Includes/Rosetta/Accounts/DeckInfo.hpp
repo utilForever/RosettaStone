@@ -78,6 +78,10 @@ class DeckInfo
     //! otherwise.
     bool DeleteCard(std::string cardID, std::size_t numCardToDelete);
 
+    //! Returns a list of card IDs.
+    //! \return A list of card IDs.
+    std::vector<std::string> GetCardIDs();
+
  private:
     std::string m_name;
     CardClass m_class = CardClass::INVALID;
