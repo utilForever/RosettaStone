@@ -260,7 +260,7 @@ EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier |  
 EXPERT1 | EX1_294 | Mirror Entity |  
 EXPERT1 | EX1_301 | Felguard | O
-EXPERT1 | EX1_303 | Shadowflame |  
+EXPERT1 | EX1_303 | Shadowflame | O 
 EXPERT1 | EX1_304 | Void Terror |  
 EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 68% (164 of 237 Cards)
+- Progress: 68% (165 of 237 Cards)
 
 ## Hall of Fame
 
