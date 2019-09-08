@@ -77,12 +77,15 @@ class PlayerController
     //! \return The board of the player.
     RosettaStone::Board GetPlayerBoard(Player player) const;
 
-    //! Sets the game to control player.
-    //! \param game The game to control player.
-    void SetGame(RosettaStone::Game& game);
+    //! Starts the game.
+    template <class StartBoardGetter>
+    void StartEpisode(StartBoardGetter&& startBoardGetter)
+    {
+        m_game = startBoardGetter();
+    }
 
  private:
-    RosettaStone::Game* m_game = nullptr;
+    RosettaStone::Game m_game;
 };
 }  // namespace RosettaTorch::MCTS
 
