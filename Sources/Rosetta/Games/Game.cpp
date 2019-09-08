@@ -107,9 +107,6 @@ void Game::RefCopyFrom(const Game& rhs)
 
     m_entityID = rhs.m_entityID;
     m_oopIndex = rhs.m_oopIndex;
-
-    m_firstPlayer = rhs.m_firstPlayer;
-    m_currentPlayer = rhs.m_currentPlayer;
 }
 
 Player& Game::GetPlayer1()
@@ -132,26 +129,43 @@ const Player& Game::GetPlayer2() const
     return m_players[1];
 }
 
-Player& Game::GetCurrentPlayer() const
+Player& Game::GetCurrentPlayer()
 {
-    return *m_currentPlayer;
+    if (m_currentPlayer == PlayerType::PLAYER1)
+    {
+        return m_players[0];
+    }
+    else if (m_currentPlayer == PlayerType::PLAYER2)
+    {
+        return m_players[1];
+    }
+    else
+    {
+        throw std::logic_error(
+            "Game::GetCurrentPlayer() - Player type is invalid.");
+    }
 }
 
 void Game::SetCurrentPlayer(PlayerType playerType)
 {
-    if (playerType == PlayerType::PLAYER1)
+    m_currentPlayer = playerType;
+}
+
+Player& Game::GetOpponentPlayer()
+{
+    if (m_currentPlayer == PlayerType::PLAYER1)
     {
-        m_currentPlayer = &m_players[0];
+        return m_players[1];
+    }
+    else if (m_currentPlayer == PlayerType::PLAYER2)
+    {
+        return m_players[0];
     }
     else
     {
-        m_currentPlayer = &m_players[1];
+        throw std::logic_error(
+            "Game::GetOpponentPlayer() - Player type is invalid.");
     }
-}
-
-Player& Game::GetOpponentPlayer() const
-{
-    return *m_currentPlayer->opponent;
 }
 
 int Game::GetTurn() const
@@ -210,7 +224,7 @@ void Game::BeginDraw()
         Generic::Draw(p);
         Generic::Draw(p);
 
-        if (&p != m_firstPlayer)
+        if (&p != &GetCurrentPlayer())
         {
             // Draw 4th card for second player
             Generic::Draw(p);
@@ -439,7 +453,9 @@ void Game::MainCleanUp()
 void Game::MainNext()
 {
     // Set player for next turn
-    m_currentPlayer = m_currentPlayer->opponent;
+    m_currentPlayer = (m_currentPlayer == PlayerType::PLAYER1)
+                          ? PlayerType::PLAYER2
+                          : PlayerType::PLAYER1;
 
     // Count next turn
     m_turn++;
@@ -538,17 +554,14 @@ void Game::StartGame()
         case PlayerType::RANDOM:
         {
             const auto val = Random::get(0, 1);
-            m_firstPlayer = &m_players[val];
+            m_currentPlayer =
+                (val == 0) ? PlayerType::PLAYER1 : PlayerType::PLAYER2;
             break;
         }
-        case PlayerType::PLAYER1:
-            m_firstPlayer = &m_players[0];
-            break;
-        case PlayerType::PLAYER2:
-            m_firstPlayer = &m_players[1];
+        default:
+            m_currentPlayer = m_gameConfig.startPlayer;
             break;
     }
-    m_currentPlayer = m_firstPlayer;
 
     // Set first turn
     m_turn = 1;
@@ -786,9 +799,9 @@ PlayState Game::PerformAction(ActionParams& params)
     return Process(GetCurrentPlayer(), task);
 }
 
-ReducedBoardView Game::CreateView() const
+ReducedBoardView Game::CreateView()
 {
-    if (m_currentPlayer->playerType == PlayerType::PLAYER1)
+    if (m_currentPlayer == PlayerType::PLAYER1)
     {
         return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER1));
     }

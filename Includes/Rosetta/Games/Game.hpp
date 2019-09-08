@@ -73,7 +73,7 @@ class Game
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
-    Player& GetCurrentPlayer() const;
+    Player& GetCurrentPlayer();
 
     //! Sets the player controlling the current turn.
     //! \param type The player type controlling the current turn.
@@ -81,7 +81,7 @@ class Game
 
     //! Returns the opponent player.
     //! \return The opponent player.
-    Player& GetOpponentPlayer() const;
+    Player& GetOpponentPlayer();
 
     //! Gets the turn of the game.
     //! \return The turn of the game.
@@ -185,7 +185,7 @@ class Game
 
     //! Creates board view.
     //! \return The reduced board view.
-    ReducedBoardView CreateView() const;
+    ReducedBoardView CreateView();
 
     State state = State::INVALID;
 
@@ -214,8 +214,7 @@ class Game
     std::size_t m_entityID = 0;
     std::size_t m_oopIndex = 0;
 
-    Player* m_firstPlayer = nullptr;
-    Player* m_currentPlayer = nullptr;
+    PlayerType m_currentPlayer = PlayerType::INVALID;
 };
 }  // namespace RosettaStone
 
