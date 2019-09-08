@@ -29,18 +29,18 @@ GameRestorer GameRestorer::Prepare(BoardView& view,
     return restorer;
 }
 
-Game GameRestorer::RestoreGame()
+Game* GameRestorer::RestoreGame()
 {
     p1UnknownCardsManager.Prepare();
     p2UnknownCardsManager.Prepare();
 
-    Game game;
-    MakePlayer(PlayerType::PLAYER1, game, m_view.GetPlayer1(),
+    Game* game = new Game();
+    MakePlayer(PlayerType::PLAYER1, *game, m_view.GetPlayer1(),
                p1UnknownCardsManager);
-    MakePlayer(PlayerType::PLAYER2, game, m_view.GetPlayer2(),
+    MakePlayer(PlayerType::PLAYER2, *game, m_view.GetPlayer2(),
                p2UnknownCardsManager);
-    game.SetCurrentPlayer(m_view.GetCurrentPlayer());
-    game.SetTurn(m_view.GetTurn());
+    game->SetCurrentPlayer(m_view.GetCurrentPlayer());
+    game->SetTurn(m_view.GetTurn());
 
     return game;
 }

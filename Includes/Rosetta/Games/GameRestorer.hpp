@@ -26,7 +26,7 @@ class GameRestorer
                                 Views::Types::UnknownCardsInfo& p1Unknown,
                                 Views::Types::UnknownCardsInfo& p2Unknown);
 
-    Game RestoreGame();
+    Game* RestoreGame();
 
  private:
     void MakePlayer(
