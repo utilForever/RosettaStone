@@ -137,6 +137,7 @@
 #include <Rosetta/Views/ReducedBoardView.hpp>
 #include <Rosetta/Views/Types/CardInfo.hpp>
 #include <Rosetta/Views/Types/Player.hpp>
+#include <Rosetta/Views/Types/UnknownCards.hpp>
 #include <Rosetta/Views/ViewTypes.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
