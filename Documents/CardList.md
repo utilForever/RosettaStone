@@ -281,7 +281,7 @@ EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
 EXPERT1 | EX1_362 | Argent Protector | O
 EXPERT1 | EX1_363 | Blessing of Wisdom |  
-EXPERT1 | EX1_365 | Holy Wrath |  
+EXPERT1 | EX1_365 | Holy Wrath | O
 EXPERT1 | EX1_366 | Sword of Justice |  
 EXPERT1 | EX1_379 | Repentance |  
 EXPERT1 | EX1_382 | Aldor Peacekeeper | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 69% (164 of 237 Cards)
+- Progress: 70% (165 of 237 Cards)
 
 ## Hall of Fame
 
