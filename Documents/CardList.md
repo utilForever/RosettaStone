@@ -267,7 +267,7 @@ EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
 EXPERT1 | EX1_315 | Summoning Portal |  
 EXPERT1 | EX1_317 | Sense Demons | O
-EXPERT1 | EX1_319 | Flame Imp |  
+EXPERT1 | EX1_319 | Flame Imp | O
 EXPERT1 | EX1_320 | Bane of Doom | O
 EXPERT1 | EX1_323 | Lord Jaraxxus |  
 EXPERT1 | EX1_332 | Silence | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 70% (165 of 237 Cards)
+- Progress: 70% (166 of 237 Cards)
 
 ## Hall of Fame
 
