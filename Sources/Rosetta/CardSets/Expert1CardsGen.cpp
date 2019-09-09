@@ -1687,6 +1687,19 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     cards.emplace("EX1_317", power);
 
     // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_319] Flame Imp - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
+    // -------------------------------------------------------- 
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::HERO, 3, true));
+    cards.emplace("EX1_319", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
     // [EX1_320] Bane of Doom - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
