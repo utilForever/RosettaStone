@@ -82,6 +82,7 @@ class PlayerController
     void StartEpisode(StartBoardGetter&& startBoardGetter)
     {
         m_game = startBoardGetter();
+        m_game->Start();
     }
 
  private:
