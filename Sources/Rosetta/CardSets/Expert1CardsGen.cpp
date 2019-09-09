@@ -786,6 +786,24 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
     cards.emplace("EX1_362", power);
 
+    // ------------------------------------------ SPELL - PALADIN
+    // [EX1_365] Holy Wrath - COST:5
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw a card and deal damage equal to its Cost.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(1, true));
+    power.AddPowerTask(new GetGameTagTask(EntityType::STACK, GameTag::COST));
+    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    cards.emplace("EX1_365", power);
+
     // --------------------------------------- MINION - PALADIN
     // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare

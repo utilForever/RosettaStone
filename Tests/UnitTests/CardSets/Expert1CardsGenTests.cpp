@@ -1336,6 +1336,52 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
     EXPECT_TRUE(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD));
 }
 
+// ------------------------------------------ SPELL - PALADIN
+// [EX1_365] Holy Wrath - COST:5
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a card and deal damage equal to its Cost.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_365_HolyWrath)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Holy Wrath"));
+
+    EXPECT_EQ(curHand.GetCount(),5);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curHand.GetCount(),5);
+
+    Entity* drawCard = curHand[curHand.GetCount() - 1];
+    int cardCost = drawCard->card->gameTags[GameTag::COST];
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30 - cardCost);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
