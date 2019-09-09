@@ -148,6 +148,9 @@ class Game
     void FinalGameOver();
 
     //! Starts the game.
+    void Start();
+
+    //! Starts the game.
     void StartGame();
 
     // Processes task queue.

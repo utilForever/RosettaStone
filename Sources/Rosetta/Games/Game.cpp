@@ -492,6 +492,16 @@ void Game::FinalGameOver()
     state = State::COMPLETE;
 }
 
+void Game::Start()
+{
+    // Set next step
+    nextStep = Step::BEGIN_FIRST;
+    if (m_gameConfig.autoRun)
+    {
+        GameManager::ProcessNextStep(*this, nextStep);
+    }
+}
+
 void Game::StartGame()
 {
     // Reverse card order in deck
