@@ -120,7 +120,7 @@ CardInfo Player::ParseCardInfo(const std::string& cardID, int blockID,
         }
     };
 
-    if (cardID == INVALID_CARD_ID)
+    if (cardID != INVALID_CARD_ID)
     {
         const std::size_t cardsSetID =
             GetUnknownCardSetID(blockID, BlockCardsGetter, unknownCardsInfo);
