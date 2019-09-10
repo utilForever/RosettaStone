@@ -323,33 +323,36 @@ void Trigger::ProcessInternal(Entity* source)
 
     for (auto& task : tasks)
     {
-        task->SetPlayer(m_owner->owner);
-        task->SetSource(m_owner);
+        ITask* clonedTask = task->Clone();
+
+        clonedTask->SetPlayer(m_owner->owner);
+        clonedTask->SetSource(m_owner);
 
         if (source != nullptr)
         {
-            task->SetTarget(source);
+            clonedTask->SetTarget(source);
         }
         else
         {
             const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
             if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
             {
-                task->SetTarget(enchantment->GetTarget());
+                clonedTask->SetTarget(enchantment->GetTarget());
             }
             else
             {
-                task->SetTarget(nullptr);
+                clonedTask->SetTarget(nullptr);
             }
         }
 
         if (fastExecution)
         {
-            task->Run();
+            clonedTask->Run();
+            delete clonedTask;
         }
         else
         {
-            m_owner->owner->GetGame()->taskQueue.Enqueue(task);
+            m_owner->owner->GetGame()->taskQueue.Enqueue(clonedTask);
         }
     }
 
