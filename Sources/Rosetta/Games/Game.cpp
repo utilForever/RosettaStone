@@ -32,32 +32,92 @@ namespace RosettaStone
 {
 Game::Game()
 {
-    // Set game to player
-    for (auto& p : m_players)
-    {
-        p.SetGame(this);
-    }
-
-    // Set player type
-    GetPlayer1().playerType = PlayerType::PLAYER1;
-    GetPlayer2().playerType = PlayerType::PLAYER2;
-
-    // Set opponent player
-    GetPlayer1().opponent = &GetPlayer2();
-    GetPlayer2().opponent = &GetPlayer1();
+    Initialize();
 
     m_gameConfig.doShuffle = true;
     m_gameConfig.skipMulligan = true;
     m_gameConfig.autoRun = true;
-
-    state = State::RUNNING;
-    for (auto& p : m_players)
-    {
-        p.playState = PlayState::PLAYING;
-    }
 }
 
 Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
+{
+    Initialize();
+
+    // Add hero and hero power
+    GetPlayer1().AddHeroAndPower(
+        Cards::GetHeroCard(gameConfig.player1Class),
+        Cards::GetDefaultHeroPower(gameConfig.player1Class));
+    GetPlayer2().AddHeroAndPower(
+        Cards::GetHeroCard(gameConfig.player2Class),
+        Cards::GetDefaultHeroPower(gameConfig.player2Class));
+
+    // Reverse card order in deck
+    if (!m_gameConfig.doShuffle)
+    {
+        std::reverse(m_gameConfig.player1Deck.begin(),
+                     m_gameConfig.player1Deck.end());
+        std::reverse(m_gameConfig.player2Deck.begin(),
+                     m_gameConfig.player2Deck.end());
+    }
+
+    // Set up decks
+    for (auto& card : m_gameConfig.player1Deck)
+    {
+        if (card.id.empty())
+        {
+            continue;
+        }
+
+        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
+                                             &GetPlayer1().GetDeckZone());
+        GetPlayer1().GetDeckZone().Add(*entity);
+    }
+    for (auto& card : m_gameConfig.player2Deck)
+    {
+        if (card.id.empty())
+        {
+            continue;
+        }
+
+        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
+                                             &GetPlayer2().GetDeckZone());
+        GetPlayer2().GetDeckZone().Add(*entity);
+    }
+
+    // Fill cards to deck
+    if (m_gameConfig.doFillDecks)
+    {
+        for (auto& p : m_players)
+        {
+            for (auto& cardID : m_gameConfig.fillCardIDs)
+            {
+                Card* card = Cards::FindCardByID(cardID);
+                Entity* entity = Entity::GetFromCard(p, card);
+                p.GetDeckZone().Add(*entity);
+            }
+        }
+    }
+
+    // Determine first player
+    switch (m_gameConfig.startPlayer)
+    {
+        case PlayerType::RANDOM:
+        {
+            const auto val = Random::get(0, 1);
+            m_currentPlayer =
+                (val == 0) ? PlayerType::PLAYER1 : PlayerType::PLAYER2;
+            break;
+        }
+        default:
+            m_currentPlayer = m_gameConfig.startPlayer;
+            break;
+    }
+
+    // Set first turn
+    m_turn = 1;
+}
+
+void Game::Initialize()
 {
     // Set game to player
     for (auto& p : m_players)
@@ -69,17 +129,16 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     GetPlayer1().playerType = PlayerType::PLAYER1;
     GetPlayer2().playerType = PlayerType::PLAYER2;
 
-    // Add hero and hero power
-    GetPlayer1().AddHeroAndPower(
-        Cards::GetHeroCard(gameConfig.player1Class),
-        Cards::GetDefaultHeroPower(gameConfig.player1Class));
-    GetPlayer2().AddHeroAndPower(
-        Cards::GetHeroCard(gameConfig.player2Class),
-        Cards::GetDefaultHeroPower(gameConfig.player2Class));
-
     // Set opponent player
     GetPlayer1().opponent = &GetPlayer2();
     GetPlayer2().opponent = &GetPlayer1();
+
+    // Set states
+    state = State::RUNNING;
+    for (auto& p : m_players)
+    {
+        p.playState = PlayState::PLAYING;
+    }
 }
 
 void Game::RefCopyFrom(const Game& rhs)
@@ -502,88 +561,6 @@ void Game::Start()
     }
 }
 
-void Game::StartGame()
-{
-    // Reverse card order in deck
-    if (!m_gameConfig.doShuffle)
-    {
-        std::reverse(m_gameConfig.player1Deck.begin(),
-                     m_gameConfig.player1Deck.end());
-        std::reverse(m_gameConfig.player2Deck.begin(),
-                     m_gameConfig.player2Deck.end());
-    }
-
-    // Set up decks
-    for (auto& card : m_gameConfig.player1Deck)
-    {
-        if (card.id.empty())
-        {
-            continue;
-        }
-
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
-                                             &GetPlayer1().GetDeckZone());
-        GetPlayer1().GetDeckZone().Add(*entity);
-    }
-    for (auto& card : m_gameConfig.player2Deck)
-    {
-        if (card.id.empty())
-        {
-            continue;
-        }
-
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
-                                             &GetPlayer2().GetDeckZone());
-        GetPlayer2().GetDeckZone().Add(*entity);
-    }
-
-    // Fill cards to deck
-    if (m_gameConfig.doFillDecks)
-    {
-        for (auto& p : m_players)
-        {
-            for (auto& cardID : m_gameConfig.fillCardIDs)
-            {
-                Card* card = Cards::FindCardByID(cardID);
-                Entity* entity = Entity::GetFromCard(p, card);
-                p.GetDeckZone().Add(*entity);
-            }
-        }
-    }
-
-    // Set game states
-    state = State::RUNNING;
-    for (auto& p : m_players)
-    {
-        p.playState = PlayState::PLAYING;
-    }
-
-    // Determine first player
-    switch (m_gameConfig.startPlayer)
-    {
-        case PlayerType::RANDOM:
-        {
-            const auto val = Random::get(0, 1);
-            m_currentPlayer =
-                (val == 0) ? PlayerType::PLAYER1 : PlayerType::PLAYER2;
-            break;
-        }
-        default:
-            m_currentPlayer = m_gameConfig.startPlayer;
-            break;
-    }
-
-    // Set first turn
-    m_turn = 1;
-
-    // Set next step
-    nextStep = Step::BEGIN_FIRST;
-    if (m_gameConfig.autoRun)
-    {
-        GameManager::ProcessNextStep(*this, nextStep);
-    }
-}
-
 void Game::ProcessTasks()
 {
     while (!taskQueue.IsEmpty())
@@ -708,7 +685,7 @@ void Game::ProcessUntil(Step untilStep)
 
 void Game::PlayPolicy()
 {
-    StartGame();
+    Start();
 
     Player& player1 = GetPlayer1();
     // Request mulligan choices to policy.

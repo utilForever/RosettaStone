@@ -51,6 +51,9 @@ class Game
     //! Default move assignment operator.
     Game& operator=(Game&&) noexcept = default;
 
+    //! Initializes the game state and player related variables.
+    void Initialize();
+
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
     void RefCopyFrom(const Game& rhs);
@@ -149,9 +152,6 @@ class Game
 
     //! Starts the game.
     void Start();
-
-    //! Starts the game.
-    void StartGame();
 
     // Processes task queue.
     void ProcessTasks();
