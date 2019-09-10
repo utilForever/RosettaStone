@@ -23,7 +23,7 @@ TEST(SecretZone, Exist)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();

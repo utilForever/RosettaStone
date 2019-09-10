@@ -23,7 +23,7 @@ TEST(Board, RefCopyFrom)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -47,7 +47,7 @@ TEST(Board, CreateView)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -81,7 +81,7 @@ TEST(Board, RevealHiddenInfoForSimulation)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     game.step = Step::BEGIN_DRAW;

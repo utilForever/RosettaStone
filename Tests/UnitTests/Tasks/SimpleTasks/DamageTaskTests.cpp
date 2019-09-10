@@ -31,7 +31,7 @@ TEST(DamageTask, Run)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
 
     Player& player1 = game.GetPlayer1();
 
@@ -70,7 +70,7 @@ TEST(DamageTask, SpellPower)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
 
     Player& player1 = game.GetPlayer1();
 

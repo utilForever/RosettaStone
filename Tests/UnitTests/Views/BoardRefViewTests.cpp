@@ -24,7 +24,7 @@ TEST(BoardRefView, GetFatigueDamage)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -48,7 +48,7 @@ TEST(BoardRefView, GetTotalMana)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -72,7 +72,7 @@ TEST(BoardRefView, GetUsedMana)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -96,7 +96,7 @@ TEST(BoardRefView, GetTemporaryMana)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -120,7 +120,7 @@ TEST(BoardRefView, GetOverloadOwed)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -144,7 +144,7 @@ TEST(BoardRefView, GetOverloadLocked)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -168,7 +168,7 @@ TEST(BoardRefView, GetRemainingMana)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -194,7 +194,7 @@ TEST(BoardRefView, GetHero)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -217,7 +217,7 @@ TEST(BoardRefView, GetOpponentHero)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -240,7 +240,7 @@ TEST(BoardRefView, GetHeroPower)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     BoardRefView board(game, game.GetCurrentPlayer().playerType);
@@ -258,7 +258,7 @@ TEST(BoardRefView, GetWeapon)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     BoardRefView board(game, game.GetCurrentPlayer().playerType);
@@ -276,7 +276,7 @@ TEST(BoardRefView, GetHandCards)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -299,7 +299,7 @@ TEST(BoardRefView, GetOpponentHandCards)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -322,7 +322,7 @@ TEST(BoardRefView, GetOpponentHandCardCount)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -345,7 +345,7 @@ TEST(BoardRefView, GetMinions)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -386,7 +386,7 @@ TEST(BoardRefView, GetDeckCardCount)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     BoardRefView board(game, game.GetCurrentPlayer().playerType);
@@ -404,7 +404,7 @@ TEST(BoardRefView, IsHeroAttackable)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -425,7 +425,7 @@ TEST(BoardRefView, IsMinionAttackable)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -469,7 +469,7 @@ TEST(CurrentPlayerBoardRefView, GetCurrentPlayer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     auto curPlayerBoardRefView = CurrentPlayerBoardRefView(game);

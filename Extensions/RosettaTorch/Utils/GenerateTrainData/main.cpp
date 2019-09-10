@@ -173,7 +173,7 @@ int main(int argc, char* argv[])
     }
 
     Game game(gameConfig);
-    game.StartGame();
+    game.Start();
     judger.Start(game);
 
     SaveJSON(recorder.GetJSON());

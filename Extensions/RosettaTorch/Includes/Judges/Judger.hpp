@@ -95,7 +95,7 @@ class Judger
     {
         m_recorder.Start();
 
-        game.StartGame();
+        game.Start();
 
         PlayState result;
         AgentType* nextAgent = nullptr;

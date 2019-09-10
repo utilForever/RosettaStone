@@ -32,7 +32,7 @@ TEST(DestroyTask, Run)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();

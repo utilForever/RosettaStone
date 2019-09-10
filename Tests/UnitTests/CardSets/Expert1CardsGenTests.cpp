@@ -38,7 +38,7 @@ TEST(DruidExpert1Test, EX1_154_Wrath)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -102,7 +102,7 @@ TEST(DruidExpert1Test, EX1_155_MarkOfNature)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -156,7 +156,7 @@ TEST(DruidExpert1Test, EX1_158_SoulOfTheForest)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -229,7 +229,7 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -282,7 +282,7 @@ TEST(DruidExpert1Test, EX1_570_Bite)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -332,7 +332,7 @@ TEST(HunterExpert1Test, DS1_188_GladiatorsLongbow)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -399,7 +399,7 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -472,7 +472,7 @@ TEST(HunterExpert1Test, EX1_617_DeadlyShot)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -542,7 +542,7 @@ TEST(HunterExpert1Test, EX1_534_SavannahHighmane)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -614,7 +614,7 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -687,7 +687,7 @@ TEST(MageExpert1Test, EX1_179_Icicle)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -744,7 +744,7 @@ TEST(MageExpert1Test, EX1_279_Pyroblast)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -832,7 +832,7 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -889,7 +889,7 @@ TEST(MageExpert1Test, NEW1_012_ManaWyrm)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -954,7 +954,7 @@ TEST(PaladinExpert1Test, EX1_354_LayOnHands)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -998,7 +998,7 @@ TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1053,7 +1053,7 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1097,7 +1097,7 @@ TEST(PaladinExpert1Test, EX1_382_AldorPeacekeeper)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1146,7 +1146,7 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1220,7 +1220,7 @@ TEST(PaladinExpert1Test, EX1_619_Equality)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1277,7 +1277,7 @@ TEST(WarriorExpert1Test, CS2_104_Rampage)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1326,7 +1326,7 @@ TEST(WarriorExpert1Test, EX1_391_Slam)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1384,7 +1384,7 @@ TEST(WarriorExpert1Test, EX1_407_Brawl)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1451,7 +1451,7 @@ TEST(WarriorExpert1Test, EX1_607_InnerRage)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1497,7 +1497,7 @@ TEST(PriestExpert1Test, CS1_129_InnerFire)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1565,7 +1565,7 @@ TEST(PriestExpert1Test, EX1_091_CabalShadowPriest)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1632,7 +1632,7 @@ TEST(PriestExpert1Test, EX1_332_Silence)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1690,7 +1690,7 @@ TEST(PriestExpert1Test, EX1_341_Lightwell)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1741,7 +1741,7 @@ TEST(PriestExpert1Test, EX1_621_CircleOfHealing)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1819,7 +1819,7 @@ TEST(PriestExpert1Test, EX1_623_TempleEnforcer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1864,7 +1864,7 @@ TEST(PriestExpert1Test, EX1_624_HolyFire)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1903,7 +1903,7 @@ TEST(PriestExpert1Test, EX1_626_MassDispel)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1971,7 +1971,7 @@ TEST(RogueExpert1Test, CS2_073_ColdBlood)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2030,7 +2030,7 @@ TEST(RogueExpert1Test, CS2_233_BladeFlurry)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2109,7 +2109,7 @@ TEST(RogueExpert1Test, EX1_124_Eviscerate)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2152,7 +2152,7 @@ TEST(RogueExpert1Test, EX1_131_DefiasRingleader)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2206,7 +2206,7 @@ TEST(RogueExpert1Test, EX1_133_PerditionsBlade)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2264,7 +2264,7 @@ TEST(RogueExpert1Test, EX1_134_SI7Agent)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2309,7 +2309,7 @@ TEST(RogueExpert1Test, EX1_144_Shadowstep)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2411,7 +2411,7 @@ TEST(RogueExpert1Test, EX1_522_PatientAssassin)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2464,7 +2464,7 @@ TEST(RogueExpert1Test, NEW1_005_Kidnapper)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2539,7 +2539,7 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2605,7 +2605,7 @@ TEST(ShamanExpert1Test, CS2_053_FarSight)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2651,7 +2651,7 @@ TEST(ShamanExpert1Test, EX1_238_LightningBolt)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2705,7 +2705,7 @@ TEST(ShamanExpert1Test, EX1_241_LavaBurst)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2775,7 +2775,7 @@ TEST(ShamanExpert1Test, EX1_245_EarthShock)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2845,7 +2845,7 @@ TEST(ShamanExpert1Test, EX1_248_FeralSpirit)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2920,7 +2920,7 @@ TEST(ShamanExpert1Test, EX1_251_ForkedLightning)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2998,7 +2998,7 @@ TEST(ShamanExpert1Test, EX1_567_Doomhammer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3065,7 +3065,7 @@ TEST(WarlockExpert1Test, CS2_059_BloodImp)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3136,7 +3136,7 @@ TEST(NeutralExpert1Test, CS2_117_EarthenRingFarseer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3192,7 +3192,7 @@ TEST(NeutralExpert1Test, CS2_146_SouthseaDeckhand)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3246,7 +3246,7 @@ TEST(NeutralExpert1Test, CS2_151_SilverHandKnight)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3315,7 +3315,7 @@ TEST(NeutralExpert1Test, CS2_181_InjuredBlademaster)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3355,7 +3355,7 @@ TEST(NeutralExpert1Test, CS2_188_AbusiveSergeant)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3426,7 +3426,7 @@ TEST(NeutralExpert1Test, CS2_203_IronbeakOwl)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3486,7 +3486,7 @@ TEST(NeutralExpert1Test, CS2_221_SpitefulSmith)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3535,7 +3535,7 @@ TEST(NeutralExpert1Test, CS2_227_VentureCoMercenary)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3586,7 +3586,7 @@ TEST(NeutralExpert1Test, EX1_001_Lightwarden)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3641,7 +3641,7 @@ TEST(NeutralExpert1Test, EX1_002_TheBlackKnight)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3694,7 +3694,7 @@ TEST(NeutralExpert1Test, EX1_004_YoungPriestess)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3755,7 +3755,7 @@ TEST(NeutralExpert1Test, EX1_005_BigGameHunter)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3817,7 +3817,7 @@ TEST(NeutralExpert1Test, EX1_006_AlarmOBot)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3871,7 +3871,7 @@ TEST(NeutralExpert1Test, EX1_007_AcolyteOfPain)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3931,7 +3931,7 @@ TEST(NeutralExpert1Test, EX1_009_AngryChicken)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3997,7 +3997,7 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4069,7 +4069,7 @@ TEST(NeutralExpert1Test, EX1_014_KingMukla)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4180,7 +4180,7 @@ TEST(NeutralExpert1Test, EX1_029_LeperGnome)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4251,7 +4251,7 @@ TEST(NeutralExpert1Test, EX1_043_TwilightDrake)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4288,7 +4288,7 @@ TEST(NeutralExpert1Test, EX1_044_QuestingAdventurer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4355,7 +4355,7 @@ TEST(NeutralExpert1Test, EX1_046_DarkIronDwarf)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4427,7 +4427,7 @@ TEST(NeutralExpert1Test, EX1_048_Spellbreaker)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4494,7 +4494,7 @@ TEST(NeutralExpert1Test, EX1_049_YouthfulBrewmaster)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4538,7 +4538,7 @@ TEST(NeutralExpert1Test, EX1_055_ManaAddict)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4602,7 +4602,7 @@ TEST(NeutralExpert1Test, EX1_057_AncientBrewmaster)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4652,7 +4652,7 @@ TEST(NeutralExpert1Test, EX1_058_SunfuryProtector)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4717,7 +4717,7 @@ TEST(NeutralExpert1Test, EX1_059_CrazedAlchemist)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4778,7 +4778,7 @@ TEST(NeutralExpert1Test, EX1_076_PintSizedSummoner)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4829,7 +4829,7 @@ TEST(NeutralExpert1Test, EX1_080_Secretkeeper)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4875,7 +4875,7 @@ TEST(NeutralExpert1Test, EX1_082_MadBomber)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4935,7 +4935,7 @@ TEST(NeutralExpert1Test, EX1_083_TinkmasterOverspark)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4984,7 +4984,7 @@ TEST(NeutralExpert1Test, EX1_085_MindControlTech)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5069,7 +5069,7 @@ TEST(NeutralExpert1Test, EX1_089_ArcaneGolem)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5110,7 +5110,7 @@ TEST(NeutralExpert1Test, EX1_093_DefenderOfArgus)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5165,7 +5165,7 @@ TEST(NeutralExpert1Test, EX1_095_GadgetzanAuctioneer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5224,7 +5224,7 @@ TEST(NeutralExpert1Test, EX1_096_LootHoarder)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5281,7 +5281,7 @@ TEST(NeutralExpert1Test, EX1_097_Abomination)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5363,7 +5363,7 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5417,7 +5417,7 @@ TEST(NeutralExpert1Test, EX1_102_Demolisher)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5477,7 +5477,7 @@ TEST(NeutralExpert1Test, EX1_103_ColdlightSeer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5543,7 +5543,7 @@ TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5596,7 +5596,7 @@ TEST(NeutralExpert1Test, EX1_116_LeeroyJenkins)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5638,7 +5638,7 @@ TEST(NeutralExpert1Test, EX1_170_EmperorCobra)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5687,7 +5687,7 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5756,7 +5756,7 @@ TEST(NeutralExpert1Test, EX1_283_FrostElemental)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5814,7 +5814,7 @@ TEST(WarlockExpert1Test, EX1_181_CallOfTheVoid)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5858,7 +5858,7 @@ TEST(WarlockExpert1Test, EX1_301_Felguard)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5904,7 +5904,7 @@ TEST(WarlockExpert1Test, EX1_309_SiphonSoul)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5947,7 +5947,7 @@ TEST(WarlockExpert1Test, EX1_312_TwistingNether)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6019,7 +6019,7 @@ TEST(WarlockExpert1Test, EX1_313_PitLord)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6059,7 +6059,7 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6146,7 +6146,7 @@ TEST(NeutralExpert1Test, EX1_556_HarvestGolem)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6221,7 +6221,7 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6292,7 +6292,7 @@ TEST(NeutralExpert1Test, EX1_572_Ysera)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6342,7 +6342,7 @@ TEST(NeutralExpert1Test, EX1_577_TheBeast)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6395,7 +6395,7 @@ TEST(NeutralExpert1Test, EX1_583_PriestessOfElune)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6444,7 +6444,7 @@ TEST(NeutralExpert1Test, EX1_584_AncientMage)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6493,7 +6493,7 @@ TEST(NeutralExpert1Test, EX1_597_ImpMaster)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6561,7 +6561,7 @@ TEST(NeutralExpert1Test, EX1_614_IllidanStormrage)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6614,7 +6614,7 @@ TEST(NeutralExpert1Test, NEW1_019_KnifeJuggler)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6675,7 +6675,7 @@ TEST(NeutralExpert1Test, NEW1_020_WildPyromancer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6747,7 +6747,7 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6809,7 +6809,7 @@ TEST(NeutralExpert1Test, NEW1_027_SouthseaCaptain)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6890,7 +6890,7 @@ TEST(NeutralExpert1Test, NEW1_030_Deathwing)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6948,7 +6948,7 @@ TEST(NeutralExpert1Test, NEW1_037_MasterSwordsmith)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -7006,7 +7006,7 @@ TEST(NeutralExpert1Test, NEW1_040_Hogger)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -7056,7 +7056,7 @@ TEST(NeutralExpert1Test, NEW1_041_StampedingKodo)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -7137,7 +7137,7 @@ TEST(DreamExpert1Test, DREAM_02_YseraAwakens)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -7222,7 +7222,7 @@ TEST(DreamExpert1Test, DREAM_04_Dream)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -7286,7 +7286,7 @@ TEST(DreamExpert1Test, DREAM_05_Nightmare)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();

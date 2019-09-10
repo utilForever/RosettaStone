@@ -130,7 +130,7 @@ TEST(Game, GetTurn)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     auto& curPlayer = game.GetCurrentPlayer();
@@ -160,7 +160,7 @@ TEST(Game, Mulligan)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
 
     auto& curPlayer = game.GetCurrentPlayer();
     auto& opPlayer = game.GetOpponentPlayer();
@@ -183,7 +183,7 @@ TEST(Game, GameOver_Player1Won)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -215,7 +215,7 @@ TEST(Game, GameOver_Player2Won)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -247,7 +247,7 @@ TEST(Game, GameOver_Tied)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -298,7 +298,7 @@ TEST(Game, PerformAction)
     }
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.MainReady();
 
     while (game.state != State::COMPLETE)
@@ -327,7 +327,7 @@ TEST(Game, CreateView)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     const auto player1View = game.CreateView();

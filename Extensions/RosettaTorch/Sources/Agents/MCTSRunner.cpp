@@ -30,7 +30,7 @@ void MCTSRunner::Run(const BoardRefView& gameState)
 {
     m_stopFlag = false;
 
-    for (int i = 0; i < m_config.threads; ++i)
+    for (int i = 0; i < 4; ++i)
     {
         m_threads.emplace_back([this, gameState]() {
             BoardView boardView;

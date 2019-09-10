@@ -48,7 +48,7 @@ TEST(RandomPolicy, AutoRun)
     game.GetPlayer1().policy = &policy;
     game.GetPlayer2().policy = &policy;
 
-    game.StartGame();
+    game.Start();
 }
 
 TEST(RandomPolicy, Mulligan)
