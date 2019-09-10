@@ -30,11 +30,13 @@ TaskStatus FlagTask::Impl(Player& player)
 
     for (auto& task : m_toDoTasks)
     {
-        task->SetPlayer(&player);
-        task->SetSource(player.GetGame()->taskStack.source);
-        task->SetTarget(player.GetGame()->taskStack.target);
+        ITask* clonedTask = task->Clone();
 
-        task->Run();
+        clonedTask->SetPlayer(&player);
+        clonedTask->SetSource(player.GetGame()->taskStack.source);
+        clonedTask->SetTarget(player.GetGame()->taskStack.target);
+
+        clonedTask->Run();
     }
 
     return TaskStatus::COMPLETE;
