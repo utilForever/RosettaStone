@@ -3017,6 +3017,51 @@ TEST(RogueExpert1Test, EX1_134_SI7Agent)
 }
 
 // ------------------------------------------ SPELL - ROGUE
+// [EX1_137] Headcrack - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal $2 damage to the enemy hero. <b>Combo:</b>
+// Return this to your hand next turn.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+TEST(RogueExpert1Test, EX1_137_Headcrack)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Headcrack"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Headcrack"));
+
+    EXPECT_EQ(curHand.GetCount(), 6);
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_TRUE(curHand[4]->card->id == "EX1_137");
+}
+
+// ------------------------------------------ SPELL - ROGUE
 // [EX1_144] Shadowstep - COST:0
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
