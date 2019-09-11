@@ -224,7 +224,7 @@ EXPERT1 | EX1_132 | Eye for an Eye |
 EXPERT1 | EX1_133 | Perdition's Blade | O
 EXPERT1 | EX1_134 | SI:7 Agent | O
 EXPERT1 | EX1_136 | Redemption |  
-EXPERT1 | EX1_137 | Headcrack | O
+EXPERT1 | EX1_137 | Headcrack |  
 EXPERT1 | EX1_144 | Shadowstep | O
 EXPERT1 | EX1_145 | Preparation |  
 EXPERT1 | EX1_154 | Wrath | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 71% (167 of 237 Cards)
+- Progress: 70% (166 of 237 Cards)
 
 ## Hall of Fame
 
