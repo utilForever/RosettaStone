@@ -67,8 +67,8 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
 
-    //! SelfCondition wrapper for checking there is the secret in the
-    //! owner secret zone.
+    //! SelfCondition wrapper for checking the secret exists
+    //! in the owner's secret zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingSecret();
 
@@ -113,8 +113,7 @@ class SelfCondition
     //! with \p value and \p relaSign.
     //! \param value The value to check condition.
     //! \param relaSign The comparer to check condition.
-    //! \param index If index is 0, use taskTask.num; If index is 1, use
-    //! taskTask.num1
+    //! \param index If index is 0, use num; If index is 1, use num1.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsStackNum(int value, RelaSign relaSign = RelaSign::EQ,
                                     int index = 0);

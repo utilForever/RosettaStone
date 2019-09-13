@@ -668,10 +668,10 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
 
     // ------------------------------------------ MINION - MAGE
     // [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
-    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: If you control a <b>Secret</b> at the end of your turn,
-    //       gain +2/+2.
+    // Text: If you control a <b>Secret</b> at the end
+    //       of your turn, gain +2/+2.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1613,10 +1613,10 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_303] Shadowflame - COST:4
-    // - Set: Expert1, Rarity: Rare
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Destroy a friendly minion and deal its Attack damage to all enemy
-    // minions.
+    // Text: Destroy a friendly minion and deal its Attack damage
+    //       to all enemy minions.
     // --------------------------------------------------------
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
