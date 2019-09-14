@@ -1749,7 +1749,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::HERO, 3, true));
+    power.AddPowerTask(new DamageTask(EntityType::HERO, 3));
     cards.emplace("EX1_319", power);
 
     // ---------------------------------------- SPELL - WARLOCK
