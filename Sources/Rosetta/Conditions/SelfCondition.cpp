@@ -98,6 +98,13 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsControllingSecret()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return !entity->owner->GetSecretZone().IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsMinion()
 {
     return SelfCondition([=](Entity* entity) -> bool {

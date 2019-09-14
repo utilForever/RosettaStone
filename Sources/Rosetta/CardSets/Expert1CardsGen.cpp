@@ -666,6 +666,27 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("EX1_180", power);
 
+    // ------------------------------------------ MINION - MAGE
+    // [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: If you control a <b>Secret</b> at the end
+    //       of your turn, gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsControllingSecret());
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_274e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_274", power);
+
     // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
@@ -719,6 +740,16 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [EX1_274e] Raw Power! (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackHealthN(2)));
+    cards.emplace("EX1_274e", power);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [NEW1_012o] Mana Gorged (*) - COST:0
@@ -1579,6 +1610,27 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new ManaCrystalTask(-1, false));
     cards.emplace("EX1_301", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_303] Shadowflame - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Destroy a friendly minion and deal its Attack damage
+    //       to all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::ATK));
+    power.AddPowerTask(new DamageNumberTask(EntityType::ENEMY_MINIONS, true));
+    power.AddPowerTask(new DestroyTask(EntityType::TARGET));
+    cards.emplace("EX1_303", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
