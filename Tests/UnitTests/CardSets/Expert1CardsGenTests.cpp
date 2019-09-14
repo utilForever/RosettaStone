@@ -1454,8 +1454,8 @@ TEST(PaladinExpert1Test, EX1_365_HolyWrath)
                  PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
     EXPECT_EQ(curHand.GetCount(), 5);
 
-    Entity* drawCard = curHand[curHand.GetCount() - 1];
-    int cardCost = drawCard->card->gameTags[GameTag::COST];
+    Entity* drawnCard = curHand[curHand.GetCount() - 1];
+    const int cardCost = drawnCard->card->gameTags[GameTag::COST];
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30 - cardCost);
 }
 
