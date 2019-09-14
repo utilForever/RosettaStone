@@ -1502,8 +1502,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
     power.GetTrigger()->condition =
-        new SelfCondition(SelfCondition::IsTagValue(GameTag::OVERLOAD,1,
-                                                    RelaSign::GEQ));
+        new SelfCondition(SelfCondition::IsOverloadCard());
     power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_258e",
                                                          EntityType::SOURCE) };
     cards.emplace("EX1_258", power);
