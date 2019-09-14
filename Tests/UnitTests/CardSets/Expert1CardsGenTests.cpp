@@ -1449,9 +1449,10 @@ TEST(PaladinExpert1Test, EX1_365_HolyWrath)
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Holy Wrath"));
 
-    EXPECT_EQ(curHand.GetCount(),5);
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
-    EXPECT_EQ(curHand.GetCount(),5);
+    EXPECT_EQ(curHand.GetCount(), 5);
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curHand.GetCount(), 5);
 
     Entity* drawCard = curHand[curHand.GetCount() - 1];
     int cardCost = drawCard->card->gameTags[GameTag::COST];
@@ -6627,7 +6628,7 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
 
 // ---------------------------------------- MINION - SHAMAN
 // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
-// - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
 // --------------------------------------------------------
@@ -6664,12 +6665,12 @@ TEST(ShamanExpert1Test, EX1_258_UnboundElemental)
         curPlayer, Cards::GetInstance().FindCardByName("Feral Spirit"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    EXPECT_EQ(curField[0]->GetAttack(),2);
-    EXPECT_EQ(curField[0]->GetHealth(),4);
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 4);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curField[0]->GetAttack(),3);
-    EXPECT_EQ(curField[0]->GetHealth(),5);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -6678,8 +6679,8 @@ TEST(ShamanExpert1Test, EX1_258_UnboundElemental)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    EXPECT_EQ(curField[0]->GetAttack(),4);
-    EXPECT_EQ(curField[0]->GetHealth(),6);    
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -7101,10 +7102,10 @@ TEST(WarlockExpert1Test, EX1_317_SenseDemons)
 
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_319] Flame Imp - COST:1
-// - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
-// -------------------------------------------------------- 
+// --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------

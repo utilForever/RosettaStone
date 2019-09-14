@@ -1492,7 +1492,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
     // --------------------------------------------------------
@@ -1599,7 +1599,7 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_258e] Overloading (*) - COST:0
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Set: Expert1
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
@@ -1741,7 +1741,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_319] Flame Imp - COST:1
-    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
     // -------------------------------------------------------- 
