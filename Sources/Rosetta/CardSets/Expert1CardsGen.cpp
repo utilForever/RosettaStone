@@ -817,6 +817,24 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
     cards.emplace("EX1_362", power);
 
+    // ------------------------------------------ SPELL - PALADIN
+    // [EX1_365] Holy Wrath - COST:5
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw a card and deal damage equal to its Cost.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DrawTask(1, true));
+    power.AddPowerTask(new GetGameTagTask(EntityType::STACK, GameTag::COST));
+    power.AddPowerTask(new DamageNumberTask(EntityType::TARGET, true));
+    cards.emplace("EX1_365", power);
+
     // --------------------------------------- MINION - PALADIN
     // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -1472,6 +1490,23 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::STACK, 2, true));
     cards.emplace("EX1_251", power);
 
+    // ---------------------------------------- MINION - SHAMAN
+    // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsOverloadCard());
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_258e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_258", power);
+
     // ---------------------------------------- WEAPON - SHAMAN
     // [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
@@ -1560,6 +1595,16 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_tk11", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_258e] Overloading (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::AttackHealthN(1)));
+    cards.emplace("EX1_258e", power);
 }
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
@@ -1692,6 +1737,19 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
             false, { new AddCardTask(EntityType::HAND, "EX1_317t") }));
     }
     cards.emplace("EX1_317", power);
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_319] Flame Imp - COST:1
+    // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
+    // -------------------------------------------------------- 
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::HERO, 3));
+    cards.emplace("EX1_319", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_320] Bane of Doom - COST:5

@@ -1412,6 +1412,53 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
     EXPECT_TRUE(curField[0]->GetGameTag(GameTag::DIVINE_SHIELD));
 }
 
+// ------------------------------------------ SPELL - PALADIN
+// [EX1_365] Holy Wrath - COST:5
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a card and deal damage equal to its Cost.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_365_HolyWrath)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curHand = curPlayer.GetHandZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Holy Wrath"));
+
+    EXPECT_EQ(curHand.GetCount(), 5);
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer.GetHero()));
+    EXPECT_EQ(curHand.GetCount(), 5);
+
+    Entity* drawnCard = curHand[curHand.GetCount() - 1];
+    const int cardCost = drawnCard->card->gameTags[GameTag::COST];
+    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30 - cardCost);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -6579,6 +6626,63 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_258_UnboundElemental)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Unbound Elemental"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Earth Elemental"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Feral Spirit"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 2);
+    EXPECT_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(curField[0]->GetAttack(), 4);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
 // - Race: Elemental, Set: Expert1, Rarity: Common
@@ -6994,6 +7098,42 @@ TEST(WarlockExpert1Test, EX1_317_SenseDemons)
     EXPECT_EQ(curDeck.GetCount(), 0);
     EXPECT_EQ(curHand[6]->card->name, "Blood Imp");
     EXPECT_EQ(curHand[7]->card->name, "Worthless Imp");
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [EX1_319] Flame Imp - COST:1
+// - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 3 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_319_FlameImp)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Flame Imp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 27);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
