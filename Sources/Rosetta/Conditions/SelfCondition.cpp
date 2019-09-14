@@ -148,6 +148,18 @@ SelfCondition SelfCondition::HasMinionInHand()
     });
 }
 
+SelfCondition SelfCondition::IsOverloadCard()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        if (entity->GetGameTag(GameTag::OVERLOAD) >= 1)
+        {
+            return true;
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
     return SelfCondition([=](Entity* entity) -> bool {

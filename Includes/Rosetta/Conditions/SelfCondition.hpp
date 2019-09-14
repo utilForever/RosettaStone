@@ -88,6 +88,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();
 
+    //! SelfCondition wrapper for checking the card has overload.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOverloadCard();
+
     //! SelfCondition wrapper for checking the number of minion
     //! that played this turn.
     //! \param num The number of minion for checking.
