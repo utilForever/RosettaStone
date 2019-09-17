@@ -116,8 +116,14 @@ const std::vector<Entity*>& ActionValidChecker::GetPlayableCards() const
 {
     return m_playableCards;
 }
+
 const std::vector<Character*>& ActionValidChecker::GetAttackers() const
 {
     return m_attackers;
+}
+
+MainOpType ActionValidChecker::GetMainOpType(std::size_t choice) const
+{
+    return m_opMap[choice];
 }
 }  // namespace RosettaStone
