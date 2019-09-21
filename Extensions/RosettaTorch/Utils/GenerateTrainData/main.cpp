@@ -148,8 +148,8 @@ int main(int argc, char* argv[])
     judger.SetSecondAgent(&second);
 
     GameConfig gameConfig;
-    gameConfig.player1Class = CardClass::PRIEST;
-    gameConfig.player2Class = CardClass::MAGE;
+    gameConfig.player1Class = CardClass::WARLOCK;
+    gameConfig.player2Class = CardClass::WARLOCK;
     gameConfig.startPlayer = PlayerType::PLAYER1;
     gameConfig.doShuffle = false;
     gameConfig.doFillDecks = false;

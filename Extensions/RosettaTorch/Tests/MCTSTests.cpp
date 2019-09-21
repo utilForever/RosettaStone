@@ -54,8 +54,8 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
     const auto startIter = controller->GetStatistics().GetSuccededIterates();
 
     GameConfig gameConfig;
-    gameConfig.player1Class = CardClass::PRIEST;
-    gameConfig.player2Class = CardClass::MAGE;
+    gameConfig.player1Class = CardClass::WARLOCK;
+    gameConfig.player2Class = CardClass::WARLOCK;
     gameConfig.startPlayer = PlayerType::PLAYER1;
     gameConfig.doShuffle = false;
     gameConfig.doFillDecks = false;
