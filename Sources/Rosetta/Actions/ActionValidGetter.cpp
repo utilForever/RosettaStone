@@ -9,7 +9,8 @@
 
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
-#include "Rosetta/Actions/Targeting.hpp"
+#include <Rosetta/Actions/Targeting.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace RosettaStone
 {
@@ -45,7 +46,7 @@ bool ActionValidGetter::CanUseHeroPower()
     return true;
 }
 
-bool ActionValidGetter::IsPlayable(Entity* entity) const
+bool ActionValidGetter::IsPlayable(Player& player, Entity* entity) const
 {
     if (entity->card->GetCardType() == CardType::MINION)
     {
@@ -65,6 +66,23 @@ bool ActionValidGetter::IsPlayable(Entity* entity) const
 
     if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), entity) ||
         !Generic::IsPlayableByCardReq(entity))
+    {
+        return false;
+    }
+
+    auto targets = SimpleTasks::IncludeTask::GetEntities(
+        EntityType::ENEMIES, m_game.GetCurrentPlayer());
+
+    bool isValidTargetExist = false;
+    for (const auto& target : targets)
+    {
+        if (Generic::IsValidTarget(entity, target))
+        {
+            isValidTargetExist = true;
+        }
+    }
+
+    if (!isValidTargetExist)
     {
         return false;
     }
