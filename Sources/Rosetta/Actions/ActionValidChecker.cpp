@@ -17,7 +17,7 @@ void ActionValidChecker::Reset()
     m_opMapSize = 0;
 }
 
-void ActionValidChecker::Check(Game& game)
+void ActionValidChecker::Check(const Game& game)
 {
     Check(ActionValidGetter(game));
 }
