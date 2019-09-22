@@ -13,7 +13,7 @@
 
 namespace RosettaTorch::NeuralNet
 {
-void GameDataBridge::Reset(RosettaStone::Game& game)
+void GameDataBridge::Reset(const RosettaStone::Game& game)
 {
     m_game = &game;
 
