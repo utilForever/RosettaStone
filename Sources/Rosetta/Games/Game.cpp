@@ -194,15 +194,18 @@ Player& Game::GetCurrentPlayer()
     {
         return m_players[0];
     }
-    else if (m_currentPlayer == PlayerType::PLAYER2)
+
+    return m_players[1];
+}
+
+const Player& Game::GetCurrentPlayer() const
+{
+    if (m_currentPlayer == PlayerType::PLAYER1)
     {
-        return m_players[1];
+        return m_players[0];
     }
-    else
-    {
-        throw std::logic_error(
-            "Game::GetCurrentPlayer() - Player type is invalid.");
-    }
+
+    return m_players[1];
 }
 
 void Game::SetCurrentPlayer(PlayerType playerType)
@@ -216,15 +219,18 @@ Player& Game::GetOpponentPlayer()
     {
         return m_players[1];
     }
-    else if (m_currentPlayer == PlayerType::PLAYER2)
+
+    return m_players[0];
+}
+
+const Player& Game::GetOpponentPlayer() const
+{
+    if (m_currentPlayer == PlayerType::PLAYER1)
     {
-        return m_players[0];
+        return m_players[1];
     }
-    else
-    {
-        throw std::logic_error(
-            "Game::GetOpponentPlayer() - Player type is invalid.");
-    }
+
+    return m_players[0];
 }
 
 int Game::GetTurn() const

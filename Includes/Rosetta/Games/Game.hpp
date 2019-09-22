@@ -78,6 +78,10 @@ class Game
     //! \return The player controlling the current turn.
     Player& GetCurrentPlayer();
 
+    //! Returns the player controlling the current turn.
+    //! \return The player controlling the current turn.
+    const Player& GetCurrentPlayer() const;
+
     //! Sets the player controlling the current turn.
     //! \param type The player type controlling the current turn.
     void SetCurrentPlayer(PlayerType type);
@@ -85,6 +89,10 @@ class Game
     //! Returns the opponent player.
     //! \return The opponent player.
     Player& GetOpponentPlayer();
+
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    const Player& GetOpponentPlayer() const;
 
     //! Gets the turn of the game.
     //! \return The turn of the game.
