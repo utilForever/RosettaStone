@@ -12,7 +12,7 @@
 
 namespace RosettaStone
 {
-void ActionParams::Initialize(Game& game)
+void ActionParams::Initialize(const Game& game)
 {
     m_checker.Check(game);
 }

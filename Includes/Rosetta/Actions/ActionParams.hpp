@@ -30,7 +30,7 @@ class ActionParams
 
     //! Initializes action params by running ActionValidChecker::Check() method.
     //! \param game The game context.
-    void Initialize(Game& game);
+    virtual void Initialize(const Game& game);
 
     //! Initializes action params by running ActionValidChecker::Check() method.
     //! \param getter The action valid getter.
@@ -46,30 +46,31 @@ class ActionParams
 
     //! Returns the main operation using the action valid checker.
     //! \return The chosen main operation.
-    MainOpType ChooseMainOp();
+    virtual MainOpType ChooseMainOp();
 
     //! Returns the location of minion to put.
     //! \param minions The number of minions in field zone.
     //! \return The chosen location of minion.
-    std::size_t GetMinionPutLocation(int minions);
+    virtual std::size_t GetMinionPutLocation(int minions);
 
     //! Returns the specified target.
     //! \param targets A list of targets that can specify.
     //! \return The chosen specified target.
-    Character* GetSpecifiedTarget(const std::vector<Character*>& targets);
+    virtual Character* GetSpecifiedTarget(
+        const std::vector<Character*>& targets);
 
     //! Returns a card from a list of choice cards.
     //! \param cards A list of choice cards.
     //! \return A chosen card from a list of choice cards.
-    std::size_t ChooseOne(const std::vector<std::size_t>& cards);
+    virtual std::size_t ChooseOne(const std::vector<std::size_t>& cards);
 
     //! Returns a card in hand zone that is playable.
     //! \return A chosen card in hand zone that is playable.
-    Entity* ChooseHandCard();
+    virtual Entity* ChooseHandCard();
 
     //! Returns a minion card in field zone that can attack.
     //! \return A chosen minion card in field zone that can attack.
-    Character* GetAttacker();
+    virtual Character* GetAttacker();
 
     //! Returns the number using \p actionType and \p choices.
     //! \param actionType The action type.
