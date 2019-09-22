@@ -25,7 +25,7 @@ class ActionValidGetter
  public:
     //! Constructs action valid getter with given \p game.
     //! \param game The game context.
-    explicit ActionValidGetter(Game& game);
+    explicit ActionValidGetter(const Game& game);
 
     //! Returns the hero of the player.
     //! \param playerType The player type to separate players.
@@ -108,9 +108,9 @@ class ActionValidGetter
     //! \param player The player context.
     //! \param entity The target entity.
     //! \return the flag indicates whether the card is playable.
-    bool IsPlayable(Player& player, Entity* entity) const;
+    bool IsPlayable(const Player& player, Entity* entity) const;
 
-    Game& m_game;
+    const Game& m_game;
 };
 }  // namespace RosettaStone
 

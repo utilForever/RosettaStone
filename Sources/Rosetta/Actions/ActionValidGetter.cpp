@@ -14,7 +14,7 @@
 
 namespace RosettaStone
 {
-ActionValidGetter::ActionValidGetter(Game& game) : m_game(game)
+ActionValidGetter::ActionValidGetter(const Game& game) : m_game(game)
 {
     // Do nothing
 }
@@ -46,7 +46,7 @@ bool ActionValidGetter::CanUseHeroPower()
     return true;
 }
 
-bool ActionValidGetter::IsPlayable(Player& player, Entity* entity) const
+bool ActionValidGetter::IsPlayable(const Player& player, Entity* entity) const
 {
     if (entity->card->GetCardType() == CardType::MINION)
     {
