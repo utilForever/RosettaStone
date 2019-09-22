@@ -39,7 +39,7 @@ class NeuralNetworkStateValue
     //! Returns the state value.
     //! \param game The game context.
     //! \return The state value.
-    StateValue GetStateValue(Game& game);
+    StateValue GetStateValue(const Game& game);
 
  private:
     NeuralNet::NeuralNetwork m_net;
