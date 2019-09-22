@@ -57,12 +57,12 @@ class ConsistencyCheckAddon
     //! \return The reduced board view.
     ReducedBoardView* GetBoard() const;
 
- private:
     //! Checks action type.
     //! \param actionType The type of action.
     //! \return The flag indicates action type is consistent.
     bool CheckActionType(ActionType actionType) const;
 
+ private:
     //! Checks action type and choices.
     //! \param actionType The type of action.
     //! \param choices The choices of action.
