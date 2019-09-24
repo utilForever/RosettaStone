@@ -41,7 +41,7 @@ void InteractiveShell::SetConfig(const Agents::MCTSConfig& config)
 
 void InteractiveShell::SetStartBoardGetter(StartBoardGetter startBoardGetter)
 {
-    m_startBoardGetter = startBoardGetter;
+    m_startBoardGetter = std::move(startBoardGetter);
 }
 
 void InteractiveShell::DoCommand(std::istream& is, std::ostream& os)
