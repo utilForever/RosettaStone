@@ -55,7 +55,7 @@ TaskMeta TorchPolicy::Inference(
 
     // Inference
     const torch::Tensor result = m_module->forward(actionTensor, context);
-    const auto idx = result.argmax().item<size_t>();
+    const auto idx = result.argmax().item().to<size_t>();
 
     // Store source and targets for future requirement.
     m_action = actions[idx];
