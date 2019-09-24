@@ -209,6 +209,19 @@ int Character::TakeDamage(Entity& source, int damage)
         hero->SetArmor(armor < damage ? 0 : armor - damage);
     }
 
+    if (const int hpMin = GetGameTag(GameTag::HEALTH_MINIMUM); hpMin > 0)
+    {
+        if (GetHealth() == hpMin)
+        {
+            SetPreDamage(0);
+            return 0;
+        }
+        if (GetHealth() - amount < hpMin)
+        {
+            amount = GetHealth() - hpMin;
+        }
+    }
+
     SetDamage(GetDamage() + amount);
     SetPreDamage(0);
 
