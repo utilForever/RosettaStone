@@ -1213,6 +1213,65 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
 }
 
 // ------------------------------------------ MINION - MAGE
+// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Your spells cost (1) less.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_608_SorcerersAppretice)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::GetInstance().FindCardByName("Sorcerer's Apprentice"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::GetInstance().FindCardByName("Sorcerer's Apprentice"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Fireball"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card3->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(card3->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    EXPECT_EQ(card3->GetCost(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    EXPECT_EQ(curPlayer.GetRemainingMana(), 7);
+}
+
+// ------------------------------------------ MINION - MAGE
 // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------

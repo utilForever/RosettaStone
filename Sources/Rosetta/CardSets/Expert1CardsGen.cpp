@@ -724,6 +724,20 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     cards.emplace("EX1_287", power);
 
     // ------------------------------------------ MINION - MAGE
+    // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your spells cost (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(1) }));
+    power.GetAura()->condition = new SelfCondition(SelfCondition::IsSpell());
+    cards.emplace("EX1_608", power);
+
+    // ------------------------------------------ MINION - MAGE
     // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -1743,7 +1757,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
-    // -------------------------------------------------------- 
+    // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
