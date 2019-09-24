@@ -71,6 +71,7 @@ PUBLIC
 
 add_subdirectory(Tests)
 add_subdirectory(Utils/GenerateTrainData)
+add_subdirectory(Utils/Train)
 
 # Install
 install(TARGETS ${target} DESTINATION lib)
