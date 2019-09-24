@@ -1988,6 +1988,18 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new AddEnchantmentTask("EX1_607e", EntityType::TARGET));
     cards.emplace("EX1_607", power);
+
+    // ----------------------------------------- SPELL - WARRIOR
+    // [NEW1_036] Commanding Shout - COST:2
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your minions can't be reduced below 1 Health this turn.
+    //       Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_036e2", EntityType::HERO));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("NEW1_036", power);
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
@@ -2036,6 +2048,35 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_607e"));
     cards.emplace("EX1_607e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [NEW1_036e] Commanding Shout (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Can't be reduced below 1 Health this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(
+        new Effect(GameTag::HEALTH_MINIMUM, EffectOperator::SET, 1)));
+    cards.emplace("NEW1_036e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [NEW1_036e2] Commanding Shout (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Your minions can't be reduced below 1 Health this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::FIELD, "NEW1_036e"));
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    cards.emplace("NEW1_036e2", power);
 }
 
 void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
