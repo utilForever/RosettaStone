@@ -378,7 +378,7 @@ EXPERT1 | NEW1_026 | Violet Teacher |
 EXPERT1 | NEW1_027 | Southsea Captain | O
 EXPERT1 | NEW1_029 | Millhouse Manastorm |  
 EXPERT1 | NEW1_030 | Deathwing | O
-EXPERT1 | NEW1_036 | Commanding Shout |  
+EXPERT1 | NEW1_036 | Commanding Shout | O 
 EXPERT1 | NEW1_037 | Master Swordsmith | O
 EXPERT1 | NEW1_038 | Gruul |  
 EXPERT1 | NEW1_040 | Hogger | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 70% (169 of 237 Cards)
+- Progress: 72% (170 of 237 Cards)
 
 ## Hall of Fame
 
