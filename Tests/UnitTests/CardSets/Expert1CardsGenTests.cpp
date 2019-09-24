@@ -1591,6 +1591,57 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
 }
 
 // ---------------------------------------- SPELL - PALADIN
+// [EX1_384] Avenging Wrath - COST:6
+// - Faction: Neutral, Set: Expert1, Rarity: EPIC
+// --------------------------------------------------------
+// Text: Deal $8 damage randomly split among all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_384_AvengingWrath)
+{
+	GameConfig config;
+	config.player1Class = CardClass::PALADIN;
+	config.player2Class = CardClass::PALADIN;
+	config.startPlayer = PlayerType::PLAYER1;
+	config.doFillDecks = true;
+	config.autoRun = false;
+
+	Game game(config);
+	game.StartGame();
+	game.ProcessUntil(Step::MAIN_START);
+
+	Player &curPlayer = game.GetCurrentPlayer();
+	Player &opPlayer = game.GetOpponentPlayer();
+	curPlayer.SetTotalMana(10);
+	curPlayer.SetUsedMana(0);
+	opPlayer.SetTotalMana(10);
+	opPlayer.SetUsedMana(0);
+
+	const auto card1 = Generic::DrawCard(
+		curPlayer, Cards::GetInstance().FindCardByName("Avenging Wrath"));
+	const auto card2 = Generic::DrawCard(
+		opPlayer, Cards::GetInstance().FindCardByName("Malygos"));
+
+	game.Process(curPlayer, EndTurnTask());
+	game.ProcessUntil(Step::MAIN_START);
+
+	game.Process(opPlayer, PlayCardTask::Minion(card2));
+	int totalHealth = opPlayer.GetHero()->GetHealth();
+	totalHealth += opPlayer.GetFieldZone()[0]->GetHealth();
+	EXPECT_EQ(totalHealth, 42);
+
+	game.Process(opPlayer, EndTurnTask());
+	game.ProcessUntil(Step::MAIN_START);
+
+	game.Process(curPlayer, PlayCardTask::Spell(card1));
+	totalHealth = opPlayer.GetHero()->GetHealth();
+	totalHealth += opPlayer.GetFieldZone()[0]->GetHealth();
+	EXPECT_EQ(totalHealth, 34);
+}
+
+// ---------------------------------------- SPELL - PALADIN
 // [EX1_619] Equality - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------

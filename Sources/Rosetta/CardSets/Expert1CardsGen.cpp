@@ -870,6 +870,20 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.AddDeathrattleTask(new WeaponTask("EX1_383t"));
     cards.emplace("EX1_383", power);
 
+	// ---------------------------------------- SPELL - PALADIN
+	// [EX1_384] Avenging Wrath - COST:6
+	// - Faction: Neutral, Set: Expert1, Rarity: EPIC
+	// --------------------------------------------------------
+	// Text: Deal $8 damage randomly split among all enemies.
+	// --------------------------------------------------------
+	// GameTag:
+	// - ImmuneToSpellpower = 1
+	// --------------------------------------------------------
+	power.ClearData();
+	power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
+										 new DamageTask(EntityType::STACK, 1) }, 8, true));
+	cards.emplace("EX1_384", power);
+
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_619] Equality - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
