@@ -60,6 +60,10 @@ class Weapon : public Entity
     //! Sets the value of durability.
     //! \param durability The value of durability.
     void SetDurability(int durability);
+
+    //! Remove the value of durability by amount.
+    //! \param amount The amount to be removed.
+    void RemoveDurability(int amount);
 };
 }  // namespace RosettaStone
 

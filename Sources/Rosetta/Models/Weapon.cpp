@@ -40,5 +40,16 @@ int Weapon::GetDurability() const
 void Weapon::SetDurability(int durability)
 {
     SetGameTag(GameTag::DURABILITY, durability);
+
+    // Destroy weapon if durability is 0
+    if (GetDurability() == 0)
+    {
+        owner->GetHero()->RemoveWeapon();
+    }
+}
+
+void Weapon::RemoveDurability(int amount)
+{
+    SetDurability(GetDurability() - amount);
 }
 }  // namespace RosettaStone
