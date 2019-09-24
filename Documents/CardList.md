@@ -344,7 +344,7 @@ EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
 EXPERT1 | EX1_607 | Inner Rage | O
-EXPERT1 | EX1_608 | Sorcerer's Apprentice |  
+EXPERT1 | EX1_608 | Sorcerer's Apprentice | O 
 EXPERT1 | EX1_609 | Snipe | O
 EXPERT1 | EX1_610 | Explosive Trap |  
 EXPERT1 | EX1_611 | Freezing Trap |  
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 70% (168 of 237 Cards)
+- Progress: 70% (169 of 237 Cards)
 
 ## Hall of Fame
 
