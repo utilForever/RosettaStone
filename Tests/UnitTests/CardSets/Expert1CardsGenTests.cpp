@@ -1877,7 +1877,7 @@ TEST(WarriorExpert1Test, EX1_392_BattleRage)
 // GameTag:
 // - ENRAGED = 1
 // --------------------------------------------------------
-TEST(Expert1Test, EX1_393_AmaniBerserker)
+TEST(WarriorExpert1Test, EX1_393_AmaniBerserker)
 {
     GameConfig config;
     config.player1Class = CardClass::MAGE;
