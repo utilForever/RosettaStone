@@ -90,7 +90,7 @@ class JSONSerializer
 
         obj["hero"] = SerializeHero(*player.GetHero());
         obj["hero_power"] = SerializeHeroPower(player.GetHeroPower());
-        if (&player.GetWeapon() != nullptr)
+        if (player.GetHero()->HasWeapon())
         {
             obj["weapon"] = SerializeWeapon(player.GetWeapon());
         }
