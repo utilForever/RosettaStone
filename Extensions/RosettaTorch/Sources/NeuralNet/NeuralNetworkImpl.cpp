@@ -10,8 +10,14 @@
 #include <NeuralNet/InputDataConverter.hpp>
 #include <NeuralNet/NeuralNetworkImpl.hpp>
 
+#include <Rosetta/Commons/Macros.hpp>
+
 #include <torch/torch.h>
 #include <effolkronium/random.hpp>
+
+#if !defined(ROSETTASTONE_WINDOWS)
+#include <stdlib.h>
+#endif
 
 using Random = effolkronium::random_static;
 
@@ -39,11 +45,20 @@ bool NeuralNetworkImpl::IsRandom() const
 
 void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 {
+#if defined(ROSETTASTONE_WINDOWS)
     std::string tempFile = std::tmpnam(nullptr);
+#else
+    std::string tempFile = "/tempXXXXXX";
+    int fd = mkstemp(tempFile.c_str());
+#endif
     torch::save(rhs.m_net, tempFile);
     torch::load(m_net, tempFile);
     m_isRandom = rhs.m_isRandom;
+#if defined(ROSETTASTONE_WINDOWS)
     std::remove(tempFile.c_str());
+#else
+    unlink(tempFile.c_str());
+#endif
 }
 
 void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
