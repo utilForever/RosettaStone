@@ -29,7 +29,7 @@ class ActionParams;
 class Game
 {
  public:
-    //! Constructor.
+    //! Constructs game with default values.
     Game();
 
     //! Constructs game with given \p gameConfig.
@@ -39,17 +39,17 @@ class Game
     //! Default destructor.
     ~Game() = default;
 
-    //! Default copy constructor.
-    Game(const Game&) = default;
+    //! Deleted copy constructor.
+    Game(const Game&) = delete;
 
-    //! Default move constructor.
-    Game(Game&&) noexcept = default;
+    //! Deleted move constructor.
+    Game(Game&&) noexcept = delete;
 
-    //! Default copy assignment operator.
-    Game& operator=(const Game&) = default;
+    //! Deleted copy assignment operator.
+    Game& operator=(const Game&) = delete;
 
-    //! Default move assignment operator.
-    Game& operator=(Game&&) noexcept = default;
+    //! Deleted move assignment operator.
+    Game& operator=(Game&&) noexcept = delete;
 
     //! Initializes the game state and player related variables.
     void Initialize();
