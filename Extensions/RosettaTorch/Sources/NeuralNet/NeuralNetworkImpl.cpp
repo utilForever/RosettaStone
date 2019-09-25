@@ -50,7 +50,11 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
     std::string tempFile = std::tmpnam(nullptr);
 #else
     char tempFile[] = "/tempXXXXXX";
-    mkstemp(tempFile);
+    int fd = mkstemp(tempFile);
+    if (fd == -1)
+    {
+        exit(EXIT_FAILURE);
+    }
 #endif
     torch::save(rhs.m_net, tempFile);
     torch::load(m_net, tempFile);
