@@ -41,13 +41,15 @@ class TestActionParams : public ActionParams
     TestActionParams() = default;
 
     TestActionParams(const TestActionParams&) = delete;
-    TestActionParams& operator=(const TestActionParams&) = delete;
+    TestActionParams(TestActionParams&&) noexcept = delete;
 
-    void Initialize(const Board& board)
+    TestActionParams& operator=(const TestActionParams&) = delete;
+    TestActionParams& operator=(TestActionParams&&) noexcept = delete;
+
+    void Init(const Board& board)
     {
         m_board = &board;
-        ActionParams::Initialize(
-            m_board->GetCurPlayerStateRefView().GetActionValidGetter());
+        Initialize(m_board->GetCurPlayerStateRefView().GetActionValidGetter());
     }
 
     std::size_t GetNumber(ActionType actionType, ActionChoices& choices) final
@@ -306,7 +308,7 @@ TEST(Game, PerformAction)
         TestActionParams params;
         Board board(game, game.GetCurrentPlayer().playerType);
 
-        params.Initialize(board);
+        params.Init(board);
         board.ApplyAction(params);
     }
 
