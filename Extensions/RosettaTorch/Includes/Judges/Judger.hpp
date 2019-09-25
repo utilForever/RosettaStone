@@ -114,7 +114,7 @@ class Judger
             nextAgent->Think(
                 BoardRefView(game, game.GetCurrentPlayer().playerType));
 
-            m_actionCallback.Initialize(game, nextAgent);
+            m_actionCallback.Init(game, nextAgent);
             result = game.PerformAction(m_actionCallback);
 
             if (result != PlayState::PLAYING)
@@ -150,7 +150,7 @@ class Judger
         //! Deleted move assignment operator.
         ActionCallback& operator=(ActionCallback&& rhs) noexcept = delete;
 
-        void Initialize(Game& game, AgentType* callback)
+        void Init(Game& game, AgentType* callback)
         {
             m_game = &game;
             m_callback = callback;
