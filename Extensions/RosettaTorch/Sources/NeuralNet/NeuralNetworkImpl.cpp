@@ -17,6 +17,7 @@
 
 #if !defined(ROSETTASTONE_WINDOWS)
 #include <stdlib.h>
+#include <unistd.h>
 #endif
 
 using Random = effolkronium::random_static;
@@ -48,8 +49,8 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 #if defined(ROSETTASTONE_WINDOWS)
     std::string tempFile = std::tmpnam(nullptr);
 #else
-    std::string tempFile = "/tempXXXXXX";
-    int fd = mkstemp(tempFile.c_str());
+    char tempFile[] = "/tempXXXXXX";
+    mkstemp(tempFile);
 #endif
     torch::save(rhs.m_net, tempFile);
     torch::load(m_net, tempFile);
@@ -57,7 +58,7 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 #if defined(ROSETTASTONE_WINDOWS)
     std::remove(tempFile.c_str());
 #else
-    unlink(tempFile.c_str());
+    unlink(tempFile);
 #endif
 }
 
