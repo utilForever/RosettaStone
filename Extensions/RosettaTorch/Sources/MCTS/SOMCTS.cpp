@@ -37,7 +37,7 @@ bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
 {
     PlayState result;
 
-    m_actionParams.Initialize(board);
+    m_actionParams.Init(board);
 
     if (m_stage == Stage::SIMULATION)
     {
@@ -114,7 +114,7 @@ SOMCTS::ActionParams::ActionParams(SOMCTS& callback)
     // Do nothing
 }
 
-void SOMCTS::ActionParams::Initialize(const Board& board)
+void SOMCTS::ActionParams::Init(const Board& board)
 {
     m_board = &board;
     RosettaStone::ActionParams::Initialize(
