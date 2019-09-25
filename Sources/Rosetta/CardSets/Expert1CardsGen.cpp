@@ -39,6 +39,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveDurabilityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -3325,6 +3326,20 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
     power.GetTrigger()->tasks = { new DestroyTask(EntityType::ALL_MINIONS) };
     cards.emplace("NEW1_021", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
+    // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: [x]<b>Battlecry:</b> Remove 1 Durability from your
+    //       opponent's weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RemoveDurabilityTask(1, true));
+    cards.emplace("NEW1_025", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]

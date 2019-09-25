@@ -2251,7 +2251,7 @@ TEST(WarriorExpert1Test, NEW1_036_CommandingShout)
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(curHand.GetCount(), 8);
-    
+
     game.Process(curPlayer, PlayerTasks::HeroPowerTask(card1));
     EXPECT_EQ(curField[0]->GetHealth(), 5);
     EXPECT_EQ(curField[0]->GetAttack(), 8);
@@ -8537,6 +8537,65 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
     EXPECT_EQ(curField.GetCount(), 0);
     EXPECT_EQ(opPlayer.GetHandZone().GetCount(), 6);
     EXPECT_EQ(opField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
+// - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: [x]<b>Battlecry:</b> Remove 1 Durability from your
+//       opponent's weapon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, NEW1_025_BloodsailCorsair)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Bloodsail Corsair"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Bloodsail Corsair"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Bloodsail Corsair"));
+
+    game.Process(curPlayer, PlayerTasks::HeroPowerTask(nullptr));
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayerTasks::HeroPowerTask(nullptr));
+    EXPECT_EQ(opPlayer.GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
+    EXPECT_EQ(opPlayer.GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curPlayer.GetHero()->weapon, nullptr);
+    EXPECT_EQ(opPlayer.GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curPlayer.GetHero()->weapon, nullptr);
+    EXPECT_EQ(opPlayer.GetHero()->weapon->GetDurability(), 2);
 }
 
 // --------------------------------------- MINION - NEUTRAL
