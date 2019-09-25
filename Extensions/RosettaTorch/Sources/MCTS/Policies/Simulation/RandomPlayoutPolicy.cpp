@@ -15,9 +15,12 @@ using Random = effolkronium::random_static;
 
 namespace RosettaTorch::MCTS
 {
-RandomPlayoutPolicy::RandomPlayoutPolicy([[maybe_unused]] const Config& config)
+RandomPlayoutPolicy::RandomPlayoutPolicy(const Config& config)
 {
-    // Do nothing
+    // NOTE: g++ < 9 has a bug that maybe_unused attribute triggers syntax error
+    // when used on first argument to a constructor.
+    // References: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=81429
+    (void)config;
 }
 
 bool RandomPlayoutPolicy::IsEnableCutoff()

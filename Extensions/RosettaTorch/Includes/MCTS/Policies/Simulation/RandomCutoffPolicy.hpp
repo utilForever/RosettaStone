@@ -25,7 +25,7 @@ class RandomCutoffPolicy : public ISimulationPolicy
  public:
     //! Constructs random cutoff policy.
     //! \param config The config for neural network.
-    RandomCutoffPolicy([[maybe_unused]] const Config& config);
+    RandomCutoffPolicy(const Config& config);
 
     //! Returns the flag indicates whether cutoff is enabled.
     //! \return The flag indicates whether cutoff is enabled.
