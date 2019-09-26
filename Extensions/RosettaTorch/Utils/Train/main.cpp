@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Judges/JSON/Reader.hpp>
 #include <NeuralNet/NeuralNetwork.hpp>
 
 #include <effolkronium/random.hpp>
@@ -27,13 +28,28 @@ class Trainer
     {
         nlohmann::json obj;
         std::ifstream fs(fileName);
-
         fs >> obj;
+
+        Judges::JSON::Reader gameReader;
+        gameReader.Parse(
+            obj,
+            [&](const Judges::JSON::NeuralNetInputGetter& input, int label) {
+                if (forValidate)
+                {
+                    m_validateInput.AddData(&input);
+                    m_validateOutput.AddData(label);
+                }
+                else
+                {
+                    m_trainInput.AddData(&input);
+                    m_trainOutput.AddData(label);
+                }
+            });
     }
 
-    void Train()
+    void Train() const
     {
-        int epoch = 10;
+        const int epoch = 10;
         size_t totalEpoch = 0;
 
         while (true)
@@ -50,7 +66,7 @@ class Trainer
                     m_net.Verify(m_trainInput, m_trainOutput);
                 const double rate =
                     static_cast<double>(trainVerify.first) / trainVerify.second;
-                std::cout << "test data correct rate: " << rate * 100.0 << "% ("
+                std::cout << "Test data correct rate: " << rate * 100.0 << "% ("
                           << trainVerify.first << " / " << trainVerify.second
                           << ")" << std::endl;
             }
@@ -60,7 +76,7 @@ class Trainer
                     m_net.Verify(m_validateInput, m_validateOutput);
                 const double rate = static_cast<double>(validateVerify.first) /
                                     validateVerify.second;
-                std::cout << "validation data correct rate: " << rate * 100.0
+                std::cout << "Validation data correct rate: " << rate * 100.0
                           << "% (" << validateVerify.first << " / "
                           << validateVerify.second << ")" << std::endl;
             }
