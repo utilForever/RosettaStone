@@ -94,6 +94,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/wd4273       # -> disable warning: 'torch::jit::tracer::addInputs': inconsistent dll linkage (caused by Torch)
 		/wd4324       # -> disable warning: 'at::detail::Array<uint32_t,2>': structure was padded due to alignment specifier (caused by ATen)
 		/wd4819       # -> disable warning: The file contains a character that cannot be represented in the current code page (949) (caused by pybind11)
+		/wd4146       # -> disable warning: unary minus operator applied to unsigned type, result still unsigned (caused by Torch)
+		/wd4245       # -> disable warning: conversion from 'int' to 'uint64_t', signed/unsigned mismatch (caused by Torch)
+		/wd4702       # -> disable warning: unreachable code (caused by Torch)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
