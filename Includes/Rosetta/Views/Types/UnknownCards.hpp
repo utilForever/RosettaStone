@@ -24,20 +24,29 @@ namespace RosettaStone::Views::Types
 //!
 //! \brief UnknownCardsSet class.
 //!
+//! This class store a list of unknown card and contains simple methods
+//! such as Add() and Remove().
+//!
 class UnknownCardsSet
 {
  public:
+    //! Constructs unknown cards set with given \p cards.
+    //! \param cards A list of unknown card.
     UnknownCardsSet(std::vector<std::string> cards)
         : m_cards(std::move(cards)), m_cardsSize(0)
     {
         // Do nothing
     }
 
+    //! Adds a card to a list of unknown card.
+    //! \param cardID The card ID to add.
     void Add(const std::string& cardID)
     {
         m_cards.push_back(cardID);
     }
 
+    //! Removes a card to a list of unknown card.
+    //! \param cardID The card ID to remove.
     void Remove(const std::string& cardID)
     {
         for (auto iter = m_cards.begin(); iter != m_cards.end(); ++iter)
@@ -50,11 +59,14 @@ class UnknownCardsSet
         }
     }
 
+    //! Resets a list of unknown card.
     void ResetState()
     {
         m_cardsSize = m_cards.size();
     }
 
+    //! Runs \p functor on each rest card.
+    //! \param functor A function to run for each rest card.
     template <class Functor>
     void ForEachRestCard(Functor&& functor) const
     {
@@ -72,9 +84,14 @@ class UnknownCardsSet
 //!
 //! \brief UnknownCardsSets class.
 //!
+//! This class store a list of unknown cards set and contains simple methods
+//! such as AddCardsSet(), AssignCardToSet() and RemoveCardFromSet().
+//!
 class UnknownCardsSets
 {
  public:
+    //! Adds a list of cards to a list of unknown cards set.
+    //! \param cards A list of cards to add.
     std::size_t AddCardsSet(const std::vector<std::string>& cards)
     {
         SetItem newItem(cards);
@@ -85,6 +102,8 @@ class UnknownCardsSets
         return idx;
     }
 
+    //! Returns the index after reference count is increased.
+    //! \param setIdx The index of unknown cards set.
     std::size_t AssignCardToSet(size_t setIdx)
     {
         const size_t idx = m_sets[setIdx].refCards;
@@ -92,11 +111,15 @@ class UnknownCardsSets
         return idx;
     }
 
+    //! Removes a card from a specified unknown cards set.
+    //! \param setIdx The index of unknown cards set.
+    //! \param cardID The card ID to remove.
     void RemoveCardFromSet(size_t setIdx, const std::string& cardID)
     {
         m_sets[setIdx].cards.Remove(cardID);
     }
 
+    //! Resets a list of unknown cards set.
     void ResetState()
     {
         for (auto& set : m_sets)
@@ -105,6 +128,8 @@ class UnknownCardsSets
         }
     }
 
+    //! Runs \p functor on each unknown cards set.
+    //! \param functor A function to run for each unknown cards set.
     template <class Functor>
     void ForEach(Functor&& functor) const
     {
@@ -132,6 +157,8 @@ class UnknownCardsSets
 //!
 //! \brief UnknownCardsInfo struct.
 //!
+//! This struct stores the information of unknown cards.
+//!
 struct UnknownCardsInfo
 {
     constexpr static int DECK_BLOCK_ID = -1;
@@ -143,6 +170,9 @@ struct UnknownCardsInfo
 
 //!
 //! \brief UnknownCardsSetsManager class.
+//!
+//! This class is the manager of a set of unknown cards and contains method
+//! Setup() and Prepare().
 //!
 class UnknownCardsSetsManager
 {
@@ -166,11 +196,14 @@ class UnknownCardsSetsManager
     UnknownCardsSetsManager& operator=(UnknownCardsSetsManager&&) noexcept =
         default;
 
+    //! Setups a set of unknown cards.
+    //! \param data A set of unknown cards.
     void Setup(UnknownCardsSets& data)
     {
         m_data = &data;
     }
 
+    //! Prepares the unknown cards sets manager.
     void Prepare()
     {
         m_data->ResetState();
@@ -193,6 +226,10 @@ class UnknownCardsSetsManager
         });
     }
 
+    //! Returns the card ID in a set of unknown cards.
+    //! \param setIdx The index of unknown cards set.
+    //! \param cardIdx The index of card in unknown cards set.
+    //! \return The card ID in a set of unknown cards.
     std::string GetCardID(size_t setIdx, size_t cardIdx) const
     {
         return m_shuffledCards[setIdx][cardIdx];

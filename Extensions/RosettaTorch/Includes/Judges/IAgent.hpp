@@ -12,7 +12,6 @@
 
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Enums/ActionEnums.hpp>
-#include <Rosetta/Views/BoardRefView.hpp>
 
 namespace RosettaTorch::Judges
 {
@@ -31,14 +30,13 @@ class IAgent
 
     //! Processes something related to agent.
     //! \param view The board ref view for the current player.
-    virtual void Think(RosettaStone::BoardRefView& view) = 0;
+    virtual void Think(BoardRefView& view) = 0;
 
     //! Returns action according to \p actionType and \p choices.
     //! \param actionType The type of action.
     //! \param choices The choices of action.
     //! \return The index of chosen action.
-    virtual int GetAction(RosettaStone::ActionType actionType,
-                          RosettaStone::ActionChoices choices) = 0;
+    virtual int GetAction(ActionType actionType, ActionChoices choices) = 0;
 };
 }  // namespace RosettaTorch::Judges
 

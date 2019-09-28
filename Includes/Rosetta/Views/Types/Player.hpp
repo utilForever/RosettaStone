@@ -20,66 +20,94 @@ namespace RosettaStone::Views::Types
 //!
 //! \brief Hero struct.
 //!
+//! This struct stores the information of the hero.
+//!
 struct Hero
 {
+    //! Parses the information of the hero.
+    //! \param gameState The board ref view.
+    //! \param side The side of the hero.
     void Parse(BoardRefView gameState, PlayerType side);
 
     std::string cardID;
-    int attack;
-    int health;
-    int maxHealth;
-    int armor;
-    bool isExhausted;
+    int attack = 0;
+    int health = 0;
+    int maxHealth = 0;
+    int armor = 0;
+    bool isExhausted = false;
 
  private:
+    //! Parses the information of the hero.
+    //! \param hero The hero context.
     void Parse(RosettaStone::Hero* hero);
 };
 
 //!
 //! \brief HeroPower struct.
 //!
+//! This struct stores the information of the hero power.
+//!
 struct HeroPower
 {
+    //! Parses the information of the hero power.
+    //! \param gameState The board ref view.
+    //! \param side The side of the hero power.
     void Parse(BoardRefView gameState, PlayerType side);
 
     std::string cardID;
-    bool isExhausted;
+    bool isExhausted = false;
 };
 
 //!
 //! \brief ManaCrystal struct.
 //!
+//! This struct stores the information of the mana crystal.
+//!
 struct ManaCrystal
 {
+    //! Parses the information of the mana crystal.
+    //! \param usedMana The value of the used mana crystal.
+    //! \param totalMana The value of the total mana crystal.
+    //! \param overloadOwedMana The value of the overload owed mana crystal.
+    //! \param overloadLockedMana The value of the overload locked mana crystal.
     void Parse(int usedMana, int totalMana, int overloadOwedMana,
                int overloadLockedMana);
 
-    int used;
-    int total;
-    int overloadOwed;
-    int overloadLocked;
+    int used = 0;
+    int total = 0;
+    int overloadOwed = 0;
+    int overloadLocked = 0;
 };
 
 //!
 //! \brief Minion struct.
 //!
+//! This struct stores the information of the minion.
+//!
 struct Minion
 {
+    //! Parses the information of the minion.
+    //! \param minion The minion context.
     void Parse(const RosettaStone::Minion& minion);
 
     std::string cardID;
-    int attack;
-    int health;
-    int maxHealth;
-    int spellPower;
-    bool isExhausted;
+    int attack = 0;
+    int health = 0;
+    int maxHealth = 0;
+    int spellPower = 0;
+    bool isExhausted = false;
 };
 
 //!
 //! \brief Minions struct.
 //!
+//! This struct stores the information of a list of minion.
+//!
 struct Minions
 {
+    //! Parses the information of a list of minion.
+    //! \param gameState The board ref view.
+    //! \param side The side of the a list of minion.
     void Parse(BoardRefView gameState, PlayerType side);
 
     std::vector<Minion> minions;
@@ -88,8 +116,14 @@ struct Minions
 //!
 //! \brief Player struct.
 //!
+//! This struct stores the information of the player.
+//!
 struct Player
 {
+    //! Parses the information of the player.
+    //! \param gameState The board ref view.
+    //! \param side The side of the player.
+    //! \param unknownCardsInfo The information of unknown cards.
     void Parse(BoardRefView gameState, PlayerType side,
                UnknownCardsInfo& unknownCardsInfo);
 
@@ -103,15 +137,25 @@ struct Player
     std::vector<CardInfo> deck;
 
  private:
+    //! Parse the information of the card.
+    //! \param cardID The card ID.
+    //! \param blockID The constant ID to block information.
+    //! \param unknownCardsInfo The information of unknown cards.
+    //! \return The parsed information of the card.
     CardInfo ParseCardInfo(const std::string& cardID, int blockID,
                            UnknownCardsInfo& unknownCardsInfo);
 
+    //! Returns the unknown card set ID.
+    //! \param blockIdx An index to block information.
+    //! \param cardsGetter A function to get a list of card.
+    //! \param unknownCardsInfo The information of unknown cards.
+    //! \return The unknown card set ID.
     template <class CardsGetter>
     std::size_t GetUnknownCardSetID(int blockIdx, CardsGetter&& cardsGetter,
                                     UnknownCardsInfo& unknownCardsInfo)
     {
         auto& setsIndices = unknownCardsInfo.setsIndices;
-        auto iter = setsIndices.find(blockIdx);
+        const auto iter = setsIndices.find(blockIdx);
 
         if (iter == setsIndices.end())
         {

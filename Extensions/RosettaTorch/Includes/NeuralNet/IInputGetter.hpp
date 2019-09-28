@@ -19,7 +19,6 @@ namespace RosettaTorch::NeuralNet
 //!
 //! This class is interface of input getter that contains GetField() method.
 //!
-//!
 class IInputGetter
 {
  public:

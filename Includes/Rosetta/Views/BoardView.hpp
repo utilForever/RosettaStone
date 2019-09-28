@@ -23,23 +23,35 @@ namespace RosettaStone
 class BoardView
 {
  public:
+    //! Parses game information from \p gameState.
+    //! \param gameState The board ref view to restore the game.
+    //! \param p1Unknown The unknown card information of player 1.
+    //! \param p2Unknown The unknown card information of player 2.
     void Parse(BoardRefView gameState,
                Views::Types::UnknownCardsInfo& p1Unknown,
                Views::Types::UnknownCardsInfo& p2Unknown);
 
+    //! Returns the turn of the game.
+    //! \return The turn of the game.
     int GetTurn() const;
 
+    //! Returns The current player of the game.
+    //! \return The current player of the game.
     PlayerType GetCurrentPlayer() const;
 
+    //! Returns the player 1 of the game.
+    //! \return The player 1 of the game.
     const Views::Types::Player& GetPlayer1() const;
 
+    //! Returns the player 2 of the game.
+    //! \return The player 2 of the game.
     const Views::Types::Player& GetPlayer2() const;
 
  private:
-    int m_turn;
-    PlayerType m_curPlayer;
-    Views::Types::Player m_player1;
-    Views::Types::Player m_player2;
+    int m_turn = 0;
+    PlayerType m_curPlayer = PlayerType::INVALID;
+    Views::Types::Player m_player1{};
+    Views::Types::Player m_player2{};
 };
 }  // namespace RosettaStone
 

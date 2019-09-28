@@ -14,16 +14,31 @@
 
 #include <json/json.hpp>
 
+#include <utility>
+
 namespace RosettaTorch::Judges::JSON
 {
+//!
+//! \brief NeuralNetRefInputGetter class.
+//!
+//! This class inherits from NeuralNet::IInputGetter class.
+//!
 class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
 {
  public:
+    //! Constructs neural net ref input getter with given \p obj.
+    //! \param obj The JSON object.
     NeuralNetRefInputGetter(const nlohmann::json& obj) : m_obj(obj)
     {
         // Do nothing
     }
 
+    //! Returns the value of the field.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldSide The side of the field.
+    //! \param fieldType The type of the field.
+    //! \param arg The argument such as the index of minion in field zone.
+    //! \return The value of the field.
     double GetField(NeuralNet::FieldSide fieldSide,
                     NeuralNet::FieldType fieldType,
                     int arg = 0) const override final
@@ -41,6 +56,12 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
     }
 
  private:
+    //! Returns the value of the field according the side of the player.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldType The type of the field.
+    //! \param arg The argument such as the index of minion in field zone.
+    //! \param side The side of the player.
+    //! \return The value of the field according the side of the player.
     double GetSideField(NeuralNet::FieldType fieldType, int arg,
                         const nlohmann::json& side) const
     {
@@ -75,6 +96,12 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
         }
     }
 
+    //! Returns the value of the mana crystal field.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldType The type of the field.
+    //! \param arg The argument such as the index of minion in field zone.
+    //! \param manaCrystal The JSON object that contains mana crystal info.
+    //! \return The value of the mana crystal field.
     double GetManaCrystalField(NeuralNet::FieldType fieldType,
                                [[maybe_unused]] int arg,
                                const nlohmann::json& manaCrystal) const
@@ -94,6 +121,12 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
         }
     }
 
+    //! Returns the value of the hero field.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldType The type of the field.
+    //! \param arg The argument such as the index of minion in field zone.
+    //! \param hero The JSON object that contains hero info.
+    //! \return The value of the hero field.
     double GetHeroField(NeuralNet::FieldType fieldType,
                         [[maybe_unused]] int arg,
                         const nlohmann::json& hero) const
@@ -109,6 +142,12 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
         }
     }
 
+    //! Returns the value of the minion field.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldType The type of the field.
+    //! \param minionIdx The index of minion in field zone.
+    //! \param minions The JSON object that contains minions info.
+    //! \return The value of the minion field.
     double GetMinionsField(NeuralNet::FieldType fieldType, int minionIdx,
                            const nlohmann::json& minions) const
     {
@@ -135,6 +174,12 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
         }
     }
 
+    //! Returns the value of the hand field.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldType The type of the field.
+    //! \param handIdx The index of card in hand zone.
+    //! \param hand The JSON object that contains card info.
+    //! \return The value of the hand field.
     double GetHandField(NeuralNet::FieldType fieldType, int handIdx,
                         const nlohmann::json& hand) const
     {
@@ -152,6 +197,12 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
         }
     }
 
+    //! Returns the value of the hero power field.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldType The type of the field.
+    //! \param arg The argument such as the index of minion in field zone.
+    //! \param heroPower The JSON object that contains hero power info.
+    //! \return The value of the hero power field.
     double GetHeroPowerField(NeuralNet::FieldType fieldType,
                              [[maybe_unused]] int arg,
                              const nlohmann::json& heroPower) const
@@ -165,16 +216,29 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
     }
 
     const nlohmann::json& m_obj;
-};  // namespace RosettaTorch::Judges::JSON
+};
 
+//!
+//! \brief NeuralNetInputGetter class.
+//!
+//! This class inherits from NeuralNet::IInputGetter class.
+//!
 class NeuralNetInputGetter : public NeuralNet::IInputGetter
 {
  public:
-    NeuralNetInputGetter(const nlohmann::json& obj) : m_obj(obj)
+    //! Constructs neural net input getter with given \p obj.
+    //! \param obj The JSON object.
+    NeuralNetInputGetter(nlohmann::json obj) : m_obj(std::move(obj))
     {
         // Do nothing
     }
 
+    //! Returns the value of the field.
+    //! Note that boolean value is 1 for true, 0 for false.
+    //! \param fieldSide The side of the field.
+    //! \param fieldType The type of the field.
+    //! \param arg The argument such as the index of minion in field zone.
+    //! \return The value of the field.
     double GetField(NeuralNet::FieldSide fieldSide,
                     NeuralNet::FieldType fieldType,
                     int arg = 0) const override final
@@ -195,6 +259,9 @@ class NeuralNetInputGetter : public NeuralNet::IInputGetter
 class Reader
 {
  public:
+    //! Parses the JSON object and runs function to add data.
+    //! \param obj The JSON object that contains game info.
+    //! \param callback A function to add data.
     template <class Callback, class GetterType = NeuralNetInputGetter>
     void Parse(const nlohmann::json& obj, Callback&& callback)
     {
@@ -213,6 +280,9 @@ class Reader
     }
 
  private:
+    //! Returns the result of the game.
+    //! \param obj The JSON object that contains game info.
+    //! \result The result of the game.
     std::string GetResult(const nlohmann::json& obj)
     {
         for (std::size_t idx = 0; idx < obj.size(); ++idx)
@@ -226,6 +296,10 @@ class Reader
         throw std::runtime_error("Cannot find win player");
     }
 
+    //! Returns the flag whether the current player won the game.
+    //! \param game The JSON object that contains game info.
+    //! \param result The result of the game.
+    //! \result The flag whether the current player won the game.
     bool IsCurrentPlayerWin(const nlohmann::json& game,
                             const std::string& result)
     {
@@ -251,6 +325,9 @@ class Reader
         return isCurPlayerP1 == isWinPlayerP1;
     }
 
+    //! Returns the flag whether player 1 won the game.
+    //! \param winPlayer The string that indicates winner of the game.
+    //! \result The flag whether the current player won the game.
     bool IsResultWin(const std::string& winPlayer)
     {
         if (winPlayer == "PLAYER1_WIN")
