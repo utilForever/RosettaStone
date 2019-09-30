@@ -90,8 +90,8 @@ class Judger
     //! \param recorder The type of recorder.
     Judger(RecorderType& recorder)
         : m_actionCallback(*this),
-          m_first(nullptr),
-          m_second(nullptr),
+          m_player1(nullptr),
+          m_player2(nullptr),
           m_recorder(recorder)
     {
         // Do nothing
@@ -113,17 +113,17 @@ class Judger
     Judger& operator=(Judger&& rhs) noexcept = delete;
 
     //! Sets the agent for player 1.
-    //! \param first The agent type for player 1.
-    void SetFirstAgent(AgentType* first)
+    //! \param player1 The agent type for player 1.
+    void SetPlayer1Agent(AgentType* player1)
     {
-        m_first = first;
+        m_player1 = player1;
     }
 
     //! Sets the agent for player 2.
-    //! \param second The agent type for player 2.
-    void SetSecondAgent(AgentType* second)
+    //! \param player2 The agent type for player 2.
+    void SetPlayer2Agent(AgentType* player2)
     {
-        m_second = second;
+        m_player2 = player2;
     }
 
     //! Starts the recorder and the game.
@@ -141,11 +141,11 @@ class Judger
         {
             if (game.GetCurrentPlayer().playerType == PlayerType::PLAYER1)
             {
-                nextAgent = m_first;
+                nextAgent = m_player1;
             }
             else
             {
-                nextAgent = m_second;
+                nextAgent = m_player2;
             }
 
             nextAgent->Think(
@@ -243,8 +243,8 @@ class Judger
     };
 
     ActionCallback m_actionCallback;
-    AgentType* m_first;
-    AgentType* m_second;
+    AgentType* m_player1;
+    AgentType* m_player2;
     RecorderType& m_recorder;
 };
 }  // namespace RosettaTorch::Judges
