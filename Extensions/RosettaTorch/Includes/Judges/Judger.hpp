@@ -23,43 +23,71 @@ using Random = effolkronium::random_static;
 
 namespace RosettaTorch::Judges
 {
+//!
+//! \brief NullRecorder class.
+//!
+//! This class is a type of Recorder class and does nothing.
+//!
 class NullRecorder
 {
  public:
+    //! Starts recording by clearing JSON object.
     void Start()
     {
         // Do nothing
     }
 
+    //! Records the main action data to JSON object.
+    //! \param game The game context.
+    //! \param op The main operation type.
     void RecordMainAction([[maybe_unused]] const Game& game,
                           [[maybe_unused]] MainOpType op)
     {
         // Do nothing
     }
 
-    void RecordRandomAction([[maybe_unused]] int exclusiveMax,
+    //! Records the randomly selected action to JSON object.
+    //! \param maxValue The number of available actions.
+    //! \param action The index of available actions selected randomly.
+    void RecordRandomAction([[maybe_unused]] int maxValue,
                             [[maybe_unused]] int action)
     {
         // Do nothing
     }
 
+    //! Records the manually selected action to JSON object.
+    //! \param actionType The selected action type.
+    //! \param choices The type of action choices.
+    //! \param action The index of available choices selected manually.
     void RecordManualAction([[maybe_unused]] ActionType actionType,
-                            [[maybe_unused]] ActionChoices actionChoices,
+                            [[maybe_unused]] ActionChoices choices,
                             [[maybe_unused]] int action)
     {
         // Do nothing
     }
 
-    void End([[maybe_unused]] PlayState result)
+    //! Records the game end data to JSON object.
+    //! \param playerType The type of player to get the game result.
+    //! \param result The result of game to record.
+    void End([[maybe_unused]] PlayerType playerType,
+             [[maybe_unused]] PlayState result)
     {
         // Do nothing
     }
 };
 
+//!
+//! \brief Judger class.
+//!
+//! This class allows two agents to compete with each other, and make sure
+//! they're following the game rules.
+//!
 template <class AgentType = IAgent, class RecorderType = NullRecorder>
 class Judger
 {
  public:
+    //! Constructs judger with given \p recorder.
+    //! \param recorder The type of recorder.
     Judger(RecorderType& recorder)
         : m_actionCallback(*this),
           m_first(nullptr),
@@ -81,16 +109,22 @@ class Judger
     //! Deleted move assignment operator.
     Judger& operator=(Judger&& rhs) noexcept = delete;
 
+    //! Sets the agent for player 1.
+    //! \param first The agent type for player 1.
     void SetFirstAgent(AgentType* first)
     {
         m_first = first;
     }
 
+    //! Sets the agent for player 2.
+    //! \param second The agent type for player 2.
     void SetSecondAgent(AgentType* second)
     {
         m_second = second;
     }
 
+    //! Starts the recorder and the game.
+    //! \param game The game context.
     PlayState Start(Game& game)
     {
         m_recorder.Start();
@@ -129,9 +163,16 @@ class Judger
     }
 
  private:
+    //!
+    //! \brief ActionCallback class.
+    //!
+    //! This class inherits from ActionParams class.
+    //!
     class ActionCallback : public ActionParams
     {
      public:
+        //! Constructs action callback with given \p guide.
+        //! \param guide The judger object to guide.
         ActionCallback(Judger& guide)
             : m_guide(guide), m_callback(nullptr), m_game(nullptr)
         {
@@ -150,6 +191,9 @@ class Judger
         //! Deleted move assignment operator.
         ActionCallback& operator=(ActionCallback&& rhs) noexcept = delete;
 
+        //! Initializes member variables and call ActionParams::Initialize().
+        //! \param game The game context.
+        //! \param callback A callback to get action.
         void Init(Game& game, AgentType* callback)
         {
             m_game = &game;
@@ -158,6 +202,10 @@ class Judger
             ActionParams::Initialize(*m_game);
         }
 
+        //! Returns the number using \p actionType and \p choices.
+        //! \param actionType The action type.
+        //! \param choices The action choices.
+        //! \return The chosen number using action type and action choices.
         std::size_t GetNumber(ActionType actionType,
                               ActionChoices& choices) final
         {
