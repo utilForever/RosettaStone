@@ -141,11 +141,11 @@ int main(int argc, char* argv[])
 
     Recorder recorder;
     RosettaTorch::Judges::Judger<MCTSAgent, Recorder> judger(recorder);
-    MCTSAgent first(config, AgentCallback(config.iterationsPerAction));
-    MCTSAgent second(config, AgentCallback(config.iterationsPerAction));
+    MCTSAgent p1Agent(config, AgentCallback(config.iterationsPerAction));
+    MCTSAgent p2Agent(config, AgentCallback(config.iterationsPerAction));
 
-    judger.SetFirstAgent(&first);
-    judger.SetSecondAgent(&second);
+    judger.SetPlayer1Agent(&p1Agent);
+    judger.SetPlayer2Agent(&p2Agent);
 
     GameConfig gameConfig;
     gameConfig.player1Class = CardClass::WARLOCK;
