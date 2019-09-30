@@ -97,6 +97,9 @@ class Judger
         // Do nothing
     }
 
+    //! Default destructor.
+    ~Judger() = default;
+
     //! Deleted copy constructor.
     Judger(const Judger& rhs) = delete;
 
@@ -178,6 +181,9 @@ class Judger
         {
             // Do nothing
         }
+
+        //! Default destructor.
+        ~ActionCallback() = default;
 
         //! Deleted copy constructor.
         ActionCallback(const ActionCallback& rhs) = delete;
