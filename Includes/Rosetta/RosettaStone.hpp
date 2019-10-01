@@ -16,7 +16,6 @@
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/Attack.hpp>
-#include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Choices/ChooseFromCardIDs.hpp>
 #include <Rosetta/Actions/Choices/ChooseFromNumbers.hpp>
