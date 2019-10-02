@@ -98,6 +98,7 @@ class UnknownCardsSets
         SetItem(const std::vector<std::string>& _cards)
             : cards(_cards), refCards()
         {
+            // Do nothing
         }
 
         UnknownCardsSet cards;
@@ -132,6 +133,9 @@ class UnknownCardsSetsManager
  public:
     //! Default constructor.
     UnknownCardsSetsManager();
+
+    //! Default destructor.
+    ~UnknownCardsSetsManager() = default;
 
     //! Deleted copy constructor.
     UnknownCardsSetsManager(const UnknownCardsSetsManager&) = delete;
