@@ -75,7 +75,7 @@ void ActionApplyHelper::ActionParamsCallback::Initialize(const Game& game)
 
 MainOpType ActionApplyHelper::ActionParamsCallback::ChooseMainOp()
 {
-    auto ret = m_choser.ChooseMainOp();
+    const auto ret = m_choser.ChooseMainOp();
 
     if (ShouldRecord())
     {
@@ -87,7 +87,7 @@ MainOpType ActionApplyHelper::ActionParamsCallback::ChooseMainOp()
 
 Entity* ActionApplyHelper::ActionParamsCallback::ChooseHandCard()
 {
-    auto ret = m_choser.ChooseHandCard();
+    const auto ret = m_choser.ChooseHandCard();
 
     if (ShouldRecord())
     {
@@ -99,7 +99,7 @@ Entity* ActionApplyHelper::ActionParamsCallback::ChooseHandCard()
 
 Character* ActionApplyHelper::ActionParamsCallback::GetAttacker()
 {
-    auto ret = m_choser.GetAttacker();
+    const auto ret = m_choser.GetAttacker();
 
     if (ShouldRecord())
     {
@@ -112,7 +112,7 @@ Character* ActionApplyHelper::ActionParamsCallback::GetAttacker()
 std::size_t ActionApplyHelper::ActionParamsCallback::GetMinionPutLocation(
     int minions)
 {
-    auto ret = m_choser.GetMinionPutLocation(minions);
+    const auto ret = m_choser.GetMinionPutLocation(minions);
 
     if (ShouldRecord())
     {
@@ -125,7 +125,7 @@ std::size_t ActionApplyHelper::ActionParamsCallback::GetMinionPutLocation(
 Character* ActionApplyHelper::ActionParamsCallback::GetSpecifiedTarget(
     const std::vector<Character*>& targets)
 {
-    auto ret = m_choser.GetSpecifiedTarget(targets);
+    const auto ret = m_choser.GetSpecifiedTarget(targets);
 
     if (ShouldRecord())
     {
@@ -138,7 +138,7 @@ Character* ActionApplyHelper::ActionParamsCallback::GetSpecifiedTarget(
 std::size_t ActionApplyHelper::ActionParamsCallback::ChooseOne(
     const std::vector<std::size_t>& cards)
 {
-    auto ret = m_choser.ChooseOne(cards);
+    const auto ret = m_choser.ChooseOne(cards);
 
     if (ShouldRecord())
     {
