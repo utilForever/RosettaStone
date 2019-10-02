@@ -10,14 +10,9 @@
 #ifndef ROSETTASTONE_VIEWS_TYPES_UNKNOWN_CARDS_HPP
 #define ROSETTASTONE_VIEWS_TYPES_UNKNOWN_CARDS_HPP
 
-#include <effolkronium/random.hpp>
-
 #include <map>
 #include <string>
-#include <utility>
 #include <vector>
-
-using Random = effolkronium::random_static;
 
 namespace RosettaStone::Views::Types
 {
@@ -32,38 +27,18 @@ class UnknownCardsSet
  public:
     //! Constructs unknown cards set with given \p cards.
     //! \param cards A list of unknown card.
-    UnknownCardsSet(std::vector<std::string> cards)
-        : m_cards(std::move(cards)), m_cardsSize(0)
-    {
-        // Do nothing
-    }
+    UnknownCardsSet(std::vector<std::string> cards);
 
     //! Adds a card to a list of unknown card.
     //! \param cardID The card ID to add.
-    void Add(const std::string& cardID)
-    {
-        m_cards.push_back(cardID);
-    }
+    void Add(const std::string& cardID);
 
     //! Removes a card to a list of unknown card.
     //! \param cardID The card ID to remove.
-    void Remove(const std::string& cardID)
-    {
-        for (auto iter = m_cards.begin(); iter != m_cards.end(); ++iter)
-        {
-            if (*iter == cardID)
-            {
-                m_cards.erase(iter);
-                return;
-            }
-        }
-    }
+    void Remove(const std::string& cardID);
 
     //! Resets a list of unknown card.
-    void ResetState()
-    {
-        m_cardsSize = m_cards.size();
-    }
+    void ResetState();
 
     //! Runs \p functor on each rest card.
     //! \param functor A function to run for each rest card.
@@ -92,41 +67,19 @@ class UnknownCardsSets
  public:
     //! Adds a list of cards to a list of unknown cards set.
     //! \param cards A list of cards to add.
-    std::size_t AddCardsSet(const std::vector<std::string>& cards)
-    {
-        SetItem newItem(cards);
-        newItem.refCards = 0;
-
-        const std::size_t idx = m_sets.size();
-        m_sets.push_back(newItem);
-        return idx;
-    }
+    std::size_t AddCardsSet(const std::vector<std::string>& cards);
 
     //! Returns the index after reference count is increased.
     //! \param setIdx The index of unknown cards set.
-    std::size_t AssignCardToSet(size_t setIdx)
-    {
-        const size_t idx = m_sets[setIdx].refCards;
-        ++m_sets[setIdx].refCards;
-        return idx;
-    }
+    std::size_t AssignCardToSet(size_t setIdx);
 
     //! Removes a card from a specified unknown cards set.
     //! \param setIdx The index of unknown cards set.
     //! \param cardID The card ID to remove.
-    void RemoveCardFromSet(size_t setIdx, const std::string& cardID)
-    {
-        m_sets[setIdx].cards.Remove(cardID);
-    }
+    void RemoveCardFromSet(size_t setIdx, const std::string& cardID);
 
     //! Resets a list of unknown cards set.
-    void ResetState()
-    {
-        for (auto& set : m_sets)
-        {
-            set.cards.ResetState();
-        }
-    }
+    void ResetState();
 
     //! Runs \p functor on each unknown cards set.
     //! \param functor A function to run for each unknown cards set.
@@ -178,10 +131,7 @@ class UnknownCardsSetsManager
 {
  public:
     //! Default constructor.
-    UnknownCardsSetsManager() : m_data(nullptr)
-    {
-        // Do nothing
-    }
+    UnknownCardsSetsManager();
 
     //! Deleted copy constructor.
     UnknownCardsSetsManager(const UnknownCardsSetsManager&) = delete;
@@ -198,42 +148,16 @@ class UnknownCardsSetsManager
 
     //! Setups a set of unknown cards.
     //! \param data A set of unknown cards.
-    void Setup(UnknownCardsSets& data)
-    {
-        m_data = &data;
-    }
+    void Setup(UnknownCardsSets& data);
 
     //! Prepares the unknown cards sets manager.
-    void Prepare()
-    {
-        m_data->ResetState();
-        m_shuffledCards.clear();
-
-        std::vector<std::string> cardsPool;
-        m_data->ForEach([&](const UnknownCardsSet& set, size_t refCards) {
-            set.ForEachRestCard([&](const std::string& cardID) {
-                cardsPool.push_back(cardID);
-            });
-
-            m_shuffledCards.emplace_back();
-            for (std::size_t i = 0; i < refCards; ++i)
-            {
-                const int randIdx = Random::get<int>(0, cardsPool.size() - 1);
-                std::swap(cardsPool[randIdx], cardsPool.back());
-                m_shuffledCards.back().push_back(cardsPool.back());
-                cardsPool.pop_back();
-            }
-        });
-    }
+    void Prepare();
 
     //! Returns the card ID in a set of unknown cards.
     //! \param setIdx The index of unknown cards set.
     //! \param cardIdx The index of card in unknown cards set.
     //! \return The card ID in a set of unknown cards.
-    std::string GetCardID(size_t setIdx, size_t cardIdx) const
-    {
-        return m_shuffledCards[setIdx][cardIdx];
-    }
+    std::string GetCardID(size_t setIdx, size_t cardIdx) const;
 
  private:
     UnknownCardsSets* m_data;
