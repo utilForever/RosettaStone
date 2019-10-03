@@ -96,7 +96,7 @@ void SaveJSON(const nlohmann::json& json)
     strftime(buffer, 80, "%Y%m%d-%H%M%S", &timeinfo);
 
     std::ostringstream ss;
-    const int postfix = rand() % 90000 + 10000;
+    const int postfix = Random::get<int>(0, 89999) + 10000;
     ss << buffer << "-" << postfix << ".json";
     const std::string fileName = ss.str();
 

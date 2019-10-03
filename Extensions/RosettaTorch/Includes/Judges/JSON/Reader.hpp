@@ -35,8 +35,7 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
     //! \param arg The argument such as the index of minion in field zone.
     //! \return The value of the field.
     double GetField(NeuralNet::FieldSide fieldSide,
-                    NeuralNet::FieldType fieldType,
-                    int arg = 0) const override final;
+                    NeuralNet::FieldType fieldType, int arg = 0) const final;
 
  private:
     //! Returns the value of the field according the side of the player.
@@ -118,8 +117,7 @@ class NeuralNetInputGetter : public NeuralNet::IInputGetter
     //! \param arg The argument such as the index of minion in field zone.
     //! \return The value of the field.
     double GetField(NeuralNet::FieldSide fieldSide,
-                    NeuralNet::FieldType fieldType,
-                    int arg = 0) const override final;
+                    NeuralNet::FieldType fieldType, int arg = 0) const final;
 
  private:
     nlohmann::json m_obj;
