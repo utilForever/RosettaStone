@@ -11,24 +11,24 @@
 
 namespace RosettaStone
 {
-ActionApplyHelper::ActionParamsChoser::ActionParamsChoser(
+ActionApplyHelper::ActionParamsChooser::ActionParamsChooser(
     const std::vector<int>& choices, std::size_t& choicesIdx)
     : m_choices(choices), m_choicesIdx(choicesIdx), m_shouldSkip(false)
 {
     // Do nothing
 }
 
-bool ActionApplyHelper::ActionParamsChoser::HasFurtherChoices() const
+bool ActionApplyHelper::ActionParamsChooser::HasFurtherChoices() const
 {
     return m_choicesIdx <= m_choices.size();
 }
 
-bool ActionApplyHelper::ActionParamsChoser::ShouldSkip() const
+bool ActionApplyHelper::ActionParamsChooser::ShouldSkip() const
 {
     return m_shouldSkip;
 }
 
-std::size_t ActionApplyHelper::ActionParamsChoser::GetNumber(
+std::size_t ActionApplyHelper::ActionParamsChooser::GetNumber(
     ActionType actionType, ActionChoices& choices)
 {
     m_shouldSkip = false;
@@ -45,7 +45,7 @@ std::size_t ActionApplyHelper::ActionParamsChoser::GetNumber(
     return GetNextChoice(0, choices.Size());
 }
 
-int ActionApplyHelper::ActionParamsChoser::GetNextChoice(
+int ActionApplyHelper::ActionParamsChooser::GetNextChoice(
     int min, [[maybe_unused]] int max) const
 {
     if (m_choicesIdx >= m_choices.size())

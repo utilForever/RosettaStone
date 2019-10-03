@@ -137,26 +137,26 @@ class ActionApplyHelper
 
  private:
     //!
-    //! \brief ActionParamsChoser class.
+    //! \brief ActionParamsChooser class.
     //!
     //! This class inherits from ActionParams class.
     //!
-    class ActionParamsChoser : public ActionParams
+    class ActionParamsChooser : public ActionParams
     {
      public:
-        //! Constructs action params choser with given \p choices and
+        //! Constructs action params chooser with given \p choices and
         //! \p choicesIdx.
         //! \param choices A list of action choices.
         //! \param choicesIdx The index of action choices.
-        ActionParamsChoser(const std::vector<int>& choices,
-                           std::size_t& choicesIdx);
+        ActionParamsChooser(const std::vector<int>& choices,
+                            std::size_t& choicesIdx);
 
-        //! Returns the flag that whether this choser has further choices.
-        //! \return The flag that whether this choser has further choices.
+        //! Returns the flag that whether this chooser has further choices.
+        //! \return The flag that whether this chooser has further choices.
         bool HasFurtherChoices() const;
 
-        //! Returns the flag that whether this choser should skip.
-        //! \return The flag that whether this choser should skip.
+        //! Returns the flag that whether this chooser should skip.
+        //! \return The flag that whether this chooser should skip.
         bool ShouldSkip() const;
 
         //! Returns the number using \p actionType and \p choices.
@@ -240,7 +240,7 @@ class ActionApplyHelper
         bool ShouldRecord() const;
 
         CallbackInfo& m_result;
-        ActionParamsChoser m_choser;
+        ActionParamsChooser m_choser;
     };
 
  public:
