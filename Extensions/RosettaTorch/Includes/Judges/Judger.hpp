@@ -88,7 +88,7 @@ class Judger
  public:
     //! Constructs judger with given \p recorder.
     //! \param recorder The type of recorder.
-    Judger(RecorderType& recorder)
+    explicit Judger(RecorderType& recorder)
         : m_actionCallback(*this),
           m_player1(nullptr),
           m_player2(nullptr),
@@ -176,7 +176,7 @@ class Judger
      public:
         //! Constructs action callback with given \p guide.
         //! \param guide The judger object to guide.
-        ActionCallback(Judger& guide)
+        explicit ActionCallback(Judger& guide)
             : m_guide(guide), m_callback(nullptr), m_game(nullptr)
         {
             // Do nothing

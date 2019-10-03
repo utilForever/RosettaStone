@@ -27,7 +27,7 @@ class UnknownCardsSet
  public:
     //! Constructs unknown cards set with given \p cards.
     //! \param cards A list of unknown card.
-    UnknownCardsSet(std::vector<std::string> cards);
+    explicit UnknownCardsSet(std::vector<std::string> cards);
 
     //! Adds a card to a list of unknown card.
     //! \param cardID The card ID to add.
@@ -95,7 +95,7 @@ class UnknownCardsSets
  private:
     struct SetItem
     {
-        SetItem(const std::vector<std::string>& _cards)
+        explicit SetItem(const std::vector<std::string>& _cards)
             : cards(_cards), refCards()
         {
             // Do nothing

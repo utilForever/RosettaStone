@@ -160,9 +160,9 @@ void InteractiveShell::ShowBestNodeInfo(
         indentPadding.append("   ");
     }
 
-    int64_t totalChosenTime = 0;
+    std::int64_t totalChosenTime = 0;
     int bestChoice = -1;
-    int64_t bestChoiceChosenTimes = 0;
+    std::int64_t bestChoiceChosenTimes = 0;
 
     node->children.ForEach([&](int choice, const EdgeAddon* edgeAddon,
                                [[maybe_unused]] TreeNode* child) {

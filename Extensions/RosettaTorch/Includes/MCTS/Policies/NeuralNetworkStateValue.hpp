@@ -29,7 +29,7 @@ class NeuralNetworkStateValue
  public:
     //! Constructs neural network state value with given \p config.
     //! \param config The config for neural network.
-    NeuralNetworkStateValue(const Config& config);
+    explicit NeuralNetworkStateValue(const Config& config);
 
     //! Returns the state value.
     //! \param board The game board.

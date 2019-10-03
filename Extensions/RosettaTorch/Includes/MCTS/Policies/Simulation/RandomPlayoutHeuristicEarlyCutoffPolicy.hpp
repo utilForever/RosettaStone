@@ -37,7 +37,7 @@ class RandomPlayoutHeuristicEarlyCutoffPolicy : public ISimulationPolicy
 
     //! Constructs random playout heuristic early cutoff policy.
     //! \param config The config for neural network.
-    RandomPlayoutHeuristicEarlyCutoffPolicy(const Config& config);
+    explicit RandomPlayoutHeuristicEarlyCutoffPolicy(const Config& config);
 
     //! Returns the flag indicates whether cutoff is enabled.
     //! \return The flag indicates whether cutoff is enabled.

@@ -32,7 +32,7 @@ class Simulation
  public:
     //! Constructs simulation with the specified policy.
     //! \param config The config for neural network.
-    Simulation(const Config& config);
+    explicit Simulation(const Config& config);
 
     //! Deleted copy constructor.
     Simulation(const Simulation&) = delete;

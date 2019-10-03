@@ -20,7 +20,7 @@ namespace RosettaStone
 class GameRestorer
 {
  public:
-    GameRestorer(const BoardView& view);
+    explicit GameRestorer(const BoardView& view);
 
     static GameRestorer Prepare(BoardView& view,
                                 Views::Types::UnknownCardsInfo& p1Unknown,

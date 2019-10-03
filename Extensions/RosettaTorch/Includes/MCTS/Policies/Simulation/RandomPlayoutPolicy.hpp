@@ -25,7 +25,7 @@ class RandomPlayoutPolicy : public ISimulationPolicy
  public:
     //! Constructs random playout policy.
     //! \param config The config for neural network.
-    RandomPlayoutPolicy(const Config& config);
+    explicit RandomPlayoutPolicy(const Config& config);
 
     //! Returns the flag indicates whether cutoff is enabled.
     //! \return The flag indicates whether cutoff is enabled.

@@ -26,7 +26,7 @@ class NeuralNetRefInputGetter : public NeuralNet::IInputGetter
  public:
     //! Constructs neural net ref input getter with given \p obj.
     //! \param obj The JSON object.
-    NeuralNetRefInputGetter(const nlohmann::json& obj);
+    explicit NeuralNetRefInputGetter(const nlohmann::json& obj);
 
     //! Returns the value of the field.
     //! Note that boolean value is 1 for true, 0 for false.
@@ -108,7 +108,7 @@ class NeuralNetInputGetter : public NeuralNet::IInputGetter
  public:
     //! Constructs neural net input getter with given \p obj.
     //! \param obj The JSON object.
-    NeuralNetInputGetter(nlohmann::json obj);
+    explicit NeuralNetInputGetter(nlohmann::json obj);
 
     //! Returns the value of the field.
     //! Note that boolean value is 1 for true, 0 for false.

@@ -23,7 +23,7 @@ using Random = effolkronium::random_static;
 class AgentCallback
 {
  public:
-    AgentCallback(int maxIterations)
+    explicit AgentCallback(int maxIterations)
         : m_isFirstTime(true), m_maxIterations(maxIterations)
     {
         // Do nothing

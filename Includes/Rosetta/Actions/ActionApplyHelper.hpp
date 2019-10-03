@@ -64,7 +64,7 @@ class ActionApplyHelper
     //!
     struct MinionPutLocationInfo
     {
-        MinionPutLocationInfo(int _minions) : minions(_minions)
+        explicit MinionPutLocationInfo(int _minions) : minions(_minions)
         {
             // Do nothing
         }
@@ -89,7 +89,7 @@ class ActionApplyHelper
     //!
     struct GetSpecifiedTargetInfo
     {
-        GetSpecifiedTargetInfo(std::vector<Character*> _targets)
+        explicit GetSpecifiedTargetInfo(const std::vector<Character*>& _targets)
             : targets(std::move(_targets))
         {
             // Do nothing
@@ -105,7 +105,7 @@ class ActionApplyHelper
     //!
     struct ChooseOneInfo
     {
-        ChooseOneInfo(std::vector<std::size_t> _cards)
+        explicit ChooseOneInfo(const std::vector<std::size_t>& _cards)
             : cards(std::move(_cards))
         {
             // Do nothing
@@ -121,7 +121,7 @@ class ActionApplyHelper
     //!
     struct ChooseRandomInfo
     {
-        ChooseRandomInfo(int _maxValue) : maxValue(_maxValue)
+        explicit ChooseRandomInfo(int _maxValue) : maxValue(_maxValue)
         {
             // Do nothing
         }
