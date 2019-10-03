@@ -325,6 +325,18 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(card);
             }
             break;
+        case EntityType::DECK:
+            for (auto& card : player.GetDeckZone().GetAll())
+            {
+                entities.emplace_back(card);
+            }
+            break;
+        case EntityType::ENEMY_DECK:
+            for (auto& card : player.opponent->GetDeckZone().GetAll())
+            {
+                entities.emplace_back(card);
+            }
+            break;
         case EntityType::ALL_MINIONS:
             for (auto& minion : player.GetFieldZone().GetAll())
             {

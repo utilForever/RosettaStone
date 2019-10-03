@@ -17,6 +17,13 @@ SelfCondition::SelfCondition(std::function<bool(Entity*)> func)
     // Do nothing
 }
 
+SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return entity->owner->GetHero()->heroPower->card->id == cardID;
+    });
+}
+
 SelfCondition SelfCondition::IsDead()
 {
     return SelfCondition(
@@ -91,6 +98,13 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsControllingSecret()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return !entity->owner->GetSecretZone().IsEmpty();
+    });
+}
+
 SelfCondition SelfCondition::IsMinion()
 {
     return SelfCondition([=](Entity* entity) -> bool {
@@ -134,6 +148,18 @@ SelfCondition SelfCondition::HasMinionInHand()
     });
 }
 
+SelfCondition SelfCondition::IsOverloadCard()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        if (entity->GetGameTag(GameTag::OVERLOAD) >= 1)
+        {
+            return true;
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
     return SelfCondition([=](Entity* entity) -> bool {
@@ -156,6 +182,33 @@ SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
 {
     return SelfCondition([=](Entity* entity) -> bool {
         return !((entity->card->name == name) ^ isEqual);
+    });
+}
+
+SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        auto& stack = entity->owner->GetGame()->taskStack;
+        const auto num = index == 0 ? stack.num : stack.num1;
+
+        return (relaSign == RelaSign::EQ && num == value) ||
+               (relaSign == RelaSign::GEQ && num >= value) ||
+               (relaSign == RelaSign::LEQ && num <= value);
+    });
+}
+
+SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        const auto character = dynamic_cast<Character*>(entity);
+        if (character == nullptr)
+        {
+            return false;
+        }
+
+        return (relaSign == RelaSign::EQ && character->GetHealth() == value) ||
+               (relaSign == RelaSign::GEQ && character->GetHealth() >= value) ||
+               (relaSign == RelaSign::LEQ && character->GetHealth() <= value);
     });
 }
 

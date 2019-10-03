@@ -110,6 +110,20 @@ void Entity::SetCost(int cost)
 
 bool Entity::IsExhausted() const
 {
+    // Consider windfury
+    if (GetGameTag(GameTag::WINDFURY) == 1 &&
+        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 1)
+    {
+        return false;
+    }
+
+    // Consider charge
+    if (GetGameTag(GameTag::CHARGE) == 1 &&
+        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 0)
+    {
+        return false;
+    }
+
     return GetGameTag(GameTag::EXHAUSTED) == 1;
 }
 
@@ -164,13 +178,15 @@ void Entity::Destroy()
     isDestroyed = true;
 }
 
-void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
+void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne,
+                          Entity* chooseBase)
 {
     if (HasChooseOne())
     {
         if (chooseOne > 0)
         {
-            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne);
+            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne,
+                                                       this);
             return;
         }
     }
@@ -199,7 +215,7 @@ void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne)
         ITask* clonedTask = task->Clone();
 
         clonedTask->SetPlayer(owner);
-        clonedTask->SetSource(this);
+        clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
         clonedTask->SetTarget(target);
 
         owner->GetGame()->taskQueue.Enqueue(clonedTask);

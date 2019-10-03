@@ -587,6 +587,7 @@ void Game::ProcessDestroyAndUpdateAura()
         {
             triggerManager.OnSummonTrigger(&GetCurrentPlayer(), minion);
         }
+        summonedMinions.clear();
         ProcessTasks();
         taskQueue.EndEvent();
     }

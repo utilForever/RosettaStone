@@ -74,6 +74,12 @@ void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
     {
         aura->SetToBeUpdated(true);
     }
+
+    // Set exhausted by checking GameTag::CHARGE
+    if (newEntity.GetGameTag(GameTag::CHARGE) == 0)
+    {
+        newEntity.SetExhausted(true);
+    }
 }
 
 int FieldZone::FindIndex(Character& character) const

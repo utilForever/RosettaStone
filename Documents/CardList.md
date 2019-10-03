@@ -230,15 +230,15 @@ EXPERT1 | EX1_145 | Preparation |
 EXPERT1 | EX1_154 | Wrath | O
 EXPERT1 | EX1_155 | Mark of Nature | O
 EXPERT1 | EX1_158 | Soul of the Forest | O
-EXPERT1 | EX1_160 | Power of the Wild |  
-EXPERT1 | EX1_162 | Dire Wolf Alpha |  
+EXPERT1 | EX1_160 | Power of the Wild | O
+EXPERT1 | EX1_162 | Dire Wolf Alpha | O 
 EXPERT1 | EX1_164 | Nourish | O 
-EXPERT1 | EX1_165 | Druid of the Claw |  
+EXPERT1 | EX1_165 | Druid of the Claw | O 
 EXPERT1 | EX1_166 | Keeper of the Grove |  
 EXPERT1 | EX1_170 | Emperor Cobra | O
-EXPERT1 | EX1_178 | Ancient of War |  
+EXPERT1 | EX1_178 | Ancient of War | O 
 EXPERT1 | EX1_179 | Icicle | O
-EXPERT1 | EX1_180 | Tome of Intellect |  
+EXPERT1 | EX1_180 | Tome of Intellect | O 
 EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer |  
 EXPERT1 | EX1_238 | Lightning Bolt | O
@@ -250,9 +250,9 @@ EXPERT1 | EX1_248 | Feral Spirit | O
 EXPERT1 | EX1_249 | Baron Geddon | O
 EXPERT1 | EX1_250 | Earth Elemental | O
 EXPERT1 | EX1_251 | Forked Lightning | O
-EXPERT1 | EX1_258 | Unbound Elemental |  
+EXPERT1 | EX1_258 | Unbound Elemental | O
 EXPERT1 | EX1_259 | Lightning Storm |  
-EXPERT1 | EX1_274 | Ethereal Arcanist |  
+EXPERT1 | EX1_274 | Ethereal Arcanist | O 
 EXPERT1 | EX1_275 | Cone of Cold |  
 EXPERT1 | EX1_279 | Pyroblast | O
 EXPERT1 | EX1_283 | Frost Elemental | O
@@ -260,14 +260,14 @@ EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier |  
 EXPERT1 | EX1_294 | Mirror Entity |  
 EXPERT1 | EX1_301 | Felguard | O
-EXPERT1 | EX1_303 | Shadowflame |  
+EXPERT1 | EX1_303 | Shadowflame | O 
 EXPERT1 | EX1_304 | Void Terror |  
 EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
 EXPERT1 | EX1_315 | Summoning Portal |  
-EXPERT1 | EX1_317 | Sense Demons | 
-EXPERT1 | EX1_319 | Flame Imp |  
+EXPERT1 | EX1_317 | Sense Demons | O
+EXPERT1 | EX1_319 | Flame Imp | O
 EXPERT1 | EX1_320 | Bane of Doom | O
 EXPERT1 | EX1_323 | Lord Jaraxxus |  
 EXPERT1 | EX1_332 | Silence | O
@@ -275,35 +275,35 @@ EXPERT1 | EX1_334 | Shadow Madness |
 EXPERT1 | EX1_335 | Lightspawn |  
 EXPERT1 | EX1_339 | Thoughtsteal |  
 EXPERT1 | EX1_341 | Lightwell | O
-EXPERT1 | EX1_345 | Mindgames |  
+EXPERT1 | EX1_345 | Mindgames | O 
 EXPERT1 | EX1_350 | Prophet Velen |  
 EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
 EXPERT1 | EX1_362 | Argent Protector | O
 EXPERT1 | EX1_363 | Blessing of Wisdom |  
-EXPERT1 | EX1_365 | Holy Wrath |  
+EXPERT1 | EX1_365 | Holy Wrath | O
 EXPERT1 | EX1_366 | Sword of Justice |  
 EXPERT1 | EX1_379 | Repentance |  
 EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
 EXPERT1 | EX1_384 | Avenging Wrath |  
-EXPERT1 | EX1_390 | Tauren Warrior |  
+EXPERT1 | EX1_390 | Tauren Warrior | O 
 EXPERT1 | EX1_391 | Slam | O
-EXPERT1 | EX1_392 | Battle Rage |  
-EXPERT1 | EX1_393 | Amani Berserker |  
+EXPERT1 | EX1_392 | Battle Rage | O 
+EXPERT1 | EX1_393 | Amani Berserker | O 
 EXPERT1 | EX1_396 | Mogu'shan Warden | O
 EXPERT1 | EX1_398 | Arathi Weaponsmith |  
 EXPERT1 | EX1_402 | Armorsmith |  
 EXPERT1 | EX1_405 | Shieldbearer | O
 EXPERT1 | EX1_407 | Brawl | O
-EXPERT1 | EX1_408 | Mortal Strike |  
+EXPERT1 | EX1_408 | Mortal Strike | O
 EXPERT1 | EX1_409 | Upgrade! |  
-EXPERT1 | EX1_410 | Shield Slam |  
+EXPERT1 | EX1_410 | Shield Slam | O
 EXPERT1 | EX1_411 | Gorehowl |  
-EXPERT1 | EX1_412 | Raging Worgen |  
-EXPERT1 | EX1_414 | Grommash Hellscream |  
-EXPERT1 | EX1_507 | Murloc Warleader |  
-EXPERT1 | EX1_509 | Murloc Tidecaller |  
+EXPERT1 | EX1_412 | Raging Worgen | O 
+EXPERT1 | EX1_414 | Grommash Hellscream | O 
+EXPERT1 | EX1_507 | Murloc Warleader | O 
+EXPERT1 | EX1_509 | Murloc Tidecaller | O 
 EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena |  
 EXPERT1 | EX1_533 | Misdirection |  
@@ -316,7 +316,7 @@ EXPERT1 | EX1_544 | Flare |
 EXPERT1 | EX1_549 | Bestial Wrath |  
 EXPERT1 | EX1_554 | Snake Trap |  
 EXPERT1 | EX1_556 | Harvest Golem | O
-EXPERT1 | EX1_557 | Nat Pagle |  
+EXPERT1 | EX1_557 | Nat Pagle | O 
 EXPERT1 | EX1_558 | Harrison Jones |  
 EXPERT1 | EX1_559 | Archmage Antonidas |  
 EXPERT1 | EX1_560 | Nozdormu |  
@@ -326,10 +326,10 @@ EXPERT1 | EX1_563 | Malygos | O
 EXPERT1 | EX1_564 | Faceless Manipulator | O
 EXPERT1 | EX1_567 | Doomhammer | O
 EXPERT1 | EX1_570 | Bite | O
-EXPERT1 | EX1_571 | Force of Nature |  
+EXPERT1 | EX1_571 | Force of Nature | O 
 EXPERT1 | EX1_572 | Ysera | O
 EXPERT1 | EX1_573 | Cenarius |  
-EXPERT1 | EX1_575 | Mana Tide Totem |  
+EXPERT1 | EX1_575 | Mana Tide Totem | O 
 EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune | O
@@ -339,7 +339,7 @@ EXPERT1 | EX1_590 | Blood Knight |
 EXPERT1 | EX1_591 | Auchenai Soulpriest |  
 EXPERT1 | EX1_594 | Vaporize |  
 EXPERT1 | EX1_595 | Cult Master |  
-EXPERT1 | EX1_596 | Demonfire |  
+EXPERT1 | EX1_596 | Demonfire | O
 EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
@@ -357,7 +357,7 @@ EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
 EXPERT1 | EX1_624 | Holy Fire | O
-EXPERT1 | EX1_625 | Shadowform |  
+EXPERT1 | EX1_625 | Shadowform | O 
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall |  
@@ -365,8 +365,8 @@ EXPERT1 | NEW1_008 | Ancient of Lore |
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm | O
 EXPERT1 | NEW1_014 | Master of Disguise |  
-EXPERT1 | NEW1_017 | Hungry Crab |  
-EXPERT1 | NEW1_018 | Bloodsail Raider |  
+EXPERT1 | NEW1_017 | Hungry Crab | O 
+EXPERT1 | NEW1_018 | Bloodsail Raider | O 
 EXPERT1 | NEW1_019 | Knife Juggler | O
 EXPERT1 | NEW1_020 | Wild Pyromancer | O
 EXPERT1 | NEW1_021 | Doomsayer | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 59% (140 of 237 Cards)
+- Progress: 70% (168 of 237 Cards)
 
 ## Hall of Fame
 

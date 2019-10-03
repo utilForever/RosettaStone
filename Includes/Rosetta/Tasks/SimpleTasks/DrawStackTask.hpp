@@ -3,27 +3,24 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_COUNT_TASK_HPP
-#define ROSETTASTONE_COUNT_TASK_HPP
+#ifndef ROSETTASTONE_DRAW_STACK_TASK_HPP
+#define ROSETTASTONE_DRAW_STACK_TASK_HPP
 
-#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief CountTask class.
+//! \brief DrawStackTask class.
 //!
-//! This class represents the task for counting entities.
+//! This class represents the task for drawing card(s) from deck based on stack.
 //!
-class CountTask : public ITask
+class DrawStackTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType, \p numIndex and \p conditions.
-    //! \param entityType The type of entity.
-    //! \param numIndex An index of number.
-    //! \param conditions SelfConditions to check.
-    CountTask(EntityType entityType, int numIndex = 0, std::vector<SelfCondition> conditions = {});
+    //! Constructs task with given \p amount.
+    //! \param amount The amount to draw card.
+    explicit DrawStackTask(std::size_t amount);
 
     //! Returns task ID.
     //! \return Task ID.
@@ -39,9 +36,8 @@ class CountTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    int m_numIndex;
-    std::vector<SelfCondition> m_conditions;
+    std::size_t m_amount = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_COUNT_TASK_HPP
+#endif  // ROSETTASTONE_DRAW_STACK_TASK_HPP

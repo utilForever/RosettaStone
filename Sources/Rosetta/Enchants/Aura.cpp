@@ -341,7 +341,7 @@ void Aura::RemoveInternal()
         }
     }
 
-    auto auras = m_owner->owner->GetGame()->auras;
+    auto& auras = m_owner->owner->GetGame()->auras;
     const auto iter = std::find(auras.begin(), auras.end(), this);
     auras.erase(iter);
 }

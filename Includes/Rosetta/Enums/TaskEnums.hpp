@@ -22,7 +22,9 @@ enum class TaskID
 {
     INVALID,
     DRAW,
+    DRAW_NUMBER,
     DRAW_OP,
+    DRAW_STACK,
     OVERDRAW,
     MANA_CRYSTAL,
     DAMAGE,
@@ -72,6 +74,7 @@ enum class TaskID
     DAMAGE_NUMBER,
     SWAP_ATTACK_HEALTH,
     CHANCE,
+    CHANGE_HERO_POWER,
 
     NUM_TASK_ID
 };
@@ -93,6 +96,8 @@ enum class EntityType
     ENEMY_WEAPON,
     HAND,
     ENEMY_HAND,
+    DECK,
+    ENEMY_DECK,
     ALL_MINIONS,
     ALL_MINIONS_NOSOURCE,
     MINIONS,

@@ -27,6 +27,11 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Entity*)> func);
 
+    //! SelfCondition wrapper for checking the hero power equals \p cardID.
+    //! \param cardID The card ID of hero power.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHeroPowerCard(const std::string& cardID);
+
     //! SelfCondition wrapper for checking the entity is destroyed.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDead();
@@ -62,6 +67,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
 
+    //! SelfCondition wrapper for checking the secret exists
+    //! in the owner's secret zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingSecret();
+
     //! SelfCondition wrapper for checking the entity is minion.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMinion();
@@ -77,6 +87,10 @@ class SelfCondition
     //! SelfCondition wrapper for checking the player has minion in hand.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasMinionInHand();
+
+    //! SelfCondition wrapper for checking the card has overload.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOverloadCard();
 
     //! SelfCondition wrapper for checking the number of minion
     //! that played this turn.
@@ -96,7 +110,24 @@ class SelfCondition
     //! SelfCondition wrapper for checking the name of entity equals \p name.
     //! \param name The name of card to check condition.
     //! \param isEqual The flag to indicate that the condition for equality.
+    //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsName(const std::string& name, bool isEqual = true);
+
+    //! SelfCondition wrapper for checking num in taskStack satisfy condition
+    //! with \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
+    //! \param index If index is 0, use num; If index is 1, use num1.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsStackNum(int value, RelaSign relaSign = RelaSign::EQ,
+                                    int index = 0);
+
+    //! SelfCondition wrapper for checking the health that satisfies
+    //! condition with \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHealth(int value, RelaSign relaSign);
 
     //! Evaluates condition using checking function.
     //! \param entity The owner entity.
