@@ -27,21 +27,41 @@ namespace RosettaStone
 class ActionApplyHelper
 {
  public:
+    //!
+    //! \brief NullInfo struct.
+    //!
+    //! This struct stores the information for null.
+    //!
     struct NullInfo
     {
         // Do nothing
     };
 
+    //!
+    //! \brief ChooseHandCardInfo struct.
+    //!
+    //! This struct stores the information for choose hand card.
+    //!
     struct ChooseHandCardInfo
     {
         // Do nothing
     };
 
+    //!
+    //! \brief MainOpInfo struct.
+    //!
+    //! This struct stores the information for main operation.
+    //!
     struct MainOpInfo
     {
         // Do nothing
     };
 
+    //!
+    //! \brief MinionPutLocationInfo struct.
+    //!
+    //! This struct stores the information for minion put location.
+    //!
     struct MinionPutLocationInfo
     {
         MinionPutLocationInfo(int _minions) : minions(_minions)
@@ -52,11 +72,21 @@ class ActionApplyHelper
         int minions;
     };
 
+    //!
+    //! \brief ChooseAttackerInfo struct.
+    //!
+    //! This struct stores the information for choose attacker.
+    //!
     struct ChooseAttackerInfo
     {
         // Do nothing
     };
 
+    //!
+    //! \brief GetSpecifiedTargetInfo struct.
+    //!
+    //! This struct stores the information for specified target.
+    //!
     struct GetSpecifiedTargetInfo
     {
         GetSpecifiedTargetInfo(std::vector<Character*> _targets)
@@ -68,6 +98,11 @@ class ActionApplyHelper
         std::vector<Character*> targets;
     };
 
+    //!
+    //! \brief ChooseOneInfo struct.
+    //!
+    //! This struct stores the information for choose one.
+    //!
     struct ChooseOneInfo
     {
         ChooseOneInfo(std::vector<std::size_t> _cards)
@@ -79,6 +114,11 @@ class ActionApplyHelper
         std::vector<std::size_t> cards;
     };
 
+    //!
+    //! \brief ChooseRandomInfo struct.
+    //!
+    //! This struct stores the information for choose random.
+    //!
     struct ChooseRandomInfo
     {
         ChooseRandomInfo(int _maxValue) : maxValue(_maxValue)
@@ -96,20 +136,41 @@ class ActionApplyHelper
     using StartBoardGetter = std::function<Game()>;
 
  private:
+    //!
+    //! \brief ActionParamsChoser class.
+    //!
+    //! This class inherits from ActionParams class.
+    //!
     class ActionParamsChoser : public ActionParams
     {
      public:
+        //! Constructs action params choser with given \p choices and
+        //! \p choicesIdx.
+        //! \param choices A list of action choices.
+        //! \param choicesIdx The index of action choices.
         ActionParamsChoser(const std::vector<int>& choices,
                            std::size_t& choicesIdx);
 
+        //! Returns the flag that whether this choser has further choices.
+        //! \return The flag that whether this choser has further choices.
         bool HasFurtherChoices() const;
 
+        //! Returns the flag that whether this choser should skip.
+        //! \return The flag that whether this choser should skip.
         bool ShouldSkip() const;
 
+        //! Returns the number using \p actionType and \p choices.
+        //! \param actionType The action type.
+        //! \param choices The action choices.
+        //! \return The chosen number using action type and action choices.
         std::size_t GetNumber(ActionType actionType,
-                              ActionChoices& actionChoices) final;
+                              ActionChoices& choices) final;
 
      private:
+        //! Returns the next action choice.
+        //! \param min The minimum value of choices range.
+        //! \param max The maximum value of choices range.
+        //! \return The next action choice.
         int GetNextChoice(int min, [[maybe_unused]] int max) const;
 
         const std::vector<int>& m_choices;
@@ -117,31 +178,65 @@ class ActionApplyHelper
         bool m_shouldSkip;
     };
 
+    //!
+    //! \brief ActionParamsCallback class.
+    //!
+    //! This class inherits from ActionParams class.
+    //!
     class ActionParamsCallback : public ActionParams
     {
      public:
+        //! Constructs action params callback with given \p choices,
+        //! \p choicesIdx and \p result.
+        //! \param choices A list of action choices.
+        //! \param choicesIdx The index of action choices.
+        //! \param result The result of action params callback.
         ActionParamsCallback(const std::vector<int>& choices,
                              std::size_t& choicesIdx, CallbackInfo& result);
 
+        //! Initializes action params by running
+        //! ActionValidChecker::Check() method.
+        //! \param game The game context.
         void Initialize(const Game& game) override;
 
+        //! Returns the main operation using the action valid checker.
+        //! \return The chosen main operation.
         MainOpType ChooseMainOp() override;
 
+        //! Returns a card in hand zone that is playable.
+        //! \return A chosen card in hand zone that is playable.
         Entity* ChooseHandCard() override;
 
+        //! Returns a minion card in field zone that can attack.
+        //! \return A chosen minion card in field zone that can attack.
         Character* GetAttacker() override;
 
+        //! Returns the location of minion to put.
+        //! \param minions The number of minions in field zone.
+        //! \return The chosen location of minion.
         std::size_t GetMinionPutLocation(int minions) override;
 
+        //! Returns the specified target.
+        //! \param targets A list of targets that can specify.
+        //! \return The chosen specified target.
         Character* GetSpecifiedTarget(
             const std::vector<Character*>& targets) override;
 
+        //! Returns a card from a list of choice cards.
+        //! \param cards A list of choice cards.
+        //! \return A chosen card from a list of choice cards.
         std::size_t ChooseOne(const std::vector<std::size_t>& cards) override;
 
+        //! Returns the number using \p actionType and \p choices.
+        //! \param actionType The action type.
+        //! \param choices The action choices.
+        //! \return The chosen number using action type and action choices.
         std::size_t GetNumber([[maybe_unused]] ActionType actionType,
                               [[maybe_unused]] ActionChoices& choices) override;
 
      private:
+        //! Returns the flag that whether this callback should record.
+        //! \return The flag that whether this callback should record.
         bool ShouldRecord() const;
 
         CallbackInfo& m_result;
@@ -149,10 +244,15 @@ class ActionApplyHelper
     };
 
  public:
+    //! Appends choice to a list of choices.
+    //! \param choice The choice value to append.
     void AppendChoice(int choice);
 
+    //! Clears a list of choices.
     void ClearChoices();
 
+    //! Applies choice by performing action to the game.
+    //! \param startBoardGetter A function to get the game.
     template <class StartBoardGetter>
     CallbackInfo ApplyChoices(StartBoardGetter&& startBoardGetter) const
     {
@@ -160,8 +260,13 @@ class ActionApplyHelper
         return ApplyChoices(game);
     }
 
+    //! Applies choice by performing action to the game.
+    //! \param game The game context.
     CallbackInfo ApplyChoices(Game& game) const;
 
+    //! Applies choice by performing action to the game.
+    //! \param game The game context.
+    //! \param result The result of the game.
     CallbackInfo ApplyChoices(Game& game, PlayState& result) const;
 
  private:

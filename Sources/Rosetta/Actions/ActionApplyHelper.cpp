@@ -29,20 +29,20 @@ bool ActionApplyHelper::ActionParamsChoser::ShouldSkip() const
 }
 
 std::size_t ActionApplyHelper::ActionParamsChoser::GetNumber(
-    ActionType actionType, ActionChoices& actionChoices)
+    ActionType actionType, ActionChoices& choices)
 {
     m_shouldSkip = false;
 
     if (actionType != ActionType::MAIN_ACTION)
     {
-        if (actionChoices.Size() == 1)
+        if (choices.Size() == 1)
         {
             m_shouldSkip = true;
             return 0;
         }
     }
 
-    return GetNextChoice(0, actionChoices.Size());
+    return GetNextChoice(0, choices.Size());
 }
 
 int ActionApplyHelper::ActionParamsChoser::GetNextChoice(
