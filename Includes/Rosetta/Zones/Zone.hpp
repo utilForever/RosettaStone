@@ -71,6 +71,10 @@ class Zone : public IZone
 class UnlimitedZone : public Zone<Entity>
 {
  public:
+    //! Default constructor.
+    UnlimitedZone() = default;
+
+    //! Destructor.
     ~UnlimitedZone()
     {
         for (auto& entity : m_entities)
@@ -80,6 +84,18 @@ class UnlimitedZone : public Zone<Entity>
 
         m_entities.clear();
     }
+
+    //! Deleted copy constructor.
+    UnlimitedZone(const UnlimitedZone&) = delete;
+
+    //! Deleted move constructor.
+    UnlimitedZone(UnlimitedZone&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
+    UnlimitedZone& operator=(const UnlimitedZone&) = delete;
+
+    //! Deleted move assignment operator.
+    UnlimitedZone& operator=(UnlimitedZone&&) noexcept = delete;
 
     //! Operator overloading for operator[]
     Entity* operator[](int zonePos)
@@ -161,6 +177,18 @@ class LimitedZone : public Zone<T>
 
         delete[] m_entities;
     }
+
+    //! Deleted copy constructor.
+    LimitedZone(const LimitedZone&) = delete;
+
+    //! Deleted move constructor.
+    LimitedZone(LimitedZone&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
+    LimitedZone& operator=(const LimitedZone&) = delete;
+
+    //! Deleted move assignment operator.
+    LimitedZone& operator=(LimitedZone&&) noexcept = delete;
 
     //! Operator overloading for operator[]
     T* operator[](int zonePos)

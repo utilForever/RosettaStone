@@ -192,7 +192,8 @@ class EnrageEffect : public Aura
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner, bool cloning = false) override;
+    void Activate(Entity* owner,
+                  [[maybe_unused]] bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
     void Update() override;

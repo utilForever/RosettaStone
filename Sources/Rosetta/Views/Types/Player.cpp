@@ -110,14 +110,15 @@ CardInfo Player::ParseCardInfo(const std::string& cardID, int blockID,
     CardInfo info;
 
     auto BlockCardsGetter = [&]() {
-        if (blockID == UnknownCardsInfo::DECK_BLOCK_ID)
-        {
-            return unknownCardsInfo.deckCards;
-        }
-        else
-        {
-            return unknownCardsInfo.deckCards;
-        }
+        // if (blockID == UnknownCardsInfo::DECK_BLOCK_ID)
+        //{
+        //    return unknownCardsInfo.deckCards;
+        //}
+        // else
+        //{
+        //    return unknownCardsInfo.deckCards;
+        //}
+        return unknownCardsInfo.deckCards;
     };
 
     if (cardID != INVALID_CARD_ID)

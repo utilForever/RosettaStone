@@ -430,8 +430,14 @@ EnrageEffect::EnrageEffect(AuraType type, std::vector<Effect*> effects)
     // Do nothing
 }
 
-void EnrageEffect::Activate(Entity* owner, bool)
+void EnrageEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
 {
+    if (owner == nullptr)
+    {
+        throw std::logic_error(
+            "EnrageEffect::Activate() - Owner can't be nullptr.");
+    }
+
     const auto enchantment = dynamic_cast<Enchantment*>(owner);
     if (enchantment)
     {

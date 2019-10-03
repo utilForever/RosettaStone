@@ -255,6 +255,12 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 
 bool IsPlayableByPlayer(Player& player, Entity* source)
 {
+    if (source == nullptr)
+    {
+        throw std::logic_error(
+            "IsPlayableByPlayer() - Source can't be nullptr.");
+    }
+
     // Verify mana is sufficient
     if (source->GetCost() > player.GetRemainingMana())
     {
