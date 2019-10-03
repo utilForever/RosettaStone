@@ -20,7 +20,7 @@ class Trainer
  public:
     Trainer()
     {
-        NeuralNet::NeuralNetwork::CreateWithRandomWeights("initial_mode");
+        NeuralNet::NeuralNetwork::CreateWithRandomWeights("initial_model");
         m_net.Load("initial_model");
     }
 
