@@ -3706,8 +3706,8 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(
-        new Enchant({ Effects::AttackN(1), Effects::DurabilityN(1) }));
+    power.AddEnchant(new Enchant(std::vector<Effect*>(
+        { Effects::AttackN(1), Effects::DurabilityN(1) })));
     cards.emplace("NEW1_024o", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
