@@ -19,7 +19,9 @@ void InputDataConverter::Convert(const IInputGetter* getter,
 }
 
 void InputDataConverter::GetInputData(const IInputGetter* getter,
-                                      torch::Tensor& hero, torch::Tensor& minion, torch::Tensor& standalone) const
+                                      torch::Tensor& hero,
+                                      torch::Tensor& minion,
+                                      torch::Tensor& standalone) const
 {
     std::vector<float> input1;
     AddHeroData(FieldSide::CURRENT, getter, input1);
