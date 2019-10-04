@@ -29,7 +29,7 @@ TaskStatus RemoveEnchantmentTask::Impl(Player& player)
         }
     }
 
-    if (auto aura = enchantment->card->power.GetAura(); aura != nullptr)
+    if (enchantment->card->power.GetAura() != nullptr)
     {
         m_source->onGoingEffect->Remove();
     }
