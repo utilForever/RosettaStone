@@ -10,6 +10,7 @@
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/DeckCode.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
@@ -127,19 +128,25 @@ TEST(Game, CurOpPlayer)
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER2;
+    config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
 
     Game game1;
-    const Game game2(config);
 
     game1.SetCurrentPlayer(PlayerType::PLAYER2);
     EXPECT_EQ(game1.GetCurrentPlayer().playerType, PlayerType::PLAYER2);
     EXPECT_EQ(game1.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
 
-    EXPECT_EQ(game1.GetCurrentPlayer().playerType, PlayerType::PLAYER2);
-    EXPECT_EQ(game2.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
+    const Game game2(config);
+
+    EXPECT_EQ(game2.GetOpponentPlayer().playerType, PlayerType::PLAYER2);
+
+    config.startPlayer = PlayerType::PLAYER2;
+
+    const Game game3(config);
+
+    EXPECT_EQ(game3.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
 }
 
 TEST(Game, Turn)
@@ -310,18 +317,11 @@ TEST(Game, PerformAction)
     config.skipMulligan = true;
     config.autoRun = true;
 
-    std::array<std::string, START_DECK_SIZE> deck = {
-        "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
-        "CS1_113", "CS1_113", "EX1_154", "EX1_154",  // 2
-        "EX1_154", "EX1_154", "CS2_022", "CS2_022",  // 3
-        "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
-        "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
-        "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
-        "CS2_032", "CS2_032", "CS2_033", "CS2_033",  // 7
-        "CS2_037", "CS2_037"
-    };
+    const std::string INNKEEPER_EXPERT_WARLOCK =
+        "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
+    auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
 
-    for (std::size_t j = 0; j < START_DECK_SIZE; ++j)
+    for (std::size_t j = 0; j < deck.size(); ++j)
     {
         config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
         config.player2Deck[j] = *Cards::FindCardByID(deck[j]);

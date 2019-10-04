@@ -69,8 +69,8 @@ TEST(Character, MaxHealth)
     curField[0]->SetDamage(2);
     EXPECT_EQ(curField[0]->GetMaxHealth(), 6);
 
-    curField[0]->SetHealth(8);
-    EXPECT_EQ(curField[0]->GetDamage(), 0);
+    curField[0]->SetMaxHealth(8);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
     EXPECT_EQ(curField[0]->GetMaxHealth(), 8);
 }
 

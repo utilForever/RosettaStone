@@ -14,6 +14,66 @@
 using namespace RosettaStone;
 using namespace TestUtils;
 
+TEST(BoardRefView, GetSide)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+
+    BoardRefView board(game, curPlayer.playerType);
+    EXPECT_EQ(board.GetSide(), PlayerType::PLAYER1);
+}
+
+TEST(BoardRefView, GetTurn)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+
+    BoardRefView board(game, curPlayer.playerType);
+    EXPECT_EQ(board.GetTurn(), 1);
+
+    game.SetTurn(10);
+    EXPECT_EQ(board.GetTurn(), 10);
+}
+
+TEST(BoardRefView, GetCurrentPlayer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+
+    BoardRefView board(game, curPlayer.playerType);
+    EXPECT_EQ(board.GetCurrentPlayer(), curPlayer.playerType);
+}
+
 TEST(BoardRefView, GetFatigueDamage)
 {
     GameConfig config;
