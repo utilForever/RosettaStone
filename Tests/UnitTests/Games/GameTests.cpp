@@ -104,7 +104,7 @@ TEST(Game, RefCopyFrom)
     delete game1;
 }
 
-TEST(Game, GetPlayer)
+TEST(Game, GetPlayers)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -122,7 +122,27 @@ TEST(Game, GetPlayer)
     EXPECT_EQ(player2.playerType, PlayerType::PLAYER2);
 }
 
-TEST(Game, GetTurn)
+TEST(Game, CurOpPlayer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER2;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game1;
+    const Game game2(config);
+
+    game1.SetCurrentPlayer(PlayerType::PLAYER2);
+    EXPECT_EQ(game1.GetCurrentPlayer().playerType, PlayerType::PLAYER2);
+    EXPECT_EQ(game1.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
+
+    EXPECT_EQ(game1.GetCurrentPlayer().playerType, PlayerType::PLAYER2);
+    EXPECT_EQ(game2.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
+}
+
+TEST(Game, Turn)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -149,6 +169,14 @@ TEST(Game, GetTurn)
     game.ProcessUntil(Step::MAIN_START);
 
     EXPECT_EQ(game.GetTurn(), 3);
+
+    game.SetTurn(30);
+    EXPECT_EQ(game.GetTurn(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(game.GetTurn(), 31);
 }
 
 TEST(Game, Mulligan)
