@@ -13,8 +13,8 @@ namespace RosettaStone::SimpleTasks
 class RemoveDurabilityTask : public ITask
 {
  public:
-    //! Constructs task with given \p count and \p isOpponent.
-    //! \param amount A value indicating how much to take.
+    //! Constructs task with given \p amount and \p isOpponent.
+    //! \param amount The amount of durability to remove.
     //! \param isOpponent A flag to owner indicating opponent player.
     RemoveDurabilityTask(int amount, bool isOpponent = false);
 
