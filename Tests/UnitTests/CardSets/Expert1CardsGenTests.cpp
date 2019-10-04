@@ -2202,7 +2202,7 @@ TEST(WarriorExpert1Test, EX1_607_InnerRage)
 
 // ----------------------------------------- SPELL - WARRIOR
 // [NEW1_036] Commanding Shout - COST:2
-// - Set: Expert1, Rarity: Common
+// - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Your minions can't be reduced below 1 Health this turn.
 //       Draw a card.
@@ -8541,9 +8541,9 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 
 // --------------------------------------- MINION - NEUTRAL
 // [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
-// - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Rare
+// - Race: Pirate, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: [x]<b>Battlecry:</b> Remove 1 Durability from your
+// Text: <b>Battlecry:</b> Remove 1 Durability from your
 //       opponent's weapon.
 // --------------------------------------------------------
 // GameTag:
