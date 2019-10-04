@@ -8404,9 +8404,9 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 
 // --------------------------------------- MINION - NEUTRAL
 // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
-// - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: legendary
+// - Race: Pirate, Set: Expert1, Rarity: legendary
 // --------------------------------------------------------
-// "Text : "<b>Battlecry:</b> Give your weapon +1/+1.",
+// "Text : <b>Battlecry:</b> Give your weapon +1/+1.,
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, NEW1_024_CaptainGreenskin)
 {
@@ -8428,14 +8428,14 @@ TEST(NeutralExpert1Test, NEW1_024_CaptainGreenskin)
     opPlayer.SetTotalMana(10);
     opPlayer.SetUsedMana(0);
 
-	const auto card1 = Generic::DrawCard(
+    const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Captain Greenskin"));
 
     game.Process(curPlayer, HeroPowerTask());
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 1);
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
 
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 2);
     EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 3);
 

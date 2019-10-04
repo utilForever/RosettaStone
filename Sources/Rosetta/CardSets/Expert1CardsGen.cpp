@@ -3271,11 +3271,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetTrigger()->tasks = { new DestroyTask(EntityType::ALL_MINIONS) };
     cards.emplace("NEW1_021", power);
 
-	// --------------------------------------- MINION - NEUTRAL
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
-    // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: legendary
+    // - Race: Pirate, Set: Expert1, Rarity: legendary
     // --------------------------------------------------------
-    // "Text : "<b>Battlecry:</b> Give your weapon +1/+1.",
+    // "Text : <b>Battlecry:</b> Give your weapon +1/+1.,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("NEW1_024o", EntityType::WEAPON));
@@ -3706,9 +3706,8 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    std::vector<Effect*> enchantEffects = { Effects::AttackN(1),
-                                            Effects::DurabilityN(1) };
-    power.AddEnchant(new Enchant(enchantEffects));
+    power.AddEnchant(
+        new Enchant({ Effects::AttackN(1), Effects::DurabilityN(1) }));
     cards.emplace("NEW1_024o", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
