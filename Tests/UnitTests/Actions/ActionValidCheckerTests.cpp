@@ -7,8 +7,8 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Actions/ActionParams.hpp>
-#include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Views/Board.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -27,10 +27,10 @@ class TestActionParams : public ActionParams
     TestActionParams& operator=(const TestActionParams&) = delete;
     TestActionParams& operator=(TestActionParams&&) noexcept = delete;
 
-    void Init(const Game& game)
+    void Init(const Board& board)
     {
-        m_game = &game;
-        ActionParams::Initialize(*m_game);
+        m_board = &board;
+        Initialize(m_board->GetCurPlayerStateRefView().GetActionValidGetter());
     }
 
     std::size_t GetNumber(ActionType actionType, ActionChoices& choices) final
@@ -51,7 +51,7 @@ class TestActionParams : public ActionParams
     }
 
  private:
-    const Game* m_game = nullptr;
+    const Board* m_board = nullptr;
 };
 
 TEST(ActionValidChecker, Check)
@@ -115,5 +115,14 @@ TEST(ActionValidChecker, Check)
     }
 
     TestActionParams actionParams;
-    EXPECT_NO_THROW(actionParams.Init(game));
+    const Board board(game, game.GetCurrentPlayer().playerType);
+
+    EXPECT_NO_THROW(actionParams.Init(board));
+
+    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(0),
+              MainOpType::PLAY_CARD);
+    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(1), MainOpType::ATTACK);
+    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(2),
+              MainOpType::USE_HERO_POWER);
+    EXPECT_EQ(actionParams.GetChecker().GetMainOpType(3), MainOpType::END_TURN);
 }

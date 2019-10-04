@@ -331,6 +331,13 @@ TEST(Game, PerformAction)
     game.Start();
     game.MainReady();
 
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
     while (game.state != State::COMPLETE)
     {
         TestActionParams params;

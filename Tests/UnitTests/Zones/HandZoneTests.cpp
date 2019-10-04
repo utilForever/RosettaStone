@@ -38,6 +38,11 @@ TEST(HandZone, FindIndex)
         std::nullopt, &curPlayer.GetHandZone());
     curPlayer.GetHandZone().Add(*entity2);
 
+    Entity* entity3 = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Flamestrike"),
+        std::nullopt, &curPlayer.GetHandZone());
+
     EXPECT_EQ(curPlayer.GetHandZone().FindIndex(*entity1), 0);
     EXPECT_EQ(curPlayer.GetHandZone().FindIndex(*entity2), 1);
+    EXPECT_EQ(curPlayer.GetHandZone().FindIndex(*entity3), -1);
 }

@@ -70,9 +70,15 @@ TEST(FieldZone, FindIndex)
         std::nullopt, &curPlayer.GetFieldZone());
     curPlayer.GetFieldZone().Add(*entity2);
 
+    Entity* entity3 = Entity::GetFromCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Worthless Imp"),
+        std::nullopt, &curPlayer.GetFieldZone());
+
     auto character1 = dynamic_cast<Character*>(entity1);
     auto character2 = dynamic_cast<Character*>(entity2);
+    auto character3 = dynamic_cast<Character*>(entity3);
 
     EXPECT_EQ(curPlayer.GetFieldZone().FindIndex(*character1), 0);
     EXPECT_EQ(curPlayer.GetFieldZone().FindIndex(*character2), 1);
+    EXPECT_EQ(curPlayer.GetFieldZone().FindIndex(*character3), -1);
 }
