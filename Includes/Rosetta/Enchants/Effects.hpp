@@ -20,7 +20,7 @@ class Effects
  public:
     //! Creates effect that increases attack by \p n.
     //! \param n A value indicating how much increases.
-    //! \return A pointer to Effect.
+    //! \return A dynamically allocated Effect instance.
     static Effect* AttackN(int n)
     {
         return new Effect(GameTag::ATK, EffectOperator::ADD, n);
@@ -28,7 +28,7 @@ class Effects
 
     //! Creates effect that increases health by \p n.
     //! \param n A value indicating how much increases.
-    //! \return A pointer to Effect.
+    //! \return A dynamically allocated Effect instance.
     static Effect* HealthN(int n)
     {
         return new Effect(GameTag::HEALTH, EffectOperator::ADD, n);
@@ -36,7 +36,7 @@ class Effects
 
     //! Creates effect that increases durability by \p n.
     //! \param n A value indicating how much increases.
-    //! \return A pointer to Effect.
+    //! \return A dynamically allocated Effect instance.
     static Effect* DurabilityN(int n)
     {
         return new Effect(GameTag::DURABILITY, EffectOperator::ADD, n);
@@ -44,7 +44,7 @@ class Effects
 
     //! Creates effect that increases spell power by \p n.
     //! \param n A value indicating how much increases.
-    //! \return A pointer to Effect.
+    //! \return A dynamically allocated Effect instance.
     static Effect* SpellPowerN(int n)
     {
         return new Effect(GameTag::SPELLPOWER, EffectOperator::ADD, n);
@@ -52,31 +52,31 @@ class Effects
 
     //! Creates effect that increases attack and health by \p n.
     //! \param n A value indicating how much increases.
-    //! \return A pointer to Effect.
+    //! \return A dynamically allocated Effects instance.
     static std::vector<Effect*> AttackHealthN(int n)
     {
         return { AttackN(n), HealthN(n) };
     }
 
     //! Creates effect that sets attack to \p n.
-    //! \param n The value representing the value to set.
-    //! \return A pointer to Effect.
+    //! \param n The value to set.
+    //! \return A dynamically allocated Effect instance.
     static Effect* SetAttack(int n)
     {
         return new Effect(GameTag::ATK, EffectOperator::SET, n);
     }
 
     //! Creates effect that sets max health to \p n.
-    //! \param n The value representing the value to set.
-    //! \return A pointer to Effect.
+    //! \param n The value to set.
+    //! \return A dynamically allocated Effect instance.
     static Effect* SetMaxHealth(int n)
     {
         return new Effect(GameTag::HEALTH, EffectOperator::SET, n);
     }
 
     //! Creates effect that sets attack and health to \p n.
-    //! \param n The value representing the value to set.
-    //! \return A pointer to Effect.
+    //! \param n The value to set.
+    //! \return A dynamically allocated Effects instance.
     static std::vector<Effect*> SetAttackHealth(int n)
     {
         return { SetAttack(n), SetMaxHealth(n) };
@@ -84,7 +84,7 @@ class Effects
 
     //! Creates effect that reduces cost by \p n.
     //! \param n A value indicating how much reduce.
-    //! \return A pointer to Effect.
+    //! \return A dynamically allocated Effect instance.
     static Effect* ReduceCost(int n)
     {
         return new Effect(GameTag::COST, EffectOperator::SUB, n);
