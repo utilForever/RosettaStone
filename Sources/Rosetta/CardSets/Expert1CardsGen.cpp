@@ -3275,7 +3275,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
     // - Race: Pirate, Set: Expert1, Rarity: legendary
     // --------------------------------------------------------
-    // "Text : <b>Battlecry:</b> Give your weapon +1/+1.,
+    // Text : <b>Battlecry:</b> Give your weapon +1/+1.,
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("NEW1_024o", EntityType::WEAPON));
