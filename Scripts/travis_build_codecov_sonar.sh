@@ -14,8 +14,8 @@ sudo apt-get install -yq gcovr ggcov lcov curl
 
 mkdir build
 cd build
-build-wrapper-linux-x86-64 --out-dir ../bw-output cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
-make UnitTests
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=ON
+build-wrapper-linux-x86-64 --out-dir ../bw-output make UnitTests
 lcov --gcov-tool /usr/bin/gcov-7 -c -i -d Tests/UnitTests -o base.info
 bin/UnitTests
 lcov --gcov-tool /usr/bin/gcov-7 -c -d Tests/UnitTests -o test.info
