@@ -48,10 +48,6 @@ TEST(IncludeTask, Run_NonConst)
         player2, Cards::GetInstance().FindCardByName("Arcanite Reaper")));
     player2.GetHero()->AddWeapon(*weapon2);
 
-    std::vector<Card> player1Cards, player2Cards;
-    player1Cards.reserve(6);
-    player2Cards.reserve(4);
-
     for (std::size_t i = 0; i < 6; ++i)
     {
         Entity* entity1 = Entity::GetFromCard(
