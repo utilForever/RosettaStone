@@ -13,6 +13,6 @@ using namespace SimpleTasks;
 
 TEST(RemoveDurabilityTask, GetTaskID)
 {
-    const RemoveDurabilityTask rd(0);
-    EXPECT_EQ(rd.GetTaskID(), TaskID::REMOVE_DURABILITY);
+    const RemoveDurabilityTask task(0);
+    EXPECT_EQ(task.GetTaskID(), TaskID::REMOVE_DURABILITY);
 }
