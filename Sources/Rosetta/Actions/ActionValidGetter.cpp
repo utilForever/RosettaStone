@@ -73,18 +73,22 @@ bool ActionValidGetter::IsPlayable(const Player& player, Entity* entity) const
     auto targets = SimpleTasks::IncludeTask::GetEntities(
         EntityType::ENEMIES, m_game.GetCurrentPlayer());
 
-    bool isValidTargetExist = false;
-    for (const auto& target : targets)
+    if (Generic::IsSourceNeedsTarget(entity))
     {
-        if (Generic::IsValidTarget(entity, target))
-        {
-            isValidTargetExist = true;
-        }
-    }
+        bool isValidTargetExist = false;
 
-    if (!isValidTargetExist)
-    {
-        return false;
+        for (const auto& target : targets)
+        {
+            if (Generic::IsValidTarget(entity, target))
+            {
+                isValidTargetExist = true;
+            }
+        }
+
+        if (!isValidTargetExist)
+        {
+            return false;
+        }
     }
 
     return true;
