@@ -871,6 +871,21 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     cards.emplace("EX1_383", power);
 
     // ---------------------------------------- SPELL - PALADIN
+    // [EX1_384] Avenging Wrath - COST:6
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal $8 damage randomly split among all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
+                                         new DamageTask(EntityType::STACK, 1) },
+                                       8, true));
+    cards.emplace("EX1_384", power);
+
+    // ---------------------------------------- SPELL - PALADIN
     // [EX1_619] Equality - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -1743,7 +1758,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
-    // -------------------------------------------------------- 
+    // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
@@ -3275,7 +3290,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
     // - Race: Pirate, Set: Expert1, Rarity: legendary
     // --------------------------------------------------------
-    // Text : <b>Battlecry:</b> Give your weapon +1/+1.,
+    // Text: <b>Battlecry:</b> Give your weapon +1/+1.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("NEW1_024o", EntityType::WEAPON));

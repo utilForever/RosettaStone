@@ -1591,6 +1591,73 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
 }
 
 // ---------------------------------------- SPELL - PALADIN
+// [EX1_384] Avenging Wrath - COST:6
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal $8 damage randomly split among all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_384_AvengingWrath)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.StartGame();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Avenging Wrath"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Avenging Wrath"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Malygos"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Bloodmage Thalnos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    int totalHealth = opPlayer.GetHero()->GetHealth();
+    totalHealth += opPlayer.GetFieldZone()[0]->GetHealth();
+    EXPECT_EQ(totalHealth, 42);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    totalHealth = opPlayer.GetHero()->GetHealth();
+    totalHealth += opPlayer.GetFieldZone()[0]->GetHealth();
+    EXPECT_EQ(totalHealth, 34);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    totalHealth = opPlayer.GetHero()->GetHealth();
+    totalHealth += opPlayer.GetFieldZone()[0]->GetHealth();
+    EXPECT_EQ(totalHealth, 25);
+}
+
+// ---------------------------------------- SPELL - PALADIN
 // [EX1_619] Equality - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
@@ -8406,7 +8473,7 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
 // - Race: Pirate, Set: Expert1, Rarity: legendary
 // --------------------------------------------------------
-// Text : <b>Battlecry:</b> Give your weapon +1/+1.,
+// Text: <b>Battlecry:</b> Give your weapon +1/+1.
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, NEW1_024_CaptainGreenskin)
 {
