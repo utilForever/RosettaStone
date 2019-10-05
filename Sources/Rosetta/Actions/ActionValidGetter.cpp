@@ -10,7 +10,6 @@
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
-#include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
 namespace RosettaStone
 {
@@ -70,25 +69,11 @@ bool ActionValidGetter::IsPlayable(const Player& player, Entity* entity) const
         return false;
     }
 
-    auto targets = SimpleTasks::IncludeTask::GetEntities(
-        EntityType::ENEMIES, m_game.GetCurrentPlayer());
-
-    if (Generic::IsSourceNeedsTarget(entity))
+    if (auto playReqs = entity->card->playRequirements;
+        (playReqs.find(PlayReq::REQ_TARGET_TO_PLAY) != playReqs.end()) &&
+        Generic::GetValidTargets(entity).empty())
     {
-        bool isValidTargetExist = false;
-
-        for (const auto& target : targets)
-        {
-            if (Generic::IsValidTarget(entity, target))
-            {
-                isValidTargetExist = true;
-            }
-        }
-
-        if (!isValidTargetExist)
-        {
-            return false;
-        }
+        return false;
     }
 
     return true;
