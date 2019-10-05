@@ -112,6 +112,13 @@ SelfCondition SelfCondition::IsMinion()
     });
 }
 
+SelfCondition SelfCondition::IsSpell()
+{
+    return SelfCondition([=](Entity* entity) -> bool {
+        return dynamic_cast<Spell*>(entity) != nullptr;
+    });
+}
+
 SelfCondition SelfCondition::IsSecret()
 {
     return SelfCondition([=](Entity* entity) -> bool {

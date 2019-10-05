@@ -39,6 +39,7 @@
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RemoveDurabilityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -724,6 +725,20 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     cards.emplace("EX1_287", power);
 
     // ------------------------------------------ MINION - MAGE
+    // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your spells cost (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(1) }));
+    power.GetAura()->condition = new SelfCondition(SelfCondition::IsSpell());
+    cards.emplace("EX1_608", power);
+
+    // ------------------------------------------ MINION - MAGE
     // [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3]
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
@@ -869,6 +884,21 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddDeathrattleTask(new WeaponTask("EX1_383t"));
     cards.emplace("EX1_383", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_384] Avenging Wrath - COST:6
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal $8 damage randomly split among all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
+                                         new DamageTask(EntityType::STACK, 1) },
+                                       8, true));
+    cards.emplace("EX1_384", power);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_619] Equality - COST:4
@@ -1743,7 +1773,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 3 damage to your hero.
-    // -------------------------------------------------------- 
+    // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
@@ -1974,6 +2004,18 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 1, true));
     power.AddPowerTask(new AddEnchantmentTask("EX1_607e", EntityType::TARGET));
     cards.emplace("EX1_607", power);
+
+    // ----------------------------------------- SPELL - WARRIOR
+    // [NEW1_036] Commanding Shout - COST:2
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Your minions can't be reduced below 1 Health this turn.
+    //       Draw a card.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_036e2", EntityType::HERO));
+    power.AddPowerTask(new DrawTask(1));
+    cards.emplace("NEW1_036", power);
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
@@ -2022,6 +2064,35 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_607e"));
     cards.emplace("EX1_607e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [NEW1_036e] Commanding Shout (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Can't be reduced below 1 Health this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(
+        new Effect(GameTag::HEALTH_MINIMUM, EffectOperator::SET, 1)));
+    cards.emplace("NEW1_036e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [NEW1_036e2] Commanding Shout (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Your minions can't be reduced below 1 Health this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::FIELD, "NEW1_036e"));
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
+    cards.emplace("NEW1_036e2", power);
 }
 
 void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
@@ -3272,6 +3343,30 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("NEW1_021", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
+    // - Race: Pirate, Set: Expert1, Rarity: legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your weapon +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("NEW1_024o", EntityType::WEAPON));
+    cards.emplace("NEW1_024", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
+    // - Race: Pirate, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Remove 1 Durability from your
+    //       opponent's weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RemoveDurabilityTask(1, true));
+    cards.emplace("NEW1_025", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
     // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -3688,6 +3783,17 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Enchants::AddAttackScriptTag));
     cards.emplace("NEW1_018e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_024o] Greenskin's Command (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(std::vector<Effect*>(
+        { Effects::AttackN(1), Effects::DurabilityN(1) })));
+    cards.emplace("NEW1_024o", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0

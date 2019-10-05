@@ -286,7 +286,7 @@ EXPERT1 | EX1_366 | Sword of Justice |
 EXPERT1 | EX1_379 | Repentance |  
 EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
-EXPERT1 | EX1_384 | Avenging Wrath |  
+EXPERT1 | EX1_384 | Avenging Wrath | O
 EXPERT1 | EX1_390 | Tauren Warrior | O 
 EXPERT1 | EX1_391 | Slam | O
 EXPERT1 | EX1_392 | Battle Rage | O 
@@ -344,7 +344,7 @@ EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
 EXPERT1 | EX1_607 | Inner Rage | O
-EXPERT1 | EX1_608 | Sorcerer's Apprentice |  
+EXPERT1 | EX1_608 | Sorcerer's Apprentice | O 
 EXPERT1 | EX1_609 | Snipe | O
 EXPERT1 | EX1_610 | Explosive Trap |  
 EXPERT1 | EX1_611 | Freezing Trap |  
@@ -373,12 +373,12 @@ EXPERT1 | NEW1_021 | Doomsayer | O
 EXPERT1 | NEW1_022 | Dread Corsair |  
 EXPERT1 | NEW1_023 | Faerie Dragon |  
 EXPERT1 | NEW1_024 | Captain Greenskin |  
-EXPERT1 | NEW1_025 | Bloodsail Corsair |  
+EXPERT1 | NEW1_025 | Bloodsail Corsair | O 
 EXPERT1 | NEW1_026 | Violet Teacher |  
 EXPERT1 | NEW1_027 | Southsea Captain | O
 EXPERT1 | NEW1_029 | Millhouse Manastorm |  
 EXPERT1 | NEW1_030 | Deathwing | O
-EXPERT1 | NEW1_036 | Commanding Shout |  
+EXPERT1 | NEW1_036 | Commanding Shout | O 
 EXPERT1 | NEW1_037 | Master Swordsmith | O
 EXPERT1 | NEW1_038 | Gruul |  
 EXPERT1 | NEW1_040 | Hogger | O
@@ -386,7 +386,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 70% (168 of 237 Cards)
+- Progress: 72% (173 of 237 Cards)
 
 ## Hall of Fame
 

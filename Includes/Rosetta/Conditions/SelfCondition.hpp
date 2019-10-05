@@ -76,6 +76,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsMinion();
 
+    //! SelfCondition wrapper for checking the entity is spell.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsSpell();
+
     //! SelfCondition wrapper for checking the entity is secret.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSecret();
