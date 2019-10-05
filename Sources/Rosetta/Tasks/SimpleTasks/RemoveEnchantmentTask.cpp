@@ -13,7 +13,7 @@ TaskID RemoveEnchantmentTask::GetTaskID() const
     return TaskID::REMOVE_ENCHANTMENT;
 }
 
-TaskStatus RemoveEnchantmentTask::Impl(Player&)
+TaskStatus RemoveEnchantmentTask::Impl(Player& player)
 {
     auto enchantment = dynamic_cast<Enchantment*>(m_source);
     if (enchantment == nullptr)
@@ -27,6 +27,11 @@ TaskStatus RemoveEnchantmentTask::Impl(Player&)
         {
             effect->Remove(m_target);
         }
+    }
+
+    if (enchantment->card->power.GetAura() != nullptr)
+    {
+        m_source->onGoingEffect->Remove();
     }
 
     enchantment->Remove();
