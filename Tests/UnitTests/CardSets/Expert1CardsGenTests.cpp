@@ -1231,7 +1231,7 @@ TEST(MageExpert1Test, EX1_608_SorcerersAppretice)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1668,7 +1668,7 @@ TEST(PaladinExpert1Test, EX1_384_AvengingWrath)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2284,7 +2284,7 @@ TEST(WarriorExpert1Test, NEW1_036_CommandingShout)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -8622,7 +8622,7 @@ TEST(NeutralExpert1Test, NEW1_024_CaptainGreenskin)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -8670,7 +8670,7 @@ TEST(NeutralExpert1Test, NEW1_025_BloodsailCorsair)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
