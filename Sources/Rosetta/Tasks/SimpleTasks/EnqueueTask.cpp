@@ -28,11 +28,13 @@ TaskStatus EnqueueTask::Impl(Player& player)
     {
         for (auto& task : m_tasks)
         {
-            task->SetPlayer(&player);
-            task->SetSource(m_source);
-            task->SetTarget(m_target);
+            ITask* clonedTask = task->Clone();
 
-            player.GetGame()->taskQueue.Enqueue(task);
+            clonedTask->SetPlayer(&player);
+            clonedTask->SetSource(m_source);
+            clonedTask->SetTarget(m_target);
+
+            player.GetGame()->taskQueue.Enqueue(clonedTask);
         }
     }
 

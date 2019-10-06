@@ -46,11 +46,13 @@ void Enchantment::Remove()
     {
         for (auto& power : card->power.GetDeathrattleTask())
         {
-            power->SetPlayer(m_target->owner);
-            power->SetSource(m_target);
-            power->SetTarget(this);
+            ITask* clonedPower = power->Clone();
 
-            owner->GetGame()->taskQueue.Enqueue(power);
+            clonedPower->SetPlayer(m_target->owner);
+            clonedPower->SetSource(m_target);
+            clonedPower->SetTarget(this);
+
+            owner->GetGame()->taskQueue.Enqueue(clonedPower);
         }
     }
 
