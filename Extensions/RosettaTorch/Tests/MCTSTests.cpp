@@ -88,6 +88,8 @@ void Run(const Agents::MCTSConfig& config, Agents::MCTSRunner* controller,
     }
 
     Game game(gameConfig);
+    game.Start();
+
     controller->Run(BoardRefView(game, game.GetCurrentPlayer().playerType));
 
     while (true)
