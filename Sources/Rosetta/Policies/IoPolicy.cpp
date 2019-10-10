@@ -14,9 +14,8 @@ IoPolicy::IoPolicy(std::ostream& out, std::istream& in) : m_out(out), m_in(in)
     // Do nothing
 }
 
-TaskMeta IoPolicy::Next(const Game& game)
+TaskMeta IoPolicy::Next([[maybe_unused]] Game& game)
 {
-    (void)game;
     return TaskMeta();
 }
 

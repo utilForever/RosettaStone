@@ -195,12 +195,13 @@ struct ManaCrystal
     int overloadOwed = 0;
     int overloadLocked = 0;
 
-    void Fill(const RosettaStone::Player& player)
+    void Fill(int remainingMana, int totalMana, int overloadOwedMana,
+              int overloadLockedMana)
     {
-        remaining = player.GetRemainingMana();
-        total = player.GetTotalMana();
-        overloadOwed = player.GetOverloadOwed();
-        overloadLocked = player.GetOverloadLocked();
+        remaining = remainingMana;
+        total = totalMana;
+        overloadOwed = overloadOwedMana;
+        overloadLocked = overloadLockedMana;
     }
 
     bool operator==(const ManaCrystal& rhs) const

@@ -33,6 +33,10 @@ class FieldZone : public PositioningZone<Minion>
     //! \return A list of entity in board zone.
     std::vector<Minion*> GetAll() override;
 
+    //! Returns all entities in board zone.
+    //! \return A list of entity in board zone.
+    std::vector<Minion*> GetAll() const override;
+
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
@@ -47,6 +51,11 @@ class FieldZone : public PositioningZone<Minion>
     //! \param oldEntity The entity to be replaced.
     //! \param newEntity The new entity.
     void Replace(Entity& oldEntity, Entity& newEntity);
+
+    //! Finds the index of the minion.
+    //! \param character The character to find.
+    //! \return The index of the minion if it is found, -1 otherwise.
+    int FindIndex(Character& character) const;
 
  private:
     static void ActivateAura(Entity& entity);

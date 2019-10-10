@@ -234,7 +234,7 @@ void Console::SimulateGame() const
     // game.GetPlayer1().SetDeck(deck1);
     // game.GetPlayer2().SetDeck(deck2);
 
-    game.StartGame();
+    game.Start();
 }
 
 void Console::Leave()

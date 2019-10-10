@@ -9,13 +9,13 @@
 
 #include <Rosetta/Accounts/AccountInfo.hpp>
 #include <Rosetta/Accounts/DeckInfo.hpp>
+#include <Rosetta/Actions/ActionApplyHelper.hpp>
 #include <Rosetta/Actions/ActionChoices.hpp>
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/ActionTargets.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/Attack.hpp>
-#include <Rosetta/Actions/AvailableActions.hpp>
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/Choices/ChooseFromCardIDs.hpp>
 #include <Rosetta/Actions/Choices/ChooseFromNumbers.hpp>
@@ -34,6 +34,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Commons/DeckCode.hpp>
+#include <Rosetta/Commons/JSONSerializer.hpp>
 #include <Rosetta/Commons/Macros.hpp>
 #include <Rosetta/Commons/SpinLocks.hpp>
 #include <Rosetta/Commons/Utils.hpp>
@@ -58,6 +59,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Games/GameRestorer.hpp>
 #include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
@@ -135,7 +137,11 @@
 #include <Rosetta/Tasks/TaskStatus.hpp>
 #include <Rosetta/Views/Board.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
+#include <Rosetta/Views/BoardView.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
+#include <Rosetta/Views/Types/CardInfo.hpp>
+#include <Rosetta/Views/Types/Player.hpp>
+#include <Rosetta/Views/Types/UnknownCards.hpp>
 #include <Rosetta/Views/ViewTypes.hpp>
 #include <Rosetta/Zones/DeckZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>

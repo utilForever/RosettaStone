@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 #define ROSETTASTONE_TORCH_MCTS_SIMULATION_HPP
 
+#include <MCTS/Commons/Config.hpp>
 #include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
 
 #include <Rosetta/Actions/ActionChoices.hpp>
@@ -30,7 +31,8 @@ class Simulation
 {
  public:
     //! Constructs simulation with the specified policy.
-    Simulation();
+    //! \param config The config for neural network.
+    explicit Simulation(const Config& config);
 
     //! Deleted copy constructor.
     Simulation(const Simulation&) = delete;

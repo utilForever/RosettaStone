@@ -11,10 +11,15 @@
 
 namespace RosettaStone
 {
-BoardRefView::BoardRefView(const Game& game, PlayerType playerType)
+BoardRefView::BoardRefView(Game& game, PlayerType playerType)
     : m_game(game), m_playerType(playerType)
 {
     // Do nothing
+}
+
+PlayerType BoardRefView::GetSide() const
+{
+    return m_playerType;
 }
 
 int BoardRefView::GetTurn() const
@@ -22,14 +27,9 @@ int BoardRefView::GetTurn() const
     return m_game.GetTurn();
 }
 
-PlayerType BoardRefView::GetPlayerType() const
+PlayerType BoardRefView::GetCurrentPlayer() const
 {
-    return m_playerType;
-}
-
-Player& BoardRefView::GetCurrentPlayer() const
-{
-    return m_game.GetCurrentPlayer();
+    return m_game.GetCurrentPlayer().playerType;
 }
 
 int BoardRefView::GetFatigueDamage(PlayerType playerType) const
@@ -139,15 +139,15 @@ Hero* BoardRefView::GetOpponentHero() const
     }
 }
 
-HeroPower* BoardRefView::GetHeroPower(PlayerType playerType) const
+HeroPower& BoardRefView::GetHeroPower(PlayerType playerType) const
 {
     if (playerType == PlayerType::PLAYER1)
     {
-        return m_game.GetPlayer1().GetHero()->heroPower;
+        return m_game.GetPlayer1().GetHeroPower();
     }
     else
     {
-        return m_game.GetPlayer2().GetHero()->heroPower;
+        return m_game.GetPlayer2().GetHeroPower();
     }
 }
 
@@ -155,11 +155,11 @@ Weapon* BoardRefView::GetWeapon(PlayerType playerType) const
 {
     if (playerType == PlayerType::PLAYER1)
     {
-        return m_game.GetPlayer1().GetHero()->weapon;
+        return &m_game.GetPlayer1().GetWeapon();
     }
     else
     {
-        return m_game.GetPlayer2().GetHero()->weapon;
+        return &m_game.GetPlayer2().GetWeapon();
     }
 }
 
@@ -266,8 +266,7 @@ bool BoardRefView::IsMinionAttackable(PlayerType playerType, int idx) const
     }
 }
 
-CurrentPlayerBoardRefView::CurrentPlayerBoardRefView(const Game& game)
-    : m_game(game)
+CurrentPlayerBoardRefView::CurrentPlayerBoardRefView(Game& game) : m_game(game)
 {
     // Do nothing
 }

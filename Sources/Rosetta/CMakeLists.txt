@@ -37,7 +37,8 @@ add_dependencies(${target} rosettastone_header_gen_py)
 
 # Project options
 set_target_properties(${target}
-    PROPERTIES
+PROPERTIES
+    WINDOWS_EXPORT_ALL_SYMBOLS  true
     ${DEFAULT_PROJECT_OPTIONS}
 )
 

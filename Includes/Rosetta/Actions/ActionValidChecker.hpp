@@ -34,7 +34,11 @@ class ActionValidChecker
 
     //! Checks game data and adds the valid action.
     //! \param getter The action valid getter.
-    void Check(const ActionValidGetter& getter);
+    void Check(ActionValidGetter& getter);
+
+    //! Checks game data and adds the valid action.
+    //! \param getter The action valid getter.
+    void Check(ActionValidGetter&& getter);
 
     //! Returns the available main actions.
     //! \return The available main actions.
@@ -51,6 +55,27 @@ class ActionValidChecker
     //! Returns a list of attackers that can attack.
     //! \return A list of attackers that can attack.
     const std::vector<Character*>& GetAttackers() const;
+
+    //! Returns the main operation type.
+    //! \param choice An index of operation map.
+    //! \return The main operation type.
+    MainOpType GetMainOpType(std::size_t choice) const;
+
+    //! Runs \p functor on each main operation.
+    //! \param functor A function to run for each main operation.
+    template <class Functor>
+    void ForEachMainOp(Functor&& functor) const
+    {
+        for (std::size_t i = 0; i < m_opMapSize; ++i)
+        {
+            const auto idx = static_cast<std::size_t>(m_opMap[i]);
+
+            if (!functor(i, GetMainOpType(idx)))
+            {
+                return;
+            }
+        }
+    }
 
  private:
     std::array<MainOpType, 4> m_opMap = {};

@@ -9,7 +9,7 @@
 
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
-#include "Rosetta/Actions/Targeting.hpp"
+#include <Rosetta/Actions/Targeting.hpp>
 
 namespace RosettaStone
 {
@@ -27,17 +27,17 @@ Hero* ActionValidGetter::GetHero(PlayerType playerType) const
     return hero;
 }
 
-bool ActionValidGetter::CanUseHeroPower() const
+bool ActionValidGetter::CanUseHeroPower()
 {
-    auto& heroPower = m_game.GetCurrentPlayer().GetHero()->heroPower;
+    auto& heroPower = m_game.GetCurrentPlayer().GetHeroPower();
 
-    if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), heroPower) ||
-        !Generic::IsPlayableByCardReq(heroPower))
+    if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), &heroPower) ||
+        !Generic::IsPlayableByCardReq(&heroPower))
     {
         return false;
     }
 
-    if (heroPower->IsExhausted())
+    if (heroPower.IsExhausted())
     {
         return false;
     }
@@ -45,7 +45,7 @@ bool ActionValidGetter::CanUseHeroPower() const
     return true;
 }
 
-bool ActionValidGetter::IsPlayable(Entity* entity) const
+bool ActionValidGetter::IsPlayable(const Player& player, Entity* entity) const
 {
     if (entity->card->GetCardType() == CardType::MINION)
     {
@@ -65,6 +65,13 @@ bool ActionValidGetter::IsPlayable(Entity* entity) const
 
     if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), entity) ||
         !Generic::IsPlayableByCardReq(entity))
+    {
+        return false;
+    }
+
+    if (auto playReqs = entity->card->playRequirements;
+        (playReqs.find(PlayReq::REQ_TARGET_TO_PLAY) != playReqs.end()) &&
+        Generic::GetValidTargets(entity).empty())
     {
         return false;
     }

@@ -30,7 +30,94 @@ using namespace RosettaStone::PlayerTasks;
 
 namespace RosettaStone
 {
+Game::Game()
+{
+    Initialize();
+
+    m_gameConfig.doShuffle = true;
+    m_gameConfig.skipMulligan = true;
+    m_gameConfig.autoRun = true;
+}
+
 Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
+{
+    Initialize();
+
+    // Add hero and hero power
+    GetPlayer1().AddHeroAndPower(
+        Cards::GetHeroCard(gameConfig.player1Class),
+        Cards::GetDefaultHeroPower(gameConfig.player1Class));
+    GetPlayer2().AddHeroAndPower(
+        Cards::GetHeroCard(gameConfig.player2Class),
+        Cards::GetDefaultHeroPower(gameConfig.player2Class));
+
+    // Reverse card order in deck
+    if (!m_gameConfig.doShuffle)
+    {
+        std::reverse(m_gameConfig.player1Deck.begin(),
+                     m_gameConfig.player1Deck.end());
+        std::reverse(m_gameConfig.player2Deck.begin(),
+                     m_gameConfig.player2Deck.end());
+    }
+
+    // Set up decks
+    for (auto& card : m_gameConfig.player1Deck)
+    {
+        if (card.id.empty())
+        {
+            continue;
+        }
+
+        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
+                                             &GetPlayer1().GetDeckZone());
+        GetPlayer1().GetDeckZone().Add(*entity);
+    }
+    for (auto& card : m_gameConfig.player2Deck)
+    {
+        if (card.id.empty())
+        {
+            continue;
+        }
+
+        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
+                                             &GetPlayer2().GetDeckZone());
+        GetPlayer2().GetDeckZone().Add(*entity);
+    }
+
+    // Fill cards to deck
+    if (m_gameConfig.doFillDecks)
+    {
+        for (auto& p : m_players)
+        {
+            for (auto& cardID : m_gameConfig.fillCardIDs)
+            {
+                Card* card = Cards::FindCardByID(cardID);
+                Entity* entity = Entity::GetFromCard(p, card);
+                p.GetDeckZone().Add(*entity);
+            }
+        }
+    }
+
+    // Determine first player
+    switch (m_gameConfig.startPlayer)
+    {
+        case PlayerType::RANDOM:
+        {
+            const auto val = Random::get(0, 1);
+            m_currentPlayer =
+                (val == 0) ? PlayerType::PLAYER1 : PlayerType::PLAYER2;
+            break;
+        }
+        default:
+            m_currentPlayer = m_gameConfig.startPlayer;
+            break;
+    }
+
+    // Set first turn
+    m_turn = 1;
+}
+
+void Game::Initialize()
 {
     // Set game to player
     for (auto& p : m_players)
@@ -42,17 +129,16 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     GetPlayer1().playerType = PlayerType::PLAYER1;
     GetPlayer2().playerType = PlayerType::PLAYER2;
 
-    // Add hero and hero power
-    GetPlayer1().AddHeroAndPower(
-        Cards::GetHeroCard(gameConfig.player1Class),
-        Cards::GetDefaultHeroPower(gameConfig.player1Class));
-    GetPlayer2().AddHeroAndPower(
-        Cards::GetHeroCard(gameConfig.player2Class),
-        Cards::GetDefaultHeroPower(gameConfig.player2Class));
-
     // Set opponent player
     GetPlayer1().opponent = &GetPlayer2();
     GetPlayer2().opponent = &GetPlayer1();
+
+    // Set states
+    state = State::RUNNING;
+    for (auto& p : m_players)
+    {
+        p.playState = PlayState::PLAYING;
+    }
 }
 
 void Game::RefCopyFrom(const Game& rhs)
@@ -80,9 +166,6 @@ void Game::RefCopyFrom(const Game& rhs)
 
     m_entityID = rhs.m_entityID;
     m_oopIndex = rhs.m_oopIndex;
-
-    m_firstPlayer = rhs.m_firstPlayer;
-    m_currentPlayer = rhs.m_currentPlayer;
 }
 
 Player& Game::GetPlayer1()
@@ -105,19 +188,59 @@ const Player& Game::GetPlayer2() const
     return m_players[1];
 }
 
-Player& Game::GetCurrentPlayer() const
+Player& Game::GetCurrentPlayer()
 {
-    return *m_currentPlayer;
+    if (m_currentPlayer == PlayerType::PLAYER1)
+    {
+        return m_players[0];
+    }
+
+    return m_players[1];
 }
 
-Player& Game::GetOpponentPlayer() const
+const Player& Game::GetCurrentPlayer() const
 {
-    return *m_currentPlayer->opponent;
+    if (m_currentPlayer == PlayerType::PLAYER1)
+    {
+        return m_players[0];
+    }
+
+    return m_players[1];
+}
+
+void Game::SetCurrentPlayer(PlayerType playerType)
+{
+    m_currentPlayer = playerType;
+}
+
+Player& Game::GetOpponentPlayer()
+{
+    if (m_currentPlayer == PlayerType::PLAYER1)
+    {
+        return m_players[1];
+    }
+
+    return m_players[0];
+}
+
+const Player& Game::GetOpponentPlayer() const
+{
+    if (m_currentPlayer == PlayerType::PLAYER1)
+    {
+        return m_players[1];
+    }
+
+    return m_players[0];
 }
 
 int Game::GetTurn() const
 {
     return m_turn;
+}
+
+void Game::SetTurn(int turn)
+{
+    m_turn = turn;
 }
 
 std::size_t Game::GetNextID()
@@ -166,7 +289,7 @@ void Game::BeginDraw()
         Generic::Draw(p);
         Generic::Draw(p);
 
-        if (&p != m_firstPlayer)
+        if (&p != &GetCurrentPlayer())
         {
             // Draw 4th card for second player
             Generic::Draw(p);
@@ -246,12 +369,12 @@ void Game::MainReady()
     // Hero
     curPlayer.GetHero()->SetExhausted(false);
     // Weapon
-    if (curPlayer.GetHero()->weapon != nullptr)
+    if (curPlayer.GetHero()->HasWeapon())
     {
-        curPlayer.GetHero()->weapon->SetExhausted(false);
+        curPlayer.GetWeapon().SetExhausted(false);
     }
     // Hero power
-    curPlayer.GetHero()->heroPower->SetExhausted(false);
+    curPlayer.GetHeroPower().SetExhausted(false);
     // Field
     for (auto& m : curPlayer.GetFieldZone().GetAll())
     {
@@ -395,7 +518,9 @@ void Game::MainCleanUp()
 void Game::MainNext()
 {
     // Set player for next turn
-    m_currentPlayer = m_currentPlayer->opponent;
+    m_currentPlayer = (m_currentPlayer == PlayerType::PLAYER1)
+                          ? PlayerType::PLAYER2
+                          : PlayerType::PLAYER1;
 
     // Count next turn
     m_turn++;
@@ -432,83 +557,8 @@ void Game::FinalGameOver()
     state = State::COMPLETE;
 }
 
-void Game::StartGame()
+void Game::Start()
 {
-    // Reverse card order in deck
-    if (!m_gameConfig.doShuffle)
-    {
-        std::reverse(m_gameConfig.player1Deck.begin(),
-                     m_gameConfig.player1Deck.end());
-        std::reverse(m_gameConfig.player2Deck.begin(),
-                     m_gameConfig.player2Deck.end());
-    }
-
-    // Set up decks
-    for (auto& card : m_gameConfig.player1Deck)
-    {
-        if (card.id.empty())
-        {
-            continue;
-        }
-
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
-                                             &GetPlayer1().GetDeckZone());
-        GetPlayer1().GetDeckZone().Add(*entity);
-    }
-    for (auto& card : m_gameConfig.player2Deck)
-    {
-        if (card.id.empty())
-        {
-            continue;
-        }
-
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
-                                             &GetPlayer2().GetDeckZone());
-        GetPlayer2().GetDeckZone().Add(*entity);
-    }
-
-    // Fill cards to deck
-    if (m_gameConfig.doFillDecks)
-    {
-        for (auto& p : m_players)
-        {
-            for (auto& cardID : m_gameConfig.fillCardIDs)
-            {
-                Card* card = Cards::FindCardByID(cardID);
-                Entity* entity = Entity::GetFromCard(p, card);
-                p.GetDeckZone().Add(*entity);
-            }
-        }
-    }
-
-    // Set game states
-    state = State::RUNNING;
-    for (auto& p : m_players)
-    {
-        p.playState = PlayState::PLAYING;
-    }
-
-    // Determine first player
-    switch (m_gameConfig.startPlayer)
-    {
-        case PlayerType::RANDOM:
-        {
-            const auto val = Random::get(0, 1);
-            m_firstPlayer = &m_players[val];
-            break;
-        }
-        case PlayerType::PLAYER1:
-            m_firstPlayer = &m_players[0];
-            break;
-        case PlayerType::PLAYER2:
-            m_firstPlayer = &m_players[1];
-            break;
-    }
-    m_currentPlayer = m_firstPlayer;
-
-    // Set first turn
-    m_turn = 1;
-
     // Set next step
     nextStep = Step::BEGIN_FIRST;
     if (m_gameConfig.autoRun)
@@ -556,13 +606,13 @@ void Game::ProcessDestroyAndUpdateAura()
 void Game::ProcessGraveyard()
 {
     // Destroy weapons
-    if (GetPlayer1().GetHero()->weapon != nullptr &&
-        GetPlayer1().GetHero()->weapon->isDestroyed)
+    if (GetPlayer1().GetHero()->HasWeapon() &&
+        GetPlayer1().GetWeapon().isDestroyed)
     {
         GetPlayer1().GetHero()->RemoveWeapon();
     }
-    if (GetPlayer2().GetHero()->weapon != nullptr &&
-        GetPlayer2().GetHero()->weapon->isDestroyed)
+    if (GetPlayer2().GetHero()->HasWeapon() &&
+        GetPlayer2().GetWeapon().isDestroyed)
     {
         GetPlayer2().GetHero()->RemoveWeapon();
     }
@@ -642,7 +692,7 @@ void Game::ProcessUntil(Step untilStep)
 
 void Game::PlayPolicy()
 {
-    StartGame();
+    Start();
 
     Player& player1 = GetPlayer1();
     // Request mulligan choices to policy.
@@ -674,7 +724,7 @@ void Game::PlayPolicy()
 
 PlayState Game::PerformAction(ActionParams& params)
 {
-    ITask* task = nullptr;
+    ITask* task;
     const auto mainOp = params.ChooseMainOp();
 
     switch (mainOp)
@@ -733,15 +783,19 @@ PlayState Game::PerformAction(ActionParams& params)
             task = new EndTurnTask();
             break;
         }
+        default:
+        {
+            throw std::runtime_error("Invalid main op type");
+        }
     }
 
     task->EnableFreeable();
     return Process(GetCurrentPlayer(), task);
 }
 
-ReducedBoardView Game::CreateView() const
+ReducedBoardView Game::CreateView()
 {
-    if (m_currentPlayer->playerType == PlayerType::PLAYER1)
+    if (m_currentPlayer == PlayerType::PLAYER1)
     {
         return ReducedBoardView(BoardRefView(*this, PlayerType::PLAYER1));
     }

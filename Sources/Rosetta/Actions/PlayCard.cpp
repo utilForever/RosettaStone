@@ -255,6 +255,36 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
 
 bool IsPlayableByPlayer(Player& player, Entity* source)
 {
+    if (source == nullptr)
+    {
+        throw std::logic_error(
+            "IsPlayableByPlayer() - Source can't be nullptr.");
+    }
+
+    // Verify mana is sufficient
+    if (source->GetCost() > player.GetRemainingMana())
+    {
+        return false;
+    }
+
+    // Check if player is on turn
+    if (&player != &player.GetGame()->GetCurrentPlayer())
+    {
+        return false;
+    }
+
+    // Check if entity is in hand to be played
+    if (dynamic_cast<HeroPower*>(source) == nullptr &&
+        source->zone != &player.GetHandZone())
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool IsPlayableByPlayer(const Player& player, Entity* source)
+{
     // Verify mana is sufficient
     if (source->GetCost() > player.GetRemainingMana())
     {

@@ -36,7 +36,7 @@ TEST(AttackTask, Default)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -119,7 +119,7 @@ TEST(AttackTask, Weapon)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -130,9 +130,9 @@ TEST(AttackTask, Weapon)
     auto card = GenerateMinionCard("minion1", 1, 10);
 
     curPlayer.GetHero()->weapon = new Weapon();
-    curPlayer.GetHero()->weapon->SetAttack(4);
-    curPlayer.GetHero()->weapon->SetDurability(2);
-    curPlayer.GetHero()->weapon->owner = &curPlayer;
+    curPlayer.GetWeapon().SetAttack(4);
+    curPlayer.GetWeapon().SetDurability(2);
+    curPlayer.GetWeapon().owner = &curPlayer;
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -144,7 +144,7 @@ TEST(AttackTask, Weapon)
 
     game.Process(curPlayer, AttackTask(curPlayer.GetHero(), opField[0]));
 
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 1);
     EXPECT_EQ(opField[0]->GetHealth(), 6);
 
     game.Process(curPlayer, EndTurnTask());
@@ -171,7 +171,7 @@ TEST(AttackTask, ZeroAttack)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -204,7 +204,7 @@ TEST(AttackTask, Charge)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -239,7 +239,7 @@ TEST(AttackTask, Taunt)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -283,7 +283,7 @@ TEST(AttackTask, Stealth)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -328,7 +328,7 @@ TEST(AttackTask, Immune)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -379,7 +379,7 @@ TEST(AttackTask, Windfury)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -435,7 +435,7 @@ TEST(AttackTask, DivineShield)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -486,7 +486,7 @@ TEST(AttackTask, Poisonous)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -540,7 +540,7 @@ TEST(AttackTask, Freeze)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -602,7 +602,7 @@ TEST(AttackTask, Silence)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();

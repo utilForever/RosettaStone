@@ -29,7 +29,7 @@ TaskStatus WeaponTask::Impl(Player& player)
 
     if (player.GetHero()->HasWeapon())
     {
-        player.GetHero()->weapon->Destroy();
+        player.GetWeapon().Destroy();
     }
 
     const auto weapon =

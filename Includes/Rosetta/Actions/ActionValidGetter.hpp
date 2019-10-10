@@ -57,7 +57,7 @@ class ActionValidGetter
 
         for (auto& card : handZone.GetAll())
         {
-            if (!IsPlayable(card))
+            if (!IsPlayable(m_game.GetCurrentPlayer(), card))
             {
                 continue;
             }
@@ -101,12 +101,14 @@ class ActionValidGetter
 
     //! Returns the flag indicates whether the player can use hero power.
     //! \return the flag indicates whether the player can use hero power.
-    bool CanUseHeroPower() const;
+    bool CanUseHeroPower();
 
  private:
     //! Returns the flag indicates whether the card is playable.
+    //! \param player The player context.
+    //! \param entity The target entity.
     //! \return the flag indicates whether the card is playable.
-    bool IsPlayable(Entity* entity) const;
+    bool IsPlayable(const Player& player, Entity* entity) const;
 
     const Game& m_game;
 };

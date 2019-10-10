@@ -69,6 +69,16 @@ void Character::SetHealth(int health)
     SetGameTag(GameTag::DAMAGE, 0);
 }
 
+int Character::GetMaxHealth() const
+{
+    return GetGameTag(GameTag::HEALTH);
+}
+
+void Character::SetMaxHealth(int maxHealth)
+{
+    SetGameTag(GameTag::HEALTH, maxHealth);
+}
+
 int Character::GetSpellPower() const
 {
     return GetGameTag(GameTag::SPELLPOWER);
@@ -249,8 +259,6 @@ void Character::TakeFullHeal(Entity& source)
 
 void Character::TakeHeal(Entity& source, int heal)
 {
-    (void)source;
-
     if (GetDamage() == 0)
     {
         return;

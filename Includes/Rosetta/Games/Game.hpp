@@ -29,8 +29,8 @@ class ActionParams;
 class Game
 {
  public:
-    //! Deleted default constructor.
-    Game() = delete;
+    //! Constructs game with default values.
+    Game();
 
     //! Constructs game with given \p gameConfig.
     //! \param gameConfig The game config holds all configuration values.
@@ -43,13 +43,16 @@ class Game
     Game(const Game&) = delete;
 
     //! Deleted move constructor.
-    Game(Game&&) = delete;
+    Game(Game&&) noexcept = delete;
 
     //! Deleted copy assignment operator.
     Game& operator=(const Game&) = delete;
 
     //! Deleted move assignment operator.
-    Game& operator=(Game&&) = delete;
+    Game& operator=(Game&&) noexcept = delete;
+
+    //! Initializes the game state and player related variables.
+    void Initialize();
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
@@ -73,15 +76,31 @@ class Game
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
-    Player& GetCurrentPlayer() const;
+    Player& GetCurrentPlayer();
+
+    //! Returns the player controlling the current turn.
+    //! \return The player controlling the current turn.
+    const Player& GetCurrentPlayer() const;
+
+    //! Sets the player controlling the current turn.
+    //! \param type The player type controlling the current turn.
+    void SetCurrentPlayer(PlayerType type);
 
     //! Returns the opponent player.
     //! \return The opponent player.
-    Player& GetOpponentPlayer() const;
+    Player& GetOpponentPlayer();
 
-    //! Gets the turn of game.
-    //! \return The turn of game.
+    //! Returns the opponent player.
+    //! \return The opponent player.
+    const Player& GetOpponentPlayer() const;
+
+    //! Gets the turn of the game.
+    //! \return The turn of the game.
     int GetTurn() const;
+
+    //! Sets the turn of the game.
+    //! \param turn The turn of the game.
+    void SetTurn(int turn);
 
     //! Gets the next entity identifier.
     //! \return The next entity ID.
@@ -140,7 +159,7 @@ class Game
     void FinalGameOver();
 
     //! Starts the game.
-    void StartGame();
+    void Start();
 
     // Processes task queue.
     void ProcessTasks();
@@ -177,7 +196,7 @@ class Game
 
     //! Creates board view.
     //! \return The reduced board view.
-    ReducedBoardView CreateView() const;
+    ReducedBoardView CreateView();
 
     State state = State::INVALID;
 
@@ -206,8 +225,7 @@ class Game
     std::size_t m_entityID = 0;
     std::size_t m_oopIndex = 0;
 
-    Player* m_firstPlayer = nullptr;
-    Player* m_currentPlayer = nullptr;
+    PlayerType m_currentPlayer = PlayerType::INVALID;
 };
 }  // namespace RosettaStone
 

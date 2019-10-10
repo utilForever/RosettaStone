@@ -109,6 +109,16 @@ Hero* Player::GetHero() const
     return m_hero;
 }
 
+HeroPower& Player::GetHeroPower() const
+{
+    return *m_hero->heroPower;
+}
+
+Weapon& Player::GetWeapon() const
+{
+    return *m_hero->weapon;
+}
+
 int Player::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())
@@ -220,10 +230,9 @@ ITask* Player::GetNextAction()
 
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
-    m_hero =
-        dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
-    m_hero->heroPower = dynamic_cast<HeroPower*>(
-        Entity::GetFromCard(*this, powerCard));
+    m_hero = dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
+    m_hero->heroPower =
+        dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
 }
 
 ITask* Player::GetTaskByAction(TaskMeta& next, TaskMeta& req)

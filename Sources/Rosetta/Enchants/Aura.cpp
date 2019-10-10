@@ -430,8 +430,14 @@ EnrageEffect::EnrageEffect(AuraType type, std::vector<Effect*> effects)
     // Do nothing
 }
 
-void EnrageEffect::Activate(Entity* owner, bool)
+void EnrageEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
 {
+    if (owner == nullptr)
+    {
+        throw std::logic_error(
+            "EnrageEffect::Activate() - Owner can't be nullptr.");
+    }
+
     const auto enchantment = dynamic_cast<Enchantment*>(owner);
     if (enchantment)
     {
@@ -450,7 +456,7 @@ void EnrageEffect::Update()
 
     if (m_type == AuraType::WEAPON)
     {
-        m_target = minion->owner->GetHero()->weapon;
+        m_target = &minion->owner->GetWeapon();
     }
 
     if (!m_turnOn)
@@ -525,7 +531,7 @@ EnrageEffect::EnrageEffect(EnrageEffect& prototype, Entity& owner)
             m_target = &owner;
             break;
         case AuraType::WEAPON:
-            m_target = owner.owner->GetHero()->weapon;
+            m_target = &owner.owner->GetWeapon();
             break;
         default:
             break;

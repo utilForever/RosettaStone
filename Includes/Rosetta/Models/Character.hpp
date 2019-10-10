@@ -77,6 +77,14 @@ class Character : public Entity
     //! \param health The value of health.
     void SetHealth(int health);
 
+    //! Returns the value of max health.
+    //! \return The value of max health.
+    int GetMaxHealth() const;
+
+    //! Sets the value of max health.
+    //! \param maxHealth The value of max health.
+    void SetMaxHealth(int maxHealth);
+
     //! Returns the value of spell power.
     //! \return The value of spell power.
     int GetSpellPower() const;

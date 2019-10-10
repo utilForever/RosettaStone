@@ -27,19 +27,19 @@ class BoardRefView
     //! Constructs board with given \p game and \p playerType.
     //! \param game The game context.
     //! \param playerType The player type of the board.
-    BoardRefView(const Game& game, PlayerType playerType);
+    BoardRefView(Game& game, PlayerType playerType);
+
+    //! Returns the side of the view.
+    //! \return The side of the view.
+    PlayerType GetSide() const;
 
     //! Returns the current turn of the game.
     //! \return The current turn of the game.
     int GetTurn() const;
 
-    //! Returns the player type of the view.
-    //! \return the player type of the view.
-    PlayerType GetPlayerType() const;
-
     //! Returns the current player of the game.
     //! \return The current player of the game.
-    Player& GetCurrentPlayer() const;
+    PlayerType GetCurrentPlayer() const;
 
     //! Returns the fatigue damage of the player in the current status.
     //! \param playerType The player type to separate players.
@@ -87,7 +87,7 @@ class BoardRefView
     //! Returns the hero power of the player.
     //! \param playerType The player type to separate players.
     //! \return The hero power of the player.
-    HeroPower* GetHeroPower(PlayerType playerType) const;
+    HeroPower& GetHeroPower(PlayerType playerType) const;
 
     //! Returns the weapon of the player.
     //! \param playerType The player type to separate players.
@@ -127,8 +127,64 @@ class BoardRefView
     //! \return The flag indicates that whether the minion can attack.
     bool IsMinionAttackable(PlayerType playerType, int idx) const;
 
+    //! Runs \p functor on each minion of the player.
+    //! \param playerType The player type to separate players.
+    //! \param functor A function to run for each minion.
+    template <typename Functor>
+    void ForEachMinion(PlayerType playerType, Functor&& functor) const
+    {
+        auto& fieldZone = (playerType == PlayerType::PLAYER1)
+                              ? m_game.GetPlayer1().GetFieldZone()
+                              : m_game.GetPlayer2().GetFieldZone();
+
+        for (auto& minion : fieldZone.GetAll())
+        {
+            functor(minion);
+        }
+    }
+
+    //! Runs \p functor on each card in the current player's hand.
+    //! \param functor A function to run for each card.
+    template <typename Functor>
+    void ForEachCurHandCard(Functor&& functor) const
+    {
+        auto& handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
+                             ? m_game.GetPlayer1().GetHandZone()
+                             : m_game.GetPlayer2().GetHandZone();
+
+        for (auto& entity : handZone.GetAll())
+        {
+            functor(entity->card->id);
+        }
+    }
+
+    //! Runs \p functor on each card in the opponent player's hand.
+    //! \param functor A function to run for each card.
+    template <typename Functor>
+    void ForEachOpHandCard(Functor&& functor) const
+    {
+        auto& handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
+                             ? m_game.GetPlayer2().GetHandZone()
+                             : m_game.GetPlayer1().GetHandZone();
+
+        for (auto& entity : handZone.GetAll())
+        {
+            std::string cardID = entity->card->id;
+            if (cardID == "GAME_005")
+            {
+                // Do nothing
+            }
+            else
+            {
+                cardID = INVALID_CARD_ID;
+            }
+
+            functor(cardID);
+        }
+    }
+
  private:
-    const Game& m_game;
+    Game& m_game;
     PlayerType m_playerType;
 };
 
@@ -142,7 +198,7 @@ class CurrentPlayerBoardRefView
  public:
     //! Constructs current player board ref view with given \p game.
     //! \param game The game context.
-    explicit CurrentPlayerBoardRefView(const Game& game);
+    explicit CurrentPlayerBoardRefView(Game& game);
 
     //! Returns the current player of the game.
     //! \return The current player of the game.
@@ -153,7 +209,7 @@ class CurrentPlayerBoardRefView
     ActionValidGetter GetActionValidGetter() const;
 
  private:
-    const Game& m_game;
+    Game& m_game;
 };
 }  // namespace RosettaStone
 

@@ -31,7 +31,7 @@ class IPolicy
     //! Gets next behavior from given \p game.
     //! \param game The current game status.
     //! \return The behavior serialized as TaskMeta.
-    virtual TaskMeta Next(const Game& game) = 0;
+    virtual TaskMeta Next(Game& game) = 0;
 
     //! Gets proper requirement with given \p player and \p id.
     //! \param player The player who requests the requirement.

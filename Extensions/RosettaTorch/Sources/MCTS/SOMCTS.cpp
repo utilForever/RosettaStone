@@ -7,14 +7,16 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <MCTS/Commons/Config.hpp>
 #include <MCTS/SOMCTS.hpp>
 
 namespace RosettaTorch::MCTS
 {
-SOMCTS::SOMCTS(TreeNode& tree, Statistics<>& statistics)
+SOMCTS::SOMCTS(TreeNode& tree, Statistics<>& statistics, const Config& config)
     : m_actionParams(*this),
       m_stage(Stage::SELECTION),
       m_selectionStage(tree),
+      m_simulationStage(config),
       m_statistics(statistics)
 {
     // Do nothing
@@ -35,7 +37,7 @@ bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
 {
     PlayState result;
 
-    m_actionParams.Initialize(board);
+    m_actionParams.Init(board);
 
     if (m_stage == Stage::SIMULATION)
     {
@@ -112,7 +114,7 @@ SOMCTS::ActionParams::ActionParams(SOMCTS& callback)
     // Do nothing
 }
 
-void SOMCTS::ActionParams::Initialize(const Board& board)
+void SOMCTS::ActionParams::Init(const Board& board)
 {
     m_board = &board;
     RosettaStone::ActionParams::Initialize(

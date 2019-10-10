@@ -39,4 +39,17 @@ Entity& HandZone::Remove(Entity& entity)
 
     return PositioningZone::Remove(entity);
 }
+
+int HandZone::FindIndex(Entity& entity) const
+{
+    for (std::size_t idx = 0; idx < MAX_HAND_SIZE; ++idx)
+    {
+        if (m_entities[idx] == &entity)
+        {
+            return idx;
+        }
+    }
+
+    return -1;
+}
 }  // namespace RosettaStone

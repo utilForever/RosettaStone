@@ -13,7 +13,7 @@
 
 namespace RosettaStone
 {
-TaskMeta RandomPolicy::Next(const Game& game)
+TaskMeta RandomPolicy::Next(Game& game)
 {
     using Random = effolkronium::random_static;
 

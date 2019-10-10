@@ -68,10 +68,4 @@ RosettaStone::Board PlayerController::GetPlayerBoard(Player player) const
 {
     return RosettaStone::Board(*m_game, player.GetPlayerType());
 }
-
-void PlayerController::SetGame(RosettaStone::Game& game)
-{
-    m_game = &game;
-    m_game->StartGame();
-}
 }  // namespace RosettaTorch::MCTS

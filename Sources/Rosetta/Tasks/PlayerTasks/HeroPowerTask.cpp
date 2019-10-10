@@ -22,48 +22,48 @@ TaskID HeroPowerTask::GetTaskID() const
 
 TaskStatus HeroPowerTask::Impl(Player& player)
 {
-    HeroPower* power = player.GetHero()->heroPower;
+    HeroPower& power = player.GetHeroPower();
 
-    if (!Generic::IsPlayableByPlayer(player, power) ||
-        !Generic::IsPlayableByCardReq(power) ||
-        !Generic::IsValidTarget(power, m_target))
+    if (!Generic::IsPlayableByPlayer(player, &power) ||
+        !Generic::IsPlayableByCardReq(&power) ||
+        !Generic::IsValidTarget(&power, m_target))
     {
         return TaskStatus::STOP;
     }
 
-    if (power->IsExhausted())
+    if (power.IsExhausted())
     {
         return TaskStatus::STOP;
     }
 
     // Spend mana to play cards
-    if (power->GetCost() > 0)
+    if (power.GetCost() > 0)
     {
-        int tempUsed = std::min(player.GetTemporaryMana(), power->GetCost());
+        const int tempUsed = std::min(player.GetTemporaryMana(), power.GetCost());
         player.SetTemporaryMana(player.GetTemporaryMana() - tempUsed);
-        player.SetUsedMana(player.GetUsedMana() + power->GetCost() - tempUsed);
+        player.SetUsedMana(player.GetUsedMana() + power.GetCost() - tempUsed);
     }
 
     // Process target trigger
     if (m_target != nullptr)
     {
-        Trigger::ValidateTriggers(player.GetGame(), power,
+        Trigger::ValidateTriggers(player.GetGame(), &power,
                                   SequenceType::TARGET);
         player.GetGame()->taskQueue.StartEvent();
-        player.GetGame()->triggerManager.OnTargetTrigger(&player, power);
+        player.GetGame()->triggerManager.OnTargetTrigger(&player, &power);
         player.GetGame()->ProcessTasks();
         player.GetGame()->taskQueue.EndEvent();
     }
 
     // Process power tasks
     player.GetGame()->taskQueue.StartEvent();
-    power->ActivateTask(PowerType::POWER, m_target);
+    power.ActivateTask(PowerType::POWER, m_target);
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
 
     player.GetGame()->ProcessDestroyAndUpdateAura();
 
-    power->SetExhausted(true);
+    power.SetExhausted(true);
 
     return TaskStatus::COMPLETE;
 }

@@ -27,12 +27,6 @@ ActionChoices::ActionChoices(const std::vector<std::size_t>& cardIDs)
     // Do nothing
 }
 
-template <class T>
-bool ActionChoices::CheckType() const
-{
-    return std::holds_alternative<T>(m_item);
-}
-
 std::size_t ActionChoices::GetIndex() const
 {
     return m_item.index();

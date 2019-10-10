@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_RANDOM_CUTOFF_POLICY_HPP
 #define ROSETTASTONE_TORCH_MCTS_RANDOM_CUTOFF_POLICY_HPP
 
+#include <MCTS/Commons/Config.hpp>
 #include <MCTS/Policies/Simulation/ISimulationPolicy.hpp>
 
 namespace RosettaTorch::MCTS
@@ -22,6 +23,10 @@ namespace RosettaTorch::MCTS
 class RandomCutoffPolicy : public ISimulationPolicy
 {
  public:
+    //! Constructs random cutoff policy.
+    //! \param config The config for neural network.
+    explicit RandomCutoffPolicy(const Config& config);
+
     //! Returns the flag indicates whether cutoff is enabled.
     //! \return The flag indicates whether cutoff is enabled.
     bool IsEnableCutoff() override;
@@ -30,8 +35,8 @@ class RandomCutoffPolicy : public ISimulationPolicy
     //! \param board The game board.
     //! \param stateValue The value of game state.
     //! \return The result of game according to cutoff.
-    PlayState GetCutoffResult([[maybe_unused]] const Board& board,
-                              [[maybe_unused]] StateValue& stateValue) override;
+    bool GetCutoffResult([[maybe_unused]] const Board& board,
+                         [[maybe_unused]] StateValue& stateValue) override;
 
     //! Starts action according to the policy.
     //! \param board The game board.

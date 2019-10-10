@@ -44,17 +44,17 @@ class Player
     //! Destructor.
     ~Player();
 
-    //! Deleted copy constructor.
-    Player(const Player&) = delete;
+    //! Default copy constructor.
+    Player(const Player&) = default;
 
-    //! Deleted copy assignment operator.
-    Player& operator=(const Player&) = delete;
+    //! Default move constructor.
+    Player(Player&&) noexcept = default;
 
-    //! Deleted move constructor.
-    Player(Player&&) noexcept = delete;
+    //! Default copy assignment operator.
+    Player& operator=(const Player&) = default;
 
-    //! Deleted move assignment operator.
-    Player& operator=(Player&&) noexcept = delete;
+    //! Default move assignment operator.
+    Player& operator=(Player&&) noexcept = default;
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
@@ -95,6 +95,14 @@ class Player
     //! Returns player's hero.
     //! \return Player's hero.
     Hero* GetHero() const;
+
+    //! Returns player's hero power.
+    //! \return Player's hero power.
+    HeroPower& GetHeroPower() const;
+
+    //! Returns player's hero weapon.
+    //! \return Player's hero weapon.
+    Weapon& GetWeapon() const;
 
     //! Returns the value of game tag.
     //! \param tag The game tag of card.

@@ -7,13 +7,16 @@
 // It is based on peter1591's hearthstone-ai repository.
 // References: https://github.com/peter1591/hearthstone-ai
 
+#include <MCTS/Policies/Simulation/HeuristicPlayoutHeuristicEarlyCutoffPolicy.hpp>
 #include <MCTS/Policies/Simulation/RandomCutoffPolicy.hpp>
-#include <MCTS/Policies/Simulation/RandomPlayoutsPolicy.hpp>
+#include <MCTS/Policies/Simulation/RandomPlayoutHeuristicEarlyCutoffPolicy.hpp>
+#include <MCTS/Policies/Simulation/RandomPlayoutPolicy.hpp>
 #include <MCTS/Simulation/Simulation.hpp>
 
 namespace RosettaTorch::MCTS
 {
-Simulation::Simulation() : m_policy(new RandomPlayoutsPolicy())
+Simulation::Simulation(const Config& config)
+    : m_policy(new HeuristicPlayoutHeuristicEarlyCutoffPolicy(config))
 {
     // Do nothing
 }
@@ -22,8 +25,7 @@ bool Simulation::CutoffCheck(const Board& board, StateValue& stateValue) const
 {
     if (m_policy->IsEnableCutoff())
     {
-        return m_policy->GetCutoffResult(board, stateValue) !=
-               PlayState::PLAYING;
+        return m_policy->GetCutoffResult(board, stateValue);
     }
 
     return false;

@@ -55,8 +55,11 @@ add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
-add_subdirectory(Extensions/RosettaTorch/Sources)
-add_subdirectory(Extensions/RosettaTorch/Tests)
+
+add_subdirectory(Extensions/RosettaTorch)
+add_dependencies(RosettaTorch # just make sure of the dependency
+                 RosettaStone
+)
 
 # Code coverage - Debug only
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading

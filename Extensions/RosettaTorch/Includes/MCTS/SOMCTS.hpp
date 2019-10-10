@@ -27,10 +27,12 @@ namespace RosettaTorch::MCTS
 class SOMCTS
 {
  public:
-    //! Constructs MCTS with given \p tree and \p statistics.
+    //! Constructs MCTS with given \p tree, \p statistics and \p config.
     //! \param tree The tree of player.
     //! \param statistics The statistics of MCTS.
-    explicit SOMCTS(TreeNode& tree, Statistics<>& statistics);
+    //! \param config The config for neural network.
+    explicit SOMCTS(TreeNode& tree, Statistics<>& statistics,
+                    const Config& config);
 
     //! Deleted copy constructor.
     SOMCTS(const SOMCTS&) = delete;
@@ -107,7 +109,7 @@ class SOMCTS
 
         //! Initializes action parameters.
         //! \param board The game board.
-        void Initialize(const Board& board);
+        void Init(const Board& board);
 
         //! Returns the number according to \p actionType and \p choices.
         //! \param actionType The type of action.

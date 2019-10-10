@@ -10,6 +10,7 @@
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Commons/DeckCode.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
@@ -41,13 +42,15 @@ class TestActionParams : public ActionParams
     TestActionParams() = default;
 
     TestActionParams(const TestActionParams&) = delete;
-    TestActionParams& operator=(const TestActionParams&) = delete;
+    TestActionParams(TestActionParams&&) noexcept = delete;
 
-    void Initialize(const Board& board)
+    TestActionParams& operator=(const TestActionParams&) = delete;
+    TestActionParams& operator=(TestActionParams&&) noexcept = delete;
+
+    void Init(const Board& board)
     {
         m_board = &board;
-        ActionParams::Initialize(
-            m_board->GetCurPlayerStateRefView().GetActionValidGetter());
+        Initialize(m_board->GetCurPlayerStateRefView().GetActionValidGetter());
     }
 
     std::size_t GetNumber(ActionType actionType, ActionChoices& choices) final
@@ -102,7 +105,7 @@ TEST(Game, RefCopyFrom)
     delete game1;
 }
 
-TEST(Game, GetPlayer)
+TEST(Game, GetPlayers)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -120,7 +123,33 @@ TEST(Game, GetPlayer)
     EXPECT_EQ(player2.playerType, PlayerType::PLAYER2);
 }
 
-TEST(Game, GetTurn)
+TEST(Game, CurOpPlayer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game1;
+
+    game1.SetCurrentPlayer(PlayerType::PLAYER2);
+    EXPECT_EQ(game1.GetCurrentPlayer().playerType, PlayerType::PLAYER2);
+    EXPECT_EQ(game1.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
+
+    const Game game2(config);
+
+    EXPECT_EQ(game2.GetOpponentPlayer().playerType, PlayerType::PLAYER2);
+
+    config.startPlayer = PlayerType::PLAYER2;
+
+    const Game game3(config);
+
+    EXPECT_EQ(game3.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
+}
+
+TEST(Game, Turn)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
@@ -130,7 +159,7 @@ TEST(Game, GetTurn)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     auto& curPlayer = game.GetCurrentPlayer();
@@ -147,6 +176,14 @@ TEST(Game, GetTurn)
     game.ProcessUntil(Step::MAIN_START);
 
     EXPECT_EQ(game.GetTurn(), 3);
+
+    game.SetTurn(30);
+    EXPECT_EQ(game.GetTurn(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(game.GetTurn(), 31);
 }
 
 TEST(Game, Mulligan)
@@ -160,7 +197,7 @@ TEST(Game, Mulligan)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
 
     auto& curPlayer = game.GetCurrentPlayer();
     auto& opPlayer = game.GetOpponentPlayer();
@@ -183,7 +220,7 @@ TEST(Game, GameOver_Player1Won)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -215,7 +252,7 @@ TEST(Game, GameOver_Player2Won)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -247,7 +284,7 @@ TEST(Game, GameOver_Tied)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -280,33 +317,33 @@ TEST(Game, PerformAction)
     config.skipMulligan = true;
     config.autoRun = true;
 
-    std::array<std::string, START_DECK_SIZE> deck = {
-        "CS2_106", "CS2_105", "CS1_112", "CS1_112",  // 1
-        "CS1_113", "CS1_113", "EX1_154", "EX1_154",  // 2
-        "EX1_154", "EX1_154", "CS2_022", "CS2_022",  // 3
-        "CS2_023", "CS2_023", "CS2_024", "CS2_024",  // 4
-        "CS2_025", "CS2_025", "CS2_026", "CS2_026",  // 5
-        "CS2_027", "CS2_027", "CS2_029", "CS2_029",  // 6
-        "CS2_032", "CS2_032", "CS2_033", "CS2_033",  // 7
-        "CS2_037", "CS2_037"
-    };
+    const std::string INNKEEPER_EXPERT_WARLOCK =
+        "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
+    auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
 
-    for (std::size_t j = 0; j < START_DECK_SIZE; ++j)
+    for (std::size_t j = 0; j < deck.size(); ++j)
     {
         config.player1Deck[j] = *Cards::FindCardByID(deck[j]);
         config.player2Deck[j] = *Cards::FindCardByID(deck[j]);
     }
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.MainReady();
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
 
     while (game.state != State::COMPLETE)
     {
         TestActionParams params;
         Board board(game, game.GetCurrentPlayer().playerType);
 
-        params.Initialize(board);
+        params.Init(board);
         board.ApplyAction(params);
     }
 
@@ -327,7 +364,7 @@ TEST(Game, CreateView)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     const auto player1View = game.CreateView();

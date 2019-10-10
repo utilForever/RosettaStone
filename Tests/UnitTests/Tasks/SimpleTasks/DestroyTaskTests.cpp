@@ -32,7 +32,7 @@ TEST(DestroyTask, Run)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
@@ -73,7 +73,7 @@ TEST(DestroyTask, Run)
     // Destroy Target Weapon
     Card weaponCard;
     player2.GetHero()->weapon = new Weapon(player2, &weaponCard, tags);
-    player2.GetHero()->weapon->owner = &player2;
+    player2.GetWeapon().owner = &player2;
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);
     task3.SetPlayer(&player1);

@@ -33,7 +33,7 @@ TEST(HeroPowersCoreTest, CS1h_001_LesserHeal)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -74,7 +74,7 @@ TEST(HeroPowersCoreTest, CS2_017_Shapeshift)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -138,7 +138,7 @@ TEST(HeroPowersCoreTest, CS2_034_Fireblast)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -190,7 +190,7 @@ TEST(HeroPowersCoreTest, CS2_049_TotemicCall)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -256,7 +256,7 @@ TEST(HeroPowersCoreTest, CS2_056_LifeTap)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -291,7 +291,7 @@ TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -306,12 +306,12 @@ TEST(HeroPowersCoreTest, CS2_083b_DaggerMastery)
     game.Process(curPlayer, HeroPowerTask());
 
     EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), true);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 1);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 1);
 }
 
 // ----------------------------------- HERO_POWER - PALADIN
@@ -334,7 +334,7 @@ TEST(HeroPowersCoreTest, CS2_101_Reinforce)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -370,7 +370,7 @@ TEST(HeroPowersCoreTest, CS2_102_ArmorUp)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -408,7 +408,7 @@ TEST(HeroPowersCoreTest, DS1h_292_SteadyShot)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -439,7 +439,7 @@ TEST(DruidCoreTest, CS2_005_Claw)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -486,7 +486,7 @@ TEST(DruidCoreTest, CS2_007_HealingTouch)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -543,7 +543,7 @@ TEST(DruidCoreTest, CS2_008_Moonfire)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -618,7 +618,7 @@ TEST(DruidCoreTest, CS2_009_MarkOfTheWild)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -662,7 +662,7 @@ TEST(DruidCoreTest, CS2_011_SavageRoar)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -720,7 +720,7 @@ TEST(DruidCoreTest, CS2_012_Swipe)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -780,7 +780,7 @@ TEST(DruidCoreTest, CS2_013_WildGrowth)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -834,7 +834,7 @@ TEST(DruidCoreTest, EX1_169_Innervate)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -896,7 +896,7 @@ TEST(DruidCoreTest, EX1_173_Starfire)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -947,7 +947,7 @@ TEST(HunterCoreTest, CS2_084_HuntersMark)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -990,7 +990,7 @@ TEST(HunterCoreTest, CS2_237_StarvingBuzzard)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1049,7 +1049,7 @@ TEST(HunterCoreTest, DS1_070_Houndmaster)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1109,7 +1109,7 @@ TEST(HunterCoreTest, DS1_175_TimberWolf)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1189,7 +1189,7 @@ TEST(HunterCoreTest, DS1_178_TundraRhino)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1246,7 +1246,7 @@ TEST(HunterCoreTest, DS1_183_MultiShot)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1317,7 +1317,7 @@ TEST(HunterCoreTest, DS1_184_Tracking)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1363,7 +1363,7 @@ TEST(HunterCoreTest, DS1_185_ArcaneShot)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1431,7 +1431,7 @@ TEST(HunterCoreTest, EX1_539_KillCommand)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1479,7 +1479,7 @@ TEST(HunterCoreTest, NEW1_031_AnimalCompanion)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1529,7 +1529,7 @@ TEST(MageCoreTest, CS2_022_Polymorph)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1588,7 +1588,7 @@ TEST(MageCoreTest, CS2_023_ArcaneIntellect)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1628,7 +1628,7 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1703,7 +1703,7 @@ TEST(MageCoreTest, CS2_025_ArcaneExplosion)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1764,7 +1764,7 @@ TEST(MageCoreTest, CS2_026_FrostNova)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1824,7 +1824,7 @@ TEST(MageCoreTest, CS2_027_MirrorImage)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1884,7 +1884,7 @@ TEST(MageCoreTest, CS2_029_Fireball)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -1954,7 +1954,7 @@ TEST(MageCoreTest, CS2_032_Flamestrike)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2007,7 +2007,7 @@ TEST(MageCoreTest, CS2_033_WaterElemental)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2064,7 +2064,7 @@ TEST(MageCoreTest, EX1_277_ArcaneMissiles)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2123,7 +2123,7 @@ TEST(PaladinCoreTest, CS2_087_BlessingOfMight)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2166,7 +2166,7 @@ TEST(PaladinCoreTest, CS2_088_GuardianOfKings)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2206,7 +2206,7 @@ TEST(PaladinCoreTest, CS2_089_HolyLight)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2276,7 +2276,7 @@ TEST(PaladinCoreTest, CS2_092_BlessingOfKings)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2318,7 +2318,7 @@ TEST(PaladinCoreTest, CS2_093_Consecration)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2373,7 +2373,7 @@ TEST(PaladinCoreTest, CS2_094_HammerOfWrath)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2423,7 +2423,7 @@ TEST(PaladinCoreTest, CS2_097_TruesilverChampion)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2439,14 +2439,14 @@ TEST(PaladinCoreTest, CS2_097_TruesilverChampion)
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 26);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 4);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 4);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer,
                  AttackTask(curPlayer.GetHero(), opPlayer.GetHero()));
     EXPECT_EQ(curPlayer.GetHero()->GetHealth(), 28);
     EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 26);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 1);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -2469,7 +2469,7 @@ TEST(PaladinCoreTest, EX1_360_Humility)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2522,7 +2522,7 @@ TEST(PaladinCoreTest, EX1_371_HandOfProtection)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2577,7 +2577,7 @@ TEST(PriestCoreTest, CS1_112_HolyNova)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2656,7 +2656,7 @@ TEST(PriestCoreTest, CS1_113_MindControl)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2721,7 +2721,7 @@ TEST(PriestCoreTest, CS1_130_HolySmite)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2785,7 +2785,7 @@ TEST(PriestCoreTest, CS2_003_MindVision)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2835,7 +2835,7 @@ TEST(PriestCoreTest, CS2_004_PowerWordShield)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2882,7 +2882,7 @@ TEST(PriestCoreTest, CS2_234_ShadowWordPain)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2942,7 +2942,7 @@ TEST(PriestCoreTest, CS2_235_NorthshireCleric)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -2997,7 +2997,7 @@ TEST(PriestCoreTest, CS2_236_DivineSpirit)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3049,7 +3049,7 @@ TEST(PriestCoreTest, DS1_233_MindBlast)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3087,7 +3087,7 @@ TEST(PriestCoreTest, EX1_622_ShadowWordDeath)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3152,7 +3152,7 @@ TEST(RogueCoreTest, CS2_072_Backstab)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3207,7 +3207,7 @@ TEST(RogueCoreTest, CS2_074_DeadlyPoison)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3224,18 +3224,18 @@ TEST(RogueCoreTest, CS2_074_DeadlyPoison)
     EXPECT_EQ(curPlayer.GetHandZone().GetCount(), 5);
 
     game.Process(curPlayer, HeroPowerTask());
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 1);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 1);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 3);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 3);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetAttack(), 3);
-    EXPECT_EQ(curPlayer.GetHero()->weapon->GetDurability(), 2);
+    EXPECT_EQ(curPlayer.GetWeapon().GetAttack(), 3);
+    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 2);
 }
 
 // ------------------------------------------ SPELL - ROGUE
@@ -3254,7 +3254,7 @@ TEST(RogueCoreTest, CS2_075_SinisterStrike)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3292,7 +3292,7 @@ TEST(RogueCoreTest, CS2_076_Assassinate)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3343,7 +3343,7 @@ TEST(RogueCoreTest, CS2_077_Sprint)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3390,7 +3390,7 @@ TEST(RogueCoreTest, EX1_129_FanOfKnives)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3456,7 +3456,7 @@ TEST(RogueCoreTest, EX1_278_Shiv)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3520,7 +3520,7 @@ TEST(RogueCoreTest, EX1_581_Sap)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3588,7 +3588,7 @@ TEST(RogueCoreTest, NEW1_004_Vanish)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3652,7 +3652,7 @@ TEST(ShamanCoreTest, CS2_037_FrostShock)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3714,7 +3714,7 @@ TEST(ShamanCoreTest, CS2_039_Windfury)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3778,7 +3778,7 @@ TEST(ShamanCoreTest, CS2_041_AncestralHealing)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3838,7 +3838,7 @@ TEST(ShamanCoreTest, CS2_042_FireElemental)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3894,7 +3894,7 @@ TEST(ShamanCoreTest, CS2_045_RockbiterWeapon)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -3947,7 +3947,7 @@ TEST(ShamanCoreTest, CS2_046_Bloodlust)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4005,7 +4005,7 @@ TEST(ShamanCoreTest, EX1_244_TotemicMight)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4066,7 +4066,7 @@ TEST(ShamanCoreTest, EX1_246_Hex)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4131,7 +4131,7 @@ TEST(ShamanCoreTest, EX1_565_FlametongueTotem)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4251,7 +4251,7 @@ TEST(ShamanCoreTest, EX1_587_Windspeaker)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4313,7 +4313,7 @@ TEST(WarlockCoreTest, CS2_057_ShadowBolt)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4367,7 +4367,7 @@ TEST(WarlockCoreTest, CS2_061_DrainLife)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
 
     Player& curPlayer = game.GetCurrentPlayer();
     Player& opPlayer = game.GetOpponentPlayer();
@@ -4412,7 +4412,7 @@ TEST(WarlockCoreTest, CS2_062_Hellfire)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4480,7 +4480,7 @@ TEST(WarlockCoreTest, CS2_063_Corruption)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4539,7 +4539,7 @@ TEST(WarlockCoreTest, CS2_064_DreadInfernal)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4602,7 +4602,7 @@ TEST(WarlockCoreTest, EX1_302_MortalCoil)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4657,7 +4657,7 @@ TEST(WarlockCoreTest, EX1_306_Succubus)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4702,7 +4702,7 @@ TEST(WarlockCoreTest, EX1_308_Soulfire)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4762,7 +4762,7 @@ TEST(WarlockCoreTest, NEW1_003_SacrificialPact)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4820,7 +4820,7 @@ TEST(WarriorCoreTest, CS2_103_Charge)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4888,7 +4888,7 @@ TEST(WarriorCoreTest, CS2_105_HeroicStrike)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -4970,7 +4970,7 @@ TEST(WarriorCoreTest, CS2_108_Execute)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5038,7 +5038,7 @@ TEST(WarriorCoreTest, CS2_114_Cleave)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5103,7 +5103,7 @@ TEST(WarriorCoreTest, EX1_084_WarsongCommander)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5154,7 +5154,7 @@ TEST(WarriorCoreTest, EX1_400_Whirlwind)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5222,7 +5222,7 @@ TEST(WarriorCoreTest, EX1_606_ShieldBlock)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5329,7 +5329,7 @@ TEST(NeutralCoreTest, CS2_122_RaidLeader)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5441,7 +5441,7 @@ TEST(NeutralCoreTest, CS2_141_IronforgeRifleman)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5504,7 +5504,7 @@ TEST(NeutralCoreTest, CS2_147_GnomishInventor)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5545,7 +5545,7 @@ TEST(NeutralCoreTest, CS2_150_StormpikeCommando)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5724,7 +5724,7 @@ TEST(NeutralCoreTest, CS2_189_ElvenArcher)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5773,7 +5773,7 @@ TEST(NeutralCoreTest, CS2_196_RazorfenHunter)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5860,7 +5860,7 @@ TEST(NeutralCoreTest, CS2_222_StormwindChampion)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5934,7 +5934,7 @@ TEST(NeutralCoreTest, CS2_226_FrostwolfWarlord)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -5991,7 +5991,7 @@ TEST(NeutralCoreTest, DS1_055_DarkscaleHealer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6052,7 +6052,7 @@ TEST(NeutralCoreTest, EX1_011_VoodooDoctor)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6108,7 +6108,7 @@ TEST(NeutralCoreTest, EX1_015_NoviceEngineer)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6150,7 +6150,7 @@ TEST(NeutralCoreTest, EX1_019_ShatteredSunCleric)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6195,7 +6195,7 @@ TEST(NeutralCoreTest, EX1_025_DragonlingMechanic)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6235,7 +6235,7 @@ TEST(NeutralCoreTest, EX1_066_AcidicSwampOoze)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6276,7 +6276,7 @@ TEST(NeutralCoreTest, EX1_399_GurubashiBerserker)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6329,7 +6329,7 @@ TEST(NeutralCoreTest, EX1_506_MurlocTidehunter)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6366,7 +6366,7 @@ TEST(NeutralCoreTest, EX1_508_GrimscaleOracle)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
@@ -6457,7 +6457,7 @@ TEST(NeutralCoreTest, EX1_593_Nightblade)
     config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
+    game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();

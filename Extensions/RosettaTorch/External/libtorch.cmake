@@ -25,7 +25,7 @@ elseif(UNIX)
         message(FATAL_ERROR "Linux binaries only support CUDA 9.0 and CPU ver.")
     endif()
 
-    set(libtorch_URL ${base_url}/libtorch-shared-with-deps-latest.zip)
+    set(libtorch_URL ${base_url}/libtorch-cxx11-abi-shared-with-deps-latest.zip)
 
 elseif(WIN32)
     set(libtorch_URL ${base_url}/libtorch-win-shared-with-deps-latest.zip)

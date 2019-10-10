@@ -21,6 +21,11 @@ std::vector<Minion*> FieldZone::GetAll()
     return PositioningZone::GetAll();
 }
 
+std::vector<Minion*> FieldZone::GetAll() const
+{
+    return PositioningZone::GetAll();
+}
+
 void FieldZone::Add(Entity& entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
@@ -75,6 +80,19 @@ void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
     {
         newEntity.SetExhausted(true);
     }
+}
+
+int FieldZone::FindIndex(Character& character) const
+{
+    for (std::size_t idx = 0; idx < MAX_FIELD_SIZE; ++idx)
+    {
+        if (m_entities[idx] == &character)
+        {
+            return idx;
+        }
+    }
+
+    return -1;
 }
 
 void FieldZone::ActivateAura(Entity& entity)

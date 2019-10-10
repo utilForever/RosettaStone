@@ -15,24 +15,24 @@ using Random = effolkronium::random_static;
 
 namespace RosettaTorch::MCTS
 {
+RandomCutoffPolicy::RandomCutoffPolicy(const Config& config)
+{
+    // NOTE: g++ < 9 has a bug that maybe_unused attribute triggers syntax error
+    // when used on first argument to a constructor.
+    // References: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=81429
+    (void)config;
+}
+
 bool RandomCutoffPolicy::IsEnableCutoff()
 {
     return true;
 }
 
-PlayState RandomCutoffPolicy::GetCutoffResult(
+bool RandomCutoffPolicy::GetCutoffResult(
     [[maybe_unused]] const Board& board,
     [[maybe_unused]] StateValue& stateValue)
 {
-    const bool win = (Random::get<int>(0, 1) == 0);
-    if (win)
-    {
-        return PlayState::WON;
-    }
-    else
-    {
-        return PlayState::LOST;
-    }
+    return true;
 }
 
 void RandomCutoffPolicy::StartAction(

@@ -24,11 +24,13 @@ namespace RosettaTorch::MCTS
 class MOMCTS
 {
  public:
-    //! Constructs MCTS with given \p p1Tree, \p p2Tree and \p statistics.
+    //! Constructs MCTS with given \p p1Tree, \p p2Tree, \p statistics and
+    //! \p config.
     //! \param p1Tree The tree of player 1.
     //! \param p2Tree The tree of player 2.
     //! \param statistics The statistics of MCTS.
-    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics);
+    MOMCTS(TreeNode& p1Tree, TreeNode& p2Tree, Statistics<>& statistics,
+           const Config& config);
 
     //! Deleted copy constructor.
     MOMCTS(const MOMCTS&) = delete;
@@ -43,8 +45,46 @@ class MOMCTS
     MOMCTS& operator=(MOMCTS&&) noexcept = delete;
 
     //! Iterates the action until game is finished.
-    //! \param game The game context.
-    void Iterate(Game& game);
+    template <class... StartArgs>
+    void Iterate(StartArgs&&... startArgs)
+    {
+        m_playerController.StartEpisode(std::forward<StartArgs>(startArgs)...);
+        m_player1.StartIteration();
+        m_player2.StartIteration();
+
+        while (true)
+        {
+            PlayerController::Player player = m_playerController.GetPlayer();
+            bool iterationEnds = false;
+            StateValue stateValue;
+
+            while (m_playerController.GetPlayer() == player)
+            {
+                iterationEnds = GetSOMCTS(player).PerformAction(
+                    m_playerController.GetPlayerBoard(player), stateValue);
+                if (iterationEnds)
+                {
+                    break;
+                }
+            }
+
+            if (iterationEnds)
+            {
+                m_player1.FinishIteration(
+                    m_playerController.GetPlayerBoard(
+                        PlayerController::Player::Player1()),
+                    stateValue);
+                m_player2.FinishIteration(
+                    m_playerController.GetPlayerBoard(
+                        PlayerController::Player::Player2()),
+                    stateValue);
+
+                break;
+            }
+
+            GetSOMCTS(player.Opponent()).ApplyOthersActions();
+        }
+    }
 
     //! Returns the root node of the tree.
     //! \param player The player controller.
