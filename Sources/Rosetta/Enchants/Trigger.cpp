@@ -407,7 +407,7 @@ void Trigger::Validate(Player* player, Entity* source)
         case TriggerSource::ENCHANTMENT_TARGET:
         {
             const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
-            if (enchantment == nullptr ||
+            if (enchantment == nullptr || source == nullptr ||
                 enchantment->GetTarget()->id != source->id)
             {
                 return;
@@ -425,7 +425,7 @@ void Trigger::Validate(Player* player, Entity* source)
         }
         case TriggerSource::FRIENDLY:
         {
-            if (source->owner != m_owner->owner)
+            if (source == nullptr || source->owner != m_owner->owner)
             {
                 return;
             }
@@ -439,7 +439,7 @@ void Trigger::Validate(Player* player, Entity* source)
     {
         case TriggerType::TURN_START:
         case TriggerType::TURN_END:
-            if (player != m_owner->owner)
+            if (m_owner == nullptr || player != m_owner->owner)
             {
                 return;
             }
