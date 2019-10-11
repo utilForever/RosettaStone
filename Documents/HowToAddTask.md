@@ -1,79 +1,71 @@
 # How to add task
 
 - [Step 1: Define task](#step-1-define-task)
-- [Step 2: Select TaskID](#step-2-select-taskid)
-- [Step 3: Implement task interface ITask](#step-3-implement-task-interface-itask)
-- [Step 4: Add test code](#step-4-add-test-code)
+- [Step 2: Implement task interface ITask](#step-2-implement-task-interface-itask)
+- [Step 3: Add test code](#step-3-add-test-code)
 
 ## Step 1: Define task
 
 The first thing you have to do is defining task. There are some tasks composing the card effect. And it could be already implemented as `PlayerTasks` or `SimpleTasks`, but some are not implemented yet.
 
-Let's define task! There are two things you need to consider: How task affect the game and what `TaskID` you want to use. Assume that you have selected the task `DestroyTask`.
+Let's define task! You need to consider that how task affect the game. Assume that you have selected the task `DestroyTask` which destroys something such as minion.
 
-1. You can define task which destroys something such as minion.
-2. And it can use `TaskID` relative to destroy.
+## Step 2: Implement task interface `ITask`
 
-## Step 2: Select `TaskID`
-
-Next thing you have to do is select `TaskID`. 
-
-In [TaskEnums.h](../Includes/Enums/TaskEnums.h), TaskID is listed by `BETTER_ENUM` macro. You can choose one of them or add new `TaskID`.
-
-```C++
-BETTER_ENUM(TaskID, int, INVALID, DRAW, OVERDRAW, MODIFY_MANA, DAMAGE, ...)
-```
-
-We suggest you to add new one, because old one would be implemented in `SimpleTasks` with specific way. If you use old one, you have to check new task doesn't affect existing task routines.
-
-Let's add task ID for `DestroyTask` that you need to create.
-
-```C++
-BETTER_ENUM(TaskID, int, INVALID, DRAW, OVERDRAW, MODIFY_MANA, DAMAGE, SHUFFLE, ...)
-```
-
-## Step 3: Implement task interface `ITask`
-
-*In source file [Tasks.h](../Includes/Tasks/Tasks.h)*
+*In source file [Tasks.hpp](../Includes/Tasks/Tasks.hpp)*
 
 ```C++
 class ITask
 {
 ...
-    virtual TaskID GetTaskID() const = 0;
-
  private:
-    virtual MetaData Impl(Player& player) = 0;
+    //! Processes task logic internally and returns meta data.
+    //! \param player The player to run task.
+    //! \return The result of task processing. 
+    virtual TaskStatus Impl(Player& player) = 0;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    virtual ITask* CloneImpl() = 0;
 };
 ```
 
 There are two virtual methods you have to implement.
 
-- `GetTaskID` method returns proper TaskID.
-- `Impl` method implements task logic and takes player as arguments.
+- Method `Impl` processes task logic internally and returns meta data.
+- Method `CloneImpl` is internal method of `Clone()`.
 
-First, declare `DestroyTask` class which inherits `ITask` class.
+First, declare class `DestroyTask` which inherits class `ITask`.
 
 ```C++
+//!
+//! \brief DestroyTask class.
+//!
+//! This class represents the task for destroying something such as minion.
+//!
 class DestroyTask : public ITask
 {
  public:
-    TaskID GetTaskID() const override;
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target to destroy.
+    explicit DestroyTask(EntityType entityType);
 
  private:
-    MetaData Impl(Player& player) override;
+    //! Processes task logic internally and returns meta data.
+    //! \param player The player to run task.
+    //! \return The result of task processing.
+    TaskStatus Impl(Player& player) override;
+
+    //! Internal method of Clone().
+    //! \return The cloned task.
+    ITask* CloneImpl() override;
 };
 ```
 
-Next you need to write implementation code. `GetTaskID()` method returns `TaskID` type, so you can write to return `TaskID::DESTROY` that task ID you choose. `Impl()` method takes player as arguments and processes actual task logic for its purpose. The purpose of `DestroyTask` is to destroy something such as minion. Finally, if destroy succeeds, it returns `MetaData::COMPLETE` to indicate that destroy was success.
+Next you need to write implementation code. Method `Impl()` takes entity type as arguments and processes actual task logic for its purpose. The purpose of `DestroyTask` is to destroy something such as minion. Finally, if destroy succeeds, it returns `TaskStatus::COMPLETE` to indicate that destroy was success. Method `CloneImpl()` allocates `DestroyTask` instance dynamically.
 
 ```C++
-TaskID DestroyTask::GetTaskID() const
-{
-    return TaskID::DESTROY;
-}
-
-MetaData DestroyTask::Impl(Player& player)
+TaskStatus DestroyTask::Impl(Player& player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
@@ -85,73 +77,87 @@ MetaData DestroyTask::Impl(Player& player)
 
     return TaskStatus::COMPLETE;
 }
-```
 
-**NOTE: `MetaData` enum represents result of tasks. You can add another `MetaData` enum to [MetaData.h](../Includes/Tasks/MetaData.h).**
-
-`ITask` class provides `Run` method. It calls `Impl` method.
-
-```C++
-DestroyTask task1(EntityType::SOURCE);
-task1.SetSource(player1.GetField().GetMinion(0));
-
-TaskStatus result = task1.Run(player1);
-```
-
-## Step 4: Add test code
-
-The last thing you need to do is test task you've added. We propose [DestroyTaskTests](../Tests/UnitTests/Tasks/SimpleTasks/DestroyTaskTests.cpp). This is simplest task to learn how to test. When `GetTaskID()` of this task is called, it just returns `TaskID::DESTROY`. You can verify that your test code returns this value.
-
-```C++
-TEST(DestroyTask, GetTaskID)
+ITask* DestroyTask::CloneImpl()
 {
-    const DestroyTask task(EntityType::EMPTY);
-    EXPECT_EQ(task.GetTaskID(), +TaskID::DESTROY);
+    return new DestroyTask(m_entityType);
 }
+```
 
+`ITask` class provides method `Run()`. It calls method `Impl()`.
+
+```C++
+DestroyTask task(EntityType::TARGET);
+task.SetPlayer(&player1);
+task.SetTarget(player2.GetFieldZone()[0]);
+
+TaskStatus result = task.Run();
+```
+
+## Step 3: Add test code
+
+The last thing you need to do is test task you've added. We propose [DestroyTaskTests](../Tests/UnitTests/Tasks/SimpleTasks/DestroyTaskTests.cpp). This is simplest task to learn how to test.
+
+```C++
 TEST(DestroyTask, Run)
 {
     GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
     Game game(config);
+    game.Start();
 
     Player& player1 = game.GetPlayer1();
     Player& player2 = game.GetPlayer2();
 
     auto card = GenerateMinionCard("minion1", 1, 1);
+    const std::map<GameTag, int> tags;
 
     // Destroy Source Minion
-    auto minion1 = new Minion(player1, card);
-    minion1->SetOwner(player1);
-    player1.GetField().AddMinion(*minion1, 0);
+    const auto minion1 = new Minion(player1, &card, tags);
+    minion1->owner = &player1;
+    player1.GetFieldZone().Add(*minion1, 0);
 
     DestroyTask task1(EntityType::SOURCE);
-    task1.SetSource(player1.GetField().GetMinion(0));
+    task1.SetPlayer(&player1);
+    task1.SetSource(player1.GetFieldZone()[0]);
 
-    TaskStatus result = task1.Run(player1);
+    TaskStatus result = task1.Run();
+    game.ProcessDestroyAndUpdateAura();
+
     EXPECT_EQ(result, TaskStatus::COMPLETE);
-    EXPECT_EQ(player1.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(player1.GetFieldZone().GetCount(), 0);
 
     // Destroy Target Minion
-    auto minion2 = new Minion(player2, card);
-    minion2->SetOwner(player2);
-    player2.GetField().AddMinion(*minion2, 0);
+    const auto minion2 = new Minion(player2, &card, tags);
+    minion2->owner = &player2;
+    player2.GetFieldZone().Add(*minion2, 0);
 
     DestroyTask task2(EntityType::TARGET);
-    task2.SetTarget(player2.GetField().GetMinion(0));
+    task2.SetPlayer(&player1);
+    task2.SetTarget(player2.GetFieldZone()[0]);
 
-    TaskStatus result2 = task2.Run(player1);
+    TaskStatus result2 = task2.Run();
+    game.ProcessDestroyAndUpdateAura();
+
     EXPECT_EQ(result2, TaskStatus::COMPLETE);
-    EXPECT_EQ(player2.GetField().GetNumOfMinions(), 0u);
+    EXPECT_EQ(player2.GetFieldZone().GetCount(), 0);
 
     // Destroy Target Weapon
     Card weaponCard;
-    player2.GetHero()->weapon = new Weapon(player2, weaponCard);
-    player2.GetHero()->weapon->SetOwner(player2);
+    player2.GetHero()->weapon = new Weapon(player2, &weaponCard, tags);
+    player2.GetWeapon().owner = &player2;
 
     DestroyTask task3(EntityType::ENEMY_WEAPON);
+    task3.SetPlayer(&player1);
 
-    TaskStatus result3 = task3.Run(player1);
+    TaskStatus result3 = task3.Run();
+    game.ProcessDestroyAndUpdateAura();
+
     EXPECT_EQ(result3, TaskStatus::COMPLETE);
     EXPECT_EQ(player2.GetHero()->HasWeapon(), false);
 }
@@ -165,12 +171,10 @@ When you have finished writing test code, compile and build it. And you have to 
 
 ...
 
-[----------] 2 tests from DestroyTask
-[ RUN      ] DestroyTask.GetTaskID
-[       OK ] DestroyTask.GetTaskID (0 ms)
+[----------] 1 tests from DestroyTask
 [ RUN      ] DestroyTask.Run
 [       OK ] DestroyTask.Run (0 ms)
-[----------] 2 tests from DestroyTask (0 ms total)
+[----------] 1 tests from DestroyTask (0 ms total)
 
 ...
 
