@@ -215,21 +215,22 @@ Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 
 RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
-Copyright (C) 2017-2019 RosettaStone Team
+Copyright (c) 2017-2019 RosettaStone Team
 
   * [Chris Ohk](http://www.github.com/utilForever)
   * [Youngjoong Kim](https://github.com/revsic)
   * [Seunghyun Jeon](https://github.com/FuZer)
-  * [Sunghyun Kim](https://github.com/devArtoria)
   * [Hyeongchan Kim](https://github.com/kozistr)
   * [Yoohan Park](https://github.com/CreatorSeraph)
-  * [Junghyun Choi](https://github.com/junghyun397)
-  * [Inwoo Tae](https://github.com/taeInwoo)
-  * [Jeongho Park](https://github.com/Park-JeongHo)
+  * [Hyeonsu Kim](https://github.com/git-rla)
+  * [Junyeong Park](https://github.com/JYPark09)
+  * [Sunghwan Kim](https://github.com/FYLSunghwan)
+  * [Kyounguk Chae](https://github.com/ShyRoute)
+  * [Junryung Ju](https://github.com/ArtBlnd)
 
 RealStone, "Real" Hearthstone hardware using Arduino
 
-Copyright (C) 2018-2019 RealStone Team
+Copyright (c) 2018-2019 RealStone Team
 
   * Taehyeon Song
   * Doun Lee
