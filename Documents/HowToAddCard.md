@@ -13,6 +13,7 @@ See [CardList.md](./CardList.md) for all card list.
 
 * [Basic card list](./CardList.md#basic)
 * [Classic card list](./CardList.md#classic)
+* [Hall of Fame card list](./CardList.md#hall-of-fame)
 
 Select a card that is not yet implemented in card list.
 
@@ -80,7 +81,7 @@ So you can add a card to the `AddNeutral` function.
 Wolfrider is a minion with the **Charge** ability. [Charge](https://hearthstone.gamepedia.com/Charge) is an ability allowing a minion to attack the same turn it is summoned or brought under a new player's control. The default abilities such as **Charge**, **Windfury** are saved as GameTag when parsing card data, so you don't need to add power separately. Therefore, you can add a card like this:
 
 ```C++
-void CoreCardsGen::AddNeutral(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
 {
     Power power;
 
@@ -103,7 +104,7 @@ Note that the first parameter is card ID and the second parameter is card power.
 
 That's it! Now, it's time to test the card to see if it works.
 
-**NOTE: There are many abilities that are not yet implemented. A list of currently implemented abilities can be found in [AbilityList.md](./AbilityList.md). If selected card is required an ability to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
+**NOTE: There are many abilities that are not yet implemented. A list of currently implemented abilities can be found in [AbilityList.md](./AbilityList.md). If selected card is required an ability to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [CreatorSeraph](https://github.com/CreatorSeraph), [git-rla](https://github.com/git-rla) [FYLSunghwan](https://github.com/FYLSunghwan), [ShyRoute](https://github.com/ShyRoute)).**
 
 ### Cards with power
 
@@ -118,8 +119,10 @@ Ancestral Healing is a shaman spell card, from the Basic set. It restores a mini
 This card has two powers: One is the power to restore current maximum health, and the other is the power to grant the Taunt ability. Also, this card is a shaman spell card. So you can add a card to the `AddShaman` function.
 
 ```C++
-void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
     // - Faction: Neutral, Set: Basic, Rarity: Free
@@ -135,18 +138,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power*>& cards)
     // Tag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->powerTask.emplace_back(new PowerTask::HealFullTask(EntityType::TARGET));
-    p->powerTask.emplace_back(new PowerTask::AddEnchantmentTask("CS2_041e", EntityType::TARGET));
-    cards.emplace("CS2_041", p);
+    power.ClearData();
+    power.AddPowerTask(new HealFullTask(EntityType::TARGET));
+    power.AddPowerTask(new AddEnchantmentTask("CS2_041e", EntityType::TARGET));
+    cards.emplace("CS2_041", power);
 }
 ```
 
 Meanwhile, The power to grant the Taunt ability is the enchantment of Ancestral Healing. This enchantment is called **CS2_041e ("Ancestral Infusion")**. Since this card can't be collected, add it to `ShamanNonCollect` function.
 
 ```C++
-void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
+void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
     // - Set: Core
@@ -156,27 +161,38 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, Power*>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    Power* p = new Power;
-    p->enchant = new Enchant(Effects::Taunt);
-    cards.emplace("CS2_041e", p);
+    power.ClearData();
+    power.AddEnchant(new Enchant(Effects::Taunt));
+    cards.emplace("CS2_041e", power);
 }
 ```
 
-**NOTE: There are many tasks that are not yet implemented. A list of currently implemented tasks can be found in [TaskList.md](./TaskList.md). If selected card is required a task to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [revsic](https://github.com/revsic), [FuZer](https://github.com/FuZer)).**
+**NOTE: There are many tasks that are not yet implemented. A list of currently implemented tasks can be found in [TaskList.md](./TaskList.md). If selected card is required a task to be implemented, please ask collaborators([utilForever](https://github.com/utilForever), [CreatorSeraph](https://github.com/CreatorSeraph), [git-rla](https://github.com/git-rla) [FYLSunghwan](https://github.com/FYLSunghwan), [ShyRoute](https://github.com/ShyRoute)).**
 
 ## Step 3: Add test code
 
-The last thing you need to do is test card you've added. There are many test files for each card in `Tests/UnitTests/CardSets`. Card `CS2_124` that you will add is a basic card set. So, create `CS2_124.cpp` file in `Basic` folder.
+The last thing you need to do is test card you've added. There are test files for each card set in `Tests/UnitTests/CardSets`. Card `CS2_124` that you will add is a basic card set. So, you have to see file `CoreCardsGenTests.cpp`.
 
 Test file has the following structure:
 
 ```C++
-#include <Utils/CardSetUtils.h>
+...
 
-TEST(CoreCardsGen, CS2_124)
+// --------------------------------------- MINION - NEUTRAL
+// [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
+// - Faction: Horde, Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST(NeutralCoreTest, CS2_124_Wolfrider)
 {
     ...
 }
+
+...
 ```
 
 To test card, you need to consider play scenario. Also, you need to consider the abilities and powers that the cards have. For example, Wolfrider has **Charge** ability.
@@ -205,48 +221,56 @@ GameConfig config;
 config.player1Class = CardClass::WARRIOR;
 config.player2Class = CardClass::ROGUE;
 config.startPlayer = PlayerType::PLAYER1;
+config.doFillDecks = true;
+config.autoRun = false;
 
 Game game(config);
-game.StartGame();
+game.Start();
+game.ProcessUntil(Step::MAIN_START);
 
 Player& curPlayer = game.GetCurrentPlayer();
-Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-curPlayer.maximumMana = 10;
-curPlayer.currentMana = 10;
-opPlayer.maximumMana = 10;
-opPlayer.currentMana = 10;
+Player& opPlayer = game.GetOpponentPlayer();
+curPlayer.SetTotalMana(10);
+curPlayer.SetUsedMana(0);
+opPlayer.SetTotalMana(10);
+opPlayer.SetUsedMana(0);
 ```
 
 Then, you should perform operations according to the scenario and test it.
 
 ```C++
-TEST(CoreCardsGen, CS2_124)
+TEST(NeutralCoreTest, CS2_124_Wolfrider)
 {
     GameConfig config;
     config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::ROGUE;
     config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
 
     Game game(config);
-    game.StartGame();
-    game.ProcessUntil(Step::MAIN_START);    
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
 
     Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetCurrentPlayer().GetOpponent();
-    curPlayer.maximumMana = 10;
-    curPlayer.currentMana = 10;
-    opPlayer.maximumMana = 10;
-    opPlayer.currentMana = 10;
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    auto& curField = curPlayer.GetFieldZone();    
+    auto& opField = opPlayer.GetFieldZone();    
 
     // 1. Current player draws "Acidic Swamp Ooze" card.
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::GetInstance().FindCardByName("Acidic Swamp Ooze"));
 
     // 2. Current player plays "Acidic Swap Ooze" card.
-    Task::Run(curPlayer, PlayCardTask::Minion(curPlayer, card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
 
     // 3. Current player ends turn.
-    Task::Run(curPlayer, EndTurnTask());
+    game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     // 4. Opponent player draws "Wolfrider" card.
@@ -254,12 +278,12 @@ TEST(CoreCardsGen, CS2_124)
         opPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
 
     // 5. Opponent player plays "Wolfrider" card.
-    Task::Run(opPlayer, PlayCardTask::Minion(opPlayer, card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
 
     // 6. Opponent player attacks "Acidic Swamp Ooze" with "Wolfrider".
-    Task::Run(curPlayer, AttackTask(card2, card1));
-    EXPECT_EQ(curPlayer.GetField().GetNumOfMinions(), 0u);
-    EXPECT_EQ(opPlayer.GetField().GetNumOfMinions(), 0u);
+    game.Process(opPlayer, AttackTask(card2, card1));
+    EXPECT_EQ(curField.GetCount(), 0);
+    EXPECT_EQ(opField.GetCount(), 0);
 }
 ```
 
@@ -271,10 +295,10 @@ When you have finished writing test code, compile and build it. And you have to 
 
 ...
 
-[----------] 1 tests from CoreCardsGen
-[ RUN      ] CoreCardsGen.CS2_124
-[       OK ] CoreCardsGen.CS2_124 (0 ms)
-[----------] 1 tests from CoreCardsGen (0 ms total)
+[----------] 1 tests from NeutralCoreTest
+[ RUN      ] NeutralCoreTest.CS2_124_Wolfrider
+[       OK ] NeutralCoreTest.CS2_124_Wolfrider (0 ms)
+[----------] 1 tests from NeutralCoreTest (0 ms total)
 
 ...
 
