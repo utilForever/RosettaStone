@@ -19,6 +19,7 @@
 * AddStackToTask
 * ArmorTask
 * ChanceTask
+* ChangeHeroPowerTask
 * ConditionTask
 * ControlTask
 * CopyTask
@@ -27,7 +28,9 @@
 * DamageTask
 * DestroyTask
 * DiscardTask
+* DrawNumberTask
 * DrawOpTask
+* DrawStackTask
 * DrawTask
 * EnqueueTask
 * FilterStackTask
@@ -44,6 +47,7 @@
 * RandomCardTask
 * RandomEntourageTask
 * RandomTask
+* RemoveDurabilityTask
 * RemoveEnchantmentTask
 * RemoveHandTask
 * ReturnHandTask
