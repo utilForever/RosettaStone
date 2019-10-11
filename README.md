@@ -213,6 +213,10 @@ RosettaStone is based on part of Sabberstone's code
 
 Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 
+RosettaStone is based on part of hearthstone-ai's code
+
+Copyright (c) 2017 Peter Shih, peter1591
+
 RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
 Copyright (c) 2017-2019 RosettaStone Team
