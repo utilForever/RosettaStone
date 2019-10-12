@@ -23,8 +23,6 @@
 namespace RosettaStone
 {
 class Game;
-class IPolicy;
-class TaskMeta;
 
 //!
 //! \brief Player class.
@@ -175,10 +173,6 @@ class Player
     //! \param value The number of minions that played this turn.
     void SetNumMinionsPlayedThisTurn(int value);
 
-    //! Returns the next action of policy.
-    //! \return A task to run that is determined by policy.
-    ITask* GetNextAction();
-
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
@@ -192,18 +186,11 @@ class Player
     Mulligan mulliganState = Mulligan::INVALID;
     std::optional<Choice> choice = std::nullopt;
 
-    IPolicy* policy = nullptr;
     Player* opponent = nullptr;
 
     int currentSpellPower = 0;
 
  private:
-    // Returns a task that is selected by action.
-    //! \param next A next action selected by policy.
-    //! \param req A requirement for action.
-    //! \return A task that is selected by action.
-    static ITask* GetTaskByAction(TaskMeta& next, TaskMeta& req);
-
     DeckZone* m_deckZone = nullptr;
     FieldZone* m_fieldZone = nullptr;
     GraveyardZone* m_graveyardZone = nullptr;
