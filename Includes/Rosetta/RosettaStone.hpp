@@ -131,7 +131,6 @@
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
-#include <Rosetta/Tasks/TaskMeta.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
