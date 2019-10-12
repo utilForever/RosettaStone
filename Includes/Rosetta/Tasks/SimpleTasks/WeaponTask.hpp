@@ -22,10 +22,6 @@ class WeaponTask : public ITask
     //! \param cardID The card ID of weapon to equip.
     explicit WeaponTask(std::string cardID);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

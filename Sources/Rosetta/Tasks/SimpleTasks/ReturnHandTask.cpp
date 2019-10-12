@@ -14,11 +14,6 @@ ReturnHandTask::ReturnHandTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID ReturnHandTask::GetTaskID() const
-{
-    return TaskID::RETURN_HAND;
-}
-
 TaskStatus ReturnHandTask::Impl(Player& player)
 {
     auto entities =

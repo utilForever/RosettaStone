@@ -14,11 +14,6 @@ ManaCrystalTask::ManaCrystalTask(int amount, bool fill, bool isOpponent)
     // Do nothing
 }
 
-TaskID ManaCrystalTask::GetTaskID() const
-{
-    return TaskID::MANA_CRYSTAL;
-}
-
 TaskStatus ManaCrystalTask::Impl(Player& player)
 {
     if (m_isOpponent)

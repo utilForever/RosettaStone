@@ -23,10 +23,6 @@ class FlagTask : public ITask
     //! \param toDoTasks A list of tasks to run depending on flag.
     explicit FlagTask(bool flag, std::vector<ITask*> toDoTasks);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

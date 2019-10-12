@@ -16,11 +16,6 @@ CountTask::CountTask(EntityType entityType, int numIndex, std::vector<SelfCondit
     // Do nothing
 }
 
-TaskID CountTask::GetTaskID() const
-{
-    return TaskID::COUNT;
-}
-
 TaskStatus CountTask::Impl(Player& player)
 {
     const auto entities =

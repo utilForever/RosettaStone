@@ -9,11 +9,6 @@ RemoveDurabilityTask::RemoveDurabilityTask(int amount, bool isOpponent)
     // Do nothing
 }
 
-TaskID RemoveDurabilityTask::GetTaskID() const
-{
-    return TaskID::REMOVE_DURABILITY;
-}
-
 TaskStatus RemoveDurabilityTask::Impl(Player& player)
 {
     if (Weapon* weapon = m_isOpponent ? player.opponent->GetHero()->weapon

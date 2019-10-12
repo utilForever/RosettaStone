@@ -27,10 +27,6 @@ class IncludeTask : public ITask
         EntityType entityType,
         std::vector<EntityType> excludeTypes = std::vector<EntityType>());
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
     //! Returns a list of entities based on the type of entity.
     //! \param entityType The type of entity.
     //! \param player The player to get hand or battlefield.

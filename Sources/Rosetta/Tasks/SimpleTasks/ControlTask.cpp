@@ -13,11 +13,6 @@ ControlTask::ControlTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID ControlTask::GetTaskID() const
-{
-    return TaskID::CONTROL;
-}
-
 TaskStatus ControlTask::Impl(Player& player)
 {
     auto entities =

@@ -14,11 +14,6 @@ AddStackToTask::AddStackToTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID AddStackToTask::GetTaskID() const
-{
-    return TaskID::ADD_STACK_TO;
-}
-
 TaskStatus AddStackToTask::Impl(Player& player)
 {
     switch (m_entityType)

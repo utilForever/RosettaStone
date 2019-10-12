@@ -25,10 +25,6 @@ class AddCardTask : public ITask
     explicit AddCardTask(EntityType entityType, std::string cardID,
                          int amount = 1);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

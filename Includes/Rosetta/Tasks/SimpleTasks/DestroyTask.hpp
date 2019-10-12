@@ -22,10 +22,6 @@ class DestroyTask : public ITask
     //! \param entityType The entity type of target to destroy.
     explicit DestroyTask(EntityType entityType);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

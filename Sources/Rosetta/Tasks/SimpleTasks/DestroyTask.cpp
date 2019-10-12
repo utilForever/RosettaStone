@@ -13,11 +13,6 @@ DestroyTask::DestroyTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID DestroyTask::GetTaskID() const
-{
-    return TaskID::DESTROY;
-}
-
 TaskStatus DestroyTask::Impl(Player& player)
 {
     auto entities =

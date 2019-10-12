@@ -14,11 +14,6 @@ AddAuraEffectTask::AddAuraEffectTask(Effect* effect, EntityType entityType)
     // Do nothing
 }
 
-TaskID AddAuraEffectTask::GetTaskID() const
-{
-    return TaskID::ADD_AURA_EFFECT;
-}
-
 TaskStatus AddAuraEffectTask::Impl(Player& player)
 {
     auto entities =

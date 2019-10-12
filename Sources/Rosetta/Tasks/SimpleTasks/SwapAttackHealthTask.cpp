@@ -17,11 +17,6 @@ SwapAttackHealthTask::SwapAttackHealthTask(EntityType entityType,
     // Do nothing
 }
 
-TaskID SwapAttackHealthTask::GetTaskID() const
-{
-    return TaskID::SWAP_ATTACK_HEALTH;
-}
-
 TaskStatus SwapAttackHealthTask::Impl(Player& player)
 {
     auto entities =

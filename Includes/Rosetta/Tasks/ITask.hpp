@@ -8,7 +8,6 @@
 #define ROSETTASTONE_ITASK_HPP
 
 #include <Rosetta/Models/Player.hpp>
-#include <Rosetta/Tasks/TaskMeta.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>
 
 namespace RosettaStone
@@ -78,10 +77,6 @@ class ITask
     //! Calls Impl method and returns meta data.
     //! \return The result of task processing.
     TaskStatus Run();
-
-    //! Returns task ID (pure virtual).
-    //! \return Task ID.
-    virtual TaskID GetTaskID() const = 0;
 
     //! Returns the cloned task.
     //! \return The cloned task.

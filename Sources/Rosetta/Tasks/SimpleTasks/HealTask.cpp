@@ -14,11 +14,6 @@ HealTask::HealTask(EntityType entityType, int amount)
     // Do nothing
 }
 
-TaskID HealTask::GetTaskID() const
-{
-    return TaskID::HEAL;
-}
-
 TaskStatus HealTask::Impl(Player& player)
 {
     auto entities =

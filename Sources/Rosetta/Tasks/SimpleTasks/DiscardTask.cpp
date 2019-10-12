@@ -18,11 +18,6 @@ DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID DiscardTask::GetTaskID() const
-{
-    return TaskID::DISCARD;
-}
-
 TaskStatus DiscardTask::Impl(Player& player)
 {
     auto entities =

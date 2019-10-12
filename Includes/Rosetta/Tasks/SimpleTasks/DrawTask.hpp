@@ -23,10 +23,6 @@ class DrawTask : public ITask
     //! \param toStack A flag to store card to stack.
     explicit DrawTask(int amount, bool toStack = false);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

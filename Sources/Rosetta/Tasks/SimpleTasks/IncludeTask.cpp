@@ -18,11 +18,6 @@ IncludeTask::IncludeTask(EntityType entityType,
     // Do nothing
 }
 
-TaskID IncludeTask::GetTaskID() const
-{
-    return TaskID::INCLUDE;
-}
-
 std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
                                               Player& player, Entity* source,
                                               Entity* target)

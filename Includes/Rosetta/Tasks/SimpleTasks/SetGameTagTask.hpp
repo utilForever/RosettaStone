@@ -24,10 +24,6 @@ class SetGameTagTask : public ITask
     //! \param amount A value of game tag to set.
     explicit SetGameTagTask(EntityType entityType, GameTag tag, int amount);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

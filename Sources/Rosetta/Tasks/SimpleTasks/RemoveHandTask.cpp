@@ -14,11 +14,6 @@ RemoveHandTask::RemoveHandTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID RemoveHandTask::GetTaskID() const
-{
-    return TaskID::REMOVE_HAND;
-}
-
 TaskStatus RemoveHandTask::Impl(Player& player)
 {
     auto entities =

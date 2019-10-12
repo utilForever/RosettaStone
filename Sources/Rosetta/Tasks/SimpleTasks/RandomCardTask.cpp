@@ -15,11 +15,6 @@ RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
     // Do nothing
 }
 
-TaskID RandomCardTask::GetTaskID() const
-{
-    return TaskID::RANDOM_CARD;
-}
-
 std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
                                                CardClass cardClass, Race race)
 {

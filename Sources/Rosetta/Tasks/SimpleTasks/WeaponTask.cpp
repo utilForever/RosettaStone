@@ -14,11 +14,6 @@ WeaponTask::WeaponTask(std::string cardID) : m_cardID(std::move(cardID))
     // Do nothing
 }
 
-TaskID WeaponTask::GetTaskID() const
-{
-    return TaskID::WEAPON;
-}
-
 TaskStatus WeaponTask::Impl(Player& player)
 {
     Card* weaponCard = Cards::FindCardByID(m_cardID);

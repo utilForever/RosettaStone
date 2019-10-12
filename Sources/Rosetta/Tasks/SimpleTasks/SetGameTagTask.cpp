@@ -14,11 +14,6 @@ SetGameTagTask::SetGameTagTask(EntityType entityType, GameTag tag, int amount)
     // Do nothing
 }
 
-TaskID SetGameTagTask::GetTaskID() const
-{
-    return TaskID::SET_GAME_TAG;
-}
-
 TaskStatus SetGameTagTask::Impl(Player& player)
 {
     auto entities =

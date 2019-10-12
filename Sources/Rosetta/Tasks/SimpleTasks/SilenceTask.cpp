@@ -13,11 +13,6 @@ SilenceTask::SilenceTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID SilenceTask::GetTaskID() const
-{
-    return TaskID::SILENCE;
-}
-
 TaskStatus SilenceTask::Impl(Player& player)
 {
     auto entities =

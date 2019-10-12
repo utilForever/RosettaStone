@@ -8,11 +8,6 @@
 
 namespace RosettaStone::SimpleTasks
 {
-TaskID RemoveEnchantmentTask::GetTaskID() const
-{
-    return TaskID::REMOVE_ENCHANTMENT;
-}
-
 TaskStatus RemoveEnchantmentTask::Impl(Player& player)
 {
     auto enchantment = dynamic_cast<Enchantment*>(m_source);

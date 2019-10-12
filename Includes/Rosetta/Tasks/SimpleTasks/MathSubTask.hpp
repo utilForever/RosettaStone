@@ -33,10 +33,6 @@ class MathSubTask : public ITask
     //! \param amount A value to subtract.
     explicit MathSubTask(int amount);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

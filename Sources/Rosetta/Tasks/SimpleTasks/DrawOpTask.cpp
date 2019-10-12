@@ -13,11 +13,6 @@ DrawOpTask::DrawOpTask(int amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskID DrawOpTask::GetTaskID() const
-{
-    return TaskID::DRAW_OP;
-}
-
 TaskStatus DrawOpTask::Impl(Player& player)
 {
     for (int i = 0; i < m_amount; ++i)

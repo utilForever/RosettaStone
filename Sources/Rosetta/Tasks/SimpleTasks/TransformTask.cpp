@@ -18,11 +18,6 @@ TransformTask::TransformTask(EntityType entityType, std::string cardID)
     // Do nothing
 }
 
-TaskID TransformTask::GetTaskID() const
-{
-    return TaskID::TRANSFORM;
-}
-
 TaskStatus TransformTask::Impl(Player& player)
 {
     auto entities =

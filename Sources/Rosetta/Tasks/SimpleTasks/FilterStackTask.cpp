@@ -23,11 +23,6 @@ FilterStackTask::FilterStackTask(EntityType type, RelaCondition relaCondition)
     // Do nothing
 }
 
-TaskID FilterStackTask::GetTaskID() const
-{
-    return TaskID::FILTER_STACK;
-}
-
 TaskStatus FilterStackTask::Impl(Player& player)
 {
     if (m_relaCondition != nullptr)

@@ -16,11 +16,6 @@ DamageNumberTask::DamageNumberTask(EntityType entityType, bool isSpellDamage)
     // Do nothing
 }
 
-TaskID DamageNumberTask::GetTaskID() const
-{
-    return TaskID::DAMAGE_NUMBER;
-}
-
 TaskStatus DamageNumberTask::Impl(Player& player)
 {
     const int damage = m_source->owner->GetGame()->taskStack.num;

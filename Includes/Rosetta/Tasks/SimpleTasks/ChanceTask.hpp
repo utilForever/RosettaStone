@@ -22,10 +22,6 @@ class ChanceTask : public ITask
     //! \param useFlag The flag to use.
     explicit ChanceTask(bool useFlag = false);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

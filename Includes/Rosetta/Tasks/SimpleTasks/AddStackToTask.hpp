@@ -22,10 +22,6 @@ class AddStackToTask : public ITask
     //! \param entityType The type of entity to add.
     explicit AddStackToTask(EntityType entityType);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

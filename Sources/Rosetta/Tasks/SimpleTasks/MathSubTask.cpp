@@ -26,11 +26,6 @@ MathSubTask::MathSubTask(int amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskID MathSubTask::GetTaskID() const
-{
-    return TaskID::MATH_SUB;
-}
-
 TaskStatus MathSubTask::Impl(Player& player)
 {
     if (m_amount == 0)

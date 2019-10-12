@@ -15,11 +15,6 @@ HeroPowerTask::HeroPowerTask(Entity* target) : ITask(nullptr, target)
     // Do nothing
 }
 
-TaskID HeroPowerTask::GetTaskID() const
-{
-    return TaskID::HERO_POWER;
-}
-
 TaskStatus HeroPowerTask::Impl(Player& player)
 {
     HeroPower& power = player.GetHeroPower();

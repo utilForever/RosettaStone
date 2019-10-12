@@ -14,11 +14,6 @@ MoveToGraveyardTask::MoveToGraveyardTask(EntityType entityType)
     // Do nothing
 }
 
-TaskID MoveToGraveyardTask::GetTaskID() const
-{
-    return TaskID::MOVE_TO_GRAVEYARD;
-}
-
 TaskStatus MoveToGraveyardTask::Impl(Player& player)
 {
     auto entities =

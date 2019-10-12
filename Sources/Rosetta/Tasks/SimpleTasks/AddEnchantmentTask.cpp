@@ -18,11 +18,6 @@ AddEnchantmentTask::AddEnchantmentTask(const std::string& cardID,
     // Do nothing
 }
 
-TaskID AddEnchantmentTask::GetTaskID() const
-{
-    return TaskID::ADD_ENCHANTMENT;
-}
-
 TaskStatus AddEnchantmentTask::Impl(Player& player)
 {
     Card* enchantmentCard = Cards::FindCardByID(m_cardID);

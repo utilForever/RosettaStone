@@ -25,10 +25,6 @@ class CountTask : public ITask
     //! \param conditions SelfConditions to check.
     CountTask(EntityType entityType, int numIndex = 0, std::vector<SelfCondition> conditions = {});
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

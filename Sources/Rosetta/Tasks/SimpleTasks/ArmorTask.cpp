@@ -12,11 +12,6 @@ ArmorTask::ArmorTask(int amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskID ArmorTask::GetTaskID() const
-{
-    return TaskID::ARMOR;
-}
-
 TaskStatus ArmorTask::Impl(Player& player)
 {
     player.GetHero()->GainArmor(m_amount);
