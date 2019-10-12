@@ -7,19 +7,12 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 
-#include <utility>
-
 namespace RosettaStone::SimpleTasks
 {
 AddCardTask::AddCardTask(EntityType entityType, std::string cardID, int amount)
     : ITask(entityType), m_cardID(cardID), m_amount(amount)
 {
     // Do nothing
-}
-
-TaskID AddCardTask::GetTaskID() const
-{
-    return TaskID::ADD_CARD;
 }
 
 TaskStatus AddCardTask::Impl(Player& player)

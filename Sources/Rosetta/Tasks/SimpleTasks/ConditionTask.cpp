@@ -35,11 +35,6 @@ ConditionTask::ConditionTask(EntityType entityType,
     // Do nothing
 }
 
-TaskID ConditionTask::GetTaskID() const
-{
-    return TaskID::CONDITION;
-}
-
 TaskStatus ConditionTask::Impl(Player& player)
 {
     auto entities =

@@ -74,10 +74,6 @@
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Models/Weapon.hpp>
-#include <Rosetta/Policies/BasicPolicy.hpp>
-#include <Rosetta/Policies/IoPolicy.hpp>
-#include <Rosetta/Policies/Policy.hpp>
-#include <Rosetta/Policies/RandomPolicy.hpp>
 #include <Rosetta/RosettaStone.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
@@ -131,7 +127,6 @@
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
-#include <Rosetta/Tasks/TaskMeta.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Tasks/TaskStatus.hpp>

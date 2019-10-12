@@ -17,11 +17,6 @@ DamageTask::DamageTask(EntityType entityType, std::size_t damage,
     // Do nothing
 }
 
-TaskID DamageTask::GetTaskID() const
-{
-    return TaskID::DAMAGE;
-}
-
 TaskStatus DamageTask::Impl(Player& player)
 {
     auto entities =

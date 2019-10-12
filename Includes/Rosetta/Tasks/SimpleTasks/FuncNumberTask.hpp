@@ -24,10 +24,6 @@ class FuncNumberTask : public ITask
     //! \param func The function to execute.
     explicit FuncNumberTask(std::function<void(Entity*)> func);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

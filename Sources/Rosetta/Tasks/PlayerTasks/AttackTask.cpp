@@ -13,11 +13,6 @@ AttackTask::AttackTask(Entity* source, Entity* target) : ITask(source, target)
     // Do nothing
 }
 
-TaskID AttackTask::GetTaskID() const
-{
-    return TaskID::ATTACK;
-}
-
 TaskStatus AttackTask::Impl(Player& player)
 {
     Generic::Attack(player, dynamic_cast<Character*>(m_source),

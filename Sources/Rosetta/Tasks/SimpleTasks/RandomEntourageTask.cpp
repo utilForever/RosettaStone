@@ -19,11 +19,6 @@ RandomEntourageTask::RandomEntourageTask(int count, bool isOpponent)
     // Do nothing
 }
 
-TaskID RandomEntourageTask::GetTaskID() const
-{
-    return TaskID::RANDOM_ENTOURAGE;
-}
-
 TaskStatus RandomEntourageTask::Impl(Player& player)
 {
     (void)m_isOpponent;

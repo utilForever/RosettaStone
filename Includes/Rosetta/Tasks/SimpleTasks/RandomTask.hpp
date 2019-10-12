@@ -23,10 +23,6 @@ class RandomTask : public ITask
     //! \param num The number of entities to pick.
     RandomTask(EntityType entityType, int num);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

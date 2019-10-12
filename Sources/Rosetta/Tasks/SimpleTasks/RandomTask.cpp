@@ -19,11 +19,6 @@ RandomTask::RandomTask(EntityType entityType, int num)
     // Do nothing
 }
 
-TaskID RandomTask::GetTaskID() const
-{
-    return TaskID::RANDOM;
-}
-
 TaskStatus RandomTask::Impl(Player& player)
 {
     auto entities =

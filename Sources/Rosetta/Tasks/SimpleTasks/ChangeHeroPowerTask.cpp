@@ -14,11 +14,6 @@ ChangeHeroPowerTask::ChangeHeroPowerTask(const std::string& cardID)
     m_card = Cards::FindCardByID(cardID);
 }
 
-TaskID ChangeHeroPowerTask::GetTaskID() const
-{
-    return TaskID::CHANGE_HERO_POWER;
-}
-
 TaskStatus ChangeHeroPowerTask::Impl(Player& player)
 {
     delete player.GetHero()->heroPower;

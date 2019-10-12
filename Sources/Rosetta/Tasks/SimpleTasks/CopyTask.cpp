@@ -23,11 +23,6 @@ CopyTask::CopyTask(EntityType entityType, ZoneType zoneType, int amount,
     // Do nothing
 }
 
-TaskID CopyTask::GetTaskID() const
-{
-    return TaskID::COPY;
-}
-
 TaskStatus CopyTask::Impl(Player& player)
 {
     Player& owner = (m_toOpponent) ? *player.opponent : player;

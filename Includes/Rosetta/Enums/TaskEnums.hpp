@@ -17,69 +17,6 @@ enum class PowerType
     COMBO
 };
 
-//! \brief An enumerator for identifying each task.
-enum class TaskID
-{
-    INVALID,
-    DRAW,
-    DRAW_NUMBER,
-    DRAW_OP,
-    DRAW_STACK,
-    OVERDRAW,
-    MANA_CRYSTAL,
-    DAMAGE,
-    MULLIGAN,
-    ADD_CARD,
-    PLAY_CARD,
-    ADD_ENCHANTMENT,
-    REMOVE_ENCHANTMENT,
-    REMOVE_DURABILITY,
-    DESTROY,
-    DISCARD,
-    HEAL_FULL,
-    POISONOUS,
-    FREEZE,
-    HEAL,
-    INCLUDE,
-    CONTROL,
-    END_TURN,
-    CHOOSE,
-    ATTACK,
-    GET_GAME_TAG,
-    SET_GAME_TAG,
-    ENQUEUE,
-    RANDOM,
-    RANDOM_CARD,
-    SUMMON,
-    TRANSFORM,
-    TRANSFORM_COPY,
-    CONDITION,
-    FLAG,
-    ARMOR,
-    REMOVE_HAND,
-    RETURN_HAND,
-    TEMP_MANA,
-    WEAPON,
-    FUNC_ENTITY,
-    FUNC_NUMBER,
-    HERO_POWER,
-    COPY,
-    ADD_STACK_TO,
-    COUNT,
-    MATH_SUB,
-    FILTER_STACK,
-    RANDOM_ENTOURAGE,
-    MOVE_TO_GRAVEYARD,
-    ADD_AURA_EFFECT,
-    SILENCE,
-    DAMAGE_NUMBER,
-    SWAP_ATTACK_HEALTH,
-    CHANCE,
-    CHANGE_HERO_POWER,
-
-    NUM_TASK_ID
-};
-
 //! \brief An enumerator for identifying entity type.
 enum class EntityType
 {

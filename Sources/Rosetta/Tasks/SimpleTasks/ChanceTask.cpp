@@ -17,11 +17,6 @@ ChanceTask::ChanceTask(bool useFlag) : m_useFlag(useFlag)
     // Do nothing
 }
 
-TaskID ChanceTask::GetTaskID() const
-{
-    return TaskID::CHANCE;
-}
-
 TaskStatus ChanceTask::Impl(Player& player)
 {
     const auto num = Random::get<int>(0, 1);

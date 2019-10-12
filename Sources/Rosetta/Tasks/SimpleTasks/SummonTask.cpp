@@ -32,11 +32,6 @@ SummonTask::SummonTask(const std::string& cardID, SummonSide side,
     m_card = Cards::FindCardByID(cardID);
 }
 
-TaskID SummonTask::GetTaskID() const
-{
-    return TaskID::SUMMON;
-}
-
 TaskStatus SummonTask::Impl(Player& player)
 {
     Player* summoner = m_toOpponent ? player.opponent : &player;

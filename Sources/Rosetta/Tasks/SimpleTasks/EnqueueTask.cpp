@@ -14,11 +14,6 @@ EnqueueTask::EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage)
     // Do nothing
 }
 
-TaskID EnqueueTask::GetTaskID() const
-{
-    return TaskID::ENQUEUE;
-}
-
 TaskStatus EnqueueTask::Impl(Player& player)
 {
     const int times =

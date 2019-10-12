@@ -14,11 +14,6 @@ DrawStackTask::DrawStackTask(std::size_t amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskID DrawStackTask::GetTaskID() const
-{
-    return TaskID::DRAW_STACK;
-}
-
 TaskStatus DrawStackTask::Impl(Player& player)
 {
     auto& stack = player.GetGame()->taskStack.entities;

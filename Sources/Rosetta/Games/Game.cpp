@@ -12,7 +12,6 @@
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
-#include <Rosetta/Policies/Policy.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
@@ -687,38 +686,6 @@ void Game::ProcessUntil(Step untilStep)
     while (nextStep != untilStep)
     {
         GameManager::ProcessNextStep(*this, nextStep);
-    }
-}
-
-void Game::PlayPolicy()
-{
-    Start();
-
-    Player& player1 = GetPlayer1();
-    // Request mulligan choices to policy.
-    TaskMeta p1Choice = player1.policy->Require(player1, TaskID::MULLIGAN);
-
-    // Get mulligan choices from policy.
-    Process(player1,
-            PlayerTasks::ChooseTask::Mulligan(
-                player1, p1Choice.GetObject<std::vector<std::size_t>>()));
-
-    Player& player2 = GetPlayer2();
-    // Request mulligan choices to policy.
-    TaskMeta p2Choice = player2.policy->Require(player2, TaskID::MULLIGAN);
-
-    // Get mulligan choices from policy.
-    Process(player2,
-            PlayerTasks::ChooseTask::Mulligan(
-                player2, p2Choice.GetObject<std::vector<std::size_t>>()));
-
-    MainReady();
-
-    while (state != State::COMPLETE)
-    {
-        auto& player = GetCurrentPlayer();
-        ITask* nextAction = player.GetNextAction();
-        Process(player, nextAction);
     }
 }
 

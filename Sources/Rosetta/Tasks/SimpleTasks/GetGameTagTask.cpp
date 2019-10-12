@@ -19,11 +19,6 @@ GetGameTagTask::GetGameTagTask(EntityType entityType, GameTag tag,
     // Do nothing
 }
 
-TaskID GetGameTagTask::GetTaskID() const
-{
-    return TaskID::GET_GAME_TAG;
-}
-
 TaskStatus GetGameTagTask::Impl(Player& player)
 {
     auto entities =

@@ -9,36 +9,10 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 
 using namespace RosettaStone;
 using namespace SimpleTasks;
-
-class DrawTestPolicy : public BasicPolicy
-{
- public:
-    explicit DrawTestPolicy(
-        std::function<void(const TaskMeta&)>&& overdrawHandler)
-        : m_overdrawHandler(std::move(overdrawHandler))
-    {
-        // Do nothing
-    }
-
-    void NotifyOverDraw(const TaskMeta& meta) override
-    {
-        m_overdrawHandler(meta);
-    }
-
- private:
-    std::function<void(const TaskMeta&)> m_overdrawHandler;
-};
-
-TEST(DrawTask, GetTaskID)
-{
-    const DrawTask draw(1);
-    EXPECT_EQ(draw.GetTaskID(), TaskID::DRAW);
-}
 
 TEST(DrawTask, Run)
 {
@@ -159,22 +133,6 @@ TEST(DrawTask, RunOverDraw)
     DrawTask draw(3);
     draw.SetPlayer(&p);
 
-    DrawTestPolicy policy([&](const TaskMeta& burnt) {
-        EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
-        EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
-        EXPECT_EQ(burnt.GetUserID(), p.playerID);
-
-        EXPECT_TRUE(burnt.HasObjects());
-
-        const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
-        for (std::size_t i = 0; i < 3; ++i)
-        {
-            EXPECT_EQ(entities[i]->card->id,
-                      id + static_cast<char>(2 - i + 0x30));
-        }
-    });
-    p.policy = &policy;
-
     TaskStatus result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
@@ -220,22 +178,6 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     DrawTask draw(4);
     draw.SetPlayer(&p);
-
-    DrawTestPolicy policy([&](const TaskMeta& burnt) {
-        EXPECT_EQ(burnt.GetID(), TaskID::OVERDRAW);
-        EXPECT_EQ(burnt.GetStatus(), TaskStatus::COMPLETE);
-        EXPECT_EQ(burnt.GetUserID(), p.playerID);
-
-        EXPECT_TRUE(burnt.HasObjects());
-
-        const auto& entities = burnt.GetObject<SizedPtr<Entity*>>();
-        for (std::size_t i = 0; i < 2; ++i)
-        {
-            EXPECT_EQ(entities[i]->card->id,
-                      id + static_cast<char>(2 - i + 0x30));
-        }
-    });
-    p.policy = &policy;
 
     TaskStatus result = draw.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);

@@ -15,12 +15,6 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(IncludeTask, GetTaskID)
-{
-    const IncludeTask task(EntityType::TARGET);
-    EXPECT_EQ(task.GetTaskID(), TaskID::INCLUDE);
-}
-
 TEST(IncludeTask, Run_NonConst)
 {
     GameConfig config;

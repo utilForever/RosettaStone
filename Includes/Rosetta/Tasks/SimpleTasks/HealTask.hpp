@@ -23,10 +23,6 @@ class HealTask : public ITask
     //! \param amount A value that indicates how much heal to target.
     HealTask(EntityType entityType, int amount);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

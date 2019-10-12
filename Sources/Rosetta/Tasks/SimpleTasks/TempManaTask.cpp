@@ -12,11 +12,6 @@ TempManaTask::TempManaTask(int amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskID TempManaTask::GetTaskID() const
-{
-    return TaskID::TEMP_MANA;
-}
-
 TaskStatus TempManaTask::Impl(Player& player)
 {
     if (player.GetRemainingMana() + m_amount > MANA_UPPER_LIMIT)

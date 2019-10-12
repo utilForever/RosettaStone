@@ -15,11 +15,6 @@ DrawTask::DrawTask(int amount, bool toStack)
     // Do nothing
 }
 
-TaskID DrawTask::GetTaskID() const
-{
-    return TaskID::DRAW;
-}
-
 TaskStatus DrawTask::Impl(Player& player)
 {
     std::vector<Entity*> cards;

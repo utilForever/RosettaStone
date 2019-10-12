@@ -9,11 +9,6 @@
 
 namespace RosettaStone::SimpleTasks
 {
-TaskID DrawNumberTask::GetTaskID() const
-{
-    return TaskID::DRAW_NUMBER;
-}
-
 TaskStatus DrawNumberTask::Impl(Player& player)
 {
     std::vector<Entity*> cards;

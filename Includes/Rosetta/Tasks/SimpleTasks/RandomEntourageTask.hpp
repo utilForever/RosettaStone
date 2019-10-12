@@ -23,10 +23,6 @@ class RandomEntourageTask : public ITask
     //! \param isOpponent A flag to owner indicating opponent player.
     RandomEntourageTask(int count = 1, bool isOpponent = false);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

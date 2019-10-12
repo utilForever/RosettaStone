@@ -37,10 +37,6 @@ class ChooseTask : public ITask
     //! \return Generated PlayCardTask for intended purpose.
     static ChooseTask Pick(Player& player, std::size_t choice);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

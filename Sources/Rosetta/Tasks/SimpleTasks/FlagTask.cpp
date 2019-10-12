@@ -16,11 +16,6 @@ FlagTask::FlagTask(bool flag, std::vector<ITask*> toDoTasks)
     // Do nothing
 }
 
-TaskID FlagTask::GetTaskID() const
-{
-    return TaskID::FLAG;
-}
-
 TaskStatus FlagTask::Impl(Player& player)
 {
     if (player.GetGame()->taskStack.flag != m_flag)

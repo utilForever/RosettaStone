@@ -66,10 +66,6 @@ class PlayCardTask : public ITask
     //! \return Generated PlayCardTask for intended purpose.
     static PlayCardTask WeaponTarget(Entity* source, Entity* target);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

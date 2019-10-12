@@ -13,11 +13,6 @@ HealFullTask::HealFullTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskID HealFullTask::GetTaskID() const
-{
-    return TaskID::HEAL_FULL;
-}
-
 TaskStatus HealFullTask::Impl(Player& player)
 {
     auto entities =

@@ -15,12 +15,6 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(DamageTask, GetTaskID)
-{
-    const DamageTask damage(EntityType::ENEMIES, 2);
-    EXPECT_EQ(damage.GetTaskID(), TaskID::DAMAGE);
-}
-
 TEST(DamageTask, Run)
 {
     GameConfig config;

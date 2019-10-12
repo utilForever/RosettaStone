@@ -27,11 +27,6 @@ ChooseTask ChooseTask::Pick(Player&, std::size_t choice)
     return ChooseTask({ choice });
 }
 
-TaskID ChooseTask::GetTaskID() const
-{
-    return TaskID::CHOOSE;
-}
-
 TaskStatus ChooseTask::Impl(Player& player)
 {
     switch (player.choice.value().choiceType)

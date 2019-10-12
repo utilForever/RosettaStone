@@ -15,11 +15,6 @@ FuncNumberTask::FuncNumberTask(std::function<void(Entity*)> func)
     // Do nothing
 }
 
-TaskID FuncNumberTask::GetTaskID() const
-{
-    return TaskID::FUNC_NUMBER;
-}
-
 TaskStatus FuncNumberTask::Impl(Player&)
 {
     if (m_func != nullptr)

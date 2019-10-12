@@ -14,7 +14,6 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
-#include <Rosetta/Policies/IoPolicy.hpp>
 
 #include <cctype>
 #if defined(ROSETTASTONE_WINDOWS)
@@ -218,9 +217,6 @@ void Console::SimulateGame() const
     DeckInfo* deck1 = p1->GetDeck(deckIndex1);
     DeckInfo* deck2 = p2->GetDeck(deckIndex2);
 
-    IoPolicy policy1(std::cout, std::cin);
-    IoPolicy policy2(std::cout, std::cin);
-
     GameConfig config;
     config.player1Class = deck1->GetClass();
     config.player2Class = deck2->GetClass();
@@ -228,11 +224,6 @@ void Console::SimulateGame() const
     Game game(config);
     game.GetPlayer1().nickname = p1->GetNickname();
     game.GetPlayer2().nickname = p2->GetNickname();
-
-    game.GetPlayer1().policy = &policy1;
-    game.GetPlayer2().policy = &policy2;
-    // game.GetPlayer1().SetDeck(deck1);
-    // game.GetPlayer2().SetDeck(deck2);
 
     game.Start();
 }

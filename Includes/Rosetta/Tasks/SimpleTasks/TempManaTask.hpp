@@ -22,10 +22,6 @@ class TempManaTask : public ITask
     //! \param amount A value indicating how much to give mana crystal.
     explicit TempManaTask(int amount);
 
-    //! Returns task ID.
-    //! \return Task ID.
-    TaskID GetTaskID() const override;
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
