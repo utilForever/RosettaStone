@@ -14,12 +14,6 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(ControlTask, GetTaskID)
-{
-    const ControlTask control(EntityType::TARGET);
-    EXPECT_EQ(control.GetTaskID(), TaskID::CONTROL);
-}
-
 TEST(ControlTask, Run)
 {
     GameConfig config;

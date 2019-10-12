@@ -14,7 +14,6 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/GameManager.hpp>
-#include <Rosetta/Policies/BasicPolicy.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
@@ -26,15 +25,6 @@ using Random = effolkronium::random_static;
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
-
-struct MulliganTestPolicy : BasicPolicy
-{
-    TaskMeta RequireMulligan(Player&) override
-    {
-        return TaskMeta(TaskMetaTrait(TaskID::MULLIGAN),
-                        std::vector<std::size_t>());
-    }
-};
 
 class TestActionParams : public ActionParams
 {
@@ -184,30 +174,6 @@ TEST(Game, Turn)
     game.ProcessUntil(Step::MAIN_START);
 
     EXPECT_EQ(game.GetTurn(), 31);
-}
-
-TEST(Game, Mulligan)
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.skipMulligan = false;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-
-    auto& curPlayer = game.GetCurrentPlayer();
-    auto& opPlayer = game.GetOpponentPlayer();
-
-    MulliganTestPolicy policy;
-    curPlayer.policy = &policy;
-    opPlayer.policy = &policy;
-
-    game.nextStep = Step::BEGIN_MULLIGAN;
-    GameManager::ProcessNextStep(game, game.nextStep);
 }
 
 TEST(Game, GameOver_Player1Won)

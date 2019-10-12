@@ -13,12 +13,6 @@
 using namespace RosettaStone;
 using namespace SimpleTasks;
 
-TEST(ChangeHeroPowerTask, GetTaskID)
-{
-    const ChangeHeroPowerTask change("");
-    EXPECT_EQ(change.GetTaskID(), TaskID::CHANGE_HERO_POWER);
-}
-
 TEST(ChangeHeroPowerTask, Run)
 {
     GameConfig config;

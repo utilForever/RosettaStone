@@ -16,12 +16,6 @@ using namespace RosettaStone;
 using namespace SimpleTasks;
 using namespace TestUtils;
 
-TEST(DestroyTask, GetTaskID)
-{
-    const DestroyTask task(EntityType::EMPTY);
-    EXPECT_EQ(task.GetTaskID(), TaskID::DESTROY);
-}
-
 TEST(DestroyTask, Run)
 {
     GameConfig config;
