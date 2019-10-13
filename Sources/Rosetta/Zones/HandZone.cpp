@@ -23,12 +23,14 @@ void HandZone::Add(Entity& entity, int zonePos)
     if (entity.card->power.GetTrigger())
     {
         entity.card->power.GetTrigger()->Activate(&entity,
-                                                 TriggerActivation::HAND);
+                                                  TriggerActivation::HAND);
     }
 }
 
 Entity& HandZone::Remove(Entity& entity)
 {
+    entity.ResetCost();
+
     for (auto* enchant : entity.appliedEnchantments)
     {
         if (enchant->activatedTrigger != nullptr)
