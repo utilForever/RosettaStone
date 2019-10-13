@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/Auras/EnrageEffect.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
@@ -2941,6 +2942,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
         new FilterStackTask(SelfCondition::IsRace(Race::MURLOC)));
     power.AddPowerTask(new AddEnchantmentTask("EX1_103e", EntityType::STACK));
     cards.emplace("EX1_103", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each other card in your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new AdaptiveCostEffect([](Entity* entity) {
+        return entity->owner->GetHandZone().GetCount() - 1;
+    }));
+    cards.emplace("EX1_105", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]

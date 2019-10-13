@@ -6533,6 +6533,72 @@ TEST(NeutralExpert1Test, EX1_103_ColdlightSeer)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: Costs (1) less for each other card in your hand.
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_105_MountainGiant)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player& curPlayer = game.GetCurrentPlayer();
+    Player& opPlayer = game.GetOpponentPlayer();
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+    opPlayer.SetTotalMana(10);
+    opPlayer.SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mountain Giant"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mountain Giant"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mountain Giant"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::GetInstance().FindCardByName("Mountain Giant"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::GetInstance().FindCardByName("Sap"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::GetInstance().FindCardByName("Assassinate"));
+
+    EXPECT_EQ(card1->GetCost(), 9);
+    EXPECT_EQ(card2->GetCost(), 9);
+    EXPECT_EQ(card3->GetCost(), 9);
+    EXPECT_EQ(card4->GetCost(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card2->GetCost(), 10);
+    EXPECT_EQ(card3->GetCost(), 10);
+    EXPECT_EQ(card4->GetCost(), 10);
+
+    curPlayer.SetTotalMana(10);
+    curPlayer.SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(card3->GetCost(), 11);
+    EXPECT_EQ(card4->GetCost(), 11);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    EXPECT_EQ(card1->GetCost(), 12);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card2));
+    EXPECT_EQ(card2->GetCost(), 14);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
 // - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
