@@ -29,6 +29,7 @@
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/Auras/Aura.hpp>
+#include <Rosetta/Auras/EnrageEffect.hpp>
 #include <Rosetta/Auras/IAura.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
