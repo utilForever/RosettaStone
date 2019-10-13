@@ -173,6 +173,18 @@ void Entity::Reset()
     m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
 }
 
+void Entity::ResetCost()
+{
+    costManager = nullptr;
+    m_modifiedCost = std::nullopt;
+
+    if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(onGoingEffect);
+        effect != nullptr)
+    {
+        effect->Remove();
+    }
+}
+
 void Entity::Destroy()
 {
     isDestroyed = true;

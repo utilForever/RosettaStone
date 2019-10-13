@@ -10,6 +10,7 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
+#include <Rosetta/Managers/CostManager.hpp>
 #include <Rosetta/Zones/IZone.hpp>
 
 #include <array>
@@ -127,6 +128,9 @@ class Entity
     //! Any enchants and trigger is removed.
     virtual void Reset();
 
+    //! Resets the value of the cost.
+    void ResetCost();
+
     //! Destroys entity.
     virtual void Destroy();
 
@@ -159,6 +163,8 @@ class Entity
     IAura* onGoingEffect = nullptr;
     Trigger* activatedTrigger = nullptr;
 
+    CostManager* costManager = nullptr;
+
     std::array<Entity*, 2> chooseOneCard{};
     std::vector<Enchantment*> appliedEnchantments;
 
@@ -168,6 +174,7 @@ class Entity
     bool isDestroyed = false;
 
  protected:
+    std::optional<int> m_modifiedCost = std::nullopt;
     std::map<GameTag, int> m_gameTags;
 };
 }  // namespace RosettaStone
