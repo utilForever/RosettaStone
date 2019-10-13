@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_ZONE_HPP
 #define ROSETTASTONE_ZONE_HPP
 
-#include <Rosetta/Enchants/Aura.hpp>
+#include <Rosetta/Auras/Aura.hpp>
 #include <Rosetta/Zones/IZone.hpp>
 
 #include <algorithm>

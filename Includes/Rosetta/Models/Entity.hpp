@@ -14,6 +14,7 @@
 
 #include <array>
 #include <map>
+#include <optional>
 
 namespace RosettaStone
 {

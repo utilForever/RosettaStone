@@ -7,11 +7,10 @@
 #ifndef ROSETTASTONE_POWER_HPP
 #define ROSETTASTONE_POWER_HPP
 
-#include <Rosetta/Enchants/Aura.hpp>
+#include <Rosetta/Auras/Aura.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
 
-#include <optional>
 #include <vector>
 
 namespace RosettaStone
