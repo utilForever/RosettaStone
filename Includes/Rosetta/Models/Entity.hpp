@@ -90,7 +90,7 @@ class Entity
 
     //! Returns the value of cost.
     //! \return The value of cost.
-    int GetCost() const;
+    int GetCost();
 
     //! Sets the value of cost.
     //! \param cost The value of cost.

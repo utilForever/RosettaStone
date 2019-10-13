@@ -98,14 +98,31 @@ void Entity::SetZonePosition(int value)
     SetGameTag(GameTag::ZONE_POSITION, value + 1);
 }
 
-int Entity::GetCost() const
+int Entity::GetCost()
 {
-    return GetGameTag(GameTag::COST);
+    if (costManager != nullptr)
+    {
+        if (m_modifiedCost.has_value())
+        {
+            return m_modifiedCost.value();
+        }
+
+        m_modifiedCost = GetGameTag(GameTag::COST);
+        return m_modifiedCost.value();
+    }
+
+    if (m_modifiedCost.has_value())
+    {
+        return m_modifiedCost < 0 ? 0 : m_modifiedCost.value();
+    }
+
+    m_modifiedCost = GetGameTag(GameTag::COST);
+    return m_modifiedCost.value();
 }
 
 void Entity::SetCost(int cost)
 {
-    SetGameTag(GameTag::COST, cost);
+    m_modifiedCost = cost;
 }
 
 bool Entity::IsExhausted() const
