@@ -183,7 +183,7 @@ nlohmann::json JSONSerializer::SerializeHandCard(const Entity& handCard)
     nlohmann::json obj;
 
     obj["card_id"] = handCard.card->id;
-    obj["cost"] = handCard.GetCost();
+    obj["cost"] = const_cast<Entity&>(handCard).GetCost();
 
     return obj;
 }
@@ -193,7 +193,7 @@ nlohmann::json JSONSerializer::SerializeMinion(const Minion& minion)
     nlohmann::json obj;
 
     obj["card_id"] = minion.card->id;
-    obj["cost"] = minion.GetCost();
+    obj["cost"] = const_cast<Minion&>(minion).GetCost();
     obj["attack"] = minion.GetAttack();
     obj["health"] = minion.GetHealth();
     obj["max_health"] = minion.GetMaxHealth();
