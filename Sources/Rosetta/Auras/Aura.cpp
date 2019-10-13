@@ -3,9 +3,9 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Auras/Aura.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Utils.hpp>
-#include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Player.hpp>

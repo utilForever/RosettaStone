@@ -8,7 +8,7 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
-#include <Rosetta/Enchants/IAura.hpp>
+#include <Rosetta/Auras/IAura.hpp>
 
 #include <string>
 

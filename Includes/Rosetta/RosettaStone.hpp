@@ -27,6 +27,8 @@
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
+#include <Rosetta/Auras/Aura.hpp>
+#include <Rosetta/Auras/IAura.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/CardSets/HoFCardsGen.hpp>
@@ -40,13 +42,11 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
-#include <Rosetta/Enchants/Aura.hpp>
 #include <Rosetta/Enchants/AuraEffects.hpp>
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
-#include <Rosetta/Enchants/IAura.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enchants/Powers.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>

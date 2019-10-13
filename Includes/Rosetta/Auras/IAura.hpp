@@ -8,6 +8,8 @@
 
 namespace RosettaStone
 {
+class Entity;
+
 //!
 //! \brief IAura class.
 //!
