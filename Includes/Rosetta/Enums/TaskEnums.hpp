@@ -43,6 +43,15 @@ enum class EntityType
     ENEMY_MINIONS,
     STACK
 };
+
+//! \brief An enumerator for evaluating the relation between primitive values
+//! during game simulation.
+enum class RelaSign
+{
+    EQ,   //!< Equal.
+    GEQ,  //!< Greater equal.
+    LEQ   //!< Lesser equal.
+};
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_TASK_ENUMS_HPP

@@ -7,7 +7,7 @@
 #define ROSETTASTONE_SELF_CONDITION_HPP
 
 #include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Enums/GameEnums.hpp>
+#include <Rosetta/Enums/TaskEnums.hpp>
 
 #include <functional>
 
