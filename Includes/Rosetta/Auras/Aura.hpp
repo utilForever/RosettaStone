@@ -9,29 +9,13 @@
 #include <Rosetta/Auras/IAura.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
+#include <Rosetta/Enums/AuraEnums.hpp>
 
 #include <string>
 
 namespace RosettaStone
 {
 class Entity;
-
-//! Aura types. Indicates the range of auras.
-enum class AuraType
-{
-    INVALID,   //!< Invalid type.
-    SELF,      //!< This type of aura only affects the source of the aura.
-    ADJACENT,  //!< This type of aura affects the minions adjacent to the source
-               //!< of the aura.
-    FIELD,     //!< This type of aura affects all friendly minions.
-    FIELD_EXCEPT_SOURCE,  //!< This type of aura affects all friendly minions
-                          //!< except the source of the aura.
-    WEAPON,   //!< This type of aura affects the weapon of the source's
-              //!< controller.
-    HAND,     //!< This type of aura affects all entities in the hand of the
-              //!< source's controller.
-    ADAPTIVE  //!< This type of aura is influenced by other factors in game.
-};
 
 //!
 //! \brief Aura class.
