@@ -28,6 +28,10 @@ class IAura
     //! Removes this effect from the game to stop affecting entities.
     virtual void Remove() = 0;
 
+    //! Activates this effect and add an instance to the game of given entity.
+    //! \param owner The entity who owns this effect.
+    virtual void Activate(Entity* owner) = 0;
+
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
     virtual void Clone(Entity* clone) = 0;
