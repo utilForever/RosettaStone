@@ -59,17 +59,14 @@ class Aura : public IAura
     //! Default virtual destructor.
     virtual ~Aura() = default;
 
-    //! Sets aura to be updated.
-    //! \param value An value to be updated.
-    void SetToBeUpdated(bool value);
+    //! Apply this aura to the target entities or remove this aura
+    //! if the owner is nullified.
+    void Update() override;
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of aura.
     //! \param cloning The flag to indicate that it is cloned.
     virtual void Activate(Entity* owner, bool cloning = false);
-
-    //! Updates this effect to apply the effect to recently modified entities.
-    void Update() override;
 
     //! Removes this effect from the game to stop affecting entities.
     void Remove() override;
@@ -124,12 +121,13 @@ class Aura : public IAura
     //! Internal method of Remove().
     void RemoveInternal();
 
+    //! Renews the condition of the applied entities.
+    void RenewAll();
+
     std::string m_enchantmentID;
 
     std::vector<Entity*> m_appliedEntities;
     std::vector<Entity*> m_tempList;
-
-    bool m_toBeUpdated = true;
 };
 }  // namespace RosettaStone
 

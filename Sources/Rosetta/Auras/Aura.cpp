@@ -28,9 +28,17 @@ Aura::Aura(AuraType type, std::string&& enchantmentID)
     // Do nothing
 }
 
-void Aura::SetToBeUpdated(bool value)
+void Aura::Update()
 {
-    m_toBeUpdated = value;
+    bool addAllProcessed = false;
+
+    if (restless)
+    {
+        RenewAll();
+        addAllProcessed = true;
+    }
+
+    UpdateInternal();
 }
 
 void Aura::Activate(Entity* owner, bool cloning)
@@ -103,16 +111,6 @@ void Aura::Activate(Entity* owner, bool cloning)
         default:
             break;
     }
-}
-
-void Aura::Update()
-{
-    if (!m_toBeUpdated)
-    {
-        return;
-    }
-
-    UpdateInternal();
 }
 
 void Aura::Remove()
@@ -344,6 +342,18 @@ void Aura::RemoveInternal()
     auto& auras = m_owner->owner->GetGame()->auras;
     const auto iter = std::find(auras.begin(), auras.end(), this);
     auras.erase(iter);
+}
+
+void Aura::RenewAll()
+{
+    auto Renew = [this](Entity* entity) {
+        if (condition->Evaluate(entity))
+        {
+            if (!entity->id)
+            {
+            }
+        }
+    };
 }
 
 AuraType Aura::GetAuraType() const
