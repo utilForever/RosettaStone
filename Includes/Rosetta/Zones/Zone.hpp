@@ -160,6 +160,17 @@ class UnlimitedZone : public Zone<Entity>
         return false;
     }
 
+    //! Runs \p functor on each entity of the zone.
+    //! \param functor A function to run for each entity.
+    template <typename Functor>
+    void ForEach(Functor&& functor) const
+    {
+        for (auto& entity : m_entities)
+        {
+            functor(entity);
+        }
+    }
+
  protected:
     std::vector<Entity*> m_entities;
 };
@@ -358,6 +369,17 @@ class LimitedZone : public Zone<T>
         }
 
         return result;
+    }
+
+    //! Runs \p functor on each entity of the zone.
+    //! \param functor A function to run for each entity.
+    template <typename Functor>
+    void ForEach(Functor&& functor) const
+    {
+        for (int i = 0; i < m_count; ++i)
+        {
+            functor(m_entities[i]);
+        }
     }
 
  protected:
