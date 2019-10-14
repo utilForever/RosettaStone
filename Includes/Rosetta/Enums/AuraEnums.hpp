@@ -19,10 +19,13 @@ enum class AuraType
     FIELD,     //!< This type of aura affects all friendly minions.
     FIELD_EXCEPT_SOURCE,  //!< This type of aura affects all friendly minions
                           //!< except the source of the aura.
+    HERO,     //!< This type of aura affects the source's controller.
     WEAPON,   //!< This type of aura affects the weapon of the source's
               //!< controller.
     HAND,     //!< This type of aura affects all entities in the hand of the
               //!< source's controller.
+    HANDS,    //!< This type of aura affects all entities in the both player's
+              //!< hand.
     ADAPTIVE  //!< This type of aura is influenced by other factors in game.
 };
 }  // namespace RosettaStone
