@@ -7,6 +7,7 @@
 #define ROSETTASTONE_AURA_HPP
 
 #include <Rosetta/Auras/IAura.hpp>
+#include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
@@ -33,7 +34,7 @@ class Aura : public IAura
     //! Constructs aura with given \p type and \p effects.
     //! \param type The type of aura.
     //! \param effects A list of effect.
-    Aura(AuraType type, std::vector<Effect*> effects);
+    Aura(AuraType type, std::vector<IEffect*> effects);
 
     //! Constructs aura with given \p type and \p enchantmentID.
     //! \param type The type of aura.
@@ -63,9 +64,13 @@ class Aura : public IAura
     //! \param entity An entity to remove.
     void RemoveEntity(Entity* entity);
 
-    //! Apply aura's effect(s) to target entity.
+    //! Applies aura's effect(s) to target entity.
     //! \param entity An entity to apply aura's effect(s).
     void Apply(Entity* entity);
+
+    //! Disapplies aura's effect(s) to target entity.
+    //! \param entity An entity to disapply aura's effect(s).
+    void Disapply(Entity* entity);
 
     //! Returns the type of aura.
     //! \return The type of aura.
@@ -91,7 +96,7 @@ class Aura : public IAura
     AuraType m_type = AuraType::INVALID;
     Entity* m_owner = nullptr;
 
-    std::vector<Effect*> m_effects;
+    std::vector<IEffect*> m_effects;
 
     bool m_turnOn = true;
 
@@ -108,9 +113,9 @@ class Aura : public IAura
     //! Renews the condition of the applied entities.
     void RenewAll();
 
-    std::string m_enchantmentID;
+    Card* m_enchantmentCard = nullptr;
 
-    std::vector<Entity*> m_appliedEntities;
+    std::vector<int> m_appliedEntityIDs;
     std::vector<Entity*> m_tempList;
 };
 }  // namespace RosettaStone

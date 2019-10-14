@@ -16,14 +16,14 @@
 
 namespace RosettaStone
 {
-Aura::Aura(AuraType type, std::vector<Effect*> effects)
+Aura::Aura(AuraType type, std::vector<IEffect*> effects)
     : m_type(type), m_effects(std::move(effects))
 {
     // Do nothing
 }
 
 Aura::Aura(AuraType type, std::string&& enchantmentID)
-    : m_type(type), m_enchantmentID(enchantmentID)
+    : m_type(type), m_enchantmentCard(Cards::FindCardByID(enchantmentID))
 {
     // Do nothing
 }
@@ -43,8 +43,6 @@ void Aura::Update()
 
 void Aura::Activate(Entity* owner, bool cloning)
 {
-    Card* card = Cards::FindCardByID(m_enchantmentID);
-
     if (m_effects.empty())
     {
         m_effects = card->power.GetEnchant()->effects;
@@ -149,34 +147,69 @@ void Aura::Clone(Entity* clone)
 
 void Aura::Apply(Entity* entity)
 {
-    const auto iter =
-        std::find(m_appliedEntities.begin(), m_appliedEntities.end(), entity);
-    if (iter != m_appliedEntities.end())
+    if (condition != nullptr)
     {
-        if (!restless || (condition != nullptr && condition->Evaluate(entity)))
+        if (!condition->Evaluate(entity))
         {
             return;
         }
-
-        for (auto& effect : m_effects)
-        {
-            effect->Remove(*entity->auraEffects);
-        }
-
-        m_appliedEntities.erase(iter);
     }
 
-    if (condition != nullptr && !condition->Evaluate(entity))
+    for (auto& effect : m_effects)
+    {
+        effect->ApplyAuraTo(entity);
+    }
+
+    if (m_enchantmentCard != nullptr &&
+        m_enchantmentCard->power.GetTrigger() != nullptr)
+    {
+        const auto instance =
+            Enchantment::GetInstance(*entity->owner, m_enchantmentCard, entity);
+
+        if (auto trigger = m_enchantmentCard->power.GetTrigger();
+            trigger != nullptr)
+        {
+            trigger->Activate(instance);
+        }
+    }
+
+    m_appliedEntityIDs.emplace_back(entity->id);
+}
+
+void Aura::Disapply(Entity* entity)
+{
+    const auto iter = std::find(m_appliedEntityIDs.begin(),
+                                m_appliedEntityIDs.end(), entity->id);
+
+    if (iter != m_appliedEntityIDs.end())
+    {
+        m_appliedEntityIDs.erase(iter);
+    }
+    else
     {
         return;
     }
 
     for (auto& effect : m_effects)
     {
-        effect->Apply(*entity->auraEffects);
+        effect->RemoveAuraFrom(entity);
     }
 
-    m_appliedEntities.emplace_back(entity);
+    if (m_enchantmentCard != nullptr &&
+        m_enchantmentCard->power.GetTrigger() != nullptr)
+    {
+        const std::string cardID = m_enchantmentCard->id;
+        std::vector<Enchantment*> enchantments = entity->appliedEnchantments;
+
+        for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
+        {
+            if (enchantments[i]->card->id == cardID)
+            {
+                enchantments.erase(enchantments.begin() + i);
+                break;
+            }
+        }
+    }
 }
 
 Aura::Aura(Aura& prototype, Entity& owner)
@@ -347,13 +380,50 @@ void Aura::RemoveInternal()
 void Aura::RenewAll()
 {
     auto Renew = [this](Entity* entity) {
+        const auto iter = std::find(m_appliedEntityIDs.begin(),
+                                    m_appliedEntityIDs.end(), entity->id);
+
         if (condition->Evaluate(entity))
         {
-            if (!entity->id)
+            if (iter == m_appliedEntityIDs.end())
             {
+                Apply(entity);
+            }
+        }
+        else
+        {
+            if (iter != m_appliedEntityIDs.end())
+            {
+                Disapply(entity);
             }
         }
     };
+
+    switch (m_type)
+    {
+        case AuraType::FIELD:
+            m_owner->owner->GetFieldZone().ForEach(Renew);
+            break;
+        case AuraType::HANDS:
+            m_owner->owner->GetHandZone().ForEach(Renew);
+            m_owner->owner->opponent->GetHandZone().ForEach(Renew);
+            break;
+        case AuraType::WEAPON:
+            if (!m_owner->owner->GetHero()->HasWeapon())
+            {
+                break;
+            }
+            Renew(m_owner->owner->GetHero()->weapon);
+            break;
+        case AuraType::HERO:
+            Renew(m_owner->owner->GetHero());
+            break;
+        case AuraType::SELF:
+            Renew(m_owner);
+            break;
+        default:
+            throw std::runtime_error("Aura::RenewAll() - Invalid aura type!");
+    }
 }
 
 AuraType Aura::GetAuraType() const
