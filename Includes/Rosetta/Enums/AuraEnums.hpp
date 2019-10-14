@@ -28,6 +28,16 @@ enum class AuraType
               //!< hand.
     ADAPTIVE  //!< This type of aura is influenced by other factors in game.
 };
+
+//! \brief An enumerator for identifying instruction of aura update.
+enum class AuraInstruction
+{
+    INVALID,
+    ADD,
+    ADD_ALL,
+    REMOVE,
+    REMOVE_ALL
+};
 }  // namespace RosettaStone
 
 #endif  // ROSETTASTONE_AURA_ENUMS_HPP
