@@ -38,17 +38,46 @@ void Aura::Update()
         addAllProcessed = true;
     }
 
-    UpdateInternal();
+    while (!m_auraUpdateInstQueue.empty())
+    {
+        const AuraUpdateInstruction inst = m_auraUpdateInstQueue.top();
+        m_auraUpdateInstQueue.pop();
+
+        switch (inst.instruction)
+        {
+            case AuraInstruction::ADD:
+                if (!addAllProcessed)
+                {
+                    Apply(inst.source);
+                }
+                break;
+            case AuraInstruction::ADD_ALL:
+                addAllProcessed = true;
+                UpdateInternal();
+                break;
+            case AuraInstruction::REMOVE:
+                Disapply(inst.source);
+                break;
+            case AuraInstruction::REMOVE_ALL:
+                RemoveInternal();
+                break;
+            default:
+                throw std::invalid_argument(
+                    "Aura::Update() - Invalid aura instruction!");
+        }
+    }
 }
 
 void Aura::Activate(Entity* owner, bool cloning)
 {
     if (m_effects.empty())
     {
-        m_effects = card->power.GetEnchant()->effects;
+        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
     auto instance = new Aura(*this, *owner);
+
+    AddToGame(*owner, *instance);
 
     owner->owner->GetGame()->auras.emplace_back(instance);
     owner->onGoingEffect = instance;
@@ -219,9 +248,23 @@ Aura::Aura(Aura& prototype, Entity& owner)
       m_owner(&owner),
       m_effects(prototype.m_effects),
       m_turnOn(prototype.m_turnOn),
-      m_enchantmentID(prototype.m_enchantmentID)
+      m_enchantmentCard(prototype.m_enchantmentCard)
 {
-    // Do nothing
+    if (!prototype.m_auraUpdateInstQueue.empty())
+    {
+        m_auraUpdateInstQueue = prototype.m_auraUpdateInstQueue;
+    }
+}
+
+void Aura::AddToGame(Entity& owner, Aura& aura)
+{
+    owner.owner->GetGame()->auras.emplace_back(&aura);
+    owner.onGoingEffect = &aura;
+
+    switch (aura.GetAuraType())
+    {
+
+    }
 }
 
 void Aura::AddToField()
@@ -422,7 +465,8 @@ void Aura::RenewAll()
             Renew(m_owner);
             break;
         default:
-            throw std::runtime_error("Aura::RenewAll() - Invalid aura type!");
+            throw std::invalid_argument(
+                "Aura::RenewAll() - Invalid aura type!");
     }
 }
 

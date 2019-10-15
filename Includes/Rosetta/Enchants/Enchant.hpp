@@ -60,7 +60,7 @@ class Enchant
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     virtual void ActivateTo(Entity* entity, int num1 = 0, int num2 = -1);
 
-    std::vector<Effect*> effects;
+    std::vector<IEffect*> effects;
 
     bool useScriptTag = false;
     bool isOneTurnEffect = false;

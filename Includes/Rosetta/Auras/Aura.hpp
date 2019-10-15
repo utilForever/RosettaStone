@@ -6,12 +6,14 @@
 #ifndef ROSETTASTONE_AURA_HPP
 #define ROSETTASTONE_AURA_HPP
 
+#include <Rosetta/Auras/AuraUpdateInstruction.hpp>
 #include <Rosetta/Auras/IAura.hpp>
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 
+#include <queue>
 #include <string>
 
 namespace RosettaStone
@@ -51,7 +53,7 @@ class Aura : public IAura
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of aura.
     //! \param cloning The flag to indicate that it is cloned.
-    virtual void Activate(Entity* owner, bool cloning = false);
+    void Activate(Entity* owner, bool cloning = false) override;
 
     //! Removes this effect from the game to stop affecting entities.
     void Remove() override;
@@ -93,8 +95,16 @@ class Aura : public IAura
     //! \param owner An owner of aura.
     Aura(Aura& prototype, Entity& owner);
 
+    //! Adds aura to the game.
+    //! \param owner An owner of aura.
+    //! \param aura The dynamically allocated Aura instance.
+    void AddToGame(Entity& owner, Aura& aura);
+
     AuraType m_type = AuraType::INVALID;
     Entity* m_owner = nullptr;
+
+    std::priority_queue<AuraUpdateInstruction> m_auraUpdateInstQueue;
+    std::vector<int> m_appliedEntityIDs;
 
     std::vector<IEffect*> m_effects;
 
@@ -115,7 +125,6 @@ class Aura : public IAura
 
     Card* m_enchantmentCard = nullptr;
 
-    std::vector<int> m_appliedEntityIDs;
     std::vector<Entity*> m_tempList;
 };
 }  // namespace RosettaStone
