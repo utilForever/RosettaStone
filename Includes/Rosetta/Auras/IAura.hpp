@@ -30,7 +30,8 @@ class IAura
 
     //! Activates this effect and add an instance to the game of given entity.
     //! \param owner The entity who owns this effect.
-    virtual void Activate(Entity* owner) = 0;
+    //! \param cloning The flag to indicate that it is cloned.
+    virtual void Activate(Entity* owner, bool cloning) = 0;
 
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
