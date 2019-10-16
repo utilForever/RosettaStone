@@ -263,14 +263,6 @@ void Aura::AddToGame(Entity& owner, Aura& aura)
 
     switch (aura.GetAuraType())
     {
-
-    }
-}
-
-void Aura::AddToField()
-{
-    switch (m_type)
-    {
         case AuraType::ADJACENT:
         case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
@@ -279,9 +271,20 @@ void Aura::AddToField()
         case AuraType::HAND:
             m_owner->owner->GetHandZone().auras.emplace_back(this);
             break;
+        case AuraType::ENEMY_HAND:
+            m_owner->owner->opponent->GetHandZone().auras.emplace_back(this);
+            break;
+        case AuraType::HANDS:
+            m_owner->owner->GetHandZone().auras.emplace_back(this);
+            m_owner->owner->opponent->GetHandZone().auras.emplace_back(this);
+            break;
+        case AuraType::FIELD_AND_HAND:
+            m_owner->owner->GetFieldZone().auras.emplace_back(this);
+            m_owner->owner->GetHandZone().auras.emplace_back(this);
+            break;
         default:
             throw std::invalid_argument(
-                "Aura::AddToField() - Invalid aura type!");
+                "Aura::AddToGame() - Invalid aura type!");
     }
 }
 
