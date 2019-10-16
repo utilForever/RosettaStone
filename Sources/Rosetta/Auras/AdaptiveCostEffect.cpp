@@ -14,9 +14,7 @@ namespace RosettaStone
 {
 AdaptiveCostEffect::AdaptiveCostEffect(std::function<int(Entity*)> costFunc,
                                        EffectOperator effectOp)
-    : Aura(AuraType::ADAPTIVE, std::vector<Effect*>{}),
-      m_costFunc(std::move(costFunc)),
-      m_effectOp(effectOp)
+    : m_costFunc(std::move(costFunc)), m_effectOp(effectOp)
 {
     // Do nothing
 }
@@ -91,7 +89,6 @@ void AdaptiveCostEffect::Clone(Entity* clone)
 
 AdaptiveCostEffect::AdaptiveCostEffect(AdaptiveCostEffect& prototype,
                                        Entity& owner)
-    : Aura(prototype, owner)
 {
     m_costFunc = prototype.m_costFunc;
     m_effectOp = prototype.m_effectOp;

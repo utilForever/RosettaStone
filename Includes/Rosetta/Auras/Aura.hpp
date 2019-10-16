@@ -8,16 +8,16 @@
 
 #include <Rosetta/Auras/AuraUpdateInstruction.hpp>
 #include <Rosetta/Auras/IAura.hpp>
-#include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
+#include <Rosetta/Commons/PriorityQueue.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 
-#include <queue>
 #include <string>
 
 namespace RosettaStone
 {
+class Card;
 class Entity;
 
 //!
@@ -62,10 +62,6 @@ class Aura : public IAura
     //! \param clone The entity to clone aura effect.
     void Clone(Entity* clone) override;
 
-    //! Removes entity to update a list of entities.
-    //! \param entity An entity to remove.
-    void RemoveEntity(Entity* entity);
-
     //! Applies aura's effect(s) to target entity.
     //! \param entity An entity to apply aura's effect(s).
     void Apply(Entity* entity);
@@ -73,18 +69,6 @@ class Aura : public IAura
     //! Disapplies aura's effect(s) to target entity.
     //! \param entity An entity to disapply aura's effect(s).
     void Disapply(Entity* entity);
-
-    //! Returns the type of aura.
-    //! \return The type of aura.
-    AuraType GetAuraType() const;
-
-    //! Returns the effect of aura.
-    //! \return The effect of aura.
-    std::vector<Effect*> GetEffects() const;
-
-    //! Returns the applied entities affected by the aura.
-    //! \return The applied entities affected by the aura.
-    std::vector<Entity*> GetAppliedEntities() const;
 
     SelfCondition* condition = nullptr;
     bool restless = false;
@@ -103,17 +87,14 @@ class Aura : public IAura
     AuraType m_type = AuraType::INVALID;
     Entity* m_owner = nullptr;
 
-    std::priority_queue<AuraUpdateInstruction> m_auraUpdateInstQueue;
-    std::vector<int> m_appliedEntityIDs;
+    PriorityQueue<AuraUpdateInstruction> m_auraUpdateInstQueue;
+    std::vector<Entity*> m_appliedEntities;
 
     std::vector<IEffect*> m_effects;
 
     bool m_turnOn = true;
 
  private:
-    //! Adds aura to battlefield.
-    void AddToField();
-
     //! Internal method of Update().
     void UpdateInternal();
 
@@ -124,8 +105,6 @@ class Aura : public IAura
     void RenewAll();
 
     Card* m_enchantmentCard = nullptr;
-
-    std::vector<Entity*> m_tempList;
 };
 }  // namespace RosettaStone
 

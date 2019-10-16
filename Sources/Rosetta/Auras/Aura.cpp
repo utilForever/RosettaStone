@@ -38,10 +38,9 @@ void Aura::Update()
         addAllProcessed = true;
     }
 
-    while (!m_auraUpdateInstQueue.empty())
+    while (!m_auraUpdateInstQueue.IsEmpty())
     {
-        const AuraUpdateInstruction inst = m_auraUpdateInstQueue.top();
-        m_auraUpdateInstQueue.pop();
+        const AuraUpdateInstruction inst = m_auraUpdateInstQueue.Pop();
 
         switch (inst.instruction)
         {
@@ -82,96 +81,71 @@ void Aura::Activate(Entity* owner, bool cloning)
     owner->owner->GetGame()->auras.emplace_back(instance);
     owner->onGoingEffect = instance;
 
-    if (!cloning)
+    if (!cloning && !restless)
     {
-        instance->AddToField();
-    }
-
-    if (cloning)
-    {
-        return;
-    }
-
-    switch (m_type)
-    {
-        case AuraType::FIELD:
-        {
-            for (auto& minion : owner->owner->GetFieldZone().GetAll())
-            {
-                if (condition == nullptr || condition->Evaluate(minion))
-                {
-                    if (card->power.GetTrigger())
-                    {
-                        const auto enchantment = Enchantment::GetInstance(
-                            *owner->owner, card, minion);
-                        card->power.GetTrigger()->Activate(enchantment);
-                    }
-                }
-
-                instance->m_tempList.emplace_back(minion);
-            }
-            break;
-        }
-        case AuraType::FIELD_EXCEPT_SOURCE:
-        {
-            for (auto& minion : owner->owner->GetFieldZone().GetAll())
-            {
-                if (minion == owner)
-                {
-                    continue;
-                }
-
-                if (condition == nullptr || condition->Evaluate(minion))
-                {
-                    if (card->power.GetTrigger())
-                    {
-                        const auto enchantment = Enchantment::GetInstance(
-                            *owner->owner, card, minion);
-                        card->power.GetTrigger()->Activate(enchantment);
-                    }
-                }
-
-                instance->m_tempList.emplace_back(minion);
-            }
-            break;
-        }
-        default:
-            break;
+        instance->m_auraUpdateInstQueue.Push(
+            AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
     }
 }
 
 void Aura::Remove()
 {
     m_turnOn = false;
-    m_toBeUpdated = true;
+    m_auraUpdateInstQueue.Push(
+        AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
     m_owner->onGoingEffect = nullptr;
-}
 
-void Aura::RemoveEntity(Entity* entity)
-{
-    if (entity == m_owner)
+    switch (m_type)
     {
-        Remove();
+        case AuraType::ADJACENT:
+        case AuraType::FIELD:
+        case AuraType::FIELD_EXCEPT_SOURCE:
+        {
+            EraseIf(m_owner->owner->GetFieldZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            break;
+        }
+        case AuraType::HAND:
+        {
+            EraseIf(m_owner->owner->GetHandZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            break;
+        }
+        case AuraType::ENEMY_HAND:
+        {
+            EraseIf(m_owner->owner->opponent->GetHandZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            break;
+        }
+        case AuraType::HANDS:
+        {
+            EraseIf(m_owner->owner->GetHandZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            EraseIf(m_owner->owner->opponent->GetHandZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            break;
+        }
+        case AuraType::FIELD_AND_HAND:
+        {
+            EraseIf(m_owner->owner->GetFieldZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            EraseIf(m_owner->owner->GetHandZone().auras,
+                    [this](Aura* aura) { return aura == this; });
+            break;
+        }
+        default:
+            throw std::invalid_argument("Aura::Remove() - Invalid aura type!");
     }
-    else
+
+    if (auto enchantment = dynamic_cast<Enchantment*>(m_owner))
     {
-        if (m_appliedEntities.empty())
-        {
-            return;
-        }
-        const auto iter = std::find(m_appliedEntities.cbegin(),
-                                    m_appliedEntities.cend(), entity);
-        if (iter != m_appliedEntities.end())
-        {
-            m_appliedEntities.erase(iter);
-        }
+        enchantment->Remove();
     }
 }
 
 void Aura::Clone(Entity* clone)
 {
     Activate(clone, true);
-    dynamic_cast<Aura*>(clone->onGoingEffect)->SetToBeUpdated(m_toBeUpdated);
 }
 
 void Aura::Apply(Entity* entity)
@@ -202,17 +176,17 @@ void Aura::Apply(Entity* entity)
         }
     }
 
-    m_appliedEntityIDs.emplace_back(entity->id);
+    m_appliedEntities.emplace_back(entity);
 }
 
 void Aura::Disapply(Entity* entity)
 {
-    const auto iter = std::find(m_appliedEntityIDs.begin(),
-                                m_appliedEntityIDs.end(), entity->id);
+    const auto iter =
+        std::find(m_appliedEntities.begin(), m_appliedEntities.end(), entity);
 
-    if (iter != m_appliedEntityIDs.end())
+    if (iter != m_appliedEntities.end())
     {
-        m_appliedEntityIDs.erase(iter);
+        m_appliedEntities.erase(iter);
     }
     else
     {
@@ -250,7 +224,7 @@ Aura::Aura(Aura& prototype, Entity& owner)
       m_turnOn(prototype.m_turnOn),
       m_enchantmentCard(prototype.m_enchantmentCard)
 {
-    if (!prototype.m_auraUpdateInstQueue.empty())
+    if (!prototype.m_auraUpdateInstQueue.IsEmpty())
     {
         m_auraUpdateInstQueue = prototype.m_auraUpdateInstQueue;
     }
@@ -261,7 +235,7 @@ void Aura::AddToGame(Entity& owner, Aura& aura)
     owner.owner->GetGame()->auras.emplace_back(&aura);
     owner.onGoingEffect = &aura;
 
-    switch (aura.GetAuraType())
+    switch (aura.m_type)
     {
         case AuraType::ADJACENT:
         case AuraType::FIELD:
@@ -290,155 +264,110 @@ void Aura::AddToGame(Entity& owner, Aura& aura)
 
 void Aura::UpdateInternal()
 {
-    if (m_turnOn)
+    if (!m_turnOn)
     {
-        if (!m_tempList.empty())
+        return;
+    }
+
+    switch (m_type)
+    {
+        case AuraType::ADJACENT:
         {
-            for (auto& temp : m_tempList)
+            auto& field = m_owner->owner->GetFieldZone();
+            if (field.GetCount() == 1)
             {
-                Apply(temp);
+                return;
             }
 
-            m_tempList.clear();
+            const int pos = m_owner->GetZonePosition();
+            if (pos > 0)
+            {
+                Apply(field[pos - 1]);
+            }
+            if (pos < m_owner->owner->GetFieldZone().GetCount() - 1)
+            {
+                Apply(field[pos + 1]);
+            }
+
+            break;
         }
-
-        switch (m_type)
-        {
-            case AuraType::ADJACENT:
+        case AuraType::FIELD:
+            for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
             {
-                const int pos = m_owner->GetZonePosition();
-                auto& field = m_owner->owner->GetFieldZone();
-
-                const int entitySize =
-                    static_cast<int>(m_appliedEntities.size());
-                for (int i = entitySize - 1; i >= 0; --i)
-                {
-                    Entity* entity = m_appliedEntities[i];
-
-                    if (m_owner->zone == entity->zone &&
-                        std::abs(pos - entity->GetZonePosition()) == 1)
-                    {
-                        continue;
-                    }
-
-                    for (auto& effect : m_effects)
-                    {
-                        effect->Remove(*entity->auraEffects);
-                    }
-
-                    auto iter = std::find(m_appliedEntities.begin(),
-                                          m_appliedEntities.end(), entity);
-                    if (iter != m_appliedEntities.end())
-                    {
-                        m_appliedEntities.erase(iter);
-                    }
-                }
-
-                if (pos > 0)
-                {
-                    Apply(field[pos - 1]);
-                }
-                if (pos < m_owner->owner->GetFieldZone().GetCount() - 1 &&
-                    m_owner->owner->GetFieldZone().GetCount() > pos)
-                {
-                    Apply(field[pos + 1]);
-                }
-
-                break;
+                Apply(minion);
             }
-            case AuraType::FIELD:
-                for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
+            break;
+        case AuraType::FIELD_EXCEPT_SOURCE:
+        {
+            for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
+            {
+                if (minion != m_owner)
                 {
                     Apply(minion);
                 }
-                break;
-            case AuraType::FIELD_EXCEPT_SOURCE:
-            {
-                for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
-                {
-                    if (minion != m_owner)
-                    {
-                        Apply(minion);
-                    }
-                }
-                break;
             }
-            case AuraType::HAND:
-            {
-                for (auto& card : m_owner->owner->GetHandZone().GetAll())
-                {
-                    Apply(card);
-                }
-                break;
-            }
-            default:
-                throw std::invalid_argument(
-                    "Aura::UpdateInternal() - Invalid aura type!");
+            break;
         }
-
-        if (!restless)
+        case AuraType::HAND:
         {
-            m_toBeUpdated = false;
+            for (auto& card : m_owner->owner->GetHandZone().GetAll())
+            {
+                Apply(card);
+            }
+            break;
         }
-    }
-    else
-    {
-        RemoveInternal();
+        default:
+            throw std::invalid_argument(
+                "Aura::UpdateInternal() - Invalid aura type!");
     }
 }
 
 void Aura::RemoveInternal()
 {
-    switch (m_type)
-    {
-        case AuraType::ADJACENT:
-        case AuraType::FIELD:
-        case AuraType::FIELD_EXCEPT_SOURCE:
-        {
-            EraseIf(m_owner->owner->GetFieldZone().auras,
-                    [this](Aura* aura) { return aura == this; });
-            break;
-        }
-        case AuraType::HAND:
-        {
-            EraseIf(m_owner->owner->GetHandZone().auras,
-                    [this](Aura* aura) { return aura == this; });
-            break;
-        }
-        default:
-            throw std::invalid_argument(
-                "Aura::RemoveInternal() - Invalid aura type!");
-    }
-
     for (auto& entity : m_appliedEntities)
     {
         for (auto& effect : m_effects)
         {
-            effect->Remove(*entity->auraEffects);
+            effect->RemoveAuraFrom(entity);
         }
     }
 
     auto& auras = m_owner->owner->GetGame()->auras;
     const auto iter = std::find(auras.begin(), auras.end(), this);
     auras.erase(iter);
+
+    if (m_enchantmentCard != nullptr &&
+        m_enchantmentCard->power.GetTrigger() != nullptr)
+    {
+        for (auto& entity : m_appliedEntities)
+        {
+            std::vector<Enchantment*> enchantments =
+                entity->appliedEnchantments;
+
+            for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
+            {
+                enchantments.erase(enchantments.begin() + i);
+            }
+        }
+    }
 }
 
 void Aura::RenewAll()
 {
     auto Renew = [this](Entity* entity) {
-        const auto iter = std::find(m_appliedEntityIDs.begin(),
-                                    m_appliedEntityIDs.end(), entity->id);
+        const auto iter = std::find(m_appliedEntities.begin(),
+                                    m_appliedEntities.end(), entity);
 
         if (condition->Evaluate(entity))
         {
-            if (iter == m_appliedEntityIDs.end())
+            if (iter == m_appliedEntities.end())
             {
                 Apply(entity);
             }
         }
         else
         {
-            if (iter != m_appliedEntityIDs.end())
+            if (iter != m_appliedEntities.end())
             {
                 Disapply(entity);
             }
@@ -471,20 +400,5 @@ void Aura::RenewAll()
             throw std::invalid_argument(
                 "Aura::RenewAll() - Invalid aura type!");
     }
-}
-
-AuraType Aura::GetAuraType() const
-{
-    return m_type;
-}
-
-std::vector<Effect*> Aura::GetEffects() const
-{
-    return m_effects;
-}
-
-std::vector<Entity*> Aura::GetAppliedEntities() const
-{
-    return m_appliedEntities;
 }
 }  // namespace RosettaStone

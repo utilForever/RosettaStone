@@ -15,7 +15,7 @@ namespace RosettaStone
 //!
 //! Implementation of the specific effects of varying cost. e.g. Giants.
 //!
-class AdaptiveCostEffect : public Aura
+class AdaptiveCostEffect : public IAura
 {
  public:
     //! Constructs adaptive cost effect with given \p costFunc and \p effectOp.
@@ -49,6 +49,8 @@ class AdaptiveCostEffect : public Aura
     //! \param prototype An adaptive cost effect for prototype.
     //! \param owner An owner of adaptive cost effect.
     AdaptiveCostEffect(AdaptiveCostEffect& prototype, Entity& owner);
+
+    Entity* m_owner = nullptr;
 
     std::function<int(Entity*)> m_costFunc;
     EffectOperator m_effectOp;
