@@ -31,7 +31,7 @@ class PriorityQueue
 
         while (node->next != nullptr)
         {
-            if (node->next.priority <= priority)
+            if (node->next->priority <= priority)
             {
                 node = node->next;
             }
