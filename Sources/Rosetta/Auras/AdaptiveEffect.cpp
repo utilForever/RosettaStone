@@ -10,17 +10,16 @@
 
 namespace RosettaStone
 {
-AdaptiveEffect::AdaptiveEffect(SelfCondition* _condition,
-                               std::vector<GameTag> tags)
-    : Aura(AuraType::ADAPTIVE, std::vector<Effect*>{}),
-      m_tags(std::move(tags)),
-      m_lastValues(m_tags.size(), 0),
+AdaptiveEffect::AdaptiveEffect(SelfCondition* condition, GameTag tag)
+    : m_condition(condition),
+      m_tag(tag),
+      m_operator(EffectOperator::SET),
       m_isSwitching(true)
 {
-    condition = _condition;
+    // Do nothing
 }
 
-void AdaptiveEffect::Activate(Entity* owner, bool)
+void AdaptiveEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
 {
     auto instance = new AdaptiveEffect(*this, *owner);
 
@@ -60,16 +59,17 @@ void AdaptiveEffect::Clone(Entity* clone)
 }
 
 AdaptiveEffect::AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner)
-    : Aura(prototype, owner)
 {
-    if (prototype.m_isSwitching)
-    {
-        condition = prototype.condition;
-        m_tags = prototype.m_tags;
-        m_lastValues = prototype.m_lastValues;
-        m_isSwitching = true;
+    m_owner = &owner;
 
-        return;
-    }
+    m_condition = prototype.m_condition;
+    m_valueFunc = prototype.m_valueFunc;
+
+    m_tag = prototype.m_tag;
+    m_operator = prototype.m_operator;
+
+    m_lastValue = prototype.m_lastValue;
+    m_turnOn = prototype.m_turnOn;
+    m_isSwitching = prototype.m_isSwitching;
 }
 }  // namespace RosettaStone

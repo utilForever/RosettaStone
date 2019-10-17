@@ -16,18 +16,19 @@ namespace RosettaStone
 //! Effects of this kind of Auras are influenced by other factors in game, in
 //! real time. e.g. Lightspawn, Southsea Deckhand.
 //!
-class AdaptiveEffect : public Aura
+class AdaptiveEffect : public IAura
 {
  public:
-    //! Constructs adaptive effect with given \p _condition and \p tags.
-    //! \param _condition The specific condition.
-    //! \param tags The given tags.
-    AdaptiveEffect(SelfCondition* _condition, std::vector<GameTag> tags);
+    //! Constructs adaptive effect with given \p condition and \p tag.
+    //! \param condition The specific condition.
+    //! \param tag The game tag.
+    AdaptiveEffect(SelfCondition* condition, GameTag tag);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive effect.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner, bool cloning = false) override;
+    void Activate(Entity* owner,
+                  [[maybe_unused]] bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
     void Update() override;
@@ -45,9 +46,16 @@ class AdaptiveEffect : public Aura
     //! \param owner An owner of adaptive effect.
     AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner);
 
-    std::vector<GameTag> m_tags;
-    std::vector<int> m_lastValues;
+    Entity* m_owner = nullptr;
 
+    SelfCondition* m_condition = nullptr;
+    std::function<int(Entity*)> m_valueFunc;
+
+    GameTag m_tag;
+    EffectOperator m_operator;
+
+    int m_lastValue = 0;
+    bool m_turnOn = true;
     bool m_isSwitching = false;
 };
 }  // namespace RosettaStone
