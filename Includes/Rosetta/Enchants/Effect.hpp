@@ -72,7 +72,7 @@ class Effect : public IEffect
     //! Creates a new Effect having changed amount of \p newValue.
     //! \param newValue A value to change.
     //! \return A new Effect having changed amount.
-    Effect* ChangeValue(int newValue) const override;
+    IEffect* ChangeValue(int newValue) const override;
 
     //! Returns the value of game tag.
     //! \return The value of game tag.
