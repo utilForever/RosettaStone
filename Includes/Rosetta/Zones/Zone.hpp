@@ -449,11 +449,6 @@ class PositioningZone : public LimitedZone<T>
             entity.activatedTrigger->Remove();
         }
 
-        for (std::size_t i = 0; i < auras.size(); ++i)
-        {
-            auras[i]->RemoveEntity(&entity);
-        }
-
         return entity;
     }
 
@@ -496,11 +491,6 @@ class PositioningZone : public LimitedZone<T>
         {
             dynamic_cast<Entity*>(LimitedZone<T>::m_entities[i])
                 ->SetZonePosition(i);
-        }
-
-        for (std::size_t i = 0; i < auras.size(); ++i)
-        {
-            auras[i]->SetToBeUpdated(true);
         }
     }
 };
