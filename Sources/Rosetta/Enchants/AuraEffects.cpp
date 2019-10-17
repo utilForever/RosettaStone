@@ -5,16 +5,30 @@
 
 #include <Rosetta/Enchants/AuraEffects.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone
 {
-AuraEffects::AuraEffects(Entity* owner) : m_owner(owner)
+AuraEffects::AuraEffects(CardType type) : m_type(type)
 {
-    // Do nothing
-}
-
-Entity* AuraEffects::GetOwner() const
-{
-    return m_owner;
+    switch (type)
+    {
+        case CardType::HERO:
+            m_data = new int[AURA_EFFECT_HERO_SIZE];
+            break;
+        case CardType::MINION:
+            m_data = new int[AURA_EFFECT_MINION_SIZE];
+            break;
+        case CardType::WEAPON:
+            m_data = new int[AURA_EFFECT_WEAPON_SIZE];
+            break;
+        case CardType::SPELL:
+            m_data = new int[AURA_EFFECT_CARD_SIZE];
+            break;
+        default:
+            throw std::invalid_argument(
+                "AuraEffects::AuraEffects() - Invalid card type!");
+    }
 }
 
 int AuraEffects::GetGameTag(GameTag tag) const

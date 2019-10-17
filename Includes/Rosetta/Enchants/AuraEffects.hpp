@@ -14,6 +14,12 @@ namespace RosettaStone
 {
 class Entity;
 
+constexpr int AURA_EFFECT_CARD_SIZE = 2;
+constexpr int AURA_EFFECT_WEAPON_SIZE = AURA_EFFECT_CARD_SIZE + 1;
+constexpr int AURA_EFFECT_CHARACTER_SIZE = AURA_EFFECT_CARD_SIZE + 2;
+constexpr int AURA_EFFECT_HERO_SIZE = AURA_EFFECT_CHARACTER_SIZE + 3;
+constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 7;
+
 //!
 //! \brief AuraEffects class.
 //!
@@ -23,13 +29,9 @@ class Entity;
 class AuraEffects
 {
  public:
-    //! Constructs aura effects with given \p owner.
-    //! \param owner The owner of aura effects.
-    explicit AuraEffects(Entity* owner);
-
-    //! Returns the owner of aura effects.
-    //! \return The owner of aura effects.
-    Entity* GetOwner() const;
+    //! Constructs aura effects with given \p type.
+    //! \param type The type of the card.
+    explicit AuraEffects(CardType type);
 
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
@@ -42,7 +44,8 @@ class AuraEffects
     void SetGameTag(GameTag tag, int value);
 
  private:
-    Entity* m_owner = nullptr;
+    CardType m_type = CardType::INVALID;
+    int* m_data = nullptr;
 
     std::map<GameTag, int> m_gameTags;
 };
