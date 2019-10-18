@@ -23,34 +23,74 @@ void AdaptiveEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
 {
     auto instance = new AdaptiveEffect(*this, *owner);
 
+    if (!m_isSwitching)
+    {
+        if (const auto weapon = dynamic_cast<Weapon*>(owner); weapon)
+        {
+            if (weapon->owner->GetHero()->auraEffects != nullptr)
+            {
+                weapon->owner->GetHero()->auraEffects =
+                    new AuraEffects(CardType::HERO);
+            }
+        }
+        else if (owner->auraEffects == nullptr)
+        {
+            owner->auraEffects = new AuraEffects(CardType::MINION);
+        }
+    }
+
     owner->owner->GetGame()->auras.emplace_back(instance);
     owner->onGoingEffect = instance;
 }
 
 void AdaptiveEffect::Update()
 {
-    if (m_isSwitching)
+    if (m_turnOn)
     {
-        for (std::size_t i = 0; i < m_tags.size(); ++i)
+        int value;
+
+        if (m_isSwitching)
         {
-            const int val = condition->Evaluate(m_owner) ? 1 : 0;
-            if (m_lastValues[i] == val)
+            value = m_condition->Evaluate(m_owner) ? 1 : 0;
+
+            if (value == m_lastValue)
             {
-                continue;
+                return;
             }
 
-            Effect(m_tags[i], EffectOperator::SET, val).Apply(m_owner);
-            m_lastValues[i] = val;
+            Effect(m_tag, m_operator, m_lastValue).RemoveFrom(m_owner);
+            Effect(m_tag, m_operator, value).ApplyTo(m_owner);
         }
+        else
+        {
+            value = m_valueFunc(m_owner);
+
+            Effect(m_tag, m_operator, m_lastValue).RemoveFrom(m_owner);
+            Effect(m_tag, m_operator, value).ApplyTo(m_owner);
+        }
+
+        m_lastValue = value;
+    }
+    else
+    {
+        if (m_isSwitching)
+        {
+            Effect(m_tag, m_operator, m_lastValue).RemoveFrom(m_owner);
+        }
+        else
+        {
+            Effect(m_tag, m_operator, m_lastValue).RemoveAuraFrom(m_owner);
+        }
+
+        EraseIf(m_owner->owner->GetGame()->auras,
+                [this](IAura* aura) { return aura == this; });
     }
 }
 
 void AdaptiveEffect::Remove()
 {
     m_owner->onGoingEffect = nullptr;
-    auto& auras = m_owner->owner->GetGame()->auras;
-    const auto iter = std::find(auras.begin(), auras.end(), this);
-    auras.erase(iter);
+    m_turnOn = false;
 }
 
 void AdaptiveEffect::Clone(Entity* clone)
