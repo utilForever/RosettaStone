@@ -8,8 +8,8 @@
 
 #include <Rosetta/Auras/AuraUpdateInstruction.hpp>
 #include <Rosetta/Auras/IAura.hpp>
-#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Commons/PriorityQueue.hpp>
+#include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 
@@ -90,6 +90,7 @@ class Aura : public IAura
     PriorityQueue<AuraUpdateInstruction> m_auraUpdateInstQueue;
     std::vector<Entity*> m_appliedEntities;
 
+    Card* m_enchantmentCard = nullptr;
     std::vector<IEffect*> m_effects;
 
     bool m_turnOn = true;
@@ -103,8 +104,6 @@ class Aura : public IAura
 
     //! Renews the condition of the applied entities.
     void RenewAll();
-
-    Card* m_enchantmentCard = nullptr;
 };
 }  // namespace RosettaStone
 
