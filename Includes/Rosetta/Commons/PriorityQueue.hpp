@@ -66,6 +66,8 @@ class PriorityQueue
  private:
     struct Node
     {
+        Node() = default;
+
         Node(T _value, int _priority) : value(_value), priority(_priority)
         {
             // Do nothing

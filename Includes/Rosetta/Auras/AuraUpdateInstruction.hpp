@@ -19,6 +19,9 @@ class Entity;
 //!
 struct AuraUpdateInstruction
 {
+    //! Default constructor.
+    AuraUpdateInstruction() = default;
+
     //! Constructs aura update instruction with given \p _source and
     //! \p _instruction.
     //! \param _source The source entity.
