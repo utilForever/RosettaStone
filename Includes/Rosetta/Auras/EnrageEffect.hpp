@@ -7,6 +7,7 @@
 #define ROSETTASTONE_ENRAGE_EFFECT_HPP
 
 #include <Rosetta/Auras/Aura.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 
 namespace RosettaStone
 {
@@ -23,8 +24,8 @@ class EnrageEffect : public Aura
  public:
     //! Constructs enrage effect with given \p type and \p effects.
     //! \param type The type of aura.
-    //! \param effects A list of effect.
-    EnrageEffect(AuraType type, std::vector<Effect*> effects);
+    //! \param enchantmentID The enchantment card ID.
+    EnrageEffect(AuraType type, std::string&& enchantmentID);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
@@ -45,6 +46,7 @@ class EnrageEffect : public Aura
     //! \param owner An owner of adaptive effect.
     EnrageEffect(EnrageEffect& prototype, Entity& owner);
 
+    Enchantment* m_curInstance = nullptr;
     Entity* m_target = nullptr;
     bool m_enraged = false;
 };

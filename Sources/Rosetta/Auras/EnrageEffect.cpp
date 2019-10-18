@@ -9,32 +9,18 @@
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Player.hpp>
 
-#include <stdexcept>
-
 namespace RosettaStone
 {
-EnrageEffect::EnrageEffect(AuraType type, std::vector<Effect*> effects)
-    : Aura(type, std::move(effects))
+EnrageEffect::EnrageEffect(AuraType type, std::string&& enchantmentID)
+    : Aura(type, std::move(enchantmentID))
 {
     // Do nothing
 }
 
 void EnrageEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
 {
-    if (owner == nullptr)
-    {
-        throw std::logic_error(
-            "EnrageEffect::Activate() - Owner can't be nullptr.");
-    }
-
-    const auto enchantment = dynamic_cast<Enchantment*>(owner);
-    if (enchantment)
-    {
-        owner = nullptr;
-        owner = enchantment->GetTarget();
-    }
-
     auto instance = new EnrageEffect(*this, *owner);
+
     owner->owner->GetGame()->auras.emplace_back(instance);
     owner->onGoingEffect = instance;
 }
@@ -42,11 +28,6 @@ void EnrageEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
 void EnrageEffect::Update()
 {
     const auto minion = dynamic_cast<Minion*>(m_owner);
-
-    if (m_type == AuraType::WEAPON)
-    {
-        m_target = &minion->owner->GetWeapon();
-    }
 
     if (!m_turnOn)
     {
@@ -58,12 +39,46 @@ void EnrageEffect::Update()
             return;
         }
 
-        if (m_target != nullptr)
+        if (m_type == AuraType::WEAPON)
         {
-            for (auto& effect : m_effects)
+            if (!minion->owner->GetHero()->HasWeapon())
             {
-                effect->Remove(*m_target->auraEffects);
+                return;
             }
+
+            if (m_target != &minion->owner->GetWeapon())
+            {
+                return;
+            }
+        }
+
+        for (auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
+        {
+            effect->RemoveFrom(m_target);
+        }
+
+        if (m_curInstance != nullptr)
+        {
+            m_curInstance->Remove();
+        }
+    }
+
+    if (m_type == AuraType::WEAPON)
+    {
+        if (!minion->owner->GetHero()->HasWeapon())
+        {
+            return;
+        }
+
+        if (const auto weapon = &minion->owner->GetWeapon(); weapon)
+        {
+            if (m_curInstance != nullptr)
+            {
+                m_curInstance->Remove();
+            }
+
+            m_curInstance = nullptr;
+            m_target = weapon;
         }
     }
 
@@ -74,13 +89,7 @@ void EnrageEffect::Update()
             return;
         }
 
-        if (m_target != nullptr)
-        {
-            for (auto& effect : m_effects)
-            {
-                effect->Apply(*m_target->auraEffects);
-            }
-        }
+        Generic::AddEnchantment(m_enchantmentCard, minion, m_target, 0, 0, 0);
 
         m_enraged = true;
     }
@@ -91,12 +100,14 @@ void EnrageEffect::Update()
             return;
         }
 
-        if (m_target != nullptr)
+        for (auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
         {
-            for (auto& effect : m_effects)
-            {
-                effect->Remove(*m_target->auraEffects);
-            }
+            effect->RemoveFrom(minion);
+        }
+
+        if (m_curInstance != nullptr)
+        {
+            m_curInstance->Remove();
         }
 
         m_enraged = false;
