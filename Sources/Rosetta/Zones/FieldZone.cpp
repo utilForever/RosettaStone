@@ -38,11 +38,21 @@ void FieldZone::Add(Entity& entity, int zonePos)
     entity.orderOfPlay = entity.owner->GetGame()->GetNextOOP();
 
     ActivateAura(entity);
+
+    for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
+    {
+        adjacentAuras[i]->SetIsFieldChanged(true);
+    }
 }
 
 Entity& FieldZone::Remove(Entity& entity)
 {
     RemoveAura(entity);
+
+    for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
+    {
+        adjacentAuras[i]->SetIsFieldChanged(true);
+    }
 
     return PositioningZone::Remove(entity);
 }
@@ -70,6 +80,10 @@ void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
     for (auto& aura : auras)
     {
         aura->NotifyEntityAdded(&newEntity);
+    }
+    for (auto& aura : adjacentAuras)
+    {
+        aura->SetIsFieldChanged(true);
     }
 
     // Set exhausted by checking GameTag::CHARGE

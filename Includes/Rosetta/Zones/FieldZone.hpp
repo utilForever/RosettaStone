@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_FIELD_ZONE_HPP
 #define ROSETTASTONE_FIELD_ZONE_HPP
 
+#include <Rosetta/Auras/AdjacentAura.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Zones/Zone.hpp>
 
@@ -56,6 +57,8 @@ class FieldZone : public PositioningZone<Minion>
     //! \param character The character to find.
     //! \return The index of the minion if it is found, -1 otherwise.
     int FindIndex(Character& character) const;
+
+    std::vector<AdjacentAura*> adjacentAuras;
 
  private:
     static void ActivateAura(Entity& entity);
