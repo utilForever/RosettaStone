@@ -361,9 +361,8 @@ void Aura::RemoveInternal()
         }
     }
 
-    auto& auras = m_owner->owner->GetGame()->auras;
-    const auto iter = std::find(auras.begin(), auras.end(), this);
-    auras.erase(iter);
+    EraseIf(m_owner->owner->GetGame()->auras,
+            [this](IAura* aura) { return aura == this; });
 
     if (m_enchantmentCard != nullptr &&
         m_enchantmentCard->power.GetTrigger() != nullptr)
