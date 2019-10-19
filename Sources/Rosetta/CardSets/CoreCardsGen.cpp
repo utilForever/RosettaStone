@@ -238,8 +238,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
         }
 
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
-        Entity* totem =
-            Entity::GetFromCard(*entity->owner, totemCards[idx]);
+        Entity* totem = Entity::GetFromCard(*entity->owner, totemCards[idx]);
         entity->owner->GetFieldZone().Add(*dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
@@ -559,8 +558,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    }
     cards.emplace("DS1_175", power);
 
     // ---------------------------------------- MINION - HUNTER
@@ -577,8 +578,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD, "DS1_178e"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    }
     cards.emplace("DS1_178", power);
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1949,9 +1952,12 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD, "EX1_084e"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
-    power.GetAura()->restless = true;
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
+        aura->restless = true;
+    }
     cards.emplace("EX1_084", power);
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -2001,7 +2007,7 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     // Text: Has <b>Charge</b>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(std::vector<Effect*>{
+    power.AddEnchant(new Enchant(std::vector<IEffect*>{
         Effects::Charge,
         new Effect(GameTag::CANNOT_ATTACK_HEROES, EffectOperator::SET, 1) }));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
@@ -2543,8 +2549,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    }
     cards.emplace("EX1_508", power);
 
     // --------------------------------------- MINION - NEUTRAL

@@ -738,7 +738,10 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(1) }));
-    power.GetAura()->condition = new SelfCondition(SelfCondition::IsSpell());
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsSpell());
+    }
     cards.emplace("EX1_608", power);
 
     // ------------------------------------------ MINION - MAGE
@@ -1607,7 +1610,7 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, Power>& cards)
     // Text: One of your cards costs (3) less.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(std::vector<Effect*>{
+    power.AddEnchant(new Enchant(std::vector<IEffect*>{
         Effects::ReduceCost(3),
         new Effect(GameTag::DISPLAYED_CREATOR, EffectOperator::SET, 1) }));
     power.AddTrigger(new Trigger(TriggerType::PLAY_CARD));
@@ -2045,7 +2048,7 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(3) }));
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_393e"));
     cards.emplace("EX1_393e", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
@@ -2055,7 +2058,7 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     // Text: +6 Attack.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(6) }));
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_414e"));
     cards.emplace("EX1_414e", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
@@ -2141,9 +2144,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(
-        new AdaptiveEffect(new SelfCondition(SelfCondition::IsWeaponEquipped()),
-                           { GameTag::CHARGE }));
+    power.AddAura(new AdaptiveEffect(
+        new SelfCondition(SelfCondition::IsWeaponEquipped()), GameTag::CHARGE));
     cards.emplace("CS2_146", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2258,7 +2260,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddAura(new Aura(
         AuraType::HAND, { new Effect(GameTag::COST, EffectOperator::ADD, 3) }));
-    power.GetAura()->condition = new SelfCondition(SelfCondition::IsMinion());
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsMinion());
+    }
     cards.emplace("CS2_227", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2738,9 +2743,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(1) }));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::MinionsPlayedThisTurn(0));
-    power.GetAura()->restless = true;
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            new SelfCondition(SelfCondition::MinionsPlayedThisTurn(0));
+        aura->restless = true;
+    }
     cards.emplace("EX1_076", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3109,8 +3117,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_507e"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    }
     cards.emplace("EX1_507", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3389,8 +3400,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            new SelfCondition(SelfCondition::IsRace(Race::PIRATE));
+    }
     cards.emplace("NEW1_027", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3492,7 +3506,8 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: +2 Attack from Spiteful Smith.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::WEAPON, { Effects::AttackN(2) }));
+    power.AddEnchant(
+        new Enchant(new Effect(GameTag::ATK, EffectOperator::ADD, 2)));
     cards.emplace("CS2_221e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3537,7 +3552,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(5) }));
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_009e"));
     cards.emplace("EX1_009e", power);
 
     // ---------------------------------------- SPELL - NEUTRAL
@@ -3689,7 +3704,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF, { Effects::AttackN(3) }));
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_390e"));
     cards.emplace("EX1_390e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3702,8 +3717,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new EnrageEffect(AuraType::SELF,
-                                   { Effects::AttackN(1), Effects::Windfury }));
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_412e"));
     cards.emplace("EX1_412e", power);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3806,7 +3820,7 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // Text: +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(std::vector<Effect*>(
+    power.AddEnchant(new Enchant(std::vector<IEffect*>(
         { Effects::AttackN(1), Effects::DurabilityN(1) })));
     cards.emplace("NEW1_024o", power);
 
