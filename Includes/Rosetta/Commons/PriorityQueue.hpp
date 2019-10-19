@@ -58,6 +58,23 @@ class PriorityQueue
         return node->value;
     }
 
+    bool IsExist(T value)
+    {
+        Node* node = m_head->next;
+
+        while (node != nullptr)
+        {
+            if (node->value == value)
+            {
+                return true;
+            }
+
+            node = node->next;
+        }
+
+        return false;
+    }
+
     bool IsEmpty() const
     {
         return m_count == 0;
