@@ -28,6 +28,24 @@ Aura::Aura(AuraType type, std::string&& enchantmentID)
     // Do nothing
 }
 
+void Aura::Activate(Entity* owner, bool cloning)
+{
+    if (m_effects.empty())
+    {
+        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
+    }
+
+    auto instance = new Aura(*this, *owner);
+
+    AddToGame(*owner, *instance);
+
+    if (!cloning && !restless)
+    {
+        instance->m_auraUpdateInstQueue.Push(
+            AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
+    }
+}
+
 void Aura::Update()
 {
     bool addAllProcessed = false;
@@ -64,27 +82,6 @@ void Aura::Update()
                 throw std::invalid_argument(
                     "Aura::Update() - Invalid aura instruction!");
         }
-    }
-}
-
-void Aura::Activate(Entity* owner, bool cloning)
-{
-    if (m_effects.empty())
-    {
-        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
-    }
-
-    auto instance = new Aura(*this, *owner);
-
-    AddToGame(*owner, *instance);
-
-    owner->owner->GetGame()->auras.emplace_back(instance);
-    owner->onGoingEffect = instance;
-
-    if (!cloning && !restless)
-    {
-        instance->m_auraUpdateInstQueue.Push(
-            AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
     }
 }
 
@@ -215,14 +212,46 @@ void Aura::Disapply(Entity* entity)
     }
 }
 
+void Aura::NotifyEntityAdded(Entity* entity)
+{
+    if (!m_turnOn)
+    {
+        return;
+    }
+
+    const auto instruction =
+        AuraUpdateInstruction(entity, AuraInstruction::ADD);
+
+    if (!m_auraUpdateInstQueue.IsExist(instruction))
+    {
+        m_auraUpdateInstQueue.Push(instruction, 2);
+    }
+}
+
+void Aura::NotifyEntityRemoved(Entity* entity)
+{
+    if (!m_turnOn)
+    {
+        return;
+    }
+
+    if (entity == m_owner)
+    {
+        return;
+    }
+
+    m_auraUpdateInstQueue.Push(
+        AuraUpdateInstruction(entity, AuraInstruction::REMOVE), 1);
+}
+
 Aura::Aura(Aura& prototype, Entity& owner)
     : condition(prototype.condition),
       restless(prototype.restless),
       m_type(prototype.m_type),
       m_owner(&owner),
+      m_enchantmentCard(prototype.m_enchantmentCard),
       m_effects(prototype.m_effects),
-      m_turnOn(prototype.m_turnOn),
-      m_enchantmentCard(prototype.m_enchantmentCard)
+      m_turnOn(prototype.m_turnOn)
 {
     if (!prototype.m_auraUpdateInstQueue.IsEmpty())
     {

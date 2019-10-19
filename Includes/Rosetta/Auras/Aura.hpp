@@ -46,14 +46,14 @@ class Aura : public IAura
     //! Default virtual destructor.
     virtual ~Aura() = default;
 
+    //! Create new Aura instance to the owner's game.
+    //! \param owner The owner of aura.
+    //! \param cloning The flag to indicate that it is cloned.
+    void Activate(Entity* owner, bool cloning = false) override;
+
     //! Apply this aura to the target entities or remove this aura
     //! if the owner is nullified.
     void Update() override;
-
-    //! Create new Aura instance to the owner's game.
-    //! \param owner An owner of aura.
-    //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner, bool cloning = false) override;
 
     //! Removes this effect from the game to stop affecting entities.
     void Remove() override;
@@ -63,12 +63,22 @@ class Aura : public IAura
     void Clone(Entity* clone) override;
 
     //! Applies aura's effect(s) to target entity.
-    //! \param entity An entity to apply aura's effect(s).
+    //! \param entity The entity to apply aura's effect(s).
     void Apply(Entity* entity);
 
     //! Disapplies aura's effect(s) to target entity.
-    //! \param entity An entity to disapply aura's effect(s).
+    //! \param entity The entity to disapply aura's effect(s).
     void Disapply(Entity* entity);
+
+    //! Notifies this aura instance that the given entity is added to
+    //! the corresponding zone.
+    //! \param entity The entity to notify that it is added.
+    void NotifyEntityAdded(Entity* entity);
+
+    //! Notifies this aura instance that the given entity is removed from
+    //! the corresponding zone.
+    //! \param entity The entity to notify that it is removed.
+    void NotifyEntityRemoved(Entity* entity);
 
     SelfCondition* condition = nullptr;
     bool restless = false;
