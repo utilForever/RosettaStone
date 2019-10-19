@@ -412,6 +412,11 @@ class PositioningZone : public LimitedZone<T>
         LimitedZone<T>::Add(entity, zonePos);
 
         Reposition(zonePos);
+
+        for (int i = static_cast<int>(auras.size()) - 1; i >= 0; --i)
+        {
+            auras[i]->NotifyEntityAdded(&entity);
+        }
     }
 
     //! Removes the specified entity from this zone.
@@ -447,6 +452,11 @@ class PositioningZone : public LimitedZone<T>
         if (entity.activatedTrigger != nullptr)
         {
             entity.activatedTrigger->Remove();
+        }
+
+        for (int i = static_cast<int>(auras.size()) - 1; i >= 0; --i)
+        {
+            auras[i]->NotifyEntityRemoved(&entity);
         }
 
         return entity;
