@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Auras/EnrageEffect.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
@@ -89,7 +90,7 @@ void EnrageEffect::Update()
             return;
         }
 
-        Generic::AddEnchantment(m_enchantmentCard, minion, m_target, 0, 0, 0);
+        Generic::AddEnchantment(m_enchantmentCard, minion, m_target, 0, 0);
 
         m_enraged = true;
     }
