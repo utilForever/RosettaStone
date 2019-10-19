@@ -269,21 +269,21 @@ void Aura::AddToGame(Entity& owner, Aura& aura)
         case AuraType::ADJACENT:
         case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
-            m_owner->owner->GetFieldZone().auras.emplace_back(this);
+            owner.owner->GetFieldZone().auras.emplace_back(&aura);
             break;
         case AuraType::HAND:
-            m_owner->owner->GetHandZone().auras.emplace_back(this);
+            owner.owner->GetHandZone().auras.emplace_back(&aura);
             break;
         case AuraType::ENEMY_HAND:
-            m_owner->owner->opponent->GetHandZone().auras.emplace_back(this);
+            owner.owner->opponent->GetHandZone().auras.emplace_back(&aura);
             break;
         case AuraType::HANDS:
-            m_owner->owner->GetHandZone().auras.emplace_back(this);
-            m_owner->owner->opponent->GetHandZone().auras.emplace_back(this);
+            owner.owner->GetHandZone().auras.emplace_back(&aura);
+            owner.owner->opponent->GetHandZone().auras.emplace_back(&aura);
             break;
         case AuraType::FIELD_AND_HAND:
-            m_owner->owner->GetFieldZone().auras.emplace_back(this);
-            m_owner->owner->GetHandZone().auras.emplace_back(this);
+            owner.owner->GetFieldZone().auras.emplace_back(&aura);
+            owner.owner->GetHandZone().auras.emplace_back(&aura);
             break;
         default:
             throw std::invalid_argument(
