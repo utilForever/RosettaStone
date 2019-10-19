@@ -35,11 +35,6 @@ void FieldZone::Add(Entity& entity, int zonePos)
         entity.SetExhausted(true);
     }
 
-    for (auto& aura : auras)
-    {
-        aura->SetToBeUpdated(true);
-    }
-
     entity.orderOfPlay = entity.owner->GetGame()->GetNextOOP();
 
     ActivateAura(entity);
@@ -55,24 +50,26 @@ Entity& FieldZone::Remove(Entity& entity)
 void FieldZone::Replace(Entity& oldEntity, Entity& newEntity)
 {
     const int pos = oldEntity.GetZonePosition();
-    m_entities[pos] = dynamic_cast<Minion*>(&newEntity);
-    newEntity.SetZonePosition(pos);
-    newEntity.SetZoneType(m_type);
-    newEntity.zone = this;
 
     // Remove old entity
     RemoveAura(oldEntity);
     for (auto& aura : auras)
     {
-        aura->RemoveEntity(&oldEntity);
+        aura->NotifyEntityRemoved(&oldEntity);
     }
+    oldEntity.SetZonePosition(0);
+    oldEntity.owner->GetSetasideZone().Add(oldEntity);
 
     // Add new entity
     newEntity.orderOfPlay = newEntity.owner->GetGame()->GetNextOOP();
+    m_entities[pos] = dynamic_cast<Minion*>(&newEntity);
+    newEntity.SetZonePosition(pos);
+    newEntity.SetZoneType(m_type);
+    newEntity.zone = this;
     ActivateAura(newEntity);
     for (auto& aura : auras)
     {
-        aura->SetToBeUpdated(true);
+        aura->NotifyEntityAdded(&newEntity);
     }
 
     // Set exhausted by checking GameTag::CHARGE
