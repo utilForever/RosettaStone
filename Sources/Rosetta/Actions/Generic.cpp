@@ -5,6 +5,7 @@
 
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Commons/Constants.hpp>
+#include "Rosetta/Models/Enchantment.hpp"
 
 namespace RosettaStone::Generic
 {
@@ -30,6 +31,36 @@ void AddCardToHand(Player& player, Entity* entity)
 
     // Add card to hand
     player.GetHandZone().Add(*entity);
+}
+
+void AddEnchantment(Card* enchantmentCard, Entity* creator, Entity* target,
+                    int num1, int num2)
+{
+    Power power = enchantmentCard->power;
+
+    if (power.GetAura() != nullptr || power.GetTrigger() != nullptr ||
+        !power.GetDeathrattleTask().empty())
+    {
+        // Create Enchantment instance Only when it is needed.
+        // As an owner entity for auras, triggers or deathrattle tasks.
+        Enchantment* enchantment =
+            Enchantment::GetInstance(*creator->owner, enchantmentCard, target);
+
+        if (auto aura = power.GetAura(); aura)
+        {
+            aura->Activate(enchantment);
+        }
+
+        if (auto trigger = power.GetTrigger(); trigger)
+        {
+            trigger->Activate(enchantment);
+        }
+    }
+
+    if (auto enchant = power.GetEnchant(); enchant)
+    {
+        enchant->ActivateTo(target, num1, num2);
+    }
 }
 
 void ShuffleIntoDeck(Player& player, Entity* entity)
