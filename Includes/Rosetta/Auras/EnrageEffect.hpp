@@ -22,7 +22,7 @@ namespace RosettaStone
 class EnrageEffect : public Aura
 {
  public:
-    //! Constructs enrage effect with given \p type and \p effects.
+    //! Constructs enrage effect with given \p type and \p enchantmentID.
     //! \param type The type of aura.
     //! \param enchantmentID The enchantment card ID.
     EnrageEffect(AuraType type, std::string&& enchantmentID);
