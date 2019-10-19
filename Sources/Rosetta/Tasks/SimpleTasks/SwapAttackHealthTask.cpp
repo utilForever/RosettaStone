@@ -33,8 +33,8 @@ TaskStatus SwapAttackHealthTask::Impl(Player& player)
         const auto healthEffect =
             new Effect(GameTag::HEALTH, EffectOperator::SET, attack);
 
-        attackEffect->Apply(entity);
-        healthEffect->Apply(entity);
+        attackEffect->ApplyTo(entity);
+        healthEffect->ApplyTo(entity);
     }
 
     return TaskStatus::COMPLETE;

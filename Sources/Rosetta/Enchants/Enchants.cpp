@@ -14,7 +14,7 @@ namespace RosettaStone
 {
 Enchant* Enchants::GetEnchantFromText(const std::string& cardID)
 {
-    std::vector<Effect*> effects;
+    std::vector<IEffect*> effects;
     bool isOneTurn = false;
 
     static std::regex attackHealthRegex("\\+([[:digit:]]+)/\\+([[:digit:]]+)");

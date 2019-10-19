@@ -20,7 +20,7 @@ TaskStatus RemoveEnchantmentTask::Impl(Player& player)
     {
         for (auto& effect : enchantment->card->power.GetEnchant()->effects)
         {
-            effect->Remove(m_target);
+            effect->RemoveFrom(m_target);
         }
     }
 

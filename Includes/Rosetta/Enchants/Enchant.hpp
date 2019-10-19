@@ -43,7 +43,7 @@ class Enchant
     //! \param effect The effect of the card.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    Enchant(Effect* effect, bool _useScriptTag = false,
+    Enchant(IEffect* effect, bool _useScriptTag = false,
             bool _isOneTurnEffect = false);
 
     //! Constructs enchant with given \p _effects, \p _useScriptTag and
@@ -51,7 +51,7 @@ class Enchant
     //! \param _effects A list of effect.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    Enchant(std::vector<Effect*> _effects, bool _useScriptTag = false,
+    Enchant(std::vector<IEffect*> _effects, bool _useScriptTag = false,
             bool _isOneTurnEffect = false);
 
     //! Activates enchant to \p entity.
