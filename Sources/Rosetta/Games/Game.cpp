@@ -483,7 +483,7 @@ void Game::MainCleanUp()
         Entity* entity = effectPair.first;
         Effect* effect = effectPair.second;
 
-        effect->Remove(entity);
+        effect->RemoveFrom(entity);
         delete effect;
     }
     oneTurnEffects.clear();
