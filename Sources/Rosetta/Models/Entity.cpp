@@ -23,7 +23,6 @@ Entity::Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags)
     }
 
     id = tags[GameTag::ENTITY_ID];
-    auraEffects = new AuraEffects(this);
 }
 
 Entity::~Entity()
