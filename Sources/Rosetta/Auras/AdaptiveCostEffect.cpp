@@ -75,9 +75,8 @@ void AdaptiveCostEffect::Remove()
 {
     m_owner->onGoingEffect = nullptr;
 
-    auto& auras = m_owner->owner->GetGame()->auras;
-    const auto iter = std::find(auras.begin(), auras.end(), this);
-    auras.erase(iter);
+    EraseIf(m_owner->owner->GetGame()->auras,
+            [this](IAura* aura) { return aura == this; });
 
     m_owner->costManager->DeactivateAdaptiveEffect();
 }
