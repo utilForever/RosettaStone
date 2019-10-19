@@ -1993,7 +1993,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_414e")));
+    power.AddAura(new EnrageEffect(AuraType::SELF, "EX1_414e"));
     cards.emplace("EX1_414", power);
 
     // ----------------------------------------- SPELL - WARRIOR
@@ -2245,7 +2245,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("CS2_221e")));
+    power.AddAura(new EnrageEffect(AuraType::WEAPON, "CS2_221e"));
     cards.emplace("CS2_221", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3006,7 +3006,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::ADJACENT, "EX1_162o"));
+    power.AddAura(new AdjacentAura("EX1_162o"));
     cards.emplace("EX1_162", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3103,7 +3103,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - WINDFURY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(new Trigger(Triggers::EnrageTrigger("EX1_412e")));
+    power.AddAura(new EnrageEffect(AuraType::SELF, "EX1_412e"));
     cards.emplace("EX1_412", power);
 
     // --------------------------------------- MINION - NEUTRAL

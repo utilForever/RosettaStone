@@ -1555,7 +1555,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::ADJACENT, "EX1_565o"));
+    power.AddAura(new AdjacentAura("EX1_565o"));
     cards.emplace("EX1_565", power);
 
     // ---------------------------------------- MINION - SHAMAN
