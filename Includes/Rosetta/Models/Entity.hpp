@@ -90,7 +90,7 @@ class Entity
 
     //! Returns the value of cost.
     //! \return The value of cost.
-    int GetCost();
+    int GetCost() const;
 
     //! Sets the value of cost.
     //! \param cost The value of cost.
@@ -174,7 +174,6 @@ class Entity
     bool isDestroyed = false;
 
  protected:
-    std::optional<int> m_modifiedCost = std::nullopt;
     std::map<GameTag, int> m_gameTags;
 };
 }  // namespace RosettaStone

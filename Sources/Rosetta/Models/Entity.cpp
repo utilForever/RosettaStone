@@ -97,31 +97,22 @@ void Entity::SetZonePosition(int value)
     SetGameTag(GameTag::ZONE_POSITION, value + 1);
 }
 
-int Entity::GetCost()
+int Entity::GetCost() const
 {
+    const int value =
+        GetGameTag(GameTag::COST) < 0 ? 0 : GetGameTag(GameTag::COST);
+
     if (costManager != nullptr)
     {
-        if (m_modifiedCost.has_value())
-        {
-            return m_modifiedCost.value();
-        }
-
-        m_modifiedCost = GetGameTag(GameTag::COST);
-        return m_modifiedCost.value();
+        return costManager->GetCost(value);
     }
 
-    if (m_modifiedCost.has_value())
-    {
-        return m_modifiedCost < 0 ? 0 : m_modifiedCost.value();
-    }
-
-    m_modifiedCost = GetGameTag(GameTag::COST);
-    return m_modifiedCost.value();
+    return value;
 }
 
 void Entity::SetCost(int cost)
 {
-    m_modifiedCost = cost;
+    SetGameTag(GameTag::COST, cost);
 }
 
 bool Entity::IsExhausted() const
@@ -192,7 +183,7 @@ void Entity::Reset()
 void Entity::ResetCost()
 {
     costManager = nullptr;
-    m_modifiedCost = std::nullopt;
+    SetCost(card->gameTags[GameTag::COST]);
 
     if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(onGoingEffect);
         effect != nullptr)
