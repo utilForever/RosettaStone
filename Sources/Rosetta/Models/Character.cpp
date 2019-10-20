@@ -20,7 +20,9 @@ Character::Character(Player& _owner, Card* _card, std::map<GameTag, int> tags)
 
 int Character::GetAttack() const
 {
-    return GetGameTag(GameTag::ATK);
+    const int value = GetGameTag(GameTag::ATK);
+
+    return value < 0 ? 0 : value;
 }
 
 void Character::SetAttack(int attack)
@@ -45,7 +47,11 @@ int Character::GetDamage() const
 
 void Character::SetDamage(int damage)
 {
-    if (GetGameTag(GameTag::HEALTH) <= damage)
+    if (damage < 0)
+    {
+        damage = 0;
+    }
+    else if (GetGameTag(GameTag::HEALTH) <= damage)
     {
         Destroy();
     }
@@ -55,7 +61,7 @@ void Character::SetDamage(int damage)
 
 int Character::GetHealth() const
 {
-    return GetGameTag(GameTag::HEALTH) - GetGameTag(GameTag::DAMAGE);
+    return GetMaxHealth() - GetGameTag(GameTag::DAMAGE);
 }
 
 void Character::SetHealth(int health)
