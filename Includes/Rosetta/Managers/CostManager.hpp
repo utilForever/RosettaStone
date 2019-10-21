@@ -25,6 +25,10 @@ class CostManager
 
     int GetCost(int cost);
 
+    void AddCostAura(EffectOperator effectOp, int value);
+
+    void RemoveCostAura(EffectOperator effectOp, int value);
+
     void ActivateAdaptiveEffect(AdaptiveCostEffect* adaptiveCostEffect);
 
     void UpdateAdaptiveEffect(int value = -1);

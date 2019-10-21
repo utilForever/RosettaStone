@@ -3,7 +3,10 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Managers/CostManager.hpp>
+
+#include <stdexcept>
 
 namespace RosettaStone
 {
@@ -13,6 +16,49 @@ int CostManager::GetCost(int cost)
         m_toBeUpdated ? GetCostInternal(cost) : m_cachedValue.value();
 
     return finalCost > 0 ? finalCost : 0;
+}
+
+void CostManager::AddCostAura(EffectOperator effectOp, int value)
+{
+    m_costEffects.emplace_back(std::make_pair(effectOp, value));
+
+    switch (effectOp)
+    {
+        case EffectOperator::ADD:
+            m_cachedValue.value() += value;
+            break;
+        case EffectOperator::SUB:
+            m_cachedValue.value() -= value;
+            break;
+        case EffectOperator::SET:
+            m_cachedValue = value;
+            break;
+        default:
+            throw std::invalid_argument(
+                "CostManager::AddCostAura() - Invalid effect operator!");
+    }
+}
+
+void CostManager::RemoveCostAura(EffectOperator effectOp, int value)
+{
+    EraseIf(m_costEffects, [=](std::pair<EffectOperator, int> effect) {
+        return effectOp == effect.first && value == effect.second;
+    });
+    switch (effectOp)
+    {
+        case EffectOperator::ADD:
+            m_cachedValue.value() -= value;
+            break;
+        case EffectOperator::SUB:
+            m_cachedValue.value() += value;
+            break;
+        case EffectOperator::SET:
+            m_toBeUpdated = true;
+            break;
+        default:
+            throw std::invalid_argument(
+                "CostManager::RemoveCostAura() - Invalid effect operator!");
+    }
 }
 
 void CostManager::ActivateAdaptiveEffect(AdaptiveCostEffect* adaptiveCostEffect)
