@@ -13,15 +13,19 @@ namespace RosettaStone
 template <typename T = Entity>
 class Attr<T>
 {
+ public:
     virtual ~Attr() = default;
 
     virtual void Apply(T* entity, EffectOperator effectOp, int value) = 0;
 
-    virtual void ApplyAura(T* entity, EffectOperator effectOp, int value) = 0;
-
     virtual void Remove(T* entity, EffectOperator effectOp, int value) = 0;
 
+    virtual void ApplyAura(T* entity, EffectOperator effectOp, int value) = 0;
+
     virtual void RemoveAura(T* entity, EffectOperator effectOp, int value) = 0;
+
+ protected:
+    virtual int& GetAuraRef(AuraEffects* auraEffects) = 0;
 };
 }  // namespace RosettaStone
 
