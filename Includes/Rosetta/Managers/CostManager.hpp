@@ -35,10 +35,13 @@ class CostManager
 
     void DeactivateAdaptiveEffect();
 
+    void AddCostEnchantment(EffectOperator effectOp, int value);
+
  private:
     int GetCostInternal(int cost);
 
     std::vector<std::pair<EffectOperator, int>> m_costEffects;
+    std::vector<std::pair<EffectOperator, int>> m_costEnchantments;
 
     std::optional<int> m_cachedValue = std::nullopt;
     bool m_toBeUpdated = true;

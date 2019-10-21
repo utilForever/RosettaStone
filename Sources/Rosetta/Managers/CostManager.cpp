@@ -83,6 +83,27 @@ void CostManager::DeactivateAdaptiveEffect()
     m_adaptiveCostEffect = nullptr;
 }
 
+void CostManager::AddCostEnchantment(EffectOperator effectOp, int value)
+{
+    switch (effectOp)
+    {
+        case EffectOperator::ADD:
+            m_cachedValue.value() += value;
+            break;
+        case EffectOperator::SUB:
+            m_cachedValue.value() -= value;
+            break;
+        case EffectOperator::SET:
+            m_toBeUpdated = true;
+            break;
+        default:
+            throw std::invalid_argument(
+                "CostManager::AddCostEnchantment() - Invalid effect operator!");
+    }
+
+    m_costEnchantments.emplace_back(std::make_pair(effectOp, value));
+}
+
 int CostManager::GetCostInternal(int cost)
 {
     // 1. Get cost with enchantments first (cost)
