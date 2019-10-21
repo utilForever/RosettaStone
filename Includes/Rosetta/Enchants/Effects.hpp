@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_EFFECTS_HPP
 #define ROSETTASTONE_EFFECTS_HPP
 
+#include <Rosetta/Enchants/Attrs/Cost.hpp>
 #include <Rosetta/Enchants/Effect.hpp>
 
 namespace RosettaStone
@@ -87,7 +88,7 @@ class Effects
     //! \return A dynamically allocated Effect instance.
     static IEffect* ReduceCost(int n)
     {
-        return new Effect(GameTag::COST, EffectOperator::SUB, n);
+        return Cost::Effect(EffectOperator::SUB, n);
     }
 
     //! A minion ability which forces the opposing player to direct any
