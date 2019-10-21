@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_GENERIC_EFFECT_HPP
 #define ROSETTASTONE_GENERIC_EFFECT_HPP
 
-#include <Rosetta/Enchants/Attr.hpp>
+#include <Rosetta/Enchants/Attrs/Attr.hpp>
 #include <Rosetta/Enchants/IEffect.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Games/Game.hpp>
