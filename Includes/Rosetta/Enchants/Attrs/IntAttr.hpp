@@ -11,33 +11,31 @@
 namespace RosettaStone
 {
 template <typename T = Entity>
-class IntAttr<T> : public Attr<T>
+class IntAttr : public Attr<T>
 {
  public:
     virtual ~IntAttr() = default;
 
     void Apply(T* entity, EffectOperator effectOp, int value) override
     {
-        std::optional<int>& target = GetRef(entity);
+        const int target = GetValue(entity);
 
         if (effectOp == EffectOperator::SET)
         {
-            target = value;
+            SetValue(entity, value);
             return;
         }
-
-        const int baseValue = target.value_or(GetCardValue(entity));
 
         switch (effectOp)
         {
             case EffectOperator::ADD:
-                target = baseValue + value;
+                SetValue(entity, target + value);
                 break;
             case EffectOperator::SUB:
-                target = baseValue - value;
+                SetValue(entity, target - value);
                 break;
             case EffectOperator::MUL:
-                target = baseValue * value;
+                SetValue(entity, target * value);
                 break;
             default:
                 throw std::invalid_argument(
@@ -47,20 +45,15 @@ class IntAttr<T> : public Attr<T>
 
     void Remove(T* entity, EffectOperator effectOp, int value) override
     {
-        std::optional<int>& target = GetRef(entity);
-
-        if (!target.has_value())
-        {
-            return;
-        }
+        const int target = GetValue(entity);
 
         switch (effectOp)
         {
             case EffectOperator::ADD:
-                target.value() -= value;
+                SetValue(entity, target - value);
                 break;
             case EffectOperator::SUB:
-                target.value() += value;
+                SetValue(entity, target + value);
                 break;
             default:
                 throw std::invalid_argument(
@@ -77,40 +70,40 @@ class IntAttr<T> : public Attr<T>
             entity->auraEffects = auraEffects;
         }
 
-        int& target = Attr<T>::GetAuraRef(auraEffects);
+        const int target = Attr<T>::GetAuraValue(auraEffects);
 
         switch (effectOp)
         {
             case EffectOperator::ADD:
-                target += value;
+                Attr<T>::SetAuraValue(auraEffects, target + value);
                 break;
             case EffectOperator::SUB:
-                target -= value;
+                Attr<T>::SetAuraValue(auraEffects, target - value);
                 break;
             case EffectOperator::MUL:
-                target *= value;
+                Attr<T>::SetAuraValue(auraEffects, target * value);
                 break;
             case EffectOperator::SET:
-                GetRef(entity) = 0;
-                target = value;
+                SetValue(entity, 0);
+                Attr<T>::SetAuraValue(auraEffects, value);
                 break;
         }
     }
 
     void RemoveAura(T* entity, EffectOperator effectOp, int value) override
     {
-        int& target = Attr<T>::GetAuraRef(entity->auraEffects);
+        const int target = Attr<T>::GetAuraValue(entity->auraEffects);
 
         switch (effectOp)
         {
             case EffectOperator::ADD:
-                target -= value;
+                Attr<T>::SetAuraValue(entity->auraEffects, target - value);
                 break;
             case EffectOperator::SUB:
-                target += value;
+                Attr<T>::SetAuraValue(entity->auraEffects, target + value);
                 break;
             case EffectOperator::SET:
-                target -= value;
+                Attr<T>::SetAuraValue(entity->auraEffects, target - value);
                 break;
             default:
                 throw std::invalid_argument(
@@ -119,9 +112,9 @@ class IntAttr<T> : public Attr<T>
     }
 
  protected:
-    virtual std::optional<int>& GetRef(T* entity) = 0;
+    virtual int GetValue(T* entity) = 0;
 
-    virtual int GetCardValue(T* entity) = 0;
+    virtual void SetValue(T* entity, int value) = 0;
 };
 }  // namespace RosettaStone
 

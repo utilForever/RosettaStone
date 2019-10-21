@@ -11,7 +11,7 @@
 namespace RosettaStone
 {
 template <typename T = Entity>
-class Attr<T>
+class Attr
 {
  public:
     virtual ~Attr() = default;
@@ -25,7 +25,9 @@ class Attr<T>
     virtual void RemoveAura(T* entity, EffectOperator effectOp, int value) = 0;
 
  protected:
-    virtual int& GetAuraRef(AuraEffects* auraEffects) = 0;
+    virtual int GetAuraValue(AuraEffects* auraEffects) = 0;
+
+    virtual void SetAuraValue(AuraEffects* auraEffects, int value) = 0;
 };
 }  // namespace RosettaStone
 

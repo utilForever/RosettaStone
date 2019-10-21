@@ -17,10 +17,10 @@ namespace RosettaStone
 //! \brief GeneralEffect class.
 //!
 template <typename T = Entity, typename AttrT = Attr<T>>
-class GenericEffect<T, AttrT> : public IEffect
+class GenericEffect : public IEffect
 {
  public:
-    GenericEffect(AttrT attr, EffectOperator effectOp, int value)
+    GenericEffect(AttrT* attr, EffectOperator effectOp, int value)
         : m_attr(attr), m_effectOp(effectOp), m_value(value)
     {
         // Do nothing
@@ -36,28 +36,28 @@ class GenericEffect<T, AttrT> : public IEffect
             entity->owner->GetGame()->oneTurnEffects.emplace_back(entity, this);
         }
 
-        m_attr.Apply(entity, m_effectOp, m_value);
+        m_attr->Apply(entity, m_effectOp, m_value);
     }
 
     //! Applies aura effect to the target entity.
     //! \param entity An entity to which aura effect is applied.
     void ApplyAuraTo(Entity* entity) const override
     {
-        m_attr.ApplyAura(entity, m_effectOp, m_value);
+        m_attr->ApplyAura(entity, m_effectOp, m_value);
     }
 
     //! Removes effect from the target entity.
     //! \param entity An entity to which effect is removed.
     void RemoveFrom(Entity* entity) const override
     {
-        m_attr.Remove(entity, m_effectOp, m_value);
+        m_attr->Remove(entity, m_effectOp, m_value);
     }
 
     //! Removes aura effect from the target entity.
     //! \param entity An entity to which aura effect is removed.
     void RemoveAuraFrom(Entity* entity) const override
     {
-        m_attr.RemoveAura(entity, m_effectOp, m_value);
+        m_attr->RemoveAura(entity, m_effectOp, m_value);
     }
 
     //! Creates a new Effect having changed amount of \p newValue.
@@ -69,7 +69,7 @@ class GenericEffect<T, AttrT> : public IEffect
     }
 
  private:
-    AttrT m_attr;
+    AttrT* m_attr = nullptr;
     EffectOperator m_effectOp;
     int m_value;
 };

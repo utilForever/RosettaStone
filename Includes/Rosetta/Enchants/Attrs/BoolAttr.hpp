@@ -11,30 +11,26 @@
 namespace RosettaStone
 {
 template <typename T = Entity>
-class BoolAttr<T> : public Attr<T>
+class BoolAttr : public Attr<T>
 {
  public:
     virtual ~BoolAttr() = default;
 
     void Apply(T* entity, EffectOperator effectOp, int value) override
     {
-        std::optional<int>& target = GetRef(entity);
-
         if (effectOp != EffectOperator::SET)
         {
             throw std::invalid_argument(
                 "BoolAttr::Apply() - Invalid effect operator!");
         }
 
-        target = value > 0;
+        SetValue(entity, value > 0);
     }
 
     void Remove(T* entity, [[maybe_unused]] EffectOperator effectOp,
                 [[maybe_unused]] int value) override
     {
-        std::optional<int>& target = GetRef(entity);
-
-        target = false;
+        SetValue(entity, false);
     }
 
     void ApplyAura(T* entity, [[maybe_unused]] EffectOperator effectOp,
@@ -47,13 +43,15 @@ class BoolAttr<T> : public Attr<T>
             entity->auraEffects = auraEffects;
         }
 
-        ++Attr<T>::GetAuraRef(auraEffects);
+        const int target = Attr<T>::GetAuraValue(auraEffects);
+        Attr<T>::SetAuraValue(auraEffects, target + 1);
     }
 
     void RemoveAura(T* entity, [[maybe_unused]] EffectOperator effectOp,
                     [[maybe_unused]] int value) override
     {
-        --Attr<T>::GetAuraRef(entity->auraEffects);
+        const int target = Attr<T>::GetAuraValue(entity->auraEffects);
+        Attr<T>::SetAuraValue(entity->auraEffects, target - 1);
     }
 
  protected:
