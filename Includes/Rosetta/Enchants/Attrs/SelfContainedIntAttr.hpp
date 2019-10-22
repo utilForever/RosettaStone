@@ -20,11 +20,16 @@ class SelfContainedIntAttr : public IntAttr<TargetT>
     static GenericEffect<TargetT, SelfT>* Effect(EffectOperator effectOp,
                                                  int value)
     {
+        if (m_singleton == nullptr)
+        {
+            m_singleton = new SelfT();
+        }
+
         return new GenericEffect<TargetT, SelfT>(m_singleton, effectOp, value);
     }
 
  private:
-    inline static SelfT* m_singleton = new SelfT();
+    inline static SelfT* m_singleton = nullptr;
 };
 }  // namespace RosettaStone
 
