@@ -43,7 +43,7 @@ class CostManager
     std::vector<std::pair<EffectOperator, int>> m_costEffects;
     std::vector<std::pair<EffectOperator, int>> m_costEnchantments;
 
-    std::optional<int> m_cachedValue = std::nullopt;
+    int m_cachedValue = 0;
     bool m_toBeUpdated = true;
     AdaptiveCostEffect* m_adaptiveCostEffect = nullptr;
 };

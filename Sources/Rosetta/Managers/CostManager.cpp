@@ -12,8 +12,7 @@ namespace RosettaStone
 {
 int CostManager::GetCost(int cost)
 {
-    const int finalCost =
-        m_toBeUpdated ? GetCostInternal(cost) : m_cachedValue.value();
+    const int finalCost = m_toBeUpdated ? GetCostInternal(cost) : m_cachedValue;
 
     return finalCost > 0 ? finalCost : 0;
 }
@@ -25,10 +24,10 @@ void CostManager::AddCostAura(EffectOperator effectOp, int value)
     switch (effectOp)
     {
         case EffectOperator::ADD:
-            m_cachedValue.value() += value;
+            m_cachedValue += value;
             break;
         case EffectOperator::SUB:
-            m_cachedValue.value() -= value;
+            m_cachedValue -= value;
             break;
         case EffectOperator::SET:
             m_cachedValue = value;
@@ -47,10 +46,10 @@ void CostManager::RemoveCostAura(EffectOperator effectOp, int value)
     switch (effectOp)
     {
         case EffectOperator::ADD:
-            m_cachedValue.value() -= value;
+            m_cachedValue -= value;
             break;
         case EffectOperator::SUB:
-            m_cachedValue.value() += value;
+            m_cachedValue += value;
             break;
         case EffectOperator::SET:
             m_toBeUpdated = true;
@@ -88,10 +87,10 @@ void CostManager::AddCostEnchantment(EffectOperator effectOp, int value)
     switch (effectOp)
     {
         case EffectOperator::ADD:
-            m_cachedValue.value() += value;
+            m_cachedValue += value;
             break;
         case EffectOperator::SUB:
-            m_cachedValue.value() -= value;
+            m_cachedValue -= value;
             break;
         case EffectOperator::SET:
             m_toBeUpdated = true;
