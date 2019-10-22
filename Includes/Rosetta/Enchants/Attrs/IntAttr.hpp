@@ -70,40 +70,40 @@ class IntAttr : public Attr<T>
             entity->auraEffects = auraEffects;
         }
 
-        const int target = Attr<T>::GetAuraValue(auraEffects);
+        const int target = GetAuraValue(auraEffects);
 
         switch (effectOp)
         {
             case EffectOperator::ADD:
-                Attr<T>::SetAuraValue(auraEffects, target + value);
+                SetAuraValue(auraEffects, target + value);
                 break;
             case EffectOperator::SUB:
-                Attr<T>::SetAuraValue(auraEffects, target - value);
+                SetAuraValue(auraEffects, target - value);
                 break;
             case EffectOperator::MUL:
-                Attr<T>::SetAuraValue(auraEffects, target * value);
+                SetAuraValue(auraEffects, target * value);
                 break;
             case EffectOperator::SET:
                 SetValue(entity, 0);
-                Attr<T>::SetAuraValue(auraEffects, value);
+                SetAuraValue(auraEffects, value);
                 break;
         }
     }
 
     void RemoveAura(T* entity, EffectOperator effectOp, int value) override
     {
-        const int target = Attr<T>::GetAuraValue(entity->auraEffects);
+        const int target = GetAuraValue(entity->auraEffects);
 
         switch (effectOp)
         {
             case EffectOperator::ADD:
-                Attr<T>::SetAuraValue(entity->auraEffects, target - value);
+                SetAuraValue(entity->auraEffects, target - value);
                 break;
             case EffectOperator::SUB:
-                Attr<T>::SetAuraValue(entity->auraEffects, target + value);
+                SetAuraValue(entity->auraEffects, target + value);
                 break;
             case EffectOperator::SET:
-                Attr<T>::SetAuraValue(entity->auraEffects, target - value);
+                SetAuraValue(entity->auraEffects, target - value);
                 break;
             default:
                 throw std::invalid_argument(
@@ -115,6 +115,16 @@ class IntAttr : public Attr<T>
     virtual int GetValue(T* entity) = 0;
 
     virtual void SetValue(T* entity, int value) = 0;
+
+    int GetAuraValue(AuraEffects* auraEffects) override
+    {
+        throw std::logic_error("Cost::GetAuraValue() - Not implemented!");
+    }
+
+    void SetAuraValue(AuraEffects* auraEffects, int value) override
+    {
+        throw std::logic_error("Cost::GetAuraValue() - Not implemented!");
+    }
 };
 }  // namespace RosettaStone
 
