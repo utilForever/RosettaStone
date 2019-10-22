@@ -481,7 +481,7 @@ void Game::MainCleanUp()
     for (auto& effectPair : oneTurnEffects)
     {
         Entity* entity = effectPair.first;
-        Effect* effect = effectPair.second;
+        IEffect* effect = effectPair.second;
 
         effect->RemoveFrom(entity);
         delete effect;

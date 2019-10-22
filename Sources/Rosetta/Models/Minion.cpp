@@ -61,7 +61,7 @@ void Minion::Silence()
     }
 
     EraseIf(owner->GetGame()->oneTurnEffects,
-            [this](std::pair<Entity*, Effect*> effect) {
+            [this](std::pair<Entity*, IEffect*> effect) {
                 return effect.first->id == id;
             });
 
