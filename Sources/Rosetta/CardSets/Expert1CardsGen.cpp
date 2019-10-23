@@ -2259,7 +2259,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(
-        AuraType::HAND, { new Effect(GameTag::COST, EffectOperator::ADD, 3) }));
+        AuraType::HAND, { Effects::AddCost(3) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsMinion());
