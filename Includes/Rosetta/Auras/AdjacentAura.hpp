@@ -22,7 +22,7 @@ class Minion;
 class AdjacentAura : public IAura
 {
  public:
-    //! Constructs adjacent aura with given \p effects.
+    //! Constructs adjacent aura with given \p enchantmentID.
     //! \param enchantmentID The enchantment card ID.
     AdjacentAura(std::string&& enchantmentID);
 
@@ -47,9 +47,9 @@ class AdjacentAura : public IAura
     void SetIsFieldChanged(bool isFieldChanged);
 
  private:
-    //! Constructs enrage effect with given \p prototype, \p owner
+    //! Constructs adjacent aura with given \p prototype, \p owner
     //! and \p cloning.
-    //! \param prototype An enrage effect for prototype.
+    //! \param prototype An adjacent aura for prototype.
     //! \param owner An owner of adaptive effect.
     //! \param cloning The flag to indicate that it is cloned.
     AdjacentAura(AdjacentAura& prototype, Minion& owner, bool cloning);
