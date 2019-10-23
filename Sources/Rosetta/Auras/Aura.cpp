@@ -131,7 +131,9 @@ void Aura::Remove()
             break;
         }
         default:
-            throw std::invalid_argument("Aura::Remove() - Invalid aura type!");
+        {
+            // Do nothing
+        }
     }
 
     if (auto enchantment = dynamic_cast<Enchantment*>(m_owner))
