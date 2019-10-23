@@ -6592,10 +6592,10 @@ TEST(NeutralExpert1Test, EX1_105_MountainGiant)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
-    EXPECT_EQ(card1->GetCost(), 12);
+    EXPECT_EQ(card1->GetCost(), 10);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card2));
-    EXPECT_EQ(card2->GetCost(), 14);
+    EXPECT_EQ(card2->GetCost(), 12);
 }
 
 // --------------------------------------- MINION - NEUTRAL
