@@ -83,6 +83,14 @@ class Effects
         return { SetAttack(n), SetMaxHealth(n) };
     }
 
+    //! Creates effect that adds cost by \p n.
+    //! \param n A value indicating how much add.
+    //! \return A dynamically allocated Effect instance.
+    static IEffect* AddCost(int n)
+    {
+        return Cost::Effect(EffectOperator::ADD, n);
+    }
+
     //! Creates effect that reduces cost by \p n.
     //! \param n A value indicating how much reduce.
     //! \return A dynamically allocated Effect instance.
