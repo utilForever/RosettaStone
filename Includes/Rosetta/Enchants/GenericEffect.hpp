@@ -8,8 +8,8 @@
 
 #include <Rosetta/Enchants/Attrs/Attr.hpp>
 #include <Rosetta/Enchants/IEffect.hpp>
-#include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 namespace RosettaStone
 {
@@ -33,7 +33,8 @@ class GenericEffect : public IEffect
     {
         if (isOneTurnEffect)
         {
-            entity->owner->GetGame()->oneTurnEffects.emplace_back(entity, this);
+            entity->owner->GetGame()->oneTurnEffects.emplace_back(
+                entity, const_cast<GenericEffect<T, AttrT>*>(this));
         }
 
         m_attr->Apply(entity, m_effectOp, m_value);
