@@ -20,10 +20,17 @@ void HandZone::Add(Entity& entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
 
-    if (entity.card->power.GetTrigger())
+    if (const auto aura = entity.card->power.GetAura(); aura)
     {
-        entity.card->power.GetTrigger()->Activate(&entity,
-                                                  TriggerActivation::HAND);
+        if (auto effect = dynamic_cast<AdaptiveCostEffect*>(aura); effect)
+        {
+            effect->Activate(&entity);
+        }
+    }
+
+    if (auto trigger = entity.card->power.GetTrigger(); trigger)
+    {
+        trigger->Activate(&entity, TriggerActivation::HAND);
     }
 }
 
