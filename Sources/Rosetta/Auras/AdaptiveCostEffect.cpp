@@ -78,7 +78,10 @@ void AdaptiveCostEffect::Remove()
     EraseIf(m_owner->owner->GetGame()->auras,
             [this](IAura* aura) { return aura == this; });
 
-    m_owner->costManager->DeactivateAdaptiveEffect();
+    if (const auto costManager = m_owner->costManager; costManager)
+    {
+        costManager->DeactivateAdaptiveEffect();
+    }
 }
 
 void AdaptiveCostEffect::Clone(Entity* clone)
@@ -89,6 +92,8 @@ void AdaptiveCostEffect::Clone(Entity* clone)
 AdaptiveCostEffect::AdaptiveCostEffect(AdaptiveCostEffect& prototype,
                                        Entity& owner)
 {
+    m_owner = &owner;
+
     m_costFunc = prototype.m_costFunc;
     m_effectOp = prototype.m_effectOp;
 }
