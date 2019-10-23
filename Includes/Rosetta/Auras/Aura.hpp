@@ -110,7 +110,7 @@ class Aura : public IAura
     void UpdateInternal();
 
     //! Internal method of Remove().
-    void RemoveInternal();
+    virtual void RemoveInternal();
 
     //! Renews the condition of the applied entities.
     void RenewAll();
