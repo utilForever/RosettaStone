@@ -57,6 +57,8 @@ class SwitchingAura : public Aura
 
     std::function<void(Player*, Entity*)> m_onHandler;
     std::function<void(Player*, Entity*)> m_offHandler;
+
+    bool m_isRemoved = false;
 };
 }  // namespace RosettaStone
 

@@ -53,6 +53,44 @@ void SwitchingAura::Activate(Entity* owner, bool cloning)
             throw std::invalid_argument(
                 "SwitchingAura::Activate() - Invalid trigger type!");
     }
+
+    if (!cloning)
+    {
+        if (!instance->m_initCondition.Evaluate(owner))
+        {
+            instance->m_turnOn = false;
+        }
+        else
+        {
+            instance->m_auraUpdateInstQueue.Push(
+                AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
+        }
+    }
+}
+
+void SwitchingAura::Remove()
+{
+    Aura::Remove();
+
+    m_isRemoved = true;
+
+    m_owner->owner->GetGame()->triggerManager.startTurnTrigger = nullptr;
+    m_owner->owner->GetGame()->triggerManager.endTurnTrigger = nullptr;
+
+    switch (m_offTrigger)
+    {
+        case TriggerType::PLAY_MINION:
+            m_owner->owner->GetGame()->triggerManager.playMinionTrigger =
+                nullptr;
+            break;
+        case TriggerType::CAST_SPELL:
+            m_owner->owner->GetGame()->triggerManager.castSpellTrigger =
+                nullptr;
+            break;
+        default:
+            throw std::invalid_argument(
+                "SwitchingAura::Activate() - Invalid trigger type!");
+    }
 }
 
 SwitchingAura::SwitchingAura(SwitchingAura& prototype, Entity& owner)
