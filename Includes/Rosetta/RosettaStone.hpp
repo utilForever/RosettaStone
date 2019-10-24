@@ -87,6 +87,7 @@
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Minion.hpp>
+#include <Rosetta/Models/Playable.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Models/Weapon.hpp>
