@@ -22,6 +22,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
         case TriggerType::PLAY_CARD:
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
+        case TriggerType::PLAY_MINION:
         case TriggerType::AFTER_PLAY_MINION:
             m_sequenceType = SequenceType::PLAY_MINION;
             break;
@@ -70,7 +71,7 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
 
     source->activatedTrigger = instance;
 
-    auto triggerFunc = [this, instance](Player* p, Entity* e) { 
+    auto triggerFunc = [this, instance](Player* p, Entity* e) {
         if (percentage == 1.0f || Random::get<float>(0.0f, 1.0f) < percentage)
         {
             instance->Process(p, e);
@@ -92,6 +93,9 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::PLAY_MINION:
+            game->triggerManager.playMinionTrigger = std::move(triggerFunc);
             break;
         case TriggerType::AFTER_PLAY_MINION:
             game->triggerManager.afterPlayMinionTrigger =
@@ -197,6 +201,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = nullptr;
+            break;
+        case TriggerType::PLAY_MINION:
+            game->triggerManager.playMinionTrigger = nullptr;
             break;
         case TriggerType::AFTER_PLAY_MINION:
             game->triggerManager.afterPlayMinionTrigger = nullptr;
