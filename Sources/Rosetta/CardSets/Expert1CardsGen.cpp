@@ -6,12 +6,12 @@
 #include <Rosetta/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/Auras/EnrageEffect.hpp>
+#include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/Triggers.hpp>
-#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
@@ -2258,8 +2258,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(
-        AuraType::HAND, { Effects::AddCost(3) }));
+    power.AddAura(new Aura(AuraType::HAND, { Effects::AddCost(3) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsMinion());
@@ -2742,12 +2741,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(1) }));
+    power.AddAura(new SwitchingAura(
+        AuraType::HAND, SelfCondition::MinionsPlayedThisTurn(0),
+        TriggerType::PLAY_MINION, { Effects::ReduceCost(1) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->condition =
-            new SelfCondition(SelfCondition::MinionsPlayedThisTurn(0));
-        aura->restless = true;
+        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsMinion());
     }
     cards.emplace("EX1_076", power);
 
