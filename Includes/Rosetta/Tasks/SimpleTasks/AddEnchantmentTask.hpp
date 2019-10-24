@@ -21,7 +21,7 @@ class AddEnchantmentTask : public ITask
     //! Constructs task with given \p cardID and \p entityType.
     //! \param cardID The card ID of enchantment to play.
     //! \param entityType The entity type of target to grant.
-    AddEnchantmentTask(const std::string& cardID, EntityType entityType);
+    AddEnchantmentTask(std::string cardID, EntityType entityType);
 
  private:
     //! Processes task logic internally and returns meta data.
