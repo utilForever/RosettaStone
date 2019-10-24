@@ -5,11 +5,11 @@
 
 #include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <utility>
-#include "Rosetta/Games/Game.hpp"
-#include "Rosetta/Models/Entity.hpp"
-#include "Rosetta/Models/Player.hpp"
 
 namespace RosettaStone
 {
@@ -93,10 +93,59 @@ void SwitchingAura::Remove()
     }
 }
 
+void SwitchingAura::RemoveInternal()
+{
+    for (auto& entity : m_appliedEntities)
+    {
+        for (auto& effect : m_effects)
+        {
+            effect->RemoveAuraFrom(entity);
+        }
+    }
+
+    m_appliedEntities.clear();
+
+    if (m_isRemoved)
+    {
+        EraseIf(m_owner->owner->GetGame()->auras,
+                [this](IAura* aura) { return aura == this; });
+    }
+}
+
+void SwitchingAura::TurnOn(Player*, Entity*)
+{
+    if (m_turnOn)
+    {
+        return;
+    }
+
+    m_turnOn = true;
+
+    m_auraUpdateInstQueue.Push(AuraUpdateInstruction(AuraInstruction::ADD_ALL),
+                               1);
+}
+
+void SwitchingAura::TurnOff(Player*, Entity*)
+{
+    if (!m_turnOn)
+    {
+        return;
+    }
+
+    m_turnOn = false;
+
+    m_auraUpdateInstQueue.Push(
+        AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
+}
+
 SwitchingAura::SwitchingAura(SwitchingAura& prototype, Entity& owner)
     : Aura(prototype, owner),
       m_initCondition(prototype.m_initCondition),
-      m_offTrigger(prototype.m_offTrigger)
+      m_offTrigger(prototype.m_offTrigger),
+      m_onHandler(std::bind(&SwitchingAura::TurnOn, this, std::placeholders::_1,
+                            std::placeholders::_2)),
+      m_offHandler(std::bind(&SwitchingAura::TurnOff, this,
+                             std::placeholders::_1, std::placeholders::_2))
 {
     // Do nothing
 }

@@ -47,10 +47,10 @@ class SwitchingAura : public Aura
     void RemoveInternal() override;
 
     //! Turns on switching aura.
-    void TurnOn();
+    void TurnOn(Player*, Entity*);
 
     //! Turns off switching aura.
-    void TurnOff();
+    void TurnOff(Player*, Entity*);
 
     SelfCondition m_initCondition;
     TriggerType m_offTrigger;
