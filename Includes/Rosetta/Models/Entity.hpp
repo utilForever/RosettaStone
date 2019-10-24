@@ -25,9 +25,9 @@ class Game;
 class Player;
 
 //!
-//! \brief Abstract entity structure that stores card data.
+//! \brief Entity class.
 //!
-//! This structure is base structure of all data-holding/action-performing/
+//! This class is base structure of all data-holding/action-performing/
 //! visible or invisible objects in a RosettaStone.
 //! An entity is defined as a collection of properties, called GameTags.
 //!
