@@ -2019,7 +2019,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     //       Draw a card.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new AddEnchantmentTask("NEW1_036e2", EntityType::HERO));
+    power.AddPowerTask(
+        new AddEnchantmentTask("NEW1_036e2", EntityType::PLAYER));
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("NEW1_036", power);
 }
