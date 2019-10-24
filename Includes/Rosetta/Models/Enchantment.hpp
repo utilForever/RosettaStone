@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_ENCHANTMENT_HPP
 #define ROSETTASTONE_ENCHANTMENT_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
@@ -16,9 +16,9 @@ class Player;
 //!
 //! \brief Enchantment class.
 //!
-//! This class inherits from Entity structure.
+//! This class inherits from Playable class.
 //!
-class Enchantment : public Entity
+class Enchantment : public Playable
 {
  public:
     //! Default constructor.

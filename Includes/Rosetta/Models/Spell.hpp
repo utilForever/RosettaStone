@@ -7,16 +7,16 @@
 #ifndef ROSETTASTONE_SPELL_HPP
 #define ROSETTASTONE_SPELL_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
 //!
 //! \brief Spell class.
 //!
-//! This class inherits from Entity structure.
+//! This class inherits from Playable class.
 //!
-class Spell : public Entity
+class Spell : public Playable
 {
  public:
     //! Default constructor.

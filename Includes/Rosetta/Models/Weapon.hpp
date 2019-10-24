@@ -7,18 +7,18 @@
 #ifndef ROSETTASTONE_WEAPON_HPP
 #define ROSETTASTONE_WEAPON_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
 //!
 //! \brief Weapon class.
 //!
-//! This class inherits from Entity class.
+//! This class inherits from Playable class.
 //! Also, it stores durability that shows the number of times you can use that
 //! weapon before it is destroyed.
 //!
-class Weapon : public Entity
+class Weapon : public Playable
 {
  public:
     //! Default constructor.

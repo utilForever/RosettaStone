@@ -7,16 +7,16 @@
 #ifndef ROSETTASTONE_HERO_POWER_HPP
 #define ROSETTASTONE_HERO_POWER_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
 //!
 //! \brief HeroPower class.
 //!
-//! This class inherits from Entity structure.
+//! This class inherits from Playable class.
 //!
-class HeroPower : public Entity
+class HeroPower : public Playable
 {
  public:
     //! Default constructor.

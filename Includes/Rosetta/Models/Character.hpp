@@ -6,7 +6,7 @@
 #ifndef ROSETTASTONE_CHARACTER_HPP
 #define ROSETTASTONE_CHARACTER_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
@@ -15,10 +15,10 @@ class Player;
 //!
 //! \brief Abstract character class that stores hero and minion data.
 //!
-//! This class inherits from Entity class. Also, it stores some
+//! This class inherits from Playable class. Also, it stores some
 //! attributes that only characters have such as attack and health.
 //!
-class Character : public Entity
+class Character : public Playable
 {
  public:
     //! Default constructor.

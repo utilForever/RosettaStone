@@ -16,7 +16,7 @@ namespace RosettaStone
 //!
 //! \brief Hero class.
 //!
-//! This class inherits from Character structure.
+//! This class inherits from Character class.
 //! Also, it stores weapon that can attack to enemy.
 //!
 class Hero : public Character

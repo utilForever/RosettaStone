@@ -14,7 +14,7 @@ namespace RosettaStone
 //!
 //! \brief Minion class.
 //!
-//! This class inherits from Character structure.
+//! This class inherits from Character class.
 //!
 class Minion : public Character
 {
