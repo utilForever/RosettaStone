@@ -114,6 +114,7 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
 
     // Process play card trigger
     player.GetGame()->taskQueue.StartEvent();
+    player.GetGame()->triggerManager.OnPlayMinionTrigger(&player, minion);
     player.GetGame()->triggerManager.OnPlayCardTrigger(&player, minion);
     player.GetGame()->ProcessTasks();
     player.GetGame()->taskQueue.EndEvent();
