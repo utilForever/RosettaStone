@@ -5,6 +5,7 @@
 
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -21,8 +22,8 @@ TaskStatus MoveToGraveyardTask::Impl(Player* player)
 
     for (auto& entity : entities)
     {
-        entity->zone->Remove(*entity);
-        entity->owner->GetGraveyardZone().Add(*entity);
+        entity->zone->Remove(entity);
+        entity->player->GetGraveyardZone()->Add(entity);
     }
 
     return TaskStatus::COMPLETE;

@@ -8,7 +8,7 @@
 
 namespace RosettaStone::PlayerTasks
 {
-AttackTask::AttackTask(Entity* source, Entity* target) : ITask(source, target)
+AttackTask::AttackTask(Entity* source, Playable* target) : ITask(source, target)
 {
     // Do nothing
 }

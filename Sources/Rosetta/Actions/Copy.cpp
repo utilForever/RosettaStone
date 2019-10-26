@@ -13,8 +13,8 @@
 
 namespace RosettaStone::Generic
 {
-Entity* Copy(Player* player, Playable* source, ZoneType targetZone,
-             bool deathrattle)
+Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
+               bool deathrattle)
 {
     //! \note Determine whether enchantments should be also copied.
     //! Whenever a card moves forward in that flow (Deck -> Hand, Hand -> Play,

@@ -21,7 +21,7 @@ TaskStatus HealFullTask::Impl(Player* player)
     for (auto& entity : entities)
     {
         auto character = dynamic_cast<Character*>(entity);
-        character->TakeFullHeal(*m_source);
+        character->TakeFullHeal(dynamic_cast<Playable*>(m_source));
     }
 
     return TaskStatus::COMPLETE;

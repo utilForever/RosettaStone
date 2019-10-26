@@ -96,11 +96,11 @@ class BoardRefView
 
     //! Returns a list of cards in the hand of the current player.
     //! \return A list of cards in the hand of the current player.
-    std::vector<Entity*> GetHandCards() const;
+    std::vector<Playable*> GetHandCards() const;
 
     //! Returns a list of cards in the hand of the opponent player.
     //! \return A list of cards in the hand of the opponent player.
-    std::vector<std::pair<Entity*, bool>> GetOpponentHandCards() const;
+    std::vector<std::pair<Playable*, bool>> GetOpponentHandCards() const;
 
     //! Returns the number of cards in the hand of the opponent player.
     //! \return The number of cards in the hand of the opponent player.
@@ -133,11 +133,11 @@ class BoardRefView
     template <typename Functor>
     void ForEachMinion(PlayerType playerType, Functor&& functor) const
     {
-        auto& fieldZone = (playerType == PlayerType::PLAYER1)
-                              ? m_game.GetPlayer1().GetFieldZone()
-                              : m_game.GetPlayer2().GetFieldZone();
+        auto fieldZone = (playerType == PlayerType::PLAYER1)
+                             ? m_game.GetPlayer1()->GetFieldZone()
+                             : m_game.GetPlayer2()->GetFieldZone();
 
-        for (auto& minion : fieldZone.GetAll())
+        for (auto& minion : fieldZone->GetAll())
         {
             functor(minion);
         }
@@ -148,11 +148,11 @@ class BoardRefView
     template <typename Functor>
     void ForEachCurHandCard(Functor&& functor) const
     {
-        auto& handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
-                             ? m_game.GetPlayer1().GetHandZone()
-                             : m_game.GetPlayer2().GetHandZone();
+        auto handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
+                            ? m_game.GetPlayer1()->GetHandZone()
+                            : m_game.GetPlayer2()->GetHandZone();
 
-        for (auto& entity : handZone.GetAll())
+        for (auto& entity : handZone->GetAll())
         {
             functor(entity->card->id);
         }
@@ -163,11 +163,11 @@ class BoardRefView
     template <typename Functor>
     void ForEachOpHandCard(Functor&& functor) const
     {
-        auto& handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
-                             ? m_game.GetPlayer2().GetHandZone()
-                             : m_game.GetPlayer1().GetHandZone();
+        auto handZone = (GetCurrentPlayer() == PlayerType::PLAYER1)
+                            ? m_game.GetPlayer2()->GetHandZone()
+                            : m_game.GetPlayer1()->GetHandZone();
 
-        for (auto& entity : handZone.GetAll())
+        for (auto& entity : handZone->GetAll())
         {
             std::string cardID = entity->card->id;
             if (cardID == "GAME_005")

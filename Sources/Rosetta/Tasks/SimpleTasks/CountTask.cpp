@@ -28,7 +28,7 @@ TaskStatus CountTask::Impl(Player* player)
     }
     else
     {
-        std::vector<Entity*> filtered;
+        std::vector<Playable*> filtered;
         filtered.reserve(entities.size());
 
         for (auto& entity : entities)
@@ -52,10 +52,10 @@ TaskStatus CountTask::Impl(Player* player)
     switch (m_numIndex)
     {
         case 0:
-            player.GetGame()->taskStack.num = count;
+            player->game->taskStack.num = count;
             break;
         case 1:
-            player.GetGame()->taskStack.num1 = count;
+            player->game->taskStack.num1 = count;
             break;
         default:
             throw std::invalid_argument(

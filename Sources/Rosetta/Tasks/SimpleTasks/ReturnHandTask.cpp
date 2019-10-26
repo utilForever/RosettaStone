@@ -6,6 +6,7 @@
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -21,9 +22,9 @@ TaskStatus ReturnHandTask::Impl(Player* player)
 
     for (auto& entity : entities)
     {
-        (*entity->owner).GetFieldZone().Remove(*entity);
+        entity->player->GetFieldZone()->Remove(entity);
         entity->Reset();
-        Generic::AddCardToHand(*entity->owner, entity);
+        Generic::AddCardToHand(entity->player, entity);
     }
 
     return TaskStatus::COMPLETE;

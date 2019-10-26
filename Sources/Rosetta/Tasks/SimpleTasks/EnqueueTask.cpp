@@ -17,7 +17,7 @@ EnqueueTask::EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage)
 TaskStatus EnqueueTask::Impl(Player* player)
 {
     const int times =
-        m_isSpellDamage ? m_num + player.currentSpellPower : m_num;
+        m_isSpellDamage ? m_num + player->currentSpellPower : m_num;
 
     for (int i = 0; i < times; ++i)
     {
@@ -25,11 +25,11 @@ TaskStatus EnqueueTask::Impl(Player* player)
         {
             ITask* clonedTask = task->Clone();
 
-            clonedTask->SetPlayer(&player);
+            clonedTask->SetPlayer(player);
             clonedTask->SetSource(m_source);
             clonedTask->SetTarget(m_target);
 
-            player.GetGame()->taskQueue.Enqueue(clonedTask);
+            player->game->taskQueue.Enqueue(clonedTask);
         }
     }
 

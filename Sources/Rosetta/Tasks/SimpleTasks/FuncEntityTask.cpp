@@ -11,7 +11,7 @@
 namespace RosettaStone::SimpleTasks
 {
 FuncEntityTask::FuncEntityTask(
-    std::function<std::vector<Entity*>(std::vector<Entity*>)> func)
+    std::function<std::vector<Playable*>(std::vector<Playable*>)> func)
     : m_func(std::move(func))
 {
     // Do nothing
@@ -21,8 +21,8 @@ TaskStatus FuncEntityTask::Impl(Player* player)
 {
     if (m_func != nullptr)
     {
-        player.GetGame()->taskStack.entities =
-            m_func(player.GetGame()->taskStack.entities);
+        player->game->taskStack.entities =
+            m_func(player->game->taskStack.entities);
     }
 
     return TaskStatus::COMPLETE;

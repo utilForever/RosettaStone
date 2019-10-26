@@ -43,20 +43,20 @@ class Player : public Entity
     ~Player();
 
     //! Default copy constructor.
-    Player(const Player*) = delete;
+    Player(const Player&) = delete;
 
     //! Default move constructor.
-    Player(Player*&) noexcept = delete;
+    Player(Player&&) noexcept = delete;
 
     //! Default copy assignment operator.
-    Player* operator=(const Player*) = delete;
+    Player& operator=(const Player&) = delete;
 
     //! Default move assignment operator.
-    Player* operator=(Player*&) noexcept = delete;
+    Player& operator=(Player&&) noexcept = delete;
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
-    void RefCopy(const Player* rhs);
+    void RefCopy(const Player& rhs);
 
     //! Returns player's field zone.
     //! \return Player's field zone.

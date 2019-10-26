@@ -29,12 +29,12 @@ ChooseTask ChooseTask::Pick(Player*, std::size_t choice)
 
 TaskStatus ChooseTask::Impl(Player* player)
 {
-    switch (player.choice.value().choiceType)
+    switch (player->choice.value().choiceType)
     {
         case ChoiceType::MULLIGAN:
         {
             Generic::ChoiceMulligan(player, m_choices);
-            player.mulliganState = Mulligan::DONE;
+            player->mulliganState = Mulligan::DONE;
             break;
         }
         case ChoiceType::GENERAL:
@@ -43,8 +43,8 @@ TaskStatus ChooseTask::Impl(Player* player)
             {
                 return TaskStatus::STOP;
             }
-            player.game->ProcessTasks();
-            player.game->ProcessDestroyAndUpdateAura();
+            player->game->ProcessTasks();
+            player->game->ProcessDestroyAndUpdateAura();
             break;
         }
         default:

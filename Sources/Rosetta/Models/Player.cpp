@@ -38,7 +38,7 @@ Player::~Player()
     delete m_hero;
 }
 
-void Player::RefCopy(const Player* rhs)
+void Player::RefCopy(const Player& rhs)
 {
     nickname = rhs.nickname;
     playerType = rhs.playerType;
@@ -48,9 +48,8 @@ void Player::RefCopy(const Player* rhs)
     mulliganState = rhs.mulliganState;
     choice = rhs.choice;
 
+    m_hero = rhs.m_hero;
     opponent = rhs.opponent;
-
-    currentSpellPower = rhs.currentSpellPower;
 
     m_deckZone = rhs.m_deckZone;
     m_fieldZone = rhs.m_fieldZone;
@@ -59,20 +58,8 @@ void Player::RefCopy(const Player* rhs)
     m_secretZone = rhs.m_secretZone;
     m_setasideZone = rhs.m_setasideZone;
 
-    m_hero = rhs.m_hero;
-    m_game = rhs.m_game;
-
     m_gameTags = rhs.m_gameTags;
-}
-
-Game* Player::GetGame() const
-{
-    return m_game;
-}
-
-void Player::SetGame(Game* game)
-{
-    m_game = game;
+    currentSpellPower = rhs.currentSpellPower;
 }
 
 FieldZone* Player::GetFieldZone() const
@@ -213,8 +200,7 @@ void Player::SetNumMinionsPlayedThisTurn(int value)
 
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
-    m_hero = dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
-    m_hero->heroPower =
-        dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
+    m_hero = dynamic_cast<Hero*>(GetFromCard(this, heroCard));
+    m_hero->heroPower = dynamic_cast<HeroPower*>(GetFromCard(this, powerCard));
 }
 }  // namespace RosettaStone

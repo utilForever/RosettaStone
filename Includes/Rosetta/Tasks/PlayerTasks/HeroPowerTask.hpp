@@ -20,7 +20,7 @@ class HeroPowerTask : public ITask
  public:
     //! Constructs task with given \p cardID.
     //! \param target A pointer to target entity to receive power.
-    explicit HeroPowerTask(Entity* target = nullptr);
+    explicit HeroPowerTask(Playable* target = nullptr);
 
  private:
     //! Processes task logic internally and returns meta data.

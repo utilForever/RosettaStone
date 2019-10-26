@@ -3,8 +3,10 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -17,8 +19,8 @@ TaskStatus ControlTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    auto& myField = player.GetFieldZone();
-    auto& opField = player.opponent->GetFieldZone();
+    auto myField = player->GetFieldZone();
+    auto opField = player->opponent->GetFieldZone();
 
     for (auto& entity : entities)
     {
@@ -28,15 +30,15 @@ TaskStatus ControlTask::Impl(Player* player)
             continue;
         }
 
-        if (myField.IsFull())
+        if (myField->IsFull())
         {
             entity->Destroy();
             continue;
         }
 
-        auto& removedMinion = opField.Remove(*minion);
-        removedMinion.owner = &player;
-        myField.Add(removedMinion);        
+        const auto removedMinion = opField->Remove(minion);
+        removedMinion->player = player;
+        myField->Add(removedMinion);
     }
 
     return TaskStatus::COMPLETE;

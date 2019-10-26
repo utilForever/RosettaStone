@@ -33,10 +33,10 @@ class IncludeTask : public ITask
     //! \param source The source that indicates source entity.
     //! \param target The target that indicates target entity.
     //! \return A list of entities based on the type of entity.
-    static std::vector<Entity*> GetEntities(EntityType entityType,
-                                            Player* player,
-                                            Entity* source = nullptr,
-                                            Entity* target = nullptr);
+    static std::vector<Playable*> GetEntities(EntityType entityType,
+                                              Player* player,
+                                              Entity* source = nullptr,
+                                              Entity* target = nullptr);
 
     //! Returns a list of entities based on the type of entity.
     //! \param entityType The type of entity.
@@ -44,10 +44,10 @@ class IncludeTask : public ITask
     //! \param source The source that indicates source entity.
     //! \param target The target that indicates target entity.
     //! \return A list of entities based on the type of entity.
-    static std::vector<Entity*> GetEntities(EntityType entityType,
-                                            const Player* player,
-                                            Entity* source = nullptr,
-                                            Entity* target = nullptr);
+    static std::vector<Playable*> GetEntities(EntityType entityType,
+                                              const Player* player,
+                                              Entity* source = nullptr,
+                                              Entity* target = nullptr);
 
  private:
     //! Processes task logic internally and returns meta data.

@@ -55,13 +55,14 @@ TaskStatus ConditionTask::Impl(Player* player)
 
         for (auto& condition : m_relaConditions)
         {
-            flag = flag && condition.Evaluate(m_source, entity);
+            flag = flag && condition.Evaluate(dynamic_cast<Playable*>(m_source),
+                                              entity);
         }
     }
 
-    player.GetGame()->taskStack.source = m_source;
-    player.GetGame()->taskStack.target = m_target;
-    player.GetGame()->taskStack.flag = flag;
+    player->game->taskStack.source = m_source;
+    player->game->taskStack.target = m_target;
+    player->game->taskStack.flag = flag;
 
     return TaskStatus::COMPLETE;
 }

@@ -24,7 +24,7 @@ class FuncEntityTask : public ITask
     //! Constructs task with given \p cardID.
     //! \param func The function to execute.
     explicit FuncEntityTask(
-        std::function<std::vector<Entity*>(std::vector<Entity*>)> func);
+        std::function<std::vector<Playable*>(std::vector<Playable*>)> func);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -36,7 +36,7 @@ class FuncEntityTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    std::function<std::vector<Entity*>(std::vector<Entity*>)> m_func;
+    std::function<std::vector<Playable*>(std::vector<Playable*>)> m_func;
 };
 }  // namespace RosettaStone::SimpleTasks
 

@@ -16,8 +16,8 @@ ChangeHeroPowerTask::ChangeHeroPowerTask(const std::string& cardID)
 
 TaskStatus ChangeHeroPowerTask::Impl(Player* player)
 {
-    delete player.GetHero()->heroPower;
-    player.GetHero()->heroPower =
+    delete player->GetHero()->heroPower;
+    player->GetHero()->heroPower =
         dynamic_cast<HeroPower*>(Entity::GetFromCard(player, m_card));
 
     return TaskStatus::COMPLETE;

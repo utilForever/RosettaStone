@@ -2820,8 +2820,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
     power.AddPowerTask(
-        new FuncEntityTask([=](const std::vector<Entity*>& entities) {
-            return entities.size() > 3 ? entities : std::vector<Entity*>{};
+        new FuncEntityTask([=](const std::vector<Playable*>& playables) {
+            return playables.size() > 3 ? playables : std::vector<Playable*>{};
         }));
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));
     power.AddPowerTask(new ConditionTask(EntityType::SOURCE,

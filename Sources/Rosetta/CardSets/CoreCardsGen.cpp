@@ -231,7 +231,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
             if (!exist)
             {
-                totemCards.emplace_back(Cards::GetInstance().FindCardByID(id));
+                totemCards.emplace_back(Cards::FindCardByID(id));
             }
         }
 
@@ -242,8 +242,8 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
         Playable* totem =
-            Entity::GetFromCard(*playable->player, totemCards[idx]);
-        playable->player->GetFieldZone()->Add(*dynamic_cast<Minion*>(totem));
+            Entity::GetFromCard(playable->player, totemCards[idx]);
+        playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
 
@@ -623,12 +623,12 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
         for (int i = 0; i < 3 && deck->GetCount() != 0; ++i)
         {
             Playable* card = deck->GetTopCard();
-            deck->Remove(*card);
+            deck->Remove(card);
             ids.emplace_back(card->id);
-            playable->player->GetSetasideZone()->Add(*card);
+            playable->player->GetSetasideZone()->Add(card);
         }
 
-        Generic::CreateChoice(*playable->player, ChoiceType::GENERAL,
+        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
                               ChoiceAction::HAND, ids);
     }));
     cards.emplace("DS1_184", power);

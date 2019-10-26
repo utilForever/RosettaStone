@@ -32,12 +32,12 @@ PlayerType BoardView::GetCurrentPlayer() const
     return m_curPlayer;
 }
 
-const Views::Types::Player* BoardView::GetPlayer1() const
+const Views::Types::Player& BoardView::GetPlayer1() const
 {
     return m_player1;
 }
 
-const Views::Types::Player* BoardView::GetPlayer2() const
+const Views::Types::Player& BoardView::GetPlayer2() const
 {
     return m_player2;
 }

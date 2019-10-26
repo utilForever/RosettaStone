@@ -17,8 +17,8 @@ namespace RosettaStone::Generic
 //! \param targetZone The target zone to copy.
 //! \param deathrattle The flag to indicate whether copy operation via
 //! deathrattle power.
-Entity* Copy(Player* player, Playable* source, ZoneType targetZone,
-             bool deathrattle = false);
+Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
+               bool deathrattle = false);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_COPY_HPP

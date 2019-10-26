@@ -307,7 +307,7 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
     {
         if (trigger->m_sequenceType == type)
         {
-            trigger->Validate(&game->GetCurrentPlayer(), source);
+            trigger->Validate(game->GetCurrentPlayer(), source);
         }
     }
 }

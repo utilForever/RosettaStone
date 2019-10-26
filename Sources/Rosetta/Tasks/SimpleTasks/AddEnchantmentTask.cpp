@@ -30,17 +30,18 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
     }
 
     int num1 = 0, num2 = 0;
+    auto source = dynamic_cast<Playable*>(m_source);
 
     if (m_entityType == EntityType::PLAYER)
     {
-        Generic::AddEnchantment(enchantmentCard, m_source, &player, num1, num2);
+        Generic::AddEnchantment(enchantmentCard, source, player, num1, num2);
         return TaskStatus::COMPLETE;
     }
 
     if (m_entityType == EntityType::ENEMY_PLAYER)
     {
-        Generic::AddEnchantment(enchantmentCard, m_source, player.opponent,
-                                num1, num2);
+        Generic::AddEnchantment(enchantmentCard, source, player->opponent, num1,
+                                num2);
         return TaskStatus::COMPLETE;
     }
 
@@ -50,7 +51,7 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
 
     for (auto& entity : entities)
     {
-        Generic::AddEnchantment(enchantmentCard, m_source, entity, num1, num2);
+        Generic::AddEnchantment(enchantmentCard, source, entity, num1, num2);
     }
 
     return TaskStatus::COMPLETE;

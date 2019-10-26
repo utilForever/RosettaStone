@@ -30,7 +30,7 @@ TaskStatus GetGameTagTask::Impl(Player* player)
 
     if (m_numIndex == 0)
     {
-        player.GetGame()->taskStack.num =
+        player->game->taskStack.num =
             entities[m_entityIndex]->GetGameTag(m_gameTag);
     }
     else if (static_cast<int>(entities.size()) > m_entityIndex)
@@ -38,7 +38,7 @@ TaskStatus GetGameTagTask::Impl(Player* player)
         switch (m_numIndex)
         {
             case 1:
-                player.GetGame()->taskStack.num1 =
+                player->game->taskStack.num1 =
                     entities[m_entityIndex]->GetGameTag(m_gameTag);
                 break;
             default:

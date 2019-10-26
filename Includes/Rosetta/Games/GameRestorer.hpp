@@ -47,7 +47,7 @@ class GameRestorer
     //! \param unknownCardsSetsManager The manager of unknown cards sets.
     void MakePlayer(
         PlayerType playerType, Game& game,
-        const Views::Types::Player* viewPlayer,
+        const Views::Types::Player& viewPlayer,
         const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager);
 
     //! Makes the hero and hero power data to restore the game.

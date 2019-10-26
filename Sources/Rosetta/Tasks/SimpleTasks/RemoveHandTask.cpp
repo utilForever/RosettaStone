@@ -6,6 +6,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveHandTask.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
@@ -19,17 +20,17 @@ TaskStatus RemoveHandTask::Impl(Player* player)
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    std::vector<Entity*> list;
+    std::vector<Playable*> list;
     for (auto& entity : entities)
     {
         if (entity->zone->GetType() == ZoneType::HAND)
         {
-            (*entity->owner).GetHandZone().Remove(*entity);
+            entity->player->GetHandZone()->Remove(entity);
             list.emplace_back(entity);
         }
     }
 
-    player.GetGame()->taskStack.entities = list;
+    player->game->taskStack.entities = list;
 
     return TaskStatus::COMPLETE;
 }

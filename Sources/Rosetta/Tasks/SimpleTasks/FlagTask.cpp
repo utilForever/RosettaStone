@@ -18,7 +18,7 @@ FlagTask::FlagTask(bool flag, std::vector<ITask*> toDoTasks)
 
 TaskStatus FlagTask::Impl(Player* player)
 {
-    if (player.GetGame()->taskStack.flag != m_flag)
+    if (player->game->taskStack.flag != m_flag)
     {
         return TaskStatus::COMPLETE;
     }
@@ -27,9 +27,9 @@ TaskStatus FlagTask::Impl(Player* player)
     {
         ITask* clonedTask = task->Clone();
 
-        clonedTask->SetPlayer(&player);
-        clonedTask->SetSource(player.GetGame()->taskStack.source);
-        clonedTask->SetTarget(player.GetGame()->taskStack.target);
+        clonedTask->SetPlayer(player);
+        clonedTask->SetSource(player->game->taskStack.source);
+        clonedTask->SetTarget(player->game->taskStack.target);
 
         clonedTask->Run();
     }

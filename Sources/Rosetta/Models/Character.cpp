@@ -155,7 +155,7 @@ std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
     std::vector<Character*> targets;
     std::vector<Character*> targetsHaveTaunt;
 
-    for (auto& minion : opponent.GetFieldZone()->GetAll())
+    for (auto& minion : opponent->GetFieldZone()->GetAll())
     {
         if (minion->GetGameTag(GameTag::STEALTH) == 0)
         {
@@ -179,10 +179,10 @@ std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
     }
 
     if (GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 0 &&
-        opponent.GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
-        opponent.GetHero()->GetGameTag(GameTag::STEALTH) == 0)
+        opponent->GetHero()->GetGameTag(GameTag::IMMUNE) == 0 &&
+        opponent->GetHero()->GetGameTag(GameTag::STEALTH) == 0)
     {
-        targets.emplace_back(opponent.GetHero());
+        targets.emplace_back(opponent->GetHero());
     }
 
     return targets;

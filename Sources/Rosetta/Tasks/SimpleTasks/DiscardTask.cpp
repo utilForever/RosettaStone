@@ -6,6 +6,8 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -25,13 +27,13 @@ TaskStatus DiscardTask::Impl(Player* player)
 
     for (auto& entity : entities)
     {
-        player.GetGame()->taskQueue.StartEvent();
+        player->game->taskQueue.StartEvent();
 
-        player.GetHandZone().Remove(*entity);
-        player.GetGraveyardZone().Add(*entity);
+        player->GetHandZone()->Remove(entity);
+        player->GetGraveyardZone()->Add(entity);
 
-        player.GetGame()->ProcessTasks();
-        player.GetGame()->taskQueue.EndEvent();
+        player->game->ProcessTasks();
+        player->game->taskQueue.EndEvent();
     }
 
     return TaskStatus::COMPLETE;

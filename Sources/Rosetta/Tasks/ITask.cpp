@@ -47,7 +47,7 @@ void ITask::SetTarget(Playable* target)
 
 TaskStatus ITask::Run()
 {
-    return Impl(*m_player);
+    return Impl(m_player);
 }
 
 ITask* ITask::Clone()

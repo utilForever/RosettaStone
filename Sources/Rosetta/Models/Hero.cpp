@@ -64,7 +64,7 @@ void Hero::RemoveWeapon()
         return;
     }
 
-    player->GetGraveyardZone()->Add(*weapon);
+    player->GetGraveyardZone()->Add(weapon);
 
     weapon = nullptr;
 }

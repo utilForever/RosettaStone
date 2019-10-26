@@ -21,7 +21,7 @@ class AttackTask : public ITask
     //! Construct task with given \p source and \p target.
     //! \param source A pointer to source character.
     //! \param target A pointer to target character.
-    AttackTask(Entity* source, Entity* target);
+    AttackTask(Entity* source, Playable* target);
 
  private:
     //! Processes task logic internally and returns meta data.

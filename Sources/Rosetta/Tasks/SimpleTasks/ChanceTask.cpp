@@ -26,7 +26,7 @@ TaskStatus ChanceTask::Impl(Player* player)
         return num == 0 ? TaskStatus::COMPLETE : TaskStatus::STOP;
     }
 
-    player.GetGame()->taskStack.flag = (num != 0);
+    player->game->taskStack.flag = (num != 0);
     return TaskStatus::COMPLETE;
 }
 

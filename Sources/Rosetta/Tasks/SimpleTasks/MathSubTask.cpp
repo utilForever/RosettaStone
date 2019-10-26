@@ -32,11 +32,11 @@ TaskStatus MathSubTask::Impl(Player* player)
     {
         auto entities =
             IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-        player.GetGame()->taskStack.num -= entities[0]->GetGameTag(m_gameTag);
+        player->game->taskStack.num -= entities[0]->GetGameTag(m_gameTag);
     }
     else
     {
-        player.GetGame()->taskStack.num -= m_amount;
+        player->game->taskStack.num -= m_amount;
     }
 
     return TaskStatus::COMPLETE;

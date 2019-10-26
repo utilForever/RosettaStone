@@ -48,7 +48,7 @@ ReducedBoardView Board::CreateView() const
 
 CurrentPlayerBoardRefView Board::GetCurPlayerStateRefView() const
 {
-    if (m_game.GetCurrentPlayer().playerType != m_playerType)
+    if (m_game.GetCurrentPlayer()->playerType != m_playerType)
     {
         throw std::runtime_error("current player does not match.");
     }

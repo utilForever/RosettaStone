@@ -41,11 +41,11 @@ class BoardView
 
     //! Returns the player 1 of the game.
     //! \return The player 1 of the game.
-    const Views::Types::Player* GetPlayer1() const;
+    const Views::Types::Player& GetPlayer1() const;
 
     //! Returns the player 2 of the game.
     //! \return The player 2 of the game.
-    const Views::Types::Player* GetPlayer2() const;
+    const Views::Types::Player& GetPlayer2() const;
 
  private:
     int m_turn = 0;

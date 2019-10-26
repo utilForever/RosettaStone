@@ -17,7 +17,7 @@ TaskStatus DrawOpTask::Impl(Player* player)
 {
     for (int i = 0; i < m_amount; ++i)
     {
-        Generic::Draw(*player.opponent, nullptr);
+        Generic::Draw(player->opponent, nullptr);
     }
 
     return TaskStatus::COMPLETE;

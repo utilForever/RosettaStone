@@ -12,10 +12,10 @@ namespace RosettaStone
 //! This struct is temporary data stack for task.
 struct TaskStack
 {
-    std::vector<Entity*> entities;
+    std::vector<Playable*> entities;
 
     Entity* source = nullptr;
-    Entity* target = nullptr;
+    Playable* target = nullptr;
 
     int num = 0;
     int num1 = 0;

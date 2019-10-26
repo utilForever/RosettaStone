@@ -8,7 +8,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-TaskStatus RemoveEnchantmentTask::Impl(Player* player)
+TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
 {
     auto enchantment = dynamic_cast<Enchantment*>(m_source);
     if (enchantment == nullptr)
@@ -26,7 +26,7 @@ TaskStatus RemoveEnchantmentTask::Impl(Player* player)
 
     if (enchantment->card->power.GetAura() != nullptr)
     {
-        m_source->onGoingEffect->Remove();
+        dynamic_cast<Playable*>(m_source)->onGoingEffect->Remove();
     }
 
     enchantment->Remove();

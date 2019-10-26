@@ -18,7 +18,7 @@ TaskStatus ManaCrystalTask::Impl(Player* player)
 {
     if (m_isOpponent)
     {
-        Generic::ChangeManaCrystal(*player.opponent, m_amount, m_fill);
+        Generic::ChangeManaCrystal(player->opponent, m_amount, m_fill);
     }
     else
     {

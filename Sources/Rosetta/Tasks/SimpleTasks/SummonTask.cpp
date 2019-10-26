@@ -34,11 +34,11 @@ SummonTask::SummonTask(const std::string& cardID, SummonSide side,
 
 TaskStatus SummonTask::Impl(Player* player)
 {
-    Player* summoner = m_toOpponent ? player.opponent : &player;
+    Player* summoner = m_toOpponent ? player->opponent : player;
 
     for (int i = 0; i < m_amount; ++i)
     {
-        if (summoner->GetFieldZone().IsFull())
+        if (summoner->GetFieldZone()->IsFull())
         {
             return TaskStatus::STOP;
         }
@@ -46,11 +46,11 @@ TaskStatus SummonTask::Impl(Player* player)
         Entity* summonEntity = nullptr;
         if (m_card.has_value())
         {
-            summonEntity = Entity::GetFromCard(*summoner, m_card.value());
+            summonEntity = Entity::GetFromCard(summoner, m_card.value());
         }
-        else if (!summoner->GetGame()->taskStack.entities.empty())
+        else if (!summoner->game->taskStack.entities.empty())
         {
-            summonEntity = summoner->GetGame()->taskStack.entities[0];
+            summonEntity = summoner->game->taskStack.entities[0];
         }
 
         if (summonEntity == nullptr)
@@ -76,12 +76,13 @@ TaskStatus SummonTask::Impl(Player* player)
             {
                 if (m_source->zone->GetType() == ZoneType::PLAY)
                 {
-                    summonPos = m_source->GetZonePosition() + 1;
+                    const auto source = dynamic_cast<Playable*>(m_source);
+                    summonPos = source->GetZonePosition() + 1;
                 }
                 else
                 {
-                    summonPos =
-                        dynamic_cast<Minion*>(m_source)->GetLastBoardPos();
+                    const auto source = dynamic_cast<Minion*>(m_source);
+                    summonPos = source->GetLastBoardPos();
                 }
                 break;
             }
@@ -93,8 +94,8 @@ TaskStatus SummonTask::Impl(Player* player)
                 }
                 else if (const auto e = dynamic_cast<Enchantment*>(m_source))
                 {
-                    summonPos = dynamic_cast<Minion*>(e->GetTarget())
-                                    ->GetLastBoardPos();
+                    const auto target = dynamic_cast<Minion*>(e->GetTarget());
+                    summonPos = target->GetLastBoardPos();
                 }
                 else
                 {
@@ -105,7 +106,7 @@ TaskStatus SummonTask::Impl(Player* player)
             }
             case SummonSide::NUMBER:
             {
-                summonPos = m_source->owner->GetGame()->taskStack.num - 1;
+                summonPos = m_source->game->taskStack.num - 1;
                 break;
             }
             case SummonSide::SPELL:
@@ -118,7 +119,7 @@ TaskStatus SummonTask::Impl(Player* player)
                     "SummonTask::Impl() - Invalid summon side");
         }
 
-        Generic::Summon(*summoner, summonMinion, summonPos);
+        Generic::Summon(summoner, summonMinion, summonPos);
     }
 
     return TaskStatus::COMPLETE;
