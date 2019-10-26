@@ -7,6 +7,7 @@
 #define ROSETTASTONE_ZONE_HPP
 
 #include <Rosetta/Auras/Aura.hpp>
+#include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/IZone.hpp>
 
 #include <algorithm>
@@ -19,12 +20,24 @@ namespace RosettaStone
 //!
 //! This class is base implementation of IZone.
 //!
-template <typename T>
+template <typename T = Playable>
 class Zone : public IZone
 {
  public:
-    //! Default constructor.
-    Zone() = default;
+    //! Constructs zone with given \p type.
+    //! \param type The type of zone.
+    Zone(ZoneType type)
+    {
+        m_type = type;
+    }
+
+    //! Constructs zone with given \p player and \p type.
+    //! \param player The player.
+    //! \param type The type of zone.
+    Zone(Player* player, ZoneType type) : m_game(player->game), m_player(player)
+    {
+        m_type = type;
+    }
 
     //! Default virtual destructor.
     virtual ~Zone() = default;
@@ -32,12 +45,12 @@ class Zone : public IZone
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity to add.
     //! \param zonePos The zone position of entity.
-    void Add(Entity& entity, int zonePos = -1) override = 0;
+    void Add(Playable& entity, int zonePos = -1) override = 0;
 
     //! Removes the specified entity from this zone.
     //! \param entity The entity to remove.
     //! \return The removed entity.
-    Entity& Remove(Entity& entity) override = 0;
+    Playable& Remove(Playable& entity) override = 0;
 
     //! Moves the specified entity to a new position.
     //! \param entity The entity to move.
@@ -60,7 +73,8 @@ class Zone : public IZone
     }
 
  protected:
-    Player* m_owner = nullptr;
+    Game* m_game = nullptr;
+    Player* m_player = nullptr;
 };  // namespace RosettaStone
 
 //!
@@ -68,11 +82,17 @@ class Zone : public IZone
 //!
 //! This class is base implementation of GraveyardZone and SetasideZone.
 //!
-class UnlimitedZone : public Zone<Entity>
+class UnlimitedZone : public Zone<Playable>
 {
  public:
-    //! Default constructor.
-    UnlimitedZone() = default;
+    //! Constructs unlimited zone with given \p player and \p type.
+    //! \param player The player.
+    //! \param type The type of zone.
+    UnlimitedZone(Player* player, ZoneType type) : Zone(type)
+    {
+        m_game = player->game;
+        m_player = player;
+    }
 
     //! Destructor.
     ~UnlimitedZone()
@@ -100,7 +120,7 @@ class UnlimitedZone : public Zone<Entity>
     //! Operator overloading for operator[].
     //! \param zonePos The zone position of entity.
     //! \return The entity at \p zonePos.
-    Entity* operator[](int zonePos)
+    Playable* operator[](int zonePos)
     {
         return m_entities[zonePos];
     }
@@ -108,9 +128,9 @@ class UnlimitedZone : public Zone<Entity>
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity to add.
     //! \param zonePos The zone position of entity.
-    void Add(Entity& entity, int zonePos = -1) override
+    void Add(Playable& entity, int zonePos = -1) override
     {
-        if (entity.owner != m_owner)
+        if (entity.player != m_player)
         {
             throw std::logic_error(
                 "Can't add an opponent's entity to own zones");
@@ -122,7 +142,7 @@ class UnlimitedZone : public Zone<Entity>
     //! Removes the specified entity from this zone.
     //! \param entity The entity to remove.
     //! \return The removed entity.
-    Entity& Remove(Entity& entity) override
+    Playable& Remove(Playable& entity) override
     {
         if (entity.zone == nullptr || entity.zone->GetType() != m_type)
         {
@@ -139,7 +159,7 @@ class UnlimitedZone : public Zone<Entity>
     //! Moves the specified entity to a new position.
     //! \param entity The entity to move.
     //! \param zonePos The zone position of entity.
-    void MoveTo(Entity& entity, [[maybe_unused]] int zonePos) override
+    void MoveTo(Playable& entity, [[maybe_unused]] int zonePos) override
     {
         m_entities.emplace_back(&entity);
         entity.zone = this;
@@ -172,7 +192,7 @@ class UnlimitedZone : public Zone<Entity>
     }
 
  protected:
-    std::vector<Entity*> m_entities;
+    std::vector<Playable*> m_entities;
 };
 
 //!
@@ -180,13 +200,15 @@ class UnlimitedZone : public Zone<Entity>
 //!
 //! This class is base implementation of zones which have a maximum size.
 //!
-template <typename T>
+template <typename T = Playable>
 class LimitedZone : public Zone<T>
 {
  public:
-    //! Constructs limited zone with given \p size.
-    //! \param size The maximum size of limited zone.
-    explicit LimitedZone(int size) : m_maxSize(size)
+    //! Constructs limited zone with given \p type and \p size.
+    //! \param type The type of zone.
+    //! \param maxSize The maximum size of zone.
+    explicit LimitedZone(ZoneType type, int maxSize)
+        : Zone(type), m_maxSize(maxSize)
     {
         m_entities = new T*[m_maxSize];
 
@@ -230,14 +252,14 @@ class LimitedZone : public Zone<T>
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity to add.
     //! \param zonePos The zone position of entity.
-    void Add(Entity& entity, int zonePos = -1) override
+    void Add(Playable& entity, int zonePos = -1) override
     {
         if (zonePos > m_count)
         {
             throw std::logic_error("Zone position isn't in a valid range.");
         }
 
-        if (entity.owner != Zone<T>::m_owner)
+        if (entity.player != Zone<T>::m_player)
         {
             throw std::logic_error(
                 "Can't add an opponent's entity to own zones");
@@ -249,7 +271,7 @@ class LimitedZone : public Zone<T>
     //! Removes the specified entity from this zone.
     //! \param entity The entity to remove.
     //! \return The removed entity.
-    Entity& Remove(Entity& entity) override
+    Playable& Remove(Playable& entity) override
     {
         if (entity.zone != this)
         {
@@ -259,7 +281,7 @@ class LimitedZone : public Zone<T>
         int pos;
         for (pos = m_count - 1; pos >= 0; --pos)
         {
-            if (&entity == dynamic_cast<Entity*>(m_entities[pos]))
+            if (&entity == dynamic_cast<Playable*>(m_entities[pos]))
             {
                 break;
             }
@@ -311,8 +333,8 @@ class LimitedZone : public Zone<T>
 
         ++m_count;
 
-        dynamic_cast<Entity&>(entity).zone = this;
-        dynamic_cast<Entity&>(entity).SetZoneType(Zone<T>::m_type);
+        dynamic_cast<Playable&>(entity).zone = this;
+        dynamic_cast<Playable&>(entity).SetZoneType(Zone<T>::m_type);
     }
 
     //! Returns the number of entities in this zone.
@@ -395,11 +417,15 @@ class LimitedZone : public Zone<T>
 //! This class is base implementation of zones performing strict recalculation
 //! of its containing entities' ZonePosition when any member comes and goes.
 //!
-template <typename T>
+template <typename T = Playable>
 class PositioningZone : public LimitedZone<T>
 {
  public:
-    explicit PositioningZone(int size) : LimitedZone<T>(size)
+    //! Constructs positioning zone with given \p type and \p maxSize.
+    //! \param type The type of zone.
+    //! \param maxSize The maximum size of zone.
+    explicit PositioningZone(ZoneType type, int maxSize)
+        : LimitedZone<T>(type, maxSize)
     {
         // Do nothing
     }
@@ -407,7 +433,7 @@ class PositioningZone : public LimitedZone<T>
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity to add.
     //! \param zonePos The zone position of entity.
-    void Add(Entity& entity, int zonePos = -1) override
+    void Add(Playable& entity, int zonePos = -1) override
     {
         LimitedZone<T>::Add(entity, zonePos);
 
@@ -422,7 +448,7 @@ class PositioningZone : public LimitedZone<T>
     //! Removes the specified entity from this zone.
     //! \param entity The entity to remove.
     //! \return The removed entity.
-    Entity& Remove(Entity& entity) override
+    Playable& Remove(Playable& entity) override
     {
         if (entity.zone != this)
         {
@@ -491,7 +517,7 @@ class PositioningZone : public LimitedZone<T>
     {
         if (zonePos < 0)
         {
-            dynamic_cast<Entity*>(
+            dynamic_cast<Playable*>(
                 LimitedZone<T>::m_entities[LimitedZone<T>::m_count - 1])
                 ->SetZonePosition(LimitedZone<T>::m_count - 1);
             return;
@@ -499,7 +525,7 @@ class PositioningZone : public LimitedZone<T>
 
         for (int i = LimitedZone<T>::m_count - 1; i >= zonePos; --i)
         {
-            dynamic_cast<Entity*>(LimitedZone<T>::m_entities[i])
+            dynamic_cast<Playable*>(LimitedZone<T>::m_entities[i])
                 ->SetZonePosition(i);
         }
     }

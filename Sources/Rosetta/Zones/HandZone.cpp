@@ -10,13 +10,13 @@
 
 namespace RosettaStone
 {
-HandZone::HandZone(Player* player) : PositioningZone(MAX_HAND_SIZE)
+HandZone::HandZone(Player* player) : PositioningZone(ZoneType::HAND, MAX_HAND_SIZE)
 {
-    m_owner = player;
-    m_type = ZoneType::HAND;
+    m_game = player->game;
+    m_player = player;
 }
 
-void HandZone::Add(Entity& entity, int zonePos)
+void HandZone::Add(Playable& entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
 
@@ -34,7 +34,7 @@ void HandZone::Add(Entity& entity, int zonePos)
     }
 }
 
-Entity& HandZone::Remove(Entity& entity)
+Playable& HandZone::Remove(Playable& entity)
 {
     entity.ResetCost();
 

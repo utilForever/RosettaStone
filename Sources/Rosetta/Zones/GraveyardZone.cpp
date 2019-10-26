@@ -10,12 +10,12 @@
 namespace RosettaStone
 {
 GraveyardZone::GraveyardZone(Player* player)
+    : UnlimitedZone(player, ZoneType::GRAVEYARD)
 {
-    m_owner = player;
-    m_type = ZoneType::GRAVEYARD;
+    // Do nothing
 }
 
-void GraveyardZone::Add(Entity& entity, int zonePos)
+void GraveyardZone::Add(Playable& entity, int zonePos)
 {
     UnlimitedZone::Add(entity, zonePos);
 
