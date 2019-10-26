@@ -27,12 +27,12 @@ PlayerController::Player PlayerController::Player::Player2()
     return Player(RosettaStone::PlayerType::PLAYER2);
 }
 
-bool PlayerController::Player::operator==(const Player* rhs) const
+bool PlayerController::Player::operator==(const Player& rhs) const
 {
     return m_playerType == rhs.m_playerType;
 }
 
-bool PlayerController::Player::operator!=(const Player* rhs) const
+bool PlayerController::Player::operator!=(const Player& rhs) const
 {
     return m_playerType != rhs.m_playerType;
 }
@@ -61,7 +61,7 @@ RosettaStone::PlayerType PlayerController::Player::GetPlayerType() const
 
 PlayerController::Player PlayerController::GetPlayer() const
 {
-    return Player(m_game->GetCurrentPlayer().playerType);
+    return Player(m_game->GetCurrentPlayer()->playerType);
 }
 
 RosettaStone::Board PlayerController::GetPlayerBoard(Player player) const

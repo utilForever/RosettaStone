@@ -108,11 +108,11 @@ std::string InteractiveShell::GetTargetString(Character* character)
 {
     Game game = m_startBoardGetter();
 
-    if (game.GetPlayer1().GetHero() == character)
+    if (game.GetPlayer1()->GetHero() == character)
     {
         return "Your Hero";
     }
-    if (game.GetPlayer2().GetHero() == character)
+    if (game.GetPlayer2()->GetHero() == character)
     {
         return "Opponent Hero";
     }
@@ -129,7 +129,7 @@ std::string InteractiveShell::GetTargetString(Character* character)
         return -1;
     };
 
-    int idx = FindInMinions(game.GetPlayer1().GetFieldZone().GetAll());
+    int idx = FindInMinions(game.GetPlayer1()->GetFieldZone()->GetAll());
     if (idx >= 0)
     {
         std::stringstream ss;
@@ -137,7 +137,7 @@ std::string InteractiveShell::GetTargetString(Character* character)
         return ss.str();
     }
 
-    idx = FindInMinions(game.GetPlayer2().GetFieldZone().GetAll());
+    idx = FindInMinions(game.GetPlayer2()->GetFieldZone()->GetAll());
     if (idx >= 0)
     {
         std::stringstream ss;

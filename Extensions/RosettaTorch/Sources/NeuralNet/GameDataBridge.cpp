@@ -47,47 +47,47 @@ double GameDataBridge::GetField(FieldSide fieldSide, FieldType fieldType,
 double GameDataBridge::GetSideField(FieldType fieldType, int arg,
                                     const RosettaStone::Player* player) const
 {
+    auto& handZone = *(player->GetHandZone());
+    auto& fieldZone = *(player->GetFieldZone());
+
     switch (fieldType)
     {
         case FieldType::MANA_CRYSTAL_CURRENT:
-            return player.GetRemainingMana();
+            return player->GetRemainingMana();
         case FieldType::MANA_CRYSTAL_TOTAL:
-            return player.GetTotalMana();
+            return player->GetTotalMana();
         case FieldType::MANA_CRYSTAL_OVERLOAD_OWED:
-            return player.GetOverloadOwed();
+            return player->GetOverloadOwed();
         case FieldType::MANA_CRYSTAL_OVERLOAD_LOCKED:
-            return player.GetOverloadLocked();
+            return player->GetOverloadLocked();
         case FieldType::HERO_HEALTH:
-            return player.GetHero()->GetHealth();
+            return player->GetHero()->GetHealth();
         case FieldType::HERO_ARMOR:
-            return player.GetHero()->GetArmor();
+            return player->GetHero()->GetArmor();
         case FieldType::MINION_COUNT:
-            return player.GetFieldZone().GetCount();
+            return fieldZone.GetCount();
         case FieldType::MINION_HEALTH:
-            return player.GetFieldZone()[arg]->GetHealth();
+            return fieldZone[arg]->GetHealth();
         case FieldType::MINION_MAX_HEALTH:
-            return player.GetFieldZone()[arg]->GetMaxHealth();
+            return fieldZone[arg]->GetMaxHealth();
         case FieldType::MINION_ATTACK:
-            return player.GetFieldZone()[arg]->GetAttack();
+            return fieldZone[arg]->GetAttack();
         case FieldType::MINION_ATTACKABLE:
-            return player.GetFieldZone()[arg]->CanAttack();
+            return fieldZone[arg]->CanAttack();
         case FieldType::MINION_TAUNT:
-            return player.GetFieldZone()[arg]->GetGameTag(
-                RosettaStone::GameTag::TAUNT);
+            return fieldZone[arg]->GetGameTag(RosettaStone::GameTag::TAUNT);
         case FieldType::MINION_DIVINE_SHIELD:
-            return player.GetFieldZone()[arg]->GetGameTag(
+            return fieldZone[arg]->GetGameTag(
                 RosettaStone::GameTag::DIVINE_SHIELD);
         case FieldType::MINION_STEALTH:
-            return player.GetFieldZone()[arg]->GetGameTag(
-                RosettaStone::GameTag::STEALTH);
+            return fieldZone[arg]->GetGameTag(RosettaStone::GameTag::STEALTH);
         case FieldType::HAND_COUNT:
-            return player.GetHandZone().GetCount();
+            return handZone.GetCount();
         case FieldType::HAND_PLAYABLE:
             return (std::find(m_playableCards.begin(), m_playableCards.end(),
-                              player.GetHandZone()[arg]) !=
-                    m_playableCards.end());
+                              handZone[arg]) != m_playableCards.end());
         case FieldType::HAND_COST:
-            return player.GetHandZone()[arg]->GetCost();
+            return handZone[arg]->GetCost();
         case FieldType::HERO_POWER_PLAYABLE:
             return m_canUseHeroPower;
         default:

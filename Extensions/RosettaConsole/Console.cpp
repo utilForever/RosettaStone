@@ -222,8 +222,8 @@ void Console::SimulateGame() const
     config.player2Class = deck2->GetClass();
 
     Game game(config);
-    game.GetPlayer1().nickname = p1->GetNickname();
-    game.GetPlayer2().nickname = p2->GetNickname();
+    game.GetPlayer1()->nickname = p1->GetNickname();
+    game.GetPlayer2()->nickname = p2->GetNickname();
 
     game.Start();
 }

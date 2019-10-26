@@ -201,10 +201,10 @@ void HeuristicPlayoutHeuristicEarlyCutoffPolicy::DFSBestStateValue(
                 }
                 else
                 {
-                    stateValue.SetValue(side.playerType, result);
+                    stateValue.SetValue(side->playerType, result);
                 }
 
-                const float value = stateValue.GetValue(side.playerType);
+                const float value = stateValue.GetValue(side->playerType);
 
                 if (m_decision.empty() || value > bestValue)
                 {
