@@ -8,7 +8,6 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
-#include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
@@ -28,7 +27,7 @@ Aura::Aura(AuraType type, std::string&& enchantmentID)
     // Do nothing
 }
 
-void Aura::Activate(Entity* owner, bool cloning)
+void Aura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
@@ -98,35 +97,35 @@ void Aura::Remove()
         case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            EraseIf(m_owner->owner->GetFieldZone().auras,
+            EraseIf(m_owner->player->GetFieldZone()->auras,
                     [this](Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::HAND:
         {
-            EraseIf(m_owner->owner->GetHandZone().auras,
+            EraseIf(m_owner->player->GetHandZone()->auras,
                     [this](Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::ENEMY_HAND:
         {
-            EraseIf(m_owner->owner->opponent->GetHandZone().auras,
+            EraseIf(m_owner->player->opponent->GetHandZone()->auras,
                     [this](Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::HANDS:
         {
-            EraseIf(m_owner->owner->GetHandZone().auras,
+            EraseIf(m_owner->player->GetHandZone()->auras,
                     [this](Aura* aura) { return aura == this; });
-            EraseIf(m_owner->owner->opponent->GetHandZone().auras,
+            EraseIf(m_owner->player->opponent->GetHandZone()->auras,
                     [this](Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::FIELD_AND_HAND:
         {
-            EraseIf(m_owner->owner->GetFieldZone().auras,
+            EraseIf(m_owner->player->GetFieldZone()->auras,
                     [this](Aura* aura) { return aura == this; });
-            EraseIf(m_owner->owner->GetHandZone().auras,
+            EraseIf(m_owner->player->GetHandZone()->auras,
                     [this](Aura* aura) { return aura == this; });
             break;
         }
@@ -142,12 +141,12 @@ void Aura::Remove()
     }
 }
 
-void Aura::Clone(Entity* clone)
+void Aura::Clone(Playable* clone)
 {
     Activate(clone, true);
 }
 
-void Aura::Apply(Entity* entity)
+void Aura::Apply(Playable* entity)
 {
     if (condition != nullptr)
     {
@@ -166,7 +165,7 @@ void Aura::Apply(Entity* entity)
         m_enchantmentCard->power.GetTrigger() != nullptr)
     {
         const auto instance =
-            Enchantment::GetInstance(*entity->owner, m_enchantmentCard, entity);
+            Enchantment::GetInstance(*entity->player, m_enchantmentCard, entity);
 
         if (auto trigger = m_enchantmentCard->power.GetTrigger();
             trigger != nullptr)
@@ -178,7 +177,7 @@ void Aura::Apply(Entity* entity)
     m_appliedEntities.emplace_back(entity);
 }
 
-void Aura::Disapply(Entity* entity)
+void Aura::Disapply(Playable* entity)
 {
     const auto iter =
         std::find(m_appliedEntities.begin(), m_appliedEntities.end(), entity);
@@ -214,7 +213,7 @@ void Aura::Disapply(Entity* entity)
     }
 }
 
-void Aura::NotifyEntityAdded(Entity* entity)
+void Aura::NotifyEntityAdded(Playable* entity)
 {
     if (!m_turnOn)
     {
@@ -230,7 +229,7 @@ void Aura::NotifyEntityAdded(Entity* entity)
     }
 }
 
-void Aura::NotifyEntityRemoved(Entity* entity)
+void Aura::NotifyEntityRemoved(Playable* entity)
 {
     if (!m_turnOn)
     {
@@ -246,7 +245,7 @@ void Aura::NotifyEntityRemoved(Entity* entity)
         AuraUpdateInstruction(entity, AuraInstruction::REMOVE), 1);
 }
 
-Aura::Aura(Aura& prototype, Entity& owner)
+Aura::Aura(Aura& prototype, Playable& owner)
     : condition(prototype.condition),
       restless(prototype.restless),
       m_type(prototype.m_type),
@@ -261,9 +260,9 @@ Aura::Aura(Aura& prototype, Entity& owner)
     }
 }
 
-void Aura::AddToGame(Entity& owner, Aura& aura)
+void Aura::AddToGame(Playable& owner, Aura& aura)
 {
-    owner.owner->GetGame()->auras.emplace_back(&aura);
+    owner.game->auras.emplace_back(&aura);
     owner.onGoingEffect = &aura;
 
     switch (aura.m_type)
@@ -271,21 +270,21 @@ void Aura::AddToGame(Entity& owner, Aura& aura)
         case AuraType::ADJACENT:
         case AuraType::FIELD:
         case AuraType::FIELD_EXCEPT_SOURCE:
-            owner.owner->GetFieldZone().auras.emplace_back(&aura);
+            owner.player->GetFieldZone()->auras.emplace_back(&aura);
             break;
         case AuraType::HAND:
-            owner.owner->GetHandZone().auras.emplace_back(&aura);
+            owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
         case AuraType::ENEMY_HAND:
-            owner.owner->opponent->GetHandZone().auras.emplace_back(&aura);
+            owner.player->opponent->GetHandZone()->auras.emplace_back(&aura);
             break;
         case AuraType::HANDS:
-            owner.owner->GetHandZone().auras.emplace_back(&aura);
-            owner.owner->opponent->GetHandZone().auras.emplace_back(&aura);
+            owner.player->GetHandZone()->auras.emplace_back(&aura);
+            owner.player->opponent->GetHandZone()->auras.emplace_back(&aura);
             break;
         case AuraType::FIELD_AND_HAND:
-            owner.owner->GetFieldZone().auras.emplace_back(&aura);
-            owner.owner->GetHandZone().auras.emplace_back(&aura);
+            owner.player->GetFieldZone()->auras.emplace_back(&aura);
+            owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
         default:
             throw std::invalid_argument(
@@ -304,8 +303,8 @@ void Aura::UpdateInternal()
     {
         case AuraType::ADJACENT:
         {
-            auto& field = m_owner->owner->GetFieldZone();
-            if (field.GetCount() == 1)
+            auto field = m_owner->player->GetFieldZone();
+            if (field->GetCount() == 1)
             {
                 return;
             }
@@ -315,7 +314,7 @@ void Aura::UpdateInternal()
             {
                 Apply(field[pos - 1]);
             }
-            if (pos < m_owner->owner->GetFieldZone().GetCount() - 1)
+            if (pos < m_owner->player->GetFieldZone()->GetCount() - 1)
             {
                 Apply(field[pos + 1]);
             }

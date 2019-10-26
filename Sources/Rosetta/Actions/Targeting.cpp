@@ -5,6 +5,7 @@
 
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
 
@@ -85,7 +86,7 @@ std::vector<Character*> GetValidTargets(Entity* source)
         return ret;
     }
 
-    auto game = source->owner->GetGame();
+    auto game = source->game;
 
     // Check play requirements for player's hero
     if (CheckRequirements(source, game->GetPlayer1().GetHero()))
@@ -98,14 +99,14 @@ std::vector<Character*> GetValidTargets(Entity* source)
     }
 
     // Check play requirements for player's minions
-    for (auto& minion : game->GetPlayer1().GetFieldZone().GetAll())
+    for (auto& minion : game->GetPlayer1().GetFieldZone()->GetAll())
     {
         if (CheckRequirements(source, minion))
         {
             ret.emplace_back(minion);
         }
     }
-    for (auto& minion : game->GetPlayer2().GetFieldZone().GetAll())
+    for (auto& minion : game->GetPlayer2().GetFieldZone()->GetAll())
     {
         if (CheckRequirements(source, minion))
         {
@@ -134,14 +135,14 @@ bool CheckRequirements(Entity* source, Character* target)
                 break;
             }
             case PlayReq::REQ_FRIENDLY_TARGET:
-                if (target->owner != source->owner)
+                if (target->player != source->player)
                 {
                     return false;
                 }
                 break;
             case PlayReq::REQ_ENEMY_TARGET:
             {
-                if (target->owner == source->owner)
+                if (target->player == source->player)
                 {
                     return false;
                 }

@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_GENERIC_HPP
 #define ROSETTASTONE_GENERIC_HPP
 
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 
 namespace RosettaStone::Generic
@@ -21,7 +22,7 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 //! Adds card to hand.
 //! \param player The player to add card to hand.
 //! \param entity A card to add.
-void AddCardToHand(Player& player, Entity* entity);
+void AddCardToHand(Player& player, Playable* entity);
 
 //! Creates a new enchantment and attaches it to the given target.
 //! \param enchantmentCard The base card for the enchantment.
@@ -29,13 +30,13 @@ void AddCardToHand(Player& player, Entity* entity);
 //! \param target The target entity.
 //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
 //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
-void AddEnchantment(Card* enchantmentCard, Entity* creator, Entity* target,
+void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
                     int num1 = -1, int num2 = -1);
 
 //! Shuffles card into deck.
 //! \param player The player to shuffle card into deck.
 //! \param entity A card to shuffle into deck.
-void ShuffleIntoDeck(Player& player, Entity* entity);
+void ShuffleIntoDeck(Player& player, Playable* entity);
 
 //! Changes mana crystal of the player.
 //! \param player The player to change mana crystal.

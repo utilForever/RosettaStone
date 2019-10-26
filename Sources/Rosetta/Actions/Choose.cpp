@@ -5,6 +5,9 @@
 
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <algorithm>
 
@@ -37,12 +40,12 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             // Process mulligan state
             player.mulliganState = Mulligan::DEALING;
 
-            auto& hand = player.GetHandZone();
-            auto& deck = player.GetDeckZone();
+            auto hand = player.GetHandZone();
+            auto deck = player.GetDeckZone();
 
             // Collect cards to redraw
-            std::vector<Entity*> mulliganList;
-            for (const auto entity : hand.GetAll())
+            std::vector<Playable*> mulliganList;
+            for (const auto entity : hand->GetAll())
             {
                 const bool isExist = std::find(choices.begin(), choices.end(),
                                                entity->id) == choices.end();
@@ -55,13 +58,13 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             // Process redraw
             for (const auto& entity : mulliganList)
             {
-                Entity& newCard = deck.Remove(*deck.GetTopCard());
-                AddCardToHand(player, &newCard);
-                hand.Swap(*entity, newCard);
+                Playable& playable = deck->Remove(*deck->GetTopCard());
+                AddCardToHand(player, &playable);
+                hand->Swap(*entity, playable);
 
-                hand.Remove(*entity);
-                deck.Add(*entity);
-                deck.Shuffle();
+                hand->Remove(*entity);
+                deck->Add(*entity);
+                deck->Shuffle();
             }
 
             // It's done! - Reset choice
@@ -92,9 +95,9 @@ bool ChoicePick(Player& player, std::size_t choice)
     }
 
     // Get picked card using entity ID
-    Entity* entity = player.GetSetasideZone().GetEntity(choice);
+    Playable* playable = player.GetSetasideZone()->GetEntity(choice);
     // Block it if player tries to pick a card that doesn't exist
-    if (entity == nullptr)
+    if (playable == nullptr)
     {
         return false;
     }
@@ -104,8 +107,8 @@ bool ChoicePick(Player& player, std::size_t choice)
     {
         case ChoiceAction::HAND:
         {
-            player.GetSetasideZone().Remove(*entity);
-            AddCardToHand(player, entity);
+            player.GetSetasideZone()->Remove(*playable);
+            AddCardToHand(player, playable);
             break;
         }
         default:

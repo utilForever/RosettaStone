@@ -5,12 +5,13 @@
 
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 namespace RosettaStone::Generic
 {
 void Summon(Player& player, Minion* minion, int fieldPos)
 {
-    player.GetFieldZone().Add(*minion, fieldPos);
+    player.GetFieldZone()->Add(*minion, fieldPos);
 
     player.GetGame()->UpdateAura();
 

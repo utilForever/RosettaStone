@@ -10,6 +10,8 @@
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 namespace RosettaStone
 {
@@ -45,11 +47,11 @@ bool ActionValidGetter::CanUseHeroPower()
     return true;
 }
 
-bool ActionValidGetter::IsPlayable(const Player& player, Entity* entity) const
+bool ActionValidGetter::IsPlayable(const Player& player, Playable* entity) const
 {
     if (entity->card->GetCardType() == CardType::MINION)
     {
-        if (m_game.GetCurrentPlayer().GetFieldZone().IsFull())
+        if (m_game.GetCurrentPlayer().GetFieldZone()->IsFull())
         {
             return false;
         }
@@ -57,7 +59,7 @@ bool ActionValidGetter::IsPlayable(const Player& player, Entity* entity) const
 
     if (entity->card->HasGameTag(GameTag::SECRET))
     {
-        if (m_game.GetCurrentPlayer().GetSecretZone().Exist(*entity))
+        if (m_game.GetCurrentPlayer().GetSecretZone()->Exist(*entity))
         {
             return false;
         }

@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-class Entity;
+class Playable;
 
 //!
 //! \brief AuraUpdateInstruction struct.
@@ -26,7 +26,7 @@ struct AuraUpdateInstruction
     //! \p _instruction.
     //! \param _source The source entity.
     //! \param _instruction The instruction of the aura.
-    AuraUpdateInstruction(Entity* _source, AuraInstruction _instruction)
+    AuraUpdateInstruction(Playable* _source, AuraInstruction _instruction)
         : source(_source), instruction(_instruction)
     {
         // Do nothing
@@ -46,7 +46,7 @@ struct AuraUpdateInstruction
         return (source == other.source) && (instruction == other.instruction);
     }
 
-    Entity* source = nullptr;
+    Playable* source = nullptr;
     AuraInstruction instruction;
 };
 }  // namespace RosettaStone

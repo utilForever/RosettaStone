@@ -18,7 +18,7 @@
 namespace RosettaStone
 {
 class Card;
-class Entity;
+class Playable;
 
 //!
 //! \brief Aura class.
@@ -49,7 +49,7 @@ class Aura : public IAura
     //! Create new Aura instance to the owner's game.
     //! \param owner The owner of aura.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner, bool cloning = false) override;
+    void Activate(Playable* owner, bool cloning = false) override;
 
     //! Apply this aura to the target entities or remove this aura
     //! if the owner is nullified.
@@ -60,25 +60,25 @@ class Aura : public IAura
 
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
-    void Clone(Entity* clone) override;
+    void Clone(Playable* clone) override;
 
     //! Applies aura's effect(s) to target entity.
     //! \param entity The entity to apply aura's effect(s).
-    void Apply(Entity* entity);
+    void Apply(Playable* entity);
 
     //! Disapplies aura's effect(s) to target entity.
     //! \param entity The entity to disapply aura's effect(s).
-    void Disapply(Entity* entity);
+    void Disapply(Playable* entity);
 
     //! Notifies this aura instance that the given entity is added to
     //! the corresponding zone.
     //! \param entity The entity to notify that it is added.
-    void NotifyEntityAdded(Entity* entity);
+    void NotifyEntityAdded(Playable* entity);
 
     //! Notifies this aura instance that the given entity is removed from
     //! the corresponding zone.
     //! \param entity The entity to notify that it is removed.
-    void NotifyEntityRemoved(Entity* entity);
+    void NotifyEntityRemoved(Playable* entity);
 
     SelfCondition* condition = nullptr;
     bool restless = false;
@@ -87,18 +87,18 @@ class Aura : public IAura
     //! Constructs aura with given \p prototype and \p owner.
     //! \param prototype An aura for prototype.
     //! \param owner An owner of aura.
-    Aura(Aura& prototype, Entity& owner);
+    Aura(Aura& prototype, Playable& owner);
 
     //! Adds aura to the game.
     //! \param owner An owner of aura.
     //! \param aura The dynamically allocated Aura instance.
-    void AddToGame(Entity& owner, Aura& aura);
+    void AddToGame(Playable& owner, Aura& aura);
 
     AuraType m_type = AuraType::INVALID;
-    Entity* m_owner = nullptr;
+    Playable* m_owner = nullptr;
 
     PriorityQueue<AuraUpdateInstruction> m_auraUpdateInstQueue;
-    std::vector<Entity*> m_appliedEntities;
+    std::vector<Playable*> m_appliedEntities;
 
     Card* m_enchantmentCard = nullptr;
     std::vector<IEffect*> m_effects;

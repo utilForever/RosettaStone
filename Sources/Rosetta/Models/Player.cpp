@@ -7,6 +7,12 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone
 {
@@ -69,34 +75,34 @@ void Player::SetGame(Game* game)
     m_game = game;
 }
 
-FieldZone& Player::GetFieldZone() const
+FieldZone* Player::GetFieldZone() const
 {
-    return *m_fieldZone;
+    return m_fieldZone;
 }
 
-DeckZone& Player::GetDeckZone() const
+DeckZone* Player::GetDeckZone() const
 {
-    return *m_deckZone;
+    return m_deckZone;
 }
 
-GraveyardZone& Player::GetGraveyardZone() const
+GraveyardZone* Player::GetGraveyardZone() const
 {
-    return *m_graveyardZone;
+    return m_graveyardZone;
 }
 
-HandZone& Player::GetHandZone() const
+HandZone* Player::GetHandZone() const
 {
-    return *m_handZone;
+    return m_handZone;
 }
 
-SecretZone& Player::GetSecretZone() const
+SecretZone* Player::GetSecretZone() const
 {
-    return *m_secretZone;
+    return m_secretZone;
 }
 
-SetasideZone& Player::GetSetasideZone() const
+SetasideZone* Player::GetSetasideZone() const
 {
-    return *m_setasideZone;
+    return m_setasideZone;
 }
 
 Hero* Player::GetHero() const

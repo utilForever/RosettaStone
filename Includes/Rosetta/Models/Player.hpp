@@ -11,18 +11,18 @@
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Hero.hpp>
-#include <Rosetta/Zones/DeckZone.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/GraveyardZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
-#include <Rosetta/Zones/SecretZone.hpp>
-#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <string>
 
 namespace RosettaStone
 {
 class Game;
+class DeckZone;
+class FieldZone;
+class GraveyardZone;
+class HandZone;
+class SecretZone;
+class SetasideZone;
 
 //!
 //! \brief Player class.
@@ -31,7 +31,7 @@ class Game;
 //! NOTE: This information should be used differently from the existing card
 //! information because there are various effects on the card.
 //!
-class Player
+class Player : public Entity
 {
  public:
     static constexpr std::size_t USER_INVALID = 255;
@@ -68,27 +68,27 @@ class Player
 
     //! Returns player's field zone.
     //! \return Player's field zone.
-    FieldZone& GetFieldZone() const;
+    FieldZone* GetFieldZone() const;
 
     //! Returns player's deck zone.
     //! \return Player's deck zone.
-    DeckZone& GetDeckZone() const;
+    DeckZone* GetDeckZone() const;
 
     //! Returns player's graveyard zone.
     //! \return Player's graveyard zone.
-    GraveyardZone& GetGraveyardZone() const;
+    GraveyardZone* GetGraveyardZone() const;
 
     //! Returns player's hand zone.
     //! \return Player's hand zone.
-    HandZone& GetHandZone() const;
+    HandZone* GetHandZone() const;
 
     //! Returns player's secret zone.
     //! \return player's secret zone.
-    SecretZone& GetSecretZone() const;
+    SecretZone* GetSecretZone() const;
 
     //! Returns player's setaside zone.
     //! \return Player's setaside zone.
-    SetasideZone& GetSetasideZone() const;
+    SetasideZone* GetSetasideZone() const;
 
     //! Returns player's hero.
     //! \return Player's hero.

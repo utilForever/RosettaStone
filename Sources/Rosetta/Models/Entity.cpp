@@ -7,6 +7,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
 
@@ -14,15 +15,15 @@
 
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags)
-    : owner(&_owner), card(_card), m_gameTags(std::move(tags))
+Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags)
+    : game(_game), card(_card), m_gameTags(std::move(_tags))
 {
     for (auto& gameTag : _card->gameTags)
     {
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
 
-    id = tags[GameTag::ENTITY_ID];
+    id = _tags[GameTag::ENTITY_ID];
 }
 
 Entity::~Entity()
@@ -233,17 +234,17 @@ void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne,
     {
         ITask* clonedTask = task->Clone();
 
-        clonedTask->SetPlayer(owner);
+        clonedTask->SetPlayer(player);
         clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
         clonedTask->SetTarget(target);
 
-        owner->GetGame()->taskQueue.Enqueue(clonedTask);
+        game->taskQueue.Enqueue(clonedTask);
     }
 }
 
-Entity* Entity::GetFromCard(Player& player, Card* card,
-                            std::optional<std::map<GameTag, int>> cardTags,
-                            IZone* zone, int id)
+Playable* Entity::GetFromCard(Player& player, Card* card,
+                              std::optional<std::map<GameTag, int>> cardTags,
+                              IZone* zone, int id)
 {
     std::map<GameTag, int> tags;
     if (cardTags.has_value())
@@ -256,7 +257,7 @@ Entity* Entity::GetFromCard(Player& player, Card* card,
     tags[GameTag::ZONE] =
         zone != nullptr ? static_cast<int>(zone->GetType()) : 0;
 
-    Entity* result;
+    Playable* result;
 
     switch (card->GetCardType())
     {
@@ -288,10 +289,10 @@ Entity* Entity::GetFromCard(Player& player, Card* card,
 
         result->chooseOneCard[0] =
             GetFromCard(player, Cards::FindCardByID(result->card->id + "a"),
-                        std::nullopt, &player.GetSetasideZone());
+                        std::nullopt, player.GetSetasideZone());
         result->chooseOneCard[1] =
             GetFromCard(player, Cards::FindCardByID(result->card->id + "b"),
-                        std::nullopt, &player.GetSetasideZone());
+                        std::nullopt, player.GetSetasideZone());
     }
 
     return result;

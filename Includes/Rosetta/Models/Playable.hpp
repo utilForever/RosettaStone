@@ -19,6 +19,11 @@ namespace RosettaStone
 //!
 class Playable : public Entity
 {
+    //! Constructs entity with given \p _player, \p _card and \p _tags.
+    //! \param _player The player.
+    //! \param _card The card.
+    //! \param _tags The game tags.
+    Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags);
 };
 }  // namespace RosettaStone
 

@@ -19,7 +19,7 @@ AdaptiveEffect::AdaptiveEffect(SelfCondition* condition, GameTag tag)
     // Do nothing
 }
 
-void AdaptiveEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
+void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
 {
     auto instance = new AdaptiveEffect(*this, *owner);
 
@@ -27,9 +27,9 @@ void AdaptiveEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
     {
         if (const auto weapon = dynamic_cast<Weapon*>(owner); weapon)
         {
-            if (weapon->owner->GetHero()->auraEffects != nullptr)
+            if (weapon->player->GetHero()->auraEffects != nullptr)
             {
-                weapon->owner->GetHero()->auraEffects =
+                weapon->player->GetHero()->auraEffects =
                     new AuraEffects(CardType::HERO);
             }
         }
@@ -39,7 +39,7 @@ void AdaptiveEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
         }
     }
 
-    owner->owner->GetGame()->auras.emplace_back(instance);
+    owner->game->auras.emplace_back(instance);
     owner->onGoingEffect = instance;
 }
 
@@ -82,7 +82,7 @@ void AdaptiveEffect::Update()
             Effect(m_tag, m_operator, m_lastValue).RemoveAuraFrom(m_owner);
         }
 
-        EraseIf(m_owner->owner->GetGame()->auras,
+        EraseIf(m_owner->game->auras,
                 [this](IAura* aura) { return aura == this; });
     }
 }
@@ -93,12 +93,12 @@ void AdaptiveEffect::Remove()
     m_turnOn = false;
 }
 
-void AdaptiveEffect::Clone(Entity* clone)
+void AdaptiveEffect::Clone(Playable* clone)
 {
     Activate(clone);
 }
 
-AdaptiveEffect::AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner)
+AdaptiveEffect::AdaptiveEffect(AdaptiveEffect& prototype, Playable& owner)
 {
     m_owner = &owner;
 

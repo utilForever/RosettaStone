@@ -6,7 +6,6 @@
 #include <Rosetta/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Entity.hpp>
-#include <Rosetta/Models/Player.hpp>
 
 #include <utility>
 
@@ -35,7 +34,7 @@ void AdaptiveCostEffect::Activate(Entity* owner, bool cloning)
 
     owner->costManager->ActivateAdaptiveEffect(instance);
     owner->onGoingEffect = instance;
-    owner->owner->GetGame()->auras.emplace_back(instance);
+    owner->game->auras.emplace_back(instance);
 }
 
 int AdaptiveCostEffect::Apply(int value) const
@@ -75,8 +74,7 @@ void AdaptiveCostEffect::Remove()
 {
     m_owner->onGoingEffect = nullptr;
 
-    EraseIf(m_owner->owner->GetGame()->auras,
-            [this](IAura* aura) { return aura == this; });
+    EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
 
     if (const auto costManager = m_owner->costManager; costManager)
     {

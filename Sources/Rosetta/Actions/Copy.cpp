@@ -8,6 +8,8 @@
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone::Generic
 {
@@ -53,7 +55,7 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
         copyEnchantments = false;
     }
 
-    Entity* copiedEntity = Entity::GetFromCard(player, std::move(source->card));
+    Playable* copiedEntity = Entity::GetFromCard(player, source->card);
 
     if (copyEnchantments)
     {
@@ -109,9 +111,9 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
             if (deathrattle)
             {
                 position = dynamic_cast<Minion*>(source)->GetLastBoardPos();
-                if (position > player.GetFieldZone().GetCount())
+                if (position > player.GetFieldZone()->GetCount())
                 {
-                    position = player.GetFieldZone().GetCount();
+                    position = player.GetFieldZone()->GetCount();
                 }
             }
 
@@ -120,7 +122,7 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
         }
         case ZoneType::SETASIDE:
         {
-            player.GetSetasideZone().Add(*copiedEntity);
+            player.GetSetasideZone()->Add(*copiedEntity);
             break;
         }
         default:

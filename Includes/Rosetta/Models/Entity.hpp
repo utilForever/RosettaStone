@@ -37,11 +37,11 @@ class Entity
     //! Default constructor.
     Entity() = default;
 
-    //! Constructs entity with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
+    //! Constructs entity with given \p _game, \p _card and \p _tags.
+    //! \param _game The game.
     //! \param _card The card.
-    //! \param tags The game tags.
-    Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    //! \param _tags The game tags.
+    Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags);
 
     //! Destructor.
     virtual ~Entity();
@@ -149,12 +149,13 @@ class Entity
     //! \param zone The zone in which the entity must spawn.
     //! \param id An entity ID to assign to the newly created entity.
     //! \return A pointer to entity that is allocated dynamically.
-    static Entity* GetFromCard(
+    static Playable* GetFromCard(
         Player& player, Card* card,
         std::optional<std::map<GameTag, int>> cardTags = std::nullopt,
         IZone* zone = nullptr, int id = -1);
 
-    Player* owner = nullptr;
+    Game* game = nullptr;
+    Player* player = nullptr;
     Card* card = nullptr;
 
     IZone* zone = nullptr;

@@ -11,6 +11,8 @@
 #define ROSETTASTONE_ACTION_VALID_GETTER_HPP
 
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 namespace RosettaStone
 {
@@ -38,11 +40,11 @@ class ActionValidGetter
     template <typename Functor>
     void ForEachMinion(PlayerType playerType, Functor&& functor) const
     {
-        auto& fieldZone = (playerType == PlayerType::PLAYER1)
-                              ? m_game.GetPlayer1().GetFieldZone()
-                              : m_game.GetPlayer2().GetFieldZone();
+        auto fieldZone = (playerType == PlayerType::PLAYER1)
+                             ? m_game.GetPlayer1().GetFieldZone()
+                             : m_game.GetPlayer2().GetFieldZone();
 
-        for (auto& minion : fieldZone.GetAll())
+        for (auto& minion : fieldZone->GetAll())
         {
             functor(minion);
         }
@@ -53,9 +55,9 @@ class ActionValidGetter
     template <typename Functor>
     void ForEachPlayableCard(Functor&& functor) const
     {
-        auto& handZone = m_game.GetCurrentPlayer().GetHandZone();
+        auto handZone = m_game.GetCurrentPlayer().GetHandZone();
 
-        for (auto& card : handZone.GetAll())
+        for (auto& card : handZone->GetAll())
         {
             if (!IsPlayable(m_game.GetCurrentPlayer(), card))
             {
@@ -74,9 +76,9 @@ class ActionValidGetter
     template <typename Functor>
     void ForEachAttacker(Functor&& functor) const
     {
-        auto& fieldZone = m_game.GetCurrentPlayer().GetFieldZone();
+        auto fieldZone = m_game.GetCurrentPlayer().GetFieldZone();
 
-        for (auto& minion : fieldZone.GetAll())
+        for (auto& minion : fieldZone->GetAll())
         {
             if (!minion->CanAttack())
             {
@@ -108,7 +110,7 @@ class ActionValidGetter
     //! \param player The player context.
     //! \param entity The target entity.
     //! \return the flag indicates whether the card is playable.
-    bool IsPlayable(const Player& player, Entity* entity) const;
+    bool IsPlayable(const Player& player, Playable* entity) const;
 
     const Game& m_game;
 };

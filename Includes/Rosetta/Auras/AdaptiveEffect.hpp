@@ -27,7 +27,7 @@ class AdaptiveEffect : public IAura
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive effect.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner,
+    void Activate(Playable* owner,
                   [[maybe_unused]] bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
@@ -38,18 +38,18 @@ class AdaptiveEffect : public IAura
 
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
-    void Clone(Entity* clone) override;
+    void Clone(Playable* clone) override;
 
  private:
     //! Constructs adaptive effect with given \p prototype and \p owner.
     //! \param prototype An adaptive effect for prototype.
     //! \param owner An owner of adaptive effect.
-    AdaptiveEffect(AdaptiveEffect& prototype, Entity& owner);
+    AdaptiveEffect(AdaptiveEffect& prototype, Playable& owner);
 
-    Entity* m_owner = nullptr;
+    Playable* m_owner = nullptr;
 
     SelfCondition* m_condition = nullptr;
-    std::function<int(Entity*)> m_valueFunc;
+    std::function<int(Playable*)> m_valueFunc;
 
     GameTag m_tag;
     EffectOperator m_operator;

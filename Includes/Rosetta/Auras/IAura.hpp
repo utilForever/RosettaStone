@@ -8,7 +8,7 @@
 
 namespace RosettaStone
 {
-class Entity;
+class Playable;
 
 //!
 //! \brief IAura class.
@@ -25,7 +25,7 @@ class IAura
     //! Activates this effect and add an instance to the game of given entity.
     //! \param owner The entity who owns this effect.
     //! \param cloning The flag to indicate that it is cloned.
-    virtual void Activate(Entity* owner, bool cloning = false) = 0;
+    virtual void Activate(Playable* owner, bool cloning = false) = 0;
 
     //! Updates this effect to apply the effect to recently modified entities.
     virtual void Update() = 0;
@@ -35,7 +35,7 @@ class IAura
 
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
-    virtual void Clone(Entity* clone) = 0;
+    virtual void Clone(Playable* clone) = 0;
 };
 }  // namespace RosettaStone
 

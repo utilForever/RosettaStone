@@ -5,7 +5,13 @@
 
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Commons/Constants.hpp>
-#include "Rosetta/Models/Enchantment.hpp"
+#include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone::Generic
 {
@@ -14,26 +20,26 @@ void TakeDamageToCharacter(Entity* source, Character* target, int amount,
 {
     if (isSpellDamage)
     {
-        amount += static_cast<int>(source->owner->currentSpellPower);
+        amount += static_cast<int>(source->player->currentSpellPower);
     }
 
     target->TakeDamage(*source, amount);
 }
 
-void AddCardToHand(Player& player, Entity* entity)
+void AddCardToHand(Player& player, Playable* entity)
 {
     // Add card to graveyard if hand is full
-    if (player.GetHandZone().IsFull())
+    if (player.GetHandZone()->IsFull())
     {
-        player.GetGraveyardZone().Add(*entity);
+        player.GetGraveyardZone()->Add(*entity);
         return;
     }
 
     // Add card to hand
-    player.GetHandZone().Add(*entity);
+    player.GetHandZone()->Add(*entity);
 }
 
-void AddEnchantment(Card* enchantmentCard, Entity* creator, Entity* target,
+void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
                     int num1, int num2)
 {
     Power power = enchantmentCard->power;
@@ -44,7 +50,7 @@ void AddEnchantment(Card* enchantmentCard, Entity* creator, Entity* target,
         // Create Enchantment instance Only when it is needed.
         // As an owner entity for auras, triggers or deathrattle tasks.
         Enchantment* enchantment =
-            Enchantment::GetInstance(*creator->owner, enchantmentCard, target);
+            Enchantment::GetInstance(*creator->player, enchantmentCard, target);
 
         if (auto aura = power.GetAura(); aura)
         {
@@ -63,17 +69,17 @@ void AddEnchantment(Card* enchantmentCard, Entity* creator, Entity* target,
     }
 }
 
-void ShuffleIntoDeck(Player& player, Entity* entity)
+void ShuffleIntoDeck(Player& player, Playable* entity)
 {
     // Add card to graveyard if deck is full
-    if (player.GetDeckZone().IsFull())
+    if (player.GetDeckZone()->IsFull())
     {
         return;
     }
 
     // Add card into deck and shuffle it
-    player.GetDeckZone().Add(*entity);
-    player.GetDeckZone().Shuffle();
+    player.GetDeckZone()->Add(*entity);
+    player.GetDeckZone()->Shuffle();
 }
 
 void ChangeManaCrystal(Player& player, int amount, bool fill)
@@ -120,7 +126,7 @@ void TransformMinion(Player& player, Minion* oldMinion, Card* card)
         return;
     }
 
-    player.GetFieldZone().Replace(*oldMinion, *newMinion);
+    player.GetFieldZone()->Replace(*oldMinion, *newMinion);
 }
 
 IZone* GetZone(Player& player, ZoneType zoneType)
@@ -128,17 +134,17 @@ IZone* GetZone(Player& player, ZoneType zoneType)
     switch (zoneType)
     {
         case ZoneType::PLAY:
-            return &player.GetFieldZone();
+            return player.GetFieldZone();
         case ZoneType::DECK:
-            return &player.GetDeckZone();
+            return player.GetDeckZone();
         case ZoneType::HAND:
-            return &player.GetHandZone();
+            return player.GetHandZone();
         case ZoneType::GRAVEYARD:
-            return &player.GetGraveyardZone();
+            return player.GetGraveyardZone();
         case ZoneType::SETASIDE:
-            return &player.GetSetasideZone();
+            return player.GetSetasideZone();
         case ZoneType::SECRET:
-            return &player.GetSecretZone();
+            return player.GetSecretZone();
         case ZoneType::INVALID:
         case ZoneType::REMOVEDFROMGAME:
             return nullptr;
