@@ -16,7 +16,7 @@ CountTask::CountTask(EntityType entityType, int numIndex, std::vector<SelfCondit
     // Do nothing
 }
 
-TaskStatus CountTask::Impl(Player& player)
+TaskStatus CountTask::Impl(Player* player)
 {
     const auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

@@ -29,7 +29,7 @@ class AdjacentAura : public IAura
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner,
+    void Activate(Playable* owner,
                   [[maybe_unused]] bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
@@ -40,7 +40,7 @@ class AdjacentAura : public IAura
 
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
-    void Clone(Entity* clone) override;
+    void Clone(Playable* clone) override;
 
     //! Sets the flag whether the field zone is changed.
     //! \param isFieldChanged The flag whether the field zone is changed.

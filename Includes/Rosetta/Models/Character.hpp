@@ -21,14 +21,11 @@ class Player;
 class Character : public Playable
 {
  public:
-    //! Default constructor.
-    Character() = default;
-
-    //! Constructs character with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs character with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    Character(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    Character(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Character() = default;
@@ -109,27 +106,27 @@ class Character : public Playable
     //! \param opponent The opponent player.
     //! \param target A pointer to the target.
     //! \return true if the target is valid, and false otherwise.
-    bool IsValidCombatTarget(Player& opponent, Character* target) const;
+    bool IsValidCombatTarget(Player* opponent, Character* target) const;
 
     //! Returns a list of valid target in combat.
     //! \param opponent The opponent player.
     //! \return A list of pointer to valid target.
-    std::vector<Character*> GetValidCombatTargets(Player& opponent) const;
+    std::vector<Character*> GetValidCombatTargets(Player* opponent) const;
 
     //! Takes damage from a certain other entity.
     //! \param source An entity to give damage.
     //! \param damage The value of damage.
     //! \return Final damage taking into account ability.
-    int TakeDamage(Entity& source, int damage);
+    int TakeDamage(Playable* source, int damage);
 
     //! Takes heal up all taken damage.
     //! \param source An entity to give full heal.
-    void TakeFullHeal(Entity& source);
+    void TakeFullHeal(Playable* source);
 
     //! Takes heal a specified amount of health.
     //! \param source An entity to give heal.
     //! \param heal The value of heal.
-    void TakeHeal(Entity& source, int heal);
+    void TakeHeal(Playable* source, int heal);
 
     std::function<void(Player*, Entity*)> afterAttackTrigger;
     std::function<void(Player*, Entity*)> preDamageTrigger;

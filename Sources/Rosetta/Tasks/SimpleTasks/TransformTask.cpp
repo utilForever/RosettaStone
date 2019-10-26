@@ -18,7 +18,7 @@ TransformTask::TransformTask(EntityType entityType, std::string cardID)
     // Do nothing
 }
 
-TaskStatus TransformTask::Impl(Player& player)
+TaskStatus TransformTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

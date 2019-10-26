@@ -8,7 +8,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-TaskStatus TransformCopyTask::Impl(Player& player)
+TaskStatus TransformCopyTask::Impl(Player* player)
 {
     const auto target = dynamic_cast<Minion*>(m_target);
     if (target == nullptr)

@@ -7,13 +7,15 @@
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <algorithm>
+#include <utility>
 
 namespace RosettaStone
 {
-Character::Character(Player& _owner, Card* _card, std::map<GameTag, int> tags)
-    : Entity(_owner, _card, tags)
+Character::Character(Player* player, Card* card, std::map<GameTag, int> tags)
+    : Playable(player, card, std::move(tags))
 {
     // Do nothing
 }
@@ -134,7 +136,7 @@ bool Character::CanAttack() const
     return true;
 }
 
-bool Character::IsValidCombatTarget(Player& opponent, Character* target) const
+bool Character::IsValidCombatTarget(Player* opponent, Character* target) const
 {
     auto targets = GetValidCombatTargets(opponent);
     if (std::find(targets.begin(), targets.end(), target) == targets.end())
@@ -147,13 +149,13 @@ bool Character::IsValidCombatTarget(Player& opponent, Character* target) const
              hero->GetGameTag(GameTag::CANNOT_ATTACK_HEROES) == 1);
 }
 
-std::vector<Character*> Character::GetValidCombatTargets(Player& opponent) const
+std::vector<Character*> Character::GetValidCombatTargets(Player* opponent) const
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;
     std::vector<Character*> targetsHaveTaunt;
 
-    for (auto& minion : opponent.GetFieldZone().GetAll())
+    for (auto& minion : opponent.GetFieldZone()->GetAll())
     {
         if (minion->GetGameTag(GameTag::STEALTH) == 0)
         {
@@ -186,12 +188,12 @@ std::vector<Character*> Character::GetValidCombatTargets(Player& opponent) const
     return targets;
 }
 
-int Character::TakeDamage(Entity& source, int damage)
+int Character::TakeDamage(Playable* source, int damage)
 {
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
 
-    const bool isFatigue = (hero != nullptr) && (this == &source);
+    const bool isFatigue = (hero != nullptr) && (this == source);
     if (isFatigue)
     {
         hero->fatigue = damage;
@@ -211,7 +213,7 @@ int Character::TakeDamage(Entity& source, int damage)
 
     if (preDamageTrigger != nullptr)
     {
-        preDamageTrigger(owner, this);
+        preDamageTrigger(player, this);
         amount = GetPreDamage();
     }
 
@@ -248,22 +250,21 @@ int Character::TakeDamage(Entity& source, int damage)
     SetPreDamage(0);
 
     // Process damage triggers
-    owner->GetGame()->taskQueue.StartEvent();
-    owner->GetGame()->triggerManager.OnTakeDamageTrigger(owner, this);
-    owner->GetGame()->triggerManager.OnDealDamageTrigger(owner->opponent,
-                                                         &source);
-    owner->GetGame()->ProcessTasks();
-    owner->GetGame()->taskQueue.EndEvent();
+    game->taskQueue.StartEvent();
+    game->triggerManager.OnTakeDamageTrigger(player, this);
+    game->triggerManager.OnDealDamageTrigger(player->opponent, source);
+    game->ProcessTasks();
+    game->taskQueue.EndEvent();
 
     return amount;
 }
 
-void Character::TakeFullHeal(Entity& source)
+void Character::TakeFullHeal(Playable* source)
 {
     TakeHeal(source, GetDamage());
 }
 
-void Character::TakeHeal(Entity& source, int heal)
+void Character::TakeHeal(Playable* source, int heal)
 {
     if (GetDamage() == 0)
     {
@@ -273,9 +274,9 @@ void Character::TakeHeal(Entity& source, int heal)
     const int amount = GetDamage() > heal ? heal : GetDamage();
     SetDamage(GetDamage() - amount);
 
-    owner->GetGame()->taskQueue.StartEvent();
-    owner->GetGame()->triggerManager.OnHealTrigger(owner, this);
-    owner->GetGame()->ProcessTasks();
-    owner->GetGame()->taskQueue.EndEvent();
+    game->taskQueue.StartEvent();
+    game->triggerManager.OnHealTrigger(player, this);
+    game->ProcessTasks();
+    game->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone

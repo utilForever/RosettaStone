@@ -43,28 +43,20 @@ class Player : public Entity
     ~Player();
 
     //! Default copy constructor.
-    Player(const Player&) = default;
+    Player(const Player*) = delete;
 
     //! Default move constructor.
-    Player(Player&&) noexcept = default;
+    Player(Player*&) noexcept = delete;
 
     //! Default copy assignment operator.
-    Player& operator=(const Player&) = default;
+    Player* operator=(const Player*) = delete;
 
     //! Default move assignment operator.
-    Player& operator=(Player&&) noexcept = default;
+    Player* operator=(Player*&) noexcept = delete;
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
-    void RefCopy(const Player& rhs);
-
-    //! Returns a pointer to game.
-    //! \return A pointer to game.
-    Game* GetGame() const;
-
-    //! Sets a pointer to game.
-    //! \param game A pointer to game.
-    void SetGame(Game* game);
+    void RefCopy(const Player* rhs);
 
     //! Returns player's field zone.
     //! \return Player's field zone.
@@ -191,15 +183,14 @@ class Player : public Entity
     int currentSpellPower = 0;
 
  private:
+    Hero* m_hero = nullptr;
+
     DeckZone* m_deckZone = nullptr;
     FieldZone* m_fieldZone = nullptr;
     GraveyardZone* m_graveyardZone = nullptr;
     HandZone* m_handZone = nullptr;
     SecretZone* m_secretZone = nullptr;
     SetasideZone* m_setasideZone = nullptr;
-
-    Hero* m_hero = nullptr;
-    Game* m_game = nullptr;
 
     std::map<GameTag, int> m_gameTags;
 };

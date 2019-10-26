@@ -8,7 +8,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-TaskStatus RemoveEnchantmentTask::Impl(Player& player)
+TaskStatus RemoveEnchantmentTask::Impl(Player* player)
 {
     auto enchantment = dynamic_cast<Enchantment*>(m_source);
     if (enchantment == nullptr)

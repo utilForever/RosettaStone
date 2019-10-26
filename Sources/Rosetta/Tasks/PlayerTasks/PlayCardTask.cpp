@@ -47,7 +47,7 @@ PlayCardTask PlayCardTask::WeaponTarget(Entity* source, Entity* target)
     return PlayCardTask(source, target);
 }
 
-TaskStatus PlayCardTask::Impl(Player& player)
+TaskStatus PlayCardTask::Impl(Player* player)
 {
     const auto target = dynamic_cast<Character*>(m_target);
     Generic::PlayCard(player, m_source, target, m_fieldPos, m_chooseOne);

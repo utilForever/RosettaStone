@@ -26,7 +26,7 @@ TEST(FieldZone, GetAll)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     Entity* entity1 = Entity::GetFromCard(
         curPlayer, Cards::GetInstance().FindCardByName("Flame Imp"),
@@ -58,7 +58,7 @@ TEST(FieldZone, FindIndex)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     Entity* entity1 = Entity::GetFromCard(
         curPlayer, Cards::GetInstance().FindCardByName("Flame Imp"),

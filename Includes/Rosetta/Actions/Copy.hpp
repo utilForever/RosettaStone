@@ -7,7 +7,7 @@
 #define ROSETTASTONE_COPY_HPP
 
 #include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone::Generic
 {
@@ -17,7 +17,7 @@ namespace RosettaStone::Generic
 //! \param targetZone The target zone to copy.
 //! \param deathrattle The flag to indicate whether copy operation via
 //! deathrattle power.
-Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
+Entity* Copy(Player* player, Playable* source, ZoneType targetZone,
              bool deathrattle = false);
 }  // namespace RosettaStone::Generic
 

@@ -23,7 +23,7 @@ FilterStackTask::FilterStackTask(EntityType type, RelaCondition relaCondition)
     // Do nothing
 }
 
-TaskStatus FilterStackTask::Impl(Player& player)
+TaskStatus FilterStackTask::Impl(Player* player)
 {
     if (m_relaCondition != nullptr)
     {

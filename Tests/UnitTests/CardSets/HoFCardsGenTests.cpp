@@ -39,8 +39,8 @@ TEST(MageHoFTest, CS2_031_IceLance)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -109,8 +109,8 @@ TEST(DruidHoFTest, EX1_161_Naturalize)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -156,8 +156,8 @@ TEST(WarlockHoFTest, EX1_310_Doomguard)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -206,8 +206,8 @@ TEST(WarlockHoFTest, EX1_316_PowerOverwhelming)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -269,8 +269,8 @@ TEST(NeutralHoFTest, EX1_016_SylvanasWindrunner)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -324,8 +324,8 @@ TEST(NeutralHoFTest, EX1_050_ColdlightOracle)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -364,8 +364,8 @@ TEST(NeutralHoFTest, EX1_284_AzureDrake)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);

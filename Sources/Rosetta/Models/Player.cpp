@@ -38,7 +38,7 @@ Player::~Player()
     delete m_hero;
 }
 
-void Player::RefCopy(const Player& rhs)
+void Player::RefCopy(const Player* rhs)
 {
     nickname = rhs.nickname;
     playerType = rhs.playerType;

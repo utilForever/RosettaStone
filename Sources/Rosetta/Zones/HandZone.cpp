@@ -16,29 +16,29 @@ HandZone::HandZone(Player* player) : PositioningZone(ZoneType::HAND, MAX_HAND_SI
     m_player = player;
 }
 
-void HandZone::Add(Playable& entity, int zonePos)
+void HandZone::Add(Playable* entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
 
-    if (const auto aura = entity.card->power.GetAura(); aura)
+    if (const auto aura = entity->card->power.GetAura(); aura)
     {
         if (auto effect = dynamic_cast<AdaptiveCostEffect*>(aura); effect)
         {
-            effect->Activate(&entity);
+            effect->Activate(entity);
         }
     }
 
-    if (auto trigger = entity.card->power.GetTrigger(); trigger)
+    if (auto trigger = entity->card->power.GetTrigger(); trigger)
     {
-        trigger->Activate(&entity, TriggerActivation::HAND);
+        trigger->Activate(entity, TriggerActivation::HAND);
     }
 }
 
-Playable& HandZone::Remove(Playable& entity)
+Playable* HandZone::Remove(Playable* entity)
 {
-    entity.ResetCost();
+    entity->ResetCost();
 
-    for (auto* enchant : entity.appliedEnchantments)
+    for (auto* enchant : entity->appliedEnchantments)
     {
         if (enchant->activatedTrigger != nullptr)
         {
@@ -49,11 +49,11 @@ Playable& HandZone::Remove(Playable& entity)
     return PositioningZone::Remove(entity);
 }
 
-int HandZone::FindIndex(Entity& entity) const
+int HandZone::FindIndex(Entity* entity) const
 {
     for (std::size_t idx = 0; idx < MAX_HAND_SIZE; ++idx)
     {
-        if (m_entities[idx] == &entity)
+        if (m_entities[idx] == entity)
         {
             return idx;
         }

@@ -12,7 +12,7 @@ TempManaTask::TempManaTask(int amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskStatus TempManaTask::Impl(Player& player)
+TaskStatus TempManaTask::Impl(Player* player)
 {
     if (player.GetRemainingMana() + m_amount > MANA_UPPER_LIMIT)
     {

@@ -27,7 +27,7 @@ TEST(BoardRefView, GetSide)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     BoardRefView board(game, curPlayer.playerType);
     EXPECT_EQ(board.GetSide(), PlayerType::PLAYER1);
@@ -46,7 +46,7 @@ TEST(BoardRefView, GetTurn)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     BoardRefView board(game, curPlayer.playerType);
     EXPECT_EQ(board.GetTurn(), 1);
@@ -68,7 +68,7 @@ TEST(BoardRefView, GetCurrentPlayer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     BoardRefView board(game, curPlayer.playerType);
     EXPECT_EQ(board.GetCurrentPlayer(), curPlayer.playerType);
@@ -87,8 +87,8 @@ TEST(BoardRefView, GetFatigueDamage)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.GetHero()->fatigue = 3;
     opPlayer.GetHero()->fatigue = 5;
@@ -111,8 +111,8 @@ TEST(BoardRefView, GetTotalMana)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetTotalMana(4);
     opPlayer.SetTotalMana(7);
@@ -135,8 +135,8 @@ TEST(BoardRefView, GetUsedMana)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetUsedMana(4);
     opPlayer.SetUsedMana(3);
@@ -159,8 +159,8 @@ TEST(BoardRefView, GetTemporaryMana)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetTemporaryMana(2);
     opPlayer.SetTemporaryMana(5);
@@ -183,8 +183,8 @@ TEST(BoardRefView, GetOverloadOwed)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetOverloadOwed(6);
     opPlayer.SetOverloadOwed(3);
@@ -207,8 +207,8 @@ TEST(BoardRefView, GetOverloadLocked)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetOverloadLocked(7);
     opPlayer.SetOverloadLocked(2);
@@ -231,8 +231,8 @@ TEST(BoardRefView, GetRemainingMana)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetTotalMana(4);
     opPlayer.SetTotalMana(7);
@@ -257,8 +257,8 @@ TEST(BoardRefView, GetHero)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer.playerType);
     EXPECT_EQ(board1.GetHero()->card->id, "HERO_01");
@@ -280,8 +280,8 @@ TEST(BoardRefView, GetOpponentHero)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer.playerType);
     EXPECT_EQ(board1.GetHero()->card->id, "HERO_01");
@@ -339,8 +339,8 @@ TEST(BoardRefView, GetHandCards)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer.playerType);
     EXPECT_EQ(board1.GetHandCards().size(), 4u);
@@ -362,8 +362,8 @@ TEST(BoardRefView, GetOpponentHandCards)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer.playerType);
     EXPECT_EQ(board1.GetOpponentHandCards().at(0).second, false);
@@ -385,8 +385,8 @@ TEST(BoardRefView, GetOpponentHandCardCount)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     BoardRefView board1(game, curPlayer.playerType);
     EXPECT_EQ(board1.GetOpponentHandCardCount(), 5);
@@ -408,8 +408,8 @@ TEST(BoardRefView, GetMinions)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     std::vector<Card> curCards, opCards;
     curCards.reserve(5);
@@ -467,7 +467,7 @@ TEST(BoardRefView, IsHeroAttackable)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
     curPlayer.GetHero()->SetAttack(4);
 
     BoardRefView board(game, game.GetCurrentPlayer().playerType);
@@ -488,8 +488,8 @@ TEST(BoardRefView, IsMinionAttackable)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     std::vector<Card> curCards, opCards;
     curCards.reserve(5);

@@ -42,29 +42,29 @@ class FieldZone : public PositioningZone<Minion>
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
-    void Add(Playable& entity, int zonePos = -1) override;
+    void Add(Playable* entity, int zonePos = -1) override;
 
     //! Removes the specified entity from this zone.
     //! \param entity The entity.
     //! \return The entity.
-    Playable& Remove(Playable& entity) override;
+    Playable* Remove(Playable* entity) override;
 
     //! Replaces minion with another.
     //! \param oldEntity The entity to be replaced.
     //! \param newEntity The new entity.
-    void Replace(Minion& oldEntity, Minion& newEntity);
+    void Replace(Minion* oldEntity, Minion* newEntity);
 
     //! Finds the index of the minion.
     //! \param minion The minion to find.
     //! \return The index of the minion if it is found, -1 otherwise.
-    int FindIndex(Minion& minion) const;
+    int FindIndex(Minion* minion) const;
 
     std::vector<AdjacentAura*> adjacentAuras;
 
  private:
-    static void ActivateAura(Minion& entity);
+    static void ActivateAura(Minion* entity);
 
-    static void RemoveAura(Minion& entity);
+    static void RemoveAura(Minion* entity);
 };
 }  // namespace RosettaStone
 

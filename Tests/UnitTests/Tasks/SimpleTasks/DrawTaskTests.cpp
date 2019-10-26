@@ -23,7 +23,7 @@ TEST(DrawTask, Run)
     config.startPlayer = PlayerType::PLAYER1;
     Game game(config);
 
-    Player& p = game.GetPlayer1();
+    Player* p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(new Card());
@@ -68,7 +68,7 @@ TEST(DrawTask, RunExhaust)
     config.startPlayer = PlayerType::PLAYER1;
     Game game(config);
 
-    Player& p = game.GetPlayer1();
+    Player* p = game.GetPlayer1();
     EXPECT_EQ(p.GetDeckZone().GetCount(), 0);
 
     DrawTask draw(3);
@@ -106,7 +106,7 @@ TEST(DrawTask, RunOverDraw)
     config.startPlayer = PlayerType::PLAYER1;
     Game game(config);
 
-    Player& p = game.GetPlayer1();
+    Player* p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(new Card());
@@ -153,7 +153,7 @@ TEST(DrawTask, RunExhaustOverdraw)
     config.startPlayer = PlayerType::PLAYER1;
     Game game(config);
 
-    Player& p = game.GetPlayer1();
+    Player* p = game.GetPlayer1();
 
     const auto Generate = [&](std::string&& id) -> Entity* {
         cards.emplace_back(new Card());

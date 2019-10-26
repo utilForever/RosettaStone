@@ -19,7 +19,7 @@ GetGameTagTask::GetGameTagTask(EntityType entityType, GameTag tag,
     // Do nothing
 }
 
-TaskStatus GetGameTagTask::Impl(Player& player)
+TaskStatus GetGameTagTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

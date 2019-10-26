@@ -8,6 +8,8 @@
 
 #include <Rosetta/Enchants/Attrs/Attr.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone
 {
 template <typename T = Entity>

@@ -14,7 +14,7 @@ HealTask::HealTask(EntityType entityType, int amount)
     // Do nothing
 }
 
-TaskStatus HealTask::Impl(Player& player)
+TaskStatus HealTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

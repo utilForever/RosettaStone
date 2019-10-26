@@ -15,14 +15,15 @@ GraveyardZone::GraveyardZone(Player* player)
     // Do nothing
 }
 
-void GraveyardZone::Add(Playable& entity, int zonePos)
+void GraveyardZone::Add(Playable* entity, int zonePos)
 {
     UnlimitedZone::Add(entity, zonePos);
 
-    const int enchantSize = static_cast<int>(entity.appliedEnchantments.size());
+    const int enchantSize =
+        static_cast<int>(entity->appliedEnchantments.size());
     for (int i = enchantSize - 1; i >= 0; --i)
     {
-        entity.appliedEnchantments[i]->Remove();
+        entity->appliedEnchantments[i]->Remove();
     }
 }
 }  // namespace RosettaStone

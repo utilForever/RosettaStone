@@ -28,8 +28,8 @@ TEST(IncludeTask, Run_NonConst)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& player1 = game.GetPlayer1();
-    Player& player2 = game.GetPlayer2();
+    Player* player1 = game.GetPlayer1();
+    Player* player2 = game.GetPlayer2();
 
     auto& player1Field = player1.GetFieldZone();
     auto& player2Field = player2.GetFieldZone();
@@ -169,19 +169,19 @@ TEST(IncludeTask, Run_Const)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    const Player& player1 = game.GetPlayer1();
-    const Player& player2 = game.GetPlayer2();
+    const Player* player1 = game.GetPlayer1();
+    const Player* player2 = game.GetPlayer2();
 
     auto& player1Field = player1.GetFieldZone();
     auto& player2Field = player2.GetFieldZone();
 
     const auto weapon1 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        const_cast<Player&>(player1),
+        const_cast<Player*>(player1),
         Cards::GetInstance().FindCardByName("Fiery War Axe")));
     player1.GetHero()->AddWeapon(*weapon1);
 
     const auto weapon2 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        const_cast<Player&>(player2),
+        const_cast<Player*>(player2),
         Cards::GetInstance().FindCardByName("Arcanite Reaper")));
     player2.GetHero()->AddWeapon(*weapon2);
 
@@ -192,7 +192,7 @@ TEST(IncludeTask, Run_Const)
     for (std::size_t i = 0; i < 6; ++i)
     {
         Entity* entity1 = Entity::GetFromCard(
-            const_cast<Player&>(player1),
+            const_cast<Player*>(player1),
             Cards::GetInstance().FindCardByName("Flame Imp"), std::nullopt,
             &player1.GetFieldZone());
         player1.GetFieldZone().Add(*entity1);
@@ -201,7 +201,7 @@ TEST(IncludeTask, Run_Const)
     for (std::size_t i = 0; i < 4; ++i)
     {
         Entity* entity2 = Entity::GetFromCard(
-            const_cast<Player&>(player2),
+            const_cast<Player*>(player2),
             Cards::GetInstance().FindCardByName("Worthless Imp"), std::nullopt,
             &player2.GetFieldZone());
         player2.GetFieldZone().Add(*entity2);

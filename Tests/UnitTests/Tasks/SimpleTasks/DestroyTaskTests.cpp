@@ -28,8 +28,8 @@ TEST(DestroyTask, Run)
     Game game(config);
     game.Start();
 
-    Player& player1 = game.GetPlayer1();
-    Player& player2 = game.GetPlayer2();
+    Player* player1 = game.GetPlayer1();
+    Player* player2 = game.GetPlayer2();
 
     auto card = GenerateMinionCard("minion1", 1, 1);
     const std::map<GameTag, int> tags;

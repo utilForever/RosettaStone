@@ -36,7 +36,7 @@ std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
     return result;
 }
 
-TaskStatus RandomCardTask::Impl(Player& player)
+TaskStatus RandomCardTask::Impl(Player* player)
 {
     auto cardsList = GetCardList(m_cardType, m_cardClass, m_race);
     if (cardsList.empty())

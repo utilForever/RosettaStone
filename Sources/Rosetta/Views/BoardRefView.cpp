@@ -271,7 +271,7 @@ CurrentPlayerBoardRefView::CurrentPlayerBoardRefView(Game& game) : m_game(game)
     // Do nothing
 }
 
-Player& CurrentPlayerBoardRefView::GetCurrentPlayer() const
+Player* CurrentPlayerBoardRefView::GetCurrentPlayer() const
 {
     return m_game.GetCurrentPlayer();
 }

@@ -13,7 +13,7 @@ DestroyTask::DestroyTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus DestroyTask::Impl(Player& player)
+TaskStatus DestroyTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

@@ -18,7 +18,7 @@ DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus DiscardTask::Impl(Player& player)
+TaskStatus DiscardTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

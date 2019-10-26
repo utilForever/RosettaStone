@@ -26,7 +26,7 @@ TEST(Character, Health)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
 
@@ -58,7 +58,7 @@ TEST(Character, MaxHealth)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
 
@@ -87,7 +87,7 @@ TEST(Character, SpellPower)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
 

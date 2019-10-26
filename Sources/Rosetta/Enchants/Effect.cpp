@@ -18,7 +18,7 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
 
 void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
 {
-    auto& oneTurnEffects = entity->owner->GetGame()->oneTurnEffects;
+    auto& oneTurnEffects = entity->game->oneTurnEffects;
 
     if (isOneTurnEffect)
     {

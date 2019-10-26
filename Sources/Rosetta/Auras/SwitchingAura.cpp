@@ -23,7 +23,7 @@ SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
     // Do nothing
 }
 
-void SwitchingAura::Activate(Entity* owner, bool cloning)
+void SwitchingAura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
@@ -34,19 +34,17 @@ void SwitchingAura::Activate(Entity* owner, bool cloning)
 
     AddToGame(*owner, *instance);
 
-    owner->owner->GetGame()->triggerManager.startTurnTrigger =
-        instance->m_onHandler;
-    owner->owner->GetGame()->triggerManager.endTurnTrigger =
-        instance->m_offHandler;
+    owner->game->triggerManager.startTurnTrigger = instance->m_onHandler;
+    owner->game->triggerManager.endTurnTrigger = instance->m_offHandler;
 
     switch (m_offTrigger)
     {
         case TriggerType::PLAY_MINION:
-            owner->owner->GetGame()->triggerManager.playMinionTrigger =
+            owner->game->triggerManager.playMinionTrigger =
                 instance->m_offHandler;
             break;
         case TriggerType::CAST_SPELL:
-            owner->owner->GetGame()->triggerManager.castSpellTrigger =
+            owner->game->triggerManager.castSpellTrigger =
                 instance->m_offHandler;
             break;
         default:
@@ -74,18 +72,16 @@ void SwitchingAura::Remove()
 
     m_isRemoved = true;
 
-    m_owner->owner->GetGame()->triggerManager.startTurnTrigger = nullptr;
-    m_owner->owner->GetGame()->triggerManager.endTurnTrigger = nullptr;
+    m_owner->game->triggerManager.startTurnTrigger = nullptr;
+    m_owner->game->triggerManager.endTurnTrigger = nullptr;
 
     switch (m_offTrigger)
     {
         case TriggerType::PLAY_MINION:
-            m_owner->owner->GetGame()->triggerManager.playMinionTrigger =
-                nullptr;
+            m_owner->game->triggerManager.playMinionTrigger = nullptr;
             break;
         case TriggerType::CAST_SPELL:
-            m_owner->owner->GetGame()->triggerManager.castSpellTrigger =
-                nullptr;
+            m_owner->game->triggerManager.castSpellTrigger = nullptr;
             break;
         default:
             throw std::invalid_argument(
@@ -107,7 +103,7 @@ void SwitchingAura::RemoveInternal()
 
     if (m_isRemoved)
     {
-        EraseIf(m_owner->owner->GetGame()->auras,
+        EraseIf(m_owner->game->auras,
                 [this](IAura* aura) { return aura == this; });
     }
 }
@@ -138,7 +134,7 @@ void SwitchingAura::TurnOff(Player*, Entity*)
         AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
 }
 
-SwitchingAura::SwitchingAura(SwitchingAura& prototype, Entity& owner)
+SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
     : Aura(prototype, owner),
       m_initCondition(prototype.m_initCondition),
       m_offTrigger(prototype.m_offTrigger),

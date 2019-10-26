@@ -28,7 +28,7 @@ class GraveyardZone : public UnlimitedZone
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
-    void Add(Playable& entity, int zonePos = -1) override;
+    void Add(Playable* entity, int zonePos = -1) override;
 };
 }  // namespace RosettaStone
 

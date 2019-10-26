@@ -18,11 +18,11 @@ EnrageEffect::EnrageEffect(AuraType type, std::string&& enchantmentID)
     // Do nothing
 }
 
-void EnrageEffect::Activate(Entity* owner, [[maybe_unused]] bool cloning)
+void EnrageEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
 {
     auto instance = new EnrageEffect(*this, *owner);
 
-    owner->owner->GetGame()->auras.emplace_back(instance);
+    owner->game->auras.emplace_back(instance);
     owner->onGoingEffect = instance;
 }
 
@@ -32,7 +32,7 @@ void EnrageEffect::Update()
 
     if (!m_turnOn)
     {
-        EraseIf(m_owner->owner->GetGame()->auras,
+        EraseIf(m_owner->game->auras,
                 [this](IAura* aura) { return aura == this; });
 
         if (!m_enraged)
@@ -42,12 +42,12 @@ void EnrageEffect::Update()
 
         if (m_type == AuraType::WEAPON)
         {
-            if (!minion->owner->GetHero()->HasWeapon())
+            if (!minion->player->GetHero()->HasWeapon())
             {
                 return;
             }
 
-            if (m_target != &minion->owner->GetWeapon())
+            if (m_target != &minion->player->GetWeapon())
             {
                 return;
             }
@@ -66,12 +66,12 @@ void EnrageEffect::Update()
 
     if (m_type == AuraType::WEAPON)
     {
-        if (!minion->owner->GetHero()->HasWeapon())
+        if (!minion->player->GetHero()->HasWeapon())
         {
             return;
         }
 
-        if (const auto weapon = &minion->owner->GetWeapon(); weapon)
+        if (const auto weapon = &minion->player->GetWeapon(); weapon)
         {
             if (m_curInstance != nullptr)
             {
@@ -115,12 +115,12 @@ void EnrageEffect::Update()
     }
 }
 
-void EnrageEffect::Clone(Entity* clone)
+void EnrageEffect::Clone(Playable* clone)
 {
     Activate(clone, true);
 }
 
-EnrageEffect::EnrageEffect(EnrageEffect& prototype, Entity& owner)
+EnrageEffect::EnrageEffect(EnrageEffect& prototype, Playable& owner)
     : Aura(prototype, owner)
 {
     m_enraged = prototype.m_enraged;
@@ -132,7 +132,7 @@ EnrageEffect::EnrageEffect(EnrageEffect& prototype, Entity& owner)
             m_target = &owner;
             break;
         case AuraType::WEAPON:
-            m_target = &owner.owner->GetWeapon();
+            m_target = &owner.player->GetWeapon();
             break;
         default:
             break;

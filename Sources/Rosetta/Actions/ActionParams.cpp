@@ -67,7 +67,7 @@ std::size_t ActionParams::ChooseOne(const std::vector<std::size_t>& cards)
     return val;
 }
 
-Entity* ActionParams::ChooseHandCard()
+Playable* ActionParams::ChooseHandCard()
 {
     const auto& playableCards = m_checker.GetPlayableCards();
     const std::size_t idx =

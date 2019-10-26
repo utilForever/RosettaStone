@@ -44,7 +44,7 @@ class GameDataBridge : public IInputGetter
     //! \param arg The argument such as the index of minion in field zone.
     //! \return The value of the field.
     double GetSideField(FieldType fieldType, int arg,
-                        const RosettaStone::Player& player) const;
+                        const RosettaStone::Player* player) const;
 
  private:
     const RosettaStone::Game* m_game = nullptr;

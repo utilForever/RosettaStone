@@ -9,6 +9,8 @@
 
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/GameRestorer.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 namespace RosettaStone
 {
@@ -46,7 +48,7 @@ Game* GameRestorer::RestoreGame()
 }
 
 void GameRestorer::MakePlayer(
-    PlayerType playerType, Game& game, const Views::Types::Player& viewPlayer,
+    PlayerType playerType, Game& game, const Views::Types::Player* viewPlayer,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
     MakeHeroAndHeroPower(playerType, game, viewPlayer.hero,
@@ -55,7 +57,7 @@ void GameRestorer::MakePlayer(
     MakeHand(playerType, game, viewPlayer.hand, unknownCardsSetsManager);
     MakeMinions(playerType, game, viewPlayer.minions);
 
-    Player& player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
+    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
                                                          : game.GetPlayer2();
 
     player.GetHero()->fatigue = viewPlayer.fatigue;
@@ -66,7 +68,7 @@ void GameRestorer::MakeHeroAndHeroPower(
     PlayerType playerType, Game& game, const Views::Types::Hero& hero,
     const Views::Types::HeroPower& heroPower)
 {
-    Player& player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
+    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
                                                          : game.GetPlayer2();
 
     player.AddHeroAndPower(Cards::FindCardByID(hero.cardID),
@@ -86,16 +88,16 @@ void GameRestorer::MakeDeck(
     std::vector<Views::Types::CardInfo> cards,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
-    Player& player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
+    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
                                                          : game.GetPlayer2();
 
     for (const auto& card : cards)
     {
         const std::string cardID = card.GetCardID(unknownCardsSetsManager);
-        Entity* entity =
+        Playable* playable =
             Entity::GetFromCard(player, Cards::FindCardByID(cardID),
-                                std::nullopt, &player.GetDeckZone());
-        player.GetDeckZone().Add(*entity);
+                                std::nullopt, player.GetDeckZone());
+        player.GetDeckZone()->Add(*playable);
     }
 }
 
@@ -104,16 +106,16 @@ void GameRestorer::MakeHand(
     std::vector<Views::Types::CardInfo> cards,
     const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager)
 {
-    Player& player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
+    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
                                                          : game.GetPlayer2();
 
     for (const auto& card : cards)
     {
         const std::string cardID = card.GetCardID(unknownCardsSetsManager);
-        Entity* entity =
+        Playable* playable =
             Entity::GetFromCard(player, Cards::FindCardByID(cardID),
-                                std::nullopt, &player.GetHandZone());
-        player.GetHandZone().Add(*entity);
+                                std::nullopt, player.GetHandZone());
+        player.GetHandZone()->Add(*playable);
     }
 }
 
@@ -128,7 +130,7 @@ void GameRestorer::MakeMinions(PlayerType playerType, Game& game,
     }
 }
 
-void GameRestorer::MakeManaCrystal(Player& player,
+void GameRestorer::MakeManaCrystal(Player* player,
                                    const Views::Types::ManaCrystal& manaCrystal)
 {
     player.SetUsedMana(manaCrystal.used);
@@ -140,15 +142,15 @@ void GameRestorer::MakeManaCrystal(Player& player,
 void GameRestorer::AddMinion(PlayerType playerType, Game& game,
                              const Views::Types::Minion& minion, int pos)
 {
-    Player& player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
+    Player* player = (playerType == PlayerType::PLAYER1) ? game.GetPlayer1()
                                                          : game.GetPlayer2();
 
-    Entity* entity =
+    Playable* playable =
         Entity::GetFromCard(player, Cards::FindCardByID(minion.cardID),
-                            std::nullopt, &player.GetFieldZone());
-    player.GetFieldZone().Add(*entity, pos);
+                            std::nullopt, player.GetFieldZone());
+    player.GetFieldZone()->Add(*playable, pos);
 
-    Minion* m = player.GetFieldZone()[pos];
+    Minion* m = (*player.GetFieldZone())[pos];
     m->SetAttack(minion.attack);
     m->SetHealth(minion.health);
     m->SetMaxHealth(minion.maxHealth);

@@ -13,19 +13,19 @@
 
 namespace RosettaStone
 {
-Enchantment::Enchantment(Player& _owner, Card* _card,
+Enchantment::Enchantment(Player* player, Card* card,
                          std::map<GameTag, int> tags, Entity* target)
-    : Entity(_owner, _card, std::move(tags)), m_target(target)
+    : Playable(player, card, std::move(tags)), m_target(target)
 {
     // Do nothing
 }
 
-Enchantment* Enchantment::GetInstance(Player& player, Card* card,
+Enchantment* Enchantment::GetInstance(Player* player, Card* card,
                                       Entity* target)
 {
     std::map<GameTag, int> tags;
-    tags[GameTag::ENTITY_ID] = player.GetGame()->GetNextID();
-    tags[GameTag::CONTROLLER] = player.playerID;
+    tags[GameTag::ENTITY_ID] = player->game->GetNextID();
+    tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] = static_cast<int>(ZoneType::SETASIDE);
 
     Enchantment* instance = new Enchantment(player, card, tags, target);
@@ -48,11 +48,11 @@ void Enchantment::Remove()
         {
             ITask* clonedPower = power->Clone();
 
-            clonedPower->SetPlayer(m_target->owner);
+            clonedPower->SetPlayer(m_target->player);
             clonedPower->SetSource(m_target);
             clonedPower->SetTarget(this);
 
-            owner->GetGame()->taskQueue.Enqueue(clonedPower);
+            game->taskQueue.Enqueue(clonedPower);
         }
     }
 

@@ -22,7 +22,9 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
     {
         SelfContainedIntAttr::Apply(entity, effectOp, value);
 
-        if (auto* costManager = entity->costManager; costManager)
+        const auto playable = dynamic_cast<Playable*>(entity);
+
+        if (auto* costManager = playable->costManager; costManager)
         {
             costManager->AddCostEnchantment(effectOp, value);
         }
@@ -30,11 +32,13 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
 
     void ApplyAura(Entity* entity, EffectOperator effectOp, int value) override
     {
-        CostManager* costManager = entity->costManager;
+        const auto playable = dynamic_cast<Playable*>(entity);
+
+        CostManager* costManager = playable->costManager;
         if (costManager == nullptr)
         {
             costManager = new CostManager();
-            entity->costManager = costManager;
+            playable->costManager = costManager;
         }
 
         costManager->AddCostAura(effectOp, value);
@@ -42,7 +46,9 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
 
     void RemoveAura(Entity* entity, EffectOperator effectOp, int value) override
     {
-        if (auto* costManager = entity->costManager; costManager)
+        const auto playable = dynamic_cast<Playable*>(entity);
+
+        if (auto* costManager = playable->costManager; costManager)
         {
             costManager->RemoveCostAura(effectOp, value);
         }
@@ -51,20 +57,23 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
  protected:
     int GetValue(Entity* entity) override
     {
-        return entity->GetCost();
+        const auto playable = dynamic_cast<Playable*>(entity);
+        return playable->GetCost();
     }
 
     void SetValue(Entity* entity, int value) override
     {
-        entity->SetCost(value);
+        auto playable = dynamic_cast<Playable*>(entity);
+        playable->SetCost(value);
     }
 
-    int GetAuraValue(AuraEffects* auraEffects) override
+    int GetAuraValue([[maybe_unused]] AuraEffects* auraEffects) override
     {
         throw std::logic_error("Cost::GetAuraValue() - Not implemented!");
     }
 
-    void SetAuraValue(AuraEffects* auraEffects, int value) override
+    void SetAuraValue([[maybe_unused]] AuraEffects* auraEffects,
+                      [[maybe_unused]] int value) override
     {
         throw std::logic_error("Cost::GetAuraValue() - Not implemented!");
     }

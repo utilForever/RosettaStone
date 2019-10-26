@@ -23,15 +23,15 @@ ActionValidGetter::ActionValidGetter(const Game& game) : m_game(game)
 Hero* ActionValidGetter::GetHero(PlayerType playerType) const
 {
     const auto hero = (playerType == PlayerType::PLAYER1)
-                          ? m_game.GetPlayer1().GetHero()
-                          : m_game.GetPlayer2().GetHero();
+                          ? m_game.GetPlayer1()->GetHero()
+                          : m_game.GetPlayer2()->GetHero();
 
     return hero;
 }
 
 bool ActionValidGetter::CanUseHeroPower()
 {
-    auto& heroPower = m_game.GetCurrentPlayer().GetHeroPower();
+    auto& heroPower = m_game.GetCurrentPlayer()->GetHeroPower();
 
     if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), &heroPower) ||
         !Generic::IsPlayableByCardReq(&heroPower))
@@ -47,11 +47,11 @@ bool ActionValidGetter::CanUseHeroPower()
     return true;
 }
 
-bool ActionValidGetter::IsPlayable(const Player& player, Playable* entity) const
+bool ActionValidGetter::IsPlayable([[maybe_unused]] const Player* player, Playable* entity) const
 {
     if (entity->card->GetCardType() == CardType::MINION)
     {
-        if (m_game.GetCurrentPlayer().GetFieldZone()->IsFull())
+        if (m_game.GetCurrentPlayer()->GetFieldZone()->IsFull())
         {
             return false;
         }
@@ -59,7 +59,7 @@ bool ActionValidGetter::IsPlayable(const Player& player, Playable* entity) const
 
     if (entity->card->HasGameTag(GameTag::SECRET))
     {
-        if (m_game.GetCurrentPlayer().GetSecretZone()->Exist(*entity))
+        if (m_game.GetCurrentPlayer()->GetSecretZone()->Exist(entity))
         {
             return false;
         }

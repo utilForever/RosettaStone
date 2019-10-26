@@ -14,7 +14,7 @@ AddAuraEffectTask::AddAuraEffectTask(IEffect* effect, EntityType entityType)
     // Do nothing
 }
 
-TaskStatus AddAuraEffectTask::Impl(Player& player)
+TaskStatus AddAuraEffectTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

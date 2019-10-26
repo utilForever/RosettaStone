@@ -9,6 +9,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 #include <algorithm>
 #include <utility>
@@ -165,7 +166,7 @@ void Aura::Apply(Playable* entity)
         m_enchantmentCard->power.GetTrigger() != nullptr)
     {
         const auto instance =
-            Enchantment::GetInstance(*entity->player, m_enchantmentCard, entity);
+            Enchantment::GetInstance(entity->player, m_enchantmentCard, entity);
 
         if (auto trigger = m_enchantmentCard->power.GetTrigger();
             trigger != nullptr)
@@ -303,8 +304,8 @@ void Aura::UpdateInternal()
     {
         case AuraType::ADJACENT:
         {
-            auto field = m_owner->player->GetFieldZone();
-            if (field->GetCount() == 1)
+            auto& field = *m_owner->player->GetFieldZone();
+            if (field.GetCount() == 1)
             {
                 return;
             }
@@ -322,14 +323,14 @@ void Aura::UpdateInternal()
             break;
         }
         case AuraType::FIELD:
-            for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
+            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
             {
                 Apply(minion);
             }
             break;
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : m_owner->owner->GetFieldZone().GetAll())
+            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
             {
                 if (minion != m_owner)
                 {
@@ -340,7 +341,7 @@ void Aura::UpdateInternal()
         }
         case AuraType::HAND:
         {
-            for (auto& card : m_owner->owner->GetHandZone().GetAll())
+            for (auto& card : m_owner->player->GetHandZone()->GetAll())
             {
                 Apply(card);
             }
@@ -362,8 +363,7 @@ void Aura::RemoveInternal()
         }
     }
 
-    EraseIf(m_owner->owner->GetGame()->auras,
-            [this](IAura* aura) { return aura == this; });
+    EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
 
     if (m_enchantmentCard != nullptr &&
         m_enchantmentCard->power.GetTrigger() != nullptr)
@@ -383,22 +383,22 @@ void Aura::RemoveInternal()
 
 void Aura::RenewAll()
 {
-    auto Renew = [this](Entity* entity) {
+    auto Renew = [this](Playable* playable) {
         const auto iter = std::find(m_appliedEntities.begin(),
-                                    m_appliedEntities.end(), entity);
+                                    m_appliedEntities.end(), playable);
 
-        if (condition->Evaluate(entity))
+        if (condition->Evaluate(playable))
         {
             if (iter == m_appliedEntities.end())
             {
-                Apply(entity);
+                Apply(playable);
             }
         }
         else
         {
             if (iter != m_appliedEntities.end())
             {
-                Disapply(entity);
+                Disapply(playable);
             }
         }
     };
@@ -406,21 +406,21 @@ void Aura::RenewAll()
     switch (m_type)
     {
         case AuraType::FIELD:
-            m_owner->owner->GetFieldZone().ForEach(Renew);
+            m_owner->player->GetFieldZone()->ForEach(Renew);
             break;
         case AuraType::HANDS:
-            m_owner->owner->GetHandZone().ForEach(Renew);
-            m_owner->owner->opponent->GetHandZone().ForEach(Renew);
+            m_owner->player->GetHandZone()->ForEach(Renew);
+            m_owner->player->opponent->GetHandZone()->ForEach(Renew);
             break;
         case AuraType::WEAPON:
-            if (!m_owner->owner->GetHero()->HasWeapon())
+            if (!m_owner->player->GetHero()->HasWeapon())
             {
                 break;
             }
-            Renew(m_owner->owner->GetHero()->weapon);
+            Renew(m_owner->player->GetHero()->weapon);
             break;
         case AuraType::HERO:
-            Renew(m_owner->owner->GetHero());
+            Renew(m_owner->player->GetHero());
             break;
         case AuraType::SELF:
             Renew(m_owner);

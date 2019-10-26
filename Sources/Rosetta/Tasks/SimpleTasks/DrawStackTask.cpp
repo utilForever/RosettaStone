@@ -14,7 +14,7 @@ DrawStackTask::DrawStackTask(std::size_t amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskStatus DrawStackTask::Impl(Player& player)
+TaskStatus DrawStackTask::Impl(Player* player)
 {
     auto& stack = player.GetGame()->taskStack.entities;
     const std::size_t amount =

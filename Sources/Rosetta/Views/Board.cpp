@@ -24,7 +24,7 @@ void Board::RefCopyFrom(const Board& rhs)
     m_playerType = rhs.m_playerType;
 }
 
-Player& Board::GetCurrentPlayer() const
+Player* Board::GetCurrentPlayer() const
 {
     return m_game.GetCurrentPlayer();
 }

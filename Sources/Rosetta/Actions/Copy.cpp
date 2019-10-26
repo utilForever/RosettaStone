@@ -13,7 +13,7 @@
 
 namespace RosettaStone::Generic
 {
-Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
+Entity* Copy(Player* player, Playable* source, ZoneType targetZone,
              bool deathrattle)
 {
     //! \note Determine whether enchantments should be also copied.
@@ -81,7 +81,7 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
             }
         }
 
-        auto& oneTurnEffects = player.GetGame()->oneTurnEffects;
+        auto& oneTurnEffects = player->game->oneTurnEffects;
         for (int i = static_cast<int>(oneTurnEffects.size()) - 1; i >= 0; --i)
         {
             if (oneTurnEffects[i].first->id == source->id)
@@ -111,9 +111,9 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
             if (deathrattle)
             {
                 position = dynamic_cast<Minion*>(source)->GetLastBoardPos();
-                if (position > player.GetFieldZone()->GetCount())
+                if (position > player->GetFieldZone()->GetCount())
                 {
-                    position = player.GetFieldZone()->GetCount();
+                    position = player->GetFieldZone()->GetCount();
                 }
             }
 
@@ -122,7 +122,7 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
         }
         case ZoneType::SETASIDE:
         {
-            player.GetSetasideZone()->Add(*copiedEntity);
+            player->GetSetasideZone()->Add(copiedEntity);
             break;
         }
         default:

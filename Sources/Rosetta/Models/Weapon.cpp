@@ -11,15 +11,15 @@
 
 namespace RosettaStone
 {
-Weapon::Weapon(Player& _owner, Card* _card, std::map<GameTag, int> tags)
-    : Entity(_owner, _card, std::move(tags))
+Weapon::Weapon(Player* player, Card* card, std::map<GameTag, int> tags)
+    : Playable(player, card, std::move(tags))
 {
     // Do nothing
 }
 
 Weapon::~Weapon()
 {
-    owner->GetHero()->weapon = nullptr;
+    player->GetHero()->weapon = nullptr;
 }
 
 int Weapon::GetAttack() const
@@ -44,7 +44,7 @@ void Weapon::SetDurability(int durability)
     // Destroy weapon if durability is 0
     if (GetDurability() <= 0)
     {
-        owner->GetHero()->RemoveWeapon();
+        player->GetHero()->RemoveWeapon();
     }
 }
 

@@ -16,7 +16,7 @@ namespace RosettaStone
 //!
 //! \brief GeneralEffect class.
 //!
-template <typename T = Entity, typename AttrT = Attr<T>>
+template <typename T = Playable, typename AttrT = Attr<T>>
 class GenericEffect : public IEffect
 {
  public:
@@ -33,7 +33,7 @@ class GenericEffect : public IEffect
     {
         if (isOneTurnEffect)
         {
-            entity->owner->GetGame()->oneTurnEffects.emplace_back(
+            entity->game->oneTurnEffects.emplace_back(
                 entity, const_cast<GenericEffect<T, AttrT>*>(this));
         }
 

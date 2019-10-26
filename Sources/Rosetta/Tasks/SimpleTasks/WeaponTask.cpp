@@ -14,7 +14,7 @@ WeaponTask::WeaponTask(std::string cardID) : m_cardID(std::move(cardID))
     // Do nothing
 }
 
-TaskStatus WeaponTask::Impl(Player& player)
+TaskStatus WeaponTask::Impl(Player* player)
 {
     Card* weaponCard = Cards::FindCardByID(m_cardID);
     if (weaponCard->id.empty())

@@ -106,10 +106,10 @@ TEST(Game, GetPlayers)
 
     const Game game(config);
 
-    const Player& player1 = game.GetPlayer1();
+    const Player* player1 = game.GetPlayer1();
     EXPECT_EQ(player1.playerType, PlayerType::PLAYER1);
 
-    const Player& player2 = game.GetPlayer2();
+    const Player* player2 = game.GetPlayer2();
     EXPECT_EQ(player2.playerType, PlayerType::PLAYER2);
 }
 
@@ -189,8 +189,8 @@ TEST(Game, GameOver_Player1Won)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -221,8 +221,8 @@ TEST(Game, GameOver_Player2Won)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -253,8 +253,8 @@ TEST(Game, GameOver_Tied)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -297,8 +297,8 @@ TEST(Game, PerformAction)
     game.Start();
     game.MainReady();
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);

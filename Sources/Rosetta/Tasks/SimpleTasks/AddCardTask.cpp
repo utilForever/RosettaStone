@@ -15,7 +15,7 @@ AddCardTask::AddCardTask(EntityType entityType, std::string cardID, int amount)
     // Do nothing
 }
 
-TaskStatus AddCardTask::Impl(Player& player)
+TaskStatus AddCardTask::Impl(Player* player)
 {
     std::vector<Entity*> entities;
 

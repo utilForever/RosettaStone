@@ -45,7 +45,7 @@ double GameDataBridge::GetField(FieldSide fieldSide, FieldType fieldType,
 }
 
 double GameDataBridge::GetSideField(FieldType fieldType, int arg,
-                                    const RosettaStone::Player& player) const
+                                    const RosettaStone::Player* player) const
 {
     switch (fieldType)
     {

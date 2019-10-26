@@ -19,7 +19,7 @@ IncludeTask::IncludeTask(EntityType entityType,
 }
 
 std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
-                                              Player& player, Entity* source,
+                                              Player* player, Entity* source,
                                               Entity* target)
 {
     std::vector<Entity*> entities;
@@ -214,7 +214,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
 }
 
 std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
-                                              const Player& player,
+                                              const Player* player,
                                               Entity* source, Entity* target)
 {
     std::vector<Entity*> entities;
@@ -408,7 +408,7 @@ std::vector<Entity*> IncludeTask::GetEntities(EntityType entityType,
     return entities;
 }
 
-TaskStatus IncludeTask::Impl(Player& player)
+TaskStatus IncludeTask::Impl(Player* player)
 {
     const auto entities = GetEntities(m_entityType, player, m_source, m_target);
 

@@ -348,7 +348,7 @@ struct MyHandCard
     int attack = 0;
     int health = 0;
 
-    void Fill(RosettaStone::Entity& entity)
+    void Fill(Playable& entity)
     {
         cardID = entity.card->id;
         cost = entity.GetCost();

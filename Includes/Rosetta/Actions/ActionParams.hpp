@@ -66,7 +66,7 @@ class ActionParams
 
     //! Returns a card in hand zone that is playable.
     //! \return A chosen card in hand zone that is playable.
-    virtual Entity* ChooseHandCard();
+    virtual Playable* ChooseHandCard();
 
     //! Returns a minion card in field zone that can attack.
     //! \return A chosen minion card in field zone that can attack.

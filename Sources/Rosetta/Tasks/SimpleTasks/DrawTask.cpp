@@ -15,7 +15,7 @@ DrawTask::DrawTask(int amount, bool toStack)
     // Do nothing
 }
 
-TaskStatus DrawTask::Impl(Player& player)
+TaskStatus DrawTask::Impl(Player* player)
 {
     std::vector<Entity*> cards;
 

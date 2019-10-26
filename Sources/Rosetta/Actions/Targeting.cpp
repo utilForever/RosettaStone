@@ -89,24 +89,24 @@ std::vector<Character*> GetValidTargets(Entity* source)
     auto game = source->game;
 
     // Check play requirements for player's hero
-    if (CheckRequirements(source, game->GetPlayer1().GetHero()))
+    if (CheckRequirements(source, game->GetPlayer1()->GetHero()))
     {
-        ret.emplace_back(game->GetPlayer1().GetHero());
+        ret.emplace_back(game->GetPlayer1()->GetHero());
     }
-    if (CheckRequirements(source, game->GetPlayer2().GetHero()))
+    if (CheckRequirements(source, game->GetPlayer2()->GetHero()))
     {
-        ret.emplace_back(game->GetPlayer2().GetHero());
+        ret.emplace_back(game->GetPlayer2()->GetHero());
     }
 
     // Check play requirements for player's minions
-    for (auto& minion : game->GetPlayer1().GetFieldZone()->GetAll())
+    for (auto& minion : game->GetPlayer1()->GetFieldZone()->GetAll())
     {
         if (CheckRequirements(source, minion))
         {
             ret.emplace_back(minion);
         }
     }
-    for (auto& minion : game->GetPlayer2().GetFieldZone()->GetAll())
+    for (auto& minion : game->GetPlayer2()->GetFieldZone()->GetAll())
     {
         if (CheckRequirements(source, minion))
         {

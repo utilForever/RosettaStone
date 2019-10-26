@@ -16,6 +16,8 @@
 
 namespace RosettaStone
 {
+class Spell;
+
 class JSONSerializer
 {
  public:
@@ -27,7 +29,7 @@ class JSONSerializer
     //! Returns the string that represents the player.
     //! \param player The player to create string.
     //! \return The string that represents the player.
-    static std::string GetPlayerString(const Player& player);
+    static std::string GetPlayerString(const Player* player);
 
  private:
     //! Serializes the game data.
@@ -38,7 +40,7 @@ class JSONSerializer
     //! Serializes the player data.
     //! \param player The player context.
     //! \return The serialized player data.
-    static nlohmann::json SerializePlayer(const Player& player);
+    static nlohmann::json SerializePlayer(const Player* player);
 
     //! Serializes the hero data.
     //! \param hero The hero context.
@@ -58,32 +60,32 @@ class JSONSerializer
     //! Serializes the mana crystal data.
     //! \param player The player context.
     //! \return The serialized mana crystal data.
-    static nlohmann::json SerializeManaCrystal(const Player& player);
+    static nlohmann::json SerializeManaCrystal(const Player* player);
 
     //! Serializes the deck data.
     //! \param deck The deck context.
     //! \return The serialized deck data.
-    static nlohmann::json SerializeDeck(const DeckZone& deck);
+    static nlohmann::json SerializeDeck(const DeckZone* deck);
 
     //! Serializes the hand data.
     //! \param hand The hand context.
     //! \return The serialized hand data.
-    static nlohmann::json SerializeHand(const HandZone& hand);
+    static nlohmann::json SerializeHand(const HandZone* hand);
 
     //! Serializes the field data.
     //! \param field The field context.
     //! \return The serialized field data.
-    static nlohmann::json SerializeField(const FieldZone& field);
+    static nlohmann::json SerializeField(const FieldZone* field);
 
     //! Serializes the secrets data.
     //! \param secrets The secrets context.
     //! \return The serialized secrets data.
-    static nlohmann::json SerializeSecrets(const SecretZone& secrets);
+    static nlohmann::json SerializeSecrets(const SecretZone* secrets);
 
     //! Serializes the hand card data.
     //! \param handCard The hand card context.
     //! \return The serialized hand card data.
-    static nlohmann::json SerializeHandCard(const Entity& handCard);
+    static nlohmann::json SerializeHandCard(const Playable& handCard);
 
     //! Serializes the minion data.
     //! \param minion The minion context.

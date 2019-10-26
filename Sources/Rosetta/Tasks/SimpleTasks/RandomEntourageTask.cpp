@@ -19,7 +19,7 @@ RandomEntourageTask::RandomEntourageTask(int count, bool isOpponent)
     // Do nothing
 }
 
-TaskStatus RandomEntourageTask::Impl(Player& player)
+TaskStatus RandomEntourageTask::Impl(Player* player)
 {
     (void)m_isOpponent;
 

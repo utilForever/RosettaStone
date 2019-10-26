@@ -12,6 +12,7 @@
 namespace RosettaStone
 {
 class Entity;
+class Playable;
 class AuraEffects;
 
 //! Effect operator to change card value such as attack and health.

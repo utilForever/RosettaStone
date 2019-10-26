@@ -26,8 +26,8 @@ TEST(Board, RefCopyFrom)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto board1 = new Board(game, curPlayer.playerType);
     const auto board2 = new Board(game, opPlayer.playerType);
@@ -50,8 +50,8 @@ TEST(Board, CreateView)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.GetHero()->SetAttack(2);
     curPlayer.GetHero()->SetArmor(3);

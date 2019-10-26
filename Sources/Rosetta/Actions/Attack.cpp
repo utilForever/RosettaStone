@@ -9,39 +9,39 @@
 
 namespace RosettaStone::Generic
 {
-void Attack(Player& player, Character* source, Character* target)
+void Attack(Player* player, Character* source, Character* target)
 {
     // Check source can attack and target is valid
     if (!source->CanAttack() ||
-        !source->IsValidCombatTarget(*player.opponent, target))
+        !source->IsValidCombatTarget(player->opponent, target))
     {
         return;
     }
 
     // Process attack trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnAttackTrigger(&player, source);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAttackTrigger(player, source);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
     // Validate target trigger
-    Trigger::ValidateTriggers(player.GetGame(), source, SequenceType::TARGET);
+    Trigger::ValidateTriggers(player->game, source, SequenceType::TARGET);
 
     // Process target trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnTargetTrigger(&player, source);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnTargetTrigger(player, source);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
     // Set game step to MAIN_COMBAT
-    player.GetGame()->step = Step::MAIN_COMBAT;
+    player->game->step = Step::MAIN_COMBAT;
 
     // Get attack of source and target
     const int targetAttack = target->GetAttack();
     const int sourceAttack = source->GetAttack();
 
     // Take damage to target
-    const int targetDamage = target->TakeDamage(*source, sourceAttack);
+    const int targetDamage = target->TakeDamage(source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
 
     // Freeze target if attacker is freezer
@@ -60,7 +60,7 @@ void Attack(Player& player, Character* source, Character* target)
     if (targetAttack > 0)
     {
         // Take damage to source
-        const int sourceDamage = source->TakeDamage(*target, targetAttack);
+        const int sourceDamage = source->TakeDamage(target, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
         // Freeze source if defender is freezer
@@ -103,18 +103,18 @@ void Attack(Player& player, Character* source, Character* target)
     }
 
     // Process after attack trigger
-    player.GetGame()->taskQueue.StartEvent();
+    player->game->taskQueue.StartEvent();
     if (source->afterAttackTrigger != nullptr)
     {
-        source->afterAttackTrigger(&player, source);
+        source->afterAttackTrigger(player, source);
     }
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
     // Process destroy and update aura
-    player.GetGame()->ProcessDestroyAndUpdateAura();
+    player->game->ProcessDestroyAndUpdateAura();
 
     // Set game step to MAIN_ACTION
-    player.GetGame()->step = Step::MAIN_ACTION;
+    player->game->step = Step::MAIN_ACTION;
 }
 }  // namespace RosettaStone::Generic

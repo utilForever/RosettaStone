@@ -24,14 +24,14 @@ Playable* DeckZone::GetTopCard() const
     return m_entities[m_count - 1];
 }
 
-void DeckZone::Add(Playable& entity, int zonePos)
+void DeckZone::Add(Playable* entity, int zonePos)
 {
     LimitedZone::Add(entity, zonePos);
 
-    if (entity.card->power.GetTrigger())
+    if (entity->card->power.GetTrigger())
     {
-        entity.card->power.GetTrigger()->Activate(&entity,
-                                                  TriggerActivation::DECK);
+        entity->card->power.GetTrigger()->Activate(entity,
+                                                   TriggerActivation::DECK);
     }
 }
 

@@ -9,17 +9,17 @@
 
 namespace RosettaStone::SimpleTasks
 {
-FuncNumberTask::FuncNumberTask(std::function<void(Entity*)> func)
+FuncNumberTask::FuncNumberTask(std::function<void(Playable*)> func)
     : m_func(std::move(func))
 {
     // Do nothing
 }
 
-TaskStatus FuncNumberTask::Impl(Player&)
+TaskStatus FuncNumberTask::Impl(Player*)
 {
     if (m_func != nullptr)
     {
-        m_func(m_source);
+        m_func(dynamic_cast<Playable*>(m_source));
     }
 
     return TaskStatus::COMPLETE;

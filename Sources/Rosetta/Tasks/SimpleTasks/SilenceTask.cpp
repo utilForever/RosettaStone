@@ -13,7 +13,7 @@ SilenceTask::SilenceTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus SilenceTask::Impl(Player& player)
+TaskStatus SilenceTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

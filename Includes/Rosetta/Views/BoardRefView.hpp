@@ -202,7 +202,7 @@ class CurrentPlayerBoardRefView
 
     //! Returns the current player of the game.
     //! \return The current player of the game.
-    Player& GetCurrentPlayer() const;
+    Player* GetCurrentPlayer() const;
 
     //! Returns the action valid getter.
     //! \return The action valid getter.

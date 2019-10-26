@@ -17,7 +17,7 @@ SwapAttackHealthTask::SwapAttackHealthTask(EntityType entityType,
     // Do nothing
 }
 
-TaskStatus SwapAttackHealthTask::Impl(Player& player)
+TaskStatus SwapAttackHealthTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

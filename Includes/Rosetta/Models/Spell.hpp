@@ -19,14 +19,11 @@ namespace RosettaStone
 class Spell : public Playable
 {
  public:
-    //! Default constructor.
-    Spell() = default;
-
-    //! Constructs spell with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs spell with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    Spell(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    Spell(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Spell() = default;

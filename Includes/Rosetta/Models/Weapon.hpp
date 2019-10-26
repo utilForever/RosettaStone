@@ -21,14 +21,11 @@ namespace RosettaStone
 class Weapon : public Playable
 {
  public:
-    //! Default constructor.
-    Weapon() = default;
-
-    //! Constructs weapon with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs weapon with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    Weapon(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    Weapon(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Destructor.
     ~Weapon();

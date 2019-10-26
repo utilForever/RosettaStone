@@ -10,7 +10,7 @@
 
 namespace RosettaStone::PlayerTasks
 {
-TaskStatus EndTurnTask::Impl(Player& player)
+TaskStatus EndTurnTask::Impl(Player* player)
 {
     auto game = player.GetGame();
 

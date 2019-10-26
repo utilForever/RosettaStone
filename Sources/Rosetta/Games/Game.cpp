@@ -14,11 +14,12 @@
 #include <Rosetta/Games/GameManager.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -67,9 +68,9 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
-                                             &GetPlayer1().GetDeckZone());
-        GetPlayer1().GetDeckZone().Add(*entity);
+        Playable* playable = Entity::GetFromCard(
+            &GetPlayer1(), &card, std::nullopt, GetPlayer1().GetDeckZone());
+        GetPlayer1().GetDeckZone()->Add(playable);
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
@@ -78,9 +79,9 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
-                                             &GetPlayer2().GetDeckZone());
-        GetPlayer2().GetDeckZone().Add(*entity);
+        Playable* playable = Entity::GetFromCard(
+            &GetPlayer2(), &card, std::nullopt, GetPlayer2().GetDeckZone());
+        GetPlayer2().GetDeckZone()->Add(playable);
     }
 
     // Fill cards to deck
@@ -91,8 +92,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
             for (auto& cardID : m_gameConfig.fillCardIDs)
             {
                 Card* card = Cards::FindCardByID(cardID);
-                Entity* entity = Entity::GetFromCard(p, card);
-                p.GetDeckZone().Add(*entity);
+                Playable* playable = Entity::GetFromCard(&p, card);
+                p.GetDeckZone()->Add(playable);
             }
         }
     }
@@ -121,7 +122,7 @@ void Game::Initialize()
     // Set game to player
     for (auto& p : m_players)
     {
-        p.SetGame(this);
+        p.game = this;
     }
 
     // Set player type
@@ -167,27 +168,27 @@ void Game::RefCopyFrom(const Game& rhs)
     m_oopIndex = rhs.m_oopIndex;
 }
 
-Player& Game::GetPlayer1()
+Player* Game::GetPlayer1()
 {
     return m_players[0];
 }
 
-const Player& Game::GetPlayer1() const
+const Player* Game::GetPlayer1() const
 {
     return m_players[0];
 }
 
-Player& Game::GetPlayer2()
+Player* Game::GetPlayer2()
 {
     return m_players[1];
 }
 
-const Player& Game::GetPlayer2() const
+const Player* Game::GetPlayer2() const
 {
     return m_players[1];
 }
 
-Player& Game::GetCurrentPlayer()
+Player* Game::GetCurrentPlayer()
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
@@ -197,7 +198,7 @@ Player& Game::GetCurrentPlayer()
     return m_players[1];
 }
 
-const Player& Game::GetCurrentPlayer() const
+const Player* Game::GetCurrentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
@@ -212,7 +213,7 @@ void Game::SetCurrentPlayer(PlayerType playerType)
     m_currentPlayer = playerType;
 }
 
-Player& Game::GetOpponentPlayer()
+Player* Game::GetOpponentPlayer()
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
@@ -222,7 +223,7 @@ Player& Game::GetOpponentPlayer()
     return m_players[0];
 }
 
-const Player& Game::GetOpponentPlayer() const
+const Player* Game::GetOpponentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
@@ -267,8 +268,8 @@ void Game::BeginShuffle()
     // Shuffle cards in deck
     if (m_gameConfig.doShuffle)
     {
-        GetPlayer1().GetDeckZone().Shuffle();
-        GetPlayer2().GetDeckZone().Shuffle();
+        GetPlayer1().GetDeckZone()->Shuffle();
+        GetPlayer2().GetDeckZone()->Shuffle();
     }
 
     // Set next step
@@ -284,18 +285,18 @@ void Game::BeginDraw()
     for (auto& p : m_players)
     {
         // Draw 3 cards
-        Generic::Draw(p);
-        Generic::Draw(p);
-        Generic::Draw(p);
+        Generic::Draw(&p);
+        Generic::Draw(&p);
+        Generic::Draw(&p);
 
         if (&p != &GetCurrentPlayer())
         {
             // Draw 4th card for second player
-            Generic::Draw(p);
+            Generic::Draw(&p);
 
             // Give "The Coin" card to second player
             Card* coin = Cards::FindCardByID("GAME_005");
-            p.GetHandZone().Add(*Entity::GetFromCard(p, coin));
+            p.GetHandZone()->Add(*Entity::GetFromCard(p, coin));
         }
     }
 
@@ -316,11 +317,11 @@ void Game::BeginMulligan()
 
     // Collect cards that can redraw
     std::vector<std::size_t> p1HandIDs, p2HandIDs;
-    for (auto& entity : GetPlayer1().GetHandZone().GetAll())
+    for (auto& entity : GetPlayer1().GetHandZone()->GetAll())
     {
         p1HandIDs.emplace_back(entity->id);
     }
-    for (auto& entity : GetPlayer2().GetHandZone().GetAll())
+    for (auto& entity : GetPlayer2().GetHandZone()->GetAll())
     {
         p2HandIDs.emplace_back(entity->id);
     }
@@ -351,7 +352,7 @@ void Game::MainReady()
     for (auto& p : m_players)
     {
         // Field
-        for (auto& m : p.GetFieldZone().GetAll())
+        for (auto& m : p.GetFieldZone()->GetAll())
         {
             m->SetNumAttacksThisTurn(0);
         }
@@ -375,7 +376,7 @@ void Game::MainReady()
     // Hero power
     curPlayer.GetHeroPower().SetExhausted(false);
     // Field
-    for (auto& m : curPlayer.GetFieldZone().GetAll())
+    for (auto& m : curPlayer.GetFieldZone()->GetAll())
     {
         m->SetExhausted(false);
     }
@@ -497,7 +498,7 @@ void Game::MainCleanUp()
         curPlayer.GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
-    for (auto& m : curPlayer.GetFieldZone().GetAll())
+    for (auto& m : curPlayer.GetFieldZone()->GetAll())
     {
         if (m->GetGameTag(GameTag::FROZEN) == 1 &&
             m->GetNumAttacksThisTurn() == 0 && !m->IsExhausted())
@@ -634,7 +635,7 @@ void Game::ProcessGraveyard()
             }
 
             // Add minion to graveyard
-            minion->owner->GetGraveyardZone().Add(*minion);
+            minion->player->GetGraveyardZone()->Add(*minion);
         }
 
         deadMinions.clear();
@@ -657,7 +658,7 @@ void Game::UpdateAura()
     }
 }
 
-PlayState Game::Process(Player& player, ITask* task)
+PlayState Game::Process(Player* player, ITask* task)
 {
     // Process task
     task->SetPlayer(&player);
@@ -671,7 +672,7 @@ PlayState Game::Process(Player& player, ITask* task)
     return CheckGameOver();
 }
 
-PlayState Game::Process(Player& player, ITask&& task)
+PlayState Game::Process(Player* player, ITask&& task)
 {
     // Process task
     task.SetPlayer(&player);
@@ -698,11 +699,11 @@ PlayState Game::PerformAction(ActionParams& params)
     {
         case MainOpType::PLAY_CARD:
         {
-            Entity* card = params.ChooseHandCard();
+            Playable* card = params.ChooseHandCard();
             Character* target =
                 params.GetSpecifiedTarget(Generic::GetValidTargets(card));
             const int totalMinions =
-                GetCurrentPlayer().GetFieldZone().GetCount();
+                GetCurrentPlayer().GetFieldZone()->GetCount();
             const int fieldPos = params.GetMinionPutLocation(totalMinions);
             int chooseOne = 0;
             if (card->HasChooseOne())

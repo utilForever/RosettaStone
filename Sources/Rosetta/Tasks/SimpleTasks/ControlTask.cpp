@@ -13,7 +13,7 @@ ControlTask::ControlTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus ControlTask::Impl(Player& player)
+TaskStatus ControlTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

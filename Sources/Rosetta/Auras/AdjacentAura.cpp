@@ -9,7 +9,7 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Models/Minion.hpp>
-#include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 namespace RosettaStone
 {
@@ -19,7 +19,7 @@ AdjacentAura::AdjacentAura(std::string&& enchantmentID)
     // Do nothing
 }
 
-void AdjacentAura::Activate(Entity* owner, [[maybe_unused]] bool cloning)
+void AdjacentAura::Activate(Playable* owner, [[maybe_unused]] bool cloning)
 {
     new AdjacentAura(*this, *dynamic_cast<Minion*>(owner), false);
 }
@@ -39,7 +39,7 @@ void AdjacentAura::Update()
         }
 
         m_owner->onGoingEffect = nullptr;
-        EraseIf(m_owner->owner->GetGame()->auras,
+        EraseIf(m_owner->game->auras,
                 [this](IAura* aura) { return aura == this; });
 
         return;
@@ -104,7 +104,7 @@ void AdjacentAura::Remove()
     m_toBeRemoved = true;
 }
 
-void AdjacentAura::Clone(Entity* clone)
+void AdjacentAura::Clone(Playable* clone)
 {
     new AdjacentAura(*this, *dynamic_cast<Minion*>(clone), true);
 }
@@ -123,7 +123,7 @@ void AdjacentAura::Apply(Minion* minion)
 
     if (m_enchantmentCard != nullptr)
     {
-        Enchantment::GetInstance(*minion->owner, m_enchantmentCard, minion);
+        Enchantment::GetInstance(minion->player, m_enchantmentCard, minion);
     }
 }
 
@@ -165,9 +165,9 @@ AdjacentAura::AdjacentAura(AdjacentAura& prototype, Minion& owner, bool cloning)
     }
 
     owner.onGoingEffect = this;
-    owner.owner->GetGame()->auras.emplace_back(this);
+    owner.game->auras.emplace_back(this);
 
-    m_fieldZone = &owner.owner->GetFieldZone();
+    m_fieldZone = owner.player->GetFieldZone();
     m_fieldZone->adjacentAuras.emplace_back(this);
 
     if (cloning)

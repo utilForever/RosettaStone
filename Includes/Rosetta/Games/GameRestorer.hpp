@@ -47,7 +47,7 @@ class GameRestorer
     //! \param unknownCardsSetsManager The manager of unknown cards sets.
     void MakePlayer(
         PlayerType playerType, Game& game,
-        const Views::Types::Player& viewPlayer,
+        const Views::Types::Player* viewPlayer,
         const Views::Types::UnknownCardsSetsManager& unknownCardsSetsManager);
 
     //! Makes the hero and hero power data to restore the game.
@@ -89,7 +89,7 @@ class GameRestorer
     //! Makes the mana crystal data to restore the game.
     //! \param player The player context.
     //! \param manaCrystal The mana crystal type of the view.
-    void MakeManaCrystal(Player& player,
+    void MakeManaCrystal(Player* player,
                          const Views::Types::ManaCrystal& manaCrystal);
 
     //! Adds minion to minions data.

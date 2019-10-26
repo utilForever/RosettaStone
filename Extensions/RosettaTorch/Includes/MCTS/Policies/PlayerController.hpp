@@ -35,10 +35,10 @@ class PlayerController
         explicit Player(RosettaStone::PlayerType playerType);
 
         //! Operator overloading: operator==.
-        bool operator==(const Player& rhs) const;
+        bool operator==(const Player* rhs) const;
 
         //! Operator overloading: operator!=.
-        bool operator!=(const Player& rhs) const;
+        bool operator!=(const Player* rhs) const;
 
         //! Returns the player 1.
         //! \return The player 1.

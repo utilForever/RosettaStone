@@ -23,9 +23,9 @@ CopyTask::CopyTask(EntityType entityType, ZoneType zoneType, int amount,
     // Do nothing
 }
 
-TaskStatus CopyTask::Impl(Player& player)
+TaskStatus CopyTask::Impl(Player* player)
 {
-    Player& owner = (m_toOpponent) ? *player.opponent : player;
+    Player* owner = (m_toOpponent) ? *player.opponent : player;
     IZone* targetZone = Generic::GetZone(owner, m_zoneType);
 
     if (targetZone == nullptr || targetZone->IsFull())

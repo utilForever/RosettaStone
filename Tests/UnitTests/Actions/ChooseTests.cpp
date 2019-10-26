@@ -25,8 +25,8 @@ TEST(Choose, ChoiceMulligan)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     const std::vector<std::size_t> curChoices, opChoices;
 

@@ -10,22 +10,21 @@
 
 namespace RosettaStone::Generic
 {
-Playable* Draw(Player& player, Playable* cardToDraw)
+Playable* Draw(Player* player, Playable* cardToDraw)
 {
     // Take fatigue damage for player if deck is empty
-    if (player.GetDeckZone()->IsEmpty())
+    if (player->GetDeckZone()->IsEmpty())
     {
-        const int fatigueDamage =
-            player.GetHero()->fatigue == 0 ? 1 : player.GetHero()->fatigue + 1;
-        player.GetHero()->TakeDamage(*player.GetHero(), fatigueDamage);
+        const int fatigueDamage = player->GetHero()->fatigue + 1;
+        player->GetHero()->TakeDamage(player->GetHero(), fatigueDamage);
 
         return nullptr;
     }
 
     // Get card to draw
-    Playable* playable = &player.GetDeckZone()->Remove(
-        cardToDraw != nullptr ? *cardToDraw
-                              : *player.GetDeckZone()->GetTopCard());
+    Playable* playable = player->GetDeckZone()->Remove(
+        cardToDraw != nullptr ? cardToDraw
+                              : player->GetDeckZone()->GetTopCard());
 
     // Add card to hand
     AddCardToHand(player, playable);
@@ -33,7 +32,7 @@ Playable* Draw(Player& player, Playable* cardToDraw)
     return playable;
 }
 
-Playable* DrawCard(Player& player, Card* card)
+Playable* DrawCard(Player* player, Card* card)
 {
     Playable* playable = Entity::GetFromCard(player, card);
     AddCardToHand(player, playable);

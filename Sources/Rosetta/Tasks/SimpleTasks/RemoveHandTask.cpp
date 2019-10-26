@@ -14,7 +14,7 @@ RemoveHandTask::RemoveHandTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus RemoveHandTask::Impl(Player& player)
+TaskStatus RemoveHandTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

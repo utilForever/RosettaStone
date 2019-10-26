@@ -21,7 +21,7 @@ AddEnchantmentTask::AddEnchantmentTask(std::string cardID,
     // Do nothing
 }
 
-TaskStatus AddEnchantmentTask::Impl(Player& player)
+TaskStatus AddEnchantmentTask::Impl(Player* player)
 {
     Card* enchantmentCard = Cards::FindCardByID(m_cardID);
     if (enchantmentCard->id.empty())

@@ -41,8 +41,8 @@ TEST(DruidExpert1Test, EX1_154_Wrath)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -105,8 +105,8 @@ TEST(DruidExpert1Test, EX1_155_MarkOfNature)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -159,8 +159,8 @@ TEST(DruidExpert1Test, EX1_158_SoulOfTheForest)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -233,8 +233,8 @@ TEST(DruidExpert1Test, EX1_160_PowerOfTheWild)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -289,8 +289,8 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(6);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -350,8 +350,8 @@ TEST(DruidExpert1Test, EX1_165_DruidOfTheClaw)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -410,8 +410,8 @@ TEST(DruidExpert1Test, EX1_178_AncientOfWar)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -455,8 +455,8 @@ TEST(DruidExpert1Test, EX1_570_Bite)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -502,8 +502,8 @@ TEST(DruidExpert1Test, EX1_571_ForceOfNature)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -563,8 +563,8 @@ TEST(HunterExpert1Test, DS1_188_GladiatorsLongbow)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -630,8 +630,8 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -703,8 +703,8 @@ TEST(HunterExpert1Test, EX1_617_DeadlyShot)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -773,8 +773,8 @@ TEST(HunterExpert1Test, EX1_534_SavannahHighmane)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -845,8 +845,8 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -918,8 +918,8 @@ TEST(MageExpert1Test, EX1_179_Icicle)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -972,8 +972,8 @@ TEST(MageExpert1Test, EX1_180_TomeOfIntellect)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1014,8 +1014,8 @@ TEST(MageExpert1Test, EX1_274_EtherealArcanist)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1086,8 +1086,8 @@ TEST(MageExpert1Test, EX1_279_Pyroblast)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1174,8 +1174,8 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1234,8 +1234,8 @@ TEST(MageExpert1Test, EX1_608_SorcerersAppretice)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1290,8 +1290,8 @@ TEST(MageExpert1Test, NEW1_012_ManaWyrm)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1355,8 +1355,8 @@ TEST(PaladinExpert1Test, EX1_354_LayOnHands)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1399,8 +1399,8 @@ TEST(PaladinExpert1Test, EX1_355_BlessedChampion)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
 
@@ -1454,7 +1454,7 @@ TEST(PaladinExpert1Test, EX1_362_ArgentProtector)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
 
@@ -1496,8 +1496,8 @@ TEST(PaladinExpert1Test, EX1_365_HolyWrath)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1545,8 +1545,8 @@ TEST(PaladinExpert1Test, EX1_382_AldorPeacekeeper)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1594,8 +1594,8 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1671,8 +1671,8 @@ TEST(PaladinExpert1Test, EX1_384_AvengingWrath)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1735,8 +1735,8 @@ TEST(PaladinExpert1Test, EX1_619_Equality)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1792,8 +1792,8 @@ TEST(WarriorExpert1Test, CS2_104_Rampage)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1841,8 +1841,8 @@ TEST(WarriorExpert1Test, EX1_391_Slam)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1899,8 +1899,8 @@ TEST(WarriorExpert1Test, EX1_392_BattleRage)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -1957,8 +1957,8 @@ TEST(WarriorExpert1Test, EX1_393_AmaniBerserker)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2000,8 +2000,8 @@ TEST(WarriorExpert1Test, EX1_407_Brawl)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2066,8 +2066,8 @@ TEST(WarriorExpert1Test, EX1_408_MortalStrike)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2134,8 +2134,8 @@ TEST(WarriorExpert1Test, EX1_410_ShieldSlam)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2194,8 +2194,8 @@ TEST(WarriorExpert1Test, EX1_414_GrommashHellscream)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2244,8 +2244,8 @@ TEST(WarriorExpert1Test, EX1_607_InnerRage)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2287,8 +2287,8 @@ TEST(WarriorExpert1Test, NEW1_036_CommandingShout)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2368,8 +2368,8 @@ TEST(PriestExpert1Test, CS1_129_InnerFire)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2436,8 +2436,8 @@ TEST(PriestExpert1Test, EX1_091_CabalShadowPriest)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2503,8 +2503,8 @@ TEST(PriestExpert1Test, EX1_332_Silence)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2561,8 +2561,8 @@ TEST(PriestExpert1Test, EX1_341_Lightwell)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2624,8 +2624,8 @@ TEST(PriestExpert1Test, EX1_345_Mindgames)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2677,8 +2677,8 @@ TEST(PriestExpert1Test, EX1_621_CircleOfHealing)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2755,8 +2755,8 @@ TEST(PriestExpert1Test, EX1_623_TempleEnforcer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2800,8 +2800,8 @@ TEST(PriestExpert1Test, EX1_624_HolyFire)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2837,8 +2837,8 @@ TEST(PriestExpert1Test, EX1_625_Shadowform)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -2915,8 +2915,8 @@ TEST(PriestExpert1Test, EX1_626_MassDispel)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
@@ -2983,8 +2983,8 @@ TEST(RogueExpert1Test, CS2_073_ColdBlood)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3042,8 +3042,8 @@ TEST(RogueExpert1Test, CS2_233_BladeFlurry)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3121,8 +3121,8 @@ TEST(RogueExpert1Test, EX1_124_Eviscerate)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3164,8 +3164,8 @@ TEST(RogueExpert1Test, EX1_131_DefiasRingleader)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3218,8 +3218,8 @@ TEST(RogueExpert1Test, EX1_133_PerditionsBlade)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3276,8 +3276,8 @@ TEST(RogueExpert1Test, EX1_134_SI7Agent)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3321,8 +3321,8 @@ TEST(RogueExpert1Test, EX1_144_Shadowstep)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3423,8 +3423,8 @@ TEST(RogueExpert1Test, EX1_522_PatientAssassin)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3476,8 +3476,8 @@ TEST(RogueExpert1Test, NEW1_005_Kidnapper)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3551,8 +3551,8 @@ TEST(ShamanExpert1Test, CS2_038_AncestralSpirit)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3617,8 +3617,8 @@ TEST(ShamanExpert1Test, CS2_053_FarSight)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3663,8 +3663,8 @@ TEST(ShamanExpert1Test, EX1_238_LightningBolt)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3717,8 +3717,8 @@ TEST(ShamanExpert1Test, EX1_241_LavaBurst)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3787,8 +3787,8 @@ TEST(ShamanExpert1Test, EX1_245_EarthShock)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3857,8 +3857,8 @@ TEST(ShamanExpert1Test, EX1_248_FeralSpirit)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -3932,8 +3932,8 @@ TEST(ShamanExpert1Test, EX1_251_ForkedLightning)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4010,8 +4010,8 @@ TEST(ShamanExpert1Test, EX1_567_Doomhammer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4077,8 +4077,8 @@ TEST(WarlockExpert1Test, CS2_059_BloodImp)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4148,8 +4148,8 @@ TEST(NeutralExpert1Test, CS2_117_EarthenRingFarseer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4204,8 +4204,8 @@ TEST(NeutralExpert1Test, CS2_146_SouthseaDeckhand)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4258,8 +4258,8 @@ TEST(NeutralExpert1Test, CS2_151_SilverHandKnight)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4327,8 +4327,8 @@ TEST(NeutralExpert1Test, CS2_181_InjuredBlademaster)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4367,8 +4367,8 @@ TEST(NeutralExpert1Test, CS2_188_AbusiveSergeant)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4438,8 +4438,8 @@ TEST(NeutralExpert1Test, CS2_203_IronbeakOwl)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4498,8 +4498,8 @@ TEST(NeutralExpert1Test, CS2_221_SpitefulSmith)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4547,8 +4547,8 @@ TEST(NeutralExpert1Test, CS2_227_VentureCoMercenary)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4598,8 +4598,8 @@ TEST(NeutralExpert1Test, EX1_001_Lightwarden)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4653,8 +4653,8 @@ TEST(NeutralExpert1Test, EX1_002_TheBlackKnight)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4706,8 +4706,8 @@ TEST(NeutralExpert1Test, EX1_004_YoungPriestess)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4767,8 +4767,8 @@ TEST(NeutralExpert1Test, EX1_005_BigGameHunter)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4829,8 +4829,8 @@ TEST(NeutralExpert1Test, EX1_006_AlarmOBot)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4883,8 +4883,8 @@ TEST(NeutralExpert1Test, EX1_007_AcolyteOfPain)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -4943,8 +4943,8 @@ TEST(NeutralExpert1Test, EX1_009_AngryChicken)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5009,8 +5009,8 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5081,8 +5081,8 @@ TEST(NeutralExpert1Test, EX1_014_KingMukla)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5192,8 +5192,8 @@ TEST(NeutralExpert1Test, EX1_029_LeperGnome)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5263,8 +5263,8 @@ TEST(NeutralExpert1Test, EX1_043_TwilightDrake)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5300,8 +5300,8 @@ TEST(NeutralExpert1Test, EX1_044_QuestingAdventurer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5367,8 +5367,8 @@ TEST(NeutralExpert1Test, EX1_046_DarkIronDwarf)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5439,8 +5439,8 @@ TEST(NeutralExpert1Test, EX1_048_Spellbreaker)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5506,8 +5506,8 @@ TEST(NeutralExpert1Test, EX1_049_YouthfulBrewmaster)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5550,8 +5550,8 @@ TEST(NeutralExpert1Test, EX1_055_ManaAddict)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5614,8 +5614,8 @@ TEST(NeutralExpert1Test, EX1_057_AncientBrewmaster)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5664,8 +5664,8 @@ TEST(NeutralExpert1Test, EX1_058_SunfuryProtector)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5729,8 +5729,8 @@ TEST(NeutralExpert1Test, EX1_059_CrazedAlchemist)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5790,8 +5790,8 @@ TEST(NeutralExpert1Test, EX1_076_PintSizedSummoner)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5841,8 +5841,8 @@ TEST(NeutralExpert1Test, EX1_080_Secretkeeper)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5887,8 +5887,8 @@ TEST(NeutralExpert1Test, EX1_082_MadBomber)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5947,8 +5947,8 @@ TEST(NeutralExpert1Test, EX1_083_TinkmasterOverspark)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -5996,8 +5996,8 @@ TEST(NeutralExpert1Test, EX1_085_MindControlTech)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6081,8 +6081,8 @@ TEST(NeutralExpert1Test, EX1_089_ArcaneGolem)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(3);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(3);
@@ -6122,8 +6122,8 @@ TEST(NeutralExpert1Test, EX1_093_DefenderOfArgus)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6177,8 +6177,8 @@ TEST(NeutralExpert1Test, EX1_095_GadgetzanAuctioneer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6236,8 +6236,8 @@ TEST(NeutralExpert1Test, EX1_096_LootHoarder)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6293,8 +6293,8 @@ TEST(NeutralExpert1Test, EX1_097_Abomination)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6375,8 +6375,8 @@ TEST(NeutralExpert1Test, EX1_100_LorewalkerCho)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6429,8 +6429,8 @@ TEST(NeutralExpert1Test, EX1_102_Demolisher)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6489,8 +6489,8 @@ TEST(NeutralExpert1Test, EX1_103_ColdlightSeer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6551,8 +6551,8 @@ TEST(NeutralExpert1Test, EX1_105_MountainGiant)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6621,8 +6621,8 @@ TEST(NeutralExpert1Test, EX1_110_CairneBloodhoof)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6674,8 +6674,8 @@ TEST(NeutralExpert1Test, EX1_116_LeeroyJenkins)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6717,8 +6717,8 @@ TEST(NeutralExpert1Test, EX1_162_DireWolfAlpha)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6800,8 +6800,8 @@ TEST(NeutralExpert1Test, EX1_170_EmperorCobra)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6849,8 +6849,8 @@ TEST(NeutralExpert1Test, EX1_249_BaronGeddon)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6918,8 +6918,8 @@ TEST(ShamanExpert1Test, EX1_258_UnboundElemental)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -6975,8 +6975,8 @@ TEST(NeutralExpert1Test, EX1_283_FrostElemental)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7033,8 +7033,8 @@ TEST(WarlockExpert1Test, EX1_181_CallOfTheVoid)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7077,8 +7077,8 @@ TEST(WarlockExpert1Test, EX1_301_Felguard)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7128,8 +7128,8 @@ TEST(WarlockExpert1Test, EX1_303_Shadowflame)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7185,8 +7185,8 @@ TEST(WarlockExpert1Test, EX1_309_SiphonSoul)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7228,8 +7228,8 @@ TEST(WarlockExpert1Test, EX1_312_TwistingNether)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7300,8 +7300,8 @@ TEST(WarlockExpert1Test, EX1_313_PitLord)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7344,8 +7344,8 @@ TEST(WarlockExpert1Test, EX1_317_SenseDemons)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7392,8 +7392,8 @@ TEST(WarlockExpert1Test, EX1_319_FlameImp)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7429,8 +7429,8 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7490,8 +7490,8 @@ TEST(WarlockExpert1Test, EX1_596_Demonfire)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7563,8 +7563,8 @@ TEST(NeutralExpert1Test, EX1_390_TaurenWarrior)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7639,8 +7639,8 @@ TEST(NeutralExpert1Test, EX1_412_RagingWorgen)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7705,8 +7705,8 @@ TEST(NeutralExpert1Test, EX1_507_MurlocWarleader)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7772,8 +7772,8 @@ TEST(NeutralExpert1Test, EX1_509_MurlocTidecaller)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7833,8 +7833,8 @@ TEST(NeutralExpert1Test, EX1_556_HarvestGolem)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7893,8 +7893,8 @@ TEST(NeutralExpert1Test, EX1_557_NatPagle)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -7955,8 +7955,8 @@ TEST(NeutralExpert1Test, EX1_564_Faceless_Manipulator)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8026,8 +8026,8 @@ TEST(NeutralExpert1Test, EX1_572_Ysera)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8072,8 +8072,8 @@ TEST(ShamanExpert1Test, EX1_575_ManaTideTotem)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8114,8 +8114,8 @@ TEST(NeutralExpert1Test, EX1_577_TheBeast)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8167,8 +8167,8 @@ TEST(NeutralExpert1Test, EX1_583_PriestessOfElune)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8216,8 +8216,8 @@ TEST(NeutralExpert1Test, EX1_584_AncientMage)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8265,8 +8265,8 @@ TEST(NeutralExpert1Test, EX1_597_ImpMaster)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8333,8 +8333,8 @@ TEST(NeutralExpert1Test, EX1_614_IllidanStormrage)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8389,8 +8389,8 @@ TEST(NeutralExpert1Test, NEW1_017_HungryCrab)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8447,8 +8447,8 @@ TEST(NeutralExpert1Test, NEW1_018_BloodsailRaider)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8496,8 +8496,8 @@ TEST(NeutralExpert1Test, NEW1_019_KnifeJuggler)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8557,8 +8557,8 @@ TEST(NeutralExpert1Test, NEW1_020_WildPyromancer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8629,8 +8629,8 @@ TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8691,8 +8691,8 @@ TEST(NeutralExpert1Test, NEW1_024_CaptainGreenskin)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8739,8 +8739,8 @@ TEST(NeutralExpert1Test, NEW1_025_BloodsailCorsair)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8794,8 +8794,8 @@ TEST(NeutralExpert1Test, NEW1_027_SouthseaCaptain)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8875,8 +8875,8 @@ TEST(NeutralExpert1Test, NEW1_030_Deathwing)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8933,8 +8933,8 @@ TEST(NeutralExpert1Test, NEW1_037_MasterSwordsmith)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -8991,8 +8991,8 @@ TEST(NeutralExpert1Test, NEW1_040_Hogger)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -9041,8 +9041,8 @@ TEST(NeutralExpert1Test, NEW1_041_StampedingKodo)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -9122,8 +9122,8 @@ TEST(DreamExpert1Test, DREAM_02_YseraAwakens)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -9207,8 +9207,8 @@ TEST(DreamExpert1Test, DREAM_04_Dream)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);
@@ -9271,8 +9271,8 @@ TEST(DreamExpert1Test, DREAM_05_Nightmare)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
     curPlayer.SetTotalMana(10);
     curPlayer.SetUsedMana(0);
     opPlayer.SetTotalMana(10);

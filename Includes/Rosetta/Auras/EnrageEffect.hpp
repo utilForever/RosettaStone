@@ -30,7 +30,7 @@ class EnrageEffect : public Aura
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner,
+    void Activate(Playable* owner,
                   [[maybe_unused]] bool cloning = false) override;
 
     //! Updates this effect to apply the effect to recently modified entities.
@@ -38,16 +38,16 @@ class EnrageEffect : public Aura
 
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
-    void Clone(Entity* clone) override;
+    void Clone(Playable* clone) override;
 
  private:
     //! Constructs enrage effect with given \p prototype and \p owner.
     //! \param prototype An enrage effect for prototype.
     //! \param owner An owner of adaptive effect.
-    EnrageEffect(EnrageEffect& prototype, Entity& owner);
+    EnrageEffect(EnrageEffect& prototype, Playable& owner);
 
     Enchantment* m_curInstance = nullptr;
-    Entity* m_target = nullptr;
+    Playable* m_target = nullptr;
     bool m_enraged = false;
 };
 }  // namespace RosettaStone

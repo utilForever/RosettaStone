@@ -41,8 +41,8 @@ class ActionValidGetter
     void ForEachMinion(PlayerType playerType, Functor&& functor) const
     {
         auto fieldZone = (playerType == PlayerType::PLAYER1)
-                             ? m_game.GetPlayer1().GetFieldZone()
-                             : m_game.GetPlayer2().GetFieldZone();
+                             ? m_game.GetPlayer1()->GetFieldZone()
+                             : m_game.GetPlayer2()->GetFieldZone();
 
         for (auto& minion : fieldZone->GetAll())
         {
@@ -55,7 +55,7 @@ class ActionValidGetter
     template <typename Functor>
     void ForEachPlayableCard(Functor&& functor) const
     {
-        auto handZone = m_game.GetCurrentPlayer().GetHandZone();
+        auto handZone = m_game.GetCurrentPlayer()->GetHandZone();
 
         for (auto& card : handZone->GetAll())
         {
@@ -76,7 +76,7 @@ class ActionValidGetter
     template <typename Functor>
     void ForEachAttacker(Functor&& functor) const
     {
-        auto fieldZone = m_game.GetCurrentPlayer().GetFieldZone();
+        auto fieldZone = m_game.GetCurrentPlayer()->GetFieldZone();
 
         for (auto& minion : fieldZone->GetAll())
         {
@@ -91,7 +91,7 @@ class ActionValidGetter
             }
         }
 
-        const auto& hero = m_game.GetCurrentPlayer().GetHero();
+        const auto& hero = m_game.GetCurrentPlayer()->GetHero();
         if (hero->CanAttack())
         {
             if (!functor(hero))
@@ -110,7 +110,7 @@ class ActionValidGetter
     //! \param player The player context.
     //! \param entity The target entity.
     //! \return the flag indicates whether the card is playable.
-    bool IsPlayable(const Player& player, Playable* entity) const;
+    bool IsPlayable(const Player* player, Playable* entity) const;
 
     const Game& m_game;
 };

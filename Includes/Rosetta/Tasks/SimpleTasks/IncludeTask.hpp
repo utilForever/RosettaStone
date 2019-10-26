@@ -34,7 +34,7 @@ class IncludeTask : public ITask
     //! \param target The target that indicates target entity.
     //! \return A list of entities based on the type of entity.
     static std::vector<Entity*> GetEntities(EntityType entityType,
-                                            Player& player,
+                                            Player* player,
                                             Entity* source = nullptr,
                                             Entity* target = nullptr);
 
@@ -45,7 +45,7 @@ class IncludeTask : public ITask
     //! \param target The target that indicates target entity.
     //! \return A list of entities based on the type of entity.
     static std::vector<Entity*> GetEntities(EntityType entityType,
-                                            const Player& player,
+                                            const Player* player,
                                             Entity* source = nullptr,
                                             Entity* target = nullptr);
 
@@ -53,7 +53,7 @@ class IncludeTask : public ITask
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    TaskStatus Impl(Player& player) override;
+    TaskStatus Impl(Player* player) override;
 
     //! Internal method of Clone().
     //! \return The cloned task.

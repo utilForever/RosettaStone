@@ -28,18 +28,18 @@ std::vector<Minion*> FieldZone::GetAll() const
     return PositioningZone::GetAll();
 }
 
-void FieldZone::Add(Playable& entity, int zonePos)
+void FieldZone::Add(Playable* entity, int zonePos)
 {
-    PositioningZone::Add(dynamic_cast<Minion&>(entity), zonePos);
+    PositioningZone::Add(dynamic_cast<Minion*>(entity), zonePos);
 
-    if (entity.GetGameTag(GameTag::CHARGE) != 1)
+    if (entity->GetGameTag(GameTag::CHARGE) != 1)
     {
-        entity.SetExhausted(true);
+        entity->SetExhausted(true);
     }
 
-    entity.orderOfPlay = entity.game->GetNextOOP();
+    entity->orderOfPlay = entity->game->GetNextOOP();
 
-    ActivateAura(dynamic_cast<Minion&>(entity));
+    ActivateAura(dynamic_cast<Minion*>(entity));
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
@@ -47,41 +47,41 @@ void FieldZone::Add(Playable& entity, int zonePos)
     }
 }
 
-Playable& FieldZone::Remove(Playable& entity)
+Playable* FieldZone::Remove(Playable* entity)
 {
-    RemoveAura(dynamic_cast<Minion&>(entity));
+    RemoveAura(dynamic_cast<Minion*>(entity));
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
         adjacentAuras[i]->SetIsFieldChanged(true);
     }
 
-    return PositioningZone::Remove(dynamic_cast<Minion&>(entity));
+    return PositioningZone::Remove(dynamic_cast<Minion*>(entity));
 }
 
-void FieldZone::Replace(Minion& oldEntity, Minion& newEntity)
+void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
 {
-    const int pos = oldEntity.GetZonePosition();
+    const int pos = oldEntity->GetZonePosition();
 
     // Remove old entity
     RemoveAura(oldEntity);
     for (auto& aura : auras)
     {
-        aura->NotifyEntityRemoved(&oldEntity);
+        aura->NotifyEntityRemoved(oldEntity);
     }
-    oldEntity.SetZonePosition(0);
-    oldEntity.player->GetSetasideZone()->Add(oldEntity);
+    oldEntity->SetZonePosition(0);
+    oldEntity->player->GetSetasideZone()->Add(oldEntity);
 
     // Add new entity
-    newEntity.orderOfPlay = newEntity.game->GetNextOOP();
-    m_entities[pos] = dynamic_cast<Minion*>(&newEntity);
-    newEntity.SetZonePosition(pos);
-    newEntity.SetZoneType(m_type);
-    newEntity.zone = this;
+    newEntity->orderOfPlay = newEntity->game->GetNextOOP();
+    m_entities[pos] = dynamic_cast<Minion*>(newEntity);
+    newEntity->SetZonePosition(pos);
+    newEntity->SetZoneType(m_type);
+    newEntity->zone = this;
     ActivateAura(newEntity);
     for (auto& aura : auras)
     {
-        aura->NotifyEntityAdded(&newEntity);
+        aura->NotifyEntityAdded(newEntity);
     }
     for (auto& aura : adjacentAuras)
     {
@@ -89,17 +89,17 @@ void FieldZone::Replace(Minion& oldEntity, Minion& newEntity)
     }
 
     // Set exhausted by checking GameTag::CHARGE
-    if (newEntity.GetGameTag(GameTag::CHARGE) == 0)
+    if (newEntity->GetGameTag(GameTag::CHARGE) == 0)
     {
-        newEntity.SetExhausted(true);
+        newEntity->SetExhausted(true);
     }
 }
 
-int FieldZone::FindIndex(Minion& minion) const
+int FieldZone::FindIndex(Minion* minion) const
 {
     for (std::size_t idx = 0; idx < MAX_FIELD_SIZE; ++idx)
     {
-        if (m_entities[idx] == &minion)
+        if (m_entities[idx] == minion)
         {
             return idx;
         }
@@ -108,36 +108,36 @@ int FieldZone::FindIndex(Minion& minion) const
     return -1;
 }
 
-void FieldZone::ActivateAura(Minion& entity)
+void FieldZone::ActivateAura(Minion* entity)
 {
-    if (entity.card->power.GetTrigger())
+    if (entity->card->power.GetTrigger())
     {
-        entity.card->power.GetTrigger()->Activate(&entity);
+        entity->card->power.GetTrigger()->Activate(entity);
     }
 
-    if (entity.card->power.GetAura())
+    if (entity->card->power.GetAura())
     {
-        entity.card->power.GetAura()->Activate(&entity);
+        entity->card->power.GetAura()->Activate(entity);
     }
 
-    const int spellPower = entity.GetGameTag(GameTag::SPELLPOWER);
+    const int spellPower = entity->GetGameTag(GameTag::SPELLPOWER);
     if (spellPower > 0)
     {
-        entity.player->currentSpellPower += spellPower;
+        entity->player->currentSpellPower += spellPower;
     }
 }
 
-void FieldZone::RemoveAura(Minion& entity)
+void FieldZone::RemoveAura(Minion* entity)
 {
-    if (entity.onGoingEffect != nullptr)
+    if (entity->onGoingEffect != nullptr)
     {
-        entity.onGoingEffect->Remove();
+        entity->onGoingEffect->Remove();
     }
 
-    const int spellPower = entity.GetGameTag(GameTag::SPELLPOWER);
-    if (entity.player->currentSpellPower > 0 && spellPower > 0)
+    const int spellPower = entity->GetGameTag(GameTag::SPELLPOWER);
+    if (entity->player->currentSpellPower > 0 && spellPower > 0)
     {
-        entity.player->currentSpellPower -= spellPower;
+        entity->player->currentSpellPower -= spellPower;
     }
 }
 }  // namespace RosettaStone

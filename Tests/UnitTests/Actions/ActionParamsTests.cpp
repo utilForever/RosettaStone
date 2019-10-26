@@ -67,8 +67,8 @@ TEST(ActionParams, Getters)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& player1 = game.GetPlayer1();
-    Player& player2 = game.GetPlayer2();
+    Player* player1 = game.GetPlayer1();
+    Player* player2 = game.GetPlayer2();
     player1.SetTotalMana(10);
     player1.SetUsedMana(0);
     player2.SetTotalMana(10);

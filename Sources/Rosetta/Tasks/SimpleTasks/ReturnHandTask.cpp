@@ -14,7 +14,7 @@ ReturnHandTask::ReturnHandTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus ReturnHandTask::Impl(Player& player)
+TaskStatus ReturnHandTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

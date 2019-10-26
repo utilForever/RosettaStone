@@ -12,7 +12,7 @@ ArmorTask::ArmorTask(int amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskStatus ArmorTask::Impl(Player& player)
+TaskStatus ArmorTask::Impl(Player* player)
 {
     player.GetHero()->GainArmor(m_amount);
 

@@ -26,7 +26,7 @@ TEST(Generic, ShuffleIntoDeck)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
     Entity* coinCard = Entity::GetFromCard(
         curPlayer, Cards::GetInstance().FindCardByID("GAME_005"), std::nullopt,
         &curPlayer.GetHandZone());
@@ -49,7 +49,7 @@ TEST(Generic, ShuffleIntoDeck_Full)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
     Entity* coinCard = Entity::GetFromCard(
         curPlayer, Cards::GetInstance().FindCardByID("GAME_005"), std::nullopt,
         &curPlayer.GetHandZone());
@@ -79,7 +79,7 @@ TEST(Generic, GetZone)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     EXPECT_EQ(&curPlayer.GetDeckZone(),
               Generic::GetZone(curPlayer, ZoneType::DECK));

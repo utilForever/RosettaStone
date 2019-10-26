@@ -26,7 +26,7 @@ TEST(HandZone, FindIndex)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     Entity* entity1 = Entity::GetFromCard(
         curPlayer, Cards::GetInstance().FindCardByName("Fireball"),

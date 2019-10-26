@@ -13,7 +13,7 @@ HealFullTask::HealFullTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus HealFullTask::Impl(Player& player)
+TaskStatus HealFullTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

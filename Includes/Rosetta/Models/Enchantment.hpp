@@ -21,16 +21,13 @@ class Player;
 class Enchantment : public Playable
 {
  public:
-    //! Default constructor.
-    Enchantment() = default;
-
-    //! Constructs enchantment with given \p _owner, \p _card, \p tags
+    //! Constructs enchantment with given \p player, \p card, \p tags
     //! and \p target.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
     //! \param target A target of enchantment.
-    Enchantment(Player& _owner, Card* _card, std::map<GameTag, int> tags,
+    Enchantment(Player* player, Card* card, std::map<GameTag, int> tags,
                 Entity* target);
 
     //! Default destructor.
@@ -53,7 +50,7 @@ class Enchantment : public Playable
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
     //! \return The resulting enchantment entity.
-    static Enchantment* GetInstance(Player& player, Card* card, Entity* target);
+    static Enchantment* GetInstance(Player* player, Card* card, Entity* target);
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.

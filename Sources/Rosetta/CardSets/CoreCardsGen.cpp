@@ -4,13 +4,13 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Choose.hpp>
+#include <Rosetta/Auras/AdjacentAura.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
@@ -38,6 +38,9 @@
 #include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -209,12 +212,12 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        auto minions = entity->owner->GetFieldZone().GetAll();
+    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
         std::vector<Card*> totemCards;
         totemCards.reserve(4);
 
-        for (const auto& id : entity->card->entourages)
+        for (const auto& id : playable->card->entourages)
         {
             bool exist = false;
             for (auto minion : minions)
@@ -238,8 +241,9 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
         }
 
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
-        Entity* totem = Entity::GetFromCard(*entity->owner, totemCards[idx]);
-        entity->owner->GetFieldZone().Add(*dynamic_cast<Minion*>(totem));
+        Playable* totem =
+            Entity::GetFromCard(*playable->player, totemCards[idx]);
+        playable->player->GetFieldZone()->Add(*dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
 
@@ -606,9 +610,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // the others.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        DeckZone& deck = entity->owner->GetDeckZone();
-        if (deck.IsEmpty())
+    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
+        DeckZone* deck = playable->player->GetDeckZone();
+        if (deck->IsEmpty())
         {
             return;
         }
@@ -616,15 +620,15 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
         std::vector<std::size_t> ids;
         ids.reserve(3);
 
-        for (int i = 0; i < 3 && deck.GetCount() != 0; ++i)
+        for (int i = 0; i < 3 && deck->GetCount() != 0; ++i)
         {
-            Entity* card = deck.GetTopCard();
-            deck.Remove(*card);
+            Playable* card = deck->GetTopCard();
+            deck->Remove(*card);
             ids.emplace_back(card->id);
-            entity->owner->GetSetasideZone().Add(*card);
+            playable->player->GetSetasideZone()->Add(*card);
         }
 
-        Generic::CreateChoice(*entity->owner, ChoiceType::GENERAL,
+        Generic::CreateChoice(*playable->player, ChoiceType::GENERAL,
                               ChoiceAction::HAND, ids);
     }));
     cards.emplace("DS1_184", power);

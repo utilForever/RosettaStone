@@ -17,19 +17,19 @@ SecretZone::SecretZone(Player* player)
     m_player = player;
 }
 
-void SecretZone::Add(Playable& entity, int zonePos)
+void SecretZone::Add(Playable* entity, int zonePos)
 {
-    LimitedZone::Add(dynamic_cast<Spell&>(entity), zonePos);
+    LimitedZone::Add(dynamic_cast<Spell*>(entity), zonePos);
 
-    entity.orderOfPlay = entity.game->GetNextOOP();
+    entity->orderOfPlay = entity->game->GetNextOOP();
 }
 
-Playable& SecretZone::Remove(Playable& entity)
+Playable* SecretZone::Remove(Playable* entity)
 {
-    return LimitedZone::Remove(dynamic_cast<Spell&>(entity));
+    return LimitedZone::Remove(dynamic_cast<Spell*>(entity));
 }
 
-bool SecretZone::Exist(Playable& entity) const
+bool SecretZone::Exist(Playable* entity) const
 {
     for (int i = 0; i < m_maxSize; ++i)
     {
@@ -38,7 +38,7 @@ bool SecretZone::Exist(Playable& entity) const
             continue;
         }
 
-        if (entity.card->id == m_entities[i]->card->id)
+        if (entity->card->id == m_entities[i]->card->id)
         {
             return true;
         }

@@ -14,7 +14,7 @@ ManaCrystalTask::ManaCrystalTask(int amount, bool fill, bool isOpponent)
     // Do nothing
 }
 
-TaskStatus ManaCrystalTask::Impl(Player& player)
+TaskStatus ManaCrystalTask::Impl(Player* player)
 {
     if (m_isOpponent)
     {

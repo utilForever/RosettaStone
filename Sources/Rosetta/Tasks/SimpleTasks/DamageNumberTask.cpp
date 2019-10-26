@@ -16,7 +16,7 @@ DamageNumberTask::DamageNumberTask(EntityType entityType, bool isSpellDamage)
     // Do nothing
 }
 
-TaskStatus DamageNumberTask::Impl(Player& player)
+TaskStatus DamageNumberTask::Impl(Player* player)
 {
     const int damage = m_source->owner->GetGame()->taskStack.num;
     auto entities =

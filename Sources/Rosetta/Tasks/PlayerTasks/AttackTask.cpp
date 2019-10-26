@@ -13,7 +13,7 @@ AttackTask::AttackTask(Entity* source, Entity* target) : ITask(source, target)
     // Do nothing
 }
 
-TaskStatus AttackTask::Impl(Player& player)
+TaskStatus AttackTask::Impl(Player* player)
 {
     Generic::Attack(player, dynamic_cast<Character*>(m_source),
                     dynamic_cast<Character*>(m_target));

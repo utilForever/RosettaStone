@@ -26,7 +26,7 @@ MathSubTask::MathSubTask(int amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskStatus MathSubTask::Impl(Player& player)
+TaskStatus MathSubTask::Impl(Player* player)
 {
     if (m_amount == 0)
     {

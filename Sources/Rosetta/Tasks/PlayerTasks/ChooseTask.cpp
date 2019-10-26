@@ -17,17 +17,17 @@ ChooseTask::ChooseTask(std::vector<std::size_t> choices)
     // Do nothing
 }
 
-ChooseTask ChooseTask::Mulligan(Player&, std::vector<std::size_t> choices)
+ChooseTask ChooseTask::Mulligan(Player*, std::vector<std::size_t> choices)
 {
     return ChooseTask(std::move(choices));
 }
 
-ChooseTask ChooseTask::Pick(Player&, std::size_t choice)
+ChooseTask ChooseTask::Pick(Player*, std::size_t choice)
 {
     return ChooseTask({ choice });
 }
 
-TaskStatus ChooseTask::Impl(Player& player)
+TaskStatus ChooseTask::Impl(Player* player)
 {
     switch (player.choice.value().choiceType)
     {
@@ -43,8 +43,8 @@ TaskStatus ChooseTask::Impl(Player& player)
             {
                 return TaskStatus::STOP;
             }
-            player.GetGame()->ProcessTasks();
-            player.GetGame()->ProcessDestroyAndUpdateAura();
+            player.game->ProcessTasks();
+            player.game->ProcessDestroyAndUpdateAura();
             break;
         }
         default:

@@ -32,7 +32,7 @@ class SwitchingAura : public Aura
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner, bool cloning = false) override;
+    void Activate(Playable* owner, bool cloning = false) override;
 
     //! Removes this effect from the game to stop affecting entities.
     void Remove() override;
@@ -41,7 +41,7 @@ class SwitchingAura : public Aura
     //! Constructs switching aura with given \p prototype, \p owner.
     //! \param prototype An enrage effect for prototype.
     //! \param owner An owner of adaptive effect.
-    SwitchingAura(SwitchingAura& prototype, Entity& owner);
+    SwitchingAura(SwitchingAura& prototype, Playable& owner);
 
     //! Internal method of Remove().
     void RemoveInternal() override;

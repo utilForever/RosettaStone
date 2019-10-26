@@ -27,7 +27,7 @@ TEST(Copy, Copy)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
     Card card;
     const std::map<GameTag, int> tags;

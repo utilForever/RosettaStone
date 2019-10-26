@@ -14,7 +14,7 @@ EnqueueTask::EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage)
     // Do nothing
 }
 
-TaskStatus EnqueueTask::Impl(Player& player)
+TaskStatus EnqueueTask::Impl(Player* player)
 {
     const int times =
         m_isSpellDamage ? m_num + player.currentSpellPower : m_num;

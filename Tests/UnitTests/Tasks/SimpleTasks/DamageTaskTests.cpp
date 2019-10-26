@@ -27,7 +27,7 @@ TEST(DamageTask, Run)
     Game game(config);
     game.Start();
 
-    Player& player1 = game.GetPlayer1();
+    Player* player1 = game.GetPlayer1();
 
     std::vector<Card> cards;
     cards.reserve(5);
@@ -66,7 +66,7 @@ TEST(DamageTask, SpellPower)
     Game game(config);
     game.Start();
 
-    Player& player1 = game.GetPlayer1();
+    Player* player1 = game.GetPlayer1();
 
     std::vector<Card> cards;
     cards.reserve(5);

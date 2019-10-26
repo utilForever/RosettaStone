@@ -7,16 +7,18 @@
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 namespace RosettaStone::Generic
 {
-void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
+void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
               int chooseOne)
 {
     // Check battlefield is full
     if (dynamic_cast<Minion*>(source) != nullptr &&
-        player.GetFieldZone().IsFull())
+        player->GetFieldZone()->IsFull())
     {
         return;
     }
@@ -32,33 +34,32 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
     if (source->HasOverload())
     {
         const int amount = source->GetOverload();
-        player.SetOverloadOwed(player.GetOverloadOwed() + amount);
+        player->SetOverloadOwed(player->GetOverloadOwed() + amount);
     }
 
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
-        int tempUsed = std::min(player.GetTemporaryMana(), source->GetCost());
-        player.SetTemporaryMana(player.GetTemporaryMana() - tempUsed);
-        player.SetUsedMana(player.GetUsedMana() + source->GetCost() - tempUsed);
+        int tempUsed = std::min(player->GetTemporaryMana(), source->GetCost());
+        player->SetTemporaryMana(player->GetTemporaryMana() - tempUsed);
+        player->SetUsedMana(player->GetUsedMana() + source->GetCost() -
+                            tempUsed);
     }
 
     // Erase from player's hand
-    player.GetHandZone().Remove(*source);
+    player->GetHandZone()->Remove(source);
 
     // Set card's owner
-    source->owner = &player;
+    source->player = player;
 
     // Validate target trigger
     if (target != nullptr)
     {
-        Trigger::ValidateTriggers(player.GetGame(), source,
-                                  SequenceType::TARGET);
+        Trigger::ValidateTriggers(player->game, source, SequenceType::TARGET);
     }
 
     // Validate play card trigger
-    Trigger::ValidateTriggers(player.GetGame(), source,
-                              SequenceType::PLAY_CARD);
+    Trigger::ValidateTriggers(player->game, source, SequenceType::PLAY_CARD);
 
     // Pass to sub-logic
     switch (source->card->GetCardType())
@@ -87,24 +88,23 @@ void PlayCard(Player& player, Entity* source, Character* target, int fieldPos,
     }
 
     // Set combo active to true
-    if (!player.IsComboActive())
+    if (!player->IsComboActive())
     {
-        player.SetComboActive(true);
+        player->SetComboActive(true);
     }
 }
 
-void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
+void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
                 int chooseOne)
 {
     // Validate play minion trigger
-    Trigger::ValidateTriggers(player.GetGame(), minion,
-                              SequenceType::PLAY_MINION);
+    Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
 
-    const int numMinionsPlayedThisTurn = player.GetNumMinionsPlayedThisTurn();
-    player.SetNumMinionsPlayedThisTurn(numMinionsPlayedThisTurn + 1);
+    const int numMinionsPlayedThisTurn = player->GetNumMinionsPlayedThisTurn();
+    player->SetNumMinionsPlayedThisTurn(numMinionsPlayedThisTurn + 1);
 
     // Add minion to field zone
-    player.GetFieldZone().Add(*minion, fieldPos);
+    player->GetFieldZone()->Add(minion, fieldPos);
 
     // Apply card mechanics tags
     for (const auto tags : minion->card->gameTags)
@@ -113,31 +113,31 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
     }
 
     // Process play card trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnPlayMinionTrigger(&player, minion);
-    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, minion);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
-    player.GetGame()->ProcessDestroyAndUpdateAura();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnPlayMinionTrigger(player, minion);
+    player->game->triggerManager.OnPlayCardTrigger(player, minion);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
 
     // Process summon trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnSummonTrigger(&player, minion);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnSummonTrigger(player, minion);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
     // Process target trigger
     if (target != nullptr)
     {
-        player.GetGame()->taskQueue.StartEvent();
-        player.GetGame()->triggerManager.OnTargetTrigger(&player, minion);
-        player.GetGame()->ProcessTasks();
-        player.GetGame()->taskQueue.EndEvent();
+        player->game->taskQueue.StartEvent();
+        player->game->triggerManager.OnTargetTrigger(player, minion);
+        player->game->ProcessTasks();
+        player->game->taskQueue.EndEvent();
     }
 
     // Process power or combo tasks
-    player.GetGame()->taskQueue.StartEvent();
-    if (minion->HasCombo() && player.IsComboActive())
+    player->game->taskQueue.StartEvent();
+    if (minion->HasCombo() && player->IsComboActive())
     {
         minion->ActivateTask(PowerType::COMBO, target);
     }
@@ -145,73 +145,72 @@ void PlayMinion(Player& player, Minion* minion, Character* target, int fieldPos,
     {
         minion->ActivateTask(PowerType::POWER, target, chooseOne);
     }
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
-    player.GetGame()->ProcessDestroyAndUpdateAura();
+    player->game->ProcessDestroyAndUpdateAura();
 
     // Process after play minion trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnAfterPlayMinionTrigger(&player, minion);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAfterPlayMinionTrigger(player, minion);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
     // Process after summon trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnAfterSummonTrigger(&player, minion);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAfterSummonTrigger(player, minion);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 }
 
-void PlaySpell(Player& player, Spell* spell, Character* target, int chooseOne)
+void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 {
     // Validate play spell trigger
-    Trigger::ValidateTriggers(player.GetGame(), spell,
-                              SequenceType::PLAY_SPELL);
+    Trigger::ValidateTriggers(player->game, spell, SequenceType::PLAY_SPELL);
 
     // Process cast spell trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnCastSpellTrigger(&player, spell);
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnCastSpellTrigger(player, spell);
 
     // Process play card trigger
-    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, spell);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
-    player.GetGame()->ProcessDestroyAndUpdateAura();
+    player->game->triggerManager.OnPlayCardTrigger(player, spell);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
 
     // Check spell is countered
     if (spell->IsCountered())
     {
-        player.GetGraveyardZone().Add(*spell);
+        player->GetGraveyardZone()->Add(spell);
     }
     else
     {
         // Process target trigger
         if (target != nullptr)
         {
-            player.GetGame()->taskQueue.StartEvent();
-            player.GetGame()->triggerManager.OnTargetTrigger(&player, spell);
-            player.GetGame()->ProcessTasks();
-            player.GetGame()->taskQueue.EndEvent();
+            player->game->taskQueue.StartEvent();
+            player->game->triggerManager.OnTargetTrigger(player, spell);
+            player->game->ProcessTasks();
+            player->game->taskQueue.EndEvent();
         }
 
         CastSpell(player, spell, target, chooseOne);
-        player.GetGame()->ProcessDestroyAndUpdateAura();
+        player->game->ProcessDestroyAndUpdateAura();
     }
 
     // Process after cast trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnAfterCastTrigger(&player, spell);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAfterCastTrigger(player, spell);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
-    player.GetGame()->ProcessDestroyAndUpdateAura();
+    player->game->ProcessDestroyAndUpdateAura();
 }
 
-void PlayWeapon(Player& player, Weapon* weapon, Character* target)
+void PlayWeapon(Player* player, Weapon* weapon, Character* target)
 {
     // Process play card trigger
-    player.GetGame()->triggerManager.OnPlayCardTrigger(&player, weapon);
+    player->game->triggerManager.OnPlayCardTrigger(player, weapon);
 
     // Process trigger
     if (weapon->card->power.GetTrigger())
@@ -228,15 +227,15 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     // Process target trigger
     if (target != nullptr)
     {
-        player.GetGame()->taskQueue.StartEvent();
-        player.GetGame()->triggerManager.OnTargetTrigger(&player, weapon);
-        player.GetGame()->ProcessTasks();
-        player.GetGame()->taskQueue.EndEvent();
+        player->game->taskQueue.StartEvent();
+        player->game->triggerManager.OnTargetTrigger(player, weapon);
+        player->game->ProcessTasks();
+        player->game->taskQueue.EndEvent();
     }
 
     // Process power tasks
-    player.GetGame()->taskQueue.StartEvent();
-    if (weapon->HasCombo() && player.IsComboActive())
+    player->game->taskQueue.StartEvent();
+    if (weapon->HasCombo() && player->IsComboActive())
     {
         weapon->ActivateTask(PowerType::COMBO, target);
     }
@@ -244,17 +243,17 @@ void PlayWeapon(Player& player, Weapon* weapon, Character* target)
     {
         weapon->ActivateTask(PowerType::POWER, target);
     }
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetHero()->AddWeapon(*weapon);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
-    player.GetGame()->ProcessDestroyAndUpdateAura();
+    player->game->taskQueue.StartEvent();
+    player->GetHero()->AddWeapon(*weapon);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
 }
 
-bool IsPlayableByPlayer(Player& player, Entity* source)
+bool IsPlayableByPlayer(Player* player, Playable* source)
 {
     if (source == nullptr)
     {
@@ -263,20 +262,20 @@ bool IsPlayableByPlayer(Player& player, Entity* source)
     }
 
     // Verify mana is sufficient
-    if (source->GetCost() > player.GetRemainingMana())
+    if (source->GetCost() > player->GetRemainingMana())
     {
         return false;
     }
 
     // Check if player is on turn
-    if (&player != &player.GetGame()->GetCurrentPlayer())
+    if (player != player->game->GetCurrentPlayer())
     {
         return false;
     }
 
     // Check if entity is in hand to be played
     if (dynamic_cast<HeroPower*>(source) == nullptr &&
-        source->zone != &player.GetHandZone())
+        source->zone != player->GetHandZone())
     {
         return false;
     }
@@ -284,23 +283,23 @@ bool IsPlayableByPlayer(Player& player, Entity* source)
     return true;
 }
 
-bool IsPlayableByPlayer(const Player& player, Entity* source)
+bool IsPlayableByPlayer(const Player* player, Playable* source)
 {
     // Verify mana is sufficient
-    if (source->GetCost() > player.GetRemainingMana())
+    if (source->GetCost() > player->GetRemainingMana())
     {
         return false;
     }
 
     // Check if player is on turn
-    if (&player != &player.GetGame()->GetCurrentPlayer())
+    if (player != player->game->GetCurrentPlayer())
     {
         return false;
     }
 
     // Check if entity is in hand to be played
     if (dynamic_cast<HeroPower*>(source) == nullptr &&
-        source->zone != &player.GetHandZone())
+        source->zone != player->GetHandZone())
     {
         return false;
     }
@@ -308,28 +307,28 @@ bool IsPlayableByPlayer(const Player& player, Entity* source)
     return true;
 }
 
-bool IsPlayableByCardReq(Entity* source)
+bool IsPlayableByCardReq(Playable* source)
 {
     for (auto& requirement : source->card->playRequirements)
     {
         switch (requirement.first)
         {
             case PlayReq::REQ_NUM_MINION_SLOTS:
-                if (source->owner->GetFieldZone().IsFull())
+                if (source->player->GetFieldZone()->IsFull())
                 {
                     return false;
                 }
                 break;
             case PlayReq::REQ_WEAPON_EQUIPPED:
-                if (!source->owner->GetHero()->HasWeapon())
+                if (!source->player->GetHero()->HasWeapon())
                 {
                     return false;
                 }
                 break;
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                auto& opField = source->owner->opponent->GetFieldZone();
-                if (opField.GetCount() < requirement.second)
+                const auto opField = source->player->opponent->GetFieldZone();
+                if (opField->GetCount() < requirement.second)
                 {
                     return false;
                 }
@@ -337,11 +336,11 @@ bool IsPlayableByCardReq(Entity* source)
             }
             case PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
             {
-                auto& curField = source->owner->GetFieldZone();
+                auto curField = source->player->GetFieldZone();
                 auto& entourages = source->card->entourages;
                 std::size_t entourageCount = 0;
 
-                for (auto& minion : curField.GetAll())
+                for (auto& minion : curField->GetAll())
                 {
                     for (auto& entourage : entourages)
                     {
@@ -362,8 +361,8 @@ bool IsPlayableByCardReq(Entity* source)
             case PlayReq::REQ_MINIMUM_TOTAL_MINIONS:
             {
                 const int fieldCount =
-                    source->owner->GetFieldZone().GetCount() +
-                    source->owner->opponent->GetFieldZone().GetCount();
+                    source->player->GetFieldZone()->GetCount() +
+                    source->player->opponent->GetFieldZone()->GetCount();
                 if (fieldCount < requirement.second)
                 {
                     return false;

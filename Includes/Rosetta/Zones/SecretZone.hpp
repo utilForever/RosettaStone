@@ -27,17 +27,17 @@ class SecretZone : public LimitedZone<Spell>
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
-    void Add(Playable& entity, int zonePos = -1) override;
+    void Add(Playable* entity, int zonePos = -1) override;
 
     //! Removes the specified entity from this zone.
     //! \param entity The entity.
     //! \return The entity.
-    Playable& Remove(Playable& entity) override;
+    Playable* Remove(Playable* entity) override;
 
     //! Returns whether the secret card exists in this zone.
     //! \param entity The spell to check whether it exists.
     //! \return The flag that indicates whether the spell exists.
-    bool Exist(Playable& entity) const;
+    bool Exist(Playable* entity) const;
 };
 }  // namespace RosettaStone
 

@@ -17,7 +17,7 @@ DamageTask::DamageTask(EntityType entityType, std::size_t damage,
     // Do nothing
 }
 
-TaskStatus DamageTask::Impl(Player& player)
+TaskStatus DamageTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

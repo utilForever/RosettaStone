@@ -5,6 +5,7 @@
 
 #include <Rosetta/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/Auras/AdjacentAura.hpp>
 #include <Rosetta/Auras/EnrageEffect.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
@@ -53,6 +54,7 @@
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
 
@@ -2958,8 +2960,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // Text: Costs (1) less for each other card in your hand.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new AdaptiveCostEffect([](Entity* entity) {
-        return entity->owner->GetHandZone().GetCount() - 1;
+    power.AddAura(new AdaptiveCostEffect([](Playable* playable) {
+        return playable->player->GetHandZone()->GetCount() - 1;
     }));
     cards.emplace("EX1_105", power);
 

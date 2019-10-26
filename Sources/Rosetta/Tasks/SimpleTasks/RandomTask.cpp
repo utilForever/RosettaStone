@@ -19,7 +19,7 @@ RandomTask::RandomTask(EntityType entityType, int num)
     // Do nothing
 }
 
-TaskStatus RandomTask::Impl(Player& player)
+TaskStatus RandomTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);

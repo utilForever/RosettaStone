@@ -9,7 +9,7 @@
 
 namespace RosettaStone::SimpleTasks
 {
-TaskStatus DrawNumberTask::Impl(Player& player)
+TaskStatus DrawNumberTask::Impl(Player* player)
 {
     std::vector<Entity*> cards;
 

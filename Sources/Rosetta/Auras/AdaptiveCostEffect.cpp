@@ -11,14 +11,14 @@
 
 namespace RosettaStone
 {
-AdaptiveCostEffect::AdaptiveCostEffect(std::function<int(Entity*)> costFunc,
+AdaptiveCostEffect::AdaptiveCostEffect(std::function<int(Playable*)> costFunc,
                                        EffectOperator effectOp)
     : m_costFunc(std::move(costFunc)), m_effectOp(effectOp)
 {
     // Do nothing
 }
 
-void AdaptiveCostEffect::Activate(Entity* owner, bool cloning)
+void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
 {
     if (!cloning && owner->GetZoneType() != ZoneType::HAND)
     {
@@ -82,13 +82,13 @@ void AdaptiveCostEffect::Remove()
     }
 }
 
-void AdaptiveCostEffect::Clone(Entity* clone)
+void AdaptiveCostEffect::Clone(Playable* clone)
 {
     Activate(clone, true);
 }
 
 AdaptiveCostEffect::AdaptiveCostEffect(AdaptiveCostEffect& prototype,
-                                       Entity& owner)
+                                       Playable& owner)
 {
     m_owner = &owner;
 

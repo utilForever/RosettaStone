@@ -21,13 +21,13 @@ class AdaptiveCostEffect : public IAura
     //! Constructs adaptive cost effect with given \p costFunc and \p effectOp.
     //! \param costFunc The function to vary cost.
     //! \param effectOp The operator to vary cost.
-    AdaptiveCostEffect(std::function<int(Entity*)> costFunc,
+    AdaptiveCostEffect(std::function<int(Playable*)> costFunc,
                        EffectOperator effectOp = EffectOperator::SUB);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive cost effect.
     //! \param cloning The flag to indicate that it is cloned.
-    void Activate(Entity* owner, bool cloning = false) override;
+    void Activate(Playable* owner, bool cloning = false) override;
 
     //! Varies cost with given \p value.
     //! \param value The value of cost to vary.
@@ -42,17 +42,17 @@ class AdaptiveCostEffect : public IAura
 
     //! Clones aura effect to \p clone.
     //! \param clone The entity to clone aura effect.
-    void Clone(Entity* clone) override;
+    void Clone(Playable* clone) override;
 
  private:
     //! Constructs adaptive cost effect with given \p prototype and \p owner.
     //! \param prototype An adaptive cost effect for prototype.
     //! \param owner An owner of adaptive cost effect.
-    AdaptiveCostEffect(AdaptiveCostEffect& prototype, Entity& owner);
+    AdaptiveCostEffect(AdaptiveCostEffect& prototype, Playable& owner);
 
-    Entity* m_owner = nullptr;
+    Playable* m_owner = nullptr;
 
-    std::function<int(Entity*)> m_costFunc;
+    std::function<int(Playable*)> m_costFunc;
     EffectOperator m_effectOp;
 };
 }  // namespace RosettaStone

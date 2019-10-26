@@ -50,7 +50,7 @@ class ActionValidChecker
 
     //! Returns a list of cards that is playable.
     //! \return A list of cards that is playable.
-    const std::vector<Entity*>& GetPlayableCards() const;
+    const std::vector<Playable*>& GetPlayableCards() const;
 
     //! Returns a list of attackers that can attack.
     //! \return A list of attackers that can attack.
@@ -82,7 +82,7 @@ class ActionValidChecker
     std::size_t m_opMapSize = 0;
 
     std::vector<Character*> m_attackers;
-    std::vector<Entity*> m_playableCards;
+    std::vector<Playable*> m_playableCards;
     ActionTargets m_actionTargets;
 };
 }  // namespace RosettaStone

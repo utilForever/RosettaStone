@@ -17,7 +17,7 @@ FuncEntityTask::FuncEntityTask(
     // Do nothing
 }
 
-TaskStatus FuncEntityTask::Impl(Player& player)
+TaskStatus FuncEntityTask::Impl(Player* player)
 {
     if (m_func != nullptr)
     {

@@ -14,7 +14,7 @@ AddStackToTask::AddStackToTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus AddStackToTask::Impl(Player& player)
+TaskStatus AddStackToTask::Impl(Player* player)
 {
     switch (m_entityType)
     {

@@ -20,8 +20,8 @@ TEST(ControlTask, Run)
     config.startPlayer = PlayerType::PLAYER1;
     Game game(config);
 
-    Player& player1 = game.GetPlayer1();
-    Player& player2 = game.GetPlayer2();
+    Player* player1 = game.GetPlayer1();
+    Player* player2 = game.GetPlayer2();
 
     auto& player1Field = player1.GetFieldZone();
     auto& player2Field = player2.GetFieldZone();

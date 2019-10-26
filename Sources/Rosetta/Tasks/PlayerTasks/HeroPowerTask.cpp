@@ -15,7 +15,7 @@ HeroPowerTask::HeroPowerTask(Entity* target) : ITask(nullptr, target)
     // Do nothing
 }
 
-TaskStatus HeroPowerTask::Impl(Player& player)
+TaskStatus HeroPowerTask::Impl(Player* player)
 {
     HeroPower& power = player.GetHeroPower();
 

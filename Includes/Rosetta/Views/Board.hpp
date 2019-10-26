@@ -35,7 +35,7 @@ class Board
 
     //! Returns the current player of the game.
     //! \return The current player of the game.
-    Player& GetCurrentPlayer() const;
+    Player* GetCurrentPlayer() const;
 
     //! Returns the view type of the board.
     //! \return the view type of the board.

@@ -32,8 +32,8 @@ TEST(AttackTask, Default)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -115,8 +115,8 @@ TEST(AttackTask, Weapon)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& opField = opPlayer.GetFieldZone();
 
@@ -167,8 +167,8 @@ TEST(AttackTask, ZeroAttack)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
 
@@ -200,8 +200,8 @@ TEST(AttackTask, Charge)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -235,8 +235,8 @@ TEST(AttackTask, Taunt)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -279,8 +279,8 @@ TEST(AttackTask, Stealth)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -324,8 +324,8 @@ TEST(AttackTask, Immune)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -375,8 +375,8 @@ TEST(AttackTask, Windfury)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -431,8 +431,8 @@ TEST(AttackTask, DivineShield)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -482,8 +482,8 @@ TEST(AttackTask, Poisonous)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -536,8 +536,8 @@ TEST(AttackTask, Freeze)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
     auto& opField = opPlayer.GetFieldZone();
@@ -598,8 +598,8 @@ TEST(AttackTask, Silence)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     auto& curField = curPlayer.GetFieldZone();
 

@@ -27,8 +27,8 @@ TEST(ReducedBoardView, All)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
     curPlayer.SetTotalMana(4);
     opPlayer.SetTotalMana(7);
