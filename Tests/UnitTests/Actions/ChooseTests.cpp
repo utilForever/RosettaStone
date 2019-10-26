@@ -9,6 +9,7 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone;
 
@@ -30,8 +31,8 @@ TEST(Choose, ChoiceMulligan)
 
     const std::vector<std::size_t> curChoices, opChoices;
 
-    auto curHand = curPlayer.GetHandZone().GetAll();
-    auto opHand = opPlayer.GetHandZone().GetAll();
+    auto curHand = curPlayer->GetHandZone()->GetAll();
+    auto opHand = opPlayer->GetHandZone()->GetAll();
 
     Choice curChoice, opChoice;
 
@@ -43,18 +44,18 @@ TEST(Choose, ChoiceMulligan)
     opChoice.choices = opChoices;
     opChoice.choiceType = ChoiceType::MULLIGAN;
 
-    curPlayer.choice = curChoice;
-    opPlayer.choice = opChoice;
+    curPlayer->choice = curChoice;
+    opPlayer->choice = opChoice;
 
-    int curHandCount = curPlayer.GetHandZone().GetCount();
-    int opHandCount = opPlayer.GetHandZone().GetCount();
+    int curHandCount = curPlayer->GetHandZone()->GetCount();
+    int opHandCount = opPlayer->GetHandZone()->GetCount();
 
     Generic::ChoiceMulligan(curPlayer, curChoices);
     Generic::ChoiceMulligan(opPlayer, opChoices);
 
-    EXPECT_EQ(curHandCount, curPlayer.GetHandZone().GetCount());
-    EXPECT_EQ(opHandCount, opPlayer.GetHandZone().GetCount());
+    EXPECT_EQ(curHandCount, curPlayer->GetHandZone()->GetCount());
+    EXPECT_EQ(opHandCount, opPlayer->GetHandZone()->GetCount());
 
-    EXPECT_EQ(curPlayer.choice, std::nullopt);
-    EXPECT_EQ(opPlayer.choice, std::nullopt);
+    EXPECT_EQ(curPlayer->choice, std::nullopt);
+    EXPECT_EQ(opPlayer->choice, std::nullopt);
 }

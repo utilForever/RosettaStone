@@ -29,12 +29,12 @@ TEST(Board, RefCopyFrom)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto board1 = new Board(game, curPlayer.playerType);
-    const auto board2 = new Board(game, opPlayer.playerType);
+    auto board1 = new Board(game, curPlayer->playerType);
+    const auto board2 = new Board(game, opPlayer->playerType);
 
     board1->RefCopyFrom(*board2);
     EXPECT_EQ(board1->GetViewType(), PlayerType::PLAYER2);
-    EXPECT_EQ(board1->GetCurrentPlayer().playerType, PlayerType::PLAYER1);
+    EXPECT_EQ(board1->GetCurrentPlayer()->playerType, PlayerType::PLAYER1);
 }
 
 TEST(Board, CreateView)
@@ -53,14 +53,14 @@ TEST(Board, CreateView)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    curPlayer.GetHero()->SetAttack(2);
-    curPlayer.GetHero()->SetArmor(3);
+    curPlayer->GetHero()->SetAttack(2);
+    curPlayer->GetHero()->SetArmor(3);
 
-    opPlayer.GetHero()->SetAttack(1);
-    opPlayer.GetHero()->SetArmor(2);
+    opPlayer->GetHero()->SetAttack(1);
+    opPlayer->GetHero()->SetArmor(2);
 
-    const Board board1(game, curPlayer.playerType);
-    const Board board2(game, opPlayer.playerType);
+    const Board board1(game, curPlayer->playerType);
+    const Board board2(game, opPlayer->playerType);
 
     auto reducedBoard1 = board1.CreateView();
     EXPECT_EQ(reducedBoard1.GetMyHero().attack, 2);
@@ -87,7 +87,7 @@ TEST(Board, RevealHiddenInfoForSimulation)
     game.step = Step::BEGIN_DRAW;
     game.nextStep = Step::MAIN_ACTION;
 
-    const Board board(game, game.GetCurrentPlayer().playerType);
+    const Board board(game, game.GetCurrentPlayer()->playerType);
     EXPECT_EQ(game.step, board.RevealHiddenInfoForSimulation().step);
     EXPECT_EQ(game.nextStep, board.RevealHiddenInfoForSimulation().nextStep);
 }

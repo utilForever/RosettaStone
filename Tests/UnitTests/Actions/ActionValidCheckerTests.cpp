@@ -69,53 +69,53 @@ TEST(ActionValidChecker, Check)
 
     Player* player1 = game.GetPlayer1();
     Player* player2 = game.GetPlayer2();
-    player1.SetTotalMana(10);
-    player1.SetUsedMana(0);
-    player2.SetTotalMana(10);
-    player2.SetUsedMana(0);
+    player1->SetTotalMana(10);
+    player1->SetUsedMana(0);
+    player2->SetTotalMana(10);
+    player2->SetUsedMana(0);
 
-    const auto weapon1 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        player1, Cards::GetInstance().FindCardByName("Fiery War Axe")));
-    player1.GetHero()->AddWeapon(*weapon1);
+    const auto weapon1 = dynamic_cast<Weapon*>(
+        Entity::GetFromCard(player1, Cards::FindCardByName("Fiery War Axe")));
+    player1->GetHero()->AddWeapon(*weapon1);
 
-    const auto weapon2 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        player2, Cards::GetInstance().FindCardByName("Arcanite Reaper")));
-    player2.GetHero()->AddWeapon(*weapon2);
+    const auto weapon2 = dynamic_cast<Weapon*>(
+        Entity::GetFromCard(player2, Cards::FindCardByName("Arcanite Reaper")));
+    player2->GetHero()->AddWeapon(*weapon2);
 
     for (std::size_t i = 0; i < 3; ++i)
     {
-        Entity* entity1 = Entity::GetFromCard(
-            player1, Cards::GetInstance().FindCardByName("Fireball"),
-            std::nullopt, &player1.GetHandZone());
-        player1.GetHandZone().Add(*entity1);
+        Playable* playable1 =
+            Entity::GetFromCard(player1, Cards::FindCardByName("Fireball"),
+                                std::nullopt, player1->GetHandZone());
+        player1->GetHandZone()->Add(playable1);
     }
 
     for (std::size_t i = 0; i < 3; ++i)
     {
-        Entity* entity2 = Entity::GetFromCard(
-            player2, Cards::GetInstance().FindCardByName("Frostbolt"),
-            std::nullopt, &player2.GetHandZone());
-        player2.GetHandZone().Add(*entity2);
+        Playable* playable2 =
+            Entity::GetFromCard(player2, Cards::FindCardByName("Frostbolt"),
+                                std::nullopt, player2->GetHandZone());
+        player2->GetHandZone()->Add(playable2);
     }
 
     for (std::size_t i = 0; i < 6; ++i)
     {
-        Entity* entity1 = Entity::GetFromCard(
-            player1, Cards::GetInstance().FindCardByName("Flame Imp"),
-            std::nullopt, &player1.GetFieldZone());
-        player1.GetFieldZone().Add(*entity1);
+        Playable* playable1 =
+            Entity::GetFromCard(player1, Cards::FindCardByName("Flame Imp"),
+                                std::nullopt, player1->GetFieldZone());
+        player1->GetFieldZone()->Add(playable1);
     }
 
     for (std::size_t i = 0; i < 4; ++i)
     {
-        Entity* entity2 = Entity::GetFromCard(
-            player2, Cards::GetInstance().FindCardByName("Worthless Imp"),
-            std::nullopt, &player2.GetFieldZone());
-        player2.GetFieldZone().Add(*entity2);
+        Playable* playable2 =
+            Entity::GetFromCard(player2, Cards::FindCardByName("Worthless Imp"),
+                                std::nullopt, player2->GetFieldZone());
+        player2->GetFieldZone()->Add(playable2);
     }
 
     TestActionParams actionParams;
-    const Board board(game, game.GetCurrentPlayer().playerType);
+    const Board board(game, game.GetCurrentPlayer()->playerType);
 
     EXPECT_NO_THROW(actionParams.Init(board));
 

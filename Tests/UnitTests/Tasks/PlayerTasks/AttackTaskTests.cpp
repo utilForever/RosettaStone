@@ -7,12 +7,16 @@
 #include <Utils/TestUtils.hpp>
 #include "gtest/gtest.h"
 
+#include <Rosetta/Actions/Draw.hpp>
+#include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Models/Weapon.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include "Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp"
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
@@ -35,8 +39,8 @@ TEST(AttackTask, Default)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     auto card2 = GenerateMinionCard("minion2", 5, 4);
@@ -51,9 +55,9 @@ TEST(AttackTask, Default)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
     EXPECT_EQ(curField[0]->GetHealth(), 6);
-    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 27);
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -117,15 +121,18 @@ TEST(AttackTask, Weapon)
 
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
-    auto& opField = opPlayer.GetFieldZone();
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion1", 1, 10);
 
-    curPlayer.GetHero()->weapon = new Weapon();
-    curPlayer.GetWeapon().SetAttack(4);
-    curPlayer.GetWeapon().SetDurability(2);
-    curPlayer.GetWeapon().owner = &curPlayer;
+    const auto weapon =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+    game.Process(curPlayer, PlayCardTask::Weapon(weapon));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -135,10 +142,10 @@ TEST(AttackTask, Weapon)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, AttackTask(curPlayer.GetHero(), opField[0]));
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), opField[0]));
 
-    EXPECT_EQ(curPlayer.GetWeapon().GetDurability(), 1);
-    EXPECT_EQ(opField[0]->GetHealth(), 6);
+    EXPECT_EQ(curPlayer->GetWeapon().GetDurability(), 1);
+    EXPECT_EQ(opField[0]->GetHealth(), 7);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -146,11 +153,11 @@ TEST(AttackTask, Weapon)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, AttackTask(curPlayer.GetHero(), opField[0]));
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), opField[0]));
 
-    EXPECT_EQ(curPlayer.GetHero()->HasWeapon(), false);
-    EXPECT_EQ(curPlayer.GetHero()->GetAttack(), 0);
-    EXPECT_EQ(opField[0]->GetHealth(), 2);
+    EXPECT_EQ(curPlayer->GetHero()->HasWeapon(), false);
+    EXPECT_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    EXPECT_EQ(opField[0]->GetHealth(), 4);
 }
 
 TEST(AttackTask, ZeroAttack)
@@ -170,7 +177,7 @@ TEST(AttackTask, ZeroAttack)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion1", 0, 6);
 
@@ -182,8 +189,8 @@ TEST(AttackTask, ZeroAttack)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
 TEST(AttackTask, Charge)
@@ -203,8 +210,8 @@ TEST(AttackTask, Charge)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 1, 10);
     auto card2 = GenerateMinionCard("minion1", 1, 10);
@@ -238,8 +245,8 @@ TEST(AttackTask, Taunt)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion1", 1, 10);
 
@@ -282,8 +289,8 @@ TEST(AttackTask, Stealth)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -327,8 +334,8 @@ TEST(AttackTask, Immune)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -378,8 +385,8 @@ TEST(AttackTask, Windfury)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -434,8 +441,8 @@ TEST(AttackTask, DivineShield)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -485,8 +492,8 @@ TEST(AttackTask, Poisonous)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -539,8 +546,8 @@ TEST(AttackTask, Freeze)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
-    auto& opField = opPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -601,7 +608,7 @@ TEST(AttackTask, Silence)
     Player* curPlayer = game.GetCurrentPlayer();
     Player* opPlayer = game.GetOpponentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
 
     auto card = GenerateMinionCard("minion", 1, 10);
 
@@ -614,11 +621,11 @@ TEST(AttackTask, Silence)
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 30);
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     curField[0]->Silence();
 
-    game.Process(curPlayer, AttackTask(curField[0], opPlayer.GetHero()));
-    EXPECT_EQ(opPlayer.GetHero()->GetHealth(), 29);
+    game.Process(curPlayer, AttackTask(curField[0], opPlayer->GetHero()));
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 29);
 }

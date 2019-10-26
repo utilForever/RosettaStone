@@ -20,20 +20,19 @@ TEST(ChangeHeroPowerTask, Run)
     config.player1Class = CardClass::PRIEST;
     Game game(config);
 
-    Hero& hero = *game.GetPlayer1().GetHero();
+    Hero& hero = *game.GetPlayer1()->GetHero();
 
     hero.heroPower->SetExhausted(true);
     EXPECT_EQ(hero.heroPower->card->id,
-        Cards::GetInstance().GetDefaultHeroPower(CardClass::PRIEST)->id);
+              Cards::GetDefaultHeroPower(CardClass::PRIEST)->id);
     EXPECT_TRUE(hero.heroPower->IsExhausted());
 
-    ChangeHeroPowerTask change(
-        Cards::GetInstance().GetDefaultHeroPower(CardClass::MAGE)->id);
-    change.SetPlayer(&game.GetPlayer1());
-    
+    ChangeHeroPowerTask change(Cards::GetDefaultHeroPower(CardClass::MAGE)->id);
+    change.SetPlayer(game.GetPlayer1());
+
     TaskStatus result = change.Run();
     EXPECT_EQ(result, TaskStatus::COMPLETE);
     EXPECT_EQ(hero.heroPower->card->id,
-        Cards::GetInstance().GetDefaultHeroPower(CardClass::MAGE)->id);
+              Cards::GetDefaultHeroPower(CardClass::MAGE)->id);
     EXPECT_FALSE(hero.heroPower->IsExhausted());
 }

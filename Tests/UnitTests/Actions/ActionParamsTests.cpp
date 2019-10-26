@@ -9,6 +9,8 @@
 #include <Rosetta/Actions/ActionParams.hpp>
 #include <Rosetta/Actions/ActionValidChecker.hpp>
 #include <Rosetta/Cards/Cards.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -69,49 +71,49 @@ TEST(ActionParams, Getters)
 
     Player* player1 = game.GetPlayer1();
     Player* player2 = game.GetPlayer2();
-    player1.SetTotalMana(10);
-    player1.SetUsedMana(0);
-    player2.SetTotalMana(10);
-    player2.SetUsedMana(0);
+    player1->SetTotalMana(10);
+    player1->SetUsedMana(0);
+    player2->SetTotalMana(10);
+    player2->SetUsedMana(0);
 
     const auto weapon1 = dynamic_cast<Weapon*>(Entity::GetFromCard(
         player1, Cards::GetInstance().FindCardByName("Fiery War Axe")));
-    player1.GetHero()->AddWeapon(*weapon1);
+    player1->GetHero()->AddWeapon(*weapon1);
 
     const auto weapon2 = dynamic_cast<Weapon*>(Entity::GetFromCard(
         player2, Cards::GetInstance().FindCardByName("Arcanite Reaper")));
-    player2.GetHero()->AddWeapon(*weapon2);
+    player2->GetHero()->AddWeapon(*weapon2);
 
     for (std::size_t i = 0; i < 3; ++i)
     {
-        Entity* entity1 = Entity::GetFromCard(
+        Playable* playable1 = Entity::GetFromCard(
             player1, Cards::GetInstance().FindCardByName("Fireball"),
-            std::nullopt, &player1.GetHandZone());
-        player1.GetHandZone().Add(*entity1);
+            std::nullopt, player1->GetHandZone());
+        player1->GetHandZone()->Add(playable1);
     }
 
     for (std::size_t i = 0; i < 3; ++i)
     {
-        Entity* entity2 = Entity::GetFromCard(
+        Playable* playable2 = Entity::GetFromCard(
             player2, Cards::GetInstance().FindCardByName("Frostbolt"),
-            std::nullopt, &player2.GetHandZone());
-        player2.GetHandZone().Add(*entity2);
+            std::nullopt, player2->GetHandZone());
+        player2->GetHandZone()->Add(playable2);
     }
 
     for (std::size_t i = 0; i < 6; ++i)
     {
-        Entity* entity1 = Entity::GetFromCard(
+        Playable* playable1 = Entity::GetFromCard(
             player1, Cards::GetInstance().FindCardByName("Flame Imp"),
-            std::nullopt, &player1.GetFieldZone());
-        player1.GetFieldZone().Add(*entity1);
+            std::nullopt, player1->GetFieldZone());
+        player1->GetFieldZone()->Add(playable1);
     }
 
     for (std::size_t i = 0; i < 4; ++i)
     {
-        Entity* entity2 = Entity::GetFromCard(
+        Playable* playable2 = Entity::GetFromCard(
             player2, Cards::GetInstance().FindCardByName("Worthless Imp"),
-            std::nullopt, &player2.GetFieldZone());
-        player2.GetFieldZone().Add(*entity2);
+            std::nullopt, player2->GetFieldZone());
+        player2->GetFieldZone()->Add(playable2);
     }
 
     TestActionParams actionParams;
@@ -120,7 +122,7 @@ TEST(ActionParams, Getters)
     EXPECT_TRUE(actionParams.GetMinionPutLocation(0) == 0);
     EXPECT_TRUE(actionParams.GetSpecifiedTarget({}) == nullptr);
     EXPECT_TRUE(actionParams.GetSpecifiedTarget(
-                    { player1.GetFieldZone()[0] }) != nullptr);
+                    { (*player1->GetFieldZone())[0] }) != nullptr);
     EXPECT_TRUE(actionParams.ChooseOne({ 0 }) == 0);
     EXPECT_TRUE(actionParams.ChooseHandCard() != nullptr);
     EXPECT_TRUE(actionParams.GetAttacker() != nullptr);
