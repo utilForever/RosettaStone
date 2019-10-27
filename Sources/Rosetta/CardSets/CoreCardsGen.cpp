@@ -29,7 +29,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -1216,8 +1216,11 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::HEALTH));
-    power.AddPowerTask(new MathSubTask(EntityType::TARGET, GameTag::DAMAGE));
-    power.AddPowerTask(new AddEnchantmentTask("CS2_236e", EntityType::TARGET));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::TARGET, GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(new MathNumberIndexTask(0, 1, MathOperation::SUB));
+    power.AddPowerTask(
+        new AddEnchantmentTask("CS2_236e", EntityType::TARGET, true));
     cards.emplace("CS2_236", power);
 
     // ----------------------------------------- SPELL - PRIEST
