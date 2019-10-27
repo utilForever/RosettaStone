@@ -214,36 +214,26 @@ int Character::TakeDamage(Playable* source, int damage)
     if (preDamageTrigger != nullptr)
     {
         preDamageTrigger(player, this);
+        game->ProcessTasks();
         amount = GetPreDamage();
+
+        if (amount == 0 && armor == 0)
+        {
+            SetPreDamage(0);
+            game->taskQueue.EndEvent();
+            return 0;
+        }
     }
 
     if (GetGameTag(GameTag::IMMUNE) == 1)
     {
+        SetPreDamage(0);
         return 0;
     }
 
     if (armor > 0)
     {
         hero->SetArmor(armor < damage ? 0 : armor - damage);
-    }
-
-    if (const int healthMin = GetGameTag(GameTag::HEALTH_MINIMUM);
-        healthMin > 0)
-    {
-        // If health is already equal to healthMin, return without calling
-        // triggers.
-        if (GetHealth() == healthMin)
-        {
-            SetPreDamage(0);
-            return 0;
-        }
-
-        // If the damaged health is less than healthMin, reduce the damage so
-        // that health equals healthMin.
-        if (GetHealth() - amount < healthMin)
-        {
-            amount = GetHealth() - healthMin;
-        }
     }
 
     SetDamage(GetDamage() + amount);
