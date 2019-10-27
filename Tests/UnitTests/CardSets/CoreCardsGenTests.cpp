@@ -2737,6 +2737,7 @@ TEST(PriestCoreTest, CS1_130_HolySmite)
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Smite"));
@@ -2762,7 +2763,7 @@ TEST(PriestCoreTest, CS1_130_HolySmite)
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card6));
-    EXPECT_EQ(curField[0]->GetHealth(), 5);
+    EXPECT_EQ(opField[0]->GetHealth(), 5);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
