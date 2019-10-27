@@ -2430,7 +2430,8 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new CountTask(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(new AddEnchantmentTask("CS2_226e", EntityType::SOURCE));
+    power.AddPowerTask(
+        new AddEnchantmentTask("CS2_226e", EntityType::SOURCE, true));
     cards.emplace("CS2_226", power);
 
     // --------------------------------------- MINION - NEUTRAL

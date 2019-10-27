@@ -2563,7 +2563,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new CountTask(EntityType::HAND));
-    power.AddPowerTask(new AddEnchantmentTask("EX1_043e", EntityType::SOURCE));
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_043e", EntityType::SOURCE, true));
     cards.emplace("EX1_043", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3325,7 +3326,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new GetGameTagTask(EntityType::WEAPON, GameTag::ATK));
-    power.AddPowerTask(new AddEnchantmentTask("NEW1_018e", EntityType::SOURCE));
+    power.AddPowerTask(
+        new AddEnchantmentTask("NEW1_018e", EntityType::SOURCE, true));
     cards.emplace("NEW1_018", power);
 
     // --------------------------------------- MINION - NEUTRAL
