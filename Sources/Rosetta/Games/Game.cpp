@@ -12,6 +12,7 @@
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
@@ -479,6 +480,15 @@ void Game::MainCleanUp()
     const auto curPlayer = GetCurrentPlayer();
 
     // Remove one-turn effects
+    if (const auto enchantments = oneTurnEffectEchantments;
+        !enchantments.empty())
+    {
+        for (int i = static_cast<int>(enchantments.size()); i >= 0; --i)
+        {
+            enchantments[i]->Remove();
+        }
+    }
+
     for (auto& effectPair : oneTurnEffects)
     {
         Entity* entity = effectPair.first;
