@@ -2089,6 +2089,32 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(
         new Effect(GameTag::HEALTH_MINIMUM, EffectOperator::SET, 1)));
+    {
+        const auto enchant = dynamic_cast<Enchant*>(power.GetEnchant());
+        enchant->isOneTurnEffect = true;
+    }
+    power.AddTrigger(new Trigger(TriggerType::PREDAMAGE));
+    {
+        const auto trigger = dynamic_cast<Trigger*>(power.GetTrigger());
+        trigger->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
+        trigger->fastExecution = true;
+        trigger->tasks = {
+            new IncludeTask(EntityType::TARGET),
+            new FuncEntityTask([=](const std::vector<Playable*>& playables) {
+                std::vector<Playable*> result;
+
+                auto minion = dynamic_cast<Minion*>(playables[0]);
+                if (minion->GetPreDamage() >= minion->GetHealth())
+                {
+                    minion->SetPreDamage(minion->GetHealth() - 1);
+                }
+
+                result.emplace_back(minion);
+
+                return result;
+            })
+        };
+    }
     cards.emplace("NEW1_036e", power);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
