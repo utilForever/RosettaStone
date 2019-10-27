@@ -49,18 +49,35 @@ class Enchantment : public Playable
     //! \param player The controller of the enchantment.
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
+    //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     //! \return The resulting enchantment entity.
-    static Enchantment* GetInstance(Player* player, Card* card, Entity* target);
+    static Enchantment* GetInstance(Player* player, Card* card, Entity* target,
+                                    int num1 = 0, int num2 = 0);
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.
     Entity* GetTarget() const;
+
+    //! Returns the number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    //! \return The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    int GetScriptTag1() const;
+
+    //! Returns the number of GameTag::TAG_SCRIPT_DATA_NUM_2.
+    //! \return The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
+    int GetScriptTag2() const;
+
+    //! Returns the flag that indicates whether it is one turn active.
+    //! \return The flag that indicates whether it is one turn active.
+    bool IsOneTurnActive() const;
 
     //! Removes enchantment.
     void Remove();
 
  private:
     Entity* m_target = nullptr;
+
+    bool m_isOneTurnActive = false;
 };
 }  // namespace RosettaStone
 
