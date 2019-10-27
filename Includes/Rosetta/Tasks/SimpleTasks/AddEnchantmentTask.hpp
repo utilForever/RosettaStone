@@ -18,10 +18,12 @@ namespace RosettaStone::SimpleTasks
 class AddEnchantmentTask : public ITask
 {
  public:
-    //! Constructs task with given \p cardID and \p entityType.
+    //! Constructs task with given \p cardID, \p entityType and \p useScriptTag.
     //! \param cardID The card ID of enchantment to play.
     //! \param entityType The entity type of target to grant.
-    AddEnchantmentTask(std::string cardID, EntityType entityType);
+    //! \param useScriptTag The flag that indicates whether it uses script tag.
+    AddEnchantmentTask(const std::string& cardID, EntityType entityType,
+                       bool useScriptTag = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,7 +35,8 @@ class AddEnchantmentTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    std::string m_cardID;
+    Card* m_enchantmentCard = nullptr;
+    bool m_useScriptTag = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

@@ -10,48 +10,48 @@
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 
-#include <utility>
-
 namespace RosettaStone::SimpleTasks
 {
-AddEnchantmentTask::AddEnchantmentTask(std::string cardID,
-                                       EntityType entityType)
-    : ITask(entityType), m_cardID(std::move(cardID))
+AddEnchantmentTask::AddEnchantmentTask(const std::string& cardID,
+                                       EntityType entityType, bool useScriptTag)
+    : ITask(entityType),
+      m_enchantmentCard(Cards::FindCardByID(cardID)),
+      m_useScriptTag(useScriptTag)
 {
     // Do nothing
 }
 
 TaskStatus AddEnchantmentTask::Impl(Player* player)
 {
-    Card* enchantmentCard = Cards::FindCardByID(m_cardID);
-    if (enchantmentCard->id.empty())
+    int num1 = 0, num2 = 0;
+    if (m_useScriptTag)
     {
-        return TaskStatus::STOP;
+        num1 = m_source->game->taskStack.num;
+        num2 = m_source->game->taskStack.num1;
     }
 
-    int num1 = 0, num2 = 0;
-    auto source = dynamic_cast<Playable*>(m_source);
+    const auto source = dynamic_cast<Playable*>(m_source);
 
     if (m_entityType == EntityType::PLAYER)
     {
-        Generic::AddEnchantment(enchantmentCard, source, player, num1, num2);
+        Generic::AddEnchantment(m_enchantmentCard, source, player, num1, num2);
         return TaskStatus::COMPLETE;
     }
 
     if (m_entityType == EntityType::ENEMY_PLAYER)
     {
-        Generic::AddEnchantment(enchantmentCard, source, player->opponent, num1,
-                                num2);
+        Generic::AddEnchantment(m_enchantmentCard, source, player->opponent,
+                                num1, num2);
         return TaskStatus::COMPLETE;
     }
 
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    Power power = enchantmentCard->power;
+    Power power = m_enchantmentCard->power;
 
     for (auto& entity : entities)
     {
-        Generic::AddEnchantment(enchantmentCard, source, entity, num1, num2);
+        Generic::AddEnchantment(m_enchantmentCard, source, entity, num1, num2);
     }
 
     return TaskStatus::COMPLETE;
@@ -59,6 +59,7 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
 
 ITask* AddEnchantmentTask::CloneImpl()
 {
-    return new AddEnchantmentTask(m_cardID, m_entityType);
+    return new AddEnchantmentTask(m_enchantmentCard->id, m_entityType,
+                                  m_useScriptTag);
 }
 }  // namespace RosettaStone::SimpleTasks
