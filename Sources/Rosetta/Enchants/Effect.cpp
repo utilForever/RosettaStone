@@ -68,6 +68,15 @@ void Effect::ApplyAuraTo(Entity* entity) const
             break;
         case EffectOperator::SET:
             auraEffects->SetGameTag(m_gameTag, m_value);
+
+            if (auto minion = dynamic_cast<Minion*>(entity); minion)
+            {
+                if (m_gameTag == GameTag::HEALTH_MINIMUM)
+                {
+                    minion->SetGameTag(GameTag::HEALTH_MINIMUM, m_value);
+                }
+            }
+
             break;
         default:
             throw std::invalid_argument(
@@ -112,6 +121,15 @@ void Effect::RemoveAuraFrom(Entity* entity) const
             break;
         case EffectOperator::SET:
             auraEffects->SetGameTag(m_gameTag, prevValue - m_value);
+
+            if (auto minion = dynamic_cast<Minion*>(entity); minion)
+            {
+                if (m_gameTag == GameTag::HEALTH_MINIMUM)
+                {
+                    minion->SetGameTag(GameTag::HEALTH_MINIMUM, 0);
+                }
+            }
+
             break;
         default:
             throw std::invalid_argument(
