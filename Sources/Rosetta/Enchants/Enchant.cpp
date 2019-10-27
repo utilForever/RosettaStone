@@ -62,4 +62,36 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
         }
     }
 }
+
+void Enchant::RemoveEffect(Entity* target)
+{
+    for (auto& effect : effects)
+    {
+        effect->RemoveFrom(target);
+    }
+}
+
+void Enchant::RemoveEffect(Entity* target, int num1, int num2)
+{
+    effects[0]->ChangeValue(num1)->RemoveFrom(target);
+
+    if (effects.size() == 1)
+    {
+        return;
+    }
+
+    if (num2 > 0)
+    {
+        effects[1]->ChangeValue(num2)->RemoveFrom(target);
+    }
+    else
+    {
+        effects[1]->ChangeValue(num1)->RemoveFrom(target);
+    }
+
+    for (std::size_t i = 2; i < effects.size(); ++i)
+    {
+        effects[i]->RemoveFrom(target);
+    }
+}
 }  // namespace RosettaStone
