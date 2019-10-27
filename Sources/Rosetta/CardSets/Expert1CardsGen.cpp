@@ -2128,8 +2128,6 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD, "NEW1_036e"));
-    power.AddTrigger(new Trigger(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { new RemoveEnchantmentTask() };
     cards.emplace("NEW1_036e2", power);
 }
 
