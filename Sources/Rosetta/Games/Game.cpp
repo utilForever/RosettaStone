@@ -483,7 +483,7 @@ void Game::MainCleanUp()
     if (const auto enchantments = oneTurnEffectEchantments;
         !enchantments.empty())
     {
-        for (int i = static_cast<int>(enchantments.size()); i >= 0; --i)
+        for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
         {
             enchantments[i]->Remove();
         }
