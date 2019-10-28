@@ -49,6 +49,7 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Conditions/RelaCondition.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
+#include <Rosetta/Enchants/Attrs/Atk.hpp>
 #include <Rosetta/Enchants/Attrs/Attr.hpp>
 #include <Rosetta/Enchants/Attrs/BoolAttr.hpp>
 #include <Rosetta/Enchants/Attrs/Cost.hpp>
