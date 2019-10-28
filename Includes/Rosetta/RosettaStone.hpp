@@ -53,6 +53,7 @@
 #include <Rosetta/Enchants/Attrs/Attr.hpp>
 #include <Rosetta/Enchants/Attrs/BoolAttr.hpp>
 #include <Rosetta/Enchants/Attrs/Cost.hpp>
+#include <Rosetta/Enchants/Attrs/Health.hpp>
 #include <Rosetta/Enchants/Attrs/IntAttr.hpp>
 #include <Rosetta/Enchants/Attrs/SelfContainedBoolAttr.hpp>
 #include <Rosetta/Enchants/Attrs/SelfContainedIntAttr.hpp>
