@@ -80,4 +80,4 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_SELF_CONTAINED_INT_ATTR_HPP
+#endif  // ROSETTASTONE_COST_HPP
