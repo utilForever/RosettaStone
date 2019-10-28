@@ -6,7 +6,9 @@
 #ifndef ROSETTASTONE_EFFECTS_HPP
 #define ROSETTASTONE_EFFECTS_HPP
 
+#include <Rosetta/Enchants/Attrs/Atk.hpp>
 #include <Rosetta/Enchants/Attrs/Cost.hpp>
+#include <Rosetta/Enchants/Attrs/Health.hpp>
 #include <Rosetta/Enchants/Effect.hpp>
 
 namespace RosettaStone
@@ -24,7 +26,7 @@ class Effects
     //! \return A dynamically allocated Effect instance.
     static IEffect* AttackN(int n)
     {
-        return new Effect(GameTag::ATK, EffectOperator::ADD, n);
+        return Atk::Effect(EffectOperator::ADD, n);
     }
 
     //! Creates effect that increases health by \p n.
@@ -32,7 +34,7 @@ class Effects
     //! \return A dynamically allocated Effect instance.
     static IEffect* HealthN(int n)
     {
-        return new Effect(GameTag::HEALTH, EffectOperator::ADD, n);
+        return Health::Effect(EffectOperator::ADD, n);
     }
 
     //! Creates effect that increases durability by \p n.
@@ -64,7 +66,7 @@ class Effects
     //! \return A dynamically allocated Effect instance.
     static IEffect* SetAttack(int n)
     {
-        return new Effect(GameTag::ATK, EffectOperator::SET, n);
+        return Atk::Effect(EffectOperator::SET, n);
     }
 
     //! Creates effect that sets max health to \p n.
@@ -72,7 +74,7 @@ class Effects
     //! \return A dynamically allocated Effect instance.
     static IEffect* SetMaxHealth(int n)
     {
-        return new Effect(GameTag::HEALTH, EffectOperator::SET, n);
+        return Health::Effect(EffectOperator::SET, n);
     }
 
     //! Creates effect that sets attack and health to \p n.
