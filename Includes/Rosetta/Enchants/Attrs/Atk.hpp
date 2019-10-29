@@ -54,8 +54,18 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
  protected:
     int GetValue(Entity* entity) override
     {
-        const auto character = dynamic_cast<Character*>(entity);
-        return character->GetAttack();
+        if (const auto hero = dynamic_cast<Hero*>(entity); hero)
+        {
+            if (hero->HasWeapon())
+            {
+                return hero->GetAttack() - hero->weapon->GetAttack();
+            }
+
+            return hero->GetAttack();
+        }
+
+        const auto minion = dynamic_cast<Minion*>(entity);
+        return minion->GetAttack();
     }
 
     void SetValue(Entity* entity, int value) override
