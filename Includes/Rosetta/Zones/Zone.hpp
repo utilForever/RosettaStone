@@ -88,7 +88,7 @@ class UnlimitedZone : public Zone<Playable>
     //! Constructs unlimited zone with given \p player and \p type.
     //! \param player The player.
     //! \param type The type of zone.
-    UnlimitedZone(Player* player, ZoneType type) : Zone(type)
+    UnlimitedZone(Player* player, ZoneType type) : Zone<Playable>(type)
     {
         m_game = player->game;
         m_player = player;
@@ -208,7 +208,7 @@ class LimitedZone : public Zone<T>
     //! \param type The type of zone.
     //! \param maxSize The maximum size of zone.
     explicit LimitedZone(ZoneType type, int maxSize)
-        : Zone(type), m_maxSize(maxSize)
+        : Zone<T>(type), m_maxSize(maxSize)
     {
         m_entities = new T*[m_maxSize];
 
