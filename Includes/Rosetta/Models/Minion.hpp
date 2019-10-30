@@ -48,6 +48,10 @@ class Minion : public Character
     //! \param value The value of last board position.
     void SetLastBoardPos(int value);
 
+    //! Returns the flag that indicates whether it is untouchable.
+    //! \return The flag that indicates whether it is untouchable.
+    bool IsUntouchable() const;
+
     //! Disables all special effects on this minion.
     void Silence();
 

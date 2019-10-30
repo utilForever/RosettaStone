@@ -30,6 +30,11 @@ void Minion::SetLastBoardPos(int value)
     SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, value);
 }
 
+bool Minion::IsUntouchable() const
+{
+    return card->IsUntouchable();
+}
+
 void Minion::Silence()
 {
     SetGameTag(GameTag::TAUNT, 0);
