@@ -76,6 +76,10 @@ class Card
     //! \return true if this card has game tag, and false otherwise.
     bool HasGameTag(GameTag gameTag) const;
 
+    //! Returns the flag that indicates whether it is untouchable.
+    //! \return The flag that indicates whether it is untouchable.
+    bool IsUntouchable() const;
+
     //! Returns the number of cards that can be inserted into the deck.
     //! \return The number of cards that can be inserted into the deck.
     std::size_t GetMaxAllowedInDeck() const;

@@ -50,6 +50,16 @@ bool Card::HasGameTag(GameTag gameTag) const
     return gameTags.find(gameTag) != gameTags.end();
 }
 
+bool Card::IsUntouchable() const
+{
+    if (!HasGameTag(GameTag::UNTOUCHABLE))
+    {
+        return false;
+    }
+
+    return static_cast<bool>(gameTags.at(GameTag::UNTOUCHABLE));
+}
+
 std::size_t Card::GetMaxAllowedInDeck() const
 {
     return maxAllowedInDeck;
