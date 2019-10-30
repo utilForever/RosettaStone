@@ -36,6 +36,7 @@
 #include <Rosetta/Tasks/SimpleTasks/FuncEntityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
@@ -1233,6 +1234,24 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DamageTask(EntityType::TARGET, 2, true));
     power.AddComboTask(new DamageTask(EntityType::TARGET, 4, true));
     cards.emplace("EX1_124", power);
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_126] Betrayal - COST:2
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Force an enemy minion to deal its damage
+    //       to the minions next to it.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::ATK));
+    power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET));
+    power.AddPowerTask(new DamageNumberTask(EntityType::STACK));
+    cards.emplace("EX1_126", power);
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
