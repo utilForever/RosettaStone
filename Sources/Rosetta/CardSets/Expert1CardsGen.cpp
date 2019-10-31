@@ -19,6 +19,7 @@
 #include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChanceTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ChangeAttackingTargetTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
@@ -791,6 +792,26 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     Power power;
 
     // ---------------------------------------- SPELL - PALADIN
+    // [EX1_130] Noble Sacrifice - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy attacks,
+    //       summon a 2/1 Defender as the new target.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = {
+        new SummonTask("EX1_130a", SummonSide::SPELL, true),
+        new ChangeAttackingTargetTask(EntityType::TARGET, EntityType::STACK),
+        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+        new MoveToGraveyardTask(EntityType::SOURCE)
+    };
+
+    // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -924,6 +945,14 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
 void Expert1CardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 {
     Power power;
+
+    // --------------------------------------- MINION - PALADIN
+    // [EX1_130a] Defender (*) - COST:1 [ATK:2/HP:1]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_130a", power);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_355e] Blessed Champion (*) - COST:0
