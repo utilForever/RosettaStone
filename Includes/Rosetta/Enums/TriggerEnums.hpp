@@ -44,6 +44,7 @@ enum class TriggerSource
 {
     NONE,
     SELF,
+    ENEMY,
     HERO,
     ALL_MINIONS,
     ENEMY_MINIONS,
