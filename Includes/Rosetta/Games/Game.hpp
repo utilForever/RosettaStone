@@ -10,6 +10,7 @@
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/EventMetaData.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
@@ -202,6 +203,7 @@ class Game
 
     TaskQueue taskQueue;
     TaskStack taskStack;
+    EventMetaData currentEventData;
     TriggerManager triggerManager;
 
     std::vector<IAura*> auras;
