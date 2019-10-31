@@ -94,6 +94,7 @@
 #include <Rosetta/Models/Spell.hpp>
 #include <Rosetta/Models/Weapon.hpp>
 #include <Rosetta/RosettaStone.hpp>
+#include <Rosetta/Tasks/EventMetaData.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
