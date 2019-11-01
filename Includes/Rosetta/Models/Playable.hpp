@@ -91,6 +91,18 @@ class Playable : public Entity
     //! Destroys entity.
     virtual void Destroy();
 
+    //! Gets a value indicating whether source entity is playable by player.
+    //! Dynamic requirements are checked, eg: If a spell costs health instead of
+    //! mana, this method will return false if the health cost would be higher
+    //! than the available health.
+    //! \return true if it is playable by player, false otherwise.
+    virtual bool IsPlayableByPlayer();
+
+    //! Gets a value indicating whether source entity is playable by card
+    //! requirements. Static requirements are checked.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReq() const;
+
     //! Activates the task.
     //! \param type The type of power.
     //! \param target The target.
