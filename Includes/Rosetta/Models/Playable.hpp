@@ -91,6 +91,13 @@ class Playable : public Entity
     //! Destroys entity.
     virtual void Destroy();
 
+    //! Gets a value indicating whether this entity is playable. Some entities
+    //! require specific requirements before they can be played. This method
+    //! will process the requirements and produce a result for the current state
+    //! of the game.
+    //! \return true if this entity is playable, false otherwise.
+    bool IsPlayable();
+
     //! Gets a value indicating whether source entity is playable by player.
     //! Dynamic requirements are checked, eg: If a spell costs health instead of
     //! mana, this method will return false if the health cost would be higher

@@ -129,6 +129,11 @@ void Playable::Destroy()
     isDestroyed = true;
 }
 
+bool Playable::IsPlayable()
+{
+    return IsPlayableByPlayer() && IsPlayableByCardReq();
+}
+
 bool Playable::IsPlayableByPlayer()
 {
     // Check if player has enough mana to play card
