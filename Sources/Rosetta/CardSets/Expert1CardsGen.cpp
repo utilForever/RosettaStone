@@ -51,6 +51,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
@@ -3069,8 +3070,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        new EnqueueTask({ new SummonTask("EX1_116t", 1, true) }, 2));
+    power.AddPowerTask(new EnqueueTask({ new SummonOpTask("EX1_116t") }, 2));
     cards.emplace("EX1_116", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3304,7 +3304,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(new SummonTask("EX1_finkle", 1, true));
+    power.AddDeathrattleTask(new SummonOpTask("EX1_finkle"));
     cards.emplace("EX1_577", power);
 
     // --------------------------------------- MINION - NEUTRAL
