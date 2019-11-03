@@ -113,7 +113,7 @@ class Playable : public Entity
     //! Gets the valid play targets.
     //! This method defaults to targeting in the context of spells/hero powers.
     //! \return A list of valid play targets.
-    std::vector<Character*> GetValidPlayTargets();
+    std::vector<Character*> GetValidPlayTargets() const;
 
     //! Determines whether the specified character is a valid target.
     //! \param target The proposed target.
@@ -142,7 +142,7 @@ class Playable : public Entity
     //! hardcoded requirement.
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
-    bool CheckRequirements(Character* target);
+    bool TargetingRequirements(Character* target) const;
 };
 }  // namespace RosettaStone
 

@@ -232,47 +232,14 @@ bool Playable::IsPlayableByCardReq() const
     return true;
 }
 
-std::vector<Character*> Playable::GetValidPlayTargets()
+std::vector<Character*> Playable::GetValidPlayTargets() const
 {
     return card->GetValidPlayTargets(player);
 }
 
 bool Playable::IsValidPlayTarget(Character* target)
 {
-    // Get valid play targets
-    auto targetList = GetValidTargets(source);
-
-    // Return if source needs a target, but target is null and list is not empty
-    if (IsSourceNeedsTarget(source) && target == nullptr && !targetList.empty())
-    {
-        return false;
-    }
-
-    // Check source must require a target
-    bool requiresTarget = false;
-    for (auto& requirement : source->card->playRequirements)
-    {
-        if (requirement.first == PlayReq::REQ_TARGET_TO_PLAY)
-        {
-            requiresTarget = true;
-            break;
-        }
-    }
-
-    // Return if source must require a target, but target is null
-    if (requiresTarget && target == nullptr)
-    {
-        return false;
-    }
-
-    // Return if target is exist, but not exist in target list
-    if (target != nullptr && std::find(targetList.begin(), targetList.end(),
-                                       target) == targetList.end())
-    {
-        return false;
-    }
-
-    return true;
+    return false;
 }
 
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
@@ -319,100 +286,8 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
     }
 }
 
-bool Playable::CheckRequirements(Character* target)
+bool Playable::TargetingRequirements(Character* target) const
 {
-    for (auto& requirement : source->card->playRequirements)
-    {
-        const PlayReq req = requirement.first;
-        const int param = requirement.second;
-
-        switch (req)
-        {
-            case PlayReq::REQ_MINION_TARGET:
-            {
-                if (dynamic_cast<Minion*>(target) == nullptr)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_FRIENDLY_TARGET:
-                if (target->player != source->player)
-                {
-                    return false;
-                }
-                break;
-            case PlayReq::REQ_ENEMY_TARGET:
-            {
-                if (target->player == source->player)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_DAMAGED_TARGET:
-            {
-                if (target->GetDamage() == 0)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_TARGET_MAX_ATTACK:
-            {
-                if (target->GetAttack() > param)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_NONSELF_TARGET:
-            {
-                if (source == target)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_TARGET_WITH_RACE:
-            {
-                if (target->card->GetRace() != static_cast<Race>(param))
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_TARGET_MIN_ATTACK:
-            {
-                if (target->GetAttack() < param)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_UNDAMAGED_TARGET:
-            {
-                if (target->GetDamage() > 0)
-                {
-                    return false;
-                }
-                break;
-            }
-            case PlayReq::REQ_MUST_TARGET_TAUNTER:
-                if (dynamic_cast<Minion*>(target) == nullptr ||
-                    target->GetGameTag(GameTag::TAUNT) == 0)
-                {
-                    return false;
-                }
-                break;
-            case PlayReq::REQ_TARGET_TO_PLAY:
-            case PlayReq::REQ_TARGET_IF_AVAILABLE:
-                break;
-            default:
-                break;
-        }
-    }
-
-    return true;
+    return card->TargetingRequirements(player, target);
 }
 }  // namespace RosettaStone
