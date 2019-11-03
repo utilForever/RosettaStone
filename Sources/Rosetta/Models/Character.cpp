@@ -107,6 +107,16 @@ void Character::SetNumAttacksThisTurn(int amount)
     SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, amount);
 }
 
+bool Character::IsImmune() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::IMMUNE));
+}
+
+bool Character::HasStealth() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::STEALTH));
+}
+
 bool Character::CanAttack() const
 {
     // If the value of attack is 0, returns false

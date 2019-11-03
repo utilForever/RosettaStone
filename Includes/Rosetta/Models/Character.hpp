@@ -98,6 +98,14 @@ class Character : public Playable
     //! \param amount The number of attacks at this turn.
     void SetNumAttacksThisTurn(int amount);
 
+    //! Returns the flag that indicates whether this character is immune.
+    //! \return The flag that indicates whether this character is immune.
+    bool IsImmune() const;
+
+    //! Returns the flag that indicates whether this character has stealth.
+    //! \return The flag that indicates whether this character has stealth.
+    bool HasStealth() const;
+
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.
     bool CanAttack() const;
