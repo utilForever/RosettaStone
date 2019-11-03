@@ -136,6 +136,13 @@ class Playable : public Entity
 
     int orderOfPlay = 0;
     bool isDestroyed = false;
+
+ private:
+    //! Calculates if a target is valid by testing the game state for each
+    //! hardcoded requirement.
+    //! \param target The proposed target.
+    //! \return true if the proposed target is valid, false otherwise.
+    bool CheckRequirements(Character* target);
 };
 }  // namespace RosettaStone
 

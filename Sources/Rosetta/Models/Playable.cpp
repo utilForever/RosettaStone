@@ -318,4 +318,101 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         game->taskQueue.Enqueue(clonedTask);
     }
 }
+
+bool Playable::CheckRequirements(Character* target)
+{
+    for (auto& requirement : source->card->playRequirements)
+    {
+        const PlayReq req = requirement.first;
+        const int param = requirement.second;
+
+        switch (req)
+        {
+            case PlayReq::REQ_MINION_TARGET:
+            {
+                if (dynamic_cast<Minion*>(target) == nullptr)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_FRIENDLY_TARGET:
+                if (target->player != source->player)
+                {
+                    return false;
+                }
+                break;
+            case PlayReq::REQ_ENEMY_TARGET:
+            {
+                if (target->player == source->player)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_DAMAGED_TARGET:
+            {
+                if (target->GetDamage() == 0)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_TARGET_MAX_ATTACK:
+            {
+                if (target->GetAttack() > param)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_NONSELF_TARGET:
+            {
+                if (source == target)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_TARGET_WITH_RACE:
+            {
+                if (target->card->GetRace() != static_cast<Race>(param))
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_TARGET_MIN_ATTACK:
+            {
+                if (target->GetAttack() < param)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_UNDAMAGED_TARGET:
+            {
+                if (target->GetDamage() > 0)
+                {
+                    return false;
+                }
+                break;
+            }
+            case PlayReq::REQ_MUST_TARGET_TAUNTER:
+                if (dynamic_cast<Minion*>(target) == nullptr ||
+                    target->GetGameTag(GameTag::TAUNT) == 0)
+                {
+                    return false;
+                }
+                break;
+            case PlayReq::REQ_TARGET_TO_PLAY:
+            case PlayReq::REQ_TARGET_IF_AVAILABLE:
+                break;
+            default:
+                break;
+        }
+    }
+
+    return true;
+}
 }  // namespace RosettaStone
