@@ -115,6 +115,11 @@ class Playable : public Entity
     //! \return A list of valid play targets.
     std::vector<Character*> GetValidPlayTargets();
 
+    //! Determines whether the specified character is a valid target.
+    //! \param target The proposed target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTarget(Character* target);
+
     //! Activates the task.
     //! \param type The type of power.
     //! \param target The target.

@@ -237,6 +237,44 @@ std::vector<Character*> Playable::GetValidPlayTargets()
     return card->GetValidPlayTargets(player);
 }
 
+bool Playable::IsValidPlayTarget(Character* target)
+{
+    // Get valid play targets
+    auto targetList = GetValidTargets(source);
+
+    // Return if source needs a target, but target is null and list is not empty
+    if (IsSourceNeedsTarget(source) && target == nullptr && !targetList.empty())
+    {
+        return false;
+    }
+
+    // Check source must require a target
+    bool requiresTarget = false;
+    for (auto& requirement : source->card->playRequirements)
+    {
+        if (requirement.first == PlayReq::REQ_TARGET_TO_PLAY)
+        {
+            requiresTarget = true;
+            break;
+        }
+    }
+
+    // Return if source must require a target, but target is null
+    if (requiresTarget && target == nullptr)
+    {
+        return false;
+    }
+
+    // Return if target is exist, but not exist in target list
+    if (target != nullptr && std::find(targetList.begin(), targetList.end(),
+                                       target) == targetList.end())
+    {
+        return false;
+    }
+
+    return true;
+}
+
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
