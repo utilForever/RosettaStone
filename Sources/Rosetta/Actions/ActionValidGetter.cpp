@@ -9,7 +9,6 @@
 
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
-#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
@@ -46,7 +45,8 @@ bool ActionValidGetter::CanUseHeroPower()
     return true;
 }
 
-bool ActionValidGetter::IsPlayable([[maybe_unused]] const Player* player, Playable* entity) const
+bool ActionValidGetter::IsPlayable([[maybe_unused]] const Player* player,
+                                   Playable* entity) const
 {
     if (entity->card->GetCardType() == CardType::MINION)
     {
@@ -71,7 +71,7 @@ bool ActionValidGetter::IsPlayable([[maybe_unused]] const Player* player, Playab
 
     if (auto playReqs = entity->card->playRequirements;
         (playReqs.find(PlayReq::REQ_TARGET_TO_PLAY) != playReqs.end()) &&
-        Generic::GetValidTargets(entity).empty())
+        entity->GetValidPlayTargets().empty())
     {
         return false;
     }

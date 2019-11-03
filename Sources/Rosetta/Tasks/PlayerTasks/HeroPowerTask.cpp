@@ -4,7 +4,6 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/PlayCard.hpp>
-#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
 
@@ -20,7 +19,7 @@ TaskStatus HeroPowerTask::Impl(Player* player)
     HeroPower& power = player->GetHeroPower();
 
     if (!power.IsPlayableByPlayer() || !power.IsPlayableByCardReq() ||
-        !Generic::IsValidTarget(&power, m_target))
+        !power.IsValidPlayTarget(dynamic_cast<Character*>(m_target)))
     {
         return TaskStatus::STOP;
     }

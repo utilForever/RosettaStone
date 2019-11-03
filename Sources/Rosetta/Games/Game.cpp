@@ -7,7 +7,6 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
-#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -710,7 +709,7 @@ PlayState Game::PerformAction(ActionParams& params)
         {
             Playable* card = params.ChooseHandCard();
             Character* target =
-                params.GetSpecifiedTarget(Generic::GetValidTargets(card));
+                params.GetSpecifiedTarget(card->GetValidPlayTargets());
             const int totalMinions =
                 GetCurrentPlayer()->GetFieldZone()->GetCount();
             const int fieldPos = params.GetMinionPutLocation(totalMinions);
@@ -751,7 +750,7 @@ PlayState Game::PerformAction(ActionParams& params)
         {
             Hero* hero = GetCurrentPlayer()->GetHero();
             Character* target = params.GetSpecifiedTarget(
-                Generic::GetValidTargets(hero->heroPower));
+                hero->heroPower->GetValidPlayTargets());
             task = new HeroPowerTask(target);
             break;
         }

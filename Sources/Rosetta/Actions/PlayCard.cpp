@@ -5,7 +5,6 @@
 
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
-#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 #include <Rosetta/Zones/GraveyardZone.hpp>
@@ -25,7 +24,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
 
     // Check if we can play this card and the target is valid
     if (!source->IsPlayableByPlayer() || !source->IsPlayableByCardReq() ||
-        !IsValidTarget(source, target))
+        !source->IsValidPlayTarget(target))
     {
         return;
     }
