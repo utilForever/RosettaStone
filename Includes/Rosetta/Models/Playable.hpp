@@ -110,6 +110,11 @@ class Playable : public Entity
     //! \return true if it is playable by card requirements, false otherwise.
     bool IsPlayableByCardReq() const;
 
+    //! Gets the valid play targets.
+    //! This method defaults to targeting in the context of spells/hero powers.
+    //! \return A list of valid play targets.
+    std::vector<Character*> GetValidPlayTargets();
+
     //! Activates the task.
     //! \param type The type of power.
     //! \param target The target.

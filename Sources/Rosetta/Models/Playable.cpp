@@ -232,6 +232,11 @@ bool Playable::IsPlayableByCardReq() const
     return true;
 }
 
+std::vector<Character*> Playable::GetValidPlayTargets()
+{
+    return card->GetValidPlayTargets(player);
+}
+
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
