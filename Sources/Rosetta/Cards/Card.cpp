@@ -67,6 +67,11 @@ std::size_t Card::GetMaxAllowedInDeck() const
     return maxAllowedInDeck;
 }
 
+bool Card::TargetingRequirements(Player* player, Character* target)
+{
+    return false;
+}
+
 std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 {
     std::vector<Character*> ret;
