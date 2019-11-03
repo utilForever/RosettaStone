@@ -69,7 +69,29 @@ std::size_t Card::GetMaxAllowedInDeck() const
 
 bool Card::TargetingRequirements(Player* player, Character* target)
 {
-    return false;
+    if (target->card->IsUntouchable())
+    {
+        return false;
+    }
+
+    if ((target->HasStealth() || target->IsImmune()) &&
+        target->player != player)
+    {
+        return false;
+    }
+
+    if (!targetingPredicate.empty())
+    {
+        for (auto& predicate : targetingPredicate)
+        {
+            if (!predicate(target))
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 std::vector<Character*> Card::GetValidPlayTargets(Player* player)
