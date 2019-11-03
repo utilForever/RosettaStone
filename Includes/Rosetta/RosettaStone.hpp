@@ -70,6 +70,7 @@
 #include <Rosetta/Enums/ActionEnums.hpp>
 #include <Rosetta/Enums/AuraEnums.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Enums/TargetingEnums.hpp>
 #include <Rosetta/Enums/TaskEnums.hpp>
 #include <Rosetta/Enums/TriggerEnums.hpp>
 #include <Rosetta/Games/Game.hpp>
@@ -80,6 +81,7 @@
 #include <Rosetta/Loaders/AccountLoader.hpp>
 #include <Rosetta/Loaders/CardLoader.hpp>
 #include <Rosetta/Loaders/PowerLoader.hpp>
+#include <Rosetta/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/Managers/CostManager.hpp>
 #include <Rosetta/Models/Character.hpp>
 #include <Rosetta/Models/Choice.hpp>
