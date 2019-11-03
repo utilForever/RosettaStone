@@ -10,6 +10,7 @@
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 #include <Rosetta/Enums/TargetingEnums.hpp>
+#include <Rosetta/Loaders/TargetingPredicates.hpp>
 
 #include <map>
 #include <string>
@@ -113,6 +114,8 @@ class Card
     std::map<GameTag, int> gameTags;
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
+
+    std::vector<std::function<bool(Character*)>> targetingPredicate;
 
     TargetingType targetingType;
     Power power;
