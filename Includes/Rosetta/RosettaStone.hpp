@@ -26,7 +26,6 @@
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Actions/PlayCard.hpp>
 #include <Rosetta/Actions/Summon.hpp>
-#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/Auras/AdjacentAura.hpp>
