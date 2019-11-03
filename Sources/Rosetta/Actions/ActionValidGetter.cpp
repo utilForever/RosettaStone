@@ -33,8 +33,7 @@ bool ActionValidGetter::CanUseHeroPower()
 {
     auto& heroPower = m_game.GetCurrentPlayer()->GetHeroPower();
 
-    if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), &heroPower) ||
-        !Generic::IsPlayableByCardReq(&heroPower))
+    if (!heroPower.IsPlayable())
     {
         return false;
     }
@@ -65,8 +64,7 @@ bool ActionValidGetter::IsPlayable([[maybe_unused]] const Player* player, Playab
         }
     }
 
-    if (!Generic::IsPlayableByPlayer(m_game.GetCurrentPlayer(), entity) ||
-        !Generic::IsPlayableByCardReq(entity))
+    if (!entity->IsPlayable())
     {
         return false;
     }

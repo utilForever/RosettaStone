@@ -24,7 +24,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check if we can play this card and the target is valid
-    if (!IsPlayableByPlayer(player, source) || !IsPlayableByCardReq(source) ||
+    if (!source->IsPlayableByPlayer() || !source->IsPlayableByCardReq() ||
         !IsValidTarget(source, target))
     {
         return;

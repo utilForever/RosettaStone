@@ -19,8 +19,7 @@ TaskStatus HeroPowerTask::Impl(Player* player)
 {
     HeroPower& power = player->GetHeroPower();
 
-    if (!Generic::IsPlayableByPlayer(player, &power) ||
-        !Generic::IsPlayableByCardReq(&power) ||
+    if (!power.IsPlayableByPlayer() || !power.IsPlayableByCardReq() ||
         !Generic::IsValidTarget(&power, m_target))
     {
         return TaskStatus::STOP;
