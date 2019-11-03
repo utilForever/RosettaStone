@@ -9,6 +9,7 @@
 
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Enums/TargetingEnums.hpp>
 
 #include <map>
 #include <string>
@@ -16,6 +17,7 @@
 
 namespace RosettaStone
 {
+class Character;
 class Power;
 
 //!
@@ -84,6 +86,12 @@ class Card
     //! \return The number of cards that can be inserted into the deck.
     std::size_t GetMaxAllowedInDeck() const;
 
+    //! Gets the valid play targets.
+    //! This method defaults to targeting in the context of spells/hero powers.
+    //! \param player The player of the source.
+    //! \return A list of valid play targets.
+    std::vector<Character*> GetValidPlayTargets(Player* player);
+
     //! Prints brief card information.
     virtual void ShowBriefInfo() const;
 
@@ -99,6 +107,7 @@ class Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
+    TargetingType targetingType;
     Power power;
 
     std::size_t maxAllowedInDeck = 0;

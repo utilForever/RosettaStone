@@ -5,6 +5,8 @@
 // property of any third parties.
 
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 #include <iostream>
 
@@ -63,6 +65,89 @@ bool Card::IsUntouchable() const
 std::size_t Card::GetMaxAllowedInDeck() const
 {
     return maxAllowedInDeck;
+}
+
+std::vector<Character*> Card::GetValidPlayTargets(Player* player)
+{
+    std::vector<Character*> ret;
+
+    bool friendlyMinions = false, enemyMinions = false;
+    bool hero = false, enemyHero = false;
+
+    switch (targetingType)
+    {
+        case TargetingType::NONE:
+            // If this is a non-targeting card, return an empty list
+            return ret;
+        case TargetingType::ALL:
+            friendlyMinions = true;
+            enemyMinions = true;
+            hero = true;
+            enemyHero = true;
+            break;
+        case TargetingType::FRIENDLY_CHARACTERS:
+            friendlyMinions = true;
+            hero = true;
+            break;
+        case TargetingType::ENEMY_CHARACTERS:
+            enemyMinions = true;
+            enemyHero = true;
+            break;
+        case TargetingType::ALL_MINIONS:
+            friendlyMinions = true;
+            enemyMinions = true;
+            break;
+        case TargetingType::FRIENDLY_MINIONS:
+            friendlyMinions = true;
+            break;
+        case TargetingType::ENEMY_MINIONS:
+            enemyMinions = true;
+            break;
+        case TargetingType::HEROES:
+            hero = true;
+            enemyHero = true;
+            break;
+    }
+
+    if (friendlyMinions)
+    {
+        for (auto& minion : player->GetFieldZone()->GetAll())
+        {
+            if (TargetingRequirements(player, minion))
+            {
+                ret.emplace_back(minion);
+            }
+        }
+    }
+
+    if (enemyMinions)
+    {
+        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+        {
+            if (TargetingRequirements(player, minion))
+            {
+                ret.emplace_back(minion);
+            }
+        }
+    }
+
+    if (hero)
+    {
+        if (TargetingRequirements(player, player->GetHero()))
+        {
+            ret.emplace_back(player->GetHero());
+        }
+    }
+
+    if (enemyHero)
+    {
+        if (TargetingRequirements(player, player->opponent->GetHero()))
+        {
+            ret.emplace_back(player->opponent->GetHero());
+        }
+    }
+
+    return ret;
 }
 
 void Card::ShowBriefInfo() const
