@@ -81,6 +81,10 @@ void Card::Initialize()
                 targetingAvailabilityPredicate.emplace_back(
                     TargetingPredicates::ReqTargetForCombo());
                 break;
+            case PlayReq::REQ_MUST_TARGET_TAUNTER:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqMustTargetTaunter());
+                break;
             default:
                 continue;
         }
