@@ -18,6 +18,8 @@ void Attack(Player* player, Character* source, Character* target)
         return;
     }
 
+    player->game->currentEventData = new EventMetaData(source, target);
+
     // Process attack trigger
     player->game->taskQueue.StartEvent();
     player->game->triggerManager.OnAttackTrigger(player, source);
@@ -33,44 +35,46 @@ void Attack(Player* player, Character* source, Character* target)
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
+    auto realTarget = dynamic_cast<Character*>(player->game->currentEventData->eventTarget);
+
     // Set game step to MAIN_COMBAT
     player->game->step = Step::MAIN_COMBAT;
 
     // Get attack of source and target
-    const int targetAttack = target->GetAttack();
+    const int targetAttack = realTarget->GetAttack();
     const int sourceAttack = source->GetAttack();
 
     // Take damage to target
-    const int targetDamage = target->TakeDamage(source, sourceAttack);
+    const int targetDamage = realTarget->TakeDamage(source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
 
     // Freeze target if attacker is freezer
     if (isTargetDamaged && source->GetGameTag(GameTag::FREEZE) == 1)
     {
-        target->SetGameTag(GameTag::FROZEN, 1);
+        realTarget->SetGameTag(GameTag::FROZEN, 1);
     }
 
     // Destroy target if attacker is poisonous
     if (isTargetDamaged && source->GetGameTag(GameTag::POISONOUS) == 1)
     {
-        target->Destroy();
+        realTarget->Destroy();
     }
 
     // Ignore damage from defenders with 0 attack
     if (targetAttack > 0)
     {
         // Take damage to source
-        const int sourceDamage = source->TakeDamage(target, targetAttack);
+        const int sourceDamage = source->TakeDamage(realTarget, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
         // Freeze source if defender is freezer
-        if (isSourceDamaged && target->GetGameTag(GameTag::FREEZE) == 1)
+        if (isSourceDamaged && realTarget->GetGameTag(GameTag::FREEZE) == 1)
         {
             source->SetGameTag(GameTag::FROZEN, 1);
         }
 
         // Destroy source if defender is poisonous
-        if (isSourceDamaged && target->GetGameTag(GameTag::POISONOUS) == 1)
+        if (isSourceDamaged && realTarget->GetGameTag(GameTag::POISONOUS) == 1)
         {
             source->Destroy();
         }
@@ -113,6 +117,8 @@ void Attack(Player* player, Character* source, Character* target)
 
     // Process destroy and update aura
     player->game->ProcessDestroyAndUpdateAura();
+
+    delete player->game->currentEventData;
 
     // Set game step to MAIN_ACTION
     player->game->step = Step::MAIN_ACTION;
