@@ -98,6 +98,10 @@ class TargetingPredicates
     //! Predicate wrapper for checking the target requires combo active.
     //! \return Generated AvailabilityPredicate for intended purpose.
     static AvailabilityPredicate ReqTargetForCombo();
+
+    //! Predicate wrapper for checking the target requires that it has taunt.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqMustTargetTaunter();
 };
 }  // namespace RosettaStone
 

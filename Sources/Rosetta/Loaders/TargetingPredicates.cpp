@@ -110,4 +110,9 @@ AvailabilityPredicate TargetingPredicates::ReqTargetForCombo()
         return player->IsComboActive();
     };
 }
+
+TargetingPredicate TargetingPredicates::ReqMustTargetTaunter()
+{
+    return [=](Character* character) { return character->HasTaunt(); };
+}
 }  // namespace RosettaStone
