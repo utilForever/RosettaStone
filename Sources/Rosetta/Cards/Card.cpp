@@ -185,6 +185,17 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 {
     std::vector<Character*> ret;
 
+    if (!targetingAvailabilityPredicate.empty())
+    {
+        for (auto& predicate : targetingAvailabilityPredicate)
+        {
+            if (!predicate(player, this))
+            {
+                return ret;
+            }
+        }
+    }
+
     bool friendlyMinions = false, enemyMinions = false;
     bool hero = false, enemyHero = false;
 
