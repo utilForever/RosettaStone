@@ -15,6 +15,93 @@ namespace RosettaStone
 void Card::Initialize()
 {
     maxAllowedInDeck = (GetRarity() == Rarity::LEGENDARY) ? 1 : 2;
+
+    bool needsTarget = false;
+    CharacterType characterType = CharacterType::CHARACTERS;
+    FriendlyType friendlyType = FriendlyType::ALL;
+
+    for (auto& requirement : playRequirements)
+    {
+        switch (requirement.first)
+        {
+            case PlayReq::REQ_TARGET_TO_PLAY:
+                mustHaveToTargetToPlay = true;
+                needsTarget = true;
+                break;
+            case PlayReq::REQ_NONSELF_TARGET:
+            case PlayReq::REQ_TARGET_IF_AVAILABLE:
+                needsTarget = true;
+                break;
+            case PlayReq::REQ_MINION_TARGET:
+                characterType = CharacterType::MINIONS;
+                break;
+            case PlayReq::REQ_FRIENDLY_TARGET:
+                friendlyType = FriendlyType::FRIENDLY;
+                break;
+            case PlayReq::REQ_ENEMY_TARGET:
+                friendlyType = FriendlyType::ENEMY;
+                break;
+            case PlayReq::REQ_HERO_TARGET:
+                characterType = CharacterType::HEROES;
+                break;
+            case PlayReq::REQ_TARGET_WITH_RACE:
+            {
+                Race race = static_cast<Race>(requirement.second);
+                if (requirement.second == 38)
+                {
+                    race = Race::EGG;
+                }
+
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetWithRace(race));
+            }
+            break;
+            case PlayReq::REQ_TARGET_FOR_COMBO:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetForCombo());
+                break;
+            default:
+                continue;
+        }
+    }
+
+    if (needsTarget)
+    {
+        switch (characterType)
+        {
+            case CharacterType::CHARACTERS:
+                switch (friendlyType)
+                {
+                    case FriendlyType::ALL:
+                        targetingType = TargetingType::ALL;
+                        break;
+                    case FriendlyType::FRIENDLY:
+                        targetingType = TargetingType::FRIENDLY_CHARACTERS;
+                        break;
+                    case FriendlyType::ENEMY:
+                        targetingType = TargetingType::ENEMY_CHARACTERS;
+                        break;
+                }
+                break;
+            case CharacterType::HEROES:
+                targetingType = TargetingType::HEROES;
+                break;
+            case CharacterType::MINIONS:
+                switch (friendlyType)
+                {
+                    case FriendlyType::ALL:
+                        targetingType = TargetingType::ALL_MINIONS;
+                        break;
+                    case FriendlyType::FRIENDLY:
+                        targetingType = TargetingType::FRIENDLY_MINIONS;
+                        break;
+                    case FriendlyType::ENEMY:
+                        targetingType = TargetingType::ENEMY_MINIONS;
+                        break;
+                }
+        }
+    }
 }
 
 CardClass Card::GetCardClass() const
