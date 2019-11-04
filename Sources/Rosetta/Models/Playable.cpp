@@ -313,6 +313,80 @@ bool Playable::IsValidPlayTarget(Character* target)
     return false;
 }
 
+bool Playable::HasAnyValidPlayTargets() const
+{
+    bool friendlyMinions = false, enemyMinions = false;
+    bool hero = false, enemyHero = false;
+
+    switch (card->targetingType)
+    {
+        case TargetingType::NONE:
+            return false;
+        case TargetingType::ALL:
+            friendlyMinions = true;
+            enemyMinions = true;
+            hero = true;
+            enemyHero = true;
+            break;
+        case TargetingType::FRIENDLY_CHARACTERS:
+            friendlyMinions = true;
+            hero = true;
+            break;
+        case TargetingType::ENEMY_CHARACTERS:
+            enemyMinions = true;
+            enemyHero = true;
+            break;
+        case TargetingType::ALL_MINIONS:
+            friendlyMinions = true;
+            enemyMinions = true;
+            break;
+        case TargetingType::FRIENDLY_MINIONS:
+            friendlyMinions = true;
+            break;
+        case TargetingType::ENEMY_MINIONS:
+            enemyMinions = true;
+            break;
+        case TargetingType::HEROES:
+            hero = true;
+            enemyHero = true;
+            break;
+    }
+
+    if (friendlyMinions)
+    {
+        for (auto& minion : player->GetFieldZone()->GetAll())
+        {
+            if (TargetingRequirements(minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    if (enemyMinions)
+    {
+        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+        {
+            if (TargetingRequirements(minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    if (hero && TargetingRequirements(player->GetHero()))
+    {
+        return true;
+    }
+
+    if (enemyHero && TargetingRequirements(player->opponent->GetHero()))
+    {
+        return true;
+    }
+
+    return false;
+}
+
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {

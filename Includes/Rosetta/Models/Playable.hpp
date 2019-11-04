@@ -120,6 +120,10 @@ class Playable : public Entity
     //! \return true if the specified target is valid, false otherwise.
     bool IsValidPlayTarget(Character* target);
 
+    //! Gets whether the current field has any valid play targets for this playable.
+    //! \return true if the current field has any valid play targets, false otherwise.
+    bool HasAnyValidPlayTargets() const;
+
     //! Activates the task.
     //! \param type The type of power.
     //! \param target The target.
