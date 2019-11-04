@@ -41,11 +41,16 @@ SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side)
 
 TaskStatus SummonTask::Impl(Player* player)
 {
-    TaskStack stack = player->game->taskStack;
+    TaskStack& stack = player->game->taskStack;
 
     if (!m_card.has_value() && stack.entities.empty())
     {
         return TaskStatus::COMPLETE;
+    }
+
+    if (m_addToStack)
+    {
+        player->game->taskStack.entities.clear();
     }
 
     for (int i = 0; i < m_amount; ++i)
