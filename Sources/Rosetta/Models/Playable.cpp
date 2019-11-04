@@ -239,6 +239,77 @@ std::vector<Character*> Playable::GetValidPlayTargets() const
 
 bool Playable::IsValidPlayTarget(Character* target)
 {
+    if (target == nullptr)
+    {
+        if (card->mustHaveToTargetToPlay)
+        {
+            return false;
+        }
+
+        if (card->targetingType == TargetingType::NONE)
+        {
+            return true;
+        }
+
+        if (!HasAnyValidPlayTargets())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    switch (card->targetingType)
+    {
+        case TargetingType::NONE:
+            return false;
+        case TargetingType::ALL:
+            break;
+        case TargetingType::FRIENDLY_CHARACTERS:
+            if (target->player != player)
+            {
+                return false;
+            }
+            break;
+        case TargetingType::ENEMY_CHARACTERS:
+            if (target->player == player)
+            {
+                return false;
+            }
+            break;
+        case TargetingType::ALL_MINIONS:
+            if (dynamic_cast<Hero*>(target) != nullptr)
+            {
+                return false;
+            }
+            break;
+        case TargetingType::FRIENDLY_MINIONS:
+            if (dynamic_cast<Hero*>(target) != nullptr ||
+                target->player != player)
+            {
+                return false;
+            }
+            break;
+        case TargetingType::ENEMY_MINIONS:
+            if (dynamic_cast<Hero*>(target) != nullptr ||
+                target->player == player)
+            {
+                return false;
+            }
+            break;
+        case TargetingType::HEROES:
+            if (dynamic_cast<Minion*>(target) != nullptr)
+            {
+                return false;
+            }
+            break;
+    }
+
+    if (TargetingRequirements(target))
+    {
+        return true;
+    }
+
     return false;
 }
 
