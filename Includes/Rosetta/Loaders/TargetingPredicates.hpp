@@ -7,8 +7,17 @@
 #ifndef ROSETTASTONE_TARGETING_PREDICATES_HPP
 #define ROSETTASTONE_TARGETING_PREDICATES_HPP
 
+#include <functional>
+
 namespace RosettaStone
 {
+class Card;
+class Player;
+class Character;
+
+using TargetingPredicate = std::function<bool(Character*)>;
+using AvailabilityPredicate = std::function<bool(Player*, Card*)>;
+
 //!
 //! \brief TargetingPredicates class.
 //!
@@ -17,6 +26,9 @@ namespace RosettaStone
 class TargetingPredicates
 {
  public:
+    //! Predicate wrapper for checking the target requires combo active.
+    //! \return Generated AvailabilityPredicate for intended purpose.
+    static AvailabilityPredicate ReqTargetForCombo();
 };
 }  // namespace RosettaStone
 
