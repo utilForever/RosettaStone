@@ -98,6 +98,12 @@ class Playable : public Entity
     //! \return true if this entity is playable, false otherwise.
     bool IsPlayable();
 
+    //! Calculates if a target is valid by testing the game state for each
+    //! hardcoded requirement.
+    //! \param target The proposed target.
+    //! \return true if the proposed target is valid, false otherwise.
+    virtual bool TargetingRequirements(Character* target) const;
+
     //! Gets a value indicating whether source entity is playable by player.
     //! Dynamic requirements are checked, eg: If a spell costs health instead of
     //! mana, this method will return false if the health cost would be higher
@@ -140,13 +146,6 @@ class Playable : public Entity
 
     int orderOfPlay = 0;
     bool isDestroyed = false;
-
- private:
-    //! Calculates if a target is valid by testing the game state for each
-    //! hardcoded requirement.
-    //! \param target The proposed target.
-    //! \return true if the proposed target is valid, false otherwise.
-    bool TargetingRequirements(Character* target) const;
 };
 }  // namespace RosettaStone
 

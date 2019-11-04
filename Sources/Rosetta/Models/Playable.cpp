@@ -134,6 +134,11 @@ bool Playable::IsPlayable()
     return IsPlayableByPlayer() && IsPlayableByCardReq();
 }
 
+bool Playable::TargetingRequirements(Character* target) const
+{
+    return card->TargetingRequirements(player, target);
+}
+
 bool Playable::IsPlayableByPlayer()
 {
     // Check if player has enough mana to play card
@@ -429,10 +434,5 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
 
         game->taskQueue.Enqueue(clonedTask);
     }
-}
-
-bool Playable::TargetingRequirements(Character* target) const
-{
-    return card->TargetingRequirements(player, target);
 }
 }  // namespace RosettaStone
