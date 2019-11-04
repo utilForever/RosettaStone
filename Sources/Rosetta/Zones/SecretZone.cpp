@@ -31,13 +31,8 @@ Playable* SecretZone::Remove(Playable* entity)
 
 bool SecretZone::Exist(Playable* entity) const
 {
-    for (int i = 0; i < m_maxSize; ++i)
+    for (int i = 0; i < m_count; ++i)
     {
-        if (!m_entities[i])
-        {
-            continue;
-        }
-
         if (entity->card->id == m_entities[i]->card->id)
         {
             return true;
