@@ -47,6 +47,13 @@ class Spell : public Playable
     //! Returns whether spell is countered.
     //! \return Whether spell is countered.
     bool IsCountered() const;
+
+    //! Gets a value indicating whether source entity is playable by player.
+    //! Dynamic requirements are checked, eg: If a spell costs health instead of
+    //! mana, this method will return false if the health cost would be higher
+    //! than the available health.
+    //! \return true if it is playable by player, false otherwise.
+    bool IsPlayableByPlayer() override;
 };
 }  // namespace RosettaStone
 

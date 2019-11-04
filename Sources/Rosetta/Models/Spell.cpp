@@ -4,7 +4,9 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 #include <utility>
 
@@ -24,5 +26,16 @@ bool Spell::IsSecret() const
 bool Spell::IsCountered() const
 {
     return GetGameTag(GameTag::CANT_PLAY) == 1;
+}
+
+bool Spell::IsPlayableByPlayer()
+{
+    if (IsSecret() && (player->GetSecretZone()->IsFull() ||
+                       player->GetSecretZone()->Exist(this)))
+    {
+        return false;
+    }
+
+    return Playable::IsPlayableByPlayer();
 }
 }  // namespace RosettaStone
