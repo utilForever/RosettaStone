@@ -44,9 +44,21 @@ void Card::Initialize()
             case PlayReq::REQ_HERO_TARGET:
                 characterType = CharacterType::HEROES;
                 break;
+            case PlayReq::REQ_TARGET_MAX_ATTACK:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetMaxAttack(
+                        requirement.second));
+                break;
+            case PlayReq::REQ_TARGET_MIN_ATTACK:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetMinAttack(
+                        requirement.second));
+                break;
             case PlayReq::REQ_TARGET_WITH_RACE:
             {
                 Race race = static_cast<Race>(requirement.second);
+
+                // NOTE: Race::EGG has special value that is not 27, but 38.
                 if (requirement.second == 38)
                 {
                     race = Race::EGG;
