@@ -107,6 +107,11 @@ void Character::SetNumAttacksThisTurn(int amount)
     SetGameTag(GameTag::NUM_ATTACKS_THIS_TURN, amount);
 }
 
+bool Character::IsRace(Race race) const
+{
+    return race == card->GetRace();
+}
+
 bool Character::IsImmune() const
 {
     return static_cast<bool>(GetGameTag(GameTag::IMMUNE));
