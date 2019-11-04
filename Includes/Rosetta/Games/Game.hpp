@@ -203,8 +203,8 @@ class Game
 
     TaskQueue taskQueue;
     TaskStack taskStack;
-    EventMetaData currentEventData;
     TriggerManager triggerManager;
+    EventMetaData* currentEventData = nullptr;
 
     std::vector<IAura*> auras;
     std::vector<Trigger*> triggers;
