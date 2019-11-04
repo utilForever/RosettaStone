@@ -811,6 +811,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
         new MoveToGraveyardTask(EntityType::SOURCE)
     };
+    cards.emplace("EX1_130", power);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8
