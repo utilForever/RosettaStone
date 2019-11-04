@@ -115,12 +115,15 @@ class Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
-    std::vector<std::function<bool(Character*)>> targetingPredicate;
+    std::vector<TargetingPredicate> targetingPredicate;
+    std::vector<AvailabilityPredicate> targetingAvailabilityPredicate;
 
     TargetingType targetingType;
     Power power;
 
     std::size_t maxAllowedInDeck = 0;
+
+    bool mustHaveToTargetToPlay = false;
 };
 }  // namespace RosettaStone
 
