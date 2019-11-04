@@ -73,6 +73,18 @@ class TargetingPredicates
     //! \return Generated TargetingPredicate for intended purpose.
     static TargetingPredicate ReqTargetWithRace(Race race);
 
+    //! Predicate wrapper for checking the target requires that
+    //! the maximum attack is \p value.
+    //! \param value The value of maximum attack.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqTargetMaxAttack(int value);
+
+    //! Predicate wrapper for checking the target requires that
+    //! the minimum attack is \p value.
+    //! \param value The value of minimum attack.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqTargetMinAttack(int value);
+
     //! Predicate wrapper for checking the target requires combo active.
     //! \return Generated AvailabilityPredicate for intended purpose.
     static AvailabilityPredicate ReqTargetForCombo();

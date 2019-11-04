@@ -82,6 +82,18 @@ TargetingPredicate TargetingPredicates::ReqTargetWithRace(Race race)
     }
 }
 
+TargetingPredicate TargetingPredicates::ReqTargetMaxAttack(int value)
+{
+    return
+        [=](Character* character) { return character->GetAttack() <= value; };
+}
+
+TargetingPredicate TargetingPredicates::ReqTargetMinAttack(int value)
+{
+    return
+        [=](Character* character) { return character->GetAttack() >= value; };
+}
+
 AvailabilityPredicate TargetingPredicates::ReqTargetForCombo()
 {
     return [](Player* player, [[maybe_unused]] Card* card) {
