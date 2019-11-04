@@ -82,6 +82,16 @@ TargetingPredicate TargetingPredicates::ReqTargetWithRace(Race race)
     }
 }
 
+TargetingPredicate TargetingPredicates::ReqDamagedTarget()
+{
+    return [=](Character* character) { return character->GetDamage() > 0; };
+}
+
+TargetingPredicate TargetingPredicates::ReqUndamagedTarget()
+{
+    return [=](Character* character) { return character->GetDamage() == 0; };
+}
+
 TargetingPredicate TargetingPredicates::ReqTargetMaxAttack(int value)
 {
     return

@@ -74,6 +74,16 @@ class TargetingPredicates
     static TargetingPredicate ReqTargetWithRace(Race race);
 
     //! Predicate wrapper for checking the target requires that
+    //! it is damaged.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqDamagedTarget();
+
+    //! Predicate wrapper for checking the target requires that
+    //! it is undamaged.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqUndamagedTarget();
+
+    //! Predicate wrapper for checking the target requires that
     //! the maximum attack is \p value.
     //! \param value The value of maximum attack.
     //! \return Generated TargetingPredicate for intended purpose.
