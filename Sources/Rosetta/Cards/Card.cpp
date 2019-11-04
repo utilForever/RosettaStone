@@ -44,6 +44,14 @@ void Card::Initialize()
             case PlayReq::REQ_HERO_TARGET:
                 characterType = CharacterType::HEROES;
                 break;
+            case PlayReq::REQ_DAMAGED_TARGET:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqDamagedTarget());
+                break;
+            case PlayReq::REQ_UNDAMAGED_TARGET:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqUndamagedTarget());
+                break;
             case PlayReq::REQ_TARGET_MAX_ATTACK:
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqTargetMaxAttack(
