@@ -34,7 +34,7 @@ TaskStatus ChangeAttackingTargetTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    player->game->currentEventData.eventTarget = newDefender;
+    player->game->currentEventData->eventTarget = newDefender;
 
     return TaskStatus::COMPLETE;
 }
