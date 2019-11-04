@@ -107,6 +107,10 @@ class Character : public Playable
     //! \return The flag that indicates whether this character is immune.
     bool IsImmune() const;
 
+    //! Returns the flag that indicates whether this character has taunt.
+    //! \return The flag that indicates whether this character has taunt.
+    bool HasTaunt() const;
+
     //! Returns the flag that indicates whether this character has stealth.
     //! \return The flag that indicates whether this character has stealth.
     bool HasStealth() const;
