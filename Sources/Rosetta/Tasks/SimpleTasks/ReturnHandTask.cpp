@@ -22,7 +22,7 @@ TaskStatus ReturnHandTask::Impl(Player* player)
 
     for (auto& entity : entities)
     {
-        entity->player->GetFieldZone()->Remove(entity);
+        entity->zone->Remove(entity);
         entity->Reset();
         Generic::AddCardToHand(entity->player, entity);
     }
