@@ -18,32 +18,32 @@ CountTask::CountTask(EntityType entityType, int numIndex, std::vector<SelfCondit
 
 TaskStatus CountTask::Impl(Player* player)
 {
-    const auto entities =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
     
     int count;
     if (m_conditions.empty())
     {
-        count = static_cast<int>(entities.size());
+        count = static_cast<int>(playables.size());
     }
     else
     {
         std::vector<Playable*> filtered;
-        filtered.reserve(entities.size());
+        filtered.reserve(playables.size());
 
-        for (auto& entity : entities)
+        for (auto& playable : playables)
         {
             bool flag = true;
             for (auto& condition : m_conditions)
             {
-                if (!condition.Evaluate(entity))
+                if (!condition.Evaluate(playable))
                 {
                     flag = false;
                 }
             }
             if (flag)
             {
-                filtered.push_back(entity);
+                filtered.push_back(playable);
             }
         }
         count = static_cast<int>(filtered.size());

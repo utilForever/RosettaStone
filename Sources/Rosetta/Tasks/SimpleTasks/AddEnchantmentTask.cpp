@@ -45,13 +45,14 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
         return TaskStatus::COMPLETE;
     }
 
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
     Power power = m_enchantmentCard->power;
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        Generic::AddEnchantment(m_enchantmentCard, source, entity, num1, num2);
+        Generic::AddEnchantment(m_enchantmentCard, source, playable, num1,
+                                num2);
     }
 
     return TaskStatus::COMPLETE;

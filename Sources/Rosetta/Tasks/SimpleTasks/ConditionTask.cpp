@@ -37,26 +37,26 @@ ConditionTask::ConditionTask(EntityType entityType,
 
 TaskStatus ConditionTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    if (entities.empty())
+    if (playables.empty())
     {
         return TaskStatus::STOP;
     }
 
     bool flag = true;
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
         for (auto& condition : m_selfConditions)
         {
-            flag = flag && condition.Evaluate(entity);
+            flag = flag && condition.Evaluate(playable);
         }
 
         for (auto& condition : m_relaConditions)
         {
             flag = flag && condition.Evaluate(dynamic_cast<Playable*>(m_source),
-                                              entity);
+                                              playable);
         }
     }
 

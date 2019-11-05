@@ -19,13 +19,13 @@ DamageTask::DamageTask(EntityType entityType, std::size_t damage,
 
 TaskStatus DamageTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
         const auto source = dynamic_cast<Playable*>(m_source);
-        const auto character = dynamic_cast<Character*>(entity);
+        const auto character = dynamic_cast<Character*>(playable);
 
         Generic::TakeDamageToCharacter(
             source, character, static_cast<int>(m_damage), m_isSpellDamage);

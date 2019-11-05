@@ -19,12 +19,12 @@ DamageNumberTask::DamageNumberTask(EntityType entityType, bool isSpellDamage)
 TaskStatus DamageNumberTask::Impl(Player* player)
 {
     const int damage = m_source->game->taskStack.num;
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        const auto character = dynamic_cast<Character*>(entity);
+        const auto character = dynamic_cast<Character*>(playable);
         Generic::TakeDamageToCharacter(dynamic_cast<Playable*>(m_source),
                                        character, damage, m_isSpellDamage);
     }

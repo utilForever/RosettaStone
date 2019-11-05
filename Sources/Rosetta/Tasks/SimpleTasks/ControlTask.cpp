@@ -17,14 +17,14 @@ ControlTask::ControlTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus ControlTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
     auto myField = player->GetFieldZone();
     auto opField = player->opponent->GetFieldZone();
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        const auto& minion = dynamic_cast<Minion*>(entity);
+        const auto& minion = dynamic_cast<Minion*>(playable);
         if (minion == nullptr)
         {
             continue;
@@ -32,7 +32,7 @@ TaskStatus ControlTask::Impl(Player* player)
 
         if (myField->IsFull())
         {
-            entity->Destroy();
+            playable->Destroy();
             continue;
         }
 

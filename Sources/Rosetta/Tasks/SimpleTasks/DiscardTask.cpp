@@ -22,15 +22,15 @@ DiscardTask::DiscardTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus DiscardTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
         player->game->taskQueue.StartEvent();
 
-        player->GetHandZone()->Remove(entity);
-        player->GetGraveyardZone()->Add(entity);
+        player->GetHandZone()->Remove(playable);
+        player->GetGraveyardZone()->Add(playable);
 
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();

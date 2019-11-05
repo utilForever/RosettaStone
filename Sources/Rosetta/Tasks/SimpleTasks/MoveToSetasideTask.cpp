@@ -17,13 +17,13 @@ MoveToSetasideTask::MoveToSetasideTask(EntityType entityType)
 
 TaskStatus MoveToSetasideTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        entity->zone->Remove(entity);
-        entity->player->GetSetasideZone()->Add(entity);
+        playable->zone->Remove(playable);
+        playable->player->GetSetasideZone()->Add(playable);
     }
 
     return TaskStatus::COMPLETE;

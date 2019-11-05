@@ -16,12 +16,12 @@ SetGameTagTask::SetGameTagTask(EntityType entityType, GameTag tag, int amount)
 
 TaskStatus SetGameTagTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        entity->SetGameTag(m_gameTag, m_amount);
+        playable->SetGameTag(m_gameTag, m_amount);
     }
 
     return TaskStatus::COMPLETE;

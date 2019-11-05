@@ -17,16 +17,16 @@ RemoveHandTask::RemoveHandTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus RemoveHandTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-
     std::vector<Playable*> list;
-    for (auto& entity : entities)
+
+    for (auto& playable : playables)
     {
-        if (entity->zone->GetType() == ZoneType::HAND)
+        if (playable->zone->GetType() == ZoneType::HAND)
         {
-            entity->player->GetHandZone()->Remove(entity);
-            list.emplace_back(entity);
+            playable->player->GetHandZone()->Remove(playable);
+            list.emplace_back(playable);
         }
     }
 

@@ -20,12 +20,12 @@ SwapAttackHealthTask::SwapAttackHealthTask(EntityType entityType,
 
 TaskStatus SwapAttackHealthTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        const auto minion = dynamic_cast<Minion*>(entity);
+        const auto minion = dynamic_cast<Minion*>(playable);
         const int attack = minion->GetAttack();
         const int health = minion->GetHealth();
 
@@ -34,8 +34,8 @@ TaskStatus SwapAttackHealthTask::Impl(Player* player)
         const auto healthEffect =
             new Effect(GameTag::HEALTH, EffectOperator::SET, attack);
 
-        attackEffect->ApplyTo(entity);
-        healthEffect->ApplyTo(entity);
+        attackEffect->ApplyTo(playable);
+        healthEffect->ApplyTo(playable);
     }
 
     return TaskStatus::COMPLETE;

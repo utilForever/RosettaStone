@@ -15,12 +15,12 @@ DestroyTask::DestroyTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus DestroyTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        entity->Destroy();
+        playable->Destroy();
     }
 
     return TaskStatus::COMPLETE;
