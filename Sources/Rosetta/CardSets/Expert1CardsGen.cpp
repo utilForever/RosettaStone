@@ -42,6 +42,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
@@ -2435,13 +2436,14 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetTrigger()->condition =
         new SelfCondition(SelfCondition::HasMinionInHand());
     power.GetTrigger()->tasks = {
+        new GetGameTagTask(EntityType::SOURCE, GameTag::ZONE_POSITION),
+        new MoveToSetasideTask(EntityType::SOURCE),
         new IncludeTask(EntityType::HAND),
         new FilterStackTask(SelfCondition::IsMinion()),
         new RandomTask(EntityType::STACK, 1),
         new RemoveHandTask(EntityType::STACK),
-        new GetGameTagTask(EntityType::SOURCE, GameTag::ZONE_POSITION),
-        new ReturnHandTask(EntityType::SOURCE),
-        new SummonTask(SummonSide::NUMBER)
+        new SummonTask(SummonSide::NUMBER),
+        new ReturnHandTask(EntityType::SOURCE)
     };
     cards.emplace("EX1_006", power);
 
