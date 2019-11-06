@@ -909,9 +909,11 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
-                                         new DamageTask(EntityType::STACK, 1) },
-                                       3, true));
+    power.AddPowerTask(
+        new EnqueueTask({ new FilterStackTask(SelfCondition::IsNotDead()),
+                          new RandomTask(EntityType::ENEMIES, 1),
+                          new DamageTask(EntityType::STACK, 1) },
+                        3, true));
     cards.emplace("EX1_277", power);
 }
 
