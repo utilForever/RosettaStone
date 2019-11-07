@@ -31,8 +31,6 @@ TaskStatus RandomEntourageTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    player->game->taskStack.entities.clear();
-
     for (int i = 0; i < m_count; ++i)
     {
         const auto idx =
@@ -40,7 +38,8 @@ TaskStatus RandomEntourageTask::Impl(Player* player)
         const auto entourageCard =
             Cards::FindCardByID(m_source->card->entourages[idx]);
 
-        Playable* entouragePlayable = Entity::GetFromCard(player, entourageCard);
+        Playable* entouragePlayable =
+            Entity::GetFromCard(player, entourageCard);
         player->game->taskStack.entities.emplace_back(entouragePlayable);
     }
 

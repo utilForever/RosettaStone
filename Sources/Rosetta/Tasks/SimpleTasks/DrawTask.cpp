@@ -32,8 +32,6 @@ TaskStatus DrawTask::Impl(Player* player)
 
     if (m_toStack)
     {
-        player->game->taskStack.entities.clear();
-
         for (auto& card : cards)
         {
             player->game->taskStack.entities.emplace_back(card);

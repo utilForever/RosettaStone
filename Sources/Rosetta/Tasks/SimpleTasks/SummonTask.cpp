@@ -48,11 +48,6 @@ TaskStatus SummonTask::Impl(Player* player)
         return TaskStatus::COMPLETE;
     }
 
-    if (m_addToStack)
-    {
-        player->game->taskStack.entities.clear();
-    }
-
     for (int i = 0; i < m_amount; ++i)
     {
         if (player->GetFieldZone()->IsFull())
