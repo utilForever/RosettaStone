@@ -229,25 +229,34 @@ int Character::TakeDamage(Playable* source, int damage)
     int amount =
         (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
 
-    SetPreDamage(amount);
+	game->taskQueue.StartEvent();
+    EventMetaData* temp = game->currentEventData;
+    game->currentEventData = new EventMetaData(source, this, amount);
 
     if (preDamageTrigger != nullptr)
     {
         preDamageTrigger(player, this);
         game->ProcessTasks();
-        amount = GetPreDamage();
+        amount = game->currentEventData->eventNumber;
 
         if (amount == 0 && armor == 0)
         {
-            SetPreDamage(0);
             game->taskQueue.EndEvent();
+
+            delete game->currentEventData;
+            game->currentEventData = temp;
+
             return 0;
         }
     }
 
     if (GetGameTag(GameTag::IMMUNE) == 1)
     {
-        SetPreDamage(0);
+        game->taskQueue.EndEvent();
+
+        delete game->currentEventData;
+        game->currentEventData = temp;
+
         return 0;
     }
 
@@ -257,14 +266,17 @@ int Character::TakeDamage(Playable* source, int damage)
     }
 
     SetDamage(GetDamage() + amount);
-    SetPreDamage(0);
 
     // Process damage triggers
     game->taskQueue.StartEvent();
     game->triggerManager.OnTakeDamageTrigger(player, this);
     game->triggerManager.OnDealDamageTrigger(player->opponent, source);
+
     game->ProcessTasks();
     game->taskQueue.EndEvent();
+
+    delete game->currentEventData;
+    game->currentEventData = temp;
 
     return amount;
 }
