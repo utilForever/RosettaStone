@@ -7,10 +7,14 @@
 #ifndef ROSETTASTONE_UTILS_HPP
 #define ROSETTASTONE_UTILS_HPP
 
+#include <effolkronium/random.hpp>
+
 #include <cstddef>
 #include <functional>
 #include <string>
 #include <vector>
+
+using Random = effolkronium::random_static;
 
 //! Checks all conditions are true.
 //! \param t A value to check that it is true.
@@ -60,6 +64,53 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
             ++it;
         }
     }
+}
+
+//! Gets N elements from a list of distinct elements by using the default
+//! equality comparer. The source list must not have any repeated elements.
+//! \param list A list of distinct elements to choose.
+//! \param amount The number of elements to choose.
+//! \return A list of N distinct elements.
+template <typename T>
+std::vector<T*> ChooseNElements(std::vector<T*> list, int amount)
+{
+    const std::size_t size = list.size();
+    if (amount > size)
+    {
+        amount = size;
+    }
+
+    std::vector<T*> results;
+    results.reserve(amount);
+
+    std::vector<std::size_t> indices;
+    indices.reserve(amount);
+
+    for (int i = 0; i < amount; ++i)
+    {
+        std::size_t idx;
+        bool flag;
+
+        do
+        {
+            idx = Random::get<std::size_t>(0, list.size() - 1);
+            flag = false;
+
+            for (int j = 0; j < i; ++j)
+            {
+                if (indices[j] == idx)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+        } while (flag);
+
+        results.emplace_back(list[idx]);
+        indices.emplace_back(idx);
+    }
+
+    return results;
 }
 
 //! Decodes Base64 based string.
