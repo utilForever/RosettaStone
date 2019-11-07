@@ -6,10 +6,12 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::SimpleTasks
 {
 EnqueueTask::EnqueueTask(std::vector<ITask*> tasks, int num, bool isSpellDamage)
-    : m_tasks(tasks), m_num(num), m_isSpellDamage(isSpellDamage)
+    : m_tasks(std::move(tasks)), m_num(num), m_isSpellDamage(isSpellDamage)
 {
     // Do nothing
 }
