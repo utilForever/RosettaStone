@@ -18,10 +18,10 @@ namespace RosettaStone::SimpleTasks
 class RandomTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p num.
+    //! Constructs task with given \p entityType and \p amount.
     //! \param entityType The type of entity.
-    //! \param num The number of entities to pick.
-    RandomTask(EntityType entityType, int num);
+    //! \param amount The amount of entities to pick.
+    RandomTask(EntityType entityType, int amount);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -33,7 +33,7 @@ class RandomTask : public ITask
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    int m_num = 0;
+    int m_amount = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
