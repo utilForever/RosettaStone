@@ -677,6 +677,8 @@ PlayState Game::Process(Player* player, ITask* task)
         delete task;
     }
 
+    taskStack.Reset();
+
     return CheckGameOver();
 }
 
@@ -685,6 +687,8 @@ PlayState Game::Process(Player* player, ITask&& task)
     // Process task
     task.SetPlayer(player);
     Task::Run(std::move(task));
+
+    taskStack.Reset();
 
     return CheckGameOver();
 }
