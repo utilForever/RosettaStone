@@ -35,6 +35,7 @@
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FuncEntityTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
@@ -813,6 +814,24 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
         new MoveToGraveyardTask(EntityType::SOURCE)
     };
     cards.emplace("EX1_130", power);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [EX1_132] Eye for an Eye - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your hero takes damage,
+    //       deal that much damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { new GetEventNumberTask(),
+                                  new DamageNumberTask(EntityType::ENEMY_HERO,
+                                                       true) };
+    cards.emplace("EX1_132", power);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8

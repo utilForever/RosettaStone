@@ -1415,6 +1415,79 @@ TEST(PaladinExpert1Test, EX1_130_NobleSacrifice)
 }
 
 // ---------------------------------------- SPELL - PALADIN
+// [EX1_132] Eye for an Eye - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When your hero takes damage,
+//       deal that much damage to the enemy hero.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_132_EyeForAnEye)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eye for an Eye"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eye for an Eye"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Mortal Strike"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card3));
+    game.Process(opPlayer, AttackTask(opHero, curHero));
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(curHero->GetHealth(), 27);
+    EXPECT_EQ(opHero->GetHealth(), 27);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, curHero));
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(curHero->GetHealth(), 23);
+    EXPECT_EQ(opHero->GetHealth(), 23);
+}
+
+// ---------------------------------------- SPELL - PALADIN
 // [EX1_354] Lay on Hands - COST:8
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
