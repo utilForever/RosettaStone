@@ -12,14 +12,21 @@
 #include <string>
 #include <vector>
 
+//! Checks all conditions are true.
+//! \param t A value to check that it is true.
+//! \return true if all conditions are true, false otherwise.
 template <typename T>
 constexpr bool AllCondIsTrue(const T& t)
 {
     return static_cast<bool>(t);
 }
 
+//! Checks all conditions are true.
+//! \param t A value to check that it is true.
+//! \param args Rest values to check that they are true.
+//! \return true if all conditions are true, false otherwise.
 template <typename T, typename... Others>
-constexpr bool AllCondIsTrue(const T& t, Others const&... args)
+constexpr bool AllCondIsTrue(const T& t, const Others&... args)
 {
     return (static_cast<bool>(t)) && AllCondIsTrue(args...);
 }
