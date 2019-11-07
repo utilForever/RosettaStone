@@ -2152,17 +2152,15 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
         trigger->tasks = {
             new IncludeTask(EntityType::TARGET),
             new FuncEntityTask([=](const std::vector<Playable*>& playables) {
-                std::vector<Playable*> result;
-
                 auto minion = dynamic_cast<Minion*>(playables[0]);
-                if (minion->GetPreDamage() >= minion->GetHealth())
+                int& eventNumber = minion->game->currentEventData->eventNumber;
+
+                if (eventNumber >= minion->GetHealth())
                 {
-                    minion->SetPreDamage(minion->GetHealth() - 1);
+                    eventNumber = minion->GetHealth() - 1;
                 }
 
-                result.emplace_back(minion);
-
-                return result;
+                return std::vector<Playable*>{ minion };
             })
         };
     }
