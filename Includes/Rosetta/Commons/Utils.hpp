@@ -74,7 +74,7 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
 template <typename T>
 std::vector<T*> ChooseNElements(std::vector<T*> list, int amount)
 {
-    const std::size_t size = list.size();
+    const int size = static_cast<int>(list.size());
     if (amount > size)
     {
         amount = size;
