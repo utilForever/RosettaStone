@@ -206,7 +206,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::STACK:
-            entities = player->game->taskStack.entities;
+            entities = player->game->taskStack.playables;
             break;
         default:
             throw std::invalid_argument(
@@ -401,7 +401,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::STACK:
-            entities = player->game->taskStack.entities;
+            entities = player->game->taskStack.playables;
             break;
         default:
             throw std::invalid_argument(
@@ -438,11 +438,11 @@ TaskStatus IncludeTask::Impl(Player* player)
             return false;
         });
 
-        player->game->taskStack.entities = result;
+        player->game->taskStack.playables = result;
     }
     else
     {
-        player->game->taskStack.entities = entities;
+        player->game->taskStack.playables = entities;
     }
 
     return TaskStatus::COMPLETE;

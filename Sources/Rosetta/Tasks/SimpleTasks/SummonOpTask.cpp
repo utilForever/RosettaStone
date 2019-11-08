@@ -27,7 +27,7 @@ TaskStatus SummonOpTask::Impl(Player* player)
 {
     TaskStack stack = player->game->taskStack;
 
-    if (!m_card.has_value() && stack.entities.empty())
+    if (!m_card.has_value() && stack.playables.empty())
     {
         return TaskStatus::STOP;
     }
@@ -39,11 +39,11 @@ TaskStatus SummonOpTask::Impl(Player* player)
             return TaskStatus::STOP;
         }
 
-        Minion* summonEntity = nullptr;
+        Minion* summonEntity;
 
         if (!m_card.has_value())
         {
-            summonEntity = dynamic_cast<Minion*>(stack.entities[0]);
+            summonEntity = dynamic_cast<Minion*>(stack.playables[0]);
         }
         else
         {

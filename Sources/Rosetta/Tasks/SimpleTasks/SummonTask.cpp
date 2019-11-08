@@ -43,7 +43,7 @@ TaskStatus SummonTask::Impl(Player* player)
 {
     TaskStack& stack = player->game->taskStack;
 
-    if (!m_card.has_value() && stack.entities.empty())
+    if (!m_card.has_value() && stack.playables.empty())
     {
         return TaskStatus::COMPLETE;
     }
@@ -52,14 +52,14 @@ TaskStatus SummonTask::Impl(Player* player)
     {
         if (player->GetFieldZone()->IsFull())
         {
-            if (!m_card.has_value() && !stack.entities.empty())
+            if (!m_card.has_value() && !stack.playables.empty())
             {
-                Playable* playable = stack.entities[0];
+                Playable* playable = stack.playables[0];
 
                 if (playable->zone == nullptr)
                 {
                     playable->player->GetGraveyardZone()->Add(
-                        stack.entities[0]);
+                        stack.playables[0]);
                 }
             }
 
@@ -74,16 +74,16 @@ TaskStatus SummonTask::Impl(Player* player)
 
             if (m_addToStack)
             {
-                stack.entities.emplace_back(summonEntity);
+                stack.playables.emplace_back(summonEntity);
             }
         }
-        else if (!stack.entities.empty())
+        else if (!stack.playables.empty())
         {
-            summonEntity = dynamic_cast<Minion*>(stack.entities[0]);
+            summonEntity = dynamic_cast<Minion*>(stack.playables[0]);
 
             if (m_removeFromStack)
             {
-                EraseIf(stack.entities, [&](Playable* entity) {
+                EraseIf(stack.playables, [&](Playable* entity) {
                     return entity == summonEntity;
                 });
             }

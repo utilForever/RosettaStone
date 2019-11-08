@@ -46,7 +46,7 @@ TaskStatus RandomCardTask::Impl(Player* player)
 
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
     auto randomCard = Entity::GetFromCard(player, cardsList.at(idx));
-    player->game->taskStack.entities.emplace_back(randomCard);
+    player->game->taskStack.playables.emplace_back(randomCard);
 
     return TaskStatus::COMPLETE;
 }

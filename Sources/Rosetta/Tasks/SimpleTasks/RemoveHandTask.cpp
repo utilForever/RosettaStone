@@ -30,7 +30,7 @@ TaskStatus RemoveHandTask::Impl(Player* player)
         }
     }
 
-    player->game->taskStack.entities = list;
+    player->game->taskStack.playables = list;
 
     return TaskStatus::COMPLETE;
 }

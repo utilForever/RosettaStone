@@ -16,7 +16,7 @@ DrawStackTask::DrawStackTask(std::size_t amount) : m_amount(amount)
 
 TaskStatus DrawStackTask::Impl(Player* player)
 {
-    auto& stack = player->game->taskStack.entities;
+    auto& stack = player->game->taskStack.playables;
     const std::size_t amount =
         (m_amount <= stack.size()) ? m_amount : stack.size();
 

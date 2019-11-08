@@ -20,7 +20,7 @@ TaskStatus AddStackToTask::Impl(Player* player)
     {
         case EntityType::HAND:
         {
-            for (auto& entity : player->game->taskStack.entities)
+            for (auto& entity : player->game->taskStack.playables)
             {
                 Generic::AddCardToHand(entity->player, entity);
             }

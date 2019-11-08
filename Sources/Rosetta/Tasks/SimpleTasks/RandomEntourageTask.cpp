@@ -40,7 +40,7 @@ TaskStatus RandomEntourageTask::Impl(Player* player)
 
         Playable* entouragePlayable =
             Entity::GetFromCard(player, entourageCard);
-        player->game->taskStack.entities.emplace_back(entouragePlayable);
+        player->game->taskStack.playables.emplace_back(entouragePlayable);
     }
 
     return TaskStatus::COMPLETE;

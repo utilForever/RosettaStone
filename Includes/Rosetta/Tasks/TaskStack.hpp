@@ -19,7 +19,7 @@ struct TaskStack
     //! Resets all variables.
     void Reset()
     {
-        entities.clear();
+        playables.clear();
 
         source = nullptr;
         target = nullptr;
@@ -30,7 +30,7 @@ struct TaskStack
         flag = true;
     }
 
-    std::vector<Playable*> entities;
+    std::vector<Playable*> playables;
 
     Entity* source = nullptr;
     Playable* target = nullptr;

@@ -37,12 +37,12 @@ TaskStatus CopyTask::Impl(Player* player)
 
     if (m_entityType == EntityType::STACK)
     {
-        if (player->game->taskStack.entities.empty())
+        if (player->game->taskStack.playables.empty())
         {
             return TaskStatus::STOP;
         }
 
-        for (auto& entity : player->game->taskStack.entities)
+        for (auto& entity : player->game->taskStack.playables)
         {
             Playable* copied = Generic::Copy(owner, entity, m_zoneType);
 
@@ -55,7 +55,7 @@ TaskStatus CopyTask::Impl(Player* player)
             {
                 if (m_addToStack)
                 {
-                    player->game->taskStack.entities = result;
+                    player->game->taskStack.playables = result;
                 }
 
                 return TaskStatus::COMPLETE;
@@ -109,7 +109,7 @@ TaskStatus CopyTask::Impl(Player* player)
             {
                 if (m_addToStack)
                 {
-                    player->game->taskStack.entities = result;
+                    player->game->taskStack.playables = result;
                 }
 
                 return TaskStatus::COMPLETE;
@@ -119,7 +119,7 @@ TaskStatus CopyTask::Impl(Player* player)
 
     if (m_addToStack)
     {
-        player->game->taskStack.entities = result;
+        player->game->taskStack.playables = result;
     }
 
     return TaskStatus::COMPLETE;

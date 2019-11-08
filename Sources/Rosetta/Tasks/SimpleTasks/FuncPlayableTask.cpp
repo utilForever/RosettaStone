@@ -21,8 +21,8 @@ TaskStatus FuncPlayableTask::Impl(Player* player)
 {
     if (m_func != nullptr)
     {
-        player->game->taskStack.entities =
-            m_func(player->game->taskStack.entities);
+        player->game->taskStack.playables =
+            m_func(player->game->taskStack.playables);
     }
 
     return TaskStatus::COMPLETE;

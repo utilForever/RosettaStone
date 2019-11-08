@@ -37,7 +37,7 @@ TaskStatus FilterStackTask::Impl(Player* player)
         std::vector<Playable*> filtered;
         filtered.reserve(entities.size());
 
-        for (auto& entity : player->game->taskStack.entities)
+        for (auto& entity : player->game->taskStack.playables)
         {
             if (m_relaCondition->Evaluate(entities[0], entity))
             {
@@ -45,15 +45,15 @@ TaskStatus FilterStackTask::Impl(Player* player)
             }
         }
 
-        player->game->taskStack.entities = filtered;
+        player->game->taskStack.playables = filtered;
     }
 
     if (m_selfCondition != nullptr)
     {
         std::vector<Playable*> filtered;
-        filtered.reserve(player->game->taskStack.entities.size());
+        filtered.reserve(player->game->taskStack.playables.size());
 
-        for (auto& entity : player->game->taskStack.entities)
+        for (auto& entity : player->game->taskStack.playables)
         {
             if (m_selfCondition->Evaluate(entity))
             {
@@ -61,7 +61,7 @@ TaskStatus FilterStackTask::Impl(Player* player)
             }
         }
 
-        player->game->taskStack.entities = filtered;
+        player->game->taskStack.playables = filtered;
     }
 
     return TaskStatus::COMPLETE;

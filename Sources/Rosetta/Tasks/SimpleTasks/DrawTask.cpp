@@ -34,7 +34,7 @@ TaskStatus DrawTask::Impl(Player* player)
     {
         for (auto& card : cards)
         {
-            player->game->taskStack.entities.emplace_back(card);
+            player->game->taskStack.playables.emplace_back(card);
         }
     }
 

@@ -100,7 +100,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
         }
     }
 
-    player->game->taskStack.entities = minions;
+    player->game->taskStack.playables = minions;
 
     return TaskStatus::COMPLETE;
 }
