@@ -828,9 +828,12 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { new GetEventNumberTask(),
-                                  new DamageNumberTask(EntityType::ENEMY_HERO,
-                                                       true) };
+    power.GetTrigger()->tasks = {
+        new GetEventNumberTask(),
+        new DamageNumberTask(EntityType::ENEMY_HERO, true),
+        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+        new MoveToGraveyardTask(EntityType::SOURCE)
+    };
     cards.emplace("EX1_132", power);
 
     // ---------------------------------------- SPELL - PALADIN
