@@ -145,8 +145,9 @@ class Character : public Playable
     //! \param heal The value of heal.
     void TakeHeal(Playable* source, int heal);
 
-    std::function<void(Player*, Entity*)> afterAttackTrigger;
     std::function<void(Player*, Entity*)> preDamageTrigger;
+    std::function<void(Player*, Entity*)> takeDamageTrigger;
+    std::function<void(Player*, Entity*)> afterAttackTrigger;
 };
 }  // namespace RosettaStone
 

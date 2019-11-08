@@ -229,7 +229,7 @@ int Character::TakeDamage(Playable* source, int damage)
     int amount =
         (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
 
-	game->taskQueue.StartEvent();
+    game->taskQueue.StartEvent();
     EventMetaData* temp = game->currentEventData;
     game->currentEventData = new EventMetaData(source, this, amount);
 
@@ -268,7 +268,10 @@ int Character::TakeDamage(Playable* source, int damage)
     SetDamage(GetDamage() + amount);
 
     // Process damage triggers
-    game->taskQueue.StartEvent();
+    if (takeDamageTrigger != nullptr)
+    {
+        takeDamageTrigger(player, this);
+    }
     game->triggerManager.OnTakeDamageTrigger(player, this);
     game->triggerManager.OnDealDamageTrigger(player->opponent, source);
 
