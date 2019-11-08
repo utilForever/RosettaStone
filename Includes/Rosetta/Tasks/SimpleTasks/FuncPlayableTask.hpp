@@ -13,17 +13,17 @@
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief FuncEntityTask class.
+//! \brief FuncPlayableTask class.
 //!
-//! This class represents the task for executing specific function and storing
-//! result to entities.
+//! This class represents the task for executing specific function and
+//! storing result to playables.
 //!
-class FuncEntityTask : public ITask
+class FuncPlayableTask : public ITask
 {
  public:
     //! Constructs task with given \p cardID.
     //! \param func The function to execute.
-    explicit FuncEntityTask(
+    explicit FuncPlayableTask(
         std::function<std::vector<Playable*>(std::vector<Playable*>)> func);
 
  private:

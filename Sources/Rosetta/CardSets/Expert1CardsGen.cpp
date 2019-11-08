@@ -34,7 +34,7 @@
 #include <Rosetta/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/FuncEntityTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncPlayableTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetEventNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/GetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
@@ -851,7 +851,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
     power.GetTrigger()->tasks = {
         new CopyTask(EntityType::TARGET, ZoneType::PLAY, 1, true),
-        new FuncEntityTask([=](const std::vector<Playable*>& playables) {
+        new FuncPlayableTask([=](const std::vector<Playable*>& playables) {
             auto target = dynamic_cast<Minion*>(playables[0]);
             if (target == nullptr)
             {
@@ -1406,17 +1406,17 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
         new ConditionTask(
             EntityType::SOURCE,
             { SelfCondition::IsTagValue(GameTag::HEADCRACK_COMBO, 1) }),
-        new FlagTask(
-            true,
-            { new IncludeTask(EntityType::SOURCE),
-              new FuncEntityTask([=](const std::vector<Playable*>& playables) {
-                  auto source = playables[0];
-                  source->zone->Remove(source);
-                  source->SetGameTag(GameTag::HEADCRACK_COMBO, 0);
+        new FlagTask(true, { new IncludeTask(EntityType::SOURCE),
+                             new FuncPlayableTask(
+                                 [=](const std::vector<Playable*>& playables) {
+                                     auto source = playables[0];
+                                     source->zone->Remove(source);
+                                     source->SetGameTag(
+                                         GameTag::HEADCRACK_COMBO, 0);
 
-                  return std::vector<Playable*>{ source };
-              }),
-              new AddStackToTask(EntityType::HAND) })
+                                     return std::vector<Playable*>{ source };
+                                 }),
+                             new AddStackToTask(EntityType::HAND) })
     };
     power.GetTrigger()->removeAfterTriggered = true;
     cards.emplace("EX1_137", power);
@@ -2239,7 +2239,7 @@ void Expert1CardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
         trigger->fastExecution = true;
         trigger->tasks = {
             new IncludeTask(EntityType::TARGET),
-            new FuncEntityTask([=](const std::vector<Playable*>& playables) {
+            new FuncPlayableTask([=](const std::vector<Playable*>& playables) {
                 auto minion = dynamic_cast<Minion*>(playables[0]);
                 int& eventNumber = minion->game->currentEventData->eventNumber;
 
@@ -2986,7 +2986,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::ENEMY_MINIONS));
     power.AddPowerTask(
-        new FuncEntityTask([=](const std::vector<Playable*>& playables) {
+        new FuncPlayableTask([=](const std::vector<Playable*>& playables) {
             return playables.size() > 3 ? playables : std::vector<Playable*>{};
         }));
     power.AddPowerTask(new RandomTask(EntityType::STACK, 1));

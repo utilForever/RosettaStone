@@ -4,20 +4,20 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Tasks/SimpleTasks/FuncEntityTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/FuncPlayableTask.hpp>
 
 #include <utility>
 
 namespace RosettaStone::SimpleTasks
 {
-FuncEntityTask::FuncEntityTask(
+FuncPlayableTask::FuncPlayableTask(
     std::function<std::vector<Playable*>(std::vector<Playable*>)> func)
     : m_func(std::move(func))
 {
     // Do nothing
 }
 
-TaskStatus FuncEntityTask::Impl(Player* player)
+TaskStatus FuncPlayableTask::Impl(Player* player)
 {
     if (m_func != nullptr)
     {
@@ -28,8 +28,8 @@ TaskStatus FuncEntityTask::Impl(Player* player)
     return TaskStatus::COMPLETE;
 }
 
-ITask* FuncEntityTask::CloneImpl()
+ITask* FuncPlayableTask::CloneImpl()
 {
-    return new FuncEntityTask(m_func);
+    return new FuncPlayableTask(m_func);
 }
 }  // namespace RosettaStone::SimpleTasks
