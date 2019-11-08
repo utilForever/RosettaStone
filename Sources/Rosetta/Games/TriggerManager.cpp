@@ -120,4 +120,12 @@ void TriggerManager::OnTargetTrigger(Player* player, Entity* sender) const
         targetTrigger(player, sender);
     }
 }
+
+void TriggerManager::OnDeathTrigger(Player* player, Entity* sender) const
+{
+    if (deathTrigger != nullptr)
+    {
+        deathTrigger(player, sender);
+    }
+}
 }  // namespace RosettaStone
