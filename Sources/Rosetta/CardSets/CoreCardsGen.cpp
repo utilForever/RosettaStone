@@ -1226,16 +1226,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("CS2_236", power);
 
     // ----------------------------------------- SPELL - PRIEST
-    // [DS1_233] Mind Blast - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal $5 damage to the enemy hero.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
-    cards.emplace("DS1_233", power);
-
-    // ----------------------------------------- SPELL - PRIEST
     // [EX1_622] Shadow Word: Death - COST:3
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
@@ -1395,16 +1385,6 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
     cards.emplace("EX1_581", power);
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [NEW1_004] Vanish - COST:6
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Return all minions to their owner's hand.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::ALL_MINIONS));
-    cards.emplace("NEW1_004", power);
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)

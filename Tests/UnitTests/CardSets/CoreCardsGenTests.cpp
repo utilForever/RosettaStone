@@ -3044,39 +3044,6 @@ TEST(PriestCoreTest, CS2_236_DivineSpirit)
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [DS1_233] Mind Blast - COST:2
-// - Faction: Neutral, Set: Core, Rarity: Free
-// --------------------------------------------------------
-// Text: Deal $5 damage to the enemy hero.
-// --------------------------------------------------------
-TEST(PriestCoreTest, DS1_233_MindBlast)
-{
-    GameConfig config;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::PALADIN;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mind Blast"));
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 25);
-}
-
-// ----------------------------------------- SPELL - PRIEST
 // [EX1_622] Shadow Word: Death - COST:3
 // - Set: Core, Rarity: Free
 // --------------------------------------------------------
@@ -3580,63 +3547,6 @@ TEST(RogueCoreTest, EX1_581_Sap)
     EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 7);
     EXPECT_EQ(opField[0]->GetAttack(), 3);
     EXPECT_EQ(opField[0]->GetHealth(), 1);
-}
-
-// ------------------------------------------ SPELL - ROGUE
-// [NEW1_004] Vanish - COST:6
-// - Set: Core, Rarity: Free
-// --------------------------------------------------------
-// Text: Return all minions to their owner's hand.
-// --------------------------------------------------------
-TEST(RogueCoreTest, NEW1_004_Vanish)
-{
-    GameConfig config;
-    config.player1Class = CardClass::ROGUE;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_START);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vanish"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voidwalker"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    EXPECT_EQ(curField.GetCount(), 1);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(opField.GetCount(), 1);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_START);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    EXPECT_EQ(curField.GetCount(), 0);
-    EXPECT_EQ(opPlayer->GetHandZone()->GetCount(), 7);
-    EXPECT_EQ(opField.GetCount(), 0);
 }
 
 // ----------------------------------------- SPELL - SHAMAN

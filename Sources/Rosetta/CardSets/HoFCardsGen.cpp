@@ -15,6 +15,7 @@
 #include <Rosetta/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/FlagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -76,7 +77,7 @@ void HoFCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - Faction: Neutral, Set: HoF, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>,
-    //       deal $4 damage instead.
+    //       deal 4 damage instead.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
@@ -111,7 +112,17 @@ void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddPriest(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [DS1_233] Mind Blast - COST:2
+    // - Faction: Neutral, Set: HoF, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Deal 5 damage to the enemy hero.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
+    cards.emplace("DS1_233", power);
 }
 
 void HoFCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
@@ -121,7 +132,17 @@ void HoFCardsGen::AddPriestNonCollect(std::map<std::string, Power>& cards)
 
 void HoFCardsGen::AddRogue(std::map<std::string, Power>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [NEW1_004] Vanish - COST:6
+    // - Set: HoF, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Return all minions to their owner's hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new ReturnHandTask(EntityType::ALL_MINIONS));
+    cards.emplace("NEW1_004", power);
 }
 
 void HoFCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
@@ -211,9 +232,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
     // - Set: HoF, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Take
-    //       control of a random
-    //       enemy minion.
+    // Text: <b>Deathrattle:</b> Take control of a random enemy minion.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
