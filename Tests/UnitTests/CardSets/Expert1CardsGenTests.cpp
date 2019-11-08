@@ -1488,6 +1488,62 @@ TEST(PaladinExpert1Test, EX1_132_EyeForAnEye)
 }
 
 // ---------------------------------------- SPELL - PALADIN
+// [EX1_136] Redemption - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When a friendly minion dies,
+//       return it to life with 1 Health.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(PaladinExpert1Test, EX1_136_Redemption)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Redemption"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Argent Protector"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fiery War Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card3));
+    game.Process(opPlayer, AttackTask(opHero, curField[0]));
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(curField[0]->GetHealth(), 1);
+}
+
+// ---------------------------------------- SPELL - PALADIN
 // [EX1_354] Lay on Hands - COST:8
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

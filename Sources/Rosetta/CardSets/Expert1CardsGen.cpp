@@ -837,6 +837,37 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     cards.emplace("EX1_132", power);
 
     // ---------------------------------------- SPELL - PALADIN
+    // [EX1_136] Redemption - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When a friendly minion dies,
+    //       return it to life with 1 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = {
+        new CopyTask(EntityType::TARGET, ZoneType::PLAY, 1, true),
+        new FuncEntityTask([=](const std::vector<Playable*>& playables) {
+            auto target = dynamic_cast<Minion*>(playables[0]);
+            if (target == nullptr)
+            {
+                return std::vector<Playable*>{};
+            }
+
+            target->SetDamage(target->GetHealth() - 1);
+            return std::vector<Playable*>{ target };
+        }),
+        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+        new MoveToGraveyardTask(EntityType::SOURCE)
+    };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("EX1_136", power);
+
+    // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
