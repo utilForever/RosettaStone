@@ -64,6 +64,8 @@ void Hero::RemoveWeapon()
         return;
     }
 
+    game->triggerManager.OnDeathTrigger(player, weapon);
+
     player->GetGraveyardZone()->Add(weapon);
 
     weapon = nullptr;

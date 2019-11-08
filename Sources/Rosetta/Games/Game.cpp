@@ -632,6 +632,9 @@ void Game::ProcessGraveyard()
         {
             Minion* minion = deadMinion.second;
 
+            // Death event created
+            triggerManager.OnDeathTrigger(minion->player, minion);
+
             // Remove minion from battlefield
             minion->SetLastBoardPos(minion->GetZonePosition());
             minion->zone->Remove(minion);
