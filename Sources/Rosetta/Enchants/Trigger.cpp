@@ -183,6 +183,9 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::DEATH:
+            game->triggerManager.deathTrigger = std::move(triggerFunc);
+            break;
         default:
             break;
     }
@@ -287,6 +290,9 @@ void Trigger::Remove() const
             }
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = nullptr;
+            break;
+        case TriggerType::DEATH:
+            game->triggerManager.deathTrigger = nullptr;
             break;
         default:
             break;
