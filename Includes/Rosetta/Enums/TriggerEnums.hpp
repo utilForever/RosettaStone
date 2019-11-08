@@ -37,6 +37,7 @@ enum class TriggerType
                   //!< damaged.
     TARGET,  //!< The effect will be triggered when a card is targeted by an
              //!< attacking minion or a played card.
+    DEATH,   //!< The effect will be triggered when a minion dies.
 };
 
 //! \brief An enumerator for identifying trigger source.
