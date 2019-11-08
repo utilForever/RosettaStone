@@ -14,7 +14,7 @@
 * [x] Choose One
 * [ ] Choose Twice
 * [x] Combo
-* [ ] Counter
+* [x] Counter
 * [x] Deathrattle
 * [ ] Discover
 * [x] Divine Shield
