@@ -411,9 +411,9 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
-        case TriggerSource::ENEMY_MINIONS:
+        case TriggerSource::MINIONS:
             if (dynamic_cast<Minion*>(source) == nullptr ||
-                source->player == m_owner->player)
+                source->player != m_owner->player)
             {
                 return;
             }
@@ -421,6 +421,13 @@ void Trigger::Validate(Player* player, Entity* source)
         case TriggerSource::MINIONS_EXCEPT_SELF:
             if (dynamic_cast<Minion*>(source) == nullptr ||
                 source->player != m_owner->player || source == m_owner)
+            {
+                return;
+            }
+            break;
+        case TriggerSource::ENEMY_MINIONS:
+            if (dynamic_cast<Minion*>(source) == nullptr ||
+                source->player == m_owner->player)
             {
                 return;
             }
