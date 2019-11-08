@@ -1387,6 +1387,41 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     cards.emplace("EX1_134", power);
 
     // ------------------------------------------ SPELL - ROGUE
+    // [EX1_137] Headcrack - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal $2 damage to the enemy hero.
+    //       <b>Combo:</b> Return this to your hand next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 2, true));
+    power.AddComboTask(new DamageTask(EntityType::ENEMY_HERO, 2, true));
+    power.AddComboTask(
+        new SetGameTagTask(EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
+    power.AddTrigger(new Trigger(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        new ConditionTask(
+            EntityType::SOURCE,
+            { SelfCondition::IsTagValue(GameTag::HEADCRACK_COMBO, 1) }),
+        new FlagTask(
+            true,
+            { new IncludeTask(EntityType::SOURCE),
+              new FuncEntityTask([=](const std::vector<Playable*>& playables) {
+                  auto source = playables[0];
+                  source->zone->Remove(source);
+                  source->SetGameTag(GameTag::HEADCRACK_COMBO, 0);
+
+                  return std::vector<Playable*>{ source };
+              }),
+              new AddStackToTask(EntityType::HAND) })
+    };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("EX1_137", power);
+
+    // ------------------------------------------ SPELL - ROGUE
     // [EX1_144] Shadowstep - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
