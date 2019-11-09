@@ -8,6 +8,7 @@
 
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Models/Player.hpp>
 
 #include <array>
 

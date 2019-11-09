@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_PLAYER_HPP
 #define ROSETTASTONE_PLAYER_HPP
 
-#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Enums/GameEnums.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Hero.hpp>
