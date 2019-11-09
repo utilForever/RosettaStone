@@ -10,14 +10,28 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief Atk class.
+//!
+//! This class is an attribute for attack and inherits from SelfContainedIntAttr
+//! class. It uses CRTP(Curiously Recurring Template Pattern) technique.
+//!
 class Atk : public SelfContainedIntAttr<Atk, Entity>
 {
  public:
+    //! Generates new effect for attack attribute.
+    //! \param effectOp The effect operator of the effect.
+    //! \param value The value of the effect.
+    //! \return The effect that is dynamically allocated.
     static IEffect* Effect(EffectOperator effectOp, int value)
     {
         return SelfContainedIntAttr::Effect(effectOp, value);
     }
 
+    //! Applies the effect that affects the attribute.
+    //! \param entity The entity to apply the effect.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void Apply(Entity* entity, EffectOperator effectOp, int value) override
     {
         if (effectOp == EffectOperator::SET)
@@ -52,6 +66,9 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
     }
 
  protected:
+    //! Returns the value of the attribute of the entity.
+    //! \param entity The entity to get the value of the attribute.
+    //! \return The value of the attribute of the entity.
     int GetValue(Entity* entity) override
     {
         if (const auto hero = dynamic_cast<Hero*>(entity); hero)
@@ -68,17 +85,26 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
         return minion->GetAttack();
     }
 
+    //! Sets the value of the attribute of the entity.
+    //! \param entity The entity to set the value of the attribute.
+    //! \param value The value of the attribute of the entity.
     void SetValue(Entity* entity, int value) override
     {
         auto character = dynamic_cast<Character*>(entity);
         character->SetAttack(value);
     }
 
+    //! Returns the value the attribute that is affected by the aura effect.
+    //! \param auraEffects The aura effects that affects the attribute.
+    //! \return The value the attribute that is affected by the aura effect.
     int GetAuraValue(AuraEffects* auraEffects) override
     {
         return auraEffects->GetAttack();
     }
 
+    //! Sets the value the attribute that is affected by the aura effect.
+    //! \param auraEffects The aura effects that affects the attribute.
+    //! \param value The value the attribute that is affected by the aura effect.
     void SetAuraValue(AuraEffects* auraEffects, int value) override
     {
         auraEffects->SetAttack(value);

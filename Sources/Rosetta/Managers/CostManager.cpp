@@ -60,9 +60,9 @@ void CostManager::RemoveCostAura(EffectOperator effectOp, int value)
     }
 }
 
-void CostManager::ActivateAdaptiveEffect(AdaptiveCostEffect* adaptiveCostEffect)
+void CostManager::ActivateAdaptiveEffect(AdaptiveCostEffect* effect)
 {
-    m_adaptiveCostEffect = adaptiveCostEffect;
+    m_adaptiveCostEffect = effect;
 }
 
 void CostManager::UpdateAdaptiveEffect(int value)

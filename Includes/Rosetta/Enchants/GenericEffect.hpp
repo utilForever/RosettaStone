@@ -14,12 +14,19 @@
 namespace RosettaStone
 {
 //!
-//! \brief GeneralEffect class.
+//! \brief GenericEffect class.
+//!
+//! This class is a simple container for saving game tag such as GameTag::ATK,
+//! GameTag::COST and GameTag::HEALTH.
 //!
 template <typename T = Playable, typename AttrT = Attr<T>>
 class GenericEffect : public IEffect
 {
  public:
+    //! Constructs generic effect with given \p attr, \p effectOp and \p value.
+    //! \param attr The attribute to change.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     GenericEffect(AttrT* attr, EffectOperator effectOp, int value)
         : m_attr(attr), m_effectOp(effectOp), m_value(value)
     {

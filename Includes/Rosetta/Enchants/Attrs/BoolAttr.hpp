@@ -12,12 +12,23 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief BoolAttr class.
+//!
+//! This class inherits from Attr class and is template specialization
+//! for the attribute that is boolean type.
+//!
 template <typename T = Entity>
 class BoolAttr : public Attr<T>
 {
  public:
+    //! Default virtual destructor.
     virtual ~BoolAttr() = default;
 
+    //! Applies the effect that affects the attribute.
+    //! \param entity The entity to apply the effect.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void Apply(T* entity, EffectOperator effectOp, int value) override
     {
         if (effectOp != EffectOperator::SET)
@@ -29,12 +40,20 @@ class BoolAttr : public Attr<T>
         SetValue(entity, value > 0);
     }
 
+    //! Removes the effect that affects the attribute.
+    //! \param entity The entity to remove the effect.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void Remove(T* entity, [[maybe_unused]] EffectOperator effectOp,
                 [[maybe_unused]] int value) override
     {
         SetValue(entity, false);
     }
 
+    //! Applies the aura that affects the attribute.
+    //! \param entity The entity to apply the aura.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void ApplyAura(T* entity, [[maybe_unused]] EffectOperator effectOp,
                    [[maybe_unused]] int value) override
     {
@@ -49,6 +68,10 @@ class BoolAttr : public Attr<T>
         Attr<T>::SetAuraValue(auraEffects, target + 1);
     }
 
+    //! Removes the aura that affects the attribute.
+    //! \param entity The entity to remove the aura.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void RemoveAura(T* entity, [[maybe_unused]] EffectOperator effectOp,
                     [[maybe_unused]] int value) override
     {
@@ -57,7 +80,15 @@ class BoolAttr : public Attr<T>
     }
 
  protected:
-    virtual std::optional<bool>& GetRef(T* entity) = 0;
+    //! Returns the value of the attribute of the entity.
+    //! \param entity The entity to get the value of the attribute.
+    //! \return The value of the attribute of the entity.
+    virtual bool GetValue(T* entity) = 0;
+
+    //! Sets the value of the attribute of the entity.
+    //! \param entity The entity to set the value of the attribute.
+    //! \param value The value of the attribute of the entity.
+    virtual void SetValue(T* entity, bool value) = 0;
 };
 }  // namespace RosettaStone
 

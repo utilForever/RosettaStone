@@ -11,20 +11,36 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief SelfContainedBoolAttr class.
+//!
+//! This class inherits from BoolAttr class and contains Effect() method
+//! for generating generic effect using CRTP(Curiously Recurring Template
+//! Pattern) technique.
+//!
 template <typename TargetT = Entity, typename SelfT>
 class SelfContainedBoolAttr : public BoolAttr<TargetT>
 {
  public:
+    //! Default virtual destructor.
     virtual ~SelfContainedBoolAttr() = default;
 
+    //! Generates new generic effect for boolean attribute.
+    //! \param value The value of the generic effect.
+    //! \return The generic effect that is dynamically allocated.
     static GenericEffect<TargetT, SelfT>* Effect(bool value = true)
     {
+        if (m_singleton == nullptr)
+        {
+            m_singleton = new SelfT();
+        }
+
         return new GenericEffect<TargetT, SelfT>(
             m_singleton, EffectOperator::SET, value ? 1 : 0);
     }
 
  private:
-    SelfT* m_singleton = new SelfT();
+    inline static SelfT* m_singleton = nullptr;
 };
 }  // namespace RosettaStone
 

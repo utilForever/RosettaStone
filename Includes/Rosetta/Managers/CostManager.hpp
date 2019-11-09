@@ -15,7 +15,8 @@ namespace RosettaStone
 //!
 //! \brief CostManager class.
 //!
-//! This class manages the cost of the card.
+//! This class manages the cost of the card. It is affected by cost aura,
+//! adaptive effect and enchantment.
 //!
 class CostManager
 {
@@ -23,21 +24,42 @@ class CostManager
     //! Default constructor.
     CostManager() = default;
 
+    //! Calculates the value of the cost by considering the factors
+    //! such as cost aura, adaptive effect and enchantment.
+    //! \return cost The original value of the cost.
+    //! \return The final value of the cost.
     int GetCost(int cost);
 
+    //! Adds the aura that affects the cost.
+    //! \param effectOp The effect operator to affect the cost value.
+    //! \param value The value to affect the cost value.
     void AddCostAura(EffectOperator effectOp, int value);
 
+    //! Removes the aura that affects the cost.
+    //! \param effectOp The effect operator to affect the cost value.
+    //! \param value The value to affect the cost value.
     void RemoveCostAura(EffectOperator effectOp, int value);
 
-    void ActivateAdaptiveEffect(AdaptiveCostEffect* adaptiveCostEffect);
+    //! Activates the adaptive effect that affects the cost.
+    //! \param effect The adaptive cost effect to change the cost value.
+    void ActivateAdaptiveEffect(AdaptiveCostEffect* effect);
 
+    //! Updates the adaptive effect that affects the cost.
+    //! \param value The value that affects the cost value to update.
     void UpdateAdaptiveEffect(int value = -1);
 
+    //! Deactivates the adaptive effect that affects the cost.
     void DeactivateAdaptiveEffect();
 
+    //! Adds the enchantment that affects the cost.
+    //! \param effectOp The effect operator to affect the cost value.
+    //! \param value The value to affect the cost value.
     void AddCostEnchantment(EffectOperator effectOp, int value);
 
  private:
+    //! Internal method of GetCost().
+    //! \return cost The original value of the cost.
+    //! \return The final value of the cost.
     int GetCostInternal(int cost);
 
     std::vector<std::pair<EffectOperator, int>> m_costEffects;

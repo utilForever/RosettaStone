@@ -11,12 +11,24 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief SelfContainedIntAttr class.
+//!
+//! This class inherits from IntAttr class and contains Effect() method
+//! for generating generic effect using CRTP(Curiously Recurring Template
+//! Pattern) technique.
+//!
 template <typename SelfT, typename TargetT = Entity>
 class SelfContainedIntAttr : public IntAttr<TargetT>
 {
  public:
+    //! Default virtual destructor.
     virtual ~SelfContainedIntAttr() = default;
 
+    //! Generates new generic effect for integer attribute.
+    //! \param effectOp The effect operator of the generic effect.
+    //! \param value The value of the generic effect.
+    //! \return The generic effect that is dynamically allocated.
     static GenericEffect<TargetT, SelfT>* Effect(EffectOperator effectOp,
                                                  int value)
     {

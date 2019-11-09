@@ -12,12 +12,23 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief IntAttr class.
+//!
+//! This class inherits from Attr class and is template specialization
+//! for the attribute that is integer type.
+//!
 template <typename T = Entity>
 class IntAttr : public Attr<T>
 {
  public:
+    //! Default virtual destructor.
     virtual ~IntAttr() = default;
 
+    //! Applies the effect that affects the attribute.
+    //! \param entity The entity to apply the effect.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void Apply(T* entity, EffectOperator effectOp, int value) override
     {
         const int target = GetValue(entity);
@@ -45,6 +56,10 @@ class IntAttr : public Attr<T>
         }
     }
 
+    //! Removes the effect that affects the attribute.
+    //! \param entity The entity to remove the effect.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void Remove(T* entity, EffectOperator effectOp, int value) override
     {
         const int target = GetValue(entity);
@@ -63,6 +78,10 @@ class IntAttr : public Attr<T>
         }
     }
 
+    //! Applies the aura that affects the attribute.
+    //! \param entity The entity to apply the aura.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void ApplyAura(T* entity, EffectOperator effectOp, int value) override
     {
         AuraEffects* auraEffects = entity->auraEffects;
@@ -92,6 +111,10 @@ class IntAttr : public Attr<T>
         }
     }
 
+    //! Removes the aura that affects the attribute.
+    //! \param entity The entity to remove the aura.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void RemoveAura(T* entity, EffectOperator effectOp, int value) override
     {
         const int target = GetAuraValue(entity->auraEffects);
@@ -114,18 +137,31 @@ class IntAttr : public Attr<T>
     }
 
  protected:
+    //! Returns the value of the attribute of the entity.
+    //! \param entity The entity to get the value of the attribute.
+    //! \return The value of the attribute of the entity.
     virtual int GetValue(T* entity) = 0;
 
+    //! Sets the value of the attribute of the entity.
+    //! \param entity The entity to set the value of the attribute.
+    //! \param value The value of the attribute of the entity.
     virtual void SetValue(T* entity, int value) = 0;
 
-    int GetAuraValue(AuraEffects* auraEffects) override
+    //! Returns the value the attribute that is affected by the aura effect.
+    //! \param auraEffects The aura effects that affects the attribute.
+    //! \return The value the attribute that is affected by the aura effect.
+    int GetAuraValue([[maybe_unused]] AuraEffects* auraEffects) override
     {
-        throw std::logic_error("Cost::GetAuraValue() - Not implemented!");
+        throw std::logic_error("IntAttr::GetAuraValue() - Not implemented!");
     }
 
-    void SetAuraValue(AuraEffects* auraEffects, int value) override
+    //! Sets the value the attribute that is affected by the aura effect.
+    //! \param auraEffects The aura effects that affects the attribute.
+    //! \param value The value the attribute that is affected by the aura effect.
+    void SetAuraValue([[maybe_unused]] AuraEffects* auraEffects,
+                      [[maybe_unused]] int value) override
     {
-        throw std::logic_error("Cost::GetAuraValue() - Not implemented!");
+        throw std::logic_error("IntAttr::SetAuraValue() - Not implemented!");
     }
 };
 }  // namespace RosettaStone

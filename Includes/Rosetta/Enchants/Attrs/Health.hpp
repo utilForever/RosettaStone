@@ -10,14 +10,28 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief Health class.
+//!
+//! This class is an attribute for health and inherits from SelfContainedIntAttr
+//! class. It uses CRTP(Curiously Recurring Template Pattern) technique.
+//!
 class Health : public SelfContainedIntAttr<Health, Entity>
 {
  public:
+    //! Generates new effect for health attribute.
+    //! \param effectOp The effect operator of the effect.
+    //! \param value The value of the effect.
+    //! \return The effect that is dynamically allocated.
     static IEffect* Effect(EffectOperator effectOp, int value)
     {
         return SelfContainedIntAttr::Effect(effectOp, value);
     }
 
+    //! Applies the effect that affects the attribute.
+    //! \param entity The entity to apply the effect.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void Apply(Entity* entity, EffectOperator effectOp, int value) override
     {
         if (effectOp == EffectOperator::SET)
@@ -48,6 +62,10 @@ class Health : public SelfContainedIntAttr<Health, Entity>
         SelfContainedIntAttr::Apply(entity, effectOp, value);
     }
 
+    //! Removes the aura that affects the attribute.
+    //! \param entity The entity to remove the aura.
+    //! \param effectOp The effect operator to change the attribute.
+    //! \param value The value to change the attribute.
     void RemoveAura(Entity* entity, EffectOperator effectOp, int value) override
     {
         SelfContainedIntAttr::RemoveAura(entity, effectOp, value);
@@ -60,23 +78,35 @@ class Health : public SelfContainedIntAttr<Health, Entity>
     }
 
  protected:
+    //! Returns the value of the attribute of the entity.
+    //! \param entity The entity to get the value of the attribute.
+    //! \return The value of the attribute of the entity.
     int GetValue(Entity* entity) override
     {
         const auto character = dynamic_cast<Character*>(entity);
         return character->GetHealth();
     }
 
+    //! Sets the value of the attribute of the entity.
+    //! \param entity The entity to set the value of the attribute.
+    //! \param value The value of the attribute of the entity.
     void SetValue(Entity* entity, int value) override
     {
         auto character = dynamic_cast<Character*>(entity);
         character->SetHealth(value);
     }
 
+    //! Returns the value the attribute that is affected by the aura effect.
+    //! \param auraEffects The aura effects that affects the attribute.
+    //! \return The value the attribute that is affected by the aura effect.
     int GetAuraValue(AuraEffects* auraEffects) override
     {
         return auraEffects->GetHealth();
     }
 
+    //! Sets the value the attribute that is affected by the aura effect.
+    //! \param auraEffects The aura effects that affects the attribute.
+    //! \param value The value the attribute that is affected by the aura effect.
     void SetAuraValue(AuraEffects* auraEffects, int value) override
     {
         auraEffects->SetHealth(value);
