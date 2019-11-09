@@ -31,6 +31,9 @@ class AuraEffects
     //! \param type The type of the card.
     explicit AuraEffects(CardType type);
 
+    //! Destructor.
+    ~AuraEffects();
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.

@@ -31,6 +31,11 @@ AuraEffects::AuraEffects(CardType type) : m_type(type)
     }
 }
 
+AuraEffects::~AuraEffects()
+{
+    delete[] m_data;
+}
+
 int AuraEffects::GetGameTag(GameTag tag) const
 {
     switch (tag)
