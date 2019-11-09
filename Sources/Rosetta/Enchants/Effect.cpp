@@ -18,11 +18,10 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
 
 void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
 {
-    auto& oneTurnEffects = entity->game->oneTurnEffects;
-
     if (isOneTurnEffect)
     {
-        oneTurnEffects.emplace_back(std::make_pair(entity, new Effect(*this)));
+        entity->game->oneTurnEffects.emplace_back(
+            std::make_pair(entity, new Effect(*this)));
     }
 
     const int prevValue = entity->GetGameTag(m_gameTag);

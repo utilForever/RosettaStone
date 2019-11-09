@@ -35,23 +35,23 @@ class Enchant
     //! \param gameTag The game tag of the card.
     //! \param effectOperator The effect operator to change card value.
     //! \param value The value to change.
-    Enchant(GameTag gameTag, EffectOperator effectOperator, int value);
+    explicit Enchant(GameTag gameTag, EffectOperator effectOperator, int value);
 
     //! Constructs enchant with given \p _effect, \p _useScriptTag and
     //! \p _isOneTurnEffect.
     //! \param effect The effect of the card.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    Enchant(IEffect* effect, bool _useScriptTag = false,
-            bool _isOneTurnEffect = false);
+    explicit Enchant(IEffect* effect, bool _useScriptTag = false,
+                     bool _isOneTurnEffect = false);
 
     //! Constructs enchant with given \p _effects, \p _useScriptTag and
     //! \p _isOneTurnEffect.
     //! \param _effects A list of effect.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    Enchant(std::vector<IEffect*> _effects, bool _useScriptTag = false,
-            bool _isOneTurnEffect = false);
+    explicit Enchant(std::vector<IEffect*> _effects, bool _useScriptTag = false,
+                     bool _isOneTurnEffect = false);
 
     //! Activates enchant to \p entity.
     //! \param entity An entity to which enchant is activated.

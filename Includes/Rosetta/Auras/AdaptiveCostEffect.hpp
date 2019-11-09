@@ -21,8 +21,8 @@ class AdaptiveCostEffect : public IAura
     //! Constructs adaptive cost effect with given \p costFunc and \p effectOp.
     //! \param costFunc The function to vary cost.
     //! \param effectOp The operator to vary cost.
-    AdaptiveCostEffect(std::function<int(Playable*)> costFunc,
-                       EffectOperator effectOp = EffectOperator::SUB);
+    explicit AdaptiveCostEffect(std::function<int(Playable*)> costFunc,
+                                EffectOperator effectOp = EffectOperator::SUB);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of adaptive cost effect.

@@ -26,7 +26,8 @@ struct AuraUpdateInstruction
     //! \p _instruction.
     //! \param _source The source entity.
     //! \param _instruction The instruction of the aura.
-    AuraUpdateInstruction(Playable* _source, AuraInstruction _instruction)
+    explicit AuraUpdateInstruction(Playable* _source,
+                                   AuraInstruction _instruction)
         : source(_source), instruction(_instruction)
     {
         // Do nothing
@@ -47,7 +48,7 @@ struct AuraUpdateInstruction
     }
 
     Playable* source = nullptr;
-    AuraInstruction instruction;
+    AuraInstruction instruction = AuraInstruction::INVALID;
 };
 }  // namespace RosettaStone
 

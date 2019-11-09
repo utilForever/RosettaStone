@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_PRIOIRTY_QUEUE_HPP
 #define ROSETTASTONE_PRIOIRTY_QUEUE_HPP
 
+#include <algorithm>
 #include <cstddef>
 
 namespace RosettaStone
@@ -20,10 +21,81 @@ template <typename T>
 class PriorityQueue
 {
  public:
-    //! Default constructor.
+    //! Constructor.
     PriorityQueue() : m_head(new Node())
     {
         // Do nothing
+    }
+
+    //! Destructor.
+    ~PriorityQueue()
+    {
+        delete m_head;
+    }
+
+    //! Copy constructor.
+    PriorityQueue(const PriorityQueue& rhs) : m_count(rhs.m_count)
+    {
+        const Node* rhsNode = rhs.m_head;
+        Node* curNode = nullptr;
+
+        if (rhsNode != nullptr)
+        {
+            m_head = new Node(rhsNode->value, rhsNode->priority);
+            curNode = m_head;
+
+            rhsNode = rhsNode->next;
+        }
+
+        while (rhsNode != nullptr)
+        {
+            Node* newNode = new Node(rhsNode->value, rhsNode->priority);
+            curNode->next = newNode;
+
+            curNode = curNode->next;
+            rhsNode = rhsNode->next;
+        }
+    }
+
+    //! Deleted move constructor.
+    PriorityQueue(PriorityQueue&& rhs) noexcept
+        : m_count(rhs.m_count)
+    {
+        const Node* rhsNode = rhs.m_head;
+        Node* curNode = nullptr;
+
+        if (rhsNode != nullptr)
+        {
+            m_head = new Node(rhsNode->value, rhsNode->priority);
+            curNode = m_head;
+
+            rhsNode = rhsNode->next;
+        }
+
+        while (rhsNode != nullptr)
+        {
+            Node* newNode = new Node(rhsNode->value, rhsNode->priority);
+            curNode->next = newNode;
+
+            curNode = curNode->next;
+            rhsNode = rhsNode->next;
+        }
+    }
+
+    //! Copy assignment operator.
+    PriorityQueue& operator=(const PriorityQueue& rhs)
+    {
+        PriorityQueue<T> temp(rhs);
+        std::swap(temp.m_head, m_head);
+        return *this;
+    }
+
+    //! Deleted move assignment operator.
+    PriorityQueue& operator=(PriorityQueue&& rhs) noexcept
+    {
+        PriorityQueue<T> temp(rhs);
+        std::swap(temp.m_head, m_head);
+        return *this;
     }
 
     //! Inserts element and sorts the underlying container.

@@ -24,7 +24,7 @@ class AdjacentAura : public IAura
  public:
     //! Constructs adjacent aura with given \p enchantmentID.
     //! \param enchantmentID The enchantment card ID.
-    AdjacentAura(std::string&& enchantmentID);
+    explicit AdjacentAura(std::string&& enchantmentID);
 
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.

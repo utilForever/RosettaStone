@@ -31,9 +31,6 @@ TEST(Choose, ChoiceMulligan)
 
     const std::vector<std::size_t> curChoices, opChoices;
 
-    auto curHand = curPlayer->GetHandZone()->GetAll();
-    auto opHand = opPlayer->GetHandZone()->GetAll();
-
     Choice curChoice, opChoice;
 
     curChoice.choiceAction = ChoiceAction::HAND;
