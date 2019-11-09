@@ -34,6 +34,18 @@ class AuraEffects
     //! Destructor.
     ~AuraEffects();
 
+    //! Deleted copy constructor.
+    AuraEffects(const AuraEffects&) = delete;
+
+    //! Deleted move constructor.
+    AuraEffects(AuraEffects&&) noexcept = delete;
+
+    //! Deleted copy assignment operator.
+    AuraEffects& operator=(const AuraEffects&) = delete;
+
+    //! Deleted move assignment operator.
+    AuraEffects& operator=(AuraEffects&&) noexcept = delete;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
