@@ -7,7 +7,6 @@
 #ifndef ROSETTASTONE_ENCHANT_HPP
 #define ROSETTASTONE_ENCHANT_HPP
 
-#include <Rosetta/Auras/IAura.hpp>
 #include <Rosetta/Enchants/Effect.hpp>
 
 #include <vector>
