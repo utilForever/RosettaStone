@@ -15,6 +15,11 @@ namespace RosettaStone::Generic
 void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
               int chooseOne)
 {
+    if (source == nullptr)
+    {
+        throw std::invalid_argument("PlayCard() - Source cannot be nullptr!");
+    }
+
     // Check battlefield is full
     if (dynamic_cast<Minion*>(source) != nullptr &&
         player->GetFieldZone()->IsFull())
@@ -39,7 +44,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
-        int tempUsed = std::min(player->GetTemporaryMana(), source->GetCost());
+        const int tempUsed = std::min(player->GetTemporaryMana(), source->GetCost());
         player->SetTemporaryMana(player->GetTemporaryMana() - tempUsed);
         player->SetUsedMana(player->GetUsedMana() + source->GetCost() -
                             tempUsed);

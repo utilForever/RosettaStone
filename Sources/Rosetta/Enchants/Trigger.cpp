@@ -393,14 +393,14 @@ void Trigger::Validate(Player* player, Entity* source)
             }
             break;
         case TriggerSource::ENEMY:
-            if (source->player == m_owner->player)
+            if (source && source->player == m_owner->player)
             {
                 return;
             }
             break;
         case TriggerSource::HERO:
             if (dynamic_cast<Hero*>(source) == nullptr ||
-                source->player != m_owner->player)
+                (source && source->player != m_owner->player))
             {
                 return;
             }
@@ -413,21 +413,22 @@ void Trigger::Validate(Player* player, Entity* source)
             break;
         case TriggerSource::MINIONS:
             if (dynamic_cast<Minion*>(source) == nullptr ||
-                source->player != m_owner->player)
+                (source && source->player != m_owner->player))
             {
                 return;
             }
             break;
         case TriggerSource::MINIONS_EXCEPT_SELF:
             if (dynamic_cast<Minion*>(source) == nullptr ||
-                source->player != m_owner->player || source == m_owner)
+                (source && source->player != m_owner->player) ||
+                source == m_owner)
             {
                 return;
             }
             break;
         case TriggerSource::ENEMY_MINIONS:
             if (dynamic_cast<Minion*>(source) == nullptr ||
-                source->player == m_owner->player)
+                (source && source->player == m_owner->player))
             {
                 return;
             }
@@ -445,7 +446,7 @@ void Trigger::Validate(Player* player, Entity* source)
         case TriggerSource::ENEMY_SPELLS:
         {
             if (dynamic_cast<Spell*>(source) == nullptr ||
-                source->player == m_owner->player)
+                (source && source->player == m_owner->player))
             {
                 return;
             }
@@ -453,7 +454,8 @@ void Trigger::Validate(Player* player, Entity* source)
         }
         case TriggerSource::FRIENDLY:
         {
-            if (source == nullptr || source->player != m_owner->player)
+            if (source == nullptr ||
+                (source && source->player != m_owner->player))
             {
                 return;
             }
