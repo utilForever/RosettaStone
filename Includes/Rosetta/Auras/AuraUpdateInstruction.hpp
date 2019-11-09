@@ -35,7 +35,7 @@ struct AuraUpdateInstruction
 
     //! Constructs aura update instruction with given \p _instruction.
     //! \param _instruction The instruction of the aura.
-    AuraUpdateInstruction(AuraInstruction _instruction)
+    explicit AuraUpdateInstruction(AuraInstruction _instruction)
         : instruction(_instruction)
     {
         // Do nothing
