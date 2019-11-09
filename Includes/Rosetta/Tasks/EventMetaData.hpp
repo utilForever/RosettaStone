@@ -11,7 +11,11 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief EventMetaData struct.
+//!
 //! This struct is temporary meta data for event.
+//!
 struct EventMetaData
 {
     //! Default constructor.
