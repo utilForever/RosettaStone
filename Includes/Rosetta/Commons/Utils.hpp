@@ -72,12 +72,11 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
 //! \param amount The number of elements to choose.
 //! \return A list of N distinct elements.
 template <typename T>
-std::vector<T*> ChooseNElements(const std::vector<T*>& list, int amount)
+std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
 {
-    const int size = static_cast<int>(list.size());
-    if (amount > size)
+    if (amount > list.size())
     {
-        amount = size;
+        amount = list.size();
     }
 
     std::vector<T*> results;
