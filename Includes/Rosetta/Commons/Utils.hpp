@@ -85,7 +85,7 @@ std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
     std::vector<std::size_t> indices;
     indices.reserve(amount);
 
-    for (int i = 0; i < amount; ++i)
+    for (std::size_t i = 0; i < amount; ++i)
     {
         std::size_t idx;
         bool flag;
@@ -95,7 +95,7 @@ std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
             idx = Random::get<std::size_t>(0, list.size() - 1);
             flag = false;
 
-            for (int j = 0; j < i; ++j)
+            for (std::size_t j = 0; j < i; ++j)
             {
                 if (indices[j] == idx)
                 {
