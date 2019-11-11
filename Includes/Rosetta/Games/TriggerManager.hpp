@@ -37,6 +37,11 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnPlayCardTrigger(Player* player, Entity* sender) const;
 
+    //! Callback for trigger when player plays a minion.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnPlayMinionTrigger(Player* player, Entity* sender) const;
+
     //! Callback for trigger after player plays a minion.
     //! \param player A player to execute trigger.
     //! \param sender An entity that is the source of trigger.
@@ -87,9 +92,15 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnTargetTrigger(Player* player, Entity* sender) const;
 
+    //! Callback for trigger when minion is dead.
+    //! \param player A player to execute trigger.
+    //! \param sender An entity that is the source of trigger.
+    void OnDeathTrigger(Player* player, Entity* sender) const;
+
     std::function<void(Player*, Entity*)> startTurnTrigger;
     std::function<void(Player*, Entity*)> endTurnTrigger;
     std::function<void(Player*, Entity*)> playCardTrigger;
+    std::function<void(Player*, Entity*)> playMinionTrigger;
     std::function<void(Player*, Entity*)> afterPlayMinionTrigger;
     std::function<void(Player*, Entity*)> castSpellTrigger;
     std::function<void(Player*, Entity*)> afterCastTrigger;
@@ -100,6 +111,7 @@ class TriggerManager
     std::function<void(Player*, Entity*)> dealDamageTrigger;
     std::function<void(Player*, Entity*)> takeDamageTrigger;
     std::function<void(Player*, Entity*)> targetTrigger;
+    std::function<void(Player*, Entity*)> deathTrigger;
 };
 }  // namespace RosettaStone
 

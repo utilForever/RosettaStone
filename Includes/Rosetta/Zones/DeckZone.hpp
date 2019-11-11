@@ -20,20 +20,21 @@ namespace RosettaStone
 //! (and sometimes add cards to) during game play. Each deck is tied to a
 //! specific class.
 //!
-class DeckZone : public LimitedZone<Entity>
+class DeckZone : public LimitedZone<Playable>
 {
  public:
-    //! Default constructor.
+    //! Constructs deck zone with given \p player.
+    //! \param player The player.
     explicit DeckZone(Player* player);
 
     //! Returns the top card from deck.
     //! \return The top card of deck.
-    Entity* GetTopCard() const;
+    Playable* GetTopCard() const;
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
-    void Add(Entity& entity, int zonePos = -1) override;
+    void Add(Playable* entity, int zonePos = -1) override;
 
     //! Shuffles cards in deck.
     void Shuffle() const;

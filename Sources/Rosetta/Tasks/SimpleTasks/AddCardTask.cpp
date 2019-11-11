@@ -7,15 +7,17 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
 
+#include <utility>
+
 namespace RosettaStone::SimpleTasks
 {
 AddCardTask::AddCardTask(EntityType entityType, std::string cardID, int amount)
-    : ITask(entityType), m_cardID(cardID), m_amount(amount)
+    : ITask(entityType), m_cardID(std::move(cardID)), m_amount(amount)
 {
     // Do nothing
 }
 
-TaskStatus AddCardTask::Impl(Player& player)
+TaskStatus AddCardTask::Impl(Player* player)
 {
     std::vector<Entity*> entities;
 
@@ -25,18 +27,19 @@ TaskStatus AddCardTask::Impl(Player& player)
         {
             for (int i = 0; i < m_amount; ++i)
             {
-                Card* card = Cards::GetInstance().FindCardByID(m_cardID);
-                Generic::AddCardToHand(player, Entity::GetFromCard(player, card));
+                Card* card = Cards::FindCardByID(m_cardID);
+                Generic::AddCardToHand(player,
+                                       Entity::GetFromCard(player, card));
             }
         }
         case EntityType::ENEMY_HAND:
         {
             for (int i = 0; i < m_amount; ++i)
             {
-                Card* card = Cards::GetInstance().FindCardByID(m_cardID);
+                Card* card = Cards::FindCardByID(m_cardID);
                 Generic::AddCardToHand(
-                    *player.opponent,
-                    Entity::GetFromCard(*player.opponent, card));
+                    player->opponent,
+                    Entity::GetFromCard(player->opponent, card));
             }
             break;
         }

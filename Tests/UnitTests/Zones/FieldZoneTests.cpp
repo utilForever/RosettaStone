@@ -9,6 +9,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
@@ -26,19 +27,19 @@ TEST(FieldZone, GetAll)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    auto& curField = *(curPlayer->GetFieldZone());
 
-    Entity* entity1 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Flame Imp"),
-        std::nullopt, &curPlayer.GetFieldZone());
-    curPlayer.GetFieldZone().Add(*entity1);
+    Playable* playable1 =
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Flame Imp"),
+                            std::nullopt, curPlayer->GetFieldZone());
+    curField.Add(playable1);
 
-    Entity* entity2 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Worthless Imp"),
-        std::nullopt, &curPlayer.GetFieldZone());
-    curPlayer.GetFieldZone().Add(*entity2);
+    Playable* playable2 =
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Worthless Imp"),
+                            std::nullopt, curPlayer->GetFieldZone());
+    curField.Add(playable2);
 
-    const FieldZone& curField = curPlayer.GetFieldZone();
     auto minions = curField.GetAll();
 
     EXPECT_EQ(minions[0]->card->name, "Flame Imp");
@@ -58,27 +59,28 @@ TEST(FieldZone, FindIndex)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    auto& curField = *(curPlayer->GetFieldZone());
 
-    Entity* entity1 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Flame Imp"),
-        std::nullopt, &curPlayer.GetFieldZone());
-    curPlayer.GetFieldZone().Add(*entity1);
+    Playable* playable1 =
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Flame Imp"),
+                            std::nullopt, curPlayer->GetFieldZone());
+    curField.Add(playable1);
 
-    Entity* entity2 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Worthless Imp"),
-        std::nullopt, &curPlayer.GetFieldZone());
-    curPlayer.GetFieldZone().Add(*entity2);
+    Playable* playable2 =
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Worthless Imp"),
+                            std::nullopt, curPlayer->GetFieldZone());
+    curField.Add(playable2);
 
-    Entity* entity3 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Worthless Imp"),
-        std::nullopt, &curPlayer.GetFieldZone());
+    Playable* playable3 =
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Worthless Imp"),
+                            std::nullopt, curPlayer->GetFieldZone());
 
-    auto character1 = dynamic_cast<Character*>(entity1);
-    auto character2 = dynamic_cast<Character*>(entity2);
-    auto character3 = dynamic_cast<Character*>(entity3);
+    auto character1 = dynamic_cast<Minion*>(playable1);
+    auto character2 = dynamic_cast<Minion*>(playable2);
+    auto character3 = dynamic_cast<Minion*>(playable3);
 
-    EXPECT_EQ(curPlayer.GetFieldZone().FindIndex(*character1), 0);
-    EXPECT_EQ(curPlayer.GetFieldZone().FindIndex(*character2), 1);
-    EXPECT_EQ(curPlayer.GetFieldZone().FindIndex(*character3), -1);
+    EXPECT_EQ(curField.FindIndex(character1), 0);
+    EXPECT_EQ(curField.FindIndex(character2), 1);
+    EXPECT_EQ(curField.FindIndex(character3), -1);
 }

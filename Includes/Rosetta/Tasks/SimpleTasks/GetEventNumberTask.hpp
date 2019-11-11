@@ -3,41 +3,38 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_FUNC_ENTITY_TASK_HPP
-#define ROSETTASTONE_FUNC_ENTITY_TASK_HPP
+#ifndef ROSETTASTONE_GET_EVENT_NUMBER_TASK_HPP
+#define ROSETTASTONE_GET_EVENT_NUMBER_TASK_HPP
 
 #include <Rosetta/Tasks/ITask.hpp>
-
-#include <functional>
 
 namespace RosettaStone::SimpleTasks
 {
 //!
-//! \brief FuncEntityTask class.
+//! \brief GetEventNumberTask class.
 //!
-//! This class represents the task for executing specific function and storing
-//! result to entities.
+//! This class represents the task for getting number of the current event and
+//! stores it to the stack. (e.g. the amount damage dealt or heal taken)
 //!
-class FuncEntityTask : public ITask
+class GetEventNumberTask : public ITask
 {
  public:
-    //! Constructs task with given \p cardID.
-    //! \param func The function to execute.
-    explicit FuncEntityTask(
-        std::function<std::vector<Entity*>(std::vector<Entity*>)> func);
+    //! Constructs task with given \p numIndex.
+    //! \param numIndex An index of number.
+    GetEventNumberTask(int numIndex = 0);
 
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    TaskStatus Impl(Player& player) override;
+    TaskStatus Impl(Player* player) override;
 
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    std::function<std::vector<Entity*>(std::vector<Entity*>)> m_func;
+    int m_numIndex = 0;
 };
 }  // namespace RosettaStone::SimpleTasks
 
-#endif  // ROSETTASTONE_FUNC_ENTITY_TASK_HPP
+#endif  // ROSETTASTONE_GET_EVENT_NUMBER_TASK_HPP

@@ -4,13 +4,13 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/Choose.hpp>
+#include <Rosetta/Auras/AdjacentAura.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/AddStackToTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ConditionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
@@ -29,7 +29,7 @@
 #include <Rosetta/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ManaCrystalTask.hpp>
-#include <Rosetta/Tasks/SimpleTasks/MathSubTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
@@ -38,6 +38,9 @@
 #include <Rosetta/Tasks/SimpleTasks/TempManaTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -209,12 +212,12 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        auto minions = entity->owner->GetFieldZone().GetAll();
+    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
         std::vector<Card*> totemCards;
         totemCards.reserve(4);
 
-        for (const auto& id : entity->card->entourages)
+        for (const auto& id : playable->card->entourages)
         {
             bool exist = false;
             for (auto minion : minions)
@@ -228,7 +231,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
 
             if (!exist)
             {
-                totemCards.emplace_back(Cards::GetInstance().FindCardByID(id));
+                totemCards.emplace_back(Cards::FindCardByID(id));
             }
         }
 
@@ -238,9 +241,9 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
         }
 
         const auto idx = Random::get<int>(0, totemCards.size() - 1);
-        Entity* totem =
-            Entity::GetFromCard(*entity->owner, totemCards[idx]);
-        entity->owner->GetFieldZone().Add(*dynamic_cast<Minion*>(totem));
+        Playable* totem =
+            Entity::GetFromCard(playable->player, totemCards[idx]);
+        playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));
     }));
     cards.emplace("CS2_049", power);
 
@@ -559,8 +562,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    }
     cards.emplace("DS1_175", power);
 
     // ---------------------------------------- MINION - HUNTER
@@ -577,8 +582,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD, "DS1_178e"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::BEAST));
+    }
     cards.emplace("DS1_178", power);
 
     // ----------------------------------------- SPELL - HUNTER
@@ -603,9 +610,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // the others.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new FuncNumberTask([](Entity* entity) {
-        DeckZone& deck = entity->owner->GetDeckZone();
-        if (deck.IsEmpty())
+    power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
+        DeckZone* deck = playable->player->GetDeckZone();
+        if (deck->IsEmpty())
         {
             return;
         }
@@ -613,15 +620,15 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
         std::vector<std::size_t> ids;
         ids.reserve(3);
 
-        for (int i = 0; i < 3 && deck.GetCount() != 0; ++i)
+        for (int i = 0; i < 3 && deck->GetCount() != 0; ++i)
         {
-            Entity* card = deck.GetTopCard();
-            deck.Remove(*card);
+            Playable* card = deck->GetTopCard();
+            deck->Remove(card);
             ids.emplace_back(card->id);
-            entity->owner->GetSetasideZone().Add(*card);
+            playable->player->GetSetasideZone()->Add(card);
         }
 
-        Generic::CreateChoice(*entity->owner, ChoiceType::GENERAL,
+        Generic::CreateChoice(playable->player, ChoiceType::GENERAL,
                               ChoiceAction::HAND, ids);
     }));
     cards.emplace("DS1_184", power);
@@ -902,9 +909,11 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new EnqueueTask({ new RandomTask(EntityType::ENEMIES, 1),
-                                         new DamageTask(EntityType::STACK, 1) },
-                                       3, true));
+    power.AddPowerTask(
+        new EnqueueTask({ new FilterStackTask(SelfCondition::IsNotDead()),
+                          new RandomTask(EntityType::ENEMIES, 1),
+                          new DamageTask(EntityType::STACK, 1) },
+                        3, true));
     cards.emplace("EX1_277", power);
 }
 
@@ -1209,19 +1218,12 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new GetGameTagTask(EntityType::TARGET, GameTag::HEALTH));
-    power.AddPowerTask(new MathSubTask(EntityType::TARGET, GameTag::DAMAGE));
-    power.AddPowerTask(new AddEnchantmentTask("CS2_236e", EntityType::TARGET));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::TARGET, GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(new MathNumberIndexTask(0, 1, MathOperation::SUB));
+    power.AddPowerTask(
+        new AddEnchantmentTask("CS2_236e", EntityType::TARGET, true));
     cards.emplace("CS2_236", power);
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [DS1_233] Mind Blast - COST:2
-    // - Faction: Neutral, Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Deal $5 damage to the enemy hero.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 5, true));
-    cards.emplace("DS1_233", power);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_622] Shadow Word: Death - COST:3
@@ -1383,16 +1385,6 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new ReturnHandTask(EntityType::TARGET));
     cards.emplace("EX1_581", power);
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [NEW1_004] Vanish - COST:6
-    // - Set: Core, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Return all minions to their owner's hand.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(new ReturnHandTask(EntityType::ALL_MINIONS));
-    cards.emplace("NEW1_004", power);
 }
 
 void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
@@ -1552,7 +1544,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::ADJACENT, "EX1_565o"));
+    power.AddAura(new AdjacentAura("EX1_565o"));
     cards.emplace("EX1_565", power);
 
     // ---------------------------------------- MINION - SHAMAN
@@ -1949,9 +1941,12 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD, "EX1_084e"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
-    power.GetAura()->restless = true;
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            new SelfCondition(SelfCondition::IsTagValue(GameTag::CHARGE, 1));
+        aura->restless = true;
+    }
     cards.emplace("EX1_084", power);
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -2001,7 +1996,7 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, Power>& cards)
     // Text: Has <b>Charge</b>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(new Enchant(std::vector<Effect*>{
+    power.AddEnchant(new Enchant(std::vector<IEffect*>{
         Effects::Charge,
         new Effect(GameTag::CANNOT_ATTACK_HEROES, EffectOperator::SET, 1) }));
     power.AddTrigger(new Trigger(TriggerType::TURN_END));
@@ -2420,7 +2415,8 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new CountTask(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(new AddEnchantmentTask("CS2_226e", EntityType::SOURCE));
+    power.AddPowerTask(
+        new AddEnchantmentTask("CS2_226e", EntityType::SOURCE, true));
     cards.emplace("CS2_226", power);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2543,8 +2539,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
-    power.GetAura()->condition =
-        new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            new SelfCondition(SelfCondition::IsRace(Race::MURLOC));
+    }
     cards.emplace("EX1_508", power);
 
     // --------------------------------------- MINION - NEUTRAL

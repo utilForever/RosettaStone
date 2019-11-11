@@ -21,13 +21,13 @@ class AttackTask : public ITask
     //! Construct task with given \p source and \p target.
     //! \param source A pointer to source character.
     //! \param target A pointer to target character.
-    AttackTask(Entity* source, Entity* target);
+    AttackTask(Entity* source, Playable* target);
 
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    TaskStatus Impl(Player& player) override;
+    TaskStatus Impl(Player* player) override;
 
     //! Internal method of Clone().
     //! \return The cloned task.

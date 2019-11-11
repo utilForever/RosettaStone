@@ -10,6 +10,7 @@
 #include <Rosetta/Tasks/ITask.hpp>
 
 #include <effolkronium/random.hpp>
+#include "Rosetta/Models/Spell.hpp"
 
 using Random = effolkronium::random_static;
 
@@ -22,6 +23,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
         case TriggerType::PLAY_CARD:
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
+        case TriggerType::PLAY_MINION:
         case TriggerType::AFTER_PLAY_MINION:
             m_sequenceType = SequenceType::PLAY_MINION;
             break;
@@ -46,7 +48,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       condition(prototype.condition),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
-      m_owner(&owner),
+      m_owner(dynamic_cast<Playable*>(&owner)),
       m_triggerType(prototype.m_triggerType),
       m_triggerActivation(prototype.m_triggerActivation),
       m_sequenceType(prototype.m_sequenceType)
@@ -54,7 +56,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     // Do nothing
 }
 
-void Trigger::Activate(Entity* source, TriggerActivation activation,
+void Trigger::Activate(Playable* source, TriggerActivation activation,
                        bool cloning)
 {
     if (!cloning && activation != m_triggerActivation)
@@ -66,11 +68,11 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
     }
 
     auto* instance = new Trigger(*this, *source);
-    Game* game = source->owner->GetGame();
+    Game* game = source->game;
 
     source->activatedTrigger = instance;
 
-    auto triggerFunc = [this, instance](Player* p, Entity* e) { 
+    auto triggerFunc = [this, instance](Player* p, Entity* e) {
         if (percentage == 1.0f || Random::get<float>(0.0f, 1.0f) < percentage)
         {
             instance->Process(p, e);
@@ -79,7 +81,7 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
 
     if (m_sequenceType != SequenceType::NONE)
     {
-        source->owner->GetGame()->triggers.emplace_back(instance);
+        game->triggers.emplace_back(instance);
     }
 
     switch (m_triggerType)
@@ -92,6 +94,9 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = std::move(triggerFunc);
+            break;
+        case TriggerType::PLAY_MINION:
+            game->triggerManager.playMinionTrigger = std::move(triggerFunc);
             break;
         case TriggerType::AFTER_PLAY_MINION:
             game->triggerManager.afterPlayMinionTrigger =
@@ -114,7 +119,7 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
             {
                 case TriggerSource::HERO:
                 {
-                    source->owner->GetHero()->afterAttackTrigger =
+                    source->player->GetHero()->afterAttackTrigger =
                         std::move(triggerFunc);
                     break;
                 }
@@ -153,7 +158,7 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
             {
                 case TriggerSource::HERO:
                 {
-                    source->owner->GetHero()->preDamageTrigger =
+                    source->player->GetHero()->preDamageTrigger =
                         std::move(triggerFunc);
                     break;
                 }
@@ -178,6 +183,9 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = std::move(triggerFunc);
             break;
+        case TriggerType::DEATH:
+            game->triggerManager.deathTrigger = std::move(triggerFunc);
+            break;
         default:
             break;
     }
@@ -185,7 +193,7 @@ void Trigger::Activate(Entity* source, TriggerActivation activation,
 
 void Trigger::Remove() const
 {
-    Game* game = m_owner->owner->GetGame();
+    Game* game = m_owner->game;
 
     switch (m_triggerType)
     {
@@ -197,6 +205,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger = nullptr;
+            break;
+        case TriggerType::PLAY_MINION:
+            game->triggerManager.playMinionTrigger = nullptr;
             break;
         case TriggerType::AFTER_PLAY_MINION:
             game->triggerManager.afterPlayMinionTrigger = nullptr;
@@ -218,7 +229,7 @@ void Trigger::Remove() const
             {
                 case TriggerSource::HERO:
                 {
-                    m_owner->owner->GetHero()->afterAttackTrigger = nullptr;
+                    m_owner->player->GetHero()->afterAttackTrigger = nullptr;
                     break;
                 }
                 case TriggerSource::SELF:
@@ -256,7 +267,7 @@ void Trigger::Remove() const
             {
                 case TriggerSource::HERO:
                 {
-                    m_owner->owner->GetHero()->preDamageTrigger = nullptr;
+                    m_owner->player->GetHero()->preDamageTrigger = nullptr;
                     break;
                 }
                 case TriggerSource::SELF:
@@ -280,6 +291,9 @@ void Trigger::Remove() const
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger = nullptr;
             break;
+        case TriggerType::DEATH:
+            game->triggerManager.deathTrigger = nullptr;
+            break;
         default:
             break;
     }
@@ -299,7 +313,7 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
     {
         if (trigger->m_sequenceType == type)
         {
-            trigger->Validate(&game->GetCurrentPlayer(), source);
+            trigger->Validate(game->GetCurrentPlayer(), source);
         }
     }
 }
@@ -332,19 +346,20 @@ void Trigger::ProcessInternal(Entity* source)
     {
         ITask* clonedTask = task->Clone();
 
-        clonedTask->SetPlayer(m_owner->owner);
+        clonedTask->SetPlayer(m_owner->player);
         clonedTask->SetSource(m_owner);
 
         if (source != nullptr)
         {
-            clonedTask->SetTarget(source);
+            clonedTask->SetTarget(dynamic_cast<Playable*>(source));
         }
         else
         {
             const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
             if (enchantment != nullptr && enchantment->GetTarget() != nullptr)
             {
-                clonedTask->SetTarget(enchantment->GetTarget());
+                clonedTask->SetTarget(
+                    dynamic_cast<Playable*>(enchantment->GetTarget()));
             }
             else
             {
@@ -358,7 +373,7 @@ void Trigger::ProcessInternal(Entity* source)
         }
         else
         {
-            m_owner->owner->GetGame()->taskQueue.Enqueue(clonedTask);
+            m_owner->game->taskQueue.Enqueue(clonedTask);
         }
     }
 
@@ -377,9 +392,15 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
+        case TriggerSource::ENEMY:
+            if (source && source->player == m_owner->player)
+            {
+                return;
+            }
+            break;
         case TriggerSource::HERO:
             if (dynamic_cast<Hero*>(source) == nullptr ||
-                source->owner != m_owner->owner)
+                (source && source->player != m_owner->player))
             {
                 return;
             }
@@ -390,16 +411,24 @@ void Trigger::Validate(Player* player, Entity* source)
                 return;
             }
             break;
-        case TriggerSource::ENEMY_MINIONS:
+        case TriggerSource::MINIONS:
             if (dynamic_cast<Minion*>(source) == nullptr ||
-                source->owner == m_owner->owner)
+                (source && source->player != m_owner->player))
             {
                 return;
             }
             break;
         case TriggerSource::MINIONS_EXCEPT_SELF:
             if (dynamic_cast<Minion*>(source) == nullptr ||
-                source->owner != m_owner->owner || source == m_owner)
+                (source && source->player != m_owner->player) ||
+                source == m_owner)
+            {
+                return;
+            }
+            break;
+        case TriggerSource::ENEMY_MINIONS:
+            if (dynamic_cast<Minion*>(source) == nullptr ||
+                (source && source->player == m_owner->player))
             {
                 return;
             }
@@ -417,7 +446,7 @@ void Trigger::Validate(Player* player, Entity* source)
         case TriggerSource::ENEMY_SPELLS:
         {
             if (dynamic_cast<Spell*>(source) == nullptr ||
-                source->owner == m_owner->owner)
+                (source && source->player == m_owner->player))
             {
                 return;
             }
@@ -425,7 +454,8 @@ void Trigger::Validate(Player* player, Entity* source)
         }
         case TriggerSource::FRIENDLY:
         {
-            if (source == nullptr || source->owner != m_owner->owner)
+            if (source == nullptr ||
+                (source && source->player != m_owner->player))
             {
                 return;
             }
@@ -439,7 +469,7 @@ void Trigger::Validate(Player* player, Entity* source)
     {
         case TriggerType::TURN_START:
         case TriggerType::TURN_END:
-            if (m_owner == nullptr || player != m_owner->owner)
+            if (m_owner == nullptr || player != m_owner->player)
             {
                 return;
             }
@@ -458,8 +488,10 @@ void Trigger::Validate(Player* player, Entity* source)
 
     if (condition != nullptr)
     {
-        const bool res = (source != nullptr) ? condition->Evaluate(source)
-                                             : condition->Evaluate(m_owner);
+        const bool res =
+            (source != nullptr)
+                ? condition->Evaluate(dynamic_cast<Playable*>(source))
+                : condition->Evaluate(m_owner);
 
         if (!res)
         {

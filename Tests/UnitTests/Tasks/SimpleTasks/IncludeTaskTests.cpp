@@ -10,6 +10,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 using namespace RosettaStone;
 using namespace SimpleTasks;
@@ -28,34 +29,34 @@ TEST(IncludeTask, Run_NonConst)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& player1 = game.GetPlayer1();
-    Player& player2 = game.GetPlayer2();
+    Player* player1 = game.GetPlayer1();
+    Player* player2 = game.GetPlayer2();
 
-    auto& player1Field = player1.GetFieldZone();
-    auto& player2Field = player2.GetFieldZone();
+    auto& player1Field = *(player1->GetFieldZone());
+    auto& player2Field = *(player2->GetFieldZone());
 
-    const auto weapon1 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        player1, Cards::GetInstance().FindCardByName("Fiery War Axe")));
-    player1.GetHero()->AddWeapon(*weapon1);
+    const auto weapon1 = dynamic_cast<Weapon*>(
+        Entity::GetFromCard(player1, Cards::FindCardByName("Fiery War Axe")));
+    player1->GetHero()->AddWeapon(*weapon1);
 
-    const auto weapon2 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        player2, Cards::GetInstance().FindCardByName("Arcanite Reaper")));
-    player2.GetHero()->AddWeapon(*weapon2);
+    const auto weapon2 = dynamic_cast<Weapon*>(
+        Entity::GetFromCard(player2, Cards::FindCardByName("Arcanite Reaper")));
+    player2->GetHero()->AddWeapon(*weapon2);
 
     for (std::size_t i = 0; i < 6; ++i)
     {
-        Entity* entity1 = Entity::GetFromCard(
-            player1, Cards::GetInstance().FindCardByName("Flame Imp"),
-            std::nullopt, &player1.GetFieldZone());
-        player1.GetFieldZone().Add(*entity1);
+        Playable* playable1 =
+            Entity::GetFromCard(player1, Cards::FindCardByName("Flame Imp"),
+                                std::nullopt, player1->GetFieldZone());
+        player1->GetFieldZone()->Add(playable1);
     }
 
     for (std::size_t i = 0; i < 4; ++i)
     {
-        Entity* entity2 = Entity::GetFromCard(
-            player2, Cards::GetInstance().FindCardByName("Worthless Imp"),
-            std::nullopt, &player2.GetFieldZone());
-        player2.GetFieldZone().Add(*entity2);
+        Playable* playable2 =
+            Entity::GetFromCard(player2, Cards::FindCardByName("Worthless Imp"),
+                                std::nullopt, player2->GetFieldZone());
+        player2->GetFieldZone()->Add(playable2);
     }
 
     const auto entities1 =
@@ -88,11 +89,11 @@ TEST(IncludeTask, Run_NonConst)
     EXPECT_EQ(entities6.size(), 5u);
 
     const auto entities7_1 = IncludeTask::GetEntities(
-        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2.GetHero());
+        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
     EXPECT_EQ(entities7_1.size(), 4u);
 
     const auto entities7_2 = IncludeTask::GetEntities(
-        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2.GetHero());
+        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
     EXPECT_EQ(entities7_2.size(), 4u);
 
     const auto entities8 = IncludeTask::GetEntities(EntityType::HERO, player1);
@@ -169,21 +170,20 @@ TEST(IncludeTask, Run_Const)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    const Player& player1 = game.GetPlayer1();
-    const Player& player2 = game.GetPlayer2();
+    const Player* player1 = game.GetPlayer1();
+    const Player* player2 = game.GetPlayer2();
 
-    auto& player1Field = player1.GetFieldZone();
-    auto& player2Field = player2.GetFieldZone();
+    auto& player1Field = *(player1->GetFieldZone());
+    auto& player2Field = *(player2->GetFieldZone());
 
     const auto weapon1 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        const_cast<Player&>(player1),
-        Cards::GetInstance().FindCardByName("Fiery War Axe")));
-    player1.GetHero()->AddWeapon(*weapon1);
+        const_cast<Player*>(player1), Cards::FindCardByName("Fiery War Axe")));
+    player1->GetHero()->AddWeapon(*weapon1);
 
-    const auto weapon2 = dynamic_cast<Weapon*>(Entity::GetFromCard(
-        const_cast<Player&>(player2),
-        Cards::GetInstance().FindCardByName("Arcanite Reaper")));
-    player2.GetHero()->AddWeapon(*weapon2);
+    const auto weapon2 = dynamic_cast<Weapon*>(
+        Entity::GetFromCard(const_cast<Player*>(player2),
+                            Cards::FindCardByName("Arcanite Reaper")));
+    player2->GetHero()->AddWeapon(*weapon2);
 
     std::vector<Card> player1Cards, player2Cards;
     player1Cards.reserve(6);
@@ -191,20 +191,19 @@ TEST(IncludeTask, Run_Const)
 
     for (std::size_t i = 0; i < 6; ++i)
     {
-        Entity* entity1 = Entity::GetFromCard(
-            const_cast<Player&>(player1),
-            Cards::GetInstance().FindCardByName("Flame Imp"), std::nullopt,
-            &player1.GetFieldZone());
-        player1.GetFieldZone().Add(*entity1);
+        Playable* playable1 = Entity::GetFromCard(
+            const_cast<Player*>(player1), Cards::FindCardByName("Flame Imp"),
+            std::nullopt, player1->GetFieldZone());
+        player1->GetFieldZone()->Add(playable1);
     }
 
     for (std::size_t i = 0; i < 4; ++i)
     {
-        Entity* entity2 = Entity::GetFromCard(
-            const_cast<Player&>(player2),
-            Cards::GetInstance().FindCardByName("Worthless Imp"), std::nullopt,
-            &player2.GetFieldZone());
-        player2.GetFieldZone().Add(*entity2);
+        Playable* playable2 =
+            Entity::GetFromCard(const_cast<Player*>(player2),
+                                Cards::FindCardByName("Worthless Imp"),
+                                std::nullopt, player2->GetFieldZone());
+        player2->GetFieldZone()->Add(playable2);
     }
 
     const auto entities1 =
@@ -237,11 +236,11 @@ TEST(IncludeTask, Run_Const)
     EXPECT_EQ(entities6.size(), 5u);
 
     const auto entities7_1 = IncludeTask::GetEntities(
-        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2.GetHero());
+        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
     EXPECT_EQ(entities7_1.size(), 4u);
 
     const auto entities7_2 = IncludeTask::GetEntities(
-        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2.GetHero());
+        EntityType::ENEMIES_NOTARGET, player1, nullptr, player2->GetHero());
     EXPECT_EQ(entities7_2.size(), 4u);
 
     const auto entities8 = IncludeTask::GetEntities(EntityType::HERO, player1);

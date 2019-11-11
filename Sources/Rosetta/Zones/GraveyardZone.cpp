@@ -10,19 +10,20 @@
 namespace RosettaStone
 {
 GraveyardZone::GraveyardZone(Player* player)
+    : UnlimitedZone(player, ZoneType::GRAVEYARD)
 {
-    m_owner = player;
-    m_type = ZoneType::GRAVEYARD;
+    // Do nothing
 }
 
-void GraveyardZone::Add(Entity& entity, int zonePos)
+void GraveyardZone::Add(Playable* entity, int zonePos)
 {
     UnlimitedZone::Add(entity, zonePos);
 
-    const int enchantSize = static_cast<int>(entity.appliedEnchantments.size());
+    const int enchantSize =
+        static_cast<int>(entity->appliedEnchantments.size());
     for (int i = enchantSize - 1; i >= 0; --i)
     {
-        entity.appliedEnchantments[i]->Remove();
+        entity->appliedEnchantments[i]->Remove();
     }
 }
 }  // namespace RosettaStone

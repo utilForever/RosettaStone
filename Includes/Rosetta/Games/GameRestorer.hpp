@@ -89,7 +89,7 @@ class GameRestorer
     //! Makes the mana crystal data to restore the game.
     //! \param player The player context.
     //! \param manaCrystal The mana crystal type of the view.
-    void MakeManaCrystal(Player& player,
+    void MakeManaCrystal(Player* player,
                          const Views::Types::ManaCrystal& manaCrystal);
 
     //! Adds minion to minions data.

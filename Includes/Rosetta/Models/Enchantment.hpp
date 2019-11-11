@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_ENCHANTMENT_HPP
 #define ROSETTASTONE_ENCHANTMENT_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
@@ -16,21 +16,18 @@ class Player;
 //!
 //! \brief Enchantment class.
 //!
-//! This class inherits from Entity structure.
+//! This class inherits from Playable class.
 //!
-class Enchantment : public Entity
+class Enchantment : public Playable
 {
  public:
-    //! Default constructor.
-    Enchantment() = default;
-
-    //! Constructs enchantment with given \p _owner, \p _card, \p tags
+    //! Constructs enchantment with given \p player, \p card, \p tags
     //! and \p target.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
     //! \param target A target of enchantment.
-    Enchantment(Player& _owner, Card* _card, std::map<GameTag, int> tags,
+    Enchantment(Player* player, Card* card, std::map<GameTag, int> tags,
                 Entity* target);
 
     //! Default destructor.
@@ -52,18 +49,35 @@ class Enchantment : public Entity
     //! \param player The controller of the enchantment.
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
+    //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     //! \return The resulting enchantment entity.
-    static Enchantment* GetInstance(Player& player, Card* card, Entity* target);
+    static Enchantment* GetInstance(Player* player, Card* card, Entity* target,
+                                    int num1 = 0, int num2 = 0);
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.
     Entity* GetTarget() const;
+
+    //! Returns the number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    //! \return The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
+    int GetScriptTag1() const;
+
+    //! Returns the number of GameTag::TAG_SCRIPT_DATA_NUM_2.
+    //! \return The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
+    int GetScriptTag2() const;
+
+    //! Returns the flag that indicates whether it is one turn active.
+    //! \return The flag that indicates whether it is one turn active.
+    bool IsOneTurnActive() const;
 
     //! Removes enchantment.
     void Remove();
 
  private:
     Entity* m_target = nullptr;
+
+    bool m_isOneTurnActive = false;
 };
 }  // namespace RosettaStone
 

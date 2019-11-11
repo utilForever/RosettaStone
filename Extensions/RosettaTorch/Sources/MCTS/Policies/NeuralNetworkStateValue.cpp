@@ -29,7 +29,7 @@ StateValue NeuralNetworkStateValue::GetStateValue(const Game& game)
     score = std::clamp(score, -1.0f, 1.0f);
 
     StateValue ret;
-    ret.SetValue(score, game.GetCurrentPlayer().playerType);
+    ret.SetValue(score, game.GetCurrentPlayer()->playerType);
     return ret;
 }
 }  // namespace RosettaTorch::MCTS

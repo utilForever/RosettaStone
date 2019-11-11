@@ -14,8 +14,8 @@
 
 namespace RosettaStone
 {
-Minion::Minion(Player& _owner, Card* _card, std::map<GameTag, int> tags)
-    : Character(_owner, _card, std::move(tags))
+Minion::Minion(Player* player, Card* card, std::map<GameTag, int> tags)
+    : Character(player, card, std::move(tags))
 {
     // Do nothing
 }
@@ -28,6 +28,11 @@ int Minion::GetLastBoardPos() const
 void Minion::SetLastBoardPos(int value)
 {
     SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, value);
+}
+
+bool Minion::IsUntouchable() const
+{
+    return card->IsUntouchable();
 }
 
 void Minion::Silence()
@@ -51,7 +56,7 @@ void Minion::Silence()
     const int spellPower = GetGameTag(GameTag::SPELLPOWER);
     if (spellPower > 0)
     {
-        owner->currentSpellPower -= spellPower;
+        player->currentSpellPower -= spellPower;
         SetGameTag(GameTag::SPELLPOWER, 0);
     }
 
@@ -60,10 +65,9 @@ void Minion::Silence()
         onGoingEffect->Remove();
     }
 
-    EraseIf(owner->GetGame()->oneTurnEffects,
-            [this](std::pair<Entity*, Effect*> effect) {
-                return effect.first->id == id;
-            });
+    EraseIf(game->oneTurnEffects, [this](std::pair<Entity*, IEffect*> effect) {
+        return effect.first->id == id;
+    });
 
     if (activatedTrigger != nullptr)
     {
@@ -112,10 +116,10 @@ void Minion::Reset()
 
     if (isDestroyed)
     {
-        auto iter = owner->GetGame()->deadMinions.find(orderOfPlay);
-        if (iter != owner->GetGame()->deadMinions.end())
+        auto iter = game->deadMinions.find(orderOfPlay);
+        if (iter != game->deadMinions.end())
         {
-            owner->GetGame()->deadMinions.erase(iter);
+            game->deadMinions.erase(iter);
         }
 
         isDestroyed = false;
@@ -124,8 +128,8 @@ void Minion::Reset()
 
 void Minion::Destroy()
 {
-    Entity::Destroy();
+    Playable::Destroy();
 
-    owner->GetGame()->deadMinions.emplace(orderOfPlay, this);
+    game->deadMinions.emplace(orderOfPlay, this);
 }
 }  // namespace RosettaStone

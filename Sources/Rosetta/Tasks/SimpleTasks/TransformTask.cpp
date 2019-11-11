@@ -18,22 +18,22 @@ TransformTask::TransformTask(EntityType entityType, std::string cardID)
     // Do nothing
 }
 
-TaskStatus TransformTask::Impl(Player& player)
+TaskStatus TransformTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
         Card* card = Cards::FindCardByID(m_cardID);
 
-        auto* minion = dynamic_cast<Minion*>(entity);
+        auto* minion = dynamic_cast<Minion*>(playable);
         if (minion == nullptr)
         {
             return TaskStatus::STOP;
         }
 
-        Generic::TransformMinion(*minion->owner, minion, card);
+        Generic::TransformMinion(minion->player, minion, card);
     }
 
     return TaskStatus::COMPLETE;

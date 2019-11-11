@@ -9,6 +9,8 @@
 
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Enums/TargetingEnums.hpp>
+#include <Rosetta/Loaders/TargetingPredicates.hpp>
 
 #include <map>
 #include <string>
@@ -16,6 +18,7 @@
 
 namespace RosettaStone
 {
+class Character;
 class Power;
 
 //!
@@ -76,9 +79,26 @@ class Card
     //! \return true if this card has game tag, and false otherwise.
     bool HasGameTag(GameTag gameTag) const;
 
+    //! Returns the flag that indicates whether it is untouchable.
+    //! \return The flag that indicates whether it is untouchable.
+    bool IsUntouchable() const;
+
     //! Returns the number of cards that can be inserted into the deck.
     //! \return The number of cards that can be inserted into the deck.
     std::size_t GetMaxAllowedInDeck() const;
+
+    //! Calculates if a target is valid by testing the game state
+    //! for each hardcoded requirement.
+    //! \param player The player of the source.
+    //! \param target The proposed target.
+    //! \return true if the proposed target is valid, false otherwise.
+    bool TargetingRequirements(Player* player, Character* target);
+
+    //! Gets the valid play targets.
+    //! This method defaults to targeting in the context of spells/hero powers.
+    //! \param player The player of the source.
+    //! \return A list of valid play targets.
+    std::vector<Character*> GetValidPlayTargets(Player* player);
 
     //! Prints brief card information.
     virtual void ShowBriefInfo() const;
@@ -95,9 +115,15 @@ class Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> entourages;
 
+    std::vector<TargetingPredicate> targetingPredicate;
+    std::vector<AvailabilityPredicate> targetingAvailabilityPredicate;
+
+    TargetingType targetingType;
     Power power;
 
     std::size_t maxAllowedInDeck = 0;
+
+    bool mustHaveToTargetToPlay = false;
 };
 }  // namespace RosettaStone
 

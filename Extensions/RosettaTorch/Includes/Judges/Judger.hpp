@@ -139,7 +139,7 @@ class Judger
 
         while (true)
         {
-            if (game.GetCurrentPlayer().playerType == PlayerType::PLAYER1)
+            if (game.GetCurrentPlayer()->playerType == PlayerType::PLAYER1)
             {
                 nextAgent = m_player1;
             }
@@ -149,7 +149,7 @@ class Judger
             }
 
             nextAgent->Think(
-                BoardRefView(game, game.GetCurrentPlayer().playerType));
+                BoardRefView(game, game.GetCurrentPlayer()->playerType));
 
             m_actionCallback.Init(game, nextAgent);
             result = game.PerformAction(m_actionCallback);
@@ -160,7 +160,7 @@ class Judger
             }
         }
 
-        m_recorder.End(game.GetCurrentPlayer().playerType, result);
+        m_recorder.End(game.GetCurrentPlayer()->playerType, result);
 
         return result;
     }

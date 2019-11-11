@@ -14,15 +14,15 @@ HealTask::HealTask(EntityType entityType, int amount)
     // Do nothing
 }
 
-TaskStatus HealTask::Impl(Player& player)
+TaskStatus HealTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        auto character = dynamic_cast<Character*>(entity);
-        character->TakeHeal(*m_source, m_amount);
+        auto character = dynamic_cast<Character*>(playable);
+        character->TakeHeal(dynamic_cast<Playable*>(m_source), m_amount);
     }
 
     return TaskStatus::COMPLETE;

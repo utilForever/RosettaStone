@@ -4,11 +4,13 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-TaskStatus TransformCopyTask::Impl(Player& player)
+TaskStatus TransformCopyTask::Impl(Player* player)
 {
     const auto target = dynamic_cast<Minion*>(m_target);
     if (target == nullptr)
@@ -22,10 +24,11 @@ TaskStatus TransformCopyTask::Impl(Player& player)
         return TaskStatus::STOP;
     }
 
-    const auto copy = Entity::GetFromCard(player, m_target->card, {});
+    auto copy = Entity::GetFromCard(player, m_target->card, {});
     IAura* aura = target->onGoingEffect;
 
-    source->owner->GetFieldZone().Replace(*source, *copy);
+    source->player->GetFieldZone()->Replace(source,
+                                            dynamic_cast<Minion*>(copy));
 
     if (!target->appliedEnchantments.empty())
     {

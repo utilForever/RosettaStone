@@ -27,13 +27,13 @@ TEST(ReducedBoardView, All)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
 
-    curPlayer.SetTotalMana(4);
-    opPlayer.SetTotalMana(7);
-    curPlayer.SetUsedMana(4);
-    opPlayer.SetUsedMana(3);
+    curPlayer->SetTotalMana(4);
+    opPlayer->SetTotalMana(7);
+    curPlayer->SetUsedMana(4);
+    opPlayer->SetUsedMana(3);
 
     Card curWeaponCard = GenerateWeaponCard("weapon1", 3, 2);
     PlayWeaponCard(curPlayer, &curWeaponCard);
@@ -59,7 +59,7 @@ TEST(ReducedBoardView, All)
         PlayMinionCard(opPlayer, &opCards[i]);
     }
 
-    BoardRefView board(game, game.GetCurrentPlayer().playerType);
+    BoardRefView board(game, game.GetCurrentPlayer()->playerType);
     ReducedBoardView reducedBoard1(board), reducedBoard2(board);
 
     EXPECT_TRUE(reducedBoard1 == reducedBoard2);

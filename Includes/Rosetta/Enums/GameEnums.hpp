@@ -9,13 +9,13 @@
 
 namespace RosettaStone
 {
-//! \brief An enumerator for evaluating the relation between primitive values
-//! during game simulation.
-enum class RelaSign
+//! \brief An enumerator for identifying the player.
+enum class PlayerType
 {
-    EQ,   //!< Equal.
-    GEQ,  //!< Greater equal.
-    LEQ   //!< Lesser equal.
+    INVALID,  //!< The invalid player.
+    RANDOM,   //!< The random player.
+    PLAYER1,  //!< The first player.
+    PLAYER2,  //!< The second player.
 };
 }  // namespace RosettaStone
 

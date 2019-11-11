@@ -7,22 +7,22 @@
 #ifndef ROSETTASTONE_PLAYER_HPP
 #define ROSETTASTONE_PLAYER_HPP
 
-#include <Rosetta/Commons/Constants.hpp>
+#include <Rosetta/Enums/GameEnums.hpp>
 #include <Rosetta/Models/Choice.hpp>
 #include <Rosetta/Models/Entity.hpp>
 #include <Rosetta/Models/Hero.hpp>
-#include <Rosetta/Zones/DeckZone.hpp>
-#include <Rosetta/Zones/FieldZone.hpp>
-#include <Rosetta/Zones/GraveyardZone.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
-#include <Rosetta/Zones/SecretZone.hpp>
-#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <string>
 
 namespace RosettaStone
 {
 class Game;
+class DeckZone;
+class FieldZone;
+class GraveyardZone;
+class HandZone;
+class SecretZone;
+class SetasideZone;
 
 //!
 //! \brief Player class.
@@ -31,7 +31,7 @@ class Game;
 //! NOTE: This information should be used differently from the existing card
 //! information because there are various effects on the card.
 //!
-class Player
+class Player : public Entity
 {
  public:
     static constexpr std::size_t USER_INVALID = 255;
@@ -43,52 +43,44 @@ class Player
     ~Player();
 
     //! Default copy constructor.
-    Player(const Player&) = default;
+    Player(const Player&) = delete;
 
     //! Default move constructor.
-    Player(Player&&) noexcept = default;
+    Player(Player&&) noexcept = delete;
 
     //! Default copy assignment operator.
-    Player& operator=(const Player&) = default;
+    Player& operator=(const Player&) = delete;
 
     //! Default move assignment operator.
-    Player& operator=(Player&&) noexcept = default;
+    Player& operator=(Player&&) noexcept = delete;
 
     //! Copies the contents from reference \p rhs.
     //! \param rhs The source to copy the content.
     void RefCopy(const Player& rhs);
 
-    //! Returns a pointer to game.
-    //! \return A pointer to game.
-    Game* GetGame() const;
-
-    //! Sets a pointer to game.
-    //! \param game A pointer to game.
-    void SetGame(Game* game);
-
     //! Returns player's field zone.
     //! \return Player's field zone.
-    FieldZone& GetFieldZone() const;
+    FieldZone* GetFieldZone() const;
 
     //! Returns player's deck zone.
     //! \return Player's deck zone.
-    DeckZone& GetDeckZone() const;
+    DeckZone* GetDeckZone() const;
 
     //! Returns player's graveyard zone.
     //! \return Player's graveyard zone.
-    GraveyardZone& GetGraveyardZone() const;
+    GraveyardZone* GetGraveyardZone() const;
 
     //! Returns player's hand zone.
     //! \return Player's hand zone.
-    HandZone& GetHandZone() const;
+    HandZone* GetHandZone() const;
 
     //! Returns player's secret zone.
     //! \return player's secret zone.
-    SecretZone& GetSecretZone() const;
+    SecretZone* GetSecretZone() const;
 
     //! Returns player's setaside zone.
     //! \return Player's setaside zone.
-    SetasideZone& GetSetasideZone() const;
+    SetasideZone* GetSetasideZone() const;
 
     //! Returns player's hero.
     //! \return Player's hero.
@@ -191,15 +183,14 @@ class Player
     int currentSpellPower = 0;
 
  private:
+    Hero* m_hero = nullptr;
+
     DeckZone* m_deckZone = nullptr;
     FieldZone* m_fieldZone = nullptr;
     GraveyardZone* m_graveyardZone = nullptr;
     HandZone* m_handZone = nullptr;
     SecretZone* m_secretZone = nullptr;
     SetasideZone* m_setasideZone = nullptr;
-
-    Hero* m_hero = nullptr;
-    Game* m_game = nullptr;
 
     std::map<GameTag, int> m_gameTags;
 };

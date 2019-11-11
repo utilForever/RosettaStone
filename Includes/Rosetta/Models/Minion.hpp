@@ -14,19 +14,16 @@ namespace RosettaStone
 //!
 //! \brief Minion class.
 //!
-//! This class inherits from Character structure.
+//! This class inherits from Character class.
 //!
 class Minion : public Character
 {
  public:
-    //! Default constructor.
-    Minion() = default;
-
-    //! Constructs minion with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs minion with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    Minion(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    Minion(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Minion() = default;
@@ -50,6 +47,10 @@ class Minion : public Character
     //! Sets the value of last board position.
     //! \param value The value of last board position.
     void SetLastBoardPos(int value);
+
+    //! Returns the flag that indicates whether it is untouchable.
+    //! \return The flag that indicates whether it is untouchable.
+    bool IsUntouchable() const;
 
     //! Disables all special effects on this minion.
     void Silence();

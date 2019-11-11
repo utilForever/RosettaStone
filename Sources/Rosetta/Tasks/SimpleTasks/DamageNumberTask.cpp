@@ -16,17 +16,17 @@ DamageNumberTask::DamageNumberTask(EntityType entityType, bool isSpellDamage)
     // Do nothing
 }
 
-TaskStatus DamageNumberTask::Impl(Player& player)
+TaskStatus DamageNumberTask::Impl(Player* player)
 {
-    const int damage = m_source->owner->GetGame()->taskStack.num;
-    auto entities =
+    const int damage = m_source->game->taskStack.num;
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        const auto character = dynamic_cast<Character*>(entity);
-        Generic::TakeDamageToCharacter(m_source, character, damage,
-                                       m_isSpellDamage);
+        const auto character = dynamic_cast<Character*>(playable);
+        Generic::TakeDamageToCharacter(dynamic_cast<Playable*>(m_source),
+                                       character, damage, m_isSpellDamage);
     }
 
     return TaskStatus::COMPLETE;

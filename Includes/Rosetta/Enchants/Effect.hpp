@@ -6,11 +6,13 @@
 #ifndef ROSETTASTONE_EFFECT_HPP
 #define ROSETTASTONE_EFFECT_HPP
 
+#include <Rosetta/Enchants/IEffect.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
 
 namespace RosettaStone
 {
 class Entity;
+class Playable;
 class AuraEffects;
 
 //! Effect operator to change card value such as attack and health.
@@ -27,7 +29,7 @@ enum class EffectOperator
 //!
 //! This class represents an effect of auras or enchantment cards.
 //!
-class Effect
+class Effect : public IEffect
 {
  public:
     //! Default constructor.
@@ -51,27 +53,27 @@ class Effect
     //! Default move assignment operator.
     Effect& operator=(Effect&& effect) = default;
 
-    //! Applies this effect to the target entity.
+    //! Applies effect to the target entity.
     //! \param entity An entity to which effect is applied.
     //! \param isOneTurnEffect Whether effect lasts only one turn.
-    void Apply(Entity* entity, bool isOneTurnEffect = false) const;
+    void ApplyTo(Entity* entity, bool isOneTurnEffect = false) const override;
 
-    //! Applies this effect to the target as an aura effect.
-    //! \param auraEffects The aura effect.
-    void Apply(AuraEffects& auraEffects) const;
+    //! Applies aura effect to the target entity.
+    //! \param entity An entity to which aura effect is applied.
+    void ApplyAuraTo(Entity* entity) const override;
 
-    //! Removes this aura effect from the target entity.
+    //! Removes effect from the target entity.
     //! \param entity An entity to which effect is removed.
-    void Remove(Entity* entity) const;
+    void RemoveFrom(Entity* entity) const override;
 
-    //! Removes this aura effect from the target entity.
-    //! \param auraEffects The aura effect.
-    void Remove(AuraEffects& auraEffects) const;
-  
+    //! Removes aura effect from the target entity.
+    //! \param entity An entity to which aura effect is removed.
+    void RemoveAuraFrom(Entity* entity) const override;
+
     //! Creates a new Effect having changed amount of \p newValue.
     //! \param newValue A value to change.
     //! \return A new Effect having changed amount.
-    Effect ChangeValue(int newValue) const;  
+    IEffect* ChangeValue(int newValue) const override;
 
     //! Returns the value of game tag.
     //! \return The value of game tag.

@@ -29,7 +29,7 @@ void ActionValidChecker::Check(ActionValidGetter& getter)
     m_actionTargets.Analyze(getter);
 
     m_playableCards.clear();
-    getter.ForEachPlayableCard([&](Entity* card) {
+    getter.ForEachPlayableCard([&](Playable* card) {
         m_playableCards.emplace_back(card);
         return true;
     });
@@ -69,7 +69,7 @@ void ActionValidChecker::Check(ActionValidGetter&& getter)
     m_actionTargets.Analyze(getter);
 
     m_playableCards.clear();
-    getter.ForEachPlayableCard([&](Entity* card) {
+    getter.ForEachPlayableCard([&](Playable* card) {
         m_playableCards.emplace_back(card);
         return true;
     });
@@ -112,7 +112,7 @@ int ActionValidChecker::GetMainActionsCount() const
     return static_cast<int>(m_opMapSize);
 }
 
-const std::vector<Entity*>& ActionValidChecker::GetPlayableCards() const
+const std::vector<Playable*>& ActionValidChecker::GetPlayableCards() const
 {
     return m_playableCards;
 }

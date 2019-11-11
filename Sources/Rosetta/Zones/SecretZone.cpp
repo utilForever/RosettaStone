@@ -10,29 +10,30 @@
 
 namespace RosettaStone
 {
-SecretZone::SecretZone(Player* player) : LimitedZone(MAX_SECERT_SIZE)
+SecretZone::SecretZone(Player* player)
+    : LimitedZone(ZoneType::SECRET, MAX_SECERT_SIZE)
 {
-    m_owner = player;
-    m_type = ZoneType::SECRET;
+    m_game = player->game;
+    m_player = player;
 }
 
-void SecretZone::Add(Entity& entity, int zonePos)
+void SecretZone::Add(Playable* entity, int zonePos)
 {
-    LimitedZone::Add(entity, zonePos);
+    LimitedZone::Add(dynamic_cast<Spell*>(entity), zonePos);
 
-    entity.orderOfPlay = entity.owner->GetGame()->GetNextOOP();
+    entity->orderOfPlay = entity->game->GetNextOOP();
 }
 
-bool SecretZone::Exist(Entity& entity) const
+Playable* SecretZone::Remove(Playable* entity)
 {
-    for (int i = 0; i < m_maxSize; ++i)
+    return LimitedZone::Remove(dynamic_cast<Spell*>(entity));
+}
+
+bool SecretZone::Exist(Playable* entity) const
+{
+    for (int i = 0; i < m_count; ++i)
     {
-        if (!m_entities[i])
-        {
-            continue;
-        }
-
-        if (entity.card->id == m_entities[i]->card->id)
+        if (entity->card->id == m_entities[i]->card->id)
         {
             return true;
         }

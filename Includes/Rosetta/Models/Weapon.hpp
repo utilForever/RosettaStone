@@ -7,28 +7,25 @@
 #ifndef ROSETTASTONE_WEAPON_HPP
 #define ROSETTASTONE_WEAPON_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
 //!
 //! \brief Weapon class.
 //!
-//! This class inherits from Entity class.
+//! This class inherits from Playable class.
 //! Also, it stores durability that shows the number of times you can use that
 //! weapon before it is destroyed.
 //!
-class Weapon : public Entity
+class Weapon : public Playable
 {
  public:
-    //! Default constructor.
-    Weapon() = default;
-
-    //! Constructs weapon with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs weapon with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    Weapon(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    Weapon(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Destructor.
     ~Weapon();

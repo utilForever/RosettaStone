@@ -7,18 +7,19 @@
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
-#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Games/GameManager.hpp>
+#include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/ITask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/AttackTask.hpp>
-#include <Rosetta/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/Views/BoardRefView.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -43,10 +44,10 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     Initialize();
 
     // Add hero and hero power
-    GetPlayer1().AddHeroAndPower(
+    GetPlayer1()->AddHeroAndPower(
         Cards::GetHeroCard(gameConfig.player1Class),
         Cards::GetDefaultHeroPower(gameConfig.player1Class));
-    GetPlayer2().AddHeroAndPower(
+    GetPlayer2()->AddHeroAndPower(
         Cards::GetHeroCard(gameConfig.player2Class),
         Cards::GetDefaultHeroPower(gameConfig.player2Class));
 
@@ -67,9 +68,9 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer1(), &card, std::nullopt,
-                                             &GetPlayer1().GetDeckZone());
-        GetPlayer1().GetDeckZone().Add(*entity);
+        Playable* playable = Entity::GetFromCard(
+            GetPlayer1(), &card, std::nullopt, GetPlayer1()->GetDeckZone());
+        GetPlayer1()->GetDeckZone()->Add(playable);
     }
     for (auto& card : m_gameConfig.player2Deck)
     {
@@ -78,9 +79,9 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
             continue;
         }
 
-        Entity* entity = Entity::GetFromCard(GetPlayer2(), &card, std::nullopt,
-                                             &GetPlayer2().GetDeckZone());
-        GetPlayer2().GetDeckZone().Add(*entity);
+        Playable* playable = Entity::GetFromCard(
+            GetPlayer2(), &card, std::nullopt, GetPlayer2()->GetDeckZone());
+        GetPlayer2()->GetDeckZone()->Add(playable);
     }
 
     // Fill cards to deck
@@ -91,8 +92,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
             for (auto& cardID : m_gameConfig.fillCardIDs)
             {
                 Card* card = Cards::FindCardByID(cardID);
-                Entity* entity = Entity::GetFromCard(p, card);
-                p.GetDeckZone().Add(*entity);
+                Playable* playable = Entity::GetFromCard(&p, card);
+                p.GetDeckZone()->Add(playable);
             }
         }
     }
@@ -121,16 +122,16 @@ void Game::Initialize()
     // Set game to player
     for (auto& p : m_players)
     {
-        p.SetGame(this);
+        p.game = this;
     }
 
     // Set player type
-    GetPlayer1().playerType = PlayerType::PLAYER1;
-    GetPlayer2().playerType = PlayerType::PLAYER2;
+    GetPlayer1()->playerType = PlayerType::PLAYER1;
+    GetPlayer2()->playerType = PlayerType::PLAYER2;
 
     // Set opponent player
-    GetPlayer1().opponent = &GetPlayer2();
-    GetPlayer2().opponent = &GetPlayer1();
+    GetPlayer1()->opponent = GetPlayer2();
+    GetPlayer2()->opponent = GetPlayer1();
 
     // Set states
     state = State::RUNNING;
@@ -167,44 +168,44 @@ void Game::RefCopyFrom(const Game& rhs)
     m_oopIndex = rhs.m_oopIndex;
 }
 
-Player& Game::GetPlayer1()
+Player* Game::GetPlayer1()
 {
-    return m_players[0];
+    return &m_players[0];
 }
 
-const Player& Game::GetPlayer1() const
+const Player* Game::GetPlayer1() const
 {
-    return m_players[0];
+    return &m_players[0];
 }
 
-Player& Game::GetPlayer2()
+Player* Game::GetPlayer2()
 {
-    return m_players[1];
+    return &m_players[1];
 }
 
-const Player& Game::GetPlayer2() const
+const Player* Game::GetPlayer2() const
 {
-    return m_players[1];
+    return &m_players[1];
 }
 
-Player& Game::GetCurrentPlayer()
+Player* Game::GetCurrentPlayer()
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
-        return m_players[0];
+        return &m_players[0];
     }
 
-    return m_players[1];
+    return &m_players[1];
 }
 
-const Player& Game::GetCurrentPlayer() const
+const Player* Game::GetCurrentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
-        return m_players[0];
+        return &m_players[0];
     }
 
-    return m_players[1];
+    return &m_players[1];
 }
 
 void Game::SetCurrentPlayer(PlayerType playerType)
@@ -212,24 +213,24 @@ void Game::SetCurrentPlayer(PlayerType playerType)
     m_currentPlayer = playerType;
 }
 
-Player& Game::GetOpponentPlayer()
+Player* Game::GetOpponentPlayer()
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
-        return m_players[1];
+        return &m_players[1];
     }
 
-    return m_players[0];
+    return &m_players[0];
 }
 
-const Player& Game::GetOpponentPlayer() const
+const Player* Game::GetOpponentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
-        return m_players[1];
+        return &m_players[1];
     }
 
-    return m_players[0];
+    return &m_players[0];
 }
 
 int Game::GetTurn() const
@@ -267,8 +268,8 @@ void Game::BeginShuffle()
     // Shuffle cards in deck
     if (m_gameConfig.doShuffle)
     {
-        GetPlayer1().GetDeckZone().Shuffle();
-        GetPlayer2().GetDeckZone().Shuffle();
+        GetPlayer1()->GetDeckZone()->Shuffle();
+        GetPlayer2()->GetDeckZone()->Shuffle();
     }
 
     // Set next step
@@ -281,21 +282,21 @@ void Game::BeginShuffle()
 
 void Game::BeginDraw()
 {
-    for (auto& p : m_players)
+    for (auto& player : m_players)
     {
         // Draw 3 cards
-        Generic::Draw(p);
-        Generic::Draw(p);
-        Generic::Draw(p);
+        Generic::Draw(&player);
+        Generic::Draw(&player);
+        Generic::Draw(&player);
 
-        if (&p != &GetCurrentPlayer())
+        if (&player != GetCurrentPlayer())
         {
             // Draw 4th card for second player
-            Generic::Draw(p);
+            Generic::Draw(&player);
 
             // Give "The Coin" card to second player
             Card* coin = Cards::FindCardByID("GAME_005");
-            p.GetHandZone().Add(*Entity::GetFromCard(p, coin));
+            player.GetHandZone()->Add(Entity::GetFromCard(&player, coin));
         }
     }
 
@@ -311,16 +312,16 @@ void Game::BeginDraw()
 void Game::BeginMulligan()
 {
     // Start mulligan state
-    GetPlayer1().mulliganState = Mulligan::INPUT;
-    GetPlayer2().mulliganState = Mulligan::INPUT;
+    GetPlayer1()->mulliganState = Mulligan::INPUT;
+    GetPlayer2()->mulliganState = Mulligan::INPUT;
 
     // Collect cards that can redraw
     std::vector<std::size_t> p1HandIDs, p2HandIDs;
-    for (auto& entity : GetPlayer1().GetHandZone().GetAll())
+    for (auto& entity : GetPlayer1()->GetHandZone()->GetAll())
     {
         p1HandIDs.emplace_back(entity->id);
     }
-    for (auto& entity : GetPlayer2().GetHandZone().GetAll())
+    for (auto& entity : GetPlayer2()->GetHandZone()->GetAll())
     {
         p2HandIDs.emplace_back(entity->id);
     }
@@ -351,7 +352,7 @@ void Game::MainReady()
     for (auto& p : m_players)
     {
         // Field
-        for (auto& m : p.GetFieldZone().GetAll())
+        for (auto& m : p.GetFieldZone()->GetAll())
         {
             m->SetNumAttacksThisTurn(0);
         }
@@ -364,24 +365,24 @@ void Game::MainReady()
     }
 
     // Reset exhaust for current player
-    auto& curPlayer = GetCurrentPlayer();
+    const auto curPlayer = GetCurrentPlayer();
     // Hero
-    curPlayer.GetHero()->SetExhausted(false);
+    curPlayer->GetHero()->SetExhausted(false);
     // Weapon
-    if (curPlayer.GetHero()->HasWeapon())
+    if (curPlayer->GetHero()->HasWeapon())
     {
-        curPlayer.GetWeapon().SetExhausted(false);
+        curPlayer->GetWeapon().SetExhausted(false);
     }
     // Hero power
-    curPlayer.GetHeroPower().SetExhausted(false);
+    curPlayer->GetHeroPower().SetExhausted(false);
     // Field
-    for (auto& m : curPlayer.GetFieldZone().GetAll())
+    for (auto& m : curPlayer->GetFieldZone()->GetAll())
     {
         m->SetExhausted(false);
     }
 
     // Reset combo active
-    curPlayer.SetComboActive(false);
+    curPlayer->SetComboActive(false);
 
     // Set next step
     nextStep = Step::MAIN_START_TRIGGERS;
@@ -393,7 +394,7 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
-    triggerManager.OnStartTurnTrigger(&GetCurrentPlayer(), nullptr);
+    triggerManager.OnStartTurnTrigger(GetCurrentPlayer(), nullptr);
     ProcessTasks();
     ProcessDestroyAndUpdateAura();
 
@@ -407,19 +408,19 @@ void Game::MainStartTriggers()
 
 void Game::MainResource()
 {
-    auto& curPlayer = GetCurrentPlayer();
+    const auto curPlayer = GetCurrentPlayer();
 
     // Add mana crystal to current player
     Generic::ChangeManaCrystal(curPlayer, 1, false);
 
     // Clear used mana
-    curPlayer.SetUsedMana(0);
+    curPlayer->SetUsedMana(0);
     // Remove temporary mana
-    curPlayer.SetTemporaryMana(0);
+    curPlayer->SetTemporaryMana(0);
 
     // Process overload
-    curPlayer.SetOverloadLocked(curPlayer.GetOverloadOwed());
-    curPlayer.SetOverloadOwed(0);
+    curPlayer->SetOverloadLocked(curPlayer->GetOverloadOwed());
+    curPlayer->SetOverloadOwed(0);
 
     // Set next step
     nextStep = Step::MAIN_DRAW;
@@ -460,7 +461,7 @@ void Game::MainAction()
 void Game::MainEnd()
 {
     taskQueue.StartEvent();
-    triggerManager.OnEndTurnTrigger(&GetCurrentPlayer(), nullptr);
+    triggerManager.OnEndTurnTrigger(GetCurrentPlayer(), nullptr);
     ProcessTasks();
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
@@ -475,29 +476,37 @@ void Game::MainEnd()
 
 void Game::MainCleanUp()
 {
-    auto& curPlayer = GetCurrentPlayer();
+    const auto curPlayer = GetCurrentPlayer();
 
     // Remove one-turn effects
+    if (const auto enchantments = oneTurnEffectEchantments;
+        !enchantments.empty())
+    {
+        for (int i = static_cast<int>(enchantments.size()) - 1; i >= 0; --i)
+        {
+            enchantments[i]->Remove();
+        }
+    }
+
     for (auto& effectPair : oneTurnEffects)
     {
         Entity* entity = effectPair.first;
-        Effect* effect = effectPair.second;
+        IEffect* effect = effectPair.second;
 
-        effect->Remove(entity);
-        delete effect;
+        effect->RemoveFrom(entity);
     }
     oneTurnEffects.clear();
 
     // Unfreeze all characters they control that are Frozen, don't have
     // summoning sickness (or do have Charge) and have not attacked that turn
     // Hero
-    if (curPlayer.GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
-        curPlayer.GetHero()->GetNumAttacksThisTurn() == 0)
+    if (curPlayer->GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
+        curPlayer->GetHero()->GetNumAttacksThisTurn() == 0)
     {
-        curPlayer.GetHero()->SetGameTag(GameTag::FROZEN, 0);
+        curPlayer->GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
-    for (auto& m : curPlayer.GetFieldZone().GetAll())
+    for (auto& m : curPlayer->GetFieldZone()->GetAll())
     {
         if (m->GetGameTag(GameTag::FROZEN) == 1 &&
             m->GetNumAttacksThisTurn() == 0 && !m->IsExhausted())
@@ -584,7 +593,7 @@ void Game::ProcessDestroyAndUpdateAura()
         taskQueue.StartEvent();
         for (auto& minion : summonedMinions)
         {
-            triggerManager.OnSummonTrigger(&GetCurrentPlayer(), minion);
+            triggerManager.OnSummonTrigger(GetCurrentPlayer(), minion);
         }
         summonedMinions.clear();
         ProcessTasks();
@@ -605,15 +614,15 @@ void Game::ProcessDestroyAndUpdateAura()
 void Game::ProcessGraveyard()
 {
     // Destroy weapons
-    if (GetPlayer1().GetHero()->HasWeapon() &&
-        GetPlayer1().GetWeapon().isDestroyed)
+    if (GetPlayer1()->GetHero()->HasWeapon() &&
+        GetPlayer1()->GetWeapon().isDestroyed)
     {
-        GetPlayer1().GetHero()->RemoveWeapon();
+        GetPlayer1()->GetHero()->RemoveWeapon();
     }
-    if (GetPlayer2().GetHero()->HasWeapon() &&
-        GetPlayer2().GetWeapon().isDestroyed)
+    if (GetPlayer2()->GetHero()->HasWeapon() &&
+        GetPlayer2()->GetWeapon().isDestroyed)
     {
-        GetPlayer2().GetHero()->RemoveWeapon();
+        GetPlayer2()->GetHero()->RemoveWeapon();
     }
 
     // Destroy minions
@@ -623,9 +632,12 @@ void Game::ProcessGraveyard()
         {
             Minion* minion = deadMinion.second;
 
+            // Death event created
+            triggerManager.OnDeathTrigger(minion->player, minion);
+
             // Remove minion from battlefield
             minion->SetLastBoardPos(minion->GetZonePosition());
-            minion->zone->Remove(*minion);
+            minion->zone->Remove(minion);
 
             // Process deathrattle tasks
             if (minion->HasDeathrattle())
@@ -634,7 +646,7 @@ void Game::ProcessGraveyard()
             }
 
             // Add minion to graveyard
-            minion->owner->GetGraveyardZone().Add(*minion);
+            minion->player->GetGraveyardZone()->Add(minion);
         }
 
         deadMinions.clear();
@@ -657,10 +669,10 @@ void Game::UpdateAura()
     }
 }
 
-PlayState Game::Process(Player& player, ITask* task)
+PlayState Game::Process(Player* player, ITask* task)
 {
     // Process task
-    task->SetPlayer(&player);
+    task->SetPlayer(player);
     Task::Run(task);
 
     if (task->IsFreeable())
@@ -668,14 +680,18 @@ PlayState Game::Process(Player& player, ITask* task)
         delete task;
     }
 
+    taskStack.Reset();
+
     return CheckGameOver();
 }
 
-PlayState Game::Process(Player& player, ITask&& task)
+PlayState Game::Process(Player* player, ITask&& task)
 {
     // Process task
-    task.SetPlayer(&player);
+    task.SetPlayer(player);
     Task::Run(std::move(task));
+
+    taskStack.Reset();
 
     return CheckGameOver();
 }
@@ -698,11 +714,11 @@ PlayState Game::PerformAction(ActionParams& params)
     {
         case MainOpType::PLAY_CARD:
         {
-            Entity* card = params.ChooseHandCard();
+            Playable* card = params.ChooseHandCard();
             Character* target =
-                params.GetSpecifiedTarget(Generic::GetValidTargets(card));
+                params.GetSpecifiedTarget(card->GetValidPlayTargets());
             const int totalMinions =
-                GetCurrentPlayer().GetFieldZone().GetCount();
+                GetCurrentPlayer()->GetFieldZone()->GetCount();
             const int fieldPos = params.GetMinionPutLocation(totalMinions);
             int chooseOne = 0;
             if (card->HasChooseOne())
@@ -733,15 +749,15 @@ PlayState Game::PerformAction(ActionParams& params)
         {
             Character* source = params.GetAttacker();
             Character* target = params.GetSpecifiedTarget(
-                source->GetValidCombatTargets(*GetCurrentPlayer().opponent));
+                source->GetValidCombatTargets(GetCurrentPlayer()->opponent));
             task = new AttackTask(source, target);
             break;
         }
         case MainOpType::USE_HERO_POWER:
         {
-            Hero* hero = GetCurrentPlayer().GetHero();
+            Hero* hero = GetCurrentPlayer()->GetHero();
             Character* target = params.GetSpecifiedTarget(
-                Generic::GetValidTargets(hero->heroPower));
+                hero->heroPower->GetValidPlayTargets());
             task = new HeroPowerTask(target);
             break;
         }
@@ -775,31 +791,31 @@ ReducedBoardView Game::CreateView()
 PlayState Game::CheckGameOver()
 {
     // Check hero of two players is destroyed
-    if (GetPlayer1().GetHero()->isDestroyed)
+    if (GetPlayer1()->GetHero()->isDestroyed)
     {
-        if (GetPlayer2().GetHero()->isDestroyed)
+        if (GetPlayer2()->GetHero()->isDestroyed)
         {
-            GetPlayer1().playState = PlayState::TIED;
-            GetPlayer2().playState = PlayState::TIED;
+            GetPlayer1()->playState = PlayState::TIED;
+            GetPlayer2()->playState = PlayState::TIED;
         }
         else
         {
-            GetPlayer1().playState = PlayState::LOSING;
+            GetPlayer1()->playState = PlayState::LOSING;
         }
 
         // Set next step
         nextStep = Step::FINAL_WRAPUP;
         GameManager::ProcessNextStep(*this, nextStep);
     }
-    else if (GetPlayer2().GetHero()->isDestroyed)
+    else if (GetPlayer2()->GetHero()->isDestroyed)
     {
-        GetPlayer2().playState = PlayState::LOSING;
+        GetPlayer2()->playState = PlayState::LOSING;
 
         // Set next step
         nextStep = Step::FINAL_WRAPUP;
         GameManager::ProcessNextStep(*this, nextStep);
     }
 
-    return GetCurrentPlayer().playState;
+    return GetCurrentPlayer()->playState;
 }
 }  // namespace RosettaStone

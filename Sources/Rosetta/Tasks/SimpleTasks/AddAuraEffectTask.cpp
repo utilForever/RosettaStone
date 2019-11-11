@@ -8,19 +8,19 @@
 
 namespace RosettaStone::SimpleTasks
 {
-AddAuraEffectTask::AddAuraEffectTask(Effect* effect, EntityType entityType)
+AddAuraEffectTask::AddAuraEffectTask(IEffect* effect, EntityType entityType)
     : ITask(entityType), m_effect(effect)
 {
     // Do nothing
 }
 
-TaskStatus AddAuraEffectTask::Impl(Player& player)
+TaskStatus AddAuraEffectTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        m_effect->Apply(*entity->auraEffects);
+        m_effect->ApplyAuraTo(playable);
     }
 
     return TaskStatus::COMPLETE;

@@ -16,20 +16,17 @@ namespace RosettaStone
 //!
 //! \brief Hero class.
 //!
-//! This class inherits from Character structure.
+//! This class inherits from Character class.
 //! Also, it stores weapon that can attack to enemy.
 //!
 class Hero : public Character
 {
  public:
-    //! Default constructor.
-    Hero() = default;
-
-    //! Constructs hero with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs hero with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    Hero(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    Hero(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Hero();

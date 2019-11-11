@@ -13,13 +13,13 @@ ITask::ITask(EntityType entityType) : m_entityType(entityType)
     // Do nothing
 }
 
-ITask::ITask(Entity* source, Entity* target)
+ITask::ITask(Entity* source, Playable* target)
     : m_source(source), m_target(target)
 {
     // Do nothing
 }
 
-ITask::ITask(EntityType entityType, Entity* source, Entity* target)
+ITask::ITask(EntityType entityType, Entity* source, Playable* target)
     : m_entityType(entityType), m_source(source), m_target(target)
 {
     // Do nothing
@@ -40,14 +40,14 @@ void ITask::SetSource(Entity* source)
     m_source = source;
 }
 
-void ITask::SetTarget(Entity* target)
+void ITask::SetTarget(Playable* target)
 {
     m_target = target;
 }
 
 TaskStatus ITask::Run()
 {
-    return Impl(*m_player);
+    return Impl(m_player);
 }
 
 ITask* ITask::Clone()

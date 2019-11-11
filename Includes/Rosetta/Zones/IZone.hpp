@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-class Entity;
+class Playable;
 
 //!
 //! \brief IZone class.
@@ -27,12 +27,12 @@ class IZone
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
-    virtual void Add(Entity& entity, int zonePos = -1) = 0;
+    virtual void Add(Playable* entity, int zonePos = -1) = 0;
 
     //! Removes the specified entity from this zone.
     //! \param entity The entity.
     //! \return The entity.
-    virtual Entity& Remove(Entity& entity) = 0;
+    virtual Playable* Remove(Playable* entity) = 0;
 
     //! Returns the type of zone.
     ZoneType GetType() const

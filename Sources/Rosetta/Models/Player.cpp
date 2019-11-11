@@ -7,6 +7,12 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone
 {
@@ -42,9 +48,8 @@ void Player::RefCopy(const Player& rhs)
     mulliganState = rhs.mulliganState;
     choice = rhs.choice;
 
+    m_hero = rhs.m_hero;
     opponent = rhs.opponent;
-
-    currentSpellPower = rhs.currentSpellPower;
 
     m_deckZone = rhs.m_deckZone;
     m_fieldZone = rhs.m_fieldZone;
@@ -53,50 +58,38 @@ void Player::RefCopy(const Player& rhs)
     m_secretZone = rhs.m_secretZone;
     m_setasideZone = rhs.m_setasideZone;
 
-    m_hero = rhs.m_hero;
-    m_game = rhs.m_game;
-
     m_gameTags = rhs.m_gameTags;
+    currentSpellPower = rhs.currentSpellPower;
 }
 
-Game* Player::GetGame() const
+FieldZone* Player::GetFieldZone() const
 {
-    return m_game;
+    return m_fieldZone;
 }
 
-void Player::SetGame(Game* game)
+DeckZone* Player::GetDeckZone() const
 {
-    m_game = game;
+    return m_deckZone;
 }
 
-FieldZone& Player::GetFieldZone() const
+GraveyardZone* Player::GetGraveyardZone() const
 {
-    return *m_fieldZone;
+    return m_graveyardZone;
 }
 
-DeckZone& Player::GetDeckZone() const
+HandZone* Player::GetHandZone() const
 {
-    return *m_deckZone;
+    return m_handZone;
 }
 
-GraveyardZone& Player::GetGraveyardZone() const
+SecretZone* Player::GetSecretZone() const
 {
-    return *m_graveyardZone;
+    return m_secretZone;
 }
 
-HandZone& Player::GetHandZone() const
+SetasideZone* Player::GetSetasideZone() const
 {
-    return *m_handZone;
-}
-
-SecretZone& Player::GetSecretZone() const
-{
-    return *m_secretZone;
-}
-
-SetasideZone& Player::GetSetasideZone() const
-{
-    return *m_setasideZone;
+    return m_setasideZone;
 }
 
 Hero* Player::GetHero() const
@@ -207,8 +200,7 @@ void Player::SetNumMinionsPlayedThisTurn(int value)
 
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
-    m_hero = dynamic_cast<Hero*>(Entity::GetFromCard(*this, heroCard));
-    m_hero->heroPower =
-        dynamic_cast<HeroPower*>(Entity::GetFromCard(*this, powerCard));
+    m_hero = dynamic_cast<Hero*>(GetFromCard(this, heroCard));
+    m_hero->heroPower = dynamic_cast<HeroPower*>(GetFromCard(this, powerCard));
 }
 }  // namespace RosettaStone

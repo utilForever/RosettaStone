@@ -22,8 +22,10 @@ namespace RosettaStone
 class SpinLock
 {
  public:
+    //! Default constructor.
     SpinLock() = default;
 
+    //! Acquires ownership of the spinlock.
     void lock()
     {
         while (m_flag.test_and_set(std::memory_order_acquire))
@@ -32,6 +34,7 @@ class SpinLock
         }
     }
 
+    //! Releases ownership of the spinlock.
     void unlock()
     {
         m_flag.clear(std::memory_order_release);
@@ -42,7 +45,7 @@ class SpinLock
 };
 
 //!
-//! \brief SpinLock class.
+//! \brief SharedSpinLock class.
 //!
 //! This class is an simple implementation of shared spin lock.
 //! It is based on peter1591's hearthstone-ai repository.
@@ -51,11 +54,13 @@ class SpinLock
 class SharedSpinLock
 {
  public:
+    //! Default constructor.
     SharedSpinLock() : m_lock(), m_writer(false), m_readers(0)
     {
         // Do nothing
     }
 
+    //! Acquires ownership of the spinlock.
     void lock()
     {
         while (true)
@@ -72,6 +77,7 @@ class SharedSpinLock
         m_lock.unlock();
     }
 
+    //! Releases ownership of the spinlock.
     void unlock()
     {
         m_lock.lock();
@@ -79,6 +85,7 @@ class SharedSpinLock
         m_lock.unlock();
     }
 
+    //! Acquires shared ownership of the spinlock.
     void lock_shared()
     {
         while (true)
@@ -95,6 +102,7 @@ class SharedSpinLock
         m_lock.unlock();
     }
 
+    //! Releases shared ownership of the spinlock.
     void unlock_shared()
     {
         m_lock.lock();

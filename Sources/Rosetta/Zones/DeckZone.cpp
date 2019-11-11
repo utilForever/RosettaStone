@@ -13,25 +13,25 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone
 {
-DeckZone::DeckZone(Player* player) : LimitedZone(MAX_DECK_SIZE)
+DeckZone::DeckZone(Player* player) : LimitedZone(ZoneType::DECK, MAX_DECK_SIZE)
 {
-    m_owner = player;
-    m_type = ZoneType::DECK;
+    m_game = player->game;
+    m_player = player;
 }
 
-Entity* DeckZone::GetTopCard() const
+Playable* DeckZone::GetTopCard() const
 {
     return m_entities[m_count - 1];
 }
 
-void DeckZone::Add(Entity& entity, int zonePos)
+void DeckZone::Add(Playable* entity, int zonePos)
 {
     LimitedZone::Add(entity, zonePos);
 
-    if (entity.card->power.GetTrigger())
+    if (entity->card->power.GetTrigger())
     {
-        entity.card->power.GetTrigger()->Activate(&entity,
-                                                 TriggerActivation::DECK);
+        entity->card->power.GetTrigger()->Activate(entity,
+                                                   TriggerActivation::DECK);
     }
 }
 

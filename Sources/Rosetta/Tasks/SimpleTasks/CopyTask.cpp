@@ -23,9 +23,9 @@ CopyTask::CopyTask(EntityType entityType, ZoneType zoneType, int amount,
     // Do nothing
 }
 
-TaskStatus CopyTask::Impl(Player& player)
+TaskStatus CopyTask::Impl(Player* player)
 {
-    Player& owner = (m_toOpponent) ? *player.opponent : player;
+    Player* owner = m_toOpponent ? player->opponent : player;
     IZone* targetZone = Generic::GetZone(owner, m_zoneType);
 
     if (targetZone == nullptr || targetZone->IsFull())
@@ -33,18 +33,18 @@ TaskStatus CopyTask::Impl(Player& player)
         return TaskStatus::STOP;
     }
 
-    std::vector<Entity*> result;
+    std::vector<Playable*> result;
 
     if (m_entityType == EntityType::STACK)
     {
-        if (player.GetGame()->taskStack.entities.empty())
+        if (player->game->taskStack.playables.empty())
         {
             return TaskStatus::STOP;
         }
 
-        for (auto& entity : player.GetGame()->taskStack.entities)
+        for (auto& entity : player->game->taskStack.playables)
         {
-            Entity* copied = Generic::Copy(owner, entity, m_zoneType);
+            Playable* copied = Generic::Copy(owner, entity, m_zoneType);
 
             if (m_addToStack)
             {
@@ -55,7 +55,7 @@ TaskStatus CopyTask::Impl(Player& player)
             {
                 if (m_addToStack)
                 {
-                    player.GetGame()->taskStack.entities = result;
+                    player->game->taskStack.playables = result;
                 }
 
                 return TaskStatus::COMPLETE;
@@ -64,14 +64,14 @@ TaskStatus CopyTask::Impl(Player& player)
     }
     else
     {
-        Entity* toBeCopied;
+        Playable* toBeCopied;
         bool deathrattle = false;
 
         switch (m_entityType)
         {
             case EntityType::SOURCE:
             {
-                toBeCopied = m_source;
+                toBeCopied = dynamic_cast<Playable*>(m_source);
 
                 auto enchantment = dynamic_cast<Enchantment*>(m_target);
                 deathrattle =
@@ -97,7 +97,7 @@ TaskStatus CopyTask::Impl(Player& player)
 
         for (int i = 0; i < m_amount; ++i)
         {
-            Entity* copied =
+            Playable* copied =
                 Generic::Copy(owner, toBeCopied, m_zoneType, deathrattle);
 
             if (m_addToStack)
@@ -109,7 +109,7 @@ TaskStatus CopyTask::Impl(Player& player)
             {
                 if (m_addToStack)
                 {
-                    player.GetGame()->taskStack.entities = result;
+                    player->game->taskStack.playables = result;
                 }
 
                 return TaskStatus::COMPLETE;
@@ -119,7 +119,7 @@ TaskStatus CopyTask::Impl(Player& player)
 
     if (m_addToStack)
     {
-        player.GetGame()->taskStack.entities = result;
+        player->game->taskStack.playables = result;
     }
 
     return TaskStatus::COMPLETE;

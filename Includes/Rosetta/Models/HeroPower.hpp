@@ -7,26 +7,23 @@
 #ifndef ROSETTASTONE_HERO_POWER_HPP
 #define ROSETTASTONE_HERO_POWER_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
 //!
 //! \brief HeroPower class.
 //!
-//! This class inherits from Entity structure.
+//! This class inherits from Playable class.
 //!
-class HeroPower : public Entity
+class HeroPower : public Playable
 {
  public:
-    //! Default constructor.
-    HeroPower() = default;
-
-    //! Constructs hero power with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs hero power with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    HeroPower(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    HeroPower(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~HeroPower() = default;

@@ -9,6 +9,8 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayerTasks;
@@ -26,18 +28,18 @@ TEST(SecretZone, Exist)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
-    Entity* entity1 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Snipe"), std::nullopt,
-        &curPlayer.GetSecretZone());
-    curPlayer.GetSecretZone().Add(*entity1);
+    Playable* playable1 =
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Snipe"),
+                            std::nullopt, curPlayer->GetSecretZone());
+    curPlayer->GetSecretZone()->Add(playable1);
 
-    Entity* entity2 = Entity::GetFromCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Counterspell"),
-        std::nullopt, &curPlayer.GetHandZone());
-    curPlayer.GetHandZone().Add(*entity2);
+    Playable* playable2 =
+        Entity::GetFromCard(curPlayer, Cards::FindCardByName("Counterspell"),
+                            std::nullopt, curPlayer->GetHandZone());
+    curPlayer->GetHandZone()->Add(playable2);
 
-    EXPECT_EQ(curPlayer.GetSecretZone().Exist(*entity1), true);
-    EXPECT_EQ(curPlayer.GetSecretZone().Exist(*entity2), false);
+    EXPECT_EQ(curPlayer->GetSecretZone()->Exist(playable1), true);
+    EXPECT_EQ(curPlayer->GetSecretZone()->Exist(playable2), false);
 }

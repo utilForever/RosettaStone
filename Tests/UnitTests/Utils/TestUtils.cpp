@@ -8,7 +8,10 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 
 namespace TestUtils
 {
@@ -47,31 +50,31 @@ Card GenerateEnchantmentCard(std::string&& id)
     return card;
 }
 
-void PlayMinionCard(Player& player, Card* card)
+void PlayMinionCard(Player* player, Card* card)
 {
-    FieldZone& fieldZone = player.GetFieldZone();
+    FieldZone& fieldZone = *(player->GetFieldZone());
     const std::map<GameTag, int> tags;
 
     const auto minion = new Minion(player, card, tags);
-    fieldZone.Add(*minion);
-    fieldZone[minion->GetZonePosition()]->owner = &player;
+    fieldZone.Add(minion);
+    fieldZone[minion->GetZonePosition()]->player = player;
 }
 
-void PlayWeaponCard(Player& player, Card* card)
+void PlayWeaponCard(Player* player, Card* card)
 {
     const std::map<GameTag, int> tags;
 
     const auto weapon = new Weapon(player, card, tags);
-    player.GetHero()->AddWeapon(*weapon);
+    player->GetHero()->AddWeapon(*weapon);
 }
 
-void PlayEnchantmentCard(Player& player, Card* card, Entity* target)
+void PlayEnchantmentCard(Player* player, Card* card, Entity* target)
 {
-    GraveyardZone& graveyardZone = player.GetGraveyardZone();
+    GraveyardZone& graveyardZone = *(player->GetGraveyardZone());
     const std::map<GameTag, int> tags;
 
     const auto enchantment = new Enchantment(player, card, tags, target);
-    graveyardZone.Add(*enchantment);
+    graveyardZone.Add(enchantment);
 }
 
 void ExpectCardEqual(const Card& card1, const Card& card2)

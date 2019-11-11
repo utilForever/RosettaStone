@@ -7,13 +7,14 @@
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 
 #include <utility>
 
 namespace RosettaStone
 {
-Hero::Hero(Player& _owner, Card* _card, std::map<GameTag, int> tags)
-    : Character(_owner, _card, std::move(tags))
+Hero::Hero(Player* player, Card* card, std::map<GameTag, int> tags)
+    : Character(player, card, std::move(tags))
 {
     // Do nothing
 }
@@ -45,7 +46,7 @@ void Hero::AddWeapon(Weapon& _weapon)
     RemoveWeapon();
 
     weapon = &_weapon;
-    weapon->orderOfPlay = owner->GetGame()->GetNextOOP();
+    weapon->orderOfPlay = game->GetNextOOP();
     weapon->SetZoneType(ZoneType::PLAY);
     weapon->SetZonePosition(0);
 
@@ -63,7 +64,9 @@ void Hero::RemoveWeapon()
         return;
     }
 
-    owner->GetGraveyardZone().Add(*weapon);
+    game->triggerManager.OnDeathTrigger(player, weapon);
+
+    player->GetGraveyardZone()->Add(weapon);
 
     weapon = nullptr;
 }

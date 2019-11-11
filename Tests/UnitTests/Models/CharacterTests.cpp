@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Character.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 using namespace RosettaStone;
 using namespace TestUtils;
@@ -26,9 +26,9 @@ TEST(Character, Health)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     PlayMinionCard(curPlayer, &card1);
@@ -58,9 +58,9 @@ TEST(Character, MaxHealth)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     PlayMinionCard(curPlayer, &card1);
@@ -87,9 +87,9 @@ TEST(Character, SpellPower)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
+    Player* curPlayer = game.GetCurrentPlayer();
 
-    auto& curField = curPlayer.GetFieldZone();
+    auto& curField = *(curPlayer->GetFieldZone());
 
     auto card1 = GenerateMinionCard("minion1", 3, 6);
     PlayMinionCard(curPlayer, &card1);

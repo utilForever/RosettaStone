@@ -5,21 +5,24 @@
 
 #include <Rosetta/Actions/Choose.hpp>
 #include <Rosetta/Actions/Generic.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <algorithm>
 
 namespace RosettaStone::Generic
 {
-void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
+void ChoiceMulligan(Player* player, const std::vector<std::size_t>& choices)
 {
     // Block it if player tries to mulligan in a non-mulligan choice
-    if (player.choice.value().choiceType != ChoiceType::MULLIGAN)
+    if (player->choice.value().choiceType != ChoiceType::MULLIGAN)
     {
         return;
     }
 
     // Block it if player tries to mulligan a card that doesn't exist
-    Choice& choice = player.choice.value();
+    Choice& choice = player->choice.value();
     for (const auto chooseID : choices)
     {
         if (std::find(choice.choices.begin(), choice.choices.end(), chooseID) ==
@@ -35,14 +38,14 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
         case ChoiceAction::HAND:
         {
             // Process mulligan state
-            player.mulliganState = Mulligan::DEALING;
+            player->mulliganState = Mulligan::DEALING;
 
-            auto& hand = player.GetHandZone();
-            auto& deck = player.GetDeckZone();
+            auto hand = player->GetHandZone();
+            auto deck = player->GetDeckZone();
 
             // Collect cards to redraw
-            std::vector<Entity*> mulliganList;
-            for (const auto entity : hand.GetAll())
+            std::vector<Playable*> mulliganList;
+            for (const auto entity : hand->GetAll())
             {
                 const bool isExist = std::find(choices.begin(), choices.end(),
                                                entity->id) == choices.end();
@@ -55,17 +58,17 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
             // Process redraw
             for (const auto& entity : mulliganList)
             {
-                Entity& newCard = deck.Remove(*deck.GetTopCard());
-                AddCardToHand(player, &newCard);
-                hand.Swap(*entity, newCard);
+                Playable* playable = deck->Remove(deck->GetTopCard());
+                AddCardToHand(player, playable);
+                hand->Swap(entity, playable);
 
-                hand.Remove(*entity);
-                deck.Add(*entity);
-                deck.Shuffle();
+                hand->Remove(entity);
+                deck->Add(entity);
+                deck->Shuffle();
             }
 
             // It's done! - Reset choice
-            player.choice = std::nullopt;
+            player->choice = std::nullopt;
 
             break;
         }
@@ -75,37 +78,38 @@ void ChoiceMulligan(Player& player, const std::vector<std::size_t>& choices)
     }
 }
 
-bool ChoicePick(Player& player, std::size_t choice)
+bool ChoicePick(Player* player, std::size_t choice)
 {
+    Choice choiceVal = player->choice.value();
+
     // Block it if player tries to pick in a non-general choice
-    if (player.choice.value().choiceType != ChoiceType::GENERAL)
+    if (choiceVal.choiceType != ChoiceType::GENERAL)
     {
         return false;
     }
 
     // Block it if player tries to pick a card that doesn't exist
-    if (std::find(player.choice.value().choices.begin(),
-                  player.choice.value().choices.end(),
-                  choice) == player.choice.value().choices.end())
+    if (std::find(choiceVal.choices.begin(), choiceVal.choices.end(), choice) ==
+        choiceVal.choices.end())
     {
         return false;
     }
 
     // Get picked card using entity ID
-    Entity* entity = player.GetSetasideZone().GetEntity(choice);
+    Playable* playable = player->GetSetasideZone()->GetEntity(choice);
     // Block it if player tries to pick a card that doesn't exist
-    if (entity == nullptr)
+    if (playable == nullptr)
     {
         return false;
     }
 
     // Process pick by choice action
-    switch (player.choice.value().choiceAction)
+    switch (choiceVal.choiceAction)
     {
         case ChoiceAction::HAND:
         {
-            player.GetSetasideZone().Remove(*entity);
-            AddCardToHand(player, entity);
+            player->GetSetasideZone()->Remove(playable);
+            AddCardToHand(player, playable);
             break;
         }
         default:
@@ -116,11 +120,11 @@ bool ChoicePick(Player& player, std::size_t choice)
     return true;
 }
 
-void CreateChoice(Player& player, ChoiceType type, ChoiceAction action,
+void CreateChoice(Player* player, ChoiceType type, ChoiceAction action,
                   const std::vector<std::size_t>& choices)
 {
     // Block it if choice is exist
-    if (player.choice != std::nullopt)
+    if (player->choice != std::nullopt)
     {
         return;
     }
@@ -130,6 +134,7 @@ void CreateChoice(Player& player, ChoiceType type, ChoiceAction action,
     choice.choiceType = type;
     choice.choiceAction = action;
     choice.choices = choices;
-    player.choice = choice;
+
+    player->choice = choice;
 }
 }  // namespace RosettaStone::Generic

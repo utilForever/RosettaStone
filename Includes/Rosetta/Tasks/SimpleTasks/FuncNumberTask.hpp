@@ -22,19 +22,19 @@ class FuncNumberTask : public ITask
  public:
     //! Constructs task with given \p func.
     //! \param func The function to execute.
-    explicit FuncNumberTask(std::function<void(Entity*)> func);
+    explicit FuncNumberTask(std::function<void(Playable*)> func);
 
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    TaskStatus Impl(Player& player) override;
+    TaskStatus Impl(Player* player) override;
 
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
-    std::function<void(Entity*)> m_func;
+    std::function<void(Playable*)> m_func;
 };
 }  // namespace RosettaStone::SimpleTasks
 

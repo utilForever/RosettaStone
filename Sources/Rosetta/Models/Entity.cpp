@@ -7,29 +7,29 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Spell.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 #include <utility>
 
 namespace RosettaStone
 {
-Entity::Entity(Player& _owner, Card* _card, std::map<GameTag, int> tags)
-    : owner(&_owner), card(_card), m_gameTags(std::move(tags))
+Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags)
+    : game(_game), card(_card), m_gameTags(std::move(_tags))
 {
     for (auto& gameTag : _card->gameTags)
     {
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
 
-    id = tags[GameTag::ENTITY_ID];
-    auraEffects = new AuraEffects(this);
+    id = _tags[GameTag::ENTITY_ID];
 }
 
 Entity::~Entity()
 {
     delete auraEffects;
-    delete onGoingEffect;
 
     m_gameTags.clear();
 }
@@ -78,85 +78,6 @@ void Entity::SetGameTag(GameTag tag, int value)
     m_gameTags.insert_or_assign(tag, value);
 }
 
-ZoneType Entity::GetZoneType() const
-{
-    return static_cast<ZoneType>(GetGameTag(GameTag::ZONE));
-}
-
-void Entity::SetZoneType(ZoneType type)
-{
-    SetGameTag(GameTag::ZONE, static_cast<int>(type));
-}
-
-int Entity::GetZonePosition() const
-{
-    return GetGameTag(GameTag::ZONE_POSITION) - 1;
-}
-
-void Entity::SetZonePosition(int value)
-{
-    SetGameTag(GameTag::ZONE_POSITION, value + 1);
-}
-
-int Entity::GetCost() const
-{
-    return GetGameTag(GameTag::COST);
-}
-
-void Entity::SetCost(int cost)
-{
-    SetGameTag(GameTag::COST, cost);
-}
-
-bool Entity::IsExhausted() const
-{
-    // Consider windfury
-    if (GetGameTag(GameTag::WINDFURY) == 1 &&
-        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 1)
-    {
-        return false;
-    }
-
-    // Consider charge
-    if (GetGameTag(GameTag::CHARGE) == 1 &&
-        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 0)
-    {
-        return false;
-    }
-
-    return GetGameTag(GameTag::EXHAUSTED) == 1;
-}
-
-void Entity::SetExhausted(bool exhausted)
-{
-    SetGameTag(GameTag::EXHAUSTED, static_cast<int>(exhausted));
-}
-
-bool Entity::HasCombo() const
-{
-    return GetGameTag(GameTag::COMBO) == 1;
-}
-
-bool Entity::HasOverload() const
-{
-    return GetGameTag(GameTag::OVERLOAD) > 0;
-}
-
-int Entity::GetOverload() const
-{
-    return GetGameTag(GameTag::OVERLOAD);
-}
-
-bool Entity::HasDeathrattle() const
-{
-    return GetGameTag(GameTag::DEATHRATTLE) == 1;
-}
-
-bool Entity::HasChooseOne() const
-{
-    return GetGameTag(GameTag::CHOOSE_ONE) == 1;
-}
-
 void Entity::Reset()
 {
     m_gameTags.erase(GameTag::DAMAGE);
@@ -173,58 +94,9 @@ void Entity::Reset()
     m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
 }
 
-void Entity::Destroy()
-{
-    isDestroyed = true;
-}
-
-void Entity::ActivateTask(PowerType type, Entity* target, int chooseOne,
-                          Entity* chooseBase)
-{
-    if (HasChooseOne())
-    {
-        if (chooseOne > 0)
-        {
-            chooseOneCard[chooseOne - 1]->ActivateTask(type, target, chooseOne,
-                                                       this);
-            return;
-        }
-    }
-
-    std::vector<ITask*> tasks;
-    switch (type)
-    {
-        case PowerType::POWER:
-            tasks = card->power.GetPowerTask();
-            break;
-        case PowerType::DEATHRATTLE:
-            tasks = card->power.GetDeathrattleTask();
-            break;
-        case PowerType::COMBO:
-            tasks = card->power.GetComboTask();
-            break;
-    }
-
-    if (tasks.empty() || tasks[0] == nullptr)
-    {
-        return;
-    }
-
-    for (auto& task : tasks)
-    {
-        ITask* clonedTask = task->Clone();
-
-        clonedTask->SetPlayer(owner);
-        clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
-        clonedTask->SetTarget(target);
-
-        owner->GetGame()->taskQueue.Enqueue(clonedTask);
-    }
-}
-
-Entity* Entity::GetFromCard(Player& player, Card* card,
-                            std::optional<std::map<GameTag, int>> cardTags,
-                            IZone* zone, int id)
+Playable* Entity::GetFromCard(Player* player, Card* card,
+                              std::optional<std::map<GameTag, int>> cardTags,
+                              IZone* zone, int id)
 {
     std::map<GameTag, int> tags;
     if (cardTags.has_value())
@@ -232,12 +104,12 @@ Entity* Entity::GetFromCard(Player& player, Card* card,
         tags = cardTags.value();
     }
 
-    tags[GameTag::ENTITY_ID] = id > 0 ? id : player.GetGame()->GetNextID();
-    tags[GameTag::CONTROLLER] = player.playerID;
+    tags[GameTag::ENTITY_ID] = id > 0 ? id : player->game->GetNextID();
+    tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] =
         zone != nullptr ? static_cast<int>(zone->GetType()) : 0;
 
-    Entity* result;
+    Playable* result;
 
     switch (card->GetCardType())
     {
@@ -269,10 +141,10 @@ Entity* Entity::GetFromCard(Player& player, Card* card,
 
         result->chooseOneCard[0] =
             GetFromCard(player, Cards::FindCardByID(result->card->id + "a"),
-                        std::nullopt, &player.GetSetasideZone());
+                        std::nullopt, player->GetSetasideZone());
         result->chooseOneCard[1] =
             GetFromCard(player, Cards::FindCardByID(result->card->id + "b"),
-                        std::nullopt, &player.GetSetasideZone());
+                        std::nullopt, player->GetSetasideZone());
     }
 
     return result;

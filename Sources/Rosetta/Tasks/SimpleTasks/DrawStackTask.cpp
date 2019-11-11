@@ -14,15 +14,15 @@ DrawStackTask::DrawStackTask(std::size_t amount) : m_amount(amount)
     // Do nothing
 }
 
-TaskStatus DrawStackTask::Impl(Player& player)
+TaskStatus DrawStackTask::Impl(Player* player)
 {
-    auto& stack = player.GetGame()->taskStack.entities;
+    auto& stack = player->game->taskStack.playables;
     const std::size_t amount =
         (m_amount <= stack.size()) ? m_amount : stack.size();
 
     for (std::size_t i = 0; i < amount; ++i)
     {
-        Entity* card = stack.at(i);
+        Playable* card = stack.at(i);
         Generic::Draw(player, card);
     }
 

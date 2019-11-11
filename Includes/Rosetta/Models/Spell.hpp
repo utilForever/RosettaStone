@@ -7,26 +7,23 @@
 #ifndef ROSETTASTONE_SPELL_HPP
 #define ROSETTASTONE_SPELL_HPP
 
-#include <Rosetta/Models/Entity.hpp>
+#include <Rosetta/Models/Playable.hpp>
 
 namespace RosettaStone
 {
 //!
 //! \brief Spell class.
 //!
-//! This class inherits from Entity structure.
+//! This class inherits from Playable class.
 //!
-class Spell : public Entity
+class Spell : public Playable
 {
  public:
-    //! Default constructor.
-    Spell() = default;
-
-    //! Constructs spell with given \p _owner, \p _card and \p tags.
-    //! \param _owner The owner of the card.
-    //! \param _card The card.
+    //! Constructs spell with given \p player, \p card and \p tags.
+    //! \param player The owner of the card.
+    //! \param card The card.
     //! \param tags The game tags.
-    Spell(Player& _owner, Card* _card, std::map<GameTag, int> tags);
+    Spell(Player* player, Card* card, std::map<GameTag, int> tags);
 
     //! Default destructor.
     ~Spell() = default;
@@ -50,6 +47,13 @@ class Spell : public Entity
     //! Returns whether spell is countered.
     //! \return Whether spell is countered.
     bool IsCountered() const;
+
+    //! Gets a value indicating whether source entity is playable by player.
+    //! Dynamic requirements are checked, eg: If a spell costs health instead of
+    //! mana, this method will return false if the health cost would be higher
+    //! than the available health.
+    //! \return true if it is playable by player, false otherwise.
+    bool IsPlayableByPlayer() override;
 };
 }  // namespace RosettaStone
 

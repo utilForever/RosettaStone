@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-class Entity;
+class Playable;
 
 //!
 //! \brief RelaCondition class.
@@ -23,7 +23,7 @@ class RelaCondition
  public:
     //! Constructs task with given \p func.
     //! \param func The function to check condition.
-    explicit RelaCondition(std::function<bool(Entity*, Entity*)> func);
+    explicit RelaCondition(std::function<bool(Playable*, Playable*)> func);
 
     //! RelaCondition wrapper for checking the entity is friendly.
     //! \return Generated RelaCondition for intended purpose.
@@ -37,10 +37,10 @@ class RelaCondition
     //! \param owner The owner entity.
     //! \param affected The affected entity.
     //! \return true if the condition is satisfied, false otherwise.
-    bool Evaluate(Entity* owner, Entity* affected) const;
+    bool Evaluate(Playable* owner, Playable* affected) const;
 
  private:
-    std::function<bool(Entity*, Entity*)> m_func;
+    std::function<bool(Playable*, Playable*)> m_func;
 };
 }  // namespace RosettaStone
 

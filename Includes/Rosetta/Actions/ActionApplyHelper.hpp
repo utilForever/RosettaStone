@@ -11,9 +11,7 @@
 #define ROSETTASTONE_ACTION_APPLY_HELPER_HPP
 
 #include <Rosetta/Actions/ActionParams.hpp>
-#include <Rosetta/Models/Entity.hpp>
 
-#include <utility>
 #include <variant>
 #include <vector>
 
@@ -90,7 +88,7 @@ class ActionApplyHelper
     struct GetSpecifiedTargetInfo
     {
         explicit GetSpecifiedTargetInfo(const std::vector<Character*>& _targets)
-            : targets(std::move(_targets))
+            : targets(_targets)
         {
             // Do nothing
         }
@@ -106,7 +104,7 @@ class ActionApplyHelper
     struct ChooseOneInfo
     {
         explicit ChooseOneInfo(const std::vector<std::size_t>& _cards)
-            : cards(std::move(_cards))
+            : cards(_cards)
         {
             // Do nothing
         }
@@ -205,7 +203,7 @@ class ActionApplyHelper
 
         //! Returns a card in hand zone that is playable.
         //! \return A chosen card in hand zone that is playable.
-        Entity* ChooseHandCard() override;
+        Playable* ChooseHandCard() override;
 
         //! Returns a minion card in field zone that can attack.
         //! \return A chosen minion card in field zone that can attack.

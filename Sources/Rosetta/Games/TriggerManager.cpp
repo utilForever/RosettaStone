@@ -32,6 +32,14 @@ void TriggerManager::OnPlayCardTrigger(Player* player, Entity* sender) const
     }
 }
 
+void TriggerManager::OnPlayMinionTrigger(Player* player, Entity* sender) const
+{
+    if (playMinionTrigger != nullptr)
+    {
+        playMinionTrigger(player, sender);
+    }
+}
+
 void TriggerManager::OnAfterPlayMinionTrigger(Player* player,
                                               Entity* sender) const
 {
@@ -110,6 +118,14 @@ void TriggerManager::OnTargetTrigger(Player* player, Entity* sender) const
     if (targetTrigger != nullptr)
     {
         targetTrigger(player, sender);
+    }
+}
+
+void TriggerManager::OnDeathTrigger(Player* player, Entity* sender) const
+{
+    if (deathTrigger != nullptr)
+    {
+        deathTrigger(player, sender);
     }
 }
 }  // namespace RosettaStone

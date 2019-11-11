@@ -6,13 +6,14 @@
 #include <Rosetta/Actions/CastSpell.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Player.hpp>
-#include <Rosetta/Tasks/ITask.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 namespace RosettaStone::Generic
 {
-void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
+void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
 {
-    player.GetGame()->taskQueue.StartEvent();
+    player->game->taskQueue.StartEvent();
 
     if (spell->IsSecret())
     {
@@ -22,7 +23,7 @@ void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
             spell->card->power.GetTrigger()->Activate(spell);
         }
 
-        player.GetSecretZone().Add(*spell);
+        player->GetSecretZone()->Add(spell);
         spell->SetExhausted(true);
     }
     else
@@ -40,7 +41,7 @@ void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
         }
 
         // Process power or combo tasks
-        if (spell->HasCombo() && player.IsComboActive())
+        if (spell->HasCombo() && player->IsComboActive())
         {
             spell->ActivateTask(PowerType::COMBO, target);
         }
@@ -49,10 +50,10 @@ void CastSpell(Player& player, Spell* spell, Character* target, int chooseOne)
             spell->ActivateTask(PowerType::POWER, target, chooseOne);
         }
 
-        player.GetGraveyardZone().Add(*spell);
+        player->GetGraveyardZone()->Add(spell);
     }
 
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone::Generic

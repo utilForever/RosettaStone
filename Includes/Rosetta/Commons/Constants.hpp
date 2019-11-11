@@ -51,15 +51,6 @@ constexpr int MAX_HAND_SIZE = 10;
 //! The maximum number of secrets in secret zone.
 constexpr int MAX_SECERT_SIZE = 5;
 
-//! Enumeration that represents the player.
-enum class PlayerType
-{
-    INVALID,  //!< The invalid player.
-    RANDOM,   //!< The random player.
-    PLAYER1,  //!< The first player.
-    PLAYER2,  //!< The second player.
-};
-
 //! The number of menus in main phase.
 //! \note We will refactor it soon.
 constexpr int GAME_MAIN_MENU_SIZE = 3;

@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
 
@@ -13,14 +14,14 @@ SilenceTask::SilenceTask(EntityType entityType) : ITask(entityType)
     // Do nothing
 }
 
-TaskStatus SilenceTask::Impl(Player& player)
+TaskStatus SilenceTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        auto minion = dynamic_cast<Minion*>(entity);
+        auto minion = dynamic_cast<Minion*>(playable);
         if (!minion)
         {
             continue;

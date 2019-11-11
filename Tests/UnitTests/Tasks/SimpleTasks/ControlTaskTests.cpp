@@ -9,6 +9,7 @@
 
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 using namespace RosettaStone;
 using namespace SimpleTasks;
@@ -20,11 +21,11 @@ TEST(ControlTask, Run)
     config.startPlayer = PlayerType::PLAYER1;
     Game game(config);
 
-    Player& player1 = game.GetPlayer1();
-    Player& player2 = game.GetPlayer2();
+    Player* player1 = game.GetPlayer1();
+    Player* player2 = game.GetPlayer2();
 
-    auto& player1Field = player1.GetFieldZone();
-    auto& player2Field = player2.GetFieldZone();
+    auto& player1Field = *(player1->GetFieldZone());
+    auto& player2Field = *(player2->GetFieldZone());
 
     std::vector<Card> player1Cards, player2Cards;
     player1Cards.reserve(6);
@@ -43,7 +44,7 @@ TEST(ControlTask, Run)
     }
 
     ControlTask control(EntityType::TARGET);
-    control.SetPlayer(&player1);
+    control.SetPlayer(player1);
     control.SetTarget(player2Field[0]);
     TaskStatus result = control.Run();
 
@@ -55,7 +56,7 @@ TEST(ControlTask, Run)
     EXPECT_EQ(player1Field[6]->GetAttack(), 1);
     EXPECT_EQ(player1Field[6]->GetHealth(), 1);
 
-    control.SetPlayer(&player1);
+    control.SetPlayer(player1);
     control.SetTarget(player2Field[1]);
     result = control.Run();
 

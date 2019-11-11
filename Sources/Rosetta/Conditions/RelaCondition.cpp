@@ -10,7 +10,7 @@
 
 namespace RosettaStone
 {
-RelaCondition::RelaCondition(std::function<bool(Entity*, Entity*)> func)
+RelaCondition::RelaCondition(std::function<bool(Playable*, Playable*)> func)
     : m_func(std::move(func))
 {
     // Do nothing
@@ -18,20 +18,20 @@ RelaCondition::RelaCondition(std::function<bool(Entity*, Entity*)> func)
 
 RelaCondition RelaCondition::IsFriendly()
 {
-    return RelaCondition([=](Entity* me, Entity* other) -> bool {
-        return me->owner == other->owner;
+    return RelaCondition([=](Playable* me, Playable* other) -> bool {
+        return me->player == other->player;
     });
 }
 
 RelaCondition RelaCondition::IsSideBySide()
 {
-    return RelaCondition([=](Entity* me, Entity* other) -> bool {
+    return RelaCondition([=](Playable* me, Playable* other) -> bool {
         return me->GetZoneType() == other->GetZoneType() &&
                std::abs(me->GetZonePosition() - other->GetZonePosition()) == 1;
     });
 }
 
-bool RelaCondition::Evaluate(Entity* owner, Entity* affected) const
+bool RelaCondition::Evaluate(Playable* owner, Playable* affected) const
 {
     return m_func(owner, affected);
 }

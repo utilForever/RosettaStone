@@ -9,12 +9,12 @@
 namespace RosettaStone
 {
 SetasideZone::SetasideZone(Player* player)
+    : UnlimitedZone(player, ZoneType::SETASIDE)
 {
-    m_owner = player;
-    m_type = ZoneType::SETASIDE;
+    // Do nothing
 }
 
-Entity* SetasideZone::GetEntity(int id)
+Playable* SetasideZone::GetEntity(int id)
 {
     for (auto& entity : m_entities)
     {

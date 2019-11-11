@@ -8,7 +8,7 @@
 
 namespace RosettaStone
 {
-Aura* Power::GetAura()
+IAura* Power::GetAura()
 {
     return m_aura;
 }
@@ -48,7 +48,7 @@ void Power::ClearData()
     m_comboTask.clear();
 }
 
-void Power::AddAura(Aura* aura)
+void Power::AddAura(IAura* aura)
 {
     m_aura = aura;
 }

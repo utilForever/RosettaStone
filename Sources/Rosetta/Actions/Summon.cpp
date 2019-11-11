@@ -5,21 +5,22 @@
 
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Games/Game.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
 
 namespace RosettaStone::Generic
 {
-void Summon(Player& player, Minion* minion, int fieldPos)
+void Summon(Player* player, Minion* minion, int fieldPos)
 {
-    player.GetFieldZone().Add(*minion, fieldPos);
+    player->GetFieldZone()->Add(minion, fieldPos);
 
-    player.GetGame()->UpdateAura();
+    player->game->UpdateAura();
 
-    player.GetGame()->summonedMinions.emplace_back(minion);
+    player->game->summonedMinions.emplace_back(minion);
 
     // Process after summon trigger
-    player.GetGame()->taskQueue.StartEvent();
-    player.GetGame()->triggerManager.OnAfterSummonTrigger(&player, minion);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnAfterSummonTrigger(player, minion);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 }
 }  // namespace RosettaStone::Generic

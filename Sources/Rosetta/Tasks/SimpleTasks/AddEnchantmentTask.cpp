@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
@@ -12,50 +13,45 @@
 namespace RosettaStone::SimpleTasks
 {
 AddEnchantmentTask::AddEnchantmentTask(const std::string& cardID,
-                                       EntityType entityType)
-    : ITask(entityType), m_cardID(cardID)
+                                       EntityType entityType, bool useScriptTag)
+    : ITask(entityType),
+      m_enchantmentCard(Cards::FindCardByID(cardID)),
+      m_useScriptTag(useScriptTag)
 {
     // Do nothing
 }
 
-TaskStatus AddEnchantmentTask::Impl(Player& player)
+TaskStatus AddEnchantmentTask::Impl(Player* player)
 {
-    Card* enchantmentCard = Cards::FindCardByID(m_cardID);
-    if (enchantmentCard->id.empty())
+    int num1 = 0, num2 = 0;
+    if (m_useScriptTag)
     {
-        return TaskStatus::STOP;
+        num1 = m_source->game->taskStack.num;
+        num2 = m_source->game->taskStack.num1;
     }
 
-    auto entities =
-        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    Power power = enchantmentCard->power;
+    const auto source = dynamic_cast<Playable*>(m_source);
 
-    for (auto& entity : entities)
+    if (m_entityType == EntityType::PLAYER)
     {
-        const auto enchantment =
-            Enchantment::GetInstance(player, enchantmentCard, entity);
+        Generic::AddEnchantment(m_enchantmentCard, source, player, num1, num2);
+        return TaskStatus::COMPLETE;
+    }
 
-        if (power.GetAura())
-        {
-            power.GetAura()->Activate(enchantment);
-        }
+    if (m_entityType == EntityType::ENEMY_PLAYER)
+    {
+        Generic::AddEnchantment(m_enchantmentCard, source, player->opponent,
+                                num1, num2);
+        return TaskStatus::COMPLETE;
+    }
 
-        if (power.GetTrigger())
-        {
-            power.GetTrigger()->Activate(enchantment);
-        }
+    auto playables =
+        IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-        if (power.GetEnchant())
-        {
-            const auto& taskStack = player.GetGame()->taskStack;
-            power.GetEnchant()->ActivateTo(entity, taskStack.num,
-                                           taskStack.num1);
-        }
-
-        if (!power.GetDeathrattleTask().empty())
-        {
-            entity->SetGameTag(GameTag::DEATHRATTLE, 1);
-        }
+    for (auto& playable : playables)
+    {
+        Generic::AddEnchantment(m_enchantmentCard, source, playable, num1,
+                                num2);
     }
 
     return TaskStatus::COMPLETE;
@@ -63,6 +59,7 @@ TaskStatus AddEnchantmentTask::Impl(Player& player)
 
 ITask* AddEnchantmentTask::CloneImpl()
 {
-    return new AddEnchantmentTask(m_cardID, m_entityType);
+    return new AddEnchantmentTask(m_enchantmentCard->id, m_entityType,
+                                  m_useScriptTag);
 }
 }  // namespace RosettaStone::SimpleTasks

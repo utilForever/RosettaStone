@@ -61,7 +61,7 @@ RosettaStone::PlayerType PlayerController::Player::GetPlayerType() const
 
 PlayerController::Player PlayerController::GetPlayer() const
 {
-    return Player(m_game->GetCurrentPlayer().playerType);
+    return Player(m_game->GetCurrentPlayer()->playerType);
 }
 
 RosettaStone::Board PlayerController::GetPlayerBoard(Player player) const

@@ -7,11 +7,10 @@
 #ifndef ROSETTASTONE_POWER_HPP
 #define ROSETTASTONE_POWER_HPP
 
-#include <Rosetta/Enchants/Aura.hpp>
+#include <Rosetta/Auras/Aura.hpp>
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
 
-#include <optional>
 #include <vector>
 
 namespace RosettaStone
@@ -29,7 +28,7 @@ class Power
 {
  public:
     //! Returns aura.
-    Aura* GetAura();
+    IAura* GetAura();
 
     //! Returns enchant.
     //! \return A reference to enchant.
@@ -56,7 +55,7 @@ class Power
 
     //! Adds aura.
     //! \param aura An aura to add.
-    void AddAura(Aura* aura);
+    void AddAura(IAura* aura);
 
     //! Adds enchant.
     //! \param enchant An enchant to add.
@@ -79,7 +78,7 @@ class Power
     void AddComboTask(ITask* task);
 
  private:
-    Aura* m_aura = nullptr;
+    IAura* m_aura = nullptr;
     Enchant* m_enchant = nullptr;
     Trigger* m_trigger = nullptr;
 

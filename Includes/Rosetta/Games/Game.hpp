@@ -10,6 +10,7 @@
 #include <Rosetta/Games/GameConfig.hpp>
 #include <Rosetta/Games/TriggerManager.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Tasks/EventMetaData.hpp>
 #include <Rosetta/Tasks/TaskQueue.hpp>
 #include <Rosetta/Tasks/TaskStack.hpp>
 #include <Rosetta/Views/ReducedBoardView.hpp>
@@ -60,27 +61,27 @@ class Game
 
     //! Returns the first player.
     //! \return The first player.
-    Player& GetPlayer1();
+    Player* GetPlayer1();
 
     //! Returns the first player.
     //! \return The first player.
-    const Player& GetPlayer1() const;
+    const Player* GetPlayer1() const;
 
     //! Returns the second player.
     //! \return The second player.
-    Player& GetPlayer2();
+    Player* GetPlayer2();
 
     //! Returns the second player.
     //! \return The second player.
-    const Player& GetPlayer2() const;
+    const Player* GetPlayer2() const;
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
-    Player& GetCurrentPlayer();
+    Player* GetCurrentPlayer();
 
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
-    const Player& GetCurrentPlayer() const;
+    const Player* GetCurrentPlayer() const;
 
     //! Sets the player controlling the current turn.
     //! \param type The player type controlling the current turn.
@@ -88,11 +89,11 @@ class Game
 
     //! Returns the opponent player.
     //! \return The opponent player.
-    Player& GetOpponentPlayer();
+    Player* GetOpponentPlayer();
 
     //! Returns the opponent player.
     //! \return The opponent player.
-    const Player& GetOpponentPlayer() const;
+    const Player* GetOpponentPlayer() const;
 
     //! Gets the turn of the game.
     //! \return The turn of the game.
@@ -176,12 +177,12 @@ class Game
     //! Process the specified task.
     //! \param player A player to run task.
     //! \param task The game task to execute.
-    PlayState Process(Player& player, ITask* task);
+    PlayState Process(Player* player, ITask* task);
 
     //! Process the specified task.
     //! \param player A player to run task.
     //! \param task The game task to execute.
-    PlayState Process(Player& player, ITask&& task);
+    PlayState Process(Player* player, ITask&& task);
 
     //! Process game until given step arriving.
     //! \param step The game step to process until arrival.
@@ -203,10 +204,12 @@ class Game
     TaskQueue taskQueue;
     TaskStack taskStack;
     TriggerManager triggerManager;
+    EventMetaData* currentEventData = nullptr;
 
     std::vector<IAura*> auras;
     std::vector<Trigger*> triggers;
-    std::vector<std::pair<Entity*, Effect*>> oneTurnEffects;
+    std::vector<std::pair<Entity*, IEffect*>> oneTurnEffects;
+    std::vector<Enchantment*> oneTurnEffectEchantments;
     std::vector<Minion*> summonedMinions;
     std::map<std::size_t, Minion*> deadMinions;
 

@@ -10,8 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_MCTS_TYPES_HPP
 #define ROSETTASTONE_TORCH_MCTS_TYPES_HPP
 
-#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Enums/CardEnums.hpp>
+#include <Rosetta/Enums/GameEnums.hpp>
 
 using namespace RosettaStone;
 

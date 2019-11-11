@@ -10,26 +10,35 @@
 
 namespace RosettaStone
 {
-HandZone::HandZone(Player* player) : PositioningZone(MAX_HAND_SIZE)
+HandZone::HandZone(Player* player) : PositioningZone(ZoneType::HAND, MAX_HAND_SIZE)
 {
-    m_owner = player;
-    m_type = ZoneType::HAND;
+    m_game = player->game;
+    m_player = player;
 }
 
-void HandZone::Add(Entity& entity, int zonePos)
+void HandZone::Add(Playable* entity, int zonePos)
 {
     PositioningZone::Add(entity, zonePos);
 
-    if (entity.card->power.GetTrigger())
+    if (const auto aura = entity->card->power.GetAura(); aura)
     {
-        entity.card->power.GetTrigger()->Activate(&entity,
-                                                 TriggerActivation::HAND);
+        if (auto effect = dynamic_cast<AdaptiveCostEffect*>(aura); effect)
+        {
+            effect->Activate(entity);
+        }
+    }
+
+    if (auto trigger = entity->card->power.GetTrigger(); trigger)
+    {
+        trigger->Activate(entity, TriggerActivation::HAND);
     }
 }
 
-Entity& HandZone::Remove(Entity& entity)
+Playable* HandZone::Remove(Playable* entity)
 {
-    for (auto* enchant : entity.appliedEnchantments)
+    entity->ResetCost();
+
+    for (auto* enchant : entity->appliedEnchantments)
     {
         if (enchant->activatedTrigger != nullptr)
         {
@@ -40,11 +49,11 @@ Entity& HandZone::Remove(Entity& entity)
     return PositioningZone::Remove(entity);
 }
 
-int HandZone::FindIndex(Entity& entity) const
+int HandZone::FindIndex(Entity* entity) const
 {
     for (std::size_t idx = 0; idx < MAX_HAND_SIZE; ++idx)
     {
-        if (m_entities[idx] == &entity)
+        if (m_entities[idx] == entity)
         {
             return idx;
         }

@@ -19,7 +19,7 @@ namespace RosettaStone::Generic
 //! \param target A target of the character to receive power.
 //! \param fieldPos A value indicating where to place card.
 //! \param chooseOne The index of chosen card from two cards.
-void PlayCard(Player& player, Entity* source, Character* target = nullptr,
+void PlayCard(Player* player, Playable* source, Character* target = nullptr,
               int fieldPos = -1, int chooseOne = 0);
 
 //! Plays a minion card from player's hand.
@@ -28,7 +28,7 @@ void PlayCard(Player& player, Entity* source, Character* target = nullptr,
 //! \param target A target of the character to receive power.
 //! \param fieldPos A value indicating where to place card.
 //! \param chooseOne The index of chosen card from two cards.
-void PlayMinion(Player& player, Minion* minion, Character* target = nullptr,
+void PlayMinion(Player* player, Minion* minion, Character* target = nullptr,
                 int fieldPos = -1, int chooseOne = 0);
 
 //! Plays a spell card from player's hand.
@@ -36,39 +36,14 @@ void PlayMinion(Player& player, Minion* minion, Character* target = nullptr,
 //! \param spell A pointer to spell card to play.
 //! \param target A target of the character to receive power.
 //! \param chooseOne The index of chosen card from two cards.
-void PlaySpell(Player& player, Spell* spell, Character* target = nullptr,
+void PlaySpell(Player* player, Spell* spell, Character* target = nullptr,
                int chooseOne = 0);
 
 //! Plays a weapon card from player's hand.
 //! \param player The player to play weapon card.
 //! \param weapon A pointer to weapon card to play.
 //! \param target A target of the character to receive power.
-void PlayWeapon(Player& player, Weapon* weapon, Character* target = nullptr);
-
-//! Gets a value indicating whether source entity is playable by player.
-//! Dynamic requirements are checked, eg: If a spell costs health instead of
-//! mana, this method will return false if the health cost would be higher than
-//! the available health.
-//! \param player The player to play card.
-//! \param source A pointer to source entity to play card.
-//! \return true if source entity is playable by player, false otherwise.
-bool IsPlayableByPlayer(Player& player, Entity* source);
-
-//! Gets a value indicating whether source entity is playable by player.
-//! Dynamic requirements are checked, eg: If a spell costs health instead of
-//! mana, this method will return false if the health cost would be higher than
-//! the available health.
-//! \param player The player to play card.
-//! \param source A pointer to source entity to play card.
-//! \return true if source entity is playable by player, false otherwise.
-bool IsPlayableByPlayer(const Player& player, Entity* source);
-
-//! Gets a value indicating whether source entity is playable by card
-//! requirements. Static requirements are checked.
-//! \param source A pointer to source entity to play card.
-//! \return true if source entity is playable by card requirements, false
-//! otherwise.
-bool IsPlayableByCardReq(Entity* source);
+void PlayWeapon(Player* player, Weapon* weapon, Character* target = nullptr);
 }  // namespace RosettaStone::Generic
 
 #endif  // ROSETTASTONE_PLAY_CARD_HPP

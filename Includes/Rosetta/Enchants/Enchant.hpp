@@ -8,7 +8,6 @@
 #define ROSETTASTONE_ENCHANT_HPP
 
 #include <Rosetta/Enchants/Effect.hpp>
-#include <Rosetta/Enchants/IAura.hpp>
 
 #include <vector>
 
@@ -36,23 +35,23 @@ class Enchant
     //! \param gameTag The game tag of the card.
     //! \param effectOperator The effect operator to change card value.
     //! \param value The value to change.
-    Enchant(GameTag gameTag, EffectOperator effectOperator, int value);
+    explicit Enchant(GameTag gameTag, EffectOperator effectOperator, int value);
 
     //! Constructs enchant with given \p _effect, \p _useScriptTag and
     //! \p _isOneTurnEffect.
     //! \param effect The effect of the card.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    Enchant(Effect* effect, bool _useScriptTag = false,
-            bool _isOneTurnEffect = false);
+    explicit Enchant(IEffect* effect, bool _useScriptTag = false,
+                     bool _isOneTurnEffect = false);
 
     //! Constructs enchant with given \p _effects, \p _useScriptTag and
     //! \p _isOneTurnEffect.
     //! \param _effects A list of effect.
     //! \param _useScriptTag A flag to use script tag.
     //! \param _isOneTurnEffect A flag whether this is one-turn effect.
-    Enchant(std::vector<Effect*> _effects, bool _useScriptTag = false,
-            bool _isOneTurnEffect = false);
+    explicit Enchant(std::vector<IEffect*> _effects, bool _useScriptTag = false,
+                     bool _isOneTurnEffect = false);
 
     //! Activates enchant to \p entity.
     //! \param entity An entity to which enchant is activated.
@@ -60,7 +59,11 @@ class Enchant
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     virtual void ActivateTo(Entity* entity, int num1 = 0, int num2 = -1);
 
-    std::vector<Effect*> effects;
+    void RemoveEffect(Entity* target);
+
+    void RemoveEffect(Entity* target, int num1, int num2);
+
+    std::vector<IEffect*> effects;
 
     bool useScriptTag = false;
     bool isOneTurnEffect = false;

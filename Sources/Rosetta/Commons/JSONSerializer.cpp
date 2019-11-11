@@ -9,6 +9,9 @@
 
 #include <Rosetta/Actions/ActionValidGetter.hpp>
 #include <Rosetta/Commons/JSONSerializer.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
+#include <Rosetta/Zones/SecretZone.hpp>
 
 namespace RosettaStone
 {
@@ -21,7 +24,7 @@ nlohmann::json JSONSerializer::Serialize(Game& game)
     obj["current_player_id"] = gameObj["current_player"];
     obj["turn"] = gameObj["turn"];
 
-    if (game.GetCurrentPlayer().playerType == PlayerType::PLAYER1)
+    if (game.GetCurrentPlayer()->playerType == PlayerType::PLAYER1)
     {
         obj["current_player"] = gameObj["player1"];
         obj["opponent_player"] = gameObj["player2"];
@@ -39,14 +42,14 @@ nlohmann::json JSONSerializer::Serialize(Game& game)
     return obj;
 }
 
-std::string JSONSerializer::GetPlayerString(const Player& player)
+std::string JSONSerializer::GetPlayerString(const Player* player)
 {
-    if (player.playerType == PlayerType::PLAYER1)
+    if (player->playerType == PlayerType::PLAYER1)
     {
         return "Player1";
     }
 
-    if (player.playerType == PlayerType::PLAYER2)
+    if (player->playerType == PlayerType::PLAYER2)
     {
         return "Player2";
     }
@@ -66,23 +69,23 @@ nlohmann::json JSONSerializer::SerializeGame(Game& game)
     return obj;
 }
 
-nlohmann::json JSONSerializer::SerializePlayer(const Player& player)
+nlohmann::json JSONSerializer::SerializePlayer(const Player* player)
 {
     nlohmann::json obj;
 
-    obj["hero"] = SerializeHero(*player.GetHero());
-    obj["hero_power"] = SerializeHeroPower(player.GetHeroPower());
-    if (player.GetHero()->HasWeapon())
+    obj["hero"] = SerializeHero(*player->GetHero());
+    obj["hero_power"] = SerializeHeroPower(player->GetHeroPower());
+    if (player->GetHero()->HasWeapon())
     {
-        obj["weapon"] = SerializeWeapon(player.GetWeapon());
+        obj["weapon"] = SerializeWeapon(player->GetWeapon());
     }
     obj["mana_crystal"] = SerializeManaCrystal(player);
-    obj["fatigue"] = player.GetHero()->fatigue;
+    obj["fatigue"] = player->GetHero()->fatigue;
 
-    obj["deck"] = SerializeDeck(player.GetDeckZone());
-    obj["hand"] = SerializeHand(player.GetHandZone());
-    obj["minions"] = SerializeField(player.GetFieldZone());
-    obj["secrets"] = SerializeSecrets(player.GetSecretZone());
+    obj["deck"] = SerializeDeck(player->GetDeckZone());
+    obj["hand"] = SerializeHand(player->GetHandZone());
+    obj["minions"] = SerializeField(player->GetFieldZone());
+    obj["secrets"] = SerializeSecrets(player->GetSecretZone());
 
     return obj;
 }
@@ -121,32 +124,32 @@ nlohmann::json JSONSerializer::SerializeWeapon(const Weapon& weapon)
     return obj;
 }
 
-nlohmann::json JSONSerializer::SerializeManaCrystal(const Player& player)
+nlohmann::json JSONSerializer::SerializeManaCrystal(const Player* player)
 {
     nlohmann::json obj;
 
-    obj["remaining"] = player.GetRemainingMana();
-    obj["total"] = player.GetTotalMana();
-    obj["overload_owed"] = player.GetOverloadOwed();
-    obj["overload_locked"] = player.GetOverloadLocked();
+    obj["remaining"] = player->GetRemainingMana();
+    obj["total"] = player->GetTotalMana();
+    obj["overload_owed"] = player->GetOverloadOwed();
+    obj["overload_locked"] = player->GetOverloadLocked();
 
     return obj;
 }
 
-nlohmann::json JSONSerializer::SerializeDeck(const DeckZone& deck)
+nlohmann::json JSONSerializer::SerializeDeck(const DeckZone* deck)
 {
     nlohmann::json obj;
 
-    obj["count"] = deck.GetCount();
+    obj["count"] = deck->GetCount();
 
     return obj;
 }
 
-nlohmann::json JSONSerializer::SerializeHand(const HandZone& hand)
+nlohmann::json JSONSerializer::SerializeHand(const HandZone* hand)
 {
     nlohmann::json obj;
 
-    for (const auto& card : hand.GetAll())
+    for (const auto& card : hand->GetAll())
     {
         obj.emplace_back(SerializeHandCard(*card));
     }
@@ -154,11 +157,11 @@ nlohmann::json JSONSerializer::SerializeHand(const HandZone& hand)
     return obj;
 }
 
-nlohmann::json JSONSerializer::SerializeField(const FieldZone& field)
+nlohmann::json JSONSerializer::SerializeField(const FieldZone* field)
 {
     nlohmann::json obj;
 
-    for (const auto& card : field.GetAll())
+    for (const auto& card : field->GetAll())
     {
         obj.emplace_back(SerializeMinion(*card));
     }
@@ -166,11 +169,11 @@ nlohmann::json JSONSerializer::SerializeField(const FieldZone& field)
     return obj;
 }
 
-nlohmann::json JSONSerializer::SerializeSecrets(const SecretZone& secrets)
+nlohmann::json JSONSerializer::SerializeSecrets(const SecretZone* secrets)
 {
     nlohmann::json obj;
 
-    for (const auto& secret : secrets.GetAll())
+    for (const auto& secret : secrets->GetAll())
     {
         obj.emplace_back(SerializeSecret(*secret));
     }
@@ -178,12 +181,12 @@ nlohmann::json JSONSerializer::SerializeSecrets(const SecretZone& secrets)
     return obj;
 }
 
-nlohmann::json JSONSerializer::SerializeHandCard(const Entity& handCard)
+nlohmann::json JSONSerializer::SerializeHandCard(const Playable& handCard)
 {
     nlohmann::json obj;
 
     obj["card_id"] = handCard.card->id;
-    obj["cost"] = handCard.GetCost();
+    obj["cost"] = const_cast<Playable&>(handCard).GetCost();
 
     return obj;
 }
@@ -193,7 +196,7 @@ nlohmann::json JSONSerializer::SerializeMinion(const Minion& minion)
     nlohmann::json obj;
 
     obj["card_id"] = minion.card->id;
-    obj["cost"] = minion.GetCost();
+    obj["cost"] = const_cast<Minion&>(minion).GetCost();
     obj["attack"] = minion.GetAttack();
     obj["health"] = minion.GetHealth();
     obj["max_health"] = minion.GetMaxHealth();
@@ -222,8 +225,8 @@ void JSONSerializer::AddPlayableCardInfo(nlohmann::json& obj, Game& game)
 
     const ActionValidGetter getter(game);
     getter.ForEachPlayableCard([&](Entity* card) {
-        const Player& curPlayer = game.GetCurrentPlayer();
-        const int handIdx = curPlayer.GetHandZone().FindIndex(*card);
+        const Player* curPlayer = game.GetCurrentPlayer();
+        const int handIdx = curPlayer->GetHandZone()->FindIndex(card);
         obj[handIdx]["playable"] = true;
         return true;
     });
@@ -251,9 +254,9 @@ void JSONSerializer::AddAttackableInfo(nlohmann::json& obj, Game& game)
         }
         else
         {
-            const Player& curPlayer = game.GetCurrentPlayer();
-            const int minionIdx =
-                curPlayer.GetFieldZone().FindIndex(*character);
+            const auto minion = dynamic_cast<Minion*>(character);
+            const Player* curPlayer = game.GetCurrentPlayer();
+            const int minionIdx = curPlayer->GetFieldZone()->FindIndex(minion);
             obj["minions"][minionIdx]["attackable"] = true;
             return true;
         }

@@ -21,13 +21,14 @@ namespace RosettaStone
 class GraveyardZone : public UnlimitedZone
 {
  public:
-    //! Default constructor.
+    //! Constructs graveyard zone with given \p player.
+    //! \param player The player.
     explicit GraveyardZone(Player* player);
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
-    void Add(Entity& entity, int zonePos = -1) override;
+    void Add(Playable* entity, int zonePos = -1) override;
 };
 }  // namespace RosettaStone
 

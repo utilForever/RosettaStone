@@ -9,13 +9,31 @@
 
 namespace RosettaStone
 {
+//!
+//! \brief TaskStack struct.
+//!
 //! This struct is temporary data stack for task.
+//!
 struct TaskStack
 {
-    std::vector<Entity*> entities;
+    //! Resets all variables.
+    void Reset()
+    {
+        playables.clear();
+
+        source = nullptr;
+        target = nullptr;
+
+        num = 0;
+        num1 = 0;
+
+        flag = true;
+    }
+
+    std::vector<Playable*> playables;
 
     Entity* source = nullptr;
-    Entity* target = nullptr;
+    Playable* target = nullptr;
 
     int num = 0;
     int num1 = 0;

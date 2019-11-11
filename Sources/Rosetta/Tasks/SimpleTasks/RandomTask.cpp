@@ -13,26 +13,38 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
-RandomTask::RandomTask(EntityType entityType, int num)
-    : ITask(entityType), m_num(num)
+RandomTask::RandomTask(EntityType entityType, int amount)
+    : ITask(entityType), m_amount(amount)
 {
     // Do nothing
 }
 
-TaskStatus RandomTask::Impl(Player& player)
+TaskStatus RandomTask::Impl(Player* player)
 {
-    auto entities =
+    auto& stackPlayables = player->game->taskStack.playables;
+
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    player.GetGame()->taskStack.entities.clear();
-
-    for (int i = 0; i < m_num && !entities.empty(); ++i)
+    if (playables.empty())
     {
-        const auto idx = Random::get<std::size_t>(0, entities.size() - 1);
+        return TaskStatus::STOP;
+    }
 
-        Entity* entity = entities.at(idx);
-        entities.erase(entities.begin() + idx);
-        player.GetGame()->taskStack.entities.emplace_back(entity);
+    if (static_cast<int>(playables.size()) < m_amount)
+    {
+        stackPlayables = playables;
+        return TaskStatus::COMPLETE;
+    }
+
+    if (m_amount == 1)
+    {
+        const auto idx = Random::get<std::size_t>(0, playables.size() - 1);
+        stackPlayables = std::vector<Playable*>{ playables.at(idx) };
+    }
+    else
+    {
+        stackPlayables = ChooseNElements(playables, m_amount);
     }
 
     return TaskStatus::COMPLETE;
@@ -40,6 +52,6 @@ TaskStatus RandomTask::Impl(Player& player)
 
 ITask* RandomTask::CloneImpl()
 {
-    return new RandomTask(m_entityType, m_num);
+    return new RandomTask(m_entityType, m_amount);
 }
 }  // namespace RosettaStone::SimpleTasks

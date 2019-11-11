@@ -4,24 +4,22 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/Actions/PlayCard.hpp>
-#include <Rosetta/Actions/Targeting.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/PlayerTasks/HeroPowerTask.hpp>
 
 namespace RosettaStone::PlayerTasks
 {
-HeroPowerTask::HeroPowerTask(Entity* target) : ITask(nullptr, target)
+HeroPowerTask::HeroPowerTask(Playable* target) : ITask(nullptr, target)
 {
     // Do nothing
 }
 
-TaskStatus HeroPowerTask::Impl(Player& player)
+TaskStatus HeroPowerTask::Impl(Player* player)
 {
-    HeroPower& power = player.GetHeroPower();
+    HeroPower& power = player->GetHeroPower();
 
-    if (!Generic::IsPlayableByPlayer(player, &power) ||
-        !Generic::IsPlayableByCardReq(&power) ||
-        !Generic::IsValidTarget(&power, m_target))
+    if (!power.IsPlayableByPlayer() || !power.IsPlayableByCardReq() ||
+        !power.IsValidPlayTarget(dynamic_cast<Character*>(m_target)))
     {
         return TaskStatus::STOP;
     }
@@ -34,29 +32,29 @@ TaskStatus HeroPowerTask::Impl(Player& player)
     // Spend mana to play cards
     if (power.GetCost() > 0)
     {
-        const int tempUsed = std::min(player.GetTemporaryMana(), power.GetCost());
-        player.SetTemporaryMana(player.GetTemporaryMana() - tempUsed);
-        player.SetUsedMana(player.GetUsedMana() + power.GetCost() - tempUsed);
+        const int tempUsed =
+            std::min(player->GetTemporaryMana(), power.GetCost());
+        player->SetTemporaryMana(player->GetTemporaryMana() - tempUsed);
+        player->SetUsedMana(player->GetUsedMana() + power.GetCost() - tempUsed);
     }
 
     // Process target trigger
     if (m_target != nullptr)
     {
-        Trigger::ValidateTriggers(player.GetGame(), &power,
-                                  SequenceType::TARGET);
-        player.GetGame()->taskQueue.StartEvent();
-        player.GetGame()->triggerManager.OnTargetTrigger(&player, &power);
-        player.GetGame()->ProcessTasks();
-        player.GetGame()->taskQueue.EndEvent();
+        Trigger::ValidateTriggers(player->game, &power, SequenceType::TARGET);
+        player->game->taskQueue.StartEvent();
+        player->game->triggerManager.OnTargetTrigger(player, &power);
+        player->game->ProcessTasks();
+        player->game->taskQueue.EndEvent();
     }
 
     // Process power tasks
-    player.GetGame()->taskQueue.StartEvent();
-    power.ActivateTask(PowerType::POWER, m_target);
-    player.GetGame()->ProcessTasks();
-    player.GetGame()->taskQueue.EndEvent();
+    player->game->taskQueue.StartEvent();
+    power.ActivateTask(PowerType::POWER, dynamic_cast<Character*>(m_target));
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
-    player.GetGame()->ProcessDestroyAndUpdateAura();
+    player->game->ProcessDestroyAndUpdateAura();
 
     power.SetExhausted(true);
 

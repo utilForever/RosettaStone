@@ -3,12 +3,13 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 
 namespace RosettaStone::SimpleTasks
 {
-TaskStatus RemoveEnchantmentTask::Impl(Player& player)
+TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
 {
     auto enchantment = dynamic_cast<Enchantment*>(m_source);
     if (enchantment == nullptr)
@@ -16,17 +17,32 @@ TaskStatus RemoveEnchantmentTask::Impl(Player& player)
         return TaskStatus::STOP;
     }
 
-    if (enchantment->card->power.GetEnchant() != nullptr)
+    if (auto enchant = enchantment->card->power.GetEnchant();
+        enchant != nullptr && (!enchantment->IsOneTurnActive() ||
+                               player->game->step != Step::MAIN_CLEANUP))
     {
-        for (auto& effect : enchantment->card->power.GetEnchant()->effects)
+        if (enchant->useScriptTag)
         {
-            effect->Remove(m_target);
+            enchant->RemoveEffect(enchantment->GetTarget(),
+                                  enchantment->GetScriptTag1(),
+                                  enchantment->GetScriptTag2());
         }
-    }
+        else
+        {
+            enchant->RemoveEffect(enchantment->GetTarget());
+        }
 
-    if (enchantment->card->power.GetAura() != nullptr)
-    {
-        m_source->onGoingEffect->Remove();
+        if (enchantment->IsOneTurnActive())
+        {
+            for (auto& effect : enchant->effects)
+            {
+                EraseIf(player->game->oneTurnEffects,
+                        [=](std::pair<Entity*, IEffect*> eff) {
+                            return eff.first == enchantment->GetTarget() &&
+                                   eff.second == effect;
+                        });
+            }
+        }
     }
 
     enchantment->Remove();

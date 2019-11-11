@@ -85,7 +85,7 @@ MainOpType ActionApplyHelper::ActionParamsCallback::ChooseMainOp()
     return ret;
 }
 
-Entity* ActionApplyHelper::ActionParamsCallback::ChooseHandCard()
+Playable* ActionApplyHelper::ActionParamsCallback::ChooseHandCard()
 {
     const auto ret = m_choser.ChooseHandCard();
 

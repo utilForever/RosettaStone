@@ -8,7 +8,6 @@
 #include <Rosetta/Enchants/Enchant.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Entity.hpp>
-#include <Rosetta/Models/Player.hpp>
 
 #include <utility>
 
@@ -20,13 +19,13 @@ Enchant::Enchant(GameTag gameTag, EffectOperator effectOperator, int value)
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(Effect* effect, bool _useScriptTag, bool _isOneTurnEffect)
+Enchant::Enchant(IEffect* effect, bool _useScriptTag, bool _isOneTurnEffect)
     : useScriptTag(_useScriptTag), isOneTurnEffect(_isOneTurnEffect)
 {
     effects.emplace_back(effect);
 }
 
-Enchant::Enchant(std::vector<Effect*> _effects, bool _useScriptTag,
+Enchant::Enchant(std::vector<IEffect*> _effects, bool _useScriptTag,
                  bool _isOneTurnEffect)
     : effects(std::move(_effects)),
       useScriptTag(_useScriptTag),
@@ -41,12 +40,12 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
     {
         for (auto& effect : effects)
         {
-            effect->Apply(entity, isOneTurnEffect);
+            effect->ApplyTo(entity, isOneTurnEffect);
         }
     }
     else
     {
-        effects[0]->ChangeValue(num1).Apply(entity, isOneTurnEffect);
+        effects[0]->ChangeValue(num1)->ApplyTo(entity, isOneTurnEffect);
 
         if (effects.size() != 2)
         {
@@ -55,12 +54,44 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
 
         if (num2 > 0)
         {
-            effects[1]->ChangeValue(num2).Apply(entity, isOneTurnEffect);
+            effects[1]->ChangeValue(num2)->ApplyTo(entity, isOneTurnEffect);
         }
         else
         {
-            effects[1]->ChangeValue(num1).Apply(entity, isOneTurnEffect);
+            effects[1]->ChangeValue(num1)->ApplyTo(entity, isOneTurnEffect);
         }
+    }
+}
+
+void Enchant::RemoveEffect(Entity* target)
+{
+    for (auto& effect : effects)
+    {
+        effect->RemoveFrom(target);
+    }
+}
+
+void Enchant::RemoveEffect(Entity* target, int num1, int num2)
+{
+    effects[0]->ChangeValue(num1)->RemoveFrom(target);
+
+    if (effects.size() == 1)
+    {
+        return;
+    }
+
+    if (num2 > 0)
+    {
+        effects[1]->ChangeValue(num2)->RemoveFrom(target);
+    }
+    else
+    {
+        effects[1]->ChangeValue(num1)->RemoveFrom(target);
+    }
+
+    for (std::size_t i = 2; i < effects.size(); ++i)
+    {
+        effects[i]->RemoveFrom(target);
     }
 }
 }  // namespace RosettaStone

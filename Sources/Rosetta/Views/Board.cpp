@@ -24,7 +24,7 @@ void Board::RefCopyFrom(const Board& rhs)
     m_playerType = rhs.m_playerType;
 }
 
-Player& Board::GetCurrentPlayer() const
+Player* Board::GetCurrentPlayer() const
 {
     return m_game.GetCurrentPlayer();
 }
@@ -48,7 +48,7 @@ ReducedBoardView Board::CreateView() const
 
 CurrentPlayerBoardRefView Board::GetCurPlayerStateRefView() const
 {
-    if (m_game.GetCurrentPlayer().playerType != m_playerType)
+    if (m_game.GetCurrentPlayer()->playerType != m_playerType)
     {
         throw std::runtime_error("current player does not match.");
     }

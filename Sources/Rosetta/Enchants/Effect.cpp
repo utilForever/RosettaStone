@@ -5,7 +5,6 @@
 
 #include <Rosetta/Enchants/Effect.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Models/Character.hpp>
 
 #include <stdexcept>
 
@@ -17,13 +16,12 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
     // Do nothing
 }
 
-void Effect::Apply(Entity* entity, bool isOneTurnEffect) const
+void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
 {
-    auto& oneTurnEffects = entity->owner->GetGame()->oneTurnEffects;
-
     if (isOneTurnEffect)
     {
-        oneTurnEffects.emplace_back(std::make_pair(entity, new Effect(*this)));
+        entity->game->oneTurnEffects.emplace_back(
+            std::make_pair(entity, new Effect(*this)));
     }
 
     const int prevValue = entity->GetGameTag(m_gameTag);
@@ -43,31 +41,49 @@ void Effect::Apply(Entity* entity, bool isOneTurnEffect) const
             entity->SetGameTag(m_gameTag, m_value);
             break;
         default:
-            throw std::invalid_argument("Invalid effect operator!");
+            throw std::invalid_argument(
+                "Effect::ApplyTo() - Invalid effect operator!");
     }
 }
 
-void Effect::Apply(AuraEffects& auraEffects) const
+void Effect::ApplyAuraTo(Entity* entity) const
 {
-    const int prevValue = auraEffects.GetGameTag(m_gameTag);
+    AuraEffects* auraEffects = entity->auraEffects;
+    if (auraEffects == nullptr)
+    {
+        auraEffects = new AuraEffects(entity->card->GetCardType());
+        entity->auraEffects = auraEffects;
+    }
+
+    const int prevValue = auraEffects->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            auraEffects.SetGameTag(m_gameTag, prevValue + m_value);
+            auraEffects->SetGameTag(m_gameTag, prevValue + m_value);
             break;
         case EffectOperator::SUB:
-            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
+            auraEffects->SetGameTag(m_gameTag, prevValue - m_value);
             break;
         case EffectOperator::SET:
-            auraEffects.SetGameTag(m_gameTag, m_value);
+            auraEffects->SetGameTag(m_gameTag, m_value);
+
+            if (auto minion = dynamic_cast<Minion*>(entity); minion)
+            {
+                if (m_gameTag == GameTag::HEALTH_MINIMUM)
+                {
+                    minion->SetGameTag(GameTag::HEALTH_MINIMUM, m_value);
+                }
+            }
+
             break;
         default:
-            throw std::invalid_argument("Invalid effect operator!");
+            throw std::invalid_argument(
+                "Effect::ApplyAuraTo() - Invalid effect operator!");
     }
 }
 
-void Effect::Remove(Entity* entity) const
+void Effect::RemoveFrom(Entity* entity) const
 {
     const int prevValue = entity->GetGameTag(m_gameTag);
 
@@ -84,40 +100,45 @@ void Effect::Remove(Entity* entity) const
             entity->SetGameTag(m_gameTag, 0);
             break;
         default:
-            throw std::invalid_argument("Invalid effect operator!");
+            throw std::invalid_argument(
+                "Effect::RemoveFrom() - Invalid effect operator!");
     }
 }
 
-void Effect::Remove(AuraEffects& auraEffects) const
+void Effect::RemoveAuraFrom(Entity* entity) const
 {
-    if (m_gameTag == GameTag::HEALTH && m_effectOperator == EffectOperator::ADD)
-    {
-        auto owner = dynamic_cast<Character*>(auraEffects.GetOwner());
-        const int prevDamage = owner->GetDamage();
-        owner->SetDamage(prevDamage - m_value);
-    }
-
-    const int prevValue = auraEffects.GetGameTag(m_gameTag);
+    AuraEffects* auraEffects = entity->auraEffects;
+    const int prevValue = auraEffects->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
         case EffectOperator::ADD:
-            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
+            auraEffects->SetGameTag(m_gameTag, prevValue - m_value);
             break;
         case EffectOperator::SUB:
-            auraEffects.SetGameTag(m_gameTag, prevValue + m_value);
+            auraEffects->SetGameTag(m_gameTag, prevValue + m_value);
             break;
         case EffectOperator::SET:
-            auraEffects.SetGameTag(m_gameTag, prevValue - m_value);
+            auraEffects->SetGameTag(m_gameTag, prevValue - m_value);
+
+            if (auto minion = dynamic_cast<Minion*>(entity); minion)
+            {
+                if (m_gameTag == GameTag::HEALTH_MINIMUM)
+                {
+                    minion->SetGameTag(GameTag::HEALTH_MINIMUM, 0);
+                }
+            }
+
             break;
         default:
-            throw std::invalid_argument("Invalid effect operator!");
+            throw std::invalid_argument(
+                "Effect::RemoveAuraFrom() - Invalid effect operator!");
     }
 }
-  
-Effect Effect::ChangeValue(int newValue) const
+
+IEffect* Effect::ChangeValue(int newValue) const
 {
-    return Effect(m_gameTag, m_effectOperator, newValue);
+    return new Effect(m_gameTag, m_effectOperator, newValue);
 }
 
 EffectOperator Effect::GetEffectOperator() const

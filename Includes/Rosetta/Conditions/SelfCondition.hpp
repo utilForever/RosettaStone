@@ -7,13 +7,13 @@
 #define ROSETTASTONE_SELF_CONDITION_HPP
 
 #include <Rosetta/Enums/CardEnums.hpp>
-#include <Rosetta/Enums/GameEnums.hpp>
+#include <Rosetta/Enums/TaskEnums.hpp>
 
 #include <functional>
 
 namespace RosettaStone
 {
-class Entity;
+class Playable;
 
 //!
 //! \brief SelfCondition class.
@@ -25,7 +25,7 @@ class SelfCondition
  public:
     //! Constructs task with given \p func.
     //! \param func The function to check condition.
-    explicit SelfCondition(std::function<bool(Entity*)> func);
+    explicit SelfCondition(std::function<bool(Playable*)> func);
 
     //! SelfCondition wrapper for checking the hero power equals \p cardID.
     //! \param cardID The card ID of hero power.
@@ -134,12 +134,12 @@ class SelfCondition
     static SelfCondition IsHealth(int value, RelaSign relaSign);
 
     //! Evaluates condition using checking function.
-    //! \param entity The owner entity.
+    //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
-    bool Evaluate(Entity* entity) const;
+    bool Evaluate(Playable* owner) const;
 
  private:
-    std::function<bool(Entity*)> m_func;
+    std::function<bool(Playable*)> m_func;
 };
 }  // namespace RosettaStone
 

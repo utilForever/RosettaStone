@@ -29,45 +29,54 @@ enum class SummonSide
 class SummonTask : public ITask
 {
  public:
-    //! Constructs task with given \p side, \p card, \p amount
-    //! and \p toOpponent.
+    //! Constructs task with given \p side, \p card,
+    //! \p removeFromStack, \p addToStack and \p amount.
     //! \param side The side of summoned minion.
     //! \param card The card to summon.
+    //! \param removeFromStack The flag that indicates
+    //! whether the summon entity should remove from stack.
+    //! \param addToStack The flag that indicates
+    //! whether the summon entity should add to stack.
     //! \param amount The number of minions to summon.
-    //! \param toOpponent The flag that indicates the owner of copied entity.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
                         std::optional<Card*> card = std::nullopt,
-                        int amount = 1, bool toOpponent = false);
+                        bool removeFromStack = false, bool addToStack = false, int amount = 1);
 
-    //! Constructs task with given \p cardID, \p amount and \p toOpponent.
-    //! \param cardID The card ID to summon.
-    //! \param amount The number of minions to summon.
-    //! \param toOpponent The flag that indicates the owner of copied entity.
-    explicit SummonTask(const std::string& cardID, int amount,
-                        bool toOpponent = false);
-
-    //! Constructs task with given \p cardID, \p side and \p toOpponent.
+    //! Constructs task with given \p cardID, \p side and \p addToStack.
     //! \param cardID The card ID to summon.
     //! \param side The side of summoned minion.
-    //! \param toOpponent The flag that indicates the owner of copied entity.
+    //! \param addToStack The flag that indicates
+    //! whether the summon entity should add to stack.
     explicit SummonTask(const std::string& cardID,
                         SummonSide side = SummonSide::DEFAULT,
-                        bool toOpponent = false);
+                        bool addToStack = false);
+
+    //! Constructs task with given \p cardID, \p amount and \p side.
+    //! \param cardID The card ID to summon.
+    //! \param amount The number of minions to summon.
+    //! \param side The side of summoned minion.
+    explicit SummonTask(const std::string& cardID, int amount,
+                        SummonSide side = SummonSide::DEFAULT);
 
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    TaskStatus Impl(Player& player) override;
+    TaskStatus Impl(Player* player) override;
 
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
 
+    //! Returns the position of minion to summon.
+    //! \return The position of minion to summon.
+    int GetPosition() const;
+
     std::optional<Card*> m_card = std::nullopt;
     SummonSide m_side = SummonSide::DEFAULT;
     int m_amount = 1;
-    bool m_toOpponent = false;
+    bool m_removeFromStack = false;
+    bool m_addToStack = false;
 };
 }  // namespace RosettaStone::SimpleTasks
 

@@ -8,11 +8,13 @@
 #include <Rosetta/Actions/Summon.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Enchantment.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/SetasideZone.hpp>
 
 namespace RosettaStone::Generic
 {
-Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
-             bool deathrattle)
+Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
+               bool deathrattle)
 {
     //! \note Determine whether enchantments should be also copied.
     //! Whenever a card moves forward in that flow (Deck -> Hand, Hand -> Play,
@@ -53,7 +55,7 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
         copyEnchantments = false;
     }
 
-    Entity* copiedEntity = Entity::GetFromCard(player, std::move(source->card));
+    Playable* copiedEntity = Entity::GetFromCard(player, source->card);
 
     if (copyEnchantments)
     {
@@ -79,7 +81,7 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
             }
         }
 
-        auto& oneTurnEffects = player.GetGame()->oneTurnEffects;
+        auto& oneTurnEffects = player->game->oneTurnEffects;
         for (int i = static_cast<int>(oneTurnEffects.size()) - 1; i >= 0; --i)
         {
             if (oneTurnEffects[i].first->id == source->id)
@@ -109,9 +111,9 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
             if (deathrattle)
             {
                 position = dynamic_cast<Minion*>(source)->GetLastBoardPos();
-                if (position > player.GetFieldZone().GetCount())
+                if (position > player->GetFieldZone()->GetCount())
                 {
-                    position = player.GetFieldZone().GetCount();
+                    position = player->GetFieldZone()->GetCount();
                 }
             }
 
@@ -120,7 +122,7 @@ Entity* Copy(Player& player, Entity* source, ZoneType targetZone,
         }
         case ZoneType::SETASIDE:
         {
-            player.GetSetasideZone().Add(*copiedEntity);
+            player->GetSetasideZone()->Add(copiedEntity);
             break;
         }
         default:

@@ -19,6 +19,7 @@
 * AddStackToTask
 * ArmorTask
 * ChanceTask
+* ChangeAttackingTargetTask
 * ChangeHeroPowerTask
 * ConditionTask
 * ControlTask
@@ -35,15 +36,18 @@
 * EnqueueTask
 * FilterStackTask
 * FlagTask
-* FuncEntityTask
 * FuncNumberTask
+* FuncPlayableTask
+* GetEventNumberTask
 * GetGameTagTask
 * HealFullTask
 * HealTask
+* IncludeAdjacentTask
 * IncludeTask
 * ManaCrystalTask
-* MathSubTask
+* MathNumberIndexTask
 * MoveToGraveyardTask
+* MoveToSetasideTask
 * RandomCardTask
 * RandomEntourageTask
 * RandomTask
@@ -53,6 +57,7 @@
 * ReturnHandTask
 * SetGameTagTask
 * SilenceTask
+* SummonOpTask
 * SummonTask
 * SwapAttackHealthTask
 * TempManaTask

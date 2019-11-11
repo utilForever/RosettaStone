@@ -23,13 +23,14 @@ namespace RosettaStone
 class SetasideZone : public UnlimitedZone
 {
  public:
-    //! Default constructor.
+    //! Constructs setaside zone with given \p player.
+    //! \param player The player.
     explicit SetasideZone(Player* player);
 
     //! Returns The entity that has ID.
     //! \param id The ID of entity.
     //! \return The entity.
-    Entity* GetEntity(int id);
+    Playable* GetEntity(int id);
 };
 }  // namespace RosettaStone
 

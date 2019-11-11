@@ -106,11 +106,11 @@ TEST(Game, GetPlayers)
 
     const Game game(config);
 
-    const Player& player1 = game.GetPlayer1();
-    EXPECT_EQ(player1.playerType, PlayerType::PLAYER1);
+    const Player* player1 = game.GetPlayer1();
+    EXPECT_EQ(player1->playerType, PlayerType::PLAYER1);
 
-    const Player& player2 = game.GetPlayer2();
-    EXPECT_EQ(player2.playerType, PlayerType::PLAYER2);
+    const Player* player2 = game.GetPlayer2();
+    EXPECT_EQ(player2->playerType, PlayerType::PLAYER2);
 }
 
 TEST(Game, CurOpPlayer)
@@ -125,18 +125,18 @@ TEST(Game, CurOpPlayer)
     Game game1;
 
     game1.SetCurrentPlayer(PlayerType::PLAYER2);
-    EXPECT_EQ(game1.GetCurrentPlayer().playerType, PlayerType::PLAYER2);
-    EXPECT_EQ(game1.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
+    EXPECT_EQ(game1.GetCurrentPlayer()->playerType, PlayerType::PLAYER2);
+    EXPECT_EQ(game1.GetOpponentPlayer()->playerType, PlayerType::PLAYER1);
 
     const Game game2(config);
 
-    EXPECT_EQ(game2.GetOpponentPlayer().playerType, PlayerType::PLAYER2);
+    EXPECT_EQ(game2.GetOpponentPlayer()->playerType, PlayerType::PLAYER2);
 
     config.startPlayer = PlayerType::PLAYER2;
 
     const Game game3(config);
 
-    EXPECT_EQ(game3.GetOpponentPlayer().playerType, PlayerType::PLAYER1);
+    EXPECT_EQ(game3.GetOpponentPlayer()->playerType, PlayerType::PLAYER1);
 }
 
 TEST(Game, Turn)
@@ -152,8 +152,8 @@ TEST(Game, Turn)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    auto& curPlayer = game.GetCurrentPlayer();
-    auto& opPlayer = game.GetOpponentPlayer();
+    auto* curPlayer = game.GetCurrentPlayer();
+    auto* opPlayer = game.GetOpponentPlayer();
 
     EXPECT_EQ(game.GetTurn(), 1);
 
@@ -189,23 +189,23 @@ TEST(Game, GameOver_Player1Won)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-    opPlayer.GetHero()->SetDamage(29);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(29);
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
 
     EXPECT_EQ(game.state, State::COMPLETE);
-    EXPECT_EQ(curPlayer.playState, PlayState::WON);
-    EXPECT_EQ(opPlayer.playState, PlayState::LOST);
+    EXPECT_EQ(curPlayer->playState, PlayState::WON);
+    EXPECT_EQ(opPlayer->playState, PlayState::LOST);
 }
 
 TEST(Game, GameOver_Player2Won)
@@ -221,23 +221,23 @@ TEST(Game, GameOver_Player2Won)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-    opPlayer.GetHero()->SetDamage(29);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(29);
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Wolfrider"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, AttackTask(card1, opPlayer.GetHero()));
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
 
     EXPECT_EQ(game.state, State::COMPLETE);
-    EXPECT_EQ(curPlayer.playState, PlayState::WON);
-    EXPECT_EQ(opPlayer.playState, PlayState::LOST);
+    EXPECT_EQ(curPlayer->playState, PlayState::WON);
+    EXPECT_EQ(opPlayer->playState, PlayState::LOST);
 }
 
 TEST(Game, GameOver_Tied)
@@ -253,23 +253,23 @@ TEST(Game, GameOver_Tied)
     game.Start();
     game.ProcessUntil(Step::MAIN_START);
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
-    curPlayer.GetHero()->SetDamage(29);
-    opPlayer.GetHero()->SetDamage(29);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(29);
+    opPlayer->GetHero()->SetDamage(29);
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::GetInstance().FindCardByName("Hellfire"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hellfire"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
 
     EXPECT_EQ(game.state, State::COMPLETE);
-    EXPECT_EQ(curPlayer.playState, PlayState::TIED);
-    EXPECT_EQ(opPlayer.playState, PlayState::TIED);
+    EXPECT_EQ(curPlayer->playState, PlayState::TIED);
+    EXPECT_EQ(opPlayer->playState, PlayState::TIED);
 }
 
 TEST(Game, PerformAction)
@@ -297,27 +297,27 @@ TEST(Game, PerformAction)
     game.Start();
     game.MainReady();
 
-    Player& curPlayer = game.GetCurrentPlayer();
-    Player& opPlayer = game.GetOpponentPlayer();
-    curPlayer.SetTotalMana(10);
-    curPlayer.SetUsedMana(0);
-    opPlayer.SetTotalMana(10);
-    opPlayer.SetUsedMana(0);
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
 
     while (game.state != State::COMPLETE)
     {
         TestActionParams params;
-        Board board(game, game.GetCurrentPlayer().playerType);
+        Board board(game, game.GetCurrentPlayer()->playerType);
 
         params.Init(board);
         board.ApplyAction(params);
     }
 
     EXPECT_EQ(game.state, State::COMPLETE);
-    EXPECT_TRUE(game.GetPlayer1().playState == PlayState::WON ||
-                game.GetPlayer1().playState == PlayState::LOST);
-    EXPECT_TRUE(game.GetPlayer2().playState == PlayState::WON ||
-                game.GetPlayer2().playState == PlayState::LOST);
+    EXPECT_TRUE(game.GetPlayer1()->playState == PlayState::WON ||
+                game.GetPlayer1()->playState == PlayState::LOST);
+    EXPECT_TRUE(game.GetPlayer2()->playState == PlayState::WON ||
+                game.GetPlayer2()->playState == PlayState::LOST);
 }
 
 TEST(Game, CreateView)

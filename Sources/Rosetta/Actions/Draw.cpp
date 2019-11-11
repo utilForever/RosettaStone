@@ -6,37 +6,37 @@
 #include <Rosetta/Actions/Draw.hpp>
 #include <Rosetta/Actions/Generic.hpp>
 #include <Rosetta/Models/Player.hpp>
+#include <Rosetta/Zones/DeckZone.hpp>
 
 namespace RosettaStone::Generic
 {
-Entity* Draw(Player& player, Entity* cardToDraw)
+Playable* Draw(Player* player, Playable* cardToDraw)
 {
     // Take fatigue damage for player if deck is empty
-    if (player.GetDeckZone().IsEmpty())
+    if (player->GetDeckZone()->IsEmpty())
     {
-        const int fatigueDamage =
-            player.GetHero()->fatigue == 0 ? 1 : player.GetHero()->fatigue + 1;
-        player.GetHero()->TakeDamage(*player.GetHero(), fatigueDamage);
+        const int fatigueDamage = player->GetHero()->fatigue + 1;
+        player->GetHero()->TakeDamage(player->GetHero(), fatigueDamage);
 
         return nullptr;
     }
 
     // Get card to draw
-    Entity* entity = &player.GetDeckZone().Remove(
-        cardToDraw != nullptr ? *cardToDraw
-                              : *player.GetDeckZone().GetTopCard());
+    Playable* playable = player->GetDeckZone()->Remove(
+        cardToDraw != nullptr ? cardToDraw
+                              : player->GetDeckZone()->GetTopCard());
 
     // Add card to hand
-    AddCardToHand(player, entity);
+    AddCardToHand(player, playable);
 
-    return entity;
+    return playable;
 }
 
-Entity* DrawCard(Player& player, Card* card)
+Playable* DrawCard(Player* player, Card* card)
 {
-    Entity* entity = Entity::GetFromCard(player, card);
-    AddCardToHand(player, entity);
+    Playable* playable = Entity::GetFromCard(player, card);
+    AddCardToHand(player, playable);
 
-    return entity;
+    return playable;
 }
 }  // namespace RosettaStone::Generic

@@ -15,13 +15,13 @@ DrawTask::DrawTask(int amount, bool toStack)
     // Do nothing
 }
 
-TaskStatus DrawTask::Impl(Player& player)
+TaskStatus DrawTask::Impl(Player* player)
 {
-    std::vector<Entity*> cards;
+    std::vector<Playable*> cards;
 
     for (int i = 0; i < m_amount; ++i)
     {
-        Entity* card = Generic::Draw(player, nullptr);
+        Playable* card = Generic::Draw(player, nullptr);
         cards.emplace_back(card);
     }
 
@@ -32,11 +32,9 @@ TaskStatus DrawTask::Impl(Player& player)
 
     if (m_toStack)
     {
-        player.GetGame()->taskStack.entities.clear();
-
         for (auto& card : cards)
         {
-            player.GetGame()->taskStack.entities.emplace_back(card);
+            player->game->taskStack.playables.emplace_back(card);
         }
     }
 

@@ -17,7 +17,7 @@ ChanceTask::ChanceTask(bool useFlag) : m_useFlag(useFlag)
     // Do nothing
 }
 
-TaskStatus ChanceTask::Impl(Player& player)
+TaskStatus ChanceTask::Impl(Player* player)
 {
     const auto num = Random::get<int>(0, 1);
 
@@ -26,7 +26,7 @@ TaskStatus ChanceTask::Impl(Player& player)
         return num == 0 ? TaskStatus::COMPLETE : TaskStatus::STOP;
     }
 
-    player.GetGame()->taskStack.flag = (num != 0);
+    player->game->taskStack.flag = (num != 0);
     return TaskStatus::COMPLETE;
 }
 

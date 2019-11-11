@@ -106,7 +106,6 @@ CORE | DS1_178 | Tundra Rhino | O
 CORE | DS1_183 | Multi-Shot | O
 CORE | DS1_184 | Tracking | O
 CORE | DS1_185 | Arcane Shot | O
-CORE | DS1_233 | Mind Blast | O
 CORE | EX1_011 | Voodoo Doctor | O
 CORE | EX1_015 | Novice Engineer | O
 CORE | EX1_019 | Shattered Sun Cleric | O
@@ -116,12 +115,14 @@ CORE | EX1_084 | Warsong Commander | O
 CORE | EX1_129 | Fan of Knives | O
 CORE | EX1_169 | Innervate | O
 CORE | EX1_173 | Starfire | O
+CORE | EX1_191 | Plaguebringer |  
+CORE | EX1_192 | Radiance |  
 CORE | EX1_244 | Totemic Might | O
 CORE | EX1_246 | Hex | O
 CORE | EX1_277 | Arcane Missiles | O
 CORE | EX1_278 | Shiv | O
 CORE | EX1_302 | Mortal Coil | O
-CORE | EX1_306 | Succubus | O
+CORE | EX1_306 | Felstalker | O
 CORE | EX1_308 | Soulfire | O
 CORE | EX1_360 | Humility | O
 CORE | EX1_371 | Hand of Protection | O
@@ -138,11 +139,10 @@ CORE | EX1_593 | Nightblade | O
 CORE | EX1_606 | Shield Block | O
 CORE | EX1_622 | Shadow Word: Death | O
 CORE | NEW1_003 | Sacrificial Pact | O
-CORE | NEW1_004 | Vanish | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 100% (133 of 133 Cards)
+- Progress: 98% (131 of 133 Cards)
 
 ## Classic
 
@@ -213,34 +213,42 @@ EXPERT1 | EX1_097 | Abomination | O
 EXPERT1 | EX1_100 | Lorewalker Cho | O
 EXPERT1 | EX1_102 | Demolisher | O
 EXPERT1 | EX1_103 | Coldlight Seer | O
-EXPERT1 | EX1_105 | Mountain Giant |  
+EXPERT1 | EX1_105 | Mountain Giant | O
 EXPERT1 | EX1_110 | Cairne Bloodhoof | O
 EXPERT1 | EX1_116 | Leeroy Jenkins | O
 EXPERT1 | EX1_124 | Eviscerate | O
-EXPERT1 | EX1_126 | Betrayal |  
-EXPERT1 | EX1_130 | Noble Sacrifice |  
+EXPERT1 | EX1_126 | Betrayal | O
+EXPERT1 | EX1_130 | Noble Sacrifice | O
 EXPERT1 | EX1_131 | Defias Ringleader | O
-EXPERT1 | EX1_132 | Eye for an Eye |  
+EXPERT1 | EX1_132 | Eye for an Eye | O
 EXPERT1 | EX1_133 | Perdition's Blade | O
 EXPERT1 | EX1_134 | SI:7 Agent | O
-EXPERT1 | EX1_136 | Redemption |  
-EXPERT1 | EX1_137 | Headcrack |  
+EXPERT1 | EX1_136 | Redemption | O
+EXPERT1 | EX1_137 | Headcrack | O
 EXPERT1 | EX1_144 | Shadowstep | O
 EXPERT1 | EX1_145 | Preparation |  
 EXPERT1 | EX1_154 | Wrath | O
 EXPERT1 | EX1_155 | Mark of Nature | O
 EXPERT1 | EX1_158 | Soul of the Forest | O
 EXPERT1 | EX1_160 | Power of the Wild | O
-EXPERT1 | EX1_162 | Dire Wolf Alpha | O 
-EXPERT1 | EX1_164 | Nourish | O 
-EXPERT1 | EX1_165 | Druid of the Claw | O 
+EXPERT1 | EX1_162 | Dire Wolf Alpha | O
+EXPERT1 | EX1_164 | Nourish | O
+EXPERT1 | EX1_165 | Druid of the Claw | O
 EXPERT1 | EX1_166 | Keeper of the Grove |  
 EXPERT1 | EX1_170 | Emperor Cobra | O
-EXPERT1 | EX1_178 | Ancient of War | O 
+EXPERT1 | EX1_178 | Ancient of War | O
 EXPERT1 | EX1_179 | Icicle | O
-EXPERT1 | EX1_180 | Tome of Intellect | O 
+EXPERT1 | EX1_180 | Tome of Intellect | O
 EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer |  
+EXPERT1 | EX1_183 | Gift of the Wild |  
+EXPERT1 | EX1_184 | Righteousness |  
+EXPERT1 | EX1_185 | Siegebreaker |  
+EXPERT1 | EX1_186 | SI:7 Infiltrator |  
+EXPERT1 | EX1_187 | Arcane Devourer |  
+EXPERT1 | EX1_188 | Barrens Stablehand |  
+EXPERT1 | EX1_189 | Brightwing |  
+EXPERT1 | EX1_190 | High Inquisitor Whitemane |  
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
 EXPERT1 | EX1_243 | Dust Devil | O
@@ -252,7 +260,7 @@ EXPERT1 | EX1_250 | Earth Elemental | O
 EXPERT1 | EX1_251 | Forked Lightning | O
 EXPERT1 | EX1_258 | Unbound Elemental | O
 EXPERT1 | EX1_259 | Lightning Storm |  
-EXPERT1 | EX1_274 | Ethereal Arcanist | O 
+EXPERT1 | EX1_274 | Ethereal Arcanist | O
 EXPERT1 | EX1_275 | Cone of Cold |  
 EXPERT1 | EX1_279 | Pyroblast | O
 EXPERT1 | EX1_283 | Frost Elemental | O
@@ -260,7 +268,7 @@ EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier |  
 EXPERT1 | EX1_294 | Mirror Entity |  
 EXPERT1 | EX1_301 | Felguard | O
-EXPERT1 | EX1_303 | Shadowflame | O 
+EXPERT1 | EX1_303 | Shadowflame | O
 EXPERT1 | EX1_304 | Void Terror |  
 EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
@@ -275,7 +283,7 @@ EXPERT1 | EX1_334 | Shadow Madness |
 EXPERT1 | EX1_335 | Lightspawn |  
 EXPERT1 | EX1_339 | Thoughtsteal |  
 EXPERT1 | EX1_341 | Lightwell | O
-EXPERT1 | EX1_345 | Mindgames | O 
+EXPERT1 | EX1_345 | Mindgames | O
 EXPERT1 | EX1_350 | Prophet Velen |  
 EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
@@ -287,10 +295,10 @@ EXPERT1 | EX1_379 | Repentance |
 EXPERT1 | EX1_382 | Aldor Peacekeeper | O
 EXPERT1 | EX1_383 | Tirion Fordring | O
 EXPERT1 | EX1_384 | Avenging Wrath | O
-EXPERT1 | EX1_390 | Tauren Warrior | O 
+EXPERT1 | EX1_390 | Tauren Warrior | O
 EXPERT1 | EX1_391 | Slam | O
-EXPERT1 | EX1_392 | Battle Rage | O 
-EXPERT1 | EX1_393 | Amani Berserker | O 
+EXPERT1 | EX1_392 | Battle Rage | O
+EXPERT1 | EX1_393 | Amani Berserker | O
 EXPERT1 | EX1_396 | Mogu'shan Warden | O
 EXPERT1 | EX1_398 | Arathi Weaponsmith |  
 EXPERT1 | EX1_402 | Armorsmith |  
@@ -300,10 +308,10 @@ EXPERT1 | EX1_408 | Mortal Strike | O
 EXPERT1 | EX1_409 | Upgrade! |  
 EXPERT1 | EX1_410 | Shield Slam | O
 EXPERT1 | EX1_411 | Gorehowl |  
-EXPERT1 | EX1_412 | Raging Worgen | O 
-EXPERT1 | EX1_414 | Grommash Hellscream | O 
-EXPERT1 | EX1_507 | Murloc Warleader | O 
-EXPERT1 | EX1_509 | Murloc Tidecaller | O 
+EXPERT1 | EX1_412 | Raging Worgen | O
+EXPERT1 | EX1_414 | Grommash Hellscream | O
+EXPERT1 | EX1_507 | Murloc Warleader | O
+EXPERT1 | EX1_509 | Murloc Tidecaller | O
 EXPERT1 | EX1_522 | Patient Assassin | O
 EXPERT1 | EX1_531 | Scavenging Hyena |  
 EXPERT1 | EX1_533 | Misdirection |  
@@ -316,7 +324,7 @@ EXPERT1 | EX1_544 | Flare |
 EXPERT1 | EX1_549 | Bestial Wrath |  
 EXPERT1 | EX1_554 | Snake Trap |  
 EXPERT1 | EX1_556 | Harvest Golem | O
-EXPERT1 | EX1_557 | Nat Pagle | O 
+EXPERT1 | EX1_557 | Nat Pagle | O
 EXPERT1 | EX1_558 | Harrison Jones |  
 EXPERT1 | EX1_559 | Archmage Antonidas |  
 EXPERT1 | EX1_560 | Nozdormu |  
@@ -326,10 +334,10 @@ EXPERT1 | EX1_563 | Malygos | O
 EXPERT1 | EX1_564 | Faceless Manipulator | O
 EXPERT1 | EX1_567 | Doomhammer | O
 EXPERT1 | EX1_570 | Bite | O
-EXPERT1 | EX1_571 | Force of Nature | O 
+EXPERT1 | EX1_571 | Force of Nature | O
 EXPERT1 | EX1_572 | Ysera | O
 EXPERT1 | EX1_573 | Cenarius |  
-EXPERT1 | EX1_575 | Mana Tide Totem | O 
+EXPERT1 | EX1_575 | Mana Tide Totem | O
 EXPERT1 | EX1_577 | The Beast | O
 EXPERT1 | EX1_578 | Savagery |  
 EXPERT1 | EX1_583 | Priestess of Elune | O
@@ -344,7 +352,7 @@ EXPERT1 | EX1_597 | Imp Master | O
 EXPERT1 | EX1_603 | Cruel Taskmaster |  
 EXPERT1 | EX1_604 | Frothing Berserker |  
 EXPERT1 | EX1_607 | Inner Rage | O
-EXPERT1 | EX1_608 | Sorcerer's Apprentice | O 
+EXPERT1 | EX1_608 | Sorcerer's Apprentice | O
 EXPERT1 | EX1_609 | Snipe | O
 EXPERT1 | EX1_610 | Explosive Trap |  
 EXPERT1 | EX1_611 | Freezing Trap |  
@@ -357,7 +365,7 @@ EXPERT1 | EX1_619 | Equality | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
 EXPERT1 | EX1_624 | Holy Fire | O
-EXPERT1 | EX1_625 | Shadowform | O 
+EXPERT1 | EX1_625 | Shadowform | O
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall |  
@@ -365,20 +373,20 @@ EXPERT1 | NEW1_008 | Ancient of Lore |
 EXPERT1 | NEW1_010 | Al'Akir the Windlord | O
 EXPERT1 | NEW1_012 | Mana Wyrm | O
 EXPERT1 | NEW1_014 | Master of Disguise |  
-EXPERT1 | NEW1_017 | Hungry Crab | O 
-EXPERT1 | NEW1_018 | Bloodsail Raider | O 
+EXPERT1 | NEW1_017 | Hungry Crab | O
+EXPERT1 | NEW1_018 | Bloodsail Raider | O
 EXPERT1 | NEW1_019 | Knife Juggler | O
 EXPERT1 | NEW1_020 | Wild Pyromancer | O
 EXPERT1 | NEW1_021 | Doomsayer | O
 EXPERT1 | NEW1_022 | Dread Corsair |  
 EXPERT1 | NEW1_023 | Faerie Dragon |  
-EXPERT1 | NEW1_024 | Captain Greenskin |  
-EXPERT1 | NEW1_025 | Bloodsail Corsair | O 
+EXPERT1 | NEW1_024 | Captain Greenskin | O
+EXPERT1 | NEW1_025 | Bloodsail Corsair | O
 EXPERT1 | NEW1_026 | Violet Teacher |  
 EXPERT1 | NEW1_027 | Southsea Captain | O
 EXPERT1 | NEW1_029 | Millhouse Manastorm |  
 EXPERT1 | NEW1_030 | Deathwing | O
-EXPERT1 | NEW1_036 | Commanding Shout | O 
+EXPERT1 | NEW1_036 | Commanding Shout | O
 EXPERT1 | NEW1_037 | Master Swordsmith | O
 EXPERT1 | NEW1_038 | Gruul |  
 EXPERT1 | NEW1_040 | Hogger | O
@@ -386,13 +394,14 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 72% (173 of 237 Cards)
+- Progress: 73% (179 of 245 Cards)
 
 ## Hall of Fame
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 HOF | CS2_031 | Ice Lance | O
+HOF | DS1_233 | Mind Blast | O
 HOF | EX1_016 | Sylvanas Windrunner | O
 HOF | EX1_050 | Coldlight Oracle | O
 HOF | EX1_062 | Old Murk-Eye |  
@@ -412,7 +421,8 @@ HOF | GIL_692 | Genn Greymane |
 HOF | GIL_826 | Baku the Mooneater |  
 HOF | GIL_837 | Glitter Moth |  
 HOF | GIL_838 | Black Cat |  
+HOF | NEW1_004 | Vanish | O
 HOF | NEW1_016 | Captain's Parrot |  
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 32% (7 of 22 Cards)
+- Progress: 37% (9 of 24 Cards)

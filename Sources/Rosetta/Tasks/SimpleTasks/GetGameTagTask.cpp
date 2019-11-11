@@ -19,27 +19,27 @@ GetGameTagTask::GetGameTagTask(EntityType entityType, GameTag tag,
     // Do nothing
 }
 
-TaskStatus GetGameTagTask::Impl(Player& player)
+TaskStatus GetGameTagTask::Impl(Player* player)
 {
     auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-    if (entities.empty())
+    if (entities.empty() || static_cast<int>(entities.size()) <= m_entityIndex)
     {
         return TaskStatus::STOP;
     }
 
+    const int value = entities[m_entityIndex]->GetGameTag(m_gameTag);
+
     if (m_numIndex == 0)
     {
-        player.GetGame()->taskStack.num =
-            entities[m_entityIndex]->GetGameTag(m_gameTag);
+        player->game->taskStack.num = value;
     }
     else if (static_cast<int>(entities.size()) > m_entityIndex)
     {
         switch (m_numIndex)
         {
             case 1:
-                player.GetGame()->taskStack.num1 =
-                    entities[m_entityIndex]->GetGameTag(m_gameTag);
+                player->game->taskStack.num1 = value;
                 break;
             default:
                 throw std::invalid_argument(

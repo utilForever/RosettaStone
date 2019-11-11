@@ -10,6 +10,7 @@
 #include <Rosetta/Commons/Utils.hpp>
 #include <Rosetta/Models/Hero.hpp>
 #include <Rosetta/Models/HeroPower.hpp>
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Models/Weapon.hpp>
 
@@ -347,7 +348,7 @@ struct MyHandCard
     int attack = 0;
     int health = 0;
 
-    void Fill(RosettaStone::Entity& entity)
+    void Fill(Playable& entity)
     {
         cardID = entity.card->id;
         cost = entity.GetCost();

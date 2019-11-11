@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Models/Minion.hpp>
 #include <Rosetta/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
 
@@ -17,14 +18,14 @@ SwapAttackHealthTask::SwapAttackHealthTask(EntityType entityType,
     // Do nothing
 }
 
-TaskStatus SwapAttackHealthTask::Impl(Player& player)
+TaskStatus SwapAttackHealthTask::Impl(Player* player)
 {
-    auto entities =
+    auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& entity : entities)
+    for (auto& playable : playables)
     {
-        const auto minion = dynamic_cast<Minion*>(entity);
+        const auto minion = dynamic_cast<Minion*>(playable);
         const int attack = minion->GetAttack();
         const int health = minion->GetHealth();
 
@@ -33,8 +34,8 @@ TaskStatus SwapAttackHealthTask::Impl(Player& player)
         const auto healthEffect =
             new Effect(GameTag::HEALTH, EffectOperator::SET, attack);
 
-        attackEffect->Apply(entity);
-        healthEffect->Apply(entity);
+        attackEffect->ApplyTo(playable);
+        healthEffect->ApplyTo(playable);
     }
 
     return TaskStatus::COMPLETE;

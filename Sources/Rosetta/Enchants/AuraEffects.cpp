@@ -5,30 +5,233 @@
 
 #include <Rosetta/Enchants/AuraEffects.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone
 {
-AuraEffects::AuraEffects(Entity* owner) : m_owner(owner)
+AuraEffects::AuraEffects(CardType type) : m_type(type)
 {
-    // Do nothing
+    switch (type)
+    {
+        case CardType::HERO:
+            m_data = new int[AURA_EFFECT_HERO_SIZE]();
+            break;
+        case CardType::MINION:
+            m_data = new int[AURA_EFFECT_MINION_SIZE]();
+            break;
+        case CardType::WEAPON:
+            m_data = new int[AURA_EFFECT_WEAPON_SIZE]();
+            break;
+        case CardType::SPELL:
+            m_data = new int[AURA_EFFECT_CARD_SIZE]();
+            break;
+        default:
+            throw std::invalid_argument(
+                "AuraEffects::AuraEffects() - Invalid card type!");
+    }
 }
 
-Entity* AuraEffects::GetOwner() const
+AuraEffects::~AuraEffects()
 {
-    return m_owner;
+    delete[] m_data;
 }
 
 int AuraEffects::GetGameTag(GameTag tag) const
 {
-    if (m_gameTags.find(tag) == m_gameTags.end())
+    switch (tag)
     {
-        return 0;
-    }
+        case GameTag::IMMUNE:
+            return GetImmune();
+        case GameTag::CANT_BE_TARGETED_BY_SPELLS:
+        case GameTag::CANT_BE_TARGETED_BY_HERO_POWERS:
+            return GetCantBeTargetedBySpells();
+        case GameTag::ATK:
+        {
+            if (m_type != CardType::MINION)
+            {
+                return 0;
+            }
 
-    return m_gameTags.at(tag);
+            return GetAttack();
+        }
+        case GameTag::CANNOT_ATTACK_HEROES:
+            return GetCannotAttackHeroes();
+        case GameTag::HEROPOWER_DAMAGE:
+            return GetHeroPowerDamage();
+        case GameTag::HEALTH:
+            return GetHealth();
+        case GameTag::CHARGE:
+            return GetCharge();
+        case GameTag::TAUNT:
+            return GetTaunt();
+        case GameTag::LIFESTEAL:
+            return GetLifesteal();
+        case GameTag::CANT_ATTACK:
+            return GetCantAttack();
+        default:
+            return 0;
+    }
 }
 
 void AuraEffects::SetGameTag(GameTag tag, int value)
 {
-    m_gameTags.insert_or_assign(tag, value);
+    switch (tag)
+    {
+        case GameTag::IMMUNE:
+            SetImmune(value);
+            break;
+        case GameTag::CANT_BE_TARGETED_BY_SPELLS:
+        case GameTag::CANT_BE_TARGETED_BY_HERO_POWERS:
+            SetCantBeTargetedBySpells(value);
+            break;
+        case GameTag::ATK:
+            SetAttack(value);
+            break;
+        case GameTag::CANNOT_ATTACK_HEROES:
+            SetCannotAttackHeroes(value);
+            break;
+        case GameTag::HEROPOWER_DAMAGE:
+            SetHeroPowerDamage(value);
+            break;
+        case GameTag::HEALTH:
+            SetHealth(value);
+            break;
+        case GameTag::CHARGE:
+            SetCharge(value);
+            break;
+        case GameTag::TAUNT:
+            SetTaunt(value);
+            break;
+        case GameTag::LIFESTEAL:
+            SetLifesteal(value);
+            break;
+        case GameTag::CANT_ATTACK:
+            SetCantAttack(value);
+            break;
+        default:
+            return;
+    }
+}
+
+int AuraEffects::GetImmune() const
+{
+    if (m_type == CardType::WEAPON)
+    {
+        return m_data[0];
+    }
+
+    if (m_type == CardType::HERO)
+    {
+        return m_data[4];
+    }
+
+    return 0;
+}
+
+void AuraEffects::SetImmune(int value)
+{
+    if (m_type == CardType::WEAPON)
+    {
+        m_data[0] = value;
+    }
+    else if (m_type == CardType::HERO)
+    {
+        m_data[4] = value;
+    }
+    else
+    {
+        throw std::runtime_error(
+            "AuraEffects::SetImmune() - Invalid card type!");
+    }
+}
+
+int AuraEffects::GetCantBeTargetedBySpells() const
+{
+    return m_data[1];
+}
+
+void AuraEffects::SetCantBeTargetedBySpells(int value)
+{
+    m_data[1] = value;
+}
+
+int AuraEffects::GetAttack() const
+{
+    return m_data[2];
+}
+
+void AuraEffects::SetAttack(int value)
+{
+    m_data[2] = value;
+}
+
+int AuraEffects::GetCannotAttackHeroes() const
+{
+    return m_data[3];
+}
+
+void AuraEffects::SetCannotAttackHeroes(int value)
+{
+    m_data[3] = value;
+}
+
+int AuraEffects::GetHeroPowerDamage() const
+{
+    return m_data[5];
+}
+
+void AuraEffects::SetHeroPowerDamage(int value)
+{
+    m_data[5] = value;
+}
+
+int AuraEffects::GetHealth() const
+{
+    return m_data[3];
+}
+
+void AuraEffects::SetHealth(int value)
+{
+    m_data[3] = value;
+}
+
+int AuraEffects::GetCharge() const
+{
+    return m_data[4];
+}
+
+void AuraEffects::SetCharge(int value)
+{
+    m_data[4] = value;
+}
+
+int AuraEffects::GetTaunt() const
+{
+    return m_data[5];
+}
+
+void AuraEffects::SetTaunt(int value)
+{
+    m_data[5] = value;
+}
+
+int AuraEffects::GetLifesteal() const
+{
+    return m_data[6];
+}
+
+void AuraEffects::SetLifesteal(int value)
+{
+    m_data[6] = value;
+}
+
+int AuraEffects::GetCantAttack() const
+{
+    return m_data[7];
+}
+
+void AuraEffects::SetCantAttack(int value)
+{
+    m_data[7] = value;
 }
 }  // namespace RosettaStone

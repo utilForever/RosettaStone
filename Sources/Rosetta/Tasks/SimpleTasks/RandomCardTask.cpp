@@ -19,7 +19,7 @@ std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
                                                CardClass cardClass, Race race)
 {
     std::vector<Card*> result;
-    const auto cards = Cards::GetInstance().GetAllCards();
+    const auto cards = Cards::GetAllCards();
 
     for (const auto& card : cards)
     {
@@ -36,7 +36,7 @@ std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
     return result;
 }
 
-TaskStatus RandomCardTask::Impl(Player& player)
+TaskStatus RandomCardTask::Impl(Player* player)
 {
     auto cardsList = GetCardList(m_cardType, m_cardClass, m_race);
     if (cardsList.empty())
@@ -46,9 +46,7 @@ TaskStatus RandomCardTask::Impl(Player& player)
 
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
     auto randomCard = Entity::GetFromCard(player, cardsList.at(idx));
-
-    player.GetGame()->taskStack.entities.clear();
-    player.GetGame()->taskStack.entities.emplace_back(randomCard);
+    player->game->taskStack.playables.emplace_back(randomCard);
 
     return TaskStatus::COMPLETE;
 }

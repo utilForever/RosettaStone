@@ -25,6 +25,8 @@ enum class TriggerType
                    //!< ended.
     SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
     AFTER_SUMMON,  //!< The effect will be triggered after a minion is summoned.
+    PLAY_MINION,  //!< The effect will be triggered when a player plays a Minion
+                  //!< card.
     AFTER_PLAY_MINION,  //!< The effect will be triggered after a minion is
                         //!< played.
     DEAL_DAMAGE,  //!< The effect will be triggered when a character is damaged.
@@ -35,6 +37,7 @@ enum class TriggerType
                   //!< damaged.
     TARGET,  //!< The effect will be triggered when a card is targeted by an
              //!< attacking minion or a played card.
+    DEATH,   //!< The effect will be triggered when a minion dies.
 };
 
 //! \brief An enumerator for identifying trigger source.
@@ -42,10 +45,12 @@ enum class TriggerSource
 {
     NONE,
     SELF,
+    ENEMY,
     HERO,
     ALL_MINIONS,
-    ENEMY_MINIONS,
+    MINIONS,
     MINIONS_EXCEPT_SELF,
+    ENEMY_MINIONS,
     ENCHANTMENT_TARGET,
     ENEMY_SPELLS,
     FRIENDLY,

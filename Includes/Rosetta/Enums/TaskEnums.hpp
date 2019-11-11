@@ -41,7 +41,18 @@ enum class EntityType
     MINIONS,
     MINIONS_NOSOURCE,
     ENEMY_MINIONS,
-    STACK
+    STACK,
+    PLAYER,
+    ENEMY_PLAYER
+};
+
+//! \brief An enumerator for evaluating the relation between primitive values
+//! during game simulation.
+enum class RelaSign
+{
+    EQ,   //!< Equal.
+    GEQ,  //!< Greater equal.
+    LEQ   //!< Lesser equal.
 };
 }  // namespace RosettaStone
 

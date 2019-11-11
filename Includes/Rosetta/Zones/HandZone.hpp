@@ -19,26 +19,27 @@ namespace RosettaStone
 //! them. The player can see their hand face-up at the bottom of the screen,
 //! while the opponent's hand is shown face-down at the top of the screen.
 //!
-class HandZone : public PositioningZone<Entity>
+class HandZone : public PositioningZone<Playable>
 {
  public:
-    //! Default constructor.
+    //! Constructs hand zone with given \p player.
+    //! \param player The player.
     explicit HandZone(Player* player);
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
-    void Add(Entity& entity, int zonePos = -1) override;
+    void Add(Playable* entity, int zonePos = -1) override;
 
     //! Removes the specified entity from this zone.
     //! \param entity The entity.
     //! \return The entity.
-    Entity& Remove(Entity& entity) override;
+    Playable* Remove(Playable* entity) override;
 
     //! Finds the index of the entity.
     //! \param entity The entity to find.
     //! \return The index of the entity if it is found, -1 otherwise.
-    int FindIndex(Entity& entity) const;
+    int FindIndex(Entity* entity) const;
 };
 }  // namespace RosettaStone
 

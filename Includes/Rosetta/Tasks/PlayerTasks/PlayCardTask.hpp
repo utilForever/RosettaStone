@@ -24,7 +24,7 @@ class PlayCardTask : public ITask
     //! \param target A pointer to target entity to receive power.
     //! \param fieldPos A value indicating where to place card.
     //! \param chooseOne The index of chosen card from two cards.
-    PlayCardTask(Entity* source, Entity* target = nullptr, int fieldPos = -1,
+    PlayCardTask(Entity* source, Playable* target = nullptr, int fieldPos = -1,
                  int chooseOne = 0);
 
     //! PlayCardTask wrapper for minion without target and field position.
@@ -38,7 +38,7 @@ class PlayCardTask : public ITask
     //! \param target A pointer to target entity to receive power.
     //! \param chooseOne The index of chosen card from two cards.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask MinionTarget(Entity* source, Entity* target,
+    static PlayCardTask MinionTarget(Entity* source, Playable* target,
                                      int chooseOne = 0);
 
     //! PlayCardTask wrapper for spell without target.
@@ -52,7 +52,7 @@ class PlayCardTask : public ITask
     //! \param target A pointer to target entity to receive power.
     //! \param chooseOne The index of chosen card from two cards.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask SpellTarget(Entity* source, Entity* target,
+    static PlayCardTask SpellTarget(Entity* source, Playable* target,
                                     int chooseOne = 0);
 
     //! PlayCardTask wrapper for weapon without target.
@@ -64,13 +64,13 @@ class PlayCardTask : public ITask
     //! \param source A pointer to source entity to play card.
     //! \param target A pointer to target entity to receive power.
     //! \return Generated PlayCardTask for intended purpose.
-    static PlayCardTask WeaponTarget(Entity* source, Entity* target);
+    static PlayCardTask WeaponTarget(Entity* source, Playable* target);
 
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
     //! \return The result of task processing.
-    TaskStatus Impl(Player& player) override;
+    TaskStatus Impl(Player* player) override;
 
     //! Internal method of Clone().
     //! \return The cloned task.
