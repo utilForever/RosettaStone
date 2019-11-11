@@ -33,12 +33,6 @@ class IntAttr : public Attr<T>
     {
         const int target = GetValue(entity);
 
-        if (effectOp == EffectOperator::SET)
-        {
-            SetValue(entity, value);
-            return;
-        }
-
         switch (effectOp)
         {
             case EffectOperator::ADD:
@@ -50,9 +44,9 @@ class IntAttr : public Attr<T>
             case EffectOperator::MUL:
                 SetValue(entity, target * value);
                 break;
-            default:
-                throw std::invalid_argument(
-                    "IntAttr::Apply() - Invalid effect operator!");
+            case EffectOperator::SET:
+                SetValue(entity, value);
+                break;
         }
     }
 
