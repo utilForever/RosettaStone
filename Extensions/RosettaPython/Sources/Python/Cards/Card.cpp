@@ -17,8 +17,7 @@ void AddCard(pybind11::module& m)
     pybind11::class_<Card>(
         static_cast<pybind11::handle>(m), "Card",
         R"pbdoc(This class stores card information such as attack, health and cost.)pbdoc")
-        .def("__init__", [](Card& instance) { new (&instance) Card(); },
-             R"pbdoc(Constructs Card class.)pbdoc")
+        .def(pybind11::init<>(), R"pbdoc(Constructs Card class.)pbdoc")
         .def_readwrite("id", &Card::id, R"pbdoc(ID of the card.)pbdoc")
         .def_readwrite("name", &Card::name, R"pbdoc(Name of the card.)pbdoc")
         .def_readwrite("text", &Card::text, R"pbdoc(Text of the card.)pbdoc")
@@ -30,7 +29,7 @@ void AddCard(pybind11::module& m)
                        R"pbdoc(Entourages of the card.)pbdoc")
         .def_readwrite("power", &Card::power, R"pbdoc(Power of the card.)pbdoc")
         .def_readwrite("max_allowed_in_deck", &Card::maxAllowedInDeck,
-                       "Maximum of card in deck.)pbdoc")
+                       R"pbdoc(Maximum of card in deck.)pbdoc")
         .def("initialize", &Card::Initialize,
              R"pbdoc(Initializes card data.)pbdoc")
         .def("card_class", &Card::GetCardClass,
