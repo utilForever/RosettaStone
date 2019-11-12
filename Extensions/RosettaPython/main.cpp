@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Python/Accounts/AccountInfo.hpp>
+#include <Python/Accounts/DeckInfo.hpp>
 
 #include <Python/Cards/Card.hpp>
 
@@ -25,6 +26,7 @@ PYBIND11_MODULE(pyRosetta, m)
 
     // Accounts
     AddAccountInfo(m);
+    AddDeckInfo(m);
 
     // Cards
     AddCard(m);
