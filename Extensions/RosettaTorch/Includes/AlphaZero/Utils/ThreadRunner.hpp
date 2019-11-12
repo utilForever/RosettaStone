@@ -10,6 +10,7 @@
 #ifndef ROSETTASTONE_TORCH_ALPHA_ZERO_THREAD_RUNNER_HPP
 #define ROSETTASTONE_TORCH_ALPHA_ZERO_THREAD_RUNNER_HPP
 
+#include <chrono>
 #include <condition_variable>
 #include <functional>
 #include <memory>
@@ -18,6 +19,8 @@
 
 namespace RosettaTorch::AlphaZero
 {
+using ConditionCallback = std::function<bool()>;
+
 //!
 //! \brief ThreadRunner class.
 //!
@@ -49,6 +52,25 @@ class ThreadRunner
 
     //! Releases the thread runner.
     void Release() const;
+
+    //! Waits the thread runner until the task is finished.
+    void Wait();
+
+    //! Runs a thread asynchronously.
+    //! \param task The task to run.
+    void RunAsync(std::function<void()> task);
+
+    //! Runs a thread asynchronously under \p condition.
+    //! \param condition The condition to run a thread.
+    //! \param task The task to run.
+    void RunAsyncUnderCondition(ConditionCallback condition,
+                                std::function<void(ConditionCallback)> task);
+
+    //! Runs a thread asynchronously until \p timePoint.
+    //! \param timePoint The time point to finish running.
+    //! \param task The task to run.
+    void RunAsyncUntil(std::chrono::steady_clock::time_point timePoint,
+                       std::function<void(ConditionCallback)> task);
 
  private:
     //! The main entry of the thread.
