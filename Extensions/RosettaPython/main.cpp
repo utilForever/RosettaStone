@@ -4,6 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Python/Accounts/AccountInfo.hpp>
+
 #include <Python/Cards/Card.hpp>
 
 #include <Python/Enums/ActionEnums.hpp>
@@ -20,6 +22,9 @@ PYBIND11_MODULE(pyRosetta, m)
 {
     m.doc() =
         R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
+
+    // Accounts
+    AddAccountInfo(m);
 
     // Cards
     AddCard(m);
