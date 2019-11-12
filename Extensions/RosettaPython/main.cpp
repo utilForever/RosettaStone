@@ -5,7 +5,14 @@
 // property of any third parties.
 
 #include <Python/Cards/Card.hpp>
+
+#include <Python/Enums/ActionEnums.hpp>
+#include <Python/Enums/AuraEnums.hpp>
 #include <Python/Enums/CardEnums.hpp>
+#include <Python/Enums/GameEnums.hpp>
+#include <Python/Enums/TargetingEnums.hpp>
+#include <Python/Enums/TaskEnums.hpp>
+#include <Python/Enums/TriggerEnums.hpp>
 
 #include <pybind11/pybind11.h>
 
@@ -18,5 +25,11 @@ PYBIND11_MODULE(pyRosetta, m)
     AddCard(m);
 
     // Enums
+    AddActionEnums(m);
+    AddAuraEnums(m);
     AddCardEnums(m);
+    AddGameEnums(m);
+    AddTargetingEnums(m);
+    AddTaskEnums(m);
+    AddTriggerEnums(m);
 }
