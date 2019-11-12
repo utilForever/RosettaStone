@@ -16,11 +16,23 @@ void AddAccountInfo(pybind11::module& m)
 {
     pybind11::class_<AccountInfo>(m, "AccountInfo")
         .def(pybind11::init<>(), R"pbdoc(Constructs anonymous account.)pbdoc")
-        .def(pybind11::init<std::string&&, std::string&&>())
-        .def(
-            pybind11::init<std::string&&, std::string&&,
-                           std::vector<DeckInfo*>>(),
-            R"pbdoc(Constructs account with given \p email and \p nickname.)pbdoc")
+        .def(pybind11::init<std::string&&, std::string&&>(),
+             R"pbdoc(Constructs account with given email and nickname.
+
+             Parameters
+             ----------
+             email : E-mail address of account.
+             nickname : Nickname of account.)pbdoc")
+        .def(pybind11::init<std::string&&, std::string&&,
+                            std::vector<DeckInfo*>>(),
+             R"pbdoc(Constructs account with given email and nickname
+             and fill deck list with decks.
+
+             Parameters
+             ----------
+             email : E-mail address of account.
+             nickname : Nickname of account.
+             decks : A list of decks)pbdoc")
         .def("get_email", &AccountInfo::GetEmail,
              R"pbdoc(Returns e-mail address of account.)pbdoc")
         .def("get_nickname", &AccountInfo::GetNickname,
