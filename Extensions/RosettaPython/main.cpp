@@ -8,6 +8,7 @@
 #include <Python/Accounts/DeckInfo.hpp>
 
 #include <Python/Cards/Card.hpp>
+#include <Python/Commons/Constants.hpp>
 
 #include <Python/Enums/ActionEnums.hpp>
 #include <Python/Enums/AuraEnums.hpp>
@@ -30,6 +31,8 @@ PYBIND11_MODULE(pyRosetta, m)
 
     // Cards
     AddCard(m);
+    // Commons
+    AddConstants(m);
 
     // Enums
     AddActionEnums(m);
