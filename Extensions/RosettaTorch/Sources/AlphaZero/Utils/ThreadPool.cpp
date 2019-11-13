@@ -13,7 +13,7 @@ namespace RosettaTorch::AlphaZero
 {
 void ThreadPool::Initialize(int threads)
 {
-    for (std::size_t i = 0; i < threads; ++i)
+    for (int i = 0; i < threads; ++i)
     {
         m_threads.emplace_back(new ThreadRunner());
         m_threads.back()->Initialize();
