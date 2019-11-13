@@ -8,6 +8,8 @@
 #include <Python/Accounts/DeckInfo.hpp>
 
 #include <Python/Cards/Card.hpp>
+#include <Python/Cards/Cards.hpp>
+
 #include <Python/Commons/Constants.hpp>
 #include <Python/Commons/DeckCode.hpp>
 
@@ -32,6 +34,8 @@ PYBIND11_MODULE(pyRosetta, m)
 
     // Cards
     AddCard(m);
+    AddCards(m);
+
     // Commons
     AddConstants(m);
     AddDeckCode(m);
