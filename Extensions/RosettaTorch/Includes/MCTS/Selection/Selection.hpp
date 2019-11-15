@@ -65,8 +65,9 @@ class Selection
     // Finishes action by constructing redirect node and checking it has to
     // switch to simulation.
     //! \param board The game board.
-    //! \param result The game result.
-    bool FinishAction(const Board& board, PlayState result);
+    //! \param result The result of the game (player1 and player2).
+    bool FinishAction(const Board& board,
+                      std::tuple<PlayState, PlayState> result);
 
     //! Applies other actions to the game.
     void ApplyOthersActions();

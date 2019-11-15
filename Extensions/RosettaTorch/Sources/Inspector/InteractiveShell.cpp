@@ -244,10 +244,11 @@ bool InteractiveShell::ShowBestSubNodeInfo(
         if (!onlyShowBestChoice)
         {
             Game game = m_startBoardGetter();
-            PlayState result = PlayState::INVALID;
+            std::tuple<PlayState, PlayState> result;
             auto dummyInfo = actionInfoGetter.ApplyChoices(game, result);
 
-            if (result == PlayState::PLAYING)
+            if (std::get<0>(result) == PlayState::PLAYING ||
+                std::get<1>(result) == PlayState::PLAYING)
             {
                 const double v = GetStateValue(game);
                 os << indentPadding << "State-value: " << v << std::endl;

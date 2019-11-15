@@ -51,10 +51,9 @@ class Recorder
                             RosettaStone::ActionChoices choices, int action);
 
     //! Records the game end data to JSON object.
-    //! \param playerType The type of player to get the game result.
-    //! \param result The result of game to record.
-    void End(RosettaStone::PlayerType playerType,
-             RosettaStone::PlayState result);
+    //! \param result The result of the game (player1 and player2).
+    void End(
+        std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result);
 
  private:
     //! Converts the action type to string.
@@ -68,11 +67,10 @@ class Recorder
     std::string GetChoiceTypeString(const RosettaStone::ActionChoices& choices);
 
     //! Converts the game result to string.
-    //! \param playerType The type of player.
-    //! \param result The result of the game.
+    //! \param result The result of the game (player1 and player2).
     //! \return The converted string of the game result.
-    std::string GetResultString(RosettaStone::PlayerType playerType,
-                                RosettaStone::PlayState result);
+    std::string GetResultString(
+        std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result) const;
 
     nlohmann::json m_json;
 };

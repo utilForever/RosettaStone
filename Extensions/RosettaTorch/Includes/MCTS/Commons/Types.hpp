@@ -40,8 +40,8 @@ class StateValue
 
     //! Sets the value that indicates player won.
     //! \param type The type of the player.
-    //! \param state The play state of the game.
-    void SetValue(PlayerType type, PlayState state);
+    //! \param result The result of the game (player1 and player2).
+    void SetValue(PlayerType type, std::tuple<PlayState, PlayState> result);
 
  private:
     float m_value = 0.0f;

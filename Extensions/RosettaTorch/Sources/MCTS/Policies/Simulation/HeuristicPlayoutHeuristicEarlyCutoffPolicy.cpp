@@ -192,10 +192,12 @@ void HeuristicPlayoutHeuristicEarlyCutoffPolicy::DFSBestStateValue(
             dfsIter = dfs.begin();
             const auto result = copyBoard.ApplyAction(userChoice);
 
-            if (result != PlayState::INVALID)
+            if (std::get<0>(result) != PlayState::INVALID &&
+                std::get<1>(result) != PlayState::INVALID)
             {
                 StateValue stateValue;
-                if (result == PlayState::PLAYING)
+                if (std::get<0>(result) == PlayState::PLAYING &&
+                    std::get<1>(result) == PlayState::PLAYING)
                 {
                     stateValue = m_stateValue.GetStateValue(copyBoard);
                 }

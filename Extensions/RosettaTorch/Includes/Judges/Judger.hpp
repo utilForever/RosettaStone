@@ -68,9 +68,11 @@ class NullRecorder
 
     //! Records the game end data to JSON object.
     //! \param playerType The type of player to get the game result.
-    //! \param result The result of game to record.
+    //! \param p1Result The game result of player 1 to record.
+    //! \param p2Result The game result of player 2 to record.
     void End([[maybe_unused]] PlayerType playerType,
-             [[maybe_unused]] PlayState result)
+             [[maybe_unused]] PlayState p1Result,
+             [[maybe_unused]] PlayState p2Result)
     {
         // Do nothing
     }
@@ -128,13 +130,14 @@ class Judger
 
     //! Starts the recorder and the game.
     //! \param game The game context.
-    PlayState Start(Game& game)
+    //! \return The result of the game (player1 and player2).
+    std::tuple<PlayState, PlayState> Start(Game& game)
     {
         m_recorder.Start();
 
         game.Start();
 
-        PlayState result;
+        std::tuple<PlayState, PlayState> result;
         AgentType* nextAgent = nullptr;
 
         while (true)
@@ -154,13 +157,14 @@ class Judger
             m_actionCallback.Init(game, nextAgent);
             result = game.PerformAction(m_actionCallback);
 
-            if (result != PlayState::PLAYING)
+            if (std::get<0>(result) != PlayState::PLAYING &&
+                std::get<1>(result) != PlayState::PLAYING)
             {
                 break;
             }
         }
 
-        m_recorder.End(game.GetCurrentPlayer()->playerType, result);
+        m_recorder.End(result);
 
         return result;
     }

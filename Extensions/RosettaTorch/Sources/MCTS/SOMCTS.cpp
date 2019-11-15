@@ -35,7 +35,7 @@ void SOMCTS::StartIteration()
 
 bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
 {
-    PlayState result;
+    std::tuple<PlayState, PlayState> result;
 
     m_actionParams.Init(board);
 
@@ -68,7 +68,8 @@ bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
         }
     }
 
-    if (result != PlayState::PLAYING)
+    if (std::get<0>(result) != PlayState::PLAYING &&
+        std::get<1>(result) != PlayState::PLAYING)
     {
         stateValue.SetValue(board.GetViewType(), result);
         return true;
