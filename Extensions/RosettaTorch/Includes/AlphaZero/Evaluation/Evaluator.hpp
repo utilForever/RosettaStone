@@ -16,6 +16,8 @@
 #include <Judges/Judger.hpp>
 #include <NeuralNet/NeuralNetwork.hpp>
 
+#include <Rosetta/Commons/DeckCode.hpp>
+
 #include <effolkronium/random.hpp>
 
 using Random = effolkronium::random_static;
@@ -74,6 +76,7 @@ class Evaluator
             Agents::MCTSAgent<> competitorAgent(competitorAgentConfig);
 
             bool isCompetitorFirst = Random::get<int>(0, 1) == 0;
+
             if (isCompetitorFirst)
             {
                 judger.SetPlayer1Agent(&competitorAgent);
@@ -84,6 +87,34 @@ class Evaluator
                 judger.SetPlayer1Agent(&bestAgent);
                 judger.SetPlayer2Agent(&competitorAgent);
             }
+
+            GameConfig gameConfig;
+            gameConfig.player1Class = CardClass::WARLOCK;
+            gameConfig.player2Class = CardClass::WARLOCK;
+            gameConfig.startPlayer = PlayerType::PLAYER1;
+            gameConfig.doShuffle = false;
+            gameConfig.doFillDecks = false;
+            gameConfig.skipMulligan = true;
+            gameConfig.autoRun = true;
+
+            const std::string INNKEEPER_EXPERT_WARLOCK =
+                "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
+            auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
+
+            for (std::size_t j = 0; j < deck.size(); ++j)
+            {
+                gameConfig.player1Deck[j] = *Cards::FindCardByID(deck[j]);
+                gameConfig.player2Deck[j] = *Cards::FindCardByID(deck[j]);
+            }
+
+            Game game(gameConfig);
+            auto [p1Result, p2Result] = judger.Start(game);
+            bool isCompetitorWin =
+                (p1Result == PlayState::WON && isCompetitorFirst) ||
+                (p2Result == PlayState::WON && !isCompetitorFirst);
+
+            m_result->AddResult(isCompetitorWin);
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
 
