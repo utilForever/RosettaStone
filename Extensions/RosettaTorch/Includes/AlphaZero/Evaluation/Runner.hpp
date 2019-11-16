@@ -12,6 +12,7 @@
 
 #include <AlphaZero/Evaluation/Evaluator.hpp>
 #include <AlphaZero/Logger/ILogger.hpp>
+#include <AlphaZero/Utils/ThreadRunner.hpp>
 
 namespace RosettaTorch::AlphaZero::Evaluation
 {
@@ -39,14 +40,19 @@ class Runner
     //! Deleted move assignment operator.
     Runner& operator=(Runner&&) noexcept = delete;
 
+    //! Initializes the evaluation runner.
+    //! \param threads The number of threads.
+    void Initialize(int threads);
+
     //! The method that runs before method Run().
     //! \param runOptions The options of the evaluation runner.
+    //! \param threads Th
     //! \param bestNetPath The path of the best neural network.
     //! \param competitorNetPath The path of the competitor neural network.
-    //! \param result The result of the competition.
-    void BeforeRun(const RunOptions& runOptions, const std::string& bestNetPath,
-                   const std::string& competitorNetPath,
-                   CompetitionResult& result);
+    void BeforeRun(const RunOptions& runOptions,
+                   const std::vector<ThreadRunner*>& threads,
+                   const std::string& bestNetPath,
+                   const std::string& competitorNetPath);
 
     //! The method that runs after method Run().
     //! \return The result of the competition.
