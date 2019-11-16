@@ -46,7 +46,7 @@ class Runner
 
     //! The method that runs before method Run().
     //! \param runOptions The options of the evaluation runner.
-    //! \param threads Th
+    //! \param threads A list of thread runners.
     //! \param bestNetPath The path of the best neural network.
     //! \param competitorNetPath The path of the competitor neural network.
     void BeforeRun(const RunOptions& runOptions,
