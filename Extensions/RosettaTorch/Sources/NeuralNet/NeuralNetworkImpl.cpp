@@ -68,7 +68,8 @@ void NeuralNetworkImpl::CopyFrom(const NeuralNetworkImpl& rhs)
 
 void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
                               const NeuralNetworkOutputImpl& output,
-                              std::size_t epochs)
+                              [[maybe_unused]] std::size_t batchSize,
+                              std::size_t epoch)
 {
     const auto& inputData = input.GetData();
     const auto& outputData = output.GetData();
@@ -76,7 +77,7 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
     torch::optim::Adam optimizer(m_net->parameters(),
                                  torch::optim::AdamOptions(lr));
 
-    for (std::size_t epoch = 0; epoch < epochs; ++epoch)
+    for (std::size_t i = 0; i < epoch; ++i)
     {
         for (std::size_t idx = 0; idx < inputData.size(); ++idx)
         {
