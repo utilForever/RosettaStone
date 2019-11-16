@@ -67,12 +67,8 @@ class NullRecorder
     }
 
     //! Records the game end data to JSON object.
-    //! \param playerType The type of player to get the game result.
-    //! \param p1Result The game result of player 1 to record.
-    //! \param p2Result The game result of player 2 to record.
-    void End([[maybe_unused]] PlayerType playerType,
-             [[maybe_unused]] PlayState p1Result,
-             [[maybe_unused]] PlayState p2Result)
+    //! \param result The result of the game (player1 and player2).
+    void End([[maybe_unused]] std::tuple<PlayState, PlayState> result)
     {
         // Do nothing
     }
