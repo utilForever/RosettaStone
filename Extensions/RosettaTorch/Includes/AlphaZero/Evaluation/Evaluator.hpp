@@ -33,20 +33,23 @@ namespace RosettaTorch::AlphaZero::Evaluation
 class Evaluator
 {
  public:
+    //! Default constructor.
+    Evaluator() = default;
+
     //! Default destructor.
     ~Evaluator() = default;
 
     //! Deleted copy constructor.
     Evaluator(const Evaluator&) = delete;
 
-    //! Deleted move constructor.
-    Evaluator(Evaluator&&) noexcept = delete;
+    //! Default move constructor.
+    Evaluator(Evaluator&&) noexcept = default;
 
     //! Deleted copy assignment operator.
     Evaluator& operator=(const Evaluator&) = delete;
 
-    //! Deleted move assignment operator.
-    Evaluator& operator=(Evaluator&&) noexcept = delete;
+    //! Default move assignment operator.
+    Evaluator& operator=(Evaluator&&) noexcept = default;
 
     //! The method that runs before method Run().
     //! \param bestNetPath The path of the best neural network.
