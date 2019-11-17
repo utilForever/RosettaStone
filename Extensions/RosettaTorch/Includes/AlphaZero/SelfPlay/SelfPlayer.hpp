@@ -72,12 +72,6 @@ class SelfPlayer
     //! Destructor.
     ~SelfPlayer();
 
-    //! Deleted copy constructor.
-    SelfPlayer(const SelfPlayer&) = delete;
-
-    //! Deleted copy assignment operator.
-    SelfPlayer& operator=(const SelfPlayer&) = delete;
-
     //! The method that runs before method Run().
     //! \param data The training data.
     //! \param neuralNet The neural network.
