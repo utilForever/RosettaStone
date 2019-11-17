@@ -64,7 +64,7 @@ SelfPlayer::~SelfPlayer()
 }
 
 void SelfPlayer::BeforeRun(TrainingData& data,
-                           NeuralNet::NeuralNetwork& neuralNet,
+                           const NeuralNet::NeuralNetwork& neuralNet,
                            const RunOptions& config)
 {
     m_data = &data;

@@ -82,7 +82,8 @@ class SelfPlayer
     //! \param data The training data.
     //! \param neuralNet The neural network.
     //! \param config The options of the runner.
-    void BeforeRun(TrainingData& data, NeuralNet::NeuralNetwork& neuralNet,
+    void BeforeRun(TrainingData& data,
+                   const NeuralNet::NeuralNetwork& neuralNet,
                    const RunOptions& config);
 
     //! The main method of the self player.
