@@ -32,7 +32,7 @@ class Optimizer
     //! The method that runs before method Run().
     void BeforeRun();
 
-    //! The main method of the evaluator.
+    //! The main method of the optimizer.
     //! \param input The input of the neural network.
     //! \param output The output of the neural network.
     //! \param options The options of the runner.
