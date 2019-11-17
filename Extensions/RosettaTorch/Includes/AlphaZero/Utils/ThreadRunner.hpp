@@ -19,8 +19,6 @@
 
 namespace RosettaTorch::AlphaZero
 {
-using ConditionCallback = std::function<bool()>;
-
 //!
 //! \brief ThreadRunner class.
 //!
@@ -29,6 +27,8 @@ using ConditionCallback = std::function<bool()>;
 class ThreadRunner
 {
  public:
+    using ConditionCallback = std::function<bool()>;
+
     //! Default constructor.
     ThreadRunner() = default;
 
