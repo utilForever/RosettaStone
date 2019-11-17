@@ -9,6 +9,13 @@
 
 #include <AlphaZero/SelfPlay/SelfPlayer.hpp>
 
+#include <Rosetta/Commons/Macros.hpp>
+
+#if !defined(ROSETTASTONE_WINDOWS)
+#include <stdlib.h>
+#include <unistd.h>
+#endif
+
 namespace RosettaTorch::AlphaZero::SelfPlay
 {
 AgentCallback::AgentCallback(ILogger& logger)
@@ -44,5 +51,88 @@ void AgentCallback::Think(
 void AgentCallback::AfterThink([[maybe_unused]] std::uint64_t iteration)
 {
     // Do nothing
+}
+
+SelfPlayer::SelfPlayer(ILogger& logger) : m_logger(logger)
+{
+    // Do nothing
+}
+
+SelfPlayer::~SelfPlayer()
+{
+    RemoveTempFile();
+}
+
+void SelfPlayer::BeforeRun(TrainingData& data,
+                           NeuralNet::NeuralNetwork& neuralNet,
+                           const RunOptions& config)
+{
+    m_data = &data;
+
+    RemoveTempFile();
+#if defined(ROSETTASTONE_WINDOWS)
+    m_tempFile = std::tmpnam(nullptr);
+#else
+    char tempFile[] = "/tempXXXXXX";
+    int fd = mkstemp(tempFile);
+    if (fd == -1)
+    {
+        exit(EXIT_FAILURE);
+    }
+#endif
+    neuralNet.Save(m_tempFile);
+
+    m_result.Clear();
+
+    m_config = config;
+    m_config.agentConfig.mcts.neuralNetPath = m_tempFile;
+    m_config.agentConfig.mcts.isNeuralNetRandom = neuralNet.IsRandom();
+}
+
+RunResult SelfPlayer::AfterRun()
+{
+    RemoveTempFile();
+    return m_result;
+}
+
+void SelfPlayer::RemoveTempFile()
+{
+    if (!m_tempFile.empty())
+    {
+        std::remove(m_tempFile.c_str());
+        m_tempFile.clear();
+    }
+}
+
+void SelfPlayer::SaveJSON(const nlohmann::json& json)
+{
+    if (m_config.saveDir.empty())
+    {
+        return;
+    }
+
+    time_t now;
+    time(&now);
+
+    struct tm timeinfo
+    {
+    };
+#ifdef _MSC_VER
+    localtime_s(&timeinfo, &now);
+#else
+    localtime_r(&now, &timeinfo);
+#endif
+
+    char buffer[80];
+    strftime(buffer, 80, "%Y%m%d-%H%M%S", &timeinfo);
+
+    std::ostringstream ss;
+    const int postfix = Random::get<int>(0, 89999) + 10000;
+    ss << m_config.saveDir << "/" << buffer << "-" << postfix << ".json";
+    const std::string fileName = ss.str();
+
+    std::ofstream fs(fileName, std::ofstream::trunc);
+    fs << json;
+    fs.close();
 }
 }  // namespace RosettaTorch::AlphaZero::SelfPlay
