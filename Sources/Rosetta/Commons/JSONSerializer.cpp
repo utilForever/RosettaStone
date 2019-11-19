@@ -225,7 +225,7 @@ void JSONSerializer::AddPlayableCardInfo(nlohmann::json& obj, Game& game,
 {
     for (std::size_t idx = 0; idx < obj.size(); ++idx)
     {
-        obj[idx]["playable"] = false;
+        obj[idx]["playable"] = 0;
     }
 
     if (isOpponent)
@@ -237,7 +237,7 @@ void JSONSerializer::AddPlayableCardInfo(nlohmann::json& obj, Game& game,
     getter.ForEachPlayableCard([&](Entity* card) {
         const Player* curPlayer = game.GetCurrentPlayer();
         const int handIdx = curPlayer->GetHandZone()->FindIndex(card);
-        obj[handIdx]["playable"] = true;
+        obj[handIdx]["playable"] = 1;
         return true;
     });
 }
@@ -246,7 +246,8 @@ void JSONSerializer::AddPlayableHeroPowerInfo(nlohmann::json& obj, Game& game,
                                               bool isOpponent)
 {
     ActionValidGetter getter(game);
-    obj["playable"] = isOpponent ? 0 : getter.CanUseHeroPower();
+    obj["playable"] =
+        isOpponent ? 0 : static_cast<int>(getter.CanUseHeroPower());
 }
 
 void JSONSerializer::AddAttackableInfo(nlohmann::json& obj, Game& game,
@@ -254,9 +255,9 @@ void JSONSerializer::AddAttackableInfo(nlohmann::json& obj, Game& game,
 {
     for (std::size_t idx = 0; idx < obj["minions"].size(); ++idx)
     {
-        obj["minions"][idx]["attackable"] = false;
+        obj["minions"][idx]["attackable"] = 0;
     }
-    obj["hero"]["attackable"] = false;
+    obj["hero"]["attackable"] = 0;
 
     if (isOpponent)
     {
@@ -267,14 +268,14 @@ void JSONSerializer::AddAttackableInfo(nlohmann::json& obj, Game& game,
     getter.ForEachAttacker([&](Character* character) {
         if (dynamic_cast<Hero*>(character))
         {
-            obj["hero"]["attackable"] = true;
+            obj["hero"]["attackable"] = 1;
         }
         else
         {
             const auto minion = dynamic_cast<Minion*>(character);
             const Player* curPlayer = game.GetCurrentPlayer();
             const int minionIdx = curPlayer->GetFieldZone()->FindIndex(minion);
-            obj["minions"][minionIdx]["attackable"] = true;
+            obj["minions"][minionIdx]["attackable"] = 1;
             return true;
         }
 
