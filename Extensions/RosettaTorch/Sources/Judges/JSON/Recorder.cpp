@@ -11,6 +11,7 @@
 
 #include <json/json.hpp>
 
+#include <tuple>
 #include <utility>
 
 namespace RosettaTorch::Judges::JSON

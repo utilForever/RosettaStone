@@ -11,6 +11,8 @@
 
 #include <Rosetta/Actions/ActionApplyHelper.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 InteractiveShell::InteractiveShell(Agents::MCTSRunner* controller,

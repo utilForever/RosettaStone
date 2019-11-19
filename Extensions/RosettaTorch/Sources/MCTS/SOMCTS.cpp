@@ -10,6 +10,8 @@
 #include <MCTS/Commons/Config.hpp>
 #include <MCTS/SOMCTS.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 SOMCTS::SOMCTS(TreeNode& tree, Statistics<>& statistics, const Config& config)

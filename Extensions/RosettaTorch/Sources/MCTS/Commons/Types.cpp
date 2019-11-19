@@ -10,6 +10,7 @@
 #include <MCTS/Commons/Types.hpp>
 
 #include <stdexcept>
+#include <tuple>
 
 namespace RosettaTorch::MCTS
 {

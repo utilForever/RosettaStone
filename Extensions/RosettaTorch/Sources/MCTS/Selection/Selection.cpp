@@ -13,6 +13,8 @@
 #include <MCTS/Policies/StageController.hpp>
 #include <MCTS/Selection/Selection.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 Selection::Selection(TreeNode& tree) : m_root(tree), m_policy(new UCBPolicy())

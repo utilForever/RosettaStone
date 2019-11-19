@@ -9,6 +9,8 @@
 
 #include <MCTS/Selection/TraversedNodesInfo.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 TraversedNodesInfo::TraversedNodesInfo()

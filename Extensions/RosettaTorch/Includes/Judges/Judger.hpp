@@ -19,6 +19,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <tuple>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaTorch::Judges
