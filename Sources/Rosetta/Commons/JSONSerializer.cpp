@@ -39,6 +39,10 @@ nlohmann::json JSONSerializer::Serialize(Game& game)
     AddPlayableHeroPowerInfo(obj["current_player"]["hero_power"], game);
     AddAttackableInfo(obj["current_player"], game);
 
+    AddPlayableCardInfo(obj["opponent_player"]["hand"], game, true);
+    AddPlayableHeroPowerInfo(obj["opponent_player"]["hero_power"], game, true);
+    AddAttackableInfo(obj["opponent_player"], game, true);
+
     return obj;
 }
 
@@ -216,11 +220,17 @@ nlohmann::json JSONSerializer::SerializeSecret(const Spell& secret)
     return obj;
 }
 
-void JSONSerializer::AddPlayableCardInfo(nlohmann::json& obj, Game& game)
+void JSONSerializer::AddPlayableCardInfo(nlohmann::json& obj, Game& game,
+                                         bool isOpponent)
 {
     for (std::size_t idx = 0; idx < obj.size(); ++idx)
     {
         obj[idx]["playable"] = false;
+    }
+
+    if (isOpponent)
+    {
+        return;
     }
 
     const ActionValidGetter getter(game);
@@ -232,19 +242,26 @@ void JSONSerializer::AddPlayableCardInfo(nlohmann::json& obj, Game& game)
     });
 }
 
-void JSONSerializer::AddPlayableHeroPowerInfo(nlohmann::json& obj, Game& game)
+void JSONSerializer::AddPlayableHeroPowerInfo(nlohmann::json& obj, Game& game,
+                                              bool isOpponent)
 {
     ActionValidGetter getter(game);
-    obj["playable"] = getter.CanUseHeroPower();
+    obj["playable"] = isOpponent ? 0 : getter.CanUseHeroPower();
 }
 
-void JSONSerializer::AddAttackableInfo(nlohmann::json& obj, Game& game)
+void JSONSerializer::AddAttackableInfo(nlohmann::json& obj, Game& game,
+                                       bool isOpponent)
 {
     for (std::size_t idx = 0; idx < obj["minions"].size(); ++idx)
     {
         obj["minions"][idx]["attackable"] = false;
     }
     obj["hero"]["attackable"] = false;
+
+    if (isOpponent)
+    {
+        return;
+    }
 
     const ActionValidGetter getter(game);
     getter.ForEachAttacker([&](Character* character) {

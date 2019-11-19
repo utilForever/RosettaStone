@@ -100,17 +100,23 @@ class JSONSerializer
     //! Adds the playable card info.
     //! \param obj The JSON object to add info.
     //! \param game The game context.
-    static void AddPlayableCardInfo(nlohmann::json& obj, Game& game);
+    //! \param isOpponent The flag that indicates it is the opponent player.
+    static void AddPlayableCardInfo(nlohmann::json& obj, Game& game,
+                                    bool isOpponent = false);
 
     //! Adds the playable hero power info.
     //! \param obj The JSON object to add info.
     //! \param game The game context.
-    static void AddPlayableHeroPowerInfo(nlohmann::json& obj, Game& game);
+    //! \param isOpponent The flag that indicates it is the opponent player.
+    static void AddPlayableHeroPowerInfo(nlohmann::json& obj, Game& game,
+                                         bool isOpponent = false);
 
     //! Adds the attackable info.
     //! \param obj The JSON object to add info.
     //! \param game The game context.
-    static void AddAttackableInfo(nlohmann::json& obj, Game& game);
+    //! \param isOpponent The flag that indicates it is the opponent player.
+    static void AddAttackableInfo(nlohmann::json& obj, Game& game,
+                                  bool isOpponent = false);
 };
 }  // namespace RosettaStone
 
