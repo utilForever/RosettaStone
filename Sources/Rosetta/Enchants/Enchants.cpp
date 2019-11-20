@@ -43,6 +43,11 @@ Enchant* Enchants::GetEnchantFromText(const std::string& cardID)
         effects.emplace_back(Effects::Taunt);
     }
 
+    if (text.find("<b>Poisonous</b>") != std::string::npos)
+    {
+        effects.emplace_back(Effects::Poisonous);
+    }
+
     if (text.find("<b>Charge</b>") != std::string::npos)
     {
         effects.emplace_back(Effects::Charge);
