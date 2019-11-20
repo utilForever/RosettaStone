@@ -39,6 +39,15 @@ void Aura::Activate(Playable* owner, bool cloning)
 
     AddToGame(*owner, *instance);
 
+    if (removeTrigger.first != TriggerType::NONE)
+    {
+        switch (removeTrigger.first)
+        {
+            case TriggerType::PLAY_MINION:
+                break;
+        }
+    }
+
     if (!cloning && !restless)
     {
         instance->m_auraUpdateInstQueue.Push(
@@ -248,6 +257,7 @@ void Aura::NotifyEntityRemoved(Playable* entity)
 
 Aura::Aura(Aura& prototype, Playable& owner)
     : condition(prototype.condition),
+      removeTrigger(prototype.removeTrigger),
       restless(prototype.restless),
       m_type(prototype.m_type),
       m_owner(&owner),
@@ -429,5 +439,23 @@ void Aura::RenewAll()
             throw std::invalid_argument(
                 "Aura::RenewAll() - Invalid aura type!");
     }
+}
+
+void Aura::TriggeredRemove(Entity* source)
+{
+    if (removeTrigger.second != nullptr)
+    {
+        if (dynamic_cast<Player*>(source))
+        {
+            source = m_owner;
+        }
+
+        if (!removeTrigger.second->Evaluate(dynamic_cast<Playable*>(source)))
+        {
+            return;
+        }
+    }
+
+    Remove();
 }
 }  // namespace RosettaStone
