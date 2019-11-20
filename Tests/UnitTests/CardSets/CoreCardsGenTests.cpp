@@ -3044,6 +3044,47 @@ TEST(PriestCoreTest, CS2_236_DivineSpirit)
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [EX1_192] Radiance - COST:1
+// - Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: Restore 5 Health to your hero.
+// --------------------------------------------------------
+TEST(PriestCoreTest, EX1_192_Radiance)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(8);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Radiance"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Radiance"));
+
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 22);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [EX1_622] Shadow Word: Death - COST:3
 // - Set: Core, Rarity: Free
 // --------------------------------------------------------

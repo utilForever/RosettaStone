@@ -1226,6 +1226,16 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     cards.emplace("CS2_236", power);
 
     // ----------------------------------------- SPELL - PRIEST
+    // [EX1_192] Radiance - COST:1
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Restore 5 Health to your hero.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new HealTask(EntityType::HERO, 5));
+    cards.emplace("EX1_192", power);
+
+    // ----------------------------------------- SPELL - PRIEST
     // [EX1_622] Shadow Word: Death - COST:3
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
