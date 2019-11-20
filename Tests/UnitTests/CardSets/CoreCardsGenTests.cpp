@@ -3413,6 +3413,63 @@ TEST(RogueCoreTest, EX1_129_FanOfKnives)
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [EX1_191] Plaguebringer - COST:4 [ATK:3/HP:3]
+// - Set: Core, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly minion <b>Poisonous</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+// RefTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST(RogueCoreTest, EX1_191_Plaguebringer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Plaguebringer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card2, card3));
+
+    game.Process(opPlayer, AttackTask(card3, card1));
+    EXPECT_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
+    EXPECT_EQ(opPlayer->GetFieldZone()->GetCount(), 1);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_278] Shiv - COST:2
 // - Faction: Neutral, Set: Core, Rarity: Free

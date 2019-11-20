@@ -1356,6 +1356,27 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DrawTask(1));
     cards.emplace("EX1_129", power);
 
+    // ----------------------------------------- MINION - ROGUE
+    // [EX1_191] Plaguebringer - COST:4 [ATK:3/HP:3]
+    // - Set: Core, Rarity: Free
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion <b>Poisonous</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - POISONOUS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_191e", EntityType::TARGET));
+    cards.emplace("EX1_191", power);
+
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_278] Shiv - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
@@ -1401,6 +1422,19 @@ void CoreCardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_082", power);
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [EX1_191e] Plaguetouched (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: <b>Poisonous</b>
+    // --------------------------------------------------------
+    // RefTag:
+    // - POISONOUS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_191e"));
+    cards.emplace("EX1_191e", power);
 }
 
 void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
