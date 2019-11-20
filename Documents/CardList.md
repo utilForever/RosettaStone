@@ -115,8 +115,8 @@ CORE | EX1_084 | Warsong Commander | O
 CORE | EX1_129 | Fan of Knives | O
 CORE | EX1_169 | Innervate | O
 CORE | EX1_173 | Starfire | O
-CORE | EX1_191 | Plaguebringer |  
-CORE | EX1_192 | Radiance |  
+CORE | EX1_191 | Plaguebringer | O
+CORE | EX1_192 | Radiance | O
 CORE | EX1_244 | Totemic Might | O
 CORE | EX1_246 | Hex | O
 CORE | EX1_277 | Arcane Missiles | O
@@ -142,7 +142,7 @@ CORE | NEW1_003 | Sacrificial Pact | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 98% (131 of 133 Cards)
+- Progress: 100% (133 of 133 Cards)
 
 ## Classic
 
