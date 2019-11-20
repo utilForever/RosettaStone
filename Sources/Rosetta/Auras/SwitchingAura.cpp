@@ -7,7 +7,6 @@
 #include <Rosetta/Cards/Card.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Models/Entity.hpp>
-#include <Rosetta/Models/Player.hpp>
 
 #include <utility>
 
@@ -108,7 +107,7 @@ void SwitchingAura::RemoveInternal()
     }
 }
 
-void SwitchingAura::TurnOn(Player*, Entity*)
+void SwitchingAura::TurnOn(Entity*)
 {
     if (m_turnOn)
     {
@@ -121,7 +120,7 @@ void SwitchingAura::TurnOn(Player*, Entity*)
                                1);
 }
 
-void SwitchingAura::TurnOff(Player*, Entity*)
+void SwitchingAura::TurnOff(Entity*)
 {
     if (!m_turnOn)
     {
@@ -138,10 +137,10 @@ SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
     : Aura(prototype, owner),
       m_initCondition(prototype.m_initCondition),
       m_offTrigger(prototype.m_offTrigger),
-      m_onHandler(std::bind(&SwitchingAura::TurnOn, this, std::placeholders::_1,
-                            std::placeholders::_2)),
-      m_offHandler(std::bind(&SwitchingAura::TurnOff, this,
-                             std::placeholders::_1, std::placeholders::_2))
+      m_onHandler(
+          std::bind(&SwitchingAura::TurnOn, this, std::placeholders::_1)),
+      m_offHandler(
+          std::bind(&SwitchingAura::TurnOff, this, std::placeholders::_1))
 {
     // Do nothing
 }

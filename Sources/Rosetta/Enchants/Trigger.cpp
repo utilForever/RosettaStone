@@ -72,10 +72,10 @@ void Trigger::Activate(Playable* source, TriggerActivation activation,
 
     source->activatedTrigger = instance;
 
-    auto triggerFunc = [this, instance](Player* p, Entity* e) {
+    auto triggerFunc = [this, instance](Entity* e) {
         if (percentage == 1.0f || Random::get<float>(0.0f, 1.0f) < percentage)
         {
-            instance->Process(p, e);
+            instance->Process(e);
         }
     };
 
@@ -313,16 +313,16 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
     {
         if (trigger->m_sequenceType == type)
         {
-            trigger->Validate(game->GetCurrentPlayer(), source);
+            trigger->Validate(source);
         }
     }
 }
 
-void Trigger::Process(Player* player, Entity* source)
+void Trigger::Process(Entity* source)
 {
     if (m_sequenceType == SequenceType::NONE)
     {
-        Validate(player, source);
+        Validate(source);
     }
 
     if (!m_isValidated)
@@ -380,7 +380,7 @@ void Trigger::ProcessInternal(Entity* source)
     m_isValidated = false;
 }
 
-void Trigger::Validate(Player* player, Entity* source)
+void Trigger::Validate(Entity* source)
 {
     switch (triggerSource)
     {
@@ -469,7 +469,7 @@ void Trigger::Validate(Player* player, Entity* source)
     {
         case TriggerType::TURN_START:
         case TriggerType::TURN_END:
-            if (m_owner == nullptr || player != m_owner->player)
+            if (m_owner == nullptr || source != m_owner->player)
             {
                 return;
             }

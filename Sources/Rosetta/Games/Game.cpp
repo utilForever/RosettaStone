@@ -394,7 +394,7 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
-    triggerManager.OnStartTurnTrigger(GetCurrentPlayer(), nullptr);
+    triggerManager.OnStartTurnTrigger(nullptr);
     ProcessTasks();
     ProcessDestroyAndUpdateAura();
 
@@ -461,7 +461,7 @@ void Game::MainAction()
 void Game::MainEnd()
 {
     taskQueue.StartEvent();
-    triggerManager.OnEndTurnTrigger(GetCurrentPlayer(), nullptr);
+    triggerManager.OnEndTurnTrigger(nullptr);
     ProcessTasks();
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
@@ -593,7 +593,7 @@ void Game::ProcessDestroyAndUpdateAura()
         taskQueue.StartEvent();
         for (auto& minion : summonedMinions)
         {
-            triggerManager.OnSummonTrigger(GetCurrentPlayer(), minion);
+            triggerManager.OnSummonTrigger(minion);
         }
         summonedMinions.clear();
         ProcessTasks();
@@ -633,7 +633,7 @@ void Game::ProcessGraveyard()
             Minion* minion = deadMinion.second;
 
             // Death event created
-            triggerManager.OnDeathTrigger(minion->player, minion);
+            triggerManager.OnDeathTrigger(minion);
 
             // Remove minion from battlefield
             minion->SetLastBoardPos(minion->GetZonePosition());

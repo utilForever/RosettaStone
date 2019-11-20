@@ -19,7 +19,7 @@ void Summon(Player* player, Minion* minion, int fieldPos)
 
     // Process after summon trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnAfterSummonTrigger(player, minion);
+    player->game->triggerManager.OnAfterSummonTrigger(minion);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 }
