@@ -21,6 +21,7 @@
 #include <Python/Enums/TaskEnums.hpp>
 #include <Python/Enums/TriggerEnums.hpp>
 
+#include <Python/Loaders/AccountLoader.hpp>
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(pyRosetta, m)
@@ -48,4 +49,5 @@ PYBIND11_MODULE(pyRosetta, m)
     AddTargetingEnums(m);
     AddTaskEnums(m);
     AddTriggerEnums(m);
+    AddAccountLoader(m);
 }
