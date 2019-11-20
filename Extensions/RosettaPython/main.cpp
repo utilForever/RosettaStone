@@ -23,6 +23,8 @@
 
 #include <Python/Loaders/AccountLoader.hpp>
 #include <Python/Loaders/PowerLoader.hpp>
+#include <Python/Loaders/TargetingPredicates.hpp>
+
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(pyRosetta, m)
@@ -50,6 +52,9 @@ PYBIND11_MODULE(pyRosetta, m)
     AddTargetingEnums(m);
     AddTaskEnums(m);
     AddTriggerEnums(m);
+
+    // Loaders
     AddAccountLoader(m);
     AddPowerLoader(m);
+    AddTargetingPredicates(m);
 }
