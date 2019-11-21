@@ -394,7 +394,7 @@ void Game::MainReady()
 
 void Game::MainStartTriggers()
 {
-    triggerManager.OnStartTurnTrigger(nullptr);
+    triggerManager.OnStartTurnTrigger(GetCurrentPlayer());
     ProcessTasks();
     ProcessDestroyAndUpdateAura();
 
@@ -461,7 +461,7 @@ void Game::MainAction()
 void Game::MainEnd()
 {
     taskQueue.StartEvent();
-    triggerManager.OnEndTurnTrigger(nullptr);
+    triggerManager.OnEndTurnTrigger(GetCurrentPlayer());
     ProcessTasks();
     taskQueue.EndEvent();
     ProcessDestroyAndUpdateAura();
