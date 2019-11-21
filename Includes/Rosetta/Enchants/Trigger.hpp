@@ -60,6 +60,7 @@ class Trigger
     SelfCondition* condition = nullptr;
 
     float percentage = 1.0f;
+    bool eitherTurn = false;
     bool fastExecution = false;
     bool removeAfterTriggered = false;
 

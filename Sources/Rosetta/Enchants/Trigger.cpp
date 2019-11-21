@@ -46,6 +46,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerSource(prototype.triggerSource),
       tasks(prototype.tasks),
       condition(prototype.condition),
+      eitherTurn(prototype.eitherTurn),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
       m_owner(dynamic_cast<Playable*>(&owner)),
@@ -469,7 +470,8 @@ void Trigger::Validate(Entity* source)
     {
         case TriggerType::TURN_START:
         case TriggerType::TURN_END:
-            if (m_owner == nullptr || source != m_owner->player)
+            if (!eitherTurn &&
+                (m_owner == nullptr || source != m_owner->player))
             {
                 return;
             }
