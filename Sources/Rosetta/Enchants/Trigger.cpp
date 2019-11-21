@@ -490,10 +490,9 @@ void Trigger::Validate(Entity* source)
 
     if (condition != nullptr)
     {
-        const bool res =
-            (source != nullptr)
-                ? condition->Evaluate(dynamic_cast<Playable*>(source))
-                : condition->Evaluate(m_owner);
+        const auto playable = dynamic_cast<Playable*>(source);
+        const bool res = (playable != nullptr) ? condition->Evaluate(playable)
+                                               : condition->Evaluate(m_owner);
 
         if (!res)
         {
