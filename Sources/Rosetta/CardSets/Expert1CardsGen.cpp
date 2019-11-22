@@ -206,6 +206,25 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     cards.emplace("EX1_165", power);
 
     // ----------------------------------------- MINION - DRUID
+    // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("EX1_166", power);
+
+    // ----------------------------------------- MINION - DRUID
     // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
@@ -326,6 +345,36 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_155be"));
     cards.emplace("EX1_155be", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_166a] Moonfire (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: Deal 2 damage.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::TARGET, 2));
+    cards.emplace("EX1_166a", power);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_166b] Dispel (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new SilenceTask(EntityType::TARGET));
+    cards.emplace("EX1_166b", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_158e] Soul of the Forest (*) - COST:0

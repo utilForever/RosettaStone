@@ -344,7 +344,7 @@ TEST(DruidExpert1Test, EX1_164_Nourish)
 TEST(DruidExpert1Test, EX1_165_DruidOfTheClaw)
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -387,6 +387,65 @@ TEST(DruidExpert1Test, EX1_165_DruidOfTheClaw)
     EXPECT_EQ(curField[1]->GetHealth(), 6);
     EXPECT_FALSE(curField[1]->CanAttack());
     EXPECT_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2]
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+// RefTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_166_KeeperOfTheGrove)
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Keeper of the Grove"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Keeper of the Grove"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Archmage"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero(), 1));
+    EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opPlayer->currentSpellPower, 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3, 2));
+    EXPECT_EQ(opPlayer->currentSpellPower, 0);
 }
 
 // ----------------------------------------- MINION - DRUID
