@@ -1442,7 +1442,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     // [EX1_145] Preparation - COST:0
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: The next spell you cast this turn costs (3) less.
+    // Text: The next spell you cast this turn costs (2) less.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("EX1_145o", EntityType::PLAYER));
@@ -1517,17 +1517,17 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, Power>& cards)
     // [EX1_145o] Preparation (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: The next spell you cast this turn costs (3) less.
+    // Text: The next spell you cast this turn costs (2) less.
     // --------------------------------------------------------
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(3) }));
+    power.AddAura(new Aura(AuraType::HAND, { Effects::ReduceCost(2) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = new SelfCondition(SelfCondition::IsSpell());
-        //
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
     }
     cards.emplace("EX1_145o", power);
 }

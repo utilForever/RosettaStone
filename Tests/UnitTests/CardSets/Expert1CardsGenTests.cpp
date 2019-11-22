@@ -3755,6 +3755,69 @@ TEST(RogueExpert1Test, EX1_144_Shadowstep)
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [EX1_145] Preparation - COST:0
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// --------------------------------------------------------
+// Text: The next spell you cast this turn costs (2) less.
+// --------------------------------------------------------
+TEST(RogueExpert1Test, EX1_145_Preparation)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eviscerate"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vanish"));
+
+    EXPECT_EQ(card1->GetCost(), 0);
+    EXPECT_EQ(card2->GetCost(), 0);
+    EXPECT_EQ(card3->GetCost(), 0);
+    EXPECT_EQ(card4->GetCost(), 2);
+    EXPECT_EQ(card5->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(card2->GetCost(), 0);
+    EXPECT_EQ(card3->GetCost(), 0);
+    EXPECT_EQ(card4->GetCost(), 0);
+    EXPECT_EQ(card5->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(card3->GetCost(), 0);
+    EXPECT_EQ(card4->GetCost(), 0);
+    EXPECT_EQ(card5->GetCost(), 4);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    EXPECT_EQ(card3->GetCost(), 0);
+    EXPECT_EQ(card5->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    EXPECT_EQ(card5->GetCost(), 4);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
