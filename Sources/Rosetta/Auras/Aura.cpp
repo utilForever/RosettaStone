@@ -43,7 +43,11 @@ void Aura::Activate(Playable* owner, bool cloning)
     {
         switch (removeTrigger.first)
         {
-            case TriggerType::PLAY_MINION:
+            case TriggerType::CAST_SPELL:
+                owner->game->triggerManager.castSpellTrigger =
+                    std::move(instance->m_removeHandler);
+                break;
+            default:
                 break;
         }
     }
@@ -143,6 +147,17 @@ void Aura::Remove()
         {
             // Do nothing
         }
+    }
+
+    switch (removeTrigger.first)
+    {
+        case TriggerType::NONE:
+            break;
+        case TriggerType::CAST_SPELL:
+            m_owner->game->triggerManager.castSpellTrigger = nullptr;
+            break;
+        default:
+            break;
     }
 
     if (auto enchantment = dynamic_cast<Enchantment*>(m_owner))
