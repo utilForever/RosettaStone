@@ -284,6 +284,9 @@ Aura::Aura(Aura& prototype, Playable& owner)
     {
         m_auraUpdateInstQueue = prototype.m_auraUpdateInstQueue;
     }
+
+    m_removeHandler =
+        std::bind(&Aura::TriggeredRemove, this, std::placeholders::_1);
 }
 
 void Aura::AddToGame(Playable& owner, Aura& aura)
