@@ -102,7 +102,7 @@ class Aura : public IAura
     PriorityQueue<AuraUpdateInstruction> m_auraUpdateInstQueue;
     std::vector<Playable*> m_appliedEntities;
 
-    std::function<void(Player*, Entity*)> m_removeHandler;
+    std::function<void(Entity*)> m_removeHandler;
 
     Card* m_enchantmentCard = nullptr;
     std::vector<IEffect*> m_effects;
