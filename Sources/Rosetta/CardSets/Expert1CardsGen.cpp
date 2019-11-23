@@ -1497,6 +1497,18 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     power.AddPowerTask(new AddEnchantmentTask("EX1_145o", EntityType::PLAYER));
     cards.emplace("EX1_145", power);
 
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_182] Pilfer - COST:1
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Add a random card from another class to your hand
+    //       <i>(from your opponent's class)</i>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomCardTask(EntityType::ENEMY_HAND));
+    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    cards.emplace("EX1_145", power);
+
     // ----------------------------------------- MINION - ROGUE
     // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
