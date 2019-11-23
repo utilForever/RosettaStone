@@ -1505,9 +1505,9 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     //       <i>(from your opponent's class)</i>.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(new RandomCardTask(EntityType::ENEMY_HAND));
+    power.AddPowerTask(new RandomCardTask(EntityType::ENEMY_HERO));
     power.AddPowerTask(new AddStackToTask(EntityType::HAND));
-    cards.emplace("EX1_145", power);
+    cards.emplace("EX1_182", power);
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]

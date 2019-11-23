@@ -3877,6 +3877,47 @@ TEST(RogueExpert1Test, EX1_145_Preparation)
     EXPECT_EQ(card5->GetCost(), 4);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [EX1_182] Pilfer - COST:1
+// - Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Add a random card from another class to your hand
+//       <i>(from your opponent's class)</i>.
+// --------------------------------------------------------
+TEST(RogueExpert1Test, EX1_182_Pilfer)
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pilfer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pilfer"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::PALADIN);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curHand[5]->card->GetCardClass(), CardClass::PALADIN);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
