@@ -51,7 +51,25 @@ std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
 
 TaskStatus RandomCardTask::Impl(Player* player)
 {
-    auto cardsList = GetCardList(m_cardType, m_cardClass, m_race);
+    CardClass cardClass;
+
+    switch (m_entityType)
+    {
+        case EntityType::HERO:
+            cardClass = player->GetHero()->card->GetCardClass();
+            break;
+        case EntityType::ENEMY_HERO:
+            cardClass = player->opponent->GetHero()->card->GetCardClass();
+            break;
+        case EntityType::INVALID:
+            cardClass = m_cardClass;
+            break;
+        default:
+            throw std::invalid_argument(
+                "RandomCardTask::Impl() - Invalid entity type");
+    }
+
+    auto cardsList = GetCardList(m_cardType, cardClass, m_race);
     if (cardsList.empty())
     {
         return TaskStatus::STOP;
