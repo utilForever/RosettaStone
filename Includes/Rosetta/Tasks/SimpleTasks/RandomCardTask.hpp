@@ -13,18 +13,24 @@ namespace RosettaStone::SimpleTasks
 class RandomCardTask : public ITask
 {
  public:
+    //! Constructs task with given \p entityType and \p opposite.
+    //! \param entityType The entity type to choose the random card from.
+    //! \param opposite The flag that indicates the card is for the opponent.
+    RandomCardTask(EntityType entityType, bool opposite = false);
+
     //! Constructs task with given \p cardType, \p cardClass and \p race.
-    //! \param cardType The type of card.
-    //! \param cardClass The class of card.
-    //! \param race The race of card.
+    //! \param cardType The type of card to filter.
+    //! \param cardClass The class of card to filter.
+    //! \param race The race of card to filter.
+    //! \param opposite The flag that indicates the card is for the opponent.
     RandomCardTask(CardType cardType, CardClass cardClass,
-                   Race race = Race::INVALID);
+                   Race race = Race::INVALID, bool opposite = false);
 
  private:
     //! Returns card list that fits the criteria.
-    //! \param cardType The type of card.
-    //! \param cardClass The class of card.
-    //! \param race The race of card.
+    //! \param cardType The type of card to filter.
+    //! \param cardClass The class of card to filter.
+    //! \param race The race of card to filter.
     //! \return Card list that fits the criteria.
     std::vector<Card*> GetCardList(CardType cardType = CardType::INVALID,
                                    CardClass cardClass = CardClass::INVALID,
@@ -42,6 +48,7 @@ class RandomCardTask : public ITask
     CardType m_cardType;
     CardClass m_cardClass;
     Race m_race;
+    bool m_opposite;
 };
 }  // namespace RosettaStone::SimpleTasks
 

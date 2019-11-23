@@ -8,9 +8,22 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::SimpleTasks
 {
+RandomCardTask::RandomCardTask(EntityType entityType, bool opposite)
+    : ITask(entityType),
+      m_cardType(CardType::INVALID),
+      m_cardClass(CardClass::INVALID),
+      m_race(Race::INVALID),
+      m_opposite(opposite)
+{
+    // Do nothing
+}
+
 RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
-                               Race race)
-    : m_cardType(cardType), m_cardClass(cardClass), m_race(race)
+                               Race race, bool opposite)
+    : m_cardType(cardType),
+      m_cardClass(cardClass),
+      m_race(race),
+      m_opposite(opposite)
 {
     // Do nothing
 }
@@ -45,7 +58,8 @@ TaskStatus RandomCardTask::Impl(Player* player)
     }
 
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
-    auto randomCard = Entity::GetFromCard(player, cardsList.at(idx));
+    auto randomCard = Entity::GetFromCard(
+        m_opposite ? player->opponent : player, cardsList.at(idx));
     player->game->taskStack.playables.emplace_back(randomCard);
 
     return TaskStatus::COMPLETE;
