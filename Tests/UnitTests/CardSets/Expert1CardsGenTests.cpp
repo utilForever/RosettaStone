@@ -1674,6 +1674,65 @@ TEST(PaladinExpert1Test, EX1_136_Redemption)
 }
 
 // ---------------------------------------- SPELL - PALADIN
+// [EX1_184] Righteousness - COST:5
+// - Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give your minions <b>Divine Shield</b>.
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST(DruidExpert1Test, EX1_184_Righteousness)
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Righteousness"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField[0]->HasDivineShield(), false);
+    EXPECT_EQ(curField[1]->HasDivineShield(), false);
+    EXPECT_EQ(curField[2]->HasDivineShield(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curField[0]->HasDivineShield(), true);
+    EXPECT_EQ(curField[1]->HasDivineShield(), true);
+    EXPECT_EQ(curField[2]->HasDivineShield(), true);
+}
+
+// ---------------------------------------- SPELL - PALADIN
 // [EX1_354] Lay on Hands - COST:8
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------

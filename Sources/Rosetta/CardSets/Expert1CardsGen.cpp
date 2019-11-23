@@ -940,6 +940,20 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     cards.emplace("EX1_136", power);
 
     // ---------------------------------------- SPELL - PALADIN
+    // [EX1_184] Righteousness - COST:5
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give your minions <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::MINIONS, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("EX1_184", power);
+
+    // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
