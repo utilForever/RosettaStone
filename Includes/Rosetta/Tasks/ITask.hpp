@@ -94,7 +94,7 @@ class ITask
     void EnableFreeable();
 
  protected:
-    EntityType m_entityType = EntityType::EMPTY;
+    EntityType m_entityType = EntityType::INVALID;
     Player* m_player = nullptr;
     Entity* m_source = nullptr;
     Playable* m_target = nullptr;
