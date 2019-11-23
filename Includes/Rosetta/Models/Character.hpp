@@ -98,22 +98,26 @@ class Character : public Playable
     //! \param amount The number of attacks at this turn.
     void SetNumAttacksThisTurn(int amount);
 
-    //! Returns the flag that indicates whether this character is \p race.
+    //! Returns the flag that indicates whether it is \p race.
     //! \param race The value of race.
-    //! \return The flag that indicates whether this character is \p race.
+    //! \return The flag that indicates whether it is \p race.
     bool IsRace(Race race) const;
 
-    //! Returns the flag that indicates whether this character is immune.
-    //! \return The flag that indicates whether this character is immune.
+    //! Returns the flag that indicates whether it is immune.
+    //! \return The flag that indicates whether it is immune.
     bool IsImmune() const;
 
-    //! Returns the flag that indicates whether this character has taunt.
-    //! \return The flag that indicates whether this character has taunt.
+    //! Returns the flag that indicates whether it has taunt.
+    //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;
 
-    //! Returns the flag that indicates whether this character has stealth.
-    //! \return The flag that indicates whether this character has stealth.
+    //! Returns the flag that indicates whether it has stealth.
+    //! \return The flag that indicates whether it has stealth.
     bool HasStealth() const;
+
+    //! Returns the flag that indicates whether it has divine shield.
+    //! \return The flag that indicates whether it has divine shield.
+    bool HasDivineShield() const;
 
     //! Returns whether attack is possible.
     //! \return Whether attack is possible.

@@ -127,6 +127,11 @@ bool Character::HasStealth() const
     return static_cast<bool>(GetGameTag(GameTag::STEALTH));
 }
 
+bool Character::HasDivineShield() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
+}
+
 bool Character::CanAttack() const
 {
     // If the value of attack is 0, returns false
