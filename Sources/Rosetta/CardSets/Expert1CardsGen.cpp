@@ -240,6 +240,19 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     power.AddPowerTask(nullptr);
     cards.emplace("EX1_178", power);
 
+    // ------------------------------------------ SPELL - DRUID
+    // [EX1_183] Gift of the Wild - COST:8
+    // - Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give your minions +2/+2 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new AddEnchantmentTask("EX1_183e", EntityType::MINIONS));
+    cards.emplace("EX1_183", power);
+
     // ------------------------------------------- SPELL - DRUID
     // [EX1_570] Bite - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
@@ -541,6 +554,16 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_178be"));
     cards.emplace("EX1_178be", power);
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [EX1_183e] Gift of the Wild (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: +2/+2 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_183e"));
+    cards.emplace("EX1_183e", power);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_570e] Bite - COST:0
