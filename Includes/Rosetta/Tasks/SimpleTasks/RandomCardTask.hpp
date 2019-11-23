@@ -20,10 +20,6 @@ class RandomCardTask : public ITask
     RandomCardTask(CardType cardType, CardClass cardClass,
                    Race race = Race::INVALID);
 
-    CardType m_cardType;
-    CardClass m_cardClass;
-    Race m_race;
-
  private:
     //! Returns card list that fits the criteria.
     //! \param cardType The type of card.
@@ -31,8 +27,8 @@ class RandomCardTask : public ITask
     //! \param race The race of card.
     //! \return Card list that fits the criteria.
     std::vector<Card*> GetCardList(CardType cardType = CardType::INVALID,
-                                  CardClass cardClass = CardClass::INVALID,
-                                  Race race = Race::INVALID);
+                                   CardClass cardClass = CardClass::INVALID,
+                                   Race race = Race::INVALID);
 
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
@@ -42,6 +38,10 @@ class RandomCardTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     ITask* CloneImpl() override;
+
+    CardType m_cardType;
+    CardClass m_cardClass;
+    Race m_race;
 };
 }  // namespace RosettaStone::SimpleTasks
 
