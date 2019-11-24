@@ -168,6 +168,11 @@ void Game::RefCopyFrom(const Game& rhs)
     m_oopIndex = rhs.m_oopIndex;
 }
 
+FormatType Game::GetFormatType() const
+{
+    return m_gameConfig.formatType;
+}
+
 Player* Game::GetPlayer1()
 {
     return &m_players[0];
