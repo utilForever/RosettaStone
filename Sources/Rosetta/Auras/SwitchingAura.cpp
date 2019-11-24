@@ -107,41 +107,33 @@ void SwitchingAura::RemoveInternal()
     }
 }
 
-void SwitchingAura::TurnOn(Entity*)
-{
-    if (m_turnOn)
-    {
-        return;
-    }
-
-    m_turnOn = true;
-
-    m_auraUpdateInstQueue.Push(AuraUpdateInstruction(AuraInstruction::ADD_ALL),
-                               1);
-}
-
-void SwitchingAura::TurnOff(Entity*)
-{
-    if (!m_turnOn)
-    {
-        return;
-    }
-
-    m_turnOn = false;
-
-    m_auraUpdateInstQueue.Push(
-        AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
-}
-
 SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
     : Aura(prototype, owner),
       m_initCondition(prototype.m_initCondition),
-      m_offTrigger(prototype.m_offTrigger),
-      m_onHandler(
-          std::bind(&SwitchingAura::TurnOn, this, std::placeholders::_1)),
-      m_offHandler(
-          std::bind(&SwitchingAura::TurnOff, this, std::placeholders::_1))
+      m_offTrigger(prototype.m_offTrigger)
 {
-    // Do nothing
+    m_onHandler = [this](Entity*) {
+        if (m_turnOn)
+        {
+            return;
+        }
+
+        m_turnOn = true;
+
+        m_auraUpdateInstQueue.Push(
+            AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
+    };
+
+    m_offHandler = [this](Entity*) {
+        if (!m_turnOn)
+        {
+            return;
+        }
+
+        m_turnOn = false;
+
+        m_auraUpdateInstQueue.Push(
+            AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
+    };
 }
 }  // namespace RosettaStone
