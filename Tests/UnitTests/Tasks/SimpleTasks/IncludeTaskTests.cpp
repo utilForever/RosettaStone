@@ -153,7 +153,7 @@ TEST(IncludeTask, Run_NonConst)
         IncludeTask::GetEntities(EntityType::STACK, player1);
     EXPECT_EQ(entities21.size(), 0u);
 
-    EXPECT_THROW(IncludeTask::GetEntities(EntityType::EMPTY, player1),
+    EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);
 }
 
@@ -300,6 +300,6 @@ TEST(IncludeTask, Run_Const)
         IncludeTask::GetEntities(EntityType::STACK, player1);
     EXPECT_EQ(entities21.size(), 0u);
 
-    EXPECT_THROW(IncludeTask::GetEntities(EntityType::EMPTY, player1),
+    EXPECT_THROW(IncludeTask::GetEntities(EntityType::INVALID, player1),
                  std::invalid_argument);
 }

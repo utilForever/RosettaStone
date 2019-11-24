@@ -118,15 +118,15 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
 
     // Process play card trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnPlayMinionTrigger(player, minion);
-    player->game->triggerManager.OnPlayCardTrigger(player, minion);
+    player->game->triggerManager.OnPlayMinionTrigger(minion);
+    player->game->triggerManager.OnPlayCardTrigger(minion);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
 
     // Process summon trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnSummonTrigger(player, minion);
+    player->game->triggerManager.OnSummonTrigger(minion);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
@@ -134,7 +134,7 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     if (target != nullptr)
     {
         player->game->taskQueue.StartEvent();
-        player->game->triggerManager.OnTargetTrigger(player, minion);
+        player->game->triggerManager.OnTargetTrigger(minion);
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
     }
@@ -156,13 +156,13 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
 
     // Process after play minion trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnAfterPlayMinionTrigger(player, minion);
+    player->game->triggerManager.OnAfterPlayMinionTrigger(minion);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
     // Process after summon trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnAfterSummonTrigger(player, minion);
+    player->game->triggerManager.OnAfterSummonTrigger(minion);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 }
@@ -174,10 +174,10 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 
     // Process cast spell trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnCastSpellTrigger(player, spell);
+    player->game->triggerManager.OnCastSpellTrigger(spell);
 
     // Process play card trigger
-    player->game->triggerManager.OnPlayCardTrigger(player, spell);
+    player->game->triggerManager.OnPlayCardTrigger(spell);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
@@ -193,7 +193,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
         if (target != nullptr)
         {
             player->game->taskQueue.StartEvent();
-            player->game->triggerManager.OnTargetTrigger(player, spell);
+            player->game->triggerManager.OnTargetTrigger(spell);
             player->game->ProcessTasks();
             player->game->taskQueue.EndEvent();
         }
@@ -204,7 +204,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 
     // Process after cast trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnAfterCastTrigger(player, spell);
+    player->game->triggerManager.OnAfterCastTrigger(spell);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
@@ -214,7 +214,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 void PlayWeapon(Player* player, Weapon* weapon, Character* target)
 {
     // Process play card trigger
-    player->game->triggerManager.OnPlayCardTrigger(player, weapon);
+    player->game->triggerManager.OnPlayCardTrigger(weapon);
 
     // Process trigger
     if (weapon->card->power.GetTrigger())
@@ -232,7 +232,7 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
     if (target != nullptr)
     {
         player->game->taskQueue.StartEvent();
-        player->game->triggerManager.OnTargetTrigger(player, weapon);
+        player->game->triggerManager.OnTargetTrigger(weapon);
         player->game->ProcessTasks();
         player->game->taskQueue.EndEvent();
     }

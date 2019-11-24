@@ -21,10 +21,12 @@ namespace RosettaStone
 //!
 struct GameConfig
 {
+    FormatType formatType = FormatType::STANDARD;
+
     PlayerType startPlayer = PlayerType::RANDOM;
 
-    CardClass player1Class = CardClass::MAGE;
-    CardClass player2Class = CardClass::WARLOCK;
+    CardClass player1Class = CardClass::INVALID;
+    CardClass player2Class = CardClass::INVALID;
 
     std::array<Card, START_DECK_SIZE> player1Deck;
     std::array<Card, START_DECK_SIZE> player2Deck;

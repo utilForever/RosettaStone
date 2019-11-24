@@ -23,6 +23,8 @@ TEST(DrawTask, Run)
 
     GameConfig config;
     config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
     Game game(config);
 
     Player* player = game.GetPlayer1();
@@ -70,6 +72,8 @@ TEST(DrawTask, RunExhaust)
 {
     GameConfig config;
     config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
     Game game(config);
 
     Player* player = game.GetPlayer1();
@@ -111,6 +115,8 @@ TEST(DrawTask, RunOverDraw)
 
     GameConfig config;
     config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
     Game game(config);
 
     Player* player = game.GetPlayer1();
@@ -160,6 +166,8 @@ TEST(DrawTask, RunExhaustOverdraw)
 
     GameConfig config;
     config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
     Game game(config);
 
     Player* player = game.GetPlayer1();
