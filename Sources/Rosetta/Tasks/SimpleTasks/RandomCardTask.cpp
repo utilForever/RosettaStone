@@ -29,10 +29,13 @@ RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
 }
 
 std::vector<Card*> RandomCardTask::GetCardList(CardType cardType,
-                                               CardClass cardClass, Race race)
+                                               CardClass cardClass,
+                                               Race race) const
 {
     std::vector<Card*> result;
-    const auto cards = Cards::GetAllCards();
+    const auto cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                           ? Cards::GetAllStandardCards()
+                           : Cards::GetAllWildCards();
 
     for (const auto& card : cards)
     {

@@ -34,7 +34,7 @@ class RandomCardTask : public ITask
     //! \return Card list that fits the criteria.
     std::vector<Card*> GetCardList(CardType cardType = CardType::INVALID,
                                    CardClass cardClass = CardClass::INVALID,
-                                   Race race = Race::INVALID);
+                                   Race race = Race::INVALID) const;
 
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
