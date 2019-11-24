@@ -173,6 +173,11 @@ bool Card::IsUntouchable() const
     return static_cast<bool>(gameTags.at(GameTag::UNTOUCHABLE));
 }
 
+bool Card::IsCollectible() const
+{
+    return static_cast<bool>(gameTags.at(GameTag::COLLECTIBLE));
+}
+
 std::size_t Card::GetMaxAllowedInDeck() const
 {
     return maxAllowedInDeck;

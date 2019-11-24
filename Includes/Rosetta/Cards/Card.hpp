@@ -83,6 +83,10 @@ class Card
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
 
+    //! Returns the flag that indicates whether it is collectible.
+    //! \return The flag that indicates whether it is collectible.
+    bool IsCollectible() const;
+
     //! Returns the number of cards that can be inserted into the deck.
     //! \return The number of cards that can be inserted into the deck.
     std::size_t GetMaxAllowedInDeck() const;
