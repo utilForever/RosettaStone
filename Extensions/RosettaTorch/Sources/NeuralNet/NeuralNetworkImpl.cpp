@@ -35,8 +35,14 @@ void NeuralNetworkImpl::Save(const std::string& fileName) const
 
 void NeuralNetworkImpl::Load(const std::string& fileName, bool isRandom)
 {
-    // torch::load(m_net, fileName);
     m_isRandom = isRandom;
+
+    std::ifstream file(fileName);
+
+    if (file)
+    {
+        torch::load(m_net, fileName);
+    }
 }
 
 bool NeuralNetworkImpl::IsRandom() const
@@ -79,32 +85,40 @@ void NeuralNetworkImpl::Train(const NeuralNetworkInputImpl& input,
 
     for (std::size_t i = 0; i < epoch; ++i)
     {
-        for (std::size_t idx = 0; idx < inputData.size(); ++idx)
+        for (std::size_t idx = 0; idx < inputData.size() / batchSize; ++idx)
         {
-            const auto outData = const_cast<float*>(std::data(outputData[idx]));
-            const auto outDataSize = static_cast<int>(outputData[idx].size());
+            auto batchHero =
+                torch::zeros({ static_cast<long long>(batchSize), 2 });
+            auto batchMinion =
+                torch::zeros({ static_cast<long long>(batchSize), 7 * 14 });
+            auto batchStandalone =
+                torch::zeros({ static_cast<long long>(batchSize), 17 });
+            auto batchOutput =
+                torch::zeros({ static_cast<long long>(batchSize), 1 });
+
+            for (std::size_t j = 0; j < batchSize; ++j)
+            {
+                batchHero[j] = inputData[batchSize * idx + j][0];
+                batchMinion[j] = inputData[batchSize * idx + j][1];
+                batchStandalone[j] = inputData[batchSize * idx + j][2];
+                batchOutput[j] = outputData[batchSize * idx + j][0];
+            }
 
             // Resets gradients
             optimizer.zero_grad();
 
-            // Executes the model one the input data
-            // ! you need to change the parameters, fitted into the model input
-            auto prediction = m_net->forward(
-                inputData[idx][0], inputData[idx][1], inputData[idx][2]);
+            // Executes the model
+            auto prediction =
+                m_net->forward(batchHero, batchMinion, batchStandalone);
 
             // Computes a loss value to judge the prediction of our model
-            // ! you need to change the parameters, fitted into the model input
-            auto loss = torch::mse_loss(
-                prediction, torch::from_blob(outData, { 1, outDataSize }));
+            auto loss = torch::mse_loss(prediction, batchOutput);
 
             // Do back-propagation
             loss.backward();
 
             // Updates the parameters
             optimizer.step();
-
-            // Saves the model
-            Save(modelName);
         }
     }
 }
