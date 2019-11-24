@@ -32,6 +32,32 @@ constexpr std::array<CardSet, 7> STANDARD_CARD_SETS = {
     CardSet::ULDUM,     // Saviors of Uldum, 2019
 };
 
+//! Specifies which card sets combine into the WILD set.
+constexpr std::array<CardSet, 19> WILD_CARD_SETS = {
+    // Standard
+    CardSet::CORE,      // Basic, 2014
+    CardSet::EXPERT1,   // Classic, 2014
+    CardSet::GILNEAS,   // The Witchwood, 2018
+    CardSet::BOOMSDAY,  // The Boomsday Project, 2018
+    CardSet::TROLL,     // Rastakhan's Rumble, 2018
+    CardSet::DALARAN,   // Rise of Shadows, 2019
+    CardSet::ULDUM,     // Saviors of Uldum, 2019
+
+    // Wild
+    CardSet::NAXX,          // Curse of Naxxramas, 2014
+    CardSet::GVG,           // Goblins vs Gnomes, 2014
+    CardSet::BRM,           // Blackrock Mountain, 2015
+    CardSet::TGT,           // The Grand Tournament, 2015
+    CardSet::LOE,           // The League of Explorers, 2015
+    CardSet::OG,            // Whispers of the Old Gods, 2016
+    CardSet::KARA,          // One Night in Karazhan, 2016
+    CardSet::GANGS,         // Mean Streets of Gadgetzan, 2016
+    CardSet::HOF,           // Hall of Fame, 2017
+    CardSet::UNGORO,        // Journey to Un'Goro, 2017
+    CardSet::ICECROWN,      // Knights of the Frozen Throne, 2017
+    CardSet::LOOTAPALOOZA,  // Kobolds & Catacombs, 2017
+};
+
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior
 constexpr int NUM_PLAYER_CLASS = 9;
