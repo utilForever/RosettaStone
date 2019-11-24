@@ -8,6 +8,10 @@
 #include <Rosetta/Cards/Cards.hpp>
 
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/complex.h>
+#include <pybind11/chrono.h>
+#include <pybind11/functional.h>
 
 using namespace RosettaStone;
 
@@ -33,7 +37,7 @@ void AddCards(pybind11::module& m)
         m, "Cards",
         R"pbdoc(This class stores a list of cards and provides several search methods.)pbdoc")
         .def_static("get_instance", &Cards::GetInstance,
-                    pybind11::return_value_policy::reference,
+					pybind11::return_value_policy::reference,
                     R"pbdoc(Returns an instance of Cards class.)pbdoc")
         .def_static("get_all_cards", &Cards::GetAllCards,
                     R"pbdoc(Returns a list of all cards.)pbdoc")
@@ -85,29 +89,33 @@ void AddCards(pybind11::module& m)
                     Parameters
                     ----------
                     name : The name of the card.)pbdoc")
-        .def_static("find_card_by_cost", &Cards::FindCardByCost,
-                    R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
+        .def_static(
+            "find_card_by_cost", &Cards::FindCardByCost,
+            R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
 
                     Parameters
                     ----------
                     min_val : The minimum cost value of the card.
                     max_val : The maximum cost value of the card.)pbdoc")
-        .def_static("find_card_by_attack", &Cards::FindCardByAttack,
-                    R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
+        .def_static(
+            "find_card_by_attack", &Cards::FindCardByAttack,
+            R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
 
                     Parameters
                     ----------
                     min_val : The minimum cost value of the card.
                     max_val : The maximum cost value of the card.)pbdoc")
-        .def_static("find_card_by_health", &Cards::FindCardByHealth,
-                    R"pbdoc(Returns a list of cards whose health is between min_val and max_val.
+        .def_static(
+            "find_card_by_health", &Cards::FindCardByHealth,
+            R"pbdoc(Returns a list of cards whose health is between min_val and max_val.
 
                     Parameters
                     ----------
                     min_val : The minimum health value of the card.
                     max_val : The maximum health value of the card.)pbdoc")
-        .def_static("find_card_by_spell_power", &Cards::FindCardBySpellPower,
-                    R"pbdoc(Returns a list of cards whose spell power is between min_val and max_val
+        .def_static(
+            "find_card_by_spell_power", &Cards::FindCardBySpellPower,
+            R"pbdoc(Returns a list of cards whose spell power is between min_val and max_val
 
                     Parameters
                     ----------
@@ -125,8 +133,9 @@ void AddCards(pybind11::module& m)
                     Parameters
                     ----------
                     card_class : The class of the card.)pbdoc")
-        .def_static("get_default_hero_power", &Cards::GetDefaultHeroPower,
-                    R"pbdoc(Returns a default hero power card that matches card_class.
+        .def_static(
+            "get_default_hero_power", &Cards::GetDefaultHeroPower,
+            R"pbdoc(Returns a default hero power card that matches card_class.
 
                     Parameters
                     ----------

@@ -24,3 +24,21 @@ def test_constructors():
     assert player3.get_email() == '2'
     assert player3.get_nickname() == 'name2'
     assert player3.get_num_of_deck() == 0
+
+def test_deck_control():
+    player = pyRosetta.AccountInfo()
+
+    player.show_deck_list()
+    assert player.create_deck('deck1', pyRosetta.CardClass.INVALID) == False
+
+    player.create_deck('deck2', pyRosetta.CardClass.DREAM)
+    player.create_deck('deck3', pyRosetta.CardClass.DRUID)
+    
+    assert player.get_num_of_deck() == 2
+    player.show_deck_list()
+
+    player.delete_deck(0)
+    assert player.get_num_of_deck() == 1
+    assert player.get_deck(0).get_name() == 'deck3'
+
+    assert player.get_num_of_deck() == 1
