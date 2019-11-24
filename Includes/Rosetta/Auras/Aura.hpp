@@ -118,9 +118,6 @@ class Aura : public IAura
 
     //! Renews the condition of the applied entities.
     void RenewAll();
-
-    //!
-    void TriggeredRemove(Entity* source);
 };
 }  // namespace RosettaStone
 

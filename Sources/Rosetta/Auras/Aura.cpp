@@ -39,17 +39,16 @@ void Aura::Activate(Playable* owner, bool cloning)
 
     AddToGame(*owner, *instance);
 
-    if (removeTrigger.first != TriggerType::NONE)
+    switch (removeTrigger.first)
     {
-        switch (removeTrigger.first)
-        {
-            case TriggerType::CAST_SPELL:
-                owner->game->triggerManager.castSpellTrigger =
-                    std::move(instance->m_removeHandler);
-                break;
-            default:
-                break;
-        }
+        case TriggerType::NONE:
+            break;
+        case TriggerType::CAST_SPELL:
+            owner->game->triggerManager.castSpellTrigger =
+                std::move(instance->m_removeHandler);
+            break;
+        default:
+            break;
     }
 
     if (!cloning && !restless)
@@ -285,8 +284,23 @@ Aura::Aura(Aura& prototype, Playable& owner)
         m_auraUpdateInstQueue = prototype.m_auraUpdateInstQueue;
     }
 
-    m_removeHandler =
-        std::bind(&Aura::TriggeredRemove, this, std::placeholders::_1);
+    m_removeHandler = [this](Entity* source) {
+        if (removeTrigger.second != nullptr)
+        {
+            if (dynamic_cast<Player*>(source))
+            {
+                source = m_owner;
+            }
+
+            if (!removeTrigger.second->Evaluate(
+                    dynamic_cast<Playable*>(source)))
+            {
+                return;
+            }
+        }
+
+        Remove();
+    };
 }
 
 void Aura::AddToGame(Playable& owner, Aura& aura)
@@ -457,23 +471,5 @@ void Aura::RenewAll()
             throw std::invalid_argument(
                 "Aura::RenewAll() - Invalid aura type!");
     }
-}
-
-void Aura::TriggeredRemove(Entity* source)
-{
-    if (removeTrigger.second != nullptr)
-    {
-        if (dynamic_cast<Player*>(source))
-        {
-            source = m_owner;
-        }
-
-        if (!removeTrigger.second->Evaluate(dynamic_cast<Playable*>(source)))
-        {
-            return;
-        }
-    }
-
-    Remove();
 }
 }  // namespace RosettaStone
