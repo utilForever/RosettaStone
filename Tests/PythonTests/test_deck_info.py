@@ -22,19 +22,9 @@ def test_constructors():
     assert deck2.get_num_of_cards() == 0
 
 def test_card_control():
-    druid_cards = pyRosetta.Cards.get_instance().find_card_by_class(pyRosetta.CardClass.DRUID)
-    mage_cards = pyRosetta.Cards.get_instance().find_card_by_class(pyRosetta.CardClass.HUNTER)
+    druid_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.DRUID)
+    mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.HUNTER)
 
     deck = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
     deck.show_card_list()
     assert deck.add_card(mage_cards[0].id, 1) == True
-
-def test_get_num_card_in_deck():
-    mage_cards = pyRosetta.Cards.get_instance().find_card_by_class(pyRosetta.CardClass.MAGE)
-    print(mage_cards[0].id)
-
-    deck = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
-    deck.add_card('AT_001', 1)
-
-    assert deck.get_num_card_in_deck(mage_cards[0].id) == 1
-    assert deck.get_num_card_in_deck(mage_cards[1].id) == 0

@@ -7,13 +7,99 @@
 #include <Python/Cards/Cards.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 
+#include <pybind11/chrono.h>
+#include <pybind11/complex.h>
+#include <pybind11/functional.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-#include <pybind11/complex.h>
-#include <pybind11/chrono.h>
-#include <pybind11/functional.h>
 
 using namespace RosettaStone;
+
+namespace
+{
+struct CardsWrapper
+{
+    static const std::vector<Card*>& GetAllCards()
+    {
+        return Cards::GetInstance().GetAllCards();
+    }
+
+    static Card* FindCardByID(const std::string& id)
+    {
+        return Cards::GetInstance().FindCardByID(id);
+    }
+
+    static Card* FindCardByDbfID(int dbfID)
+    {
+        return Cards::GetInstance().FindCardByDbfID(dbfID);
+    }
+
+    static std::vector<Card*> FindCardByRarity(Rarity rarity)
+    {
+        return Cards::GetInstance().FindCardByRarity(rarity);
+    }
+
+    static std::vector<Card*> FindCardByClass(CardClass cardClass)
+    {
+        return Cards::GetInstance().FindCardByClass(cardClass);
+    }
+
+    static std::vector<Card*> FindCardBySet(CardSet cardSet)
+    {
+        return Cards::GetInstance().FindCardBySet(cardSet);
+    }
+
+    static std::vector<Card*> FindCardByType(CardType cardType)
+    {
+        return Cards::GetInstance().FindCardByType(cardType);
+    }
+
+    static std::vector<Card*> FindCardByRace(Race race)
+    {
+        return Cards::GetInstance().FindCardByRace(race);
+    }
+
+    static Card* FindCardByName(const std::string& name)
+    {
+        return Cards::GetInstance().FindCardByName(name);
+    }
+
+    static std::vector<Card*> FindCardByCost(int minVal, int maxVal)
+    {
+        return Cards::GetInstance().FindCardByCost(minVal, maxVal);
+    }
+
+    static std::vector<Card*> FindCardByAttack(int minVal, int maxVal)
+    {
+        return Cards::GetInstance().FindCardByAttack(minVal, maxVal);
+    }
+
+    static std::vector<Card*> FindCardByHealth(int minVal, int maxVal)
+    {
+        return Cards::GetInstance().FindCardByHealth(minVal, maxVal);
+    }
+
+    static std::vector<Card*> FindCardBySpellPower(int minVal, int maxVal)
+    {
+        return Cards::GetInstance().FindCardBySpellPower(minVal, maxVal);
+    }
+
+    static std::vector<Card*> FindCardByGameTag(std::vector<GameTag> gameTags)
+    {
+        return Cards::GetInstance().FindCardByGameTag(gameTags);
+    }
+
+    static Card* GetHeroCard(CardClass cardClass)
+    {
+        return Cards::GetInstance().GetHeroCard(cardClass);
+    }
+
+    static Card* GetDefaultHeroPower(CardClass cardClass)
+    {
+        return Cards::GetInstance().GetDefaultHeroPower(cardClass);
+    }
+};
+}  // namespace
 
 void AddCards(pybind11::module& m)
 {
@@ -33,64 +119,61 @@ void AddCards(pybind11::module& m)
         .def_readwrite("health_min", &SearchFilter::healthMin)
         .def_readwrite("health_max", &SearchFilter::healthMax);
 
-    pybind11::class_<Cards, std::unique_ptr<Cards, pybind11::nodelete>>(
+    pybind11::class_<CardsWrapper>(
         m, "Cards",
         R"pbdoc(This class stores a list of cards and provides several search methods.)pbdoc")
-        .def_static("get_instance", &Cards::GetInstance,
-					pybind11::return_value_policy::reference,
-                    R"pbdoc(Returns an instance of Cards class.)pbdoc")
-        .def_static("get_all_cards", &Cards::GetAllCards,
+        .def_static("get_all_cards", &CardsWrapper::GetAllCards,
                     R"pbdoc(Returns a list of all cards.)pbdoc")
-        .def_static("find_card_by_id", &Cards::FindCardByID,
+        .def_static("find_card_by_id", &CardsWrapper::FindCardByID,
                     R"pbdoc(Returns a card that matches id.
 
                     Parameters
                     ----------
                     id : The ID of the card.)pbdoc")
-        .def_static("find_card_by_dbf_id", &Cards::FindCardByDbfID,
+        .def_static("find_card_by_dbf_id", &CardsWrapper::FindCardByDbfID,
                     R"pbdoc(Returns a card that matches dbf_id.
 
                     Parameters
                     ----------
                     dbf_id : The dbfID of the card.)pbdoc")
-        .def_static("find_card_by_rarity", &Cards::FindCardByRarity,
+        .def_static("find_card_by_rarity", &CardsWrapper::FindCardByRarity,
                     R"pbdoc(Returns a list of cards that matches rarity.
 
                     Parameters
                     ----------
                     rarity : The rarity of the card.)pbdoc")
-        .def_static("find_card_by_class", &Cards::FindCardByClass,
+        .def_static("find_card_by_class", &CardsWrapper::FindCardByClass,
                     R"pbdoc(Returns a list of cards that matches card_class.
 
                     Parameters
                     ----------
                     class_class : The class of the card.)pbdoc")
-        .def_static("find_card_by_set", &Cards::FindCardBySet,
+        .def_static("find_card_by_set", &CardsWrapper::FindCardBySet,
                     R"pbdoc(Returns a list of cards that matches card_set.
 
                     Parameters
                     ----------
                     card_set : The set of the card.)pbdoc")
-        .def_static("find_card_by_type", &Cards::FindCardByType,
+        .def_static("find_card_by_type", &CardsWrapper::FindCardByType,
                     R"pbdoc(Returns a list of cards that matches card_type.
 
                     Parameters
                     ----------
                     card_type : The type of the card.)pbdoc")
-        .def_static("find_card_by_race", &Cards::FindCardByRace,
+        .def_static("find_card_by_race", &CardsWrapper::FindCardByRace,
                     R"pbdoc(Returns a list of cards that matches race.
 
                     Parameters
                     ----------
                     race : The race of the card.)pbdoc")
-        .def_static("find_card_by_name", &Cards::FindCardByName,
+        .def_static("find_card_by_name", &CardsWrapper::FindCardByName,
                     R"pbdoc(Returns a card that matches name.
 
                     Parameters
                     ----------
                     name : The name of the card.)pbdoc")
         .def_static(
-            "find_card_by_cost", &Cards::FindCardByCost,
+            "find_card_by_cost", &CardsWrapper::FindCardByCost,
             R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
 
                     Parameters
@@ -98,7 +181,7 @@ void AddCards(pybind11::module& m)
                     min_val : The minimum cost value of the card.
                     max_val : The maximum cost value of the card.)pbdoc")
         .def_static(
-            "find_card_by_attack", &Cards::FindCardByAttack,
+            "find_card_by_attack", &CardsWrapper::FindCardByAttack,
             R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
 
                     Parameters
@@ -106,7 +189,7 @@ void AddCards(pybind11::module& m)
                     min_val : The minimum cost value of the card.
                     max_val : The maximum cost value of the card.)pbdoc")
         .def_static(
-            "find_card_by_health", &Cards::FindCardByHealth,
+            "find_card_by_health", &CardsWrapper::FindCardByHealth,
             R"pbdoc(Returns a list of cards whose health is between min_val and max_val.
 
                     Parameters
@@ -114,27 +197,27 @@ void AddCards(pybind11::module& m)
                     min_val : The minimum health value of the card.
                     max_val : The maximum health value of the card.)pbdoc")
         .def_static(
-            "find_card_by_spell_power", &Cards::FindCardBySpellPower,
+            "find_card_by_spell_power", &CardsWrapper::FindCardBySpellPower,
             R"pbdoc(Returns a list of cards whose spell power is between min_val and max_val
 
                     Parameters
                     ----------
                     min_val : The minimum spell power value of the card.
                     max_val : The maximum spell power value of the card.)pbdoc")
-        .def_static("find_card_by_game_tag", &Cards::FindCardByGameTag,
+        .def_static("find_card_by_game_tag", &CardsWrapper::FindCardByGameTag,
                     R"pbdoc(Returns a list of cards that has game_tags.
 
                     Parameters
                     ----------
                     game_tags : A list of game tag of the card.)pbdoc")
-        .def_static("get_hero_card", &Cards::GetHeroCard,
+        .def_static("get_hero_card", &CardsWrapper::GetHeroCard,
                     R"pbdoc(Returns a hero card that matches card_class.
 
                     Parameters
                     ----------
                     card_class : The class of the card.)pbdoc")
         .def_static(
-            "get_default_hero_power", &Cards::GetDefaultHeroPower,
+            "get_default_hero_power", &CardsWrapper::GetDefaultHeroPower,
             R"pbdoc(Returns a default hero power card that matches card_class.
 
                     Parameters
