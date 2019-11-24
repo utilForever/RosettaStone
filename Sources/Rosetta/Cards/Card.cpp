@@ -192,6 +192,19 @@ bool Card::IsStandardSet() const
     return false;
 }
 
+bool Card::IsWildSet() const
+{
+    for (auto& cardSet : WILD_CARD_SETS)
+    {
+        if (GetCardSet() == cardSet)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 std::size_t Card::GetMaxAllowedInDeck() const
 {
     return maxAllowedInDeck;
