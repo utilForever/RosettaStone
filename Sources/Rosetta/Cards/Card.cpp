@@ -5,6 +5,7 @@
 // property of any third parties.
 
 #include <Rosetta/Cards/Card.hpp>
+#include <Rosetta/Commons/Constants.hpp>
 #include <Rosetta/Models/Player.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
 
@@ -176,6 +177,19 @@ bool Card::IsUntouchable() const
 bool Card::IsCollectible() const
 {
     return static_cast<bool>(gameTags.at(GameTag::COLLECTIBLE));
+}
+
+bool Card::IsStandardSet() const
+{
+    for (auto& cardSet : STANDARD_CARD_SETS)
+    {
+        if (GetCardSet() == cardSet)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 std::size_t Card::GetMaxAllowedInDeck() const

@@ -87,6 +87,10 @@ class Card
     //! \return The flag that indicates whether it is collectible.
     bool IsCollectible() const;
 
+    //! Finds out if this card is in STANDARD set.
+    //! \return true if this card is in STANDARD set, and false otherwise.
+    bool IsStandardSet() const;
+
     //! Returns the number of cards that can be inserted into the deck.
     //! \return The number of cards that can be inserted into the deck.
     std::size_t GetMaxAllowedInDeck() const;
