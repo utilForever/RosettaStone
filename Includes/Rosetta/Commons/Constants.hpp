@@ -7,6 +7,8 @@
 #ifndef ROSETTASTONE_CONSTANTS_HPP
 #define ROSETTASTONE_CONSTANTS_HPP
 
+#include <Rosetta/Enums/CardEnums.hpp>
+
 #include <array>
 #include <string>
 
