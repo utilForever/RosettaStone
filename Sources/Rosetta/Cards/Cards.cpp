@@ -41,6 +41,22 @@ const std::vector<Card*>& Cards::GetAllCards()
     return m_cards;
 }
 
+std::vector<Card*> Cards::GetAllStandardCards()
+{
+    std::vector<Card*> result;
+
+    for (Card* card : m_cards)
+    {
+        if (card->IsCollectible() && card->IsStandardSet() &&
+            card->GetCardType() != CardType::HERO)
+        {
+            result.emplace_back(card);
+        }
+    }
+
+    return result;
+}
+
 Card* Cards::FindCardByID(const std::string& id)
 {
     for (Card* card : m_cards)
