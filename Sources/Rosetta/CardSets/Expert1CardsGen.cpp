@@ -3342,6 +3342,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_170", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4]
+    // - Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a random enemy <b>Secret</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomTask(EntityType::ENEMY_SECRETS, 1));
+    power.AddPowerTask(new MoveToGraveyardTask(EntityType::STACK));
+    cards.emplace("EX1_170", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
