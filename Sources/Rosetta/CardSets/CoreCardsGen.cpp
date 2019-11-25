@@ -162,8 +162,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS1h_001] Lesser Heal (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Restore #2 Health.
+    // Text: <b>Hero Power</b> Restore 2 Health.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -176,8 +175,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS2_017] Shapeshift (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       +1 Attack this turn.    +1 Armor.
+    // Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new AddEnchantmentTask("CS2_017o", EntityType::HERO));
@@ -188,8 +186,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS2_034] Fireblast (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Deal $1 damage.
+    // Text: <b>Hero Power</b> Deal 1 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -202,8 +199,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS2_049] Totemic Call (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Summon a random Totem.
+    // Text: <b>Hero Power</b> Summon a random Totem.
     // --------------------------------------------------------
     // Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
     // --------------------------------------------------------
@@ -251,8 +247,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS2_056] Life Tap (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Draw a card and take $2 damage.
+    // Text: <b>Hero Power</b> Draw a card and take 2 damage.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::HERO, 2, false));
@@ -263,8 +258,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS2_083b] Dagger Mastery (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Equip a 1/2 Dagger.
+    // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new WeaponTask("CS2_082"));
@@ -274,8 +268,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS2_101] Reinforce (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Summon a 1/1 Silver Hand Recruit.
+    // Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
@@ -288,8 +281,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [CS2_102] Armor Up! (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Gain 2 Armor.
+    // Text: <b>Hero Power</b> Gain 2 Armor.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new ArmorTask(2));
@@ -299,8 +291,7 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [DS1h_292] Steady Shot (*) - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Deal $2 damage to the enemy hero.
+    // Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_STEADY_SHOT = 0
@@ -330,7 +321,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [CS2_007] Healing Touch - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Restore #8 Health.
+    // Text: Restore 8 Health.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -343,7 +334,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [CS2_008] Moonfire - COST:0
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage.
+    // Text: Deal 1 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -384,7 +375,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [CS2_012] Swipe - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $4 damage to an enemy and $1 damage to all other enemies.
+    // Text: Deal 4 damage to an enemy and 1 damage to all other enemies.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -432,8 +423,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_173] Starfire - COST:6
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $5 damage.
-    //       Draw a card.
+    // Text: Deal 5 damage. Draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -592,7 +582,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // [DS1_183] Multi-Shot - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage to two random enemy minions.
+    // Text: Deal 3 damage to two random enemy minions.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
@@ -606,8 +596,8 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // [DS1_184] Tracking - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Look at the top 3 cards of your deck. Draw one and discard
-    // the others.
+    // Text: Look at the top 3 cards of your deck.
+    //       Draw one and discard the others.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new FuncNumberTask([](Playable* playable) {
@@ -637,7 +627,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // [DS1_185] Arcane Shot - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $2 damage.
+    // Text: Deal 2 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -650,8 +640,8 @@ void CoreCardsGen::AddHunter(std::map<std::string, Power>& cards)
     // [EX1_539] Kill Command - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage. If you control a Beast, deal
-    //       $5 damage instead.
+    // Text: Deal 3 damage. If you control a Beast,
+    //       deal 5 damage instead.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -809,7 +799,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // [CS2_024] Frostbolt - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage to a_character and <b>Freeze</b> it.
+    // Text: Deal 3 damage to a character and <b>Freeze</b> it.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
@@ -827,7 +817,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // [CS2_025] Arcane Explosion - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage to all enemy minions.
+    // Text: Deal 1 damage to all enemy minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 1, true));
@@ -867,7 +857,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // [CS2_029] Fireball - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $6 damage.
+    // Text: Deal 6 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -880,7 +870,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // [CS2_032] Flamestrike - COST:7
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $4 damage to all enemy minions.
+    // Text: Deal 4 damage to all enemy minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 4, true));
@@ -903,7 +893,7 @@ void CoreCardsGen::AddMage(std::map<std::string, Power>& cards)
     // [EX1_277] Arcane Missiles - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage randomly split among all enemies.
+    // Text: Deal 3 damage randomly split among all enemies.
     // --------------------------------------------------------
     // GameTag:
     // - ImmuneToSpellpower = 1
@@ -957,7 +947,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // [CS2_089] Holy Light - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Restore #6 Health.
+    // Text: Restore 6 Health.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -995,7 +985,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // [CS2_093] Consecration - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $2 damage to all enemies.
+    // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2, true));
@@ -1005,8 +995,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // [CS2_094] Hammer of Wrath - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage.
-    //       Draw a card.
+    // Text: Deal 3 damage. Draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1115,8 +1104,8 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // [CS1_112] Holy Nova - COST:5
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $2 damage to all enemies.
-    //       Restore #2 Health to all friendly characters.
+    // Text: Deal 2 damage to all enemies.
+    //       Restore 2 Health to all friendly characters.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMIES, 2, true));
@@ -1143,7 +1132,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, Power>& cards)
     // [CS1_130] Holy Smite - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $2 damage.
+    // Text: Deal 2 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1284,7 +1273,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     // [CS2_072] Backstab - COST:0
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $2 damage to an undamaged minion.
+    // Text: Deal 2 damage to an undamaged minion.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1312,7 +1301,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     // [CS2_075] Sinister Strike - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage to the enemy hero.
+    // Text: Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_HERO, 3, true));
@@ -1358,8 +1347,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     // [EX1_129] Fan of Knives - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage to all enemy minions.
-    //       Draw a card.
+    // Text: Deal 1 damage to all enemy minions. Draw a card.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 1, true));
@@ -1391,8 +1379,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, Power>& cards)
     // [EX1_278] Shiv - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage.
-    //       Draw a card.
+    // Text: Deal 1 damage. Draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1455,7 +1442,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, Power>& cards)
     // [CS2_037] Frost Shock - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage to an enemy character and <b>Freeze</b> it.
+    // Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
@@ -1731,8 +1718,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [CS2_057] Shadow Bolt - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $4 damage
-    //       to a minion.
+    // Text: Deal 4 damage to a minion.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1746,7 +1732,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [CS2_061] Drain Life - COST:3
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $2 damage. Restore #2 Health to your hero.
+    // Text: Deal 2 damage. Restore 2 Health to your hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1760,7 +1746,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [CS2_062] Hellfire - COST:4
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $3 damage to all characters.
+    // Text: Deal 3 damage to all characters.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ALL, 3, true));
@@ -1785,7 +1771,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
     // - Race: Demon, Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage to ALL other characters.
+    // Text: <b>Battlecry:</b> Deal 1 damage to all other characters.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1811,7 +1797,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [EX1_302] Mortal Coil - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage to a minion. If that kills it, draw a card.
+    // Text: Deal 1 damage to a minion. If that kills it, draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1842,8 +1828,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [EX1_308] Soulfire - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $4 damage.
-    //       Discard a random card.
+    // Text: Deal 4 damage. Discard a random card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1858,7 +1843,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [NEW1_003] Sacrificial Pact - COST:0
     // - Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Destroy a Demon. Restore #5 Health to your hero.
+    // Text: Destroy a Demon. Restore 5 Health to your hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1961,7 +1946,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // [CS2_114] Cleave - COST:2
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $2 damage to two random enemy minions.
+    // Text: Deal 2 damage to two random enemy minions.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
@@ -1997,7 +1982,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // [EX1_400] Whirlwind - COST:1
     // - Faction: Neutral, Set: Core, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal $1 damage to all minions.
+    // Text: Deal 1 damage to all minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::ALL_MINIONS, 1, true));

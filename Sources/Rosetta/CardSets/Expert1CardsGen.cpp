@@ -78,8 +78,7 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [EX1_625t] Mind Spike (*) - COST:2
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Deal $2 damage.
+    // Text: <b>Hero Power</b> Deal 2 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -92,8 +91,7 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, Power>& cards)
     // [EX1_625t2] Mind Shatter (*) - COST:2
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b>
-    //       Deal $3 damage.
+    // Text: <b>Hero Power</b> Deal 3 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -111,9 +109,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_154] Wrath - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b>
-    //       Deal $3 damage to a minion; or $1 damage
-    //       and draw a card.
+    // Text: <b>Choose One -</b> Deal 3 damage to a minion;
+    //       or 1 damage and draw a card.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -286,7 +283,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     // [EX1_154a] Wrath (*) - COST:0
     // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
-    // Text: Deal $3 damage to a minion.
+    // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -300,7 +297,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, Power>& cards)
     // [EX1_154b] Wrath (*) - COST:0
     // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
-    // Text: Deal $1 damage to a minion. Draw a card.
+    // Text: Deal 1 damage to a minion. Draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -626,7 +623,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, Power>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After your opponent plays a minion,
-    //       deal $4 damage to it.
+    //       deal 4 damage to it.
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1
@@ -706,7 +703,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // [CS2_028] Blizzard - COST:6
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal $2 damage to all enemy minions and <b>Freeze</b> them.
+    // Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
@@ -721,7 +718,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // [EX1_179] Icicle - COST:2
     // - Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Deal $2 damage to a minion.
+    // Text: Deal 2 damage to a minion.
     //       If it's <b>Frozen</b>, draw a card.
     // --------------------------------------------------------
     // PlayReq:
@@ -774,7 +771,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // [EX1_279] Pyroblast - COST:10
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Deal $10 damage.
+    // Text: Deal 10 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -957,7 +954,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // [EX1_354] Lay on Hands - COST:8
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Restore #8 Health. Draw 3 cards.
+    // Text: Restore 8 Health. Draw 3 cards.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1061,7 +1058,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // [EX1_384] Avenging Wrath - COST:6
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Deal $8 damage randomly split among all enemies.
+    // Text: Deal 8 damage randomly split among all enemies.
     // --------------------------------------------------------
     // GameTag:
     // - ImmuneToSpellpower = 1
@@ -1076,7 +1073,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, Power>& cards)
     // [EX1_619] Equality - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Change the Health of ALL minions to 1.
+    // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -1242,7 +1239,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Restore #4 Health to ALL minions.
+    // Text: Restore 4 Health to all minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new HealTask(EntityType::ALL_MINIONS, 4));
@@ -1270,7 +1267,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, Power>& cards)
     // [EX1_624] Holy Fire - COST:6
     // - Faction: Priest, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal $5 damage. Restore #5 Health to your hero.
+    // Text: Deal 5 damage. Restore 5 Health to your hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1393,7 +1390,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     // [EX1_124] Eviscerate - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal $2 damage. <b>Combo:</b> Deal $4 damage instead. @spelldmg
+    // Text: Deal 2 damage. <b>Combo:</b> Deal 4 damage instead.
     // --------------------------------------------------------
     // GameTag:
     // - COMBO = 1
@@ -1476,7 +1473,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, Power>& cards)
     // [EX1_137] Headcrack - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal $2 damage to the enemy hero.
+    // Text: Deal 2 damage to the enemy hero.
     //       <b>Combo:</b> Return this to your hand next turn.
     // --------------------------------------------------------
     // GameTag:
@@ -1666,7 +1663,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     // [EX1_238] Lightning Bolt - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal $3 damage. <b>Overload:</b> (1)
+    // Text: Deal 3 damage. <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
@@ -1683,7 +1680,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     // [EX1_241] Lava Burst - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal $5 damage. <b>Overload:</b> (2)
+    // Text: Deal 5 damage. <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 2
@@ -1715,7 +1712,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     // [EX1_245] Earth Shock - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Silence</b> a minion, then deal $1 damage to it.
+    // Text: <b>Silence</b> a minion, then deal 1 damage to it.
     // --------------------------------------------------------
     // GameTag:
     // - SILENCE = 1
@@ -1782,7 +1779,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
     // [EX1_251] Forked Lightning - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal $2 damage to 2 random enemy minions. <b>Overload:</b> (2)
+    // Text: Deal 2 damage to 2 random enemy minions. <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 2
@@ -2006,7 +2003,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [EX1_309] Siphon Soul - COST:6
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Destroy a minion. Restore #3 Health to your hero.
+    // Text: Destroy a minion. Restore 3 Health to your hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -2080,7 +2077,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [EX1_320] Bane of Doom - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Deal $2 damage to a character. If that kills it,
+    // Text: Deal 2 damage to a character. If that kills it,
     //       summon a random Demon.
     // --------------------------------------------------------
     // PlayReq:
@@ -2100,7 +2097,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     // [EX1_596] Demonfire - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal $2 damage to a minion. If it’s a friendly Demon,
+    // Text: Deal 2 damage to a minion. If it’s a friendly Demon,
     //       give it +2/+2 instead.
     // --------------------------------------------------------
     // PlayReq:
@@ -2187,7 +2184,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // [EX1_391] Slam - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal $2 damage to a minion. If it survives, draw a card.
+    // Text: Deal 2 damage to a minion. If it survives, draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -2248,7 +2245,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // [EX1_408] Mortal Strike - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal $4 damage. If you have 12 or less Health, deal $6 instead.
+    // Text: Deal 4 damage. If you have 12 or less Health, deal 6 instead.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -2299,7 +2296,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, Power>& cards)
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal $1 damage to a minion and give it +2 Attack.
+    // Text: Deal 1 damage to a minion and give it +2 Attack.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -3215,7 +3212,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 2
-    //       damage to ALL characters.
+    //       damage to all characters.
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
@@ -3348,7 +3345,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: At the end of your turn, deal 2 damage to ALL other characters.
+    // Text: At the end of your turn, deal 2 damage to all other characters.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -3673,7 +3670,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: After you cast a spell, deal 1 damage to ALL minions.
+    // Text: After you cast a spell, deal 1 damage to all minions.
     // --------------------------------------------------------
     power.AddTrigger(new Trigger(TriggerType::AFTER_CAST));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
@@ -3684,7 +3681,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     // [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: At the start of your turn, destroy ALL minions.
+    // Text: At the start of your turn, destroy all minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::TURN_START));
@@ -4201,7 +4198,7 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, Power>& cards)
     // [DREAM_02] Ysera Awakens (*) - COST:2
     // - Set: Expert1
     // --------------------------------------------------------
-    // Text: Deal $5 damage to all characters except Ysera.
+    // Text: Deal 5 damage to all characters except Ysera.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(new IncludeTask(EntityType::ALL));

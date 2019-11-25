@@ -21,9 +21,8 @@ using namespace SimpleTasks;
 // [EX1_154] Wrath - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Choose One -</b>
-//       Deal $3 damage to a minion; or $1 damage
-//       and draw a card.
+// Text: <b>Choose One -</b> Deal 3 damage to a minion;
+//       or 1 damage and draw a card.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
@@ -746,7 +745,7 @@ TEST(HunterExpert1Test, EX1_543_KingKrush)
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Secret:</b> After your opponent plays a minion,
-//       deal $4 damage to it.
+//       deal 4 damage to it.
 // --------------------------------------------------------
 // GameTag:
 // - SECRET = 1
@@ -961,7 +960,7 @@ TEST(HunterExpert1Test, EX1_534_SavannahHighmane)
 // [CS2_028] Blizzard - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal $2 damage to all enemy minions and <b>Freeze</b> them.
+// Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
 // --------------------------------------------------------
 // GameTag:
 // - FREEZE = 1
@@ -1029,7 +1028,7 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
 // [EX1_179] Icicle - COST:2
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Deal $2 damage to a minion.
+// Text: Deal 2 damage to a minion.
 //       If it's <b>Frozen</b>, draw a card.
 // --------------------------------------------------------
 // PlayReq:
@@ -1202,7 +1201,7 @@ TEST(MageExpert1Test, EX1_274_EtherealArcanist)
 // [EX1_279] Pyroblast - COST:10
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Deal $10 damage.
+// Text: Deal 10 damage.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1736,7 +1735,7 @@ TEST(DruidExpert1Test, EX1_184_Righteousness)
 // [EX1_354] Lay on Hands - COST:8
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Restore #8 Health. Draw 3 cards.
+// Text: Restore 8 Health. Draw 3 cards.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2052,7 +2051,7 @@ TEST(PaladinExpert1Test, EX1_383_TirionFordring)
 // [EX1_384] Avenging Wrath - COST:6
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Deal $8 damage randomly split among all enemies.
+// Text: Deal 8 damage randomly split among all enemies.
 // --------------------------------------------------------
 // GameTag:
 // - ImmuneToSpellpower = 1
@@ -2121,7 +2120,7 @@ TEST(PaladinExpert1Test, EX1_384_AvengingWrath)
 // [EX1_619] Equality - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Change the Health of ALL minions to 1.
+// Text: Change the Health of all minions to 1.
 // --------------------------------------------------------
 TEST(PaladinExpert1Test, EX1_619_Equality)
 {
@@ -2223,7 +2222,7 @@ TEST(WarriorExpert1Test, CS2_104_Rampage)
 // [EX1_391] Slam - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal $2 damage to a minion. If it survives, draw a card.
+// Text: Deal 2 damage to a minion. If it survives, draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2449,7 +2448,7 @@ TEST(WarriorExpert1Test, EX1_407_Brawl)
 // [EX1_408] Mortal Strike - COST:4
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal $4 damage. If you have 12 or less Health, deal $6 instead.
+// Text: Deal 4 damage. If you have 12 or less Health, deal 6 instead.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -2626,7 +2625,7 @@ TEST(WarriorExpert1Test, EX1_414_GrommashHellscream)
 // [EX1_607] Inner Rage - COST:0
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal $1 damage to a minion and give it +2 Attack.
+// Text: Deal 1 damage to a minion and give it +2 Attack.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -3062,7 +3061,7 @@ TEST(PriestExpert1Test, EX1_345_Mindgames)
 // [EX1_621] Circle of Healing - COST:0
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Restore #4 Health to ALL minions.
+// Text: Restore 4 Health to all minions.
 // --------------------------------------------------------
 TEST(PriestExpert1Test, EX1_621_CircleOfHealing)
 {
@@ -3182,7 +3181,7 @@ TEST(PriestExpert1Test, EX1_623_TempleEnforcer)
 // [EX1_624] Holy Fire - COST:6
 // - Faction: Priest, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal $5 damage. Restore #5 Health to your hero.
+// Text: Deal 5 damage. Restore 5 Health to your hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -3500,7 +3499,7 @@ TEST(RogueExpert1Test, CS2_233_BladeFlurry)
 // [EX1_124] Eviscerate - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal $2 damage. <b>Combo:</b> Deal $4 damage instead. @spelldmg
+// Text: Deal 2 damage. <b>Combo:</b> Deal 4 damage instead.
 // --------------------------------------------------------
 // GameTag:
 // - COMBO = 1
@@ -3791,7 +3790,7 @@ TEST(RogueExpert1Test, EX1_134_SI7Agent)
 // [EX1_137] Headcrack - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal $2 damage to the enemy hero.
+// Text: Deal 2 damage to the enemy hero.
 //       <b>Combo:</b> Return this to your hand next turn.
 // --------------------------------------------------------
 // GameTag:
@@ -4290,7 +4289,7 @@ TEST(ShamanExpert1Test, CS2_053_FarSight)
 // [EX1_238] Lightning Bolt - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal $3 damage. <b>Overload:</b> (1)
+// Text: Deal 3 damage. <b>Overload:</b> (1)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 1
@@ -4344,7 +4343,7 @@ TEST(ShamanExpert1Test, EX1_238_LightningBolt)
 // [EX1_241] Lava Burst - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal $5 damage. <b>Overload:</b> (2)
+// Text: Deal 5 damage. <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -4414,7 +4413,7 @@ TEST(ShamanExpert1Test, EX1_243_DustDevil)
 // [EX1_245] Earth Shock - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Silence</b> a minion, then deal $1 damage to it.
+// Text: <b>Silence</b> a minion, then deal 1 damage to it.
 // --------------------------------------------------------
 // GameTag:
 // - SILENCE = 1
@@ -4559,7 +4558,7 @@ TEST(ShamanExpert1Test, EX1_250_EarthElemental)
 // [EX1_251] Forked Lightning - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal $2 damage to 2 random enemy minions. <b>Overload:</b> (2)
+// Text: Deal 2 damage to 2 random enemy minions. <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -6922,7 +6921,7 @@ TEST(NeutralExpert1Test, EX1_096_LootHoarder)
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 2
-//       damage to ALL characters.
+//       damage to all characters.
 // --------------------------------------------------------
 // GameTag:
 // - TAUNT = 1
@@ -7479,7 +7478,7 @@ TEST(NeutralExpert1Test, EX1_170_EmperorCobra)
 // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: At the end of your turn, deal 2 damage to ALL other characters.
+// Text: At the end of your turn, deal 2 damage to all other characters.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -7873,7 +7872,7 @@ TEST(WarlockExpert1Test, EX1_303_Shadowflame)
 // [EX1_309] Siphon Soul - COST:6
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Destroy a minion. Restore #3 Health to your hero.
+// Text: Destroy a minion. Restore 3 Health to your hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -8116,7 +8115,7 @@ TEST(WarlockExpert1Test, EX1_319_FlameImp)
 // [EX1_320] Bane of Doom - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Deal $2 damage to a character. If that kills it,
+// Text: Deal 2 damage to a character. If that kills it,
 //       summon a random Demon.
 // --------------------------------------------------------
 // PlayReq:
@@ -8176,7 +8175,7 @@ TEST(WarlockExpert1Test, EX1_320_BaneOfDoom)
 // [EX1_596] Demonfire - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal $2 damage to a minion. If it’s a friendly Demon,
+// Text: Deal 2 damage to a minion. If it’s a friendly Demon,
 //       give it +2/+2 instead.
 // --------------------------------------------------------
 // PlayReq:
@@ -9247,7 +9246,7 @@ TEST(NeutralExpert1Test, NEW1_019_KnifeJuggler)
 // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: After you cast a spell, deal 1 damage to ALL minions.
+// Text: After you cast a spell, deal 1 damage to all minions.
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, NEW1_020_WildPyromancer)
 {
@@ -9319,7 +9318,7 @@ TEST(NeutralExpert1Test, NEW1_020_WildPyromancer)
 // [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: At the start of your turn, destroy ALL minions.
+// Text: At the start of your turn, destroy all minions.
 // --------------------------------------------------------
 TEST(NeutralExpert1Test, NEW1_021_Doomsayer)
 {
@@ -9812,7 +9811,7 @@ TEST(DreamExpert1Test, DREAM_01_LaughingSister)
 // [DREAM_02] Ysera Awakens (*) - COST:2
 // - Set: Expert1
 // --------------------------------------------------------
-// Text: Deal $5 damage to all characters except Ysera.
+// Text: Deal 5 damage to all characters except Ysera.
 // --------------------------------------------------------
 TEST(DreamExpert1Test, DREAM_02_YseraAwakens)
 {

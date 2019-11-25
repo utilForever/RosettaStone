@@ -40,8 +40,7 @@ void HoFCardsGen::AddDruid(std::map<std::string, Power>& cards)
     // [EX1_161] Naturalize - COST:1
     // - Faction: Neutral, Set: HoF, Rarity: Common
     // --------------------------------------------------------
-    // Text: Destroy a minion.
-    //       Your opponent draws 2 cards.
+    // Text: Destroy a minion. Your opponent draws 2 cards.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
