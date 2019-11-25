@@ -1948,6 +1948,25 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     cards.emplace("EX1_181", power);
 
     // --------------------------------------- MINION - WARLOCK
+    // [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8]
+    // - Race: Demon, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Your other Demons have +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new Aura(AuraType::FIELD_EXCEPT_SOURCE, "EX1_185e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = new SelfCondition(SelfCondition::IsRace(Race::DEMON));
+    }
+    cards.emplace("EX1_185", power);
+
+    // --------------------------------------- MINION - WARLOCK
     // [EX1_301] Felguard - COST:3 [ATK:3/HP:5]
     // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
@@ -2112,6 +2131,16 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(new Enchant(Effects::HealthN(1)));
     cards.emplace("CS2_059o", power);
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [EX1_185e] Siegebreaking (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Siegebreaker is granting this minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_185e"));
+    cards.emplace("EX1_185e", power);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_317t] Worthless Imp - COST:1 [ATK:1/HP:1]

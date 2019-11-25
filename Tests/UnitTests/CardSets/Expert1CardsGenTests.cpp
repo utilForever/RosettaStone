@@ -7702,6 +7702,65 @@ TEST(WarlockExpert1Test, EX1_181_CallOfTheVoid)
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8]
+// - Race: Demon, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Your other Demons have +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - AURA = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_185_Siegebreaker)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Siegebreaker"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Felguard"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 8);
+    EXPECT_EQ(curField[0]->HasTaunt(), true);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField[0]->GetAttack(), 5);
+    EXPECT_EQ(curField[0]->GetHealth(), 8);
+    EXPECT_EQ(curField[1]->GetAttack(), 4);
+    EXPECT_EQ(curField[1]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [EX1_301] Felguard - COST:3 [ATK:3/HP:5]
 // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
