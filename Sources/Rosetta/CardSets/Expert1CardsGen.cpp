@@ -3356,7 +3356,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new RandomTask(EntityType::ENEMY_SECRETS, 1));
     power.AddPowerTask(new MoveToGraveyardTask(EntityType::STACK));
-    cards.emplace("EX1_170", power);
+    cards.emplace("EX1_186", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
