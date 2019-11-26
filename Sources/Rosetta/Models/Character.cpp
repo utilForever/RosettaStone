@@ -127,6 +127,11 @@ bool Character::HasStealth() const
     return static_cast<bool>(GetGameTag(GameTag::STEALTH));
 }
 
+bool Character::HasDivineShield() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::DIVINE_SHIELD));
+}
+
 bool Character::CanAttack() const
 {
     // If the value of attack is 0, returns false
@@ -235,7 +240,7 @@ int Character::TakeDamage(Playable* source, int damage)
 
     if (preDamageTrigger != nullptr)
     {
-        preDamageTrigger(player, this);
+        preDamageTrigger(this);
         game->ProcessTasks();
         amount = game->currentEventData->eventNumber;
 
@@ -270,10 +275,10 @@ int Character::TakeDamage(Playable* source, int damage)
     // Process damage triggers
     if (takeDamageTrigger != nullptr)
     {
-        takeDamageTrigger(player, this);
+        takeDamageTrigger(this);
     }
-    game->triggerManager.OnTakeDamageTrigger(player, this);
-    game->triggerManager.OnDealDamageTrigger(player->opponent, source);
+    game->triggerManager.OnTakeDamageTrigger(this);
+    game->triggerManager.OnDealDamageTrigger(source);
 
     game->ProcessTasks();
     game->taskQueue.EndEvent();
@@ -300,7 +305,7 @@ void Character::TakeHeal(Playable* source, int heal)
     SetDamage(GetDamage() - amount);
 
     game->taskQueue.StartEvent();
-    game->triggerManager.OnHealTrigger(player, this);
+    game->triggerManager.OnHealTrigger(this);
     game->ProcessTasks();
     game->taskQueue.EndEvent();
 }

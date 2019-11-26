@@ -59,6 +59,10 @@ class Game
     //! \param rhs The source to copy the content.
     void RefCopyFrom(const Game& rhs);
 
+    //! Returns the format type of the game.
+    //! \return The format type of the game.
+    FormatType GetFormatType() const;
+
     //! Returns the first player.
     //! \return The first player.
     Player* GetPlayer1();

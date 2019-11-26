@@ -20,7 +20,7 @@ enum class PowerType
 //! \brief An enumerator for identifying entity type.
 enum class EntityType
 {
-    EMPTY,
+    INVALID,
     SOURCE,
     TARGET,
     ALL,
