@@ -26,7 +26,7 @@ class Runner
  public:
     //! Constructs runner with given \p logger.
     //! \param logger The logger to write the log.
-    Runner(ILogger& logger);
+    explicit Runner(ILogger& logger);
 
     //! Deleted copy constructor.
     Runner(const Runner&) = delete;

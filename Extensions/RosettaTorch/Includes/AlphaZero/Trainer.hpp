@@ -34,7 +34,7 @@ class Trainer
  public:
     //! Constructs trainer with given \p logger.
     //! \param logger The logger to write the log.
-    Trainer(ILogger& logger);
+    explicit Trainer(ILogger& logger);
 
     //! Initializes the trainer.
     //! \param config The trainer config.

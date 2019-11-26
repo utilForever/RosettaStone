@@ -35,7 +35,7 @@ class AgentCallback
  public:
     //! Constructs agent callback with given \p logger.
     //! \param logger The logger to write the log.
-    AgentCallback(ILogger& logger);
+    explicit AgentCallback(ILogger& logger);
 
     //! Processes something before calling Think() method.
     //! \param view The board ref view.
@@ -67,7 +67,7 @@ class SelfPlayer
  public:
     //! Constructs self player with given \p logger.
     //! \param logger The logger to write the log.
-    SelfPlayer(ILogger& logger);
+    explicit SelfPlayer(ILogger& logger);
 
     //! Destructor.
     ~SelfPlayer();
