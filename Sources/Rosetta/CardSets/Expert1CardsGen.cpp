@@ -3359,6 +3359,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_186", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5]
+    // - Race: Elemental, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell, gain +2/+2.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_187e",
+                                                         EntityType::SOURCE) };
+    cards.emplace("EX1_187", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
@@ -4001,6 +4014,16 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_103e"));
     cards.emplace("EX1_103e", power);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [EX1_187e] Arcane Gorged (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    //power.ClearData();
+    //power.AddEnchant(new OngoingEnchant(Effects::AttackHealthN(2)));
+    //cards.emplace("EX1_187e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5]
