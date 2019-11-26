@@ -7521,6 +7521,7 @@ TEST(NeutralExpert1Test, EX1_186_SI7Infiltrator)
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(card2->isDestroyed, false);
 }
 
 // --------------------------------------- MINION - NEUTRAL
