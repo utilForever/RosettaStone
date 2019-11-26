@@ -60,7 +60,7 @@ void Runner::BeforeRun(const RunOptions& runOptions,
     {
         auto& evaluator = m_evaluators[i];
         threads[i]->RunAsyncUnderCondition(
-            cond, [&evaluator, &runOptions, this](auto&& callback) {
+            cond, [&evaluator, &runOptions](auto&& callback) {
                 evaluator.Run(runOptions, callback);
             });
     }
