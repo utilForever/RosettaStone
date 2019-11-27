@@ -129,17 +129,22 @@ std::string Recorder::GetChoiceTypeString(
 std::string Recorder::GetResultString(
     std::tuple<RosettaStone::PlayState, RosettaStone::PlayState> result) const
 {
-    if (std::get<0>(result) == RosettaStone::PlayState::WON)
+    auto& [p1Result, p2Result] = result;
+
+    if (p1Result == RosettaStone::PlayState::WON &&
+        p2Result == RosettaStone::PlayState::LOST)
     {
         return "PLAYER1_WIN";
     }
 
-    if (std::get<0>(result) == RosettaStone::PlayState::LOST)
+    if (p1Result == RosettaStone::PlayState::LOST &&
+        p2Result == RosettaStone::PlayState::WON)
     {
         return "PLAYER2_WIN";
     }
 
-    if (std::get<0>(result) == RosettaStone::PlayState::TIED)
+    if (p1Result == RosettaStone::PlayState::TIED &&
+        p2Result == RosettaStone::PlayState::TIED)
     {
         return "DRAW";
     }

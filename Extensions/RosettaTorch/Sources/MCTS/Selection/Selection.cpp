@@ -68,16 +68,17 @@ int Selection::ChooseAction(ActionType actionType, ActionChoices& choices)
 }
 
 bool Selection::FinishAction(const Board& board,
-                             std::tuple<PlayState, PlayState> result)
+                             const std::tuple<PlayState, PlayState>& result)
 {
     // We tackle the randomness by using a board node map.
     // This flatten tree structure, and effectively forgot the history
     // (Note that history here referring to the parent nodes of this node)
     m_path.ConstructRedirectNode(m_redirectNodeMap, board, result);
 
+    auto& [p1Result, p2Result] = result;
     bool switchToSimulation = false;
-    if (std::get<0>(result) == PlayState::PLAYING &&
-        std::get<1>(result) == PlayState::PLAYING)
+
+    if (p1Result == PlayState::PLAYING && p2Result == PlayState::PLAYING)
     {
         switchToSimulation = StageController::SwitchToSimulation(
             m_path.HasNewNodeCreated(),

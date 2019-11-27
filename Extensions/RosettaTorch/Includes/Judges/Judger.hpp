@@ -155,8 +155,9 @@ class Judger
             m_actionCallback.Init(game, nextAgent);
             result = game.PerformAction(m_actionCallback);
 
-            if (std::get<0>(result) != PlayState::PLAYING &&
-                std::get<1>(result) != PlayState::PLAYING)
+            auto& [p1Result, p2Result] = result;
+            if (p1Result != PlayState::PLAYING &&
+                p2Result != PlayState::PLAYING)
             {
                 break;
             }

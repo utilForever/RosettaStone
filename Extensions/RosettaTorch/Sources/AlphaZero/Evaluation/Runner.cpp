@@ -16,9 +16,9 @@ Runner::Runner(ILogger& logger) : m_logger(logger)
     // Do nothing
 }
 
-void Runner::Initialize(int threads)
+void Runner::Initialize(std::size_t threads)
 {
-    for (int i = 0; i < threads; ++i)
+    for (std::size_t i = 0; i < threads; ++i)
     {
         m_evaluators.emplace_back(Evaluator());
     }
@@ -33,7 +33,7 @@ void Runner::BeforeRun(const RunOptions& runOptions,
 
     m_result.Clear();
     m_nextShow = std::chrono::steady_clock::now();
-    auto cond = [&runOptions, this]() {
+    const auto cond = [&runOptions, this]() {
         std::lock_guard<std::mutex> lock(m_nextShowMutex);
         const auto now = std::chrono::steady_clock::now();
 

@@ -25,7 +25,7 @@ namespace RosettaTorch::AlphaZero
 //!
 struct TrainerConfig
 {
-    int threads = 2;
+    std::size_t threads = 2;
 
     std::string bestNetPath;
     std::string competitorNetPath;

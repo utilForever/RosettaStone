@@ -45,7 +45,7 @@ class ThreadPool
 
     //! Initializes the thread pool.
     //! \param threads The number of threads.
-    void Initialize(int threads);
+    void Initialize(std::size_t threads);
 
     //! Releases the thread pool.
     void Release();

@@ -45,7 +45,7 @@ class Runner
     //! \param threads The number of threads.
     //! \param trainingData The training data.
     //! \param options The options of the self player runner.
-    void Initialize(int threads, TrainingData& trainingData,
+    void Initialize(std::size_t threads, TrainingData& trainingData,
                     const RunOptions& options);
 
     //! The method that runs before method Run().

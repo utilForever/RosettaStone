@@ -37,15 +37,17 @@ void StateValue::SetValue(float valueForCurPlayer, PlayerType type)
 void StateValue::SetValue(PlayerType type,
                           std::tuple<PlayState, PlayState> state)
 {
-    if (std::get<0>(state) == PlayState::WON)
+    auto& [p1Result, p2Result] = state;
+
+    if (p1Result == PlayState::WON && p2Result == PlayState::LOST)
     {
         m_value = 1.0f;
     }
-    else if (std::get<0>(state) == PlayState::LOST)
+    else if (p1Result == PlayState::LOST && p2Result == PlayState::WON)
     {
         m_value = -1.0f;
     }
-    else if (std::get<0>(state) == PlayState::TIED)
+    else if (p1Result == PlayState::TIED && p2Result == PlayState::TIED)
     {
         m_value = 0.0f;
     }

@@ -67,7 +67,7 @@ class Selection
     //! \param board The game board.
     //! \param result The result of the game (player1 and player2).
     bool FinishAction(const Board& board,
-                      std::tuple<PlayState, PlayState> result);
+                      const std::tuple<PlayState, PlayState>& result);
 
     //! Applies other actions to the game.
     void ApplyOthersActions();

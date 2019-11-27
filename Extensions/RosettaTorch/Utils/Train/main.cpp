@@ -50,7 +50,7 @@ class Trainer
     void Train() const
     {
         const std::size_t batchSize = 32;
-        const int epoch = 10;
+        const std::size_t epoch = 10;
         std::size_t totalEpoch = 0;
 
         while (true)

@@ -42,7 +42,7 @@ class Optimizer
     void Run(const NeuralNet::NeuralNetworkInput& input,
              const NeuralNet::NeuralNetworkOutput& output,
              const RunOptions& options, NeuralNet::NeuralNetwork& neuralNet,
-             Callback callback)
+             Callback&& callback)
     {
         while (callback())
         {

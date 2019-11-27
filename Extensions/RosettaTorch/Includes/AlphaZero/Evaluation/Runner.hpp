@@ -42,7 +42,7 @@ class Runner
 
     //! Initializes the evaluation runner.
     //! \param threads The number of threads.
-    void Initialize(int threads);
+    void Initialize(std::size_t threads);
 
     //! The method that runs before method Run().
     //! \param runOptions The options of the evaluation runner.

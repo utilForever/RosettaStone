@@ -32,7 +32,7 @@ struct RunResult
         generatedCount = 0;
     }
 
-    int generatedCount = 0;
+    std::size_t generatedCount = 0;
 };
 }  // namespace RosettaTorch::AlphaZero::SelfPlay
 

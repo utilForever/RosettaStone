@@ -27,12 +27,12 @@ void CompetitionResult::AddResult(bool win)
     }
 }
 
-int CompetitionResult::GetTotal() const
+std::size_t CompetitionResult::GetTotal() const
 {
     return m_totalGames.load();
 }
 
-int CompetitionResult::GetWin() const
+std::size_t CompetitionResult::GetWin() const
 {
     return m_competitorWins.load();
 }

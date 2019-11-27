@@ -16,10 +16,10 @@ Runner::Runner(ILogger& logger) : m_logger(logger)
     // Do nothing
 }
 
-void Runner::Initialize(int threads, TrainingData& trainingData,
+void Runner::Initialize(std::size_t threads, TrainingData& trainingData,
                         const RunOptions& options)
 {
-    for (int i = 0; i < threads; ++i)
+    for (std::size_t i = 0; i < threads; ++i)
     {
         m_players.emplace_back(m_logger);
     }

@@ -68,8 +68,8 @@ void TraversedNodesInfo::ConstructRedirectNode(
         m_newNodeCreated = true;
     }
 
-    if (std::get<0>(result) != PlayState::PLAYING &&
-        std::get<1>(result) != PlayState::PLAYING)
+    auto& [p1Result, p2Result] = result;
+    if (p1Result != PlayState::PLAYING && p2Result != PlayState::PLAYING)
     {
         // Don't need to construct a node for leaf nodes.
         // We only need the edge to record win-rate, which is already

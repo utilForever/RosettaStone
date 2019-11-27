@@ -31,15 +31,15 @@ class CompetitionResult
 
     //! Gets the total number of games.
     //! \return The total number of games.
-    int GetTotal() const;
+    std::size_t GetTotal() const;
 
     //! Gets the number of competitor wins.
     //! \return The number of competitor wins.
-    int GetWin() const;
+    std::size_t GetWin() const;
 
  private:
-    std::atomic<int> m_totalGames = 0;
-    std::atomic<int> m_competitorWins = 0;
+    std::atomic<std::size_t> m_totalGames = 0;
+    std::atomic<std::size_t> m_competitorWins = 0;
 };
 }  // namespace RosettaTorch::AlphaZero::Evaluation
 

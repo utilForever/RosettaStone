@@ -10,6 +10,8 @@
 #ifndef ROSETTASTONE_TORCH_ALPHA_ZERO_OPTIMIZER_RUN_OPTIONS_HPP
 #define ROSETTASTONE_TORCH_ALPHA_ZERO_OPTIMIZER_RUN_OPTIONS_HPP
 
+#include <cstdlib>
+
 namespace RosettaTorch::AlphaZero::Optimizer
 {
 //!
@@ -19,10 +21,10 @@ namespace RosettaTorch::AlphaZero::Optimizer
 //!
 struct RunOptions
 {
-    int batchSize = 32;
-    int batches = 100;
-    int epoches = 10000;
-    int epochesForRun = 100;
+    std::size_t batchSize = 32;
+    std::size_t batches = 100;
+    std::size_t epoches = 10000;
+    std::size_t epochesForRun = 100;
     double maximumFetchFailureRate = 0.1;
 };
 }  // namespace RosettaTorch::AlphaZero::Optimizer

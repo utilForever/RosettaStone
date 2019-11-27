@@ -70,8 +70,8 @@ bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
         }
     }
 
-    if (std::get<0>(result) != PlayState::PLAYING &&
-        std::get<1>(result) != PlayState::PLAYING)
+    auto& [p1Result, p2Result] = result;
+    if (p1Result != PlayState::PLAYING && p2Result != PlayState::PLAYING)
     {
         stateValue.SetValue(board.GetViewType(), result);
         return true;

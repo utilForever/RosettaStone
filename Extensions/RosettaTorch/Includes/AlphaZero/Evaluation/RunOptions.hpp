@@ -22,8 +22,8 @@ namespace RosettaTorch::AlphaZero::Evaluation
 //!
 struct RunOptions
 {
-    int runs = 1000;
-    int showInterval = 1000;
+    std::size_t runs = 1000;
+    std::size_t showInterval = 1000;
     Agents::MCTSConfig agentConfig;
 };
 }  // namespace RosettaTorch::AlphaZero::Evaluation

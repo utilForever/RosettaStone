@@ -83,7 +83,7 @@ class SelfPlayer
     //! The main method of the self player.
     //! \param callback The callback to run.
     template <typename Callback>
-    void Run(Callback callback)
+    void Run(Callback&& callback)
     {
         while (callback())
         {

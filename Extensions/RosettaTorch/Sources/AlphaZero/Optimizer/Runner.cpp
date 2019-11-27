@@ -30,8 +30,8 @@ void Runner::BeforeRun(const RunOptions& runOptions, ThreadRunner* thread,
     m_input.Clear();
     m_output.Clear();
 
-    int fetched = 0;
-    int restTries = runOptions.batches * runOptions.batchSize;
+    std::size_t fetched = 0;
+    int restTries = static_cast<int>(runOptions.batches * runOptions.batchSize);
     int allowedFetchFailures =
         static_cast<int>(runOptions.maximumFetchFailureRate * restTries);
 
@@ -66,7 +66,7 @@ void Runner::BeforeRun(const RunOptions& runOptions, ThreadRunner* thread,
     m_optimizer.BeforeRun();
 
     thread->RunAsync([&]() {
-        int epoch = 0;
+        std::size_t epoch = 0;
         const auto callback = [&]() {
             epoch += runOptions.epochesForRun;
             m_logger.Info() << "Trained " << epoch << " epoches.";
