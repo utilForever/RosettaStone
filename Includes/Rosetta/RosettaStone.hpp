@@ -63,6 +63,7 @@
 #include <Rosetta/Enchants/Enchants.hpp>
 #include <Rosetta/Enchants/GenericEffect.hpp>
 #include <Rosetta/Enchants/IEffect.hpp>
+#include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Enchants/Power.hpp>
 #include <Rosetta/Enchants/Powers.hpp>
 #include <Rosetta/Enchants/Trigger.hpp>
