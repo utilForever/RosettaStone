@@ -12,6 +12,7 @@
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Enchants/Effects.hpp>
 #include <Rosetta/Enchants/Enchants.hpp>
+#include <Rosetta/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/Enchants/Triggers.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddAuraEffectTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/AddCardTask.hpp>
@@ -4021,9 +4022,9 @@ void Expert1CardsGen::AddNeutralNonCollect(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    //power.ClearData();
-    //power.AddEnchant(new OngoingEnchant(Effects::AttackHealthN(2)));
-    //cards.emplace("EX1_187e", power);
+    power.ClearData();
+    power.AddEnchant(new OngoingEnchant(Effects::AttackHealthN(2)));
+    cards.emplace("EX1_187e", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5]
