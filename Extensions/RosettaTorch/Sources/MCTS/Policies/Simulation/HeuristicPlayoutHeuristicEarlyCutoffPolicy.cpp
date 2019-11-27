@@ -13,6 +13,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <tuple>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaTorch::MCTS
@@ -192,10 +194,13 @@ void HeuristicPlayoutHeuristicEarlyCutoffPolicy::DFSBestStateValue(
             dfsIter = dfs.begin();
             const auto result = copyBoard.ApplyAction(userChoice);
 
-            if (result != PlayState::INVALID)
+            auto& [p1Result, p2Result] = result;
+            if (p1Result != PlayState::INVALID &&
+                p2Result != PlayState::INVALID)
             {
                 StateValue stateValue;
-                if (result == PlayState::PLAYING)
+                if (p1Result == PlayState::PLAYING &&
+                    p2Result == PlayState::PLAYING)
                 {
                     stateValue = m_stateValue.GetStateValue(copyBoard);
                 }

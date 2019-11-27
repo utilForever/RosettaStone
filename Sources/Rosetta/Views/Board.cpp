@@ -56,7 +56,7 @@ CurrentPlayerBoardRefView Board::GetCurPlayerStateRefView() const
     return CurrentPlayerBoardRefView(m_game);
 }
 
-PlayState Board::ApplyAction(ActionParams& params) const
+std::tuple<PlayState, PlayState> Board::ApplyAction(ActionParams& params) const
 {
     return m_game.PerformAction(params);
 }

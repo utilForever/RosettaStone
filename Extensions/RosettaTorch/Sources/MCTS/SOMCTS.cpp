@@ -10,6 +10,8 @@
 #include <MCTS/Commons/Config.hpp>
 #include <MCTS/SOMCTS.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 SOMCTS::SOMCTS(TreeNode& tree, Statistics<>& statistics, const Config& config)
@@ -35,7 +37,7 @@ void SOMCTS::StartIteration()
 
 bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
 {
-    PlayState result;
+    std::tuple<PlayState, PlayState> result;
 
     m_actionParams.Init(board);
 
@@ -68,7 +70,8 @@ bool SOMCTS::PerformAction(const Board& board, StateValue& stateValue)
         }
     }
 
-    if (result != PlayState::PLAYING)
+    auto& [p1Result, p2Result] = result;
+    if (p1Result != PlayState::PLAYING && p2Result != PlayState::PLAYING)
     {
         stateValue.SetValue(board.GetViewType(), result);
         return true;

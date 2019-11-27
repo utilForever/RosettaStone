@@ -52,9 +52,11 @@ class NeuralNetworkImpl
     //! Trains neural network model.
     //! \param input The input features for the model.
     //! \param output The output label for the model.
-    //! \param epochs The number of epochs to train for.
+    //! \param batchSize The size of batch.
+    //! \param epoch The number of epoch to train for.
     void Train(const NeuralNetworkInputImpl& input,
-               const NeuralNetworkOutputImpl& output, std::size_t epochs);
+               const NeuralNetworkOutputImpl& output, std::size_t batchSize,
+               std::size_t epoch);
 
     //! Verifies neural network model.
     //! \param input The input features for the model.

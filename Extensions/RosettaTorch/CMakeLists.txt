@@ -69,7 +69,8 @@ PUBLIC
     caffe2::mkl protobuf::libprotobuf Threads::Threads   
 )
 
-add_subdirectory(Tests)
+add_subdirectory(Tests/AlphaZeroTests)
+add_subdirectory(Tests/MCTSTests)
 add_subdirectory(Utils/GenerateTrainData)
 add_subdirectory(Utils/Train)
 

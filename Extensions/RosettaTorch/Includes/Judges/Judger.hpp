@@ -19,6 +19,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <tuple>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaTorch::Judges
@@ -67,10 +69,8 @@ class NullRecorder
     }
 
     //! Records the game end data to JSON object.
-    //! \param playerType The type of player to get the game result.
-    //! \param result The result of game to record.
-    void End([[maybe_unused]] PlayerType playerType,
-             [[maybe_unused]] PlayState result)
+    //! \param result The result of the game (player1 and player2).
+    void End([[maybe_unused]] std::tuple<PlayState, PlayState> result)
     {
         // Do nothing
     }
@@ -128,13 +128,14 @@ class Judger
 
     //! Starts the recorder and the game.
     //! \param game The game context.
-    PlayState Start(Game& game)
+    //! \return The result of the game (player1 and player2).
+    std::tuple<PlayState, PlayState> Start(Game& game)
     {
         m_recorder.Start();
 
         game.Start();
 
-        PlayState result;
+        std::tuple<PlayState, PlayState> result;
         AgentType* nextAgent = nullptr;
 
         while (true)
@@ -154,13 +155,15 @@ class Judger
             m_actionCallback.Init(game, nextAgent);
             result = game.PerformAction(m_actionCallback);
 
-            if (result != PlayState::PLAYING)
+            auto& [p1Result, p2Result] = result;
+            if (p1Result != PlayState::PLAYING &&
+                p2Result != PlayState::PLAYING)
             {
                 break;
             }
         }
 
-        m_recorder.End(game.GetCurrentPlayer()->playerType, result);
+        m_recorder.End(result);
 
         return result;
     }

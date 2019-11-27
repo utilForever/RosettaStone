@@ -674,7 +674,7 @@ void Game::UpdateAura()
     }
 }
 
-PlayState Game::Process(Player* player, ITask* task)
+std::tuple<PlayState, PlayState> Game::Process(Player* player, ITask* task)
 {
     // Process task
     task->SetPlayer(player);
@@ -690,7 +690,7 @@ PlayState Game::Process(Player* player, ITask* task)
     return CheckGameOver();
 }
 
-PlayState Game::Process(Player* player, ITask&& task)
+std::tuple<PlayState, PlayState> Game::Process(Player* player, ITask&& task)
 {
     // Process task
     task.SetPlayer(player);
@@ -710,7 +710,7 @@ void Game::ProcessUntil(Step untilStep)
     }
 }
 
-PlayState Game::PerformAction(ActionParams& params)
+std::tuple<PlayState, PlayState> Game::PerformAction(ActionParams& params)
 {
     ITask* task;
     const auto mainOp = params.ChooseMainOp();
@@ -793,7 +793,7 @@ ReducedBoardView Game::CreateView()
     }
 }
 
-PlayState Game::CheckGameOver()
+std::tuple<PlayState, PlayState> Game::CheckGameOver()
 {
     // Check hero of two players is destroyed
     if (GetPlayer1()->GetHero()->isDestroyed)
@@ -821,6 +821,6 @@ PlayState Game::CheckGameOver()
         GameManager::ProcessNextStep(*this, nextStep);
     }
 
-    return GetCurrentPlayer()->playState;
+    return { GetPlayer1()->playState, GetPlayer2()->playState };
 }
 }  // namespace RosettaStone
