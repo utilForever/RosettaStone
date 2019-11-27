@@ -143,8 +143,8 @@ void Trainer::EvaluateNeuralNetwork()
 
     const auto& result = m_evaluator.AfterRun();
 
-    const int winThreshold =
-        static_cast<int>(m_config.EVALUATION_WIN_RATE * result.GetTotal());
+    const std::size_t winThreshold = static_cast<std::size_t>(
+        m_config.EVALUATION_WIN_RATE * result.GetTotal());
     if (result.GetWin() > winThreshold)
     {
         m_logger.Info()
