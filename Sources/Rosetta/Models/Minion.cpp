@@ -60,9 +60,9 @@ void Minion::Silence()
         SetGameTag(GameTag::SPELLPOWER, 0);
     }
 
-    if (onGoingEffect != nullptr)
+    if (ongoingEffect != nullptr)
     {
-        onGoingEffect->Remove();
+        ongoingEffect->Remove();
     }
 
     EraseIf(game->oneTurnEffects, [this](std::pair<Entity*, IEffect*> effect) {
@@ -109,9 +109,9 @@ void Minion::Reset()
 {
     Entity::Reset();
 
-    if (onGoingEffect != nullptr)
+    if (ongoingEffect != nullptr)
     {
-        onGoingEffect->Remove();
+        ongoingEffect->Remove();
     }
 
     if (isDestroyed)

@@ -40,7 +40,7 @@ void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
     }
 
     owner->game->auras.emplace_back(instance);
-    owner->onGoingEffect = instance;
+    owner->ongoingEffect = instance;
 }
 
 void AdaptiveEffect::Update()
@@ -89,7 +89,7 @@ void AdaptiveEffect::Update()
 
 void AdaptiveEffect::Remove()
 {
-    m_owner->onGoingEffect = nullptr;
+    m_owner->ongoingEffect = nullptr;
     m_turnOn = false;
 }
 

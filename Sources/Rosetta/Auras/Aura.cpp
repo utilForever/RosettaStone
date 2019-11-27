@@ -102,7 +102,7 @@ void Aura::Remove()
     m_turnOn = false;
     m_auraUpdateInstQueue.Push(
         AuraUpdateInstruction(AuraInstruction::REMOVE_ALL), 0);
-    m_owner->onGoingEffect = nullptr;
+    m_owner->ongoingEffect = nullptr;
 
     switch (m_type)
     {
@@ -306,7 +306,7 @@ Aura::Aura(Aura& prototype, Playable& owner)
 void Aura::AddToGame(Playable& owner, Aura& aura)
 {
     owner.game->auras.emplace_back(&aura);
-    owner.onGoingEffect = &aura;
+    owner.ongoingEffect = &aura;
 
     switch (aura.m_type)
     {

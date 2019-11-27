@@ -96,9 +96,9 @@ void Enchantment::Remove()
         }
     }
 
-    if (onGoingEffect != nullptr)
+    if (ongoingEffect != nullptr)
     {
-        onGoingEffect->Remove();
+        ongoingEffect->Remove();
     }
 
     if (activatedTrigger != nullptr)
