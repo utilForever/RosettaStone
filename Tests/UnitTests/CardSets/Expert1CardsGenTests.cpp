@@ -1095,7 +1095,7 @@ TEST(MageExpert1Test, EX1_179_Icicle)
 TEST(MageExpert1Test, EX1_180_TomeOfIntellect)
 {
     GameConfig config;
-    config.player1Class = CardClass::PRIEST;
+    config.player1Class = CardClass::MAGE;
     config.player2Class = CardClass::WARLOCK;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -1195,6 +1195,87 @@ TEST(MageExpert1Test, EX1_274_EtherealArcanist)
     game.ProcessUntil(Step::MAIN_START);
     EXPECT_EQ(curField[0]->GetAttack(), 5);
     EXPECT_EQ(curField[0]->GetHealth(), 5);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [EX1_275] Cone of Cold - COST:4
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a minion and the minions next to it,
+//       and deal 1 damage to them.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_275_ConeOfCold)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Cone of Cold"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+    EXPECT_EQ(curField[0]->IsFrozen(), false);
+    EXPECT_EQ(curField[1]->GetHealth(), 2);
+    EXPECT_EQ(curField[1]->IsFrozen(), false);
+    EXPECT_EQ(curField[2]->GetHealth(), 2);
+    EXPECT_EQ(curField[2]->IsFrozen(), false);
+    EXPECT_EQ(curField[3]->GetHealth(), 2);
+    EXPECT_EQ(curField[3]->IsFrozen(), false);
+    EXPECT_EQ(curField[4]->GetHealth(), 2);
+    EXPECT_EQ(curField[4]->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card3));
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+    EXPECT_EQ(curField[0]->IsFrozen(), false);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+    EXPECT_EQ(curField[1]->IsFrozen(), true);
+    EXPECT_EQ(curField[2]->GetHealth(), 1);
+    EXPECT_EQ(curField[2]->IsFrozen(), true);
+    EXPECT_EQ(curField[3]->GetHealth(), 1);
+    EXPECT_EQ(curField[3]->IsFrozen(), true);
+    EXPECT_EQ(curField[4]->GetHealth(), 2);
+    EXPECT_EQ(curField[4]->IsFrozen(), false);
 }
 
 // ------------------------------------------- SPELL - MAGE

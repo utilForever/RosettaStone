@@ -773,6 +773,27 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     cards.emplace("EX1_274", power);
 
     // ------------------------------------------- SPELL - MAGE
+    // [EX1_275] Cone of Cold - COST:4
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Freeze</b> a minion and the minions next to it,
+    //       and deal 1 damage to them.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeAdjacentTask(EntityType::TARGET, true));
+    power.AddPowerTask(
+        new SetGameTagTask(EntityType::STACK, GameTag::FROZEN, 1));
+    power.AddPowerTask(new DamageTask(EntityType::STACK, 1, true));
+    cards.emplace("EX1_275", power);
+
+    // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
