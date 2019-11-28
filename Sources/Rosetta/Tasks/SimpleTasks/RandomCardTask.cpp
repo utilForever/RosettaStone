@@ -75,7 +75,7 @@ TaskStatus RandomCardTask::Impl(Player* player)
                 "RandomCardTask::Impl() - Invalid entity type");
     }
 
-    auto cardsList = GetCardList(m_cardType, cardClass, m_race);
+    auto cardsList = GetCardList(m_cardType, cardClass, m_race, m_rarity);
     if (cardsList.empty())
     {
         return TaskStatus::STOP;
@@ -91,6 +91,10 @@ TaskStatus RandomCardTask::Impl(Player* player)
 
 ITask* RandomCardTask::CloneImpl()
 {
-    return new RandomCardTask(m_cardType, m_cardClass, m_race);
+    auto clonedTask = new RandomCardTask(m_cardType, m_cardClass, m_race,
+                                         m_rarity, m_opposite);
+    clonedTask->m_entityType = m_entityType;
+
+    return clonedTask;
 }
 }  // namespace RosettaStone::SimpleTasks
