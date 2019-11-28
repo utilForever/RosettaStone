@@ -198,6 +198,16 @@ void Player::SetNumMinionsPlayedThisTurn(int value)
     SetGameTag(GameTag::NUM_MINIONS_PLAYED_THIS_TURN, value);
 }
 
+int Player::GetNumFriendlyMinionsDiedThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN);
+}
+
+void Player::SetNumFriendlyMinionsDiedThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, value);
+}
+
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
     m_hero = dynamic_cast<Hero*>(GetFromCard(this, heroCard));

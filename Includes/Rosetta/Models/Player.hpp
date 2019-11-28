@@ -165,6 +165,14 @@ class Player : public Entity
     //! \param value The number of minions that played this turn.
     void SetNumMinionsPlayedThisTurn(int value);
 
+    //! Returns the number of friendly minions that died this turn.
+    //! \return The number of friendly minions that died this turn.
+    int GetNumFriendlyMinionsDiedThisTurn() const;
+
+    //! Sets the number of friendly minions that died this turn.
+    //! \param value The number of friendly minions that died this turn.
+    void SetNumFriendlyMinionsDiedThisTurn(int value);
+
     //! Adds hero and hero power.
     //! \param heroCard A card that represents hero.
     //! \param powerCard A card that represents hero power.
