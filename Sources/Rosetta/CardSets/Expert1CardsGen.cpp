@@ -3389,6 +3389,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     cards.emplace("EX1_188", power);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
+    // - Race: Dragon, Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Add a random <b>Legendary</b>
+    //       minion to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new RandomCardTask(CardType::MINION, CardClass::INVALID,
+                                          Race::INVALID, Rarity::LEGENDARY));
+    power.AddPowerTask(new AddStackToTask(EntityType::HAND));
+    cards.emplace("EX1_189", power);
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------

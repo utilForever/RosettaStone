@@ -7620,6 +7620,47 @@ TEST(NeutralExpert1Test, EX1_188_BarrensStablehand)
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
+// - Race: Dragon, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a random <b>Legendary</b>
+//       minion to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(NeutralExpert1Test, EX1_189_Brightwing)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brightwing"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(curHand.GetCount(), 1);
+    EXPECT_EQ(curHand[0]->card->GetRarity(), Rarity::LEGENDARY);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
