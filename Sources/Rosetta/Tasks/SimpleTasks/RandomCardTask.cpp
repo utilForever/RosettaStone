@@ -1,3 +1,8 @@
+// This code is based on Sabberstone project.
+// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+
 #include <Rosetta/Cards/Cards.hpp>
 #include <Rosetta/Games/Game.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
@@ -79,9 +84,9 @@ TaskStatus RandomCardTask::Impl(Player* player)
     }
 
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
-    auto randomCard = Entity::GetFromCard(
-        m_opposite ? player->opponent : player, cardsList.at(idx));
-    player->game->taskStack.playables.emplace_back(randomCard);
+    auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
+                                    cardsList.at(idx));
+    player->game->taskStack.playables.emplace_back(card);
 
     return TaskStatus::COMPLETE;
 }
