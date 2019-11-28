@@ -243,12 +243,12 @@ EXPERT1 | EX1_181 | Call of the Void | O
 EXPERT1 | EX1_182 | Pilfer | O
 EXPERT1 | EX1_183 | Gift of the Wild | O
 EXPERT1 | EX1_184 | Righteousness | O
-EXPERT1 | EX1_185 | Siegebreaker |  
-EXPERT1 | EX1_186 | SI:7 Infiltrator |  
-EXPERT1 | EX1_187 | Arcane Devourer |  
-EXPERT1 | EX1_188 | Barrens Stablehand |  
-EXPERT1 | EX1_189 | Brightwing |  
-EXPERT1 | EX1_190 | High Inquisitor Whitemane |  
+EXPERT1 | EX1_185 | Siegebreaker | O
+EXPERT1 | EX1_186 | SI:7 Infiltrator | O
+EXPERT1 | EX1_187 | Arcane Devourer | O
+EXPERT1 | EX1_188 | Barrens Stablehand | O
+EXPERT1 | EX1_189 | Brightwing | O
+EXPERT1 | EX1_190 | High Inquisitor Whitemane | O
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
 EXPERT1 | EX1_243 | Dust Devil | O
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 75% (184 of 245 Cards)
+- Progress: 77% (190 of 245 Cards)
 
 ## Hall of Fame
 
