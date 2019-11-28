@@ -107,6 +107,10 @@ class Character : public Playable
     //! \return The flag that indicates whether it is immune.
     bool IsImmune() const;
 
+    //! Returns the flag that indicates whether it is frozen.
+    //! \return The flag that indicates whether it is frozen.
+    bool IsFrozen() const;
+
     //! Returns the flag that indicates whether it has taunt.
     //! \return The flag that indicates whether it has taunt.
     bool HasTaunt() const;
