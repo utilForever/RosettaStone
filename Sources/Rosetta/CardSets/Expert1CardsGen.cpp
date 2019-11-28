@@ -47,6 +47,7 @@
 #include <Rosetta/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomEntourageTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/RandomMinionTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RandomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveDurabilityTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
@@ -3371,6 +3372,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
     power.GetTrigger()->tasks = { new AddEnchantmentTask("EX1_187e",
                                                          EntityType::SOURCE) };
     cards.emplace("EX1_187", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4]
+    // - Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a random Beast.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        new RandomMinionTask(GameTag::CARDRACE, static_cast<int>(Race::BEAST)));
+    power.AddPowerTask(new SummonTask());
+    cards.emplace("EX1_188", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
