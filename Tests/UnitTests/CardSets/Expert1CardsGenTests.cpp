@@ -7657,6 +7657,7 @@ TEST(NeutralExpert1Test, EX1_189_Brightwing)
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     EXPECT_EQ(curHand.GetCount(), 1);
+    EXPECT_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
     EXPECT_EQ(curHand[0]->card->GetRarity(), Rarity::LEGENDARY);
 }
 
