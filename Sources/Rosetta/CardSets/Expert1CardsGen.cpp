@@ -26,6 +26,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ControlTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/CountTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/CustomTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/DestroyTask.hpp>
@@ -61,6 +62,8 @@
 #include <Rosetta/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/TransformTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/WeaponTask.hpp>
+#include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/GraveyardZone.hpp>
 #include <Rosetta/Zones/HandZone.hpp>
 
 using namespace RosettaStone::SimpleTasks;
@@ -3404,6 +3407,63 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, Power>& cards)
                                           Race::INVALID, Rarity::LEGENDARY));
     power.AddPowerTask(new AddStackToTask(EntityType::HAND));
     cards.emplace("EX1_189", power);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8]
+    // - Set: Expert1, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon all friendly minions
+    //       that died this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new CustomTask([](Player* player) {
+        const auto field = player->GetFieldZone();
+        if (field->IsFull())
+        {
+            return;
+        }
+
+        const int num = player->GetNumFriendlyMinionsDiedThisTurn();
+        auto& graveyard = *(player->GetGraveyardZone());
+
+        std::vector<int> buffer;
+        buffer.reserve(num);
+        int k = 0;
+
+        for (int i = graveyard.GetCount() - 1, j = 0; j < num; --i)
+        {
+            if (!graveyard[i]->isDestroyed)
+            {
+                continue;
+            }
+
+            if (graveyard[i]->card->GetCardType() != CardType::MINION)
+            {
+                continue;
+            }
+
+            j++;
+
+            buffer[k++] = i;
+        }
+
+        for (--k; k >= 0; --k)
+        {
+            const auto playable = Entity::GetFromCard(
+                player, graveyard[buffer[k]]->card, std::nullopt, field);
+            field->Add(playable);
+
+            if (field->IsFull())
+            {
+                return;
+            }
+        }
+    }));
+    cards.emplace("EX1_190", power);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
