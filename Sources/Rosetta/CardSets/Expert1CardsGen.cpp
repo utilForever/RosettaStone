@@ -1815,6 +1815,20 @@ void Expert1CardsGen::AddShaman(std::map<std::string, Power>& cards)
                                                          EntityType::SOURCE) };
     cards.emplace("EX1_258", power);
 
+    // ----------------------------------------- SPELL - SHAMAN
+    // [EX1_259] Lightning Storm - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 2-3 damage to all enemy minions. <b>Overload:</b> (2)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new DamageTask(EntityType::ENEMY_MINIONS, 2, 1, true));
+    cards.emplace("EX1_259", power);
+
     // ---------------------------------------- WEAPON - SHAMAN
     // [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic

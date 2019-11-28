@@ -4690,6 +4690,81 @@ TEST(ShamanExpert1Test, EX1_258_UnboundElemental)
     EXPECT_EQ(curField[0]->GetHealth(), 6);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [EX1_259] Lightning Storm - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 2-3 damage to all enemy minions. <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
+// --------------------------------------------------------
+TEST(ShamanExpert1Test, EX1_259_LightningStorm)
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Storm"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(opField[1]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_TRUE(opField[0]->GetHealth() == 4 || opField[0]->GetHealth() == 5);
+    EXPECT_TRUE(opField[1]->GetHealth() == 4 || opField[1]->GetHealth() == 5);
+    EXPECT_EQ(curPlayer->GetRemainingMana(), 7);
+    EXPECT_EQ(curPlayer->GetOverloadOwed(), 2);
+    EXPECT_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    EXPECT_EQ(curPlayer->GetRemainingMana(), 8);
+    EXPECT_EQ(curPlayer->GetOverloadOwed(), 0);
+    EXPECT_EQ(curPlayer->GetOverloadLocked(), 2);
+}
+
 // ---------------------------------------- WEAPON - SHAMAN
 // [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
