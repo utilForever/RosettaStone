@@ -354,19 +354,20 @@ void Game::MainBegin()
 void Game::MainReady()
 {
     // Reset the number of attacked
-    for (auto& p : m_players)
+    for (auto& player : m_players)
     {
         // Field
-        for (auto& m : p.GetFieldZone()->GetAll())
+        for (auto& minion : player.GetFieldZone()->GetAll())
         {
-            m->SetNumAttacksThisTurn(0);
+            minion->SetNumAttacksThisTurn(0);
         }
 
         // Hero
-        p.GetHero()->SetNumAttacksThisTurn(0);
+        player.GetHero()->SetNumAttacksThisTurn(0);
 
         // Player
-        p.SetNumMinionsPlayedThisTurn(0);
+        player.SetNumMinionsPlayedThisTurn(0);
+        player.SetNumFriendlyMinionsDiedThisTurn(0);
     }
 
     // Reset exhaust for current player
@@ -652,6 +653,8 @@ void Game::ProcessGraveyard()
 
             // Add minion to graveyard
             minion->player->GetGraveyardZone()->Add(minion);
+            minion->player->SetNumFriendlyMinionsDiedThisTurn(
+                minion->player->GetNumFriendlyMinionsDiedThisTurn() + 1);
         }
 
         deadMinions.clear();
