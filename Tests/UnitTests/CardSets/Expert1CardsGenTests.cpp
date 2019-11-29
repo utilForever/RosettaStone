@@ -770,6 +770,8 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto curSecret = curPlayer->GetSecretZone();
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Snipe"));
     const auto card2 =
@@ -787,16 +789,15 @@ TEST(HunterExpert1Test, EX1_609_Snipe)
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curSecret->GetCount(), 1);
     EXPECT_EQ(card4->GetGameTag(GameTag::DAMAGE), 0);
-    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 0);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, PlayCardTask::Minion(card6));
-
+    EXPECT_EQ(curSecret->GetCount(), 0);
     EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 4);
-    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1395,6 +1396,8 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto curSecret = curPlayer->GetSecretZone();
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Counterspell"));
     const auto card2 =
@@ -1405,11 +1408,11 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Bolt"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 0);
+    EXPECT_EQ(curSecret->GetCount(), 1);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    EXPECT_EQ(card1->GetGameTag(GameTag::REVEALED), 0);
+    EXPECT_EQ(curSecret->GetCount(), 1);
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 24);
 
     game.Process(curPlayer, EndTurnTask());
@@ -1417,6 +1420,7 @@ TEST(MageExpert1Test, EX1_287_Counterspell)
 
     game.Process(opPlayer,
                  PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    EXPECT_EQ(curSecret->GetCount(), 0);
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
     EXPECT_EQ(opPlayer->GetRemainingMana(), 9);
     EXPECT_EQ(opPlayer->GetOverloadOwed(), 1);
@@ -10470,7 +10474,7 @@ TEST(DreamExpert1Test, DREAM_05_Nightmare)
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetAttack(), 10);
     EXPECT_EQ(curField[0]->GetHealth(), 6);
-        
+
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
