@@ -224,6 +224,11 @@ SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
     });
 }
 
+SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
+{
+    return IsEventTargetIs(cardType);
+}
+
 SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
 {
     return SelfCondition([=](Playable* playable) -> bool {
