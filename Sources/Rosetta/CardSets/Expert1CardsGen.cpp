@@ -829,6 +829,26 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.GetTrigger()->fastExecution = true;
     cards.emplace("EX1_287", power);
 
+    // ------------------------------------------- SPELL - MAGE
+    // [EX1_289] Ice Barrier - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your hero is attacked,
+    //       gain 8 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::ATTACK));
+    power.GetTrigger()->condition =
+        new SelfCondition(SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->tasks = { new ArmorTask(8),
+                                  new SetGameTagTask(EntityType::SOURCE,
+                                                     GameTag::REVEALED, 1),
+                                  new MoveToGraveyardTask(EntityType::SOURCE) };
+    cards.emplace("EX1_289", power);
+
     // ------------------------------------------ MINION - MAGE
     // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
