@@ -5,8 +5,8 @@
 
 #include <Rosetta/Conditions/SelfCondition.hpp>
 #include <Rosetta/Games/Game.hpp>
-#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/FieldZone.hpp>
+#include <Rosetta/Zones/HandZone.hpp>
 #include <Rosetta/Zones/SecretZone.hpp>
 
 #include <string>
@@ -221,6 +221,18 @@ SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
         return (relaSign == RelaSign::EQ && character->GetHealth() == value) ||
                (relaSign == RelaSign::GEQ && character->GetHealth() >= value) ||
                (relaSign == RelaSign::LEQ && character->GetHealth() <= value);
+    });
+}
+
+SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        if (const auto eventData = playable->game->currentEventData; eventData)
+        {
+            return eventData->eventTarget->card->GetCardType() == cardType;
+        }
+
+        return false;
     });
 }
 

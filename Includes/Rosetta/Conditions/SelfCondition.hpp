@@ -133,6 +133,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHealth(int value, RelaSign relaSign);
 
+    //! SelfCondition wrapper for checking the event target is \p cardType.
+    //! \param cardType The type of the card to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEventTargetIs(CardType cardType);
+
     //! Evaluates condition using checking function.
     //! \param owner The owner entity.
     //! \return true if the condition is satisfied, false otherwise.
