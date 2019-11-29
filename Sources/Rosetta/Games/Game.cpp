@@ -506,18 +506,18 @@ void Game::MainCleanUp()
     // Unfreeze all characters they control that are Frozen, don't have
     // summoning sickness (or do have Charge) and have not attacked that turn
     // Hero
-    if (curPlayer->GetHero()->GetGameTag(GameTag::FROZEN) == 1 &&
+    if (curPlayer->GetHero()->IsFrozen() &&
         curPlayer->GetHero()->GetNumAttacksThisTurn() == 0)
     {
         curPlayer->GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
     // Field
-    for (auto& m : curPlayer->GetFieldZone()->GetAll())
+    for (auto& minion : curPlayer->GetFieldZone()->GetAll())
     {
-        if (m->GetGameTag(GameTag::FROZEN) == 1 &&
-            m->GetNumAttacksThisTurn() == 0 && !m->IsExhausted())
+        if (minion->IsFrozen() && minion->GetNumAttacksThisTurn() == 0 &&
+            !minion->IsExhausted())
         {
-            m->SetGameTag(GameTag::FROZEN, 0);
+            minion->SetGameTag(GameTag::FROZEN, 0);
         }
     }
 

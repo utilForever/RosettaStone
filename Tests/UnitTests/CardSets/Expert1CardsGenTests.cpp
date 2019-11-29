@@ -1008,21 +1008,21 @@ TEST(MageExpert1Test, CS2_028_Blizzard)
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(opField.GetCount(), 1);
     EXPECT_EQ(opField[0]->GetHealth(), 5);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(opPlayer->GetHero()->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(opPlayer->GetHero()->IsFrozen(), false);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
     game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 30);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(opField[0]->IsFrozen(), false);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1083,7 +1083,7 @@ TEST(MageExpert1Test, EX1_179_Icicle)
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card4));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card4));
     EXPECT_EQ(curField[0]->GetHealth(), 1);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[0]->IsFrozen(), true);
     EXPECT_EQ(opHand.GetCount(), 7);
 }
 
@@ -6545,7 +6545,7 @@ TEST(NeutralExpert1Test, EX1_012_BloodmageThalnos)
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     EXPECT_EQ(opField.GetCount(), 1);
     EXPECT_EQ(opField[0]->GetHealth(), 4);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -8705,8 +8705,8 @@ TEST(NeutralExpert1Test, EX1_283_FrostElemental)
 
     game.Process(opPlayer, PlayCardTask::MinionTarget(card1, card2));
 
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(curField[0]->IsFrozen(), true);
+    EXPECT_EQ(curField[1]->IsFrozen(), false);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -8717,7 +8717,7 @@ TEST(NeutralExpert1Test, EX1_283_FrostElemental)
     game.Process(opPlayer, AttackTask(card1, card3));
 
     EXPECT_EQ(curField[1]->GetGameTag(GameTag::DAMAGE), 5);
-    EXPECT_EQ(curField[1]->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(curField[1]->IsFrozen(), false);
 }
 
 // --------------------------------------- MINION - NEUTRAL

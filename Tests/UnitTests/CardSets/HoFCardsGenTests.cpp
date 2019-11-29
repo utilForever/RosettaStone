@@ -95,6 +95,8 @@ TEST(MageHoFTest, CS2_031_IceLance)
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curField = *(curPlayer->GetFieldZone());
+
     const auto card1 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Ice Lance"));
     const auto card2 =
@@ -118,19 +120,16 @@ TEST(MageHoFTest, CS2_031_IceLance)
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card6));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card7));
-
-    EXPECT_EQ(card6->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(card7->GetGameTag(GameTag::FROZEN), 1);
-    EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 0);
-    EXPECT_EQ(card7->GetGameTag(GameTag::DAMAGE), 0);
+    EXPECT_EQ(curField[0]->IsFrozen(), true);
+    EXPECT_EQ(curField[1]->IsFrozen(), true);
+    EXPECT_EQ(curField[0]->GetDamage(), 0);
+    EXPECT_EQ(curField[1]->GetDamage(), 0);
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card6));
-
-    EXPECT_EQ(card6->GetGameTag(GameTag::DAMAGE), 4);
+    EXPECT_EQ(curField[0]->GetDamage(), 4);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
     game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card7));
-
     EXPECT_EQ(card7->isDestroyed, true);
 }
 

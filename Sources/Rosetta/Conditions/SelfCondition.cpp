@@ -139,7 +139,7 @@ SelfCondition SelfCondition::IsFrozen()
             return false;
         }
 
-        return character->GetGameTag(GameTag::FROZEN) == 1;
+        return character->IsFrozen();
     });
 }
 

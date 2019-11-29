@@ -1662,7 +1662,7 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(opPlayer->GetHero()->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opPlayer->GetHero()->IsFrozen(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
@@ -1672,12 +1672,12 @@ TEST(MageCoreTest, CS2_024_Frostbolt)
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card5));
     EXPECT_EQ(curField[0]->GetHealth(), 4);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[0]->IsFrozen(), true);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
     EXPECT_EQ(curPlayer->GetHero()->GetHealth(), 27);
-    EXPECT_EQ(curPlayer->GetHero()->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curPlayer->GetHero()->IsFrozen(), true);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1788,11 +1788,11 @@ TEST(MageCoreTest, CS2_026_FrostNova)
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(opField[0]->GetHealth(), 2);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
     EXPECT_EQ(opField[1]->GetHealth(), 1);
-    EXPECT_EQ(opField[1]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[1]->IsFrozen(), true);
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 30);
-    EXPECT_EQ(opPlayer->GetHero()->GetGameTag(GameTag::FROZEN), 0);
+    EXPECT_EQ(opPlayer->GetHero()->IsFrozen(), false);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -2034,8 +2034,8 @@ TEST(MageCoreTest, CS2_033_WaterElemental)
     EXPECT_EQ(opField.GetCount(), 1);
     EXPECT_EQ(curField[0]->GetHealth(), 2);
     EXPECT_EQ(opField[0]->GetHealth(), 2);
-    EXPECT_EQ(curField[0]->GetGameTag(GameTag::FROZEN), 0);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(curField[0]->IsFrozen(), false);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -3690,7 +3690,7 @@ TEST(ShamanCoreTest, CS2_037_FrostShock)
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
     EXPECT_EQ(opField[0]->GetHealth(), 1);
-    EXPECT_EQ(opField[0]->GetGameTag(GameTag::FROZEN), 1);
+    EXPECT_EQ(opField[0]->IsFrozen(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
     EXPECT_EQ(opField.GetCount(), 1);

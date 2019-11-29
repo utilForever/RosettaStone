@@ -146,7 +146,7 @@ bool Character::CanAttack() const
     }
 
     // If the character is frozen, returns false
-    if (GetGameTag(GameTag::FROZEN) == 1)
+    if (IsFrozen())
     {
         return false;
     }
