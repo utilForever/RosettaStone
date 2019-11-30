@@ -56,6 +56,7 @@
 #include <Rosetta/Tasks/SimpleTasks/ReturnHandTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SetGameTagTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SilenceTask.hpp>
+#include <Rosetta/Tasks/SimpleTasks/SummonCopyTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonOpTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/Tasks/SimpleTasks/SwapAttackHealthTask.hpp>
@@ -847,6 +848,28 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
                                   new SetGameTagTask(EntityType::SOURCE,
                                                      GameTag::REVEALED, 1),
                                   new MoveToGraveyardTask(EntityType::SOURCE) };
+    cards.emplace("EX1_289", power);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [EX1_294] Mirror Entity - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> After your opponent plays a minion,
+    //       summon a copy of it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->tasks = {
+        new ConditionTask(
+            EntityType::EVENT_SOURCE,
+            { SelfCondition::IsNotDead(), SelfCondition::IsNotUntouchable() }),
+        new FlagTask(true, { new SummonCopyTask(EntityType::EVENT_SOURCE) }),
+        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
+        new MoveToGraveyardTask(EntityType::SOURCE)
+    };
     cards.emplace("EX1_289", power);
 
     // ------------------------------------------ MINION - MAGE
