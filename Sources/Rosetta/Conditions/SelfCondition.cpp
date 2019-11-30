@@ -39,6 +39,13 @@ SelfCondition SelfCondition::IsNotDead()
         [=](Playable* playable) -> bool { return !playable->isDestroyed; });
 }
 
+SelfCondition SelfCondition::IsNotUntouchable()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->card->IsUntouchable();
+    });
+}
+
 SelfCondition SelfCondition::IsFieldFull()
 {
     return SelfCondition([=](Playable* playable) -> bool {

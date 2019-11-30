@@ -40,6 +40,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotDead();
 
+    //! SelfCondition wrapper for checking the entity is not untouchable.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotUntouchable();
+
     //! SelfCondition wrapper for checking the field is full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
