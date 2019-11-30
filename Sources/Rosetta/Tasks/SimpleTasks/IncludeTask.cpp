@@ -215,6 +215,12 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::STACK:
             entities = player->game->taskStack.playables;
             break;
+        case EntityType::EVENT_SOURCE:
+            if (auto eventData = player->game->currentEventData; eventData)
+            {
+                entities.emplace_back(eventData->eventSource);
+            }
+            break;
         default:
             throw std::invalid_argument(
                 "IncludeTask::GetEntities() - Invalid entity type");
@@ -415,6 +421,12 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             break;
         case EntityType::STACK:
             entities = player->game->taskStack.playables;
+            break;
+        case EntityType::EVENT_SOURCE:
+            if (auto eventData = player->game->currentEventData; eventData)
+            {
+                entities.emplace_back(eventData->eventSource);
+            }
             break;
         default:
             throw std::invalid_argument(
