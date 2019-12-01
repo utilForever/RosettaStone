@@ -1497,7 +1497,7 @@ TEST(MageExpert1Test, EX1_294_MirrorEntity)
     config.player1Class = CardClass::MAGE;
     config.player2Class = CardClass::PRIEST;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
@@ -1517,24 +1517,61 @@ TEST(MageExpert1Test, EX1_294_MirrorEntity)
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mirror Entity"));
     const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mirror Entity"));
+    const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card3 = Generic::DrawCard(
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card9 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card10 = Generic::DrawCard(
         opPlayer, Cards::FindCardByName("Injured Blademaster"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     EXPECT_EQ(curSecret->GetCount(), 1);
 
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
     EXPECT_EQ(curField.GetCount(), 1);
     EXPECT_EQ(curSecret->GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_START);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card9));
     EXPECT_EQ(curField.GetCount(), 2);
     EXPECT_EQ(curSecret->GetCount(), 0);
     EXPECT_EQ(curField[1]->GetHealth(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    EXPECT_EQ(curField.GetCount(), 5);
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    EXPECT_EQ(curField.GetCount(), 6);
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card10));
+    EXPECT_EQ(curField.GetCount(), 7);
+    EXPECT_EQ(curSecret->GetCount(), 1);
 }
 
 // ------------------------------------------ MINION - MAGE
