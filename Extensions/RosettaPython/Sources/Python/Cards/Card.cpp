@@ -21,7 +21,7 @@ void AddCard(pybind11::module& m)
         R"pbdoc(This class stores card information such as attack, health and cost.)pbdoc")
         .def(pybind11::init<>(), R"pbdoc(Constructs Card class.)pbdoc")
         .def_readwrite("id", &Card::id, R"pbdoc(ID of the card.)pbdoc")
-        .def_readwrite("dbfID", &Card::dbfID, R"pbdoc(dbfID of the card.)pbdoc")
+        .def_readwrite("dbf_id", &Card::dbfID, R"pbdoc(dbfID of the card.)pbdoc")
         .def_readwrite("name", &Card::name, R"pbdoc(Name of the card.)pbdoc")
         .def_readwrite("text", &Card::text, R"pbdoc(Text of the card.)pbdoc")
         .def_readwrite("game_tags", &Card::gameTags,
