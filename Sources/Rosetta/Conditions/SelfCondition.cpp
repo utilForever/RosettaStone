@@ -53,6 +53,13 @@ SelfCondition SelfCondition::IsFieldFull()
     });
 }
 
+SelfCondition SelfCondition::IsOpFieldNotFull()
+{
+    return SelfCondition([=](Playable* playable) -> bool {
+        return !playable->player->opponent->GetFieldZone()->IsFull();
+    });
+}
+
 SelfCondition SelfCondition::IsDamaged()
 {
     return SelfCondition([=](Playable* playable) -> bool {

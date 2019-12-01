@@ -48,6 +48,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
 
+    //! SelfCondition wrapper for checking the opponent field is not full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOpFieldNotFull();
+
     //! SelfCondition wrapper for checking the entity is damaged.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDamaged();
