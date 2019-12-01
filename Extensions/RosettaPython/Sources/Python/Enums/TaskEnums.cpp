@@ -19,7 +19,7 @@ void AddTaskEnums(pybind11::module& m)
         .value("COMBO", PowerType::COMBO);
 
     pybind11::enum_<EntityType>(m, "EntityType")
-        .value("EMPTY", EntityType::EMPTY)
+        .value("INVALID", EntityType::INVALID)
         .value("SOURCE", EntityType::SOURCE)
         .value("TARGET", EntityType::TARGET)
         .value("ALL", EntityType::ALL)
