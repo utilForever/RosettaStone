@@ -150,7 +150,7 @@ def test_find_card_by_name():
 	assert card1.name == 'Flame Lance'
 
 	card2 = pyRosetta.Cards.find_card_by_name('Invalid')
-	assert len(card2.name) == 0
+	assert not card2.name
 
 def test_find_card_by_cost():
 	cards1 = pyRosetta.Cards.find_card_by_cost(0, 1)

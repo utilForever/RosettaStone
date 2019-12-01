@@ -29,7 +29,7 @@ def test_deck_control():
     player = pyRosetta.AccountInfo()
 
     player.show_deck_list()
-    assert player.create_deck('deck1', pyRosetta.CardClass.INVALID) == False
+    assert player.create_deck('deck1', pyRosetta.CardClass.INVALID) is False
 
     player.create_deck('deck2', pyRosetta.CardClass.DREAM)
     player.create_deck('deck3', pyRosetta.CardClass.DRUID)
