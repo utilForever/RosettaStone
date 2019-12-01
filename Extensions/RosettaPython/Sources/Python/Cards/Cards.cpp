@@ -7,13 +7,33 @@
 #include <Python/Cards/Cards.hpp>
 #include <Rosetta/Cards/Cards.hpp>
 
-#include <pybind11/chrono.h>
-#include <pybind11/complex.h>
-#include <pybind11/functional.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
 using namespace RosettaStone;
+
+using CardListCasterBase =
+    pybind11::detail::list_caster<std::vector<Card*>, Card*>;
+
+namespace pybind11::detail
+{
+template <>
+struct type_caster<std::vector<Card*>> : CardListCasterBase
+{
+    static handle cast(const std::vector<Card*>& src, return_value_policy,
+                       handle parent)
+    {
+        return CardListCasterBase::cast(src, return_value_policy::reference,
+                                        parent);
+    }
+
+    static handle cast(const std::vector<Card*>* src, return_value_policy policy,
+                       handle parent)
+    {
+        return cast(*src, policy, parent);
+    }
+};
+}  // namespace pybind11::detail
 
 namespace
 {
