@@ -2085,6 +2085,33 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.AddPowerTask(new DestroyTask(EntityType::TARGET));
     cards.emplace("EX1_303", power);
 
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
+    // - Race: Demon, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy both adjacent minions
+    //       and gain their Attack and Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(new IncludeAdjacentTask(EntityType::SOURCE));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::STACK, GameTag::ATK, 0, 1));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::STACK, GameTag::ATK, 1, 2));
+    power.AddPowerTask(new MathNumberIndexTask(1, 2, MathOperation::ADD));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::STACK, GameTag::HEALTH, 0, 3));
+    power.AddPowerTask(
+        new GetGameTagTask(EntityType::STACK, GameTag::HEALTH, 1, 4));
+    power.AddPowerTask(new MathNumberIndexTask(3, 4, MathOperation::ADD, 1));
+    power.AddPowerTask(new DestroyTask(EntityType::STACK));
+    power.AddPowerTask(
+        new AddEnchantmentTask("EX1_304e", EntityType::SOURCE, true));
+    cards.emplace("EX1_304", power);
+
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:6
     // - Set: Expert1, Rarity: Rare
@@ -2224,6 +2251,16 @@ void Expert1CardsGen::AddWarlockNonCollect(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("EX1_185e"));
     cards.emplace("EX1_185e", power);
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [EX1_304e] Consume (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(new Enchant(Enchants::AddAttackHealthScriptTag));
+    cards.emplace("EX1_304e", power);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_317t] Worthless Imp - COST:1 [ATK:1/HP:1]

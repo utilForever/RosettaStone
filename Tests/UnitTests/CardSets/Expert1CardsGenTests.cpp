@@ -5325,6 +5325,67 @@ TEST(WarlockExpert1Test, EX1_303_Shadowflame)
     EXPECT_EQ(curField[1]->GetDamage(), 2);
     EXPECT_EQ(opField[0]->GetDamage(), 0);
 }
+
+// --------------------------------------- MINION - WARLOCK
+// [EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
+// - Race: Demon, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy both adjacent minions
+//       and gain their Attack and Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_304_VoidTerror)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Void Terror"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Void Terror"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Blood Imp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curField[0]->GetAttack(), 3);
+    EXPECT_EQ(curField[0]->GetHealth(), 2);
+    EXPECT_EQ(curField[1]->GetAttack(), 0);
+    EXPECT_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 1));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 6);
+    EXPECT_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, PlayCardTask(card2, nullptr, 1));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curField[0]->GetAttack(), 9);
+    EXPECT_EQ(curField[0]->GetHealth(), 9);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_309] Siphon Soul - COST:6
 // - Set: Expert1, Rarity: Rare
