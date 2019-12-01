@@ -153,6 +153,10 @@ class Character : public Playable
     //! \param heal The value of heal.
     void TakeHeal(Playable* source, int heal);
 
+    //! Copies internal attributes to \p copy.
+    //! \param copy The copied character to assign attributes.
+    void CopyInternalAttributes(Character* copy) const;
+
     std::function<void(Entity*)> preDamageTrigger;
     std::function<void(Entity*)> takeDamageTrigger;
     std::function<void(Entity*)> afterAttackTrigger;

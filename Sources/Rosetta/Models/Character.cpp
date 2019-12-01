@@ -314,4 +314,19 @@ void Character::TakeHeal(Playable* source, int heal)
     game->ProcessTasks();
     game->taskQueue.EndEvent();
 }
+
+void Character::CopyInternalAttributes(Character* copy) const
+{
+    copy->SetAttack(GetAttack());
+    copy->SetMaxHealth(GetMaxHealth());
+    copy->SetDamage(GetDamage());
+    copy->SetNumAttacksThisTurn(GetNumAttacksThisTurn());
+    copy->SetGameTag(GameTag::STEALTH, GetGameTag(GameTag::STEALTH));
+    copy->SetGameTag(GameTag::IMMUNE, GetGameTag(GameTag::IMMUNE));
+    copy->SetGameTag(GameTag::TAUNT, GetGameTag(GameTag::TAUNT));
+    copy->SetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS,
+                     GetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS));
+    copy->SetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS,
+                     GetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS));
+}
 }  // namespace RosettaStone
