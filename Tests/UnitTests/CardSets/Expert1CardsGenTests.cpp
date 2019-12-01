@@ -1481,6 +1481,62 @@ TEST(MageExpert1Test, EX1_289_IceBarrier)
     EXPECT_EQ(curPlayer->GetHero()->GetArmor(), 5);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [EX1_294] Mirror Entity - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent plays a minion,
+//       summon a copy of it.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST(MageExpert1Test, EX1_294_MirrorEntity)
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mirror Entity"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Injured Blademaster"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(curField.GetCount(), 1);
+    EXPECT_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    EXPECT_EQ(curField.GetCount(), 2);
+    EXPECT_EQ(curSecret->GetCount(), 0);
+    EXPECT_EQ(curField[1]->GetHealth(), 3);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common

@@ -862,6 +862,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(new Trigger(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
     power.GetTrigger()->tasks = {
         new ConditionTask(
             EntityType::EVENT_SOURCE,
@@ -870,7 +871,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
         new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
         new MoveToGraveyardTask(EntityType::SOURCE)
     };
-    cards.emplace("EX1_289", power);
+    cards.emplace("EX1_294", power);
 
     // ------------------------------------------ MINION - MAGE
     // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
