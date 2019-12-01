@@ -10,6 +10,7 @@
 #include <MCTS/Commons/Types.hpp>
 
 #include <stdexcept>
+#include <tuple>
 
 namespace RosettaTorch::MCTS
 {
@@ -33,17 +34,20 @@ void StateValue::SetValue(float valueForCurPlayer, PlayerType type)
     }
 }
 
-void StateValue::SetValue(PlayerType type, PlayState state)
+void StateValue::SetValue(PlayerType type,
+                          std::tuple<PlayState, PlayState> state)
 {
-    if (state == PlayState::WON)
+    auto& [p1Result, p2Result] = state;
+
+    if (p1Result == PlayState::WON && p2Result == PlayState::LOST)
     {
-        m_value = (type == PlayerType::PLAYER1 ? 1.0f : -1.0f);
+        m_value = 1.0f;
     }
-    else if (state == PlayState::LOST)
+    else if (p1Result == PlayState::LOST && p2Result == PlayState::WON)
     {
-        m_value = (type == PlayerType::PLAYER1 ? -1.0f : 1.0f);
+        m_value = -1.0f;
     }
-    else if (state == PlayState::TIED)
+    else if (p1Result == PlayState::TIED && p2Result == PlayState::TIED)
     {
         m_value = 0.0f;
     }

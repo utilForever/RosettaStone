@@ -51,8 +51,8 @@ class Board
 
     //! Applies action with given \p params.
     //! \param params The parameter for action.
-    //! \result The play state of the game after the action is performed.
-    PlayState ApplyAction(ActionParams& params) const;
+    //! \return The result of the game (player1 and player2).
+    std::tuple<PlayState, PlayState> ApplyAction(ActionParams& params) const;
 
     //! Returns the game that is revealed hidden info for simulation.
     //! \return The game that is revealed hidden info for simulation.

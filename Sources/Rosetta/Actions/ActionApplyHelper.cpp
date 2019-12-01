@@ -186,12 +186,12 @@ void ActionApplyHelper::ClearChoices()
 ActionApplyHelper::CallbackInfo ActionApplyHelper::ApplyChoices(
     Game& game) const
 {
-    PlayState result;
+    std::tuple<PlayState, PlayState> result;
     return ApplyChoices(game, result);
 }
 
 ActionApplyHelper::CallbackInfo ActionApplyHelper::ApplyChoices(
-    Game& game, PlayState& result) const
+    Game& game, std::tuple<PlayState, PlayState>& result) const
 {
     CallbackInfo info = NullInfo();
     size_t choicesIdx = 0;

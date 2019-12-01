@@ -49,12 +49,13 @@ class Trainer
 
     void Train() const
     {
-        const int epoch = 10;
-        size_t totalEpoch = 0;
+        const std::size_t batchSize = 32;
+        const std::size_t epoch = 10;
+        std::size_t totalEpoch = 0;
 
         while (true)
         {
-            m_net.Train(m_trainInput, m_trainOutput, epoch);
+            m_net.Train(m_trainInput, m_trainOutput, batchSize, epoch);
             totalEpoch += epoch;
 
             std::stringstream ss;

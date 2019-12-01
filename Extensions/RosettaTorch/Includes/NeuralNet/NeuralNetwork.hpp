@@ -68,9 +68,11 @@ class NeuralNetwork
     //! Trains neural network model.
     //! \param input The input layer of neural network model.
     //! \param output The output layer of neural network model.
-    //! \param epoch The number of epochs to train for.
+    //! \param batchSize The size of batch.
+    //! \param epoch The number of epoch to train for.
     void Train(const NeuralNetworkInput& input,
-               const NeuralNetworkOutput& output, int epoch) const;
+               const NeuralNetworkOutput& output, std::size_t batchSize,
+               std::size_t epoch) const;
 
     //! Verifies neural network model.
     //! \param input The input layer of neural network model.

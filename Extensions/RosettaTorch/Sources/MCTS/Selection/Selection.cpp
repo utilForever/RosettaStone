@@ -13,6 +13,8 @@
 #include <MCTS/Policies/StageController.hpp>
 #include <MCTS/Selection/Selection.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 Selection::Selection(TreeNode& tree) : m_root(tree), m_policy(new UCBPolicy())
@@ -65,15 +67,18 @@ int Selection::ChooseAction(ActionType actionType, ActionChoices& choices)
     return nextChoice;
 }
 
-bool Selection::FinishAction(const Board& board, PlayState result)
+bool Selection::FinishAction(const Board& board,
+                             const std::tuple<PlayState, PlayState>& result)
 {
     // We tackle the randomness by using a board node map.
     // This flatten tree structure, and effectively forgot the history
     // (Note that history here referring to the parent nodes of this node)
     m_path.ConstructRedirectNode(m_redirectNodeMap, board, result);
 
+    auto& [p1Result, p2Result] = result;
     bool switchToSimulation = false;
-    if (result == PlayState::PLAYING)
+
+    if (p1Result == PlayState::PLAYING && p2Result == PlayState::PLAYING)
     {
         switchToSimulation = StageController::SwitchToSimulation(
             m_path.HasNewNodeCreated(),

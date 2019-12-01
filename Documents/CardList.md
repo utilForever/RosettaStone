@@ -115,8 +115,8 @@ CORE | EX1_084 | Warsong Commander | O
 CORE | EX1_129 | Fan of Knives | O
 CORE | EX1_169 | Innervate | O
 CORE | EX1_173 | Starfire | O
-CORE | EX1_191 | Plaguebringer |  
-CORE | EX1_192 | Radiance |  
+CORE | EX1_191 | Plaguebringer | O
+CORE | EX1_192 | Radiance | O
 CORE | EX1_244 | Totemic Might | O
 CORE | EX1_246 | Hex | O
 CORE | EX1_277 | Arcane Missiles | O
@@ -142,7 +142,7 @@ CORE | NEW1_003 | Sacrificial Pact | O
 CORE | NEW1_011 | Kor'kron Elite | O
 CORE | NEW1_031 | Animal Companion | O
 
-- Progress: 98% (131 of 133 Cards)
+- Progress: 100% (133 of 133 Cards)
 
 ## Classic
 
@@ -226,7 +226,7 @@ EXPERT1 | EX1_134 | SI:7 Agent | O
 EXPERT1 | EX1_136 | Redemption | O
 EXPERT1 | EX1_137 | Headcrack | O
 EXPERT1 | EX1_144 | Shadowstep | O
-EXPERT1 | EX1_145 | Preparation |  
+EXPERT1 | EX1_145 | Preparation | O
 EXPERT1 | EX1_154 | Wrath | O
 EXPERT1 | EX1_155 | Mark of Nature | O
 EXPERT1 | EX1_158 | Soul of the Forest | O
@@ -234,15 +234,15 @@ EXPERT1 | EX1_160 | Power of the Wild | O
 EXPERT1 | EX1_162 | Dire Wolf Alpha | O
 EXPERT1 | EX1_164 | Nourish | O
 EXPERT1 | EX1_165 | Druid of the Claw | O
-EXPERT1 | EX1_166 | Keeper of the Grove |  
+EXPERT1 | EX1_166 | Keeper of the Grove | O
 EXPERT1 | EX1_170 | Emperor Cobra | O
 EXPERT1 | EX1_178 | Ancient of War | O
 EXPERT1 | EX1_179 | Icicle | O
 EXPERT1 | EX1_180 | Tome of Intellect | O
 EXPERT1 | EX1_181 | Call of the Void | O
-EXPERT1 | EX1_182 | Pilfer |  
-EXPERT1 | EX1_183 | Gift of the Wild |  
-EXPERT1 | EX1_184 | Righteousness |  
+EXPERT1 | EX1_182 | Pilfer | O
+EXPERT1 | EX1_183 | Gift of the Wild | O
+EXPERT1 | EX1_184 | Righteousness | O
 EXPERT1 | EX1_185 | Siegebreaker |  
 EXPERT1 | EX1_186 | SI:7 Infiltrator |  
 EXPERT1 | EX1_187 | Arcane Devourer |  
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 73% (179 of 245 Cards)
+- Progress: 75% (184 of 245 Cards)
 
 ## Hall of Fame
 

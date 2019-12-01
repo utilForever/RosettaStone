@@ -264,8 +264,9 @@ class ActionApplyHelper
 
     //! Applies choice by performing action to the game.
     //! \param game The game context.
-    //! \param result The result of the game.
-    CallbackInfo ApplyChoices(Game& game, PlayState& result) const;
+    //! \param result The result of the game (player1 and player2).
+    CallbackInfo ApplyChoices(Game& game,
+                              std::tuple<PlayState, PlayState>& result) const;
 
  private:
     std::vector<int> m_choices;

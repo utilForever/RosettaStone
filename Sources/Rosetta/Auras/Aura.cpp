@@ -39,6 +39,18 @@ void Aura::Activate(Playable* owner, bool cloning)
 
     AddToGame(*owner, *instance);
 
+    switch (removeTrigger.first)
+    {
+        case TriggerType::NONE:
+            break;
+        case TriggerType::CAST_SPELL:
+            owner->game->triggerManager.castSpellTrigger =
+                std::move(instance->m_removeHandler);
+            break;
+        default:
+            break;
+    }
+
     if (!cloning && !restless)
     {
         instance->m_auraUpdateInstQueue.Push(
@@ -134,6 +146,17 @@ void Aura::Remove()
         {
             // Do nothing
         }
+    }
+
+    switch (removeTrigger.first)
+    {
+        case TriggerType::NONE:
+            break;
+        case TriggerType::CAST_SPELL:
+            m_owner->game->triggerManager.castSpellTrigger = nullptr;
+            break;
+        default:
+            break;
     }
 
     if (auto enchantment = dynamic_cast<Enchantment*>(m_owner))
@@ -248,6 +271,7 @@ void Aura::NotifyEntityRemoved(Playable* entity)
 
 Aura::Aura(Aura& prototype, Playable& owner)
     : condition(prototype.condition),
+      removeTrigger(prototype.removeTrigger),
       restless(prototype.restless),
       m_type(prototype.m_type),
       m_owner(&owner),
@@ -259,6 +283,24 @@ Aura::Aura(Aura& prototype, Playable& owner)
     {
         m_auraUpdateInstQueue = prototype.m_auraUpdateInstQueue;
     }
+
+    m_removeHandler = [this](Entity* source) {
+        if (removeTrigger.second != nullptr)
+        {
+            if (dynamic_cast<Player*>(source))
+            {
+                source = m_owner;
+            }
+
+            if (!removeTrigger.second->Evaluate(
+                    dynamic_cast<Playable*>(source)))
+            {
+                return;
+            }
+        }
+
+        Remove();
+    };
 }
 
 void Aura::AddToGame(Playable& owner, Aura& aura)

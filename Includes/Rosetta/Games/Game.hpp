@@ -59,6 +59,10 @@ class Game
     //! \param rhs The source to copy the content.
     void RefCopyFrom(const Game& rhs);
 
+    //! Returns the format type of the game.
+    //! \return The format type of the game.
+    FormatType GetFormatType() const;
+
     //! Returns the first player.
     //! \return The first player.
     Player* GetPlayer1();
@@ -177,20 +181,23 @@ class Game
     //! Process the specified task.
     //! \param player A player to run task.
     //! \param task The game task to execute.
-    PlayState Process(Player* player, ITask* task);
+    //! \return The result of the game (player1 and player2).
+    std::tuple<PlayState, PlayState> Process(Player* player, ITask* task);
 
     //! Process the specified task.
     //! \param player A player to run task.
     //! \param task The game task to execute.
-    PlayState Process(Player* player, ITask&& task);
+    //! \return The result of the game (player1 and player2).
+    std::tuple<PlayState, PlayState> Process(Player* player, ITask&& task);
 
     //! Process game until given step arriving.
     //! \param step The game step to process until arrival.
     void ProcessUntil(Step step);
 
     //! Performs selected action.
-    //! \result The play state of the game.
-    PlayState PerformAction(ActionParams& params);
+    //! \param params The action params.
+    //! \return The result of the game (player1 and player2).
+    std::tuple<PlayState, PlayState> PerformAction(ActionParams& params);
 
     //! Creates board view.
     //! \return The reduced board view.
@@ -215,7 +222,8 @@ class Game
 
  private:
     //! Checks whether the game is over.
-    PlayState CheckGameOver();
+    //! \return The result of the game (player1 and player2).
+    std::tuple<PlayState, PlayState> CheckGameOver();
 
     GameConfig m_gameConfig;
 

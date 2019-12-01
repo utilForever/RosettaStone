@@ -9,6 +9,8 @@
 
 #include <MCTS/Selection/TraversedNodesInfo.hpp>
 
+#include <tuple>
+
 namespace RosettaTorch::MCTS
 {
 TraversedNodesInfo::TraversedNodesInfo()
@@ -54,9 +56,9 @@ void TraversedNodesInfo::ConstructNode()
     }
 }
 
-void TraversedNodesInfo::ConstructRedirectNode(BoardNodeMap* redirectNodeMap,
-                                               const Board& board,
-                                               PlayState result)
+void TraversedNodesInfo::ConstructRedirectNode(
+    BoardNodeMap* redirectNodeMap, const Board& board,
+    std::tuple<PlayState, PlayState> result)
 {
     const auto& [newNodeCreated, edgeAddon, node] =
         m_currentNode->children.GetOrCreateRedirectNode(m_pendingChoice);
@@ -66,7 +68,8 @@ void TraversedNodesInfo::ConstructRedirectNode(BoardNodeMap* redirectNodeMap,
         m_newNodeCreated = true;
     }
 
-    if (result != PlayState::PLAYING)
+    auto& [p1Result, p2Result] = result;
+    if (p1Result != PlayState::PLAYING && p2Result != PlayState::PLAYING)
     {
         // Don't need to construct a node for leaf nodes.
         // We only need the edge to record win-rate, which is already
