@@ -27,22 +27,22 @@ def test_card_control():
 
     deck = pyRosetta.DeckInfo('Ice Magician', pyRosetta.CardClass.MAGE)
     deck.show_card_list()
-    assert deck.add_card(mage_cards[0].id, 1) == True
+    assert deck.add_card(mage_cards[0].id, 1) is True
     assert deck.card(0)[1] == 1
-    assert deck.add_card(mage_cards[0].id, 1) == True
+    assert deck.add_card(mage_cards[0].id, 1) is True
     assert deck.card(0)[1] == 2
-    assert deck.add_card(mage_cards[0].id, 1) == False
-    assert deck.add_card(mage_cards[1].id, 3) == False
-    assert deck.add_card(druid_cards[0].id, 1) == False
+    assert deck.add_card(mage_cards[0].id, 1) is False
+    assert deck.add_card(mage_cards[1].id, 3) is False
+    assert deck.add_card(druid_cards[0].id, 1) is False
     deck.show_card_list()
 
     assert deck.unique_num_of_cards() == 1
     assert deck.num_of_cards() == 2
 
     assert deck.card(0)[1] == 2
-    assert deck.delete_card(mage_cards[0].id, 1) == True
-    assert deck.delete_card(mage_cards[0].id, 4) == False
-    assert deck.delete_card(druid_cards[0].id, 1) == False
+    assert deck.delete_card(mage_cards[0].id, 1) is True
+    assert deck.delete_card(mage_cards[0].id, 4) is False
+    assert deck.delete_card(druid_cards[0].id, 1) is False
     deck.show_card_list()
 
 def test_num_card_in_deck():
@@ -63,4 +63,4 @@ def test_card_ids():
     for card_id in deck:
         card = pyRosetta.Cards.find_card_by_id(card_id)
 
-        assert (card.card_class() == pyRosetta.CardClass.WARLOCK or card.card_class() == pyRosetta.CardClass.NEUTRAL) == True
+        assert (card.card_class() == pyRosetta.CardClass.WARLOCK or card.card_class() == pyRosetta.CardClass.NEUTRAL) is True

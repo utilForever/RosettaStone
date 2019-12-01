@@ -17,13 +17,13 @@ def test_all_standard_cards():
 	cards = pyRosetta.Cards.all_standard_cards()
 
 	for card in cards:
-		assert card.is_standard_set() == True
+		assert card.is_standard_set() is True
 
 def test_all_wild_cards():
 	cards = pyRosetta.Cards.all_wild_cards()
 
 	for card in cards:
-		assert card.is_wild_set() == True
+		assert card.is_wild_set() is True
 
 def test_find_card_by_id():
 	card1 = pyRosetta.Cards.find_card_by_id('AT_001')
@@ -112,7 +112,7 @@ def test_find_card_by_set():
 	assert cards14[0].card_set() == pyRosetta.CardSet.LOOTAPALOOZA
 	assert cards15[0].card_set() == pyRosetta.CardSet.GILNEAS
 	assert cards16[0].card_set() == pyRosetta.CardSet.BOOMSDAY
-	assert len(cards17) == 0
+	assert not cards17
 
 def test_find_card_by_type():
 	cards1 = pyRosetta.Cards.find_card_by_type(pyRosetta.CardType.WEAPON)
@@ -133,16 +133,16 @@ def test_find_card_by_type():
 	assert cards5[0].card_type() == pyRosetta.CardType.ENCHANTMENT
 	assert cards7[0].card_type() == pyRosetta.CardType.MINION
 	assert cards9[0].card_type() == pyRosetta.CardType.SPELL
-	assert len(cards2) == 0
-	assert len(cards6) == 0
-	assert len(cards8) == 0
-	assert len(cards10) == 0
-	assert len(cards11) == 0
+	assert not cards2
+	assert not cards6
+	assert not cards8
+	assert not cards10
+	assert not cards11
 
 def test_find_card_by_race():
 	cards = pyRosetta.Cards.find_card_by_race(pyRosetta.Race.INVALID)
 
-	assert len(cards) != 0
+	assert cards
 	pyRosetta.Cards.find_card_by_race(pyRosetta.Race.ALL)
 
 def test_find_card_by_name():
@@ -156,29 +156,29 @@ def test_find_card_by_cost():
 	cards1 = pyRosetta.Cards.find_card_by_cost(0, 1)
 	cards2 = pyRosetta.Cards.find_card_by_cost(2, 1)
 
-	assert len(cards1) != 0
-	assert len(cards2) == 0
+	assert cards1
+	assert not cards2
 
 def test_find_card_by_attack():
 	cards1 = pyRosetta.Cards.find_card_by_attack(0, 1)
 	cards2 = pyRosetta.Cards.find_card_by_attack(2, 1)
 
-	assert len(cards1) != 0
-	assert len(cards2) == 0
+	assert cards1
+	assert not cards2
 
 def test_find_card_by_health():
 	cards1 = pyRosetta.Cards.find_card_by_health(0, 1)
 	cards2 = pyRosetta.Cards.find_card_by_health(2, 1)
 
-	assert len(cards1) != 0
-	assert len(cards2) == 0
+	assert cards1
+	assert not cards2
 
 def test_find_card_by_spell_power():
 	cards1 = pyRosetta.Cards.find_card_by_spell_power(1, 1)
 	cards2 = pyRosetta.Cards.find_card_by_spell_power(2, 1)
 
-	assert len(cards1) != 0
-	assert len(cards2) == 0
+	assert cards1
+	assert not cards2
 
 def test_find_card_by_game_tag():
 	tags1 = [pyRosetta.GameTag.CANT_ATTACK]
@@ -189,7 +189,7 @@ def test_find_card_by_game_tag():
 	game_tags = cards1[0].game_tags
 
 	assert pyRosetta.GameTag.CANT_ATTACK in game_tags
-	assert len(cards2) == 0
+	assert not cards2
 
 def test_hero_card():
 	assert pyRosetta.Cards.find_card_by_id('HERO_06').id == pyRosetta.Cards.hero_card(pyRosetta.CardClass.DRUID).id
