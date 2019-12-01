@@ -21,11 +21,11 @@ void AddAccountLoader(pybind11::module& m)
 
              Parameters
              ----------
-             email : The email address of the account.)pbdoc")
+             email : The email address of the account.)pbdoc", pybind11::arg("email"))
         .def("save", &AccountLoader::Save,
              R"pbdoc(Saves account information p to a json file.
 
              Parameters
              ----------
-             account : A pointer to account instance that stores information.)pbdoc");
+             account : A pointer to account instance that stores information.)pbdoc", pybind11::arg("account"));
 }

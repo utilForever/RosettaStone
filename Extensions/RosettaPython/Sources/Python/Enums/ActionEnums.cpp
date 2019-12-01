@@ -13,14 +13,18 @@ using namespace RosettaStone;
 
 void AddActionEnums(pybind11::module& m)
 {
-    pybind11::enum_<MainOpType>(m, "MainOpType")
+    pybind11::enum_<MainOpType>(
+        m, "MainOpType",
+        R"pbdoc(An enumerator for identifying main operation type.)pbdoc")
         .value("INVALID", MainOpType::INVALID)
         .value("PLAY_CARD", MainOpType::PLAY_CARD)
         .value("ATTACK", MainOpType::ATTACK)
         .value("USE_HERO_POWER", MainOpType::USE_HERO_POWER)
         .value("END_TURN", MainOpType::END_TURN);
 
-    pybind11::enum_<ActionType>(m, "ActionType")
+    pybind11::enum_<ActionType>(
+        m, "ActionType",
+        R"pbdoc(An enumerator for identifying action type.)pbdoc")
         .value("INVALID", ActionType::INVALID)
         .value("RANDOM", ActionType::RANDOM)
         .value("MAIN_ACTION", ActionType::MAIN_ACTION)
@@ -31,5 +35,11 @@ void AddActionEnums(pybind11::module& m)
         .value("CHOOSE_TARGET", ActionType::CHOOSE_TARGET)
         .value("CHOOSE_ONE", ActionType::CHOOSE_ONE);
 
-    m.def("GetMainOpString", GetMainOpString);
+    m.def("GetMainOpString", GetMainOpString,
+          R"pbdoc(Returns the string of the main operation type.
+
+		  Parameters
+		  ----------
+		  - op : The string of the main operation type.)pbdoc",
+          pybind11::arg("op"));
 }

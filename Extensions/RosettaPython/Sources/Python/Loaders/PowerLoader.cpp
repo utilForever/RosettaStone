@@ -21,5 +21,5 @@ void AddPowerLoader(pybind11::module& m)
 
              Parameters
              ----------
-			 cards : Data storage to store added cards with power.)pbdoc");
+			 cards : Data storage to store added cards with power.)pbdoc", pybind11::arg("cards"));
 }

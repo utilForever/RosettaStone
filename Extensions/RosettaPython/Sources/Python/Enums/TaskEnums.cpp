@@ -13,12 +13,16 @@ using namespace RosettaStone;
 
 void AddTaskEnums(pybind11::module& m)
 {
-    pybind11::enum_<PowerType>(m, "PowerType")
+    pybind11::enum_<PowerType>(
+        m, "PowerType",
+        R"pbdoc(An enumerator for identifying power type.)pbdoc")
         .value("POWER", PowerType::POWER)
         .value("DEATHRATTLE", PowerType::DEATHRATTLE)
         .value("COMBO", PowerType::COMBO);
 
-    pybind11::enum_<EntityType>(m, "EntityType")
+    pybind11::enum_<EntityType>(
+        m, "EntityType",
+        R"pbdoc(An enumerator for identifying entity type.)pbdoc")
         .value("INVALID", EntityType::INVALID)
         .value("SOURCE", EntityType::SOURCE)
         .value("TARGET", EntityType::TARGET)
@@ -44,8 +48,10 @@ void AddTaskEnums(pybind11::module& m)
         .value("PLAYER", EntityType::PLAYER)
         .value("ENEMY_PLAYER", EntityType::ENEMY_PLAYER);
 
-    pybind11::enum_<RelaSign>(m, "RelaSign")
-        .value("EQ", RelaSign::EQ)
-        .value("GEQ", RelaSign::GEQ)
-        .value("LEQ", RelaSign::LEQ);
+    pybind11::enum_<RelaSign>(
+        m, "RelaSign",
+        R"pbdoc(An enumerator for evaluating the relation between primitive values during game simulation.)pbdoc")
+        .value("EQ", RelaSign::EQ, R"pbdoc(Equal.)pbdoc")
+        .value("GEQ", RelaSign::GEQ, R"pbdoc(Greater equal.)pbdoc")
+        .value("LEQ", RelaSign::LEQ, R"pbdoc(Lesser equal.)pbdoc");
 }

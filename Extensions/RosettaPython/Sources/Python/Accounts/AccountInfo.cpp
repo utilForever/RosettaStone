@@ -22,7 +22,8 @@ void AddAccountInfo(pybind11::module& m)
              Parameters
              ----------
              email : E-mail address of account.
-             nickname : Nickname of account.)pbdoc")
+             nickname : Nickname of account.)pbdoc",
+             pybind11::arg("email"), pybind11::arg("nickname"))
         .def(pybind11::init<std::string&&, std::string&&,
                             std::vector<DeckInfo*>>(),
              R"pbdoc(Constructs account with given email and nickname
@@ -32,32 +33,41 @@ void AddAccountInfo(pybind11::module& m)
              ----------
              email : E-mail address of account.
              nickname : Nickname of account.
-             decks : A list of decks)pbdoc")
-        .def("get_email", &AccountInfo::GetEmail,
+             decks : A list of decks)pbdoc",
+             pybind11::arg("email"), pybind11::arg("nickname"),
+             pybind11::arg("decks"))
+        .def("email", &AccountInfo::GetEmail,
              R"pbdoc(Returns e-mail address of account.)pbdoc")
-        .def("get_nickname", &AccountInfo::GetNickname,
+        .def("nickname", &AccountInfo::GetNickname,
              R"pbdoc(Returns nickname of account.)pbdoc")
-        .def("get_num_of_deck", &AccountInfo::GetNumOfDeck,
+        .def("num_of_deck", &AccountInfo::GetNumOfDeck,
              R"pbdoc(Returns the number of decks.)pbdoc")
-        .def("get_deck", &AccountInfo::GetDeck,
+        .def("deck", &AccountInfo::GetDeck,
              R"pbdoc(Returns a pointer to deck at idx.
 
              Parameters
              ----------
-             - idx : Index of decks.)pbdoc")
+             - idx : Index of decks.)pbdoc",
+             pybind11::arg("idx"))
         .def("show_deck_list", &AccountInfo::ShowDeckList,
              R"pbdoc(Prints a list of decks.)pbdoc")
         .def("create_deck", &AccountInfo::CreateDeck,
              R"pbdoc(Creates a deck with given name and deckClass.
 
-             Parameters
-             ----------
-             name : The name of deck.
-             deck_class : The class of deck.)pbdoc")
-        .def("delete_deck", &AccountInfo::DeleteDeck,
-             R"pbdoc(Deletes a deck at idx.
+			 true if deck is created successfully, and false otherwise.
 
              Parameters
              ----------
-             idx : Index of decks.)pbdoc");
+             name : The name of deck.
+             deck_class : The class of deck.)pbdoc",
+             pybind11::arg("name"), pybind11::arg("deck_class"))
+        .def("delete_deck", &AccountInfo::DeleteDeck,
+             R"pbdoc(Deletes a deck at idx.
+
+			 true if deck is deleted successfully, and false otherwise.
+
+             Parameters
+             ----------
+             idx : Index of decks.)pbdoc",
+             pybind11::arg("idx"));
 }

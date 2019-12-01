@@ -13,9 +13,13 @@ using namespace RosettaStone;
 
 void AddGameEnums(pybind11::module& m)
 {
-    pybind11::enum_<PlayerType>(m, "PlayerType")
-        .value("INVALID", PlayerType::INVALID)
-        .value("RANDOM", PlayerType::RANDOM)
-        .value("PLAYER1", PlayerType::PLAYER1)
-        .value("PLAYER2", PlayerType::PLAYER2);
+    pybind11::enum_<PlayerType>(
+        m, "PlayerType",
+        R"pbdoc(An enumerator for identifying the player.)pbdoc")
+        .value("INVALID", PlayerType::INVALID,
+               R"pbdoc(The invalid player.)pbdoc")
+        .value("RANDOM", PlayerType::RANDOM, R"pbdoc(The random player.)pbdoc")
+        .value("PLAYER1", PlayerType::PLAYER1, R"pbdoc(The first player.)pbdoc")
+        .value("PLAYER2", PlayerType::PLAYER2,
+               R"pbdoc(The second player.)pbdoc");
 }

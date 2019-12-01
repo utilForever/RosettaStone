@@ -27,8 +27,8 @@ struct type_caster<std::vector<Card*>> : CardListCasterBase
                                         parent);
     }
 
-    static handle cast(const std::vector<Card*>* src, return_value_policy policy,
-                       handle parent)
+    static handle cast(const std::vector<Card*>* src,
+                       return_value_policy policy, handle parent)
     {
         return cast(*src, policy, parent);
     }
@@ -149,98 +149,113 @@ void AddCards(pybind11::module& m)
 
                     Parameters
                     ----------
-                    id : The ID of the card.)pbdoc")
+                    id : The ID of the card.)pbdoc",
+                    pybind11::arg("id"))
         .def_static("find_card_by_dbf_id", &CardsWrapper::FindCardByDbfID,
                     R"pbdoc(Returns a card that matches dbf_id.
 
                     Parameters
                     ----------
-                    dbf_id : The dbfID of the card.)pbdoc")
+                    dbf_id : The dbfID of the card.)pbdoc",
+                    pybind11::arg("dbf_id"))
         .def_static("find_card_by_rarity", &CardsWrapper::FindCardByRarity,
                     R"pbdoc(Returns a list of cards that matches rarity.
 
                     Parameters
                     ----------
-                    rarity : The rarity of the card.)pbdoc")
+                    rarity : The rarity of the card.)pbdoc",
+                    pybind11::arg("rarity"))
         .def_static("find_card_by_class", &CardsWrapper::FindCardByClass,
                     R"pbdoc(Returns a list of cards that matches card_class.
 
                     Parameters
                     ----------
-                    class_class : The class of the card.)pbdoc")
+                    card_class : The class of the card.)pbdoc",
+                    pybind11::arg("card_class"))
         .def_static("find_card_by_set", &CardsWrapper::FindCardBySet,
                     R"pbdoc(Returns a list of cards that matches card_set.
 
                     Parameters
                     ----------
-                    card_set : The set of the card.)pbdoc")
+                    card_set : The set of the card.)pbdoc",
+                    pybind11::arg("card_set"))
         .def_static("find_card_by_type", &CardsWrapper::FindCardByType,
                     R"pbdoc(Returns a list of cards that matches card_type.
 
                     Parameters
                     ----------
-                    card_type : The type of the card.)pbdoc")
+                    card_type : The type of the card.)pbdoc",
+                    pybind11::arg("card_type"))
         .def_static("find_card_by_race", &CardsWrapper::FindCardByRace,
                     R"pbdoc(Returns a list of cards that matches race.
 
                     Parameters
                     ----------
-                    race : The race of the card.)pbdoc")
+                    race : The race of the card.)pbdoc",
+                    pybind11::arg("race"))
         .def_static("find_card_by_name", &CardsWrapper::FindCardByName,
                     R"pbdoc(Returns a card that matches name.
 
                     Parameters
                     ----------
-                    name : The name of the card.)pbdoc")
+                    name : The name of the card.)pbdoc",
+                    pybind11::arg("name"))
         .def_static(
             "find_card_by_cost", &CardsWrapper::FindCardByCost,
             R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
 
-                    Parameters
-                    ----------
-                    min_val : The minimum cost value of the card.
-                    max_val : The maximum cost value of the card.)pbdoc")
+            Parameters
+            ----------
+            min_val : The minimum cost value of the card.
+            max_val : The maximum cost value of the card.)pbdoc",
+            pybind11::arg("min_val"), pybind11::arg("max_val"))
         .def_static(
             "find_card_by_attack", &CardsWrapper::FindCardByAttack,
             R"pbdoc(Returns a list of cards whose cost is between min_val and max_val.
 
-                    Parameters
-                    ----------
-                    min_val : The minimum cost value of the card.
-                    max_val : The maximum cost value of the card.)pbdoc")
+            Parameters
+            ----------
+            min_val : The minimum cost value of the card.
+            max_val : The maximum cost value of the card.)pbdoc",
+            pybind11::arg("min_val"), pybind11::arg("max_val"))
         .def_static(
             "find_card_by_health", &CardsWrapper::FindCardByHealth,
             R"pbdoc(Returns a list of cards whose health is between min_val and max_val.
 
-                    Parameters
-                    ----------
-                    min_val : The minimum health value of the card.
-                    max_val : The maximum health value of the card.)pbdoc")
+			Parameters
+			----------
+			min_val : The minimum health value of the card.
+			max_val : The maximum health value of the card.)pbdoc",
+        pybind11::arg("min_val"), pybind11::arg("max_val"))
         .def_static(
             "find_card_by_spell_power", &CardsWrapper::FindCardBySpellPower,
             R"pbdoc(Returns a list of cards whose spell power is between min_val and max_val
 
-                    Parameters
-                    ----------
-                    min_val : The minimum spell power value of the card.
-                    max_val : The maximum spell power value of the card.)pbdoc")
+            Parameters
+            ----------
+            min_val : The minimum spell power value of the card.
+            max_val : The maximum spell power value of the card.)pbdoc",
+            pybind11::arg("min_val"), pybind11::arg("max_val"))
         .def_static("find_card_by_game_tag", &CardsWrapper::FindCardByGameTag,
                     R"pbdoc(Returns a list of cards that has game_tags.
 
                     Parameters
                     ----------
-                    game_tags : A list of game tag of the card.)pbdoc")
+                    game_tags : A list of game tag of the card.)pbdoc",
+                    pybind11::arg("game_tags"))
         .def_static("get_hero_card", &CardsWrapper::GetHeroCard,
                     R"pbdoc(Returns a hero card that matches card_class.
 
                     Parameters
                     ----------
-                    card_class : The class of the card.)pbdoc")
+                    card_class : The class of the card.)pbdoc",
+                    pybind11::arg("card_class"))
         .def_static(
             "get_default_hero_power", &CardsWrapper::GetDefaultHeroPower,
             R"pbdoc(Returns a default hero power card that matches card_class.
 
-                    Parameters
-                    ----------
-                    card_class : The class of the card.)pbdoc");
+            Parameters
+            ----------
+            card_class : The class of the card.)pbdoc",
+            pybind11::arg("card_class"));
 }
