@@ -866,10 +866,12 @@ void Expert1CardsGen::AddMage(std::map<std::string, Power>& cards)
     power.GetTrigger()->tasks = {
         new ConditionTask(
             EntityType::EVENT_SOURCE,
-            { SelfCondition::IsNotDead(), SelfCondition::IsNotUntouchable() }),
-        new FlagTask(true, { new SummonCopyTask(EntityType::EVENT_SOURCE) }),
-        new SetGameTagTask(EntityType::SOURCE, GameTag::REVEALED, 1),
-        new MoveToGraveyardTask(EntityType::SOURCE)
+            { SelfCondition::IsNotDead(), SelfCondition::IsNotUntouchable(),
+              SelfCondition::IsOpFieldNotFull() }),
+        new FlagTask(true, { new SummonCopyTask(EntityType::EVENT_SOURCE),
+                             new SetGameTagTask(EntityType::SOURCE,
+                                                GameTag::REVEALED, 1),
+                             new MoveToGraveyardTask(EntityType::SOURCE) }),
     };
     cards.emplace("EX1_294", power);
 
