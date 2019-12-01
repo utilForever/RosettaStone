@@ -44,6 +44,16 @@ struct CardsWrapper
         return Cards::GetInstance().GetAllCards();
     }
 
+    static std::vector<Card*> GetAllStandardCards()
+    {
+        return Cards::GetInstance().GetAllStandardCards();
+    }
+
+    static std::vector<Card*> GetAllWildCards()
+    {
+        return Cards::GetInstance().GetAllWildCards();
+    }
+
     static Card* FindCardByID(const std::string& id)
     {
         return Cards::GetInstance().FindCardByID(id);
@@ -142,14 +152,19 @@ void AddCards(pybind11::module& m)
     pybind11::class_<CardsWrapper>(
         m, "Cards",
         R"pbdoc(This class stores a list of cards and provides several search methods.)pbdoc")
-        .def_static("get_all_cards", &CardsWrapper::GetAllCards,
+        .def_static("all_cards", &CardsWrapper::GetAllCards,
                     R"pbdoc(Returns a list of all cards.)pbdoc")
+        .def_static("all_standard_cards", &CardsWrapper::GetAllStandardCards,
+                    R"pbdoc(Returns a list of all standard cards.)pbdoc")
+        .def_static("all_wild_cards", &CardsWrapper::GetAllWildCards,
+                    R"pbdoc(Returns a list of all wild cards.)pbdoc")
         .def_static("find_card_by_id", &CardsWrapper::FindCardByID,
                     R"pbdoc(Returns a card that matches id.
 
                     Parameters
                     ----------
                     id : The ID of the card.)pbdoc",
+					pybind11::return_value_policy::reference,
                     pybind11::arg("id"))
         .def_static("find_card_by_dbf_id", &CardsWrapper::FindCardByDbfID,
                     R"pbdoc(Returns a card that matches dbf_id.
@@ -157,6 +172,7 @@ void AddCards(pybind11::module& m)
                     Parameters
                     ----------
                     dbf_id : The dbfID of the card.)pbdoc",
+                    pybind11::return_value_policy::reference,
                     pybind11::arg("dbf_id"))
         .def_static("find_card_by_rarity", &CardsWrapper::FindCardByRarity,
                     R"pbdoc(Returns a list of cards that matches rarity.
@@ -199,6 +215,7 @@ void AddCards(pybind11::module& m)
                     Parameters
                     ----------
                     name : The name of the card.)pbdoc",
+                    pybind11::return_value_policy::reference,
                     pybind11::arg("name"))
         .def_static(
             "find_card_by_cost", &CardsWrapper::FindCardByCost,
@@ -226,7 +243,7 @@ void AddCards(pybind11::module& m)
 			----------
 			min_val : The minimum health value of the card.
 			max_val : The maximum health value of the card.)pbdoc",
-        pybind11::arg("min_val"), pybind11::arg("max_val"))
+            pybind11::arg("min_val"), pybind11::arg("max_val"))
         .def_static(
             "find_card_by_spell_power", &CardsWrapper::FindCardBySpellPower,
             R"pbdoc(Returns a list of cards whose spell power is between min_val and max_val
@@ -243,19 +260,21 @@ void AddCards(pybind11::module& m)
                     ----------
                     game_tags : A list of game tag of the card.)pbdoc",
                     pybind11::arg("game_tags"))
-        .def_static("get_hero_card", &CardsWrapper::GetHeroCard,
+        .def_static("hero_card", &CardsWrapper::GetHeroCard,
                     R"pbdoc(Returns a hero card that matches card_class.
 
                     Parameters
                     ----------
                     card_class : The class of the card.)pbdoc",
+                    pybind11::return_value_policy::reference,
                     pybind11::arg("card_class"))
         .def_static(
-            "get_default_hero_power", &CardsWrapper::GetDefaultHeroPower,
+            "default_hero_power", &CardsWrapper::GetDefaultHeroPower,
             R"pbdoc(Returns a default hero power card that matches card_class.
 
             Parameters
             ----------
             card_class : The class of the card.)pbdoc",
+            pybind11::return_value_policy::reference,
             pybind11::arg("card_class"));
 }
