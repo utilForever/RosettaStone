@@ -26,6 +26,9 @@ struct TaskStack
 
         num = 0;
         num1 = 0;
+        num2 = 0;
+        num3 = 0;
+        num4 = 0;
 
         flag = true;
     }
@@ -37,6 +40,9 @@ struct TaskStack
 
     int num = 0;
     int num1 = 0;
+    int num2 = 0;
+    int num3 = 0;
+    int num4 = 0;
 
     bool flag = true;
 };

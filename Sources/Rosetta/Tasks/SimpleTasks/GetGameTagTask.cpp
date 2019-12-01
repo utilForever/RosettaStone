@@ -41,6 +41,15 @@ TaskStatus GetGameTagTask::Impl(Player* player)
             case 1:
                 player->game->taskStack.num1 = value;
                 break;
+            case 2:
+                player->game->taskStack.num2 = value;
+                break;
+            case 3:
+                player->game->taskStack.num3 = value;
+                break;
+            case 4:
+                player->game->taskStack.num4 = value;
+                break;
             default:
                 throw std::invalid_argument(
                     "GetGameTagTask::Impl() - Invalid number index");

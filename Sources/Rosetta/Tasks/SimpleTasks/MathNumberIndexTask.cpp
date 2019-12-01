@@ -52,6 +52,15 @@ TaskStatus MathNumberIndexTask::Impl(Player* player)
         case 1:
             stack.num1 = result;
             break;
+        case 2:
+            stack.num2 = result;
+            break;
+        case 3:
+            stack.num3 = result;
+            break;
+        case 4:
+            stack.num4 = result;
+            break;
         default:
             throw std::invalid_argument(
                 "MathNumberIndexTask::Impl() - Unknown result index!\n");
@@ -73,6 +82,12 @@ int MathNumberIndexTask::GetNumber(int index, const TaskStack& taskStack)
             return taskStack.num;
         case 1:
             return taskStack.num1;
+        case 2:
+            return taskStack.num2;
+        case 3:
+            return taskStack.num3;
+        case 4:
+            return taskStack.num4;
         default:
             throw std::invalid_argument(
                 "MathNumberIndexTask::GetNumber() - Unknown index!\n");
