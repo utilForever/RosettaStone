@@ -34,6 +34,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         return;
     }
 
+    player->game->currentEventData = new EventMetaData(source, target);
+
     // Check card has overload
     if (source->HasOverload())
     {
@@ -44,7 +46,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Spend mana to play cards
     if (source->GetCost() > 0)
     {
-        const int tempUsed = std::min(player->GetTemporaryMana(), source->GetCost());
+        const int tempUsed =
+            std::min(player->GetTemporaryMana(), source->GetCost());
         player->SetTemporaryMana(player->GetTemporaryMana() - tempUsed);
         player->SetUsedMana(player->GetUsedMana() + source->GetCost() -
                             tempUsed);
