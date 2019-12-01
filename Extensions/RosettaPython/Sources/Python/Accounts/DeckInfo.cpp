@@ -8,6 +8,7 @@
 #include <Rosetta/Accounts/DeckInfo.hpp>
 
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 
 using namespace RosettaStone;
 
@@ -27,7 +28,7 @@ void AddDeckInfo(pybind11::module& m)
              pybind11::arg("name"), pybind11::arg("deck_class"))
         .def("name", &DeckInfo::GetName,
              R"pbdoc(Returns the name of deck.)pbdoc")
-        .def("class", &DeckInfo::GetClass,
+        .def("deck_class", &DeckInfo::GetClass,
              R"pbdoc(Returns the class of deck.)pbdoc")
         .def("num_of_cards", &DeckInfo::GetNumOfCards,
              R"pbdoc(Returns the number of cards in deck.)pbdoc")
