@@ -170,7 +170,7 @@ TaskStatus SummonTask::Impl(Player* player)
         }
         else
         {
-            Generic::Summon(player, summonEntity, summonPos);
+            Generic::Summon(summonEntity, summonPos, m_source);
         }
     }
 

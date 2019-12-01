@@ -117,7 +117,7 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
                 }
             }
 
-            Summon(player, dynamic_cast<Minion*>(copiedEntity), position);
+            Summon(dynamic_cast<Minion*>(copiedEntity), position, source);
             break;
         }
         case ZoneType::SETASIDE:

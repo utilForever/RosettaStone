@@ -70,8 +70,8 @@ TaskStatus SummonCopyTask::Impl(Player* player)
             const auto minion = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, playables[i]->card));
 
-            Generic::Summon(player, minion,
-                            SummonTask::GetPosition(m_source, m_side));
+            Generic::Summon(minion, SummonTask::GetPosition(m_source, m_side),
+                            m_source);
 
             if (m_addToStack)
             {
@@ -100,7 +100,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
             const auto copy = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, minion->card, minion->GetGameTags(),
                                     player->GetFieldZone()));
-            Generic::Summon(player, copy, zonePos);
+            Generic::Summon(copy, zonePos, m_source);
             minion->CopyInternalAttributes(copy);
 
             if (!minion->appliedEnchantments.empty())
