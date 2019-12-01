@@ -11,19 +11,19 @@ import pyRosetta
 def test_constructors():
     player1 = pyRosetta.AccountInfo()
 
-    assert player1.get_email() == 'anonymous@gmail.com'
-    assert player1.get_nickname() == 'Anonymous'
+    assert player1.email() == 'anonymous@gmail.com'
+    assert player1.nickname() == 'Anonymous'
 
     player2 = pyRosetta.AccountInfo('1', 'name1')
 
-    assert player2.get_email() == '1'
-    assert player2.get_nickname() == 'name1'
+    assert player2.email() == '1'
+    assert player2.nickname() == 'name1'
 
     player3 = pyRosetta.AccountInfo('2', 'name2', [])
 
-    assert player3.get_email() == '2'
-    assert player3.get_nickname() == 'name2'
-    assert player3.get_num_of_deck() == 0
+    assert player3.email() == '2'
+    assert player3.nickname() == 'name2'
+    assert player3.num_of_deck() == 0
 
 def test_deck_control():
     player = pyRosetta.AccountInfo()
@@ -34,11 +34,11 @@ def test_deck_control():
     player.create_deck('deck2', pyRosetta.CardClass.DREAM)
     player.create_deck('deck3', pyRosetta.CardClass.DRUID)
     
-    assert player.get_num_of_deck() == 2
+    assert player.num_of_deck() == 2
     player.show_deck_list()
 
     player.delete_deck(0)
-    assert player.get_num_of_deck() == 1
-    assert player.get_deck(0).get_name() == 'deck3'
+    assert player.num_of_deck() == 1
+    assert player.deck(0).name() == 'deck3'
 
-    assert player.get_num_of_deck() == 1
+    assert player.num_of_deck() == 1

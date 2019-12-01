@@ -11,6 +11,7 @@ import pyRosetta
 def test_init():
 	card1 = pyRosetta.Card()
 	card1.id = "cardTest1"
+	card1.dbf_id = 123
 	card1.name = "card1"
 	card1.text = "this is test card1"
 
@@ -29,6 +30,7 @@ def test_init():
 
 	card2 = pyRosetta.Card()
 	card2.id = "cardTest2"
+	card2.dbf_id = 456
 	card2.name = "card2"
 	card2.text = "this is test card2"
 
@@ -46,6 +48,7 @@ def test_init():
 	card2.initialize()
 
 	assert card1.id == "cardTest1"
+	assert card1.dbf_id == 123
 	assert card1.name == "card1"
 	assert card1.text == "this is test card1"
 	assert pyRosetta.Rarity(card1.rarity()) == pyRosetta.Rarity.COMMON
@@ -59,6 +62,7 @@ def test_init():
 	assert card1.max_allowed_in_deck == 2
 
 	assert card2.id == "cardTest2"
+	assert card2.dbf_id == 456
 	assert card2.name == "card2"
 	assert card2.text == "this is test card2"
 	assert pyRosetta.Rarity(card2.rarity()) == pyRosetta.Rarity.LEGENDARY
