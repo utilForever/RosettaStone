@@ -259,17 +259,17 @@ EXPERT1 | EX1_249 | Baron Geddon | O
 EXPERT1 | EX1_250 | Earth Elemental | O
 EXPERT1 | EX1_251 | Forked Lightning | O
 EXPERT1 | EX1_258 | Unbound Elemental | O
-EXPERT1 | EX1_259 | Lightning Storm |  
+EXPERT1 | EX1_259 | Lightning Storm | O
 EXPERT1 | EX1_274 | Ethereal Arcanist | O
-EXPERT1 | EX1_275 | Cone of Cold |  
+EXPERT1 | EX1_275 | Cone of Cold | O
 EXPERT1 | EX1_279 | Pyroblast | O
 EXPERT1 | EX1_283 | Frost Elemental | O
 EXPERT1 | EX1_287 | Counterspell | O
-EXPERT1 | EX1_289 | Ice Barrier |  
-EXPERT1 | EX1_294 | Mirror Entity |  
+EXPERT1 | EX1_289 | Ice Barrier | O
+EXPERT1 | EX1_294 | Mirror Entity | O
 EXPERT1 | EX1_301 | Felguard | O
 EXPERT1 | EX1_303 | Shadowflame | O
-EXPERT1 | EX1_304 | Void Terror |  
+EXPERT1 | EX1_304 | Void Terror | O
 EXPERT1 | EX1_309 | Siphon Soul | O
 EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
@@ -394,7 +394,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul |  
 EXPERT1 | tt_010 | Spellbender |  
 
-- Progress: 77% (190 of 245 Cards)
+- Progress: 79% (195 of 245 Cards)
 
 ## Hall of Fame
 
