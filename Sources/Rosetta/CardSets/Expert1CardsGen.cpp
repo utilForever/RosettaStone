@@ -7,6 +7,7 @@
 #include <Rosetta/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/Auras/AdjacentAura.hpp>
 #include <Rosetta/Auras/EnrageEffect.hpp>
+#include <Rosetta/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/Cards/Cards.hpp>
@@ -2149,6 +2150,19 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, Power>& cards)
     power.ClearData();
     power.AddPowerTask(new DamageTask(EntityType::HERO, 5));
     cards.emplace("EX1_313", power);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4]
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your minions cost (2) less, but not less than (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(new SummoningPortalAura());
+    cards.emplace("EX1_315", power);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_317] Sense Demons - COST:3

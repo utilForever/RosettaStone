@@ -5541,6 +5541,68 @@ TEST(WarlockExpert1Test, EX1_313_PitLord)
     EXPECT_EQ(opPlayer->GetHero()->GetHealth(), 25);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4]
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: Your minions cost (2) less, but not less than (1).
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST(WarlockExpert1Test, EX1_315_SummoningPortal)
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_START);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Summoning Portal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Summoning Portal"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pit Lord"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    EXPECT_EQ(card1->GetCost(), 4);
+    EXPECT_EQ(card2->GetCost(), 4);
+    EXPECT_EQ(card3->GetCost(), 1);
+    EXPECT_EQ(card4->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    EXPECT_EQ(card2->GetCost(), 2);
+    EXPECT_EQ(card3->GetCost(), 1);
+    EXPECT_EQ(card4->GetCost(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    EXPECT_EQ(card3->GetCost(), 1);
+    EXPECT_EQ(card4->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_START);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    EXPECT_EQ(card3->GetCost(), 1);
+    EXPECT_EQ(card4->GetCost(), 2);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_317] Sense Demons - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
