@@ -33,6 +33,7 @@
 #include <Rosetta/Auras/AuraUpdateInstruction.hpp>
 #include <Rosetta/Auras/EnrageEffect.hpp>
 #include <Rosetta/Auras/IAura.hpp>
+#include <Rosetta/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/Auras/SwitchingAura.hpp>
 #include <Rosetta/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/CardSets/Expert1CardsGen.hpp>
