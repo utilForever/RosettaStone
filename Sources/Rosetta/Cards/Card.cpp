@@ -159,6 +159,11 @@ Rarity Card::GetRarity() const
     return static_cast<Rarity>(gameTags.at(GameTag::RARITY));
 }
 
+int Card::GetCost() const
+{
+    return gameTags.at(GameTag::COST);
+}
+
 bool Card::HasGameTag(GameTag gameTag) const
 {
     return gameTags.find(gameTag) != gameTags.end();
