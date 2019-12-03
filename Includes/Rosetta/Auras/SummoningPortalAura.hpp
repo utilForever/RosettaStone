@@ -48,11 +48,11 @@ class SummoningPortalAura : public Aura
 
     //! Applies aura's effect(s) to target playable.
     //! \param playable The playable to apply aura's effect(s).
-    void Apply(Playable* playable);
+    void Apply(Playable* playable) override;
 
     //! Disapplies aura's effect(s) to target playable.
     //! \param playable The playable to disapply aura's effect(s).
-    void Disapply(Playable* playable);
+    void Disapply(Playable* playable) override;
 };
 }  // namespace RosettaStone
 
